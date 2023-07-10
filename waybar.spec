@@ -1,6 +1,6 @@
 Name:           waybar
 Version:        0.9.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -90,6 +90,9 @@ Recommends:     (font(fontawesome6free) or font(fontawesome5free))
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.19-2
+- Rebuilt due to spdlog 1.12 update.
+
 * Tue Jul 04 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.19-1
 - Update to 0.9.19
 

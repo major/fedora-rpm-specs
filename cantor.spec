@@ -23,8 +23,8 @@
 
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
-Version: 23.04.2
-Release: 3%{?dist}
+Version: 23.04.3
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://edu.kde.org/cantor/
@@ -259,6 +259,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
+- 23.04.3
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 23.04.2-3
 - Rebuilt for Python 3.12
 

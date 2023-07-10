@@ -1,5 +1,5 @@
 %if 0%{?fedora}
-# With _package_note_file enabled, got.x11.opt.tools fails to link with:
+# With _package_note_file enabled, godot.x11.opt.tools fails to link with:
 # g++: fatal error: environment variable 'RPM_ARCH' not defined
 %undefine _package_note_file
 %ifarch %{arm32}
@@ -7,13 +7,15 @@
 %endif
 %endif
 
+# Undefine for stable
+#define prerel  1
 %define status  stable
 %define uversion %{version}-%{status}
 
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.0.3
+Version:        4.1
 Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
@@ -22,16 +24,22 @@ Group:          Development/Tools
 # Godot itself is MIT-licensed, the rest is from vendored thirdparty libraries
 License:        MIT and CC-BY and ASL 2.0 and BSD and zlib and OFL and Bitstream Vera and ISC and MPLv2.0
 URL:            https://godotengine.org
-Source0:        https://downloads.tuxfamily.org/godotengine/%{version}/%{name}-%{uversion}.tar.xz
-Source1:        https://downloads.tuxfamily.org/godotengine/%{version}/%{name}-%{uversion}.tar.xz.sha256
+Source0:        https://downloads.tuxfamily.org/godotengine/%{version}/%{?prerel:%{status}/}%{name}-%{uversion}.tar.xz
+Source1:        https://downloads.tuxfamily.org/godotengine/%{version}/%{?prerel:%{status}/}%{name}-%{uversion}.tar.xz.sha256
 
 # https://github.com/godotengine/godot/pull/73443
 Patch0:         godot-pr73443-unbundle-openxr.patch
-# libsquish doesn't have a .pc file on Fedora
-Patch1:         libsquish_no_pkgconfig.patch
+# https://github.com/godotengine/godot/pull/79105
+Patch1:         godot-pr79105-libsquish-no-pkgconfig.patch
+# https://github.com/godotengine/godot/pull/79097
+Patch2:         godot-pr79097-fix-build-without-sowrap.patch
+# https://github.com/godotengine/godot/pull/79101
+Patch3:         godot-pr79101-unbundle-brotli.patch
+# https://github.com/godotengine/godot/pull/79143
+Patch4:         godot-pr79143-xwayland-freeze-fix.patch
 
-# Upstream does not support those arches (for now)
-ExcludeArch:    ppc64 ppc64le s390x
+# Upstream does not support this arch (for now)
+ExcludeArch:    s390x
 
 BuildRequires:  gcc-c++
 BuildRequires:  libsquish-devel
@@ -47,6 +55,8 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(graphite2)
 BuildRequires:  pkgconfig(icu-i18n)
 BuildRequires:  pkgconfig(icu-uc)
+BuildRequires:  pkgconfig(libbrotlicommon)
+BuildRequires:  pkgconfig(libbrotlidec)
 BuildRequires:  pkgconfig(libpcre2-32)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libpulse)
@@ -135,7 +145,7 @@ Provides:       bundled(glslang) = 11.12.0
 # Should not be unbundled.
 Provides:       bundled(minizip) = 1.2.13
 # Could be unbundled if packaged.
-Provides:       bundled(msdfgen) = 1.9.2
+Provides:       bundled(msdfgen) = 1.10
 %ifarch x86_64
 # Could be unbundled but requires some upstream work, and it's not clear if
 # upstream code would be compatible with more recent OIDN releases.
@@ -147,7 +157,7 @@ Provides:       bundled(openxr) = 1.0.26
 %endif
 %if ! %{system_recastnavigation}
 # Could be unbundled if packaged.
-Provides:       bundled(recastnavigation)
+Provides:       bundled(recastnavigation) = 1.6.0
 %endif
 
 Obsoletes:      godot-headless < 4.0-1
@@ -209,6 +219,8 @@ To run the game as a dedicated server, use the --headless flag.
     arch = "arm64"
   elseif string.match(rpm.expand("%{ix86}"), arch) then
     arch = "x86_32"
+  elseif string.match(rpm.expand("%{power64}"), arch) then
+    arch = "ppc64"
   end
   return arch
 end}
@@ -221,7 +233,7 @@ end}
 %build
 # Needs to be in %%build so that system_libs stays in scope
 # We don't unbundle enet and minizip as they have necessary custom changes
-to_unbundle="freetype graphite harfbuzz icu4c libogg libpng libtheora libvorbis libwebp mbedtls miniupnpc pcre2 squish wslay zlib zstd"
+to_unbundle="brotli freetype graphite harfbuzz icu4c libogg libpng libtheora libvorbis libwebp mbedtls miniupnpc pcre2 squish wslay zlib zstd"
 
 %if %{system_embree}
 to_unbundle+=" embree"
@@ -244,9 +256,6 @@ for lib in $to_unbundle; do
     system_libs+="builtin_"$lib"=no "
     rm -rf thirdparty/$lib
 done
-
-# Internal dep for freetype.
-rm -rf thirdparty/brotli
 
 use_lto="use_lto=yes"
 %if 0%{?fedora} && 0%{?fedora} < 37
@@ -299,6 +308,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Thu Jul 06 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.1-1
+- Version 4.1-stable
+- Enable pcc64le support, added in Godot 4.0
+- Unbundle brotli
+
 * Sun May 21 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.0.3-1
 - Version 4.0.3-stable
 - Fix MIME type definition file location

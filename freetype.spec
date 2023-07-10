@@ -78,17 +78,17 @@ FreeType.
 %prep
 %setup -q -b 1 -a 2
 
-%patch 0  -p1 -b .enable-spr
-%patch 1  -p1 -b .enable-valid
+%patch0  -p1 -b .enable-spr
+%patch1  -p1 -b .enable-valid
 
 pushd ft2demos-%{version}
-%patch 2  -p1 -b .more-demos
+%patch2  -p1 -b .more-demos
 popd
 
-%patch 3 -p1 -b .libtool
-%patch 4 -p1 -b .multilib
-%patch 5 -p1 -b .internal-outline
-%patch 6 -p1 -b .debughook
+%patch3 -p1 -b .libtool
+%patch4 -p1 -b .multilib
+%patch5 -p1 -b .internal-outline
+%patch6 -p1 -b .debughook
 
 %build
 

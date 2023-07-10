@@ -1,75 +1,47 @@
 %global srcname pysaml2
-
-Name:           python-%{srcname}
-Version:        7.1.2
-Release:        3%{?dist}
-Summary:        Python implementation of SAML Version 2
-License:        ASL 2.0
-URL:            https://github.com/IdentityPython/%{srcname}
-
 %global gittag v%{version}
-
-
-
-Source0: https://github.com/IdentityPython/%{srcname}/archive/%{gittag}/%{srcname}-%{version}.tar.gz
-
-BuildArch:      noarch
-
-%description
-PySAML2 is a pure python implementation of SAML2. It contains all
-necessary pieces for building a SAML2 service provider or an identity
-provider.  The distribution contains examples of both.  Originally
-written to work in a WSGI environment there are extensions that allow
+%global _description \
+PySAML2 is a pure python implementation of SAML2. It contains all \
+necessary pieces for building a SAML2 service provider or an identity \
+provider.  The distribution contains examples of both.  Originally \
+written to work in a WSGI environment there are extensions that allow \
 you to use it with other frameworks.
 
 
+Name:           python-%{srcname}
+Version:        7.3.1
+Release:        1%{?dist}
+Summary:        Python implementation of SAML Version 2
+License:        Apache-2.0
+URL:            https://github.com/IdentityPython/%{srcname}
 
-%package -n python3-%{srcname}
-Summary: Python implementation of SAML Version 2
-Conflicts:  python2-%{srcname} < 4.5.0-6
-%{?python_provide:%python_provide python3-%{srcname}}
+Source0: https://github.com/IdentityPython/%{srcname}/archive/%{gittag}/%{srcname}-%{version}.tar.gz
+#TODO: remove the line below once the patch upstream is merged and contained
+# in a release https://github.com/IdentityPython/pysaml2/pull/916
+Patch0001:      0001-Remove-utility-from-packaging.patch
 
-Requires: python3-requests >= 1.0.0
-Requires: python3-future
-Requires: python3-cryptography >= 3.1
-Requires: python3-pytz
-Requires: python3-pyOpenSSL
-Requires: python3-dateutil
-Requires: python3-defusedxml
-Requires: python3-six
-Requires: python3-xmlschema >= 1.2.1
-Requires: xmlsec1
-Requires: xmlsec1-openssl
-
-BuildRequires:  git-core
+BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  pyproject-rpm-macros
+BuildRequires:  git-core
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-defusedxml
-# To run  unit tests
+# For tests
 BuildRequires:  python3-pytest
-BuildRequires:  python3-mock
-BuildRequires:  python3-requests >= 1.0.0
-BuildRequires:  python3-future
-BuildRequires:  python3-cryptography >= 3.1
-BuildRequires:  python3-pytz
-BuildRequires:  python3-pyOpenSSL
-BuildRequires:  python3-dateutil
-BuildRequires:  python3-defusedxml
-BuildRequires:  python3-six
-BuildRequires:  python3-xmlschema >= 1.2.1
 BuildRequires:  python3-pymongo
 BuildRequires:  python3-responses
 BuildRequires:  xmlsec1
 BuildRequires:  xmlsec1-openssl
 
 
-%description -n python3-%{srcname}
-PySAML2 is a pure python implementation of SAML2. It contains all
-necessary pieces for building a SAML2 service provider or an identity
-provider.  The distribution contains examples of both.  Originally
-written to work in a WSGI environment there are extensions that allow
-you to use it with other frameworks.
+%description %{_description}
+
+%package -n python%{python3_pkgversion}-%{srcname}
+Summary: Python implementation of SAML Version 2
+
+Requires:       xmlsec1
+Requires:       xmlsec1-openssl
+
+%description -n python%{python3_pkgversion}-%{srcname} %{_description}
 
 
 %package doc
@@ -78,9 +50,17 @@ Summary: Documentation for Python implementation of SAML Version 2
 %description doc
 Documentation for Python implementation of SAML Version 2.
 
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %prep
 %autosetup -n %{srcname}-%{version} -S git
-sed -i '/argparse/d' setup.py
+
+# We need to remove the shebang manually otherwise automation removes
+# the whole line leading to have a Syntax error: unterminated triple-quoted 
+# string.
+sed -i 's|f"""#!/usr/bin/env python|f"""|' src/saml2/tools/parse_xsd2.py
 
 # Avoid non-executable-script rpmlint while maintaining timestamps
 find src -name \*.py |
@@ -92,6 +72,7 @@ while read source; do
     rm "$source".ts
   fi
 done
+
 # special case for parse_xsd generated file which have lines like:
 #!!!! 'NoneType' object has no attribute 'py_class'
 source="src/saml2/schema/wsdl.py"
@@ -101,39 +82,49 @@ touch --ref="$source".ts "$source"
 rm "$source".ts
 
 %build
+%pyproject_wheel
 
-%py3_build
+%install
+%pyproject_install
+%pyproject_save_files saml2 saml2test
+
+# compat symlinks
+for bin in parse_xsd2 make_metadata mdexport merge_metadata; do
+    ln -s $bin %{buildroot}/%{_bindir}/${bin}.py
+done
 
 # drop alabaster Sphinx theme, not packaged in Fedora yet
-#sed -i '/alabaster/d' docs/conf.py
+sed -i '/alabaster/d' docs/conf.py
 # generate html docs
-export PYTHONPATH=./src
+export PYTHONPATH="%{buildroot}/%{python3_sitelib}"
 sphinx-build-3 docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
-%install
-
-%py3_install
-
 %check
 %pytest
 
-%files -n python3-%{srcname}
-%doc README.rst
-%license LICENSE
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
+%{_bindir}/parse_xsd2
 %{_bindir}/parse_xsd2.py
+%{_bindir}/make_metadata
 %{_bindir}/make_metadata.py
+%{_bindir}/mdexport
 %{_bindir}/mdexport.py
+%{_bindir}/merge_metadata
 %{_bindir}/merge_metadata.py
-%{python3_sitelib}/saml2
-%{python3_sitelib}/*.egg-info
+%license LICENSE
 
 %files doc
 %license LICENSE
 %doc html
 
 %changelog
+* Fri Jul 07 2023 Joel Capitao <jcapitao@redhat.com> - 7.3.1-1
+- Update to 7.3.1
+- Switch to pyproject-rpm-macros
+- Move to SPDX
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 7.1.2-3
 - Rebuilt for Python 3.12
 

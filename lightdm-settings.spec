@@ -1,9 +1,9 @@
 Name:		lightdm-settings
-Version:	1.8.1
+Version:	1.8.2
 Release:	1%{?dist}
 Summary:	Configuration tool for the LightDM display manager
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ This tool currently lets users configure slick-greeter.
 
 
 %changelog
+* Sat Jul 08 2023 Leigh Scott <leigh123linux@gmail.com> - 1.8.2-1
+- Update to 1.8.2 release
+
 * Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 1.8.1-1
 - Update to 1.8.1 release
 

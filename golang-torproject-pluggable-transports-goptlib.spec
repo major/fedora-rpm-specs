@@ -3,7 +3,7 @@
 
 # https://gitweb.torproject.org/pluggable-transports/goptlib.git
 %global goipath         git.torproject.org/pluggable-transports/goptlib.git
-Version:                1.1.0
+Version:                1.4.0
 %global repo            goptlib
 %global archivename     %{repo}-%{version}
 %global archiveext      tar.gz
@@ -22,7 +22,7 @@ Goptlib is a library for writing Tor pluggable transports in Go.}
 %global godocs          examples ChangeLog README
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        Library for writing Tor pluggable transports in Go
 
 # Upstream license specification: CC0-1.0
@@ -52,6 +52,9 @@ Source0:        goptlib-%{version}.tar.gz
 %gopkgfiles
 
 %changelog
+* Sat Jul 08 2023 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 1.4.0-1
+- Update to latest released version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

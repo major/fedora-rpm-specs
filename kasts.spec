@@ -1,7 +1,7 @@
 %global kf5_min_version 5.88.0
 
 Name:           kasts
-Version:        23.04.2
+Version:        23.04.3
 Release:        1%{?dist}
 License:        GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+
 Summary:        A mobile podcast application
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
+- 23.04.3
+
 * Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
 - 23.04.2
 

@@ -3,8 +3,8 @@
 
 Name:    kig
 Summary: Interactive Geometry 
-Version: 23.04.2
-Release: 2%{?dist}
+Version: 23.04.3
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/education/%{name}
@@ -115,6 +115,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
+- 23.04.3
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 23.04.2-2
 - Rebuilt for Python 3.12
 

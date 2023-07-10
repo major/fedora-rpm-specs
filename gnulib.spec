@@ -1,11 +1,7 @@
-# Till Fix https://bugzilla.redhat.com/show_bug.cgi?id=2220874
-ExcludeArch: aarch64
-
-
-%global commit e7eb4c68af1c567a690fd985567a2acb0d07e5af
+%global commit bad1faa7f5fd21a315c45cc6327cfc9874f499fb
 # %%global tag 11 #disabled due to unarragment release line after mass rebuild.
 %global githead %(printf %%.7s %commit)
-%global gitdate 20230706
+%global gitdate 20230709
 
 # epel7 compatibility mode
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -52,7 +48,7 @@ It can be used to improve portability and other functionality in your programs.
 
 Name:     gnulib
 Version:  0
-Release:  46.%{gitdate}git%{?dist}
+Release:  47.%{gitdate}git%{?dist}
 Summary:  GNU Portability Library
 License:  Public Domain and BSD and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ and LGPLv3+
 URL:      https://www.gnu.org/software/gnulib
@@ -120,7 +116,7 @@ popd
 # https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
 %ifnarch %{ix86}
 # Rebuild removed java class
-javac -d lib -source 11 -target 11 lib/javaversion.java
+javac -d lib lib/javaversion.java
 %endif
 
 # This part is done with the original path
@@ -253,6 +249,11 @@ It can be enabled for specific files by setting appropriate git attributes.
 
 #-------------------------------------------------------------------------
 %changelog
+* Sun Jul 09 2023 Mosaab Alzoubi <moceap[AT]fedoraproject[DOT]com> - 0-47.20230709git
+- Update on 2023-07-09
+- Fix can't build on aarch64  (https://bugzilla.redhat.com/show_bug.cgi?id=2220874)
+- Fix can't build on epel8 (https://koji.fedoraproject.org/koji/buildinfo?buildID=2227816)
+
 * Thu Jul 06 2023 Mosaab Alzoubi <moceap[AT]fedoraproject[DOT]com> - 0-46.20230706git
 - Update on 2023-07-06
 - General clean-ups

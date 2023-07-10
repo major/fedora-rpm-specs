@@ -26,9 +26,9 @@
 %global rstudio_visual_editor       panmirror-0.0.0
 %global rstudio_version_major       2023
 %global rstudio_version_minor       06
-%global rstudio_version_patch       0
-%global rstudio_version_suffix      421
-%global rstudio_git_revision_hash   583b465ecc45e60ee9de085148cd2f9741cc5214
+%global rstudio_version_patch       1
+%global rstudio_version_suffix      524
+%global rstudio_git_revision_hash   547dcf861cac0253a8abb52c135e44e02ba407a1
 %global rstudio_version             %{rstudio_version_major}.%{rstudio_version_minor}.%{rstudio_version_patch}
 %global rstudio_codename            mountain-hydrangea
 %global rstudio_flags \
@@ -46,7 +46,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -343,6 +343,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Sat Jul 08 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.06.1+524-1
+- Update to 2023.06.1+524
+
 * Wed Jul 05 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.06.0+421-3
 - Add RSTUDIO_DISABLE_CHECK_FOR_UPDATES=1 to the desktop file
 - Drop QT_QPA_PLATFORM=xcb from the desktop file

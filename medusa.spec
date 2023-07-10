@@ -1,7 +1,7 @@
 Summary:        Parallel brute forcing password cracker
 Name:           medusa
 Version:        2.2
-%global         baserelease     22
+%global         baserelease     23
 License:        GPLv2
 URL:            http://www.foofus.net/jmk/medusa/medusa.html
 #               https://github.com/jmk-foofus/medusa/releases
@@ -9,11 +9,8 @@ URL:            http://www.foofus.net/jmk/medusa/medusa.html
 
 %define         gituser         jmk-foofus
 %define         gitname         medusa
-# release 2.2
-# global        commit          5a7b76ee9fb48e4983719f074335b003b7fd6ad5
-# 2018-12-16
-%global         gitdate         20181216
-%global         commit          292193b3995444aede53ff873899640b08129fc7
+%global         gitdate         20220728
+%global         commit          079696350faa1dadbd581d30970bb9ba75068748
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
@@ -84,7 +81,7 @@ autoreconf -vif
 # required type off64_t is not available under all environments, ugly hack for ugly system headers
 export CPPFLAGS="-Doff64_t=__off64_t %{optflags} -fcommon"
 export CFLAGS="-Doff64_t=__off64_t %{optflags} -fcommon"
-%{configure} --enable-module-afp=yes
+%{configure} --enable-module-afp=yes --with-default-mod-path=%{_libdir}/medusa/modules
 
 make %{?_smp_mflags} V=1
 
@@ -101,6 +98,9 @@ make DESTDIR=%{buildroot} install
 %{_libdir}/medusa/*
 
 %changelog
+* Sun Apr 12 2020 Michal Ambroz <rebus AT seznam.cz> - 2.2-23.20220728git0796963
+- bump to current git snapshot from 20220728
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-22.20181216git292193b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,6 +11,9 @@ License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Adapt rpmconf tests to RPM 4.19 without rpm.fi
+Patch:          https://github.com/rpm-software-management/dnf-plugins-extras/pull/215.patch
+
 BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  gettext
@@ -180,6 +183,7 @@ $releasever and $basearch.
 %changelog
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.1.0-2
 - Rebuilt for Python 3.12
+- Fixes: rhbz#2219977
 
 * Wed Apr 05 2023 Jan Kolarik <jkolarik@redhat.com> - 4.1.0-1
 - Update to 4.1.0

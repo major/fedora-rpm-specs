@@ -1,6 +1,6 @@
 Name:           minidlna
 Version:        1.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight DLNA/UPnP-AV server targeted at embedded systems
 
 # see minidlna-licensing-breakdown.txt for complete breakdown
@@ -17,9 +17,6 @@ Source5:        %{name}.sysusers
 # Fix core dump
 # https://sourceforge.net/p/minidlna/bugs/333/
 Patch0:         %{name}-1.3.0-select_use_after_free.patch
-# drop supplementary groups before calling setuid()
-# https://sourceforge.net/p/minidlna/bugs/356/
-Patch1:         %{name}-1.3.3-setgroups.patch
 
 BuildRequires:  avahi-devel
 BuildRequires:  flac-devel
@@ -141,6 +138,9 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}/
 
 
 %changelog
+* Sat Jul 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.3.3-3
+- drop broken patch
+
 * Wed Jul 05 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.3.3-2
 - fix missing-call-to-setgroups-before-setuid rpmlint error
 - add weak dependency on logrotate

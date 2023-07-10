@@ -1,7 +1,7 @@
 Name:          gr-hpsdr
 URL:           https://github.com/Tom-McDermott/gr-hpsdr
 Version:       3.0
-Release:       19%{?dist}
+Release:       20%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -73,6 +73,9 @@ Documentation files for gr-hpsdr.
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.0-20
+- Rebuilt due to spdlog 1.12 update.
+
 * Tue Jun 27 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0-19
 - Rebuilt for new gnuradio
 

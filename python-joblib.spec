@@ -3,8 +3,8 @@
 %global srcname joblib
 
 Name:  python-%{srcname}
-Version: 1.2.0
-Release: 3%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 Summary: Lightweight pipelining: using Python functions as pipeline jobs
 
 License: BSD
@@ -23,8 +23,6 @@ Patch: joblib-dont-count-DeprecationWarnings.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-# setup.py imports joblib and that needs cloudpickle
-BuildRequires:  %{py3_dist cloudpickle}
 
 %global _description %{expand:
 Joblib is a set of tools to provide lightweight pipelining in Python.
@@ -46,20 +44,18 @@ BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist lz4}
 BuildRequires:  %{py3_dist psutil} 
 BuildRequires:  %{py3_dist threadpoolctl}
-# joblib/test/test_format_stack.py uses imp, the file is gone in future releases
-BuildRequires:  (%{py3_dist zombie-imp} if python3 >= 3.12)
 %endif
 
 Recommends: %{py3_dist numpy}
 Recommends: %{py3_dist lz4}
 Recommends: %{py3_dist psutil} 
-Provides: bundled(python3dist(loky)) = 2.9.0
+Provides: bundled(python3dist(loky)) = 3.4.0
 
 %description -n python3-%{srcname} %_description
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
-rm joblib/externals/cloudpickle/ -rf
+rm -rf joblib/externals/cloudpickle/ 
 
 
 %generate_buildrequires
@@ -77,7 +73,6 @@ rm joblib/externals/cloudpickle/ -rf
 %check
 %pytest \
  --deselect "joblib/test/test_memory.py::test_parallel_call_cached_function_defined_in_jupyter" \
- --deselect "joblib/test/test_numpy_pickle.py::test_compress_mmap_mode_warning" \
   joblib
 
 %endif
@@ -86,6 +81,9 @@ rm joblib/externals/cloudpickle/ -rf
 %doc README.rst
 
 %changelog
+* Sat Jul 09 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 1.3.0-1
+- New upstream source 1.3.0
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.2.0-3
 - Rebuilt for Python 3.12
 

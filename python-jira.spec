@@ -1,6 +1,6 @@
 Name:               python-jira
-Version:            3.5.1
-Release:            2%{?dist}
+Version:            3.5.2
+Release:            1%{?dist}
 Summary:            Python library for interacting with JIRA via REST APIs
 
 License:            BSD-2-Clause
@@ -64,6 +64,9 @@ grep    -w 'jirashell' "%{pyproject_files}" >jirashell.files
 
 
 %changelog
+* Sat Jul 08 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3.5.2-1
+- Update to version 3.5.2 (rhbz#2218497)
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 3.5.1-2
 - Rebuilt for Python 3.12
 

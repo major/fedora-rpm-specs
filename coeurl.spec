@@ -1,6 +1,6 @@
 Name: coeurl
 Version: 0.3.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: MIT
 URL: https://nheko.im/nheko-reborn/%{name}
@@ -54,6 +54,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.3.0-4
+- Rebuilt due to spdlog 1.12 update.
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.3.0-3
 - Rebuilt due to fmt 10 update.
 - Backported upstream patch with fmt 10 build fix.

@@ -3,7 +3,7 @@
 
 Name:           cryfs
 Version:        0.11.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cryptographic filesystem for the cloud
 License:        LGPLv3
 URL:            https://www.cryfs.org/
@@ -67,6 +67,9 @@ base directory, which can then be synchronized to remote storage
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.3-3
+- Rebuilt due to spdlog 1.12 update.
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.3-2
 - Rebuilt due to fmt 10 update.
 

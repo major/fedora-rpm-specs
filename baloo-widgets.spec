@@ -1,8 +1,8 @@
 
 Name:    baloo-widgets
 Summary: Widgets for Baloo
-Version: 23.04.2
-Release: 2%{?dist}
+Version: 23.04.3
+Release: 1%{?dist}
 
 # # KDE e.V. may determine that future LGPL versions are accepted
 License: LGPL-2.0-only OR LGPL-3.0-only
@@ -80,6 +80,9 @@ Requires: kf5-kio-devel
 
 
 %changelog
+* Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
+- 23.04.3
+
 * Mon Jun 12 2023 Than Ngo <than@redhat.com> - 23.04.2-2
 - migrated to SPDX license
 

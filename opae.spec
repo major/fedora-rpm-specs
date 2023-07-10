@@ -6,7 +6,7 @@ License:        BSD
 Version:        2.2.0
 %define opae_release 1
 %define patch_level 1
-Release:        %{opae_release}.%{patch_level}%{?dist}.3
+Release:        %{opae_release}.%{patch_level}%{?dist}.4
 
 URL:            https://github.com/OPAE/%{name}-sdk
 Source0:        https://github.com/OPAE/opae-sdk/releases/download/%{version}-%{opae_release}/%{name}-%{version}-%{opae_release}.tar.gz
@@ -336,6 +336,9 @@ done
 %{python3_sitelib}/uio*
 
 %changelog
+* Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.2.0-1.1.4
+- Rebuilt due to spdlog 1.12 update.
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 2.2.0-1.1.3
 - Rebuilt for Python 3.12
 

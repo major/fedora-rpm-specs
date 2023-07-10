@@ -2,7 +2,7 @@
 %global lbname lib%{intname}
 
 Name: google-benchmark
-Version: 1.8.0
+Version: 1.8.2
 Release: 1%{?dist}
 
 License: Apache-2.0
@@ -74,6 +74,9 @@ sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
 %{_docdir}/%{intname}/
 
 %changelog
+* Thu Jul 06 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.8.2-1
+- Updated to version 1.8.2.
+
 * Fri May 05 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.8.0-1
 - Updated to version 1.8.0.
 

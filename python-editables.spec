@@ -2,7 +2,8 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+# Not all doc requirements are available in RHEL
+%bcond doc %{undefined rhel}
 
 Name:           python-editables
 Version:        0.4
@@ -25,7 +26,7 @@ BuildRequires:  python3-devel
 # generation or testing.
 BuildRequires:  python3dist(pytest)
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-latex
@@ -50,10 +51,12 @@ Summary:        %{summary}
 %description -n python3-editables %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for python-editables
 
 %description    doc %{common_description}
+%endif
 
 
 %prep
@@ -61,13 +64,13 @@ Summary:        Documentation for python-editables
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_doc_pdf:docs/requirements.txt}
+%pyproject_buildrequires %{?with_doc:docs/requirements.txt}
 
 
 %build
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 PYTHONPATH="${PWD}" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
@@ -85,13 +88,17 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 %files -n python3-editables -f %{pyproject_files}
 %license LICENSE.txt
+%if %{without doc}
+%doc CHANGELOG.md
+%doc README.md
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE.txt
 %doc CHANGELOG.md
 %doc README.md
-%if %{with doc_pdf}
 %doc docs/build/latex/editables.pdf
 %endif
 

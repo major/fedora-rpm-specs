@@ -1,7 +1,7 @@
 
 Name:           colord-kde
-Version:        23.04.2
-Release:        2%{?dist}
+Version:        23.04.3
+Release:        1%{?dist}
 Summary:        Colord support for KDE
 
 License:        GPL-2.0-or-later
@@ -68,6 +68,9 @@ KDE support for colord including KDE Daemon module and System Settings module.
 
 
 %changelog
+* Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
+- 23.04.3
+
 * Mon Jun 12 2023 Than Ngo <than@redhat.com> - 23.04.2-2
 - migrated to SPDX license
 

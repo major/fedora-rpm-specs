@@ -1,12 +1,12 @@
 # RPM version needs 4 digits after the decimal to preserve upgrade path
-%global module_version 0.69
+%global module_version 0.70
 %global RPM_version %(printf "%.4f" %{module_version})
 
 # TODO: BR: optional test dependency Unknown::Values if it becomes available
 
 Name:           perl-Test-Differences
 Version:        %{RPM_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Test strings and data structures and show differences if not OK
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Differences
@@ -36,7 +36,7 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Pod::Coverage) >= 0.18
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
-# Explicit Requirements
+# Explicit Dependencies
 Requires:       perl(B::Deparse)
 Requires:       perl(Text::Diff) >= 1.43
 
@@ -66,6 +66,11 @@ make test
 %{_mandir}/man3/Test::Differences.3*
 
 %changelog
+* Sat Jul  8 2023 Paul Howarth <paul@city-fan.org> - 0.7000-1
+- Update to 0.70
+  - Stop pointless use of taint-mode in tests, so tests pass when perl is
+    built without taint support
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6900-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

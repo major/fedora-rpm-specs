@@ -1,7 +1,7 @@
 Name:    bomber
 Summary: Arcade bombing game
-Version: 23.04.2
-Release: 2%{?dist}
+Version: 23.04.3
+Release: 1%{?dist}
 
 # code LGPLv2+, docs GFDL
 License: LGPL-2.0-or-later AND GFDL-1.2-or-later
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
+- 23.04.3
+
 * Mon Jun 12 2023 Than Ngo <than@redhat.com> - 23.04.2-2
 - migrated to SPDX license
 

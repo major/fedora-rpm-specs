@@ -11,8 +11,8 @@ simple and efficient, accessible to everybody, and reusable
 in various contexts.}
 
 Name: python-scikit-learn
-Version: 1.2.2
-Release: 2%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 Summary: Machine learning in Python
 # sklearn/externals/_arff.py is MIT
 # sklearn/src/liblinear is BSD
@@ -32,12 +32,12 @@ BuildRequires: %{py3_dist setuptools}
 %package -n python3-%{srcname}
 Summary: %{summary}
 BuildRequires: %{py3_dist Cython}
-BuildRequires: %{py3_dist numpy} >= 1.19
-BuildRequires: %{py3_dist scipy} 
+BuildRequires: %{py3_dist numpy} >= 1.17.3
+BuildRequires: %{py3_dist scipy} >= 1.5.0
 # Testing
 %if %{with check}
-BuildRequires: python3-pytest
-BuildRequires: %{py3_dist joblib} 
+BuildRequires: python3-pytest >= 7.1.2
+BuildRequires: %{py3_dist joblib} >= 1.1.1
 BuildRequires: python3-threadpoolctl >= 2.0.0
 %endif
 
@@ -75,7 +75,7 @@ pushd %{buildroot}%{python3_sitearch}
   sklearn 
 popd
 %endif
-
+%py3_check_import sklearn
 %endif
 
 %files -n python3-%{srcname}
@@ -85,6 +85,9 @@ popd
 %{python3_sitearch}/scikit_learn-*.egg-info
 
 %changelog
+* Sat Jul 08 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.3.0-1
+- New upstream source (1.3.0)
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.2.2-2
 - Rebuilt for Python 3.12
 

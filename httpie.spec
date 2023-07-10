@@ -1,23 +1,22 @@
 Name:           httpie
-Version:        3.2.1
-Release:        4%{?dist}
+Version:        3.2.2
+Release:        1%{?dist}
 Summary:        A Curl-like tool for humans
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://httpie.org/
-Source0:        https://github.com/httpie/httpie/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/httpie/httpie/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 
 %if 0%{?fedora}
 # On Fedora, the tests are enabled by default, --without tests option exists
 %bcond_without tests
 %else
 # On EPEL 9, we don't have all the dependencies, the tests are disabled
-# Missing (2022-08-20): python-pytest-httpbin, python-pytest-lazy-fixture
+# Missing (2023-07-08): python-pytest-lazy-fixture
 %bcond_with tests
 %endif
 
@@ -34,9 +33,14 @@ responses.
 %prep
 %autosetup -p1
 
+# Upstream pins werkzeug<2.1.0 to avoid a problem in httpbin that Fedora has patch for
+# https://github.com/httpie/httpie/pull/1345
+# we revert it to allow building with newer werkzeug
+sed -i "/'werkzeug<2.1.0'/d" setup.py
+
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:-x test}
+%pyproject_buildrequires %{?with_tests:-x test}
 
 
 %build
@@ -48,14 +52,14 @@ responses.
 %pyproject_save_files httpie
 
 # Bash completion
-mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
-cp -a extras/httpie-completion.bash %{buildroot}%{_datadir}/bash-completion/completions/http
-ln -s ./http %{buildroot}%{_datadir}/bash-completion/completions/https
+mkdir -p %{buildroot}%{bash_completions_dir}
+cp -a extras/httpie-completion.bash %{buildroot}%{bash_completions_dir}/http
+ln -s ./http %{buildroot}%{bash_completions_dir}/https
 
 # Fish completion
-mkdir -p %{buildroot}%{_datadir}/fish/vendor_completions.d/
-cp -a extras/httpie-completion.fish %{buildroot}%{_datadir}/fish/vendor_completions.d/http.fish
-ln -s ./http.fish %{buildroot}%{_datadir}/fish/vendor_completions.d/https.fish
+mkdir -p %{buildroot}%{fish_completions_dir}/
+cp -a extras/httpie-completion.fish %{buildroot}%{fish_completions_dir}/http.fish
+ln -s ./http.fish %{buildroot}%{fish_completions_dir}/https.fish
 
 # Man pages
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -64,13 +68,7 @@ cp -a extras/man/*.1 %{buildroot}%{_mandir}/man1/
 
 %check
 %if %{with tests}
-%if v"0%{?python3_version}" >= v"3.11"
-# https://github.com/httpie/httpie/issues/1410
-# those are incorrect tests assumptions, hence we safely deselect the tests
-%pytest -v -k "not (url_colon_slash_slash_only or quiet_with_check_status_non_zero or (plugins and uninstall) or broken_plugins or existing_and_new_cookies_sent_in_request)"
-%else
 %pytest -v
-%endif
 %else
 %pyproject_check_import
 %endif
@@ -78,19 +76,27 @@ cp -a extras/man/*.1 %{buildroot}%{_mandir}/man1/
 
 %files -f %{pyproject_files}
 %doc README.md
-%license LICENSE
 %{_bindir}/http
 %{_bindir}/https
 %{_bindir}/httpie
 %{_mandir}/man1/http.1*
 %{_mandir}/man1/https.1*
 %{_mandir}/man1/httpie.1*
-# we co-own the entire directory structures for bash/fish completion to avoid a dependency
-%{_datadir}/bash-completion/
-%{_datadir}/fish/
+%{bash_completions_dir}/http
+%{bash_completions_dir}/https
+%{fish_completions_dir}/http.fish
+%{fish_completions_dir}/https.fish
 
 
 %changelog
+* Sat Jul 08 2023 Miro Hrončok <mhroncok@redhat.com> - 3.2.2-1
+- Update to 3.2.2
+- Fixes: rhbz#2208673
+- Fixes: rhbz#2171570
+
+* Thu Jan 19 2023 Miro Hrončok <mhroncok@redhat.com> - 3.2.1-5
+- Don't explicitly require werkzeug<2.1.0 for tests
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

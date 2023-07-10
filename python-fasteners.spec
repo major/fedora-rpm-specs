@@ -1,4 +1,4 @@
-%bcond tests 0%{?!rhel:1}
+%bcond tests %{undefined rhel}
 # The python-diskcache package, used in some of the tests, has been retired.
 %bcond diskcache 0
 
