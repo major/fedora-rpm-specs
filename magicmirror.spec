@@ -1,8 +1,9 @@
+%bcond_without tests
 %global srcname MagicMirror
 %global forgeurl https://github.com/MichMich/MagicMirror
 
 Name:           magicmirror
-Version:        2.22.0
+Version:        2.24.0
 Release:        %autorelease
 Summary:        Modular smart mirror platform
 
@@ -11,7 +12,7 @@ URL:            http://magicmirror.builders
 # Use the GitHub tarball due to https://github.com/MichMich/MagicMirror/issues/2876
 Source0:        %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Created with nodejs-packaging >= 2021.06-7 running:
-#   nodejs-packaging-bundler MagicMirror 2.22.0 MagicMirror-2.22.0.tar.gz
+#   nodejs-packaging-bundler MagicMirror 2.24.0 MagicMirror-2.24.0.tar.gz
 Source1:        %{srcname}-%{version}-nm-prod.tgz
 Source2:        %{srcname}-%{version}-nm-dev.tgz
 Source3:        %{srcname}-%{version}-bundled-licenses.txt
@@ -25,6 +26,16 @@ Requires:       nodejs
 BuildRequires:  nodejs-devel
 BuildRequires:  systemd-rpm-macros
 
+%if %{with tests}
+# For tests/e2e/serveronly_spec.js
+%if 0%{?fedora} || 0%{?rhel} > 9
+BuildRequires:  nodejs-npm
+%else
+BuildRequires:  npm
+%endif
+%endif
+
+# Remove once f39 and epel9 are EOL
 Provides:       magicmirror-rpm-macros = %{version}-%{release}
 Obsoletes:      magicmirror-rpm-macros < 2.22.0-2
 
@@ -39,11 +50,6 @@ accessed via a browser.
 %prep
 %setup -q -n %{srcname}-%{version}
 cp %{SOURCE3} .
-# Fix permissions: https://github.com/MichMich/MagicMirror/pull/2877
-chmod -x modules/default/calendar/{README.md,calendar.js} \
-         modules/default/weather/{README.md,current.njk,weatherobject.js} \
-         modules/default/weather/providers/* \
-         vendor/{package.json,vendor.js}
 
 %build
 # Setup bundled node modules
@@ -75,6 +81,7 @@ ln -s %{_sysconfdir}/%{name}/custom.css %{buildroot}%{nodejs_sitelib}/%{name}/cs
 install -Dpm0644 -t %{buildroot}%{_unitdir} %{SOURCE4}
 install -Dpm0644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
 
+%if %{with tests}
 %check
 %nodejs_symlink_deps --check
 # Setup bundled dev node_modules for testing
@@ -97,6 +104,7 @@ ln -s custom.css.sample css/custom.css
   --selectProjects e2e unit \
   -i \
   --forceExit
+%endif
 
 %pre
 %sysusers_create_compat %{SOURCE5}

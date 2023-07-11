@@ -6,7 +6,7 @@
 Name:    lensfun
 Version: 0.3.3
 Summary: Library to rectify defects introduced by photographic lenses
-Release: 3%{?dist}
+Release: 5%{?dist}
 
 License: LGPLv3 and CC-BY-SA
 URL: https://lensfun.github.io/
@@ -76,9 +76,9 @@ Obsoletes: python34-lensfun < %{version}-%{release}
 %setup -q
 
 
-%patch866 -p1 -b .0866
+%patch -P 866 -p1 -b .0866
 
-%patch200 -p1 -b .INSTALL_HELPER_SCRIPTS
+%patch -P 200 -p1 -b .INSTALL_HELPER_SCRIPTS
 
 %if 0%{?python3:1}
 sed -i.shbang \
@@ -136,6 +136,7 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_pkgdocdir}/*.png
 %{_pkgdocdir}/*.css
 %{_pkgdocdir}/*.js
+%{_pkgdocdir}/*.svg
 %{_includedir}/lensfun/
 %{_libdir}/liblensfun.so
 %{_libdir}/pkgconfig/lensfun.pc
@@ -148,12 +149,17 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_mandir}/man1/lensfun-update-data.1*
 
 %files -n %{python3}-lensfun
-%{python3_sitelib}/lensfun/
-%{python3_sitelib}/lensfun*.egg-info
+%{python3_sitelib}/lensfun*.egg
 %endif
 
 
 %changelog
+* Sun Jul 9 2023 Tom Rix <trix@redhat.com> - 0.3.3-5
+- Fix *.egg-info to *.egg
+
+* Wed Jun 28 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.3.3-4
+- fix FTBFS pre py 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.3-3
 - Rebuilt for Python 3.12
 

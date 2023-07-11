@@ -40,13 +40,22 @@
 %global distrdf 0
 %endif
 
+# qt6-srpm-macros not in buildroot for Fedora 37/38 or EPEL 9
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220859
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220860
+# Definition of qt6_qtwebengine_arches incorrect in qt6-srpm-macros
+# https://bugzilla.redhat.com/show_bug.cgi?id=2215703
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
+%global qt6_qtwebengine_arches aarch64 x86_64
+%endif
+
 # Do not generate autoprovides for Python modules
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
 Version:	6.28.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -103,6 +112,9 @@ Patch11:	%{name}-dont-install-roofit-files-fix.patch
 Patch12:	%{name}-fixes-for-32bit-builds.patch
 #		https://github.com/root-project/root/pull/12476
 Patch13:	%{name}-do-not-remove-Wp-before-D-and-U.patch
+#		strlcpy and strlcat available in glibc in Fedora 39+
+#		https://bugzilla.redhat.com/show_bug.cgi?id=2220860
+Patch14:	%{name}-strlcpy.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -144,6 +156,10 @@ BuildRequires:	python%{python3_pkgversion}-numpy
 %ifarch %{qt5_qtwebengine_arches}
 BuildRequires:	qt5-qtbase-devel
 BuildRequires:	qt5-qtwebengine-devel
+%endif
+%ifarch %{qt6_qtwebengine_arches}
+BuildRequires:	qt6-qtbase-devel
+BuildRequires:	qt6-qtwebengine-devel
 %endif
 BuildRequires:	openssl-devel
 BuildRequires:	libtool-ltdl-devel
@@ -1434,7 +1450,9 @@ This package contains DaraFrame helper classes for RooFit
 Summary:	RooFit HS3
 License:	BSD-2-Clause
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist-factory%{?_isa} = %{version}-%{release}
+Requires:	%{name}-matrix%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-jsoninterface%{?_isa} = %{version}-%{release}
@@ -1775,6 +1793,17 @@ Requires:	%{name}-net-http%{?_isa} = %{version}-%{release}
 This package contains a Qt5 web display extension for ROOT.
 %endif
 
+%ifarch %{qt6_qtwebengine_arches}
+%package gui-qt6webdisplay
+Summary:	Qt6 Web display
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-gui-webdisplay%{?_isa} = %{version}-%{release}
+Requires:	%{name}-net-http%{?_isa} = %{version}-%{release}
+
+%description gui-qt6webdisplay
+This package contains a Qt6 web display extension for ROOT.
+%endif
+
 %package gui-webgui6
 Summary:	Web based GUI for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -1957,20 +1986,23 @@ This package contains extra tools for RooFit projects.
 %prep
 %setup -q -a 1
 
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
+%patch -P 10 -p1
+%patch -P 11 -p1
+%patch -P 12 -p1
+%patch -P 13 -p1
+%if %{?fedora}%{!?fedora:0} >= 39
+%patch -P 14 -p1
+%endif
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2136,7 +2168,11 @@ LDFLAGS="-Wl,--as-needed %{?__global_ldflags}"
 %else
        -Dqt5web:BOOL=OFF \
 %endif
+%ifarch %{qt6_qtwebengine_arches}
+       -Dqt6web:BOOL=ON \
+%else
        -Dqt6web:BOOL=OFF \
+%endif
        -Dr:BOOL=ON \
 %if %{roofit}
        -Droofit:BOOL=ON \
@@ -2909,6 +2945,9 @@ fi
 %ifarch %{qt5_qtwebengine_arches}
 %ldconfig_scriptlets gui-qt5webdisplay
 %endif
+%ifarch %{qt6_qtwebengine_arches}
+%ldconfig_scriptlets gui-qt6webdisplay
+%endif
 %ldconfig_scriptlets gui-webgui6
 %if %{root7}
 %ldconfig_scriptlets geom-webviewer
@@ -3649,6 +3688,11 @@ fi
 %{_libdir}/%{name}/libROOTQt5WebDisplay.*
 %endif
 
+%ifarch %{qt6_qtwebengine_arches}
+%files gui-qt6webdisplay
+%{_libdir}/%{name}/libROOTQt6WebDisplay.*
+%endif
+
 %files gui-webgui6 -f includelist-gui-webgui6
 %{_libdir}/%{name}/libWebGui6.*
 %{_libdir}/%{name}/libWebGui6_rdict.pcm
@@ -3727,6 +3771,10 @@ fi
 %endif
 
 %changelog
+* Sun Jul 09 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.04-3
+- Fix build on Fedora 39+ where glibc has strlcpy and strlcat
+- Enable build of root-gui-qt6webdisplay sub-package if Qt6 is available
+
 * Mon Jun 26 2023 Orion Poplawski <orion@nwra.com> - 6.28.04-2
 - Rebuilt for Python 3.12
 

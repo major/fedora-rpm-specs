@@ -81,6 +81,7 @@ BuildRequires:  cmake(OpenColorIO)
 BuildRequires:  cmake(OpenImageIO)
 BuildRequires:  pkgconfig(pyside2)
 BuildRequires:  pkgconfig(python3)
+BuildRequires:	pkgconfig(shiboken2)
 BuildRequires:  pkgconfig(spdlog)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:  pkgconfig(yaml-cpp)
@@ -143,6 +144,13 @@ Requires:       blender-%{name}%{?_isa} = %{version}-%{release}
 %description -n python3-%{name}
 The python3-%{name} contains Python 3 API for the library.
 
+%package static
+Summary:	luxcorerender static libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static libraries for the LuxCore render.
+
 %prep
 %autosetup -p1 -a1 -n LuxCore-%{name}_v%{version}%{?prerelease}
 
@@ -191,7 +199,7 @@ mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_includedir}
         
 install -Dpm 0755 bin/* %{buildroot}%{_bindir}/
-install -Dpm 0755 lib/*.so* %{buildroot}%{_libdir}/
+install -Dpm 0755 lib/*.{a,so*} %{buildroot}%{_libdir}/
         
 # Remove rpaths
 chrpath --delete %{buildroot}%{_bindir}/*
@@ -221,9 +229,6 @@ rm -fr %{buildroot}%{blender_addons}/%{name}/.gitignore
 # Upstream rejected the appdata
 install -p -m 644 -D %{SOURCE3} %{buildroot}%{_metainfodir}/org.%{name}.blendluxcore.metainfo.xml
 
-# We do not want static file .a
-rm -fr %{buildroot}%{_libdir}/*.a
-
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.blendluxcore.metainfo.xml
 
@@ -246,6 +251,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.bl
 
 %files devel
 %{_includedir}/{luxcore,luxrays,slg}
+
+%files static
+%{_libdir}/lib{luxcore,luxrays,slg-core,slg-film,slg-kernels}.a
 
 %changelog
 %autochangelog

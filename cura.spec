@@ -4,7 +4,7 @@
 Name:           cura
 Epoch:          1
 Version:        %{major_minor_version}.%{patch_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        3D printer / slicing GUI
 
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/MOUNX6I3POCDMYWBNJ7JPLLIKVYWVRBJ/
@@ -187,6 +187,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{reverse_dns_name}.d
 %{_prefix}/lib/%{name}
 
 %changelog
+* Sun Jul 09 2023 Python Maint <python-maint@redhat.com> - 1:5.3.0-2
+- Rebuilt for Python 3.12
+
 * Thu Mar  9 2023 Tom Callaway <spot@fedoraproject.org> - 1:5.3.0-1
 - update to 5.3.0
 

@@ -1,10 +1,11 @@
 Summary:       Debugger using ptrace written in Python
 Name:          python-ptrace
 Version:       0.9.8
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       GPLv2
-URL:           https://bitbucket.org/haypo/python-ptrace
+URL:           https://github.com/vstinner/python-ptrace
 Source0:       https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
+Patch01:       python-ptrace-0.9.8-avoid-imp.patch
 BuildRequires: gcc
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -27,7 +28,7 @@ Summary:       Debugger using ptrace written in Python 3
 %description -n python3-ptrace %_description
 
 %prep
-%setup -q
+%autosetup
 chmod 0644 examples/*.py
 
 %build
@@ -55,6 +56,9 @@ rm -f %{buildroot}%{_bindir}/{gdb,strace}.{pyo,pyc}
 %{python3_sitearch}/cptrace-*-py*.egg-info
 
 %changelog
+* Sun Jul 09 2023 Terje Rosten <terje.rosten@oracle.com> - 0.9.8-9
+- Avoid use of imp
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.8-8
 - Rebuilt for Python 3.12
 

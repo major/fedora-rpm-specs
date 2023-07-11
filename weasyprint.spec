@@ -3,12 +3,14 @@
 
 Name:           weasyprint
 Version:        59.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD-3-Clause
 URL:            https://weasyprint.org/
 Source0:        %pypi_source
+# https://github.com/Kozea/WeasyPrint/issues/1902
+Patch0:         weasyprint-round-for-py312.patch
 
 BuildArch:      noarch
 
@@ -22,6 +24,7 @@ BuildRequires:  dejavu-fonts-all
 BuildRequires:  ghostscript
 # https://doc.courtbouillon.org/weasyprint/latest/first_steps.html
 BuildRequires:  pango >= 1.44.0
+BuildRequires:  python3dist(pytest)
 
 Requires:       python3-weasyprint = %{version}-%{release}
 
@@ -49,7 +52,7 @@ can export to PDF. It aims to support web standards for printing.
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x test
+%pyproject_buildrequires -r
 
 %build
 %pyproject_wheel
@@ -74,6 +77,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sun Jul 09 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 59.0-2
+- add patch so the test suite passes for Python 3.12
+
 * Thu May 11 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 59.0-1
 - update to 59.0
 

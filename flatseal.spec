@@ -1,7 +1,7 @@
 %global app_id  com.github.tchx84.Flatseal
 
 Name:           flatseal
-Version:        2.0.1
+Version:        2.0.2
 Release:        %autorelease
 Summary:        Manage Flatpak permissions
 

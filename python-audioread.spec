@@ -1,10 +1,11 @@
 Summary:        Multi-library, cross-platform audio decoding in Python
 Name:           python-audioread
 Version:        3.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 URL:            http://pypi.python.org/pypi/audioread/
 Source0:        https://files.pythonhosted.org/packages/source/a/audioread/audioread-%{version}.tar.gz
+Patch01:        python-audioread-3.0.0-avoid-imp.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -28,7 +29,7 @@ Requires:       gstreamer1-plugins-good
 %description -n python3-audioread %_description
 
 %prep
-%setup -q -n audioread-%{version}
+%autosetup -n audioread-%{version}
 
 %build
 %{py3_build}
@@ -42,6 +43,9 @@ Requires:       gstreamer1-plugins-good
 %{python3_sitelib}/audioread-%{version}-*.egg-info
 
 %changelog
+* Sun Jul 09 2023 Terje Rosten <terje.rosten@ntnu.no> - 3.0.0-4
+- Remove use of imp module
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.0-3
 - Rebuilt for Python 3.12
 

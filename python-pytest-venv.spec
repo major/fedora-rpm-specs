@@ -42,7 +42,7 @@ sed -i '/pytest-cov/d' setup.py
 %pyproject_save_files pytest_venv
 
 %check
-%pytest -k "not test_it_installs_dep and not test_it_upgrades_dep"
+%pytest -k "not test_it_installs and not test_it_upgrades_dep"
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt

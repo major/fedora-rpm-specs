@@ -4,9 +4,11 @@ Release:        6%{?dist}
 Summary:        A Python framework for building desktop applications
 License:        LGPLv3+
 URL:            https://github.com/Ultimaker/Uranium
-Source0:        %{url}/archive/%{version}.tar.gz#/Uranium-%{version}.tar.gz
-Patch0:		Uranium-5.3.0-qt-6.5-hack.patch
-Patch1:		Uranium-5.3.0-qt-try-ints-then-bytes-for-gl-mask-functions.patch
+Source:         %{url}/archive/%{version}.tar.gz#/Uranium-%{version}.tar.gz
+Patch:          Uranium-5.3.0-qt-6.5-hack.patch
+Patch:          Uranium-5.3.0-qt-try-ints-then-bytes-for-gl-mask-functions.patch
+# Fix asserts for called once in Python 3.12:
+Patch:          https://github.com/Ultimaker/Uranium/pull/885.patch#/Uranium-5.3.0-python3.12.patch
 
 # Cmake bits taken from 4.13.1, before upstream went nuts with conan
 Source2:        mod_bundled_packages_json.py
@@ -23,6 +25,10 @@ BuildRequires:  /usr/bin/doxygen
 BuildRequires:  /usr/bin/msgmerge
 BuildRequires:  cmake
 BuildRequires:  git-core
+
+# UM/PluginRegistry.py imports from imp
+# https://github.com/Ultimaker/Uranium/issues/765
+BuildRequires:  (python3-zombie-imp if python3 >= 3.12)
 
 # Tests
 BuildRequires:  python3-arcus >= 5.2.2
@@ -58,6 +64,7 @@ Requires:       python3-scipy
 Requires:       python3-shapely
 Requires:       python3-pyclipper
 Requires:       python3-pyqt6
+Requires:       (python3-zombie-imp if python3 >= 3.12)
 Recommends:     python3-numpy-stl
 
 %description -n python3-uranium

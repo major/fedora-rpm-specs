@@ -1,5 +1,5 @@
 Name:    kirigami-gallery
-Version: 23.04.2
+Version: 23.04.3
 Release: 1%{?dist}
 Summary: Gallery application built using Kirigami
 License: LGPLv2+
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kirigami2.gal
 
 
 %changelog
+* Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
+- 23.04.3
+
 * Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
 - 23.04.2
 

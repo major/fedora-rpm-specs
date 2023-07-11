@@ -12,6 +12,8 @@ Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{
 # https://github.com/cryfs/cryfs/pull/448
 # https://bugzilla.redhat.com/show_bug.cgi?id=2171464
 Patch0:         0001-Include-stdexcept-when-using-logic_error.patch
+# https://github.com/cryfs/cryfs/issues/459
+Patch1:         0002-Fix-versioneer-compatibility-with-Python-312.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -69,6 +71,7 @@ base directory, which can then be synchronized to remote storage
 %changelog
 * Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.3-3
 - Rebuilt due to spdlog 1.12 update.
+- Backported python-versioneer upstream patch to fix issues with Python 3.12.
 
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.3-2
 - Rebuilt due to fmt 10 update.

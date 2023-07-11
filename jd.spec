@@ -13,17 +13,17 @@
 #
 %define         main_ver      0.10.0
 #%%define         strtag        20200118
-%define         pre_ver       beta
+#%%define         pre_ver       beta
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20230617
-%global         gitcommit     fbf4bc371ee548c620b6f77ec0db91e261581892
+%global         gitdate       20230708
+%global         gitcommit     682363fbc27175d9db79bf16ec736cfd06c85ce3
 #%%global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20230619
-%global         tarballtime   0940
+%global         tarballdate   20230709
+%global         tarballtime   1548
 
 ##########################################
 # Defined by vendor
@@ -54,7 +54,7 @@
 ##########################################
 
 ##########################################
-#%%global		use_gcc_strict_sanitize	1
+%global		use_gcc_strict_sanitize	0
 
 %global		flagrel	%{nil}
 %if	0%{?use_cppcheck} >= 1
@@ -71,7 +71,7 @@
 Name:           jd
 Epoch:          1
 Version:        %{main_ver}%{?strtag:.%{strtag}}%{?pre_ver:~%{pre_ver}}
-Release:        %{rel}%{flagrel}.1
+Release:        %{rel}%{flagrel}
 Summary:        A 2ch browser
 
 License:        GPLv2
@@ -210,6 +210,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Sun Jul  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.10.0-1
+- 0.10.0
+
 * Mon Jun 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.10.0~beta-1
 - 0.10.0 beta
 

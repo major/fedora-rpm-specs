@@ -15,7 +15,7 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.8.3
+Version:        5.8.4
 Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
@@ -35,6 +35,7 @@ Patch1:         set_wheel.patch
 Patch3:         default_panal_launcher.patch
 Patch4:         remove_crap_from_menu.patch
 Patch5:         fix_path.patch
+Patch6:         %url/commit/fce9aad1ebb290802dc550e8dae6344dddf9dec1.patch
 
 ExcludeArch:    %{ix86}
 
@@ -335,6 +336,9 @@ EOF
 %endif
 
 %changelog
+* Sun Jul 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-1
+- Update to 5.8.4 release
+
 * Thu Jul 06 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.3-1
 - Update to 5.8.3 release
 - Revert 'Default disable desktop effects
