@@ -1,13 +1,11 @@
 Name: xmp
-Version: 4.1.0
-Release: 16%{?dist}
+Version: 4.2.0
+Release: 1%{?dist}
 Summary: A multi-format module player
 Source0: https://downloads.sourceforge.net/project/xmp/xmp/%{version}/xmp-%{version}.tar.gz
 # use pulseaudio output by default
 Patch0: xmp-pulse.patch
-# fix path to files in /etc
-Patch1: xmp-path-to-xmp-conf.patch
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://xmp.sourceforge.net/
 BuildRequires: make
 Buildrequires: alsa-lib-devel
@@ -27,7 +25,7 @@ Fasttracker II XM, Scream Tracker 3 S3M and Impulse Tracker IT files.
 %configure \
   --enable-pulseaudio \
 
-%{__make} V=1 %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
@@ -42,6 +40,11 @@ Fasttracker II XM, Scream Tracker 3 S3M and Impulse Tracker IT files.
 %{_mandir}/man1/xmp.1*
 
 %changelog
+* Mon Jul 10 2023 Dominik Mierzejewski <dominik@greysector.net> - 4.2.0-1
+- update to 4.2.0 (#2216922)
+- drop obsolete patch
+- update License tag with SPDX identifier
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

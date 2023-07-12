@@ -1,12 +1,6 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 Name:           ocaml-psmt2-frontend
 Version:        0.4.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Parser and typechecker for an extension of SMT-LIB 2
 
 License:        Apache-2.0
@@ -71,6 +65,9 @@ make sphinx
 %doc docs/sphinx
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.4.0-9
+- OCaml 5.0.0 rebuild
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 0.4.0-8
 - Add patch for Sphinx 6.x compatibility (rhbz#2180496)
 

@@ -3,7 +3,8 @@
 
 # https://github.com/containerd/ttrpc
 %global goipath         github.com/containerd/ttrpc
-Version:                1.2.1
+Epoch:                  1
+Version:                1.1.0
 
 %gometa
 
@@ -25,13 +26,16 @@ use as GRPC.}
 %global godocs          example README.md
 
 Name:           %{goname}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GRPC for low-memory environments
 
 # Upstream license specification: Apache-2.0
 License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
+# Convert to github.com/golang/protobuf
+# https://github.com/containerd/ttrpc/issues/62
+Patch0:         0001-Convert-to-github.com-golang-protobuf.diff
 
 BuildRequires:  golang(github.com/golang/protobuf/proto)
 BuildRequires:  golang(github.com/gogo/protobuf/gogoproto)
@@ -60,6 +64,7 @@ BuildRequires:  golang(github.com/prometheus/procfs)
 
 %prep
 %goprep
+%patch0 -p1
 rm -rf cmd/
 
 %install

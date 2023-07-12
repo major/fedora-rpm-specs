@@ -1,6 +1,6 @@
 Name:           pythran
-Version:        0.12.1
-Release:        4%{?dist}
+Version:        0.13.1
+Release:        1%{?dist}
 Summary:        Ahead of Time Python compiler for numeric kernels
 
 # pythran is BSD
@@ -21,6 +21,17 @@ Provides:       bundled(python3dist(networkx)) = 2.6.1
 
 URL:            https://github.com/serge-sans-paille/pythran
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# assertEquals was removed from unittest in Python 3.12
+Patch:          https://github.com/serge-sans-paille/pythran/pull/2119.patch
+
+# Introduce pythran/pythonic/include/types/longdouble.hpp et cie
+# New numpy version alias np.float128 to np.longdouble, so we need these headers too.
+Patch:          https://github.com/serge-sans-paille/pythran/pull/2120.patch
+
+# Use pythran logger instead of default logger to report absence of spec
+# Fixes build with setuptools distutils
+Patch:          https://github.com/serge-sans-paille/pythran/pull/2122.patch
 
 # there is no actual arched content
 # yet we want to test on all architectures
@@ -117,11 +128,6 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %check
-# some tests from test_distutils.py fail with distutils from setuptools 60+,
-# reported at https://github.com/serge-sans-paille/pythran/issues/1981
-# use the standard library for now:
-export SETUPTOOLS_USE_DISTUTILS=stdlib
-
 # https://bugzilla.redhat.com/show_bug.cgi?id=1747029#c12
 k="not test_numpy_negative_binomial"
 %ifarch %{arm}
@@ -154,6 +160,9 @@ k="$k and not test_loadext_and_run"
 
 
 %changelog
+* Mon Jul 03 2023 Miro Hrončok <mhroncok@redhat.com> - 0.13.1-1
+- Update to 0.13.1
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.12.1-4
 - Rebuilt for Python 3.12
 

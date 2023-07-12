@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-ocplib-simplex
-Version:        0.4
-Release:        30%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        Simplex algorithm for solving systems of linear inequalities
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -61,8 +59,11 @@ mkdir -p $OCAMLFIND_DESTDIR
 rm -fr %{buildroot}%{_prefix}%{_prefix}
 %ocaml_files
 
+%ifarch %{ocaml_native_compiler}
+# The tests assume the availability of ocamlopt
 %check
 make local-tests
+%endif
 
 %files -f .ofiles
 %doc README.md
@@ -72,6 +73,9 @@ make local-tests
 %doc extra/simplex_invariants.txt
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.4.1-1
+- Version 0.4.1
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.4-30
 - Rebuild OCaml packages for F38
 

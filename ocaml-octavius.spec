@@ -1,12 +1,6 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 Name:           ocaml-octavius
 Version:        1.2.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Ocamldoc comment syntax parser
 
 License:        ISC
@@ -46,6 +40,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.2-14
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-13
 - Rebuild OCaml packages for F38
 

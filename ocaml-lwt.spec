@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-lwt
 Version:        5.6.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -10,9 +8,14 @@ Summary:        OCaml lightweight thread library
 # - src/core/lwt_condition.mli
 # - src/core/lwt_mvar.ml
 # - src/core/lwt_mvar.mli
-License:        MIT and BSD-2-Clause
+License:        MIT AND BSD-2-Clause
 URL:            https://ocsigen.org/lwt
 Source0:        https://github.com/ocsigen/lwt/archive/%{version}/lwt-%{version}.tar.gz
+
+# Fixes for OCaml 5.  See:
+# https://github.com/ocsigen/lwt/commit/63fe83808e76fedfbc60fe3edf6794f8bc9573b0
+# https://github.com/ocsigen/lwt/pull/993
+Patch0:         %{name}-ocaml5.patch
 
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 1.8.0
@@ -103,10 +106,10 @@ The %{name}-ppx-devel package contains libraries and signature files for
 developing applications that use %{name}-ppx.
 
 %prep
-%autosetup -n lwt-%{version}
+%autosetup -n lwt-%{version} -p1
 
-# We do not have MultiCore OCaml, so do not have domainslib.  Remove lwt_domain
-# so we do not try to build it.  Revisit this when OCaml 5.x is released.
+# Fedora does not yet have domainslib.  Remove lwt_domain so we do not try to
+# build it.
 rm -rf src/domain
 rm -rf test/domain
 rm lwt_domain.opam
@@ -124,12 +127,6 @@ sed 's,test_mcast "mcast-nojoin-noloop" false false;,(*test_mcast "mcast-nojoin-
 dune exec src/unix/config/discover.exe -- --save \
      --use-libev true --use-pthread true
 %dune_build
-
-# Relink the stublib with RPM_LD_FLAGS
-cd _build/default/src/unix
-ocamlmklib -g -ldopt '%{build_ldflags}' -lev -lpthread -lm -o lwt_unix_stubs \
-  $(ar t liblwt_unix_stubs.a)
-cd -
 
 %install
 %dune_install -s
@@ -174,6 +171,10 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.6.1-9
+- OCaml 5.0.0 rebuild
+- Add upstream patch with OCaml 5.0 fixes
+
 * Fri Apr 14 2023 Jerry James <loganjerry@gmail.com> - 5.6.1-8
 - Rebuild for respun ocaml-luv 0.5.12
 

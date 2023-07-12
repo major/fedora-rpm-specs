@@ -1,12 +1,6 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 Name:           ocaml-ocp-indent
 Version:        1.8.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A simple tool to indent OCaml programs
 
 # The entire source code is LGPL with the OCaml linking exception except
@@ -94,6 +88,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.8.2-18
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.8.2-17
 - Rebuild OCaml packages for F38
 

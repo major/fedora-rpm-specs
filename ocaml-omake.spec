@@ -1,26 +1,62 @@
-%undefine _package_note_flags
-# I couldn't get the -g option to be passed reliably everywhere.
-%global debug_package %{nil}
-
 Name:           ocaml-omake
-Version:        0.10.3
-Release:        39%{?dist}
+Version:        0.10.6
+Release:        1%{?dist}
 Summary:        Build system with automated dependency analysis
-License:        LGPLv2+ with exceptions and GPLv2+ and BSD
+
+# License breakdown:
+# MIT
+# - lib/*
+#
+# LGPLv2 with the OpenSSL and OCaml linking exceptions
+# FIXME: This exception probably needs a new SPDX name
+# - src/clib/fam_inotify.c
+# - src/clib/fam_kqueue.c
+# - src/clib/fam_pseudo.h
+# - src/clib/fam_win32.c
+# - src/clib/lm_channel.c
+# - src/clib/lm_compat_win32.c
+# - src/clib/lm_compat_win32.h
+# - src/clib/lm_ctype.c
+# - src/clib/lm_fs_case_sensitive.c
+# - src/clib/lm_heap.c
+# - src/clib/lm_heap.h
+# - src/clib/lm_notify.c
+# - src/clib/lm_uname_ext.c
+# - src/clib/unixsupport.h
+# - src/libmojave/*
+#
+# GPLv2 with the OCaml linking exception:
+# - doc/src/omake-doc.tex
+# - src/clib/omake_shell_sys.c
+# - src/clib/readline.c
+# - src/exec/omake_exec.mli
+# - src/exec/omake_exec_notify.ml
+# - src/exec/omake_exec_notify.mli
+# - src/exec/omake_exec_print.ml
+# - src/exec/omake_exec_print.mli
+# - src/shell/omake_shell_parse.mly
+# - src/shell/omake_shell_sys.mli
+# - src/shell/omake_shell_sys_type.ml
+#
+# GPLv2+:
+# - src/clib/lm_termsize.c
+# - src/env/omake_exp_lex.mli
+# - src/env/omake_exp_parse.mly
+License:        MIT AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later
 
 URL:            http://projects.camlcity.org/projects/omake.html
-Source0:        http://download.camlcity.org/download/omake-%{version}.tar.gz
+Source0:        https://github.com/ocaml-omake/omake/archive/omake-%{version}.tar.gz
 
 # omake can be used on non-OCaml projects (RHBZ#548536).
 Provides:       omake
 
-BuildRequires: make
-BuildRequires:  ocaml >= 3.10.2-2
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  gcc-c++
+BuildRequires:  make
+BuildRequires:  ocaml >= 4.03.0
+BuildRequires:  ocaml-findlib
 BuildRequires:  readline-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  hevea
-BuildRequires:  chrpath
 
 
 %description
@@ -44,32 +80,61 @@ features many additional enhancements, including the following.
 
 
 %prep
-%setup -q -n omake-%{version}
+%autosetup -n omake-omake-%{version}
+
+# Look in the right place for hevea.sty
+sed -i 's,\$(HEVEA_DIR)\(/hevea\.sty\),%{_texmf}/tex/latex/hevea\1,' doc/OMakefile
+
+# Use the right libdir
+if [ "%{_lib}" != "lib" ]; then
+    sed -i '/public\.LIBDIR/s,lib,%{_lib},' mk/defaults
+    sed -i 's,\(\$(PREFIX)/\)lib,\1%{_lib},g' mk/make_config
+fi
+
+# Use the right mandir
+sed -i 's,\(\$(PREFIX)/\)man,\1share/man,g' mk/defaults mk/make_config
 
 
 %build
-# In latest omake it seems to be impossible to set LIBDIR, so we will
-# always install the dependent files in /usr/lib/omake. XXX
+export LIBDIR=%{_libdir}
 ./configure -prefix %{_prefix}
 make all
+OMAKELIB=$PWD/lib ./src/main/omake doc pdf
+OMAKELIB=$PWD/lib ./src/main/omake doc txt
+
 
 %install
+export LIBDIR=%{_libdir}
 make install \
   INSTALL_ROOT=$RPM_BUILD_ROOT
 # brp-strip is unable to strip the binary unless it's writable:
 chmod 0755 $RPM_BUILD_ROOT%{_bindir}/omake
+# Fix other permissions
+find $RPM_BUILD_ROOT%{_libdir}/omake -type f -exec chmod 0644 {} +
+chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/omake.1
 
 
 %files
-%doc CONTRIBUTORS.org LICENSE LICENSE.OMake README.md
-%doc ChangeLog
-%doc doc/txt/omake-doc.txt doc/ps/omake-doc.pdf doc/html/
-%{_prefix}/lib/omake/
+%license LICENSE LICENSE.OMake
+%doc CONTRIBUTORS.org README.md ChangeLog
+%doc doc/txt/omake-doc.txt doc/ps/omake-doc.pdf
+%{_libdir}/omake/
 %{_bindir}/omake
 %{_bindir}/osh
+%{_mandir}/man1/omake.1*
+%{_mandir}/man1/osh.1*
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.10.6-1
+- Version 0.10.6
+- Convert the License tag to SPDX
+- Use the %%license macro
+- Build with debuginfo
+- Fix hevea detection
+- Install man pages
+- Fix installation into libdir
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10.3-39
 - Rebuild OCaml packages for F38
 

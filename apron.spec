@@ -1,9 +1,9 @@
-%undefine _package_note_flags
+%global prerel beta1
 
 Name:           apron
-Version:        0.9.13
-Release:        17%{?dist}
+Version:        0.9.14
 Summary:        Numerical abstract domain library
+Release:        0.1%{?prerel:.%{prerel}}%{?dist}
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 # except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
@@ -12,21 +12,20 @@ Summary:        Numerical abstract domain library
 # OCaml-LGPL-linking-exception.
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later
 URL:            https://antoinemine.github.io/Apron/doc/
-Source0:        https://github.com/antoinemine/apron/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/antoinemine/apron/archive/v%{version}%{?prerel:-%{prerel}}/%{name}-%{version}-%{?prerel:%{prerel}}.tar.gz
 # This patch has not been sent upstream as it is GCC-specific.  Certain
 # symbols are defined in both libpolkaMPQ and libpolkaRll, with different
 # implementations.  This patch makes references to those symbols in
 # libap_pkgrid be weak references, since that library can be combined with
 # either of the 2 implementations.
 Patch0:         %{name}-weak.patch
-# Adapt to mpfr 4
-Patch1:         %{name}-mpfr4.patch
-# Adapt to changes in the custom_operations structure
-Patch2:         %{name}-custom-operations.patch
+# Fix the OCaml build on bytecode-only architectures
+Patch1:         %{name}-ocaml-bytecode.patch
 
 BuildRequires:  doxygen-latex
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript-tools-dvipdf
+BuildRequires:  glpk-devel
 %ifarch %{java_arches}
 BuildRequires:  java-devel
 BuildRequires:  javapackages-local
@@ -72,6 +71,7 @@ library/abstract domain.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       glpk-devel%{?_isa}
 Requires:       gmp-devel%{?_isa}
 Requires:       mpfr-devel%{?_isa}
 Provides:       bundled(js-jquery)
@@ -109,20 +109,17 @@ Java interface to the APRON library.
 %endif
 
 %prep
-%autosetup -p0
+%autosetup -N -n %{name}-%{version}%{?prerel:-%{prerel}}
+%autopatch -M 0 -p0
+%ifnarch %{ocaml_native_compiler}
+%autopatch -m 1 -p0
+%endif
 
 # Fix library path for 64-bit installs
 if [ "%{_lib}" = "lib64" ]; then
   sed -i 's,\${apron_prefix}/lib,&64,' configure
   sed -i 's,/lib,&64,' vars.mk
 fi
-
-# Add sonames
-sed "s|(-shared -o \\\$@ \\\$\^ \\\$\(LIBS.*\))|\1 -Wl,-soname=\$@.%{sover}|" \
-    -ri apronxx/Makefile
-sed -i "s|_APRON_DYLIB)|& -Wl,-h,\$@.%{sover}|" apron/Makefile \
-    box/Makefile newpolka/Makefile octagons/Makefile ppl/Makefile \
-    products/Makefile taylor1plus/Makefile
 
 # Fix encodings
 iconv -f iso8859-1 -t utf-8 Changes > Changes.utf8
@@ -136,21 +133,20 @@ sed -i 's/^\([[:blank:]]*cp[[:blank:]]\)/\1-p /' Makefile */Makefile
 sed -i 's/^OCAMLOPTFLAGS =/& -g/' configure
 sed -i "s|\$(OCAMLMKLIB) -L.*|& -g|" vars.mk
 
-# Do not use the deprecated Pervasives library
-sed -i 's/Pervasives/Stdlib/g' mlapronidl/scalar.idl
+# Give the C++ library an soname
+sed -i '/shared/s/\$(CXX)/$(CXX_APRON_DYLIB)/' apronxx/Makefile
 
 %build
 # This is NOT an autoconf-generated script.  Do not use %%configure
 export CPPFLAGS='-D_GNU_SOURCE'
 export CFLAGS='%{build_cflags} -fsigned-char'
 export CXXFLAGS='%{build_cxxflags} -fsigned-char'
-export LDFLAGS='%{build_ldflags}'
 %ifarch %{java_arches}
 export JAVA_HOME='%{_jvmdir}/java'
 export JAVA_TOOL_OPTIONS='-Dfile.encoding=UTF8'
-./configure -prefix %{_prefix} -java-prefix %{_jvmdir}/java
+./configure -prefix %{_prefix} -no-strip -java-prefix %{_jvmdir}/java
 %else
-./configure -prefix %{_prefix}
+./configure -prefix %{_prefix} -no-strip
 %endif
 
 # Put back a flag that the configure script strips out
@@ -162,6 +158,10 @@ make -C apron depend
 
 # Parallel builds fail intermittently
 make
+
+# Documentation building fails due to missing *.ml and *.mli files
+touch pplite/pplite.ml
+touch pplite/pplite.mli
 make doc
 
 # for some reason this is no longer built in `make doc`
@@ -231,6 +231,8 @@ test/ctest1
 %doc doc/apron doc/apronxx
 %{_libdir}/lib*.so
 %{_includedir}/%{name}/
+%{_includedir}/avo/
+%{_includedir}/fpp/
 
 %files -n ocaml-%{name}
 %doc mlapronidl/mlapronidl.pdf
@@ -238,13 +240,15 @@ test/ctest1
 %{ocamldir}/%{name}/META
 %{ocamldir}/%{name}/*.cma
 %{ocamldir}/%{name}/*.cmi
+%ifarch %{ocaml_native_compiler}
 %{ocamldir}/%{name}/*.cmxs
+%endif
 %{ocamldir}/stublibs/dll*
 
 %files -n ocaml-%{name}-devel
 %doc mlapronidl/html/*
-%ifarch %{ocaml_native_compiler}
 %{ocamldir}/%{name}/*.a
+%ifarch %{ocaml_native_compiler}
 %{ocamldir}/%{name}/*.cmxa
 %{ocamldir}/%{name}/*.cmx
 %endif
@@ -261,6 +265,12 @@ test/ctest1
 %endif
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-0.1.beta1
+- Update to 0.9.14-beta1 for OCaml 5.0 support
+- Drop upstreamed mpfr and custom-operations patches
+- Enable glpk support
+- Add patch to fix builds on bytecode-only architectures
+
 * Thu Mar 23 2023 Jerry James <loganjerry@gmail.com> - 0.9.13-17
 - Fix reinsertion of -Werror=format-security (bz 2181282)
 

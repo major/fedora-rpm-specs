@@ -2,7 +2,7 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.8.0
+Version: 4.8.1
 Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only nameserver
 License: GPLv2
@@ -321,6 +321,9 @@ exit 0
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Mon Jul 10 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.8.1-1
+- Update to 4.8.1
+
 * Thu Jun 01 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.8.0-1
 - Update to 4.8.0
 

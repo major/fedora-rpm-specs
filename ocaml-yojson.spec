@@ -1,27 +1,20 @@
-%undefine _package_note_flags
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
-%global libname yojson
-
-Name:           ocaml-%{libname}
-Version:        1.7.0
-Release:        25%{?dist}
+Name:           ocaml-yojson
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        An optimized parsing and printing library for the JSON format
 
-License:        BSD
-URL:            https://github.com/ocaml-community/%{libname}
-Source0:        %{url}/releases/download/%{version}/%{libname}-%{version}.tbz
+License:        BSD-3-Clause
+URL:            https://github.com/ocaml-community/yojson
+Source0:        %{url}/releases/download/%{version}/yojson-%{version}.tbz
+# Expose a dependency on the math library so RPM can see it
+Patch0:         %{name}-mathlib.patch
+# Fedora does not need the seq forward compatibility library
+Patch1:         %{name}-seq.patch
 
 BuildRequires:  ocaml >= 4.02.3
-BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-ocamldoc
-BuildRequires:  ocaml-biniou-devel
+BuildRequires:  ocaml-alcotest-devel >= 0.8.5
 BuildRequires:  ocaml-cppo
-BuildRequires:  ocaml-easy-format-devel
-BuildRequires:  ocaml-dune
-BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml-dune >= 2.7
 
 %description
 Yojson is an optimized parsing and printing library for the JSON
@@ -39,8 +32,6 @@ deserializers from type definitions.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       ocaml-biniou-devel%{?_isa}
-Requires:       ocaml-easy-format-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -48,53 +39,36 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{libname}-%{version}
+%autosetup -n yojson-%{version} -p1
 
 
 %build
-dune build %{?_smp_mflags} --verbose --profile release
+%dune_build -p yojson
 
 
 %install
-mkdir -p $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml
-
-cp -L _build/install/default/bin/* $RPM_BUILD_ROOT%{_bindir}
-cp -rL _build/install/default/lib/* $RPM_BUILD_ROOT%{_libdir}/ocaml
-
-# We do not want the source code
-rm -f $RPM_BUILD_ROOT/%{_libdir}/ocaml/yojson/*.ml
+%dune_install yojson
 
 
 %check
-dune runtest --profile release
+%dune_check -p yojson
 
 
-%files
+%files -f .ofiles
 %doc README.md
 %license LICENSE.md
-%{_libdir}/ocaml/%{libname}/
-%ifarch %{ocaml_native_compiler}
-%{_bindir}/ydump
-%exclude %{_libdir}/ocaml/%{libname}/*.a
-%exclude %{_libdir}/ocaml/%{libname}/*.cmx
-%exclude %{_libdir}/ocaml/%{libname}/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/%{libname}/*.mli
 
 
-%files devel
-%doc Changes CHANGES.md examples
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{libname}/*.a
-%{_libdir}/ocaml/%{libname}/*.cmx
-%{_libdir}/ocaml/%{libname}/*.cmxa
-%endif
-%{_libdir}/ocaml/%{libname}/*.mli
+%files devel -f .ofiles-devel
+%doc CHANGES.md examples
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.1.0-1
+- Version 2.1.0
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.0-25
 - Rebuild OCaml packages for F38
 

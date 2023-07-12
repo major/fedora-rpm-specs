@@ -1,12 +1,8 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-%global debug_package %{nil}
-
 Name:           ocaml-perl4caml
 Version:        0.9.5
-Release:        97%{?dist}
+Release:        98%{?dist}
 Summary:        OCaml library for calling Perl libraries and code
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            http://git.annexia.org/?p=perl4caml.git;a=summary
 # There is currently no website hosting the tarballs.
@@ -19,12 +15,13 @@ Patch0:         perl4caml-0.9.5-svtrv.patch
 # Upstream patch to fix build for OCaml 4.04.
 Patch1:         perl4caml-0.9.5-fix-use-of-camlparam-etc-macros.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  perl-devel >= 5.8
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::Embed)
+BuildRequires:  python3
 
 # Perl4caml provides type-safe wrappers for these Perl modules:
 #Requires:  perl-Date-Calc
@@ -54,7 +51,7 @@ part of CPAN in your OCaml code.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -63,34 +60,35 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n perl4caml-%{version}
-%patch0 -p1
-%patch1 -p1
-find -name .cvsignore -exec rm {} \;
+%autosetup -n perl4caml-%{version} -p1
+find -name .cvsignore -delete
+
+# Avoid obsolescence warnings
+sed -i 's/egrep/grep -E/' Makefile.config
 
 
 %build
 # Parallel builds don't work:
 unset MAKEFLAGS
 
-make EXTRA_EXTRA_CFLAGS="$RPM_OPT_FLAGS" \
-%if %opt
-     OCAMLC="ocamlc.opt" OCAMLOPT="ocamlopt.opt -g"
+make EXTRA_EXTRA_CFLAGS='%{build_cflags}' \
+%ifarch %{ocaml_native_compiler}
+     OCAMLC="ocamlc.opt" OCAMLOPT="ocamlopt.opt -g" OCAMLMKLIB="ocamlmklib -g"
 %else
-     OCAMLC="ocamlc" \
+     OCAMLC="ocamlc" OCAMLMKLIB="ocamlmklib -g" \
      perl4caml.cma META html
 %endif
 rm -f examples/*.{cmi,cmo,cmx,o,bc,opt}
 
 
 %check
-%if %opt
+%ifarch %{ocaml_native_compiler}
 # Parallel builds don't work:
 unset MAKEFLAGS
 
 # Set the library path used by ocamlrun so it uses the library
 # we just built in the current directory.
-CAML_LD_LIBRARY_PATH=`pwd` make test
+CAML_LD_LIBRARY_PATH=$PWD make test
 %endif
 
 
@@ -98,8 +96,9 @@ CAML_LD_LIBRARY_PATH=`pwd` make test
 export DESTDIR=$RPM_BUILD_ROOT
 mkdir -p $DESTDIR/%{_libdir}/ocaml/stublibs
 
-%if %opt
+%ifarch %{ocaml_native_compiler}
 make install
+chmod 0755 $DESTDIR/%{_libdir}/ocaml/stublibs/dllperl4caml.so
 %else
 # Install by hand so we don't try to install *.cmx{,a} files on bytecode arch.
 install -c -m 0755 -d $DESTDIR/%{_libdir}/ocaml/perl
@@ -108,36 +107,27 @@ install -c -m 0644 perl.cmi perl.mli perl4caml.cma \
 	libperl4caml.a META \
 	wrappers/*.ml wrappers/*.cmi \
 	$DESTDIR/%{_libdir}/ocaml/perl
-install -c -m 0644 dllperl4caml.so $DESTDIR/%{_libdir}/ocaml/stublibs
+install -c -m 0755 dllperl4caml.so $DESTDIR/%{_libdir}/ocaml/stublibs
 %endif
 
-# Don't delete rpath!  See:
-# https://www.redhat.com/archives/fedora-packaging/2008-March/thread.html#00070
+%ocaml_files
 
 
-%files
-%doc COPYING.LIB
-%{_libdir}/ocaml/perl
-%if %opt
-%exclude %{_libdir}/ocaml/perl/*.a
-%exclude %{_libdir}/ocaml/perl/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/perl/*.mli
-%exclude %{_libdir}/ocaml/perl/*.ml
-%{_libdir}/ocaml/stublibs/*.so
+%files -f .ofiles
+%license COPYING.LIB
 
 
-%files devel
-%doc COPYING.LIB AUTHORS doc/* examples html README
-%if %opt
-%{_libdir}/ocaml/perl/*.a
-%{_libdir}/ocaml/perl/*.cmxa
-%endif
-%{_libdir}/ocaml/perl/*.mli
-%{_libdir}/ocaml/perl/*.ml
+%files devel -f .ofiles-devel
+%doc AUTHORS doc/* examples html README
+%license COPYING.LIB
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.9.5-98
+- OCaml 5.0.0 rebuild
+- Generate useful debuginfo
+- Modernize the spec file
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.5-97
 - Rebuild OCaml packages for F38
 

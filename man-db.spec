@@ -3,7 +3,7 @@
 Summary: Tools for searching and reading man pages
 Name: man-db
 Version: 2.11.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 # GPLv2+ .. man-db
 # GPLv3+ .. gnulib
 License: GPL-2.0-or-later AND GPL-3.0-or-later
@@ -27,6 +27,7 @@ BuildRequires: gcc
 BuildRequires: systemd
 BuildRequires: gdbm-devel, gettext, groff, less, libpipeline-devel, zlib-devel
 BuildRequires: po4a, perl-interpreter, perl-version
+Recommends: glibc-gconv-extra
 
 Requires(post): %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
@@ -226,6 +227,10 @@ fi
 %config(noreplace) %{_sysconfdir}/cron.daily/man-db.cron
 
 %changelog
+* Mon Jul 10 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.11.2-3
+- Add Recommends to package glibc-gconv-extra
+- Justification in BZ#2182414
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

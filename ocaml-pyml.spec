@@ -1,11 +1,9 @@
-%undefine _package_note_flags
-
 # Conditionally build the custom toplevels
 %bcond_with toplevel
 
 Name:           ocaml-pyml
 Version:        20220905
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml bindings for Python
 
 # The project is BSD-2-Clause except for pycaml.mli, which is LGPLv2+
@@ -93,11 +91,6 @@ interaction.
 %build
 %dune_build
 
-# Relink with Fedora linker flags
-cd _build/default
-ocamlfind ocamlmklib -ldopt '%{build_ldflags}' -g -o pyml_stubs pyml_stubs.o
-cd -
-
 %if %{with toplevel}
 # Build custom toplevels without rebuilding the entire library
 cp -p pytop.ml pyutop.ml _build/default
@@ -154,6 +147,9 @@ cp -p _build/default/dllnumpy_stubs.so %{buildroot}%{ocamldir}/stublibs
 %endif
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 20220905-2
+- OCaml 5.0.0 rebuild
+
 * Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 20220905-1
 - Version 20220905
 - Add library-unload patch to fix test suite crashes

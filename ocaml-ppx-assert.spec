@@ -1,26 +1,20 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 Name:           ocaml-ppx-assert
-Version:        0.15.0
-Release:        11%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Assert-like extension nodes that raise useful errors on failure
 
 License:        MIT
 URL:            https://github.com/janestreet/ppx_assert
 Source0:        %{url}/archive/v%{version}/ppx_assert-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-base-devel >= 0.16
 BuildRequires:  ocaml-dune >= 2.0.0
-BuildRequires:  ocaml-ppx-cold-devel >= 0.15
-BuildRequires:  ocaml-ppx-compare-devel >= 0.15
-BuildRequires:  ocaml-ppx-here-devel >= 0.15
-BuildRequires:  ocaml-ppx-sexp-conv-devel >= 0.15
-BuildRequires:  ocaml-ppxlib-devel >= 0.23.0
+BuildRequires:  ocaml-ppx-cold-devel >= 0.16
+BuildRequires:  ocaml-ppx-compare-devel >= 0.16
+BuildRequires:  ocaml-ppx-here-devel >= 0.16
+BuildRequires:  ocaml-ppx-sexp-conv-devel >= 0.16
+BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 
 %description
 Ppx_assert is a ppx rewriter that defines assert-like extension nodes
@@ -59,6 +53,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-11
 - Rebuild OCaml packages for F38
 

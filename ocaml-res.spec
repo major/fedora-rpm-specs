@@ -1,32 +1,18 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-%if ! %opt
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
-# Break a circular dependency on ocaml-odoc
-%bcond_with doc
-
 Name:           ocaml-res
 Version:        5.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OCaml library for resizing arrays and strings
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://mmottl.github.io/res/
 Source0:        https://github.com/mmottl/res/archive/refs/tags/%{version}.tar.gz
 
-BuildRequires:  make
-BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-dune-devel
-BuildRequires:  ghostscript
-BuildRequires:  texlive-collection-latexrecommended
-BuildRequires:  texlive-preprint
-
-%if %{with doc}
-BuildRequires:  ocaml-odoc
-%endif
+BuildRequires:  ocaml >= 4.04
+BuildRequires:  ocaml-dune >= 1.4.0
 
 
 %description
@@ -43,7 +29,7 @@ which use different reallocation strategies.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -52,55 +38,36 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n res-%{version}
+%autosetup -n res-%{version}
 
 
 %build
-dune build %{?_smp_mflags}
-%if %{with doc}
-dune build %{?_smp_mflags} @doc
-%endif
+%dune_build
 
 
 %install
-dune install --destdir=%{buildroot}
-
-%if %{with doc}
-# We do not want the dune markers
-find _build/default/_doc/_html -name .dune-keep -delete
-%endif
-
-# We do not want the ml files
-find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
+%dune_install
 
 
-%files
+%check
+%dune_check
+
+
+%files -f .ofiles
 %license LICENSE.md
-%{_libdir}/ocaml/res
-%if %opt
-%exclude %{_libdir}/ocaml/res/*.a
-%exclude %{_libdir}/ocaml/res/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/res/*.mli
 
 
-%files devel
+%files devel -f .ofiles-devel
 %license LICENSE.md
 %doc CHANGES.md README.md TODO.md
-%if %{with doc}
-%doc _build/default/_doc/_html/*
-%endif
-%if %opt
-%{_libdir}/ocaml/res/*.a
-%{_libdir}/ocaml/res/*.cmxa
-%endif
-%{_libdir}/ocaml/res/*.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.0.1-6
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.1-5
 - Rebuild OCaml packages for F38
 

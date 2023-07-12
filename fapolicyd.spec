@@ -4,8 +4,8 @@
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.3.1
-Release: 2%{?dist}
+Version: 1.3.2
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: http://people.redhat.com/sgrubb/fapolicyd
 Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
@@ -209,6 +209,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Mon Jul 10 2023 Radovan Sroka <rsroka@redhat.com> - 1.3.3-1
+- rebase to fapolicyd v1.3.2
+
 * Thu Jun 15 2023 Radovan Sroka <rsroka@redhat.com> - 1.3.1-2
 - rebase to fapolicyd v1.3.1 and selinux v0.6
 

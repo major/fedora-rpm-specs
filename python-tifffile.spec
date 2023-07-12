@@ -1,9 +1,9 @@
-
+%bcond_with check
 %global srcname tifffile
 
 Name: python-%{srcname}
-Version: 2020.7.4
-Release: 11%{?dist}
+Version: 2023.4.12
+Release: 1%{?dist}
 Summary: Read and write TIFF(r) files
 
 License: BSD
@@ -11,6 +11,8 @@ URL: https://www.lfd.uci.edu/~gohlke/
 Source0: %{pypi_source}
 
 BuildArch: noarch
+
+BuildRequires: python3-devel
 
 %global _description %{expand:
 Tifffile is a Python library to:
@@ -21,11 +23,13 @@ Tifffile is a Python library to:
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  %{py3_dist setuptools}
 # Testing
-BuildRequires:  python3-pytest
-BuildRequires:  python3-numpy
+%if %{with check}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist numpy}
+BuildRequires:  %{py3_dist fsspec}
+%endif
 
 %description -n python3-%{srcname} %_description
 
@@ -35,12 +39,18 @@ BuildRequires:  python3-numpy
 sed -i -e "1d" tifffile/lsm2bin.py 
 sed -i 's/\r$//' README.rst
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
+%pyproject_save_files tifffile
+
+%if %{with check}
 %check
 export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS='-p no:cacheprovider'
@@ -56,16 +66,23 @@ pytest-%{python3_version} -v tests \
  --deselect=tests/test_tifffile.py::test_read_tiles \
  --deselect=tests/test_tifffile.py::test_write_cfa \
  --deselect=tests/test_tifffile.py::test_write_volume_png
+%else
+%pyproject_check_import -t
+%endif
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/lsm2bin
 %{_bindir}/tifffile
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+%{_bindir}/tiff2fsspec
+%{_bindir}/tiffcomment
 
 %changelog
+* Mon Jul 10 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.4.12-1
+- New upstream source 2023.4.12
+- New style macros
+- Checking only package import, some deps are still broken
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2020.7.4-11
 - Rebuilt for Python 3.12
 

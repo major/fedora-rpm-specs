@@ -1,18 +1,24 @@
-%undefine _package_note_flags
-
 Name:           ocaml-stdcompat
 Version:        19
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Compatibility module for the OCaml standard library
 
 License:        BSD-2-Clause
 URL:            https://github.com/thierry-martinez/stdcompat
 Source0:        %{url}/releases/download/v%{version}/stdcompat-%{version}.tar.gz
+# Fix detection of OCaml tools
+# https://github.com/thierry-martinez/stdcompat/pull/31
+Patch0:         %{name}-configure.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  python3
+
+# Needed only until Patch0 is merged upstream
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 
 %description
 Stdcompat is a compatibility layer allowing programs to use some recent
@@ -41,6 +47,9 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n stdcompat-%{version} -p1
 
+# Regenerate configure after Patch0
+autoreconf -fi .
+
 # Generate debuginfo
 sed -i 's/-nolabels/-g &/' Makefile.in
 
@@ -63,12 +72,18 @@ cp -p *.mli %{buildroot}%{ocamldir}/stdcompat
 cp -p stdcompat.opam %{buildroot}%{ocamldir}/stdcompat/opam
 
 # Remove spurious executable bits
-chmod a-x %{buildroot}%{ocamldir}/stdcompat/*.{a,cma,cmi,cmt,cmx,cmxa,h}
+chmod a-x %{buildroot}%{ocamldir}/stdcompat/{META,*.{a,cma,cmi,cmt,h}}
+%ifarch %{ocaml_native_compiler}
+chmod a-x %{buildroot}%{ocamldir}/stdcompat/*.{cmx,cmxa}
+%endif
 
 %ocaml_files
 
+%ifarch %{ocaml_native_compiler}
+# The tests assume that ocamlopt is available
 %check
-make test
+LD_LIBRARY_PATH=$PWD make test
+%endif
 
 %files -f .ofiles
 %doc AUTHORS ChangeLog README
@@ -77,6 +92,10 @@ make test
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 19-7
+- OCaml 5.0.0 rebuild
+- Add patch to fix tool detection on bytecode-only arches
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 19-6
 - Rebuild OCaml packages for F38
 

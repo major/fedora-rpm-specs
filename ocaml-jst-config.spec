@@ -1,25 +1,21 @@
-%undefine _package_note_flags
-
 # This package contains generated C header files.  They differ by architecture,
 # so this package cannot be noarch, but there are no ELF objects in it.
 %global debug_package %{nil}
 
 Name:           ocaml-jst-config
-Version:        0.15.1
-Release:        6%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Compile-time configuration for Jane Street libraries
 
 License:        MIT
 URL:            https://github.com/janestreet/jst-config
 Source0:        %{url}/archive/v%{version}/jst-config-%{version}.tar.gz
-Patch0: ocaml-jst-config-c99-1.patch
-Patch1: ocaml-jst-config-c99-2.patch
 
-BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-base-devel >= 0.16
 BuildRequires:  ocaml-dune-devel >= 2.0.0
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-ppx-assert-devel >= 0.15
+BuildRequires:  ocaml-ppx-assert-devel >= 0.16
 
 %description
 This package defines compile-time constants used in Jane Street libraries
@@ -58,6 +54,10 @@ sed -ri '/(archive|plugin)/d' \
 %{ocamldir}/jst-config/
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+- Drop upstreamed C99 patches
+
 * Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 0.15.1-6
 - Port to C99
 

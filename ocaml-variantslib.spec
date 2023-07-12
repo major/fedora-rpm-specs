@@ -1,5 +1,3 @@
-%undefine _package_note_flags
-
 %ifarch %{ocaml_native_compiler}
 # The only source file for this package consists of a single "include" line.
 # It exports some private functions from the library in ocaml-base.  Although
@@ -17,16 +15,16 @@
 %endif
 
 Name:           ocaml-variantslib
-Version:        0.15.0
-Release:        9%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        OCaml variants as first class values
 
 License:        MIT
 URL:            https://github.com/janestreet/variantslib
 Source0:        %{url}/archive/v%{version}/variantslib-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-base-devel >= 0.16
 BuildRequires:  ocaml-dune >= 2.0.0
 
 %description
@@ -61,6 +59,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-9
 - Rebuild OCaml packages for F38
 

@@ -77,7 +77,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -584,6 +584,9 @@ fi
 %endif
 
 %changelog
+* Mon Jul 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-4
+- Use LLVM_UNITTEST_LINK_FLAGS to reduce link times for unit tests
+
 * Mon Jul 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-3
 - Improve error messages for unsupported relocs on s390x (rhbz#2216906)
 - Disable LLVM_UNREACHABLE_OPTIMIZE

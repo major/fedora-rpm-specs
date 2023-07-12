@@ -9,7 +9,7 @@ provides a Python API (the gnocchiclient module) and a command-line tool.
 
 Name:             python-gnocchiclient
 Version:          7.0.7
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Python API and CLI for OpenStack Gnocchi
 
 License:          ASL 2.0
@@ -121,6 +121,9 @@ rm -rf doc/build/html/.doctrees doc/build/html/.buildinfo
 # %doc doc/build/html
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 7.0.7-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

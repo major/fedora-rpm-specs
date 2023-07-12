@@ -1,15 +1,17 @@
-%undefine _package_note_flags
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
 Name:           ocaml-ppx-derivers
 Version:        1.2.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Deriving plugin registry
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ocaml-ppx/ppx_derivers
 Source0:        https://github.com/ocaml-ppx/ppx_derivers/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ocaml
-BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-dune
 
 %description
@@ -29,53 +31,37 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n ppx_derivers-%{version}
+%autosetup -n ppx_derivers-%{version}
 
 
 %build
-dune build @install
+%dune_build
 
 
 %install
-mkdir -p %{buildroot}%{_libdir}/ocaml
-dune install --destdir=%{buildroot} --verbose
+%dune_install
 
-# These files will be installed using the doc and license directives
-rm -r %{buildroot}%{_prefix}/doc
-
-# Makes *.cmxs executable such that they will be stripped.
-find %{buildroot} -name '*.cmxs' -exec chmod 0755 {} \;
 
 %check
-dune runtest
+%dune_check
 
 
-%files
+%files -f .ofiles
 %doc README.md CHANGES.md
 %license LICENSE.md
-%{_libdir}/ocaml/*
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/*/*.a
-%exclude %{_libdir}/ocaml/*/*.cmxa
-%exclude %{_libdir}/ocaml/*/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/*/*.mli
-%exclude %{_libdir}/ocaml/*/*.ml
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc README.md CHANGES.md
 %license LICENSE.md
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/*/*.a
-%{_libdir}/ocaml/*/*.cmxa
-%{_libdir}/ocaml/*/*.cmx
-%endif
-%{_libdir}/ocaml/*/*.mli
-%{_libdir}/ocaml/*/*.ml
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.1-28
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.1-27
 - Rebuild OCaml packages for F38
 

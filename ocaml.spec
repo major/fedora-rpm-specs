@@ -18,6 +18,9 @@
 %global natdynlink 0
 %endif
 
+# i686 support was dropped in OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # These are all the architectures that the tests run on.  The tests
 # take a long time to run, so don't run them on slow machines.
 %global test_arches aarch64 %{power64} riscv64 x86_64
@@ -33,12 +36,12 @@
 %global rcver %{nil}
 
 Name:           ocaml
-Version:        4.14.0
-Release:        5%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
-License:        QPL and (LGPLv2+ with exceptions)
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://www.ocaml.org
 
@@ -53,51 +56,49 @@ Source0:        https://github.com/ocaml/ocaml/archive/%{version}/%{name}-%{vers
 #
 # https://pagure.io/fedora-ocaml
 #
-# Current branch: fedora-38-4.14.0
+# Current branch: fedora-39-5.0.0
 #
 # ALTERNATIVELY add a patch to the end of the list (leaving the
 # existing patches unchanged) adding a comment to note that it should
 # be incorporated into the git repo at a later time.
 
-# Patches added after 4.14.0 was released
-Patch0001:      0001-Do-not-trigger-warning-when-calling-virtual-methods-.patch
-Patch0002:      0002-Merge-pull-request-11236-from-Nymphium-missing-since.patch
-Patch0003:      0003-misc.h-fix-preprocessor-conditional-on-_MSC_VER.patch
-Patch0004:      0004-Changes.patch
-Patch0005:      0005-Guard-more-instances-of-undefined-_MSC_VER.patch
-Patch0006:      0006-Better-documentation-for-string_of_float-.-11353.patch
-Patch0007:      0007-Merge-pull-request-11380-from-damiendoligez-fix-fort.patch
-Patch0008:      0008-Refactor-the-initialization-of-bytecode-threading-11.patch
-Patch0009:      0009-Merge-pull-request-11397-from-Octachron-tast_mapper_.patch
-Patch0010:      0010-Merge-pull-request-11396-from-gasche-fix11392.patch
-Patch0011:      0011-Document-limitation-on-caml_callbackN-11409.patch
-Patch0012:      0012-Stop-calling-ranlib-on-created-installed-libraries-1.patch
-Patch0013:      0013-tests-lib-bigarray-2-has-gfortran.sh-don-t-print-any.patch
-Patch0014:      0014-Merge-pull-request-11417-from-lpw25-fix-virtual-clas.patch
-Patch0015:      0015-Do-not-elide-the-whole-module-type-error-message-114.patch
-Patch0016:      0016-Merge-pull-request-11373-from-dra27-flexlink-detect.patch
-Patch0017:      0017-Merge-pull-request-11468-from-dra27-i686-mingw-ipv6.patch
-Patch0018:      0018-More-prudent-deallocation-of-alternate-signal-stack-.patch
-Patch0019:      0019-Merge-pull-request-11487-from-purplearmadillo77-fma_.patch
-Patch0020:      0020-Fixup-Changes.patch
-Patch0021:      0021-Fix-deprecated_mutable-which-couldn-t-be-triggered.-.patch
+# Patches added after 5.0.0 was released.
+Patch: 0001-increment-version-number-after-tagging-5.0.0.patch
+Patch: 0002-Merge-pull-request-11814-from-gasche-clarify-DLS.new.patch
+Patch: 0003-Add-KC-Sivaramakrishnan-as-author.patch
+Patch: 0004-removed-set-but-unused-variables-in-yacc-reader.c-11.patch
+Patch: 0005-Merge-pull-request-11860-from-Octachron-index_for_st.patch
+Patch: 0006-Allow-installing-in-folder-with-space-in-name-11590.patch
+Patch: 0007-Detect-unused-Makefile-variables-in-workflow.patch
+Patch: 0008-Fix-incorrect-variable-from-runtime-Makefile-merge.patch
+Patch: 0009-Provide-a-default-for-OCAMLDEPFLAGS.patch
+Patch: 0010-Report-all-post-build-failures.patch
+Patch: 0011-Finish-off-removal-of-FORCE_INSTRUMENTED_RUNTIME.patch
+Patch: 0012-suppress-spurious-alert-when-compiling-stdlib-docume.patch
+Patch: 0013-Merge-pull-request-12285-from-smorimoto-update-depre.patch
+Patch: 0014-Merge-pull-request-12286-from-smorimoto-replace-set-.patch
 
 # Fedora-specific patches
-Patch0022:      0022-Don-t-add-rpaths-to-libraries.patch
-Patch0023:      0023-configure-Allow-user-defined-C-compiler-flags.patch
-Patch0024:      0024-configure-Only-use-OC_-for-building-executables.patch
+Patch: 0015-Don-t-add-rpaths-to-libraries.patch
+Patch: 0016-configure-Allow-user-defined-C-compiler-flags.patch
+Patch: 0017-configure-Only-use-OC_-for-building-executables.patch
+
+# Fix skiplist test failure
+# https://github.com/ocaml/ocaml/pull/12346
+Patch: 0018-Fix-skiplist-test-failure-12346.patch
 
 BuildRequires:  make
 BuildRequires:  git
 BuildRequires:  gcc
 BuildRequires:  autoconf
-BuildRequires:  binutils-devel
-BuildRequires:  ncurses-devel
-BuildRequires:  gdbm-devel
 BuildRequires:  gawk
 BuildRequires:  perl-interpreter
 BuildRequires:  util-linux
 BuildRequires:  /usr/bin/annocheck
+
+# Documentation requirements
+BuildRequires:  asciidoc
+BuildRequires:  python3-pygments
 
 # ocamlopt runs gcc to link binaries.  Because Fedora includes
 # hardening flags automatically, redhat-rpm-config is also required.
@@ -150,6 +151,9 @@ Source code for OCaml libraries.
 
 
 %package ocamldoc
+# LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception: the project as a whole
+# LicenseRef-Fedora-Public-Domain: ocamldoc/ocamldoc.sty
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND LicenseRef-Fedora-Public-Domain
 Summary:        Documentation generator for OCaml
 Requires:       ocaml%{?_isa} = %{version}-%{release}
 Provides:       ocamldoc = %{version}
@@ -160,6 +164,7 @@ Documentation generator for OCaml.
 
 %package docs
 Summary:        Documentation for OCaml
+BuildArch:      noarch
 Requires:       ocaml = %{version}-%{release}
 
 
@@ -199,6 +204,9 @@ unset MAKEFLAGS
 make=make
 %endif
 
+# Set ocamlmklib default flags to include Fedora linker flags
+sed -i '/ld_opts/s|\[\]|["%{build_ldflags}"]|' tools/ocamlmklib.ml
+
 # Don't use %%configure macro because it sets --build, --host which
 # breaks some incorrect assumptions made by OCaml's configure.ac
 #
@@ -218,14 +226,30 @@ make=make
     --sysconfdir=%{_sysconfdir} \
     --mandir=%{_mandir} \
     --libdir=%{_libdir}/ocaml \
-    OC_CFLAGS="$CFLAGS" \
-    OC_LDFLAGS="$LDFLAGS" \
+    --enable-flambda \
+%if %{native_compiler}
+    --enable-native-toplevel \
+%endif
+%ifarch x86_64
+%if 0%{?_include_frame_pointers}
+    --enable-frame-pointers \
+%endif
+%endif
+    OC_CFLAGS='%{build_cflags}' \
+    OC_LDFLAGS='%{build_ldflags}' \
     %{nil}
 $make world
 %if %{native_compiler}
 $make opt
 $make opt.opt
 %endif
+
+# Build the README and fix up references to other doc files
+asciidoc -d book README.adoc
+for fil in CONTRIBUTING.md HACKING.adoc INSTALL.adoc README.win32.adoc; do
+  sed -e "s,\"$fil\",\"https://github.com/ocaml/ocaml/blob/trunk/$fil\"," \
+      -i README.html
+done
 
 
 %check
@@ -260,10 +284,6 @@ echo %{version} > $RPM_BUILD_ROOT%{_libdir}/ocaml/fedora-ocaml-release
 # Remove the installed documentation.  We will install it using %%doc
 rm -rf $RPM_BUILD_ROOT%{_docdir}/ocaml
 
-# Remove this file.  It's only created in certain situations and it's
-# unclear why it is created at all.
-rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/eventlog_metadata
-
 
 %files
 %license LICENSE
@@ -271,8 +291,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/eventlog_metadata
 
 %{_bindir}/ocamlcmt
 %{_bindir}/ocamldebug
-#{_bindir}/ocaml-instr-graph
-#{_bindir}/ocaml-instr-report
 %{_bindir}/ocamlyacc
 
 # symlink to either .byte or .opt version
@@ -316,17 +334,17 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/eventlog_metadata
 %{_bindir}/ocamlopt.opt
 %endif
 
-#%%{_libdir}/ocaml/addlabels
-#%%{_libdir}/ocaml/scrapelabels
+%if %{native_compiler}
+%{_bindir}/ocamlnat
+%endif
+
 %{_libdir}/ocaml/camlheader
 %{_libdir}/ocaml/camlheader_ur
 %{_libdir}/ocaml/expunge
 %{_libdir}/ocaml/ld.conf
 %{_libdir}/ocaml/Makefile.config
+
 %{_libdir}/ocaml/*.a
-%if %{natdynlink}
-%{_libdir}/ocaml/*.cmxs
-%endif
 %if %{native_compiler}
 %{_libdir}/ocaml/*.cmxa
 %{_libdir}/ocaml/*.cmx
@@ -334,34 +352,64 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/eventlog_metadata
 %{_libdir}/ocaml/libasmrun_shared.so
 %endif
 %{_libdir}/ocaml/*.mli
+%{_libdir}/ocaml/sys.ml.in
 %{_libdir}/ocaml/libcamlrun_shared.so
-#%%{_libdir}/ocaml/objinfo_helper
-%{_libdir}/ocaml/threads/*.mli
+
+%{_libdir}/ocaml/{dynlink,runtime_events,str,threads,unix}/*.a
+%{_libdir}/ocaml/{dynlink,runtime_events,str,threads,unix}/*.mli
 %if %{native_compiler}
-%{_libdir}/ocaml/threads/*.a
-%{_libdir}/ocaml/threads/*.cmxa
-%{_libdir}/ocaml/threads/*.cmx
+%{_libdir}/ocaml/{dynlink,runtime_events,str,threads,unix}/*.cmxa
+%{_libdir}/ocaml/{dynlink,profiling,runtime_events,str,threads,unix}/*.cmx
+%{_libdir}/ocaml/profiling/*.o
 %endif
+%if %{natdynlink}
+%{_libdir}/ocaml/{runtime_events,str,unix}/*.cmxs
+%endif
+
+# headers
 %{_libdir}/ocaml/caml
 
 
 %files runtime
-%doc README.adoc Changes
+%doc README.html Changes
 %license LICENSE
 %{_bindir}/ocamlrun
 %{_bindir}/ocamlrund
 %{_bindir}/ocamlruni
 %dir %{_libdir}/ocaml
-#%%{_libdir}/ocaml/VERSION
 %{_libdir}/ocaml/*.cmo
 %{_libdir}/ocaml/*.cmi
 %{_libdir}/ocaml/*.cma
 %{_libdir}/ocaml/camlheaderd
 %{_libdir}/ocaml/camlheaderi
 %{_libdir}/ocaml/stublibs
+%dir %{_libdir}/ocaml/dynlink
+%{_libdir}/ocaml/dynlink/META
+%{_libdir}/ocaml/dynlink/*.cmi
+%{_libdir}/ocaml/dynlink/*.cma
+%dir %{_libdir}/ocaml/ocamlmktop
+%{_libdir}/ocaml/ocamlmktop/*.cmo
+%{_libdir}/ocaml/ocamlmktop/*.cmi
+%dir %{_libdir}/ocaml/profiling
+%{_libdir}/ocaml/profiling/*.cmo
+%{_libdir}/ocaml/profiling/*.cmi
+%dir %{_libdir}/ocaml/runtime_events
+%{_libdir}/ocaml/runtime_events/META
+%{_libdir}/ocaml/runtime_events/*.cmi
+%{_libdir}/ocaml/runtime_events/*.cma
+%{_libdir}/ocaml/stdlib
+%dir %{_libdir}/ocaml/str
+%{_libdir}/ocaml/str/META
+%{_libdir}/ocaml/str/*.cmi
+%{_libdir}/ocaml/str/*.cma
 %dir %{_libdir}/ocaml/threads
+%{_libdir}/ocaml/threads/META
 %{_libdir}/ocaml/threads/*.cmi
 %{_libdir}/ocaml/threads/*.cma
+%dir %{_libdir}/ocaml/unix
+%{_libdir}/ocaml/unix/META
+%{_libdir}/ocaml/unix/*.cmi
+%{_libdir}/ocaml/unix/*.cma
 %{_libdir}/ocaml/fedora-ocaml-release
 
 
@@ -386,20 +434,16 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/eventlog_metadata
 
 %files compiler-libs
 %license LICENSE
-%dir %{_libdir}/ocaml/compiler-libs
-%{_libdir}/ocaml/compiler-libs/*.mli
-%{_libdir}/ocaml/compiler-libs/*.cmi
-%{_libdir}/ocaml/compiler-libs/*.cmo
-%{_libdir}/ocaml/compiler-libs/*.cma
-%if %{native_compiler}
-%{_libdir}/ocaml/compiler-libs/*.a
-%{_libdir}/ocaml/compiler-libs/*.cmxa
-%{_libdir}/ocaml/compiler-libs/*.cmx
-%{_libdir}/ocaml/compiler-libs/*.o
-%endif
+%{_libdir}/ocaml/compiler-libs
 
 
 %changelog
+* Wed Jun 14 2023 Jerry James <loganjerry@gmail.com> - 5.0.0-1
+- Version 5.0.0
+- Convert License tag to SPDX
+- Ship HTML documentation instead of asciidoc source
+- Set ocamlmklib default flags to the Fedora linker flags
+
 * Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 4.14.0-5
 - Rebuild OCaml packages for F38
 

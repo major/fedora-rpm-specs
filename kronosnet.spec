@@ -36,8 +36,8 @@
 
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
-Version: 1.25
-Release: 3%{?dist}
+Version: 1.26
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
 Source0: https://kronosnet.org/releases/%{name}-%{version}.tar.xz
@@ -436,6 +436,12 @@ Requires: libnozzle1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon Jul 10 2023 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.26-1
+- New upstream release
+- Improve TX performance and use less CPU
+- minor other improvements
+- Build system update
+
 * Tue Jun 06 2023 Jan Friesse <jfriesse@redhat.com> - 1.25-3
 - migrated to SPDX license
 

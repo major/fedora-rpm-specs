@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/PyCQA/pylint
-Version:        2.17.2
+Version:        2.17.4
 %forgemeta
 
 Name:           pylint
@@ -9,6 +9,7 @@ License:        GPL-2.0-or-later
 URL:            https://www.pylint.org/
 Source0:        %{forgesource}
 #Patch0:         7829.patch apply when rebased then re-enable tests
+Patch1:         unpin-astroid.patch
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros

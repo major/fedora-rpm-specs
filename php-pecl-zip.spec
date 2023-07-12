@@ -14,14 +14,14 @@
 %global with_zts  0%{?__ztsphp:1}
 %global ini_name  40-%{pecl_name}.ini
 
-%global upstream_version 1.21.1
+%global upstream_version 1.22.1
 #global upstream_prever  RC6
 
 Summary:      A ZIP archive management extension
 Summary(fr):  Une extension de gestion des ZIP
 Name:         php-pecl-zip
 Version:      %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:      3%{?dist}
+Release:      1%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/zip
 
@@ -162,6 +162,9 @@ TEST_PHP_EXECUTABLE=%{_bindir}/zts-php \
 
 
 %changelog
+* Thu Jun 29 2023 Remi Collet <remi@remirepo.net> - 1.22.1-1
+- update to 1.22.1
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.21.1-3
 - use SPDX license ID
 

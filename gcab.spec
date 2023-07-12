@@ -1,13 +1,12 @@
 Name:           gcab
-Version:        1.5
-Release:        2%{?dist}
+Version:        1.6
+Release:        1%{?dist}
 Summary:        Cabinet file library and tool
 
 License:        LGPLv2+
 #VCS:           git:git://git.gnome.org/gcab
 URL:            http://ftp.gnome.org/pub/GNOME/sources/gcab
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/gcab/%{version}/%{name}-%{version}.tar.xz
-Patch0000:      0001-meson-git-version-is-optional.patch
 
 BuildRequires:  git-core
 BuildRequires:  gettext
@@ -78,6 +77,9 @@ Libraries, includes, etc. to compile with the gcab library.
 %{_libdir}/pkgconfig/libgcab-1.0.pc
 
 %changelog
+* Mon Jul 10 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.6-1
+- new version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

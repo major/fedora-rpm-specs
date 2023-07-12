@@ -39,7 +39,7 @@
 %endif
 
 %global        shortver              1.16
-%global        fullver               %{shortver}.0
+%global        fullver               %{shortver}.1
 %global        baserelease           1
 
 %if 0%{?use_release} >= 1
@@ -100,8 +100,8 @@ BuildRequires: flex
 BuildRequires: intltool
 BuildRequires: yelp-tools
 
-BuildRequires: %{_bindir}/git
-BuildRequires: %{_bindir}/appstream-util
+BuildRequires: /usr/bin/git
+BuildRequires: /usr/bin/appstream-util
 
 # %%check
 BuildRequires: pkgconfig(gtest)
@@ -172,7 +172,7 @@ git add .
 git commit -m "base" -q
 %endif
 
-%patch1 -p1 -b .path
+%patch -P1 -p1 -b .path
 git commit -m "Apply Fedora specific path configuration" -a
 %if 0%{?use_release}
 %endif
@@ -185,12 +185,6 @@ sed -i meson.build \
 git commit -m "Tweak samba detection" -a
 
 # Don't install unneeded files
-find . -name meson.build | xargs sed -i \
-	-e '\@install_headers@,\@^)$@s|^\(.*\)$|# \1|' \
-	%{nil}
-sed -i libgcmd/meson.build \
-	-e '\@libgcmd = static_library@,$s@install: true@install : false@' \
-	%{nil}
 sed -i doc/meson.build \
 	-e '\@install_data@,\@^)$@s|^\(.*\)$|# \1|' \
 	%{nil}
@@ -290,6 +284,9 @@ popd
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Mon Jul 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:1.16.1-1
+- 1.16.1
+
 * Wed Jan 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:1.16.0-1
 - 1.16.0
 

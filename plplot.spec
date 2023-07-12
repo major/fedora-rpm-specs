@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -85,7 +85,9 @@ Patch7:         plplot-ocaml.patch
 Patch9:         plplot-5.12.0-safe-string.patch
 Patch10:        plplot-pyqt5-sip-path.patch
 Patch11:        plplot-sip-build-support.patch
-Patch12: plplot-cmake-c99.patch
+Patch12:        plplot-cmake-c99.patch
+# Update OCaml link invocations for OCaml 5.0.0
+Patch13:        plplot-ocaml-link.patch
 
 
 BuildRequires:  cmake >= 3.13.2
@@ -394,15 +396,16 @@ Requires:       wxGTK-devel%{?_isa}
 
 %prep
 %setup -q
-%patch0 -p1 -b .ieee
-%patch1 -p1 -b .qt5
-%patch2 -p1 -b .multiarch
-%patch3 -p1 -b .ocaml-rpath
-%patch7 -p1 -b .ocaml
-%patch9 -p1 -b .safestring
-%patch10 -p1 -b .sip-path
-%patch11 -p1 -b .sip-build
-%patch12 -p1
+%patch -P0 -p1 -b .ieee
+%patch -P1 -p1 -b .qt5
+%patch -P2 -p1 -b .multiarch
+%patch -P3 -p1 -b .ocaml-rpath
+%patch -P7 -p1 -b .ocaml
+%patch -P9 -p1 -b .safestring
+%patch -P10 -p1 -b .sip-path
+%patch -P11 -p1 -b .sip-build
+%patch -P12 -p1
+%patch -P13 -p1 -b .ocamlmklib
 # Use cmake FindLua
 rm cmake/modules/FindLua.cmake
 
@@ -495,6 +498,8 @@ else
 fi
 $Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
 export DISPLAY=:99
+# Help bytecode-only arches find the OCaml stublib
+export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_libdir}
 # Exclude ocaml from ppc/ppc64/ppc64le, arm
 %ifarch ppc ppc64 ppc64le
 %ctest --exclude-regex 'ocaml|octave'
@@ -687,7 +692,9 @@ export DISPLAY=:99
 # %%{_libdir}/ocaml/plcairo/*.cmxa
 # %%{_libdir}/ocaml/plcairo/plcairo.mli
 %{_libdir}/ocaml/plplot/*.a
+%ifarch %{ocaml_native_compiler}
 %{_libdir}/ocaml/plplot/*.cmx*
+%endif
 %{_libdir}/ocaml/plplot/plplot.mli
 %doc %{_datadir}/plplot%{version}/examples/ocaml/
 %doc %{_datadir}/plplot%{version}/examples/test_ocaml.sh
@@ -761,6 +768,12 @@ export DISPLAY=:99
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.15.0-54
+- OCaml 5.0.0 rebuild
+- Add patch to update OCaml linker invocations for OCaml 5.0.0
+- Help bytecode-only arches find the OCaml stublib while testing
+- Update deprecated %%patchN usage
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 5.15.0-53
 - Rebuilt for Python 3.12
 

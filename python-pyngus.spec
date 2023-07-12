@@ -6,7 +6,7 @@
 
 Name:          python-%{srcname}
 Version:       2.3.0
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       Callback API implemented over Proton
 
 License:       ASL 2.0
@@ -53,6 +53,9 @@ Python 3 version.
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 2.3.0-15
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

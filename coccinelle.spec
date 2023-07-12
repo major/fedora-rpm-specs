@@ -1,7 +1,9 @@
-%undefine _package_note_flags
-
 %global forgeurl https://github.com/coccinelle/coccinelle
-%global tag 1.1.1
+# Version 1.1.1 is incompatible with OCaml 5.0.  Build from git HEAD until the
+# next release.
+#global tag 1.1.1
+%global commit 0afff7fab0dde3d100f078ce8fd9688693ec3237
+%global date   20230624
 Version:       1.1.1
 %forgemeta
 
@@ -12,13 +14,19 @@ Version:       1.1.1
 %bcond_without doc
 %endif
 
+%ifnarch %{ocaml_native_compiler}
+# Stripping the binary removes its bytecode payload
+%global __strip %{_bindir}/true
+%global debug_package %{nil}
+%endif
+
 Name:           coccinelle
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
 
-URL:            https://coccinelle.gitlabpages.inria.fr/website/
+URL:            https://coccinelle.lip6.fr/
 Source0:        %{forgesource}
 
 # Used for running Python tests.
@@ -139,7 +147,7 @@ The %{name}-examples package contains examples for %{name}.
 %forgeautosetup
 
 # Replace /usr/bin/env shebang with /usr/bin/python3
-sed -i '1s_^#!/usr/bin/env python$_#!/usr/bin/python3_' tools/pycocci
+sed -i '1s_^#!/usr/bin/env python$_#!%{python3}_' tools/pycocci
 
 # Remove .gitignore files.
 find -name .gitignore -delete
@@ -156,12 +164,6 @@ find . -iname '*.py' | xargs -I {} sh -exc 'expand -t8 {} > tempfile && mv tempf
 
 # Properly rebuild Menhir generated files.
 rm -f parsing_cocci/parser_cocci_menhir.ml parsing_cocci/parser_cocci_menhir.mli
-
-# On 32-bit ARM only, use of recent menhir leads to memory exhaustion.  Turn
-# down the menhir optimization level to cope.
-%ifarch %{arm}
-sed -i 's/--infer/& -O 1/' Makefile
-%endif
 
 
 %build
@@ -209,7 +211,7 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/spatch.opt
 pushd $RPM_BUILD_ROOT%{_libdir}
 mkdir coccinelle
 mkdir coccinelle/ocaml
-for f in standard.h standard.iso spatch spatch.byte spatch.opt ocaml/*.cmi; do
+for f in standard.h standard.iso spatch spatch.byte spatch.opt ocaml/*; do
   if [ -f $f ]; then
     mv $f coccinelle/$f
   fi
@@ -263,7 +265,6 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 %{_mandir}/man1/*.1*
 %{_mandir}/man3/*.3*
 %{python3_sitelib}/coccilib/
-%{_libdir}/ocaml/*.cmx
 
 
 %files bash-completion
@@ -283,6 +284,11 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Thu Jun 29 2023 Jerry James <loganjerry@gmail.com> - 1.1.1-19.20230624git0afff7f
+- Update to git HEAD for OCaml 5.0 compatibility
+- New project URL
+- Drop unneeded workaround for 32-bit ARM
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.1-18
 - Rebuilt for Python 3.12
 

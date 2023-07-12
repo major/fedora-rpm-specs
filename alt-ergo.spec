@@ -2,12 +2,6 @@
 # https://www.redhat.com/archives/fedora-packaging/2008-August/msg00017.html
 # and ocaml-ocamlgraph spec file for a discussion of this issue.
 
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 # The major and minor releases contain a full tarball.  Patch releases, however,
 # contain only the parts that have changed, typically just the sources
 # directory.  Use this to set up everything appropriately.
@@ -16,7 +10,7 @@
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The project as a whole is Apache-2.0.
@@ -146,6 +140,11 @@ unzip p4_34.why.zip
 rm p4_34.why.zip
 cd -
 
+%ifnarch %{ocaml_native_compiler}
+# Do not require native plugins
+sed -i '/cmxs/d' plugins/{AB-Why3,fm-simplex}/dune
+%endif
+
 %build
 # This is not an autoconf-generated script.  Do NOT use %%configure.
 cd sources
@@ -261,6 +260,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.3.3-7
+- OCaml 5.0.0 rebuild
+
 * Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 2.3.3-6
 - Dune 3.7.0 changed the install location of mli files
 

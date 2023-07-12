@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-parmap
 Version:        1.2.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml library for exploiting multicore architectures
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -42,17 +40,14 @@ sed -i 's/10000000/1000000/' tests/{float,simple}scale.ml
 %build
 %dune_build
 
-# Relink the stublibs with $RPM_LD_FLAGS.
-cd _build/default/src
-ocamlmklib -g -ldopt '%{build_ldflags}' -o parmap_stubs \
-  $(ar t libparmap_stubs.a)
-cd -
-
 %install
 %dune_install
 
+%ifarch %{ocaml_native_compiler}
+# The tests take a really, really long time on bytecode-only systems
 %check
 %dune_check
+%endif
 
 %files -f .ofiles
 %doc AUTHORS CHANGES README.md
@@ -61,6 +56,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.5-4
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.5-3
 - Rebuild OCaml packages for F38
 

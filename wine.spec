@@ -40,7 +40,7 @@
 %endif
 
 Name:           wine
-Version:        8.11
+Version:        8.12
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -690,7 +690,7 @@ gzip -dc %{SOURCE900} | tar -xf - --strip-components=1
 
 # https://bugs.winehq.org/show_bug.cgi?id=54868
 sed -i 's/DWORD pitch_in, DWORD pitch_out/unsigned int pitch_in, unsigned int pitch_out/' patches/wined3d-WINED3DFMT_B8G8R8X8_UNORM/0001-wined3d-Implement-WINED3DFMT_B8G8R8X8_UNORM-to-WINED.patch
-staging/patchinstall.py DESTDIR="`pwd`" --all
+staging/patchinstall.py DESTDIR="`pwd`" --all -W vkd3d-latest
 
 %endif
 # 0%%{?wine_staging}
@@ -1162,6 +1162,7 @@ fi
 %{_libdir}/wine/%{winepedir}/ntoskrnl.exe
 %{_libdir}/wine/%{winepedir}/oleview.exe
 %{_libdir}/wine/%{winepedir}/ping.exe
+%{_libdir}/wine/%{winepedir}/pnputil.exe
 %{_libdir}/wine/%{winepedir}/powershell.exe
 %{_libdir}/wine/%{winepedir}/reg.exe
 %{_libdir}/wine/%{winepedir}/regasm.exe
@@ -1687,7 +1688,9 @@ fi
 %{_libdir}/wine/%{winepedir}/win32k.sys
 %endif
 %{_libdir}/wine/%{winepedir}/win32u.dll
+%{_libdir}/wine/%{winepedir}/windows.devices.bluetooth.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.enumeration.dll
+%{_libdir}/wine/%{winepedir}/windows.devices.geolocation.geolocator.dll
 %{_libdir}/wine/%{winepedir}/windows.gaming.ui.gamebar.dll
 %{_libdir}/wine/%{winepedir}/windows.gaming.input.dll
 %{_libdir}/wine/%{winepedir}/windows.globalization.dll
@@ -1698,6 +1701,7 @@ fi
 %{_libdir}/wine/%{winepedir}/windows.networking.connectivity
 %endif
 %{_libdir}/wine/%{winepedir}/windows.networking.dll
+%{_libdir}/wine/%{winepedir}/windows.networking.hostname.dll
 %{_libdir}/wine/%{winepedir}/windows.perception.stub.dll
 %{_libdir}/wine/%{winepedir}/windows.system.profile.systemmanufacturers.dll
 %{_libdir}/wine/%{winepedir}/windows.ui.dll
@@ -1966,6 +1970,7 @@ fi
 %{_libdir}/wine/%{winesodir}/ntoskrnl.exe.so
 %{_libdir}/wine/%{winesodir}/oleview.exe.so
 %{_libdir}/wine/%{winesodir}/ping.exe.so
+%{_libdir}/wine/%{winesodir}/pnputil.exe.so
 %{_libdir}/wine/%{winesodir}/powershell.exe.so
 %{_libdir}/wine/%{winesodir}/reg.exe.so
 %{_libdir}/wine/%{winesodir}/regasm.exe.so
@@ -2449,7 +2454,9 @@ fi
 %{_libdir}/wine/%{winesodir}/wimgapi.dll.so
 %{_libdir}/wine/%{winesodir}/win32k.sys.so
 %{_libdir}/wine/%{winesodir}/win32u.dll.so
+%{_libdir}/wine/%{winesodir}/windows.devices.bluetooth.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.enumeration.dll.so
+%{_libdir}/wine/%{winesodir}/windows.devices.geolocation.geolocator.dll.so
 %{_libdir}/wine/%{winesodir}/windows.gaming.ui.gamebar.dll.so
 %{_libdir}/wine/%{winesodir}/windows.gaming.input.dll.so
 %{_libdir}/wine/%{winesodir}/windows.globalization.dll.so
@@ -2458,6 +2465,7 @@ fi
 %{_libdir}/wine/%{winesodir}/windows.media.devices.dll.so
 %{_libdir}/wine/%{winesodir}/windows.networking.connectivity.so
 %{_libdir}/wine/%{winesodir}/windows.networking.dll.so
+%{_libdir}/wine/%{winesodir}/windows.networking.hostname.dll.so
 %{_libdir}/wine/%{winesodir}/windows.perception.stub.dll.so
 %{_libdir}/wine/%{winesodir}/windows.system.profile.systemmanufacturers.dll.so
 %{_libdir}/wine/%{winesodir}/windows.ui.so
@@ -2786,6 +2794,9 @@ fi
 %endif
 
 %changelog
+* Mon Jul 10 2023 Michael Cronenworth <mike@cchtml.com> - 8.12-1
+- version update
+
 * Sun Jun 25 2023 Michael Cronenworth <mike@cchtml.com> - 8.11-1
 - version update
 

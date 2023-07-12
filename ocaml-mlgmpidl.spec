@@ -1,35 +1,25 @@
-%undefine _package_note_flags
-%global srcname mlgmpidl
-%global ocaml_lib_dir %{_libdir}/ocaml
-%global my_ocaml_lib_dir %{ocaml_lib_dir}/gmp
-
-Name:           ocaml-%{srcname}
-Version:        1.2.14
-Release:        8%{?dist}
+Name:           ocaml-mlgmpidl
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        OCaml interface to GMP and MPFR libraries
-# The license includes a linking exception
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
 URL:            https://github.com/nberth/mlgmpidl
-Source0:        https://github.com/nberth/mlgmpidl/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/mlgmpidl-%{version}.tar.gz
 Source1:        mlgmpidl_test.ml
 Source2:        mlgmpidl_test_result
-
-# We cannot use LDFLAGS to pass RPM_LD_FLAGS into the Makefile, because it
-# passes them unmodified to both ocamlopt and ocamlmklib.  The latter needs
-# to have them guarded with -ldopt.  Therefore, we splice the flags into the
-# Makefile at strategic locations.
-Patch0:         %{name}-ldflags.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-bigarray-compat-devel
 BuildRequires:  ocaml-camlidl-devel
 BuildRequires:  gmp-devel
 BuildRequires:  mpfr-devel
 BuildRequires:  perl-interpreter
+BuildRequires:  python3
 # BuildRequires for documentation build
 BuildRequires:  tex(latex)
 BuildRequires:  tex(ecrm1000.tfm)
@@ -49,6 +39,8 @@ modular way.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-bigarray-compat-devel%{?_isa}
+Requires:       ocaml-camlidl-devel%{?_isa}
 
 
 %description    devel
@@ -63,7 +55,7 @@ BuildArch:      noarch
 The %{name}-doc package contains documentation for using %{name}.
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -n mlgmpidl-%{version}
 cp -p %{SOURCE1} %{SOURCE2} .
 
 # Fix install on 64-bit platforms
@@ -71,18 +63,18 @@ if [ "%{_lib}" != "lib" ]; then
   sed -i 's,/lib,%{_lib},g' Makefile
 fi
 
-# Insert our linker flags; see patch1 above
-sed -i "s|@LDFLAGS@|$RPM_LD_FLAGS|" Makefile
-
 # Build with debug information
-sed -i 's/^OCAMLOPTFLAGS = -annot/& -g/' Makefile.config.in
+sed -i 's/^OCAMLOPTFLAGS = -annot/& -g/' configure Makefile.config.in
+sed -i 's/\$(OCAMLMKLIB)/& -g/' Makefile
 
-# Do not force -O3
-sed -i 's/ -O3//' configure
+%ifnarch %{ocaml_native_compiler}
+# Fix build on bytecode-only architectures
+sed -i 's/ocamlc\.opt/ocamlc/g;/ocamlopt\.opt/s/.*/ocamlopt=""/' configure
+sed -i '/addprefix/s/OCAMLOPT/OCAMLC/g' Makefile
+%endif
 
 
 %build
-%set_build_flags
 # This is not an autoconf-generated script.  Do NOT use %%configure.
 ./configure \
 %ifnarch %{ocaml_native_compiler}
@@ -91,9 +83,7 @@ sed -i 's/ -O3//' configure
 %ifnarch %{ocaml_native_profiling}
   -disable-profiling \
 %endif
-  -gmp-prefix %{_prefix} \
-  -mpfr-prefix %{_prefix} \
-  -prefix %{ocaml_lib_dir}
+  -prefix %{ocamldir}
 
 # Upstream Makefile is NOT safe to be called in parallel.
 %ifarch %{ocaml_native_compiler}
@@ -106,7 +96,12 @@ make html
 
 
 %check
-ocamlopt -runtime-variant _pic -ccopt -L. -cclib -lgmp gmp.cmxa bigarray.cmxa mlgmpidl_test.ml
+%ifarch %{ocaml_native_compiler}
+ocamlopt -runtime-variant _pic -ccopt -L. -cclib -lgmp gmp.cmxa mlgmpidl_test.ml
+%else
+ocamlc -ccopt -L. -cclib -lgmp gmp.cma mlgmpidl_test.ml
+export LD_LIBRARY_PATH=$PWD
+%endif
 ./a.out > mlgmpidl_test_myresult
 diff -u mlgmpidl_test_myresult mlgmpidl_test_result
 
@@ -118,44 +113,27 @@ unset MAKEFLAGS
 # Library uses ocamlfind install to install itself.  Set up environment
 # so that it works.
 export MLGMPIDL_PREFIX=$RPM_BUILD_ROOT%{_prefix}
-export DESTDIR=$RPM_BUILD_ROOT
-export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{ocaml_lib_dir}
+export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{ocamldir}
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 
 %ifarch %{ocaml_native_compiler}
-make install
+%make_install
 %else
-make HAS_OCAMLOPT= install
+%make_install HAS_OCAMLOPT=
 %endif
 
 # Install the opam file
-cp -p opam/opam $RPM_BUILD_ROOT%{my_ocaml_lib_dir}
+cp -p opam/opam $RPM_BUILD_ROOT%{ocamldir}/gmp
+
+%ocaml_files
 
 
-%files
+%files -f .ofiles
 %doc README
 %license COPYING
-%{my_ocaml_lib_dir}/META
-%{my_ocaml_lib_dir}/*.cma
-%{my_ocaml_lib_dir}/*.cmi
-%ifarch %{ocaml_native_compiler}
-%{my_ocaml_lib_dir}/*.cmxs
-%endif
-%{ocaml_lib_dir}/stublibs/dllgmp_caml.so
-%{ocaml_lib_dir}/stublibs/dllgmp_caml.so.owner
 
 
-%files devel
-%ifarch %{ocaml_native_compiler}
-%{my_ocaml_lib_dir}/*.cmx
-%{my_ocaml_lib_dir}/*.cmxa
-%endif
-%{my_ocaml_lib_dir}/*.idl
-%{my_ocaml_lib_dir}/*.ml
-%{my_ocaml_lib_dir}/*.mli
-%{my_ocaml_lib_dir}/*.a
-%{my_ocaml_lib_dir}/*.h
-%{my_ocaml_lib_dir}/opam
+%files devel -f .ofiles-devel
 
 
 %files doc
@@ -164,6 +142,13 @@ cp -p opam/opam $RPM_BUILD_ROOT%{my_ocaml_lib_dir}
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.3.0-1
+- Version 1.3.0
+- Convert License tag to SPDX
+- Add dependency on ocaml-bigarray-compat
+- Drop unnecessary ldflags patch
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.14-8
 - Rebuild OCaml packages for F38
 

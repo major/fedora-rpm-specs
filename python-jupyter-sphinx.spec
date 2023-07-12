@@ -1,6 +1,6 @@
 Name:           python-jupyter-sphinx
 Version:        0.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jupyter Sphinx extensions
 License:        BSD-3-Clause
 URL:            https://jupyter-sphinx.readthedocs.io/
@@ -77,6 +77,9 @@ rm doc/build/html/.buildinfo
 %doc doc/build/html
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 0.4.0-4
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.4.0-3
 - Dynamically generate BuildRequires
 

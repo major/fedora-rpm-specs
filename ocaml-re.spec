@@ -1,25 +1,28 @@
-%undefine _package_note_flags
-%ifarch %{ocaml_native_compiler}
-%global native_compiler 1
-%else
-%global native_compiler 0
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
 %endif
 
+# This package is needed to build lwt, which is used to build ounit, but this
+# package needs ounit to run its tests.  Break the dependency cycle here.
+%bcond_with test
+
 Name:           ocaml-re
-Version:        1.10.3
-Release:        8%{?dist}
+Version:        1.10.4
+Release:        1%{?dist}
 Summary:        A regular expression library for OCaml
 
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/ocaml/ocaml-re
-Source0:        https://github.com/ocaml/%{name}/archive/%{version}/ocaml-re-%{version}.tar.gz
+Source0:        https://github.com/ocaml/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# Fedora's OCaml is new enough that we don't need the seq compatibility library
+Patch0:         %{name}-remove-seq.patch
 
 BuildRequires:  ocaml
-BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-ocamldoc
-BuildRequires:  ocaml-ocamlbuild
-BuildRequires:  ocaml-seq-devel
 BuildRequires:  ocaml-dune
+
+%if %{with test}
+BuildRequires:  ocaml-ounit-devel
+%endif
 
 %description
 A pure OCaml regular expression library. Supports Perl-style regular
@@ -32,58 +35,41 @@ library.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-# https://bugzilla.redhat.com/show_bug.cgi?id=1792031
-Requires:       ocaml-seq-devel
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n ocaml-re-%{version}
+%autosetup -p1
+
+# Fix the ounit name
+sed -i 's/oUnit/ounit2/' lib_test/fort_unit/dune
 
 %build
-dune build -p re --verbose %{?_smp_mflags}
+%dune_build
 
 %install
+%dune_install
 
-# jbuilder/dune 1.0+ supports installing without opam-installer,
-# which means in theory we could do something like the below even for
-# "ocaml critical path" packages (e.g. dependencies of opam and opam-installer).
+%if %{with test}
+%check
+%dune_check
+%endif
 
-# However... in this package it seems to stop RPM from finding debug info
-# correctly. I am not sure why. :(
-
-#export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-#mkdir -p $OCAMLFIND_DESTDIR
-#jbuilder install --destdir %{buildroot}
-#rm -r %{buildroot}/doc/re/
-
-# So use the "manual jbuilder install" technique instead.
-mkdir -p %{buildroot}%{_libdir}/ocaml
-cp -aLr _build/install/default/lib/* %{buildroot}%{_libdir}/ocaml/
-
-%files
+%files -f .ofiles
 %doc CHANGES.md
 %doc README.md
 %license LICENSE.md
-%{_libdir}/ocaml/re
-%if %{native_compiler}
-%exclude %{_libdir}/ocaml/re/*.a
-%exclude %{_libdir}/ocaml/re/*.cmxa
-%exclude %{_libdir}/ocaml/re/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/re/*.mli
 
-%files devel
-%if %{native_compiler}
-%{_libdir}/ocaml/re/*.a
-%{_libdir}/ocaml/re/*.cmx
-%{_libdir}/ocaml/re/*.cmxa
-%endif
-%{_libdir}/ocaml/re/*.mli
+%files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.10.4-1
+- Version 1.10.4
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.10.3-8
 - Rebuild OCaml packages for F38
 

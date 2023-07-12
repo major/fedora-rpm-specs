@@ -3,14 +3,12 @@
 # checkout, and has access to the Internet.  We cannot satisfy any of these
 # conditions on a koji builder, so we do not run the test suite.
 
-%undefine _package_note_flags
-
 # One of the dune libraries now depends on lwt.  We do not currently need that
 # library in Fedora, so don't build it.
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.8.1
+Version:        3.9.1
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -90,6 +88,9 @@ Provides:       ocaml-fiber-devel = %{version}-%{release}
 
 # Install documentation in the main package doc directory
 %global _docdir_fmt %{name}
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Topdirs -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Dune is a build system designed for OCaml/Reason projects only. It focuses
@@ -563,6 +564,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.9.1-1
+- Version 3.9.1
+
 * Fri Jun  9 2023 Jerry James <loganjerry@gmail.com> - 3.8.1-1
 - Version 3.8.1
 - Add LGPL-2.1-or-later to License tag due to bundled 0install-solver

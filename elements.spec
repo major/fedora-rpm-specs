@@ -1,6 +1,6 @@
 Summary:        A C++/Python build framework
 Name:           elements
-Version:        6.1.4
+Version:        6.2.1
 Release:        1%{?dist}
 License:        LGPLv3+
 Source0:        https://github.com/astrorama/Elements/archive/%{version}/%{name}-%{version}.tar.gz
@@ -174,6 +174,9 @@ export ELEMENTS_CONF_PATH="%{_builddir}/ElementsKernel/auxdir/"
 %{docdir}
 
 %changelog
+* Mon Jul 10 2023 aalvarez - 6.2.1-1
+- Release 6.2.1
+
 * Fri Jul 07 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 6.1.4-1
 - Release 6.1.4
 

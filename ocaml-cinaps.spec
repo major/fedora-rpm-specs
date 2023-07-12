@@ -1,16 +1,10 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 # This package is needed to build ppx_jane, but its tests require ppx_jane.
 # Break the dependency cycle here.
 %bcond_with test
 
 Name:           ocaml-cinaps
 Version:        0.15.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Trivial Metaprogramming tool using the OCaml toplevel
 
 License:        MIT
@@ -74,6 +68,9 @@ help2man -N --version-string=%{version} %{buildroot}%{_bindir}/cinaps > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.15.1-11
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.1-10
 - Rebuild OCaml packages for F38
 

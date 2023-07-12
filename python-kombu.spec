@@ -16,6 +16,9 @@ License:        BSD and Python
 URL:            http://kombu.readthedocs.org/
 Source0:        https://github.com/celery/kombu/archive/v%{upstream_version}/%{srcname}-%{upstream_version}.tar.gz
 
+# Python 3.12: https://github.com/celery/kombu/commit/6ef88c3445143dde9aeaef3a95c0fb399dcb1e20
+#Patch01:        6ef88c3445143dde9aeaef3a95c0fb399dcb1e20.patch
+
 BuildArch: noarch
 
 %description
@@ -32,6 +35,9 @@ also provide proven and tested solutions to common messaging problems.
 Summary:        %{summary}
 Requires:       python3-amqp
 Requires:       python3-vine
+
+# Remove once https://github.com/celery/kombu/issues/1668 gets resolved
+Requires:       python3-cached_property
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -51,6 +57,9 @@ BuildRequires:  python3-brotli
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest-freezegun
 BuildRequires:  python3-azure-identity
+
+# Remove once https://github.com/celery/kombu/issues/1668 gets resolved
+BuildRequires:  python3-cached_property
 %endif
 
 %description -n python3-%{srcname}
@@ -64,7 +73,7 @@ providing an idiomatic high-level interface for the AMQP protocol, and
 also provide proven and tested solutions to common messaging problems.
 
 %prep
-%autosetup -n %{srcname}-%{upstream_version}
+%autosetup -n %{srcname}-%{upstream_version} -p1
 
 %build
 %py3_build
@@ -74,7 +83,10 @@ also provide proven and tested solutions to common messaging problems.
 
 %check
 %if %{with tests}
-%pytest -k 'not test_entrypoints'
+# https://github.com/celery/kombu/issues/1765
+# Seems like test/tooling failures, not the actual code issues, eg.
+# AttributeError: 'called_once' is not a valid assertion. Use a spec for the mock if 'called_once' is meant to be an attribute.
+%pytest -k 'not test_entrypoints and not test_call_soon_uses_lock and not test__pop_ready_uses_lock'
 %endif
 
 %files -n python3-%{srcname}

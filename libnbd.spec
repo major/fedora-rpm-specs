@@ -1,6 +1,3 @@
-# Do this until the feature is fixed in Fedora.
-%undefine _package_note_flags
-
 # If we should verify tarball signature with GPGv2.
 %global verify_tarball_signature 1
 
@@ -12,7 +9,7 @@
 
 Name:           libnbd
 Version:        1.17.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -95,6 +92,9 @@ BuildRequires:  nbdkit-pattern-plugin
 BuildRequires:  nbdkit-sh-plugin
 BuildRequires:  nbdkit-sparse-random-plugin
 %endif
+
+# The OCaml runtime system does not provide this symbol
+%global __ocaml_requires_opts -x Stdlib__Callback
 
 
 %description
@@ -304,11 +304,10 @@ make %{?_smp_mflags} check || {
 
 
 %files -n ocaml-%{name}
-%{_libdir}/ocaml/nbd
-%exclude %{_libdir}/ocaml/nbd/*.a
-%exclude %{_libdir}/ocaml/nbd/*.cmxa
-%exclude %{_libdir}/ocaml/nbd/*.cmx
-%exclude %{_libdir}/ocaml/nbd/*.mli
+%dir %{_libdir}/ocaml/nbd
+%{_libdir}/ocaml/nbd/META
+%{_libdir}/ocaml/nbd/*.cma
+%{_libdir}/ocaml/nbd/*.cmi
 %{_libdir}/ocaml/stublibs/dllmlnbd.so
 %{_libdir}/ocaml/stublibs/dllmlnbd.so.owner
 
@@ -316,9 +315,11 @@ make %{?_smp_mflags} check || {
 %files -n ocaml-%{name}-devel
 %doc ocaml/examples/*.ml
 %license ocaml/examples/LICENSE-FOR-EXAMPLES
-%{_libdir}/ocaml/nbd/*.a
+%ifarch %{ocaml_native_compiler}
 %{_libdir}/ocaml/nbd/*.cmxa
 %{_libdir}/ocaml/nbd/*.cmx
+%endif
+%{_libdir}/ocaml/nbd/*.a
 %{_libdir}/ocaml/nbd/*.mli
 %{_mandir}/man3/libnbd-ocaml.3*
 %{_mandir}/man3/NBD.3*
@@ -359,6 +360,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.17.1-4
+- OCaml 5.0.0 rebuild
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 1.17.1-3
 - Rebuilt for Python 3.12
 

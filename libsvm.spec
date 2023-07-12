@@ -1,8 +1,8 @@
 %global shver 3
 %global maven_group_id tw.edu.ntu.csie
-%global pom_file_version 3.30
+%global pom_file_version 3.31
 %global octpkg %{name}
-%global release_date 2023-02-28
+%global release_date 2023-07-08
 %global cpp_std c++17
 
 %if %{defined rhel}
@@ -20,8 +20,8 @@
 %endif
 
 Name:           libsvm
-Version:        3.31
-Release:        2%{?dist}
+Version:        3.32
+Release:        1%{?dist}
 Summary:        A Library for Support Vector Machines
 
 %global upver   %(tr -d . <<< %{version})
@@ -43,9 +43,6 @@ Patch0:         %{name}.packageMain.patch
 Patch1:         %{name}.javaDir.patch
 Patch2:         %{name}.toolsDir.patch
 Patch3:         %{name}.svm-toy-qt5.patch
-# Fix a broken attempt to detect an empty string
-# https://github.com/cjlin1/libsvm/pull/194
-Patch4:         %{name}.matlab.patch
 
 # This can be removed when F40 reaches EOL
 %if %{without java}
@@ -306,6 +303,10 @@ cp -p README java/README-Java
 %{_datadir}/applications/*%{name}-svm-toy-qt.desktop
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.32-1
+- Version 3.32
+- Drop upstreamed matlab patch
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.31-2
 - Rebuilt for Python 3.12
 

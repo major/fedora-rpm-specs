@@ -25,6 +25,9 @@ Source8:        com.ultimaker.cura.appdata.xml
 # Skip forced loading SentryLogger to avoid an error on startup
 Patch1:         028e7f7.patch
 
+# Fix asserts for called once in Python 3.12
+Patch2:         https://github.com/Ultimaker/Cura/pull/16103.patch
+
 BuildArch:      noarch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

@@ -3,13 +3,24 @@
 Summary: Qt5 - QtImageFormats component
 Name:    qt5-%{qt_module}
 Version: 5.15.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
+
+Patch1:  0001-Add-some-basic-checking-against-corrupt-input.patch
+Patch2:  0002-Check-earlier-to-avoid-sanitzer-warnings.patch
+Patch3:  0003-jp2-use-correct-buffer_size-for-jas_stream_memopen.patch
+Patch4:  0004-jp2-use-new-APIs-for-jasper-3.patch
+Patch5:  0005-Reject-tiled-tiffs-with-corrupt-tile-size-early.patch
+Patch6:  0006-webp-support-sequential-input-device-if-full-file-is.patch
+Patch7:  0007-Explicitly-include-QVarLengthArray-header.patch
+Patch8:  0008-Implement-support-for-file-memory-mapping-for-tiff-r.patch
+Patch9:  0009-TGA-Plugin-Fix-reading-of-CMapDepth.patch
+
 
 BuildRequires: make
 BuildRequires: qt5-qtbase-devel >= %{version}
@@ -72,6 +83,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Mon Jul 10 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-2
+- Backport fixes from KDE patchset collection
+
 * Mon Jun 12 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-1
 - 5.15.10
 

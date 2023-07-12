@@ -1,20 +1,18 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-stdio
-Version:        0.15.0
-Release:        9%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Jane Street Standard I/O library for OCaml
 
 License:        MIT
 URL:            https://github.com/janestreet/stdio
 Source0:        %{url}/archive/v%{version}/stdio-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-base-devel >= 0.16
 BuildRequires:  ocaml-dune >= 2.0.0
 
 %description
@@ -47,6 +45,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-9
 - Rebuild OCaml packages for F38
 

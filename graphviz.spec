@@ -1,4 +1,3 @@
-%undefine _package_note_flags
 %if 0%{?rhel} >= 8
 %bcond_with php
 %bcond_with guile
@@ -100,7 +99,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		8.0.5
-Release:		2%{?dist}
+Release:		3%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -773,6 +772,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 8.0.5-3
+- OCaml 5.0.0 rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 8.0.5-2
 - Rebuilt for Python 3.12
 

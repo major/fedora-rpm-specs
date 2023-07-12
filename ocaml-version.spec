@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-version
 Version:        3.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manipulate, parse and generate OCaml compiler version strings
 
 License:        ISC
@@ -59,6 +57,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.6.1-2
+- OCaml 5.0.0 rebuild
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 3.6.1-1
 - Version 3.6.1
 - Re-enable debuginfo generation now that dune is fixed

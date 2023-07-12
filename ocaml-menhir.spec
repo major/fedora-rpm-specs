@@ -1,25 +1,13 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
-# Whether to build coq-menhirlib and the manual
+# Whether to build the manual
 %if 0%{?rhel}
-%bcond_with coq
+%bcond_with manual
 %else
-# ANTLR is unavailable on i686, so coq is also unavailable
-# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-%ifarch %{java_arches}
-%bcond_without coq
-%else
-%bcond_with coq
-%endif
+%bcond_without manual
 %endif
 
 Name:           ocaml-menhir
-Version:        20220210
-Release:        14%{?dist}
+Version:        20230608
+Release:        1%{?dist}
 Summary:        LR(1) parser generator for OCaml
 
 # The generator is GPL-2.0-only
@@ -30,12 +18,7 @@ Source0:        https://gitlab.inria.fr/fpottier/menhir/-/archive/%{version}/men
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 
-%if %{with coq}
-# coq-menhirlib
-BuildRequires:  coq
-BuildRequires:  make
-
-# manual
+%if %{with manual}
 BuildRequires:  ImageMagick
 BuildRequires:  hevea
 BuildRequires:  tex(latex)
@@ -43,13 +26,16 @@ BuildRequires:  tex(comment.sty)
 BuildRequires:  tex(moreverb.sty)
 %endif
 
-Provides:       bundled(ocaml-fix) = 20220121
+Provides:       bundled(ocaml-fix) = 20230505
 Provides:       bundled(ocaml-pprint) = 20211129
 
 Requires:       ocaml-menhirlib-devel%{?_isa} = %{version}-%{release}
 
 # This can be removed when F40 reaches EOL
 Obsoletes:      ocaml-menhir-doc < 20220210-3
+
+# This can be removed when F42 reaches EOL
+Obsoletes:      coq-menhirlib < 20230608-1
 
 %description
 Menhir is a LR(1) parser generator for the Objective Caml programming
@@ -75,30 +61,13 @@ Requires:       ocaml-menhirlib%{?_isa} = %{version}-%{release}
 This ocaml-menhirlib-devel package contains libraries and signature
 files for building applications with a parser produced by Menhir.
 
-%if %{with coq}
-%package     -n coq-menhirlib
-Summary:        Support library for verified Coq parsers produced by Menhir
-License:        LGPL-3.0-or-later
-Requires:       coq%{?_isa}
-
-%description -n coq-menhirlib
-The Menhir parser generator, in --coq mode, can produce Coq parsers.
-These parsers must be linked against this library, which provides both an
-interpreter (which allows running the generated parser) and a validator
-(which allows verifying, at parser construction time, that the generated
-parser is correct and complete with respect to the grammar).
-%endif
-
 %prep
 %autosetup -n menhir-%{version}
 
 %build
 %dune_build
 
-%if %{with coq}
-make -C coq-menhirlib
-
-# Build the manual
+%if %{with manual}
 cd doc
 rm manual.pdf
 pdflatex manual
@@ -114,16 +83,13 @@ cd -
 # We do not install *.ml files by default, but this one is needed
 cp -p _build/default/lib/pack/menhirLib.ml %{buildroot}%{ocamldir}/menhirLib
 
-%if %{with coq}
-make -C coq-menhirlib install DESTDIR=%{buildroot}
-%else
-# Even if coq is disabled, dune will put a META file and dune-package
-# here.
+# Even though coq is disabled, dune still puts a META file and dune-package here
 rm -rf %{buildroot}%{ocamldir}/coq-menhirlib/
-%endif
 
 %files
+%if %{with manual}
 %doc doc/manual.pdf
+%endif
 %license LICENSE
 %{_bindir}/menhir
 %{_mandir}/man1/menhir.1*
@@ -136,15 +102,11 @@ rm -rf %{buildroot}%{ocamldir}/coq-menhirlib/
 %files -n ocaml-menhirlib-devel -f .ofiles-menhirLib-devel
 %{ocamldir}/menhirLib/menhirLib.ml
 
-%if %{with coq}
-%files -n coq-menhirlib
-%doc coq-menhirlib/CHANGES.md coq-menhirlib/README.md
-%license coq-menhirlib/LICENSE
-%{ocamldir}/coq/user-contrib/MenhirLib/
-%{ocamldir}/coq-menhirlib/
-%endif
-
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 20230608-1
+- Version 20230608
+- Stop building the coq-menhirlib subpackage
+
 * Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 20220210-14
 - Rebuild for coq 8.17.0
 

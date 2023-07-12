@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-lablgtk3
 Version:        3.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml interface to gtk3
 
 License:        LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception
@@ -110,21 +108,6 @@ sed -i 's/3\.1\.2/%{version}/' dune-project
 export LABLGTK_EXTRA_FLAGS=-g
 %dune_build
 
-# Relink the stublibs with $RPM_LD_FLAGS.
-pushd _build/default/src
-ocamlmklib -g -ldopt '%{build_ldflags}' $(pkgconf --libs gtk+-3.0) \
-  -o lablgtk3_stubs $(ar t liblablgtk3_stubs.a)
-cd ../src-goocanvas2
-ocamlmklib -g -ldopt '%{build_ldflags}' $(pkgconf --libs goocanvas-2.0) \
-  -o lablgtk3_goocanvas2_stubs $(ar t liblablgtk3_goocanvas2_stubs.a)
-cd ../src-gtkspell3
-ocamlmklib -g -ldopt '%{build_ldflags}' $(pkgconf --libs gtkspell3-3.0) \
-  -o lablgtk3_gtkspell3_stubs $(ar t liblablgtk3_gtkspell3_stubs.a)
-cd ../src-sourceview3
-ocamlmklib -g -ldopt '%{build_ldflags}' $(pkgconf --libs gtksourceview-3.0) \
-  -o lablgtk3_sourceview3_stubs $(ar t liblablgtk3_sourceview3_stubs.a)
-popd
-
 # Make the man pages
 HELP2MAN="-N --version-string=%{version}"
 cd _build/install/default/bin
@@ -163,6 +146,9 @@ cp -p gdk_pixbuf_mlsource3.1 lablgladecc3.1 %{buildroot}%{_mandir}/man1
 %files sourceview3-devel -f .ofiles-lablgtk3-sourceview3-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.1.3-4
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.1.3-3
 - Rebuild OCaml packages for F38
 

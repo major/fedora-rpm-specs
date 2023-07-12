@@ -1,17 +1,16 @@
-%undefine _package_note_flags
 Name:           ocaml-dbus
 Version:        0.30
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        OCaml library for using D-Bus
-License:        LGPLv2
+License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
-URL:            http://projects.snarc.org/ocaml-dbus/
+URL:            https://projects.snarc.org/ocaml-dbus/
 Source0:        https://github.com/vincenthz/ocaml-dbus/archive/v0.30.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0-7, ocaml-findlib
 BuildRequires:  dbus-devel
-BuildRequires:  chrpath
+BuildRequires:  python3
 
 
 %description
@@ -22,7 +21,7 @@ D-Bus.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -31,7 +30,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n ocaml-dbus-%{version}
+%autosetup
 
 
 %build
@@ -47,7 +46,7 @@ cat > README <<_EOF
 OCaml D-BUS bindings version %{version}.
 
 Please see the main website for documentation:
-http://tab.snarc.org/projects/ocaml_dbus/
+https://projects.snarc.org/ocaml-dbus/
 _EOF
 fi
 
@@ -62,33 +61,23 @@ make OCAMLDESTDIR=$OCAMLFIND_DESTDIR install
 make OCAMLDESTDIR=$OCAMLFIND_DESTDIR install-byte
 %endif
 
-chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dlldbus_stubs.so
+%ocaml_files
 
 
-%files
+%files -f .ofiles
 %doc README
-%{_libdir}/ocaml/dbus
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/dbus/*.a
-%exclude %{_libdir}/ocaml/dbus/*.cmxa
-%exclude %{_libdir}/ocaml/dbus/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/dbus/*.mli
-%{_libdir}/ocaml/stublibs/*.so
-%{_libdir}/ocaml/stublibs/*.so.owner
+%license LICENSE
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc README THANKS example_avahi.ml
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/dbus/*.a
-%{_libdir}/ocaml/dbus/*.cmxa
-%{_libdir}/ocaml/dbus/*.cmx
-%endif
-%{_libdir}/ocaml/dbus/*.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.30-46
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.30-45
 - Rebuild OCaml packages for F38
 

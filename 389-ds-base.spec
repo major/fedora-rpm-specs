@@ -46,7 +46,7 @@ ExcludeArch: i686
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
 Version:          2.4.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPLv3+ and (ASL 2.0 or MIT)
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
@@ -732,6 +732,11 @@ exit 0
 %endif
 
 %changelog
+* Mon Jul 10 2023 Mark Reynolds <mreynolds@redhat.com> - 2.4.2-2
+- Bump version to 2.4.2-2
+- Issue 5752 - RFE - Provide a history for LastLoginTime (#5807)
+= Issue 4719 - CI - Add dsconf add a PTA URL test
+
 * Fri Jul 7 2023 Mark Reynolds <mreynolds@redhat.com> - 2.4.2-1
 - Bump version to 2.4.2
 - Issue 5793 - UI - fix suffix selection in export modal

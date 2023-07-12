@@ -99,13 +99,13 @@ ExcludeArch: s390x
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        102.12.0
+Version:        102.13.0
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}-20230605.tar.xz
+Source1:        thunderbird-langpacks-%{version}-20230707.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -132,15 +132,6 @@ Patch103:       rhbz-1219542-s390-build.patch
 Patch422:       0001-GLIBCXX-fix-for-GCC-12.patch
 Patch425:       build-disable-elfhack.patch
 Patch426:       gcc13-header-dependencies.patch
-
-# With clang LLVM 16 rust-bindgen 0.56.0 is too old, combined
-# https://github.com/rust-lang/rust-bindgen/pull/2319
-# https://github.com/rust-lang/rust-bindgen/pull/2339
-Patch427:       rust-bindgen-2319-2339.patch
-
-# Needed with rust 1.70
-# https://github.com/mozilla/mp4parse-rust/commit/8b5b652d38e007e736bb442ccd5aa5ed699db100
-Patch428:       mp4parse-rust-8b5b652d38e007e736bb442ccd5aa5ed699db100.patch
 
 # PPC fix
 Patch304:       mozilla-1245783.patch
@@ -327,14 +318,6 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 
 %patch -P 422 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch -P 426 -p1 -b .gcc13-header-dependencies
-
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
-# MUST ONLY be applied for building against clang LLVM 16.
-# Would crash with earlier clang.
-%patch -P 427 -p1 -b .rust-bindgen-2319-2339
-# Needed with rust 1.70
-%patch -P 428 -p1 -b .mp4parse-rust-8b5b652d38e007e736bb442ccd5aa5ed699db100
-%endif
 
 %patch -P 501 -p1 -b .expat-CVE-2022-25235
 %patch -P 502 -p1 -b .expat-CVE-2022-25236
@@ -772,6 +755,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Mon Jul 10 2023 Eike Rathke <erack@redhat.com> - 102.13.0-1
+- Update to 102.13.0
+
 * Wed Jun 07 2023 Eike Rathke <erack@redhat.com> - 102.12.0-1
 - Update to 102.12.0
 

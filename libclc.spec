@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 16.0.5
+%global libclc_version 16.0.6
 #global rc_ver 4
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -96,6 +96,9 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jul 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

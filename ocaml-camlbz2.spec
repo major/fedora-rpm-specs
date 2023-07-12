@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-camlbz2
 Version:        0.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OCaml bindings for bzip2
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -17,6 +15,8 @@ Patch1:         %{name}-pervasives.patch
 Patch2:         %{name}-const.patch
 # Unbundle the OCaml io.h header file
 Patch3:         %{name}-io-h.patch
+# Adapt to changed function names in OCaml 5
+Patch4:         %{name}-ocaml5.patch
 
 BuildRequires:  automake
 BuildRequires:  make
@@ -73,6 +73,10 @@ make install DESTDIR=$OCAMLFIND_DESTDIR INSTALL='%{_bindir}/install -p'
 %doc doc/*
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-10
+- OCaml 5.0.0 rebuild
+- Add patch for OCaml 5 compatibility
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-9
 - Rebuild OCaml packages for F38
 

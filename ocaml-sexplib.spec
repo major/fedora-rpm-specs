@@ -1,5 +1,3 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -8,9 +6,9 @@
 %bcond_with test
 
 Name:           ocaml-sexplib
-Version:        0.15.1
+Version:        0.16.0
 Epoch:          1
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Automated S-expression conversion
 
 # The project as a whole is MIT, but code in the src subdirectory is BSD.
@@ -18,11 +16,11 @@ License:        MIT and BSD-3-Clause
 URL:            https://github.com/janestreet/sexplib
 Source0:        %{url}/archive/v%{version}/sexplib-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-dune >= 2.0.0
 BuildRequires:  ocaml-num-devel
-BuildRequires:  ocaml-parsexp-devel >= 0.15
-BuildRequires:  ocaml-sexplib0-devel >= 0.15
+BuildRequires:  ocaml-parsexp-devel >= 0.16
+BuildRequires:  ocaml-sexplib0-devel >= 0.16
 BuildRequires:  vim-filesystem
 
 %if %{with test}
@@ -85,6 +83,9 @@ cp -p vim/syntax/sexplib.vim %{buildroot}%{vimfiles_root}/syntax
 %{vimfiles_root}/syntax/sexplib.vim
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1:0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1:0.15.1-4
 - Rebuild OCaml packages for F38
 

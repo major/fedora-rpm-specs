@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-fmt
 Version:        0.9.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OCaml Format pretty-printer combinators
 
 License:        ISC
@@ -20,6 +18,9 @@ BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 BuildRequires:  python3
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Fmt exposes combinators to devise `Format` pretty-printing functions.
@@ -80,6 +81,10 @@ ocaml pkg/pkg.ml test
 %doc html/*
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.9.0-7
+- OCaml 5.0.0 rebuild
+- Do not depend on ocaml-compiler-libs at runtime
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.0-6
 - Rebuild OCaml packages for F38
 

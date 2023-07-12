@@ -15,6 +15,9 @@ License: BSD-3-Clause
 
 URL: https://github.com/pydata/pandas-datareader
 Source0: %{pypi_source}
+# Old version of versioner still uses deprecated SafeConfigParser
+# https://github.com/pydata/pandas-datareader/issues/969
+Patch: pandas-datareader-python312.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel
@@ -40,7 +43,7 @@ BuildRequires: python3-wrapt
 %{common_description}
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -t

@@ -65,7 +65,7 @@ Summary: PostgreSQL client programs
 Name: postgresql
 %global majorversion 15
 Version: %{majorversion}.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -88,6 +88,7 @@ Url: http://www.postgresql.org/
 Source0: https://ftp.postgresql.org/pub/source/v%{version}/postgresql-%{version}.tar.bz2
 Source3: https://ftp.postgresql.org/pub/source/v%{prevversion}/postgresql-%{prevversion}.tar.bz2
 Source4: Makefile.regress
+Source8: postgresql.sysusers
 Source9: postgresql.tmpfiles.d
 Source10: postgresql.pam
 Source11: postgresql-bashprofile
@@ -232,7 +233,6 @@ will interact with a PostgreSQL server.
 %package server
 Summary: The programs needed to create and run a PostgreSQL server
 Requires: %{name}%{?_isa} = %precise_version
-Requires(pre): /usr/sbin/useradd
 # We require this to be present for %%{_prefix}/lib/tmpfiles.d
 Requires: systemd
 # Make sure it's there when scriptlets run, too
@@ -241,6 +241,9 @@ Requires: systemd
 Requires: util-linux
 # postgresql setup requires runuser from util-linux package
 BuildRequires: util-linux
+# User and group creation with sysusers
+BuildRequires:  systemd-rpm-macros
+%{?sysusers_requires_compat}
 # Packages which provide postgresql plugins should build-require
 # postgresql-server-devel and require
 # postgresql-server(:MODULE_COMPAT_%%{postgresql_major}).
@@ -742,6 +745,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{?_localstatedir}/run/postgresql
 mkdir -p $RPM_BUILD_ROOT%{_tmpfilesdir}
 install -m 0644 %{SOURCE9} $RPM_BUILD_ROOT%{_tmpfilesdir}/postgresql.conf
 
+# sysusers config for postgres user and group
+install -p -D -m 0644 %{SOURCE8} %{buildroot}%{_sysusersdir}/postgresql.conf
+
 # PGDATA needs removal of group and world permissions due to pg_pwd hole.
 install -d -m 700 $RPM_BUILD_ROOT%{?_localstatedir}/lib/pgsql/data
 
@@ -871,9 +877,7 @@ find_lang_bins pltcl.lst pltcl
 %endif
 
 %pre server
-/usr/sbin/groupadd -g 26 -o -r postgres >/dev/null 2>&1 || :
-/usr/sbin/useradd -M -N -g postgres -o -r -d /var/lib/pgsql -s /bin/bash \
-	-c "PostgreSQL Server" -u 26 postgres >/dev/null 2>&1 || :
+%sysusers_create_compat %{SOURCE8}
 
 %post server
 %systemd_post %service_name
@@ -1151,6 +1155,7 @@ make -C postgresql-setup-%{setup_version} check
 %{_mandir}/man1/postmaster.*
 %{_sbindir}/postgresql-new-systemd-unit
 %{_tmpfilesdir}/postgresql.conf
+%{_sysusersdir}/postgresql.conf
 %{_unitdir}/*postgresql*.service
 %attr(700,postgres,postgres) %dir %{?_localstatedir}/lib/pgsql
 %attr(644,postgres,postgres) %config(noreplace) %{?_localstatedir}/lib/pgsql/.bash_profile
@@ -1257,6 +1262,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Mon Jul 03 2023 Timothée Ravier <tim@siosm.fr> - 15.3-3
+- Use sysusers configuration to setup user & group
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 15.3-2
 - Rebuilt for Python 3.12
 

@@ -1,45 +1,29 @@
-%undefine _package_note_flags
-
-%global project_name atd
-%global forgeurl https://github.com/ahrefs/%{project_name}
-
-# The comment in atdgen/test/test_atdgen_main.ml lines 128-173 warns of a
-# potential segfault if the compiler is too clever.  That is in fact happening,
-# currently on i386 only.  Until upstream figures out how to address the issue,
-# we disable tests on i386.  Note that Java tests can no longer run on i386
-# anyway due to https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs.
-%ifarch %{ix86}
-%bcond_with tests
-%else
-%bcond_without tests
-%endif
-
-Name:           ocaml-%{project_name}
-Version:        2.2.1
-Release:        11%{?dist}
-Summary:        Static Types for Json APIs
+Name:           ocaml-atd
+Version:        2.12.0
+Release:        1%{?dist}
+Summary:        Adaptable Type Definitions for cross-language data types
 
 License:        BSD-3-Clause
-URL:            %{forgeurl}
-Source0:        %{url}/archive/%{version}/%{project_name}-%{version}.tar.gz
-# Testing requires an argonaut jar.  Upstream provides jars for scala 2.11 and
-# 2.12, but Fedora is on 2.13, so we fetch our own jar.  Version 6.2.2 is no
-# longer available, so we take the last of the 6.2.x series.
-Source1:        https://repo1.maven.org/maven2/io/argonaut/argonaut_2.13/6.2.5/argonaut_2.13-6.2.5.jar
-# Adapt to scala 2.13
-Patch0:         %{name}-scala2.13.patch
+URL:            https://github.com/ahrefs/atd
+Source0:        %{url}/releases/download/%{version}/atdts-%{version}.tbz
 
-BuildRequires:  ocaml
-BuildRequires:  ocaml-dune
-BuildRequires:  ocaml-menhir
-BuildRequires:  ocaml-biniou-devel
+BuildRequires:  ocaml >= 4.08
+BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml-biniou-devel >= 1.0.6
+BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
+BuildRequires:  ocaml-dune >= 2.8
 BuildRequires:  ocaml-easy-format-devel
-BuildRequires:  ocaml-odoc
+BuildRequires:  ocaml-menhir >= 20180523
 BuildRequires:  ocaml-re-devel
-BuildRequires:  ocaml-yojson-devel
-%if %{with tests}
+BuildRequires:  ocaml-yojson-devel >= 2.0.2
+BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist flake8}
+BuildRequires:  %{py3_dist jsonschema}
+BuildRequires:  %{py3_dist mypy}
+BuildRequires:  %{py3_dist pytest}
+
+%ifarch %{java_arches}
 BuildRequires:  java-11-openjdk-devel
-BuildRequires:  scala
 %endif
 
 %description
@@ -61,6 +45,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-easy-format-devel%{?_isa}
 Requires:       ocaml-re-devel%{?_isa}
+Requires:       ocaml-yojson-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -113,6 +98,27 @@ Specifically, the generated interface offers the following features:
   automatically handled.
 
 
+%package -n     ocaml-atdpy
+Summary:        Python/mypy code generation for ATD
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-atdpy
+Atdpy is a program that generates a Python interface from type definitions. In
+particular, given a set of ATD type definitions, this tool generates a set of
+Python classes representing those types with built-in JSON serializers and
+deserializers.
+
+The primary benefits of using the generated interface, over manually
+manipulating JSON strings from within Python, are safety and ease of use.
+Specifically, the generated interface offers the following features:
+
+- JSON strings are automatically checked for correctness with respect to the ATD
+  specification.
+
+- Details such as optional fields and their associated default values are
+  automatically handled.
+
+
 %package -n     ocaml-atds
 Summary:        ATD Code generator for Scala
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -132,6 +138,19 @@ Specifically, the generated interface offers the following features:
 
 - Details such as optional fields and their associated default values are
   automatically handled.
+
+
+%package -n     ocaml-atdts
+Summary:        TypeScript code generation for ATD
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-atdts
+Atdts takes type definitions in the ATD format and derives TypeScript
+classes that can read and write JSON data.  This saves the developer the
+labor writing boilerplate that converts between dicts and classes.
+
+This allows safe interoperability with other languages supported by
+ATD such as OCaml, Java, Scala, or Python.
 
 
 %package -n     ocaml-atdgen-codec-runtime
@@ -171,34 +190,37 @@ for developing applications that use ocaml-atdgen-runtime.
 
 
 %prep
-%autosetup -p1 -n %{project_name}-%{version}
-cp -p %{SOURCE1} atds/test/argonaut_2.13-6.2.2.jar
+%autosetup -p1 -n atdts-%{version}
 
-# Update the menhir version to gain type inference
-sed -i 's/using menhir 1\.0/using menhir 2.0/' dune-project
+# Work around failure to find alcotest.engine and fmt while testing
+sed -i '/alcotest/a\     alcotest.engine' atd{py,ts}/src/test/dune
+sed -i '/alcotest/a\   alcotest.engine' atdgen/test/dune
+sed -i '/alcotest/a\   alcotest.engine\n\   fmt' atd/test/dune
 
 
 %build
 %dune_build
-%dune_build @doc
 
 
 %install
 %dune_install -s
 
-# atdj and atds do not ship libraries
+# atdj, atdpy, atds, and atdts do not ship libraries
 # dune has a known issue where it generates empty META files
 #
 # we actually don't need to ship devel files at all so remove
 # the directories entirely
 #
 # https://github.com/ocaml/dune/issues/2353
-rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,s}
+rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,py,s,ts}
 
 
-%if %{with tests}
 %check
-%dune_check
+# Do not run the scala tests to avoid a dependency on scala
+%ifarch %{java_arches}
+%dune_check -p atd,atdgen,atdgen-runtime,atdgen-codec-runtime,atdj,atdpy,atdts
+%else
+%dune_check -p atd,atdgen,atdgen-runtime,atdgen-codec-runtime,atdpy,atdts
 %endif
 
 
@@ -208,7 +230,7 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,s}
 
 
 %files devel -f .ofiles-atd-devel
-%doc CODEOWNERS _build/default/_doc/*
+%doc CODEOWNERS
 
 
 %files -n ocaml-atdgen -f .ofiles-atdgen
@@ -221,8 +243,16 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,s}
 %{_bindir}/atdj
 
 
+%files -n ocaml-atdpy
+%{_bindir}/atdpy
+
+
 %files -n ocaml-atds
 %{_bindir}/atds
+
+
+%files -n ocaml-atdts
+%{_bindir}/atdts
 
 
 %files -n ocaml-atdgen-codec-runtime -f .ofiles-atdgen-codec-runtime
@@ -238,6 +268,12 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,s}
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.12.0-1
+- Version 2.12.0
+- New atdpy and atdts subpackages
+- Drop test dependency on scala
+- Drop doc dependency on odoc
+
 * Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 2.2.1-11
 - Convert License tag to SPDX
 

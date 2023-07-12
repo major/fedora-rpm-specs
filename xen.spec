@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -112,6 +112,7 @@ Patch46: xen.efi.build.patch
 Patch47: xen.gcc13.fixes.patch
 Patch48: xsa431.patch
 Patch49: xen.python3.12.patch
+Patch50: xen.ocaml5.fixes.patch
 
 
 %if %build_qemutrad
@@ -326,6 +327,7 @@ manage Xen virtual machines.
 %patch 47 -p1
 %patch 48 -p1
 %patch 49 -p1
+%patch 50 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -933,6 +935,9 @@ fi
 %endif
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.17.1-5
+- Add patch for OCaml 5.0.0
+
 * Tue Jun 27 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-4
 - work around a build problem with python 3.12
 

@@ -19,11 +19,16 @@ Summary:        Satisfiability Modulo Theories (SMT) solver
 License:        MIT
 URL:            https://github.com/Z3Prover/z3
 Source0:        https://github.com/Z3Prover/z3/archive/%{name}-%{version}.tar.gz
+# Do not try to build or install native OCaml artifacts on bytecode-only arches
+Patch0:         %{name}-ocaml.patch
 # Change the way python finds the shared object; see bz 1910923
-Patch0:         %{name}-python.patch
+Patch1:         %{name}-python.patch
 # Add a missing include of cstdint
 # https://github.com/Z3Prover/z3/pull/6720
-Patch1:         %{name}-stdint.patch
+Patch2:         %{name}-stdint.patch
+# Fix malformed python escape sequences
+# https://github.com/Z3Prover/z3/pull/6797
+Patch3:         %{name}-escapes.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -146,7 +151,11 @@ Requires:       z3-libs = %{version}-%{release}
 Python 3 interface to z3.
 
 %prep
-%autosetup -p1 -n %{name}-%{name}-%{version}
+%autosetup -N -n %{name}-%{name}-%{version}
+%ifnarch %{ocaml_native_compiler}
+%patch -P0 -p1
+%endif
+%autopatch -m 1 -p1
 
 # Enable verbose builds, use Fedora CFLAGS, preserve timestamps when installing,
 # include the entire contents of the archives in the library, link the library
@@ -221,12 +230,15 @@ mv %{buildroot}%{_libdir}/libz3java.so %{buildroot}%{_libdir}/z3
 %endif
 
 # Install the OCaml interface
-pushd build/api/ml
+cd build/api/ml
 mkdir -p %{buildroot}%{ocamldir}/Z3
-cp -p META *.{a,cma,cmi,cmx,cmxa,cmxs,mli} %{buildroot}%{ocamldir}/Z3
+%ifarch %{ocaml_native_compiler}
+cp -p *.cmx{,a,s} %{buildroot}%{ocamldir}/Z3
+%endif
+cp -p META *.{a,cma,cmi,mli} %{buildroot}%{ocamldir}/Z3
 mkdir -p %{buildroot}%{ocamldir}/stublibs
 cp -p *.so %{buildroot}%{ocamldir}/stublibs
-popd
+cd -
 
 # We handle the documentation files below
 rm -rf %{buildroot}%{_docdir}/Z3
@@ -277,21 +289,25 @@ cd -
 %{ocamldir}/Z3/META
 %{ocamldir}/Z3/*.cma
 %{ocamldir}/Z3/*.cmi
+%ifarch %{ocaml_native_compiler}
 %{ocamldir}/Z3/*.cmxs
+%endif
 %{ocamldir}/stublibs/*.so
 
 %files -n ocaml-z3-devel
 %{ocamldir}/Z3/*.a
+%ifarch %{ocaml_native_compiler}
 %{ocamldir}/Z3/*.cmx
 %{ocamldir}/Z3/*.cmxa
+%endif
 %{ocamldir}/Z3/*.mli
 
 %files -n python3-z3
 %{python3_sitelib}/z3/
 
 %changelog
-* Wed Jun 21 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-3
-- Rebuild for OCaml 5.0
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-3
+- OCaml 5.0.0 rebuild
 
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.12.2-2
 - Rebuilt for Python 3.12

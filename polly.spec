@@ -1,6 +1,6 @@
 %global toolchain clang
 #global rc_ver 3
-%global polly_version 16.0.5
+%global polly_version 16.0.6
 %global polly_srcdir polly-%{polly_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
@@ -9,7 +9,7 @@
 
 Name: polly
 Version: %{polly_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: LLVM Framework for High-Level Loop and Data-Locality Optimizations
 
 License: NCSA
@@ -107,6 +107,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Mon Jul 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
 * Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
 - Use llvm-cmake-utils package
 

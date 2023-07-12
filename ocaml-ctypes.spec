@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 # Enable building and running the tests
 # This is disabled by default, because ocaml-lwt requires this package to build.
 %bcond_with test
 
 Name:           ocaml-ctypes
 Version:        0.20.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
@@ -76,6 +74,9 @@ sed -i 's|-add ctypes|& -ldconf %{buildroot}%{ocamldir}/ld.conf|' Makefile
 # Fix the name of ounit
 sed -i 's/oUnit/ounit2/g' Makefile.tests
 
+# For OCaml 5.0, do not depend on bytes
+sed -i 's/ bytes//' META
+
 %build
 # FIXME: Infrequent build failures with parallel build
 # It looks like the configuration step isn't done before its results are needed
@@ -116,6 +117,9 @@ make test
 %doc *.html *.css
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.20.2-2
+- OCaml 5.0.0 rebuild
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 0.20.2-1
 - Version 0.20.2
 

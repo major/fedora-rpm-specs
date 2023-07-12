@@ -9,8 +9,8 @@
 %endif
 
 Name:           perl-Syntax-Operator-Equ
-Version:        0.05
-Release:        2%{?dist}
+Version:        0.06
+Release:        1%{?dist}
 Summary:        Equality operators that distinguish undef
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Operator-Equ
@@ -32,7 +32,7 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(B::Deparse)
 BuildRequires:  perl(overload)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test2::V0)
 %if %{optional_tests}
 # Optional tests:
 BuildRequires:  perl(Syntax::Keyword::Match) >= 0.08
@@ -49,9 +49,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 Requires:       %{perl_XS_Parse_Infix_ABI}
 %endif
 
-# Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
-
 %description
 This module provides infix operators that implement equality tests of
 strings or numbers similar to Perl's eq and == operators, except that they
@@ -63,7 +60,6 @@ Summary:        Tests for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::More) >= 0.88
 %if %{optional_tests}
 Requires:       perl(Syntax::Keyword::Match) >= 0.08
 %if 0%{?fedora} >= 39
@@ -119,13 +115,18 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{perl_vendorarch}/auto/Syntax/Operator/Equ
 %dir %{perl_vendorarch}/Syntax
 %dir %{perl_vendorarch}/Syntax/Operator
+%{perl_vendorarch}/Syntax/Operator/Eqr.pm
 %{perl_vendorarch}/Syntax/Operator/Equ.pm
+%{_mandir}/man3/Syntax::Operator::Eqr.*
 %{_mandir}/man3/Syntax::Operator::Equ.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 10 2023 Petr Pisar <ppisar@redhat.com> - 0.06-1
+- 0.06 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

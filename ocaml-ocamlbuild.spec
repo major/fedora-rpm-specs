@@ -1,39 +1,43 @@
-%undefine _package_note_flags
+# NOTE: there is no devel subpackage because the main package *IS* a devel
+# package.
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:          ocaml-ocamlbuild
-Version:       0.14.0
-Release:       36%{?dist}
+Version:       0.14.2
+Release:       1%{?dist}
 
 Summary:       Build tool for OCaml libraries and programs
 
-License:       LGPLv2 with exceptions
+License:       LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:           https://github.com/ocaml/ocamlbuild
-Source0:       https://github.com/ocaml/ocamlbuild/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:       %{url}/archive/%{version}/ocamlbuild-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: ocaml >= 4.04.0
+BuildRequires: ncurses
+BuildRequires: asciidoc
+BuildRequires: python3-pygments
+
+# Ocamlbuild can invoke tput; see src/display.ml
+Requires:      ncurses
+
+# This can be removed when F42 reaches EOL
+Obsoletes:     %{name}-devel < 0.14.0-37
+Provides:      %{name}-devel = %{version}-%{release}
 
 
 %description
 OCamlbuild is a build tool for building OCaml libraries and programs.
 
 
-%package devel
-Summary:       Development files for %{name}
-Requires:      %{name}%{?_isa} = %{version}-%{release}
-
-
-%description devel
-This package contains development files for %{name}.
-
-
 %package doc
 Summary:       Documentation for %{name}
-Requires:      %{name}%{?_isa} = %{version}-%{release}
+License:       CC0
+BuildArch:     noarch
 
 
 %description doc
@@ -41,7 +45,7 @@ This package contains the manual for %{name}.
 
 
 %prep
-%setup -q -n ocamlbuild-%{version}
+%autosetup -n ocamlbuild-%{version}
 
 
 %build
@@ -68,11 +72,12 @@ make \
      OCAMLOPT="ocamlopt -g"
 %endif
 
+# Build the manual
+asciidoc manual/manual.adoc
+
 
 %install
-make install \
-     DESTDIR=$RPM_BUILD_ROOT \
-     CHECK_IF_PREINSTALLED=false
+%make_install CHECK_IF_PREINSTALLED=false
 
 # The install copies ocamlbuild & ocamlbuild.{byte or native}.
 # Symlink them instead.
@@ -84,46 +89,29 @@ ln -sf ocamlbuild.byte ocamlbuild
 %endif
 popd
 
-# Remove the META file.  It will be replaced by ocaml-ocamlfind (findlib).
-rm $RPM_BUILD_ROOT%{_libdir}/ocaml/ocamlbuild/META
+%ocaml_files -n
 
 
-%files
+%files -f .ofiles
 %doc Changes Readme.md VERSION
 %license LICENSE
-%{_bindir}/ocamlbuild
-%{_bindir}/ocamlbuild.byte
-%ifarch %{ocaml_native_compiler}
-%{_bindir}/ocamlbuild.native
-%endif
-%{_mandir}/man1/ocamlbuild.1*
-%{_libdir}/ocaml/ocamlbuild
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/ocamlbuild/*.a
-%exclude %{_libdir}/ocaml/ocamlbuild/*.o
-%exclude %{_libdir}/ocaml/ocamlbuild/*.cmx
-%exclude %{_libdir}/ocaml/ocamlbuild/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/ocamlbuild/*.mli
-
-
-%files devel
-%license LICENSE
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/ocamlbuild/*.a
-%{_libdir}/ocaml/ocamlbuild/*.o
-%{_libdir}/ocaml/ocamlbuild/*.cmx
-%{_libdir}/ocaml/ocamlbuild/*.cmxa
-%endif
-%{_libdir}/ocaml/ocamlbuild/*.mli
 
 
 %files doc
-%license LICENSE
-%doc manual/*
+%license manual/LICENSE
+%doc manual/manual.html
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.14.2-1
+- Version 0.14.2
+- Convert License tag to SPDX
+- Change license for the doc subpackage to CC0
+- Make the doc subpackage noarch
+- Fold the devel subpackage into the main package
+- Ship the manual as HTML instead of asciidoc source
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.14.0-36
 - Rebuild OCaml packages for F38
 

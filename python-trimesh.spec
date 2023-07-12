@@ -1,3 +1,10 @@
+# F39FailsToInstall: blender
+# https://bugzilla.redhat.com/show_bug.cgi?id=2219945
+%bcond blender 0
+# F39FailsToInstall: python3-scikit-image
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220492
+%bcond skimage 0
+
 Name:           python-trimesh
 Version:        3.22.3
 Release:        %autorelease
@@ -75,10 +82,12 @@ Suggests:       python3-trimesh+all = %{version}-%{release}
 # Cannot be packaged (closed-source): https://www.patrickmin.com/binvox/
 #BuildRequires:  /usr/bin/binvox
 #Recommends:     /usr/bin/binvox
+%if %{with blender}
 # trimesh.interfaces.blender
 %ifnarch %{ix86}
 BuildRequires:  /usr/bin/blender
 Recommends:     /usr/bin/blender
+%endif
 %endif
 # trimesh.exchange.ply
 %ifnarch s390x
@@ -193,6 +202,9 @@ It makes sure the dependencies are installed.
 # Patch out unavailable dependencies from “extras”:
 #
 # [all]
+%if %{without skimage}
+sed -r -i "/^[[:blank:]]*'scikit-image',/d" setup.py
+%endif
 #   glooey: not yet packaged, https://github.com/kxgames/glooey; needs fonts
 #           that are not currently packaged unbundled from its assets
 sed -r -i "/^[[:blank:]]*'glooey',/d" setup.py

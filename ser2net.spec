@@ -1,4 +1,4 @@
-Version:        4.3.12
+Version:        4.3.13
 
 %global forgeurl https://github.com/cminyard/ser2net
 %forgemeta
@@ -10,7 +10,6 @@ Summary:        Proxy that allows TCP/UDP to serial port connections
 License:        GPL-2.0-only
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-Source1:        %{name}.service
 
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
@@ -42,7 +41,7 @@ autoreconf -f -i
 %install
 %make_install
 install -Dm0644 %{name}.yaml %{buildroot}%{_sysconfdir}/%{name}/%{name}.yaml
-install -Dm0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
+install -Dm0644 %{name}.service  %{buildroot}%{_unitdir}/%{name}.service
 
 %post
 %systemd_post %{name}.service

@@ -1,5 +1,3 @@
-%global _without_docs 1
-%global _without_tests 1
 %if 0%{?rhel}
 %bcond_with docs
 %bcond_with tests

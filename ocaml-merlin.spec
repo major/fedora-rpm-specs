@@ -1,14 +1,8 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
-%global ocamlver 414
+%global ocamlver 500
 
 Name:           ocaml-merlin
-Version:        4.5
-Release:        5%{?dist}
+Version:        4.9
+Release:        1%{?dist}
 Summary:        Context sensitive completion for OCaml
 
 # The entire source is MIT except:
@@ -34,14 +28,14 @@ BuildRequires:  emacs-auto-complete
 BuildRequires:  emacs-company-mode
 BuildRequires:  emacs-iedit
 BuildRequires:  jq
-BuildRequires:  ocaml >= 4.14
+BuildRequires:  ocaml >= 5.0
 BuildRequires:  ocaml-caml-mode
-BuildRequires:  ocaml-csexp-devel >= 1.2.3
+BuildRequires:  ocaml-csexp-devel >= 1.5.1
 BuildRequires:  ocaml-dune >= 2.9.0
 BuildRequires:  ocaml-findlib-devel >= 1.6.0
-BuildRequires:  ocaml-menhir
+BuildRequires:  ocaml-ppxlib-devel
 BuildRequires:  ocaml-source
-BuildRequires:  ocaml-yojson-devel >= 1.6.0
+BuildRequires:  ocaml-yojson-devel >= 2.0.0
 BuildRequires:  vim-enhanced
 
 Requires:       dot-merlin-reader%{?_isa} = %{version}-%{release}
@@ -57,6 +51,16 @@ source browsing and much more.}
 
 You should also install a package that integrates with your editor of
 choice, such as emacs-merlin or vim-merlin.
+
+%package        lib
+Summary:        Library access to the merlin protocol
+Requires:       ocaml-csexp-devel%{?_isa}
+
+%description    lib
+These libraries provides access to low-level compiler interfaces and the
+standard higher-level merlin protocol.  The library is provided as-is,
+is not thoroughly documented, and its public API might break with any
+new release.
 
 %package     -n dot-merlin-reader
 License:        MIT
@@ -126,10 +130,11 @@ cd -
 %{_bindir}/ocamlmerlin-server
 %{ocamldir}/merlin/
 
-%files -n dot-merlin-reader
+%files lib -f .ofiles-merlin-lib
 %license LICENSE
-%{_bindir}/dot-merlin-reader
-%{ocamldir}/dot-merlin-reader/
+
+%files -n dot-merlin-reader -f .ofiles-dot-merlin-reader
+%license LICENSE
 
 %files -n emacs-merlin
 %{_emacs_sitelispdir}/merlin*
@@ -139,6 +144,10 @@ cd -
 %{vimfiles_root}/*/*
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.9-1
+- Version 4.9
+- New ocaml-merlin-lib subpackage
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.5-5
 - Rebuild OCaml packages for F38
 

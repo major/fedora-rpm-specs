@@ -1,10 +1,10 @@
 %global pkg_name ua-parser
-%global uap_core_version bbd43aed9a623486191a33c3af9e463e89c85f7a
+%global uap_core_version d668d6c6157db7737edfc0280adc6610c1b88029
 %global run_unittests 0
 
 Name:           python-%{pkg_name}
-Version:        0.16.1
-Release:        3%{?dist}
+Version:        0.18.0
+Release:        1%{?dist}
 Summary:        Python port of Browserscope's user agent parser
 
 License:        Apache-2.0
@@ -14,8 +14,6 @@ Source0:        %{pypi_source ua-parser}
 %if 0%{?run_unittests}
 Source1:        https://github.com/ua-parser/uap-core/archive/%{uap_core_version}/uap-core-%{uap_core_version}.tar.gz
 %endif
-# Don't install test
-Patch0:         ua-parser_no-test-install.patch
 
 BuildRequires:  python3-devel
 
@@ -57,12 +55,18 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} ua_parser/user_agent_pars
 %endif
 
 
-%files -n python3-%{pkg_name}  -f %{pyproject_files}
+%files -n python3-%{pkg_name} -f %{pyproject_files}
+%exclude %{python3_sitelib}/ua_parser/user_agent_parser_test.py
+%exclude %{python3_sitelib}/ua_parser/__pycache__/user_agent_parser_test*
 %license  ua_parser/LICENSE
 %doc README.rst
 
 
 %changelog
+* Mon Jul 10 2023 Roman Inflianskas <rominf@aiven.io> - 0.18.0-1
+- Update to 0.18.0 (resolve rhbz#2221373)
+- Make test file exclusion work.
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.16.1-3
 - Rebuilt for Python 3.12
 

@@ -4,7 +4,7 @@
 Name:           sword
 Epoch:          1
 Version:        1.9.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Free Bible Software Project
 License:        GPLv2
 URL:            http://www.crosswire.org/sword/
@@ -74,7 +74,7 @@ Python bindings for The SWORD Library.
 %{?perl_provide:%perl_provide perl-sword}
 Summary: Perl bindings for Sword
 Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-Requires: perl
+Requires: perl-interpreter
 Requires: perl-XML-LibXML
 Requires: perl-HTML-Strip
 
@@ -84,7 +84,7 @@ Perl bindings for The SWORD Library.
 %prep
 %setup -q
 
-%patch0 -p1 -b .perl
+%patch -P0 -p1 -b .perl
 
 %build
 %cmake -DLIBSWORD_LIBRARY_TYPE=Shared \
@@ -151,6 +151,9 @@ make tests
 
 
 %changelog
+* Fri Jun 30 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9.0-18
+- Replace requirement of meta-package perl by perl-interpreter
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:1.9.0-17
 - Rebuilt for Python 3.12
 

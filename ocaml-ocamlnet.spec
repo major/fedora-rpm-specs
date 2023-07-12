@@ -1,21 +1,32 @@
-%undefine _package_note_flags
 Name:           ocaml-ocamlnet
 Version:        4.1.9
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Network protocols for OCaml
-License:        BSD
+License:        BSD-3-Clause
 
 URL:            http://projects.camlcity.org/projects/ocamlnet.html
 Source0:        http://download.camlcity.org/download/ocamlnet-%{version}.tar.gz
 
+# Avoid implicit int return types in C code in configure
+# https://gitlab.com/gerdstolpmann/lib-ocamlnet3/-/merge_requests/23
+Patch0:         ocaml-ocamlnet-configure-c99.patch
+
 # Build ocamlrpcgen as native code.  Sent upstream 2021-01-14.
 Patch1:         0001-Build-ocamlrpcgen-as-native-code.patch
-Patch2: ocaml-ocamlnet-configure-c99.patch
+
+# Make library linkage explicit
+Patch2:         0002-Make-library-linkage-explicit.patch
+
+# Various fixes for OCaml 5.  Based in part on:
+# https://gitlab.com/gerdstolpmann/lib-ocamlnet3/-/merge_requests/20
+# https://gitlab.com/gerdstolpmann/lib-ocamlnet3/-/merge_requests/21
+Patch3:         0003-Various-fixes-for-OCaml-5.patch
 
 BuildRequires:  make
-BuildRequires:  ocaml >= 4.00.0
+BuildRequires:  ocaml >= 4.07.0
 BuildRequires:  ocaml-ocamldoc
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-lablgtk-devel
 BuildRequires:  ocaml-labltk-devel
 BuildRequires:  ocaml-pcre-devel
@@ -25,7 +36,8 @@ BuildRequires:  krb5-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  tcl-devel
 
-%global __ocaml_requires_opts -i Asttypes -i Outcometree -i Parsetree
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 
 %description
@@ -71,7 +83,7 @@ In detail, the following features are available:
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-lablgtk-devel%{?_isa}
 Requires:       ocaml-pcre-devel%{?_isa}
 Requires:       ocaml-zip-devel%{?_isa}
@@ -84,8 +96,8 @@ developing applications that use %{name}.
 
 %package        nethttpd
 Summary:        Ocamlnet HTTP daemon
-License:        GPLv2+
-Requires:       %{name} = %{version}-%{release}
+License:        GPL-2.0-or-later
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    nethttpd
@@ -96,9 +108,9 @@ for serving web services.
 
 %package        nethttpd-devel
 Summary:        Development files for %{name}-nethttpd
-License:        GPLv2+
-Requires:       %{name}-nethttpd = %{version}-%{release}
-Requires:       %{name}-devel = %{version}-%{release}
+License:        GPL-2.0-or-later
+Requires:       %{name}-nethttpd%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 
 %description    nethttpd-devel
@@ -107,9 +119,21 @@ files for developing applications that use %{name}-nethttpd.
 
 
 %prep
-%setup -q -n ocamlnet-%{version}
-%patch1 -p2
-%patch2 -p1
+%autosetup -N -n ocamlnet-%{version}
+%autopatch -M 0 -p1
+%ifarch %{ocaml_native_compiler}
+%patch -P 1 -p2
+%endif
+%autopatch -m 2 -p2
+
+# Fix the version number
+# See https://gitlab.com/gerdstolpmann/lib-ocamlnet3/-/merge_requests/19
+sed -i 's/^\(version=\).*/\1"%{version}"/' configure
+
+# The configure script thinks caml_modify can be overridden, but the overriding
+# function is not an exact match for OCaml 5.0, leading to segfaults, so force
+# detection off for now.
+sed -i 's/\(have_weak_modify=\)\$.*/\10/' src/netsys/configure
 
 
 %build
@@ -128,12 +152,14 @@ unset MAKEFLAGS
   -enable-tcl \
   -enable-zip
 
+%ifarch %{ocaml_native_compiler}
 # This is a hack caused by the ocamlrpcgen patch.  Because "make all"
 # no longer builds ocamlrpcgen (it is now built by "make opt") but
 # some other parts of the build depend on this program, we have to run
 # make opt first and ignore the result.  Hopefully we'll get a better
 # result when upstream integrate the patch.  RWMJ 2021-01.
 make opt ||:
+%endif
 
 make all
 
@@ -146,7 +172,7 @@ export DESTDIR=$RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR
 mkdir -p $OCAMLFIND_DESTDIR/stublibs
-make install
+%make_install
 
 # rpc-generator/dummy.mli is empty and according to Gerd Stolpmann can
 # be deleted safely.  This avoids an rpmlint warning.
@@ -157,12 +183,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 %{_libdir}/ocaml/equeue
 %{_libdir}/ocaml/equeue-gtk2
 %{_libdir}/ocaml/equeue-tcl
-%{_libdir}/ocaml/netcamlbox
+#{_libdir}/ocaml/netcamlbox
 %{_libdir}/ocaml/netcgi2
 %{_libdir}/ocaml/netcgi2-plex
 %{_libdir}/ocaml/netclient
 %{_libdir}/ocaml/netgss-system
-%{_libdir}/ocaml/netmulticore
+#{_libdir}/ocaml/netmulticore
 %{_libdir}/ocaml/netplex
 %{_libdir}/ocaml/netshm
 %{_libdir}/ocaml/netstring
@@ -220,6 +246,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.1.9-12
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Neither netcamlbox nor netmulticore can be built
+
 * Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 4.1.9-11
 - Port non-autoconf configure script to C99
 

@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 3.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to extract as much information as possible from a video filename
 License: LGPLv3
 URL: https://guessit.readthedocs.org/
@@ -78,6 +78,9 @@ done
 %license LICENSE
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 3.7.1-2
+- Rebuilt for Python 3.12
+
 * Sat Feb 25 2023 Juan Orti Alcaine <jortialc@redhat.com> - 3.7.1-1
 - Version 3.7.1 (RHBZ#2171201)
 

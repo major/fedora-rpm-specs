@@ -9,7 +9,7 @@ you to use it with other frameworks.
 
 
 Name:           python-%{srcname}
-Version:        7.3.1
+Version:        7.4.2
 Release:        1%{?dist}
 Summary:        Python implementation of SAML Version 2
 License:        Apache-2.0
@@ -120,6 +120,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Mon Jul 10 2023 Joel Capitao <jcapitao@redhat.com> - 7.4.2-1
+- Update to 7.4.2
+
 * Fri Jul 07 2023 Joel Capitao <jcapitao@redhat.com> - 7.3.1-1
 - Update to 7.3.1
 - Switch to pyproject-rpm-macros

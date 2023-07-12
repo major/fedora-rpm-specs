@@ -1,28 +1,27 @@
-%undefine _package_note_flags
-# FIXME: Broken in 1.0.1 for unknown reasons.
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
+%endif
 
 Name:           ocaml-camomile
-Version:        1.0.2
-Release:        24%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Unicode library for OCaml
 
-# Several files are MIT and UCD licensed, but the overall work is LGPLv2+
-# and the LGPL/GPL supercedes compatible licenses.
-# https://www.redhat.com/archives/fedora-legal-list/2008-March/msg00005.html
-License:        LGPLv2+
-URL:            https://github.com/yoriyuki/Camomile
-Source0:        https://github.com/yoriyuki/Camomile/archive/%{version}.tar.gz/camomile-%{version}.tar.gz
+# LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception: the project as a whole
+# ICU: files in src/locales; see src/locales/license.html
+# Unicode-TOU: files in src/unidata; see src/unidata/UnicodeData.html
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND ICU AND Unicode-TOU
+URL:            https://github.com/ocaml-community/Camomile
+Source0:        %{url}/archive/v%{version}/Camomile-%{version}.tar.gz
 
 # Fix a licensing issue in EO Unicode files.  Submitted but not
 # accepted upstream: https://github.com/yoriyuki/Camomile/pull/84
 Patch1:         0001-Camomile-locales-eo.txt-Fix-license-by-importing-dat.patch
 
-BuildRequires:  ocaml >= 3.12.1-12
-BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-ocamldoc
-BuildRequires:  ocaml-cppo
-BuildRequires:  ocaml-dune
+BuildRequires:  ocaml >= 4.13
+BuildRequires:  ocaml-camlp-streams-devel
+BuildRequires:  ocaml-dune >= 3.4
+BuildRequires:  ocaml-dune-site-devel
 
 # The base package requires the data files.  Note that it is possible
 # to install the data files on their own to support other packages
@@ -40,7 +39,9 @@ more.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-camlp-streams-devel%{?_isa}
+Requires:       ocaml-dune-site-devel%{?_isa}
 
 
 %description    devel
@@ -50,6 +51,7 @@ developing applications that use %{name}.
 
 %package        data
 Summary:        Data files for %{name}
+BuildArch:      noarch
 
 
 %description    data
@@ -69,51 +71,30 @@ applications that use %{name}.
 ulimit -Hs 65536
 ulimit -Ss 65536
 %endif
-dune build --verbose --profile release
+%dune_build
 
 
 %install
-dune install \
-         --destdir=%{buildroot} \
-         --libdir=%{_libdir}/ocaml \
-         --verbose \
-         --profile release
+%dune_install
 
-# Remove /usr/doc because we will use %%doc rules instead.
-rm -rf %{buildroot}/usr/doc
-
-# Install the *.mli files by hand.
-cp _build/install/default/lib/camomile/library/*.mli %{buildroot}%{_libdir}/ocaml/camomile/
+# The data files are in their own package
+sed -i '\@%{_datadir}@d' .ofiles
 
 
-%check
-# Broken in 1.0.2.
-# https://github.com/yoriyuki/Camomile/issues/82
-#jbuilder runtest --profile release
+# As of version 2.0.0, the tests only work if stdlib-random is available:
+# https://github.com/ocaml/stdlib-random
+# Reenable this once stdlib-random is packaged for Fedora.
+#%%check
+#%%dune_check
 
 
-%files
+%files -f .ofiles
 %doc README.md CHANGES.md
 %license LICENSE.md
-%{_libdir}/ocaml/camomile
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/camomile/*.a
-%exclude %{_libdir}/ocaml/camomile/*.cmxa
-%exclude %{_libdir}/ocaml/camomile/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/camomile/*.mli
-%ifarch %{ocaml_native_compiler}
-%endif
 
 
-%files devel
+%files devel -f .ofiles-devel
 %license LICENSE.md
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/camomile/*.a
-%{_libdir}/ocaml/camomile/*.cmxa
-%{_libdir}/ocaml/camomile/*.cmx
-%endif
-%{_libdir}/ocaml/camomile/*.mli
 
 
 %files data
@@ -122,6 +103,14 @@ cp _build/install/default/lib/camomile/library/*.mli %{buildroot}%{_libdir}/ocam
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.0.0-1
+- Version 2.0.0
+- Convert License tag to SPDX
+- New project URLs
+- The data subpackage is now noarch
+- Use new dune macros
+- Disable tests until ocaml-stdlib-random can be packaged
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.2-24
 - Rebuild OCaml packages for F38
 

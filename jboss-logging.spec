@@ -2,7 +2,7 @@
 %global namedversion %{version}%{?namedreltag}
 
 Name:             jboss-logging
-Version:          3.5.2
+Version:          3.5.3
 Release:          1%{?dist}
 Summary:          The JBoss Logging Framework
 License:          Apache-2.0
@@ -45,6 +45,9 @@ This package contains the JBoss Logging Framework.
 %license LICENSE.txt
 
 %changelog
+* Mon Jul 10 2023 Chris Kelley <ckelley@redhat.com> - 3.5.3-1
+- Rebase to version 3.5.3.Final
+
 * Fri Jun 30 2023 Chris Kelley <ckelley@redhat.com> - 3.5.2-1
 - Rebase to version 3.5.2.Final
 

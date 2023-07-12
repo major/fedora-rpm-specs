@@ -4,7 +4,7 @@
 
 Name:           ocaml-ppx-stable-witness
 Version:        0.16.0
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Derive a witness that a type is intended to be stable
 
 License:        MIT
@@ -50,5 +50,4 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
-* Sat Jun 24 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
-- Initial RPM
+%autochangelog

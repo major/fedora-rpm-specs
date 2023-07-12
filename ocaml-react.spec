@@ -1,19 +1,26 @@
-%undefine _package_note_flags
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
 Name:           ocaml-react
-Version:        1.2.1
-Release:        13%{?dist}
+Version:        1.2.2
+Release:        1%{?dist}
 Summary:        OCaml framework for Functional Reactive Programming (FRP)
 
 License:        ISC
-URL:            http://erratique.ch/software/react
+URL:            https://erratique.ch/software/react
 
-Source0:        http://erratique.ch/software/react/releases/react-%{version}.tbz
+Source0:        https://erratique.ch/software/react/releases/react-%{version}.tbz
 
-BuildRequires:  ocaml >= 4.01.0
+BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-ocamlbuild
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
-BuildRequires:  ocaml-topkg-devel >= 0.9.0
+BuildRequires:  ocaml-topkg-devel >= 1.0.3
+BuildRequires:  python3
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 
 %description
@@ -45,6 +52,9 @@ developing applications that use %{name}.
 # require debug info
 echo $'\ntrue: debug' >> _tags
 
+# expose a math library dependency to RPM
+echo $'\ntrue: cclib(-lm)' >> _tags
+
 
 %build
 ocaml pkg/pkg.ml build --tests true
@@ -55,42 +65,38 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml/react
 for f in \
   pkg/META \
   opam \
+  src/react_top_init.ml \
 %ifarch %{ocaml_native_compiler}
-  src/*.cmx \
+  src/*.{a,cmx,cmxa,cmxs} \
 %endif
-  src/*.{a,cma,cmi,mli,cmxa,cmxs}
+  src/*.{cma,cmi,cmt,cmti,mli}
 do
   cp -p _build/$f $RPM_BUILD_ROOT%{_libdir}/ocaml/react/
 done
+
+%ocaml_files
 
 
 %check
 ocaml pkg/pkg.ml test
 
 
-%files
+%files -f .ofiles
 %license LICENSE.md
-%dir %{_libdir}/ocaml/react/
-%{_libdir}/ocaml/react/META
-%{_libdir}/ocaml/react/*.cma
-%{_libdir}/ocaml/react/*.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/react/*.cmxs
-%endif
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc CHANGES.md README.md
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/react/*.a
-%{_libdir}/ocaml/react/*.cmx
-%{_libdir}/ocaml/react/*.cmxa
-%endif
-%{_libdir}/ocaml/react/*.mli
-%{_libdir}/ocaml/react/opam
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.2-1
+- Version 1.2.2
+- Verify that license is valid SPDX
+- Do not require ocaml-compiler-libs at runtime
+- Expose a math library dependency to RPM
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.1-13
 - Rebuild OCaml packages for F38
 

@@ -1,12 +1,14 @@
 %global srcname flask-cors
 
 Name:           python-%{srcname}
-Version:        3.1.01
-Release:        2%{?dist}
+Version:        4.0.0
+Release:        %autorelease
 Summary:        Cross Origin Resource Sharing (CORS) support for Flask
 License:        MIT
 URL:            https://github.com/corydolphin/%{srcname}
-Source0:        https://github.com/corydolphin/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        https://github.com/corydolphin/%{srcname}/archive/v%{version}/%{srcname}-v%{version}.tar.gz
+# https://github.com/corydolphin/flask-cors/pull/332
+Patch01:        0001-Testing-Move-from-deprecated-assertEquals-to-assertE.patch
 BuildArch:      noarch
 
 %description
@@ -20,7 +22,7 @@ Summary:        Cross Origin Resource Sharing (CORS) support for Flask
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-flask
-BuildRequires:  python3-nose
+BuildRequires:  python3-pytest
 BuildRequires:  python3-packaging
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
@@ -29,7 +31,7 @@ BuildRequires:  python3-six
 Python3 flask_cors package.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %build
 %{py3_build}
@@ -38,7 +40,7 @@ Python3 flask_cors package.
 %{py3_install}
 
 %check
-nosetests-%{python3_version} -v
+%pytest
 
 %files -n python3-%{srcname}
 %license LICENSE
@@ -47,85 +49,4 @@ nosetests-%{python3_version} -v
 %{python3_sitelib}/Flask_Cors*.egg-info/
 
 %changelog
-* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 3.1.01-2
-- Rebuilt for Python 3.12
-
-* Sun Jun 11 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.1.01-1
-- Update to 3.1.01 (fixes RHBZ#2211994)
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 3.0.10-6
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 3.0.10-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Jan 07 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.10-1
-- Update to 3.0.10
-
-* Mon Aug 31 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.9-1
-- Update to 3.0.9
-- Force tests to pass
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 3.0.8-7
-- Rebuilt for Python 3.9
-
-* Wed Apr 01 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.8-6
-- Don't require tests to pass (Flask 1.0 fallout)
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 3.0.8-4
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 3.0.8-3
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Jun 09 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.8-1
-- Update to 3.0.8
-
-* Thu Jan 31 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.7-1
-- Update to 3.0.7
-
-* Tue Nov 21 2017 David Carlos <ddavidcarlos1392@gmail.com> - 3.0.3-5
-- remove debug_package macro
-- Add BuildArch to parent package and remove from subpackage
-
-* Tue Nov 21 2017 David Carlos <ddavidcarlos1392@gmail.com> - 3.0.3-4
-- Add python- prefix on source name
-- Add a blank line between each changelog report.
-- Change the path to build the package on prep step.
-
-* Mon Nov 20 2017 David Carlos <ddavidcarlos1392@gmail.com> - 3.0.3-3
-- Fix Source0 commentary.
-
-* Sun Nov 19 2017 David Carlos <ddavidcarlos1392@gmail.com> - 3.0.3-2
-- Use py3_install and py3_build instead of {__python3}
-- Generates a sub package called python3-flask-cors, and keep the source name
-as python-flask-cors
-- Use py3_dist to resolve Requires and BuildRequires
-- Fix rpmlint warnings
-
-* Tue Nov 07 2017 David Carlos <ddavidcarlos1392@gmail.com> - 3.0.3-1
-- Initial packaging work for Fedora
+%autochangelog

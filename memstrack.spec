@@ -6,7 +6,7 @@ Name:           memstrack
 Version:        0.2.5
 Release:        1%{?dist}
 Summary:        A memory allocation tracer, like a hot spot analyzer for memory allocation
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://github.com/ryncsn/memstrack
 VCS:            git+git@github.com:ryncsn/memstrack.git
 BuildRequires:  make

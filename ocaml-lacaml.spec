@@ -1,40 +1,19 @@
-%undefine _package_note_flags
-
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-
-%if 0%{?fedora} >= 33
-%bcond_without flexiblas
-%endif
-
 Name:           ocaml-lacaml
-Version:        11.0.8
-Release:        5%{?dist}
+Version:        11.0.10
+Release:        1%{?dist}
 Summary:        BLAS/LAPACK-interface for OCaml
 
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/mmottl/lacaml
-Source0:        https://github.com/mmottl/lacaml/archive/refs/tags/%{version}.tar.gz
+Source0:        %{url}/releases/download/%{version}/lacaml-%{version}.tbz
 
-# Break a circular dependency on ocaml-odoc
-%bcond_with doc
+BuildRequires:  ocaml >= 4.08
+BuildRequires:  ocaml-dune >= 2.7
+BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  pkgconfig(flexiblas)
 
-BuildRequires:  make
-BuildRequires:  ocaml
-BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-compiler-libs
-BuildRequires:  ocaml-dune-devel
-%if %{with flexiblas}
-BuildRequires:	flexiblas-devel
-%else
-BuildRequires:	blas-devel, lapack-devel
-%endif
-
-%if %{with doc}
-BuildRequires:  ocaml-odoc
-%endif
-
-%global __ocaml_requires_opts -i Asttypes -i Parsetree -i Common -i Utils
-%global __ocaml_provides_opts -i Common -i Install_printers -i Io -i Utils
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 
 %description
@@ -57,64 +36,43 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n lacaml-%{version}
+%autosetup -n lacaml-%{version}
 
-%ifarch %{power64}
-# Otherwise we add the -march=native flag which ppc64le does not
-# understand.  This flag is added by the lacaml build system.
-# https://github.com/mmottl/lacaml/issues/51
-sed -i 's/-march=native//' `find -name dune`
-%endif
+# Do not override Fedora's choice of architecture flags
+sed -i 's/ "-march=native" :://' src/config/discover.ml
 
 
 %build
-%if %{with flexiblas}
-export LACAML_LIBS="-lflexiblas"
-%endif
-dune build %{?_smp_mflags}
-%if %{with doc}
-dune build %{?_smp_mflags} @doc
-%endif
+export LACAML_LIBS=-lflexiblas
+%dune_build
 
 
 %install
-dune install --destdir=%{buildroot}
-
-%if %{with doc}
-# We do not want the dune markers
-find _build/default/_doc/_html -name .dune-keep -delete
-%endif
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
+export LACAML_LIBS=-lflexiblas
+%dune_install
 
 
-%files
+%check
+export LACAML_LIBS=-lflexiblas
+%dune_check
+
+
+%files -f .ofiles
+%doc README.md
 %license LICENSE.md
-%{_libdir}/ocaml/lacaml
-%if %opt
-%exclude %{_libdir}/ocaml/lacaml/*.a
-%exclude %{_libdir}/ocaml/lacaml/*.cmxa
-%exclude %{_libdir}/ocaml/lacaml/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/lacaml/*.mli
-%exclude %{_libdir}/ocaml/lacaml/*.ml
-%{_libdir}/ocaml/stublibs/dlllacaml_stubs.so
 
 
-%files devel
+%files devel -f .ofiles-devel
+%doc CHANGES.md
 %license LICENSE.md
-%doc CHANGES.md README.md
-%if %opt
-%{_libdir}/ocaml/lacaml/*.a
-%{_libdir}/ocaml/lacaml/*.cmxa
-%{_libdir}/ocaml/lacaml/*.cmx
-%endif
-%{_libdir}/ocaml/lacaml/*.mli
-%{_libdir}/ocaml/lacaml/*.ml
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 11.0.10-1
+- Version 11.0.10
+- Convert the License tag to SPDX
+- Build with dune
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 11.0.8-5
 - Rebuild OCaml packages for F38
 

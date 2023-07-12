@@ -1,4 +1,3 @@
-%undefine _package_note_flags
 %define pkg_version 6.5
 %define api_version 0.8.4
 
@@ -45,7 +44,7 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -243,6 +242,7 @@ Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: ocaml
+BuildRequires: ocaml-findlib
 BuildRequires: make
 Summary: OCaml binding for BrlAPI
 %description -n ocaml-brlapi
@@ -278,6 +278,10 @@ pushd python2
 
 # remove packaged binary file
 rm -f Programs/brltty-ktb
+
+# produce debuginfo for the OCaml interface
+sed -i 's/@OCAMLC@/& -g/;s/@OCAMLOPT@/& -g/;s/@OCAMLMKLIB@/& -g/' \
+    Bindings/OCaml/Makefile.in
 popd
 
 # Make a copy of the source tree for building the Python 3 module
@@ -684,6 +688,10 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 6.5-14
+- OCaml 5.0.0 rebuild
+- Produce debuginfo for the OCaml interface
+
 * Tue Jun 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.5-13
 - Fix build with gettext-0.22 (yselkowitz)
 

@@ -1,18 +1,12 @@
 %global upstream_name pytest-randomly
 
 Name:           python-%{upstream_name}
-Version:        3.12.0
+Version:        3.13.0
 Release:        %autorelease
 Summary:        Pytest plugin to randomly order tests and control random.seed
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-randomly
 Source0:        %{url}/archive/%{version}/%{upstream_name}-%{version}.tar.gz
-
-# Tests support for pytest 7.3.x
-# https://github.com/pytest-dev/pytest-randomly/pull/540
-# Merged upstream without preserving pytest 7.2.x compatibility
-# Rebased; requirements/py*.txt changes not included
-Patch:          pytest-7.3.patch
 
 BuildArch:      noarch
 

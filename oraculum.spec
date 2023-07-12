@@ -1,7 +1,7 @@
 Name:           oraculum
 # Don't forget to also change oraculum/__init__.py
 Version:        0.2.4
-Release:        9%{?dist}
+Release:        %autorelease
 Summary:        Backend and API for Fedora QA Dashboard
 
 License:        GPLv2+
@@ -88,30 +88,4 @@ install -p -m 644 conf/oraculum.conf.nginx %{buildroot}%{_sysconfdir}/nginx/conf
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/oraculum.conf
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jan 07 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.2.4-6
-- Backport fix for FTI ( https://bugzilla.redhat.com/show_bug.cgi?id=2019108 )
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.2.4-4
-- Rebuilt for Python 3.10
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.2.4-3
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Nov 04 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.2.4-1
-- Release 0.2.4
+%autochangelog

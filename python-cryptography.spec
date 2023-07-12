@@ -1,4 +1,3 @@
-%global _without_tests 1
 %bcond_without tests
 
 %{!?python3_pkgversion:%global python3_pkgversion 3}
@@ -7,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        40.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -132,6 +131,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 40.0.2-4
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 40.0.2-3
 - Bootstrap for Python 3.12
 

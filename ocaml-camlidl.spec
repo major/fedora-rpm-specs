@@ -1,21 +1,15 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-
-%global shortversion 109
-
 Name:           ocaml-camlidl
-Version:        1.09
-Release:        14%{?dist}
+Version:        1.11
+Release:        1%{?dist}
 Summary:        Stub code generator and COM binding for Objective Caml
-License:        QPL and LGPLv2 with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
-URL:            http://caml.inria.fr/pub/old_caml_site/camlidl/
+%global shortversion %(tr -d . <<< %{version})
+
+URL:            https://xavierleroy.org/camlidl/
 Source0:        https://github.com/xavierleroy/camlidl/archive/camlidl%{shortversion}.tar.gz
-# This is the latest prebuilt documentation available.
-# Actually building the documentation requires many TeX tools.
-Source1:        http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-1.05.doc.pdf
-# META file from Debian (RHBZ#1026991).
-Source2:        META.camlidl.in
+# META file from opam (RHBZ#1026991).
+Source1:        https://raw.githubusercontent.com/ocaml/opam-repository/master/packages/camlidl/camlidl.%{version}/files/META
 
 # Both patches sent upstream on 2020-05-20.
 # Allow destdir installs.
@@ -23,10 +17,11 @@ Patch1:         0001-Allow-destdir-installs.patch
 # Pass -g option to ocamlmklib.
 Patch2:         0002-Pass-g-option-to-ocamlmklib.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  perl-interpreter
+BuildRequires:  python3
 
 
 %description
@@ -47,7 +42,7 @@ CamlIDL comprises two parts:
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -60,15 +55,27 @@ developing applications that use %{name}.
 
 sed -e 's|^OCAMLLIB=.*|OCAMLLIB=%{_libdir}/ocaml|' \
     -e 's|^BINDIR=.*|BINDIR=%{_bindir}|' \
-    -e 's|^CFLAGS=.*|CFLAGS=%{optflags}|' \
-%if %opt
+    -e 's|^CFLAGS=.*|CFLAGS=%{build_cflags}|' \
+%ifarch %{ocaml_native_compiler}
     -e 's|^OCAMLC=.*|OCAMLC=ocamlc.opt -g|' \
     -e 's|^OCAMLOPT=.*|OCAMLOPT=ocamlopt.opt -g|' \
 %endif
     < config/Makefile.unix \
     > config/Makefile
 
-cp %{SOURCE1} .
+%ifnarch %{ocaml_native_compiler}
+# Fix library build and install on bytecode-only architectures
+sed -e 's/\(all: \$(BYTELIB)\).*/\1/' \
+    -e 's/ \$(NATIVELIB) \$(NATIVELIB:.cmxa=\.\$(LIBEXT))//' \
+    -e '/RANLIB/d' \
+    -i lib/Makefile
+%endif
+
+# Remove files we do not want to package with the tests
+find . \( -name .cvsignore -o -name .gitignore \) -delete
+
+# Preserve timestamps
+sed -i 's/cp/cp -p/' runtime/Makefile.unix lib/Makefile
 
 
 %build
@@ -82,33 +89,34 @@ mkdir -p $RPM_BUILD_ROOT/%{_libdir}/ocaml/caml
 mkdir -p $RPM_BUILD_ROOT/%{_libdir}/ocaml/stublibs
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 
-# Install META file (RHBZ#1026991).
-sed 's/@VERSION@/%{version}/' < %{SOURCE2} > $RPM_BUILD_ROOT/%{_libdir}/ocaml/META.camlidl
+# Install META file (RHBZ#1026991).  The META file is missing a directory
+# directive, which makes ocamlfind complain when building consumers.
+sed '/version/adirectory = "^"' %{SOURCE1} > \
+    $RPM_BUILD_ROOT/%{ocamldir}/META.camlidl
 
-make DESTDIR=$RPM_BUILD_ROOT install
-
-
-%files
-%doc LICENSE
-%{_libdir}/ocaml/*.*
-%if %opt
-%exclude %{_libdir}/ocaml/*.a
-%exclude %{_libdir}/ocaml/*.cmxa
-%endif
-%{_libdir}/ocaml/stublibs/*.so
-%{_bindir}/camlidl
+%make_install
+%ocaml_files
 
 
-%files devel
-%doc LICENSE README Changes camlidl-1.05.doc.pdf tests
-%if %opt
-%{_libdir}/ocaml/*.a
-%{_libdir}/ocaml/*.cmxa
-%endif
-%{_libdir}/ocaml/caml/*.h
+%files -f .ofiles
+%license LICENSE
+
+
+%files devel -f .ofiles-devel
+%doc README Changes docs tests
+%license LICENSE
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.11-1
+- Version 1.11
+- Convert License tag to SPDX and drop QPL
+- New project URL
+- Get a versioned META file from opam
+- Use the %%license macro
+- Use new OCaml macros
+- Ship the prebuilt HTML documentation instead of an old PDF
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.09-14
 - Rebuild OCaml packages for F38
 

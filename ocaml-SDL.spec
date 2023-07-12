@@ -1,11 +1,8 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-
 Name:           ocaml-SDL
 Version:        0.9.1
-Release:        58%{?dist}
+Release:        59%{?dist}
 Summary:        OCaml bindings for SDL
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 URL:            http://ocamlsdl.sourceforge.net
 Source0:        http://downloads.sourceforge.net/ocamlsdl/ocamlsdl-%{version}.tar.gz
@@ -14,11 +11,15 @@ Source1:        ocamlsdl-0.7.2-htmlref.tar.gz
 # Fix for safe-string in OCaml 4.06.
 Patch1:         ocamlsdl-0.9.1-safe-string.patch
 
-BuildRequires: make
+# Adapt to changes in OCaml 5.0
+Patch2:         ocamlsdl-0.9.1-ocaml5.patch
+
+BuildRequires:  make
 BuildRequires:  ocaml-lablgl-devel
-BuildRequires:  SDL_ttf-devel, SDL_mixer-devel, SDL_image-devel 
+BuildRequires:  SDL_gfx-devel, SDL_ttf-devel, SDL_mixer-devel, SDL_image-devel
 BuildRequires:  ocaml
-Requires:       ocaml
+BuildRequires:  ocaml-findlib
+Requires:       python3
 
 
 %description
@@ -28,7 +29,7 @@ Runtime libraries to allow programs written in OCaml to write to SDL
 
 %package        devel
 Summary:        Development files for ocamlSDL
-Requires:       %{name} = %{version}-%{release} 
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -37,45 +38,43 @@ applications using ocamlSDL
 
 
 %prep
-%setup -q -n ocamlsdl-%{version} -a 1
-%autopatch -p1
+%autosetup -p1 -n ocamlsdl-%{version} -a 1
 
 
 %build
 %configure
-make %{?_smp_mflags}
+%ifnarch %{ocaml_native_compiler}
+# The configure step sets OCAMLOPT to "no", but the Makefile expects it to be
+# the empty string on bytecode-only architectures
+sed -i 's/^\(OCAMLOPT =\).*/\1/' makefile.config.gcc
+%endif
+%make_build
 
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR
 mkdir -p $OCAMLFIND_DESTDIR/stublibs
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
+%ocaml_files
 
 
-%files
-%doc README COPYING AUTHORS NEWS
-%{_libdir}/ocaml/sdl
-%{_libdir}/ocaml/stublibs/*.so*
-%if %opt
-%exclude %{_libdir}/ocaml/sdl/*.a
-%exclude %{_libdir}/ocaml/sdl/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/sdl/*.mli
+%files -f .ofiles
+%doc README AUTHORS NEWS
+%license COPYING
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc htmlref/
-%if %opt
-%{_libdir}/ocaml/sdl/*.a
-%{_libdir}/ocaml/sdl/*.cmxa
-%endif
-%{_libdir}/ocaml/sdl/*.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.9.1-59
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-58
 - Bump release and rebuild.
 

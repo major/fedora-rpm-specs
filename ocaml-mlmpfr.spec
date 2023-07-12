@@ -1,19 +1,15 @@
-%undefine _package_note_flags
-
 # Uncomment this for bugfix releases
 #%%global bugfix bugfix2
 
 Name:           ocaml-mlmpfr
 Version:        4.1.1
-Release:        3%{?dist}%{?bugfix:.%{bugfix}}
+Release:        4%{?dist}%{?bugfix:.%{bugfix}}
 Summary:        OCaml bindings for MPFR
 
+# FIXME: the individual files say LGPL-3.0-or-later, but opam says this:
 License:        LGPL-3.0-only
 URL:            https://github.com/thvnx/mlmpfr
 Source0:        %{url}/archive/mlmpfr.%{version}%{?bugfix:-%{bugfix}}.tar.gz
-# The 4.1.1 release still checks for version 4.1.0
-# https://github.com/thvnx/mlmpfr/issues/26
-Patch0:         %{name}-compatibility.patch
 
 BuildRequires:  ocaml >= 4.04
 BuildRequires:  ocaml-dune >= 1.11.0
@@ -55,12 +51,16 @@ cd -
 %dune_check
 
 %files -f .ofiles
-%doc Changes README.md
+%doc README.md
 %license LICENSE
 
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-4
+- OCaml 5.0.0 rebuild
+- The 4.1.1 release was respun without needing the compatibility patch
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-3
 - Rebuild OCaml packages for F38
 

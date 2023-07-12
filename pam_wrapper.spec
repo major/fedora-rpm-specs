@@ -17,6 +17,7 @@ BuildRequires:  gnupg2
 BuildRequires:  cmake
 BuildRequires:  libcmocka-devel
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  pam-devel
 BuildRequires:  doxygen
 BuildRequires:  git
@@ -83,6 +84,10 @@ the header files for libpamtest
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
+# Not compatible with Python 3.12 headers
+sed -i -e '/Werror=declaration-after-statement/d' CompilerChecks.cmake
+# renamed in Python 3.2, old name dropped in 3.12
+sed -i -e 's/assertRaisesRegexp/assertRaisesRegex/' tests/pypamtest_test.py
 
 
 %build

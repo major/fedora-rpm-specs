@@ -1,7 +1,7 @@
 %global toolchain clang
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 5
+%global patch_ver 6
 #global rc_ver 4
 %global mlir_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global mlir_srcdir mlir-%{mlir_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -12,7 +12,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -199,6 +199,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Mon Jul 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
 * Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
 - Use llvm-cmake-utils package
 

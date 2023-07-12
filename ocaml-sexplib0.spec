@@ -1,19 +1,17 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-sexplib0
-Version:        0.15.1
-Release:        5%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Definition of S-expressions and some base converters
 
 License:        MIT
 URL:            https://github.com/janestreet/sexplib0
 Source0:        %{url}/archive/v%{version}/sexplib0-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.04.2
+BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-dune >= 2.0.0
 
 %description
@@ -43,6 +41,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.1-5
 - Rebuild OCaml packages for F38
 

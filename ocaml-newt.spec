@@ -1,24 +1,22 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-
 Name:           ocaml-newt
 Version:        0.9
-Release:        72%{?dist}
+Release:        73%{?dist}
 Summary:        OCaml library for using newt text mode window system
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later
 
-URL:            http://et.redhat.com/~rjones/ocaml-newt/
-Source0:        http://et.redhat.com/~rjones/ocaml-newt/%{name}-%{version}.tar.gz
-Patch0: ocaml-newt-c99.patch
+URL:            https://people.redhat.com/rjones/ocaml-newt/
+Source0:        %{url}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+# Add missing function return types for C99 compatibility
+Patch0:         ocaml-newt-c99.patch
+
+BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
-BuildRequires:  chrpath
 BuildRequires:  ocaml-camlidl-devel
-#BuildRequires:  newt-devel > 0.52.7
 BuildRequires:  newt-devel
+BuildRequires:  python3
 
 
 %description
@@ -34,8 +32,8 @@ Red Hat installation process).
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
-Requires:       newt-devel
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       newt-devel%{?_isa}
 
 
 %description    devel
@@ -45,6 +43,14 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1
+
+# Build with debuginfo
+sed -i 's/^OCAMLCFLAGS.*=/& -g/;s/^OCAMLMKLIB =.*/& -g/' Makefile.in
+
+%ifnarch %{ocaml_native_compiler}
+# On bytecode-only architectures, do not try to install native object
+sed -i '/install newt/s/\*\.cmx \*\.cma \*\.cmxa/*.cma/' Makefile.in
+%endif
 
 
 %build
@@ -57,45 +63,36 @@ rm -f .depend
 make depend
 
 make all
-%if %opt
+%ifarch %{ocaml_native_compiler}
 make opt
 %endif
 make doc
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-make install
-
-chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dll*.so
-
-
-%files
-%doc COPYING.LIB
-%{_libdir}/ocaml/newt
-%if %opt
-%exclude %{_libdir}/ocaml/newt/*.a
-%exclude %{_libdir}/ocaml/newt/*.cmxa
-%exclude %{_libdir}/ocaml/newt/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/newt/*.mli
-%{_libdir}/ocaml/stublibs/*.so
-%{_libdir}/ocaml/stublibs/*.so.owner
+%make_install
+%ocaml_files
 
 
-%files devel
-%doc COPYING.LIB README examples/*.ml html
-%if %opt
-%{_libdir}/ocaml/newt/*.a
-%{_libdir}/ocaml/newt/*.cmxa
-%{_libdir}/ocaml/newt/*.cmx
-%endif
-%{_libdir}/ocaml/newt/*.mli
+%files -f .ofiles
+%license COPYING.LIB
+
+
+%files devel -f .ofiles-devel
+%doc README examples/*.ml html
+%license COPYING.LIB
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.9-73
+- OCaml 5.0.0 rebuild
+- New project URLs
+- Convert License tag to SPDX
+- Improve debuginfo
+- Use new OCaml macros
+
 * Mon Mar 20 2023 Florian Weimer <fweimer@redhat.com> - 0.9-72
 - Port to C99 (#2180106)
 

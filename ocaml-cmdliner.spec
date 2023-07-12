@@ -1,13 +1,15 @@
-%undefine _package_note_flags
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
 
 Name:           ocaml-cmdliner
-Version:        1.1.1
-Release:        3%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Declarative definition of command line interfaces for OCaml
 
 License:        ISC
 URL:            https://erratique.ch/software/cmdliner
-Source0:        https://github.com/dbuenzli/cmdliner/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/releases/cmdliner-%{version}.tbz
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
@@ -55,6 +57,9 @@ developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.0-1
+- Version 1.2.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-3
 - Rebuild OCaml packages for F38
 

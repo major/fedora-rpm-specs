@@ -5,7 +5,7 @@
 %undefine _include_frame_pointers
 
 %global maj_ver 16
-%global libomp_version %{maj_ver}.0.5
+%global libomp_version %{maj_ver}.0.6
 #global rc_ver 4
 %global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -18,7 +18,7 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 Summary: OpenMP runtime for clang
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -133,6 +133,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %endif
 
 %changelog
+* Mon Jul 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
 * Wed Jun 28 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-4
 - Specify the required clang version at build time
 

@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-zarith
 Version:        1.12
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OCaml interface to GMP
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -20,6 +18,9 @@ BuildRequires:  python3
 
 # Replace config.guess with a more up to date version which knows about POWER.
 BuildRequires:  redhat-rpm-config
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 This library implements arithmetic and logical operations over
@@ -66,7 +67,6 @@ cp -p /usr/lib/rpm/redhat/config.guess config.guess
 sed -i "s|^ccdef=''|ccdef='%{build_cflags}'|" configure
 sed -ri "s/(-ccopt|-shared|-failsafe)/-g &/" project.mak
 sed -i "s/+compiler-libs/& -g/;s/\(\$(OCAMLC)\) -o/\1 -g -o/" project.mak
-sed -i 's|(OCAMLMKLIB)|& -ldopt "%{build_ldflags}"|' project.mak
 
 %build
 export CC="gcc"
@@ -80,11 +80,22 @@ make doc
 mkdir -p %{buildroot}%{ocamldir}/stublibs
 make install INSTALLDIR=%{buildroot}%{ocamldir}
 
+# Install missing files; see https://github.com/ocaml/Zarith/pull/139
+%ifarch %{ocaml_native_compiler}
+cp -p zarith_version.cmx %{buildroot}%{ocamldir}/zarith
+%endif
+cp -p {big_int_Z,q,z}.cmt zarith_version.cm{i,t} zarith_top.{cm{a,i,t},ml} \
+      z_mlgmpidl.mli %{buildroot}%{ocamldir}/zarith
+cp -p zarith.opam %{buildroot}%{ocamldir}/zarith/opam
+
 %ocaml_files
 
+%ifarch %{ocaml_native_compiler}
+# The tests assume the availability of ocamlopt
 %check
 export LD_LIBRARY_PATH=$PWD
 make tests
+%endif
 
 %files -f .ofiles
 %doc README.md
@@ -94,6 +105,11 @@ make tests
 %doc Changes html
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.12-10
+- OCaml 5.0.0 rebuild
+- Install missing files
+- Do not require ocaml-compiler-libs at runtime
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.12-9
 - Rebuild OCaml packages for F38
 

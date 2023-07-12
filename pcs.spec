@@ -48,6 +48,9 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_comm
 # pcs patches: <= 200
 # Patch0: name.patch
 
+# https://github.com/ClusterLabs/pcs/pull/713
+Patch0: 0001-Fix-DatatransferObjectTest-for-Python-3.12.patch
+
 # ui patches: >200
 # Patch201: name-web-ui.patch
 

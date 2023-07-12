@@ -1,4 +1,3 @@
-%global _without_check 1
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
@@ -13,7 +12,7 @@ out of nbconvert (formerly ExecutePreprocessor). NBClient lets you execute noteb
 
 Name:           python-%{pypi_name}
 Version:        0.7.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A client library for executing notebooks
 
 License:        BSD
@@ -61,6 +60,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 0.7.2-4
+- Rebuilt for Python 3.12
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.7.2-3
 - Bootstrap for Python 3.12
 

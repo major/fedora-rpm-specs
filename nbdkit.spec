@@ -1,4 +1,3 @@
-%undefine _package_note_flags
 %global _hardened_build 1
 
 %ifarch %{kernel_arches}
@@ -53,7 +52,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.35.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1218,6 +1217,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.35.5-3
+- OCaml 5.0.0 rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.35.5-2
 - Rebuilt for Python 3.12
 

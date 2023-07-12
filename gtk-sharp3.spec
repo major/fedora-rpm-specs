@@ -15,7 +15,7 @@
 Summary:        GTK+ 3 and GNOME 3 bindings for Mono
 Name:           gtk-sharp3
 Version:        3.22.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPLv2
 
 BuildRequires:  meson
@@ -89,6 +89,9 @@ sed -i "s/gdk_api_includes/gio_api_includes/" Source/sample/valtest/generated/me
 
 %ldconfig_scriptlets
 
+# see https://bugzilla.redhat.com/show_bug.cgi?id=2155849
+cp redhat-linux-build/Source/gtk/gtk-sharp.dll.config %{buildroot}/%{_monodir}/GtkSharp-3.0
+
 %files
 %doc README.md
 %license LICENSE
@@ -122,6 +125,9 @@ sed -i "s/gdk_api_includes/gio_api_includes/" Source/sample/valtest/generated/me
 #{_prefix}/lib/monodoc/sources/*
 
 %changelog
+* Mon Jul 10 2023 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 3.22.2-5
+- copy the config file to live beside the gtk-sharp.dll
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,22 +1,14 @@
-%undefine _package_note_flags
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
-%global libname biniou
-
-Name:           ocaml-%{libname}
-Version:        1.2.1
-Release:        23%{?dist}
+Name:           ocaml-biniou
+Version:        1.2.2
+Release:        1%{?dist}
 Summary:        Safe and fast binary data format
 
-License:        BSD
-URL:            https://github.com/ocaml-community/%{libname}
-Source0:        %{url}/releases/download/%{version}/%{libname}-%{version}.tbz
+License:        BSD-3-Clause
+URL:            https://github.com/ocaml-community/biniou
+Source0:        %{url}/releases/download/%{version}/biniou-%{version}.tbz
 
-BuildRequires:  make
-BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml >= 4.02.3
+BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-easy-format-devel
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-dune
@@ -37,6 +29,7 @@ routine visualization of biniou data files.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-camlp-streams-devel%{?_isa}
 Requires:       ocaml-easy-format-devel%{?_isa}
 
 %description    devel
@@ -45,61 +38,51 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n %{libname}-%{version}
+%autosetup -n biniou-%{version}
 
 
 %build
-%make_build all
+%dune_build
 
 
 %install
-mkdir -p $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml
-
-cp -L _build/install/default/bin/* $RPM_BUILD_ROOT%{_bindir}
-cp -rL _build/install/default/lib/* $RPM_BUILD_ROOT%{_libdir}/ocaml
+%dune_install
 
 %ifarch %{ocaml_native_compiler}
 # avoid potential future name conflict
 mv $RPM_BUILD_ROOT%{_bindir}/{,ocaml-}bdump
+sed -i '/bdump/d' .ofiles
 %endif
 
 
 %check
-# The upstream Makefile doesn't know how to build the tests
-# without ocamlopt, so:
+# Upstream doesn't know how to build the tests without ocamlopt, so:
 %ifarch %{ocaml_native_compiler}
-make test
+%dune_check
 %endif
 
 
-%files
+%files -f .ofiles
 %license LICENSE
 %doc README.md
-%{_libdir}/ocaml/%{libname}/
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/*/*.a
-%exclude %{_libdir}/ocaml/*/*.cmxa
-%exclude %{_libdir}/ocaml/*/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/*/*.mli
 
 
-%files devel
+%files devel -f .ofiles-devel
 %license LICENSE
 %doc biniou-format.txt CHANGES.md
 %doc _build/install/default/doc/*
 %ifarch %{ocaml_native_compiler}
 %{_bindir}/ocaml-bdump
-%{_libdir}/ocaml/*/*.a
-%{_libdir}/ocaml/*/*.cmxa
-%{_libdir}/ocaml/*/*.cmx
 %endif
-%{_libdir}/ocaml/*/*.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.2-1
+- Version 1.2.2
+- Convert License tag to SPDX
+- Depend on ocaml-camlp-streams
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.1-23
 - Rebuild OCaml packages for F38
 

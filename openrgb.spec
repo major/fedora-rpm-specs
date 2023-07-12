@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %global uname OpenRGB
 
 Name:           openrgb
-Version:        0.8
+Version:        0.9
 Release:        %autorelease
 Summary:        Open source RGB lighting control
 
@@ -14,10 +14,6 @@ Summary:        Open source RGB lighting control
 License:        GPLv2 and GPLv3+
 URL:            https://gitlab.com/CalcProgrammer1/OpenRGB
 Source0:        %{url}/-/archive/release_%{version}/%{uname}-release_%{version}.tar.gz
-
-# FTBFS with new GCC 13
-# https://gitlab.com/CalcProgrammer1/OpenRGB/-/issues/3225
-Patch0:         https://gitlab.com/CalcProgrammer1/OpenRGB/-/merge_requests/1743.patch#/Fix-building-with-GCC-13.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++

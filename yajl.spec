@@ -3,7 +3,7 @@
 
 Name: yajl
 Version: 2.1.0
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Yet Another JSON Library (YAJL)
 
 License: ISC
@@ -19,13 +19,20 @@ URL: http://lloyd.github.com/yajl/
 #   https://github.com/lloyd/yajl/releases/tag/2.1.0
 #
 Source0: %{name}-%{version}.tar.gz
-Patch1: %{name}-%{version}-pkgconfig-location.patch
-Patch2: %{name}-%{version}-pkgconfig-includedir.patch
-Patch3: %{name}-%{version}-test-location.patch
-Patch4: %{name}-%{version}-dynlink-binaries.patch
 
-BuildRequires:  gcc
+# Patches managed at https://github.com/berrange/yajl/tree/fedora-dist-git
+Patch: 0001-pkg-config-file-should-be-in-lib-dir-not-shared-data.patch
+Patch: 0002-pkg-config-include-dir-should-not-have-the-yajl-suff.patch
+Patch: 0003-fix-patch-to-test-files-to-take-account-of-vpath.patch
+Patch: 0004-drop-bogus-_s-suffix-from-yajl-dynamic-library.patch
+Patch: 0005-Fix-for-CVE-2017-16516.patch
+Patch: 0006-Fix-CVE-2022-24795.patch
+Patch: 0007-yajl-fix-memory-leak-problem.patch
+Patch: 0008-fix-memory-leaks.patch
+
+BuildRequires: gcc
 BuildRequires: cmake
+BuildRequires: git
 
 %package devel
 Summary: Libraries, includes, etc to develop with YAJL
@@ -45,11 +52,7 @@ This sub-package provides the libraries and includes
 necessary for developing against the YAJL library
 
 %prep
-%setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%autosetup -S git_am
 
 %build
 # NB, we are not using upstream's 'configure'/'make'
@@ -94,6 +97,12 @@ cd test
 
 
 %changelog
+* Mon Jul 10 2023 Daniel P. Berrangé <berrange@redhat.com> - 2.1.0-21
+- Switch to using git for managing patches
+- Fix potential buffer overread (CVE-2017-16516)
+- Fix integer overflow leading to heap corruption (CVE-2022-24795)
+- Fix multiple memory leaks (CVE-2023-33460)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

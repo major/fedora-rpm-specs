@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-%if !%{opt}
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           prooftree
 Version:        0.13
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Proof tree visualization for Proof General
 
 License:        GPL-3.0-or-later
@@ -61,6 +59,9 @@ sed -i 's/cp /cp -p /' Makefile.in
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.13-24
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.13-23
 - Rebuild OCaml packages for F38
 

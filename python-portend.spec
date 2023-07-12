@@ -6,8 +6,8 @@
 %{?python_enable_dependency_generator}
 
 Name:           python-%{pypi_name}
-Version:        3.1.0
-Release:        9%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        TCP port monitoring utilities
 
 License:        MIT
@@ -84,6 +84,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Mon Jul 10 2023 Dan Radez <dradez@redhat.com> - 3.2.0-1
+- update to 3.2.0 rhbz#2218397
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.1.0-9
 - Rebuilt for Python 3.12
 

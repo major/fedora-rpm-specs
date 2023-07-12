@@ -8,12 +8,10 @@
 # The other one (which used to be packaged in Fedora <= 22) is:
 #   http://cairographics.org/cairo-ocaml/
 
-%undefine _package_note_flags
-
 Name:           ocaml-cairo
 Epoch:          2
 Version:        0.6.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml library for accessing cairo graphics
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -119,21 +117,6 @@ export GTK_CFLAGS="%{build_cflags} $gtk_cflags"
 export GTK_LIBS="%{build_ldflags} $gtk_libs"
 %dune_build
 
-# Dune passes RPM_LD_FLAGS to ocamlmklib without -ldopt, resulting in "Unknown
-# option" warnings from ocamlmklib and a library that has not been linked with
-# the correct flags.  We can't add -ldopt ourselves, since that breaks
-# compilation of the cmxs files.  This seems to be a weakness of dune; linker
-# flags and libraries to be linked with have to be specified together, and
-# nothing takes care of separating them and adding ldopt as necessary.  We
-# relink manually to address the problem.
-pushd _build/default/src
-ocamlmklib -g -ldopt '%{build_ldflags}' $cairo_libs -o cairo_stubs cairo_stubs.o
-cd ../gtk
-ocamlmklib -g -ldopt '%{build_ldflags}' $gtk_libs -o cairo_gtk_stubs cairo_gtk_stubs.o
-cd ../pango
-ocamlmklib -g -ldopt '%{build_ldflags}' $gtk_libs -o cairo_pango_stubs cairo_pango_stubs.o
-popd
-
 
 %install
 %dune_install -s
@@ -166,6 +149,9 @@ popd
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2:0.6.4-4
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2:0.6.4-3
 - Rebuild OCaml packages for F38
 

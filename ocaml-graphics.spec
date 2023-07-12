@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-graphics
 Version:        5.1.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Portable drawing primitives for OCaml
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -59,6 +57,9 @@ The %{name}-doc package contains developer documentation for
 %doc examples
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.1.2-10
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.2-9
 - Rebuild OCaml packages for F38
 

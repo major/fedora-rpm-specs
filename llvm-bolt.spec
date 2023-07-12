@@ -7,7 +7,7 @@
 %global maj_ver 16
 %global min_ver 0
 #global rc_ver 4
-%global patch_ver 5
+%global patch_ver 6
 %global bolt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global bolt_srcdir llvm-project-%{bolt_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -149,6 +149,9 @@ rm -f %{buildroot}/%{_builddir}/%{bolt_srcdir}/%{_vpath_builddir}/%{_lib}/lib*.a
 %doc %{_pkgdocdir}
 
 %changelog
+* Mon Jul 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 - Remove code that became obsolete after commit 9d0a2a41081ba.

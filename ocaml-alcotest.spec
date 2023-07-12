@@ -1,5 +1,3 @@
-%undefine _package_note_flags
-
 # To build all parts of alcotest requires the async, js_of_ocaml, and lwt
 # packages.  The async package in particular requires many packages that test
 # with alcotest.  We build only the base alcotest package to break the circular
@@ -10,7 +8,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        1.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight and colorful test framework for OCaml
 
 License:        ISC
@@ -21,6 +19,8 @@ Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # installations.  Patch them out instead.  Upstream does not want this patch
 # until stdlib-shims and ocaml-syntax-shims are obsolete.
 Patch0:         0001-Drop-the-stdlib-shims-subpackage.patch
+# Fix a test failure on bytecode-only architectures
+Patch1:         https://github.com/mirage/alcotest/commit/219dc8b.patch
 
 BuildRequires:  ocaml >= 4.05.0
 BuildRequires:  ocaml-astring-devel
@@ -83,12 +83,6 @@ developing applications that use %{name}.
 %dune_build -p alcotest
 %endif
 
-# Relink the stublibs with $RPM_LD_FLAGS.
-cd _build/default/src
-ocamlmklib -g -ldopt '%{build_ldflags}' -o alcotest_stubs \
-  $(ar t libalcotest_stubs.a)
-cd -
-
 %install
 %if %{with async}
 %dune_install
@@ -110,6 +104,10 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.7.0-2
+- OCaml 5.0.0 rebuild
+- Add upstream patch to fix bytecode build
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 1.7.0-1
 - Version 1.7.0
 

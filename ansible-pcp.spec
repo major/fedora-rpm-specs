@@ -1,6 +1,6 @@
 Name:             ansible-pcp
-Version:          2.2.8
-Release:          2%{?dist}
+Version:          2.2.9
+Release:          1%{?dist}
 Summary:          Ansible Metric collection for Performance Co-Pilot
 License:          MIT
 URL:              https://github.com/performancecopilot/ansible-pcp
@@ -115,6 +115,9 @@ ansible-lint `find roles -name \*.yml`
 %{ansible_collection_files}
 
 %changelog
+* Tue Jul 11 2023 Nathan Scott <nathans@redhat.com> 2.2.9-1
+- Latest upstream release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,25 +1,26 @@
-%undefine _package_note_flags
-%global srcname camlimages
-
-Name:           ocaml-%{srcname}
+Name:           ocaml-camlimages
 Version:        5.0.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        OCaml image processing library
-License:        LGPLv2 with exceptions
+License:        LGPL-2.0-only WITH OCaml-LGPL-linking-exception
 
 URL:            https://gitlab.com/camlspotter/camlimages
-Source0:        https://gitlab.com/camlspotter/camlimages/-/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        https://gitlab.com/camlspotter/camlimages/-/archive/%{version}/camlimages-%{version}.tar.gz
+# Expose a dependency on the math library so RPM can see it
+Patch0:         %{name}-mathlib.patch
+# OCaml 5.0 compatibility
+Patch1:         %{name}-ocaml5.patch
 
 BuildRequires:  ghostscript
 BuildRequires:  giflib-devel
-BuildRequires:  ocaml >= 4.06.0
+BuildRequires:  ocaml >= 4.07.0
+BuildRequires:  ocaml-base-devel
 BuildRequires:  ocaml-cppo
-BuildRequires:  ocaml-dune-devel >= 1.11
+BuildRequires:  ocaml-dune >= 1.11
+BuildRequires:  ocaml-dune-configurator-devel >= 2.0.0
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-graphics-devel
-BuildRequires:  ocaml-lablgtk-devel
-BuildRequires:  ocaml-odoc
-BuildRequires:  ocaml-result-devel
+BuildRequires:  ocaml-lablgtk-devel >= 2.18.6
 BuildRequires:  ocaml-stdio-devel
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(libexif)
@@ -44,7 +45,6 @@ Summary:        Development files for camlimages
 Requires:       %{name}%{?_isa} = %{version}-%{release} 
 Requires:       ocaml-graphics-devel%{?_isa}
 Requires:       ocaml-lablgtk-devel%{?_isa}
-Requires:       ocaml-stdio-devel%{?_isa}
 
 %description    devel
 The camlimages-devel package provides libraries and headers for 
@@ -53,71 +53,29 @@ developing applications using camlimages.
 Includes documentation provided by odoc.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n camlimages-%{version} -p1
 
 %build
-dune build %{?_smp_mflags} --display=verbose
-dune build %{?_smp_mflags} @doc
-
-# Relink the stublibs with $RPM_LD_FLAGS.
-for lib in exif freetype gif jpeg png tiff xpm; do
-  cd _build/default/$lib
-  ocamlmklib -g -ldopt '%{build_ldflags}' -o camlimages_${lib}_stubs \
-    $(ar t libcamlimages_${lib}_stubs.a)
-  cd -
-done
+%dune_build
 
 %install
-dune install --destdir=%{buildroot}
-
-# We do not want the dune markers
-find _build/default/_doc/_html -name .dune-keep -delete
-
-# We do not want the ml files
-find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
+%dune_install
 
 %check
-dune runtest
+%dune_check
 
-%files
+%files -f .ofiles
 %doc README.md Changes.txt
 %license License.txt
-%dir %{_libdir}/ocaml/%{srcname}/
-%dir %{_libdir}/ocaml/%{srcname}/core/
-%dir %{_libdir}/ocaml/%{srcname}/exif/
-%dir %{_libdir}/ocaml/%{srcname}/freetype/
-%dir %{_libdir}/ocaml/%{srcname}/gif/
-%dir %{_libdir}/ocaml/%{srcname}/graphics/
-%dir %{_libdir}/ocaml/%{srcname}/jpeg/
-%dir %{_libdir}/ocaml/%{srcname}/lablgtk2/
-%dir %{_libdir}/ocaml/%{srcname}/png/
-%dir %{_libdir}/ocaml/%{srcname}/tiff/
-%dir %{_libdir}/ocaml/%{srcname}/xpm/
-%{_libdir}/ocaml/%{srcname}/META
-%{_libdir}/ocaml/%{srcname}/*/*.cma
-%{_libdir}/ocaml/%{srcname}/*/*.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{srcname}/*/*.cmxs
-%endif
-%{_libdir}/ocaml/stublibs/*.so
 
-%files devel
-%doc _build/default/_doc/_html/*
-%{_libdir}/ocaml/%{srcname}/dune-package
-%{_libdir}/ocaml/%{srcname}/opam
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{srcname}/*/*.a
-%{_libdir}/ocaml/%{srcname}/*/*.cmx
-%{_libdir}/ocaml/%{srcname}/*/*.cmxa
-%endif
-%{_libdir}/ocaml/%{srcname}/*/*.cmt
-%{_libdir}/ocaml/%{srcname}/*/*.cmti
-%{_libdir}/ocaml/%{srcname}/*/*.mli
+%files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.0.4-12
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.4-11
 - Bump release and rebuild
 

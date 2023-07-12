@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-logs
 Version:        0.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Logging infrastructure for OCaml
 
 License:        ISC
@@ -14,6 +12,8 @@ URL:            https://erratique.ch/software/logs
 Source0:        %{url}/releases/logs-%{version}.tbz
 # Fix the expected number of errors per test
 Patch0:         %{name}-test.patch
+# Adapt to changes in ocaml-mtime 2.0.0
+Patch1:         %{name}-mtime.patch
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-cmdliner-devel
@@ -24,6 +24,9 @@ BuildRequires:  ocaml-mtime-devel
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-topkg-devel
 BuildRequires:  python3
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Logs provides a logging infrastructure for OCaml.  Logging is performed
@@ -54,26 +57,13 @@ sed -i 's/package(lwt)/thread, &/' _tags
 ocaml pkg/pkg.ml build --with-js_of_ocaml false --with-fmt true \
   --with-cmdliner true --with-lwt true --with-base-threads true --tests true
 
-# Relink with Fedora linker flags
-cd _build
-ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g -I src src/logs.cmxa \
-  -o src/logs.cmxs
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g -package fmt \
-  -I src src/logs_fmt.cmxa -o src/logs_fmt.cmxs
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g \
-  -package cmdliner -I src src/logs_cli.cmxa -o src/logs_cli.cmxs
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g -thread \
-  -package lwt -I src src/logs_lwt.cmxa -o src/logs_lwt.cmxs
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g \
-  -package compiler-libs.toplevel -I src src/logs_top.cmxa -o src/logs_top.cmxs
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g -thread \
-  -package threads -I src src/logs_threaded.cmxa -o src/logs_threaded.cmxs
-cd -
-
 %install
 mkdir -p %{buildroot}%{ocamldir}/logs
-cp -p _build/src/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} _build/pkg/META \
-   _build/opam %{buildroot}%{ocamldir}/logs
+%ifarch %{ocaml_native_compiler}
+cp -p _build/src/*.{a,cmx,cmxa,cmxs} %{buildroot}%{ocamldir}/logs
+%endif
+cp -p _build/src/*.{cma,cmi,cmt,cmti,mli} _build/pkg/META _build/opam \
+   %{buildroot}%{ocamldir}/logs
 cp -p src/logs_top_init.ml %{buildroot}%{ocamldir}/logs
 %ocaml_files
 
@@ -87,6 +77,10 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-10
+- OCaml 5.0.0 rebuild
+- Add patch to adapt to ocaml-mtime 2.0.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-9
 - Rebuild OCaml packages for F38
 

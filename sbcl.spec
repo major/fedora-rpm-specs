@@ -1,94 +1,91 @@
-%define common_lisp_controller 1
+# build with a bootstrap Common Lisp binary
+%bcond_without bootstrap
+
+%global common_lisp_controller 1
 
 # generate/package docs
-%define docs 1
+%global docs 1
 
 # define to enable verbose build for debugging
-%define sbcl_verbose 0
-%define sbcl_shell /bin/bash
+%global sbcl_verbose 0
+%global sbcl_shell /bin/bash
+
+# SBCL name for the architecture
+%ifarch %{ix86}
+%global sbcl_arch x86
+%else
+%ifarch x86_64
+%global sbcl_arch x86-64
+%else
+%ifarch aarch64
+%global sbcl_arch arm64
+%else
+%ifarch %{power64}
+%global sbcl_arch ppc64
+%else
+%endif
+%endif
+%endif
+%endif
+
+# Latest upstream binary releases, used for bootstrapping
+%global bs_x86    1.4.3
+%global bs_x86_64 2.3.5
+%global bs_arm64  1.4.2
+%global bs_ppc64  1.5.8
 
 Name: 	 sbcl
 Summary: Steel Bank Common Lisp
-Version: 2.0.1
-Release: 10%{?dist}
+Version: 2.3.5
+Release: 1%{?dist}
 
-License: BSD
-URL:	 http://sbcl.sourceforge.net/
-Source0: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{version}-source.tar.bz2
+# See COPYING for a license breakdown
+# FIXME: The files in src/pcl have a license similar, but not identical, to the
+# Xerox license
+License: LicenseRef-Fedora-Public-Domain AND LOOP AND BSD-3-Clause
+URL:	 https://sbcl.sourceforge.io/
+Source0: https://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{version}-source.tar.bz2
 
-ExclusiveArch: %{arm} %{ix86} x86_64 ppc sparcv9 aarch64
+# Upstream has riscv32 and riscv64 support, but you need a Common Lisp binary
+# to bootstrap with, and none seem to be available for RISC-V.  It might be
+# possible to cross-compile the bootstrap SBCL from another architecture.
+#
+# Architectures supported by upstream that are no longer built by Fedora:
+# - 32-bit ARM
+# - 32-bit PowerPC
+# - MIPS
+# - Sparc
+ExclusiveArch: %{ix86} x86_64 aarch64 %{power64}
 
 # Pre-generated html docs
 Source1: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{version}-documentation-html.tar.bz2
 
-## x86 section
-#Source10: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-1.0.15-x86-linux-binary.tar.bz2
+%if %{with bootstrap}
+Source10: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{bs_x86}-x86-linux-binary.tar.bz2
+Source20: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{bs_x86_64}-x86-64-linux-binary.tar.bz2
+Source30: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{bs_arm64}-arm64-linux-binary.tar.bz2
+Source40: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{bs_ppc64}-ppc64le-linux-binary.tar.bz2
+%endif
+
+%if %{with bootstrap}
 %ifarch %{ix86}
-%define sbcl_arch x86
-BuildRequires: sbcl
-# or
-#define sbcl_bootstrap_src -b 10
+%global sbcl_bootstrap_src -b 10
+%global sbcl_bootstrap_dir sbcl-%{bs_x86}-x86-linux
 %endif
-
-## x86_64 section
-#Source20: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-1.2.0-x86-64-linux-binary.tar.bz2
 %ifarch x86_64
-%define sbcl_arch x86-64
-BuildRequires: sbcl
-# or
-#define sbcl_bootstrap_src -b 20
-#define sbcl_bootstrap_dir sbcl-1.2.0-x86-64-linux
+%global sbcl_bootstrap_src -b 20
+%global sbcl_bootstrap_dir sbcl-%{bs_x86_64}-x86-64-linux
 %endif
-
-## ppc section
-# Thanks David!
-#Source30: sbcl-1.0.1-patched_el4-powerpc-linux.tar.bz2
-#Source30: sbcl-1.0.1-patched-powerpc-linux.tar.bz2
-%ifarch ppc 
-%define sbcl_arch ppc
-BuildRequires: sbcl
-# or
-#define sbcl_bootstrap_src -b 30
-%endif
-
-## sparc section
-#Source40: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-0.9.17-sparc-linux-binary.tar.bz2
-%ifarch sparcv9
-%define sbcl_arch sparc 
-BuildRequires: sbcl
-# or
-#define sbcl_bootstrap_src -b 40
-%endif
-
-## arm section
-#Source50: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-1.2.0-armel-linux-binary.tar.bz2
-%ifarch armv5tel
-%define sbcl_arch arm
-BuildRequires: sbcl
-# or
-#define sbcl_bootstrap_src -b 50
-#define sbcl_bootstrap_dir sbcl-1.2.0-armel-linux
-%endif
-
-#Source60: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-1.2.0-armhf-linux-binary.tar.bz2
-# generated on a fedora20 arm box, sf bootstrap missing sb-gmp
-#Source60: sbcl-1.2.0-armhf-linux-binary-2.tar.bz2
-%ifarch armv6hl armv7hl
-%define sbcl_arch arm
-BuildRequires: sbcl
-# or
-#define sbcl_bootstrap_src -b 60
-#define sbcl_bootstrap_dir sbcl-1.2.0-armhf-vfp
-%endif
-
-## aarch64 section
-#Source70: http://downloads.sourceforge.net/sourceforge/sbcl/sbcl-1.3.16-arm64-linux-binary.tar.bz2
 %ifarch aarch64
-%define sbcl_arch arm64
+%global sbcl_bootstrap_src -b 30
+%global sbcl_bootstrap_dir sbcl-%{bs_arm64}-arm64-linux
+%endif
+%ifarch %{power64}
+%global sbcl_bootstrap_src -b 40
+%global sbcl_bootstrap_dir sbcl-%{bs_ppc64}-ppc64le-linux
+%endif
+%else
 BuildRequires: sbcl
-# or
-#define sbcl_bootstrap_src -b 70
-#define sbcl_bootstrap_dir sbcl-1.3.16-arm64-linux
 %endif
 
 %if 0%{?common_lisp_controller}
@@ -106,17 +103,17 @@ Patch2: sbcl-1.4.2-optflags.patch
 Patch3: sbcl-2.0.1-verbose-build.patch
 
 ## upstreamable patches
-Patch100: sbcl-1.4.14-gcc10.patch
 
 ## upstream patches
 
 BuildRequires: make
-BuildRequires: ctags
+BuildRequires: emacs-common
 BuildRequires: gcc
-BuildRequires: zlib-devel
+BuildRequires: libzstd-devel
 # %%check/tests
 BuildRequires: ed
 BuildRequires: hostname
+BuildRequires: strace
 %if 0%{?docs}
 # doc generation
 BuildRequires: ghostscript
@@ -131,18 +128,14 @@ interpreter, and debugger.
 
 
 %prep
-%setup -q -c -n sbcl-%{version} -a 1 %{?sbcl_bootstrap_src}
-
-pushd sbcl-%{version}
-%patch1 -p1 -b .personality
-%patch2 -p1 -b .optflags
-%{?sbcl_verbose:%patch3 -p1 -b .verbose-build}
+%autosetup -N -c -n sbcl-%{version} %{?sbcl_bootstrap_src}
+%setup -q -T -D -a 1
+cd sbcl-%{version}
+%autopatch -M 2 -p1
+%{?sbcl_verbose:%patch 3 -p1 -b .verbose-build}
 
 # upstream patches
-%patch100 -p1 -b .gcc10
-
-# fix permissions (some have eXecute bit set)
-find . -name '*.c' | xargs chmod 644
+#%%autopatch -m 4 -p1
 
 # set version.lisp-expr
 sed -i.rpmver -e "s|\"%{version}\"|\"%{version}-%{release}\"|" version.lisp-expr
@@ -150,18 +143,14 @@ sed -i.rpmver -e "s|\"%{version}\"|\"%{version}-%{release}\"|" version.lisp-expr
 # make %%doc items available in parent dir to make life easier
 cp -alf BUGS COPYING README CREDITS NEWS TLA TODO PRINCIPLES ..
 ln -s sbcl-%{version}/doc ../doc
-popd
+cd -
 
 
 %build
-# LTO causes testsuite failures, though it may be the case that the tests are racy.
-# Until further analysis is complete, disable LTO
-%define _lto_cflags %{nil}
+cd sbcl-%{version}
 
-pushd sbcl-%{version}
-
-export CFLAGS="%{?optflags}"
-export LDFLAGS="%{?__global_ldflags}"
+export CFLAGS='%{build_cflags}'
+export LDFLAGS='%{build_ldflags}'
 export CC=gcc
 
 export SBCL_HOME=%{_prefix}/lib/sbcl
@@ -170,7 +159,7 @@ export SBCL_HOME=%{_prefix}/lib/sbcl
 ./make.sh \
   --prefix=%{_prefix} \
   --with-sb-core-compression \
-  %{?sbcl_bootstrap_dir:--xc-host="`pwd`/../%{sbcl_bootstrap_dir}/run-sbcl.sh"}
+  %{?sbcl_bootstrap_dir:--xc-host='%{_builddir}/%{sbcl_bootstrap_dir}/run-sbcl.sh'}
 
 # docs
 %if 0%{?docs}
@@ -180,11 +169,11 @@ make -C doc/manual info
 tar xvjf %{SOURCE1}
 cp -av %{name}-%{version}/doc/manual/* doc/manual/
 %endif
-popd
+cd -
 
 
 %install
-pushd sbcl-%{version}
+cd sbcl-%{version}
 mkdir -p %{buildroot}{%{_bindir},%{_prefix}/lib,%{_mandir}}
 
 unset SBCL_HOME 
@@ -198,20 +187,19 @@ install -m644 -p -D %{SOURCE202} %{buildroot}%{_prefix}/lib/sbcl/install-clc.lis
 # linking ok? -- Rex
 cp -p %{buildroot}%{_prefix}/lib/sbcl/sbcl.core %{buildroot}%{_prefix}/lib/sbcl/sbcl-dist.core
 %endif
-popd
+cd -
 
 ## Unpackaged files
 rm -rfv %{buildroot}%{_docdir}/sbcl
 rm -fv  %{buildroot}%{_infodir}/dir
 # CVS crud 
-find %{buildroot} -name CVS -type d | xargs rm -rfv
-find %{buildroot} -name .cvsignore | xargs rm -fv
+find %{buildroot} -name .cvsignore -delete
 # 'test-passed' files from %%check
-find %{buildroot} -name 'test-passed' | xargs rm -vf
+find %{buildroot} -name 'test-passed' -delete
 
 
 %check
-pushd sbcl-%{version}
+cd sbcl-%{version}
 ERROR=0
 # sanity check, essential contrib modules get built/included?
 CONTRIBS="sb-posix.fasl sb-bsd-sockets.fasl"
@@ -230,7 +218,7 @@ test "$(. ./subr.sh; "$SBCL_RUNTIME" --core "$SBCL_CORE" --version --version 2>/
 time %{?sbcl_shell} ./run-tests.sh ||:
 popd
 exit $ERROR
-popd
+cd -
 
 %post
 %if 0%{?common_lisp_controller}
@@ -270,6 +258,14 @@ fi
 
 
 %changelog
+* Tue Jun 13 2023 Jerry James <loganjerry@gmail.com> - 2.3.5-1
+- Version 2.3.5
+- Convert License tag to SPDX
+- Drop upstreamed gcc10 patch
+- Build for ppc64le
+- Compress cores with zstd instead of zlib
+- Various minor spec file cleanups
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

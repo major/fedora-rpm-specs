@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.6.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -198,6 +198,9 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 0.6.0-2
+- Rebuilt for Python 3.12
+
 * Wed May 24 2023 Haibo Lin <hlin@redhat.com> - 0.6.0-1
 - backend/client: Allow compose with no label
 - backend: Clean up ODCS backend code

@@ -20,6 +20,7 @@ Patch4: 0004-Switch-to-setuptools.patch
 Patch5: 0005-Convert-the-tests-to-pytest.patch
 Patch6: 0006-Add-dynamic-fields-to-pyproject.toml.patch
 Patch7: 0007-Separate-C-and-python-sources.patch
+Patch8: no-stdarg-proto-check.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel

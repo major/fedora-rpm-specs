@@ -1,5 +1,3 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -14,7 +12,7 @@
 
 Name:           ocaml-csexp
 Version:        1.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parsing and printing of S-expressions in canonical form
 
 License:        MIT
@@ -88,7 +86,7 @@ plugin(native) = "csexp.cmxs"
 EOF
 
 cat >> %{buildroot}%{ocamldir}/csexp/dune-package << EOF
-(lang dune 3.7)
+(lang dune 3.9)
 (name csexp)
 (version %{version})
 (sections (lib .) (libexec .) (doc ../../doc/csexp))
@@ -101,12 +99,16 @@ cat >> %{buildroot}%{ocamldir}/csexp/dune-package << EOF
    csexp.cmt
    csexp.cmti
    csexp.cmx
+%ifarch %{ocaml_native_compiler}
    csexp.cmxa
+%endif
    csexp.ml
    csexp.mli
    dune-package
    opam))
+%ifarch %{ocaml_native_compiler}
  (libexec (csexp.cmxs))
+%endif
  (doc (CHANGES.md LICENSE.md README.md)))
 (library
  (name csexp)
@@ -142,6 +144,9 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.5.2-2
+- OCaml 5.0.0 rebuild
+
 * Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 1.5.2-1
 - Version 1.5.2
 

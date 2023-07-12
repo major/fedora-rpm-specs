@@ -14,8 +14,8 @@ the configuration, management, collection, and preprocessing of data collected
 via POST requests. }
 
 Name:           python-%{pypi_name}
-Version:        0.2.3
-Release:        2%{?dist}
+Version:        0.2.4
+Release:        1%{?dist}
 Summary:        Collect POST requests
 
 License:        MIT
@@ -67,6 +67,9 @@ toml-adapt -path pyproject.toml -a change -dep pandas -ver X
 %doc README.md CHANGELOG.md CODE_OF_CONDUCT.md
 
 %changelog
+* Mon Jul 10 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.4-1
+- Update to 0.2.4
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.2.3-2
 - Rebuilt for Python 3.12
 

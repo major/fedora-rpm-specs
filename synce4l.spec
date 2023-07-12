@@ -1,5 +1,5 @@
 Name:		synce4l
-Version:	0.9.0
+Version:	0.9.1
 Release:	1%{?dist}
 Summary:	SyncE implementation for Linux
 
@@ -8,7 +8,6 @@ URL:		https://github.com/intel/synce4l
 Source0:	https://github.com/intel/synce4l/archive/%{version}/synce4l-%{version}.tar.gz
 Source1:	synce4l.service
 Source2:	synce4l.conf
-Patch1:		synce4l-gcc-warn.patch
 
 BuildRequires:	gcc make systemd
 
@@ -23,8 +22,6 @@ supported hardware by processing Ethernet Synchronization Messaging Channel
 
 %prep
 %autosetup
-# Fix building outside of git repository
-sed -i 's|\(^VERSION := \).*|\1%{version}|' Makefile
 
 %build
 %{make_build} \
@@ -63,6 +60,9 @@ echo '.so man8/synce4l.8' > $RPM_BUILD_ROOT%{_mandir}/man5/synce4l.conf.5
 %{_mandir}/man8/*.8*
 
 %changelog
+* Mon Jul 10 2023 Miroslav Lichvar <mlichvar@redhat.com> 0.9.1-1
+- update to 0.9.1
+
 * Mon Jun 19 2023 Miroslav Lichvar <mlichvar@redhat.com> 0.9.0-1
 - update to 0.9.0
 

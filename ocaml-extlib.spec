@@ -1,23 +1,22 @@
-%undefine _package_note_flags
-# The debuginfo package is empty, so don't generate it.
-# Could possibly be fixed by passing -g option correctly to the compiler.
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
+%endif
 
 Name:           ocaml-extlib
-Version:        1.7.8
-Release:        12%{?dist}
+Version:        1.7.9
+Release:        1%{?dist}
 Summary:        OCaml ExtLib additions to the standard library
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
 
 URL:            https://github.com/ygrek/ocaml-extlib
 Source0:        https://github.com/ygrek/ocaml-extlib/releases/download/%{version}/extlib-%{version}.tar.gz
 
 BuildRequires:  make
-BuildRequires:  ocaml >= 4.00.1
+BuildRequires:  ocaml >= 4.02
 BuildRequires:  ocaml-findlib-devel >= 1.3.3-3
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-cppo
-BuildRequires:  gawk
+BuildRequires:  python3
 # In order to apply patches:
 BuildRequires:  git
 
@@ -33,7 +32,7 @@ should be useful for the average OCaml programmer.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -44,47 +43,55 @@ developing applications that use %{name}.
 %prep
 %autosetup -S git -n extlib-%{version}
 
+# Remove references to the bytes library for OCaml 5.0
+sed -i '/bytes/d' src/META
+
 
 %build
-# Parallel builds do not work.
-unset MAKEFLAGS
-
 # https://bugzilla.redhat.com/show_bug.cgi?id=1837823
 export minimal=1
-make build -j1
+%ifarch %{ocaml_native_compiler}
+%make_build
+%else
+%make_build -C src all
+%endif
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 
 export minimal=1
-make install -j1
+%make_install
+%ocaml_files
 
 
-%files
+%check
+export minimal=1
+%ifarch %{ocaml_native_compiler}
+make test
+%else
+make -C test all run
+%endif
+
+
+%files -f .ofiles
 %doc README.md
 %license LICENSE
-%{_libdir}/ocaml/extlib
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/extlib/*.a
-%exclude %{_libdir}/ocaml/extlib/*.cmxa
-%exclude %{_libdir}/ocaml/extlib/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/extlib/*.mli
 
 
-%files devel
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/extlib/*.a
-%{_libdir}/ocaml/extlib/*.cmxa
-%{_libdir}/ocaml/extlib/*.cmx
-%endif
-%{_libdir}/ocaml/extlib/*.mli
+%files devel -f .ofiles-devel
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.7.9-1
+- Version 1.7.9
+- Convert License tag to SPDX
+- Generate debuginfo
+- Enable parallel builds
+- Add %%check script
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.8-12
 - Rebuild OCaml packages for F38
 

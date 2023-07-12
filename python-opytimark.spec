@@ -20,6 +20,10 @@ License:        Apache-2.0
 URL:            https://github.com/gugarosa/opytimark
 Source0:        %forgesource
 
+# Move dev dependencies
+# https://github.com/gugarosa/opytimark/pull/2
+Patch:          %{url}/pull/2.patch
+
 BuildArch:      noarch
 
 %description
@@ -55,7 +59,7 @@ Documentation for %{name}.
 %endif
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -r

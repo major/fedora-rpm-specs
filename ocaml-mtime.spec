@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-mtime
-Version:        1.4.0
-Release:        5%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Monotonic wall-clock time for OCaml
 
 License:        ISC
@@ -14,6 +12,9 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 BuildRequires:  python3
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Mtime has platform independent support for monotonic wall-clock time in
@@ -43,34 +44,28 @@ echo $'\ntrue: cclib(-lm)' >> _tags
 %build
 ocaml pkg/pkg.ml build --dev-pkg false --tests true
 
-# Relink with Fedora linker flags
-cd _build
-ocamlopt -shared -linkall -cclib '%{build_ldflags} -lm' -I src src/mtime.cmxa \
-  -g -o src/mtime.cmxs
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -package \
-  compiler-libs.toplevel -I src src/mtime_top.cmxa -g -o src/mtime_top.cmxs
-ocamlfind ocamlmklib -ldopt '%{build_ldflags}' -o src-clock/mtime_clock_stubs \
-  -g src-clock/mtime_clock_stubs.o
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' \
-  src-clock/libmtime_clock_stubs.a -I src-clock src-clock/mtime_clock.cmxa -g \
-  -o src-clock/mtime_clock.cmxs
-cd -
-
 %install
 mkdir -p %{buildroot}%{_libdir}/ocaml/mtime/clock/os
 mkdir -p %{buildroot}%{_libdir}/ocaml/mtime/top
-cp -p _build/src/mtime.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} _build/pkg/META \
-   _build/opam %{buildroot}%{_libdir}/ocaml/mtime
-cp -p _build/src/mtime_clock.{cmi,cmti,mli} \
-   %{buildroot}%{_libdir}/ocaml/mtime/clock
-cp -p _build/src-clock/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,js,mli} \
+%ifarch %{ocaml_native_compiler}
+cp -p _build/src/mtime.{a,cmx,cmxa,cmxs} %{buildroot}%{_libdir}/ocaml/mtime
+cp -p _build/src-clock/*.{cmx,cmxa,cmxs} \
    %{buildroot}%{_libdir}/ocaml/mtime/clock/os
-cp -p _build/src/mtime_top_init.ml %{buildroot}%{_libdir}/ocaml/mtime
-cp -p _build/src/mtime_top.{a,cma,cmi,cmt,cmx,cmxa,cmxs} \
+cp -p _build/src/mtime_top.{cmx,cmxa,cmxs} \
    %{buildroot}%{_libdir}/ocaml/mtime/top
+%endif
+cp -p _build/src/mtime.{cma,cmi,cmt,cmti,mli} _build/pkg/META _build/opam \
+   %{buildroot}%{_libdir}/ocaml/mtime
+cp -p _build/src-clock/*.{a,cma,cmi,cmt,cmti,js,mli} \
+   %{buildroot}%{_libdir}/ocaml/mtime/clock/os
+cp -p _build/src/mtime_top.{cma,cmi,cmt} %{buildroot}%{_libdir}/ocaml/mtime/top
+cp -p _build/src/mtime_top_init.ml %{buildroot}%{_libdir}/ocaml/mtime
 mkdir -p %{buildroot}%{_libdir}/ocaml/stublibs
 cp -p _build/src-clock/*.so %{buildroot}%{_libdir}/ocaml/stublibs
 %ocaml_files
+
+# The clock directory is mistakenly labeled as a devel directory
+sed -i '/%dir/d' .ofiles-devel
 
 %check
 ocaml pkg/pkg.ml test
@@ -78,6 +73,7 @@ ocaml pkg/pkg.ml test
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE.md
+%dir %{ocamldir}/mtime/clock
 
 %files devel -f .ofiles-devel
 %if %{with docs}
@@ -85,6 +81,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.0.0-1
+- Version 2.0.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-5
 - Rebuild OCaml packages for F38
 

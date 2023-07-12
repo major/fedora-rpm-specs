@@ -1,17 +1,18 @@
-%undefine _package_note_flags
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
 Name:           ocaml-benchmark
 Version:        1.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Benchmarking module for OCaml
 
-License:        LGPLv3+ with exceptions
-URL:            http://ocaml-benchmark.forge.ocamlcore.org/
+License:        LGPL-3.0-only WITH OCaml-LGPL-linking-exception
+URL:            https://chris00.github.io/ocaml-benchmark/doc/
 Source0:        https://github.com/Chris00/ocaml-benchmark/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ocaml
-BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-dune
-BuildRequires:  opam-installer
 
 %description
 Benchmark provides functions to measure and compare the run-time of functions.
@@ -29,51 +30,39 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{version}
 
 
 %build
-dune build @install --profile release
+%dune_build
 
 
 %install
-dune install --destdir="%{buildroot}" --libdir="%{_libdir}/ocaml" --verbose
-
-# Makes *.cmxs executable such that they will be stripped.
-find %{buildroot} -name '*.cmxs' -exec chmod 0755 {} \;
-
-# Remove /usr/doc, we will install it using %%doc directives.
-rm -r %{buildroot}$DESTDIR/usr/doc
+%dune_install
 
 
 %check
-dune runtest --profile release
+%dune_check
 
 
-%files
+%files -f .ofiles
 %doc README.md CHANGES.md
 %license LICENSE.md
-%{_libdir}/ocaml/benchmark
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/benchmark/*.a
-%exclude %{_libdir}/ocaml/benchmark/*.cmxa
-%exclude %{_libdir}/ocaml/benchmark/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/benchmark/*.mli
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc README.md CHANGES.md
 %license LICENSE.md
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/benchmark/*.a
-%{_libdir}/ocaml/benchmark/*.cmxa
-%{_libdir}/ocaml/benchmark/*.cmx
-%endif
-%{_libdir}/ocaml/benchmark/*.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.6-4
+- OCaml 5.0.0 rebuild
+- New project URL
+- Convert License tag to SPDX
+- Trim BuildRequires
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6-3
 - Rebuild OCaml packages for F38
 

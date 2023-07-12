@@ -1,15 +1,17 @@
-%undefine _package_note_flags
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
 Name:           ocaml-ocplib-endian
 Version:        1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Functions to read/write int16/32/64 from strings, bigarrays
 
-%global libname ocplib-endian
-
-# License is LGPL 2.1 with standard OCaml exceptions
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/OCamlPro/ocplib-endian
 Source0:        https://github.com/OCamlPro/ocplib-endian/archive/%{version}/ocplib-endian-%{version}.tar.gz
+# Remove dependency on base-bytes
+Patch0:         https://github.com/OCamlPro/ocplib-endian/pull/26.patch
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-cppo >= 1.1.0
@@ -38,59 +40,29 @@ The %{name}-devel package contains libraries and
 signature files for developing applications that use %{name}.
 
 %prep
-%autosetup -n %{libname}-%{version}
+%autosetup -n ocplib-endian-%{version} -p1
 
 %build
-dune build %{?_smp_mflags} --verbose --profile release
+%dune_build
 
 %install
-dune install --destdir=%{buildroot}
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
-
-# We do not want the ml files
-find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
+%dune_install
 
 %check
-dune runtest --profile release
+%dune_check
 
-%files
+%files -f .ofiles
 %license COPYING.txt
 %doc README.md CHANGES.md
-%dir %{_libdir}/ocaml/%{libname}/
-%dir %{_libdir}/ocaml/%{libname}/bigstring/
-%{_libdir}/ocaml/%{libname}/META
-%{_libdir}/ocaml/%{libname}/*.cma
-%{_libdir}/ocaml/%{libname}/*.cmi
-%{_libdir}/ocaml/%{libname}/bigstring/*.cma
-%{_libdir}/ocaml/%{libname}/bigstring/*.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{libname}/*.cmxs
-%{_libdir}/ocaml/%{libname}/bigstring/*.cmxs
-%endif
 
-
-%files devel
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{libname}/*.a
-%{_libdir}/ocaml/%{libname}/*.cmxa
-%{_libdir}/ocaml/%{libname}/*.cmx
-%{_libdir}/ocaml/%{libname}/bigstring/*.a
-%{_libdir}/ocaml/%{libname}/bigstring/*.cmxa
-%{_libdir}/ocaml/%{libname}/bigstring/*.cmx
-%endif
-%{_libdir}/ocaml/%{libname}/*.mli
-%{_libdir}/ocaml/%{libname}/*.cmt
-%{_libdir}/ocaml/%{libname}/*.cmti
-%{_libdir}/ocaml/%{libname}/bigstring/*.mli
-%{_libdir}/ocaml/%{libname}/bigstring/*.cmt
-%{_libdir}/ocaml/%{libname}/bigstring/*.cmti
-%{_libdir}/ocaml/%{libname}/dune-package
-%{_libdir}/ocaml/%{libname}/opam
-
+%files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2-8
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2-7
 - Rebuild OCaml packages for F38
 

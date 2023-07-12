@@ -1,17 +1,15 @@
-%undefine _package_note_flags
 Name:           ocaml-pcre
 Version:        7.5.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Perl compatibility regular expressions (PCRE) for OCaml
 
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/mmottl/pcre-ocaml/
 Source0:        %{url}/releases/download/%{version}/pcre-%{version}.tbz
 
 BuildRequires:  ocaml >= 4.12
-BuildRequires:  ocaml-dune-devel >= 2.7
-BuildRequires:  ocaml-odoc
-BuildRequires:  ocaml-result-devel
+BuildRequires:  ocaml-dune >= 2.7
+BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  pcre-devel
 
 
@@ -35,61 +33,31 @@ developing applications that use %{name}.
 
 
 %build
-dune build %{?_smp_mflags} --verbose --profile release
-dune build %{?_smp_mflags} @doc
-
-# Relink the stublib with Fedora flags
-cd _build/default/src
-ocamlmklib -g -ldopt "%{build_ldflags}" -o pcre_stubs $(ar t libpcre_stubs.a) \
-  -lpcre
-cd -
+%dune_build
 
 
 %install
-dune install --destdir=%{buildroot}
-
-# We do not want the dune markers
-find _build/default/_doc/_html -name .dune-keep -delete
-
-# We do not want the ml files
-find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
+%dune_install
 
 
 %check
-dune runtest --profile release
+%dune_check
 
 
-%files
+%files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE.md
-%dir %{_libdir}/ocaml/pcre/
-%{_libdir}/ocaml/pcre/META
-%{_libdir}/ocaml/pcre/*.cma
-%{_libdir}/ocaml/pcre/*.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/pcre/*.cmxs
-%endif
-%{_libdir}/ocaml/stublibs/dllpcre_stubs.so
 
 
-%files devel
-%doc _build/default/_doc/*
-%{_libdir}/ocaml/pcre/dune-package
-%{_libdir}/ocaml/pcre/opam
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/pcre/*.a
-%{_libdir}/ocaml/pcre/*.cmx
-%{_libdir}/ocaml/pcre/*.cmxa
-%endif
-%{_libdir}/ocaml/pcre/*.cmt
-%{_libdir}/ocaml/pcre/*.cmti
-%{_libdir}/ocaml/pcre/*.mli
+%files devel -f .ofiles-devel
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 7.5.0-10
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 7.5.0-9
 - Rebuild OCaml packages for F38
 

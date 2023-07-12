@@ -1,29 +1,33 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-
 Name:           ocaml-lablgl
 Epoch:          1
-Version:        1.06
-Release:        28%{?dist}
+Version:        1.07
+Release:        1%{?dist}
 Summary:        LablGL is an OpenGL interface for Objective Caml
-License:        BSD
+License:        BSD-3-Clause
 
-URL:            http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgl.html
-Source0:        https://github.com/garrigue/lablgl/archive/v1.06/%{name}-%{version}.tar.gz
-Patch0:         lablgl-freeglut.patch
+URL:            https://github.com/garrigue/lablgl
+Source0:        %{url}/archive/v%{version}/lablgl-%{version}.tar.gz
 
-BuildRequires: make
+# Adapt to OCaml 5
+Patch0:         %{name}-ocaml5.patch
+# Fix a use-after-free bug
+# https://github.com/garrigue/lablgl/pull/5
+Patch1:         %{name}-use-after-free.patch
+
+BuildRequires:  make
 BuildRequires:  freeglut-devel 
-BuildRequires:  ocaml >= 3.12.1-3
+BuildRequires:  ocaml >= 4.14
+BuildRequires:  ocaml-findlib >= 1.2.1
+BuildRequires:  ocaml-camlp-streams-devel
+BuildRequires:  ocaml-labltk-devel
 BuildRequires:  tcl-devel
 BuildRequires:  tk-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXext-devel
 BuildRequires:  libXmu-devel
-BuildRequires:  libXxf86vm-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
-BuildRequires:	ocaml-labltk-devel
+BuildRequires:  python3
 
 
 %description
@@ -36,8 +40,9 @@ extension, or with open-source Mesa.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{epoch}:%{version}-%{release}
-Requires:       ocaml-labltk-devel
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       ocaml-labltk-devel%{?_isa}
+Requires:       freeglut-devel%{?_isa}
 
 
 %description    devel
@@ -46,45 +51,49 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n lablgl-%{version}
-
-%patch0 -p0
+%autosetup -n lablgl-%{version} -p1
 
 cat > Makefile.config <<EOF
-%if %{opt}
-CAMLC = ocamlc.opt
-CAMLOPT = ocamlopt.opt -g
-%else
-CAMLC = ocamlc
-CAMLOPT = ocamlc -g
-%endif
 BINDIR = %{_bindir}
 XINCLUDES = -I%{_prefix}/X11R6/include
 XLIBS = -lXext -lXmu -lX11
 TKINCLUDES = -I%{_includedir}
+TKLIBS = $(pkg-config --libs tk)
 GLINCLUDES =
 GLLIBS = -lGL -lGLU
-GLUTLIBS = -lglut -lXxf86vm
+GLUTLIBS = -lglut
 RANLIB = :
 LIBDIR = %{_libdir}/ocaml
 DLLDIR = %{_libdir}/ocaml/stublibs
 INSTALLDIR = %{_libdir}/ocaml/lablGL
 TOGLDIR=Togl
-COPTS = $RPM_OPT_FLAGS
+COPTS = %{build_cflags}
 EOF
+
+# Prepare the examples for inclusion in the docs
+mkdir -p examples/LablGlut examples/Togl
+cp -a LablGlut/examples examples/LablGlut
+cp -a Togl/examples examples/Togl
+
+# Fix the version number in META
+sed -i.orig 's/1\.05/%{version}/' META
+touch -r META.orig META
+
+# Build with debuginfo
+sed -i 's/\$(CAMLC)/& -g/;s/\$(CAMLOPT)/& -g/;s/ocamlmklib/& -g/' Makefile.common
+sed -i 's/ocamlmktop/& -g/' LablGlut/src/Makefile Togl/src/Makefile
 
 
 %build
 # Parallel builds don't work.
 unset MAKEFLAGS
 make all \
-%if %{opt}
+%ifarch %{ocaml_native_compiler}
 opt
 %endif
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
@@ -94,7 +103,7 @@ make INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL \
     install
 
 # Install package META.
-cp META $RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL/
+cp -p META $RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL/
 
 # Remove unnecessary *.ml files (ones which have a *.mli).
 pushd $RPM_BUILD_ROOT%{_libdir}/ocaml/lablGL
@@ -106,30 +115,29 @@ for f in *.ml; do \
 done
 popd
 
+%ocaml_files
 
-%files
+
+%files -f .ofiles
 %doc README
-%dir %{_libdir}/ocaml/lablGL
-%{_libdir}/ocaml/lablGL/META
-%{_libdir}/ocaml/lablGL/*.cma
-%{_libdir}/ocaml/lablGL/*.cmi
-%{_libdir}/ocaml/stublibs/*.so
-%{_bindir}/lablgl
-%{_bindir}/lablglut
+%license COPYRIGHT
 
 
-%files devel
-%doc CHANGES COPYRIGHT README LablGlut/examples Togl/examples
-%{_libdir}/ocaml/lablGL/*.a
-%if %{opt}
-%{_libdir}/ocaml/lablGL/*.cmxa
-%{_libdir}/ocaml/lablGL/*.cmx
-%endif
-%{_libdir}/ocaml/lablGL/*.mli
-%{_libdir}/ocaml/lablGL/build.ml
+%files devel -f .ofiles-devel
+%doc CHANGES README examples/LablGlut examples/Togl
+%license COPYRIGHT
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1:1.07-1
+- Version 1.07
+- Convert License tag to SPDX
+- Drop unnecessary freeglut patch
+- New project URL
+- Add dependencies on ocaml-findlib and ocaml-camlp-streams
+- Add patch to update Tk code for OCaml 5
+- Add patch to fix use-after-free in the Tk code
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.06-28
 - Rebuild OCaml packages for F38
 

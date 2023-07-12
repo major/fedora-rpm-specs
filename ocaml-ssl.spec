@@ -1,23 +1,18 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-
 Name:           ocaml-ssl
-Version:        0.5.11
-Release:        3%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        SSL bindings for OCaml
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://github.com/savonet/ocaml-ssl
-Source0:        https://github.com/savonet/ocaml-ssl/releases/download/%{version}/ocaml-ssl-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 3.12.1-3
-BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-dune-devel
-BuildRequires:  openssl-devel >= 0.9.8j-1
-BuildRequires:  gawk
-Requires:       openssl
+BuildRequires:  ocaml >= 4.03.0
+BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml-dune >= 2.7
+BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  openssl-devel >= 1.0.2
 
-%global __ocaml_provides_opts -i Unix -i UnixLabels
 
 %description
 SSL bindings for OCaml.
@@ -25,8 +20,8 @@ SSL bindings for OCaml.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
-Requires:       openssl-devel
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       openssl-devel%{?_isa}
 
 
 %description    devel
@@ -35,40 +30,37 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
-dune build -p ssl --verbose %{?_smp_mflags}
+%dune_build
+
 
 %install
-dune install --destdir %{buildroot}
-
-# Remove the bogus /usr/doc directory.
-rm -rf %{buildroot}/usr/doc
+%dune_install
 
 
-%files
-%doc CHANGES.md COPYING README.md
-%{_libdir}/ocaml/ssl
-%if %opt
-%exclude %{_libdir}/ocaml/ssl/*.a
-%exclude %{_libdir}/ocaml/ssl/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/ssl/*.mli
-%{_libdir}/ocaml/stublibs/*.so
+%check
+%dune_check
 
 
-%files devel
-%doc examples/*.ml
-%if %opt
-%{_libdir}/ocaml/ssl/*.a
-%{_libdir}/ocaml/ssl/*.cmxa
-%endif
-%{_libdir}/ocaml/ssl/*.mli
+%files -f .ofiles
+%doc CHANGES.md README.md
+%license COPYING
+
+
+%files devel -f .ofiles-devel
+# We used to include the examples, but they are GPL-2.0-only.
+# Put them in a separate subpackage?
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.6.0-1
+- Version 0.6.0
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.5.11-3
 - Rebuild OCaml packages for F38
 

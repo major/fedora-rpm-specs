@@ -11,7 +11,7 @@ Client library and command line utility for interacting with Openstack Designate
 
 Name:       python-%{sname}
 Version:    5.2.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python API and CLI for OpenStack Designate
 
 License:    ASL 2.0
@@ -126,6 +126,9 @@ rm -fr doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 5.2.0-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 5.2.0-1
 - Update to upstream version 5.2.0
 

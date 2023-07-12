@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 # This package is needed to build ppx_jane, but its tests require ppx_jane.
 # Break the dependency cycle here.
 %bcond_with test
 
 Name:           ocaml-base
-Version:        0.15.1
-Release:        3%{?dist}
+Version:        0.16.1
+Release:        1%{?dist}
 Summary:        Jane Street standard library for OCaml
 
 # MIT: The project as a whole
@@ -14,16 +12,13 @@ Summary:        Jane Street standard library for OCaml
 License:        MIT AND Apache-2.0
 URL:            https://opensource.janestreet.com/base/
 Source0:        https://github.com/janestreet/base/archive/v%{version}/base-%{version}.tar.gz
-# Adapt to changes in the OCaml 4.13 standard library
-# See https://github.com/janestreet/base/issues/125
-Patch0:         %{name}-ocaml413.patch
 # Expose a dependency on the math library so RPM can see it
-Patch1:         %{name}-mathlib.patch
+Patch0:         %{name}-mathlib.patch
 
-BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-dune >= 2.0.0
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-sexplib0-devel >= 0.15
+BuildRequires:  ocaml-sexplib0-devel >= 0.16
 
 %if %{with test}
 BuildRequires:  ocaml-num-devel
@@ -58,19 +53,6 @@ developing applications that use %{name}.
 %build
 %dune_build
 
-# Dune passes %%build_ldflags to ocamlmklib without -ldopt, resulting in
-# "Unknown option" warnings from ocamlmklib and a library that has not been
-# linked with the correct flags.  We can't add -ldopt ourselves, since that
-# breaks compilation of the cmxs files.  This seems to be a weakness of dune;
-# linker flags and libraries to be linked with have to be specified together,
-# and nothing takes care of separating them and adding ldopt as necessary.  We
-# relink manually to address the problem.
-pushd _build/default/src
-ocamlmklib -g -ldopt "%build_ldflags" -o base_stubs *.o
-cd ../hash_types/src
-ocamlmklib -g -ldopt "%build_ldflags" -o base_internalhash_types_stubs *.o
-popd
-
 %install
 %dune_install
 
@@ -86,6 +68,10 @@ popd
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.1-1
+- Version 0.16.1
+- Drop upstreamed OCaml 4.13 patch
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.1-3
 - Rebuild OCaml packages for F38
 

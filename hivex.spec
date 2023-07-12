@@ -1,9 +1,8 @@
-%undefine _package_note_flags
 # Conditionalize Ocaml support.  This looks ass-backwards, but it's not.
-%ifarch %{ocaml_native_compiler}
-%bcond_without ocaml
-%else
+%ifarch %{ix86}
 %bcond_with ocaml
+%else
+%bcond_without ocaml
 %endif
 
 # Verify tarball signature with GPGv2.
@@ -11,7 +10,7 @@
 
 Name:           hivex
 Version:        1.3.23
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPL-2.1 AND LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -142,7 +141,7 @@ for %{name}.
 %package -n ocaml-%{name}
 Summary:       OCaml bindings for %{name}
 License:       LGPL-2.0-or-later
-Requires:      %{name}-libs = %{version}-%{release}
+Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %description -n ocaml-%{name}
@@ -155,8 +154,8 @@ programs which use %{name} you will also need ocaml-%{name}-devel.
 %package -n ocaml-%{name}-devel
 Summary:       OCaml bindings for %{name}
 License:       LGPL-2.0-or-later
-Requires:      ocaml-%{name} = %{version}-%{release}
-Requires:      %{name}-devel = %{version}-%{release}
+Requires:      ocaml-%{name}%{?_isa} = %{version}-%{release}
+Requires:      %{name}-devel%{?_isa} = %{version}-%{release}
 
 
 %description -n ocaml-%{name}-devel
@@ -282,19 +281,20 @@ fi
 %if %{with ocaml}
 %files -n ocaml-%{name}
 %doc README.md
-%{_libdir}/ocaml/hivex
-%exclude %{_libdir}/ocaml/hivex/*.a
-%exclude %{_libdir}/ocaml/hivex/*.cmxa
-%exclude %{_libdir}/ocaml/hivex/*.cmx
-%exclude %{_libdir}/ocaml/hivex/*.mli
+%dir %{_libdir}/ocaml/hivex
+%{_libdir}/ocaml/hivex/META
+%{_libdir}/ocaml/hivex/*.cma
+%{_libdir}/ocaml/hivex/*.cmi
 %{_libdir}/ocaml/stublibs/*.so
 %{_libdir}/ocaml/stublibs/*.so.owner
 
 
 %files -n ocaml-%{name}-devel
-%{_libdir}/ocaml/hivex/*.a
+%ifarch %{ocaml_native_compiler}
 %{_libdir}/ocaml/hivex/*.cmxa
 %{_libdir}/ocaml/hivex/*.cmx
+%endif
+%{_libdir}/ocaml/hivex/*.a
 %{_libdir}/ocaml/hivex/*.mli
 %endif
 
@@ -319,6 +319,10 @@ fi
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.3.23-7
+- OCaml 5.0.0 rebuild
+- Build the OCaml interface on all architectures but i386
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.23-6
 - Rebuilt for Python 3.12
 

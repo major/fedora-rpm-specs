@@ -1,5 +1,3 @@
-%undefine _package_note_flags
-
 # On platforms and architectures that support it, the default is
 # ‘--with dietlibc’.
 #
@@ -31,7 +29,7 @@
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       9%{?dist}
+Release:       10%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -202,6 +200,9 @@ make check || {
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.3.3-10
+- OCaml 5.0.0 rebuild
+
 * Mon Jun 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-9
 - Fix --if-newer
 

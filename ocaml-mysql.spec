@@ -1,25 +1,25 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-
 Name:           ocaml-mysql
 Version:        1.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml library for accessing MySQL databases
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later
 
-URL:            https://github.com/ygrek/ocaml-mysql
+URL:            https://ygrek.org/p/ocaml-mysql/
 Source0:        https://github.com/ygrek/ocaml-mysql/releases/download/v%{version}/ocaml-mysql-%{version}.tar.gz
+Source1:        https://github.com/ygrek/ocaml-mysql/releases/download/v%{version}/ocaml-mysql-%{version}.tar.gz.asc
+# Public key for "ygrek <ygrek@autistici.org>"
+Source2:        KEYS
 
-BuildRequires: make
+# Account for the addition of custom_fixed_length to struct custom_operations
+Patch0:         %{name}-custom-fixed-length.patch
+
+BuildRequires:  gnupg2
+BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  mariadb-connector-c-devel
-# XXX openssl-devel should be required by mariadb-connector-c-devel
-# but it is not so we have to explicitly request it here.  See also
-# https://bugzilla.redhat.com/show_bug.cgi?id=1493692#c4
-BuildRequires:  openssl-devel
-BuildRequires:  chrpath
+BuildRequires:  python3
 
 
 %description
@@ -30,7 +30,7 @@ module Mysql intended for application development.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -39,53 +39,43 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+%autosetup -p1
 
 
 %build
 # Parallel builds of this package fail.
 unset MAKEFLAGS
-LDFLAGS="-L%{_libdir}/mariadb" \
 %configure
 make all
-%if %opt
+%ifarch %{ocaml_native_compiler}
 make opt
 %endif
 
-chrpath --delete dll*.so
-
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-make install
+%make_install
+%ocaml_files
 
 
-%files
-%doc COPYING
-%{_libdir}/ocaml/mysql
-%if %opt
-%exclude %{_libdir}/ocaml/mysql/*.a
-%exclude %{_libdir}/ocaml/mysql/*.cmxa
-%exclude %{_libdir}/ocaml/mysql/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/mysql/*.mli
-%{_libdir}/ocaml/stublibs/*.so
-%{_libdir}/ocaml/stublibs/*.so.owner
+%files -f .ofiles
+%license COPYING
 
 
-%files devel
-%doc COPYING CHANGES README VERSION
-%if %opt
-%{_libdir}/ocaml/mysql/*.a
-%{_libdir}/ocaml/mysql/*.cmxa
-%{_libdir}/ocaml/mysql/*.cmx
-%endif
-%{_libdir}/ocaml/mysql/*.mli
+%files devel -f .ofiles-devel
+%doc CHANGES README VERSION
+%license COPYING
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.4-3
+- OCaml 5.0.0 rebuild
+- Convert the License tag to SPDX
+- Verify the tarball with GPG
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-2
 - Rebuild OCaml packages for F38
 

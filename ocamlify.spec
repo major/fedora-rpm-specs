@@ -1,21 +1,26 @@
-%undefine _package_note_flags
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
+%endif
 
 Name:           ocamlify
 Version:        0.0.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Include files in OCaml code
 
-License:        LGPLv2+ with exceptions
-URL:            http://ocamlify.forge.ocamlcore.org/
-Source0:        https://forge.ocamlcore.org/frs/download.php/1209/%{name}-%{version}.tar.gz
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
+URL:            https://github.com/gildor478/ocamlify
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # rerun `oasis setup` using OASIS 0.4.11
 Patch0:         oasis-setup.patch
 
+# Changes for OCaml 5.x compatibility
+Patch1:         %{name}-ocaml5.patch
+
 BuildRequires:  ocaml
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  help2man
 
 %description
@@ -25,19 +30,21 @@ OCaml file. It allows embedding external resources as OCaml code.
 
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch0 -p 1
+%autosetup -p1
+
+# Generate debuginfo
+echo true: debug >> _tags
 
 
 %build
-ocaml setup.ml -configure \
+ocaml -I +camlp-streams setup.ml -configure \
     --destdir $RPM_BUILD_ROOT \
     --prefix %{_prefix}
-ocaml setup.ml -build
+ocaml -I +camlp-streams setup.ml -build
 
 
 %install
-ocaml setup.ml -install
+ocaml -I +camlp-streams setup.ml -install
 
 # generate manpage
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1/
@@ -48,7 +55,7 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlify \
     --no-info
 
 %check
-ocaml setup.ml -test
+ocaml -I +camlp-streams setup.ml -test
 
 
 %files
@@ -59,6 +66,13 @@ ocaml setup.ml -test
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.0.2-35
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- New project URLs
+- Generate debuginfo
+- Use camlp-streams for OCaml 5.x compatibility
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.0.2-34
 - Rebuild OCaml packages for F38
 

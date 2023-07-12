@@ -1,5 +1,3 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -25,7 +23,7 @@ Parser and printer for the opam file syntax.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature

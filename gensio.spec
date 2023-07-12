@@ -1,4 +1,4 @@
-Version:        2.6.6
+Version:        2.6.7
 
 %global forgeurl https://github.com/cminyard/gensio
 %forgemeta
@@ -13,9 +13,6 @@ Summary:        General Stream I/O
 License:        GPL-2.0-only AND LGPL-2.1-only AND Apache-2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-Patch0:         https://github.com/cminyard/gensio/commit/274b20577b8830e61fd02258f83630ef7e2b111f.patch
-Patch1:         https://github.com/cminyard/gensio/commit/59cf97c50cfddb76d0023e40eda690153ae55172.patch
-Patch2:         https://github.com/cminyard/gensio/commit/2a8546b09a5ffba193f9381bd813b75725898935.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  avahi-devel
@@ -29,6 +26,7 @@ BuildRequires:  pkgconfig(libsctp)
 BuildRequires:  python3-devel
 BuildRequires:  swig
 BuildRequires:  systemd-devel
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  tcl-devel
 
 %description
@@ -126,6 +124,18 @@ sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 %install
 %make_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+sed -i 's|/usr/local/sbin|%{sbindir}|g' tools/gtlsshd.service
+install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
+
+
+%post
+%systemd_post gtlsshd.service
+
+%preun
+%systemd_preun gtlsshd.service
+
+%postun
+%systemd_postun_with_restart gtlsshd.service
 
 
 %files
@@ -150,6 +160,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man5/%{name}.5.gz
 %{_mandir}/man5/ser%{name}.5.gz
 %{_mandir}/man8/gtlsshd.8.gz
+%{_unitdir}/gtlsshd.service
 
 
 %files -n libgensio

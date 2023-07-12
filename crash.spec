@@ -34,6 +34,7 @@ Patch13: 0012-ppc64-Remove-redundant-PTE-checks.patch
 Patch14: 0013-Support-module-memory-layout-change-on-Linux-6.4.patch
 Patch15: 0014-Fix-failure-of-gathering-task-table-on-Linux-6.5-rc1.patch
 Patch16: 0015-Fix-compilation-error-due-to-new-strlcpy-function-th.patch
+Patch17: 0016-Fix-irq-a-option-on-Linux-6.0-and-later.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -70,6 +71,7 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
+%patch17 -p1
 
 %build
 

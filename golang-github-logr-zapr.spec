@@ -4,7 +4,7 @@
 
 # https://github.com/go-logr/zapr
 %global goipath         github.com/go-logr/zapr
-Version:                1.2.3
+Version:                1.2.4
 
 %gometa
 

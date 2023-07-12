@@ -1,16 +1,15 @@
-%undefine _package_note_flags
-%ifnarch %{ocaml_native_compiler}
+%ifarch %{ocaml_native_compiler}
+%undefine _debugsource_packages
+%else
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-result
 Version:        1.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Compat result type
 
-%global libname %(echo %{name} | sed -e 's/^ocaml-//')
-
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/janestreet/result/
 Source0:        %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -24,57 +23,37 @@ of OCaml should use the Result module defined in this library.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature
 files for developing applications that use %{name}.
 
 %prep
-%autosetup -n %{libname}-%{version}
+%autosetup -n result-%{version}
 
 %build
-dune build %{?_smp_mflags}
+%dune_build
 
 %install
-dune install --destdir=%{buildroot}
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
-
-%ifarch %{ocaml_native_compiler}
-# Add missing executable bits
-find %{buildroot}%{_libdir}/ocaml -name \*.cmxs -exec chmod a+x {} \+
-%endif
+%dune_install
 
 %check
-dune runtest
+%dune_check
 
-%files
+%files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE.md
-%dir %{_libdir}/ocaml/%{libname}/
-%{_libdir}/ocaml/%{libname}/META
-%{_libdir}/ocaml/%{libname}/%{libname}.cma
-%{_libdir}/ocaml/%{libname}/%{libname}.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{libname}/%{libname}.cmxs
-%endif
 
-%files devel
+%files devel -f .ofiles-devel
 %license LICENSE.md
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{libname}/%{libname}.a
-%{_libdir}/ocaml/%{libname}/%{libname}.cmxa
-%{_libdir}/ocaml/%{libname}/%{libname}.cmx
-%endif
-# There's no .mli file, so I believe we should distribute this.
-%{_libdir}/ocaml/%{libname}/%{libname}.ml
-%{_libdir}/ocaml/%{libname}/%{libname}.cmt
-%{_libdir}/ocaml/%{libname}/dune-package
-%{_libdir}/ocaml/%{libname}/opam
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.5-16
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-15
 - Rebuild OCaml packages for F38
 

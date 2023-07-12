@@ -1,6 +1,6 @@
 Name:           perl-Alien-pkgconf
 Version:        0.19
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Discover pkgconf and libpkgconf
 # Other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not used
@@ -11,7 +11,7 @@ Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-pkgconf
 # Accept pkgconf-1.9, we have patched perl-PkgConfig-LibPkgConf, bug #2172713
 Patch0:         Alien-pkgconf-0.19-Accept-pkgconf-1.9.patch
 # This is a full-arch package because it stores data about arch-specific
-# libpkgconf.so library and it stores them into arch-specific directory.
+# libpkgconf.so library and it stores them into an arch-specific directory.
 # But it does not install any ELF, therefore disable debuginfo generation.
 %global debug_package %{nil}
 BuildRequires:  make
@@ -120,12 +120,15 @@ make test
 %{perl_vendorarch}/auto/share/dist/Alien-pkgconf
 %dir %{perl_vendorarch}/Alien
 %{perl_vendorarch}/Alien/pkgconf.pm
-%{_mandir}/man3/*
+%{_mandir}/man3/Alien::pkgconf.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 10 2023 Petr Pisar <ppisar@redhat.com> - 0.19-4
+- Rebuild against pkgconf 1.9.5 (bug #2221456)
+
 * Thu Feb 23 2023 Petr Pisar <ppisar@redhat.com> - 0.19-3
 - Rebuild against pkgconf 1.9.4 (bug #2172713)
 

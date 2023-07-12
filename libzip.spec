@@ -1,13 +1,16 @@
 %bcond_without tests
 
 Name:    libzip
-Version: 1.9.2
-Release: 3%{?dist}
+Version: 1.10.0
+Release: 1%{?dist}
 Summary: C library for reading, creating, and modifying zip archives
 
-License: BSD
+License: BSD-3-Clause
 URL:     https://libzip.org/
 Source0: https://libzip.org/download/libzip-%{version}.tar.xz
+
+# Upstream patch
+Patch0:  libzip-tests.patch
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
@@ -15,21 +18,11 @@ BuildRequires:  bzip2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  xz-devel
 BuildRequires:  libzstd-devel >= 1.3.6
-BuildRequires:  cmake >= 3.0.2
-# Needed to run the test suite
-# find regress/ -type f | /usr/lib/rpm/perl.req
-# find regress/ -type f | /usr/lib/rpm/perl.prov
-BuildRequires:  perl-interpreter
-BuildRequires:  perl(Cwd)
-BuildRequires:  perl(File::Copy)
-BuildRequires:  perl(File::Path)
-BuildRequires:  perl(Getopt::Long)
-BuildRequires:  perl(IPC::Open3)
-BuildRequires:  perl(Storable)
-BuildRequires:  perl(Symbol)
-BuildRequires:  perl(UNIVERSAL)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
+BuildRequires:  cmake >= 3.4
+BuildRequires:  mandoc
+%if %{with tests}
+BuildRequires:  python3-nihtest
+%endif
 
 
 %description
@@ -126,6 +119,10 @@ sed -e '/clone-fs-/d' \
 
 
 %changelog
+* Mon Jul 10 2023 Remi Collet <remi@remirepo.net> - 1.10.0-1
+- update to 1.10.0
+- use python3-nihtest instead of perl for tests
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:               python-slackclient
 Version:            3.21.3
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Slack Developer Kit for Python
 
 # SPDX
@@ -42,7 +42,7 @@ sed -r -i 's/^([[:blank:]]*)("(moto|Flask-Sockets)[<>=";])/\1# \2/' setup.py
 # respect the upper bounds on these versions; remove the direct dependencies
 # entirely.
 sed -r -i \
-    's/^([[:blank:]])*("(click|Flask|Werkzeug|itsdangerous)[<>=";])/\1# \2/' \
+    's/^([[:blank:]])*("(click|Flask|Werkzeug|itsdangerous|Jinja2)[<>=";])/\1# \2/' \
     setup.py
 # Remove preemptive version upper-bounds that we cannot respect.
 sed -r -i 's/^([[:blank:]]*"(pytest).*),<.*"/\1"/' setup.py
@@ -66,12 +66,16 @@ k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
 %pytest -k "${k-}" \
     --ignore-glob='integration_tests/*' \
     --ignore-glob='*/test_amazon_s3.py' \
-    --ignore-glob='*/socket_mode/test_interactions_*'
+    --ignore-glob='*/socket_mode/test_interactions_*' \
+    --ignore-glob='*/rtm/test_rtm_client*'
 
 %files -n python3-slackclient -f %{pyproject_files}
 %doc README.md
 
 %changelog
+* Mon Jul 10 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.21.3-2
+- Fix FTI.
+
 * Mon May 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.21.3-1
 - 3.21.3
 

@@ -1,5 +1,5 @@
 Name:           perl-POSIX-2008
-Version:        0.18
+Version:        0.19
 Release:        1%{?dist}
 Summary:        Perl interface to POSIX.1-2008
 # COPYING:              WTFPL text
@@ -20,20 +20,25 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Devel::PPPort)
 BuildRequires:  perl(ExtUtils::Constant)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(sigtrap)
 # Makefile.PL loads ./lib/POSIX/2008.pm without XSLoader
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(XSLoader)
 # Tests:
-BuildRequires:  perl(constant)
-BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(bigrat)
+BuildRequires:  perl(Cwd)
 BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(sigtrap)
 BuildRequires:  perl(Test::More)
 Requires:       perl(XSLoader)
 
@@ -62,7 +67,8 @@ perl -MDevel::PPPort \
 chmod a+x t/*.t
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
+    OPTIMIZE="$RPM_OPT_FLAGS" VERBOSE=1
 %{make_build}
 
 %install
@@ -102,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 10 2023 Petr Pisar <ppisar@redhat.com> - 0.19-1
+- 0.19 bump
+
 * Fri Jun 02 2023 Petr Pisar <ppisar@redhat.com> - 0.18-1
 - 0.18 bump
 - Package the tests

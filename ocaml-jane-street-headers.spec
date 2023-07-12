@@ -1,5 +1,3 @@
-%undefine _package_note_flags
-
 %global srcname jane-street-headers
 
 # This package creates no ELF files, but cannot be noarch since the install
@@ -7,15 +5,15 @@
 %global debug_package %{nil}
 
 Name:           ocaml-%{srcname}
-Version:        0.15.0
-Release:        8%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Jane Street header files
 
 License:        MIT
 URL:            https://github.com/janestreet/jane-street-headers
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.04.2
+BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-dune >= 2.0.0
 
 %description
@@ -53,6 +51,9 @@ sed -ri '/(archive|plugin)/d' \
 %{ocamldir}/%{srcname}/
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-8
 - Rebuild OCaml packages for F38
 

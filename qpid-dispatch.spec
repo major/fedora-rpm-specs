@@ -16,7 +16,7 @@
 
 Name:          qpid-dispatch
 Version:       1.19.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Dispatch router for Qpid
 License:       ASL 2.0
 URL:           http://qpid.apache.org/
@@ -193,6 +193,9 @@ rm -fr %{buildroot}/%{_includedir}/qpid/dispatch
 
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 1.19.0-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-lablgtk
 Version:        2.18.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Objective Caml interface to gtk+
 
@@ -19,6 +17,8 @@ Patch0:         %{name}-svgz.patch
 # Mark an intermediate file that we want to install as precious.
 # Fixes FTBFS with make 4.4.
 Patch1:         %{name}-precious.patch
+# Adapt to OCaml 5
+Patch2:         %{name}-ocaml5.patch
 
 BuildRequires:  help2man
 BuildRequires:  make
@@ -94,7 +94,16 @@ make install \
      LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
      INSTALLDIR=$RPM_BUILD_ROOT%{ocamldir}/lablgtk2 \
      DLLDIR=$RPM_BUILD_ROOT%{ocamldir}/stublibs
+%ifarch %{ocaml_native_compiler}
 cp -p META $RPM_BUILD_ROOT%{ocamldir}/lablgtk2
+%else
+# Do not require the native artifacts
+sed -e '/native/d' \
+    -e '/exists_if/s/,[[:alnum:]]*\.cmxa,[[:alnum:]]*\.cmxs//' \
+    -e '/exists_if/s/,[[:alnum:]]*\.cmx//' \
+    META > $RPM_BUILD_ROOT%{ocamldir}/lablgtk2/META
+touch -r META $RPM_BUILD_ROOT%{ocamldir}/lablgtk2/META
+%endif
 
 # Remove ld.conf (part of main OCaml dist).
 rm $RPM_BUILD_ROOT%{ocamldir}/ld.conf
@@ -137,6 +146,9 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.18.13-4
+- Add patch for OCaml 5.0 compatibility
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.18.13-3
 - Rebuild OCaml packages for F38
 

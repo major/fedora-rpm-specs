@@ -1,5 +1,5 @@
 Name:       ibus-table
-Version:    1.17.0
+Version:    1.17.1
 Release:    1%{?dist}
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later
@@ -150,6 +150,13 @@ fi
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Mon Jul 10 2023 Mike FABIAN <mfabian@redhat.com> - 1.17.1-1
+- Update to 1.17.1
+- Fix mypy warnings
+- Return empty program_name and window_title in get_active_window_xprop()
+  when xprop results are unexpected (Resolves: rhbz#2215466)
+- Translation update from Weblate (si 10.0%)
+
 * Fri Apr 07 2023 Mike FABIAN <mfabian@redhat.com> - 1.17.0-1
 - Update to 1.17.0
 - New option commit_invalid_mode: Choose what happens when a

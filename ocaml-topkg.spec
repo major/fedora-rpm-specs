@@ -1,5 +1,3 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -10,7 +8,7 @@
 
 Name:           ocaml-topkg
 Version:        1.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The transitory OCaml software packager
 
 License:        ISC
@@ -161,6 +159,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.0.7-3
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.7-2
 - Rebuild OCaml packages for F38
 

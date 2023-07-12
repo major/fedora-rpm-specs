@@ -11,7 +11,7 @@
 %global lld_srcdir lld-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 5
+%global patch_ver 6
 
 %if %{with compat_build}
 %global pkg_name lld%{maj_ver}
@@ -29,7 +29,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -40,11 +40,14 @@ Source2:	release-keys.asc
 
 ExcludeArch:	s390x
 
-# Backport from LLVM 17.
-Patch2:     0001-lld-Use-installed-llvm_gtest-in-standalone-builds.patch
-
 # Bundle libunwind header need during build for MachO support
 Patch1:		0002-PATCH-lld-Import-compact_unwind_encoding.h-from-libu.patch
+
+# Backport from LLVM 17.
+Patch2:		0001-lld-Use-installed-llvm_gtest-in-standalone-builds.patch
+
+# Backport from LLVM 17.
+Patch3:		0001-lld-Pass-random.randint-stop-parameter-as-int.patch
 
 BuildRequires:	clang
 BuildRequires:	cmake
@@ -191,6 +194,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Mon Jul 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
 * Tue Jun 13 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
 - Use llvm-cmake-utils package
 

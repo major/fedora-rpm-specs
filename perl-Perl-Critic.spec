@@ -7,7 +7,7 @@
 
 Name:		perl-Perl-Critic
 Version:	1.150
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-Critic
@@ -109,7 +109,7 @@ also create new Policy modules that suit your own tastes.
 
 %package -n perl-Test-Perl-Critic-Policy
 Summary:	A framework for testing your custom Policies
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:	perl(Test::Builder) >= 0.92
 
 %description -n perl-Test-Perl-Critic-Policy
@@ -122,10 +122,10 @@ of Perl code were mixed directly in the test script. That sucked.
 %setup -q -n Perl-Critic-%{version}
 
 # Switch spell checker tool from aspell to hunspell
-%patch0 -p1
+%patch -P 0 -p1
 
 # Fix shellbang in ppidump tool
-%patch3
+%patch -P 3
 
 # Drop exec bits from samples/docs to avoid dependency bloat
 find tools examples -type f -exec chmod -c -x {} ';'
@@ -158,6 +158,10 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Mon Jul 10 2023 Paul Howarth <paul@city-fan.org> - 1.150-2
+- Use SPDX-format license tag for perl-Test-Perl-Critic-Policy sub-package
+- Avoid use of deprecated patch syntax
+
 * Sun Mar  5 2023 Paul Howarth <paul@city-fan.org> - 1.150-1
 - Update to 1.150 (rhnz#2175475)
   Enhancements

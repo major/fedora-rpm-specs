@@ -4,13 +4,13 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global lldb_version 16.0.5
+%global lldb_version 16.0.6
 #global rc_ver 4
 %global lldb_srcdir %{name}-%{lldb_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		lldb
 Version:	%{lldb_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	4%{?dist}
+Release:	1%{?dist}
 Summary:	Next generation high-performance debugger
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -133,6 +133,9 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %{python3_sitearch}/lldb
 
 %changelog
+* Mon Jul 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 16.0.5-4
 - Rebuilt for Python 3.12
 

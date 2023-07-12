@@ -1,23 +1,16 @@
-%undefine _package_note_flags
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
-%define libname cppo
-
 Name:           ocaml-cppo
-Version:        1.6.8
-Release:        7%{?dist}
+Version:        1.6.9
+Release:        1%{?dist}
 Summary:        Equivalent of the C preprocessor for OCaml programs
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://ocaml-community.github.io/cppo/
-Source0:        https://github.com/ocaml-community/cppo/archive/v%{version}/%{libname}-%{version}.tar.gz
+Source0:        https://github.com/ocaml-community/cppo/archive/v%{version}/cppo-%{version}.tar.gz
 
 BuildRequires:  ocaml >= 4.02.3
 BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-ocamlbuild-devel
+BuildRequires:  ocaml-ocamlbuild
 
 %description
 Cppo is an equivalent of the C preprocessor targeted at the OCaml
@@ -48,30 +41,24 @@ at build time.  To use it, call ocamlbuild with the argument
 
 
 %prep
-%autosetup -n %{libname}-%{version}
+%autosetup -n cppo-%{version}
 
 
 %build
-dune build %{?_smp_mflags} --verbose --profile release
+%dune_build
 
 
 %install
-dune install --destdir=%{buildroot}
-
-# We do not want the ml files
-find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
+%dune_install
 
 
 %check
-dune runtest --profile release
+%dune_check
 
 
 %files
 %license LICENSE.md
-%doc Changes README.md
+%doc Changes.md README.md
 %{_bindir}/cppo
 %{_libdir}/ocaml/cppo
 
@@ -81,6 +68,11 @@ dune runtest --profile release
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.9-1
+- Version 1.6.9
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.8-7
 - Rebuild OCaml packages for F38
 

@@ -12,8 +12,8 @@
 
 
 Name:           centpkg
-Version:        0.7.3
-Release:        2%{?dist}
+Version:        0.7.4
+Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
 URL:            https://git.centos.org/centos/centpkg
@@ -33,6 +33,7 @@ Requires:       python-rpkg >= 1.65
 Requires:       python-six
 %else
 BuildRequires:  python3-devel
+BuildRequires:  python3-gitlab
 BuildRequires:  python3-pytz
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
@@ -94,6 +95,11 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Mon Jul 10 2023 Troy Dawson <tdawson@redhat.com> - 0.7.4-1
+- Check package spelling (CS-767)
+- Add StreamLookasideCache specific get_download_url method
+- Exit with message if unable to look for file
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.7.3-2
 - Rebuilt for Python 3.12
 

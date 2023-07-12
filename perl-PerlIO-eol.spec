@@ -1,13 +1,10 @@
 Name:           perl-PerlIO-eol
-Version:        0.18
+Version:        0.19
 Release:        1%{?dist}
 Summary:        PerlIO layer for normalizing line endings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PerlIO-eol
 Source0:        https://cpan.metacpan.org/modules/by-module/PerlIO/PerlIO-eol-%{version}.tar.gz
-# Fix tests to run from a read-only location, proposed to an upstream,
-# <https://github.com/shlomif/PerlIO-eol/pull/1>
-Patch0:         PerlIO-eol-0.18-Create-test-files-in-a-temporary-directory.patch
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -25,7 +22,7 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(blib) >= 1.01
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(File::Temp) >= 0.19
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
@@ -86,6 +83,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 10 2023 Petr Pisar <ppisar@redhat.com> - 0.19-1
+- 0.19 bump
+
 * Wed May 03 2023 Petr Pisar <ppisar@redhat.com> - 0.18-1
 - 0.18 bump
 - Package the tests

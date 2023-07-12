@@ -1,13 +1,7 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 Name:           ocaml-ppxlib
 Epoch:          1
-Version:        0.28.0
-Release:        3%{?dist}
+Version:        0.30.0
+Release:        1%{?dist}
 Summary:        Base library and tools for ppx rewriters
 
 License:        MIT
@@ -17,15 +11,13 @@ Source0:        %{url}/archive/%{version}/ppxlib-%{version}.tar.gz
 Patch0:         %{name}-stdlib-shims.patch
 
 BuildRequires:  ocaml >= 4.04.1
-BuildRequires:  ocaml-base-devel
 BuildRequires:  ocaml-cinaps-devel >= 0.12.1
 BuildRequires:  ocaml-compiler-libs-janestreet-devel >= 0.11.0
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ppx-derivers-devel >= 1.0
 BuildRequires:  ocaml-re-devel >= 1.9.0
-BuildRequires:  ocaml-sexplib0-devel >= 0.12
-BuildRequires:  ocaml-stdio-devel
+BuildRequires:  ocaml-sexplib0-devel >= 0.15
 
 # This can be removed when F40 reaches EOL
 Obsoletes:      %{name}-doc < 1:0.26.0-3
@@ -75,6 +67,9 @@ signature files for developing applications that use
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1:0.30.0-1
+- Version 0.30.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1:0.28.0-3
 - Rebuild OCaml packages for F38
 

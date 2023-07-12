@@ -4,6 +4,10 @@
 # We can generate PDF documentation as a substitute.
 %bcond doc_pdf 1
 
+# F39FailsToInstall: python3-plotly
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220409
+%bcond plotly 0
+
 Name:           python-geomdl
 Version:        5.3.1
 Release:        %autorelease
@@ -105,7 +109,12 @@ BuildArch:      noarch
 %prep
 %autosetup -n NURBS-Python-%{version} -p1
 # Allow newer versions in cases where exact versions are pinned.
-sed -r -i 's/==/>=/' 'requirements.txt'
+sed -r -i 's/==/>=/' requirements.txt
+%if %{without plotly}
+# Omit plotly; functionality in geomdl.visualization.VisPlotly will be
+# unavailable.
+sed -r -i 's/^(plotly)\b/# &/' requirements.txt
+%endif
 
 
 %generate_buildrequires

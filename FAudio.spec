@@ -1,5 +1,5 @@
 Name:     FAudio
-Version:  23.04
+Version:  23.07
 Release:  1%{?dist}
 Summary:  FNA is a reimplementation of the Microsoft XNA Game Studio 4.0 Refresh libraries
 
@@ -146,6 +146,9 @@ popd
 
 
 %changelog
+* Mon Jul 10 2023 Michael Cronenworth <mike@cchtml.com> - 23.07-1
+- Update to 23.07
+
 * Mon Apr 03 2023 Michael Cronenworth <mike@cchtml.com> - 23.04-1
 - Update to 23.04
 

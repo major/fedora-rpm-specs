@@ -1,6 +1,6 @@
 Name:           asciidoc
 Version:        10.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Text based document generation
 
 License:        GPL-2.0-only
@@ -8,6 +8,8 @@ URL:            http://asciidoc.org
 Source0:        https://github.com/asciidoc-py/asciidoc-py/archive/%{version}/%{name}-py-%{version}.tar.gz
 
 BuildArch:      noarch
+
+Patch1:         asciidoc-table-separator.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
@@ -99,6 +101,9 @@ rm  %{buildroot}/share/doc/{BUGS.adoc,CHANGELOG.adoc,INSTALL.adoc,README.md,dbla
 %dir %{python3_sitelib}/asciidoc/resources/filters/latex
 
 %changelog
+* Mon Jul 10 2023 Josef Ridky <jridky@redhat.com> - 10.2.0-5
+- fix invalid escape sequence (#2220936)
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 10.2.0-4
 - Rebuilt for Python 3.12
 

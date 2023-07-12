@@ -2,12 +2,15 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        py.test fixture for creating a virtual environment
 
 License:        MIT
 URL:            https://github.com/mmerickel/pytest-venv
 Source0:        %{pypi_source}
+# virtualenv no longer installs setuptools by default with Python 3.12
+# https://github.com/mmerickel/pytest-venv/pull/4
+Patch0:         3.12-setuptools-bundle.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -28,7 +31,7 @@ The fixture is used to create a new virtual environment which can be used to
 install packages and run commands inside tests.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 sed -i '/pytest-cov/d' setup.py
 
 %generate_buildrequires
@@ -49,6 +52,9 @@ sed -i '/pytest-cov/d' setup.py
 %doc README.rst
 
 %changelog
+* Sun Jul 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.2-11
+- Fix virtualenv usage for Python 3.12
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.2-10
 - Rebuilt for Python 3.12
 

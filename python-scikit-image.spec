@@ -4,7 +4,7 @@
 
 Name: python-scikit-image
 Version: 0.21.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -108,6 +108,9 @@ popd
 
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 0.21.0-2
+- Rebuilt for Python 3.12
+
 * Sat Jun 03 2023 Orion Poplawski <orion@nwra.com> - 0.21.0-1
 - Update to 0.21.0
 - Use SPDX License

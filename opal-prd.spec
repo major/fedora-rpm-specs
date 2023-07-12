@@ -2,7 +2,7 @@
 
 Name:		opal-prd
 Version:	7.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	OPAL Processor Recovery Diagnostics Daemon
 
 License:	Apache-2.0
@@ -114,6 +114,9 @@ install -m 644 -p %{SOURCE3} %{buildroot}%{_mandir}/man1/ffspart.1
 
 
 %changelog
+* Mon Jul 10 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 7.0-6
+- Rebuilt for Python 3.12
+
 * Thu Feb 16 2023 Than Ngo <than@redhat.com> - 7.0-5
 - migrated to SPDX license
 

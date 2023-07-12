@@ -1,5 +1,3 @@
-%global _without_doc 1
-%global _without_tests 1
 %global modname ipykernel
 
 # When we bootstrap new Python, we need to avoid a build dependnecy loop
@@ -8,7 +6,7 @@
 
 Name:           python-%{modname}
 Version:        6.17.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        IPython Kernel for Jupyter
 License:        BSD-3-Clause
 URL:            https://github.com/ipython/%{modname}
@@ -134,6 +132,9 @@ cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 6.17.1-5
+- Rebuilt for Python 3.12
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 6.17.1-4
 - Bootstrap for Python 3.12
 

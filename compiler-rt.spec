@@ -6,7 +6,7 @@
 
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 5
+%global patch_ver 6
 #global rc_ver 4
 %global compiler_rt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -20,7 +20,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -125,6 +125,9 @@ popd
 %endif
 
 %changelog
+* Mon Jul 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
 * Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
 - Use llvm-cmake-utils package
 

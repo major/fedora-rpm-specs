@@ -1,6 +1,6 @@
 Name:           conntrack-tools
 Version:        1.4.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manipulate netfilter connection tracking table and run High Availability
 License:        GPLv2
 URL:            http://conntrack-tools.netfilter.org/
@@ -11,7 +11,6 @@ Source3:        conntrackd.service
 Source4:        conntrackd.conf
 Patch1:         conntrack-tools-c99.patch
 
-BuildRequires:  autogen
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
@@ -92,6 +91,9 @@ install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/conntrackd/
 %systemd_postun conntrackd.service
 
 %changelog
+* Thu Jul 06 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.7-2
+- Remove unused autogen build dependency
+
 * Wed Jul 05 2023 Paul Wouters <paul.wouters@aiven.io - 1.4.7-1
 - Resolves: rhbz#2132747 conntrack-tools-1.4.7 is available
 - Add gpg source code verification

@@ -13,7 +13,7 @@ Summary:        File alteration monitoring service
 
 %global stripped_version %(echo %{version} | sed -r 's/\\.0([[:digit:]])/.\\1/g')
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://facebook.github.io/%{name}/
 Source0:        https://github.com/facebook/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        tmpfiles-%{name}.conf
@@ -22,6 +22,10 @@ Patch0:         %{name}-destdir.patch
 Patch1:         watchman-2021.05.10.00-folly-new.patch
 # Fix build failure on 32bit arch
 Patch2:         watchman-2021.05.10.00-wordsize.patch
+# Fix build failure with Python 3.12
+Patch3:         watchman-fix-for-py3_12.diff
+# Fix build failure with fmt 10
+Patch4:         watchman-fix-for-fmt10.diff
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
@@ -45,7 +49,7 @@ trigger actions (such as rebuilding assets) when matching files change.
 
 %package -n python3-py%{name}
 Summary:        Python bindings for %{name}
-License:        BSD and MIT
+License:        BSD-3-Clause and MIT
 BuildRequires:  procps-ng
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

@@ -1,8 +1,8 @@
 Name:    liblogging
 Version: 1.0.6
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: An easy to use logging library
-License: BSD
+License: BSD-2-Clause
 URL:     http://www.liblogging.org/
 Source0: http://download.rsyslog.com/liblogging/liblogging-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -f \
 %{_mandir}/man3/stdlog.3.gz
 
 %changelog
+* Mon Jul 10 2023 Attila Lakatos <alakatos@redhat.com> - 1.0.6-15
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

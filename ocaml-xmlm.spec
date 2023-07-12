@@ -1,4 +1,3 @@
-%undefine _package_note_flags
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -6,8 +5,8 @@
 %global libname xmlm
 
 Name:           ocaml-%{libname}
-Version:        1.3.0
-Release:        7%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        A streaming XML codec
 
 License:        ISC
@@ -19,12 +18,13 @@ Source1:        test-valid.xml
 Source2:        test-invalid.xml
 
 # Ensure source files are included in generated debuginfo subpackage
-Patch0:         xmlm-1.3.0-debug.patch
+Patch0:         xmlm-1.4.0-debug.patch
 
-BuildRequires:  ocaml >= 4.02.0
+BuildRequires:  ocaml >= 4.05.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
-BuildRequires:  ocaml-topkg-devel >= 0.9.0
+BuildRequires:  ocaml-topkg-devel >= 1.0.3
+BuildRequires:  python3
 
 %description
 Xmlm is an OCaml streaming codec to decode and encode the XML data
@@ -46,7 +46,7 @@ developing applications that use %{name}.
 
 
 %build
-ocaml pkg/pkg.ml build --tests true
+ocaml pkg/pkg.ml build --dev-pkg false --tests true
 
 
 %install
@@ -65,6 +65,8 @@ install -m 755 -p _build/test/xmltrip.byte $RPM_BUILD_ROOT%{_bindir}/xmltrip
 %endif
 install -m 644 -p _build/pkg/META _build/src/xmlm.{cm?,mli} $OCAMLFIND_DESTDIR/%{libname}/
 
+%ocaml_files
+
 
 %check
 ocaml pkg/pkg.ml test
@@ -77,33 +79,23 @@ $RPM_BUILD_ROOT%{_bindir}/xmltrip -p %{SOURCE1} 2>valid-err.log
 $RPM_BUILD_ROOT%{_bindir}/xmltrip -p %{SOURCE2} 2>invalid-err.log
 grep expected invalid-err.log >/dev/null
 
-%files
+
+%files -f .ofiles
 %license LICENSE.md
 %doc README.md
-%{_bindir}/xmltrip
-%{_libdir}/ocaml/xmlm/
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/*/*.a
-%exclude %{_libdir}/ocaml/*/*.cmxa
-%exclude %{_libdir}/ocaml/*/*.cmxs
-%exclude %{_libdir}/ocaml/*/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/*/*.mli
 
 
-%files devel
+%files devel -f .ofiles-devel
 %license LICENSE.md
 %doc CHANGES.md _build/test/examples.ml _build/test/xhtml.ml doc
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/*/*.a
-%{_libdir}/ocaml/*/*.cmxa
-%{_libdir}/ocaml/*/*.cmxs
-%{_libdir}/ocaml/*/*.cmx
-%endif
-%{_libdir}/ocaml/*/*.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.4.0-1
+- Version 1.4.0
+- Verify License tag is valid SPDX
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-7
 - Rebuild OCaml packages for F38
 

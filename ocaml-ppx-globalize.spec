@@ -4,7 +4,7 @@
 
 Name:           ocaml-ppx-globalize
 Version:        0.16.0
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Generate functions to copy local values to the global heap
 
 License:        MIT
@@ -48,5 +48,4 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
-* Fri Jun 23 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
-- Initial RPM
+%autochangelog

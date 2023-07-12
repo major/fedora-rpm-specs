@@ -1,17 +1,31 @@
-%undefine _package_note_flags
+# OCaml 5.x support was added after the most recent release
+%global commit  58459992ee9b3d56f09f6ff3dd434a52657b836c
+%global date    20230115
+%global forgeurl https://github.com/ocaml-obuild/obuild
+
+# The binary is OCaml bytecode
 %global debug_package %{nil}
 
 Name:           ocaml-obuild
 Version:        0.1.10
-Release:        19%{?dist}
 Summary:        Simple package build system for OCaml
 
-License:        BSD
+%forgemeta
+
+Release:        20%{?dist}
+License:        BSD-2-Clause
 URL:            https://github.com/ocaml-obuild/obuild
-Source0:        https://github.com/ocaml-obuild/obuild/archive/obuild-v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{forgesource}
+
+# Fix a partial function application
+# https://github.com/ocaml-obuild/obuild/issues/187
+Patch0:         %{name}-partial.patch
 
 BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
 BuildRequires:  help2man
+
+Requires:       ocaml-findlib%{?_isa}
 
 %description
 A parallel, incremental and declarative build system for OCaml.
@@ -27,7 +41,7 @@ way of working, adapting parts where necessary to fully support OCaml.
 
 
 %prep
-%setup -q -n obuild-obuild-v%{version}
+%forgeautosetup -p1
 
 
 %build
@@ -59,11 +73,16 @@ help2man \
 %files
 %doc README.md OBUILD_SPEC.md DESIGN.md
 %license LICENSE
-%{_bindir}/*
-%{_mandir}/man1/*.1*
+%{_bindir}/obuild*
+%{_mandir}/man1/obuild*.1*
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.1.10-20.20230115git5845999
+- Update to git head for OCaml 5.x support
+- Convert License tag to SPDX
+- Add patch to fix a partial function application
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.1.10-19
 - Rebuild OCaml packages for F38
 

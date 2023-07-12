@@ -1,22 +1,19 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-parsexp
-Version:        0.15.0
-Release:        9%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        S-expression parsing library
 
 License:        MIT
 URL:            https://github.com/janestreet/parsexp
 Source0:        %{url}/archive/v%{version}/parsexp-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-dune >= 2.0.0
-BuildRequires:  ocaml-sexplib0-devel >= 0.15
+BuildRequires:  ocaml-sexplib0-devel >= 0.16
 
 %description
 This library provides generic parsers for parsing S-expressions from
@@ -42,7 +39,6 @@ parsexp_io.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       ocaml-base-devel%{?_isa}
 Requires:       ocaml-sexplib0-devel%{?_isa}
 
 %description    devel
@@ -68,6 +64,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-9
 - Rebuild OCaml packages for F38
 

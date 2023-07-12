@@ -1,27 +1,17 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 Name:           ocaml-ppx-js-style
-Version:        0.15.0
-Release:        11%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Code style checker for Jane Street OCaml packages
 
 License:        MIT
 URL:            https://github.com/janestreet/ppx_js_style
 Source0:        %{url}/archive/v%{version}/ppx_js_style-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-base-devel >= 0.16
 BuildRequires:  ocaml-dune >= 2.0.0
 BuildRequires:  ocaml-octavius-devel
-BuildRequires:  ocaml-ppxlib-devel >= 0.23.0
-
-%if %{with doc}
-BuildRequires:  ocaml-odoc
-%endif
+BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 
 %description
 Ppx_js_style is an identity ppx rewriter that enforces Jane Street
@@ -57,6 +47,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-11
 - Rebuild OCaml packages for F38
 

@@ -8,7 +8,7 @@
 
 Name:           qpid-proton
 Version:        0.38.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A high performance, lightweight messaging library
 License:        ASL 2.0
 URL:            http://qpid.apache.org/proton/
@@ -247,7 +247,7 @@ PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig %py3_build_wheel
 %else
 %define whl_arch "%{_arch}"
 %endif
-%py3_install_wheel python_qpid_proton-%{version}-cp311-cp311-linux_%{whl_arch}.whl
+%py3_install_wheel python_qpid_proton-%{version}-cp%{python3_version_nodots}-cp%{python3_version_nodots}-linux_%{whl_arch}.whl
 # We seem to need to strip the build extension otherwise it seems to embed a reference to
 # the buildroot in the debug info which fails the rpmbuild - probably because we massaged
 # the pkgconfig path above
@@ -320,6 +320,9 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Mon Jul 10 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.38.0-3
+- Fix compatibility with Python 3.12 (rhbz#2220586)
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.38.0-2
 - Rebuilt for Python 3.12
 

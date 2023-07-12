@@ -1,8 +1,10 @@
-%undefine _package_note_flags
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
 
 Name:           ocaml-camlp-streams
 Version:        5.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Stream and Genlex libraries for OCaml
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -61,6 +63,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.0.1-5
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.1-4
 - Rebuild OCaml packages for F38
 

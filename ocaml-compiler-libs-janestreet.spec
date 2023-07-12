@@ -1,12 +1,12 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
+%ifarch %{ocaml_native_compiler}
+%undefine _debugsource_packages
+%else
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-compiler-libs-janestreet
 Version:        0.12.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OCaml compiler libraries repackaged
 
 License:        MIT
@@ -45,6 +45,9 @@ signature files for developing applications that use
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.12.4-11
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.12.4-10
 - Rebuild OCaml packages for F38
 

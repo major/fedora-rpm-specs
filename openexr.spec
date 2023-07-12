@@ -95,16 +95,6 @@ Summary:        Development files for %{name}
 
 
 %build
-%set_build_flags
-%dnl Using F16C intrinsics results in wrong results according to a test.
-%dnl It is currently unclear whether the test is at fault, or the CPU
-%dnl instructions are not appropriate in this context because they
-%dnl canonicalize NaNs.  <https://bugzilla.redhat.com/show_bug.cgi?id=2212579>
-%dnl <https://github.com/AcademySoftwareFoundation/openexr/issues/1456>
-%ifarch x86_64
-CFLAGS="$CFLAGS -mno-f16c"
-CXXFLAGS="$CXXFLAGS -mno-f16c"
-%endif
 %cmake
 %cmake_build
 
@@ -114,11 +104,21 @@ CXXFLAGS="$CXXFLAGS -mno-f16c"
 
 
 %check
-# A few tests fail on s390x and ppc64le
-# https://github.com/AcademySoftwareFoundation/openexr/issues/1175
-%ifnarch s390x ppc64le
-%ctest
+# Some tests fail on particular architectures
+%ifarch %{ix86}
+# https://github.com/AcademySoftwareFoundation/openexr/issues/1459 (fixed in 3.1.10)
+# https://github.com/AcademySoftwareFoundation/openexr/issues/1460
+EXCLUDE_REGEX='DWA[AB]Compression|CPUIdent'
 %endif
+%ifarch aarch64 ppc64le
+# https://github.com/AcademySoftwareFoundation/openexr/issues/1460
+EXCLUDE_REGEX='DWA[AB]Compression'
+%endif
+%ifarch s390x
+# https://github.com/AcademySoftwareFoundation/openexr/issues/1175
+EXCLUDE_REGEX='ReadDeep|DWA[AB]Compression|testCompression|Rgba|SampleImages|SharedFrameBuffer'
+%endif
+%ctest --exclude-regex "$EXCLUDE_REGEX"
 
 
 %files

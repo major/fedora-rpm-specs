@@ -1,8 +1,8 @@
 %global pypi_name path
 
 Name:           python-path
-Version:        16.6.0
-Release:        3%{?dist}
+Version:        16.7.1
+Release:        1%{?dist}
 Summary:        Python module wrapper for os.path
 
 License:        MIT
@@ -52,6 +52,9 @@ operations on files to be invoked on those path objects directly.
 
 
 %changelog
+* Mon Jul 10 2023 Dan Radez <dradez@redhat.com> - 16.7.1-1
+- update to 16.7.1
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 16.6.0-3
 - Rebuilt for Python 3.12
 

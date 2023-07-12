@@ -1,25 +1,24 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
 %global debug_package %{nil}
 
 Name:           ocaml-xmlrpc-light
 Version:        0.6.1
-Release:        71%{?dist}
+Release:        72%{?dist}
 Summary:        OCaml library for writing XML-RPC clients and servers
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
-# Unfortunately both links are now dead :-(
-URL:            http://code.google.com/p/xmlrpc-light/
-Source0:        http://xmlrpc-light.googlecode.com/files/xmlrpc-light-%{version}.tar.gz
+URL:            https://code.google.com/archive/p/xmlrpc-light/
+Source0:        https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/xmlrpc-light/xmlrpc-light-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-xml-light-devel
 BuildRequires:  ocaml-ocamlnet-devel
 BuildRequires:  ocaml-ocamlnet-nethttpd-devel
+BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  dos2unix
+BuildRequires:  python3
 
 # Fix the package to work with ocamlnet 3.x.
 Patch1:         debian_patches_0002-Compile-with-ocamlnet-3.3.5.patch
@@ -30,6 +29,9 @@ Patch2:         xmlrpc-light-0.6.1-ocamlnet4.patch
 # Safe-string patches for OCaml 4.06.
 Patch3:         xmlrpc-light-0.6.1-safe-string.patch
 
+# Use camlp-streams for compatibility with OCaml 5.0
+Patch4:         xmlrpc-light-0.6.1-camlp-streams.patch
+
 
 %description
 XmlRpc-Light is an XmlRpc library written in OCaml.
@@ -37,7 +39,11 @@ XmlRpc-Light is an XmlRpc library written in OCaml.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-xml-light-devel%{?_isa}
+Requires:       ocaml-ocamlnet-devel%{?_isa}
+Requires:       ocaml-ocamlnet-nethttpd-devel%{?_isa}
+Requires:       ocaml-camlp-streams-devel%{?_isa}
 
 
 %description    devel
@@ -46,46 +52,49 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n xmlrpc-light-%{version}
+%autosetup -n xmlrpc-light-%{version} -p1
 dos2unix LICENSE
 dos2unix README.txt
 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%ifnarch %{ocaml_native_compiler}
+# Do not try to build or install the native library
+sed -i 's/ xmlrpc-light\.cmxa xmlrpc-light\.a//' Makefile
+sed -i '/libinstall:/s/\tall/ byte-code-library/' OCamlMakefile
+%endif
 
 
 %build
+%ifarch %{ocaml_native_compiler}
 make
+%else
+make byte-code-library
+%endif
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-make install
+mkdir -p $OCAMLFIND_DESTDIR
+%make_install
+%ocaml_files
 
 
-%files
-%doc LICENSE
-%{_libdir}/ocaml/xmlrpc-light
-%if %opt
-%exclude %{_libdir}/ocaml/xmlrpc-light/*.a
-%exclude %{_libdir}/ocaml/xmlrpc-light/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/xmlrpc-light/*.mli
+%files -f .ofiles
+%license LICENSE
 
 
-%files devel
-%doc LICENSE doc/xmlrpc-light/{html,latex} README.txt
-%if %opt
-%{_libdir}/ocaml/xmlrpc-light/*.a
-%{_libdir}/ocaml/xmlrpc-light/*.cmxa
-%endif
-%{_libdir}/ocaml/xmlrpc-light/*.mli
+%files devel -f .ofiles-devel
+%doc doc/xmlrpc-light/{html,latex} README.txt
+%license LICENSE
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.6.1-72
+- OCaml 5.0.0 rebuild
+- New project URLs
+- Convert License tag to SPDX
+- Add patch for OCaml 5.0 compatibility
+- Use new OCaml macros
+
 * Thu Feb 23 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.1-71
 - Rebuild for updated ocaml-xml-light
 

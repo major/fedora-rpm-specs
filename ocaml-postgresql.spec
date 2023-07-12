@@ -1,25 +1,22 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-
 Name:           ocaml-postgresql
-Version:        4.0.1
-Release:        42%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        OCaml library for accessing PostgreSQL databases
 
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/mmottl/postgresql-ocaml
-Source0:        https://github.com/mmottl/postgresql-ocaml/releases/download/v%{version}/postgresql-ocaml-%{version}.tar.gz
+Source0:        %{url}/releases/download/%{version}/postgresql-%{version}.tbz
 
-BuildRequires: make
-BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-ocamlbuild
-BuildRequires:  ocaml-ocamldoc
+# Post-release bug fix patches
+Patch0:         0001-Switched-to-Dune-lang-2.7.patch
+Patch1:         0002-Used-new-OCaml-4.12-C-macros.patch
+Patch2:         0003-Improved-Dune-rules.patch
+Patch3:         0004-Fixed-license-format.patch
+
+BuildRequires:  ocaml >= 4.12
+BuildRequires:  ocaml-dune >= 2.7
+BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  libpq-devel
-BuildRequires:  chrpath
-BuildRequires:  rpm >= 4.4.2.3-2
-
-%global __ocaml_provides_opts -i Condition -i Event -i Mutex -i Thread -i ThreadUnix
 
 
 %description
@@ -32,7 +29,7 @@ connections and results of queries.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -41,46 +38,37 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n postgresql-ocaml-%{version}
-ocaml setup.ml -configure --prefix %{_prefix} --destdir $RPM_BUILD_ROOT
+%autosetup -n postgresql-%{version} -p1
 
 
 %build
-make
-
-chrpath --delete _build/lib/dll*.so
+%dune_build
 
 
 %install
-# These rules work if the library uses 'ocamlfind install' to install itself.
-export DESTDIR=$RPM_BUILD_ROOT
-export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-make install
+%dune_install
 
 
-%files
-%doc COPYING.txt
-%{_libdir}/ocaml/postgresql
-%if %opt
-%exclude %{_libdir}/ocaml/postgresql/*.a
-%exclude %{_libdir}/ocaml/postgresql/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/postgresql/*.mli
-%{_libdir}/ocaml/stublibs/*.so
-%{_libdir}/ocaml/stublibs/*.so.owner
+%check
+%dune_check
 
 
-%files devel
-%doc COPYING.txt AUTHORS.txt CHANGES.txt README.md examples
-%if %opt
-%{_libdir}/ocaml/postgresql/*.a
-%{_libdir}/ocaml/postgresql/*.cmxa
-%endif
-%{_libdir}/ocaml/postgresql/*.mli
+%files -f .ofiles
+%doc README.md
+%license LICENSE.md
+
+
+%files devel -f .ofiles-devel
+%doc CHANGES.md examples
+%license LICENSE.md
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.0.0-1
+- Version 5.0.0
+- Convert License tag to SPDX
+- Build with dune
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.0.1-42
 - Rebuild OCaml packages for F38
 

@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-rresult
 Version:        0.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Result value combinators for OCaml
 
 License:        ISC
@@ -18,6 +16,9 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 BuildRequires:  python3
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Rresult is an OCaml module for handling computation results and errors
@@ -42,18 +43,13 @@ files for developing applications that use %{name}.
 %build
 ocaml pkg/pkg.ml build --dev-pkg false --tests true
 
-# Relink with Fedora linker flags
-cd _build
-ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g -I src \
-  src/rresult.cmxa -o src/rresult.cmxs
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g -package \
-  compiler-libs.toplevel -I src src/rresult_top.cmxa -o src/rresult_top.cmxs
-cd -
-
 %install
 mkdir -p %{buildroot}%{ocamldir}/rresult
-cp -p _build/src/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} _build/pkg/META \
-   _build/opam %{buildroot}%{ocamldir}/rresult
+%ifarch %{ocaml_native_compiler}
+cp -p _build/src/*.{a,cmx,cmxa,cmxs} %{buildroot}%{ocamldir}/rresult
+%endif
+cp -p _build/src/*.{cma,cmi,cmt,cmti,mli} _build/src/rresult_top_init.ml \
+  _build/pkg/META _build/opam %{buildroot}%{ocamldir}/rresult
 %ocaml_files
 
 %check
@@ -69,6 +65,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-8
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-7
 - Rebuild OCaml packages for F38
 

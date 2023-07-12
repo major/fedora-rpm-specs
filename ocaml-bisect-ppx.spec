@@ -1,9 +1,3 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 # Running the tests requires ocaml-ounit, which introduces a circular
 # dependency (also involving ocaml-lwt).  The tests also require ocamlformat,
 # introducing a second circular dependency.  Break the cycles with this
@@ -12,7 +6,7 @@
 
 Name:           ocaml-bisect-ppx
 Version:        2.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Code coverage for OCaml and Reason
 
 # The project as a whole is MIT.
@@ -88,6 +82,9 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.8.2-2
+- OCaml 5.0.0 rebuild
+
 * Fri Apr 14 2023 Jerry James <loganjerry@gmail.com> - 2.8.2-1
 - Version 2.8.2
 - Drop upstreamed ppat-construct patch

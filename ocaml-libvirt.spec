@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 Name:           ocaml-libvirt
 Version:        0.6.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml binding for libvirt
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
-URL:            http://libvirt.org/ocaml/
+URL:            https://ocaml.libvirt.org/
 #Source0:        http://libvirt.org/sources/ocaml/%%{name}-%%{version}.tar.gz
 # The tarball was not uploaded to the website at the time of packaging
 # so I built this using "make dist" in the source repo.
@@ -19,7 +17,11 @@ BuildRequires:  ocaml-findlib-devel
 
 BuildRequires:  libvirt-devel >= 0.2.1
 BuildRequires:  perl-interpreter
-BuildRequires:  gawk
+BuildRequires:  python3
+
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 
 
 %description
@@ -28,7 +30,7 @@ OCaml binding for libvirt.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -39,6 +41,13 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %autopatch -p1
+
+# Fix detection of ocamlopt and ocamldoc
+# https://gitlab.com/libvirt/libvirt-ocaml/-/merge_requests/27
+sed -i '/AM_CONDITIONAL/s/"x"/"xno"/' configure.ac
+
+# Regenerate the configure script
+autoreconf -fi -I m4 .
 
 
 %build
@@ -55,32 +64,28 @@ export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 make install
+%ocaml_files
 
 
-%files
-%doc COPYING.LIB README
-%{_libdir}/ocaml/libvirt
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/libvirt/*.a
-%exclude %{_libdir}/ocaml/libvirt/*.cmxa
-%exclude %{_libdir}/ocaml/libvirt/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/libvirt/*.mli
-%{_libdir}/ocaml/stublibs/*.so
-%{_libdir}/ocaml/stublibs/*.so.owner
+%files -f .ofiles
+%doc README
+%license COPYING.LIB
 
 
-%files devel
-%doc COPYING.LIB README TODO.libvirt
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/libvirt/*.a
-%{_libdir}/ocaml/libvirt/*.cmxa
-%{_libdir}/ocaml/libvirt/*.cmx
-%endif
-%{_libdir}/ocaml/libvirt/*.mli
+%files devel -f .ofiles-devel
+%doc README TODO.libvirt
+%license COPYING.LIB
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.6.1.7-2
+- OCaml 5.0.0 rebuild
+- New project URL
+- Convert License tag to SPDX
+- Fix build on bytecode-only architectures
+- Use %%license macro
+- Use new OCaml macros
+
 * Mon Feb 13 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.1.7-1
 - New upstream version 0.6.1.7
 - Do not try parallel builds.

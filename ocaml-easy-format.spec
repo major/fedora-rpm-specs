@@ -1,4 +1,3 @@
-%undefine _package_note_flags
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -6,20 +5,17 @@
 %global libname easy-format
 
 Name:           ocaml-%{libname}
-Version:        1.3.2
-Release:        22%{?dist}
+Version:        1.3.4
+Release:        1%{?dist}
 Summary:        High-level and functional interface to the Format module
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ocaml-community/%{libname}
 Source0:        %{url}/releases/download/%{version}/%{libname}-%{version}.tbz
-# Convert from the deprecated tag functions to the stag functions
-Patch0:         %{name}-stag.patch
 
-BuildRequires:  ocaml >= 4.02.3
-BuildRequires:  ocaml-dune
-BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml >= 4.08
+BuildRequires:  ocaml-dune >= 3.2
+
 
 %description
 This module offers a high-level and functional interface to the Format
@@ -51,53 +47,37 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p0 -n %{libname}-%{version}
+%autosetup -n %{libname}-%{version}
 
 
 %build
-dune build %{?_smp_mflags}
+%dune_build
 
 
 %install
-DESTDIR=%{buildroot} dune install
-
-# Fix permissions
-chmod 755 %{buildroot}%{_libdir}/ocaml/%{libname}/*.cmxs
-
-# Delete files we do not want or that are in the wrong place
-rm -f %{buildroot}%{_libdir}/ocaml/%{libname}/*.ml
-rm -fr %{buildroot}%{_prefix}/doc
+%dune_install
 
 
 %check
-dune runtest
+%dune_check
 
 
-%files
+%files -f .ofiles
 %license LICENSE
 %doc README.md
-%dir %{_libdir}/ocaml/%{libname}/
-%{_libdir}/ocaml/%{libname}/META
-%{_libdir}/ocaml/%{libname}/*.cmi
-%{_libdir}/ocaml/%{libname}/*.cmt
-%{_libdir}/ocaml/%{libname}/*.cmti
-%{_libdir}/ocaml/%{libname}/*.cmxs
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc CHANGES.md
-%{_libdir}/ocaml/%{libname}/dune-package
-%{_libdir}/ocaml/%{libname}/opam
-%{_libdir}/ocaml/%{libname}/*.a
-%{_libdir}/ocaml/%{libname}/*.cma
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{libname}/*.cmx
-%{_libdir}/ocaml/%{libname}/*.cmxa
-%endif
-%{_libdir}/ocaml/%{libname}/*.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.3.4-1
+- Version 1.3.4
+- Convert License tag to SPDX
+- Drop upstreamed stag patch
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.2-22
 - Rebuild OCaml packages for F38
 

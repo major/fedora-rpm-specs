@@ -1,8 +1,8 @@
 Name:           perl-Dist-Milla
-Version:        1.0.21
-Release:        4%{?dist}
+Version:        1.0.22
+Release:        1%{?dist}
 Summary:        CPAN distribution builder
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Milla
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Dist-Milla-v%{version}.tar.gz
 BuildArch:      noarch
@@ -98,8 +98,8 @@ Requires:       perl(Dist::Zilla::Plugin::NameFromDirectory) >= 0.04
 Requires:       perl(Dist::Zilla::Plugin::NextRelease)
 Requires:       perl(Dist::Zilla::Plugin::PodSyntaxTests)
 Requires:       perl(Dist::Zilla::Plugin::Prereqs::FromCPANfile) >= 0.06
-Requires:       perl(Dist::Zilla::Plugin::ReadmeAnyFromPod)
-Requires:       perl(Dist::Zilla::Plugin::ReadmeFromPod)
+Requires:       perl(Dist::Zilla::Plugin::ReadmeAnyFromPod) >= 0.163250
+Requires:       perl(Dist::Zilla::Plugin::ReadmeFromPod) >= 0.37
 Requires:       perl(Dist::Zilla::Plugin::ReversionOnRelease) >= 0.04
 Requires:       perl(Dist::Zilla::Plugin::ShareDir)
 Requires:       perl(Dist::Zilla::Plugin::Test::Compile)
@@ -165,14 +165,28 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %license LICENSE
 %doc Changes README
 %{_bindir}/milla
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/auto
+%dir %{perl_vendorlib}/auto/share
+%dir %{perl_vendorlib}/auto/share/module
+%{perl_vendorlib}/auto/share/module/Dist-Zilla-MintingProfile-Milla
+%dir %{perl_vendorlib}/Dist
+%{perl_vendorlib}/Dist/Milla
+%{perl_vendorlib}/Dist/Milla.pm
+%{perl_vendorlib}/Dist/Zilla
+%{perl_vendorlib}/Milla.pm
+%{_mandir}/man1/milla.*
+%{_mandir}/man3/Dist::Milla.*
+%{_mandir}/man3/Dist::Milla::*
+%{_mandir}/man3/Dist::Zilla::*
+%{_mandir}/man3/Milla.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 10 2023 Petr Pisar <ppisar@redhat.com> - 1.0.22-1
+- 1.0.22 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

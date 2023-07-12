@@ -1,29 +1,27 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
-%global _default_patch_fuzz 2
+%endif
 
 Name:          ocaml-facile
-Version:       1.1
-Release:       77%{?dist}
+Version:       1.1.4
+Release:       1%{?dist}
 Summary:       OCaml library for constraint programming
 Summary(fr):   Librairie OCaml de programmation par contraintes
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 
-URL:           http://www.recherche.enac.fr/log/facile/
-Source0:       http://www.recherche.enac.fr/log/facile/distrib/facile-1.1.tar.gz
+URL:           http://facile.recherche.enac.fr/
+Source0:       https://github.com/Emmanuel-PLF/facile/releases/download/%{version}/facile-%{version}.tbz
 
-# makefile fixes by Steffen Joeris <white@debian.org>:
-# * only build and install native binaries if ocamlopt is available
-# * install .mli files
-Patch0:        facile-1.1-makefile-fixes.patch
+# Build with dune and adapt to recent OCaml changes
+# https://github.com/Emmanuel-PLF/facile/pull/2
+# The PR does not apply cleanly, so the patch has been modified manually
+Patch0:        %{name}-use-dune.patch
 
-# Fix for OCaml 4.00.0.
-Patch1:        ocaml-facile-ocaml-4.patch
+# Build with debuginfo and fix an underlinked library
+Patch1:        %{name}-debug.patch
 
-BuildRequires: make
-BuildRequires: ocaml >= 3.02
-BuildRequires: ocaml-findlib-devel
+BuildRequires: ocaml >= 4.03.0
+BuildRequires: ocaml-dune
 
 %description
 FaCiLe is a constraint programming library on integer and integer set finite
@@ -63,48 +61,38 @@ l'aide du même langage puissant et efficace.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n facile-%{version}
-%patch0 -p1 -b .makefile-fixes
-%patch1 -p1 -b .ocaml4
+%autosetup -n facile-%{version} -p1
 
 %build
-# This is not autoconf, but a simple custom configure script.
-# The --faciledir directory is only used for "make install".
-./configure --faciledir $RPM_BUILD_ROOT%{_libdir}/ocaml/facile
-%if %opt
-make
-%else
-make OCAMLC=ocamlc OCAMLMLI=ocamlc
-%endif
+%dune_build
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml
-make install
+%dune_install
 
-%files
-%doc LICENSE README
-%{_libdir}/ocaml/facile/
-%if %opt
-%exclude %{_libdir}/ocaml/facile/*.a
-%exclude %{_libdir}/ocaml/facile/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/facile/*.mli
+%check
+%dune_check
 
-%files devel
-%if %opt
-%{_libdir}/ocaml/facile/*.a
-%{_libdir}/ocaml/facile/*.cmxa
-%endif
-%{_libdir}/ocaml/facile/*.mli
+%files -f .ofiles
+%doc CHANGES.md README.md
+%license LICENSE.md
+
+%files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.1.4-1
+- Version 1.1.4
+- Convert License tag to SPDX
+- Apply upstream PR to build with dune and fix various OCaml issues
+- Add patch to generate debuginfo during the build
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-77
 - Rebuild OCaml packages for F38
 

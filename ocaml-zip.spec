@@ -1,20 +1,22 @@
-%undefine _package_note_flags
 Name:           ocaml-zip
 Version:        1.11
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OCaml library for reading and writing zip, jar and gzip files
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 %global upver %(sed 's/\\.//' <<< %{version})
 
 URL:            https://xavierleroy.org/software.html
 Source0:        https://github.com/xavierleroy/camlzip/archive/rel%{upver}.tar.gz
+# Upstream patch to add explicit dependency on the Unix module
+Patch0:         https://github.com/xavierleroy/camlzip/commit/3b0e0a5.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.07.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  pkgconfig(zlib)
+BuildRequires:  python3
 
 
 %description
@@ -35,13 +37,16 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n camlzip-rel%{upver}
+%autosetup -n camlzip-rel%{upver} -p1
 
 # Do not try to overwrite the system ld.conf
 sed -i "s,ocamlfind install,& -ldconf $PWD/ld.conf," Makefile
 
 # The META file has the wrong version number
 sed -i 's/1\.09/%{version}/' META-zip
+
+# Generate debuginfo
+sed -i 's/ocamlopt/& -g/;s/ocamlmklib/& -g/' Makefile
 
 
 %build
@@ -50,9 +55,6 @@ make all
 make allopt
 %endif
 make doc
-
-# Relink the stublibs with $RPM_LD_FLAGS.
-ocamlmklib -g -ldopt "$RPM_LD_FLAGS" -lz -o camlzip $(ar t libcamlzip.a)
 
 
 %install
@@ -64,44 +66,37 @@ export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 export EXT_DLL=.so
 
 touch ld.conf
-make install
+%make_install
+
+%ocaml_files
 
 
+%ifarch %{ocaml_native_compiler}
+# The tests can only be built with a native compiler
 %check
 export LD_LIBRARY_PATH=$PWD
 make -C test
 test/testzlib Makefile Makefile.gz
 test/testzlib -d Makefile.gz Makefile.uncompressed
 cmp Makefile Makefile.uncompressed
+%endif
 
 
-%files
+%files -f .ofiles
 %license LICENSE
-%{_libdir}/ocaml/camlzip/
-%dir %{_libdir}/ocaml/zip/
-%{_libdir}/ocaml/zip/META
-%{_libdir}/ocaml/zip/*.cma
-%{_libdir}/ocaml/zip/*.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/zip/*.cmxs
-%endif
-%{_libdir}/ocaml/stublibs/dllcamlzip.so
-%{_libdir}/ocaml/stublibs/dllcamlzip.so.owner
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc Changes README.md doc
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/zip/*.a
-%{_libdir}/ocaml/zip/*.cmxa
-%{_libdir}/ocaml/zip/*.cmx
-%endif
-%{_libdir}/ocaml/zip/*.mli
-%{_libdir}/ocaml/zip/*.cmt
-%{_libdir}/ocaml/zip/*.cmti
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.11-8
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Add upstream patch to add explicit dependency on the Unix module
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.11-7
 - Rebuild OCaml packages for F38
 

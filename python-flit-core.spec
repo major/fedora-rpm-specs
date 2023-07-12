@@ -4,7 +4,7 @@
 %bcond bootstrap 0
 
 # Tests are enabled by default, unless we bootstrap.
-# Disable them to avoid a circular build dependency on requests-download and testpath.
+# Disable them to avoid a circular build dependency on testpath.
 %bcond tests %{without bootstrap}
 
 Name:           python-flit-core

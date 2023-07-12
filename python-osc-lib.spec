@@ -11,7 +11,7 @@
 
 Name:       python-%{library}
 Version:    2.7.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    OpenStack library for writing OSC plugins
 License:    ASL 2.0
 URL:        https://github.com/openstack/%{library}/
@@ -143,6 +143,9 @@ PYTHON=%{__python3} stestr run
 %endif
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 2.7.0-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 2.7.0-1
 - Update to upstream version 2.7.0
 

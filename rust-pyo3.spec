@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.18.3
+Version:        0.19.1
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -19,7 +19,7 @@ Source:         %{crates_source}
 # * drop MSVC- and MinGW-only features
 Patch:          pyo3-fix-metadata.diff
 # * skip the single doctest that depends on send_wrapper
-Patch:          0001-ignore-doctest-with-missing-send_wrapper-dependency.patch
+Patch:          0001-ignore-doctests-with-missing-send_wrapper-dependency.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -335,6 +335,18 @@ use the "pyo3-macros" feature of the "%{crate}" crate.
 %files       -n %{name}+pyo3-macros-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+rust_decimal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rust_decimal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rust_decimal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rust_decimal-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -363,11 +375,8 @@ use the "unindent" feature of the "%{crate}" crate.
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 # drop files that are not useful
 rm -r emscripten/ newsfragments/
-# drop broken trybuild ui tests
-rm tests/test_compile_error.rs
 # drop the tests for which dependencies were removed
 rm tests/test_pep_587.rs
-rm tests/ui/send_wrapper.rs
 %cargo_prep
 
 %generate_buildrequires
@@ -382,10 +391,17 @@ rm tests/ui/send_wrapper.rs
 
 %if %{with check}
 %check
-# unit tests require an UTF-8 locale
+# * unit tests require an UTF-8 locale
+# * unit tests require the "auto-initialize" feature
 export LANG=C.utf8
-# unit tests require the "auto-initialize" feature
+%if 0%{?fedora} >= 39
+# * skip a test that fails with Python 3.12:
+#   https://github.com/PyO3/pyo3/issues/3305
+# * skip tests that are unreliable with Python 3.12
+%cargo_test -f auto-initialize -- -- --skip err::tests::fetching_panic_exception_resumes_unwind --skip types::dict::tests::test_set_item_refcnt --skip types::list::tests::test_append_refcnt --skip types::list::tests::test_insert_refcnt
+%else
 %cargo_test -f auto-initialize
+%endif
 %endif
 
 %changelog

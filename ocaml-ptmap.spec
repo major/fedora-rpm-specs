@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-ptmap
 Version:        2.0.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Maps over integers implemented as Patricia trees
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -59,6 +57,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.0.5-12
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.0.5-11
 - Rebuild OCaml packages for F38
 

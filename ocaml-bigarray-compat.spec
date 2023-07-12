@@ -1,12 +1,20 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
+%ifarch %{ocaml_native_compiler}
+# The only source file for this package consists of a single "include" line,
+# referring to the bigarray in stdlib.  Although debuginfo is generated, it is
+# tagged with the file names from the ocaml package, rather than the single
+# 1-line source file in this project.  That leads to this error:
+#
+# error: Empty %%files file /builddir/build/BUILD/bigarray-compat-1.1.0/debugsourcefiles.list
+#
+# Do not try to gather debug sources to workaround the problem.
+%undefine _debugsource_packages
+%else
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-bigarray-compat
 Version:        1.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Compatibility library to use Stdlib.Bigarray when possible
 
 License:        ISC
@@ -48,6 +56,10 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.1.0-6
+- OCaml 5.0.0 rebuild
+- Do not produce a debugsource package for OCaml 5+
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.0-5
 - Rebuild OCaml packages for F38
 

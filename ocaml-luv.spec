@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-luv
 Version:        0.5.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml binding to libuv for cross-platform asynchronous I/O
 
 License:        MIT
@@ -43,16 +41,6 @@ find . -type f -exec chmod 0644 {} +
 export LUV_USE_SYSTEM_LIBUV=yes
 %dune_build
 
-# Relink the stublibs with Fedora flags
-cd _build/default/src/c
-ocamlmklib -g -ldopt "%{build_ldflags}" -o luv_c_stubs \
-  $(ar t libluv_c_stubs.a) -luv
-cd -
-cd _build/default/src/unix
-ocamlmklib -g -ldopt "%{build_ldflags}" -o luv_unix_stubs \
-  $(ar t libluv_unix_stubs.a)
-cd -
-
 %install
 export LUV_USE_SYSTEM_LIBUV=yes
 %dune_install
@@ -68,6 +56,9 @@ export LUV_USE_SYSTEM_LIBUV=yes
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.5.12-3
+- OCaml 5.0.0 rebuild
+
 * Fri Apr 14 2023 Jerry James <loganjerry@gmail.com> - 0.5.12-2
 - Rebuild for respun upstream tarball
 

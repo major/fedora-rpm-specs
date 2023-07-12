@@ -1,18 +1,16 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:		hevea
 Version:	2.36
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	LaTeX to HTML translator
 
-# QPL-1.0: the project as a whole
+# QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception: the project as a whole
 # LPPL-1.3a: hrlang.hva, lstlang*.sty, examples/natbib.sty
 # GPL-2.0-or-later: html/mathpartir.hva, examples/mathpartir-test.tex
-License:	QPL-1.0 AND LPPL-1.3a AND GPL-2.0-or-later
+License:	QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception AND LPPL-1.3a AND GPL-2.0-or-later
 URL:		http://hevea.inria.fr/
 Source0:	http://hevea.inria.fr/distri/%{name}-%{version}.tar.gz
 Source1:	http://hevea.inria.fr/distri/%{name}-%{version}-manual.pdf
@@ -84,6 +82,10 @@ ulimit -s unlimited
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.36-5
+- OCaml 5.0.0 rebuild
+- Update QPL portion of the license tag
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.36-4
 - Rebuild OCaml packages for F38
 

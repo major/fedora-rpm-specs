@@ -1,26 +1,19 @@
-%undefine _package_note_flags
-# Use this to build without documentation.
-%bcond_without doc
-
-%global srcname cryptokit
-
-Name:           ocaml-%{srcname}
-Version:        1.16.1
-Release:        13%{?dist}
+Name:           ocaml-cryptokit
+Version:        1.18
+Release:        1%{?dist}
 Summary:        OCaml library of cryptographic and hash functions
-License:        LGPLv2 with exceptions
 
 %global upver %(tr -d . <<< %{version})
 
+# LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception: the project as a whole
+# LGPL-2.1-or-later: src/blowfish.{c,h}
+License:        LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception AND LGPL-2.1-or-later
 URL:            https://github.com/xavierleroy/cryptokit/
-Source0:        %{url}/archive/release%{upver}/%{srcname}-%{version}.tar.gz
+Source0:        %{url}/archive/release%{upver}/cryptokit-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.03.0
-BuildRequires:  ocaml-dune-devel >= 2.0
-%if %{with doc}
-BuildRequires:  ocaml-odoc
-%endif
-BuildRequires:  ocaml-result-devel
+BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-dune >= 2.5
+BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-zarith-devel >= 1.4
 BuildRequires:  zlib-devel
 
@@ -32,12 +25,13 @@ protocols in security-sensitive applications. The primitives provided
 include:
 
 * Symmetric-key cryptography: AES, Chacha20, DES, Triple-DES, Blowfish,
-  ARCfour, in ECB, CBC, CFB OFB and counter modes.
+  ARCfour, in ECB, CBC, CFB, OFB and counter modes.
+* Authenticated encryption: AES-GCM, Chacha20-Poly1305.
 * Public-key cryptography: RSA encryption and signature; Diffie-Hellman
   key agreement.
-* Hash functions and MACs: SHA-3, SHA-2, BLAKE2b, RIPEMD-160, and MACs
-  based on AES and DES.  (SHA-1 and MD5, despite being broken, are also
-  provided for historical value.)
+* Hash functions and MACs: SHA-3, SHA-2, BLAKE2, BLAKE3, RIPEMD-160;
+  MACs based on AES and DES; SipHash.  (SHA-1 and MD5, despite being
+  broken, are also provided for historical value.)
 * Random number generation.
 * Encodings and compression: base 64, hexadecimal, Zlib compression. 
 
@@ -52,6 +46,7 @@ transformations over character streams.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-zarith-devel%{?_isa}
 
 
 %description    devel
@@ -59,20 +54,8 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 
-%if %{with doc}
-%package        doc
-Summary:        Interface documentation for %{name}
-BuildArch:      noarch
-
-
-%description    doc
-The %{name}-doc package contains interface documentation for
-%{name}.
-%endif
-
-
 %prep
-%autosetup -n %{srcname}-release%{upver}
+%autosetup -n cryptokit-release%{upver}
 
 
 %build
@@ -81,66 +64,33 @@ The %{name}-doc package contains interface documentation for
 # use of the compiled code is conditional.  The function aesni_check_available()
 # is called first, which checks the CPUID to verify that the instructions exist
 # on the CPU.  Therefore, older CPUs can still run the compiled code.
-dune build %{?_smp_mflags} @install
-%if %{with doc}
-dune build %{?_smp_mflags} @doc
-%endif
-
-# Relink the stublibs with Fedora flags
-cd _build/default/src
-ocamlmklib -g -ldopt "%build_ldflags" -o cryptokit_stubs \
-  $(ar t libcryptokit_stubs.a)
-cd -
+%dune_build
 
 
 %check
 # This opens /dev/random but never reads from it.
-dune runtest
+%dune_check
 
 
 %install
-dune install --destdir=%{buildroot}
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
-
-# We do not want the ml files
-find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
+%dune_install
 
 
-%files
+%files -f .ofiles
 %license LICENSE
-%dir %{_libdir}/ocaml/%{srcname}/
-%{_libdir}/ocaml/%{srcname}/META
-%{_libdir}/ocaml/%{srcname}/*.cma
-%{_libdir}/ocaml/%{srcname}/*.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{srcname}/*.cmxs
-%endif
-%{_libdir}/ocaml/stublibs/*.so*
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc README.md Changes
-%{_libdir}/ocaml/%{srcname}/dune-package
-%{_libdir}/ocaml/%{srcname}/opam
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{srcname}/*.a
-%{_libdir}/ocaml/%{srcname}/*.cmx
-%{_libdir}/ocaml/%{srcname}/*.cmxa
-%endif
-%{_libdir}/ocaml/%{srcname}/*.cmt
-%{_libdir}/ocaml/%{srcname}/*.cmti
-%{_libdir}/ocaml/%{srcname}/*.mli
-
-
-%if %{with doc}
-%files doc
-%doc _build/default/_doc/*
-%endif
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.18-1
+- Version 1.18
+- Convert License tag to SPDX
+- Use new dune macros
+- Update description from upstream README.md
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.1-13
 - Bump release and rebuild
 

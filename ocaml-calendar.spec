@@ -1,29 +1,20 @@
-%undefine _package_note_flags
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-calendar
-Version:        2.04
-Release:        46%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Objective Caml library for managing dates and times
-License:        LGPLv2
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
-URL:            http://calendar.forge.ocamlcore.org/
-Source0:        https://forge.ocamlcore.org/frs/download.php/1481/calendar-2.04.tar.gz
+URL:            https://ocaml-community.github.io/calendar/
+Source0:        https://github.com/ocaml-community/calendar/archive/v%{version}/calendar-%{version}.tar.gz
 
-Patch1:         calendar-2.03.2-enable-debug.patch
-
-BuildRequires: make
-BuildRequires:  ocaml >= 4.00.1
-BuildRequires:  ocaml-findlib-devel >= 1.3.3-3
-BuildRequires:  ocaml-ocamldoc
-BuildRequires:  gawk
-
-# Ignore all generated modules *except* CalendarLib, since everything
-# now appears in that namespace.
-%global __ocaml_requires_opts -i Calendar_builder -i Calendar_sig -i Date -i Date_sig -i Fcalendar -i Ftime -i Period -i Printer -i Time -i Time_sig -i Time_Zone -i Utils -i Version
-%global __ocaml_provides_opts -i Calendar_builder -i Calendar_sig -i Date -i Date_sig -i Fcalendar -i Ftime -i Period -i Printer -i Time -i Time_sig -i Time_Zone -i Utils -i Version
+BuildRequires:  ocaml >= 4.03
+BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml-dune >= 1.0
+BuildRequires:  ocaml-re-devel >= 1.7.2
 
 
 %description
@@ -32,7 +23,7 @@ Objective Caml library for managing dates and times.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -41,44 +32,39 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n calendar-%{version}
-%patch1 -p1
+%autosetup -n calendar-%{version} -p1
 
 
 %build
-./configure --libdir=%{_libdir}
-make
-make doc
-
-mv TODO TODO.old
-iconv -f iso-8859-1 -t utf-8 < TODO.old > TODO
+%dune_build
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
-export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-make install
+%dune_install
 
 
-%files
-%doc CHANGES README TODO LGPL COPYING
-%{_libdir}/ocaml/calendar
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/calendar/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/calendar/*.mli
+%check
+%dune_check
 
 
-%files devel
-%doc CHANGES README TODO LGPL COPYING calendarFAQ-2.6.txt doc/*
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/calendar/*.cmx
-%endif
-%{_libdir}/ocaml/calendar/*.mli
+%files -f .ofiles
+%doc CHANGES README.md TODO
+%license LGPL COPYING
+
+
+%files devel -f .ofiles-devel
+%doc CHANGES README.md TODO calendarFAQ-2.6.txt
+%license LGPL COPYING
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.0.0-1
+- Version 3.0.0
+- New project URLs
+- Convert License tag to SPDX
+- Drop obsolete debuginfo patch
+- Build with dune
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.04-46
 - Rebuild OCaml packages for F38
 

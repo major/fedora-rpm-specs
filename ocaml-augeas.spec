@@ -1,26 +1,23 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-
 Name:           ocaml-augeas
 Version:        0.6
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        OCaml bindings for Augeas configuration API
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
-URL:            http://people.redhat.com/~rjones/augeas/files/
-Source0:        http://people.redhat.com/~rjones/augeas/files/%{name}-%{version}.tar.gz
+URL:            https://people.redhat.com/~rjones/augeas/files/
+Source0:        https://people.redhat.com/~rjones/augeas/files/%{name}-%{version}.tar.gz
 
 # Upstream patch to enable debuginfo.
 Patch1:         0001-Use-ocamlopt-g-option.patch
 # Const-correctness fix for OCaml 4.09+
 Patch2:         0002-caml_named_value-returns-const-value-pointer-in-OCam.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  ocaml >= 3.09.0
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  augeas-devel >= 0.1.0
-BuildRequires:  chrpath
+BuildRequires:  python3
 
 
 %description
@@ -30,7 +27,7 @@ files. This provides complete OCaml bindings for Augeas.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -41,10 +38,13 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1
 
+# Pass -g to ocamlmklib
+sed -i 's/ocamlmklib/& -g/' Makefile.in
+
 
 %build
 %configure
-%if %opt
+%ifarch %{ocaml_native_compiler}
 make
 %else
 make mlaugeas.cma test_augeas
@@ -64,39 +64,29 @@ mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 # The upstream 'make install' rule is missing '*.so' and distributes
 # '*.cmi' instead of just the augeas.cmi file.  Temporary fix:
 #make install
-%if %opt
+%ifarch %{ocaml_native_compiler}
 ocamlfind install augeas META *.mli *.cmx *.cma *.cmxa *.a augeas.cmi *.so
 %else
 ocamlfind install augeas META *.mli *.cma *.a augeas.cmi *.so
 %endif
 
-chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dll*.so
+%ocaml_files
 
 
-%files
-%doc COPYING.LIB
-%{_libdir}/ocaml/augeas
-%if %opt
-%exclude %{_libdir}/ocaml/augeas/*.a
-%exclude %{_libdir}/ocaml/augeas/*.cmxa
-%exclude %{_libdir}/ocaml/augeas/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/augeas/*.mli
-%{_libdir}/ocaml/stublibs/*.so
-%{_libdir}/ocaml/stublibs/*.so.owner
+%files -f .ofiles
+%license COPYING.LIB
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc html
-%if %opt
-%{_libdir}/ocaml/augeas/*.a
-%{_libdir}/ocaml/augeas/*.cmxa
-%{_libdir}/ocaml/augeas/*.cmx
-%endif
-%{_libdir}/ocaml/augeas/*.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.6-24
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6-23
 - Rebuild OCaml packages for F38
 

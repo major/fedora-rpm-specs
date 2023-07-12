@@ -1,4 +1,3 @@
-%global _without_pythran 1
 # without means enabled
 %bcond_with doc
 
@@ -26,7 +25,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.10.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 
 # BSD -- whole package except:
 # Boost -- scipy/special/cephes/scipy_iv.c
@@ -232,6 +231,9 @@ popd
 %endif
 
 %changelog
+* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 1.10.1-5
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.10.1-4
 - Bootstrap for Python 3.12
 

@@ -1,12 +1,10 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-uutf
 Version:        1.0.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Non-blocking streaming Unicode codec for OCaml
 
 License:        ISC
@@ -68,11 +66,9 @@ ocamldoc -html -d html -I _build/src _build/src/uutf.mli
 mkdir -p %{buildroot}%{ocamldir}/uutf
 cp -p _build/{opam,pkg/META} %{buildroot}%{ocamldir}/uutf
 %ifarch %{ocaml_native_compiler}
-cp -a _build/src/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} \
-  %{buildroot}%{ocamldir}/uutf
-%else
-cp -a _build/src/*.{cma,cmi,cmt,cmti,mli} %{buildroot}%{ocamldir}/uutf
+cp -a _build/src/*.{a,cmx,cmxa,cmxs} %{buildroot}%{ocamldir}/uutf
 %endif
+cp -a _build/src/*.{cma,cmi,cmt,cmti,mli} %{buildroot}%{ocamldir}/uutf
 
 %ocaml_files
 
@@ -87,6 +83,9 @@ ocaml pkg/pkg.ml test
 %doc html/*
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.0.3-7
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.3-6
 - Rebuild OCaml packages for F38
 

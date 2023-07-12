@@ -1,4 +1,3 @@
-%undefine _package_note_flags
 %ifarch %{ocaml_native_compiler}
 %global native_compiler 1
 %else
@@ -6,14 +5,14 @@
 %endif
 
 Name:          ocaml-labltk
-Version:       8.06.12
-Release:       4%{?dist}
+Version:       8.06.13
+Release:       1%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
-License:       LGPLv2+ with exceptions
+License:       LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
-URL:           https://github.com/garrigue/labltk
+URL:           https://garrigue.github.io/labltk/
 Source0:       https://github.com/garrigue/labltk/archive/%{version}/labltk-%{version}.tar.gz
 
 # This adds debugging (-g) everywhere.
@@ -21,16 +20,22 @@ Patch1:        labltk-8.06.11-enable-debugging.patch
 
 # Resolve an issue with ./configure and Tcl detection.
 Patch2:        labltk-8.06.12-use-fpic-configure.patch
-Patch3: ocaml-labltk-configure-c99.patch
+
+# Avoid implicit int because it was removed from the C language
+Patch3:        ocaml-labltk-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: ocaml
+BuildRequires: ocaml-ocamldoc
+BuildRequires: python3
 BuildRequires: tcl-devel, tk-devel
 
-
-%description
+%global _desc %{expand:
 labltk or mlTk is a library for interfacing OCaml with the scripting
-language Tcl/Tk (all versions since 8.0.3, but no betas).
+language Tcl/Tk (all versions since 8.0.3, but no betas).}
+
+
+%description %_desc
 
 
 %package devel
@@ -39,30 +44,35 @@ Summary:       Tcl/Tk interface for OCaml
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 
 
-%description devel
-labltk or mlTk is a library for interfacing OCaml with the scripting
-language Tcl/Tk (all versions since 8.0.3, but no betas).
+%description devel %_desc
 
 This package contains the development files.
 
 
-%prep
-%setup -q -n labltk-%{version}
+%package doc
+Summary:       Documentation for labltk
+BuildArch:     noarch
 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+
+%description doc %_desc
+
+This package contains the API reference.
+
+
+%prep
+%autosetup -n labltk-%{version} -p1
 
 # Remove version control files which might get copied into documentation.
 find -name .gitignore -delete
-
-# Kill -warn-error.
-find -type f | xargs sed -i -e 's/-warn-error/-w/g'
 
 # Don't build ocamlbrowser.
 mv browser browser.old
 mkdir browser
 echo -e 'all:\ninstall:\n' > browser/Makefile
+
+# Use of the hardening linker flags without the hardening C flags leads to
+# failure of the configure script.  We don't need linker flags for this step.
+sed -i 's/^cclibs=.*/cclibs=/' configure
 
 
 %build
@@ -75,9 +85,18 @@ unset MAKEFLAGS
 make byte
 %else
 make all opt \
-     SHAREDCCCOMPOPTS="%{optflags} -fPIC" \
-     TK_LINK="%{__global_ldflags} -ltk8.6 -ltcl8.6"
+     SHAREDCCCOMPOPTS='%{build_cflags} -fPIC' \
+     TK_LINK="%{build_ldflags} $(pkg-config --libs tk)"
 %endif
+
+# Build documentation
+# make apiref does not work
+MLIS=$(ls -1d labltk/*.mli | grep -Fv _tkgen.mli)
+mkdir apiref
+/usr/bin/ocamldoc -I +threads -I support -I labltk -I camltk \
+  support/fileevent.mli support/support.mli support/textvariable.mli \
+  support/timer.mli support/tkthread.mli support/widget.mli $MLIS \
+  labltk/tk.ml -sort -d apiref -html
 
 
 %install
@@ -89,40 +108,38 @@ make install \
     INSTALLDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/labltk \
     STUBLIBDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs \
     RANLIB=:
-%if %{native_compiler}
-# The *.o files are not installed by the Makefile.  AIUI
-# that prevents linking with native code programs.
-install -m 0644 camltk/*.o $RPM_BUILD_ROOT%{_libdir}/ocaml/labltk
-%endif
+
+sed 's/8\.06\.6/%{version}/' support/META > \
+    $RPM_BUILD_ROOT%{ocamldir}/labltk/META
+
+%ocaml_files
 
 
-%files
+%files -f .ofiles
 %doc Changes README.mlTk
-%dir %{_libdir}/ocaml/labltk
-%{_libdir}/ocaml/labltk/*.cmi
-%{_libdir}/ocaml/labltk/*.cma
-%{_libdir}/ocaml/labltk/*.cmo
-%{_libdir}/ocaml/stublibs/dlllabltk.so
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc README.mlTk
+
+
+%files doc
 %doc examples_camltk
 %doc examples_labltk
-%{_bindir}/labltk
-%{_libdir}/ocaml/labltk/labltktop
-%{_libdir}/ocaml/labltk/pp
-%{_libdir}/ocaml/labltk/tkcompiler
-%{_libdir}/ocaml/labltk/*.a
-%if %{native_compiler}
-%{_libdir}/ocaml/labltk/*.cmxa
-%{_libdir}/ocaml/labltk/*.cmx
-%{_libdir}/ocaml/labltk/*.o
-%endif
-%{_libdir}/ocaml/labltk/*.mli
+%doc apiref
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 8.06.13-1
+- Version 8.06.13
+- Convert License tag to SPDX
+- Update project URL
+- Install META file
+- New doc subpackage for the documentation
+- Fix configure script failure
+- Compute linker flags more robustly
+- Use new OCaml macros
+
 * Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 8.06.12-4
 - Port configure stage to C99
 

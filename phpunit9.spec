@@ -11,7 +11,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    a9aceaf20a682aeacf28d582654a1670d8826778
+%global gh_commit    a6d351645c3fe5a30f5e86be6577d946af65a328
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.9
+%global upstream_version 9.6.10
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -254,6 +254,9 @@ exit $ret
 
 
 %changelog
+* Mon Jul 10 2023 Remi Collet <remi@remirepo.net> - 9.6.10-1
+- update to 9.6.10
+
 * Mon Jun 12 2023 Remi Collet <remi@remirepo.net> - 9.6.9-1
 - update to 9.6.9
 

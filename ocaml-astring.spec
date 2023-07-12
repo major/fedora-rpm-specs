@@ -1,23 +1,28 @@
-%undefine _package_note_flags
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-astring
 Version:        0.8.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Alternative String module for OCaml
 
 License:        ISC
 URL:            https://erratique.ch/software/astring
 Source0:        https://github.com/dbuenzli/astring/archive/v%{version}/astring-%{version}.tar.gz
 
+# Adapt to changed behavior of Char.compare in OCaml 5.
+# This affects x86_64, but not bytecode-only architectures.
+Patch0:         %{name}-ocaml5.patch
+
 BuildRequires:  ocaml >= 4.05.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-topkg-devel
 BuildRequires:  python3
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Astring exposes an alternative `String` module for OCaml.  This module
@@ -40,7 +45,10 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n astring-%{version}
+%autosetup -N -n astring-%{version}
+%ifarch %{ocaml_native_compiler}
+%autopatch -p1
+%endif
 
 # Topkg does watermark replacements only if run inside a git checkout.  Github
 # tarballs do not come with a .git directory.  Therefore, we do the watermark
@@ -82,6 +90,11 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.8.5-14
+- OCaml 5.0.0 rebuild
+- Add patch to adapt tests to OCaml 5.0
+- Do not require ocaml-compiler-libs at runtime
+
 * Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-13
 - Rebuild OCaml packages for F38
 

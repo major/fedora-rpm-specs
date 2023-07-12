@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version:        5.108.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -37,6 +37,7 @@ BuildRequires:  cmake(Imath)
 BuildRequires:  pkgconfig(OpenEXR)
 %endif
 BuildRequires:  cmake(KF5Archive)
+BuildRequires:  cmake(libheif)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  qt5-qtbase-devel
 
@@ -54,7 +55,7 @@ image formats.
 
 
 %build
-%{cmake_kf5}
+%{cmake_kf5} -DKIMAGEFORMATS_HEIF=ON
 %cmake_build
 
 
@@ -73,6 +74,9 @@ image formats.
 
 
 %changelog
+* Mon Jul 10 2023 Marian Koncek <mkoncek@redhat.com> - 5.108.0-2
+- Enable HEIF support
+
 * Sun Jul 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.108.0-1
 - 5.108.0
 

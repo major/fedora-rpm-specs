@@ -1,15 +1,8 @@
-%undefine _package_note_flags
-%if 0%{?fedora} >= 33
-%global blaslib flexiblas
-%else
-%global blaslib openblas
-%endif
-
 Name:           ocaml-gsl
-Version:        1.19.1
-Release:        47%{?dist}
+Version:        1.24.3
+Release:        1%{?dist}
 Summary:        Interface to GSL (GNU scientific library) for OCaml
-License:        GPLv2
+License:        GPL-3.0-or-later
 
 # "Architectures with double-word alignment for doubles are not supported"
 # Specifically you should look at this file:
@@ -19,20 +12,22 @@ License:        GPLv2
 ExcludeArch:    armv7hl
 
 URL:            https://github.com/mmottl/gsl-ocaml
-Source0:        https://github.com/mmottl/gsl-ocaml/releases/download/v%{version}/gsl-ocaml-%{version}.tar.gz
+Source0:        %{url}/releases/download/%{version}/gsl-%{version}.tbz
 
-# Various build fixes for OCaml 4.05.0.
-Patch1:         gsl-1.19.1-ocaml45.patch
-Patch2: ocaml-gsl-c99.patch
+# Post-release bug fixes from upstream
+Patch0:         0001-Switched-to-Dune-lang-2.7.patch
+Patch1:         0002-Used-new-OCaml-4.12-C-macros.patch
+Patch2:         0003-Updated-opam-file.patch
+Patch4:         0004-Fix-dune-rules.patch
 
-BuildRequires: make
-BuildRequires:  ocaml >= 3.07
-BuildRequires:  ocaml-ocamlbuild
-BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-ocamldoc
-BuildRequires:  gsl-devel >= 1.9
-BuildRequires:  /usr/bin/awk
-BuildRequires:  %{blaslib}-devel
+# Upstream PR for OCaml 5.x compatibility
+Patch5:         %{url}/pull/36.patch
+
+BuildRequires:  ocaml >= 4.12
+BuildRequires:  ocaml-dune >= 2.7
+BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  pkgconfig(flexiblas)
+BuildRequires:  pkgconfig(gsl) >= 2.0
 
 
 %description
@@ -42,7 +37,8 @@ Objective Caml language.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       gsl-devel%{?_isa}
 
 
 %description    devel
@@ -51,46 +47,43 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n gsl-ocaml-%{version}
-
-%patch1 -p1
-%patch2 -p1
+%autosetup -n gsl-%{version} -p1
 
 
 %build
-export GSL_CBLAS_LIB="-l%{blaslib}"
-make
+export GSL_CBLAS_LIB="-lflexiblas"
+%dune_build
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
-export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-make install
+export GSL_CBLAS_LIB="-lflexiblas"
+%dune_install
 
 
-%files
-%doc COPYING.txt
-%{_libdir}/ocaml/gsl
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/gsl/*.a
-%exclude %{_libdir}/ocaml/gsl/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/gsl/*.mli
-%{_libdir}/ocaml/stublibs/*.so
-%{_libdir}/ocaml/stublibs/*.so.owner
+%check
+export GSL_CBLAS_LIB="-lflexiblas"
+%dune_check
 
 
-%files devel
-%doc COPYING.txt AUTHORS.txt CHANGES.txt README.md NOTES.md
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/gsl/*.a
-%{_libdir}/ocaml/gsl/*.cmxa
-%endif
-%{_libdir}/ocaml/gsl/*.mli
+%files -f .ofiles
+%doc CHANGES.md README.md
+%license LICENSE.md
+
+
+%files devel -f .ofiles-devel
+%doc examples
+%license LICENSE.md
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.24.3-1
+- Version 1.24.3
+- Convert License tag to SPDX
+- Drop upstreamed patches
+- Add upstream post-release bug fix patches
+- Apply upstream PR for OCaml 5.0 compatibility
+- Build with dune
+
 * Sun Apr 16 2023 Florian Weimer <fweimer@redhat.com> - 1.19.1-47
 - Apply upstream patch to fix C99 compatibility issues
 

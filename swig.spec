@@ -13,6 +13,7 @@
 %global octave 0
 %global Rlang 0
 %global javalang 0
+%global ocamllang 0
 %endif
 
 %{!?tcl:%global tcl 1}
@@ -26,6 +27,7 @@
 %endif
 %{!?rubylang:%global rubylang 1}
 %{!?python3lang:%global python3lang 1}
+%{!?ocamllang:%global ocamllang 1}
 
 %if 0%{?rhel}
 %{!?golang:%global golang 0}
@@ -56,9 +58,9 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
-URL:     http://swig.sourceforge.net/
+URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
 # Define the part of man page sections
 Source1: description.h2m
@@ -71,6 +73,9 @@ Patch0: swig-configure-c99.patch
 # Octave 8.1 support
 # https://patch-diff.githubusercontent.com/raw/swig/swig/pull/2512.patch
 Patch1: swig-octave-8.1.patch
+# OCaml 5.0 support
+# https://github.com/swig/swig/pull/2649
+Patch2: swig-ocaml-5.0.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -126,6 +131,10 @@ BuildRequires: java, java-devel
 %endif
 %if %{phplang}
 BuildRequires: php, php-devel
+%endif
+%if %{ocamllang}
+BuildRequires: ocaml
+BuildRequires: ocaml-findlib
 %endif
 
 %description
@@ -189,7 +198,11 @@ done
 # AC_CHECK_PROGS requires just the name, so use for configure
 #   --with-python3=python3 --with-2to3=2to3
 %configure \
+%if %{ocamllang}
+  --with-ocaml \
+%else
   --without-ocaml \
+%endif
 %if %{python3lang}
   --with-python3=python3 \
   --with-2to3=2to3 \
@@ -349,6 +362,10 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Tue Jun 20 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-7
+- Enable OCaml support
+- Add patch for OCaml 5.0.0
+
 * Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 4.1.1-6
 - Rebuild with octave 8.1.0
 

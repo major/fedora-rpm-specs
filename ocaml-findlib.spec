@@ -1,30 +1,33 @@
-%undefine _package_note_flags
-# https://bugzilla.redhat.com/show_bug.cgi?id=2044028
-# https://bugzilla.redhat.com/show_bug.cgi?id=2043092#c21
-# /usr/bin/ld: cannot open linker script file /builddir/build/BUILD/.package_note-ocaml-4.13.1-2.fc36.x86_64.ld: No such file or directory
-%undefine _package_note_file
+%ifnarch %{ocaml_native_compiler}
+# Stripping the binary removes its bytecode payload
+%global __strip %{_bindir}/true
+%global debug_package %{nil}
+%endif
 
 Name:           ocaml-findlib
 Version:        1.9.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
 URL:            http://projects.camlcity.org/projects/findlib.html
 Source0:        http://download.camlcity.org/download/findlib-%{version}.tar.gz
 
+# Fix the toolbox build with OCaml 5.x
+Patch0:         %{name}-toolbox.patch
+
 BuildRequires:  ocaml >= 4.02.0
 BuildRequires:  ocaml-labltk-devel
-BuildRequires:  ocaml-ocamlbuild-devel
-#BuildRequires:  ocaml-num-devel
+BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  m4, ncurses-devel
-BuildRequires:  gawk
 BuildRequires:  make
+BuildRequires:  python3
 Requires:       ocaml
 
-%global __ocaml_requires_opts -i Asttypes -i Parsetree
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Topdirs -i Toploop -i Type_immediacy -i Types -i Warnings
 
 
 %description
@@ -44,6 +47,17 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1 -n findlib-%{version}
 
+# Fix character encoding
+iconv -f ISO8859-1 -t UTF-8 doc/README > doc/README.utf8
+touch -r doc/README doc/README.utf8
+mv doc/README.utf8 doc/README
+
+# Fix the OCaml core man directory
+sed -i 's,/usr/local/man,%{_mandir},' configure
+
+# Configure bug?  dynlink_subdir is the empty string
+sed -i 's/\${dynlink_subdir}/dynlink/' configure
+
 
 %build
 ocamlc -version
@@ -56,9 +70,9 @@ cat src/findlib/ocaml_args.ml
   -sitelib `ocamlc -where` \
   -mandir %{_mandir} \
   -with-toolbox
-make all
+%make_build all
 %ifarch %{ocaml_native_compiler}
-make opt
+%make_build opt
 %endif
 rm doc/guide-html/TIMESTAMP
 
@@ -72,39 +86,36 @@ make install \
      OCAMLFIND_BIN=%{_bindir} \
      OCAMLFIND_MAN=%{_mandir}
 
+# Remove spurious executable bits
+chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man{1,5}/*
+chmod 0644 $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/*.{cma,cmi,ml,mli,pattern}
+chmod 0644 $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/{META,Makefile*}
+%ifarch %{ocaml_native_compiler}
+chmod 0644 $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/*.{a,cmxa}
+%endif
 
-%files
+%ocaml_files
+sed -i '/ocamlfind\.conf/d' .ofiles
+
+
+%files -f .ofiles
 %doc LICENSE doc/README
 %config(noreplace) %{_sysconfdir}/ocamlfind.conf
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man5/*
-%{_libdir}/ocaml/*/META
-%{_libdir}/ocaml/topfind
-%{_libdir}/ocaml/findlib
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/findlib/*.a
-%exclude %{_libdir}/ocaml/findlib/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/findlib/*.mli
-%exclude %{_libdir}/ocaml/findlib/Makefile.config
-%exclude %{_libdir}/ocaml/findlib/make_wizard
-%exclude %{_libdir}/ocaml/findlib/make_wizard.pattern
-# Had to disable this in OCaml 4.06, unclear why.
-#%%{_libdir}/ocaml/num-top
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc LICENSE doc/README doc/guide-html
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/findlib/*.a
-%{_libdir}/ocaml/findlib/*.cmxa
-%endif
-%{_libdir}/ocaml/findlib/*.mli
-%{_libdir}/ocaml/findlib/Makefile.config
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.9.6-3
+- OCaml 5.0.0 rebuild
+- Verify the License is valid SPDX
+- Fix natdynlink detection
+- Add patch to fix toolbox build for OCaml 5.x
+- Convert README to UTF-8
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.9.6-2
 - Rebuild OCaml packages for F38
 

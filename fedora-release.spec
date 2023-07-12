@@ -472,6 +472,27 @@ Suggests: java-17-openjdk
 Suggests: java-17-openjdk-devel
 Suggests: java-17-openjdk-headless
 
+# Prefer over Fedora freeipa (same code, different name, each Provides the other)
+Suggests: ipa-client
+Suggests: ipa-client-common
+Suggests: ipa-client-epn
+Suggests: ipa-client-samba
+Suggests: ipa-common
+Suggests: ipa-selinux
+Suggests: ipa-server
+Suggests: ipa-server-common
+Suggests: ipa-server-dns
+Suggests: ipa-server-trust-ad
+Suggests: ipa-healthcheck
+Suggests: ipa-healthcheck-core
+
+# Prefer over exim, opensmtpd for Provides: MTA smtpd smtpdaemon server(smtp)
+# sendmail is also in RHEL but does not Provides: smtpdaemon
+Suggests: postfix
+
+# Prefer over cdrkit/genisoimage for /usr/bin/mkisofs
+Suggests: xorriso
+
 RemovePathPostfixes: .eln
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity

@@ -1,4 +1,3 @@
-%undefine _package_note_flags
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -8,19 +7,15 @@ Version: 2.5
 %forgemeta
 
 Name:           ocaml-xml-light
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Minimal XML parser and printer for OCaml
 
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            http://tech.motion-twin.com/xmllight.html
 Source0:        %{forgesource}
-Source1:        https://raw.githubusercontent.com/ocaml/opam-repository/master/packages/xml-light/xml-light.%{version}/opam
 
-BuildRequires:  make
-BuildRequires:  ocaml >= 4.00.1
-BuildRequires:  ocaml-findlib-devel >= 1.3.3-3
-BuildRequires:  ocaml-ocamldoc
-BuildRequires:  ocaml-dune
+BuildRequires:  ocaml >= 4.03
+BuildRequires:  ocaml-dune >= 2.7
 
 
 %description
@@ -33,7 +28,7 @@ not require a C library.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -67,6 +62,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.5-2
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Trim BuildRequires
+
 * Wed Feb 22 2023 Richard W.M. Jones <rjones@redhat.com> - 2.5-1
 - New upstream version 2.5
 - Use forge macros.

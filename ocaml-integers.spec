@@ -1,8 +1,6 @@
-%undefine _package_note_flags
-
 Name:           ocaml-integers
 Version:        0.7.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Various signed and unsigned integer types for OCaml
 
 License:        MIT
@@ -13,6 +11,9 @@ Patch0:         %{name}-stdlib-shims.patch
 
 BuildRequires:  ocaml >= 4.02
 BuildRequires:  ocaml-dune
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 The ocaml-integers library provides a number of 8-, 16-, 32- and 64-bit
@@ -33,12 +34,6 @@ files for developing applications that use %{name}.
 %build
 %dune_build
 
-# Relink the stublib with Fedora flags
-cd _build/default/src
-ocamlmklib -g -ldopt "%{build_ldflags}" -o integers_stubs \
-  $(ar t libintegers_stubs.a)
-cd -
-
 %install
 %dune_install
 
@@ -52,6 +47,10 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-6
+- OCaml 5.0.0 rebuild
+- Do not require ocaml-compiler-libs at runtime
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-5
 - Rebuild OCaml packages for F38
 

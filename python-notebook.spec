@@ -14,6 +14,9 @@ License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source:         %{pypi_source notebook}
 
+# Workaround a possible Python 3.12 regression in importlib.resources
+Patch:          https://github.com/jupyter/notebook/pull/6965.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -40,7 +43,7 @@ Requires:       python-jupyter-filesystem
 
 
 %prep
-%autosetup -n notebook-%{version}
+%autosetup -p1 -n notebook-%{version}
 
 # The nbval package is used for validation of notebooks.
 # It's sedded out because it isn't yet packaged in Fedora.

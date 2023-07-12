@@ -1,9 +1,26 @@
-%undefine _package_note_flags
+%ifarch %{ocaml_native_compiler}
+%ifarch x86_64
+%global num_arch amd64
+%else
+%ifarch aarch64
+%global num_arch arm64
+%else
+%ifarch ppc64le
+%global num_arch power
+%else
+%global num_arch %{_arch}
+%endif
+%endif
+%endif
+%else
+%global num_arch none
+%endif
+
 Name:           ocaml-num
 Version:        1.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Legacy Num library for arbitrary-precision integer and rational arithmetic
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://github.com/ocaml/num
 Source0:        https://github.com/ocaml/num/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -14,7 +31,11 @@ Patch5:         0005-src-Add-g-flag-to-mklib.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-findlib
+BuildRequires:  python3
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Longident -i Topdirs
 
 
 %description
@@ -32,7 +53,7 @@ has a nicer API.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -41,56 +62,39 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n num-%{version}
-%autopatch -p1
+%autosetup -n num-%{version} -p1
 
 
 %build
-make %{?_smp_mflags} all
+%make_build ARCH=%{num_arch} FLAMBDA=true
 
 
 %check
-make -j1 test
+make -j1 test ARCH=%{num_arch} FLAMBDA=true
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
-export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $OCAMLFIND_DESTDIR
+export OCAMLFIND_DESTDIR=%{buildroot}%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR/stublibs
-make install
+%make_install ARCH=%{num_arch}
+%ocaml_files
 
-find $OCAMLFIND_DESTDIR -name '*.cmti' -delete
 
-
-%files
+%files -f .ofiles
 %doc Changelog README.md
 %license LICENSE
-%{_libdir}/ocaml/*.cmi
-%{_libdir}/ocaml/*.cma
-%{_libdir}/ocaml/*.cmxs
-%{_libdir}/ocaml/num
-%{_libdir}/ocaml/num-top
-%{_libdir}/ocaml/stublibs/dll*.so
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/*.a
-%exclude %{_libdir}/ocaml/*.cmxa
-%exclude %{_libdir}/ocaml/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/*.mli
 
 
-%files devel
+%files devel -f .ofiles-devel
 %license LICENSE
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/*.a
-%{_libdir}/ocaml/*.cmxa
-%{_libdir}/ocaml/*.cmx
-%endif
-%{_libdir}/ocaml/*.mli
 
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.4-10
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4-9
 - Rebuild OCaml packages for F38
 
