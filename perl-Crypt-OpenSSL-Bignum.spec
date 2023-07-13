@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-Bignum
 Version:        0.09
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl interface to OpenSSL for Bignum
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-Bignum
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Crypt::OpenSSL::Bignum*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-22
+- Perl 5.38 rebuild
+
 * Wed Jun 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.09-21
 - Update license to SPDX format
 

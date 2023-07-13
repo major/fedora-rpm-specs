@@ -1,7 +1,7 @@
 Summary:       Sort files in sophisticated ways
 Name:          msort
 Version:       8.53
-Release:       48%{?dist}
+Release:       49%{?dist}
 License:       GPLv3
 URL:           http://billposer.org/Software/msort.html
 Source0:       http://billposer.org/Software/Downloads/msort-%{version}.tar.bz2
@@ -57,6 +57,9 @@ rm hybrid-ips.txt
 %{_mandir}/man1/msort.1*
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 8.53-49
+- Rebuilt for ICU 73.2
+
 * Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 8.53-48
 - Port configure script to C99 (#2164988)
 

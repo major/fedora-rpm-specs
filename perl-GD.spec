@@ -1,6 +1,6 @@
 Name:           perl-GD
 Version:        2.78
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to the GD graphics library
 License:        GPL-1.0-or-later OR Artistic-2.0
 URL:            https://metacpan.org/release/GD
@@ -90,6 +90,9 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/GD::Simple.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.78-2
+- Perl 5.38 rebuild
+
 * Tue Jul  4 2023 Paul Howarth <paul@city-fan.org> - 2.78-1
 - Update to 2.78
   - Fix Use of uninitialized value $pkg in concatenation warning

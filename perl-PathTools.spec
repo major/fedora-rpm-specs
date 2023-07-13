@@ -2,7 +2,7 @@
 
 Name:           perl-PathTools
 Version:        3.89
-Release:        1%{?dist}
+Release:        499%{?dist}
 Summary:        PathTools Perl module (Cwd, File::Spec)
 # Cwd.xs:                   BSD-3-Clause
 # other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -124,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.89-499
+- Increase release to favour standalone package
+
 * Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.89-1
 - Upgrade to 3.89 as provided in perl-5.37.11
 - Package tests

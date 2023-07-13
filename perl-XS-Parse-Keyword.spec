@@ -3,7 +3,7 @@
 
 Name:           perl-XS-Parse-Keyword
 Version:        0.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        XS functions to assist in parsing keyword syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XS-Parse-Keyword
@@ -146,6 +146,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.34-2
+- Perl 5.38 rebuild
+
 * Thu Jun 15 2023 Petr Pisar <ppisar@redhat.com> - 0.34-1
 - 0.34 bump
 

@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-react
 Version:        1.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml framework for Functional Reactive Programming (FRP)
 
 License:        ISC
@@ -90,6 +93,9 @@ ocaml pkg/pkg.ml test
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.2-1
 - Version 1.2.2
 - Verify that license is valid SPDX

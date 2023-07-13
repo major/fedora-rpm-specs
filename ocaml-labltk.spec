@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifarch %{ocaml_native_compiler}
 %global native_compiler 1
 %else
@@ -6,7 +9,7 @@
 
 Name:          ocaml-labltk
 Version:       8.06.13
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -130,6 +133,9 @@ sed 's/8\.06\.6/%{version}/' support/META > \
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 8.06.13-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 8.06.13-1
 - Version 8.06.13
 - Convert License tag to SPDX

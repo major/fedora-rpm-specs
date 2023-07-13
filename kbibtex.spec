@@ -2,7 +2,7 @@
 
 Name:       kbibtex
 Version:    0.10.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A BibTeX editor for KDE
 
 License:    GPLv2+
@@ -105,6 +105,9 @@ desktop-file-validate  $RPM_BUILD_ROOT%{_kf5_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 0.10.0-2
+- Rebuilt for ICU 73.2
+
 * Sat Mar 18 2023 Orion Poplawski <orion@nwra.com> - 0.10.0-1
 - Update to 0.10.0
 

@@ -5,7 +5,7 @@
 %global crate itoa
 
 Name:           rust-itoa
-Version:        1.0.6
+Version:        1.0.8
 Release:        %autorelease
 Summary:        Fast integer primitive to string conversion
 

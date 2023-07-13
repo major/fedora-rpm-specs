@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           prooftree
 Version:        0.13
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Proof tree visualization for Proof General
 
 License:        GPL-3.0-or-later
@@ -59,6 +62,9 @@ sed -i 's/cp /cp -p /' Makefile.in
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.13-25
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.13-24
 - OCaml 5.0.0 rebuild
 

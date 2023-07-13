@@ -1,17 +1,22 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
+# The 4.5.0 release does not support OCaml 5.0.  Build from git until the
+# next release.
+%global commit  407f41b2cc17ee636b4c5046b2efc16a26f27d8f
+%global date    20230622
+%global forgeurl https://github.com/ocsigen/tyxml
 
 Name:           ocaml-tyxml
 Version:        4.5.0
-Release:        16%{?dist}
 Summary:        Build valid HTML and SVG documents
 
+%forgemeta
+
+Release:        18%{?dist}
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://ocsigen.org/tyxml/
-Source0:        https://github.com/ocsigen/tyxml/releases/download/%{version}/tyxml-%{version}.tbz
+Source0:        %{forgesource}
 # Fedora's OCaml is new enough that we do not need the seq shim
 Patch0:         %{name}-seq.patch
 
@@ -115,7 +120,7 @@ The %{name}-ppx-devel package contains libraries and signature files for
 developing applications that use %{name}-ppx.
 
 %prep
-%autosetup -n tyxml-%{version} -p1
+%forgeautosetup -p1
 
 %build
 %dune_build
@@ -147,6 +152,12 @@ developing applications that use %{name}-ppx.
 %files ppx-devel -f .ofiles-tyxml-ppx-devel
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.5.0-18
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.5.0-17.20230622git407f41b
+- Build from git HEAD for OCaml 5.0.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.5.0-16
 - Rebuild OCaml packages for F38
 

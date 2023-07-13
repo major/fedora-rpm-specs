@@ -1,5 +1,5 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 # Optionally disable camomile dep on RHEL.
 %if !0%{?rhel}
@@ -10,27 +10,28 @@
 
 Name:           ocaml-gettext
 Version:        0.4.2
-Release:        11%{?dist}
+Release:        13%{?dist}
 Summary:        OCaml library for i18n
 
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
 URL:            https://github.com/gildor478/ocaml-gettext
 
 Source0:        https://github.com/gildor478/%{name}/archive/v%{version}.tar.gz
 
-BuildRequires:  make
-BuildRequires:  ocaml >= 4.00.1
-BuildRequires:  ocaml-findlib-devel >= 1.3.3-3
-BuildRequires:  ocaml-compiler-libs
-BuildRequires:  ocaml-ocamldoc
+# Updates for OCaml 5.  Based in part on
+# https://github.com/gildor478/ocaml-gettext/pull/24
+Patch0:         %{name}-ocaml5.patch
+# Adapt to changes in camomile 2.0
+Patch1:         %{name}-camomile2.patch
+
+BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-fileutils-devel >= 0.4.4-4
-BuildRequires:  ocaml-dune-devel
+BuildRequires:  ocaml-dune >= 1.11.0
+BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-cppo
 BuildRequires:  docbook-style-xsl
 BuildRequires:  libxslt
 BuildRequires:  libxml2
-BuildRequires:  chrpath
-BuildRequires:  autoconf
 %if !0%{?rhel}
 BuildRequires:  ocaml-ounit-devel
 %endif
@@ -38,15 +39,11 @@ BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-camomile-devel >= 0.8.6-3
 BuildRequires:  ocaml-camomile-data
 %endif
-BuildRequires:  autoconf, automake
 
 %if %{with camomile}
 # ocaml-gettext program needs camomile data files
 Requires:       ocaml-camomile-data
 %endif
-
-%global __ocaml_requires_opts -i Asttypes -i Parsetree
-%global __ocaml_provides_opts -i Pr_gettext
 
 
 %description
@@ -63,10 +60,10 @@ Constraints :
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 # BZ 446919.
-Requires:       ocaml-fileutils-devel >= 0.4.0
+Requires:       ocaml-fileutils-devel%{?_isa} >= 0.4.0
 
 
 %description    devel
@@ -77,7 +74,7 @@ developing applications that use %{name}.
 %if %{with camomile}
 %package        camomile
 Summary:        Parts of %{name} which depend on Camomile
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    camomile
@@ -87,8 +84,9 @@ depend on Camomile.
 
 %package        camomile-devel
 Summary:        Development files for %{name}-camomile
-Requires:       %{name}-devel = %{version}-%{release}
-Requires:       %{name}-camomile = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       %{name}-camomile%{?_isa} = %{version}-%{release}
+Requires:       ocaml-camomile-devel%{?_isa}
 
 
 %description    camomile-devel
@@ -99,12 +97,7 @@ signature files for developing applications that use
 
 
 %prep
-%setup -q -n %{name}-%{version}
-%autopatch -p1
-
-# Remove dependency on batteries.
-sed -i -e 's/batteries//' test/dune
-sed -i -e 's/batteries//' test/test-stub/dune
+%autosetup -p1
 
 %if %{without camomile}
 # Remove dependency on camomile.
@@ -115,63 +108,26 @@ sed -i -e 's/camomile//' `find -name dune`
 
 
 %build
-make build
-
-
-#check
-# Tests require batteries, so they are disabled at present.
-# Under discussion with upstream.
+%dune_build
 
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-dune install --destdir=$RPM_BUILD_ROOT
-
-# Remove this, we will use our own rules for documentation.
-rm -rf $RPM_BUILD_ROOT/usr/doc
-
-%if %{without camomile}
-# If you use --without camomile but happen to have the camomile
-# packages installed then it will still build them.
-rm -rf $RPM_BUILD_ROOT/%{_libdir}/ocaml/gettext-camomile
-%endif
+%dune_install -s
+sed -i '\@%{_bindir}@d;\@%{_mandir}@d' .ofiles-gettext
+cat .ofiles-gettext-stub >> .ofiles-gettext
+cat .ofiles-gettext-stub-devel >> .ofiles-gettext-devel
 
 
-%files
-%doc LICENSE.txt
-%{_libdir}/ocaml/gettext
-%{_libdir}/ocaml/gettext-stub
-%if %opt
-%exclude %{_libdir}/ocaml/gettext/*.cmxa
-%exclude %{_libdir}/ocaml/gettext/*/*.a
-%exclude %{_libdir}/ocaml/gettext/*/*.cmxa
-%exclude %{_libdir}/ocaml/gettext/*/*.cmx
-%exclude %{_libdir}/ocaml/gettext-stub/*.a
-%exclude %{_libdir}/ocaml/gettext-stub/*.cmxa
-%exclude %{_libdir}/ocaml/gettext-stub/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/gettext/*/*.ml
-%exclude %{_libdir}/ocaml/gettext/*/*.mli
-%exclude %{_libdir}/ocaml/gettext-stub/*.ml
-%{_libdir}/ocaml/stublibs/*.so
+%check
+%dune_check
 
 
-%files devel
+%files -f .ofiles-gettext
+%license LICENSE.txt
+
+
+%files devel -f .ofiles-gettext-devel
 %doc README.md CHANGES.md THANKS TODO.md
-# %doc build/share/doc/html/*
-%if %opt
-%{_libdir}/ocaml/gettext/*.cmxa
-%{_libdir}/ocaml/gettext/*/*.a
-%{_libdir}/ocaml/gettext/*/*.cmxa
-%{_libdir}/ocaml/gettext/*/*.cmx
-%{_libdir}/ocaml/gettext-stub/*.a
-%{_libdir}/ocaml/gettext-stub/*.cmxa
-%{_libdir}/ocaml/gettext-stub/*.cmx
-%endif
-%{_libdir}/ocaml/gettext/*/*.ml
-%{_libdir}/ocaml/gettext/*/*.mli
-%{_libdir}/ocaml/gettext-stub/*.ml
 %{_bindir}/ocaml-gettext
 %{_bindir}/ocaml-xgettext
 %{_mandir}/man1/ocaml-gettext.1*
@@ -180,29 +136,25 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/ocaml/gettext-camomile
 
 
 %if %{with camomile}
-%files camomile
-%doc LICENSE.txt
-%{_libdir}/ocaml/gettext-camomile
-%if %opt
-%exclude %{_libdir}/ocaml/gettext-camomile/*.a
-%exclude %{_libdir}/ocaml/gettext-camomile/*.cmxa
-%exclude %{_libdir}/ocaml/gettext-camomile/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/gettext-camomile/*.mli
+%files camomile -f .ofiles-gettext-camomile
+%license LICENSE.txt
 
 
-%files camomile-devel
+%files camomile-devel -f .ofiles-gettext-camomile-devel
 %doc README.md
-%if %opt
-%{_libdir}/ocaml/gettext-camomile/*.a
-%{_libdir}/ocaml/gettext-camomile/*.cmxa
-%{_libdir}/ocaml/gettext-camomile/*.cmx
-%endif
-%{_libdir}/ocaml/gettext-camomile/*.mli
 %endif
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.4.2-13
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.4.2-12
+- OCaml 5.0.0 rebuild
+- Convert License tag to SPDX
+- Enable tests
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.4.2-11
 - Rebuild OCaml packages for F38
 

@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocamlify
 Version:        0.0.2
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Include files in OCaml code
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -66,6 +69,9 @@ ocaml -I +camlp-streams setup.ml -test
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.0.2-36
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.0.2-35
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

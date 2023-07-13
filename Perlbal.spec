@@ -1,6 +1,6 @@
 Name:           Perlbal
 Version:        1.80
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Reverse-proxy load balance and web-server
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Perlbal
@@ -143,6 +143,9 @@ make test
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.80-52
+- Perl 5.38 rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.80-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

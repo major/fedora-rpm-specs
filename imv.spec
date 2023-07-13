@@ -1,6 +1,6 @@
 Name:           imv
 Version:        4.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Image viewer for X11 and Wayland
 
 License:        MIT
@@ -86,6 +86,9 @@ desktop-file-validate \
 %{_mandir}/man5/%{name}*
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 4.4.0-3
+- Rebuilt for ICU 73.2
+
 * Fri Jun 02 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 4.4.0-2
 - Enable libheif backend
 

@@ -3,7 +3,7 @@
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
 Version: 2.7.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 #see LICENSE file for details
 License: GPLv2+ and BSD and MIT and Public Domain
 URL: https://www.eyrie.org/~eagle/software/inn/
@@ -564,6 +564,9 @@ fi
 %{_mandir}/man1/inews*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.7.1-3
+- Perl 5.38 rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.7.1-2
 - Rebuilt for Python 3.12
 

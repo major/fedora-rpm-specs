@@ -1,6 +1,6 @@
 Name:           BackupPC-XS
 Version:        0.62
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Implementation of various BackupPC functions in a perl-callable module
 
 License:        GPLv3+ and (GPL+ or Artistic) and zlib
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.62-12
+- Perl 5.38 rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

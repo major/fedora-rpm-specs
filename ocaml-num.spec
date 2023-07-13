@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifarch %{ocaml_native_compiler}
 %ifarch x86_64
 %global num_arch amd64
@@ -18,7 +21,7 @@
 
 Name:           ocaml-num
 Version:        1.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Legacy Num library for arbitrary-precision integer and rational arithmetic
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -90,6 +93,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4-11
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.4-10
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

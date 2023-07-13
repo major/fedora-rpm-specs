@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-ocplib-endian
 Version:        1.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Functions to read/write int16/32/64 from strings, bigarrays
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -58,6 +61,9 @@ signature files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2-9
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2-8
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

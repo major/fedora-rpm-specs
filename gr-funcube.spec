@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       1.0.0
-Release:       23.%{git_suffix}%{?dist}
+Release:       24.%{git_suffix}%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -103,6 +103,10 @@ exit 0
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.0-24.20220130gitbf71b979
+- Rebuilt for new python
+  Resolves: rhbz#2220006
+
 * Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.0.0-23.20220130gitbf71b979
 - Rebuilt due to spdlog 1.12 update.
 

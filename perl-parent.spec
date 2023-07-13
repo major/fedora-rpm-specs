@@ -1,7 +1,7 @@
 Name:		perl-parent
 Epoch:		1
 Version:	0.241
-Release:	1%{?dist}
+Release:	499%{?dist}
 Summary:	Establish an ISA relationship with base classes at compile time
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/parent
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/parent.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.241-499
+- Increase release to favour standalone package
+
 * Wed Feb 15 2023 Paul Howarth <paul@city-fan.org> - 1:0.241-1
 - Update to 0.241
   - Actually include the changes documented for version 0.240

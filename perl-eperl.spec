@@ -1,6 +1,6 @@
 Name:           perl-eperl
 Version:        2.2.14
-Release:        57%{?dist}
+Release:        58%{?dist}
 Summary:        Embedded Perl Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://www.ossp.org/pkg/tool/eperl/
@@ -89,6 +89,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.14-58
+- Perl 5.38 rebuild
+
 * Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 2.2.14-57
 - Fix C99 compatibility issue
 

@@ -1,6 +1,6 @@
 Name:           perl-B-Hooks-OP-Annotation
 Version:        0.44
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Annotate and delegate hooked OPs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Hooks-OP-Annotation
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/B::Hooks::OP::Annotation.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.44-36
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.44-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

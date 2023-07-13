@@ -1,6 +1,6 @@
 Name:           perl-Sentinel
 Version:        0.06
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Create lightweight SCALARs with get/set callbacks
 License:        GPL+ or Artistic
 
@@ -58,6 +58,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/Sentinel*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-15
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

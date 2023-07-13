@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-benchmark
 Version:        1.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Benchmarking module for OCaml
 
 License:        LGPL-3.0-only WITH OCaml-LGPL-linking-exception
@@ -56,6 +59,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6-5
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.6-4
 - OCaml 5.0.0 rebuild
 - New project URL

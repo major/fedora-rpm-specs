@@ -22,10 +22,9 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        API server for API extensions like CustomResourceDefinitions
 
-# Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
-Source0:        %{gosource}
+Source:         %{gosource}
 
 BuildRequires:  golang(github.com/emicklei/go-restful)
 BuildRequires:  golang(github.com/gogo/protobuf/proto)
@@ -36,7 +35,6 @@ BuildRequires:  golang(github.com/spf13/cobra)
 BuildRequires:  golang(github.com/spf13/pflag)
 BuildRequires:  golang(go.etcd.io/etcd/client/pkg/v3/transport)
 BuildRequires:  golang(go.etcd.io/etcd/client/v3)
-BuildRequires:  golang(go.etcd.io/etcd/server/etcdserver/api/v3rpc)
 BuildRequires:  golang(google.golang.org/grpc)
 BuildRequires:  golang(k8s.io/api/autoscaling/v1)
 BuildRequires:  golang(k8s.io/apimachinery/pkg/api/equality)
@@ -153,8 +151,7 @@ BuildRequires:  golang(k8s.io/component-base/featuregate/testing)
 BuildRequires:  golang(sigs.k8s.io/yaml)
 %endif
 
-%description
-%{common_description}
+%description %{common_description}
 
 %gopkg
 
@@ -173,7 +170,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %if %{with check}
 %check
 # test/integration: needs network
-%gocheck -t test/integration -t pkg/controller/openapi -t pkg/apiserver/validation -d pkg/apiserver/schema
+%gocheck -t test/integration -t pkg/controller/openapi -t pkg/apiserver/validation -t pkg/apiserver -d pkg/registry/customresource
 %endif
 
 %files

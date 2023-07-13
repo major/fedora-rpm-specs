@@ -1,9 +1,10 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-bin-prot
-Version:        0.15.0
+Version:        0.16.0
 Epoch:          1
-Release:        11%{?dist}
+Release:        1%{?dist}
 Summary:        Read and write OCaml values in a type-safe binary protocol
 
 # The project as a whole is MIT.
@@ -12,15 +13,16 @@ License:        MIT AND BSD-3-Clause
 URL:            https://github.com/janestreet/bin_prot
 Source0:        %{url}/archive/v%{version}/bin_prot-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-base-devel >= 0.16
 BuildRequires:  ocaml-dune >= 2.0.0
-BuildRequires:  ocaml-ppx-compare-devel >= 0.15
-BuildRequires:  ocaml-ppx-custom-printf-devel >= 0.15
-BuildRequires:  ocaml-ppx-fields-conv-devel >= 0.15
-BuildRequires:  ocaml-ppx-optcomp-devel >= 0.15
-BuildRequires:  ocaml-ppx-sexp-conv-devel >= 0.15
-BuildRequires:  ocaml-ppx-variants-conv-devel >= 0.15
+BuildRequires:  ocaml-ppx-compare-devel >= 0.16
+BuildRequires:  ocaml-ppx-custom-printf-devel >= 0.16
+BuildRequires:  ocaml-ppx-fields-conv-devel >= 0.16
+BuildRequires:  ocaml-ppx-optcomp-devel >= 0.16
+BuildRequires:  ocaml-ppx-sexp-conv-devel >= 0.16
+BuildRequires:  ocaml-ppx-stable-witness-devel >= 0.16
+BuildRequires:  ocaml-ppx-variants-conv-devel >= 0.16
 
 %description
 This library contains functionality for reading and writing OCaml
@@ -43,6 +45,7 @@ Requires:       ocaml-fieldslib-devel%{?_isa}
 Requires:       ocaml-ppx-compare-devel%{?_isa}
 Requires:       ocaml-ppx-sexp-conv-devel%{?_isa}
 Requires:       ocaml-sexplib0-devel%{?_isa}
+Requires:       ocaml-ppx-stable-witness-devel%{?_isa}
 Requires:       ocaml-variantslib-devel%{?_isa}
 
 %description    devel
@@ -54,10 +57,6 @@ for developing applications that use %{name}.
 
 %build
 %dune_build
-
-# Relink with Fedora linker flags
-cd _build/default/src
-ocamlmklib -g -ldopt "%{build_ldflags}" -o bin_prot_stubs blit_stubs.o
 
 %install
 %dune_install
@@ -72,6 +71,9 @@ ocamlmklib -g -ldopt "%{build_ldflags}" -o bin_prot_stubs blit_stubs.o
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1:0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1:0.15.0-11
 - Bump release and rebuild
 

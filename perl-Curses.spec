@@ -1,6 +1,6 @@
 Name:           perl-Curses
 Version:        1.44
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl bindings for ncurses
 
 License:        GPL+ or Artistic
@@ -77,6 +77,9 @@ make test
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.44-2
+- Perl 5.38 rebuild
+
 * Thu Apr 13 2023 Steve Traylen <steve.traylen@cern.ch> - 1.44-1
 - 1.44 bump
 

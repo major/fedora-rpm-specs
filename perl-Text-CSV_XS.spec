@@ -1,6 +1,6 @@
 Name:           perl-Text-CSV_XS
 Version:        1.50
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Comma-separated values manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-CSV_XS
@@ -80,6 +80,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.50-2
+- Perl 5.38 rebuild
+
 * Wed Mar  1 2023 Paul Howarth <paul@city-fan.org> - 1.50-1
 - Update to 1.50 (rhbz#2174402)
   - Promote sep to sep_set in csv() with auto-headers

@@ -1,6 +1,6 @@
 Name:           rxvt-unicode
 Version:        9.31
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Unicode version of rxvt
 
 License:        GPLv3
@@ -184,6 +184,9 @@ popd
 %{_libdir}/urxvt
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 9.31-3
+- Perl 5.38 rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

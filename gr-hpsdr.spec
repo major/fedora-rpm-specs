@@ -1,7 +1,7 @@
 Name:          gr-hpsdr
 URL:           https://github.com/Tom-McDermott/gr-hpsdr
 Version:       3.0
-Release:       20%{?dist}
+Release:       21%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -73,6 +73,10 @@ Documentation files for gr-hpsdr.
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0-21
+- Rebuilt for new python
+  Resolves: rhbz#2220007
+
 * Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.0-20
 - Rebuilt due to spdlog 1.12 update.
 

@@ -9,7 +9,7 @@
 Summary:	Modular text mode IRC client with Perl scripting
 Name:		irssi
 Version:	1.4.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 License:	GPLv2+
 URL:		http://irssi.org/
@@ -111,6 +111,9 @@ chmod -R u+w $RPM_BUILD_ROOT%{perl_vendorarch}
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.4.4-3
+- Perl 5.38 rebuild
+
 * Thu Mar 30 2023 Todd Zullinger <tmz@pobox.com> - 1.4.4-2
 - verify upstream source signature
 

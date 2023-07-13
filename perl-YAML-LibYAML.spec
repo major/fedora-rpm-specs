@@ -8,7 +8,7 @@
 Name:           perl-YAML-LibYAML
 Epoch:          1
 Version:        0.88
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-LibYAML
@@ -155,6 +155,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.88-2
+- Perl 5.38 rebuild
+
 * Fri May 12 2023 Paul Howarth <paul@city-fan.org> - 1:0.88-1
 - Update to 0.88
   - REVERT "Turn off internal POK flag for number scalars"

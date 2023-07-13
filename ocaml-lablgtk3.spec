@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-lablgtk3
 Version:        3.1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml interface to gtk3
 
 License:        LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception
@@ -146,6 +149,9 @@ cp -p gdk_pixbuf_mlsource3.1 lablgladecc3.1 %{buildroot}%{_mandir}/man1
 %files sourceview3-devel -f .ofiles-lablgtk3-sourceview3-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 3.1.3-5
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.1.3-4
 - OCaml 5.0.0 rebuild
 

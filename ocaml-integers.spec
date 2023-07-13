@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-integers
 Version:        0.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Various signed and unsigned integer types for OCaml
 
 License:        MIT
@@ -47,6 +50,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-7
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-6
 - OCaml 5.0.0 rebuild
 - Do not require ocaml-compiler-libs at runtime

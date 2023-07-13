@@ -1,6 +1,6 @@
 Name:           perl-File-MMagic-XS
 Version:        0.09008
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Guess file type with XS
 License:        ASL 2.0 and (GPL+ or Artistic)
 URL:            https://metacpan.org/release/File-MMagic-XS
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/File::MMagic::XS.3pm*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.09008-28
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09008-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

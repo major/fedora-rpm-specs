@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-atd
 Version:        2.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adaptable Type Definitions for cross-language data types
 
 License:        BSD-3-Clause
@@ -268,6 +271,9 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,py,s,ts}
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.12.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.12.0-1
 - Version 2.12.0
 - New atdpy and atdts subpackages

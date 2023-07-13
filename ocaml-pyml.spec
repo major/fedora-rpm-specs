@@ -1,9 +1,12 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # Conditionally build the custom toplevels
 %bcond_with toplevel
 
 Name:           ocaml-pyml
 Version:        20220905
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml bindings for Python
 
 # The project is BSD-2-Clause except for pycaml.mli, which is LGPLv2+
@@ -147,6 +150,9 @@ cp -p _build/default/dllnumpy_stubs.so %{buildroot}%{ocamldir}/stublibs
 %endif
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 20220905-3
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 20220905-2
 - OCaml 5.0.0 rebuild
 

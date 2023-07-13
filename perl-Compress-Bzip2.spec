@@ -7,7 +7,7 @@
 
 Name:           perl-Compress-Bzip2
 Version:        2.28
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Interface to Bzip2 compression library
 # bzlib-src/win-tst-dlltest.c (unbundled):  Public Domain
 # bzlib-src/LICENSE (unbundled):            BSD-4-Clause
@@ -135,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.28-13
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

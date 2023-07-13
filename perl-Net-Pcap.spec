@@ -1,6 +1,6 @@
 Name:           perl-Net-Pcap
 Version:        0.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interface to pcap(3) LBL packet capture library
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.21-2
+- Perl 5.38 rebuild
+
 * Mon Jan 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.21-1
 - 0.21 bump
 - Package tests

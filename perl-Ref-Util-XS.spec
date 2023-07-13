@@ -7,7 +7,7 @@
 
 Name:		perl-Ref-Util-XS
 Version:	0.117
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Utility functions for checking references
 License:	MIT
 URL:		https://metacpan.org/release/Ref-Util-XS
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/Ref::Util::XS.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.117-19
+- Perl 5.38 rebuild
+
 * Thu May 11 2023 Paul Howarth <paul@city-fan.org> - 0.117-18
 - SPDX migration
 - Use author-independent source URL

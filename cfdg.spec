@@ -1,6 +1,6 @@
 Name: cfdg
 Version:  3.3
-Release:  14%{?dist}
+Release:  15%{?dist}
 Summary: Context Free Design Grammar
 
 License: GPL-2.0-or-later
@@ -40,6 +40,9 @@ install -D -m 755 cfdg %{buildroot}%{_bindir}/cfdg
 %doc input/* README
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 3.3-15
+- Rebuilt for ICU 73.2
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3-14
 - migrated to SPDX license
 

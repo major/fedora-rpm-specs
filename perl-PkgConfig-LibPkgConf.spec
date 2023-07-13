@@ -7,7 +7,7 @@
 
 Name:           perl-PkgConfig-LibPkgConf
 Version:        0.11
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Interface to pkg-config files via libpkgconf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PkgConfig-LibPkgConf
@@ -133,6 +133,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.11-14
+- Perl 5.38 rebuild
+
 * Tue Mar 07 2023 Petr Pisar <ppisar@redhat.com> - 0.11-13
 - Fix retrieving flags from package files whose Name value differs from its
   file name (bug #2172714)

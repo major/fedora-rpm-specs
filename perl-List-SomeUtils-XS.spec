@@ -1,6 +1,6 @@
 Name:           perl-List-SomeUtils-XS
 Version:        0.58
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        XS implementation for List::SomeUtils
 License:        Artistic-2.0 AND ( GPL-1.0-or-later OR Artistic-1.0-Perl )
 URL:            https://metacpan.org/release/List-SomeUtils-XS
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.58-18
+- Perl 5.38 rebuild
+
 * Fri Mar 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.58-17
 - Update license to SPDX format
 - Use macros make*

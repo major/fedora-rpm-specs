@@ -3,7 +3,7 @@
 
 Name:           perl-HTML-Strip
 Version:        2.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl extension for stripping HTML markup from text
 License:        GPL+ or Artistic
 
@@ -69,6 +69,9 @@ unset RELEASE_TESTING
 %{_mandir}/man3/HTML*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.12-2
+- Perl 5.38 rebuild
+
 * Mon Mar 20 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.12-1
 - Update to 2.12
 

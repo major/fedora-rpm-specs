@@ -5,7 +5,7 @@
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
 %global released_kernel 1
-%global baserelease 1
+%global baserelease 2
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -590,6 +590,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 6.4.0-2
+- Perl 5.38 rebuild
+
 * Mon Jun 26 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.4.0-1
 - Linux v6.4
 

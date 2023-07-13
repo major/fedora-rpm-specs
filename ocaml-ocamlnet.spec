@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-ocamlnet
 Version:        4.1.9
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Network protocols for OCaml
 License:        BSD-3-Clause
 
@@ -246,6 +249,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-13
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.1.9-12
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

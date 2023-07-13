@@ -6,13 +6,16 @@
 %global crate cxxbridge-macro
 
 Name:           rust-cxxbridge-macro
-Version:        1.0.97
+Version:        1.0.100
 Release:        %autorelease
 Summary:        Implementation detail of the cxx crate
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cxxbridge-macro
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * temporarily downgrade flate2 dependency from 1.0.26 to 1.0.25
+Patch:          cxxbridge-macro-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -118,6 +121,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde_derive-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde_derive-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde_derive" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde_derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde_json-devel

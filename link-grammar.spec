@@ -7,7 +7,7 @@
 Summary: A full-service natural language dependency parser
 Name: link-grammar
 Version: 5.12.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.1-or-later
 Source: http://www.abisource.com/downloads/link-grammar/%{version}/link-grammar-%{version}.tar.gz
 URL: http://abisource.com/projects/link-grammar/
@@ -125,6 +125,9 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.12.3-3
+- Perl 5.38 rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.12.3-2
 - Rebuilt for Python 3.12
 

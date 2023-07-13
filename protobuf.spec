@@ -7,11 +7,7 @@
 %if %{defined rhel}
 %bcond_with java
 %else
-%ifarch %{java_arches}
 %bcond_without java
-%else
-%bcond_with java
-%endif
 %endif
 
 #global rcver rc2
@@ -108,12 +104,14 @@ BuildRequires:  gcc-c++
 BuildRequires:  emacs
 BuildRequires:  zlib-devel
 
+%if %{with java}
 %ifnarch %{java_arches}
 Obsoletes:      protobuf-java-util < 3.19.4-4
 Obsoletes:      protobuf-javadoc < 3.19.4-4
 Obsoletes:      protobuf-parent < 3.19.4-4
 Obsoletes:      protobuf-bom < 3.19.4-4
 Obsoletes:      protobuf-javalite < 3.19.4-4
+%endif
 %endif
 
 %description
@@ -207,6 +205,8 @@ descriptions in Vim editor
 
 
 %if %{with java}
+%ifarch %{java_arches}
+
 %package java
 Summary:        Java Protocol Buffers runtime library
 BuildArch:      noarch
@@ -265,6 +265,7 @@ BuildArch:      noarch
 Protocol Buffer BOM POM.
 
 %endif
+%endif
 
 %package emacs
 Summary:        Emacs mode for Google Protocol Buffers descriptions
@@ -296,6 +297,7 @@ mv '../%{gtest_dir}' 'third_party/googletest'
 find -name \*.cc -o -name \*.h | xargs chmod -x
 chmod 644 examples/*
 %if %{with java}
+%ifarch %{java_arches}
 %pom_remove_dep com.google.errorprone:error_prone_annotations java/util/pom.xml
 %pom_remove_dep com.google.j2objc:j2objc-annotations java/util/pom.xml
 
@@ -314,6 +316,7 @@ find -name '*.java' | xargs sed -ri \
 
 # Backward compatibility symlink
 %mvn_file :protobuf-java:jar: protobuf/protobuf-java protobuf
+%endif
 %endif
 
 rm -f src/solaris/libstdc++.la
@@ -339,12 +342,14 @@ popd
 %endif
 
 %if %{with java}
+%ifarch %{java_arches}
 %ifarch %{ix86} s390x
 export MAVEN_OPTS=-Xmx1024m
 %endif
 %pom_disable_module kotlin java/pom.xml
 %pom_disable_module kotlin-lite java/pom.xml
 %mvn_build -s -- -f java/pom.xml
+%endif
 %endif
 
 %{_emacs_bytecompile} editors/protobuf-mode.el
@@ -373,7 +378,9 @@ install -p -m 644 -D %{SOURCE1} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/pr
 install -p -m 644 -D editors/proto.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/proto.vim
 
 %if %{with java}
+%ifarch %{java_arches}
 %mvn_install
+%endif
 %endif
 
 mkdir -p %{buildroot}%{_emacs_sitelispdir}/protobuf
@@ -439,6 +446,8 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %{_datadir}/vim/vimfiles/syntax/proto.vim
 
 %if %{with java}
+%ifarch %{java_arches}
+
 %files java -f .mfiles-protobuf-java
 %doc examples/AddPerson.java examples/ListPeople.java
 %doc java/README.md
@@ -458,6 +467,8 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 %files javalite -f .mfiles-protobuf-javalite
 %license LICENSE
+
+%endif
 %endif
 
 

@@ -7,7 +7,7 @@
 
 Name:		perl-List-MoreUtils-XS
 Version:	0.430
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Provide compiled List::MoreUtils functions
 # Code from List-MoreUtils < 0.417 is GPL-1.0-or-later OR Artistic-1.0-Perl
 # Anything after that is Apache-2.0
@@ -89,6 +89,9 @@ make test
 %{_mandir}/man3/List::MoreUtils::XS.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.430-10
+- Perl 5.38 rebuild
+
 * Tue Jun 13 2023 Paul Howarth <paul@city-fan.org> - 0.430-9
 - Disable extra test in RHEL builds (based on
   https://src.fedoraproject.org/rpms/perl-List-MoreUtils-XS/pull-request/1)

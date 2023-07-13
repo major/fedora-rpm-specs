@@ -20,7 +20,7 @@ incorporate the pyghmi library into a Python application.
 Summary: %{common_summary}
 Name: python-%{sname}
 Version: %{?version:%{version}}%{!?version:1.5.29}
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source0: https://tarballs.opendev.org/x/%{sname}/%{sname}-%{version}.tar.gz
 License: ASL 2.0
 Prefix: %{_prefix}
@@ -105,13 +105,13 @@ sed -i 's/python-dateutil.*/python-dateutil>=2.6.1/' requirements.txt
 %build
 %if 0%{?with_python3}
 %py3_build
-%{__python3} setup.py build_sphinx -b html
 %endif # with_python3
 
 %if 0%{?with_python2}
 %py2_build
-%{__python2} setup.py build_sphinx -b html
 %endif
+
+sphinx-build -b html doc/source doc/build/html
 
 # remove the sphinx-build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
@@ -176,6 +176,9 @@ popd
 %doc doc/build/html README.md
 
 %changelog
+* Tue Jul 11 2023 Dmitry Tantsur <dtantsur@protonmail.com> - 1.5.29-7
+- Avoid setup.py build_sphinx (#2221967)
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.5.29-6
 - Rebuilt for Python 3.12
 

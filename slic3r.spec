@@ -5,7 +5,7 @@
 
 Name:           slic3r
 Version:        1.3.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        G-code generator for 3D printers (RepRap, Makerbot, Ultimaker etc.)
 License:        AGPLv3 and CC-BY
 # Images are CC-BY, code is AGPLv3
@@ -263,6 +263,9 @@ SLIC3R_NO_AUTO=1 perl Build.PL installdirs=vendor
 %{_datadir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.3.0-30
+- Perl 5.38 rebuild
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.3.0-29
 - Rebuilt for Boost 1.81
 

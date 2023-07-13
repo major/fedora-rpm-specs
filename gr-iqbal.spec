@@ -8,7 +8,7 @@ Name:          gr-iqbal
 #URL:           http://cgit.osmocom.org/gr-iqbal/
 URL:           https://github.com/osmocom/gr-iqbal
 Version:       0.38.2
-Release:       21.%{git_suffix}%{?dist}
+Release:       22.%{git_suffix}%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -81,6 +81,10 @@ mv %{buildroot}%{_datadir}/doc/gr-iqbalance %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.38.2-22.20210210gitfbee239a
+- Rebuilt for new python
+  Resolves: rhbz#2220008
+
 * Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.38.2-21.20210210gitfbee239a
 - Rebuilt due to spdlog 1.12 update.
 

@@ -7,7 +7,7 @@
 
 Name:           perl-Crypt-DES
 Version:        2.07
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Perl DES encryption module
 # License is like BSD-4-Clause but without the 4th clause
 License:        BSD
@@ -72,6 +72,9 @@ make test
 %{_mandir}/man3/Crypt::DES.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.07-33
+- Perl 5.38 rebuild
+
 * Thu Mar 16 2023 Paul Howarth <paul@city-fan.org> - 2.07-32
 - Package tidy-up
   - Use author-independent source URL

@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.55
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -147,6 +147,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.12.55-3
+- Perl 5.38 rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:1.12.55-2
 - Rebuilt for Python 3.12
 

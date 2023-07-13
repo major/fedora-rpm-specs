@@ -17,7 +17,12 @@ BuildRequires:  make
 BuildRequires:  pkgconfig(libgensio)
 BuildRequires:  pkgconfig(libgensioosh)
 BuildRequires:  pkgconfig(libgensiomdns)
+# EL9 does not provide pkgconfig(pam) yet
+%if 0%{?el9}
+BuildRequires:  pam-devel
+%else
 BuildRequires:  pkgconfig(pam)
+%endif
 BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  systemd-rpm-macros
 

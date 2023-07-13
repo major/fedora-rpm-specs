@@ -2,10 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Resolve JSON Pointers in Python
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/stefankoegl/python-json-pointer
 Source0:        %{pypi_source}
 
@@ -45,6 +45,9 @@ BuildRequires:  python3-devel
 %{_bindir}/jsonpointer
 
 %changelog
+* Wed Jul 12 2023 Nathan Scott <nathans@redhat.com> - 2.3-4
+- Use SPDX license string
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3-3
 - Rebuilt for Python 3.12
 

@@ -1,7 +1,7 @@
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
-%global prerel b3
+%global prerel rc2
 
 Name:           python-notebook
 %global _docdir_fmt %{name}

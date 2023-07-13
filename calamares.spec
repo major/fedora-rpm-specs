@@ -4,7 +4,7 @@
 #global prerelease beta2
 
 # For rpmdev-bumpspec and releng scripts
-%global baserelease 6
+%global baserelease 7
 
 # do not use QtWebEngine because it no longer works with QtWebEngine >= 5.11
 # (it now refuses to run as root unless "export QTWEBENGINE_DISABLE_SANDBOX=1")
@@ -360,6 +360,9 @@ EOF
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 3.2.61-7
+- Rebuilt for ICU 73.2
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.2.61-6
 - Rebuilt for Python 3.12
 

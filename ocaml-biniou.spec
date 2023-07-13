@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-biniou
 Version:        1.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Safe and fast binary data format
 
 License:        BSD-3-Clause
@@ -77,6 +80,9 @@ sed -i '/bdump/d' .ofiles
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.2-1
 - Version 1.2.2
 - Convert License tag to SPDX

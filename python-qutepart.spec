@@ -18,7 +18,7 @@ Qutepart is a code editor widget for PyQt. Features: \
 
 Name:           python-%{srcname}
 Version:        3.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 # LGPL 2.1 >> 2.0 (explicitly allows dynamic linking)
@@ -26,6 +26,9 @@ License:        LGPLv2+
 URL:            https://github.com/andreikop/%{srcname}
 
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
+# https://github.com/andreikop/qutepart/issues/96
+# Handle PEP623, forced on python3.12
+Patch0:         qutepart-3.3.3-pep623.patch
 
 BuildRequires:  gcc
 BuildRequires:  pcre-devel
@@ -53,6 +56,7 @@ Obsoletes:      python2-%{srcname} < 3.2.0
 
 %prep
 %setup -q -n %{srcname}-%{version}
+%patch -P0 -p1
 # disable PyQt5 mocking for sphinx
 sed -i -r 's,(MOCK_MODULES = \[).*\],\1],' doc/source/conf.py
 
@@ -97,6 +101,9 @@ xvfb-run -s '-screen :0 1024x768x16'\
 
 
 %changelog
+* Tue Jul 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.3.3-4
+- Workaround for Python 3.12 PEP632 change
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 3.3.3-3
 - Rebuilt for Python 3.12
 

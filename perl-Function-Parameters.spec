@@ -4,7 +4,7 @@
 Name:           perl-Function-Parameters
 %global cpan_version 2.002003
 Version:        2.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Subroutine definitions with parameter lists
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Function-Parameters
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/Function::Parameters::Info.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.3-2
+- Perl 5.38 rebuild
+
 * Wed Apr 19 2023 Paul Howarth <paul@city-fan.org> - 2.2.3-1
 - Update to 2.002003 (rhbz#2188007)
   - Fix line numbers after inlined type checks (GH#42)

@@ -1,7 +1,7 @@
 %global cpan_version 6.57
 Name:           perl-Coro
 Version:        6.570
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        The only real threads in perl
 # Coro/libcoro:    GPL-2.0-or-later OR BSD-2-Clause
 # Rest of package: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -161,6 +161,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 6.570-13
+- Perl 5.38 rebuild
+
 * Fri Feb 17 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.570-12
 - Fedora don't support arm32, we could use fortify for all architectures RHBZ
   2165855

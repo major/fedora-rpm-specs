@@ -47,7 +47,6 @@ BuildRequires: kf5-purpose-devel
 BuildRequires: extra-cmake-modules
 
 # optional features
-BuildRequires: cmake(TelepathyQt5)
 BuildRequires: cmake(KF5Attica)
 BuildRequires: cmake(KF5Parts)
 BuildRequires: cmake(KF5WebKit)

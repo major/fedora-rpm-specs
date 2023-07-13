@@ -1,6 +1,6 @@
 Name:           perl-Glib-Object-Introspection
 Version:        0.050
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Dynamically create Perl language bindings
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Glib-Object-Introspection
@@ -137,6 +137,9 @@ LANG=C.UTF-8 make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.050-4
+- Perl 5.38 rebuild
+
 * Fri Mar 31 2023 Petr Pisar <ppisar@redhat.com> - 0.050-3
 - Use system-wide compiler flags when building test libraries
 

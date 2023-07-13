@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-frozenlist
 Version:        1.3.3
@@ -20,7 +20,7 @@ BuildRequires:  python3dist(cython)
 
 BuildRequires:  python3dist(pytest)
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-latex
@@ -40,12 +40,14 @@ Summary:        %{summary}
 %description -n python3-frozenlist %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for python-frozenlist
 
 BuildArch:      noarch
 
 %description    doc %{common_description}
+%endif
 
 
 %prep
@@ -70,7 +72,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
@@ -86,15 +88,15 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 
 %files -n python3-frozenlist -f %{pyproject_files}
-# pyproject-rpm-macros marks LICENSE in dist-info; verify with “rpm -qL -p …”
+%if %{without doc}
+%doc CHANGES.rst CONTRIBUTORS.txt README.rst
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
-%doc CHANGES.rst
-%doc CONTRIBUTORS.txt
-%doc README.rst
-%if %{with doc_pdf}
+%doc CHANGES.rst CONTRIBUTORS.txt README.rst
 %doc docs/_build/latex/frozenlist.pdf
 %endif
 

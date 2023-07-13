@@ -1,7 +1,7 @@
 Summary:	SSH (Secure Shell) client
 Name:		perl-Net-SSH-Perl
 Version:	2.14
-Release:	20%{?dist}
+Release:	21%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Net-SSH-Perl
 Source0:	https://cpan.metacpan.org/authors/id/S/SC/SCHWIGON/Net-SSH-Perl-%{version}.tar.gz
@@ -106,6 +106,9 @@ make test
 %{_mandir}/man3/Net::SSH::Perl*.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.14-21
+- Perl 5.38 rebuild
+
 * Fri May  5 2023 Paul Howarth <paul@city-fan.org> - 2.14-20
 - Use SPDX-format license tag
 - Drop support for using hobbled CryptX without ECC support

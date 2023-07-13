@@ -155,7 +155,7 @@ sed -r -i 's/\x07nd/and/g' docs/build/latex/ncclient.tex
 %if %{with doc_pdf}
 %doc docs/build/latex/ncclient.pdf
 %endif
-%doc examples
+%doc examples/
 
 
 %changelog

@@ -1,6 +1,6 @@
 Name:           perl-Data-Clone
 Version:        0.004
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Polymorphic data cloning
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Clone
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.004-29
+- Perl 5.38 rebuild
+
 * Tue May 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.004-28
 - Fix test 07_stack.t to pass with Perl 5.38
 

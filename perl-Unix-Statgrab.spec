@@ -1,6 +1,6 @@
 Name:           perl-Unix-Statgrab
 Version:        0.112
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Perl extension for collecting information about the machine
 License:        (LGPL-2.1-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl))
 URL:            https://metacpan.org/release/Unix-Statgrab
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.112-19
+- Perl 5.38 rebuild
+
 * Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 0.112-18
 - correct license https://rt.cpan.org/Public/Bug/Display.html?id=125519
 

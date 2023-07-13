@@ -30,7 +30,7 @@
 Summary: An ImageMagick fork, offering faster image generation and better quality
 Name: GraphicsMagick
 Version: 1.3.40
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 Source0: http://downloads.sourceforge.net/sourceforge/graphicsmagick/GraphicsMagick-%{version}.tar.xz
@@ -356,6 +356,9 @@ exit 1
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.3.40-2
+- Perl 5.38 rebuild
+
 * Fri Feb 17 2023 Rex Dieter <rdieter@fedoraproject.org> 1.3.40-1
 - 1.3.40
 

@@ -106,7 +106,7 @@ bibtex-pybtex = pybtex_doctools.pygments:BibTeXLexer
 bst-pybtex = pybtex_doctools.pygments:BSTLexer
 EOF
 
-PYTHONPATH=$PWD:%{pyproject_build_lib} make -C docs html man
+PYTHONPATH=$PWD:$PWD/build/lib make -C docs html man
 rm -f docs/build/html/.buildinfo
 
 %install

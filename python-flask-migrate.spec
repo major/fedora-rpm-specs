@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:               python-flask-migrate
 Version:            4.0.4
@@ -18,8 +18,7 @@ BuildArch:          noarch
 
 BuildRequires:      python3-devel
 
-# Documentation
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:      make
 BuildRequires:      latexmk
 BuildRequires:      python3dist(sphinx)
@@ -43,11 +42,13 @@ Summary:            %{summary}
 %description -n python3-flask-migrate %{common_description}
 
 
+%if %{with doc}
 %package doc
 Summary:            Documentation for Flask-Migrate
 
 %description doc
 Documentation for Flask-Migrate.
+%endif
 
 
 %prep
@@ -62,7 +63,7 @@ Documentation for Flask-Migrate.
 
 %build
 %pyproject_wheel
-%if %{with doc_pdf}
+%if %{with doc}
 %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
@@ -79,12 +80,15 @@ Documentation for Flask-Migrate.
 
 
 %files -n python3-flask-migrate -f %{pyproject_files}
+%if %{without doc}
+%doc README.md
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
 %doc README.md
-%if %{with doc_pdf}
 %doc docs/_build/latex/Flask-Migrate.pdf
 %endif
 

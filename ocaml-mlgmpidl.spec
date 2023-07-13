@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-mlgmpidl
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml interface to GMP and MPFR libraries
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
@@ -142,6 +145,9 @@ cp -p opam/opam $RPM_BUILD_ROOT%{ocamldir}/gmp
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.3.0-1
 - Version 1.3.0
 - Convert License tag to SPDX

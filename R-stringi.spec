@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.8
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Character String Processing Facilities
 
 License:          BSD
@@ -89,6 +89,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.7.8-5
+- Rebuilt for ICU 73.2
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.8-4
 - R-maint-sig mass rebuild
 

@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-mysql
 Version:        1.2.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml library for accessing MySQL databases
 License:        LGPL-2.1-or-later
 
@@ -70,6 +73,9 @@ mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-4
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.4-3
 - OCaml 5.0.0 rebuild
 - Convert the License tag to SPDX

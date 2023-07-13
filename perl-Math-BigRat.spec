@@ -1,7 +1,7 @@
 Name:           perl-Math-BigRat
 # Keep 4-digit version to compete with perl.spec
 Version:        0.2624
-Release:        3%{?dist}
+Release:        499%{?dist}
 Summary:        Arbitrary big rational numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigRat
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.2624-499
+- Increase release to favour standalone package
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2624-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

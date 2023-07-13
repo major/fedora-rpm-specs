@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-jose
 Version:        3.3.0
@@ -21,8 +21,7 @@ BuildRequires:  python3-devel
 # From setup_requires:
 BuildRequires:  python3dist(pytest-runner)
 
-# Documentation
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 # From requirements-rtd.txt:
 # sphinxcontrib-napoleon==0.3.4; but napoleon is now part of Sphinx proper
@@ -97,10 +96,12 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-jose cryptography
 
 
+%if %{with doc}
 %package doc
 Summary:        Documentation for python-jose
 
 %description doc %{common_description}
+%endif
 
 
 %prep
@@ -124,7 +125,7 @@ sed -r -i '/pytest-cov/d' tox.ini
 %build
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
@@ -149,12 +150,14 @@ echo '>>> Cross-backend compatibility and coexistence <<<' 1>&2
 
 
 %files -n python3-jose -f %{pyproject_files}
+%if %{without doc}
 %doc README.rst
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
-%if %{with doc_pdf}
 %doc docs/_build/latex/python-jose.pdf
 %endif
 

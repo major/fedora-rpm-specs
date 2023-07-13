@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifarch %{ocaml_native_compiler}
 %undefine _debugsource_packages
 %else
@@ -6,7 +9,7 @@
 
 Name:           ocaml-result
 Version:        1.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Compat result type
 
 License:        BSD-3-Clause
@@ -49,6 +52,9 @@ files for developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-17
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.5-16
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

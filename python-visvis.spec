@@ -1,7 +1,7 @@
 %global srcname visvis
 Name:             python-%{srcname}
 Version:          1.14.0
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Python library for visualization of 1D to 4D data in an object oriented way
 License:          BSD
 URL:              https://github.com/almarklein/%{srcname}
@@ -54,6 +54,10 @@ popd
 %{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.14.0-4
+- Rebuilt for new python
+  Resolves: rhbz#2220557
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.14.0-3
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:		perl-Module-Metadata
 Version:	1.000038
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Gather package and POD information from perl module files
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Metadata
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/Module::Metadata.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.000038-2
+- Perl 5.38 rebuild
+
 * Fri Apr 28 2023 Paul Howarth <paul@city-fan.org> - 1.000038-1
 - Update to 1.000038
   - Detects "class" syntax

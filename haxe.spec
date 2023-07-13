@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %undefine _package_note_flags
 %global commit_haxelib f17fffa97554b1bdba37750e3418051f017a5bc2
 %global commit_hx3compat f1f18201e5c0479cb5adf5f6028788b37f37b730

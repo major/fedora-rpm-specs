@@ -7,7 +7,7 @@
 
 Name:           perl-FFI-Platypus
 Version:        2.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Write Perl bindings to non-Perl libraries with FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://pl.atypus.org/
@@ -220,6 +220,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.08-2
+- Perl 5.38 rebuild
+
 * Mon May 15 2023 Petr Pisar <ppisar@redhat.com> - 2.08-1
 - 2.08 bump
 

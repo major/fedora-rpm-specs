@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-camlimages
 Version:        5.0.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        OCaml image processing library
 License:        LGPL-2.0-only WITH OCaml-LGPL-linking-exception
 
@@ -71,6 +74,9 @@ Includes documentation provided by odoc.
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.4-13
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.0.4-12
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

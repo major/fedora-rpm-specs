@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -175,6 +175,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{_mandir}/man3/Module::Build::SDL.*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.548-18
+- Perl 5.38 rebuild
+
 * Fri Mar 10 2023 Petr Pisar <ppisar@redhat.com> - 2.548-17
 - Fix an implicit function declaration (bug #2177189)
 - Correct a license to "LGPL-2.1-or-later AND (GPL-1.0-or-later OR

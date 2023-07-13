@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -892,6 +892,9 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.2.2-3
+- Perl 5.38 rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.2-2
 - Rebuilt for Python 3.12
 

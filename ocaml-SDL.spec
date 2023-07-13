@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-SDL
 Version:        0.9.1
-Release:        59%{?dist}
+Release:        60%{?dist}
 Summary:        OCaml bindings for SDL
 License:        LGPL-2.1-or-later
 
@@ -70,6 +73,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-60
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.9.1-59
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

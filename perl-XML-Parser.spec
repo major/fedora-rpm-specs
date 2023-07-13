@@ -1,6 +1,6 @@
 Name:           perl-XML-Parser
 Version:        2.46
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Perl module for parsing XML documents
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -94,6 +94,9 @@ make test
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.46-14
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.46-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

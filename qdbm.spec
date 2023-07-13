@@ -1,6 +1,6 @@
 Name:		qdbm
 Version:	1.8.78
-Release:	56%{?dist}
+Release:	57%{?dist}
 License:	LGPLv2+
 
 URL:		http://fallabs.com/qdbm/
@@ -374,6 +374,9 @@ popd
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.8.78-57
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.78-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

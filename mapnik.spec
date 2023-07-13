@@ -1,6 +1,6 @@
 Name:      mapnik
 Version:   3.1.0
-Release:   26%{?dist}
+Release:   27%{?dist}
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only
 URL:       http://mapnik.org/
@@ -261,6 +261,9 @@ LANG="C.UTF-8" make test
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 3.1.0-27
+- Rebuilt for ICU 73.2
+
 * Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 3.1.0-26
 - Rebuild (gdal)
 

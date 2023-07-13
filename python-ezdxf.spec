@@ -214,7 +214,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 # available (and are presumably not freely distributable). This is fine; it
 # just means a few tests are automatically skipped.
 
-%if v"%{python3_version}" >= v"3.12"
+%if v"0%{?python3_version}" >= v"3.12"
 # A few regressions with Python 3.12
 # https://github.com/mozman/ezdxf/issues/909
 #
@@ -257,11 +257,11 @@ EZDXF_DISABLE_C_EXT=1 %pytest -k "${k-}" tests integration_tests -v
 %doc README.md
 %doc TODO.md
 
-%doc autolisp
-%doc examples
-%doc examples_dxf
-%doc exploration
-%doc docs/notes
+%doc autolisp/
+%doc examples/
+%doc examples_dxf/
+%doc exploration/
+%doc docs/notes/
 
 %if %{with doc_pdf}
 %doc docs/build/latex/ezdxf.pdf

@@ -36,7 +36,7 @@
 
 Name:           perl-Prima
 Version:        1.69
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -334,6 +334,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.69-2
+- Perl 5.38 rebuild
+
 * Fri Jun 02 2023 Petr Pisar <ppisar@redhat.com> - 1.69-1
 - 1.69 bump (default skin is flat)
 

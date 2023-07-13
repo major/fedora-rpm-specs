@@ -24,7 +24,7 @@
 
 Name:           freerdp
 Version:        2.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        ASL 2.0
@@ -289,6 +289,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 2:2.10.0-3
+- Rebuilt for ICU 73.2
+
 * Thu May 11 2023 Ondrej Holy <oholy@redhat.com> - 2:2.10.0-2
 - Enable recommended FFmpeg support.
 

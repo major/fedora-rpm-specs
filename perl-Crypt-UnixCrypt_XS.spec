@@ -1,6 +1,6 @@
 Name:           perl-Crypt-UnixCrypt_XS
 Version:        0.11
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Perl xs interface for a portable traditional crypt function
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-UnixCrypt_XS
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.11-18
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

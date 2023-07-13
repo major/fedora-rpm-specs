@@ -39,7 +39,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -527,6 +527,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 2.53.16-3
+- Rebuilt for ICU 73.2
+
 * Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 2.53.16-2
 - Mass rebuild for jpegxl-0.8.1
 

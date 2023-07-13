@@ -1,10 +1,10 @@
 %global srcname eyed3
 
 Name:           python-%{srcname}
-Version:        0.9.6
-Release:        8%{?dist}
+Version:        0.9.7
+Release:        1%{?dist}
 Summary:        Python audio data toolkit (ID3 and MP3)
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            https://github.com/nicfit/eyeD3
 Source0:        https://github.com/nicfit/eyeD3/releases/download/v%{version}/eyeD3-%{version}.tar.gz
 BuildArch:      noarch
@@ -15,7 +15,6 @@ BuildRequires:  python3-filetype
 BuildRequires:  python3-setuptools
 # Test dependencies.
 BuildRequires:  python3-factory-boy
-BuildRequires:  python3-grako
 BuildRequires:  python3-mock
 BuildRequires:  python3-nose
 BuildRequires:  python3-pytest
@@ -31,14 +30,13 @@ provided. The formats supported are ID3 v1.0/v1.1 and v2.3/v2.4.
 %package -n python3-%{srcname}
 Summary: %summary
 Requires:       python3-six
-Recommends:     python3-grako
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname} %_description
 
 
 %prep
-%setup -qn eyeD3-%{version}
+%autosetup -n eyeD3-%{version}
 
 
 %build
@@ -53,7 +51,7 @@ Recommends:     python3-grako
 # Ignore tests which require:
 # - test data (test_classic_plugin.py, test_core.py, id3/test_frames.py,
 # id3_test_rva.py, test_issues.py)
-py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,id3/test_frames.py,id3/test_rva.py,test_issues.py}
+py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,id3/test_frames.py,test_jsonyaml_plugin.py,id3/test_rva.py,test_issues.py}
 
 
 %files -n python3-%{srcname}
@@ -65,6 +63,9 @@ py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,i
 
 
 %changelog
+* Tue Jul 11 2023 David King <amigadave@amigadave.com> - 0.9.7-1
+- Update to 0.9.7
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:		gnome-text-editor
 Version:	45~alpha
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
 License:	GPL-3.0-or-later
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 45~alpha-3
+- Rebuilt for ICU 73.2
+
 * Wed Jul 05 2023 Adam Williamson <awilliam@redhat.com> - 45~alpha-2
 - Backport an upstream commit to focus Document Type search box on open
 

@@ -9,7 +9,7 @@
 
 Name:           libnbd
 Version:        1.17.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -55,10 +55,12 @@ BuildRequires:  ubdsrv-devel >= 1.0-3.rc6
 # For the Python 3 bindings.
 BuildRequires:  python3-devel
 
+%ifnarch %{ix86}
 # For the OCaml bindings.
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-ocamldoc
+%endif
 
 # Only for building the examples.
 BuildRequires:  glib2-devel
@@ -93,8 +95,10 @@ BuildRequires:  nbdkit-sh-plugin
 BuildRequires:  nbdkit-sparse-random-plugin
 %endif
 
+%ifnarch %{ix86}
 # The OCaml runtime system does not provide this symbol
 %global __ocaml_requires_opts -x Stdlib__Callback
+%endif
 
 
 %description
@@ -127,6 +131,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains development headers for %{name}.
 
 
+%ifnarch %{ix86}
 %package -n ocaml-%{name}
 Summary:        OCaml language bindings for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -145,6 +150,7 @@ Requires:       ocaml-%{name}%{?_isa} = %{version}-%{release}
 This package contains OCaml language development package for
 %{name}.  Install this if you want to compile OCaml software which
 uses %{name}.
+%endif
 
 
 %package -n python3-%{name}
@@ -215,7 +221,11 @@ autoreconf -i
     --with-tls-priority=@LIBNBD,SYSTEM \
     PYTHON=%{__python3} \
     --enable-python \
+%ifnarch %{ix86}
     --enable-ocaml \
+%else
+    --disable-ocaml \
+%endif
     --enable-fuse \
     --disable-golang
 
@@ -230,6 +240,11 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 # Delete the golang man page since we're not distributing the bindings.
 rm $RPM_BUILD_ROOT%{_mandir}/man3/libnbd-golang.3*
+
+%ifarch %{ix86}
+# Delete the OCaml man page on i686.
+rm $RPM_BUILD_ROOT%{_mandir}/man3/libnbd-ocaml.3*
+%endif
 
 %if 0%{?rhel}
 # Delete nbdublk on RHEL.
@@ -303,6 +318,7 @@ make %{?_smp_mflags} check || {
 %{_mandir}/man3/nbd_*.3*
 
 
+%ifnarch %{ix86}
 %files -n ocaml-%{name}
 %dir %{_libdir}/ocaml/nbd
 %{_libdir}/ocaml/nbd/META
@@ -324,6 +340,7 @@ make %{?_smp_mflags} check || {
 %{_mandir}/man3/libnbd-ocaml.3*
 %{_mandir}/man3/NBD.3*
 %{_mandir}/man3/NBD.*.3*
+%endif
 
 
 %files -n python3-%{name}
@@ -360,6 +377,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.17.1-5
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.17.1-4
 - OCaml 5.0.0 rebuild
 

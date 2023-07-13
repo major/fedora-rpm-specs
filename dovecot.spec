@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.20
 %global prever %{nil}
-Release: 4%{?dist}
+Release: 5%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -490,6 +490,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1:2.3.20-5
+- Rebuilt for ICU 73.2
+
 * Wed Apr 26 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.20-4
 - update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
 

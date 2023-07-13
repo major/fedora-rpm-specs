@@ -1,7 +1,9 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           virt-top
 Version:        1.1.1
-Release:        10%{?dist}
+Release:        12%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPL-2.0-or-later
 
@@ -27,6 +29,9 @@ Patch1:         virt-top-1.0.9-processcsv-documentation.patch
 
 # Fix "Input/output error" in journal (RHBZ#2148798)
 Patch2:         0001-virt-top-fix-to-explicitly-disconnect-from-libvirtd.patch
+
+# Fix linking problems on bytecode-only architectures
+Patch3:         virt-top-1.1.1-ocaml-bytecode.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -65,9 +70,15 @@ different virtualization systems.
 %setup -q
 
 %if 0%{?rhel} >= 6
-%patch1 -p1
+%patch -P1 -p1
 %endif
-%patch2 -p1
+%patch -P2 -p1
+%ifnarch %{ocaml_native_compiler}
+%patch -P3 -p1
+%endif
+
+# "ocamlfind byte" has been removed as an alias
+sed -i 's/\(OCAMLBEST=\)byte/\1ocamlc/' configure
 
 
 %build
@@ -106,7 +117,8 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %files -f %{name}.lang
-%doc COPYING README TODO
+%doc README TODO
+%license COPYING
 %{_bindir}/virt-top
 %{_mandir}/man1/virt-top.1*
 %if 0%{?rhel} >= 6
@@ -116,6 +128,15 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-12
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.1.1-11
+- OCaml 5.0.0 rebuild
+- Add patch to fix linking on bytecode-only architectures
+- Update deprecated %%patchN usage
+- Use %%license macro
+
 * Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-10
 - Migrated to SPDX license
 

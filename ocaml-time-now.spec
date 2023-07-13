@@ -1,21 +1,22 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-time-now
-Version:        0.15.0
-Release:        11%{?dist}
+Version:        0.16.0
+Release:        2%{?dist}
 Summary:        Get the current time in OCaml
 
 License:        MIT
 URL:            https://github.com/janestreet/time_now
 Source0:        %{url}/archive/v%{version}/time_now-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-base-devel >= 0.16
 BuildRequires:  ocaml-dune >= 2.0.0
-BuildRequires:  ocaml-jane-street-headers-devel >= 0.15
-BuildRequires:  ocaml-jst-config-devel >= 0.15
-BuildRequires:  ocaml-ppx-base-devel >= 0.15
-BuildRequires:  ocaml-ppx-optcomp-devel >= 0.15
+BuildRequires:  ocaml-jane-street-headers-devel >= 0.16
+BuildRequires:  ocaml-jst-config-devel >= 0.16
+BuildRequires:  ocaml-ppx-base-devel >= 0.16
+BuildRequires:  ocaml-ppx-optcomp-devel >= 0.16
 
 %description
 This package provides a single OCaml function to report the current time
@@ -42,12 +43,6 @@ files for developing applications that use %{name}.
 %build
 %dune_build
 
-# Relink the stublibs with Fedora link flags
-cd _build/default/src
-ocamlmklib -g -ldopt '%{build_ldflags}' -o time_now_stubs \
-  $(ar t libtime_now_stubs.a)
-cd -
-
 %install
 %dune_install
 
@@ -60,6 +55,12 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-11
 - Rebuild OCaml packages for F38
 

@@ -1,13 +1,18 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           opam
-Version:        2.1.4
+Version:        2.1.5
 Release:        %autorelease
 Summary:        Source-based package manager for OCaml
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/ocaml/opam
-Source0:        https://github.com/ocaml/opam/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/ocaml/opam/releases/download/%{version}/%{name}-full-%{version}.tar.gz
+Source1:        https://github.com/ocaml/opam/releases/download/%{version}/%{name}-full-%{version}.tar.gz.sig
+Source2:        https://opam.ocaml.org/opam-dev-pubkey.pgp
 
+BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.02.3
 BuildRequires:  ocaml-dune
@@ -57,7 +62,11 @@ Standalone script for working with opam .install files, see the opam
 package for more information.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+%autosetup -n %{name}-full-%{version} -p1
+
+# Eliminate obsolescence warnings
+sed -i 's/fgrep/grep -F/g' configure shell/check_linker src_ext/Makefile.packages
 
 %build
 %configure

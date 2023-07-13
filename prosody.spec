@@ -6,7 +6,7 @@
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
 Version:           0.12.3
-Release:           1%{?dist}
+Release:           2%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
@@ -208,6 +208,9 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 0.12.3-2
+- Rebuilt for ICU 73.2
+
 * Fri Jun 02 2023 Robert Scheck <robert@fedoraproject.org> 0.12.3-1
 - Upgrade to 0.12.3 (#2172143)
 

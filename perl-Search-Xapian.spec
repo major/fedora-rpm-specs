@@ -1,6 +1,6 @@
 Name:           perl-Search-Xapian
 Version:        1.2.25.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Xapian perl bindings
 License:        GPL+ or Artistic
 
@@ -68,6 +68,9 @@ more 'perlish' interface to some common operations, as demonstrated above.
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.2.25.5-5
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.25.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

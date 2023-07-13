@@ -137,7 +137,7 @@ find '%{buildroot}' -type f -name '*.la' -print -delete
 %doc AUTHORS
 %doc README
 
-%doc clean/examples
+%doc clean/examples/
 %if %{with doc_pdf}
 %doc latex/FreeXL.pdf
 %endif

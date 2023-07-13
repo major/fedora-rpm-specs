@@ -1,9 +1,11 @@
-%undefine _package_note_flags
-%global extraver 14
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
+%global extraver 16
 
 Name:           ocaml-mccs
 Version:        1.1
-Release:        40.%{extraver}%{?dist}
+Release:        41.%{extraver}%{?dist}
 Summary:        Multi Criteria CUDF Solver with OCaml bindings
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -23,7 +25,6 @@ Patch2:         ocaml-mccs-1.1-glpk.patch
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 BuildRequires:  gcc, gcc-c++
-BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-cudf-devel
 BuildRequires:  glpk-devel
 
@@ -55,41 +56,30 @@ developing applications that use %{name}.
 cp -p src/glpk/dune-shared src/glpk/dune
 
 %build
-dune build %{?_smp_mflags} --verbose --release
-
-# Relink the stublibs with Fedora LDFLAGS
-cd _build/default/src
-ocamlmklib -g -ldopt "%{build_ldflags}" -o mccs_stubs $(ar t libmccs_stubs.a)
-cd -
+%dune_build
 
 %install
-dune install --destdir=%{buildroot}
+%dune_install
 
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
+%check
+%dune_check
 
-%files
+%files -f .ofiles
 %license LICENCE
 %doc README.md
-%{_libdir}/ocaml/%{libname}
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/*/*.a
-%exclude %{_libdir}/ocaml/*/*.cmx
-%exclude %{_libdir}/ocaml/*/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/*/*.mli
-%{_libdir}/ocaml/stublibs/*.so
 
-%files devel
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/*/*.a
-%{_libdir}/ocaml/*/*.cmx
-%{_libdir}/ocaml/*/*.cmxa
-%endif
-%{_libdir}/ocaml/*/*.mli
+%files devel -f .ofiles-devel
 
 %changelog
-* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 1.1-40.14%{?dist}
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-41.16
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.1-40.16
+- New version 1.1+16
+- Use new dune macros
+- Add a %%check script
+
+* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 1.1-40.14
 - Convert License tag to SPDX
 
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-40.14

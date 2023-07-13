@@ -1,6 +1,6 @@
 Name:           perl-Statistics-Descriptive
-Version:        3.0800
-Release:        8%{?dist}
+Version:        3.0801
+Release:        1%{?dist}
 Summary:        Perl module of basic descriptive statistical functions
 # lib/Statistics/Descriptive.pm:            GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Statistics/Descriptive/Full.pm:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -15,6 +15,7 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Module::Build) >= 0.28
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -37,6 +38,9 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.88
 
 %{?perl_default_filter}
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Utils\\)
 
 %description
 This module provides basic functions used in descriptive statistics. It has
@@ -46,8 +50,23 @@ the data is stored and only a few statistical measures are available. Using
 the full method, the entire data set is retained and additional functions
 are available.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Statistics-Descriptive-%{version}
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL installdirs=vendor
@@ -56,6 +75,17 @@ perl Build.PL installdirs=vendor
 %install
 ./Build install destdir=%{buildroot} create_packlist=0
 %{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove release test
+rm %{buildroot}%{_libexecdir}/%{name}/t/boilerplate.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 ./Build test
@@ -66,7 +96,14 @@ perl Build.PL installdirs=vendor
 %{perl_vendorlib}/Statistics*
 %{_mandir}/man3/Statistics::Descriptive*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.0801-1
+- 3.0801 bump (rhbz#2219122)
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0800-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

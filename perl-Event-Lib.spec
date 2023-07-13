@@ -1,6 +1,6 @@
 Name:           perl-Event-Lib
 Version:        1.03
-Release:        54%{?dist}
+Release:        55%{?dist}
 Summary:        Perl wrapper around libevent
 
 License:        GPL+ or Artistic
@@ -93,6 +93,9 @@ make test || :
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.03-55
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

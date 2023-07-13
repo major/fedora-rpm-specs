@@ -1,30 +1,30 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
-# We're probbaly not adding -g correctly:
-# error: Empty %files file /builddir/build/BUILD/ocaml-fileutils-0.5.2/debugsourcefiles.list
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
+%endif
 
 Name:           ocaml-fileutils
-Version:        0.5.2
-Release:        36%{?dist}
+Version:        0.6.4
+Release:        2%{?dist}
 Summary:        OCaml library for common file and filename operations
 
-License:        LGPLv2 with exceptions
-URL:            https://forge.ocamlcore.org/projects/ocaml-fileutils/
-Source0:        http://forge.ocamlcore.org/frs/download.php/1695/ocaml-fileutils-0.5.2.tar.gz
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
+URL:            https://gildor478.github.io/ocaml-fileutils/
+Source0:        https://github.com/gildor478/ocaml-fileutils/releases/download/v%{version}/fileutils-%{version}.tbz
+# Fedora does not need the stdlib-shims or seq forward compatibility packages
+Patch0:         ocaml-fileutils-0.6.4-forward-compat.patch
+# Given two distinct files with identical contents, the cmp function evaluates
+# to "Some x", where x is the size of each file, instead of None.  This breaks
+# the ocaml-gettext tests, which expect None in that case.
+Patch1:         ocaml-fileutils-0.6.4-cmp.patch
 
-Patch1:         fileutils-0.5.2-fix-bytes.patch
-# Use ounit2.
-Patch2:         ocaml-fileutils-0.5.2-ounit2.patch
-
-BuildRequires: make
-BuildRequires:  ocaml >= 4.00.1
-BuildRequires:  ocaml-findlib-devel >= 1.3.3-3
-BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml >= 4.03.0
+BuildRequires:  ocaml-dune >= 1.11.0
 %if 0%{?fedora} || 0%{?rhel} <= 6
-BuildRequires:  ocaml-ounit-devel
+BuildRequires:  ocaml-ounit-devel >= 2.0.0
 %endif
-BuildRequires:  ocaml-ocamlbuild
 
 
 %description
@@ -40,7 +40,7 @@ abstract filenames.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -49,61 +49,44 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -n fileutils-%{version} -p1
 
 
 %build
-# Disable the tests (RHEL 7 only) since they require ocaml-ounit.
-ocaml setup.ml -configure --prefix %{_prefix} --destdir $RPM_BUILD_ROOT \
-%if 0%{?rhel} >= 7
-	--disable-tests
-%else
-	--enable-tests
-%endif
-make
+%dune_build
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
-export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-
-# Set htmldir to current directory, then copy the docs (in api/)
-# as a %doc rule.
-make htmldir=. install
+%dune_install
 
 
+# Do not run the tests (RHEL 7+ only) since they require ocaml-ounit.
+%if 0%{?fedora} || 0%{?rhel} <= 6
 %check
-%if ! 0%{?rhel} >= 7
-make test
+%dune_check
 %endif
 
 
-%files
-%doc COPYING.txt
-%{_libdir}/ocaml/fileutils
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/fileutils/*.a
-%exclude %{_libdir}/ocaml/fileutils/*.cmx
-%exclude %{_libdir}/ocaml/fileutils/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/fileutils/*.ml
-%exclude %{_libdir}/ocaml/fileutils/*.mli
+%files -f .ofiles
+%license LICENSE.txt
 
 
-%files devel
-%doc COPYING.txt AUTHORS.txt CHANGELOG.txt README.txt TODO.txt
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/fileutils/*.a
-%{_libdir}/ocaml/fileutils/*.cmx
-%{_libdir}/ocaml/fileutils/*.cmxa
-%endif
-%{_libdir}/ocaml/fileutils/*.ml
-%{_libdir}/ocaml/fileutils/*.mli
+%files devel -f .ofiles-devel
+%doc README.md CHANGES.md
+%license LICENSE.txt
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.4-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.6.4-1
+- Version 0.6.4
+- New project URLs
+- Convert License tag to SPDX
+- Drop upstreamed bytes and ounit2 patches
+- Build with dune
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.5.2-36
 - Bump release and rebuild
 

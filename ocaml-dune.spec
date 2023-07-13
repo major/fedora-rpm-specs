@@ -9,7 +9,7 @@
 
 Name:           ocaml-dune
 Version:        3.9.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -40,6 +40,9 @@ Patch0:         %{name}-no-lwt.patch
 # Temporary workaround for broken debuginfo (rhbz#2168932)
 # See https://github.com/ocaml/dune/issues/6929
 Patch1:         %{name}-debuginfo.patch
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 BuildRequires:  emacs-nox
 BuildRequires:  make
@@ -564,6 +567,10 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 3.9.1-3
+- OCaml 5.0 rebuild for Fedora 39
+- ExcludeArch i686
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.9.1-1
 - Version 3.9.1
 

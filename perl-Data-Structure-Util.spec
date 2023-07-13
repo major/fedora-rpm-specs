@@ -1,6 +1,6 @@
 Name:           perl-Data-Structure-Util
 Version:        0.16
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Change nature of data within a structure
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Structure-Util
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-27
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

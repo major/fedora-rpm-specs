@@ -7,16 +7,17 @@
 
 Name: privoxy
 Version: 3.0.34
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Privacy enhancing proxy
 License: GPL-2.0-or-later
 Source0: http://downloads.sourceforge.net/ijbswa/%{name}-%{version}-%{beta_or_stable}-src.tar.gz
 Source1: privoxy.service
 Source2: privoxy.logrotate
+Patch0: 53748ca8ca3c893025be34dd4f104546fcbd0602.patch
 URL: http://www.privoxy.org/
 Requires(pre): shadow-utils
 BuildRequires: make
-BuildRequires: libtool autoconf pcre-devel zlib-devel systemd
+BuildRequires: libtool autoconf pcre2-devel zlib-devel systemd
 
 %description 
 Privoxy is a web proxy with advanced filtering capabilities for
@@ -30,6 +31,8 @@ Privoxy is based on the Internet Junkbuster.
 
 %prep
 %setup -q -n %{name}-%{version}-%{beta_or_stable}
+
+%patch -P 0 -p 1
 
 %build
 rm -rf autom4te.cache
@@ -103,6 +106,9 @@ fi
 %doc doc
 
 %changelog
+* Tue Jul 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.34-3
+- Upstream patch to move to pcre2.
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.34-2
 - migrated to SPDX license
 

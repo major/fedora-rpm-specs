@@ -1,6 +1,6 @@
 Name:           perl-Authen-DecHpwd
 Version:        2.007
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        DEC VMS password hashing
 License:        GPLv2+
 URL:            https://metacpan.org/release/Authen-DecHpwd
@@ -55,6 +55,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.007-19
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.007-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

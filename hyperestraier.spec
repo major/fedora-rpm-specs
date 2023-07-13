@@ -6,7 +6,7 @@
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	53%{?dist}
+Release:	54%{?dist}
 Summary:	A full-text search system
 
 License:	LGPLv2+
@@ -266,6 +266,9 @@ popd
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.4.13-54
+- Perl 5.38 rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.13-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

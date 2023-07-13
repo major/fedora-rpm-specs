@@ -7,7 +7,7 @@
 
 Name:		perl-Sub-Identify
 Version:	0.14
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Retrieve names of code references
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Identify
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/Sub::Identify.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.14-23
+- Perl 5.38 rebuild
+
 * Fri Mar 31 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.14-22
 - Update license to SPDX format
 

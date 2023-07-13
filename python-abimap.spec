@@ -2,7 +2,7 @@
 
 Name:           python-%{module_name}
 Version:        0.3.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        MIT
 Summary:        A helper for library maintainers to use symbol versioning
 Url:            https://github.com/ansasaki/abimap
@@ -114,6 +114,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib}:$PWD/tests \
 %doc html
 
 %changelog
+* Tue Jul 11 2023 Anderson Toshiyuki Sasaki <ansasaki> - 0.3.2-15
+- Migrated to SPDX license
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3.2-14
 - Rebuilt for Python 3.12
 

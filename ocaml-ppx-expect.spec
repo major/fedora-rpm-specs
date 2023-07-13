@@ -1,25 +1,26 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 # Break a circular dependency on ocaml-ppx-jane
 %bcond_with test
 
 Name:           ocaml-ppx-expect
-Version:        0.15.1
-Release:        3%{?dist}
+Version:        0.16.0
+Release:        2%{?dist}
 Summary:        Framework for writing tests in OCaml
 
 License:        MIT
 URL:            https://github.com/janestreet/ppx_expect
 Source0:        %{url}/archive/v%{version}/ppx_expect-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-base-devel >= 0.16
 BuildRequires:  ocaml-dune >= 2.0.0
-BuildRequires:  ocaml-ppx-here-devel >= 0.15
-BuildRequires:  ocaml-ppx-inline-test-devel >= 0.15
-BuildRequires:  ocaml-ppxlib-devel >= 0.23.0
+BuildRequires:  ocaml-ppx-here-devel >= 0.16
+BuildRequires:  ocaml-ppx-inline-test-devel >= 0.16
+BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 BuildRequires:  ocaml-re-devel >= 1.8.0
-BuildRequires:  ocaml-stdio-devel >= 0.15
+BuildRequires:  ocaml-stdio-devel >= 0.16
 
 %if %{with test}
 BuildRequires:  ocaml-ppx-jane-devel
@@ -57,12 +58,6 @@ files for developing applications that use %{name}.
 %build
 %dune_build
 
-# Relink the stublib with Fedora linker flags
-cd _build/default/collector
-ocamlmklib -g -ldopt '%{build_ldflags}' -o expect_test_collector_stubs \
-  $(ar t libexpect_test_collector_stubs.a)
-cd -
-
 %install
 %dune_install
 
@@ -78,6 +73,12 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.1-3
 - Rebuild OCaml packages for F38
 

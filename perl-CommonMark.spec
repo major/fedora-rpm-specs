@@ -1,6 +1,6 @@
 Name:           perl-CommonMark
 Version:        0.290000
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Interface to the CommonMark C library
 License:        GPL+ or Artistic
 
@@ -55,6 +55,9 @@ It closely follows the original API.
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.290000-17
+- Perl 5.38 rebuild
+
 * Mon Jan 30 2023 Jens Petersen <petersen@redhat.com> - 0.290000-16
 - rebuild
 

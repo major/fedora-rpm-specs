@@ -1,6 +1,6 @@
 Name:           perl-Email-Address-XS
 Version:        1.05
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parse and format RFC 2822 email addresses and groups
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
 URL:            https://metacpan.org/release/Email-Address-XS
@@ -85,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.05-3
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,11 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
-
-# F39FailsToInstall: python3-plotly
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220409
-%bcond plotly 0
+%bcond doc 1
 
 Name:           python-geomdl
 Version:        5.3.1
@@ -52,7 +48,7 @@ BuildRequires:  gcc
 BuildRequires:  python3dist(pytest)
 
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 # We don’t need python3dist(sphinx-rtd-theme) since we aren’t building HTML.
@@ -96,6 +92,7 @@ Suggests:       python3-geomdl-doc = %{version}-%{release}
 %description -n python3-geomdl %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for geomdl
 # See the comment above the base package License field.
@@ -104,17 +101,13 @@ License:        CC-BY-4.0
 BuildArch:      noarch
 
 %description    doc %{common_description}
+%endif
 
 
 %prep
 %autosetup -n NURBS-Python-%{version} -p1
 # Allow newer versions in cases where exact versions are pinned.
 sed -r -i 's/==/>=/' requirements.txt
-%if %{without plotly}
-# Omit plotly; functionality in geomdl.visualization.VisPlotly will be
-# unavailable.
-sed -r -i 's/^(plotly)\b/# &/' requirements.txt
-%endif
 
 
 %generate_buildrequires
@@ -124,7 +117,7 @@ sed -r -i 's/^(plotly)\b/# &/' requirements.txt
 %build
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 PYTHONPATH="${PWD}" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
@@ -145,16 +138,15 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 # we also use an explicit “%%license LICENSE” because we want it in
 # %%{_licensedir} alongside citing.rst
 %license LICENSE docs/citing.rst
+%if %{without doc}
+%doc CHANGELOG.md CONTRIBUTORS.rst DESCRIPTION.rst README.rst
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE docs/citing.rst
-%doc CHANGELOG.md
-%doc CONTRIBUTING.md
-%doc CONTRIBUTORS.rst
-%doc DESCRIPTION.rst
-%doc README.rst
-%if %{with doc_pdf}
+%doc CHANGELOG.md CONTRIBUTORS.rst DESCRIPTION.rst README.rst
 %doc docs/_build/latex/NURBS-Python.pdf
 %endif
 

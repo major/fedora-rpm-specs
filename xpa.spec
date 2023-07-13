@@ -2,18 +2,18 @@
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Name: xpa
-Version: 2.1.19
-Release: 10%{?dist}
+Version: 2.1.20
+Release: 1%{?dist}
 Summary: The X Public Access messaging system
 
 License: MIT
 URL: http://hea-www.harvard.edu/RD/xpa/
-Source0: https://github.com/ericmandel/xpa/archive/v%{version}.tar.gz
+Source0: https://github.com/ericmandel/xpa/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0: xpa-makefile.patch
 Patch1: xpa-configure-c99.patch
 
+BuildRequires: gcc
 BuildRequires: make
-BuildRequires:  gcc
 BuildRequires: libXt-devel
 BuildRequires: tcl-devel
 
@@ -110,6 +110,11 @@ mv %{buildroot}%{_libdir}/libtcl* %{buildroot}%{tcl_sitearch}/tclxpa
 #%doc doc/*.pdf
 
 %changelog
+* Tue Jul 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2.1.20-1
+- New upstream source (2.1.20)
+- Use SPDX license (MIT)
+- Add sources
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.19-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

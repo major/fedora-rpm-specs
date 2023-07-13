@@ -1,6 +1,6 @@
 Name:           perl-Devel-LexAlias
 Version:        0.05
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Alias lexical variables
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-LexAlias
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/Devel::LexAlias.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-33
+- Perl 5.38 rebuild
+
 * Mon Mar 13 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.05-32
 - Update license to SPDX format
 

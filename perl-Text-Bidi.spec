@@ -3,7 +3,7 @@
 
 Name:           perl-Text-Bidi
 Version:        2.18
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Unicode bidirectional algorithm using libfribidi
 # LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
 # t/MirrorTest.txt: Unicode-DFS-2016 (a copy of
@@ -167,6 +167,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.18-6
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Petr Pisar <ppisar@redhat.com> - 2.18-5
 - Respect swig failures
 

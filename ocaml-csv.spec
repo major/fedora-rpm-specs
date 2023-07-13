@@ -1,12 +1,16 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-csv
 Version:        2.4
-Release:        10%{?dist}
+Release:        12%{?dist}
 Summary:        OCaml library for reading and writing CSV files
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
 URL:            https://github.com/Chris00/ocaml-csv/
 Source0:        https://github.com/Chris00/ocaml-csv/archive/%{version}/%{name}-%{version}.tar.gz
+# Remove references to a bytes library for OCaml 5.0 support
+Patch0:         %{name}-bytes.patch
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune
@@ -55,7 +59,7 @@ developing applications that use LWT with %{name}.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -87,6 +91,13 @@ rm -r %{buildroot}%{ocamldir}/csvtool
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.4-12
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.4-11
+- OCaml 5.0.0 rebuild
+- Patch out references to the bytes library
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.4-10
 - Rebuild OCaml packages for F38
 

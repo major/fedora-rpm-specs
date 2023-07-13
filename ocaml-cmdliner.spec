@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-cmdliner
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Declarative definition of command line interfaces for OCaml
 
 License:        ISC
@@ -57,6 +60,9 @@ developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.0-1
 - Version 1.2.0
 

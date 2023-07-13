@@ -1,5 +1,5 @@
 Name:    libcamera-apps
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
@@ -64,6 +64,9 @@ find %{buildroot} -name '*.so' -delete
 %{_includedir}/libcamera-apps/
 
 %changelog
+* Tue Jul 11 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.2.1-1
+- Update to 1.2.1
+
 * Wed Jun 28 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.2.0-1
 - Update to 1.2.0
 - Add devel subpackage

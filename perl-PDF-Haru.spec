@@ -1,6 +1,6 @@
 Name:           perl-PDF-Haru
 Version:        1.00
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Perl interface to Haru Free PDF Library
 
 License:        GPL+ or Artistic
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.00-41
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

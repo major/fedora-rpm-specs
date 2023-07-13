@@ -1,6 +1,6 @@
 Name:           python-ujson
-Version:        5.7.0
-Release:        4%{?dist}
+Version:        5.8.0
+Release:        1%{?dist}
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 
 # The entire source is BSD-3-Clause, except:
@@ -28,13 +28,6 @@ Summary:        Ultra fast JSON encoder and decoder written in pure C
 License:        BSD-3-Clause AND TCL
 URL:            https://github.com/ultrajson/ultrajson
 Source0:        %{pypi_source ujson}
-
-# Include BSD-3-Clause and TCL license text
-# https://github.com/ultrajson/ultrajson/pull/584
-#   Fixes:
-# Please consider including other licenses mentioned in LICENSE.txt
-# https://github.com/ultrajson/ultrajson/issues/565
-Patch:          %{url}/pull/584.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -80,6 +73,9 @@ export UJSON_BUILD_DC_LIBS='-ldouble-conversion'
 %doc README.md
 
 %changelog
+* Sun Jul 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 5.8.0-1
+- Update to 5.8.0 (close RHBZ#2214034)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.7.0-4
 - Rebuilt for Python 3.12
 

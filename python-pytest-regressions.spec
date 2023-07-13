@@ -57,23 +57,23 @@ Documentation for %{name}.
 %autosetup -n pytest-regressions-%{version}
 
 # Do not attempt to use git to determine the version
-sed -i "s/use_scm_version.*/version='%{version}',/;/setuptools_scm/d" setup.py
 sed -e 's/\(version = \).*/\1"%{version}"/' \
     -e 's/\(release = \).*/\1"%{version}"/' \
     -i doc/conf.py
 # Remove unnecessary dependencies
-sed -i '/"mypy",/d' setup.py
-sed -i '/"pre-commit",/d' setup.py
-sed -i '/"restructuredtext-lint",/d' setup.py
+sed -e '/"mypy",/d' -e '/"pre-commit",/d' -e '/"restructuredtext-lint",/d' \
+    -i setup.py
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires -t -x num,image,dataframe
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
 # Build documentation
-PYTHONPATH=%{pyproject_build_lib} make -C doc html
+PYTHONPATH=$PWD/build/lib make -C doc html
 rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
 rst2html --no-datestamp README.rst README.html
 rm doc/_build/html/.buildinfo

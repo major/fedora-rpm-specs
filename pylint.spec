@@ -10,6 +10,7 @@ URL:            https://www.pylint.org/
 Source0:        %{forgesource}
 #Patch0:         7829.patch apply when rebased then re-enable tests
 Patch1:         unpin-astroid.patch
+Patch2:         8611.patch
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros

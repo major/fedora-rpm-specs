@@ -1,24 +1,26 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-ounit
-Version:        2.2.6
-Release:        4%{?dist}
+Version:        2.2.7
+Release:        2%{?dist}
 Summary:        Unit test framework for OCaml
 
 License:        MIT
 URL:            https://github.com/gildor478/ounit
 Source0:        %{url}/releases/download/v%{version}/ounit-%{version}.tbz
 
-# Remove stdlib-shims downstream.  Not needed in Fedora.
+# Remove seq and stdlib-shims downstream.  Not needed in Fedora.
 Patch0001:      0001-Remove-stdlib-shims.patch
 
 BuildRequires:  ocaml >= 4.04.0
-BuildRequires:  ocaml-dune >= 1.11.0
-BuildRequires:  ocaml-lwt-devel
+BuildRequires:  ocaml-dune >= 3.0
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-lwt-devel >= 2.5.2
 
 # The ounit name is now just an alias for ounit2
 Provides:       %{name}2 = %{version}-%{release}
@@ -108,6 +110,14 @@ files for developing applications that use %{name}-lwt.
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.7-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.2.7-1
+- Version 2.2.7
+- Verify License tag is valid SPDX
+- Remove dependency on seq as well as stdlib-shims
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.6-4
 - Rebuild OCaml packages for F38
 

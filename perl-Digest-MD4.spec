@@ -1,6 +1,6 @@
 Name:		perl-Digest-MD4
 Version:	1.9
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Perl interface to the MD4 Algorithm
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Digest-MD4
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Digest::MD4.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.9-35
+- Perl 5.38 rebuild
+
 * Wed Apr  5 2023 Paul Howarth <paul@city-fan.org> - 1.9-34
 - Use SPDX-format license tag
 - Drop support for building with ancient Fedoras and RHEL < 7

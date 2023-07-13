@@ -1,6 +1,6 @@
 Name:           python-sphinx-documatt-theme
 Version:        0.0.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Mobile-friendly Sphinx theme with beautiful typography
 
 # The project as a whole is MIT.
@@ -8,6 +8,8 @@ Summary:        Mobile-friendly Sphinx theme with beautiful typography
 License:        MIT AND BSD-2-Clause
 URL:            https://documatt.gitlab.io/sphinx-themes/themes/documatt.html
 Source0:        %{pypi_source sphinx_documatt_theme}
+# The deprecated style variable was removed in Sphinx 7
+Patch0:         %{name}-sphinx7.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -24,7 +26,7 @@ Summary:        Mobile-friendly Sphinx theme with beautiful typography
 %description -n python3-sphinx-documatt-theme %_description
 
 %prep
-%autosetup -n sphinx_documatt_theme-%{version}
+%autosetup -n sphinx_documatt_theme-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -44,6 +46,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Tue Jul 11 2023 Jerry James <loganjerry@gmail.com> - 0.0.5-4
+- Add patch for Sphinx 7 compatibility (rhbz#2221982)
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.0.5-3
 - Rebuilt for Python 3.12
 

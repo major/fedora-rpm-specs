@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # OCaml 5.x support was added after the most recent release
 %global commit  58459992ee9b3d56f09f6ff3dd434a52657b836c
 %global date    20230115
@@ -12,7 +15,7 @@ Summary:        Simple package build system for OCaml
 
 %forgemeta
 
-Release:        20%{?dist}
+Release:        21%{?dist}
 License:        BSD-2-Clause
 URL:            https://github.com/ocaml-obuild/obuild
 Source0:        %{forgesource}
@@ -78,6 +81,9 @@ help2man \
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.1.10-21
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.1.10-20.20230115git5845999
 - Update to git head for OCaml 5.x support
 - Convert License tag to SPDX

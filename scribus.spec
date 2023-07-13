@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.5.8
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Desktop Publishing application written in Qt
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
@@ -141,6 +141,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.5.8-13
+- Rebuilt for ICU 73.2
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 1.5.8-12
 - Rebuilt for Python 3.12
 

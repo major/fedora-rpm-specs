@@ -1,4 +1,4 @@
-%global candidate rc4
+#global candidate rc0
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2023.07
-Release:  0.4%{?candidate:.%{candidate}}%{?dist}
+Release:  1%{?candidate:.%{candidate}}%{?dist}
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
 URL:      http://www.denx.de/wiki/U-Boot
@@ -21,14 +21,14 @@ Source1:  aarch64-boards
 Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 Patch2:   smbios-Simplify-reporting-of-unknown-values.patch
 Patch3:   0001-disable-NFS-support-by-default.patch
+Patch4:   fix-release-rev.patch
 
 # Board fixes and enablement
 # RPi - uses RPI firmware device tree for HAT support
 Patch5:   rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
 # Rockchips improvements
 Patch6:   rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
-Patch7:   rockchip-PinePhone-Pro-fixes.patch
-Patch8:   0001-Revert-rockchip-rockpro64-Build-u-boot-rockchip-spi..patch
+Patch7:   0001-Revert-rockchip-rockpro64-Build-u-boot-rockchip-spi..patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -199,7 +199,7 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 
 %files
 %doc README doc/develop/distro.rst doc/README.gpt
-%doc doc/README.rockchip doc/develop/uefi doc/uImage.FIT doc/arch/arm64.rst
+%doc doc/README.rockchip doc/develop/uefi doc/usage doc/arch/arm64.rst
 %doc builds/docs/* doc/board/amlogic/ doc/board/rockchip/
 %{_bindir}/*
 %{_mandir}/man1/mkimage.1*
@@ -213,6 +213,9 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 %endif
 
 %changelog
+* Tue Jul 11 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.07-1
+- Update to 2023.07 GA
+
 * Fri Jun 16 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.07-0.4.rc4
 - Disable NFS by default
 

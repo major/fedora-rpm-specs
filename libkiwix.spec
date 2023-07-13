@@ -1,6 +1,6 @@
 Name: libkiwix
 Version: 12.0.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Common code base for all Kiwix ports
@@ -60,6 +60,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/kiwix.pc
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 12.0.0-7
+- Rebuilt for ICU 73.2
+
 * Sat Apr 29 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 12.0.0-6
 - Rebuilt due to libzim update.
 

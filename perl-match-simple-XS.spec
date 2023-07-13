@@ -1,6 +1,6 @@
 Name:           perl-match-simple-XS
 Version:        0.002
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        XS backend for match::simple
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://search.cpan.org/dist/match-simple-XS/
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.002-2
+- Perl 5.38 rebuild
+
 * Mon Jun 05 2023 Xavier Bachelot <xavier@bachelot.org> 0.002-1
 - Update to 0.002 (RHBZ#2154402)
 

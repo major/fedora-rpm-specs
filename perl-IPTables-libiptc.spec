@@ -1,6 +1,6 @@
 Name:           perl-IPTables-libiptc
 Version:        0.52
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Perl extension for iptables libiptc
 # iptables/iptables.c*:             GPL-2.0-or-later
 # iptables/iptables-blocking.c:     GPL-2.0-or-later
@@ -128,6 +128,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.52-45
+- Perl 5.38 rebuild
+
 * Tue Jan 24 2023 Petr Pisar <ppisar@redhat.com> - 0.52-44
 - Adapt to iptables-1.8.9
 - Adapt to gcc-13 (CPAN RT#146048)

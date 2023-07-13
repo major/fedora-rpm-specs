@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # To build all parts of alcotest requires the async, js_of_ocaml, and lwt
 # packages.  The async package in particular requires many packages that test
 # with alcotest.  We build only the base alcotest package to break the circular
@@ -8,7 +11,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        1.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight and colorful test framework for OCaml
 
 License:        ISC
@@ -104,6 +107,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.0-3
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.7.0-2
 - OCaml 5.0.0 rebuild
 - Add upstream patch to fix bytecode build

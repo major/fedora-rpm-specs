@@ -1,29 +1,34 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 # The OCaml code is byte compiled, not native compiled, so there are no ELF
 # objects in the binary RPM.
 %global debug_package %{nil}
 
 Name:           utop
-Version:        2.9.2
-Release:        6%{?dist}
+Version:        2.13.1
+Release:        2%{?dist}
 Summary:        Improved toplevel for OCaml
 
 License:        BSD-3-Clause
 URL:            https://github.com/ocaml-community/utop
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tbz
 
-BuildRequires:  ocaml >= 4.03.0
-BuildRequires:  ocaml-camomile-devel
+BuildRequires:  ocaml >= 4.11.0
+BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-cppo >= 1.1.2
-BuildRequires:  ocaml-dune >= 1.0
+BuildRequires:  ocaml-dune >= 2.0
 BuildRequires:  ocaml-findlib >= 1.7.2
 BuildRequires:  ocaml-lambda-term-devel >= 3.1.0
+BuildRequires:  ocaml-logs-devel
+BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-lwt-react-devel
 BuildRequires:  ocaml-react-devel >= 1.0.0
+BuildRequires:  ocaml-xdg-devel >= 3.9.0
+BuildRequires:  ocaml-zed-devel >= 3.2.0
 
 # for utop.el
-BuildRequires:  emacs
+BuildRequires:  emacs-nox
 BuildRequires:  emacs-tuareg
 
 Provides:       ocaml-%{name}%{?_isa} = %{version}-%{release}
@@ -39,6 +44,8 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-findlib%{?_isa}
 Requires:       ocaml-lambda-term-devel%{?_isa}
+Requires:       ocaml-logs-devel%{?_isa}
+Requires:       ocaml-zed-devel%{?_isa}
 
 %description devel
 The %{name}-devel package contains libraries and signature files for
@@ -75,6 +82,9 @@ mkdir -p %{buildroot}%{_emacs_sitestartdir}
 cp -p src/top/utop-autoloads.* %{buildroot}%{_emacs_sitestartdir}
 cp -p src/top/utop.elc %{buildroot}%{_emacs_sitelispdir}
 
+%check
+%dune_check
+
 %files -f .ofiles
 %license LICENSE
 %doc README.md CHANGES.md
@@ -86,6 +96,13 @@ cp -p src/top/utop.elc %{buildroot}%{_emacs_sitelispdir}
 %{_emacs_sitestartdir}/%{name}-autoloads.el*
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.13.1-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.13.1-1
+- Version 2.13.1
+- Add a %%check script
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.9.2-6
 - Rebuild OCaml packages for F38
 

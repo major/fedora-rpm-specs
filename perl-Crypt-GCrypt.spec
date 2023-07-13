@@ -3,7 +3,7 @@
 
 Name:           perl-Crypt-GCrypt
 Version:        1.26
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Perl interface to libgcrypt library
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-GCrypt
@@ -84,6 +84,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.26-27
+- Perl 5.38 rebuild
+
 * Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 1.26-26
 - Port Makefile.PL to C99
 

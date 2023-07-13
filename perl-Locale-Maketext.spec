@@ -9,7 +9,7 @@
 
 Name:           perl-Locale-Maketext
 Version:        1.33
-Release:        1%{?dist}
+Release:        499%{?dist}
 Summary:        Framework for localization
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Maketext
@@ -109,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.33-499
+- Increase release to favour standalone package
+
 * Wed May 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.33-1
 - Upgrade to 1.33 as provided in perl-5.37.11
 

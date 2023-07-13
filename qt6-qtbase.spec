@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -159,8 +159,7 @@ BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(sqlite3) >= 3.7
 BuildRequires: pkgconfig(harfbuzz) >= 0.9.42
 BuildRequires: pkgconfig(icu-i18n)
-BuildRequires: pkgconfig(libpcre2-posix) >= 10.20
-BuildRequires: pkgconfig(libpcre) >= 8.0
+BuildRequires: pkgconfig(libpcre2-16) >= 10.20
 %global pcre 1
 BuildRequires: pkgconfig(xcb-xkb)
 BuildRequires: pkgconfig(xcb) pkgconfig(xcb-glx) pkgconfig(xcb-icccm) pkgconfig(xcb-image) pkgconfig(xcb-keysyms) pkgconfig(xcb-renderutil) pkgconfig(xcb-cursor)
@@ -818,6 +817,9 @@ make check -k ||:
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 6.5.1-2
+- Rebuilt for ICU 73.2
+
 * Mon May 22 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-1
 - 6.5.1
 

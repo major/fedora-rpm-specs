@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:		hevea
 Version:	2.36
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	LaTeX to HTML translator
 
 # QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception: the project as a whole
@@ -82,6 +85,9 @@ ulimit -s unlimited
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2.36-6
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.36-5
 - OCaml 5.0.0 rebuild
 - Update QPL portion of the license tag

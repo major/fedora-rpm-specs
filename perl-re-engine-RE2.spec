@@ -1,7 +1,7 @@
 Name:           perl-re-engine-RE2
 Summary:        RE2 regex engine
 Version:        0.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 # lib/re/engine/RE2.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 # ppport.h:             GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:               GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -195,6 +195,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.18-2
+- Perl 5.38 rebuild
+
 * Mon Jun 19 2023 Petr Pisar <ppisar@redhat.com> - 0.18-1
 - 0.18 bump
 

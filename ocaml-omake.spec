@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-omake
 Version:        0.10.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build system with automated dependency analysis
 
 # License breakdown:
@@ -126,6 +129,9 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/omake.1
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10.6-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.10.6-1
 - Version 0.10.6
 - Convert the License tag to SPDX

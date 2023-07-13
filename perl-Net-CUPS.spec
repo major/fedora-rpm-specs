@@ -1,6 +1,6 @@
 Name:           perl-Net-CUPS
 Version:        0.64
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Perl bindings to the CUPS C API Interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CUPS
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.64-23
+- Perl 5.38 rebuild
+
 * Wed Feb 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.64-22
 - migrate to libcupsfilters-devel
 

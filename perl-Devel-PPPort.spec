@@ -5,7 +5,7 @@
 
 Name:           perl-Devel-PPPort
 Version:        3.71
-Release:        1%{?dist}
+Release:        499%{?dist}
 Summary:        Perl Pollution Portability header generator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-PPPort
@@ -116,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.71-499
+- Increase release to favour standalone package
+
 * Tue May 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.71-1
 - Upgrade to 3.71 based on perl-5.37.11
 

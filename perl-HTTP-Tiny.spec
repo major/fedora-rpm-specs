@@ -3,7 +3,7 @@
 
 Name:           perl-HTTP-Tiny
 Version:        0.086
-Release:        1%{?dist}
+Release:        499%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Tiny
@@ -125,6 +125,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.086-499
+- Increase release to favour standalone package
+
 * Mon Jun 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.086-1
 - 0.086 bump
 

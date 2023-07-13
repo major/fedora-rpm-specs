@@ -1,4 +1,5 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 %ifarch %{ocaml_native_compiler}
 %global camlsuffix opt
@@ -12,14 +13,13 @@
 # Coq installs python files into nonstandard places
 %global _python_bytecompile_extra 0
 
-# The documentation package carries a non-free license.
-# Upstream is working on this: https://github.com/coq/coq/issues/8774.
-# Check future releases to see if the doc subpackage can be brought back.
+# The documentation package cannot be built with ocaml-dune 3.8.2.  Check later
+# releases of both coq and dune to see if the issues have been resolved.
 %bcond_with doc
 
 Name:           coq
-Version:        8.17.0
-Release:        1%{?dist}
+Version:        8.17.1
+Release:        2%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -153,6 +153,15 @@ Summary:        Documentation for Coq proof management system
 # The documentation as a whole is OPUBL-1.0.
 # Some sphinx-installed files are LGPL-2.1-only.
 # Some sphinx-installed files are MIT.
+#
+# The OPUBL-1.0 license is not allowed for Fedora, but carries this usage note
+# (https://gitlab.com/fedora/legal/fedora-license-data/-/blob/main/data/OPUBL-1.0.toml):
+# "Allowed-for documentation if the copyright holder does not exercise any of
+# the “LICENSE OPTIONS” listed in Section VI".
+#
+# doc/LICENSE contains this note: "Options A and B are *not* elected."
+#
+# Therefore, this package falls under the Fedora exception.
 License:        OPUBL-1.0 AND LGPL-2.1-only AND MIT
 BuildArch:      noarch
 Requires:       font(fontawesome)
@@ -218,15 +227,17 @@ cd -
 %endif
             -browser "xdg-open %s"                   \
             -bytecode-compiler yes                   \
-%ifarch %{ocaml_native_compiler}
-            -native-compiler yes
-%else
             -native-compiler no
-%endif
+# As of coq 8.17.0, the native compiler cannot be build with OCaml 5.x
+#%%ifarch %%{ocaml_native_compiler}
+#            -native-compiler yes
+#%%else
+#            -native-compiler no
+#%%endif
 
 # Build the binary artifacts
 export SPHINXWARNOPT="-w$PWD/sphinx-warn.log"
-make dunestrap VERBOSE=1 DUNEOPT=--verbose
+make dunestrap VERBOSE=1 DUNEOPT="--verbose --profile=release"
 %if %{with doc}
 %dune_build
 %else
@@ -380,6 +391,14 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %endif
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 8.17.1-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 8.17.1-1
+- Version 8.17.1
+- Build in release mode
+- Disable the native compiler, which is incompatible with OCaml 5.0
+
 * Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 8.17.0-1
 - Version 8.17.0
 - Drop upstreamed patch for Sphinx 5 support

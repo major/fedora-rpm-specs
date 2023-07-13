@@ -1,6 +1,6 @@
 Name:           ncmpcpp
 Version:        0.9.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Featureful ncurses based MPD client inspired by ncmpc
 License:        GPLv2+
 URL:            http://ncmpcpp.rybczak.net/
@@ -57,6 +57,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 0.9.2-13
+- Rebuilt for ICU 73.2
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.9.2-12
 - Rebuilt for Boost 1.81
 

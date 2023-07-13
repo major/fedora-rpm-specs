@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-trie
 Version:        1.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Strict impure trie tree
 
 License:        MIT
@@ -40,6 +43,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.0-18
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.0.0-17
 - OCaml 5.0.0 rebuild
 

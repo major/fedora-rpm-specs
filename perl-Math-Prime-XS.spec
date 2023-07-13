@@ -3,7 +3,7 @@
 
 Name:           perl-Math-Prime-XS
 Version:        0.27
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Detect and calculate prime numbers with deterministic tests
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Math-Prime-XS
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-23
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

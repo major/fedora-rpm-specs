@@ -1,7 +1,7 @@
 Summary:        Get number of occupied columns of a string on terminal
 Name:           perl-Text-CharWidth
 Version:        0.04
-Release:        49%{?dist}
+Release:        50%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Text-CharWidth
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/Text::CharWidth.3pm*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.04-50
+- Perl 5.38 rebuild
+
 * Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.04-49
 - Update license to SPDX format
 

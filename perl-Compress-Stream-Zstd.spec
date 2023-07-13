@@ -1,6 +1,6 @@
 Name:           perl-Compress-Stream-Zstd
 Version:        0.206
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to the Zstd (Zstandard) (de)compressor
 License:        BSD-2-Clause AND BSD-3-Clause
 URL:            https://metacpan.org/release/Compress-Stream-Zstd/
@@ -65,6 +65,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.206-2
+- Perl 5.38 rebuild
+
 * Mon Jun 05 2023 Xavier Bachelot <xavier@bachelot.org> 0.206-1
 - Update to 0.206 (RHBZ#2168705)
 

@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 75%{?dist}
+Release: 76%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -11109,6 +11109,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 11:20230311-76
+- Rebuilt for ICU 73.2
+
 * Mon Jun  5 2023 Tom Callaway <spot@fedoraproject.org> - 11:20230311-75
 - move texmfcnf.lua to /etc/texlive/web2c with a symlink back to its original home in /usr/share/texlive/texmf-dist/web2c
 - properly handle mkii files that should only be in texlive-mptopdf

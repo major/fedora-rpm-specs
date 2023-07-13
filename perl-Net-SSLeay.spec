@@ -6,7 +6,7 @@
 
 Name:		perl-Net-SSLeay
 Version:	1.92
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Perl extension for using OpenSSL
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Net-SSLeay
@@ -128,6 +128,9 @@ make test
 %{_mandir}/man3/Net::SSLeay::Handle.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.92-8
+- Perl 5.38 rebuild
+
 * Thu Apr  6 2023 Paul Howarth <paul@city-fan.org> - 1.92-7
 - Update test suite to handle potential unavailability of sha1 algorithm
   https://github.com/radiator-software/p5-net-ssleay/pull/433

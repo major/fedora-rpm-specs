@@ -1,13 +1,14 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
-%global coqver 8.17.0
+%global coqver 8.17.1
 
 Name:		zenon
 Version:	0.8.5
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -98,6 +99,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.8.5-16
+- OCaml 5.0.0 rebuild
+
 * Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 0.8.5-15
 - Rebuild for coq 8.17.0
 

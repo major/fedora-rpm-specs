@@ -5,13 +5,14 @@ implements many SSH protocol features such as the various channels,\
 SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
-Version:        2.13.1
+Version:        2.13.2
 Release:        2%{?dist}
 Summary:        Asynchronous SSH for Python
 
 License:        EPL-2.0 or GPLv2+
 URL:            https://github.com/ronf/asyncssh
 Source0:        %pypi_source
+Patch0:         test_stdout_stream.diff
 
 
 BuildArch:      noarch
@@ -82,6 +83,12 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Tue Jul 11 2023 Georg Sauthoff <mail@gms.tf> - 2.13.2-2
+- Fix test_stdout_stream test case failure (fixes fedora#2220123)
+
+* Tue Jul 11 2023 Georg Sauthoff <mail@gms.tf> - 2.13.2-1
+- Update to latest upstream version (fixes fedora#2216606)
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.13.1-2
 - Rebuilt for Python 3.12
 

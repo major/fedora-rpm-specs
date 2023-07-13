@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # TODO: A Julia interface is now available, but requires
 # https://github.com/JuliaInterop/libcxxwrap-julia, which is not currently
 # available in Fedora.

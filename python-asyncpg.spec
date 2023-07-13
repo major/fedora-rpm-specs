@@ -4,7 +4,7 @@
 # We could generate PDF documentation as a substitute, except that
 # python-sphinxcontrib-asyncio is incompatible with Sphinx 6.1.3 and later
 # (https://bugzilla.redhat.com/show_bug.cgi?id=2180497).
-%bcond doc_pdf 0
+%bcond doc 0
 
 # Run tests with uvloop?
 # F39FailsToInstall: python3-uvloop
@@ -25,7 +25,7 @@ Source:         %{pypi_source asyncpg}
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
@@ -60,19 +60,19 @@ http://magic.io/blog/asyncpg-1m-rows-from-postgres-to-python/.}
 %package -n     python3-asyncpg
 Summary:        %{summary}
 
-%if %{without doc_pdf}
 Obsoletes:      %{name}-doc < 0.27.0-5
-%endif
 
 %description -n python3-asyncpg %{common_description}
 
 
+%if %{with doc}
 %package doc
 Summary:        Documentation for %{name}
 
 BuildArch:      noarch
 
 %description doc %{common_description}
+%endif
 
 
 %prep
@@ -110,14 +110,14 @@ sed -r -i 's/^([[:blank:]])(.*uvloop)/\1# \2/' pyproject.toml
 
 %generate_buildrequires
 export ASYNCPG_BUILD_CYTHON_ALWAYS=1
-%pyproject_buildrequires -x test%{?with_doc_pdf:,docs}
+%pyproject_buildrequires -x test%{?with_doc:,docs}
 
 
 %build
 export ASYNCPG_BUILD_CYTHON_ALWAYS=1
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
 PYTHONPATH="${BLIB}" %make_build -C docs latex \
     SPHINXBUILD='sphinx-build' SPHINXOPTS='-j%{?_smp_build_ncpus}'
@@ -151,12 +151,12 @@ USE_UVLOOP=1 %pytest -k "${k}"
 
 
 %files -n python3-asyncpg -f %{pyproject_files}
-%if %{without doc_pdf}
+%if %{without doc}
 %doc README.rst
 %endif
 
 
-%if %{with doc_pdf}
+%if %{with doc}
 %files doc
 %license LICENSE
 %doc README.rst

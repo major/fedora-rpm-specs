@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -6,7 +9,7 @@
 
 Name:           ocaml-%{libname}
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A streaming XML codec
 
 License:        ISC
@@ -91,6 +94,9 @@ grep expected invalid-err.log >/dev/null
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.4.0-1
 - Version 1.4.0
 - Verify License tag is valid SPDX

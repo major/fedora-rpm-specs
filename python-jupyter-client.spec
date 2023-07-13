@@ -91,7 +91,7 @@ rm -r html/.{doctrees,buildinfo}
 # The two tests testing signals for kernels are flaky because
 # if it takes the kernel more than one second to respond, it's killed.
 # The tests work fine outside mock.
-%pytest -v -k "not test_signal_kernel_subprocesses and not test_async_signal_kernel_subprocesses"
+%pytest -Wdefault -v -k "not test_signal_kernel_subprocesses and not test_async_signal_kernel_subprocesses"
 %endif
 
 

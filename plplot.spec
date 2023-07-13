@@ -19,7 +19,8 @@
 %endif
 
 # conditionalize Ocaml support
-%ifarch sparc64 s390 s390x
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+%ifarch %{ix86} sparc64 s390 s390x
 %bcond_with ocaml
 %else
 # Missing needed ocaml ppc64 packages on RHEL7 at the moment

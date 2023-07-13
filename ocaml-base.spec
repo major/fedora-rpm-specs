@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # This package is needed to build ppx_jane, but its tests require ppx_jane.
 # Break the dependency cycle here.
 %bcond_with test
 
 Name:           ocaml-base
 Version:        0.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jane Street standard library for OCaml
 
 # MIT: The project as a whole
@@ -68,6 +71,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.1-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.1-1
 - Version 0.16.1
 - Drop upstreamed OCaml 4.13 patch

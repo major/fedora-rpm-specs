@@ -1,17 +1,25 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-deriving
 Version:        5.2.1
-Release:        19%{?dist}
+Release:        21%{?dist}
 Summary:        Type-driven code generation for OCaml
 
 License:        MIT
 URL:            https://github.com/ocaml-ppx/ppx_deriving
 Source0:        %{url}/archive/v%{version}/ppx_deriving-%{version}.tar.gz
+
+# Post-release patches for OCaml 5.0 compatibility
+Patch1:         0001-Add-eq-test-which-requires-eta-expansion-for-custom-.patch
+Patch2:         0002-Fix-eq-eta-expansion-for-custom-equal.patch
+Patch3:         0003-Optimize-eq-eta-expansion-to-apply-only-to-outermost.patch
+Patch4:         0004-Optimize-quoting-of-ident-expressions.patch
+Patch5:         0005-Port-eta-expansion-optimization-to-ord.patch
+Patch6:         0006-Update-eq-and-ord-eta-expansion-comments.patch
+Patch7:         0007-Comment-quote-optimization.patch
+Patch8:         0008-chore-remove-artifact.patch
+Patch9:         0009-Add-OCaml-5.00-support-to-the-tests-and-update-docum.patch
 
 BuildRequires:  ocaml >= 4.05.0
 BuildRequires:  ocaml-cppo
@@ -41,7 +49,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n ppx_deriving-%{version}
+%autosetup -n ppx_deriving-%{version} -p1
 
 %build
 %dune_build
@@ -75,6 +83,12 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 5.2.1-21
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.2.1-20
+- Add upstream patches for OCaml 5.0 compatibility
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.2.1-19
 - Rebuild OCaml packages for F38
 

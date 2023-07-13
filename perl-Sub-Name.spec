@@ -4,7 +4,7 @@
 
 Name:		perl-Sub-Name
 Version:	0.27
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Name - or rename - a sub
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Name
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/Sub::Name.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-2
+- Perl 5.38 rebuild
+
 * Sat Apr 29 2023 Paul Howarth <paul@city-fan.org> - 0.27-1
 - Update to 0.27
   - Skip quote-separator tests on newer perls that deprecate this behavior

@@ -1,6 +1,6 @@
 Name:           nss_nis
-Version:        3.1
-Release:        13%{?dist}
+Version:        3.2
+Release:        1%{?dist}
 Summary:        Name Service Switch (NSS) module using NIS
 License:        LGPLv2+
 Url:            https://github.com/thkukuk/libnss_nis
@@ -48,19 +48,21 @@ install -D -m 644 %{SOURCE2} %{buildroot}/%{_unitdir}/systemd-userdbd.service.d/
 %check
 make check
 
-%ldconfig_scriptlets
-
-
 %files
 %{_libdir}/libnss_nis.so.2
 %{_libdir}/libnss_nis.so.2.0.0
 %{_unitdir}/systemd-logind.service.d/*
 %{_unitdir}/systemd-userdbd.service.d/*
 
-
 %license COPYING
+%doc NEWS
+
 
 %changelog
+* Tue Jul 11 2023 Ondrej Sloup <osloup@redhat.com> -  3.2-1
+- Rebase to the latest upstream version (rhbz#2218893)
+- Remove %%ldconfig_postun as it has no effect in Fedora
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,57 +1,56 @@
-%global priority 65-0
 %global fontname paktype-naskh-basic
-%global fontconf %{priority}-%{fontname}
 
-Name:		%{fontname}-fonts
-Version:	6.0
-Release:	6%{?dist}
-Summary:	Fonts for Arabic, Farsi, Urdu and Sindhi from PakType
-License:	GPLv2 with exceptions
-URL:		https://sourceforge.net/projects/paktype/
-Source0:	https://sourceforge.net/p/paktype/code/HEAD/tree/Fonts/Release/PakType-Naskh-Basic-%{version}.tar.gz?format=raw#/%{name}-%{version}.tar.gz
-Source1:	%{name}.conf
-BuildArch:	noarch
-BuildRequires:	fontpackages-devel
-Requires:		fontpackages-filesystem
+Version:       6.0
+Release:       7%{?dist}
+URL:           https://sourceforge.net/projects/paktype/
 
-%description
+%global foundry           paktype
+%global fontlicense       GPL-2.0-only WITH Font-exception-2.0
+%global fontlicenses      PakType_Naskh_Basic_License.txt
+%global fontdocs          PakTypeNaskhBasicFeatures.pdf
+
+%global fontfamily        PakType Naskh Basic
+%global fontsummary       Fonts for Arabic, Farsi, Urdu and Sindhi from PakType
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE10}
+
+%global fontdescription   %{expand:
 The paktype-naskh-basic-fonts package contains fonts for the display of \
 Arabic, Farsi, Urdu and Sindhi from PakType by Lateef Sagar.
+}
+
+BuildRequires:  make
+BuildRequires:  fontforge
+Source0:        https://sourceforge.net/p/paktype/code/HEAD/tree/Fonts/Release/PakType-Naskh-Basic-%{version}.tar.gz?format=raw#/%{name}-%{version}.tar.gz
+Source10:       65-0-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
 %setup -q -c
-rm -rf Code
+%linuxtext -e ascii "PakType Naskh Basic License.txt"
+#rm -rf Code
 
-# get rid of the white space (' ')
 mv PakType\ Naskh\ Basic\ License.txt PakType_Naskh_Basic_License.txt
 mv PakType\ Naskh\ Basic\ Features.pdf PakTypeNaskhBasicFeatures.pdf
 
-%{__sed} -i 's/\r//' PakType_Naskh_Basic_License.txt
-chmod a-x PakType_Naskh_Basic_License.txt PakTypeNaskhBasicFeatures.pdf
-
-
 %build
-echo "Nothing to do in Build."
+%fontbuild
 
 %install
-install -m 0755 -d $RPM_BUILD_ROOT%{_fontdir}
-install -m 0644 -p PakTypeNaskhBasic.ttf $RPM_BUILD_ROOT%{_fontdir}
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-		%{buildroot}%{_fontconfig_confdir}
+%check
+%fontcheck
 
-install -m 0644 -p %{SOURCE1} \
-	%{buildroot}%{_fontconfig_templatedir}/%{fontconf}.conf
-
-ln -s %{_fontconfig_templatedir}/%{fontconf}.conf \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}.conf
-
-%_font_pkg -f %{fontconf}.conf PakTypeNaskhBasic.ttf
-%ghost %attr(644, root, root) %{_fontdir}/.uuid
-
-%doc PakType_Naskh_Basic_License.txt PakTypeNaskhBasicFeatures.pdf
+%fontfiles
 
 %changelog
+* Tue Jul 11 2023 Sudip Shil <sshil@redhat.com> - 6.0-7
+- Convert to new fonts packaging guidelines and SPDX license
+- Update the fonts package
+- https://fedoraproject.org/wiki/Changes/New_Fonts_Packaging
+
 * Fri Jun  9 2023 Jens Petersen <petersen@redhat.com> - 6.0-6
 - rebuild
 

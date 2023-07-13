@@ -1,27 +1,27 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
-# Not a circular dependency, but useful to be able to build
-# without odoc which has loads of dependencies.
-%bcond_with doc
-
 Name:           ocaml-base64
-Version:        3.5.0
+Version:        3.5.1
 Release:        %autorelease
 Summary:        Base64 library for OCaml
 
 License:        ISC
 URL:            https://github.com/mirage/ocaml-base64
-Source0:        https://github.com/mirage/ocaml-base64/releases/download/v%{version}/base64-v%{version}.tbz
+Source0:        %{url}/releases/download/v%{version}/base64-%{version}.tbz
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune-devel
 
-%if %{with doc}
-BuildRequires:  ocaml-odoc
-%endif
+# Test dependencies
+BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml-bos-devel
+BuildRequires:  ocaml-fmt-devel
+BuildRequires:  ocaml-rresult-devel
 
 
 %description
@@ -40,53 +40,31 @@ Development files for %{name}.
 
 
 %prep
-%autosetup -n base64-v%{version}
+%autosetup -n base64-%{version}
 
 
 %build
-# Only build the source directory since the other directories
+# Only build the source and test directories since the other directories
 # require packages that we don't have or need.
-rm -r bench fuzz test
-dune build %{?_smp_mflags}
-%if %{with doc}
-dune build %{?_smp_mflags} @doc
-%endif
+rm -r bench fuzz
+%dune_build
 
 
 %install
-dune install --destdir=%{buildroot}
-
-# We do not want the ml files
-find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
+%dune_install
 
 
-%files
+%check
+%dune_check
+
+
+%files -f .ofiles
 %doc README.md
-%{_libdir}/ocaml/base64
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/base64/*.a
-%exclude %{_libdir}/ocaml/base64/*.cmx
-%exclude %{_libdir}/ocaml/base64/*.cmxa
-%exclude %{_libdir}/ocaml/base64/*.cmxs
-%endif
-%exclude %{_libdir}/ocaml/base64/*.mli
+%license LICENSE.md
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc CHANGES.md
-%if %{with doc}
-%doc _build/default/_doc/*
-%endif
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/base64/*.a
-%{_libdir}/ocaml/base64/*.cmx
-%{_libdir}/ocaml/base64/*.cmxa
-%{_libdir}/ocaml/base64/*.cmxs
-%endif
-%{_libdir}/ocaml/base64/*.mli
 
 
 %changelog

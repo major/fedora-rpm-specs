@@ -8,7 +8,7 @@
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
 Version:	0.62
-Release:	20%{?dist}
+Release:	21%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
 Source0:	https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-UTF8-%{version}.tar.gz
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.62-21
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

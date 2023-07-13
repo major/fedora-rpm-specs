@@ -1,6 +1,6 @@
 Name:           perl-Goo-Canvas
 Version:        0.06
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Perl interface to the GooCanvas
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Goo-Canvas
@@ -70,6 +70,9 @@ make test
 %{perl_vendorarch}/auto/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-51
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

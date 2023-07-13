@@ -1,5 +1,5 @@
 # build with a bootstrap Common Lisp binary
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 %global common_lisp_controller 1
 
@@ -30,13 +30,13 @@
 
 # Latest upstream binary releases, used for bootstrapping
 %global bs_x86    1.4.3
-%global bs_x86_64 2.3.5
+%global bs_x86_64 2.3.6
 %global bs_arm64  1.4.2
 %global bs_ppc64  1.5.8
 
 Name: 	 sbcl
 Summary: Steel Bank Common Lisp
-Version: 2.3.5
+Version: 2.3.6
 Release: 1%{?dist}
 
 # See COPYING for a license breakdown
@@ -258,8 +258,8 @@ fi
 
 
 %changelog
-* Tue Jun 13 2023 Jerry James <loganjerry@gmail.com> - 2.3.5-1
-- Version 2.3.5
+* Tue Jul 11 2023 Jerry James <loganjerry@gmail.com> - 2.3.6-1
+- Version 2.3.6
 - Convert License tag to SPDX
 - Drop upstreamed gcc10 patch
 - Build for ppc64le

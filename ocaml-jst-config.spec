@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # This package contains generated C header files.  They differ by architecture,
 # so this package cannot be noarch, but there are no ELF objects in it.
 %global debug_package %{nil}
 
 Name:           ocaml-jst-config
 Version:        0.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compile-time configuration for Jane Street libraries
 
 License:        MIT
@@ -54,6 +57,9 @@ sed -ri '/(archive|plugin)/d' \
 %{ocamldir}/jst-config/
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
 - Version 0.16.0
 - Drop upstreamed C99 patches

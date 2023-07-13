@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-cppo
 Version:        1.6.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Equivalent of the C preprocessor for OCaml programs
 
 License:        BSD-3-Clause
@@ -68,6 +71,9 @@ at build time.  To use it, call ocamlbuild with the argument
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.9-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.9-1
 - Version 1.6.9
 - Convert License tag to SPDX

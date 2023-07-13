@@ -1,6 +1,6 @@
 Name:           perl-Math-BigInt-GMP
 Version:        1.6012
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Use the GMP library for Math::BigInt routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt-GMP
@@ -102,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.6012-2
+- Perl 5.38 rebuild
+
 * Mon Apr  3 2023 Paul Howarth <paul@city-fan.org> - 1.6012-1
 - 1.6012 bump
 

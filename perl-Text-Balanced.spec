@@ -1,6 +1,6 @@
 Name:           perl-Text-Balanced
 Version:        2.06
-Release:        4%{?dist}
+Release:        499%{?dist}
 Summary:        Extract delimited text sequences from strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-Balanced
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.06-499
+- Increase release to favour standalone package
+
 * Thu Mar 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.06-4
 - Fix warning with undefined $unkpos (bug #2172819)
 

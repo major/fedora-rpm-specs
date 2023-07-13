@@ -5,7 +5,7 @@
 
 Name:           perl-Tk
 Version:        804.036
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Perl Graphical User Interface ToolKit
 
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND SWL
@@ -182,6 +182,9 @@ find __demos/ -type f -exec chmod -x {} \;
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 804.036-11
+- Perl 5.38 rebuild
+
 * Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 804.036-10
 - Fix %patch macro
 - Update license to SPDX format

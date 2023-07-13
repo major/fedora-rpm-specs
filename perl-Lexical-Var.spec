@@ -3,7 +3,7 @@
 
 Name:           perl-Lexical-Var
 Version:        0.010
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Static variables without name space pollution
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lexical-Var
@@ -97,6 +97,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.010-2
+- Perl 5.38 rebuild
+
 * Fri Mar 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.010-1
 - 0.010 bump
 - Package tests

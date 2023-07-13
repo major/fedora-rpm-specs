@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-augeas
 Version:        0.6
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        OCaml bindings for Augeas configuration API
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -82,6 +85,9 @@ ocamlfind install augeas META *.mli *.cma *.a augeas.cmi *.so
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6-25
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.6-24
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

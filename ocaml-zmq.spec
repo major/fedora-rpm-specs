@@ -1,8 +1,9 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-zmq
 Version:        5.2.1
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
@@ -57,12 +58,6 @@ rm -fr zmq-async*
 %build
 %dune_build
 
-# Relink the stublib with Fedora flags
-cd _build/default/zmq/src
-ocamlmklib -g -ldopt "%{build_ldflags}" -o zmq_stubs \
-  $(ar t libzmq_stubs.a) -lzmq
-cd -
-
 %install
 %dune_install -s
 
@@ -83,6 +78,12 @@ rm -fr %{buildroot}%{ocamldir}/zmq-async
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.2.1-6
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.2.1-5
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.2.1-4
 - Bump release and rebuild
 

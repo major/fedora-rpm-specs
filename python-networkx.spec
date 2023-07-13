@@ -141,7 +141,7 @@ sed -i '/osmnx/d;/momepy/d' requirements/example.txt
 
 %if %{with doctest}
 # Build the documentation
-PYTHONPATH=%{pyproject_build_lib} make -C doc html
+PYTHONPATH=$PWD/build/lib make -C doc html
 rst2html --no-datestamp README.rst README.html
 %endif
 

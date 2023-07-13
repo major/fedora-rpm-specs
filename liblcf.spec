@@ -18,7 +18,7 @@ Summary: Library to handle RPG Maker 2000/2003 game data
 License: MIT AND BSD-2-Clause AND BSL-1.0
 
 Version: 0.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/EasyRPG/liblcf
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -120,6 +120,9 @@ ln -s %{_includedir}/ini.h %{buildroot}%{_includedir}/lcf/ini.h
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 0.8-2
+- Rebuilt for ICU 73.2
+
 * Tue May 02 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8-1
 - Update to v0.8
 - Convert License tag to SPDX

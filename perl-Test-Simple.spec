@@ -13,7 +13,7 @@ Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
 Version:        1.302195
-Release:        2%{?dist}
+Release:        3%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
@@ -201,6 +201,9 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Util::Trace.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3:1.302195-3
+- Perl 5.38 rebuild
+
 * Thu May 25 2023 Paul Howarth <paul@city-fan.org> - 3:1.302195-2
 - Use SPDX-format license tag
 

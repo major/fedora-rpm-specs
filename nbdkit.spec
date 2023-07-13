@@ -52,7 +52,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.35.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1217,6 +1217,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.35.5-4
+- Perl 5.38 rebuild
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.35.5-3
 - OCaml 5.0.0 rebuild
 

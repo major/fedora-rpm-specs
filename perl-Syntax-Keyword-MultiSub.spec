@@ -3,7 +3,7 @@
 
 Name:           perl-Syntax-Keyword-MultiSub
 Version:        0.03
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multiple dispatch on subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-MultiSub
@@ -118,6 +118,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-2
+- Perl 5.38 rebuild
+
 * Tue Jun 06 2023 Petr Pisar <ppisar@redhat.com> - 0.03-1
 - 0.03 bump
 

@@ -100,7 +100,7 @@ cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 
 %check
 %if %{with tests}
-%pytest
+%pytest -Wdefault
 %else
 # datapub, pickleutil, serialize need ipyparallel
 # pylab needs matplotlib

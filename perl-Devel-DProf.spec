@@ -1,6 +1,6 @@
 Name:           perl-Devel-DProf
 Version:        20110802.00
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Deprecated Perl code profiler
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Devel-DProf
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 20110802.00-36
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20110802.00-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

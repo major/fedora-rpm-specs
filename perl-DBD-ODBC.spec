@@ -1,6 +1,6 @@
 Name:           perl-DBD-ODBC
 Version:        1.61
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        ODBC Driver for DBI
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/DBD-ODBC
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.61-11
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

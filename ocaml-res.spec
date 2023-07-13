@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-res
 Version:        5.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OCaml library for resizing arrays and strings
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -63,6 +66,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.1-7
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.0.1-6
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

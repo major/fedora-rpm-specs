@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-parmap
 Version:        1.2.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml library for exploiting multicore architectures
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -56,6 +59,9 @@ sed -i 's/10000000/1000000/' tests/{float,simple}scale.ml
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.5-5
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.5-4
 - OCaml 5.0.0 rebuild
 

@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	10%{?dist}
+Release:	11%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -280,6 +280,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 0.0.26-11
+- Rebuilt for ICU 73.2
+
 * Wed Jun 28 2023 Kalev Lember <klember@redhat.com> - 0.0.26-10
 - Backport an upstream patch to fix the build with fmt 10
 - Backport an upstream patch to fix atlas build with gcc 13

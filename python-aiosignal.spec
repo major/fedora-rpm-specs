@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-aiosignal
 Version:        1.3.1
@@ -20,7 +20,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinxcontrib-asyncio)
@@ -40,12 +40,14 @@ Summary:        %{summary}
 %description -n python3-aiosignal %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for python-aiosignal
 
 BuildArch:      noarch
 
 %description    doc %{common_description}
+%endif
 
 
 %prep
@@ -70,7 +72,7 @@ sed -zi 's/filterwarnings = error/filterwarnings = default/' setup.cfg
 %build
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 %make_build -C docs latex \
     SPHINXBUILD='sphinx-build' SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
@@ -88,15 +90,15 @@ sed -zi 's/filterwarnings = error/filterwarnings = default/' setup.cfg
 
 %files -n python3-aiosignal -f %{pyproject_files}
 # pyproject-rpm-macros marks LICENSE in dist-info; verify with “rpm -qL -p …”
-%doc README.rst
+%if %{without doc}
+%doc CHANGES.rst CONTRIBUTORS.txt README.rst
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
-%doc CHANGES.rst
-%doc CONTRIBUTORS.txt
-%doc README.rst
-%if %{with doc_pdf}
+%doc CHANGES.rst CONTRIBUTORS.txt README.rst
 %doc docs/_build/latex/aiosignal.pdf
 %endif
 

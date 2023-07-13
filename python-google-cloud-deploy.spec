@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.10.1
+Version:        1.11.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Deploy
 

@@ -4,18 +4,18 @@
 # (or update the timezone data update..).
 %global use_tzdata_update 0
 # Adjust to version major; used in tzdata update.
-%global icu_major 72
+%global icu_major 73
 
 Name:      icu
-Version:   72.1
-Release:   3%{?dist}
+Version:   73.2
+Release:   1%{?dist}
 Summary:   International Components for Unicode
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:       http://site.icu-project.org/
-Source0:   https://github.com/unicode-org/icu/releases/download/release-72-1/icu4c-72_1-src.tgz
+Source0:   https://github.com/unicode-org/icu/releases/download/release-73-2/icu4c-73_2-src.tgz
 %if 0%{?use_tzdata_update}
-Source1:   https://github.com/unicode-org/icu/releases/download/release-72-1/icu4c-72_1-data.zip
+Source1:   https://github.com/unicode-org/icu/releases/download/release-73-2/icu4c-73_2-data.zip
 Source2:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/metaZones.txt
 Source3:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/timezoneTypes.txt
 Source4:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/windowsZones.txt
@@ -193,6 +193,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Thu Jul 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 73.2-1
+- Update to 73.2
+
 * Fri Jan 20 2023 Eike Rathke <erack@redhat.com> - 72.1-3
 - migrated to SPDX license IDs
 

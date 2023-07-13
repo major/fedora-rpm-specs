@@ -6,7 +6,7 @@
 
 Name:          enchant2
 Version:       2.5.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPLv2+
@@ -224,6 +224,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 2.5.0-3
+- Rebuilt for ICU 73.2
+
 * Tue Jul 04 2023 Sandro Mani <manisandro@gmail.com> - 2.5.0-2
 - Drop aspell subpackage (#2218153)
 

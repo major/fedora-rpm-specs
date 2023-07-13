@@ -1,6 +1,6 @@
 Name:           perl-Devel-Leak
 Version:        0.03
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Utility for looking for perl objects that are not reclaimed
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Leak
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/Devel::Leak.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-52
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,11 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %global debug_package %{nil}
 
 Name:           ocaml-xmlrpc-light
 Version:        0.6.1
-Release:        72%{?dist}
+Release:        73%{?dist}
 Summary:        OCaml library for writing XML-RPC clients and servers
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -88,6 +91,9 @@ mkdir -p $OCAMLFIND_DESTDIR
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.1-73
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.6.1-72
 - OCaml 5.0.0 rebuild
 - New project URLs

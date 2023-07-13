@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-docx
 Version:        0.8.11
@@ -23,7 +23,7 @@ BuildRequires:  python3-devel
 BuildRequires:  dos2unix
 
 # Extra dependencies for documentation
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-latex
@@ -42,10 +42,12 @@ Summary:        %{summary}
 %description -n python3-docx %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for python-docx
 
 %description    doc %{common_description}
+%endif
 
 
 %prep
@@ -74,7 +76,7 @@ dos2unix docs/dev/analysis/features/table/cell-merge.rst
 %build
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/.build/latex LATEXMKOPTS='-quiet'
 %endif
@@ -113,13 +115,15 @@ fi
 
 
 %files -n python3-docx -f %{pyproject_files}
+%if %{without doc}
+%doc HISTORY.rst README.rst
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
-%doc HISTORY.rst
-%doc README.rst
-%if %{with doc_pdf}
+%doc HISTORY.rst README.rst
 %doc docs/.build/latex/python-docx.pdf
 %endif
 

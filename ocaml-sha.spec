@@ -1,26 +1,26 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-sha
-Version:        1.15.2
-Release:        3%{?dist}
+Version:        1.15.4
+Release:        2%{?dist}
 Summary:        Binding to the SHA cryptographic functions
 
 License:        ISC
 URL:            https://github.com/djs55/ocaml-sha/
-Source0:        https://github.com/djs55/ocaml-sha/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/releases/download/v%{version}/sha-%{version}.tbz
 
 # The OCaml version packaged in Fedora is recent enough, no need to shim stdlib.
 Patch1:         ocaml-sha-remove-stdlib-shims-dep.patch
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
-BuildRequires:  opam-installer
-BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ounit-devel
 
 %description
-A binding for SHA interface code in OCaml. Offering the same interface than
-the MD5 digest included in the OCaml standard library.
-It's currently providing SHA1, SHA256 and SHA512 hash functions.
+A binding for SHA interface code in OCaml.  This packages offers the
+same interface as the MD5 digest included in the OCaml standard library.
+It currently provides SHA1, SHA256 and SHA512 hash functions.
 
 
 %package        devel
@@ -34,51 +34,40 @@ files for developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -n sha-%{version} -p1
 
 
 %build
-dune build @install --profile release
+%dune_build
 
 
 %install
-mkdir -p %{buildroot}%{_libdir}/ocaml
-dune install --destdir=%{buildroot}
+%dune_install
 
-# These files will be installed using doc and license directives.
-rm -r %{buildroot}%{_prefix}/doc
-
-# Makes *.cmxs executable such that they will be stripped.
-find %{buildroot} -name '*.cmxs' -exec chmod 0755 {} \;
 
 %check
-dune runtest --profile release
+%dune_check
 
 
-%files
+%files -f .ofiles
 %doc README.md CHANGES.md
 %license LICENSE.md
-%{_libdir}/ocaml/*
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/*/*.a
-%exclude %{_libdir}/ocaml/*/*.cmxa
-%exclude %{_libdir}/ocaml/*/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/*/*.mli
 
 
-%files devel
+%files devel -f .ofiles-devel
 %doc README.md CHANGES.md
 %license LICENSE.md
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/*/*.a
-%{_libdir}/ocaml/*/*.cmxa
-%{_libdir}/ocaml/*/*.cmx
-%endif
-%{_libdir}/ocaml/*/*.mli
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.4-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.15.4-1
+- Version 1.15.4
+- Trim BuildRequires
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.2-3
 - Rebuild OCaml packages for F38
 

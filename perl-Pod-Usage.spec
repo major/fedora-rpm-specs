@@ -2,7 +2,7 @@ Name:           perl-Pod-Usage
 # Compete with perl.spec's epoch
 Epoch:          4
 Version:        2.03
-Release:        4%{?dist}
+Release:        499%{?dist}
 Summary:        Print a usage message from embedded POD documentation
 # License clarification CPAN RT#102529
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.03-499
+- Increase release to favour standalone package
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:2.03-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -76,7 +76,7 @@
 
 Name:             community-mysql
 Version:          8.0.33
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -984,6 +984,9 @@ fi
 %endif
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 8.0.33-3
+- Rebuilt for ICU 73.2
+
 * Wed Apr 12 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.33-1
 - Update to MySQL 8.0.33
 

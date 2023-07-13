@@ -1,6 +1,6 @@
 Name:           perl-SGML-Parser-OpenSP
 Version:        0.994
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Perl interface to the OpenSP SGML and XML parser
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -71,6 +71,9 @@ make test
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.994-46
+- Perl 5.38 rebuild
+
 * Mon Jun 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.994-45
 - Don't use deprecated uvuni_to_utf8_flags remove in Perl 5.37.1
 - Update license to SPDX format

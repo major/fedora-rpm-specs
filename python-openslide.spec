@@ -2,7 +2,7 @@
 
 Name:           python-openslide
 Version:        1.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python bindings for the OpenSlide library
 
 License:        LGPLv2
@@ -17,6 +17,7 @@ BuildRequires:  openslide >= 3.4.0
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pillow
+BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx
 
 %description
@@ -50,8 +51,8 @@ rm -rf examples
 
 %build
 %py3_build
-%{__python3} setup.py build_sphinx
-rm build/sphinx/html/.buildinfo
+sphinx-build doc build/html
+rm -r build/html/.buildinfo build/html/.doctrees
 
 
 %install
@@ -59,17 +60,22 @@ rm build/sphinx/html/.buildinfo
 
 
 %check
-%{__python3} setup.py test
+# Drop --import-mode after next release
+# https://github.com/openslide/openslide-python/pull/208
+%pytest --import-mode append
 
 
 %files -n python3-openslide
-%doc CHANGELOG.md build/sphinx/html
+%doc CHANGELOG.md build/html
 %license LICENSE.txt lgpl-2.1.txt
 %{python3_sitearch}/openslide/
 %{python3_sitearch}/*.egg-info/
 
 
 %changelog
+* Tue Jul 11 2023 Benjamin Gilbert <bgilbert@backtick.net> - 1.2.0-6
+- Avoid invoking setup.py subcommands directly
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.2.0-5
 - Rebuilt for Python 3.12
 

@@ -1,35 +1,20 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
-%if !%{opt}
-%global debug_package %{nil}
-%endif
-
-# 4.1.3 is the last version before jbuilder.  Although we have
-# jbuilder we lack some other OCaml libraries needed for this
-# package.
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-sqlite
 Version:        5.1.0
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        OCaml library for accessing SQLite3 databases
-License:        BSD
+License:        MIT
 
-URL:            https://github.com/mmottl/sqlite3-ocaml
+URL:            https://mmottl.github.io/sqlite3-ocaml
 Source0:        https://github.com/mmottl/sqlite3-ocaml/archive/refs/tags/%{version}.tar.gz
 
-# Break a circular dependency on ocaml-odoc
-%bcond_with doc
-
-BuildRequires:  make
-BuildRequires:  ocaml >= 3.10.0
-BuildRequires:  ocaml-dune-devel
+BuildRequires:  ocaml >= 4.12
+BuildRequires:  ocaml-dune >= 2.7
+BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-ppx-inline-test-devel
-BuildRequires:  ocaml-findlib
 BuildRequires:  sqlite-devel >= 3
-
-%if %{with doc}
-BuildRequires:  ocaml-odoc
-%endif
 
 
 %description
@@ -48,61 +33,39 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n sqlite3-ocaml-%{version}
+%autosetup -n sqlite3-ocaml-%{version}
 
 
 %build
-dune build %{?_smp_mflags}
-%if %{with doc}
-dune build %{?_smp_mflags} @doc
-%endif
+%dune_build
 
 
 %check
-%if %opt
-dune test %{?_smp_mflags}
-%endif
+%dune_check
 
 
 %install
-dune install --destdir=%{buildroot}
-
-# Remove documentation.  We'll install it using %%doc.
-rm -r $RPM_BUILD_ROOT%{_prefix}/doc
-
-%if %{with doc}
-# We do not want the dune markers
-find _build/default/_doc/_html -name .dune-keep -delete
-%endif
+%dune_install
 
 
-%files
+%files -f .ofiles
 %license LICENSE.md
-%{_libdir}/ocaml/sqlite3
-%if %opt
-%exclude %{_libdir}/ocaml/sqlite3/*.a
-%exclude %{_libdir}/ocaml/sqlite3/*.cmxa
-%exclude %{_libdir}/ocaml/sqlite3/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/sqlite3/*.mli
-%{_libdir}/ocaml/stublibs/*.so
 
 
-%files devel
+%files devel -f .ofiles-devel
 %license LICENSE.md
 %doc CHANGES.md README.md
-%if %{with doc}
-%doc _build/default/_doc/_html/*
-%endif
-%if %opt
-%{_libdir}/ocaml/sqlite3/*.a
-%{_libdir}/ocaml/sqlite3/*.cmxa
-%{_libdir}/ocaml/sqlite3/*.cmx
-%endif
-%{_libdir}/ocaml/sqlite3/*.mli
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-7
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.1.0-6
+- OCaml 5.0.0 rebuild
+- Change License tag to MIT and verify it is valid SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-5
 - Rebuild OCaml packages for F38
 

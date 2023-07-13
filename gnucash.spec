@@ -2,7 +2,7 @@ Name: gnucash
 Summary: Finance management application
 Version: 5.2
 URL: https://gnucash.org/
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -110,6 +110,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 5.2-4
+- Rebuilt for ICU 73.2
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 5.2-3
 - Rebuilt for Python 3.12
 

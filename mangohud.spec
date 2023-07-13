@@ -36,7 +36,7 @@ BuildRequires:  python3-mako
 BuildRequires:  spdlog-devel
 
 BuildRequires:  pkgconfig(nlohmann_json)
-BuildRequires:  pkgconfig(vulkan)
+BuildRequires:  pkgconfig(vulkan) < 1.3.241
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(x11)
 

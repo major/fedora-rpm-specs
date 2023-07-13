@@ -2,7 +2,7 @@
 %global srcname tifffile
 
 Name: python-%{srcname}
-Version: 2023.4.12
+Version: 2023.7.10
 Release: 1%{?dist}
 Summary: Read and write TIFF(r) files
 
@@ -78,6 +78,9 @@ pytest-%{python3_version} -v tests \
 %{_bindir}/tiffcomment
 
 %changelog
+* Tue Jul 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.7.10-1
+- New upstream source 2023.7.10
+
 * Mon Jul 10 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.4.12-1
 - New upstream source 2023.4.12
 - New style macros

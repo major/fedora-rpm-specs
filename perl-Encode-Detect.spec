@@ -1,6 +1,6 @@
 Name: perl-Encode-Detect
 Version: 1.01
-Release: 42%{?dist}
+Release: 43%{?dist}
 Summary: Encode::Encoding subclass that detects the encoding of data
 
 License: MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
@@ -51,6 +51,9 @@ find "${RPM_BUILD_ROOT}" -type f -name "*.bs" -empty -delete
 %{_mandir}/man3/Encode::Detect::Detector.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.01-43
+- Perl 5.38 rebuild
+
 * Wed Jun 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.01-42
 - Update license to SPDX format
 - Modernize spec

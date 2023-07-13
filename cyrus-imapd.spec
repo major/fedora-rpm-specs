@@ -8,7 +8,7 @@
 
 Name: cyrus-imapd
 Version: 3.6.0
-Release: 4%{?dist}
+Release: 6%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -704,6 +704,12 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 3.6.0-6
+- Rebuilt for ICU 73.2
+
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.6.0-5
+- Perl 5.38 rebuild
+
 * Thu Jun 29 2023 Martin Osvald <mosvald@redhat.com> - 3.6.0-4
 - Cassandane: Sync split CI test and spec file
 - Cassandane: Fully turn off sending messages through syslog()

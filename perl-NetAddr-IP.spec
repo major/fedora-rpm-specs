@@ -1,6 +1,6 @@
 Name:           perl-NetAddr-IP
 Version:        4.079
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Manages IPv4 and IPv6 addresses and subnets
 # Lite/Util/Util.xs is GPL-2.0-or-later
 # Other files are (GPL-2.0-or-later OR Artistic-1.0-Perl)
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/NetAddr::IP::UtilPP.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.079-24
+- Perl 5.38 rebuild
+
 * Fri Jun 02 2023 Michal Josef Špaček <mspacek@redhat.com> - 4.079-23
 - Update license to SPDX format
 

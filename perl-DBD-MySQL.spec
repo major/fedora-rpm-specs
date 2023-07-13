@@ -1,6 +1,6 @@
 Name:           perl-DBD-MySQL
 Version:        4.050
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-mysql
@@ -75,6 +75,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/*.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.050-17
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.050-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

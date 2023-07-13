@@ -10,7 +10,7 @@
 
 Name:           perl-Gtk2
 Version:        1.24993
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl interface to the 2.x series of the Gimp Toolkit library
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Gtk2
@@ -280,6 +280,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.24993-12
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24993-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

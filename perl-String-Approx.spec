@@ -1,6 +1,6 @@
 Name:           perl-String-Approx
 Version:        3.28
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl extension for approximate (fuzzy) matching
 # Approx.pm:    Artistic-2.0 OR LGPL-2.0-only
 # apse.c:       LGPL-2.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,9 @@ make test
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.28-22
+- Perl 5.38 rebuild
+
 * Tue Mar 14 2023 Petr Pisar <ppisar@redhat.com> - 3.28-21
 - Correct a license to ((LGPL-2.0-or-later OR Artistic-1.0-Perl) AND
   (Artistic-2.0 OR LGPL-2.0-only))

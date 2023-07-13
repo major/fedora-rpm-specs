@@ -6,10 +6,10 @@ VCS:            https://github.com/rizinorg/rizin
 
 %global         gituser         rizinorg
 %global         gitname         rizin
-%global         rel             1
+%global         baserelease     2
 %global         shortversion    %(c=%{version}; echo ${c} | cut -d'.' -f-2)
 
-Release:        %{rel}%{?dist}.2
+Release:        %{baserelease}%{?dist}
 Source0:        https://github.com/%{gituser}/%{gitname}/releases/download/v%{version}/%{name}-src-v%{version}.tar.xz
 
 License:        LGPLv3+ and GPLv2+ and BSD and MIT and ASL 2.0 and MPLv2.0 and zlib
@@ -20,7 +20,12 @@ BuildRequires:  ninja-build
 BuildRequires:  pkgconfig
 BuildRequires:  python3-pyyaml
 
+%if 0%{?rhel}
+# rhel8 file-devel package stil doesn't provide pkgconfig 
+BuildRequires:  file-devel
+%else
 BuildRequires:  pkgconfig(libmagic)
+%endif
 BuildRequires:  pkgconfig(libxxhash)
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(libzip)
@@ -175,7 +180,13 @@ information
 
 
 %changelog
-* Wed May 17 2023 Riccardo Schirone <rschirone91@gmail.com> - 0.5.2-1
+* Wed Jul 12 2023 Michal Ambroz <rebus _AT seznam.cz> - 0.5.2-2
+- cosmetics, remove the excessive .2 in the release
+- use baserelese (recognized by rpmdev-bumpspec used for massrebuilds)
+- prepare to sync for the feature branches
+- fix dependencies for rhel
+
+* Wed May 17 2023 Riccardo Schirone <rschirone91@gmail.com> - 0.5.2-1.2
 - Rebase to upstream version 0.5.2
 
 * Tue Mar 14 2023 Riccardo Schirone <rschirone91@gmail.com> - 0.5.1-1

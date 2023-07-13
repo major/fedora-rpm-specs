@@ -8,7 +8,7 @@
 Name:           perl-Filter
 Epoch:          2
 Version:        1.64
-Release:        2%{?dist}
+Release:        499%{?dist}
 Summary:        Perl source filters
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Filter
@@ -144,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:1.64-499
+- Increase release to favour standalone package
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.64-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

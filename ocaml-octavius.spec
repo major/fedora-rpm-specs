@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-octavius
 Version:        1.2.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Ocamldoc comment syntax parser
 
 License:        ISC
@@ -40,6 +43,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-15
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.2.2-14
 - OCaml 5.0.0 rebuild
 

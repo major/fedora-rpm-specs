@@ -1,6 +1,6 @@
 Name:           perl-Taint-Runtime
 Version:        0.03
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Runtime enable taint checking
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Taint-Runtime
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Taint::Runtime.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-49
+- Perl 5.38 rebuild
+
 * Sat May 13 2023 Paul Howarth <paul@city-fan.org> - 0.03-48
 - Spec tidy-up
   - Use SPDX-format license tag

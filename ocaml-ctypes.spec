@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # Enable building and running the tests
 # This is disabled by default, because ocaml-lwt requires this package to build.
 %bcond_with test
 
 Name:           ocaml-ctypes
 Version:        0.20.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
@@ -117,6 +120,9 @@ make test
 %doc *.html *.css
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.20.2-3
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.20.2-2
 - OCaml 5.0.0 rebuild
 

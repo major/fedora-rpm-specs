@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-logs
 Version:        0.7.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Logging infrastructure for OCaml
 
 License:        ISC
@@ -77,6 +80,9 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-11
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-10
 - OCaml 5.0.0 rebuild
 - Add patch to adapt to ocaml-mtime 2.0.0

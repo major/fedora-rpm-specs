@@ -5,7 +5,7 @@
 
 Name:           perl-CryptX
 Version:        0.078
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
 # src/ltm/*:    Unlicense
@@ -152,6 +152,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.078-2
+- Perl 5.38 rebuild
+
 * Thu May 11 2023 Xavier Bachelot <xavier@bachelot.org> - 0.078-1
 - Update to 0.078 (RHBZ#2120043)
 - Convert license to SPDX

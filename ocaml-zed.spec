@@ -1,87 +1,80 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
 Name:           ocaml-zed
-Version:        3.1.0
-Release:        14%{?dist}
-Summary:        Abstract engine for text edition in OCaml
+Version:        3.2.2
+Release:        2%{?dist}
+Summary:        Abstract engine for text editing in OCaml
 
-%global libname %(echo %{name} | sed -e 's/^ocaml-//')
-
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ocaml-community/zed
-Source0:        https://github.com/ocaml-community/zed/archive/%{version}/%{libname}-%{version}.tar.gz
+Source0:        https://github.com/ocaml-community/zed/archive/%{version}/zed-%{version}.tar.gz
+# We don't need the uchar forwards compatibility package
+Patch0:         %{name}-uchar.patch
 
-BuildRequires:  ocaml
-BuildRequires:  ocaml-camomile-devel
+BuildRequires:  ocaml >= 4.02.3
+BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml-dune >= 3.0
 BuildRequires:  ocaml-react-devel
-BuildRequires:  ocaml-charinfo-width-devel
-
-BuildRequires:  ocaml-dune
+BuildRequires:  ocaml-result-devel
+BuildRequires:  ocaml-uucp-devel >= 2.0.0
+BuildRequires:  ocaml-uuseg-devel
+BuildRequires:  ocaml-uutf-devel
 
 %description
-Zed is an abstract engine for text edition. It can be used to
-write text editors, edition widgets, readlines, ... You just
+Zed is an abstract engine for text editing.  It can be used to
+write text editors, editing widgets, readlines, ...  You just
 have to connect an engine to your inputs and rendering functions
 to get an editor.
 
-Zed provides: edition state management, multiple cursor support,
+Zed provides: editing state management, multiple cursor support,
 key-binding helpers, and general purpose unicode rope
 manipulation functions.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
-Requires:       ocaml-camomile-devel%{_isa}
 Requires:       ocaml-react-devel%{_isa}
-Requires:       ocaml-charinfo-width-devel%{_isa}
+Requires:       ocaml-result-devel%{_isa}
+Requires:       ocaml-uucp-devel%{_isa}
+Requires:       ocaml-uuseg-devel%{_isa}
+Requires:       ocaml-uutf-devel%{_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{libname}-%{version}
+%autosetup -n zed-%{version} -p1
 
 %build
-# It might be nice to have a %jbuilder macro that just does this.
-dune build -p %{libname} %{?_smp_mflags}
+%dune_build
 
 %install
-dune install --destdir=%{buildroot}
+%dune_install
 
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
+%check
+%dune_check
 
-# We do not want the ml files
-find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
-
-%ifarch %{ocaml_native_compiler}
-# Add missing executable bits
-find %{buildroot}%{_libdir}/ocaml -name \*.cmxs -exec chmod a+x {} \+
-%endif
-
-%files
+%files -f .ofiles
 %license LICENSE
 %doc README.md CHANGES.md
-%{_libdir}/ocaml/%{libname}
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/*/*.a
-%exclude %{_libdir}/ocaml/*/*.cmxa
-%exclude %{_libdir}/ocaml/*/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/*/*.mli
 
-
-%files devel
-%license LICENSE
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/*/*.a
-%{_libdir}/ocaml/*/*.cmxa
-%{_libdir}/ocaml/*/*.cmx
-%endif
-%{_libdir}/ocaml/*/*.mli
-
+%files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 3.2.2-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.2.2-1
+- Version 3.2.2
+- Convert License tag to SPDX
+- Use new dune macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.1.0-14
 - Rebuild OCaml packages for F38
 

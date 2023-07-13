@@ -1,6 +1,6 @@
 Name:           perl-Clownfish-CFC
 Version:        0.6.3
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Compiler for Apache Clownfish
 # other files:          ASL 2.0
 ## Unbundled
@@ -110,6 +110,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.6.3-21
+- Perl 5.38 rebuild
+
 * Mon Jan 30 2023 Jens Petersen <petersen@redhat.com> - 0.6.3-20
 - rebuild
 

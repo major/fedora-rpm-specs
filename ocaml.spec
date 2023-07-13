@@ -37,7 +37,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -81,11 +81,10 @@ Patch: 0014-Merge-pull-request-12286-from-smorimoto-replace-set-.patch
 # Fedora-specific patches
 Patch: 0015-Don-t-add-rpaths-to-libraries.patch
 Patch: 0016-configure-Allow-user-defined-C-compiler-flags.patch
-Patch: 0017-configure-Only-use-OC_-for-building-executables.patch
 
 # Fix skiplist test failure
 # https://github.com/ocaml/ocaml/pull/12346
-Patch: 0018-Fix-skiplist-test-failure-12346.patch
+Patch: 0017-Fix-skiplist-test-failure-12346.patch
 
 BuildRequires:  make
 BuildRequires:  git
@@ -115,7 +114,11 @@ Provides:       bundled(md5-plumb)
 
 Provides:       ocaml(compiler) = %{version}
 
+%if %{native_compiler}
 %global __ocaml_requires_opts -c -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo.byte'
+%else
+%global __ocaml_requires_opts -c -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo.byte' -i Backend_intf -i Inlining_decision_intf -i Simplify_boxed_integer_ops_intf
+%endif
 %global __ocaml_provides_opts -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo.byte'
 
 
@@ -228,7 +231,11 @@ sed -i '/ld_opts/s|\[\]|["%{build_ldflags}"]|' tools/ocamlmklib.ml
     --libdir=%{_libdir}/ocaml \
     --enable-flambda \
 %if %{native_compiler}
+    --enable-native-compiler \
     --enable-native-toplevel \
+%else
+    --disable-native-compiler \
+    --disable-native-toplevel \
 %endif
 %ifarch x86_64
 %if 0%{?_include_frame_pointers}
@@ -355,9 +362,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/ocaml
 %{_libdir}/ocaml/sys.ml.in
 %{_libdir}/ocaml/libcamlrun_shared.so
 
-%{_libdir}/ocaml/{dynlink,runtime_events,str,threads,unix}/*.a
 %{_libdir}/ocaml/{dynlink,runtime_events,str,threads,unix}/*.mli
 %if %{native_compiler}
+%{_libdir}/ocaml/{dynlink,runtime_events,str,threads,unix}/*.a
 %{_libdir}/ocaml/{dynlink,runtime_events,str,threads,unix}/*.cmxa
 %{_libdir}/ocaml/{dynlink,profiling,runtime_events,str,threads,unix}/*.cmx
 %{_libdir}/ocaml/profiling/*.o
@@ -438,11 +445,12 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/ocaml
 
 
 %changelog
-* Wed Jun 14 2023 Jerry James <loganjerry@gmail.com> - 5.0.0-1
+* Wed Jun 14 2023 Jerry James <loganjerry@gmail.com> - 5.0.0-2
 - Version 5.0.0
 - Convert License tag to SPDX
 - Ship HTML documentation instead of asciidoc source
 - Set ocamlmklib default flags to the Fedora linker flags
+- Enable frame pointers on x86_64
 
 * Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 4.14.0-5
 - Rebuild OCaml packages for F38

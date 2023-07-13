@@ -8,7 +8,7 @@
 Name:             gr-air-modes
 URL:              http://github.com/bistromath/gr-air-modes
 Version:          0
-Release:          0.101.%{git_suffix}%{?dist}
+Release:          0.102.%{git_suffix}%{?dist}
 License:          GPLv3+
 BuildRequires:    cmake
 BuildRequires:    gcc-c++
@@ -86,6 +86,10 @@ popd
 %{_libdir}/cmake/{air_modes,gr-air_modes}/*.cmake
 
 %changelog
+* Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0-0.102.20200807git9e2515a5
+- Rebuilt for new python
+  Resolves: rhbz#2220005
+
 * Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0-0.101.20200807git9e2515a5
 - Rebuilt due to spdlog 1.12 update.
 

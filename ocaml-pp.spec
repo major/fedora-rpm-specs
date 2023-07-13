@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -12,7 +15,7 @@
 
 Name:           ocaml-pp
 Version:        1.1.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pretty printing library for OCaml
 
 License:        MIT
@@ -156,6 +159,9 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.2-7
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.1.2-6
 - OCaml 5.0.0 rebuild
 - Support building without dune

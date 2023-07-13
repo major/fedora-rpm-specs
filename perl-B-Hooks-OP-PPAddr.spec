@@ -1,6 +1,6 @@
 Name:           perl-B-Hooks-OP-PPAddr
 Version:        0.06
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Hook into opcode execution
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Hooks-OP-PPAddr
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-19
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

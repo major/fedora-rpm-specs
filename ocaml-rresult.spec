@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-rresult
 Version:        0.7.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Result value combinators for OCaml
 
 License:        ISC
@@ -65,6 +68,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-9
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-8
 - OCaml 5.0.0 rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Encode-EUCJPASCII
 Version:        0.03
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        EucJP-ascii - An eucJP-open mapping
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Encode-EUCJPASCII
@@ -51,6 +51,9 @@ make test
 %exclude %dir %{perl_vendorarch}/auto/
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-40
+- Perl 5.38 rebuild
+
 * Tue May 30 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.03-39
 - Update license to SPDX format
 

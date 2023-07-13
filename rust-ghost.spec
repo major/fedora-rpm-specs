@@ -5,7 +5,7 @@
 %global crate ghost
 
 Name:           rust-ghost
-Version:        0.1.9
+Version:        0.1.13
 Release:        %autorelease
 Summary:        Define your own PhantomData
 

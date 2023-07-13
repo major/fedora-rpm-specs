@@ -1,6 +1,6 @@
 Name:       perl-srpm-macros    
 Version:    1
-Release:    48%{?dist}
+Release:    49%{?dist}
 Summary:    RPM macros for building Perl source package from source repository
 License:    GPL-3.0-or-later
 Source0:    macros.perl-srpm
@@ -18,6 +18,9 @@ install -m 644 -D "%{SOURCE0}" \
 %{_rpmconfigdir}/macros.d/macros.perl-srpm
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.49
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

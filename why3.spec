@@ -1,17 +1,18 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # NOTE: Upstream has said that the Frama-C support is still experimental, and
 # less functional than the corresponding support in why2.  They recommend not
 # enabling it for now.  We abide by their wishes.  Revisit this decision each
 # release.
-
-%undefine _package_note_flags
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           why3
-Version:        1.5.1
-Release:        7%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -22,6 +23,10 @@ Source1:        fr.lri.%{name}.desktop
 # AppData file written by Jerry James
 Source2:        fr.lri.%{name}.metainfo.xml
 
+# Support coq 8.17.  See
+# https://gitlab.inria.fr/why3/why3/-/commit/64facc03bdc2bc4ce0586ff2f458bcd87f646ba8
+Patch0:         %{name}-coq-8.17.patch
+
 # ANTLR is unavailable on i686, so coq is also unavailable.  We could build
 # without coq support, but choose to forgo i686 support entirely.
 # See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
@@ -30,12 +35,15 @@ ExclusiveArch:  %{java_arches}
 
 BuildRequires:  appstream
 BuildRequires:  coq
+BuildRequires:  emacs-nox
 BuildRequires:  emacs-proofgeneral
 BuildRequires:  flocq
+BuildRequires:  graphviz
 BuildRequires:  latexmk
 BuildRequires:  make
 BuildRequires:  ocaml
-BuildRequires:  ocaml-camlp5-devel
+BuildRequires:  ocaml-apron-devel
+BuildRequires:  ocaml-camlidl-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-lablgtk3-sourceview3-devel
 BuildRequires:  ocaml-menhir
@@ -62,8 +70,6 @@ BuildRequires:  tex(tgtermes.sty)
 BuildRequires:  tex(upquote.sty)
 BuildRequires:  tex(wrapfig.sty)
 BuildRequires:  tex-urlbst
-BuildRequires:  emacs
-BuildRequires:  graphviz
 
 Requires:       gtksourceview3%{?_isa}
 Requires:       hicolor-icon-theme
@@ -129,7 +135,6 @@ based on Why3, including various automated and interactive provers.
 
 %package -n ocaml-%{name}
 Summary:        Software verification library for ocaml
-Requires:       ocaml-num%{?_isa}
 Requires:       ocaml-zip-devel%{?_isa}
 
 %description -n ocaml-%{name}
@@ -174,19 +179,12 @@ sed -e "s|-Wall|%{build_cflags}|;s/ -O -g//" \
     -e "s|^OLINKFLAGS =.*|& -runtime-variant _pic -ccopt \"%{build_ldflags}\"|" \
     -i Makefile.in
 
-# Remove spurious executable bits
-find -O3 examples -type f -perm /0111 -exec chmod a-x {} +
-chmod a+x examples/*.sh
-
 # Update the ProofGeneral integration instructions
 sed -i.orig 's,(MY_PATH_TO_WHY3)/share/whyitp,%{_emacs_sitelispdir},' share/whyitp/README
 fixtimestamp share/whyitp/README
 
-# Look for the seq module in the right place
-sed -i 's/stdlib__seq\.cmi/seq.mli/g' configure
-
 %build
-%configure --enable-verbose-make
+%configure --enable-verbose-make --enable-bddinfer
 # FIXME: Parallel make sometimes fails
 make
 make doc
@@ -310,6 +308,11 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-1
+- Version 1.6.0
+- Enable inference with BDDs
+- Add patch for coq 8.17 support
+
 * Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 1.5.1-7
 - Rebuild for coq 8.17.0
 

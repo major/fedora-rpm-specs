@@ -2,7 +2,7 @@
 
 Name:           perl-threads-shared
 Version:        1.68
-Release:        1%{?dist}
+Release:        499%{?dist}
 Summary:        Perl extension for sharing data structures between threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads-shared
@@ -118,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.68-499
+- Increase release to favour standalone package
+
 * Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.68-1
 - Upgrade to 1.68 as provided in perl-5.37.11
 - Package tests

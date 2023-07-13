@@ -1,6 +1,6 @@
 Name:           perl-Wx-GLCanvas
 Version:        0.09
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Interface to wxWidgets' OpenGL canvas
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Wx-GLCanvas
@@ -61,6 +61,9 @@ xvfb-run make test
 %{_mandir}/man3/Wx::GLCanvas*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-35
+- Perl 5.38 rebuild
+
 * Sat Jan 21 2023 Scott Talbert <swt@techie.net> - 0.09-34
 - Rebuild with wxWidgets 3.2
 

@@ -27,7 +27,12 @@
 %global SHARP  0
 %endif
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+%ifnarch %{ix86}
 %global OCAML  1
+%else
+%global OCAML  0
+%endif
 
 %global DEVIL  1
 %global ARRRR  1
@@ -98,8 +103,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		8.0.5
-Release:		3%{?dist}
+Version:		8.1.0
+Release:		2%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -772,6 +777,13 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 8.1.0-2
+- Perl 5.38 rebuild
+
+* Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.1.0-1
+- New version
+  Resolves: rhbz#2221142
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 8.0.5-3
 - OCaml 5.0.0 rebuild
 

@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-astring
 Version:        0.8.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Alternative String module for OCaml
 
 License:        ISC
@@ -90,6 +93,9 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-15
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.8.5-14
 - OCaml 5.0.0 rebuild
 - Add patch to adapt tests to OCaml 5.0

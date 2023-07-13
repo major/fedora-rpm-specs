@@ -1,6 +1,6 @@
 Name:       perl-Math-Random-MT
 Version:    1.17
-Release:    5%{?dist}
+Release:    6%{?dist}
 License:    BSD
 Summary:    The Mersenne Twister PRNG
 Source:     https://cpan.metacpan.org/authors/id/F/FA/FANGLY/Math-Random-MT-%{version}.tar.gz
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.17-6
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

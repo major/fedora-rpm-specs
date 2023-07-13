@@ -1,6 +1,6 @@
 Name:           perl-Text-Tabs+Wrap
 Version:        2023.0511
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Expand tabs and do simple line wrapping
 License:        TTWL
 URL:            https://metacpan.org/release/Text-Tabs%2BWrap
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2023.0511-2
+- Perl 5.38 rebuild
+
 * Thu May 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2023.0511-1
 - 2023.0511 bump
 

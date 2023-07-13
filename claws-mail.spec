@@ -21,7 +21,7 @@ Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
 
 Name:           claws-mail
 Version:        4.1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
@@ -662,6 +662,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-8
+- Perl 5.38 rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.1.1-7
 - Rebuilt for Python 3.12
 

@@ -3,7 +3,7 @@
 
 Name:           perl-CPAN-Meta-Requirements
 Version:        2.143
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Set of version requirements for a CPAN dist
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta-Requirements
@@ -97,6 +97,9 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/CPAN::Meta::Requirements::Range.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.143-2
+- Perl 5.38 rebuild
+
 * Tue Jun 20 2023 Paul Howarth <paul@city-fan.org> - 2.143-1
 - Update to 2.143 (rhbz#2216187)
   - Fix regression with implicit minimum value and multiple requirements (GH#38)

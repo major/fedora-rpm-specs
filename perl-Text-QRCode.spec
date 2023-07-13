@@ -7,7 +7,7 @@ Name: perl-%{FullName}
 Summary: Perl module to generate text base QR Code
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
 Version: 0.05
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -67,6 +67,9 @@ make test VERBOSE=1
 %{_mandir}/man3/Text::QRCode.3pm.gz
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-5
+- Perl 5.38 rebuild
+
 * Wed Feb 08 2023 Johan Vromans <jvromans@squirrel.nl> - 0.05-4
 - Incorporate reviewer feedback.
 

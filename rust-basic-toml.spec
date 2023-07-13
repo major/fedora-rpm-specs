@@ -5,7 +5,7 @@
 %global crate basic-toml
 
 Name:           rust-basic-toml
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Minimal TOML library with few dependencies
 

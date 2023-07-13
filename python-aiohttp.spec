@@ -129,7 +129,7 @@ rm -rvf .git
 export PYTHONSAFEPATH=1
 # Setting PYTHONSAFEPATH works only for Python 3.11+, so we must skip any
 # affected tests on older Pythons.
-%if v"%{python3_version}" < v"3.11"
+%if v"0%{?python3_version}" < v"3.11"
 k="${k-}${k+ and }not test_no_warnings"
 %endif
 # test_proxy_functional.py requires python3dist(proxy-py)

@@ -3,7 +3,7 @@
 
 Name:           perl-Lexical-SealRequireHints
 Version:        0.012
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Prevent leakage of lexical hints
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lexical-SealRequireHints
@@ -70,6 +70,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Lexical::SealRequireHints.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.012-2
+- Perl 5.38 rebuild
+
 * Sat Mar 11 2023 Paul Howarth <paul@city-fan.org> - 0.012-1
 - Update to 0.012 (see Changes for details) (rhbz#2177338)
 - Make %%files list more explicit

@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifarch %{ocaml_native_compiler}
 %undefine _debugsource_packages
 %else
@@ -6,7 +9,7 @@
 
 Name:           ocaml-compiler-libs-janestreet
 Version:        0.12.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        OCaml compiler libraries repackaged
 
 License:        MIT
@@ -45,6 +48,9 @@ signature files for developing applications that use
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.12.4-12
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.12.4-11
 - OCaml 5.0.0 rebuild
 

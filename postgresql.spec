@@ -65,7 +65,7 @@ Summary: PostgreSQL client programs
 Name: postgresql
 %global majorversion 15
 Version: %{majorversion}.3
-Release: 3%{?dist}
+Release: 5%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1262,6 +1262,12 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 15.3-5
+- Rebuilt for ICU 73.2
+
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 15.3-4
+- Perl 5.38 rebuild
+
 * Mon Jul 03 2023 Timothée Ravier <tim@siosm.fr> - 15.3-3
 - Use sysusers configuration to setup user & group
 

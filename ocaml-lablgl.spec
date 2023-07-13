@@ -1,7 +1,10 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-lablgl
 Epoch:          1
 Version:        1.07
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LablGL is an OpenGL interface for Objective Caml
 License:        BSD-3-Clause
 
@@ -129,6 +132,9 @@ popd
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.07-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1:1.07-1
 - Version 1.07
 - Convert License tag to SPDX

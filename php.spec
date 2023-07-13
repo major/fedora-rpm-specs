@@ -70,7 +70,7 @@
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1540,6 +1540,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 8.2.8-3
+- Rebuilt for ICU 73.2
+
 * Wed Jul  5 2023 Remi Collet <remi@remirepo.net> - 8.2.8-2
 - move httpd/nginx wants directive to config files in /etc
 

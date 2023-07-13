@@ -1,12 +1,9 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-odoc
 Version:        2.2.0
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
 # ISC: The project as a whole
@@ -95,6 +92,12 @@ _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.
 %license LICENSE.md
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.0-6
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-5
+- OCaml 5.0.0 rebuild
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-4
 - Re-enable debuginfo now that dune is fixed
 

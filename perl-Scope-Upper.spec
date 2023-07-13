@@ -1,7 +1,7 @@
 Name:           perl-Scope-Upper
 Summary:        Act on upper scopes
 Version:        0.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/V/VP/VPIT/Scope-Upper-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Scope-Upper
@@ -103,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.34-2
+- Perl 5.38 rebuild
+
 * Mon Mar 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.34-1
 - 0.34 bump
 

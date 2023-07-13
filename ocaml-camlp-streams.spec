@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-camlp-streams
 Version:        5.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Stream and Genlex libraries for OCaml
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -63,6 +66,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.1-6
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.0.1-5
 - OCaml 5.0.0 rebuild
 

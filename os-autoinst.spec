@@ -37,7 +37,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OS-level test automation
 License:        GPLv2+
 URL:            https://os-autoinst.github.io/openQA/
@@ -243,6 +243,9 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.6^20230527git1946eb1-2
+- Perl 5.38 rebuild
+
 * Fri May 26 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230527git1946eb1-1
 - Update to latest git, drop merged patch, sync spec
 

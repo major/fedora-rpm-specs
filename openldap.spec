@@ -14,7 +14,7 @@
 
 Name: openldap
 Version: 2.6.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: LDAP support libraries
 License: OpenLDAP
 URL: http://www.openldap.org/
@@ -506,6 +506,9 @@ exit 0
 %{_libdir}/libslapi-2.4*.so.*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.6.4-3
+- Perl 5.38 rebuild
+
 * Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 2.6.4-2
 - Apply upstream patch to fix C99 compatibility issues
 

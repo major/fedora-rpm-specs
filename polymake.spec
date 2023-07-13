@@ -14,7 +14,7 @@
 
 Name:           polymake
 Version:        4.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -314,6 +314,9 @@ sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ni
 %doc doc/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.10-2
+- Perl 5.38 rebuild
+
 * Mon Jun 12 2023 Jerry James <loganjerry@gmail.com> - 4.10-1
 - Version 4.10
 

@@ -1,6 +1,6 @@
 Name:           perl-Net-Patricia
 Version:        1.22
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Patricia Trie perl module for fast IP address lookups
 # The entire source code is GPLv2+ except libpatricia/ which is BSD
 License:        GPLv2+ and BSD
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.22-35
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk2-TrayIcon
 Version:        0.07
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl interface to the EggTrayIcon library (deprecated)
 License:        LGPLv2+ 
 URL:            https://metacpan.org/release/Gtk2-TrayIcon            
@@ -77,6 +77,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.07-9
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

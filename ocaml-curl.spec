@@ -1,7 +1,9 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-curl
 Version:        0.9.2
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
@@ -41,8 +43,13 @@ developing applications that use %{name}.
 find . -type f -perm /0111 -exec chmod 0644 {} +
 chmod 0755 configure install-sh
 
-# Link with debuginfo and RPM_LD_FLAGS
-sed -i "s|\$(OCAMLMKLIB)|& -g -ldopt '%build_ldflags'|" Makefile.in
+# Link with debuginfo
+sed -i "s|\$(OCAMLMKLIB)|& -g|" Makefile.in
+
+%ifnarch %{ocaml_native_compiler}
+# Do not try to install native objects
+sed -i 's/ curl_lwt\$(EXT_OBJ)//;s/ curl\$(EXT_LIB)//' Makefile.in
+%endif
 
 
 %build
@@ -81,6 +88,12 @@ make -C examples clean
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.2-7
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.9.2-6
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.2-5
 - Bump release and rebuild
 

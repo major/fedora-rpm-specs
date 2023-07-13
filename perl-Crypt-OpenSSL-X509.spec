@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-X509
 Version:        1.915
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to OpenSSL for X509
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-X509
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.915-2
+- Perl 5.38 rebuild
+
 * Mon Jun 26 2023 Xavier Bachelot <xavier@bachelot.org> - 1.915-1
 - Update to 1.915 (RHBZ#2215981)
 

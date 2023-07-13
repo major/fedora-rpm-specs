@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-nose2
 Version:        0.13.0
@@ -36,7 +36,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  hardlink
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
@@ -65,10 +65,12 @@ Summary:        Next generation of nicer testing for Python
 %description -n python3-nose2 %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for %{name}
 
 %description    doc %{common_description}
+%endif
 
 
 %pyproject_extras_subpkg -n python3-nose2 coverage_plugin
@@ -84,6 +86,12 @@ sed -r -i '/"sphinx_issues",/d' docs/conf.py
 # Workaround for https://github.com/rpm-software-management/rpm/issues/2532:
 rm -rf SPECPARTS
 
+# Remove shebangs from non-script sources. The find-then-modify pattern
+# preserves mtimes on sources that did not need to be modified.
+find nose2/ -type f -name '*.py' \
+    -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
+  xargs -r -t sed -r -i '1{/^#!/d}'
+
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -91,7 +99,7 @@ rm -rf SPECPARTS
 
 %build
 %pyproject_wheel
-%if %{with doc_pdf}
+%if %{with doc}
 PYTHONPATH="${PWD}" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
@@ -111,20 +119,19 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 %files -n python3-nose2 -f %{pyproject_files}
 %doc AUTHORS
-%doc README.rst
+%if %{without doc}
+%doc README.rst docs/changelog.rst
+%endif
 
 %{_bindir}/nose2
 %{_mandir}/man1/nose2.1*
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
-%doc AUTHORS
-%doc README.rst
-%doc docs/changelog.rst
-%doc contributing.rst
+%doc AUTHORS README.rst docs/changelog.rst
 
-%if %{with doc_pdf}
 %doc docs/_build/latex/nose2.pdf
 %endif
 

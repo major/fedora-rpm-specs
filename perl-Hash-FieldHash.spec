@@ -1,6 +1,6 @@
 Name:           perl-Hash-FieldHash
 Version:        0.15
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Lightweight field hash implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hash-FieldHash
@@ -77,6 +77,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Hash::FieldHash.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-24
+- Perl 5.38 rebuild
+
 * Fri Apr 21 2023 Paul Howarth <paul@city-fan.org> - 0.15-23
 - Use SPDX-format license tag
 - Avoid use of deprecated patch syntax

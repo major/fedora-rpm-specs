@@ -29,7 +29,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.17.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Sendmail
 URL: http://www.sendmail.org/
 
@@ -654,12 +654,12 @@ exit 0
 %config(noreplace) %{maildir}/virtusertable
 
 %ghost %{maildir}/aliasesdb-stamp
-%ghost %{maildir}/virtusertable.db
-%ghost %{maildir}/access.db
-%ghost %{maildir}/domaintable.db
-%ghost %{maildir}/mailertable.db
+%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/virtusertable.db
+%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/access.db
+%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/domaintable.db
+%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/mailertable.db
 
-%ghost %{spooldir}/clientmqueue/sm-client.st
+%ghost %attr(0660, smmsp, smmsp) %verify(not md5 size mtime) %{spooldir}/clientmqueue/sm-client.st
 
 %{_unitdir}/sendmail.service
 %{_unitdir}/sm-client.service
@@ -708,6 +708,10 @@ exit 0
 
 
 %changelog
+* Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.17.2-2
+- Fixed verification of the ghost files
+  Related: rhbz#2052091
+
 * Mon Jun  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.17.2-1
 - New version
   Resolves: rhbz#2212083

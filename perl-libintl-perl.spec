@@ -1,7 +1,7 @@
 Summary:        Internationalization library for Perl, compatible with gettext
 Name:           perl-libintl-perl
 Version:        1.33
-Release:        3%{?dist}
+Release:        4%{?dist}
 # gettext_xs/gettext_xs.pm:     GPL-3.0-or-later
 # gettext_xs/Makefile.PL:       LGPL-2.0-or-later
 # lib/Locale/gettext_xs.pod:    LGPL-2.0-or-later
@@ -105,6 +105,9 @@ make test
 %{_mandir}/man?/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.33-4
+- Perl 5.38 rebuild
+
 * Wed May 31 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.33-3
 - Update license to SPDX format
 

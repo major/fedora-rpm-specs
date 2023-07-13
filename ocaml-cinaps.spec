@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # This package is needed to build ppx_jane, but its tests require ppx_jane.
 # Break the dependency cycle here.
 %bcond_with test
 
 Name:           ocaml-cinaps
 Version:        0.15.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Trivial Metaprogramming tool using the OCaml toplevel
 
 License:        MIT
@@ -68,6 +71,9 @@ help2man -N --version-string=%{version} %{buildroot}%{_bindir}/cinaps > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.1-12
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.15.1-11
 - OCaml 5.0.0 rebuild
 

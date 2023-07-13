@@ -1,8 +1,9 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-lambda-term
-Version:        3.2.0
-Release:        4%{?dist}
+Version:        3.3.1
+Release:        2%{?dist}
 Summary:        Terminal manipulation library for OCaml
 
 License:        BSD-3-Clause
@@ -10,15 +11,13 @@ URL:            https://github.com/ocaml-community/lambda-term
 Source0:        %{url}/archive/%{version}/lambda-term-%{version}.tar.gz
 
 BuildRequires:  ocaml >= 4.08.0
-BuildRequires:  ocaml-camomile-devel >= 1.0.1
-BuildRequires:  ocaml-lwt-devel >= 4.0.0
+BuildRequires:  ocaml-dune >= 3.0
+BuildRequires:  ocaml-logs-devel
+BuildRequires:  ocaml-lwt-devel >= 4.2.0
 BuildRequires:  ocaml-lwt-react-devel
-BuildRequires:  ocaml-lwt-log-devel
 BuildRequires:  ocaml-mew-vi-devel >= 0.5.0
 BuildRequires:  ocaml-react-devel
-BuildRequires:  ocaml-zed-devel >= 3.0.0
-
-BuildRequires:  ocaml-dune >= 1.1.0
+BuildRequires:  ocaml-zed-devel >= 3.2.0
 
 %description
 Lambda-term is a cross-platform library for manipulating the terminal. It
@@ -35,10 +34,11 @@ console applications.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-logs-devel%{?_isa}
 Requires:       ocaml-lwt-devel%{?_isa}
-Requires:       ocaml-lwt-log-devel%{?_isa}
 Requires:       ocaml-lwt-react-devel%{?_isa}
 Requires:       ocaml-mew-vi-devel%{?_isa}
+Requires:       ocaml-uucp-devel%{?_isa}
 Requires:       ocaml-zed-devel%{?_isa}
 
 %description    devel
@@ -50,12 +50,6 @@ developing applications that use %{name}.
 
 %build
 %dune_build
-
-# Relink the stublib with RPM_LD_FLAGS
-cd _build/default/src
-ocamlmklib -g -ldopt "$RPM_LD_FLAGS" -o lambda_term_stubs \
-  $(ar t liblambda_term_stubs.a)
-cd -
 
 %install
 %dune_install
@@ -77,6 +71,12 @@ sed -e 's,%{_datadir}/lambda-termrc,%{_datadir}/lambda-term,' \
 %license LICENSE
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 3.3.1-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.3.1-1
+- Version 3.3.1
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.2.0-4
 - Rebuild OCaml packages for F38
 

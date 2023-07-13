@@ -27,7 +27,12 @@
 %endif
 %{!?rubylang:%global rubylang 1}
 %{!?python3lang:%global python3lang 1}
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+%ifarch %{ix86}
+%{!?ocamllang:%global ocamllang 0}
+%else
 %{!?ocamllang:%global ocamllang 1}
+%endif
 
 %if 0%{?rhel}
 %{!?golang:%global golang 0}
@@ -58,7 +63,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -362,6 +367,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-8
+- OCaml 5.0 rebuild for Fedora 39
+
 * Tue Jun 20 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-7
 - Enable OCaml support
 - Add patch for OCaml 5.0.0

@@ -1,6 +1,6 @@
 Name:           perl-POSIX-AtFork
 Version:        0.04
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Hook registrations at fork(2)
 # lib/POSIX/AtFork.pm:          GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:                       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.04-13
+- Perl 5.38 rebuild
+
 * Tue Jan 24 2023 Petr Pisar <ppisar@redhat.com> - 0.04-12
 - Convert a License tag to an SPDX format
 - Package the tests

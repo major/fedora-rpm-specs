@@ -1,6 +1,6 @@
 Name:           perl-multidimensional
 Version:        0.014
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Disables multidimensional array emulation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/multidimensional
@@ -100,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.014-17
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

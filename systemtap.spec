@@ -123,7 +123,7 @@ m     stapdev  stapdev
 
 Name: systemtap
 # PRERELEASE
-Version: 5.0~pre16890184ge891a37e
+Version: 5.0~pre16891249ge891a37e
 Release: 0.1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
@@ -1308,6 +1308,10 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Tue Jul 11 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-16891249ge891a37e
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
 * Mon Jul 10 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-16890184ge891a37e
 - Automated weekly rawhide release
 - Applied spec changes from upstream git

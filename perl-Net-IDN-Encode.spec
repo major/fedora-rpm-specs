@@ -1,7 +1,7 @@
 Name:           perl-Net-IDN-Encode
 Summary:        Internationalizing Domain Names in Applications (IDNA)
 Version:        2.500
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IDN-Encode
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFAERBER/Net-IDN-Encode-%{version}.tar.gz
@@ -85,6 +85,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -exec rm -f {} \;
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.500-17
+- Perl 5.38 rebuild
+
 * Tue May 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.500-16
 - Fix patch warning
 - Update license to SPDX format

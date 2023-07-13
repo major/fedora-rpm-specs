@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Role-WithOverloading
 Version:        0.17
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Roles that support overloading
 URL:            https://metacpan.org/release/MooseX-Role-WithOverloading
@@ -71,6 +71,9 @@ AUTHOR_TESTING=1 make test
 %{_mandir}/man3/MooseX::Role::WithOverloading::Meta::Role::Application.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.17-26
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

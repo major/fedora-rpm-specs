@@ -1,6 +1,6 @@
 Name:           perl-Socket6
 Version:        0.29
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        IPv6 related part of the C socket.h defines and structure manipulators
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Socket6
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Socket6.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.29-18
+- Perl 5.38 rebuild
+
 * Thu Mar 23 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.29-17
 - Update license to SPDX format
 

@@ -4,7 +4,7 @@
 Name:           perl-Crypt-SSLeay
 Summary:        OpenSSL glue that provides LWP with HTTPS support
 Version:        0.72
-Release:        38%{?dist}
+Release:        39%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Crypt-SSLeay
 Source0:        https://cpan.metacpan.org/authors/id/N/NA/NANIS/Crypt-SSLeay-%{version}.tar.gz
@@ -111,6 +111,9 @@ make test
 %{_mandir}/man3/Net::SSL.3pm*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.72-39
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.72-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

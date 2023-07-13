@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -12,7 +15,7 @@
 
 Name:           ocaml-csexp
 Version:        1.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parsing and printing of S-expressions in canonical form
 
 License:        MIT
@@ -144,6 +147,9 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5.2-3
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.5.2-2
 - OCaml 5.0.0 rebuild
 

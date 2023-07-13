@@ -1,8 +1,9 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-import
 Version:        1.10.0
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Syntax extension for importing declarations from interface files
 
 License:        MIT
@@ -51,6 +52,12 @@ sed -i 's/oUnit/ounit2/' src_test/ppx_deriving/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.10.0-8
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.10.0-7
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.10.0-6
 - Rebuild OCaml packages for F38
 

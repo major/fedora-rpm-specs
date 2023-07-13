@@ -17,7 +17,7 @@
 
 Name:           mapserver
 Version:        8.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -310,6 +310,9 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 8.0.1-4
+- Perl 5.38 rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 8.0.1-3
 - Rebuilt for Python 3.12
 

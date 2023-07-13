@@ -1,9 +1,9 @@
 Name: cfitsio
 Version: 4.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Library for manipulating FITS data files
 
-License: MIT
+License: CFITSIO
 URL: http://heasarc.gsfc.nasa.gov/fitsio/
 Source0: http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-%{version}.tar.gz
 # Remove soname version check
@@ -75,11 +75,7 @@ compression algorithm.
        amount of compression
 
 %prep
-%setup -q 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1 
-%patch4 -p1 
+%autosetup -p1
 
 %build
 %configure --enable-reentrant -with-bzip2
@@ -127,6 +123,11 @@ chmod 755 %{buildroot}%{_bindir}/f{,un}pack
 %{_bindir}/funpack
 
 %changelog
+* Tue Jul 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 4.2.0-4
+- Use SPDX License
+- License name is CFITSIO
+- Use autosetup macro
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

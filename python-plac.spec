@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-plac
 Version:        1.3.5
@@ -18,13 +18,15 @@ Source1:        plac_runner.py.1
 
 # Python 3.10: asyncore/asynchat are deprecated in favour of asyncio
 # https://github.com/ialbert/plac/issues/65
+#
+# This patch is only needed for Python 3.12+ (F39+).
 Patch:          0001-Remove-server-functionality.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
@@ -53,18 +55,16 @@ Summary:        %{summary}
 %description -n python3-plac %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for plac
 
 %description doc %{common_description}
+%endif
 
 
 %prep
-%autosetup -n plac-%{version} -N
-# This can be simplified once Python 3.12+ and F39+ are synonymous.
-%if v"%{python3_version}" >= v"3.12"
-%autopatch -p1
-%endif
+%autosetup -n plac-%{version} -p1
 
 
 %generate_buildrequires
@@ -74,7 +74,7 @@ Summary:        Documentation for plac
 %build
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 PYTHONPATH="${PWD}" sphinx-build -b latex -j%{?_smp_build_ncpus} \
     doc %{_vpath_builddir}/_latex
 %make_build -C %{_vpath_builddir}/_latex LATEXMKOPTS='-quiet'
@@ -92,17 +92,17 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' '%{python3}' doc/test_plac.py
 
 
 %files -n python3-plac -f %{pyproject_files}
-# pyproject-rpm-macros takes care of LICENSE.txt; verify with “rpm -qL -p …”
+%if %{without doc}
+%doc CHANGES.md README.md RELEASE.md
+%endif
 %{_bindir}/plac_runner.py
 %{_mandir}/man1/plac_runner.py.1*
 
 
+%if %{with doc}
 %files doc
 %license LICENSE.txt
-%doc CHANGES.md
-%doc README.md
-%doc RELEASE.md
-%if %{with doc_pdf}
+%doc CHANGES.md README.md RELEASE.md
 %doc %{_vpath_builddir}/_latex/plac.pdf
 %endif
 

@@ -27,9 +27,11 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  hwloc-devel >= 2.0
+%if ! (0%{?rhel} >= 10)
 %ifarch x86_64
 BuildRequires:  infinipath-psm-devel
 BuildRequires:  libpsm2-devel
+%endif
 %endif
 BuildRequires:  libfabric-devel
 BuildRequires:  libnl3-devel

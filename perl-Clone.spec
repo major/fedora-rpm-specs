@@ -3,7 +3,7 @@
 
 Name:           perl-Clone
 Version:        0.46
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Recursively copy perl data types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Clone
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/Clone.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.46-3
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

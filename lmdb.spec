@@ -1,5 +1,5 @@
 Name:           lmdb
-Version:        0.9.30
+Version:        0.9.31
 Release:        %autorelease
 Summary:        Memory-mapped key-value database
 License:        OLDAP-2.8

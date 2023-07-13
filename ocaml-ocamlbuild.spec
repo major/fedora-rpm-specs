@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # NOTE: there is no devel subpackage because the main package *IS* a devel
 # package.
 
@@ -7,7 +10,7 @@
 
 Name:          ocaml-ocamlbuild
 Version:       0.14.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 Summary:       Build tool for OCaml libraries and programs
 
@@ -103,6 +106,9 @@ popd
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.14.2-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.14.2-1
 - Version 0.14.2
 - Convert License tag to SPDX

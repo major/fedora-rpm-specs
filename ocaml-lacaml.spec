@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-lacaml
 Version:        11.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        BLAS/LAPACK-interface for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -68,6 +71,9 @@ export LACAML_LIBS=-lflexiblas
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 11.0.10-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 11.0.10-1
 - Version 11.0.10
 - Convert the License tag to SPDX

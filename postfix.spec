@@ -49,7 +49,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.8.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
@@ -804,6 +804,13 @@ fi
 %endif
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 2:3.8.1-3
+- Rebuilt for ICU 73.2
+
+* Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.1-2
+- Fixed possible warning when postfix is restarted
+  Resolves: rhbz#2218058
+
 * Tue Jun  6 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.1-1
 - New version
   Resolves: rhbz#2212596

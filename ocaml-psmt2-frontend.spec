@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-psmt2-frontend
 Version:        0.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Parser and typechecker for an extension of SMT-LIB 2
 
 License:        Apache-2.0
@@ -65,6 +68,9 @@ make sphinx
 %doc docs/sphinx
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.4.0-10
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.4.0-9
 - OCaml 5.0.0 rebuild
 

@@ -1,20 +1,22 @@
-%undefine _package_note_flags
-%global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-expat
-Version:        0.9.1
-Release:        80%{?dist}
+Version:        1.3.0
+Release:        2%{?dist}
 Summary:        OCaml wrapper for the Expat XML parsing library
 License:        MIT
 
-URL:            http://www.xs4all.nl/~mmzeeman/ocaml/
-Source0:        http://www.xs4all.nl/~mmzeeman/ocaml/ocaml-expat-%{version}.tar.gz
+URL:            https://github.com/whitequark/ocaml-expat
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-
-BuildRequires: make
-BuildRequires:  ocaml >= 3.10.1
-BuildRequires:  ocaml-findlib-devel, expat-devel >= 2.0.1, chrpath
-BuildRequires:  util-linux-ng, gawk
+BuildRequires:  make
+BuildRequires:  ocaml
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-ounit-devel
+BuildRequires:  pkgconfig(expat)
+BuildRequires:  python3
 
 
 %description
@@ -25,7 +27,8 @@ the fly without needing to load the entire XML-Tree into memory.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       expat-devel%{?_isa}
 
 
 %description    devel
@@ -34,13 +37,22 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup
+
+# Fix the ounit name, build with Fedora flags, and make libraries with debuginfo
+sed -e 's/oUnit/ounit2/g' \
+    -e 's|-O2 -I\$(EXPAT_INCDIR)|%{build_cflags}|' \
+    -e 's/\$(OCAMLMKLIB)/& -g/' \
+    -i Makefile
+
+# We do not need the README in the doc output
+rm doc/README
 
 
 %build
 make depend
 make -j1 all \
-%if %opt
+%ifarch %{ocaml_native_compiler}
   allopt \
   OCAMLC="ocamlc.opt -g" \
   OCAMLOPT="ocamlopt.opt -g"
@@ -48,37 +60,32 @@ make -j1 all \
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
-export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-make install
-
-# Remove rpath from stublibs .so file.
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs/*.so
+export OCAMLFIND_DESTDIR=%{buildroot}%{ocamldir}
+mkdir -p $OCAMLFIND_DESTDIR/stublibs
+%make_install
+%ocaml_files
 
 
-%files
-%doc LICENCE README changelog
-%{_libdir}/ocaml/expat
-%{_libdir}/ocaml/stublibs/*.so
-%{_libdir}/ocaml/stublibs/*.so.owner
-%if %opt
-%exclude %{_libdir}/ocaml/expat/*.a
-%exclude %{_libdir}/ocaml/expat/*.cmxa
-%endif
-%exclude %{_libdir}/ocaml/expat/*.mli
+%files -f .ofiles
+%doc README changelog
+%license LICENCE
 
 
-%files devel
-%doc LICENCE README changelog
-%if %opt
-%{_libdir}/ocaml/expat/*.a
-%{_libdir}/ocaml/expat/*.cmxa
-%endif
-%{_libdir}/ocaml/expat/*.mli
+%files devel -f .ofiles-devel
+%doc README changelog
+%license LICENCE
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.3.0-1
+- Version 1.3.0
+- New project URLs
+- Verify that License tag is valid SPDX
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-80
 - Bump release and rebuild.
 

@@ -1,4 +1,5 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
@@ -6,7 +7,7 @@
 
 Name:           ocaml-odoc-parser
 Version:        2.0.0
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Parser for OCaml documentation comments
 
 License:        ISC
@@ -60,6 +61,12 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-6
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.0.0-5
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-4
 - Bump release and rebuild
 

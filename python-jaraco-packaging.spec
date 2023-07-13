@@ -6,8 +6,8 @@
 %bcond_with docs 
 
 Name:           python-%{pkg_name}
-Version:        9.2.0
-Release:        2%{?dist}
+Version:        9.3.0
+Release:        1%{?dist}
 Summary:        Tools to supplement packaging Python releases
 
 License:        MIT
@@ -62,6 +62,9 @@ Documentation for jaraco.packaging
 %autosetup -n %{pypi_name}-%{version}
 # We don't actually need jaraco.context
 sed -i '/jaraco.context/d' setup.cfg
+# domdf-python-tools is not packaged
+# it doen't appear we actually need it.
+sed -i '/domdf-python-tools/d' setup.cfg
 
 %build
 %pyproject_wheel
@@ -95,6 +98,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Tue Jul 11 2023 Dan Radez <dradez@redhat.com> - 9.3.0-1
+- update to 9.3.0 rhbz#2220826
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 9.2.0-2
 - Rebuilt for Python 3.12
 

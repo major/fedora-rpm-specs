@@ -7,7 +7,7 @@
 
 Name:           perl-Sereal-Encoder
 Version:        5.004
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
 # qsort.h:                  LGPLv2+ (borrowed from glibc)
@@ -119,6 +119,9 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.004-2
+- Perl 5.38 rebuild
+
 * Wed Apr 19 2023 Paul Howarth <paul@city-fan.org> - 5.004-1
 - Update to 5.004 (rhbz#2188043)
   - Decoder fixes: fix thaw ordering for frozen objects - nested THAW

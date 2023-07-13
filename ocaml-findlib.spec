@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 # Stripping the binary removes its bytecode payload
 %global __strip %{_bindir}/true
@@ -6,7 +9,7 @@
 
 Name:           ocaml-findlib
 Version:        1.9.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
@@ -108,6 +111,9 @@ sed -i '/ocamlfind\.conf/d' .ofiles
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.9.6-4
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.9.6-3
 - OCaml 5.0.0 rebuild
 - Verify the License is valid SPDX

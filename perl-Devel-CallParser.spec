@@ -1,6 +1,6 @@
 Name:           perl-Devel-CallParser
 Version:        0.002
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Custom parsing attached to subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallParser
@@ -75,6 +75,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Devel::CallParser.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.002-32
+- Perl 5.38 rebuild
+
 * Thu May 11 2023 Paul Howarth <paul@city-fan.org> - 0.002-31
 - Drop optional test dependency Lexical::Sub for now; t/leximport.t fails with
   Lexical::Sub 0.010 (CPAN RT#147376, rhbz#2182352)

@@ -16,7 +16,7 @@
 
 Name:           godot
 Version:        4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -308,6 +308,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 4.1-2
+- Rebuilt for ICU 73.2
+
 * Thu Jul 06 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.1-1
 - Version 4.1-stable
 - Enable pcc64le support, added in Godot 4.0

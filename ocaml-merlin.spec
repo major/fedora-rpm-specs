@@ -1,8 +1,11 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %global ocamlver 500
 
 Name:           ocaml-merlin
 Version:        4.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Context sensitive completion for OCaml
 
 # The entire source is MIT except:
@@ -144,6 +147,9 @@ cd -
 %{vimfiles_root}/*/*
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.9-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.9-1
 - Version 4.9
 - New ocaml-merlin-lib subpackage

@@ -3,18 +3,17 @@
 operations required for synchronizing plain text.
 
 Name:          python-%{srcname}
-Version:       20200713
-Release:       10%{?dist}
-Summary:       Algorithms for synchronzing plain text
+Version:       20230430
+Release:       1%{?dist}
+Summary:       Algorithms for synchronizing plain text
 
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           https://pypi.python.org/pypi/diff-match-patch/
 Source0:       https://pypi.python.org/packages/source/d/%{srcname}/%{srcname}-%{version}.tar.gz
 
 BuildArch:     noarch
 BuildRequires: python3-devel
-BuildRequires: python3-pytest
-BuildRequires: python3-setuptools
+BuildRequires: python3dist(pytest)
 
 %description
 %{desc}
@@ -28,28 +27,32 @@ Summary:       %{summary}
 
 
 %prep
-%setup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files diff_match_patch
 
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-3 -v
+%tox
+%pytest
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/diff_match_patch*
 
 
 %changelog
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 20200713-10
-- Rebuilt for Python 3.12
+* Tue Jul 11 2023 David King <amigadave@amigadave.com> - 20230430-1
+- Update to 20230430 (#2192250)
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200713-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

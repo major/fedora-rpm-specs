@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -6,7 +9,7 @@
 
 Name:           ocaml-%{libname}
 Version:        1.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-level and functional interface to the Format module
 
 License:        BSD-3-Clause
@@ -72,6 +75,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.4-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.3.4-1
 - Version 1.3.4
 - Convert License tag to SPDX

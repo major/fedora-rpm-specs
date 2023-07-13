@@ -1,12 +1,9 @@
-%undefine _package_note_flags
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-mdx
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
@@ -20,8 +17,8 @@ BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-csexp-devel >= 1.3.2
 BuildRequires:  ocaml-dune >= 3.5
-BuildRequires:  ocaml-fmt-devel >= 0.8.7
 BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-fmt-devel >= 0.8.7
 BuildRequires:  ocaml-logs-devel >= 0.7.0
 BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-odoc-parser-devel >= 1.0.0
@@ -79,6 +76,12 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.3.0-3
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.3.0-2
+- OCaml 5.0.0 rebuild
+
 * Fri Apr 28 2023 Jerry James <loganjerry@gmail.com> - 2.3.0-1
 - Version 2.3.0
 

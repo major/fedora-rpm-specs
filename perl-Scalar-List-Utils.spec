@@ -1,7 +1,7 @@
 Name:           perl-Scalar-List-Utils
 Epoch:          5
 Version:        1.63
-Release:        491%{?dist}
+Release:        499%{?dist}
 Summary:        A selection of general-utility scalar and list subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Scalar-List-Utils
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5:1.63-499
+- Increase release to favour standalone package
+
 * Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 5:1.63-491
 - Update license to SPDX format
 

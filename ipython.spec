@@ -14,7 +14,7 @@
 
 Name:           ipython
 Version:        8.14.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An enhanced interactive Python shell
 
 # See bug #603178 for a quick overview for the choice of licenses
@@ -24,6 +24,8 @@ License:        (BSD and MIT and Python) and GPLv2+
 URL:            http://ipython.org/
 Source0:        %pypi_source
 Patch1:         relax-pytest-version-requirement.patch
+# Fix tokenization compatibility with Python 3.12
+Patch2:         https://github.com/ipython/ipython/commit/635815e8f1ded5b764d66cacc80bbe25e9e2587f.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -256,6 +258,10 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 
 
 %changelog
+* Tue Jul 11 2023 Lumír Balhar <lbalhar@redhat.com> - 8.14.0-4
+- Fix compatibility with Python 3.12
+Resolves: rhbz#2221215
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 8.14.0-3
 - Rebuilt for Python 3.12
 

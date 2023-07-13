@@ -1,6 +1,6 @@
 Name:           perl-File-Map
 Version:        0.71
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Memory mapping made simple and safe
 License:        GPL+ or Artistic
 
@@ -75,6 +75,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.71-2
+- Perl 5.38 rebuild
+
 * Sun Apr 16 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.71-1
 - Update to 0.71
 

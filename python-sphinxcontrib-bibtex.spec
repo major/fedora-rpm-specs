@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-bibtex
 Version:        2.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sphinx extension for BibTeX style citations
 
 License:        BSD-2-Clause
@@ -9,6 +9,8 @@ Source0:        %{url}/archive/%{version}/sphinxcontrib-bibtex-%{version}.tar.gz
 # Skip the rinohtype tests if rinohtype is not available.  See
 # https://github.com/mcmtroffaes/sphinxcontrib-bibtex/commit/56961438ddad6773c17c5a389f7a26e29248e938
 Patch0:         %{name}-pytest.patch
+# Adapt to changed output in docutils >= 0.18 (already fixed upstream)
+Patch1:         %{name}-docutils.patch
 
 BuildArch:      noarch
 
@@ -114,6 +116,9 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 %doc html/*
 
 %changelog
+* Tue Jul 11 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-4
+- Add patch for docutils >= 0.18 (rhbz#2221984)
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.5.0-3
 - Rebuilt for Python 3.12
 

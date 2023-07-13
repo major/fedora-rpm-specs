@@ -3,7 +3,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
 #
 # We can enable the Doxygen PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           libfakekey
 Version:        0.3
@@ -25,7 +25,7 @@ BuildRequires:  libtool
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xtst)
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  doxygen
 BuildRequires:  doxygen-latex
 %endif
@@ -46,7 +46,7 @@ The libfakekey-devel package contains libraries and header files for developing
 applications that use libfakekey.
 
 
-%if %{with doc_pdf}
+%if %{with doc}
 %package doc
 Summary:        Documentation for the libfakekey library
 
@@ -60,7 +60,7 @@ Documentation for the libfakekey library.
 %prep
 %autosetup
 
-%if %{with doc_pdf}
+%if %{with doc}
 # We enable the Doxygen PDF documentation as a substitute. We must enable
 # GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
 # already be set as we like them. We also disable GENERATE_HTML, since we will
@@ -79,9 +79,9 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 # mandatory. See autogen.sh (which, however, we do not use because we need to
 # use the %%configure macro).
 autoreconf -f -i -v
-%configure --disable-static %{?with_doc_pdf:--enable-doxygen-docs}
+%configure --disable-static %{?with_doc:--enable-doxygen-docs}
 %make_build
-%if %{with doc_pdf}
+%if %{with doc}
 %make_build -C doc/latex
 %endif
 
@@ -105,7 +105,7 @@ rm -vf '%{buildroot}%{_libdir}/libfakekey.la'
 %{_libdir}/pkgconfig/libfakekey.pc
 
 
-%if %{with doc_pdf}
+%if %{with doc}
 %files doc
 %license COPYING
 %doc doc/latex/refman.pdf

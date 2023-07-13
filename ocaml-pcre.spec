@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-pcre
 Version:        7.5.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Perl compatibility regular expressions (PCRE) for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -53,6 +56,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 7.5.0-11
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 7.5.0-10
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

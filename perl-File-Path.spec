@@ -1,6 +1,6 @@
 Name:           perl-File-Path
 Version:        2.18
-Release:        490%{?dist}
+Release:        499%{?dist}
 Summary:        Create or remove directory trees
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Path
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.18-499
+- Increase release to favour standalone package
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

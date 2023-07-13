@@ -2,7 +2,7 @@ Summary: An API for Run-time Code Generation
 License: LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause
 Name: dyninst
 Group: Development/Libraries
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.dyninst.org
 Version: 12.3.0
 ExclusiveArch: %{ix86} x86_64 ppc64le aarch64
@@ -194,6 +194,8 @@ find %{buildroot}%{_libdir}/dyninst/testsuite/ \
 %attr(644,root,root) %{_libdir}/dyninst/testsuite/*.a
 
 %changelog
+* Tue Jul 11 2023 Frank Ch. Eigler <fche@redhat.com> - 12.3.0-2
+- side-tag respin
 
 * Tue Jul 04 2023 Frank Ch. Eigler <fche@redhat.com> - 12.3.0-1
 - migrated to SPDX license

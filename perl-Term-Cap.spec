@@ -1,6 +1,6 @@
 Name:           perl-Term-Cap
 Version:        1.18
-Release:        1%{?dist}
+Release:        499%{?dist}
 Summary:        Perl termcap interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-Cap
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.18-499
+- Increase release to favour standalone package
+
 * Mon Feb 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.18-1
 - 1.18 bump
 

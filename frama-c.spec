@@ -1,8 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # Frama-C contains a forked version of ocaml-cil.  We cannot use the Fedora
 # ocaml-cil package as a replacement, because Frama-C upstream has modified
 # their version in incompatible ways.
-
-%undefine _package_note_flags
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
@@ -12,11 +13,11 @@
 %undefine _auto_set_build_flags
 
 Name:           frama-c
-Version:        26.1
-Release:        2%{?dist}
+Version:        27.0
+Release:        1%{?dist}
 Summary:        Framework for source code analysis of C software
 
-%global pkgversion %{version}-Iron
+%global pkgversion %{version}-Cobalt
 
 # Licensing breakdown in source file frama-c.licensing
 License:        LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0 AND BSD-3-Clause AND QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception
@@ -48,6 +49,7 @@ ExclusiveArch:  %{java_arches}
 
 BuildRequires:  alt-ergo
 BuildRequires:  appstream
+BuildRequires:  clang
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
 BuildRequires:  emacs-nox
@@ -59,21 +61,23 @@ BuildRequires:  ocaml >= 4.11.1
 BuildRequires:  ocaml-apron-devel
 BuildRequires:  ocaml-dune >= 3.2.0
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-dune-private-libs-devel
 BuildRequires:  ocaml-dune-site-devel
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-lablgtk3-devel >= 3.1.0
 BuildRequires:  ocaml-lablgtk3-sourceview3-devel
+BuildRequires:  ocaml-menhir >= 20181006
 BuildRequires:  ocaml-mlmpfr-devel
 BuildRequires:  ocaml-ocamlgraph-devel >= 1.8.8
-BuildRequires:  ocaml-ocp-indent-devel
 BuildRequires:  ocaml-ppx-deriving-devel
+BuildRequires:  ocaml-ppx-deriving-yaml-devel >= 0.2.0
 BuildRequires:  ocaml-ppx-deriving-yojson-devel
 BuildRequires:  ocaml-ppx-import-devel
-BuildRequires:  ocaml-why3-devel >= 1.5.1
-BuildRequires:  ocaml-yojson-devel >= 1.6.0
+BuildRequires:  ocaml-why3-devel >= 1.6.0
+BuildRequires:  ocaml-yaml-devel >= 3.0.0
+BuildRequires:  ocaml-yojson-devel >= 2.0.1
 BuildRequires:  ocaml-zarith-devel >= 1.5
 BuildRequires:  ocaml-zmq-devel
+BuildRequires:  pandoc
 BuildRequires:  python3-devel
 BuildRequires:  time
 BuildRequires:  unix2dos
@@ -135,11 +139,6 @@ files marked up with ACSL.
 %setup -q -T -D -a 2 -n %{name}-%{pkgversion}
 %setup -q -T -D -a 13 -n %{name}-%{pkgversion}
 
-fixtimestamp() {
-  touch -r $1.orig $1
-  rm -f $1.orig
-}
-
 # Copy in the manuals
 mkdir doc/manuals
 cp -p %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} %{SOURCE8} \
@@ -149,10 +148,11 @@ cp -p %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} %{SOURCE8} \
 sed -ri 's/^CP[[:blank:]]+=.*/& -p/' share/Makefile.common
 
 # Do not use env
-for fil in share/analysis-scripts/{build,detect_recursion,estimate_difficulty,find_fun,heuristic_list_functions,list_files,make_wrapper,normalize_jcdb,print_callgraph,summary}.py src/plugins/e-acsl/scripts/e-acsl-gcc.sh src/plugins/eva/gen-api.sh; do
-  sed -i.orig 's,%{_bindir}/env python3,%{_bindir}/python3,' $fil
-  fixtimestamp $fil
-done
+%py3_shebang_fix share/analysis-scripts
+%py3_shebang_fix share/machdeps
+%py3_shebang_fix src/plugins/e-acsl/examples/ensuresec/push-alerts
+%py3_shebang_fix src/plugins/e-acsl/scripts
+%py3_shebang_fix tests/compliance
 
 %build
 %make_build RELEASE=yes DUNE_DISPLAY=verbose VERBOSEMAKE=yes
@@ -163,11 +163,15 @@ done
 sed -i 's|\(dune install\) --root.*|\1 --destdir=%{buildroot} --verbose --release %{_smp_mflags}|' share/Makefile.installation
 
 # Install
-%make_install PREFIX=%{_prefix} RELEASE=yes DUNE_DISPLAY=verbose \
-  VERBOSEMAKE=yes
+%make_install PREFIX=%{_prefix} MANDIR=%{_mandir} RELEASE=yes \
+  DUNE_DISPLAY=verbose VERBOSEMAKE=yes
 
 # Move the doc directory to the right place
 mv %{buildroot}%{_prefix}/doc %{buildroot}%{_datadir}
+
+# Move the OCaml directories to the right place
+mkdir -p %{buildroot}%{ocamldir}
+mv %{buildroot}%{_prefix}/lib/{frama,qed,stublibs}* %{buildroot}%{ocamldir}
 
 # Two of the man pages are duplicates, so make one a link to the other.
 cat > %{buildroot}%{_mandir}/man1/frama-c-gui.1 << EOF
@@ -217,12 +221,7 @@ cp -p src/plugins/markdown-report/README.md README.markdown-report.md
 cp -p src/plugins/nonterm/README.md README.nonterm.md
 
 # We can't ship ivette until Fedora can support Electron apps
-rm %{buildroot}%{_bindir}/ivette
-if [ "%{_lib}" = "lib" ]; then
-  rm %{buildroot}%{_prefix}/lib/frama-c/ivette.tgz
-else
-  rm -fr %{buildroot}%{_prefix}/lib
-fi
+rm %{buildroot}%{_bindir}/ivette %{buildroot}%{ocamldir}/frama-c/ivette.tgz
 
 # Unbundle flamegraph
 rm -f %{buildroot}%{ocamldir}/frama-c/lib/analysis-scripts/flamegraph.pl
@@ -237,9 +236,9 @@ fi
 # FIXME: tests fail on ppc6le due to redefinition of bool
 %ifnarch ppc64le
 %check
+export PYTHONPATH=%{buildroot}%{ocamldir}/frama-c/lib/analysis-scripts
 why3 config detect
 # Parallel testing sometimes fails
-make run-ptests PTESTS_OPTS=-error-code
 make default-tests PTESTS_OPTS=-error-code
 %endif
 
@@ -282,6 +281,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 27.0-1
+- Version 27.0
+
 * Sat Jun 10 2023 Jerry James <loganjerry@gmail.com> - 26.1-2
 - Rebuild for ocaml-dune-site 3.8.1
 

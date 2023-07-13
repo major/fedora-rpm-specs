@@ -18,7 +18,7 @@
 %endif
 
 Name:           mozjs%{major}
-Version:        102.12.0
+Version:        102.13.0
 Release:        %autorelease
 Summary:        SpiderMonkey JavaScript library
 
@@ -49,6 +49,10 @@ Patch15:        remove-sloppy-m4-detection-from-bundled-autoconf.patch
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1474486
 Patch16:        firefox-112.0-commasplit.patch
 
+Patch17:        Replace-distutils.LooseVersion-with-looseversion.LooseVersion.patch
+# This is ugly, I know, I know...
+Patch18:        Hacky-workaround-for-expected-string-or-bytes-like-object.patch
+
 # TODO: Check with mozilla for cause of these fails and re-enable spidermonkey compile time checks if needed
 Patch20:        spidermonkey_checks_disable.patch
 
@@ -76,6 +80,7 @@ BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-looseversion
 BuildRequires:  python3-six
 BuildRequires:  readline-devel
 BuildRequires:  wget
@@ -99,6 +104,17 @@ developing applications that use %{name}.
 
 pushd ../..
 %autopatch -p1
+
+# Purge the bundled six library incompatible with Python 3.12
+rm third_party/python/six/six.py
+
+# Link the system six library (build tooling expects that)
+ln -s /usr/lib/python%{python3_version}/site-packages/six.py third_party/python/six/six.py
+
+# Set up looseversion
+mkdir third_party/python/looseversion
+ln -s /usr/lib/python%{python3_version}/site-packages/looseversion/__init__.py third_party/python/looseversion/looseversion.py
+echo "vendored:third_party/python/looseversion" >>  python/sites/mach.txt
 
 # Copy out the LICENSE file
 cp LICENSE js/src/

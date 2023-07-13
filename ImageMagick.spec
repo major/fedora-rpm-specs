@@ -14,7 +14,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.1.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -413,6 +413,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:7.1.1.11-3
+- Perl 5.38 rebuild
+
 * Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.11-2
 - Mass rebuild for jpegxl-0.8.1
 

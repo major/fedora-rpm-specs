@@ -1,6 +1,6 @@
 Name:           perl-Unicode-Collate
 Version:        1.31
-Release:        491%{?dist}
+Release:        499%{?dist}
 Summary:        Unicode Collation Algorithm
 # Collate/allkeys.txt:  Unicode-DFS-2016 (the file contains a link to
 #                       <http://www.unicode.org/terms_of_use.html>)
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.31-499
+- Increase release to favour standalone package
+
 * Mon Mar 06 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.31-491
 - Update license to SPDX format
 

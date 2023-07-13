@@ -50,7 +50,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -1030,6 +1030,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:9.0.1671-2
+- Perl 5.38 rebuild
+
 * Fri Jun 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1671-1
 - patchlevel 1671
 

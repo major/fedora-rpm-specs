@@ -9,7 +9,7 @@
 
 Name:           perl-Devel-CallChecker
 Version:        0.009
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Custom op checking attached to subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallChecker
@@ -122,6 +122,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.009-2
+- Perl 5.38 rebuild
+
 * Tue Apr 11 2023 Paul Howarth <paul@city-fan.org> - 0.009-1
 - 0.009 bump (rhbz#2185631)
 - Use author-independent source URL

@@ -1,4 +1,5 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
@@ -6,7 +7,7 @@
 
 Name:           ocaml-bos
 Version:        0.2.1
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        Basic OS interaction for OCaml
 
 License:        ISC
@@ -24,6 +25,9 @@ BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rresult-devel >= 0.7.0
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 BuildRequires:  python3
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Bos provides support for basic and robust interaction with the operating
@@ -51,25 +55,13 @@ files for developing applications that use %{name}.
 %build
 ocaml pkg/pkg.ml build --dev-pkg false --tests true
 
-# Relink with Fedora linker flags
-cd _build
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g \
-  -package rresult -package astring -package fpath -package fmt -package logs \
-  -package unix -I src src/bos.cmxa -o src/bos.cmxs
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g \
-  -package fmt.tty -package logs.fmt -package rresult -package astring \
-  -package fpath -package fmt -package logs -package unix -I src \
-  src/bos_setup.cmxa -o src/bos_setup.cmxs
-ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g \
-  -package compiler-libs.toplevel -package rresult -package astring \
-  -package fpath -package fmt -package logs -package unix -I src \
-  src/bos_top.cmxa -o src/bos_top.cmxs
-cd -
-
 %install
 mkdir -p %{buildroot}%{ocamldir}/bos
-cp -p _build/src/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} _build/pkg/META \
-   _build/src/bos_top_init.ml _build/opam %{buildroot}%{ocamldir}/bos
+%ifarch %{ocaml_native_compiler}
+cp -p _build/src/*.{a,cmx,cmxa,cmxs} %{buildroot}%{ocamldir}/bos
+%endif
+cp -p _build/src/*.{cma,cmi,cmt,cmti,mli} _build/pkg/META _build/opam \
+   _build/src/bos_top_init.ml %{buildroot}%{ocamldir}/bos
 %ocaml_files
 
 %check
@@ -85,6 +77,12 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-10
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.2.1-9
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-8
 - Bump release and rebuild
 

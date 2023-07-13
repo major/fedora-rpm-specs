@@ -14,7 +14,7 @@
 
 Name:           mod_perl
 Version:        2.0.12
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 # other files:                  ASL 2.0
 ## Not in binary packages
@@ -323,6 +323,9 @@ fi
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.0.12-8
+- Perl 5.38 rebuild
+
 * Thu Jun 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.0.12-7
 - Do not use deprecated do_open9() (CPAN RT#148451)
 

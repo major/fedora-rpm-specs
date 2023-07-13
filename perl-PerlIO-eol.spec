@@ -1,6 +1,6 @@
 Name:           perl-PerlIO-eol
 Version:        0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PerlIO layer for normalizing line endings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PerlIO-eol
@@ -83,6 +83,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.19-2
+- Perl 5.38 rebuild
+
 * Mon Jul 10 2023 Petr Pisar <ppisar@redhat.com> - 0.19-1
 - 0.19 bump
 

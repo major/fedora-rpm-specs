@@ -70,7 +70,8 @@ export LDSHARED="gcc -shared"
 %pyproject_wheel
 
 # Build the documentation
-PYTHONPATH=%{pyproject_build_lib} make -C docs html
+PYTHONPATH=$PWD/build/lib.%{python3_platform}-cpython-%{python3_version_nodots} \
+make -C docs html
 rst2html --no-datestamp README.rst README.html
 
 %install

@@ -1,4 +1,5 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
@@ -6,7 +7,7 @@
 
 Name:           ocaml-ppx-deriving-yojson
 Version:        3.7.0
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        JSON codec generator for OCaml
 
 License:        MIT
@@ -45,6 +46,10 @@ signature files for developing applications that use
 %prep
 %autosetup -n ppx_deriving_yojson-%{version} -p1
 
+# Permit use of ocaml-yojson 2.x
+# See https://github.com/ocaml-ppx/ppx_deriving_yojson/pull/150
+sed -i 's/ < "2\.0\.0"//' ppx_deriving_yojson.opam
+
 %build
 %dune_build
 
@@ -64,6 +69,12 @@ ln -s ../../src/ppx_deriving_yojson.cppo.ml _build/default
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 3.7.0-6
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.7.0-5
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.7.0-4
 - Rebuild OCaml packages for F38
 

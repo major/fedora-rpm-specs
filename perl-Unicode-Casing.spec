@@ -1,7 +1,7 @@
 # This file is licensed under the terms of GNU GPLv2+.
 Name:           perl-Unicode-Casing
 Version:        0.16
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Perl extension to override system case changing functions
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Unicode-Casing
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-23
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

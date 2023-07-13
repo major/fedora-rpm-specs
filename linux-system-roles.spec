@@ -26,7 +26,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.45.1
+Version: 1.46.0
 Release: 1%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
@@ -103,7 +103,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 4 1.3.1
 
 %global rolename5 network
-%deftag 5 1.12.0
+%deftag 5 1.13.0
 
 %global rolename6 storage
 %deftag 6 1.12.1
@@ -654,6 +654,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Tue Jul  11 2023 Packit <hello@packit.dev> - 1.46.0-1
+- Update to upstream version 1.46.0
+
 * Sun Jul  9 2023 Packit <hello@packit.dev> - 1.45.1-1
 - Update to upstream version 1.45.1
 

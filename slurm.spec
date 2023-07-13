@@ -16,7 +16,7 @@
 
 Name:           slurm
 Version:        22.05.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple Linux Utility for Resource Management
 License:        GPLv2 and BSD
 URL:            https://slurm.schedmd.com/
@@ -754,5 +754,8 @@ fi
 %systemd_postun_with_restart slurmdbd.service
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 22.05.9-2
+- Perl 5.38 rebuild
+
 
 %autochangelog

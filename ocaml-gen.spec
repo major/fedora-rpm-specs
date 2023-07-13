@@ -1,8 +1,13 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
 
 Name:           ocaml-gen
 Version:        1.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Simple, efficient iterators for OCaml
 
 License:        BSD-2-Clause
@@ -59,6 +64,12 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-3
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.1-2
+- OCaml 5.0.0 rebuild
+
 * Wed Mar 22 2023 Jerry James <loganjerry@gmail.com> - 1.1-1
 - Version 1.1
 

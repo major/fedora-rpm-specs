@@ -1,7 +1,7 @@
 Name:           perl-Linux-Inotify2 
 Summary:        Scalable directory/file change notification 
 Version:        2.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Linux-Inotify2-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Linux-Inotify2
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.3-6
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-chardet
 Version:        5.1.0
@@ -31,7 +31,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
@@ -93,7 +93,7 @@ echo "latex_engine = 'xelatex'" >> docs/conf.py
 %build
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 PYTHONPATH="${PWD}" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
@@ -113,14 +113,17 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE2}'
 
 
 %files -n python3-chardet -f %{pyproject_files}
+%if %{without doc}
+%doc README.rst
+%endif
 %{_bindir}/chardetect
 %{_mandir}/man1/chardetect.1*
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
 %doc README.rst
-%if %{with doc_pdf}
 %doc docs/_build/latex/chardet.pdf
 %endif
 

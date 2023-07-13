@@ -1,20 +1,14 @@
 %global base_version 2.21
 Name:           perl-threads
 Epoch:          1
-Version:        2.27
-Release:        490%{?dist}
+Version:        2.36
+Release:        499%{?dist}
 Summary:        Perl interpreter-based threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads
 Source0:        https://cpan.metacpan.org/authors/id/J/JD/JDHEDDEN/threads-%{base_version}.tar.gz
-# Unbundled from perl 5.28.0
-Patch0:         threads-2.21-Upgrade-to-2.22.patch
-# Unbundled from perl 5.32.0
-Patch1:         threads-2.21-Upgrade-to-2.25.patch
-# Unbundled from perl 5.34.0
-Patch2:         threads-2.25-Upgrade-to-2.26.patch
-# Unbundled from perl 5.35.11
-Patch3:         threads-2.26-Upgrade-to-2.27.patch
+# Unbundled from perl 5.37.11
+Patch0:         threads-2.21-Upgrade-to-2.36.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -34,11 +28,11 @@ BuildRequires:  perl(XSLoader)
 # Tests only:
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(ExtUtils::testlib)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(Hash::Util)
 BuildRequires:  perl(IO::File)
-BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  procps-ng
@@ -60,20 +54,17 @@ This threading model has been deprecated, and was removed as of Perl 5.10.0.)
 
 %prep
 %setup -q -n threads-%{base_version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p1
 chmod -x examples/*
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
 %{make_build}
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
 
 %check
 unset GIT_DIR PERL_BUILD_PACKAGING PERL_CORE PERL_RUNPERL_DEBUG \
@@ -87,6 +78,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.36-499
+- Upgrade to 2.36 as provided in perl-5.37.11
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.27-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

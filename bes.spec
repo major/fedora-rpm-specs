@@ -8,7 +8,7 @@
 
 Name:           bes
 Version:        3.20.13
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Back-end server software framework for OPeNDAP
 
 License:        LGPLv2+
@@ -233,6 +233,9 @@ exit 0
 %doc __distribution_docs/api-html/
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 3.20.13-9
+- Rebuilt for ICU 73.2
+
 * Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 3.20.13-8
 - Rebuild (gdal)
 

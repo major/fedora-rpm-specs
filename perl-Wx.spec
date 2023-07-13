@@ -12,7 +12,7 @@
 
 Name:           perl-Wx
 Version:        0.9932
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Interface to the wxWidgets cross-platform GUI toolkit
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Wx
@@ -726,6 +726,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.9932-28
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Scott Talbert <swt@techie.net> - 0.9932-27
 - Rebuild with wxWidgets 3.2
 

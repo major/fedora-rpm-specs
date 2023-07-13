@@ -3,7 +3,7 @@
 
 Name:           perl-Sereal-Decoder
 Version:        5.004
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
 ## Unbundled:
@@ -112,6 +112,9 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.004-2
+- Perl 5.38 rebuild
+
 * Wed Apr 19 2023 Paul Howarth <paul@city-fan.org> - 5.004-1
 - Update to 5.004 (rhbz#2188045)
   - Fix thaw ordering for frozen objects: nested THAW operations now happen in

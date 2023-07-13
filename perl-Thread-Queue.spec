@@ -1,7 +1,7 @@
 %global base_version 3.13
 Name:           perl-Thread-Queue
 Version:        3.14
-Release:        490%{?dist}
+Release:        499%{?dist}
 Summary:        Thread-safe queues
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Thread-Queue
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.14-499
+- Increase release to favour standalone package
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           perl-CDB_File
 Version:        1.05
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl extension for access to cdb databases
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CDB_File
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.05-9
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

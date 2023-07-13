@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-pdfminer
 Version:        20221105
@@ -67,7 +67,7 @@ BuildRequires:  make
 # We use the Japan1, Korea1, GB1, and CNS1 CMaps:
 BuildRequires:  adobe-mappings-cmap-devel >= 20190730
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
@@ -136,6 +136,7 @@ Provides:       bundled(python3dist(pyhanko))
 %description -n python3-pdfminer %{common_description}
 
 
+%if %{with doc}
 %package doc
 Summary:        Documentation for pdfminer
 # See the base package License field for non-MIT sources; it appears that none
@@ -143,6 +144,7 @@ Summary:        Documentation for pdfminer
 License:        MIT
 
 %description doc %{common_description}
+%endif
 
 
 %pyproject_extras_subpkg -n python3-pdfminer image
@@ -165,7 +167,7 @@ sed -r -i 's/__VERSION__/%{version}/g' pdfminer/__init__.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x %{?with_doc_pdf:docs,}image
+%pyproject_buildrequires -x %{?with_doc:docs,}image
 
 
 %build
@@ -179,7 +181,7 @@ done
 
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 PYTHONPATH="${PWD}" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
@@ -223,6 +225,9 @@ k="${k-}${k+ and }not test_pdf_with_empty_characters_vertical"
 
 %files -n python3-pdfminer -f %{pyproject_files}
 %license LICENSE docs/licenses/LICENSE.pyHanko
+%if %{without doc}
+%doc CHANGELOG.md README.md
+%endif
 %{_bindir}/pdf2txt
 %{_bindir}/pdf2txt.py
 %{_mandir}/man1/pdf2txt.1*
@@ -231,12 +236,10 @@ k="${k-}${k+ and }not test_pdf_with_empty_characters_vertical"
 %{_mandir}/man1/dumppdf.1*
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
-%doc CHANGELOG.md
-%doc CONTRIBUTING.md
-%doc README.md
-%if %{with doc_pdf}
+%doc CHANGELOG.md README.md
 %doc docs/build/latex/pdfminersix.pdf
 %endif
 

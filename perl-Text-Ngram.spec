@@ -1,7 +1,7 @@
 Name:           perl-Text-Ngram
 Summary:        Ngram analysis of text
 Version:        0.15
-Release:        26%{?dist}
+Release:        27%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-Ngram
 Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMBS/Text/Text-Ngram-%{version}.tar.gz
@@ -61,6 +61,9 @@ make test
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-27
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

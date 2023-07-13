@@ -1,7 +1,11 @@
 # Tests are not meant to be run against installed version, says upstream
 # (https://github.com/pauldmccarthy/indexed_gzip/issues/13). Still, we manage
 # to make it work. Note that some tests are very slow.
-%bcond_without tests
+%bcond tests 1
+
+# F39FailsToInstall: python3-nibabel
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220356
+%bcond nibabel 0
 
 Name:           python-indexed_gzip
 Version:        1.7.1
@@ -11,6 +15,19 @@ Summary:        Fast random access of gzip files in Python
 License:        Zlib
 URL:            https://github.com/pauldmccarthy/indexed_gzip
 Source0:        %{pypi_source indexed_gzip}
+
+# Replace IndexedGzipFile.__reduce__ with IndexedGzipFile.__reduce_ex__
+# https://github.com/pauldmccarthy/indexed_gzip/pull/126
+#
+# Fixes:
+#
+# Regressions on Python 3.12: TypeError: cannot pickle 'IndexedGzipFile'
+# instances
+# https://github.com/pauldmccarthy/indexed_gzip/issues/125
+#
+# F39FailsToInstall: python3-indexed-gzip
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220277
+Patch:          %{url}/pull/126.patch
 
 %global desc %{expand:
 The indexed_gzip project is a Python extension which aims to provide a drop-in
@@ -46,7 +63,9 @@ BuildRequires:  zlib-devel
 # tests_require in setup.py:
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist numpy}
+%if %{with nibabel}
 BuildRequires:  %{py3_dist nibabel}
+%endif
 # added downstream to run tests in parallel:
 BuildRequires:  %{py3_dist pytest-xdist}
 %endif
@@ -64,7 +83,7 @@ Obsoletes:      python3-indexed_gzip < 1.7.0-4
 %pyproject_buildrequires
 
 %prep
-%autosetup -n indexed_gzip-%{version}
+%autosetup -n indexed_gzip-%{version} -p1
 # Remove shebangs from non-script sources
 find indexed_gzip -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |

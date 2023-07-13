@@ -1,13 +1,16 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-qtest
 Version:        2.11.2
-Release:        12%{?dist}
+Release:        14%{?dist}
 Summary:        Inline (Unit) Tests for OCaml
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/vincent-hugot/qtest
 Source0:        https://github.com/vincent-hugot/qtest/archive/v%{version}/%{name}-%{version}.tar.gz
+# Remove references to the bytes library for OCaml 5.0 compatibility
+Patch0:         %{name}-ocaml5.patch
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune >= 1.1
@@ -40,7 +43,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n qtest-%{version}
+%autosetup -n qtest-%{version} -p1
 
 # Fix a markup bug in the README
 sed -i 's/\[source\]/[source,OCaml]/' README.adoc
@@ -81,6 +84,12 @@ asciidoc README.adoc
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.11.2-14
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.11.2-13
+- OCaml 5.0.0 rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.11.2-12
 - Rebuild OCaml packages for F38
 

@@ -1,6 +1,6 @@
 Name:           perl-IO-Compress-Brotli
 Version:        0.004001
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl bindings for Brotli compression
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress-Brotli/
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.004001-9
+- Perl 5.38 rebuild
+
 * Tue Feb 14 2023 Petr Salaba <psalaba@redhat.com> - 0.004001-8
 - Add tests subpackage
 

@@ -7,7 +7,7 @@ Provides:	perl(IO::AIO) = %{upstream_version}%{extraversion}
 
 Name:		perl-IO-AIO
 Version:	%{upstream_version}%{extraversion}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Asynchronous Input/Output
 License:	GPL-2.0-or-later
 URL:		https://metacpan.org/release/IO-AIO
@@ -99,6 +99,9 @@ make test
 %{_mandir}/man1/treescan.1*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.80-2
+- Perl 5.38 rebuild
+
 * Sun Apr  2 2023 Paul Howarth <paul@city-fan.org> - 4.80-1
 - Update to 4.8
   - Remove long-obsolete "paths must be absolute" text in aio_open/stat

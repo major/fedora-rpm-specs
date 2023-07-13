@@ -1,6 +1,6 @@
 Name:           perl-String-Compare-ConstantTime
 Version:        0.321
-Release:        12%{?dist}
+Release:        14%{?dist}
 Summary:        Timing side-channel protected string compare
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/String-Compare-ConstantTime
@@ -51,6 +51,12 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.321-14
+- Perl 5.38 rebuild
+
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.321-13
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.321-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

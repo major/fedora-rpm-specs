@@ -2,7 +2,7 @@
 
 Name:		geary
 Version:	44.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A lightweight email program designed around conversations
 # Geary is under LGPLv2+.
 # SQLite3-unicodesn code is in the Public Domain.
@@ -112,6 +112,9 @@ popd
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 44.0-2
+- Rebuilt for ICU 73.2
+
 * Thu Jul 06 2023 Kalev Lember <klember@redhat.com> - 44.0-1
 - Update to 44.0
 

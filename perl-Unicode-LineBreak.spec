@@ -7,7 +7,7 @@
 
 Name:           perl-Unicode-LineBreak
 Version:        2019.001
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        UAX #14 Unicode Line Breaking Algorithm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Unicode-LineBreak
@@ -121,6 +121,9 @@ make test
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2019.001-17
+- Perl 5.38 rebuild
+
 * Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 2019.001-16
 - Update license to SPDX format
 

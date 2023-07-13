@@ -1,7 +1,7 @@
 Name:           perl-podlators
 Epoch:          1
 Version:        5.01
-Release:        2%{?dist}
+Release:        499%{?dist}
 Summary:        Format POD source into various output formats
 # pod/perlpodstyle.pod:     FSFAP
 # other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -144,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.01-499
+- Increase release to favour standalone package
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

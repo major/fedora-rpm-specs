@@ -4,7 +4,7 @@
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -663,6 +663,9 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.0.15-4
+- Perl 5.38 rebuild
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 5.0.15-3
 - Rebuilt for Python 3.12
 

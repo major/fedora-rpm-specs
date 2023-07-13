@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-Random
 Version:        0.15
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        OpenSSL/LibreSSL pseudo-random number generator access
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-Random
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Crypt::OpenSSL::Random*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-20
+- Perl 5.38 rebuild
+
 * Wed Jun 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.15-19
 - Update license to SPDX format
 - Modernize spec

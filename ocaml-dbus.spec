@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-dbus
 Version:        0.30
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        OCaml library for using D-Bus
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
@@ -74,6 +77,9 @@ make OCAMLDESTDIR=$OCAMLFIND_DESTDIR install-byte
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.30-47
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.30-46
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

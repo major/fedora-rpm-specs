@@ -1,7 +1,7 @@
 %global base_version 1.04
 Name:           perl-Env
 Version:        1.06
-Release:        1%{?dist}
+Release:        499%{?dist}
 Summary:        Perl module that imports environment variables as scalars or arrays
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Env
@@ -80,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.06-499
+- Increase release to favour standalone package
+
 * Tue May 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.06-1
 - Upgrade to 1.06 as provided in perl-5.37.11
 - Package tests

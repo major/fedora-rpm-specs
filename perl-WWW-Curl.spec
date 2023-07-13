@@ -1,6 +1,6 @@
 Name:           perl-WWW-Curl
 Version:        4.17
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Perl extension interface for libcurl
 License:        MIT
 URL:            https://metacpan.org/release/WWW-Curl
@@ -77,6 +77,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.17-34
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Petr Pisar <ppisar@redhat.com> - 4.17-33
 - Adapt to changes in cURL 7.87.0 (bug #2160057)
 

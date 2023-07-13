@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-newt
 Version:        0.9
-Release:        73%{?dist}
+Release:        74%{?dist}
 Summary:        OCaml library for using newt text mode window system
 License:        LGPL-2.1-or-later
 
@@ -86,6 +89,9 @@ mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9-74
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.9-73
 - OCaml 5.0.0 rebuild
 - New project URLs

@@ -1,6 +1,6 @@
 Name:           perl-Devel-Caller
 Version:        2.07
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Meatier versions of caller
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Caller
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Devel::Caller.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.07-2
+- Perl 5.38 rebuild
+
 * Tue Apr 11 2023 Paul Howarth <paul@city-fan.org> - 2.07-1
 - Update to 2.07 (rhbz#2185832)
   - Fix compatibility with bleadperl (CPAN RT#144051)

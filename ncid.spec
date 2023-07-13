@@ -1,6 +1,6 @@
 Name:       ncid
 Version:    1.14
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 License:    GPLv3+
@@ -466,6 +466,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.14-3
+- Rebuilt for ICU 73.2
+
 * Wed May 31 2023 John Chmielewski <jlc@users.sourceforge.net> 1.14-2
 - updated for upstream release
 - New upstream release

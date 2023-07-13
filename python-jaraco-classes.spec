@@ -5,8 +5,8 @@
 %bcond_with doc
 
 Name:           python-%{pkg_name}
-Version:        3.2.3
-Release:        3%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Utility functions for Python class constructs
 
 License:        MIT
@@ -85,6 +85,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Tue Jul 11 2023 Dan Radez <dradez@redhat.com> - 3.3.0-1
+- Update to 3.3.0 rhbz#2221498
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.3-3
 - Rebuilt for Python 3.12
 

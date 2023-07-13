@@ -4,7 +4,7 @@
 
 Name:           enki
 Version:        22.08.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Text editor for programmers
 
 License:        GPLv2+
@@ -148,6 +148,9 @@ xvfb-run -s '-screen :0 1024x768x16' %{__python3} run_all.py
 %doc html/
 
 %changelog
+* Tue Jul 11 2023 Python Maint <python-maint@redhat.com> - 22.08.0-3
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.08.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

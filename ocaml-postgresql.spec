@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-postgresql
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml library for accessing PostgreSQL databases
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -64,6 +67,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.0.0-1
 - Version 5.0.0
 - Convert License tag to SPDX

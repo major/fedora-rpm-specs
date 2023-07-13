@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %global forgeurl https://github.com/coccinelle/coccinelle
 # Version 1.1.1 is incompatible with OCaml 5.0.  Build from git HEAD until the
 # next release.
@@ -21,7 +24,7 @@ Version:       1.1.1
 %endif
 
 Name:           coccinelle
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -284,6 +287,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-20
+- OCaml 5.0 rebuild for Fedora 39
+
 * Thu Jun 29 2023 Jerry James <loganjerry@gmail.com> - 1.1.1-19.20230624git0afff7f
 - Update to git HEAD for OCaml 5.0 compatibility
 - New project URL

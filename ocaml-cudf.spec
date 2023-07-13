@@ -1,28 +1,21 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # cudf includes C bindings, but it produces a static library.
 # therefore for now, we'll not build them.
 
 Name:           ocaml-cudf
-Version:        0.9
-Release:        36%{?dist}
+Version:        0.10
+Release:        2%{?dist}
 Summary:        Format for describing upgrade scenarios
 
-%global libname %(echo %{name} | sed -e 's/^ocaml-//')
-
-# Linking exception, see included COPYING file.
-License:        LGPLv3+ with exceptions
-URL:            http://www.mancoosi.org/cudf/
-Source0:        https://gforge.inria.fr/frs/download.php/file/36602/cudf-0.9.tar.gz
-
-# Use ounit2.
-%global _default_patch_fuzz 2
-Patch1:         cudf-0.9-ounit2.patch
+License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
+URL:            https://www.mancoosi.org/cudf/
+Source0:        https://gitlab.com/irill/cudf/-/archive/v%{version}/cudf-v%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  ocaml
-BuildRequires:  ocaml-ocamlbuild
-BuildRequires:  ocaml-ocamldoc
-BuildRequires:  ocaml-findlib-devel
+BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-extlib-devel
 BuildRequires:  ocaml-ounit-devel
 
@@ -53,66 +46,48 @@ inter-distributions.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-extlib-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{libname}-%{version} -p1
-
-# Add debug tag.
-sed 's/pkg_extlib/pkg_extlib, debug/g' -i _tags
+%autosetup -n cudf-v%{version}
 
 %build
-%make_build
-%ifarch %{ocaml_native_compiler}
-%make_build opt
-%endif
-
-%make_build doc
+%dune_build
+%make_build -C doc
 
 %install
-make install DESTDIR=%{buildroot}
+%dune_install
 
 # Install the man page for cudf-check.
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -a doc/cudf-check.1* %{buildroot}%{_mandir}/man1
 
-# Remove .o files from cudf directory.
-rm -rf %{buildroot}%{_libdir}/ocaml/cudf/*.o
-
 %check
-make test
+%dune_check
 
-%files
+%files -f .ofiles
 %license COPYING
 %doc README
-%{_bindir}/cudf-check
 %{_mandir}/man1/cudf-check.1*
-%{_bindir}/cudf-parse-822
-%{_libdir}/ocaml/%{libname}
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/*/*.a
-%exclude %{_libdir}/ocaml/*/*.cmxa
-%exclude %{_libdir}/ocaml/*/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/*/*.mli
 
-%files devel
-# include API documentation here.
-%doc cudf.docdir/*
+%files devel -f .ofiles-devel
 %license COPYING
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/*/*.a
-%{_libdir}/ocaml/*/*.cmxa
-%{_libdir}/ocaml/*/*.cmx
-%endif
-%{_libdir}/ocaml/*/*.mli
-
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.10-1
+- Version 0.10
+- Convert License tag to SPDX
+- Drop upstreamed ounit2 patch
+- Build with dune
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9-36
 - Bump release and rebuild
 

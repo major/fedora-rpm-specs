@@ -1,6 +1,6 @@
 Name:           perl-Sys-MemInfo
 Version:        0.99
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Memory information as Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-MemInfo
@@ -78,6 +78,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.99-24
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

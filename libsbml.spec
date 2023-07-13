@@ -35,7 +35,7 @@ Obsoletes:      libsbml-sharp < 0:5.18.0-20
 
 Name:           libsbml
 Version:        5.19.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Systems Biology Markup Language library
 License:        LGPLv2+
 URL:            http://sbml.org/Software/libSBML
@@ -419,6 +419,9 @@ popd
 %endif
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.19.0-27
+- Perl 5.38 rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.19.0-26
 - Rebuilt for Python 3.12
 

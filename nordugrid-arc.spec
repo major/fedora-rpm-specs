@@ -46,7 +46,7 @@
 
 Name:		nordugrid-arc
 Version:	6.17.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Advanced Resource Connector Middleware
 License:	ASL 2.0
 URL:		http://www.nordugrid.org/
@@ -55,6 +55,8 @@ Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/
 #		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1602
 Patch0:		0001-Fix-compilation-with-xmlsec-1.3.patch
 Patch1:		0002-Fix-test-failure-with-xmlsec-1.3.patch
+#		Update py-compile script for Python 3.12
+Patch2:		%{name}-py-compile.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-chelonia < 2.0.0
@@ -800,8 +802,9 @@ management features on the worker nodes (WN).
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
@@ -1759,6 +1762,9 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Tue Jul 11 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.17.0-5
+- Update py-compile script for Python 3.12
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 6.17.0-4
 - Rebuilt for Python 3.12
 

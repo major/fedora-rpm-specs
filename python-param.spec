@@ -115,7 +115,7 @@ sphinx-build -b latex -j%{?_smp_build_ncpus} docs %{_vpath_builddir}/_latex
 %files doc
 %license LICENSE.txt
 %doc README.md
-%doc examples
+%doc examples/
 %if %{with doc_pdf}
 %doc {_vpath_builddir}/_latex/param.pdf
 %endif

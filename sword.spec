@@ -4,7 +4,7 @@
 Name:           sword
 Epoch:          1
 Version:        1.9.0
-Release:        18%{?dist}
+Release:        20%{?dist}
 Summary:        Free Bible Software Project
 License:        GPLv2
 URL:            http://www.crosswire.org/sword/
@@ -151,6 +151,12 @@ make tests
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1:1.9.0-20
+- Rebuilt for ICU 73.2
+
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9.0-19
+- Perl 5.38 rebuild
+
 * Fri Jun 30 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9.0-18
 - Replace requirement of meta-package perl by perl-interpreter
 

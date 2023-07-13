@@ -3,7 +3,7 @@
 Name:           apron
 Version:        0.9.14
 Summary:        Numerical abstract domain library
-Release:        0.1%{?prerel:.%{prerel}}%{?dist}
+Release:        0.2%{?prerel:.%{prerel}}%{?dist}
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 # except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
@@ -21,6 +21,9 @@ Source0:        https://github.com/antoinemine/apron/archive/v%{version}%{?prere
 Patch0:         %{name}-weak.patch
 # Fix the OCaml build on bytecode-only architectures
 Patch1:         %{name}-ocaml-bytecode.patch
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
 
 BuildRequires:  doxygen-latex
 BuildRequires:  gcc-c++
@@ -265,6 +268,9 @@ test/ctest1
 %endif
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.14-0.2.beta1
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-0.1.beta1
 - Update to 0.9.14-beta1 for OCaml 5.0 support
 - Drop upstreamed mpfr and custom-operations patches

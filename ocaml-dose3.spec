@@ -1,4 +1,6 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # There is also a separate test data repository for a different set of tests
 # that is distributed separately.
 
@@ -7,32 +9,32 @@ Version:        7.0.0
 Release:        %autorelease
 Summary:        Framework for managing distribution packages and dependencies
 
-%global libname %(echo %{name} | sed -e 's/^ocaml-//')
-
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
 URL:            http://www.mancoosi.org/software/
 
-Source0:        https://gitlab.com/irill/dose3/-/archive/%{version}/%{libname}-%{version}.tar.gz
+Source0:        https://gitlab.com/irill/dose3/-/archive/%{version}/dose3-%{version}.tar.gz
 
 # Use oUnit2 instead of oUnit
 Patch0:         0001-Use-ounit2.patch
-# We do not need stdlib-shims, which provides backwards compatibility
+# We do not need stdlib-shims, which provides forward compatibility
 Patch1:         0002-Do-not-depend-on-stdlib-shims.patch
+# Expose a dependency on the math library so RPM can see it
+Patch2:         0003-Depend-on-the-math-library.patch
+# Changes for OCaml 5 compatibility
+Patch3:         0004-OCaml-5-compatibility.patch
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
-BuildRequires:  ocaml-odoc
-BuildRequires:  ocaml-ocamlgraph-devel
-BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-extlib-devel
-BuildRequires:  ocaml-re-devel
-BuildRequires:  ocaml-cudf-devel
-BuildRequires:  ocaml-parmap-devel
-BuildRequires:  ocaml-cppo
-BuildRequires:  ocaml-camlbz2-devel
-BuildRequires:  ocaml-zip-devel
-BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-base64-devel >= 3.4.0-1
+BuildRequires:  ocaml-camlbz2-devel
+BuildRequires:  ocaml-camlp-streams-devel
+BuildRequires:  ocaml-cudf-devel
+BuildRequires:  ocaml-extlib-devel
+BuildRequires:  ocaml-ocamlgraph-devel
+BuildRequires:  ocaml-ounit-devel
+BuildRequires:  ocaml-parmap-devel
+BuildRequires:  ocaml-re-devel
+BuildRequires:  ocaml-zip-devel
 
 BuildRequires:  rpm-devel
 BuildRequires:  zlib-devel
@@ -49,7 +51,7 @@ BuildRequires:  tex(comment.sty)
 BuildRequires:  pandoc
 BuildRequires:  graphviz
 BuildRequires:  poetry
-BuildRequires:  /usr/bin/python
+BuildRequires:  python3
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx_rtd_theme}
 BuildRequires:  %{py3_dist wheel}
@@ -73,10 +75,13 @@ repository-wide uninstallability checks).
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
+Requires:       ocaml-base64-devel%{?_isa}
+Requires:       ocaml-camlbz2-devel%{?_isa}
 Requires:       ocaml-cudf-devel%{?_isa}
 Requires:       ocaml-extlib-devel%{?_isa}
 Requires:       ocaml-ocamlgraph-devel%{?_isa}
 Requires:       ocaml-re-devel%{?_isa}
+Requires:       ocaml-zip-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -96,28 +101,19 @@ This package contains the tools shipped with the dose3 framework
 for manipulating packages of various formats.
 
 %prep
-%autosetup -p1 -n %{libname}-%{version}
+%autosetup -p1 -n dose3-%{version}
 
 # Do not run linkcheck; the koji builders have no network access
 sed -i 's/html linkcheck/html/' doc/rtd/Makefile
 
 %build
-dune build %{?_smp_mflags} --display=verbose @install --release
-dune build %{?_smp_mflags} @doc --release
+%dune_build
 # FIXME: parallel build does not work
 make -C doc
 
 %install
-dune install --destdir=%{buildroot} --release
-
-# We do not want the dune markers
-find _build/default/_doc/_html -name .dune-keep -delete
-
-# We do not want the ml files
-find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
-
-# We install the documentation with the doc macro
-rm -fr %{buildroot}%{_prefix}/doc
+%dune_install
+sed -i '\@%{_bindir}@d;\@%{_mandir}@d' .ofiles
 
 # Install manpages.
 mkdir -p %{buildroot}%{_mandir}/man1/
@@ -128,42 +124,14 @@ cp -a doc/manpages/*.5 %{buildroot}%{_mandir}/man5/
 cp -a doc/manpages/*.1 %{buildroot}%{_mandir}/man1/
 
 %check
-dune runtest --release
+%dune_check
 
-%files
+%files -f .ofiles
 %license COPYING
 %doc CHANGES CREDITS README.architecture
-%dir %{_libdir}/ocaml/%{libname}/
-%dir %{_libdir}/ocaml/%{libname}/algo/
-%dir %{_libdir}/ocaml/%{libname}/common/
-%dir %{_libdir}/ocaml/%{libname}/versioning/
-%dir %{_libdir}/ocaml/%{libname}-extra/
-%dir %{_libdir}/ocaml/%{libname}-extra/debian/
-%dir %{_libdir}/ocaml/%{libname}-extra/doseparse/
-%dir %{_libdir}/ocaml/%{libname}-extra/npm/
-%dir %{_libdir}/ocaml/%{libname}-extra/opam2/
-%dir %{_libdir}/ocaml/%{libname}-extra/opencsw/
-%dir %{_libdir}/ocaml/%{libname}-extra/pef/
-%{_libdir}/ocaml/%{libname}{,-extra}/META
-%{_libdir}/ocaml/%{libname}{,-extra}{,/*}/*.cma
-%{_libdir}/ocaml/%{libname}{,-extra}{,/*}/*.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{libname}{,-extra}{,/*}/*.cmxs
-%endif
 
-%files devel
+%files devel -f .ofiles-devel
 %license COPYING
-%doc _build/default/_doc/_html/*
-%{_libdir}/ocaml/%{libname}{,-extra}/dune-package
-%{_libdir}/ocaml/%{libname}{,-extra}/opam
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{libname}{,-extra}{,/*}/*.a
-%{_libdir}/ocaml/%{libname}{,-extra}{,/*}/*.cmx
-%{_libdir}/ocaml/%{libname}{,-extra}{,/*}/*.cmxa
-%endif
-%{_libdir}/ocaml/%{libname}{,-extra}{,/*}/*.cmt
-%{_libdir}/ocaml/%{libname}{,-extra}{,/*}/*.cmti
-%{_libdir}/ocaml/%{libname}{,-extra}{,/*}/*.mli
 
 %files -n dose3-tools
 %license COPYING

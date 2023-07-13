@@ -3,7 +3,7 @@
 
 Name:           widelands
 Version:        1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open source realtime-strategy game
 
 License:        GPLv2+
@@ -198,6 +198,9 @@ popd
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.1-2
+- Rebuilt for ICU 73.2
+
 * Mon Mar 27 2023 Hans de Goede <hdegoede@redhat.com> - 1.1-1
 - New upstream release 1.1 (rhbz#2135131)
 - Fix FTBFS (rhbz#2171759)

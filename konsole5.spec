@@ -10,7 +10,7 @@
 Name:    konsole5
 Summary: KDE Terminal emulator
 Version: 23.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # sources: MIT and LGPLv2 and LGPLv2+ and GPLv2+
 License: GPL-2.0-only AND GFDL-1.1-or-later
@@ -170,6 +170,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 23.04.3-2
+- Rebuilt for ICU 73.2
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

@@ -1,12 +1,12 @@
 Name:           boinc-tui
-Version:        2.5.0
-Release:        10%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        Fullscreen Text Mode Manager For BOINC Client
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/suleman1971/boinctui
 
-%global commit       619d97fbeeb30cc5b7f58ecb9a020ca594deead5
+%global commit       bb72f385ace769313bce409a869d5c5e896bb6d0
 %global shortcommit  %(c=%{commit}; echo ${c:0:7})
 %global snapshotdate 20200126
 Source0:        https://github.com/suleman1971/boinctui/archive/%{commit}/boinctui-%{shortcommit}.tar.gz
@@ -46,21 +46,26 @@ autoreconf -vif
 
 
 %install
-%make_install
+%make_install DOCDIR=%{_pkgdocdir}
 mkdir -p %{buildroot}%{_mandir}/man1
-install -m 0644 boinctui.1 %{buildroot}%{_mandir}/man1/
+install -p -m 0644 boinctui.1 %{buildroot}%{_mandir}/man1/
 
 
 %files
-%doc changelog
+%doc %{_pkgdocdir}/changelog
 %license gpl-3.0.txt
 %{_bindir}/boinctui
 %{_mandir}/man1/boinctui.1.*
-%{_docdir}/boinctui/changelog
 
 
 
 %changelog
+* Thu Jun 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.0-1
+- Update to 2.7.0 (fix RHBZ#2113125)
+- Stop listing the changelog file twice
+- Preserve the timestamp when installing the man page
+- Update License to SPDX
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       libloc
 Version:    0.9.16
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # COPYING:                  LGPL-2.1 text
 # data/database.db:         CC-BY-SA-4.0
@@ -262,6 +262,9 @@ make check %{?_smp_mflags}
 %{_unitdir}/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.9.16-4
+- Perl 5.38 rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.9.16-3
 - Rebuilt for Python 3.12
 

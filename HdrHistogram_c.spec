@@ -1,8 +1,8 @@
 Name: HdrHistogram_c
-Version: 0.11.0
-Release: 8%{?dist}
+Version: 0.11.8
+Release: 1%{?dist}
 Summary: C port of the HdrHistogram 
-License: BSD and Public Domain
+License: BSD-2-Clause
 URL: https://github.com/HdrHistogram/%{name}
 Source0: https://github.com/HdrHistogram/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -48,7 +48,7 @@ find $RPM_BUILD_ROOT
 %license LICENSE.txt
 %doc README.md
 %exclude %{_bindir}/*
-%{_libdir}/libhdr_histogram.so.6.1.0
+%{_libdir}/libhdr_histogram.so.6.1.3
 %{_libdir}/libhdr_histogram.so.6
 
 %files devel
@@ -57,13 +57,20 @@ find $RPM_BUILD_ROOT
 %{_includedir}/hdr/hdr_interval_recorder.h
 %{_includedir}/hdr/hdr_writer_reader_phaser.h
 %{_includedir}/hdr/hdr_time.h
+%{_includedir}/hdr/hdr_histogram_version.h
 %{_includedir}/hdr/hdr_histogram_log.h
 %{_includedir}/hdr/hdr_histogram.h
 %{_libdir}/libhdr_histogram.so
 %{_libdir}/cmake/hdr_histogram/*.cmake
+%{_libdir}/pkgconfig/hdr_histogram.pc
 
 
 %changelog
+* Wed Jul 12 2023 Nathan Scott <nathans@redhat.com> - 0.11.8-1
+- Update to latest upstream version.
+- Update spec file and resolve a build issue (BZ 2113091).
+- Switch to SPDX licensing.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: remctl
 Version: 3.18
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Client/server for Kerberos-authenticated command execution
 
 License: MIT
@@ -189,6 +189,9 @@ cp -p php/remctl.ini %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.18-7
+- Perl 5.38 rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.18-6
 - Rebuilt for Python 3.12
 

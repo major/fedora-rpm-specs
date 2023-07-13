@@ -5,7 +5,7 @@
 
 Name:           python-pyproject-metadata
 Version:        0.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PEP 621 metadata parsing
 
 License:        MIT
@@ -52,6 +52,8 @@ Documentation for python3-pyproject-metadata.
 
 %prep
 %autosetup -p1
+# No need to BuildRequire pytest-cov to run pytest
+sed -i /pytest-cov/d setup.cfg
 
 %generate_buildrequires
 %if %{with doc}
@@ -89,6 +91,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Tue Jul 11 2023 Miro Hrončok <mhroncok@redhat.com> - 0.7.1-3
+- Drop an unused build requirement on pytest-cov
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.1-2
 - Rebuilt for Python 3.12
 

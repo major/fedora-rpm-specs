@@ -2,7 +2,7 @@
 Name:           perl-Storable
 Epoch:          1
 Version:        3.32
-Release:        1%{?dist}
+Release:        499%{?dist}
 Summary:        Persistence for Perl data structures
 # Storable.pm:  GPL+ or Artistic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -136,6 +136,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.32-499
+- Increase release to favour standalone package
+
 * Mon Jun 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.32-1
 - Upgrade to 3.32 as provided in perl-5.37.12
 

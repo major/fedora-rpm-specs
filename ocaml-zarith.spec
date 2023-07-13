@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-zarith
 Version:        1.12
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OCaml interface to GMP
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -105,6 +108,9 @@ make tests
 %doc Changes html
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.12-11
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.12-10
 - OCaml 5.0.0 rebuild
 - Install missing files

@@ -2,7 +2,7 @@
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Glib\\)$
 Name:           perl-HTTP-Soup
 Version:        0.01
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        HTTP client/server library for GNOME
 License:        LGPLv2 or Artistic 2.0
 URL:            https://metacpan.org/release/HTTP-Soup
@@ -54,6 +54,9 @@ This module provides the Perl bindings for the C library libsoup.
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.01-30
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

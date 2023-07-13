@@ -2,7 +2,7 @@ Name:           perl-Module-CoreList
 # Epoch to compete with perl.spec
 Epoch:          1
 Version:        5.20230520
-Release:        1%{?dist}
+Release:        499%{?dist}
 Summary:        What modules are shipped with versions of perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-CoreList
@@ -105,6 +105,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20230520-499
+- Increase release to favour standalone package
+
 * Mon Jul 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20230520-1
 - 5.20230520 bump
 

@@ -1,6 +1,6 @@
 Name:           perl-OpenGL-GLUT
 Version:        0.72
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Perl bindings to GLUT/FreeGLUT GUI toolkit
 # pgopogl.h is LGPLv2+
 # include/GL is MIT
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/OpenGL::GLUT*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.72-5
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.72-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

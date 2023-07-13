@@ -1,6 +1,6 @@
 Name:           perl-Sub-Prototype
 Version:        0.03
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Allows you to set a subs prototype
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Sub-Prototype
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-13
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

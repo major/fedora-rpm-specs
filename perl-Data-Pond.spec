@@ -1,6 +1,6 @@
 Name:           perl-Data-Pond
 Version:        0.005
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Perl-based open notation for data
 License:        GPL+ or Artistic
 
@@ -55,6 +55,9 @@ JavaScript, but Pond represents fewer data types directly.
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.005-21
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

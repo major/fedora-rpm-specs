@@ -13,6 +13,10 @@ Source0:        https://github.com/quintusdias/glymur/archive/v%{version}/%{name
 Source1:        jp2dump.1
 Source2:        tiff2jp2.1
 
+# Adapt to OrderedDict repr change in Python 3.12
+# https://github.com/quintusdias/glymur/pull/621
+Patch:          https://github.com/quintusdias/glymur/pull/621.patch
+
 # Since the package has had endian-dependent test failures in the past, we give
 # up “noarch” in the base package in order to run tests on all supported
 # architectures.  We can still make all the built RPMs noarch.  Since the
@@ -53,7 +57,7 @@ Recommends:     python3dist(gdal)
 
 
 %prep
-%autosetup -n glymur-%{version}
+%autosetup -n glymur-%{version} -p1
 
 
 %generate_buildrequires

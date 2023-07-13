@@ -29,7 +29,10 @@
 # with espeak support iff on Fedora:
 %define with_espeak 0%{?fedora}
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+%ifnarch %{ix86}
 %global with_ocaml 1
+%endif
 
 %ifarch %{java_arches}
 %global JAVA 1
@@ -44,7 +47,7 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 14%{?dist}
+Release: 16%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -688,6 +691,12 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 6.5-16
+- OCaml 5.0 rebuild for Fedora 39
+
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 6.5-15
+- Rebuilt for ICU 73.2
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 6.5-14
 - OCaml 5.0.0 rebuild
 - Produce debuginfo for the OCaml interface

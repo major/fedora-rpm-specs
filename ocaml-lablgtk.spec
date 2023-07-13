@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-lablgtk
 Version:        2.18.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        Objective Caml interface to gtk+
 
@@ -146,6 +149,9 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2.18.13-5
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.18.13-4
 - Add patch for OCaml 5.0 compatibility
 

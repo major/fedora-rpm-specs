@@ -1,7 +1,10 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %undefine _package_note_flags
 Name:           ocaml-autoconf
 Version:        1.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Autoconf macros for OCaml
 
 
@@ -49,6 +52,9 @@ make install \
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-34
+- OCaml 5.0 rebuild for Fedora 39
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-33
 - Rebuild OCaml packages for F38
 

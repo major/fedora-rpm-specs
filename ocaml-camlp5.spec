@@ -1,43 +1,62 @@
-%undefine _package_note_flags
-Name:           ocaml-camlp5
-Version:        8.00.03
-Release:        4%{?dist}
-Summary:        Classical version of camlp4 OCaml preprocessor
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
-License:        BSD
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
+Name:           ocaml-camlp5
+Version:        8.01.00
+Release:        2%{?dist}
+Summary:        Preprocessor and pretty printer for OCaml
+
+License:        BSD-3-Clause
 URL:            https://camlp5.github.io/
 
-Source0:        https://github.com/camlp5/camlp5/archive/rel%{version}.tar.gz
+Source0:        https://github.com/camlp5/camlp5/archive/%{version}/camlp5-%{version}.tar.gz
 
 # Kill -warn-error A
 Patch0:         camlp5-8.00-kill-warn-error.patch
 
-# Ignore findlib requirement for camlp-streams
-# See: https://github.com/camlp5/camlp5/issues/81
-Patch1:         camlp5-rel8.00.03-ignore-camlp-streams.patch
+# Fix assignment of a function to a variable that used to be a ref
+Patch1:         camlp5-8.01-function-ref.patch
 
+BuildRequires:  diffutils
 BuildRequires:  make
-BuildRequires:  ocaml
-BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml >= 4.10
+BuildRequires:  ocaml-bos-devel
+BuildRequires:  ocaml-camlp-streams-devel >= 5.0
+BuildRequires:  ocaml-camlp5-buildscripts >= 0.02
 BuildRequires:  ocaml-findlib
-BuildRequires:  perl
+BuildRequires:  ocaml-fmt-devel
+BuildRequires:  ocaml-ounit-devel
+BuildRequires:  ocaml-pcre-devel
+BuildRequires:  ocaml-re-devel
+BuildRequires:  ocaml-rresult-devel
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(IPC::System::Simple)
+BuildRequires:  perl(String::ShellQuote)
+BuildRequires:  python3
 
-%global __ocaml_requires_opts -i Asttypes -i Parsetree -i Pa_extend
-%global __ocaml_provides_opts -i Dynlink -i Dynlinkaux -i Pa_extend
+BuildRequires:  ocaml-ocamldoc
+
+# Do not provide symbols already provided by the OCaml compiler
+%global __ocaml_provides_opts -i Dynlink -i Dynlink_common -i Dynlink_compilerlibs -i Dynlink_platform_intf -i Dynlink_types
+
 
 %description
 Camlp5 is a preprocessor-pretty-printer of OCaml.
 
-It is the continuation of the classical camlp4 with new features.
-
-OCaml 3.10 and above have an official camlp4 which is incompatible
-with classical (<= 3.09) versions.  You can find that in the
-ocaml-camlp4 package.
+It is compatible with all versions of OCaml from 4.05.0 thru 4.14.0.
+Previous versions of Camlp5 have supported OCaml versions down to 1.07
+and jocaml 3.12.0 to 3.12.1, but this version cuts off support at
+4.05.0.  Camlp5 is heavily tested with OCaml versions from 4.10.0
+forward, with an extensive and ever-growing testsuite.
 
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %description    devel
@@ -46,15 +65,11 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n camlp5-rel%{version}
+%autosetup -n camlp5-%{version} -p1
 find . -name .gitignore -delete
 
-# Build with debug information
-sed -i 's,WARNERR="",WARNERR="-g",' configure
-sed -i 's,-linkall,& -g,g' top/Makefile
-for fil in compile/compile.sh $(find . -name Makefile); do
-  sed -i 's,\$[({]OCAMLN[})]c,& -g,;s,\$[({]OCAMLN[})]opt,& -g,;s,LINKFLAGS=,&-g ,' $fil
-done
+# Avoid obsolescence warning
+sed -i 's/egrep/grep -E/' configure
 
 
 %build
@@ -64,41 +79,34 @@ done
     --bindir %{_bindir} \
     --libdir %{_libdir}/ocaml \
     --mandir %{_mandir}
-make
+%ifarch %{ocaml_native_compiler}
+%make_build DEBUG=-g
+%else
+%make_build world DEBUG=-g
+%endif
+
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml
-# This is a hack because the make install rule is broken upstream.
-# We move the file later.
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml/ocaml
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_mandir}
-make install DESTDIR=$RPM_BUILD_ROOT
-cp -p etc/META $RPM_BUILD_ROOT%{_libdir}/ocaml/camlp5
-rm -f doc/htmlp/{*.sh,Makefile,html2*}
-pushd $RPM_BUILD_ROOT%{_libdir}/ocaml
-mv ocaml/topfind.camlp5 .
-rmdir ocaml
-popd
+%make_install
+%ocaml_files
+sed -i '\@%{_bindir}@d;\@%{_mandir}@d' .ofiles
 
 
-%files
+%ifarch %{ocaml_native_compiler}
+# The testsuite relies on ocamlopt
+%check
+make -C testsuite all-tests
+make -C test all
+%endif
+
+
+%files -f .ofiles
 %license LICENSE
 %doc README.md
-%{_libdir}/ocaml/camlp5
-%exclude %{_libdir}/ocaml/camlp5/*.a
-%exclude %{_libdir}/ocaml/camlp5/*.cmxa
-%exclude %{_libdir}/ocaml/camlp5/*.cmx
-%exclude %{_libdir}/ocaml/camlp5/*.mli
-%{_libdir}/ocaml/topfind.camlp5
 
 
-%files devel
-%doc CHANGES ICHANGES DEVEL UPGRADING doc/html
-%{_libdir}/ocaml/camlp5/*.a
-%{_libdir}/ocaml/camlp5/*.cmxa
-%{_libdir}/ocaml/camlp5/*.cmx
-%{_libdir}/ocaml/camlp5/*.mli
+%files devel -f .ofiles-devel
+%doc CHANGES ICHANGES DEVEL UPGRADING doc/html doc/htmlp
 %{_bindir}/camlp5*
 %{_bindir}/mkcamlp5*
 %{_bindir}/ocpp5
@@ -106,6 +114,16 @@ popd
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 8.01.00-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 8.01.00-1
+- Version 8.01.00
+- Convert License tag to SPDX
+- Add function-ref patch to fix FTBFS with OCaml 5.0.0
+- Add %%check script
+- Use new OCaml macros
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 8.00.03-4
 - Rebuild OCaml packages for F38
 

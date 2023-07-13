@@ -1,6 +1,6 @@
 Name:           perl-Socket-Netlink
 Version:        0.05
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Interface to Linux's PF_NETLINK socket family
 License:        GPL+ or Artistic
 
@@ -83,6 +83,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-23
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

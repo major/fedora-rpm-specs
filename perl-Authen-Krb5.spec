@@ -1,6 +1,6 @@
 Name:           perl-Authen-Krb5
 Version:        1.9
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Krb5 Perl module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Krb5
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.9-40
+- Perl 5.38 rebuild
+
 * Tue Feb 28 2023 Florian Weimer <fweimer@redhat.com> - 1.9-39
 - Build in C89 mode due to internal krb5 function use (#2172836)
 

@@ -1,6 +1,6 @@
 Name:           perl-Convert-Binary-C
 Version:        0.84
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Binary data conversion using C types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Binary-C
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.84-9
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.84-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

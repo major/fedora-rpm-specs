@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-extlib
 Version:        1.7.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml ExtLib additions to the standard library
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
 
@@ -84,6 +87,9 @@ make -C test all run
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.9-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.7.9-1
 - Version 1.7.9
 - Convert License tag to SPDX

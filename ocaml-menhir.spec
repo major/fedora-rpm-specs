@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # Whether to build the manual
 %if 0%{?rhel}
 %bcond_with manual
@@ -7,7 +10,7 @@
 
 Name:           ocaml-menhir
 Version:        20230608
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LR(1) parser generator for OCaml
 
 # The generator is GPL-2.0-only
@@ -103,6 +106,9 @@ rm -rf %{buildroot}%{ocamldir}/coq-menhirlib/
 %{ocamldir}/menhirLib/menhirLib.ml
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 20230608-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 20230608-1
 - Version 20230608
 - Stop building the coq-menhirlib subpackage

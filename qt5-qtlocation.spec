@@ -3,7 +3,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.15.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -126,6 +126,9 @@ popd
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 5.15.10-2
+- Rebuilt for ICU 73.2
+
 * Mon Jun 12 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-1
 - 5.15.10
 

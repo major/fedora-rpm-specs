@@ -1,4 +1,6 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # Architectures on which golang works.
 #% global golang_arches aarch64 % {arm} % {ix86} x86_64
 # In theory the above, in practice golang is so often broken that
@@ -48,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.51.4
-Release:       2%{?dist}
+Release:       5%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1086,6 +1088,15 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.4-5
+- OCaml 5.0 rebuild for Fedora 39
+
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.51.4-4
+- Perl 5.38 rebuild
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1:1.51.4-3
+- OCaml 5.0.0 rebuild
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 1:1.51.4-2
 - Rebuilt for Python 3.12
 

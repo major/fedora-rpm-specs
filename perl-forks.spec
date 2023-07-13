@@ -1,6 +1,6 @@
 Name:           perl-forks
 Version:        0.36
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A drop-in replacement for Perl threads using fork()
 License:        (GPL+ or Artistic) and (GPLv2+ or Artistic)
 URL:            https://metacpan.org/release/forks
@@ -106,6 +106,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.36-25
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

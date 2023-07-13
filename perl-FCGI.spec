@@ -7,7 +7,7 @@ Summary:        FastCGI Perl bindings
 # needed to properly replace/obsolete fcgi-perl
 Epoch:          1
 Version:        0.82
-Release:        6%{?dist}
+Release:        7%{?dist}
 # eg/echo.pl:   "See the LICENSE file"
 # fastcgi.h:    "See the LICENSE file"
 # FCGI.pm:      "See the LICENSE file"
@@ -129,6 +129,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.82-7
+- Perl 5.38 rebuild
+
 * Mon Jun 12 2023 Petr Pisar <ppisar@redhat.com> - 1:0.82-6
 - Specify all dependencies
 - Package examples

@@ -1,24 +1,25 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-ppx-variants-conv
-Version:        0.15.0
-Release:        10%{?dist}
+Version:        0.16.0
+Release:        2%{?dist}
 Summary:        Generate accessor & iteration functions for OCaml variant types
 
 License:        MIT
 URL:            https://github.com/janestreet/ppx_variants_conv
 Source0:        %{url}/archive/v%{version}/ppx_variants_conv-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.04.2
-BuildRequires:  ocaml-base-devel >= 0.14
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-base-devel >= 0.16
 BuildRequires:  ocaml-dune >= 2.0.0
-BuildRequires:  ocaml-ppxlib-devel >= 0.14.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 BuildRequires:  ocaml-ppx-inline-test-devel
-BuildRequires:  ocaml-variantslib-devel >= 0.14
+BuildRequires:  ocaml-variantslib-devel >= 0.16
 
 %description
 Ppx_variants_conv is a ppx rewriter that can be used to define
@@ -57,6 +58,12 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Version 0.16.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-10
 - Rebuild OCaml packages for F38
 

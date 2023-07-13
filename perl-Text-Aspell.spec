@@ -2,7 +2,7 @@
 
 Name:		perl-%{base}
 Version:	0.09
-Release:	46%{?dist}
+Release:	47%{?dist}
 Summary:	Perl interface to the GNU Aspell library
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/%{base}
@@ -58,6 +58,9 @@ make test TEST_POD=t
 %{_mandir}/man3/*.3*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-47
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

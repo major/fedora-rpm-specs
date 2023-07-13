@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-594-g5324d25842
+%global glibcsrcdir glibc-2.37.9000-604-g7f079fdc16
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 16
+%global baserelease 17
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2213,6 +2213,20 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Jul 11 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-17
+- Auto-sync with upstream branch master,
+  commit 7f079fdc16e88ebb8020e17b2fd900e8924da29a:
+- LoongArch: Add vector implementation for _dl_runtime_resolve.
+- LoongArch: config: Added HAVE_LOONGARCH_VEC_ASM.
+- sysdeps: Add missing hidden definitions for i386
+- sysdeps/s390: Exclude fortified routines from being built with _FORTIFY_SOURCE
+- Translations: Add new ro support and update others.
+- elf: _dl_find_object may return 1 during early startup (bug 30515)
+- LoongArch: config: Rewrite check on static PIE.
+- Revert "hppa: Drop 16-byte pthread lock alignment"
+- realloc: Limit chunk reuse to only growing requests [BZ #30579]
+- vfscanf-internal: Remove potentially unbounded allocas
+
 * Thu Jul 06 2023 Frédéric Bérat <fberat@redhat.com> - 2.37.9000-16
 - Add "--enable-fortify-source" option to configure
 - Auto-sync with upstream branch master,

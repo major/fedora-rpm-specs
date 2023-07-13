@@ -1,17 +1,18 @@
+# Be explicit about the soname in order to avoid unintentional changes.
+%global soname libz-ng.so.2
+
 Name:		zlib-ng
-Version:	2.0.6
-Release:	3%{?dist}
+Version:	2.1.3
+Release:	1%{?dist}
 Summary:	Zlib replacement with optimizations
 License:	zlib
 Url:		https://github.com/zlib-ng/zlib-ng
 Source0:	https://github.com/zlib-ng/zlib-ng/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Be explicit about the soname in order to avoid unintentional changes.
-%global soname libz-ng.so.2
-
 ExclusiveArch:	aarch64 i686 ppc64le s390x x86_64
-BuildRequires:	cmake
-BuildRequires:	gcc
+BuildRequires:	cmake >= 3.1
+BuildRequires:	gcc-c++
+BuildRequires:	cmake(GTest)
 
 %description
 zlib-ng is a zlib replacement that provides optimizations for "next generation"
@@ -40,18 +41,22 @@ developing application that use %{name}.
 %cmake_install
 
 %files
-%{_libdir}/%{soname}
-%{_libdir}/libz-ng.so.2.*
 %license LICENSE.md
 %doc README.md
+%{_libdir}/libz-ng.so.%{version}
+%{_libdir}/%{soname}
 
 %files devel
 %{_includedir}/zconf-ng.h
 %{_includedir}/zlib-ng.h
+%{_includedir}/zlib_name_mangling-ng.h
 %{_libdir}/libz-ng.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Jul 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 2.1.3-1
+- Update to 2.1.3
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

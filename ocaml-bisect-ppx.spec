@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # Running the tests requires ocaml-ounit, which introduces a circular
 # dependency (also involving ocaml-lwt).  The tests also require ocamlformat,
 # introducing a second circular dependency.  Break the cycles with this
@@ -6,7 +9,7 @@
 
 Name:           ocaml-bisect-ppx
 Version:        2.8.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Code coverage for OCaml and Reason
 
 # The project as a whole is MIT.
@@ -82,6 +85,9 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2.8.2-3
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.8.2-2
 - OCaml 5.0.0 rebuild
 

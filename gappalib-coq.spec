@@ -1,4 +1,5 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
@@ -9,12 +10,12 @@
 # install the package and run "remake check" manually before committing.
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
-%global coqver  8.17.0
+%global coqver  8.17.1
 %global commit  c761927f88a3a0e99efdf54fd93c2d8276deab91
 
 Name:           gappalib-coq
 Version:        1.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Coq support library for gappa
 
 License:        LGPL-3.0-or-later
@@ -100,6 +101,9 @@ remake check
 %{gappadir}/*.v
 
 %changelog
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.5.3-2
+- OCaml 5.0.0 rebuild
+
 * Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 1.5.3-1
 - Version 1.5.3
 

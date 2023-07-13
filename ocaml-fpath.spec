@@ -1,10 +1,13 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-fpath
 Version:        0.7.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        File paths for OCaml
 
 License:        ISC
@@ -76,6 +79,9 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.3-13
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.7.3-12
 - OCaml 5.0.0 rebuild
 - Do not require ocaml-compiler-libs at runtime

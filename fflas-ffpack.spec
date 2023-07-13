@@ -3,7 +3,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
 #
 # We can enable the Doxygen PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 # This package is arch-specific, because it computes properties of the system
 # (such as endianness) and stores them in generated header files. Hence, the
@@ -51,7 +51,7 @@ BuildRequires:  pkgconfig(flexiblas)
 BuildRequires:  pkgconfig(givaro)
 BuildRequires:  gmp-devel
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  doxygen
 BuildRequires:  doxygen-latex
 BuildRequires:  make
@@ -83,6 +83,7 @@ over word size prime finite fields.  This package provides the header
 files for developing applications that use FFLAS-FFPACK.
 
 
+%if %{with doc}
 %package doc
 Summary:        API documentation for fflas-ffpack
 
@@ -90,6 +91,7 @@ BuildArch:      noarch
 
 %description doc
 API documentation for fflas-ffpack.
+%endif
 
 
 %prep
@@ -106,7 +108,7 @@ sed -i 's,%{_bindir}/env bash,%{_bindir}/bash,' fflas-ffpack-config.in
 # SIMD routines below SSE4.1 in the library, so it is not worth worrying about.
 sed -i '/INSTR_SET/,/fabi-version/d' configure.ac
 
-%if %{with doc_pdf}
+%if %{with doc}
 # We enable the Doxygen PDF documentation as a substitute. We must enable
 # GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
 # already be set as we like them. We also disable GENERATE_HTML, since we will
@@ -125,7 +127,7 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 autoreconf --force --install --verbose
 
 %configure \
-  %{?with_doc_pdf:--enable-doc --docdir='%{_docdir}/fflas-ffpack'} \
+  %{?with_doc:--enable-doc --docdir='%{_docdir}/fflas-ffpack'} \
   --disable-static \
   --enable-openmp \
   --disable-simd \
@@ -134,7 +136,7 @@ autoreconf --force --install --verbose
 chmod -v a+x fflas-ffpack-config
 %make_build
 
-%if %{with doc_pdf}
+%if %{with doc}
 %make_build -C doc/latex
 mv -v doc/latex/refman.pdf doc/fflas-ffpack.pdf
 # Build the developer documentation, too.
@@ -159,7 +161,9 @@ export FLEXIBLAS=netlib
 
 %files devel
 %license COPYING COPYING.LESSER
-%doc README.md
+%if %{without doc}
+%doc AUTHORS ChangeLog README.md TODO
+%endif
 
 %{_bindir}/fflas-ffpack-config
 %{_mandir}/man1/fflas-ffpack-config.1*
@@ -169,13 +173,10 @@ export FLEXIBLAS=netlib
 %{_libdir}/pkgconfig/fflas-ffpack.pc
 
 
+%if %{with doc}
 %files doc
 %license COPYING COPYING.LESSER
-%doc AUTHORS
-%doc ChangeLog
-%doc README.md
-%doc TODO
-%if %{with doc_pdf}
+%doc AUTHORS ChangeLog README.md TODO
 %doc doc/fflas-ffpack.pdf
 %doc doc/fflas-ffpack-dev.pdf
 %endif

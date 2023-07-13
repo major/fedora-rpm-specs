@@ -2,8 +2,8 @@
 %global srcurl  https://github.com/mhogomchungu/%{name}
 
 Name:           sirikali
-Version:        1.5.0
-Release:        4%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        GUI front end to encfs,cryfs,gocryptfs and securefs
 # generally GPLv2+, BSD for tasks and NetworkAccessManager folders
 License:        GPL-2.0-or-later AND BSD-2-Clause
@@ -38,7 +38,6 @@ Recommends:    fuse-encfs
 %autosetup -p0 -n%{srcname}-%{version}
 # collect licenses
 cp -p src/3rdParty/tasks/LICENSE LICENSE-tasks
-cp -p src/3rdParty/NetworkAccessManager/LICENSE LICENSE-NetworkAccessManager
 # unbundle
 pushd src/3rdParty
 rm -rv lxqt_wallet
@@ -79,6 +78,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mhogomchung
 
 
 %changelog
+* Tue Jul 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.1-1
+- 1.5.1
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.0-4
 - migrated to SPDX license
 

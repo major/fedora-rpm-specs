@@ -1,8 +1,9 @@
-%undefine _package_note_flags
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 Name:           ocaml-sedlex
-Version:        3.1
-Release:        1%{?dist}
+Version:        3.2
+Release:        2%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -73,6 +74,12 @@ sed -i "s/15\\.0\\.0/$univer/" examples/regressions.ml \
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 3.2-2
+- OCaml 5.0 rebuild for Fedora 39
+
+* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.2-1
+- Version 3.2
+
 * Wed Mar 22 2023 Jerry James <loganjerry@gmail.com> - 3.1-1
 - Version 3.1
 - Drop upstreamed uchar patch

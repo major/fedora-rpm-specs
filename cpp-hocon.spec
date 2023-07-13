@@ -3,7 +3,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
 #
 # We can enable the Doxygen PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           cpp-hocon
 Version:        0.3.0
@@ -35,7 +35,7 @@ BuildRequires:  catch1-devel
 
 # Documentation
 BuildRequires:  doxygen
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  doxygen-latex
 BuildRequires:  make
 %endif
@@ -60,6 +60,7 @@ Requires:       leatherman-devel%{?_isa}
 Libraries and headers to link against cpp-hocon.
 
 
+%if %{with doc}
 %package doc
 Summary:        Documentation for the cpp-hocon library
 
@@ -67,6 +68,7 @@ BuildArch:      noarch
 
 %description doc
 Documentation for the cpp-hocon library.
+%endif
 
 
 %prep
@@ -78,7 +80,7 @@ sed -r -i 's/(LEATHERMAN_COMPONENTS)(\b.+)?(\bcatch\b)/\1\2/' CMakeLists.txt
 sed -r -i 's|\$\{LEATHERMAN_CATCH_INCLUDE\}|"%{_includedir}/catch"|' \
     lib/tests/CMakeLists.txt
 
-%if %{with doc_pdf}
+%if %{with doc}
 # We enable the Doxygen PDF documentation as a substitute. We must enable
 # GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
 # already be set as we like them. We also disable GENERATE_HTML, since we will
@@ -99,7 +101,7 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
     -GNinja
 %cmake_build
 
-%if %{with doc_pdf}
+%if %{with doc}
 pushd lib
 doxygen Doxyfile
 %make_build -C latex
@@ -118,6 +120,9 @@ popd
 
 %files
 %license LICENSE
+%if %{without doc}
+%doc README.md
+%endif
 %{_libdir}/libcpp-hocon.so.%{so_version}
 
 
@@ -126,11 +131,9 @@ popd
 %{_includedir}/hocon/
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
-%doc CONTRIBUTING.md
-%doc README.md
-%if %{with doc_pdf}
 %doc lib/latex/cpp-hocon.pdf
 %endif
 

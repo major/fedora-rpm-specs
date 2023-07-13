@@ -7,7 +7,7 @@ Summary:        Perl interface to the uulib library
 Name:           perl-Convert-UUlib
 Epoch:          3
 Version:        1.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/%{pkgname}-%{version}.tar.gz
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man?/Convert::UUlib*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3:1.8-9
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

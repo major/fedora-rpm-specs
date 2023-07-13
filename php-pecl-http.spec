@@ -28,7 +28,7 @@
 
 Name:           php-pecl-http
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extended HTTP support
 
 License:        BSD-2-Clause
@@ -244,6 +244,9 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 4.2.3-9
+- Rebuilt for ICU 73.2
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 4.2.3-8
 - use SPDX license ID
 - open https://github.com/m6w6/ext-http/issues/129 failed test with libcurl 8

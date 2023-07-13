@@ -3,7 +3,7 @@
 
 Name:           gspell
 Version:        1.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Spell-checking library for GTK+
 
 License:        LGPL-2.1-or-later
@@ -84,6 +84,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.12.1-2
+- Rebuilt for ICU 73.2
+
 * Tue May 02 2023 David King <amigadave@amigadave.com> - 1.12.1-1
 - Update to 1.12.1
 

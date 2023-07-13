@@ -16,7 +16,7 @@
 Summary:       A network-capable tape backup solution
 Name:          amanda
 Version:       3.5.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 Source:        https://github.com/zmanda/amanda/archive/tag-community-%{version}/amanda-%{version}.tar.gz
 Source1:       amanda.crontab
 Source4:       disklist
@@ -452,6 +452,9 @@ make check
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.5.3-4
+- Perl 5.38 rebuild
+
 * Tue May 02 2023 Josef Ridky <jridky@redhat.com> - 3.5.3-3
 - move to SPDX license format
 

@@ -32,7 +32,7 @@
 
 Name:     %{libname}
 Version:  4.2.16
-Release:  10%{?dist}
+Release:  11%{?dist}
 Summary:  GUI-abstraction library
 
 License:  (LGPLv2 or LGPLv3) and MIT
@@ -346,6 +346,9 @@ install -m0755 -d %{buildroot}%{_libdir}/yui
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.2.16-11
+- Perl 5.38 rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.2.16-10
 - Rebuilt for Python 3.12
 

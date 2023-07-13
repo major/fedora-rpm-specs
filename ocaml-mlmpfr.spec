@@ -1,9 +1,12 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # Uncomment this for bugfix releases
 #%%global bugfix bugfix2
 
 Name:           ocaml-mlmpfr
 Version:        4.1.1
-Release:        4%{?dist}%{?bugfix:.%{bugfix}}
+Release:        5%{?dist}%{?bugfix:.%{bugfix}}
 Summary:        OCaml bindings for MPFR
 
 # FIXME: the individual files say LGPL-3.0-or-later, but opam says this:
@@ -57,6 +60,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-5
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-4
 - OCaml 5.0.0 rebuild
 - The 4.1.1 release was respun without needing the compatibility patch

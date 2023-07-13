@@ -1,6 +1,6 @@
 Name:           perl-Digest-MD5
 Version:        2.58
-Release:        490%{?dist}
+Release:        499%{?dist}
 Summary:        Perl interface to the MD5 algorithm
 # MD5.pm:       (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
 # MD5.xs:       (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.58-499
+- Increase release to favour standalone package
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.58-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

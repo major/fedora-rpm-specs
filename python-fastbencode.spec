@@ -10,6 +10,9 @@ License:        GPLv2+ and MIT
 #_bencode_py.py is licensed under MIT
 URL:            https://github.com/breezy-team/fastbencode
 Source:         %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+# Skip test failing with Python 3.12
+# Upstream issue: https://github.com/breezy-team/fastbencode/issues/23
+Patch:          Skip-failing-test-with-Python-3.12.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(cython) >= 0.29
@@ -35,7 +38,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %build
 %py3_build

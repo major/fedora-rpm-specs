@@ -1,6 +1,6 @@
 Name:           perl-B-Hooks-AtRuntime
 Version:        8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Lower blocks from compile time to runtime
 # 2-clause BSD licence
 # cf. lib/B/Hooks/AtRuntime.pm
@@ -69,6 +69,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 8-4
+- Perl 5.38 rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

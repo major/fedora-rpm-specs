@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # On platforms and architectures that support it, the default is
 # ‘--with dietlibc’.
 #
@@ -29,7 +32,7 @@
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       10%{?dist}
+Release:       11%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -200,6 +203,9 @@ make check || {
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-11
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.3.3-10
 - OCaml 5.0.0 rebuild
 

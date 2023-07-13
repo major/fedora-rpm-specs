@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # Important note!
 # There are at least two quite separate OCaml cairo projects.
 #
@@ -11,7 +14,7 @@
 Name:           ocaml-cairo
 Epoch:          2
 Version:        0.6.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml library for accessing cairo graphics
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -149,6 +152,9 @@ export GTK_LIBS="%{build_ldflags} $gtk_libs"
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2:0.6.4-5
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2:0.6.4-4
 - OCaml 5.0.0 rebuild
 

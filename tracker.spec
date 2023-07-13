@@ -4,7 +4,7 @@
 
 Name:           tracker
 Version:        3.6~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -167,6 +167,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 3.6~alpha-2
+- Rebuilt for ICU 73.2
+
 * Tue Jul 04 2023 Kalev Lember <klember@redhat.com> - 3.6~alpha-1
 - Update to 3.6.alpha
 

@@ -1,5 +1,5 @@
 Name:           harfbuzz
-Version:        7.3.0
+Version:        8.0.0
 Release:        2%{?dist}
 Summary:        Text shaping library
 
@@ -92,6 +92,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libharfbuzz-icu.so.*
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 8.0.0-2
+- Rebuilt for ICU 73.2
+
+* Tue Jul 11 2023 Parag Nemade <pnemade AT redhat DOT com> - 8.0.0-1
+- Update to 8.0.0 version (#2221636)
+
 * Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.3.0-2
 - Migrate to SPDX license expression
 

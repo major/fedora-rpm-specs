@@ -1,6 +1,6 @@
 Name:           perl-Sys-CPU
 Version:        0.61
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Getting CPU information
 
 # Some code was copied from Unix::Processors, which is LGPL-3.0-only OR Artistic-2.0
@@ -58,6 +58,9 @@ find %{buildroot} -type f -name CPU.bs -exec rm -f {} ';'
 
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.61-32
+- Perl 5.38 rebuild
+
 * Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.61-31
 - Fix %patch macro
 - Update license to SPDX format

@@ -5,7 +5,7 @@
 %global crate rustix
 
 Name:           rust-rustix
-Version:        0.37.19
+Version:        0.37.23
 Release:        %autorelease
 Summary:        Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls
 
@@ -287,6 +287,18 @@ This package contains library source intended for building other packages which
 use the "procfs" feature of the "%{crate}" crate.
 
 %files       -n %{name}+procfs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+pty-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+pty-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "pty" feature of the "%{crate}" crate.
+
+%files       -n %{name}+pty-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rand-devel

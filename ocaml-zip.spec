@@ -1,6 +1,9 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 Name:           ocaml-zip
 Version:        1.11
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OCaml library for reading and writing zip, jar and gzip files
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -91,6 +94,9 @@ cmp Makefile Makefile.uncompressed
 
 
 %changelog
+* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.11-9
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.11-8
 - OCaml 5.0.0 rebuild
 - Convert License tag to SPDX

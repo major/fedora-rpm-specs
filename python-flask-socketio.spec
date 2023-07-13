@@ -94,7 +94,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 %if %{with doc_pdf}
 %doc docs/_build/latex/flask-socketio.pdf
 %endif
-%doc example
+%doc example/
 
 
 %changelog

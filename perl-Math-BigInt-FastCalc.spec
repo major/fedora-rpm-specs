@@ -1,7 +1,7 @@
 Name:           perl-Math-BigInt-FastCalc
 %global cpan_version 0.5014
 Version:        0.501.400
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Math::BigInt::Calc with some XS for more speed
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt-FastCalc
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.501.400-2
+- Perl 5.38 rebuild
+
 * Mon Apr 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.501.400-1
 - 0.5014 bump
 

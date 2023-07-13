@@ -1,6 +1,6 @@
 Name:           yaz
 Version:        5.34.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 # SPDX confirmed
 License:        BSD-3-Clause
@@ -144,6 +144,9 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 5.34.0-3
+- Rebuilt for ICU 73.2
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.34.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

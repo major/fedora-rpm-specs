@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # rpmlint "no-binary" error is not really an error - see:
 # https://www.redhat.com/archives/fedora-packaging/2008-August/msg00017.html
 # and ocaml-ocamlgraph spec file for a discussion of this issue.
@@ -10,7 +13,7 @@
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The project as a whole is Apache-2.0.
@@ -260,6 +263,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.3.3-8
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.3.3-7
 - OCaml 5.0.0 rebuild
 
