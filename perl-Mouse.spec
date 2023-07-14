@@ -1,7 +1,7 @@
 Name:           perl-Mouse
 Summary:        Moose minus the antlers
 Version:        2.5.10
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Mouse
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Mouse-v%{version}.tar.gz
@@ -171,6 +171,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Test::Mouse.3*
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.5.10-16
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.5.10-15
 - Perl 5.38 rebuild
 

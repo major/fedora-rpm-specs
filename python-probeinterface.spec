@@ -142,7 +142,7 @@ k="${k-}${k+ and }not test_get_from_cache"
 
 %files doc
 %license LICENSE
-%doc examples
+%doc examples/
 %if %{with doc_pdf}
 %doc doc/_build/latex/probeinterface.pdf
 %endif

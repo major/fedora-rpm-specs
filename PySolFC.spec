@@ -1,8 +1,8 @@
 %global cardsets_minimal_ver 2.2.0
 
 Name:           PySolFC
-Version:        2.20.1
-Release:        4%{?dist}
+Version:        2.21.0
+Release:        1%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
@@ -89,6 +89,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Wed Jul 12 2023 Shlomi Fish <shlomif@shlomifish.org> 2.21.0-1
+- Update PySolFC to 2.21.0.
+
 * Sat Jun 24 2023 Sérgio Basto <sergio@serjux.com> - 2.20.1-4
 - Migrate to SPDX license format
 

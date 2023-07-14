@@ -10,7 +10,7 @@
 
 Name:           perl-Syntax-Operator-Equ
 Version:        0.06
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Equality operators that distinguish undef
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Operator-Equ
@@ -124,6 +124,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-3
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-2
 - Perl 5.38 rebuild
 

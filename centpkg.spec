@@ -13,7 +13,7 @@
 
 Name:           centpkg
 Version:        0.7.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
 URL:            https://git.centos.org/centos/centpkg
@@ -40,6 +40,7 @@ BuildRequires:  python3-six
 BuildRequires:  python3-rpkg
 # Auto dependencies are not showing the version.
 Requires:       python3-rpkg >= 1.65
+Requires:       python3-gitlab
 %endif
 
 # /etc/koji.conf.d/stream.conf was previously part of streamkoji
@@ -95,6 +96,9 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Wed Jul 12 2023 Troy Dawson <tdawson@redhat.com> - 0.7.4-2
+- 0.7.4 requires python3-gitlab
+
 * Mon Jul 10 2023 Troy Dawson <tdawson@redhat.com> - 0.7.4-1
 - Check package spelling (CS-767)
 - Add StreamLookasideCache specific get_download_url method

@@ -26,8 +26,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 20
-%global nodejs_minor 3
-%global nodejs_patch 1
+%global nodejs_minor 4
+%global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 115
 %global nodejs_abi %{nodejs_soversion}
@@ -71,14 +71,14 @@
 %global llhttp_version 8.1.1
 
 # libuv - from deps/uv/include/uv/version.h
-%global libuv_version 1.45.0
+%global libuv_version 1.46.0
 
 # nghttp2 - from deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
 %global nghttp2_version 1.53.0
 
 # ICU - from tools/icu/current_ver.dep
 %global icu_major 73
-%global icu_minor 1
+%global icu_minor 2
 %global icu_version %{icu_major}.%{icu_minor}
 
 %global icudatadir %{nodejs_datadir}/icudata
@@ -97,7 +97,7 @@
 
 # npm - from deps/npm/package.json
 %global npm_epoch 1
-%global npm_version 9.6.7
+%global npm_version 9.7.2
 
 # In order to avoid needing to keep incrementing the release version for the
 # main package forever, we will just construct one for npm that is guaranteed
@@ -299,7 +299,7 @@ Provides: bundled(histogram) = %{histogram_version}
 
 # Upstream has added a new URL parser that has no option to build as a shared
 # library (19.7.0+)
-Provides: bundled(ada) = 2.5.0
+Provides: bundled(ada) = 2.5.1
 
 
 %description

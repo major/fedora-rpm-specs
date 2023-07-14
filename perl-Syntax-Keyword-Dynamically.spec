@@ -5,7 +5,7 @@
 
 Name:           perl-Syntax-Keyword-Dynamically
 Version:        0.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Dynamically change the value of a variable
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Dynamically
@@ -140,6 +140,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.12-3
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.12-2
 - Perl 5.38 rebuild
 

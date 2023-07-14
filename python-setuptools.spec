@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global srcname setuptools
 
 # used when bootstrapping new Python versions
@@ -20,7 +19,7 @@
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
 Version:        67.7.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
 # platformdirs is MIT
@@ -231,6 +230,9 @@ PYTHONPATH=$(pwd) %pytest \
 
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 67.7.2-6
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 67.7.2-5
 - Bootstrap for Python 3.12
 

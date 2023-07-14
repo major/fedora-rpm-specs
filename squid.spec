@@ -1,7 +1,7 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  5.9
+Version:  6.1
 Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
@@ -9,8 +9,8 @@ Epoch:    7
 License:  GPLv2+ and (LGPLv2+ and MIT and BSD and Public Domain)
 URL:      http://www.squid-cache.org
 
-Source0:  http://www.squid-cache.org/Versions/v5/squid-%{version}.tar.xz
-Source1:  http://www.squid-cache.org/Versions/v5/squid-%{version}.tar.xz.asc
+Source0:  http://www.squid-cache.org/Versions/v6/squid-%{version}.tar.xz
+Source1:  http://www.squid-cache.org/Versions/v6/squid-%{version}.tar.xz.asc
 Source2:  http://www.squid-cache.org/pgp.asc
 Source3:  squid.logrotate
 Source4:  squid.sysconfig
@@ -25,18 +25,17 @@ Source98: perl-requires-squid.sh
 # Upstream patches
 
 # Backported patches
-Patch101: squid-5.7-ip-bind-address-no-port.patch
+# Patch101: patch
 
 # Local patches
 # Applying upstream patches first makes it less likely that local patches
 # will break upstream ones.
-Patch201: squid-4.0.11-config.patch
-Patch202: squid-3.1.0.9-location.patch
-Patch203: squid-3.0.STABLE1-perlpath.patch
-Patch204: squid-3.5.9-include-guards.patch
+Patch201: squid-6.1-config.patch
+Patch202: squid-6.1-location.patch
+Patch203: squid-6.1-perlpath.patch
 # revert this upstream patch - https://bugzilla.redhat.com/show_bug.cgi?id=1936422
 # workaround for #1934919
-Patch205: squid-5.0.5-symlink-lang-err.patch
+Patch204: squid-6.1-symlink-lang-err.patch
 
 # cache_swap.sh
 Requires: bash gawk
@@ -99,14 +98,13 @@ lookup program (dnsserver), a program for retrieving FTP data
 # Upstream patches
 
 # Backported patches
-%patch101 -p1 -b .ip-bind-address-no-port
+# %patch101 -p1 -b .patch
 
 # Local patches
-%patch201 -p1 -b .config
-%patch202 -p1 -b .location
-%patch203 -p1 -b .perlpath
-%patch204 -p0 -b .include-guards
-%patch205 -p1 -R -b .symlink-lang-err
+%patch -P 201 -p1 -b .config
+%patch -P 202 -p1 -b .location
+%patch -P 203 -p1 -b .perlpath
+%patch -P 204 -p1 -b .symlink-lang-err
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1679526
 # Patch in the vendor documentation and used different location for documentation
@@ -159,7 +157,8 @@ sed -i 's|@SYSCONFDIR@/squid.conf.documented|%{_pkgdocdir}/squid.conf.documented
    --disable-arch-native \
    --disable-security-cert-validators \
    --disable-strict-error-checking \
-   --with-swapdir=%{_localstatedir}/spool/squid
+   --with-swapdir=%{_localstatedir}/spool/squid \
+   --enable-translation
 
 # workaround to build squid v5
 mkdir -p src/icmp/tests
@@ -333,6 +332,9 @@ fi
 
 
 %changelog
+* Tue Jul 11 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:6.1-1
+- new version 6.1
+
 * Tue May 09 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:5.9-1
 - new version 5.9
 

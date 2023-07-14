@@ -16,7 +16,7 @@
 
 Name:           python-pyscf
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module for quantum chemistry
 License:        ASL 2.0
 URL:            https://github.com/pyscf/pyscf/
@@ -125,6 +125,9 @@ export PYTHONPATH=$PWD
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 2.3.0-2
+- Rebuilt for Python 3.12
+
 * Sat Jul 08 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.3.0-1
 - Update to 2.3.0.
 

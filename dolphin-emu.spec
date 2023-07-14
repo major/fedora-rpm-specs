@@ -4,27 +4,25 @@
 %undefine _cmake_shared_libs
 %define _gcc_lto_cflags -fno-lto
 
-#Dolphin now uses gitsnapshots for it's versions.
+#See provides(bundled) below for more info:
+%global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround glslang gtest imgui implot rangeset soundtouch VulkanMemoryAllocator zlib-ng
+
+#Dolphin uses gitsnapshots for its versions.
 #See upstream release notes for this snapshot:
 #https://dolphin-emu.org/download/dev/$commit
-%global commit 8335ec70e5fe253eb21509408ca6b5736ed57dfc
-%global snapnumber 16380
+%global commit 423c7c58cd8fe78eb89a3ab434cfbc958a4eef07
+%global snapnumber 19793
+#We should try to use beta whenever possible
+%global branch development
 
 #JIT is only supported on x86_64 and aarch64:
 %ifarch x86_64 aarch64
 %global enablejit 1
 %endif
 
-#Minizip package name, f38 uses minizip-ng
-%if 0%{?fedora} > 37
-%global minizippkg minizip-ng
-%else
-%global minizippkg minizip
-%endif
-
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -43,34 +41,37 @@ Url:            https://dolphin-emu.org/
 License:        GPLv2+ and BSD and MIT and zlib
 Source0:        https://github.com/%{name}/dolphin/archive/%{commit}/%{name}-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
-#Update soundtouch:
-#https://github.com/dolphin-emu/dolphin/pull/10671
-Patch1:         0001-Update-to-soundtouch-2.3.1.patch
-# FMT-9 changes: both upstream
-# https://github.com/dolphin-emu/dolphin/commit/fa17153ebc83cbc0ae7a1d7430d9509db0c6e0d6
-Patch2:         0002-fmt9-use-make_format_args.patch
-# https://github.com/dolphin-emu/dolphin/commit/66f330e57316257fe81b46f57dad22ea6dee7bae
-Patch3:         0003-fmt9-is_compile_string-namespace.patch
+Source2:        https://github.com/google/googletest/archive/refs/tags/release-1.12.1.tar.gz#/gtest-1.12.1.tar.gz
+Source3:        https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.1.3.tar.gz#/zlib-ng-2.1.3.tar.gz
+Source4:        https://github.com/epezent/implot/archive/refs/tags/v0.14.tar.gz#/implot-0.14.tar.gz
+Source5:        https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/archive/refs/tags/v3.0.1.tar.gz#/VulkanMemoryAllocator-3.0.1.tar.gz
 
-##Bundled code ahoy
-#The following isn't in Fedora yet:
+###Bundled code ahoy, I've added versions and upstream urls when known
+##The following isn't in Fedora yet:
+Provides:       bundled(cpp-argparse)
+Provides:       bundled(expr)
+Provides:       bundled(FatFs) = 0.14b
 Provides:       bundled(FreeSurround)
 Provides:       bundled(imgui) = 1.70
-Provides:       bundled(cpp-argparse)
-#Is this technically bundled code? Adding this just in case:
+#https://github.com/epezent/implot
+Provides:       bundled(implot) = 0.14
 #https://github.com/AdmiralCurtiss/rangeset
 Provides:       bundled(rangeset)
+#https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
+Provides:       bundled(VulkanMemoryAllocator) = 3.0.1
+##The hard to unbundle
 #soundtouch cannot be unbundled easily, as it requires compile time changes:
-Provides:       bundled(soundtouch) = 2.3.1
-#dolphin uses tests not included in upstream gtest (possibly unbundle later):
-Provides:       bundled(gtest) = 1.9.0
-#This is hard to unbundle and is unmaintainable with little benefit:
+Provides:       bundled(soundtouch) = 2.3.2
+#This is hard to unbundle and is already a static only lib anyway:
 Provides:       bundled(glslang)
-#dolphin uses a very old bochs, which is impatible with f35+'s bochs.
+#dolphin uses a very old bochs, which is incompatible with f35+'s bochs.
 #We could rework dolphin to use latest, but this requires a lot of work.
 #Furthermore, the dolphin gtest test cases that fail with f33/34 bochs
 #My best guess is that this is 2.6.6, as dolphin does not specify
 Provides:       bundled(bochs) = 2.6.6
+##TODO unbundle me, shouldn't be too hard, but not trivial:
+Provides:       bundled(gtest) = 1.12.1
+Provides:       bundled(zlib-ng) = 2.1.3
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -85,17 +86,19 @@ BuildRequires:  libao-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libevdev-devel
 BuildRequires:  libpng-devel
+BuildRequires:  libspng-devel
 BuildRequires:  libusb-compat-0.1-devel
+BuildRequires:  libxkbcommon-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  lzo-devel
 BuildRequires:  mbedtls-devel
 BuildRequires:  mesa-libGL-devel
-BuildRequires:  %{minizippkg}-devel
+BuildRequires:  minizip-ng-devel
 BuildRequires:  miniupnpc-devel
 BuildRequires:  openal-soft-devel
-BuildRequires:  picojson-devel
+BuildRequires:  picojson-static
 BuildRequires:  pugixml-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  portaudio-devel
@@ -105,11 +108,12 @@ BuildRequires:  spirv-headers-devel
 BuildRequires:  spirv-tools
 BuildRequires:  spirv-tools-devel
 BuildRequires:  systemd-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  vulkan-headers
 BuildRequires:  xxhash-devel
-BuildRequires:  zlib-devel
+BuildRequires:  zlib-ng-devel
 BuildRequires:  xz-devel
 
 BuildRequires:  gettext
@@ -158,6 +162,12 @@ This package provides the data files for dolphin-emu.
 %prep
 %autosetup -p1 -n dolphin-%{commit}
 
+# Extract bundled submodules:
+gzip -dc %{SOURCE2} | tar -C Externals/gtest --strip-components=1 -xof -
+gzip -dc %{SOURCE3} | tar -C Externals/zlib-ng/zlib-ng --strip-components=1 -xof -
+gzip -dc %{SOURCE4} | tar -C Externals/implot/implot --strip-components=1 -xof -
+gzip -dc %{SOURCE5} | tar -C Externals/VulkanMemoryAllocator --strip-components=1 -xof -
+
 #Allow building with cmake macro
 sed -i '/CMAKE_C.*_FLAGS/d' CMakeLists.txt
 
@@ -176,39 +186,40 @@ sed -i "s/VK_PRESENT_MODE_RANGE_SIZE_KHR/(VkPresentModeKHR)("`
     `"VK_PRESENT_MODE_FIFO_RELAXED_KHR - VK_PRESENT_MODE_IMMEDIATE_KHR + 1)/" \
     Source/Core/VideoBackends/Vulkan/VKSwapChain.h
 
-#This test fails without JIT enabled:
-#https://bugs.dolphin-emu.org/issues/12421
-%if ! 0%{?enablejit}
-sed -i "/PageFaultTest/d" Source/UnitTests/Core/CMakeLists.txt
-%endif
-
 ###Remove Bundled:
 cd Externals
 #Keep what we need...
-rm -rf `ls | grep -v 'Bochs' | grep -v 'FreeSurround' | grep -v 'imgui' | grep -v 'cpp-optparse' | grep -v 'soundtouch' | grep -v 'picojson' | grep -v 'gtest' | grep -v 'rangeset' | grep -v 'glslang'`
-#Replace bundled picojson with a modified system copy (remove use of throw)
-pushd picojson
-rm picojson.h
+for d in *; do
+    if ! echo " %{bundled_libs} " | grep " $d "; then
+        rm -rf "$d"
+    fi
+done
+#Fix newer gcc issue
+sed -i '/#include <cstdint>/a #include <cstdio>' \
+	VulkanMemoryAllocator/include/vk_mem_alloc.h
+#Copy in system picojson
+mkdir picojson
 #In master, picojson has build option "PICOJSON_NOEXCEPT", but for now:
-sed "s/throw std::.*;/std::abort();/g" /usr/include/picojson.h > picojson.h
-popd
+sed "s/throw std::.*;/std::abort();/g" %{_includedir}/picojson.h > \
+	picojson/picojson.h
+
 
 %build
 #Script to find xxhash is not implemented, just tell cmake it was found
 #Note some items are disabled to avoid bundling
-#Set APPROVED_VENDORED_DEPENDENCIES to nothing to safe guard against bundling
+#Set USE_SYSTEM_LIBS to safe guard against bundling, but it's not fool proof
 %cmake \
-       -DAPPROVED_VENDORED_DEPENDENCIES=";" \
+       -DUSE_SYSTEM_LIBS=ON \
        -DXXHASH_FOUND=ON \
        -DUSE_MGBA=OFF \
        %{?!enablejit:-DENABLE_GENERIC=ON} \
-       -DUSE_SHARED_ENET=ON \
        -DENABLE_ANALYTICS=OFF \
        -DENCODE_FRAMEDUMPS=OFF \
        -DUSE_DISCORD_PRESENCE=OFF \
+       -DUSE_RETRO_ACHIEVEMENTS=OFF \
        -DDOLPHIN_WC_DESCRIBE=5.0-%{snapnumber} \
        -DDOLPHIN_WC_REVISION=%{commit} \
-       -DDOLPHIN_WC_BRANCH="beta"
+       -DDOLPHIN_WC_BRANCH=%{branch}
 %cmake_build
 
 %install
@@ -276,6 +287,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Tue Jul 11 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 5.0.19793-1
+- Update to 5.0-19793
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 5.0.16380-9
 - Rebuilt due to fmt 10 update.
 

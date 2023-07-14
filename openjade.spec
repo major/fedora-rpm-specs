@@ -1,7 +1,7 @@
 Summary: A DSSSL implementation
 Name: openjade
 Version: 1.3.2
-Release: 73%{?dist}
+Release: 75%{?dist}
 Requires: sgml-common
 URL: http://openjade.sourceforge.net/
 Source: http://download.sourceforge.net/openjade/openjade-%{version}.tar.gz
@@ -67,54 +67,66 @@ make
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-make install install-man DESTDIR=$RPM_BUILD_ROOT
+make install install-man DESTDIR=%{buildroot}
 
-# oMy, othis ois osilly.
-ln -s openjade $RPM_BUILD_ROOT/%{_bindir}/jade
-echo ".so man1/openjade.1" > $RPM_BUILD_ROOT/%{_mandir}/man1/jade.1
+# oMy, othis ois osilly., oyes
+ln -s openjade %{buildroot}/%{_bindir}/jade
+echo ".so man1/openjade.1" > %{buildroot}/%{_mandir}/man1/jade.1
 
-# install jade/jade $RPM_BUILD_ROOT/%{prefix}/bin/jade
-cp dsssl/catalog $RPM_BUILD_ROOT/%{_datadir}/sgml/%{name}-%{version}/
-cp dsssl/{dsssl,style-sheet,fot}.dtd $RPM_BUILD_ROOT/%{_datadir}/sgml/%{name}-%{version}/
+# Install jade/jade %%{buildroot}/%%{prefix}/bin/jade
+cp dsssl/catalog %{buildroot}/%{_datadir}/sgml/%{name}-%{version}/
+cp dsssl/{dsssl,style-sheet,fot}.dtd %{buildroot}/%{_datadir}/sgml/%{name}-%{version}/
 
-# add unversioned/versioned catalog and symlink
-mkdir -p $RPM_BUILD_ROOT/etc/sgml
-cd $RPM_BUILD_ROOT/etc/sgml
+# Add unversioned/versioned catalog and symlink
+mkdir -p %{buildroot}/etc/sgml
+pushd %{buildroot}/etc/sgml
 touch %{name}-%{version}-%{release}.soc
 ln -s %{name}-%{version}-%{release}.soc %{name}.soc
-cd -
+popd
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.so $RPM_BUILD_ROOT%{_libdir}/*.la
+rm -f %{buildroot}%{_libdir}/*.so %{buildroot}%{_libdir}/*.la
 
 # Stop check-rpaths from complaining about standard runpaths.
 export QA_RPATHS=0x0001
 
 %post
 %{?ldconfig}
-/usr/bin/install-catalog --add /etc/sgml/%{name}-%{version}-%{release}.soc \
+%{_bindir}/install-catalog --add %{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc \
     %{_datadir}/sgml/%{name}-%{version}/catalog >/dev/null 2>/dev/null || :
 
 %preun
-/usr/bin/install-catalog --remove /etc/sgml/%{name}-%{version}-%{release}.soc \
+%{_bindir}/install-catalog --remove %{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc \
     %{_datadir}/sgml/%{name}-%{version}/catalog >/dev/null 2>/dev/null || :
 
-%ldconfig_postun
+# The install-catalog removes the file making uninstallation throw a warning about removing a non-existent file
+# This file creation suppresses the warning (rhbz#2193429)
+touch %{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc 
 
 %files
 %doc jadedoc/* dsssl/README.jadetex
 %doc README COPYING VERSION
-%ghost /etc/sgml/%{name}-%{version}-%{release}.soc
-/etc/sgml/%{name}.soc
+
+# Removed %%ghost for succesful instalation on OSTree (rhbz#2193429)
+%{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc
+%{_sysconfdir}/sgml/%{name}.soc
 %{_bindir}/*
 %{_libdir}/*.so.*
 %{_mandir}/*/*
 %{_datadir}/sgml/%{name}-%{version}
 
 %changelog
+* Mon Jul 10 2023 Ondrej Sloup <osloup@redhat.com> -  1.3.2-75
+- Fix installation on OSTree by removing %%ghost (rhbz#2193429)
+- Remove %%ldconfig_postun as it has no effect in Fedora
+
+* Tue Jun 27 2023 Ondrej Sloup <osloup@redhat.com> -  1.3.2-74
+- Use %%{buildroot} instead of $RPM_BUILD_ROOT as it is more recent
+- Use directory macros and push/popd
+
 * Thu Jun 08 2023 Ondrej Sloup <osloup@redhat.com> -  1.3.2-73
-- Use %autosetup instead of deprecated %patchN
+- Use %%autosetup instead of deprecated %%patchN
 - Update config.sub and config.guess files
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-72

@@ -1,5 +1,5 @@
 Name:           asm6809
-Version:        2.12
+Version:        2.13
 Release:        9%{?dist}
 Summary:        Multiple pass 6809 & 6309 cross assembler
 
@@ -40,6 +40,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Wed Jul 12 2023 John W. Linville <linville@tuxdriver.com> 2.13-1
+- Update for version 2.13 from upstream
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

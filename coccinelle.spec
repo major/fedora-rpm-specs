@@ -24,7 +24,7 @@ Version:       1.1.1
 %endif
 
 Name:           coccinelle
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -194,7 +194,7 @@ EXTRACFLAGS = $(EXTRA_OCAML_FLAGS)
 %ifarch %{ocaml_native_compiler}
 target=all-release
 %else
-target=all-dev
+target="all-dev docs"
 %endif
 
 # NOTE: Do not use smp_mflags!  It breaks the build.
@@ -287,6 +287,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-21
+- Bump release and rebuild
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-20
 - OCaml 5.0 rebuild for Fedora 39
 

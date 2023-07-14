@@ -9,9 +9,9 @@
 Name:    qt6ct
 Version: 0.8
 %if 0%{?usesnapshot}
-Release: 0.3%{?snapshottag}%{?dist}
+Release: 0.5%{?snapshottag}%{?dist}
 %else
-Release: 3%{?dist}
+Release: 5%{?dist}
 %endif
 Summary: Qt6 - Configuration Tool
 
@@ -83,6 +83,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/libqt6ct-common.so.%{version}*
 
 %changelog
+* Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 0.8-5
+- Rebuild for qtbase private API version change
+
+* Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 0.8-4
+- Rebuild for qtbase private API version change
+
 * Mon May 29 2023 Jan Grulich <jgrulich@redhat.com> - 0.8-3
 - Rebuild (qt6)
 

@@ -3,7 +3,7 @@
 
 Name:		perl-Perl-OSType
 Version:	1.010
-Release:	499%{?dist}
+Release:	500%{?dist}
 Summary:	Map Perl operating system names to generic types
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-OSType
@@ -88,6 +88,9 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Perl::OSType.3*
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.010-500
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.010-499
 - Increase release to favour standalone package
 

@@ -2,7 +2,7 @@
 
 Name:           python-pyrad
 Version:        2.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python RADIUS client
 License:        BSD
 URL:            https://github.com/wichert/pyrad
@@ -25,6 +25,8 @@ BuildRequires:  python3-sphinx
 Requires:       python3-netaddr
 Requires:       python3-six
 Requires:       python3-twisted
+
+Patch: refactor-test-aliases-for-python3.11-compat.patch
 
 %description -n python3-%{srcname}
 pyrad is an implementation of a RADIUS client as described in RFC2865. It takes
@@ -55,6 +57,9 @@ rm -f docs/_build/html/.buildinfo
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Wed Jul 12 2023 Antonio Torres <antorres@redhat.com> - 2.4-6
+- Backport refactor of deprecated unittest aliases
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.4-5
 - Rebuilt for Python 3.12
 

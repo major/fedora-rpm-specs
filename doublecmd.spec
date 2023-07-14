@@ -2,7 +2,7 @@
 
 Name:           doublecmd
 Version:        1.0.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
 # Full licenses description in licensecheck.txt file
@@ -11,6 +11,8 @@ URL:            http://doublecmd.sourceforge.net
 Source0:        https://sourceforge.net/projects/%{name}/files/Double%20Commander%20Source/%{name}-%{version}-src.tar.gz
 Source1:        %{name}-qt.desktop
 Source2:        licensecheck.txt
+Source3:        io.sourceforge.DoubleCmd.DoubleCmdGtk.metainfo.xml
+Source4:        io.sourceforge.DoubleCmd.DoubleCmdQt.metainfo.xml
 
 BuildRequires:  fpc >= 2.6.0
 BuildRequires:  fpc-src
@@ -28,6 +30,7 @@ BuildRequires:  pkgconfig(pango)
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5pas-devel
 BuildRequires:  qt5-qtbase-devel
+BuildRequires:  libappstream-glib
 
 ExclusiveArch:  %{ix86} x86_64
 
@@ -86,9 +89,14 @@ ln -s ../%{_lib}/%{name}/%{name}-qt %{buildroot}%{_bindir}/%{name}-qt
 install -pm 0644 ./%{name}-qt.zdli %{buildroot}%{_libdir}/%{name}/%{name}-qt.zdli
 desktop-file-install %{SOURCE1}
 cp %{SOURCE2} .
+install -D -p -m644 %{SOURCE3} %{buildroot}%{_metainfodir}/io.sourceforge.DoubleCmd.DoubleCmdGtk.metainfo.xml
+install -D -p -m644 %{SOURCE4} %{buildroot}%{_metainfodir}/io.sourceforge.DoubleCmd.DoubleCmdQt.metainfo.xml
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.sourceforge.DoubleCmd.DoubleCmdGtk.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.sourceforge.DoubleCmd.DoubleCmdQt.metainfo.xml
 
 
 %files gtk
@@ -96,6 +104,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_bindir}/%{name}
 %{_libdir}/%{name}/%{name}.zdli
 %{_datadir}/applications/%{name}.desktop
+%{_metainfodir}/io.sourceforge.DoubleCmd.DoubleCmdGtk.metainfo.xml
 
 
 %files qt
@@ -103,6 +112,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_bindir}/%{name}-qt
 %{_libdir}/%{name}/%{name}-qt.zdli
 %{_datadir}/applications/%{name}-qt.desktop
+%{_metainfodir}/io.sourceforge.DoubleCmd.DoubleCmdQt.metainfo.xml
 
 %files common
 %doc doc/changelog.txt doc/README.txt licensecheck.txt
@@ -121,6 +131,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Thu Jul 06 2023 Daniel Rusek <mail@asciiwolf.com> - 1.0.11-2
+- Add AppStream metadata
+
 * Mon Apr 03 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0.11-1
 - Update to 1.0.11
 

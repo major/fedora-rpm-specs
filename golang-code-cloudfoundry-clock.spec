@@ -16,13 +16,18 @@ in tests.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Time provider & rich fake for Go
 
 # Upstream license specification: Apache-2.0
 License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
+
+BuildRequires: golang(github.com/onsi/ginkgo)
+BuildRequires: golang(github.com/onsi/gomega)
+
+Patch0001: 0001-Remove-ifrit-usage.patch
 
 %description
 %{common_description}
@@ -31,6 +36,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%patch 0001 -p1
 
 %install
 %gopkginstall
@@ -43,6 +49,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Tue Jul 11 2023 Alejandro Sáez <asm@redhat.com> - 1.0.0-9
+- Remove ifrit usage.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

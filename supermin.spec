@@ -32,7 +32,7 @@ ExcludeArch: %{ix86}
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       11%{?dist}
+Release:       13%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -59,6 +59,11 @@ Patch:         0005-rpm-Use-dnf-config-instead-of-c.patch
 # Fix --if-newer
 Patch:         0006-src-Improved-debugging-of-the-supermin-if-newer-calc.patch
 Patch:         0007-src-Fix-if-newer-copy-kernel.patch
+# Reenable disable_excludes for dnf5
+Patch:         0008-rpm-Reenable-disable_excludes-for-dnf5.patch
+# Fix bytecode builds so they resist stripping
+Patch:         0009-ocamlc-Use-output-complete-exe-instead-of-custom.patch
+Patch:         0010-ocamlc-Only-supply-output-complete-exe-to-final-link.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -203,7 +208,7 @@ make check || {
 
 
 %changelog
-* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-11
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-13
 - OCaml 5.0 rebuild for Fedora 39
 
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 5.3.3-10

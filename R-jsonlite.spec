@@ -7,13 +7,18 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          A Simple and Robust JSON Parser and Generator for R
 
 # Bundled yajl is ISC.
 License:          MIT and ISC
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
+
+# Fix for CVE-2023-33460a
+# https://github.com/lloyd/yajl/issues/250#issuecomment-1628695214
+# https://github.com/jstamp/yajl/blob/master/debian/patches/CVE-2023-33460.patch
+Patch0:			CVE-2023-33460.patch
 
 # Here's the R view of the dependencies world:
 # Depends:   R-methods
@@ -50,7 +55,7 @@ consistently for use with dynamic data in systems and applications.
 
 %prep
 %setup -q -c -n %{packname}
-
+%patch -p1 0
 
 %build
 
@@ -88,6 +93,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Wed Jul 12 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.8.5-2
+* Fix for CVE-2023-33460a (RHBZ #2222241)
+
 * Mon Jun  5 2023 Tom Callaway <spot@fedoraproject.org> - 1.8.5-1
 - update to 1.8.5
 

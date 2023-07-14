@@ -5,15 +5,16 @@
 #%%global prever P1
 
 Name:           kea
-Version:        2.2.0
-Release:        5%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 
-License:        MPLv2.0 and Boost
+License:        MPL-2.0 AND BSL-1.0
 URL:            http://kea.isc.org
-Source0:        https://ftp.isc.org/isc/kea/%{version}%{?prever:-%{prever}}/kea-%{version}%{?prever:-%{prever}}.tar.gz
-Source5:        https://ftp.isc.org/isc/kea/%{version}%{?prever:-%{prever}}/kea-%{version}%{?prever:-%{prever}}.tar.gz.asc
-Source6:        codesign.txt
+Source0:        https://downloads.isc.org/isc/kea/%{version}%{?prever:-%{prever}}/kea-%{version}%{?prever:-%{prever}}.tar.gz
+Source5:        https://downloads.isc.org/isc/kea/%{version}%{?prever:-%{prever}}/kea-%{version}%{?prever:-%{prever}}.tar.gz.asc
+# Obtained from https://www.isc.org/pgpkey/
+Source6:        isc-keyblock.asc
 Source1:        kea-dhcp4.service
 Source2:        kea-dhcp6.service
 Source3:        kea-dhcp-ddns.service
@@ -122,7 +123,6 @@ sed -i -e 's|ECHO|YYECHO|g' src/lib/eval/lexer.cc
 
 %build
 autoreconf --verbose --force --install
-export CXXFLAGS="%{optflags} -std=gnu++11 -Wno-deprecated-declarations"
 
 %configure \
     --disable-dependency-tracking \
@@ -225,6 +225,11 @@ EOF
 
 
 %changelog
+* Thu Jul 06 2023 Martin Osvald <mosvald@redhat.com> - 2.4.0-1
+- New version 2.4.0
+- Migrated to SPDX license
+- Do not export CXXFLAGS with -std=gnu++11 to stop boost warning messages
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.2.0-5
 - Rebuilt for Python 3.12
 

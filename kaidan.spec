@@ -4,7 +4,11 @@ Release:        %autorelease
 Summary:        A XMPP client based on KDE Framework
 
 # https://invent.kde.org/network/kaidan/-/raw/master/LICENSE
-License:        GPL-3.0-or-later AND MIT AND Apache-2.0 AND CC-BY-SA-4.0
+# src/qml/elements/IconTopButton.qml files is under LGPL-2.0-or-later license for 0.9.1 release,
+# which will be relicensed to GPL-3.0-or-later when new release is published.
+# see: https://invent.kde.org/network/kaidan/-/commit/14c712eb72e7094d22f9faeec8a8a86effe72ade?page=2#c88f477dc2798d0fbde587cea39b54208314e23b
+# https://bugzilla.redhat.com/show_bug.cgi?id=2216600#c16
+License:        GPL-3.0-or-later AND MIT AND Apache-2.0 AND CC-BY-SA-4.0 AND LGPL-2.0-or-later
 URL:            https://www.kaidan.im
 Source0:        https://invent.kde.org/network/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
@@ -48,6 +52,13 @@ BuildRequires:  cmake(KF5QQC2DesktopStyle)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+
+# src/hsluv-c directory
+# https://github.com/hsluv/hsluv-c
+Provides:       bundled(hsluv-c)
+# src/singleapp directory
+# https://github.com/itay-grudev/SingleApplication
+Provides:       bundled(SingleApplication)
 
 # QML module dependencies
 Requires:       kf5-kirigami2%{?_isa}

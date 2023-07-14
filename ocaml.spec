@@ -37,7 +37,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -108,6 +108,10 @@ Requires:       redhat-rpm-config
 # dependencies) we also have to explicitly depend on the right version
 # of ocaml-runtime.
 Requires:       ocaml-runtime%{?_isa} = %{version}-%{release}
+
+# Force ocaml-srpm-macros to be at the latest version, since OCaml 5.0
+# has a different set of native code generators than previous versions.
+Requires:       ocaml-srpm-macros >= 8
 
 # Bundles an MD5 implementation in runtime/caml/md5.h and runtime/md5.c
 Provides:       bundled(md5-plumb)
@@ -445,6 +449,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/ocaml
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.0-3
+- Force ocaml-srpm-macros to be the latest version.
+
 * Wed Jun 14 2023 Jerry James <loganjerry@gmail.com> - 5.0.0-2
 - Version 5.0.0
 - Convert License tag to SPDX

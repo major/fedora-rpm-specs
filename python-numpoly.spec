@@ -35,6 +35,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n numpoly-%{version}
+# Workaround for https://github.com/rpm-software-management/rpm/issues/2532:
+rm -rf SPECPARTS
 
 %generate_buildrequires
 %pyproject_buildrequires -x dev-dependencies

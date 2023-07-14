@@ -1,5 +1,10 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
+# Coq's plugin architecture requires cmxs files, so:
+ExclusiveArch: %{ocaml_native_compiler}
+
+# why3 is unavailable on i686.  We could build without why3 support, but
+# choose to forego i686 support entirely.
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+#ExclusiveArch:  %%{java_arches}
 
 # Frama-C contains a forked version of ocaml-cil.  We cannot use the Fedora
 # ocaml-cil package as a replacement, because Frama-C upstream has modified
@@ -14,7 +19,7 @@ ExcludeArch: %{ix86}
 
 Name:           frama-c
 Version:        27.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Cobalt
@@ -41,11 +46,6 @@ Source14:       com.%{name}.%{name}-gui.desktop
 Source15:       com.%{name}.%{name}-gui.metainfo.xml
 Source16:       acsl.el
 Source17:       frama-c.licensing
-
-# why3 is unavailable on i686.  We could build without why3 support, but
-# choose to forego i686 support entirely.
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExclusiveArch:  %{java_arches}
 
 BuildRequires:  alt-ergo
 BuildRequires:  appstream
@@ -281,6 +281,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 27.0-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 27.0-1
 - Version 27.0
 

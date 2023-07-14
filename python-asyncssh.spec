@@ -6,7 +6,7 @@ SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
 Version:        2.13.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Asynchronous SSH for Python
 
 License:        EPL-2.0 or GPLv2+
@@ -71,9 +71,7 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 %check
 # tests fail on el9: https://github.com/ronf/asyncssh/issues/566
-%if 0%{?fedora}
 %{__python3} -m unittest discover -s tests -t . -v
-%endif
 
 %files -n python3-%{srcname}
 %license LICENSE COPYRIGHT
@@ -83,6 +81,9 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Wed Jul 12 2023 Georg Sauthoff <mail@gms.tf> - 2.13.2-3
+- Re-enable tests on RHEL (fixes fedora#2196046)
+
 * Tue Jul 11 2023 Georg Sauthoff <mail@gms.tf> - 2.13.2-2
 - Fix test_stdout_stream test case failure (fixes fedora#2220123)
 

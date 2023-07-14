@@ -118,6 +118,10 @@ EXCLUDE_REGEX='DWA[AB]Compression'
 # https://github.com/AcademySoftwareFoundation/openexr/issues/1175
 EXCLUDE_REGEX='ReadDeep|DWA[AB]Compression|testCompression|Rgba|SampleImages|SharedFrameBuffer'
 %endif
+%ifarch x86_64
+# https://github.com/AcademySoftwareFoundation/openexr/issues/1456
+EXCLUDE_REGEX='OptimizedInterleavePatterns'
+%endif
 %ctest --exclude-regex "$EXCLUDE_REGEX"
 
 

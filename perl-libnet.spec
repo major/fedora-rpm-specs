@@ -13,7 +13,7 @@
 
 Name:           perl-libnet
 Version:        3.15
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Perl clients for various network protocols
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/libnet
@@ -122,6 +122,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.15-500
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.15-499
 - Increase release to favour standalone package
 

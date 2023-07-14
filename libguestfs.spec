@@ -991,8 +991,10 @@ rm ocaml/html/.gitignore
 %files -n ocaml-%{name}
 %{_libdir}/ocaml/guestfs
 %exclude %{_libdir}/ocaml/guestfs/*.a
+%ifarch %{ocaml_native_compiler}
 %exclude %{_libdir}/ocaml/guestfs/*.cmxa
 %exclude %{_libdir}/ocaml/guestfs/*.cmx
+%endif
 %exclude %{_libdir}/ocaml/guestfs/*.mli
 %{_libdir}/ocaml/stublibs/dllmlguestfs.so
 %{_libdir}/ocaml/stublibs/dllmlguestfs.so.owner
@@ -1001,8 +1003,10 @@ rm ocaml/html/.gitignore
 %files -n ocaml-%{name}-devel
 %doc ocaml/examples/*.ml ocaml/html
 %{_libdir}/ocaml/guestfs/*.a
+%ifarch %{ocaml_native_compiler}
 %{_libdir}/ocaml/guestfs/*.cmxa
 %{_libdir}/ocaml/guestfs/*.cmx
+%endif
 %{_libdir}/ocaml/guestfs/*.mli
 %{_mandir}/man3/guestfs-ocaml.3*
 

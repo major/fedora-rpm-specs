@@ -80,8 +80,12 @@ This package provides generated documentation for %{name}.
 %prep
 %autosetup -n ConfigUpdater-%{version}
 
-# Remove coverage bits
-sed -i -r '/(--cov|pytest-cov)/ d' setup.cfg
+# Remove coverage and linter bits
+sed -i -r '/(--cov|pytest-cov|flake8)/d' setup.cfg
+
+# pytest-virtualenv is not used anywhere
+# Upstream issue: https://github.com/pyscaffold/configupdater/issues/114
+sed -i '/pytest-virtualenv/d' setup.cfg
 
 # Drop intersphinx mappings, since we can’t download remote inventories and
 # can’t easily produce working hyperlinks from inventories in local

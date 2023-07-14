@@ -145,7 +145,7 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk #why?
 xmvn --version
 %mvn_build -f --xmvn-javadoc -- -Plegacy
 CPLC=/usr/share/java/classpathless-compiler
-java -cp $CPLC/classpathless-compiler.jar:$CPLC/classpathless-compiler-api.jar:$CPLC/classpathless-compiler-util.jar:runtime-decompiler/target/runtime-decompiler-%{version}.jar org.jrd.backend.data.cli.Help > %{name}.1
+$JAVA_HOME/bin/java -cp $CPLC/classpathless-compiler.jar:$CPLC/classpathless-compiler-api.jar:$CPLC/classpathless-compiler-util.jar:runtime-decompiler/target/runtime-decompiler-%{version}.jar org.jrd.backend.data.cli.Help > %{name}.1
 
 %install
 %mvn_install

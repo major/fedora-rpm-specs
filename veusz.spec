@@ -1,6 +1,6 @@
 Name:           veusz
 Version:        3.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI scientific plotting package
 
 License:        GPL-2.0-or-later AND (LGPL-2.1-only OR GPL-3.0-only) AND PSF-2.0 AND CC0-1.0
@@ -122,6 +122,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/veusz
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 3.6.2-2
+- Rebuilt for Python 3.12
+
 * Sun Feb 26 2023 Jeremy Sanders <jeremy@jeremysanders.net> - 3.6.2-1
 - Update to Veusz 3.6.2 (fixes resource issue)
 

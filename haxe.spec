@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           haxe
 Version:        4.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -114,6 +114,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.3.1-2
+- OCaml 5.0 rebuild for Fedora 39
+
 * Sun Apr 30 2023 Andy Li <andy@onthewings.net> - 4.3.1-1
 - New upstream version 4.3.1. (RHBZ#2185083, RHBZ#2128307)
 - Update haxelib to 4.1.0.

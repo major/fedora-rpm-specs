@@ -5,7 +5,7 @@
 %global crate regex
 
 Name:           rust-regex
-Version:        1.8.4
+Version:        1.9.1
 Release:        %autorelease
 Summary:        Implementation of regular expressions for Rust
 
@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/regex
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 An implementation of regular expressions for Rust. This implementation
@@ -35,7 +35,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/HACKING.md
-%doc %{crate_instdir}/PERFORMANCE.md
 %doc %{crate_instdir}/README.md
 %doc %{crate_instdir}/UNICODE.md
 %{crate_instdir}/
@@ -52,28 +51,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+aho-corasick-devel
+%package     -n %{name}+logging-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+aho-corasick-devel %{_description}
+%description -n %{name}+logging-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "aho-corasick" feature of the "%{crate}" crate.
+use the "logging" feature of the "%{crate}" crate.
 
-%files       -n %{name}+aho-corasick-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+memchr-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+memchr-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "memchr" feature of the "%{crate}" crate.
-
-%files       -n %{name}+memchr-devel
+%files       -n %{name}+logging-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pattern-devel
@@ -100,6 +87,18 @@ use the "perf" feature of the "%{crate}" crate.
 %files       -n %{name}+perf-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+perf-backtrack-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+perf-backtrack-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "perf-backtrack" feature of the "%{crate}" crate.
+
+%files       -n %{name}+perf-backtrack-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+perf-cache-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -124,6 +123,18 @@ use the "perf-dfa" feature of the "%{crate}" crate.
 %files       -n %{name}+perf-dfa-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+perf-dfa-full-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+perf-dfa-full-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "perf-dfa-full" feature of the "%{crate}" crate.
+
+%files       -n %{name}+perf-dfa-full-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+perf-inline-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -146,6 +157,18 @@ This package contains library source intended for building other packages which
 use the "perf-literal" feature of the "%{crate}" crate.
 
 %files       -n %{name}+perf-literal-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+perf-onepass-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+perf-onepass-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "perf-onepass" feature of the "%{crate}" crate.
+
+%files       -n %{name}+perf-onepass-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
@@ -295,7 +318,13 @@ use the "use_std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+%ifarch %{ix86}
+# * ignore harmless test failures on 32-bit architectures:
+#   https://github.com/rust-lang/regex/issues/1039
+%cargo_test -- -- --skip builders::bytes::RegexBuilder::size_limit --skip builders::bytes::RegexSetBuilder::size_limit --skip builders::string::RegexBuilder::size_limit --skip builders::string::RegexSetBuilder::size_limit --skip regex::bytes::CaptureLocations --skip regex::string::CaptureLocations
+%else
 %cargo_test
+%endif
 %endif
 
 %changelog

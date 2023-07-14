@@ -73,9 +73,9 @@ Release:        %autorelease
 %global lib_minor %(echo $[%minor * 100])
 %global lib_micro %micro
 
-# gimp core app is GPL-3.0-only, libgimp and other libraries are LGPL-3.0-only
-# plugin file-dds is GPL-2.0-only and plugins script-fu/{ftx,tinyscheme} are BSD-3-Clause
-License:        LGPL-3.0-only AND GPL-2.0-only AND GPL-3.0-only AND BSD-3-Clause
+# gimp core app is GPL-3.0-or-later, libgimp and other libraries are LGPL-3.0-or-later
+# plugin file-dds is GPL-2.0-or-later and plugins script-fu/{ftx,tinyscheme} are BSD-3-Clause
+License:        LGPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later AND BSD-3-Clause
 URL:            http://www.gimp.org/
 %if %{with aalib}
 BuildRequires:  aalib-devel
@@ -275,15 +275,15 @@ EOF
 
 %setup -q -n gimp-%{version}
 
-%patch1 -p1 -b .cm-system-monitor-profile-by-default
-%patch2 -p1 -b .font-default
-%patch3 -p1 -b .no-phone-home-default
+%patch 1 -p1 -b .cm-system-monitor-profile-by-default
+%patch 2 -p1 -b .font-default
+%patch 3 -p1 -b .no-phone-home-default
 
 %if ! %{with helpbrowser}
-%patch100 -p1 -b .external-help-browser
+%patch 100 -p1 -b .external-help-browser
 %endif
 
-%patch101 -p1
+%patch 101 -p1
 
 # Avoid re-running autotools.
 touch -r aclocal.m4 configure*

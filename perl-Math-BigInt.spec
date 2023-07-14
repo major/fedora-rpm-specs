@@ -3,7 +3,7 @@ Epoch:          1
 %global cpan_version 1.999838
 # Keep 4-digit version to compete with perl.spec
 Version:        %(echo %{cpan_version} | sed 's/\(\.....\)/\1./')
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Arbitrary-size integer and float mathematics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9998.38-3
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9998.38-2
 - Perl 5.38 rebuild
 

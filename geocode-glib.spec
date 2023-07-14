@@ -1,3 +1,5 @@
+%bcond soup2 %[%{undefined rhel} || 0%{?rhel} < 10]
+
 %global json_glib_version 0.99.2
 
 Name:           geocode-glib
@@ -15,7 +17,9 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(json-glib-1.0) >= %{json_glib_version}
+%if %{with soup2}
 BuildRequires:  pkgconfig(libsoup-2.4)
+%endif
 BuildRequires:  pkgconfig(libsoup-3.0)
 
 Requires:       json-glib%{?_isa} >= %{json_glib_version}
@@ -69,9 +73,11 @@ developing applications that use %{name}.
 
 
 %build
+%if %{with soup2}
 %define _vpath_builddir %{_vendor}-%{_target_os}-build-soup2
 %meson -Denable-installed-tests=false
 %meson_build
+%endif
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build-soup3
 %meson -Denable-installed-tests=false -Dsoup2=false
@@ -79,21 +85,21 @@ developing applications that use %{name}.
 
 
 %install
+%if %{with soup2}
 %define _vpath_builddir %{_vendor}-%{_target_os}-build-soup2
 %meson_install
+%endif
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build-soup3
 %meson_install
 
 
+%if %{with soup2}
 %files
 %license COPYING.LIB
 %doc AUTHORS NEWS README
 %{_libdir}/libgeocode-glib.so.0*
 %{_libdir}/girepository-1.0/GeocodeGlib-1.0.typelib
-
-%files data
-%{_datadir}/icons/hicolor/scalable/places/*.svg
 
 %files devel
 %{_includedir}/geocode-glib-1.0/
@@ -101,6 +107,10 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/geocode-glib-1.0.pc
 %{_datadir}/gir-1.0/GeocodeGlib-1.0.gir
 %doc %{_datadir}/gtk-doc/
+%endif
+
+%files data
+%{_datadir}/icons/hicolor/scalable/places/*.svg
 
 %files -n geocode-glib2
 %license COPYING.LIB

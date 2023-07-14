@@ -14,7 +14,7 @@
 
 Name:           perl-IO-Compress
 Version:        2.204
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Read and write compressed data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress
@@ -209,6 +209,9 @@ make test COMPRESS_ZLIB_RUN_%{?with_long_tests:ALL}%{!?with_long_tests:MOST}=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.204-500
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.204-499
 - Increase release to favour standalone package
 

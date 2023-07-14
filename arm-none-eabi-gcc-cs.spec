@@ -1,7 +1,7 @@
 %global processor_arch arm
 %global target         %{processor_arch}-none-eabi
-%global gcc_ver        12.3.0
-%global gcc_short_ver  12.3
+%global gcc_ver        13.1.0
+%global gcc_short_ver  13.1
 
 # we need newlib to compile complete gcc, but we need gcc to compile newlib,
 # so compile minimal gcc first
@@ -9,7 +9,7 @@
 
 Name:           %{target}-gcc-cs
 Epoch:          1
-Version:        12.3.0
+Version:        13.1.0
 Release:        1%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
@@ -291,6 +291,9 @@ popd
 %endif
 
 %changelog
+* Wed Jul 12 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:13.1.0-1
+- updated to 13.1.0
+
 * Wed May 24 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:12.3.0-1
 - updated to 12.3.0
 

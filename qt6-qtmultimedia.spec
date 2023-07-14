@@ -22,7 +22,7 @@
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
 Version: 6.5.1
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -190,6 +190,12 @@ popd
 
 
 %changelog
+* Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-4
+- Rebuild for qtbase private API version change
+
+* Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-3
+- Rebuild for qtbase private API version change
+
 * Fri Jun 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.1-2
 - Drop unused openal-soft build dependency
 

@@ -9,7 +9,7 @@
 Summary: Qt6 - LanguageServer component
 Name:    qt6-%{qt_module}
 Version: 6.5.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt.io
@@ -81,6 +81,12 @@ Requires: qt6-qtbase-devel%{?_isa}
 
 
 %changelog
+* Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-3
+- Rebuild for qtbase private API version change
+
+* Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-2
+- Rebuild for qtbase private API version change
+
 * Wed May 24 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-1
 - 6.5.1
 

@@ -1,6 +1,6 @@
 # Optional features
 # Run Tk tests
-%bcond_without perl_Pod_Perldoc_enables_tk_test
+%bcond_with perl_Pod_Perldoc_enables_tk_test
 # Support for groff
 %bcond_without perl_enables_groff
 
@@ -8,7 +8,7 @@
 Name:           perl-Pod-Perldoc
 # let's overwrite the module from perl.srpm
 Version:        3.28.01
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Look up Perl documentation in Pod format
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Perldoc
@@ -98,9 +98,9 @@ the Perl library modules.
 
 %prep
 %setup -q -n Pod-Perldoc-%{base_version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -121,6 +121,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.28.01-500
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.28.01-499
 - Increase release to favour standalone package
 

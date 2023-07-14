@@ -10,7 +10,7 @@
 
 Name:           perl-CPAN
 Version:        2.36
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Query, download and build perl modules from CPAN sites
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN
@@ -329,6 +329,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.36-500
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.36-499
 - Increase release to favour standalone package
 

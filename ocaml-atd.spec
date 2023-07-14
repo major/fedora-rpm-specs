@@ -10,6 +10,9 @@ License:        BSD-3-Clause
 URL:            https://github.com/ahrefs/atd
 Source0:        %{url}/releases/download/%{version}/atdts-%{version}.tbz
 
+# Disable flake8 tests while uninstallable.
+Patch:          ocaml-atd-disable-flake8-tests.patch
+
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-biniou-devel >= 1.0.6
@@ -20,7 +23,8 @@ BuildRequires:  ocaml-menhir >= 20180523
 BuildRequires:  ocaml-re-devel
 BuildRequires:  ocaml-yojson-devel >= 2.0.2
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist flake8}
+# Uninstallable in Fedora 39, may be able to fix this later.
+#BuildRequires:  %%{py3_dist flake8}
 BuildRequires:  %{py3_dist jsonschema}
 BuildRequires:  %{py3_dist mypy}
 BuildRequires:  %{py3_dist pytest}

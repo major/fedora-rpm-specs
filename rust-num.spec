@@ -5,7 +5,7 @@
 %global crate num
 
 Name:           rust-num
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Collection of numeric types and traits for Rust
 

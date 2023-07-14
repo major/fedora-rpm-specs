@@ -7,7 +7,7 @@
 
 Name:           perl-Archive-Tar
 Version:        3.02
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A module for Perl manipulation of .tar files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Archive-Tar
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.02-3
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.02-2
 - Perl 5.38 rebuild
 

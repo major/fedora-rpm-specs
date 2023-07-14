@@ -60,11 +60,9 @@ BuildRequires: pkgconfig(libsystemd)
 BuildRequires: xorg-x11-server-Xorg
 BuildRequires: xorg-x11-server-Xvfb
 BuildRequires: pkgconfig(xkeyboard-config)
-# see src/tests/x11-test.sh
-BuildRequires: zenity
 BuildRequires: desktop-file-utils
 # Bootstrap requirements
-BuildRequires: gtk-doc gettext-devel git-core
+BuildRequires: gettext-devel git-core
 BuildRequires: pkgconfig(libcanberra)
 BuildRequires: pkgconfig(gsettings-desktop-schemas) >= %{gsettings_desktop_schemas_version}
 BuildRequires: pkgconfig(gnome-settings-daemon)
@@ -87,7 +85,6 @@ BuildRequires: pkgconfig(xwayland)
 Requires: control-center-filesystem
 Requires: gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
 Requires: gnome-settings-daemon
-Requires: gtk3%{?_isa} >= %{gtk3_version}
 Requires: gtk4%{?_isa} >= %{gtk4_version}
 Requires: json-glib%{?_isa} >= %{json_glib_version}
 Requires: libinput%{?_isa} >= %{libinput_version}
@@ -129,6 +126,7 @@ utilities for testing Metacity/Mutter themes.
 %package  tests
 Summary:  Tests for the %{name} package
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: gtk3%{?_isa} >= %{gtk3_version}
 
 %description tests
 The %{name}-tests package contains tests that can be used to verify

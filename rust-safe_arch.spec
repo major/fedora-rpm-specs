@@ -5,15 +5,13 @@
 %global crate safe_arch
 
 Name:           rust-safe_arch
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Crate that exposes core::arch safely via #[cfg()]
 
 License:        Zlib OR Apache-2.0 OR MIT
 URL:            https://crates.io/crates/safe_arch
-Source0:        %{crates_source}
-Source1:        https://github.com/Lokathor/safe_arch/raw/2f9a18b/LICENSE-APACHE.md
-Source2:        https://github.com/Lokathor/safe_arch/raw/2f9a18b/LICENSE-MIT.md
+Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
@@ -66,7 +64,6 @@ use the "bytemuck" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
-cp -pav %{SOURCE1} %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

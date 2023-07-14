@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD
 URL:            http://www.h5py.org/
 Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{version}.tar.gz
@@ -27,12 +27,19 @@ BuildRequires:  python%{python3_pkgversion}-pytest-mpi
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-sphinx
 # MPI builds
+# openmpi disabled, see https://bugzilla.redhat.com/2220011
+%bcond openmpi 0
+%if %{with openmpi}
 BuildRequires:  hdf5-openmpi-devel
 BuildRequires:  openmpi-devel
 BuildRequires:  python%{python3_pkgversion}-mpi4py-openmpi
+%endif
+%bcond mpich 1
+%if %{with mpich}
 BuildRequires:  hdf5-mpich-devel
 BuildRequires:  mpich-devel
 BuildRequires:  python%{python3_pkgversion}-mpi4py-mpich
+%endif
 
 %global _description\
 The h5py package provides both a high- and low-level interface to the\
@@ -56,6 +63,7 @@ Requires:       python%{python3_pkgversion}-six
 %{?python_provide:%python_provide python%{python3_pkgversion}-h5py}
 %description -n python%{python3_pkgversion}-h5py %_description
 
+%if %{with openmpi}
 %package     -n python%{python3_pkgversion}-h5py-openmpi
 Summary:        A Python interface to the HDF5 library using OpenMPI
 Requires:       hdf5%{_isa} = %{_hdf5_version}
@@ -65,7 +73,9 @@ Requires:       python%{python3_pkgversion}-six
 Requires:       python3-mpi4py-openmpi
 Requires:       openmpi
 %description -n python%{python3_pkgversion}-h5py-openmpi %_description
+%endif
 
+%if %{with mpich}
 %package     -n python%{python3_pkgversion}-h5py-mpich
 Summary:        A Python interface to the HDF5 library using MPICH
 Requires:       hdf5%{_isa} = %{_hdf5_version}
@@ -76,6 +86,7 @@ Requires:       python3-mpi4py-openmpi
 Requires:       python3-mpi4py-mpich
 Requires:       mpich
 %description -n python%{python3_pkgversion}-h5py-mpich %_description
+%endif
 
 
 %prep
@@ -84,10 +95,8 @@ mv %{name}-%{version} serial
 cd serial
 %{__python3} api_gen.py
 cd -
-for x in mpich openmpi
-do
-  cp -al serial $x
-done
+%{?with_openmpi:cp -al serial openmpi}
+%{?with_mpich:cp -al serial mpich}
 
 
 %build
@@ -104,26 +113,29 @@ cd -
 export CC=mpicc
 export HDF5_MPI="ON"
 
-# openmpi
+%if %{with openmpi}
 cd openmpi
 %{_openmpi_load}
 %py3_build
 %{_openmpi_unload}
 cd -
+%endif
 
-# mpich
+%if %{with mpich}
 cd mpich
 %{_mpich_load}
 %py3_build
 %{_mpich_unload}
 cd -
+%endif
 
 
 %install
 # Upstream requires a specific numpy without this
 export H5PY_SETUP_REQUIRES=0
 export H5PY_SYSTEM_LZF=1
-# openmpi
+
+%if %{with openmpi}
 cd openmpi
 %py3_install
 rm -rf %{buildroot}%{python3_sitearch}/h5py/tests
@@ -132,8 +144,9 @@ mv %{buildroot}%{python3_sitearch}/%{name}/ \
    %{buildroot}%{python3_sitearch}/%{name}*.egg-info \
    %{buildroot}%{python3_sitearch}/openmpi
 cd -
+%endif
 
-# mpich
+%if %{with mpich}
 cd mpich
 %py3_install
 rm -rf %{buildroot}%{python3_sitearch}/h5py/tests
@@ -142,6 +155,7 @@ mv %{buildroot}%{python3_sitearch}/%{name}/ \
    %{buildroot}%{python3_sitearch}/%{name}*.egg-info \
    %{buildroot}%{python3_sitearch}/mpich
 cd -
+%endif
 
 # serial part must be last (not to overwrite files)
 cd serial
@@ -167,17 +181,19 @@ fail=1
 export PYTHONPATH=$(echo serial/build/lib*)
 %{__python3} -m pytest --pyargs h5py -rxXs ${PYTHONPATH} || exit $fail
 
-# openmpi
+%if %{with openmpi}
 export PYTHONPATH=$(echo openmpi/build/lib*)
 %{_openmpi_load}
 mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || exit $fail
 %{_openmpi_unload}
+%endif
 
-# mpich
+%if %{with mpich}
 export PYTHONPATH=$(echo mpich/build/lib*)
 %{_mpich_load}
 mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || exit $fail
 %{_mpich_unload}
+%endif
 
 
 %files -n python%{python3_pkgversion}-h5py
@@ -187,20 +203,28 @@ mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || ex
 %{python3_sitearch}/%{name}/
 %{python3_sitearch}/%{name}-%{version}-*.egg-info
 
+%if %{with openmpi}
 %files -n python%{python3_pkgversion}-h5py-openmpi
 %license openmpi/licenses/*.txt
 %doc openmpi/README.rst
 %{python3_sitearch}/openmpi/%{name}/
 %{python3_sitearch}/openmpi/%{name}-%{version}-*.egg-info
+%endif
 
+%if %{with mpich}
 %files -n python%{python3_pkgversion}-h5py-mpich
 %license mpich/licenses/*.txt
 %doc mpich/README.rst
 %{python3_sitearch}/mpich/%{name}/
 %{python3_sitearch}/mpich/%{name}-%{version}-*.egg-info
+%endif
 
 
 %changelog
+* Wed Jul 12 2023 Miro Hrončok <mhroncok@redhat.com> - 3.8.0-3
+- Temporarily disable the openmpi build
+- Workaround for: rhzb#2220011
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.8.0-2
 - Rebuilt for Python 3.12
 

@@ -6,7 +6,7 @@
 %global crate zbus
 
 Name:           rust-zbus
-Version:        3.13.1
+Version:        3.14.1
 Release:        %autorelease
 Summary:        API for D-Bus communication
 
@@ -112,6 +112,18 @@ This package contains library source intended for building other packages which
 use the "async-task" feature of the "%{crate}" crate.
 
 %files       -n %{name}+async-task-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+blocking-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+blocking-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "blocking" feature of the "%{crate}" crate.
+
+%files       -n %{name}+blocking-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+chrono-devel

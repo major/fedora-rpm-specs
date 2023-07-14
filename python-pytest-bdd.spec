@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-pytest-bdd
 Version:        6.1.1
@@ -40,8 +40,7 @@ BuildRequires:  python3dist(pytest-xdist)
 # Required for: tests/feature/test_tags.py (top-level pkg_resources import)
 BuildRequires:  python3dist(setuptools)
 
-# Documentation
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-latex
@@ -72,10 +71,12 @@ Summary:        %{summary}
 %description -n python3-pytest-bdd %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for pytest-bdd
 
 %description    doc %{common_description}
+%endif
 
 
 %prep
@@ -94,7 +95,7 @@ echo "latex_engine = 'xelatex'" >> docs/conf.py
 
 %build
 %pyproject_wheel
-%if %{with doc_pdf}
+%if %{with doc}
 PYTHONPATH="${PWD}/src" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
@@ -120,16 +121,18 @@ export PYTEST_ADDOPTS='-n auto -v'
 
 
 %files -n python3-pytest-bdd -f %{pyproject_files}
+%license LICENSE.txt
+%if %{without doc}
+%doc AUTHORS.rst CHANGES.rst README.rst
+%endif
 %{_bindir}/pytest-bdd
 %{_mandir}/man1/pytest-bdd*.1*
 
 
+%if %{with doc}
 %files doc
 %license LICENSE.txt
-%doc AUTHORS.rst
-%doc CHANGES.rst
-%doc README.rst
-%if %{with doc_pdf}
+%doc AUTHORS.rst CHANGES.rst README.rst
 %doc docs/_build/latex/Pytest-BDD.pdf
 %endif
 

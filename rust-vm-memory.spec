@@ -5,23 +5,17 @@
 %global crate vm-memory
 
 Name:           rust-vm-memory
-Version:        0.10.0
-Release:        2%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        Safe abstractions for accessing the VM physical memory
 
 License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://crates.io/crates/vm-memory
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          vm-memory-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 # * exclude files that are only useful for upstream development
 Patch:          vm-memory-fix-metadata.diff
-
-# fix undefined behaviour in tests that triggers failures with LLVM 16:
-# https://github.com/rust-vmm/vm-memory/pull/228
-Patch:          https://github.com/rust-vmm/vm-memory/commit/5630975.patch
 
 # vm-memory does not support 32 bit targets
 ExcludeArch:    %{ix86}
@@ -111,6 +105,42 @@ use the "backend-mmap" feature of the "%{crate}" crate.
 %files       -n %{name}+backend-mmap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+bitflags-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bitflags-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bitflags" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bitflags-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+vmm-sys-util-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+vmm-sys-util-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "vmm-sys-util" feature of the "%{crate}" crate.
+
+%files       -n %{name}+vmm-sys-util-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+xen-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+xen-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "xen" feature of the "%{crate}" crate.
+
+%files       -n %{name}+xen-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
@@ -130,6 +160,9 @@ use the "backend-mmap" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Wed Jul 12 2023 Sergio Lopez <slp@redhat.com> - 0.12.0-1
+- Update to version 0.12.0
+
 * Mon May 08 2023 Fabio Valentini <decathorpe@gmail.com> - 0.10.0-2
 - Include upstream patch to fix UB in test code.
 - Regenerate with rust2rpm 24.

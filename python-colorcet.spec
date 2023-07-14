@@ -1,3 +1,7 @@
+# F39FailsToInstall: python3-bokeh
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220137
+%bcond examples 0
+
 # We should package a commit corresponding to a release tag unless there is a
 # compelling reason to do otherwise. Normally this would mean referencing the
 # tag corresponding to the packaged version. However, packaging as a snapshot
@@ -52,13 +56,17 @@ for Exploration Targeting.}
 %package -n python3-colorcet
 Summary:        %{summary}
 
+Obsoletes:      python3-colorcet+examples < 3.0.1^20221003git809e291-7
+
 %description -n python3-colorcet %{common_description}
 
 
+%if %{with examples}
 # We don’t create a metapackage for the “all” extra because it includes several
 # extras (“tests”, “tests_extra”, “doc”, “build”) that are only suitable for
 # development. Only the “examples” extra really makes sense for packaging.
 %pyproject_extras_subpkg -n python3-colorcet examples
+%endif
 
 
 %prep
@@ -79,7 +87,7 @@ EOF
 
 %generate_buildrequires
 # We want the “all” extra minus the “doc” extra:
-%pyproject_buildrequires -x tests,examples,tests_extra,build
+%pyproject_buildrequires -x tests%{?with_examples:,examples},tests_extra,build
 
 
 %build

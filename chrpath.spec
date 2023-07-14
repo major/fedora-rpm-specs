@@ -1,14 +1,14 @@
 Name:           chrpath
 Version:        0.16
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Modify rpath of compiled programs
 
-License:        GPL+
+License:        GPL-2.0-or-later
 URL:            https://chrpath.alioth.debian.org/
 Source0:        https://alioth.debian.org/frs/download.php/file/3979/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
-BuildRequires: make
+BuildRequires:  make
 
 
 %description
@@ -27,7 +27,7 @@ is supported.
 make check
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 rm -fr %{buildroot}/usr/doc
 
 
@@ -40,6 +40,9 @@ rm -fr %{buildroot}/usr/doc
 
 
 %changelog
+* Wed Jul 12 2023 David King <amigadave@amigadave.com> - 0.16-20
+- Use SPDX for license field (#2222111)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

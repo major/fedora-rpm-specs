@@ -1,11 +1,10 @@
-%global _without_check 1
 %bcond_without check
 
 %global srcname astropy
 
 Name: python-%{srcname}
 Version: 5.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Community Python Library for Astronomy
 License: BSD and MIT
 
@@ -142,6 +141,9 @@ popd
 %license LICENSE.rst cextern/cfitsio/License.txt
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 5.3.1-2
+- Rebuilt for Python 3.12
+
 * Fri Jul 07 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 5.3.1-1
 - New upstream source 5.3.1
 - cfitsio is not bundled, only some files need for FITS decompression

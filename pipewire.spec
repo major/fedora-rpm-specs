@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 73
+%global microversion 74
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -717,6 +717,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Wed Jul 12 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.74-1
+- Update version to 0.3.74
+
 * Thu Jul 06 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.73-1
 - Update version to 0.3.73
 - Fixes rhbz#2156003 Split out lv2 and sofa filter-chain packages.

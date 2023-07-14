@@ -12,7 +12,7 @@ Documentation can be found here: http://pymatreader.readthedocs.io/en/latest/}
 
 Name:           python-%{srcname}
 Version:        0.0.30
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Convenient reader for Matlab mat files
 
 License:        BSD
@@ -100,6 +100,9 @@ popd
 %doc doc/build/html
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 0.0.30-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

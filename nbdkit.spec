@@ -45,14 +45,14 @@ ExclusiveArch:  x86_64
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools %{nil}
+%global patches_touch_autotools 1
 
 # The source directory.
 %global source_directory 1.35-development
 
 Name:           nbdkit
 Version:        1.35.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -77,6 +77,24 @@ Source3:        copy-patches.sh
 # See: https://rpm-software-management.github.io/rpm/manual/dependency_generators.html
 Source4:        nbdkit.attr
 Source5:        nbdkit-find-provides
+
+# All upstream patches since 1.35.5 was released.  These are needed
+# to fix OCaml 5 builds.
+Patch:          0001-tests-test-tar-info-Remove-bogus-test-requires-of-gu.patch
+Patch:          0002-tar-Document-the-optional-tar-option-in-help-output-.patch
+Patch:          0003-tar-Implement-tar-limit.patch
+Patch:          0004-xz-Fix-error-message-to-refer-to-xz-max-block-parame.patch
+Patch:          0005-configure-Recommend-using-g-with-OCAMLOPTFLAGS.patch
+Patch:          0006-tests-test_ocaml_plugin.ml-Print-a-message-when-test.patch
+Patch:          0007-ocaml-Add-I-unix-before-using-unix.cmxa.patch
+Patch:          0008-ocaml-Replace-caml_leave_blocking_section-with-caml_.patch
+Patch:          0009-ocaml-Always-unregister-the-global-root-and-free-the.patch
+Patch:          0010-ocaml-Fix-thread-registration-for-OCaml-5.patch
+Patch:          0011-tests-test-cc-ocaml.sh-Use-nbdkit-v-option-to-help-w.patch
+Patch:          0012-tests-Replace-SRCDIR-with-abs_top_srcdir.patch
+Patch:          0013-tests-test-read-password-Remove-use-of-SRCDIR.patch
+Patch:          0014-tests-Stop-setting-SRCDIR-for-tests.patch
+Patch:          0015-tests-Explicitly-add-L.-plugins-ocaml-.libs-to-find-.patch
 
 BuildRequires: make
 %if 0%{patches_touch_autotools}
@@ -1217,6 +1235,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.5-5
+- OCaml 5.0 rebuild for Fedora 39
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.35.5-4
 - Perl 5.38 rebuild
 

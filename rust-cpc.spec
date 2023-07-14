@@ -4,7 +4,7 @@
 %global crate cpc
 
 Name:           rust-cpc
-Version:        1.9.1
+Version:        1.9.2
 Release:        %autorelease
 Summary:        Evaluates math expressions, with support for units and conversion between units
 
@@ -22,10 +22,10 @@ between units.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# Apache-2.0
+# Apache-2.0 AND ICU
 # MIT
 # MIT OR Apache-2.0
-License:        MIT AND Apache-2.0
+License:        MIT AND Apache-2.0 AND ICU AND (MIT OR Apache-2.0)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

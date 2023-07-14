@@ -8,7 +8,7 @@
 Summary: Qt6 - QtTranslations module
 Name:    qt6-%{qt_module}
 Version: 6.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -126,6 +126,9 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 
 %changelog
+* Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-2
+- Rebuild for qtbase private API version change
+
 * Mon May 22 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-1
 - 6.5.1
 

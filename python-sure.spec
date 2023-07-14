@@ -33,7 +33,6 @@ BuildRequires:  python3-devel
 # development.txt: pytest==6.2.4
 BuildRequires:  python3dist(pytest)
 
-# Documentation dependencies
 %if %{with doc_pdf}
 BuildRequires:  make
 # development.txt: Sphinx==2.3.1
@@ -58,10 +57,12 @@ Summary:        %{summary}
 %description -n python3-sure %{common_description}
 
 
+%if %{with doc_pdf}
 %package doc
 Summary:        Documentation for Sure
 
 %description doc %{common_description}
+%endif
 
 
 %prep
@@ -104,16 +105,17 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %files -n python3-sure -f %{pyproject_files}
+%if %{without doc_pdf}
+%doc CHANGELOG.md README.rst TODO.rst
+%endif
 %{_bindir}/sure
 %{_mandir}/man1/sure.1*
 
 
+%if %{with doc_pdf}
 %files doc
 %license COPYING
-%doc CHANGELOG.md
-%doc README.rst
-%doc TODO.rst
-%if %{with doc_pdf}
+%doc CHANGELOG.md README.rst TODO.rst
 %doc docs/build/latex/Sure.pdf
 %endif
 

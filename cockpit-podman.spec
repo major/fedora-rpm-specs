@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        71
+Version:        72
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -38,17 +38,17 @@ Requires:       podman >= 2.0.4
 Requires:       criu-libs
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.43
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.83
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.12
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.8
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.85
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.53
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.98
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.14
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.10
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.100
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.9
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(date-fns)) = 2.28.0
 Provides: bundled(npm(docker-names)) = 1.2.1
 Provides: bundled(npm(file-selector)) = 0.6.0
-Provides: bundled(npm(focus-trap)) = 7.4.0
+Provides: bundled(npm(focus-trap)) = 7.4.1
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
@@ -59,9 +59,9 @@ Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
 Provides: bundled(npm(scheduler)) = 0.23.0
-Provides: bundled(npm(tabbable)) = 6.1.2
+Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 2.3.0
-Provides: bundled(npm(tslib)) = 2.5.0
+Provides: bundled(npm(tslib)) = 2.6.0
 Provides: bundled(npm(xterm)) = 4.18.0
 
 %description
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jul 12 2023 Packit <hello@packit.dev> - 72-1
+- Bug fixes and translation updates
+
 * Sat Jun 17 2023 Packit <hello@packit.dev> - 71-1
 - Add manifest condition for the Python bridge
 

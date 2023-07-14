@@ -11,7 +11,7 @@
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
 Version: 6.5.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -371,6 +371,12 @@ popd
 
 
 %changelog
+* Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-3
+- Rebuild for qtbase private API version change
+
+* Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-2
+- Rebuild for qtbase private API version change
+
 * Mon May 22 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-1
 - 6.5.1
 

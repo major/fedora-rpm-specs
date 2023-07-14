@@ -5,7 +5,7 @@
 
 Name:           APLpy
 Version:        2.0.3
-Release:        19%{?dist}
+Release:        21%{?dist}
 Summary:        The Astronomical Plotting Library in Python
 
 License:        MIT
@@ -14,6 +14,12 @@ Source0:        %{pypi_source}
 Patch0:         aplpy-moved-function.patch
 # https://github.com/aplpy/aplpy/pull/469
 Patch1:         aplpy-wraps-from-functools.patch
+# Workaround for python 3.12 change of imp module removal
+Patch2:         astropy_helpers-py312-imp-deprecation.patch
+# related:
+# https://github.com/astropy/astropy/pull/12633
+# astropy 5.1 removes astropy.tests.plugins.display and so on
+Patch3:         aplpy-astropy-5.1-tests-plugins-removal.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel 
@@ -32,6 +38,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-numpy
 BuildRequires:  python3-matplotlib
 BuildRequires:  python3-astropy
+BuildRequires:  python3-pytest-astropy-header
 # Testing
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pillow
@@ -78,6 +85,13 @@ popd
 %{python3_sitelib}/aplpy/
 
 %changelog
+* Wed Jul 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.3-21
+- Workaround for python 3.12 change of imp module removal
+- Workaround for astropy 5.1 astropy.tests.plugins.display removal and so on
+
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 2.0.3-20
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

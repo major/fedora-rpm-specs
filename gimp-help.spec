@@ -5,8 +5,8 @@
 Summary: Help files for GIMP
 Name: gimp-help
 Version: 2.10.0
-Release: 10%{?dist}
-License: GFDL and GPLv2+
+Release: 11%{?dist}
+License: GFDL-1.2-invariants-only
 URL: http://docs.gimp.org/
 Source0: http://download.gimp.org/pub/gimp/help/gimp-help-%{version}.tar.bz2
 BuildArch: noarch
@@ -183,7 +183,7 @@ Simplified Chinese language support for gimp-help.
 
 %prep
 %setup -q
-%patch1 -p1
+%patch 1 -p1
 
 %build
 %configure
@@ -230,6 +230,9 @@ popd
 # END: LANGUAGE FILE LISTS
 
 %changelog
+* Wed Jul 12 2023 Josef Ridky <jridky@redhat.com> - 2.10.0-11
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

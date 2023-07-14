@@ -49,8 +49,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        295
-Release:        2%{?dist}
+Version:        296
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 # Use Python bridge on non-stable versions
@@ -783,6 +783,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 12 2023 Packit <hello@packit.dev> - 296-1
+- Performance and stability improvements
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 295-2
 - Rebuilt for Python 3.12
 

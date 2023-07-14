@@ -13,7 +13,7 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.6.0
+Version:	5.6.1
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
@@ -308,8 +308,11 @@ CXXFLAGS="${CXXFLAGS} -Wno-error=stringop-overflow"
 %if %{ceph}
     -DXRDCEPH_SUBMODULE:BOOL=ON \
 %endif
-    -DENABLE_XRDCLHTTP:BOOL=ON \
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
+    -DPIP_OPTIONS="--no-deps --use-pep517 --no-build-isolation --disable-pip-version-check --verbose" \
+%else
     -DPIP_OPTIONS="--no-deps --disable-pip-version-check --verbose" \
+%endif
 %if %{?rhel}%{!?rhel:0} == 7
     -DXRD_PYTHON_REQ_VERSION=%{python2_version}
 %else
@@ -683,6 +686,10 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Wed Jul 12 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.1-1
+- Update to version 5.6.1
+- Add --use-pep517 --no-build-isolation to pip options for Fedora and EPEL 9+
+
 * Sun Jul 02 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.0-1
 - Update to version 5.6.0
 - Drop patches (changes implemented upstream)

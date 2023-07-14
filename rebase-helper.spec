@@ -4,7 +4,7 @@
 
 Name:           rebase-helper
 Version:        0.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The tool that helps you to rebase your package to the latest version
 
 License:        GPLv2+
@@ -105,6 +105,9 @@ PYTHONPATH=$(pwd) py.test-3 -v tests
 
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 0.28.0-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 13 2023 Packit <hello@packit.dev> - 0.28.0-1
 News in version 0.28.0:
 

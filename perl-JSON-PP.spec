@@ -4,7 +4,7 @@
 Name:		perl-JSON-PP
 Epoch:		1
 Version:	4.16
-Release:	499%{?dist}
+Release:	500%{?dist}
 Summary:	JSON::XS compatible pure-Perl module
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/JSON-PP
@@ -89,6 +89,9 @@ make test
 %{_mandir}/man3/JSON::PP::Boolean.3*
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:4.16-500
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:4.16-499
 - Increase release to favour standalone package
 

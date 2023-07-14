@@ -7,7 +7,7 @@
 
 Name:             python-%{mod_name}
 Version:          2.0.2
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Pure Python client for Apache Kafka
 
 License:          ASL 2.0
@@ -27,6 +27,12 @@ Patch3:           setup.py.patch
 # This patch is temporary until upstream releases 2.0.3. See
 # https://github.com/dpkp/kafka-python/pull/2318
 Patch4:           test_assignors.py.patch
+# These patches are temporary until upstream releases 2.0.3.
+Patch5:           kafka_codec.py.patch
+Patch6:           test_fixture.py.patch
+Patch7:           test_codec.py.patch
+# This patch is temporary until upstream releases 2.0.3.
+Patch8:           test_client_async.py.patch
 
 BuildArch:        noarch
 BuildRequires:    pyproject-rpm-macros
@@ -133,6 +139,9 @@ It makes sure the dependencies are installed.
 
 
 %changelog
+* Tue Jul 11 2023 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.0.2-11
+- Applies patches for Python 3.12
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.0.2-10
 - Rebuilt for Python 3.12
 

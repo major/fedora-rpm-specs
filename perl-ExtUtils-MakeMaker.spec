@@ -6,7 +6,7 @@
 Name:           perl-%{cpan_name}
 Epoch:          2
 Version:        7.70
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Create a module Makefile
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -272,6 +272,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:7.70-500
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:7.70-499
 - Increase release to favour standalone package
 

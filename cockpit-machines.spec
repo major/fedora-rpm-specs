@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        293
+Version:        294
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -65,14 +65,14 @@ Recommends: libosinfo
 Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
-Provides: bundled(npm(@babel/runtime)) = 7.21.5
+Provides: bundled(npm(@babel/runtime)) = 7.22.6
 Provides: bundled(npm(@novnc/novnc)) = 1.4.0
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.43
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.53
 Provides: bundled(npm(@patternfly/react-console)) = 5.0.0-alpha.1
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.83
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.12
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.8
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.85
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.98
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.14
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.10
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.100
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.9
 Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
 Provides: bundled(npm(attr-accept)) = 2.2.2
@@ -84,14 +84,15 @@ Provides: bundled(npm(define-properties)) = 1.2.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
 Provides: bundled(npm(file-saver)) = 1.3.8
 Provides: bundled(npm(file-selector)) = 0.6.0
-Provides: bundled(npm(focus-trap)) = 7.4.0
+Provides: bundled(npm(focus-trap)) = 7.4.1
 Provides: bundled(npm(for-each)) = 0.3.3
 Provides: bundled(npm(function-bind)) = 1.1.1
 Provides: bundled(npm(functions-have-names)) = 1.2.3
-Provides: bundled(npm(get-intrinsic)) = 1.2.0
+Provides: bundled(npm(get-intrinsic)) = 1.2.1
 Provides: bundled(npm(gopd)) = 1.0.1
 Provides: bundled(npm(has-bigints)) = 1.0.2
 Provides: bundled(npm(has-property-descriptors)) = 1.0.0
+Provides: bundled(npm(has-proto)) = 1.0.1
 Provides: bundled(npm(has-symbols)) = 1.0.3
 Provides: bundled(npm(has-tostringtag)) = 1.0.0
 Provides: bundled(npm(has)) = 1.0.3
@@ -131,9 +132,9 @@ Provides: bundled(npm(regexp.prototype.flags)) = 1.5.0
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
-Provides: bundled(npm(tabbable)) = 6.1.2
+Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 3.0.1
-Provides: bundled(npm(tslib)) = 2.5.0
+Provides: bundled(npm(tslib)) = 2.6.0
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
 Provides: bundled(npm(which-typed-array)) = 1.1.9
@@ -165,6 +166,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 12 2023 Packit <hello@packit.dev> - 294-1
+- Bug fixes and translation updates
+
 * Wed Jun 28 2023 Packit <hello@packit.dev> - 293-1
 - Confirm shutdown actions
 - Show virtual interface's TAP device

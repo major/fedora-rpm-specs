@@ -5,7 +5,7 @@
 %global crate bstr
 
 Name:           rust-bstr
-Version:        1.5.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        String type that is not required to be valid UTF-8
 

@@ -6,7 +6,7 @@
 %global crate toml
 
 Name:           rust-toml
-Version:        0.7.4
+Version:        0.7.6
 Release:        %autorelease
 Summary:        Native Rust encoder and decoder of TOML-formatted files and streams
 

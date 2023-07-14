@@ -4,12 +4,16 @@
 
 Name:           python-%{srcname}
 Version:        0.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        BSD
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{pypi_source astropy_healpix}
+# https://github.com/astropy/astropy-healpix/issues/183
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1026012
+# https://salsa.debian.org/debian-astro-team/astropy-healpix/-/blob/master/debian/patches/Temporarily-disable-tests-that-fail-due-to-limited-FP-pre.patch
+Patch0:         astropy_healpix-0.7-disable-FP-limited-test.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -72,6 +76,9 @@ rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
 %{python3_sitearch}/%{modname}*egg-info
 
 %changelog
+* Wed Jul 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7-4
+- Disable tests related to FP limitation (upstream github bug 183)
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 0.7-3
 - Rebuilt for Python 3.12
 

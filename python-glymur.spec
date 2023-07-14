@@ -1,5 +1,5 @@
 Name:           python-glymur
-Version:        0.12.7
+Version:        0.12.8
 Release:        %autorelease
 Summary:        Interface to the OpenJPEG library for working with JPEG 2000 files
 
@@ -12,10 +12,6 @@ Source0:        https://github.com/quintusdias/glymur/archive/v%{version}/%{name
 # output:
 Source1:        jp2dump.1
 Source2:        tiff2jp2.1
-
-# Adapt to OrderedDict repr change in Python 3.12
-# https://github.com/quintusdias/glymur/pull/621
-Patch:          https://github.com/quintusdias/glymur/pull/621.patch
 
 # Since the package has had endian-dependent test failures in the past, we give
 # up “noarch” in the base package in order to run tests on all supported

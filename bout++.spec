@@ -94,12 +94,10 @@ BuildRequires:  python3-sphinx
 %if %{with petsc} && %{with mpich}
 BuildRequires: petsc-mpich-devel
 BuildRequires: hdf5-mpich-devel
-BuildRequires: python%{python3_pkgversion}-h5py-mpich
 %endif
 %if %{with petsc} && %{with openmpi}
 BuildRequires: petsc-openmpi-devel
 BuildRequires: hdf5-openmpi-devel
-BuildRequires: python%{python3_pkgversion}-h5py-openmpi
 %endif
 %if %{with sundials} && %{with mpich}
 BuildRequires: sundials-mpich-devel

@@ -1,16 +1,29 @@
-%global pypi_name email-validator
-
-Name:           python-%{pypi_name}
-Version:        1.1.1
-Release:        10%{?dist}
+Name:           python-email-validator
+Version:        2.0.0
+Release:        %autorelease
 Summary:        A robust email syntax and deliverability validation library
 
-License:        CC0
+# The CC0-1.0 license is *not allowed* in Fedora for code, but this package
+# falls under the following blanket exception:
+#
+#   Existing uses of CC0-1.0 on code files in Fedora packages prior to
+#   2022-08-01, and subsequent upstream versions of those files in those
+#   packages, continue to be allowed. We encourage Fedora package maintainers
+#   to ask upstreams to relicense such files.
+#
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383
+License:        CC0-1.0
 URL:            https://github.com/JoshData/python-email-validator
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
 BuildArch:      noarch
 
-%description
+BuildRequires:  python3-devel
+# test_requirements.txt pins exact versions and includes unwanted coverage and
+# linting dependencies, so we fall back to manual BuildRequires:
+BuildRequires:  %{py3_dist pytest}
+
+%global _description %{expand:
 This library validates that address are of the form x@y.com. This is the sort
 of validation you would want for a login form on a website.
 
@@ -22,99 +35,39 @@ Key features:
 - (optionally) Checks deliverability: Does the domain name resolve?
 - Supports internationalized domain names and (optionally) internationalized
   local parts.
-- Normalizes email addresses (important for internationalized addresses!).
+- Normalizes email addresses (important for internationalized addresses!).}
 
-%package -n     python3-%{pypi_name}
+%description %{_description}
+
+%package -n     python3-email-validator
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-dns
-BuildRequires:  python3-idna
-BuildRequires:  python3-coverage
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
-%{?python_provide:%python_provide python3-%{pypi_name}}
-
-%description -n python3-%{pypi_name}
-This library validates that address are of the form x@y.com. This is the sort
-of validation you would want for a login form on a website.
-
-Key features:
-
-- Good for validating email addresses used for logins/identity.
-- Friendly error messages when validation fails (appropriate to show to end
-  users).
-- (optionally) Checks deliverability: Does the domain name resolve?
-- Supports internationalized domain names and (optionally) internationalized
-  local parts.
-- Normalizes email addresses (important for internationalized addresses!).
+%description -n python3-email-validator %{_description}
 
 %prep
-%autosetup -n python-%{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -n python-email-validator-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files email_validator
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests \
-  -k "not test_deliverability"
+# Even though we have disabled the “network” mark, these still require DNS.
+ignore="${ignore-} --ignore=tests/test_deliverability.py"
+ignore="${ignore-} --ignore=tests/test_main.py"
+%pytest -v tests -m 'not network' ${ignore-}
+# Just to be sure, since we have disabled some tests:
+%pyproject_check_import
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-email-validator -f %{pyproject_files}
 %doc CONTRIBUTING.md README.md
 %{_bindir}/email_validator
-%{python3_sitelib}/email_validator/
-%{python3_sitelib}/email_validator-%{version}-py*.egg-info
 
 %changelog
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.1.1-10
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 1.1.1-7
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.1.1-4
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jun 03 2020 Fabian Affolter <mail@fabian-affolter.ch> - 1.1.1-1
-- Enable tests
-- Update to new upstream release 1.1.1
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.0.5-4
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Jan 07 2020 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.5-2
-- Implement changes from rhbz#1787419 to match rhbz#1733683
-
-* Mon Jan 06 2020 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.0.5-1
-- Update to 1.0.5.
-- Review fixes.
-
-* Sat Jul 27 2019 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.0.4-1
-- Initial package.
+%autochangelog

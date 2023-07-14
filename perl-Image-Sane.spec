@@ -3,11 +3,13 @@
 
 Name:           perl-Image-Sane
 Version:        5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Perl extension for the SANE (Scanner Access Now Easy) Project
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Image-Sane
 Source0:        https://cpan.metacpan.org/authors/id/R/RA/RATCLIFFE/Image-Sane-%{version}.tar.gz
+# Adapt to Perl 5.37.10, CPAN RT#148487
+Patch0:         Image-Sane-5-Replace-deprecated-given-and-when-operators.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -79,7 +81,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Image-Sane-%{version}
+%autosetup -p1 -n Image-Sane-%{version}
 # Remove author tests
 rm t/91_critic.t
 perl -i -ne 'print $_ unless m{\At/91_critic\.t}' MANIFEST
@@ -136,6 +138,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 12 2023 Petr Pisar <ppisar@redhat.com> - 5-15
+- Adapt to Perl 5.37.10 (CPAN RT#148487)
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5-14
 - Perl 5.38 rebuild
 

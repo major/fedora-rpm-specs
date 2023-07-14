@@ -1,11 +1,11 @@
 # Break a circular dependency with sphinx-autodoc-typehints
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-typeguard
 Version:        4.0.0
@@ -32,7 +32,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
@@ -51,10 +51,12 @@ Summary:        %{summary}
 %description -n python3-typeguard %{common_description}
 
 
+%if %{with doc}
 %package doc
 Summary:        Documentation for typeguard
 
 %description doc %{common_description}
+%endif
 
 
 %prep
@@ -85,14 +87,14 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires -x test%{?with_doc_pdf:,doc}
+%pyproject_buildrequires -x test%{?with_doc:,doc}
 
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
-%if %{with doc_pdf}
+%if %{with doc}
 PYTHONPATH="${PWD}/src" sphinx-build -b latex -j%{?_smp_build_ncpus} \
     docs %{_vpath_builddir}/_latex
 %make_build -C %{_vpath_builddir}/_latex LATEXMKOPTS='-quiet'
@@ -111,12 +113,15 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 %files -n python3-typeguard -f %{pyproject_files}
 # pyproject_files handles LICENSE; verify with “rpm -qL -p …”
+%if %{without doc}
+%doc README.rst
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
 %doc README.rst
-%if %{with doc_pdf}
 %doc %{_vpath_builddir}/_latex/typeguard.pdf
 %endif
 

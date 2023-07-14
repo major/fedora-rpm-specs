@@ -35,14 +35,10 @@ BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(libcurl)
-BuildRequires: pkgconfig(libsoup-2.4)
 BuildRequires: pkgconfig(librsvg-2.0)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(lmdb)
-BuildRequires: pkgconfig(packagekit-glib2)
 BuildRequires: pkgconfig(pango)
-BuildRequires: pkgconfig(protobuf-lite)
 %if %{with qt}
 BuildRequires: pkgconfig(Qt5Core)
 %endif
@@ -220,6 +216,7 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 %changelog
 * Mon Jun 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.16.1-2
 - Disable Qt5 in RHEL 10 builds
+- Remove obsolete BuildRequires
 
 * Sat Feb 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.16.1-1
 - Update to 0.16.1

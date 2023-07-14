@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD and ASL 2.0 and Python
@@ -74,6 +74,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 0.10.0-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 01 2023 Christian Dersch <lupinix@mailbox.org> - 0.10.0-1
 - new version
 

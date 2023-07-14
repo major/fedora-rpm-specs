@@ -18,7 +18,7 @@ and which can read and write data files.}
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python framework for setting up and running scientific simulations
 License:        BSD
 URL:            https://github.com/stammler/%{pypi_name}
@@ -93,6 +93,9 @@ find . -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 %doc examples/
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 1.0.2-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

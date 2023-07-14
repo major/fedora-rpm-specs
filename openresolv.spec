@@ -16,7 +16,7 @@
 %global forgeurl0 https://github.com/NetworkConfiguration/openresolv
 
 Name:           openresolv
-Version:        3.13.1
+Version:        3.13.2
 Release:        %autorelease
 Summary:        DNS management framework
 License:        BSD

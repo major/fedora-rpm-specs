@@ -4,8 +4,8 @@
 %global modulename mysql
 
 Name:           mysql-selinux
-Version:        1.0.5
-Release:        3%{?dist}
+Version:        1.0.6
+Release:        1%{?dist}
 
 License:        GPL-3.0-only
 URL:            https://github.com/devexp-db/mysql-selinux
@@ -57,6 +57,9 @@ fi
 %license COPYING
 
 %changelog
+* Wed Jul 12 2023 Adam Dobes <adobes@redhat.com> - 1.0.6-1
+- Rebase to 1.0.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

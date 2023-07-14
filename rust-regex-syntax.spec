@@ -5,7 +5,7 @@
 %global crate regex-syntax
 
 Name:           rust-regex-syntax
-Version:        0.7.2
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Regular expression parser
 
@@ -50,6 +50,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+arbitrary-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arbitrary-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arbitrary" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

@@ -5,13 +5,16 @@
 %global crate ratatui
 
 Name:           rust-ratatui
-Version:        0.20.1
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Library to build rich terminal user interfaces or dashboards
 
 License:        MIT
 URL:            https://crates.io/crates/ratatui
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused optional termwiz dependency (too old in Fedora)
+Patch:          ratatui-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -49,6 +52,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+all-widgets-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+all-widgets-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "all-widgets" feature of the "%{crate}" crate.
+
+%files       -n %{name}+all-widgets-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+crossterm-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -59,6 +74,18 @@ This package contains library source intended for building other packages which
 use the "crossterm" feature of the "%{crate}" crate.
 
 %files       -n %{name}+crossterm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+macros-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+macros-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "macros" feature of the "%{crate}" crate.
+
+%files       -n %{name}+macros-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -85,6 +112,30 @@ use the "termion" feature of the "%{crate}" crate.
 %files       -n %{name}+termion-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+time-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+time-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "time" feature of the "%{crate}" crate.
+
+%files       -n %{name}+time-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+widget-calendar-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+widget-calendar-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "widget-calendar" feature of the "%{crate}" crate.
+
+%files       -n %{name}+widget-calendar-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
@@ -100,7 +151,7 @@ use the "termion" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# skip tests that don't panic as expected
+# skip tests that don't panic as expected (no overflows in release mode)
 %cargo_test -- -- --skip buffer::Buffer::index_of --skip buffer::Buffer::pos_of --skip buffer::tests::index_of_panics_on_out_of_bounds --skip buffer::tests::pos_of_panics_on_out_of_bounds
 %endif
 

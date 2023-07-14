@@ -1,21 +1,16 @@
-# EPEL9 does not have python-aiohttp packaged yet.
-%if 0%{?fedora}
 %bcond_without  tests
-%else
-%bcond_with     tests
-%endif
 
+%global         reponame    azure-sdk-for-python
 %global         srcname     azure-core
 
 Name:           python-%{srcname}
-Version:        1.26.0
+Version:        1.28.0
 Release:        %autorelease
 Summary:        Azure Core shared client library for Python
+
 License:        MIT
-URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
-# Werkzeug >= 2.2 Support
-Patch01:        Adjust-tests-for-werkzeug-2.2.patch
+URL:            https://github.com/Azure/azure-sdk-for-python
+Source0:        %{url}/archive/%{srcname}_%{version}/%{srcname}-%{version}.tar.gz
 
 Epoch:          2
 
@@ -50,12 +45,12 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-%{srcname} aio
 
 %prep
-%autosetup -n %{srcname}-%{version} -p4
+# Upstream buries the package into a subdirectory. 😭
+%setup -c -T
+tar xzf %{SOURCE0} --strip-components=4 \
+    %{reponame}-%{srcname}_%{version}/sdk/core/%{srcname}
+ls -alR
 
-# Fedora 35/36 and epel9 have an older version of typing-extensions.
-%if 0%{?fedora} < 37 || 0%{?rhel}
-sed -i 's/typing-extensions[>=0-9\.]*/typing-extensions/' setup.py
-%endif
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -91,7 +86,8 @@ PYTHONPATH=%{buildroot}%{python3_sitelib}:%{buildroot}%{python3_sitearch}:tests/
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc README.md
+%license LICENSE
+%doc CHANGELOG.md CLIENT_LIBRARY_DEVELOPER.md README.md
 
 
 %changelog

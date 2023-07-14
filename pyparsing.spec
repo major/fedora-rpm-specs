@@ -3,6 +3,7 @@ Name:           pyparsing
 Version:        3.0.9
 Release:        %autorelease
 
+# SPDX
 License:        MIT
 URL:            https://github.com/pyparsing/pyparsing
 Source0:        https://github.com/%{name}/%{name}/archive/%{name}_%{version}/%{name}-%{version}.tar.gz
@@ -46,12 +47,12 @@ definitions for any number of text parsing applications.
 Summary:        Documentation for %{name}
 
 # Most examples are under the project's license, MIT
-# pymicko.py is under GPLv3+
-# snmp_api.h is under CMU-UC (MIT)
-# sparser.py is under GPLv2+
-# searchparser.py is under BSD (3-clause, with advertising)
-# btpyparse.py is under "Simplified BSD license"
-License:        MIT and GPLv2+ and GPLv3+ and BSD
+# pymicko.py is under GPL-3.0-or-later
+# snmp_api.h is under MIT-CMU
+# sparser.py is under GPL-2.0-or-later
+# searchparser.py and booleansearchparser.py are under BSD-3-Clause
+# btpyparse.py is under "Simplified BSD license" -> BSD-2-Clause
+License:        MIT AND MIT-CMU AND GPL-2.0-or-later AND GPL-3.0-or-later AND BSD-3-Clause AND BSD-2-Clause
 
 %description    doc
 The package contains documentation for pyparsing.

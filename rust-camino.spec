@@ -5,7 +5,7 @@
 %global crate camino
 
 Name:           rust-camino
-Version:        1.1.4
+Version:        1.1.6
 Release:        %autorelease
 Summary:        UTF-8 paths
 
@@ -33,7 +33,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

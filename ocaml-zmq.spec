@@ -10,6 +10,10 @@ License:        MIT
 URL:            https://github.com/issuu/ocaml-zmq
 Source0:        %{url}/releases/download/%{version}/zmq-%{version}.tbz
 
+# Fix a stub function return type
+# https://github.com/issuu/ocaml-zmq/pull/127
+Patch0:         %{name}-func-type.patch
+
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
@@ -49,7 +53,7 @@ The %{name}-lwt-devel package contains libraries and signature
 files for developing applications that use %{name}-lwt.
 
 %prep
-%autosetup -n zmq-%{version}
+%autosetup -n zmq-%{version} -p1
 
 # We cannot build the async-aware bindings until ocaml-async-kernel and
 # ocaml-async-unix have been added to Fedora.
@@ -78,6 +82,9 @@ rm -fr %{buildroot}%{ocamldir}/zmq-async
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Wed Jul 12 2023 Jerry James <loganjerry@gmail.com> - 5.2.1-6
+- Add patch to fix test failure on s390x
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.2.1-6
 - OCaml 5.0 rebuild for Fedora 39
 

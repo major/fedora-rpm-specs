@@ -3,11 +3,11 @@
 
 Name:           py3c
 Version:        1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Guide and compatibility macros for porting extensions to Python 3
 
 # Licences differ for subpackages
-License:        MIT and CC-BY-SA
+License:        MIT AND CC-BY-SA-3.0
 
 URL:            http://py3c.readthedocs.io/
 
@@ -42,7 +42,7 @@ Because py3c is a header-only library, there is no matching run-time package.
 
 %package        doc
 BuildArch:      noarch
-License:        CC-BY-SA
+License:        CC-BY-SA-3.0
 Summary:        Guide for porting C extensions to Python 3
 
 %description doc
@@ -81,6 +81,9 @@ sed --in-place -e's!%{buildroot}!!' %{buildroot}%{_datadir}/pkgconfig/py3c.pc
 %doc %{_pkgdocdir}/
 
 %changelog
+* Wed Jul 12 2023 Karolina Surma <ksurma@redhat.com> - 1.4-5
+- Migrate the License tags to SPDX expressions
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -34,6 +34,10 @@ Source1:        validate_hdmf_spec.1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Patch-out-coverage-from-pytest-invocation.patch
 
+# Fix GenericDataChunkIteratorTests.test_abstract_assertions for Python 3.12
+# https://github.com/hdmf-dev/hdmf/pull/903
+Patch:          %{url}/pull/903.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

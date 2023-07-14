@@ -1,5 +1,13 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
+# Coq's plugin architecture requires cmxs files, so:
+ExclusiveArch: %{ocaml_native_compiler}
+
+# ANTLR is unavailable on i686
+# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
+#
+# This is commented for out now because ocaml_native_compiler is
+# narrower, and apparently if you have two ExclusiveArch lines in a
+# spec file, RPM ignores the first one and uses the second one!
+# ExclusiveArch: %%{java_arches}
 
 %ifarch %{ocaml_native_compiler}
 %global camlsuffix opt
@@ -19,7 +27,7 @@ ExcludeArch: %{ix86}
 
 Name:           coq
 Version:        8.17.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -31,10 +39,6 @@ Source0:        https://github.com/coq/coq/archive/V%{version}/%{name}-%{version
 Source1:        fr.inria.coqide.desktop
 Source2:        coq.xml
 Source3:        fr.inria.coqide.metainfo.xml
-
-# ANTLR is unavailable on i686
-# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-ExclusiveArch:  %{java_arches}
 
 BuildRequires:  ocaml >= 4.09.0
 BuildRequires:  ocaml-dune >= 2.9
@@ -391,8 +395,9 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %endif
 
 %changelog
-* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 8.17.1-2
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 8.17.1-3
 - OCaml 5.0 rebuild for Fedora 39
+- Only build coq and friends on architectures with the native compiler.
 
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 8.17.1-1
 - Version 8.17.1

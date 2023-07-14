@@ -381,7 +381,8 @@ done
 %endif
 %{_datadir}/installed-tests/fwupd/chassis_type
 %{_datadir}/installed-tests/fwupd/sys_vendor
-%if 0%{?fedora} >= 37
+# libgusb >= 0.4.5
+%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
 %{_datadir}/fwupd/device-tests/*.json
 %endif
 %{_libexecdir}/installed-tests/fwupd/*

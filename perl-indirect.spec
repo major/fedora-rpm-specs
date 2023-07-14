@@ -7,7 +7,7 @@
 
 Name:           perl-indirect
 Version:        0.39
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Lexically warn about using the indirect object syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/indirect
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man3/indirect.3*
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.39-18
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.39-17
 - Perl 5.38 rebuild
 

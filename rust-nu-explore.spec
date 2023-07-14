@@ -12,6 +12,9 @@ Summary:        Nushell table printing
 License:        MIT
 URL:            https://crates.io/crates/nu-explore
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump ratatui dependency from 0.20.1 to 0.21
+Patch:          nu-explore-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

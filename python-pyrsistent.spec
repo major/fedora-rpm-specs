@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+%bcond doc 1
 
 Name:           python-pyrsistent
 Summary:        Persistent/Functional/Immutable data structures
@@ -18,7 +18,7 @@ BuildRequires:  python3-devel
 BuildRequires:  gcc
 
 # For Sphinx documentation
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
@@ -49,6 +49,7 @@ Summary:        %{summary}
 %description -n python3-pyrsistent %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for pyrsistent
 # The Sphinx documentation does contain content based on pyrsistent/_toolz.py,
@@ -57,6 +58,7 @@ Summary:        Documentation for pyrsistent
 BuildArch:      noarch
 
 %description doc %{common_description}
+%endif
 
 
 %prep
@@ -92,7 +94,7 @@ sed -r \
 # Default SPHINXOPTS are '-W -n', but -W turns warnings into errors and there
 # are some warnings. We want to build the documentation as best we can anyway.
 # Additionally, we parallelize sphinx-build.
-%if %{with doc_pdf}
+%if %{with doc}
 PYTHONPATH="${PWD}" %make_build -C docs latex \
     SPHINXOPTS='-n -j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
@@ -105,19 +107,21 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 
 %check
-# # See tox.ini:
+# See tox.ini:
 %pytest %{?rhel:--ignore=tests/hypothesis_vector_test.py}
 %pytest --doctest-modules pyrsistent
 
 
 %files -n python3-pyrsistent -f %{pyproject_files}
+%if %{without doc}
+%doc CHANGES.txt README.rst
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE.mit
-%doc CHANGES.txt
-%doc README.rst
-%if %{with doc_pdf}
+%doc CHANGES.txt README.rst
 %doc docs/build/latex/Pyrsistent.pdf
 %endif
 

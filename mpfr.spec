@@ -1,7 +1,7 @@
 Summary: C library for multiple-precision floating-point computations
 Name: mpfr
-Version: 4.1.1
-Release: 3%{?dist}
+Version: 4.2.0
+Release: 1%{?dist}
 URL: https://www.mpfr.org/
 
 License: LGPL-3.0-or-later
@@ -13,7 +13,15 @@ BuildRequires: texinfo
 Source0: https://www.mpfr.org/%{name}-%{version}/%{name}-%{version}.tar.xz
 
 # Upstream post-release patches.  This currently contains:
-# - mpfr_custom_get_kind.patch
+# - tsprintf-thousands.patch
+# - ui_pow_ui-overflow.patch
+# - multibyte-decimal_point.patch
+# - rec_sqrt-zivloop.patch
+# - reldiff.patch
+# - tests-reuse.patch
+# - pow_general.patch
+# - compound.patch
+# - printf_large_prec_for_g.patch
 Patch0: https://www.mpfr.org/%{name}-%{version}/allpatches
 
 %description
@@ -74,10 +82,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 %files
 %license COPYING COPYING.LESSER
-%{_pkgdocdir}/BUGS
-%{_pkgdocdir}/ChangeLog
 %{_pkgdocdir}/NEWS
-%{_pkgdocdir}/PATCHES
 %{_pkgdocdir}/README
 %{_libdir}/libmpfr.so.6*
 
@@ -88,13 +93,20 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/pkgconfig/mpfr.pc
 
 %files doc
+%license COPYING COPYING.LESSER
 %{_pkgdocdir}/AUTHORS
-%{_pkgdocdir}/examples
+%{_pkgdocdir}/BUGS
+%{_pkgdocdir}/ChangeLog
 %{_pkgdocdir}/FAQ.html
+%{_pkgdocdir}/PATCHES
 %{_pkgdocdir}/TODO
+%{_pkgdocdir}/examples
 %{_infodir}/mpfr.info*
 
 %changelog
+* Wed Jul 12 2023 Jerry James <loganjerry@gmail.com> - 4.2.0-1
+- Update to MPFR 4.2.0-p9
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

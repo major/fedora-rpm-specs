@@ -1,4 +1,3 @@
-%global _without_tests 1
 Name:		python-decopatch
 Version:	1.4.10
 Release:	%autorelease

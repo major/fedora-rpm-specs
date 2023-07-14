@@ -13,7 +13,7 @@
 # https://github.com/coreos/ignition
 %global goipath         github.com/coreos/ignition
 %global gomodulesmode   GO111MODULE=on
-Version:                2.16.1
+Version:                2.16.2
 
 %gometa
 
@@ -338,6 +338,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_libexecdir}/coreos-check-ssh-keys
 
 %changelog
+* Wed Jul 12 2023 Benjamin Gilbert <bgilbert@redhat.com> - 2.16.2-1
+- New release
+
 * Mon Jul 10 2023 Benjamin Gilbert <bgilbert@redhat.com> - 2.16.1-1
 - New release
 

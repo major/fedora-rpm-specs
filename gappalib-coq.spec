@@ -1,5 +1,9 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
+# Coq's plugin architecture requires cmxs files, so:
+ExclusiveArch: %{ocaml_native_compiler}
+
+# ANTLR is unavailable on i686, so coq is also unavailable
+# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
+#ExclusiveArch:  %%{java_arches}
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
@@ -21,10 +25,6 @@ Summary:        Coq support library for gappa
 License:        LGPL-3.0-or-later
 URL:            https://gitlab.inria.fr/gappa/coq
 Source0:        %{url}/-/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
-
-# ANTLR is unavailable on i686, so coq is also unavailable
-# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-ExclusiveArch:  %{java_arches}
 
 BuildRequires:  autoconf
 BuildRequires:  gcc-c++

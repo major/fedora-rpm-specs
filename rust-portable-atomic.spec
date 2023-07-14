@@ -6,7 +6,7 @@
 %global crate portable-atomic
 
 Name:           rust-portable-atomic
-Version:        1.3.3
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Portable atomic types including support for 128-bit atomics, atomic float, etc
 
@@ -35,7 +35,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/DEVELOPMENT.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -61,6 +60,18 @@ This package contains library source intended for building other packages which
 use the "critical-section" feature of the "%{crate}" crate.
 
 %files       -n %{name}+critical-section-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+disable-fiq-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+disable-fiq-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "disable-fiq" feature of the "%{crate}" crate.
+
+%files       -n %{name}+disable-fiq-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+fallback-devel
@@ -99,6 +110,18 @@ use the "require-cas" feature of the "%{crate}" crate.
 %files       -n %{name}+require-cas-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+s-mode-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+s-mode-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "s-mode" feature of the "%{crate}" crate.
+
+%files       -n %{name}+s-mode-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -121,6 +144,18 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unsafe-assume-single-core-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unsafe-assume-single-core-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unsafe-assume-single-core" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unsafe-assume-single-core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

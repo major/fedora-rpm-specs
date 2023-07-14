@@ -5,8 +5,8 @@
 %endif
 
 Name:       compose-utils
-Version:    0.1.45
-Release:    8%{?dist}
+Version:    0.1.50
+Release:    1%{?dist}
 Summary:    Utilities for working with composes
 
 License:    GPL-2.0-only
@@ -76,6 +76,10 @@ Python 3 libraries supporting tools for working with composes
 
 
 %changelog
+* Wed Jul 12 2023 Lubomír Sedlář <lsedlar@redhat.com> - 0.1.50-1
+- New upstream version
+- Add support for gpgkey in compose-write-repo-file
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1.45-8
 - Rebuilt for Python 3.12
 

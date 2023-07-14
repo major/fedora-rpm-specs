@@ -1,14 +1,13 @@
 Name: ck
-Version: 0.7.0
-Release: 10%{?dist}
+Version: 0.7.1
+Release: 1%{?dist}
 Summary: Library for high performance concurrent programming
 
 License: BSD
-URL: http://concurrencykit.org
+# concurrencykit.org has been done for many months now, so use github instead
+URL: https://github.com/concurrencykit/ck
+Source: https://github.com/concurrencykit/ck/archive/%{version}/%{name}-%{version}.tar.gz
 
-Source: http://concurrencykit.org/releases/ck-%{version}.tar.gz
-Patch1: ck-nogettid.patch
-Patch2: ck-register-constraint.patch
 # disable ck_hclh_test from ck_spinlock temporary solution
 # github issue: https://github.com/concurrencykit/ck/issues/153
 Patch3: ck_disable_ck_hclh_test.patch
@@ -99,6 +98,11 @@ time timeout -k $TIMEOUT_KILL $TIMEOUT \
 %{_mandir}/man3/*.3.gz
 
 %changelog
+* Wed Jul 12 2023 Paul Wouters <paul.wouters@aiven.io - 0.7.1-1
+- Updated to 0.7.1 (partially for testing resolving of rhbz#2113147)
+- Remove upstreamed patches
+- Updated URL: and Source: to github, as concurrencykit.org has been dead for a while
+
 * Fri Feb 17 2023 Petr Menšík <pemensik@redhat.com> - 0.7.0-10
 - Set time limit to unit test run
 - Limit unit test to less cores to make them faster

@@ -1,5 +1,9 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
+# Coq's plugin architecture requires cmxs files, so:
+ExclusiveArch: %{ocaml_native_compiler}
+
+# ANTLR is unavailable on i686, so coq is also unavailable
+# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
+#ExclusiveArch:  %%{java_arches}
 
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
@@ -8,7 +12,7 @@ ExcludeArch: %{ix86}
 
 Name:		zenon
 Version:	0.8.5
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -19,10 +23,6 @@ Source3:	%{name}-tptp-ReadMe
 # Basic documentation (man pages). Submitted upstream 2008-07-25:
 Source4:	%{name}.1
 Source5:	%{name}-format.5
-
-# ANTLR is unavailable on i686, so coq is also unavailable
-# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-ExclusiveArch:  %{java_arches}
 
 BuildRequires:	coq = %{coqver}
 BuildRequires:	ghostscript
@@ -99,6 +99,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-17
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.8.5-16
 - OCaml 5.0.0 rebuild
 

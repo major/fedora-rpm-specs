@@ -33,7 +33,9 @@ BuildRequires: libpsl-devel
 BuildRequires: gpgme-devel
 BuildRequires: gcc
 BuildRequires: zlib-devel
+%if %{undefined rhel}
 BuildRequires: libmetalink-devel
+%endif
 BuildRequires: git-core
 
 %description
@@ -63,7 +65,11 @@ grep "PACKAGE_STRING='wget .* (Red Hat modified)'" configure || exit 1
     --enable-nls \
     --enable-ipv6 \
     --disable-rpath \
+%if %{defined rhel}
+    --without-metalink \
+%else
     --with-metalink \
+%endif
     --disable-year2038
 
 %{make_build}
@@ -89,6 +95,7 @@ make check
 %changelog
 * Tue Mar 21 2023 Michal Ruprich <mruprich@redhat.com> - 1.21.3-6
 - SPDX migration
+- Disable metalink in RHEL builds
 
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 3.1.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Python ensemble sampling toolkit for affine-invariant MCMC
 License: MIT
 
@@ -65,6 +65,9 @@ popd
 %doc AUTHORS.rst HISTORY.rst README.rst 
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 3.1.4-2
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.1.4-1
 - New upstream source 3.1.4
 

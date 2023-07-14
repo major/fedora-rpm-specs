@@ -89,7 +89,9 @@ BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libseccomp)
 BuildRequires:  pkgconfig(libsecret-1)
+%if %{with api40}
 BuildRequires:  pkgconfig(libsoup-2.4)
+%endif
 BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libtasn1)

@@ -5,7 +5,7 @@
 %global crate atomic-polyfill
 
 Name:           rust-atomic-polyfill
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Atomic polyfills, for targets where they're not available
 

@@ -1,8 +1,8 @@
 Name:           gphoto2
 Version:        2.5.27
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Software for accessing digital cameras
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Url:            http://www.gphoto.org/
 Source0:        http://downloads.sourceforge.net/gphoto/%{name}-%{version}.tar.bz2
 
@@ -45,6 +45,9 @@ rm %{buildroot}%{_docdir}/%{name}/test-hook.sh
 %{_mandir}/man1/gphoto2.1*
 
 %changelog
+* Wed Jul 12 2023 Josef Ridky <jridky@redhat.com> - 2.5.27-6
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.27-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

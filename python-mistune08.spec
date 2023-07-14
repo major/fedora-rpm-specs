@@ -45,7 +45,7 @@ Provides:       deprecated()
 %install
 %py3_install
 
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitelib}
+%py3_shebang_fix %{buildroot}%{python3_sitelib}
 %{_fixperms} %{buildroot}/*
 
 

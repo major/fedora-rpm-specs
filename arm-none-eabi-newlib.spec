@@ -10,7 +10,7 @@
 
 Name:           %{target}-newlib
 Version:        4.3.0.20230120
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C library intended for use on %{target} embedded systems
 # For a breakdown of the licensing, see NEWLIB-LICENSING
 License:        BSD-2-Clause AND BSD-4-Clause AND LGPL-2.1-or-later AND ISC AND GPL-3.0-or-later AND MIT
@@ -121,6 +121,9 @@ rm -rf $NANO_ROOT
 %{_prefix}/%{target}/lib/*
 
 %changelog
+* Wed Jul 12 2023 Michal Hlavinka <mhlavink@redhat.com> - 4.3.0.20230120-3
+- rebuild for new gcc
+
 * Wed May 10 2023 Michal Hlavinka <mhlavink@redhat.com> - 4.3.0.20230120-2
 - update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
 

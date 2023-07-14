@@ -1,5 +1,9 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
+# Coq's plugin architecture requires cmxs files, so:
+ExclusiveArch: %{ocaml_native_compiler}
+
+# ANTLR is unavailable on i686, so coq is also unavailable
+# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
+#ExclusiveArch:  %%{java_arches}
 
 # This package is installed into an archful location, but contains no ELF
 # objects.
@@ -11,16 +15,12 @@ ExcludeArch: %{ix86}
 
 Name:           flocq
 Version:        4.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Formalization of floating point numbers for Coq
 
 License:        LGPL-3.0-or-later
 URL:            https://gitlab.inria.fr/flocq/flocq
 Source0:        %{url}/-/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
-
-# ANTLR is unavailable on i686, so coq is also unavailable
-# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-ExclusiveArch:  %{java_arches}
 
 BuildRequires:  autoconf
 BuildRequires:  gcc-c++
@@ -91,6 +91,9 @@ cp -p src/Prop/*.v $RPM_BUILD_ROOT%{flocqdir}/Prop
 %{flocqdir}/Prop/*.v
 
 %changelog
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-3
+- OCaml 5.0 rebuild for Fedora 39
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-2
 - OCaml 5.0.0 rebuild
 

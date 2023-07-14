@@ -8,7 +8,7 @@
 Name:           perl-Filter
 Epoch:          2
 Version:        1.64
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Perl source filters
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Filter
@@ -144,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:1.64-500
+- Perl 5.38 re-rebuild of bootstrapped packages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:1.64-499
 - Increase release to favour standalone package
 

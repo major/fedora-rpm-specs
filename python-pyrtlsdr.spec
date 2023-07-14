@@ -1,7 +1,7 @@
 %global srcname pyrtlsdr
 Name:             python-%{srcname}
 Version:          0.2.93
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Python binding for librtlsdr
 License:          GPLv3
 URL:              https://github.com/roger-/pyrtlsdr
@@ -43,6 +43,9 @@ find . -name '*.py' | xargs sed -i '1s|^#!.*|#!%{__python3}|'
 %{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 0.2.93-4
+- Rebuilt for Python 3.12
+
 * Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.93-3
 - Rebuilt for new python
   Resolves: rhbz#2220446

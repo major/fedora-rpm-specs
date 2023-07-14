@@ -47,7 +47,7 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 16%{?dist}
+Release: 18%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -62,6 +62,7 @@ Patch3: brltty-6.5-gettext.patch
 Summary: Braille display driver for Linux/Unix
 BuildRequires: byacc
 BuildRequires: glibc-kernheaders
+BuildRequires: gcc
 BuildRequires: bluez-libs-devel
 BuildRequires: systemd
 BuildRequires: gettext
@@ -691,8 +692,11 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
-* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 6.5-16
+* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 6.5-18
 - OCaml 5.0 rebuild for Fedora 39
+
+* Wed Jul 12 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 6.5-17
+- Add BR: gcc (ocaml no longer pulls it indirectly on i686)
 
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 6.5-15
 - Rebuilt for ICU 73.2
