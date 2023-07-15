@@ -8,8 +8,8 @@
 # - one of the coin-or-* packages might provide a suitable solver
 
 Name:           cocoalib
-Version:        0.99800
-Release:        5%{?dist}
+Version:        0.99818
+Release:        1%{?dist}
 Summary:        C++ library for computations in commutative algebra
 
 License:        GPL-3.0-or-later
@@ -19,14 +19,15 @@ Source0:        %{url}/tgz/CoCoALib-%{version}.tgz
 Patch0:         %{name}-shared.patch
 # Fix error handling in Qsolve
 Patch1:         %{name}-ffelem.patch
-# Add a noreturn attribute to silence several warnings
-Patch2:         %{name}-noreturn.patch
 # Fix out of bounds vector accesses
-Patch3:         %{name}-vec.patch
-# Fix broken code that tries to get a vector size
-Patch4:         %{name}-vector-size.patch
+Patch2:         %{name}-vec.patch
 # Avoid using a variable uninitialized
-Patch5:         %{name}-uninit.patch
+Patch3:         %{name}-uninit.patch
+# CVC5 patch to enable tracing
+Patch4:         %{name}-cvc5.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  boost-devel
 BuildRequires:  cddlib-devel
@@ -75,8 +76,8 @@ Documentation for %{name}.
 # Use FlexiBLAS instead of the reference lapack/blas implementation.
 # Do not throw away our choice of compiler flags.
 # Fix the location of the cddlib headers.
-sed -e 's,-lblas -llapack,-lflexiblas,' \
-    -e 's/ -Wall -pedantic/ $CXXFLAGS/' \
+sed -e 's,-lgslcblas  -llapack,-lflexiblas,' \
+    -e 's/ -Wall  -pedantic/ $CXXFLAGS/' \
     -e 's,\(CDD_INC_DIR=\)".*",\1"%{_includedir}/cddlib",' \
     -i configure
 
@@ -84,32 +85,17 @@ sed -e 's,-lblas -llapack,-lflexiblas,' \
 sed -i 's/\$(MAKE) -s/\$(MAKE)/' Makefile doc/Makefile src/Makefile \
     src/AlgebraicCore/Makefile src/AlgebraicCore/TmpFactorDir/Makefile
 
-# Avoid warnings:
-# "fgrep: warning: fgrep is obsolescent; using grep -F"
-# "egrep: warning: egrep is obsolescent; using grep -E"
-sed -i 's/fgrep/grep -F/g' configure configuration/normaliz-with-openmp.sh \
-  configuration/fixed_part2 doc/Makefile include/CoCoA/MakeUnifiedHeader.sh
-sed -i 's/egrep/grep -E/g' include/CoCoA/MakeUnifiedHeader.sh \
-  src/AlgebraicCore/CheckSourceFiles.sh
-
 %build
 # Use Fedora's linker flags
 sed -i 's|@RPM_LD_FLAGS@|%{build_ldflags}|' src/AlgebraicCore/Makefile
 
 # This is NOT an autoconf-generated configure script!
-./configure --prefix=%{_prefix} --threadsafe-hack \
+./configure --prefix=%{_prefix} --only-cocoalib --threadsafe-hack \
   --with-cxxflags='%{build_cxxflags} -fPIC -I%{_includedir}/frobby -I%{_includedir}/gfanlib %{build_ldflags}' \
   --with-libcddgmp=%{_libdir}/libcddgmp.so \
   --with-libfrobby=%{_libdir}/libfrobby.so \
   --with-libgfan=%{_libdir}/libgfan.so \
   --with-libgsl=%{_libdir}/libgsl.so
-
-# Defeat upstream's attempt to force us to use static libraries
-pushd configuration/ExternalLibs/lib
-for fil in cddgmp frobby gsl; do
-  mv lib${fil}-symlink.so lib${fil}-symlink.a
-done
-popd
 
 %make_build library
 %make_build doc
@@ -134,17 +120,6 @@ rm -f examples/CopyInfo
 chmod a-x examples/*.sh
 
 %check
-# 32-bit systems are unable to pass some of the tests due to the limited range
-# of the FFelem type.  Disable those tests.
-%if 0%{?__isa_bits} == 32
-sed -e '/test-factor1\.C/d' \
-    -e 's/test-RingTwinFloat3\.C //' \
-    -e 's/test-SparsePolyRing1\.C  //' \
-    -e 's/test-SparsePolyRing5\.C //' \
-    -e '/test-SqFreeFactor1\.C/d' \
-    -i src/tests/Makefile
-%endif
-
 export LD_LIBRARY_PATH=$PWD/lib
 make check
 
@@ -166,6 +141,12 @@ make check
 %doc examples
 
 %changelog
+* Thu Jul 13 2023 Jerry James <loganjerry@gmail.com> - 0.99818-1
+- Version 0.99818
+- Drop upstreamed patches: noreturn, vector-size
+- Add cvc5 patch to enable tracing
+- Stop building for i386
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99800-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

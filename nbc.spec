@@ -16,7 +16,7 @@ ExclusiveArch:  %{fpc_arches}
 BuildRequires: make
 BuildRequires:  glibc-devel
 BuildRequires:  fpc
-BuildRequires:  libusb-devel
+BuildRequires:  libusb-compat-0.1-devel
 BuildRequires:  dos2unix
 
 %description
@@ -40,10 +40,9 @@ for f in Readme Changelog; do
 done
 
 %build
-make %{?_smp_mflags}
+make
 
 %install
-rm -rf %{buildroot}
 make install DISTDIR=%{buildroot}
 
 %files
@@ -52,6 +51,10 @@ make install DISTDIR=%{buildroot}
 %{_mandir}/man1/nbc.1*
 
 %changelog
+* Thu Jul 13 2023 Rich Mattes <richmattes@gmail.com> - 1.2.1.r3-26
+- Update BuildRequires and remove parallel make
+- Resolves: rhbz#2113542
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1.r3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

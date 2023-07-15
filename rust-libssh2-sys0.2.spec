@@ -4,8 +4,8 @@
 
 %global crate libssh2-sys
 
-Name:           rust-libssh2-sys
-Version:        0.3.0
+Name:           rust-libssh2-sys0.2
+Version:        0.2.23
 Release:        %autorelease
 Summary:        Native bindings to the libssh2 library
 
@@ -14,8 +14,8 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/libssh2-sys
 Source0:        %{crates_source}
 # https://github.com/alexcrichton/ssh2-rs/issues/289
-Source1:        https://github.com/alexcrichton/ssh2-rs/raw/libssh2-sys-0.3.0/LICENSE-APACHE
-Source2:        https://github.com/alexcrichton/ssh2-rs/raw/libssh2-sys-0.3.0/LICENSE-MIT
+Source1:        https://github.com/alexcrichton/ssh2-rs/raw/libssh2-sys-0.2.23/LICENSE-APACHE
+Source2:        https://github.com/alexcrichton/ssh2-rs/raw/libssh2-sys-0.2.23/LICENSE-MIT
 # Automatically generated patch to strip foreign dependencies
 Patch:          libssh2-sys-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes

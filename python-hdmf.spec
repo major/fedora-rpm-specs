@@ -1,7 +1,11 @@
 # XXX: note for maintainers
-# Do NOT update HDMF without checking if packages that depend on it, for example python-pynwb can be installed with the new version
+# Do NOT update HDMF without checking if packages that depend on it, for
+# example python-pynwb can be installed with the new version
 
-%bcond_without tests
+%bcond tests 1
+
+# Not yet packaged: https://pypi.org/project/linkml-runtime/
+%bcond linkml 0
 
 %global desc %{expand:
 The Hierarchical Data Modeling Framework The Hierarchical Data Modeling
@@ -17,10 +21,10 @@ https://hdmf.readthedocs.io}
 # number can be read from
 # src/hdmf/common/hdmf-common-schema/common/namespace.yaml, in
 # ['namespaces'][0]['version'].
-%global schema_version 1.6.0
+%global schema_version 1.7.0
 
 Name:           python-hdmf
-Version:        3.6.1
+Version:        3.7.0
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
@@ -59,7 +63,7 @@ Requires:       hdmf-common-schema = %{schema_epoch}:%{schema_version}
 
 %description -n python3-hdmf %{desc}
 
-%pyproject_extras_subpkg -n python3-hdmf zarr
+%pyproject_extras_subpkg -n python3-hdmf zarr tqdm %{?with_linkml:linkml}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/#_scriptlet_to_replace_a_directory
 %pretrans -p <lua> -n python3-hdmf
@@ -82,7 +86,7 @@ end
 rm -vrf src/hdmf/common/hdmf-common-schema/
 
 %generate_buildrequires
-%pyproject_buildrequires -x zarr
+%pyproject_buildrequires -x zarr,tqdm%{?with_linkml:,linkml}
 
 %build
 %pyproject_wheel

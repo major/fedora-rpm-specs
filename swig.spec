@@ -81,6 +81,8 @@ Patch1: swig-octave-8.1.patch
 # OCaml 5.0 support
 # https://github.com/swig/swig/pull/2649
 Patch2: swig-ocaml-5.0.patch
+# Fix a test that is broken with python 3.12
+Patch3: swig-python-3.12.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -367,6 +369,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Wed Jul 12 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-8
+- Add patch for python 3.12
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-8
 - OCaml 5.0 rebuild for Fedora 39
 

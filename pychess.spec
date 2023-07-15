@@ -3,7 +3,7 @@
 
 Name:           pychess
 Version:        1.0.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Chess game for GNOME
 
 License:        GPLv3
@@ -13,6 +13,8 @@ Source0:        https://github.com/pychess/pychess/archive/%{version}/%{name}-%{
 Patch0:         https://github.com/pychess/pychess/pull/1897.patch
 # PR#1988 Remove unnecessary shebangs
 Patch1:         https://github.com/pychess/pychess/pull/1898.patch
+# PR#2005 Python 3.12: Use importlib instead of deprecated imp module
+Patch2:         https://github.com/pychess/pychess/pull/2005.patch
 
 
 BuildArch:      noarch
@@ -159,6 +161,9 @@ PYTHONPATH=../lib PYCHESS_UNITTEST=true xvfb-run -a coverage run \
 
 
 %changelog
+* Thu Jul 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.3-7
+- Apply upstream patch for python3.12 imp module removal
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.0.3-6
 - Rebuilt for Python 3.12
 

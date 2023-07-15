@@ -3,10 +3,10 @@
 # package.
 
 Name:           hdmf-common-schema
-Version:        1.6.0
+Version:        1.7.0
 Epoch:          1
-# Base release added with Epoch to get a unique NVR; drop it when the Version
-# is updated.
+# Base release added to get a unique NVR; drop it when the Version is updated
+# past 1.7.0.
 Release:        %autorelease -b 1
 Summary:        Specifications for pre-defined data structures provided by HDMF
 

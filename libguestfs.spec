@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.51.4
-Release:       5%{?dist}
+Release:       8%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1092,6 +1092,15 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Jul 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.51.4-8
+- Perl 5.38 re-rebuild updated packages
+
+* Thu Jul 13 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.4-7
+- Bump and rebuild against supermin-5.3.3-13.fc39
+
+* Thu Jul 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.51.4-6
+- Perl 5.38 re-rebuild updated packages
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.4-5
 - OCaml 5.0 rebuild for Fedora 39
 

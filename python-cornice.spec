@@ -11,6 +11,11 @@ Summary:          Define Web Services in Pyramid
 URL:              https://pypi.python.org/pypi/cornice
 Source0:          https://github.com/Cornices/cornice/archive/%{version}/%{module}-%{version}.tar.gz
 
+# Use TestCase.assertTrue() instead of TestCase.assert_()
+#
+# The assert_() method is deprecated and will be removed in Python 3.12.
+# https://github.com/Cornices/cornice/pull/575
+Patch:            https://github.com/Cornices/cornice/pull/575.patch
 
 BuildRequires: %{py3_dist colander}
 BuildRequires: %{py3_dist coverage}

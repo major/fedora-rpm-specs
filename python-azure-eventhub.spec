@@ -1,14 +1,15 @@
 %bcond_without  tests
 
+%global         reponame    azure-sdk-for-python
 %global         srcname     azure-eventhub
 
 Name:           python-%{srcname}
-Version:        5.11.1
+Version:        5.11.3
 Release:        %autorelease
 Summary:        Microsoft Azure Event Hubs Client Library for Python 
 License:        MIT
-URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+URL:            https://github.com/Azure/azure-sdk-for-python
+Source0:        %{url}/archive/%{srcname}_%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -17,6 +18,7 @@ BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  python3dist(azure-devtools)
 BuildRequires:  python3dist(azure-identity)
+BuildRequires:  python3dist(azure-mgmt-eventhub)
 BuildRequires:  python3dist(azure-mgmt-keyvault)
 BuildRequires:  python3dist(azure-mgmt-resource)
 BuildRequires:  python3dist(azure-sdk-tools)
@@ -54,7 +56,11 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+# Upstream buries the package into a subdirectory. 😭
+%setup -c -T
+tar xzf %{SOURCE0} --strip-components=4 \
+    %{reponame}-%{srcname}_%{version}/sdk/eventhub/%{srcname}
+ls -alR
 
 
 %generate_buildrequires
@@ -74,13 +80,7 @@ Summary:        %{summary}
 %pyproject_check_import
 
 %if %{with tests}
-# Upstream broke test imports
-# %%pytest tests/unittest \
-#    -k "not test_amqp_message_str_repr \
-#        and not test_sys_properties \
-#        and not test_event_data_batch \
-#        and not test_event_data_from_message \
-#        and not test_amqp_message_from_message"
+%pytest
 %endif
 
 

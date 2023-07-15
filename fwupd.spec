@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.9.2
+Version:   1.9.3
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -95,7 +95,6 @@ BuildRequires: libmbim-devel
 %endif
 
 %if 0%{?have_uefi}
-BuildRequires: efivar-devel >= 33
 BuildRequires: python3 python3-cairo python3-gobject
 BuildRequires: pango-devel
 BuildRequires: cairo-devel cairo-gobject-devel
@@ -280,9 +279,7 @@ done
 %{_libexecdir}/fwupd/fwupd-detect-cet
 %endif
 %{_libexecdir}/fwupd/fwupdoffline
-%if 0%{?have_uefi}
 %{_bindir}/dbxtool
-%endif
 %{_bindir}/fwupdmgr
 %{_bindir}/fwupdtool
 %dir %{_sysconfdir}/fwupd
@@ -309,11 +306,10 @@ done
 %{_datadir}/polkit-1/rules.d/org.freedesktop.fwupd.rules
 %{_datadir}/dbus-1/system-services/org.freedesktop.fwupd.service
 %{_mandir}/man1/fwupdtool.1*
-%if 0%{?have_uefi}
 %{_mandir}/man1/dbxtool.*
-%endif
 %{_mandir}/man1/fwupdmgr.1*
 %{_mandir}/man5/*
+%{_mandir}/man8/*
 %{_datadir}/metainfo/org.freedesktop.fwupd.metainfo.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.freedesktop.fwupd.svg
 %{_datadir}/fwupd/firmware_packager.py

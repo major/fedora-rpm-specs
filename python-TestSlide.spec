@@ -20,6 +20,11 @@ License:        MIT
 URL:            https://github.com/facebook/TestSlide
 # The PyPI tarball doesn't include tests, so use the original source instead
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+# Updating Testslide to typeguard 3.02
+# https://github.com/facebook/TestSlide/pull/352
+#
+# Rebased to 2.7.1; version bound loosened to allow 4.x as well as 3.x
+Patch0:         TestSlide-2.7.1-typeguard-4.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

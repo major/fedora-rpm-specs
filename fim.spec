@@ -1,11 +1,13 @@
+%global tarball_version %%(echo %{version} | sed -e "s/~/-/")
+
 Name:           fim
-Version:        0.6
+Version:        0.6~rc0
 Release:        1%{?dist}
 Summary:        Lightweight universal image viewer
 License:        GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            https://www.nongnu.org/fbi-improved/
-Source0:        http://download.savannah.nongnu.org/releases/fbi-improved/fim-%{version}-trunk.tar.gz
-Source1:        http://download.savannah.nongnu.org/releases/fbi-improved/fim-%{version}-trunk.tar.gz.sig
+Source0:        http://download.savannah.nongnu.org/releases/fbi-improved/fim-%{tarball_version}.tar.gz
+Source1:        http://download.savannah.nongnu.org/releases/fbi-improved/fim-%{tarball_version}.tar.gz.sig
 Source2:        https://www.nongnu.org/fbi-improved/0xE0E669C8EF1258B8.asc
 
 
@@ -46,7 +48,7 @@ the ordering of images.
 
 %prep
 %{gpgverify} --keyring='%SOURCE2' --signature='%SOURCE1' --data='%SOURCE0'
-%autosetup -n %{name}-%{version}-trunk
+%autosetup -n %{name}-%{tarball_version}
 
 
 %build
@@ -63,7 +65,7 @@ the ordering of images.
 %doc doc/fim.man.html doc/fimgs.man.html doc/fimrc.man.html
 %doc doc/FIM.*
 %doc src/fimrc
-%doc AUTHORS BUGS ChangeLog NEWS FAQ.TXT README README.FIRST THANKS TODO VERSION
+%doc AUTHORS BUGS ChangeLog NEWS NEWS.in FAQ.TXT README README.FIRST README.md THANKS TODO VERSION
 %{_bindir}/%{name}
 %{_bindir}/fimgs
 %{_mandir}/man1/fim*
@@ -71,5 +73,8 @@ the ordering of images.
 
 
 %changelog
+* Thu Jul 13 2023 Adam Dobes <adobes@redhat.com> -0.6~rc0-1
+- Rebase to 0.6-rc0
+
 * Mon Mar 6 2023 Adam Dobes <adobes@redhat.com> - 0.6-1
 - Fim packaged

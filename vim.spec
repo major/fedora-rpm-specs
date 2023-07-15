@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1671
+%define patchlevel 1677
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -98,6 +98,10 @@ Patch3003: vim-python3-tests.patch
 Patch3004: vim-crypto-warning.patch
 # don't ever set mouse (Fedora downstream patch)
 Patch3005: vim-8.0-copy-paste.patch
+# https://github.com/vim/vim/pull/12660
+Patch3006: 0001-if_python3.c-Fix-building-dynamic-Python3-interprete.patch
+# https://github.com/vim/vim/pull/12575 + https://github.com/vim/vim/pull/12575#issuecomment-1634226250
+Patch3007: perl538.patch
 
 
 # uses autoconf in spec file
@@ -408,6 +412,8 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %patch -P 3003 -p1 -b .python-tests
 %patch -P 3004 -p1 -b .fips-warning
 %patch -P 3005 -p1 -b .copypaste
+%patch -P 3006 -p1 -b .python312
+%patch -P 3007 -p1 -b .perl538
 
 %build
 cd src
@@ -1030,6 +1036,13 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Thu Jul 13 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1677-1
+- 2222671 - fix FTBFS due Python3 rebase
+- 2222648 - fix FailToInstall due Perl rebase
+
+* Tue Jul 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1677-1
+- patchlevel 1677
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:9.0.1671-2
 - Perl 5.38 rebuild
 

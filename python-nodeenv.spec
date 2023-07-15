@@ -1,67 +1,104 @@
-%global pypi_name nodeenv
-
-
-Name:           python-%{pypi_name}
-Version:        0.13.6
-Release:        29%{?dist}
+Name:           python-nodeenv
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        Node.js virtual environment builder
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ekalinin/nodeenv
-Source0:        https://pypi.python.org/packages/source/n/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+# The PyPI sdist does not contain tests, so we use the GitHub archive
+Source:         %{url}/archive/%{version}/nodeenv-%{version}.tar.gz
+
 BuildArch:      noarch
 
-%description
-nodeenv (node.js virtual environment) is a tool to create isolated node.js
-environments.
-It creates an environment that has its own installation directories, that
-doesn’t share libraries with other node.js virtual environments.
-
-%package -n python3-%{pypi_name}
-Summary:        Node.js virtual environment builder
-%{?python_provide:%python_provide python3-%{pypi_name}}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       python3-setuptools
 
-# test dependencies
-BuildRequires:    python3-mock
-BuildRequires:    python3-pytest
+BuildRequires:  help2man
 
-%description -n python3-%{pypi_name}
+# We don’t use tox, because we would have to patch out linting and coverage
+# analysis from tox.ini, and the rest of the dependencies in
+# requirements-dev.txt are all for linting and coverage—except pytest, which we
+# handle manually, because this is easier than filtering the requirements file.
+#
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+BuildRequires:  python3dist(pytest)
+# For integration tests:
+BuildRequires:  /usr/bin/node
+
+%global _description %{expand:
 nodeenv (node.js virtual environment) is a tool to create isolated node.js
 environments.
+
 It creates an environment that has its own installation directories, that
 doesn’t share libraries with other node.js virtual environments.
+
+Also the new environment can be integrated with the environment which was built
+by virtualenv (python).}
+
+%description %{_description}
+
+
+%package -n python3-nodeenv
+Summary:        %{summary}
+
+%description -n python3-nodeenv %{_description}
+
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n nodeenv-%{version}
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i "s@'coverage', 'run', '-p',@'%{python3}',@" tests/nodeenv_test.py
+
+# Remove unwanted shebangs from files that will not have the executable bit set
+sed -r -i '1{/^#!/d}' nodeenv.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
+%pyproject_wheel
 
-%py3_build
 
 %install
+%pyproject_install
+%pyproject_save_files nodeenv
 
+# Generate the man page here, rather than in %%build, so that the executable
+# script entry point is readily available.
+install -d '%{buildroot}%{_mandir}/man1'
+PYTHONPATH='%{buildroot}%{python3_sitelib}' \
+    help2man --no-info --output='%{buildroot}%{_mandir}/man1/nodeenv.1' \
+    '%{buildroot}%{_bindir}/nodeenv'
 
-%py3_install
 
 %check
+# Requires network access:
+k="${k-}${k+ and }not test_smoke"
 
-%{__python3} setup.py test
+%pytest -k "${k-}" -v
 
-%files -n python3-%{pypi_name}
+
+%files -n python3-nodeenv -f %{pyproject_files}
+# pyproject_files handles LICENSE and AUTHORS; verify with “rpm -qL -p …”
 %doc README.rst
-%license LICENSE
-%{_bindir}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}.py*
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%doc README.ru.rst
+%doc CHANGES
+
+%{_bindir}/nodeenv
+%{_mandir}/man1/nodeenv.1*
+
 
 %changelog
+* Thu Jul 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-1
+- Update to 1.8.0 (close RHBZ#1466314)
+- Update License to SPDX
+- Port to pyproject-rpm-macros (new Python guidelines)
+- Package additional text documentation files
+- Remove dependency on deprecated python-mock package
+- Add a man page, generated with help2man
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.13.6-29
 - Rebuilt for Python 3.12
 

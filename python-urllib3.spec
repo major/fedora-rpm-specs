@@ -7,18 +7,14 @@
 %endif
 
 Name:           python-urllib3
-Version:        1.26.15
-Release:        3%{?dist}
+Version:        1.26.16
+Release:        1%{?dist}
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
 # SPDX
 License:        MIT
 URL:            https://github.com/urllib3/urllib3
 Source:         %{url}/archive/%{version}/urllib3-%{version}.tar.gz
-
-# Accomodate the test to the changed behavior of SSLContext.shared_ciphers() in CPython
-# See: https://github.com/python/cpython/issues/96931
-Patch:          https://github.com/urllib3/urllib3/commit/4855d71.patch
 
 BuildArch:      noarch
 
@@ -96,7 +92,7 @@ Requires:       python3-urllib3+socks = %{version}-%{release}
 
 
 %prep
-%autosetup -p1 -n urllib3-%{version}
+%autosetup -n urllib3-%{version}
 # Make sure that the RECENT_DATE value doesn't get too far behind what the current date is.
 # RECENT_DATE must not be older that 2 years from the build time, or else test_recent_date
 # (from test/test_connection.py) would fail. However, it shouldn't be to close to the build time either,
@@ -170,6 +166,9 @@ ignore="${ignore-} --ignore=test/test_no_ssl.py"
 
 
 %changelog
+* Sat Jul 01 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.26.16-1
+- Update to 1.26.16
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.26.15-3
 - Rebuilt for Python 3.12
 

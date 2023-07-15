@@ -16,12 +16,15 @@ Features:
 
 Name:           python-%{pypi_name}
 Version:        4.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Compute distance between the two texts
-
 License:        MIT
 URL:            https://github.com/orsinium/textdistance
 Source0:        %{pypi_source}
+# numpy 1.24.x removes numpy.int and so on
+Patch0:         https://github.com/life4/textdistance/pull/75.patch
+# JaroWinkler boosting fix
+Patch1:         https://github.com/life4/textdistance/pull/76.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -45,7 +48,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -71,6 +74,10 @@ chmod 644 %{buildroot}%{_docdir}/python3-%{pypi_name}/README.md
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-11
+- Backport upstream patch for numpy 1.24.x numpy.int removal
+- Backport upstream patch for test_jaro_winkler test fix
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.2.0-10
 - Rebuilt for Python 3.12
 

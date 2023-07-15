@@ -391,6 +391,24 @@ Patch:          grpc-1.48.4-wrap_socket.patch
 # Backported to 1.48.4.
 Patch:          grpc-1.48.4-find_module.patch
 
+# [http2] Dont drop connections on metadata limit exceeded (#32309)
+#
+# * [http] Dont drop connections on metadata limit exceeded
+#
+# * remove bad test
+#
+# * Automated change: Fix sanity tests
+# https://github.com/grpc/grpc/commit/29d8beee0ac2555773b2a2dda5601c74a95d6c10
+# https://github.com/grpc/grpc/pull/32309
+#
+# Fixes CVE-2023-32732
+# https://nvd.nist.gov/vuln/detail/CVE-2023-32732
+# CVE-2023-32732 grpc: denial of service [fedora-all]
+# https://bugzilla.redhat.com/show_bug.cgi?id=2214470
+#
+# Backported to 1.48.4.
+Patch:          0001-http2-Dont-drop-connections-on-metadata-limit-exceed.patch
+
 Requires:       grpc-data = %{version}-%{release}
 
 # Upstream https://github.com/protocolbuffers/upb does not support building

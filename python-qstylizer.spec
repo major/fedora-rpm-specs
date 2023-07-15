@@ -7,7 +7,7 @@ PyQt/PySide stylesheets.
 
 Name:           python-%{pypi_name}
 Version:        0.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt stylesheet generation utility for PyQt/PySide
 
 License:        MIT
@@ -15,6 +15,9 @@ URL:            https://github.com/blambright/qstylizer
 # This URL does not seem to work
 #Source0:        https://files.pythonhosted.org/packages/source/q/{pypi_name}/{pypi_name}-{version}.tar.gz
 Source0:        https://github.com/blambright/qstylizer/archive/refs/tags/%{version}.tar.gz#/%{pypi_name}-%{version}.tar.gz
+# python 3.12 complains:
+# AttributeError: 'called_once_with' is not a valid assertion
+Patch0:         qstylizer-0.2.2-called_once_with_not_valid_assertion.patch
 
 BuildArch:      noarch
 
@@ -36,7 +39,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -62,6 +65,9 @@ export PBR_VERSION=%{version}
 %doc README.rst
 
 %changelog
+* Thu Jul 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.2-3
+- Modify calling called_once_with which seems typo
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 0.2.2-2
 - Rebuilt for Python 3.12
 

@@ -4,8 +4,8 @@
 %global git_tag %{version}
 
 Name:           gns3-gui
-Version:        2.2.40.1
-Release:        2%{?dist}
+Version:        2.2.41
+Release:        1%{?dist}
 Summary:        GNS3 graphical user interface
 
 License:        GPLv3+
@@ -47,12 +47,11 @@ sed -i -r 's/setuptools>=60.8.1/setuptools>=59.6.0/' requirements.txt
 sed -i -r 's/psutil>=5.9.4/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/distro>=1.8.*/distro>=1.6.0/' requirements.txt
 sed -i -r 's/jsonschema>=4.17.3/jsonschema>=3.2.0/' requirements.txt
+# gns3/crash_report.py imports urllib3
+echo 'urllib3>=1.26.15' >> requirements.txt
 
 # Disable update alerts
 sed -i 's/"check_for_update": True,/"check_for_update": False,/' gns3/settings.py
-
-# Disable anonymous data collection
-sed -i 's/"send_stats": True,/"send_stats": False,/' gns3/settings.py
 
 
 %build
@@ -96,6 +95,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Thu Jul 13 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.41-1
+- Update to 2.2.41
+- Removed sending stats
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.40.1-2
 - Rebuilt for Python 3.12
 

@@ -2,43 +2,29 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate libgit2-sys
-%global upstream_version 0.15.2+1.6.4
+%global crate git2
 
-Name:           rust-libgit2-sys
-Version:        0.15.2
+Name:           rust-git2_0.16
+Version:        0.16.1
 Release:        %autorelease
-Summary:        Native bindings to the libgit2 library
+Summary:        Bindings to libgit2 for interoperating with git repositories
 
-# * libgit2-sys crate:      MIT OR Apache-2.0
-# * bundled libgit2:        GPL-2.0-only WITH GCC-exception-2.0
-# * bundled http-parser:    MIT
-# * bundled pcre:           BSD-3-Clause
-License:        (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
-URL:            https://crates.io/crates/libgit2-sys
-Source:         %{crates_source %{crate} %{upstream_version}}
-# Manually created patch for downstream crate metadata changes
-# * remove libgit2 version from version field
-# * update package.license field to reflect bundled dependencies
-Patch:          libgit2-sys-fix-metadata.diff
-# * build against the bundled copy of libgit2 unconditionally:
-#   the version in the Fedora repositories is always either too old or too new
-Patch:          0001-build-with-vendored-libgit2-unconditionally.patch
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/git2
+Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Native bindings to the libgit2 library.}
+Bindings to libgit2 for interoperating with git repositories. This
+library is both threadsafe and memory safe and allows both reading and
+writing git repositories.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-
-Provides:       bundled(libgit2) = 1.6.4
-Provides:       bundled(http-parser) = 2.0
-Provides:       bundled(pcre) = 8.44
 
 %description    devel %{_description}
 
@@ -48,10 +34,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/libgit2/COPYING
-%license %{crate_instdir}/libgit2/deps/http-parser/COPYING
-%license %{crate_instdir}/libgit2/deps/pcre/LICENCE
-%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CONTRIBUTING.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -78,16 +62,16 @@ use the "https" feature of the "%{crate}" crate.
 %files       -n %{name}+https-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libssh2-sys-devel
+%package     -n %{name}+openssl-probe-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libssh2-sys-devel %{_description}
+%description -n %{name}+openssl-probe-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libssh2-sys" feature of the "%{crate}" crate.
+use the "openssl-probe" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libssh2-sys-devel
+%files       -n %{name}+openssl-probe-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+openssl-sys-devel
@@ -126,31 +110,39 @@ use the "ssh_key_from_memory" feature of the "%{crate}" crate.
 %files       -n %{name}+ssh_key_from_memory-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vendored-devel
+%package     -n %{name}+unstable-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+vendored-devel %{_description}
+%description -n %{name}+unstable-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "vendored" feature of the "%{crate}" crate.
+use the "unstable" feature of the "%{crate}" crate.
 
-%files       -n %{name}+vendored-devel
+%files       -n %{name}+unstable-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+vendored-libgit2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+vendored-libgit2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "vendored-libgit2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+vendored-libgit2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{upstream_version} -p1
-# remove upstream development scripts from libgit2
-rm -r libgit2/script/
-# remove unused bundled dependencies
-rm -r libgit2/deps/chromium-zlib
-rm -r libgit2/deps/ntlmclient
-rm -r libgit2/deps/winhttp
-rm -r libgit2/deps/zlib
+%autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
+%if %{with check}
+echo '/usr/bin/git'
+%endif
 
 %build
 %cargo_build

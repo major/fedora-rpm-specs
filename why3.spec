@@ -18,7 +18,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           why3
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -308,6 +308,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Thu Jul 13 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-2
+- Rebuild for mpfr 4.2.0
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-1
 - Version 1.6.0
 - Enable inference with BDDs

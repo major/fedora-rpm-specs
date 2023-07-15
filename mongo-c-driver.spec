@@ -10,7 +10,7 @@
 %global gh_project   mongo-c-driver
 %global libname      libmongoc
 %global libver       1.0
-%global up_version   1.24.1
+%global up_version   1.24.2
 #global up_prever    rc0
 # disabled as require a MongoDB server
 %bcond_with          tests
@@ -238,6 +238,12 @@ exit $ret
 
 
 %changelog
+* Thu Jul 13 2023 František Zatloukal <fzatlouk@redhat.com> - 1.24.2-2
+- Rebuilt for ICU 73.2
+
+* Thu Jul 13 2023 Remi Collet <remi@remirepo.net> - 1.24.2-1
+- update to 1.24.2
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.24.1-2
 - Rebuilt for ICU 73.2
 

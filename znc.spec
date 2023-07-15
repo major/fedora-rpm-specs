@@ -13,7 +13,7 @@
 
 Name:           znc
 Version:        1.8.2
-Release:        20%{?dist}
+Release:        22%{?dist}
 Summary:        An advanced IRC bouncer
 
 License:        ASL 2.0
@@ -221,6 +221,12 @@ getent passwd znc >/dev/null || \
 
 
 %changelog
+* Thu Jul 13 2023 František Zatloukal <fzatlouk@redhat.com> - 1.8.2-22
+- Rebuilt for ICU 73.2
+
+* Thu Jul 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.8.2-21
+- Perl 5.38 re-rebuild updated packages
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.8.2-20
 - Rebuilt for ICU 73.2
 

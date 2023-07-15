@@ -992,14 +992,6 @@ DISABLE_TESTS="$DISABLE_TESTS -n !/TestDir#test_home/"
 MSPECOPTS="$MSPECOPTS -P 'File.expand_path expands ~ENV..USER..* to.* the user.s home directory'"
 %endif
 
-# Several test broken by libffi-3.4.2. There should be fix in libffi, once
-# other components are fixed.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2040380
-mv test/fiddle/test_import.rb{,.disable}
-mv test/fiddle/test_closure.rb{,.disable}
-DISABLE_TESTS="$DISABLE_TESTS -n !/Fiddle::TestFunc#test_qsort1/"
-DISABLE_TESTS="$DISABLE_TESTS -n !/Fiddle::TestFunction#test_argument_count/"
-
 %ifarch i686
 # The MJIT test cases are failing so often, that it is recently impossible
 # to get past the test cases :/

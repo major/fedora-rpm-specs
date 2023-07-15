@@ -1,5 +1,5 @@
 Name:       icebreaker
-Version:    2.2.1
+Version:    2.2.2
 Release:    %autorelease
 Summary:    An addictive action-puzzle game involving bouncing penguins
 License:    GPLv2+

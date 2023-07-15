@@ -35,6 +35,10 @@ Patch14: 0013-Support-module-memory-layout-change-on-Linux-6.4.patch
 Patch15: 0014-Fix-failure-of-gathering-task-table-on-Linux-6.5-rc1.patch
 Patch16: 0015-Fix-compilation-error-due-to-new-strlcpy-function-th.patch
 Patch17: 0016-Fix-irq-a-option-on-Linux-6.0-and-later.patch
+Patch18: 0017-vmware-Improve-output-when-we-fail-to-read-vmware-vm.patch
+Patch19: 0018-Exclude-zero-entries-from-do_maple_tree-return-value.patch
+Patch20: 0019-Fix-irq-a-s-options-on-Linux-6.5-rc1-and-later.patch
+Patch21: 0020-Fix-segmentation-fault-by-tree-s-option-with-Maple-T.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -72,6 +76,10 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch15 -p1
 %patch16 -p1
 %patch17 -p1
+%patch18 -p1
+%patch19 -p1
+%patch20 -p1
+%patch21 -p1
 
 %build
 

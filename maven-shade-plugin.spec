@@ -1,6 +1,6 @@
 Name:           maven-shade-plugin
-Version:        3.4.1
-Release:        2%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Maven plugin for packaging artifacts in an uber-jar
 License:        ASL 2.0
 
@@ -36,8 +36,9 @@ BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.commons:commons-collections4)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
-BuildRequires:  mvn(org.sonatype.sisu:sisu-guice::no_aop:)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  google-guice
+BuildRequires:  maven-plugin-testing-harness
 
 %description
 This plugin provides the capability to package the artifact in an
@@ -64,6 +65,9 @@ ln -s $(build-classpath plexus/utils) src/test/jars/plexus-utils-1.4.1.jar
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 13 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 3.5.0-1
+- Update to upstream version 3.5.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

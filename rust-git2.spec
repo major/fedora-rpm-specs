@@ -5,7 +5,7 @@
 %global crate git2
 
 Name:           rust-git2
-Version:        0.16.1
+Version:        0.17.2
 Release:        %autorelease
 Summary:        Bindings to libgit2 for interoperating with git repositories
 
@@ -34,6 +34,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/

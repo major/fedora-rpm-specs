@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate libgit2-sys
-%global upstream_version 0.15.2+1.6.4
+%global upstream_version 0.14.2+1.5.1
 
-Name:           rust-libgit2-sys
-Version:        0.15.2
+Name:           rust-libgit2-sys0.14
+Version:        0.14.2
 Release:        %autorelease
 Summary:        Native bindings to the libgit2 library
 
@@ -36,7 +36,7 @@ Native bindings to the libgit2 library.}
 Summary:        %{summary}
 BuildArch:      noarch
 
-Provides:       bundled(libgit2) = 1.6.4
+Provides:       bundled(libgit2) = 1.5.1
 Provides:       bundled(http-parser) = 2.0
 Provides:       bundled(pcre) = 8.44
 
@@ -51,7 +51,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/libgit2/COPYING
 %license %{crate_instdir}/libgit2/deps/http-parser/COPYING
 %license %{crate_instdir}/libgit2/deps/pcre/LICENCE
-%doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

@@ -21,7 +21,7 @@
 %bcond uvicorn 0
 
 Name:           python-fastapi
-Version:        0.99.0
+Version:        0.100.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -382,6 +382,9 @@ sed -r -i 's/("orjson\b.*",)/# \1/' pyproject.toml
 # “all” extra metapackage.
 sed -r -i 's/("uvicorn\b.*",)/# \1/' pyproject.toml
 %endif
+# Both pydantic-settings and pydantic-extra-types are for Pydantic v2 only.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2157134
+sed -r -i 's/("pydantic-(settings|extra-types)\b.*",)/# \1/' pyproject.toml
 
 # Comment out test dependencies that are only for linting/formatting/analysis,
 # and will not be used.
@@ -392,13 +395,13 @@ sed -r -i 's/("uvicorn\b.*",)/# \1/' pyproject.toml
 # Dependency generation does not support -e, and we will generate the
 # install-time dependencies without it.
 #
-# Allow email-validator 2.0.0; this will be required in FastAPI 0.100.0. See:
-# https://github.com/tiangolo/fastapi/pull/9500/commits/5531f843bce303481facefacc4d570fc74b306c9
+# Both pydantic-settings and pydantic-extra-types are for Pydantic v2 only.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2157134
 sed -r \
     -e 's/^(mypy|black|ruff|coverage)\b/# &/' \
     -e 's/^(types-(u|or)json)\b/# &/' \
     -e 's/^(-e .)$/# &/' \
-    -e 's/^(email_validator.*)<2/\1<3/' \
+    -e 's/^(pydantic-(settings|extra-types))\b/# &/' \
 %if %{without orjson}
     -e 's/^(orjson)\b/# &/' \
 %endif

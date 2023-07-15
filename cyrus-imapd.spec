@@ -8,7 +8,7 @@
 
 Name: cyrus-imapd
 Version: 3.6.0
-Release: 6%{?dist}
+Release: 8%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -704,6 +704,12 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 
 
 %changelog
+* Thu Jul 13 2023 František Zatloukal <fzatlouk@redhat.com> - 3.6.0-8
+- Rebuilt for ICU 73.2
+
+* Thu Jul 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.6.0-7
+- Perl 5.38 re-rebuild updated packages
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 3.6.0-6
 - Rebuilt for ICU 73.2
 

@@ -1,3 +1,8 @@
+# MPFR 4.2.0 support is upstream, but has not been released
+%global commit  14fce8a26b5db3913fef43e39ec91885ceaf7291
+%global date    20230309
+%global forgeurl https://github.com/thvnx/mlmpfr
+
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
@@ -6,16 +11,19 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mlmpfr
 Version:        4.1.1
-Release:        5%{?dist}%{?bugfix:.%{bugfix}}
 Summary:        OCaml bindings for MPFR
+
+%forgemeta
 
 # FIXME: the individual files say LGPL-3.0-or-later, but opam says this:
 License:        LGPL-3.0-only
+Release:        6%{?dist}%{?bugfix:.%{bugfix}}
 URL:            https://github.com/thvnx/mlmpfr
-Source0:        %{url}/archive/mlmpfr.%{version}%{?bugfix:-%{bugfix}}.tar.gz
+Source0:        %{forgesource}
 
 BuildRequires:  ocaml >= 4.04
-BuildRequires:  ocaml-dune >= 1.11.0
+BuildRequires:  ocaml-dune >= 2.9
+BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  pkgconfig(mpfr)
 
 # This can be removed when F40 reaches EOL
@@ -34,7 +42,7 @@ The %{name}-devel package contains libraries and signature files
 for developing applications that use %{name}.
 
 %prep
-%autosetup -n mlmpfr-mlmpfr.%{version}%{?bugfix:-%{bugfix}} -p1
+%forgeautosetup -p1
 
 %build
 # Make sure this version is compatible with our mpfr version
@@ -60,6 +68,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Jul 12 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-6.20230309git14fce8a
+- Update to git HEAD for MPFR 4.2.0
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-5
 - OCaml 5.0 rebuild for Fedora 39
 

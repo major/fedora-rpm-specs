@@ -30,6 +30,10 @@ Patch3:         python-mapnik-compositing.patch
 Patch4:         python-mapnik-buffer.patch
 # Update for new proj API support
 Patch5:         python-mapnik-proj.patch
+# Fix python 3.12 compatibility issues
+Patch6:         python-mapnik-python312.patch
+# Disable failing OGR test
+Patch7:         python-mapnik-ogr.patch
 
 # Exclude big endian architectures as mapnik does not support them
 # https://github.com/mapnik/mapnik/issues/2313

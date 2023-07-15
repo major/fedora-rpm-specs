@@ -1,27 +1,27 @@
-# EPEL9 does not have python-aiohttp packaged yet.
-%if 0%{?fedora}
-%bcond_without  tests
-%else
-%bcond_with     tests
-%endif
+# All of the tests require either docker, network access, or both.
+%bcond_with  tests
 
+%global         reponame    azure-sdk-for-python
 %global         srcname     azure-servicebus
 
 Name:           python-%{srcname}
-Version:        7.6.1
+Version:        7.11.1
 Release:        %autorelease
 Summary:        Microsoft Azure Service Bus Client Library for Python
 License:        MIT
-URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+URL:            https://github.com/Azure/azure-sdk-for-python
+Source0:        %{url}/archive/%{srcname}_%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
 
 BuildRequires:  python3-devel
 
-%if %{with tests}
+# For import checks.
 BuildRequires:  python3dist(aiohttp)
+BuildRequires:  python3dist(certifi)
+
+%if %{with tests}
 BuildRequires:  python3dist(azure-devtools)
 BuildRequires:  python3dist(azure-identity)
 BuildRequires:  python3dist(azure-mgmt-keyvault)
@@ -45,7 +45,11 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+# Upstream buries the package into a subdirectory. 😭
+%setup -c -T
+tar xzf %{SOURCE0} --strip-components=4 \
+    %{reponame}-%{srcname}_%{version}/sdk/servicebus/%{srcname}
+ls -alR
 
 
 %generate_buildrequires
@@ -65,11 +69,7 @@ Summary:        %{summary}
 %pyproject_check_import
 
 %if %{with tests}
-# Many tests try to connect to various Azure APIs during the test and that won't work
-# during the package build. These exclusions remove those tests while keeping as many of
-# the non-network tests as possible.
-%pytest -m "not (live_test_only or liveTest)" \
-    --ignore=tests/async_tests --ignore=tests/mgmt_tests
+%pytest
 %endif
 
 

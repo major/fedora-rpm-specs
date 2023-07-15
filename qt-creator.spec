@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        11.0.0
-Release:        0.3%{?prerelease:.%prerelease}%{?dist}
+Release:        0.4%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -223,6 +223,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Jul 13 2023 Jan Grulich <jgrulich@redhat.com>
+- Bump build for private API version change
+
 * Thu Jul 06 2023 Sandro Mani <manisandro@gmail.com> - 11.0.0.0.3-rc1
 - Update to 11.0.0-rc1
 

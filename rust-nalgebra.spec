@@ -5,7 +5,7 @@
 %global crate nalgebra
 
 Name:           rust-nalgebra
-Version:        0.32.2
+Version:        0.32.3
 Release:        %autorelease
 Summary:        General-purpose linear algebra library
 
@@ -85,18 +85,6 @@ This package contains library source intended for building other packages which
 use the "arbitrary" feature of the "%{crate}" crate.
 
 %files       -n %{name}+arbitrary-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+bytecheck-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bytecheck-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bytecheck" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bytecheck-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bytemuck-devel

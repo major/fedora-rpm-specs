@@ -1,6 +1,6 @@
 Name:           python-markupsafe
-Version:        2.1.2
-Release:        2%{?dist}
+Version:        2.1.3
+Release:        1%{?dist}
 Summary:        Implements a XML/HTML/XHTML Markup safe string for Python
 License:        BSD-3-Clause
 URL:            https://palletsprojects.com/p/markupsafe/
@@ -53,6 +53,10 @@ echo 'global-exclude *.c' >> MANIFEST.in
 
 
 %changelog
+* Fri Jun 16 2023 Ryan Erickson <rerickso@redhat.com> - 2.1.3-1
+- Update to 2.1.3
+- Fixes: rhbz#2211988
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.1.2-2
 - Rebuilt for Python 3.12
 

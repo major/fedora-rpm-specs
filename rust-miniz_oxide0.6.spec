@@ -4,8 +4,8 @@
 
 %global crate miniz_oxide
 
-Name:           rust-miniz_oxide
-Version:        0.7.1
+Name:           rust-miniz_oxide0.6
+Version:        0.6.2
 Release:        %autorelease
 Summary:        DEFLATE compression and decompression library rewritten in Rust based on miniz
 

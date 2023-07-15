@@ -13,6 +13,11 @@
 %global use_system_libicu 1
 %endif
 
+%if 0%{?fedora} && 0%{?fedora} >= 39
+# Bundled python-six is too old to work with Python 3.12+
+%global use_system_py_six 1
+%endif
+
 %global use_system_re2 1
 
 # NEON support on ARM (detected at runtime) - disable this if you are hitting
@@ -44,7 +49,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.5.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -76,6 +81,11 @@ Patch4: qtwebengine-ffmpeg-first_dts.patch
 # FTBS warning: elaborated-type-specifier for a scoped enum must not
 # use the 'class' keyword
 Patch50: qtwebengine-fix-build.patch
+
+# FTBFS Fix with Python 3.12 later on
+# Parts of the project are fine with zombie-imp, this one not, however
+# (It's messing with sys.path a lot)
+Patch60: Partial-migration-from-imp-to-importlib.patch
 
 ## Upstream patches:
 # https://webrtc-review.googlesource.com/c/src/+/285464
@@ -184,6 +194,10 @@ BuildRequires: pkgconfig(vpx) >= 1.8.0
 BuildRequires: pkgconfig(libavcodec)
 BuildRequires: pkgconfig(libavformat)
 BuildRequires: pkgconfig(libavutil)
+
+%if 0%{?fedora} && 0%{?fedora} >= 39
+BuildRequires: python3-zombie-imp
+%endif
 
 # extra (non-upstream) functions needed, see
 # src/3rdparty/chromium/third_party/sqlite/README.chromium for details
@@ -339,6 +353,9 @@ popd
 %patch4 -p1 -b .qtwebengine-ffmpeg-first_dts
 
 %patch50 -p1 -b .fix-build.patch
+%if 0%{?fedora} && 0%{?fedora} >= 39
+%patch60 -p1 -b .fix-py-imp.patch
+%endif
 
 ## upstream patches
 %patch100 -p1 -b .webrtc-dlopen-h264
@@ -350,6 +367,16 @@ popd
 # never cross-compile in native Fedora RPMs, fixes ARM and aarch64 FTBFS
 sed -i -e '/toolprefix = /d' -e 's/\${toolprefix}//g' \
   src/3rdparty/chromium/build/toolchain/linux/BUILD.gn
+
+%if 0%{?use_system_py_six}
+rm src/3rdparty/chromium/third_party/six/src/six.py
+rm src/3rdparty/chromium/third_party/catapult/third_party/six/six.py
+rm src/3rdparty/chromium/third_party/wpt_tools/wpt/tools/third_party/six/six.py
+
+ln -s /usr/lib/python%{python3_version}/site-packages/six.py src/3rdparty/chromium/third_party/six/src/six.py
+ln -s /usr/lib/python%{python3_version}/site-packages/six.py src/3rdparty/chromium/third_party/catapult/third_party/six/six.py
+ln -s /usr/lib/python%{python3_version}/site-packages/six.py src/3rdparty/chromium/third_party/wpt_tools/wpt/tools/third_party/six/six.py
+%endif
 
 %if 0%{?use_system_re2}
 # http://bugzilla.redhat.com/1337585
@@ -608,6 +635,9 @@ done
 
 
 %changelog
+* Thu Jul 13 2023 František Zatloukal <fzatlouk@redhat.com> - 6.5.1-3
+- Python 3.12 Fixes
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 6.5.1-2
 - Rebuilt for ICU 73.2
 

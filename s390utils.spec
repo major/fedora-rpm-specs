@@ -9,7 +9,7 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.27.0
+Version:        2.28.0
 Release:        1%{?dist}
 Epoch:          2
 License:        MIT
@@ -38,7 +38,7 @@ Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
 # upstream fixes/updates
-Patch100:       s390utils-%{version}-fedora.patch
+#Patch100:       s390utils-%%{version}-fedora.patch
 
 Requires:       s390utils-core = %{epoch}:%{version}-%{release}
 Requires:       s390utils-base = %{epoch}:%{version}-%{release}
@@ -67,10 +67,7 @@ be used together with the zSeries (s390) Linux kernel and device drivers.
 %patch 1 -p1 -b .blscfg-rpm-nvr-sort
 
 # upstream fixes/updates
-%patch 100 -p1
-
-# remove --strip from install
-find . -name Makefile | xargs sed -i 's/$(INSTALL) -s/$(INSTALL)/g'
+#%%patch 100 -p1
 
 
 %build
@@ -898,6 +895,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Tue Jul 11 2023 Dan Horák <dan[at]danny.cz> - 2:2.28.0-1
+- rebased to 2.28.0
+
 * Wed May 31 2023 Dan Horák <dan[at]danny.cz> - 2:2.27.0-1
 - rebased to 2.27.0
 

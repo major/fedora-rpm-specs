@@ -36,7 +36,7 @@ Summary:        Rust agent for Keylime
 #   Unlicense or MIT
 #   zlib or ASL 2.0 or MIT
 #
-License:        ASL 2.0 and BSD and MIT
+License: (Apache-2.0 OR MIT) AND BSD-3-Clause AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND Apache-2.0 WITH LLVM-exception AND ISC AND MIT AND (MIT OR Unlicense)
 URL:            https://github.com/keylime/rust-keylime/
 # The source tarball is downloaded using the following commands:
 #   spectool -g keylime-agent-rust.spec

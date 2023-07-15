@@ -33,10 +33,14 @@ Patch1:         %{url}/pull/59.patch
 # Import of Bunch needs to be fixed for recent scikit-learn versions
 # https://github.com/VictorPelaez/coral-reef-optimization-algorithm/issues/62
 Patch2:         %{url}/pull/63.patch
+# Disable example using Boston dataset. Dataset has been removed from scikit-learn
+# https://github.com/VictorPelaez/coral-reef-optimization-algorithm/issues/64
+Patch3:         disable_testcase_using_boston_dataset.patch
      
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  git-core
 
 %description %_description
 
@@ -46,7 +50,7 @@ Summary:        %{summary}
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version} -S git
 
 # Remove shebangs from modules in site-packages. These are not executable
 # in the source tarball, and lack “script-like” content.  The

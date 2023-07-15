@@ -47,7 +47,7 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -692,6 +692,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Thu Jul 13 2023 František Zatloukal <fzatlouk@redhat.com> - 6.5-19
+- Rebuilt for ICU 73.2
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 6.5-18
 - OCaml 5.0 rebuild for Fedora 39
 

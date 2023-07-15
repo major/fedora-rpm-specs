@@ -1,6 +1,6 @@
 Name:           pdfarranger
-Version:        1.9.2
-Release:        3%{?dist}
+Version:        1.10.0
+Release:        %autorelease
 Summary:        PDF file merging, rearranging, and splitting
 
 License:        GPLv3
@@ -11,9 +11,9 @@ BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  gettext
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-wheel
 BuildRequires:  python3-pip
 
@@ -31,13 +31,8 @@ Requires:       python3-cairo
 Requires:       poppler-glib
 Requires:       python3-dateutil >= 2.4.0
 
-%if 0%{?fedora} > 31
-# replace pdfshuffler for Fedora 32+ since it is python2 only (#1738935)
 Provides:       pdfshuffler = %{version}-%{release}
-# Current pdfshuffler is 0.6.0-17. I obsolete everything < 0.6.1 here
-# because there might be new releases but they won't add python3 support.
 Obsoletes:      pdfshuffler < 0.6.1-1
-%endif
 
 # The repository changed to pdfarranger/pdfarranger but we leave the app_id
 # for now.
@@ -63,9 +58,7 @@ PDF Arranger is a fork of Konstantinos Poulios’s PDF-Shuffler.
 %install
 %py3_install_wheel %{python3_wheelname}
 %find_lang %{name}
-%if 0%{?fedora} > 31
 ln -s pdfarranger %{buildroot}%{_bindir}/pdfshuffler
-%endif
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{app_id}.desktop
@@ -87,139 +80,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %endif
 
 %changelog
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.9.2-3
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Dec 28 2022 David Auer <dreua@posteo.de> - 1.9.2-1
-- Update to 1.9.2 (closes rhbz#2149537)
-
-* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.9.1-2
-- Drop support for i686
-
-* Sun Sep 25 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.9.1-1
-- Update to latest upstream release 1.9.1 (closes rhbz#2129599)
-
-* Sun Sep 18 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.9.0-1
-- Update to latest upstream release 1.9.0 (closes rhbz#2127657)
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.8.2-3
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Dec 26 2021 David Auer <dreua@posteo.de> - 1.8.2-1
-- Update to 1.8.2
-- Fix 2 bugs in scaled pages export
-
-* Wed Dec 15 2021 David Auer <dreua@posteo.de> - 1.8.1-1
-- Update to 1.8.1
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.7.1-2
-- Rebuilt for Python 3.10
-
-* Thu Mar 18 2021 David Auer <dreua@posteo.de> - 1.7.1-1
-- Update to 1.7.1
-- Update repository URL (was a redirection anyway)
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sun Jan 24 2021 David Auer <dreua@posteo.de> - 1.7.0-2
-- Add dependency: dateutil
-
-* Sun Jan 24 2021 David Auer <dreua@posteo.de> - 1.7.0-1
-- Update to 1.7.0
-
-* Sat Aug 01 2020 David Auer <dreua@posteo.de> - 1.6.2-1
-- Update to 1.6.2
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jul 16 2020 David Auer <dreua@posteo.de> - 1.6.0-2
-- Recommend img2pdf
-
-* Wed Jul 15 2020 David Auer <dreua@posteo.de> - 1.6.0-1
-- Update to 1.6.0
-- Require pikepdf >= 1.15.1 as suggested in Readme.
-
-* Wed Jun 24 2020 David Auer <dreua@posteo.de> - 1.5.3-3
-- Explicitly require python3-setuptools
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.5.3-2
-- Rebuilt for Python 3.9
-
-* Sun May 17 2020 David Auer <dreua@posteo.de> - 1.5.3-1
-- Update to 1.5.3
-
-* Mon Apr 20 2020 David Auer <dreua@posteo.de> - 1.5.1-1
-- Update to 1.5.1 (#1823971)
-- Fixes rhbz#1824017
-
-* Wed Apr 15 2020 David Auer <dreua@posteo.de> - 1.5.0-1
-- Update to 1.5.0 (#1823971)
-
-* Tue Mar 17 2020 Fabian Affolter <mail@fabian-affolter.ch> - 1.4.2-1
-- Update to new upstream version 1.4.2 (rhbz#1814032)
-
-* Sun Feb 09 2020 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.4.1-1
-- Update to 1.4.1 (#1800993)
-
-* Sat Feb 01 2020 David Auer <dreua@posteo.de> - 1.4.0-1
-- New version, see https://github.com/jeromerobert/pdfarranger/releases/tag/1.4.0
-- Replace python3-PyPDF2 with python3-pikepdf
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Sep 25 2019 David Auer <dreua@posteo.de> - 1.3.1-2
-- replace pdfshuffler on f32+
-
-* Sun Sep 22 2019 David Auer <dreua@posteo.de> - 1.3.1-1
-- New version, see https://github.com/jeromerobert/pdfarranger/releases/tag/1.3.1
-
-* Wed Sep 11 2019 David Auer <dreua@posteo.de> - 1.3.0-2
-- Add missing dependency
-- Remove unnecessary python_provide macro
-
-* Sun Aug 11 2019 David Auer <dreua@posteo.de> - 1.3.0-1
-- New version, see https://github.com/jeromerobert/pdfarranger/releases/tag/1.3.0
-- Remove obsolete downstream fixes 
-
-* Tue Jun 11 2019 David Auer <dreua@posteo.de> - 1.2.1-8
-- Better source URL
-
-* Mon May 20 2019 David Auer <dreua@posteo.de> - 1.2.1-7
-- Fix directory ownership
-- Replace obsolete srcname by name
-
-* Mon May 20 2019 David Auer <dreua@posteo.de> - 1.2.1-6
-- Name changed from python-pdfarranger to pdfarranger
-- Remove shebang in __main__.py
-
-* Sat May 18 2019 David Auer <dreua@posteo.de> - 1.2.1-5
-- Fix rpmlint errors and warnings
-
-* Sat May 18 2019 David Auer <dreua@posteo.de> - 1.2.1-4
-- Building with wheel to get lang and icons right
-
-* Sat May 18 2019 David Auer <dreua@posteo.de> - 1.2.1-3
-- Move Requires to the right location
-
-* Sat May 18 2019 David Auer <dreua@posteo.de> - 1.2.1-2
-- Add missing requires
-
-* Sat May 18 2019 David Auer <dreua@posteo.de> - 1.2.1
-- Packaging pdfarranger based on pdfshuffler's spec file and https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_example_python_spec_file
-
-
+%autochangelog

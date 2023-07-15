@@ -1,13 +1,13 @@
 %bcond_without httpclient
 %bcond_without oro
-%bcond_with vfs
+%bcond_without vfs
 %bcond_without sftp
 
 %global jarname ivy
 
 Name:           apache-%{jarname}
 Version:        2.5.1
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Java-based dependency manager
 License:        Apache-2.0
 URL:            https://ant.apache.org/ivy
@@ -26,7 +26,7 @@ Patch0:         00-global-settings.patch
 BuildRequires:  gnupg2
 BuildRequires:  ant
 BuildRequires:  ivy-local
-BuildRequires:  maven-local-openjdk11
+BuildRequires:  java-11-devel
 BuildRequires:  mvn(org.apache.ant:ant)
 BuildRequires:  mvn(org.bouncycastle:bcpg-jdk15on)
 BuildRequires:  mvn(org.bouncycastle:bcprov-jdk15on)
@@ -66,7 +66,7 @@ reporting and publication.
 %autosetup -p1
 # Don't hardcode sysconfdir path
 sed -i 's:/etc/ivy/:%{_sysconfdir}/ivy/:' src/java/org/apache/ivy/ant/IvyAntSettings.java
-# dep has no jar
+# remove BOM
 %pom_remove_dep :jsch.agentproxy
 # remove test deps
 %pom_remove_dep junit:junit
@@ -126,7 +126,7 @@ rm src/java/org/apache/ivy/plugins/resolver/SshResolver.java
 # remove prebuilt documentation
 rm -rf asciidoc
 # publish artifacts through xmvn
-sed -i /ivy:publish/s/local/xmvn/ build.xml
+%pom_xpath_set ivy:publish/@resolver xmvn build.xml
 
 %build
 %{?jpb_env} JAVA_HOME=%{_jvmdir}/java-11 ant \
@@ -146,6 +146,13 @@ echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Fri Jul 14 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.5.1-5
+- Replace BR maven-local-openjdk11 w/ java-11-devel
+- Use pom_xpath_set macro to publish artifacts
+
+* Thu Jul 13 2023 Jerry James <loganjerry@gmail.com> - 2.5.1-4
+- Enable vfs support
+
 * Sun Jun 25 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.5.1-3
 - Build with ivy instead of maven
 

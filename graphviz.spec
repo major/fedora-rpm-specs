@@ -104,7 +104,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		8.1.0
-Release:		3%{?dist}
+Release:		4%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -777,6 +777,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Thu Jul 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 8.1.0-4
+- Perl 5.38 re-rebuild updated packages
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 8.1.0-3
 - OCaml 5.0 rebuild for Fedora 39
 

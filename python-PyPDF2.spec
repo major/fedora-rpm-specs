@@ -3,11 +3,15 @@
 
 Name:           python-%{srcname}
 Version:        1.26.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        BSD
 Summary:        %{sum}
 Source:         https://pypi.python.org/packages/source/P/%{srcname}/%{srcname}-%{version}.tar.gz
 URL:            https://github.com/mstamy2/PyPDF2
+
+# setuptools instead of distutils
+# https://github.com/py-pdf/pypdf/pull/599
+Patch01:        599.patch
 
 BuildArch:      noarch
 
@@ -30,6 +34,7 @@ It is therefore a useful tool for websites that manage or manipulate PDFs.
 %package -n python3-%{srcname}
 Summary:        %{sum}
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{srcname}}
 
 
@@ -86,6 +91,9 @@ chmod a-x Scripts/* Sample_Code/* LICENSE README.md CHANGELOG
 %license LICENSE
 
 %changelog
+* Thu Jul 13 2023 František Zatloukal <fzatlouk@redhat.com> - 1.26.0-24
+- Backport upstream switch from distutils to setuptools (Fixes RHBZ#2155032)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.26.0-23
 - Rebuilt for Python 3.12
 

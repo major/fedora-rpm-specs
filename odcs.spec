@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.6.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -10,6 +10,7 @@ Source0:    https://files.pythonhosted.org/packages/source/o/%{name}/%{name}-%{v
 Source1:    odcs-backend.service
 # Fedora related configuration for ODCS.
 Patch0:     odcs-fedora-conf.patch
+Patch1:     https://pagure.io/odcs/pull-request/626.patch
 
 BuildArch:    noarch
 
@@ -113,9 +114,7 @@ Command line client for sending requests to ODCS.
 
 
 %prep
-%setup -q
-
-%patch0 -p1
+%autosetup -p1
 
 %build
 %py3_build
@@ -198,6 +197,9 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Thu Jul 13 2023 Haibo Lin <hlin@redhat.com> - 0.6.0-3
+- Backport patch for Python 3.12
+
 * Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 0.6.0-2
 - Rebuilt for Python 3.12
 

@@ -1,11 +1,12 @@
 Name:           python-sentry-sdk
-Version:        1.27.0
+Version:        1.28.0
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
 License:        MIT
 URL:            https://sentry.io/for/python/
 Source0:        https://github.com/getsentry/sentry-python/archive/%{version}/sentry-python-%{version}.tar.gz
+Patch0:         0001-tests-add-support-for-Python-3.12.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -144,7 +145,7 @@ sed -i '/content_type=/D' tests/integrations/starlette/test_starlette.py
 # 6. bottle, django, and flask integration tests (werkzeug in Fedora 38 is too new, see: https://github.com/getsentry/sentry-python/issues/1398)
 # 7. celery & newrelic test (newrelic is unpackaged yet)
 # 8. test_auto_enabling_integrations_catches_import_error: testing suite relies on the test to be executed on clean env
-%pytest --asyncio-mode=auto --durations=5 \
+%pytest --durations=5 \
   --deselect tests/integrations/asyncio/test_asyncio_py3.py \
   --deselect tests/integrations/celery/test_celery.py::test_newrelic_interference \
   --deselect tests/integrations/requests/test_requests.py::test_crumb_capture \
@@ -173,6 +174,13 @@ sed -i '/content_type=/D' tests/integrations/starlette/test_starlette.py
 
 
 %changelog
+* Thu Jul 13 2023 Roman Inflianskas <rominf@aiven.io> - 1.28.0-1
+- Update to 1.28.0 (fedora#2220929)
+- Tests: add support for Python 3.12 (fedora#2220496)
+
+* Thu Jul 13 2023 Python Maint <python-maint@redhat.com> - 1.27.0-2
+- Rebuilt for Python 3.12
+
 * Wed Jul 05 2023 Roman Inflianskas <rominf@aiven.io> - 1.27.0-1
 - Update to 1.27.0 (resolve rhbz#2219588)
 

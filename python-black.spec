@@ -1,6 +1,6 @@
 Name:           python-black
-Version:        22.8.0
-Release:        2%{?dist}
+Version:        23.7.0
+Release:        1%{?dist}
 Summary:        The uncompromising code formatter
 License:        MIT
 URL:            https://github.com/psf/black
@@ -18,6 +18,10 @@ BuildRequires:  python3-pytest
 # note that tests/test_no_ipynb.py only runs without jupyter
 # extra paranoid packagers can build this both with and without to run all tests
 %bcond jupyter  1
+
+# uvloop not ready for Python 3.12: https://bugzilla.redhat.com/2203920
+%bcond uvloop   %[ 0%{?fedora} < 39 && 0%{?rhel} < 10 ]
+
 
 %global _description %{expand:
 Black is the uncompromising Python code formatter. By using it, you agree to
@@ -37,19 +41,21 @@ Recommends:     black+d = %{version}-%{release}
 # This can be safely removed in Fedora 39+
 Obsoletes:      black+python2 < 22.1.0
 
+%if %{without uvloop}
+# The [uvloop] extra was temporarily removed in 23.7.0
+# This can be safely removed once it is back or in Fedora 41+
+Obsoletes:      black+uvloop < 23.7.0
+%endif
+
 %description -n black %_description
 
 
 %prep
 %autosetup -n black-%{version} -p1
 
-# Allow lesser version of setuptools_scm which we verified works
-# Needed for Fedora 35
-sed -i 's/setuptools_scm\[toml\]>=6.3.1/setuptools_scm\[toml\]>=6/' pyproject.toml setup.cfg
-
 
 %generate_buildrequires
-%global extras_without_d colorama,uvloop%{?with_jupyter:,jupyter}
+%global extras_without_d colorama%{?with_jupyter:,jupyter}%{?with_uvloop:,uvloop}
 %pyproject_buildrequires -rx d,%{extras_without_d}
 
 
@@ -69,7 +75,7 @@ done
 %check
 export PIP_INDEX_URL=http://host.invalid./
 export PIP_NO_DEPS=yes
-%pytest -rs --run-optional %{!?with_jupyter:no_}jupyter
+%pytest -Wdefault -rs --run-optional %{!?with_jupyter:no_}jupyter
 
 
 %files -n black -f %{pyproject_files}
@@ -86,6 +92,10 @@ export PIP_NO_DEPS=yes
 
 
 %changelog
+* Thu Jul 13 2023 Miro Hrončok <mhroncok@redhat.com> - 23.7.0-1
+- Update to 23.7.0
+- Fixes: rhbz#2132839
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

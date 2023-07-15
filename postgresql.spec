@@ -32,7 +32,7 @@
 %{!?beta:%global beta 0}
 
 %{!?test:%global test 1}
-%{!?llvmjit:%global llvmjit 1}
+%{!?llvmjit:%global llvmjit 0}
 %{!?external_libpq:%global external_libpq 0}
 %{!?upgrade:%global upgrade 1}
 %{!?plpython3:%global plpython3 1}
@@ -65,7 +65,7 @@ Summary: PostgreSQL client programs
 Name: postgresql
 %global majorversion 15
 Version: %{majorversion}.3
-Release: 5%{?dist}
+Release: 8%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1262,8 +1262,17 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
-* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 15.3-5
+* Thu Jul 13 2023 Adam Williamson <awilliam@redhat.com> - 15.3-8
+- Rebuilt for ICU 73.2 one more time
+
+* Thu Jul 13 2023 Timothée Ravier <tim@siosm.fr> - 15.3-7
+- Use bash as login shell for postgres user
+
+* Thu Jul 13 2023 František Zatloukal <fzatlouk@redhat.com> - 15.3-6
 - Rebuilt for ICU 73.2
+
+* Thu Jul 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 15.3-5
+- Perl 5.38 re-rebuild
 
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 15.3-4
 - Perl 5.38 rebuild

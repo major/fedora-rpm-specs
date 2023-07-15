@@ -1,7 +1,7 @@
 %global module uhashring
 
 Name:           python-%{module}
-Version:        2.1
+Version:        2.3
 Release:        2%{?dist}
 Summary:        Python module uhashring
 
@@ -11,6 +11,9 @@ Source:         https://github.com/ultrabug/%{module}/archive/refs/tags/%{versio
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+# Required to run unit tests
+BuildRequires:  python3-pytest
+BuildRequires:  python3-memcached
 
 %global _description %{expand:
 uhashring implements consistent hashing in pure Python.}
@@ -25,6 +28,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{module}-%{version}
+
+sed -i 's/ *"black",//g' pyproject.toml
+sed -i 's/ *"flake8",//g' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -45,6 +51,9 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Thu Jul 13 2023 Alfredo Moralejo <amoralej@redhat.com> - 2.3-2
+- Update to 2.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

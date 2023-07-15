@@ -17,7 +17,6 @@ Patch1:         gpsd-apistatus.patch
 BuildRequires:  dbus-devel            
 BuildRequires:  dbus-glib-devel            
 BuildRequires:  ncurses-devel            
-BuildRequires:  xmlto
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  gtk3-devel
@@ -33,9 +32,7 @@ BuildRequires:  systemd
 %if %{with_qt}
 BuildRequires:  qt-devel
 %endif
-%ifnarch s390 s390x
 BuildRequires:  libusb1-devel
-%endif
 
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       udev
@@ -123,9 +120,9 @@ scons \
     dbus_export=yes \
     systemd=yes \
 %if %{with_qt}
-    libQgpsmm=yes \
+    qt=yes \
 %else
-    libQgpsmm=no \
+    qt=no \
 %endif
     debug=yes \
     leapfetch=no \

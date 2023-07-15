@@ -1,5 +1,5 @@
 Name:           normaliz
-Version:        3.10.0
+Version:        3.10.1
 Release:        1%{?dist}
 Summary:        A tool for discrete convex geometry
 
@@ -15,9 +15,12 @@ Summary:        A tool for discrete convex geometry
 # StandardSymL: GPL-1.0-or-later
 License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Bistream-Vera AND Knuth-CTAN AND GPL-1.0-or-later AND LicenseRef-DoubleStroke AND AGPL-3.0-only AND LicenseRef-Rsfs
 URL:            https://www.normaliz.uni-osnabrueck.de/
-Source0:        https://github.com/Normaliz/Normaliz/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Normaliz/Normaliz/archive/v%{version}/%{name}-%{version}.tar.gz
 # Use libcrypto from openssl instead of the (unpackaged) hash-library
 Patch0:         %{name}-hash-library.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  boost-devel
 BuildRequires:  cocoalib-devel
@@ -119,8 +122,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 cp -p normaliz.1 %{buildroot}%{_mandir}/man1
 
 %check
-# Some tests fail on 32-bit architectures
-%ifnarch %{arm} %{ix86}
+# Temporarily disable tests on s390x
+# See https://github.com/Normaliz/Normaliz/issues/407
+%ifnarch s390x
 LD_LIBRARY_PATH=$PWD/source/.libs make check
 %endif
 
@@ -140,6 +144,11 @@ LD_LIBRARY_PATH=$PWD/source/.libs make check
 %{_includedir}/libnormaliz/
 
 %changelog
+* Thu Jul 13 2023 Jerry James <loganjerry@gmail.com> - 3.10.1-1
+- Version 3.10.1
+- Stop building for i386
+- Temporarily disable tests on s390x
+
 * Wed Feb  1 2023 Jerry James <loganjerry@gmail.com> - 3.10.0-1
 - Version 3.10.0
 

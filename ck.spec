@@ -1,12 +1,12 @@
 Name: ck
 Version: 0.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for high performance concurrent programming
 
-License: BSD
+License: BSD-2-clause AND Apache-2.0 AND BSD-3-clause
 # concurrencykit.org has been done for many months now, so use github instead
 URL: https://github.com/concurrencykit/ck
-Source: https://github.com/concurrencykit/ck/archive/%{version}/%{name}-%{version}.tar.gz
+Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # disable ck_hclh_test from ck_spinlock temporary solution
 # github issue: https://github.com/concurrencykit/ck/issues/153
@@ -98,6 +98,9 @@ time timeout -k $TIMEOUT_KILL $TIMEOUT \
 %{_mandir}/man3/*.3.gz
 
 %changelog
+* Thu Jul 13 2023 Petr Menšík <pemensik@redhat.com> - 0.7.1-2
+- Use SPDX licenses
+
 * Wed Jul 12 2023 Paul Wouters <paul.wouters@aiven.io - 0.7.1-1
 - Updated to 0.7.1 (partially for testing resolving of rhbz#2113147)
 - Remove upstreamed patches

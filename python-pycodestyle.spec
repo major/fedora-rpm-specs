@@ -8,12 +8,31 @@
 
 Name:           python-%{module_name}
 # WARNING: When updating pycodestyle, check not to break flake8!
-Version:        2.9.1
-Release:        3%{?dist}
+Version:        2.10.0
+Release:        1%{?dist}
 Summary:        Python style guide checker
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{module_name}
 Source0:        %{pypi_source %{module_name}}
+# Various fixes for Python 3.12
+# https://github.com/PyCQA/pycodestyle/pull/1148
+# https://github.com/PyCQA/pycodestyle/commit/84937582b81d570b95354e33a746947f84462c55
+Patch0:         0001-add-fix-for-muting-FSTRING_MIDDLE-in-3.12.patch
+# https://github.com/PyCQA/pycodestyle/pull/1129
+# https://github.com/PyCQA/pycodestyle/commit/7023956c8975d34317aa146b8e3d73ebd43d204c
+# Necessary precursor to make Patch2 apply cleanly
+# Rediffed - dropped the changes to unpackaged files
+Patch1:         0001-drop-python3.6.patch
+# https://github.com/PyCQA/pycodestyle/pull/1152
+# https://github.com/PyCQA/pycodestyle/commit/e8d84098da10d013ee686027e174814dbe4dd908
+# Rediffed - dropped the changes to unpackaged github file
+Patch2:         0001-get-testsuite-passing-on-3.12.patch
+# https://github.com/PyCQA/pycodestyle/pull/1153
+# https://github.com/PyCQA/pycodestyle/commit/0d786b43a09243d7655831d0b6c4a94a8d7c7581
+Patch3:         0001-add-test-file-for-new-3.12-syntax.patch
+# https://github.com/PyCQA/pycodestyle/pull/1154
+# https://github.com/PyCQA/pycodestyle/commit/6fddf7399d70627c46d1cc82bb3c02da2d708ec4
+Patch4:         0001-3.12-format-specs-are-not-an-error.patch
 
 BuildArch:      noarch
 
@@ -62,7 +81,7 @@ This is a version for Python %{python3_pkgversion}.
 
 
 %prep
-%autosetup -n %{module_name}-%{version}
+%autosetup -n %{module_name}-%{version} -p1
 
 # Remove #! from pycodestyle.py
 sed --in-place "s:#!\s*/usr.*::" pycodestyle.py
@@ -123,6 +142,10 @@ install -D docs/_build/man/%{module_name}.1 %{buildroot}%{_mandir}/man1/%{module
 %{python3_sitelib}/%{module_name}-%{version}-*.egg-info/
 
 %changelog
+* Thu Jul 13 2023 Adam Williamson <awilliam@redhat.com> - 2.10.0-1
+- Update to 2.10.0
+- Backport Python 3.12 fixes from upstream
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.9.1-3
 - Rebuilt for Python 3.12
 

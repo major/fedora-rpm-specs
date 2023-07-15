@@ -2,8 +2,8 @@
 %bcond_without perl_Syntax_Keyword_MultiSub_enables_optional_test
 
 Name:           perl-Syntax-Keyword-MultiSub
-Version:        0.03
-Release:        2%{?dist}
+Version:        0.04
+Release:        1%{?dist}
 Summary:        Multiple dispatch on subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-MultiSub
@@ -110,14 +110,21 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Syntax*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Syntax
+%dir %{perl_vendorarch}/auto/Syntax/Keyword
+%{perl_vendorarch}/auto/Syntax/Keyword/MultiSub
+%dir %{perl_vendorarch}/Syntax
+%dir %{perl_vendorarch}/Syntax/Keyword
+%{perl_vendorarch}/Syntax/Keyword/MultiSub.pm
+%{_mandir}/man3/Syntax::Keyword::MultiSub.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 13 2023 Petr Pisar <ppisar@redhat.com> - 0.04-1
+- 0.04 bump
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-2
 - Perl 5.38 rebuild
 

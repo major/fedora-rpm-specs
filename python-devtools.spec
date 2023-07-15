@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dev tools for Python
 
 License:        MIT
@@ -71,6 +71,9 @@ rm -f tests/test_insert_assert.py
 
 
 %changelog
+* Thu Jul 13 2023 Python Maint <python-maint@redhat.com> - 0.11.0-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 0.11.0-1
 - update to 0.11.0 rhbz#2184884
 

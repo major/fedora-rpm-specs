@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -17,6 +17,8 @@ Source7: dotzprofile
 Patch1: 0001-zsh-5.9-do-not-use-egrep-in-tests.patch
 # Upstream commit ab4d62eb975a4c4c51dd35822665050e2ddc6918
 Patch2: 0002-zsh-Use-int-main-in-test-c-codes.patch
+# upstream commit a84fdd7c8f77935ecce99ff2b0bdba738821ed79
+Patch3: 0003-zsh-fix-module-loading-problem-with-full-RELRO.patch
 
 BuildRequires: autoconf
 BuildRequires: coreutils
@@ -76,9 +78,6 @@ sed -e 's|^\.NOTPARALLEL|#.NOTPARALLEL|' -i 'Config/defs.mk.in'
 %build
 # make build of run-time loadable modules work again (#1535422)
 %undefine _strict_symbol_defs_build
-
-# make loading of module's dependencies work again (#1277996)
-export LIBLDFLAGS='-z lazy'
 
 # avoid build failure in case we have working ypcat (#1687574)
 export zsh_cv_sys_nis='no'
@@ -165,6 +164,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Thu Jul 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.9-7
+- Make zsh/{tcp,zftp} compatible with full RELRO (rhbz#2212160)
+
 * Wed May 17 2023 David Cantrell <dcantrell@redhat.com> - 5.9-6
 - Update the License tag to use SPDX identifiers
 

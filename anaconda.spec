@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.23
-Release: 3%{?dist}
+Version: 39.24
+Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -11,9 +11,6 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
-# https://github.com/rhinstaller/anaconda/pull/4879
-# Fix shutdown with Python 3.12 (don't use preexec_fn during shutdown)
-Patch0: 0001-Handle-subprocess-disallowing-preexec-during-shutdow.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -474,6 +471,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 11 2023 Packit <hello@packit.dev> - 39.24-1
+- webui: extend the list of the data we need to wait for before showing the app
+  (kkoukiou)
+- webui: tests: attempt to rebustify tests by more carefully implementing the
+  page enter (kkoukiou)
+- webui: test: extend allowed journal messages for language tests (kkoukiou)
+- webui: tests: adjust next and back helper methods (kkoukiou)
+- webui: pin down cockpit-* packages versions for gating purposes (kkoukiou)
+- webui: if device selection changed since last partitioning request redo the
+  partitioning (kkoukiou)
+- webui: Disable strict host checking in SSH config snippet (mkolman)
+- Update translations from Weblate
+
 * Tue Jul 04 2023 Adam Williamson <awilliam@redhat.com> - 39.23-3
 - Fix the patch to default to doing preexec_fn (duh)
 

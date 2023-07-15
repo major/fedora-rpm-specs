@@ -9,8 +9,8 @@
 %endif
 
 Name:           perl-Syntax-Keyword-Defer
-Version:        0.08
-Release:        4%{?dist}
+Version:        0.09
+Release:        1%{?dist}
 Summary:        Add defer block syntax to Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Defer
@@ -35,7 +35,8 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 # feature since Perl 5.33.7
 BuildRequires:  perl(feature)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test::Builder)
+BuildRequires:  perl(Test2::V0)
 %if %{optional_tests}
 # Optional tests:
 BuildRequires:  perl(Future)
@@ -53,9 +54,6 @@ Requires:       perl(XS::Parse::Keyword) >= 0.13
 Requires:       %{perl_XS_Parse_Keyword_ABI}
 %endif
 
-# Remove underspecified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
-
 %description
 This Perl module provides a syntax plugin that implements a block which
 executes when the containing scope has finished. The "defer" blocks are
@@ -68,7 +66,6 @@ BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(feature)
-Requires:       perl(Test::More) >= 0.88
 %if %{optional_tests}
 Requires:       perl(Future)
 Requires:       perl(Future::AsyncAwait) >= 0.50
@@ -116,14 +113,23 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Syntax*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Syntax
+%dir %{perl_vendorarch}/auto/Syntax/Keyword
+%{perl_vendorarch}/auto/Syntax/Keyword/Defer
+%dir %{perl_vendorarch}/Syntax
+%dir %{perl_vendorarch}/Syntax/Keyword
+%{perl_vendorarch}/Syntax/Keyword/Defer.pm
+%{perl_vendorarch}/Syntax/Keyword/Finally.pm
+%{_mandir}/man3/Syntax::Keyword::Defer.*
+%{_mandir}/man3/Syntax::Keyword::Finally.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 13 2023 Petr Pisar <ppisar@redhat.com> - 0.09-1
+- 0.09 bump
+
 * Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-4
 - Perl 5.38 re-rebuild of bootstrapped packages
 

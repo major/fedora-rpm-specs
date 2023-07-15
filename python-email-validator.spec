@@ -12,9 +12,14 @@ Summary:        A robust email syntax and deliverability validation library
 #   to ask upstreams to relicense such files.
 #
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383
+#
+# Upstream was asked to consider relicensing:
+#
+# Please consider an alternative license
+# https://github.com/JoshData/python-email-validator/issues/113
 License:        CC0-1.0
 URL:            https://github.com/JoshData/python-email-validator
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/python-email-validator-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -24,18 +29,28 @@ BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
 
 %global _description %{expand:
-This library validates that address are of the form x@y.com. This is the sort
-of validation you would want for a login form on a website.
+This library validates that a string is of the form name@example.com and
+optionally checks that the domain name is set up to receive email. This is the
+sort of validation you would want when you are identifying users by their email
+address like on a registration/login form (but not necessarily for composing an
+email message).
 
 Key features:
 
-- Good for validating email addresses used for logins/identity.
-- Friendly error messages when validation fails (appropriate to show to end
-  users).
-- (optionally) Checks deliverability: Does the domain name resolve?
-- Supports internationalized domain names and (optionally) internationalized
-  local parts.
-- Normalizes email addresses (important for internationalized addresses!).}
+  • Checks that an email address has the correct syntax – good for
+    registration/login forms or other uses related to identifying users.
+  • Gives friendly English error messages when validation fails that you can
+    display to end-users.
+  • Checks deliverability (optional): Does the domain name resolve? (You can
+    override the default DNS resolver to add query caching.)
+  • Supports internationalized domain names and internationalized local parts.
+  • Rejects addresses with unsafe Unicode characters, obsolete email address
+    syntax that you’d find unexpected, special use domain names like
+    @localhost, and domains without a dot by default. This is an opinionated
+    library!
+  • Normalizes email addresses (important for internationalized and
+    quoted-string addresses!)
+  • Python type annotations are used.}
 
 %description %{_description}
 
@@ -66,7 +81,7 @@ ignore="${ignore-} --ignore=tests/test_main.py"
 %pyproject_check_import
 
 %files -n python3-email-validator -f %{pyproject_files}
-%doc CONTRIBUTING.md README.md
+%doc CHANGELOG.md README.md
 %{_bindir}/email_validator
 
 %changelog

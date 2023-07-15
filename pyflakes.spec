@@ -7,21 +7,30 @@ check on style.}
 
 Name:           pyflakes
 # WARNING: When updating pyflakes, check not to break flake8!
-Version:        2.5.0
-Release:        3%{?dist}
+Version:        3.0.1
+Release:        2%{?dist}
 Summary:        A simple program which checks Python source files for errors
 
 License:        MIT
 URL:            https://github.com/PyCQA/pyflakes
-Source0:        %{pypi_source}
-Source1:        http://cdn.debian.net/debian/pool/main/p/pyflakes/pyflakes_2.4.0-2.debian.tar.xz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        http://cdn.debian.net/debian/pool/main/p/pyflakes/pyflakes_2.5.0-1.debian.tar.xz
 
 Patch:          %{name}-1.1.0-python3-man.patch
-# Patch 1 & 2 are needed for fixing various test failures with Python 3.12
-# https://github.com/PyCQA/pyflakes/commit/0727850.patch
-Patch:          fix-test-failures-in-python-3.12.patch
-# https://github.com/PyCQA/pyflakes/commit/836631f.patch
-Patch:          fix-error-reporter-and-testsuite-in-3.11.4.patch
+# needed precursors for later python 3.12 compat patches
+# https://github.com/PyCQA/pyflakes/commit/37f203ed6ec9c54ea4ded0b8480846ac750a1747
+Patch:          0001-fold-unused-checks-into-final-scope-checking-750.patch
+# https://github.com/PyCQA/pyflakes/commit/98d4fa33ccacf74c62c5a17cc35ce572fd35b223
+Patch:          0001-pyflakes-python3.8-752.patch
+# https://github.com/PyCQA/pyflakes/commit/c3273c54c94cb96927d730c6bf5d12383c85777f
+Patch:          0001-handle-deferred-checking-as-a-queue-754.patch
+# python 3.12 compat fixes
+# https://github.com/PyCQA/pyflakes/commit/0727850
+Patch:          0001-fix-test-failures-in-python-3.12-777.patch
+# https://github.com/PyCQA/pyflakes/commit/836631f
+Patch:          0001-fix-error-reporter-and-testsuite-in-3.11.4-775.patch
+# https://github.com/PyCQA/pyflakes/commit/ad5e15f4a3011ccc9a34c06555fac58e3e09d3a1
+Patch:          0001-remove-deprecated-ast-references-776.patch
 
 BuildArch:      noarch
 
@@ -73,6 +82,12 @@ ln -s pyflakes-3.1 %{buildroot}%{_mandir}/man1/pyflakes.1
 %exclude %{python3_sitelib}/pyflakes/test
 
 %changelog
+* Thu Jul 13 2023 Adam Williamson <awilliam@redhat.com> - 3.0.1-2
+- Backport another Python 3.12 fix and several required precursors
+
+* Tue Jul 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.0.1-1
+- Update to 3.0.1 (RHBZ #2220224)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.5.0-3
 - Rebuilt for Python 3.12
 

@@ -1,7 +1,7 @@
 %global uuid g3kb-switch@g3kb-switch.org
 
 Name:           g3kb-switch
-Version:        1.2
+Version:        1.3
 Release:        %autorelease
 Summary:        CLI keyboard layout switcher for GNOME Shell
 
@@ -64,8 +64,6 @@ sed -i '1{\@#!/usr/bin/env bash@d}' g3kb-switch-completion.bash
 
 %install
 %cmake_install
-mkdir -p %{buildroot}%{_datadir}/gnome-shell/extensions
-cp -ap extension/%{uuid} %{buildroot}%{_datadir}/gnome-shell/extensions
 
 
 %files

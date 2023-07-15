@@ -2,17 +2,19 @@
 %global pypi_name twilio
 
 Name:           python-%{pypi_name}
-Version:        7.16.5
-Release:        2%{?dist}
+Version:        8.5.0
+Release:        1%{?dist}
 Summary:        Twilio API client and TwiML generator
 
 License:        MIT
-URL:            https://github.com/twilio/%{github_name}/
+URL:            https://github.com/twilio/twilio-python
 Source0:        %{url}/archive/%{version}/%{github_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-jwt
 # Tests requirements:
+BuildRequires:  python3dist(aiounittest)
 BuildRequires:  python3dist(cryptography)
 BuildRequires:  python3dist(django)
 BuildRequires:  python3dist(mock)
@@ -48,15 +50,24 @@ Summary:        %{summary}
 %pyproject_save_files %{pypi_name}
 
 %check
-# Check requires network access to api.twilio.com
+# avoid 'import file mismatch:'
+rm twilio/rest/events/v1/sink/sink_test.py
+# Disable checks requiring network access to api.twilio.com
+# Disable webbook test requiring proprietary ngrok binary
+rm tests/cluster/test_webhook.py
+rm tests/cluster/test_cluster.py
 %pytest \
   --deselect tests/unit/rest/test_client.py::TestUserAgentClients::test_set_default_user_agent \
   --deselect tests/unit/rest/test_client.py::TestUserAgentClients::test_set_user_agent_extensions
+
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 
 %changelog
+* Thu Jul 13 2023 Paul Wouters <paul.wouters@aiven.io - 8.5.0-1
+- Resolves: rhbz#2181314 Update to 8.5.0
+
 * Fri Jul 07 2023 Roman Inflianskas <rominf@aiven.io> - 7.16.5-2
 - Resolves: rhbz#2220542 F39FailsToInstall: python3-twilio
 - Simplify testing (don't install linters)

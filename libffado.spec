@@ -18,6 +18,8 @@ Source9:        libffado-snapshot.sh
 Patch0:         libffado-2.4.4-no-test-apps.patch
 Patch1:         libffado-2.4.4-icon-name.patch
 Patch2:         libffado-2.4.4-scons-quirk.patch
+# Patch for python3.12 imp module removal
+Patch3:         libffado-2.4.7-python312-imp-removal.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  dbus-c++-devel
@@ -75,11 +77,12 @@ Applications and utilities for use with libffado.
 
 %prep
 %autosetup -N
-%patch0 -p1 -b .no-test-apps
-%patch1 -p1 -b .icon-name
+%patch -P0 -p1 -b .no-test-apps
+%patch -P1 -p1 -b .icon-name
 %if %needs_scons_quirk
-%patch2 -p1 -b .scons-quirk
+%patch -P2 -p1 -b .scons-quirk
 %endif
+%patch -P3 -p1 -b .py312
 
 # Fix Python shebangs
 sed -i 's|/usr/bin/.*python$|/usr/bin/python3|' \

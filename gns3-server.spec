@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.40.1
-Release:        2%{?dist}
+Version:        2.2.41
+Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -26,6 +26,7 @@ BuildRequires: python3-sphinx
 BuildRequires: make
 
 Requires(post): busybox
+Requires(post): edk2-ovmf
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends: docker
 Recommends: qemu-kvm
@@ -65,6 +66,8 @@ sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
 sed -i -r 's/importlib-resources>=1.3; python_version <= \x273.9\x27/importlib-resources>=1.3; python_version < \x273.9\x27/' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r '/setuptools/d' requirements.txt
+# gns3server/crash_report.py imports urllib3
+echo 'urllib3>=1.26.15' >> requirements.txt
 
 # Don't bundle busybox with the package
 sed -i -r '/^copy_busybox/d' setup.py
@@ -90,8 +93,9 @@ mkdir -p %{buildroot}%{_unitdir}
 install -m 644 %{SOURCE1} %{buildroot}%{_unitdir}
 mkdir -p  %{buildroot}%{_sharedstatedir}/gns3
 
-## Remove tests: they are outside the namespace
-rm -rf %{buildroot}/%{python3_sitelib}/tests/
+# Don't bundle OVMF_CODE.fd OVMF_VARS.fd with the package
+rm -fv %{buildroot}/%{python3_sitelib}/gns3server/disks/OVMF_CODE.fd
+rm -fv %{buildroot}/%{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
 
 %check
 
@@ -101,6 +105,8 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests/
 %doc README.md AUTHORS CHANGELOG
 %{python3_sitelib}/gns3_server*.egg-info/
 %ghost %{python3_sitelib}/gns3server/compute/docker/resources/bin/busybox
+%ghost %{python3_sitelib}/gns3server/disks/OVMF_CODE.fd
+%ghost %{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
 %{python3_sitelib}/gns3server/
 %{_bindir}/gns3server
 %{_bindir}/gns3vmnet
@@ -124,7 +130,11 @@ exit 0
 %systemd_post gns3.service
 
 # Replace bundled busybox with Fedora one
-cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources/bin/busybox
+cp -fp %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources/bin/busybox
+
+# Replace bundled OVMF_CODE.fd OVMF_VARS.fd with Fedora ones
+cp -fp %{_datadir}/edk2/ovmf/OVMF_CODE.fd %{python3_sitelib}/gns3server/disks/OVMF_CODE.fd
+cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
 
 %preun
 %systemd_preun gns3.service
@@ -133,6 +143,10 @@ cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Thu Jul 13 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.41-1
+- Update to 2.2.41
+- Replace bundled OVMF_CODE.fd OVMF_VARS.fd with Fedora ones
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.2.40.1-2
 - Rebuilt for Python 3.12
 

@@ -11,11 +11,17 @@
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       1%{?dist}
-# LGPLv3+: src/Fl_GDI_Printer.cxx, src/Flv_List.cc, src/Flv_Table.cc
-# BSD: src/tinymt32*
-# MIT: libmicropython.a
-License:       GPLv3+ and MIT
+Release:       2%{?dist}
+# GPL-3.0-or-later: the project as a whole
+# GPL-3.0-only: src/TmpFGLM.*, src/TmpLESystemSolver.*
+# GPL-2.0-or-later: pariinl.h
+# GPL-1.0-or-later OR Artistic-1.0-Perl: src/pgiac
+# LGPL-3.0-or-later: src/Fl_GDK_Printer.cxx, Flv_List.cc, Flv_Table.cc
+# LGPL-2.0-or-later: intl/, src/Flv_Data_Source.H, src/Flv_List.H,
+#   src/Flv_Table.H, src/Flve_Check_Button.H, src/Flve_Combo.H, src/Flve_Input.H
+# MIT: micropython-1.12/, src/cutils.*, src/js.c, src/libbf.*, src/libregexp*,
+#   src/libunicode.*, src/list.h, src/qjs*, src/quickjs*
+License:       GPL-3.0-or-later AND GPL-3.0-only AND GPL-2.0-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LGPL-3.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:           http://www-fourier.ujf-grenoble.fr/~parisse/giac.html
 ## Source package is downloaded from
 ## http://www-fourier.ujf-grenoble.fr/~parisse/debian/dists/stable/main/source/
@@ -50,7 +56,9 @@ BuildRequires: gettext-devel
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: cliquer-devel
+%ifnarch %{ix86}
 BuildRequires: cocoalib-devel
+%endif
 BuildRequires: glpk-devel
 BuildRequires: gmp-devel
 BuildRequires: gmp-ecm-devel
@@ -118,14 +126,16 @@ Development files for libgiac.
 %package doc
 Summary: Detailed html documentation for Giac/Xcas
 BuildArch: noarch
+%ifnarch %{ix86}
 BuildRequires: hevea
+%endif
 BuildRequires: tex(latex), texinfo, texinfo-tex, texlive-stmaryrd
 
 # Javascript provided
 Provides: bundled(CodeMirror)
 Provides: bundled(FileSaver.js)
 
-License:   GPLv3+ and GFDL
+License:   GPL-3.0-or-later AND GFDL-1.1-or-later
 %description doc
 The detailled html documentation and examples for giac and xcas. It is directly
 accessible from xcas in many ways (browser, context search, thematic indexes).
@@ -190,7 +200,7 @@ chmod -x examples/lewisw/fermat*
 find doc -name *~ -delete
 
 # Unbundle texinfo file
-sed -i 's|config/texinfo.tex|%{_datadir}/texmf/tex/texinfo/texinfo.tex|g' Makefile.in
+sed -i 's|config/texinfo.tex|%{_texmf_main}/tex/texinfo/texinfo.tex|g' Makefile.in
 rm -f config/texinfo.tex
 
 # Remove hidden files
@@ -457,6 +467,11 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Thu Jul 13 2023 Jerry James <loganjerry@gmail.com> - 1.9.0.57-2
+- Remove hevea and cocoalib dependencies on i386
+- Fix path to texinfo.tex
+- Convert License tag to SPDX
+
 * Thu Jun 29 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.57-1
 - Update to 1.9.0 sub-57
 

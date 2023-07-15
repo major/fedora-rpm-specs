@@ -4,7 +4,7 @@
 Name:           %{archive_name}
 Epoch:          1
 Version:        6.17.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -70,6 +70,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Thu Jul 13 2023 Python Maint <python-maint@redhat.com> - 1:6.17.2-2
+- Rebuilt for Python 3.12
+
 * Fri Jun 23 2023 Parag Nemade <pnemade AT redhat DOT com> - 1:6.17.2-1
 - Update to 6.17.2 version (#2216901)
 

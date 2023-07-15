@@ -3,8 +3,9 @@
 
 Name:           python-sphinx-tabs
 Version:        3.4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tabbed views for Sphinx
+# SPDX
 License:        MIT
 URL:            https://github.com/executablebooks/sphinx-tabs
 Source0:        https://github.com/executablebooks/%{pypi_name}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
@@ -52,7 +53,7 @@ Requires:       python3-%{pypi_name}
 # The official package doesn't support docutils 0.19 yet
 # It's OK to relax the requirement, the docs are rendered without visual issues
 # https://github.com/executablebooks/sphinx-tabs/issues/171
-sed -i "s/docutils~=0.18.0/docutils<0.20.0/" setup.py
+sed -i "s/docutils~=0.18.0/docutils<0.21.0/" setup.py
 
 %build
 %pyproject_wheel
@@ -78,6 +79,9 @@ PYTHONPATH=$(pwd) sphinx-build -b html docs html_docs
 
 
 %changelog
+* Mon Jul 10 2023 Karolina Surma <ksurma@redhat.com> - 3.4.1-6
+- Allow to install with python-docutils 0.20+
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.4.1-5
 - Rebuilt for Python 3.12
 

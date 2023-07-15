@@ -9,8 +9,8 @@
 
 Summary: A TLS-encrypting socket wrapper
 Name: stunnel
-Version: 5.69
-Release: 2%{?dist}
+Version: 5.70
+Release: 1%{?dist}
 License: GPLv2
 URL: https://www.stunnel.org/
 Source0: https://www.stunnel.org/downloads/stunnel-%{version}.tar.gz
@@ -146,6 +146,10 @@ fi
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Thu Jul 13 2023 Clemens Lang <cllang@redhat.com> - 5.70-1
+- New upstream release 5.70
+  Resolves: rhbz#2222467
+
 * Fri May 12 2023 Paul Wouters <paul.wouters@aiven.io - 5.69-2
 - rebuilt with socket activation support
 

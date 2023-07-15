@@ -1,21 +1,20 @@
 # tests are enabled by default
 %bcond_without tests
 
-%global         srcname        uamqp
-%global         forgeurl       https://github.com/Azure/azure-uamqp-python/
-Version:        1.6.4
-# Microsoft devs released 1.6.4 on PyPi but forgot to tag the repo.
-# Upstream issue: https://github.com/Azure/azure-uamqp-python/issues/364
-%global         commit         0bee678087a85a8b74ca57c5b0eb0b75b6c0cd96
-%forgemeta
+%global         reponame        azure-uamqp-python
+%global         srcname         uamqp
+
+# Upstream doesn't tag/release consistently.
+%global         commit          e506d70252bf5838045d7754829bada85428792e
 
 Name:           python-%{srcname}
+Version:        1.6.5
 Release:        %autorelease
 Summary:        AMQP 1.0 client library for Python
 
 License:        MIT
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/Azure/azure-uamqp-python/
+Source0:        %{url}/archive/%{commit}/%{srcname}-%{version}.tar.gz
 
 # Still waiting on full OpenSSL 3.x support.
 # https://github.com/Azure/azure-uamqp-python/issues/276
@@ -49,7 +48,7 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n %{reponame}-%{commit}
 
 # Remove unexpected cmake requirement from python requirements list.
 sed -i '/cmake/d' pyproject.toml
@@ -68,8 +67,10 @@ sed -i '/cmake/d' pyproject.toml
 %pyproject_save_files uamqp
 
 
-%if %{with tests}
 %check
+%pyproject_check_import
+
+%if %{with tests}
 %pytest
 %endif
 

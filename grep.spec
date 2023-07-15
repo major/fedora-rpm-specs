@@ -1,7 +1,7 @@
 Summary: Pattern matching utilities
 Name: grep
 Version: 3.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL: https://www.gnu.org/software/grep/
 
@@ -97,6 +97,10 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Thu Jul 13 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.11-2
+- Fixed egrep/fgrep aliases
+  Resolves: rhbz#2215713
+
 * Tue Jun  6 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.11-1
 - New version
   Resolves: rhbz#2181063

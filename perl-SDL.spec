@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -47,6 +47,9 @@ Patch0:         SDL-2.548-Fix-implicit-declaration-of-_calc_offset.patch
 # Unbundle Gentium Book Basic font, not suitable for the upstream, the file is
 # delete in %%prep section.
 Patch1:         SDL-2.548-Unbundle-Gentium-Book-Basic-regular-font.patch
+# Adapt to perl 5.37.1, proposed to upstream,
+# <https://github.com/PerlGameDev/SDL/issues/303>
+Patch2:         SDL-2.548-Adapt-to-perl-5.37.1.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  libGLU-devel
@@ -175,6 +178,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{_mandir}/man3/Module::Build::SDL.*
 
 %changelog
+* Wed Jul 12 2023 Petr Pisar <ppisar@redhat.com> - 2.548-19
+- Adapt to perl 5.37.1 (upstream bug #303)
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.548-18
 - Perl 5.38 rebuild
 

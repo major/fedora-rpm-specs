@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-frozenlist
-Version:        1.3.3
+Version:        1.4.0
 Release:        %autorelease
 Summary:        List-like structure which can be made immutable
 

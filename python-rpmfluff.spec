@@ -8,6 +8,9 @@ Summary:       Lightweight way of building RPMs, and sabotaging them
 License:       GPLv2+
 URL:           https://pagure.io/rpmfluff
 Source0:       https://pagure.io/releases/%{modname}/%{modname}-%{version}.tar.xz
+# Fix tests with Python 3.12, from Maxwell G
+# https://pagure.io/rpmfluff/pull-request/43
+Patch0:        43.patch
 
 BuildArch:     noarch
 
@@ -36,7 +39,7 @@ Requires:       createrepo_c
 Python 3 version.
 
 %prep
-%autosetup -n %{modname}-%{version}
+%autosetup -n %{modname}-%{version} -p1
 
 %build
 %py3_build

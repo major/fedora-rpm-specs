@@ -27,11 +27,13 @@ Patch3:           setup.py.patch
 # This patch is temporary until upstream releases 2.0.3. See
 # https://github.com/dpkp/kafka-python/pull/2318
 Patch4:           test_assignors.py.patch
-# These patches are temporary until upstream releases 2.0.3.
+# These patches are temporary until upstream releases 2.0.3. See
+# https://github.com/dpkp/kafka-python/pull/2376
 Patch5:           kafka_codec.py.patch
 Patch6:           test_fixture.py.patch
 Patch7:           test_codec.py.patch
-# This patch is temporary until upstream releases 2.0.3.
+# This patch is temporary until upstream releases 2.0.3. See
+# https://github.com/dpkp/kafka-python/pull/2375
 Patch8:           test_client_async.py.patch
 
 BuildArch:        noarch

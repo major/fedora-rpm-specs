@@ -20,7 +20,7 @@ Patch3:         %{name}-0.4.2-libdir.patch
 # BZ: https://bugzilla.redhat.com/show_bug.cgi?id=1143912
 Patch4:         secarch.patch
 # Fix the installation path for python libs
-Patch5:         %{name}-0.6.2-py3.patch
+Patch5:         %{name}-0.7.0-py3.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -180,6 +180,10 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Thu Jul 13 2023 Rich Mattes <richmattes@gmail.com> - 0.7.0-2
+- Updates for Python 3.12 compatibility
+- Resolves: rhbz#2220025
+
 * Sat Jun 17 2023 Python Maint <python-maint@redhat.com> - 0.7.0-2
 - Rebuilt for Python 3.12
 

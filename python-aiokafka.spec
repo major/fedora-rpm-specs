@@ -3,7 +3,7 @@
 
 Name:       python-%{sname}
 Version:    0.8.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Asyncio client for Kafka
 License:    ASL 2.0
 Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{version}.tar.gz
@@ -47,6 +47,9 @@ AIOKAFKA_NO_EXTENSIONS=1 py.test -s -p no:warnings\
 %doc README.rst
 
 %changelog
+* Thu Jul 13 2023 Roman Inflianskas <rominf@aiven.io> - 0.8.1-2
+- Rebuilt for Python 3.12 (fedora#2220104)
+
 * Thu Jun 29 2023 Roman Inflianskas <rominf@aiven.io> - 0.8.1-1
 - Update to 0.8.1 (resolve rhbz#2211696)
 

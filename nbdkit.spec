@@ -52,7 +52,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.35.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -95,6 +95,7 @@ Patch:          0012-tests-Replace-SRCDIR-with-abs_top_srcdir.patch
 Patch:          0013-tests-test-read-password-Remove-use-of-SRCDIR.patch
 Patch:          0014-tests-Stop-setting-SRCDIR-for-tests.patch
 Patch:          0015-tests-Explicitly-add-L.-plugins-ocaml-.libs-to-find-.patch
+Patch:          0016-perl-Call-PERL_SET_CONTEXT-from-.open-method.patch
 
 BuildRequires: make
 %if 0%{patches_touch_autotools}
@@ -1235,6 +1236,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Thu Jul 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.35.5-6
+- Perl 5.38 re-rebuild updated packages
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.5-5
 - OCaml 5.0 rebuild for Fedora 39
 
