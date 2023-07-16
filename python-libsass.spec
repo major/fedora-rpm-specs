@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.20.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python bindings for libsass
 
 License:        MIT
@@ -10,6 +10,11 @@ URL:            https://github.com/dahlia/libsass-python
 Source0:        %{url}/archive/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 # Patch for correct naming of manpages
 Patch0:     python-libsass-man.patch
+# https://github.com/sass/libsass-python/issues/424
+# https://github.com/sass/libsass-python/pull/433 - a bit modified
+Patch1:         libsass-python-pr433-sphinx60-remove-deprecated-item.patch
+# https://github.com/sass/libsass-python/pull/344
+Patch2:         libsass-python-pr344-sass-365.patch
 
 BuildRequires: make
 BuildRequires:  python3-devel
@@ -39,7 +44,12 @@ sass which is binding Libsass (written in C/C++ by Hampton
 Catlin and Aaron Leung).
 
 %prep
-%autosetup -n %{srcname}-python-%{version} -p1
+%autosetup -n %{srcname}-python-%{version} -N
+%patch -P0 -p1
+%patch -P1 -p1
+if pkg-config --atleast-version 3.6.5 libsass ; then
+%patch -P2 -p1
+fi
 sed -i -e '/^#!\//, 1d' sassc.py
 
 %build
@@ -85,6 +95,10 @@ py.test-3 sasstests.py
 %exclude %{_bindir}/sassc.py
 
 %changelog
+* Fri Jul 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.20.0-12
+- Patch for sphinx 6.0 some deprecated items removal
+- Backport upstream patch for testsuite to support sasl 3.6.5
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.20.0-11
 - Rebuilt for Python 3.12
 

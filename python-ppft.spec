@@ -17,13 +17,13 @@ https://github.com/uqfoundation/ppft/issues, with a legacy list maintained at
 https://uqfoundation.github.io/project/pathos/query.}
 
 Name:           python-ppft
-Version:        1.7.6.5
+Version:        1.7.6.6
 Release:        %autorelease
 Summary:        Distributed and parallel python
 
 License:        BSD
 URL:            https://pypi.org/pypi/ppft
-Source0:        %{pypi_source ppft %{version} tar.gz}
+Source0:        %{pypi_source ppft}
 
 BuildArch:      noarch
 
@@ -32,7 +32,7 @@ BuildArch:      noarch
 %package -n python3-ppft
 Summary:        %{summary}
 BuildRequires:  python3-devel
-# For the examples
+# For the tests
 BuildRequires:  %{py3_dist pox}
 
 # ppft is a drop in replacement of pp
@@ -55,8 +55,6 @@ This package provides documentation for %{name}.
 
 # remove shebangs
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
-# Correct examples files
-chmod -x examples/*
 
 
 %generate_buildrequires
@@ -70,9 +68,9 @@ chmod -x examples/*
 %pyproject_save_files ppft pp
 
 %check
-# run the examples
+# run the tests
 # needs to be run from a directory that does not contain a ppft folder
-cd examples
+cd ppft/tests
 PYTHONPATH="$RPM_BUILD_ROOT/%{python3_sitelib}:$RPM_BUILD_ROOT/%{python3_sitearch}" %{python3} -m ppft.tests
 
 %files -n python3-ppft -f %{pyproject_files}
@@ -81,7 +79,7 @@ PYTHONPATH="$RPM_BUILD_ROOT/%{python3_sitelib}:$RPM_BUILD_ROOT/%{python3_sitearc
 
 %files doc
 %license COPYING LICENSE
-%doc examples
+%doc ppft/tests
 
 %changelog
 %autochangelog

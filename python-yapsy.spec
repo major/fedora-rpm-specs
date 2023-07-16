@@ -9,6 +9,9 @@ Summary:        Simple plugin system for Python applications
 License:        BSD and ISC and CC-BY-SA
 URL:            http://yapsy.sourceforge.net
 Source0:        http://downloads.sourceforge.net/project/%{modname}/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
+# https://github.com/tibonihoo/yapsy/pull/11
+# Should fix yapsy to work with Python 3.12
+Patch:          11.patch
 
 BuildArch:      noarch
 
@@ -28,7 +31,7 @@ BuildRequires:  python3-setuptools
 %description -n python3-%{modname} %{_description}
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p2
 rm -vrf *.egg-info
 
 %build

@@ -22,6 +22,7 @@ BuildRequires:	sed
 BuildRequires:	findutils
 BuildRequires:	grep
 BuildRequires:	python3-devel
+BuildRequires:	python3-setuptools
 Requires:	bash
 Requires:	openssh-clients
 Recommends:	python3-scapy

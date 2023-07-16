@@ -1,6 +1,6 @@
 Name:      pyee
 Version:   9.0.4
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   A port of node.js's EventEmitter to python
 License:   MIT
 URL:       https://pypi.python.org/pypi/pyee
@@ -46,6 +46,9 @@ A port of node.js's EventEmitter to python.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 9.0.4-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

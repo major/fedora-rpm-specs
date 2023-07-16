@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        84
+Version:        85
 
 %gometa
 
@@ -152,6 +152,7 @@ Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.5
 Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.0.3_0.20210326190908_1c3f411f0417
 Provides: bundled(golang(github.com/openshift_online/ocm_sdk_go)) = v0.1.315
 Provides: bundled(golang(github.com/oracle/oci_go_sdk/v54)) = v54.0.0
+Provides: bundled(golang(github.com/osbuild/images)) = v0.0.0_20230710155525_7045e8251769
 Provides: bundled(golang(github.com/pkg/errors)) = v0.9.1
 Provides: bundled(golang(github.com/pmezard/go_difflib)) = v1.0.0
 Provides: bundled(golang(github.com/proglottis/gpgme)) = v0.1.3
@@ -178,7 +179,7 @@ Provides: bundled(golang(github.com/valyala/fasttemplate)) = v1.2.2
 Provides: bundled(golang(github.com/vbatts/tar_split)) = v0.11.2
 Provides: bundled(golang(github.com/vbauerster/mpb/v7)) = v7.4.2
 Provides: bundled(golang(github.com/VividCortex/ewma)) = v1.2.0
-Provides: bundled(golang(github.com/vmware/govmomi)) = v0.29.0
+Provides: bundled(golang(github.com/vmware/govmomi)) = v0.30.5
 Provides: bundled(golang(go.etcd.io/bbolt)) = v1.3.6
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = v0.0.0_20200128120323_432b2356ecb1
 Provides: bundled(golang(go.opencensus.io)) = v0.24.0
@@ -343,7 +344,6 @@ install -m 0755 -vp _bin/osbuild-service-maintenance-tests         %{buildroot}%
 install -m 0755 -vp _bin/osbuild-mock-openid-provider              %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/define-compose-url.sh                    %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/provision.sh                             %{buildroot}%{_libexecdir}/osbuild-composer-test/
-install -m 0755 -vp tools/ansible-blocking-io.py                   %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/gen-certs.sh                             %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/gen-ssh.sh                               %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/image-info                               %{buildroot}%{_libexecdir}/osbuild-composer-test/
@@ -577,6 +577,41 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jul 12 2023 Packit <hello@packit.dev> - 85-1
+Changes with 85
+----------------
+  * Allow any hashing algorithm in osbuild stage inputs (#3514)
+  * COMPOSER-1959: Test on 8.9 and 9.3 nightly (#3422)
+  * Deprecated mas sso (#3531)
+  * Enable CI for Fedora 38 & a few cleanups (#3481)
+  * Fix ISO building on F39 (#3523)
+  * Fix for possibly undefined variable in CI script (#3549)
+  * Introduce test conditions for AWS & Azure (#3493)
+  * Packit/copr: Remove EPEL builds in favor of RHEL ones (#3507)
+  * Remove Juan from the list of QE associates (#3550)
+  * Remove redundant script in upgrade8to9 test (#3508)
+  * Set the tenant in the request context, reuse it for the status and request duration metrics (#3510)
+  * Update Cloud API with new manifest generation process (#3482)
+  * Update manifests (#3494)
+  * Update snapshots to 20230701 (#3540)
+  * Upgrade 8to9 upgrade test for 9.3 (#3505)
+  * cloudapi/v2: cleanup rebase leftovers (#3552)
+  * cloudapi: openscap integration (#3522)
+  * containers/osbuild-composer: add prometheus port parameter (#3497)
+  * distro/rhel8: fix Azure EAP7 RHUI image definition (#3502)
+  * jsondb: improve performance of list operation (#3504)
+  * reorder middlewares in worker and cloud apis (#3534)
+  * templates/dasbhoards: rework composer dashboard (#3538)
+  * test/repos: use EUS CDN repos for RHEL 8.4 / 8.6 / 9.0 (#3467)
+  * test: Four fixes for RHEL for Edge tests (#3532)
+  * test: Remove rebase test shell script (#3530)
+  * test: Some enhancements to make test stable (#3495)
+
+Contributions from: Achilleas Koutsou, Alexander Todorov, Diaa Sami, Eng Zer Jun, Gianluca Zuccarelli, Ondřej Budai, Sanne Raymaekers, Simon de Vlieger, Tomáš Hozza, Xiaofeng Wang, dependabot[bot], schutzbot
+
+— Somewhere on the Internet, 2023-07-12
+
+
 * Wed Jun 14 2023 Packit <hello@packit.dev> - 84-1
 Changes with 84
 ----------------

@@ -4,7 +4,7 @@
 
 # https://github.com/hodgesds/perf-utils
 %global goipath         github.com/hodgesds/perf-utils
-Version:                0.5.1
+Version:                0.7.0
 
 %gometa
 

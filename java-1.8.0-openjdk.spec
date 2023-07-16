@@ -327,7 +327,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      4
+%global rpmrelease      5
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -1165,6 +1165,7 @@ exit 0
 
 %define files_src() %{expand:
 %defattr(-,root,root,-)
+%doc %{_defaultdocdir}/README.md
 %{_jvmdir}/%{sdkdir -- %{?1}}/src.zip
 %{_jvmdir}/%{sdkdir -- %{?1}}/full_sources
 }
@@ -1173,7 +1174,7 @@ exit 0
 %defattr(-,root,root,-)
 %doc %{_javadocdir}/%{uniquejavadocdir -- %{?1}}
 #javadoc is in jdk8 noarch, so also license file must be treated like it
-%license %{_datadir}/license/java-1.8.0-openjdk-javadoc
+%license %{_defaultlicensedir}/java-1.8.0-openjdk-javadoc
 %if %is_system_jdk
 %if %{is_release_build -- %{?1}}
 %ghost %{_javadocdir}/java
@@ -1188,7 +1189,7 @@ exit 0
 %defattr(-,root,root,-)
 %doc %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip
 #javadoc is in jdk8 noarch, so also license file must be treated like it
-%license %{_datadir}/license/java-1.8.0-openjdk-javadoc-zip
+%license %{_defaultlicensedir}/java-1.8.0-openjdk-javadoc-zip
 %if %is_system_jdk
 %if %{is_release_build -- %{?1}}
 %ghost %{_javadocdir}/java-zip
@@ -2040,13 +2041,14 @@ pushd ${jdk_image}
   cp -a bin include lib src.zip {ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
   install -d -m 755 $RPM_BUILD_ROOT%{_jvmdir}/%{jredir -- $suffix}
   cp -a jre/bin jre/lib jre/{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README} $RPM_BUILD_ROOT%{_jvmdir}/%{jredir -- $suffix}
-
+  install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/doc
+  cp -a %{_sourcedir}/README.md $RPM_BUILD_ROOT%{_defaultdocdir}/
   if [ "x$debugbuild" == "x" ] ; then
       #Installing manually as its for noarch
-      install -d -m 766 $RPM_BUILD_ROOT%{_datadir}/license/java-1.8.0-openjdk-javadoc
-      cp -af jre/{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README} $RPM_BUILD_ROOT%{_datadir}/license/java-1.8.0-openjdk-javadoc
-      install -d -m 766 $RPM_BUILD_ROOT%{_datadir}/license/java-1.8.0-openjdk-javadoc-zip
-      cp -af jre/{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README} $RPM_BUILD_ROOT%{_datadir}/license/java-1.8.0-openjdk-javadoc-zip
+      install -d -m 755 $RPM_BUILD_ROOT%{_defaultlicensedir}/java-1.8.0-openjdk-javadoc
+      cp -a jre/{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README} $RPM_BUILD_ROOT%{_defaultlicensedir}/java-1.8.0-openjdk-javadoc
+      install -d -m 755 $RPM_BUILD_ROOT%{_defaultlicensedir}/java-1.8.0-openjdk-javadoc-zip
+      cp -a jre/{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README} $RPM_BUILD_ROOT%{_defaultlicensedir}/java-1.8.0-openjdk-javadoc-zip
   fi
 
 %if %{with_systemtap}
@@ -2523,6 +2525,10 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Thu Jul 13 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.372.b07-5
+- Return missing README.md installation
+- Use default macros for LICENSE and README.md installation
+
 * Thu Jul 13 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.372.b07-4
 - Add fix for LICENSE installation
 

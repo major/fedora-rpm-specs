@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-luv
 Version:        0.5.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml binding to libuv for cross-platform asynchronous I/O
 
 License:        MIT
@@ -59,6 +59,9 @@ export LUV_USE_SYSTEM_LIBUV=yes
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 0.5.12-5
+- Rebuild for ocaml-ctypes 0.21.0
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.5.12-4
 - OCaml 5.0 rebuild for Fedora 39
 

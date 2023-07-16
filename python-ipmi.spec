@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure python IPMI library
 
 License:        LGPLv2+
@@ -61,6 +61,9 @@ export PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}
 %{python3_sitelib}/*-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.5.4-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Luis Bazan <lbazan@fedoraproject.org> - 0.5.4-1
 - New upstream version
 

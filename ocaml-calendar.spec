@@ -5,6 +5,15 @@ ExcludeArch: %{ix86}
 %global debug_package %{nil}
 %endif
 
+# ocaml-alcotest requires ocaml-astring, ocaml-cmdliner, ocaml-fmt, and ocaml-uutf,
+# none of which are otherwise needed for building the OCaml-depenedent packages
+# found in RHEL and ELN.  We want to avoid the extra dependencies there.
+%if 0%{?rhel}
+%bcond_with tests
+%else
+%bcond_without tests
+%endif
+
 Name:           ocaml-calendar
 Version:        3.0.0
 Release:        2%{?dist}
@@ -15,9 +24,12 @@ URL:            https://ocaml-community.github.io/calendar/
 Source0:        https://github.com/ocaml-community/calendar/archive/v%{version}/calendar-%{version}.tar.gz
 
 BuildRequires:  ocaml >= 4.03
-BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-dune >= 1.0
 BuildRequires:  ocaml-re-devel >= 1.7.2
+
+%if %{with tests}
+BuildRequires:  ocaml-alcotest-devel
+%endif
 
 
 %description
@@ -46,8 +58,10 @@ developing applications that use %{name}.
 %dune_install
 
 
+%if %{with tests}
 %check
 %dune_check
+%endif
 
 
 %files -f .ofiles

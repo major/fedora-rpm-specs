@@ -19,7 +19,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           frama-c
 Version:        27.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Cobalt
@@ -56,7 +56,6 @@ BuildRequires:  emacs-nox
 BuildRequires:  flamegraph
 BuildRequires:  graphviz
 BuildRequires:  libgnomecanvas-devel
-BuildRequires:  libyaml-devel
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.11.1
 BuildRequires:  ocaml-apron-devel
@@ -283,6 +282,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 27.0-3
+- Rebuild for ocaml-ctypes 0.21.0
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 27.0-2
 - OCaml 5.0 rebuild for Fedora 39
 

@@ -14,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0.21
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -230,6 +230,9 @@ rm %{buildroot}/usr/setup_requirements.txt
 
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 3.0.21-19
+- Rebuilt for Python 3.12
+
 * Wed Mar  1 2023 Jerry James <loganjerry@gmail.com> - 3.0.21-18
 - Require version 4 of the FontAwesome fonts
 - The FontAwesome web fonts are not needed

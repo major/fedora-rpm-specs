@@ -5,7 +5,7 @@
 %global crate pyo3-log
 
 Name:           rust-pyo3-log
-Version:        0.8.1
+Version:        0.8.3
 Release:        %autorelease
 Summary:        Logging bridge from pyo3 native extension to python
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * relax stricter-than-SemVer requirement for the syn dev-dependency
 Patch:          pyo3-log-fix-metadata.diff
-Patch:          0001-deny-warnings-considered-harmful.patch
 
 BuildRequires:  rust-packaging >= 21
 

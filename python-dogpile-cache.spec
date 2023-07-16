@@ -22,8 +22,8 @@ dogpile.cache in a more efficient and succinct manner, and all the cruft\
 heap.
 
 Name:               python-dogpile-cache
-Version:            1.2.0
-Release:            3%{?dist}
+Version:            1.2.2
+Release:            2%{?dist}
 Summary:            %{sum}
 
 License:            MIT
@@ -38,6 +38,7 @@ BuildRequires:      python3-mako
 BuildRequires:      python3-pytest-cov
 BuildRequires:      python3-setuptools
 BuildRequires:      python3-stevedore
+BuildRequires:      python3-typing-extensions
 
 
 %description
@@ -86,6 +87,12 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Fri Jul 14 2023 Jonathan Wright <jonathan@almalinux.org> - 1.2.2-2
+- Add missing BR
+
+* Fri Jul 14 2023 Jonathan Wright <jonathan@almalinux.org> - 1.2.2-1
+- Update to 1.2.2 rhbz#2208776
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.2.0-3
 - Rebuilt for Python 3.12
 

@@ -8,7 +8,7 @@ fork of python-language-server).
 
 Name:           python-%{short_name}
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python implementation of JSON RPC 2.0 protocol
 
 License:        MIT
@@ -50,6 +50,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 1.0.0-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

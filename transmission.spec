@@ -2,7 +2,7 @@
 
 Name:           transmission
 Version:        4.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -62,9 +62,6 @@ Command line version of Transmission BitTorrent client.
 Summary:       Transmission daemon
 Requires:      transmission-common%{?_isa}
 Requires(pre): shadow-utils
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
 BuildRequires: systemd
 %description daemon
 Transmission BitTorrent client daemon.
@@ -180,6 +177,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Fri Jul 14 2023 Kalev Lember <klember@redhat.com> - 4.0.3-3
+- Remove unnecessary post/preun/postun requires on systemd
+
 * Thu Jun 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.3-2
 - Set build type
 

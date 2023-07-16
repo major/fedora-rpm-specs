@@ -2,7 +2,7 @@
 
 Name:       copr-dist-git
 Version:    0.66
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -140,6 +140,9 @@ touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 %{_tmpfilesdir}/copr-dist-git.conf
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.66-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 0.66-1
 - Skip broken tests caused by new python3-rpkg
 

@@ -4,8 +4,10 @@ ExcludeArch: %{ix86}
 # Optionally disable camomile dep on RHEL.
 %if !0%{?rhel}
 %bcond_without camomile
+%bcond_without tests
 %else
 %bcond_with    camomile
+%bcond_with    tests
 %endif
 
 Name:           ocaml-gettext
@@ -32,7 +34,7 @@ BuildRequires:  ocaml-cppo
 BuildRequires:  docbook-style-xsl
 BuildRequires:  libxslt
 BuildRequires:  libxml2
-%if !0%{?rhel}
+%if %{with tests}
 BuildRequires:  ocaml-ounit-devel
 %endif
 %if %{with camomile}
@@ -101,6 +103,7 @@ signature files for developing applications that use
 
 %if %{without camomile}
 # Remove dependency on camomile.
+rm -f gettext-camomile.opam
 rm -r src/lib/gettext-camomile
 rm -r test/test-camomile
 sed -i -e 's/camomile//' `find -name dune`
@@ -118,8 +121,10 @@ cat .ofiles-gettext-stub >> .ofiles-gettext
 cat .ofiles-gettext-stub-devel >> .ofiles-gettext-devel
 
 
+%if %{with tests}
 %check
 %dune_check
+%endif
 
 
 %files -f .ofiles-gettext

@@ -6,29 +6,35 @@ ExcludeArch: %{ix86}
 %bcond_with test
 
 Name:           ocaml-ctypes
-Version:        0.20.2
-Release:        3%{?dist}
+Version:        0.21.0
+Release:        1%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
 URL:            https://yallop.github.io/ocaml-ctypes/
 Source0:        https://github.com/yallop/ocaml-ctypes/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  make
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-bigarray-compat-devel
-BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-integers-devel >= 0.3.0
-BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-dune >= 2.9
+BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  ocaml-integers-devel >= 0.2.2
 BuildRequires:  pkgconfig(libffi)
-BuildRequires:  python3
 
 %if %{with test}
-BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  ocaml-bisect-ppx-devel
-BuildRequires:  ocaml-lwt-devel >= 3.2.0
+BuildRequires:  ocaml-lwt-devel >= 2.4.7
 BuildRequires:  ocaml-ounit-devel
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(ncurses)
 %endif
+
+# This can be removed when F42 reaches EOL
+Obsoletes:      %{name}-doc < 0.21.0
+Provides:       %{name}-doc = %{version}-%{release}
+
+# Do not require ocaml-compiler-libs at runtime
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Ctypes is a library for binding to C libraries using pure OCaml.  The
@@ -51,62 +57,21 @@ Requires:       ocaml-integers-devel%{?_isa}
 The %{name}-devel package contains libraries and signature
 files for developing applications that use %{name}.
 
-%package        doc
-Summary:        Documentation for %{name}
-BuildArch:      noarch
-
-%description    doc
-The %{name}-doc package contains developer documentation for
-%{name}.
-
 %prep
 %autosetup
 
 # Use Fedora flags
-sed -i 's|-fPIC -Wall -O3|-fPIC %{build_cflags}|' Makefile.rules
-sed -i 's|-fPIC -Wall -g|-fPIC %{build_cflags}|' Makefile.rules
-sed -i 's|=-Wl,--no-as-needed|=%{build_ldflags} -lm|' src/discover/determine_as_needed_flags.sh
-
-# Flags for bigarray-compat are missing
-sed -i 's/(OCAMLFIND_BISECT_FLAGS)/& -package bigarray-compat/' Makefile.rules
-sed -i 's/^DOCFLAGS=/&-I $(shell ocamlfind query bigarray-compat) /' Makefile
-
-# Don't try to update the system ld.conf
-sed -i 's|-add ctypes|& -ldconf %{buildroot}%{ocamldir}/ld.conf|' Makefile
-
-# Fix the name of ounit
-sed -i 's/oUnit/ounit2/g' Makefile.tests
-
-# For OCaml 5.0, do not depend on bytes
-sed -i 's/ bytes//' META
+sed -i 's/ "-cclib"; "-Wl,--no-as-needed";//' src/ctypes-foreign/config/discover.ml
 
 %build
-# FIXME: Infrequent build failures with parallel build
-# It looks like the configuration step isn't done before its results are needed
-make all XEN=disable OCAMLMKLIB_EXTRA_FLAGS='-g -lm'
-%make_build doc XEN=disable
+%dune_build
 
 %install
-export DESTDIR=%{buildroot}%{ocamldir}
-export OCAMLFIND_DESTDIR=$DESTDIR
-mkdir -p $DESTDIR/stublibs
-touch $DESTDIR/ld.conf
-make install XEN=disable
-rm $DESTDIR/ld.conf
-
-# We install the documentation elsewhere
-rm $DESTDIR/ctypes/*.md
-
-# Install the opam files, fixing the version number
-mkdir -p $DESTDIR/ctypes-foreign
-sed 's/"dev"/"%{version}"/' ctypes-foreign.opam > $DESTDIR/ctypes-foreign/opam
-sed 's/"dev"/"%{version}"/' ctypes.opam > $DESTDIR/ctypes/opam
-
-%ocaml_files
+%dune_install
 
 %if %{with test}
 %check
-make test
+%dune_check
 %endif
 
 %files -f .ofiles
@@ -115,11 +80,12 @@ make test
 
 %files devel -f .ofiles-devel
 
-%files doc
-%license LICENSE
-%doc *.html *.css
-
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 0.21.0-1
+- Version 0.21.0
+- Build with dune
+- Drop the doc subpackage
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.20.2-3
 - OCaml 5.0 rebuild for Fedora 39
 

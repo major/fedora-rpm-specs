@@ -1,3 +1,6 @@
+# There are no ELF objects in this package, so turn off debuginfo generation.
+%global debug_package %{nil}
+
 Name:           permlib
 Version:        0.2.9
 Release:        18%{?dist}
@@ -12,7 +15,6 @@ Source1:        %{name}-Doxyfile
 Patch0:         %{name}-0.2.8-gcc6.patch
 # Adapt to changes in recent versions of boost
 Patch1:         %{name}-0.2.9-boost.patch
-BuildArch:      noarch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -37,6 +39,7 @@ smallest set in an orbit of sets.
 # MIT: html/*.js
 License:        BSD-3-Clause AND GPL-1.0-or-later AND MIT
 Summary:        Header files for developing programs that use PermLib
+BuildArch:      noarch
 Requires:       boost-devel
 Provides:       %{name}-static = %{version}-%{release}
 Provides:       bundled(js-jquery)
@@ -82,6 +85,9 @@ cp -a include/%{name} $RPM_BUILD_ROOT%{_includedir}
 %{_includedir}/permlib
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 0.2.9-18
+- Comply with header-only packaging guidelines
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

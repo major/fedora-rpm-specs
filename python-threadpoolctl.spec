@@ -3,10 +3,10 @@
 %global srcname threadpoolctl
 
 Name: python-%{srcname}
-Version: 3.1.0
-Release: 7%{?dist}
+Version: 3.2.0
+Release: 1%{?dist}
 Summary: Thread-pool Controls
-License: BSD
+License: BSD-3-Clause
 
 URL: https://github.com/joblib/threadpoolctl
 Source0: %{pypi_source}
@@ -63,6 +63,10 @@ BuildRequires: python3dist(cython)
 %doc README.md multiple_openmp.md
 
 %changelog
+* Fri Jul 14 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.2.0-1
+- New upstream release (3.2.0)
+- Use GPDX license
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.1.0-7
 - Rebuilt for Python 3.12
 

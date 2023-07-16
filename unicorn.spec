@@ -1,5 +1,5 @@
 Name:           unicorn
-Version:        2.0.1
+Version:        2.0.1.post1
 Release:        %autorelease
 Summary:        Lightweight multi-platform, multi-architecture CPU emulator framework
 
@@ -11,10 +11,6 @@ Summary:        Lightweight multi-platform, multi-architecture CPU emulator fram
 License:        GPLv2 and LGPLv2+ and MIT and BSD
 URL:            https://www.unicorn-engine.org/
 Source0:        https://github.com/unicorn-engine/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:        https://raw.githubusercontent.com/unicorn-engine/%{name}/2.0.1/AUTHORS.TXT
-Source2:        https://raw.githubusercontent.com/unicorn-engine/%{name}/2.0.1/ChangeLog
-Source3:        https://raw.githubusercontent.com/unicorn-engine/%{name}/2.0.1/COPYING
-Source4:        https://raw.githubusercontent.com/unicorn-engine/%{name}/2.0.1/CREDITS.TXT
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -27,6 +23,10 @@ BuildRequires:  python3-setuptools
 # the relationship between Unicorn and QEMU at
 # http://www.unicorn-engine.org/docs/beyond_qemu.html.
 Provides: bundled(qemu) = 2.2.1
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2223039
+# https://github.com/unicorn-engine/unicorn/issues/1840
+ExcludeArch:    s390x
 
 %description
 Unicorn is a lightweight multi-platform, multi-architecture CPU emulator
@@ -51,33 +51,29 @@ The unicorn-python3 package contains python3 bindings for unicorn.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
-cp -p %SOURCE1 .
-cp -p %SOURCE2 .
-cp -p %SOURCE3 .
-cp -p %SOURCE4 .
 
 %build
+%cmake
+%cmake_build
+
+pushd bindings/python
 %py3_build
+popd
 
 %install
+%cmake_install
+
+pushd bindings/python
 %py3_install
-
-mkdir -p $RPM_BUILD_ROOT%{_includedir}
-mv $RPM_BUILD_ROOT%{python3_sitelib}/%{name}/include/unicorn $RPM_BUILD_ROOT%{_includedir}
-
-mkdir -p $RPM_BUILD_ROOT%{_libdir}
-mv $RPM_BUILD_ROOT%{python3_sitelib}/%{name}/lib/* $RPM_BUILD_ROOT%{_libdir}
-
-ln -s libunicorn.so.2 $RPM_BUILD_ROOT%{_libdir}/libunicorn.so
-
-install -D -m 0644 src/build_python/unicorn.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig/unicorn.pc
+popd
 
 rm $RPM_BUILD_ROOT%{_libdir}/libunicorn.a
 
-%ldconfig_scriptlets
+%check
+%ctest
 
 %files
-%doc AUTHORS.TXT ChangeLog CREDITS.TXT README.TXT
+%doc AUTHORS.TXT ChangeLog CREDITS.TXT README.md
 %license COPYING
 %{_libdir}/libunicorn.so.2
 

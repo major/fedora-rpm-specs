@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Iteration for datetime object with cron like format
 
 License:        MIT
@@ -50,6 +50,9 @@ find -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 %doc README.rst
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 1.3.14-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Joel Capitao <jcapitao@redhat.com> - 1.3.14-1
 - Update to 1.3.14
 - Switch to pyproject macros

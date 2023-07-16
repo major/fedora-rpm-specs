@@ -1,7 +1,7 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global gittag   66a5fe7aecd88d3fb0a70cc87aacc642b2d67c8c
+%global gittag   e61194bbed8c2ba8aac1f2720ebe513a571ee664
 %global shorttag %(cut -b -7 <<< %{gittag})
-%global gitdate  20221229
+%global gitdate  20230708
 
 # WARNING: When updating to a newer snapshot, because upstream doesn't do
 # shared library versioning, run abipkgdiff (from libabigail) against the
@@ -21,7 +21,7 @@
 
 Name:           abc
 Version:        1.01
-Release:        37.git%{gitdate}%{?dist}
+Release:        38.git%{gitdate}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 
 # The ABC code itself is MIT-Modern-Variant.
@@ -48,17 +48,12 @@ Patch4:         %{name}-format.patch
 # Fix an out-of-bounds array access in the gia code
 # https://github.com/berkeley-abc/abc/pull/89
 Patch5:         %{name}-gia.patch
-# Prevent a possible buffer overflow
-Patch6:         %{name}-overflow.patch
-# Fix two cases of use-after-free
-# https://github.com/berkeley-abc/abc/pull/193
-Patch7:         %{name}-use-after-free.patch
 # Do not pass NULL to fprintf
 # https://github.com/berkeley-abc/abc/pull/194
-Patch8:         %{name}-null-fprintf.patch
+Patch6:         %{name}-null-fprintf.patch
 # Weaken an overzealous assert
 # https://bitbucket.org/alanmi/abc/issue/27/assertion-failure-in-write_pla-command
-Patch9:         %{name}-weaken-assert.patch
+Patch7:         %{name}-weaken-assert.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -169,6 +164,10 @@ install -p -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1.01-38.git20230708
+- Update to latest git snapshot
+- Drop upstreamed patches: overflow, use-after-free
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-37.git20221229
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

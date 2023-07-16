@@ -3,7 +3,7 @@
 
 # https://github.com/hashicorp/go-envparse
 %global goipath         github.com/hashicorp/go-envparse
-%global commit          d9cfd743a15e3ab6eb52918f9b23bb27042ac8fd
+Version:				0.1.0
 
 %gometa
 
@@ -14,7 +14,6 @@ Minimal environment variable parser for Go.}
 %global godocs          README.md
 
 Name:           %{goname}
-Version:        0
 Release:        %autorelease -p
 Summary:        Minimal environment variable parser for Go
 

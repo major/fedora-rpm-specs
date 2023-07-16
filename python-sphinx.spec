@@ -1,25 +1,22 @@
-# When bootstrapping sphinx, we don't yet have sphinxcontrib-websupport
+# When bootstrapping sphinx in Fedora, we don't yet have sphinxcontrib-websupport
 # Without it we have warnings in docs, but it's not a hard dependency
-%bcond_without websupport
+# We don't want to support sphinxcontrib-websupport in RHEL, hence disabling the dependency
+%bcond websupport %{undefined rhel}
 # Also, we don't have all the tests requirements
-%bcond_without tests
+%bcond tests 1
 
 # Unset -s on python shebang to allow RPM-installed sphinx to be used
 # with user-installed modules (#1903763)
 %undefine _py3_shebang_s
 
 # No internet in Koji
-%bcond_with internet
+%bcond internet 0
 
-%if 0%{?rhel} > 7
 # Build without BuildRequires ImageMagick, to skip imgconverter tests
-%bcond_with imagemagick_tests
-%else
-%bcond_without imagemagick_tests
-%endif
+%bcond imagemagick_tests %{undefined rhel}
 
 # During texlive updates, sometimes the latex environment is unstable
-%bcond_without latex_tests
+%bcond latex_tests 1
 
 %global upstream_name Sphinx
 
@@ -28,7 +25,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -360,6 +357,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Thu Jul 13 2023 Karolina Surma <ksurma@redhat.com> - 1:6.2.1-2
+- Don't use websupport to build documentation on RHEL
+
 * Mon Jun 26 2023 Karolina Surma <ksurma@redhat.com> - 1:6.2.1-1
 - Update to 6.2.1
 - Fixes rhbz#2188968

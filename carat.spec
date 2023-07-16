@@ -59,8 +59,7 @@ BuildArch:      noarch
 Documentation and examples for CARAT.
 
 %prep
-%forgesetup
-%autopatch -p1
+%forgeautosetup -p1
 
 # Don't ship XV thumbnails with the examples
 rm -fr tex/examples/.xvpics
@@ -74,7 +73,7 @@ rm -fr tex/examples/.xvpics
 
 # Build the documentation
 cd tex
-pdflatex -interaction=batchmode manual
+pdflatex manual
 cd -
 
 %install

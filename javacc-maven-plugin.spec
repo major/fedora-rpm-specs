@@ -33,7 +33,7 @@ Maven Plugin for processing JavaCC grammar files.
 %autosetup -n %{name}-%{name}-%{version}
 cp -p %{SOURCE1} .
 
-# Do not use jtb, which is unmaintained.  It accessed only via reflection to
+# Do not use jtb, which is unmaintained.  It is accessed only via reflection to
 # avoid depending on Java 1.5 for compilation.
 %pom_remove_dep edu.ucla.cs.compilers:jtb
 

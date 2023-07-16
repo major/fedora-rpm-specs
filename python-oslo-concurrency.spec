@@ -17,7 +17,7 @@ Tests for the Oslo concurrency library.
 
 Name:           python-oslo-concurrency
 Version:        5.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack Oslo concurrency library
 
 License:        ASL 2.0
@@ -164,6 +164,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_concurrency/locale %{buildroot}%{_datadir
 %license LICENSE
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 5.1.1-3
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 5.1.1-2
 - Update to upstream version 5.1.1
 

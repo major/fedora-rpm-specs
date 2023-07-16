@@ -51,10 +51,10 @@ rm -f bin/*.exe manual.pdf
 
 # Build the manual
 cd manual/latex_source
-pdflatex -interaction=batchmode manual
+pdflatex manual
 bibtex manual
-pdflatex -interaction=batchmode manual
-pdflatex -interaction=batchmode manual
+pdflatex manual
+pdflatex manual
 
 %install
 mkdir -p %{buildroot}%{_bindir}

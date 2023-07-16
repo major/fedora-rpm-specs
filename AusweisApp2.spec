@@ -19,7 +19,10 @@ fi                                               \
 %{?__cmake_in_source_build:%undefine __cmake_in_source_build}
 
 # Do not build non-lto objects to reduce build time significantly.
-%global optflags %(echo '%{optflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
+%global build_cflags   %(echo '%{build_cflags}'   | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
+%global build_cxxflags %(echo '%{build_cxxflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
+%global build_fflags   %(echo '%{build_fflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
+%global build_fcflags  %(echo '%{build_fflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
 
 # Build and package Doxygen documentation?
 %bcond_without    doxy
@@ -37,7 +40,7 @@ fi                                               \
 
 Name:             AusweisApp2
 Version:          1.26.4
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          %{pkg_sum}
 
 License:          EUPL 1.2
@@ -322,6 +325,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jul 14 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.4-4
+- Rebuild(Qt_6.5)
+  Fixes rhbz#2222625
+
 * Sun Jun 04 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.4-3
 - Rebuild(Qt_6.5)
 

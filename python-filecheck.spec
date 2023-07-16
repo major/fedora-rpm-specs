@@ -7,7 +7,7 @@
 
 Name: python-%{pypi_name}
 Version: 0.0.23
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Flexible pattern matching file verifier
 License: ASL 2.0
 URL: https://github.com/mull-project/FileCheck.py
@@ -72,6 +72,9 @@ fi
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.0.23-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 06 2023 Dominik Mierzejewski <dominik@greysector.net> 0.0.23-1
 - update to 0.0.23 (resolves rhbz#2166793)
 - drop obsolete patch

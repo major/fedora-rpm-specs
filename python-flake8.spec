@@ -1,11 +1,21 @@
 Name:             python-flake8
-Version:          5.0.3
-Release:          2%{?dist}
+Version:          6.0.0
+Release:          1%{?dist}
 Summary:          Python code checking using pyflakes, pycodestyle, and mccabe
 
 License:          MIT
 URL:              https://github.com/PyCQA/flake8
 Source:           %{url}/archive/%{version}/flake8-%{version}.tar.gz
+# Upstream patch, Python 3.12-related
+# https://github.com/PyCQA/flake8/pull/1832
+Patch:            1832.patch
+# These are not upstreamed yet because they require whatever the next
+# pycodestyle and pyflakes releases will be, so it would be awkward
+# to merge upstream (it'd break CI). I've filed an issue noting the
+# required changes instead:
+# https://github.com/PyCQA/flake8/issues/1844
+Patch:            0001-Adjust-to-pycodestyle-missing_whitespace-now-taking-.patch
+Patch:            0002-pyflakes-plugin-remove-message-that-was-removed-upst.patch
 
 BuildArch:        noarch
 
@@ -73,6 +83,9 @@ ln -s flake8 %{buildroot}%{_bindir}/python3-flake8
 
 
 %changelog
+* Thu Jul 13 2023 Adam Williamson <awilliam@redhat.com> - 6.0.0-1
+- New release 6.0.0, rebuilt for Python 3.12 with fixes
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

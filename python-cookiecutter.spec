@@ -6,10 +6,10 @@ A command-line utility that creates projects from cookiecutters (project
 templates), e.g. creating a Python package project from a Python package
 project template.}
 
-%bcond_with tests
+%bcond_without tests
 
 Name:      %{pkgname}
-Version:   2.1.1
+Version:   2.2.3
 %forgemeta
 Release:   %autorelease
 Summary:   CLI utility to create projects from templates
@@ -20,6 +20,12 @@ BuildArch: noarch
 
 BuildRequires: python3-devel
 BuildRequires: pyproject-rpm-macros
+%if %{with tests}
+BuildRequires: python3-pytest-cov
+BuildRequires: python3-freezegun
+BuildRequires: python3-pytest-mock
+BuildRequires: git
+%endif
 
 %description %{common_description}
 

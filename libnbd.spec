@@ -2,14 +2,14 @@
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools 1
+%global patches_touch_autotools %{nil}
 
 # The source directory.
 %global source_directory 1.17-development
 
 Name:           libnbd
-Version:        1.17.1
-Release:        6%{?dist}
+Version:        1.17.2
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -24,9 +24,6 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
-
-# Upstream patch to fix OCaml 5 support.
-Patch:          0001-ocaml-Release-runtime-lock-around-call-to-nbd_close.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -377,6 +374,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Fri Jul 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.17.2-1
+- New upstream development version 1.17.2
+
 * Thu Jul 13 2023 Richard W.M. Jones <rjones@redhat.com> - 1.17.1-6
 - Bump and rebuild for updated python3 and perl
 

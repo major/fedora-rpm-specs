@@ -61,6 +61,17 @@ Source18:       ezdxf-pp.1
 Source19:       ezdxf-strip.1
 Source20:       ezdxf-view.1
 
+# fix floating point comparisons and calculations
+# https://github.com/mozman/ezdxf/commit/be7a5e19182c0e5d0c200b826d409d4b52baf2f2
+Patch:          %{forgeurl}/commit/be7a5e19182c0e5d0c200b826d409d4b52baf2f2.patch
+# Loosen a couple of assertions in ezdxf.math.bspline
+# https://github.com/mozman/ezdxf/pull/911
+Patch:          %{forgeurl}/pull/911.patch
+# Together, these fix:
+#
+# A few regressions with Python 3.12
+# https://github.com/mozman/ezdxf/issues/909
+
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
 
@@ -213,26 +224,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 # No need to set EZDXF_TEST_FILES because the files in question are not
 # available (and are presumably not freely distributable). This is fine; it
 # just means a few tests are automatically skipped.
-
-%if v"0%{?python3_version}" >= v"3.12"
-# A few regressions with Python 3.12
-# https://github.com/mozman/ezdxf/issues/909
-#
-# FAILED tests/test_06_math/test_624_global_bspline_interpolation.py::test_chord_length_t_array[fit_points1] - assert 0.9999999999999999 == 1.0
-k="${k-}${k+ and }not test_chord_length_t_array[fit_points1]"
-# FAILED tests/test_06_math/test_624_global_bspline_interpolation.py::test_centripetal_length_t_array[fit_points1] - assert 1.0000000000000002 == 1.0
-k="${k-}${k+ and }not test_centripetal_length_t_array[fit_points1]"
-# FAILED tests/test_06_math/test_624_global_bspline_interpolation.py::test_arc_length_t_array[fit_points1] - assert 0.9999999999999999 == 1.0
-k="${k-}${k+ and }not test_arc_length_t_array[fit_points1]"
-# FAILED tests/test_06_math/test_624_global_bspline_interpolation.py::test_bspline_interpolation[fit_points1] - ValueError: Parametrization vector t has to be normalized.
-k="${k-}${k+ and }not test_bspline_interpolation[fit_points1]"
-# FAILED tests/test_06_math/test_624_global_bspline_interpolation.py::test_bspline_interpolation_first_derivatives[fit_points1] - AssertionError
-k="${k-}${k+ and }not test_bspline_interpolation_first_derivatives[fit_points1]"
-# FAILED tests/test_07_render/test_707_trace.py::test_add_spline_segment - ValueError: Parametrization vector t has to be normalized.
-k="${k-}${k+ and }not test_add_spline_segment"
-# FAILED tests/test_08_addons/test_811_drawing_frontend.py::test_basic_spline - ValueError: Parametrization vector t has to be normalized.
-k="${k-}${k+ and }not test_basic_spline"
-%endif
 
 # See tox-extras.ini:
 # Note: It is NOT safe to parallelize these tests with pytest-xdist!

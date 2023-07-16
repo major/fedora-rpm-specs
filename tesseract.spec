@@ -23,6 +23,7 @@ Patch1:        tesseract_neon.patch
 
 
 BuildRequires: cmake
+BuildRequires: libcurl-devel
 BuildRequires: gcc-c++
 BuildRequires: giflib-devel
 BuildRequires: leptonica-devel
@@ -36,7 +37,8 @@ BuildRequires: /usr/bin/asciidoc
 BuildRequires: /usr/bin/xsltproc
 
 %if %{with mingw}
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-curl
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-giflib
 BuildRequires: mingw32-binutils
@@ -48,7 +50,8 @@ BuildRequires: mingw32-libtiff
 BuildRequires: mingw32-libwebp
 BuildRequires: mingw32-pango
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-curl
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-giflib
 BuildRequires: mingw64-binutils
@@ -143,7 +146,7 @@ done
 # MinGW build
 MINGW32_CMAKE_ARGS=-DTESSDATA_PREFIX=%{mingw32_datadir}/%{name} \
 MINGW64_CMAKE_ARGS=-DTESSDATA_PREFIX=%{mingw64_datadir}/%{name}
-%mingw_cmake -DSW_BUILD=OFF
+%mingw_cmake -DSW_BUILD=OFF -DLEPT_TIFF_RESULT=1
 %mingw_make_build
 %endif
 
@@ -164,7 +167,7 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 %license LICENSE
 %doc AUTHORS ChangeLog README.md
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.5.3.1
+%{_libdir}/lib%{name}.so.5.3.2
 %{_datadir}/%{name}/
 %{_mandir}/man1/tesseract.1*
 

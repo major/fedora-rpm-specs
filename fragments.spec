@@ -1,66 +1,37 @@
-# Fragments requires latest *libtransmission* from master branch with
-# all submodules
+%global upload_hash 7578eee7df552d1f9b995120100959a2
 
-%global transmission_commit 3d9fd25269ccfc1dacf9c5cd23a3d232e0085150
-%global transmission_shortcommit %(c=%{transmission_commit}; echo ${c:0:7})
+Name:           fragments
+Version:        2.1.1
+Release:        1%{?dist}
+Summary:        Easy to use BitTorrent client which follows the GNOME HIG
 
-%global libnatpmp_commit 4d3b9d87bbe7549830c212ce840600619abcf887
-%global libnatpmp_shortcommit %(c=%{libnatpmp_commit}; echo ${c:0:7})
+License:        GPLv3+
+URL:            https://gitlab.gnome.org/World/Fragments
+Source0:        %{url}/uploads/%{upload_hash}/fragments-%{version}.tar.xz
 
-%global dht_commit 25e12bb39eea3d433602de6390796fec8a8f3620
-%global dht_shortcommit %(c=%{dht_commit}; echo ${c:0:7})
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
-%global libutp_commit fda9f4b3db97ccb243fcbed2ce280eb4135d705b
-%global libutp_shortcommit %(c=%{libutp_commit}; echo ${c:0:7})
+BuildRequires:  desktop-file-utils
+BuildRequires:  gettext
+BuildRequires:  git
+BuildRequires:  libappstream-glib
+BuildRequires:  meson
+BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gio-unix-2.0)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gobject-2.0)
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(zlib)
+BuildRequires:  rust-packaging
 
-%global appname Fragments
-%global filename de.haeckerfelix.%{appname}
-%global transmission_url https://github.com/transmission
-
-Name: fragments
-Version: 1.5
-Release: 7%{?dist}
-Summary: Easy to use BitTorrent client which follows the GNOME HIG
-
-# The entire source code is GPLv3+ except:
-# BSD: libnatpmp
-# MIT: transmission
-License: GPLv3+
-URL: https://gitlab.gnome.org/World/Fragments
-Source0: %{url}/-/archive/%{version}/%{appname}-%{version}.tar.gz
-Source1: %{transmission_url}/transmission/tarball/%{transmission_commit}#/transmission-%{transmission_shortcommit}.tar.gz
-Source2: %{transmission_url}/libnatpmp/tarball/%{libnatpmp_commit}#/libnatpmp-%{libnatpmp_shortcommit}.tar.gz
-Source3: %{transmission_url}/dht/tarball/%{dht_commit}#/dht-%{dht_shortcommit}.tar.gz
-Source4: %{transmission_url}/libutp/tarball/%{libutp_commit}#/libutp-%{libutp_shortcommit}.tar.gz
-# Cannot use %%patch because this package uses %%autosetup multiple times.
-Source5: 0001-Add-missing-declaration-for-tr_strcasestr.patch
-
-BuildRequires: cmake
-BuildRequires: desktop-file-utils
-BuildRequires: gcc-c++
-BuildRequires: intltool
-BuildRequires: libappstream-glib
-BuildRequires: libb64-devel
-BuildRequires: meson
-BuildRequires: vala
-BuildRequires: pkgconfig(gio-2.0)
-BuildRequires: pkgconfig(gio-unix-2.0)
-BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: pkgconfig(gobject-2.0)
-BuildRequires: pkgconfig(gtk+-3.0)
-BuildRequires: pkgconfig(libcurl)
-BuildRequires: pkgconfig(libevent) >= 2.0.0
-BuildRequires: pkgconfig(libhandy-1)
-BuildRequires: pkgconfig(miniupnpc)
-BuildRequires: pkgconfig(openssl) >= 0.9.7
-BuildRequires: pkgconfig(zlib)
-
-Requires: hicolor-icon-theme
-
-Provides: bundled(dht) = 0.26.git%{dht_shortcommit}
-Provides: bundled(libnatpmp) = 0.git%{libnatpmp_shortcommit}
-Provides: bundled(libtransmission) = 0.94.git%{transmission_shortcommit}
-Provides: bundled(libutp) = 0.git%{libutp_shortcommit}
+Requires: adwaita-icon-theme
+Requires: transmission-daemon       
 
 %description
 Fragments is an easy to use BitTorrent client which follows the GNOME HIG and
@@ -68,52 +39,11 @@ includes well thought-out features.
 
 
 %prep
-%autosetup -n %{appname}-%{version}
-%autosetup -n %{appname}-%{version} -D -T -a 1
-%autosetup -n %{appname}-%{version} -D -T -a 2
-%autosetup -n %{appname}-%{version} -D -T -a 3
-%autosetup -n %{appname}-%{version} -D -T -a 4
-
-%dnl Workaround for multiple calls to %%autosetup.
-pushd transmission-transmission-*
-patch -p1 < %{SOURCE5}
-popd
-
-mv transmission-libnatpmp-%{libnatpmp_shortcommit}/* \
-   transmission-transmission-%{transmission_shortcommit}/third-party/libnatpmp
-mv transmission-dht-%{dht_shortcommit}/* \
-   transmission-transmission-%{transmission_shortcommit}/third-party/dht
-mv transmission-libutp-%{libutp_shortcommit}/* \
-   transmission-transmission-%{transmission_shortcommit}/third-party/libutp
-
-# Just to be sure libtransmission not compiles with bundled openssl
-rm -r transmission-transmission-%{transmission_shortcommit}/third-party/openssl
+%autosetup -p1
 
 
 %build
-# First build bundled libtransmission
-pushd transmission-transmission-%{transmission_shortcommit}
-%cmake \
-       -DINSTALL_LIB=ON \
-       -DENABLE_DAEMON=OFF \
-       -DENABLE_UTILS=OFF \
-       -DENABLE_TESTS=OFF \
-       -DENABLE_GTK=OFF \
-       -DENABLE_QT=OFF \
-       -DINSTALL_DOC=OFF \
-       %{nil}
-%cmake_build
-%cmake_install
-popd
-
-# Set up env variables so that Fragments build can find libtransmission and its bundled dependencies
-export C_INCLUDE_PATH=%{buildroot}%{_includedir}
-export LIBRARY_PATH=`pwd`/transmission-transmission-%{transmission_shortcommit}/%{__cmake_builddir}/libtransmission:$LIBRARY_PATH
-export LIBRARY_PATH=`pwd`/transmission-transmission-%{transmission_shortcommit}/%{__cmake_builddir}/third-party/natpmp/lib:$LIBRARY_PATH
-export LIBRARY_PATH=`pwd`/transmission-transmission-%{transmission_shortcommit}/%{__cmake_builddir}/third-party/dht/lib:$LIBRARY_PATH
-export LIBRARY_PATH=`pwd`/transmission-transmission-%{transmission_shortcommit}/%{__cmake_builddir}/third-party/utp/lib:$LIBRARY_PATH
-
-# And finally, build Fragments
+export RUSTFLAGS="-g"
 %meson
 %meson_build
 
@@ -130,23 +60,25 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -f %{name}.lang
 %doc README.md
-%license COPYING
+%license COPYING.md
 %{_bindir}/%{name}
 %{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
+%{_datadir}/dbus-1/services/*.service
+%{_datadir}/fragments/*.gresource
 %{_datadir}/icons/hicolor/*/*/*
 %{_metainfodir}/*.xml
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Fri Jul 14 2023 Pete Walter <pwalter@fedoraproject.org> - 2.1.1-1
+- Update to 2.1.1 (rhbz#1878523)
+- ExcludeArch i686 for https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 
-* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 1.5-6
-- Apply upstream patch to fix C99 compatibility issue
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Thu Feb 24 2022 Fries <fries1234@protonmail.com> - 2.0.2-1
+- Update to 2.0.2
+- Switch to libadwaita-1
+- Build now requires Rust
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

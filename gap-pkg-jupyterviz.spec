@@ -11,6 +11,7 @@ ExclusiveArch:  %{gap_arches} noarch
 URL:            https://nathancarter.github.io/jupyterviz/
 Source0:        https://github.com/nathancarter/jupyterviz/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Update the python scripts for python 3
+# https://github.com/nathancarter/jupyterviz/pull/21
 Patch0:         %{name}-python3.patch
 
 BuildRequires:  gap-devel

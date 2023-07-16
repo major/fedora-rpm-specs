@@ -3,7 +3,7 @@
 
 # https://github.com/soundcloud/go-runit
 %global goipath         github.com/soundcloud/go-runit
-%global commit          06ad41a06c4a586951fb8040a697ecd39729640b
+%global commit          bc975d80c917b8f8e671d5dfbe5f76098dc2a185
 
 %gometa
 

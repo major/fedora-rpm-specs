@@ -6,7 +6,7 @@
 %global patches_touch_autotools %{nil}
 %else
 # On RHEL the downstream patches always touch autotools files.
-%global patches_touch_autotools 1
+%global patches_touch_autotools %{nil}
 %endif
 
 # The source directory.
@@ -14,8 +14,8 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.3.4
-Release:       4%{?dist}
+Version:       2.3.5
+Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -30,9 +30,6 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:       copy-patches.sh
-
-# Adapt to OCaml 5.0.0
-Patch0:        %{name}-ocaml5.patch
 
 %if !0%{?rhel}
 # libguestfs hasn't been built on i686 for a while since there is no
@@ -321,6 +318,9 @@ done
 
 
 %changelog
+* Fri Jul 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.5-1
+- New development branch version 2.3.5
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.4-4
 - OCaml 5.0 rebuild for Fedora 39
 

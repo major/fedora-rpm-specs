@@ -49,8 +49,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.51.4
-Release:       8%{?dist}
+Version:       1.51.5
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -329,6 +329,7 @@ Recommends:    libvirt-daemon-config-network
 Requires:      libvirt-daemon-driver-qemu >= 7.1.0
 Requires:      libvirt-daemon-driver-secret
 Requires:      libvirt-daemon-driver-storage-core
+Recommends:    passt
 Requires:      selinux-policy >= 3.11.1-63
 
 %ifarch aarch64
@@ -1092,6 +1093,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Fri Jul 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.5-1
+- New upstream development branch 1.51.5
+
 * Thu Jul 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.51.4-8
 - Perl 5.38 re-rebuild updated packages
 

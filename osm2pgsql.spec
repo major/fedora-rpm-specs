@@ -1,53 +1,67 @@
 Name:           osm2pgsql
-Version:        1.6.0
-Release:        6%{?dist}
+Version:        1.8.1
+Release:        2%{?dist}
 Summary:        Import map data from OpenStreetMap to a PostgreSQL database
 
 License:        GPLv2+
 URL:            https://github.com/openstreetmap/osm2pgsql
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# internal compiler error: Segmentation fault
-ExcludeArch:    ppc64le
+# https://github.com/openstreetmap/osm2pgsql/pull/1958
+Patch0:         osm2pgsql-1.8.1-cstdint.patch
+# https://github.com/openstreetmap/osm2pgsql/pull/2000
+Patch1:         osm2pgsql-1.8.1-fmt10.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  boost-devel
 BuildRequires:  libtool
-BuildRequires:  protobuf-c-devel
-BuildRequires:  libosmium-devel
-BuildRequires:  libxml2-devel
-BuildRequires:  libpq-devel
+BuildRequires:  boost-devel
 BuildRequires:  bzip2-devel
-BuildRequires:  zlib-devel
-BuildRequires:  proj-devel
+BuildRequires:  catch2-devel catch2-static
 BuildRequires:  expat-devel
+BuildRequires:  fmt-devel
+BuildRequires:  libosmium-devel
+BuildRequires:  libpq-devel
+BuildRequires:  libxml2-devel
 BuildRequires:  lua-devel
+BuildRequires:  proj-devel
+BuildRequires:  protozero-devel protozero-static
+BuildRequires:  zlib-devel
+BuildRequires:  postgresql
+BuildRequires:  postgresql-contrib
+BuildRequires:  postgresql-test-rpm-macros
+BuildRequires:  postgis
+BuildRequires:  python3
+BuildRequires:  python3-behave
+BuildRequires:  python3-psycopg2
 
 %description
-Processes the planet file from the community mapping project at
-http://www.openstreetmap.org. The map data is converted from XML to a
-database stored in PostgreSQL with PostGIS geospatial extensions. This
-database may then be used to render maps with Mapnik or for other
-geospatial analysis.
+Provides a tool for loading OpenStreetMap data into a PostgreSQL / PostGIS
+database suitable for applications like rendering into a map, geocoding with
+Nominatim, or general analysis.
 
 %prep
 %autosetup -p1
+rm -rf contrib
+mkdir -p contrib/catch2
+ln -sf /usr/include/catch2 contrib/catch2/include
 
 %build
-mkdir -p build && cd build
-cmake .. -G "Unix Makefiles" \
-    -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-    -DCMAKE_BUILD_TYPE=Debug \
-    -DBUILD_SHARED_LIBS:BOOL=ON \
-    -DBUILD_TESTS=ON
-make all %{?_smp_mflags}
+%cmake \
+  -DEXTERNAL_FMT=ON \
+  -DEXTERNAL_LIBOSMIUM=ON \
+  -DEXTERNAL_PROTOZERO=ON \
+  -DBUILD_TESTS=ON \
+%cmake_build
 
 %install
-cd build
-make install DESTDIR=%{buildroot} INSTALL="install -p"
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+%cmake_install
+
+%check
+PGTESTS_LOCALE="C.UTF-8" %postgresql_tests_run
+mkdir tablespacetest
+psql -c "CREATE TABLESPACE tablespacetest LOCATION '$PWD/tablespacetest'" postgres
+LANG="C.UTF-8" %ctest -j1
 
 %files
 %doc AUTHORS CONTRIBUTING.md README.md
@@ -57,6 +71,13 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Jul 14 2023 Tom Hughes <tom@compton.nu> - 1.8.1-2
+- Unbundle libraries
+- Enable tests
+
+* Tue Jun 27 2023 Tom Hughes <tom@compton.nu> - 1.8.1-1
+- Update to 1.8.1 upstream release
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.6.0-6
 - Rebuilt for Boost 1.81
 

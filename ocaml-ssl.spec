@@ -1,19 +1,25 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
+%global forgeurl https://github.com/savonet/ocaml-ssl
+#global tag    x.y.z
+%global commit ffc634d9adc8ebf5c6cc6cd5002233c4ab233798
+Version:       0.7.0
+%forgemeta
+
 Name:           ocaml-ssl
-Version:        0.6.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        SSL bindings for OCaml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
-URL:            https://github.com/savonet/ocaml-ssl
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  %{_bindir}/openssl
 BuildRequires:  openssl-devel >= 1.0.2
 
 
@@ -33,7 +39,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup
+%forgeautosetup
 
 
 %build
@@ -59,6 +65,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 14 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-1
+- Version 0.7.0 (RHBZ#2118045)
+- Use forge macros
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.0-2
 - OCaml 5.0 rebuild for Fedora 39
 

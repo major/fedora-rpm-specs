@@ -2,7 +2,7 @@
 %bcond_with docs
 
 Name:           python-deepdiff
-Version:        6.3.0
+Version:        6.3.1
 Release:        1%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
@@ -95,6 +95,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Jul 14 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.3.1-1
+- Update to 6.3.1.
+
 * Wed Apr 05 2023 Ryan Erickson <rerickso@redhat.com> - 6.3.0-1
 - Update to 6.3.0.
 - Surface cli extra as subpackage to fix cli if python3-deepdiff+cli installed.

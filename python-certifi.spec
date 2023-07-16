@@ -1,6 +1,6 @@
 Name:           python-certifi
-Version:        2022.12.07
-Release:        2%{?dist}
+Version:        2023.05.07
+Release:        1%{?dist}
 Summary:        Python package for providing Mozilla's CA Bundle
 
 License:        MPL-2.0
@@ -79,6 +79,9 @@ diff --ignore-blank-lines /etc/pki/tls/certs/ca-bundle.crt contents
 
 
 %changelog
+* Fri Jul 14 2023 Jonathan Wright <jonathan@almalinux.org> - 2023.05.07-1
+Update to 2023.05.07 rhbz#2222991
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2022.12.07-2
 - Rebuilt for Python 3.12
 

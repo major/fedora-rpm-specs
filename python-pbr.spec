@@ -1,5 +1,3 @@
-%global _without_tests 1
-%global _with_bootstrap 1
 %global pypi_name pbr
 # Disable bootstrap
 %bcond_with bootstrap
@@ -13,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.11.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -96,6 +94,9 @@ export PYTHONDONTWRITEBYTECODE=1
 %{_bindir}/pbr-3
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 5.11.1-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.11.1-2
 - Bootstrap for Python 3.12
 

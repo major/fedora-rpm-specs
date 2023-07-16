@@ -43,7 +43,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -74,6 +74,9 @@ Patch7:     D141581.diff
 Patch8:     D138472.diff
 
 Patch10:    fix-ieee128-cross.diff
+
+# https://reviews.llvm.org/D155192
+Patch11:    D155192.diff
 
 # RHEL specific patches
 # Avoid unwanted dependency on python-recommonmark
@@ -610,6 +613,9 @@ false
 
 %endif
 %changelog
+* Wed Jul 12 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-2
+- Fix rhbz#2221585
+
 * Fri Jun 16 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
 - Update to LLVM 16.0.6
 

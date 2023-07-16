@@ -49,7 +49,7 @@ BuildRequires: libxsmm-devel >= 1.8.1-3
 BuildRequires: python3-fypp
 BuildRequires: spglib-devel
 BuildRequires: /usr/bin/hostname
-BuildRequires: /usr/bin/pathfix.py
+BuildRequires: python3-devel
 Provides: bundled(dbcsr) = %{dbcsr_version}
 
 # Libint can break the API between releases
@@ -148,7 +148,7 @@ for f in arch/Linux-x86-64-gfortran.{psmp,ssmp}; do
 %endif
 done
 
-pathfix.py -i "%{__python3} -Es" -p $(find . -type f -name *.py)
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i "%{__python3} -Es" -p $(find . -type f -name *.py)
 
 %build
 TARGET=Linux-%{_target_cpu}-gfortran

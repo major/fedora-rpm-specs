@@ -1,7 +1,7 @@
 %global pypi_name launchpadlib
 Name:           python-%{pypi_name}
-Version:        1.10.18
-Release:        3%{?dist}
+Version:        1.11.0
+Release:        1%{?dist}
 Summary:        Script Launchpad through its web services interfaces
 
 License:        LGPLv3
@@ -52,6 +52,10 @@ BuildRequires:  python3dist(wadllib)
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Jul 13 2023 Ondřej Pohořelský <opohorel@redhat.com> - 1.11.0-1
+- Update to 1.11.0
+- Resolves: rhbz#2220302
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.10.18-3
 - Rebuilt for Python 3.12
 

@@ -12,7 +12,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OpenStack Hacking Guideline Enforcement
 
 License:        ASL 2.0
@@ -91,6 +91,9 @@ rm -rf .testrepository/
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 4.0.0-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

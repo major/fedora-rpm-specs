@@ -20,6 +20,7 @@ BuildArch:          noarch
 
 BuildRequires:      python3-devel
 BuildRequires:      python3-py3dns
+BuildRequires:      python3-setuptools
 
 %global _description\
 PyLibravatar is an easy way to make use of the federated Libravatar\

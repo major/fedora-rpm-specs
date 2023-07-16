@@ -7,19 +7,16 @@
 %endif
 
 Name:           foot
-Version:        1.14.0
-Release:        3%{?dist}
+Version:        1.15.0
+Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 License:        MIT
 URL:            https://codeberg.org/dnkl/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-# https://codeberg.org/dnkl/foot/pulls/1318
-# https://codeberg.org/dnkl/foot/pulls/1334
-Patch:          foot-1.14.0-.desktop-add-StartupWMClass-foot.patch
 # Fedora specific: rhbz#2217996
-Patch:          foot-1.14.0-terminfo-set-default-TERM-and-foot-s-terminfo-name-i.patch
+Patch:          foot-1.15.0-terminfo-set-default-TERM-and-foot-s-terminfo-name-i.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.58.0
@@ -153,6 +150,9 @@ desktop-file-validate \
 
 
 %changelog
+* Fri Jul 14 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.15.0-1
+- Update to 1.15.0 (#2222891)
+
 * Thu Jun 29 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.14.0-3
 - Rename terminfo entries to 'foot-extra'/'foot-extra-direct' (rhbz#2217996)
 - Use 'foot' terminfo entry from ncurses-base by default on f39+

@@ -7,7 +7,7 @@
 
 # https://github.com/ema/qdisc
 %global goipath         github.com/ema/qdisc
-%global commit          62d0308e3e0068bcd33c1b6461384e93afb7be9c
+%global commit          5b708f463de37c7d3a891c1beedcf1ce7214a991
 
 %gometa
 

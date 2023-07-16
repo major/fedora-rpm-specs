@@ -1,19 +1,21 @@
 %undefine __cmake_in_source_build
 %global apiver_major 6
-%global apiver %{apiver_major}.0
+%global apiver %{apiver_major}.3
 
 Name:		sdformat
-Version:	6.0.0
-Release:	13%{?dist}
+Version:	6.3.1
+Release:	1%{?dist}
 Summary:	The Simulation Description Format
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		http://sdformat.org/
-Source0:	http://gazebosim.org/distributions/%{name}/releases/%{name}-%{version}.tar.bz2
+Source0:    https://github.com/gazebosim/%{name}/archive/sdformat6_%{version}/%{name}-%{version}.tar.gz
 # Disable doxygen latex documentation
 Patch0:         %{name}-2.0.1-latex.patch
 # Make ruby install path configurable
-Patch1:         %{name}.ruby-lib-install-dir.patch
+# Fix Ruby exists?
+Patch2:         %{name}-6.3.1-fixruby.patch
+
 
 BuildRequires:  gcc-c++
 BuildRequires:	boost-devel
@@ -59,9 +61,9 @@ The %{name}-doc package contains development documentation for
 %{name}.
 
 %prep
-%setup -q
-%patch0 -p0 -b .latex
-%patch1 -p1
+%setup -q -n %{name}-%{name}6_%{version}
+%patch 0 -p0 -b .latex
+%patch 2 -p0 -b .fixruby
 # Remove bundled urdf components
 rm -rf src/urdf
 sed -i 's/unset/#unset/g' CMakeLists.txt
@@ -115,6 +117,12 @@ export GTEST_COLOR=no
 %doc %{_vpath_builddir}/doxygen/html
 
 %changelog
+* Thu Jul 13 2023 Rich Mattes <richmattes@gmail.com> - 6.3.1-1
+- Update to release 6.3.1
+- migrated to SPDX license
+- Fix use of deprecated ruby function
+- Resolves: rhbz#2165939
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

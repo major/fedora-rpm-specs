@@ -16,7 +16,7 @@ Supplements:	(%{name} = %{version}-%{release} and langpacks-%{1})\
 
 Name:		cockatrice
 Version:	2.8.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	A cross-platform virtual tabletop software for multi-player card games
 
 # * Public Domain (cockatrice/resources/countries/*.svg)
@@ -90,6 +90,10 @@ This package provides utilities required by both cockatrice and servatrice.
 %patch0 -p0
 find . -iname "*.h" -exec chmod a-x "{}" \;
 find . -iname "*.cpp" -exec chmod a-x "{}" \;
+# The API for Protobuf v4 (23.x) requires at least C++14. When compiled as
+# C++17, abseil-cpp (a transitive dependency via the generated bindings)
+# requires API users to compile with at least C++17.
+sed -r -i 's/(CMAKE_CXX_STANDARD )11\b/\117/' CMakeLists.txt
 
 
 %build
@@ -159,6 +163,10 @@ rm %{buildroot}%{_datadir}/oracle/translations/oracle_en@pirate.qm
 %{_datadir}/applications/servatrice.desktop
 
 %changelog
+* Fri Jul 14 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-9
+- Build as C++17 instead of C++11: Protobuf v4 (23.x) needs at least C++14, and
+  abseil-cpp compiled as C++17 needs at least C++17
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

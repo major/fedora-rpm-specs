@@ -69,9 +69,8 @@ rm -rf html/{.buildinfo,.doctrees}
 %pyproject_save_files sphinx_autobuild
 
 # Install a man page
-export PYTHONPATH=%{buildroot}%{python3_sitelib}
 mkdir -p %{buildroot}%{_mandir}/man1
-help2man -N %{buildroot}%{_bindir}/sphinx-autobuild > \
+%{py3_test_envvars} help2man -N %{buildroot}%{_bindir}/sphinx-autobuild > \
   %{buildroot}%{_mandir}/man1/sphinx-autobuild.1
 
 %check

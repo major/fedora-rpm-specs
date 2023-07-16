@@ -6,8 +6,8 @@ from an XML text format, which is also called TTX. It supports TrueType, \
 OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
-Version:        4.40.0
-Release:        3%{?dist}
+Version:        4.41.0
+Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -96,6 +96,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m pytest --ignore Tests/o
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 14 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.41.0-1
+- Update to 4.41.0 version (#2222762)
+
 * Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.40.0-3
 - Help msuchy to count this package as already using SPDX license expression
 

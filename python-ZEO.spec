@@ -85,8 +85,8 @@ fi
 cp -p src/ZEO/asyncio/*.so %{buildroot}%{python3_sitearch}/ZEO/asyncio
 
 # Build documentation
-export PYTHONPATH=%{buildroot}%{python3_sitearch}
-sphinx-build -b html -d docs/_build/doctrees docs docs/_build/html
+%{py3_test_envvars} sphinx-build -b html -d docs/_build/doctrees docs \
+  docs/_build/html
 rst2html --no-datestamp CHANGES.rst CHANGES.html
 rst2html --no-datestamp README.rst README.html
 

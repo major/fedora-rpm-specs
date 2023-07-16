@@ -1,8 +1,8 @@
 %global srcname JCTools
 
 Name:           jctools
-Version:        3.3.0
-Release:        6%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        Java Concurrency Tools for the JVM
 License:        ASL 2.0
 
@@ -43,8 +43,6 @@ This package contains javadoc for %{name}.
 
 # drop some failure-prone tests (race conditions?)
 rm jctools-core/src/test/java/org/jctools/queues/MpqSanityTestMpscCompound.java
-rm jctools-core/src/test/java/org/jctools/queues/atomic/AtomicMpqSanityTestMpscCompound.java
-rm jctools-core/src/test/java/org/jctools/maps/NonBlockingHashMapTest.java
 
 # set correct version in all pom.xml files
 %pom_xpath_set pom:project/pom:version %{version}
@@ -58,7 +56,6 @@ rm jctools-core/src/test/java/org/jctools/maps/NonBlockingHashMapTest.java
 %pom_remove_plugin :maven-javadoc-plugin jctools-core
 
 # remove tests with additional kotlin dependencies
-%pom_remove_dep org.jetbrains.kotlinx:lincheck jctools-core
 rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 # disable unused modules with unavailable dependencies
@@ -98,6 +95,9 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 
 %changelog
+* Fri Jul 14 2023 Paul Wouters <paul.wouters@aiven.io - 4.0.1-1
+- Resolves rhbz#2092837 jctools-4.0.1 is available
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

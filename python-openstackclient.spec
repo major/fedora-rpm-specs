@@ -17,7 +17,7 @@ actual REST API client actions.
 
 Name:             python-%{sname}
 Version:          6.2.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Command-line Client
 
 License:          ASL 2.0
@@ -193,6 +193,9 @@ stestr run
 %license LICENSE
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 6.2.0-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 21 2023 Karolina Kula <kkula@redhat.com> 6.2.0-1
 - Update to upstream version 6.2.0
 

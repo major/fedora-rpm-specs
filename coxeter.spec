@@ -60,8 +60,8 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 
 %build
 %make_build optimize=true libdir=%{_libdir}
-pdflatex -interaction=batchmode INTRO.tex
-pdflatex -interaction=batchmode INTRO.tex
+pdflatex INTRO.tex
+pdflatex INTRO.tex
 
 %install
 # Install the library

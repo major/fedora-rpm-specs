@@ -11,15 +11,13 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        9.24.59
-Release:        2%{?dist}
+Version:        9.25.5
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
-License:        GPLv3+
+License:        GPL-3.0-or-later
 # We must use the version uploaded to pypi, as it contains all the required files.
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
-
-Patch0001:      https://github.com/OSInside/kiwi/commit/85b8655f81f646b973553500ba0f4620ec32f80b.patch#/0001-Use-cross-arch-macros-to-interpret-uint64_t.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -55,9 +53,14 @@ Provides:       kiwi-image:tbz
 # tools used by kiwi
 # For building Fedora, RHEL/CentOS, and Mageia based images
 Requires:       dnf
+%if 0%{?fedora} >= 39
+Requires:       dnf5
+Provides:       kiwi-packagemanager:dnf5
+%endif
 Provides:       kiwi-packagemanager:dnf
+Provides:       kiwi-packagemanager:dnf4
 Provides:       kiwi-packagemanager:yum
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if (0%{?fedora} && 0%{?fedora} < 39) || 0%{?rhel} >= 8
 # For building Fedora, RHEL/CentOS, and Mageia based minimal images
 Requires:       microdnf
 Provides:       kiwi-packagemanager:microdnf
@@ -423,7 +426,7 @@ type attribute.
 
 %package cli
 Summary:        Flexible operating system appliance image builder
-Provides:       kiwi-schema = 7.4
+Provides:       kiwi-schema = 7.6
 # So we can reference it by the source package name while permitting this to be noarch
 Provides:       %{name} = %{version}-%{release}
 Requires:       python3-%{name} = %{version}-%{release}
@@ -555,6 +558,9 @@ done
 # Empty metapackage
 
 %changelog
+* Fri Jul 14 2023 Neal Gompa <ngompa@fedoraproject.org> - 9.25.5-1
+- Rebase to 9.25.5 (RH#2195943)
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 9.24.59-2
 - Rebuilt for Python 3.12
 

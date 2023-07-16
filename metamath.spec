@@ -73,13 +73,13 @@ autoreconf -fi
 
 # Build the manual
 touch metamath.ind
-pdflatex -interaction=batchmode metamath
-pdflatex -interaction=batchmode metamath
+pdflatex metamath
+pdflatex metamath
 bibtex metamath
 makeindex metamath.idx
-pdflatex -interaction=batchmode metamath
-pdflatex -interaction=batchmode metamath
-pdflatex -interaction=batchmode metamath
+pdflatex metamath
+pdflatex metamath
+pdflatex metamath
 
 %install
 %make_install

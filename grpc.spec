@@ -1,5 +1,5 @@
-# We need to use C++17 to link against the system abseil-cpp, or we get linker
-# errors.
+# We need to use C++17 to link against the system abseil-cpp, since it was
+# compiled with C++17 (an intentional abseil-cpp design decision).
 %global cpp_std 17
 
 # However, we also get linker errors building the tests if we link against the
@@ -15,7 +15,7 @@
 %global gtest_commit 0e402173c97aea7a00749e825b194bfede4f2e45
 #global gtest_version 1.11.0
 #global gtest_dir googletest-release-#{gtest_version}
-%bcond_with system_gtest
+%bcond system_gtest        0
 
 # =====
 
@@ -65,11 +65,11 @@
 # This must be enabled to get grpc_cli, which is apparently considered part of
 # the tests by upstream. This is mentioned in
 # https://github.com/grpc/grpc/issues/23432.
-%bcond_without core_tests
+%bcond core_tests          1
 
 # A great many of these tests (over 20%) fail. Any help in understanding these
 # well enough to fix them or report them upstream is welcome.
-%bcond_with python_aio_tests
+%bcond python_aio_tests    0
 
 %ifnarch s390x
 # There are currently a significant number of failures like:
@@ -83,21 +83,21 @@
 #       if not self.IsInitialized():
 #              ^^^^^^^^^^^^^^^^^^
 #   AttributeError: 'NoneType' object has no attribute 'IsInitialized'
-%bcond_with python_gevent_tests
+%bcond python_gevent_tests 0
 %else
 # A significant number of Python tests pass in test_lite but fail in
 # test_gevent, mostly by dumping core without a traceback.  Since it is tedious
 # to enumerate these (and it is difficult to implement “suite-specific” skips
 # for shared tests, so the tests would have to be skipped in all suites), we
 # just skip the gevent suite entirely on this architecture.
-%bcond_with python_gevent_tests
+%bcond python_gevent_tests 0
 %endif
 
 # Running core tests under valgrind may help debug crashes. This is mostly
 # ignored if the gdb build conditional is also set.
-%bcond_with valgrind
+%bcond valgrind            0
 # Running core tests under gdb may help debug crashes.
-%bcond_with gdb
+%bcond gdb                 0
 
 # HTML documentation generated with Doxygen and/or Sphinx is not suitable for
 # packaging due to a minified JavaScript bundle inserted by

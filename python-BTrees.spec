@@ -96,7 +96,7 @@ sed -e 's|\("https://zodb\.org/en/latest/": \)None|\1"%{_docdir}/python-ZODB-doc
 %pyproject_install
 %pyproject_save_files BTrees
 
-PYTHONPATH=%{buildroot}%{python3_sitearch} make -C docs html
+%{py3_test_envvars} make -C docs html
 rst2html --no-datestamp CHANGES.rst CHANGES.html
 rst2html --no-datestamp README.rst README.html
 

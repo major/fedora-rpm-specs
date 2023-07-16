@@ -48,14 +48,14 @@ sed -e 's,updatecontact,update_contact,g' \
 appstreamcli validate --no-net $metainfo
 
 %check
-# FIXME: This should not be necessary
-ln -s %{_datadir}/xml/fontconfig/fonts.dtd %{buildroot}%{_fontconfig_templatedir}
 %fontcheck
-rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 
 %fontfiles
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 2.009-7
+- Simplify the font config file
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.009-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

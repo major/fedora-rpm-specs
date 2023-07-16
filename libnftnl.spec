@@ -1,5 +1,5 @@
 Name:           libnftnl
-Version:        1.2.5
+Version:        1.2.6
 Release:        1%{?dist}
 Summary:        Library for low-level interaction with nftables Netlink's API over libmnl
 
@@ -12,9 +12,7 @@ BuildRequires:  jansson-devel
 BuildRequires:  gcc
 BuildRequires:  make
 
-# replace old libnftables package
-Provides: libnftables = %{version}-%{release}
-Obsoletes: libnftables < 0-0.6
+Patch01:        0001-set-Do-not-leave-free-d-expr_list-elements-in-place.patch
 
 %description
 A library for low-level interaction with nftables Netlink's API over libmnl.
@@ -54,6 +52,12 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/libnftnl
 
 %changelog
+* Fri Jul 14 2023 Phil Sutter <psutter@redhat.com> - 1.2.6-1
+- Drop outdated libnftables provides, it might clash with the new
+  nftables-provided libnftables at some point in future
+- Backport one late fix from upstream
+- new version 1.2.6
+
 * Fri Mar 10 2023 Phil Sutter <psutter@redhat.com> - 1.2.5-1
 - new version 1.2.5
 

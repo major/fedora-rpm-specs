@@ -1,5 +1,5 @@
 Name:           fuzzel
-Version:        1.9.1
+Version:        1.9.2
 Release:        %autorelease
 Summary:        Application launcher for wlroots based Wayland compositors
 

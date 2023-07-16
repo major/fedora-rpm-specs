@@ -53,7 +53,7 @@ C++ development of applications that work with multi-media.
 
 
 %package        devel
-Summary:        Headers for developing programs that will use %{package_name}
+Summary:        Headers for developing programs that will use %{name}
 Requires:       %{name} = %{version}-%{release}
 
 %description devel
@@ -114,11 +114,11 @@ developing applications that use mingw64-%{name}.
 %endif
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch0 -p1
-%patch1 -p1 -b .tests
-%patch2 -p1 -b .mingw
-%patch3 -p1 -b .nostdcxx
+%setup -q
+%patch 0 -p1
+%patch 1 -p1 -b .tests
+%patch 2 -p1 -b .mingw
+%patch 3 -p1 -b .nostdcxx
 
 
 %build
@@ -139,7 +139,7 @@ popd
 %install
 pushd %{_target_os}
 %make_install
-find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
+find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 popd
 
 %if 0%{?fedora}

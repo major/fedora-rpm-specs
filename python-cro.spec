@@ -7,40 +7,31 @@ optimization problem) grow and reproduce in a coral-reef, fighting with
 other corals for space and find depredation.}
 
 Name:           python-%{pypi_name}
-Version:        0.0.5.0
-Release:        6%{?dist}
+Version:        0.0.5.2
+Release:        1%{?dist}
 Summary:        An implementation of CRO metaheuristic algorithm
 License:        MIT
 URL:            https://github.com/VictorPelaez/coral-reef-optimization-algorithm
 Source0:        %{pypi_source %{pypi_name}}
 
 # add LICENSE from upstream -- pypi version does not contain license text
+#
+# License file is not distributed in sdist
+# https://github.com/VictorPelaez/coral-reef-optimization-algorithm/issues/71
+#
+# Add the license file to MANIFEST.i
+# https://github.com/VictorPelaez/coral-reef-optimization-algorithm/pull/72
 Source1:        %{url}/raw/cb11d529acd929c488bb433f8bb87f5d1988d923/LICENSE.txt
 
-# Encode dependencies in setup.py, and add matplotlib
-# https://github.com/VictorPelaez/coral-reef-optimization-algorithm/pull/58
-#
-# This patch file touches requirements.txt, which is not included in the
-# PyPI source archive, so we use a modified version that omits the changes
-# to requirements.txt.
-Patch0:         58-pypi.patch
-Patch1:         %{url}/pull/59.patch
+# Add missing dependency on “multiprocess”
+# https://github.com/VictorPelaez/coral-reef-optimization-algorithm/pull/74
+Patch:          %{url}/pull/74.patch
 
-# Import Bunch from sklearn.utils
-# https://github.com/VictorPelaez/coral-reef-optimization-algorithm/pull/63
-#
-# Fixes:
-# Import of Bunch needs to be fixed for recent scikit-learn versions
-# https://github.com/VictorPelaez/coral-reef-optimization-algorithm/issues/62
-Patch2:         %{url}/pull/63.patch
-# Disable example using Boston dataset. Dataset has been removed from scikit-learn
-# https://github.com/VictorPelaez/coral-reef-optimization-algorithm/issues/64
-Patch3:         disable_testcase_using_boston_dataset.patch
-     
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  git-core
+
+BuildRequires:  dos2unix
 
 %description %_description
 
@@ -50,7 +41,11 @@ Summary:        %{summary}
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version} -S git
+%autosetup -N -n %{pypi_name}-%{version}
+# Fix CRNL line endings
+find . -type f \( -name '*.py' -o -name '*.csv' -o -name '*.txt'  \) -print0 |
+  xargs -r -t -0 dos2unix
+%autopatch -p1
 
 # Remove shebangs from modules in site-packages. These are not executable
 # in the source tarball, and lack “script-like” content.  The
@@ -86,18 +81,19 @@ cp %{SOURCE1} .
 # Upstream provides no tests
 %pyproject_check_import
 # Also use the examples as “smoke tests”
-pushd examples
-for example in example_*.py
+for example in examples/example_*.py
 do
   PYTHONPATH='%{buildroot}%{python3_sitelib}' %{python3} "${example}"
 done
-popd
     
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt
-%doc README.txt examples
+%doc README.txt examples/
 
 %changelog
+* Fri Jul 14 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.0.5.2-1
+- Update to 0.0.5.2 (close RHBZ#2220174)
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.0.5.0-6
 - Rebuilt for Python 3.12
 

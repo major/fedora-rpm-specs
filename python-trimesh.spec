@@ -1,12 +1,10 @@
 # F39FailsToInstall: blender
 # https://bugzilla.redhat.com/show_bug.cgi?id=2219945
 %bcond blender 0
-# F39FailsToInstall: python3-scikit-image
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220492
-%bcond skimage 0
+%bcond skimage 1
 
 Name:           python-trimesh
-Version:        3.22.3
+Version:        3.22.4
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 

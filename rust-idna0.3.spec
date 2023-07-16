@@ -2,24 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate assert_cmd
+%global crate idna
 
-Name:           rust-assert_cmd
-Version:        2.0.12
+Name:           rust-idna0.3
+Version:        0.3.0
 Release:        %autorelease
-Summary:        Test CLI Applications
+Summary:        IDNA (Internationalizing Domain Names in Applications) and Punycode
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/assert_cmd
+URL:            https://crates.io/crates/idna
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * prevent binary that is only used by integration tests from being shipped
-Patch:          assert_cmd-fix-metadata.diff
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Test CLI Applications.}
+IDNA (Internationalizing Domain Names in Applications) and Punycode.}
 
 %description %{_description}
 
@@ -35,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,30 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+color-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+color-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "color" feature of the "%{crate}" crate.
-
-%files       -n %{name}+color-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+color-auto-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+color-auto-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "color-auto" feature of the "%{crate}" crate.
-
-%files       -n %{name}+color-auto-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

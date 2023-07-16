@@ -1,7 +1,7 @@
 %global soname 1
 
 Name:           mrcpp
-Version:        1.4.2
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        A numerical mathematics library based on multiresolution analysis
 License:        LGPLv3+
@@ -66,8 +66,8 @@ This package contains the runtime data.
 
 %prep
 %setup -q
-%patch0 -p1 -b .eigen3
-%patch1 -p1 -b .rpath
+%patch 0 -p1 -b .eigen3
+%patch 1 -p1 -b .rpath
 # Remove bundled catch
 rm -rf external/catch/
 
@@ -98,6 +98,9 @@ rm %{buildroot}%{_bindir}/mrcpp-tests
 %{_includedir}/MRCPP/
 
 %changelog
+* Fri Jul 14 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.5.0-1
+- Update to 1.5.0.
+
 * Fri Jan 20 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.4.2-1
 - Update to 1.4.2.
 

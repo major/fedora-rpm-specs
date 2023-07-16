@@ -83,7 +83,7 @@ Requires:       %{name} = %{version}-%{release}
 A script for collapsing PHP trace output for consumption by flamegraph.
 
 %prep
-%forgesetup
+%forgeautosetup
 
 fixtimestamp() {
   touch -r $1.orig $1

@@ -1,7 +1,7 @@
 Summary:	Search mailboxes for a particular email
 Name:		grepmail
 Version:	5.3111
-Release:	16%{?dist}
+Release:	17%{?dist}
 License:	GPL-2.0-only
 URL:		https://metacpan.org/release/grepmail
 Source0:	https://cpan.metacpan.org/authors/id/D/DC/DCOPPIT/grepmail-%{version}.tar.gz
@@ -37,12 +37,11 @@ BuildRequires:	perl(Mail::Mbox::MessageParser) >= 1.4001
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
-# Optional Functionality (note: Time::Local in EL-6 works OK if TZ is set, don't really need 1.23)
 BuildRequires:	perl(Date::Manip)
 BuildRequires:	perl(Date::Parse)
 BuildRequires:	perl(Digest::MD5)
 BuildRequires:	perl(File::Find)
-BuildRequires:	perl(Time::Local)
+BuildRequires:	perl(Time::Local) >= 1.23
 # Test Suite
 BuildRequires:	perl(ExtUtils::Command)
 BuildRequires:	perl(File::Copy)
@@ -54,7 +53,7 @@ BuildRequires:	perl(UNIVERSAL::require)
 # Optional Tests
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
-# Runtime
+# Dependencies
 Requires:	perl(Date::Manip)
 Requires:	perl(Date::Parse)
 Requires:	perl(Digest::MD5)
@@ -72,7 +71,7 @@ operators.
 %setup -q -n %{name}-%{version}
 
 # Workaround for Test::Compile ≥ 2.0.0
-%patch0 -p0
+%patch -P 0 -p0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor --skipdeps
@@ -88,16 +87,16 @@ export TZ=GMT0
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc CHANGES README TODO
 %{_bindir}/grepmail
 %{_mandir}/man1/grepmail.1*
 
 %changelog
+* Fri Jul 14 2023 Paul Howarth <paul@city-fan.org> - 5.3111-17
+- Avoid use of deprecated patch syntax
+- Use %%license unconditionally
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3111-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

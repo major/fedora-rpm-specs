@@ -2,8 +2,8 @@
 %bcond_without perl_HTTP_Tiny_enables_optional_deps
 
 Name:           perl-HTTP-Tiny
-Version:        0.086
-Release:        499%{?dist}
+Version:        0.088
+Release:        1%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Tiny
@@ -118,13 +118,16 @@ make test
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING.mkdn eg README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/HTTP*
+%{_mandir}/man3/HTTP::Tiny*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.088-1
+- 0.088 bump (rhbz#2222007)
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.086-499
 - Increase release to favour standalone package
 

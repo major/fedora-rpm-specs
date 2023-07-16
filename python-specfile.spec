@@ -13,8 +13,8 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.19.0
-Release:        2%{?dist}
+Version:        0.20.0
+Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -24,7 +24,7 @@ Source0:        %{pypi_source specfile}
 
 BuildArch:      noarch
 
-BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python3-devel
 %if %{with tests}
 # tests/unit/test_guess_packager.py
 BuildRequires:  git-core
@@ -71,6 +71,11 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jul 13 2023 Packit <hello@packit.dev> - 0.20.0-1
+- Fixed infinite loop when removing macros with `%` in the name. (#244)
+- Added a possibility to undefine system macros by setting a macro value to `None` in the `macros` argument of the `Specfile` constructor. (#244)
+- Fixed a bug in processing options of `%%prep` macros. For instance, when a quoted string appeared inside an expression expansion, it could lead to improper parsing, rendering the spec file invalid after accessing the options. (#253)
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.19.0-2
 - Rebuilt for Python 3.12
 

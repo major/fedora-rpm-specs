@@ -5,7 +5,7 @@
 %define _gcc_lto_cflags -fno-lto
 
 #See provides(bundled) below for more info:
-%global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround glslang gtest imgui implot rangeset soundtouch VulkanMemoryAllocator zlib-ng
+%global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround glslang imgui implot rangeset soundtouch VulkanMemoryAllocator
 
 #Dolphin uses gitsnapshots for its versions.
 #See upstream release notes for this snapshot:
@@ -22,7 +22,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -41,22 +41,30 @@ Url:            https://dolphin-emu.org/
 License:        GPLv2+ and BSD and MIT and zlib
 Source0:        https://github.com/%{name}/dolphin/archive/%{commit}/%{name}-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
-Source2:        https://github.com/google/googletest/archive/refs/tags/release-1.12.1.tar.gz#/gtest-1.12.1.tar.gz
-Source3:        https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.1.3.tar.gz#/zlib-ng-2.1.3.tar.gz
 Source4:        https://github.com/epezent/implot/archive/refs/tags/v0.14.tar.gz#/implot-0.14.tar.gz
 Source5:        https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/archive/refs/tags/v3.0.1.tar.gz#/VulkanMemoryAllocator-3.0.1.tar.gz
 
-###Bundled code ahoy, I've added versions and upstream urls when known
+Patch0:         https://github.com/dolphin-emu/dolphin/pull/11747/commits/6dad8f837285c32720efa8fcd28de4d197f27611.patch
+#Quick and dirty way to get it building with fmt 10, but it breaks logging:
+%if 0%{?fedora} > 38
+Patch1:         workaroundfmt10issues.patch
+%endif
+
+###Bundled code ahoy, I've added my best guess for versions and upstream urls
 ##The following isn't in Fedora yet:
+#https://github.com/weisslj/cpp-optparse
 Provides:       bundled(cpp-argparse)
 Provides:       bundled(expr)
+#http://elm-chan.org/fsw/ff/00index_e.html
 Provides:       bundled(FatFs) = 0.14b
 Provides:       bundled(FreeSurround)
+#https://github.com/ocornut/imgui
 Provides:       bundled(imgui) = 1.70
-#https://github.com/epezent/implot
-Provides:       bundled(implot) = 0.14
 #https://github.com/AdmiralCurtiss/rangeset
 Provides:       bundled(rangeset)
+##These are not in fedora, but are easy to keep up to date (see sources):
+#https://github.com/epezent/implot
+Provides:       bundled(implot) = 0.14
 #https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
 Provides:       bundled(VulkanMemoryAllocator) = 3.0.1
 ##The hard to unbundle
@@ -69,9 +77,6 @@ Provides:       bundled(glslang)
 #Furthermore, the dolphin gtest test cases that fail with f33/34 bochs
 #My best guess is that this is 2.6.6, as dolphin does not specify
 Provides:       bundled(bochs) = 2.6.6
-##TODO unbundle me, shouldn't be too hard, but not trivial:
-Provides:       bundled(gtest) = 1.12.1
-Provides:       bundled(zlib-ng) = 2.1.3
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -79,8 +84,9 @@ BuildRequires:  alsa-lib-devel
 BuildRequires:  bluez-libs-devel
 BuildRequires:  cmake
 BuildRequires:  cubeb-devel
-BuildRequires:  enet-devel
-BuildRequires:  fmt-devel >= 6.0.0
+BuildRequires:  enet-devel >= 1.3.8
+BuildRequires:  fmt-devel >= 8
+BuildRequires:  gtest-devel
 BuildRequires:  hidapi-devel
 BuildRequires:  libao-devel
 BuildRequires:  libcurl-devel
@@ -91,11 +97,11 @@ BuildRequires:  libusb-compat-0.1-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libXrandr-devel
-BuildRequires:  libzstd-devel
+BuildRequires:  libzstd-devel >= 1.4.0
 BuildRequires:  lzo-devel
 BuildRequires:  mbedtls-devel
 BuildRequires:  mesa-libGL-devel
-BuildRequires:  minizip-ng-devel
+BuildRequires:  minizip-ng-devel >= 3.0.0
 BuildRequires:  miniupnpc-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  picojson-static
@@ -163,8 +169,6 @@ This package provides the data files for dolphin-emu.
 %autosetup -p1 -n dolphin-%{commit}
 
 # Extract bundled submodules:
-gzip -dc %{SOURCE2} | tar -C Externals/gtest --strip-components=1 -xof -
-gzip -dc %{SOURCE3} | tar -C Externals/zlib-ng/zlib-ng --strip-components=1 -xof -
 gzip -dc %{SOURCE4} | tar -C Externals/implot/implot --strip-components=1 -xof -
 gzip -dc %{SOURCE5} | tar -C Externals/VulkanMemoryAllocator --strip-components=1 -xof -
 
@@ -287,6 +291,10 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Fri Jul 14 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 5.0.19793-2
+- Unbundle zlib-ng and gtest
+- Update minimum build requires
+
 * Tue Jul 11 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 5.0.19793-1
 - Update to 5.0-19793
 

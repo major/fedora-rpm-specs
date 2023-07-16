@@ -86,9 +86,9 @@ MinGW libraries and headers for developing programs with check
 %prep
 %setup -q
 %if 0%{?fedora}
-%patch0 -p1 -b .info-in-builddir
+%patch -P0 -p1 -b .info-in-builddir
 %endif
-%patch1 -p1
+%patch -P1 -p1
 
 # Fix detection of various time-related function declarations
 sed -e '/DECLS(\[a/s|)|,,,[AC_INCLUDES_DEFAULT\n[#include <time.h>\n #include <sys/time.h>]]&|' \
@@ -222,6 +222,9 @@ cd -
 %endif
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 0.15.2-9
+- Update deprecated %%patch macro usage
+
 * Mon Feb 13 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.15.2-9
 - Add optional Fedora mingw packages.
 

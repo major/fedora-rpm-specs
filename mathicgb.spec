@@ -1,8 +1,3 @@
-# The ARM builders appear to run out of memory with LTO
-%ifarch %{arm}
-%global _lto_cflags %{nil}
-%endif
-
 %global gitdate         20220621
 %global gittag          f3a05da1494843b5e4e7baa18e644cc6f32baeca
 %global shorttag        %(c=%{gittag}; echo ${c:0:7})
@@ -100,6 +95,9 @@ make check
 %{_libdir}/lib%{name}.so.0*
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1.0-32.20220621.gitf3a05da
+- Drop 32-bit ARM workaround
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-32.20220621.gitf3a05da
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

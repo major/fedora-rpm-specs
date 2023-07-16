@@ -1,5 +1,5 @@
 Name:           sonivox
-Version:        3.6.11
+Version:        3.6.12
 Release:        %{autorelease}
 Summary:        Fork of the AOSP 'platform_external_sonivox' to use out of Android
 

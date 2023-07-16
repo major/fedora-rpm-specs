@@ -69,13 +69,6 @@ mv -f NEWS.utf8 NEWS
 # Update the C++ standard
 sed -i 's/c++0x/c++11/g' configure
 
-# Silence "egrep is obsolescent" warnings
-for f in $(grep -Frl egrep src/groebner test); do
-  sed -i.orig 's/egrep/grep -E/g' $f
-  touch -r $f.orig $f
-  rm $f.orig
-done
-
 %build
 # Do not override Fedora compiler flags
 sed -e 's|-O3 -fomit-frame-pointer|%{build_cflags}|' \
@@ -148,6 +141,9 @@ make check
 %{_libdir}/libzsolve*.so.0*
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1.6.10-1
+- Drop unneeded "egrep is obsolescent" fix (fixed in 1.6.10)
+
 * Sat Apr 29 2023 Jerry James <loganjerry@gmail.com> - 1.6.10-1
 - Version 1.6.10
 - Drop upstreamed memleak & missing-include patches

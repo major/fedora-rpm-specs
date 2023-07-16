@@ -25,16 +25,12 @@ Summary:        %{summary}
 %prep
 %autosetup -n pytest-datadir-%{version}
 
-# Do not attempt to use git to determine the version
-sed -i "s/use_scm_version.*/version='%{version}',/;/setuptools_scm/d" setup.py
-cat > src/pytest_datadir/_version.py << EOF
-version='%{version}'
-EOF
-
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires -t
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
 

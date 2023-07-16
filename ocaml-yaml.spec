@@ -48,6 +48,7 @@ are not implemented in the JSON compatibility layer.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libyaml-devel%{?_isa}
 Requires:       ocaml-bos-devel%{?_isa}
 Requires:       ocaml-ctypes-devel%{?_isa}
 

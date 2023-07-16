@@ -1,10 +1,3 @@
-%{?python_enable_dependency_generator}
-%{!?upstream_version: %global upstream_version %{commit}}
-%global commit ed36d82a0c60a841d2f30c61a50d60531481b2cc
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-# DO NOT REMOVE ALPHATAG
-%global alphatag .%{shortcommit}git
-
 %global collection_namespace openstack
 %global collection_name cloud
 
@@ -12,28 +5,24 @@
 %{!?dlrn: %global tarsources ansible-collections-openstack}
 
 Name:           ansible-collections-openstack
-Version:        2.0.0
-Release:        0.2%{?alphatag}%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Openstack Ansible collections
 License:        GPLv3+
 URL:            %{ansible_collection_url}
-Source0:        https://github.com/openstack/ansible-collections-openstack/archive/%{upstream_version}.tar.gz
+Source0:        https://github.com/openstack/ansible-collections-openstack/archive/%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  ansible-packaging
-%if %{lua:print(rpm.vercmp(rpm.expand("%{version}"), '2.0.0'));} >= 0
-Requires:       python3-openstacksdk > 0.99.0
-%else
-Requires:       python3-openstacksdk < 0.99.0
-%endif
+Requires:       python3-openstacksdk >= 1.0.0
 
 %description
 Openstack Ansible collections
 
 %prep
-%autosetup -n %{tarsources}-%{upstream_version}
+%autosetup -n %{tarsources}-%{version}
 sed -i -e 's/version:.*/version: %{version}/' galaxy.yml
-rm -vr changelogs/ ci/ contrib/ tests/ ./galaxy.yml.in .zuul.yaml setup.py docs bindep.txt
+rm -vr changelogs/ ci/ tests/ ./galaxy.yml.in .zuul.yaml setup.py docs bindep.txt
 
 %build
 %ansible_collection_build
@@ -47,6 +36,9 @@ rm -vr changelogs/ ci/ contrib/ tests/ ./galaxy.yml.in .zuul.yaml setup.py docs 
 %{ansible_collection_files}
 
 %changelog
+* Fri Jul 14 2023 Alfredo Moralejo <amoralej@redhat.com> - 2.1.0-1
+- Update to 2.1.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-0.2.ed36d82git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

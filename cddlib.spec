@@ -92,7 +92,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 # Need one more invocation of pdflatex to get cross references correct
 pushd doc
-pdflatex -interaction=batchmode cddlibman
+pdflatex cddlibman
 popd
 
 

@@ -1,6 +1,6 @@
 Name:           python-colored
-Version:        2.2.2
-Release:        2%{?dist}
+Version:        2.2.3
+Release:        1%{?dist}
 Summary:        Library for color and formatting in terminal
 
 License:        MIT
@@ -50,6 +50,9 @@ sed -i '/#!\/usr\/bin\/env python/d' colored/*.py
 
 
 %changelog
+* Fri Jul 14 2023 Jonathan Wright <jonathan@almalinux.org> - 2.2.3-1
+- Update to 2.2.3 rhbz#2222443
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 2.2.2-2
 - Rebuilt for Python 3.12
 

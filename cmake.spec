@@ -72,10 +72,10 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-%global rcsuf rc4
+%global rcsuf rc5
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -549,6 +549,10 @@ popd
 
 
 %changelog
+* Fri Jul 14 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc5-1
+- cmake-3.27.0-rc5
+  Fixes rhbz#2222977
+
 * Thu Jul 06 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc4-2
 - Fix FTBFS for redhat-rpm-config v260 and later
 - Re-include tests that were failing with rc1

@@ -2,12 +2,16 @@
 
 Name:           python-%{pypi_name}
 Version:        8.2.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A modular, fast, simple, static website and blog generator
 
 License:        MIT and CC0 and BSD
 URL:            https://getnikola.com/
 Source0:        https://github.com/getnikola/nikola/archive/v%{version}/nikola-%{version}.tar.gz
+# https://github.com/getnikola/nikola/issues/3700
+# https://github.com/getnikola/nikola/pull/3701
+# Fix to work with Python 3.12-compatible yapsy
+Patch:          0001-Handle-change-to-plugin-loading-in-recent-yapsy-3700.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -161,6 +165,12 @@ pytest
 
 
 %changelog
+* Fri Jul 14 2023 Adam Williamson <awilliam@redhat.com> - 8.2.4-3
+- Improve the plugin template loading patch
+
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 8.2.4-2
+- Rebuilt for Python 3.12
+
 * Mon May 01 2023 Sandro Mani <manisandro@gmail.com> - 8.2.4-1
 - Update to 8.2.4
 

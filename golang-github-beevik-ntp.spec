@@ -4,7 +4,7 @@
 
 # https://github.com/beevik/ntp
 %global goipath         github.com/beevik/ntp
-Version:                0.3.0
+Version:                1.2.0
 
 %gometa
 

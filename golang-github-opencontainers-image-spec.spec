@@ -28,6 +28,7 @@ Summary:        OCI Image Format Specification
 License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
+Patch1:         fix_unknown_fields_v1.patch
 
 BuildRequires:  golang(gopkg.in/russross/blackfriday.v1)
 

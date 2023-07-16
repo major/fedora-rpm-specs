@@ -10,7 +10,7 @@ and efficiently checking for PEP8 compliance of a project.
 
 Name:           python-%{pypi_name}
 Version:        1.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Plugin for pytest to check PEP8 compliance with Flake8
 
 License:        BSD
@@ -61,6 +61,9 @@ rm -rf %{pypi_name}.egg-info
 %doc README.rst
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 1.1.1-5
+- Rebuilt for Python 3.12
+
 * Thu May 04 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.1.1-4
 - Backport PR#88 for compatibility with flake8==5.0.0
 - BR on python3-py directly; it's dropped from pytest 7.2.0+

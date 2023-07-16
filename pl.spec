@@ -9,11 +9,7 @@
 %global separate_xpce 1
 
 # Name of the architecture-specific lib directory
-%ifarch %{arm}
-%global swipl_arch armv7l-linux
-%else
 %global swipl_arch %{_target_cpu}-linux
-%endif
 
 Name:       pl
 Version:    9.0.4
@@ -145,7 +141,7 @@ Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 # <https://github.com/SWI-Prolog/issues/issues/16>:
 #bench/unify.pl                         Free for non-commercial
 #bench/simple_analyzer.pl               Free for non-commercial
-License:    BSD-2-Clause AND BSD-3-Clause AND (BSD-3-Clause OR GPL-1.0-or-later) AND Beerware AND CC-BY-SA-3.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR Artistic-2.0) AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LPPL-1.2 AND MIT AND Sleepycat AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND Zlib
+License:    BSD-2-Clause AND BSD-3-Clause AND (BSD-3-Clause OR GPL-1.0-or-later) AND Beerware AND CC-BY-SA-3.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH SWI-Exception AND (GPL-2.0-or-later WITH SWI-Exception OR Artistic-2.0) AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LPPL-1.2 AND MIT AND Sleepycat AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND Zlib
 URL:        https://www.swi-prolog.org/
 # Source0: %%{url}download/stable/src/swipl-%%{version}.tar.gz
 # To create the repackaged archive, use ./repackage.sh %%{version}
@@ -347,7 +343,7 @@ in Prolog. In both setups it provides a re-entrant bidirectional interface.
 %prep
 %global docdir doc-install
 %autosetup -N -n swipl-%{version}
-%patch0 -p1 -b .jni
+%patch -P0 -p1 -b .jni
 %autopatch -p1 -m1
 
 # Fix the installation path on 64-bit systems
@@ -606,6 +602,11 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 9.0.4-2
+- Update deprecated %%patchN usage
+- Update License tag with names recently added to Fedora
+- Drop 32-bit ARM support
+
 * Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 9.0.4-2
 - Dynamically generate python BuildRequires
 

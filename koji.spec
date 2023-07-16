@@ -8,8 +8,8 @@
 %{?!python3_pkgversion:%global python3_pkgversion 3}
 
 Name: koji
-Version: 1.33.0
-Release: 2%{?dist}
+Version: 1.33.1
+Release: 1%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -348,6 +348,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Fri Jul 14 2023 Kevin Fenzi <kevin@scrye.com> - 1.33.1-1
+- Update to 1.31.1. Fixes rhbz#2222032
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.33.0-2
 - Rebuilt for Python 3.12
 

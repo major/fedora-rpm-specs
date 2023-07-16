@@ -23,8 +23,8 @@ BuildRequires:  gap-pkg-io
 BuildRequires:  gap-pkg-json
 BuildRequires:  gap-pkg-uuid
 BuildRequires:  gap-pkg-zeromqinterface
-BuildRequires:  jupyter-notebook
 BuildRequires:  %{py3_dist jupyter-client}
+BuildRequires:  %{py3_dist notebook}
 
 Requires:       gap-pkg-crypting
 Requires:       gap-pkg-io

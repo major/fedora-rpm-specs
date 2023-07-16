@@ -1,6 +1,6 @@
 Name:           x2goclient
-Version:        4.1.2.2
-Release:        8%{?dist}
+Version:        4.1.2.3
+Release:        1%{?dist}
 Summary:        X2Go Client application
 
 License:        GPLv2+
@@ -92,6 +92,25 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 
+
+%if 0%{?rhel} && 0%{?rhel} <= 7
+%post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+/bin/touch --no-create %{_datadir}/mime/packages &>/dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+  /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+  /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+  /usr/bin/update-mime-database %{_datadir}/mime &> /dev/null || :
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+/usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
+%endif
+
+
 %files
 %license COPYING LICENSE 
 %doc AUTHORS
@@ -101,11 +120,15 @@ mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 %{_datadir}/icons/hicolor/16x16/apps/%{name}.png
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
+%{_datadir}/mime/packages/x-x2go.xml
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Fri Jul 14 2023 Orion Poplawski <orion@nwra.com> - 4.1.2.3-1
+- Update to 4.1.2.3
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           harfbuzz
-Version:        8.0.0
-Release:        2%{?dist}
+Version:        8.0.1
+Release:        1%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -92,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libharfbuzz-icu.so.*
 
 %changelog
+* Fri Jul 14 2023 Parag Nemade <pnemade AT redhat DOT com> - 8.0.1-1
+- Update to 8.0.1 version (#2222800)
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 8.0.0-2
 - Rebuilt for ICU 73.2
 

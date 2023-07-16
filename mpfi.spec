@@ -63,12 +63,6 @@ sed -i 's/ tdiv_ext\$(EXEEXT)//;s/ trec_sqrt\$(EXEEXT)//' tests/Makefile.in
 # In the 1.5.4 release, the data file needed by this test is missing.
 sed -i 's/texp10\$(EXEEXT) //' tests/Makefile.in
 
-%ifarch %{arm}
-# In the 1.5.4 release, this test fails on 32-bit ARM for unknown reasons.
-# Remove this when F36 reaches EOL (i.e., when 32-bit ARM is completely gone).
-sed -i 's/ tset_ld\$(EXEEXT)//' tests/Makefile.in
-%endif
-
 %build
 %configure
 %make_build

@@ -3,8 +3,8 @@
 %define debug_package %{nil}
 
 Name:           lorax
-Version:        39.1
-Release:        4%{?dist}
+Version:        39.2
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,10 +14,6 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
-# https://github.com/weldr/lorax/pull/1332
-# https://pagure.io/releng/issue/11511
-# adapt to renamed iwl firmware packages
-Patch0:         0001-runtime-install-exclude-renamed-iwl-firmware-package.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -172,14 +168,20 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
-* Tue Jul 04 2023 Adam Williamson <awilliam@redhat.com> - 39.1-4
-- Rebuilt for Python 3.12 again
+* Fri Jul 14 2023 Brian C. Lane <bcl@redhat.com> - 39.2-2
+- plans: prepare is reported to be unneeded and causing issues
 
-* Tue Jul 04 2023 Adam Williamson <awilliam@redhat.com> - 39.1-3
-- Backport PR #1332 to handle renamed iwl firmware packages
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 39.1-2
-- Rebuilt for Python 3.12
+* Fri Jul 14 2023 Brian C. Lane <bcl@redhat.com> 39.2-1
+- pylint: Ignore false positive from pylint on rawhide (bcl@redhat.com)
+- tests: Fix image_minimizer test dnf usage (bcl@redhat.com)
+- tests: Fix HFS test to work with new get_file_magic output (bcl@redhat.com)
+- ltmpl: Use ProcMount while running the dnf transaction (bcl@redhat.com)
+- imgutils: Split part DracutChroot into ProcMount (bcl@redhat.com)
+- runtime-postinstall: Remove libuser.conf (bcl@redhat.com)
+- runtime-install: exclude renamed iwl firmware packages (awilliam@redhat.com)
+- test_minimizer: dnf5 wants --use-host-config (bcl@redhat.com)
+- Install nvme-cli tool and remove machine specific nvme files (bcl@redhat.com)
+- Revert "Add blacklist_exceptions to multipath.conf" (jstodola@redhat.com)
 
 * Wed May 31 2023 Brian C. Lane <bcl@redhat.com> 39.1-1
 - livemedia-creator: Reorganize the qemu arch patch (bcl@redhat.com)

@@ -2,7 +2,7 @@
 
 Summary: C++/Qt5 wrapper around multiple MIDI interfaces
 Name:    drumstick
-Version: 2.7.2
+Version: 2.8.0
 Release: %autorelease
 
 License: GPLv3+
@@ -17,7 +17,7 @@ BuildRequires: qt6-qtbase-devel >= 6.2
 BuildRequires: qt6-qtsvg-devel
 BuildRequires: fluidsynth-devel
 BuildRequires: pulseaudio-libs-devel
-BuildRequires: sonivox-devel
+BuildRequires: sonivox-devel >= 3.6.12
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(Qt6UiPlugin)
 BuildRequires: cmake(Qt6Core5Compat)

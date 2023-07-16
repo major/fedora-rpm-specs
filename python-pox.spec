@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-pox
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Utilities for filesystem exploration and automated builds
 
@@ -14,10 +14,6 @@ URL:            https://github.com/uqfoundation/pox
 Source0:        %{pypi_source pox}
 
 BuildArch:      noarch
-
-# Fix test_shutils when there is “python3” but no “python”
-# https://github.com/uqfoundation/pox/pull/31
-Patch:          %{url}/pull/31.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)

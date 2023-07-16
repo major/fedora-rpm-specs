@@ -4,11 +4,10 @@
 # https://gitlab.com/yawning/obfs4.git
 %global goipath         gitlab.com/yawning/obfs4.git
 %global forgeurl        https://gitlab.com/yawning/obfs4
-Version:                0.0.11
-%global tag             obfs4proxy-0.0.11
-%global distprefix      %{nil}
+Version:                0.0.14
+%global tag             obfs4proxy-0.0.14
 
-%gometa
+%gometa -f
 
 %global goname          obfs4
 
@@ -30,10 +29,10 @@ As an added bonus, obfs4proxy also supports acting as an obfs2/3 client and
 bridge to ease the transition to the new protocol.}
 
 %global golicenses      LICENSE LICENSE-GPL3.txt
-%global godocs          README.md ChangeLog
+%global godocs          doc README.md ChangeLog
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        The obfourscator, a pluggable transport for Tor
 
 License:        GPLv3 and BSD
@@ -82,6 +81,9 @@ install -m 0644 -vp %{SOURCE1}          %{buildroot}%{_sysconfdir}/tor/
 %gopkgfiles
 
 %changelog
+* Fri Jul 14 2023 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 0.0.14-1
+- Update to latest release: 0.0.14
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

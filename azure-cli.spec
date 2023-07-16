@@ -115,7 +115,8 @@ sed -i 's/certifi.=.*$/certifi/' \
 # Remove the unnecessary secure extra from urllib3.
 sed -i 's/urllib3\[secure\]/urllib3/' src/azure-cli/setup.py
 
-# Temporarily allow newer -common versions in rawhide.
+# Temporarily allow newer -core and -common versions in rawhide.
+sed -i 's/^azure-core==.*$/azure-core==1.28.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^azure-common==.*$/azure-common==1.1.28/' src/azure-cli/requirements.py3.Linux.txt
 
 # Allow slightly older versions.

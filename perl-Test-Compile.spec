@@ -1,5 +1,5 @@
 # Real version
-%global cpan_version v3.2.2
+%global cpan_version v3.3.0
 
 Name:           perl-Test-Compile
 Version:        %(echo '%{cpan_version}' | tr -d 'v')
@@ -95,13 +95,16 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Test*
+%{_mandir}/man3/Test::Compile*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.3.0-1
+- 3.3.0 bump (rhbz#2222144)
+
 * Thu Apr 06 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.2.2-1
 - 3.2.2 bump
 

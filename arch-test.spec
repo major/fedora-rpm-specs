@@ -3,15 +3,13 @@
 %global _binaries_in_noarch_packages_terminate_build   0
 
 Name:           arch-test
-Version:        0.20
+Version:        0.21
 Release:        %autorelease
 Summary:        Tools to detect architectures runnable by your machine+kernel
 
 License:        MIT
 URL:            https://github.com/kilobyte/arch-test
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# applied in upstream gitb81ee530d05f6520318858eca858f25d780eb695
-Patch0:         0001-Fix-arc.s-build-on-Fedora.patch
 
 BuildRequires:  make
 # different variants of binutils ustilised by arch-test
@@ -70,6 +68,9 @@ binaries without installing required libraries.
 # add search path to find '-lkernel32'
 sed -i 's:-s win32.o:-s win32.o -L%{mingw32_libdir}:' Makefile
 sed -i 's:-s win64.o:-s win64.o -L%{mingw64_libdir}:' Makefile
+
+# risc32 cross-build binutils is not available in Fedora
+sed -i '0,/riscv32/ {s/riscv32//}' Makefile
 
 # use triplets of cross-build binutils of Fedora
 sed -i 's/sh4-linux-gnu/sh-linux-gnu/' Makefile

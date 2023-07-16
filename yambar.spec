@@ -8,8 +8,8 @@ end}
 %bcond_without  backend_x11
 
 Name:           yambar
-Version:        1.9.0
-Release:        2%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 Summary:        Modular status panel for X11 and Wayland
 
 # The main source is MIT
@@ -119,6 +119,9 @@ desktop-file-validate \
 %{_includedir}/%{name}
 
 %changelog
+* Fri Jul 14 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.10.0-1
+- Update to 1.10.0 (#2222873)
+
 * Sun Jan 29 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.9.0-2
 - Disable -Werror
 

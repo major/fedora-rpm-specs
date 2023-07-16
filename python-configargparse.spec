@@ -1,8 +1,8 @@
 %global srcname ConfigArgParse
 
 Name:           python-configargparse
-Version:        1.5.3
-Release:        5%{?dist}
+Version:        1.5.5
+Release:        1%{?dist}
 Summary:        Python module with support for argparse, config files, and env variables
 
 License:        MIT
@@ -26,6 +26,7 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pyyaml
 %{?python_provide:%python_provide python3-configargparse}
 
 %description -n python3-configargparse
@@ -57,6 +58,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -k "not Test
 %{python3_sitelib}/__pycache__/configargparse*
 
 %changelog
+* Fri Jul 14 2023 Jonathan Wright <jonathan@almalinux.org> - 1.5.5-1
+- Update to 1.5.5 rhbz#2218395
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.3-5
 - Rebuilt for Python 3.12
 

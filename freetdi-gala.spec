@@ -1,3 +1,6 @@
+# There are no ELF objects in this package, so turn off debuginfo generation.
+%global debug_package %{nil}
+
 %global owner    freetdi
 %global project  gala
 
@@ -23,7 +26,6 @@ Patch3:         %{name}-always-true.patch
 # The stdint header is no longer included transitively
 Patch4:         %{name}-stdint.patch
 
-BuildArch:      noarch
 BuildRequires:  boost-devel
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -36,6 +38,7 @@ access -- at your own risk.
 
 %package        devel
 Summary:        C++ graph abstraction with low-level access
+BuildArch:      noarch
 Provides:       %{name}-static = %{version}-%{release}
 Requires:       boost-devel%{?_isa}
 Requires:       tlx-devel%{?_isa}
@@ -71,6 +74,9 @@ make check LOCAL_CXXFLAGS="%{build_cxxflags} -DHAVE_TLX_CONTAINER_BTREE_SET_HPP 
 %{_includedir}/%{project}/
 
 %changelog
+* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1-5
+- Comply with header-only packaging guidelines
+
 * Thu Jan 19 2023 Jerry James <loganjerry@gmail.com> - 1-5
 - Add -stdint patch to fix FBTFS
 

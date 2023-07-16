@@ -1,6 +1,6 @@
 Name:           python-flask-mailman
 Version:        0.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Porting Django's email implementation to your Flask applications
 
 License:        BSD-3-Clause
@@ -54,6 +54,9 @@ Python 3 version.
 
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.3.0-6
+- Rebuilt for Python 3.12
+
 * Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 0.3.0-5
 - Remove reduntant license
 

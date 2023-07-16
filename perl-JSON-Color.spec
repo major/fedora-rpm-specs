@@ -1,6 +1,6 @@
 Name:           perl-JSON-Color
-Version:        0.133
-Release:        6%{?dist}
+Version:        0.134
+Release:        1%{?dist}
 Summary:        Encode to colored JSON
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/JSON-Color/
@@ -21,7 +21,7 @@ BuildRequires:  perl(ColorThemeBase::Static::FromStructColors)
 BuildRequires:  perl(ColorThemeRole::ANSI)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Graphics::ColorNamesLite::WWW)
-BuildRequires:  perl(Module::Load::Util) >= 0.004
+BuildRequires:  perl(Module::Load::Util) >= 0.009
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Role::Tiny)
 # Not used for tests - Scalar::Util::LooksLikeNumber
@@ -33,7 +33,7 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.98
 Requires:       perl(ColorTheme::NoColor)
-Requires:       perl(Module::Load::Util) >= 0.004
+Requires:       perl(Module::Load::Util) >= 0.009
 Requires:       perl(Role::Tiny)
 Requires:       perl(Term::ANSIColor) >= 3.00
 Recommends:     perl(Scalar::Util::LooksLikeNumber)
@@ -87,13 +87,18 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/ColorTheme*
+%{perl_vendorlib}/JSON*
+%{_mandir}/man3/ColorTheme::JSON::Color::*
+%{_mandir}/man3/JSON::Color*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.134-1
+- 0.134 bump (BZ#2219181)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.133-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

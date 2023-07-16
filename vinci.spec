@@ -43,8 +43,8 @@ ETH Zürich, in collaboration with Benno Büeler and Komei Fukuda.
 sed -i 's|-o vinci|& %{build_ldflags}|' makefile
 
 %make_build OPT='%{build_cflags}'
-pdflatex -interaction=batchmode manual.tex
-pdflatex -interaction=batchmode manual.tex
+pdflatex manual.tex
+pdflatex manual.tex
 
 %install
 mkdir -p %{buildroot}%{_bindir}

@@ -12,7 +12,7 @@ Identity API.
 Name:       python-keystoneclient
 Epoch:      1
 Version:    5.1.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Client library for OpenStack Identity API
 License:    ASL 2.0
 URL:        https://launchpad.net/python-keystoneclient
@@ -166,6 +166,9 @@ PYTHON=%{__python3} stestr --test-path=./keystoneclient/tests/unit run --exclude
 %{python3_sitelib}/%{sname}/tests
 
 %changelog
+* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 1:5.1.0-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 1:5.1.0-1
 - Update to upstream version 5.1.0
 

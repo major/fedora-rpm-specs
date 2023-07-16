@@ -85,7 +85,11 @@ rm -vr html/.{doctrees,buildinfo}
 ########################################################################
 %if %{with tests}
 %check
-%{pytest} test -v
+%if v"0%{?python3_version}" >= v"3.12"
+# salt is broken with Python 3.12: https://bugzilla.redhat.com/2222805
+%global skips not test_backend_importables
+%endif
+%{pytest} test -v %{?skips:-k %{shescape:%{skips}}}
 %endif
 
 ########################################################################
