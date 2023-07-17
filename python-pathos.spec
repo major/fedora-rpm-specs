@@ -41,14 +41,14 @@ https://github.com/uqfoundation/pathos/issues, with a legacy list maintained at
 https://uqfoundation.github.io/project/pathos/query.}
 
 Name:           python-pathos
-Version:        0.2.8
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Parallel graph management and execution in heterogeneous computing
 
 
 License:        BSD
 URL:            https://pypi.org/pypi/pathos
-Source0:        %{pypi_source pathos %{version} zip}
+Source0:        %{pypi_source pathos}
 BuildArch:      noarch
 
 %description %_description
@@ -70,7 +70,7 @@ This package includes examples for %{name}.
 %autosetup -n pathos-%{version}
 
 # remove shebang
-find . -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' '{}' \;
+find . -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/d' '{}' \;
 
 # Remove executable bit
 chmod -x examples/*.py
@@ -84,23 +84,25 @@ chmod -x examples2/*.py
 
 %install
 %pyproject_install
+# Remove generated shebang from __info__.py (Kill it with fire!)
+sed -i '/^#![  ]*\/usr\/bin\/env.*$/d' %{buildroot}%{python3_sitelib}/pathos/__info__.py
 %pyproject_save_files pathos
 
 %check
 export PYTHONPATH="%{buildroot}/%{python3_sitearch}:%{buildroot}/%{python3_sitelib}"
 # https://github.com/uqfoundation/pathos/blob/master/.travis.yml
-for test in tests/__init__.py; do echo $test ; %{python3} $test ; done
-for test in tests/test_*.py; do echo $test ; %{python3} $test ; done
+for test in pathos/tests/__init__.py; do echo $test ; %{python3} $test ; done
+for test in pathos/tests/test_*.py; do echo $test ; %{python3} $test ; done
 
 %files -n python3-pathos -f %{pyproject_files}
 %license LICENSE
 %{_bindir}/portpicker
 %{_bindir}/pathos_connect
-%doc README.md README
+%doc README.md
 
 %files doc
 %license LICENSE
-%doc README.md README
+%doc README.md
 %doc examples/
 %doc examples2/
 

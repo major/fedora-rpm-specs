@@ -5,20 +5,19 @@
 
 %global crate rustls-native-certs
 
+# compile and run tests only on supported architectures
+%global supported_arches x86_64 %{ix86} aarch64 %{arm}
+
 Name:           rust-rustls-native-certs
-Version:        0.6.2
+Version:        0.6.3
 Release:        %autorelease
 Summary:        Allow rustls to use the platform native certificate store
 
-# Upstream license specification: Apache-2.0/ISC/MIT
 License:        Apache-2.0 OR ISC OR MIT
 URL:            https://crates.io/crates/rustls-native-certs
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          rustls-native-certs-fix-metadata-auto.diff
-
-# ring is not available on ppc64le and s390x
-ExcludeArch:    ppc64le s390x
 
 BuildRequires:  rust-packaging >= 21
 
@@ -67,14 +66,18 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifarch %{supported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifarch %{supported_arches}
 %check
 %cargo_test
+%endif
 %endif
 
 %changelog

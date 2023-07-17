@@ -8,11 +8,10 @@
 %global supported_arches x86_64 %{ix86} aarch64 %{arm}
 
 Name:           rust-hyper-rustls
-Version:        0.24.0
+Version:        0.24.1
 Release:        %autorelease
 Summary:        Rustls+hyper integration for pure rust HTTPS
 
-# Upstream license specification: Apache-2.0/ISC/MIT
 License:        Apache-2.0 OR ISC OR MIT
 URL:            https://crates.io/crates/hyper-rustls
 Source:         %{crates_source}
@@ -55,6 +54,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+acceptor-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+acceptor-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "acceptor" feature of the "%{crate}" crate.
+
+%files       -n %{name}+acceptor-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+http1-devel

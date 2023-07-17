@@ -1,7 +1,7 @@
 %global __remake_config 0
 
 Name:           libfabric
-Version:        1.18.0
+Version:        1.18.1
 Release:        1%{?dist}
 Summary:        Open Fabric Interfaces
 
@@ -94,6 +94,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jul 15 2023 Orion Poplawski <orion@nwra.com> - 1.18.1-1
+- Update to 1.18.1
+
 * Sun Apr 09 2023 Orion Poplawski <orion@nwra.com> - 1.18.0-1
 - Update to 1.18.0
 - Use SPDX License tag

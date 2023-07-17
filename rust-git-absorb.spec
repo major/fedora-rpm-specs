@@ -4,7 +4,7 @@
 %global crate git-absorb
 
 Name:           rust-git-absorb
-Version:        0.6.9
+Version:        0.6.10
 Release:        %autorelease
 Summary:        Git commit --fixup, but automatic
 
@@ -25,15 +25,15 @@ Git commit --fixup, but automatic.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
 # BSD-3-Clause
 # MIT
-# MIT AND GPL-2.0-only WITH GCC-exception-2.0 AND BSD-3-Clause
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # MPL-2.0 OR MIT OR Apache-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        BSD-3-Clause AND MIT AND GPL-2.0-only WITH GCC-exception-2.0
+License:        BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR Zlib) AND (MPL-2.0 OR MIT OR Apache-2.0) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

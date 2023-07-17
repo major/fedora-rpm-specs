@@ -1,9 +1,8 @@
 %global genname superlu
-%global libver 5.3
 
 Name:		SuperLU
-Version:	5.3.0
-Release:	5%{?dist}
+Version:	6.0.0
+Release:	1%{?dist}
 Summary:	Subroutines to solve sparse linear systems
 License:	BSD and GPLv2+
 URL:		https://portal.nersc.gov/project/sparse/superlu/
@@ -14,14 +13,14 @@ Source1:        %{name}-fedora-make.inc.in
 
 Patch0:		%{genname}-removemc64.patch
 
-# Patch soname (5 -> 5.x) of shared library
-Patch1:		%{name}-set_soname.patch
-
 # Fix ldflags of example files
-Patch2:         %{name}-fix_example_builds.patch
-Patch3: SuperLU-c99.patch
+Patch1:         %{name}-fix_example_builds.patch
 
-%if 0%{?fedora} >= 33
+Patch2:         %{name}-c99.patch
+
+Patch3:         %{name}-fix-align-declarations-malloc.patch
+
+%if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires: pkgconfig(flexiblas)
 %else
 %ifarch %{openblas_arches}
@@ -34,6 +33,7 @@ BuildRequires:	atlas-devel
 BuildRequires:	epel-rpm-macros
 %endif
 %endif
+BuildRequires:	metis-devel
 BuildRequires:	make
 BuildRequires:	cmake3
 BuildRequires:	gcc, gcc-gfortran
@@ -81,59 +81,34 @@ done
 sed -e 's|-O0|-O2|g' -i SRC/CMakeLists.txt
 
 %build
-mkdir -p build
-%cmake3 -S . -B build \
+%cmake \
    -Denable_internal_blaslib:BOOL=NO \
-%if 0%{?fedora} >= 33
+   -DXSDK_ENABLE_Fortran:BOOL=OFF \
+   -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{__global_fflags}" \
+%if 0%{?fedora} || 0%{?rhel} > 9
    -DTPL_BLAS_LIBRARIES="`pkg-config --libs flexiblas`" \
 %else
    -DTPL_BLAS_LIBRARIES=-lopenblas \
 %endif
+   -DTPL_ENABLE_METISLIB:BOOL=ON \
+   -DTPL_METIS_INCLUDE_DIRS:PATH=%{_includedir} \
+   -DTPL_METIS_LIBRARIES:FILEPATH=%{_libdir}/libmetis.so \
    -DCMAKE_BUILD_TYPE:STRING=Release \
    -DCMAKE_INSTALL_INCLUDEDIR:PATH=include/%{name} \
    -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
    -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
-%make_build -C build
-
-# Compile Fortran example interface to use the C routines in SuperLU
-%if 0%{?fedora} >= 33
-export TPL_BLAS_LIBRARIES="`pkg-config --libs flexiblas`" \
-%else
-export TPL_BLAS_LIBRARIES=-lopenblas \
-%endif
-export LDFLAGS="%{build_ldflags}"
-export FFLAGS="%{build_fflags}"
-export CFLAGS="%{build_cflags}"
-make -C FORTRAN
-make -C EXAMPLE
+%cmake_build
 
 %install
-%make_install -C build
+%cmake_install
 
 %check
-pushd build
-ctest3 -V %{?_smp_mflags}
-popd
-
-# Test Fortran example interface to use the C routines in SuperLU
-pushd FORTRAN
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
-./df77exm < ../EXAMPLE/g20.rua
-./zf77exm < ../EXAMPLE/cg20.cua
-./test_omp < ../EXAMPLE/g20.rua
-make clean
-popd
-# Test sample programs
-pushd EXAMPLE
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
-./superlu
-make clean
-popd
+%ctest
 
 %files
 %license License.txt
-%{_libdir}/libsuperlu.so.5
-%{_libdir}/libsuperlu.so.%{libver}
+%{_libdir}/libsuperlu.so.6
+%{_libdir}/libsuperlu.so.6.0.0
 
 %files devel
 %{_includedir}/%{name}/
@@ -146,6 +121,9 @@ popd
 %doc DOC
 
 %changelog
+* Sat Apr 22 2023 Antonio Trande <sagitter@fedoraproject.org> - 6.0.0-1
+- Release 6.0.0
+
 * Tue Feb 21 2023 Florian Weimer <fweimer@redhat.com> - 5.3.0-5
 - Port to C99
 

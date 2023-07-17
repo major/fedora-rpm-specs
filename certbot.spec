@@ -18,7 +18,7 @@
 
 Name:           certbot
 Version:        2.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -31,6 +31,9 @@ Source12:       certbot-sysconfig-certbot
 Source13:       certbot-cli.ini
 Source14:       certbot-README.fedora
 Source15:       certbot.logrotate
+
+#               https://github.com/certbot/certbot/pull/9734
+Patch0:         0001-Mock-in-Python-3.12-finds-more-errors-in-mock-syntax.patch
 
 BuildArch:      noarch
 
@@ -75,14 +78,14 @@ Summary:    Documenation for %1 libraries
 Requires:   font(fontawesome)
 
 %define _files() \%files -n python3-certbot-dns-%1\
-\%license LICENSE.txt\
-\%doc README.rst\
+\%license certbot-dns-%1/LICENSE.txt\
+\%doc certbot-dns-%1/README.rst\
 \%{python3_sitelib}/certbot_dns_%1/\
 \%{python3_sitelib}/certbot_dns_%1-\%{version}.dist-info/
 
 %define _files_doc() \%files -n python-%1-doc\
-\%license LICENSE.txt\
-\%doc README.rst CHANGELOG.md\
+\%license %1/LICENSE.txt\
+\%doc %1/README.rst\
 \%doc %1/docs/_build/html
 
 
@@ -242,11 +245,11 @@ done
 mv %{buildroot}%{_bindir}/certbot{,-3}
 
 # Add compatibility symlink as requested by upstream conference call
-ln -sfr /usr/bin/certbot %{buildroot}/usr/bin/%{oldpkg}
+ln -s certbot %{buildroot}/usr/bin/%{oldpkg}
 # Put the man pages in place
 # install -pD -t %%{buildroot}%%{_mandir}/man1 docs/_build/man/*1*
 # Use python3 for F26+ or if python2 is disabled
-ln -sr %{_bindir}/certbot-3 %{buildroot}%{_bindir}/certbot
+ln -s certbot-3 %{buildroot}%{_bindir}/certbot
 install -Dm 0644 --preserve-timestamps %{SOURCE10} %{buildroot}%{_unitdir}/certbot-renew.service
 install -Dm 0644 --preserve-timestamps %{SOURCE11} %{buildroot}%{_unitdir}/certbot-renew.timer
 install -Dm 0644 --preserve-timestamps %{SOURCE12} %{buildroot}%{_sysconfdir}/sysconfig/certbot
@@ -264,7 +267,9 @@ install -dm 0755 %{buildroot}%{_localstatedir}/log/letsencrypt
 for module in acme certbot %{MODULES} certbot-apache certbot-nginx; do
 pushd $module
 %pytest -v  -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
-    -W "ignore:Deprecated call to \`pkg_resources.declare_namespace('sphinxcontrib')\`::pkg_resources"
+    -W "ignore:Deprecated call to \`pkg_resources.declare_namespace('sphinxcontrib')\`::pkg_resources" \
+    -W "ignore:datetime.utcfromtimestamp() is deprecated:DeprecationWarning" \
+    -W "ignore:datetime.utcnow() is deprecated:DeprecationWarning"
 popd
 done
 %endif
@@ -296,7 +301,7 @@ fi
 
 %files -n certbot
 %license LICENSE.txt
-%doc README.rst README.fedora CHANGELOG.md
+%doc certbot/README.rst README.fedora certbot/CHANGELOG.md
 %{_bindir}/certbot
 %{_bindir}/%{oldpkg}
 %dir %{_sysconfdir}/%{oldpkg}
@@ -310,30 +315,30 @@ fi
 
 
 %files -n python3-certbot
-%license LICENSE.txt
-%doc README.rst CHANGELOG.md
+%license certbot/LICENSE.txt
+%doc certbot/README.rst certbot/CHANGELOG.md
 %{_bindir}/certbot-3
 %{python3_sitelib}/certbot/
 %{python3_sitelib}/certbot-%{version}.dist-info/
 
 
 %files -n python3-acme
-%license LICENSE.txt
-%doc README.rst CHANGELOG.md
+%license acme/LICENSE.txt
+%doc acme/README.rst
 %{python3_sitelib}/acme/
 %{python3_sitelib}/acme-%{version}.dist-info/
 
 
 %files -n python3-certbot-apache
-%license LICENSE.txt
-%doc README.rst
+%license certbot-apache/LICENSE.txt
+%doc certbot-apache/README.rst
 %{python3_sitelib}/certbot_apache/
 %{python3_sitelib}/certbot_apache-%{version}.dist-info/
 
 
 %files -n python3-certbot-nginx
-%license LICENSE.txt
-%doc README.rst
+%license certbot-nginx/LICENSE.txt
+%doc certbot-nginx/README.rst
 %{python3_sitelib}/certbot_nginx/
 %{python3_sitelib}/certbot_nginx-%{version}.dist-info/
 
@@ -374,6 +379,10 @@ fi
 
 
 %changelog
+* Sat Jul 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.6.0-3
+- Fix build with Python 3.12
+- Fix broken symbolic links
+
 * Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 2.6.0-2
 - Rebuilt for Python 3.12
 

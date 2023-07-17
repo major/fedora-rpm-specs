@@ -11,20 +11,16 @@ Summary:        Sampling CPU profiler for Ruby
 License:        MIT
 URL:            https://crates.io/crates/rbspy
 Source:         %{crates_source}
-Source:         LICENSE.dependencies
 # Automatically generated patch to strip foreign dependencies
 Patch:          rbspy-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * temporarily downgrade directories to 4.0.1
-# * temporarily downgrade prost to 0.10.4
+# * temporarily downgrade directories dependency from 5 to 4
+# * temporarily downgrade prost dependency from 0.11 to 0.10.4
+# * add missing "derive" feature to the clap dependency
 Patch:          rbspy-fix-metadata.diff
+Patch:          0001-port-from-deprecated-clap-ArgEnum-to-clap-ValueEnum.patch
 
-
-BuildRequires:  rust-packaging >= 21
-%if %{with check}
-BuildRequires:  ruby
-BuildRequires:  rubygems
-%endif
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 Sampling CPU profiler for Ruby.}
@@ -33,17 +29,19 @@ Sampling CPU profiler for Ruby.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# 0BSD or MIT or ASL 2.0
-# ASL 2.0
-# ASL 2.0 or Boost
-# ASL 2.0 or MIT
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# 0BSD OR MIT OR Apache-2.0
+# Apache-2.0
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # CDDL-1.0
 # MIT
-# MIT or ASL 2.0
-# MIT or zlib or ASL 2.0
-# Unlicense or MIT
-# zlib or ASL 2.0 or MIT
-License:        MIT and ASL 2.0 and CDDL-1.0
+# MIT OR Apache-2.0
+# MIT OR Zlib OR Apache-2.0
+# Unlicense OR MIT
+# Zlib OR Apache-2.0 OR MIT
+License:        MIT AND Apache-2.0 AND CDDL-1.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Zlib OR Apache-2.0) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -92,14 +90,19 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-cp %{SOURCE1} .
 %cargo_prep
+%if %{with check}
+echo "ruby"
+echo "rubygems"
+%endif
 
 %generate_buildrequires
 %cargo_generate_buildrequires
 
 %build
 %cargo_build
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %cargo_install

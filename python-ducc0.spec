@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 %if "%{?stable}"
-Version:        0.30.0
+Version:        0.31.0
 %else
 Version:        0.28.0^%{date}%{shortcommit}
 %endif
@@ -81,7 +81,6 @@ sed -i 's|extra_link_args=python_module_link_args|extra_link_args=\[\]|g' setup.
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 
 

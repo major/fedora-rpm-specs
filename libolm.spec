@@ -2,7 +2,7 @@
 
 Name: libolm
 Version: 3.2.15
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: Double Ratchet cryptographic library
 License: Apache-2.0
@@ -17,7 +17,6 @@ BuildRequires: gcc
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3dist(cffi)
-BuildRequires: python3dist(future)
 BuildRequires: python3dist(wheel)
 
 %description
@@ -81,6 +80,9 @@ popd
 %{python3_sitearch}/python_%{appname}-*.egg-info
 
 %changelog
+* Thu Jul 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.2.15-3
+- Removed no longer used python-future dependency. Fixes rhbz#2222263.
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.2.15-2
 - Rebuilt for Python 3.12
 

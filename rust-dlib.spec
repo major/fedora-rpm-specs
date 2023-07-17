@@ -5,7 +5,7 @@
 %global crate dlib
 
 Name:           rust-dlib
-Version:        0.5.0
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Helper macros for handling manually loading optional system libraries
 

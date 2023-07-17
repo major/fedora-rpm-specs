@@ -3,8 +3,8 @@
 %global debug_package %{nil}
 
 Name:           Lmod
-Version:        8.7.25
-Release:        2%{?dist}
+Version:        8.7.29
+Release:        1%{?dist}
 Summary:        Environmental Modules System in Lua
 
 # Lmod-5.3.2/tools/base64.lua is LGPLv2
@@ -149,6 +149,9 @@ fi
 
 
 %changelog
+* Sat Jul 15 2023 Orion Poplawski <orion@nwra.com> - 8.7.29-1
+- Update to 8.7.29
+
 * Sat May 27 2023 Orion Poplawski <orion@nwra.com> - 8.7.25-2
 - Add fish integration (bz#2196379)
 

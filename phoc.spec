@@ -1,7 +1,7 @@
 %global libgmobile_commit f4d4e5740c3e4b2de40864ab8a9e7b7f957d6aec
 
 Name:		phoc
-Version:	0.28.0
+Version:	0.29.0
 Release:	1%{?dist}
 Summary:	Display compositor designed for phones
 

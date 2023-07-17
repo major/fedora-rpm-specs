@@ -5,7 +5,7 @@
 %global crate uuid
 
 Name:           rust-uuid
-Version:        1.3.4
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Library to generate and parse UUIDs
 
@@ -15,6 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          uuid-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * drop unused optional dependency for borsh support
 # * drop WASM-specific features and dependencies
 # * drop internal-only features
 Patch:          uuid-fix-metadata.diff

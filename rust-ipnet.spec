@@ -5,7 +5,7 @@
 %global crate ipnet
 
 Name:           rust-ipnet
-Version:        2.7.2
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Provides types and useful methods for working with IP prefixes
 
@@ -65,6 +65,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

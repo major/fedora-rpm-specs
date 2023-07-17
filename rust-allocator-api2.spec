@@ -5,7 +5,7 @@
 %global crate allocator-api2
 
 Name:           rust-allocator-api2
-Version:        0.2.15
+Version:        0.2.16
 Release:        %autorelease
 Summary:        Mirror of Rust's allocator API
 

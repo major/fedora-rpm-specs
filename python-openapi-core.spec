@@ -1,3 +1,7 @@
+# F39FailsToInstall: python3-falcon
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220217
+%bcond falcon 0
+
 %global srcname openapi-core
 %global modname openapi_core
 
@@ -24,6 +28,10 @@ BuildRequires:  python3dist(starlette)
 BuildRequires:  python3dist(strict-rfc3339)
 BuildRequires:  python3dist(webob)
 
+%if %{without falcon}
+Obsoletes:      python3-%{srcname}+falcon < 0.17.1-4
+%endif
+
 %global _description %{expand:
 Openapi-core is a Python library that adds client-side and server-side
 support for the OpenAPI v3.0 and OpenAPI v3.1 specification.}
@@ -37,7 +45,7 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %_description
 
 
-%pyproject_extras_subpkg -n python3-openapi-core django falcon flask requests starlette
+%pyproject_extras_subpkg -n python3-openapi-core django %{?with_falcon:falcon} flask requests starlette
 
 
 %prep
@@ -47,7 +55,7 @@ sed -r -i '/^--cov[-=]/d' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x django -x falcon -x flask -x requests -x starlette
+%pyproject_buildrequires -x django %{?with_falcon:-x falcon} -x flask -x requests -x starlette
 
 
 %build
@@ -60,7 +68,10 @@ sed -r -i '/^--cov[-=]/d' pyproject.toml
 
 
 %check
-%pytest
+%if %{without falcon}
+ignore="${ignore-} --ignore=tests/integration/contrib/falcon"
+%endif
+%pytest ${ignore-}
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

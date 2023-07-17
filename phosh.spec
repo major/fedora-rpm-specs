@@ -1,9 +1,9 @@
-%global gvc_commit ae1a34aafce7026b8c0f65a43c9192d756fe1057
+%global gvc_commit 8e7a5a4c3e51007ce6579292642517e3d3eb9c50
 %global libcall_ui_commit 6798b38d4d66d069751151b3e9a202c6de8d7f3c
-%global libgmobile_commit 6504fa124438b79a2ad5687ac3ebef6d7a2c0823
+%global libgmobile_commit ebb5263122f6127b86c31e2debd9e3b98c3b035b
 
 Name:		phosh
-Version:	0.28.0
+Version:	0.29.0
 Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
@@ -74,6 +74,7 @@ Requires:	lato-fonts
 Requires:	hicolor-icon-theme
 
 Recommends:	squeekboard >= 1.21.0
+Recommends:	phosh-mobile-settings
 
 %description
 Phosh is a simple shell for Wayland compositors speaking the layer-surface

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.32.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CloudXNS DNS Authenticator plugin for Certbot
 
 License:        Apache-2.0
@@ -76,6 +76,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Sat Jul 15 2023 Python Maint <python-maint@redhat.com> - 1.32.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

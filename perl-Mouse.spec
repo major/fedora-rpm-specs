@@ -2,7 +2,7 @@ Name:           perl-Mouse
 Summary:        Moose minus the antlers
 Version:        2.5.10
 Release:        16%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mouse
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Mouse-v%{version}.tar.gz
 # Module Build
@@ -75,7 +75,7 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Output)
 BuildRequires:  perl(URI)
-# Runtime
+# Dependencies
 Requires:       perl(Scalar::Util) >= 1.14
 Requires:       perl(Data::Dumper)
 Requires:       perl(mro)
@@ -99,7 +99,7 @@ applications.  Mouse aims to alleviate this by providing a subset of Moose's
 functionality, faster.
 
 %package -n perl-Test-Mouse
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Test functions for Mouse specific features
 Requires:   %{name} = %{version}-%{release}
 

@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: 2D animation software
 
 License: BSD
@@ -138,6 +138,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jul 15 2023 Antonio Trande <sagitter@fedoraproject.org> 1.7.1-2
+- Rebuild for SuperLU-6.0.0
+
 * Tue Jun 20 2023 Diego Herrera <dherrera@redhat.com> 1.7.1-1
 - Updated to 1.7.1
 - Update package description

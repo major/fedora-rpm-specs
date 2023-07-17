@@ -28,6 +28,7 @@ BuildArch:      noarch
 %package -n python3-looseversion
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 %description -n python3-looseversion %_description
 
@@ -35,7 +36,7 @@ BuildRequires:  python3-devel
 %autosetup -n looseversion-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -45,7 +46,7 @@ BuildRequires:  python3-devel
 %pyproject_save_files looseversion
 
 %check
-%tox
+%pytest -v tests.py
 
 %files -n python3-looseversion -f %{pyproject_files}
 %doc README.md CHANGES.md

@@ -6,7 +6,7 @@
 %global crate unicode-ident
 
 Name:           rust-unicode-ident
-Version:        1.0.10
+Version:        1.0.11
 Release:        %autorelease
 Summary:        Determine whether characters have the XID_Start or XID_Continue properties
 
