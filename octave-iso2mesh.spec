@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.9.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A 3D surface and volumetric mesh generator for MATLAB/Octave
 # Main package: GPLv3+
 # Meshfix: GPLv2+
@@ -167,6 +167,9 @@ install -m 0755 -vp  bin/* %{buildroot}%{_libexecdir}/%{octpkg}/
 %doc sample
 
 %changelog
+* Fri Jul 07 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.9.6-12
+- Rebuild for SuperLU-6.0.0
+
 * Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1.9.6-11
 - Port to C99
 

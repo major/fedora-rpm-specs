@@ -1,8 +1,5 @@
-%global majorver 23
-%global fullver %{majorver}.04.2
-
 Name:          kjournald
-Version:       23.04.2
+Version:       23.04.3
 Release:       1%{?dist}
 Summary:       Framework for interacting with systemd-journald
 
@@ -59,9 +56,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kj
 
 %files libs
 %{_libdir}/libkjournald.so
-%{_libdir}/libkjournald.so.%{majorver}
-%{_libdir}/libkjournald.so.%{fullver}
+%{_libdir}/libkjournald.so.%{maj_ver_kf5}
+%{_libdir}/libkjournald.so.%{version}
 
 %changelog
+* Sun Jul 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
+- 23.04.3
+
 * Thu Jun 8 2023 Steve Cossette <farchord@gmail.com> - 23.04.2-1
 - Initial release

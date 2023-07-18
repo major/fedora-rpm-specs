@@ -1,14 +1,11 @@
 Name:           blosc2
-Version:        2.9.1
+Version:        2.10.0
 Release:        %autorelease
 Summary:        High performance compressor optimized for binary data
 
 License:        BSD-3-Clause
 URL:            https://www.blosc.org/
-Source0:        https://github.com/Blosc/c-blosc2/archive/refs/tags/v%{version}.tar.gz#/c-blosc2-%{version}.tar.gz
-
-# Fix build of pytables failing on undefined symbol in our header file
-Patch:          https://github.com/Blosc/c-blosc2/pull/483.patch
+Source:         https://github.com/Blosc/c-blosc2/archive/v%{version}/c-blosc2-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc

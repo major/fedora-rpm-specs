@@ -212,6 +212,8 @@ then
   mv -v %{buildroot}%{_prefix}/lib/libryml.so* '%{buildroot}%{_libdir}/'
   mkdir -p '%{buildroot}%{_libdir}/cmake'
   mv -v %{buildroot}%{_prefix}/lib/cmake/ryml '%{buildroot}%{_libdir}/cmake/'
+  find %{buildroot}%{_libdir}/cmake/ryml -type f -name '*.cmake' -print0 |
+    xargs -r -t -0 sed -r -i "s@/lib/@/$(basename '%{_libdir}')/@"
 fi
 
 # We don’t believe this will be useful on Linux. See:

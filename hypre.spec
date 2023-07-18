@@ -7,9 +7,8 @@
 
 %bcond_with check
 
-%if 0%{?fedora} >= 33
 %bcond_without flexiblas
-%endif
+
 %if %{with flexiblas}
 %global blaslib flexiblas
 %else
@@ -24,7 +23,7 @@
 
 Name:           hypre
 Version:        2.24.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        High performance matrix preconditioners
 License:        LGPLv2
 URL:            http://www.llnl.gov/casc/hypre/
@@ -32,13 +31,13 @@ Source:         https://github.com/hypre-space/hypre/archive/v%version/%{name}-%
 # Don't use hostname for tests and use two MPI processes
 Patch2:         hypre-test.patch
 
-BuildRequires:  gcc-c++ gcc-gfortran automake libtool libtool-ltdl-devel
+BuildRequires:  gcc-c++ gcc-gfortran automake libtool libtool-ltdl-devel make
 BuildRequires:  SuperLU-devel
 BuildRequires:  %{blaslib}-devel
 %if 0%{?docs}
 BuildRequires:  doxygen-latex python-sphinx python-sphinx-theme-alabaster
 BuildRequires:  python3-breathe
-BuildRequires:  python%{?el7:3}-sphinx-latex /usr/bin/latexmk
+BuildRequires:  python3-sphinx-latex /usr/bin/latexmk
 BuildRequires:  tex(threeparttable.sty) tex(hanging.sty) tex(adjustbox.sty)
 BuildRequires:  tex(fncychap.sty) tex(tabulary.sty) tex(capt-of.sty)
 BuildRequires:  tex(needspace.sty) tex(stackengine.sty) tex(listofitems.sty)
@@ -60,7 +59,7 @@ solution of large systems of linear equations.
 
 %package devel
 Summary:        Development files for %name
-Requires:       %{?name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       SuperLU-devel%{?_isa} 
 Requires:       %{blaslib}-devel%{?_isa}
 
@@ -94,7 +93,6 @@ Development files for %name-openmpi
 Summary:        High performance matrix preconditioners - mpich
 Requires:       mpich%{?_isa}
 BuildRequires:  superlu_dist-mpich-devel ptscotch-mpich-devel
-BuildRequires: make
 
 %description mpich
 %desc
@@ -104,12 +102,7 @@ This is the mpich version.
 %package mpich-devel
 Summary:        Development files for %name-mpich
 Requires:       %{name}-mpich%{?_isa} = %{version}-%{release}
-%if 0%{?el7}
-# https://bugzilla.redhat.com/show_bug.cgi?id=1397192
-Requires:       mpich-devel
-%else
 Requires:       mpich-devel%{?_isa}
-%endif
 Requires:       superlu_dist-mpich-devel%{?_isa} ptscotch-mpich-devel%{?_isa}
 Requires:       %{blaslib}-devel%{?_isa}
 
@@ -129,7 +122,7 @@ Documentation for hypre
 
 %prep
 %setup -q -n %name-%version
-%patch2 -p1 -b .test
+%patch -P 2 -p1 -b .test
 
 find \( -name \*.[ch] -o -name \*.cxx \) -perm /=x -exec chmod 0644 {} \;
 
@@ -227,12 +220,9 @@ make -C mpich install HYPRE_INSTALL_DIR=%{buildroot}$MPI_HOME \
 %_mpich_unload
 %endif
 
-for l in '' mpich/lib openmpi/lib %{?el7:openmpi3/lib}; do
+for l in '' mpich/lib openmpi/lib; do
   ln -s libHYPRE.so.%soversion %{buildroot}%_libdir/$l/libHYPRE.so.%somajor
 done
-
-%ldconfig_scriptlets                                                           
-
 
 %files
 %doc CHANGELOG README.md
@@ -273,6 +263,9 @@ done
 %endif
 
 %changelog
+* Sun Jul 16 2023 Antoio Trande <sagitter@fedoraproject.org> - 2.24.0-6
+- Rebuild for SuperLU-6.0.0
+
 * Thu Apr 13 2023 Antoio Trande <sagitter@fedoraproject.org> - 2.24.0-5
 - Rebuild for Scotch-7
 

@@ -8,13 +8,6 @@
 %global with_openmpi 1
 %endif
 
-# Use devtoolset-6
-# Warning: openblas on epel7 is compiled with gcc-gfortran-4.8.5 (libgfortran.so.3)
-# psblas3 needs gcc-6 to be compiled (libgfortran.so.3)
-%if 0%{?rhel} && 0%{?rhel} == 7
-%global dts devtoolset-6-
-%endif
-
 %if 0%{?with_serial}
 %if 0%{?fedora}
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
@@ -51,7 +44,7 @@
 Name: psblas3
 Summary: Parallel Sparse Basic Linear Algebra Subroutines
 Version: %{major_minor}.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD
 URL: https://github.com/sfilippone/psblas3
 Source0: https://github.com/sfilippone/psblas3/archive/v%{version}%{?postrelease_version}/psblas3-%{version}%{?postrelease_version}.tar.gz
@@ -62,8 +55,8 @@ Patch0: %{name}-fix_ldflags.patch
 # Rename libraries for psblas3-serial64
 Patch1: %{name}-rename_libs_for_arch64.patch
 
-BuildRequires: %{?dts}gcc-gfortran
-BuildRequires: %{?dts}gcc, %{?dts}gcc-c++
+BuildRequires: gcc-gfortran
+BuildRequires: gcc, gcc-c++
 BuildRequires: suitesparse-devel
 BuildRequires: %{blaslib}-devel
 BuildRequires: metis-devel
@@ -211,7 +204,7 @@ Shared links, header files and static libraries for MPICH %{name}.
 %setup -qc -n psblas3-%{version}%{?postrelease_version}
 
 pushd psblas3-%{version}%{?postrelease_version}
-%patch0 -p0
+%patch -P 0 -p0
 popd
 
 #######################################################
@@ -229,7 +222,7 @@ cp -a psblas3-%{version}%{?postrelease_version} mpich-build
 %if 0%{?arch64}
 cp -a psblas3-%{version}%{?postrelease_version} build64
 pushd build64
-%patch1 -p1
+%patch -P 1 -p1
 popd
 %endif
 #####################################################
@@ -237,10 +230,6 @@ popd
 %build
 %if 0%{?with_serial}
 cd psblas3-%{version}%{?postrelease_version}
-
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-6/enable}
-%endif
 
 # '-Werror=format-security' flag is not valid for gfortran
 FC_OPT_FLAGS=$(echo "%{?fc_optflags}" | %{__sed} -e 's/-Werror=format-security//')
@@ -279,10 +268,6 @@ cd ../
 
 %if 0%{?arch64}
 cd build64
-
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-6/enable}
-%endif
 
 FC_OPT_FLAGS=$(echo "%{?fc_optflags}" | %{__sed} -e 's/-Werror=format-security//')
 %configure \
@@ -326,10 +311,6 @@ cd ../
 %if 0%{?with_openmpi}
 pushd openmpi-build
 
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-6/enable}
-%endif
-
 %{_openmpi_load}
 export CC=mpicc
 export CXX=mpic++
@@ -372,10 +353,6 @@ popd
 
 %if 0%{?with_mpich}
 pushd mpich-build
-
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-6/enable}
-%endif
 
 %{_mpich_load}
 export CC=mpicc
@@ -555,10 +532,6 @@ popd
 
 %if 0%{?with_serial}
 
-%if 0%{?el7}
-%ldconfig_scriptlets serial
-%endif
-
 %files serial
 %{_libdir}/*.so.%{major_minor}
 %{_libdir}/*.so.%{major_version}
@@ -624,6 +597,9 @@ popd
 ######################################################
 
 %changelog
+* Sun Jul 16 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.8.0-6
+- Renew SPEC file
+
 * Tue Feb 07 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.8.0-5
 - Drop OpenMPI support on i686
 

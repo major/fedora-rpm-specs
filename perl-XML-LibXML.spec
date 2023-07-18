@@ -7,8 +7,8 @@ Name:           perl-XML-LibXML
 # https://bugzilla.redhat.com/show_bug.cgi?id=469480
 # it might not be needed anymore
 # this module is maintained, the other is not
-Version:        2.0208
-Release:        3%{?dist}
+Version:        2.0209
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Perl interface to the libxml2 library
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
@@ -121,8 +121,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n XML-LibXML-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 chmod -x *.c
 for i in Changes; do
   /usr/bin/iconv -f iso8859-1 -t utf-8 $i > $i.conv && /bin/mv -f $i.conv $i
@@ -191,6 +191,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jul 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0209-1
+- 2.0209 bump (rhbz#2223070)
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0208-3
 - Perl 5.38 rebuild
 

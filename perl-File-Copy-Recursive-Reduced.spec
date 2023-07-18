@@ -2,7 +2,7 @@ Name:		perl-File-Copy-Recursive-Reduced
 Version:	0.006
 Release:	17%{?dist}
 Summary:	Recursive copying of files and directories within Perl 5 toolchain
-License:	GPL-1.0-or-later AND Artistic-1.0
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/File-Copy-Recursive-Reduced
 Source0:	https://cpan.metacpan.org/modules/by-module/File/File-Copy-Recursive-Reduced-%{version}.tar.gz
 BuildArch:	noarch
@@ -29,6 +29,7 @@ BuildRequires:	perl(lib)
 BuildRequires:	perl(Path::Tiny)
 BuildRequires:	perl(Test::More) >= 0.44
 # Dependencies
+# (none)
 
 %description
 This library is intended as a not-quite-drop-in replacement for certain

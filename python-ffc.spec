@@ -1,7 +1,7 @@
 Name:           python-ffc
 Version:        2019.1.0.post0
 %global fenics_version 2019.1
-Release:        11%{?dist}
+Release:        %autorelease
 Summary:        Compiler for finite element variational forms
 
 License:        LGPLv3+
@@ -54,49 +54,21 @@ sed -r -i '1d' ffc/__main__.py ffc/main.py
 %py3_install
 
 %check
-# test_evaluate.py uses libs/ffc-factory, which is currently ignored
-%__python3 -m pytest -v test/ --ignore=test/unit/ufc/finite_element/test_evaluate.py
+OPTIONS=(
+  # test_evaluate.py uses libs/ffc-factory, which is currently ignored
+  --ignore=test/unit/ufc/finite_element/test_evaluate.py
+)
+%python3 -m pytest -v test/ "${OPTIONS[@]}"
 
 %files -n python3-ffc
 %license COPYING COPYING.LESSER
 %doc README.rst ChangeLog.rst AUTHORS
 %doc demo
-/usr/bin/ffc
-/usr/bin/ffc-3
+%{_bindir}/ffc
+%{_bindir}/ffc-3
 %{python3_sitelib}/ffc
 %{python3_sitelib}/fenics_ffc-%{version}-py%{python3_version}.egg-info/
 %{_mandir}/man1/ffc.1*
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0.post0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0.post0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Python Maint <python-maint@redhat.com> - 2019.1.0.post0-9
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0.post0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0.post0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2019.1.0.post0-6
-- Rebuilt for Python 3.10
-
-* Tue Jan 26 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2019.1.0.post0-5
-- Fix compatibility with pytest-6 (#1902616)
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0.post0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2019.1.0.post0-3
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0.post0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Oct  8 2019 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2019.1.0.post0-1
-- Initial packaging
+%autochangelog

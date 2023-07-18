@@ -1,6 +1,12 @@
+%if 0%{?rhel} >= 9
+%bcond_with     shorewall
+%else
+%bcond_without  shorewall
+%endif
+
 Name: fail2ban
 Version: 1.0.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -58,8 +64,6 @@ BuildRequires: gnupg2
 Requires: %{name}-firewalld = %{version}-%{release}
 Requires: %{name}-sendmail = %{version}-%{release}
 Requires: %{name}-server = %{version}-%{release}
-# Currently this breaks jails that don't log to the journal
-#Requires: %{name}-systemd = %{version}-%{release}
 
 
 %description
@@ -120,9 +124,9 @@ Requires: %{name}-hostsdeny = %{version}-%{release}
 Requires: %{name}-mail = %{version}-%{release}
 Requires: %{name}-sendmail = %{version}-%{release}
 Requires: %{name}-server = %{version}-%{release}
+%if %{with shorewall}
 Requires: %{name}-shorewall = %{version}-%{release}
-# Currently this breaks jails that don't log to the journal
-#Requires: %{name}-systemd = %{version}-%{release}
+%endif
 Requires: perl-interpreter
 %if 0%{?rhel} && 0%{?rhel} < 8
 Requires: python-inotify
@@ -186,6 +190,7 @@ This package installs Fail2Ban's sendmail actions.  This is the default
 mail actions for Fail2Ban.
 
 
+%if %{with shorewall}
 %package shorewall
 Summary: Shorewall support for Fail2Ban
 Requires: %{name}-server = %{version}-%{release}
@@ -204,6 +209,7 @@ Conflicts: %{name}-shorewall
 
 %description shorewall-lite
 This package enables support for manipulating shorewall rules.
+%endif
 
 
 %package systemd
@@ -411,17 +417,22 @@ fi
 %files sendmail
 %config(noreplace) %{_sysconfdir}/fail2ban/action.d/sendmail-*.conf
 
+%if %{with shorewall}
 %files shorewall
 %config(noreplace) %{_sysconfdir}/fail2ban/action.d/shorewall.conf
 
 %files shorewall-lite
 %config(noreplace) %{_sysconfdir}/fail2ban/action.d/shorewall.conf
+%endif
 
 %files systemd
 %config(noreplace) %{_sysconfdir}/fail2ban/jail.d/00-systemd.conf
 
 
 %changelog
+* Mon Jun 26 2023 Todd Zullinger <tmz@pobox.com> - 1.0.2-7
+- exclude shorewall subpackage on epel9 (rhbz#2217649)
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.2-6
 - Rebuilt for Python 3.12
 

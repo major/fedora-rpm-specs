@@ -25,6 +25,8 @@ Summary:        Library for creating LaTeX files and snippets
 License:        MIT
 URL:            https://jeltef.github.io/PyLaTeX/
 Source0:        https://github.com/JelteF/%{fancy_name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/JelteF/PyLaTeX/pull/372
+Patch0:         https://github.com/JelteF/PyLaTeX/commit/f6d6a1d2bea3b74e8837ba360accd93a788f0016.patch
 BuildArch:      noarch
 
 %description %_description
@@ -72,9 +74,10 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       texlive
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  git-core
 %if %{with tests}
 # Explicit requirements for tests
 BuildRequires:  %{py3_dist matplotlib}
@@ -130,7 +133,7 @@ Documentation for %{name}.
 %endif
 
 %prep
-%autosetup -n %{fancy_name}-%{version}
+%autosetup -p1 -n %{fancy_name}-%{version} -S git
 rm -rf %{fancy_name}.egg-info
 
 # Comment out to remove /usr/bin/env shebangs

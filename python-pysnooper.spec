@@ -1,6 +1,6 @@
 %global srcname PySnooper
 Name:           python-pysnooper
-Version:        1.1.1
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Poor man's debugger for Python
 
@@ -18,7 +18,12 @@ BuildRequires:  python3dist(setuptools)
 %global _description %{expand:
 PySnooper is a replacement for debug print statements in code. After decorating
 a function it automatically logs which lines were run and any changes to local
-variables.}
+variables.
+
+@pysnooper.snoop()
+def func(...):
+  ...
+}
 
 %description %_description
 

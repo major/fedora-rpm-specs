@@ -1,11 +1,11 @@
-%global commit 28c8aa4a9c3568187e16e3a47a0d16371d1c5d33
+%global commit 48689ae7a73caeb747953f9ed664dc71d2f918d8
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20220915
+%global gitdate 20230517
 %global fgittag %{gitdate}.git%{shortcommit}
 
 Name:           cubeb
 Version:        0.2
-Release:        10%{?fgittag:.%{fgittag}}%{?dist}
+Release:        11%{?fgittag:.%{fgittag}}%{?dist}
 Summary:        A cross platform audio library
 
 #cubeb is ISC, sanitizers-cmake is MIT
@@ -26,10 +26,9 @@ BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  gtest-devel
 BuildRequires:  jack-audio-connection-kit-devel
 BuildRequires:  pulseaudio-libs-devel
-Provides:       %{name}-static = %{version}-%{release}
-Provides:       %{name}-devel = %{version}-%{release}
 
 #Taken from the mozilla blog:
 #https://blog.mozilla.org/webrtc/firefoxs-audio-backend/
@@ -39,6 +38,17 @@ Cubeb is a cross-platform library, written in C/C++, that was created and has
 been maintained by the Firefox Media Team.
 The role of the library is to communicate with audio devices and to provide
 audio input and/or output.
+
+%package devel
+Summary:        A cross platform audio library
+Provides:       %{name}-static = %{version}-%{release}
+
+%description devel
+Cubeb is a cross-platform library, written in C/C++, that was created and has
+been maintained by the Firefox Media Team.
+The role of the library is to communicate with audio devices and to provide
+audio input and/or output.
+
 %prep
 %autosetup -p1 -n %{name}-%{commit}
 #Clean up Android files
@@ -48,13 +58,17 @@ rm -rf src/android
 sed -i -e "/^\[!/d" -e "/INSTALL.md/d" README.md
 
 %build
-%cmake . -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF -DUSE_SANITIZERS=OFF
+%cmake . -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=ON -DUSE_SANITIZERS=OFF
 %cmake_build
 
 %install
 %cmake_install
 
-%files
+%check
+#Run only the tests known to work in mock/chroot:
+%ctest -R "(record|resampler|duplex|triple_buffer|ring_array|utils|ring_buffer|device_changed_callback)"
+
+%files devel
 %doc README.md
 %license LICENSE
 %{_libdir}/libcubeb.a
@@ -64,6 +78,11 @@ sed -i -e "/^\[!/d" -e "/INSTALL.md/d" README.md
 %{_docdir}/%{name}
 
 %changelog
+* Sun Jul 16 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 0.2-11.20230517.git48689ae
+- Update to newer git
+- fix up packaging a bit
+- enable some tests
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-10.20220915.git28c8aa4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

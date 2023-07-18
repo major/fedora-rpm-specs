@@ -3,7 +3,7 @@
 
 Name:           python-pint
 Version:        0.16.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Physical quantities module
 
 License:        BSD
@@ -62,6 +62,22 @@ Documentation for the pint module
 %prep
 %setup -q -n %{pypi_name}-%{version}
 
+# numpy 1.24.x removes np.float np.alen and so on
+# These are already fixed upstream
+grep -rl "dtype=np\.float" . | xargs sed -i -e 's|dtype=np\.float|dtype=float|'
+sed -i pint/testsuite/test_numpy.py \
+	-e 's|dtype=float32|dtype=np.float32|' \
+	-e 's|dtype=float64|dtype=np.float64|' \
+	-e 's|np\.alen|len|' \
+	%{nil}
+
+# Workaround for https://github.com/hgrecco/pint/issues/1818
+sed -i pint/testsuite/__init__.py -e '115s|except TypeError:|except (TypeError, ValueError):|'
+
+# python 3.12 removes deprecated unittest.assertEquals
+# This is already fixed upstream
+sed -i pint/testsuite/test_contexts.py -e 's|self.assertEquals|self.assertEqual|'
+
 # drop numpy version requirement
 sed -i '/@helpers.requires_numpy_at_least("1.16")/d' pint/testsuite/test_quantity.py
 
@@ -98,6 +114,12 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Sun Jul 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.16.1-11
+- Support numpy 1.24.x some types removal which were already deprecated
+- Workaround python3.12 changes for Fractions which now returns ValueError
+  instead of TypeError
+- Fix for python3.12 with unittest.assertEquals removal
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 0.16.1-10
 - Rebuilt for Python 3.12
 

@@ -5,17 +5,14 @@
 %global srcname nbformat
 
 Name:           python-%{srcname}
-Version:        5.8.0
-Release:        2%{?dist}
+Version:        5.9.1
+Release:        1%{?dist}
 Summary:        The Jupyter Notebook format
 
 License:        BSD
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/n/%{srcname}/%{srcname}-%{version}.tar.gz
-# File missing from tarball https://github.com/jupyter/nbformat/issues/213
-Source1:        https://raw.githubusercontent.com/jupyter/nbformat/master/nbformat/tests/test4.ipynb
 # Removed dependency on hatch-nodejs-version
-# Ignore DeprecationWarnings
 Patch0:         nbformat-build-test.patch
 
 BuildArch:      noarch
@@ -43,7 +40,6 @@ and Python APIs for working with notebooks.
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 mkdir -p nbformat/tests
-cp -a %SOURCE1 nbformat/tests/
 
 # Remove useless test dependencies
 sed -i '/"pre-commit",/d' pyproject.toml
@@ -74,6 +70,9 @@ sed -i "s/{VERSION}/%{version}/" pyproject.toml
 %{_bindir}/jupyter-trust
 
 %changelog
+* Sun Jul 16 2023 Orion Poplawski <orion@nwra.com> - 5.9.1-1
+- Update to 5.9.1
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 5.8.0-2
 - Rebuilt for Python 3.12
 

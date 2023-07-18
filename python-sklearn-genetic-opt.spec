@@ -101,7 +101,7 @@ sed -i 's/{progress_bar}.gif/{progress_bar-0}.png/g' docs/_build/latex/sklearnge
 %check
 %if %{with tests}
 # Exclude test_mlflow -- mlflow dependency is missing
-# test_tensorboard_callback fails - https://github.com/rodrigo-arenas/Sklearn-genetic-opt/issues/134
+# test_tensorboard_callback fails due to missing tensorflow dep - https://github.com/rodrigo-arenas/Sklearn-genetic-opt/issues/134
 %pytest --ignore sklearn_genetic/tests/test_mlflow.py -k 'not test_tensorboard_callback'
 %endif
 

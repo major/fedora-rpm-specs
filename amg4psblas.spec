@@ -8,7 +8,11 @@
 %global _configure ./configure_n
 
 %global with_mpich 1
+%ifarch %{ix86}
+%global with_openmpi 0
+%else
 %global with_openmpi 1
+%endif
 %global with_serial 1
 %global with_check 1
 
@@ -16,15 +20,6 @@
 %bcond_without superludist
 #
 %undefine _ld_as_needed
-
-# Use devtoolset 6
-# Warning: openblas on epel7 is compiled against libgfortran3
-# mld2p4 needs gcc-6+ to be compiled
-%if 0%{?rhel} && 0%{?rhel} == 7
-%global dts devtoolset-6-
-BuildRequires: %{?dts}gcc-gfortran
-BuildRequires: %{?dts}gcc, %{?dts}gcc-c++
-%endif
 
 %global major_version 1
 %global major_minor %{major_version}.1
@@ -46,12 +41,12 @@ Summary: Algebraic Multigrid Package based on PSBLAS
 
 # Mixed Source Licensing
 Version: %{major_minor}.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD and MIT
 URL: https://psctoolkit.github.io/products/amg4psblas/
 Source0: https://github.com/sfilippone/amg4psblas/archive/V%{version}%{?postrelease_version}/amg4psblas-%{version}%{?postrelease_version}.tar.gz
-BuildRequires: %{?dts}gcc-gfortran
-BuildRequires: %{?dts}gcc, %{?dts}gcc-c++
+BuildRequires: gcc-gfortran
+BuildRequires: gcc, gcc-c++
 BuildRequires: suitesparse-devel
 BuildRequires: %{blaslib}-devel
 BuildRequires: make
@@ -190,10 +185,6 @@ export LIBBLAS=-l%{blaslib}
 export INCBLAS=-I%{_includedir}/%{blaslib}
 export FCFLAGS="%{?fc_optflags} -fPIC"
 
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-6/enable}
-%endif
-
 %if %{with debug}
 ./configure_n --enable-serial --with-fcopt="-O0 -g -fPIC -I%{_fmoddir}" --with-ccopt="-O0 -g -fPIC" \
   --with-cxxopt="-O0 -g -fPIC" LDFLAGS="%{__global_ldflags} -fPIC" CPPFLAGS="$INCBLAS" \
@@ -236,10 +227,6 @@ cd ../
 ## Build MPI versions
 %if 0%{?with_openmpi}
 pushd openmpi-build
-
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-6/enable}
-%endif
 
 %{_openmpi_load}
 export CC=mpicc
@@ -443,10 +430,6 @@ popd
 
 %if 0%{?with_serial}
 
-%if 0%{?el7}
-%ldconfig_scriptlets serial
-%endif
-
 %files serial
 %{_libdir}/*.so.%{major_minor}
 %{_libdir}/*.so.%{major_version}
@@ -497,6 +480,9 @@ popd
 %license serial-build/LICENSE
 
 %changelog
+* Fri Jul 07 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.1.0-6
+- Rebuild for SuperLU-6.0
+
 * Tue Feb 07 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.1.0-5
 - Drop OpenMPI support on i686
 

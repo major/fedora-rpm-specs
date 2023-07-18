@@ -1,11 +1,12 @@
 Name:           perl-Exception-Base
 Version:        0.2501
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Lightweight exceptions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exception-Base
 Source0:        https://cpan.metacpan.org/modules/by-module/Exception/Exception-Base-%{version}.tar.gz
 Source2:        to_string_changes_errors.t
+Patch0:         Exception-Base-0.2501-smartmatch.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -46,6 +47,11 @@ default verbosity is increased for debugging purposes.
 %prep
 %setup -q -n Exception-Base-%{version}
 
+# Fix FTBFS with Perl 5.38 onwards (rhbz#2222742)
+# Smartmatch is deprecated, resulting warning causes test failures
+# https://github.com/dex4er/perl-Exception-Base/issues/5
+%patch -P 0
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
@@ -71,6 +77,9 @@ make test TEST_FILES=%{SOURCE2}
 %{_mandir}/man3/Exception::Base.3*
 
 %changelog
+* Sun Jul 16 2023 Paul Howarth <paul@city-fan.org> - 0.2501-24
+- Fix FTPFS with Perl 5.38 (rhbz#2222742)
+
 * Fri Apr  7 2023 Paul Howarth <paul@city-fan.org> - 0.2501-23
 - Spec clean-up
   - Use SPDX-format license tag

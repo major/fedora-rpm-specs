@@ -92,6 +92,8 @@ then
   mv -v %{buildroot}%{_prefix}/lib/libc4fs.so* '%{buildroot}%{_libdir}/'
   mkdir -p '%{buildroot}%{_libdir}/cmake'
   mv -v %{buildroot}%{_prefix}/lib/cmake/c4fs '%{buildroot}%{_libdir}/cmake/'
+  find %{buildroot}%{_libdir}/cmake/c4fs -type f -name '*.cmake' -print0 |
+    xargs -r -t -0 sed -r -i "s@/lib/@/$(basename '%{_libdir}')/@"
 fi
 
 

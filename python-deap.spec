@@ -1,5 +1,9 @@
 %global forgeurl https://www.github.com/deap/deap
 
+# Building of HTML docs fails in Python 3.12
+# Disable as a temporary measure
+%bcond_with docs
+
 Name:           python-deap
 Version:        1.3.3
 
@@ -23,12 +27,14 @@ BuildRequires:  python3-nose
 BuildRequires:  python3-numpy
 
 # documentation
+%if %{with docs}
 BuildRequires:  python3-sphinx
 BuildRequires:  texlive-scheme-basic
 BuildRequires:  tex(ucs.sty)
 BuildRequires:  tex(anyfontsize.sty)
 BuildRequires:  python3-numpy
 BuildRequires:  python3-matplotlib
+%endif
 
 %global _description %{expand:
 DEAP is a novel evolutionary computation framework for rapid prototyping and
@@ -45,28 +51,34 @@ Summary:        %{summary}
 
 %description -n python3-deap %_description
 
+%if %{with docs}
 %package -n python-deap-doc
 Summary:        Documentation for deap
 BuildArch:      noarch
 %description -n python-deap-doc
 %{summary}.
+%endif
 
 %prep
 %autosetup -n %{extractdir} -p1
 sed -i 's/\["git", "rev-parse", "HEAD"\]/["echo", "deap-%{version}-%{release}"]/' \
     doc/conf.py
 
+%if %{with docs}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1644771
 sed -i -r "s|'matplotlib.sphinxext.only_directives',||" doc/conf.py
+%endif
 
 %build
 %py3_build
 
 # generate html docs
+%if %{with docs}
 PYTHONPATH=build/lib.%{python3_platform}-%{python3_version} sphinx-build-3 doc build/html
 
 # remove the sphinx-build leftovers
 rm -rf build/html/.{doctrees,buildinfo}
+%endif
 
 %global _docdir_fmt %{name}
 
@@ -89,9 +101,11 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} pytest -v \
 %{python3_sitearch}/deap
 %{python3_sitearch}/deap-*.egg-info
 
+%if %{with docs}
 %files -n python-deap-doc
 %license LICENSE.txt
 %doc build/html
+%endif
 
 %changelog
 %autochangelog

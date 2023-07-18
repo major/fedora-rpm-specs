@@ -1,6 +1,6 @@
 Name:           catch
-Version:        3.3.2
-Release:        2%{?dist}
+Version:        3.4.0
+Release:        1%{?dist}
 Summary:        Modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 
 License:        BSL-1.0
@@ -67,6 +67,9 @@ is packaged up as a single header for extra convenience.
 
 
 %changelog
+* Sun Jul 16 2023 Tom Hughes <tom@compton.nu> - 3.4.0-1
+- Update to 3.4.0 upstream release
+
 * Wed Mar  1 2023 Tom Hughes <tom@compton.nu> - 3.3.2-2
 - Build in release mode
 

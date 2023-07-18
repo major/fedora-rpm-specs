@@ -1,7 +1,7 @@
 Name: sloccount
 Summary: Measures source lines of code (SLOC) in programs
 Version: 2.26
-Release: 36%{?dist}
+Release: 37%{?dist}
 License: GPLv2+
 Source: http://www.dwheeler.com/sloccount/sloccount-%{version}.tar.gz
 URL: https://sourceforge.net/projects/sloccount/
@@ -18,10 +18,10 @@ SLOCCount can be used to generate reports in different formats for use
 by report-generating tools.
 
 %prep
-%setup -q
+%autosetup
 
 %build
-make CC="gcc ${RPM_OPT_FLAGS}"
+make CC="${CC:-gcc} ${RPM_OPT_FLAGS} ${RPM_LD_FLAGS}"
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
@@ -29,6 +29,17 @@ mkdir -p ${RPM_BUILD_ROOT}%{_bindir}
 mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man1
 make install_programs PREFIX=${RPM_BUILD_ROOT}%{_prefix}
 make install_man PREFIX=${RPM_BUILD_ROOT}%{_prefix}
+# the sloccount makefile doesn't -m 644 on install for man page
+chmod 644 ${RPM_BUILD_ROOT}%{_mandir}/man1/sloccount.1.gz
+# Duplicate files can actually just be symlinks
+cmp ${RPM_BUILD_ROOT}%{_bindir}/java_count ${RPM_BUILD_ROOT}%{_bindir}/c_count && rm ${RPM_BUILD_ROOT}%{_bindir}/java_count && ln -s c_count ${RPM_BUILD_ROOT}%{_bindir}/java_count
+cmp ${RPM_BUILD_ROOT}%{_bindir}/sh_count ${RPM_BUILD_ROOT}%{_bindir}/tcl_count && rm ${RPM_BUILD_ROOT}%{_bindir}/tcl_count && ln -s sh_count ${RPM_BUILD_ROOT}%{_bindir}/tcl_count
+cmp ${RPM_BUILD_ROOT}%{_bindir}/sh_count ${RPM_BUILD_ROOT}%{_bindir}/sed_count && rm ${RPM_BUILD_ROOT}%{_bindir}/sed_count && ln -s sh_count ${RPM_BUILD_ROOT}%{_bindir}/sed_count
+cmp ${RPM_BUILD_ROOT}%{_bindir}/sh_count ${RPM_BUILD_ROOT}%{_bindir}/ruby_count && rm ${RPM_BUILD_ROOT}%{_bindir}/ruby_count && ln -s sh_count ${RPM_BUILD_ROOT}%{_bindir}/ruby_count
+cmp ${RPM_BUILD_ROOT}%{_bindir}/sh_count ${RPM_BUILD_ROOT}%{_bindir}/makefile_count && rm ${RPM_BUILD_ROOT}%{_bindir}/makefile_count && ln -s sh_count ${RPM_BUILD_ROOT}%{_bindir}/makefile_count
+cmp ${RPM_BUILD_ROOT}%{_bindir}/sh_count ${RPM_BUILD_ROOT}%{_bindir}/exp_count && rm ${RPM_BUILD_ROOT}%{_bindir}/exp_count && ln -s sh_count ${RPM_BUILD_ROOT}%{_bindir}/exp_count
+cmp ${RPM_BUILD_ROOT}%{_bindir}/sh_count ${RPM_BUILD_ROOT}%{_bindir}/csh_count && rm ${RPM_BUILD_ROOT}%{_bindir}/csh_count && ln -s sh_count ${RPM_BUILD_ROOT}%{_bindir}/csh_count
+cmp ${RPM_BUILD_ROOT}%{_bindir}/sh_count ${RPM_BUILD_ROOT}%{_bindir}/awk_count && rm ${RPM_BUILD_ROOT}%{_bindir}/awk_count && ln -s sh_count ${RPM_BUILD_ROOT}%{_bindir}/awk_count
 
 %files
 %doc sloccount.html README ChangeLog COPYING TODO
@@ -36,6 +47,10 @@ make install_man PREFIX=${RPM_BUILD_ROOT}%{_prefix}
 %{_mandir}/*/*
 
 %changelog
+* Sun Jul 16 2023 Stewart Smith <stewart@flamingspork.com> - 2.26-37
+- Build with the right LDFLAGS (fixes rpmlint warning about PIE binaries, hardens build)
+- Remove executable bit on man page.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

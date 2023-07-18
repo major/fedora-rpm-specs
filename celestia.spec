@@ -1,13 +1,13 @@
 #%%global gittag 1.6.2
-%global commit 7cf93d9a8cb193ee11aec0f0f0cd86be022190be
+%global commit 8f43b0b8726f513eb75d84e711775a2e2b86071d
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20230515
+%global date 20230716
 
 Name:           celestia
 %if "%{?gittag}"
 Version:        1.6.2
 %else
-Version:        1.7.0~%{date}%{shortcommit}
+Version:        1.7.0~%{date}.git%{shortcommit}
 %endif
 Release:        %autorelease
 Summary:        OpenGL real-time visual space simulation

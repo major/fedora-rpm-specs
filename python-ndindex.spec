@@ -6,7 +6,9 @@ Summary:        Python library for manipulating indices of ndarrays
 # ndindex-1.7/ndindex/_crt.py is BSD-3-Clause
 License:        MIT AND BSD-3-Clause
 URL:            https://quansight-labs.github.io/ndindex/
-Source0:        https://github.com/quansight-labs/ndindex/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/quansight-labs/ndindex/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:          0001-Use-configparser.ConfigParser-instead-of-SafeConfigP.patch
+Patch:          0002-setup.py-specify-cython-language_level.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -52,6 +54,8 @@ rm pytest.ini
 OPTIONS=(
   # This test is flaky
   --deselect=ndindex/tests/test_shapetools.py::test_iter_indices_matmul
+  # https://github.com/Quansight-Labs/ndindex/issues/158
+  --deselect=ndindex/tests/test_ndindex.py::test_eq
 )
 
 %pytest -v "${OPTIONS[@]}"

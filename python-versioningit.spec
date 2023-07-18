@@ -72,6 +72,9 @@ BuildRequires:  mercurial
 sed -r -i 's/~=/>=/g' tox.ini
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^([[:blank:]]*)(pytest-cov|.*--(.*-)?cov)/\1# \2/g' tox.ini
+# Do not error on DeprecationWarning; this makes sense for upstream CI, but is
+# too strict for downstream builds.
+sed -r -i 's/^(filterwarnings = )error/\1default/' tox.ini
 
 # Comment out to remove /usr/bin/env shebangs
 # Can use something similar to correct/remove /usr/bin/python shebangs also

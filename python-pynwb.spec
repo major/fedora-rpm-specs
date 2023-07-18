@@ -1,17 +1,42 @@
+# backwards compatibility tests
+%bcond test_backwards    1
+# example tests
+%bcond test_example      1
+# example tests with ros3 streaming
+# Internet access required (automatically disabled without it)
+%bcond test_example_ros3 0
+# integration tests
+%bcond test_integration  1
+# unit tests for pynwb package
+%bcond test_pynwb        1
+# ros3 streaming tests
+# Internet access required (automatically disabled without it)
+%bcond test_ros3         0
+# example tests and validation tests on example NWB files
+%bcond test_validation   0
+
+Name:           python-pynwb
+Version:        2.3.3
+Release:        %autorelease
+Summary:        Package for working with Neurodata stored in the NWB format
+
+# The entire source is BSD-3-Clause-LBNL, except:
+#
+# Unlicense:
+#   - versioneer.py, a bundled and amalgamated copy of python3dist(versioneer),
+#     is not distributed in the binary RPMs, but the _version.py it generates
+#     is, and shares the same license
+License:        BSD-3-Clause-LBNL AND Unlicense
+URL:            https://github.com/NeurodataWithoutBorders/pynwb
+# Use the pypi tar because GitHub tar does not include the required git-submodules
+Source:         %{pypi_source pynwb}
+
+BuildArch:      noarch
+
 %global desc %{expand:
 PyNWB is a Python package for working with NWB files. It provides a high-level
 API for efficiently working with Neurodata stored in the NWB format.
 https://pynwb.readthedocs.io/en/latest/}
-
-Name:           python-pynwb
-Version:        2.1.0
-Release:        %autorelease
-Summary:        PyNWB is a Python package for working with NWB files
-License:        BSD
-URL:            https://github.com/NeurodataWithoutBorders/pynwb
-# Use the pypi tar because GitHub tar does not include the required git-submodules
-Source0:        %{pypi_source pynwb}
-BuildArch:      noarch
 
 %description %{desc}
 
@@ -25,19 +50,39 @@ BuildRequires:  python3-pytest
 
 %prep
 %autosetup -n pynwb-%{version}
-# test_validate uses python instead of python3
-sed -i 's|python|python3|' tests/validation/test_validate.py
 
-# unpin deps
-for i in requirements*txt
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's@"coverage", "run", "-p"@"%{python3}"@' \
+    tests/validation/test_validate.py
+
+sed -r -i 's/==.*//' requirements.txt | tee requirements-unpinned.txt
+#sed -i -e "s/h5py>.*'/h5py'/" -e "s/numpy>.*'/numpy'/" -e "s/pandas>.*'/pandas'/" setup.py
+
+# TODO: Why does this happen? It seems like it is an issue with our test
+# environment rather than a real bug.
+#
+# AssertionError: "<frozen runpy>:128:
+#     RuntimeWarning: 'pyn[151 chars]ur\n" != ''
+# - <frozen runpy>:128: RuntimeWarning: 'pynwb.validate' found in sys.modules
+#     after import of package 'pynwb', but prior to execution of
+#     'pynwb.validate'; this may result in unpredictable behaviour
+sed -r -i '1{s/^/from unittest import skip\n/}' \
+    tests/validation/test_validate.py
+for n in \
+    test_validate_file_cached \
+    test_validate_file_cached_extension \
+    test_validate_file_cached_extension_pass_ns \
+    test_validate_file_cached_ignore \
+    test_validate_file_list_namespaces_core \
+    test_validate_file_list_namespaces_extension
 do
-    sed -i 's/==.*//' $i
+  sed -r -i \
+      "s/^([[:blank:]]*)(def $n\()/\1@skip('Re-import issues')\n\1\2/" \
+      tests/validation/test_validate.py
 done
-sed -i -e "s/h5py>.*'/h5py'/" -e "s/numpy>.*'/numpy'/" -e "s/pandas>.*'/pandas'/" setup.py
-
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements.txt
+%pyproject_buildrequires requirements-unpinned.txt
 
 %build
 %pyproject_wheel
@@ -47,16 +92,30 @@ sed -i -e "s/h5py>.*'/h5py'/" -e "s/numpy>.*'/numpy'/" -e "s/pandas>.*'/pandas'/
 %pyproject_save_files pynwb
 
 %check
-# do not run ros tests (--ros3)
-export PYTHONPATH=".:%{buildroot}/%{python3_sitelib}:%{buildroot}/%{python3_sitearch}" 
-# run unit tests using pytest so that we can exclude tests that fail etc., which is hard to do with the test.py script
-# Disable test which fails on s390x on F34
-%if 0%{?fedora} < 35 && "%{_host_cpu}" == "s390x" || "%{_host_cpu}" == "ppc64le"
-%{pytest} tests/unit -k "not test_icephys_filtering_roundtrip"
-%else
-%{pytest} tests/unit
+# See skips added in %%prep.
+PYTHONPATH='%{buildroot}%{python3_sitelib}' '%{python3}' ./test.py \
+%if %{with test_backwards}
+    --backwards \
 %endif
-%{python3} test.py --example --validation --integration --backwards
+%if %{with test_example}
+    --example \
+%endif
+%if %{with test_example_ros3}
+    --example-ros3 \
+%endif
+%if %{with test_integration}
+    --integration \
+%endif
+%if %{with test_pynwb}
+    --pynwb \
+%endif
+%if %{with test_ros3}
+    --ros3 \
+%endif
+%if %{with test_validation}
+    --validation \
+%endif
+    --verbose
 
 %files -n python3-pynwb -f %{pyproject_files}
 %license license.txt

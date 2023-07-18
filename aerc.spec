@@ -3,7 +3,7 @@
 
 # https://git.sr.ht/~rjarry/aerc
 %global goipath         git.sr.ht/~rjarry/aerc
-Version:                0.14.0
+Version:                0.15.2
 %global topdir          %{name}-%{version}
 
 %gometa
@@ -24,18 +24,12 @@ URL:            %{gourl}
 # The forge macros don't support Sourcehut.
 # https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/209
 Source:         %{gourl}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# doc: fix English typos
-# https://git.sr.ht/~rjarry/aerc/commit/10b995f0196c8243132c3f435d4e11b3c9700e35
-Patch:          0001-doc-fix-English-typos.patch
-# filters: install them in $PREFIX/libexec/aerc/filters
-# https://git.sr.ht/~rjarry/aerc/commit/04303172d4f96b284e0c915ce4a7b87e1439bb87
-# Depends on previous patch. Slightly modified to remove CHANGELOG.md conflict.
-Patch:          0002-filters-install-them-in-PREFIX-libexec-aerc-filters.patch
 
 BuildRequires:  scdoc
 BuildRequires:  desktop-file-utils
 BuildRequires:  gnupg
 BuildRequires:  notmuch-devel
+BuildRequires:  gcc
 
 Requires:       notmuch
 
@@ -63,16 +57,15 @@ sed -i "s|github.com/zenhack/go.notmuch|github.com/brunnre8/go.notmuch|" $(find 
 echo 'golang(github.com/brunnre8/go.notmuch)'
 
 %build
+%set_build_flags
+make wrap colorize
 export BUILDTAGS=notmuch
-export LDFLAGS="\
-                -X main.Version=%{version} \
+export LDFLAGS="-X main.Version=%{version} \
                 -X main.Prefix=%{_prefix} \
-                -X main.ShareDir=%{_datadir}/aerc \
+                -X main.Flags=$(echo -- $(GOFLAGS) | base64 | tr -d '\r\n') \
                 -X git.sr.ht/~rjarry/aerc/config.shareDir=%{_datadir} \
-                -X git.sr.ht/~rjarry/aerc/config.libexecDir=%{_libexecdir} \
-               "
+                -X git.sr.ht/~rjarry/aerc/config.libexecDir=%{_libexecdir}"
 %gobuild -o aerc %{goipath}
-%gobuild -o wrap filters/wrap.go
 
 %install
 export PREFIX=%{_prefix}

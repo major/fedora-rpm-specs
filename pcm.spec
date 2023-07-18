@@ -1,5 +1,5 @@
 Name:           pcm
-Version:        202302
+Version:        202307
 Release:        1%{?dist}
 Summary:        Intel(r) Performance Counter Monitor
 License:        BSD

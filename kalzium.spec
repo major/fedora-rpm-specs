@@ -31,6 +31,7 @@ URL:     https://edu.kde.org/kalzium/
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
+Patch0: 80a9ab41b91ab849794bb7830f0a98d862c08269.diff
 
 %if ! 0%{?bootstrap}
 BuildRequires: libappstream-glib
