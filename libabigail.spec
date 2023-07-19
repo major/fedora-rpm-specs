@@ -9,6 +9,9 @@ Summary: Set of ABI analysis tools
 License: ASL 2.0
 URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
+# fix configure for removal of 'imp' in Python 3.12; code already fixed
+# https://sourceware.org/pipermail/libabigail/2023q3/005581.html
+Patch0: 0001-Fix-fedabipkgdiff-configure-check-for-Python-3.12.patch
 
 
 BuildRequires: binutils-devel
@@ -92,6 +95,7 @@ them manually.
 
 %prep
 %setup -n %{tarball_name}
+%patch -P 0 -p1
 
 %build
 %configure --enable-ctf --disable-silent-rules --disable-zip-archive --disable-static 
@@ -115,7 +119,7 @@ make -C doc/manuals install-man-and-info-doc DESTDIR=%{buildroot}
 
 %if 0%{?fedora}
 # Explicitly use Python 3 as the interpreter
-pathfix.py -i %{__python3} -pn %{buildroot}%{_bindir}/fedabipkgdiff
+%py3_shebang_fix %{buildroot}%{_bindir}/fedabipkgdiff
 %endif
 
 %check

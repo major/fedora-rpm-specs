@@ -1,8 +1,6 @@
-# Draft v5 - Edited 2022-09-06
-
 Name:           python-qemu-qmp
-Version:        0.0.2
-Release:        2%{?dist}
+Version:        0.0.3
+Release:        1%{?dist}
 Summary:        QEMU Monitor Protocol library
 
 License:        GPL-2.0-only AND LGPL-2.0-or-later
@@ -10,8 +8,6 @@ License:        GPL-2.0-only AND LGPL-2.0-or-later
 #               Everything else installed is LGPLv2+.
 URL:            https://pypi.org/project/qemu.qmp
 Source0:        %{pypi_source qemu.qmp}
-Source101:      %{pypi_source qemu.qmp}.asc
-Source102:      https://www.qemu.org/assets/keys/python-qemu-qmp.1.txt
 
 BuildArch:      noarch
 BuildRequires:  gnupg2
@@ -44,7 +40,6 @@ This package provides offline HTML documentation for python3-qemu-qmp.
 
 
 %prep
-%{gpgverify} --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %autosetup -n qemu.qmp-%{version}
 
 
@@ -99,6 +94,12 @@ avocado --config avocado.cfg run tests/*.py
 
 
 %changelog
+* Mon Jul 10 2023 John Snow <jsnow@redhat.com> - 0.0.3-1
+- Update to v0.0.3
+
+* Mon Jul 17 2023 Python Maint <python-maint@redhat.com> - 0.0.2-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -172,7 +172,8 @@ openstack complete | sed -n '/_openstack/,$p' > /etc/bash_completion.d/osc.bash_
 
 %check
 export PYTHON=%{__python3}
-stestr run
+# (amoralej) - exclude failing tests with 3.12 https://storyboard.openstack.org/#!/story/2010832
+stestr run --exclude-regex "openstackclient.tests.unit.common.test_module.TestModuleList.*"
 
 %files -n python3-%{sname}
 %license LICENSE

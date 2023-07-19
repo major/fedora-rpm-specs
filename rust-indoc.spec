@@ -5,7 +5,7 @@
 %global crate indoc
 
 Name:           rust-indoc
-Version:        2.0.2
+Version:        2.0.3
 Release:        %autorelease
 Summary:        Indented document literals
 

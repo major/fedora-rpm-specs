@@ -5,7 +5,7 @@
 %global crate sec1
 
 Name:           rust-sec1
-Version:        0.7.2
+Version:        0.7.3
 Release:        %autorelease
 Summary:        Elliptic Curve Cryptography encoding formats (SEC1)
 

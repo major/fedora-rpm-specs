@@ -5,7 +5,7 @@
 %global crate dtoa
 
 Name:           rust-dtoa
-Version:        1.0.8
+Version:        1.0.9
 Release:        %autorelease
 Summary:        Fast floating point primitive to string conversion
 

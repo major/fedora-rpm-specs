@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and MIT and BSD and IJG and GPLv2+ with exceptions and ISC
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
@@ -221,6 +221,17 @@ Patch65: hplip-sclpml-strcasestr.patch
 # - this looks as incompatible conditional for Fedora, so the files are removed,
 # hplip repacked and this patch removes its mentions in Makefile.am
 Patch66: hplip-nocdmfilter.patch
+# 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
+# https://bugs.launchpad.net/hplip/+bug/2027972
+Patch67: hplip-fix-parsing-lpstat.patch
+# switch to curl by downstream patch from wget to workaround openstack dropping IPv6
+# which causes great delays...
+# Remove this once internal openstack handles IPv6 better - test by pinging IPv6 in OpenStack,
+# it should not hang.
+Patch68: hplip-plugin-curl.patch
+# 2221311 - [python3.12] hplip tools/binaries crash due depending on removed configparser.readfp()
+# Upstream https://bugs.launchpad.net/hplip/+bug/2028001
+Patch69: hplip-no-readfp.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -279,6 +290,9 @@ Recommends: avahi-tools
 Recommends: libsane-hpaio%{?_isa} = %{version}-%{release}
 
 Requires: cups
+# switch to curl by downstream patch from wget to workaround openstack dropping IPv6
+# which causes great delays...
+Requires: curl-minimal
 # for bash script acting as hp-plugin (Source7)
 Requires: gawk
 # set require directly to /usr/bin/gpg, because gnupg2 and gnupg ships it,
@@ -295,7 +309,6 @@ Requires: systemd
 Requires: tar
 # require usbutils, hp-diagnose_queues needs lsusb
 Requires: usbutils
-Requires: wget
 
 # require coreutils, because timeout binary is needed in post scriptlet,
 # because hpcups-update-ppds script can freeze in certain situation and
@@ -558,6 +571,15 @@ done
 # C99 compatibility patch by fweimer - undefined strcasestr() in sclpml.c - build with _GNU_SOURCE
 %patch -P 65 -p1 -b .sclpml-strcasestr
 %patch -P 66 -p1 -b .nocdmfilter
+# 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
+# https://bugs.launchpad.net/hplip/+bug/2027972
+%patch -P 67 -p1 -b .lpstat-parse
+# switch to curl by downstream patch from wget to workaround openstack dropping IPv6
+# which causes great delays...
+%patch -P 68 -p1 -b .curl-switch
+# 2221311 - [python3.12] hplip tools/binaries crash due depending on removed configparser.readfp()
+# Upstream https://bugs.launchpad.net/hplip/+bug/2028001
+%patch -P 69 -p1 -b .no-readfp
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -929,6 +951,11 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Mon Jul 17 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-3
+- 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
+- switch to curl when downloading plugin
+- 2221311 - [python3.12] hplip tools/binaries crash due depending on removed configparser.readfp()
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.23.5-2
 - Rebuilt for Python 3.12
 

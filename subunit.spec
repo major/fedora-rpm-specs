@@ -1,6 +1,9 @@
 # NOTE: python2 support is no longer available.  Do not build for EPEL versions
 # that do not support python3.
 
+# Disable the tests in a bootstrap situation
+%bcond_with bootstrap
+
 Name:           subunit
 Version:        1.4.2
 Release:        3%{?dist}
@@ -18,9 +21,12 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  pkgconfig
-BuildRequires:  pkgconfig(check)
 BuildRequires:  pkgconfig(cppunit)
 BuildRequires:  python3-devel
+
+%if %{without bootstrap}
+BuildRequires:  pkgconfig(check)
+%endif
 
 %description
 Subunit C bindings.  See the python-subunit package for test processing
@@ -201,7 +207,7 @@ touch -r c++/SubunitTestProgressListener.h \
 touch -r perl/subunit-diff %{buildroot}%{_bindir}/subunit-diff
 
 %check
-%if 0%{?!disable_tests}
+%if %{without bootstrap}
 # Run the tests for python3
 export LD_LIBRARY_PATH=$PWD/.libs
 export PYTHON=%{python3}

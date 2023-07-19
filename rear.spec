@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.6
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: http://relax-and-recover.org/
 License: GPLv3
@@ -51,7 +51,7 @@ Requires: gawk
 Requires: attr
 Requires: bc
 Requires: iproute
-Requires: genisoimage
+Requires: xorriso
 %if 0%{?rhel}
 Requires: util-linux
 %endif
@@ -113,6 +113,9 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Fri Jun 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.6-10
+- Switch to xorriso for iso image creation
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

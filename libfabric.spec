@@ -2,7 +2,7 @@
 
 Name:           libfabric
 Version:        1.18.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Fabric Interfaces
 
 License:        BSD-2-Clause OR GPL-2.0-only
@@ -26,7 +26,7 @@ BuildRequires:  librdmacm-devel
 %if 0%{?fedora} || 0%{?rhel} == 7
 BuildRequires:  infinipath-psm-devel
 %endif
-%if 0%{?fedora} || 0%{?rhel} >= 7
+%if 0%{?fedora} || (0%{?rhel} >= 7 && 0%{?rhel} < 10)
 BuildRequires:  libpsm2-devel
 %endif
 BuildRequires:  numactl-devel
@@ -94,6 +94,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Jul 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.18.1-2
+- Disable PSM2 in RHEL 10 builds
+
 * Sat Jul 15 2023 Orion Poplawski <orion@nwra.com> - 1.18.1-1
 - Update to 1.18.1
 

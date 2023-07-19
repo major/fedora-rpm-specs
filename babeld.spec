@@ -1,8 +1,8 @@
 %define _hardened_build 1
 
 Name:           babeld
-Version:        1.12.2
-Release:        2%{?dist}
+Version:        1.13
+Release:        1%{?dist}
 Summary:        Ad-hoc network routing daemon
 
 License:        MIT
@@ -58,6 +58,9 @@ install -Dp -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/babeld
 
 
 %changelog
+* Mon Jul 17 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.13-1
+- 1.13
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.2-2
 - migrated to SPDX license
 

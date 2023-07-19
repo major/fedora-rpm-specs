@@ -35,7 +35,7 @@
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
 Version: 8.2306.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -46,7 +46,7 @@ Source4: rsyslog.log
 Source5: rsyslog.service
 # Add qpid-proton as another source, enable omamqp1 module in a
 # separatae sub-package with it statically linked(see rhbz#1713427)
-Source6: qpid-proton-0.34.0.tar.gz
+Source6: https://archive.apache.org/dist/qpid/proton/0.34.0/qpid-proton-0.34.0.tar.gz
 
 Patch0: openssl3-compatibility.patch
 
@@ -754,6 +754,9 @@ done
 
 
 %changelog
+* Sat Jul 15 2023 Yaroslav Fedevych <yaroslav@fedevych.name> - 8.2306.0-2
+- Specify qpid-proton's source as full URL to fix isolated builds
+
 * Wed Jun 21 2023 Attila Lakatos <alakatos@redhat.com> - 8.2306.0-1
 - rebase to 8.2306.0
   resolves: rhbz#2151339

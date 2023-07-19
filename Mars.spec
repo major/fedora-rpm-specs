@@ -1,6 +1,6 @@
 Name:           Mars
 Version:        4.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        An interactive development environment for programming in MIPS assembly language
 
 License:        MIT
@@ -14,11 +14,9 @@ ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  ant
 BuildRequires:  java-17-openjdk-devel
-BuildRequires:  jpackage-utils
 BuildRequires:  desktop-file-utils
 
 Requires:       java-17-openjdk
-Requires:       jpackage-utils
 
 %description
 MARS is a lightweight interactive development environment (IDE) for
@@ -52,6 +50,9 @@ desktop-file-install                                \
 %doc MARSlicense.txt
 
 %changelog
+* Mon Jul 17 2023 W. Michael Petullo <mike@flyn.org> - 4.5-22
+- Remove jpackage-utils requirement; it is retired and not needed
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

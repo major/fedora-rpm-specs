@@ -1,9 +1,9 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.19
-Release: 1%{?dist}
-License: GPLv3+
+Version: 12.20
+Release: 2%{?dist}
+License: GPL-3.0-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -524,6 +524,12 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jul 17 2023 Nick Clifton  <nickc@redhat.com> - 12.20-2
+- Spec File: Change License field to use SPDX notation.  (#2222112)
+
+* Mon Jul 17 2023 Nick Clifton  <nickc@redhat.com> - 12.20-1
+- Annocheck: Ignore AArch64 $x and $d symbols.  (#2221192)
+
 * Wed Jul 05 2023 Nick Clifton  <nickc@redhat.com> - 12.19-1
 - GCC Plugin: Suppress active checks for fortran sources.  Improve scanning of COLLECT_GCC_OPTIONS.
 

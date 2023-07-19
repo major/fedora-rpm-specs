@@ -2,8 +2,8 @@
 
 Summary: A document formatting system
 Name: groff
-Version: 1.22.4
-Release: 11%{?dist}
+Version: 1.23.0
+Release: 1%{?dist}
 # Everything is under GPL-3.0-or-later, except for the following files:
 # MIT license
 #  -- tmac/hyphen.den
@@ -46,7 +46,7 @@ Release: 11%{?dist}
 #     contrib/eqn2graph/eqn2graph.sh
 License: GPL-3.0-or-later AND GFDL-1.3-or-later AND BSD-4-Clause-UC AND MIT AND X11 AND LicenseRef-Fedora-Public-Domain
 URL: http://www.gnu.org/software/groff/
-Source: ftp://ftp.gnu.org/gnu/groff/groff-%{version}.tar.gz
+Source: https://ftp.gnu.org/gnu/groff/groff-%{version}.tar.gz
 
 # resolves: #530788
 Patch0: 0001-missing-groff-x11-info-message-when-gxditview-not-fo.patch
@@ -152,7 +152,7 @@ done
 %build
 %configure \
     --docdir=%{_pkgdocdir} \
-    --with-appresdir=%{_datadir}/X11/app-defaults \
+    --with-appdefdir=%{_datadir}/X11/app-defaults \
     --with-grofferdir=%{_datadir}/%{name}/%{version}/groffer
 %make_build
 
@@ -186,10 +186,6 @@ sed --in-place 's/\.pfa$/.pfa_/' %{buildroot}%{_datadir}/%{name}/%{version}/font
 
 # remove unnecessary files
 rm -f %{buildroot}%{_infodir}/dir
-
-# fix privileges
-chmod 755 %{buildroot}%{_datadir}/groff/%{version}/groffer/version.sh
-chmod 755 %{buildroot}%{_datadir}/groff/%{version}/font/devlj4/generate/special.awk
 
 # remove CreationDate from documentation
 pushd %{buildroot}%{_pkgdocdir}
@@ -253,7 +249,6 @@ fi
 %{_datadir}/%{name}/%{version}/oldfont/
 %{_datadir}/%{name}/%{version}/pic/
 %{_datadir}/%{name}/%{version}/tmac/62bit.tmac
-%{_datadir}/%{name}/%{version}/tmac/a4.tmac
 %{_datadir}/%{name}/%{version}/tmac/dvi.tmac
 %{_datadir}/%{name}/%{version}/tmac/e.tmac
 %{_datadir}/%{name}/%{version}/tmac/ec.tmac
@@ -297,8 +292,6 @@ fi
 %{_bindir}/pic2graph
 %{_bindir}/refer
 %{_bindir}/tfmtodit
-%{_libdir}/groff/groff_opts_no_arg.txt
-%{_libdir}/groff/groff_opts_with_arg.txt
 %{_mandir}/man1/addftinfo.*
 %{_mandir}/man1/eqn2graph.*
 %{_mandir}/man1/gdiffmk.*
@@ -350,7 +343,6 @@ fi
 %{_datadir}/%{name}/%{version}/font/devutf8/
 %{_datadir}/%{name}/%{version}/font/devhtml/
 %{_datadir}/%{name}/%{version}/tmac/an-ext.tmac
-%{_datadir}/%{name}/%{version}/tmac/an-old.tmac
 %{_datadir}/%{name}/%{version}/tmac/an.tmac
 %{_datadir}/%{name}/%{version}/tmac/andoc.tmac
 %{_datadir}/%{name}/%{version}/tmac/composite.tmac
@@ -358,6 +350,7 @@ fi
 %{_datadir}/%{name}/%{version}/tmac/cs.tmac
 %{_datadir}/%{name}/%{version}/tmac/de.tmac
 %{_datadir}/%{name}/%{version}/tmac/den.tmac
+%{_datadir}/%{name}/%{version}/tmac/en.tmac
 %{_datadir}/%{name}/%{version}/tmac/devtag.tmac
 %{_datadir}/%{name}/%{version}/tmac/doc-old.tmac
 %{_datadir}/%{name}/%{version}/tmac/doc.tmac
@@ -372,10 +365,16 @@ fi
 %{_datadir}/%{name}/%{version}/tmac/hyphen.det
 %{_datadir}/%{name}/%{version}/tmac/hyphen.fr
 %{_datadir}/%{name}/%{version}/tmac/hyphen.sv
-%{_datadir}/%{name}/%{version}/tmac/hyphen.us
+%{_datadir}/%{name}/%{version}/tmac/hyphen.en
+%{_datadir}/%{name}/%{version}/tmac/hyphen.it
 %{_datadir}/%{name}/%{version}/tmac/hyphenex.cs
-%{_datadir}/%{name}/%{version}/tmac/hyphenex.us
+%{_datadir}/%{name}/%{version}/tmac/hyphenex.en
 %{_datadir}/%{name}/%{version}/tmac/ja.tmac
+%{_datadir}/%{name}/%{version}/tmac/ptx.tmac
+%{_datadir}/%{name}/%{version}/tmac/it.tmac
+%{_datadir}/%{name}/%{version}/tmac/rfc1345.tmac
+%{_datadir}/%{name}/%{version}/tmac/sanitize.tmac
+%{_datadir}/%{name}/%{version}/tmac/sboxes.tmac
 %{_datadir}/%{name}/%{version}/tmac/latin1.tmac
 %{_datadir}/%{name}/%{version}/tmac/latin2.tmac
 %{_datadir}/%{name}/%{version}/tmac/latin5.tmac
@@ -391,14 +390,12 @@ fi
 %{_datadir}/%{name}/%{version}/tmac/psatk.tmac
 %{_datadir}/%{name}/%{version}/tmac/psold.tmac
 %{_datadir}/%{name}/%{version}/tmac/pspic.tmac
-%{_datadir}/%{name}/%{version}/tmac/safer.tmac
 %{_datadir}/%{name}/%{version}/tmac/sv.tmac
 %{_datadir}/%{name}/%{version}/tmac/trans.tmac
 %{_datadir}/%{name}/%{version}/tmac/troffrc
 %{_datadir}/%{name}/%{version}/tmac/troffrc-end
 %{_datadir}/%{name}/%{version}/tmac/tty-char.tmac
 %{_datadir}/%{name}/%{version}/tmac/tty.tmac
-%{_datadir}/%{name}/%{version}/tmac/unicode.tmac
 %{_datadir}/%{name}/%{version}/tmac/www.tmac
 # programs
 %{_bindir}/eqn
@@ -444,12 +441,10 @@ fi
 %{_mandir}/man1/gneqn.*
 %{_mandir}/man1/gsoelim.*
 %{_mandir}/man1/zsoelim.*
-%dir %{_libdir}/groff/
 
 %files perl
 # data
 %{_datadir}/%{name}/%{version}/font/devpdf/
-%{_datadir}/%{name}/%{version}/groffer/
 %{_datadir}/%{name}/%{version}/tmac/pdf.tmac
 # programs
 %{_bindir}/afmtodit
@@ -457,41 +452,19 @@ fi
 %{_bindir}/gperl
 %{_bindir}/gpinyin
 %{_bindir}/glilypond
-%{_bindir}/groffer
 %{_bindir}/grog
 %{_bindir}/gropdf
 %{_bindir}/mmroff
 %{_bindir}/pdfmom
-%{_bindir}/roff2dvi
-%{_bindir}/roff2html
-%{_bindir}/roff2pdf
-%{_bindir}/roff2ps
-%{_bindir}/roff2text
-%{_bindir}/roff2x
 %{_mandir}/man1/afmtodit.*
 %{_mandir}/man1/chem.*
 %{_mandir}/man1/gperl.*
 %{_mandir}/man1/gpinyin.*
 %{_mandir}/man1/glilypond.*
-%{_mandir}/man1/groffer.*
 %{_mandir}/man1/grog.*
 %{_mandir}/man1/gropdf.*
 %{_mandir}/man1/mmroff.*
 %{_mandir}/man1/pdfmom.*
-%{_mandir}/man1/roff2dvi.*
-%{_mandir}/man1/roff2html.*
-%{_mandir}/man1/roff2pdf.*
-%{_mandir}/man1/roff2ps.*
-%{_mandir}/man1/roff2text.*
-%{_mandir}/man1/roff2x.*
-%dir %{_libdir}/groff/glilypond/
-%dir %{_libdir}/groff/gpinyin/
-%dir %{_libdir}/groff/grog/
-%{_libdir}/groff/glilypond/args.pl
-%{_libdir}/groff/glilypond/oop_fh.pl
-%{_libdir}/groff/glilypond/subs.pl
-%{_libdir}/groff/gpinyin/subs.pl
-%{_libdir}/groff/grog/subs.pl
 
 %if %{with_x}
 %files x11
@@ -501,6 +474,7 @@ fi
 %{_datadir}/%{name}/%{version}/tmac/Xps.tmac
 %{_datadir}/X11/app-defaults/GXditview
 %{_datadir}/X11/app-defaults/GXditview-color
+%{_datadir}/%{name}/%{version}/font/FontMap-X11
 # programs
 %{_bindir}/gxditview
 %{_bindir}/xtotroff
@@ -512,11 +486,19 @@ fi
 %doc %{_pkgdocdir}/*.me
 %doc %{_pkgdocdir}/*.ps
 %doc %{_pkgdocdir}/*.ms
+%doc %{_pkgdocdir}/groff*
+%doc %{_pkgdocdir}/me-revisions
+%doc %{_pkgdocdir}/automake.pdf
 %doc %{_pkgdocdir}/examples/
 %doc %{_pkgdocdir}/html/
 %doc %{_pkgdocdir}/pdf/
 
 %changelog
+* Mon Jul 10 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.23.0-1
+- Rebase to version 1.23.0
+- Several files were removed from groff package
+- Several files were added to groff package
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

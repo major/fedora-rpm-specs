@@ -2,7 +2,7 @@
 
 Name:           gpsd
 Version:        3.25
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -14,6 +14,7 @@ Source11:       gpsd.sysconfig
 # Add old status names to gps.h for compatibility
 Patch1:         gpsd-apistatus.patch
 
+BuildRequires:  gcc
 BuildRequires:  dbus-devel            
 BuildRequires:  dbus-glib-devel            
 BuildRequires:  ncurses-devel            
@@ -27,9 +28,9 @@ BuildRequires:  python3-pyserial
 BuildRequires:  desktop-file-utils
 BuildRequires:  bluez-libs-devel
 BuildRequires:  pps-tools-devel
-BuildRequires:  /usr/bin/c++
 BuildRequires:  systemd
 %if %{with_qt}
+BuildRequires:  gcc-c++
 BuildRequires:  qt-devel
 %endif
 BuildRequires:  libusb1-devel
@@ -38,7 +39,7 @@ Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       udev
 %{?systemd_requires}
 
-%description 
+%description
 gpsd is a service daemon that mediates access to a GPS sensor
 connected to the host computer by serial or USB interface, making its
 data on the location/course/velocity of the sensor available to be
@@ -49,15 +50,16 @@ gpsd responds to queries with a format that is substantially easier to
 parse than NMEA 0183.  
 
 %package libs
-Summary: Client libraries in C for talking to a running gpsd or GPS
+Summary:        Client libraries in C for talking to a running gpsd or GPS
 
 %description libs
 This package contains the gpsd libraries that manage access
 to a GPS for applications.
 
 %package -n python3-%{name}
-Summary: Python libraries and modules for use with gpsd
-Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Summary:        Python libraries and modules for use with gpsd
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       python3-pyserial
 %{?python_provide:%python_provide python3-%{name}}
 
 %description -n python3-%{name}
@@ -65,8 +67,8 @@ This package contains the python3 modules that manage access to a GPS for
 applications.
 
 %package devel
-Summary: Development files for the gpsd library
-Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Summary:        Development files for the gpsd library
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
 This package provides C header files for the gpsd shared libraries that
@@ -74,17 +76,17 @@ manage access to a GPS for applications
 
 %if %{with_qt}
 %package qt
-Summary: C++/Qt5 bindings for the gpsd library
-Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Summary:        C++/Qt5 bindings for the gpsd library
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description qt
 This package provide C++ and Qt bindings for use with the libgps library from
 gpsd.
 
 %package qt-devel
-Summary: Development files for the C++/Qt5 bindings for the gpsd library
-Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Requires: %{name}-qt%{?_isa} = %{epoch}:%{version}-%{release}
+Summary:        Development files for the C++/Qt5 bindings for the gpsd library
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       %{name}-qt%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description qt-devel
 This package provides the development files for the C++ and Qt bindings for use
@@ -92,13 +94,35 @@ with the libgps library from gpsd.
 %endif
 
 %package clients
-Summary: Clients for gpsd
-Requires: python3-%{name} = %{epoch}:%{version}-%{release}
-Requires: python3-pyserial
-Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Summary:        Clients for gpsd
+Requires:       python3-%{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description clients
 This package contains various clients using gpsd.
+
+%package xclients
+Summary:        Graphical clients for gpsd
+Requires:       python3-%{name} = %{epoch}:%{version}-%{release}
+Requires:       python3-cairo
+Requires:       python3-gobject
+Requires:       gtk3
+# subpackage split
+Conflicts:      gpsd-clients < 1:3.25-6
+
+%description xclients
+This package contains X clients using gpsd.
+
+%package compat
+Summary:        Transitional package for gpsd-clients
+Obsoletes:      gpsd-clients < 1:3.25-6
+Requires:       gpsd-clients = %{epoch}:%{version}-%{release}
+Requires:       gpsd-xclients = %{epoch}:%{version}-%{release}
+
+%description compat
+This package only exists to help transition gpsd-clients users to the new
+package split. It will be removed after one distribution release cycle, please
+do not reference it or depend on it in any way.
 
 %prep
 %setup -q
@@ -268,8 +292,6 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_bindir}/gpssubframe
 %{_bindir}/gpxlogger
 %{_bindir}/lcdgps
-%{_bindir}/xgps
-%{_bindir}/xgpsspeed
 %{_bindir}/gpsfake
 %{_bindir}/ubxtool
 %{_bindir}/zerk
@@ -287,18 +309,33 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_mandir}/man1/gpssubframe.1*
 %{_mandir}/man1/gpxlogger.1*
 %{_mandir}/man1/lcdgps.1*
-%{_mandir}/man1/xgps.1*
-%{_mandir}/man1/xgpsspeed.1*
 %{_mandir}/man1/cgps.1*
 %{_mandir}/man1/gpscat.1*
 %{_mandir}/man1/gpsfake.1*
 %{_mandir}/man1/ubxtool.1*
 %{_mandir}/man1/zerk.1*
+
+%files xclients
+%{_bindir}/xgps
+%{_bindir}/xgpsspeed
 %{_datadir}/applications/*.desktop
 %dir %{_datadir}/gpsd
 %{_datadir}/gpsd/gpsd-logo.png
+%{_mandir}/man1/xgps.1*
+%{_mandir}/man1/xgpsspeed.1*
+
+%files compat
 
 %changelog
+* Mon Jul 17 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.25-6
+- split X clients to separate subpackage
+- add missing dependencies for python clients
+- add explicit gcc dependency
+- drop xmlto from build dependencies
+- enable libusb1-devel on s390x
+- fix qt build option
+- fix spec indentation
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:3.25-5
 - Rebuilt for Python 3.12
 

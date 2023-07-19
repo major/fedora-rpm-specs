@@ -5,7 +5,7 @@
 %global crate pest
 
 Name:           rust-pest
-Version:        2.6.0
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Elegant Parser
 
@@ -14,7 +14,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pest
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 The Elegant Parser.}
@@ -84,30 +84,6 @@ use the "pretty-print" feature of the "%{crate}" crate.
 %files       -n %{name}+pretty-print-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde_json-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde_json-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde_json" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde_json-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -118,18 +94,6 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+thiserror-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+thiserror-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "thiserror" feature of the "%{crate}" crate.
-
-%files       -n %{name}+thiserror-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

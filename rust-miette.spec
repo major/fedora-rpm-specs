@@ -5,7 +5,7 @@
 %global crate miette
 
 Name:           rust-miette
-Version:        5.9.0
+Version:        5.10.0
 Release:        %autorelease
 Summary:        Fancy diagnostic reporting library and protocol for us mere mortals
 

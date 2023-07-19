@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-Syntax-Keyword-Try
-Version:        0.28
-Release:        3%{?dist}
+Version:        0.29
+Release:        1%{?dist}
 Summary:        try/catch/finally syntax for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Try/
@@ -33,7 +33,8 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(XS::Parse::Keyword) >= 0.06
 # Tests
 BuildRequires:  perl(overload)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test2::IPC)
+BuildRequires:  perl(Test2::V0)
 # Optional
 %if %{with perl_Syntax_Keyword_Try_enables_extra_tests}
 BuildRequires:  perl(Future)
@@ -93,6 +94,7 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/99pod.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -106,14 +108,17 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Syntax*
 %{perl_vendorarch}/Syntax*
-%{_mandir}/man3/*
+%{_mandir}/man3/Syntax::Keyword::Try*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.29-1
+- 0.29 bump (rhbz#2222620)
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.28-3
 - Perl 5.38 rebuild
 

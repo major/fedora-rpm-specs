@@ -1,8 +1,8 @@
 Name:           libtpms
 Version:        0.9.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library providing Trusted Platform Module (TPM) functionality
-License:        BSD
+License:        BSD and TCGL
 
 URL:            https://github.com/stefanberger/libtpms
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -63,6 +63,9 @@ make check
 %{_mandir}/man3/TPM*
 
 %changelog
+* Mon Jul 17 2023 Stefan Berger <stefanb@linux.ibm.com> - 0.9.6-3
+- Set license to 'BSD and TCGL' from previous 'BSD' (BZ2219548)
+
 * Sat Mar 18 2023 Todd Zullinger <tmz@pobox.com> - 0.9.6-2
 - verify upstream source signature
 

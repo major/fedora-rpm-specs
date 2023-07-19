@@ -33,6 +33,11 @@ BuildArch:      noarch
 # Patch out the image reference and the text referring to it.
 Patch:          snakemake-7.11.0-docs-no-animated-demo.patch
 
+# Fix SyntaxWarnings due to non-raw regex pattern strings
+# https://github.com/snakemake/snakemake/pull/2359
+# Rebased on 7.30.1.
+Patch:          snakemake-7.30.1-raw-regex.patch
+
 BuildRequires:  python3-devel
 
 BuildRequires:  help2man

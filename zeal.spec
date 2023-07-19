@@ -4,7 +4,7 @@
 
 Name:           zeal
 Version:        0.6.2
-Release:        2.20230618.%{shortcommit}%{?dist}
+Release:        3.20230618.%{shortcommit}%{?dist}
 Summary:        Offline documentation browser inspired by Dash
 
 License:        GPLv3+
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.zealdocs.z
 
 
 %changelog
+* Mon Jul 17 2023 Lumír Balhar <lbalhar@redhat.com> - 0.6.2-3.20230618.1cfa7c6
+- Rebuild
+
 * Sun Jun 18 2023 Lumír Balhar <lbalhar@redhat.com> - 0.6.2-2.20230618.1cfa7c6
 - Don't use obsoleted forge macros
 

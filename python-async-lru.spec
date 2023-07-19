@@ -1,7 +1,8 @@
 Name:           python-async-lru
-Version:        2.0.1
+Version:        2.0.3
 Release:        %autorelease
 Summary:        Simple lru_cache for asyncio
+# SPDX
 License:        MIT
 URL:            https://github.com/aio-libs/async_lru
 Source:         https://github.com/aio-libs/async-lru/archive/refs/tags/v%{version}.tar.gz

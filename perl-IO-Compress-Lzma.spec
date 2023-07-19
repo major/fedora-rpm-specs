@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-IO-Compress-Lzma
-Version:	2.204
+Version:	2.205
 Release:	1%{?dist}
 Summary:	Read and write lzma compressed data
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,7 +59,8 @@ BuildRequires:	perl(Test::NoWarnings)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	/usr/bin/7z
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This distribution provides a Perl interface to allow reading and writing of
@@ -102,6 +103,12 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_mandir}/man3/IO::Uncompress::UnXz.3*
 
 %changelog
+* Mon Jul 17 2023 Paul Howarth <paul@city-fan.org> - 2.205-1
+- Update to 2.205
+  - Add perl 5.38 to CI matrix
+  - Add on workflow_dispatch
+  - Add some OO examples
+
 * Thu Feb  9 2023 Paul Howarth <paul@city-fan.org> - 2.204-1
 - Update to 2.204 (no functional changes)
 - Use SPDX-format license tag

@@ -30,7 +30,10 @@ Source0:        %{pypi_source tox}
 # Remove dependency on devpi-process.
 # Remove coverage-related dependencies.
 # Adjust virtualenv environment variables to make it work with our patched virtualenv.
-Patch:          fix-tests.patch
+Patch1:         fix-tests.patch
+
+# Update a test regex to work with Python 3.12+
+Patch2:         https://github.com/tox-dev/tox/pull/3066.patch
 
 BuildArch:      noarch
 

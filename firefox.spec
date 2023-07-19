@@ -155,13 +155,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        115.0
-Release:        3%{?pre_tag}%{?dist}
+Version:        115.0.2
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230703.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230717.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -627,7 +627,7 @@ chmod a-x third_party/rust/ash/src/extensions/nv/*.rs
 %build
 # Disable LTO to work around rhbz#1883904
 # Is that already fixed?
-%define _lto_cflags %{nil}
+#%define _lto_cflags %{nil}
 
 %if 0%{?use_bundled_cbindgen}
 mkdir -p my_rust_vendor
@@ -716,8 +716,7 @@ export CCACHE_DISABLE=1
 export GCOV_PREFIX=`pwd -P`/objdir
 export GCOV_PREFIX_STRIP=$(( $(echo `pwd -P`|tr -c -d '/' |wc -c )+2 ))
 env | grep GCOV
-# Disabled due to rhbz#2218885
-#echo "ac_add_options --enable-lto" >> .mozconfig
+echo "ac_add_options --enable-lto" >> .mozconfig
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 %endif
 
@@ -1053,6 +1052,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Jul 17 2023 Martin Stransky <stransky@redhat.com>- 115.0.2-1
+- Update to 115.0.2
+
 * Tue Jul 11 2023 Dan Horák <dan[at]danny.cz> - 115.0-3
 - re-enable ppc64le (rhbz#2212748)
 

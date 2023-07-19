@@ -1,16 +1,13 @@
 %global modname rpmfluff
 
 Name:          python-%{modname}
-Version:       0.6.2
-Release:       3%{?dist}
+Version:       0.6.3
+Release:       1%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
 License:       GPLv2+
 URL:           https://pagure.io/rpmfluff
 Source0:       https://pagure.io/releases/%{modname}/%{modname}-%{version}.tar.xz
-# Fix tests with Python 3.12, from Maxwell G
-# https://pagure.io/rpmfluff/pull-request/43
-Patch0:        43.patch
 
 BuildArch:     noarch
 
@@ -39,7 +36,7 @@ Requires:       createrepo_c
 Python 3 version.
 
 %prep
-%autosetup -n %{modname}-%{version} -p1
+%autosetup -n %{modname}-%{version}
 
 %build
 %py3_build
@@ -56,6 +53,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jul 17 2023 Jan Hutar <jhutar@redhat.com> - 0.6.3-1
+- gotmax23: remove usage of deprecated rpm.fi
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.2-3
 - Rebuilt for Python 3.12
 

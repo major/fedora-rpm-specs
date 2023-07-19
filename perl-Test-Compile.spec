@@ -1,9 +1,9 @@
 # Real version
-%global cpan_version v3.3.0
+%global cpan_version v3.3.1
 
 Name:           perl-Test-Compile
 Version:        %(echo '%{cpan_version}' | tr -d 'v')
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Check whether Perl module files compile correctly
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Compile
@@ -102,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.3.1-1
+- 3.3.1 bump (rhbz#2223238)
+
 * Fri Jul 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.3.0-1
 - 3.3.0 bump (rhbz#2222144)
 

@@ -1,10 +1,10 @@
-%global commit_date     20220401
-%global commit_long     8228f0d4819bb07146b421cce3b535bd4d4db69c
+%global commit_date     20230714
+%global commit_long     37b804c734403fdea479f717074ec0c63a04c907
 %global commit_short    %(c=%{commit_long}; echo ${c:0:7})
 
 Name: rtl-433
-Version: 21.12
-Release: 6.%{commit_date}git%{commit_short}%{dist}
+Version: 22.11
+Release: 1.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
 License: GPLv2
@@ -94,6 +94,9 @@ rm -rf %{buildroot}%{_usr}%{_sysconfdir}
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Mon Jul 17 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 22.11-1.20230714git37b804c
+- bump to latest git release
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.12-6.20220401git8228f0d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

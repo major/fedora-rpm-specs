@@ -5,7 +5,7 @@
 
 Name:           cobbler
 Version:        3.3.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Boot server configurator
 URL:            https://cobbler.github.io/
 License:        GPLv2+
@@ -14,8 +14,12 @@ Source0:        https://github.com/cobbler/cobbler/archive/v%{version}/%{name}-%
 Source1:        migrate-settings.sh
 # Do not run coverage tests
 Patch0:         cobbler-nocov.patch
+# Fix build with Sphinx 7
+# Backport of https://github.com/cobbler/cobbler/pull/3465.patch
+Patch1:         cobbler-sphinx7.patch
 BuildArch:      noarch
 
+BuildRequires: make
 BuildRequires: python%{python3_pkgversion}-devel
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires: %{py3_dist cheetah3}
@@ -107,6 +111,7 @@ Unit test files from the Cobbler project
 %build
 . ./distro_build_configs.sh
 %py3_build
+make man
 
 %install
 . ./distro_build_configs.sh
@@ -251,6 +256,9 @@ fi
 
 
 %changelog
+* Mon Jul 17 2023 Orion Poplawski <orion@nwra.com> - 3.3.3-6
+- Add patch to fix build with Sphinx 7
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.3.3-5
 - Rebuilt for Python 3.12
 

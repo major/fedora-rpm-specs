@@ -1,8 +1,8 @@
 %global package_name pyfakefs
 
 Name:           python-%{package_name}
-Version:        5.2.2
-Release:        2%{?dist}
+Version:        5.2.3
+Release:        1%{?dist}
 Summary:        pyfakefs implements a fake file system that mocks the Python file system modules.
 License:        Apache-2.0
 URL:            http://pyfakefs.org
@@ -53,6 +53,9 @@ rm -f {,test-}requirements.txt
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Mon Jul 17 2023 Orion Poplawski <orion@nwra.com> - 5.2.3-1
+- Update to 5.2.3
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.2.2-2
 - Rebuilt for Python 3.12
 

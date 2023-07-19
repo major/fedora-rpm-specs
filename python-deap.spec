@@ -1,20 +1,19 @@
-%global forgeurl https://www.github.com/deap/deap
-
 # Building of HTML docs fails in Python 3.12
 # Disable as a temporary measure
-%bcond_with docs
+%bcond_without docs
 
 Name:           python-deap
 Version:        1.3.3
 
 Release:        %autorelease
 Summary:        Distributed Evolutionary Algorithms in Python
-%forgemeta
-%global ref %version
 
 License:        LGPLv3
-URL:            https://www.github.com/deap
-Source0:        %{forgesource}
+URL:            https://github.com/deap
+Source:         https://github.com/deap/deap/archive/%{version}/deap-%{version}.tar.gz
+
+Patch:          0001-Use-float-instead-of-np.float.patch
+Patch:          0002-setup-fix-git-invocation-for-exlinks-add-override.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -60,7 +59,7 @@ BuildArch:      noarch
 %endif
 
 %prep
-%autosetup -n %{extractdir} -p1
+%autosetup -n deap-%{version} -p1
 sed -i 's/\["git", "rev-parse", "HEAD"\]/["echo", "deap-%{version}-%{release}"]/' \
     doc/conf.py
 
@@ -74,7 +73,9 @@ sed -i -r "s|'matplotlib.sphinxext.only_directives',||" doc/conf.py
 
 # generate html docs
 %if %{with docs}
-PYTHONPATH=build/lib.%{python3_platform}-%{python3_version} sphinx-build-3 doc build/html
+GITHUB_COMMIT=%{version} \
+  PYTHONPATH=build/lib.%{python3_platform}-%{python3_version} \
+  sphinx-build-3 doc build/html
 
 # remove the sphinx-build leftovers
 rm -rf build/html/.{doctrees,buildinfo}

@@ -16,13 +16,15 @@
 
 %global pecl_name  xdebug
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
-%global gh_commit  2c5f0ffddc63e8491018979e21adc704399ee0b3
+%global gh_commit  a909eb088ad9fd8c8e09fcc71d892fa54b957b31
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.2.1
+%global upstream_version 3.2.2
 #global upstream_prever  RC2
 #global upstream_lower   %%(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
+%global sources          src
+%global _configure       ../%{sources}/configure
 
 # XDebug should be loaded after opcache
 %global ini_name  15-%{pecl_name}.ini
@@ -33,10 +35,7 @@ Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
 Release:        1%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
 
-# The Xdebug License, SPDX see
-# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/95
-# https://github.com/spdx/license-list-XML/issues/1718
-License:        PHP-3.01
+License:        Xdebug-1.03
 URL:            https://xdebug.org/
 
 BuildRequires:  gcc
@@ -85,12 +84,12 @@ Documentation: https://xdebug.org/docs/
 
 %prep
 %setup -qc
-mv %{pecl_name}-%{gh_commit} NTS
-mv NTS/package.xml .
+mv %{pecl_name}-%{gh_commit} %{sources}
+mv %{sources}/package.xml .
 
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
-cd NTS
+cd %{sources}
 # Check extension version
 ver=$(sed -n '/XDEBUG_VERSION/{s/.* "//;s/".*$//;p}' php_xdebug.h)
 if test "$ver" != "%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}"; then
@@ -99,9 +98,9 @@ if test "$ver" != "%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}"; then
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-# Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 cat << 'EOF' | tee %{ini_name}
@@ -112,23 +111,24 @@ zend_extension=%{pecl_name}.so
 ; See https://xdebug.org/docs/all_settings
 
 EOF
-sed -e '1d' NTS/%{pecl_name}.ini >>%{ini_name}
+sed -e '1d' %{sources}/%{pecl_name}.ini >>%{ini_name}
 
 
 %build
-cd NTS
-%{_bindir}/phpize
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
 %configure \
     --enable-xdebug  \
-    --with-php-config=%{_bindir}/php-config
+    --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
 %configure \
     --enable-xdebug  \
-    --with-php-config=%{_bindir}/zts-php-config
+    --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -151,10 +151,11 @@ install -Dpm 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 # Documentation
-for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
+cd %{sources}
+for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do
-  [ -f NTS/contrib/$i ] && j=contrib/$i || j=$i
-  install -Dpm 644 NTS/$j %{buildroot}%{pecl_docdir}/%{pecl_name}/$j
+  [ -f contrib/$i ] && j=contrib/$i || j=$i
+  install -Dpm 644 $j %{buildroot}%{pecl_docdir}/%{pecl_name}/$j
 done
 
 
@@ -181,7 +182,7 @@ done
 %endif
 
 %if %{with tests}
-cd NTS
+cd %{sources}
 : Upstream test suite NTS extension
 
 # see https://bugs.xdebug.org/view.php?id=2048
@@ -202,7 +203,7 @@ REPORT_EXIT_STATUS=1 \
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -216,6 +217,12 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Sun Jul 16 2023 Remi Collet <remi@remirepo.net> - 3.2.2-1
+- update to 3.2.2
+- build out of sources tree
+- use new SPDX license ID Xdebug-1.03
+- open https://github.com/xdebug/xdebug/pull/896 relax test expectation
+
 * Tue Mar 21 2023 Remi Collet <remi@remirepo.net> - 3.2.1-1
 - update to 3.2.1
 

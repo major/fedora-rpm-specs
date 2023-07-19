@@ -1,25 +1,18 @@
-# Set boostrap to 1 for initial bootstrapping when gtk3 is not yet built
-%global bootstrap 0
-
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           adwaita-icon-theme
-Version:        44.0
+Version:        45~beta
 Release:        1%{?dist}
 Summary:        Adwaita icon theme
 
 License:        LGPL-3.0-only OR CC-BY-SA-3.0
 URL:            https://gitlab.gnome.org/GNOME/adwaita-icon-theme
-Source0:        https://download.gnome.org/sources/adwaita-icon-theme/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
-BuildRequires:  intltool
-BuildRequires:  librsvg2
-BuildRequires:  make
-%if ! 0%{bootstrap}
-BuildRequires:  /usr/bin/gtk-encode-symbolic-svg
-%endif
+BuildRequires:  meson
+BuildRequires:  /usr/bin/gtk4-update-icon-cache
 
 Requires:       adwaita-cursor-theme = %{version}-%{release}
 
@@ -45,13 +38,13 @@ developing applications that use %{name}.
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
-touch $RPM_BUILD_ROOT%{_datadir}/icons/Adwaita/icon-theme.cache
+touch $RPM_BUILD_ROOT%{_datadir}/icons/Adwaita/.icon-theme.cache
 
 %transfiletriggerin -- %{_datadir}/icons/Adwaita
 gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
@@ -63,12 +56,11 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license COPYING*
 %dir %{_datadir}/icons/Adwaita/
 %{_datadir}/icons/Adwaita/16x16/
-%{_datadir}/icons/Adwaita/32x32/
 %{_datadir}/icons/Adwaita/scalable/
 %{_datadir}/icons/Adwaita/symbolic/
 %{_datadir}/icons/Adwaita/symbolic-up-to-32/
 %{_datadir}/icons/Adwaita/index.theme
-%ghost %{_datadir}/icons/Adwaita/icon-theme.cache
+%ghost %{_datadir}/icons/Adwaita/.icon-theme.cache
 
 %files -n adwaita-cursor-theme
 %license COPYING*
@@ -79,6 +71,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Sun Jul 16 2023 David King <amigadave@amigadave.com> - 45~beta-1
+- Update to 45.beta
+
 * Mon Mar 20 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

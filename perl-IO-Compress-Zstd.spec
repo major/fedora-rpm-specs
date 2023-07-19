@@ -1,5 +1,5 @@
 Name:           perl-IO-Compress-Zstd
-Version:        2.204
+Version:        2.205
 Release:        1%{?dist}
 Summary:        Write zstd files/buffers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 17 2023 Xavier Bachelot <xavier@bachelot.org> 2.205-1
+- Update to 2.205 (RHBZ#2223223)
+
 * Mon Jun 05 2023 Xavier Bachelot <xavier@bachelot.org> 2.204-1
 - Update to 2.204 (RHBZ#2168409)
 

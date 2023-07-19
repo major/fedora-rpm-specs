@@ -1,13 +1,16 @@
 Summary:	Library for reading and writing sound files
 Name:		libsndfile
 Version:	1.1.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 URL:		http://libsndfile.github.io/libsndfile/
 Source0:        https://github.com/libsndfile/libsndfile/releases/download/%{version}/libsndfile-%{version}.tar.xz
 Patch0:		libsndfile-1.0.25-system-gsm.patch
 Patch1:	libsndfile-1.1.0-cefd7b59.patch
+%if %{undefined rhel}
+# used to regenerate test .c sources from .def files
 BuildRequires:  autogen
+%endif
 BuildRequires:  gcc-c++
 BuildRequires:	alsa-lib-devel
 BuildRequires:	flac-devel
@@ -74,6 +77,11 @@ autoreconf -I M4 -fiv # for system-gsm patch
 # Get rid of rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+
+%if %{defined rhel}
+# avoid regeneration with autogen
+touch tests/*.def tests/*.c
+%endif
 
 %make_build
 
@@ -153,6 +161,9 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 
 
 %changelog
+* Mon Jul 10 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.0-8
+- Avoid autogen dependency in RHEL builds
+
 * Mon Apr 24 2023 Michal Hlavinka <mhlavink@redhat.com> - 1.1.0-7
 - update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
 

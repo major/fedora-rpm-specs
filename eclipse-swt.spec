@@ -1,20 +1,23 @@
+%global major_version   4
+%global minor_version   28
+%global forgeurl https://github.com/eclipse-platform/eclipse.platform.swt
+%global tag R%{major_version}_%{minor_version}
 Epoch:                  1
 
-%global swtdir          eclipse.platform.swt-R%{major_version}_%{minor_version}
 %global swtsrcdir       bundles/org.eclipse.swt
 %global eclipse_arch    %{_arch}
-%global major_version   4
-%global minor_version   27
 
 Name:           eclipse-swt
 Version:        %{major_version}.%{minor_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Eclipse SWT: The Standard Widget Toolkit for GTK+
+%forgemeta
 
 License:        EPL-2.0
-URL:            https://www.eclipse.org/swt/
+URL:            %{forgeurl}
 
-Source0:        https://github.com/eclipse-platform/eclipse.platform.swt/archive/refs/tags/%{swtdir}.tar.gz
+Source0:        %{forgesource}
+Source1:        classpath.xls
 
 # Avoid the need for a javascript interpreter at build time
 Patch0:         eclipse-swt-avoid-javascript-at-build.patch
@@ -49,13 +52,15 @@ operating systems on which it is implemented.
 %javadoc_package
 
 %prep
-%setup -q -n %{swtdir}
-%patch0 -p1
-%patch1 -p1
+%forgesetup
+%patch -p1 0
+%patch -p1 1
 # Patch doesn't support path with spaces, renaming and back to apply patch
 mv %{swtsrcdir}/Eclipse\ SWT\ PI %{swtsrcdir}/Eclipse-SWT-PI
-%patch2 -p1
+%patch -p1 2
 mv %{swtsrcdir}/Eclipse-SWT-PI %{swtsrcdir}/Eclipse\ SWT\ PI
+mkdir %{swtsrcdir}/tasks
+cp %{SOURCE1} %{swtsrcdir}/tasks
 
 # This part generates secondary fragments using primary fragments
 %pom_xpath_inject "pom:profiles/pom:profile[pom:id='unix']/pom:build/pom:plugins/pom:plugin[pom:artifactId='target-platform-configuration']/pom:configuration/pom:environments" \
@@ -111,6 +116,9 @@ cp -a %{swtsrcdir}/*.so %{buildroot}/%{_libdir}/%{name}
 %license NOTICE
 
 %changelog
+* Mon Jul 17 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.28-1
+- Bump to 4.28
+
 * Thu May 11 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.27-2
 - Change dependency to webkit2gtk-4.1 due to removal of webkit2gtk-3
 

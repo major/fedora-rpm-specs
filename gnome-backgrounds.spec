@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    gnome-backgrounds
-Version: 44.0
+Version: 45~beta
 Release: 1%{?dist}
 Summary: Desktop backgrounds packaged with the GNOME desktop
 
 License: CC-BY-SA-3.0
 URL:     https://gitlab.gnome.org/GNOME/gnome-backgrounds
-Source0: https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildArch: noarch
 BuildRequires: gettext
@@ -55,8 +55,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/gnome-background-properties/keys.xml
 %{_datadir}/gnome-background-properties/pills.xml
 %{_datadir}/gnome-background-properties/truchet.xml
-%{_datadir}/backgrounds/gnome/adwaita-d.webp
-%{_datadir}/backgrounds/gnome/adwaita-l.webp
+%{_datadir}/backgrounds/gnome/adwaita-d.jpg
+%{_datadir}/backgrounds/gnome/adwaita-l.jpg
 %{_datadir}/backgrounds/gnome/blobs-d.svg
 %{_datadir}/backgrounds/gnome/blobs-l.svg
 %{_datadir}/backgrounds/gnome/drool-d.svg
@@ -70,19 +70,20 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 
 %files extras
 %{_datadir}/gnome-background-properties/design-is-rounded-rectangles.xml
-%{_datadir}/gnome-background-properties/dune.xml
 %{_datadir}/gnome-background-properties/fold.xml
-%{_datadir}/gnome-background-properties/oceans.xml
+%{_datadir}/gnome-background-properties/morphogenesis.xml
+%{_datadir}/gnome-background-properties/pipes.xml
 %{_datadir}/gnome-background-properties/pixels.xml
 %{_datadir}/gnome-background-properties/symbolic.xml
 %{_datadir}/gnome-background-properties/vnc.xml
 %{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-d.webp
 %{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-l.webp
-%{_datadir}/backgrounds/gnome/dune-d.svg
-%{_datadir}/backgrounds/gnome/dune-l.svg
 %{_datadir}/backgrounds/gnome/fold-d.webp
 %{_datadir}/backgrounds/gnome/fold-l.webp
-%{_datadir}/backgrounds/gnome/oceans.svg
+%{_datadir}/backgrounds/gnome/morphogenesis-d.svg
+%{_datadir}/backgrounds/gnome/morphogenesis-l.svg
+%{_datadir}/backgrounds/gnome/pipes-d.jpg
+%{_datadir}/backgrounds/gnome/pipes-l.jpg
 %{_datadir}/backgrounds/gnome/pixels-d.webp
 %{_datadir}/backgrounds/gnome/pixels-l.webp
 %{_datadir}/backgrounds/gnome/symbolic-d.webp
@@ -91,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/vnc-l.webp
 
 %changelog
+* Mon Jul 17 2023 David King <amigadave@amigadave.com> - 45~beta-1
+- Update to 45.beta
+
 * Mon Mar 20 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

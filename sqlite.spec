@@ -4,15 +4,15 @@
 %bcond_with static
 %bcond_without check
 
-%define realver 3410200
-%define docver 3410200
-%define rpmver 3.41.2
+%define realver 3420000
+%define docver 3420000
+%define rpmver 3.42.0
 %define year 2023
 
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 3%{?dist}
+Release: 6%{?dist}
 License: blessing
 URL: http://www.sqlite.org/
 
@@ -21,16 +21,6 @@ Source1: http://www.sqlite.org/%{year}/sqlite-doc-%{docver}.zip
 Source2: http://www.sqlite.org/%{year}/sqlite-autoconf-%{realver}.tar.gz
 # Support a system-wide lemon template
 Patch1: sqlite-3.6.23-lemon-system-template.patch
-# sqlite >= 3.7.10 is buggy if malloc_usable_size() is detected, disable it:
-# https://bugzilla.redhat.com/show_bug.cgi?id=801981
-# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=665363
-Patch2: sqlite-3.12.2-no-malloc-usable-size.patch
-# Temporary workaround for failed percentile test, see patch for details
-Patch3: sqlite-3.8.0-percentile-test.patch
-# Disable test date-2.2c on i686
-Patch4: sqlite-3.16-datetest-2.2c.patch
-# Modify sync2.test to pass with DIRSYNC turned off
-Patch5: sqlite-3.18.0-sync2-dirsync.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -134,12 +124,6 @@ This package contains the analysis program for %{name}.
 %prep
 %setup -q -a1 -n %{name}-src-%{realver}
 %patch -P 1 -p1
-%patch -P 2 -p1
-%patch -P 3 -p1
-%ifarch %{ix86}
-%patch -P 4 -p1
-%endif
-%patch -P 5 -p1
 
 # The atof test is failing on the i686 architecture, when binary configured with
 # --enable-rtree option. Failing part is text->real conversion and
@@ -271,6 +255,21 @@ make test
 %endif
 
 %changelog
+* Thu Jul 13 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.42.0-6
+- remove patch5 - adjusting sync test
+
+* Thu Jul 13 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.42.0-5
+- remove patch4 - disabling datetime test
+
+* Thu Jul 13 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.42.0-4
+- remove patch3 - temporary workaround for percentile test
+
+* Thu Jul 13 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.42.0-3
+- remove patch2 - no-malloc-usable-size, #801981
+
+* Thu Jul 13 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.42.0-2
+- Updated to version 3.42.0 (https://sqlite.org/releaselog/3_42_0.html)
+
 * Fri Jun 23 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.41.2-3
 - revert to version 3.41.2 as the 3.42.0 does not correctly work with dnf
 

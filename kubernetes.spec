@@ -70,7 +70,7 @@ BuildRequires: golang >= 1.20.5
 BuildRequires: systemd
 BuildRequires: rsync
 BuildRequires: go-md2man
-BuildRequires: go-bindata
+#BuildRequires: go-bindata
 
 Requires(pre): shadow-utils
 Requires: kubernetes-client = %{version}-%{release}
@@ -94,7 +94,7 @@ BuildRequires: golang >= 1.20.5
 BuildRequires: systemd
 BuildRequires: rsync
 BuildRequires: go-md2man
-BuildRequires: go-bindata
+#BuildRequires: go-bindata
 
 Requires(pre): shadow-utils
 Requires:      socat
@@ -123,7 +123,7 @@ Kubernetes tool for standing up clusters
 Summary: Kubernetes client tools
 
 BuildRequires: golang >= 1.20.5
-BuildRequires: go-bindata
+#BuildRequires: go-bindata
 BuildRequires: make
 
 %description client

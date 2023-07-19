@@ -1,10 +1,11 @@
 %global pypi_name zipp
 
 Name:           python-%{pypi_name}
-Version:        3.15.0
+Version:        3.16.2
 Release:        %autorelease
 Summary:        Backport of pathlib-compatible object wrapper for zip files
 
+# SPDX
 License:        MIT
 URL:            https://github.com/jaraco/zipp
 Source0:        %{pypi_source}

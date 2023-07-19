@@ -290,7 +290,7 @@
 
 # Define vendor information used by OpenJDK
 %global oj_vendor Red Hat, Inc.
-%global oj_vendor_url "https://www.redhat.com/"
+%global oj_vendor_url https://www.redhat.com/
 # Define what url should JVM offer in case of a crash report
 # order may be important, epel may have rhel declared
 %if 0%{?epel}
@@ -327,7 +327,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      5
+%global rpmrelease      6
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -819,7 +819,9 @@ exit 0
 %license %{_jvmdir}/%{jredir -- %{?1}}/LICENSE
 %license %{_jvmdir}/%{jredir -- %{?1}}/THIRD_PARTY_README
 %doc %{_defaultdocdir}/%{uniquejavadocdir -- %{?1}}/NEWS
+%{_jvmdir}/%{sdkdir -- %{?1}}/NEWS
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}
+%{_jvmdir}/%{sdkdir -- %{?1}}/release
 %{_jvmdir}/%{jrelnk -- %{?1}}
 %dir %{_jvmdir}/%{jredir -- %{?1}}/lib/security
 %{_jvmdir}/%{jredir -- %{?1}}/lib/security/cacerts
@@ -2029,6 +2031,24 @@ for suffix in %{build_loop} ; do
   install -d -m 755 ${commondocdir}
   cp -a ${top_dir_abs_main_build_path}/NEWS ${commondocdir}
 
+  # Install icons and menu entries
+for s in 16 24 32 48 ; do
+  install -D -p -m 644 \
+    ${src_image}/openjdk/jdk/src/solaris/classes/sun/awt/X11/java-icon${s}.png \
+    $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
+done
+
+mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
+
+cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
+cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
+#JDK11 specific, bianry file in sources
+#rm -vf "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/test/jdk/sun/management/jmxremote/bootstrap/solaris-sparcv9/launcher"
+#JDK8 specific, binary file in sources
+rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/security/pkcs11/nss/lib/"
+rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/management/jmxremote/bootstrap/solaris-sparcv9/"
+rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-sparcv9/"
+
 # Install the jdk
 pushd ${jdk_image}
 
@@ -2036,13 +2056,11 @@ pushd ${jdk_image}
   mkdir -p $RPM_BUILD_ROOT%{_jvmdir}/%{jredir -- $suffix}/lib/%{archinstall}/server/
   mkdir -p $RPM_BUILD_ROOT%{_jvmdir}/%{jredir -- $suffix}/lib/%{archinstall}/client/
 
-  # Install main files.
-  install -d -m 755 $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
-  cp -a bin include lib src.zip {ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
-  install -d -m 755 $RPM_BUILD_ROOT%{_jvmdir}/%{jredir -- $suffix}
-  cp -a jre/bin jre/lib jre/{ASSEMBLY_EXCEPTION,LICENSE,THIRD_PARTY_README} $RPM_BUILD_ROOT%{_jvmdir}/%{jredir -- $suffix}
+  #Install README.md
   install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/doc
   cp -a %{_sourcedir}/README.md $RPM_BUILD_ROOT%{_defaultdocdir}/
+
+  #Install files for noarch javadoc/javadoc-zip
   if [ "x$debugbuild" == "x" ] ; then
       #Installing manually as its for noarch
       install -d -m 755 $RPM_BUILD_ROOT%{_defaultlicensedir}/java-1.8.0-openjdk-javadoc
@@ -2084,6 +2102,9 @@ pushd ${jdk_image}
     install -m 644 -p $manpage $RPM_BUILD_ROOT%{_mandir}/man1/$(basename $manpage .1)-%{uniquesuffix -- $suffix}.1
   done
 
+  # Remove man pages from jdk image
+  rm -rf $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/man
+
   # Install demos and samples.
   cp -a demo $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
   mkdir -p sample/rmi
@@ -2106,22 +2127,6 @@ cp -a ${top_dir_abs_main_build_path}/${built_doc_archive} \
     unzip ${top_dir_abs_main_build_path}/${built_doc_archive}
   popd
 fi
-
-# Install icons and menu entries
-for s in 16 24 32 48 ; do
-  install -D -p -m 644 \
-    ${src_image}/openjdk/jdk/src/solaris/classes/sun/awt/X11/java-icon${s}.png \
-    $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
-done
-
-#cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
-cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
-#JDK11 specific, bianry file in sources
-#rm -vf "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/test/jdk/sun/management/jmxremote/bootstrap/solaris-sparcv9/launcher"
-#JDK8 specific, binary file in sources
-rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/security/pkcs11/nss/lib/"
-rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/management/jmxremote/bootstrap/solaris-sparcv9/"
-rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-sparcv9/"
 
 # Install desktop files
 install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/{applications,pixmaps}
@@ -2207,7 +2212,7 @@ mkdir -p $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}/lib/security/policy/unlimited/
 mkdir -p $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}/lib/security/policy/limited/
 for file in lib/security/cacerts lib/security/policy/unlimited/US_export_policy.jar lib/security/policy/unlimited/local_policy.jar lib/security/policy/limited/US_export_policy.jar lib/security/policy/limited/local_policy.jar lib/security/java.policy lib/security/java.security lib/security/blacklisted.certs lib/logging.properties lib/calendars.properties lib/security/nss.cfg lib/security/nss.fips.cfg lib/net.properties ; do
   mv      $RPM_BUILD_ROOT/%{_jvmdir}/%{jredir -- $suffix}/$file   $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}/$file
-  ln -sf  %{etcjavadir -- $suffix}/$file                          $RPM_BUILD_ROOT/%{_jvmdir}/%{jredir -- $suffix}/$file
+  ln -srv  $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}/$file          $RPM_BUILD_ROOT/%{_jvmdir}/%{jredir -- $suffix}/$file
 done
 
 #TODO this is done also i portables and in install jdk. But hard to say where the operation will hapen at the end
@@ -2218,9 +2223,9 @@ find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "ASSEMBLY_EXCEPTION"
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "LICENSE" -exec chmod 644 {} \; ;
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "THIRD_PARTY_README" -exec chmod 644 {} \; ;
 
-#if [ "x$suffix" = "x" ] ; then
-#  rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/javadocs.zip #is in subpackages, 1 renamed, 2nd unpacked
-#fi
+if [ "x$suffix" = "x" ] ; then
+  rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/javadocs.zip #is in subpackages, 1 renamed, 2nd unpacked
+fi
 
 # end, dual install
 done
@@ -2232,17 +2237,15 @@ for suffix in %{build_loop} ; do
 
 # Tests in the check stage are performed on the installed image
 # rpmbuild operates as follows: build -> install -> test
-export JAVA_HOME=${RPM_BUILD_ROOT}%{_jvmdir}/%{sdkdir -- $suffix}
+export JAVA_HOME=$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
 
 # Check unlimited policy has been used
-#Jaya
 $JAVA_HOME/bin/javac -d . %{SOURCE13}
-#$JAVA_HOME/bin/java TestCryptoLevel
+$JAVA_HOME/bin/java TestCryptoLevel
 
 # Check ECC is working
-#Jaya
 $JAVA_HOME/bin/javac -d . %{SOURCE14}
-#$JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
+$JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
 
 # Check system crypto (policy) is active and can be disabled
 # Test takes a single argument - true or false - to state whether system
@@ -2250,9 +2253,8 @@ $JAVA_HOME/bin/javac -d . %{SOURCE14}
 $JAVA_HOME/bin/javac -d . %{SOURCE15}
 export PROG=$(echo $(basename %{SOURCE15})|sed "s|\.java||")
 export SEC_DEBUG="-Djava.security.debug=properties"
-#Jaya
-#$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true
-#$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=true ${PROG} false
+$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true
+$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=true ${PROG} false
 
 # Check java launcher has no SSB mitigation
 if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
@@ -2266,7 +2268,7 @@ if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation ; then true ; els
 
 # Check correct vendor values have been set
 $JAVA_HOME/bin/javac -d . %{SOURCE16}
-$JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendor}" %{oj_vendor_url} %{oj_vendor_bug_url}
+$JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendor}" "%{oj_vendor_url}" "%{oj_vendor_bug_url}"
 
 # Check translations are available for new timezones
 $JAVA_HOME/bin/javac -d . %{SOURCE18}
@@ -2275,17 +2277,22 @@ $JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
 # Check src.zip has all sources. See RHBZ#1130490
 unzip -l $JAVA_HOME/src.zip | grep 'sun.misc.Unsafe'
 
+# debug-symbols are only in debug build
+if [ "x$suffix" == "x" ] ; then
+  invert="-v"
+else
+  invert=""
+fi
+
 # Check class files include useful debugging information
 $JAVA_HOME/bin/javap -l java.lang.Object | grep "Compiled from"
 $JAVA_HOME/bin/javap -l java.lang.Object | grep LineNumberTable
-#Jaya
-#$JAVA_HOME/bin/javap -l java.lang.Object | grep LocalVariableTable
+$JAVA_HOME/bin/javap -l java.lang.Object | grep $invert LocalVariableTable
 
 # Check generated class files include useful debugging information
 $JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep "Compiled from"
 $JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep LineNumberTable
-#Jaya
-#$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep LocalVariableTable
+$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep $invert LocalVariableTable
 
 # build cycles check
 done
@@ -2525,6 +2532,14 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Thu Jul 13 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.372.b07-6
+- Fix the symlink for files under lib/security
+- Fixing symlink cleared failing test cases
+- Return release and NEWS missing lines
+- Copy jdk_image and clean-up redundant lines
+- Uncommented few lines which were parked earlier
+- Fix quotes around vendor information strings
+
 * Thu Jul 13 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.372.b07-5
 - Return missing README.md installation
 - Use default macros for LICENSE and README.md installation

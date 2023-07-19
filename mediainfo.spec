@@ -1,8 +1,8 @@
 %global libzen_version  0.4.41
 
 Name:           mediainfo
-Version:        23.04
-Release:        2%{?dist}
+Version:        23.07
+Release:        1%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
 
 License:        BSD-2-Clause
@@ -224,6 +224,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Mon Jul 17 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.07-1
+- Update to 23.07
+
 * Sun May 14 2023 Todd Zullinger <tmz@pobox.com> - 23.04-2
 - don't unconditionally strip last character from *.html/*.txt in %%prep
 - generate manpages

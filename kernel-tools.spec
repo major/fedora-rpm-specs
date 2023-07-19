@@ -4,8 +4,8 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 1
-%global baserelease 2
+%global released_kernel 0
+%global baserelease 1
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 0
+%global rcrev 2
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -75,7 +75,7 @@ BuildRequires: asciidoc xmlto libcap-devel python3-setuptools
 BuildRequires: openssl-devel libbabeltrace-devel
 BuildRequires: libtracefs-devel libtraceevent-devel
 BuildRequires: libbpf-devel
-BuildRequires: clang llvm
+BuildRequires: clang llvm llvm-devel
 %ifnarch s390x %{arm}
 BuildRequires: numactl-devel
 %endif
@@ -590,6 +590,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Mon Jul 17 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.5.0-0.rc2.git0.1
+- Linux v6.5-rc2
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 6.4.0-2
 - Perl 5.38 rebuild
 

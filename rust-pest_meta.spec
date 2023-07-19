@@ -6,7 +6,7 @@
 %global crate pest_meta
 
 Name:           rust-pest_meta
-Version:        2.6.0
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Pest meta language parser and validator
 
@@ -14,6 +14,9 @@ Summary:        Pest meta language parser and validator
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pest_meta
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop feature and dependencies for bootstrap build mode
+Patch:          pest_meta-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -47,6 +50,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+grammar-extras-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+grammar-extras-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "grammar-extras" feature of the "%{crate}" crate.
+
+%files       -n %{name}+grammar-extras-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

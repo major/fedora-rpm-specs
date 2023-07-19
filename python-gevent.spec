@@ -3,19 +3,13 @@
 %global optflags %(echo %{optflags} -I%{_includedir}/libev)
 
 Name:          python-%{modname}
-Version:       22.10.2
-Release:       3%{?dist}
+Version:       23.7.0
+Release:       1%{?dist}
 Summary:       A coroutine-based Python networking library
 
 License:       MIT
 URL:           http://www.gevent.org/
 Source0:       %{pypi_source %{modname} %{version} tar.gz}
-
-# Remove the usage of assertRaisesRegexp unit test alias removed in Python 3.12
-Patch:         https://github.com/gevent/gevent/pull/1944.patch
-# Remove the import of match_hostname deprecated in 3.7 and removed in Python 3.12
-# https://github.com/gevent/gevent/pull/1963
-Patch:         python-gevent-py312.patch
 
 BuildRequires: gcc
 BuildRequires: c-ares-devel
@@ -83,8 +77,6 @@ export GEVENTSETUP_EMBED=0
 %install
 export GEVENTSETUP_EMBED=0
 %py3_install
-rm %{buildroot}%{python3_sitearch}/%{modname}/_*2.py
-rm %{buildroot}%{python3_sitearch}/%{modname}/__pycache__/_*2.*
 find %{buildroot} -name '.buildinfo' -delete
 # Correct the permissions.
 find %{buildroot} -name '*.so' -exec chmod 755 {} ';'
@@ -100,6 +92,9 @@ cd src/gevent/tests && GEVENT_FILE=thread %__python3 -mgevent.tests test__*subpr
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Mon Jul 17 2023 Orion Poplawski <orion@nwra.com> - 23.7.0-1
+- Update to 23.7.0
+
 * Tue Jun 27 2023 Orion Poplawski <orion@nwra.com> - 22.10.2-3
 - Add patch to remove match_hostname import
 

@@ -2,21 +2,18 @@
 %{?python_enable_dependency_generator}
 
 Name:           m2crypto
-Version:        0.38.0
-Release:        9%{?dist}
+Version:        0.39.0
+Release:        1%{?dist}
 Summary:        Support for using OpenSSL in Python scripts
 
 License:        MIT
 URL:            https://gitlab.com/m2crypto/m2crypto/
 Source0:        %{pypi_source M2Crypto}
 
-# Fix build for OpenSSL 3.0
-# From: https://gitlab.com/m2crypto/m2crypto/-/merge_requests/271
-Patch0:         m2crypto-MR271-opensslversion.patch
-# Pass tests with OpenSSL 3.0
-# https://gitlab.com/m2crypto/m2crypto/-/issues/310
-Patch1:         m2crypto-0.38-ossl3-tests.patch
-Patch2:         m2crypto-0.38-ossl3-tests-evp.patch
+# https://gitlab.com/m2crypto/m2crypto/-/merge_requests/294
+Patch0:         M2Crypto-0.39-outdir.patch
+# https://gitlab.com/m2crypto/m2crypto/-/merge_requests/295
+Patch1:         M2Crypto-0.39-asyncore.patch
 
 BuildRequires:  gcc
 BuildRequires:  openssl
@@ -33,7 +30,6 @@ This package allows you to call OpenSSL functions from Python scripts.
 Summary:        Support for using OpenSSL in Python 3 scripts
 %{?python_provide:%python_provide python%{python3_pkgversion}-m2crypto}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-parameterized
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools
 
@@ -42,6 +38,9 @@ This package allows you to call OpenSSL functions from Python 3 scripts.
 
 %prep
 %autosetup -n M2Crypto-%{version} -p1
+
+# remove outdated generated files
+rm -f src/M2Crypto/m2crypto.py src/SWIG/_m2crypto_wrap.c
 
 %build
 %set_build_flags
@@ -72,6 +71,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -munittest discover -v t
 %{python3_sitearch}/M2Crypto-*.egg-info/
 
 %changelog
+* Sun Jul 09 2023 Petr Menšík <pemensik@redhat.com> - 0.39.0-1
+- Update to 0.39.0 (#1971897)
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 0.38.0-9
 - Rebuilt for Python 3.12
 

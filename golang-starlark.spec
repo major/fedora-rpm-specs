@@ -10,7 +10,7 @@
 # https://github.com/google/starlark-go
 %global goipath             go.starlark.net
 %global forgeurl            https://github.com/google/starlark-go
-%global commit              e81fc95f7bd5bb1495fe69f27c1a99fcc77caa48
+%global commit              cfacd890221418a2dc2c736f7b5e3476c38709b1
 
 %gometa
 
@@ -32,7 +32,7 @@ application.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.10%{?dist}
+Release:        %autorelease
 Summary:        Dialect of Python intended for use as a configuration language
 
 # A couple of test files are under the Apache License 2.0
@@ -51,8 +51,7 @@ BuildRequires:  golang(google.golang.org/protobuf/reflect/protoregistry)
 BuildRequires:  golang(google.golang.org/protobuf/types/descriptorpb)
 BuildRequires:  golang(google.golang.org/protobuf/types/dynamicpb)
 
-# The tests fail when using more than one path in the GOPATH
-Patch0001:      fix_tests.patch
+Patch0001:      delete-starlarkjson.patch
 
 %description
 %{common_description}
@@ -61,7 +60,7 @@ Patch0001:      fix_tests.patch
 
 %prep
 %goprep
-%patch0001 -p1
+%autopatch -p1
 
 %build
 for cmd in cmd/* ; do
@@ -87,34 +86,4 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0-0.8
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0-0.7
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jan 13 22:34:45 CET 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0-0.3.20210113gite81fc95
-- Bump to commit e81fc95f7bd5bb1495fe69f27c1a99fcc77caa48
-
-* Mon Aug 17 14:27:43 CEST 2020 Robert-André Mauchin <zebob.m@gmail.com> - 0-0.2.20190817git4379bb3
-- Add star files
-
-* Mon Jun 22 2020 Álex Sáez <asm@redhat.com> - 0-0.1.20190817git4379bb3
-- First package for Fedora
+%autochangelog

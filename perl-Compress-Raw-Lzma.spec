@@ -2,8 +2,8 @@
 %bcond_without perl_Compress_Raw_Lzma_enables_optional_test
 
 Name:		perl-Compress-Raw-Lzma
-Version:	2.204
-Release:	7%{?dist}
+Version:	2.205
+Release:	1%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -87,6 +87,13 @@ make test
 %{_mandir}/man3/Compress::Raw::Lzma.3*
 
 %changelog
+* Mon Jul 17 2023 Paul Howarth <paul@city-fan.org> - 2.205-1
+- Update to 2.205
+  - Test::More isn't warns in Perl 5.38
+  - Add perl 5.38 to CI matrix
+  - Add on workflow_dispatch
+  - Update action/checkout version
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.204-7
 - Perl 5.38 rebuild
 

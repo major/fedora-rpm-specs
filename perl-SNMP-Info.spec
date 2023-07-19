@@ -1,5 +1,5 @@
 Name:           perl-SNMP-Info
-Version:        3.92
+Version:        3.93
 Release:        1%{?dist}
 Summary:        Object Oriented Perl5 Interface to Network devices and MIBs through SNMP
 License:        BSD-3-Clause
@@ -62,10 +62,13 @@ perl Build.PL installdirs=vendor
 %files
 %license LICENSE
 %doc Changes contrib README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/SNMP*
+%{_mandir}/man3/SNMP::Info*
 
 %changelog
+* Mon Jul 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.93-1
+- 3.93 bump (rhbz#2223015)
+
 * Thu Apr 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.92-1
 - 3.92 bump; Update license to SPDX format
 

@@ -2,7 +2,7 @@
 
 Name:           git-up
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A more friendly "git pull" in Python
 
 License:        MIT
@@ -49,6 +49,9 @@ fi
 %exclude %{python3_sitelib}/PyGitUp/tests
 
 %changelog
+* Mon Jul 17 2023 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 2.2.0-2
+- Rebuilt for Python 3.12
+
 * Wed Jul 05 2023 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 2.2.0-1
 - Update to 2.2.0 which fixes rhbz#2211331
 

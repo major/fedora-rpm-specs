@@ -6,7 +6,7 @@
 %global crate clang-ast
 
 Name:           rust-clang-ast
-Version:        0.1.18
+Version:        0.1.19
 Release:        %autorelease
 Summary:        Data structures for processing Clang's -ast-dump=json format
 

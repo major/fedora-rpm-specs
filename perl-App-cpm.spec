@@ -1,8 +1,8 @@
-%global cpan_version 0.997011
+%global cpan_version 0.997012
 
 Name:           perl-App-cpm
-Version:        0.997.011
-Release:        4%{?dist}
+Version:        0.997.012
+Release:        1%{?dist}
 Summary:        Fast CPAN module installer
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-cpm
@@ -144,14 +144,17 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %license LICENSE
 %doc Changes
 %{_bindir}/cpm
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/App*
+%{_mandir}/man1/cpm*
+%{_mandir}/man3/App::cpm*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.997.012-1
+- 0.997012 bump (rhbz#2221342)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.997.011-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

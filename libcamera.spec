@@ -1,3 +1,5 @@
+%bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
+
 Name:    libcamera
 Version: 0.0.5
 Release: 3%{?dist}
@@ -20,6 +22,8 @@ Source1: qcam.desktop
 Source2: qcam.metainfo.xml
 
 Patch01: v4l2-Move-the-v4l2-compat-layer-to-libexec-libcamera.patch
+# Fix build with Python 3.12
+Patch02: mojo-importlib.patch
 
 BuildRequires: doxygen
 BuildRequires: gcc-c++
@@ -40,9 +44,11 @@ BuildRequires: libtiff-devel
 BuildRequires: libyaml-devel
 BuildRequires: lttng-ust-devel
 BuildRequires: systemd-devel
+%if %{with qt}
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Widgets)
+%endif
 BuildRequires: pkgconfig(gstreamer-video-1.0)
 BuildRequires: pkgconfig(gstreamer-allocators-1.0)
 
@@ -84,12 +90,14 @@ Requires:    %{name}%{?_isa} = %{version}-%{release}
 %description tools
 Command line tools for %{name}
 
+%if %{with qt}
 %package     qcam
 Summary:     Graphical QCam application for %{name}
 Requires:    %{name}%{?_isa} = %{version}-%{release}
 
 %description qcam
 Graphical QCam application for %{name}
+%endif
 
 %package     gstreamer
 Summary:     GSTreamer plugin for %{name}
@@ -124,7 +132,7 @@ export CFLAGS="${CFLAGS} -mabi=ieeelongdouble"
 export CXXFLAGS="${CXXFLAGS} -mabi=ieeelongdouble"
 %endif
 
-%meson -Dv4l2=true
+%meson -Dv4l2=true %{!?with_qt:-Dqcam=disabled}
 %meson_build
 
 # Stripping requires the re-signing of IPA libraries, manually
@@ -139,6 +147,7 @@ export CXXFLAGS="${CXXFLAGS} -mabi=ieeelongdouble"
 %install
 %meson_install
 
+%if %{with qt}
 # Install Desktop Entry file
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
                      %SOURCE1
@@ -146,6 +155,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
 # Install AppStream metainfo file
 mkdir -p %{buildroot}/%{_metainfodir}/
 cp -a %SOURCE2 %{buildroot}/%{_metainfodir}/
+%endif
 
 # Remove the Sphinx build leftovers
 rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.buildinfo
@@ -172,10 +182,12 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %files gstreamer
 %{_libdir}/gstreamer-1.0/libgstlibcamera.so
 
+%if %{with qt}
 %files qcam
 %{_bindir}/qcam
 %{_datadir}/applications/qcam.desktop
 %{_metainfodir}/qcam.metainfo.xml
+%endif
 
 %files tools
 %license LICENSES/GPL-2.0-only.txt

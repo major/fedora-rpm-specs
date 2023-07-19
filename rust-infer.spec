@@ -5,7 +5,7 @@
 %global crate infer
 
 Name:           rust-infer
-Version:        0.13.0
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Small crate to infer file type based on magic number signatures
 

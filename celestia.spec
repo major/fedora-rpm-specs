@@ -7,7 +7,11 @@ Name:           celestia
 %if "%{?gittag}"
 Version:        1.6.2
 %else
-Version:        1.7.0~%{date}.git%{shortcommit}
+# This is a really dirty hack to overcome a wrong update path due to git commit hash
+# previously applied without '.git'.
+# I don't want to bump Epoch, so I'm going to add a leading '3' before %%{date}
+# until version 1.7.0 is finally released.
+Version:        1.7.0~3%{date}.git%{shortcommit}
 %endif
 Release:        %autorelease
 Summary:        OpenGL real-time visual space simulation

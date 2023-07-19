@@ -3,18 +3,16 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 %global libsigc_version 3.0.0
-%global glib2_version 2.73.2
+%global glib2_version 2.77.0
 
 Name:           glibmm2.68
-Version:        2.76.0
+Version:        2.77.0
 Release:        %autorelease
 Summary:        C++ interface for the GLib library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            http://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/glibmm/%{release_version}/glibmm-%{version}.tar.xz
-
-Patch0:         glibmm24-gcc11.patch
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -78,7 +76,7 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/glibmm-%{apiver}/proc/gmmproc
 
 %files
 %license COPYING
-%doc AUTHORS NEWS README.md
+%doc NEWS README.md
 %{_libdir}/libgiomm-%{apiver}.so.1*
 %{_libdir}/libglibmm-%{apiver}.so.1*
 %{_libdir}/libglibmm_generate_extra_defs-%{apiver}.so.1*

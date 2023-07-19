@@ -1,8 +1,8 @@
-%global libmediainfo_version    23.03
-%global libzen_version          0.4.40
+%global libmediainfo_version    23.07
+%global libzen_version          0.4.41
 
 Name:           mediaconch
-Version:        23.03
+Version:        23.07
 Release:        1%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
@@ -179,6 +179,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Mon Jul 17 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.07-1
+- Update to 23.07
+
 * Sat Apr 01 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.03-1
 - Update to 23.03
 

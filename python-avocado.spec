@@ -34,8 +34,8 @@
 %endif
 
 Name: python-avocado
-Version: 92.0
-Release: 3%{?gitrel}%{?dist}
+Version: 92.1
+Release: 1%{?gitrel}%{?dist}
 Summary: Framework with tools and libraries for Automated Testing
 # Found licenses:
 # avocado/core/tapparser.py: MIT
@@ -49,6 +49,7 @@ License: GPLv2+ and GPLv2 and MIT
 URL: https://avocado-framework.github.io/
 Source0: https://github.com/avocado-framework/avocado/archive/%{gitref}/%{gittar}
 BuildArch: noarch
+Patch0: avocado-92.1-python312.patch
 
 BuildRequires: kmod
 BuildRequires: procps-ng
@@ -83,6 +84,7 @@ these days a framework) to perform automated testing.
 
 %prep
 %setup -q -n avocado-%{gitref}
+%patch 0 -p 1
 %if 0%{?rhel}
 sed -e "s/'PyYAML>=4.2b2'/'PyYAML>=3.12'/" -i optional_plugins/varianter_yaml_to_mux/setup.py
 %endif
@@ -444,6 +446,10 @@ Again Shell code (and possibly other similar shells).
 
 
 %changelog
+* Mon Jul 17 2023 Cleber Rosa <crosa@redhat.com> - 92.1-1
+- Updated to 92.1
+- Support building and running under Python 3.12 for F39
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 92.0-3
 - Rebuilt for Python 3.12
 

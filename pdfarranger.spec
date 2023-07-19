@@ -13,15 +13,11 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gettext
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-wheel
-BuildRequires:  python3-pip
 
 # For checks only
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 
-Requires:       python3-pikepdf >= 1.15.1
 Recommends:     python3-img2pdf >= 0.3.4
 
 # These seem to be included in the default desktop install
@@ -29,7 +25,6 @@ Requires:       python3-gobject
 Requires:       gtk3
 Requires:       python3-cairo
 Requires:       poppler-glib
-Requires:       python3-dateutil >= 2.4.0
 
 Provides:       pdfshuffler = %{version}-%{release}
 Obsoletes:      pdfshuffler < 0.6.1-1
@@ -37,7 +32,6 @@ Obsoletes:      pdfshuffler < 0.6.1-1
 # The repository changed to pdfarranger/pdfarranger but we leave the app_id
 # for now.
 %global app_id com.github.jeromerobert.pdfarranger
-%global python3_wheelname %{name}-*-py3-none-any.whl
 
 %description
 PDF Arranger is a small python-gtk application, which helps the user to merge 
@@ -46,17 +40,17 @@ interactive and intuitive graphical interface. It is a frontend for pikepdf.
 
 PDF Arranger is a fork of Konstantinos Poulios’s PDF-Shuffler.
 
-
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
-# py3_build / py3_install do not work with this setup.py but building
-# a wheel works just fine
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build_wheel
+%pyproject_wheel
 
-%install
-%py3_install_wheel %{python3_wheelname}
+%pyproject_install
+%pyproject_save_files %{name}
 %find_lang %{name}
 ln -s pdfarranger %{buildroot}%{_bindir}/pdfshuffler
 
@@ -64,11 +58,9 @@ ln -s pdfarranger %{buildroot}%{_bindir}/pdfshuffler
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{app_id}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
-%files -f %{name}.lang
+%files -f %{name}.lang -f %{pyproject_files}
 %license COPYING
 %doc README.md
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}-*.dist-info/
 %{_mandir}/man*/*.*
 %{_datadir}/icons/hicolor/*/apps/*
 %{_metainfodir}/%{app_id}.metainfo.xml

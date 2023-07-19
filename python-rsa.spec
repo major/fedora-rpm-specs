@@ -1,8 +1,8 @@
 %global pypi_name rsa
 
 Name:           python-%{pypi_name}
-Version:        4.8
-Release:        6%{?dist}
+Version:        4.9
+Release:        1%{?dist}
 Summary:        Pure-Python RSA implementation
 
 License:        ASL 2.0
@@ -73,6 +73,9 @@ cp %{buildroot}%{_bindir}/pyrsa-verify %{buildroot}%{_bindir}/pyrsa-verify-3
 # %{__python3} setup.py test
 
 %changelog
+* Mon Jul 17 2023 Jason Montleon <jmontleo@redhat.com> - 4.9-1
+- Update to 4.9
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.8-6
 - Rebuilt for Python 3.12
 

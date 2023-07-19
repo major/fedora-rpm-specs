@@ -2,8 +2,8 @@
 %global modname enthought_sphinx_theme
 
 Name:           python-%{srcname}
-Version:        0.6.2
-Release:        10%{?dist}
+Version:        0.7.3
+Release:        1%{?dist}
 Summary:        Sphinx theme for Enthought projects
 
 # Bundled bootstrap is MIT
@@ -48,6 +48,9 @@ Provides:       bundled(bootstrap) = 2.3.2
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Mon Jul 17 2023 Orion Poplawski <orion@nwra.com> - 0.7.3-1
+- Update to 0.7.3
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.2-10
 - Rebuilt for Python 3.12
 

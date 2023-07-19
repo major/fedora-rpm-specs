@@ -5,7 +5,7 @@
 %global crate miette-derive
 
 Name:           rust-miette-derive
-Version:        5.9.0
+Version:        5.10.0
 Release:        %autorelease
 Summary:        Derive macros for miette
 

@@ -1,6 +1,6 @@
 Name:           hyperhdr
 Version:        19.0.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Ambient lighting
 
 License:        MIT AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}
 
 %changelog
+* Mon Jul 17 2023 Vasiliy Glazov <vascom2@gmail.com> - 19.0.0.0-4
+- Rebuild for Qt6 private api name change
+
 * Wed Jul 05 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 19.0.0.0-3
 - Rebuild for flatbuffers-23.5.26
 

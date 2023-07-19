@@ -4,13 +4,14 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        39
-Release:        0.2%{?eln:.eln%{eln}}
+Release:        0.3%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
 Provides:       fedora-repos(%{version}) = %{release}
 Requires:       system-release(%{version})
 Obsoletes:      fedora-repos < 33-0.7
+Obsoletes:      fedora-repos-modular < 39-0.3
 %if %{rawhide_release} == %{version}
 Requires:       fedora-repos-rawhide = %{version}-%{release}
 %endif
@@ -83,12 +84,6 @@ Source60:       RPM-GPG-KEY-fedora-40-primary
 # ensures users have the next future key installed and referenced, even if they
 # don't update very often. This will smooth out Rawhide N->N+1 transition for them).
 
-Source100:      fedora-modular.repo
-Source101:      fedora-updates-modular.repo
-Source102:      fedora-updates-testing-modular.repo
-Source103:      fedora-rawhide-modular.repo
-Source104:      RPM-GPG-KEY-fedora-modularity
-
 Source150:      RPM-GPG-KEY-fedora-iot-2019
 Source151:      fedora.conf
 Source152:      fedora-compose.conf
@@ -104,21 +99,11 @@ Source505:      fedora-39-ima.pem
 %description
 Fedora package repository files for yum and dnf along with gpg public keys.
 
-%package modular
-Summary:        Fedora modular package repositories
-Requires:       fedora-repos = %{version}-%{release}
-%if %{rawhide_release} == %{version}
-Requires:       fedora-repos-rawhide-modular = %{version}-%{release}
-%endif
-Obsoletes:      fedora-repos < 33-0.7
-
-%description modular
-This package provides the repo definitions with modular packages.
-
 %package rawhide
 Summary:        Rawhide repo definitions
 Requires:       fedora-repos = %{version}-%{release}
 Obsoletes:      fedora-repos-rawhide < 33-0.7
+Obsoletes:      fedora-repos-rawhide-modular < 39-0.3
 
 %description rawhide
 This package provides the rawhide repo definitions.
@@ -131,15 +116,6 @@ Requires:       fedora-repos = %{version}-%{release}
 This package provides the repo definition for the updates archive repo.
 It is a package repository that contains any RPM that has made it to
 stable in Bodhi and been available in the Fedora updates repo in the past.
-
-%package rawhide-modular
-Summary:        Rawhide modular repo definitions
-Requires:       fedora-repos = %{version}-%{release}
-Requires:       fedora-repos-rawhide = %{version}-%{release}
-Obsoletes:      fedora-repos-rawhide < 33-0.7
-
-%description rawhide-modular
-This package provides the rawhide modular repo definitions.
 
 %package -n fedora-gpg-keys
 Summary:        Fedora RPM keys
@@ -233,10 +209,10 @@ eln_enabled=0
 for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-rawhide*.repo; do
     sed -i "s/^enabled=AUTO_VALUE$/enabled=${rawhide_enabled}/" $repo || exit 1
 done
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora{,-modular,-updates,-updates-modular}.repo; do
+for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora{,-updates}.repo; do
     sed -i "s/^enabled=AUTO_VALUE$/enabled=${stable_enabled}/" $repo || exit 1
 done
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-updates-testing{,-modular}.repo; do
+for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-updates-testing.repo; do
     sed -i "s/^enabled=AUTO_VALUE$/enabled=${testing_enabled}/" $repo || exit 1
 done
 for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-updates-archive.repo; do
@@ -262,7 +238,7 @@ expire_value='6h'
 %else
 expire_value='7d'
 %endif
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora{,-modular}.repo; do
+for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora.repo; do
     sed -i "/^metadata_expire=/ s/AUTO_VALUE/${expire_value}/" \
         $repo || exit 1
 done
@@ -288,20 +264,19 @@ disabled_repos=()
 
 %if 0%{?eln}
 enabled_repos+=(fedora-eln)
-disabled_repos+=(fedora fedora-modular fedora-updates fedora-updates-archive \
-  fedora-updates-modular fedora-updates-testing fedora-updates-testing-modular)
+disabled_repos+=(fedora fedora-updates fedora-updates-archive \
+  fedora-updates-testing)
 %elif %{rawhide_release} == %{version}
-enabled_repos+=(fedora-rawhide fedora-rawhide-modular fedora-cisco-openh264)
-disabled_repos+=(fedora fedora-modular fedora-updates fedora-updates-archive \
-  fedora-updates-modular fedora-updates-testing fedora-updates-testing-modular)
+enabled_repos+=(fedora-rawhide fedora-cisco-openh264)
+disabled_repos+=(fedora fedora-updates fedora-updates-archive \
+  fedora-updates-testing)
 %else
-enabled_repos+=(fedora fedora-modular fedora-updates fedora-updates-archive \
-  fedora-updates-modular)
-disabled_repos+=(fedora-rawhide fedora-rawhide-modular)
+enabled_repos+=(fedora fedora-updates fedora-updates-archive)
+disabled_repos+=(fedora-rawhide)
 %if %{updates_testing_enabled}
-enabled_repos+=(fedora-updates-testing fedora-updates-testing-modular)
+enabled_repos+=(fedora-updates-testing)
 %else
-disabled_repos+=(fedora-updates-testing fedora-updates-testing-modular)
+disabled_repos+=(fedora-updates-testing)
 %endif
 %endif
 
@@ -320,7 +295,7 @@ done
 
 # Make sure updates-testing is not enabled in a Final (stable) release
 %if "%{release}" >= "1"
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-updates-testing{,-modular}.repo; do
+for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora-updates-testing.repo; do
     if grep -q 'enabled=1' $repo; then
         echo "ERROR: Repo $repo should be disabled in a stable release, but it isn't"
         exit 1
@@ -334,7 +309,7 @@ expire_value='6h'
 %else
 expire_value='7d'
 %endif
-for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora{,-modular}.repo; do
+for repo in $RPM_BUILD_ROOT/etc/yum.repos.d/fedora.repo; do
     lines=$(grep '^metadata_expire=' $repo | sort | uniq)
     if [ "$(echo "$lines" | wc -l)" -ne 1 ]; then
         echo "ERROR: Non-matching metadata_expire lines in $repo: $lines"
@@ -394,19 +369,11 @@ rm -f "$TMPRING"
 %config(noreplace) /etc/yum.repos.d/fedora-updates.repo
 %config(noreplace) /etc/yum.repos.d/fedora-updates-testing.repo
 
-%files modular
-%config(noreplace) /etc/yum.repos.d/fedora-modular.repo
-%config(noreplace) /etc/yum.repos.d/fedora-updates-modular.repo
-%config(noreplace) /etc/yum.repos.d/fedora-updates-testing-modular.repo
-
 %files archive
 %config(noreplace) /etc/yum.repos.d/fedora-updates-archive.repo
 
 %files rawhide
 %config(noreplace) /etc/yum.repos.d/fedora-rawhide.repo
-
-%files rawhide-modular
-%config(noreplace) /etc/yum.repos.d/fedora-rawhide-modular.repo
 
 
 %files -n fedora-gpg-keys
@@ -425,6 +392,10 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Mon Jul 10 2023 Miro Hrončok <mhroncok@redhat.com> - 39-0.3
+- Drop fedora-repos-modular and fedora-repos-rawhide-modular packages
+- https://fedoraproject.org/wiki/Changes/RetireModularity
+
 * Sat Feb 18 2023 Kevin Fenzi <kevin@scrye.com> - 39-0.2
 - Include IMA public certs.
 

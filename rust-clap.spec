@@ -6,7 +6,7 @@
 %global crate clap
 
 Name:           rust-clap
-Version:        4.3.11
+Version:        4.3.14
 Release:        %autorelease
 Summary:        Simple to use, efficient, and full-featured Command Line Argument Parser
 

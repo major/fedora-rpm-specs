@@ -1,7 +1,7 @@
 %global libzen_version  0.4.41
 
 Name:           libmediainfo
-Version:        23.04
+Version:        23.07
 Release:        1%{?dist}
 Summary:        Library for supplies technical and tag information about a video or audio file
 
@@ -103,6 +103,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 %{_libdir}/cmake/mediainfolib/
 
 %changelog
+* Mon Jul 17 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.07-1
+- Update to 23.07
+
 * Fri Apr 28 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.04-1
 - Update to 23.04
 

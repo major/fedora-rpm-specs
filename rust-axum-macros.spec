@@ -6,7 +6,7 @@
 %global crate axum-macros
 
 Name:           rust-axum-macros
-Version:        0.3.7
+Version:        0.3.8
 Release:        %autorelease
 Summary:        Macros for axum
 

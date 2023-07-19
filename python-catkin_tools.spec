@@ -1,16 +1,13 @@
 %global srcname catkin_tools
 
 Name:           python-%{srcname}
-Version:        0.8.2
-Release:        6%{?dist}
+Version:        0.9.3
+Release:        1%{?dist}
 Summary:        Command line tools for working with catkin
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://catkin-tools.readthedocs.org
 Source0:        https://github.com/catkin/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Taken from upstream
-Patch0:         %{srcname}-0.8.2-getfullargspec.patch
 
 BuildArch:      noarch
 
@@ -20,7 +17,7 @@ Provides command line tools for working with catkin
 
 %package doc
 Summary:        HTML documentation for %{srcname}
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
@@ -32,26 +29,23 @@ HTML documentation for %{srcname}
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  cmake
-BuildRequires:  python%{python3_pkgversion}-catkin_pkg >= 0.2.9
+BuildRequires:  python%{python3_pkgversion}-catkin_pkg >= 0.3.0
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-mock
-BuildRequires:  python%{python3_pkgversion}-nose
 BuildRequires:  python%{python3_pkgversion}-osrf-pycommon >= 0.1.1
-BuildRequires:  python%{python3_pkgversion}-pyparsing
+BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-PyYAML
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-trollius
 Requires:       cmake
 Requires:       make
 Conflicts:      python2-%{srcname} < 0.4.4-7
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-catkin_pkg >= 0.2.9
+Requires:       python%{python3_pkgversion}-catkin_pkg >= 0.3.0
 Requires:       python%{python3_pkgversion}-osrf-pycommon >= 0.1.1
 Requires:       python%{python3_pkgversion}-PyYAML
 Requires:       python%{python3_pkgversion}-setuptools
-Requires:       python%{python3_pkgversion}-trollius
 %endif
 
 %if !0%{?rhel} || 0%{?rhel} >= 8
@@ -79,21 +73,8 @@ rm docs/_build/html/.buildinfo
 install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{srcname}.1
 
 %check
-# Many tests require catkin itself, which isn't packaged in Fedora
-%global exclude_tests \\\
-  -e 'test_build_*' \\\
-  -e 'test_catkin_build_with_*' \\\
-  -e 'test_cmake_args' \\\
-  -e 'test_code_format' \\\
-  -e 'test_init_local_empty_src' \\\
-  -e 'test_profile_*' \\\
-  -e 'test_pythonpath*' \\\
-  -e 'test_unit_tests*' \\\
-  %{nil}
-
-PYTHONPATH=%{buildroot}%{python3_sitelib} \
-  PATH=%{buildroot}%{_bindir}:$PATH \
-  nosetests-%{python3_version} -w tests %{exclude_tests}
+# Many system tests require catkin itself, which isn't packaged in Fedora
+%pytest tests/unit
 
 
 %files doc
@@ -112,6 +93,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jul 14 2023 Scott K Logan <logans@cottsay.net> - 0.9.3-1
+- Update to 0.9.3 (rhbz#2059199)
+- Update to SPDX license identifier
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.8.2-6
 - Rebuilt for Python 3.12
 

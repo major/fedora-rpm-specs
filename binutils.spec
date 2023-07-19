@@ -2,8 +2,8 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 10%{?dist}
-License: GPLv3+
+Release: 11%{?dist}
+License: GPL-3.0-or-later
 URL: https://sourceware.org/binutils
 
 #---Start of Configure Options-----------------------------------------------
@@ -958,25 +958,27 @@ install_binutils()
 	%make_install DESTDIR=%{buildroot} MAKEINFO=true
 %endif
 
-	# Rebuild libiberty.a with -fPIC.
-	# Future: Remove it together with its header file, projects should bundle it.
+        # Rebuild the static libiaries with -fPIC.
+	# It would be nice to build the static libraries with -fno-lto so that
+	# they can be used by programs that are built with a different version
+	# of GCC from the one used to build the libraries, but this will trigger
+	# warnings from annocheck.
+
+        # Future: Remove libiberty together with its header file, projects should bundle it.
 	%make_build -s -C libiberty clean
 	%set_build_flags
 	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C libiberty
 
-	# Rebuild libbfd.a with -fPIC.
 	# Without the hidden visibility the 3rd party shared libraries would export
 	# the bfd non-stable ABI.
 	%make_build -s -C bfd clean
 	%set_build_flags
 	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS -fvisibility=hidden" -C bfd
 
-	# Rebuild libopcodes.a with -fPIC.
 	%make_build -s -C opcodes clean
 	%set_build_flags
 	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C opcodes
 
-	# Rebuild libsframe.a with -fPIC.
 	%make_build -s -C libsframe clean
 	%set_build_flags
 	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C libsframe
@@ -1274,6 +1276,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Jul 17 2023 Nick Clifton  <nickc@redhat.com> - 12.20-2
+- Spec File: Change License field to use SPDX notation.  (#2222113)
+
 * Wed Jun 21 2023 Nick Clifton  <nickc@redhat.com> - 2.40-10
 - Spec File: Add defines to enable rwx and execstack warnings.
 

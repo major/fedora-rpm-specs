@@ -7,7 +7,7 @@ Release:        8%{?dist}
 Summary:        Inconsolata fonts
 
 License:        OFL
-URL:            http://www.levien.com/type/myfonts/inconsolata.html
+URL:            https://levien.com/type/myfonts/inconsolata.html
 Source0:        https://github.com/googlefonts/Inconsolata/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}-fontconfig.conf
 Source2:        %{fontname}.metainfo.xml

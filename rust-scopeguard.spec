@@ -5,11 +5,10 @@
 %global crate scopeguard
 
 Name:           rust-scopeguard
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        RAII scope guard that will run a given closure when it goes out of scope
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/scopeguard
 Source:         %{crates_source}
@@ -36,7 +35,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.rst
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

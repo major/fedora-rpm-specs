@@ -1,13 +1,11 @@
+%global     with_python 1
 Name:       hirte
-Version:    0.3.0
-Release:    1%{?dist}
+Version:    0.4.0
+Release:    2%{?dist}
 Summary:    A systemd service controller for multi-nodes environments
 License:    GPL-2.0-or-later
 URL:        https://github.com/containers/hirte
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Patch source: https://github.com/containers/hirte/pull/355
-# merged in 0.3.0, will be in >0.3.0
-Patch:      355.patch
 # Required to apply the patch
 BuildRequires:  git
 
@@ -156,6 +154,29 @@ This package contains the service controller command line tool.
 
 #--------------------------------------------------
 
+%if %{with_python}
+
+%package -n python3-pyhirte
+Summary: Python bindings for Hirte
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+Requires:       python3-dasbus
+
+%description -n python3-pyhirte
+pyhirte is a python module to access the public D-Bus API of hirte.
+It contains typed python code that is auto-generated from hirte's
+API description and manually written code to simplify recurring tasks.
+
+%files -n python3-pyhirte
+%license LICENSE
+%doc README.md
+%{python3_sitelib}/pyhirte-*.egg-info/
+%{python3_sitelib}/pyhirte/
+
+%endif
+
+#--------------------------------------------------
+
 %prep
 %autosetup -S git
 
@@ -163,14 +184,33 @@ This package contains the service controller command line tool.
 %meson -Dapi_bus=system
 %meson_build
 
+%if %{with_python}
+pushd src/bindings/python
+%py3_build
+popd
+%endif
+
 %install
 %meson_install
+
+%if %{with_python}
+pushd src/bindings/python
+%py3_install
+popd
+%endif
 
 %check
 %meson_test
 
 
 %changelog
+* Mon Jul 17 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.4.0-2
+- Fix the conditional used to enable/disable the python3-pyhirte subpackage
+
+* Mon Jul 17 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.4.0-1
+- Update to 0.4.0
+- Introduce the python3-pyhirte subpackage
+
 * Fri Jun 09 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.3.0-1
 - Update to 0.3.0
 - Backport patch from PR #355 which fixes building on i686

@@ -1,6 +1,6 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
-Version: 1.55.0
+Version: 1.55.1
 Release: 1%{?dist}
 License: MIT
 URL: https://nghttp2.org/
@@ -120,6 +120,10 @@ export "LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}:$LD_LIBRARY_PATH"
 
 
 %changelog
+* Mon Jul 17 2023 Jan Macku <jamacku@redhat.com> 1.55.1-1
+- update to the latest upstream release
+- fixes CVE-2023-35945 - memmory leak
+
 * Thu Jul 13 2023 Jan Macku <jamacku@redhat.com> 1.55.0-1
 - update to the latest upstream release
 

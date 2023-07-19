@@ -24,7 +24,7 @@ BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: openssl-devel
 # The tests still require soup
-BuildRequires: pkgconfig(libsoup-2.4)
+BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: libattr-devel
 # The tests require attr
 BuildRequires: attr
@@ -104,6 +104,7 @@ env NOCONFIGURE=1 ./autogen.sh
            --enable-gtk-doc \
            --with-selinux \
            --with-curl \
+           --with-soup3 \
            --with-openssl \
            %{?with_tests:--enable-installed-tests=exclusive} \
            --with-dracut=yesbutnoconf

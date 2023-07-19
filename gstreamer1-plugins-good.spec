@@ -61,7 +61,7 @@ BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel >= 1.2.0
 BuildRequires:  libshout-devel
-BuildRequires:  libsoup-devel
+BuildRequires:  libsoup3-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXext-devel
 BuildRequires:  libXdamage-devel
@@ -96,6 +96,10 @@ BuildRequires:  libiec61883-devel
 BuildRequires:  libraw1394-devel
 %endif
 %endif
+
+# The soup elements dynamically load either version of libsoup at runtime,
+# defaulting to libsoup3 if libsoup2 is not already loaded in the process
+Recommends:     libsoup3%{?_isa}
 
 # Obsoletes/Provides moved from plugins-bad-free
 Obsoletes:      gstreamer1-plugin-mpg123 < 1.13.1

@@ -6,7 +6,7 @@ A small Python module for determining appropriate platform-specific dirs, e.g.
 a "user data dir".}
 
 Name:           python-%{srcname}
-Version:        3.5.1
+Version:        3.9.1
 Release:        1%{?dist}
 Summary:        Python module for determining appropriate platform-specific dirs
 License:        MIT
@@ -65,6 +65,9 @@ sed -r -i '/^[[:blank:]]*"covdefaults\b/d' pyproject.toml
 
 
 %changelog
+* Mon Jul 17 2023 Lumír Balhar <lbalhar@redhat.com> - 3.9.1-1
+- Update to 3.9.1 (rhbz#2156775)
+
 * Fri Jun 30 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.5.1-1
 - Update to 3.5.1
 - Fixes: rhbz#2156775

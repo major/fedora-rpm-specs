@@ -1,16 +1,19 @@
 Name:    glib2
-Version: 2.76.4
+Version: 2.77.0
 Release: %autorelease
 Summary: A library of handy utility functions
 
 License: LGPL-2.1-or-later
 URL:     https://www.gtk.org
-Source0: https://download.gnome.org/sources/glib/2.76/glib-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/glib/2.77/glib-%{version}.tar.xz
 
 # Required for RHEL core crypto components policy. Good for Fedora too.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/903
 Patch0: gnutls-hmac.patch
+# Avoid making anaconda crash
+# https://gitlab.gnome.org/GNOME/glib/-/issues/3054
+Patch1: 0001-Revert-gmain-Add-precondition-assertions-to-g_main_c.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++

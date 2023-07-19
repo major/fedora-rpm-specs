@@ -1,8 +1,8 @@
 %global pypi_name jsonpatch
 
 Name:           python-%{pypi_name}
-Version:        1.21
-Release:        23%{?dist}
+Version:        1.33
+Release:        1%{?dist}
 Summary:        Applying JSON Patches in Python
 
 License:        BSD
@@ -32,7 +32,7 @@ Library to apply JSON Patches according to RFC 6902 - Python 3 build.
 
 %prep
 %setup -qn %{pypi_name}-%{version}
-%patch0 -p1
+%patch -P 0 -p1
 
 
 %build
@@ -52,7 +52,7 @@ ln -s ./jsonpatch-%{python3_version} %{buildroot}%{_bindir}/jsonpatch
 
 %files -n python3-%{pypi_name}
 %doc README.md
-%license COPYING
+%license LICENSE
 %{_bindir}/jsonpatch
 %{_bindir}/jsonpatch-3*
 %{python3_sitelib}/%{pypi_name}.py*
@@ -60,6 +60,9 @@ ln -s ./jsonpatch-%{python3_version} %{buildroot}%{_bindir}/jsonpatch
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jul 15 2023 Orion Poplawski <orion@nwra.com> - 1.33-1
+- Update to 1.33
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.21-23
 - Rebuilt for Python 3.12
 

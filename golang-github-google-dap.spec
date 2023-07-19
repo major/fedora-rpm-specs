@@ -3,7 +3,7 @@
 
 # https://github.com/google/go-dap
 %global goipath         github.com/google/go-dap
-Version:                0.7.0
+Version:                0.10.0
 
 %gometa
 
@@ -32,7 +32,7 @@ Patch0001:      0001-Disable-TestServer.patch
 
 %prep
 %goprep
-%patch0001 -p1
+%autopatch -p1
 
 %build
 for cmd in cmd/* ; do

@@ -8,9 +8,9 @@
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.69.0
-%global bootstrap_channel 1.69.0
-%global bootstrap_date 2023-04-20
+%global bootstrap_version 1.70.0
+%global bootstrap_channel 1.70.0
+%global bootstrap_date 2023-06-01
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -46,14 +46,14 @@
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 14.0+.
 %global min_llvm_version 14.0.0
-%global bundled_llvm_version 16.0.2
+%global bundled_llvm_version 16.0.5
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.6, and not the next minor soname change.
 # This needs to be consistent with the bindings in vendor/libgit2-sys.
-%global min_libgit2_version 1.6.0
+%global min_libgit2_version 1.6.4
 %global next_libgit2_version 1.7.0~
-%global bundled_libgit2_version 1.6.3
+%global bundled_libgit2_version 1.6.4
 %if 0%{?fedora} >= 38
 %bcond_with bundled_libgit2
 %else
@@ -83,8 +83,8 @@
 %endif
 
 Name:           rust
-Version:        1.70.0
-Release:        2%{?dist}
+Version:        1.71.0
+Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -110,13 +110,13 @@ Patch2:         rustc-1.70.0-rust-gdb-substitute-path.patch
 # TODO: upstream this ability into the actual build configuration
 Patch3:         0001-Let-environment-variables-override-some-default-CPUs.patch
 
-# Added default target cpu to `--print target-cpus` output
-# https://github.com/rust-lang/rust/pull/110876
-Patch4:         0001-Rollup-merge-of-110876-mj10021-issue-110647-fix-r-b-.patch
+# Restore LD_LIBRARY_PATH when running lint-docs
+# https://github.com/rust-lang/rust/pull/110521#issuecomment-1629705099
+Patch4:         0001-Revert-Fix-x-test-lint-docs-when-download-rustc-is-e.patch
 
-# Improve `--print target-cpus` for non-bundled LLVM
-# https://github.com/rust-lang/rust/pull/111274
-Patch5:         0001-Expand-the-LLVM-coverage-of-print-target-cpus.patch
+# Restore the bash completion path
+# https://github.com/rust-lang/rust/pull/110906#issuecomment-1629832675
+Patch5:         0001-Revert-fix-bug-etc-bash_complettion-src-etc-.-to-avo.patch
 
 ### RHEL-specific patches below ###
 
@@ -124,11 +124,11 @@ Patch5:         0001-Expand-the-LLVM-coverage-of-print-target-cpus.patch
 Source100:      macros.rust-toolset
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.70.0-disable-libssh2.patch
+Patch100:       rustc-1.71.0-disable-libssh2.patch
 
 # libcurl on RHEL7 doesn't have http2, but since cargo requests it, curl-sys
 # will try to build it statically -- instead we turn off the feature.
-Patch101:       rustc-1.70.0-disable-http2.patch
+Patch101:       rustc-1.71.0-disable-http2.patch
 
 # Get the Rust triple for any arch.
 %{lua: function rust_triple(arch)
@@ -801,6 +801,9 @@ done
 # These are transient files used by x.py dist and install
 rm -rf ./build/dist/ ./build/tmp/
 
+# Some of the components duplicate-install binaries, leaving backups we don't want
+rm -f %{buildroot}%{_bindir}/*.old
+
 # Make sure the shared libraries are in the proper libdir
 %if "%{_libdir}" != "%{common_libdir}"
 mkdir -p %{buildroot}%{_libdir}
@@ -1060,6 +1063,9 @@ end}
 
 
 %changelog
+* Mon Jul 17 2023 Josh Stone <jistone@redhat.com> - 1.71.0-1
+- Update to 1.71.0.
+
 * Fri Jun 23 2023 Josh Stone <jistone@redhat.com> - 1.70.0-2
 - Override default target CPUs to match distro settings
 

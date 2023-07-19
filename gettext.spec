@@ -287,7 +287,7 @@ rm ${RPM_BUILD_ROOT}%{_emacs_sitelispdir}/%{name}/start-po.elc
 # this takes quite a lot of time to run
 
 # adapt to rpath removal
-export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}:$PWD/gettext-tools/intl/.libs
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}:$PWD/gettext-runtime/intl/.libs
 
 # override LIBUNISTRING to prevent reordering of lib objects
 make check LIBUNISTRING=-lunistring

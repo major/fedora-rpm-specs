@@ -3,8 +3,8 @@
 
 
 Name:           %{module}
-Version:        0.31.1
-Release:        3%{?dist}
+Version:        0.31.2
+Release:        1%{?dist}
 Summary:        Python module python-binary-memcached
 
 License:        MIT
@@ -16,7 +16,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
 BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3-m2r
 BuildRequires:  python3-flake8
 BuildRequires:  python3-pytest
 BuildRequires:  python3-trustme
@@ -56,6 +55,9 @@ Requires:  memcached
 %doc README.rst
 
 %changelog
+* Mon Jul 17 2023 Joel Capitao <jcapitao@redhat.com> - 0.31.2-1
+- Update to 0.31.2
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.31.1-3
 - Rebuilt for Python 3.12
 
