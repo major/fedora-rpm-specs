@@ -18,6 +18,7 @@ Source1:        https://github.com/PyTables/PyTables/releases/download/v%{manual
 Patch0:         always-use-blosc.diff
 Patch1:         0001-Skip-tests-that-fail-on-s390x.patch
 Patch2:         0002-Skip-test-that-fails-on-amd64.patch
+Patch3:         0003-python3.12-cython-fix-slice-indexing.patch
 
 License:        BSD
 URL:            https://www.pytables.org
@@ -66,6 +67,7 @@ The %{name}-doc package contains the documentation for %{name}.
 %endif
 
 %patch2 -p1
+%patch3 -p1
 
 cp -a %{SOURCE1} pytablesmanual.pdf
 

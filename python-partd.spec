@@ -8,6 +8,8 @@ Summary:        Appendable key-value storage
 License:        BSD-3-Clause
 URL:            https://github.com/dask/partd
 Source0:        %pypi_source %{srcname}
+# compatibility with Python 3.12
+Patch:          https://github.com/dask/partd/pull/70.patch
 
 BuildArch:      noarch
 
@@ -31,7 +33,7 @@ Recommends:     python3-%{srcname}+complete
 %pyproject_extras_subpkg -n python3-%{srcname} complete
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -rx complete

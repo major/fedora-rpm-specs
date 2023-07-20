@@ -5,7 +5,7 @@
 
 Name:           module-build-service
 Version:        3.9.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The Module Build Service for Modularity
 
 License:        MIT
@@ -275,6 +275,9 @@ done
 %endif
 
 %changelog
+* Tue Jul 18 2023 Python Maint <python-maint@redhat.com> - 3.9.2-4
+- Rebuilt for Python 3.12
+
 * Tue May 30 2023 Diego Herrera <dherrera@redhat.com> - 3.9.2-3
 - Remove the python3-funcsigs runtime requirement
 

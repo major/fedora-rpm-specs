@@ -1,6 +1,6 @@
 Name: heat-cfntools
 Version: 1.4.2
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Tools required to be installed on Heat provisioned cloud instances
 License: ASL 2.0
 URL: https://launchpad.net/heat-cfntools/
@@ -32,6 +32,8 @@ Patch0018: 0018-add-python-3.6-unit-test-job.patch
 Patch0019: 0019-Migrate-the-link-of-bug-report-button-to-storyboard.patch
 Patch0020: 0020-Use-template-for-lower-constraints.patch
 Patch0021: 0021-Update-the-bugs-link-to-storyboard.patch
+Patch0022: 0022-Replace-deprecated-readfp-method-with-read_file.patch
+Patch0023: 0023-Stop-using-deprecated-name-for-ConfigParser.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel
@@ -82,6 +84,9 @@ mkdir -p %{buildroot}/%{_sharedstatedir}/%{name}
 %dir %{_sharedstatedir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Zane Bitter <zaneb@fedoraproject.org> - 1.4.2-23
+- Fix build with Python 3.12
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.4.2-22
 - Rebuilt for Python 3.12
 

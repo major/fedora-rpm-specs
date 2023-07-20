@@ -10,8 +10,6 @@ Version:                2.1.0
 %global godevelheader %{expand:
 Requires:        fuse-devel}
 
-%global goaltipaths     github.com/hanwen/go-fuse/v2
-
 %global common_description %{expand:
 FUSE bindings for Go.}
 

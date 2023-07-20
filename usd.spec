@@ -22,7 +22,10 @@
 %bcond ptex          1
 # Not yet packaged
 %bcond pyside6       0
-%bcond usdview       1
+# F39FailsToInstall: python3-pyside2, python3-shiboken2,
+# python3-shiboken2-devel
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220452
+%bcond usdview       0
 # TODO: Figure out how to re-enable the tests. Currently these want to install
 # into /usr/tests and, and there are issues with the launchers finding the
 # command-line tools in the buildroot.

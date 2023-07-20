@@ -32,7 +32,6 @@ BuildRequires: git
 BuildRequires: python2-pytest
 BuildRequires: python2-pytest-pep8
 BuildRequires: python2-pytest-cov
-BuildRequires: python2-pydocstyle
 BuildRequires: python2-isort
 BuildRequires: python2-coverage
 BuildRequires: python2-mock
@@ -70,7 +69,6 @@ BuildRequires: python3-pytest-cache
 %if 0%{?fedora} < 32
 BuildRequires: python3-pytest-pep8
 %endif
-BuildRequires: python3-pydocstyle
 BuildRequires: python3-isort
 BuildRequires: python3-coverage
 BuildRequires: python3-mock
@@ -179,6 +177,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} sphinx-build docs/ html
 %endif
 
 %changelog
+* Tue Jul 19 2023 Jason Montleon <jmontleo@redhat.com> - 0.9.0-6
+- Remove unneeded pydocstyle dependency preventing rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -191,7 +192,7 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} sphinx-build docs/ html
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Thu Jul 23 2021 Jaosn Montleon <jmontleo@redhat.com> 0.9.0-1
+* Thu Jul 22 2021 Jaosn Montleon <jmontleo@redhat.com> 0.9.0-1
 - Update to 0.9.0
 
 * Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.8.1-7

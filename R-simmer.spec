@@ -4,16 +4,16 @@
 %global __suggests_exclude ^R\\((rticles|simmer\\.plot)\\)
 
 Name:           R-%{packname}
-Version:        4.4.5
-Release:        5%{?dist}
+Version:        4.4.6.1
+Release:        1%{?dist}
 Summary:        Discrete-Event Simulation for R
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://cran.r-project.org/package=%{packname}
 Source0:        %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 BuildRequires:  R-devel >= 3.1.2
-BuildRequires:  R-Rcpp-devel >= 0.12.9, R-BH-devel >= 1.62.0.1
+BuildRequires:  R-Rcpp-devel >= 0.12.9
 BuildRequires:  R-magrittr, R-testthat
 # BuildRequires:  R-knitr, R-rmarkdown, R-rticles, R-simmer.plot
 
@@ -72,6 +72,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0
 %{rlibdir}/%{packname}/include
 
 %changelog
+* Tue Jul 18 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.6.1-1
+- Update to 4.4.6.1, switch to SPDX
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.5-5
 - R-maint-sig mass rebuild
 

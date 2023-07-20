@@ -21,6 +21,11 @@ Source2:        hdfscli-avro.1
 # Use unittest.mock where available
 # https://github.com/mtth/hdfs/pull/177
 Patch0:         https://github.com/mtth/hdfs/pull/177.patch
+# imp has been removed from Python3.12, use importlib
+# https://github.com/mtth/hdfs/issues/191
+# NOTE: The referenced PR suggests `from importlib import load_source`
+# But that fails! Use `from importlib import import_module` instead.
+Patch1:         imp_deprecation.patch
 
 # The base package is arched because extras metapackages requiring fastavro are
 # not available on 32-bit architectures

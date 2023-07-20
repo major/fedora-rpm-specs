@@ -2,7 +2,7 @@ Name: perl-Net-Telnet
 Summary: Interact with TELNET port or other TCP ports
 Version: 3.05
 Release: 6%{?alphatag:.%{alphatag}}%{?dist}
-License: GPL+ or Artistic
+License: GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: https://metacpan.org/release/Net-Telnet
 Source0: https://cpan.metacpan.org/authors/id/J/JR/JROGERS/Net-Telnet-%{version}.tar.gz
 
@@ -14,8 +14,8 @@ BuildArch: noarch
 BuildRequires: coreutils
 BuildRequires: findutils
 BuildRequires: make
-BuildRequires: perl-interpreter
 BuildRequires: perl-generators
+BuildRequires: perl-interpreter
 BuildRequires: perl(Exporter)
 BuildRequires: perl(ExtUtils::MakeMaker)
 BuildRequires: perl(FileHandle)

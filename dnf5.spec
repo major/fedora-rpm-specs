@@ -1,15 +1,14 @@
 %global project_version_major 5
-%global project_version_minor 0
-%global project_version_patch 15
+%global project_version_minor 1
+%global project_version_patch 0
 
 Name:           dnf5
-Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        4%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch1:         0001-changelogs-Fix-count-variable-type.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -31,6 +30,35 @@ Obsoletes:      dnf < 5
 Provides:       yum = %{version}-%{release}
 Obsoletes:      yum < 5
 %endif
+
+Provides:       dnf5-command(install)
+Provides:       dnf5-command(upgrade)
+Provides:       dnf5-command(remove)
+Provides:       dnf5-command(distro-sync)
+Provides:       dnf5-command(downgrade)
+Provides:       dnf5-command(reinstall)
+Provides:       dnf5-command(swap)
+Provides:       dnf5-command(mark)
+Provides:       dnf5-command(autoremove)
+Provides:       dnf5-command(check-upgrade)
+
+Provides:       dnf5-command(leaves)
+Provides:       dnf5-command(repoquery)
+Provides:       dnf5-command(search)
+Provides:       dnf5-command(list)
+Provides:       dnf5-command(info)
+
+Provides:       dnf5-command(group)
+Provides:       dnf5-command(environment)
+Provides:       dnf5-command(module)
+Provides:       dnf5-command(history)
+Provides:       dnf5-command(repo)
+Provides:       dnf5-command(advisory)
+
+Provides:       dnf5-command(clean)
+Provides:       dnf5-command(download)
+Provides:       dnf5-command(makecache)
+
 
 # ========== build options ==========
 
@@ -571,6 +599,10 @@ Package management service with a DBus interface.
 Summary:        Plugins for dnf5
 License:        LGPL-2.1-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
+Provides:       dnf5-command(builddep)
+Provides:       dnf5-command(changelog)
+Provides:       dnf5-command(copr)
+Provides:       dnf5-command(repoclosure)
 
 %description -n dnf5-plugins
 Core DNF5 plugins that enhance dnf5 with builddep, changelog, copr, and repoclosure commands.
@@ -663,6 +695,19 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Tue Jul 18 2023 Packit <hello@packit.dev> - 5.1.0-1
+- Minor version update. API is considered stable
+- Remove unneeded unused configuration priority
+- Don't show dnf5-command hint for unknown options, only commands
+- Add hint to install missing command with dnf5-command(<name>)
+- Add dnf5-command(<command-name>) provides to dnf5
+- Add dnf5-command(<command-name>) provides to dnf5-plugins
+- Document several methods as deprecated
+- Fix core dump on `--refresh` switch usage
+- Add `repoquery -l`/`--list` aliases for `--files` for rpm compat
+- Add `vendor` attr to package in `dnfdaemon-server`
+- Document `dnf5-plugins` package in man pages
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.0.15-4
 - Perl 5.38 rebuild
 

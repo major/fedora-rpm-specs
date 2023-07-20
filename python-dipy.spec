@@ -15,7 +15,7 @@ Current information can always be found from the DIPY website - http://dipy.org}
 %global forgeurl https://github.com/nipy/dipy/
 
 Name:           python-dipy
-Version:        1.5.0
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Diffusion MRI utilities in python
 
@@ -31,7 +31,7 @@ Source0:        %forgesource
 %{desc}
 
 %package -n python3-dipy
-Summary:        %{summary}
+Summary:            %{summary}
 BuildRequires:      python3-devel
 BuildRequires:      gcc
 %if %{with tests}
@@ -145,6 +145,8 @@ export PYTHONPATH="%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib
 %{_bindir}/dipy_track
 %{_bindir}/dipy_track_pft
 %{_bindir}/dipy_split
+%{_bindir}/dipy_bundlewarp
+%{_bindir}/dipy_evac_plus
 
 %files doc
 %license LICENSE

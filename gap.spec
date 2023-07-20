@@ -59,11 +59,11 @@ Patch1:         %{name}-popcount.patch
 
 ExclusiveArch:  %{gap_arches}
 
-BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript
 BuildRequires:  gmp-devel
+BuildRequires:  libappstream-glib
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  netpbm-progs
@@ -342,7 +342,7 @@ desktop-file-install --mode=644 --dir=%{buildroot}%{_datadir}/applications \
 # Install the AppData file
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE5} %{buildroot}%{_metainfodir}
-appstreamcli validate --no-net \
+appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/org.gap-system.gap.metainfo.xml
 
 # Install the RPM macro file
@@ -444,6 +444,9 @@ make check
 %{_libdir}/libgap.so
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-3
+- Validate metainfo with appstream-util
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

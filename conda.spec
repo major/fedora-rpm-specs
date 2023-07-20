@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        23.3.1
+Version:        23.5.2
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -14,8 +14,6 @@ Source0:        https://github.com/conda/conda/archive/%{version}/%{name}-%{vers
 # bash completion script moved to a separate project
 Source1:        https://raw.githubusercontent.com/tartansandal/conda-bash-completion/1.5/conda
 Patch0:         conda_sys_prefix.patch
-# https://github.com/conda/conda/pull/12151
-Patch1:         conda_gateways_disk_create.patch
 # Do not test with conda-build
 Patch2:         conda-conda-build.patch
 # Use system cpuinfo
@@ -27,7 +25,6 @@ Patch4:         conda-32bit.patch
 Patch10004:     0004-Do-not-try-to-run-usr-bin-python.patch
 Patch10005:     0005-Fix-failing-tests-in-test_api.py.patch
 Patch10006:     0006-shell-assume-shell-plugins-are-in-etc.patch
-Patch10007:     0001-Add-back-conda-and-conda_env-entry-point.patch
 
 BuildArch:      noarch
 
@@ -76,7 +73,6 @@ can only use conda to create and manage new environments.}
 Summary:        %{summary}
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  %py3_reqs
 # When this is present, vendored toolz should not be used
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -99,9 +95,10 @@ Requires:       %py3_reqs
 # EPEL does not have new enough cytoolz
 Requires:       python%{python3_pkgversion}-cytoolz >= 0.8.2
 %endif
+# Some versions in conda/_vendor/vendor.txt
 Provides:       bundled(python%{python3_pkgversion}-appdirs) = 1.2.0
 Provides:       bundled(python%{python3_pkgversion}-auxlib) = 0.0.43
-Provides:       bundled(python%{python3_pkgversion}-boltons) = 18.0.0
+Provides:       bundled(python%{python3_pkgversion}-boltons) = 21.0.0
 
 %{?python_provide:%python_provide python%{python3_pkgversion}-conda}
 
@@ -133,6 +130,9 @@ rm -r conda/_vendor/toolz
 rm -r conda/_vendor/{distro.py,frozendict,tqdm}
 find conda -name \*.py | xargs sed -i -e 's/^\( *\)from .*_vendor\.\(\(distro\|frozendict\|tqdm\).*\) import/\1from \2 import/'
 
+# Unpackaged - use vendored version
+sed -i -e '/"boltons *>/d' pyproject.toml
+
 %ifnarch x86_64
 # Tests on 32-bit
 cp -a tests/data/conda_format_repo/linux-{64,32}
@@ -145,14 +145,17 @@ sed -i -e s/linux-64/%{python3_platform}/ tests/data/conda_format_repo/%{python3
 # do not run coverage in pytest
 sed -i -E '/--(no-)?cov/d' setup.cfg
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-# build conda executable
-%py3_build
+%pyproject_wheel
 
 %install
-# install conda executable
-%py3_install
+%pyproject_install
+%py3_shebang_fix %{buildroot}%{python3_sitelib}/conda/shell/bin/conda
+rm -r %{buildroot}%{python3_sitelib}/tests
+%pyproject_save_files conda conda_env
 
 mkdir -p %{buildroot}%{_sysconfdir}/conda/condarc.d
 mkdir -p %{buildroot}%{_datadir}/conda/condarc.d
@@ -195,11 +198,13 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # test_use_only_tar_bz2 fail in F31 koji, but not with mock --enablerepo=local. Let's disable
 # them for now.
 # tests/conda_env/test_create.py::test_create_update_remote_env_file requires network access
-# tests/cli/test_main_{clean,rename}.py tests require network access
+# tests/cli/test_main_{clean,list,list_reverse,rename}.py tests require network access
 # tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands needs a conda_build fixture that we remove
+# tests/cli/test_subcommands.py tests require network access
 # tests/test_misc.py::test_explicit_missing_cache_entries requires network access
 # tests/core/test_initialize.py tries to unlink /usr/bin/python3 and fails when python is a release candidate
 # tests/core/test_solve.py::test_cuda_fail_1 fails on non-x86_64
+# tests/trust/test_signature_verification.py requires conda_content_trust - not yet packaged
 py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/test_cli.py::TestJson::test_list \
     --deselect=tests/test_cli.py::test_run_returns_int \
@@ -210,20 +215,32 @@ py.test-%{python3_version} -vv -m "not integration" \
     --ignore=tests/conda_env/specs/test_binstar.py \
     --deselect=tests/conda_env/test_create.py::test_create_update_remote_env_file \
     --deselect=tests/cli/test_main_clean.py \
+    --deselect=tests/cli/test_main_list.py::test_list \
+    --deselect=tests/cli/test_main_list.py::test_list_reverse \
     --deselect=tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands \
     --deselect=tests/cli/test_main_rename.py \
+    --deselect=tests/cli/test_subcommands.py::test_env_create \
+    --deselect=tests/cli/test_subcommands.py::test_env_update \
+    --deselect=tests/cli/test_subcommands.py::test_init \
+    --deselect=tests/cli/test_subcommands.py::test_install \
+    --deselect=tests/cli/test_subcommands.py::test_list \
+    --deselect=tests/cli/test_subcommands.py::test_run \
+    --deselect=tests/cli/test_subcommands.py::test_search \
+    --deselect=tests/cli/test_subcommands.py::test_update[update] \
+    --deselect=tests/cli/test_subcommands.py::test_update[upgrade] \
     --deselect=tests/core/test_package_cache_data.py::test_ProgressiveFetchExtract_prefers_conda_v2_format \
     --deselect=tests/core/test_subdir_data.py::test_subdir_data_prefers_conda_to_tar_bz2 \
     --deselect=tests/core/test_subdir_data.py::test_use_only_tar_bz2 \
     --deselect=tests/core/test_initialize.py \
     --deselect=tests/core/test_solve.py::test_cuda_fail_1 \
+    --deselect=tests/gateways/test_jlap.py::test_download_and_hash \
+    --ignore=tests/trust \
     conda tests
 %endif
 
 %files
 %{_sysconfdir}/conda/
 %{_bindir}/conda
-%{_bindir}/conda-env
 %{bash_completionsdir}/conda
 # TODO - better ownership/requires for fish
 %dir /etc/fish
@@ -232,12 +249,8 @@ py.test-%{python3_version} -vv -m "not integration" \
 /etc/profile.d/conda.sh
 /etc/profile.d/conda.csh
 
-%files -n python%{python3_pkgversion}-conda
-%license LICENSE.txt
+%files -n python%{python3_pkgversion}-conda -f %pyproject_files
 %doc CHANGELOG.md README.md
-%{python3_sitelib}/conda/
-%{python3_sitelib}/conda_env/
-%{python3_sitelib}/*.egg-info
 %{_localstatedir}/cache/conda/
 %{_datadir}/conda/
 

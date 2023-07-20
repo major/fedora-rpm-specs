@@ -16,6 +16,9 @@ Summary:        Simple SSL certificate generator
 License:        GPLv3+ with exceptions
 URL:            https://%{provider_prefix}
 Source0:        sscg-3.0.5.tar.gz
+# Extend maximum DNS name to 255
+# Author: Stephen Gallagher <sgallagh@redhat.com>
+Patch1:         0001-Extend-maximum-DNS-name-to-255.patch
 BuildRequires:  gcc
 BuildRequires:  libtalloc-devel
 BuildRequires:  openssl

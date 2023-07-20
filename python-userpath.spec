@@ -1,5 +1,5 @@
 Name:           python-userpath
-Version:        1.8.0
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Cross-platform tool for adding locations to the user PATH
 

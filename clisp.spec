@@ -1,7 +1,7 @@
 # Upstream has not made a new release since 2010
 %global srcname clisp
-%global commit  79cbafdbc6337d6dcd8f2dbad69fb7ebf7a46012
-%global date    20230212
+%global commit  66924971790e4cbee3d58f36e530caa0ad568e5f
+%global date    20230718
 %global forgeurl https://gitlab.com/gnu-clisp/clisp
 
 # There is a plus on the end for unreleased versions, not for released versions
@@ -26,7 +26,7 @@ Version:	2.49.93
 # - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
 # - src/xthread.d and modules/asdf/asdf.lisp are X11
 License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	31%{?dist}
+Release:	32%{?dist}
 URL:		http://www.clisp.org/
 Source0:	%{forgesource}
 # Upstream dropped this file from the distribution
@@ -456,6 +456,9 @@ make -C build base-mod-check
 
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 2.49.93-32
+- Update to fix message typos
+
 * Mon May 08 2023 Florian Weimer <fweimer@redhat.com> - 2.49.93-31
 - Port to C99
 

@@ -4,7 +4,7 @@
 %bcond_without doc
 
 Name:           kitty
-Version:        0.28.1
+Version:        0.29.1
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -26,10 +26,6 @@ Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444
 # Don't build kitten inside setup.py, use gobuild macro in the spec instead to build with fedora flags
 Patch0:         kitty-do-not-build-kitten.patch
 ## upstream patches
-# https://github.com/kovidgoyal/kitty/commit/537cabca710f64b838d3b8b1dc986db596fb29d4
-Patch1:         kitty-ask-perm-before-executing.patch
-Patch2:         https://github.com/kovidgoyal/kitty/commit/b96a261a3538b98614a798fb6bc2093319a8054f.patch#/kitty-fix-warnings.patch
-Patch3:         https://github.com/kovidgoyal/kitty/commit/4c5f4c4baf0e4c6dd87960a2030489bf2cbd8e1e.patch#/kitty-fix-test-python312.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -83,13 +79,13 @@ BuildRequires:  golang(golang.org/x/image/bmp)
 BuildRequires:  golang(golang.org/x/image/tiff)
 BuildRequires:  golang(golang.org/x/image/webp)
 BuildRequires:  golang(golang.org/x/sys/unix)
+BuildRequires:  golang(howett.net/plist)
 
 %if %{with test}
 # For tests:
 BuildRequires:  /usr/bin/ssh
 BuildRequires:  /usr/bin/getent
 BuildRequires:  /usr/bin/zsh
-BuildRequires:  /usr/bin/fish
 BuildRequires:  /usr/bin/rg
 BuildRequires:  python3dist(pillow)
 %endif
@@ -99,6 +95,8 @@ Requires:       hicolor-icon-theme
 
 Obsoletes:      %{name}-bash-integration < 0.28.1-3
 Obsoletes:      %{name}-fish-integration < 0.28.1-3
+Provides:       %{name}-bash-integration = %{version}-%{release}
+Provides:       %{name}-fish-integration = %{version}-%{release}
 
 # Terminfo file has been split from the main program and is required for use
 # without errors. It has been separated to support SSH into remote machines using
@@ -219,8 +217,7 @@ install -m0644 -Dp %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 %if %{with doc}
 # rpmlint fixes
 rm %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo \
-   %{buildroot}%{_datadir}/doc/%{name}/html/.nojekyll   \
-   %{buildroot}%{_datadir}/doc/%{name}/html/_static/scripts/furo-extensions.js
+   %{buildroot}%{_datadir}/doc/%{name}/html/.nojekyll
 %endif
 
 

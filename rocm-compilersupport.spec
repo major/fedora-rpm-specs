@@ -6,12 +6,12 @@
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
-%global bugfix_version 1
+%global bugfix_version 2
 %global upstreamname ROCm-CompilerSupport
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
@@ -92,6 +92,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Tue Jul 18 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.2-1
+- Update to 16.2
+
 * Thu May 25 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.1-4
 - Roll back last change, as it didn't work
 

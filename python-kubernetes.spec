@@ -1,18 +1,5 @@
 %{?python_enable_dependency_generator}
 
-%if 0%{?rhel} == 7
-%bcond_with    python3
-%bcond_without python2
-%else
-%bcond_with    python2
-%bcond_without python3
-%endif
-
-%if 0%{?rhel} == 7
-%global py3 python%{python3_pkgversion}
-%global py3dev python%{python3_pkgversion}
-Patch0:     python-kubernetes-el7.patch
-%endif
 %if 0%{?rhel} == 8
 %global py3 python3
 %global py3dev python36
@@ -31,7 +18,7 @@ Patch0:     python-kubernetes-el7.patch
 Name:       python-%{library}
 Epoch:      1
 Version:    26.1.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python client for the kubernetes API.
 License:    ASL 2.0
 URL:        https://pypi.python.org/pypi/kubernetes
@@ -39,50 +26,12 @@ URL:        https://pypi.python.org/pypi/kubernetes
 Source0:    https://github.com/kubernetes-client/python/archive/v%{version}.tar.gz
 BuildArch:  noarch
 
-%if 0%{?with_python2}
-%package -n python2-%{library}
-Summary:    Kubernetes Python Client
-%{?python_provide:%python_provide python2-%{library}}
-BuildRequires:  git
-BuildRequires:  python2-devel
-BuildRequires:  python-setuptools
-%if 0%{?rhel} != 7
-Requires:  python-adal
-%endif
-Requires:  python-certifi
-Requires:  python-six
-Requires:  python-dateutil
-Requires:  python-setuptools
-Requires:  python-urllib3
-Requires:  PyYAML
-Requires:  python-google-auth
-Requires:  python-ipaddress
-Requires:  python-websocket-client
-Requires:  python-requests
-Requires:  python-requests-oauthlib
-
-%description -n python2-%{library}
-Python client for the kubernetes API.
-
-%package -n python2-%{library}-tests
-Summary:    Tests python-kubernetes library
-
-Requires:  python-nose
-Requires:  python-py
-Requires:  python-mock
-Requires:  python2-%{library} = 1:%{version}-%{release}
-
-%description -n python2-%{library}-tests
-Tests python-kubernetes library
-%endif
-
-%if 0%{?with_python3}
 %package -n %{py3}-%{library}
 Summary:    Kubernetes Python Client
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  %{py3dev}-devel
 BuildRequires:  %{py3dev}-rpm-macros
-BuildRequires:  %{py3}-setuptools 
+BuildRequires:  %{py3}-setuptools
 %if %{undefined __pythondist_requires}
 %if 0%{?fedora}
 Requires:  %{py3}-adal
@@ -90,7 +39,7 @@ Requires:  %{py3}-adal
 Requires:  %{py3}-certifi
 Requires:  %{py3}-six
 Requires:  %{py3}-dateutil
-Requires:  %{py3}-setuptools 
+Requires:  %{py3}-setuptools
 Requires:  %{py3}-urllib3
 Requires:  %{py3}-PyYAML
 Requires:  %{py3}-google-auth
@@ -111,20 +60,13 @@ Requires:  %{py3}-%{library} = 1:%{version}-%{release}
 %description -n %{py3}-%{library}-tests
 Tests python-kubernetes library
 
-%endif
-
 #recommonmark not available for docs in EPEL
 %if 0%{?fedora}
 %package doc
 Summary: Documentation for %{name}.
 Provides: %{name}-doc = 1:%{version}-%{release}
-%if 0%{?with_python3}
 BuildRequires: %{py3}-sphinx
 BuildRequires: %{py3}-recommonmark
-%else
-BuildRequires: python2-sphinx
-BuildRequires: python2-recommonmark
-%endif
 %description doc
 %{summary}
 %endif
@@ -150,12 +92,7 @@ sed -i 's/websocket-client.*/websocket-client>=0.43.0/g' requirements.txt
 %endif
 
 %build
-%if 0%{?with_python2}
-%py2_build
-%endif
-%if 0%{?with_python3}
 %py3_build
-%endif
 
 #11.0 adds spinx-markdown-tables as a requirement
 #It is not packaged in Fedora
@@ -174,33 +111,11 @@ sed -i 's/websocket-client.*/websocket-client>=0.43.0/g' requirements.txt
 #rm -rf html/.{doctrees,buildinfo}
 
 %install
-%if 0%{?with_python2}
-%py2_install
-cp -pr kubernetes/test %{buildroot}%{python2_sitelib}/%{library}/
-cp -pr kubernetes/e2e_test %{buildroot}%{python2_sitelib}/%{library}/
-%endif
-%if 0%{?with_python3}
 %py3_install
 cp -pr kubernetes/test %{buildroot}%{python3_sitelib}/%{library}/
 cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
-%endif
 
 %check
-
-%if 0%{?with_python2}
-%files -n python2-%{library}
-%license LICENSE
-%doc README.md
-%{python2_sitelib}/%{library}
-%{python2_sitelib}/%{library}-*.egg-info
-%exclude %{python2_sitelib}/%{library}/test
-%exclude %{python2_sitelib}/%{library}/e2e_test
-
-%files -n python2-%{library}-tests
-%license LICENSE
-%{python2_sitelib}/%{library}/test
-%{python2_sitelib}/%{library}/e2e_test
-%endif
 
 %if 0%{?fedora}
 %files doc
@@ -208,7 +123,6 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 #%doc html
 %endif
 
-%if 0%{?with_python3}
 %files -n %{py3}-%{library}
 %license LICENSE
 %doc README.md
@@ -221,9 +135,12 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 %license LICENSE
 %{python3_sitelib}/%{library}/test
 %{python3_sitelib}/%{library}/e2e_test
-%endif
 
 %changelog
+* Tue Jul 18 2023 Jason Montleon <jmontleo@redhat.com> - 1:26.1.0-2
+- Replace git BuildRequire with git-core which is sufficient
+- Remove conditional for python2
+
 * Mon Jul 17 2023 Jason Montleon <jmontleo@redhat.com> - 1:26.1.0-1
 - Update to 26.1.0
 

@@ -10,21 +10,24 @@
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.15.1
+Version: 2.15.2
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
 License: GPL-3.0-or-later AND BSD-2-Clause AND PSF-2.0 AND MIT AND Apache-2.0
 
 Source0: https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
-Source1: build_manpages.py
+Source1: https://github.com/ansible/ansible-documentation/archive/v%{uversion}/ansible-documentation-%{uversion}.tar.gz
+Source2: build_manpages.py
 
 Patch: https://github.com/ansible/ansible/commit/734f38b2594692707d1fd3cbcfc8dc8a677f4ee3.patch#/GALAXY_COLLECTIONS_PATH_WARNINGS.patch
-# Fix compat with latest python3-libdnf5
-# dnf5: enable now implemented cacheonly functionality (#81141)
-Patch: https://github.com/ansible/ansible/commit/0cc50e067346c357c5177677fba41993950ff044.patch#/dnf5-enable-cacheonly-functionality.patch
+# urls - remove deprecated client key calls (#80751)
+# This is needed for Python 3.12, but we apply it unconditionally so
+# controllers running on older Fedora versions can still work with Python 3.12
+# F39+ targets.
+Patch: https://github.com/ansible/ansible/commit/0df794e5a4fe4597ee65b0d492fbf0d0989d5ca0.patch#/urls-remove-deprecated-client-key-calls.patch
 # These patches are only applied on Rawhide to enable support for Python 3.12
 # See https://bugzilla.redhat.com/2196539
 #
@@ -39,8 +42,6 @@ Patch5003: Disable-test-that-calls-compat-code-removed-in-3.12.patch
 # Deprecations #
 # ansible-test - Replace pytest-forked (#80525)
 Patch6000: https://github.com/ansible/ansible/commit/676b731e6f7d60ce6fd48c0d1c883fc85f5c6537.patch#/ansible-test-replace-pytest-forked.patch
-# urls - remove deprecated client key calls (#80751)
-Patch6002: https://github.com/ansible/ansible/commit/0df794e5a4fe4597ee65b0d492fbf0d0989d5ca0.patch#/urls-remove-deprecated-client-key-calls.patch
 # replace deprecated ast.value.s with ast.value.value (#80968)
 Patch6003: https://github.com/ansible/ansible/commit/742d47fa15a5418f98abf9aaf07edf466e871c81.patch#/replace-deprecated-ast.value.s.patch
 # Avoid deprecated importlib.abc.TraversableResources (#81082)
@@ -125,11 +126,11 @@ This package installs extensive documentation for ansible-core
 
 
 %prep
-%autosetup -N -n ansible-%{uversion}
+%autosetup -N -n ansible-%{uversion} -a1
 %autopatch -M 4999 -p1
 # Python 3.12 specific patches
 # Set `-D '_has_python312 1'` to test locally
-%if 0%{?_has_python312} || v"%{python3_version}" >= v"3.12"
+%if 0%{?_has_python312} || v"0%{?python3_version}" >= v"3.12"
 %autopatch -m 5000 -p1
 %endif
 
@@ -163,7 +164,7 @@ echo 'python%{python3_pkgversion}-argcomplete'
 # See https://github.com/ansible/ansible/issues/80368
 # and the discussion in https://github.com/ansible/ansible/pull/80372
 # for more details.
-PYTHONPATH="$(pwd)/packaging" %{python3} %{S:1}
+PYTHONPATH="$(pwd)/packaging" %{python3} %{S:2}
 
 %if %{with argcomplete}
 # Build shell completions
@@ -283,13 +284,17 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 %{_mandir}/man1/ansible*
 
 %files doc
-%doc docs/docsite/rst
+%doc ansible-documentation-%{uversion}/docs/docsite/rst
 %if %{with docs}
-%doc docs/docsite/_build/html
+%doc ansible-documentation-%{uversion}/docs/docsite/_build/html
 %endif
 
 
 %changelog
+* Tue Jul 18 2023 Maxwell G <maxwell@gtmx.me> - 2.15.2-1
+- Update to 2.15.2. Fixes rhbz#2223469.
+- Use the docs sources from https://github.com/ansible/ansible-documentation.
+
 * Mon Jul 03 2023 Maxwell G <maxwell@gtmx.me> - 2.15.1-2
 - Rebuilt for Python 3.12
 

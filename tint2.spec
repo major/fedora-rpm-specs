@@ -1,11 +1,13 @@
 Name:		tint2
 Version:	17.1.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A lightweight X11 desktop panel and task manager
 
 License:	GPLv2
 URL:		https://gitlab.com/nick87720z/%{name}
 Source0:	%url/-/archive/%{version}/%{name}-%{version}.tar.bz2
+# https://gitlab.com/nick87720z/tint2/-/issues/4
+Patch0:     %url/uploads/7de4501a4fa4fffa5ba8bb0fa3d19f78/glib.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -74,6 +76,9 @@ desktop-file-install	\
 %{_mandir}/man1/tint2*
 
 %changelog
+* Tue Jul 18 2023 Leigh Scott <leigh123linux@gmail.com> - 17.1.3-3
+- Fix rhbz#2222070
+
 * Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 17.1.3-2
 - Rebuild fo new imlib2
 

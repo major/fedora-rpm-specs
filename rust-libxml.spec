@@ -5,7 +5,7 @@
 %global crate libxml
 
 Name:           rust-libxml
-Version:        0.3.2
+Version:        0.3.3
 Release:        %autorelease
 Summary:        Rust wrapper for libxml2
 

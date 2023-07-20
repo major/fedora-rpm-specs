@@ -2,7 +2,7 @@
 %global pypi_name Authlib
 
 Name:           python-%{srcname}
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Build OAuth and OpenID Connect servers in Python
 

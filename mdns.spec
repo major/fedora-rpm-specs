@@ -9,18 +9,18 @@ the library, all buffers used must be passed in by the caller.
 Custom data for use in processing can be passed along using a user data
 opaque pointer.}
 
+%global debug_package %{nil}
+
 Name: mdns
-Version: 1.4.2
-Release: 2%{?dist}
+Version: 1.4.3
+Release: %autorelease
 
 License: LicenseRef-Fedora-Public-Domain
 Summary: Cross-platform mDNS/DNS-SD library in C
-URL: https://github.com/mjansson/%{name}
+URL: https://github.com/mjansson/mdns
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-BuildArch: noarch
 
-Patch100: %{name}-upstream-fixes.patch
-Patch101: %{name}-cmake-installation-fix.patch
+# Patch1:
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -31,6 +31,7 @@ BuildRequires: ninja-build
 %package devel
 Summary: Header-only mDNS/DNS-SD library in C
 Provides: %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
+BuildArch: noarch
 
 %description devel %{_description}
 
@@ -38,13 +39,14 @@ Provides: %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
 %autosetup -p1
 
 %build
-%cmake -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DMDNS_BUILD_EXAMPLE:BOOL=OFF
+%cmake -G Ninja
 %cmake_build
 
 %install
 %cmake_install
+
+%check
+%{__cmake_builddir}/bin/mdns_example
 
 %files devel
 %doc CHANGELOG README.md
@@ -53,8 +55,4 @@ Provides: %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_includedir}/%{name}.h
 
 %changelog
-* Thu Mar 02 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.4.2-2
-- Explicitly marked generated CMake configs as architecture independent.
-
-* Thu Mar 02 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.4.2-1
-- Initial SPEC release.
+%autochangelog

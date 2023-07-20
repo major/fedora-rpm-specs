@@ -1,6 +1,6 @@
 Summary:        A high-performance implementation of MPI
 Name:           mpich
-Version:        4.1.1
+Version:        4.1.2
 Release:        %autorelease
 License:        MIT
 URL:            https://www.mpich.org/

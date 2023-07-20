@@ -14,7 +14,9 @@ License:        BSD
 URL:            https://pysb.org/
 %forgemeta
 # https://github.com/pysb/pysb/issues/555
-Source0:        %{forgesource}
+Source:         %{forgesource}
+Patch:          0001-Use-configparser.ConfigParser-instead-of-SafeConfigP.patch
+
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -74,7 +76,7 @@ This package contains HTML documentation for %{name}.
 %endif
 
 %prep
-%setup -q -n pysb-%{version}
+%autosetup -n pysb-%{version} -p1
 # https://github.com/pysb/pysb/issues/100
 sed -i -e "s|/usr/local/share/BioNetGen|%{perl_vendorlib}/BioNetGen|" \
        -e "s|'c:/Program Files/BioNetGen',||" \

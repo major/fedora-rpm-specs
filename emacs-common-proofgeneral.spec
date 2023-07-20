@@ -29,9 +29,9 @@ Patch1:         pg-4.2-desktop.patch
 Patch2:         pg-4.5-emacs-warning.patch
 
 BuildArch:      noarch
-BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
 BuildRequires:  emacs-nox
+BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  tex-cm-super
@@ -117,7 +117,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/proofgeneral.desktop
 # Install the AppData file
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE1} %{buildroot}%{_metainfodir}
-appstreamcli validate --no-net \
+appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/io.github.%{pkg}.metainfo.xml
 
 # Install the backwards compatibility launcher
@@ -146,6 +146,9 @@ install -Dpm 644 %{SOURCE4} \
 %{_emacs_sitelispdir}/%{pkg}/
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 4.5-4
+- Validate appdata with appstream-util
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

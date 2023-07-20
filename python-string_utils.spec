@@ -1,181 +1,146 @@
-%if 0%{?rhel} == 7
-%bcond_with    python3
-%bcond_without python2
-%else
-%bcond_with    python2
-%bcond_without python3
-%endif
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond_without doc_pdf
 
-%global library string_utils
+Name:           python-string_utils
+Version:        1.0.0
+Release:        12%{?dist}
+Summary:        Utility functions for strings validation and manipulation
 
-Name:       python-%{library}
-Version:    1.0.0
-Release:    11%{?dist}
-Summary:    A python module containing utility functions for strings
-License:    MIT
-URL:        https://github.com/daveoncode/python-string-utils
-Source0:    https://github.com/daveoncode/python-string-utils/archive/v%{version}.tar.gz
-BuildArch:  noarch
+# SPDX
+License:        MIT
+URL:            https://github.com/daveoncode/python-string-utils
+Source0:        %{url}/archive/v%{version}/python-string-utils-%{version}.tar.gz
 
-%if 0%{?with_python2}
-%package -n python2-%{library}
-Summary:    A python module containing utility functions for strings
-%{?python_provide:%python_provide python2-%{library}}
+# Remove README.md as packaged data in the wheel
+# https://github.com/daveoncode/python-string-utils/pull/16
+#
+# This keeps it from being installed to the bizarre path
+# %%{_prefix}/README/README.md.
+Patch:          %{url}/pull/16.patch
 
-BuildRequires: python2-devel
-BuildRequires: python-setuptools
-BuildRequires: git
+BuildArch:      noarch
 
-Requires: python2
+%global _description %{expand:
+A handy library to validate, manipulate and generate strings, which is:
 
-%description -n python2-%{library}
-A python module containing utility functions for strings
-%endif
+  • Simple and “pythonic”
+  • Fully documented and with examples! (html version on readthedocs.io)
+  • 100% code coverage! (see it with your own eyes on codecov.io)
+  • Tested (automatically on each push thanks to Travis CI) against all
+    officially supported Python versions
+  • Fast (mostly based on compiled regex)
+  • Free from external dependencies
+  • PEP8 compliant}
 
-%if 0%{?with_python3}
-%package -n python3-%{library}
-Summary: A python module containing utility functions for strings
-%if 0%{?rhel} < 8
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{library}}
-%else
-%{?python_provide:%python_provide python3-%{library}}
-%endif
+%description %{_description}
 
-%if 0%{?rhel}
-%if 0%{?rhel} < 8
-BuildRequires: python%{python3_pkgversion}-coverage
-BuildRequires: python%{python3_pkgversion}-devel
-BuildRequires: python%{python3_pkgversion}-pip
-BuildRequires: python%{python3_pkgversion}-setuptools
-BuildRequires: python%{python3_pkgversion}-wheel
-%else
-BuildRequires: python3-coverage
-BuildRequires: python3-devel
-BuildRequires: python3-pip
-BuildRequires: python3-setuptools
-BuildRequires: python3-wheel
-%endif
-%else
-BuildRequires: python3-coverage
-BuildRequires: python3-devel
-BuildRequires: python3-pip
-BuildRequires: python3-setuptools
-BuildRequires: python3-sphinx_rtd_theme
-BuildRequires: python3-wheel
-%endif
-BuildRequires: git
 
-%description -n python3-%{library}
-A python module containing utility functions for strings
-%endif
+# The source package is named python-string_utils for historical reasons.  The
+# binary package, python3-python-string-utils, is named using the canonical
+# project name[1]; see also [2].
+#
+# The %%py_provides macro is used to provide an upgrade path from
+# python3-string_utils and to produce the appropriate Provides for the
+# importable module[3].
+#
+# [1] https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_canonical_project_name
+# [2] https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_library_naming
+# [3] https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+%package -n python3-python-string-utils
+Summary:        %{summary}
 
-#recommonmark not available for docs in EPEL
-%if 0%{?fedora}
+# Provide an upgrade path
+%py_provides python3-string_utils
+Obsoletes:      python3-string_utils < 1.0.0-11
+
+BuildRequires:  python3-devel
+
+%description -n python3-python-string-utils %{_description}
+
+
 %package doc
-Summary: Documentation for %{name}.
-%if 0%{?with_python3}
-BuildRequires: python3-sphinx
-BuildRequires: python3-recommonmark
-%else
-BuildRequires: python2-sphinx
-BuildRequires: python2-recommonmark
-%endif
-%description doc
-%{summary}
+Summary:        Documentation for python-string-utils
+
+%if %{with doc_pdf}
+BuildRequires:  make
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+# The HTML theme is used as a Sphinx extension, so it is needed even when not
+# producing HTML output.
+BuildRequires:  python3dist(sphinx-rtd-theme)
 %endif
 
-%description
-A python module containing utility functions for strings
+%description doc
+%{summary}.
+
 
 %prep
-%autosetup -n python-string-utils-%{version} -S git
+%autosetup -n python-string-utils-%{version} -p1
 
-# Let's handle dependencies ourseleves
+# Remove bogus executable permissions from non-script files. This corresponds
+# to the upstream pull request:
+#
+# Change files permissions to 644
+# https://github.com/daveoncode/python-string-utils/pull/4
+find . -type f -perm /0111 \
+    -exec gawk '!/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
+  xargs -r -t chmod -v a-x
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
-%if 0%{?with_python2}
-%if 0%{?rhel} < 8
-%py_build
-%else
-%py2_build
-%endif
+%pyproject_wheel
+
+%if %{with doc_pdf}
+%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 
-%if 0%{?with_python3}
-%py3_build
-%endif
-
-%if 0%{?fedora}
-sphinx-build docs/ html
-%{__rm} -rf html/.buildinfo
-%{__rm} -rf html/.doctrees
-%endif
 
 %install
-%if 0%{?with_python2}
+%pyproject_install
+%pyproject_save_files string_utils
 
-%if 0%{?rhel} < 8
-%py_install
-%else
-%py2_install
-%endif
-
-mkdir -p %buildroot/%_defaultdocdir/python2-string_utils
-install -p -m 644 %buildroot/usr/README/README.md %buildroot/%_defaultdocdir/python2-%{library}
-%{__rm} -f %buildroot/usr/README/README.md
-%endif
-
-%if 0%{?with_python3}
-%py3_install
-mkdir -p %buildroot/%_defaultdocdir/python3-string_utils
-install -p -m 644 %buildroot/usr/README/README.md %buildroot/%_defaultdocdir/python3-%{library}
-%{__rm} -f %buildroot/usr/README/README.md
-%endif
 
 %check
+%tox
 
-%if 0%{?with_python2}
-coverage run -m unittest
-%endif
-%if 0%{?with_python3}
-coverage run -m unittest
-%endif
 
-%if 0%{?with_python2}
-%files -n python2-%{library}
-%license %attr(644,-,-) LICENSE
-
-%if 0%{?rhel} < 8
-%doc %{_defaultdocdir}/python2-%{library}/README.md
-%else
+%files -n python3-python-string-utils -f %{pyproject_files}
 %doc README.md
-%endif
+%doc CHANGELOG.md
 
-%{python2_sitelib}/%{library}/
-%{python2_sitelib}/python_%{library}-*.egg-info
-%endif
 
-%if 0%{?with_python3}
-%files -n python3-%{library}
-%license %attr(644,-,-) LICENSE
-
-%if 0%{?rhel} < 8
-%doc %{_defaultdocdir}/python3-%{library}/README.md
-%else
-%doc README.md
-%endif
-
-%{python3_sitelib}/%{library}/
-%{python3_sitelib}/python_%{library}-*.egg-info
-%endif
-
-%if 0%{?fedora}
 %files doc
-%license %attr(644,-,-) LICENSE
-%doc html
+%license LICENSE
+%if %{with doc_pdf}
+%doc docs/_build/latex/PythonStringUtils.pdf
 %endif
+
 
 %changelog
+* Thu May 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.0-12
+- Fix source archive committed to dist-git
+- Stop pretending we will use this spec file for EPEL7/8
+- Reduce macro indirection in the spec file
+- Drop unnecessary BuildRequires on git
+- Improve the source archive URL
+- Update summary and description from upstream
+- Rename the binary RPM to match the canonical project name
+- Fix incorrect file and directory permissions
+- Build docs as PDF instead of HTML to sidestep most issues with bundling etc.
+- Adjust spec-file whitespace for readability
+- Stop doing coverage analysis
+- Package the changelog
+- Confirm License is SPDX MIT
+- Port to pyproject-rpm-macros
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.0-11
 - Rebuilt for Python 3.12
 

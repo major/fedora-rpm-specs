@@ -2,7 +2,7 @@ Name:           perl-Lingua-EN-Inflect
 Version:        1.905
 Release:        8%{?dist}
 Summary:        Convert singular to plural, select "a" or "an"
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Inflect
 Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/Lingua-EN-Inflect-%{version}.tar.gz
 BuildArch:      noarch
@@ -19,14 +19,15 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:  perl(Carp)
+# Dependencies:
+Requires:       perl(Carp)
 
 %description
 %{summary}.
 
 %prep
 %setup -q -n Lingua-EN-Inflect-%{version}
-chmod -x Changes README lib/Lingua/EN/Inflect.pm
+chmod -c -x Changes lib/Lingua/EN/Inflect.pm
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1

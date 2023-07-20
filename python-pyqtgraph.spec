@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
@@ -73,6 +73,9 @@ rm -f doc/build/html/objects.inv
 %doc pyqtgraph/examples doc/build/html
 
 %changelog
+* Thu Jul 06 2023 Scott Talbert <swt@techie.net> - 0.13.3-3
+- Rebuilt for Python 3.12
+
 * Mon Jun 19 2023 Scott Talbert <swt@techie.net> - 0.13.3-2
 - Fix a couple of test issues/warnings with numpy 1.24+
 

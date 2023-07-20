@@ -8,7 +8,7 @@
 #%%global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 7
+%global baserelease 8
 
 Name:       ipsilon
 Version:    3.0.4
@@ -460,6 +460,9 @@ exit 0
 
 
 %changelog
+* Tue Jul 18 2023 Python Maint <python-maint@redhat.com> - 3.0.4-8
+- Rebuilt for Python 3.12
+
 * Wed Jun 28 2023 Kevin Fenzi <kevin@scrye.com> - 3.0.4-7
 - Drop Requires on libsss_simpleifp as that no longer exists and isn't needed.
 - Fixes rhbz#2217912 rhbz#2207913 rhbz#2113451

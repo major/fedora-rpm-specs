@@ -5,7 +5,7 @@
 %global crate vhost
 
 Name:           rust-vhost
-Version:        0.8.0
+Version:        0.8.1
 Release:        1%{?dist}
 Summary:        Pure rust library for vdpa, vhost and vhost-user
 
@@ -14,10 +14,6 @@ URL:            https://crates.io/crates/vhost
 Source0:        %{crates_source}
 Source1:        https://raw.githubusercontent.com/rust-vmm/vhost/main/LICENSE
 Source2:        https://raw.githubusercontent.com/rust-vmm/vhost/main/LICENSE-BSD-3-Clause
-# vhost-0.8.0 comes with a bug where the 'backend-mmap' feature of vm-memory is specified
-# as a dev-dependency, when it actually is a regular dependency.
-# https://github.com/rust-vmm/vhost/pull/175
-Patch0:         vhost-fix-backend-mmap-dependency.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -183,6 +179,10 @@ cp %{SOURCE2} .
 %endif
 
 %changelog
+* Tue Jul 18 2023 Sergio Lopez <slp@redhat.com> - 0.8.1-1
+- Update to version 0.8.1
+- Drop no longer needed temporary patch
+
 * Wed Jul 12 2023 Sergio Lopez <slp@redhat.com> - 0.8.0-1
 - Update to version 0.8.0
 - Regenerate with rust2rpm 24

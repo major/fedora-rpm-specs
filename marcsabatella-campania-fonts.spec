@@ -24,7 +24,6 @@ you to enter the most common symbols just by typing naturally.}
 Source0:        https://github.com/MarcSabatella/Campania/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        65-%{fontpkgname}.conf
 
-BuildRequires:  appstream
 BuildRequires:  fontforge
 
 %fontpkg
@@ -45,14 +44,15 @@ sed -e 's,updatecontact,update_contact,g' \
     -e 's,<!\[CDATA\[\(.*\)\]\]>,\1,' \
     -i $metainfo
 
-appstreamcli validate --no-net $metainfo
-
 %check
 %fontcheck
 
 %fontfiles
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 2.009-7
+- Remove redundant metadata check
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 2.009-7
 - Simplify the font config file
 

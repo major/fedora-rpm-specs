@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+ and MIT and BSD and IJG and GPLv2+ with exceptions and ISC
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
@@ -288,11 +288,15 @@ BuildRequires: systemd
 Recommends: avahi-tools
 # 1733449 - Scanner on an HP AIO printer is not detected unless libsane-hpaio is installed
 Recommends: libsane-hpaio%{?_isa} = %{version}-%{release}
+# downloaded plugin requires python3-gobject to work even via CLI...
+# but make it weak dependency, so users which don't need the plugin and have servers
+# can remove the python3-gobject which is used by desktop apps
+Recommends: python3-gobject
 
 Requires: cups
 # switch to curl by downstream patch from wget to workaround openstack dropping IPv6
 # which causes great delays...
-Requires: curl-minimal
+Requires: curl
 # for bash script acting as hp-plugin (Source7)
 Requires: gawk
 # set require directly to /usr/bin/gpg, because gnupg2 and gnupg ships it,
@@ -951,6 +955,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Tue Jul 18 2023 Adam Williamson <awilliam@redhat.com> - 3.23.5-4
+- Require curl, not curl-minimal, due to conflicts
+
 * Mon Jul 17 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-3
 - 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
 - switch to curl when downloading plugin

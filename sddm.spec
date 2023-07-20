@@ -20,7 +20,7 @@
 
 Name:           sddm
 Version:        0.20.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 Summary:        QML based desktop and login manager
 
@@ -64,6 +64,12 @@ Source14: README.scripts
 Source15: sddm.sysconfig
 # sddm x11 override config
 Source16:  sddm-x11.conf
+# sysusers config file. note these are shipped in the upstream tarball
+# but we cannot use the files from the tarball for %pre scriptlet
+# generation, so we duplicate them as source files for that purpose;
+# this is an ugly hack that should be removed if it becomes possible.
+# see https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/TFDMAU7KLMSQTKPJELHSM6PFVXIZ56GK/
+Source17:        sddm-systemd-sysusers.conf
 
 
 Provides: service(graphical-login) = sddm
@@ -196,7 +202,7 @@ cp -a %{buildroot}%{_datadir}/sddm/scripts/* \
 rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
 
 %pre
-%sysusers_create_compat %{SOURCE18}
+%sysusers_create_compat %{SOURCE17}
 
 %post
 %systemd_post sddm.service
@@ -291,6 +297,9 @@ fi
 
 
 %changelog
+* Tue Jul 18 2023 Adam Williamson <awilliam@redhat.com> - 0.20.0-2
+- Fix user/group creation - the config file *has* to be a package source
+
 * Fri Jun 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.20.0-1
 - Update to 0.20.0 final
 

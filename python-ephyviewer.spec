@@ -13,9 +13,11 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 
-# python-pyedflib does not support s390x$
-# https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec$
-ExcludeArch:    s390x
+# python-pyedflib does not support s390x
+# https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec
+#
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    s390x %{ix86}
 
 
 %global _description %{expand:

@@ -13,7 +13,8 @@ Source0: https://download.gnome.org/sources/glib/2.77/glib-%{version}.tar.xz
 Patch0: gnutls-hmac.patch
 # Avoid making anaconda crash
 # https://gitlab.gnome.org/GNOME/glib/-/issues/3054
-Patch1: 0001-Revert-gmain-Add-precondition-assertions-to-g_main_c.patch
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3501
+Patch1: 0001-gmain-Add-a-missing-return-on-error-path-in-g_main_c.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++

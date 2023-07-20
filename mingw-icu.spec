@@ -2,11 +2,11 @@
 
 %global underscore_version %(echo %{version} | sed 's/\\./_/g')
 %global dash_version %(echo %{version} | sed 's/\\./-/g')
-%global lib_version 72
+%global lib_version 73
 
 Name:           mingw-icu
-Version:        72.1
-Release:        2%{?dist}
+Version:        73.2
+Release:        1%{?dist}
 Summary:        MinGW compilation of International Components for Unicode Tools
 
 License:        MIT and UCD and Public Domain
@@ -198,6 +198,9 @@ rm %{buildroot}%{mingw64_libdir}/icu/pkgdata.inc
 
 
 %changelog
+* Tue Jul 18 2023 Sandro Mani <manisandro@gmail.com> - 73.2-1
+- Update to 73.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 72.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

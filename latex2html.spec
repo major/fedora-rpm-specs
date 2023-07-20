@@ -2,19 +2,19 @@
 
 Summary: Converts LaTeX documents to HTML
 Name: latex2html
-Version: 2020.2
-Release: 8%{?dist}
+Version: 2023.2
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/latex2html/latex2html/releases
 # main latex2html source
-Source0: https://github.com/latex2html/latex2html/archive/v%{version}.tar.gz
+Source0: https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: cfgcache.pm
 Source2: %{name}-manpages.tar.gz
 # support for Japanese
 # http://takeno.iee.niit.ac.jp/~shige/TeX/latex2html/
-Source3: http://takeno.iee.niit.ac.jp/~shige/TeX/latex2html/data2/l2h-2020-jp20200515.tar.gz
+Source3: http://takeno.iee.niit.ac.jp/~shige/TeX/latex2html/data2/l2h-2023-jp3.2b1.37.tar.gz
 Patch1: latex2html-2018.2-teTeX-l2h-config.patch
-Patch4: latex2html-2002-2-1-SHLIB.patch
+Patch2: latex2html-2002-2-1-SHLIB.patch
 Requires: tex(latex), tex(dvips), tex(url.sty), tex(preview.sty), netpbm-progs
 BuildRequires: perl-interpreter >= 5.003, perl-generators, ghostscript >= 4.03, netpbm-progs >= 9.21, tex(latex)
 BuildRequires: perl(Carp), perl(Config), perl(Cwd), perl(DB), perl(Exporter),
@@ -32,14 +32,14 @@ LATEX2HTML does also a good job in rapid web site deployment. These
 pages are generated from a single LATEX source.
 
 %prep
-%setup -q -n %{name}-%{version} -c -a 0
+%setup -q -c -a 0
 
 pushd %{name}-%{version}
 # Patch from Oliver Paukstadt <oliver.paukstadt@millenux.com>
-%patch1 -p2 -b .config
+%patch -P1 -p2 -b .config
 
 # fix SHLIBDIR
-%patch4 -p1 -b .shlib
+%patch -P2 -p1 -b .shlib
 
 # remove all platforms we don't need
 for i in Dos Mac OS2 Win32; do
@@ -217,6 +217,9 @@ make -C %{name}-%{version}JA check
 %{_mandir}/man1/pstoimg.*
 
 %changelog
+* Tue Jul 18 2023 Than Ngo <than@redhat.com> - 2023.2-1
+- update to 2023.2
+
 * Mon Jan 30 2023 Ben Cotton <bcotton@fedoraproject.org> - 2020.2-8
 - Update License field to match SPDX formatting
 

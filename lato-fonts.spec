@@ -1,25 +1,18 @@
-%global fontname lato
-%global fontconf 61-%{fontname}.conf
+Version: 2.015
+Release: 16%{?dist}
+URL:     http://www.latofonts.com/
 
-Name:           %{fontname}-fonts
-Version:        2.015
-Release:        15%{?dist}
-Summary:        A sanserif typeface family
+%global fontlicense       OFL
+%global fontlicenses      OFL.txt
+%global fontdocs          README.txt
+%global fontdocsex        %{fontlicenses}
 
-License:        OFL
-URL:            http://www.latofonts.com/
-# Fonts retrieved 2015-08-07 from http://www.latofonts.com/download/Lato2OFL.zip
-Source0:        %{name}-%{version}.zip
-Source1:        %{name}-fontconfig.conf
-Source2:        %{fontname}.metainfo.xml
+%global fontfamily        Lato
+%global fontsummary       A san-serif typeface family
+%global fonts             Lato-*.ttf
+%global fontconfs         %{SOURCE10}
 
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-Provides:       google-lato-fonts = %{version}-%{release}
-Obsoletes:      google-lato-fonts < 1.014-1
-
-%description
+%global fontdescription   %{expand:
 Lato is a sanserif typeface family designed in the Summer 2010 by Warsaw-based
 designer Łukasz Dziedzic ("Lato" means "Summer" in Polish). In December 2010 the
 Lato family was published under the open-source Open Font License by his foundry
@@ -41,43 +34,41 @@ Lato consists of nine weights (plus corresponding italics), including a
 beautiful hairline style. It covers 2300+ glyphs per style and supports 100+
 Latin-based languages, 50+ Cyrillic-based languages as well as Greek and IPA
 phonetics.
+}
 
+# Fonts retrieved 2015-08-07 from http://www.latofonts.com/download/Lato2OFL.zip
+Source0:  %{name}-%{version}.zip
+Source10: 61-%{fontpkgname0}.conf
+
+%fontpkg
 
 %prep
-%setup -q -c
+%setup -q -n Lato2OFL
 
 # Fix wrong end-of-lines encoding
-sed "s/\r//" Lato2OFL/OFL.txt > Lato2OFL/OFL.txt.new
-touch -r Lato2OFL/OFL.txt Lato2OFL/OFL.txt.new
-mv Lato2OFL/OFL.txt.new Lato2OFL/OFL.txt
+%linuxtext OFL.txt
 
 # Fix permissions
-chmod 0644 Lato2OFL/{OFL.txt,README.txt}
-
+chmod 0644 OFL.txt README.txt
 
 %build
-
+%fontbuild
 
 %install
-install -m 0755 -d $RPM_BUILD_ROOT%{_fontdir}
-install -m 0644 -p Lato2OFL/*.ttf $RPM_BUILD_ROOT%{_fontdir}
+%fontinstall
 
-install -m 0755 -d $RPM_BUILD_ROOT%{_fontconfig_templatedir} $RPM_BUILD_ROOT%{_fontconfig_confdir}
+%check
+%fontcheck
 
-install -m 0644 -p %{SOURCE1} $RPM_BUILD_ROOT%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} $RPM_BUILD_ROOT%{_fontconfig_confdir}/%{fontconf}
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE2} \
-        %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
-
-%_font_pkg -f %{fontconf} *.ttf
-%doc Lato2OFL/README.txt
-%license Lato2OFL/OFL.txt
-%{_datadir}/appdata/%{fontname}.metainfo.xml
-
+%fontfiles
 
 %changelog
+* Mon Jun 26 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 2.015-16
+- Convert to new fonts packaging guidelines
+- Migrate to SPDX license expression
+- Drop very very old obsoletes for google-lato-fonts
+- Add gating CI tests in Fedora
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.015-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

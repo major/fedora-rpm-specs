@@ -1,7 +1,7 @@
 %global	gem_name	racc
 
 Name:		rubygem-%{gem_name}
-Version:	1.7.0
+Version:	1.7.1
 Release:	200%{?dist}
 
 Summary:	LALR(1) parser generator
@@ -18,7 +18,7 @@ BuildRequires:	gcc
 BuildRequires:	rubygems-devel
 BuildRequires:	ruby-devel
 BuildRequires:	rubygem(test-unit)
-
+BuildRequires:	rubygem(test-unit-ruby-core)
 
 %description
 Racc is a LALR(1) parser generator.
@@ -94,11 +94,7 @@ cp -a %{gem_name}-%{version}/* .%{gem_instdir}
 pushd .%{gem_instdir}
 
 LANG=C.utf8
-# Kill "assert_output_unchanged" test for now
-# Output from racc between 1.4.14 and 1.4.15 differ
-true sed -i.match test/test_racc_command.rb \
-	-e '\@assert_output_unchanged@d'
-
+export RUBYLIB=$(pwd)/lib:$(pwd)/test:$(pwd)/test/lib
 ruby -Ilib:test:test/lib:. -e \
 	"gem 'test-unit' ; require 'helper' ; Dir.glob('test/test_*.rb').each {|f| require f}"
 popd
@@ -126,6 +122,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Tue Jul 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.7.1-200
+- 1.7.1
+
 * Thu Jun  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.7.0-200
 - 1.7.0
 

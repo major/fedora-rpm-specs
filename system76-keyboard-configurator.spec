@@ -1,8 +1,8 @@
 %bcond_without check
 
-%global tag      v1.3.3
+%global tag      v1.3.7
 %global forgeurl https://github.com/pop-os/keyboard-configurator
-Version:         1.3.3
+Version:         1.3.7
 %forgemeta
 
 Name:          system76-keyboard-configurator
@@ -33,6 +33,8 @@ Application for configuration of System76 keyboard firmware.
 %prep
 %forgeautosetup -p1
 %cargo_prep
+
+
 %generate_buildrequires
 # Temporarily remove workspace dependencies from the cargo manifest files before
 # generating build requirements with cargo-inspector

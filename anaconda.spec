@@ -1,8 +1,8 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.25
+Version: 39.26
 Release: 1%{?dist}
-License: GPLv2+ and MIT
+License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
 # To generate Source0 do:
@@ -82,6 +82,8 @@ The anaconda package is a metapackage for the Anaconda installer.
 
 %package core
 Summary: Core of the Anaconda installer
+# core/signal.py is under MIT
+License: GPL-2.0-or-later AND MIT
 Requires: python3-libs
 Requires: python3-dnf >= %{dnfver}
 Requires: python3-blivet >= %{pythonblivetver}
@@ -250,6 +252,8 @@ Add this package to an image build (eg. with lorax) to ensure all Anaconda capab
 
 %package webui
 Summary: Cockpit based user interface for the Anaconda installer
+# ours + what npm brings in and we vendor
+License: GPL-2.0-or-later AND MIT AND 0BSD
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
 # Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
@@ -471,6 +475,36 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 18 2023 Packit <hello@packit.dev> - 39.26-1
+- webui: introduce dialog to unlock existing locked LUKS partitions (kkoukiou)
+- Introduce 'has_key' property in the attrs of DeviceFormatData object
+  (kkoukiou)
+- makeupdates: Now targeting python 3.12 (vslavik)
+- webui: tests: more anaconda state cleanup for test teardown (kkoukiou)
+- webui: tests: wait for data initialization to finish before proceeding with
+  the tests (kkoukiou)
+- Update License tag in the spec file template to use SPDX syntax (dcantrell)
+- webui: Introduce new Critical error component (kkoukiou)
+- webui: return a promise when fetching all device data (kkoukiou)
+- webui: create new dbus client objects when address changes (kkoukiou)
+- ruff: Enable flake8-simplify checks (vslavik)
+- Fix ruff detections for RUF002 & RUF003 (vslavik)
+- ruff: Enable ruff checks (vslavik)
+- ruff: Enable flake8 logging format checks (vslavik)
+- ruff: Enable flake8 import conventions checks (vslavik)
+- Fix ruff detections after enabling pycodestyle warnings (vslavik)
+- ruff: Enable pycodestyle warning checks (vslavik)
+- Fix ruff detections after enabling pylint checks (vslavik)
+- ruff: Enable most of the "pylint" checks (vslavik)
+- webui: simplify webui-desktop script (kkoukiou)
+- Add possibility to run pylint-only test (jkonecny)
+- webui: tests: reset selected disks between test runs (kkoukiou)
+- webui: tests: use busctl instead of dbus-send in the test helper (kkoukiou)
+- webui: localization: fix react warning about missing key (kkoukiou)
+- webui: wait for all languages to be loaded before rendering languages page
+  (kkoukiou)
+- Update translations from Weblate
+
 * Thu Jul 13 2023 Packit <hello@packit.dev> - 39.25-1
 - webui: replace the Tooltip with HelperText in Storage devices step (acruzgon)
 - webui: Hide the language selection screen on Live images (akankovs)

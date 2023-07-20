@@ -1,6 +1,6 @@
 Name: fonts-tweak-tool
-Version: 0.4.6
-Release: 4%{?dist}
+Version: 0.4.7
+Release: 1%{?dist}
 Summary: Tool for customizing fonts per language
 
 License: LGPL-3.0-or-later
@@ -55,6 +55,9 @@ rm -f %{buildroot}%{_datadir}/gir-*/FontsTweak-*.gir
 
 
 %changelog
+* Tue Jul 18 2023 Akira TAGOH <tagoh@redhat.com> - 0.4.7-1
+- New upstream release.
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.4.6-4
 - Rebuilt for Python 3.12
 

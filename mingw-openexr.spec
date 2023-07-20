@@ -3,7 +3,7 @@
 %global pkgname openexr
 
 Name:          mingw-%{pkgname}
-Version:       3.1.7
+Version:       3.1.9
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -160,6 +160,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Tue Jul 18 2023 Sandro Mani <manisandro@gmail.com> - 3.1.9-1
+- Update to 3.1.9
+
 * Fri May 19 2023 Sandro Mani <manisandro@gmail.com> - 3.1.7-1
 - Update to 3.1.7
 

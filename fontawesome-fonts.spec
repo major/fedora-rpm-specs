@@ -57,8 +57,6 @@ Source4:	60-%{fontpkgname2}.conf
 # required by Fedora's font packaging guidelines.
 Patch0:         %{name}-opentype-css.patch
 
-BuildRequires:  appstream
-
 %description %_desc
 
 %fontpkg -a
@@ -118,12 +116,6 @@ sed -e 's,updatecontact,update_contact,g' \
     -e 's,<!\[CDATA\[\([^]]*\)\]\]>,\1,g' \
     -i %{buildroot}%{_metainfodir}/*.metainfo.xml
 
-# Validate the metainfo
-for name in 6-brands 6-free; do
-  appstreamcli validate --no-net \
-   %{buildroot}%{_metainfodir}/%{fontorg}.fontawesome-${name}-fonts.metainfo.xml
-done
-
 %check
 %fontcheck -a
 
@@ -137,6 +129,9 @@ done
 %{_datadir}/fontawesome/
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 1:6.4.0-2
+- Remove redundant metainfo checks
+
 * Mon Apr 10 2023 Jerry James <loganjerry@gmail.com> - 1:6.4.0-2
 - Move obsoletes/provides to the right package (rhbz#2185459)
 

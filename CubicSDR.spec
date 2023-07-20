@@ -1,6 +1,6 @@
 Name:           CubicSDR
 Version:        0.2.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Cross-Platform Software-Defined Radio Panadapter
 
 # The primary license of CubicSDR is GPLv2+.
@@ -13,6 +13,7 @@ License:        GPLv2+ and MIT and zlib
 URL:            https://cubicsdr.com
 Source0:        https://github.com/cjcliffe/%{name}/archive/refs/tags/%{name}-%{version}.tar.gz
 Source1:        CubicSDR
+Source2:        com.cubicsdr.CubicSDR.metainfo.xml
 Patch0:         gdk-backend-desktop.patch
 
 # Upstream includes local copies of librs232 and tinyxml unfortunately.
@@ -29,6 +30,7 @@ BuildRequires: hamlib-devel
 BuildRequires: fftw-devel
 BuildRequires: rtaudio-devel
 BuildRequires: liquid-dsp-devel >= 1.4.0
+Requires: hicolor-icon-theme
 
 %description
 CubicSDR is a cross-platform Software-Defined Radio application which
@@ -54,6 +56,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
 mv %{buildroot}/%{_bindir}/CubicSDR %{buildroot}/%{_libexecdir}/%{name}/%{name}
 install -m 0755 %{SOURCE1} %{buildroot}/%{_bindir}/%{name}
+install -D -p -m644 src/CubicSDR.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
+desktop-file-edit --set-key=Icon --set-value=%{name} %{buildroot}%{_datadir}/applications/%{name}.desktop
+install -D -p -m644 %{SOURCE2} %{buildroot}%{_metainfodir}/com.cubicsdr.CubicSDR.metainfo.xml
 
 
 %files
@@ -64,9 +69,14 @@ install -m 0755 %{SOURCE1} %{buildroot}/%{_bindir}/%{name}
 #    https://github.com/cjcliffe/CubicSDR/issues/669
 %{_datadir}/cubicsdr/
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
+%{_metainfodir}/com.cubicsdr.CubicSDR.metainfo.xml
 
 
 %changelog
+* Sun Jul 02 2023 Daniel Rusek <mail@asciiwolf.com> - 0.2.7-10
+- Add AppStream metadata, desktop icon to standard location
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,10 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        4.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-Python RSA implementation
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://stuvel.eu/rsa
 Source0:        https://pypi.python.org/packages/source/r/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -73,6 +73,9 @@ cp %{buildroot}%{_bindir}/pyrsa-verify %{buildroot}%{_bindir}/pyrsa-verify-3
 # %{__python3} setup.py test
 
 %changelog
+* Tue Jul 18 2023 Jason Montleon <jmontleo@redhat.com> - 4.9-2
+- Migrate to SPDX license
+
 * Mon Jul 17 2023 Jason Montleon <jmontleo@redhat.com> - 4.9-1
 - Update to 4.9
 

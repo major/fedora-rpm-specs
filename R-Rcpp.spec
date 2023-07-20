@@ -3,20 +3,20 @@
 %global __suggests_exclude ^R\\((pkgKitten|rbenchmark|tinytest)\\)
 
 Name:		R-%{packname}
-Version:	1.0.10
-Release:	2%{?dist}
+Version:	1.0.11
+Release:	1%{?dist}
 Summary:	Seamless R and C++ Integration
 
 #		The following three files uses the Boost Software License:
 #		- Rcpp/inst/include/Rcpp/utils/tinyformat/tinyformat.h
 #		- Rcpp/inst/include/Rcpp/macros/config.hpp
 #		- Rcpp/inst/include/Rcpp/macros/cat.hpp
-License:	GPLv2+ and Boost
+License:	GPL-2.0-or-later and BSL-1.0
 URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 BuildRequires:	gcc-c++
-BuildRequires:	R-devel, tex(latex)
+BuildRequires:	R-devel
 BuildRequires:	R-inline
 BuildRequires:	dos2unix
 
@@ -83,7 +83,8 @@ for f in `find %{buildroot}%{_libdir}/R/library/%{packname}/examples -type f` ; 
 done
 
 %check
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
+export _R_CHECK_FORCE_SUGGESTS_=0
+%{_bindir}/R CMD check --no-manual --ignore-vignettes %{packname}
 
 %files
 %dir %{_libdir}/R/library/%{packname}
@@ -111,6 +112,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Tue Jul 18 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.11-1
+- Update to 1.0.11, switch to SPDX
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.10-2
 - R-maint-sig mass rebuild
 

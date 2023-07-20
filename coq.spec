@@ -48,7 +48,7 @@ BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-zarith-devel >= 1.11
 BuildRequires:  antlr4 >= 4.7.1
-BuildRequires:  appstream
+BuildRequires:  libappstream-glib
 BuildRequires:  csdp-tools
 BuildRequires:  desktop-file-utils
 BuildRequires:  git-core
@@ -303,7 +303,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 # Install AppData file
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE3} %{buildroot}%{_metainfodir}
-appstreamcli validate --no-net \
+appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/fr.inria.coqide.metainfo.xml
 
 # Install the language bindings
@@ -395,6 +395,9 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %endif
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 8.17.1-3
+- Validate appdata with appstream-util
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 8.17.1-3
 - OCaml 5.0 rebuild for Fedora 39
 - Only build coq and friends on architectures with the native compiler.

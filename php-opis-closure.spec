@@ -11,8 +11,8 @@
 
 %global github_owner      opis
 %global github_name       closure
-%global github_version    3.6.2
-%global github_commit     06e2ebd25f2869e54a306dda991f7db58066f7f6
+%global github_version    3.6.3
+%global github_commit     3d81e4309d2a927abbe66df935f4bb60082805ad
 
 %global composer_vendor   opis
 %global composer_project  closure
@@ -23,25 +23,11 @@
 # "php": "^5.4 || ^7.0 || ^8.0"
 %global php_min_ver 5.4
 
-# PHPUnit
-## v9 (PHP 7.3)
-%if 0%{?fedora} >= 30 || 0%{?rhel} >= 9
 %global phpunit_require phpunit9
 %global phpunit_exec    phpunit9
-%else
-## v8 (PHP 7.2)
-%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
-%global phpunit_require phpunit8
-%global phpunit_exec    phpunit8
-%else
-## Pre-v8
-%global phpunit_require php-composer(phpunit/phpunit)
-%global phpunit_exec    phpunit
-%endif
-%endif
 
 # Build using "--without tests" to disable tests
-%global with_tests 0%{!?_without_tests:1}
+%bcond_without  tests
 
 # Range dependencies supported?
 %if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
@@ -54,7 +40,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{?namespace_version}
 Version:       %{github_version}
-Release:       5%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       A library that can be used to serialize closures and arbitrary objects
 
 License:       MIT
@@ -67,7 +53,7 @@ Source1:       %{name}-get-source.sh
 
 BuildArch:     noarch
 # Tests
-%if %{with_tests}
+%if %{with tests}
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
 BuildRequires: %{phpunit_require}
@@ -135,7 +121,7 @@ cp -rp src %{buildroot}%{phpdir}/%{namespace_vendor}/%{namespace_project}%{?name
 
 
 %check
-%if %{with_tests}
+%if %{with tests}
 : Create tests bootstrap
 cat <<'BOOTSTRAP' | tee bootstrap.php
 <?php
@@ -146,7 +132,7 @@ BOOTSTRAP
 : Upstream tests
 RETURN_CODE=0
 PHPUNIT=$(which %{phpunit_exec})
-for PHP_EXEC in "" %{?rhel:php55 php56 php70 php71 php72} php73 php74 php80; do
+for PHP_EXEC in php php74 php80 php81 php82 php83; do
     if [ -z "$PHP_EXEC" ] || which $PHP_EXEC; then
         $PHP_EXEC $PHPUNIT --verbose --bootstrap bootstrap.php || RETURN_CODE=1
     fi
@@ -168,6 +154,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Jul 18 2023 Remi Collet <remi@remirepo.net> - 3.6.3-1
+- update to 3.6.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

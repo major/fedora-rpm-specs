@@ -1,5 +1,5 @@
 Name:           pari
-Version:        2.15.3
+Version:        2.15.4
 Release:        1%{?dist}
 Summary:        Number Theory-oriented Computer Algebra System
 
@@ -24,7 +24,6 @@ Patch11:        pari-2.13.0-declaration-not-prototype.patch
 Patch12:        pari-2.13.0-clobbered.patch
 Patch13:        pari-2.13.0-signed-unsigned-comparison.patch
 
-BuildRequires:  appstream
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
 BuildRequires:  findutils
@@ -32,6 +31,7 @@ BuildRequires:  fltk-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
 BuildRequires:  gnupg2
+BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  pkgconfig(readline)
@@ -134,7 +134,7 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_datadir}/pixmaps
 # Install the AppData file
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE6} %{buildroot}%{_metainfodir}
-appstreamcli validate --no-net \
+appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/fr.u-bordeaux.math.pari.metainfo.xml
 
 # Work around package-notes breakage.  The package-notes feature was not
@@ -189,6 +189,10 @@ make test-all
 %{_libdir}/libpari.so
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 2.15.4-1
+- Version 2.15.4
+- Validate metainfo with appstream-util
+
 * Tue Mar 14 2023 Jerry James <loganjerry@gmail.com> - 2.15.3-1
 - Version 2.15.3
 - Add a metainfo file

@@ -43,9 +43,9 @@ Patch3:         %{name}-forward-compat.patch
 # Dune 3 eliminated the external-lib-deps command
 Patch4:         %{name}-dune3.patch
 
-BuildRequires:	appstream
 BuildRequires:	desktop-file-utils
 BuildRequires:	gtksourceview2-devel
+BuildRequires:	libappstream-glib
 BuildRequires:	make
 BuildRequires:	ocaml >= 4.04.0
 BuildRequires:	ocaml-dune
@@ -187,7 +187,7 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications \
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE4} \
   %{buildroot}%{_metainfodir}/com.ocamlpro.%{name}.metainfo.xml
-appstreamcli validate --no-net \
+appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/com.ocamlpro.%{name}.metainfo.xml
 
 # Install the icons
@@ -263,6 +263,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 2.3.3-8
+- Validate appdata with appstream-util
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.3.3-8
 - OCaml 5.0 rebuild for Fedora 39
 

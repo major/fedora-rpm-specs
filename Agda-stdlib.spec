@@ -2,7 +2,7 @@
 
 Name:           Agda-stdlib
 Version:        1.7.1
-Release:        5%{?dist}
+Release:        %autorelease
 Summary:        Agda standard libraries
 
 License:        MIT
@@ -16,8 +16,8 @@ BuildRequires:  Agda
 BuildArch:      noarch
 Obsoletes:      ghc-agda-lib-ffi < 0.0.2-6, ghc-agda-lib-ffi-devel < 0.0.2-6
 Requires:       Agda = 2.6.2.2
-# Agda can't build on armv7hl/i686 currently
-ExcludeArch:    armv7hl %{ix86}
+# Agda can't build on armv7hl currently
+ExcludeArch:    armv7hl
 
 %description
 Agda standard libraries
@@ -69,141 +69,4 @@ install -p -m 0644 standard-library.agda-lib %{buildroot}%{_datadir}/%{name}/
 %doc html
 
 %changelog
-* Mon Feb 20 2023 Jens Petersen <petersen@redhat.com> - 1.7.1-5
-- rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 21 2022 Jens Petersen <petersen@redhat.com> - 1.7.1-2
-- rebuild against Agda-2.6.2.2
-
-* Wed Mar  9 2022 Jens Petersen <petersen@redhat.com> - 1.7.1-1
-- https://github.com/agda/agda-stdlib/blob/v1.7.1/CHANGELOG.md
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Aug  9 2021 Jens Petersen <petersen@redhat.com> - 1.7-1
-- https://github.com/agda/agda-stdlib/blob/v1.7/CHANGELOG.md
-- disable armv7hl: no Agda - runs out of memory
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Aug 24 2020 Jens Petersen <petersen@redhat.com> - 1.3-4
-- Agda-2.6.1 puts .agdai files under _build/
-- move Everything and README modules to docs
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 20 2020 Jens Petersen <petersen@redhat.com> - 1.3-2
-- make package noarch
-
-* Sat Jun 27 2020 Jens Petersen <petersen@redhat.com> - 1.3-1
-- https://github.com/agda/agda-stdlib/blob/v1.3/CHANGELOG.md
-
-* Tue May 26 2020 Jens Petersen <petersen@redhat.com> - 1.2-1
-- update to 1.2
-- https://github.com/agda/agda-stdlib/blob/v1.2/CHANGELOG.md
-- requires Agda instead of ghc-Agda now
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Aug 17 2019 Jens Petersen <petersen@redhat.com> - 1.1-1
-- update to 1.1
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Feb 25 2019 Jens Petersen <petersen@redhat.com> - 0.17-1
-- update to 0.17
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Aug 28 2018 Jens Petersen <petersen@redhat.com> - 0.15-4
-- keep README*.agdai
-- require ghc-Agda
-
-* Wed Aug 22 2018 Jens Petersen <petersen@redhat.com> - 0.15-3
-- install library files correctly under src/
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sun Jul  1 2018 Jens Petersen <petersen@redhat.com> - 0.15-1
-- update to 0.15 for Agda-2.5.3
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sun Mar 12 2017 Jens Petersen <petersen@redhat.com> - 0.13-1
-- update to 0.13
-- install standard-library.agda-lib package file
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Mon Oct 24 2016 Jens Petersen <petersen@redhat.com> - 0.11-3
-- update to 0.11
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Jun 16 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Thu Apr 16 2015 Jens Petersen <petersen@redhat.com> - 0.9-1
-- update to 0.9
-- include ffi lib in main package
-
-* Fri Aug 15 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Fri Jun 06 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Wed Feb  5 2014 Jens Petersen <petersen@redhat.com> - 0.7-3
-- no ghc-rpm-macros-extra on F19
-
-* Mon Feb  3 2014 Jens Petersen <petersen@redhat.com> - 0.7-2
-- only build on arch's where Agda builds
-
-* Tue Jun 25 2013 Jens Petersen <petersen@redhat.com> - 0.7-1
-- update to 0.7 with agda-lib-ffi-0.0.2
-- use ghc-rpm-macros-extra
-- add ffi_ver macro for agda-lib-ffi version
-
-* Thu Jul 12 2012 Jens Petersen <petersen@redhat.com> - 0.6-4
-- move stdlib files to datadir
-- subpackage html docs
-
-* Wed Jul 11 2012 Jens Petersen <petersen@redhat.com> - 0.6-3
-- subpackage agda-lib-ffi for MAlonzo backend
-
-* Wed Jul 11 2012 Jens Petersen <petersen@redhat.com> - 0.6-2
-- fix the manifest to include the libraries
-- add html
-- turn off debuginfo
-- remove README interface files
-
-* Wed Jul 11 2012 Jens Petersen <petersen@redhat.com> - 0.6-1
-- update to 0.6
-
-* Sat Jun  4 2011 Fedora Haskell SIG <haskell-devel@lists.fedoraproject.org>
-- initial packaging for Fedora automatically generated by cabal2spec-0.23
+%autochangelog

@@ -2,17 +2,20 @@ Summary: Amateur Station Tracking and Reporting system for amateur radio
 Name:    xastir
 Epoch:   1
 Version: 2.1.4
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPLv2+
 Source0: https://github.com/Xastir/Xastir/archive/Release-%{version}.tar.gz
 Source1: %{name}.desktop
 Source2: %{name}.png
+Source3: %{name}.svg
+Source4: org.xastir.Xastir.metainfo.xml
 # Fix GCC10 FTBFS
 Patch0:  xastir_gcc10.patch
 Patch1:  xastir-fedora-c99-1.patch
 Patch2:  xastir-fedora-c99-2.patch
 URL:     http://www.xastir.org
 Requires: wget
+Requires: hicolor-icon-theme
 BuildRequires: make
 BuildRequires: perl-generators
 BuildRequires: wget, libXt-devel, GraphicsMagick-devel
@@ -62,10 +65,11 @@ rm -rf %{buildroot}/usr/share/doc
 rm %{buildroot}/usr/share/xastir/scripts/gpx2shape
 #strip exec bit from .pm files
 find %{buildroot} -type f -name '*.pm' -exec chmod -x {} 2>/dev/null ';'
-mkdir -p %{buildroot}/usr/share/pixmaps/
-cp %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/%{name}.png
+install -D -p -m644 %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/%{name}.png
+install -D -p -m644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 desktop-file-install \
         --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
+install -D -p -m644 %{SOURCE4} %{buildroot}%{_metainfodir}/org.xastir.Xastir.metainfo.xml
 
 %files
 %{_bindir}/xastir
@@ -77,12 +81,18 @@ desktop-file-install \
 %{_mandir}/man1/testdbfawk.*
 %{_datadir}/xastir
 %{_datadir}/pixmaps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/applications/%{name}.desktop
+%{_metainfodir}/org.xastir.Xastir.metainfo.xml
 %doc AUTHORS ChangeLog COPYING DEBUG_LEVELS FAQ LICENSE
 %doc README README.Getting-Started
 %doc README.MAPS UPGRADE
 
 %changelog
+* Fri Jun 30 2023 Daniel Rusek <mail@asciiwolf.com> - 1:2.1.4-16
+- Added AppStream metadata, better icon
+  Resolves: rhbz#2218927
+
 * Tue Apr 25 2023 DJ Delorie <dj@redhat.com> - 1:2.1.4-15
 - Fix C99 compatibility issue
 

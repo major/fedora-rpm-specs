@@ -53,13 +53,13 @@ Patch3:         %{name}-20.4.24-write-error.patch
 # Fix bogus test compromised by LTO.
 Patch4:         %{name}-20.4.24-configure.patch
 
-BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook5-schemas
 BuildRequires:  docbook5-style-xsl
 BuildRequires:  emacs-common
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
+BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(atomic_ops)
@@ -139,7 +139,7 @@ cp -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 # Install the AppData file
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE3} %{buildroot}%{_metainfodir}
-appstreamcli validate --no-net \
+appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/net.common-lisp.ecl.metainfo.xml
 
 
@@ -161,6 +161,9 @@ appstreamcli validate --no-net \
 
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 21.2.1-7
+- Validate appdata with appstream-util
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,12 +1,4 @@
 %bcond_with bootstrap
-# temporalily ignore test failures
-# due to https://github.com/golang/go/issues/39466
-%ifarch aarch64
-%bcond_without ignore_tests
-%else
-%bcond_with ignore_tests
-%endif
-
 # build ids are not currently generated:
 # https://code.google.com/p/go/issues/detail?id=5238
 #
@@ -103,9 +95,9 @@
 %endif
 
 # Comment out go_prerelease and go_patch as needed
-%global go_api 1.20
-#global go_prerelease rc3
-%global go_patch 6
+%global go_api 1.21
+%global go_prerelease rc3
+#global go_patch 5
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
@@ -136,7 +128,7 @@ BuildRequires:  hostname
 BuildRequires:  net-tools
 %endif
 # for tests
-BuildRequires:  pcre-devel, glibc-static, perl-interpreter, procps-ng
+BuildRequires:  pcre2-devel, glibc-static, perl-interpreter, procps-ng
 
 Provides:       go = %{version}-%{release}
 
@@ -144,22 +136,22 @@ Provides:       go = %{version}-%{release}
 # - in version filed substituted with . per versioning guidelines
 Provides: bundled(golang(github.com/google/pprof)) = 0.0.0.20221118152302.e6195bd50e26
 Provides: bundled(golang(github.com/ianlancetaylor/demangle)) = 0.0.0.20220319035150.800ac71e25c2
-Provides: bundled(golang(golang.org/x/arch)) = 0.1.1.0.20221116201807.1bb480fc256a
-Provides: bundled(golang(golang.org/x/crypto)) = 0.3.1.0.20221117191849.2c476679df9a
-Provides: bundled(golang(golang.org/x/mod)) = 0.7.0
-Provides: bundled(golang(golang.org/x/net)) = 0.4.1.0.20230214201333.88ed8ca3307d
-Provides: bundled(golang(golang.org/x/sync)) = 0.1.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.3.0
-Provides: bundled(golang(golang.org/x/term)) = 0.2.0
-Provides: bundled(golang(golang.org/x/text)) = 0.5.0
-Provides: bundled(golang(golang.org/x/tools)) = 0.3.1.0.20230118190848.070db2996ebe
+Provides: bundled(golang(golang.org/x/arch)) = 0.3.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.10.0
+Provides: bundled(golang(golang.org/x/mod)) = 0.10.1.0.20230606122920.62c7e578f1a7
+Provides: bundled(golang(golang.org/x/net)) = 0.11.1.0.20230613203745.f5464ddb689c
+Provides: bundled(golang(golang.org/x/sync)) = 0.2.1.0.20230601203510.93782cc822b6
+Provides: bundled(golang(golang.org/x/sys)) = 0.9.0
+Provides: bundled(golang(golang.org/x/term)) = 0.9.0
+Provides: bundled(golang(golang.org/x/text)) = 0.10.1.0.20230613190012.2df65d769a9e
+Provides: bundled(golang(golang.org/x/tools)) = 0.9.4.0.20230613194514.c6c98305492
 
 Requires:       %{name}-bin = %{version}-%{release}
 Requires:       %{name}-src = %{version}-%{release}
+Requires:       go-filesystem
 
-Patch2:       0002-syscall-expose-IfInfomsg.X__ifi_pad-on-s390x.patch
-Patch3:       0003-cmd-go-disable-Google-s-proxy-and-sumdb.patch
-Patch4:       0004-cmd-link-use-gold-on-ARM-ARM64-only-if-gold-is-avail.patch
+Patch1:         0001-Disable-Google-s-proxy-sumdb-and-toolchain.patch
+Patch4:         0004-cmd-link-use-gold-on-ARM-ARM64-only-if-gold-is-avail.patch
 
 # Having documentation separate was broken
 Obsoletes:      %{name}-docs < 1.1-4
@@ -406,12 +398,9 @@ echo "== 4 =="
 echo "== 5 =="
 
 %if %{race}
-
     find pkg/*_race/ -type d -printf '%%%dir %{goroot}/%p\n' >> $race_list
     find pkg/*_race/ ! -type d -printf '%{goroot}/%p\n' >> $race_list
-
 %endif
-
     find test/ -type d -printf '%%%dir %{goroot}/%p\n' >> $tests_list
     find test/ ! -type d -printf '%{goroot}/%p\n' >> $tests_list
     find src/ -type d -a \( -name testdata -o -ipath '*/testdata/*' \) -printf '%%%dir %{goroot}/%p\n' >> $tests_list
@@ -539,6 +528,20 @@ fi
 %endif
 
 %changelog
+* Fri Jul 14 2023 Alejandro Sáez <asm@redhat.com> - 1.21~rc3-1
+- Update to go1.21rc3
+- Update bundled dependencies.
+- Update pcre-devel to pcre2-devel
+- Add go-filesystem
+- Remove skipping tests, related: https://github.com/golang/go/issues/39466
+- Remove 0002-syscall-expose-IfInfomsg.X__ifi_pad-on-s390x.patch, already merged
+- Rename 0003-cmd-go-disable-Google-s-proxy-and-sumdb.patch to 0001-Disable-Google-s-proxy-sumdb-and-toolchain.patch
+- Update 0001-Disable-Google-s-proxy-sumdb-and-toolchain.patch
+- Update 0004-cmd-link-use-gold-on-ARM-ARM64-only-if-gold-is-avail.patch
+- Resolves: rhbz#2128303
+- Resolves: rhbz#2215635
+- Resolves: rhbz#2172392
+
 * Tue Jul 11 2023 Mike Rochefort <mroche@omenos.dev> - 1.20.6-1
 - Update to go 1.20.6
 

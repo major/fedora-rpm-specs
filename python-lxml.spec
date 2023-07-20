@@ -1,20 +1,28 @@
 Name:           python-lxml
 Version:        4.9.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
 # The lxml project is licensed under BSD-3-Clause
 # Some code is derived from ElementTree and cElementTree
 # thus using the MIT-CMU elementtree license
-License:        BSD-3-Clause AND MIT-CMU
+# .xsl schematron files are under the MIT license
+License:        BSD-3-Clause AND MIT-CMU AND MIT
 URL:            https://github.com/lxml/lxml
 
 # We use the get-lxml-source.sh script to generate the tarball
-# without the isoschematron submodule as it contains a problematic
-# license.
+# without the isoschematron RNG validation file under a problematic license.
 # See: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/154
-Source0:         lxml-%{version}-no-isoschematron.tar.gz
+Source0:         lxml-%{version}-no-isoschematron-rng.tar.gz
 Source1:         get-lxml-source.sh
+
+# Make the validation of ISO-Schematron files optional in lxml,
+# depending on the availability of the RNG validation file
+# Rebased from https://github.com/lxml/lxml/commit/4bfab2c821961fb4c5ed8a04e329778c9b09a1df
+# Will be included in lxml 5.0
+Patch:          Make-the-validation-of-ISO-Schematron-files-optional.patch
+# Skip test_isoschematron.test_schematron_invalid_schema_empty without the RNG file
+Patch:          https://github.com/lxml/lxml/pull/380.patch
 
 # Upstream issue: https://bugs.launchpad.net/lxml/+bug/2016939
 Patch:          Skip-failing-test-test_html_prefix_nsmap.patch
@@ -62,11 +70,6 @@ Python 3 version.
 
 %prep
 %autosetup -n lxml-%{version} -p1
-# Remove isoschematron module due to problematic license
-sed -i "s/, 'lxml.isoschematron'//" setup.py
-# Remove the doctests for it (the documentation is not shipped)
-# The command [d]eletes all lines from the first pattern to the second
-sed -Ei '/^Schematron$/,/^\(Pre-ISO-Schematron\)$/d' doc/validation.txt
 # Don't run html5lib tests --without extras
 %{!?without_extras:rm src/lxml/html/tests/test_html5parser.py}
 
@@ -97,6 +100,10 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst
 
 %changelog
+* Fri Jul 14 2023 Miro Hrončok <mhroncok@redhat.com> - 4.9.2-8
+- Bring back the isoschematron submodule,
+  but without the validation of the schema file itself
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 4.9.2-7
 - Rebuilt for Python 3.12
 

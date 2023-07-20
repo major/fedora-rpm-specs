@@ -4,7 +4,7 @@
 
 # https://github.com/muesli/termenv
 %global goipath         github.com/muesli/termenv
-Version:                0.15.1
+Version:                0.15.2
 
 %gometa
 

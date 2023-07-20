@@ -1,11 +1,11 @@
 Name:           xarchiver
-Version:        0.5.4.17
-Release:        5%{?dist}
+Version:        0.5.4.21
+Release:        1%{?dist}
 Summary:        Archive manager for Xfce
 
-License:        GPLv2+
+License:        GPL-2.0-or-later AND BSD-4-Clause-UC AND (LGPL-2.1-or-later OR AFL-2.0)
 URL:            https://github.com/ib/xarchiver
-Source0:        https://github.com/ib/xarchiver/archive/%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -45,12 +45,11 @@ archives in the arj, 7z, rar, and zip formats are supported.
 %find_lang %{name}
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-# remove duplicate docs
-rm %{buildroot}%{_docdir}/%{name}/{COPYING,ChangeLog,README}
+# remove useless docs
+rm %{buildroot}%{_docdir}/%{name}/ChangeLog
 
 %files -f %{name}.lang
 %license COPYING
-%doc ChangeLog README
 %doc %{_docdir}/%{name}/
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
@@ -61,6 +60,9 @@ rm %{buildroot}%{_docdir}/%{name}/{COPYING,ChangeLog,README}
 
 
 %changelog
+* Tue Jul 18 2023 Dan Horák <dan[at]danny.cz> - 0.5.4.21-1
+- Update to 0.5.4.21 (rhbz#2085266, rhbz#2163672)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4.17-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

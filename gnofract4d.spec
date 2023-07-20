@@ -16,10 +16,10 @@ Patch0:         %{name}-gil.patch
 Patch1:         gnofract4d-c99.patch
 
 BuildRequires:  adwaita-blue-gtk-theme
-BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
+BuildRequires:  libappstream-glib
 BuildRequires:  librsvg2
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libjpeg)
@@ -72,14 +72,14 @@ cp -p %{SOURCE2} testdata
 # Check the desktop file
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-# Change the desktop file name to satisfy appstreamcli
+# Change the desktop file name to satisfy appstream-util
 mv %{buildroot}%{_datadir}/applications/%{name}.desktop \
    %{buildroot}%{_datadir}/applications/com.github.fract4d.%{name}.desktop
 
 # Install the AppData file
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE1} %{buildroot}%{_metainfodir}
-appstreamcli validate --no-net \
+appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/com.github.fract4d.%{name}.metainfo.xml
 
 # Remove the shebangs
@@ -115,6 +115,9 @@ mv ../test_main_window.py fract4dgui/tests
 %{_metainfodir}/com.github.fract4d.%{name}.metainfo.xml
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 4.3-12
+- Validate metainfo with appstream-util
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.3-12
 - Rebuilt for Python 3.12
 

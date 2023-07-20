@@ -1,9 +1,9 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.20
-Release: 2%{?dist}
-License: GPL-3.0-or-later
+Version: 12.21
+Release: 1%{?dist}
+License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later 
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jul 18 2023 Nick Clifton  <nickc@redhat.com> - 12.21-1
+- Spec File: migrated to SPDX license.  (#2222112)
+
 * Mon Jul 17 2023 Nick Clifton  <nickc@redhat.com> - 12.20-2
 - Spec File: Change License field to use SPDX notation.  (#2222112)
 

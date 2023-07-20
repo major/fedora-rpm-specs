@@ -7,7 +7,7 @@ Version:	19.24.2
 Release:	%autorelease %{?shortcommit:-s %{commitdate}git%{shortcommit}}
 Summary:	A modern C++ toolkit containing machine learning algorithms
 
-License:	Boost
+License:	BSL-1.0
 URL:		http://dlib.net
 %{!?shortcommit:
 Source:	https://github.com/davisking/%{name}/archive/v%{version}/%{name}-v%{version}.tar.gz

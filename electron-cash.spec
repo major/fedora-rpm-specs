@@ -1,6 +1,6 @@
 Name:           electron-cash
 Version:        4.3.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
@@ -12,8 +12,13 @@ Source1:        https://github.com/Electron-Cash/keys-n-hashes/raw/master/sigs-a
 Source2:        gpgkey-electron-cash.gpg
 
 Patch0:         relax-protobuf-version.patch
+# Fix Python 3.12 build error
+# See https://github.com/Electron-Cash/Electron-Cash/issues/2661 for details
+Patch1:         https://github.com/Electron-Cash/Electron-Cash/pull/2662.patch
 
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -99,6 +104,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jul 18 2023 Jonny Heggheim <hegjon@gmail.com> - 4.3.1-4
+- Fix Python 3.12 build error
+
+* Tue Jul 18 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.3.1-3
+- Drop x86 support (leaf package)
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 4.3.1-2
 - Rebuilt for Python 3.12
 

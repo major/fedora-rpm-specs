@@ -5,7 +5,7 @@
 
 Name:           bustle
 Version:        0.8.0
-Release:        6%{?dist}
+Release:        %autorelease
 Summary:        Draw sequence diagrams of D-Bus traffic
 
 License:        LGPL-2.1-or-later
@@ -59,8 +59,8 @@ frequencies and average method call times.
 # Begin cabal-rpm setup:
 %setup -q
 # End cabal-rpm setup
-%patch0 -p1 -b .orig
-%patch1 -p1 -b .orig
+%patch -P0 -p1 -b .orig
+%patch -P1 -p1 -b .orig
 
 
 %build
@@ -98,134 +98,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.freedesktop.Bustl
 
 
 %changelog
-* Sun Feb 19 2023 Jens Petersen <petersen@redhat.com> - 0.8.0-6
-- add upstream patch for libpcap-1.10.2+
-- tweak bustle-hgettext-Cabal24.patch for CabalSpecVersion
-- refresh to cabal-rpm-2.1.0 with SPDX migration
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Jens Petersen <petersen@redhat.com> - 0.8.0-4
-- rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Jan 08 2022 Miro Hrončok <mhroncok@redhat.com> - 0.8.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Changes/LIBFFI34
-
-* Thu Aug  5 2021 Jens Petersen <petersen@redhat.com> - 0.8.0-1
-- update to 0.8.0
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 20 2020 Jens Petersen <petersen@redhat.com> - 0.7.5-5
-- re-enable ppc64le
-
-* Fri Jul 17 2020 Jens Petersen <petersen@redhat.com> - 0.7.5-4
-- refresh to cabal-rpm-2.0.6
-
-* Thu Feb 20 2020 Jens Petersen <petersen@redhat.com> - 0.7.5-3
-- refresh to cabal-rpm-2.0.2
-- re-enable hgettext
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Oct  8 2019 Jens Petersen <petersen@redhat.com> - 0.7.5-1
-- update to 0.7.5
-- exclude ppc64le because of #1737587
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Feb 21 2019 Jens Petersen <petersen@redhat.com> - 0.7.4-1
-- update to 0.7.4
-- disable redundant hgettext
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Oct 22 2018 Jens Petersen <petersen@redhat.com> - 0.7.1-2
-- rebuild for static executable
-
-* Sun Jul 22 2018 Jens Petersen <petersen@redhat.com> - 0.7.1-1
-- update to 0.7.1
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jan 24 2018 Jens Petersen <petersen@redhat.com> - 0.6.2-1
-- update to 0.6.2
-
-* Sun Jan 07 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.5.4-7
-- Remove obsolete scriptlets
-
-* Mon Aug 14 2017 Jens Petersen <petersen@redhat.com> - 0.5.4-6
-- reenable i686 (#1427000)
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 24 2017 Jens Petersen <petersen@redhat.com> - 0.5.4-3
-- refresh to cabal-rpm-0.11.1
-- exclude i686 due to missing deps (gcc7 __float128)
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Tue Jun 21 2016 Jens Petersen <petersen@redhat.com> - 0.5.4-1
-- update to 0.5.4
-
-* Mon Mar  7 2016 Jens Petersen <petersen@redhat.com> - 0.4.8-7
-- rebuild
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Jul 22 2015 Jens Petersen <petersen@redhat.com> - 0.4.8-5
-- rebuild
-
-* Fri Jul  3 2015 Philip Withnall <philip@tecnocode.co.uk> - 0.4.8-4
-- Rebuilt for ghc-setlocale 1.0.0.3
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Mon Apr 20 2015 Jens Petersen <petersen@redhat.com> - 0.4.8-2
-- rebuild
-
-* Thu Apr  2 2015 Jens Petersen <petersen@redhat.com> - 0.4.8-1
-- update to 0.4.8
-
-* Sat Feb 14 2015 Jens Petersen <petersen@redhat.com> - 0.4.7-6
-- patch from git to build with pango/glib 0.13
-
-* Fri Dec 12 2014 Philip Withnall <philip@tecnocode.co.uk> - 0.4.7-5
-- Rebuilt for libHSbase changes
-
-* Sun Sep 21 2014 Philip Withnall <philip@tecnocode.co.uk> - 0.4.7-4
-- Rebuilt for ghc-setlocale 1.0.0.1
-
-* Mon Sep  8 2014 Jens Petersen <petersen@redhat.com> - 0.4.7-3
-- rebuild (for libHSdbus bump)
-
-* Mon Sep 1 2014 Philip Withnall <philip@tecnocode.co.uk> - 0.4.7-2
-- Rebuilt for ghc-setlocale 1.0.0
-
-* Tue Aug 12 2014 Philip Withnall <philip@tecnocode.co.uk> - 0.4.7-1
-- spec file generated by cabal-rpm-0.8.11
+%autochangelog

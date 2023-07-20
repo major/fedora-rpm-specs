@@ -8,8 +8,8 @@
 
 Name:           gitolite3
 Epoch:          1
-Version:        3.6.12
-Release:        10%{?dist}
+Version:        3.6.13
+Release:        1%{?dist}
 Summary:        Highly flexible server for git directory version tracker
 
 License:        GPL-2.0-only AND CC-BY-SA-1.0
@@ -92,6 +92,9 @@ exit 0
 
 
 %changelog
+* Tue Jul 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:3.6.13-1
+- 3.6.13
+
 * Wed May 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:3.6.12-10
 - Loosened subversion dependency.
 

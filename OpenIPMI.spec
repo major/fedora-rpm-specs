@@ -4,8 +4,8 @@ Summary: IPMI (Intelligent Platform Management Interface) library and tools
 Name: OpenIPMI
 
 Version:    2.0.32
-Release:    8%{?dist}
-License:    LGPLv2+ and GPLv2+ or BSD
+Release:    9%{?dist}
+License:    LGPL-2.1-or-later and GPL-2.0-or-later or BSD-3-Clause
 URL:        http://sourceforge.net/projects/openipmi/
 Source:     http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
 Source1:    openipmi.sysconf
@@ -199,6 +199,9 @@ echo ".so man1/openipmish.1" > %{buildroot}%{_mandir}/man1/ipmish.1
 %{_mandir}/man5/ipmi_sim_cmd.5*
 
 %changelog
+* Tue Jul 18 2023 Josef Ridky <jridky@redhat.com> - 2.0.32-9
+- Migrate to SPDX license format
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.0.32-8
 - Perl 5.38 rebuild
 

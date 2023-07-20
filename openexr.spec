@@ -3,10 +3,10 @@
 
 Name:           openexr
 Version:        3.1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.openexr.com/
 Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -158,6 +158,9 @@ EXCLUDE_REGEX='OptimizedInterleavePatterns'
 
 
 %changelog
+* Tue Jul 18 2023 Josef Ridky <jridky@redhat.com> - 3.1.9-2
+- Migrate to SPDX license format
+
 * Mon Jun 26 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.9-1
 - Upgrade to 3.1.9.
 

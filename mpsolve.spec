@@ -17,7 +17,7 @@ then \
   echo "Found .metainfo.xml appdata file" \
   mkdir -p %{buildroot}/%{_metainfodir} \
   cp -p %{_builddir}/%{buildsubdir}/examples/matlab/%{octpkg}-%{version}/*.metainfo.xml %{buildroot}/%{_metainfodir}/ \
-  appstreamcli validate --no-net %{buildroot}/%{_metainfodir}/*.metainfo.xml \
+  appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xml \
 else \
   echo "Did not find a .metainfo.xml appdata file" \
 fi \
@@ -58,6 +58,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  gmp-devel
 BuildRequires:  ImageMagick
+BuildRequires:  libappstream-glib
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(check)
@@ -283,6 +284,9 @@ make check
 %doc %{octpkgdir}/doc-cache
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 3.2.1-17
+- Validate metainfo with appstream-util
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.1-17
 - Rebuilt for Python 3.12
 

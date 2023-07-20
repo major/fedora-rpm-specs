@@ -18,8 +18,6 @@ are designed under the material design guidelines.}
 Source0:        https://github.com/google/material-design-icons/archive/%{version}/material-design-icons-%{version}.tar.gz
 Source1:        65-%{fontpkgname}.conf
 
-BuildRequires:  appstream
-
 %fontpkg
 
 %prep
@@ -38,14 +36,15 @@ sed -e 's,updatecontact,update_contact,g' \
     -e 's,<font></font>,<font>Material Icons Outlined Regular</font>\n    <font>Material Icons Round Regular</font>\n    <font>Material Icons Sharp Regular</font>\n    <font>Material Icons Two Tone Regular</font>,' \
     -i $metainfo
 
-appstreamcli validate --no-net $metainfo
-
 %check
 %fontcheck
 
 %fontfiles
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 4.0.0-8
+- Remove redundant metadata check
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 4.0.0-8
 - Drop unneeded %%fontcheck workaround
 

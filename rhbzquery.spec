@@ -5,7 +5,7 @@
 
 Name:           rhbzquery
 Version:        0.4.4
-Release:        6%{?dist}
+Release:        %autorelease
 Summary:        Bugzilla query tool
 
 License:        GPL-2.0-or-later
@@ -78,64 +78,4 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
-* Thu Feb 16 2023 Jens Petersen <petersen@redhat.com> - 0.4.4-6
-- refresh to cabal-rpm-2.1.0 with SPDX migration
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Jens Petersen <petersen@redhat.com> - 0.4.4-4
-- rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Jan 08 2022 Miro Hrončok <mhroncok@redhat.com> - 0.4.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Changes/LIBFFI34
-
-* Mon Sep 06 2021 Jens Petersen <petersen@redhat.com> - 0.4.4-1
-- '--list-fields' now also shows field aliases
-- add 'arch'/'platform' aliases
-- experimental '--reverse' command: converts url to args
-
-* Fri Aug 06 2021 Jens Petersen <petersen@redhat.com> - 0.4.3-3
-- rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Feb 15 2021 Jens Petersen <petersen@redhat.com> - 0.4.3-1
-- support status with '<STATE' and '>STATE'
-- Bugzilla uses 'notequals' (not 'notequal')
-- fix missing EPEL version prefix
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan  8 18:54:42 +08 2021 Jens Petersen <petersen@redhat.com> - 0.4.2-1
-- new --query command
-- new --server option
-
-* Thu Dec 17 2020 Jens Petersen <petersen@redhat.com> - 0.4.1-1
-- change license from BSD to GPLv2+
-- set no stdout buffering (#1906493)
-- generate basic manpage with help2man
-
-* Sat Dec 12 2020 Jens Petersen <petersen@redhat.com> - 0.4-1
-- add --list-operators
-- rename longer operators to be easier
-
-* Thu Dec 10 2020 Jens Petersen <petersen@redhat.com> - 0.3-1
-- add --list-fields option
-- field validation: error for unknown fields
-- map content' field '~'/'!~' to matches/notmatches
-
-* Wed Dec  9 2020 Jens Petersen <petersen@redhat.com> - 0.2-1
-- support most search types (regexp, allwords, etc and negatives)
-
-* Fri Dec  4 23:29:02 +08 2020 Jens Petersen <petersen@redhat.com> - 0.1.1-1
-- --file a bug
-- --help: do not format FIELDS
-
-* Wed Dec  2 2020 Jens Petersen <petersen@redhat.com> - 0.1.0-1
-- initial package
+%autochangelog

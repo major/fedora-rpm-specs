@@ -33,13 +33,13 @@ Source2:        fr.lri.%{name}.metainfo.xml
 # https://gitlab.inria.fr/why3/why3/-/commit/64facc03bdc2bc4ce0586ff2f458bcd87f646ba8
 Patch0:         %{name}-coq-8.17.patch
 
-BuildRequires:  appstream
 BuildRequires:  coq
 BuildRequires:  emacs-nox
 BuildRequires:  emacs-proofgeneral
 BuildRequires:  flocq
 BuildRequires:  graphviz
 BuildRequires:  latexmk
+BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-apron-devel
@@ -232,7 +232,7 @@ cp -p share/images/src/logo-kim.svg \
 # Install the AppStream metadata
 mkdir -p %{buildroot}%{_metainfodir}
 cp -p %{SOURCE2} %{buildroot}%{_metainfodir}
-appstreamcli validate --no-net \
+appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/fr.lri.%{name}.metainfo.xml
 
 # Move the vim file to the right place
@@ -308,6 +308,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-2
+- Validate metadata with appstream-util
+
 * Thu Jul 13 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-2
 - Rebuild for mpfr 4.2.0
 

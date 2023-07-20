@@ -2,13 +2,14 @@
 %global shortname pyopengl
 
 Name:           python-%{shortname}
-Version:        3.1.6
-Release:        2%{?dist}
+Version:        3.1.7
+Release:        1%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD
 URL:            https://github.com/mcfletch/pyopengl
 Source0:        https://pypi.python.org/packages/source/P/%{srcname}/%{srcname}-%{version}.tar.gz
 Source1:        https://pypi.python.org/packages/source/P/%{srcname}-accelerate/%{srcname}-accelerate-%{version}.tar.gz
+Patch0:         python-3.12.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -17,6 +18,7 @@ BuildRequires:  python3-numpy
 BuildRequires:  python3-Cython
 
 # For tests
+BuildRequires:  libglvnd-opengl
 BuildRequires:  mesa-dri-drivers
 BuildRequires:  mesa-libGLU
 BuildRequires:  python3-pygame
@@ -62,6 +64,7 @@ Requires:       python3-tkinter
 
 %prep
 %setup -q -c -n %{srcname}-%{version} -T -a0 -a1
+%patch -P0 -p1
 
 %build
 # Delete all Cython generated .c files to force a rebuild in py3_build
@@ -119,6 +122,12 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Tue Jul 18 2023 Scott Talbert <swt@techie.net> - 3.1.7-1
+- Update to new upstream release 3.1.7 (#2209308)
+
+* Tue Jul 18 2023 Scott Talbert <swt@techie.net> - 3.1.6-3
+- Fix FTBFS with Python 3.12 (#2220441)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.6-2
 - Rebuilt for Python 3.12
 

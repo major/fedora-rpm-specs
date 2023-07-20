@@ -21,10 +21,10 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.26%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
+Release:        0.27%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Qt5 for Windows - QtWebKit component
 
-License:        GPLv3 with exceptions or LGPLv2 with exceptions
+License:        LGPL-2.1-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://github.com/qtwebkit/qtwebkit
 
 %if 0%{?commit:1}
@@ -46,6 +46,8 @@ Patch4:         qtwebkit-bison37.patch
 Patch5:         webkit-offlineasm-warnings-ruby27.patch
 # Correctly test ICU return status with U_SUCCESS rather than comparing to U_ZERO_ERROR which fails on warnings
 Patch6:         qtwebkit_icu-success.patch
+# Fix gcc13 build
+Patch7:         qtwebkit_gcc13.patch
 
 BuildArch:      noarch
 
@@ -253,6 +255,9 @@ rmdir %{buildroot}%{mingw64_libdir}/qt5/bin/
 
 
 %changelog
+* Tue Jul 18 2023 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.27.alpha4
+- Rebuild (mingw-icu)
+
 * Fri Jan 20 2023 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.26.alpha4
 - Add qtwebkit_icu-success.patch
 

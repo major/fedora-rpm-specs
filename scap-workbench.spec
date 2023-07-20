@@ -42,6 +42,8 @@ content. The tool is based on OpenSCAP library.
 
 %prep
 %autosetup -p1
+# openscap is not compatible with -Werror=c++20-compat
+sed -i -e 's/-Werror//' CMakeLists.txt
 
 %build
 %cmake

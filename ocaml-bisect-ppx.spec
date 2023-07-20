@@ -8,8 +8,8 @@ ExcludeArch: %{ix86}
 %bcond_with test
 
 Name:           ocaml-bisect-ppx
-Version:        2.8.2
-Release:        3%{?dist}
+Version:        2.8.3
+Release:        1%{?dist}
 Summary:        Code coverage for OCaml and Reason
 
 # The project as a whole is MIT.
@@ -17,17 +17,12 @@ Summary:        Code coverage for OCaml and Reason
 License:        MIT AND BSD-3-Clause
 URL:            https://aantron.github.io/bisect_ppx/
 Source0:        https://github.com/aantron/bisect_ppx/archive/%{version}/bisect_ppx-%{version}.tar.gz
-# Adapt to changes in recent versions of ocamlformat
-Patch0:         %{name}-test.patch
-# Adapt to ppxlib 0.28.0
-# https://github.com/anmonteiro/bisect_ppx/commit/cc442a08e3a2e0e18deb48f3a696076ac0986728
-Patch1:         %{name}-ppxlib-0.28.0.patch
 
 BuildRequires:  git-core
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.0.0
 BuildRequires:  ocaml-dune >= 2.7.0
-BuildRequires:  ocaml-ppxlib-devel >= 0.26.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 
 %if %{with test}
 BuildRequires:  ocamlformat
@@ -59,7 +54,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n bisect_ppx-%{version} -p1
+%autosetup -n bisect_ppx-%{version}
 
 %build
 %dune_build
@@ -85,6 +80,10 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 2.8.3-1
+- Version 2.8.3
+- Drop upstreamed patches
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2.8.2-3
 - OCaml 5.0 rebuild for Fedora 39
 

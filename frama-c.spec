@@ -6,10 +6,6 @@ ExclusiveArch: %{ocaml_native_compiler}
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 #ExclusiveArch:  %%{java_arches}
 
-# Frama-C contains a forked version of ocaml-cil.  We cannot use the Fedora
-# ocaml-cil package as a replacement, because Frama-C upstream has modified
-# their version in incompatible ways.
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -18,8 +14,8 @@ ExclusiveArch: %{ocaml_native_compiler}
 %undefine _auto_set_build_flags
 
 Name:           frama-c
-Version:        27.0
-Release:        3%{?dist}
+Version:        27.1
+Release:        1%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Cobalt
@@ -48,13 +44,13 @@ Source16:       acsl.el
 Source17:       frama-c.licensing
 
 BuildRequires:  alt-ergo
-BuildRequires:  appstream
 BuildRequires:  clang
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
 BuildRequires:  emacs-nox
 BuildRequires:  flamegraph
 BuildRequires:  graphviz
+BuildRequires:  libappstream-glib
 BuildRequires:  libgnomecanvas-devel
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.11.1
@@ -95,6 +91,10 @@ Requires:       why3
 Recommends:     bash-completion
 
 Suggests:       z3
+
+# Frama-C contains a forked version of ocaml-cil, with incompatible
+# modifications from ocaml-cil upstream.
+Provides:       bundled(ocaml-cil)
 
 # Do not Require private ocaml interfaces that we don't Provide
 %global __requires_exclude ocaml\\\(Driver_ast\\\)
@@ -184,7 +184,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE14}
 # Install the AppData file
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE15} %{buildroot}%{_metainfodir}
-appstreamcli validate --no-net \
+appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/com.%{name}.%{name}-gui.metainfo.xml
 
 # Install the icons
@@ -282,6 +282,10 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 27.1-1
+- Version 27.1
+- Validate metainfo with appstream-util
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 27.0-3
 - Rebuild for ocaml-ctypes 0.21.0
 

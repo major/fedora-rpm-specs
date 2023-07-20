@@ -8,7 +8,7 @@
 
 Name:           openjdk-asmtools
 Version:        %{major}.%{minor}
-Release:        0.4.%{commitdate}.git%{shortcommit}%{?dist}
+Release:        0.5.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:        Set of tools used to assemble / disassemble proper and improper Java .class files
 
 License:        GPLv2+
@@ -25,12 +25,12 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 #asmtools8 requires jdk16 amd up
-BuildRequires:  java-17-openjdk-devel
+BuildRequires:  (java-17-openjdk-devel or java-21-openjdk-devel or java-latest-openjdk-devel)
 BuildRequires:  maven-local
 BuildRequires:  maven-compiler-plugin
 BuildRequires:  maven-jar-plugin
 BuildRequires:  junit5
-Requires:  (java-17-headless or java-latest-openjdk-headless)
+Requires:  (java-17-headless or java-21-openjdk-headless or java-latest-openjdk-headless)
 
 %description
 AsmTools helps develop tools to create proper and improper Java .class files.
@@ -94,6 +94,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 %{_mandir}/man1/openjdk-asmtools.1*
 
 %changelog
+* Tue May 09 2023 Marian Koncek <mkoncek@redhat.com> - 8.0.b02.ea-0.5.20230113.gitc0e14f4
+- make br/r more flexible for jdk 17 and up
+
 * Tue May 09 2023 Marian Koncek <mkoncek@redhat.com> - 8.0.b02.ea-0.4.20230113.gitc0e14f4
 - Improve summary and description
 

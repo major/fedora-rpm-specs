@@ -1,9 +1,9 @@
 Name:           dnsviz
 Version:        0.9.4
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Tools for analyzing and visualizing DNS and DNSSEC behavior
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/dnsviz/dnsviz
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
@@ -14,6 +14,7 @@ BuildRequires:  make
 BuildRequires:  python3-pygraphviz >= 1.3
 BuildRequires:  python3-m2crypto >= 0.28.0
 BuildRequires:  python3-dns >= 1.13
+BuildRequires:  python3-setuptools
 Requires:       python3-pygraphviz >= 1.3
 Requires:       python3-m2crypto >= 0.28.0
 Requires:       python3-dns >= 1.13
@@ -73,27 +74,4 @@ popd
 %{_mandir}/man1/%{name}-query.1*
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jan 07 2022 Petr Menšík <pemensik@redhat.com> - 0.9.4-1
-- Update to 0.9.4
-
-* Thu Mar  11 2021 Casey Deccio
-  0.9.3 release
-* Fri Feb  5 2021 Casey Deccio
-  0.9.2 release
-* Tue Jan  19 2021 Casey Deccio
-  0.9.1 release
-* Fri Jan  8 2021 Casey Deccio
-  0.9.0 release
-* Wed Feb  6 2019 Casey Deccio
-  0.8.1 release
-* Fri Jan  25 2019 Casey Deccio
-  0.8.0 release
+%autochangelog

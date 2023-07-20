@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
-Version:       1.26.15
+Version:       1.26.16
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -65,6 +65,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Tue Jul 18 2023 Sandro Mani <manisandro@gmail.com> - 1.26.16-1
+- Update to 1.26.16
+
 * Fri Jun 02 2023 Sandro Mani <manisandro@gmail.com> - 1.26.15-1
 - Update to 1.26.15
 

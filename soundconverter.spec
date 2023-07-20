@@ -1,6 +1,6 @@
 Name:           soundconverter
-Version:        4.0.3
-Release:        6%{?dist}
+Version:        4.0.4
+Release:        1%{?dist}
 Summary:        Simple sound converter application for GNOME
 License:        GPLv3
 
@@ -68,7 +68,7 @@ rm -f %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog
+%doc AUTHORS CHANGELOG
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/*%{name}.desktop
@@ -82,6 +82,9 @@ rm -f %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Mon Jul 17 2023 Richard Shaw <hobbes1069@gmail.com> - 4.0.4-1
+- Update to 4.0.4.
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.0.3-6
 - Rebuilt for Python 3.12
 

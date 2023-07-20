@@ -11,6 +11,11 @@ Summary:        Directory structure standard for experimental pipelines
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
+# Use updated Versioneer
+# AttributeError: module 'configparser' has no attribute 'SafeConfigParser'.
+# SafeConfigParser was deprecated in Python 3.12
+# https://github.com/CINPLA/exdir/pull/156
+Patch0:         %{forgeurl}/pull/156.patch
 
 BuildArch:      noarch
 
@@ -31,6 +36,7 @@ the Klusta Kwik Team and Neurodata Without Borders.}
 %package -n python3-exdir
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  git-core
 
 # %%dir %%{_sysconfdir}/jupyter
 # %%dir %%{_sysconfdir}/jupyter/jupyter_notebook_config.d
@@ -58,9 +64,17 @@ Provides:       bundled(js-collapsible-lists)
 This package provides documentation for %{name}.
 
 %prep
-%forgesetup
+%autosetup -p1 -n exdir-%{version} -S git
 # Remove 3rdparty directory
-rm -fr 3rdparty
+# Use git for removal, so Versioneer is not marking version as dirty
+git rm -r 3rdparty
+
+# Versioneer, you are a pain in the bottocks!
+# Into submission wrangle you, I will!
+python3 versioneer.py setup
+git commit -m 'Did someone say versioneer? Into the void disappear!'
+git tag -a -m '%{name}-%{version}-%{release}' %{version}
+
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-r requirements.in}
