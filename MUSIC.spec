@@ -36,7 +36,7 @@ MUSIC is distributed under the GNU General Public License v3.}
 
 Name:           MUSIC
 Version:        1.1.16
-Release:        11.20201002git%{shortcommit}%{?dist}
+Release:        12.20201002git%{shortcommit}%{?dist}
 Summary:        The MUltiSimulation Coordinator
 
 License:        GPLv3+
@@ -386,6 +386,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-12.20201002git8c6b77a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.16-11.20201002git8c6b77a
 - Rebuilt for Python 3.12
 

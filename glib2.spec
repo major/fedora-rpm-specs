@@ -16,6 +16,10 @@ Patch0: gnutls-hmac.patch
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3501
 Patch1: 0001-gmain-Add-a-missing-return-on-error-path-in-g_main_c.patch
 
+# recent close_range() changes break CircleCI and GitHub actions -- we can remove this when
+# the baremetal Docker is updated there i.e. lets be a little bit pragmatic...
+Patch2: gspawn-eperm.patch
+
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gettext

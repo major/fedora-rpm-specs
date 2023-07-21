@@ -31,7 +31,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.2.0-rc.2
+%global package_version 1.2.0
 
 # Uncomment this to include gocryptfs
 %global gocryptfs_version 2.4.0
@@ -43,7 +43,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.2.0~rc.2
+Version: 1.2.0
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -489,6 +489,12 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Wed Jul 25 2023 Dave Dykstra <dwd@fnal.gov> - 1.2.0
+- Update to upstream 1.2.0
+
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0~rc.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul  6 2023 Dave Dykstra <dwd@fnal.gov> - 1.2.0~rc.1-2
 - Update to upstream 1.2.0-rc.2
 

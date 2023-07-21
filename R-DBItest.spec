@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.0
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Testing DBI Backends
 
 License:          LGPLv2+
@@ -75,6 +75,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.0-11
 - Ignore vignettes
 

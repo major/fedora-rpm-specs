@@ -1,6 +1,6 @@
 Name: floppy-support          
 Version:        1.0.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Load floppy driver at boot time
 
 
@@ -45,6 +45,9 @@ echo floppy > $RPM_BUILD_ROOT%{_libdir}/../lib/modules-load.d/floppy.conf
 /sbin/modprobe floppy
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

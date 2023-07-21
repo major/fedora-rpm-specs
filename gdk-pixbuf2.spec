@@ -2,7 +2,7 @@
 
 Name:           gdk-pixbuf2
 Version:        2.42.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An image loading library
 
 License:        LGPLv2+
@@ -125,6 +125,9 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 %{_datadir}/installed-tests
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

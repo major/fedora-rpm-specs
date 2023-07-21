@@ -1,8 +1,8 @@
 Summary:          Software and/or Hardware watchdog daemon
 Name:             watchdog
 Version:          5.16
-Release:          5%{?dist}
-License:          GPLv2+
+Release:          6%{?dist}
+License:          GPL-2.0-or-later
 
 URL:              http://sourceforge.net/projects/watchdog/
 Source0:          http://downloads.sourceforge.net/watchdog/watchdog-%{version}.tar.gz
@@ -50,9 +50,9 @@ expiration) initiated by the BMC.
  
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1
-%patch2 -p1
-%patch99 -p1 -b .rhseldoc
+%patch 1 -p1
+%patch 2 -p1
+%patch 99 -p1 -b .rhseldoc
 autoreconf -i
 
 cp %{SOURCE2} .
@@ -127,6 +127,9 @@ rm %{name}.sysconfig
 
 
 %changelog
+* Wed Jul 19 2023 Josef Ridky <jridky@redhat.com> - 5.16-6
+- Migrate to SPDX license format
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

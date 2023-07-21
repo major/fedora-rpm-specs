@@ -14,7 +14,7 @@
 
 Name:           python-pandas
 Version:        1.5.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD-3-Clause and covered by LICENSE, except:
@@ -148,6 +148,9 @@ Patch:          https://github.com/pandas-dev/pandas/pull/52150.patch
 #
 # All commits cherry-picked to tag v1.5.3 and combined into a single patch.
 Patch:          pandas-1.5.3-pyarrow-10-11-12.patch
+
+# Fix deprecation warning with Python 3.12.
+Patch:          https://github.com/pandas-dev/pandas/pull/54188.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -758,6 +761,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Wed Jul 19 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.5.3-7
+- Backport patch for Python 3.12 deprecation
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.5.3-6
 - Bootstrap for Python 3.12
 

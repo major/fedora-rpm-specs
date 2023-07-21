@@ -5,7 +5,7 @@
 
 Name:           R-%{packname}
 Version:        4.4.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Discrete-Event Simulation for R
 
 License:        GPL-2.0-or-later
@@ -72,6 +72,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0
 %{rlibdir}/%{packname}/include
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.6.1-1
 - Update to 4.4.6.1, switch to SPDX
 

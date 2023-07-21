@@ -1,6 +1,6 @@
 Name:           cciss_vol_status
 Version:        1.12
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Show status of logical drives attached to HP SmartArray controllers
 
 License:        GPL-2.0-or-later
@@ -36,6 +36,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

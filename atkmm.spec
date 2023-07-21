@@ -6,7 +6,7 @@
 
 Name:           atkmm
 Version:        2.28.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ interface for the ATK library
 
 License:        LGPLv2+
@@ -84,6 +84,9 @@ documentation browser or through a web browser.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

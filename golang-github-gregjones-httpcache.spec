@@ -16,7 +16,7 @@ as a mostly RFC 7234 compliant cache for http responses.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.14%{?dist}
+Release:        0.15%{?dist}
 Summary:        Transport for http.Client that will cache responses according to the HTTP RFC
 License:        MIT
 URL:            %{gourl}
@@ -46,6 +46,9 @@ BuildRequires:  golang(github.com/syndtr/goleveldb/leveldb)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

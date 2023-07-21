@@ -8,7 +8,7 @@
 
 Name:    eog
 Version: 44.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Eye of GNOME image viewer
 
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
@@ -137,6 +137,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 01 2023 Kalev Lember <klember@redhat.com> - 44.3-1
 - Update to 44.3
 

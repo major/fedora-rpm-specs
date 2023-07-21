@@ -1,6 +1,6 @@
 Name:           exodusii
 Version:        6.09
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Library to store and retrieve transient finite element data
 License:        BSD
 Url:            http://sourceforge.net/projects/exodusii/
@@ -97,6 +97,9 @@ cd exodus
 %{_docdir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.09-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.09-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

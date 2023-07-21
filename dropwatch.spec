@@ -1,6 +1,6 @@
 Name: dropwatch
 Version: 1.5.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Kernel dropped packet monitor
 
 License: GPLv2+
@@ -46,6 +46,9 @@ network packets.
 %license COPYING
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.4.3
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Mocking Library for R
 
 License:          MIT
@@ -76,6 +76,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.4.3-3
 - R-maint-sig mass rebuild
 

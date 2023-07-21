@@ -1,4 +1,4 @@
-%global prerel beta1
+%global prerel beta2
 
 # The documentation and tests need furo.  But to build furo at all, we need
 # this package.
@@ -6,7 +6,7 @@
 
 Name:           python-sphinx-basic-ng
 Version:        1.0.0
-Release:        0.4.%{prerel}%{?dist}
+Release:        0.5.%{prerel}%{?dist}
 Summary:        Modernized skeleton for Sphinx themes
 
 License:        MIT
@@ -110,22 +110,25 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 1.0.0-0.5.beta2
+- Version 1.0.0.beta2
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.0.0-0.4.beta1
 - Rebuilt for Python 3.12
 
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.0-0.3.beta1
 - Bootstrap for Python 3.12
 
-* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.0.0-0.2.beta1%{?dist}
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.0.0-0.2.beta1
 - Dynamically generate BuildRequires
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.2.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.0.0-0.1.beta1%{?dist}
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.0.0-0.1.beta1
 - Verify that license tags are valid SPDX
 
-* Fri Sep 30 2022 Jerry James <loganjerry@gmail.com> - 1.0.0-0.1.beta1%{?dist}
+* Fri Sep 30 2022 Jerry James <loganjerry@gmail.com> - 1.0.0-0.1.beta1
 - Version 1.0.0.beta1
 - Drop upstreamed -sphinx patch
 

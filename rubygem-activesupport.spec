@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.4.3
+Version: 7.0.5
 Release: 1%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
@@ -13,12 +13,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The activesupport gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/activesupport && git archive -v -o activesupport-7.0.4.3-tests.txz v7.0.4.3 test/
+# cd rails/activesupport && git archive -v -o activesupport-7.0.5-tests.txz v7.0.5 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.4.3-tools.txz v7.0.4.3 tools/
+# cd rails && git archive -v -o rails-7.0.5-tools.txz v7.0.5 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
@@ -26,9 +26,6 @@ Patch1: rubygem-activesupport-7.0.2.3-Remove-the-multi-call-form-of-assert_calle
 Patch2: rubygem-activesupport-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with-test.patch
 # https://github.com/rails/rails/pull/45370
 Patch3: rubygem-activesupport-7.0.2.3-Fix-tests-for-minitest-5.16.patch
-# https://github.com/rails/rails/pull/46735
-# Fix for test failure with ruby3.2 wrt class_serial removal
-Patch4: rubygem-activesupport-7.0.4-ruby32-rubyvm-class_serial-removal.patch
 
 # ruby package has just soft dependency on rubygem({bigdecimal,json}), while
 # ActiveSupport always requires them.
@@ -71,12 +68,11 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
 
-%patch1 -p2
-%patch3 -p2
+%patch 1 -p2
+%patch 3 -p2
 
 pushd %{_builddir}
-%patch2 -p2
-%patch4 -p2
+%patch 2 -p2
 popd
 
 %build
@@ -136,6 +132,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Tue May 30 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.5-1
+- Update to activesupport 7.0.5.
+
 * Tue Mar 14 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.4.3-1
 - Update to activesupport 7.0.4.3.
 

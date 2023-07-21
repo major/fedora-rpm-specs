@@ -1,6 +1,6 @@
 Name:           gnome-epub-thumbnailer
 Version:        1.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Thumbnailers for EPub and MOBI books
 
 License:        GPLv2+
@@ -41,6 +41,9 @@ Thumbnailers for EPub and MOBI books
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

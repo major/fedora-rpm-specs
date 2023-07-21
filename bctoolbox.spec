@@ -1,6 +1,6 @@
 Name: bctoolbox
 Version: 5.2.45
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Utility library for software from Belledonne Communications and others
 License: GPL-3.0-or-later AND GPL-2.0-or-later
 URL: https://gitlab.linphone.org/BC/public/bctoolbox/
@@ -92,5 +92,8 @@ CXXFLAGS="$CXXFLAGS -Wno-error=unused-parameter -Wunused-parameter"
 %{_libdir}/libbctoolbox-tester.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.45-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.2.45-1
 - Initial package.

@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          16%{?dist}
+Release:          17%{?dist}
 Summary:          Combine multi-dimensional arrays
 License:          LGPLv2+
 URL:              http://cran.r-project.org/web/packages/abind/index.html
@@ -44,6 +44,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.5-16
 - R-maint-sig mass rebuild
 

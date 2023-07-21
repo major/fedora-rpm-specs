@@ -14,7 +14,7 @@
 
 Name:       fedora-review
 Version:    0.9.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPLv2+
@@ -155,6 +155,9 @@ mock --quiet -r fedora-36-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.9.0-3
 - Rebuilt for Python 3.12
 

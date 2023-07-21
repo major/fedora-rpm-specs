@@ -1,6 +1,6 @@
 Name:           geoclue2
 Version:        2.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Geolocation service
 
 License:        GPLv2+
@@ -149,6 +149,9 @@ exit 0
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 29 2023 Kalev Lember <klember@redhat.com> - 2.7.0-1
 - Update to 2.7.0
 - Switch to libsoup 3

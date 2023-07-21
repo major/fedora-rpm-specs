@@ -5,7 +5,7 @@
 
 Name:           bash-completion
 Version:        2.11
-Release:        11%{?dist}
+Release:        12%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -81,6 +81,9 @@ make -C completions check
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Siteshwar Vashisht <svashisht@redhat.com> - 1:2.11-11
 - Remove bash completions for javaws
   Resolves: #2188865

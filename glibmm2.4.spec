@@ -7,7 +7,7 @@
 
 Name:           glibmm2.4
 Version:        2.66.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ interface for the GLib library
 
 # Library sources are LGPL 2.1+, tools used to generate sources are GPL 2+.
@@ -110,6 +110,9 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/glibmm-%{apiver}/proc/gmmproc
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.66.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 25 2023 David King <amigadave@amigadave.com> - 2.66.6-1
 - Update to 2.66.6
 

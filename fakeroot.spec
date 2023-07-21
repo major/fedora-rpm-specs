@@ -3,7 +3,7 @@
 Summary: Gives a fake root environment
 Name: fakeroot
 Version: 1.31
-Release: 1%{?dist}
+Release: 2%{?dist}
 # setenv.c: LGPLv2+
 # contrib/Fakeroot-Stat-1.8.8: Perl (GPL+ or Artistic)
 # the rest: GPLv3+
@@ -167,6 +167,9 @@ fi
 %ghost %{_libdir}/libfakeroot/libfakeroot-0.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 15 2023 Sérgio Basto <sergio@serjux.com> - 1.31-1
 - Update fakeroot to 1.31 (#2167522)
 - Add fix from Debian

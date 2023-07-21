@@ -2,7 +2,7 @@
 
 Name:           applet-window-buttons
 Version:        0.11.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Plasma 5 applet to show window buttons in panels
 License:        GPLv2+
 URL:            https://github.com/psifidotos/%{name}
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_datadir}/plasma/plasmoids/%{orig_name}/meta
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 0.11.1-6
 - Cosmetic changes to the spec file.
 - Add patch from PR 191 locally.

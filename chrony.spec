@@ -10,7 +10,7 @@
 
 Name:           chrony
 Version:        4.4
-Release:        0.3.pre2%{?dist}
+Release:        0.4.pre2%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -203,6 +203,9 @@ fi
 %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-0.4.pre2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 21 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.4-0.3.pre2
 - update to 4.4-pre2
 - set selinux context in chronyd-restricted service (#2169949)

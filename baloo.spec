@@ -12,7 +12,7 @@
 Name:    baloo
 Summary: A framework for searching and managing metadata
 Version: 4.14.3
-Release: 32%{?dist}
+Release: 33%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.0-only
 URL:     https://community.kde.org/Baloo
@@ -228,6 +228,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Than Ngo <than@redhat.com> - 4.14.3-32
 - migratedd to SPDX license
 

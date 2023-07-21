@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libshumate
-Version:        1.0.4
+Version:        1.0.5
 Release:        %autorelease
 Summary:        GTK widget to display maps
 
@@ -56,7 +56,7 @@ This package contains developer documentation for %{name}.
 
 
 %prep
-%autosetup -p1 -n libshumate-%{tarball_version}
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 
 %build

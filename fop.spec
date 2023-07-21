@@ -1,7 +1,7 @@
 Name:           fop
 Summary:        XSL-driven print formatter
 Version:        2.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 # ASL 1.1:
 # several files in fop-core/src/main/resources/org/apache/fop/render/awt/viewer/resources
 # rest is ASL 2.0
@@ -118,6 +118,9 @@ cp -rp target/xmvn-apidocs/* %{buildroot}%{_javadocdir}/%{name}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 27 2023 Tim Orling <ticotimo@gmail.com> - 2.8-4
 - migrated to SPDX license
 

@@ -3,7 +3,7 @@
 Summary: The finger client
 Name: finger
 Version: 0.17
-Release: 74%{?dist}
+Release: 75%{?dist}
 License: BSD
 
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/bsd-finger-%{version}.tar.gz
@@ -139,6 +139,9 @@ make INSTALLROOT=%{buildroot} install
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-75
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-74
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

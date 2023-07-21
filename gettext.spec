@@ -4,7 +4,7 @@
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 0.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -411,6 +411,9 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 23 2023 Jens Petersen <petersen@redhat.com> - 0.22-1
 - update to 0.22 release
 - https://savannah.gnu.org/news/?id=10378

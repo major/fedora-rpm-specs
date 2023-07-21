@@ -18,7 +18,7 @@ BoltStore which is an implementation of both a LogStore and StableStore.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.26%{?dist}
+Release:        0.27%{?dist}
 Summary:        Raft backend implementation using BoltDB
 
 # Upstream license specification: MPL-2.0
@@ -57,6 +57,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

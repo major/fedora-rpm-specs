@@ -1,6 +1,6 @@
 Name:		git-crypt
 Version:	0.6.0
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Transparent file encryption in git
 
 # MIT/X11 (BSD like): fhstream.{hpp|cpp} and parse_options.{hpp|cpp}
@@ -49,6 +49,9 @@ export LDFLAGS="%{__global_ldflags}"
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

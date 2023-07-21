@@ -2,7 +2,7 @@
 
 Name:           doublecmd
 Version:        1.0.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
 # Full licenses description in licensecheck.txt file
@@ -131,6 +131,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.sourceforge
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Daniel Rusek <mail@asciiwolf.com> - 1.0.11-2
 - Add AppStream metadata
 

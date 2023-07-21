@@ -1,6 +1,6 @@
 Name:           fedora-easy-karma
 Version:        0.53
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora update feedback made easy
 License:        GPL-2.0-or-later
 URL:            https://fedoraproject.org/wiki/Fedora_Easy_Karma
@@ -42,6 +42,9 @@ updates that you have currently installed.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 07 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.53-1
 - Allow empty comment for positive karma by default
 - Import fedora.client instead of entire fedora

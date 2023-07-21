@@ -3,7 +3,7 @@
 
 # https://github.com/microcosm-cc/bluemonday
 %global goipath         github.com/microcosm-cc/bluemonday
-Version:                1.0.24
+Version:                1.0.25
 
 %gometa
 

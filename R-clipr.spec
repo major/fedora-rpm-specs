@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.8.0
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Read and Write from the System Clipboard
 
 License:          GPLv3
@@ -79,6 +79,9 @@ TRAVIS=true TRAVIS_CLIP=xsel CLIPR_ALLOW=TRUE \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.0-3
 - R-maint-sig mass rebuild
 

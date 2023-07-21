@@ -6,12 +6,6 @@
 # enable|disable system build flags
 %global system_build_flags 0
 
-# disable the package notes info on f36
-# workaround for linking issue
-%if 0%{?fedora} == 36
-%undefine _package_note_file
-%endif
-
 # set default numjobs for the koji build
 %ifarch aarch64
 %global numjobs 8
@@ -240,7 +234,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 114.0.5735.198
+Version: 115.0.5790.98
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -250,7 +244,7 @@ License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND G
 Patch0: chromium-70.0.3538.67-sandbox-pie.patch
 
 # Use /etc/chromium for initial_prefs
-Patch1: chromium-91.0.4472.77-initial_prefs-etc-path.patch
+Patch1: chromium-115-initial_prefs-etc-path.patch
 
 # Use gn system files
 Patch2: chromium-107.0.5304.110-gn-system.patch
@@ -259,7 +253,7 @@ Patch2: chromium-107.0.5304.110-gn-system.patch
 Patch5: chromium-77.0.3865.75-no-zlib-mangle.patch
 
 # Do not use unrar code, it is non-free
-Patch6: chromium-114-norar.patch
+Patch6: chromium-115-norar.patch
 
 # Try to load widevine from other places
 Patch8: chromium-108-widevine-other-locations.patch
@@ -302,7 +296,7 @@ Patch70: chromium-105.0.5195.52-python-six-1.16.0.patch
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
 # patch for using system brotli
-Patch89: chromium-108-system-brotli.patch
+Patch89: chromium-115-system-brotli.patch
 
 # disable GlobalMediaControlsCastStartStop to avoid crash
 # when using the address bar media player button
@@ -336,9 +330,8 @@ Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 # Add additional operator== to make el7 happy.
 Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
 # workaround for clang bug on el7
-Patch108: chromium-114-constexpr-el7.patch
 Patch109: chromium-114-wireless-el7.patch
-Patch110: chromium-114-buildflag-el7.patch
+Patch110: chromium-115-buildflag-el7.patch
 
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
@@ -349,19 +342,36 @@ Patch116: chromium-112-ffmpeg-first_dts.patch
 Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 
 # gcc13
-Patch122: chromium-114-gcc13.patch
+Patch122: chromium-115-gcc13.patch
 
 # revert AV1 VA-API video encode due to old libva on el9
 Patch130: chromium-114-revert-av1enc-el9.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300: chromium-113-rhel8-force-disable-use_gnome_keyring.patch
+
+# compiler build errors
+Patch301: chromium-115-compiler-SkColor4f.patch
+
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
-Patch302: chromium-114-workaround_clang_bug-structured_binding.patch
+Patch302: chromium-115-workaround_clang_bug-structured_binding.patch
+
 # missing typename
-Patch303: chromium-114-typename.patch
+Patch303: chromium-115-typename.patch
+
+# missing cmath
+Patch304: chromium-115-missing-cmath.patch
+
+# add BoundSessionRefreshCookieFetcher::Result
+Patch305: chromium-115-add_BoundSessionRefreshCookieFetcher::Result.patch
+
+# compiler error with c++20
+Patch306: chromium-115-emplace_back_on_vector-c++20.patch
+
+# Load default cursor theme if theme name is empty
+Patch310: chromium-115-wayland-load_default_cursor_theme.patch
+
 # Qt issue
-Patch320: chromium-114-add_qt6_linuxui_backend.patch
 Patch321: chromium-114-qt-handle_scale_factor_changes.patch
 Patch322: chromium-114-qt-fix_font_double_scaling.patch
 Patch323: chromium-114-qt_deps.patch
@@ -942,7 +952,6 @@ udev.
 %patch -P105 -p1 -b .el7-old-libdrm
 %patch -P106 -p1 -b .el7-erase-fix
 %patch -P107 -p1 -b .el7-extra-operator-equalequal
-%patch -P108 -p1 -b .constexpr
 %patch -P109 -p1 -b .wireless
 %patch -P110 -p1 -b .buildflag-el7
 %endif
@@ -959,13 +968,18 @@ udev.
 
 %if %{clang}
 %if 0%{?rhel} || 0%{?fedora} < 38
+%patch -P301 -p1 -b .workaround_clang-SkColor4f
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
 %endif
 %endif
 
 %patch -P303 -p1 -b .typename
+%patch -P304 -p1 -b .cmath
+%patch -P305 -p1 -b .add_BoundSessionRefreshCookieFetcher::Result
+%patch -P306 -p1 -b .emplace_back_on_vector-c++20
 
-%patch -P320 -p1 -b .add_qt6_linuxui_backend
+%patch -P310 -p1 -b .wayland_load_default_cursor_theme
+
 %patch -P321 -p1 -b .handle_scale_factor_changes
 %patch -P322 -p1 -b .fix_font_double_scaling
 %patch -P323 -p1 -b .qt_deps
@@ -1025,7 +1039,9 @@ sed -i 's|moc|moc-qt5|g' ui/qt/moc_wrapper.py
 %build
 # utf8 issue on epel7, Internal parsing error 'ascii' codec can't
 # decode byte 0xe2 in position 474: ordinal not in range(128)
+%if 0%{?rhel} == 7
 export LANG=en_US.UTF-8
+%endif
 
 # reduce warnings
 %if %{clang}
@@ -1111,6 +1127,9 @@ CHROMIUM_CORE_GN_DEFINES+=' use_lld=true'
 CHROMIUM_CORE_GN_DEFINES+=' is_clang=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_lld=false'
 %endif
+
+# disable rust, it's only using for testing
+CHROMIUM_CORE_GN_DEFINES+=' enable_rust=false'
 
 CHROMIUM_CORE_GN_DEFINES+=' use_sysroot=false disable_fieldtrial_testing_config=true rtc_enable_symbol_export=true'
 
@@ -1647,6 +1666,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Tue Jul 18 2023 Than Ngo <than@redhat.com> - 115.0.5790.98-1
+- update to 115.0.5790.98
+
 * Tue Jun 27 2023 Than Ngo <than@redhat.com> - 114.0.5735.198-1
 - update to 114.0.5735.198
 

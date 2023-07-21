@@ -1,6 +1,6 @@
 Name:       barman
 Version:    3.6.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPLv3
 URL:        http://www.pgbarman.org/
@@ -120,6 +120,9 @@ getent passwd %{name} >/dev/null || \
 exit 0
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 3.6.0-2
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name:       calcium-calculator
 Version:    7.9.5
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    The Calcium Calculator
 
 License:    GPLv3+
@@ -50,6 +50,9 @@ install -p -m 755 -D -t $RPM_BUILD_ROOT/%{_bindir} %{name}
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

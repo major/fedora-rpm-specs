@@ -1,7 +1,7 @@
 Name:		globus-gfork
 %global _name %(tr - _ <<< %{name})
 Version:	5.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Grid Community Toolkit - GFork
 
 License:	Apache-2.0
@@ -108,6 +108,9 @@ echo "# This is the default gfork configuration file" > \
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 BuildArch:	noarch
 Summary:	A set of statistics functions for erlang
 License:	ASL 2.0
@@ -44,6 +44,9 @@ and useful in other situations.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

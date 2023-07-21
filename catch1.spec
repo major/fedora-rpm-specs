@@ -2,7 +2,7 @@
 
 Name:           catch1
 Version:        1.12.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 
 License:        BSL-1.0
@@ -56,6 +56,9 @@ cp -pr include  %{buildroot}%{_includedir}/catch
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Tom Hughes <tom@compton.nu> - 1.12.2-13
 - Drop unnecessary conflict with catch-devel
 

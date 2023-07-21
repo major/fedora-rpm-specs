@@ -1,6 +1,6 @@
 Name:           afpfs-ng
 Version:        0.8.1
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Apple Filing Protocol client
 
 
@@ -109,6 +109,9 @@ cp -p include/* %{buildroot}%{_includedir}/afpfs-ng
 %{_libdir}/*.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           centerim
 Version:        4.22.10
-Release:        40%{?dist}
+Release:        41%{?dist}
 Epoch:          1
 
 Summary:        Text mode menu- and window-driven IM
@@ -103,6 +103,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE2}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.22.10-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.22.10-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

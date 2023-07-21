@@ -5,7 +5,7 @@
 
 Name:           APLpy
 Version:        2.0.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        The Astronomical Plotting Library in Python
 
 License:        MIT
@@ -85,6 +85,9 @@ popd
 %{python3_sitelib}/aplpy/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.3-21
 - Workaround for python 3.12 change of imp module removal
 - Workaround for astropy 5.1 astropy.tests.plugins.display removal and so on

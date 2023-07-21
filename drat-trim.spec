@@ -8,7 +8,7 @@ Summary:        Proof checker for DIMACS proofs
 
 %forgemeta
 
-Release:        0.19%{?dist}
+Release:        0.20%{?dist}
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -117,6 +117,9 @@ sh ./run-examples
 %{_mandir}/man1/drat-trim.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:           flatpak
 Version:        1.15.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPL-2.1-or-later
@@ -275,6 +275,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Tomas Popela <tpopela@redhat.com> - 1.15.4-2
 - Disable parental control support (through malcontent) on RHEL
 

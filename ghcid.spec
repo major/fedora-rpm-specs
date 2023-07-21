@@ -8,7 +8,7 @@
 
 Name:           %{pkg_name}
 Version:        0.8.7
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        GHCi based bare bones IDE
 
 License:        BSD-3-Clause
@@ -158,6 +158,9 @@ This package provides the Haskell %{name} profiling library.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 16 2023 Jens Petersen <petersen@redhat.com> - 0.8.7-11
 - refresh to cabal-rpm-2.1.0 with SPDX migration
 

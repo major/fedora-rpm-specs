@@ -3,7 +3,7 @@
 
 Name:           %{upstream_name}
 Version:        28.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Full-stack software and hardware integration testing system
 License:        GPLv2+ and BSD
 URL:            https://beaker-project.org/
@@ -118,6 +118,9 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{_datadir}/bash-completion
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 28.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 28.3-5
 - Rebuilt for Python 3.12
 

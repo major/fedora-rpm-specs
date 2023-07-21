@@ -8,7 +8,7 @@
 
 Name:		fstransform
 Version:	0.9.4
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Tool for in-place file-system conversion without backup
 
 License:	GPLv3+
@@ -87,6 +87,9 @@ done
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@ Summary: Terminal emulator mimicking a CRT display
 License: GPLv3+
 
 Version: 1.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 URL: https://github.com/Swordfish90/%{name}
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

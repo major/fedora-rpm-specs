@@ -1,6 +1,6 @@
 Name:           fig2ps
 Version:        1.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Utility for converting xfig pictures to PS/PDF
 License:        GPLv2+
 URL:            http://fig2ps.sourceforge.net/
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

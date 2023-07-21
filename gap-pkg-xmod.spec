@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-xmod
 Version:        2.91
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Crossed Modules and Cat1-Groups for GAP
 
 License:        GPL-2.0-or-later
@@ -87,6 +87,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.91-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 13 2023 Jerry James <loganjerry@gmail.com> - 2.91-1
 - Version 2.91
 - Add -double-doc patch to fix LaTeX errors

@@ -1,6 +1,6 @@
 Name:           fts-rest-client
 Version:        3.12.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        File Transfer Service (FTS) -- Python3 Client and CLI
 
 License:        ASL 2.0
@@ -42,6 +42,9 @@ File Transfer Service (FTS) -- Python3 Client and CLI
 %{_bindir}/fts-rest-*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 3.12.2-3
 - Remove "/etc/fts3/fts3client.cfg" from the installation files (FTS-1842)
 

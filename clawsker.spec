@@ -2,7 +2,7 @@
 
 Name:           clawsker
 Version:        1.3.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Dialog to edit Claws Mail's hidden preferences
 
 License:        GPLv3+
@@ -53,6 +53,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

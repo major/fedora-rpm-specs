@@ -1,7 +1,7 @@
 Name: bdsync
 Summary: Remote sync for block devices
 Version: 0.11.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv2
 Source: https://github.com/rolffokkens/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 URL: http://bdsync.rolf-fokkens.nl/
@@ -60,6 +60,9 @@ cp %{name}.1 %{buildroot}/%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

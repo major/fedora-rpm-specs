@@ -6,7 +6,7 @@
 
 Name:		bleachbit
 Version:	4.4.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Remove sensitive data and free up disk space
 
 License:	GPLv3+
@@ -101,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bleachbit
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

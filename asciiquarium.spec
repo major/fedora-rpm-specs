@@ -1,6 +1,6 @@
 Name:           asciiquarium
 Version:        1.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        ASCII art aquarium/sea animation
 
 License:        GPLv2+
@@ -29,6 +29,9 @@ install -p -D -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

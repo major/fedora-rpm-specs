@@ -1,6 +1,6 @@
 Name:           cura-fdm-materials
 Version:        5.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cura FDM Material database
 
 # See https://github.com/Ultimaker/Cura/issues/1779 for clarification
@@ -50,6 +50,9 @@ cp %{SOURCE2} %{SOURCE3} .
 %{_datadir}/cura/resources/materials/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar  9 2023 Tom Callaway <spot@fedoraproject.org> - 5.3.0-1
 - update to 5.3.0
 

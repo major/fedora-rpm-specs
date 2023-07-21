@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.9.2
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pattern language for improvised music
 
 License:        GPL-3.0-or-later
@@ -156,6 +156,9 @@ echo %{_bindir}/linktest >> %{tidallink}/ghc-tidal-link-devel.files
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 1.9.2-1
 - https://hackage.haskell.org/package/tidal-1.9.2/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

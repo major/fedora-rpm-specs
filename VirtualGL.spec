@@ -7,7 +7,7 @@ Source0:        http://downloads.sourceforge.net/project/virtualgl/VirtualGL/%{v
 Patch1:         %{name}-redhatpathsfix.patch
 # fix for bz1088475
 Patch2:         %{name}-redhatlibexecpathsfix.patch
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        wxWindows
 BuildRequires:  make
 %if 0%{?rhel} == 7
@@ -159,6 +159,9 @@ mv $RPM_BUILD_ROOT%{_bindir}/.vglrun.vars32 $RPM_BUILD_ROOT%{_libexecdir}/vglrun
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

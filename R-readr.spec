@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Read Rectangular Text Data
 
 # Mainly GPLv2+; only src/grisu3.? are ASL 2.0
@@ -94,6 +94,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.0-9
 - R-maint-sig mass rebuild
 

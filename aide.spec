@@ -1,7 +1,7 @@
 Summary:        Intrusion detection environment
 Name:           aide
 Version:        0.18.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            http://sourceforge.net/projects/aide
 License:        GPL-2.0-or-later
 
@@ -83,6 +83,9 @@ mkdir -p -m0700 %{buildroot}%{_localstatedir}/lib/aide
 %dir %attr(0700,root,root) %{_localstatedir}/log/aide
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 21 2023 Radovan Sroka <rsroka@redhat.com> - 0.18.4-1
 - aide-0.18.4 is available
 Resolves: rhbz#1910486

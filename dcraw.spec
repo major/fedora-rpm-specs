@@ -1,7 +1,7 @@
 Summary: Tool for decoding raw image data from digital cameras
 Name: dcraw
 Version: 9.28.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.dechifro.org/dcraw/
 Source0: http://www.dechifro.org/dcraw/archive/dcraw-%{version}.tar.gz
@@ -69,6 +69,9 @@ done
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.28.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 Josef Ridky <jridky@redhat.com> - 9.28.0-19
 - move to SPDX license format
 

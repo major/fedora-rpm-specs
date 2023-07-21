@@ -1,6 +1,6 @@
 Name:           3dprinter-udev-rules
 Version:        0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Rules for udev to give regular users access to operate 3D printers
 License:        MIT-0
 URL:            https://github.com/hroncok/%{name}
@@ -50,6 +50,9 @@ install -D -p -m 644 %{file_name} %{buildroot}%_udevrulesdir/%{file_name}
 %_udevrulesdir/%{file_name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

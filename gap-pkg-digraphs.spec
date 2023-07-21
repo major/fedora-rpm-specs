@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP package for digraphs and multidigraphs
 
 # The project as a whole is GPL-3.0-or-later.
@@ -104,6 +104,9 @@ rm -fr ../pkg
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr  6 2023 Jerry James <loganjerry@gmail.com> - 1.6.2-1
 - Version 1.6.2
 - Add patch to work around a test failure

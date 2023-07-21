@@ -1,7 +1,7 @@
 Name:		globus-gram-job-manager
 %global _name %(tr - _ <<< %{name})
 Version:	15.8
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Grid Community Toolkit - GRAM Jobmanager
 
 License:	Apache-2.0
@@ -161,6 +161,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %{_libdir}/libglobus_seg_job_manager.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

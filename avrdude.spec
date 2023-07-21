@@ -2,7 +2,7 @@
 
 Name:           avrdude
 Version:        6.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Software for programming Atmel AVR Microcontroller
 
 License:        GPLv2+
@@ -98,6 +98,9 @@ install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_pkgdocdir}/README.fedora
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

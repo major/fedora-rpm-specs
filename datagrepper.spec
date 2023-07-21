@@ -5,7 +5,7 @@
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A webapp to query fedmsg history
 
 License:        GPLv2+
@@ -68,6 +68,9 @@ install -m 644 apache/%{pypi_name}.cfg %{buildroot}%{_sysconfdir}/%{pypi_name}/%
 %{_libexecdir}/%{pypi_name}/%{pypi_name}.wsgi
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

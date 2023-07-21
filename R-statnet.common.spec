@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Common R Scripts and Utilities Used by the Statnet Project Software
 
 License:          GPL-3.0-only
@@ -75,6 +75,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 4.9.0-1
 - update to 4.9.0
 

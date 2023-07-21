@@ -15,9 +15,9 @@
 Name:          eom
 Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       1%{?dist}
+Release:       2%{?dist}
 %else
-Release:       0.17%{?git_rel}%{?dist}
+Release:       0.18%{?git_rel}%{?dist}
 %endif
 Summary:       Eye of MATE image viewer
 License:       GPLv2+ and LGPLv2+ 
@@ -128,6 +128,9 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 07 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1
 

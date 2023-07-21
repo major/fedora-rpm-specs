@@ -12,7 +12,7 @@ Name: ansible-core
 Summary: A radically simple IT automation system
 Version: 2.15.2
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -291,6 +291,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Maxwell G <maxwell@gtmx.me> - 2.15.2-1
 - Update to 2.15.2. Fixes rhbz#2223469.
 - Use the docs sources from https://github.com/ansible/ansible-documentation.

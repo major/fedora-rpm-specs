@@ -3,7 +3,7 @@
 
 Name:           abseil-cpp
 Version:        20230125.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -231,6 +231,9 @@ Development headers for %{name}
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230125.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20230125.3-1
 - Update to 20230125.3 (close RHBZ#2193306)
 - Split installed TESTONLY libraries into a -testing subpackage; explicitly

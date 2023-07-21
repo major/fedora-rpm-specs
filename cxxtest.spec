@@ -1,6 +1,6 @@
 Name:           cxxtest
 Version:        4.4
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A JUnit-like testing framework for C++
 
 License:        LGPL-3.0-only
@@ -132,6 +132,9 @@ install -D -p -m 644 doc/cxxtestgen.1 %{buildroot}%{_mandir}/man1/cxxtestgen.1
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul  6 2023 Jerry James <loganjerry@gmail.com> - 4.4-30
 - Convert License field to SPDX
 - Add patch to fix a code typo

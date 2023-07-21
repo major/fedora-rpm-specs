@@ -1,6 +1,6 @@
 Name: chan
 Version: 0.0.4
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Pure C implementation of Go channels
 License: Apache-2.0
 URL: https://github.com/tylertreat/%{name}
@@ -60,6 +60,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Nathan Scott <nathans@redhat.com> - 0.0.4-9
 - Switch to SPDX license string.
 

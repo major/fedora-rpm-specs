@@ -10,7 +10,7 @@
 
 Name:           crest
 Version:        2.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Conformer-Rotamer Ensemble Sampling Tool: a driver for the xtb program
 License:        GPLv3+
 URL:            https://xtb-docs.readthedocs.io/en/latest/crest.html
@@ -73,6 +73,9 @@ Phys. Chem. Chem. Phys., 2020, 22, 7169-7192.
 %{_mandir}/man1/crest.1.*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

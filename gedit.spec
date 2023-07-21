@@ -17,7 +17,7 @@
 Name:		gedit
 Epoch:		2
 Version:	44.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Text editor for the GNOME desktop
 
 License:	GPLv2+ and GFDL
@@ -164,6 +164,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_datadir}/vala/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:44.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2:44.2-2
 - Rebuilt for Python 3.12
 

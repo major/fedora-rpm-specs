@@ -2,7 +2,7 @@
 
 Name:		cranc
 Version:	1.1.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Pagure CLI for handling pull requests
 
 License:	GPLv3
@@ -50,6 +50,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest -v
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.0-12
 - Rebuilt for Python 3.12
 

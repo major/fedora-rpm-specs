@@ -1,10 +1,6 @@
-%global    defaultsanspkg    google-noto-sans-vf-fonts
-%global    defaultserifpkg   google-noto-serif-vf-fonts
-%global    defaultmonopkg    google-noto-sans-mono-vf-fonts
-
 Name:      langpacks
-Version:   3.0
-Release:   35%{?dist}
+Version:   4.0
+Release:   1%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -13,8 +9,9 @@ BuildRequires: python3 fontconfig
 # Below Source was available on https://people.freedesktop.org/~hughsient/temp/
 Source0:   org.fedoraproject.LangPacks.xml
 Source1:   org.fedoraproject.LangPacks-Core.xml
-Source2:   org.fedoraproject.LangPacks-Core-Font.xml
-Source3:   normlang.py
+Source2:   org.fedoraproject.default-fonts.xml
+Source3:   org.fedoraproject.langpacks-fonts.xml
+Source4:   normlang.py
 
 # to split up the AppStream file
 BuildRequires: libappstream-glib >= 0.5.10
@@ -35,1389 +32,1562 @@ Langpack meta-package to provide individual langpacks packages.
 # 6) Enabled zh_HK to set its own input method
 # 7) Enabled chr, dv, hy, iu, lo so that its default font be installed at least
 
-# langcore_pkg (defaultime,defaultfont,langcode,langname)
-%define langcore_pkg(i:f:l:n:) \
-%define langcode %{-l:%{-l*}}%{!-l:%{error:Language code not defined}} \
-%define langname %{-n:%{-n*}}%{!-n:%{error:Language name not defined}} \
-%define normcode %{lua:print((string.gsub(string.lower(rpm.expand("%{langcode}")), "_","-")))}\
-%define langortho %(python3 %{SOURCE3} %{langcode}) \
-%define lowerortho %{lua:print(string.lower(rpm.expand("%{langortho}")))}\
-%define fontpkgcode %{lua:print((string.gsub(rpm.expand("%{langortho}"),"-","_")))}\
-\
-%package core-%{langcode}\
-Summary: %{langname} langpacks core meta-package\
-Requires: langpacks-core-font-%{fontpkgcode}\
-%{-i:Requires: (%{-i*} if xorg-x11-server-Xorg)} \
-\
-%description core-%{langcode}\
-This package provides %{langname} core langpacks packages.\
-\
-%files core-%{langcode}\
-%{_datadir}/metainfo/org.fedoraproject.LangPack-Core-%{langcode}.metainfo.xml\
-\
-%if "%{normcode}" == "%{lowerortho}"\
-%package core-font-%{fontpkgcode}\
-Summary: %{langname} core font meta-package\
-%{-f:Requires: %{-f*}}%{!-f:Requires: %{defaultsanspkg}} \
-%{-l:Provides: font(:lang=%{lowerortho})}  \
-%if "%{lowerortho}" != "%{fontpkgcode}"\
-Provides: langpacks-core-font-%{lowerortho} = %{version}-%{release} \
-Obsoletes: langpacks-core-font-%{lowerortho} < %{version}-%{release} \
-%endif \
-\
-%description core-font-%{fontpkgcode}\
-This package defines the default font for %{langname} language.\
-\
-%files core-font-%{fontpkgcode}\
-%{_datadir}/metainfo/org.fedoraproject.LangPack-Core-Font-%{fontpkgcode}.metainfo.xml\
-%endif
-
-%package af
-Summary: Afrikaans langpacks meta-package
-Requires: %{name}-core-af
-
-%description af
-This package provides Afrikaans langpacks meta-package.
-
-%files af
-%{_datadir}/metainfo/org.fedoraproject.LangPack-af.metainfo.xml
-
-%langcore_pkg -l af -n Afrikaans
-
-%package am
-Summary: Amharic langpacks meta-package
-Requires: %{name}-core-am
-%if 0%{?fedora}
-Recommends: senamirmir-washra-fantuwua-fonts
-Recommends: senamirmir-washra-fonts
-Recommends: senamirmir-washra-hiwua-fonts
-Recommends: senamirmir-washra-jiret-fonts
-Recommends: senamirmir-washra-tint-fonts
-Recommends: senamirmir-washra-wookianos-fonts
-Recommends: senamirmir-washra-yebse-fonts
-Recommends: senamirmir-washra-yigezu-bisrat-goffer-fonts
-Recommends: senamirmir-washra-yigezu-bisrat-gothic-fonts
-Recommends: senamirmir-washra-zelan-fonts
-Recommends: xorg-x11-fonts-ethiopic
-Recommends: google-noto-serif-ethiopic-vf-fonts
-Recommends: sil-abyssinica-fonts
-%endif
-
-%description am
-This package provides Amharic langpacks meta-package.
-
-%files am
-%{_datadir}/metainfo/org.fedoraproject.LangPack-am.metainfo.xml
-
-%langcore_pkg -l am -n Amharic -f google-noto-sans-ethiopic-vf-fonts
-
-%package ar
-Summary: Arabic langpacks meta-package
-Requires: %{name}-core-ar
-Recommends: %{defaultmonopkg}
-%if 0%{?fedora}
-Recommends: google-noto-sans-arabic-vf-fonts
-Recommends: kacst-art-fonts
-Recommends: kacst-book-fonts
-Recommends: kacst-decorative-fonts
-Recommends: kacst-digital-fonts
-Recommends: kacst-farsi-fonts
-Recommends: kacst-letter-fonts
-Recommends: kacst-naskh-fonts
-Recommends: kacst-office-fonts
-Recommends: kacst-one-fonts
-Recommends: kacst-pen-fonts
-Recommends: kacst-poster-fonts
-Recommends: kacst-qurn-fonts
-Recommends: kacst-screen-fonts
-Recommends: kacst-title-fonts
-Recommends: kacst-titlel-fonts
-%endif
-
-%description ar
-This package provides Arabic langpacks meta-package.
+# package list
+#
+# Writing this in LUA to make it more visible and easy to maintain.
+#
+# lang: language identifier
+# fclang: language identifier in fontconfig. lang will be used if not present
+# default: default font sets
+#  face: default typeface for default-fonts-<language code>.
+#  sans: default sans-serif font package
+#  serif: default serif font package
+#  mono: default monospace font package
+# recommends: recommended font packages to be installed
+#             only activated for Fedora
+# inputmethod: input method to be pulled by core meta package
+# meta: dependencies foe langpacks meta package
+#  requires: required packages by meta package
+#  recommends: recommended packages by meta package
+#
+# Adding fedora_ prefix to inputmethod and meta.requires/meta.recommends will be available for Fedora only.
+#
+# See defcorepkg, deffontpkg, and defmetapkg for package template
+%{lua:
+local core_font_package_list = {
+  default={
+    sans={ "abattis-cantarell-vf-fonts", "google-noto-sans-vf-fonts" },
+    serif={ "google-noto-serif-vf-fonts" },
+    mono={ "google-noto-sans-mono-vf-fonts" },
+    emoji={ "google-noto-emoji-color-fonts" },
+    math={ "google-noto-sans-math-fonts", "stix-fonts", "google-noto-sans-symbols-vf-fonts", "google-noto-sans-symbols2-fonts" }
+  }
+}
+local langpacks_package_list = {
+ { lang="af", fclang="", langname="Afrikaans", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={},
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="am", fclang="", langname="Amharic", default={
+                sans="google-noto-sans-ethiopic-vf-fonts",
+                serif="",
+                mono="" },
+   recommends={ "senamirmir-washra-fantuwua-fonts",
+                "senamirmir-washra-fonts",
+                "senamirmir-washra-hiwua-fonts",
+                "senamirmir-washra-jiret-fonts",
+                "senamirmir-washra-tint-fonts",
+                "senamirmir-washra-wookianos-fonts",
+                "senamirmir-washra-yebse-fonts",
+                "senamirmir-washra-yigezu-bisrat-goffer-fonts",
+                "senamirmir-washra-yigezu-bisrat-gothic-fonts",
+                "senamirmir-washra-zelan-fonts",
+                "xorg-x11-fonts-ethiopic",
+                "google-noto-serif-ethiopic-vf-fonts",
+                "sil-abyssinica-fonts"
+                },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ar", fclang="", langname="Arabic", default={
+                sans="google-noto-sans-arabic-vf-fonts",
+                serif="google-noto-naskh-arabic-vf-fonts",
+                mono="" },
+   recommends={ "paktype-naqsh-fonts",
+                "paktype-tehreer-fonts",
+                "kacst-art-fonts",
+                "kacst-book-fonts",
+                "kacst-decorative-fonts",
+                "kacst-digital-fonts",
+                "kacst-farsi-fonts",
+                "kacst-letter-fonts",
+                "kacst-naskh-fonts",
+                "kacst-office-fonts",
+                "kacst-one-fonts",
+                "kacst-pen-fonts",
+                "kacst-poster-fonts",
+                "kacst-qurn-fonts",
+                "kacst-screen-fonts",
+                "kacst-title-fonts",
+                "kacst-titlel-fonts"
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="as", fclang="", langname="Assamese", default={
+                sans="lohit-assamese-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-bengali-vf-fonts",
+                "google-noto-sans-bengali-ui-vf-fonts",
+                "google-noto-serif-bengali-vf-fonts"
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ast", fclang="", langname="Asturian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="be", fclang="", langname="Belarusian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="bg", fclang="", langname="Bulgarian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="bn", fclang="", langname="Bengali", default={
+                sans="lohit-bengali-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-bengali-vf-fonts",
+                "google-noto-sans-bengali-ui-vf-fonts",
+                "google-noto-serif-bengali-vf-fonts"
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="bo", fclang="", langname="Tibetan", default={
+                sans="jomolhari-fonts",
+                serif="",
+                mono="" },
+   recommends={ "tibetan-machine-uni-fonts"
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="br", fclang="", langname="Breton", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="bs", fclang="", langname="Bosnian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ca", fclang="", langname="Catalan", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="chr", fclang="", langname="Cherokee", default={
+                sans="google-noto-sans-cherokee-vf-fonts",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="cs", fclang="", langname="Czech", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="cy", fclang="", langname="Welsh", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="da", fclang="", langname="Danish", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="de", fclang="", langname="German", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="dv", fclang="", langname="Divehi", default={
+                sans="google-noto-sans-thaana-vf-fonts",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="dz", fclang="", langname="Bhutanese", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="el", fclang="", langname="Greek", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="en", fclang="", langname="English", default={
+                sans="", -- Do not add anything here. default-fonts-en is equivalent to default-fonts-core-sans 
+                serif="",
+                mono="" },
+   recommends={ "liberation-sans-fonts",
+                "liberation-serif-fonts",
+                "liberation-mono-fonts",
+                "sil-mingzat-fonts",
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="en_GB", fclang="en", langname="English (United Kingdom)", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="eo", fclang="", langname="Esperanto", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="es", fclang="", langname="Spanish", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="et", fclang="", langname="Estonian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="eu", fclang="", langname="Basque", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="fa", fclang="", langname="Persian", default={
+                sans="vazirmatn-vf-fonts",
+                serif="google-noto-naskh-arabic-vf-fonts",
+                mono="" },
+   recommends={ "google-noto-naskh-arabic-vf-fonts"
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="fi", fclang="", langname="Finnish", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="fr", fclang="", langname="French", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ga", fclang="", langname="Irish", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="gl", fclang="", langname="Galician", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="gu", fclang="", langname="Gujarati", default={
+                sans="lohit-gujarati-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-gujarati-fonts",
+                "google-noto-sans-gujarati-ui-fonts",
+                "google-noto-serif-gujarati-fonts",
+                "samyak-gujarati-fonts"
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="he", fclang="", langname="Hebrew", default={
+                sans="google-noto-sans-hebrew-vf-fonts",
+                serif="google-noto-serif-hebrew-vf-fonts",
+                mono="" },
+   recommends={ "culmus-aharoni-clm-fonts",
+                "culmus-caladings-clm-fonts",
+                "culmus-david-clm-fonts",
+                "culmus-drugulin-clm-fonts",
+                "culmus-ellinia-clm-fonts",
+                "culmus-frank-ruehl-clm-fonts",
+                "culmus-hadasim-clm-fonts",
+                "culmus-keteryg-fonts",
+                "culmus-miriam-clm-fonts",
+                "culmus-miriam-mono-clm-fonts",
+                "culmus-nachlieli-clm-fonts",
+                "culmus-simple-clm-fonts",
+                "culmus-stamashkenaz-clm-fonts",
+                "culmus-stamsefarad-clm-fonts",
+                "culmus-yehuda-clm-fonts",
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="hi", fclang="", langname="Hindi", default={
+                sans="lohit-devanagari-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-devanagari-vf-fonts",
+                "google-noto-sans-devanagari-ui-vf-fonts",
+                "google-noto-serif-devanagari-vf-fonts",
+                "samyak-devanagari-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="hr", fclang="", langname="Croatian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="hu", fclang="", langname="Hungarian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="hy", fclang="", langname="Armenian", default={
+                sans="google-noto-sans-armenian-vf-fonts",
+                serif="google-noto-serif-armenian-vf-fonts",
+                mono="" },
+   recommends={ 
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ia", fclang="", langname="Interlingua", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="id", fclang="", langname="Indonesian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="is", fclang="", langname="Icelandic", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="it", fclang="", langname="Italian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="iu", fclang="", langname="Inuktitut", default={
+                sans="google-noto-sans-canadian-aboriginal-vf-fonts",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ja", fclang="", langname="Japanese", default={
+                sans="google-noto-sans-cjk-vf-fonts",
+                serif="google-noto-serif-cjk-vf-fonts",
+                mono="" },
+   recommends={
+              },
+   inputmethod="ibus-anthy",
+   meta={ requires={},
+          recommends={},
+           fedora_recommends={ "(uim-anthy if uim)" }
+   },
+ },
+ { lang="ka", fclang="", langname="Georgian", default={
+                sans="google-noto-sans-georgian-vf-fonts",
+                serif="google-noto-serif-georgian-vf-fonts",
+                mono="" },
+   recommends={ "bpg-chveulebrivi-fonts",
+                "bpg-courier-fonts",
+                "bpg-glaho-fonts",
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="kk", fclang="", langname="Kazakh", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="km", fclang="", langname="Khmer", default={
+                sans="google-noto-sans-khmer-vf-fonts",
+                serif="google-noto-serif-khmer-vf-fonts",
+                mono="" },
+   recommends={ "khmer-os-system-fonts",
+                "khmer-os-battambang-fonts",
+                "khmer-os-bokor-fonts",
+                "khmer-os-content-fonts",
+                "khmer-os-fasthand-fonts",
+                "khmer-os-freehand-fonts",
+                "khmer-os-handwritten-fonts",
+                "khmer-os-metal-chrieng-fonts",
+                "khmer-os-muol-fonts-all",
+                "khmer-os-siemreap-fonts",
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="kn", fclang="", langname="Kannada", default={
+                sans="lohit-kannada-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-kannada-vf-fonts",
+                "google-noto-sans-kannada-ui-vf-fonts",
+                "google-noto-serif-kannada-vf-fonts",
+                "gubbi-fonts",
+                "navilu-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ko", fclang="", langname="Korean", default={
+                sans="google-noto-sans-cjk-vf-fonts",
+                serif="google-noto-serif-cjk-vf-fonts",
+                mono="" },
+   recommends={
+              },
+   inputmethod="ibus-hangul",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ku", fclang="", langname="Kurdish", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="lo", fclang="", langname="Lao", default={
+                sans="google-noto-sans-lao-vf-fonts",
+                serif="google-noto-serif-lao-vf-fonts",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="lt", fclang="", langname="Lithuanian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="lv", fclang="", langname="Latvian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="mai", fclang="", langname="Maithili", default={
+                sans="lohit-devanagari-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-devanagari-vf-fonts",
+                "google-noto-sans-devanagari-ui-vf-fonts",
+                "google-noto-serif-devanagari-vf-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="mk", fclang="", langname="Macedonian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ml", fclang="", langname="Malayalam", default={
+                sans="rit-meera-new-fonts",
+                serif="rit-rachana-fonts",
+                mono="" },
+   recommends={ "google-noto-sans-malayalam-vf-fonts",
+                "google-noto-sans-malayalam-ui-vf-fonts",
+                "google-noto-serif-malayalam-vf-fonts",
+                "lohit-malayalam-fonts",
+                "samyak-malayalam-fonts",
+                "smc-anjalioldlipi-fonts",
+                "smc-dyuthi-fonts",
+                "smc-raghumalayalamsans-fonts",
+                "smc-suruma-fonts",
+                "rit-sundar-fonts",
+                "rit-panmana-fonts",
+                "rit-ezhuthu-fonts",
+                "rit-tn-joy-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="mr", fclang="", langname="Marathi", default={
+                sans="lohit-marathi-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-devanagari-vf-fonts",
+                "google-noto-sans-devanagari-ui-vf-fonts",
+                "google-noto-serif-devanagari-vf-fonts",
+                "samyak-devanagari-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ms", fclang="", langname="Malay", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="my", fclang="", langname="Burmese", default={
+                sans="sil-padauk-fonts",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="nb", fclang="", langname="Norwegian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ne", fclang="", langname="Nepali", default={
+                sans="madan-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-devanagari-vf-fonts",
+                "google-noto-sans-devanagari-ui-vf-fonts",
+                "google-noto-serif-devanagari-vf-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="nl", fclang="", langname="Dutch", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="nn", fclang="", langname="Nynorsk", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="nr", fclang="", langname="Southern Ndebele", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="nso", fclang="", langname="Northern Sotho", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="or", fclang="", langname="Odia", default={
+                sans="lohit-odia-fonts",
+                serif="",
+                mono="" },
+   recommends={ "samyak-odia-fonts",
+                "google-noto-sans-oriya-fonts",
+                "google-noto-sans-oriya-vf-fonts",
+                "google-noto-serif-oriya-fonts",
+                "google-noto-serif-oriya-vf-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="pa", fclang="", langname="Punjabi", default={
+                sans="google-noto-sans-gurmukhi-vf-fonts",
+                serif="google-noto-naskh-arabic-vf-fonts",
+                mono="" },
+   recommends={ "saab-fonts",
+                "lohit-gurmukhi-fonts",
+                "google-noto-serif-gurmukhi-vf-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="pl", fclang="", langname="Polish", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="pt_BR", fclang="pt", langname="Portuguese (Brazil)", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="pt", fclang="", langname="Portuguese", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ro", fclang="", langname="Romanian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ru", fclang="", langname="Russian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={ "pt-sans-fonts",
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="si", fclang="", langname="Sinhala", default={
+                sans="google-noto-sans-sinhala-vf-fonts",
+                serif="google-noto-serif-sinhala-vf-fonts",
+                mono="" },
+   recommends={
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="sk", fclang="", langname="Slovak", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="sl", fclang="", langname="Slovenian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="sq", fclang="", langname="Albanian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="sr", fclang="", langname="Serbian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ss", fclang="", langname="Swati", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="sv", fclang="", langname="Swedish", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ta", fclang="", langname="Tamil", default={
+                sans="lohit-tamil-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-tamil-vf-fonts",
+                "google-noto-sans-tamil-ui-vf-fonts",
+                "google-noto-serif-tamil-vf-fonts",
+                "samyak-tamil-fonts",
+                "serafettin-cartoon-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="te", fclang="", langname="Telugu", default={
+                sans="lohit-telugu-fonts",
+                serif="",
+                mono="" },
+   recommends={ "google-noto-sans-telugu-fonts",
+                "google-noto-sans-telugu-ui-fonts",
+                "google-noto-serif-telugu-fonts",
+                "pothana2000-fonts",
+                "vemana2000-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="th", fclang="", langname="Thai", default={
+                sans="google-noto-sans-thai-vf-fonts",
+                serif="google-noto-serif-thai-vf-fonts",
+                mono="" },
+   recommends={ "tlwg-garuda-fonts",
+                "tlwg-kinnari-fonts",
+                "tlwg-laksaman-fonts",
+                "tlwg-loma-fonts",
+                "tlwg-norasi-fonts",
+                "tlwg-purisa-fonts",
+                "tlwg-sawasdee-fonts",
+                "tlwg-tlwgmono-fonts",
+                "tlwg-tlwgtypewriter-fonts",
+                "tlwg-tlwgtypist-fonts",
+                "tlwg-tlwgtypo-fonts",
+                "tlwg-umpush-fonts",
+                "tlwg-waree-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="tn", fclang="", langname="Tswana", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="tr", fclang="", langname="Turkish", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ts", fclang="", langname="Tsonga", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="uk", fclang="", langname="Ukrainian", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ur", fclang="", langname="Urdu", default={
+                sans="paktype-naskh-basic-fonts",
+                serif="google-noto-naskh-arabic-vf-fonts",
+                mono="" },
+   recommends={ "nafees-nastaleeq-fonts",
+                "nafees-web-naskh-fonts",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ve", fclang="", langname="Venda", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="vi", fclang="", langname="Vietnamese", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   fedora_inputmethod="ibus-unikey",
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="xh", fclang="", langname="Xhosa", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="yi", fclang="", langname="Yiddish", default={
+                sans="sil-nuosu-fonts",
+                serif="",
+                mono="" },
+   recommends={ "culmus-aharoni-clm-fonts",
+                "culmus-caladings-clm-fonts",
+                "culmus-david-clm-fonts",
+                "culmus-drugulin-clm-fonts",
+                "culmus-ellinia-clm-fonts",
+                "culmus-frank-ruehl-clm-fonts",
+                "culmus-hadasim-clm-fonts",
+                "culmus-keteryg-fonts",
+                "culmus-miriam-clm-fonts",
+                "culmus-miriam-mono-clm-fonts",
+                "culmus-nachlieli-clm-fonts",
+                "culmus-simple-clm-fonts",
+                "culmus-stamashkenaz-clm-fonts",
+                "culmus-stamsefarad-clm-fonts",
+                "culmus-yehuda-clm-fonts",
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="zh_CN", fclang="", langname="Simplified Chinese", default={
+                sans="google-noto-sans-cjk-vf-fonts",
+                serif="google-noto-serif-cjk-vf-fonts",
+                mono="" },
+   recommends={
+              },
+   inputmethod="ibus-libpinyin",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="zh_HK", fclang="", langname="Hong Kong Traditional Chinese", default={
+                sans="google-noto-sans-cjk-vf-fonts",
+                serif="google-noto-serif-cjk-vf-fonts",
+                mono="" },
+   recommends={
+              },
+   inputmethod="ibus-table-chinese-cangjie",
+   meta={ requires={},
+          recommends={ "ibus-table-chinese-quick" }
+   },
+ },
+ { lang="zh_TW", fclang="", langname="Taiwan", default={
+                sans="google-noto-sans-cjk-vf-fonts",
+                serif="google-noto-serif-cjk-vf-fonts",
+                mono="" },
+   recommends={
+              },
+   inputmethod="ibus-libzhuyin",
+   meta={ requires={},
+          recommends={ "ibus-table-chinese-cangjie",
+                       "ibus-table-chinese-quick"
+          }
+   },
+ },
+ { lang="zu", fclang="", langname="Zulu", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+--[[
+ { lang="", fclang="", langname="", default={
+                sans="",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+]]
+}
+
+--Miscellaneous functions
+local function is_nonlatin(lang)
+  local latinlang = { "af", "az", "bs", "ca", "cs", "cy", "da", "de", "en", "es", "et", "fil", "fi", "fo", "fr", "ga", "gd", "gl", "hr", "hu", "id", "is", "it", "kk", "ky", "lb", "lt", "lv", "mk", "mont", "ms", "mt", "nl", "no", "pl", "pt", "ro", "sk", "sl", "sq", "sr", "sv", "sw", "tg", "tk", "tr", "uz" }
+
+  for i = 1, #latinlang do
+    n, _ = string.find(lang, latinlang[i] .. "[_%a]*")
+      if n == 1 then
+        return false
+      end
+  end
+  return true
+end
+
+local function is_cjk(lang)
+  local pat = { "ja", "ko", "zh" }
+  for i = 1, #pat do
+    n, _ = string.find(lang, pat[i] .. "[_%a]*")
+    if n == 1 then
+      return true
+    end
+  end
+  return false
+end
+
+local function build_deps(deps, tag, pkgs)
+  local ret = ""
+  for i = 1, #pkgs do
+    ret = ret .. (pkgs[i] ~= "" and (tag .. ":   " .. pkgs[i] .. "\n") or "")
+  end
+  return deps .. ret
+end
+
+local function drop_duplicate(pkgs)
+  local hash = {}
+  local ret = {}
+  for _, v in ipairs(pkgs) do
+    if (not hash[v]) then
+      table.insert(ret, v)
+      hash[v] = true
+    end
+  end
+  return ret
+end
+
+local function append_fontprov(deps, lang)
+  return deps .. (lang ~= "" and ("Provides:   font(:lang=" .. lang .. ")\n") or "")
+end
+
+local function append_obsolete(deps, pkg)
+  return deps .. build_deps("", "Obsoletes", {pkg .. " < %{version}-%{release}"}) .. build_deps("", "Provides", {pkg .. " = %{version}-%{release}"})
+end
+
+--
+--Package template for langpacks-core-<lang>
+--
+local function defcorepkg(lang, fontlang, langname, inputmethod)
+  local templ = [[
+%package core-%{_lang}
+Summary: %{_langname} langpacks core meta-package
+Requires: default-fonts-%{_fontlang}
+%{?_req}
+
+%description core-%{_lang}
+This package provides %{_langname} core langpacks packages.
+
+%files core-%{_lang}
+%{_datadir}/metainfo/org.fedoraproject.LangPack-Core-%{_lang}.metainfo.xml
+
+]]
+  inputmethod = (not(inputmethod) and "" or inputmethod)
+  rpm.define("_lang " .. lang)
+  rpm.define("_fontlang " .. string.gsub(fontlang, "-", "_"))
+  rpm.define("_langname " .. langname)
+  if inputmethod ~= "" then
+    rpm.define("_req " .. "Requires: (" .. inputmethod .. " if xorg-x11-server-Xorg)\n")
+  end
+  print(rpm.expand(templ))
+  rpm.undefine("_lang")
+  rpm.undefine("_fontlang")
+  rpm.undefine("_langname")
+  rpm.undefine("_req")
+end
+
+--
+--Package template for fonts metapackage like default-fonts-*
+--
+local function _deffontpkg(pkgname, summary1, summary2, deps, files)
+  local templ = [[
+%package -n %{_pkgname}
+Summary:    Metapackage to install %{_summary1} for %{_summary2}
+%{?_req}
+
+%description -n %{_pkgname}
+This package provides %{_summary1} package set(s) for %{_summary2}
+
+%files -n %{_pkgname}
+%{_files}
+
+]]
+  local f = table.concat(files, "\n")
+  rpm.define("_pkgname " .. pkgname)
+  rpm.define("_summary1 " .. summary1)
+  rpm.define("_summary2 " .. summary2)
+  rpm.define("_files %{expand:" .. f .. "}")
+  if req ~= "" then
+    rpm.define("_req %{expand:" .. deps .. "}")
+  end
+  print(rpm.expand(templ))
+  rpm.undefine("_files")
+  rpm.undefine("_summary1")
+  rpm.undefine("_summary2")
+  rpm.undefine("_pkgname")
+  rpm.undefine("_req")
+end
+
+local function deffontpkg(pkgname, summary1, summary2, deps)
+  _deffontpkg(pkgname, summary1, summary2, deps,
+              {"%{_datadir}/metainfo/org.fedoraproject.%{_pkgname}.metainfo.xml"})
+end
+
+local function defcorefontpkg(target_langs, deps)
+  local req = ""
+  local files = {"%{_datadir}/metainfo/org.fedoraproject.default-fonts-core-sans.metainfo.xml"}
+  for i = 1, #target_langs do
+    -- Add Provides: font(:lang=LL) and Obsoletes/Provides: default-fonts-LL
+    req = append_obsolete(append_fontprov(req, target_langs[i]), "default-fonts-" .. target_langs[i])
+    req = append_obsolete(req, "langpacks-core-font-" .. target_langs[i])
+    table.insert(files, "%{_datadir}/metainfo/org.fedoraproject.default-fonts-" .. target_langs[i] .. ".metainfo.xml")
+  end
+  _deffontpkg("default-fonts-core-sans", "default sans-serif fonts", "Western characters", build_deps(req, "Requires", drop_duplicate(deps)), files)
+end
+
+--
+--Package template for langpacks-<lang>
+--
+local function defmetapkg(lang, fontlang, langname, deps)
+  local templ = [[
+%package %{_lang}
+Summary: %{_langname} langpacks meta-package
+Requires: %{name}-core-%{_lang}
+Requires: %{name}-fonts-%{_fontlang}
+%{?_req}
+
+%description %{_lang}
+This package provides %{_langname} langpacks meta-package.
+
+%files %{_lang}
+%{_datadir}/metainfo/org.fedoraproject.LangPack-%{_lang}.metainfo.xml
+
+]]
+  rpm.define("_lang " .. lang)
+  rpm.define("_fontlang " .. fontlang)
+  rpm.define("_langname " .. langname)
+  if deps ~= "" then
+    rpm.define("_req %{expand:" .. deps .. "}")
+  end
+  print(rpm.expand(templ))
+  rpm.undefine("_lang")
+  rpm.undefine("_fontlang")
+  rpm.undefine("_langname")
+  rpm.undefine("_req")
+end
+
+local other_deps = { sans={}, serif={}, mono={} }
+local cjk_deps = { sans={}, serif={}, mono={} }
+local face = { "sans", "serif", "mono" }
+local core_langs = {}
+local core_deps = {}
+
+for i = 1, #langpacks_package_list do
+  -- dependency list for default-fonts-<lang>
+  local default_deps = {}
+  -- dependency list for langpacks-fonts-<lang>
+  local extra_deps = {}
+  local lang = langpacks_package_list[i]["lang"]
+  rpm.define("langcode " .. lang .. "\n")
+  local orth = rpm.expand("%(python3 %{SOURCE4} %{langcode})")
+  rpm.undefine("langcode")
+  local lowerorth = string.lower(orth)
+  local normlang = string.gsub(string.lower(lang), "_", "-")
+  local langname = langpacks_package_list[i]["langname"]
+  local im = (tonumber(rpm.expand("%{fedora}")) ~= 0 and langpacks_package_list[i]["fedora_inputmethod"] ~= nil and langpacks_package_list[i]["fedora_inputmethod"] or langpacks_package_list[i]["inputmethod"])
+  local fclang = (langpacks_package_list[i]["fclang"] == "" and string.gsub(lang, "_", "-") or langpacks_package_list[i]["fclang"])
+  local prov = ""
+
+  if orth ~= "" then
+    --Try to validate orth in table
+    if fclang ~= orth then
+      print(rpm.expand("%{error:fclang value is invalid for " .. lang .. "}"))
+    end
+  end
+
+  if langpacks_package_list[i]["default"] ~= nil then
+    local has_default = false
+    local default_face = langpacks_package_list[i]["default"]["face"] and langpacks_package_list[i]["default"]["face"] or "sans"
+    for j = 1, #face do
+      local current = {langpacks_package_list[i]["default"][face[j]]}
+      if current[1] ~= "" then
+        has_default = true
+      end
+    end
+    for j = 1, #face do
+      local current = (has_default and {langpacks_package_list[i]["default"][face[j]]} or core_font_package_list["default"][face[j]])
+
+      -- Only install a font which is set by "face" or "sans" if not, for default-fonts-<language code>
+      if face[j] == default_face then
+        for k = 1, #current do
+          table.insert(default_deps, current[k])
+        end
+        -- Make sure default-fonts-<language code> pulled in by langpacks-fonts-<language code>
+        table.insert(extra_deps, "default-fonts-" .. string.gsub(fclang, "-", "_") .. " = %{version}-%{release}")
+        -- Provide font(:lang=) deps for default face only
+        prov = append_fontprov("", lowerorth)
+
+        if is_nonlatin(lang) then
+          if is_cjk(lang) then
+            table.insert(cjk_deps[face[j]], "default-fonts-" .. string.gsub(fclang, "-", "_") .. " = %{version}-%{release}")
+          else
+            table.insert(other_deps[face[j]], "default-fonts-" .. string.gsub(fclang, "-", "_") .. " = %{version}-%{release}")
+          end
+        end
+      else
+        for k = 1, #current do
+          table.insert(extra_deps, current[k])
+
+          if is_cjk(lang) then
+            table.insert(cjk_deps[face[j]], current[k])
+          else
+            table.insert(other_deps[face[j]], current[k])
+          end
+        end
+      end
+    end
+
+    default_deps = build_deps(prov, "Requires", drop_duplicate(default_deps))
+    extra_deps = build_deps("", "Requires", drop_duplicate(extra_deps))
+  end
+  if (tonumber(rpm.expand("%{fedora}")) ~= 0 and langpacks_package_list[i]["recommends"] ~= nil) then
+    extra_deps = build_deps(extra_deps, "Recommends", drop_duplicate(langpacks_package_list[i]["recommends"]))
+  end
+
+  --Generate extra font package only when lang is recognized by fontconfig
+  if lowerorth == normlang then
+    -- Integrate default-fonts-<language code> into default-fonts-core-sans
+    -- if it is a latin language and no default fonts is set
+    if not is_nonlatin(lang) then
+      if has_default then
+        -- We may need to take care of them separately.
+        table.insert(core_deps, "default-fonts-" .. lang .. " = %{version}-%{release}")
+      else
+        table.insert(core_langs, lang)
+      end
+    else
+      deffontpkg("default-fonts-" .. lang, "default fonts", langname, append_obsolete(default_deps, "langpacks-core-font-" .. lang))
+    end
+    deffontpkg("langpacks-fonts-" .. lang, "extra fonts", langname, append_obsolete(extra_deps, "default-fonts-extra-" .. lang))
+  end
+  defcorepkg(lang, fclang, langname, im)
+
+  --Generate langpacks-* meta packages
+  local metadeps = (tonumber(rpm.expand("%{fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_requires"] ~= nil and langpacks_package_list[i]["meta"]["fedora_requires"] or langpacks_package_list[i]["meta"]["requires"])
+  local metarecd = (tonumber(rpm.expand("%{fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_recommends"] ~= nil and langpacks_package_list[i]["meta"]["fedora_recommends"] or langpacks_package_list[i]["meta"]["recommends"])
+  local deps = build_deps("", "Requires", drop_duplicate(metadeps))
+  deps = build_deps(deps, "Recommends", drop_duplicate(metarecd))
+  defmetapkg(lang, fclang, langname, deps)
+end
+
+for i = 1, #face do
+  deffontpkg("default-fonts-other-" .. face[i], "default fonts", "non-CJK languages", build_deps("", "Requires", drop_duplicate(other_deps[face[i]])))
+  deffontpkg("default-fonts-cjk-" .. face[i], "default fonts", "CJK languages", build_deps("", "Requires", drop_duplicate(cjk_deps[face[i]])))
+end
+
+--core font packages except sans - core-sans may want to have special deps to default-fonts-<language code>
+for i = 1, #core_font_package_list["default"]["sans"] do
+  table.insert(core_deps, core_font_package_list["default"]["sans"][i])
+end
+defcorefontpkg(core_langs, core_deps)
+
+local coreface = { "serif", "mono", "emoji", "math" }
+for i = 1, #coreface do
+  local sum1 = "default " .. coreface[i] .. " fonts"
+  local sum2 = "Western characters"
+  if coreface[i] == "emoji" or coreface[i] == "math" then
+    sum1 = "default fonts"
+    sum2 = coreface[i]:gsub("^%l", string.upper)
+  end
+  deffontpkg("default-fonts-core-" .. coreface[i], sum1, sum2, build_deps("", "Requires", drop_duplicate(core_font_package_list["default"][coreface[i]])))
+end
+} # %{lua:}
+
+%package -n default-fonts
+Summary: Meta package to install all the default fonts
+Requires: default-fonts-core = %{version}-%{release}
+Requires: default-fonts-cjk = %{version}-%{release}
+Requires: default-fonts-other = %{version}-%{release}
+
+%description -n default-fonts
+This package provides easier way to install all the default fonts meta packages for all the languages.
+
+%files -n default-fonts
+%{_datadir}/metainfo/org.fedoraproject.default-fonts.metainfo.xml
+
+%package -n default-fonts-core
+Summary: Meta package to install sans/serif/mono/emoji/math default fonts meta packages for Western characters
+Requires: default-fonts-core-sans = %{version}-%{release}
+Requires: default-fonts-core-serif = %{version}-%{release}
+Requires: default-fonts-core-mono = %{version}-%{release}
+Requires: default-fonts-core-emoji = %{version}-%{release}
+Requires: default-fonts-core-math = %{version}-%{release}
+
+%description -n default-fonts-core
+This package provides easier way to install all variants of default fonts meta packages for Western characters.
+
+%files -n default-fonts-core
+%{_datadir}/metainfo/org.fedoraproject.default-fonts-core.metainfo.xml
+
+%package -n default-fonts-cjk
+Summary: Meta package to install sans/serif/mono/emoji/math default fonts meta packages for CJK.
+Requires: default-fonts-cjk-sans = %{version}-%{release}
+Requires: default-fonts-cjk-serif = %{version}-%{release}
+Requires: default-fonts-cjk-mono = %{version}-%{release}
+
+%description -n default-fonts-cjk
+This package provides easier way to install all variants of default fonts meta packages
+for CJK languages.
+
+%files -n default-fonts-cjk
+%{_datadir}/metainfo/org.fedoraproject.default-fonts-cjk.metainfo.xml
+
+%package -n default-fonts-other
+Summary: Meta package to install sans/serif/mono/emoji/math default fonts meta packages for non-CJK.
+Requires: default-fonts-other-sans = %{version}-%{release}
+Requires: default-fonts-other-serif = %{version}-%{release}
+Requires: default-fonts-other-mono = %{version}-%{release}
+
+%description -n default-fonts-other
+This package provides easier way to install all variants of default fonts meta packages
+for non-CJK languages.
+
+%files -n default-fonts-other
+%{_datadir}/metainfo/org.fedoraproject.default-fonts-other.metainfo.xml
 
-%files ar
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ar.metainfo.xml
-
-%langcore_pkg -l ar -n Arabic -f google-noto-naskh-arabic-vf-fonts
-
-%package as
-Summary: Assamese langpacks meta-package
-Requires: %{name}-core-as
-%if 0%{?fedora}
-Recommends: google-noto-sans-bengali-vf-fonts
-Recommends: google-noto-sans-bengali-ui-vf-fonts
-Recommends: google-noto-serif-bengali-vf-fonts
-%endif
-
-%description as
-This package provides Assamese langpacks meta-package.
-
-%files as
-%{_datadir}/metainfo/org.fedoraproject.LangPack-as.metainfo.xml
-
-%langcore_pkg -l as -n Assamese -f lohit-assamese-fonts -i ibus-m17n
-
-%package ast
-Summary: Asturian langpacks meta-package
-Requires: %{name}-core-ast
-Recommends: %{defaultsanspkg}
-
-%description ast
-This package provides Asturian langpacks meta-package.
-
-%files ast
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ast.metainfo.xml
-
-%langcore_pkg -l ast -n Asturian
-
-%package be
-Summary: Belarusian langpacks meta-package
-Requires: %{name}-core-be
-
-%description be
-This package provides Belarusian langpacks meta-package.
-
-%files be
-%{_datadir}/metainfo/org.fedoraproject.LangPack-be.metainfo.xml
-
-%langcore_pkg -l be -n Belarusian
-
-%package bg
-Summary: Bulgarian langpacks meta-package
-Requires: %{name}-core-bg
-
-%description bg
-This package provides Bulgarian langpacks meta-package.
-
-%files bg
-%{_datadir}/metainfo/org.fedoraproject.LangPack-bg.metainfo.xml
-
-%langcore_pkg -l bg -n Bulgarian
-
-%package bn
-Summary: Bengali langpacks meta-package
-Requires: %{name}-core-bn
-%if 0%{?fedora}
-Recommends: google-noto-sans-bengali-vf-fonts
-Recommends: google-noto-sans-bengali-ui-vf-fonts
-Recommends: google-noto-serif-bengali-vf-fonts
-%endif
-
-%description bn
-This package provides Bengali langpacks meta-package.
-
-%files bn
-%{_datadir}/metainfo/org.fedoraproject.LangPack-bn.metainfo.xml
-
-%langcore_pkg -l bn -n Bengali -f lohit-bengali-fonts -i ibus-m17n
-
-%package bo
-Summary: Tibetan langpacks meta-package
-Requires: %{name}-core-bo
-%if 0%{?fedora}
-Recommends: tibetan-machine-uni-fonts
-%endif
-
-%description bo
-This package provides Tibetan langpacks meta-package.
-
-%files bo
-%{_datadir}/metainfo/org.fedoraproject.LangPack-bo.metainfo.xml
-
-%langcore_pkg -l bo -n Tibetan -f jomolhari-fonts -i ibus-m17n
-
-%package br
-Summary: Breton langpacks meta-package
-Requires: %{name}-core-br
-
-%description br
-This package provides Breton langpacks meta-package.
-
-%files br
-%{_datadir}/metainfo/org.fedoraproject.LangPack-br.metainfo.xml
-
-%langcore_pkg -l br -n Breton
-
-%package bs
-Summary: Bosnian langpacks meta-package
-Requires: %{name}-core-bs
-
-%description bs
-This package provides Bosnian langpacks meta-package.
-
-%files bs
-%{_datadir}/metainfo/org.fedoraproject.LangPack-bs.metainfo.xml
-
-%langcore_pkg -l bs -n Bosnian
-
-%package ca
-Summary: Catalan langpacks meta-package
-Requires: %{name}-core-ca
-
-%description ca
-This package provides Catalan langpacks meta-package.
-
-%files ca
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ca.metainfo.xml
-
-%langcore_pkg -l ca -n Catalan
-
-%package chr
-Summary: Cherokee langpacks meta-package
-Requires: %{name}-core-chr
-
-%description chr
-This package provides Cherokee langpacks meta-package.
-
-%files chr
-%{_datadir}/metainfo/org.fedoraproject.LangPack-chr.metainfo.xml
-
-%langcore_pkg -l chr -n Cherokee -f google-noto-sans-cherokee-vf-fonts
-
-%package cs
-Summary: Czech langpacks meta-package
-Requires: %{name}-core-cs
-
-%description cs
-This package provides Czech langpacks meta-package.
-
-%files cs
-%{_datadir}/metainfo/org.fedoraproject.LangPack-cs.metainfo.xml
-
-%langcore_pkg -l cs -n Czech
-
-%package cy
-Summary: Welsh langpacks meta-package
-Requires: %{name}-core-cy
-
-%description cy
-This package provides Welsh langpacks meta-package.
-
-%files cy
-%{_datadir}/metainfo/org.fedoraproject.LangPack-cy.metainfo.xml
-
-%langcore_pkg -l cy -n Welsh
-
-%package da
-Summary: Danish langpacks meta-package
-Requires: %{name}-core-da
-
-%description da
-This package provides Danish langpacks meta-package.
-
-%files da
-%{_datadir}/metainfo/org.fedoraproject.LangPack-da.metainfo.xml
-
-%langcore_pkg -l da -n Danish
-
-%package de
-Summary: German langpacks meta-package
-Requires: %{name}-core-de
-
-%description de
-This package provides German langpacks meta-package.
-
-%files de
-%{_datadir}/metainfo/org.fedoraproject.LangPack-de.metainfo.xml
-
-%langcore_pkg -l de -n German
-
-%package dv
-Summary: Divehi langpacks meta-package
-Requires: %{name}-core-dv
-
-%description dv
-This package provides Divehi langpacks meta-package.
-
-%files dv
-%{_datadir}/metainfo/org.fedoraproject.LangPack-dv.metainfo.xml
-
-%langcore_pkg -l dv -n Divehi -f google-noto-sans-thaana-vf-fonts
-
-%package dz
-Summary: Bhutanese langpacks meta-package
-Requires: %{name}-core-dz
-
-%description dz
-This package provides Bhutanese langpacks meta-package.
-
-%files dz
-%{_datadir}/metainfo/org.fedoraproject.LangPack-dz.metainfo.xml
-
-%langcore_pkg -l dz -n Bhutanese
-
-%package el
-Summary: Greek langpacks meta-package
-Requires: %{name}-core-el
-
-%description el
-This package provides Greek langpacks meta-package.
-
-%files el
-%{_datadir}/metainfo/org.fedoraproject.LangPack-el.metainfo.xml
-
-%langcore_pkg -l el -n Greek
-
-%package en
-Summary: English langpacks meta-package
-Requires: %{name}-core-en
-Recommends: %{defaultserifpkg}
-Recommends: %{defaultmonopkg}
-
-%description en
-This package provides English langpacks meta-package.
-
-%files en
-%{_datadir}/metainfo/org.fedoraproject.LangPack-en.metainfo.xml
-
-%langcore_pkg -l en -n English
-
-%package en_GB
-Summary: English (United Kingdom) langpacks meta-package
-Requires: %{name}-core-en_GB
-
-%description en_GB
-This package provides English (United Kingdom) langpacks meta-package.
-
-%files en_GB
-%{_datadir}/metainfo/org.fedoraproject.LangPack-en_GB.metainfo.xml
-
-%langcore_pkg -l en_GB -n %{quote:English (United Kingdom)}
-
-%package eo
-Summary: Esperanto langpacks meta-package
-Requires: %{name}-core-eo
-
-%description eo
-This package provides Esperanto langpacks meta-package.
-
-%files eo
-%{_datadir}/metainfo/org.fedoraproject.LangPack-eo.metainfo.xml
-
-%langcore_pkg -l eo -n Esperanto
-
-%package es
-Summary: Spanish langpacks meta-package
-Requires: %{name}-core-es
-
-%description es
-This package provides Spanish langpacks meta-package.
-
-%files es
-%{_datadir}/metainfo/org.fedoraproject.LangPack-es.metainfo.xml
-
-%langcore_pkg -l es -n Spanish
-
-%package et
-Summary: Estonian langpacks meta-package
-Requires: %{name}-core-et
-
-%description et
-This package provides Estonian langpacks meta-package.
-
-%files et
-%{_datadir}/metainfo/org.fedoraproject.LangPack-et.metainfo.xml
-
-%langcore_pkg -l et -n Estonian
-
-%package eu
-Summary: Basque langpacks meta-package
-Requires: %{name}-core-eu
-
-%description eu
-This package provides Basque langpacks meta-package.
-
-%files eu
-%{_datadir}/metainfo/org.fedoraproject.LangPack-eu.metainfo.xml
-
-%langcore_pkg -l eu -n Basque
-
-%package fa
-Summary: Persian langpacks meta-package
-Requires: %{name}-core-fa
-%if 0%{?fedora}
-Recommends: google-noto-naskh-arabic-vf-fonts
-%endif
-
-%description fa
-This package provides Persian langpacks meta-package.
-
-%files fa
-%{_datadir}/metainfo/org.fedoraproject.LangPack-fa.metainfo.xml
-
-%langcore_pkg -l fa -n Persian -f vazirmatn-vf-fonts
-
-%package fi
-Summary: Finnish langpacks meta-package
-Requires: %{name}-core-fi
-
-%description fi
-This package provides Finnish langpacks meta-package.
-
-%files fi
-%{_datadir}/metainfo/org.fedoraproject.LangPack-fi.metainfo.xml
-
-%langcore_pkg -l fi -n Finnish
-
-%package fr
-Summary: French langpacks meta-package
-Requires: %{name}-core-fr
-
-%description fr
-This package provides French langpacks meta-package.
-
-%files fr
-%{_datadir}/metainfo/org.fedoraproject.LangPack-fr.metainfo.xml
-
-%langcore_pkg -l fr -n French
-
-%package ga
-Summary: Irish langpacks meta-package
-Requires: %{name}-core-ga
-
-%description ga
-This package provides Irish langpacks meta-package.
-
-%files ga
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ga.metainfo.xml
-
-%langcore_pkg -l ga -n Irish
-
-%package gl
-Summary: Galician langpacks meta-package
-Requires: %{name}-core-gl
-
-%description gl
-This package provides Galician langpacks meta-package.
-
-%files gl
-%{_datadir}/metainfo/org.fedoraproject.LangPack-gl.metainfo.xml
-
-%langcore_pkg -l gl -n Galician
-
-%package gu
-Summary: Gujarati langpacks meta-package
-Requires: %{name}-core-gu
-%if 0%{?fedora}
-Recommends: google-noto-sans-gujarati-fonts
-Recommends: google-noto-sans-gujarati-ui-fonts
-Recommends: google-noto-serif-gujarati-fonts
-Recommends: samyak-gujarati-fonts
-%endif
-
-%description gu
-This package provides Gujarati langpacks meta-package.
-
-%files gu
-%{_datadir}/metainfo/org.fedoraproject.LangPack-gu.metainfo.xml
-
-%langcore_pkg -l gu -n Gujarati -f lohit-gujarati-fonts -i ibus-m17n
-
-%package he
-Summary: Hebrew langpacks meta-package
-Requires: %{name}-core-he
-Recommends: culmus-aharoni-clm-fonts
-Recommends: culmus-caladings-clm-fonts
-Recommends: culmus-david-clm-fonts
-Recommends: culmus-drugulin-clm-fonts
-Recommends: culmus-ellinia-clm-fonts
-Recommends: culmus-frank-ruehl-clm-fonts
-Recommends: culmus-hadasim-clm-fonts
-Recommends: culmus-keteryg-fonts
-Recommends: culmus-miriam-clm-fonts
-Recommends: culmus-miriam-mono-clm-fonts
-Recommends: culmus-nachlieli-clm-fonts
-Recommends: culmus-simple-clm-fonts
-Recommends: culmus-stamashkenaz-clm-fonts
-Recommends: culmus-stamsefarad-clm-fonts
-Recommends: culmus-yehuda-clm-fonts
-Recommends: google-noto-serif-hebrew-vf-fonts
-
-%description he
-This package provides Hebrew langpacks meta-package.
-
-%files he
-%{_datadir}/metainfo/org.fedoraproject.LangPack-he.metainfo.xml
-
-%langcore_pkg -l he -n Hebrew -f google-noto-sans-hebrew-vf-fonts
-
-%package hi
-Summary: Hindi langpacks meta-package
-Requires: %{name}-core-hi
-%if 0%{?fedora}
-Recommends: google-noto-sans-devanagari-vf-fonts
-Recommends: google-noto-sans-devanagari-ui-vf-fonts
-Recommends: google-noto-serif-devanagari-vf-fonts
-Recommends: samyak-devanagari-fonts
-%endif
-
-%description hi
-This package provides Hindi langpacks meta-package.
-
-%files hi
-%{_datadir}/metainfo/org.fedoraproject.LangPack-hi.metainfo.xml
-
-%langcore_pkg -l hi -n Hindi -f lohit-devanagari-fonts -i ibus-m17n
-
-%package hr
-Summary: Croatian langpacks meta-package
-Requires: %{name}-core-hr
-
-%description hr
-This package provides Croatian langpacks meta-package.
-
-%files hr
-%{_datadir}/metainfo/org.fedoraproject.LangPack-hr.metainfo.xml
-
-%langcore_pkg -l hr -n Croatian
-
-%package hu
-Summary: Hungarian langpacks meta-package
-Requires: %{name}-core-hu
-
-%description hu
-This package provides Hungarian langpacks meta-package.
-
-%files hu
-%{_datadir}/metainfo/org.fedoraproject.LangPack-hu.metainfo.xml
-
-%langcore_pkg -l hu -n Hungarian
-
-%package hy
-Summary: Armenian langpacks meta-package
-Requires: %{name}-core-hy
-Recommends: google-noto-serif-armenian-vf-fonts
-
-%description hy
-This package provides Armenian langpacks meta-package.
-
-%files hy
-%{_datadir}/metainfo/org.fedoraproject.LangPack-hy.metainfo.xml
-
-%langcore_pkg -l hy -n Armenian -f google-noto-sans-armenian-vf-fonts
-
-%package ia
-Summary: Interlingua langpacks meta-package
-Requires: %{name}-core-ia
-
-%description ia
-This package provides Interlingua langpacks meta-package.
-
-%files ia
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ia.metainfo.xml
-
-%langcore_pkg -l ia -n Interlingua
-
-%package id
-Summary: Indonesian langpacks meta-package
-Requires: %{name}-core-id
-
-%description id
-This package provides Indonesian langpacks meta-package.
-
-%files id
-%{_datadir}/metainfo/org.fedoraproject.LangPack-id.metainfo.xml
-
-%langcore_pkg -l id -n Indonesian
-
-%package is
-Summary: Icelandic langpacks meta-package
-Requires: %{name}-core-is
-
-%description is
-This package provides Icelandic langpacks meta-package.
-
-%files is
-%{_datadir}/metainfo/org.fedoraproject.LangPack-is.metainfo.xml
-
-%langcore_pkg -l is -n Icelandic
-
-%package it
-Summary: Italian langpacks meta-package
-Requires: %{name}-core-it
-
-%description it
-This package provides Italian langpacks meta-package.
-
-%files it
-%{_datadir}/metainfo/org.fedoraproject.LangPack-it.metainfo.xml
-
-%langcore_pkg -l it -n Italian
-
-%package iu
-Summary: Inuktitut langpacks meta-package
-Requires: %{name}-core-iu
-
-%description iu
-This package provides Inuktitut langpacks meta-package.
-
-%files iu
-%{_datadir}/metainfo/org.fedoraproject.LangPack-iu.metainfo.xml
-
-%langcore_pkg -l iu -n Inuktitut -f google-noto-sans-canadian-aboriginal-vf-fonts
-
-%package ja
-Summary: Japanese langpacks meta-package
-Requires: %{name}-core-ja
-Recommends: google-noto-serif-cjk-vf-fonts
-%if 0%{?fedora}
-Recommends: (uim-anthy if uim)
-%endif
-
-%description ja
-This package provides Japanese langpacks meta-package.
-
-%files ja
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ja.metainfo.xml
-
-%langcore_pkg -l ja -n Japanese -f google-noto-sans-cjk-vf-fonts -i ibus-anthy
-
-%package ka
-Summary: Georgian langpacks meta-package
-Requires: %{name}-core-ka
-%if 0%{?fedora}
-Recommends: bpg-chveulebrivi-fonts
-Recommends: bpg-courier-fonts
-Recommends: bpg-glaho-fonts
-Recommends: google-noto-serif-georgian-vf-fonts
-%endif
-Recommends: %{defaultmonopkg}
-Recommends: %{defaultserifpkg}
-
-%description ka
-This package provides Georgian langpacks meta-package.
-
-%files ka
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ka.metainfo.xml
-
-%langcore_pkg -l ka -n Georgian -f google-noto-sans-georgian-vf-fonts
-
-%package kk
-Summary: Kazakh langpacks meta-package
-Requires: %{name}-core-kk
-
-%description kk
-This package provides Kazakh langpacks meta-package.
-
-%files kk
-%{_datadir}/metainfo/org.fedoraproject.LangPack-kk.metainfo.xml
-
-%langcore_pkg -l kk -n Kazakh
-
-%package km
-Summary: Khmer langpacks meta-package
-Requires: %{name}-core-km
-Recommends: khmer-os-system-fonts
-Recommends: khmer-os-battambang-fonts
-Recommends: khmer-os-bokor-fonts
-Recommends: khmer-os-content-fonts
-Recommends: khmer-os-fasthand-fonts
-Recommends: khmer-os-freehand-fonts
-Recommends: khmer-os-handwritten-fonts
-Recommends: khmer-os-metal-chrieng-fonts
-Recommends: khmer-os-muol-fonts-all
-Recommends: khmer-os-siemreap-fonts
-
-%description km
-This package provides Khmer langpacks meta-package.
-
-%files km
-%{_datadir}/metainfo/org.fedoraproject.LangPack-km.metainfo.xml
-
-%langcore_pkg -l km -n Khmer -f google-noto-sans-khmer-vf-fonts
-
-%package kn
-Summary: Kannada langpacks meta-package
-Requires: %{name}-core-kn
-%if 0%{?fedora}
-Recommends: google-noto-sans-kannada-vf-fonts
-Recommends: google-noto-sans-kannada-ui-vf-fonts
-Recommends: google-noto-serif-kannada-vf-fonts
-%endif
-Recommends: gubbi-fonts
-Recommends: navilu-fonts
-
-%description kn
-This package provides Kannada langpacks meta-package.
-
-%files kn
-%{_datadir}/metainfo/org.fedoraproject.LangPack-kn.metainfo.xml
-
-%langcore_pkg -l kn -n Kannada -f lohit-kannada-fonts -i ibus-m17n
-
-%package ko
-Summary: Korean langpacks meta-package
-Requires: %{name}-core-ko
-Recommends: google-noto-serif-cjk-vf-fonts
-
-%description ko
-This package provides Korean langpacks meta-package.
-
-%files ko
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ko.metainfo.xml
-
-%langcore_pkg -l ko -n Korean -f google-noto-sans-cjk-vf-fonts -i ibus-hangul
-
-%package ku
-Summary: Kurdish langpacks meta-package
-Requires: %{name}-core-ku
-
-%description ku
-This package provides Kurdish langpacks meta-package.
-
-%files ku
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ku.metainfo.xml
-
-%langcore_pkg -l ku -n Kurdish
-
-%package lo
-Summary: Lao langpacks meta-package
-Requires: %{name}-core-lo
-Requires: google-noto-serif-lao-vf-fonts
-
-%description lo
-This package provides Lao langpacks meta-package.
-
-%files lo
-%{_datadir}/metainfo/org.fedoraproject.LangPack-lo.metainfo.xml
-
-%langcore_pkg -l lo -n Lao -f google-noto-sans-lao-vf-fonts
-
-%package lt
-Summary: Lithuanian langpacks meta-package
-Requires: %{name}-core-lt
-
-%description lt
-This package provides Lithuanian langpacks meta-package.
-
-%files lt
-%{_datadir}/metainfo/org.fedoraproject.LangPack-lt.metainfo.xml
-
-%langcore_pkg -l lt -n Lithuanian
-
-%package lv
-Summary: Latvian langpacks meta-package
-Requires: %{name}-core-lv
-
-%description lv
-This package provides Latvian langpacks meta-package.
-
-%files lv
-%{_datadir}/metainfo/org.fedoraproject.LangPack-lv.metainfo.xml
-
-%langcore_pkg -l lv -n Latvian
-
-%package mai
-Summary: Maithili langpacks meta-package
-Requires: %{name}-core-mai
-%if 0%{?fedora}
-Recommends: google-noto-sans-devanagari-vf-fonts
-Recommends: google-noto-sans-devanagari-ui-vf-fonts
-Recommends: google-noto-serif-devanagari-vf-fonts
-%endif
-
-%description mai
-This package provides Maithili langpacks meta-package.
-
-%files mai
-%{_datadir}/metainfo/org.fedoraproject.LangPack-mai.metainfo.xml
-
-%langcore_pkg -l mai -n Maithili -f lohit-devanagari-fonts -i ibus-m17n
-
-%package mk
-Summary: Macedonian langpacks meta-package
-Requires: %{name}-core-mk
-
-%description mk
-This package provides Macedonian langpacks meta-package.
-
-%files mk
-%{_datadir}/metainfo/org.fedoraproject.LangPack-mk.metainfo.xml
-
-%langcore_pkg -l mk -n Macedonian
-
-%package ml
-Summary: Malayalam langpacks meta-package
-Requires: %{name}-core-ml
-Recommends: rit-rachana-fonts
-%if 0%{?fedora}
-Recommends: google-noto-sans-malayalam-vf-fonts
-Recommends: google-noto-sans-malayalam-ui-vf-fonts
-Recommends: google-noto-serif-malayalam-vf-fonts
-Recommends: lohit-malayalam-fonts
-Recommends: samyak-malayalam-fonts
-Recommends: smc-anjalioldlipi-fonts
-Recommends: smc-dyuthi-fonts
-Recommends: smc-raghumalayalamsans-fonts
-Recommends: smc-suruma-fonts
-Recommends: rit-meera-new-fonts
-Recommends: rit-sundar-fonts
-Recommends: rit-panmana-fonts
-Recommends: rit-ezhuthu-fonts
-Recommends: rit-tn-joy-fonts
-%endif
-
-%description ml
-This package provides Malayalam langpacks meta-package.
-
-%files ml
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ml.metainfo.xml
-
-%langcore_pkg -l ml -n Malayalam -f rit-meera-new-fonts -i ibus-m17n
-
-%package mr
-Summary: Marathi langpacks meta-package
-Requires: %{name}-core-mr
-%if 0%{?fedora}
-Recommends: google-noto-sans-devanagari-vf-fonts
-Recommends: google-noto-sans-devanagari-ui-vf-fonts
-Recommends: google-noto-serif-devanagari-vf-fonts
-Recommends: samyak-devanagari-fonts
-%endif
-
-%description mr
-This package provides Marathi langpacks meta-package.
-
-%files mr
-%{_datadir}/metainfo/org.fedoraproject.LangPack-mr.metainfo.xml
-
-%langcore_pkg -l mr -n Marathi -f lohit-marathi-fonts -i ibus-m17n
-
-%package ms
-Summary: Malay langpacks meta-package
-Requires: %{name}-core-ms
-
-%description ms
-This package provides Malay langpacks meta-package.
-
-%files ms
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ms.metainfo.xml
-
-%langcore_pkg -l ms -n Malay
-
-%package my
-Summary: Burmese langpacks meta-package
-Requires: %{name}-core-my
-
-%description my
-This package provides Burmese langpacks meta-package.
-
-%files my
-%{_datadir}/metainfo/org.fedoraproject.LangPack-my.metainfo.xml
-
-%langcore_pkg -l my -n Burmese -f sil-padauk-fonts
-
-%package nb
-Summary: Norwegian Bokmål langpacks meta-package
-Requires: %{name}-core-nb
-
-%description nb
-This package provides Norwegian Bokmål langpacks meta-package.
-
-%files nb
-%{_datadir}/metainfo/org.fedoraproject.LangPack-nb.metainfo.xml
-
-%langcore_pkg -l nb -n %{quote:Norwegian Bokmål}
-
-%package ne
-Summary: Nepali langpacks meta-package
-Requires: %{name}-core-ne
-%if 0%{?fedora}
-Recommends: google-noto-sans-devanagari-vf-fonts
-Recommends: google-noto-sans-devanagari-ui-vf-fonts
-Recommends: google-noto-serif-devanagari-vf-fonts
-%endif
-
-%description ne
-This package provides Nepali langpacks meta-package.
-
-%files ne
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ne.metainfo.xml
-
-%langcore_pkg -l ne -n Nepali -f lohit-devanagari-fonts madan-fonts -i ibus-m17n
-
-%package nl
-Summary: Dutch langpacks meta-package
-Requires: %{name}-core-nl
-
-%description nl
-This package provides Dutch langpacks meta-package.
-
-%files nl
-%{_datadir}/metainfo/org.fedoraproject.LangPack-nl.metainfo.xml
-
-%langcore_pkg -l nl -n Dutch
-
-%package nn
-Summary: Nynorsk langpacks meta-package
-Requires: %{name}-core-nn
-
-%description nn
-This package provides Nynorsk langpacks meta-package.
-
-%files nn
-%{_datadir}/metainfo/org.fedoraproject.LangPack-nn.metainfo.xml
-
-%langcore_pkg -l nn -n Nynorsk
-
-%package nr
-Summary: Southern Ndebele langpacks meta-package
-Requires: %{name}-core-nr
-
-%description nr
-This package provides Southern Ndebele langpacks meta-package.
-
-%files nr
-%{_datadir}/metainfo/org.fedoraproject.LangPack-nr.metainfo.xml
-
-%langcore_pkg -l nr -n %{quote:Southern Ndebele}
-
-%package nso
-Summary: Northern Sotho langpacks meta-package
-Requires: %{name}-core-nso
-
-%description nso
-This package provides Northern Sotho langpacks meta-package.
-
-%files nso
-%{_datadir}/metainfo/org.fedoraproject.LangPack-nso.metainfo.xml
-
-%langcore_pkg -l nso -n %{quote:Northern Sotho}
-
-%package or
-Summary: Odia langpacks meta-package
-Requires: %{name}-core-or
-%if 0%{?fedora}
-Recommends: samyak-odia-fonts
-Recommends: google-noto-sans-oriya-fonts
-Recommends: google-noto-sans-oriya-vf-fonts
-Recommends: google-noto-serif-oriya-fonts
-Recommends: google-noto-serif-oriya-vf-fonts
-%endif
-
-%description or
-This package provides Odia langpacks meta-package.
-
-%files or
-%{_datadir}/metainfo/org.fedoraproject.LangPack-or.metainfo.xml
-
-%langcore_pkg -l or -n Odia -f lohit-odia-fonts -i ibus-m17n
-
-%package pa
-Summary: Punjabi langpacks meta-package
-Requires: %{name}-core-pa
-Recommends: saab-fonts
-%if 0%{?fedora}
-Recommends: lohit-gurmukhi-fonts
-Recommends: google-noto-serif-gurmukhi-vf-fonts
-%endif
-
-%description pa
-This package provides Punjabi langpacks meta-package.
-
-%files pa
-%{_datadir}/metainfo/org.fedoraproject.LangPack-pa.metainfo.xml
-
-%langcore_pkg -l pa -n Punjabi -f google-noto-sans-gurmukhi-vf-fonts -i ibus-m17n
-
-%package pl
-Summary: Polish langpacks meta-package
-Requires: %{name}-core-pl
-
-%description pl
-This package provides Polish langpacks meta-package.
-
-%files pl
-%{_datadir}/metainfo/org.fedoraproject.LangPack-pl.metainfo.xml
-
-%langcore_pkg -l pl -n Polish
-
-%package pt_BR
-Summary: Portuguese (Brazil) langpacks meta-package
-Requires: %{name}-core-pt_BR
-
-%description pt_BR
-This package provides Portuguese (Brazil) langpacks meta-package.
-
-%files pt_BR
-%{_datadir}/metainfo/org.fedoraproject.LangPack-pt_BR.metainfo.xml
-
-%langcore_pkg -l pt_BR -n %{quote:Portuguese (Brazil)}
-
-%package pt
-Summary: Portuguese langpacks meta-package
-Requires: %{name}-core-pt
-
-%description pt
-This package provides Portuguese langpacks meta-package.
-
-%files pt
-%{_datadir}/metainfo/org.fedoraproject.LangPack-pt.metainfo.xml
-
-%langcore_pkg -l pt -n Portuguese
-
-%package ro
-Summary: Romanian langpacks meta-package
-Requires: %{name}-core-ro
-
-%description ro
-This package provides Romanian langpacks meta-package.
-
-%files ro
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ro.metainfo.xml
-
-%langcore_pkg -l ro -n Romanian
-
-%package ru
-Summary: Russian langpacks meta-package
-Requires: %{name}-core-ru
-Recommends: pt-sans-fonts
-
-%description ru
-This package provides Russian langpacks meta-package.
-
-%files ru
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ru.metainfo.xml
-
-%langcore_pkg -l ru -n Russian
-
-%package si
-Summary: Sinhala langpacks meta-package
-Requires: %{name}-core-si
-Recommends: google-noto-serif-sinhala-vf-fonts
-
-%description si
-This package provides Sinhala langpacks meta-package.
-
-%files si
-%{_datadir}/metainfo/org.fedoraproject.LangPack-si.metainfo.xml
-
-%langcore_pkg -l si -n Sinhala -f google-noto-sans-sinhala-vf-fonts -i ibus-m17n
-
-%package sk
-Summary: Slovak langpacks meta-package
-Requires: %{name}-core-sk
-
-%description sk
-This package provides Slovak langpacks meta-package.
-
-%files sk
-%{_datadir}/metainfo/org.fedoraproject.LangPack-sk.metainfo.xml
-
-%langcore_pkg -l sk -n Slovak
-
-%package sl
-Summary: Slovenian langpacks meta-package
-Requires: %{name}-core-sl
-
-%description sl
-This package provides Slovenian langpacks meta-package.
-
-%files sl
-%{_datadir}/metainfo/org.fedoraproject.LangPack-sl.metainfo.xml
-
-%langcore_pkg -l sl -n Slovenian
-
-%package sq
-Summary: Albanian langpacks meta-package
-Requires: %{name}-core-sq
-
-%description sq
-This package provides Albanian langpacks meta-package.
-
-%files sq
-%{_datadir}/metainfo/org.fedoraproject.LangPack-sq.metainfo.xml
-
-%langcore_pkg -l sq -n Albanian
-
-%package sr
-Summary: Serbian langpacks meta-package
-Requires: %{name}-core-sr
-
-%description sr
-This package provides Serbian langpacks meta-package.
-
-%files sr
-%{_datadir}/metainfo/org.fedoraproject.LangPack-sr.metainfo.xml
-
-%langcore_pkg -l sr -n Serbian
-
-%package ss
-Summary: Swati langpacks meta-package
-Requires: %{name}-core-ss
-
-%description ss
-This package provides Swati langpacks meta-package.
-
-%files ss
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ss.metainfo.xml
-
-%langcore_pkg -l ss -n Swati
-
-%package sv
-Summary: Swedish langpacks meta-package
-Requires: %{name}-core-sv
-
-%description sv
-This package provides Swedish langpacks meta-package.
-
-%files sv
-%{_datadir}/metainfo/org.fedoraproject.LangPack-sv.metainfo.xml
-
-%langcore_pkg -l sv -n Swedish
-
-%package ta
-Summary: Tamil langpacks meta-package
-Requires: %{name}-core-ta
-%if 0%{?fedora}
-Recommends: google-noto-sans-tamil-vf-fonts
-Recommends: google-noto-sans-tamil-ui-vf-fonts
-Recommends: google-noto-serif-tamil-vf-fonts
-Recommends: samyak-tamil-fonts
-Recommends: serafettin-cartoon-fonts
-%endif
-
-%description ta
-This package provides Tamil langpacks meta-package.
-
-%files ta
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ta.metainfo.xml
-
-%langcore_pkg -l ta -n Tamil -f lohit-tamil-fonts -i ibus-m17n
-
-%package te
-Summary: Telugu langpacks meta-package
-Requires: %{name}-core-te
-%if 0%{?fedora}
-Recommends: google-noto-sans-telugu-fonts
-Recommends: google-noto-sans-telugu-ui-fonts
-Recommends: google-noto-serif-telugu-fonts
-Recommends: pothana2000-fonts
-Recommends: vemana2000-fonts
-%endif
-
-%description te
-This package provides Telugu langpacks meta-package.
-
-%files te
-%{_datadir}/metainfo/org.fedoraproject.LangPack-te.metainfo.xml
-
-%langcore_pkg -l te -n Telugu -f lohit-telugu-fonts -i ibus-m17n
-
-%package th
-Summary: Thai langpacks meta-package
-Requires: %{name}-core-th
-%if 0%{?fedora}
-Recommends: google-noto-serif-thai-vf-fonts
-Recommends: tlwg-garuda-fonts
-Recommends: tlwg-kinnari-fonts
-Recommends: tlwg-laksaman-fonts
-Recommends: tlwg-loma-fonts
-Recommends: tlwg-mono-fonts
-Recommends: tlwg-norasi-fonts
-Recommends: tlwg-purisa-fonts
-Recommends: tlwg-sawasdee-fonts
-Recommends: tlwg-typewriter-fonts
-Recommends: tlwg-typist-fonts
-Recommends: tlwg-typo-fonts
-Recommends: tlwg-umpush-fonts
-Recommends: tlwg-waree-fonts
-%endif
-
-%description th
-This package provides Thai langpacks meta-package.
-
-%files th
-%{_datadir}/metainfo/org.fedoraproject.LangPack-th.metainfo.xml
-
-%langcore_pkg -l th -n Thai -f google-noto-sans-thai-vf-fonts -i ibus-m17n
-
-%package tn
-Summary: Tswana langpacks meta-package
-Requires: %{name}-core-tn
-
-%description tn
-This package provides Tswana langpacks meta-package.
-
-%files tn
-%{_datadir}/metainfo/org.fedoraproject.LangPack-tn.metainfo.xml
-
-%langcore_pkg -l tn -n Tswana
-
-%package tr
-Summary: Turkish langpacks meta-package
-Requires: %{name}-core-tr
-
-%description tr
-This package provides Turkish langpacks meta-package.
-
-%files tr
-%{_datadir}/metainfo/org.fedoraproject.LangPack-tr.metainfo.xml
-
-%langcore_pkg -l tr -n Turkish
-
-%package ts
-Summary: Tsonga langpacks meta-package
-Requires: %{name}-core-ts
-
-%description ts
-This package provides Tsonga langpacks meta-package.
-
-%files ts
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ts.metainfo.xml
-
-%langcore_pkg -l ts -n Tsonga
-
-%package uk
-Summary: Ukrainian langpacks meta-package
-Requires: %{name}-core-uk
-
-%description uk
-This package provides Ukrainian langpacks meta-package.
-
-%files uk
-%{_datadir}/metainfo/org.fedoraproject.LangPack-uk.metainfo.xml
-
-%langcore_pkg -l uk -n Ukrainian
-
-%package ur
-Summary: Urdu langpacks meta-package
-Requires: %{name}-core-ur
-%if 0%{?fedora}
-Recommends: nafees-nastaleeq-fonts
-Recommends: nafees-web-naskh-fonts
-%endif
-
-%description ur
-This package provides Urdu langpacks meta-package.
-
-%files ur
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ur.metainfo.xml
-
-%langcore_pkg -l ur -n Urdu -f paktype-naskh-basic-fonts -i ibus-m17n
-
-%package ve
-Summary: Venda langpacks meta-package
-Requires: %{name}-core-ve
-
-%description ve
-This package provides Venda langpacks meta-package.
-
-%files ve
-%{_datadir}/metainfo/org.fedoraproject.LangPack-ve.metainfo.xml
-
-%langcore_pkg -l ve -n Venda
-
-%package vi
-Summary: Vietnamese langpacks meta-package
-Requires: %{name}-core-vi
-
-%description vi
-This package provides Vietnamese langpacks meta-package.
-
-%files vi
-%{_datadir}/metainfo/org.fedoraproject.LangPack-vi.metainfo.xml
-
-%if 0%{?fedora}
-%langcore_pkg -l vi -n Vietnamese -i ibus-unikey
-%else
-%langcore_pkg -l vi -n Vietnamese -i ibus-m17n
-%endif
-
-%package xh
-Summary: Xhosa langpacks meta-package
-Requires: %{name}-core-xh
-
-%description xh
-This package provides Xhosa langpacks meta-package.
-
-%files xh
-%{_datadir}/metainfo/org.fedoraproject.LangPack-xh.metainfo.xml
-
-%langcore_pkg -l xh -n Xhosa
-
-%package yi
-Summary: Yiddish langpacks meta-package
-Requires: %{name}-core-yi
-Recommends: culmus-aharoni-clm-fonts
-Recommends: culmus-caladings-clm-fonts
-Recommends: culmus-david-clm-fonts
-Recommends: culmus-drugulin-clm-fonts
-Recommends: culmus-ellinia-clm-fonts
-Recommends: culmus-frank-ruehl-clm-fonts
-Recommends: culmus-hadasim-clm-fonts
-Recommends: culmus-keteryg-fonts
-Recommends: culmus-miriam-clm-fonts
-Recommends: culmus-miriam-mono-clm-fonts
-Recommends: culmus-nachlieli-clm-fonts
-Recommends: culmus-simple-clm-fonts
-Recommends: culmus-stamashkenaz-clm-fonts
-Recommends: culmus-stamsefarad-clm-fonts
-Recommends: culmus-yehuda-clm-fonts
-
-%description yi
-This package provides Yiddish langpacks meta-package.
-
-%files yi
-%{_datadir}/metainfo/org.fedoraproject.LangPack-yi.metainfo.xml
-
-%langcore_pkg -l yi -n Yiddish
-
-%package zh_CN
-Summary: Simplified Chinese langpacks meta-package
-Requires: %{name}-core-zh_CN
-Recommends: google-noto-serif-cjk-vf-fonts
-
-%description zh_CN
-This package provides Simplified Chinese langpacks meta-package.
-
-%files zh_CN
-%{_datadir}/metainfo/org.fedoraproject.LangPack-zh_CN.metainfo.xml
-
-%langcore_pkg -l zh_CN -n %{quote:Simplified Chinese} -f google-noto-sans-cjk-vf-fonts -i ibus-libpinyin
-
-%package zh_HK
-Summary: Hong Kong Traditional Chinese langpacks meta-package
-Requires: %{name}-core-zh_HK
-Recommends: google-noto-serif-cjk-vf-fonts
-Recommends: ibus-table-chinese-quick
-
-%description zh_HK
-This package provides Hong Kong Traditional Chinese langpacks meta-package.
-
-%files zh_HK
-%{_datadir}/metainfo/org.fedoraproject.LangPack-zh_HK.metainfo.xml
-
-%langcore_pkg -l zh_HK -n %{quote:Hong Kong Traditional Chinese} -f google-noto-sans-cjk-vf-fonts -i ibus-table-chinese-cangjie
-
-%package zh_TW
-Summary: Taiwan langpacks meta-package
-Requires: %{name}-core-zh_TW
-Recommends: google-noto-serif-cjk-vf-fonts
-Recommends: ibus-table-chinese-cangjie
-Recommends: ibus-table-chinese-quick
-
-%description zh_TW
-This package provides Taiwan Traditional Chinese langpacks meta-package.
-
-%files zh_TW
-%{_datadir}/metainfo/org.fedoraproject.LangPack-zh_TW.metainfo.xml
-
-%langcore_pkg -l zh_TW -n %{quote:Taiwan Traditional Chinese} -f google-noto-sans-cjk-vf-fonts -i ibus-libzhuyin
-
-%package zu
-Summary: Zulu langpacks meta-package
-Requires: %{name}-core-zu
-
-%description zu
-This package provides Zulu langpacks meta-package.
-
-%files zu
-%{_datadir}/metainfo/org.fedoraproject.LangPack-zu.metainfo.xml
-
-%langcore_pkg -l zu -n Zulu
 
 %prep
 # nothing to prep
@@ -1433,8 +1603,15 @@ mkdir -p %{buildroot}/usr/share/metainfo
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE0}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
+DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE3}
 
 %changelog
+* Tue Jun 27 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-1
+- Bump the version to 4.0.
+  https://fedoraproject.org/wiki/Changes/ImproveDefaultFontHandling
+- New default-fonts metapackages.
+- Remove langpacks-core-font-* metapackages.
+
 * Tue Jun 13 2023 Peng Wu <pwu@redhat.com> - 3.0-35
 - Rename thai-scalable-fonts to tlwg-fonts
 

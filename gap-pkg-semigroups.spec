@@ -9,7 +9,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        5.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP methods for semigroups
 
 License:        GPL-3.0-or-later
@@ -149,6 +149,9 @@ cd -
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar  6 2023 Jerry James <loganjerry@gmail.com> - 5.2.1-1
 - Version 5.2.1
 

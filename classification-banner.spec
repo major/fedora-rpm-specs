@@ -1,6 +1,6 @@
 Name:           classification-banner
 Version:        1.7.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Displays Classification Banner for a Graphical Session
 
 License:        GPLv2+
@@ -63,6 +63,9 @@ export DISPLAY=":0.0"
 %{_datadir}/%{name}/%{name}-screenshot.png
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.7.0-18
 - Rebuilt for Python 3.12
 

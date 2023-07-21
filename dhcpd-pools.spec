@@ -1,6 +1,6 @@
 Name:		dhcpd-pools
 Version:	3.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	ISC dhcpd lease analysis and reporting
 # BSD: dhcpd-pools
 # ASL 2.0: mustache templating (https://gitlab.com/jobol/mustach) src/mustach.[ch]
@@ -58,6 +58,9 @@ make check-TESTS
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

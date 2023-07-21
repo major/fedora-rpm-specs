@@ -1,7 +1,7 @@
 Summary:        Archiver for .arj files
 Name:           arj
 Version:        3.10.22
-Release:        38%{?dist}
+Release:        39%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://arj.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -82,6 +82,9 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/arj-register.1*
 %{_mandir}/man1/*arj*.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.22-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.22-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

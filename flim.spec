@@ -6,7 +6,7 @@
 Summary: Basic library for handling email messages for Emacs
 Name: flim
 Version: 1.14.9
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: GPLv2+
 URL: http://www.kanji.zinbun.kyoto-u.ac.jp/~tomo/elisp/FLIM/
 BuildRequires: apel, emacs, make
@@ -75,6 +75,9 @@ make EMACS=xemacs PACKAGEDIR=$RPM_BUILD_ROOT%{pkgdir} install-package
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.9-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.9-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

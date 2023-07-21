@@ -2,7 +2,7 @@ Summary:	A library of handy utility functions
 Name:		glib
 Epoch:		1
 Version:	1.2.10
-Release:	69%{?dist}
+Release:	70%{?dist}
 License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/glib/1.2/glib-%{version}.tar.gz
@@ -126,6 +126,9 @@ make check LIBTOOL=%{_bindir}/libtool
 %{_datadir}/aclocal/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.10-70
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun  6 2023 Paul Howarth <paul@city-fan.org> - 1:1.2.10-69
 - Avoid use of deprecated patch syntax
 - Drop workaround for unavailable make_build macro on EL-6

@@ -7,7 +7,7 @@
 
 Name: dnsdist
 Version: 1.8.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Highly DNS-, DoS- and abuse-aware loadbalancer
 License: GPLv2
 URL: https://dnsdist.org
@@ -121,6 +121,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/%{name}/dnsdist.conf
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 30 2023 Sander Hoentjen <sander@hoentjen.eu> - 1.8.0-2
 - Fix specfile error
 

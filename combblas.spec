@@ -32,7 +32,7 @@
 
 Name:          combblas
 Version:       2.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD.
@@ -275,6 +275,9 @@ popd
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 04 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-1
 - Release 2.0.0
 

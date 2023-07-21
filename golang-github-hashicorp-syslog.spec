@@ -27,7 +27,7 @@ runtime error if attempting to initialize on a non Linux or OSX system.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Golang syslog wrapper, cross-compile friendly
 
 License:        MIT
@@ -65,6 +65,9 @@ end
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

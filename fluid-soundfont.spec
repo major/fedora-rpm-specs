@@ -1,6 +1,6 @@
 Name:           fluid-soundfont
 Version:        3.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Pro-quality GM/GS soundfont
 License:        MIT
 # The original URL (http://www.powermage.com/fluid) seems dead. Therefore we point
@@ -150,6 +150,9 @@ install -p -m 644 FluidR3.cfg $RPM_BUILD_ROOT%{_sysconfdir}/timidity.cfg
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1-29
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 Name:		E
 Version:	2.6
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Equational Theorem Prover
 
 # The content is GPL-2.0-or-later OR LGPL-2.1-or-later.  The remaining licenses
@@ -127,6 +127,9 @@ diff -u test-results test-expected-results
 %{_mandir}/man1/eprover.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

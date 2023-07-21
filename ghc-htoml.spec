@@ -90,9 +90,10 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 %prep
 # Begin cabal-rpm setup:
-%autosetup -p1 -n %{pkgver}
+%setup -q -n %{pkgver}
 dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
+%autopatch -p1
 cabal-tweak-dep-ver aeson '< 2' '< 2.1'
 
 %build

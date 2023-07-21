@@ -1,6 +1,6 @@
 Name:           asylum
 Version:        0.3.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Game involving shooting anything that moves & collecting others
 # For detailed licensing, see the README
 License:        GPL-3.0-only and LicenseRef-Fedora-Public-Domain
@@ -118,6 +118,9 @@ EOF
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.3.2-28
 - Convert top SPDX license.
 

@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Create 'Formattable' Data Structures
 
 License:          MIT
@@ -78,6 +78,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-10
 - Ignore vignettes
 

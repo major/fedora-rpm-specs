@@ -3,7 +3,7 @@
 
 Name:		ansible-openstack-modules
 Version:	0
-Release:	20140917git%{githash}%{?dist}
+Release:	20140918git%{githash}%{?dist}
 Summary:	Unofficial Ansible modules for managing Openstack
 
 License:	GPLv3
@@ -40,6 +40,9 @@ cp -a cinder* glance* keystone* neutron* nova* %{buildroot}%{_datadir}/ansible/a
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-20140918git79d751a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-20140917git79d751a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

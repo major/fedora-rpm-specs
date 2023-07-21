@@ -14,7 +14,7 @@ This library is a Go client you can use to interact with the DNSimple API v2.}
 %global godocs          CHANGELOG.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Go client for the DNSimple API v2
 
 License:        MIT
@@ -43,6 +43,9 @@ BuildRequires:  golang(golang.org/x/oauth2)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.63.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.63.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -12,7 +12,7 @@ Name:          dump
 %endif
 Epoch:         1
 Version:       0.4
-Release:       0.52.%{PREVER}%{?dist}
+Release:       0.53.%{PREVER}%{?dist}
 License:       BSD-3-Clause
 URL:           https://sourceforge.net/projects/dump/
 Source:        http://downloads.sourceforge.net/dump/dump-%{DUMP_VERSION}.tar.gz
@@ -131,6 +131,9 @@ popd
 %{_mandir}/man8/rrestore.8*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4-0.53.b47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 Josef Ridky <jridky@redhat.com> - 1:0.4-0.52.b47
 - move to SPDX license format
 

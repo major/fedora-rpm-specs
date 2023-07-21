@@ -3,7 +3,7 @@
 
 Name:           flat-remix-icon-theme
 Version:        0.0.%{vergit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Icon theme inspired on material design
 
 # The entire source code is GPLv3+ except:
@@ -145,6 +145,9 @@ done
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20220304-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20220304-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

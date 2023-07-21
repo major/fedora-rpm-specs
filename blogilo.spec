@@ -9,7 +9,7 @@
 Name:    blogilo
 Summary: Blogging Client
 Version: 17.08.3
-Release: 26%{?dist}
+Release: 27%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
@@ -139,6 +139,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 07 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 17.08.3-26
 - Patch and rebuild for new kdepim libraries (#2182704)
 

@@ -1,7 +1,7 @@
 Summary:       Work out BuildRequires for rpmbuild automatically
 Name:          auto-buildrequires
 Version:       1.3
-Release:       5%{?dist}
+Release:       6%{?dist}
 
 License:       GPLv2+
 
@@ -47,6 +47,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

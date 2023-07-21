@@ -2,7 +2,7 @@
 
 Name:		R-%{packname}
 Version:	0.2.18
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	C++ Classes to Embed R in C++ (and C) Applications
 
 License:	GPL-2.0-or-later
@@ -91,6 +91,9 @@ rmdir %{buildroot}%{_libdir}/R/library/%{packname}/lib
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.18-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.18-2
 - R-maint-sig mass rebuild
 

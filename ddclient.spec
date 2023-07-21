@@ -4,7 +4,7 @@
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
 Version:           3.9.1
-Release:           9%{?dist}
+Release:           10%{?dist}
 License:           GPLv2+
 URL:               https://ddclient.net/
 Source0:           https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -120,6 +120,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

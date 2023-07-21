@@ -1,6 +1,6 @@
 Name:		garmintools
 Version:	0.10
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Tools for Garmin GPS-devices
 
 License:	GPLv2+
@@ -126,6 +126,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

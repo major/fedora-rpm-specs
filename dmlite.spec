@@ -105,7 +105,7 @@
 
 Name: dmlite
 Version: 1.15.2
-Release: 16%{?dist}%{?_with_asan:.asan}
+Release: 17%{?dist}%{?_with_asan:.asan}
 Summary: Lcgdm grid data management and storage framework
 Group: Applications/Internet
 License: ASL 2.0
@@ -1094,6 +1094,9 @@ install -p -d -m 755 %{buildroot}%{_localstatedir}/log/dpm-gsiftp
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.15.2-16
 - Rebuilt for Python 3.12
 

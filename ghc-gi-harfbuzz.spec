@@ -10,7 +10,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.0.7
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HarfBuzz bindings
 
 License:        LGPL-2.1-or-later
@@ -144,6 +144,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 25 2023 Jens Petersen <petersen@redhat.com> - 0.0.7-1
 - https://hackage.haskell.org/package/gi-harfbuzz-0.0.7/changelog
 - new dep: gi-freetype2

@@ -1,6 +1,6 @@
 Name:           bti
 Version:        034
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Bash Twitter Idiocy
 
 License:        GPLv2
@@ -54,6 +54,9 @@ cp -p bti-bashcompletion %{buildroot}%{_sysconfdir}/bash_completion.d/bti
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 034-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 034-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

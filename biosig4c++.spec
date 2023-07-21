@@ -13,7 +13,7 @@ supporting more than 30 different data formats is also provided.}
 
 Name:       biosig4c++
 Version:    1.9.5
-Release:    10.git%{shortcommit}%{?dist}
+Release:    11.git%{shortcommit}%{?dist}
 Summary:    A software library for processing of biomedical signals
 
 License:    GPLv3+
@@ -107,6 +107,9 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/{mexSLOAD,sigviewer}.1
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-11.gita2aae2b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 26 2023 Florian Weimer <fweimer@redhat.com> - 1.9.5-10.gita2aae2b
 - Apply upstream patches to fix C99 compatibility issues
 

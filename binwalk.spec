@@ -1,6 +1,6 @@
 Name:           binwalk
 Version:        2.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Firmware analysis tool
 License:        MIT
 URL:            https://github.com/ReFirmLabs/binwalk
@@ -51,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %{python3_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Scott Talbert <swt@techie.net> - 2.3.4-3
 - BR python3-zombie-imp to fix FTBFS with Python 3.12
 

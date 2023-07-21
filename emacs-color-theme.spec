@@ -3,7 +3,7 @@
 
 Name:		emacs-%{pkg}
 Version:	6.6.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Color themes for Emacs
 
 License:	GPLv2+
@@ -69,6 +69,9 @@ cp themes/*.el themes/*.elc %{buildroot}%{_emacs_sitelispdir}/%{pkg}/themes
 %{_emacs_sitelispdir}/%{pkg}/themes/*.el
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

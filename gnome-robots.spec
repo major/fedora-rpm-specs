@@ -2,7 +2,7 @@
 
 Name:           gnome-robots
 Version:        40.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GNOME Robots game
 
 License:        GPLv2+ and GFDL
@@ -64,6 +64,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Kalev Lember <klember@redhat.com> - 40.0-6
 - Use pkgconfig buildrequires
 

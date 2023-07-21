@@ -1,6 +1,6 @@
 Name:           batctl
 Version:        2023.1
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
 License:        GPLv2
@@ -51,6 +51,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 31 2023 John W. Linville <linville@tuxdriver.com> - 2023.1-1
 - update to 2023.1
 

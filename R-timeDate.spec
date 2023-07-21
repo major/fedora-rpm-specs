@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          4022.108
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Rmetrics - chronological and calendar objects
 
 License:          GPLv2+
@@ -81,6 +81,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4022.108-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4022.108-1
 - R-maint-sig mass rebuild
 - Update to latest version

@@ -1,6 +1,6 @@
 Name:           SDL2_image
 Version:        2.6.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Image loading library for SDL
 
 # IMG_png.c is LGPLv2+ and zlib, rest is just zlib
@@ -77,6 +77,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/SDL2_image.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 2.6.3-2
 - Mass rebuild for jpegxl-0.8.1
 

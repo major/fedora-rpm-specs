@@ -14,7 +14,7 @@
 
 Name:           apt
 Version:        2.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -310,6 +310,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 24 2023 Sérgio Basto <sergio@serjux.com> - 2.7.1-2
 - Migrate to SPDX license format
 

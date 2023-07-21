@@ -24,7 +24,7 @@ forge authenticators for other messages with the same key.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.14%{?dist}
+Release:        0.15%{?dist}
 Summary:        Poly1305 message authentication code
 
 License:        MIT
@@ -52,6 +52,9 @@ BuildRequires:  golang(golang.org/x/sys/cpu)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

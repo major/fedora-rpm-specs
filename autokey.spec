@@ -1,7 +1,7 @@
 %{?python_enable_dependency_generator}
 Name:		autokey
 Version:	0.96.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Desktop automation utility
 
 
@@ -104,6 +104,9 @@ done
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.96.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.96.0-2
 - Rebuilt for Python 3.12
 

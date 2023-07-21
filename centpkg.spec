@@ -13,7 +13,7 @@
 
 Name:           centpkg
 Version:        0.7.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
 URL:            https://git.centos.org/centos/centpkg
@@ -96,6 +96,9 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Troy Dawson <tdawson@redhat.com> - 0.7.4-2
 - 0.7.4 requires python3-gitlab
 

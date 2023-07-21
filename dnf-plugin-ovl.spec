@@ -1,6 +1,6 @@
 Name:    dnf-plugin-ovl
 Version: 0.0.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: DNF plugin to work around overlayfs issues
 URL:     https://github.com/FlorianLudwig/dnf-plugin-ovl
 License: GPL-2.0-only
@@ -31,6 +31,9 @@ install -D -p ovl.py %{buildroot}/%{python3_sitelib}/dnf-plugins/ovl.py
 %{python3_sitelib}/dnf-plugins/__pycache__/ovl.*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.3-11
 - Rebuilt for Python 3.12
 

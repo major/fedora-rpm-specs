@@ -1,6 +1,6 @@
 Name: d-feet 
 Version: 0.3.16
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A powerful D-Bus Debugger
 
 License: GPLv2+
@@ -60,6 +60,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.dfeet.deskt
 %{_datadir}/metainfo/org.gnome.dfeet.appdata.xml
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.16-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.3.16-8
 - Rebuilt for Python 3.12
 

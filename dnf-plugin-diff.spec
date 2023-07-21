@@ -2,19 +2,21 @@
 
 Name:           dnf-plugin-diff
 Version:        1.1
-Release:        14%{?dist}
+Release:        16%{?dist}
 Summary:        Show local changes in RPM packages
 BuildArch:      noarch
 
 License:        GPLv2+
-URL:            https://github.com/praiskup/%{name}
+URL:            https://github.com/praiskup/%name
 Source0:        https://github.com/praiskup/%name/releases/download/v%version/%name-%version.tar.gz
 
+BuildRequires:  automake
 BuildRequires:  python3-devel
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       cpio
-Requires:       dnf
+Requires:       python3-dnf
+Requires:       python3-dnf-plugins-core
 Requires:       file
 
 Provides:       dnf-command(diff) = %version
@@ -30,6 +32,7 @@ files.
 
 
 %build
+autoreconf -vfi
 %configure PYTHON=python3
 %make_build
 
@@ -46,6 +49,12 @@ files.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Wed Jul 19 2023 Pavel Raiskup <praiskup@redhat.com> - 1.1-15
+- fix FTI rhbz#2219976
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1-14
 - Rebuilt for Python 3.12
 

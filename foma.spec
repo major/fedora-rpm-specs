@@ -9,7 +9,7 @@
 
 Name:           foma
 Version:        0.10.0
-Release:        0.5.%{snapshotdate}git%{shortcommit0}%{?dist}
+Release:        0.6.%{snapshotdate}git%{shortcommit0}%{?dist}
 Summary:        Xerox-compatible finite-state compiler
 
 License:        ASL 2.0
@@ -104,6 +104,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-0.6.20210601gitdfe1ccb
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-0.5.20210601gitdfe1ccb
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

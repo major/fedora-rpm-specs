@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        3.1.1
 # can only be reset when all subpkgs bumped
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A fast logging system
 
 License:        BSD-3-Clause
@@ -156,6 +156,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 3.1.1-17
 - https://hackage.haskell.org/package/fast-logger-3.1.1/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

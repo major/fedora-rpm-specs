@@ -21,7 +21,7 @@
 
 Name:           abc
 Version:        1.01
-Release:        38.git%{gitdate}%{?dist}
+Release:        39.git%{gitdate}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 
 # The ABC code itself is MIT-Modern-Variant.
@@ -164,6 +164,9 @@ install -p -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-39.git20230708
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1.01-38.git20230708
 - Update to latest git snapshot
 - Drop upstreamed patches: overflow, use-after-free

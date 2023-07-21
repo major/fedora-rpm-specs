@@ -10,7 +10,7 @@
 Name:		coin-or-%{module}
 Summary:	Decomposition for Integer Programming
 Version:	0.95.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}/wiki
 Source0:	https://github.com/coin-or/%{module}/archive/releases/%{version}/%{module}-%{version}.tar.gz
@@ -158,6 +158,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_pkgdocdir}/dippy.pdf
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 30 2023 Florian Weimer <fweimer@redhat.com> - 0.95.0-9
 - Port configure script to C99
 

@@ -4,7 +4,7 @@
 
 Name:		flamethrower
 Version:	0.11.0
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	A DNS performance and functional testing utility
 
 License:	Apache-2.0
@@ -81,6 +81,9 @@ install -m 0644 -pD man/flame.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/flame.1
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           cereal
 Version:        1.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A header-only C++11 serialization library
 License:        BSD
 Url:            http://uscilab.github.io/cereal/
@@ -58,6 +58,9 @@ This package contains development headers and libraries for the cereal library
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           appx-util
 Version:        0.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Utility to create Microsoft .appx packages
 
 # See LICENSING.md for details
@@ -49,6 +49,9 @@ Microsoft Windows APPX packages.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

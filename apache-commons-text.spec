@@ -2,7 +2,7 @@
 
 Name:           apache-%{jarname}
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apache Commons Text is a library focused on algorithms working on strings
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/%{jarname}
@@ -52,6 +52,9 @@ find -type f '(' -name '*.jar' -o -name '*.class' ')' -print -delete
 %doc README.md RELEASE-NOTES.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 24 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.10.0-1
 - Update to version 1.10.0
 - Disable tests

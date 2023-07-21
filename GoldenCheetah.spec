@@ -14,10 +14,10 @@ Name:           GoldenCheetah
 %if 0%{?usesnapshot}
 Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
-Release:        0.25.RC4%{?dist}
+Release:        0.26.RC4%{?dist}
 %else
 Version:        3.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
@@ -158,6 +158,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6-0.26.RC4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 20 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:3.6-0.25.RC4
 - Update to 3.6-0.25.RC4
 

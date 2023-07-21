@@ -1,7 +1,7 @@
 Summary: System Tray for monitoring log files for DNSSEC errors
 Name: dnssec-system-tray
 Version: 2.1
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: BSD
 URL: http://www.dnssec-tools.org/
 Source0: https://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
@@ -46,6 +46,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/dnssec-system-tray.desktop
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

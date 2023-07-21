@@ -1,6 +1,6 @@
 Name:           SDL_sound
 Version:        1.0.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Library handling decoding of several popular sound file formats
 License:        LGPLv2+
 URL:            http://www.icculus.org/SDL_sound
@@ -106,6 +106,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

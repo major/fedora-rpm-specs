@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	0.8.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Syslog facility for Erlang
 License:	MIT
 URL:		https://github.com/%{upstream}/%{realname}
@@ -42,6 +42,9 @@ Syslog facility for Erlang.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

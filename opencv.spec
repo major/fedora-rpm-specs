@@ -74,10 +74,10 @@ Version:        4.7.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
-License:        BSD
+License:        BSD-3-Clause and Apache-2.0 and ISC
 URL:            https://opencv.org
 # TO PREPARE TARBALLS FOR FEDORA
 # Edit opencv-clean.sh and set VERSION, save file and run opencv-clean.sh
@@ -521,6 +521,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Wed Jul 19 2023 Josef Ridky <jridky@redhat.com> - 4.7.0-14
+- Migrate to SPDX license format
+
 * Fri Jul 14 2023 Sandro Mani <manisandro@gmail.com> - 4.7.0-13
 - Rebuild (tesseract)
 

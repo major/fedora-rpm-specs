@@ -5,7 +5,7 @@
 
 Name:           freeipa-%{plugin_name}
 Version:        0.0.8
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        FleetCommander integration with FreeIPA
 
 BuildArch:      noarch
@@ -123,6 +123,9 @@ fi
 %ipa_python3_sitelib/ipaserver/plugins/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.0.8-21
 - Rebuilt for Python 3.12
 

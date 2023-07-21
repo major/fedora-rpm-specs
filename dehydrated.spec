@@ -1,7 +1,7 @@
 Summary: Client for signing certificates with an ACME server
 Name: dehydrated
 Version: 0.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: https://github.com/dehydrated-io/dehydrated
 Source0: https://github.com/dehydrated-io/dehydrated/releases/download/v%{version}/dehydrated-%{version}.tar.gz
@@ -143,6 +143,9 @@ systemctl start dehydrated.timer >/dev/null 2>&1 || :
 %{_mandir}/man1/dehydrated.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 31 2023 Robert Scheck <robert@fedoraproject.org> - 0.7.1-1
 - Resolved: rhbz#2139056 dehydrated-0.7.1 is available
 - Resolved: rhbz#2035549 genkey ecparam - ECDSA key, P-384 (secp384r1)

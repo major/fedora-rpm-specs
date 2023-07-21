@@ -12,7 +12,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.9.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 # No version is specified.
 License: GPL-1.0-or-later
 Url: https://github.com/doxygen
@@ -298,6 +298,9 @@ rm -rf %{buildroot}/%{_docdir}/packages
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.9.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Than Ngo <than@redhat.com> - 2:1.9.7-2
 - disable build_wizard for eln
 - fixed broken unicode test

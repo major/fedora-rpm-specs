@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        2.4.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD and MIT
@@ -206,6 +206,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.12.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2.4.12.0-3
 - Rebuilt for Python 3.12
 

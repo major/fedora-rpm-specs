@@ -8,7 +8,7 @@
 Name:           givaro
 Version:        4.1.1
 %global so_version 9
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        C++ library for arithmetic and algebraic computations
 
 # The entire source is CECILL-B except for src/kernel/recint/reclonglong.h,
@@ -186,6 +186,9 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.1-13
 - Re-enable documentation on F37
 

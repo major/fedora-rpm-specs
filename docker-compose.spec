@@ -1,6 +1,6 @@
 Name:           docker-compose
 Version:        1.29.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Multi-container orchestration for Docker
 License:        ASL 2.0
 URL:            https://github.com/docker/compose
@@ -108,6 +108,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} --verbose te
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 1.29.2-9
 - Rebuilt for Python 3.12
 

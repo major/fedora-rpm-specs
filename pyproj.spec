@@ -4,7 +4,7 @@
 
 Name:           pyproj
 Version:        3.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -190,6 +190,9 @@ py.test-3 -m "not network and not grid"
 
 
 %changelog
+* Wed Jul 19 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.6.0-2
+- Rebuild for Python 3.12b4
+
 * Sat Jun 17 2023 Jos de Kloe <josdekloe@gmail.com> 3.6.0-1
 - Update to 3.6.0
 

@@ -1,6 +1,6 @@
 Name:           fastback
 Version:        0.4
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        File uploader, configureable file uploader
 
 License:        GPLv2+
@@ -40,6 +40,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

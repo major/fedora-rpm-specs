@@ -2,7 +2,7 @@
 
 Name:           WoeUSB
 Version:        5.2.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Windows USB installation media creator
 License:        GPLv3+
 URL:            https://github.com/WoeUSB/WoeUSB
@@ -46,6 +46,9 @@ ls -l %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/woeusb.1.gz
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

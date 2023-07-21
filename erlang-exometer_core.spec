@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.6.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 BuildArch:	noarch
 Summary:	Easy and efficient instrumentation of Erlang code
 License:	MPLv2.0
@@ -59,6 +59,9 @@ rm -f doc/overview.edoc
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

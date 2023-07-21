@@ -19,7 +19,7 @@ other protocol on the same TCP listener.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.23%{?dist}
+Release:        0.24%{?dist}
 Summary:        Connection multiplexer for GoLang: serve different services on the same port
 
 # Upstream license specification: Apache-2.0
@@ -55,6 +55,9 @@ rm example_test.go
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

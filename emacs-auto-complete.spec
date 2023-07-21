@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        1.5.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Emacs auto-complete package
 
 License:        GPLv3+
@@ -54,6 +54,9 @@ emacs --batch -q --no-site-file --no-splash \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

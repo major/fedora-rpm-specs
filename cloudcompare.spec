@@ -19,7 +19,7 @@
 %global cname   CloudCompare
 Name:           cloudcompare
 Version:        2.11.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        3D point cloud and mesh processing software
 
 # Main part is GPLv2+
@@ -286,6 +286,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE4}
 %doc doc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 2.11.3-7
 - Rebuild (gdal)
 

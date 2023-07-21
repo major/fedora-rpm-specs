@@ -1,6 +1,6 @@
 Name:           cbonsai
 Version:        1.3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Grow bonsai trees in your terminal
 
 License:        GPL-3.0-only
@@ -42,6 +42,9 @@ step).
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           fstrcmp
 Version:        0.7.D001
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Fuzzy string compare library
 
 License:        GPLv3+
@@ -77,6 +77,9 @@ rm $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}/readme.pdf
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.D001-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.D001-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

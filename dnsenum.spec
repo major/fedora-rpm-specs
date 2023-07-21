@@ -1,6 +1,6 @@
 Name:       dnsenum 
 Version:    1.2.4.2
-Release:    26%{?dist}
+Release:    27%{?dist}
 Summary:    A tool to enumerate DNS info about domains 
 
 License:    GPLv2+
@@ -33,6 +33,9 @@ netranges, writes ip-blocks to domain_ips.txt.
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 21 2023 Adam Williamson <awilliam@redhat.com> - 1.2.4.2-26
 - Drop perl-Net-Whois-IP dep (it's been retired)
 

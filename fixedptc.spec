@@ -12,7 +12,7 @@ Version:               0
 
 %forgemeta
 
-Release:               12%{?dist}
+Release:               13%{?dist}
 Summary:               Fixed point math header only library for C
 License:               BSD
 Url:                   %{forgeurl}
@@ -76,6 +76,9 @@ install -p -m 0644 -D %{name}.h %{buildroot}%{_includedir}/%{name}/%{name}.h
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

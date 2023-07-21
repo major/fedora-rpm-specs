@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        5.17
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        An ecclesiastic scripts font
 
 # https://web.archive.org/web/20150625020428/http://users.teilar.gr/~g1951d/
@@ -59,6 +59,9 @@ appstream-util validate-relax --nonet \
 %doc Analecta.pdf
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.17-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.17-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

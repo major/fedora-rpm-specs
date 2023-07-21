@@ -1,7 +1,7 @@
 Summary: Emacs Speech interface
 Name: emacspeak
 Version: 54.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 # main lisp files are GPL2+
 # lisp/atom-blogger and lisp/g-client are BSD
 License: GPLv2+ and BSD
@@ -80,6 +80,9 @@ cp -p info/*.info* %{buildroot}%{_infodir}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 54.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 54.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

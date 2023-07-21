@@ -1,6 +1,6 @@
 Name:		gball
 Version:	2.0
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	The Console Ball and Racket Game
 
 License:	GPLv3+
@@ -43,6 +43,9 @@ install -m 0644 -p -D info/gball.info* %{buildroot}%{_infodir}/gball.info
 %license COPYING
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           apache-%{jarname}
 Version:        2.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Java-based dependency manager
 License:        Apache-2.0
 URL:            https://ant.apache.org/ivy
@@ -146,6 +146,9 @@ echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.5.1-5
 - Replace BR maven-local-openjdk11 w/ java-11-devel
 - Use pom_xpath_set macro to publish artifacts

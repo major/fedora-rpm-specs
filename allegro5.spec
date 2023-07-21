@@ -3,7 +3,7 @@
 
 Name:		allegro5
 Version:	5.2.7
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A game programming library
 License:	zlib
 URL:		http://liballeg.org/
@@ -284,6 +284,9 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

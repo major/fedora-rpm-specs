@@ -6,7 +6,7 @@
 
 Name:           ansible-collection-ansible-posix
 Version:        1.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ansible Collection targeting POSIX and POSIX-ish platforms
 
 # plugins/module_utils/mount.py: Python Software Foundation License version 2
@@ -54,6 +54,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 19 2023 Maxwell G <maxwell@gtmx.me> - 1.5.4-1
 - Update to 1.5.4. Fixes rhbz#2207695.
 

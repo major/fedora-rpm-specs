@@ -1,6 +1,6 @@
 Name:          awf-gtk4
 Version:       2.7.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Theme preview application for GTK
 Summary(fr):   Application d'aperçu de thème pour GTK
 License:       GPLv3+
@@ -72,6 +72,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ applications/%{
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Fabrice Creuzot <code@luigifab.fr> - 2.7.0-2
 - Package spec update
 

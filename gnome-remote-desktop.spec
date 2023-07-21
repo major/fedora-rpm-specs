@@ -13,7 +13,7 @@
 
 Name:           gnome-remote-desktop
 Version:        45.alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPL-2.0-or-later
@@ -113,6 +113,9 @@ GNOME desktop environment.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45.alpha-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Jonas Ådahl <jadahl@redhat.com> - 45~alpha-1
 - Update to 45.alpha
 

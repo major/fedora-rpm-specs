@@ -1,7 +1,7 @@
 Name:		globus-xio-rate-driver
 %global _name %(tr - _ <<< %{name})
 Version:	2.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Grid Community Toolkit - Globus XIO Rate Limiting Driver
 
 License:	Apache-2.0
@@ -81,6 +81,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

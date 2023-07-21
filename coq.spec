@@ -27,7 +27,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           coq
 Version:        8.17.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -395,6 +395,9 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.17.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 8.17.1-3
 - Validate appdata with appstream-util
 

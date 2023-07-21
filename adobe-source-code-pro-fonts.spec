@@ -6,7 +6,7 @@
 
 Name:           %{fontname}-fonts
 Version:        %{version_roman}.%{version_italic}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A set of mono-spaced OpenType fonts designed for coding environments
 
 License:        OFL
@@ -56,6 +56,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %license LICENSE.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.030.1.050-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.030.1.050-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

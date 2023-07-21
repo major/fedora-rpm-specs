@@ -1,6 +1,6 @@
 Name:           amoebax
 Version:        0.2.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Action-Puzzle Game
 License:        GPLv2+ and Free Art
 URL:            http://www.emma-soft.com/games/amoebax/
@@ -106,6 +106,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/pixmaps/%{name}.svg \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

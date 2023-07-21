@@ -14,7 +14,7 @@ Summary:   NetworkManager VPN plugin for vpnc
 Name:      NetworkManager-vpnc
 Epoch:     1
 Version:   1.2.8
-Release:   3%{?dist}
+Release:   4%{?dist}
 License:   GPLv2+
 URL:       http://www.gnome.org/projects/NetworkManager/
 Source0:   https://download.gnome.org/sources/NetworkManager-vpnc/1.2/%{name}-%{version}.tar.xz
@@ -126,6 +126,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

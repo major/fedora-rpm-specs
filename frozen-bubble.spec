@@ -3,7 +3,7 @@
 Summary: Frozen Bubble arcade game
 Name: frozen-bubble
 Version: 2.2.1
-Release: 0.42.beta1%{?dist}
+Release: 0.43.beta1%{?dist}
 License: GPLv2
 URL: http://www.frozen-bubble.org/
 Source0: http://www.frozen-bubble.org/data/frozen-bubble-%{version}-beta1.tar.bz2
@@ -184,6 +184,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/frozen-bu
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-0.43.beta1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.1-0.42.beta1
 - Perl 5.38 rebuild
 

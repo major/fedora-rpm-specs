@@ -18,7 +18,7 @@ are developing.}
 %global godocs          example README.md SHOULDERS.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple and easy way to embed static files into Go binaries
 
 License:        MIT
@@ -64,6 +64,9 @@ BuildRequires:  golang(github.com/stretchr/testify/require)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Maxwell G <gotmax@e.email> - 2.8.1-6
 - Add patch to fix test failures
 

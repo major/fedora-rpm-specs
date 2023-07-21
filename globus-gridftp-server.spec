@@ -9,7 +9,7 @@
 Name:		globus-gridftp-server
 %global _name %(tr - _ <<< %{name})
 Version:	13.24
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server
 
 License:	Apache-2.0
@@ -249,6 +249,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.24-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 19 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 13.24-5
 - Reenable optional test dependency fakeroot on ppc64le in EPEL 8
 

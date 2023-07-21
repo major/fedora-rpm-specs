@@ -3,7 +3,7 @@
 Summary:        Cross platform C++ game library
 Name:           ClanLib1
 Version:        1.0.0
-Release:        39%{?dist}
+Release:        40%{?dist}
 License:        zlib
 URL:            http://www.clanlib.org/
 Source0:        http://www.clanlib.org/download/releases-1.0/%{realname}-%{version}.tgz
@@ -99,6 +99,9 @@ done
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

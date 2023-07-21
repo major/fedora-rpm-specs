@@ -14,7 +14,7 @@
 #
 Name:           dar
 Version:        2.7.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software for making/restoring incremental CD/DVD backups
 
 License:        GPLv2+
@@ -189,6 +189,9 @@ cp -a %{SOURCE1} .
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 05 2023 Luis Bazan <lbazan@fedoraproject.org> - 2.7.9-1
 - New Upstream version
 

@@ -38,7 +38,7 @@ ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 
 Name:			elk
 Version:		8.8.26
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		An all-electron full-potential linearised augmented-plane wave code
 
 License:		GPLv3+
@@ -305,6 +305,9 @@ mv tests.orig tests
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.8.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 09 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 8.8.26-1
 - New upstream release
 - Switch to flexiblas-openblas-openmp due to bug #2182460

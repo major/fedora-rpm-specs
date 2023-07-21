@@ -3,7 +3,7 @@
 Name:           freedoom-freedm
 
 Version:        0.12.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Doom styled first person shooter deathmatch game
 
 License:        BSD-3-Clause
@@ -54,6 +54,9 @@ install -p -m 644 %{SOURCE3} %{buildroot}/%{_datadir}/icons/hicolor/48x48/apps/
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.12.1-9
 - migrated to SPDX license
 

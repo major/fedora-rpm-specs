@@ -1,6 +1,6 @@
 Name:              bashmount
 Version:           4.3.2
-Release:           6%{?dist}
+Release:           7%{?dist}
 
 Summary:           A menu-driven bash script for mounting removable media
 License:           GPLv2
@@ -45,6 +45,9 @@ install -p -D -m644 bashmount.1 \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

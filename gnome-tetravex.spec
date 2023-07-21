@@ -1,6 +1,6 @@
 Name:           gnome-tetravex
 Version:        3.38.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GNOME Tetravex game
 
 License:        GPLv2+ and CC-BY-SA
@@ -56,6 +56,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tetravex
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

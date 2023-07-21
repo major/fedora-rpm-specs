@@ -3,7 +3,7 @@
 
 Name:           brise
 Version:        0.38.20180515
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        The official Rime schema repository
 
 License:        GPL-3.0-only
@@ -35,6 +35,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.20180515-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Peng Wu <pwu@redhat.com> - 0.38.20180515-11
 - Migrate to SPDX license
 

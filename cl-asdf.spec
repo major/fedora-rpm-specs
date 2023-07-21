@@ -1,6 +1,6 @@
 Name:    cl-asdf
 Version: 20101028
-Release: 23%{?dist}
+Release: 24%{?dist}
 Source:  %{name}-%{version}.tar.bz2
 Summary: Another System Definition Facility
 URL:     http://www.cliki.net/asdf
@@ -35,6 +35,9 @@ make
 %{_datadir}/common-lisp/source/cl-asdf
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20101028-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20101028-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		dm-zoned-tools
 Version:	2.2.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Provides utilities to format, check and repair Linux dm-zoned devices
 
 License:	GPLv3+
@@ -42,6 +42,9 @@ sh autogen.sh
 %doc README.md CONTRIBUTING
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 31 2023 Damien Le Moal <damien.lemoal@wdc.com> 2.2.2-1
 - Version 2.2.2 package
 

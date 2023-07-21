@@ -14,7 +14,7 @@ Simple, seamless, lightweight time tracking for Git.}
 %global godocs          AUTHORS README.md
 
 Name:           git-time-metric
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Simple, seamless, lightweight time tracking for Git
 
 License:        MIT
@@ -70,6 +70,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Mar 05 2023 Pete Walter <pwalter@fedoraproject.org> - 1.3.5-19
 - Rebuild for libgit2 1.5.x
 

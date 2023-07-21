@@ -1,6 +1,6 @@
 Name:           fishbowl
 Version:        1.4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A collection of helper methods for dealing with exceptions in Java 8
 License:        MIT
 URL:            https://stefanbirkner.github.io/fishbowl
@@ -57,6 +57,9 @@ rm ./src/test/java8/com/github/stefanbirkner/fishbowl/FishbowlTestNgReadmeTest.j
 %doc README.md
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

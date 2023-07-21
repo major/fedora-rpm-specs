@@ -4,7 +4,7 @@
 Summary: A GNU utility for secure communication and data storage
 Name: gnupg1
 Version: 1.4.23
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: GPL-3.0-or-later WITH Classpath-exception-2.0
 URL: http://www.gnupg.org/
 Source0: https://gnupg.org/ftp/gcrypt/gnupg/gnupg-%{version}.tar.bz2
@@ -102,6 +102,9 @@ done
 %{_mandir}/man1/gpgv1.1.gz
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.23-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 1.4.23-22
 - SPDX Migration
 

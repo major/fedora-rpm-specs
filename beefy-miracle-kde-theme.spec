@@ -1,6 +1,6 @@
 Name:		beefy-miracle-kde-theme
 Version:	16.91.0.3
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Beefy Miracle KDE Theme
 
 License:	GPL-2.0-or-later AND CC-BY-SA-1.0
@@ -82,6 +82,9 @@ ln -s ../../../../../../pixmaps/system-logo-white.png %{buildroot}%{_kde4_appsdi
 %{_kde4_appsdir}/ksplash/Themes/BeefyMiracle/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.91.0.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Than Ngo <than@redhat.com> - 16.91.0.3-18
 - migrated to SPDX license
 

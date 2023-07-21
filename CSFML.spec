@@ -3,7 +3,7 @@ Summary:        C Interface for the Simple and Fast Multimedia Library
 License:        Zlib
 
 Version:        2.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 URL:            https://www.sfml-dev.org/download/csfml/
 Source0:        https://github.com/SFML/CSFML/archive/%{version}/CSFML-%{version}.tar.gz
@@ -77,6 +77,9 @@ rm %{buildroot}%{_datadir}/%{name}/readme.md
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.5.2-1
 - Update to v2.5.2
 - Switch to downloading sources from GitHub (no v2.5.2 download available on sfml-dev.org)

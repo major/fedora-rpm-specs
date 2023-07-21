@@ -1,7 +1,7 @@
 Summary:       Analyzes C files charting control flow within the program
 Name:          cflow
 Version:       1.7
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       GPLv2+
 URL:           http://www.gnu.org/software/cflow/
 Source0:       http://ftp.gnu.org/gnu/cflow/cflow-%{version}.tar.bz2
@@ -41,6 +41,9 @@ make check
 %{_datadir}/emacs/site-lisp/cflow-mode.el
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.3.2
 # can only be reset when all subpkgs bumped
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Extract and create tar files using conduit for streaming
 
 License:        MIT
@@ -146,6 +146,9 @@ cabal-tweak-drop-dep conduit-combinators
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 16 2023 Jens Petersen <petersen@redhat.com> - 0.3.2-18
 - refresh to cabal-rpm-2.1.0 with SPDX migration
 

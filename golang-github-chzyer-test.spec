@@ -15,7 +15,7 @@ Golang test utility.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.18%{?dist}
+Release:        0.19%{?dist}
 Summary:        Golang test utility
 
 License:        MIT
@@ -43,6 +43,9 @@ BuildRequires:  golang(github.com/chzyer/logex)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

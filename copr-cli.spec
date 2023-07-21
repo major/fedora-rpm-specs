@@ -10,7 +10,7 @@
 
 Name:       copr-cli
 Version:    1.109
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -132,6 +132,9 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.109-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.109-2
 - Rebuilt for Python 3.12
 

@@ -3,7 +3,7 @@
 
 Name:		ax25-apps
 Version:	2.0.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	AX.25 ham radio applications
 
 #ax25ipd is BSD licensed, rest is GPLv2+
@@ -78,6 +78,9 @@ recode AUTHORS iso-8859-15
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

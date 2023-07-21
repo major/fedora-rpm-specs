@@ -18,7 +18,7 @@ An RFC1178 implementation.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.9%{?dist}
+Release:        0.10%{?dist}
 Summary:        An RFC1178 implementation
 
 # Upstream license specification: Apache-2.0
@@ -61,6 +61,9 @@ install -m 0644 -vp %{gobuilddir}/share/man/man1/* %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

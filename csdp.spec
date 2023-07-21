@@ -2,7 +2,7 @@
 
 Name:           csdp
 Version:        6.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        C library for SemiDefinite Programming
 
 # The content is CPL-1.0.  The remaining licenses cover the various fonts
@@ -158,6 +158,9 @@ cp -p %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} \
 %{octavedir}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

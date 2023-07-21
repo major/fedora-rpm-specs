@@ -4,7 +4,7 @@
 
 Name:           florence
 Version:        0.6.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Extensible scalable on-screen virtual keyboard for GNOME 
 License:        GPLv2+ and GFDL
 URL:            http://florence.sourceforge.net
@@ -123,6 +123,9 @@ chrpath --delete %{buildroot}/usr/bin/florence
 %{_libdir}/pkgconfig/%{name}-1.0.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 0.6.3-19
 - Apply upstream patch to fix C99 compatibility issue
 

@@ -2,12 +2,13 @@
 
 Name:           pungi
 Version:        4.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
+Patch0:         https://pagure.io/pungi/pull-request/1690.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -138,6 +139,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Wed Jul 19 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.4.0-3
+- Backport ostree runroot package additions
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 4.4.0-2
 - Rebuilt for Python 3.12
 

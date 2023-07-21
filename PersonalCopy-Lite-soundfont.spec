@@ -1,6 +1,6 @@
 Name:           PersonalCopy-Lite-soundfont
 Version:        4.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Lite version of the PersonalCopy General Midi soundfont
 License:        Redistributable, no modification permitted
 URL:            http://www.personalcopy.com/sfarkfonts1.htm
@@ -40,6 +40,9 @@ install -p -m 644 %{SOURCE0} $RPM_BUILD_ROOT%{_datadir}/soundfonts
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

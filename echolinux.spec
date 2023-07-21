@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:		echolinux
 Version:	0.17a
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Linux echoLink client
 
 License:	GPL+
@@ -79,6 +79,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17a-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17a-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

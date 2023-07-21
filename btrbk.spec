@@ -5,7 +5,7 @@
 
 Name: btrbk
 Version: 0.32.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tool for creating snapshots and remote backups of btrfs sub-volumes
 License: GPLv3+
 URL: https://digint.ch/btrbk/
@@ -88,6 +88,9 @@ find %{buildroot}%{_datadir}/%{name} -type f -exec sed -i '1s=^#!/usr/bin/\(pyth
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 30 2023 Juan Orti Alcaine <jortialc@redhat.com> - 0.32.6-1
 - Version 0.32.6 (RHBZ#2181762)
 

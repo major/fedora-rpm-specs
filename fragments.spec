@@ -2,7 +2,7 @@
 
 Name:           fragments
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Easy to use BitTorrent client which follows the GNOME HIG
 
 License:        GPLv3+
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Pete Walter <pwalter@fedoraproject.org> - 2.1.1-1
 - Update to 2.1.1 (rhbz#1878523)
 - ExcludeArch i686 for https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

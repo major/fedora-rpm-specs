@@ -1,6 +1,6 @@
 Name:           cmake-fedora
 Version:        2.9.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        CMake helper modules for fedora developers
 License:        BSD-2-Clause-FreeBSD
 URL:            https://pagure.io/%{name}/
@@ -93,6 +93,9 @@ ctest --output-on-failure
 %{_datadir}/cmake/Templates/fedora/project.spec.in
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

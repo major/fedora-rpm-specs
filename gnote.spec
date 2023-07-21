@@ -2,7 +2,7 @@
 
 Name:           gnote
 Version:        44.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Note-taking application
 
 License:        GPL-3.0-or-later AND GFDL-1.1
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 20 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

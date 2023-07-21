@@ -19,7 +19,7 @@ The following publicly visible classes and functions have been ported:
 %global golicenses      LICENSE
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Difflib package's Go implementation
 
 License:        BSD
@@ -48,6 +48,9 @@ sed -i -r 's|"\.+/tester"|"github.com/ianbruene/go-difflib/difflib/tester"|g' \
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Font Files for the 'showtext' Package
 
 License:          ASL 2.0
@@ -88,6 +88,9 @@ popd
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.0-11
 - Fix font path
 

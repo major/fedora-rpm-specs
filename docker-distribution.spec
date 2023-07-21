@@ -35,7 +35,7 @@
 
 Name:           %{project}-%{repo}
 Version:        2.8.1
-Release:        1.git%{shortcommit}%{?dist}
+Release:        2.git%{shortcommit}%{?dist}
 Summary:        Docker toolset to pack, ship, store, and deliver content
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -322,6 +322,9 @@ make test
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-2.gitb5ca020
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 16 2023 Kevin Fenzi <kevin@scrye.com> - 2.8.1-1
 - Update to 2.8.1. Fixes rhbz#2043860
 

@@ -15,7 +15,7 @@
 
 Name:           clblast
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tuned OpenCL BLAS routines
 
 License:        Apache-2.0
@@ -104,6 +104,9 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 %{_bindir}/clblast*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-1
 - Version 1.6.0
 - Disable tests due to problems with pocl

@@ -1,7 +1,7 @@
 Summary: Automated Testing Framework
 Name: atf
 Version: 0.21
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL: http://code.google.com/p/kyua/wiki/ATF
 Source0: https://github.com/jmmv/atf/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -189,6 +189,9 @@ rm %{buildroot}%{_libdir}/libatf*.la
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Sérgio Basto <sergio@serjux.com> - 0.21-1
 - Update atf to 0.21
 - Use make macros ( https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro )

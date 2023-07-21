@@ -1,6 +1,6 @@
 Name: alevt
 Version: 1.8.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Teletext decoder/browser
 License: GPLv2
 URL: https://gitlab.com/alevt/alevt
@@ -61,6 +61,9 @@ desktop-file-install \
 %doc README.md CHANGELOG COPYRIGHT
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 1.8.1-2
 - Port to C99
 

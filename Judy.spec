@@ -1,6 +1,6 @@
 Name:		Judy
 Version:	1.0.5
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	General purpose dynamic array
 License:	LGPL-2.0-or-later
 URL:		http://sourceforge.net/projects/judy/
@@ -38,15 +38,15 @@ for developing applications that use the Judy library.
 %setup -q -n judy-%{version}
 
 # Make tests use shared instead of static libJudy
-%patch0 -p1 -b .test-shared
+%patch -P 0 -p1 -b .test-shared
 
 # The J1* man pages were incorrectly being symlinked to Judy, rather than Judy1
 # This patch corrects that; submitted upstream 2008/11/27
-%patch1 -p1 -b .fix-Judy1-mans
+%patch -P 1 -p1 -b .fix-Judy1-mans
 
 # Fix some code with undefined behavior, commented on and removed by gcc
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=782841
-%patch2 -p1 -b .behavior
+%patch -P 2 -p1 -b .behavior
 
 # README.Fedora
 cp -p %{SOURCE1} .
@@ -87,6 +87,9 @@ cd -
 %{_mandir}/man3/J*.3*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Paul Howarth <paul@city-fan.org> - 1.0.5-31
 - Use SPDX-format license tag
 

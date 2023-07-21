@@ -4,7 +4,7 @@
 
 Name:           %{srcname}
 Version:        1.3.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -54,6 +54,9 @@ sed -i -e '/^#!\//, 1d' fontdump/*.py
 %{python3_sitelib}/%{srcname}-%{version}-py3.*.egg-info
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

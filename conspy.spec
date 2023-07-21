@@ -1,6 +1,6 @@
 Name:           conspy
 Version:        1.14
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Remote control for text mode virtual consoles
 
 License:        AGPLv3+
@@ -40,6 +40,9 @@ autoconf
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

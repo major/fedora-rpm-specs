@@ -1,6 +1,6 @@
 Name:           egl-gbm
 Version:        1.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Nvidia egl gbm libary
 
 License:        MIT
@@ -34,6 +34,9 @@ rm %{buildroot}%{_libdir}/libnvidia-egl-gbm.so
 %{_libdir}/libnvidia-egl-gbm.so.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

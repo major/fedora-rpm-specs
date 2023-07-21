@@ -1,6 +1,6 @@
 Name:           gmp-ecm
 Version:        7.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Elliptic Curve Method for Integer Factorization
 License:        GPL-3.0-or-later
 URL:            https://gitlab.inria.fr/zimmerma/ecm
@@ -131,6 +131,9 @@ make check
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

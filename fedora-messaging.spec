@@ -7,7 +7,7 @@ Tools and APIs to make working with AMQP in Fedora easier.
 
 Name:           %{pkgname}
 Version:        3.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
 License:        GPLv2+
@@ -112,6 +112,9 @@ install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.4.1-2
 - Rebuilt for Python 3.12
 

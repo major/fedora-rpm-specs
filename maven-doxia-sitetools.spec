@@ -1,11 +1,9 @@
-%bcond_with fop
-
 %global parent  maven-doxia
 %global subproj sitetools
 
 Name:           %{parent}-%{subproj}
 Version:        1.11.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Doxia content generation framework
 License:        Apache-2.0
 URL:            https://maven.apache.org/doxia/
@@ -27,9 +25,7 @@ BuildRequires:  mvn(org.apache.maven.doxia:doxia-core)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-logging-api)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-apt)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-fml)
-%if %{with fop}
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-fo)
-%endif
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xdoc)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xhtml)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xhtml5)
@@ -98,11 +94,6 @@ rm -rf $(find -type d -name itext)
 
 %pom_remove_dep -r :doxia-module-markdown
 
-%if %{without fop}
-%pom_remove_dep -r :doxia-module-fo
-rm -r doxia-doc-renderer/src/main/java/org/apache/maven/doxia/docrenderer/pdf/fo
-%endif
-
 %mvn_alias :doxia-integration-tools org.apache.maven.shared:maven-doxia-tools
 
 %build
@@ -119,6 +110,9 @@ rm -r doxia-doc-renderer/src/main/java/org/apache/maven/doxia/docrenderer/pdf/fo
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jul 19 2023 Jerry James <loganjerry@gmail.com> - 1.11.1-6
+- Enable fop support
+
 * Sat Jun 10 2023 Jerry James <loganjerry@gmail.com> - 1.11.1-5
 - Remove maven 2 dependencies
 

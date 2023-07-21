@@ -2,7 +2,7 @@
 
 Name:           eclib
 Version:        20221012
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for Computations on Elliptic Curves
 License:        GPL-2.0-or-later
 URL:            https://homepages.warwick.ac.uk/~masgaj/mwrank/
@@ -103,6 +103,9 @@ make check LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221012-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 20221012-5
 - Rebuilt for Boost 1.81
 

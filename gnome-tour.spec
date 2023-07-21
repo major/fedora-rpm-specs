@@ -14,7 +14,7 @@
 
 Name:           gnome-tour
 Version:        44.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GNOME Tour and Greeter
 
 # * gnome-tour source code is GPLv3+
@@ -195,6 +195,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 44.0-2
 - Enable bundled deps in RHEL builds
 - Update bundled provides

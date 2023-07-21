@@ -5,7 +5,7 @@
 
 Name:    erlang-eimp
 Version: 1.0.17
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: ASL 2.0
 Summary: Erlang Image Manipulation Process
@@ -59,6 +59,9 @@ echo "Skipping tests."
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

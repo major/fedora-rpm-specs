@@ -3,7 +3,7 @@
 
 Name:           gnome-shell-extension-background-logo
 Version:        44.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Background logo extension for GNOME Shell
 
 License:        GPLv2+
@@ -37,6 +37,9 @@ Show your pride! Display the Fedora logo (or any other graphic) in the corner of
 %{_datadir}/gnome-shell/extensions/background-logo@fedorahosted.org/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 20 2023 Florian Müllner <fmuellner@redhat.com> - 44.0-1
 - Update to 44.0
 

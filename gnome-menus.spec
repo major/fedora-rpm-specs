@@ -2,7 +2,7 @@
 
 Name: gnome-menus
 Version: 3.36.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary:  A menu system for the GNOME project
 
 License: LGPLv2+
@@ -90,6 +90,9 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/xdg/menus/applications-merged
 %{_datadir}/gir-1.0/GMenu-3.0.gir
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

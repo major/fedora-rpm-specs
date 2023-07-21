@@ -39,7 +39,7 @@ Name:           cim-schema
 Url:            http://www.dmtf.org/
 Summary:        Common Information Model (CIM) Schema
 Version:        %{major}.%{minor}.%{update}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LicenseRef-DMTF
 Source0:        http://www.dmtf.org/standards/cim/cim_schema_v%{major}%{minor}%{update}/cim_schema_%{version}Experimental-MOFs.zip
 Source1:        http://www.dmtf.org/standards/cim/cim_schema_v%{major}%{minor}%{update}/cim_schema_%{version}Experimental-Doc.zip
@@ -99,6 +99,9 @@ cp -a %{SOURCE2} $RPM_BUILD_ROOT/%{_docdir}/%{name}
 %doc ../%{name}-docs/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.54.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 19 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.54.1-1
 - Update to CIM Schema 2.54.1, including experimental classes
 

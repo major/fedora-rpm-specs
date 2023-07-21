@@ -50,7 +50,7 @@ License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
 Version:        296
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 # Use Python bridge on non-stable versions
@@ -783,6 +783,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 296-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Packit <hello@packit.dev> - 296-1
 - Performance and stability improvements
 

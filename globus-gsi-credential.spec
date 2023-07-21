@@ -1,7 +1,7 @@
 Name:		globus-gsi-credential
 %global _name %(tr - _ <<< %{name})
 Version:	8.3
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Credential Library
 
 License:	Apache-2.0
@@ -107,6 +107,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

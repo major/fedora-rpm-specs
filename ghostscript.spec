@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.01.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -422,6 +422,9 @@ done
 # =============================================================================
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.01.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Michael J Gruber <mjg@fedoraproject.org> - 10.01.2-1
 - rebase to bugfix release 10.01.2 (rhbz#2182090)
 - fix for CVE-2023-36664 (rhbz#2217806)

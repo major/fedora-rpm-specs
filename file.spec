@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.44
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 Source0: http://ftp.astron.com/pub/file/file-%{version}.tar.gz
 Source1: http://ftp.astron.com/pub/file/file-%{version}.tar.gz.asc
@@ -221,6 +221,9 @@ make -C tests check
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.44-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.44-4
 - Rebuilt for Python 3.12
 

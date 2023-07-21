@@ -2,7 +2,7 @@
 Summary: GUI for several command-line debuggers
 Name: ddd
 Version: 3.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.gnu.org/software/ddd/
 Source0: https://ftp.gnu.org/gnu/ddd/ddd-%{version}.tar.gz
@@ -73,6 +73,9 @@ install -D -m 0644 %{SOURCE2} \
 %{_mandir}/man1/ddd.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.4.0-1
 - 3.4.0 final
 

@@ -1,6 +1,6 @@
 Name:           dex-autostart
 Version:        0.9.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Generate and execute DesktopEntry files
 
 License:        GPL-3.0-or-later
@@ -56,6 +56,9 @@ rm %{buildroot}/%{_defaultdocdir}/%{name}/LICENSE
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

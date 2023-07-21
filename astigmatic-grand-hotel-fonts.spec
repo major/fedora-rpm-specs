@@ -1,5 +1,5 @@
 Version:        1.000
-Release:        17%{?dist}
+Release:        18%{?dist}
 URL:            http://www.astigmatic.com/
 
 %global foundry           Astigmatic
@@ -38,6 +38,9 @@ Source1:        61-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

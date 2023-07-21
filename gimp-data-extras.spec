@@ -3,7 +3,7 @@
 Summary: Extra files for GIMP
 Name: gimp-data-extras
 Version: 2.0.2
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.gimp.org/
 Source0: http://download.gimp.org/pub/gimp/extras/gimp-data-extras-%{version}.tar.bz2
@@ -39,6 +39,9 @@ install -m 0644 %{name}.metainfo.xml %{buildroot}%{_datadir}/appdata/
 %{_datadir}/appdata/%{name}.metainfo.xml
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Josef Ridky <jridky@redhat.com> - 2.0.2-28
 - Move to SPDX license
 

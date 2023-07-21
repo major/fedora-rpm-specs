@@ -2,7 +2,7 @@
 
 Name:           datanommer-commands
 Version:        1.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Console commands for datanommer
 
 License:        GPLv3+
@@ -62,6 +62,9 @@ rm -rf *.egg-info
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

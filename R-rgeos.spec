@@ -10,7 +10,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrev}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Interface to Geometry Engine - Open Source ('GEOS')
 
 License:          GPLv2+
@@ -96,6 +96,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 0.6.3-1
 - update to 0.6-3
 

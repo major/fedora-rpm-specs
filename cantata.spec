@@ -2,7 +2,7 @@
 Name:    cantata
 Summary: Music Player Daemon (MPD) graphical client
 Version: 2.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Most files in this project are GPL-2.0-or-later.  Exceptions:
 # (GPL-2.0-only OR GPL-3.0-only):
@@ -163,6 +163,9 @@ appstreamcli validate --no-net \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-1
 - Version 2.5.0 (bz 2060187)
 - Convert the License tag to SPDX and clarify the license

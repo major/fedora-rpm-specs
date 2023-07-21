@@ -7,7 +7,7 @@
 Summary: Volume rendering library for Coin
 Name: SIMVoleon
 Version: 2.1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Older releases had been licensed GPLv2
 License: BSD-3-Clause
@@ -89,6 +89,9 @@ popd
 %{_mandir}/man3/*.gz
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		dcap
 Version:	2.47.14
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Client Tools for dCache
 
 #		plugins/gssapi/{base64.[ch],util.c} - BSD license
@@ -138,6 +138,9 @@ rm -rf %{buildroot}/%{_docdir}
 %{_libdir}/%{name}/libtelnetTunnel.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 01 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.47.14-1
 - New upstream release
 

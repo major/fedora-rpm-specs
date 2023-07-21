@@ -2,7 +2,7 @@
 
 Name:           apache-commons-codec
 Version:        1.15
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Implementations of common encoders and decoders
 License:        ASL 2.0
 URL:            https://commons.apache.org/codec/
@@ -49,6 +49,9 @@ sed -i 's/\r//' RELEASE-NOTES*.txt LICENSE.txt NOTICE.txt
 %doc RELEASE-NOTES*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

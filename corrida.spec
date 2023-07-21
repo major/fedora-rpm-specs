@@ -3,7 +3,7 @@
 
 Name:           corrida
 Version:        %{version_major}.%{version_minor}
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Application for archivation of meteor observations
 
 License:        GPLv2
@@ -63,6 +63,9 @@ desktop-file-install %{SOURCE1} \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.96.11-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Florian Weimer <fweimer@redhat.com> - 0.96.11-32
 - C99 compatibility fixes (#2168162)
 

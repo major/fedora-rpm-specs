@@ -8,7 +8,7 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   23.1.2
+Version:   23.1.99.901
 Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
@@ -32,7 +32,7 @@ BuildRequires: wayland-devel
 BuildRequires: desktop-file-utils
 
 BuildRequires: pkgconfig(wayland-client) >= 1.21.0
-BuildRequires: pkgconfig(wayland-protocols) >= 1.28
+BuildRequires: pkgconfig(wayland-protocols) >= 1.30
 BuildRequires: pkgconfig(wayland-eglstream-protocols)
 
 BuildRequires: pkgconfig(epoxy) >= 1.5.5
@@ -61,7 +61,9 @@ BuildRequires: pkgconfig(xtst)
 BuildRequires: pkgconfig(xv)
 BuildRequires: pkgconfig(libxcvt)
 BuildRequires: pkgconfig(libdecor-0) >= 0.1.1
-BuildRequires: xorg-x11-proto-devel >= 7.7-10
+BuildRequires: pkgconfig(liboeffis-1.0) >= 1.0.0
+BuildRequires: pkgconfig(libei-1.0) >= 1.0.0
+BuildRequires: xorg-x11-proto-devel >= 2023.2-1
 
 BuildRequires: mesa-libGL-devel >= 9.2
 BuildRequires: mesa-libEGL-devel
@@ -132,6 +134,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Wed Jul 19 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.99.901
+- xwayland 23.1.99.901 (xwayland 23.2.0 rc1)
+
 * Tue Jun  6 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.2-1
 - xwayland 23.1.2
 

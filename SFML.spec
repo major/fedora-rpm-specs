@@ -1,6 +1,6 @@
 Name:           SFML
 Version:        2.5.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Simple and Fast Multimedia Library
 
 # src/SFML/Audio/stb_vorbis/stb_vorbis.{c,h} are Public Domain
@@ -102,6 +102,9 @@ find extlibs/ -type f ! -name 'stb_image*' -print0 | xargs -0 rm
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 24 2023 Sérgio Basto <sergio@serjux.com> - 2.5.1-14
 - Migrate to SPDX license format
 

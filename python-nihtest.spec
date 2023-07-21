@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Version:        1.1.1
+Version:        1.2.0
 Release:        %{autorelease}
 Summary:        A testing tool for command line utilities
 %forgemeta

@@ -14,7 +14,7 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    66%{?dist}
+Release:    67%{?dist}
 Summary:    Concurrent Versions System
 URL:        https://cvs.nongnu.org/
 # contrib/check_cvs.in:     FSFULLR-like (TODO: waiting on an identifier
@@ -615,6 +615,9 @@ exit 0
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-67
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 19 2023 Petr Pisar <ppisar@redhat.com> - 1.11.23-66
 - Modernize a spec file
 - Build PDF documentation from sources

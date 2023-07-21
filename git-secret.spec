@@ -1,6 +1,6 @@
 Name:           git-secret
 Version:        0.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A bash-tool to store your private data inside a git repository
 
 License:        MIT
@@ -36,6 +36,9 @@ allowing permitted users to access encrypted data using their secret keys.
 %{_mandir}/man7/git-secret*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

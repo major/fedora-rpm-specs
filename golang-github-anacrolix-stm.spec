@@ -29,7 +29,7 @@ alternative would be for every transaction function to return an interface{}.)}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Software Transactional Memory in Go
 
 License:        MIT
@@ -65,6 +65,9 @@ find . -name "*.go" -exec sed -i "s|github.com/anacrolix/missinggo/v2|github.com
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

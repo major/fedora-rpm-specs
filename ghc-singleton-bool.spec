@@ -10,7 +10,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.1.6
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Type level booleans
 
 License:        BSD-3-Clause
@@ -132,6 +132,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 0.1.6-1
 - https://hackage.haskell.org/package/singleton-bool-0.1.6/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

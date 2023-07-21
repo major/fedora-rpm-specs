@@ -18,7 +18,7 @@
 
 Name:           gcl
 Version:        2.6.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GNU Common Lisp
 
 # LGPL-2.0-or-later:
@@ -248,6 +248,9 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar  6 2023 Jerry James <loganjerry@gmail.com> - 2.6.14-2
 - Update to 2.6.15pre3
 - Drop upstreamed -unrandomize patch

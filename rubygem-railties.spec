@@ -5,7 +5,7 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.0.4.3
+Version: 7.0.5
 Release: 1%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
@@ -13,12 +13,12 @@ URL: http://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # Get the test suite:
 # git clone http://github.com/rails/rails.git
-# cd rails/railties && git archive -v -o railties-7.0.4.3-tests.txz v7.0.4.3 test/
+# cd rails/railties && git archive -v -o railties-7.0.5-tests.txz v7.0.5 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.4.3-tools.txz v7.0.4.3 tools/
+# cd rails && git archive -v -o rails-7.0.5-tools.txz v7.0.5 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
@@ -29,10 +29,6 @@ Patch1: rubygem-railties-7.0.2.3-Remove-the-multi-call-form-of-assert_called_wit
 Patch2: rubygem-railties-7.1.0-Fix-tests-for-minitest-5.16.patch
 # https://github.com/rails/rails/pull/45848
 Patch3: rubygem-railties-7.1.0-Fix-unmarshalable-test-for-minitest-5.16.3.patch
-# Prevents `ApplicationTests::ServerTest#test_restart_rails_server_with_custom_pid_file_path`
-# test failures.
-# https://github.com/rails/rails/pull/46429
-Patch4: rubygem-railties-7.1.0-Fixes-flakey-race-condition-in-server_test.rb.patch
 
 # Needed by `rails console`.
 Recommends: rubygem(irb)
@@ -98,10 +94,9 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
 
 pushd %{_builddir}
-%patch1 -p2
-%patch2 -p2
-%patch3 -p2
-%patch4 -p2
+%patch 1 -p2
+%patch 2 -p2
+%patch 3 -p2
 popd
 
 %build
@@ -246,6 +241,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Tue May 30 2023 Pavel Valena <pvalena@redhat.com> - 7.0.5-1
+- Update to railties 7.0.5.
+
 * Tue Mar 14 2023 Pavel Valena <pvalena@redhat.com> - 7.0.4.3-1
 - Update to railties 7.0.4.3.
 

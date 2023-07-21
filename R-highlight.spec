@@ -2,7 +2,7 @@
 
 Name:		R-%{packname}
 Version:	0.5.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	R Syntax Highlighter
 License:	GPL-3.0-or-later
 URL:		https://cran.r-project.org/package=%{packname}
@@ -53,6 +53,9 @@ rm -f %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/stylesheet
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.5.1-2
 - R-maint-sig mass rebuild
 

@@ -1,6 +1,6 @@
 Name:           gnome-common
 Version:        3.18.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Useful things common to building GNOME packages from scratch
 BuildArch:      noarch
 License:        GPLv2+
@@ -45,6 +45,9 @@ make DESTDIR=%{buildroot} INSTALL="install -p" install
 %{_datadir}/aclocal/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

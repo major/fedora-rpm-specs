@@ -4,7 +4,7 @@
 
 Name:    gnome-keyring
 Version: 42.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Framework for managing passwords and other secrets
 
 License: GPLv2+ and LGPLv2+
@@ -120,6 +120,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gnome-keyring/devel/*.la
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Carl George <carl@george.computer> - 42.1-4
 - Switch dependency from /usr/libexec/gcr-ssh-askpass to gcr3
 - Resolves: rhbz#2188431

@@ -8,7 +8,7 @@
 
 Name:           build2
 Version:        0.15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform build toolchain for developing and packaging C++ code
 
 License:        MIT
@@ -640,6 +640,9 @@ b test:                                                                         
 %{_rpmmacrodir}/macros.%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar  4 2023 Matthew Krupcale <mkrupcale@matthewkrupcale.com> - 0.15.0-2
 - Add and remove required patches for Fedora 38
 - Use SPDX license expressions

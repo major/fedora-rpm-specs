@@ -1,6 +1,6 @@
 Name:           dcfldd
 Version:        1.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Improved dd, useful for forensics and security
 
 #Whole dcfldd is licensed as GPLv2+
@@ -60,6 +60,9 @@ autoreconf -i
 %{_bindir}/dcfldd
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 26 2023 Michal Ambroz <rebus at, seznam.cz> - 1.9.1-1
 - bump to 1.9.1
 

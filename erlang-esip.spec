@@ -6,7 +6,7 @@
 
 Name: erlang-%{srcname}
 Version: 1.0.37
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: ASL 2.0
 Summary: ProcessOne SIP server component in Erlang
@@ -65,6 +65,9 @@ install -pm755 priv/lib/*.so $RPM_BUILD_ROOT%{_erllibdir}/esip-%{version}/priv/l
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.37-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.37-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

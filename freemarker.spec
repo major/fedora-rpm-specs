@@ -1,6 +1,6 @@
 Name:           freemarker
 Version:        2.3.31
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        The Apache FreeMarker Template Engine
 License:        ASL 2.0
 URL:            https://freemarker.apache.org
@@ -108,6 +108,9 @@ JAVA_HOME=%{_jvmdir}/java-11 ant \
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.31-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr  3 2023 Jerry James <loganjerry@gmail.com> - 2.3.31-8
 - Add patch for javacc 7.0.12 compatibility
 

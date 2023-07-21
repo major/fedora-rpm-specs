@@ -5,7 +5,7 @@
 
 Name:       cldr-emoji-annotation
 Version:    43.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
 %endif
@@ -126,6 +126,9 @@ done
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:43.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Takao Fujiwara <tfujiwar@gmail.com> - 1:43.1-1
 - Bump to release-43-1
 

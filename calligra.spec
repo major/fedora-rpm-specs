@@ -18,7 +18,7 @@
 
 Name:    calligra 
 Version: 3.2.1
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: An integrated office suite
 
 License: GPLv2+ and LGPLv2+
@@ -787,6 +787,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 19 2023 Florian Weimer <fweimer@redhat.com> - 3.2.1-23
 - Port to C99
 

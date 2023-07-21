@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.41
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -143,6 +143,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.41-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.41-1
 - Update to 2.2.41
 - Replace bundled OVMF_CODE.fd OVMF_VARS.fd with Fedora ones

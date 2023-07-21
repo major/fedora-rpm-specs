@@ -1,6 +1,6 @@
 Name:           eurephia
 Version:        1.1.1
-Release:        10%{?betatag:.%{betatag}}%{?dist}
+Release:        11%{?betatag:.%{betatag}}%{?dist}
 Summary:        An advanced and flexible OpenVPN user authentication plug-in
 
 License:        GPLv2
@@ -143,6 +143,9 @@ rm -rf %{buildroot}
 %{_mandir}/man7/eurephia_saltdecode.7.gz
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

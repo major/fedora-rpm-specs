@@ -1,6 +1,6 @@
 Name:			cgdb
 Version:		0.8.0
-Release:		5%{?dist}
+Release:		6%{?dist}
 Summary:		CGDB is a curses-based interface to the GNU Debugger (GDB)
 
 License:		GPLv2
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT/%{_infodir}/dir
 %{_infodir}/cgdb.info.*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 08 2023 Florian Weimer <fweimer@redhat.com> - 0.8.0-5
 - Port configure script to C99
 

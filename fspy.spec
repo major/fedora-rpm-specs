@@ -1,6 +1,6 @@
 Name:           fspy
 Version:        0.1.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A filesystem activity monitoring utility
 
 License:        GPLv2+
@@ -32,6 +32,9 @@ install -Dp -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

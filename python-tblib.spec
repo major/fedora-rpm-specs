@@ -44,13 +44,10 @@ BuildRequires:  python3dist(twisted)
 %pyproject_save_files %{srcname}
 
 %check
-# doctest is disabled on Python 3.11+
+# doctest is disabled - failing on 3.9, 3.11 and 3.12
 # due to changes in tracebacks README.rst needs to be adapted
 # upstream report: https://github.com/ionelmc/python-tblib/issues/64
-%{pytest} -ra tests \
-    %if v"0%{?python3_version}" <= v"3.10"
-    README.rst
-    %endif
+%{pytest} -ra tests
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE

@@ -10,10 +10,10 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.3
-Release:    5%{?dist}
+Release:    6%{?dist}
 Epoch:      1
 
-License:    BSD
+License:    Net-SNMP and OpenSSL
 URL:        http://net-snmp.sourceforge.net/
 Source0:    https://downloads.sourceforge.net/project/net-snmp/net-snmp/%{version}/net-snmp-%{version}.tar.gz
 Source1:    net-snmp.redhat.conf
@@ -35,7 +35,7 @@ Patch5:     net-snmp-5.7.2-cert-path.patch
 Patch6:     net-snmp-5.9-cflags.patch
 Patch7:     net-snmp-5.8-Remove-U64-typedef.patch
 Patch8:     net-snmp-5.7.3-iterator-fix.patch
-Patch9:    net-snmp-5.9-autofs-skip.patch
+Patch9:     net-snmp-5.9-autofs-skip.patch
 Patch10:    net-snmp-5.9-coverity.patch
 Patch11:    net-snmp-5.8-expand-SNMPCONFPATH.patch
 Patch12:    net-snmp-5.8-duplicate-ipAddress.patch
@@ -198,33 +198,33 @@ Net-SNMP toolkit library.
 cp %{SOURCE10} .
 
 %ifnarch ia64
-%patch1 -p1 -b .pie
+%patch 1 -p1 -b .pie
 %endif
 
-%patch2 -p1 -b .dir-fix
-%patch3 -p1 -b .multilib
-%patch4 -p1
-%patch5 -p1 -b .cert-path
-%patch6 -p1 -b .cflags
-%patch7 -p1 -b .u64-remove
-%patch8 -p1 -b .iterator-fix
-%patch9 -p1 -b .autofs-skip
-%patch10 -p1 -b .coverity
-%patch11 -p1 -b .expand-SNMPCONFPATH
-%patch12 -p1 -b .duplicate-ipAddress
-%patch13 -p1 -b .memory-reporting
-%patch14 -p1 -b .man-page
-%patch15 -p1 -b .ipAddress-faster-load
-%patch16 -p1 -b .rpm-memory-leak
-%patch17 -p1 -b .aes-config
-%patch18 -p1 -b .clientaddr-error-message
-%patch19 -p1 -b .intermediate-certs
-%patch20 -p1 -b .remove-des
-%patch21 -p1 -b .autoconf
-%patch22 -p1
+%patch 2 -p1 -b .dir-fix
+%patch 3 -p1 -b .multilib
+%patch 4 -p1
+%patch 5 -p1 -b .cert-path
+%patch 6 -p1 -b .cflags
+%patch 7 -p1 -b .u64-remove
+%patch 8 -p1 -b .iterator-fix
+%patch 9 -p1 -b .autofs-skip
+%patch 10 -p1 -b .coverity
+%patch 11 -p1 -b .expand-SNMPCONFPATH
+%patch 12 -p1 -b .duplicate-ipAddress
+%patch 13 -p1 -b .memory-reporting
+%patch 14 -p1 -b .man-page
+%patch 15 -p1 -b .ipAddress-faster-load
+%patch 16 -p1 -b .rpm-memory-leak
+%patch 17 -p1 -b .aes-config
+%patch 18 -p1 -b .clientaddr-error-message
+%patch 19 -p1 -b .intermediate-certs
+%patch 20 -p1 -b .remove-des
+%patch 21 -p1 -b .autoconf
+%patch 22 -p1
 
-%patch101 -p1 -b .modern-rpm-api
-%patch102 -p1
+%patch 101 -p1 -b .modern-rpm-api
+%patch 102 -p1
 
 # disable failing test - see https://bugzilla.redhat.com/show_bug.cgi?id=680697
 rm testing/fulltests/default/T200*
@@ -490,6 +490,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Wed Jul 19 2023 Josef Ridky <jridky@redhat.com> - 1:5.9.3-6
+- Migrate to SPDX license format
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.9.3-5
 - Perl 5.38 rebuild
 

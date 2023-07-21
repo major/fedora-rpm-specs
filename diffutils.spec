@@ -1,7 +1,7 @@
 Summary: GNU collection of diff utilities
 Name: diffutils
 Version: 3.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://www.gnu.org/software/diffutils/diffutils.html
 Source: https://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 Patch0: diffutils-i18n.patch
@@ -58,6 +58,9 @@ make check
 %{_infodir}/diffutils.info*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Than Ngo <than@redhat.com> - 3.10-2
 - Fix output of "diff -l -y" for non-ASCII input files
 

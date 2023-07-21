@@ -6,7 +6,7 @@ Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic 2.0
 Version: 6.000
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 URL: https://www.chordpro.org
 
@@ -228,6 +228,9 @@ update-mime-database %{_datadir}/mime
 gtk-update-icon-cache %{_datadir}/icons/hicolor
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.000-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

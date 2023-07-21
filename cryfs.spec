@@ -3,7 +3,7 @@
 
 Name:           cryfs
 Version:        0.11.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cryptographic filesystem for the cloud
 License:        LGPLv3
 URL:            https://www.cryfs.org/
@@ -69,6 +69,9 @@ base directory, which can then be synchronized to remote storage
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.3-3
 - Rebuilt due to spdlog 1.12 update.
 - Backported python-versioneer upstream patch to fix issues with Python 3.12.

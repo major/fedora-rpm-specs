@@ -1,6 +1,6 @@
 Name:           bournal
 Version:        1.5
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Write personal, password-protected journal entries
 
 License:        GPLv3+
@@ -35,6 +35,9 @@ install -Dp -m 0644 %{name}.1.gz %{buildroot}%{_mandir}/man1/%{name}.1.gz
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           cdk
 Version:        %{mainver}.%{datever}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Curses Development Kit
 License:        BSD with advertising
 URL:            http://invisible-island.net/cdk/
@@ -59,6 +59,9 @@ rm -vrf %{buildroot}%{_docdir}
 %{_libdir}/libcdk.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.20211216-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.20211216-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

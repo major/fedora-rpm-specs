@@ -1,7 +1,7 @@
 Summary:	Cloud image management utilities
 Name:		cloud-utils
 Version:	0.31
-Release:	12%{?dist}
+Release:	13%{?dist}
 License:	GPLv3
 URL:		https://launchpad.net/cloud-utils/
 
@@ -114,6 +114,9 @@ cp man/growpart.* $RPM_BUILD_ROOT/%{_mandir}/man1/
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

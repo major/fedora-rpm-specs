@@ -1,7 +1,7 @@
 Summary: Utility for setting up encrypted disks
 Name: cryptsetup
 Version: 2.6.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception AND LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL: https://gitlab.com/cryptsetup/cryptsetup
 BuildRequires: autoconf, automake, libtool, gettext-devel,
@@ -121,6 +121,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 %{_sbindir}/cryptsetup-ssh
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.6.1-2
 - Drop libargon2 dependency in RHEL builds
 

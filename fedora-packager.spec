@@ -4,7 +4,7 @@
 
 Name:           fedora-packager
 Version:        0.6.0.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools for setting up a fedora maintainer environment
 
 License:        GPLv2+
@@ -84,6 +84,9 @@ rm -f %{buildroot}/usr/sbin/fedora-burn-yubikey
 %{_sysconfdir}/pki/ipa/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 29 2023 Kevin Fenzi <kevin@scrye.com> - 0.6.0.7-3
 - Drop the fedora-packager-yubikey subpackage as fas2 is retired. Fixes rhbz#2165100
 

@@ -1,7 +1,7 @@
 %global __brp_check_rpaths %{nil}
 Name:           dovecot-fts-xapian
 Version:        1.5.4b
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Dovecot FTS plugin based on Xapian
 
 License:        LGPLv2
@@ -46,6 +46,9 @@ echo ">>> Inside post <<<"
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4b-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.5.4b-7
 - Rebuilt for ICU 73.2
 

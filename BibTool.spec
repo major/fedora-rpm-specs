@@ -1,7 +1,7 @@
 Summary:        A Tool for manipulating BibTeX data bases
 Name:           BibTool
 Version:        2.68
-Release:        10%{?dist}
+Release:        11%{?dist}
 Source0:        https://github.com/ge-ne/bibtool/releases/download/BibTool_2_68/BibTool-%{version}.tar.gz
 Source1:        https://github.com/ge-ne/bibtool/releases/download/BibTool_2_68/BibTool-%{version}.tar.gz.asc
 # Imported from public key servers; author provides no fingerprint!
@@ -58,6 +58,9 @@ make install-man INSTALLPREFIX=$RPM_BUILD_ROOT INSTALL='install -p -m 644'
 %{_mandir}/man1/bibtool.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.68-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 29 2023 Michael J Gruber <mjg@fedoraproject.org> - 2.68-10
 - Adjust patch macro usage to rpm >= 4.18
 

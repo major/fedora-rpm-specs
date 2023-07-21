@@ -1,6 +1,6 @@
 Name:           btrfs-sxbackup
 Version:        0.6.11
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Incremental btrfs snapshot backups with push/pull support via SSH
 License:        GPL-2.0-only
 URL:            https://github.com/masc3d/btrfs-sxbackup
@@ -52,6 +52,9 @@ install -p -m644 etc/btrfs-sxbackup.conf %{buildroot}/%{_sysconfdir}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.11-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.11-21
 - Rebuilt for Python 3.12
 

@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.12.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 BuildArch:	noarch
 Summary:	Binary pattern match-based Mustache template engine for Erlang
 License:	MIT
@@ -41,6 +41,9 @@ Binary pattern match-based Mustache template engine for Erlang.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

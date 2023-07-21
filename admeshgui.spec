@@ -1,7 +1,7 @@
 Name:           admeshgui
 %global         camelname ADMeshGUI
 Version:        1.0.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        STL viewer and manipulation tool
 # Code is AGPLv3 logo/license is LGPLv3 or CC-BY-SA
 License:        AGPLv3 and (LGPLv3 or CC-BY-SA)
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:         bicon
 License:      LGPL-2.0-or-later and Python-2.0.1
 Version:      0.5
-Release:      18%{?dist}
+Release:      19%{?dist}
 Summary:      Bidirectional Console
 Source:       https://github.com/behdad/bicon/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch0:       %{name}-HEAD.patch
@@ -80,6 +80,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/bicon/*.a
 %{_datadir}/%{name}/keymap
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

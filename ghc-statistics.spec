@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.16.1.2
 # can only be reset when all subpkgs bumped
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A library of statistical types, data, and functions
 
 License:        BSD-2-Clause
@@ -167,6 +167,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 0.16.1.2-13
 - https://hackage.haskell.org/package/statistics-0.16.1.2/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

@@ -4,11 +4,10 @@
 
 Name:           libkrun
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
-# Upstream license specification: Apache-2.0 AND BSD-3-Clause
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/containers/libkrun
 Source:         https://github.com/containers/libkrun/archive/refs/tags/v%{version}.tar.gz
 # Remove references to unused deps so we don't need to install them for
@@ -18,6 +17,8 @@ Patch0:         libkrun-remove-unused-deps.diff
 Patch1:         libkrun-update-relax-vm-memory.diff
 # For aarch64, remove references to SEV deps which are only available on x86_64
 Patch2:         libkrun-remove-sev-deps.diff
+# Temporarily patch against a change in kvm-ioctls API
+Patch3:         libkrun-fix-kvm-ioctls.diff
 
 # libkrun only supports x86_64 and aarch64
 ExclusiveArch:  x86_64 aarch64
@@ -45,11 +46,11 @@ BuildRequires:  libfdt-devel
 %endif
 
 BuildRequires:  crate(libc/default) >= 0.2.39
-BuildRequires:  (crate(vm-memory/backend-mmap) >= 0.10.0 with crate(vm-memory/backend-mmap) < 0.11.0~)
-BuildRequires:  (crate(vm-memory/default) >= 0.10.0 with crate(vm-memory/default) < 0.11.0~)
+BuildRequires:  (crate(vm-memory/backend-mmap) >= 0.12.0 with crate(vm-memory/backend-mmap) < 0.13.0~)
+BuildRequires:  (crate(vm-memory/default) >= 0.12.0 with crate(vm-memory/default) < 0.13.0~)
 BuildRequires:  crate(kvm-bindings/default) >= 0.6.0
 BuildRequires:  crate(kvm-bindings/fam-wrappers) >= 0.6.0
-BuildRequires:  crate(kvm-ioctls/default) >= 0.13.0
+BuildRequires:  crate(kvm-ioctls/default) >= 0.14.0
 BuildRequires:  crate(vmm-sys-util/default) >= 0.11.0
 BuildRequires:  (crate(bitflags/default) >= 1.2.0 with crate(bitflags/default) < 2.0.0~)
 BuildRequires:  (crate(env_logger/default) >= 0.9.0 with crate(env_logger/default) < 0.10.0~)
@@ -108,10 +109,11 @@ capabilities.
 
 %prep
 %setup -q -n %{name}-%{version_no_tilde} 
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 3 -p1
 %ifnarch x86_64
-%patch2 -p1
+%patch -P 2 -p1
 %endif
 %cargo_prep
 
@@ -160,6 +162,14 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Wed Jul 19 2023 Sergio Lopez <slp@redhat.com> - 1.5.0-4
+- Update license specification to conform SPDX format
+
+* Wed Jul 19 2023 Sergio Lopez <slp@redhat.com> - 1.5.0-3
+- Update vm-memory requirement to version 0.12.0
+- Update kvm-ioctls requirement to version 0.14.0
+- Add a temporary patch to accomodate an API change in kvm-ioctls
+
 * Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 1.5.0-2
 - Rebuild for openssl crate >= v0.10.48 (RUSTSEC-2023-{0022,0023,0024})
 

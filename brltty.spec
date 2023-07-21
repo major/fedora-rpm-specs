@@ -47,7 +47,7 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -692,6 +692,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 František Zatloukal <fzatlouk@redhat.com> - 6.5-19
 - Rebuilt for ICU 73.2
 

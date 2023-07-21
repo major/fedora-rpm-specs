@@ -1,6 +1,6 @@
 Name:           amsynth
 Version:        1.13.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A classic synthesizer with dual oscillators
 
 License:        GPLv2+
@@ -116,6 +116,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*%{name}.*
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Guido Aulisi <guido.aulisi@gmail.com> - 1.13.2-1
 - Update to 1.13.2
 

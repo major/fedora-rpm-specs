@@ -2,7 +2,7 @@
 
 Name:           fractal
 Version:        5~beta1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Matrix group messaging app
 
 License:        GPL-3.0-or-later
@@ -75,5 +75,8 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5~beta1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Pete Walter <pwalter@fedoraproject.org> - 5~beta1-1
 - First Fedora build

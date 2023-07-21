@@ -1,6 +1,6 @@
 Name:		fcitx-cloudpinyin
 Version:	0.3.7
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Cloudpinyin module for fcitx
 License:	GPLv2+
 URL:		https://fcitx-im.org/wiki/Cloudpinyin
@@ -36,6 +36,9 @@ list. It current support four provider, Sogou, QQ, Baidu, Google.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

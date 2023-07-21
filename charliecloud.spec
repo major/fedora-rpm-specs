@@ -11,7 +11,7 @@
 
 Name:          charliecloud
 Version:       0.32
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Lightweight user-defined software stacks for high-performance computing
 License:       ASL 2.0
 URL:           https://hpc.github.io/%{name}/
@@ -186,6 +186,9 @@ ln -s "${sphinxdir}/js"    %{buildroot}%{_pkgdocdir}/html/_static/js
 %{_mandir}/man1/ch-test.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 03 2023 Jordan Ogas <jogas@lanl.gov> 0.32-2
 - fix macro conditionals
 

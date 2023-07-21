@@ -3,7 +3,7 @@
 Name: gnome-colors-icon-theme
 Summary: GNOME-Colors icon theme
 Version: 5.5.1
-Release: 24%{?dist}
+Release: 25%{?dist}
 Url: http://code.google.com/p/gnome-colors
 Source0: http://%{real_name}.googlecode.com/files/%{real_name}-src-%{version}.tar.gz
 License: GPLv2
@@ -106,6 +106,9 @@ for THEME in %themes; do gtk-update-icon-cache --force ${THEME} &>/dev/null || :
 %ghost %{_datadir}/icons/gnome-colors-wise/icon-theme.cache
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

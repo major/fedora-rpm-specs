@@ -6,7 +6,7 @@
 Summary: powerful, easy to use console email client
 Name: alpine
 Version: 2.26
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: Apache-2.0
 URL:     https://alpineapp.email/
@@ -136,6 +136,9 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/pine.conf.fixed
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 5 2023 Steve Traylen <steve.traylen@cern.ch> - 2.26-5
 - Switch to SPDX License field
 - Switch to new alineapp.email upstream (rhbz#2187297)

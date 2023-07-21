@@ -1,6 +1,6 @@
 Name: cadaver
 Version: 0.24
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Command-line WebDAV client
 License: GPLv2+
 Source: https://notroj.github.io/cadaver/%{name}-%{version}.tar.gz
@@ -33,6 +33,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

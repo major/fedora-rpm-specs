@@ -6,7 +6,7 @@
 Summary:    A GNU tool for automatically configuring source code
 Name:       autoconf
 Version:    2.71
-Release:    5%{?dist}
+Release:    6%{?dist}
 License:    GPLv2+ and GFDL
 Source0:    https://ftp.gnu.org/gnu/autoconf/autoconf-%{version}.tar.xz
 Source1:    config.site
@@ -129,6 +129,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.71-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.71-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

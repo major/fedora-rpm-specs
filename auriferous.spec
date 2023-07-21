@@ -1,6 +1,6 @@
 Name:           auriferous
 Version:        1.0.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Game inspired by the classic Loderunner
 License:        GPLv2+
 URL:            http://auriferous.sourceforge.net/
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

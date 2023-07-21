@@ -2,7 +2,7 @@
 
 Name: gnome-video-arcade
 Version: 0.8.8
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPLv3+
 Summary: GNOME Video Arcade is a MAME front-end for GNOME
 URL: https://wiki.gnome.org/Apps/GnomeVideoArcade
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/gtk-doc/html/%{name}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

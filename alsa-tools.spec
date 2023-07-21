@@ -25,7 +25,7 @@
 Summary:        Specialist tools for ALSA
 Name:           alsa-tools
 Version:        1.2.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 # Checked at least one source file from all the sub-projects contained in
 # the source tarball and they are consistent GPLv2+ - TJ 2007-11-15
@@ -201,6 +201,9 @@ install -m 644 %{SOURCE1} %{buildroot}/lib/udev/rules.d
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun  6 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.5-8
 - SPDX license
 

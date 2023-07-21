@@ -1,5 +1,5 @@
 %global nativever 2.2
-%global baserelease 4
+%global baserelease 5
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -244,6 +244,9 @@ popd
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2-4
 - Rebuilt for Python 3.12
 

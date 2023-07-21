@@ -1,6 +1,6 @@
 Name:		fio
 Version:	3.35
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPLv2
@@ -231,6 +231,9 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.35-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.35-3
 - Re-enable rados, rbd on ppc64le
 

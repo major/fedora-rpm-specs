@@ -1,6 +1,6 @@
 Name:           4ti2
 Version:        1.6.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
 %global relver %(tr . _ <<< %{version})
@@ -141,6 +141,9 @@ make check
 %{_libdir}/libzsolve*.so.0*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1.6.10-1
 - Drop unneeded "egrep is obsolescent" fix (fixed in 1.6.10)
 

@@ -3,7 +3,7 @@
 
 Name: abiword
 Version: 3.0.5
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch: 1
 Summary: Word processing program
 License: GPL-2.0-or-later
@@ -188,6 +188,9 @@ find %{buildroot} -name '*.a' -delete
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:3.0.5-7
 - Rebuilt for Python 3.12
 

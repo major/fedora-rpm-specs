@@ -3,7 +3,7 @@
 Summary: A tool for generating scanners (text pattern recognizers)
 Name: flex
 Version: 2.6.4
-Release: 12%{?dist}
+Release: 13%{?dist}
 # parse.c and parse.h are under GPLv3+ with exception which allows
 #	relicensing.  Since flex is shipped under BDS-style license,
 #	let's  assume that the relicensing was done.
@@ -133,6 +133,9 @@ echo ============END TESTING===========
 %{_libdir}/*.a
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

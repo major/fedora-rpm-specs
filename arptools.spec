@@ -7,7 +7,7 @@ License:        GPL-2.0-or-later
 %global git_date 20230218
 
 Version:        1.0.2
-Release:        21.%{git_date}git%{git_commit}%{?dist}
+Release:        22.%{git_date}git%{git_commit}%{?dist}
 
 URL:            https://github.com/burghardt/arptools
 Source0:        %{URL}/archive/%{git_commit_full}/%{name}-%{git_commit_full}.tar.gz
@@ -51,6 +51,9 @@ NOCONFIGURE="yes" ./autogen.sh
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-22.20230218git2cf523f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.2-21.20230218git2cf523f
 - Update to latest git snapshot (2023-02-18)
 - Fix installing README symlink instead of actual file

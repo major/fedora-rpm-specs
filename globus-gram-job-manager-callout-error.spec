@@ -1,7 +1,7 @@
 Name:		globus-gram-job-manager-callout-error
 %global _name %(tr - _ <<< %{name})
 Version:	4.2
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Grid Community Toolkit - Globus GRAM Jobmanager Callout Errors
 
 License:	Apache-2.0
@@ -102,6 +102,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

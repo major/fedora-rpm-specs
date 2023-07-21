@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Small groups library
 
 License:        Artistic-2.0
@@ -70,6 +70,9 @@ gap -l "%{buildroot}%{gap_libdir};" --bare tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 Jerry James <loganjerry@gmail.com> - 1.5.3-1
 - Version 1.5.3
 

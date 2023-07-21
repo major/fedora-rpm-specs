@@ -1,6 +1,6 @@
 Name:		fatrace
 Version:	0.16.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Reports file access events from all running processes
 
 License:	GPLv3
@@ -33,6 +33,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man*/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

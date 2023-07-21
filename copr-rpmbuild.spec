@@ -23,7 +23,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 0.68
 Summary: Run COPR build tasks
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -336,6 +336,9 @@ install -p -m 644 copr_distgit_client.py %{buildroot}%{expand:%%%{python}_siteli
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.68-2
 - Rebuilt for Python 3.12
 

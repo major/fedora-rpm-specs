@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          GitHub API
 
 License:          MIT
@@ -75,6 +75,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.3.1-4
 - Ignore vignettes
 

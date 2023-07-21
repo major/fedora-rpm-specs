@@ -204,6 +204,10 @@ k="${k-}${k+ and }not test_vdot[shape1-chunks1]"
 # https://github.com/dask/dask/issues/8499
 k="${k-}${k+ and }not test_development_guidelines_matches_ci"
 
+# This test shows excess memory usage on Python 3.12
+# https://github.com/dask/dask/issues/10418
+k="${k-}${k+ and }not test_division_or_partition"
+
 pytest_args=(
   -m 'not network'
 

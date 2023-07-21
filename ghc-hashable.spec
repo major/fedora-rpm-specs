@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.4.2.0
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A class for types that can be converted to a hash value
 
 License:        BSD-3-Clause
@@ -143,6 +143,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 1.4.2.0-1
 - https://hackage.haskell.org/package/hashable-1.4.2.0/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

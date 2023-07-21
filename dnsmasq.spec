@@ -23,7 +23,7 @@
 
 Name:           dnsmasq
 Version:        2.89
-Release:        5%{?extraversion:.%{extraversion}}%{?dist}
+Release:        6%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -219,6 +219,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.89-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Petr Menšík <pemensik@redhat.com> - 2.89-5
 - Prevent crash on dbus reconnection (#2186468)
 

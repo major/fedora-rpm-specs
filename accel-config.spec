@@ -2,7 +2,7 @@
 
 Name:		accel-config
 Version:	4.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Configure accelerator subsystem devices
 License:	GPL-2.0
 URL:		https://github.com/intel/%{project_name}
@@ -84,6 +84,9 @@ make check
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Jerry Snitselaar <jsnitsel@redhat.com> - 4.0-2
 - Update spec file to use SPDX identifiers
 

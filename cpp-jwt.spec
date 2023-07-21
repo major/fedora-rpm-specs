@@ -3,7 +3,7 @@
 
 Name:           cpp-jwt
 Version:        1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        JSON Web Token library for C++
 
 License:        MIT
@@ -64,6 +64,9 @@ Provides: cpp-jwt-static
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

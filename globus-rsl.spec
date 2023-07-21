@@ -1,7 +1,7 @@
 Name:		globus-rsl
 %global _name %(tr - _ <<< %{name})
 Version:	11.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Grid Community Toolkit - Resource Specification Language Library
 
 License:	Apache-2.0
@@ -107,6 +107,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

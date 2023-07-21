@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Tools for Managing SSH and Git Credentials
 
 License:          MIT
@@ -75,6 +75,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.3.2-4
 - Ignore vignettes
 

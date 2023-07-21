@@ -4,7 +4,7 @@
 Summary:          Bouncy Castle Cryptography APIs for Java
 Name:             bouncycastle
 Version:          1.70
-Release:          8%{?dist}
+Release:          9%{?dist}
 License:          MIT
 URL:              http://www.bouncycastle.org
 
@@ -218,6 +218,9 @@ fi
 %license LICENSE.html
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.70-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.70-8
 - Adapt to changes in the jakarta-activation package
 

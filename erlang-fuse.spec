@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.5.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 BuildArch:	noarch
 Summary:	A Circuit Breaker for Erlang
 License:	MIT
@@ -47,6 +47,9 @@ This application implements a so-called circuit-breaker for Erlang.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

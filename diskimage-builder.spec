@@ -5,7 +5,7 @@
 Name:           diskimage-builder
 Summary:        Image building tools for OpenStack
 Version:        3.26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        ASL 2.0
 Group:          System Environment/Base
 URL:            https://launchpad.net/diskimage-builder
@@ -104,6 +104,9 @@ Components of TripleO that are responsible for building disk images.
 %{_datadir}/%{name}/elements
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 3.26.0-1
 - Update to upstream version 3.26.0
 

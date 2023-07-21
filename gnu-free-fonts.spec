@@ -3,7 +3,7 @@
 
 Name:      %{fontname}-fonts
 Version:   20120503
-Release:   30%{?dist}
+Release:   31%{?dist}
 Summary:   Free UCS Outline Fonts
 
 # Standard font exception
@@ -151,6 +151,9 @@ install -Dm 0644 -p %{SOURCE8} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20120503-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May 27 2023 Parag Nemade <pnemade AT redhat DOT com> - 20120503-30
 - Resolves:rh#1813728 - Square four dot Unicode character has incorrect glyph 
 

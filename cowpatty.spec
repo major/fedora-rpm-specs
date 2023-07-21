@@ -1,6 +1,6 @@
 Name:		cowpatty
 Version:	4.6
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	WPA password cracker
 
 License:	GPLv2 and BSD 
@@ -39,6 +39,9 @@ install -D -pm 755 genpmk %{buildroot}%{_bindir}/genpmk
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

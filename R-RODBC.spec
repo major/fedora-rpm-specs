@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          An ODBC database interface for R
 License:          GPLv2 or GPLv3
 URL:              http://cran.r-project.org/web/packages/RODBC/
@@ -50,6 +50,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/RODBC/doc/Makefile
 %{_libdir}/R/library/%{packname}/tests.R
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.19-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.3.19-3
 - R-maint-sig mass rebuild
 

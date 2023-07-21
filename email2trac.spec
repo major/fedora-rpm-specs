@@ -2,7 +2,7 @@
 # Jon Topper <jon at topper dot me dot uk>
 Name:           email2trac
 Version:        2.12.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Utilities for converting emails to trac tickets
 License:        ASL 2.0
 URL:            https://oss.trac.surfsara.nl/email2trac
@@ -56,6 +56,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

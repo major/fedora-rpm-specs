@@ -1,6 +1,6 @@
 Name:		fcitx-table-extra
 Version:	0.3.8
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Extra tables for Fcitx
 License:	GPLv2+
 URL:		http://fcitx-im.org/wiki/Fcitx
@@ -40,6 +40,9 @@ Boshiamy table and its icon are released under their own license.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

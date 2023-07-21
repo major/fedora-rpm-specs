@@ -13,7 +13,7 @@ editors.}
 Name:           editorconfig
 Summary:        Parser for EditorConfig files written in C
 Version:        0.12.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # The entire source is BSD-2-Clause, except:
 #   BSD-3-Clause: src/lib/ini.h
@@ -128,6 +128,9 @@ rm %{buildroot}/%{_libdir}/libeditorconfig_static.a
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.12.6-1
 - Update to 0.12.6 (close RHBZ#2162811)
 - Update License to SPDX

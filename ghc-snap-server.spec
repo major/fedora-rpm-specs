@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.1.2.0
 # can only be reset when all subpkgs bumped
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A web server for the Snap Framework
 
 License:        BSD-3-Clause
@@ -180,6 +180,9 @@ cabal-tweak-dep-ver network '< 3.1' '< 3.2'
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 17 2023 Jens Petersen <petersen@redhat.com> - 1.1.2.0-21
 - refresh to cabal-rpm-2.1.0 with SPDX migration
 

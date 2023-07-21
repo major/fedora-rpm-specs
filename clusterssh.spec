@@ -1,13 +1,17 @@
 Name:          clusterssh
 Version:       4.16
-Release:       8%{?dist}
+Release:       9%{?dist}
 %define modname App-ClusterSSH
 %define modver v4.16
 Summary:       Secure concurrent multiple server terminal control
-License:       GPL+ or Artistic
+License:       GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:           https://github.com/duncs/clusterssh
 Source0:       https://cpan.metacpan.org/authors/id/D/DU/DUNCS/%{modname}-%{version}.tar.gz
 BuildArch:     noarch
+# Don't try to open a directory as the config file
+# https://github.com/duncs/clusterssh/pull/150
+Patch0:        App-ClusterSSH-4.16-Don-t-try-to-open-a-directory-as-the-config-file.patch
+Patch1:        App-ClusterSSH-4.16-Update-t-15config.t-test-note-to-differentiate-from-.patch
 Requires:  xterm
 # 2016-05-16 attempt to fix rhbz #1025913 (crash w/o fonts)
 Requires:  xorg-x11-fonts-75dpi xorg-x11-fonts-100dpi
@@ -75,7 +79,7 @@ tasks, for example multiple hosts requiring the same configuration within a
 cluster. Not limited to use with clusters, however.
 
 %prep
-%autosetup -n %{modname}-%{version}
+%autosetup -p1 -n %{modname}-%{version}
 
 %build
 perl Build.PL installdirs=vendor
@@ -87,7 +91,6 @@ perl Build.PL installdirs=vendor
 %install
 ./Build install destdir=%{buildroot} create_packlist=0
 
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 %fdupes %buildroot
 %{_fixperms} %{buildroot}
 mkdir -p %{buildroot}/%{_sysconfdir}/bash_completion.d
@@ -108,6 +111,10 @@ mv  %{buildroot}/%{_bindir}/clusterssh_bash_completion.dist \
 %{perl_privlib}/*
 
 %changelog
+* Wed Jul 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.16-9
+- Don't try to open a directory as the config file (BZ#2223529)
+- Update license to SPDX format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

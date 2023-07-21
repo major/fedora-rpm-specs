@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Branch-Cut-Price Framework
 Version:	1.4.4
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	CPL
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -93,6 +93,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_pkgdocdir}/bcp_doxy.tag
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 1.4.4-11
 - Port configure script to C99
 

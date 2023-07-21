@@ -1,6 +1,6 @@
 Name:           devscripts
 Version:        2.23.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Scripts for Debian Package maintainers
 BuildArch:      noarch
 
@@ -152,6 +152,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.23.5-2
 - Rebuilt for Python 3.12
 

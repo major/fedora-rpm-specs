@@ -14,7 +14,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.1.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -413,6 +413,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.1.1.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:7.1.1.13-1
 - Update to 7.1.1.13 (#2217558)
 

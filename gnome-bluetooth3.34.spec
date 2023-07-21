@@ -1,6 +1,6 @@
 Name:		gnome-bluetooth3.34
 Version:	3.34.5
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Bluetooth graphical utilities
 
 License:	GPLv2+
@@ -95,6 +95,9 @@ rm $RPM_BUILD_ROOT/%{_bindir}/bluetooth-sendto \
 %{_datadir}/gtk-doc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

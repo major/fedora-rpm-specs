@@ -1,6 +1,6 @@
 Name:      gnome-color-manager
 Version:   3.36.0
-Release:   9%{?dist}
+Release:   10%{?dist}
 Summary:   Color management tools for GNOME
 License:   GPL-2.0-or-later
 URL:       https://gitlab.gnome.org/GNOME/gnome-color-manager
@@ -55,6 +55,9 @@ and generate color profiles in the GNOME desktop.
 %{_mandir}/man1/*.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

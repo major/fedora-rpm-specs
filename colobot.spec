@@ -2,7 +2,7 @@ Name: colobot
 %global orgname info.colobot.Colobot
 
 Version: 0.2.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A video game that teaches programming in a fun way
 
 License: GPL-3.0-only
@@ -223,6 +223,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{orgname}.app
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.2.0-10
 - Rebuilt for Boost 1.81
 

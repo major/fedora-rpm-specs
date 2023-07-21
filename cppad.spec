@@ -21,7 +21,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
 Version: 20230000.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
 License: EPL-2.0 or GPLv2+
@@ -261,6 +261,9 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230000.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 29 2023 Brad Bell <bradbell at seanet dot com> - 20230000.0-1
 - Move libcppad_lib.so to main package (fixes a fedpkg lint error).
 - Fix comment about where doc files come from.

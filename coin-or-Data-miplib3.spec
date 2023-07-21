@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	COIN-OR mixed integer library
 Version:	1.2.8
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	EPL-1.0
 URL:		https://www.coin-or.org/download/pkgsource/Data
 Source0:	%{url}/%{module}-%{version}.tgz
@@ -38,6 +38,9 @@ sed -i '/ctype\.h/i#include <stdlib.h>' configure
 %{_datadir}/pkgconfig/coindatamiplib3.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

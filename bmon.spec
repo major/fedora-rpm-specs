@@ -1,6 +1,6 @@
 Name:           bmon
 Version:        4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Bandwidth monitor and rate estimator
 
 License:        BSD-2-Clause and MIT
@@ -39,6 +39,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_docdir}/bmon/examples/bmon.conf
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 14 2023 Boian Bonev <bbonev@ipacct.com> - 4.0-7
 - SPDX migration, correct license
 

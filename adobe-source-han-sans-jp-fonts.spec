@@ -31,7 +31,7 @@
 # simplify cut and pasting.
 #
 Version: 2.002
-Release: 8%{?dist}
+Release: 9%{?dist}
 URL:     https://github.com/adobe-fonts/source-han-sans/
 
 # The identifier of the entity, that released the font family.
@@ -90,6 +90,9 @@ Source10: 68-adobe-source-han-sans-jp-fonts.conf
 %fontfiles
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.002-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.002-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

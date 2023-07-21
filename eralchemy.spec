@@ -6,7 +6,7 @@ databases or from SQLAlchemy models.
 
 Name:           eralchemy
 Version:        1.2.10
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -60,6 +60,9 @@ Summary:        %sum
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.10-14
 - Rebuilt for Python 3.12
 

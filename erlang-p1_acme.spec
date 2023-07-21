@@ -7,7 +7,7 @@
 
 Name:       erlang-%{srcname}
 Version:    1.0.8
-Release:    6%{?dist}
+Release:    7%{?dist}
 BuildArch:  noarch
 
 License:    ASL 2.0
@@ -55,6 +55,9 @@ ACME client library for Erlang.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 # NOTE(mhayden): The package is awscli, but the source is aws-cli.
 %global         source_name     aws-cli
 %global         forgeurl        https://github.com/aws/aws-cli/
-Version:        1.29.5
+Version:        1.29.6
 %global         tag             %{version}
 %forgemeta
 
@@ -98,6 +98,12 @@ install -Dpm0644 bin/aws_zsh_completer.sh \
 %{_datadir}/zsh/site-functions/_awscli
 
 %changelog
+* Wed Jul 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.6-1
+- 1.29.6
+
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.5-1
 - 1.29.5
 

@@ -14,7 +14,7 @@ Go error library with error portability over the network.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Go error library with error portability over the network
 
 # Upstream license specification: Apache-2.0
@@ -60,6 +60,9 @@ BuildRequires:  golang(github.com/hydrogen18/memlistener)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

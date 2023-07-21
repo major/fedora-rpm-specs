@@ -17,7 +17,7 @@ A DHCP library written in Go.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.20%{?dist}
+Release:        0.21%{?dist}
 Summary:        DHCP4 library written in Go
 
 # Upstream license specification: BSD-3-Clause
@@ -47,6 +47,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

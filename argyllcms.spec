@@ -3,7 +3,7 @@
 
 Name: argyllcms
 Version: 2.3.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # Main code - AGPL-3.0-or-later
 # spectro, xml - GPL-2.0-or-later
@@ -158,6 +158,9 @@ rm -f %{buildroot}/%{_bindir}/*.txt
 %{_datadir}/color/argyll/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 29 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.3.1-4
 - Rebuilt without frame pointers to mitigate crashes in dependent packages.
 

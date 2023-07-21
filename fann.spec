@@ -1,7 +1,7 @@
 Name:       fann
 Summary:    A fast artificial neural network library
 Version:    2.2.0
-Release:    28%{?dist}
+Release:    29%{?dist}
 License:    LGPL-2.0-or-later
 URL:        http://leenissen.dk/fann/wp/
 
@@ -70,6 +70,9 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 %{_includedir}/*.h
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Tomas Smetana <tsmetana@redhat.com> - 2.2.0-28
 - Update license tag to SPDX
 

@@ -1,7 +1,7 @@
 Summary: User space tool to set up tables of ARP rules in kernel
 Name:    arptables
 Version: 0.0.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv2+
 
 URL:     http://ebtables.sourceforge.net/
@@ -144,6 +144,9 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/arptables
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

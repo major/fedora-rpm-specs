@@ -2,7 +2,7 @@
 
 Name:           easymock
 Version:        4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Easy mock objects
 License:        ASL 2.0
 URL:            https://www.easymock.org
@@ -127,6 +127,9 @@ rm core/src/test/java/org/easymock/tests2/ClassExtensionHelperTest.java
 %license core/LICENSE.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

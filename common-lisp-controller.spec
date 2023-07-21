@@ -1,7 +1,7 @@
 Summary:      Common Lisp source and compiler manager
 Name:         common-lisp-controller
 Version:      7.4
-Release:      25%{?dist}
+Release:      26%{?dist}
 URL:          https://alioth.debian.org/projects/clc
 Source0:      http://ftp.de.debian.org/debian/pool/main/c/common-lisp-controller/common-lisp-controller_%{version}.tar.gz
 Patch0:       common-lisp-controller-fedora.patch
@@ -97,6 +97,9 @@ cd ..
 %{_mandir}/man8/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

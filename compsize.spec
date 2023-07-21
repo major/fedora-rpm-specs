@@ -1,6 +1,6 @@
 Name: compsize
 Version: 1.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Utility for measuring compression ratio of files on btrfs
 License: GPLv2+
 URL: https://github.com/kilobyte/compsize
@@ -32,6 +32,9 @@ install -D -m 0644 %{name}.8 %{buildroot}%{_mandir}/man8/%{name}.8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

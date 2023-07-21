@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.27.1
 # can only be reset when all subpkgs bumped
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A reusable library providing the core functionality of hledger
 
 License:        GPL-3.0-or-later
@@ -236,6 +236,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 1.27.1-12
 - https://hackage.haskell.org/package/hledger-lib-1.27.1/changelog
 - new dependency: breakpoint

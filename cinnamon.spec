@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        5.8.4
-Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -28,6 +28,7 @@ Source0:        %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:        polkit-%{name}-authentication-agent-1.desktop
 Source2:        10_cinnamon-common.gschema.override
 Source3:        10_cinnamon-apps.gschema.override.in
+Source4:        22_fedora.styles
 
 Patch0:         autostart.patch
 Patch1:         set_wheel.patch
@@ -144,9 +145,9 @@ Requires:       %{name}-themes >= 1:1.7.4-0.2.20181112gitb94b890
 Requires:       nemo%{?_isa}
 Requires:       %{name}-screensaver%{?_isa}
 
-# metacity and tint2 are needed for fallback
+# metacity and mate-panel are needed for fallback
 Requires:       metacity%{?_isa}
-Requires:       tint2%{?_isa}
+Requires:       mate-panel%{?_isa}
 
 # required for keyboard applet
 Requires:       gucharmap%{?_isa}
@@ -267,6 +268,10 @@ chmod a-x files%{_datadir}/%{name}/%{name}-settings/bin/__init__.py
 picture-uri='file:///usr/share/backgrounds/tiles/default_blue.jpg'
 EOF
 
+# install style file for mint-x and mint-y
+%{__install} --target-directory=%{buildroot}%{_datadir}/%{name}/styles.d/ \
+    -Dpm 0644 %{SOURCE4}
+
 # Provide symlink for the background-propeties.
 %{__ln_s} %{_datadir}/gnome-background-properties %{buildroot}%{_datadir}/%{name}-background-properties
 # Delete useless gir files
@@ -336,6 +341,12 @@ EOF
 %endif
 
 %changelog
+* Wed Jul 19 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-3
+- Add fedora styles file
+
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-1
 - Update to 5.8.4 release
 

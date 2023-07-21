@@ -18,7 +18,7 @@
 
 Name:           certbot
 Version:        2.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -379,6 +379,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.6.0-3
 - Fix build with Python 3.12
 - Fix broken symbolic links

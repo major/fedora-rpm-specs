@@ -9,7 +9,7 @@
 
 Name: crossfire
 Version: 1.71.0
-Release: 25%{?dist}
+Release: 26%{?dist}
 Summary: Server for hosting crossfire games
 # All files GPLv2+ except server/daemon.c which also has MIT attributions
 License: GPL-2.0-or-later and MIT
@@ -338,6 +338,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.71.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> = 1.71.0-25
 - migrated to SPDX license
 

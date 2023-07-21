@@ -18,7 +18,7 @@ ExcludeArch: %{ix86}
 
 Name:    ga
 Version: 5.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Global Arrays Toolkit
 License: BSD
 Source: https://github.com/GlobalArrays/ga/releases/download/v%{version}/ga-%{version}.tar.gz
@@ -232,6 +232,9 @@ cd ..
 %{_libdir}/openmpi/lib/lib*.a
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 5.8.2-1
 - New upstream release
 

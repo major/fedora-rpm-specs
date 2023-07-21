@@ -2,7 +2,7 @@
 
 Name: gfbgraph
 Version: %{api}.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: GLib/GObject wrapper for the Facebook Graph API
 License: LGPL-2.1-only
 URL: https://wiki.gnome.org/Projects/GFBGraph
@@ -84,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT%{_prefix}/doc
 %{_includedir}/%{name}-%{api}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

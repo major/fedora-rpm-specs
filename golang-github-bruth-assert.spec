@@ -16,7 +16,7 @@ with improved support for things like nil pointers, etc.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.12%{?dist}
+Release:        0.13%{?dist}
 Summary:        Simple test assertions for Golang tests
 
 License:        MIT
@@ -46,6 +46,9 @@ BuildRequires:  golang(github.com/kr/pretty)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

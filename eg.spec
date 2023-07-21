@@ -1,6 +1,6 @@
 Name:           eg
 Version:        1.7.5.2
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Git for mere mortals
 License:        GPLv2
 URL:            http://www.gnome.org/~newren/eg/
@@ -55,6 +55,9 @@ fi
 %{_bindir}/eg
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5.2-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5.2-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

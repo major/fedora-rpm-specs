@@ -1,8 +1,8 @@
 Name:           perl-Crypt-OpenSSL-PKCS10
-Version:        0.19
-Release:        6%{?dist}
+Version:        0.20
+Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for PKCS10
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-PKCS10
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONOZZZ/Crypt-OpenSSL-PKCS10-%{version}.tar.gz
 # Convert documentation to UTF-8
@@ -18,7 +18,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(Crypt::OpenSSL::Guess)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
@@ -45,7 +45,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Crypt-OpenSSL-PKCS10-%{version}
-%patch1 -p1
+%patch -P1 -p1
 chmod -c a-x Changes README
 chmod -c a-x *.xs *.pm
 # Help file to recognise the Perl scripts and normalize shebangs
@@ -56,13 +56,12 @@ done
 chmod -c a-x t/CSR.csr
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -type f -name '*.bs' -size 0 -exec rm -f {} \;
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
@@ -78,14 +77,18 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Crypt*
 %{perl_vendorarch}/Crypt/
-%{_mandir}/man3/*
+%{_mandir}/man3/Crypt::OpenSSL::PKCS10*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.20-1
+- 0.20 bump (rhbz#2223434)
+- Update license to SPDX format
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.19-6
 - Perl 5.38 rebuild
 

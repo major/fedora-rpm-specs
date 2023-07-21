@@ -1,7 +1,7 @@
 Summary: Fedora Waves KDM theme
 Name: fedorawaves-kdm-theme
 Version: 1.1
-Release: 26%{?dist}
+Release: 27%{?dist}
 BuildArch: noarch
 License: GPL-1.0-or-later
 Source0: %{name}-%{version}.tar.bz2
@@ -28,6 +28,9 @@ install -p -m 644 usr/share/kde4/apps/kdm/themes/FedoraWaves/*	\
 %{_datadir}/kde4/apps/kdm/themes/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Than Ngo <than@redhat.com> - 1.1-26
 - migrated to SPDX license
 

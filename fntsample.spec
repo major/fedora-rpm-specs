@@ -1,6 +1,6 @@
 Name:           fntsample
 Version:        5.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A program for making font samples that show Unicode coverage of the font
 
 License:        GPL-3.0-or-later
@@ -41,6 +41,9 @@ ctest -V %{?_smp_flags}
 %{_mandir}/man1/*.gz
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

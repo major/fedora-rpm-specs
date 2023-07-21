@@ -4,8 +4,8 @@
 Summary:        A screen manager that supports multiple logins on one terminal
 Name:           screen
 Version:        4.9.0
-Release:        4%{?dist}
-License:        GPLv3+
+Release:        5%{?dist}
+License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/screen
 Requires(pre):  /usr/sbin/groupadd
 BuildRequires: make
@@ -117,6 +117,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %endif
 
 %changelog
+* Wed Jul 19 2023 Josef Ridky - 4.9.0-5
+- Migrate to SPDX license format
+
 * Wed Mar 08 2023 Arjun Shankar <arjun@redhat.com> - 4.9.0-4
 - Port configure script to C99
 

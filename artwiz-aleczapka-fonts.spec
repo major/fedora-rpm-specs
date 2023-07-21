@@ -10,7 +10,7 @@ software and support an extended character set. \
 
 Name:		%{fontname}-fonts
 Version:	1.3
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Very small futuristic font family
 License:	GPLv2
 URL:		http://artwizaleczapka.sourceforge.net/
@@ -287,6 +287,9 @@ done
 %dir %{_fontdir}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 
 Name:           ccache
 Version:        4.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C/C++ compiler cache
 
 License:        GPLv3+
@@ -217,6 +217,9 @@ getent group ccache >/dev/null || groupadd -r ccache || :
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Orion Poplawski <orion@nwra.com> - 4.8.2-1
 - Update to 4.8.2
 

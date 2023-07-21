@@ -3,7 +3,7 @@
 
 Name: dwarves
 Version: 1.25
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Summary: Debugging Information Manipulation Tools (pahole & friends)
 URL: http://acmel.wordpress.com
@@ -131,6 +131,9 @@ rm -Rf %{buildroot}
 %{_libdir}/%{libname}_reorganize.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr  8 2023 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.25-1
 - New release: v1.25
 - Support for DW_TAG_unspecified_type more generally.

@@ -3,7 +3,7 @@
 
 Name:             emacs-rinari
 Version:          2.1  
-Release:          26.20100815git%{?dist}
+Release:          27.20100815git%{?dist}
 Summary:          Ruby on rails minor mode for Emacs
 
 License:          GPLv3+
@@ -81,6 +81,9 @@ install -pm 644 %{SOURCE1} %{buildroot}%{_emacs_sitestartdir}/
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-27.20100815git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-26.20100815git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

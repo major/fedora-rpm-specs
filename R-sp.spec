@@ -11,7 +11,7 @@
 
 Name:             R-%{packname}
 Version:          1.6.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Classes and Methods for Spatial Data
 
 License:          GPL-2.0-or-later
@@ -116,6 +116,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun  1 2023 Tom Callaway <spot@fedoraproject.org> - 1.6.1-1
 - update to 1.6-1
 

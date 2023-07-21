@@ -20,7 +20,7 @@ Official Sentry SDK for Go.}
                         README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Official Sentry SDK for Go
 
 # Upstream license specification: BSD-2-Clause
@@ -72,6 +72,9 @@ done
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Maxwell G <gotmax@e.email> - 0.6.1-6
 - Don't run tests for goipathsex import paths
 - Fix FTBFS.

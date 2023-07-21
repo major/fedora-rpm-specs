@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 1.009
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL:     http://arkandis.tuxfamily.org/adffonts.html
 
 %global foundry           ADF
@@ -81,6 +81,9 @@ install -m 0644 -p %{SOURCE1} .
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.009-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.009-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

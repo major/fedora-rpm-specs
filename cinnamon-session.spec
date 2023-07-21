@@ -3,7 +3,7 @@
 Summary: Cinnamon session manager
 Name:    cinnamon-session
 Version: 5.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 23 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.1-1
 - Update to 5.8.1 release
 

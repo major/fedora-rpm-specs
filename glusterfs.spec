@@ -196,11 +196,11 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.0
-Release:          3%{?prereltag:%{prereltag}}%{?dist}
+Release:          4%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
-Release:          0.@PACKAGE_RELEASE@%{?dist}.14
+Release:          0.@PACKAGE_RELEASE@%{?dist}.15
 %endif
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
@@ -1625,6 +1625,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 11.0-3
 - Rebuilt for Python 3.12
 

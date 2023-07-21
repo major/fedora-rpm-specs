@@ -1,6 +1,6 @@
 Name:		avoision
 Version:	1.1
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Arcade style game of evade and capture
 # Code is GPLv2+, music and graphics are CC-BY-SA
 License:	GPLv2+ and CC-BY-SA
@@ -42,6 +42,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications	%{SOURCE2}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

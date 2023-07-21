@@ -5,7 +5,7 @@
 
 Name:           cobbler
 Version:        3.3.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Boot server configurator
 URL:            https://cobbler.github.io/
 License:        GPLv2+
@@ -256,6 +256,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Orion Poplawski <orion@nwra.com> - 3.3.3-6
 - Add patch to fix build with Sphinx 7
 

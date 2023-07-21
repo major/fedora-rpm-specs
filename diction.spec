@@ -1,6 +1,6 @@
 Name:           diction
 Version:        1.14
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Identifies diction and style errors
 
 License:        GPL-3.0-or-later
@@ -50,6 +50,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.14-5
 - migrated to SPDX license
 

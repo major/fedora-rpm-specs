@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.8.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 License:        GPLv3+
@@ -47,6 +47,9 @@ install -Dpm0644 docs/build/man/alot.1* -t %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/alot.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.8.1-16
 - Rebuilt for Python 3.12
 

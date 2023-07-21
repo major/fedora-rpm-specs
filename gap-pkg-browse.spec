@@ -25,7 +25,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.8.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP browser for 2-dimensional arrays of data
 
 License:        GPL-3.0-or-later
@@ -146,6 +146,9 @@ cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_archdir}/pkg/%{upname}
 %{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar  6 2023 Jerry James <loganjerry@gmail.com> - 1.8.21-1
 - Version 1.8.21
 

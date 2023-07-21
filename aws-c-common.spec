@@ -1,6 +1,6 @@
 Name:           aws-c-common
 Version:        0.6.14 
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Core c99 package for AWS SDK for C
 
 License:        ASL 2.0
@@ -77,6 +77,9 @@ configuration, data structures, and error handling.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.14-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

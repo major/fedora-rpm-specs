@@ -1,7 +1,7 @@
 Summary: Translate Dalvik bytecode to equivalent Java bytecode
 Name: enjarify
 Version: 1.0.3
-Release: 25%{?dist}
+Release: 26%{?dist}
 License: ASL 2.0
 URL: https://github.com/Storyyeller/enjarify
 # Upstream uses gitattribues to remove test files from archive…
@@ -84,6 +84,9 @@ export PYTHONPATH=. LC_CTYPE="C.UTF-8"
 %doc README.md
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.3-25
 - Rebuilt for Python 3.12
 

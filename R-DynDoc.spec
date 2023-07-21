@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.74.0
-Release:          3%{dist}
+Release:          4%{dist}
 Summary:          Functions for dynamic documents
 License:          Artistic 2.0
 URL:              http://bioconductor.org/packages/release/bioc/html/DynDoc.html
@@ -45,6 +45,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.74.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.74.0-3
 - R-maint-sig mass rebuild
 

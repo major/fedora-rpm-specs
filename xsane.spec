@@ -10,7 +10,7 @@
 Name: xsane
 Summary: X Window System front-end for the SANE scanner interface
 Version: 0.999
-Release: 45%{?dist}
+Release: 46%{?dist}
 Source0: http://www.xsane.org/download/%{name}-%{version}.tar.gz
 Source1: xsane-256x256.png
 # use "xdg-open" instead of "netscape" to launch help browser
@@ -72,7 +72,8 @@ Patch100: xsane-0.999-7-autoconf.patch.bz2
 
 Patch101: xsane-configure-c99.patch
 
-License: GPLv2+ and LGPLv2+
+# LGPL-3.0-or-later is due of using gimp libraries
+License: GPL-2.0-or-later and LGPL-3.0-or-later
 URL: http://www.xsane.org/
 
 # gcc is no longer in buildroot by default
@@ -127,25 +128,25 @@ for doc in xsane.{CHANGES,PROBLEMS,INSTALL}; do
     mv "$doc.new" "$doc"
 done
 
-%patch0 -p1 -b .xdg-open
-%patch1 -p1 -b .close-fds
-%patch2 -p1 -b .no-eula
-%patch3 -p1 -b .off-root-build
-%patch4 -p1 -b .no-file-selected
-%patch5 -p1 -b .ipv6
-%patch6 -p1 -b .preview-selection.patch
-%patch7 -p1 -b .libpng
-%patch8 -p1 -b .wmclass
-%patch9 -p1 -b .desktop-file
-%patch10 -p1 -b .man-page
-%patch11 -p1 -b .pdf-no-high-bpp
-%patch12 -p1 -b .lcms2
-%patch13 -p1 -b .coverity
-%patch14 -p1 -b .snprintf-update
-%patch15 -p1 -b .signal-handling
+%patch 0 -p1 -b .xdg-open
+%patch 1 -p1 -b .close-fds
+%patch 2 -p1 -b .no-eula
+%patch 3 -p1 -b .off-root-build
+%patch 4 -p1 -b .no-file-selected
+%patch 5 -p1 -b .ipv6
+%patch 6 -p1 -b .preview-selection.patch
+%patch 7 -p1 -b .libpng
+%patch 8 -p1 -b .wmclass
+%patch 9 -p1 -b .desktop-file
+%patch 10 -p1 -b .man-page
+%patch 11 -p1 -b .pdf-no-high-bpp
+%patch 12 -p1 -b .lcms2
+%patch 13 -p1 -b .coverity
+%patch 14 -p1 -b .snprintf-update
+%patch 15 -p1 -b .signal-handling
 
-%patch100 -p1 -b .autoconf
-%patch101 -p1 -b .c99
+%patch 100 -p1 -b .autoconf
+%patch 101 -p1 -b .c99
 
 # in-root config.h breaks off-root building
 rm include/config.h
@@ -269,6 +270,9 @@ fi
 %{_datadir}/sane/xsane
 
 %changelog
+* Wed Jul 19 2023 Josef Ridky <jridky@redhat.com> - 0.999-46
+- Migrate to SPDX license format
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.999-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

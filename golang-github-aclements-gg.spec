@@ -15,7 +15,7 @@ Gg is a plotting package for Go inspired by the Grammar of Graphics.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.14%{?dist}
+Release:        0.15%{?dist}
 Summary:        Plotting package for Go
 
 # Upstream license specification: BSD-3-Clause
@@ -54,6 +54,9 @@ BuildRequires:  golang(github.com/ajstarks/svgo)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

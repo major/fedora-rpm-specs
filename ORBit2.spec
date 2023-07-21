@@ -4,7 +4,7 @@
 Summary: A high-performance CORBA Object Request Broker
 Name: ORBit2
 Version: 2.14.19
-Release: 32%{?dist}
+Release: 33%{?dist}
 #VCS: git:git://git.gnome.org/ORBit2
 Source: http://download.gnome.org/sources/ORBit2/2.14/%{name}-%{version}.tar.bz2
 License: LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -131,6 +131,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/typelib-dump
 %{_datadir}/gtk-doc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.19-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 2.14.19-32
 - Port configure script to C99 (#2186427)
 

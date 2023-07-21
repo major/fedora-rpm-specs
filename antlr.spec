@@ -4,7 +4,7 @@
 Summary:       ANother Tool for Language Recognition
 Name:          antlr
 Version:       2.7.7
-Release:       72%{?dist}
+Release:       73%{?dist}
 License:       ANTLR-PD
 URL:           http://www.antlr2.org/
 ExclusiveArch: %{java_arches}
@@ -131,6 +131,9 @@ install -p -m 755 scripts/antlr-config $RPM_BUILD_ROOT%{_bindir}
 %license LICENSE.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.7-73
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.7-72
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

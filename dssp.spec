@@ -3,7 +3,7 @@
 
 Name:		dssp
 Version:	3.0.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Protein secondary structure assignment
 %{?el5:Group:		Applications/Engineering}
 License:	BSL-1.0
@@ -77,6 +77,9 @@ chmod -x $RPM_BUILD_ROOT%_mandir/man1/*
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.0.0-19
 - Rebuilt for Boost 1.81
 

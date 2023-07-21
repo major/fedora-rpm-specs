@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          1.9.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          High Performance CommonMark and Github Markdown Rendering in R
 
 License:          BSD
@@ -79,6 +79,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.9.0-2
 - R-maint-sig mass rebuild
 

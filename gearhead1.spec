@@ -10,7 +10,7 @@ Summary: %{about_game}
 License: LGPLv2
 
 Version: 1.310
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 URL: http://gearheadrpg.com
 Source0: https://github.com/jwvhewitt/%{reponame}/archive/v%{version}/%{reponame}-%{version}.tar.gz
@@ -201,6 +201,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-sdl.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.310-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.310-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

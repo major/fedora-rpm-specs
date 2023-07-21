@@ -4,7 +4,7 @@
 
 Name:           cmpfit
 Version:        1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A MINPACK-1 Least Squares Fitting Library in C
 
 License:        BSD-2-Clause-FreeBSD
@@ -57,6 +57,9 @@ popd
 %{_libdir}/libmpfit.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

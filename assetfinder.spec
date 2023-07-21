@@ -14,7 +14,7 @@ Find domains and subdomains related to a given domain.}
 %global godocs          README.md
 
 Name:           assetfinder
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Find domains and subdomains related to a given domain
 
 License:        MIT
@@ -50,6 +50,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

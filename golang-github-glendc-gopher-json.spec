@@ -16,7 +16,7 @@ Package Json is a simple JSON encoder/decoder for gopher-lua.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple JSON encoder/decoder for gopher-lua
 
 License:        Unlicense
@@ -44,6 +44,9 @@ BuildRequires:  golang(github.com/yuin/gopher-lua)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        2.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -208,6 +208,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230614-2.git5f3458e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230614-1.git5f3458e
 - policies: restore group order to old OpenSSL default order
 

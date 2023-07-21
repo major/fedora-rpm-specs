@@ -6,7 +6,7 @@ License:        GPL-3.0-or-later
 URL:            http://fritzing.org/
 
 Version:        1.0.0
-%global baserelease 1
+%global baserelease 2
 
 # The fritzing-app repo does not contain a tag for v1.0.0.
 %global app_date 20230425
@@ -159,6 +159,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2.20230425
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.0-1.20230425
 - Update to v1.0.0
 - Convert License tag to SPDX

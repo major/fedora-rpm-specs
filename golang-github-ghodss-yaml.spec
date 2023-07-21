@@ -20,7 +20,7 @@ methods MarshalJSON and UnmarshalJSON unlike go-yaml.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        YAML marshaling and unmarshaling support for Go
 
 License:        MIT and BSD
@@ -48,6 +48,9 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

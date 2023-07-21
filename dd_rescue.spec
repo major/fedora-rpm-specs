@@ -1,6 +1,6 @@
 Name:           dd_rescue
 Version:        1.99.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fault tolerant "dd" utility for rescuing data from bad media
 # No version specified
 License:        GPL+
@@ -101,6 +101,9 @@ popd
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 18 2023 Michal Ambroz <rebus AT seznam dot cz> - 1.99.12-3
 - dd_rhelp - fix dependencies and dd_rescue detection
 

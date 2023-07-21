@@ -1,6 +1,6 @@
 Name:           fedora-autofirstboot
 Version:        1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of firstboot services for Fedora
 
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

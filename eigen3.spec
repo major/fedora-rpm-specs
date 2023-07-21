@@ -22,7 +22,7 @@
 
 Name:           eigen3
 Version:        3.4.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A lightweight C++ template library for vector and matrix math
 
 License:        MPL-2.0 AND LGPL-2.0-or-later AND BSD-3-Clause AND Minpack
@@ -192,6 +192,9 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/%{name} -DCMAKEP
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.0-10
 - Avoid extra test dependencies in RHEL builds
 

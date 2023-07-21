@@ -5,7 +5,7 @@ Summary: Bug tracking system
 URL: https://www.bugzilla.org/
 Name: bugzilla
 Version: 5.0.6
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: MPLv1.1
 Source0: https://github.com/bugzilla/bugzilla/archive/release-%{version}.tar.gz
 Source1: bugzilla-httpd-conf
@@ -290,6 +290,9 @@ popd > /dev/null)
 %{bzinstallprefix}/bugzilla/contrib/Bugzilla.pm
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 07 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0.6-18
 - Patch to build against Sphinx 6.1.3 (#2180465)
 - Use new patch syntax

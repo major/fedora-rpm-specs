@@ -3,8 +3,8 @@
 %global soversion 1.9
 
 Name:           flann
-Version:        1.9.1
-Release:        10%{?dist}
+Version:        1.9.2
+Release:        2%{?dist}
 Summary:        Fast Library for Approximate Nearest Neighbors
 
 License:        BSD
@@ -14,11 +14,15 @@ Source0:        https://www.github.com/mariusmuja/%{name}/archive/%{version}/%{n
 # Prevent the buildsysem from running setup.py, and use system-installed libflann.so
 # Not submitted upstream
 Patch0:         flann-1.9.1-fixpyflann.patch
-# Add a file to shared library targets
-Patch2:         flann-1.8.4-srcfile.patch
+# Distutils -> Setuptools
+Patch3:         flann-1.9.2-py3.12.patch
+# Install cmake scripts to correct libdir
+Patch4:         flann-1.9.2-cmakeinstall.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  zlib-devel
+BuildRequires:  lz4-devel
 
 BuildRequires:  hdf5-devel
 BuildRequires:  gtest-devel
@@ -29,6 +33,7 @@ BuildRequires:  texlive-latex
 BuildRequires:  texlive-%{!?rhel:scheme-}tetex
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 %description
 FLANN is a library for performing fast approximate nearest neighbor searches
@@ -64,8 +69,9 @@ Python 3 bindings for flann
 
 %prep
 %setup 
-%patch0 -p0 -b .fixpyflann
-%patch2 -p0 -b .srcfile
+%patch 0 -p0 -b .fixpyflann
+%patch 3 -p0 -b .py3.12
+%patch 4 -p0 -b .cmakeinstall
 
 # Fix library install directory
 sed -i 's/"lib"/"%{_lib}"/' cmake/flann_utils.cmake
@@ -104,6 +110,7 @@ rm -rf %{buildroot}%{_datadir}/doc/flann
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 %{_includedir}/flann
+%{_libdir}/cmake/flann
 
 %files static
 %{_libdir}/*.a
@@ -113,6 +120,13 @@ rm -rf %{buildroot}%{_datadir}/doc/flann
 %{python3_sitearch}/flann-%{version}*.egg-info
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Mon Jul 17 2023 Rich Mattes <richmattes@gmail.com> - 1.9.2-1
+- Update to release 1.9.2
+- Resolves: rhbz#2155011, rhbz#2219994
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.9.1-10
 - Rebuilt for Python 3.12
 

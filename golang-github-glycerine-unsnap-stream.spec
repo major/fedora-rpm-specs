@@ -15,7 +15,7 @@ Small golang library for decoding the snappy streaming format.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 Summary:        Small Go library for decoding the snappy streaming format
 
 License:        MIT
@@ -55,6 +55,9 @@ sed -i "s|github.com/glycerine/goconvey|github.com/smartystreets/goconvey|" $(fi
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

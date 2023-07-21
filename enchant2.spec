@@ -6,7 +6,7 @@
 
 Name:          enchant2
 Version:       2.5.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPLv2+
@@ -224,6 +224,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Sandro Mani <manisandro@gmail.com> - 2.5.0-4
 - Rebuild (mingw-icu)
 

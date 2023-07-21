@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Construct, classify, partition, and study block designs
 
 License:        GPL-2.0-or-later
@@ -74,6 +74,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 21 2023 Jerry James <loganjerry@gmail.com> - 1.8-1
 - Version 1.8
 

@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.10.0.2
 # can only be reset when all subpkgs bumped
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Pandoc-style document templates
 
 License:        BSD-3-Clause
@@ -185,6 +185,9 @@ rm %{buildroot}%{_datadir}/%{doclayout}/{README.md,changelog.md}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 0.10.0.2-10
 - https://hackage.haskell.org/package/doctemplates-0.10.0.2/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

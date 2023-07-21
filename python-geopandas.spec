@@ -3,7 +3,7 @@
 # There is a build dependency loop when built with tests.
 # It involves libpysal, mapclassify, networkx.
 # This bcond allows to bootstrap it.
-%bcond_without tests
+%bcond bootstrap 1
 
 Name:           python-%{srcname}
 Version:        0.13.2
@@ -32,7 +32,7 @@ otherwise require a spatial database such as PostGIS.
 Summary:        %{summary}
 BuildRequires:  python3-devel
 
-%if %{with tests}
+%if %{without bootstrap}
 BuildRequires:  python3dist(numpy) >= 1.15
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(fsspec)
@@ -63,7 +63,7 @@ BuildRequires:  python3dist(pandas[test])
 %pyproject_save_files %{srcname}
 
 %check
-%if %{with tests}
+%if %{without bootstrap}
 %{pytest} -ra geopandas -m 'not web'
 %else
 # naturalearth_creation assumes zipfile from naturalearthdata was downloaded to current directory

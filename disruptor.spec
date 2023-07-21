@@ -1,6 +1,6 @@
 Name:          disruptor
 Version:       3.4.4
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Concurrent Programming Framework
 License:       ASL 2.0
 URL:           https://lmax-exchange.github.io/disruptor/
@@ -77,6 +77,9 @@ rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 %license LICENCE.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

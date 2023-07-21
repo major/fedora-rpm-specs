@@ -1,6 +1,6 @@
 Name:           ahven
 Version:        2.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A unit testing framework for Ada 95
 Summary(sv):    Ett enhetstestramverk för ada 95
 
@@ -107,6 +107,9 @@ cp --preserve=timestamps README.md ROADMAP NEWS.txt %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

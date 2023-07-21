@@ -7,7 +7,7 @@
 Summary: Library for reading RAW files obtained from digital photo cameras
 Name: LibRaw
 Version: 0.21.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD-3-Clause and (CDDL-1.0 or  LGPL-2.1-only)
 URL: http://www.libraw.org
 
@@ -115,6 +115,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.1-4
 - Patch for CVE-2023-1729
 

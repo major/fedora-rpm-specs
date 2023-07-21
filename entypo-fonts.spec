@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20121031
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Pictogram Suite font
 
 License:        CC-BY-SA
@@ -48,6 +48,9 @@ install -m 0644 -p *.ttf  %{buildroot}%{_fontdir}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20121031-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20121031-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

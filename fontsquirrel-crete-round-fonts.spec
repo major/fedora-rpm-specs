@@ -3,7 +3,7 @@
 
 Name:          %{fontname}-fonts
 Version:       0
-Release:       0.13.20111222%{?dist}
+Release:       0.14.20111222%{?dist}
 Summary:       General purpose warm slab serif font
 License:       OFL
 URL:           https://www.fontsquirrel.com/fonts/crete-round
@@ -47,6 +47,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %license *.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14.20111222
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13.20111222
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

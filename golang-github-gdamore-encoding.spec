@@ -23,7 +23,7 @@ UTF-8.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Various character map encodings missing from golang.org/x/net/encoding
 
 # Upstream license specification: Apache-2.0
@@ -53,6 +53,9 @@ BuildRequires:  golang(golang.org/x/text/transform)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 10 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.0-12
 - Switch to SPDX license
 

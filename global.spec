@@ -1,6 +1,6 @@
 Name:           global
 Version:        6.6.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Source code tag system
 # The entire source code is GPLv3+ except
 #   libglibc/ which is LGPLv2+
@@ -110,6 +110,9 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_libdir}/gtags/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar  3 2023 DJ Delorie <dj@redhat.com> - 6.6.5-9
 - Port configure script to C99
 

@@ -1,7 +1,7 @@
 Name:	 frobby
 Summary: Computations With Monomial Ideals
 Version: 0.9.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # GPL-2.0-or-later: the frobby code
 # OFL-1.1-RFN: AMS fonts embedded in the PDF manual
@@ -118,6 +118,9 @@ test/runTests
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

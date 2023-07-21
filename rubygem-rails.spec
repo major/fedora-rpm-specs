@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.4.3
+Version: 7.0.5
 Release: 1%{?dist}
 Summary: Full-stack web application framework
 License: MIT
@@ -46,12 +46,17 @@ cp -a .%{gem_dir}/* \
 %dir %{gem_instdir}
 %exclude %{gem_cache}
 %{gem_spec}
+%license %{gem_instdir}/MIT-LICENSE
 
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue May 30 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.5-1
+- Update to rails 7.0.5.
+  Resolves: rhbz#2209790
+
 * Tue Mar 14 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.4.3-1
 - Update to rails 7.0.4.3.
   Resolves: rhbz#2032639

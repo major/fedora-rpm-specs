@@ -1,10 +1,9 @@
 %bcond_with     itext
-%bcond_with     fop
 
 Name:           maven-doxia
 Epoch:          0
 Version:        1.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Content generation framework
 License:        Apache-2.0
 
@@ -15,19 +14,25 @@ Source2:        https://downloads.apache.org/maven/KEYS
 
 # Build against iText 2.x
 # https://issues.apache.org/jira/browse/DOXIA-53
-Patch1:         0001-Fix-itext-dependency.patch
+Patch0:         0001-Fix-itext-dependency.patch
+
+# Build against commons-configuration 2.x
+Patch1:         0002-Commons-configuration2.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  gnupg2
 BuildRequires:  maven-local
+BuildRequires:  mvn(commons-collections:commons-collections)
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.commons:commons-configuration2)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.commons:commons-text)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.httpcomponents:httpcore)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
+BuildRequires:  mvn(org.apache.xmlgraphics:fop)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
@@ -35,12 +40,6 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.xmlunit:xmlunit-core)
 BuildRequires:  mvn(org.xmlunit:xmlunit-matchers)
-
-%if %{with fop}
-BuildRequires:  mvn(commons-collections:commons-collections)
-BuildRequires:  mvn(commons-configuration:commons-configuration)
-BuildRequires:  mvn(org.apache.xmlgraphics:fop)
-%endif
 
 %if %{with itext}
 BuildRequires:  mvn(com.lowagie:itext)
@@ -89,13 +88,11 @@ Summary: FML module for %{name}
 %description module-fml
 This package provides %{summary}.
 
-%if %{with fop}
 %package module-fo
 Summary: FO module for %{name}
 
 %description module-fo
 This package provides %{summary}.
-%endif
 
 %if %{with itext}
 %package module-itext
@@ -202,9 +199,6 @@ rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 %if %{without itext}
 %pom_disable_module doxia-module-itext doxia-modules
 %endif
-%if %{without fop}
-%pom_disable_module doxia-module-fo doxia-modules
-%endif
 
 %build
 %mvn_build -s
@@ -222,9 +216,7 @@ rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 %files module-confluence -f .mfiles-doxia-module-confluence
 %files module-docbook-simple -f .mfiles-doxia-module-docbook-simple
 %files module-fml -f .mfiles-doxia-module-fml
-%if %{with fop}
 %files module-fo -f .mfiles-doxia-module-fo
-%endif
 %if %{with itext}
 %files module-itext -f .mfiles-doxia-module-itext
 %endif
@@ -243,6 +235,9 @@ rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jul 19 2023 Jerry James <loganjerry@gmail.com> - 0:1.12.0-2
+- Enable fop support
+
 * Sat Jun 10 2023 Jerry James <loganjerry@gmail.com> - 0:1.12.0-1
 - Version 1.12.0
 

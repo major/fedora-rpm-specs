@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.26.4
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        Generate Haskell bindings for GObject Introspection capable libraries
 
 License:        LGPL-2.1-or-later
@@ -156,4 +156,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.4-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 %autochangelog

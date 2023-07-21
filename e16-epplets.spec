@@ -1,7 +1,7 @@
 Summary:          Epplets for Enlightenment, DR16
 Name:             e16-epplets
 Version:          0.15
-Release:          15%{?dist}
+Release:          16%{?dist}
 License:          MIT with advertising and GPL+ and GPLv2+
 URL:              http://www.enlightenment.org/
 Source0:          http://downloads.sourceforge.net/enlightenment/e16-epplets-%{version}.tar.xz
@@ -53,6 +53,9 @@ rm -f %{buildroot}%{_libdir}/libepplet{,_glx}.{a,la}
 %{_libdir}/libepplet_glx.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 0.15-15
 - Rebuild fo new imlib2
 

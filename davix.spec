@@ -3,7 +3,7 @@
 
 Name:				davix
 Version:			0.8.4
-Release:			1%{?dist}
+Release:			2%{?dist}
 Summary:			Toolkit for http based file management
 License:			LGPLv2+
 URL:				https://dmc-docs.web.cern.ch/dmc-docs/davix.html
@@ -172,6 +172,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.4-1
 - New upstream release 0.8.4
 - Drop patches accepted upstream

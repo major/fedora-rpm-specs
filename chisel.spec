@@ -13,7 +13,7 @@ A fast TCP tunnel over HTTP.}
 %global godocs          example README.md
 
 Name:           chisel
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        TCP tunnel over HTTP
 
 License:        MIT
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 Name:    gdm
 Epoch:   1
 Version: 44.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The GNOME Display Manager
 
 License: GPL-2.0-or-later
@@ -295,6 +295,9 @@ fi
 %{_libdir}/pkgconfig/gdm-pam-extensions.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:44.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 09 2023 David King <amigadave@amigadave.com> - 1:44.1-1
 - Update to 44.1
 

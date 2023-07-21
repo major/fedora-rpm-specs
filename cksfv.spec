@@ -1,6 +1,6 @@
 Name:           cksfv
 Version:        1.3.15
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Utility to manipulate SFV files
 
 License:        GPLv2+
@@ -55,6 +55,9 @@ mv -f ChangeLog.conv ChangeLog
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.15-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

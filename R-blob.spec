@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.2.3
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          A Simple S3 Class for Representing Vectors of Binary Data ('BLOBS')
 
 License:          GPLv3
@@ -51,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{rlibdir}/%{packname}/help
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.3-4
 - R-maint-sig mass rebuild
 

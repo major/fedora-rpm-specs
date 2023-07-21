@@ -7,7 +7,7 @@
 
 Name:           fedora-license-data
 Version:        1.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -97,6 +97,9 @@ make check-grammar
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Miroslav Suchý <msuchy@redhat.com> 1.25-1
 - Add legacy attributes to HP-1986 - variant of legacy MIT license
 - Add dtoa

@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Algebraic modeling language
 Version:	1.2.5
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	EPL-1.0
 URL:		https://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -99,6 +99,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/flopcpp_doxy.tag
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 1.2.5-10
 - Port configure script to C99
 

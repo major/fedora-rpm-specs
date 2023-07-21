@@ -93,7 +93,7 @@ Version: 9.6.2
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -987,6 +987,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 24 2023 Jens Petersen <petersen@redhat.com> - 9.6.2-6
 - https://downloads.haskell.org/ghc/9.6.2/docs/users_guide/9.6.2-notes.html
 - subpackage ghc-bignum

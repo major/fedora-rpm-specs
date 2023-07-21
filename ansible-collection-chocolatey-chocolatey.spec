@@ -1,6 +1,6 @@
 Name:           ansible-collection-chocolatey-chocolatey
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ansible collection for Chocolatey
 
 License:        GPL-3.0-or-later
@@ -45,6 +45,9 @@ cd chocolatey
 %doc README.md
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 15 2023 Orion Poplawski <orion@nwra.com> - 1.5.1-1
 - Update to 1.5.1
 

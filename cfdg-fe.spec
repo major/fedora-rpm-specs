@@ -1,6 +1,6 @@
 Name: cfdg-fe
 Version:  0.1
-Release:  31%{?dist}
+Release:  32%{?dist}
 Summary: A front end to cfdg
 
 License: GPL-2.0-or-later
@@ -54,6 +54,9 @@ install -p -m 644 pixmaps/icon.png \
 %{_datadir}/cfdg-fe/logo.png
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1-31
 - migrated to SPDX license
 

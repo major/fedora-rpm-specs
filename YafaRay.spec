@@ -15,7 +15,7 @@ License:	LGPLv2+
 Summary:	A free open-source ray-tracing render engine
 Version:	3.5.1
 URL:		https://www.yafaray.org/
-Release:	23%{?prerelease}%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:	24%{?prerelease}%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 
 %{?shortcommit0:
 Source0:	https://github.com/%{name}/lib%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz}
@@ -214,6 +214,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{yname}-blend
 %{python3_sitearch}/*.{py,so}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 3.5.1-23
 - Rebuilt for Python 3.12
 

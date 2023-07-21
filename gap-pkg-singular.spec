@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2023.02.09
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP interface to Singular
 
 License:        GPL-2.0-or-later
@@ -67,6 +67,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/lib/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.02.09-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 10 2023 Jerry James <loganjerry@gmail.com> - 2023.02.09-1
 - Version 2023.02.09
 - Drop upstreamed -test patch

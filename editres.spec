@@ -1,7 +1,7 @@
 Summary:       X11 utility to view and edit application resources
 Name:          editres
 Version:       1.0.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT
 URL:           https://www.x.org
 Source0:       https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
@@ -39,6 +39,9 @@ the application and view the results dynamically.
 %{_datadir}/X11/app-defaults/Editres-color
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 04 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.0.8-1
 - 1.0.8
 - No need for autoreconf any longer

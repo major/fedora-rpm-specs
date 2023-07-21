@@ -9,7 +9,7 @@
 
 Name:          budgie-control-center
 Version:       1.2.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 License:       GPLv2+ and CC-BY-SA
@@ -201,6 +201,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 29 2023 Joshua Strobl <me@joshuastrobl.com> - 1.2.0-1
 - Update to 1.2.0
 

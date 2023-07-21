@@ -5,7 +5,7 @@
 
 Name:           egl-wayland
 Version:        1.1.12
-Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Wayland EGL External Platform library
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
@@ -15,6 +15,7 @@ Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 %else
 Source0:        %url/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 %endif
+Patch0:         %url/compare/1.1.12...master.patch#/1.1.12_master.patch
 
 Source1:        10_nvidia_wayland.json
 Source2:        15_nvidia_gbm.json
@@ -73,6 +74,12 @@ find %{buildroot} -name '*.la' -delete
 %{_datadir}/wayland-eglstream/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Wed Jul 19 2023 Leigh Scott <leigh123linux@gmail.com> - 1.1.12-2
+- Add patch to fix rhbz#2223856
+
 * Fri Jun 09 2023 Leigh Scott <leigh123linux@gmail.com> - 1.1.12-1
 - Update to 1.1.12
 

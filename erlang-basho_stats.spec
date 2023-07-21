@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.1.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 BuildArch:	noarch
 Summary:	Basic Erlang statistics library
 License:	ASL 2.0
@@ -40,6 +40,9 @@ Basic Erlang statistics library.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

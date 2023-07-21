@@ -2,7 +2,7 @@ Summary: Content for the Anaconda built-in help system
 Name: anaconda-user-help
 URL: https://pagure.io/install-guide
 Version: 26.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 BuildArch: noarch
 
 # The tarball is created from the Fedora Installation Guide
@@ -41,6 +41,9 @@ cp -r blivetgui_help_content/* %{buildroot}%{_datadir}/anaconda/help/fedora
 %{_datadir}/anaconda/help/fedora/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

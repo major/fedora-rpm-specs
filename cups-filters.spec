@@ -15,7 +15,7 @@ Summary: OpenPrinting CUPS filters and backends for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0~rc2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -176,6 +176,9 @@ make check
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0~rc2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-1
 - 2.0rc2
 

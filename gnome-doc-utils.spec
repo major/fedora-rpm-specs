@@ -1,6 +1,6 @@
 Name: gnome-doc-utils
 Version: 0.20.10
-Release: 34%{?dist}
+Release: 35%{?dist}
 Summary: Documentation utilities for GNOME
 
 License: LGPL-2.1-or-later AND GPL-2.0-or-later AND GFDL-1.1-or-later
@@ -92,6 +92,9 @@ sed -i -e '/^Requires:/d' %{buildroot}%{_datadir}/pkgconfig/xml2po.pc
 %{_datadir}/xml/mallard
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.10-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.20.10-34
 - Workaround for python 3.12 distutils deprecation for configure script
 

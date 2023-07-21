@@ -1,6 +1,6 @@
 Name:       clpeak
 Version:    1.1.2
-Release:    3%{?checkout}%{?dist}
+Release:    4%{?checkout}%{?dist}
 Summary:    Find peak OpenCL capacities like bandwidth & compute
 License:    Public Domain
 URL:        https://github.com/krrishnarraj/%{name}
@@ -39,6 +39,9 @@ rm -v %{buildroot}/%{_datadir}/clpeak/LICENSE
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

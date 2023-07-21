@@ -16,7 +16,7 @@ Supplements:	(%{name} = %{version}-%{release} and langpacks-%{1})\
 
 Name:		cockatrice
 Version:	2.8.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	A cross-platform virtual tabletop software for multi-player card games
 
 # * Public Domain (cockatrice/resources/countries/*.svg)
@@ -163,6 +163,9 @@ rm %{buildroot}%{_datadir}/oracle/translations/oracle_en@pirate.qm
 %{_datadir}/applications/servatrice.desktop
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-9
 - Build as C++17 instead of C++11: Protobuf v4 (23.x) needs at least C++14, and
   abseil-cpp compiled as C++17 needs at least C++17

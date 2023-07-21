@@ -5,7 +5,7 @@
 
 Name:           ghc-srpm-macros
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building Haskell source packages
 
 License:        GPLv2+
@@ -35,6 +35,9 @@ install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc-srpm
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 30 2023 Jens Petersen <petersen@redhat.com> - 1.6.1-1
 - restore ghc_devel_prof for existing ghc spec files
 

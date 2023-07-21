@@ -3,7 +3,7 @@
 Name:    compiz-plugins-experimental
 Epoch:   1
 Version: %{basever}
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Additional plugins for Compiz
 License: GPLv2+
 URL:     https://gitlab.com/compiz/%{name}
@@ -90,6 +90,9 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

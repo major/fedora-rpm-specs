@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.10.0
 # can only be reset when all subpkgs bumped
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Shell-like (systems) programming in Haskell
 
 License:        BSD-3-Clause
@@ -175,6 +175,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr  2 2023 Jens Petersen <petersen@redhat.com> - 1.10.0-11
 - constraints is now package in Fedora
 

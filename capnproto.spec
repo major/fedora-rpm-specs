@@ -5,7 +5,7 @@
 
 Name:           capnproto
 Version:        0.10.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A data interchange format and capability-based RPC system
 
 License:        MIT
@@ -94,6 +94,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/cmake/CapnProto/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.3-3
 - Backport upstream fix for missing headers for g++13
 - Backport upstream fix for operator!= removal for C++20

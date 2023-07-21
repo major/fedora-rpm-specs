@@ -1,5 +1,5 @@
 # List copied from gcc.spec
-# Current as of 13.0.1 (line 66)
+# Current as of 13.1.1 (line 66)
 # Note that this covers all Fedora primary architectures.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
 %bcond asan 1
@@ -8,7 +8,7 @@
 %endif
 
 # List copied from gcc.spec
-# Current as of 13.0.1 (line 86)
+# Current as of 13.1.1 (line 86)
 # Note that this covers all Fedora primary architectures.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
 %bcond ubsan 1
@@ -17,7 +17,7 @@
 %endif
 
 # List copied from gcc.spec
-# Current as of 13.0.1 (line 76)
+# Current as of 13.1.1 (line 76)
 %ifarch x86_64 ppc64 ppc64le aarch64 s390x
 %bcond tsan 1
 %else
@@ -25,7 +25,7 @@
 %endif
 
 Name:           wlcs
-Version:        1.5.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Wayland Conformance Test Suite
 
@@ -37,6 +37,7 @@ Summary:        Wayland Conformance Test Suite
 #   RPMs
 #
 # (LGPL-2.0-only OR LGPL-3.0-only):
+#   - include/geometry/*
 #   - include/mutex.h
 #   - include/shared_library.h
 #   - src/helpers.cpp

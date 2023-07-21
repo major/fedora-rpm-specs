@@ -69,7 +69,7 @@
 
 Name:		erlang
 Version:	26.0.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	ASL 2.0
@@ -1968,6 +1968,9 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul  1 2023 Peter Lemenkov <lemenkov@gmail.com> - 26.0.2-1
 - Ver. 26.0.2
 

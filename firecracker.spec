@@ -14,11 +14,11 @@
 %endif
 
 Name:           firecracker
-Version:        1.3.3
+Version:        1.4.0
 Release:        1%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
-License:        Apache-2.0 AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND MIT AND (MIT OR Unlicense) AND Unicode-DFS-2016
+License:        Apache-2.0 AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND MIT AND Unicode-DFS-2016
 URL:            https://firecracker-microvm.github.io/
 
 Source0:        https://github.com/firecracker-microvm/firecracker/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -34,10 +34,11 @@ Provides:       bundled(crate(micro_http)) = 0.1.0^git4b18a04
 
 # Edit crate dependencies to track what is packaged in Fedora.
 # These patches do not make sense to send upstream given their purpose.
-Patch1:         %{name}-1.3.1-remove-cargo_toml.patch
-Patch2:         %{name}-1.3.2-remove-criterion.patch
-Patch3:         %{name}-1.3.1-remove-device_tree.patch
-Patch4:         %{name}-1.3.1-upgrade-kvm-ioctls.patch
+Patch1:         %{name}-1.4.0-remove-aws-lc-rs.patch
+Patch2:         %{name}-1.4.0-remove-cargo_toml.patch
+Patch3:         %{name}-1.4.0-remove-criterion.patch
+Patch4:         %{name}-1.4.0-remove-device_tree.patch
+Patch5:         %{name}-1.4.0-upgrade-kvm-ioctls.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %defined cargo_target
@@ -76,11 +77,11 @@ sed -i -e 's,../../forks,forks,' Cargo.toml
 cargo2rpm --path Cargo.toml buildrequires --with-check
 
 %build
-%cargo_build -- --package={firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler} %{?cargo_target:--target=%{cargo_target}}
+%cargo_build -- --package={cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler} %{?cargo_target:--target=%{cargo_target}}
 %{cargo_license} > LICENSE.dependencies
 
 %install
-install -pm 0755 -Dt %{buildroot}%{_bindir} target/%{?cargo_target}/release/{firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler-bin}
+install -pm 0755 -Dt %{buildroot}%{_bindir} target/%{?cargo_target}/release/{cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler-bin}
 
 # Ship the built-in seccomp JSON as an example that can be edited and compiled.
 ln -fn resources/seccomp/%{cargo_target}.json seccomp-filter.json ||
@@ -88,7 +89,7 @@ ln -fn resources/seccomp/unimplemented.json seccomp-filter.json
 
 # Prune unused images from the documentation directory prior to installation.
 for image in docs/images/*
-do grep --exclude-dir=images -FIqr "${image##*/}" docs *.md || rm -f "$image"
+do grep --exclude-dir=images -FIqre "${image##*/}" docs *.md || rm -f "$image"
 done
 
 %if %{with check}
@@ -98,6 +99,7 @@ done
 
 
 %files
+%{_bindir}/cpu-template-helper
 %{_bindir}/firecracker
 %{?with_jailer:%{_bindir}/jailer}
 %{_bindir}/rebase-snap
@@ -109,6 +111,9 @@ done
 
 
 %changelog
+* Wed Jul 19 2023 David Michael <fedora.dm0@gmail.com> - 1.4.0-1
+- Update to the 1.4.0 release.
+
 * Wed May 24 2023 David Michael <fedora.dm0@gmail.com> - 1.3.3-1
 - Update to the 1.3.3 release.
 

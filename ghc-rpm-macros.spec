@@ -8,7 +8,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPLv3+
@@ -203,6 +203,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Jens Petersen <petersen@redhat.com> - 2.5.2-3
 - f38: also obsolete regex-compat-tdfa
 

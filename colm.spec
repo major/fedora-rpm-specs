@@ -1,6 +1,6 @@
 Name:           colm
 Version:        0.14.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Programming language designed for the analysis of computer languages
 
 # aapl/ and some headers from src/ are the LGPLv2+
@@ -72,6 +72,9 @@ install -p -m 0644 -D %{name}.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/%{
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 08 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.14.7-2
 - Backport commit that allows AC_CHECK_LIB to detect libfsm
 

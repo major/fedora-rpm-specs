@@ -40,7 +40,7 @@
 
 %global        shortver              1.16
 %global        fullver               %{shortver}.1
-%global        baserelease           1
+%global        baserelease           2
 
 %if 0%{?use_release} >= 1
 %global        fedorarel             %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
@@ -284,6 +284,9 @@ popd
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:1.16.1-1
 - 1.16.1
 

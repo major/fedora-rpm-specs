@@ -93,7 +93,7 @@ Version: 9.4.5
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -992,6 +992,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Jens Petersen <petersen@redhat.com> - 9.4.5-19
 - https://www.haskell.org/ghc/blog/20230418-ghc-9.4.5-released.html
 - https://downloads.haskell.org/~ghc/9.4.5/docs/users_guide/9.4.5-notes.html

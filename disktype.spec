@@ -1,6 +1,6 @@
 Name:           disktype
 Version:        9
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Detect the content format of a disk or disk image
 
 License:        MIT
@@ -38,6 +38,9 @@ install -p -m 644 disktype.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/disktype.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Richard Fearn <richardfearn@gmail.com> - 9-39
 - Don't glob everything under shared directories in %%files
 

@@ -1,6 +1,6 @@
 Name:    fpart
 Version: 1.5.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD
 Summary: a tool that sorts files and packs them into bags
 URL:     http://contribs.martymac.org
@@ -42,6 +42,9 @@ make %{?_smp_mflags}
 %{_bindir}/fpsync
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

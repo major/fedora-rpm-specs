@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        JSON schema for messages sent by Bodhi
 
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %doc README.rst
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 7.2.0-2
 - Rebuilt for Python 3.12
 

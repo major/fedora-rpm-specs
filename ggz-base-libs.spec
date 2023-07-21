@@ -4,7 +4,7 @@
 Summary: Base libraries for GGZ gaming zone
 Name:    ggz-base-libs
 Version: 0.99.5
-Release: 34%{?dist}
+Release: 35%{?dist}
 
 License: LGPLv2+ and GPLv2+
 URL: http://www.ggzgamingzone.org/
@@ -151,6 +151,9 @@ make check ||:
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.5-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar  2 2023 DJ Delorie <dj@redhat.com> - 0.99.5-34
 - Port configure script to C99 (#2175046)
 

@@ -3,7 +3,7 @@
 
 Name:           flamp
 Version:        2.2.07
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Amateur Multicast Protocol - file transfer program
 
 License:        GPLv3+
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.07-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.07-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

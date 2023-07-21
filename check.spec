@@ -6,7 +6,7 @@
 
 Name:           check
 Version:        0.15.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A unit test framework for C
 Source0:        https://github.com/libcheck/check/archive/%{version}/%{name}-%{version}.tar.gz
 License:        LGPL-2.1-or-later
@@ -222,6 +222,9 @@ cd -
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 0.15.2-9
 - Update deprecated %%patch macro usage
 

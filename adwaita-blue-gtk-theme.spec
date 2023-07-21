@@ -1,6 +1,6 @@
 name: adwaita-blue-gtk-theme
 Version: 3.22.21.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Adwaita GTK theme variant with blue titlebars and headerbars
 
 License: GPLv3
@@ -30,6 +30,9 @@ Adwaita GTK theme variant with blue titlebars and headerbars
 %{_datadir}/themes/Adwaita-blue/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.21.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.21.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

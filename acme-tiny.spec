@@ -9,7 +9,7 @@
 
 Name:		acme-tiny
 Version:	5.0.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Tiny auditable script to issue, renew Let's Encrypt certificates
 
 License:	MIT
@@ -133,6 +133,9 @@ exit 0
 %{_sbindir}/acme_tiny
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 28 2023 Stuart D. Gathman <stuart@gathman.org> - 5.0.1-5
 - Verified SPDX license
 

@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.2
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Flights that Departed NYC in 2013
 
 License:          CC0
@@ -61,6 +61,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.2-8
 - R-maint-sig mass rebuild
 

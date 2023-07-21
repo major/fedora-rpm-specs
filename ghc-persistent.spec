@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.13.3.5
 # can only be reset when all subpkgs bumped
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Type-safe, multi-backend data serialization
 
 License:        MIT
@@ -185,6 +185,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.3.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 2.13.3.5-5
 - https://hackage.haskell.org/package/persistent-2.13.3.5/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

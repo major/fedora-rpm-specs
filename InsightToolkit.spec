@@ -12,7 +12,7 @@ Summary:        Insight Toolkit library for medical image processing
 Version:        %{version_major_minor}.3
 %global version_doc_major_minor 4.13
 %global version_doc %{version_doc_major_minor}.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        ASL 2.0
 Source0:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightToolkit-%{version}.tar.gz
 Source1:        https://downloads.sourceforge.net/project/itk/itk/%{version_doc_major_minor}/InsightSoftwareGuide-Book1-%{version_doc}.pdf
@@ -269,6 +269,9 @@ cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 %{_libdir}/cmake/%{name}/Modules/ITKVtkGlue.cmake
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 14 2023 Orion Poplawski <orion@nwra.com> - 4.13.3-14
 - Bump to -std=gnu++14 for gtest compat
 

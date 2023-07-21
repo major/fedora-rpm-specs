@@ -9,7 +9,7 @@ CITATION.cff files in Python.}
 
 Name:           %{pypi_name}
 Version:        2.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Command line program to validate and convert CITATION.cff files
 
 License:        ASL 2.0
@@ -68,6 +68,9 @@ install -d '%{buildroot}%{_mandir}/man1'
 %{_mandir}/man1/%{pypi_name}.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.0.0-6
 - Rebuilt for Python 3.12
 

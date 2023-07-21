@@ -1,6 +1,6 @@
 Name: cfitsio
 Version: 4.2.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Library for manipulating FITS data files
 
 License: CFITSIO
@@ -123,6 +123,9 @@ chmod 755 %{buildroot}%{_bindir}/f{,un}pack
 %{_bindir}/funpack
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 4.2.0-4
 - Use SPDX License
 - License name is CFITSIO

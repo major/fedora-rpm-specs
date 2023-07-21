@@ -1,7 +1,7 @@
 Summary: A GNU general-purpose parser generator
 Name: bison
 Version: 3.8.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
@@ -120,6 +120,9 @@ gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/bison.info*
 %{_libdir}/liby.a
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

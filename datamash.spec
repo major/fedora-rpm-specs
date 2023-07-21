@@ -8,7 +8,7 @@ echo %_sysconfdir/bash_completion.d)
 
 Name:           datamash
 Version:        1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A statistical, numerical and textual operations tool
 
 License:        GPLv3+
@@ -72,6 +72,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 02 2023 Georg Sauthoff <mail@gms.tf> - 1.8-1
 - bump to upstream 1.8
 - remove epel6 support (since it's EOL since Nov 2020)

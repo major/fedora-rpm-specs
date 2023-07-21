@@ -1,6 +1,6 @@
 Name:       fapg
 Version:    0.44
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    GPLv2+
 Summary:    Fast Audio Playlist Generator
 URL:        http://royale.zerezo.com/fapg/
@@ -43,6 +43,9 @@ make check
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.44-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.44-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

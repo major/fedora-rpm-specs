@@ -8,7 +8,7 @@
 
 Name:           cryptopp
 Version:        8.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ class library of cryptographic schemes
 License:        Boost
 URL:            http://www.cryptopp.com/
@@ -120,6 +120,9 @@ rm  %{buildroot}%{_libdir}/libcryptopp.a
 %{_datadir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Vasiliy N. Glazov <vascom2@gmail.com> 8.8.0-1
 - Update to 8.8.0
 

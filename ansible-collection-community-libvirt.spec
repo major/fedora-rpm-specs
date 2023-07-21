@@ -10,7 +10,7 @@
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
 Version:        1.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
 URL:            %{ansible_collection_url}
@@ -71,6 +71,9 @@ popd
 %{ansible_collection_files}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar  3 2023 Paul Howarth <paul@city-fan.org> - 1.2.0-3
 - Use SPDX-format license tag
 

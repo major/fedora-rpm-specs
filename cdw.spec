@@ -1,6 +1,6 @@
 Name: cdw
 Version: 0.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Front-end for tools used for burning data CD/DVD
 License: GPLv2+ 
 URL: http://cdw.sourceforge.net/
@@ -42,6 +42,9 @@ make check LIBS="-lm"
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 21 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.8.1-1
 - Update to 0.8.1 fix FTBFS rhbz#2113143
 

@@ -1,6 +1,6 @@
 Name:           anagramarama
 Version:        0.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Anagram puzzle game
 # Almost all is GPLv2+ with some graphics being CC-BY-SA
 License:        GPLv2+ and CC-BY-SA
@@ -57,6 +57,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

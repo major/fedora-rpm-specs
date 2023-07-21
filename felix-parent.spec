@@ -2,7 +2,7 @@
 
 Name:           felix-parent
 Version:        7
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Parent POM file for Apache Felix Specs
 License:        ASL 2.0
 URL:            https://felix.apache.org/
@@ -44,6 +44,9 @@ Parent POM file for Apache Felix Specs.
 %doc LICENSE NOTICE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

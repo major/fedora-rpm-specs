@@ -7,7 +7,7 @@
 
 Name:           debhelper
 Version:        13.11.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Helper programs for debian/rules
 
 License:        GPL-2.0-or-later
@@ -169,6 +169,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.11.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 25 2023 Sérgio Basto <sergio@serjux.com> - 13.11.4-2
 - Migrate to SPDX license format
 

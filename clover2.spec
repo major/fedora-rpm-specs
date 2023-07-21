@@ -16,7 +16,7 @@ Name:			clover2
 # For Version, see README.md and so on
 Version:		%{mainver}
 #Release:		10.D%{gitdate}git%{shortcommit}%{?dist}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Yet another compiler language
 
 License:		GPLv2
@@ -144,6 +144,9 @@ LANG=C.utf8 make -C clover2 test
 %{_includedir}/clover2/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

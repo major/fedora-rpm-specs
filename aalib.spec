@@ -3,7 +3,7 @@
 Summary:        ASCII art library
 Name:           aalib
 Version:        1.4.0
-Release:        0.46.%{rc_subver}%{?dist}
+Release:        0.47.%{rc_subver}%{?dist}
 License:        LGPLv2+
 URL:            http://aa-project.sourceforge.net/aalib/
 Source0:        http://download.sourceforge.net/aa-project/%{name}-1.4%{rc_subver}.tar.gz
@@ -87,6 +87,9 @@ touch -r NEWS $RPM_BUILD_ROOT%{_bindir}/aalib-config $RPM_BUILD_ROOT%{_datadir}/
 %{_datadir}/aclocal/aalib.m4
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-0.47.rc5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 06 2023 Florian Weimer <fweimer@redhat.com> - 1.4.0-0.46.rc5
 - Port to C99
 

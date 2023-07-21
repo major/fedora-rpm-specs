@@ -9,23 +9,21 @@
 %global pkg_name Agda
 %global pkgver %{pkg_name}-%{version}
 
-%global geniplatemirror geniplate-mirror-0.7.9
 %global murmurhash murmur-hash-0.1.0.10
-%global subpkgs %{geniplatemirror} %{murmurhash}
+%global subpkgs %{murmurhash}
 
 Name:           %{pkg_name}
 Version:        2.6.2.2
 # can only be reset when all subpkgs bumped
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        A dependently typed functional programming language and proof assistant
 
 License:        MIT and BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
-Source1:        https://hackage.haskell.org/package/%{geniplatemirror}/%{geniplatemirror}.tar.gz
-Source2:        https://hackage.haskell.org/package/%{murmurhash}/%{murmurhash}.tar.gz
-Source3:        https://hackage.haskell.org/package/%{pkgver}/%{name}.cabal#/%{pkgver}.cabal
+Source1:        https://hackage.haskell.org/package/%{murmurhash}/%{murmurhash}.tar.gz
+Source2:        https://hackage.haskell.org/package/%{pkgver}/%{name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 Source10:       agda-mode-init.el
 
@@ -33,17 +31,7 @@ Source10:       agda-mode-init.el
 #[372 of 397] Compiling Agda.Interaction.Imports
 #ghc: out of memory [even with -O0]
 # https://bugzilla.redhat.com/show_bug.cgi?id=1991261
-#
-# i686: hangs in ghc_lib_install
-#Installing executable agda-mode in /builddir/build/BUILDROOT/Agda-2.6.2.2-36.fc37.i386/usr/bin
-#Warning: Executable installed in
-#/builddir/build/BUILDROOT/Agda-2.6.2.2-36.fc37.i386/usr/bin
-#Installing library in /builddir/build/BUILDROOT/Agda-2.6.2.2-36.fc37.i386/usr/lib/ghc-8.10.7/Agda-2.6.2.2
-#Installing executable agda in /builddir/build/BUILDROOT/Agda-2.6.2.2-36.fc37.i386/usr/bin
-#Warning: Executable installed in
-#/builddir/build/BUILDROOT/Agda-2.6.2.2-36.fc37.i386/usr/bin
-# https://bugzilla.redhat.com/show_bug.cgi?id=2098425
-ExcludeArch:    armv7hl %{ix86}
+ExcludeArch:    armv7hl
 
 # Begin cabal-rpm deps:
 BuildRequires:  dos2unix
@@ -209,7 +197,6 @@ This package provides the Haskell %{name} profiling library.
 %global main_version %{version}
 
 %if %{defined ghclibdir}
-%ghc_lib_subpackage -l BSD-3-Clause %{geniplatemirror}
 %ghc_lib_subpackage -l BSD-3-Clause %{murmurhash}
 %endif
 
@@ -218,8 +205,8 @@ This package provides the Haskell %{name} profiling library.
 
 %prep
 # Begin cabal-rpm setup:
-%setup -q -a1 -a2
-dos2unix -k -n %{SOURCE3} %{name}.cabal
+%setup -q -a1
+dos2unix -k -n %{SOURCE2} %{name}.cabal
 # End cabal-rpm setup
 
 # check the Agda version in the emacs mode
@@ -319,6 +306,12 @@ rm -r %{buildroot}%{_datadir}/%{pkgver}/emacs-mode
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Tue Jul 11 2023 Jens Petersen <petersen@redhat.com>
+- drop geniplate-mirror: not needed since 2.6.2
+
 * Sat Feb 18 2023 Jens Petersen <petersen@redhat.com> - 2.6.2.2-38
 - refresh to cabal-rpm-2.1.0 including SPDX migration
 - bump geniplate-mirror to 0.7.9

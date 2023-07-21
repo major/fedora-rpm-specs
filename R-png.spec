@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.7
-Release:          21%{?dist}
+Release:          22%{?dist}
 Summary:          Read and write PNG images
 
 License:          GPLv2+
@@ -57,6 +57,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.7-21
 - R-maint-sig mass rebuild
 

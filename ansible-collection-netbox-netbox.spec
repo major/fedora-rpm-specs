@@ -6,7 +6,7 @@
 
 Name:           ansible-collection-netbox-netbox
 Version:        3.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Netbox modules for Ansible
 
 License:        GPL-3.0-or-later
@@ -47,6 +47,9 @@ sed -i -e '1{\@^#!.*@d}' plugins/modules/*.py
 %doc README.md CHANGELOG.rst
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

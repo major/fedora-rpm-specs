@@ -1,6 +1,6 @@
 Name:		dvd+rw-tools
 Version:	7.1
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Toolchain to master DVD+RW/+R media
 License:	GPLv2
 URL:		http://fy.chalmers.se/~appro/linux/DVD+RW/
@@ -63,6 +63,9 @@ make WARN="-DDEFAULT_BUF_SIZE_MB=16 -DRLIMIT_MEMLOCK" %{?_smp_mflags}
 %{_mandir}/man1/*.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

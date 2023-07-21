@@ -20,7 +20,7 @@ parsing the PromQL language.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Pruned version of the native Prometheus promql package
 
 # Upstream license specification: Apache-2.0
@@ -53,6 +53,9 @@ BuildRequires:  golang(github.com/prometheus/common/model)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

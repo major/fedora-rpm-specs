@@ -2,7 +2,7 @@
 
 Name:           byte-buddy
 Version:        1.14.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
 License:        ASL 2.0
 URL:            http://bytebuddy.net/
@@ -149,6 +149,9 @@ profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompil
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Marian Koncek <mkoncek@redhat.com> - 1.14.2-1
 - Update to upstream version 1.14.2
 

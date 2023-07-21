@@ -1,6 +1,6 @@
 Name:		datefudge
 Version:	1.24
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Fake the system date
 
 License:	GPLv2+
@@ -36,6 +36,9 @@ chmod +x %{buildroot}/%{_libexecdir}/%{name}/datefudge.so #for stripping
 %{_bindir}/datefudge
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

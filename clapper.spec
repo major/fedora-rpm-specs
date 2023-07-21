@@ -1,6 +1,6 @@
 Name:          clapper
 Version:       0.5.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       GStreamer-based GNOME media player built using GJS and GTK4
 
 License:       GPLv3+ and LGPLv2+
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/com.github.rafostar.Clapper/libgstclapper-1.0.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

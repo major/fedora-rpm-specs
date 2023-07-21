@@ -11,7 +11,7 @@
 
 Name:		gnome-shell-extension-suspend-button
 Version:	19
-Release:	12%{?gitrel}%{?dist}
+Release:	13%{?gitrel}%{?dist}
 Summary:	GNOME Shell Extension Suspend-Button by laserb
 
 License:	GPLv2+
@@ -77,6 +77,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-13.20171024gita812520
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-12.20171024gita812520
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

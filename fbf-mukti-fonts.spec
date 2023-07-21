@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/mitradranirban/fonts-mukti
 
 Version:   3.0.2
-Release:   6%{?dist}
+Release:   7%{?dist}
 
 %forgemeta
 
@@ -46,6 +46,9 @@ chmod 755 generate.pe
 %fontfiles
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

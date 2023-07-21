@@ -1,6 +1,6 @@
 Name: belr
 Version: 5.2.45
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Language recognition library
 License: GPL-3.0-or-later AND GPL-2.0-or-later
 
@@ -75,5 +75,8 @@ using the belr library.
 %{_bindir}/belr_tester
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.45-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 02 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.2.45-1
 - Initial package.

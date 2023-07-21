@@ -1,6 +1,6 @@
 Name:		b43-tools
 Version:	019
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Tools for the Broadcom 43xx series WLAN chip
 # assembler — GPLv2
 # debug — GPLv3
@@ -77,6 +77,9 @@ cd debug
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 019-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 019-18
 - Rebuilt for Python 3.12
 

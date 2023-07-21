@@ -1,10 +1,6 @@
-%if 0%{?fedora} > 12
-%global with_python3 1
-%endif
-
 Name:           python-pyzolib
 Version:        0.3.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Utilities for the Pyzo environment
 
 License:        BSD
@@ -13,10 +9,6 @@ Source0:        https://pypi.python.org/packages/source/p/pyzolib/pyzolib-%{vers
 
 BuildArch:      noarch
 
-%if 0%{?with_python3}
-BuildRequires:  python3-devel
-%endif # if with_python3
-
 %global _description\
 This package implements several small sub-modules and sub-packages that expose\
 common functionality in a range of packages and applications in the Pyzo\
@@ -24,38 +16,38 @@ framework.
 
 %description %_description
 
-%if 0%{?with_python3}
-%package -n python3-pyzolib
-Summary:        Utilities for the Pyzo environment
 
-%description -n python3-pyzolib
-This package implements several small sub-modules and sub-packages that expose
-common functionality in a range of packages and applications in the Pyzo
-framework. 
-%endif # with_python3
+%package -n python%{python3_pkgversion}-pyzolib
+Summary:        Utilities for the Pyzo environment
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
+
+%description -n python%{python3_pkgversion}-pyzolib %_description
+
 
 %prep
-%setup -qn pyzolib-%{version}
+%autosetup -p1 -n pyzolib-%{version}
 
 
 %build
+%py3_build
 
-%if 0%{?with_python3}
-%{__python3} setup.py build
-%endif # with_python3
 
 %install
+%py3_install
 
-%if 0%{?with_python3}
-%{__python3} setup.py install --skip-build --root %{buildroot}
-%endif # with_python3
 
-%files -n python3-pyzolib
+%files -n python%{python3_pkgversion}-pyzolib
 %doc
-%{python3_sitelib}/pyzolib
-%{python3_sitelib}/pyzolib-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/pyzolib/
+%{python3_sitelib}/pyzolib-%{version}-py%{python3_version}.egg-info/
+
 
 %changelog
+* Wed Jul 19 2023 Scott K Logan <logans@cottsay.net> - 0.3.3-29
+- Add missing BuildRequires: python3-setuptools (rhbz#2220469)
+- Switch to more modern Python packaging macros
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.3-28
 - Rebuilt for Python 3.12
 

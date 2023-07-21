@@ -2,7 +2,7 @@
 
 Name:		dmtcp
 Version:	2.6.1~rc2
-Release:	0.5%{?dist}
+Release:	0.6%{?dist}
 Summary:	Checkpoint/Restart functionality for Linux processes
 # dmtcp.h is ASL-2.0
 License: LGPLv3+ and ASL-2.0
@@ -73,6 +73,9 @@ This package provides files for developing DMTCP plugins.
 %{_includedir}/dmtcp.h
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1~rc2-0.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1~rc2-0.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

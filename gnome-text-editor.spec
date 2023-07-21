@@ -7,7 +7,7 @@
 
 Name:		gnome-text-editor
 Version:	45~alpha
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
 License:	GPL-3.0-or-later
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 45~alpha-3
 - Rebuilt for ICU 73.2
 

@@ -19,7 +19,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           gappalib-coq
 Version:        1.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Coq support library for gappa
 
 License:        LGPL-3.0-or-later
@@ -101,6 +101,9 @@ remake check
 %{gappadir}/*.v
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.5.3-2
 - OCaml 5.0.0 rebuild
 

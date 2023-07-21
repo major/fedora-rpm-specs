@@ -3,7 +3,7 @@
 Summary:       POSIX threads C++ access library
 Name:          clthreads
 Version:       2.4.2
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       LGPLv2+
 URL:           http://kokkinizita.linuxaudio.org/linuxaudio/
 Source0:       http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
@@ -55,6 +55,9 @@ sed -i -e '/^CXXFLAGS += -march=native/d' source/Makefile
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

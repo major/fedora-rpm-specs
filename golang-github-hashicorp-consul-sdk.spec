@@ -39,7 +39,7 @@ Consul provides several key features:
 %global gosupfiles testutil
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Solution to connect and configure applications across dynamic, distributed infrastructure
 
 # Upstream license specification: MPL-2.0
@@ -78,6 +78,9 @@ mv sdk/README.md README-sdk.md
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           atomes
 %global upname Atomes-GNU
 Version:        1.1.11
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An atomistic toolbox
 License:        AGPL-3.0-or-later
 Source0:        https://github.com/Slookeur/%{upname}/archive/refs/tags/v%{version}.tar.gz
@@ -86,5 +86,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/fr.ipcms.%{nam
 %{_metainfodir}/fr.ipcms.%{name}.appdata.xml
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 14 2023 Sébastien Le Roux <sebastien.leroux@ipcms.unistra.fr> - 1.1.11-8
 - Initial Fedora commit

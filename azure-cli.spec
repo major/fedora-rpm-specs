@@ -98,7 +98,9 @@ Microsoft Azure CLI SDK testing tools
 # other requirements are set to versions too old for Fedora.
 sed -i '/azure/!s/==/>=/' src/azure-cli/requirements.py3.Linux.txt
 sed -i '/azure/!s/~=/>=/' src/azure-cli/setup.py
+sed -i '/azure/!s/==/>=/' src/azure-cli/setup.py
 sed -i '/azure/!s/~=/>=/' src/azure-cli-core/setup.py
+sed -i '/azure/!s/==/>=/' src/azure-cli-core/setup.py
 
 # Namespace packages are no longer needed after Python 3.7, but upstream
 # insists on carrying them.
@@ -126,6 +128,10 @@ sed -i 's/^packaging>=.*$/packaging>=21.3/' src/azure-cli/requirements.py3.Linux
 sed -i 's/^paramiko>=.*$/paramiko>=2.12.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^pyOpenSSL>=.*$/pyOpenSSL>=21.0.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^PyNaCl>=.*$/PyNaCl>=1.4.0/' src/azure-cli/requirements.py3.Linux.txt
+
+# Allow an older argcomplete until we can get it updated in Fedora.
+sed -i 's/argcomplete>=3.1.1/argcomplete>=2.0.0/' src/azure-cli-core/setup.py
+sed -i 's/^argcomplete>=.*$/argcomplete>=2.0.0/' src/azure-cli/requirements.py3.Linux.txt
 
 # Allow older versions for EPEL 9.
 sed -i \

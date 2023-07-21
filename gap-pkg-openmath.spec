@@ -11,7 +11,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        11.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Import and export of OpenMath objects for GAP
 
 License:        GPL-2.0-or-later
@@ -88,6 +88,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{upname}/doc/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 25 2023 Jerry James <loganjerry@gmail.com> - 11.5.3-1
 - Version 11.5.3
 

@@ -16,7 +16,7 @@ DHCP Server for Go.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.10%{?dist}
+Release:        0.11%{?dist}
 Summary:        DHCP Server for Go
 
 License:        MPL-2.0
@@ -48,6 +48,9 @@ echo 'golang(github.com/d2g/hardwareaddr)'
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Maxwell G <gotmax@e.email> - 0-0.10
 - Fix FTBFS (rhbz#2045489).
 - Adopt new licensing guidelines and use SPDX identifier

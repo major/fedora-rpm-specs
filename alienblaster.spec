@@ -1,6 +1,6 @@
 Name:           alienblaster
 Version:        1.1.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Action-loaded 2D arcade shooter game
 License:        GPLv2+
 URL:            http://www.schwardtnet.de/alienblaster/
@@ -60,6 +60,9 @@ install -p -m 644 %{SOURCE5} \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

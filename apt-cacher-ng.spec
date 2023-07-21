@@ -3,7 +3,7 @@
 
 Name:             apt-cacher-ng
 Version:          3.7.4
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Caching proxy for package files from Debian
 
 License:          BSD-4-Clause
@@ -129,6 +129,9 @@ chown -R %{name}:%{name} /run/%{name}/
 %{_mandir}/man8/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Alexandre Detiste <alexandre.detiste@gmail.com> - 3.7.4-5
 - Fix clean install without needing a reboot (upgrade was already OK)
 

@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        5.6.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Advanced Coset Enumerator
 
 License:        MIT
@@ -96,6 +96,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/res-examples/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

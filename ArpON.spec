@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 Name:       ArpON
 Version:    3.0
-Release:    22%{?dist}
+Release:    23%{?dist}
 Summary:    ARP handler inspection
 
 License:    BSD
@@ -50,6 +50,9 @@ attack.
 %{_mandir}/man8/arpon.8*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 09 2023 Arun S A G <sagarun@gmail.com> - 3.0-22
 - Add patch to fix FTBS RHBZ#2045151
 

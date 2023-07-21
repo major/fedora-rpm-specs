@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packvers}.%{packrel}
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Scientific Graphing Functions for Factorial Designs
 License:          GPLv2+
 URL:              http://cran.r-project.org/web/packages/sciplot/index.html
@@ -47,6 +47,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.0-11
 - R-maint-sig mass rebuild
 

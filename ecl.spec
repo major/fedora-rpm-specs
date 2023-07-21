@@ -5,7 +5,7 @@
 
 Name:           ecl
 Version:        21.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Embeddable Common-Lisp
 
 # The project as a whole is LGPL-2.0-or-later.  Other licenses in play:
@@ -161,6 +161,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.2.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 21.2.1-7
 - Validate appdata with appstream-util
 

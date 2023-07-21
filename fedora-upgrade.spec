@@ -1,6 +1,6 @@
 Name:		fedora-upgrade
 Version:	38.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Upgrade Fedora to next version using dnf upgrade (unofficial tool)
 
 License:	GPL-2.0-only
@@ -86,6 +86,9 @@ install -m755 rpm-print-name-from-filename.py %{buildroot}%{_bindir}/rpm-print-n
 %license LICENSE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 28 2023 Miroslav Suchý <msuchy@redhat.com> 38.2-1
 - use dnf5 on F39+
 - Fix typo in main script

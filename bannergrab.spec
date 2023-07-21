@@ -1,6 +1,6 @@
 Name:           bannergrab
 Version:        3.5
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A banner grabbing tool
 
 License:        GPLv3+
@@ -34,6 +34,9 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

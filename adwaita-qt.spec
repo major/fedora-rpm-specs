@@ -3,7 +3,7 @@
 
 Name:           adwaita-qt
 Version:        1.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 Summary:        Adwaita theme for Qt-based applications
 
@@ -151,6 +151,9 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig/adwaita-qt6.pc
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.2-4
 - Disable Qt5 on RHEL 10
 - Use %%license, install docs with both qt5 and qt6

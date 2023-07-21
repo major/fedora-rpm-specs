@@ -9,7 +9,7 @@
 
 Name:           ansible-collection-community-docker
 Version:        3.4.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
 # All files are GPL-3.0-or-later, except the following files, which are originally
@@ -109,6 +109,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May 20 2023 Maxwell G <maxwell@gtmx.me> - 3.4.6-1
 - Update to 3.4.6.
 

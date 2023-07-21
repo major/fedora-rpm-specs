@@ -1,7 +1,7 @@
 Summary: A C programming language indexing and/or cross-reference tool
 Name: ctags
 Version: 6.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 URL: https://ctags.io/
 Source0: https://github.com/universal-ctags/ctags/releases/download/v%{version}/universal-%{name}-%{version}.tar.gz
@@ -62,6 +62,9 @@ Install ctags if you are going to use your system for C programming.
 %{_mandir}/man7/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 14 2023 Than Ngo <than@redhat.com> - 6.0.0-2
 - migrated to SPDX license
 

@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          A Simple and Robust JSON Parser and Generator for R
 
 # Bundled yajl is ISC.
@@ -93,6 +93,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.8.5-2
 * Fix for CVE-2023-33460a (RHBZ #2222241)
 

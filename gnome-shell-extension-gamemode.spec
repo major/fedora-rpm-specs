@@ -1,6 +1,6 @@
 Name:           gnome-shell-extension-gamemode
 Version:        8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GameMode integration for GNOME Shell
 License:        LGPLv2
 URL:            https://github.com/gicmo/gamemode-extension
@@ -41,6 +41,9 @@ when the global GameMode status changes.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

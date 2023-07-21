@@ -1,6 +1,6 @@
 Name:           fedora-gather-easyfix
 Version:        0.2.1
-Release:        91%{?dist}
+Release:        92%{?dist}
 Summary:        Gather easyfix tickets across fedorahosted projects
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/%{name}/template.html
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-92
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.1-91
 - Rebuilt for Python 3.12
 

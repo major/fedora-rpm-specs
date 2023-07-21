@@ -1,5 +1,5 @@
 Version: 1.000
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     http://www.amirifont.org
 
 %global fontlicense       OFL-1.1
@@ -86,6 +86,9 @@ Source12: 67-%{fontpkgname2}.conf
 %fontfiles -a
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Mosaab Alzoubi <moceap[At]fedoraproject[Dot]org> - 1.000-1
 - Update to 1.000
 - Slanted types renamed

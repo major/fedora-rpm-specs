@@ -213,7 +213,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1%{?rc_version:.%rc_version}%{?dist}.2
+Release:        1%{?rc_version:.%rc_version}%{?dist}.3
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1746,6 +1746,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2-1.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Miro Hrončok <mhroncok@redhat.com> - 4.10.2-1.2
 - Use ssl.match_hostname from urllib3 as it was removed from Python 3.12
 

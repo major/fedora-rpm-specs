@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.4.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Modest Maps python port
 
 License:        BSD
@@ -25,6 +25,7 @@ additional functionality.
 Summary:        %{summary}
 
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-imaging
 
 %{?python_provide:%python_provide python%{python3_pkgversion}-modestmaps}
@@ -50,6 +51,9 @@ additional functionality.
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jul 19 2023 Scott K Logan <logans@cottsay.net> - 1.4.7-17
+- Add missing BuildRequires: python3-setuptools (rhbz#2220335)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.7-16
 - Rebuilt for Python 3.12
 

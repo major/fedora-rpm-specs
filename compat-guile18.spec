@@ -4,7 +4,7 @@
 Summary: A GNU implementation of Scheme for application extensibility
 Name: compat-guile18
 Version: %{mver}.8
-Release: 41%{?dist}
+Release: 42%{?dist}
 Source: ftp://ftp.gnu.org/pub/gnu/guile/guile-%{version}.tar.gz
 URL: http://www.gnu.org/software/guile/
 Patch1: guile-1.8.7-multilib.patch
@@ -186,6 +186,9 @@ fi
 %{_includedir}/libguile.h
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 10 2023 Tomas Korbar <tkorbar@redhat.com> - 1.8.8-41
 - List all licenses that are used in shipped files
 - This is neccessary according to current interpretation

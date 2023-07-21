@@ -9,7 +9,7 @@
 Summary: Modern asynchronous API to the DNS
 Name: getdns
 Version: 1.7.3
-Release: 2%{?extraver:.%{extraver}}%{?dist}
+Release: 3%{?extraver:.%{extraver}}%{?dist}
 License: BSD-3-Clause
 Url: http://www.getdnsapi.net
 Source: http://www.getdnsapi.net/dist/%{name}-%{upstream_version}.tar.gz
@@ -157,6 +157,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

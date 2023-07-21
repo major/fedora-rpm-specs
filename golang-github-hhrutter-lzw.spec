@@ -16,7 +16,7 @@ An extended version of compress/lzw.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.3%{?dist}
+Release:        0.4%{?dist}
 Summary:        An extended version of compress/lzw
 
 # Upstream license specification: BSD-3-Clause
@@ -46,6 +46,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

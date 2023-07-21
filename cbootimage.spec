@@ -1,6 +1,6 @@
 Name:           cbootimage
 Version:        1.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:       	Tools to dump and generate boot config table on Tegra devices
 
 License:        GPLv2
@@ -43,6 +43,9 @@ make %{?_smp_mflags}
 %{_mandir}/man1/*.1.*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

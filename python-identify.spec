@@ -2,8 +2,8 @@
 %global pypi_name identify
 
 Name:           python-%{pypi_name}
-Version:        2.5.24
-Release:        2%{?dist}
+Version:        2.5.25
+Release:        1%{?dist}
 Summary:        File identification library for Python
 
 License:        MIT
@@ -65,6 +65,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Wed Jul 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.25-1
+- 2.5.25
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.5.24-2
 - Rebuilt for Python 3.12
 

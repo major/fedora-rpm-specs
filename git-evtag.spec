@@ -1,7 +1,7 @@
 Summary: Strong GPG verification of git tags
 Name: git-evtag
 Version: 2016.1
-Release: 27%{?dist}
+Release: 28%{?dist}
 
 License: LGPLv2+
 #VCS: https://github.com/cgwalters/git-evtag
@@ -41,6 +41,9 @@ env NOCONFIGURE=1 ./autogen.sh
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Mar 05 2023 Pete Walter <pwalter@fedoraproject.org> - 2016.1-27
 - Rebuild for libgit2 1.6.x
 

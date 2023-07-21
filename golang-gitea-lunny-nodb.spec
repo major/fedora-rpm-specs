@@ -32,7 +32,7 @@ Nodb now use goleveldb as backend to store data.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.7%{?dist}
+Release:        0.8%{?dist}
 Summary:        Pure Go embed Nosql database with kv, list, hash, zset, bitmap, set.
 
 License:        MIT
@@ -68,6 +68,9 @@ BuildRequires:  golang(github.com/syndtr/goleveldb/leveldb/storage)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

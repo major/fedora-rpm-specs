@@ -15,7 +15,7 @@ Daemon for dark-mode and light-mode transitions on Linux desktop.}
 
 Name:           darkman
 Version:        1.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Daemon for dark-mode and light-mode transitions on Linux desktop
 
 License:        ISC
@@ -95,6 +95,9 @@ install -m 0644 -Dp contrib/portal/darkman.portal %{buildroot}%{_datadir}/xdg-de
 %gopkgfiles
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

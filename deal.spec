@@ -2,7 +2,7 @@
 
 Name: deal
 Version: 3.1.11
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Bridge Hand Generator
 URL: https://github.com/gtwilliams/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -87,6 +87,9 @@ done
 %license GPL LICENSE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.11-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 08 2023 Garry T. Williams <gtwilliams@gmail.com> 3.1.11-10
 - corrected SPDX syntax
 

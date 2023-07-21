@@ -1,6 +1,6 @@
 Name:     FAudio
 Version:  23.07
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  FNA is a reimplementation of the Microsoft XNA Game Studio 4.0 Refresh libraries
 
 License:  zlib
@@ -146,6 +146,9 @@ popd
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.07-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Michael Cronenworth <mike@cchtml.com> - 23.07-1
 - Update to 23.07
 

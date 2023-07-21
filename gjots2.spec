@@ -2,7 +2,7 @@
 
 Name:    gjots2
 Version: 3.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A hierarchical note jotter - organize your ideas, notes, facts in a tree
 License: GPL-2.0-only
 URL:     http://bhepple.freeshell.org/gjots
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_mandir}/man1/docbook2gjots*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.1-2
 - Rebuilt for Python 3.12
 

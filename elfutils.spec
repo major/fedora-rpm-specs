@@ -1,6 +1,6 @@
 Name: elfutils
 Version: 0.189
-%global baserelease 3
+%global baserelease 4
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -450,6 +450,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.189-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-3
 - Add elfutils-0.189-elf_getdata_rawchunk.patch
 - Add elfutils-0.189-debuginfod_config_cache-double-close.patch

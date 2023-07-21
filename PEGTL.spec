@@ -2,7 +2,7 @@
 
 Name:           PEGTL
 Version:        2.8.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Parsing Expression Grammar Template Library
 License:        MIT
 URL:            https://github.com/taocpp/%{name}/
@@ -50,6 +50,9 @@ popd
 %{_includedir}/tao/pegtl
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

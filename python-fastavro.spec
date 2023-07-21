@@ -2,10 +2,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 Name:           python-fastavro
-Version:        1.7.4
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Fast Avro for Python
 

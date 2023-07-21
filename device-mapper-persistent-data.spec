@@ -10,7 +10,7 @@
 Summary: Device-mapper Persistent Data Tools
 Name: device-mapper-persistent-data
 Version: 1.0.4
-Release: 2%{?dist}%{?release_suffix}
+Release: 3%{?dist}%{?release_suffix}
 License: GPLv3+
 #ExcludeArch: %%{ix86}
 URL: https://github.com/jthornber/thin-provisioning-tools
@@ -118,6 +118,9 @@ make DESTDIR=%{buildroot} MANDIR=%{_mandir} install
 #% {_sbindir}/thin_show_duplicates
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.4-2
 - Use rust-toolset in RHEL builds
 

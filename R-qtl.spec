@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	1.60
-Release:	1%{?dist}
+Release:	2%{?dist}
 Source0:	https://rqtl.org/download/%{packname}_%{version}.tar.gz
 License:	GPLv3
 URL:		https://rqtl.org/
@@ -89,6 +89,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/sampledata
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.60-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 16 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.60-1
 - Update to 1.60
 - Drop workaround for broken openblas on aarch64 in RHEL 8 and 9

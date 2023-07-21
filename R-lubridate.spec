@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Make dealing with dates a little easier
 License:          GPL-2.0-or-later-version
 URL:              https://CRAN.R-project.org/package=%{packname}
@@ -77,6 +77,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/cctz.sh
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.9.2-3
 - Ignore vignettes
 

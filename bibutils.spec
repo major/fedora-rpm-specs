@@ -1,6 +1,6 @@
 Name:           bibutils
 Version:        7.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Bibliography conversion tools
 
 License:        GPLv2
@@ -80,6 +80,9 @@ done
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

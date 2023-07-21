@@ -2,7 +2,7 @@
 
 Name:		%{srcname}
 Version:	0.13
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
 License:	MIT
@@ -85,6 +85,9 @@ Python3 library for Flatpak handling
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.13-8
 - Rebuilt for Python 3.12
 

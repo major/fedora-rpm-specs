@@ -18,7 +18,7 @@
 Summary:       The BOINC client
 Name:          boinc-client
 Version:       7.20.2
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       LGPLv2+
 URL:           http://boinc.berkeley.edu/
 
@@ -352,6 +352,9 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.20.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Daniel Rusek <mail@asciiwolf.com> - 7.20.2-6
 - Added an AppStream metainfo file
 

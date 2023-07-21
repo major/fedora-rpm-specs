@@ -1,6 +1,6 @@
 Name:		fcitx-m17n
 Version:	0.2.4
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	M17n Engine for Fcitx
 License:	LGPLv2+
 URL:		https://fcitx-im.org/wiki/M17N
@@ -36,6 +36,9 @@ input table maps from m17n-db.
 %{_datadir}/fcitx/m17n/default
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

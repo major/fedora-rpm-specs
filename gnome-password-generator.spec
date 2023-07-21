@@ -3,7 +3,7 @@
 Summary:        Graphical secure password generator
 Name:           gnome-password-generator
 Version:        2.1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        GPLv2+
 URL:            https://github.com/%{project_owner}/%{name}
 Source0:        https://github.com/%{project_owner}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -51,6 +51,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -14,7 +14,7 @@ Plus to standard sort package.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Plus to standard sort package
 
 # Upstream license specification: BSD-3-Clause
@@ -46,6 +46,9 @@ BuildRequires:  golang(github.com/golangplus/testing/assert)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 10 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.0-8
 - Switch to SPDX license
 

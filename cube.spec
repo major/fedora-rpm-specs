@@ -12,7 +12,7 @@
 
 Name:           cube
 Version:        4.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
@@ -360,6 +360,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 20 2023 Florian Weimer <fweimer@redhat.com> - 4.8.1-2
 - Port configure script to C99 (#2179882)
 

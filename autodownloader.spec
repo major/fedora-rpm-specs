@@ -1,6 +1,6 @@
 Name:           autodownloader
 Version:        0.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GUI-tool to automate the download of certain files
 License:        GPL-2.0-or-later
 URL:            https://github.com/frenzymadness/AutoDownloader
@@ -52,6 +52,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.5.0-8
 - migrated to SPDX license
 

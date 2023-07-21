@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.2
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Lazy (Non-Standard) Evaluation
 
 License:          GPLv3
@@ -74,6 +74,9 @@ export NOT_CRAN=true
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.2-12
 - R-maint-sig mass rebuild
 

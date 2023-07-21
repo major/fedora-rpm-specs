@@ -26,7 +26,7 @@
 
 Name:           clipit
 Version:        %{main_ver}
-Release:        %{rel}.4
+Release:        %{rel}.5
 Summary:        A lightweight, fully featured GTK+ clipboard manager
 
 License:        GPLv3+
@@ -151,6 +151,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}-startup.desktop
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4.D20210513gite5fa64c.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4.D20210513gite5fa64c.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

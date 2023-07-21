@@ -2,7 +2,7 @@
 
 Name:       copr-dist-git
 Version:    0.66
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -140,6 +140,9 @@ touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 %{_tmpfilesdir}/copr-dist-git.conf
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.66-2
 - Rebuilt for Python 3.12
 

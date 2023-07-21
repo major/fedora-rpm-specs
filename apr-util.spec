@@ -25,7 +25,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: ASL 2.0
 URL: https://apr.apache.org/
 Source0: https://www.apache.org/dist/apr/%{name}-%{version}.tar.bz2
@@ -232,6 +232,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 23 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-3
 - regression in IPv4 handling in r1907242. Cycle through the address list
   handling v4/v6 addresses correctly

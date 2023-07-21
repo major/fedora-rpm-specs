@@ -1,7 +1,7 @@
 
 Name:           attica
 Version:        0.4.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Implementation of the Open Collaboration Services API
 
 License:        LGPLv2+
@@ -57,6 +57,9 @@ test "$(pkg-config --modversion libattica)" = "%{version}"
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

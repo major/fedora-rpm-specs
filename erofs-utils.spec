@@ -6,7 +6,7 @@
 
 Name:           erofs-utils
 Version:        1.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND Unlicense
@@ -91,6 +91,9 @@ autoreconf -fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 11 2023 David Michael <fedora.dm0@gmail.com> - 1.6-1
 - Update to the 1.6 release.
 

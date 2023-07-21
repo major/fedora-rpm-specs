@@ -1,6 +1,6 @@
 Name:           ecdsautils
 Version:        0.4.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tiny collection of programs used for ECDSA (keygen, sign, verify)
 
 License:        BSD
@@ -72,6 +72,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

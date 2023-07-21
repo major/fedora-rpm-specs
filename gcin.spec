@@ -1,6 +1,6 @@
 Name:              gcin
 Version:           2.9.0
-Release:           10%{?dist}
+Release:           11%{?dist}
 Summary:           An input method focused on Chinese users
 #Main program is LGPLv2;
 #eggtrayicon.cpp eggtrayicon.h are LGPLv2+;
@@ -212,6 +212,9 @@ fi
 %{_datadir}/%{name}/table/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

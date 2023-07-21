@@ -24,7 +24,7 @@ AutoReqProv: no
 
 Name:          drupal7
 Version:       7.92
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       An open-source content-management platform
 
 License:       GPLv2+ and BSD and MIT
@@ -257,6 +257,9 @@ install -pm0755 %{SOURCE11} %{buildroot}%{_prefix}/lib/rpm/%{name}.req
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.92-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.92-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

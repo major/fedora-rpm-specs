@@ -16,7 +16,7 @@ Package Mgo (pronounced as "mango") offers a rich MongoDB driver for Go.}
 %global godocs          CONTRIBUTING.md README.md README-bson.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        MongoDB driver for Go
 
 # Upstream license specification: BSD-2-Clause and BSD-3-Clause
@@ -55,6 +55,9 @@ mv bson/LICENSE LICENSE-bson
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - r2018.06.15-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - r2018.06.15-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

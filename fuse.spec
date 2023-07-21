@@ -1,6 +1,6 @@
 Name:		fuse
 Version:	2.9.9
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	File System in Userspace (FUSE) v2 utilities
 License:	GPL+
 URL:		http://fuse.sf.net
@@ -127,6 +127,9 @@ rm -f %{buildroot}/%{_libdir}/*.a
 %{_includedir}/fuse
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.9-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -22,7 +22,7 @@
 
 Name:           publican
 Version:        4.3.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Common files and scripts for publishing with DocBook XML
 # For a breakdown of the licensing, refer to LICENSE
 License:        (GPLv2+ or Artistic) and CC0
@@ -163,12 +163,12 @@ BuildRequires:  lklug-fonts baekmuk-ttf-batang-fonts
 %if %{OTHER}
 Requires:       liberation-mono-fonts liberation-sans-fonts liberation-serif-fonts
 Requires:       cjkuni-uming-fonts ipa-gothic-fonts ipa-pgothic-fonts
-Requires:       lklug-fonts baekmuk-ttf-batang-fonts overpass-fonts
+Requires:       baekmuk-ttf-batang-fonts overpass-fonts
 Requires:       fop
 BuildRequires:  fop
 BuildRequires:  liberation-mono-fonts liberation-sans-fonts liberation-serif-fonts
 BuildRequires:  cjkuni-uming-fonts ipa-gothic-fonts ipa-pgothic-fonts
-BuildRequires:  lklug-fonts baekmuk-ttf-batang-fonts
+BuildRequires:  baekmuk-ttf-batang-fonts
 %endif
 
 %description
@@ -320,6 +320,9 @@ fi
 %{wwwdir}/common-db5
 
 %changelog
+* Fri Jul 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 4.3.2-26
+- Remove lklug-fonts require, not present in Fedora
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

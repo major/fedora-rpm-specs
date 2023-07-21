@@ -5,7 +5,7 @@ Summary: Modern audiobook player
 License: GPL-3.0-or-later
 
 Version: 1.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 URL: https://cozy.geigi.de
 Source0: https://github.com/geigi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -161,6 +161,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Python Maint <python-maint@redhat.com> - 1.2.1-5
 - Rebuilt for Python 3.12
 

@@ -15,7 +15,7 @@ xterm. It was inspired by termbox, but includes many additional improvements.}
 %global godocs          AUTHORS README.adoc
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Alternate terminal package
 
 # Upstream license specification: Apache-2.0
@@ -80,6 +80,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 10 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.4.0-9
 - Switch to SPDX license
 

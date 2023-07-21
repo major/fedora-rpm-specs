@@ -5,7 +5,7 @@
 # https://github.com/cheggaaa/pb
 %global goipath         github.com/cheggaaa/pb
 %global forgeurl        https://github.com/cheggaaa/pb
-Version:                3.0.8
+Version:                3.1.4
 
 %gometa
 

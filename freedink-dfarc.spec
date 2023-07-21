@@ -1,6 +1,6 @@
 Name:		freedink-dfarc
 Version:	3.14
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Frontend and .dmod installer for GNU FreeDink
 
 License:	GPL-3.0-or-later
@@ -53,6 +53,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%name.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.14-15
 - migrated to SPDX license
 

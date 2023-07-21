@@ -15,7 +15,7 @@ License: LGPLv2+
 %global git_commit_short %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version: 0.701
-Release: 3.%{git_date}git%{git_commit_short}%{?dist}
+Release: 4.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: http://gearheadrpg.com
 Source0: https://github.com/jwvhewitt/%{reponame}/archive/%{git_commit}/%{reponame}-%{git_commit}.tar.gz
@@ -201,6 +201,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-sdl.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.701-4.20201130git86d17e1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.701-3.20201130git86d17e1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

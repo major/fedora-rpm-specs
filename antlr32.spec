@@ -5,7 +5,7 @@
 
 Name:           antlr32
 Version:        3.2
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        ANother Tool for Language Recognition
 
 License:        BSD
@@ -163,6 +163,9 @@ cp -p %{SOURCE6} %{SOURCE7} .m2/org/antlr/antlr3-maven-plugin/%{bootstrap_versio
 %license tool/LICENSE.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@ BuildRequires:  %{*} \
 %undefine		minorver	
 %undefine		ifpre	
 
-%define		baserelease	2
+%define		baserelease	3
 %define		rel		%{?ifpre:0.}%{baserelease}%{?minorver:.%minorver}
 
 
@@ -356,6 +356,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-3.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

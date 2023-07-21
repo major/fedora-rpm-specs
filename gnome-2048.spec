@@ -1,6 +1,6 @@
 Name:           gnome-2048
 Version:        3.38.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A 2048 clone for GNOME
 
 License:        GPLv3+
@@ -58,6 +58,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.TwentyFo
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

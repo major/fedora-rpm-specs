@@ -1,6 +1,6 @@
 Name:           deluge
 Version:        2.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A GTK+ BitTorrent client with support for DHT, UPnP, and PEX
 License:        GPLv3 with exceptions
 URL:            http://deluge-torrent.org/
@@ -232,6 +232,9 @@ exit 0
 %systemd_postun_with_restart deluge-web.service
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.1.1-3
 - Rebuilt for Python 3.12
 

@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          R Package Installation from Remote Repositories
 
 License:          MIT
@@ -96,6 +96,9 @@ install -p %{packname}/{README,NEWS}.md %{buildroot}%{rlibdir}/%{packname}/
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.4.2-4
 - Ignore vignettes
 

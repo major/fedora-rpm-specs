@@ -19,7 +19,7 @@
 Summary:	A dynamic, any to any, pixel format conversion library
 Name:		babl
 Version:	0.1.102
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 # Compute some version related macros
 # Ugly hack, you need to get your quoting backslashes/percent signs straight
@@ -124,6 +124,9 @@ popd
 %doc %{develdocdir}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.102-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 Josef Ridky <jridky@redhat.com> - 0.1.102-2
 - move to SPDX license format
 

@@ -1,6 +1,6 @@
 Name:           efitools
 Version:        1.9.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Tools to manipulate EFI secure boot keys and signatures
 License:        GPLv2 and LGPLv2 and BSD
 
@@ -65,6 +65,9 @@ rm -v %{buildroot}%{_docdir}/%{name}/COPYING
 %{_bindir}/sign-efi-sig-list
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

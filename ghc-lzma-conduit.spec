@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.2.3
 # can only be reset when all subpkgs bumped
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Conduit interface for lzma/xz compression
 
 License:        BSD-3-Clause
@@ -139,6 +139,9 @@ cabal-tweak-dep-ver bytestring '<0.11' '<0.12'
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 1.2.3-16
 - https://hackage.haskell.org/package/lzma-conduit-1.2.3/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

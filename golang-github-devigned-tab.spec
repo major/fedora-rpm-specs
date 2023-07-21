@@ -16,7 +16,7 @@ OpenTracing and OpenCensus abstraction for tracing and logging.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OpenTracing and OpenCensus abstraction for tracing and logging
 
 License:        MIT
@@ -46,6 +46,9 @@ BuildRequires:  golang(go.opencensus.io/trace/propagation)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

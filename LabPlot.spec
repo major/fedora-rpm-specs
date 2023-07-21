@@ -7,7 +7,7 @@
 
 Name:		LabPlot
 Version:	2.8.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Data Analysis and Visualization
 
 License:	GPLv2+
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.kde.%
 %{_mandir}/*/man1/labplot2.1.gz
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           gocr
 Version:        0.52
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        GNU Optical Character Recognition program
 
 License:        GPL-2.0-or-later
@@ -50,6 +50,9 @@ rm $RPM_BUILD_ROOT/%{_bindir}/gocr.tcl
 %{_mandir}/man1/gocr.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Tomas Smetana <tsmetana@redhat.com> - 0.52-11
 - Use SPDX license tag
 

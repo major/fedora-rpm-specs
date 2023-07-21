@@ -1,6 +1,6 @@
 Name:           androguard
 Version:        3.3.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Reverse engineering, mal- or goodware analysis of Android applications
 
 License:        ASL 2.0
@@ -81,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests \
 %doc html examples
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 3.3.5-13
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           cockpit-composer
 Version:        45
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Composer GUI for use with Cockpit
 
 License:        MIT
@@ -40,6 +40,9 @@ cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/met
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 15 2023 Packit <hello@packit.dev> - 45-1
 - Update translsations
 

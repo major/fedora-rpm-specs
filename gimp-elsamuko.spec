@@ -3,7 +3,7 @@
 
 Name:		gimp-elsamuko
 Version:	29
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Script collection for the GIMP
 License:	GPLv3+
 URL:		https://github.com/elsamuko/%{name}
@@ -40,6 +40,9 @@ install -Dm 0644 -p %{name}.metainfo.xml \
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 29-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 29-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

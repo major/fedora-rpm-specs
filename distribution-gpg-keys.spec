@@ -1,6 +1,6 @@
 Name:		distribution-gpg-keys
 Version:	1.89
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	GPG keys of various Linux distributions
 
 License:	CC0-1.0
@@ -53,6 +53,9 @@ cp -a keys/* %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/copr
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.89-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Pavel Raiskup <praiskup@redhat.com> 1.89-1
 - Update expired RPM-GPG-KEY-Mageia key
 - Add keys for Azure Linux

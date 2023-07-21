@@ -1,6 +1,6 @@
 Name:           ckb-next
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unofficial driver for Corsair RGB keyboards
 
 # ckb-next is GPLv2.
@@ -140,6 +140,9 @@ udevadm control --reload-rules 2>&1 > /dev/null || :
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 25 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.0-1
 - Update to v0.6.0
 - Drop Patch0 (buffer overflow fix - backported from this release)

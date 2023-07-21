@@ -1,6 +1,6 @@
 Name:           CheMPS2
 Version:        1.8.9
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A spin-adapted implementation of DMRG for ab initio quantum chemistry
 
 License:        GPLv2+
@@ -64,6 +64,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 %{_libdir}/libchemps2.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

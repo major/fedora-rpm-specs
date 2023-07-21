@@ -1,6 +1,6 @@
 Name:           beets
 Version:        1.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
 URL:            http://beets.io
@@ -135,6 +135,9 @@ rm -f docs/_build/html/{.buildinfo,objects.inv}
 %files doc
 %doc docs/_build/html docs/_build/text
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.6.0-4
 - Rebuilt for Python 3.12
 

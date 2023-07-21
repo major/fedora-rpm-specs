@@ -72,7 +72,7 @@ Version: 9.2.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause and HaskellReport
@@ -972,6 +972,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.8-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 29 2023 Jens Petersen <petersen@redhat.com> - 9.2.8-18
 - update to 9.2.8
 - https://downloads.haskell.org/~ghc/9.2.8/docs/html/users_guide/9.2.8-notes.html

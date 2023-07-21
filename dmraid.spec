@@ -7,7 +7,7 @@
 Summary: Device-mapper RAID tool and library
 Name: dmraid
 Version: 1.0.0.rc16
-Release: 55%{?dist}
+Release: 56%{?dist}
 License: GPLv2+
 URL: http://people.redhat.com/heinzm/sw/dmraid
 
@@ -191,6 +191,9 @@ rm -f %{buildroot}%{_libdir}/libdmraid.a
 %ghost /var/cache/logwatch/dmeventd/syslogpattern.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.rc16-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.rc16-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

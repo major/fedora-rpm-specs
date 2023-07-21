@@ -5,7 +5,7 @@
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
 Version: 1.3.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL: http://people.redhat.com/sgrubb/fapolicyd
 Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
@@ -209,6 +209,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Radovan Sroka <rsroka@redhat.com> - 1.3.3-1
 - rebase to fapolicyd v1.3.2
 

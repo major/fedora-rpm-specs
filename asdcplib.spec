@@ -2,7 +2,7 @@
 
 Name:           asdcplib
 Version:        2.12.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AS-DCP file access libraries
 License:        BSD
 URL:            http://www.cinecert.com/asdcplib/
@@ -112,6 +112,9 @@ rm -fr  %{buildroot}%{_prefix}/targets
 %{_bindir}/wavesplit
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 21 2023 Simone Caronni <negativo17@gmail.com> - 2.12.3-1
 - Update to 2.12.3.
 

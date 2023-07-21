@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Financial Time Series Objects (Rmetrics)
 
 License:          GPL-2.0-or-later
@@ -102,6 +102,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{rlibdir}/%{packname}/extdata
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4030.106-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 4030.106-1
 - update to 4030.106
 

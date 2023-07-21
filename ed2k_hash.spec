@@ -3,7 +3,7 @@
 Summary: Edonkey 2000 file hash calculator
 Name: ed2k_hash
 Version: 0.4.0
-Release: 40%{?dist}
+Release: 41%{?dist}
 URL: http://ed2k-tools.sourceforge.net/index.shtml
 Source0: https://downloads.sourceforge.net/sourceforge/ed2k-tools/%{name}-%{version}.tar.gz
 Source1: %{name}.desktop
@@ -64,6 +64,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_iconsdir}/%{name}.png
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

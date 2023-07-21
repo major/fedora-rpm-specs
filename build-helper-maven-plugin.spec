@@ -2,7 +2,7 @@
 
 Name:           build-helper-maven-plugin
 Version:        3.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Build Helper Maven Plugin
 License:        MIT
 URL:            https://www.mojohaus.org/build-helper-maven-plugin/
@@ -69,6 +69,9 @@ find -name BeanshellPropertyMojo.java -delete
 %license LICENSE.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 21 2023 Marian Koncek <mkoncek@redhat.com> - 3.3.0-4
 - Rename package from maven-plugin-build-helper
 

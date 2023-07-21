@@ -12,7 +12,7 @@
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
 Version: 5.1.8
-Release: 20%{?dist}
+Release: 21%{?dist}
 Epoch: 1
 License: GPLv2+
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
@@ -291,6 +291,9 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.1.8-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 25 2023 Ian Kent <ikent@redhat.com> - 1:5.1.8-20
 - fix autofs regression due to positive_timeout.
 - fix parse module instance mutex naming.

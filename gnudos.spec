@@ -1,6 +1,6 @@
 Name:		gnudos
 Version:	1.11
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	The GnuDOS library for GNU/Linux
 
 License:	GPLv3+
@@ -68,6 +68,9 @@ install -m 0644 -p -D info/mino.info* %{buildroot}%{_infodir}/mino.info
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

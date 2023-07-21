@@ -12,7 +12,7 @@
 Version: 0.68.5.1
 Name: flow-tools
 Summary: Tool set for working with NetFlow data
-Release: 37%{?dist}
+Release: 38%{?dist}
 License: BSD 
 URL: http://code.google.com/p/%{name}/
 Source0: http://%{name}.googlecode.com/files/%{name}-%{version}.tar.bz2
@@ -235,6 +235,9 @@ exit 0
 %doc docs/*.html ChangeLog.old TODO INSTALL SECURITY
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.68.5.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 0.68.5.1-37
 - C99 compatibility fixes (#2162330)
 

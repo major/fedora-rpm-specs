@@ -5,7 +5,7 @@
 Summary: Tool for dynamic reconfiguration of validating resolver Unbound
 Name: dnssec-trigger
 Version: 0.17
-Release: 11%{?snapshot:.%{snapshot}git}%{?dist}
+Release: 12%{?snapshot:.%{snapshot}git}%{?dist}
 License: BSD
 Url: https://www.nlnetlabs.nl/projects/dnssec-trigger/
 
@@ -202,6 +202,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Todd Zullinger <tmz@pobox.com> - 0.17-11
 - Remove execute bit on ssh_config.d snippet
 

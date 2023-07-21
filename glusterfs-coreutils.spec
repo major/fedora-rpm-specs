@@ -2,7 +2,7 @@
 Summary:          Core Utilities for the Gluster Distributed File System
 Name:             glusterfs-coreutils
 Version:          0.3.1
-Release:          13%{?dist}
+Release:          14%{?dist}
 License:          GPL-3.0-only
 URL:              https://github.com/gluster/glusterfs-coreutils
 # The source for this package was created from upstream source using the
@@ -43,6 +43,9 @@ make
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 9 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> 0.3.1-13
 - rebuild w/ new coreutils, S_ISDIR
 

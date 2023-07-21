@@ -16,7 +16,7 @@
 Summary:       A network-capable tape backup solution
 Name:          amanda
 Version:       3.5.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 Source:        https://github.com/zmanda/amanda/archive/tag-community-%{version}/amanda-%{version}.tar.gz
 Source1:       amanda.crontab
 Source4:       disklist
@@ -452,6 +452,9 @@ make check
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.5.3-4
 - Perl 5.38 rebuild
 

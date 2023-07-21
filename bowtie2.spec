@@ -1,6 +1,6 @@
 Name: bowtie2
 Version: 2.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Use the word "ultra fast" rather than "ultrafast".
 # https://github.com/BenLangmead/bowtie2/issues/291
 Summary: An ultra fast and memory-efficient read aligner
@@ -126,6 +126,9 @@ scripts/test/simple_tests.pl \
 %{_mandir}/man1/bowtie2-inspect.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr  5 2023 Tom Callaway <spot@fedoraproject.org> - 2.5.1-1
 - Update to 2.5.1. The tbb is no longer used.
   Resolves: rhbz#1885616

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.1.0
-Release:          16%{?dist}
+Release:          17%{?dist}
 Summary:          Translate Spreadsheet Cell Ranges to Rows and Columns
 
 License:          MIT
@@ -69,6 +69,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.0-16
 - Ignore vignettes
 

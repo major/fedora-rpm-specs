@@ -50,7 +50,7 @@ Version: 8.10.7
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -784,6 +784,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.10.7-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 29 2023 Jens Petersen <petersen@redhat.com> - 8.10.7-10
 - bundle libffi for F38 (#2123772)
 - build against ghc8.10 to self-host and add ghc_major bin symlinks

@@ -5,7 +5,7 @@
 
 Name:           cbmc
 Version:        5.50.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Bounded Model Checker for ANSI-C and C++ programs
 
 License:        BSD-4-Clause
@@ -137,6 +137,9 @@ ln -s xml_y.tab.h src/xmllang/xml_y.tab.hpp
 %{_bindir}/csexec-%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.50.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 29 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.50.0-4
 - Fix rawhide FTBFS
 - Use SPDX license format

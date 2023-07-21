@@ -12,7 +12,7 @@ The algorithm was first developed by Xin-She Yang in 2010
 
 Name:             R-%{packname}
 Version:          %{ver}.%{packrel}
-Release:          8%{?dist}
+Release:          9%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{ver}-%{packrel}.tar.gz
 License:          GPLv2
 URL:              https://cran.r-project.org/web/packages/microbats/index.html
@@ -50,6 +50,9 @@ rm -rf %{buildroot}%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.1-8
 - R-maint-sig mass rebuild
 

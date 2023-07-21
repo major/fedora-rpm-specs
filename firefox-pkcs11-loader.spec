@@ -6,7 +6,7 @@
 
 Name:           firefox-pkcs11-loader
 Version:        3.13.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Helper script for Firefox that sets up the browser for authentication with Estonian ID-card
 License:        LGPLv2+
 URL:            https://github.com/open-eid/firefox-pkcs11-loader
@@ -103,6 +103,9 @@ make install DESTDIR=%{buildroot}
 %{_libdir}/mozilla/pkcs11-modules/idemiaawppkcs11.json
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

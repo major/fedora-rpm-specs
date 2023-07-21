@@ -1,6 +1,6 @@
 Name:           esh
 Version:        0.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple templating engine based on shell
 
 License:        MIT
@@ -42,6 +42,9 @@ intended to be used for templating configuration files.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

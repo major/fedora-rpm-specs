@@ -1,7 +1,7 @@
 Summary: A utility for adjusting kernel time variables
 Name: adjtimex
 Version: 1.29
-Release: 27%{?dist}
+Release: 28%{?dist}
 License: GPLv2+
 Source: http://ftp.debian.org/debian/pool/main/a/adjtimex/%{name}_%{version}.orig.tar.gz
 Patch1: adjtimex-manopts.patch
@@ -36,6 +36,9 @@ install -m644 adjtimex.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/adjtimex.8
 %{_mandir}/man8/adjtimex.8*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

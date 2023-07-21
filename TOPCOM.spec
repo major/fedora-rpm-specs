@@ -1,6 +1,6 @@
 Name:           TOPCOM
 Version:        0.17.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Triangulations Of Point Configurations and Oriented Matroids
 
 %global upver %(tr . _ <<< %{version})
@@ -139,6 +139,9 @@ done
 %doc examples
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

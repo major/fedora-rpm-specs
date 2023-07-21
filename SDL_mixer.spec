@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.12
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 License:	LGPL-2.0-only
@@ -78,6 +78,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/SDL
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 Hans de Goede <hdegoede@redhat.com> - 1.2.12-29
 - Fix double free on wav file load failure (rhbz#2031642)
 

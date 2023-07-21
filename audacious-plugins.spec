@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global tar_ver %{version}
 
@@ -335,6 +335,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 30 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3.1-1
 - Update to 4.3.1.
 

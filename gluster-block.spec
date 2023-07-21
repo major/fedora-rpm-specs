@@ -1,7 +1,7 @@
 Summary:          Gluster block storage utility
 Name:             gluster-block
 Version:          0.5
-Release:          10%{?dist}
+Release:          11%{?dist}
 License:          GPLv2 or LGPLv3+
 URL:              https://github.com/gluster/gluster-block
 Source0:          https://github.com/gluster/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ touch %{buildroot}%{_sharedstatedir}/gluster-block/gb_upgrade.status
 %config(noreplace) %{_sharedstatedir}/gluster-block/gluster-block-caps.info
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           amtk
 Version:        5.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Actions, Menus and Toolbars Kit for GTK+ applications
 
 License:        LGPL-3.0-or-later
@@ -67,6 +67,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

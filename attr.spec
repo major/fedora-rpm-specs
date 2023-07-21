@@ -1,7 +1,7 @@
 Summary: Utilities for managing filesystem extended attributes
 Name: attr
 Version: 2.5.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source0: https://download-mirror.savannah.gnu.org/releases/attr/attr-%{version}.tar.xz
 Source1: http://download.savannah.nongnu.org/releases/attr/attr-2.5.1.tar.xz.sig
 # Retreived from https://savannah.nongnu.org/people/viewgpg.php?user_id=15000
@@ -122,6 +122,9 @@ ln -fs ../sys/xattr.h $RPM_BUILD_ROOT%{_includedir}/attr/xattr.h
 %config(noreplace) %{_sysconfdir}/xattr.conf
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 14 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.5.1-7
 - migrated to SPDX license
 

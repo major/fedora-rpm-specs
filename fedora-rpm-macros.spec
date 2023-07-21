@@ -1,6 +1,6 @@
 Name:           fedora-rpm-macros
 Version:        26
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Miscellaneous Fedora RPM macros
 
 License:        GPLv2+
@@ -26,6 +26,9 @@ install -D -m 644 %{SOURCE0} %{buildroot}/%{_rpmconfigdir}/macros.d/macros.fedor
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

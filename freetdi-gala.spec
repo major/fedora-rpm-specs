@@ -6,7 +6,7 @@
 
 Name:           %{owner}-%{project}
 Version:        1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        C++ graph abstraction with low-level access
 
 # The project as a whole is GPL-3.0-or-later.
@@ -40,8 +40,8 @@ access -- at your own risk.
 Summary:        C++ graph abstraction with low-level access
 BuildArch:      noarch
 Provides:       %{name}-static = %{version}-%{release}
-Requires:       boost-devel%{?_isa}
-Requires:       tlx-devel%{?_isa}
+Requires:       boost-devel
+Requires:       tlx-devel
 
 %description    devel
 Gala is a C++ graph implementation inspired by boost/BGL, but with low
@@ -74,6 +74,12 @@ make check LOCAL_CXXFLAGS="%{build_cxxflags} -DHAVE_TLX_CONTAINER_BTREE_SET_HPP 
 %{_includedir}/%{project}/
 
 %changelog
+* Wed Jul 19 2023 Jerry James <loganjerry@gmail.com> - 1-6
+- Remove incorrect %%{?_isa} modifiers in Requires
+
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1-5
 - Comply with header-only packaging guidelines
 

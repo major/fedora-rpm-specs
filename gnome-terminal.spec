@@ -8,7 +8,7 @@
 
 Name:    gnome-terminal
 Version: 3.48.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPL-3.0-or-later AND GFDL-1.3
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Terminal.de
 %{_metainfodir}/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.48.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 09 2023 David King <amigadave@amigadave.com> - 3.48.1-1
 - Update to 3.48.1
 

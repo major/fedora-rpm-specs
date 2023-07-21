@@ -18,7 +18,7 @@ dependencies.}
 %global godocs          CHANGELOG.md README.md Documentation
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Library and CLI tool to convert Docker images to ACIs
 
 # Upstream license specification: Apache-2.0
@@ -71,6 +71,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.17.2-12
 - Rebuild to fix FTBFS
 

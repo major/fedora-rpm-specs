@@ -9,12 +9,12 @@ Version:        0.1.0
 Release:        %autorelease
 Summary:        Utilities for parsing numbers from strings
 
+# note empty license file
 License:        BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
-Patch0:         parsec-numbers-license.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -71,7 +71,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
 # End cabal-rpm setup
-%patch0 -p1
 
 
 %build
@@ -88,7 +87,8 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 %files -f %{name}.files
 # Begin cabal-rpm files:
-%license LICENSE
+# blank file
+#%%license LICENSE
 # End cabal-rpm files
 
 
@@ -98,7 +98,8 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 %if %{with haddock}
 %files doc -f %{name}-doc.files
-%license LICENSE
+# blank file
+#%%license LICENSE
 %endif
 
 

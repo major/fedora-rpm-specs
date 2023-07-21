@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1
-Release:	17%{?dist}
+Release:	18%{?dist}
 BuildArch:	noarch
 Summary:	A library for Lucene-like query syntax parsing
 License:	ASL 2.0
@@ -42,6 +42,9 @@ A library for Lucene-like query syntax parsing.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

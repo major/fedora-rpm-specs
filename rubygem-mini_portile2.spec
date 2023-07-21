@@ -1,7 +1,7 @@
 %global	gem_name	mini_portile2
 
 Name:		rubygem-%{gem_name}
-Version:	2.8.3
+Version:	2.8.4
 Release:	1%{?dist}
 
 Summary:	Simplistic port-like solution for developers
@@ -87,6 +87,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Wed Jul 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.4-1
+- 2.8.4
+
 * Tue Jul 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.3-1
 - 2.8.3
 

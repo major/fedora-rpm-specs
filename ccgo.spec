@@ -1,6 +1,6 @@
 Name:       ccgo
 Version:    0.3.6.5
-Release:    19%{?dist}
+Release:    20%{?dist}
 Summary:    An IGS (Internet Go Server) client written in C++
 License:    GPLv3+
 URL:        http://ccdw.org/~cjj/prog/%{name}/
@@ -74,6 +74,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/appdata
 %{_datadir}/pixmaps/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

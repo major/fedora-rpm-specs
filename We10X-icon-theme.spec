@@ -7,7 +7,7 @@ License: GPL-3.0-only
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:8})
 
 Version: 0
-Release: 28.%{git_date}git%{git_commit_short}%{?dist}
+Release: 29.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: https://github.com/yeyushengfan258/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -126,6 +126,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-29.20230413git4c244fcd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 18 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0-28.20230413git4c244fcd
 - Update to latest git snapshot (2023-04-13)
 - Convert License tag to SPDX

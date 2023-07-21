@@ -13,7 +13,7 @@
 Summary: High-level 3D visualization library
 Name: Coin2
 Version: 2.5.0
-Release: 45%{?dist}
+Release: 46%{?dist}
 
 # LICENSE.GPL says ".. or later" but source files tell "GPLv2"
 License: GPL-2.0-only
@@ -180,6 +180,9 @@ fi
 %ghost %{_libdir}/pkgconfig/Coin.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Florian Weimer <fweimer@redhat.com> - 2.5.0-45
 - Port configure script to C99
 

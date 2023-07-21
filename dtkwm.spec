@@ -1,6 +1,6 @@
 Name:           dtkwm
 Version:        2.0.12
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Deepin graphical user interface library
 License:        GPLv3
 URL:            https://github.com/linuxdeepin/dtkwm
@@ -59,6 +59,9 @@ export PATH=%{_qt5_bindir}:$PATH
 %{_libdir}/libdtkwm.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.12-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.12-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

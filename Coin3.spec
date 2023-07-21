@@ -13,7 +13,7 @@
 Summary: High-level 3D visualization library
 Name: Coin3
 Version: 3.1.3
-Release: 33%{?dist}
+Release: 34%{?dist}
 
 # https://bitbucket.org/Coin3D/coin/wiki/Home tells BSD,
 # but the tarball is GPLv2
@@ -207,6 +207,9 @@ fi
 %ghost %{_libdir}/pkgconfig/Coin.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

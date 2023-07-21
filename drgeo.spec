@@ -1,7 +1,7 @@
 Summary: Interactive educational geometry software
 Name: drgeo
 Version: 1.1.0
-Release: 48%{?dist}
+Release: 49%{?dist}
 License: GPLv2+
 URL: http://www.ofset.org/drgeo
 
@@ -80,6 +80,9 @@ rmdir %{buildroot}%{_datadir}/texmacs/
 %{_datadir}/applications/drgeo.desktop
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:           date
 Version:        3.0.1^%{date}git%{shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Date and time library based on the C++11/14/17 <chrono> header
 
 License:        MIT
@@ -111,6 +111,9 @@ export CTEST_OUTPUT_ON_FAILURE=ON
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1^20221213gitc9169ea-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1^20221213gitc9169ea-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

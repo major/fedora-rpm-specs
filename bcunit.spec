@@ -3,7 +3,7 @@
 
 Name: bcunit
 Version: 5.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Provide C programmers basic testing functionality
 License: LGPL-2.0-or-later
 URL: https://gitlab.linphone.org/BC/public/bcunit/
@@ -74,6 +74,9 @@ This package installs the BCUnit development files.
 %{_mandir}/man3/BCUnit.3*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 21 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.2.0-2
 - Remove cmake in source build define. No longer required.
 

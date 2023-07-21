@@ -1,6 +1,6 @@
 Name:           4th
 Version:        3.62.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Forth compiler
 
 License:        GPLv3+
@@ -71,6 +71,9 @@ cp -ap sources/include/*.h %{buildroot}%{_includedir}/%{name}/
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.62.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.62.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

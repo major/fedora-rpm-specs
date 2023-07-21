@@ -1,7 +1,7 @@
 Name:           apache-logging-parent
 Summary:        Parent pom for Apache Logging Services projects
 Version:        9
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            https://logging.apache.org/
@@ -38,6 +38,9 @@ cp -p %SOURCE1 LICENSE
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Chris Kelley <ckelley@redhat.com> - 9-1
 - Unretire package; update to version 9.
 

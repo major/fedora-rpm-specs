@@ -5,7 +5,7 @@
 
 Name:   fctxpd
 Version:        0.2
-Release:        8.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:        9.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:        Fibrechannel transport daemon
 
 License:        GPLv2+
@@ -58,6 +58,9 @@ application performance profiling software.
 %license LICENSES/GPL-2.0
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-9.20210326gitc4dba7f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-8.20210326gitc4dba7f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

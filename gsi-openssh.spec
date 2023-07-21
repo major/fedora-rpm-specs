@@ -23,8 +23,8 @@
 # Do we want libedit support
 %global libedit 1
 
-%global openssh_ver 9.0p1
-%global openssh_rel 6
+%global openssh_ver 9.3p1
+%global openssh_rel 1
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
@@ -86,8 +86,6 @@ Patch703: openssh-4.3p2-askpass-grab-info.patch
 Patch707: openssh-7.7p1-redhat.patch
 # warn users for unsupported UsePAM=no (#757545)
 Patch711: openssh-7.8p1-UsePAM-warning.patch
-# make aes-ctr ciphers use EVP engines such as AES-NI from OpenSSL
-Patch712: openssh-6.3p1-ctr-evp-fast.patch
 
 # GSSAPI Key Exchange (RFC 4462 + RFC 8732)
 # from https://github.com/openssh-gsskex/openssh-gsskex/tree/fedora/master
@@ -162,20 +160,10 @@ Patch983: openssh-8.7p1-evpgenkey.patch
 # From https://bugzilla.redhat.com/show_bug.cgi?id=1976202#c14
 Patch984: openssh-8.7p1-ibmca.patch
 
-# Fix for scp clearing file when src and dest are the same (#2056884)
-# upstream commits:
-# 7b1cbcb7599d9f6a3bbad79d412604aa1203b5ee
-Patch1001: openssh-8.7p1-scp-clears-file.patch
 # Add missing options from ssh_config into ssh manpage
 # upstream bug:
 # https://bugzilla.mindrot.org/show_bug.cgi?id=3455
 Patch1002: openssh-8.7p1-ssh-manpage.patch
-# Always return allocated strings from the kex filtering so that we can free them
-# upstream commits:
-# 486c4dc3b83b4b67d663fb0fa62bc24138ec3946
-# 6c31ba10e97b6953c4f325f526f3e846dfea647a
-# 322964f8f2e9c321e77ebae1e4d2cd0ccc5c5a0b
-Patch1003: openssh-8.7p1-mem-leak.patch
 # Reenable MONITOR_REQ_GSSCHECKMIC after gssapi-with-mic failures
 # upstream MR:
 # https://github.com/openssh-gsskex/openssh-gsskex/pull/21
@@ -184,27 +172,26 @@ Patch1004: openssh-8.7p1-gssapi-auth.patch
 # upstream MR:
 # https://github.com/openssh/openssh-portable/pull/323
 Patch1006: openssh-8.7p1-negotiate-supported-algs.patch
-Patch1007: openssh-configure-c99-1.patch
-Patch1008: openssh-configure-c99-2.patch
-Patch1009: openssh-configure-c99-3.patch
-
-Patch1010: openssh-8.7p1-CVE-2023-25136.patch
 
 Patch1011: openssh-9.0p1-evp-fips-sign.patch
 Patch1012: openssh-9.0p1-evp-fips-dh.patch
 Patch1013: openssh-9.0p1-evp-fips-ecdh.patch
 Patch1014: openssh-8.7p1-nohostsha1proof.patch
+Patch1015: openssh-9.0p1-evp-pkcs11.patch
+
+# clarify rhbz#2068423 on the man page of ssh_config
+Patch1016: openssh-9.0p1-man-hostkeyalgos.patch
 
 # Fix issue with read-only ssh buffer during gssapi key exchange (#1938224)
 # https://github.com/openssh-gsskex/openssh-gsskex/pull/19
 Patch97: openssh-8.0p1-sshbuf-readonly.patch
 # This is the patch that adds GSI support
 # Based on hpn_isshd-gsi.7.5p1b.patch from Globus upstream
-Patch98: openssh-9.0p1-gsissh.patch
+Patch98: openssh-9.3p1-gsissh.patch
 
 # This is the HPN patch
 # Based on https://sourceforge.net/projects/hpnssh/files/Patches/HPN-SSH%2015v2%208.5p1/
-Patch99: openssh-9.0p1-hpn-15.2-modified.patch
+Patch99: openssh-9.3p1-hpn-15.2-modified.patch
 
 License: BSD
 Requires: /sbin/nologin
@@ -312,7 +299,6 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch703 -p1 -b .grab-info
 %patch707 -p1 -b .redhat
 %patch711 -p1 -b .log-usepam-no
-%patch712 -p1 -b .evp-ctr
 
 %patch800 -p1 -b .gsskex
 %patch801 -p1 -b .force_krb
@@ -352,19 +338,15 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch202 -p1 -b .audit-log
 %patch700 -p1 -b .fips
 
-%patch1001 -p1 -b .scp-clears-file
 %patch1002 -p1 -b .ssh-manpage
-%patch1003 -p1 -b .mem-leak
 %patch1004 -p1 -b .gssapi-auth
 %patch1006 -p1 -b .negotiate-supported-algs
-%patch1007 -p1 -b .configure-c99-1
-%patch1008 -p1 -b .configure-c99-2
-%patch1009 -p1 -b .configure-c99-3
-%patch1010 -p1 -b .cve-2023-25136
 %patch1011 -p1 -b .evp-fips-sign
 %patch1012 -p1 -b .evp-fips-dh
 %patch1013 -p1 -b .evp-fips-ecdh
 %patch1014 -p1 -b .nosha1hostproof
+%patch1015 -p1 -b .evp-pkcs11
+%patch1016 -p1 -b .man-hostkeyalgos
 
 %patch100 -p1 -b .coverity
 
@@ -563,6 +545,10 @@ fi
 %attr(0744,root,root) %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 
 %changelog
+* Wed Jul 19 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-1
+- Based on openssh-9.3p1-3.fc39
+- Fix keyex patch
+
 * Sun Apr 16 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0p1-6
 - Based on openssh-9.0p1-17.fc39
 

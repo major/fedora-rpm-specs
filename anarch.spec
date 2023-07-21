@@ -9,7 +9,7 @@ Summary: %{summ_text}
 %global git_commit_short %(c='%{git_commit}'; echo "${c:0:8}")
 
 Version: 1.1
-Release: 1.%{git_date}git%{git_commit_short}%{?dist}
+Release: 2.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: https://drummyfish.gitlab.io/anarch/
 Source0: https://gitlab.com/drummyfish/%{name}/-/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -139,6 +139,9 @@ done
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2.20230123giteeb04a07
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 22 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1-1.20230123giteeb04a07
 - Update to v1.1
 

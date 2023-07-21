@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.5.13.0
 # can only be reset when all subpkgs bumped
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Robust, reliable performance measurement and analysis
 
 License:        BSD-3-Clause
@@ -226,6 +226,9 @@ echo "%{_datadir}/%{jschart}/Chart.*.*" >> %{jschart}/ghc-js-chart.files
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.13.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 17 2023 Jens Petersen <petersen@redhat.com> - 1.5.13.0-14
 - refresh to cabal-rpm-2.1.0 with SPDX migration
 

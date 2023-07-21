@@ -5,7 +5,7 @@
 Name:           fdupes
 Epoch:          1
 Version:        2.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Finds duplicate files in a given set of directories
 
 License:        MIT
@@ -82,6 +82,9 @@ install -Dpm 0644 %{SOURCE1} %{buildroot}%{macrosdir}/macros.%{name}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

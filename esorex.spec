@@ -1,6 +1,6 @@
 Name: esorex
 Version: 3.13.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Recipe Execution Tool of the European Southern Observatory 
 
 License: GPLv2+
@@ -41,6 +41,9 @@ make DESTDIR=%{buildroot} install
 %{_datadir}/bash-completion/completions/esorex
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 30 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.13.7-1
 - New upstream version (3.13.7)
 

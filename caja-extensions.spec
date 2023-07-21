@@ -16,9 +16,9 @@ Name:           caja-extensions
 Summary:        Set of extensions for caja file manager
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
-Release:        0.20%{?git_rel}%{?dist}
+Release:        0.21%{?git_rel}%{?dist}
 %endif
 License:        GPLv2+
 URL:            http://mate-desktop.org
@@ -230,6 +230,9 @@ cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

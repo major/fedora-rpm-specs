@@ -1,7 +1,7 @@
 Summary:       Visual tool for comparing and merging files
 Name:          beediff
 Version:       1.9
-Release:       31%{?dist}
+Release:       32%{?dist}
 License:       GPLv2+
 URL:           http://www.beesoft.org/index.php?id=beediff
 Source0:       http://www.beesoft.org/download/beediff_%{version}_src.tar.gz
@@ -39,6 +39,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/beediff.desktop
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

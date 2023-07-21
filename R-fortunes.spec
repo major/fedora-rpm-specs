@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.5.4
-Release:          16%{?dist}
+Release:          17%{?dist}
 Summary:          R Fortunes
 
 License:          GPLv2 or GPLv3
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.5.4-16
 - R-maint-sig mass rebuild
 

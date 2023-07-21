@@ -1,13 +1,11 @@
 Name:           virtiofsd
-Version:        1.5.1
-Release:        3%{?dist}
+Version:        1.7.0
+Release:        2%{?dist}
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 
-# Upstream license specification: Apache-2.0 AND BSD-3-Clause
-License:        ASL 2.0 and BSD
+License:        Apache-2.0 AND BSD-3-Clause
 URL:            https://gitlab.com/virtio-fs/virtiofsd
 Source:         %{crates_source}
-Patch:          virtiofsd-relax-env_logger-dep.diff
 
 ExclusiveArch:  %{rust_arches}
 # Some of our deps (i.e. vm-memory) are not available on 32 bits targets.
@@ -49,6 +47,13 @@ install -D -p -m 0644 50-qemu-virtiofsd.json %{buildroot}%{_datadir}/qemu/vhost-
 %{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
 
 %changelog
+* Wed Jul 19 2023 Sergio Lopez <slp@redhat.com> - 1.7.0-2
+- Update license specification to conform SPDX format
+
+* Tue Jul 18 2023 Sergio Lopez <slp@redhat.com> - 1.7.0-1
+- Update to version 1.7.0
+- Drop no longer needed temporary patch
+
 * Tue May 09 2023 Sergio Lopez <slp@redhat.com> - 1.5.1-3
 - Only use Obsoletes/Provides on Fedora 39 and later
 

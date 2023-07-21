@@ -16,7 +16,7 @@ Datadog-go is a library that provides a dogstatsd client in Golang.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Go dogstatsd client library for datadog
 
 License:        MIT
@@ -54,6 +54,9 @@ mv statsd/README.md README-statsd.md
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

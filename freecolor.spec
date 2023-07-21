@@ -2,7 +2,7 @@
 Summary:	Display memory information graphically
 Name:		freecolor
 Version:	0.9.3
-Release:	17%{?dist}
+Release:	18%{?dist}
 
 License:	MIT
 URL:		http://www.rkeene.org/oss/freecolor/
@@ -38,6 +38,9 @@ install -Dpm 0644 freecolor.1 %{buildroot}/%{_mandir}/man1/freecolor.1
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

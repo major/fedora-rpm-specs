@@ -1,6 +1,6 @@
 Name:           dash
 Version:        0.5.11.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Small and fast POSIX-compliant shell
 # BSD-3-Clause: DASH in general
 # GPL-2.0-or-later: From src/mksignames.c
@@ -42,6 +42,9 @@ fi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.11.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 01 2023 David Cantrell <dcantrell@redhat.com> - 0.5.11.5-4
 - Update License tag to use SPDX license expression
 

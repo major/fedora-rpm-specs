@@ -1,6 +1,6 @@
 Name:           freealut
 Version:        1.1.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Implementation of OpenAL's ALUT standard
 
 License:        LGPLv2
@@ -70,6 +70,9 @@ touch -r ChangeLog $RPM_BUILD_ROOT/%{_bindir}/freealut-config
 %{_libdir}/pkgconfig/freealut.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

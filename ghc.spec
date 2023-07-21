@@ -93,7 +93,7 @@ Version: 9.2.6
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 131%{?dist}
+Release: 132%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-clause and HaskellReport
@@ -1010,6 +1010,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.6-132
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 25 2023 Jens Petersen <petersen@redhat.com> - 9.2.6-131
 - include backport of 9.4 m32_allocator_init changes by Sylvain Henry (#2209162)
 - SPDX migration of license tags

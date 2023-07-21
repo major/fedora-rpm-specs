@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Line by line profiling and code coverage for GAP
 
 # The project as a whole is MIT.
@@ -114,6 +114,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Jerry James <loganjerry@gmail.com> - 2.5.4-1
 - Version 2.5.4
 

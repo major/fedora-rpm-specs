@@ -9,7 +9,7 @@ Version:        1.1.0
 # Build from git commit
 # Release:       0.1.git%%{shortcommit}%%{?dist}
 # Build from git release version
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        GPLv3+
 Summary:        FAT16/FAT32 resizer
 URL:            https://github.com/ya-mouse/fatresize
@@ -56,6 +56,9 @@ autoreconf -ifv
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

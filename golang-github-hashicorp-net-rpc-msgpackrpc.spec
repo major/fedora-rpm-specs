@@ -19,7 +19,7 @@ the Go standard library so it should be easy to use and obvious.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.28%{?dist}
+Release:        0.29%{?dist}
 Summary:        Library for creating Go RPC client/server
 
 License:        MIT
@@ -51,6 +51,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

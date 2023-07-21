@@ -14,7 +14,6 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
-Patch0:         gtk3-Debian-ppc64-work-around-pixel-define.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -95,9 +94,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
 # End cabal-rpm setup
-%ifarch ppc64 ppc64le
-%patch0 -p1 -b .orig
-%endif
 
 
 %build

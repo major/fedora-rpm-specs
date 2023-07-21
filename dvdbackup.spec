@@ -1,6 +1,6 @@
 Name:           dvdbackup
 Version:        0.4.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Command line tool for ripping video DVDs
 License:        GPLv3+
 URL:            http://dvdbackup.sourceforge.net/
@@ -40,6 +40,9 @@ make %{?_smp_mflags}
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

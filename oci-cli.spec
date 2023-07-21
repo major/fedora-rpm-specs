@@ -3,7 +3,7 @@
 %bcond_with     tests
 
 Name:           oci-cli
-Version:        3.29.3
+Version:        3.29.4
 Release:        %autorelease
 Summary:        Command Line Interface for Oracle Cloud Infrastructure 
 
@@ -47,7 +47,7 @@ sed -i 's/terminaltables==3.1.0/terminaltables>=3.1.0/' setup.py
 
 # Remove upper version limits.
 sed -i 's/cryptography>=3.2.1,<40.0.0/cryptography>=3.2.1/' setup.py
-sed -i 's/PyYAML>=5.4,<6/PyYAML>=5.4/' setup.py
+sed -i 's/PyYAML>=5.4,<=6/PyYAML>=5.4/' setup.py
 
 
 %generate_buildrequires

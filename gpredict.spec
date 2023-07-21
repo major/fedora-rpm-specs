@@ -1,6 +1,6 @@
 Name:           gpredict
 Version:        2.2.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Real-time satellite tracking and orbit prediction program
 License:        GPLv2+
 URL:            http://gpredict.oz9aec.net/
@@ -19,6 +19,7 @@ BuildRequires: gettext
 BuildRequires: libtool
 BuildRequires: make
 Requires:      hamlib
+Requires:      hicolor-icon-theme
 
 %description
 Gpredict is a real time satellite tracking and orbit prediction
@@ -43,8 +44,8 @@ algorithms, which are compatible with the NORAD Keplerian elements.
 
 %find_lang %{name}
 desktop-file-install --dir %{buildroot}/%{_datadir}/applications/ %{SOURCE1}
-mkdir -p %{buildroot}%{_datarootdir}/appdata/
-install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+install -D -p -m644 pixmaps/logos/gpredict_icon_color.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+install -D -p -m644 %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 %files -f %{name}.lang
 %doc AUTHORS COPYING NEWS README
@@ -52,6 +53,7 @@ install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/%{name}
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/appdata/*%{name}.appdata.xml
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/pixmaps/gpredict/icons/*
 %{_datadir}/pixmaps/gpredict/maps/*
 %{_datadir}/pixmaps/gpredict/logos/*
@@ -60,6 +62,9 @@ install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 
 %changelog
+* Sun Jul 02 2023 Daniel Rusek <mail@asciiwolf.com> - 2.2.1-15
+- Install better desktop icon, fix typo
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

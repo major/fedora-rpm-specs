@@ -1,6 +1,6 @@
 Name:       diffmark
 Version:    0.10
-Release:    29%{?dist}
+Release:    30%{?dist}
 Summary:    XML diff and merge
 # COPYING:          diffmark license text
 # lib/lcs.hh:       GPL+ or Artistic    (based on Algorithm-Diff)
@@ -81,6 +81,9 @@ find "$RPM_BUILD_ROOT" -name '*.la' -delete
 %{_libdir}/*.so
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

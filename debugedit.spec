@@ -1,6 +1,6 @@
 Name: debugedit
 Version: 5.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Tools for debuginfo creation
 License: GPLv3+ and GPLv2+ and LGPLv2+
 URL: https://sourceware.org/debugedit/
@@ -90,6 +90,9 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Mark Wielaard <mjw@fedoraproject.org> - 5.0-9
 - Add 0001-find-debuginfo-Add-v-verbose-for-per-file-messages.patch
 

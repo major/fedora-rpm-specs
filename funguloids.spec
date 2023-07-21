@@ -18,7 +18,7 @@
 
 Name:           funguloids
 Version:        1.06
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Space-Flying-Mushroom-Picking-Simulator game
 License:        zlib
 URL:            http://funguloids.sourceforge.net
@@ -175,6 +175,9 @@ EOF
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
 Version: 0.16.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPLv2+ and LGPLv2+
@@ -214,6 +214,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.16.1-2
 - Disable Qt5 in RHEL 10 builds
 - Remove obsolete BuildRequires

@@ -6,7 +6,7 @@
 
 Name:           ansible-collections-openstack
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Openstack Ansible collections
 License:        GPLv3+
 URL:            %{ansible_collection_url}
@@ -36,6 +36,9 @@ rm -vr changelogs/ ci/ tests/ ./galaxy.yml.in .zuul.yaml setup.py docs bindep.tx
 %{ansible_collection_files}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Alfredo Moralejo <amoralej@redhat.com> - 2.1.0-1
 - Update to 2.1.0
 

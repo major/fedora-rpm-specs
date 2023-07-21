@@ -1,6 +1,6 @@
 Name: cockpit-session-recording
 Version: 14
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Cockpit Session Recording
 License: LGPL-2.0-or-later
 URL:     https://github.com/Scribery/%{name}
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 Packit <hello@packit.dev> - 14-1
 - Upgrade to PatternFly 5 Alpha
 - Makefile: Update Cockpit lib to da5abbb4245b0455cc8b610efe01e684

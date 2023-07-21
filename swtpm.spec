@@ -12,7 +12,7 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD
 Url:            http://github.com/stefanberger/swtpm
 Source0:        %{url}/archive/%{gitcommit}/%{name}-%{gitshortcommit}.tar.gz
@@ -49,9 +49,7 @@ BuildRequires:  python3-devel
 
 Requires:       %{name}-libs = %{version}-%{release}
 Requires:       libtpms >= 0.6.0
-%if ! 0%{?flatpak}
-%{?selinux_requires}
-%endif
+Requires:       (%{name}-selinux if selinux-policy-targeted)
 
 %description
 TPM emulator built on libtpms providing TPM functionality for QEMU VMs
@@ -91,6 +89,16 @@ Requires:       expect gnutls-utils %{!?rhel:trousers >= 0.3.9}
 %description   tools-pkcs11
 Tools for creating a local CA based on a pkcs11 device
 
+%package        selinux
+Summary:        SELinux security policy for swtpm
+BuildArch:      noarch
+%if ! 0%{?flatpak}
+%{?selinux_requires}
+%endif
+
+%description    selinux
+SELinux security policy for swtpm.
+
 %prep
 %autosetup -S git -n %{name}-%{gitcommit} -p1
 
@@ -113,21 +121,21 @@ make %{?_smp_mflags} check VERBOSE=1
 %make_install
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.{a,la,so}
 
-%post
+%post selinux
 for pp in /usr/share/selinux/packages/swtpm.pp \
           /usr/share/selinux/packages/swtpm_svirt.pp; do
   %selinux_modules_install -s %{selinuxtype} ${pp}
 done
 restorecon %{_bindir}/swtpm
 
-%postun
+%postun selinux
 if [ $1 -eq  0 ]; then
   for p in swtpm swtpm_svirt; do
     %selinux_modules_uninstall -s %{selinuxtype} $p
   done
 fi
 
-%posttrans
+%posttrans selinux
 %selinux_relabel_post -s %{selinuxtype}
 
 %ldconfig_post libs
@@ -138,6 +146,8 @@ fi
 %doc README
 %{_bindir}/swtpm
 %{_mandir}/man8/swtpm.8*
+
+%files selinux
 %{_datadir}/selinux/packages/swtpm.pp
 %{_datadir}/selinux/packages/swtpm_svirt.pp
 
@@ -186,6 +196,9 @@ fi
 %{_datadir}/swtpm/swtpm-create-tpmca
 
 %changelog
+* Wed Jul 19 2023 Stefan Berger <stefanb@linux.ibm.com> - 0.8.0-4
+- Split off SELinux policy into swtpm-selinux
+
 * Mon May 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.0-4
 - Remove trousers dependency from RHEL builds
 

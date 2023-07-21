@@ -3,7 +3,7 @@
 
 Name:           emacs-%{pkg}
 Version:        3.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Emacs interface to the most common Git operations
 License:        GPLv3+
 URL:            https://magit.vc
@@ -61,6 +61,9 @@ cp -p %{SOURCE1} %{buildroot}%{_emacs_sitestartdir}/
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 31 2023 Jens Petersen <petersen@redhat.com> - 3.3.0-1
 - update to 3.3.0 (#1964366)
 - restore magit-init.el to autoload magit-status

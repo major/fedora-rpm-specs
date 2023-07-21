@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        8.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -274,6 +274,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Michal Ruprich <mruprich@redhat.com> - 8.5.2-1
 - New version 8.5.2
 - Fixing some rpmlint warnings

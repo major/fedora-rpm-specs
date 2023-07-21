@@ -1,6 +1,6 @@
 Name:           gnome-desktop-sharp
 Version:        2.26.0
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        .NET language binding for mono
 
 License:        LGPLv2
@@ -93,6 +93,9 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26.0-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26.0-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

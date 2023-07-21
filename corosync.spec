@@ -18,7 +18,7 @@
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
 Version: 3.1.7
-Release: 3%{?gitver}%{?dist}
+Release: 4%{?gitver}%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
 Source0: http://build.clusterlabs.org/corosync/releases/%{name}-%{version}%{?gittarver}.tar.gz
@@ -289,6 +289,9 @@ network splits)
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 06 2023 Jan Friesse <jfriesse@redhat.com> - 3.1.7-3
 - migrated to SPDX license
 

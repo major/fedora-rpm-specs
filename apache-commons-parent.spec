@@ -2,7 +2,7 @@
 
 Name:           apache-commons-parent
 Version:        53
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Apache Commons Parent Pom
 License:        ASL 2.0
 URL:            https://commons.apache.org/commons-parent-pom.html
@@ -63,6 +63,9 @@ done
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 53-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 53-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

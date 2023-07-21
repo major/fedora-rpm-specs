@@ -3,7 +3,7 @@
 
 Name:		aqsis
 Version:	1.8.2
-Release:	52%{?dist}
+Release:	53%{?dist}
 Summary:	Open source 3D rendering solution adhering to the RenderMan standard
 
 License:	GPLv2+ and LGPLv2+
@@ -239,6 +239,9 @@ desktop-file-install --vendor "" --delete-original \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.2-52
 - Rebuild for openexr2 2.5.8
 

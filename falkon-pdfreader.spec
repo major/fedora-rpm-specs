@@ -6,7 +6,7 @@
 
 Name:           falkon-pdfreader
 Version:        0
-Release:        0.13.%{date}git%{gitcommit}%{?dist}
+Release:        0.14.%{date}git%{gitcommit}%{?dist}
 Summary:        PDF reader extension for Falkon using pdf.js
 
 License:        GPLv3+ and ASL 2.0
@@ -47,6 +47,9 @@ mv pdfreader/pdfjs/LICENSE LICENSE_pdfjs
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14.20200924gitdcb8453
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13.20200924gitdcb8453
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

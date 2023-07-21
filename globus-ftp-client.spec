@@ -1,7 +1,7 @@
 Name:		globus-ftp-client
 %global _name %(tr - _ <<< %{name})
 Version:	9.8
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Grid Community Toolkit - GridFTP Client Library
 
 License:	Apache-2.0
@@ -139,6 +139,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

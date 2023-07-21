@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          19%{?dist}
+Release:          20%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 License:          LGPLv3
 URL:              http://cran.r-project.org/web/packages/%{packname}/index.html
@@ -43,6 +43,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0
 %{_datadir}/R/library/%{packname}/R
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.3-19
 - R-maint-sig mass rebuild
 

@@ -1,6 +1,6 @@
 Name:           accountsservice
 Version:        23.13.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        D-Bus interfaces for querying and manipulating user account information
 License:        GPLv3+
 URL:            https://www.freedesktop.org/wiki/Software/AccountsService/
@@ -114,6 +114,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/accountsservice/interfaces/
 %{_datadir}/vala/vapi/accountsservice.*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.13.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Ray Strode <rstrode@redhat.com> - 23.13.9-1
 - Update to 23.13.9
 - Fix C99 compile error

@@ -23,7 +23,7 @@ This is a Graphics library for the Go programming language.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.17%{?dist}
+Release:        0.18%{?dist}
 Summary:        Graphics library for the Go programming language
 
 # Upstream license specification: BSD-3-Clause
@@ -50,6 +50,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

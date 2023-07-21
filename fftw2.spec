@@ -1,6 +1,6 @@
 Name:           fftw2
 Version:        2.1.5
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Fast Fourier Transform library (version 2)
 %define         real_name fftw
 
@@ -115,6 +115,9 @@ rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 %{_libdir}/*.a
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

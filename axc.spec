@@ -4,7 +4,7 @@
 
 Name: axc
 Version: 0.3.7
-Release: 1.%{date}git%{shortcommit0}%{?dist}
+Release: 2.%{date}git%{shortcommit0}%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Client library for libsignal-protocol-c
@@ -63,5 +63,8 @@ applications that use %{name}.
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-2.20220526git8e14a66
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 06 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.3.7-1.20220526git8e14a66
 - Initial SPEC release.

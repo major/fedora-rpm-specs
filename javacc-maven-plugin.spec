@@ -1,3 +1,6 @@
+# Break dependency loops in a bootstrap situation
+%bcond_with bootstrap
+
 Name:           javacc-maven-plugin
 Version:        3.0.1
 Release:        1%{?dist}
@@ -13,16 +16,19 @@ Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.java.dev.javacc:javacc)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-sink-api)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-site-renderer)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
-BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-api)
-BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-impl)
 BuildRequires:  mvn(org.codehaus.mojo:mojo-parent:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+
+%if %{without bootstrap}
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-sink-api)
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-site-renderer)
+BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-api)
+BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-impl)
+%endif
 
 %description
 Maven Plugin for processing JavaCC grammar files.
@@ -44,6 +50,15 @@ rm -fr src/it
 # Disable building the web site
 rm -fr src/site
 
+# In bootstrap mode, disable documentation and reporting
+# Add in a formerly transitive dependency that is still needed
+%if %{with bootstrap}
+%pom_remove_dep org.apache.maven.doxia:
+%pom_remove_dep org.apache.maven.reporting:
+rm src/main/java/org/codehaus/mojo/javacc/JJDocMojo.java
+%pom_add_dep org.apache.maven:maven-core:3.8.6
+%endif
+
 %build
 %mvn_build
 
@@ -54,6 +69,9 @@ rm -fr src/site
 %license LICENSE-2.0.txt src/main/resources/NOTICE
 
 %changelog
+* Wed Jul 19 2023 Jerry James <loganjerry@gmail.com> - 3.0.1-1
+- Add bootstrap mode to break a dependency loop
+
 * Wed Mar 29 2023 Jerry James <loganjerry@gmail.com> - 3.0.1-1
 - Version 3.0.1
 - Convert License tag to SPDX

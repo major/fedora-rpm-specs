@@ -4,7 +4,7 @@
 
 Name:		e3
 Version:	2.82
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Text editor with key bindings similar to WordStar, Emacs, pico, nedit, or vi
 
 License:	GPLv2
@@ -65,6 +65,9 @@ ln -sf %{_mandir}/man1/e3.1 %{buildroot}%{_mandir}/man1/e3ne.1
 %{_mandir}/man1/e3*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.82-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.82-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

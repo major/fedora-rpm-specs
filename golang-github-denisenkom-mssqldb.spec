@@ -20,7 +20,7 @@ database servers.}
 %global godocs          doc examples README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Microsoft SQL server driver written in Go language
 
 # Upstream license specification: BSD-3-Clause
@@ -51,6 +51,9 @@ BuildRequires:  golang(golang.org/x/crypto/md4)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

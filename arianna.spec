@@ -1,6 +1,6 @@
 Name:          arianna
 Version:       1.1.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       EPub Reader for mobile devices
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file.
 License:       GPLv3
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ar
 %{_datadir}/qlogging-categories5/arianna.categories
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 11 2023 Steve Cossette <farchord@gmail.com> - 1.1.0-1
 - This release adds a table of content overview as well as a book detail dialog.
 

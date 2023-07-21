@@ -1,7 +1,7 @@
 Name:			Maelstrom
 Summary:		A space combat game
 Version:		3.0.6
-Release:		45%{?dist}
+Release:		46%{?dist}
 # See Maelstrom-Content-License.txt for details on the updated content licensing
 License:		GPLv2+ and CC-BY
 Source0:		http://www.libsdl.org/projects/Maelstrom/src/Maelstrom-%{version}.tar.gz
@@ -81,6 +81,9 @@ find %{buildroot} -name "Makefile*" -exec rm -f {} \;
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

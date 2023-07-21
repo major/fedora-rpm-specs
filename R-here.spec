@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          A Simpler Way to Find Your Files
 
 License:          MIT
@@ -80,6 +80,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 28 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.1-10
 - Ignore vignettes
 

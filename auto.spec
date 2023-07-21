@@ -1,7 +1,7 @@
 Name:           auto
 Summary:        Collection of source code generators for Java
 Version:        1.6.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        ASL 2.0
 
 URL:            https://github.com/google/auto
@@ -130,6 +130,9 @@ find -name '*.jar' -print -delete
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -17,7 +17,7 @@
 Name:           fbrnch
 Version:        1.3.2
 # can only be reset when all subpkgs bumped
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # bodhi-hs, pdc-hs: MIT
@@ -186,6 +186,9 @@ install -pm 644 -D %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Jens Petersen <petersen@redhat.com> - 1.3.2-11
 - https://hackage.haskell.org/package/fbrnch-1.3.2/changelog :
 - prompts now support line-editing thanks to simple-prompt-0.2 using haskeline

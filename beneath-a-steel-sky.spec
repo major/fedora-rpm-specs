@@ -1,6 +1,6 @@
 Name:           beneath-a-steel-sky
 Version:        1.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Beneath a Steel Sky - Adventure Game
 # For further discussion on distribution rights see:
 # http://www.redhat.com/archives/fedora-extras-list/2006-November/msg00030.html
@@ -47,6 +47,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

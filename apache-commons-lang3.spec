@@ -2,7 +2,7 @@
 
 Name:           apache-commons-lang3
 Version:        3.12.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Provides a host of helper utilities for the java.lang API
 License:        ASL 2.0
 URL:            https://commons.apache.org/lang
@@ -82,6 +82,9 @@ sed -i '/<argLine>/d' pom.xml
 %doc RELEASE-NOTES.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

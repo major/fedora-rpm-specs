@@ -1,5 +1,5 @@
 Name:           Zim
-Version:        0.75.1
+Version:        0.75.2
 Release:        %autorelease
 Summary:        Desktop wiki & notekeeper
 
@@ -13,6 +13,7 @@ BuildArch:      noarch
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
+BuildRequires:  python3-setuptools
 BuildRequires:  gtk3, python3-pyxdg
 # for tests
 BuildRequires:  /usr/bin/xvfb-run

@@ -1,7 +1,7 @@
 Summary: Rendering of internationalized text for SDL (Simple DirectMedia Layer)
 Name: SDL_Pango
 Version: 0.1.2
-Release: 40%{?dist}
+Release: 41%{?dist}
 License: LGPL-2.0-or-later
 URL: http://sdlpango.sourceforge.net/
 
@@ -71,6 +71,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 18 2023 DJ Delorie <dj@redhat.com> - 0.1.2-40
 - Fix C99 compatibility issue
 

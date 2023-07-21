@@ -4,7 +4,7 @@
 Name:		alienarena
 Summary:	Multiplayer retro sci-fi deathmatch game
 Version:	7.71.2
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	GPLv2+
 # Source0:	http://red.planetarena.org/files/%%{name}-%%{version}-linux20130827.tar.gz
 # svn co svn://svn.icculus.org/alienarena/trunk
@@ -139,6 +139,9 @@ cp -a GPL.acebot.txt %{buildroot}%{_defaultdocdir}/%{name}/
 %{_datadir}/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.71.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.71.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

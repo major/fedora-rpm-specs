@@ -3,7 +3,7 @@
 Name:           apache-commons-io
 Epoch:          1
 Version:        2.11.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Utilities to assist with developing IO functionality
 License:        ASL 2.0
 URL:            https://commons.apache.org/io
@@ -72,6 +72,9 @@ sed -i '/DefaultLocale/d' src/test/java/org/apache/commons/io/input/XmlStreamRea
 %doc RELEASE-NOTES.txt
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

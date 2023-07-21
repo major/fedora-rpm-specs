@@ -3,7 +3,7 @@
 Summary:           IRC to other chat networks gateway
 Name:              bitlbee
 Version:           3.6
-Release:           11%{?dist}
+Release:           12%{?dist}
 License:           GPLv2+ and MIT
 URL:               https://www.bitlbee.org/
 Source0:           https://get.bitlbee.org/src/%{name}-%{version}.tar.gz
@@ -137,6 +137,9 @@ mkdir -p $RPM_BUILD_ROOT{%{_localstatedir}/lib,%{_libdir}}/%{name}/
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 08 2023 Frantisek Sumsal <frantisek@sumsal.cz> - 3.6-11
 - Replace the now dead Twitter tokens with fresh ones
 

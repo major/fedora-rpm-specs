@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.3
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Multi-key dictionary implementation in Python
 
 License:        MIT
@@ -29,6 +29,7 @@ is extended to support multiple keys referring to the same element.
 %package -n python2-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python2-devel
+BuildRequires:  python2-setuptools
 %{?python_provide:%python_provide python2-%{srcname}}
 
 %description -n python2-%{srcname}
@@ -38,13 +39,14 @@ Implementation of a multi-key dictionary, i.e.:
 
 This dictionary has a similar interface to the standard dictionary => but
 is extended to support multiple keys referring to the same element.
-%endif # with_python2
+%endif
 
 
 %if 0%{?with_python3}
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
@@ -54,41 +56,41 @@ Implementation of a multi-key dictionary, i.e.:
 
 This dictionary has a similar interface to the standard dictionary => but
 is extended to support multiple keys referring to the same element.
-%endif # with_python3
+%endif
 
 
 %prep
-%autosetup -n %{srcname}-%{commit}
+%autosetup -p1 -n %{srcname}-%{commit}
 
 
 %build
 %if 0%{?with_python2}
 %py2_build
-%endif # with_python2
+%endif
 
 %if 0%{?with_python3}
 %py3_build
-%endif # with_python3
+%endif
 
 
 %install
 %if 0%{?with_python2}
 %py2_install
-%endif # with_python2
+%endif
 
 %if 0%{?with_python3}
 %py3_install
-%endif # with_python3
+%endif
 
 
 %check
 %if 0%{?with_python2}
 %{__python2} %{buildroot}%{python2_sitelib}/%{srcname}.py
-%endif # with_python2
+%endif
 
 %if 0%{?with_python3}
 %{__python3} %{buildroot}%{python3_sitelib}/%{srcname}.py
-%endif # with_python3
+%endif
 
 
 %if 0%{?with_python2}
@@ -98,7 +100,7 @@ is extended to support multiple keys referring to the same element.
 %{python2_sitelib}/%{srcname}.py
 %{python2_sitelib}/%{srcname}.py[co]
 %{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
-%endif # with_python2
+%endif
 
 %if 0%{?with_python3}
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -107,10 +109,13 @@ is extended to support multiple keys referring to the same element.
 %{python3_sitelib}/__pycache__/%{srcname}*
 %{python3_sitelib}/%{srcname}.py
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
-%endif # with_python3
+%endif
 
 
 %changelog
+* Wed Jul 19 2023 Scott K Logan <logans@cottsay.net> - 2.0.3-25
+- Add missing BuildRequires: python3-setuptools (rhbz#2220343)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.3-24
 - Rebuilt for Python 3.12
 

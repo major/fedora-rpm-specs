@@ -1,6 +1,6 @@
 Name:       eureka
 Version:    1.27b
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A cross-platform map editor for the classic DOOM games
 
 %global numver %(echo "%{version}" | tr -d '[a-zA-Z]')
@@ -67,6 +67,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27b-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27b-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           gcr3
 Version:        3.41.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library for bits of crypto UI and parsing
 
 License:        LGPLv2+
@@ -122,6 +122,9 @@ rm -rf $RPM_BUILD_ROOT%{_userunitdir}/gcr-ssh-agent.socket
 %{_libdir}/libgcr-base-3.so.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.41.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.41.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           disorderfs
 Version:        0.5.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        FUSE filesystem that introduces non-determinism
 URL:            https://salsa.debian.org/reproducible-builds/%{name}
 License:        GPLv3+
@@ -46,6 +46,9 @@ make -C tests test || true
 %{_datadir}/man/man1/disorderfs.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.11-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

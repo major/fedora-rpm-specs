@@ -6,7 +6,7 @@
 
 Name: fail2ban
 Version: 1.0.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -430,6 +430,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Todd Zullinger <tmz@pobox.com> - 1.0.2-7
 - exclude shorewall subpackage on epel9 (rhbz#2217649)
 

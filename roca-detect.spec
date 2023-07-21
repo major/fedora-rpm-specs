@@ -35,8 +35,6 @@ BuildRequires:	%{python}-future %{python}-cryptography >= 3.2.1
 BuildRequires:	%{python}-pgpdump
 %endif
 BuildRequires:	%{python}-setuptools %{python}-devel
-BuildRequires:	/usr/bin/pathfix.py
-
 # Manual dependencies - in case auto dependency doesn't work
 %if 0%{?rhel} == 7
 Requires:	%{python}-future %{python}-cryptography %{python}-pgpdump
@@ -91,7 +89,7 @@ tar xvfz %{SOURCE1}
 find . -name .gitignore -delete
 
 # fix env shbang in CLI scripts
-pathfix.py -pni "%{__python} %{py_shbang_opts}" roca
+%py_shebang_fix roca
 
 # fix pgpdump requires
 sed -i -e"s/'pgpdump'/'pgpdump3'/" setup.py

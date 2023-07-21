@@ -20,7 +20,7 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # GPLv3+ with an exception for the BLAS/LAPACK interface
@@ -425,6 +425,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 19 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.1-3
 - Require netlib from base package
 - Adapt license tag to SPDX

@@ -2,7 +2,7 @@
 
 Name:           botan2
 Version:        2.19.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Crypto and TLS for C++11
 
 License:        BSD
@@ -131,6 +131,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./botan-test
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.19.3-3
 - Rebuilt for Python 3.12
 

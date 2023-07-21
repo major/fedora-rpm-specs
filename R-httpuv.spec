@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          HTTP and WebSocket Server Library
 
 # Main: GPLv2+; http-parser: MIT; sha1: Public Domain
@@ -94,6 +94,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.6.9-2
 - R-maint-sig mass rebuild
 

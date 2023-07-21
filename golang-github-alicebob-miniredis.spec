@@ -16,7 +16,7 @@ Pure Go Redis server for Go unittests.}
 %global godocs          CHANGELOG.md README.md geohash/README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pure Go Redis server for Go unittests
 
 License:        MIT
@@ -49,6 +49,9 @@ mv geohash/README.md README-geohash.md
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

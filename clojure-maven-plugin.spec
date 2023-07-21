@@ -4,7 +4,7 @@
 
 Name:           %{artifactId}
 Version:        1.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Clojure plugin for Maven
 
 License:        EPL-1.0
@@ -73,6 +73,9 @@ export LANG=en_US.utf8
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 22 2023 Markku Korkeala <markku.korkeala@iki.fi> - 1.9.2-1
 - Update to upstream release 1.9.2
 - Remove unnecessary plugins from pom

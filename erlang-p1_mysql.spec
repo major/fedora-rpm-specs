@@ -3,7 +3,7 @@
 
 Name:       erlang-%{srcname}
 Version:    1.0.19
-Release:    2%{?dist}
+Release:    3%{?dist}
 BuildArch:  noarch
 Summary:    Pure Erlang MySQL driver
 License:    BSD
@@ -39,6 +39,9 @@ This is an Erlang MySQL driver, used by ejabberd.
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

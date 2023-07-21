@@ -1,6 +1,6 @@
 Name: clamtk
 Version: 6.16
-Release: 1%{dist}
+Release: 2%{dist}
 Summary: Easy to use graphical user interface for Clam anti virus
 License: GPL-1.0-or-later AND Artistic-2.0
 URL: https://github.com/dave-theunsub/clamtk
@@ -75,6 +75,9 @@ done
 %{_datadir}/metainfo/com.github.davetheunsub.clamtk.appdata.xml
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 2 2023 Dave M. <dave.nerd@gmail.com> - 6.16-1
 - Updated to release 6.16.
 

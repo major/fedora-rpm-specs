@@ -1,6 +1,6 @@
 Name:           waybar
-Version:        0.9.19
-Release:        3%{?dist}
+Version:        0.9.20
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -16,11 +16,6 @@ Summary:        Highly customizable Wayland bar for Sway and Wlroots based compo
 License:        MIT AND BSL-1.0 AND ISC
 URL:            https://github.com/Alexays/Waybar
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/Alexays/Waybar/pull/2284
-# https://github.com/Alexays/Waybar/pull/2293
-# https://github.com/Alexays/Waybar/pull/2296
-Patch:          waybar-0.9.19-fixes.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -95,6 +90,9 @@ Recommends:     (font(fontawesome6free) or font(fontawesome5free))
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Tue Jul 18 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.20-1
+- Update to 0.9.20 (#2223828)
+
 * Tue Jul 11 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.19-3
 - Add patches for some known issues
 

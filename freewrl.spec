@@ -12,7 +12,7 @@
 
 Name:		freewrl
 Version:	%{majorrel}
-Release:	17.%{commitdate}git%{shortcommit}%{?dist}
+Release:	18.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	X3D / VRML visualization program
 License:	LGPLv3+
 URL:		http://freewrl.sourceforge.net
@@ -222,6 +222,9 @@ chrpath --delete %{buildroot}%{_libdir}/libFreeWRLEAI.so.*
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-18.20200221gite99ab4a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 4.3.0-17.20200221gite99ab4a
 - Rebuild fo new imlib2
 

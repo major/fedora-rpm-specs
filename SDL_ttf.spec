@@ -1,6 +1,6 @@
 Name:		SDL_ttf
 Version:	2.0.11
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Simple DirectMedia Layer TrueType Font library
 
 License:	Zlib
@@ -60,6 +60,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/SDL_ttf.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.0.11-25
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 Name:           asm6809
 Version:        2.13
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Multiple pass 6809 & 6309 cross assembler
 
 License:        GPLv3+
@@ -40,6 +40,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 John W. Linville <linville@tuxdriver.com> 2.13-1
 - Update for version 2.13 from upstream
 

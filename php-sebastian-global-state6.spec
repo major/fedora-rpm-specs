@@ -10,7 +10,7 @@
 # disable until phpunit10 available
 %bcond_with          tests
 
-%global gh_commit    aab257c712de87b90194febd52e4d184551c2d44
+%global gh_commit    7ea9ead78f6d380d2a667864c132c2f7b83055e4
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   global-state
@@ -24,7 +24,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.0.0
+Version:        6.0.1
 Release:        1%{?dist}
 Summary:        Snapshotting of global state, version %{major}
 
@@ -108,7 +108,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmd in php php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit10 \
@@ -130,6 +130,9 @@ exit $ret
 
 
 %changelog
+* Wed Jul 19 2023 Remi Collet <remi@remirepo.net> - 6.0.1-1
+- update to 6.0.1
+
 * Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 6.0.0-1
 - update to 6.0.0
 - raise dependency on PHP 8.1

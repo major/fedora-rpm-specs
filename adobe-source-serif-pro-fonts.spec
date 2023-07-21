@@ -3,7 +3,7 @@
 
 Name:           adobe-source-serif-pro-fonts
 Version:        4.005
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Typeface for setting text in many sizes, weights, and languages
 
 License:        OFL
@@ -53,6 +53,9 @@ appstream-util --nonet validate-relax \
 %license LICENSE.md
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.005-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Michael Kuhn <suraia@fedoraproject.org> - 4.005-1
 - Update to 4.005
 

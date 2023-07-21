@@ -13,7 +13,7 @@
 
 Name:           antlr4-project
 Version:        4.10.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Parser generator (ANother Tool for Language Recognition)
 
 License:        BSD-3-Clause
@@ -382,6 +382,9 @@ rm -fr %{buildroot}%{_docdir}/libantlr4
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 4.10.1-8
 - Rebuilt for Python 3.12
 

@@ -10,7 +10,7 @@
 Summary: PIM Storage Service Libraries
 Name:    akonadi
 Version: 1.13.0
-Release: 123%{?dist}
+Release: 124%{?dist}
 
 License: LGPL-2.0-or-later
 URL:     http://community.kde.org/KDE_PIM/Akonadi 
@@ -110,6 +110,9 @@ test "$(pkg-config --modversion akonadi)" = "%{version}"
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-124
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Than Ngo <than@redhat.com> - 1.13.0-123
 - migrated to SPDX license
 

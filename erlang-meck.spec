@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	0.9.2
-Release:	6%{?dist}
+Release:	7%{?dist}
 BuildArch:	noarch
 Summary:	A mocking library for Erlang
 License:	ASL 2.0
@@ -48,6 +48,9 @@ DEBUG=1 rebar3 eunit
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

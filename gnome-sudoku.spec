@@ -3,7 +3,7 @@
 Name:           gnome-sudoku
 Epoch:          1
 Version:        45~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Sudoku game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
@@ -60,6 +60,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Sudoku.d
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:45~alpha-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Kalev Lember <klember@redhat.com> - 1:45~alpha-1
 - Update to 45.alpha
 

@@ -1,6 +1,6 @@
 Name:           bibletime
 Version:        3.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An easy to use Bible study tool
 License:        GPLv2
 URL:            http://www.bibletime.info/
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/info.%{name}.BibleTim
 %{_datadir}/icons/hicolor/scalable/apps/info.%{name}.BibleTime.svg
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 12 2023 Filipe Rosset <rosset.filipe@gmail.com> - 3.0.3-1
 - Update to 3.0.3 fixes FTBFS rhbz#2113119 and rhbz#2163514
 

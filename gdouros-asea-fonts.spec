@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        8.01
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Asea is an etude on the dominant typeface of Greek typography
 License:        LicenseRef-Fedora-UltraPermissive
 URL:            http://users.teilar.gr/~g1951d/
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.01-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.01-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

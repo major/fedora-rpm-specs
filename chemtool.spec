@@ -1,7 +1,7 @@
 Summary: A program for 2D drawing organic molecules
 Name: chemtool
 Version: 1.6.14
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: GPLv2+
 Source0: http://ruby.chemie.uni-freiburg.de/~martin/chemtool/%{name}-%{version}.tar.gz
 Patch0: %{name}-compile.patch
@@ -75,6 +75,9 @@ desktop-file-install \
 %{_mandir}/man1/cht.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.14-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.14-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

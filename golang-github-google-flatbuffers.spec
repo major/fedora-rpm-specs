@@ -17,7 +17,7 @@ compatibility.}
 %global godocs          CONTRIBUTING.md readme.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Memory Efficient Serialization Library
 
 License:        ASL 2.0
@@ -47,6 +47,9 @@ find ./* -maxdepth 0 -type d -not -name "go" -and -not -name "_build" -exec rm -
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

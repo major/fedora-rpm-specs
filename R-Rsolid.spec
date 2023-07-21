@@ -2,7 +2,7 @@
 
 Name:		  R-%{packname}
 Version:	  0.9.31
-Release:	  43%{?dist}
+Release:	  44%{?dist}
 Summary:	  Quantile normalization and base calling for second generation sequencing data
 
 License:	  Artistic 2.0
@@ -85,6 +85,9 @@ rm -rf %{packname}/configure
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.31-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 26 2023 Florian Weimer <fweimer@redhat.com> - 0.9.31-43
 - Port configure script to c99
 

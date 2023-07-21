@@ -1,6 +1,6 @@
 Name:           ansible-collection-containers-podman
 Version:        1.10.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Podman Ansible collection for Podman containers
 
 License:        GPL-3.0-or-later
@@ -31,6 +31,9 @@ rm -vr changelogs/ ci/ contrib/ tests/ ./galaxy.yml.in .github/ .gitignore docs/
 %doc README.md
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

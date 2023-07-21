@@ -1,13 +1,13 @@
 Name:           xdg-dbus-proxy
-Version:        0.1.3
-Release:        3%{?dist}
+Version:        0.1.4
+Release:        1%{?dist}
 Summary:        Filtering proxy for D-Bus connections
 
 License:        LGPLv2+
 URL:            https://github.com/flatpak/xdg-dbus-proxy/
 Source0:        https://github.com/flatpak/xdg-dbus-proxy/releases/download/%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires: make
+BuildRequires:  meson
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gio-2.0)
@@ -26,11 +26,11 @@ to facilitate using it in other contexts.
 %autosetup -p1
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 %files
 %license COPYING
@@ -38,6 +38,9 @@ to facilitate using it in other contexts.
 %{_mandir}/man1/xdg-dbus-proxy.1*
 
 %changelog
+* Wed Jul 19 2023 Bastien Nocera <bnocera@redhat.com> - 0.1.4-1
+- Update to 0.1.4
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

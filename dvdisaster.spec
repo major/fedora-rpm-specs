@@ -3,7 +3,7 @@
 Summary: Additional error protection for CD/DVD media
 Name: dvdisaster
 Version: 0.79.5
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPLv2+
 URL: http://dvdisaster.net
 Source0: http://dvdisaster.net/downloads/dvdisaster-%{version}.tar.bz2
@@ -109,6 +109,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.79.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.79.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	19
+%global	baserelease	20
 
 
 %undefine _ld_strict_symbol_defs
@@ -248,6 +248,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-20.D20210327git6c569e6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-19.D20210327git6c569e6
 - Pass -r option to xargs because new rpm creates empty directory
 

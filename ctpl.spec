@@ -2,7 +2,7 @@
 
 Name:           ctpl
 Version:        0.3.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Template library and engine written in C
 
 License:        GPLv3+
@@ -141,6 +141,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libctpl.la
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

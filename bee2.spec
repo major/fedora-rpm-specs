@@ -4,7 +4,7 @@
 Summary:       Cryptographic library
 Name:          bee2
 Version:       2.1.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-3.0-only and GPL-3.0-or-later
 Url:           http://apmi.bsu.by/resources/tools.html
 Source0:       https://github.com/agievich/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -126,6 +126,9 @@ rm %{buildroot}%{_libdir}/libbee2_static.a
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 23 2023 Benson Muite <benson_muite@emailplus.org> - 2.1.2-1
 - Update to release 2.1.2 bz 2216952
 - bsum sub package replaced by bee2cmd

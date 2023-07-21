@@ -4,7 +4,7 @@
 
 Name:           asymptote
 Version:        2.85
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Descriptive vector graphics language
 License:        LGPLv3+
 URL:            http://asymptote.sourceforge.net/
@@ -187,6 +187,9 @@ texhash >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.85-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.85-2
 - Rebuilt for Boost 1.81
 

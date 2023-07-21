@@ -1,6 +1,6 @@
 Name:           gnome-klotski
 Version:        3.38.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GNOME Klotski game
 
 License:        GPLv2+ and CC-BY-SA
@@ -56,6 +56,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Kalev Lember <klember@redhat.com> - 3.38.2-7
 - Use pkgconfig buildrequires
 - Drop old gnome-games-extra and gnome-games-gnotski obsoletes

@@ -3,7 +3,7 @@
 
 Name:           WALinuxAgent
 Version:        2.9.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The Microsoft Azure Linux Agent
 
 License:        Apache-2.0
@@ -123,6 +123,9 @@ install -m0755 -D -t %{buildroot}%{_prefix}/lib/dracut/modules.d/%{dracut_modnam
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.9.0.4-3
 - Rebuilt for Python 3.12
 

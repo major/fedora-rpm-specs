@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Translate CSS Selectors to XPath Expressions
 
 License:          BSD
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.4.2-12
 - R-maint-sig mass rebuild
 

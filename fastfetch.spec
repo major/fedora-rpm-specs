@@ -1,6 +1,6 @@
 Name:           fastfetch
 Version:        1.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
 License:        MIT
@@ -97,6 +97,9 @@ BuildArch: noarch
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Jonathan Wright <jonathan@almalinux.org> - 1.12.2-1
 - Update to 1.12.2 rhbz#2219791
 

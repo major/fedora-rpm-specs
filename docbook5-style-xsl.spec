@@ -1,6 +1,6 @@
 Name: docbook5-style-xsl
 Version: 1.79.2
-Release: 15%{?dist}
+Release: 16%{?dist}
 
 Summary: Norman Walsh's XSL stylesheets for DocBook 5.X
 
@@ -110,6 +110,9 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.79.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.79.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

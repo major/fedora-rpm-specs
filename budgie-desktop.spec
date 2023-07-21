@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -185,6 +185,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 26 2023 Joshua Strobl <me@joshuastrobl.com> - 10.7.2-1
 - Updated to 10.7.2
 

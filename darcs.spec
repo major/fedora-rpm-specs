@@ -12,7 +12,7 @@
 Name:           %{pkg_name}
 Version:        2.16.5
 # can only be reset when all subpkgs bumped
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        A distributed, interactive, smart revision control system
 
 License:        GPL-2.0-or-later
@@ -251,6 +251,9 @@ install -Dpm 644 contrib/darcs_completion %{buildroot}%{_datadir}/bash-completio
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.5-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 18 2023 Jens Petersen <petersen@redhat.com> - 2.16.5-38
 - refresh to cabal-rpm-2.1.0 including SPDX migration
 - bounds bumps for Stackage lts-20

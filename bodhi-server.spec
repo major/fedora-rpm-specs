@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Bodhi server
 
 License:        GPL-2.0-or-later
@@ -160,6 +160,9 @@ export BODHI_CONFIG=$(pwd)/tests/testing.ini
 %pycached %{python3_sitelib}/bodhi/server/metadata.py
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 7.2.0-2
 - Rebuilt for Python 3.12
 

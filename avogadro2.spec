@@ -11,7 +11,7 @@
 
 Name:           avogadro2
 Version:        1.97.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Advanced molecular editor
 License:        BSD
 URL:            http://avogadro.openmolecules.net/
@@ -241,6 +241,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

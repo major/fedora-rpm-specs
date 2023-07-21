@@ -1,6 +1,6 @@
 Name:		can-utils
 Version:	2021.08.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	SocketCAN user space utilities and tools
 
 # most utilities are dual-licensed but some are GPLv2 only
@@ -82,6 +82,9 @@ head -39 asc2log.c | tail -37 | cut -c4- > COPYING
 %{_bindir}/testj1939
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.08.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.08.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

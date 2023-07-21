@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        7.17
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A font for Sumero-Akkadian cuneiform
 
 # https://web.archive.org/web/20150625020428/http://users.teilar.gr/~g1951d/
@@ -61,6 +61,9 @@ appstream-util validate-relax --nonet \
 %doc Akkadian*.pdf
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.17-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.17-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

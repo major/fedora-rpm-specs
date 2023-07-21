@@ -10,7 +10,7 @@
 
 Name:		    fltk
 Version:	    1.3.8
-Release:	    6%{?dist}
+Release:	    7%{?dist}
 Summary:	    C++ user interface toolkit
 
 # see COPYING (or http://www.fltk.org/COPYING.php ) for exceptions details
@@ -48,6 +48,7 @@ BuildRequires:  pkgconfig(zlib)
 # MinGW
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-gettext
 BuildRequires:  mingw32-win-iconv
@@ -58,6 +59,7 @@ BuildRequires:  mingw32-libjpeg
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-gettext
 BuildRequires:  mingw64-win-iconv
@@ -263,6 +265,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/fluid.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:		alsamixergui
 Summary:	GUI mixer for ALSA sound devices
 Version:	0.9.0
-Release:	0.38.rc2%{?dist}
+Release:	0.39.rc2%{?dist}
 License:	GPLv2+
 # This is where the source used to live, but this upstream is dead.
 # Source0:	ftp://www.iua.upf.es/pub/mdeboer/projects/alsamixergui/%%{name}-%%{version}rc1-2.tar.gz
@@ -54,6 +54,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE1}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-0.39.rc2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-0.38.rc2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

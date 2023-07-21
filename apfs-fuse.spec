@@ -11,7 +11,7 @@
 Name:          apfs-fuse
 Summary:       A read-only FUSE driver for Apple's APFS
 Version:       0
-Release:       22.%{date}git%{short_gittag}%{?dist}
+Release:       23.%{date}git%{short_gittag}%{?dist}
 License:       GPLv2+
 URL:           https://github.com/sgan81/apfs-fuse
 Source0:       https://github.com/sgan81/%{name}/archive/%{short_gittag}/%{name}-%{short_gittag}.tar.gz
@@ -53,6 +53,9 @@ ln -sr %{buildroot}/%{_bindir}/apfs-fuse %{buildroot}/%{_sbindir}/mount.apfs
 %license LICENSE
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-23.20200928gitee71aa5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-22.20200928gitee71aa5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

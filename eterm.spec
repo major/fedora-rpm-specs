@@ -1,7 +1,7 @@
 Summary:       Enlightened terminal emulator
 Name:          eterm
 Version:       0.9.6
-Release:       33%{?dist}
+Release:       34%{?dist}
 License:       BSD
 Source0:       http://www.eterm.org/download/Eterm-%{version}.tar.gz
 Source1:       http://www.eterm.org/download/Eterm-bg-%{version}.tar.gz
@@ -100,6 +100,9 @@ rm -f %{buildroot}/%{_libdir}/libEterm.{a,la,so}
 %{_datadir}/pixmaps/eterm.png
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 0.9.6-33
 - Rebuild fo new imlib2
 

@@ -25,7 +25,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.0.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -567,6 +567,9 @@ exit 0
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 27 2023 Orion Poplawski <orion@nwra.com> - 1.0.1-4
 - Mark cvd files is clamav-data as %%config(noreplace) (bz#2170876)
 - Rename clamav-update to clamav-freshclam

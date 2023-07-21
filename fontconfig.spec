@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.14.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -191,6 +191,9 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Akira TAGOH <tagoh@redhat.com> - 2.14.2-3
 - Drop 10-sub-pixel-rgb-for-kde.conf
   Resolves: rhbz#2212512

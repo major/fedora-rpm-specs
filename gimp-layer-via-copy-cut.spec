@@ -2,7 +2,7 @@
 
 Name:		gimp-%{addon}
 Version:	1.6
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Layer via copy/cut plug-in for GIMP
 License:	GPLv3+
 URL:		http://some-gimp-plugins.com/contents/en/
@@ -55,6 +55,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.m
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

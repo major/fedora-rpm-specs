@@ -1,6 +1,6 @@
 Name:           gnome-mahjongg
 Version:        3.40.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Mahjongg game
 
 License:        GPLv2+ and CC-BY-SA
@@ -56,6 +56,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 03 2023 Justin Koh <j@ustink.org> - 3.40.0-1
 - Update to 3.40.0
 - Drop meson patch, it has been upstreamed

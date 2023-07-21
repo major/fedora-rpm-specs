@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Primitive permutation groups library
 
 License:        GPL-2.0-or-later
@@ -64,6 +64,9 @@ gap -l "%{buildroot}%{gap_libdir};" --bare tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 26 2023 Jerry James <loganjerry@gmail.com> - 3.4.4-1
 - Version 3.4.4
 

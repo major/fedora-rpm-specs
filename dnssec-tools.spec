@@ -1,7 +1,7 @@
 Summary: A suite of tools for managing dnssec aware DNS usage
 Name: dnssec-tools
 Version: 2.2.3
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: BSD
 URL: http://www.dnssec-tools.org/
 #Source0: https://www.dnssec-tools.org/download/%%{name}-%%{version}.tar.gz
@@ -362,6 +362,9 @@ install -m 755 %SOURCE2 ${RPM_BUILD_ROOT}/%{_bindir}/libval-config
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.3-20
 - Perl 5.38 rebuild
 

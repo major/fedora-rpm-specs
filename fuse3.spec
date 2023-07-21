@@ -7,7 +7,7 @@
 
 Name:		fuse3
 Version:	3.14.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL+
 URL:		http://fuse.sf.net
@@ -178,6 +178,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Richard W.M. Jones <rjones@redhat.com> - 3.14.1-2
 - Force fuse3 and fuse3-libs versions to be identical
   https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/LYQUYUAS7FG6FFGJBBWP7XEV563V4LBS/

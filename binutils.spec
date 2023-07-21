@@ -2,8 +2,8 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 11%{?dist}
-License: GPL-3.0-or-later
+Release: 13%{?dist}
+License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
 #---Start of Configure Options-----------------------------------------------
@@ -1116,7 +1116,10 @@ exit 0
 
 %post
 
+# Remove the /usr/bin/ld file so that the alternatives program
+# can replace it with a symbolic link.
 %__rm -f %{_bindir}/ld
+
 %{_sbindir}/alternatives --install %{_bindir}/ld ld \
   %{_bindir}/ld.bfd %{ld_bfd_priority}
 
@@ -1145,6 +1148,10 @@ exit 0
 if [ $1 = 0 ]; then
   %{_sbindir}/alternatives --remove ld %{_bindir}/ld.bfd
 fi
+
+# Restore the /usr/bin/ld file so that the automatic file
+# removal part of the uninstall process will work.
+touch %{_bindir}/ld
 
 exit 0
 
@@ -1276,7 +1283,13 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
-* Mon Jul 17 2023 Nick Clifton  <nickc@redhat.com> - 12.20-2
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Tue Jul 18 2023 Nick Clifton  <nickc@redhat.com> - 2.40-12
+- Spec File: migrated to SPDX license.  (#2222113)
+
+* Mon Jul 17 2023 Nick Clifton  <nickc@redhat.com> - 2.40-11
 - Spec File: Change License field to use SPDX notation.  (#2222113)
 
 * Wed Jun 21 2023 Nick Clifton  <nickc@redhat.com> - 2.40-10

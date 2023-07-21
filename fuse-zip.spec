@@ -1,6 +1,6 @@
 Name:           fuse-zip
 Version:        0.7.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Filesystem to navigate, extract, create and modify ZIP archives
 Summary(ru):    Пользовательская ФС для работы с ZIP архивами
 
@@ -61,6 +61,9 @@ sed -i "s|prefix=/usr/local|prefix=%{_prefix}|" Makefile
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

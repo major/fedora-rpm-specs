@@ -1,6 +1,6 @@
 Name:			diffuse
 Version:		0.8.2
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Graphical tool for merging and comparing text files
 License:		GPL-2.0-or-later
 URL:			https://mightycreak.github.io/diffuse/
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/*/man*/*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 04 2023 Leigh Scott <leigh123linux@gmail.com> - 0.8.2-2
 - Drop invalid tests on desktop and appdata files
 - Validate the appdata file

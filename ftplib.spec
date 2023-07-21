@@ -2,7 +2,7 @@
 
 Name:		ftplib
 Version:	4.0
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Library of FTP routines
 License:	LGPLv2+
 URL:		http://nbpfaus.net/~pfau/ftplib-4/
@@ -79,6 +79,9 @@ done
 %{_bindir}/qftp
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 Name:          cjs
 Epoch:         1
 Version:       5.8.0
-Release:       1%{?commitdate:^git%{commitdate}.%{shortcommit}}%{?dist}
+Release:       2%{?commitdate:^git%{commitdate}.%{shortcommit}}%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 License:       MIT and (MPLv1.1 or GPLv2+ or LGPLv2+)
@@ -117,6 +117,9 @@ xvfb-run -a /usr/bin/meson test -C %{_vpath_builddir} \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 1:5.8.0-1
 - Update to 5.8.0 release
 

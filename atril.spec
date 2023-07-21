@@ -15,9 +15,9 @@
 Name:          atril
 Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       2%{?dist}
+Release:       3%{?dist}
 %else
-Release:       0.18%{?git_rel}%{?dist}
+Release:       0.19%{?git_rel}%{?dist}
 %endif
 Summary:       Document viewer
 License:       GPLv2+ and LGPLv2+ and MIT
@@ -201,6 +201,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/atril.desktop
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-2
 - switch to webkit2gtk4.1
 

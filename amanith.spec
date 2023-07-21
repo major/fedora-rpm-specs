@@ -1,6 +1,6 @@
 Name:          amanith
 Version:       0.3
-Release:       51%{?dist}
+Release:       52%{?dist}
 Summary:       Crossplatform framework for 2d/3d vector graphics
 License:       QPL
 URL:           http://www.amanith.org
@@ -101,6 +101,9 @@ cp -a include/amanith $RPM_BUILD_ROOT%{_includedir}
 %{_includedir}/amanith/
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

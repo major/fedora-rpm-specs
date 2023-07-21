@@ -1,6 +1,6 @@
 Name:           gemdropx
 Version:        0.9
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Falling blocks puzzlegame
 License:        GPL+
 URL:            http://www.newbreedsoftware.com/gemdropx
@@ -55,6 +55,9 @@ convert data/images/%{name}-icon.xpm \
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

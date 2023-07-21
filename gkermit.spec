@@ -1,6 +1,6 @@
 Name:           gkermit
 Version:        1.00
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A utility for transferring files using the Kermit protocol
 License:        GPLv2+
 URL:            http://www.kermitproject.org/gkermit.html
@@ -52,6 +52,9 @@ make install BINDIR=%{buildroot}%{_bindir} MANDIR=%{buildroot}%{_mandir}/man1
 %{_mandir}/man1/gkermit.1*
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

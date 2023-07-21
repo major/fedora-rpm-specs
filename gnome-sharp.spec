@@ -1,6 +1,6 @@
 Name:           gnome-sharp
 Version:        2.24.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        GTK+ and GNOME bindings for Mono
 
 License:        LGPLv2+
@@ -79,6 +79,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.*a
 %{_libdir}/pkgconfig/gconf-sharp-peditors-2.0.pc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:       copr-backend
 Version:    1.171
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -241,6 +241,9 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/playbooks
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.171-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.171-2
 - Rebuilt for Python 3.12
 

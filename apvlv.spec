@@ -2,7 +2,7 @@
 
 Name:           apvlv
 Version:        0.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PDF viewer which behaves like Vim
 
 License:        GPLv2+
@@ -55,6 +55,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
 %config(noreplace)%{_sysconfdir}/apvlvrc
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May 06 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.4.0-3
 - Fix FTBFS on Fedora 39+
 

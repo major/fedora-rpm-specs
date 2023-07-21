@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.19.4
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Output Analysis and Diagnostics for MCMC
 
 License:          GPLv2+
@@ -62,6 +62,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.19.4-9
 - R-maint-sig mass rebuild
 

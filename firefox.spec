@@ -156,7 +156,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        115.0.2
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -1052,6 +1052,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Jul 19 2023 Martin Stransky <stransky@redhat.com>- 115.0.2-3
+- Fix the previous fix (rhbz#2221317)
+
 * Tue Jul 18 2023 Martin Stransky <stransky@redhat.com>- 115.0.2-2
 - Don't overwrite MOZ_GMP_PATH (rhbz#2221317)
 

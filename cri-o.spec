@@ -37,7 +37,7 @@ Version:                1.27.0
 
 Name:           cri-o
 Epoch:          0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
 
 
@@ -230,6 +230,9 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
+* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.27.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 25 2023 Peter Hunt <pehunt@redhat.com> - 0:1.27.0-1
 - bump to v1.27.0
 

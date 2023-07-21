@@ -4,7 +4,7 @@
 %bcond_with docs
 
 Name:           python-%{srcname}
-Version:        2023.4.2
+Version:        2023.7.0
 Release:        %autorelease
 Summary:        N-D labeled arrays and datasets in Python
 
