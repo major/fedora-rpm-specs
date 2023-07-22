@@ -1,6 +1,6 @@
 Name:           perl-Role-Identifiable
 Version:        0.009
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Identifiable roles
 License:        GPL+ or Artistic
 
@@ -48,6 +48,9 @@ This module provides several Moose roles for identifying things.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

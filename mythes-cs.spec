@@ -2,7 +2,7 @@ Name: mythes-cs
 Summary: Czech thesaurus
 %global upstreamid 20070926
 Version: 0.%{upstreamid}
-Release: 30%{?dist}
+Release: 31%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/thes_cs_CZ_v2.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
 License: MIT
@@ -28,6 +28,9 @@ cp -p th_cs_CZ_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070926-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20070926-30
 - migrated to SPDX license
 

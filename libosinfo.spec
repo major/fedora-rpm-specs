@@ -8,7 +8,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.10.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: LGPL-2.1-or-later
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
@@ -213,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 09 2023 Michael Catanzaro <mcatanzaro@redhat.com> - 1.10.0-6
 - Use libsoup 3 in ELN
 

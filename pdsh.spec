@@ -1,6 +1,6 @@
 Name: pdsh
 Version: 2.34
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Parallel remote shell program
 License: GPLv2+
 Url: https://github.com/chaos/pdsh/
@@ -391,6 +391,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.34-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.34-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

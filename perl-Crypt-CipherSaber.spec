@@ -1,6 +1,6 @@
 Name:           perl-Crypt-CipherSaber
 Version:        1.01
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Perl module implementing CipherSaber encryption
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-CipherSaber
@@ -56,6 +56,9 @@ rm *.list
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

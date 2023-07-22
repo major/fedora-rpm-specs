@@ -3,7 +3,7 @@
 
 Name: google-benchmark
 Version: 1.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: Apache-2.0
 Summary: A microbenchmark support library
@@ -74,6 +74,9 @@ sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
 %{_docdir}/%{intname}/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.8.2-1
 - Updated to version 1.8.2.
 

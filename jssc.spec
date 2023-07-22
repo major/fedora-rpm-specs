@@ -1,7 +1,7 @@
 Summary:	Java Simple Serial Connector
 Name:		jssc
 Version:	2.8.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 License:	GPLv3+
 URL:		http://jssc.scream3r.org
 Source:		https://github.com/scream3r/java-simple-serial-connector/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -93,6 +93,9 @@ ln -srf %{buildroot}%{jni}/%{jniFullSoName} %{buildroot}%{jni}/%{jniSoName}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 2.8.0-26
 - Rebuild to get rid of java 1.8 dependency
 

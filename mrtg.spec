@@ -11,7 +11,7 @@
 Summary:   Multi Router Traffic Grapher
 Name:      mrtg
 Version:   2.17.10
-Release:   5%{?dist}
+Release:   6%{?dist}
 URL:       http://oss.oetiker.ch/mrtg/
 Source0:   http://oss.oetiker.ch/mrtg/pub/mrtg-%{version}.tar.gz
 Source1:   http://oss.oetiker.ch/mrtg/pub/mrtg-%{version}.tar.gz.md5
@@ -213,6 +213,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.17.10-5
 - SPDX migration
 

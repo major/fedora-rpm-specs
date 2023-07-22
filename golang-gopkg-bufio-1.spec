@@ -19,7 +19,7 @@ interface but provides buffering and some help for textual I/O. }
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Buffered I/O implementation
 
 # Upstream license specification: BSD-3-Clause
@@ -49,6 +49,9 @@ Patch0:         0001-Convert-int-to-string-using-rune.patch
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

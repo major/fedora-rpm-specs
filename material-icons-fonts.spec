@@ -1,5 +1,5 @@
 Version:        4.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 URL:            https://google.github.io/material-design-icons/
 
 %global fontlicense     Apache-2.0
@@ -42,6 +42,9 @@ sed -e 's,updatecontact,update_contact,g' \
 %fontfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 4.0.0-8
 - Remove redundant metadata check
 

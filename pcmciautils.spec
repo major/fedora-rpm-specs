@@ -2,7 +2,7 @@ Name: pcmciautils
 Summary: PCMCIA utilities and initialization programs
 License: GPLv2
 Version: 018
-Release: 24%{?dist}
+Release: 25%{?dist}
 URL: http://www.kernel.org/pub/linux/utils/kernel/pcmcia/pcmcia.html
 Source: http://www.kernel.org/pub/linux/utils/kernel/pcmcia/pcmciautils-%{version}.tar.bz2
 
@@ -41,6 +41,9 @@ cp -p src/yacc_config.c y.tab.c # for -debuginfo
 %{_mandir}/man*/pccardctl*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 018-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 018-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

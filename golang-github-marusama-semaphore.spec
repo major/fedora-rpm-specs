@@ -20,7 +20,7 @@ Fast resizable golang semaphore based on CAS:
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast resizable Golang semaphore
 
 License:        MIT
@@ -47,6 +47,9 @@ sed -i "s|github.com/marusama/semaphore/v2|github.com/marusama/semaphore|" $(fin
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

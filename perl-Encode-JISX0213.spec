@@ -1,6 +1,6 @@
 Name:           perl-Encode-JISX0213
 Version:        0.04
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        JIS X 0213 encoding
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Encode-JISX0213
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.04-26
 - Perl 5.38 rebuild
 

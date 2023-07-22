@@ -11,7 +11,7 @@
 %global llvm_libdir %{_libdir}/%{name}
 %global build_llvm_libdir %{buildroot}%{llvm_libdir}
 #global rc_ver 2
-%global baserelease 10
+%global baserelease 11
 %global llvm_srcdir llvm-%{version}%{?rc_ver:rc%{rc_ver}}.src
 %global maj_ver 11
 %global min_ver 1
@@ -561,6 +561,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 30 2023 Jerry James <loganjerry@gmail.com> - 11.1.0-10
 - Add gcc12 patch to add includes needed for GCC 12
 - Add typename patch to fix test failures

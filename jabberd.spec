@@ -14,7 +14,7 @@
 Summary:        OpenSource server implementation of the Jabber protocols
 Name:           jabberd
 Version:        2.6.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        GPLv2+
 Source0:        https://github.com/jabberd2/jabberd2/releases/download/jabberd-%{version}/jabberd-%{version}.tar.xz
 Source1:        README.fedora
@@ -357,6 +357,9 @@ fi
 %attr(700, jabber, jabber) %{_var}/lib/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 12 2023 Arjun Shankar <arjun@redhat.com> - 2.6.1-24
 - Port to C99 (#2186195)
 

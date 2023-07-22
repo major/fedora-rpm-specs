@@ -1,6 +1,6 @@
 Name:		openslide
 Version:	3.4.1
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	C library for reading virtual slides
 
 License:	LGPLv2
@@ -83,6 +83,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

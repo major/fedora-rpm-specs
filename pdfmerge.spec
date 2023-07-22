@@ -1,6 +1,6 @@
 Name:           pdfmerge
 Version:        1.0.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Command line utility program for merging PDF files
 License:        GPLv2+
 URL:            http://dmaphy.github.com/pdfmerge/
@@ -35,6 +35,9 @@ install -Dpm 755 %{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

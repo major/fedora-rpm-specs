@@ -1,6 +1,6 @@
 Name: ortp
 Version: 5.2.45
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A C library implementing the RTP protocol (RFC3550)
 License: AGPL-3.0-or-later
 
@@ -70,6 +70,9 @@ rm -rf %{buildroot}%{_datadir}/doc/ortp-%{version}
 %{_libdir}/pkgconfig/ortp.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:5.2.45-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 09 2023 Phil Wyett <philip.wyett@kathenas.org> - 3:5.2.45-1
 - New upstream version 5.2.45.
 - Increment EPOCH to 3.

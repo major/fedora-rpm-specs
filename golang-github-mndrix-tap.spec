@@ -16,7 +16,7 @@ test harness. This package helps Go to generate TAP output.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.10%{?dist}
+Release:        0.11%{?dist}
 Summary:        Test Anything Protocol for Go
 
 License:        Unlicense
@@ -42,6 +42,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

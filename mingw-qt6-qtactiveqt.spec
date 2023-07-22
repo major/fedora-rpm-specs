@@ -17,7 +17,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtActiveQt component
 
 License:        GPLv3 and BSD
@@ -179,6 +179,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Sandro Mani <manisandro@gmail.com> - 6.5.1-1
 - Update to 6.5.1
 

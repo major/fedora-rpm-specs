@@ -33,7 +33,7 @@
 Name:    kde-runtime
 Summary: KDE Runtime
 Version: 17.08.3
-Release: 27%{?dist}
+Release: 28%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 License: LGPLv2+ and GPLv2+
@@ -600,6 +600,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 17.08.3-27
 - Rebuild against openexr2 2.5.8
 

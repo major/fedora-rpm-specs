@@ -13,7 +13,7 @@
 
 Name:           mlt
 Version:        7.16.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -234,6 +234,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.16.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 17 2023 Python Maint <python-maint@redhat.com> - 7.16.0-2
 - Rebuilt for Python 3.12
 

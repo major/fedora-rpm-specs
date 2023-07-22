@@ -1,6 +1,6 @@
 Name:           perl-Git-Version-Compare
 Version:        1.005
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Functions to compare Git versions
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Git-Version-Compare
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Jan Pazdziora <jpazdziora@redhat.com> - 1.005-1
 - 2160919 - Rebase to upstream version 1.005.
 

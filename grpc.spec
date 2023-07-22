@@ -253,7 +253,28 @@ BuildRequires:  python3dist(six) >= 1.10
 # grpcio (setup.py) setup_requires (with GRPC_PYTHON_BUILD_WITH_CYTHON, or
 # absent generated sources); also needed for grpcio_tools
 # (tools/distrib/python/grpcio_tools/setup.py)
-BuildRequires:  python3dist(cython) > 0.23
+#
+# Not yet compatible with Cython 3, due to errors like:
+#
+#   Error compiling Cython file:
+#   ------------------------------------------------------------
+#   ...
+#       return 1
+#     else:
+#       return 0
+#
+#   cdef grpc_arg_pointer_vtable default_vtable
+#   default_vtable.copy = &_copy_pointer
+#                         ^
+#   ------------------------------------------------------------
+#
+#   src/python/grpcio/grpc/_cython/_cygrpc/vtable.pyx.pxi:34:22: Cannot assign
+#   type 'void *(*)(void *) except *' to 'void *(*)(void *) noexcept'
+#
+# See:
+#   Cython 3.0.0b1 and its impact on packages in Fedora
+#   https://github.com/cython/cython/issues/5305
+BuildRequires: ((python3dist(cython) > 0.23) with (python3dist(cython) < 3~~))
 
 # grpcio (setup.py) install_requires:
 # grpcio_tests (src/python/grpcio_tests/setup.py) install_requires:

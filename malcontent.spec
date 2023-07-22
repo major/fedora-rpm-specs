@@ -1,6 +1,6 @@
 Name:           malcontent
 Version:        0.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parental controls implementation
 
 License:        LGPLv2+
@@ -157,6 +157,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.freed
 %{_libdir}/libmalcontent-0.so.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 16 2023 Bastien Nocera <bnocera@redhat.com> - 0.11.1-1
 - Update to 0.11.1
 

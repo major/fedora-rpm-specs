@@ -2,7 +2,7 @@
 
 Name:           jgoodies-looks
 Version:        2.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Free high-fidelity Windows and multi-platform appearance
 
 License:        BSD
@@ -69,6 +69,9 @@ rm -r src/main/java/com/jgoodies/looks/windows/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

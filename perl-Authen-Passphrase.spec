@@ -1,6 +1,6 @@
 Name:           perl-Authen-Passphrase
 Version:        0.008
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Hashed passwords/passphrases as objects
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Authen-Passphrase
@@ -58,6 +58,9 @@ passphrase encoding schemes are supported.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

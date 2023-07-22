@@ -1,6 +1,6 @@
 Name:           perl-Test-Mock-LWP
 Version:        0.08
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Easy mocking of LWP packages
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Mock-LWP
@@ -85,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

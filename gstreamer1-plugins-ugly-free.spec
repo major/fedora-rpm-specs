@@ -6,7 +6,7 @@
 
 Name:           gstreamer1-plugins-ugly-free
 Version:        1.22.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "ugly" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -152,6 +152,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 25 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.3-1
 - Update to 1.22.3
 

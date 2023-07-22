@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 1.1.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: QtQuick plugins to build user interfaces based on the KDE UX guidelines
 
 License: LGPLv2+
@@ -96,6 +96,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

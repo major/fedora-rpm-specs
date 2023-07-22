@@ -1,6 +1,6 @@
 Name:           ladspa-tap-plugins
 Version:        0.7.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Tom's Audio Processing plugin
 License:        GPLv2+
 URL:            http://tap-plugins.sourceforge.net/
@@ -45,6 +45,9 @@ ln -s /usr/include/ladspa.h .
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

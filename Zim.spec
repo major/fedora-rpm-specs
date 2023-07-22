@@ -3,11 +3,14 @@ Version:        0.75.2
 Release:        %autorelease
 Summary:        Desktop wiki & notekeeper
 
-# The entire source code is GPLv2+ except
-# ./zim/plugins/pageindex/generictreemodel,.py which is LGPLv2+
-License:        GPLv2+ and LGPLv2+
+# Most source code is GPL-2.0-or-later
+# ./zim/plugins/pageindex/generictreemodel,.py is LGPL-2.1-or-later
+# Some icons are MIT
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            http://zim-wiki.org/
 Source0:        http://www.zim-wiki.org/downloads/zim-%{version}.tar.gz
+# Not needed for multilib
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils

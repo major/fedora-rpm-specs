@@ -1,6 +1,6 @@
 Name:           perl-Gravatar-URL
 Version:        1.07
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Make URLs for Gravatars from an email address
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Gravatar-URL
@@ -53,6 +53,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

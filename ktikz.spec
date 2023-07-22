@@ -2,7 +2,7 @@
 
 Name:           ktikz
 Version:        0.13.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        KDE Editor for the TikZ language
 
 # ktikz/qtikz are GPLv2+, documentation is GFDL
@@ -174,6 +174,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/qtikz.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           perl-%{cpan_name}
 Version:        1.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Schema based configuration validation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -46,6 +46,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

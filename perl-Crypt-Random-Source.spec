@@ -1,6 +1,6 @@
 Name:           perl-Crypt-Random-Source
 Version:        0.14
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Get weak or strong random data from pluggable sources
 License:        GPL+ or Artistic
 
@@ -49,6 +49,9 @@ of random data.
 %{_mandir}/man3/Crypt*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

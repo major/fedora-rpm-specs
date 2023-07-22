@@ -18,7 +18,7 @@ is not pretending to be a VT100, change it. Liner also support Windows.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pure go line editor with history, inspired by linenoise
 
 License:        MIT
@@ -49,6 +49,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

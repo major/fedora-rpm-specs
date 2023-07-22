@@ -5,7 +5,7 @@
 
 Name:           librist
 Version:        0.2.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for Reliable Internet Stream Transport (RIST) protocol
 
 # Everything used is BSD-2-Clause except getopt-shim, which is ISC as well
@@ -103,5 +103,8 @@ cp -av docs/* %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.2.7-1
 - Initial package

@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.3.250.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       Apache-2.0
@@ -85,6 +85,9 @@ MINGW64_CMAKE_ARGS="-DGLSLANG_INSTALL_DIR=%{mingw64_prefix} -DSPIRV_HEADERS_INST
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.250.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Sandro Mani <manisandro@gmail.com> - 1.3.250.1-1
 - Update to 1.3.250.1
 

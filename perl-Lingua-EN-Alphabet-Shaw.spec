@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-Alphabet-Shaw
 Version:        0.64
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Transliterate the Latin to Shavian alphabets
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Lingua-EN-Alphabet-Shaw
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

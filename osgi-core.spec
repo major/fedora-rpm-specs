@@ -2,7 +2,7 @@
 
 Name:           osgi-core
 Version:        8.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OSGi Core API
 
 License:        ASL 2.0
@@ -82,6 +82,9 @@ mv META-INF/maven/org.osgi/osgi.core/pom.xml .
 %license LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

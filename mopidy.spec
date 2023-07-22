@@ -3,7 +3,7 @@
 
 Name:           mopidy
 Version:        3.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An extensible music server written in Python
 
 License:        ASL 2.0
@@ -118,6 +118,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 22 2023 Tobias Girstmair <t-fedora@girst.at> - 3.4.1-1
 - Update to 3.4.1 (#2149151)
 

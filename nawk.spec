@@ -1,6 +1,6 @@
 Name:		nawk
 Version:	20180827
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	"The one true awk" descended from UNIX V7
 License:	MIT
 URL:		https://github.com/onetrueawk/awk
@@ -40,6 +40,9 @@ cp awk.1 %{buildroot}%{_mandir}/man1/nawk.1
 %{_mandir}/man1/nawk.1.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20180827-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20180827-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Format-Human-Bytes
 Version:        0.06
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Format a bytecount and make it human readable
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Format-Human-Bytes
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

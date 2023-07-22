@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20090423
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A handwritten monospace font
 
 License:        OFL
@@ -52,6 +52,9 @@ install -Dm 0644 -p %{SOURCE2} \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20090423-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20090423-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

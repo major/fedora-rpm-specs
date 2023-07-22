@@ -1,6 +1,6 @@
 Name:           perl-Data-Stream-Bulk
 Version:        0.11
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        N at a time iteration API
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Stream-Bulk
@@ -62,6 +62,9 @@ once processing of data sets.
 %{_mandir}/man3/Data*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 20 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.11-31
 - Update dependencies
 - Pass NO_PACKLIST and NO_PERLLOCAL to Makefile.PL

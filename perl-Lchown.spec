@@ -1,6 +1,6 @@
 Name:           perl-Lchown
 Version:        1.01
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Use the lchown(2) system call from Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lchown
@@ -51,6 +51,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.01-26
 - Perl 5.38 rebuild
 

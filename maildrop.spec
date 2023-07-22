@@ -3,7 +3,7 @@
 Summary: Mail delivery agent with filtering abilities
 Name: maildrop
 Version: 3.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Exception is explicit permission to link to OpenSSL
 License: GPL-3.0-only WITH Classpath-exception-2.0
 URL: http://www.courier-mta.org/maildrop/
@@ -90,6 +90,9 @@ cp -pr README README.postfix ChangeLog UPGRADE %{buildroot}%{_defaultdocdir}/%{n
 %{_mandir}/man8/*.8*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 3.1.0-1
 - New upstream v3.1.0
 - drop default suid/sgid bits on maildrop and lockmail

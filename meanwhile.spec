@@ -1,6 +1,6 @@
 Name:           meanwhile
 Version:        1.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Lotus Sametime Community Client library
 License:        LGPLv2+
 URL:            https://github.com/obriencj/%{name}
@@ -73,6 +73,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}-doc-%{version}/
 %doc docs/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

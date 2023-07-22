@@ -1,6 +1,6 @@
 Name:		perl-Module-Package-Au
 Version:	2
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Reusable Module::Install bits
 License:	CC0-1.0
 URL:		https://metacpan.org/release/Module-Package-Au
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Module::Package::Au.3pm*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2-26
 - Modernize spec
 - Update license to SPDX format

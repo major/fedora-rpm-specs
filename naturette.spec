@@ -1,6 +1,6 @@
 Name:		naturette
 Version:	1.3
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	An AGI adventure game
 
 License:	CC-BY-ND-4.0
@@ -66,6 +66,9 @@ install -p -m 0644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%
 %{_bindir}/naturette-wrapper.sh
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-27
 - Convert to SPDX license.
 

@@ -1,7 +1,7 @@
 Name: mythes-es
 Summary: Spanish thesaurus
 Version: 2.3
-Release: 13%{?dist}
+Release: 14%{?dist}
 Source: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_ANY.oxt
 URL: https://github.com/sbosio/rla-es/tree/master/sinonimos
 License: LGPL-2.1-or-later
@@ -37,6 +37,9 @@ mv COPYING_th_es_ES COPYING
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 2.3-13
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-PetPeeves-JTRAMMELL
 Version:        0.04
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Policies to prohibit/require my pet peeves
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Perl-Critic-PetPeeves-JTRAMMELL
@@ -49,6 +49,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

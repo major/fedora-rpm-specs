@@ -1,6 +1,6 @@
 Name:           ifm
 Version:        5.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Interactive Fiction Mapper
 
 License:        GPL-2.0-or-later
@@ -63,6 +63,9 @@ install -p -D -m 0755 contrib/rec2scr.pl %{buildroot}%{_bindir}/%{name}-rec2scr.
 %{vimfiles_root}/syntax/%{name}.vim
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

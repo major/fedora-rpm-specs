@@ -3,7 +3,7 @@
 
 Name:           perl-Module-Install-CheckLib
 Version:        0.14
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Module::Install extension to check that a library is available
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Module-Install-CheckLib
@@ -119,6 +119,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

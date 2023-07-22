@@ -10,7 +10,7 @@
 
 Name:           micropython
 Version:        1.19.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -117,6 +117,9 @@ install -pm 755 ports/unix/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 11 2023 Charalampos Stratakis <cstratak@redhat.com> - 1.19.1-6
 - Fix dangling pointer issue with GCC 13
 - Fixes: rhbz#2189916

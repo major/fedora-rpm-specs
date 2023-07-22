@@ -1,6 +1,6 @@
 Name:		libu2f-server
 Version:	1.0.1
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Yubico Universal 2nd Factor (U2F) Server C Library
 
 License:	BSD
@@ -92,6 +92,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_includedir}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

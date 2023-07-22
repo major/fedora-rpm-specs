@@ -23,7 +23,7 @@
 
 Name:           haskell-platform
 Version:        2022.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Standard Haskell distribution
 
 License:        BSD
@@ -412,6 +412,9 @@ install -p -m 644 %{SOURCE20} %{buildroot}%{_bindir}/stack-symlink-distro-ghc
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Jens Petersen <petersen@redhat.com> - 2022.2-22
 - backport fix for error: InvalidAbsFile "/usr/lib64/ghc-9.2.3/lib/../lib/x86_64-linux-ghc-9.2.3/rts-1.0.2/include/ghcversion.h" (#5866)
 

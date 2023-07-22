@@ -1,6 +1,6 @@
 Name:           isync
 Version:        1.4.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tool to synchronize IMAP4 and Maildir mailboxes
 
 License:        GPLv2+
@@ -57,6 +57,9 @@ rm -r %{buildroot}%{_defaultdocdir}
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           libfreenect
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
 #
@@ -180,6 +180,9 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Rich Mattes <richmattes@gmail.com> - 0.7.0-2
 - Updates for Python 3.12 compatibility
 - Resolves: rhbz#2220025

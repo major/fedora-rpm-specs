@@ -1,6 +1,6 @@
 Name:		perl-Parallel-Runner
 Version:	0.013
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	An object to manage running things in parallel processes
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Parallel-Runner
@@ -65,6 +65,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Parallel::Runner.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 10 2023 Paul Howarth <paul@city-fan.org> - 0.013-30
 - Spec tidy-up
   - Classify buildreqs by usage

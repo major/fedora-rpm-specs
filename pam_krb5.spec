@@ -1,7 +1,7 @@
 Summary:	A Pluggable Authentication Module for Kerberos 5
 Name:		pam_krb5
 Version:	4.11
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	MIT and BSD
 Group:		System/Libraries
 URL:		https://github.com/rra/pam-krb5
@@ -65,6 +65,9 @@ rm -f %{buildroot}/%{_pam_libdir}/security/*.la
 %{_mandir}/man5/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

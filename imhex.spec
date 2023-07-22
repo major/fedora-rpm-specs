@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.30.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -148,6 +148,9 @@ done
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Jonathan Wright <jonathan@almalinux.org> - 1.30.1-4
 - Use tar to uncompress source1 - rhel9 does not have rpmuncompress
 

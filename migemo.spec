@@ -8,7 +8,7 @@
 
 Name:		migemo
 Version:	%{migemover}
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	Japanese incremental search tool
 License:	GPLv2
 URL:		http://0xcc.net/migemo/
@@ -122,6 +122,9 @@ done
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           liblbfgs
 Version:        1.10
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Limited-memory Broyden-Fletcher-Goldfarb-Shanno library
 
 License:        MIT
@@ -62,6 +62,9 @@ rmdir %{buildroot}%{_datadir}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

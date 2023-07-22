@@ -1,6 +1,6 @@
 Name:           perl-Data-Validate-Domain
 Version:        0.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Domain validation methods Perl module
 
 License:        GPL+ or Artistic
@@ -62,6 +62,9 @@ The value to test is always the first (and often only) argument.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

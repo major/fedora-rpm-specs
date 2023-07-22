@@ -7,7 +7,7 @@
 
 Name:		perl-PPIx-Utilities
 Version:	1.001000
-Release:	48%{?dist}
+Release:	49%{?dist}
 Summary:	Extensions to PPI
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/PPIx-Utilities
@@ -93,6 +93,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/PPIx::Utilities::Statement.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001000-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001000-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

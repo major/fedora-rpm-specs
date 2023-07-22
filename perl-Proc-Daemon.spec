@@ -10,7 +10,7 @@
 
 Name:      perl-Proc-Daemon
 Version:   0.23
-Release:   23%{?dist}
+Release:   24%{?dist}
 Summary:   Run Perl program as a daemon process 
 
 License:   GPL+ or Artistic
@@ -70,6 +70,9 @@ runs in the background with no controlling terminal. Generally servers
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

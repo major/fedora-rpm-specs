@@ -4,7 +4,7 @@
 
 Name:           hdhomerun
 Version:        20230323
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Silicon Dust HDHomeRun configuration utility
 
 License:        LGPLv3 and GPLv3
@@ -109,6 +109,9 @@ install -pm 0644 %{SOURCE3} %{buildroot}%{fw_services}/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230323-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 03 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 20230323-1
 - 20230323 release
 - add hdhomerun firewalld config

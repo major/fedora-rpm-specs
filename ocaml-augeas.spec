@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-augeas
 Version:        0.6
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        OCaml bindings for Augeas configuration API
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -85,6 +85,9 @@ ocamlfind install augeas META *.mli *.cma *.a augeas.cmi *.so
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6-25
 - OCaml 5.0 rebuild for Fedora 39
 

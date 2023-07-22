@@ -2,7 +2,7 @@
 
 Name:    kmouth
 Version: 23.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A program that speaks for you 
 
 License: GPLv2+
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kmouth.de
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

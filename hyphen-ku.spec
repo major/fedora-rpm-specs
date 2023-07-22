@@ -1,7 +1,7 @@
 Name: hyphen-ku
 Summary: Kurdish hyphenation rules
 Version: 1.71.2
-Release: 26%{?dist}
+Release: 27%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/2445/12/kitandin.oxt
 URL: http://extensions.services.openoffice.org/project/kitandin
 License: GPL-2.0-or-later OR LGPL-2.1-or-later
@@ -35,6 +35,9 @@ popd
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.71.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 28 2023 Caolán McNamara <caolanm@redhat.com> - 1.71.2-26
 - migrated to SPDX license
 

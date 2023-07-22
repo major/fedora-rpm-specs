@@ -1,6 +1,6 @@
 Name: iotop
 Version: 0.6
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: Top like utility for I/O       
 License: GPL-2.0-or-later
 URL: http://guichaz.free.fr/iotop/            
@@ -55,6 +55,9 @@ show of behalf of which process is the I/O going on.
 %{_mandir}/man8/iotop.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6-37
 - Rebuilt for Python 3.12
 

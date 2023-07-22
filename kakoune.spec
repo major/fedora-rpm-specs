@@ -2,7 +2,7 @@
 
 Name:           kakoune
 Version:        2022.10.31
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Code editor heavily inspired by Vim
 
 License:        Unlicense
@@ -89,6 +89,9 @@ popd
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.10.31-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 07 2023 Artem Polishchuk <ego.cordatus@gmail.com> - 2022.10.31-4
 - build: Add upstream patch with GCC 13 fix | #2171582
 

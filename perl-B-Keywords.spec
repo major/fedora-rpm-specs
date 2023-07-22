@@ -7,7 +7,7 @@
 
 Name:           perl-B-Keywords
 Version:        1.26
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lists of reserved barewords and symbol names
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Keywords
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.26-2
 - Add run-require perl-devel for tests
 

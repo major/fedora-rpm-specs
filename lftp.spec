@@ -1,7 +1,7 @@
 Summary:	A sophisticated file transfer program
 Name:		lftp
 Version:	4.9.2
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPL-3.0-or-later
 Source0:	http://lftp.yar.ru/ftp/%{name}-%{version}.tar.xz
 URL:		http://lftp.yar.ru/
@@ -105,6 +105,9 @@ desktop-file-install	\
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 16 2023 Michal Ruprich <mruprich@redhat.com> - 4.9.2-10
 - SPDX migration
 

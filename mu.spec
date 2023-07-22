@@ -1,6 +1,6 @@
 Name:           mu
 Version:        1.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A simple Python editor not only for micro:bit
 License:        GPL-3.0-only
 URL:            https://github.com/mu-editor/mu
@@ -137,6 +137,9 @@ cp -p conf/mu.appdata.xml %{buildroot}%{_metainfodir}/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.0-2
 - Relax version constraint to allow compatibility with the latest platformdirs
 

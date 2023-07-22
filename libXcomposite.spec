@@ -1,7 +1,7 @@
 Summary: X Composite Extension library
 Name: libXcomposite
 Version: 0.4.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -51,6 +51,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/X?omposite*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

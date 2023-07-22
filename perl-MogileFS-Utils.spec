@@ -2,7 +2,7 @@
 
 Name:           perl-%{cpan_name}
 Version:        2.30
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Utilities for MogileFS
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -47,6 +47,9 @@ make %{?_smp_mflags} test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.30-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.30-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

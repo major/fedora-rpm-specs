@@ -21,7 +21,7 @@ Simple progress bar for console programs.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Console progress bar for Go
 
 # Upstream license specification: BSD-3-Clause
@@ -57,6 +57,9 @@ BuildRequires:  golang(github.com/mattn/go-colorable)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.28-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.28-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

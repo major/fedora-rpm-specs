@@ -1,6 +1,6 @@
 Name:           perl-Class-Factory-Util
 Version:        1.7
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Provide utility methods for factory classes 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Factory-Util            
@@ -51,6 +51,9 @@ perl Build.PL --installdirs=vendor
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 10 2023 Paul Howarth <paul@city-fan.org> - 1.7-43
 - Spec clean-up
   - Use author-independent source URL

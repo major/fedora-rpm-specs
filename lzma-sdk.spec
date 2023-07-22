@@ -1,6 +1,6 @@
 Name:           lzma-sdk
 Version:        4.6.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        SDK for lzma compression
 
 License:        LGPLv2
@@ -99,6 +99,9 @@ find -iname '*.h' | xargs -I {} install -m0644 -D {} %{buildroot}/%{_includedir}
 %{_libdir}/liblzmasdk.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

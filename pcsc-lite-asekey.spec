@@ -4,7 +4,7 @@
 
 Name:           pcsc-lite-%{driver}
 Version:        3.7
-Release:        20%{dist}
+Release:        21%{dist}
 Summary:        ASEKey USB token driver
 # 92_pcscd_asekey.rules:    LGPLv2+
 # other files:              BSD
@@ -64,6 +64,9 @@ sed -i -e '/^BUILD=/ s/-gnu$//' Makefile.inc
 %{rulesdir}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

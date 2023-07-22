@@ -1,6 +1,6 @@
 Name:			perl-Spreadsheet-WriteExcel
 Version:		2.40
-Release:		27%{?dist}
+Release:		28%{?dist}
 Summary:		Write formatted text and numbers to a cross-platform Excel binary file
 License:		GPL+ or Artistic
 URL:			https://metacpan.org/release/Spreadsheet-WriteExcel
@@ -113,6 +113,9 @@ make test
 %{_mandir}/man3/Spreadsheet::WriteExcel::Worksheet.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

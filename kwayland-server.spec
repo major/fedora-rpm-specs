@@ -2,7 +2,7 @@
 
 Name:    kwayland-server
 Version: 5.24.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Wayland server components built on KDE Frameworks
 
 License: LGPLv2+ and MIT and BSD
@@ -67,6 +67,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.24.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.24.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

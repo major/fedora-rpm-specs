@@ -12,7 +12,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        9.25.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -558,6 +558,9 @@ done
 # Empty metapackage
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.25.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Neal Gompa <ngompa@fedoraproject.org> - 9.25.5-1
 - Rebase to 9.25.5 (RH#2195943)
 

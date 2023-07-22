@@ -7,7 +7,7 @@
 Name: hunspell-da
 Summary: Danish hunspell dictionaries
 Version: 1.7.42
-Release: 21%{?dist}
+Release: 22%{?dist}
 Source: http://da.speling.org/filer/myspell-da-%{version}.tar.bz2
 URL: http://da.speling.org/
 License: GPL-2.0-or-later
@@ -34,6 +34,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.42-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 1.7.42-21
 - migrated to SPDX license
 

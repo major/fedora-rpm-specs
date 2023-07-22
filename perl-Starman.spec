@@ -1,6 +1,6 @@
 Name:           perl-Starman
 Version:        0.4016
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-performance preforking PSGI/Plack web server
 License:        GPL+ or Artistic
 
@@ -62,6 +62,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4016-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4016-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

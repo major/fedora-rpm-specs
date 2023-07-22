@@ -1,6 +1,6 @@
 Name:           lib3ds
 Version:        1.3.0
-Release:        40%{?dist}
+Release:        41%{?dist}
 
 Summary:        3D Studio file format library
 
@@ -99,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/aclocal/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

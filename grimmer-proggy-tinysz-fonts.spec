@@ -3,7 +3,7 @@
 
 Name: %{fontname}-fonts
 Version: 1.0
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: MIT
 URL: http://upperbounds.net/
 Source0: http://upperbounds.net/download/ProggyTinySZ.ttf.zip
@@ -52,6 +52,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

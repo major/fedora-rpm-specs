@@ -1,6 +1,6 @@
 Name:           perl-LWP-Authen-Negotiate
 Version:        0.08
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        GSSAPI based Authentication Plugin for LWP
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/LWP-Authen-Negotiate
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

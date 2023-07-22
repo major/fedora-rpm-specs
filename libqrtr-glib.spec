@@ -1,6 +1,6 @@
 Name: libqrtr-glib
 Version: 1.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Support library to use and manage the QRTR (Qualcomm IPC Router) bus.
 License: LGPLv2+
 URL: https://gitlab.freedesktop.org/mobile-broadband/libqrtr-glib
@@ -66,6 +66,9 @@ find %{buildroot}%{_datadir}/gtk-doc |xargs touch --reference meson.build
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

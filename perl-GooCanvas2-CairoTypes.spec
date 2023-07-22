@@ -2,7 +2,7 @@
 
 Name:           perl-GooCanvas2-CairoTypes
 Version:        0.001
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Bridge between GooCanvas2 and Cairo types
 
 # lib/GooCanvas2/CairoTypes.pm file is "GPL+ or Artistic"
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/GooCanvas2::CairoTypes.3pm.gz
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.001-11
 - Perl 5.38 rebuild
 

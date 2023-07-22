@@ -1,6 +1,6 @@
 Name:           perl-Test-NeedsDisplay
 Version:        1.07
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Ensure that tests needing a display have one
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-NeedsDisplay
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

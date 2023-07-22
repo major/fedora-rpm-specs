@@ -1,6 +1,6 @@
 Name:           perl-MooseX-POE
 Version:        0.215
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Illicit Love Child of Moose and POE
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-POE
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.215-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.215-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

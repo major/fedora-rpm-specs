@@ -1,6 +1,6 @@
 Name:           libicns
 Version:        0.8.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Library for manipulating Macintosh icns files
 
 # libicns, icns2png and icontainer2icns are under LGPLv2+
@@ -81,6 +81,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

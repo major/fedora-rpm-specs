@@ -1,6 +1,6 @@
 Name:		minicomputer
 Version:	1.41
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Software Synthesizer
 License:	GPLv3+
 URL:		http://minicomputer.sourceforge.net/
@@ -70,6 +70,9 @@ install -pm 644 %{name}.xpm \
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.xpm
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.41-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.41-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

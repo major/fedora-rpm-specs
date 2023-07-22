@@ -2,7 +2,7 @@
 
 Name:           libvisual
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 
 Summary:        Abstraction library for audio visualisation plugins
@@ -110,6 +110,9 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1:0.4.1-1
 - Updated to version 0.4.1.
 

@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -181,6 +181,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.15.0-4
 - Rebuilt for Python 3.12
 

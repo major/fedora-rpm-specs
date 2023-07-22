@@ -14,7 +14,7 @@ Simple request logging in Go (Golang).}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple request logging
 
 License:        MIT
@@ -45,6 +45,9 @@ BuildRequires:  golang(github.com/tomasen/realip)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

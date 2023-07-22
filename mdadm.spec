@@ -1,6 +1,6 @@
 Name:        mdadm
 Version:     4.2
-Release:     5%{?dist}
+Release:     6%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPLv2+
@@ -211,6 +211,9 @@ install -m644 %{SOURCE5} %{buildroot}/etc/libreport/events.d
 /usr/share/mdadm/mdcheck
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 12 2023 Xiao Ni <xni@redhat.com> - 4.2-5
 - Update to latest upstream for rawhide(f39) and fix mdcheck service bug
 - Resolves bz#2175540

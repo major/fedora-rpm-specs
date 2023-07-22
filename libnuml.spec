@@ -34,7 +34,7 @@
 Name:           libnuml
 Summary:        Numerical Markup Language
 Version:        1.1.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 URL:            https://github.com/NuML/NuML
 Source0:        https://github.com/NuML/NuML/archive/%{commit}/NuML-%{version}.tar.gz
 License:        LGPLv2+
@@ -366,6 +366,9 @@ make test -C libnuml/build
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.4-11
 - Rebuilt for Python 3.12
 

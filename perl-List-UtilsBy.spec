@@ -1,6 +1,6 @@
 Name:           perl-List-UtilsBy
 Version:        0.12
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Higher-order list utility functions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/List-UtilsBy
@@ -48,6 +48,9 @@ returned by the extra function, when given each value.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Moo
 Version:        2.005005
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Minimalist Object Orientation (with Moose compatibility)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -95,6 +95,9 @@ not quite- two thirds of Moose.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.005005-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 31 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.005005-3
 - Update license to SPDX format
 

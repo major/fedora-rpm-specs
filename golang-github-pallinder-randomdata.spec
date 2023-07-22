@@ -38,7 +38,7 @@ Randomdata is a tiny help suite for generating random data such as
 %global godocs          CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tiny generator of random data for Golang, also known as a faker
 
 License:        MIT
@@ -69,6 +69,9 @@ BuildRequires:  golang(golang.org/x/text/language)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

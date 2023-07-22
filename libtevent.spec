@@ -8,7 +8,7 @@
 
 Name: libtevent
 Version: 0.14.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The tevent library
 License: LGPL-3.0-or-later
 URL: http://tevent.samba.org/
@@ -107,6 +107,9 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.14.1-2
 - Rebuilt for Python 3.12
 

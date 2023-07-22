@@ -1,6 +1,6 @@
 Name:           perl-Math-Round
 Version:        0.07
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl extension for rounding numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Round
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Math::Round.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

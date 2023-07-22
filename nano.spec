@@ -8,7 +8,7 @@
 Summary:         A small text editor
 Name:            nano
 Version:         7.2
-Release:         3%{?dist}
+Release:         4%{?dist}
 License:         GPL-3.0-or-later
 URL:             https://www.nano-editor.org
 
@@ -133,6 +133,9 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 7.2-3
 - migrated to SPDX license
 

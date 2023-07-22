@@ -17,7 +17,7 @@ SendGrid's Golang HTTP Client for calling APIs.}
                         TROUBLESHOOTING.md USAGE.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        SendGrid's Golang HTTP Client for calling APIs
 
 License:        MIT
@@ -43,6 +43,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

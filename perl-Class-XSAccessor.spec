@@ -1,6 +1,6 @@
 Name:           perl-Class-XSAccessor
 Version:        1.19
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Generate fast XS accessors without run-time compilation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-XSAccessor
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Class::*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.19-30
 - Perl 5.38 rebuild
 

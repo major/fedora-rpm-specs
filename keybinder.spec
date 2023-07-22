@@ -1,6 +1,6 @@
 Name:		keybinder
 Version:	0.3.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	A library for registering global keyboard shortcuts
 License:	MIT
 URL:		https://github.com/engla/keybinder
@@ -68,6 +68,9 @@ find %{buildroot} -name '*.la'| xargs rm -f
 %{_datadir}/gtk-doc/html/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

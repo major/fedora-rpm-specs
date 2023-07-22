@@ -1,7 +1,7 @@
 Summary: Text mode Mail Client
 Name: neomutt
 Version: 20230517
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 6
 Url: https://neomutt.org/
 
@@ -78,6 +78,9 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6:20230517-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 Richard Russon <rich@flatcap.org> - 20230517-1
 - Features
   - #3699 - Support 24bit colors, aka truecolor

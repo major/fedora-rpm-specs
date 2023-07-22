@@ -1,7 +1,7 @@
 Name:           perl-MooseX-SemiAffordanceAccessor
 Summary:        Name your accessors foo() and set_foo()
 Version:        0.10
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        Artistic 2.0
 
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/MooseX-SemiAffordanceAccessor-%{version}.tar.gz 
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

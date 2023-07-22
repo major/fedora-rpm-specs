@@ -1,6 +1,6 @@
 Name:           perl-Devel-StringInfo
 Version:        0.04
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Gather information about strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl OR MIT
 URL:            https://metacpan.org/release/Devel-StringInfo
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Devel*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

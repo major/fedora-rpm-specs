@@ -1,6 +1,6 @@
 Name:           isrcsubmit
 Version:        2.1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Script to submit ISRCs from disc to MusicBrainz
 
 License:        GPLv3+
@@ -59,6 +59,9 @@ export PYTHONIOENCODING=UTF-8
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

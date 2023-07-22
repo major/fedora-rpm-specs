@@ -1,7 +1,7 @@
 Summary:	Library for reading and writing sound files
 Name:		libsndfile
 Version:	1.1.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 URL:		http://libsndfile.github.io/libsndfile/
 Source0:        https://github.com/libsndfile/libsndfile/releases/download/%{version}/libsndfile-%{version}.tar.xz
@@ -161,6 +161,9 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.0-8
 - Avoid autogen dependency in RHEL builds
 

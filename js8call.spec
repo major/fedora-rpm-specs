@@ -7,7 +7,7 @@
 
 Name:           js8call
 Version:        2.2.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Amateur Radio message passing using FT8 modulation
 
 License:        GPLv3+
@@ -120,6 +120,9 @@ rm -f %{buildroot}%{_datadir}/doc/JS8Call/INSTALL*
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Daniel Rusek <mail@asciiwolf.com> - 2.2.0-18
 - Install desktop icon into a proper location
 

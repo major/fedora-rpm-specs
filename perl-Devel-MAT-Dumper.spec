@@ -1,6 +1,6 @@
 Name:           perl-Devel-MAT-Dumper
 Version:        0.47
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Write a heap dump file for later analysis
 License:        GPL+ or Artistic
 
@@ -57,6 +57,9 @@ function which is not exported, which writes a file to the given path.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.47-2
 - Perl 5.38 rebuild
 

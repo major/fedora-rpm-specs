@@ -1,6 +1,6 @@
 Name:           perl-LMDB_File
 Version:        0.12
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Perl5 wrapper around the OpenLDAP's LMDB
 License:        (GPL+ or Artistic) and Artistic 2.0
 URL:            https://metacpan.org/release/LMDB_File
@@ -100,6 +100,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.12-26
 - Perl 5.38 rebuild
 

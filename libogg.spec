@@ -2,7 +2,7 @@ Summary:        The Ogg bitstream file format library
 Name:           libogg
 Epoch:          2
 Version:        1.3.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        BSD
 URL:            https://www.xiph.org/
 
@@ -79,6 +79,9 @@ mv $RPM_BUILD_ROOT%{_docdir}/%{name} __installed_docs
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.3.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.3.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

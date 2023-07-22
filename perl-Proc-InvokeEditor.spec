@@ -1,6 +1,6 @@
 Name:           perl-Proc-InvokeEditor
 Version:        1.13
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Perl extension for starting a text editor
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Proc-InvokeEditor
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

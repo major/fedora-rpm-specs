@@ -1,6 +1,6 @@
 Name:           mirrormagic
 Version:        3.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Puzzle game where you steer a beam of light using mirrors
 License:        GPL+
 URL:            http://www.artsoft.org/mirrormagic/
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 23 2023 Hans de Goede <hdegoede@redhat.com> - 3.0.0-13
 - Fix FTBFS (rhbz#2171614)
 

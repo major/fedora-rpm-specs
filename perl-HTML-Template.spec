@@ -1,6 +1,6 @@
 Name:           perl-HTML-Template
 Version:        2.97
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Perl module to use HTML Templates
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-Template
@@ -81,6 +81,9 @@ TEST_SHARED_MEMORY=1 make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.97-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.97-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

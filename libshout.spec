@@ -1,6 +1,6 @@
 Name:           libshout
 Version:        2.4.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Icecast source streaming library
 
 # COPYING:              GPLv2 text
@@ -156,6 +156,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_datadir}/aclocal/shout.m4
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Dancer2-Plugin-DBIC
 Version:        0.0100
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        DBIx::Class interface for Dancer2 applications
 License:        GPL+ or Artistic
 
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Dancer2*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0100-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0100-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

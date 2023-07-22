@@ -1,6 +1,6 @@
 Name:           perl-Class-Can
 Version:        0.01
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Inspect a class/method and say what it can do (and why)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Can
@@ -42,6 +42,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

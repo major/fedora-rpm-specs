@@ -17,7 +17,7 @@
 
 Name:           mapserver
 Version:        8.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -310,6 +310,9 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 8.0.1-4
 - Perl 5.38 rebuild
 

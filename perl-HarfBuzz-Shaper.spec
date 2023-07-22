@@ -7,7 +7,7 @@ Name: perl-%{FullName}
 Summary: Access to a small subset of the native HarfBuzz library
 License: GPL+ or Artistic
 Version: 0.026
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -69,6 +69,9 @@ make test VERBOSE=1
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.026-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.026-6
 - Perl 5.38 rebuild
 

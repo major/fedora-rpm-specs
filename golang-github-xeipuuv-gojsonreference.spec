@@ -15,7 +15,7 @@ An implementation of JSON Reference.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.16%{?dist}
+Release:        0.17%{?dist}
 Summary:        JSON Reference implementation in Go
 
 # Upstream license specification: Apache-2.0
@@ -44,6 +44,9 @@ BuildRequires:  golang(github.com/xeipuuv/gojsonpointer)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

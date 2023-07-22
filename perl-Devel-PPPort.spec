@@ -5,7 +5,7 @@
 
 Name:           perl-Devel-PPPort
 Version:        3.71
-Release:        500%{?dist}
+Release:        501%{?dist}
 Summary:        Perl Pollution Portability header generator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-PPPort
@@ -116,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.71-501
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.71-500
 - Perl 5.38 re-rebuild of bootstrapped packages
 

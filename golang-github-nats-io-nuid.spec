@@ -14,7 +14,7 @@ A highly performant unique identifier generator.}
 %global godocs          GOVERNANCE.md MAINTAINERS.md README.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Highly performant unique identifier generator
 
 # Upstream license specification: Apache-2.0
@@ -41,6 +41,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

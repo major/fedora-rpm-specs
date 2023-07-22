@@ -1,6 +1,6 @@
 Name:           perl-Math-Libm
 Version:        1.00
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Perl extension for the C math library, libm
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Math-Libm
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.00-37
 - Perl 5.38 rebuild
 

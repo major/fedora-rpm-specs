@@ -20,7 +20,7 @@
 
 Name:    gtk3
 Version: 3.24.38
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPL-2.0-or-later
@@ -302,6 +302,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.38-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.24.38-2
 - Disable cloudproviders in RHEL/ELN builds
 

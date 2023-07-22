@@ -5,7 +5,7 @@
 
 Name:           librs232
 Version:        1.0.4
-Release:        10.%{date}git%{shortcommit0}%{?dist}
+Release:        11.%{date}git%{shortcommit0}%{?dist}
 Summary:        Library for serial communications over RS-232 with Lua bindings
 License:        MIT
 Url:            https://github.com/%{the_owner}/%{name}/
@@ -91,6 +91,9 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-11.20210115git3bdb0b1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.0.4-10.20210115git3bdb0b1
 - Add missing patch to repository
 

@@ -1,6 +1,6 @@
 Name:           perl-Encode-HanExtra
 Version:        0.23
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Extra sets of Chinese encodings
 License:        MIT
 URL:            https://metacpan.org/release/Encode-HanExtra
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.23-39
 - Perl 5.38 rebuild
 

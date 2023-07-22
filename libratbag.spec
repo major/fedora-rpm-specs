@@ -2,7 +2,7 @@
 
 Name:           libratbag
 Version:        0.17
-Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Programmable input device library
 License:        MIT
 URL:            https://github.com/libratbag/libratbag
@@ -97,6 +97,9 @@ developing applications that use liblur.
 %{_libdir}/pkgconfig/liblur.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

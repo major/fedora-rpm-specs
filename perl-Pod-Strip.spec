@@ -1,6 +1,6 @@
 Name:           perl-Pod-Strip
 Version:        1.100
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Remove POD from Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Strip
@@ -51,6 +51,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Pod::Strip.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

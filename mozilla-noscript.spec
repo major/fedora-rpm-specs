@@ -13,7 +13,7 @@
 
 Name:           mozilla-noscript
 Version:        11.4.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        JavaScript white list extension for Mozilla Firefox
 
 License:        GPL-3.0-or-later AND MIT AND MPL-2.0 AND CC-BY-SA-3.0
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.m
 %{_datadir}/metainfo/%{name}.metainfo.xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.22-1
 - update to 11.4.22 (#2204533)
 - fix deprecated patchN macro usage

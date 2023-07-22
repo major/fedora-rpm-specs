@@ -14,7 +14,7 @@ BuildRequires: fontpackages-devel
 
 Name:    lyx
 Version: 2.3.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: WYSIWYM (What You See Is What You Mean) document processor
 License: GPLv2+
 Url:     https://www.lyx.org/
@@ -262,6 +262,9 @@ texhash >& /dev/null
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 23 2023 José Matos <jamatos@fedoraproject.org> - 2.3.7-1
 - Update to 2.3.7
 - Remove patch that has been applied upstream

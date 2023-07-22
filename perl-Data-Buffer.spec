@@ -1,7 +1,7 @@
 Summary:	Read/write buffer class for perl
 Name:		perl-Data-Buffer
 Version:	0.04
-Release:	46%{?dist}
+Release:	47%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Data-Buffer
 Source0:	https://cpan.metacpan.org/modules/by-module/Data/Data-Buffer-%{version}.tar.gz
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/Data::Buffer.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 14 2023 Paul Howarth <paul@city-fan.org> - 0.04-46
 - Spec tidy-up
   - Use SPDX-compatible license tag

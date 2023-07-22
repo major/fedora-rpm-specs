@@ -7,7 +7,7 @@
 Summary:	Tools for monitoring SMART capable hard disks
 Name:		smartmontools
 Version:	7.3
-Release:	6%{?dist}
+Release:	7%{?dist}
 Epoch:		1
 License:	GPL-2.0-or-later
 URL:		http://smartmontools.sourceforge.net/
@@ -62,13 +62,7 @@ Custom SELinux policy module for smartmontools
 cp %{SOURCE5} .
 %if 0%{?with_selinux}
 mkdir selinux
-cp -p  %{SOURCE7} %{SOURCE8} selinux/
-%if %{?fedora}0 > 330
-cp -p %{SOURCE6} selinux/
-%else
-cp -p %{SOURCE9} selinux/smartmon.te
-%endif
-
+cp -p %{SOURCE6} %{SOURCE7} %{SOURCE8} selinux/
 %endif
 
 %build
@@ -102,6 +96,7 @@ mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/%{name}
 
 %if 0%{?with_selinux}
 install -D -m 0644 %{modulename}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
+install -D -p -m 0644 selinux/%{modulename}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{modulename}.if
 %endif
 
 %if 0%{?with_selinux}
@@ -157,10 +152,16 @@ fi
 %{_sharedstatedir}/%{name}
 
 %files selinux
+%license COPYING
 %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
-%ghost %attr(0700,-,-) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
+%{_datadir}/selinux/devel/include/distributed/%{modulename}.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
+
 
 %changelog
+* Thu Jul 20 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:7.3-7
+- use different selinux context for notification scripts (#2139199)
+
 * Wed Apr 05 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:7.3-6
 - update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
 

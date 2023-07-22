@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Pulp
 Version:        99
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Some add-on perlcritic policies
 License:        GPL-3.0-or-later
 URL:            https://metacpan.org/release/Perl-Critic-Pulp
@@ -129,6 +129,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 99-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 99-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

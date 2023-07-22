@@ -1,6 +1,6 @@
 Name:           perl-Test-Module-Used
 Version:        0.2.6
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Test required module is really used and vice versa between lib/t and META.yml
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Module-Used
@@ -61,6 +61,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-AnyEvent-CacheDNS
 Version:        0.08
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Simple DNS resolver with caching
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AnyEvent-CacheDNS
@@ -71,6 +71,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 14 2023 Petr Pisar <ppisar@redhat.com> - 0.08-25
 - Modernize a spec file
 - Package the tests

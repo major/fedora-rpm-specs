@@ -7,7 +7,7 @@
 
 Name:           greetd
 Version:        0.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A generic greeter daemon
 
 # Apache-2.0
@@ -206,6 +206,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 0.9.0-4
 - Rebuild for tokio crate >= v1.24.2 (RUSTSEC-2023-0005)
 

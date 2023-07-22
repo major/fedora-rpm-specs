@@ -1,6 +1,6 @@
 Name:           perl-Test-Fake-HTTPD
 Version:        0.09
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fake HTTP server module for testing
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Fake-HTTPD
@@ -73,6 +73,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

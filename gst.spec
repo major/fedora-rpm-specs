@@ -2,7 +2,7 @@
 
 Name:           gst
 Version:        0.7.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        System utility designed to stress and monitoring various hardware components
 
 License:        GPLv3+
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.7.5-9
 - Rebuilt for Python 3.12
 

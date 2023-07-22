@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-SimpleDBI
 Version:        1.31
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Asynchronous non-blocking DBI calls in POE made simple
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-SimpleDBI
@@ -61,6 +61,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

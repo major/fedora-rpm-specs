@@ -1,7 +1,7 @@
 %global major   9.0
 Name:           midori
 Version:        9.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        a lightweight, fast and free web browser
 
 License:        LGPLv1.1
@@ -69,6 +69,9 @@ rm -f %{buildroot}/%{_datadir}/doc/midori/COPYING
 %{_datadir}/metainfo/org.midori_browser.Midori.appdata.xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

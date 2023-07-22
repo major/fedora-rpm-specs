@@ -1,6 +1,6 @@
 Name:           perl-Test-Future-IO-Impl
 Version:        0.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Acceptance tests for Future::IO implementations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -54,6 +54,9 @@ of Future::IO.
 %{_mandir}/man3/Test*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-2
 - Take into account review feedback (#2192186)
 

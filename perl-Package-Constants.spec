@@ -1,7 +1,7 @@
 Name:           perl-Package-Constants
 Epoch:          1
 Version:        0.06
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        List all constants declared in a package
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Package-Constants
@@ -74,6 +74,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.06-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.06-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

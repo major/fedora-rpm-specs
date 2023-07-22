@@ -1,7 +1,7 @@
 Name:           perl-CPAN-Mini
 Summary:        Create a minimal mirror of CPAN
 Version:        1.111016
-Release:        26%{?dist}
+Release:        27%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/CPAN-Mini-%{version}.tar.gz 
 URL:            https://metacpan.org/release/CPAN-Mini
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man[13]/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.111016-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.111016-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

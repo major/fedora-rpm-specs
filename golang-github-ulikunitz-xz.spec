@@ -17,7 +17,7 @@ code.}
 %global godocs          doc README.md TODO.md
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure golang package for reading and writing xz-compressed files
 
 # Upstream license specification: BSD-3-Clause
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

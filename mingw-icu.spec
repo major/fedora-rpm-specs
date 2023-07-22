@@ -6,7 +6,7 @@
 
 Name:           mingw-icu
 Version:        73.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW compilation of International Components for Unicode Tools
 
 License:        MIT and UCD and Public Domain
@@ -198,6 +198,9 @@ rm %{buildroot}%{mingw64_libdir}/icu/pkgdata.inc
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 73.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Sandro Mani <manisandro@gmail.com> - 73.2-1
 - Update to 73.2
 

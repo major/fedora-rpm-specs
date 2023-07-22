@@ -1,6 +1,6 @@
 Name:           perl-Eval-LineNumbers
 Version:        0.35
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Add line numbers to hereis blocks that contain perl source code
 License:        Artistic 2.0 or LGPLv2+
 URL:            https://metacpan.org/release/Eval-LineNumbers
@@ -37,6 +37,9 @@ eval'ed so that error messages will point back to the right place.
 %{_mandir}/man3/Eval::LineNumbers.3pm.gz
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

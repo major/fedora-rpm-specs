@@ -6,7 +6,7 @@
 
 Name:           perl-DateTime-TimeZone
 Version:        2.60
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Time zone object base class and factory
 # tzdata%%{tzversion}.tar.gz archive:   LicenseRef-Fedora-Public-Domain
 # other files:                          GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -180,6 +180,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.60-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.60-3
 - Perl 5.38 re-rebuild of bootstrapped packages
 

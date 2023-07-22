@@ -7,7 +7,7 @@
 
 Name:           junit5
 Version:        5.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java regression testing framework
 License:        EPL-2.0
 URL:            https://junit.org/junit5/
@@ -131,6 +131,9 @@ ln -s ../../javadoc/junit5 documentation/src/docs/api
 %doc documentation/src/docs/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Marian Koncek <mkoncek@redhat.com> - 5.9.0-3
 - Enable module-info generation
 

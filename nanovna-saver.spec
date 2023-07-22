@@ -1,6 +1,6 @@
 Name:		nanovna-saver
 Version:	0.5.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 License:	GPLv3
 URL:		https://github.com/mihtjel/%{name}
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 %{_datadir}/applications/NanoVNASaver.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.5.5-2
 - Rebuilt for Python 3.12
 

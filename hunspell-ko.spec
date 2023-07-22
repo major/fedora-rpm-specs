@@ -7,7 +7,7 @@
 Name: hunspell-ko
 Summary: Korean hunspell dictionaries
 Version: 0.7.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 Source: https://github.com/spellcheck-ko/hunspell-dict-ko/archive/%{version}.tar.gz
 URL: https://github.com/spellcheck-ko/hunspell-dict-ko
 License: MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-only
@@ -41,6 +41,9 @@ make test
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.7.0-16
 - migrated to SPDX license
 

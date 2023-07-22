@@ -1,6 +1,6 @@
 Name:           perl-Inline-Files
 Version:        0.71
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Allows for multiple inline files in a single Perl file
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Inline-Files
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.71-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.71-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

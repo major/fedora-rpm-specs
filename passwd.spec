@@ -7,7 +7,7 @@
 Summary: An utility for setting or changing passwords using PAM
 Name: passwd
 Version: 0.80
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: BSD-3-Clause OR GPL-2.0-only
 URL: https://pagure.io/passwd
 Source: https://releases.pagure.org/passwd/passwd-%{version}.autotoolized.tar.bz2
@@ -75,6 +75,9 @@ done
 %{_mandir}/man1/passwd.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

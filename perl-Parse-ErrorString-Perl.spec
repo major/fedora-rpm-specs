@@ -1,6 +1,6 @@
 Name:           perl-Parse-ErrorString-Perl
 Version:        0.27
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Module for parsing error messages
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-ErrorString-Perl
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man1/check_perldiag.1.gz
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

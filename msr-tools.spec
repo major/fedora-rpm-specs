@@ -1,7 +1,7 @@
 Summary:        Collection of tools for reading/writing CPU model specific registers
 Name:           msr-tools
 Version:        1.3
-Release:        20%{dist}
+Release:        21%{dist}
 License:        GPLv2+
 Source0:        https://github.com/intel/msr-tools/archive/msr-tools-%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
@@ -38,6 +38,9 @@ install -D cpuid %{buildroot}%{_sbindir}/msr-cpuid
 %{_sbindir}/msr-cpuid
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-MakeMaker-Coverage
 Version:        0.05
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Allows perl modules to check test coverage with Devel::Cover
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,6 +59,9 @@ make test
 %{_bindir}/testcover
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

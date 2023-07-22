@@ -16,7 +16,7 @@ Simple error handling primitives.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple error handling primitives
 
 # Upstream license specification: BSD-2-Clause
@@ -48,6 +48,9 @@ BuildRequires:  golang(github.com/pkg/errors)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global     with_python 1
 Name:       hirte
 Version:    0.4.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A systemd service controller for multi-nodes environments
 License:    GPL-2.0-or-later
 URL:        https://github.com/containers/hirte
@@ -204,6 +204,9 @@ popd
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.4.0-2
 - Fix the conditional used to enable/disable the python3-pyhirte subpackage
 

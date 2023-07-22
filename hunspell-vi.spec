@@ -8,7 +8,7 @@ Name: hunspell-vi
 Summary: Vietnamese hunspell dictionaries
 %global upstreamid 20120418
 Version: 0.%{upstreamid}
-Release: 13%{?dist}
+Release: 14%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/917/3/vi_spellchecker_ooo3.oxt
 URL: https://extensions.openoffice.org/en/project/vietnamese-spellchecker
 License: GPL-2.0-only
@@ -35,6 +35,9 @@ cp -p dictionaries/*.dic dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20120418-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20080604-13
 - migrated to SPDX license
 

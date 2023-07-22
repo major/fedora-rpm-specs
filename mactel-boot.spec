@@ -1,6 +1,6 @@
 Name:		mactel-boot
 Version:	0.9
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Intel Mac boot files
 
 License:	GPLv2+
@@ -50,6 +50,9 @@ install -D %{SOURCE1} $RPM_BUILD_ROOT/usr/libexec/mactel-boot-setup
 /usr/libexec/mactel-boot-setup
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 17 2023 Florian Weimer <fweimer@redhat.com> - 0.9-29
 - Port to C99 (#2170958)
 

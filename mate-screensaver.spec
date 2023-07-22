@@ -15,9 +15,9 @@
 Name:           mate-screensaver
 Version:        %{branch}.2
 %if 0%{?rel_build}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
-Release:        0.18%{?git_rel}%{?dist}
+Release:        0.19%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Screensaver
 License:        GPLv2+ and LGPLv2+
@@ -144,6 +144,9 @@ mv %{buildroot}%{_docdir}/mate-screensaver-%{version}/mate-screensaver.html %{bu
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
 - update to 1.26.2
 

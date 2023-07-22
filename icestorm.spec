@@ -7,7 +7,7 @@
 
 Name:           icestorm
 Version:        0
-Release:        0.28.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        0.29.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Lattice iCE40 FPGA bitstream creation/analysis/programming tools
 License:        ISC
 URL:            http://bygone.clairexen.net/%{name}
@@ -60,6 +60,9 @@ install -pm644 icefuzz/timings_*.txt %{buildroot}%{_datarootdir}/%{name}
 %{_datarootdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29.20230220gitd20a5e9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Gabriel Somlo <gsomlo@gmail.com> - 0-0.28.20230220gitd20a5e9
 - Update to newer snapshot
 

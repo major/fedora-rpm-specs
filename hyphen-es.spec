@@ -1,7 +1,7 @@
 Name: hyphen-es
 Summary: Spanish hyphenation rules
 Version: 2.3
-Release: 14%{?dist}
+Release: 15%{?dist}
 Source: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_ANY.oxt
 URL: https://github.com/sbosio/rla-es/tree/master/separacion
 License: LGPL-3.0-or-later OR GPL-3.0-or-later OR MPL-1.1
@@ -35,6 +35,9 @@ popd
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 2.3-14
 - migrated to SPDX license
 

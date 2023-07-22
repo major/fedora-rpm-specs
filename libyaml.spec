@@ -1,6 +1,6 @@
 Name:       libyaml
 Version:    0.2.5
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    YAML 1.1 parser and emitter written in C
 
 License:    MIT
@@ -73,6 +73,9 @@ make check
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 Karolina Surma <ksurma@redhat.com> - 0.2.5-10
 - Review the license tag according to the SPDX standard, declare the docs license
 

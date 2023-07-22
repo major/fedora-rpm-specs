@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 121%{?dist}
+Release: 122%{?dist}
 
 License: LGPL-2.0-only
 Url: http://www.kde.org/
@@ -711,6 +711,9 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-122
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 3.5.10-121
 - migrated to SPDX license
 

@@ -12,7 +12,7 @@
 
 Name:       mod_psgi
 Version:    0.0.1
-Release:    0.16.%{snapshot}git%{shortcommit}%{?dist}
+Release:    0.17.%{snapshot}git%{shortcommit}%{?dist}
 Summary:    Apache httpd plugin for handling PSGI applications
 License:    ASL 2.0
 URL:        https://github.com/spiritloose/%{name}
@@ -97,6 +97,9 @@ make test
 %{_httpd_moddir}/%{name}.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.17.20120822git9732348
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.0.1-0.16.20120822git9732348
 - Perl 5.38 rebuild
 

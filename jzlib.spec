@@ -1,6 +1,6 @@
 Name:           jzlib
 Version:        1.1.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Re-implementation of zlib in pure Java
 License:        BSD
 URL:            http://www.jcraft.com/jzlib/
@@ -67,6 +67,9 @@ cp -pr example/* %{buildroot}%{_datadir}/%{name}
 %doc %{_datadir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

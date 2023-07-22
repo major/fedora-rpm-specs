@@ -9,7 +9,7 @@ It is the official brand typeface for Mozilla. \
 
 Name:      %{fontname}-fonts
 Version:   1.002
-Release:   6%{?dist}
+Release:   7%{?dist}
 Summary:   Mozilla's Zilla Slab fonts
 License:   OFL
 URL:       https://mozilla.design/mozilla/typography/
@@ -80,6 +80,9 @@ done
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

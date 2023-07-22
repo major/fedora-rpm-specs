@@ -1,6 +1,6 @@
 Name:           perl-Getopt-Lucid
 Version:        1.10
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Clear, readable syntax for command line processing
 License:        ASL 2.0
 URL:            https://metacpan.org/release/Getopt-Lucid
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

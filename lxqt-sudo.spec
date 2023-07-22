@@ -2,7 +2,7 @@
 
 Name:    lxqt-sudo
 Version: 1.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: GUI frontend for sudo/su
 License: LGPLv2+
 URL:     https://lxqt-project.org/
@@ -71,6 +71,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_vpath_builddir}
 %{_datadir}/lxqt/translations/%{name}/%{name}_arn.qm
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

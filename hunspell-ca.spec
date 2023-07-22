@@ -7,7 +7,7 @@
 Name: hunspell-ca
 Summary: Catalan hunspell dictionaries
 Version: 2.3
-Release: 23%{?dist}
+Release: 24%{?dist}
 Source: http://www.softcatala.org/diccionaris/actualitzacions/OOo/catalan.oxt
 URL: http://www.softcatala.org/wiki/Projectes/Corrector_ortogràfic
 License: GPL-2.0-or-later
@@ -45,6 +45,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 2.3-23
 - migrated to SPDX license
 

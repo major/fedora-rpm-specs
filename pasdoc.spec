@@ -10,7 +10,7 @@ License: GPL-2.0-or-later
 %global with_tests 1
 
 Version: 0.16.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 URL: https://github.com/pasdoc/pasdoc
 Source0: %{URL}/archive/v%{version}/pasdoc-%{version}.tar.gz
@@ -205,6 +205,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.16.0-8
 - BuildRequire only chosen Lazarus sub-packages
 - Add missing BuildRequires on "make"

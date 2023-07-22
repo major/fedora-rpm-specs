@@ -1,6 +1,6 @@
 Name:           perl-Pod-Snippets
 Version:        0.14
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Extract and reformat snippets of POD
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Pod-Snippets
@@ -50,6 +50,9 @@ simultaneously as documentation and code.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

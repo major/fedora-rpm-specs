@@ -2,7 +2,7 @@
 
 Name:           mingw-spice-gtk
 Version:        0.42
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A GTK+ widget for SPICE clients
 
 License:        LGPLv2+
@@ -172,6 +172,9 @@ find $RPM_BUILD_ROOT -name "*.1" -delete
 %{mingw64_includedir}/spice-client-gtk-3.0
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 23 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.42-1
 - new version
 

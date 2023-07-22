@@ -1,6 +1,6 @@
 Name:    kleopatra
 Version: 23.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
 # code: GPLv2+
@@ -102,6 +102,9 @@ rm -fv %{buildroot}%{_kf5_libdir}/libkleopatraclientgui.so
 %{_kf5_qtplugindir}/pim5/kcms/kleopatra/kleopatra_config_gnupgsystem.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

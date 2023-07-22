@@ -1,6 +1,6 @@
 Name:       miniz
 Version:    3.0.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Compression library implementing the zlib and Deflate
 # examples/example1.c:  Unlicense (refers to "unlicense" statement at the end
 #                       of tinfl.c from miniz-1.15)
@@ -133,6 +133,9 @@ install -m 0644 %{name}.h '%{buildroot}/%{_includedir}'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           htmlcxx
 Version:        0.86
-Release:        19%{?dist}
+Release:        20%{?dist}
 License:        LGPLv2 and GPLv2+ and ASL 2.0 and MIT
 Summary:        A simple non-validating CSS1 and HTML parser for C++
 Url:            http://htmlcxx.sourceforge.net/
@@ -67,6 +67,9 @@ make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Florian Weimer <fweimer@redhat.com> - 0.86-19
 - Build in C89 mode (#2168170)
 

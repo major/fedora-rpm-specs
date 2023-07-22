@@ -5,7 +5,7 @@
 %global forgeurl https://github.com/pennersr/%{srcname}
 
 Name:           python-%{srcname}
-Version:        0.46.0
+Version:        0.54.0
 Release:        %autorelease
 Summary:        Integrated set of Django authentication apps
 License:        MIT

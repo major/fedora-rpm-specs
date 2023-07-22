@@ -8,7 +8,7 @@ Summary: 2D retro platformer inspired by Sonic games
 License: GPLv3 and WTFPL
 
 Version: 0.6.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://opensurge2d.org
 Source0: https://github.com/alemart/opensurge/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -120,6 +120,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

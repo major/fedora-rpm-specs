@@ -1,6 +1,6 @@
 Name:           lsp-plugins
 Version:        1.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Linux Studio Plugins
 
 License:        LGPL-3.0-or-later and Zlib
@@ -159,6 +159,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/clap/%{name}-clap.clap
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 04 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.2.6-1
 - Update to 1.2.6
 

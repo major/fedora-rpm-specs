@@ -1,6 +1,6 @@
 Name:		libaesgm
 Version:	20090429
-Release:	29%{?dist}
+Release:	30%{?dist}
 License:	BSD
 Summary:	Library implementation of AES (Rijndael) cryptographic methods
 URL:		http://gladman.plushost.co.uk/oldsite/AES/index.php
@@ -50,6 +50,9 @@ make DESTDIR="%{buildroot}" LIBDIR="%{_libdir}" install
 %{_libdir}/libaesgm.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20090429-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20090429-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		perl-Sub-Exporter-Progressive
 Version:	0.001013
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Only use Sub::Exporter if you need it
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Exporter-Progressive
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/Sub::Exporter::Progressive.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001013-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 12 2023 Paul Howarth <paul@city-fan.org> - 0.001013-21
 - Spec tidy-up
   - Use SPDX-format license tag

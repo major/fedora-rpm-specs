@@ -1,6 +1,6 @@
 Name:		pcb2gcodeGUI
 Version:	1.3.2
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	A GUI for pcb2gcode
 
 License:	GPLv3+
@@ -40,6 +40,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

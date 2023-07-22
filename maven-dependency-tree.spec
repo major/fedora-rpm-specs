@@ -2,7 +2,7 @@
 
 Name:          maven-dependency-tree
 Version:       3.1.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Maven dependency tree artifact
 License:       ASL 2.0
 URL:           https://maven.apache.org/
@@ -61,6 +61,9 @@ rm src/main/java/org/apache/maven/shared/dependency/graph/internal/Maven3Depende
 %doc LICENSE NOTICE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

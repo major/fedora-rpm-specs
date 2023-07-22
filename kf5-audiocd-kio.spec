@@ -3,7 +3,7 @@
 Name:    kf5-audiocd-kio
 Summary: KF5 Audiocd kio slave
 Version: 23.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code GPLv2+, handbook/docs GFDL
 License: GPLv2+
@@ -122,6 +122,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

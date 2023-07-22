@@ -1,7 +1,7 @@
 Name:           massif-visualizer
 Summary:        Visualizer for Massif heap memory profiler data files
 Version:        0.7.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://cgit.kde.org/%{name}.git
 Source0:        http://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

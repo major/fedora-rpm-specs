@@ -2,7 +2,7 @@
 Summary: Clam Anti-Virus on the KDE Desktop
 Name: klamav
 Version: 0.46
-Release: 41%{?dist}
+Release: 42%{?dist}
 Source0: http://downloads.sourceforge.net/klamav/%{name}-%{version}.tar.bz2
 Patch0: klamav-0.46-suse-clamav-path.patch
 # Upstream notified via mailing list:
@@ -106,6 +106,9 @@ chmod 644 src/klammail/*.{c,h}
 %{_datadir}/icons/*/*x*/apps/klamav.png
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 0.46-41
 - Rebuild for clamav 1.0.0
 

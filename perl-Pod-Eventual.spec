@@ -1,6 +1,6 @@
 Name:           perl-Pod-Eventual
 Version:        0.094003
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Read a POD document as a series of trivial events
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Eventual
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Pod::Eventual::Simple.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.094003-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.094003-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

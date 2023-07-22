@@ -1,6 +1,6 @@
 Name:           perl-PerlIO-buffersize
 Version:        0.002
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Set the buffersize of a handle
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/PerlIO-buffersize
@@ -80,6 +80,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.002-13
 - Perl 5.38 rebuild
 

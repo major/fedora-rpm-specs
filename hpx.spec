@@ -1,6 +1,6 @@
 Name:           hpx
 Version:        1.8.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
@@ -273,6 +273,9 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Christoph Junghans <junghans@votca.org> - 1.8.1-4
 - Fix deps for devel packages
 

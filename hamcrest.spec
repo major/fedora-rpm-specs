@@ -4,7 +4,7 @@
 
 Name:           hamcrest
 Version:        2.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Library of matchers for building test expressions
 License:        BSD
 URL:            https://github.com/hamcrest/JavaHamcrest
@@ -93,6 +93,9 @@ popd
 %license LICENSE.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Marian Koncek <mkoncek@redhat.com> - 2.2-10
 - Add Automatic-Module-Name manifest entry
 

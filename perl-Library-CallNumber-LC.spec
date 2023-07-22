@@ -1,6 +1,6 @@
 Name:           perl-Library-CallNumber-LC
 Version:        0.23
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Normalize Library of Congress call numbers for sorting
 
 License:        (GPL+ or Artistic) or BSD
@@ -44,6 +44,9 @@ perl Build.PL installdirs=vendor
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

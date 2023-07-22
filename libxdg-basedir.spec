@@ -1,6 +1,6 @@
 Name:           libxdg-basedir
 Version:        1.2.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Implementation of the XDG Base Directory Specifications
 
 License:        MIT
@@ -87,6 +87,9 @@ diff -u grep.NULL grep.HOME
 %doc doc/html/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.0-30
 - migrated to SPDX license
 

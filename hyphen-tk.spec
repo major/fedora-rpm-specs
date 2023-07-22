@@ -2,7 +2,7 @@ Name: hyphen-tk
 Summary: Turkmen hyphenation rules
 %global upstreamid 20210322
 Version: 0.%{upstreamid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: http://mirror.ctan.org/language/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/hyph-tk.tex
 URL: http://tug.org/tex-hyphen
 License: MIT
@@ -37,6 +37,9 @@ cp -p hyph_tk_TM.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/hyph_tk_TM.dic
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210322-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 28 2023 Caolán McNamara <caolanm@redhat.com> - 0.20210322-1
 - latest version with clarified license
 - migrated to SPDX license

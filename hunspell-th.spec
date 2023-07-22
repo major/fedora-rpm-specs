@@ -8,7 +8,7 @@ Name: hunspell-th
 Summary: Thai hunspell dictionaries
 %global upstreamid 20061212
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/th_TH.zip
 URL: https://wiki.openoffice.org/wiki/Dictionaries
 License: LGPL-2.1-or-later
@@ -38,6 +38,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20061212-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20061212-29
 - migrated to SPDX license
 

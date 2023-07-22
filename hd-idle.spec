@@ -1,6 +1,6 @@
 Name:           hd-idle
 Version:        1.05
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Spin down idle [USB] hard disks
 
 License:        GPLv2
@@ -78,6 +78,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

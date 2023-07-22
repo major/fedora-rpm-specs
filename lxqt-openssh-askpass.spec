@@ -3,7 +3,7 @@
 Name:    lxqt-openssh-askpass
 Summary: Askpass openssh transition dialog for LXQt desktop suite
 Version: 1.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -68,6 +68,9 @@ install -p -m0644 %SOURCE1 %SOURCE2 %{buildroot}%{_sysconfdir}/profile.d/
 %dir %{_datadir}/lxqt/translations/lxqt-openssh-askpass
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

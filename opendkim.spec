@@ -13,7 +13,7 @@
 Summary: A DomainKeys Identified Mail (DKIM) milter to sign and/or verify mail
 Name: opendkim
 Version: 2.11.0
-Release: 0.34%{?dist}
+Release: 0.35%{?dist}
 License: BSD-3-Clause AND Sendmail
 URL: http://%{name}.org/
 Source0: https://github.com/trusteddomainproject/OpenDKIM/archive/%{full_version}.tar.gz
@@ -221,6 +221,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-0.35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 16 2023 Matt Domsch <mdomsch@fedoraproject.org> 2.11.0-0.34
 - remove failing systemd protections
 

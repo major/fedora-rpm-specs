@@ -15,9 +15,9 @@
 Name:           mate-notification-daemon
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
-Release:        0.20%{?git_rel}%{?dist}
+Release:        0.21%{?git_rel}%{?dist}
 %endif
 Summary:        Notification daemon for MATE Desktop
 License:        GPLv2+
@@ -99,6 +99,9 @@ rm -f  %{buildroot}%{_datadir}/applications/mate-notification-daemon.desktop
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 12 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1
 

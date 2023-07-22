@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.6.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -197,6 +197,9 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Haibo Lin <hlin@redhat.com> - 0.6.0-3
 - Backport patch for Python 3.12
 

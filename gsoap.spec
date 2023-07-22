@@ -1,7 +1,7 @@
 Summary: Generator Tools for Coding SOAP/XML Web Services in C and C++
 Name: gsoap
 Version: 2.8.124
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # gsoap is licensed both under the gSOAP public license and under GPL version
 # 2 or later with an OpenSSL linking exception.
@@ -373,6 +373,9 @@ install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
 %license LICENSE.txt GPLv2_license.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.124-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.124-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

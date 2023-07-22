@@ -8,6 +8,7 @@ Summary:    Command-line SMTP transaction tester
 License:    GPL-2.0-or-later
 URL:        http://www.jetmore.org/john/code/swaks
 Source0:    http://www.jetmore.org/john/code/swaks/swaks-%version.tar.gz
+Patch0:     swaks-remove-deprecated.patch
 
 BuildArch:  noarch
 BuildRequires: perl-generators
@@ -18,7 +19,7 @@ Requires:   perl(Authen::NTLM)
 Requires:   perl(Authen::SASL)
 Requires:   perl(Config)
 Requires:   perl(Digest::SHA)
-Requires:   perl(IO::Socket::INET6)
+Requires:   perl(IO::Socket::IP)
 Requires:   perl(Net::DNS)
 Requires:   perl(Net::SSLeay)
 Requires:   perl(Time::HiRes)
@@ -28,7 +29,7 @@ Swiss Army Knife SMTP: A command line SMTP tester.  Swaks can test
 various aspects of your SMTP server, including TLS and AUTH.
 
 %prep
-%autosetup
+%autosetup -p1
 %to_utf8 doc/Changes.txt
 
 %install

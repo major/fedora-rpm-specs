@@ -7,7 +7,7 @@
 Name: hunspell-ur
 Summary: Urdu hunspell dictionaries
 Version: 0.64
-Release: 27%{?dist}
+Release: 28%{?dist}
 #http://urdudictionary.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=30004#DownloadId=74761
 #and click yes to agree to LGPLv2+, which stinks as a download-url :-(
 Source: UrduDictionary.xpi
@@ -47,6 +47,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolan McNamara <caolanm@redhat.com> - 0.64-27
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 Name:           ini2toml
 Version:        0.10
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Automatic conversion of .ini/.cfg files to TOML equivalents
 
 License:        MPLv2.0
@@ -61,6 +61,9 @@ sed -i '/validate-pyproject/d' setup.cfg
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 0.10-6
 - Rebuilt for Python 3.12
 

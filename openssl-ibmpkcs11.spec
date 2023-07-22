@@ -2,7 +2,7 @@
 
 Name:           openssl-ibmpkcs11
 Version:        1.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        IBM OpenSSL PKCS#11 engine
 
 License:        OpenSSL
@@ -44,6 +44,9 @@ rm -f $RPM_BUILD_ROOT%{enginesdir}/*.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

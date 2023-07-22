@@ -1,6 +1,6 @@
 Name:           perl-Net-DBus-GLib
 Version:        0.33.0
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Perl extension for the DBus GLib bindings
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-DBus-GLib
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.33.0-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.33.0-43
 - Perl 5.38 rebuild
 

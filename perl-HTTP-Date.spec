@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Date
 Version:        6.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Date conversion routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Date
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.06-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.06-1
 - 6.06 bump
 

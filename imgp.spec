@@ -1,6 +1,6 @@
 Name:       imgp
 Version:    2.8
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Multi-core batch image resizer and rotator
 
 License:    GPLv3+
@@ -59,6 +59,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

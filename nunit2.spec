@@ -2,7 +2,7 @@
 
 Name:           nunit2
 Version:        2.6.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Unit test framework for CLI
 License:        MIT with advertising
 Url:            http://www.nunit.org/
@@ -127,6 +127,9 @@ fi
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/NUnit &>/dev/null || :
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

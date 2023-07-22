@@ -1,6 +1,6 @@
 Name:           ladspa-rev-plugins
 Version:        0.3.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A reverberation plugin for LADSPA
 License:        GPLv2+
 URL:            http://www.kokkinizita.net/linuxaudio/
@@ -46,6 +46,9 @@ rm ladspa.h
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

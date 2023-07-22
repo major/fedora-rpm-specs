@@ -5,7 +5,7 @@
 
 Name:           mathicgb
 Version:        1.0
-Release:        32.%{gitdate}.git%{shorttag}%{?dist}
+Release:        33.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Groebner basis computations
 
 License:        GPL-2.0-or-later
@@ -95,6 +95,9 @@ make check
 %{_libdir}/lib%{name}.so.0*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-33.20220621.gitf3a05da
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1.0-32.20220621.gitf3a05da
 - Drop 32-bit ARM workaround
 

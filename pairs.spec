@@ -1,6 +1,6 @@
 Name:    pairs
 Version: 15.04.2
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Memory and logic stimulation game for preschool children
 
 License: GPLv2 or GPLv3
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/pairseditor
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.04.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.04.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

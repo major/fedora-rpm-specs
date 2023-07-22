@@ -1,7 +1,7 @@
 Summary: Manipulate system time per process for testing purposes
 Name: libfaketime
 Version: 0.9.10
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+
 Url: https://github.com/wolfcw/libfaketime
 Source: libfaketime-0.9.10.tar.gz
@@ -116,6 +116,9 @@ chmod a+rx %{buildroot}/%{_libdir}/faketime/*.so.*
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Pablo Greco <pgreco@centosproject.org> - 0.9.10-5
 - Fix tests in ELN builds (yselkowitz)
 

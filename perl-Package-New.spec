@@ -1,6 +1,6 @@
 Name:           perl-Package-New
 Version:        0.09
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Simple base package from which to inherit
 License:        BSD
 URL:            https://metacpan.org/release/Package-New
@@ -39,6 +39,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

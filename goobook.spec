@@ -1,6 +1,6 @@
 Name:		goobook
 Version:	3.5
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Abook-style interface for Google contacts for mutt
 
 License:	GPLv3
@@ -40,6 +40,9 @@ done
 %{_bindir}/goobook
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.5-9
 - Rebuilt for Python 3.12
 

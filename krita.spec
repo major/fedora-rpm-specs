@@ -10,7 +10,7 @@
 
 Name:           krita
 Version:        5.1.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -173,6 +173,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 5.1.5-4
 - Rebuilt for Python 3.12
 

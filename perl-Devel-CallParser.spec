@@ -1,6 +1,6 @@
 Name:           perl-Devel-CallParser
 Version:        0.002
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Custom parsing attached to subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallParser
@@ -75,6 +75,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Devel::CallParser.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.002-32
 - Perl 5.38 rebuild
 

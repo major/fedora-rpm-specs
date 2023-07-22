@@ -1,6 +1,6 @@
 Name:       jalv
 Version:    1.6.4
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    A simple but fully featured LV2 host for Jack
 
 License:    MIT
@@ -93,6 +93,9 @@ ln -fs %{name}.qt4 %{buildroot}%{_bindir}/%{name}.qt
 %{_mandir}/man1/%{name}.gtkmm.1.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

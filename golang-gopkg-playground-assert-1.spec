@@ -16,7 +16,7 @@ provides the building blocks for creating your own more complex validations.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Basic assertion library used along side native Go testing
 
 License:        MIT
@@ -42,6 +42,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

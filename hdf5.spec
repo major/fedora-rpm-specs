@@ -16,7 +16,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.12.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -544,6 +544,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 1.12.1-12
 - Apply upstream patch to fix C99 compatibility issue
 

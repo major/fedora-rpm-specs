@@ -4,7 +4,7 @@
 
 Name:           mingw-%{_basename}
 Version:        0.15.1b
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        ID3 tag manipulation library
 
 License:        GPLv2+
@@ -137,6 +137,9 @@ rm -f %{buildroot}/%{mingw64_libdir}/*.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1b-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1b-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

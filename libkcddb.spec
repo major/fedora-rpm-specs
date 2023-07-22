@@ -1,6 +1,6 @@
 Name:    libkcddb
 Version: 16.08.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: KDE4 CDDB retrieval library
 
 License: LGPLv2+ and GPLv2+
@@ -93,6 +93,9 @@ bzip2 -9 %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/cddbretrieval/index.cache
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

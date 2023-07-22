@@ -1,7 +1,7 @@
 Name:           lpairs
 Summary:        Classical memory game with cards
 Version:        1.0.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPLv2+ and CC-BY-SA and Freely redistributable without restriction
 URL:            https://lgames.sourceforge.net/index.php?project=LPairs
 Source0:        https://downloads.sourceforge.net/lgames/lpairs-%{version}.tar.gz
@@ -52,6 +52,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications \
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

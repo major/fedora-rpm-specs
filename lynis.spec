@@ -6,7 +6,7 @@
 
 Name:           lynis
 Version:        3.0.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Security and system auditing tool
 License:        GPL-3.0-only
 URL:            https://cisofy.com/lynis/
@@ -81,6 +81,9 @@ touch %{buildroot}%{_localstatedir}/log/lynis-report.dat
 %ghost %{_localstatedir}/log/lynis-report.dat
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.8-4
 - migrated to SPDX license
 

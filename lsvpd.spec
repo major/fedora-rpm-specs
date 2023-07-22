@@ -1,6 +1,6 @@
 Name:		lsvpd
 Version:	1.7.14
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	VPD/hardware inventory utilities for Linux
 
 License:	GPL-2.0-or-later
@@ -73,6 +73,9 @@ exit 0
 %dir %{_sysconfdir}/lsvpd
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.14-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 23 2023 Than Ngo <than@redhat.com> - 1.7.14-6
 - lsvpd is not reporting the correct I/O microcode
   for HBA, PCIe, SAS adapters, HDD, etc

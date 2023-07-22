@@ -22,7 +22,7 @@ Connection pool for Go's net.Conn interface.}
 %global gosupfiles      glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Connection pool for Go's net.Conn interface
 
 License:        MIT
@@ -64,6 +64,9 @@ end
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

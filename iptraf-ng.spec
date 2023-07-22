@@ -1,7 +1,7 @@
 Summary:        A console-based network monitoring utility
 Name:           iptraf-ng
 Version:        1.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Source0:        https://github.com/iptraf-ng/iptraf-ng/archive/v%{version}.tar.gz
 Source1:        %{name}-logrotate.conf
 Source2:        %{name}-tmpfiles.conf
@@ -69,6 +69,9 @@ install -d -m 0755 %{buildroot}/run/%{name}/
 %{_prefix}/lib/tmpfiles.d/%{name}.conf
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

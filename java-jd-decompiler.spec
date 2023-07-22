@@ -1,6 +1,6 @@
 Name:           java-jd-decompiler
 Version:        1.1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        JAVA library having JAVA decompiler of "Java Decompiler project"
 
 License:        GPLv3
@@ -76,6 +76,9 @@ cp -v %{SOURCE4} $RPM_BUILD_ROOT/%{_mandir}/man1
 %doc README.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

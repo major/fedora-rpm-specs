@@ -1,6 +1,6 @@
 Name:           perl-Nmap-Parser
 Version:        1.37
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Parse nmap scan data with perl
 License:        MIT
 URL:            https://metacpan.org/release/Nmap-Parser
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.37-15
 - Use macros make_*
 

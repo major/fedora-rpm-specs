@@ -3,7 +3,7 @@
 
 Name:           perl-PPIx-QuoteLike
 Version:        0.023
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parse Perl string literals and string-literal-like things
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPIx-QuoteLike
@@ -113,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.023-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.023-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

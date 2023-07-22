@@ -18,7 +18,7 @@ instrumentation API.}
 %global godocs          examples CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Go implementation of the PCP instrumentation API
 
 License:        MIT
@@ -48,6 +48,9 @@ BuildRequires:  golang(github.com/pkg/errors)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

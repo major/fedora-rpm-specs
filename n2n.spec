@@ -1,6 +1,6 @@
 Name:           n2n
 Version:        2.1.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A layer-two peer-to-peer virtual private network
 
 License:        GPLv3+
@@ -43,6 +43,9 @@ make INSTALL="install -p" install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

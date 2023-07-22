@@ -1,7 +1,7 @@
 Summary:       Libraries to move files to a trash-folder on delete
 Name:          libtrash
 Version:       3.7
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       GPL-2.0-or-later
 
 URL:           https://pages.stern.nyu.edu/~marriaga/software/libtrash
@@ -61,6 +61,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/{BUILD,INSTALL}
 %{_libdir}/libtrash.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3.7-3
 - migrated to SPDX license
 

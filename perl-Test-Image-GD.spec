@@ -1,6 +1,6 @@
 Name:           perl-Test-Image-GD
 Version:        0.03
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Module for testing images using GD
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Image-GD
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/Test::Image::GD.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 26 2023 Paul Howarth <paul@city-fan.org> - 0.03-29
 - Spec tidy-up
   - Use SPDX-format license tag

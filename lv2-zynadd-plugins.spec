@@ -3,7 +3,7 @@
 Summary:	LV2 port of the ZynAddSubFX engine
 Name:		lv2-zynadd-plugins
 Version:	1
-Release:	30%{?dist}
+Release:	31%{?dist}
 # lv2-midi*.h is LGPLv2+
 # but the rest is GPLv2. The whole plugin will be then:
 License:	GPL-2.0-only
@@ -51,6 +51,9 @@ make LV2_INSTALL_PATH=%{buildroot}%{_libdir}/lv2 install
 %{_libdir}/lv2/zynadd.lv2/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1-30
 - migrated to SPDX license
 

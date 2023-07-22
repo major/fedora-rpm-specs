@@ -1,6 +1,6 @@
 Name:           perl-Config-Record
 Version:        1.1.2
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Perl module for Configuration file access
 
 License:        GPL-2.0-or-later
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/Config::Record*.3pm*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

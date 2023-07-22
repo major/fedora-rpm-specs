@@ -24,7 +24,7 @@
 Name:      %{libname}-awesome
 Summary:   Client library and command line tools for memcached server
 Version:   %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:   1%{?dist}
+Release:   2%{?dist}
 # SPDX:
 License:   BSD-3-Clause
 URL:       https://github.com/%{gh_owner}/%{gh_project}
@@ -187,6 +187,9 @@ rm -r %{buildroot}%{_datadir}/doc/%{name}/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 1.1.4-1
 - update to 1.1.4
 

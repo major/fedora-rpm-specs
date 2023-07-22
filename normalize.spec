@@ -1,7 +1,7 @@
 Summary:  Adjust the volume of audio files to a standard level
 Name:     normalize
 Version:  0.7.7
-Release:  28%{?dist}
+Release:  29%{?dist}
 URL:      http://normalize.nongnu.org/
 License:  GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0:  http://download.savannah.gnu.org/releases/normalize/normalize-%{version}.tar.gz
@@ -75,6 +75,9 @@ make check
 %{_mandir}/man1/normalize-mp3.1.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 16 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.7.7-28
 - add mpg123 to dependencies (required for mp3 decoding)
 - use SPDX license identifiers

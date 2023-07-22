@@ -1,7 +1,7 @@
 Name: pam_radius
 Summary: PAM Module for RADIUS Authentication
 Version: 2.0.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.freeradius.org/pam_radius_auth/
 
@@ -62,6 +62,9 @@ install -p pam_radius_auth.conf %{buildroot}%{_sysconfdir}/pam_radius.conf
 /%{_lib}/security/pam_radius_auth.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May  2 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2.0.0-6
 - pam_radius_auth: allow "ipv4=no" and "ipv6=no" in the PAM file. Resolves: #2192547
 

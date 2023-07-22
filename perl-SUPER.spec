@@ -1,6 +1,6 @@
 Name:		perl-SUPER
 Version:	1.20190531
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Sane superclass method dispatcher
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/SUPER
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/SUPER.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20190531-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 04 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.20190531-14
 - Update license to SPDX format
 

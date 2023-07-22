@@ -9,7 +9,7 @@
 Name:		perl-JSON-MaybeXS
 Summary:	Use Cpanel::JSON::XS with a fallback to JSON::XS and JSON::PP
 Version:	1.004005
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/JSON-MaybeXS
 Source0:	https://cpan.metacpan.org/modules/by-module/JSON/JSON-MaybeXS-%{version}.tar.gz
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man3/JSON::MaybeXS.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.004005-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 30 2023 Paul Howarth <paul@city-fan.org> - 1.004005-1
 - Update to 1.004005
   - to_json and from_json are now documented (GH#2)

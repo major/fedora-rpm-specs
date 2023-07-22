@@ -1,6 +1,6 @@
 Name:           mingw-nsiswrapper
 Version:        12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Helper program for making NSIS Windows installers
 
 License:        GPLv2+
@@ -76,6 +76,9 @@ pod2man -c "NSIS" -r "%{name}-%{version}" %{SOURCE0} \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 25 2023 Richard W.M. Jones <rjones@redhat.com> - 12-1
 - Use mingw*-crt to search for DLLs (RHBZ#2164360)
 - Remove ancient Fedora conditional.

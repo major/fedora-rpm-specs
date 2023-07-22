@@ -1,6 +1,6 @@
 Name: libnetconf2
 Version: 2.1.25
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: NETCONF protocol library
 Url: https://github.com/CESNET/libnetconf2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.25-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

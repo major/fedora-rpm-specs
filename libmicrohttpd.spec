@@ -1,6 +1,6 @@
 Name:           libmicrohttpd
 Version:        0.9.76
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Lightweight library for embedding a webserver in applications
 License:        LGPLv2+
@@ -100,6 +100,9 @@ fi
 %doc html
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.76-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 28 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:0.9.76-1
 - Update to 1:0.9.76
 

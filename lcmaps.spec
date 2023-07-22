@@ -18,7 +18,7 @@
 Summary: Grid (X.509) and VOMS credentials to local account mapping service
 Name: lcmaps
 Version: 1.6.6
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: ASL 2.0
 URL: http://wiki.nikhef.nl/grid/LCMAPS
 Source0: http://software.nikhef.nl/security/lcmaps/lcmaps-%{version}.tar.gz
@@ -289,6 +289,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_docdir}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

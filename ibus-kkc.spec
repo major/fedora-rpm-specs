@@ -1,6 +1,6 @@
 Name:		ibus-kkc
 Version:	1.5.22
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Japanese Kana Kanji input method for ibus
 
 License:	GPLv2+
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-kkc.deskt
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.22-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.22-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

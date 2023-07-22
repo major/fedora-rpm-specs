@@ -1,6 +1,6 @@
 Name:           perl-Net-CUPS
 Version:        0.64
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perl bindings to the CUPS C API Interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CUPS
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.64-23
 - Perl 5.38 rebuild
 

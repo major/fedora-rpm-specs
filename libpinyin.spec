@@ -2,7 +2,7 @@
 
 Name:           libpinyin
 Version:        2.8.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library to deal with pinyin
 
 License:        GPL-3.0-or-later
@@ -108,6 +108,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 19 2023 Peng Wu <pwu@redhat.com> - 2.8.1-3
 - Migrate to SPDX license
 

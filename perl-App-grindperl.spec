@@ -1,6 +1,6 @@
 Name:           perl-App-grindperl
 Version:        0.004
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Command-line tool to help build and test blead perl
 License:        ASL 2.0
 URL:            https://metacpan.org/release/App-grindperl
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

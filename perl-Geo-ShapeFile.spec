@@ -1,6 +1,6 @@
 Name:           perl-Geo-ShapeFile
 Version:        3.03
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl extension for handling ESRI GIS Shapefiles
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Geo-ShapeFile
@@ -100,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.03-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.03
 - 3.03 bump
 

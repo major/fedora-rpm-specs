@@ -4,7 +4,7 @@
 Summary: 	Open Fingerprint Architecture library	
 Name:		libofa	
 Version:	0.9.3	
-Release:	44%{?dist}
+Release:	45%{?dist}
 
 License:	GPLv2
 Url:		http://code.google.com/p/musicip-libofa/
@@ -95,6 +95,9 @@ rm -rf examples/.deps examples/Makefile examples/*.gcc43
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

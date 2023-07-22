@@ -1,6 +1,6 @@
 Name:           libgee
 Version:        0.20.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GObject collection library
 
 License:        LGPLv2+
@@ -101,6 +101,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

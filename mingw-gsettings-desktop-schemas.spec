@@ -5,7 +5,7 @@
 
 Name:           mingw-gsettings-desktop-schemas
 Version:        44.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW Windows gsettings-desktop-schemas
 
 License:        LGPL-2.1-or-later
@@ -90,6 +90,9 @@ settings shared by various components of a desktop.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 05 2023 Sandro Mani <manisandro@gmail.com> - 44.0-4
 - Fix %%{mingw_datadir}/GConf/ ownership
 

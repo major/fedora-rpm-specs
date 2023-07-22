@@ -1,6 +1,6 @@
 Name:           perl-KinoSearch1
 Version:        1.01
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Search engine library
 # ApacheLicense2.0.txt is only included because the upstream
 # author decided to include it and is only for informative purposes.
@@ -154,6 +154,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.01-43
 - Perl 5.38 rebuild
 

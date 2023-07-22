@@ -8,7 +8,7 @@
 
 Name:    ima-evm-utils
 Version: 1.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: IMA/EVM support utilities
 License: GPLv2
 Url:     http://linux-ima.sourceforge.net/
@@ -99,6 +99,9 @@ popd
 %{_libdir}/libimaevm.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5-1
 - Disable bootstrap
 

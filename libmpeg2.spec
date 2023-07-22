@@ -1,6 +1,6 @@
 Name:           libmpeg2
 Version:        0.5.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        MPEG-2 decoder libraries
 
 License:        GPLv2+
@@ -105,6 +105,9 @@ install -pm 0644 libmpeg2/mpeg2_internal.h \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

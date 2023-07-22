@@ -1,6 +1,6 @@
 Name:           perl-JSON-Color
 Version:        0.134
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Encode to colored JSON
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/JSON-Color/
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.134-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.134-1
 - 0.134 bump (BZ#2219181)
 

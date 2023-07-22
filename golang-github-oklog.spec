@@ -18,7 +18,7 @@ block: easy to understand, easy to operate, and easy to extend.}
 %global godocs          doc DESIGN.md MODEL.md README.md
 
 Name:           %{goname}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Distributed and coordination-free log management system
 
 # Upstream license specification: Apache-2.0
@@ -81,6 +81,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

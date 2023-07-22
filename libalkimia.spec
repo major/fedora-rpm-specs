@@ -10,7 +10,7 @@
 Name:    libalkimia
 Summary: Financial library
 Version: 8.0.3
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: LGPLv2+
 URL:     https://kmymoney.org/
@@ -162,6 +162,9 @@ make test ARGS="-E alkonlinequotestest --output-on-failure --timeout 20" -C %{_t
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

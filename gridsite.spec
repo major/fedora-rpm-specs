@@ -6,7 +6,7 @@
 
 Name:           gridsite
 Version:        3.0.0
-Release:        0.25.20230214git%{shortcommit}%{?dist}
+Release:        0.26.20230214git%{shortcommit}%{?dist}
 Summary:        Grid Security for the Web, Web platforms for Grids
 
 #  - src/gsexec.c ASL 2.0 (not used)
@@ -246,6 +246,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-security/vomsdir
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.26.20230214gitee81151
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 14 2023 František Dvořák <valtri@civ.zcu.cz> - 3.0.0-0.25.20230214gitee81151
 - Update license field to SPDX identifier
 - New upstream snapshot

@@ -1,6 +1,6 @@
 Name:           perl-Config-IniFiles
 Version:        3.000003
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A module for reading .ini-style configuration files
 # LICENSE:                              GPL+ or Artistic
 # lib/Config/IniFiles.pm:               GPL+ or Artistic
@@ -80,6 +80,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.000003-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.000003-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

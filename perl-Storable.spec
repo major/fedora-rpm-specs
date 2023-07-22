@@ -2,7 +2,7 @@
 Name:           perl-Storable
 Epoch:          1
 Version:        3.32
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Persistence for Perl data structures
 # Storable.pm:  GPL+ or Artistic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -136,6 +136,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.32-500
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.32-499
 - Increase release to favour standalone package
 

@@ -1,7 +1,7 @@
 Name:           perl-Log-Dispatch-Config
 Summary:        Log4j for Perl        
 Version:        1.04
-Release:        32%{?dist}
+Release:        33%{?dist}
 License:        GPL+ or Artistic        
 URL:            https://metacpan.org/release/Log-Dispatch-Config
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Log-Dispatch-Config-%{version}.tar.gz 
@@ -66,6 +66,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Meta-TypeConstraint-ForceCoercion
 Version:        0.01
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Force coercion when validating type constraints
 License:        GPL+ or Artistic
 
@@ -42,6 +42,9 @@ make test
 %{_mandir}/man3/Moose*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

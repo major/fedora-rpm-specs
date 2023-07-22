@@ -1,6 +1,6 @@
 Name:           perl-Net-OpenID-Server
 Version:        1.09
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Library for building your own OpenID server/provider
 # LicenseRef-Fedora-Public-Domain: examples/server.cgi
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           perl-Module-Load
 # Epoch to compete with perl.spec
 Epoch:          1
 Version:        0.36
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Run-time require of both modules and files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Load
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.36-500
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.36-499
 - Increase release to favour standalone package
 

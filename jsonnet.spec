@@ -1,7 +1,7 @@
 Name:           jsonnet
 Version:        0.20.0
 %global so_version 0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -177,6 +177,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.20.0-3
 - Rebuilt for Python 3.12
 

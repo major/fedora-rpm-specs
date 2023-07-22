@@ -1,6 +1,6 @@
 Name:          group-service
 Version:       1.4.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Dbus Group management CLI tool
 License:       GPLv3+ 
 URL:           https://github.com/zhuyaliang/%{name}
@@ -75,6 +75,9 @@ group-service back-ends development.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 26 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.4.0-1
 - update to 1.4.0
 

@@ -1,6 +1,6 @@
 Name:       perl-HTML-TagCloud 
 Version:    0.38
-Release:    28%{?dist}
+Release:    29%{?dist}
 # lib/HTML/TagCloud.pm -> GPL+ or Artistic
 License:    GPL+ or Artistic 
 Summary:    Generate An HTML Tag Cloud 
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

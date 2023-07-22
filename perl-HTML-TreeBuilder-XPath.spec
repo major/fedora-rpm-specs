@@ -1,6 +1,6 @@
 Name:           perl-HTML-TreeBuilder-XPath
 Version:        0.14
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Add XPath support to HTML::TreeBuilder
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-TreeBuilder-XPath
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -48,6 +48,7 @@ Source0:        http://www.borgelt.net/src/%{pypi_name}.tar.gz
 Summary:        %{summary}
 BuildRequires:  gcc
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  %{py3_dist Cython}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -57,6 +58,8 @@ BuildRequires:  %{py3_dist Cython}
 %prep
 %autosetup -c -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
+# Replace use of distutils.core.setup
+sed -i -e 's/distutils\.core/setuptools/' setup.py
 
 # Remove date stamp from version
 sed -i "s/version=.*/version='6.28',/" setup.py

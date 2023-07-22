@@ -3,7 +3,7 @@
 
 Name:       perl-Pod-Plainer
 Version:    1.04
-Release:    24%{?dist}
+Release:    25%{?dist}
 Summary:    Perl extension for converting modern POD to old-style POD
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/Pod-Plainer
@@ -86,6 +86,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

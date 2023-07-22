@@ -1,6 +1,6 @@
 Name:           perl-MD5
 Version:        2.03
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Perl interface to the MD5 Message-Digest Algorithm
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MD5
@@ -42,6 +42,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-JobQueue
 Version:        0.571
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Process a large number of tasks with a finite number of workers
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-JobQueue
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.571-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.571-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

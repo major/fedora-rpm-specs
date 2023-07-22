@@ -1,7 +1,7 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
 Version:       4.4.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
@@ -170,6 +170,9 @@ find html -name 'Makefile*' | xargs rm
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.4.0-6
 - Fix CVE-2023-0804 (#2170195)
 

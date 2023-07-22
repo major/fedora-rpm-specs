@@ -15,7 +15,7 @@ Summary:        Simple package build system for OCaml
 
 %forgemeta
 
-Release:        21%{?dist}
+Release:        22%{?dist}
 License:        BSD-2-Clause
 URL:            https://github.com/ocaml-obuild/obuild
 Source0:        %{forgesource}
@@ -81,6 +81,9 @@ help2man \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.1.10-21
 - OCaml 5.0 rebuild for Fedora 39
 

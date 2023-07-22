@@ -2,7 +2,7 @@
 
 Name:           mingw-libsigc++20
 Version:        2.10.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        MinGW Windows port of the typesafe signal framework for C++
 
 License:        LGPLv2+
@@ -132,6 +132,9 @@ rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/libsigc-2.0.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

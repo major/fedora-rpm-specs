@@ -17,9 +17,9 @@ Name:          mate-desktop
 License:       GPLv2+ and LGPLv2+ and MIT
 Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       3%{?dist}
+Release:       4%{?dist}
 %else
-Release:       0.17%{?git_rel}%{?dist}
+Release:       0.18%{?git_rel}%{?dist}
 %endif
 URL:           http://mate-desktop.org
 
@@ -208,6 +208,9 @@ install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mat
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 01 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-3
 - bump version to get higher version than f37 build
 

@@ -5,7 +5,7 @@
 
 Name:           kgrab
 Version:        0.1.1
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        A screen grabbing utility
 
 License:        GPLv2+
@@ -60,6 +60,9 @@ desktop-file-install --vendor ""                          \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

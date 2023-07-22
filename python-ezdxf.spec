@@ -75,6 +75,10 @@ Patch:          %{forgeurl}/pull/911.patch
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
 
+# Test failures with Cython 3
+# https://github.com/mozman/ezdxf/issues/913
+BuildRequires:  python3dist(cython) < 3~~
+
 BuildRequires:  dos2unix
 
 # Standard styles use OpenSans and Liberation fonts; see

@@ -2,7 +2,7 @@
 
 Name:           libpeas
 Version:        1.36.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plug-ins implementation convenience library
 
 License:        LGPL-2.1-or-later
@@ -107,6 +107,9 @@ that are needed to write applications that use libpeas.
 %{_datadir}/glade/catalogs/libpeas-gtk.xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.36.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.36.0-2
 - Rebuilt for Python 3.12
 

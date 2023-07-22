@@ -1,6 +1,6 @@
 Name:		perl-File-Slurp-Tiny
 Version:	0.004
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	A simple, sane and efficient file slurper
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/File-Slurp-Tiny
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/File::Slurp::Tiny.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Paul Howarth <paul@city-fan.org> - 0.004-23
 - Spec tidy-up
   - Drop support for building with Test::More < 0.88

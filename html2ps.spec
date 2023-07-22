@@ -12,7 +12,7 @@
 %define my_subversion b7
 Name:           html2ps
 Version:        1.0
-Release:        0.48.%{my_subversion}%{?dist}
+Release:        0.49.%{my_subversion}%{?dist}
 Summary:        HTML to PostScript converter
 # contrib/xhtml2ps/LICENSE:     GPL-2.0 text
 # contrib/xhtml2ps/README:      "X-html2ps is GPL"
@@ -153,6 +153,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*xhtml2ps.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.49.b7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Petr Pisar <ppisar@redhat.com> - 1.0-0.48.b7
 - Correct invoking paper tool (bug #2219360)
 

@@ -1,7 +1,7 @@
 Name:    kompare
 Summary: Diff tool
 Version: 23.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://apps.kde.org/kompare/
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kompare.deskt
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

@@ -2,7 +2,7 @@
 
 Name:		libkkc-data
 Version:	0.2.7
-Release:	23%{?dist}
+Release:	24%{?dist}
 Epoch:		1
 Summary:	Language model data for libkkc
 
@@ -42,6 +42,9 @@ export PYTHON=%{__python3}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.7-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.7-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

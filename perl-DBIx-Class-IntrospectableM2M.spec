@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Class-IntrospectableM2M
 Version:        0.001002
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Introspect many-to-many shortcuts
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-Class-IntrospectableM2M
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001002-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001002-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

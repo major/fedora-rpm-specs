@@ -1,6 +1,6 @@
 Name:           libpsl
 Version:        0.21.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C library for the Publix Suffix List
 License:        MIT
 URL:            https://rockdaboot.github.io/libpsl
@@ -146,6 +146,9 @@ make check || cat tests/test-suite.log
 %{_mandir}/man1/psl-make-dafsa.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.21.2-3
 - Rebuilt for libunistring-1.1
 - Mark psl-make-dafsa noarch

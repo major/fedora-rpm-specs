@@ -5,7 +5,7 @@
 
 Name:           libpreludedb
 Version:        5.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Framework for easy access to the IDMEF database
 # Prelude is GPL-2.0+
 # libmissing is LGPL-2.1+
@@ -209,6 +209,9 @@ chmod +x %{buildroot}%{_datadir}/%{name}/classic/mysql2sqlite.sh
 %doc ChangeLog README NEWS
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 5.2.0-12
 - Rebuilt for Python 3.12
 

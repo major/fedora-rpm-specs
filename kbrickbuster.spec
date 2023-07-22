@@ -1,7 +1,7 @@
 Name:    kbrickbuster
 Summary: Destroy bricks with a ball
 Version: 22.12.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://invent.kde.org/games/kbreakout
@@ -81,6 +81,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

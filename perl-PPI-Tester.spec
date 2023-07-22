@@ -1,6 +1,6 @@
 Name:           perl-PPI-Tester
 Version:        0.15
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A wxPerl-based interactive PPI debugger/tester
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -73,6 +73,9 @@ xvfb-run -a make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-28
 - Update Makefile.PL to not use Module::Install::DSL
 

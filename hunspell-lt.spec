@@ -7,7 +7,7 @@
 Name: hunspell-lt
 Summary: Lithuanian hunspell dictionaries
 Version: 1.2.1
-Release: 30%{?dist}
+Release: 31%{?dist}
 ## Note that upstream is dead and there is no download link available
 ## so please don't report FTBFS bugs for this package.
 Source: ftp://ftp.akl.lt/ispell-lt/lt_LT-%{version}.zip
@@ -42,6 +42,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 1.2.1-30
 - migrated to SPDX license
 

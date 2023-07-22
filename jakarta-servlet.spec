@@ -2,7 +2,7 @@
 
 Name:           jakarta-servlet
 Version:        5.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Server-side API for handling HTTP requests and responses
 # most of the project is EPL-2.0 or GPLv2 w/exceptions,
 # but some files still have Apache-2.0 license headers:
@@ -75,6 +75,9 @@ sed -i -e 's/jakarta\./javax./g' $(find api/src/main/java/javax -name *.java)
 %doc README.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

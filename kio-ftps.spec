@@ -1,6 +1,6 @@
 Name:           kio-ftps
 Version:        0.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        An ftps KIO slave for KDE
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ make install/fast  DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

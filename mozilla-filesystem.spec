@@ -1,6 +1,6 @@
 Name:           mozilla-filesystem
 Version:        1.9
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Mozilla filesytem layout
 License:        MPLv1.1
 
@@ -23,6 +23,9 @@ mkdir -p $RPM_BUILD_ROOT/etc/skel/.mozilla/{plugins,extensions}
 /etc/skel/.mozilla
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

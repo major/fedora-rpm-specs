@@ -6,7 +6,7 @@
 Summary:        Hardware Platform Interface library and tools
 Name:           openhpi
 Version:        3.8.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        BSD
 URL:            http://www.openhpi.org
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -213,6 +213,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           is-it-in-rhel
 Version:        1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Command line tool to find out if a package is in RHEL
 License:        GPLv2+
 URL:            https://pagure.io/is-it-in-rhel
@@ -37,6 +37,9 @@ packaged in RHEL or not.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0-13
 - Rebuilt for Python 3.12
 

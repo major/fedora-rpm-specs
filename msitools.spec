@@ -12,7 +12,7 @@
 
 Name:           msitools
 Version:        0.102
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Windows Installer tools
 
 License:        GPL-2.0-or-later
@@ -275,6 +275,9 @@ The libmsi1-devel package includes the header files for libmsi.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.102-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.102-1
 - New release v0.102
 

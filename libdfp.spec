@@ -1,6 +1,6 @@
 Name:		libdfp
 Version:	1.0.16
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Decimal Floating Point C Library
 License:	LGPL-2.1-or-later
 Url:		https://github.com/libdfp/libdfp
@@ -147,6 +147,9 @@ done
 %{_libdir}/pkgconfig/libdecnumber.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 1.0.16-6
 - Update licenses to SPDX indentifiers.
 - Add the license GPL-3.0-or-later WITH GCC-exception-3.1 in order to cover

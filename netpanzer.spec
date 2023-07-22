@@ -1,6 +1,6 @@
 Name:           netpanzer
 Version:        0.8.7
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        An Online Multiplayer Tactical Warfare Game
 
 License:        GPL-2.0-or-later
@@ -109,6 +109,9 @@ EOF
 %{_datadir}/netpanzer
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.7-22
 - migrated to SPDX license
 

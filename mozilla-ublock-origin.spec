@@ -7,7 +7,7 @@
 
 Name:           mozilla-ublock-origin
 Version:        1.50.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An efficient blocker for Firefox
 
 License:        GPLv3 and MIT and OFL and Unlicense
@@ -106,6 +106,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.50.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.50.0-1
 - update to 1.50.0 (#2213457)
 - match upstream build process for uAssets to avoid missing timestamps

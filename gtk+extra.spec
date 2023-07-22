@@ -1,6 +1,6 @@
 Name:		gtk+extra
 Version:	2.1.2
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	A library of gtk+ widgets
 Summary(fr):	Une bibliothèque de widgets gtk+
 
@@ -93,6 +93,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

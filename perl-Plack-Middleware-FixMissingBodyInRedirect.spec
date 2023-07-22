@@ -1,6 +1,6 @@
 Name:           perl-Plack-Middleware-FixMissingBodyInRedirect
 Version:        0.12
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Plack::Middleware which sets body for redirect response, if it's not already set
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Plack-Middleware-FixMissingBodyInRedirect
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

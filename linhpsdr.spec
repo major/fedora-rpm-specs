@@ -15,7 +15,7 @@
 
 Name:		linhpsdr
 Version:	0
-Release:	0.5.%{git_suffix}%{?dist}
+Release:	0.6.%{git_suffix}%{?dist}
 Summary:	An HPSDR application for Linux
 License:	GPLv2+
 URL:		https://github.com/g0orx/%{name}
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %doc documentation/*.pdf
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.6.20210710git742658a9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.5.20210710git742658a9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

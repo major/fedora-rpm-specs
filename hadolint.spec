@@ -15,7 +15,7 @@
 Name:           %{pkg_name}
 Version:        2.12.0
 # can only be reset when all subpkgs bumped
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Dockerfile linter, validate inline bash
 
 License:        GPL-3.0-or-later
@@ -234,6 +234,9 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 2.12.0-10
 - https://hackage.haskell.org/package/hadolint-2.12.0/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

@@ -9,7 +9,7 @@ Summary: Azerbaijani hunspell dictionaries
 # date is derived from upstream az.dic file timestamp
 %global upstreamid 20180807
 Version: 0.%{upstreamid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://github.com/mozillaz/spellchecker/archive/refs/heads/master.zip#/azerbaijani_spellchecker-0.2.zip
 URL: https://github.com/mozillaz/spellchecker/
 License: MPL-2.0
@@ -37,6 +37,9 @@ cp -p dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/az_AZ.aff
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20180807-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.20180807-1
 - Use new upstream which provide more wordlist
 - Update to new SPDX license

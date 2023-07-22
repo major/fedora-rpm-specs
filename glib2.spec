@@ -20,6 +20,9 @@ Patch1: 0001-gmain-Add-a-missing-return-on-error-path-in-g_main_c.patch
 # the baremetal Docker is updated there i.e. lets be a little bit pragmatic...
 Patch2: gspawn-eperm.patch
 
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3504
+Patch3: fix-missing-exported-symbols.patch
+
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gettext

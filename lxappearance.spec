@@ -20,7 +20,7 @@
 %global	git_version	D%{gitbaredate}git%{git_short}
 %endif
 
-%global	baserelease 13
+%global	baserelease 14
 
 %if 0%{?use_release} >= 1
 %global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
@@ -176,6 +176,9 @@ popd
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-14.D20200807gitd132fdd8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-13.D20200807gitd132fdd8.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name: mythes-bg
 Summary: Bulgarian thesaurus
 Version: 4.3
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: http://downloads.sourceforge.net/sourceforge/bgoffice/OOo-thes-bg-%{version}.zip
 Requires: mythes
 Supplements: (mythes and langpacks-bg)
@@ -45,6 +45,9 @@ cp -p th_bg_BG.idx $RPM_BUILD_ROOT/%{_datadir}/mythes/th_bg_BG_v2.idx
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 4.3-24
 - migrated to SPDX license
 

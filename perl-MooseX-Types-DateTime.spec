@@ -3,7 +3,7 @@
 
 Name:       perl-MooseX-Types-DateTime
 Version:    0.13
-Release:    24%{?dist}
+Release:    25%{?dist}
 # see, e.g., lib/MooseX/Types/DateTime.pm
 License:    GPL+ or Artistic
 
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

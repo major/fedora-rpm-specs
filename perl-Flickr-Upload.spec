@@ -1,7 +1,7 @@
 Name:           perl-Flickr-Upload
 Epoch:          2
 Version:        1.6
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Flickr.com upload module and script
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Flickr-Upload
@@ -76,6 +76,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.6-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.6-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

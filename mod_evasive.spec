@@ -1,6 +1,6 @@
 Name:           mod_evasive
 Version:        1.10.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Denial of Service evasion module for Apache
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ install -pm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

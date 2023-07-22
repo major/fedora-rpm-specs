@@ -7,7 +7,7 @@
 
 Name:           packit
 Version:        0.77.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -77,6 +77,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.77.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 17 2023 Packit <hello@packit.dev> - 0.77.0-1
 - Packit now includes dist-git branch in the title of the PRs for `propose-downstream` and `pull-from-upstream`. (#1996)
 - We have fixed an issue with `files_to_sync` filters not being applied properly. (#1977)

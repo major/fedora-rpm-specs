@@ -1,6 +1,6 @@
 Name:           perl-Data-Record
 Version:        0.02
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        "split" on steroids
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Record
@@ -47,6 +47,9 @@ be split up.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

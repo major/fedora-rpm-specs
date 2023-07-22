@@ -22,7 +22,7 @@
 Name:    kdebase3
 Summary: KDE 3 core files
 Version: 3.5.10
-Release: 77%{?dist}
+Release: 78%{?dist}
 
 # programs: GPLv2, libs: LGPLv2
 License: GPL-2.0-only
@@ -764,6 +764,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-78
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 3.5.10-77
 - Port configure script to C99 (#2186679)
 

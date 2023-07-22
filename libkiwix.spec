@@ -1,6 +1,6 @@
 Name: libkiwix
 Version: 12.0.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Common code base for all Kiwix ports
@@ -60,6 +60,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/kiwix.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 12.0.0-7
 - Rebuilt for ICU 73.2
 

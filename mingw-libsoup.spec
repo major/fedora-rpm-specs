@@ -5,7 +5,7 @@
 
 Name:		mingw-libsoup
 Version:	2.74.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	MinGW library for HTTP and XML-RPC functionality
 
 License:	LGPLv2
@@ -19,6 +19,7 @@ BuildRequires: meson
 
 BuildRequires: mingw32-filesystem >= 107
 BuildRequires: mingw32-binutils
+BuildRequires: mingw32-gcc
 BuildRequires: mingw32-glib2
 BuildRequires: mingw32-libxml2
 BuildRequires: mingw32-brotli
@@ -27,6 +28,7 @@ BuildRequires: mingw32-sqlite
 
 BuildRequires: mingw64-filesystem >= 107
 BuildRequires: mingw64-binutils
+BuildRequires: mingw64-gcc
 BuildRequires: mingw64-glib2
 BuildRequires: mingw64-libxml2
 BuildRequires: mingw64-brotli
@@ -143,6 +145,9 @@ rm -f %{buildroot}%{mingw64_libdir}/*.la
 %{mingw64_libdir}/pkgconfig/libsoup-gnome-2.4.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.74.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.74.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

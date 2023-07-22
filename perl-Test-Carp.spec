@@ -1,6 +1,6 @@
 Name:           perl-Test-Carp
 Version:        0.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Test your code for calls to Carp functions
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Carp
@@ -48,6 +48,9 @@ perldoc -t perlartistic > Artistic
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

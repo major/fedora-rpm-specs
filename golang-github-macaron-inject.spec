@@ -17,7 +17,7 @@ various ways.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.19%{?dist}
+Release:        0.20%{?dist}
 Summary:        Utilities for mapping and injecting dependencies in various ways
 
 License:        Apache-2.0
@@ -46,6 +46,9 @@ Source:         %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0-0.19
 - Fix FTBFS rhbz#2113331 rhbz#2156669
 

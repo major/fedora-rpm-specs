@@ -2,7 +2,7 @@
 
 Name:           perl-Storm
 Version:        0.240
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Object-relational mapping
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Storm
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.240-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.240-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           perl-Date-ISO8601
 Version:        0.005
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Three ISO 8601 numerical calendars
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-ISO8601
@@ -69,6 +69,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Date::ISO8601.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

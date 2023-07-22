@@ -1,7 +1,7 @@
 Summary: Java bindings for BLAS
 Name: jblas
 Version: 1.2.5
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: BSD
 URL: http://jblas.org
 
@@ -95,6 +95,9 @@ install -pm755 src/main/resources/lib/dynamic/Linux/**/libjblas.so \
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

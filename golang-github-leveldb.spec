@@ -18,7 +18,7 @@ The LevelDB key-value database in the Go programming language.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.12%{?dist}
+Release:        0.13%{?dist}
 Summary:        LevelDB key-value database in the Go programming language
 
 # Upstream license specification: BSD-3-Clause
@@ -59,6 +59,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

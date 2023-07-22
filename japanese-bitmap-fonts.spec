@@ -15,7 +15,7 @@
 
 Name:           %{fontname}-fonts
 Version:        0.20080710
-Release:        36%{?dist}
+Release:        37%{?dist}
 License:        LicenseRef-Fedora-Public-Domain AND BSD-3-Clause AND mplus
 BuildArch:      noarch
 BuildRequires:  xorg-x11-font-utils mkfontdir gawk fontpackages-devel
@@ -335,6 +335,9 @@ ln -sf %{_fontdir} $RPM_BUILD_ROOT%{cataloguedir}/%{fontname}
 %{cataloguedir}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080710-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 0.20080710-36
 - Fix C99 compatibility issue (#2167285)
 

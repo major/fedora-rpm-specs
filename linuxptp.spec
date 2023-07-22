@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -157,6 +157,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.0-1
 - update to 4.0
 - convert license tag to SPDX

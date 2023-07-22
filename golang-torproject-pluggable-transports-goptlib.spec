@@ -22,7 +22,7 @@ Goptlib is a library for writing Tor pluggable transports in Go.}
 %global godocs          examples ChangeLog README
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for writing Tor pluggable transports in Go
 
 # Upstream license specification: CC0-1.0
@@ -52,6 +52,9 @@ Source0:        goptlib-%{version}.tar.gz
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 1.4.0-1
 - Update to latest released version
 

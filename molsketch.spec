@@ -1,6 +1,6 @@
 Name:           molsketch
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Molecular Structures Editor
 License:        GPL-2.0-or-later
 URL:            http://molsketch.sourceforge.net
@@ -103,6 +103,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 14 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.8.0-1
 - New version with additional dark icons and a fix for upstream issue #37
 - Switched to Qt6 

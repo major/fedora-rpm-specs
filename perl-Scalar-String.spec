@@ -1,6 +1,6 @@
 Name:           perl-Scalar-String
 Version:        0.003
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        String aspects of scalars
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Scalar-String
@@ -57,6 +57,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.003-19
 - Perl 5.38 rebuild
 

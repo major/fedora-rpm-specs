@@ -7,7 +7,7 @@
 
 Name:       perl-%{cpan_name}
 Version:    0.82
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Set of classes for core data, message and XML handling
 # etc/make_method:      Artistic 2.0 or Artistic or LGPLv2 (see README.license)
 # etc/rpc-method.dtd:   Artistic 2.0 or Artistic or LGPLv2 (see README.license)
@@ -153,6 +153,9 @@ make test
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

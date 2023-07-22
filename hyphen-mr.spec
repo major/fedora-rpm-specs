@@ -2,7 +2,7 @@ Name: hyphen-mr
 Summary: Marathi hyphenation rules
 Epoch: 1
 Version: 0.7.0
-Release: 22%{?dist}
+Release: 23%{?dist}
 Source: http://download.savannah.gnu.org/releases/smc/hyphenation/patterns/%{name}-%{version}.tar.bz2
 URL: http://wiki.smc.org.in
 License: LGPL-3.0-or-later
@@ -27,6 +27,9 @@ install -m644 -p *.dic %{buildroot}/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.7.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.7.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

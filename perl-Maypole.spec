@@ -1,6 +1,6 @@
 Name:		perl-Maypole
 Version:	2.13
-Release:	39%{?dist}
+Release:	40%{?dist}
 Epoch:		1
 Summary:	MVC web application framework
 License:	GPL+ or Artistic
@@ -63,6 +63,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.13-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.13-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

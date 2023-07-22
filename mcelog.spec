@@ -1,7 +1,7 @@
 Summary:	Tool to translate x86-64 CPU Machine Check Exception data
 Name:		mcelog
 Version:	175
-Release:	6%{?dist}
+Release:	7%{?dist}
 Epoch:		3
 License:	GPLv2
 URL:		https://github.com/andikleen/mcelog
@@ -60,6 +60,9 @@ install -p -m644 mcelog*.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
 %{_mandir}/*/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:175-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:175-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

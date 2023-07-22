@@ -1,6 +1,6 @@
 Name:          muffin
 Version:       5.8.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -97,6 +97,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
 - Update to 5.8.0 release
 

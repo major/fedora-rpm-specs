@@ -3,7 +3,7 @@
 
 Name:           perl-Dist-Zilla-Plugin-Git
 Version:        2.048
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Update your git repository after release
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Git
@@ -173,6 +173,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.048-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.048-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

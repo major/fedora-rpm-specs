@@ -1,6 +1,6 @@
 Name:           perl-IO-Capture
 Version:        0.05
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Abstract Base Class to build modules to capture output
 
 License:        GPL+ or Artistic
@@ -48,6 +48,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

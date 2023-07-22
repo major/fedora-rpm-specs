@@ -5,7 +5,7 @@
 
 Name:           mm3d
 Version:        1.3.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        3D model editor
 
 License:        GPLv2+
@@ -105,6 +105,9 @@ cp -p AUTHORS COPYING ChangeLog README TODO %{buildroot}%{_datadir}/doc/%{name}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 1.3.13-4
 - Rebuild fo new imlib2
 

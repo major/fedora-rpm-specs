@@ -39,7 +39,7 @@
 
 Summary:            IPsec cryptography library optimized for Intel Architecture
 Name:               %{githubname}
-Release:            1%{?dist}
+Release:            2%{?dist}
 Version:            %{fullversion}
 License:            BSD
 Group:              Development/Tools
@@ -109,6 +109,9 @@ ln -s libIPSec_MB.so.%{fullversion} libIPSec_MB.so
 %{_libdir}/libIPSec_MB.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Marcel Cornu <marcel.d.cornu@intel.com> 1.4.0-1
 - Update for release package v1.4
 

@@ -1,6 +1,6 @@
 Name:           libldm
 Version:        0.2.4
-Release:        12%{?dist}%{?extra_release}
+Release:        13%{?dist}%{?extra_release}
 Summary:        A tool to manage Windows dynamic disks
 
 License:        LGPLv3+ and GPLv3+
@@ -69,6 +69,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

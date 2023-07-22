@@ -1,6 +1,6 @@
 Name:       libguess
 Version:    1.2
-Release:    18%{?dist}
+Release:    19%{?dist}
 Summary:    High-speed character set detection library
 License:    BSD
 URL:        https://github.com/kaniini/libguess
@@ -61,6 +61,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

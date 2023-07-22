@@ -1,6 +1,6 @@
 Name:          perl-Font-TTF
 Version:       1.06
-Release:       21%{?dist}
+Release:       22%{?dist}
 Summary:       Perl library for modifying TTF font files
 # other files:  Artistic 2.0
 ## not in binary packages
@@ -98,6 +98,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

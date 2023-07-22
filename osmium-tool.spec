@@ -5,7 +5,7 @@
 
 Name:           osmium-tool
 Version:        1.15.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command line tool for working with OpenStreetMap data
 
 License:        GPL-3.0-only
@@ -64,6 +64,9 @@ install -p -m644 zsh_completion/* %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 11 2023 Tom Hughes <tom@compton.nu> - 1.15.0-3
 - Require catch2-devel instead of catch-devel
 

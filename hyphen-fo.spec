@@ -2,7 +2,7 @@ Name: hyphen-fo
 Summary: Faroese hyphenation rules
 %global upstreamid 20040420
 Version: 0.%{upstreamid}
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: http://fo.speling.org/filer/hyph_fo_FO-20040420a.zip
 URL: http://fo.speling.org/
 License: GPL-1.0-or-later
@@ -38,6 +38,9 @@ cp -p hyph_fo_FO.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040420-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Caolan McNamara <caolanm@redhat.com> - 0.20040420-24
 - migrated to SPDX license
 

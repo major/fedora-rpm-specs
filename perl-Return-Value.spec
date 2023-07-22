@@ -1,6 +1,6 @@
 Name:           perl-Return-Value
 Version:        1.666005
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Polymorphic Return Values
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Return-Value
@@ -39,6 +39,9 @@ make test PERL_TEST_CRITIC=1
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.666005-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.666005-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

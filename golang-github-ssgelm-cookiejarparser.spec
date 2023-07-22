@@ -15,7 +15,7 @@ http.CookieJar.}
 %global godocs          README.md data/cookies.txt
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Parses a curl cookiejar file into a Go http.CookieJar
 
 License:        MIT
@@ -43,6 +43,9 @@ BuildRequires:  golang(golang.org/x/net/publicsuffix)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

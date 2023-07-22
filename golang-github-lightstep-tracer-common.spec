@@ -11,7 +11,7 @@ Version:                1.1.0
 Files shared by most or all of the LightStep tracer implementations.}
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Files shared by most or all of the LightStep tracer implementations
 
 # https://github.com/lightstep/lightstep-tracer-common/issues/28
@@ -47,6 +47,9 @@ BuildRequires:  golang(google.golang.org/grpc)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

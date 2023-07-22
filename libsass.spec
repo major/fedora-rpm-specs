@@ -1,6 +1,6 @@
 Name:           libsass
 Version:        3.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C/C++ port of the Sass CSS precompiler
 
 License:        MIT
@@ -66,6 +66,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 26 2023 Aurelien Bompard <abompard@fedoraproject.org> - 3.6.5-1
 - Version 3.6.5
 

@@ -1,6 +1,6 @@
 Name:           perl-Sub-Quote
 Version:        2.006008
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Efficient generation of subroutines via string eval
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Quote
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.006008-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.006008-1
 - 2.006008 bump
 - Package tests

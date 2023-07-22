@@ -6,7 +6,7 @@
 Name: hunspell-ru
 Summary: Russian hunspell dictionaries
 Version: 0.99g5
-Release: 25%{?dist}
+Release: 26%{?dist}
 Epoch: 1
 # Upstream source is gone now and recent alternative don't have license
 # Source: http://releases.mozilla.org/pub/mozilla.org/addons/3703/russian_spellchecking_dictionary-0.4.4-fx+tb+sm.xpi
@@ -43,6 +43,9 @@ done
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.99g5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolán McNamar <caolanm@redhat.com> 1:0.99g5-25
 - migrated to SPDX license
 

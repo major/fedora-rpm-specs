@@ -2,7 +2,7 @@
 
 Name:		gtranslator
 Version:	42.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Gettext po file editor for GNOME
 
 License:	GPLv2+ and GPLv3+
@@ -71,6 +71,9 @@ rm $RPM_BUILD_ROOT%{_includedir}/gtr-marshal.h
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

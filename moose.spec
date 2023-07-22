@@ -8,7 +8,7 @@
 Name:           moose
 Version:        3.1.5
 %global codename chamcham
-Release:        17%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
+Release:        18%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
 Summary:        Multiscale Neuroscience and Systems Biology Simulator
 License:        GPLv3
 URL:            http://moose.ncbs.res.in/
@@ -151,6 +151,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -c \
 %doc README.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.5-17
 - Rebuilt for Python 3.12
 

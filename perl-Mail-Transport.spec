@@ -1,6 +1,6 @@
 Name:		perl-Mail-Transport
 Version:	3.005
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Email message exchange
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Transport
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/Mail::Transport::Sendmail.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.005-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.005-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

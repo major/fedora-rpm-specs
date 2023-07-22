@@ -8,7 +8,7 @@
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
 Version: 2023.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
 URL: https://ostree.readthedocs.io/en/latest/
@@ -170,6 +170,9 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Colin Walters <walters@verbum.org> - 2023.5-2
 - https://github.com/ostreedev/ostree/releases/tag/v2023.5
 

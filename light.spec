@@ -1,6 +1,6 @@
 Name:       light
 Version:    1.2.2
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Control backlight controllers
 
 License:    GPL-3.0-only
@@ -61,6 +61,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Jakub Kadlcik <frostyx@email.cz> - 1.2.2-9
 - Update License to an SPDX expression
 

@@ -22,7 +22,7 @@ Go package for limiting and monitoring data flow rate.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.23%{?dist}
+Release:        0.24%{?dist}
 Summary:        Go package for limiting and monitoring data flow rate
 
 # Upstream license specification: BSD-3-Clause
@@ -61,6 +61,9 @@ end
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-stdcompat
 Version:        19
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Compatibility module for the OCaml standard library
 
 License:        BSD-2-Clause
@@ -95,6 +95,9 @@ LD_LIBRARY_PATH=$PWD make test
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 19-8
 - OCaml 5.0 rebuild for Fedora 39
 

@@ -8,7 +8,7 @@ Name: hunspell-ti
 Summary: Tigrigna hunspell dictionaries
 %global upstreamid 20090911
 Version: 0.%{upstreamid}
-Release: 25%{?dist}
+Release: 26%{?dist}
 Source: http://www.cs.ru.nl/~biniam/geez/dict/ti_ER.zip
 URL: http://www.cs.ru.nl/~biniam/geez/index.php
 License: GPL-1.0-or-later
@@ -44,6 +44,9 @@ done
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20090911-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20090911-25
 - migrated to SPDX license
 

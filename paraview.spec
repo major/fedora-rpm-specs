@@ -82,7 +82,7 @@
 
 Name:           paraview
 Version:        5.11.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -766,6 +766,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Sandro Mani <manisandro@gmail.com> - 5.11.1-5
 - Rebuild (cgnslib)
 

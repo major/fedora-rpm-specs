@@ -1,7 +1,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 38.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
@@ -210,6 +210,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 38.2-2
 - Add Requires: breeze-cursor-theme to sddm subpackage
 

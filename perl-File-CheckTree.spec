@@ -1,6 +1,6 @@
 Name:           perl-File-CheckTree
 Version:        4.42
-Release:        317%{?dist}
+Release:        318%{?dist}
 Summary:        Run many file-test checks on a tree
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-CheckTree
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.42-318
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.42-317
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

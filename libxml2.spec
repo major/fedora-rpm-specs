@@ -1,6 +1,6 @@
 Name:           libxml2
 Version:        2.10.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library providing XML and HTML support
 
 License:        MIT
@@ -142,6 +142,9 @@ gzip -9 -c doc/libxml2-api.xml > doc/libxml2-api.xml.gz
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.10.4-2
 - Rebuilt for Python 3.12
 

@@ -9,7 +9,7 @@
 
 Name:           libnbd
 Version:        1.17.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -374,6 +374,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.17.2-1
 - New upstream development version 1.17.2
 

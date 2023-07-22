@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           lutris
 Version:        0.5.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Install and play any video game easily
 
 License:        GPLv3
@@ -95,6 +95,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/locale/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.5.13-3
 - Rebuilt for Python 3.12
 

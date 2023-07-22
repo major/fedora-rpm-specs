@@ -1,6 +1,6 @@
 Name:           perl-Date-Extract
 Version:        0.07
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Date::Extract Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Extract
@@ -46,6 +46,9 @@ DateTime object out of it.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.07-1
 - Upgrade to 0.07.
 - Reflect upstream Source0-URL having changed.

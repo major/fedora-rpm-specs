@@ -3,7 +3,7 @@ Name:           lua-timerwheel
 License:        MIT
 
 Version:        1.0.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 URL:            https://github.com/Tieske/timerwheel.lua
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
@@ -72,6 +72,9 @@ lua -e '
 %{lua_pkgdir}/timerwheel/init.lua
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

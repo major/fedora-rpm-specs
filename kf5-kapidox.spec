@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.108.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 4 scripts and data for building API documentation
 
 License: BSD
@@ -75,6 +75,9 @@ style.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.108.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Python Maint <python-maint@redhat.com> - 5.108.0-2
 - Rebuilt for Python 3.12
 

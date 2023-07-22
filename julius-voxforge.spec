@@ -4,7 +4,7 @@
 
 Name:		julius-voxforge
 Version:	%{year}.%{month}.%{day}
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	VoxForge Acoustic Model files for Julius
 License:	GPLv2+
 URL:		http://www.voxforge.org/
@@ -31,6 +31,9 @@ install -m644 acoustic_model_files/hmmdefs acoustic_model_files/macros acoustic_
 %{_datadir}/%{name}/acoustic
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2013.03.01-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2013.03.01-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

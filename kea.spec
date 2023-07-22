@@ -6,7 +6,7 @@
 
 Name:           kea
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 
 License:        MPL-2.0 AND BSL-1.0
@@ -225,6 +225,9 @@ EOF
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Martin Osvald <mosvald@redhat.com> - 2.4.0-1
 - New version 2.4.0
 - Migrated to SPDX license

@@ -33,13 +33,16 @@ Source0:        %forgesource
 # script to run examples
 Source1:        https://raw.githubusercontent.com/arbor-sim/arbor/master/scripts/run_python_examples.sh
 Source2:        https://raw.githubusercontent.com/arbor-sim/arbor/master/scripts/run_cpp_examples.sh
-License:        BSD
+License:        BSD-3-Clause
 
 Patch:          0001-Quote-various-cmake-var-values.patch
 # Add some missing #include directives
 # Fixes failure to compile with GCC 13.
 # https://github.com/arbor-sim/arbor/pull/2080
 Patch:          %{forgeurl}/pull/2080.patch
+# Replace use of LooseVersion from distutils.version (removed in Python3.12)
+# https://github.com/arbor-sim/arbor/pull/2157
+Patch:          looseversion.patch
 
 # Random123 does not support:
 #   mips64r2 mips32r2 s390
@@ -60,6 +63,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  Random123-devel
 BuildRequires:  tclap-devel
+BuildRequires:  pugixml-devel
 Provides:       python3-arbor = %{version}-%{release}
 
 # For validation, but we don't have these BRs

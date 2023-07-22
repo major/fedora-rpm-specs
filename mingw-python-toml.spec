@@ -5,7 +5,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name}
 Version:        0.10.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -66,6 +66,9 @@ MinGW Python 3 %{pypi_name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.2-8
 - migrated to SPDX license
 

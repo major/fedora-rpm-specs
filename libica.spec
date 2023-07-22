@@ -3,7 +3,7 @@
 Summary: Library for accessing ICA hardware crypto on IBM z Systems
 Name: libica
 Version: 4.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: CPL
 URL: https://github.com/opencryptoki/
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -107,6 +107,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 19 2023 Dan Horák <dan[at]danny.cz> - 4.2.2-1
 - updated to 4.2.2
 

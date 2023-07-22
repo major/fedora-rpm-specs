@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Exception
 Version:        0.04007
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Throw HTTP-Errors as (Exception::Class-) Exceptions
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTTP-Exception
@@ -62,6 +62,9 @@ RELEASE_TESTING=1 make test
 %{_mandir}/man3/HTTP*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04007-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04007-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

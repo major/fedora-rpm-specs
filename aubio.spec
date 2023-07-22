@@ -8,14 +8,16 @@
 
 Name:           aubio
 Version:        0.4.9
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        An audio labeling tool
 
 License:        GPLv3+
-URL:            http://aubio.org/
-Source0:        http://aubio.org/pub/aubio-%{version}.tar.bz2
+URL:            https://aubio.org/
+Source0:        https://aubio.org/pub/aubio-%{version}.tar.bz2
 Patch0:         %{name}-unversioned-python.patch
 Patch1:         %{name}-python39.patch
+Patch2:         %{name}-invalid-escape-sequence.patch
+Patch3:         %{name}-imp-removed.patch
 
 BuildRequires:  doxygen
 BuildRequires:  fftw-devel
@@ -129,6 +131,9 @@ sed -i -e '/^#![[:blank:]]*\//, 1d' %{buildroot}%{python3_sitearch}/%{name}/*.py
 %{python3_sitearch}/%{name}*.egg-info
 
 %changelog
+* Thu Jul 20 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.4.9-18
+- Fix FTBFS with Python 3.12 #2219938
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

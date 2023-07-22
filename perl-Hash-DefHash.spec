@@ -1,6 +1,6 @@
 Name:           perl-Hash-DefHash
 Version:        0.072
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Manipulate defhash
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.072-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.072-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

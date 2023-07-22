@@ -10,7 +10,7 @@ Version: 2.5
 %forgemeta
 
 Name:           ocaml-xml-light
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Minimal XML parser and printer for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -65,6 +65,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2.5-3
 - OCaml 5.0 rebuild for Fedora 39
 

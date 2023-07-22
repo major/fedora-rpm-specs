@@ -7,7 +7,7 @@
 Name:    kdeaddons
 Summary: K Desktop Environment - Plugins
 Version: 3.5.10
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: GPLv2
 Url: http://www.kde.org/
 Source0: ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
@@ -75,6 +75,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libgringotts
 Version:        1.2.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        A backend for managing encrypted data files on the disk
 Summary(pl):    Zaplecze do zarządzania zaszyfrowanymi plikami danych na dysku
 
@@ -114,6 +114,9 @@ if test $test_status != 0 ; then exit 1 ; fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.1-36
 - Repeat tests to rescue test failure due to internal randomness
 

@@ -1,6 +1,6 @@
 Name:           ladspa
 Version:        1.13
-Release:        30%{?dist}
+Release:        31%{?dist}
 
 Summary:        Linux Audio Developer's Simple Plug-in API, examples and tools
 
@@ -84,6 +84,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/ladspa/rdf
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

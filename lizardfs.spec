@@ -3,7 +3,7 @@
 Name:		lizardfs
 Summary:	Distributed, fault tolerant file system
 Version:	3.12.0
-Release:	22%{?dist}
+Release:	23%{?dist}
 # LizardFS is under GPLv3 while crcutil is under ASL 2.0 and there's one header,
 # src/common/coroutine.h, under the Boost license
 License:	GPLv3 and ASL 2.0 and Boost
@@ -409,6 +409,9 @@ install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/security/limits.d/95-lizardf
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 09 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.12.0-22
 - Add a patch to fix build failures with GCC13
 

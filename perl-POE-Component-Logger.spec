@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-Logger
 Version:        1.10
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A POE logging class
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-Logger
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

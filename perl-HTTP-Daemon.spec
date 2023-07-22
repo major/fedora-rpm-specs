@@ -3,7 +3,7 @@
 
 Name:           perl-HTTP-Daemon
 Version:        6.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple HTTP server class
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Daemon
@@ -118,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 24 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.16-1
 - 6.16 bump
 - Fix minimal version of IO::Socket::IP

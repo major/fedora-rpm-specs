@@ -2,7 +2,7 @@
 
 Name:           mono-zeroconf
 Version:        0.9.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Mono.Zeroconf networking library
 License:        MIT
 URL:            http://banshee-project.org/files/mono-zeroconf
@@ -90,6 +90,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv %{buildroot}%{_prefix}/lib/pkgconfig/
 %{_libdir}/pkgconfig/mono-zeroconf.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Minion-Backend-SQLite
 Version:        5.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SQLite backend for Minion job queue
 License:        Artistic 2.0
 
@@ -61,6 +61,9 @@ will be created in a temporary directory.
 %{_mandir}/man3/Minion*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

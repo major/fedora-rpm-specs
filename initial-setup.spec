@@ -2,7 +2,7 @@ Summary: Initial system configuration utility
 Name: initial-setup
 URL: https://fedoraproject.org/wiki/InitialSetup
 Version: 0.3.97
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # This is a Red Hat maintained package which is specific to
 # our distribution.
@@ -104,6 +104,9 @@ rm -rf %{buildroot}
 %{python3_sitelib}/initial_setup/gui/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.97-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.3.97-2
 - Rebuilt for Python 3.12
 

@@ -6,7 +6,7 @@
 
 Name:           i2c-tools
 Version:        4.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A heterogeneous set of I2C tools for Linux
 License:        GPLv2+
 URL:            https://i2c.wiki.kernel.org/index.php/I2C_Tools
@@ -156,6 +156,9 @@ exit 0
 %{_mandir}/man3/libi2c.3.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.3-6
 - Rebuilt for Python 3.12
 

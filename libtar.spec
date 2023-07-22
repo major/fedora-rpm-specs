@@ -1,7 +1,7 @@
 Summary:        Tar file manipulation API
 Name:           libtar
 Version:        1.2.20
-Release:        28%{?dist}
+Release:        29%{?dist}
 License:        MIT
 URL:            http://repo.or.cz/libtar.git
 Source:         http://repo.or.cz/libtar.git/snapshot/refs/tags/v1.2.20.tar.gz#/libtar-v1.2.20.tar.gz
@@ -79,6 +79,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.20-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 1.2.20-28
 - Port configure script to C99 (#2190238)
 

@@ -1,6 +1,6 @@
 Name:           perl-GooCanvas2
 Version:        0.06
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Perl binding for GooCanvas2 widget using Glib::Object::Introspection
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GooCanvas2
@@ -74,6 +74,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Petr Pisar <ppisar@redhat.com> - 0.06-17
 - Convert a license tag to an SPDX format
 - Package the tests

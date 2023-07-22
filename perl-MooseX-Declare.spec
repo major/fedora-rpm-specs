@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Declare
 Version:        0.43
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Declarative syntax for Moose
 License:        GPL+ or Artistic
 
@@ -54,6 +54,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

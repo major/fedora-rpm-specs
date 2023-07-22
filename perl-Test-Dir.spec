@@ -3,7 +3,7 @@
 
 Name:           perl-Test-Dir
 Version:        1.16
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Some simple tests on directories and folders
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Dir
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

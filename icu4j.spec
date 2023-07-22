@@ -3,7 +3,7 @@
 
 Name:           icu4j
 Version:        73.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        International Components for Unicode for Java
 # ICU itself is covered by the Unicode-DFS-2016 license.  Other licenses:
@@ -117,6 +117,9 @@ install -m 644 icu4j-localespi.jar %{buildroot}%{_javadir}/icu4j/
 %license main/shared/licenses/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:73.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Jerry James <loganjerry@gmail.com> - 1:73.2-1
 - Version 73.2
 

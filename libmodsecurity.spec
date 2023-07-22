@@ -1,6 +1,6 @@
 Name: libmodsecurity
 Version: 3.0.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library that loads/interprets rules written in the ModSecurity SecRules
 
 License: Apache-2.0
@@ -92,6 +92,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.0.9-2
 - Use geoip instead of libmaxminddb for EPEL 7 and 8 builds
 

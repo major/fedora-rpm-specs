@@ -13,7 +13,7 @@
 
 Name:           %{srcname}
 Version:        1.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        %{summary}
 
 %global git_tag RELEASE_%(r=%{version}; echo $r | tr '.' '_')
@@ -145,6 +145,9 @@ install -c -m 644 doc/keycloak-httpd-client-install.8 %{buildroot}/%{_mandir}/ma
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1-17
 - Rebuilt for Python 3.12
 

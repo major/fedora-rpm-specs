@@ -9,7 +9,7 @@
 
 Name:		perl-B-Hooks-EndOfScope
 Version:	0.26
-Release:	6%{?dist}
+Release:	7%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Execute code after scope compilation finishes
 URL:		https://metacpan.org/release/B-Hooks-EndOfScope
@@ -130,6 +130,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/B::Hooks::EndOfScope::XS.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.26-6
 - Update license to SPDX format
 

@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.108.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module that provides hardware information
 
 License: LGPLv2+
@@ -99,6 +99,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.108.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Justin Zobel <justin.zobel@gmail.com> - 5.108.0-2
 - Remove experimental build options as per https://invent.kde.org/frameworks/solid/-/issues/4#note_701619
 

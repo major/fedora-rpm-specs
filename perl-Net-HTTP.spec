@@ -7,7 +7,7 @@
 
 Name:           perl-Net-HTTP
 Version:        6.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low-level HTTP connection (client)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-HTTP
@@ -124,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 21 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.23-1
 - 6.23 bump
 - Fix comments in spec file (IO::Socket::INET6 is deprecated)

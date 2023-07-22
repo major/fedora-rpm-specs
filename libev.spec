@@ -3,7 +3,7 @@
 
 Name:             libev
 Version:          4.33
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          High-performance event loop/event model with lots of features
 
 License:          BSD or GPLv2+
@@ -92,6 +92,9 @@ install -p -m 0644 Changes ev.pod LICENSE README %{inst_srcdir}
 %{source_dir}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.33-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.33-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

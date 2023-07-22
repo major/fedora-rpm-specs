@@ -8,7 +8,7 @@
 Name:		perl-CPAN-Meta-Check
 Summary:	Verify requirements in a CPAN::Meta object
 Version:	0.017
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Meta-Check
 Source0:	https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Meta-Check-%{version}.tar.gz
@@ -78,6 +78,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/CPAN::Meta::Check.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.017-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.017-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

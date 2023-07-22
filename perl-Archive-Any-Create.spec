@@ -1,6 +1,6 @@
 Name:           perl-Archive-Any-Create
 Version:        0.03
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Abstract API to create archives (tar, tar.gz and zip)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Archive-Any-Create
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

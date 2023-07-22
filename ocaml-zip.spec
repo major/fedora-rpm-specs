@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-zip
 Version:        1.11
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OCaml library for reading and writing zip, jar and gzip files
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -94,6 +94,9 @@ cmp Makefile Makefile.uncompressed
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.11-9
 - OCaml 5.0 rebuild for Fedora 39
 

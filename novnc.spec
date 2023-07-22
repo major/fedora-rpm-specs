@@ -1,6 +1,6 @@
 Name:           novnc
 Version:        1.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        VNC client using HTML5 (Web Sockets, Canvas) with encryption support
 Requires:       python3-websockify
 Requires:       which
@@ -66,6 +66,9 @@ install docs/novnc_proxy.1 %{buildroot}/%{_mandir}/man1/%{name}_server.1
 %doc README.md LICENSE.txt docs/API.md docs/EMBEDDING.md docs/LIBRARY.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

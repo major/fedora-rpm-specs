@@ -7,7 +7,7 @@
 
 Name:           libosmium
 Version:        2.19.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast and flexible C++ library for working with OpenStreetMap data
 
 License:        BSL-1.0
@@ -109,6 +109,9 @@ cd libosmium
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 11 2023 Tom Hughes <tom@compton.nu> - 2.19.0-2
 - Require catch2-devel instead of catch-devel
 

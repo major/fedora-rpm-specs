@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -113,6 +113,9 @@ make check
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 10 2023 Brian C. Lane <bcl@redhat.com> - 3.6-1
 - Upstream 3.6 stable release
 - Dropping pre-3.5 changelog entries

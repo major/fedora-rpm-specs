@@ -1,6 +1,6 @@
 Name:           perl-Filesys-Df
 Version:        0.92
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Perl extension for filesystem disk space information
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Filesys-Df
@@ -75,6 +75,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.92-48
 - Perl 5.38 rebuild
 

@@ -1,6 +1,6 @@
 Name:		hidviz
 Version:	0.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A tool for in-depth analysis of USB HID devices communication
 License:	GPL-3.0-or-later
 URL:		https://hidviz.org/
@@ -37,6 +37,9 @@ Hidviz is a GUI application for in-depth analysis of USB HID class devices.
 %{_datadir}/applications/hidviz.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 20 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2-2
 - Minor cleanups
 

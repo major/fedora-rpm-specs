@@ -5,7 +5,7 @@
 
 Name: liblangtag
 Version: 0.6.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: An interface library to access tags for identifying languages
 
 License: LGPL-3.0-or-later OR MPL-2.0
@@ -135,6 +135,9 @@ export LD_LIBRARY_PATH=`pwd`/liblangtag/.libs:`pwd`/liblangtag-gobject/.libs${LD
 %{_datadir}/gtk-doc/html/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Eike Rathke <erack@redhat.com> - 0.6.4-4
 - Migrated to SPDX license IDs
 

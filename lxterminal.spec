@@ -21,7 +21,7 @@
 
 %undefine        _changelog_trimtime
 
-%global         baserelease   8
+%global         baserelease   9
 
 Name:           lxterminal
 Version:        0.4.0
@@ -161,6 +161,9 @@ cd ..
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-9.D20211203git0febe16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0-8.D20211203git0febe16
 - Avoid segfault when closing window (bug 2207699)
 - SPDX migration

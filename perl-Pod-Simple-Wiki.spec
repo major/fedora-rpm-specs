@@ -1,6 +1,6 @@
 Name:           perl-Pod-Simple-Wiki
 Version:        0.20
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Utility and perl classes for converting POD to Wiki text
 License:        GPL+ or Artistic
 
@@ -53,6 +53,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

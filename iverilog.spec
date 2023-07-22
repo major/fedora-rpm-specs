@@ -1,7 +1,7 @@
 Name:        iverilog
 Version:     12.0
 %define uver 12_0
-Release:     1%{?dist}
+Release:     2%{?dist}
 Summary:     Icarus Verilog is a verilog compiler and simulator
 License:     GPLv2
 URL:         http://iverilog.icarus.com
@@ -74,6 +74,9 @@ make check
  
  
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 14 2023 Filipe Rosset <rosset.filipe@gmail.com> - 12.0-1
 - Update to 12.0 fixes rhbz#2156629
 

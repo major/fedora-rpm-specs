@@ -1,6 +1,6 @@
 Name:           libXcm
 Version:        0.5.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        X Color Management Library
 License:        MIT
 URL:            http://www.oyranos.org
@@ -58,6 +58,9 @@ find %{buildroot} -name '*.la' -delete -print
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

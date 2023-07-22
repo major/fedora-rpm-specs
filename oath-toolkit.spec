@@ -1,6 +1,6 @@
 Name:          oath-toolkit
 Version:       2.6.9
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPLv3+
 Summary:       One-time password components
 BuildRequires: make
@@ -182,6 +182,9 @@ mkdir -p -m 0600 %{buildroot}%{_sysconfdir}/liboath
 %{_libdir}/security/pam_oath.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.6.9-1
 - New version
   Resolves: rhbz#2221430

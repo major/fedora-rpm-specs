@@ -4,7 +4,7 @@
 
 Name:           mingw-%{origname}
 Version:        1.2.64
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows port of SDL 1.2 runtime compatibility library using SDL 2.0
 # mp3 decoder code is MIT-0/PD
 # SDL_opengl.h is zlib and MIT
@@ -117,6 +117,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.64-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Sandro Mani <manisandro@gmail.com> - 1.2.64-1
 - Update to 1.2.64
 

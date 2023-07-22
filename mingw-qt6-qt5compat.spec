@@ -17,7 +17,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt6 for Windows - Qt5Compat component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -127,6 +127,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Sandro Mani <manisandro@gmail.com> - 6.5.1-2
 - Rebuild (mingw-icu)
 

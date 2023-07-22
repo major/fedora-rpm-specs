@@ -1,6 +1,6 @@
 Name:           perl-ParseTemplate
 Version:        3.08
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Processor for templates containing Perl expressions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ParseTemplate
@@ -44,6 +44,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.08-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.08-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

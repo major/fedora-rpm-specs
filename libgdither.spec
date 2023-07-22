@@ -1,6 +1,6 @@
 Name:           libgdither
 Version:        0.6
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Library for applying dithering to PCM audio sources
 
 License:        GPLv2+
@@ -72,6 +72,9 @@ make test CFLAGS="%{optflags} -Werror --std=c99 -I%{_builddir}/%{?buildsubdir}"
 %{_libdir}/pkgconfig/libgdither.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

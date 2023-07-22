@@ -1,6 +1,6 @@
 Name:		libgcroots
 Version:	0.3.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	Boehm-GC
 URL:		https://github.com/uim/libgcroots
 
@@ -60,6 +60,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/gcroots.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul  4 2023 Akira TAGOH <tagoh@redhat.com> - 0.3.2-7
 - Migrate License tag to SPDX format.
 

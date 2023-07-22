@@ -1,7 +1,7 @@
 # NOTE - every version updates the soname and requires rebuilding all dependent packages
 Name:           libharu
 Version:        2.4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C library for generating PDF files
 License:        zlib-acknowledgement
 URL:            http://libharu.org
@@ -51,6 +51,9 @@ developing applications that use %{name}.
 %{_libdir}/libhpdf.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

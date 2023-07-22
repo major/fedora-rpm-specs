@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box-POP3
 Version:        3.005
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Handle POP3 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-POP3
@@ -75,6 +75,9 @@ MARKOV_DEVEL=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.005-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.005-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

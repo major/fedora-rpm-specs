@@ -1,6 +1,6 @@
 Name:           perl-Net-Ping-External
 Version:        0.15
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Cross-platform interface to ICMP "ping" utilities
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-Ping-External
@@ -50,6 +50,9 @@ done
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

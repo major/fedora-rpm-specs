@@ -3,7 +3,7 @@
 
 Name:           libsigc++20
 Version:        2.10.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Typesafe signal framework for C++
 
 License:        LGPLv2+
@@ -81,6 +81,9 @@ chmod -x NEWS
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

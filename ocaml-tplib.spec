@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-tplib
 Version:        1.3
-Release:        72%{?dist}
+Release:        73%{?dist}
 Summary:        Tropical Polyhedra Library
 
 License:        LGPL-2.1-or-later
@@ -119,6 +119,9 @@ _build/tests/test_tplib_rational
 %doc %{_mandir}/man1/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-73
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 1.3-72
 - Convert License tag to SPDX
 

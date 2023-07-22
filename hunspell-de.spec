@@ -7,7 +7,7 @@
 Name:          hunspell-de
 Summary:       German hunspell dictionaries
 Version:       20161207
-Release:       5%{?dist}
+Release:       6%{?dist}
 
 License:       GPL-2.0-only OR GPL-3.0-only
 URL:           https://www.j3e.de/ispell/igerman98/
@@ -70,6 +70,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20161207-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20161207-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

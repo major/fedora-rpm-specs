@@ -1,6 +1,6 @@
 Name:           goocanvas
 Version:        1.0.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A new canvas widget for GTK+ that uses cairo for drawing
 
 License:        LGPLv2+
@@ -59,6 +59,9 @@ These are the files used for development.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

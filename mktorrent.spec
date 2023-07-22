@@ -1,6 +1,6 @@
 Name:           mktorrent
 Version:        1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Command line utility to create BitTorrent metainfo files
 
 License:        GPLv2+
@@ -41,6 +41,9 @@ make install USE_LARGE_FILES=%{largefiles}  USE_PTHREADS=1 \
 %doc COPYING README
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

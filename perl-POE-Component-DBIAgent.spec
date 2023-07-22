@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-DBIAgent
 Version:        0.26
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        POE Component for running asynchronous DBI calls
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-DBIAgent
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

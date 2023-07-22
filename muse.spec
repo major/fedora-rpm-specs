@@ -14,7 +14,7 @@ Summary:       Midi/Audio Music Sequencer
 # See: https://fedoraproject.org/wiki/AudioCreation
 Epoch:         1
 Version:       %{majorver}.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 # original freeverb plugin was public domain
 # givertcap (not built) is GPLv2
 # The rest, including the core of muse is distributed under GPLv2+
@@ -97,6 +97,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/org.musesequencer.Muse*.xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:4.0.0-6
 - Rebuilt for Python 3.12
 

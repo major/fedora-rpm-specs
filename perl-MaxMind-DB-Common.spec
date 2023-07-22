@@ -1,6 +1,6 @@
 Name:           perl-MaxMind-DB-Common
 Version:        0.040001
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Code shared by the MaxMind database reader and writer
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/MaxMind-DB-Common
@@ -100,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.040001-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.040001-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

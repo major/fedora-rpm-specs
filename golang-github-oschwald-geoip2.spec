@@ -28,7 +28,7 @@ maxminddb repository for an example of this.)}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Unofficial MaxMind GeoIP2 Reader for Go
 
 # Code: ISC; Test data: CC-BY-SA 3.0
@@ -70,6 +70,9 @@ popd
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

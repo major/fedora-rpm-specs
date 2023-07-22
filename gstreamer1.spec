@@ -17,7 +17,7 @@
 
 Name:           gstreamer1
 Version:        1.22.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -198,6 +198,9 @@ setcap cap_sys_nice,cap_net_bind_service,cap_net_admin+ep %{_libexecdir}/gstream
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.4-1
 - 1.22.4
 

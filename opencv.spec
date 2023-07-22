@@ -74,7 +74,7 @@ Version:        4.7.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause and Apache-2.0 and ISC
@@ -521,6 +521,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 19 2023 Josef Ridky <jridky@redhat.com> - 4.7.0-14
 - Migrate to SPDX license format
 

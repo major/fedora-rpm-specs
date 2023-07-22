@@ -3,7 +3,7 @@
 
 Name:           imwheel
 Version:        %{pkgrel}
-Release:        0.11.%{extver}%{?dist}
+Release:        0.12.%{extver}%{?dist}
 Summary:        Mouse Event to Key Event Mapper Daemon
 License:        GPLv2+
 Url:            http://imwheel.sourceforge.net
@@ -62,6 +62,9 @@ autoreconf -fiv
 %{_mandir}/man1/imwheel.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.12.pre12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.11.pre12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

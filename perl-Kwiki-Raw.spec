@@ -1,6 +1,6 @@
 Name:           perl-Kwiki-Raw
 Version:        0.02
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Provide an action to retrieve the raw wikitext of a page
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Kwiki-Raw
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

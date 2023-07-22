@@ -2,7 +2,7 @@
 
 Name:           libevent
 Version:        2.1.12
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Abstract asynchronous event notification library
 
 # arc4random.c, which is used in build, is ISC. The rest is BSD.
@@ -148,6 +148,9 @@ mkdir -p $RPM_BUILD_ROOT/%{develdocdir}/sample
 %doc %{develdocdir}/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.12-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

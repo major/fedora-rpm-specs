@@ -2,7 +2,7 @@
 
 Name:           gpxsee
 Version:        12.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GPS log file viewer and analyzer
 
 License:        GPL-3.0-only
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Packit <hello@packit.dev> - 12.3-1
 - Added currents rendering (Martin Tůma)
 - Render masts as pylons (Martin Tůma)

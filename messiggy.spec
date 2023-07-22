@@ -1,6 +1,6 @@
 Name:		messiggy
 Version:	0.5.0
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Messiggy is a database of celestial objects
 
 License:	GPL-2.0-or-later
@@ -51,6 +51,9 @@ ln -s %{_datadir}/messiggy/pixmaps/messiggy.png %{buildroot}%{_datadir}/icons/hi
 %{_datadir}/icons/hicolor/32x32/apps/messiggy.png
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.5.0-30
 - migrated to SPDX license
 

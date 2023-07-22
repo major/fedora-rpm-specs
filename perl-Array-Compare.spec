@@ -1,6 +1,6 @@
 Name:           perl-Array-Compare
 Version:        3.0.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl extension for comparing arrays
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Array-Compare
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/Array::Compare.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

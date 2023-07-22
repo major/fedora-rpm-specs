@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	4
+%define		baserelease	5
 
 # Note:
 # mecab dictionary requires mecab-devel to rebuild it,
@@ -108,6 +108,9 @@ cd ..
 %{_includedir}/%{name}.h
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-4
 - SPDX migration (ljavorsk)
 - Use %%license

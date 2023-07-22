@@ -8,7 +8,7 @@
 Name:           perl-Moose
 Summary:        Complete modern object system for Perl 5
 Version:        2.2203
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Moose
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Moose-%{version}.tar.gz
@@ -197,6 +197,9 @@ make test
 %{_mandir}/man3/Test::Moose*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2203-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.2203-3
 - Perl 5.38 re-rebuild of bootstrapped packages
 

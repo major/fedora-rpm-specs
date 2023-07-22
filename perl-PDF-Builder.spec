@@ -11,7 +11,7 @@
 
 Name:           perl-PDF-Builder
 Version:        3.025
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
 # examples/Column.pl:           LGPL-2.1-or-later
@@ -210,6 +210,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.025-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 23 2023 Petr Pisar <ppisar@redhat.com> - 3.025-1
 - 3.025 bump
 - License corrected to "LGPL-2.1-or-later AND LGPL-2.1-only AND MIT"

@@ -1,6 +1,6 @@
 Name:           perl-Crypt-ScryptKDF
 Version:        0.010
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Scrypt password based key derivation function
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-ScryptKDF
@@ -60,6 +60,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.010-25
 - Perl 5.38 rebuild
 

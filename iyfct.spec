@@ -4,7 +4,7 @@
 
 Name:           iyfct
 Version:        1.0.2
-Release:        %{gitdate}git.%{shortcommit}%{?dist}.10
+Release:        %{gitdate}git.%{shortcommit}%{?dist}.11
 Summary:        Side scrolling endless runner game
 
 #See LICENSE file in source for details
@@ -76,6 +76,9 @@ install -p -D -m 0644 %{name}.png \
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20180819git.ac4555d.11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20180819git.ac4555d.10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

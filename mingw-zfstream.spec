@@ -7,7 +7,7 @@
 
 Name:           mingw-%{name1}
 Version:        %{vyear}%{vmonth}%{vday}
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        MinGW Windows abstraction API for reading and writing compressed files
 
 License:        LGPLv2+
@@ -103,6 +103,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 %{mingw64_libdir}/pkgconfig/zfstream.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20041202-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20041202-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

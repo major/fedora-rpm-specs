@@ -1,7 +1,7 @@
 Summary: SELinux binary policy manipulation library
 Name: libsepol
 Version: 3.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/libsepol-3.5.tar.gz
 URL: https://github.com/SELinuxProject/selinux/wiki
@@ -106,6 +106,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_mandir}/ru/man8
 %{_mandir}/man8/chkcon.8.gz
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 24 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-1
 - SELinux userspace 3.5 release
 

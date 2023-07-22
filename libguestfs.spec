@@ -49,7 +49,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.51.5
+Version:       1.51.6
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -1093,6 +1093,12 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Jul 20 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.6-1
+- New upstream development branch 1.51.6
+
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.51.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.5-1
 - New upstream development branch 1.51.5
 

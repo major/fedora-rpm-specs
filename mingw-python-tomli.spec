@@ -7,7 +7,7 @@
 Name:          mingw-python-%{pkgname}
 Summary:       MinGW Windows Python %{pkgname} library
 Version:       2.0.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -67,6 +67,9 @@ MinGW Windows Python3 %{pkgname} library.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

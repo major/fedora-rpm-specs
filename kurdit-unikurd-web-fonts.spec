@@ -1,5 +1,5 @@
 Version:       20020502
-Release:       32%{?dist}
+Release:       33%{?dist}
 # Below is only working Project URL
 URL:           https://www.kurditgroup.org/d/unikurd-web
 
@@ -37,6 +37,9 @@ Source1:       65-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20020502-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20020502-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

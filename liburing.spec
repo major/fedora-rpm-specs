@@ -1,6 +1,6 @@
 Name: liburing
 Version: 2.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Linux-native io_uring I/O access library
 License: (GPLv2 with exceptions and LGPLv2+) or MIT
 Source0: https://brick.kernel.dk/snaps/%{name}-%{version}.tar.gz
@@ -54,6 +54,9 @@ for the Linux-native io_uring.
 %{_mandir}/man7/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Stefan Hajnoczi <stefanha@redhat.com> - 2.4-2
 - Fix i686 build failure due to nolibc conflict with stack protector.
 

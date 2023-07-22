@@ -1,6 +1,6 @@
 Name:           perl-CGI-Untaint
 Version:        1.26
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Process CGI input parameters
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Untaint
@@ -53,6 +53,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Mojolicious
 Version:        9.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A next generation web framework for Perl
 License:        Artistic-2.0
 
@@ -141,6 +141,9 @@ mv README.md lib/Mojolicious/
 %{perl_vendorlib}/Test
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.33-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 25 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 9.33-1
 - Update to 9.33
 - Migrate License tag to SPDX

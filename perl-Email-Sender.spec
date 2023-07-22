@@ -1,7 +1,7 @@
 Name:           perl-Email-Sender
 Epoch:          1
 Version:        2.600
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library for sending email
 License:        GPL+ or Artistic
 
@@ -83,6 +83,9 @@ RELEASE_TESTING=1 %{make_build} test
 %{_mandir}/man3/Email*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.600-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.600-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           libcuefile
 Version:        0
-Release:        0.2.20110810svn%{svn_release}%{?dist}
+Release:        0.3.20110810svn%{svn_release}%{?dist}
 Summary:        CUE file library from Musepack
 
 License:        GPL-2.0-only WITH Bison-exception-2.2
@@ -60,6 +60,9 @@ install -D -t %{buildroot}%{_includedir}/cuetools/ include/cuetools/*.h
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.3.20110810svn475
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 DJ Delorie <dj@redhat.com> - 0-0.2.20110810svn475
 - Fix C99 compatibility issue
 

@@ -1,7 +1,7 @@
 Summary: X.Org X11 libxkbfile runtime library
 Name: libxkbfile
 Version: 1.1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -58,6 +58,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xkbfile.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

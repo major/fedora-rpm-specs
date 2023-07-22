@@ -1,7 +1,7 @@
 %global gittag R_3_1_0
 Name:                           lcg-infosites
 Version:                        3.1.0
-Release:                        24%{?dist}
+Release:                        25%{?dist}
 Summary:                        Command line tool for the WLCG information system
 License:                        ASL 2.0
 URL:                            https://github.com/EGI-Foundation/lcg-infosites
@@ -28,6 +28,9 @@ make install prefix=%{buildroot}
 %{_mandir}/man1/lcg-infosites.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

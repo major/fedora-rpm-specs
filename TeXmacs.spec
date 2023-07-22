@@ -28,7 +28,8 @@ BuildRequires:  sqlite-devel
 BuildRequires:  zlib-devel
 BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  /usr/bin/2to3
-BuildRequires:  /usr/bin/pathfix.py
+# For pathfix
+BuildRequires:  python3-devel
 Provides:       texmacs = %{version}-%{release}
 Requires:       fig2ps
 
@@ -69,7 +70,7 @@ TeXmacs font.
 
 %prep
 %setup -q -n TeXmacs-%{version}-src
-pathfix.py -i %{__python3} -p -n plugins/mathematica/bin/realpath.py
+%{py3_shebang_fix} plugins/mathematica/bin/realpath.py
 2to3 --write --nobackups plugins/mathematica
 
 %build

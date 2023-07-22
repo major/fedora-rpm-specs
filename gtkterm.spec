@@ -1,6 +1,6 @@
 Name:           gtkterm
 Version:        1.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Serial port terminal
 License:        GPLv3+
 URL:            https://github.com/Jeija/gtkterm
@@ -46,6 +46,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 16 2023 Florian Weimer <fweimer@redhat.com> - 1.2.1-4
 - Port to C99
 

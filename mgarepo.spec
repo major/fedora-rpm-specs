@@ -2,7 +2,7 @@
 
 Name: mgarepo
 Version: 1.13.2
-Release: 25%{?dist}
+Release: 26%{?dist}
 Summary: Tools for Mageia repository access and management
 # tarball needs to be created manually, since tags don't generate releases
 # git clone git://git.mageia.org/software/build-system/mgarepo; cd mgarepo; git reset --hard %{version} && make dist
@@ -79,6 +79,9 @@ sed -e "s/rpm-python/rpm/" -i setup.py
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.13.2-25
 - Rebuilt for Python 3.12
 

@@ -12,7 +12,7 @@ Version:        3.0
 %forgemeta
 
 URL:            %{forgeurl}
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Simplified Java NIO asynchronous sockets
 
 License:        MIT
@@ -82,6 +82,9 @@ cp -rp _BUILD/docs/api/* %{buildroot}%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Tangerine
 Version:        0.23
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Analyse perl files and report module-related information
 License:        MIT
 URL:            https://metacpan.org/release/Tangerine
@@ -80,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.23-21
 - Package tests
 - Remove dependency to old List::MoreUtils

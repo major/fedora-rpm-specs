@@ -4,7 +4,7 @@
 Name:    kf5-%{framework}
 Summary: KDE Frameworks 5 Tier 3 solution for advanced plugin and service introspection
 Version: 5.108.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # mixture of LGPLv2 and LGPLv2+ (mostly the latter)
 License: LGPLv2
@@ -102,6 +102,9 @@ mkdir -p %{buildroot}%{_kf5_datadir}/kservicetypes5
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.108.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.108.0-1
 - 5.108.0
 

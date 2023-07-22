@@ -1,6 +1,6 @@
 Name:           perl-Test-Pod
 Version:        1.52
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Test POD files for correctness
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Pod
@@ -53,6 +53,9 @@ LC_ALL=C make test
 %{_mandir}/man3/Test::Pod.3pm*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

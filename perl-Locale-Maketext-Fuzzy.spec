@@ -1,6 +1,6 @@
 Name:           perl-Locale-Maketext-Fuzzy
 Version:        0.11
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Maketext from already interpolated strings
 
 License:        MIT
@@ -65,6 +65,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 
 Name:		jglobus
 Version:	2.1.0
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Globus Java client libraries
 
 #		Everything is Apache 2.0 except for one file that is MIT:
@@ -280,6 +280,9 @@ This package contains the API documentation for %{name}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

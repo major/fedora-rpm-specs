@@ -1,6 +1,6 @@
 Name:           perl-Geo-Inverse
 Version:        0.07
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Calculate geographic distance from a lat & lon pair
 
 License:        MIT
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/Geo*.3pm*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.07-1
 - 0.07 bump
 - Modernize spec

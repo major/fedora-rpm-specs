@@ -1,7 +1,7 @@
 Summary: Macromolecular coordinate library
 Name: mmdb2
 Version: 2.0.1
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: LGPLv3
 URL: ftp://ftp.ccp4.ac.uk/opensource/
 Source0: ftp://ftp.ccp4.ac.uk/opensource/%{name}-%{version}.tar.gz
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

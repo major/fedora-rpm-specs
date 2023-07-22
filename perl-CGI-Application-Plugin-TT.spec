@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-TT
 Version:        1.05
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Add Template Toolkit support to CGI::Application
 License:        GPL+ or Artistic
 
@@ -45,6 +45,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: libmodbus
 Version: 3.1.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Modbus library
 License: LGPLv2+
 URL: http://www.libmodbus.org/
@@ -58,6 +58,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_mandir}/man3/*.3.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 25 2023 Eric Sandeen <sandeen@sandeen.net> - 3.1.7-1
 - New upstream release
 

@@ -1,13 +1,12 @@
 Name:		tint2
-Version:	17.1.3
-Release:	3%{?dist}
+Epoch:      1
+Version:	17.0.2
+Release:	1%{?dist}
 Summary:	A lightweight X11 desktop panel and task manager
 
 License:	GPLv2
-URL:		https://gitlab.com/nick87720z/%{name}
-Source0:	%url/-/archive/%{version}/%{name}-%{version}.tar.bz2
-# https://gitlab.com/nick87720z/tint2/-/issues/4
-Patch0:     %url/uploads/7de4501a4fa4fffa5ba8bb0fa3d19f78/glib.patch
+URL:		https://gitlab.com/o9000/%{name}
+Source0:	%url/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -33,7 +32,7 @@ specifically made for Openbox3 but should also work with other window managers
 (GNOME, KDE, etc...). It's based on ttm code http://code.google.com/p/ttm/.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-v%{version}
 
 %build
 %{cmake} -DENABLE_EXAMPLES=ON -GNinja
@@ -65,7 +64,6 @@ desktop-file-install	\
 %license COPYING
 %{_bindir}/tint2
 %{_bindir}/tint2conf
-%{_bindir}/tint2-send
 %dir %{_sysconfdir}/xdg/tint2/
 %config(noreplace) %{_sysconfdir}/xdg/tint2/tint2rc
 %{_datadir}/tint2/
@@ -76,6 +74,9 @@ desktop-file-install	\
 %{_mandir}/man1/tint2*
 
 %changelog
+* Thu Jul 20 2023 Leigh Scott <leigh123linux@gmail.com> - 1:17.0.2-1
+- Revert back to 17.0.2
+
 * Tue Jul 18 2023 Leigh Scott <leigh123linux@gmail.com> - 17.1.3-3
 - Fix rhbz#2222070
 

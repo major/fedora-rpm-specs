@@ -16,7 +16,7 @@ Charset conversions in Go.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 Summary:        Charset conversions in Go
 
 License:        BSD-2-Clause
@@ -50,6 +50,9 @@ done
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0-0.11
 - Fix FTBFS rhbz#2113352
 

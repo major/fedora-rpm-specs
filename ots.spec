@@ -1,7 +1,7 @@
 Name:		ots
 Summary:	A text summarizer
 Version:	0.5.0
-Release:	28%{?dist}
+Release:	29%{?dist}
 
 License:	GPLv2+
 URL:		http://libots.sourceforge.net/
@@ -87,6 +87,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 0.5.0-28
 - Port to C99 (#2185829)
 

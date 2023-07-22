@@ -1,6 +1,6 @@
 Name:           perl-Signal-Mask
 Version:        0.008
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Signal masks made easy
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Signal-Mask
@@ -54,6 +54,9 @@ blocked for the caller. It is available as the global hash Signal::Mask.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

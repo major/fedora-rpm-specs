@@ -1,6 +1,6 @@
 Name:           ikiwiki
 Version:        3.20200202.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A wiki compiler
 
 # ikiwiki is licensed under GPLv2+, the Python code in plugins/ under
@@ -244,6 +244,9 @@ meta-wrapper in this package.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.20200202.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.20200202.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

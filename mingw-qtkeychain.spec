@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        0.13.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows %{pkgname} library
 BuildArch:      noarch
 
@@ -85,6 +85,9 @@ grep %{mingw64_datadir}/qt5keychain/translations %{pkgname}.lang > mingw64_%{pkg
 %{mingw64_datadir}/qt5/mkspecs/modules/qt_Qt5Keychain.pri
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

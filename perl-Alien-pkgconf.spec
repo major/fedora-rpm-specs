@@ -1,6 +1,6 @@
 Name:           perl-Alien-pkgconf
 Version:        0.19
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Discover pkgconf and libpkgconf
 # Other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not used
@@ -126,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Petr Pisar <ppisar@redhat.com> - 0.19-4
 - Rebuild against pkgconf 1.9.5 (bug #2221456)
 

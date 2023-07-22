@@ -1,7 +1,7 @@
 Summary:        Test case module for Perl
 Name:           perl-Test-Manifest
 Version:        2.023
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Manifest
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Manifest-%{version}.tar.gz
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/Test::Manifest.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.023-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.023-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

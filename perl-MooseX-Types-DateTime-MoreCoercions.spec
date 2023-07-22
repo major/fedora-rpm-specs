@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Types-DateTime-MoreCoercions
 Version:        0.15
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Extensions to MooseX::Types::DateTime
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-Types-DateTime-MoreCoercions
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

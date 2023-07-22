@@ -5,7 +5,7 @@
 
 Name:		mold
 Version:	1.11.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A Modern Linker
 
 License:	AGPL-3.0-or-later AND (Apache-2.0 OR MIT)
@@ -108,6 +108,9 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 16 2023 Christoph Erhardt <fedora@sicherha.de> - 1.11.0-1
 - Bump version to 1.11.0
 - Update version number of bundled tbb package to 2021.7

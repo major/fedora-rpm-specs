@@ -2,7 +2,7 @@
 
 Name:           perl-Log-Handler
 Version:        0.90
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Log messages to several outputs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Log-Handler
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

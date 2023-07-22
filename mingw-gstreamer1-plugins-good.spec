@@ -4,7 +4,7 @@
 
 Name:           mingw-gstreamer1-plugins-good
 Version:        1.22.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
 License:        LGPLv2+
@@ -277,6 +277,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Sandro Mani <manisandro@gmail.com> - 1.22.4-1
 - Update to 1.22.4
 

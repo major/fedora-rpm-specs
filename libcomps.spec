@@ -2,7 +2,7 @@
 
 Name:           libcomps
 Version:        0.1.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
@@ -116,6 +116,9 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1.19-2
 - Rebuilt for Python 3.12
 

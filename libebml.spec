@@ -1,7 +1,7 @@
 Summary:    Extensible Binary Meta Language library
 Name:       libebml
 Version:    1.4.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    LGPLv2+
 URL:        https://www.matroska.org/
 Source:     https://dl.matroska.org/downloads/%{name}/%{name}-%{version}.tar.xz
@@ -63,6 +63,9 @@ rm -r src/lib/utf8-cpp
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.4.4-3
 - switch to plain cmake in dependencies and macros (resolves: rhbz#1731694)
 - use better glob for shared library

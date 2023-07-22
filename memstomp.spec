@@ -2,7 +2,7 @@
 
 Name:		memstomp
 Version:	0.1.4
-Release:	37%{?dist}
+Release:	38%{?dist}
 Summary:	Warns of memory argument overlaps to various functions
 # The entire source code is LGPLV3+ with the exception of backtrace-symbols.c which
 # is GPLv2+ by way of being a hacked up old version of binutils's addr2line.
@@ -77,6 +77,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/memstomp.1.gz
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 6 2023 William Cohen <wcohen@redhat.com> - 0.1.4-37
 - Link in binutils sframe library when available to fix FTBFS. (rhbz#2171607)
 

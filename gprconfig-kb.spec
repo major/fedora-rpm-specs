@@ -6,7 +6,7 @@
 
 Name:           gprconfig-kb
 Version:        %{upstream_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GNAT project configuration knowledge base
 BuildArch:      noarch
 
@@ -77,6 +77,9 @@ mkdir --parents %{buildroot}%{_datadir}/gprconfig
 ###############
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 %global min_ver 0
 %global patch_ver 1
 #%%global rc_ver 4
-%global baserelease 4
+%global baserelease 5
 
 
 %if %{with compat_build}
@@ -477,6 +477,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

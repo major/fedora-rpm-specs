@@ -3,7 +3,7 @@
 Summary: A document formatting system
 Name: groff
 Version: 1.23.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Everything is under GPL-3.0-or-later, except for the following files:
 # MIT license
 #  -- tmac/hyphen.den
@@ -494,6 +494,9 @@ fi
 %doc %{_pkgdocdir}/pdf/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.23.0-1
 - Rebase to version 1.23.0
 - Several files were removed from groff package

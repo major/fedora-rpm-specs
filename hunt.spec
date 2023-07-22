@@ -1,7 +1,7 @@
 Summary:	Tool for demonstrating well known weaknesses in the TCP/IP protocol suite
 Name:		hunt
 Version:	1.5
-Release:	39%{?dist}
+Release:	40%{?dist}
 License:	GPL-2.0-only
 Source:		http://lin.fsid.cvut.cz/~kra/hunt/%name-%version.tgz
 Patch0:		hunt-1.5-arridx.patch
@@ -73,6 +73,9 @@ install -p -m644 man/*.1 $RPM_BUILD_ROOT%_mandir/man1/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5-39
 - migrated to SPDX license
 

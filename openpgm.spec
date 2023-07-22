@@ -4,7 +4,7 @@ Version:       5.2.122
 %global version_main      5.2
 %global version_dash_main 5-2
 %global version_dash      %{version_dash_main}-122
-Release:       31%{?dist}
+Release:       32%{?dist}
 Summary:       An implementation of the PGM reliable multicast protocol
 
 # The license is LGPLv2.1
@@ -95,6 +95,9 @@ mv -f %{buildroot}%{_includedir}/%{name_alias}-%{version_main}/%{name_alias} %{b
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.122-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.122-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

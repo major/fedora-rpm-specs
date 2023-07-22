@@ -3,7 +3,7 @@
 Version: 2.008
 %forgemeta
 
-Release: 15%{?dist}
+Release: 16%{?dist}
 URL:     https://www.huertatipografica.com/en/fonts/alegreya-sans-ht
 
 %global foundry           HT
@@ -48,6 +48,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.008-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.008-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

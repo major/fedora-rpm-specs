@@ -1,6 +1,6 @@
 Name:           perl-Object-Pluggable
 Version:        1.29
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Base class for creating plugin-enabled objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pluggable
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

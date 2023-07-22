@@ -1,6 +1,6 @@
 Name:           perl-Olson-Abbreviations
 Version:        0.04
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Globally unique timezones abbreviation handling
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Olson-Abbreviations
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

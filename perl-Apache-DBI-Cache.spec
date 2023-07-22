@@ -1,6 +1,6 @@
 Name:           perl-Apache-DBI-Cache
 Version:        0.08
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Perl DBI connection cache
 License:        GPL+ or Artistic
 
@@ -63,6 +63,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

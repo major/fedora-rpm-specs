@@ -3,7 +3,7 @@
 
 Name:           perl-Graphics-TIFF
 Version:        20
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl extension for the LibTIFF library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Graphics-TIFF
@@ -116,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 20-2
 - Perl 5.38 rebuild
 

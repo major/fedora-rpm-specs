@@ -1,6 +1,6 @@
 Name:           perl-Test-ConsistentVersion
 Version:        0.3.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Ensures a CPAN distribution has consistent versioning
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-ConsistentVersion
@@ -58,6 +58,9 @@ TEST_AUTHOR=1 ./Build test
 %{_mandir}/man3/Test::ConsistentVersion.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 23 2023 Paul Howarth <paul@city-fan.org> - 0.3.1-6
 - Spec tidy-up
   - Use author-independent source URL

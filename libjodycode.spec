@@ -5,7 +5,7 @@ Version:        3.0.1
 %forgemeta
 
 Name:           libjodycode
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose utility functions
 
 License:        MIT
@@ -63,6 +63,9 @@ rm -rf %{buildroot}%{_mandir}/man7
 %{_libdir}/libjodycode.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 David Cantrell <dcantrell@redhat.com> - 3.0.1-1
 - Upgrade to libjodycode-3.0.1
 

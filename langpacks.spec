@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -1606,6 +1606,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE3}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-1
 - Bump the version to 4.0.
   https://fedoraproject.org/wiki/Changes/ImproveDefaultFontHandling

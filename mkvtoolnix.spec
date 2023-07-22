@@ -1,7 +1,7 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
 Version: 77.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
 Source1: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz.sig
@@ -122,6 +122,9 @@ drake tests:run_unit
 %{_datadir}/mkvtoolnix
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 77.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 77.0-2
 - Rebuilt due to fmt 10 update.
 

@@ -1,6 +1,6 @@
 Name:          honggfuzz
 Version:       2.5
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       General-purpose, easy-to-use fuzzer
 
 License:       ASL 2.0
@@ -120,6 +120,9 @@ hfuzz_cc/hfuzz-g++ hello.cpp -o hello
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 24 2023 Siddhesh Poyarekar <siddhesh@redhat.com> 2.5-2
 - Use _fortify_level macro to disable fortification.
 

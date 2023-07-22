@@ -1,6 +1,6 @@
 Name:           perl-Chatbot-Eliza
 Version:        1.08
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Implementation of the Eliza algorithm
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Chatbot-Eliza
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

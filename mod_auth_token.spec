@@ -1,6 +1,6 @@
 Name:           mod_auth_token
 Version:        1.0.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Token based URI access module for Apache
 
 License:        ASL 2.0
@@ -54,6 +54,9 @@ autoreconf -fiv
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

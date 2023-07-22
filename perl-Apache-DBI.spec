@@ -1,6 +1,6 @@
 Name:      perl-Apache-DBI
 Version:   1.12
-Release:   29%{?dist}
+Release:   30%{?dist}
 Summary:   Persistent database connections with Apache/mod_perl
 
 License:   GPL+ or Artistic
@@ -87,6 +87,9 @@ make test
 %{perl_vendorlib}/Apache
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

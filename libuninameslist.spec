@@ -1,6 +1,6 @@
 Name:           libuninameslist
 Version:        20230523
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        A library providing Unicode character names and annotations
 
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/libuninameslist.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230523-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 23 2023 Parag Nemade <pnemade AT redhat DOT com> - 20230523-2
 - Migrate to SPDX license expression
 

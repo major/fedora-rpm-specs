@@ -2,7 +2,7 @@
 
 Name:           mot-adms
 Version:        2.3.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An electrical compact device models converter
 
 License:        GPLv3+
@@ -68,6 +68,9 @@ find %{buildroot} -type l -name '*.so' -delete
 %{_mandir}/man1/admsXml.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

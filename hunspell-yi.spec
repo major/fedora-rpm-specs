@@ -7,7 +7,7 @@
 Name: hunspell-yi
 Summary: Yiddish hunspell dictionaries
 Version: 1.1
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/3975/1/%{name}-%{version}.oxt
 URL: http://extensions.services.openoffice.org/en/project/dict-yi
 License: LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1
@@ -36,6 +36,9 @@ cp -p dictionaries/yi.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/yi_US.dic
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 1.1-27
 - migrated to SPDX license
 

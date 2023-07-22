@@ -1,6 +1,6 @@
 Name:           nuntius
 Version:        0.2.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Get notifications from the phone or tablet
 
 License:        GPLv2+
@@ -50,6 +50,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.holylobster.nu
 %{_datadir}/icons/hicolor/*/apps/nuntius.png
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -48,7 +48,7 @@
 
 Name:           libkolabxml
 Version:        1.2.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Kolab XML format collection parser library
 
 License:        LGPLv3+
@@ -251,6 +251,9 @@ popd
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.0-17
 - Rebuilt for Python 3.12
 

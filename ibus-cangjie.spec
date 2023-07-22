@@ -3,7 +3,7 @@
 Name:             ibus-cangjie
 Summary:          IBus engine to input Cangjie and Quick
 Version:          2.4
-Release:          29%{?dist}
+Release:          30%{?dist}
 License:          GPLv3+
 URL:              http://cangjians.github.io/projects/%{name}
 Source0:          https://github.com/Cangjians/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
@@ -121,6 +121,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-quick.des
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

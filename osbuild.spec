@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        89
+Version:        90
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        89
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -252,6 +252,25 @@ fi
 
 
 %changelog
+* Wed Jul 19 2023 Packit <hello@packit.dev> - 90-1
+Changes with 90
+----------------
+  * .gitlab-ci.yml: Run rpmbuild for Fedora 39 (#1344)
+  * Expand `sysconfig` stage with `livesys` and `desktop` (#1345)
+  * Schutzfile: Fix f38 snapshot references (#1347)
+  * org.osbuild.rpm: Add some context to rpmkeys failure (#1244)
+  * runners: Asahi Fedora Remix to Fedora Asahi Remix (#1338)
+  * stage: anaconda, allow access to more config (#1320)
+  * stages/rpm: chmod `machine-id` to 0444 (#1342)
+  * stages/squashfs: add support for zstd compression (#1232)
+  * stages: add openscap autotailor stage (#1336)
+  * test/data: introduce UKI also for CentOS Stream (#1233)
+
+Contributions from: Brian C. Lane, Eric Curtin, Gianluca Zuccarelli, Ondřej Budai, Simon de Vlieger
+
+— Somewhere on the Internet, 2023-07-19
+
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 89-2
 - Rebuilt for Python 3.12
 

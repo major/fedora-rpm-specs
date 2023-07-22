@@ -15,7 +15,7 @@ An implementation of JSON Pointer.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.17%{?dist}
+Release:        0.18%{?dist}
 Summary:        JSON Pointer implementation in Go
 
 # Upstream license specification: Apache-2.0
@@ -42,6 +42,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

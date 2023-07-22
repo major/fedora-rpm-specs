@@ -1,5 +1,5 @@
 Version: 2.015
-Release: 16%{?dist}
+Release: 17%{?dist}
 URL:     http://www.latofonts.com/
 
 %global fontlicense       OFL
@@ -63,6 +63,9 @@ chmod 0644 OFL.txt README.txt
 %fontfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.015-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 2.015-16
 - Convert to new fonts packaging guidelines
 - Migrate to SPDX license expression

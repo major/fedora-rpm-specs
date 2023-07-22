@@ -8,7 +8,7 @@
 
 Name:      libicu72
 Version:   72.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   International Components for Unicode
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
@@ -116,5 +116,8 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 72.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 72.1-1
 - Initial packaging based on libicu69

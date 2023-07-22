@@ -28,7 +28,7 @@ library.}
 %global godocs          CHANGELOG README
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Libseccomp Go bindings
 
 # Upstream license specification: BSD-2-Clause
@@ -59,6 +59,9 @@ BuildRequires:  pkgconfig(libseccomp)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

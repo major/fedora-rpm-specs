@@ -2,7 +2,7 @@ Name: hyphen-de
 Summary: German hyphenation rules
 %global upstreamid 20060120
 Version: 0.%{upstreamid}
-Release: 30%{?dist}
+Release: 31%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/hyph_de_DE.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
 License: LGPL-2.1-or-later
@@ -45,6 +45,9 @@ popd
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20060120-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 32 2023 Caolán McNamara <caolanm@redhat.com> - 0.20060120-30
 - migrated to SPDX license
 

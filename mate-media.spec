@@ -1,6 +1,6 @@
 Name:           mate-media
 Version:        1.26.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MATE media programs
 License:        GPLv2+ and LGPLv2+
 URL:            http://mate-desktop.org
@@ -68,6 +68,9 @@ rm -rf %{buildroot}%{_sysconfdir}/xdg/autostart/mate-volume-control-status-icon.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1
 

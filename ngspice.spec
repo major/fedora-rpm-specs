@@ -39,7 +39,7 @@
 
 Name:			ngspice
 Version:		%{fedoraver}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		A mixed level/signal circuit simulator
 
 License:		BSD
@@ -450,6 +450,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 40-1
 - Update to 40
 

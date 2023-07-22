@@ -1,7 +1,7 @@
 Summary:        Blitzed open proxy monitor library
 Name:           libopm
 Version:        0.1
-Release:        33.20050731cvs%{?dist}
+Release:        34.20050731cvs%{?dist}
 License:        GPLv2+
 URL:            http://wiki.blitzed.org/BOPM
 # cvs -z3 -d:pserver:anon@cvs.blitzed.org:/ co -D "20050731 23:59" libopm
@@ -72,6 +72,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-34.20050731cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-33.20050731cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,12 +3,17 @@
 Summary: File compression utility
 Name: bzip2
 Version: 1.0.8
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: BSD-4-Clause
-URL: http://www.bzip.org/
+URL: https://sourceware.org/bzip2
 #Source0: http://www.bzip.org/%{version}/%{name}-%{version}.tar.gz
 Source0: https://sourceware.org/pub/bzip2/%{name}-%{version}.tar.gz
 Source1: bzip2.pc
+Source2: https://sourceware.org/pub/bzip2/%{name}-%{version}.tar.gz.sig
+# https://sourceware.org/bzip2/downloads.html links to the gpg key
+# https://sourceware.org/pub/bzip2/gpgkey-5C1D1AA44BE649DE760A.gpg
+# with which the tarballs are signed
+Source3: gpgkey-5C1D1AA44BE649DE760A.gpg
 
 Patch0: bzip2-saneso.patch
 Patch1: bzip2-cflags.patch
@@ -17,6 +22,7 @@ Patch3: man_gzipdiff.patch
 
 BuildRequires: gcc
 BuildRequires: make
+BuildRequires: gnupg2
 
 %description
 Bzip2 is a freely available, patent-free, high quality data compressor.
@@ -50,6 +56,7 @@ Summary: Libraries for applications using bzip2
 Static libraries for applications using the bzip2 compression format.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
 %setup -q
 %patch0 -p1
 %patch1 -p1
@@ -121,6 +128,9 @@ ln -s bzgrep.1 $RPM_BUILD_ROOT%{_mandir}/man1/bzfgrep.1
 %{_libdir}/pkgconfig/bzip2.pc
 
 %changelog
+* Thu Jul 20 2023 Stewart Smith <trawets@amazon.com> - 1.0.8-16
+- gpgverify source tarball
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

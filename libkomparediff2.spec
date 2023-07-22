@@ -4,7 +4,7 @@
 Name:    libkomparediff2
 Summary: Library to compare files and strings
 Version: 23.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Library: GPLv2+ (some files LGPLv2+), CMake scripts: BSD
 License: GPLv2+ and BSD
@@ -98,6 +98,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

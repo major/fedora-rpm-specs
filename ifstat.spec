@@ -1,7 +1,7 @@
 Summary: Interface statistics
 Name: ifstat
 Version: 1.1
-Release: 40%{?dist}
+Release: 41%{?dist}
 License: GPL-2.0-or-later
 URL: http://gael.roualland.free.fr/ifstat/
 Source0: http://gael.roualland.free.fr/ifstat/ifstat-%{version}.tar.gz
@@ -40,6 +40,9 @@ autoconf
 %{_bindir}/ifstat
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 13 2023 Boian Bonev <bbonev@ipacct.com> - 1.1-40
 - Always regenerate configure
 

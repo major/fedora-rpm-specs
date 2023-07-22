@@ -19,7 +19,7 @@ Package Otto is a JavaScript parser and interpreter written natively in Go.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.19%{?dist}
+Release:        0.20%{?dist}
 Summary:        JavaScript interpreter in Go
 
 License:        MIT
@@ -51,6 +51,9 @@ BuildRequires:  golang(gopkg.in/sourcemap.v1)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

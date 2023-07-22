@@ -1,6 +1,6 @@
 Name:           libass
 Version:        0.17.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Portable library for SSA/ASS subtitles rendering
 License:        ISC
 URL:            https://github.com/libass
@@ -55,6 +55,9 @@ make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 24 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.17.1-1
 - Update to 0.17.1
 

@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 Name:		hyena
 Version:	0.5
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	A library of GUI and non-GUI C sharp code
 Summary(es):	Una librería para aplicaciones escritas en C#
 License:	MIT
@@ -65,6 +65,9 @@ chmod a-x %{buildroot}%{_libdir}/hyena/*.config
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

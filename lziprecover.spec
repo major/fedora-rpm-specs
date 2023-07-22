@@ -1,6 +1,6 @@
 Name:           lziprecover
 Version:        1.23
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Data recovery tool and decompressor for files in the lzip compressed format
 
 License:        GPL-3.0-or-later
@@ -55,6 +55,9 @@ make check
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.23-4
 - migrated to SPDX license
 

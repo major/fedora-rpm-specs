@@ -10,7 +10,7 @@
 Summary: Security module for the Apache HTTP Server
 Name: mod_security
 Version: 2.9.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0
 URL: http://www.modsecurity.org/
 Source: https://github.com/SpiderLabs/ModSecurity/releases/download/v%{version}/modsecurity-%{version}.tar.gz
@@ -144,6 +144,9 @@ install -m0644 mlogc/mlogc-default.conf %{buildroot}%{_sysconfdir}/mlogc.conf
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 02 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.9.7-2
 - SPDX migration
 

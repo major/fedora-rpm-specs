@@ -7,7 +7,7 @@
 Name: hunspell-grc
 Summary: Ancient Greek hunspell dictionaries
 Version: 2.1.5
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/2313/1/grc.oxt
 URL: http://www.himeros.eu/
 License: GPL-1.0-or-later OR LGPL-2.1-or-later
@@ -36,6 +36,9 @@ cp -p dictionaries/grc_GR.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/grc.di
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 2.1.5-28
 - migrated to SPDX license
 

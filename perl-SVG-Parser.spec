@@ -1,6 +1,6 @@
 Name:           perl-SVG-Parser
 Version:        1.03
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        XML Parser for SVG documents
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/SVG-Parser
@@ -58,6 +58,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

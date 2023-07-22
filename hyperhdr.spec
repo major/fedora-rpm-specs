@@ -1,6 +1,6 @@
 Name:           hyperhdr
 Version:        19.0.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Ambient lighting
 
 License:        MIT AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19.0.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Vasiliy Glazov <vascom2@gmail.com> - 19.0.0.0-4
 - Rebuild for Qt6 private api name change
 

@@ -14,7 +14,7 @@ Summary:        Fast random access of gzip files in Python
 
 License:        Zlib
 URL:            https://github.com/pauldmccarthy/indexed_gzip
-Source0:        %{pypi_source indexed_gzip}
+Source:         %{pypi_source indexed_gzip}
 
 # Replace IndexedGzipFile.__reduce__ with IndexedGzipFile.__reduce_ex__
 # https://github.com/pauldmccarthy/indexed_gzip/pull/126
@@ -55,6 +55,9 @@ decompress (on average) 512KB of data to read from any location in the file.}
 %package -n python3-indexed-gzip
 Summary:        %{summary}
 BuildRequires:  python3-devel
+# Incompatible with Cython 3 due to division semantics
+# https://github.com/pauldmccarthy/indexed_gzip/issues/127
+BuildRequires:  python3dist(cython) < 3~~
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel

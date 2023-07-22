@@ -1,6 +1,6 @@
 Name:           perl-SQL-Tokenizer
 Version:        0.24
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Simple SQL tokenizer
 License:        GPL+ or Artistic
 
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/SQL*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

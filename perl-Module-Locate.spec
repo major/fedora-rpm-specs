@@ -1,6 +1,6 @@
 Name:           perl-Module-Locate
 Version:        1.80
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Locate Perl modules in the same fashion as "require" and "use"
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Locate
@@ -59,6 +59,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.80-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.80-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

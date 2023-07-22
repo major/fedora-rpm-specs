@@ -1,6 +1,6 @@
 Name:           perl-FileHandle-Fmode
 Version:        0.14
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        FileHandle::Fmode Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/FileHandle-Fmode
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.14-24
 - Perl 5.38 rebuild
 

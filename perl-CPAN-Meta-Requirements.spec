@@ -3,7 +3,7 @@
 
 Name:           perl-CPAN-Meta-Requirements
 Version:        2.143
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Set of version requirements for a CPAN dist
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta-Requirements
@@ -97,6 +97,9 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/CPAN::Meta::Requirements::Range.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.143-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.143-3
 - Perl 5.38 re-rebuild of bootstrapped packages
 

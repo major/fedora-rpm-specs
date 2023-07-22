@@ -1,7 +1,7 @@
 Summary: A library that hides the complexity of using the SIP protocol
 Name: libeXosip2
 Version: 5.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 
 URL: https://savannah.nongnu.org/projects/eXosip
@@ -76,6 +76,9 @@ cp help/doxygen/doc/html/* %{buildroot}%{_docdir}/libeXosip2-devel/html
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 18 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.3.0-2
 - Remove .la files on EL.
 

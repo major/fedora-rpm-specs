@@ -1,6 +1,6 @@
 Name:       gsmartcontrol
 Version:    1.1.4
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Graphical user interface for smartctl
 
 # Note that the "Whatever" license is effectively the MIT license.  See email
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/gsmartcontrol.appdata.xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Summary: Mesa demos
 Name: mesa-demos
 Version: 9.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: http://www.mesa3d.org
 Source0: https://archive.mesa3d.org/demos/%{name}-%{version}.tar.xz
@@ -121,6 +121,9 @@ install -m 0755 %{_vpath_builddir}/src/egl/opengles2/es2_info %{buildroot}%{_bin
 %{_bindir}/es2_info
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 9.0.0-2
 - Install all necessary shader files (#1373299)
 

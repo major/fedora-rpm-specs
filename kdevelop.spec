@@ -3,7 +3,7 @@ Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
 Version:        23.04.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-only
 URL:            http://www.kdevelop.org/
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/kdevelop-%{version}.tar.xz
@@ -221,6 +221,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9:23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 9:23.04.3-1
 - 23.04.3
 

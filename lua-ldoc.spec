@@ -5,7 +5,7 @@
 
 Name:		lua-ldoc
 Version:	1.4.6
-Release:	16%{?dist}
+Release:	17%{?dist}
 BuildArch:	noarch
 Summary:	Lua documentation generator
 # the included css code is BSD licensed
@@ -102,6 +102,9 @@ cp -av %{!?_licensedir:COPYRIGHT} readme.html changes.html out/* \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

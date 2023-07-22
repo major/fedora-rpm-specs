@@ -1,6 +1,6 @@
 Name:           itstool
 Version:        2.0.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ITS-based XML translation tool
 
 License:        GPLv3+
@@ -41,6 +41,9 @@ export PYTHON=%{__python3}
 %{_mandir}/man1/itstool.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

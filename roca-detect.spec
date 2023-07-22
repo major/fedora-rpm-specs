@@ -79,8 +79,8 @@ Currently supported things include:
 
 %prep
 %setup -q -n roca-%{version}
-%patch0 -p0 -b .color
-%patch1 -p0 -b .pkcs7
+%patch 0 -p0 -b .color
+%patch 1 -p0 -b .pkcs7
 %if 0%{bundle_pgpdump}
 tar xvfz %{SOURCE1}
 %endif

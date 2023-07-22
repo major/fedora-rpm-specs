@@ -1,6 +1,6 @@
 Name:           perl-Dist-Milla
 Version:        1.0.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CPAN distribution builder
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Milla
@@ -184,6 +184,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Petr Pisar <ppisar@redhat.com> - 1.0.22-1
 - 1.0.22 bump
 

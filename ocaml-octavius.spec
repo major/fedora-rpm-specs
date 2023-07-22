@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-octavius
 Version:        1.2.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Ocamldoc comment syntax parser
 
 License:        ISC
@@ -43,6 +43,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-15
 - OCaml 5.0 rebuild for Fedora 39
 

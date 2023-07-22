@@ -8,7 +8,7 @@ Name: hunspell-ber
 Summary: Amazigh hunspell dictionaries
 %global upstreamid 20080210
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source: http://ayaspell.sourceforge.net/data/hunspell-am_test.tar.gz
 URL: http://ayaspell.sourceforge.net/am.html
 License: GPL-1.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
@@ -36,6 +36,9 @@ cp -p tifinagh.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/ber_MA.aff
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080210-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 0.20080210-27
 - migrated to SPDX license
 

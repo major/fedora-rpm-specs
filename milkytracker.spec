@@ -1,6 +1,6 @@
 Name:           milkytracker
 Version:        1.03.00
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Module tracker software for creating music
 
 License:        GPLv3+
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_pkgdocdir}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03.00-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 04 2023 Joonas Sarajärvi <muep@iki.fi> - 1.03.00-6
 - Rebuild for rtmidi 5
 

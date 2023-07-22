@@ -3,7 +3,7 @@
 
 Name:           perl-Git-Wrapper
 Version:        0.048
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Wrap git command-line interface for Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Git-Wrapper
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.048-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.048-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

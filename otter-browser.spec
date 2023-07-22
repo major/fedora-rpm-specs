@@ -18,10 +18,10 @@ Summary:        Web browser controlled by the user, not vice-versa
 License:        GPLv3+ and BSD
 %if 0%{?usesnapshot}
 Version:        1.0.81
-Release:        0.6%{snapshottag}%{?dist}
+Release:        0.7%{snapshottag}%{?dist}
 %else
 Version:        1.0.03
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 URL:            http://otter-browser.org/
 Epoch:          1
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.03-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.03-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

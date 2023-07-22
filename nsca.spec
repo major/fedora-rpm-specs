@@ -1,7 +1,7 @@
 Summary:        Nagios Service Check Acceptor
 Name:           nsca
 Version:        2.10.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPLv2+
 URL:            http://www.nagios.org/
 Source0:        https://github.com/NagiosEnterprises/nsca/releases/download/nsca-%{version}/nsca-%{version}.tar.gz
@@ -90,6 +90,9 @@ install -Dp -m 0644 nsca.service %{buildroot}%{_unitdir}/nsca.service
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 07 2023 Xavier Bachelot <xavier@bachelot.org> - 2.10.2-4
 - Fix typo in unit file (RHBZ#2161256)
 

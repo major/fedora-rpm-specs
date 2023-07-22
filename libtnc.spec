@@ -2,7 +2,7 @@
 
 Name:		libtnc
 Version:	1.25
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Library implementation of the Trusted Network Connect (TNC) specification
 License:	GPLv2
 Source0:	http://dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ popd
 %{_mandir}/man3/Interface::TNC*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.25-38
 - Perl 5.38 rebuild
 

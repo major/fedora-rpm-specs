@@ -1,6 +1,6 @@
 Name:           perl-Language-Functional
 Version:        0.05
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Module which makes Perl slightly more functional
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Language-Functional
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

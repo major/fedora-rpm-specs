@@ -16,7 +16,7 @@ barcode. You can use the PixelGrid to draw the barcode on anything.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.6%{?dist}
+Release:        0.7%{?dist}
 Summary:        Port of pdf417-php by ihabunek in Golang
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf examples
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

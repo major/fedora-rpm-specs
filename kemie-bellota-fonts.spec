@@ -3,7 +3,7 @@
 Version:            4.1
 %forgemeta
 
-Release: 11%{?dist}
+Release: 12%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           kemie
@@ -63,6 +63,9 @@ Source11: 60-%{fontpkgname1}.xml
 %fontfiles -a
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

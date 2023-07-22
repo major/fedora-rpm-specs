@@ -1,6 +1,6 @@
 Name:           libhbaapi
 Version:        2.2.9
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        SNIA HBAAPI library
 License:        SNIA
 URL:            http://open-fcoe.org/
@@ -51,6 +51,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

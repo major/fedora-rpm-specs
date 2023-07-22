@@ -1,6 +1,6 @@
 Name:       kst
 Version:    2.0.8
-Release:    43%{?dist}
+Release:    44%{?dist}
 Summary:    A data viewing program
 
 License:    GPL-3.0-only
@@ -173,6 +173,9 @@ rm -frv %{buildroot}%{_datadir}/{applnk,mimelink}/
 #%{_datadir}/services/kst/kstdata_dirfilesource.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.0.8-43
 - migrated to SPDX license
 

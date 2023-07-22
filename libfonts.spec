@@ -1,6 +1,6 @@
 Name: libfonts
 Version: 1.1.3
-Release: 42%{?dist}
+Release: 43%{?dist}
 Summary: TrueType Font Layouting
 License: LGPL-2.1-only AND Unicode-DFS-2016
 #Original source: http://downloads.sourceforge.net/jfreereport/%%{name}-%%{version}.zip
@@ -67,6 +67,9 @@ cp -rp bin/javadoc/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.3-42
 - Bump EVR
 

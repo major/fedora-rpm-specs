@@ -2,7 +2,7 @@
 
 Name:           mingw-gdbm
 Version:        1.11
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        MinGW port of GNU database routines
 
 License:        GPLv3+
@@ -167,6 +167,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

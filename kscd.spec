@@ -1,7 +1,7 @@
 Name:    kscd 
 Summary: CD Player 
 Version: 17.08.3
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 License: GPLv2+
 URL:      http://www.kde.org/applications/multimedia/kscd/
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/kscd.deskto
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

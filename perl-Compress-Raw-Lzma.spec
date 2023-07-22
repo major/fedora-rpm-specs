@@ -3,7 +3,7 @@
 
 Name:		perl-Compress-Raw-Lzma
 Version:	2.205
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -87,6 +87,9 @@ make test
 %{_mandir}/man3/Compress::Raw::Lzma.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.205-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Paul Howarth <paul@city-fan.org> - 2.205-1
 - Update to 2.205
   - Test::More isn't warns in Perl 5.38

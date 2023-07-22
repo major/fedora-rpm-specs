@@ -1,6 +1,6 @@
 Name:           perl-PerlIO-via-symlink
 Version:        0.05
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        PerlIO layers for create symlinks
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/PerlIO-via-symlink
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

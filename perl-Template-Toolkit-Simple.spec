@@ -1,6 +1,6 @@
 Name:           perl-Template-Toolkit-Simple
 Version:        0.31
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Simple interface to Template Toolkit
 # inc/Text/Diff.pm (not in binary package):     GPLv2+ or Artistic
 # rest:     GPL+ or Artistic
@@ -95,6 +95,9 @@ make test
 %{_bindir}/tt-render
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           perl-Term-Terminfo
 Version:        0.09
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Access the terminfo database
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Term-Terminfo
@@ -65,6 +65,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-9
 - Perl 5.38 rebuild
 

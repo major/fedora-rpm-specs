@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-ErrorPage
 Version:        1.21
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Simple error page plugin for CGI::Application
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Application-Plugin-ErrorPage
@@ -42,6 +42,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

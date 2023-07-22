@@ -8,7 +8,7 @@
 Name:           perl-Pod-Perldoc
 # let's overwrite the module from perl.srpm
 Version:        3.28.01
-Release:        500%{?dist}
+Release:        501%{?dist}
 Summary:        Look up Perl documentation in Pod format
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Perldoc
@@ -121,6 +121,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.01-501
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.28.01-500
 - Perl 5.38 re-rebuild of bootstrapped packages
 

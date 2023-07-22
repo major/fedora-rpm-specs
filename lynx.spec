@@ -3,7 +3,7 @@
 Summary: A text-based Web browser
 Name: lynx
 Version: 2.9.0
-Release: %{devrel}.1%{?dist}
+Release: %{devrel}.1%{?dist}.1
 License: GPL-2.0-only
 
 Source0: https://invisible-mirror.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
@@ -134,6 +134,9 @@ EOF
 %config(noreplace,missingok) %{_sysconfdir}/lynx-site.cfg
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-dev.12.1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 03 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.0-dev.12.1
 - %%{gpgverify} sources
 - remove upstreamed patches

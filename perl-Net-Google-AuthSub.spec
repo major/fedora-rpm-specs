@@ -1,6 +1,6 @@
 Name:           perl-Net-Google-AuthSub
 Version:        0.5
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Provides interface to interact with sites that implement Google style AuthSub
 
 # From AuthSub.pm
@@ -53,6 +53,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

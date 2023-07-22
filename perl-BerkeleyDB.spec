@@ -10,7 +10,7 @@
 
 Name:           perl-BerkeleyDB
 Version:        0.65
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Interface to Berkeley DB
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/BerkeleyDB
@@ -106,6 +106,9 @@ make test
 %{_mandir}/man3/BerkeleyDB.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.65-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.65-5
 - Perl 5.38 rebuild
 

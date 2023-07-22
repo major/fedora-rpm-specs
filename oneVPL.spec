@@ -1,6 +1,6 @@
 Name:           oneVPL
 Version:        2023.1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        oneAPI Video Processing Library
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
@@ -106,6 +106,9 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_datadir}/vpl/examples
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 22 2023 Nicolas Chauvet <kwizart@gmail.com> - 2023.1.3-2
 - Rebuilt for libva
 

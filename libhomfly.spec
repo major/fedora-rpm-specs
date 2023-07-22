@@ -1,6 +1,6 @@
 Name:           libhomfly
 Version:        1.02r6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Library to compute the homfly polynomial of a link
 
 License:        Unlicense
@@ -53,6 +53,9 @@ make check
 %{_libdir}/%{name}.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02r6-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02r6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

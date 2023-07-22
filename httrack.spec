@@ -1,6 +1,6 @@
 Name:           httrack
 Version:        3.49.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Website copier and offline browser
 License:        GPLv2+
 URL:            http://www.httrack.com
@@ -146,6 +146,9 @@ end
 %{_libdir}/libhttrack.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.49.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 25 2023 Florian Weimer <fweimer@redhat.com> - 3.49.2-16
 - Port configure script to C99
 

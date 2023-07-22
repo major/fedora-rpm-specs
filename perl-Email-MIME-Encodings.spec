@@ -1,6 +1,6 @@
 Name:           perl-Email-MIME-Encodings
 Version:        1.317
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unified interface to MIME encoding and decoding
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-MIME-Encodings
@@ -57,6 +57,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.317-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.317-1
 - 1.317 bump
 - Update license to SPDX format

@@ -13,7 +13,7 @@
 
 Name:           perl-Software-License
 Version:        0.104004
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package that provides templated software licenses
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Software-License
@@ -84,6 +84,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Software::LicenseUtils.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.104004-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 24 2023 Paul Howarth <paul@city-fan.org> - 0.104004-1
 - Update to 0.104004 (rhbz#2209461)
   - Rename Perl Artistic License to avoid confusion in detecting license

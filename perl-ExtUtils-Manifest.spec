@@ -1,7 +1,7 @@
 Name:           perl-ExtUtils-Manifest
 Epoch:          1
 Version:        1.75
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utilities to write and check a MANIFEST file
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-Manifest
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.75-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.75-2
 - Perl 5.38 rebuild
 

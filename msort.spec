@@ -1,7 +1,7 @@
 Summary:       Sort files in sophisticated ways
 Name:          msort
 Version:       8.53
-Release:       49%{?dist}
+Release:       50%{?dist}
 License:       GPLv3
 URL:           http://billposer.org/Software/msort.html
 Source0:       http://billposer.org/Software/Downloads/msort-%{version}.tar.bz2
@@ -57,6 +57,9 @@ rm hybrid-ips.txt
 %{_mandir}/man1/msort.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.53-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 8.53-49
 - Rebuilt for ICU 73.2
 

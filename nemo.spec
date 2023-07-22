@@ -1,7 +1,7 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
 Version:        5.8.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
@@ -149,6 +149,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-1
 - Update to 5.8.4 release
 

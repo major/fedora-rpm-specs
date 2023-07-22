@@ -1,6 +1,6 @@
 Name:           nifticlib
 Version:        2.0.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A set of i/o libraries for reading and writing files in the nifti-1 data format
 
 License:        Public Domain
@@ -73,6 +73,9 @@ rm -fv docs/html/Doxy*
 %doc docs
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

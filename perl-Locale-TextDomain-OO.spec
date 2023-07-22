@@ -1,6 +1,6 @@
 Name:           perl-Locale-TextDomain-OO
 Version:        1.036
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Perl object-oriented Interface to Uniforum Message Translation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-TextDomain-OO
@@ -106,6 +106,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.036-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.036-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-ColorThemeUtil-ANSI
 Version:        0.002
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Utility routines related to color themes and ANSI code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ColorThemeUtil-ANSI/
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

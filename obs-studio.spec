@@ -24,7 +24,7 @@
 
 Name:           obs-studio
 Version:        29.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -298,6 +298,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 29.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.3-1
 - Update to 29.1.3
 

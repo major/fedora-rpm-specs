@@ -16,7 +16,7 @@ A Go implementation of an SAP HANA Database Client.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        SAP HANA Database Client for Go
 
 # Upstream license specification: Apache-2.0
@@ -47,6 +47,9 @@ BuildRequires:  golang(golang.org/x/text/transform)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.102.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.102.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

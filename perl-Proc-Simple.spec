@@ -1,6 +1,6 @@
 Name:           perl-Proc-Simple
 Version:        1.32
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Launch and control background processes
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Proc-Simple
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

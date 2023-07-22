@@ -1,6 +1,6 @@
 Name:           perl-GIS-Distance-Fast
 Version:        0.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C implementation of GIS::Distance formulas
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GIS-Distance-Fast
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-2
 - Perl 5.38 rebuild
 

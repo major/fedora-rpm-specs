@@ -2,7 +2,7 @@
 
 Name:           maven-archiver
 Version:        3.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Maven Archiver
 License:        ASL 2.0
 URL:            http://maven.apache.org/shared/maven-archiver/
@@ -54,6 +54,9 @@ Javadoc for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

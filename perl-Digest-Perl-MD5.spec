@@ -1,6 +1,6 @@
 Name:		perl-Digest-Perl-MD5
 Version:	1.9
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Perl implementation of Ron Rivest's MD5 Algorithm
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Digest-Perl-MD5
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/Digest::Perl::MD5.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

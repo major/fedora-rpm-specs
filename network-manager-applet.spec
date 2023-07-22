@@ -20,7 +20,7 @@
 Name: network-manager-applet
 Summary: A network control and status applet for NetworkManager
 Version: 1.32.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 URL: http://www.gnome.org/projects/NetworkManager/
 Obsoletes: NetworkManager-gnome < %{obsoletes_ver}
@@ -151,6 +151,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/nm-connection-edit
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 16 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.32.0-1
 - Update to 1.32.0 release
 

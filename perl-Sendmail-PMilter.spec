@@ -1,7 +1,7 @@
 Summary:	Perl binding of Sendmail Milter protocol
 Name:		perl-Sendmail-PMilter
 Version:	1.24
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	BSD-3-Clause
 URL:		https://metacpan.org/release/Sendmail-PMilter
 Source0:	https://cpan.metacpan.org/authors/id/G/GW/GWHAYWOOD/Sendmail-PMilter-%{version}.tar.gz
@@ -88,6 +88,9 @@ make test
 %{_mandir}/man3/Sendmail::PMilter::Context.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

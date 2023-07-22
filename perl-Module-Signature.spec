@@ -3,7 +3,7 @@
 
 Name:           perl-Module-Signature
 Version:        0.88
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CPAN signature management utilities and modules
 License:        CC0-1.0
 URL:            https://metacpan.org/release/Module-Signature
@@ -89,6 +89,9 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Module::Signature.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.88-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.88-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Summary:        Cyrus SASL library for Lua
 Name:           lua-cyrussasl
 Version:        1.1.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/JorjBauer/lua-cyrussasl
 Source0:        https://github.com/JorjBauer/lua-cyrussasl/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -39,6 +39,9 @@ lua -e \
 %{lua_libdir}/cyrussasl.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

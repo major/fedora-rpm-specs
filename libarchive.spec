@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.6.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library for handling streaming archive formats
 
 License:        BSD 2-Clause License AND BSD 2-clause NetBSD License BSD 2-Clause License
@@ -229,6 +229,9 @@ run_testsuite
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 3.6.1-5
 - Backport upstream PR#1772 for better pathname portability across OS
   Resolves: #2136961

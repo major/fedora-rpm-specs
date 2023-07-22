@@ -38,7 +38,7 @@
 
 Summary:            Provides command line interface to CMT, MBM, CAT, CDP and MBA technologies
 Name:               %{githubname}
-Release:            1%{?dist}
+Release:            2%{?dist}
 Version:            %{githubver}
 License:            BSD
 ExclusiveArch:      x86_64 i686 i586
@@ -169,6 +169,9 @@ install -m 0644 %{_builddir}/%{githubfull}/examples/c/CMT_MBM/monitor_app.c %{bu
 %doc %{_usrsrc}/%{githubfull}/LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 06 2023 Raghavan Kanagaraj <raghavan.kanagaraj@intel.com> - 4.5.0-1
 - New release 4.5.0
 

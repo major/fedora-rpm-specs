@@ -1,6 +1,6 @@
 Name:           perl-Sub-Attribute
 Version:        0.07
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Reliable subroutine attribute handlers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Attribute/
@@ -64,6 +64,9 @@ make test SUB_ATTRIBUTE_DEBUG=0
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.07-14
 - Perl 5.38 rebuild
 

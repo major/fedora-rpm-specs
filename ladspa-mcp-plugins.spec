@@ -1,7 +1,7 @@
 Name:           ladspa-mcp-plugins
 Epoch:          1
 Version:        0.4.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A set of audio plugins for LADSPA
 License:        GPLv2+
 URL:            http://www.kokkinizita.net/linuxaudio/
@@ -44,6 +44,9 @@ rm ladspa.h
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

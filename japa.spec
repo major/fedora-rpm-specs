@@ -2,7 +2,7 @@
 Summary:       Jack and ALSA Perceptual Audio Analyzer
 Name:          japa
 Version:       0.8.4
-Release:       18%{?dist}
+Release:       19%{?dist}
 License:       GPLv2+
 URL:           http://kokkinizita.linuxaudio.org/
 Source0:       http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
@@ -59,6 +59,9 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

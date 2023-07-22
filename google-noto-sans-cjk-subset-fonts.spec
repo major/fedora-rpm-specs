@@ -4,7 +4,7 @@ BuildArch: noarch
 
 Epoch:   1
 Version: 2.004
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: OFL-1.1
 URL:     https://github.com/googlefonts/noto-cjk
 
@@ -118,6 +118,9 @@ python3 genfontconf.py "zh-tw:zh-mo" "sans-serif" "Noto Sans TC" | xmllint --for
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.004-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 29 2023 Peng Wu <pwu@redhat.com> - 1:2.004-2
 - Update the spec file
 

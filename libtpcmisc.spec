@@ -1,7 +1,7 @@
 %global _legacy_common_support 1
 Name:           libtpcmisc
 Version:        1.4.8
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Miscellaneous PET functions
 
 License:        LGPLv2+
@@ -87,6 +87,9 @@ popd
 %{_libdir}/%{name}.a
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

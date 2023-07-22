@@ -1,6 +1,6 @@
 Name:           perl-CSS-DOM
 Version:        0.17
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Document Object Model for Cascading Style Sheets
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -67,6 +67,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.17-18
 - Removed apostrophe as package separator
 - Specify all dependencies

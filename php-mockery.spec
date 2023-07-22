@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    b1be135c1ba7632f0248e07ee5e6e412576a309d
+%global gh_commit    d1413755e26fe56a63455f7753221c86cbb88f66
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mockery
 %global gh_project   mockery
@@ -16,7 +16,7 @@
 %global major        1
 
 Name:           php-mockery
-Version:        1.6.3
+Version:        1.6.4
 Release:        1%{?dist}
 Summary:        Mockery is a simple but flexible PHP mock object framework
 
@@ -34,6 +34,7 @@ BuildRequires:  php(language) >= 7.4
 # From composer.json, "require-dev": {
 #        "phpunit/phpunit": "^8.5|^9.3",
 #        "psalm/plugin-phpunit": "^0.18.4",
+#        "symplify/easy-coding-standard": "^11.5.0",
 #        "vimeo/psalm": "^5.13.1"
 %global phpunit %{_bindir}/phpunit9
 BuildRequires: phpunit9 >= 9.3
@@ -70,10 +71,10 @@ Autoloader: %{_datadir}/php/%{ns_project}%{major}/autoload.php
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
-mv src/*.php src/%{ns_project}/
-phpab --template fedora --output src/%{ns_project}/autoload.php src
+mv library/*.php library/%{ns_project}/
+phpab --template fedora --output library/%{ns_project}/autoload.php library
 
-cat << 'EOF' | tee -a src/%{ns_project}/autoload.php
+cat << 'EOF' | tee -a library/%{ns_project}/autoload.php
 
 \Fedora\Autoloader\Dependencies::required([
     '/usr/share/php/Hamcrest2/autoload.php',
@@ -92,7 +93,7 @@ rm -f docs/.gitignore
 
 %install
 mkdir -p %{buildroot}/%{_datadir}/php
-cp -rp src/%{ns_project} %{buildroot}/%{_datadir}/php/%{ns_project}%{major}
+cp -rp library/%{ns_project} %{buildroot}/%{_datadir}/php/%{ns_project}%{major}
 
 
 %check
@@ -128,6 +129,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 20 2023 Remi Collet <remi@remirepo.net> - 1.6.4-1
+- update to 1.6.4
+
 * Wed Jul 19 2023 Remi Collet <remi@remirepo.net> - 1.6.3-1
 - update to 1.6.3
 

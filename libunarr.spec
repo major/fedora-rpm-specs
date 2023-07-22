@@ -1,6 +1,6 @@
 Name:           libunarr
 Version:        1.1.0
-Release:        0.3.beta1%{?dist}
+Release:        0.4.beta1%{?dist}
 Summary:        Decompression library for rar, tar and zip archives
 
 License:        LGPLv3+
@@ -65,6 +65,9 @@ sed -i 's/\r$//' README.md
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.4.beta1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.3.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

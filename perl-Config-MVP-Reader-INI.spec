@@ -1,6 +1,6 @@
 Name:           perl-Config-MVP-Reader-INI
 Version:        2.101465
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MVP config reader for .ini files
 License:        GPL+ or Artistic
 
@@ -48,6 +48,9 @@ configuration.
 %{_mandir}/man3/Config*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.101465-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.101465-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           kBuild
 Version:        0.1.9998%{?svn_revision:.r%{svn_revision}}
-Release:        1%{?svn_date:.%{svn_date}}%{?dist}
+Release:        2%{?svn_date:.%{svn_date}}%{?dist}
 Summary:        A cross-platform build environment
 
 License:        BSD and GPLv2+
@@ -112,6 +112,9 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9998.r3589-2.20230220
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 09 2023 Sérgio Basto <sergio@serjux.com> - 0.1.9998.r3589-1.20230220
 - new version
 - revert changeset 3572 and 3566 to build VBox 6 on el7

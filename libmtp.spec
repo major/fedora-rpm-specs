@@ -3,7 +3,7 @@
 
 Name:           libmtp
 Version:        1.1.19
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Software library for MTP media players
 URL:            http://libmtp.sourceforge.net/
 
@@ -113,6 +113,9 @@ chrpath --delete $RPM_BUILD_ROOT{%{_bindir},/usr/lib/udev}/mtp*
 %{_libdir}/pkgconfig/libmtp.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 21 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.19-4
 - Fix flatpak build
 - Soften udev dependency for flatpaks

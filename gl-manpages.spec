@@ -5,7 +5,7 @@
 
 Name:           gl-manpages
 Version:        1.1
-Release:        27.%{codate}%{?dist}
+Release:        28.%{codate}%{?dist}
 Summary:        OpenGL manpages
 
 License:        MIT and Open Publication
@@ -61,7 +61,7 @@ cp -n gl4/*.3G $RPM_BUILD_ROOT%{_mandir}/man3/
 # when matchin don't clobber the khronos version
 for MANP in `find gl-manpages-1.0.1 -name *.3gl` ; do
 	FN=${MANP//*\//}
-	cp -a -n $MANP $RPM_BUILD_ROOT%{_mandir}/man3/${FN/.3gl/.3G}
+	cp -a --update=none $MANP $RPM_BUILD_ROOT%{_mandir}/man3/${FN/.3gl/.3G}
 done
 find $RPM_BUILD_ROOT%{_mandir}/man3/ -type f -size -100b | xargs sed -i -e 's/\.3gl/\.3G/' -e 's,^\.so man3G/,.so man3/,'
 
@@ -71,6 +71,9 @@ find $RPM_BUILD_ROOT%{_mandir}/man3/ -type f -size -100b | xargs sed -i -e 's/\.
 
 
 %changelog
+* Thu Jul 20 2023 Yanko Kaneti <yaneti@declera.com> - 1.1-28.20190306
+- Adjust for recent changes in behavior in coreutils cp --no-clobber
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-27.20190306
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

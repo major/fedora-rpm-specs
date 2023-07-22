@@ -3,7 +3,7 @@ Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
 Version: 1.23.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -71,6 +71,9 @@ install -m 644 -p completions/jc_bash_completion.sh "${COMPDIR}/%{name}"
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 1.23.3-2
 - Rebuilt for Python 3.12
 

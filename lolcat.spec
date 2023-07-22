@@ -1,7 +1,7 @@
 Summary: High-performance implementation of a colorful cat
 Name:    lolcat
 Version: 1.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source:  https://github.com/jaseg/lolcat/archive/v%{version}/%{name}-%{version}.tar.gz
 URL:     https://github.com/jaseg/lolcat/
 
@@ -34,6 +34,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 %license LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 josef radinger <cheese@nosuchhost.net> - 1.4-1
 - bump version
 

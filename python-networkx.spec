@@ -12,7 +12,7 @@
 
 Name:           python-networkx
 Version:        3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
 URL:            https://networkx.org/
@@ -181,6 +181,9 @@ done
 %endif
 
 %changelog
+* Thu Jul 20 2023 Python Maint <python-maint@redhat.com> - 3.1-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1-2
 - Bootstrap for Python 3.12
 

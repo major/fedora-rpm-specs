@@ -1,6 +1,6 @@
 Name: libtracecmd
 Version: 1.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: A library for reading tracing instances stored in a trace file
 
@@ -69,6 +69,9 @@ chrpath --delete %{buildroot}/%{_libdir}/libtracecmd.so*
 %{_includedir}/trace-cmd
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 05 2023 Zamir SUN <sztsian@gmail.com> - 1.3.1-2
 - SPDX migration
 

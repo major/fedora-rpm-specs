@@ -5,7 +5,7 @@
 Summary: A multi-platform helper library for other libraries
 Name: gwenhywfar
 Version: 5.10.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 URL: http://www.aquamaniac.de/sites/download/packages.php?package=01&showall=1
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
@@ -215,6 +215,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.10.1-3
 - migrated to SPDX license
 

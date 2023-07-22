@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-AutoRunmode
 Version:        0.18
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        CGI::App plugin to automatically register runmodes
 License:        GPL+ or Artistic
 
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary:        Library to create ISO 9660 disk images
 Name:           libisofs
 Version:        1.5.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 # libisofs/make_isohybrid_mbr.c is LGPL-2.0-or-later, rest is GPL-2.0-or-later
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://libburnia-project.org/
@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Robert Scheck <robert@fedoraproject.org> 1.5.6-1
 - Upgrade to 1.5.6 (#2216133)
 

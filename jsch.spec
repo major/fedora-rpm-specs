@@ -1,6 +1,6 @@
 Name:           jsch
 Version:        0.1.55
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Pure Java implementation of SSH2
 License:        BSD
 URL:            http://www.jcraft.com/jsch/
@@ -65,6 +65,9 @@ zip target/%{name}-%{version}.jar plugin.properties
 %license LICENSE.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.55-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.55-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

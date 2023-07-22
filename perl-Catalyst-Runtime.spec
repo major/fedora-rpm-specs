@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Runtime
 Summary:        Catalyst Framework Runtime
 Version:        5.90130
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/J/JJ/JJNAPIORK/Catalyst-Runtime-%{version}.tar.gz
@@ -275,6 +275,9 @@ make clean
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.90130-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.90130-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

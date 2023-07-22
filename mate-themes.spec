@@ -17,9 +17,9 @@
 Name:           mate-themes
 Version:        %{rel_ver}
 %if 0%{?rel_build}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
-Release:        0.14%{?git_rel}%{?dist}
+Release:        0.15%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop themes
 License:        GPLv2+
@@ -98,6 +98,9 @@ find %{buildroot} -name '*.a' -exec rm -rf {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 14 2023 Wolfgang Ulbrich <fedora@raveit.de> - 3.22.24-1
 - update to 3.22.24
 

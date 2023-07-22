@@ -1,6 +1,6 @@
 Name:           palp
 Version:        2.11
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Package for Analyzing Lattice Polytopes
 License:        GPL-3.0-or-later
 URL:            http://hep.itp.tuwien.ac.at/~kreuzer/CY/CYpalp.html
@@ -99,6 +99,9 @@ cp -p man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

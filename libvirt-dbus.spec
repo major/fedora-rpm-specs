@@ -8,7 +8,7 @@
 
 Name: libvirt-dbus
 Version: 1.4.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: libvirt D-Bus API binding
 License: LGPL-2.1-or-later
 URL: https://libvirt.org/
@@ -65,6 +65,9 @@ exit 0
 %{_mandir}/man8/libvirt-dbus.8*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

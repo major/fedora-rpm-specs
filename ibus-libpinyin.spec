@@ -2,7 +2,7 @@
 
 Name:       ibus-libpinyin
 Version:    1.15.3
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Intelligent Pinyin engine based on libpinyin for IBus
 License:    GPL-3.0-or-later
 URL:        https://github.com/libpinyin/ibus-libpinyin
@@ -81,6 +81,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-libbopo
 %{_datadir}/ibus/component/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun  1 2023 Peng Wu <pwu@redhat.com> - 1.15.3-2
 - Rebuild the package
 

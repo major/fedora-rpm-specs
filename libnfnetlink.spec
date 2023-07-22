@@ -1,6 +1,6 @@
 Name:           libnfnetlink
 Version:        1.0.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Netfilter netlink userspace library
 License:        GPLv2+
 URL:            http://netfilter.org
@@ -54,6 +54,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_includedir}/libnfnetlink/*.h
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

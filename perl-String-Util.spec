@@ -1,6 +1,6 @@
 Name:           perl-String-Util
 Version:        1.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        String processing utilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-Util
@@ -49,6 +49,9 @@ perl Build.PL
 %{_mandir}/man3/String::Util.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb  2 2023 Paul Howarth <paul@city-fan.org> - 1.34-1
 - Update to 1.34 (rhbz#2166391)
   - Re-release because the required Perl version was wrong

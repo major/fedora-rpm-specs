@@ -1,6 +1,6 @@
 Name:           openiked
 Version:        7.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A free Internet Key Exchange (IKEv2) implementation
 
 License:        ISC
@@ -84,6 +84,9 @@ install -p -m644 %{SOURCE5} %{buildroot}%{_unitdir}/openiked-keygen.target
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Henrik Boeving <hargonix@gmail.com> 7.2-3
 - fixed keygen script
 

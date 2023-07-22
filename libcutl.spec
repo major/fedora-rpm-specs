@@ -3,7 +3,7 @@
 
 Name:           libcutl
 Version:        %{base_version}.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        C++ utility library from Code Synthesis
 
 #Used internal Boost files
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}
 %{_libdir}/pkgconfig/libcutl.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-JavaScript-Minifier-XS
 Version:        0.15
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        XS based JavaScript minifier
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/JavaScript-Minifier-XS
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-6
 - Perl 5.38 rebuild
 

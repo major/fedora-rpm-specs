@@ -8,7 +8,7 @@ Name: hunspell-gv
 Summary: Manx hunspell dictionaries
 %global upstreamid 20040505
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://ftp.gnu.org/gnu/aspell/dict/gv/aspell-gv-0.50-0.tar.bz2
 URL: http://borel.slu.edu/crubadan/apps.html
 License: GPL-1.0-or-later
@@ -50,6 +50,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040505-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20040505-29
 - migrated to SPDX license
 

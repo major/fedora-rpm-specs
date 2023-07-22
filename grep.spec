@@ -1,7 +1,7 @@
 Summary: Pattern matching utilities
 Name: grep
 Version: 3.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 URL: https://www.gnu.org/software/grep/
 
@@ -97,6 +97,9 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.11-2
 - Fixed egrep/fgrep aliases
   Resolves: rhbz#2215713

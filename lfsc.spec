@@ -6,7 +6,7 @@
 
 Name:           lfsc
 Version:        0.20210305
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SMT proof checker
 
 License:        BSD-3-Clause
@@ -108,6 +108,9 @@ cd -
 %{_libdir}/liblfscc.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210305-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Jerry James <loganjerry@gmail.com> - 0.20210305-5
 - Add -stdint patch to fix FTBFS
 

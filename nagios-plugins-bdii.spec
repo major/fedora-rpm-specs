@@ -1,7 +1,7 @@
 Summary: Nagios Plugin - check_bdii_entries
 Name: nagios-plugins-bdii
 Version: 1.0.15
-Release: 20%{?dist}
+Release: 21%{?dist}
 # The source for this package was pulled from upstream's vcs.  Use the
 # following commands to generate the tarball:
 #   svn export http://svnweb.cern.ch/guest/gridinfo/nagios-plugins-bdii/tags/R_1_0_14 %{name}-%{version}
@@ -33,6 +33,9 @@ rm -rf %{buildroot}%{_docdir}
 %doc LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.15-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.15-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

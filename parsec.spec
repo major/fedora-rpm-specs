@@ -7,7 +7,7 @@
 
 Name:          parsec
 Version:       1.1.0
-Release:       4%{?candidate:.%{candidate}}%{?dist}
+Release:       5%{?candidate:.%{candidate}}%{?dist}
 Summary:       The PARSEC daemon
 
 License:       ASL 2.0
@@ -89,6 +89,9 @@ exit 0
 %{_unitdir}/parsec.service
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 09 2023 Fabio Valentini <decathorpe@gmail.com> - 1.1.0-4
 - Ensure build honors default Rust compiler flags and simplify Rust packaging.
 

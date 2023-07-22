@@ -6,7 +6,7 @@
 Summary: Implementation of the JPEG-2000 standard, Part 1
 Name:    jasper
 Version: 3.0.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: JasPer-2.0
 URL:     http://www.ece.uvic.ca/~frodo/jasper/
@@ -126,6 +126,9 @@ make test -C builder
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Josef Ridky <jridky@redhat.com> - 3.0.6-3
 - Migrate to SPDX license format
 

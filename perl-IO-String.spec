@@ -1,6 +1,6 @@
 Name:           perl-IO-String
 Version:        1.08
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Emulate file interface for in-core strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-String
@@ -57,6 +57,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

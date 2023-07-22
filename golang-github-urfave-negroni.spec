@@ -18,7 +18,7 @@ Idiomatic http middleware for golang.}
 %global goaltipaths     github.com/codegangsta/negroni
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Idiomatic http middleware for Golang
 
 License:        MIT
@@ -44,6 +44,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Data-Validate-Type
 Version:        1.6.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Public interface to Params::Util offering data type validation functions
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Validate-Type
@@ -48,6 +48,9 @@ pass PerlCritic validation).
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

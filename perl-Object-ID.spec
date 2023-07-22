@@ -1,6 +1,6 @@
 Name:		perl-Object-ID
 Version:	0.1.2
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	A unique identifier for any object
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Object-ID
@@ -67,6 +67,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/UNIVERSAL::Object::ID.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

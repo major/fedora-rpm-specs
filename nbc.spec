@@ -1,6 +1,6 @@
 Name:           nbc
 Version:        1.2.1.r3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Simple language and compiler to program the LEGO NXT brick
 URL:            http://bricxcc.sourceforge.net/nbc/
 License:        MPLv1.1
@@ -51,6 +51,9 @@ make install DISTDIR=%{buildroot}
 %{_mandir}/man1/nbc.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1.r3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Rich Mattes <richmattes@gmail.com> - 1.2.1.r3-26
 - Update BuildRequires and remove parallel make
 - Resolves: rhbz#2113542

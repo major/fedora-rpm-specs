@@ -1,6 +1,6 @@
 Name:           perl-Net-Twitter
 Version:        4.01043
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Perl interface to the Twitter API
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-Twitter
@@ -93,6 +93,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.01043-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.01043-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

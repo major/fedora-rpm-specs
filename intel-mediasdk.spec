@@ -5,7 +5,7 @@
 Summary: Hardware-accelerated video processing on Intel integrated GPUs library
 Name: intel-mediasdk
 Version: 23.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/Intel-Media-SDK/MediaSDK
 Source0: %{url}/archive/%{name}-%{version}.tar.gz
 # fix build with GCC 13
@@ -111,6 +111,9 @@ questions and issues.
 %{_libdir}/libmfx-tracer.so.%{mfx_version}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 17 2023 Dominik Mierzejewski <dominik@greysector.net> - 23.2.2-1
 - update to 23.2.2 (#2193487)
 - fix deprecated patchN macro usage

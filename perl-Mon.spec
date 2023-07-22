@@ -1,6 +1,6 @@
 Name:           perl-Mon
 Version:        0.11
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Mon Perl module
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Mon
@@ -54,6 +54,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

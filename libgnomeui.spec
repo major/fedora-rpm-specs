@@ -3,7 +3,7 @@
 Summary: GNOME base GUI library
 Name: libgnomeui
 Version: 2.24.5
-Release: 29%{?dist}
+Release: 30%{?dist}
 URL: http://www.gnome.org
 Source0: http://download.gnome.org/sources/libgnomeui/2.24/%{name}-%{version}.tar.bz2
 
@@ -95,6 +95,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.24.5-29
 - migrated to SPDX license
 

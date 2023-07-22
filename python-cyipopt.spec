@@ -25,6 +25,18 @@ Patch:          %{url}/pull/137.patch
 # Don’t use deprecated/removed np.float alias
 # https://github.com/mechmotum/cyipopt/pull/191
 Patch:          %{url}/pull/191.patch
+# Pin Cython<3 until compatibility can be fixed
+# https://github.com/mechmotum/cyipopt/pull/212
+#
+# Works around, but does not fix:
+#
+# Does not build with Cython 3
+# https://github.com/mechmotum/cyipopt/issues/211
+#
+# “In addition to upper-bounding the version of Cython, this also drops Cython
+# from install_requires, since it doesn’t appear to be a real runtime
+# dependency.”
+Patch:          %{url}/pull/212.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -32,7 +44,9 @@ ExcludeArch:    %{ix86}
 BuildRequires:  python3-devel
 
 # setup_requires:
-BuildRequires:  python3dist(cython) >= 0.26
+# Does not build with Cython 3
+# https://github.com/mechmotum/cyipopt/issues/211
+BuildRequires:  ((python3dist(cython) >= 0.26) with (python3dist(cython) < 3~~))
 BuildRequires:  python3dist(numpy) >= 1.15
 
 BuildRequires:  pkgconfig(ipopt)

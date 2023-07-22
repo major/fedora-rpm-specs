@@ -1,6 +1,6 @@
 Name:           jackson-annotations
 Version:        2.15.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Core annotations for Jackson data processor
 License:        Apache-2.0
 
@@ -56,6 +56,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Chris Kelley <ckelley@redhat.com> - 2.15.2-1
 - Update to version 2.15.2
 

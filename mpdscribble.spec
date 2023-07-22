@@ -1,6 +1,6 @@
 Name:           mpdscribble
 Version:        0.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A mpd client which submits information about tracks being played to Last.fm
 License:        GPLv2+
 URL:            https://www.musicpd.org/clients/mpdscribble/
@@ -75,6 +75,9 @@ useradd -r -g %{name} -d %{_localstatedir}/cache/%{name} -s /sbin/nologin \
 %attr(0755,%{name},%{name}) %dir %{_localstatedir}/cache/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 30 2023 Robbie Harwood <rharwood@pm.me> - 0.24-1
 - Under new management (update to 0.24)
 

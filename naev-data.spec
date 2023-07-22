@@ -1,6 +1,6 @@
 Name:           naev-data
 Version:        0.10.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Data files for NAEV
 License:        GPLv3 or GPLv3+ or GPLv2+ or Public Domain or CC-BY or CC-BY-SA
 URL:            http://naev.org
@@ -29,6 +29,9 @@ cp -a artwork %{buildroot}%{_datadir}/naev/dat
 %{_datadir}/naev
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

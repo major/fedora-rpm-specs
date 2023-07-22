@@ -1,6 +1,6 @@
 Name:           pari-nflistdata
 Version:        20220729
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PARI/GP Computer Algebra System nflist extensions
 License:        GPL-2.0-or-later
 URL:            https://pari.math.u-bordeaux.fr/packages.html
@@ -39,6 +39,9 @@ cp -a nflistdata %{buildroot}%{_datadir}/pari
 %{_datadir}/pari/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220729-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220729-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

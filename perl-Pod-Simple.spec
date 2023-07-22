@@ -2,7 +2,7 @@ Name:           perl-Pod-Simple
 # Epoch to compete with perl.spec
 Epoch:          1
 Version:        3.45
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Framework for parsing POD documentation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Simple
@@ -114,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.45-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.45-3
 - Perl 5.38 rebuild
 

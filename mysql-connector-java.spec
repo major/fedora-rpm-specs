@@ -2,7 +2,7 @@
 Summary:       Official JDBC driver for MySQL
 Name:          mysql-connector-java
 Version:       8.0.30
-Release:       2%{?dist}
+Release:       3%{?dist}
 Epoch:         1
 License:       GPL-2.0-only
 URL:           http://dev.mysql.com/downloads/connector/j/
@@ -107,6 +107,9 @@ ant -Dcom.mysql.cj.build.jdk=/usr/lib/jvm/java-17-openjdk \
 %license LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.30-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

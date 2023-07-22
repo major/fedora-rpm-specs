@@ -1,6 +1,6 @@
 Name:           perl-Crypt-MySQL
 Version:        0.04
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Emulate MySQL PASSWORD() function
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-MySQL
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.04-19
 - Perl 5.38 rebuild
 

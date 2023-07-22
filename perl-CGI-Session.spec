@@ -1,6 +1,6 @@
 Name:           perl-CGI-Session
 Version:        4.48
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Persistent session data in CGI applications
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Session
@@ -72,6 +72,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.48-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.48-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

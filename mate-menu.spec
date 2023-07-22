@@ -3,7 +3,7 @@
 
 Name:           mate-menu
 Version:        20.04.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Advanced Menu for the MATE Desktop
 # mate_menu/keybinding.py use MIT license and the rest is under GPLv2+
 License:        GPLv2+ and MIT
@@ -88,6 +88,9 @@ rm -rf %{buildroot}%{_datadir}/locale/zh-Hans/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.04.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 20.04.3-12
 - Rebuilt for Python 3.12
 

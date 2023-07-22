@@ -8,7 +8,7 @@ Name: hunspell-hr
 Summary: Croatian hunspell dictionaries
 %global upstreamid 20040608
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Epoch: 1
 Source: http://cvs.linux.hr/spell/myspell/hr_HR.zip
 URL: http://cvs.linux.hr/spell/
@@ -51,6 +51,9 @@ cp -p hyph_hr.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/hyph_hr_HR.dic
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.20040608-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 1:0.20040608-29
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 Name:      optee_client
 Version:   3.22.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   OP-TEE Client API and supplicant
 License:   BSD
 URL:       https://www.trustedfirmware.org/
@@ -57,6 +57,9 @@ Development file for optee_client
 %{_libdir}/libteec.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 3.22.0-1
 - Update to 3.22.0
 

@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # Avoid dependency loops:
 #     fsspec -> distributed -> dask -> fsspec
 #     fsspec -> gcsfs -> fsspec

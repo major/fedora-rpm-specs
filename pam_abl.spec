@@ -1,7 +1,7 @@
 Name:           pam_abl
 Summary:        A Pluggable Authentication Module (PAM) for auto blacklisting
 Version:        0.6.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        GPLv2+
 URL:            http://pam-abl.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/pam-abl/pam-abl-%{version}.tar.gz
@@ -55,6 +55,9 @@ install -D -m 644 doc/pam_abl.8      %{buildroot}%{_mandir}/man8/pam_abl.8
 %{_mandir}/man?/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

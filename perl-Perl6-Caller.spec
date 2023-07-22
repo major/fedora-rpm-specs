@@ -1,6 +1,6 @@
 Name:           perl-Perl6-Caller
 Version:        0.100
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        OO caller() interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl6-Caller
@@ -65,6 +65,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Perl6::Caller.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

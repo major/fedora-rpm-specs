@@ -20,7 +20,7 @@ in lieu of the platform's native C implementation.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 Summary:        Stable strptime / strftime for Go
 
 # Upstream license specification: BSD-2-Clause
@@ -49,6 +49,9 @@ BuildRequires:  golang(github.com/pkg/errors)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

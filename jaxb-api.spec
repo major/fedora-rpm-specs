@@ -1,6 +1,6 @@
 Name:           jaxb-api
 Version:        4.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jakarta XML Binding API
 License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-api
@@ -47,6 +47,9 @@ This package contains javadoc for %{name}.
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

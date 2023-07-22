@@ -3,7 +3,7 @@
 
 Name:           perl-Syntax-Keyword-Match
 Version:        0.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Match/case syntax for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Match
@@ -133,6 +133,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.12-2
 - Perl 5.38 rebuild
 

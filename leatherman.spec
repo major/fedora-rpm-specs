@@ -1,6 +1,6 @@
 Name:           leatherman
 Version:        1.12.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Collection of C++ and CMake utility libraries
 
 # leatherman is ASL 2.0
@@ -74,6 +74,9 @@ sed -i -e "s/\s*-Werror\s*//g" cmake/cflags.cmake
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.9-4
 - migrated to SPDX license
 

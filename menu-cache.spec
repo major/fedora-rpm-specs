@@ -14,7 +14,7 @@
 
 Name:           menu-cache
 Version:        1.1.0
-Release:        %{fedorarel}%{?dist}.8
+Release:        %{fedorarel}%{?dist}.9
 Summary:        Caching mechanism for freedesktop.org compliant menus
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Than Ngo <than@redhat.com> - 1.1.0-2.8
 - migrated to SPDX license
 

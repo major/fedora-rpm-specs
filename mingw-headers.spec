@@ -10,7 +10,7 @@
 
 Name:           mingw-headers
 Version:        11.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Win32/Win64 header files
 
 License:        Public Domain and LGPLv2+ and ZPLv2.1
@@ -111,6 +111,9 @@ rm -f %{buildroot}%{ucrt64_includedir}/pthread_unistd.h
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 30 2023 Sandro Mani <manisandro@gmail.com> - 11.0.0-1
 - Update to 11.0.0
 

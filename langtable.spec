@@ -1,6 +1,6 @@
 Name:           langtable
 Version:        0.0.62
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Guessing reasonable defaults for locale, keyboard layout, territory, and language.
 # the translations in languages.xml and territories.xml are (mostly)
 # imported from CLDR and are thus under the Unicode license, the
@@ -75,6 +75,9 @@ xmllint --noout --relaxng \
 %{python3_sitelib}/langtable-*.egg-info/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.62-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.62-2
 - Rebuilt for Python 3.12
 

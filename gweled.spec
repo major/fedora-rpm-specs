@@ -1,6 +1,6 @@
 Name:           gweled
 Version:        0.9.1
-Release:        31.20130730git819bed%{?dist}
+Release:        32.20130730git819bed%{?dist}
 
 Summary:        Swapping gem game
 
@@ -104,6 +104,9 @@ EOF
 %{_datadir}/sounds/%{name}/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-32.20130730git819bed
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 0.9.1-31.20130730git819bed
 - Apply upstream patch to fix C99 compatibility issue
 

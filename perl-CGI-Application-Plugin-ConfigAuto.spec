@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-ConfigAuto
 Version:        1.33
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Easy configuration file management for CGI::Application
 License:        GPL+ or Artistic
 
@@ -45,6 +45,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

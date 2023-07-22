@@ -6,7 +6,7 @@
 
 Name:           nagios
 Version:        4.4.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -468,6 +468,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 13 2023 Guido Aulisi <guido.aulisi@gmail.com> - 4.4.10-1
 - Update to 4.4.10
 - Fix nagiostats permissions #2169033

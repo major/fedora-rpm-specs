@@ -1,6 +1,6 @@
 Name:           perl-HTTP-CookieJar
 Version:        0.014
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Minimalist HTTP user agent cookie jar
 License:        Apache-2.0
 URL:            https://metacpan.org/release/HTTP-CookieJar
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

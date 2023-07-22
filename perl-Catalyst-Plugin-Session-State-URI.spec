@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Session-State-URI
 Version:        0.15
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Saves session IDs by rewriting URIs delivered to the client
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Plugin-Session-State-URI
@@ -76,6 +76,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

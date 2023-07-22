@@ -6,7 +6,7 @@
 
 Name:           pcsxr
 Version:        1.9.95
-Release:        1%{?fgittag:.%{fgittag}}%{?dist}
+Release:        2%{?fgittag:.%{fgittag}}%{?dist}
 Summary:        A plugin based PlayStation (PSX) emulator with high compatibility
 
 #All code is distributed as GPLv3+ except:
@@ -102,6 +102,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/icons/hicolor/*/apps/%{name}-icon.png
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.95-2.20200828.git6fa0240
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 31 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.9.95-1.20200828.git6fa0240
 - Update to newer snapshot (based on 1.9.95 tag)
 

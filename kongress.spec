@@ -1,6 +1,6 @@
 Name:           kongress
 Version:        23.04.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        CC0 and CC-BY-SA and BSD and GPLv3+
 Summary:        A companion application for conferences made by KDE
 Url:            https://apps.kde.org/kongress/
@@ -53,6 +53,9 @@ desktop-file-install --dir=%{buildroot}%{_kf5_datadir}/applications/ %{buildroot
 %license LICENSES/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

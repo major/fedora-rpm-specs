@@ -1,6 +1,6 @@
 Name:           perl-PPI-XS
 Version:        0.910
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        XS acceleration for PPI
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/PPI-XS
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.910-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.910-19
 - Perl 5.38 rebuild
 

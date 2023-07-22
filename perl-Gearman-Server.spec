@@ -1,6 +1,6 @@
 Name:           perl-Gearman-Server
 Version:        1.130.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Function call router and load balancer
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Gearman-Server
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/Gearman::*.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.130.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.130.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

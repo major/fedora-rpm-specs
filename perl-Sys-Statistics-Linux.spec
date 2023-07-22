@@ -1,6 +1,6 @@
 Name:           perl-Sys-Statistics-Linux
 Version:        0.66
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Front-end module to collect system statistics
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Sys-Statistics-Linux
@@ -48,6 +48,9 @@ modules to get more information about all possible statistics.
 %{_mandir}/man3/Sys*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

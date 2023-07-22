@@ -1,7 +1,7 @@
 Name:           mopac7
 Summary:        Semi-empirical quantum mechanics suite
 Version:        1.15
-Release:        41%{?dist}
+Release:        42%{?dist}
 License:        Public Domain
 URL:            http://sourceforge.net/projects/mopac7/
 Source0:        http://bioinformatics.org/ghemical/download/current/mopac7-%{version}.tar.gz
@@ -77,6 +77,9 @@ find tests -name 'Makefile*' -delete -print
 %{_libdir}/pkgconfig/libmopac7.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

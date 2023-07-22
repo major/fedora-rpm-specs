@@ -3,7 +3,7 @@
 
 Name:           perl-Term-ProgressBar-Simple
 Version:        0.03
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Simpler progress bars
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ProgressBar-Simple
@@ -86,6 +86,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 17 2023 Petr Pisar <ppisar@redhat.com> - 0.03-28
 - Convert a license tag to an SPDX format
 - Package the tests

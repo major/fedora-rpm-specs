@@ -3,7 +3,7 @@
 
 Name:		libextractor
 Version:	1.10
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Simple library for keyword extraction
 
 License:	GPL-3.0-or-later
@@ -238,6 +238,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 1.10-10
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

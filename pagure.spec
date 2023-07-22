@@ -13,7 +13,7 @@
 
 Name:               pagure
 Version:            5.13.3
-Release:            7%{?dist}
+Release:            8%{?dist}
 Summary:            A git-centered forge
 
 License:            GPLv2+
@@ -604,6 +604,9 @@ done
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.13.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.13.3-7
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name:           pdfcrack
 Version:        0.14
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A Password Recovery Tool for PDF files
 
 License:        GPLv2+
@@ -39,6 +39,9 @@ install -pm0644 %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

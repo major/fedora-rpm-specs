@@ -1,6 +1,6 @@
 Name:		netsniff-ng
 Version:	0.6.8
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Packet sniffing beast
 License:	GPLv2
 URL:		http://netsniff-ng.org/
@@ -64,6 +64,9 @@ make install PREFIX=%{_prefix} ETCDIR=%{_sysconfdir} DESTDIR="%{buildroot}"
 %{_mandir}/man8/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

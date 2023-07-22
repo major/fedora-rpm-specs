@@ -1,6 +1,6 @@
 Name:           libXNVCtrl
 Version:        435.17
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Library providing the NV-CONTROL API
 License:        GPLv2+
 URL:            https://download.nvidia.com/XFree86/nvidia-settings/
@@ -77,6 +77,9 @@ popd
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 435.17-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 435.17-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

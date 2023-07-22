@@ -9,7 +9,7 @@
 
 Name:           perl-DynaLoader-Functions
 Version:        0.004
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deconstructed dynamic C library loading
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DynaLoader-Functions
@@ -107,6 +107,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr  7 2023 Paul Howarth <paul@city-fan.org> - 0.004-1
 - Update to 0.004 (rhbz#2185089)
   - Port test C code to Perl 5.33.1, which defines a PERL_VERSION_GE() macro

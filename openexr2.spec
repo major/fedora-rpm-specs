@@ -5,7 +5,7 @@
 
 Name:           %{pkgname}
 Version:        2.5.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause
@@ -137,6 +137,9 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.8-3
 - migrated to SPDX license
 

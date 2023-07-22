@@ -1,7 +1,7 @@
 Summary:	Pure-perl Lanman and NT MD4 hash functions
 Name:		perl-Crypt-SmbHash
 Version:	0.12
-Release:	48%{?dist}
+Release:	49%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://metacpan.org/release/Crypt-SmbHash
 Source0:	https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-SmbHash-%{version}.tar.gz
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/Crypt::SmbHash.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

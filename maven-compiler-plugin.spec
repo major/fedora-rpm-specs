@@ -2,7 +2,7 @@
 
 Name:           maven-compiler-plugin
 Version:        3.10.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Maven Compiler Plugin
 License:        ASL 2.0
 URL:            https://maven.apache.org/plugins/maven-compiler-plugin
@@ -62,6 +62,9 @@ sed -i 's|localRepository,\ "junit/junit/3.8.1/junit-3.8.1.jar"|"%(find-jar juni
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

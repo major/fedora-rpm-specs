@@ -5,7 +5,7 @@
 
 Name:           libgphoto2
 Version:        2.5.30
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for accessing digital cameras
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND IJG-short AND (MIT OR Unlicense)
 URL:            http://www.gphoto.org/
@@ -158,6 +158,9 @@ rm -rf %{buildroot}%{_datadir}/libgphoto2_port/*/vcamera/
 %{_mandir}/man3/%{name}_port.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.30-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.30-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

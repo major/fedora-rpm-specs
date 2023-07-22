@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Class-Schema-Diff
 Version:        1.13
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Identify differences between two DBIx::Class schemas
 License:        GPL+ or Artistic
 
@@ -67,6 +67,9 @@ diffing across 5 named types of source data.
 %{_mandir}/man3/DBIx*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

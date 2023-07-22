@@ -37,7 +37,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -449,6 +449,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/ocaml
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.0-3
 - Force ocaml-srpm-macros to be the latest version.
 

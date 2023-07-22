@@ -3,7 +3,7 @@
 
 Name:           openexr
 Version:        3.1.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause
@@ -158,6 +158,9 @@ EXCLUDE_REGEX='OptimizedInterleavePatterns'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Josef Ridky <jridky@redhat.com> - 3.1.9-2
 - Migrate to SPDX license format
 

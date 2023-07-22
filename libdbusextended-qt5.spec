@@ -3,7 +3,7 @@
 Name:           libdbusextended-qt5
 Summary:        Extended DBus for Qt
 Version:        0.0.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        LGPLv2+
 URL:            https://github.com/nemomobile/qtdbusextended
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
@@ -46,6 +46,9 @@ Header files and libraries for %{name}.
 %{_libdir}/lib*.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

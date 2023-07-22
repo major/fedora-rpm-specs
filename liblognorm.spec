@@ -2,7 +2,7 @@
 
 Name:		liblognorm
 Version:	2.0.6
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Fast samples-based log normalization library
 License:	LGPL-2.1-or-later AND Apache-2.0
 URL:		http://www.liblognorm.com
@@ -102,6 +102,9 @@ rm %{buildroot}%{htmldir}/{objects.inv,.buildinfo}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Attila Lakatos <alakatos@redhat.com> - 2.0.6-9
 - Port pcre dependency to pcre2
   resolves: rhbz#2128320

@@ -9,7 +9,7 @@
 
 Name: iwyu
 Version: 0.20
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: NCSA
 Summary: C/C++ source files #include analyzer based on clang
@@ -74,6 +74,9 @@ sed -e s@lib/@lib\${LLVM_LIBDIR_SUFFIX}/@g -i CMakeLists.txt
 %{_mandir}/man1/%{appname}.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.20-2
 - Disabled frame pointers to fix crashes on F38+.
 

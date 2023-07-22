@@ -19,7 +19,7 @@ install/uninstall the completion of the command.}
 %global godocs          example README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Bash completion written in go + bash completion for Go command
 
 License:        MIT
@@ -64,6 +64,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

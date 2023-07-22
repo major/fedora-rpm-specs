@@ -22,7 +22,7 @@ Version:                2.16.2
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -338,6 +338,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_libexecdir}/coreos-check-ssh-keys
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Benjamin Gilbert <bgilbert@redhat.com> - 2.16.2-1
 - New release
 

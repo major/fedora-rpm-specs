@@ -4,7 +4,7 @@
 
 Name:       mock-core-configs
 Version:    38.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -144,6 +144,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 05 2023 Pavel Raiskup <praiskup@redhat.com> 38.6-1
 - use python3 macro for post scriptlet (mroche@omenos.dev)
 - openEuler: use metalinks instead of baseurls (chenzeng2@huawei.com)

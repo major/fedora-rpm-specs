@@ -3,7 +3,7 @@ Name:           kbilliards
 # Keep that in mind when/if you next upgrade the package
 # https://fedoraproject.org/wiki/Packaging:NamingGuidelines
 Version:        0.8.7b
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        A Fun Billiards Simulator Game
 License:        GPLv2+
 URL:            http://www.hostnotfound.it/kbilliards.php
@@ -90,6 +90,9 @@ rm -fr $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7b-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7b-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

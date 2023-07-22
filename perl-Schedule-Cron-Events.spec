@@ -1,6 +1,6 @@
 Name:           perl-Schedule-Cron-Events
 Version:        1.96
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Take a line from a crontab and find out when events will occur
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Schedule-Cron-Events
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.96-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.96-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           mariadb-java-client
 Version:        3.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Connects applications developed in Java to MariaDB and MySQL databases
 # added BSD license because of https://bugzilla.redhat.com/show_bug.cgi?id=1291558#c13
 License:        LGPL-2.1-only
@@ -111,6 +111,9 @@ opts="-j"
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.1.4-1
 - Rebase to version 3.1.4
 

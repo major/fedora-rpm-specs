@@ -14,7 +14,7 @@
 
 Name: openldap
 Version: 2.6.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: LDAP support libraries
 License: OpenLDAP
 URL: http://www.openldap.org/
@@ -506,6 +506,9 @@ exit 0
 %{_libdir}/libslapi-2.4*.so.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.6.4-3
 - Perl 5.38 rebuild
 

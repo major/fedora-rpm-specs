@@ -1,6 +1,6 @@
 Name:           perl-Acme-Damn
 Version:        0.08
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Unbless Perl objects
 License:        GPL+ or Artistic
 
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-24
 - Perl 5.38 rebuild
 

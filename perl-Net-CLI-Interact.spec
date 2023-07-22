@@ -1,6 +1,6 @@
 Name:           perl-Net-CLI-Interact
 Version:        2.300004
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Toolkit for CLI Automation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CLI-Interact
@@ -60,6 +60,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.300004-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 07 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.300004-1
 - 2.300004 bump
 - Update license to SPDX format

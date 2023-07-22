@@ -1,6 +1,6 @@
 Name:          jackson-dataformats-text
 Version:       2.9.8
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       Jackson standard text-format data format backends
 License:       ASL 2.0
 URL:           https://github.com/FasterXML/jackson-dataformats-text
@@ -96,6 +96,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

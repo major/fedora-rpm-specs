@@ -5,7 +5,7 @@
 Summary:       Hardware lister
 Name:          lshw
 Version:       B.02.19.2
-Release:       11%{?dist}
+Release:       12%{?dist}
 License:       GPLv2
 URL:           http://ezix.org/project/wiki/HardwareLiSter
 Source0:       http://www.ezix.org/software/files/lshw-%{version}.tar.gz
@@ -171,6 +171,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - B.02.19.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 05 2023 Terje Rosten <terje.rosten@ntnu.no> - B.02.19.2-11
 - Use modern macros
 

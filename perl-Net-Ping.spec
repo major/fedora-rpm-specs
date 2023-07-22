@@ -4,7 +4,7 @@
 
 Name:           perl-Net-Ping
 Version:        2.76
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Check a remote host for reachability
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Ping/
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.76-500
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.76-499
 - Increase release to favour standalone package
 

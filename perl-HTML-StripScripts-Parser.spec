@@ -1,6 +1,6 @@
 Name:           perl-HTML-StripScripts-Parser
 Version:        1.03
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        XSS filter using HTML::Parser
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-StripScripts-Parser
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

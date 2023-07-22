@@ -1,6 +1,6 @@
 Name:           liblqr-1
 Version:        0.4.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        LiquidRescale library
 License:        GPLv3
 URL:            http://liquidrescale.wikidot.com/
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -name \*.la -exec %{__rm} -f {} \;
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

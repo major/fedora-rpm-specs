@@ -1,6 +1,6 @@
 Name:           libdsk
 Version:        1.5.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for accessing disk images
 License:        LGPLv2+
 URL:            http://www.seasip.info/Unix/LibDsk
@@ -78,6 +78,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.15-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

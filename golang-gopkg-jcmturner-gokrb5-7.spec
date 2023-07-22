@@ -18,7 +18,7 @@ Pure Go Kerberos library for clients and services.}
 %global godocs          examples CONTRIBUTING.md README.md USAGE.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pure Go Kerberos library for clients and services
 
 # Upstream license specification: Apache-2.0
@@ -62,6 +62,9 @@ rm -rf v8/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

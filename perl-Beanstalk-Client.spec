@@ -1,6 +1,6 @@
 Name:           perl-Beanstalk-Client
 Version:        1.07
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Client class to talk to a beanstalkd server
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Beanstalk-Client
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/Beanstalk::*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

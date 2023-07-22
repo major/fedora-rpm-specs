@@ -1,6 +1,6 @@
 Name:           perl-Queue-DBI
 Version:        2.7.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A queueing module with an emphasis on safety, using DBI as a storage system
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Queue-DBI
@@ -47,6 +47,9 @@ use transactions.
 %{_mandir}/man3/Queue*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -389,6 +389,9 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Thu Jul 20 2023 Python Maint <python-maint@redhat.com> - 23.1.2-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 23.1.2-2
 - Bootstrap for Python 3.12
 

@@ -23,7 +23,7 @@ not require helper applications to be installed.
 
 Name:           patool
 Version:        1.12
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Portable command line archive file manager
 
 License:        GPLv3+
@@ -191,6 +191,9 @@ PYTHONPATH=. pytest-3 -v tests
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.12-21
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@ Name: hyphen-ca
 Summary: Catalan hyphenation rules
 Epoch: 1
 Version: 0.9.3
-Release: 25%{?dist}
+Release: 26%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/2010/7/hyph-ca.oxt
 URL: http://extensions.services.openoffice.org/project/ca_hyph
 License: GPL-3.0-only
@@ -40,6 +40,9 @@ popd
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 1:0.9.3-25
 - migrated to SPDX license
 

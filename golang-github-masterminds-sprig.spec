@@ -21,7 +21,7 @@ libraries, such as underscore.js.}
 %global godocs          docs README.md CHANGELOG.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Useful template functions for Go templates
 
 License:        MIT
@@ -64,6 +64,9 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

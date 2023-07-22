@@ -1,6 +1,6 @@
 Name:		jacop
 Version:	4.9.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	AGPL-3.0-or-later
 Summary:	Java Constraint Programming solver
 URL:		http://jacop.osolpro.com/
@@ -63,6 +63,9 @@ sed -i '\@src/main/scala@d' pom.xml
 %license LICENSE.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb  9 2023 Jerry James <loganjerry@gmail.com> - 4.9.0-1
 - Version 4.9.0
 - Convert License tag to SPDX

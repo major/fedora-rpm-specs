@@ -1,6 +1,6 @@
 Name:           jdepend
 Version:        2.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java Design Quality Metrics
 License:        MIT
 URL:            https://github.com/clarkware/jdepend
@@ -53,6 +53,9 @@ ant -Dant.build.javac.source=1.7 -Dant.build.javac.target=1.7 jar javadoc
 %license LICENSE.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

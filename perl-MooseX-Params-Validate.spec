@@ -1,7 +1,7 @@
 Name:           perl-MooseX-Params-Validate
 Summary:        Extension of Params::Validate using Moose's types
 Version:        0.21
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/MooseX-Params-Validate-%{version}.tar.gz 
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

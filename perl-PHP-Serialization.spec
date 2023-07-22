@@ -1,6 +1,6 @@
 Name:           perl-PHP-Serialization
 Version:        0.34
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Converts between PHP's serialize() output and the equivalent Perl structure
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/PHP-Serialization
@@ -44,6 +44,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		ibus-skk
 Version:	1.4.3
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Japanese SKK input method for ibus
 
 License:	GPLv2+
@@ -88,6 +88,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-skk.deskt
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

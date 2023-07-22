@@ -1,7 +1,7 @@
 Name:           lmfit
 Version:        8.2.2
 %global         sover 8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Levenberg-Marquardt least-squares minimization and curve fitting
 # software is BSD, documentation is CC-BY
 License:        BSD and CC-BY
@@ -65,6 +65,9 @@ mv -f _demo demo
 %{_mandir}/man7/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

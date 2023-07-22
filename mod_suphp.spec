@@ -13,7 +13,7 @@
 
 Name: mod_suphp
 Version: 0.7.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: An apache2 module for executing PHP scripts with the permissions of their owners
 
 License: GPLv2+
@@ -120,6 +120,9 @@ cp doc/apache/CONFIG CONFIG.apache
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 30 2023 Florian Weimer <fweimer@redhat.com> - 0.7.2-20
 - Fix C99 compatibility issue
 

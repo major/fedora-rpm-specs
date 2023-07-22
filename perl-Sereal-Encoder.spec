@@ -7,7 +7,7 @@
 
 Name:           perl-Sereal-Encoder
 Version:        5.004
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
 # qsort.h:                  LGPLv2+ (borrowed from glibc)
@@ -119,6 +119,9 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.004-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.004-2
 - Perl 5.38 rebuild
 

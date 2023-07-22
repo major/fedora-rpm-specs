@@ -1,6 +1,6 @@
 Name:           jose
 Version:        11
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tools for JSON Object Signing and Encryption (JOSE)
 
 License:        Apache-2.0
@@ -81,6 +81,9 @@ rm -rf %{buildroot}/%{_libdir}/lib%{name}.la
 %{_mandir}/man3/jose*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

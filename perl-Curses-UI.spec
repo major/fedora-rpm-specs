@@ -1,6 +1,6 @@
 Name:           perl-Curses-UI
 Version:        0.9609
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Curses based OO user interface framework
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Curses-UI
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9609-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9609-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

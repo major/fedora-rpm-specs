@@ -1,6 +1,6 @@
 Name:           perl-File-Find-Rule-VCS
 Version:        1.09
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Exclude files/directories for Version Control Systems
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Find-Rule-VCS
@@ -76,6 +76,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.09-1
 - 1.09 bump
 - Package tests

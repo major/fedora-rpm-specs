@@ -1,6 +1,6 @@
 Name:           license-validate
 Version:        19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Validate SPEC license string
 
 License:        MIT
@@ -66,6 +66,9 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Miroslav Suchý <msuchy@redhat.com> 19-1
 - use spdx grammar from fedora-license-data
 

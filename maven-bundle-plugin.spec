@@ -2,7 +2,7 @@
 
 Name:           maven-bundle-plugin
 Version:        5.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Maven Bundle Plugin
 License:        ASL 2.0
 URL:            https://felix.apache.org
@@ -84,6 +84,9 @@ rm -f src/main/java/org/apache/felix/bundleplugin/baseline/BaselineReport.java
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 21 2023 Marian Koncek <mkoncek@redhat.com> - 5.1.1-9
 - Rename package from maven-plugin-bundle
 

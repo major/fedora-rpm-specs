@@ -19,7 +19,7 @@ The tomb package helps with clean goroutine termination in the Go language.}
 
 Name:           %{goname}
 Version:        2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Clean goroutine termination in the Go language
 
 License:        BSD-3-Clause
@@ -49,6 +49,9 @@ Patch:          0001-Fix-incorrect-usage-of-t.Fatalf-in-test.-Closes-rhbz.patch
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2-11
 - Fix FTBFS rhbz#2113397
 

@@ -3,7 +3,7 @@
 Summary: Network diagnostic tool combining 'traceroute' and 'ping'
 Name: mtr
 Version: 0.95
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 2
 License: GPL-2.0-only
 URL: https://www.bitwizard.nl/mtr/
@@ -81,6 +81,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/net-x%{name}.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.95-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Robert Scheck <robert@fedoraproject.org> - 2:0.95-5
 - Added upstream patch to fix segmentation fault for '-r' (#2188394)
 

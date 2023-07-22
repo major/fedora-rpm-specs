@@ -1,6 +1,6 @@
 Name:             ktechlab
 Version:          0.50.0
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Development and simulation of micro-controllers and electronic circuits
 License:          GPLv2
 
@@ -97,6 +97,9 @@ source %{_sysconfdir}/profile.d/%{name}.sh
 
 
 %Changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.50.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.50.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

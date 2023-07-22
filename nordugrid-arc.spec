@@ -46,7 +46,7 @@
 
 Name:		nordugrid-arc
 Version:	6.17.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Advanced Resource Connector Middleware
 License:	ASL 2.0
 URL:		http://www.nordugrid.org/
@@ -1762,6 +1762,9 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.17.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.17.0-5
 - Update py-compile script for Python 3.12
 

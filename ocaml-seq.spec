@@ -6,7 +6,7 @@
 
 Name:           ocaml-seq
 Version:        0.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Compatibility package for OCaml's standard iterator type
 License:        LGPLv2+ with exceptions
 
@@ -76,6 +76,9 @@ rm -fr %{buildroot}%{_prefix}/doc
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.3.1-2
 - Rebuild OCaml packages for F38
 

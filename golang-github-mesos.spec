@@ -22,7 +22,7 @@ easy to create Mesos frameworks using Go.}
                         examples
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Go language bindings for Apache Mesos
 
 # Upstream license specification: BSD-3-Clause and Apache-2.0 and MIT
@@ -67,6 +67,9 @@ BuildRequires:  golang(github.com/gogo/protobuf/jsonpb)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

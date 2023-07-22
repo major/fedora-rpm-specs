@@ -16,7 +16,7 @@
 
 Name:           mod_wsgi
 Version:        4.9.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
 License:        Apache-2.0 AND CC-BY-3.0
 URL:            https://modwsgi.readthedocs.io/
@@ -159,6 +159,9 @@ ln -s %{_bindir}/mod_wsgi-express-2 $RPM_BUILD_ROOT%{_bindir}/mod_wsgi-express
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Tomas Orsava <torsava@redhat.com> - 4.9.4-5
 - Use the modern way of filtering Provides not to interfere with modern Python
   RPM generators

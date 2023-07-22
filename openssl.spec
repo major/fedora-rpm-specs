@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.0.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -483,6 +483,9 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 21 2023 Sahana Prasad <sahana@redhat.com> - 1:3.0.8-2
 - Upload new upstream sources without manually hobbling them.
 - Remove the hobbling script as it is redundant. It is now allowed to ship

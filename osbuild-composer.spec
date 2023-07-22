@@ -22,7 +22,7 @@ It is compatible with composer-cli and cockpit-composer clients.
 }
 
 Name:           osbuild-composer
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building service based on osbuild
 
 # osbuild-composer doesn't have support for building i686 and armv7hl images
@@ -577,6 +577,9 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 85-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Packit <hello@packit.dev> - 85-1
 Changes with 85
 ----------------

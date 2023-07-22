@@ -17,7 +17,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.15.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtWebChannel component
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -127,6 +127,9 @@ mkdir .git
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Sandro Mani <manisandro@gmail.com> - 5.15.10-1
 - Update to 5.15.10
 

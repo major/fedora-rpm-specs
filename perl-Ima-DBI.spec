@@ -1,6 +1,6 @@
 Name:           perl-Ima-DBI
 Version:        0.35
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Database connection caching and organization
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Ima-DBI
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

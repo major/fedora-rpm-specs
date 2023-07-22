@@ -2,7 +2,7 @@
 
 Name:           google-guice
 Version:        5.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight dependency injection framework for Java 5 and above
 License:        ASL 2.0
 URL:            https://github.com/google/guice
@@ -201,6 +201,9 @@ and above. This package provides Bill of Materials module for Guice.
 %files -n guice-bom -f .mfiles-guice-bom
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.1.0-2
 - Rebuild with no changes
 

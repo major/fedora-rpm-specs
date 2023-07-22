@@ -9,7 +9,7 @@
 
 Name:           perl-LDAP
 Version:        0.68
-Release:        10%{?dist}
+Release:        11%{?dist}
 Epoch:          1
 Summary:        LDAP Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -209,6 +209,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.68-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.68-10
 - Filter run-require perl(t::common.pl) (BZ#2163998)
 

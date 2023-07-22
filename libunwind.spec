@@ -46,7 +46,7 @@
 Summary: An unwinding library
 Name: libunwind
 Version: 1.7.0
-Release: 0.1.%{prerel}%{?dist}
+Release: 0.2.%{prerel}%{?dist}
 License: BSD
 URL: http://savannah.nongnu.org/projects/libunwind
 Source: https://github.com/libunwind/libunwind/archive/refs/tags/v%{version}-%{prerel}.tar.gz
@@ -132,6 +132,9 @@ echo ====================TESTING END=====================
 %{_includedir}/libunwind*.h
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-0.2.rc2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Tom Callaway <spot@fedoraproject.org> - 1.7.0-0.1.rc2
 - update to 1.7.0-rc2
 - disable tests on s390x (reported upstream: https://github.com/libunwind/libunwind/issues/464)

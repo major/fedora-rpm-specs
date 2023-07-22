@@ -1,6 +1,6 @@
 Name:           perl-File-Touch
 Version:        0.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Update access, modification timestamps, creating nonexistent files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Touch
@@ -81,6 +81,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Petr Pisar <ppisar@redhat.com> - 0.12-5
 - Modernize a spec file
 - Package the tests

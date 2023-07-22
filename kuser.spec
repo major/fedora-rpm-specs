@@ -1,7 +1,7 @@
 Name:    kuser
 Summary: User Manager for KDE
 Version: 16.08.3
-Release: 19%{?dist}
+Release: 20%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://quickgit.kde.org/?p=%{name}.git
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/%{name}.des
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		mftrace
 Version:	1.2.20
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Utility for converting TeX bitmap fonts to Type 1 or TrueType fonts
 
 License:	GPL-2.0-only
@@ -51,6 +51,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.20-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.20-9
 - migrated to SPDX license
 

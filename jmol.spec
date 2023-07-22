@@ -1,6 +1,6 @@
 Name:           jmol
 Version:        14.32.83
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
 # JSpecView, JMol, and Sparsh-UI are all LGPL-2.0-or-later.
@@ -212,6 +212,9 @@ cd ../..
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.32.83-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.32.83-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

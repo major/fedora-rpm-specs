@@ -11,7 +11,7 @@
 
 Name:           ocaml-srpm-macros
 Version:        8
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        OCaml architecture macros
 License:        GPLv2+
@@ -48,6 +48,9 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/redhat
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Richard W.M. Jones <rjones@redhat.com> - 8-1
 - Update OCaml native archs for OCaml 5.0
 

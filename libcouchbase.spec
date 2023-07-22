@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
 Version: 3.3.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: ASL 2.0
 BuildRequires: gcc, gcc-c++
 BuildRequires: cmake >= 3.5.1
@@ -111,6 +111,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 11 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.7-2
 - Fix systemtap exception for ppc64le
 

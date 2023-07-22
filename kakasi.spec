@@ -1,6 +1,6 @@
 Name:		kakasi
 Version:	2.3.6
-Release:	25%{?dist}
+Release:	26%{?dist}
 URL:		http://kakasi.namazu.org/
 License:	GPL-2.0-or-later
 BuildRequires:	autoconf automake libtool gettext-devel
@@ -96,6 +96,9 @@ iconv -f euc-jp -t utf-8 man/kakasi.1.ja > man/kakasi.1.ja.utf8 && touch -r man/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 2.3.6-25
 - Port configure script to C99 (#2186999)
 

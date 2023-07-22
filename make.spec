@@ -5,8 +5,8 @@
 Name: make
 Epoch: 1
 Version: 4.4.1
-Release: 1%{?dist}
-License: GPLv3+
+Release: 3%{?dist}
+License: GPL-3.0-or-later AND LGPL-2.1-or-later AND GFDL-1.3-or-later AND FSFULLR
 URL: http://www.gnu.org/software/make/
 Source: ftp://ftp.gnu.org/gnu/make/make-%{version}.tar.gz
 
@@ -134,6 +134,13 @@ echo ============END TESTING===========
 %{_includedir}/gnumake.h
 
 %changelog
+* Thu Jul 20 2023 DJ Delorie <dj@redhat.com> - 1:4.4.1-3
+- Migrate License field to SPDX identifiers for
+  https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 DJ Delorie <dj@redhat.com> - 1:4.4.1-1
 - Rebase to make 4.4
 

@@ -1,6 +1,6 @@
 Name:           perl-File-Path-Tiny
 Version:        1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Recursive versions of mkdir() and rmdir() without as much overhead as File::Path
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Path-Tiny
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

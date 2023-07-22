@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ounit
 Version:        2.2.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Unit test framework for OCaml
 
 License:        MIT
@@ -110,6 +110,9 @@ files for developing applications that use %{name}-lwt.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.7-2
 - OCaml 5.0 rebuild for Fedora 39
 

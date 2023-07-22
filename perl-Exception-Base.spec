@@ -1,6 +1,6 @@
 Name:           perl-Exception-Base
 Version:        0.2501
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Lightweight exceptions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exception-Base
@@ -77,6 +77,9 @@ make test TEST_FILES=%{SOURCE2}
 %{_mandir}/man3/Exception::Base.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2501-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Paul Howarth <paul@city-fan.org> - 0.2501-24
 - Fix FTPFS with Perl 5.38 (rhbz#2222742)
 

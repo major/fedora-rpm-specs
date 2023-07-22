@@ -1,6 +1,6 @@
 Name:		perl-IO-FDPass
 Version:	1.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Pass a file descriptor over a socket
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/IO-FDPass
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/IO::FDPass.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.3-9
 - Perl 5.38 rebuild
 

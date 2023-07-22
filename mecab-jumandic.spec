@@ -9,7 +9,7 @@
 
 Name:		mecab-jumandic
 Version:	%{majorver}.%{date}
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	JUMAN dictorionary for MeCab
 
 License:	BSD
@@ -96,6 +96,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.20070304-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.20070304-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

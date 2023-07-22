@@ -1,6 +1,6 @@
 Name:           perl-MCE
 Version:        1.888
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MCE
@@ -169,6 +169,9 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.888-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Paul Howarth <paul@city-fan.org> - 1.888-1
 - Update to 1.888 (rhbz#2216582)
   - Fix typos caught by lintian (GH#17)

@@ -1,6 +1,6 @@
 Name:           perl-Data-Printer
 Version:        1.001000
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pretty printer for Perl data structures
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Printer
@@ -89,6 +89,9 @@ formatted to be inspected by a human.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001000-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

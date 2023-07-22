@@ -1,6 +1,6 @@
 Name:       lpsolve
 Version:    5.5.2.11
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mixed Integer Linear Programming (MILP) solver
 # bfp/bfp_LUSOL/lp_LUSOL.c:             LGPL-2.1-or-later
 # colamd/colamd.c:  ??? (free with attribution in Matlab)
@@ -110,6 +110,9 @@ LD_LIBRARY_PATH="$LP_PATH" ./a.out </dev/null
 %{_includedir}/lpsolve
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.2.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 07 2023 Petr Pisar <ppisar@redhat.com> - 5.5.2.11-1
 - 5.5.2.11 bump
 - Link lp_solve tool dynamically

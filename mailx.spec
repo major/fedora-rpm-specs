@@ -4,7 +4,7 @@
 Summary: Enhanced implementation of the mailx command
 Name: mailx
 Version: 12.5
-Release: 43%{?dist}
+Release: 44%{?dist}
 # MPLv1.1 .. nss.c, nsserr.c
 License: BSD with advertising and MPLv1.1
 URL: http://heirloom.sourceforge.net/mailx.html
@@ -201,6 +201,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.5-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.5-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

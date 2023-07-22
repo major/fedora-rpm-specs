@@ -1,6 +1,6 @@
 Name:           javaewah
 Version:        1.1.13
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A word-aligned compressed variant of the Java bitset class
 
 License:        ASL 2.0
@@ -60,6 +60,9 @@ API documentation for %{name}.
 %license LICENSE-2.0.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

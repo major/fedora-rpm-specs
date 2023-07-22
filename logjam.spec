@@ -2,7 +2,7 @@
 
 Name:		logjam
 Version:	4.6.2
-Release:	30%{?dist}
+Release:	31%{?dist}
 Epoch:		1
 Summary:	GTK2 client for LiveJournal
 License:	GPLv2+
@@ -90,6 +90,9 @@ desktop-file-install \
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.6.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 06 2023 Florian Weimer <fweimer@redhat.com> - 1:4.6.2-30
 - Port to C99
 

@@ -1,6 +1,6 @@
 Name: mtx
 Version: 1.3.12
-Release: 28%{?dist}
+Release: 29%{?dist}
 Summary: SCSI media changer control program
 License: GPLv2
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.12-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.12-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

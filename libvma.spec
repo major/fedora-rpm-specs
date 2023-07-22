@@ -2,7 +2,7 @@
 
 Name: libvma
 Version: 9.8.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library for boosting TCP and UDP traffic (over RDMA hardware)
 
 License: GPLv2 or BSD
@@ -100,6 +100,9 @@ rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/vma
 %{_mandir}/man8/vma_stats.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Igor Ivanov <igori@nvidia.com> 9.8.1-2
 - Fix gcc13 compilation issue
 

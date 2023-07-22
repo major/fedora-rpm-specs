@@ -4,7 +4,7 @@
 
 Name:		mono-reflection
 Version:	0.1
-Release:	0.27.%{gitdate}git%{gitrev}%{?dist}
+Release:	0.28.%{gitdate}git%{gitrev}%{?dist}
 Summary:	Helper library for Mono Reflection support
 URL:		https://github.com/jbevain/mono.reflection
 License:	MIT
@@ -62,6 +62,9 @@ gacutil -i bin/Mono.Reflection.dll -f -package Mono.Reflection -root %{buildroot
 %{_libdir}/pkgconfig/mono-reflection.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.28.20110613git304d1d
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.27.20110613git304d1d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

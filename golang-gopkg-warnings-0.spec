@@ -30,7 +30,7 @@ distinguished programmatically.}
 %global godocs          README
 
 Name:           %{goname}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Implements error handling with non-fatal errors (warnings)
 
 # Upstream license specification: BSD-2-Clause
@@ -57,6 +57,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

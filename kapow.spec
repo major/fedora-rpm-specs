@@ -1,7 +1,7 @@
 
 Name:           kapow
 Version:        1.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A punch clock program
 
 License:        GPL-3.0-or-later
@@ -53,6 +53,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name: hyphen-sa
 Summary: Sanskrit hyphenation rules
 Version: 0.%{upstreamid}
-Release: 24%{?dist}
+Release: 25%{?dist}
 #? in a url causes trouble
 #http://tug.org/svn/texhyphen/trunk/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/hyph-sa.tex?view=co
 Source: hyph-sa.tex
@@ -39,6 +39,9 @@ cp -p hyph_sa_IN.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/hyph_sa_IN.dic
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20110915-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 28 2023 Caolán McNamara <caolanm@redhat.com> - 0.20110915-24
 - migrated to SPDX license
 

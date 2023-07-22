@@ -5,7 +5,7 @@
 %endif
 
 Name:           cloud-init
-Version:        23.2
+Version:        23.2.1
 Release:        %autorelease
 Summary:        Cloud instance init scripts
 License:        Apache-2.0 or GPL-3.0-only

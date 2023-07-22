@@ -1,6 +1,6 @@
 Name:           perl-Data-Hierarchy
 Version:        0.34
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Handle data in a hierarchical structure
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Hierarchy
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

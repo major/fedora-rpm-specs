@@ -18,7 +18,7 @@ object storage.}
                         README.md README_zh_CN.md
 
 Name:           %{goname}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MinIO Client SDK for Go
 
 # Upstream license specification: Apache-2.0
@@ -57,6 +57,9 @@ BuildRequires:  golang(gopkg.in/ini.v1)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.23-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

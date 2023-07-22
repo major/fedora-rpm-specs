@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk2-Notify
 Version:        0.05
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Perl interface to libnotify
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Gtk2-Notify
@@ -90,6 +90,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-49
 - Perl 5.38 rebuild
 

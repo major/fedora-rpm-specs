@@ -6,8 +6,8 @@
 ###
 
 Name: darktable
-Version: 4.4.0
-Release: 3%{?dist}
+Version: 4.4.1
+Release: 1%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -16,16 +16,13 @@ URL: http://www.darktable.org/
 Source0: https://github.com/darktable-org/darktable/releases/download/release-%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires: cairo-devel
-BuildRequires: clang >= 3.9
-BuildRequires: cmake >= 3.10
+BuildRequires: clang >= 7
+BuildRequires: cmake >= 3.18
 BuildRequires: colord-gtk-devel
 BuildRequires: colord-devel
 BuildRequires: cups-devel
 BuildRequires: desktop-file-utils
-BuildRequires: exiv2-devel >= 0.24
-%if %{defined fedora}
-BuildRequires: flickcurl-devel
-%endif
+BuildRequires: exiv2-devel >= 0.25
 %if %{defined fedora}
 BuildRequires: gcc
 %endif
@@ -57,7 +54,7 @@ BuildRequires: cmake(libavif) >= 0.8.2
 BuildRequires: libcurl-devel >= 7.18.0
 BuildRequires: libgphoto2-devel >= 2.4.5
 %if ((%{defined rhel} && 0%{?rhel} >= 9) || %{defined fedora})
-BuildRequires: libheif-devel >= 1.9.0
+BuildRequires: libheif-devel >= 1.13.0
 %endif
 BuildRequires: libjasper-devel
 BuildRequires: libjpeg-devel
@@ -69,7 +66,7 @@ BuildRequires: libsoup-devel
 BuildRequires: libtiff-devel
 BuildRequires: libwebp-devel
 # llvm is optional
-BuildRequires: llvm-devel >= 3.9
+BuildRequires: llvm-devel >= 7
 BuildRequires: make
 BuildRequires: opencl-headers
 %if %{defined fedora}
@@ -252,6 +249,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Thu Jul 20 2023 Milos Komarcevic <kmilos@gmail.com> - 4.4.1-1
+- 4.4.1 release
+- Remove flickrcurl-devel from BuildRequires, no longer used upstream
+- Bump Clang/LLVM, CMake, Exiv2, and libheif minimum versions
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

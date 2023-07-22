@@ -1,6 +1,6 @@
 Name:           perl-Data-ICal-TimeZone
 Version:        1.23
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Time zones for Data::ICal
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-ICal-TimeZone
@@ -77,6 +77,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

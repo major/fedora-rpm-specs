@@ -32,7 +32,7 @@
 
 Name:             open-vm-tools
 Version:          %{toolsversion}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPLv2
 URL:              https://github.com/vmware/%{name}
@@ -420,6 +420,9 @@ fi
 %{_bindir}/vmware-vgauth-smoketest
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

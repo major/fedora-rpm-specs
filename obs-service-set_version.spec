@@ -3,7 +3,7 @@
 
 Name:           obs-service-%{service}
 Version:        0.5.12
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An OBS source service: Update spec file version
 License:        GPLv2+
 URL:            https://github.com/openSUSE/obs-service-%{service}
@@ -43,6 +43,9 @@ install -m 0644 set_version.service %{buildroot}%{_prefix}/lib/obs/service
 %{_prefix}/lib/obs/service
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

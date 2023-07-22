@@ -1,6 +1,6 @@
 Name:           perl-Proc-PID-File
 Version:        1.29
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Module to manage process id files
 License:        GPLv2+
 
@@ -66,6 +66,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

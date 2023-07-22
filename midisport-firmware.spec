@@ -1,6 +1,6 @@
 Name:		midisport-firmware
 Version:	1.2
-Release:	30%{dist}
+Release:	31%{dist}
 Summary:	Firmware for the M-Audio/Midiman USB MIDI and Audio devices
 License:	(MIT or GPLv2+) and Redistributable, no modification permitted
 URL:		http://usb-midi-fw.sourceforge.net/
@@ -53,6 +53,9 @@ install -pm 0644 42-midisport-firmware.rules.in $RPM_BUILD_ROOT/%{_udevrulesdir}
 %config %{_udevrulesdir}/42-midisport-firmware.rules
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

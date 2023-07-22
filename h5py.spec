@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        BSD
 URL:            http://www.h5py.org/
 Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{version}.tar.gz
@@ -221,6 +221,9 @@ mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || ex
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Miro Hrončok <mhroncok@redhat.com> - 3.8.0-3
 - Temporarily disable the openmpi build
 - Workaround for: rhzb#2220011

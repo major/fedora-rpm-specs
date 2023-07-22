@@ -1,6 +1,6 @@
 Name:           perl-File-chdir
 Version:        0.1011
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A more sensible way to change directories
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-chdir
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/File::chdir.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1011-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 18 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.1011-21
 - Update license to SPDX format
 

@@ -7,7 +7,7 @@
 Name:		ks-install
 Summary:	Take a Fedora/CentOS/RHEL kickstart file and make a VM
 Version:	0
-Release:	0.4%{?dist}
+Release:	0.5%{?dist}
 URL:		%{forgeurl}
 Source:		%{forgesource}
 License:	GPLv3
@@ -37,6 +37,9 @@ install -D -m0644 ks-libvirt.1 %{buildroot}%{_mandir}/man1/ks-libvirt.1
 %{_mandir}/man*/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May 06 2023 Chris Adams <linux@cmadams.net> 0-0.4
 - Add --arch and --machine options
 - recognize "$basearch" in URLs (such as Alma mirror lists)

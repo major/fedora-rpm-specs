@@ -11,7 +11,7 @@
 Summary: Performance Application Programming Interface
 Name: papi
 Version: 7.0.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD
 Requires: papi-libs = %{version}-%{release}
 URL: http://icl.cs.utk.edu/papi/
@@ -181,6 +181,9 @@ find %{buildroot} -type f -executable ! -iname "*.py" ! -iname "*.sh" | xargs ch
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 28 2023 William Cohen <wcohen@redhat.com> - 7.0.1-3
 - Rebuild with libpfm-4.13.0.
 

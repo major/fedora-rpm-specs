@@ -1,6 +1,6 @@
 Name:           perl-JSON-Util
 Version:        0.06
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Easy and portable encode/decode of JSON
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/JSON-Util
@@ -52,6 +52,9 @@ Provides methods to encode and decode JSON.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

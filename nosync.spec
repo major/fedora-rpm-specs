@@ -1,6 +1,6 @@
 Name:           nosync
 Version:        1.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Preload library for disabling file's content synchronization
 License:        ASL 2.0
 URL:            http://github.com/kjn/%{name}
@@ -39,6 +39,9 @@ make CFLAGS="%{optflags}" %{?_smp_mflags}
 %{_libdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

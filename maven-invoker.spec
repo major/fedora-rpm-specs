@@ -1,6 +1,6 @@
 Name:           maven-invoker
 Version:        3.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fires a maven build in a clean environment
 License:        ASL 2.0
 URL:            https://maven.apache.org/shared/maven-invoker/
@@ -66,6 +66,9 @@ sed -i 's/\r$//' src/test/java/org/apache/maven/shared/invoker/DefaultInvokerTes
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

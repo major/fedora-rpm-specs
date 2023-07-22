@@ -1,7 +1,7 @@
 Name:		perl-Env-Sanctify
 Summary:	Lexically scoped sanctification of %%ENV
 Version:	1.12
-Release:	28%{?dist}
+Release:	29%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Env-Sanctify
 Source0:	https://cpan.metacpan.org/modules/by-module/Env/Env-Sanctify-%{version}.tar.gz
@@ -59,6 +59,9 @@ make test AUTHOR_TESTING=1 RELEASE_TESTING=1
 %{_mandir}/man3/Env::Sanctify.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

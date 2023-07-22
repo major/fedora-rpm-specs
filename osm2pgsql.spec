@@ -1,6 +1,6 @@
 Name:           osm2pgsql
 Version:        1.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Import map data from OpenStreetMap to a PostgreSQL database
 
 License:        GPLv2+
@@ -71,6 +71,9 @@ LANG="C.UTF-8" %ctest -j1
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Tom Hughes <tom@compton.nu> - 1.8.1-2
 - Unbundle libraries
 - Enable tests

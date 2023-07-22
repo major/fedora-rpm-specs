@@ -1,6 +1,6 @@
 Name:           pastebinit
 Version:        1.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Send anything you want directly to a pastebin from the command line
 
 License:        GPLv2+
@@ -70,6 +70,9 @@ popd
 %doc README COPYING
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

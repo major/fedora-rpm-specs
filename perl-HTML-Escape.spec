@@ -1,6 +1,6 @@
 Name:           perl-HTML-Escape
 Version:        1.11
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extremely fast HTML escape
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-Escape
@@ -59,6 +59,9 @@ htmlspecialchars.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.11-6
 - Perl 5.38 rebuild
 

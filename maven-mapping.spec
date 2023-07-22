@@ -2,7 +2,7 @@
 
 Name:           maven-mapping
 Version:        3.0.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Apache Maven Mapping
 License:        ASL 2.0
 
@@ -50,6 +50,9 @@ This package provides %{summary}.
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:           lxappearance-obconf
 Version:        0.2.3
-Release:        17%{?git_version:.%{?git_version}}%{?dist}
+Release:        18%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Plugin to configure Openbox inside LXAppearance
 
 License:        GPLv2+
@@ -81,6 +81,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 0.2.3-17
 - Rebuild fo new imlib2
 

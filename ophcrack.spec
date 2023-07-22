@@ -1,6 +1,6 @@
 Name:           ophcrack
 Version:        3.8.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Free Windows password cracker based on rainbow tables
 License:        GPLv2+ with exceptions
 URL:            https://ophcrack.sourceforge.io
@@ -76,6 +76,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

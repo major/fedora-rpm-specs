@@ -4,7 +4,7 @@
 Summary:            A lightweight, portable desktop environment
 Name:               %{srcname}-desktop
 Version:            1.6.2
-Release:            8%{?dist}
+Release:            9%{?dist}
 License:            BSD
 URL:                http://%{name}.org
 Source0:            https://github.com/lumina-desktop/%{srcname}/archive/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
@@ -387,6 +387,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{srcname}-*.desktop
 
 ########################################################################################
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

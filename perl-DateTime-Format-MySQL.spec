@@ -3,7 +3,7 @@
 
 Name:           perl-DateTime-Format-MySQL
 Version:        %{rpmversion}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Parse and format MySQL dates and times
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-MySQL
@@ -51,6 +51,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/DateTime::Format::MySQL.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07.01-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.07.01-7
 - Update license to SPDX format
 

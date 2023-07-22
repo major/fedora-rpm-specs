@@ -21,7 +21,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-num
 Version:        1.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Legacy Num library for arbitrary-precision integer and rational arithmetic
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -93,6 +93,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4-11
 - OCaml 5.0 rebuild for Fedora 39
 

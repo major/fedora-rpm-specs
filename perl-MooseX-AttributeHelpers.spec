@@ -1,6 +1,6 @@
 Name:           perl-MooseX-AttributeHelpers
 Version:        0.25
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Extended Moose attribute interfaces (deprecated)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-AttributeHelpers
@@ -90,6 +90,9 @@ sed -i '1s,#!perl,#!%{__perl},' t/*.t
 %{_mandir}/man3/MooseX::AttributeHelpers::Trait::Number.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

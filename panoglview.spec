@@ -1,7 +1,7 @@
 Summary:       Immersive viewer for spherical panoramas
 Name:          panoglview
 Version:       0.2.2
-Release:       38%{?dist}
+Release:       39%{?dist}
 License:       GPLv2+
 URL:           http://hugin.sourceforge.net/
 Source0:       http://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.gz
@@ -40,6 +40,9 @@ install -D -m 0755 %{SOURCE2} %{buildroot}/%{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

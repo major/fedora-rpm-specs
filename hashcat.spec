@@ -17,7 +17,7 @@
 
 Name: hashcat
 Version: 6.2.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: MIT AND LicenseRef-Fedora-Public-Domain
 URL: https://github.com/%{name}/%{name}
@@ -112,6 +112,9 @@ install -m 0744 -p extra/tab_completion/hashcat.sh %{buildroot}%{_datadir}/bash-
 %doc example.dict example*.sh
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

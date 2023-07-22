@@ -1,6 +1,6 @@
 Name: kernelshark
 Version: 2.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 
 # As of 1.1, only kernelshark.cpp, kshark-record.cpp and examples are GPL-2.0. The rest of kernel-shark is LGPL-2.1.
@@ -92,6 +92,9 @@ chrpath --delete %{buildroot}/%{_bindir}/kshark-record
 %{_includedir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 05 2023 Zamir SUN <sztsian@gmail.com> - 1:2.2.0-3
 - SPDX migration
 

@@ -1,6 +1,6 @@
 Name:		itzam-core
 Version:	2.1.1
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Library for creating and manipulating keyed-access database files
 
 License:	GPL-3.0-or-later
@@ -68,6 +68,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/itzam_dump_records
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.1.1-28
 - migrated to SPDX license
 

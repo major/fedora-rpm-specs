@@ -10,7 +10,7 @@
 
 Name:           links
 Version:        2.20.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Epoch:          1
 Summary:        Web browser running in both graphics and text mode
 License:        GPLv2+
@@ -112,6 +112,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.20.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 1:2.20.2-11
 - Fix C99 compatibility issues in configure script (#2167366)
 

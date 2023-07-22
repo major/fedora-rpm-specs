@@ -1,7 +1,7 @@
 Name: libchipcard
 Summary: A library for easy access to smart cards (chipcards)
 Version: 5.1.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
 Source0: https://www.aquamaniac.de/rdm/attachments/download/382/libchipcard-%{version}.tar.gz
 Source1: https://www.aquamaniac.de/rdm/attachments/download/381/libchipcard-%{version}.tar.gz.asc
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

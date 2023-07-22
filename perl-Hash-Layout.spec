@@ -1,6 +1,6 @@
 Name:           perl-Hash-Layout
 Version:        2.00
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Hashes with predefined levels, composite keys and default values
 License:        GPL+ or Artistic
 
@@ -59,6 +59,9 @@ narrowing scope.
 %{_mandir}/man3/Hash*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

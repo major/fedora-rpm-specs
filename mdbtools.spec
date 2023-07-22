@@ -1,6 +1,6 @@
 Name:           mdbtools
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Access data stored in Microsoft Access databases
 License:        GPLv2+
 URL:            https://github.com/mdbtools/mdbtools/
@@ -88,6 +88,9 @@ find %{buildroot} -type f -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 23 2023 Hans de Goede <hdegoede@redhat.com> - 1.0.0-1
 - New upstream release 1.0.0
 - Fix FTBFS (rhbz#2171606)

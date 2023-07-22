@@ -13,7 +13,7 @@
 
 Name:           libcgi
 Version:        1.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        CGI easy as C
 License:        LGPLv2+
 URL:            http://libcgi.sourceforge.net/
@@ -101,6 +101,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcgi.a
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

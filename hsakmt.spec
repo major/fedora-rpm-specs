@@ -4,7 +4,7 @@
 %global rocm_version %{rocm_release}.%{rocm_patch}
 Name:           hsakmt
 Version:        1.0.6
-Release:        30.rocm%{rocm_version}%{?dist}
+Release:        31.rocm%{rocm_version}%{?dist}
 Summary:        AMD HSA thunk library
 
 License:        MIT
@@ -76,6 +76,9 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 %{_includedir}/hsakmttypes.h
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-31.rocm5.6.0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-30.rocm5.6.0
 - Update to 5.6
 

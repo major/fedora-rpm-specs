@@ -16,7 +16,7 @@
 
 Name:           hipcub
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm port of CUDA CUB library
 
 Url:            https://github.com/ROCmSoftwarePlatform
@@ -86,6 +86,9 @@ mv %{buildroot}/usr/lib/cmake %{buildroot}%{_datadir}
 %{_datadir}/cmake/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 8 2023 Tom Rix <trix@redhat.com> - 5.6.0-2
 - Review changes
 

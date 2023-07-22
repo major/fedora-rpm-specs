@@ -59,7 +59,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        4.1.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -406,6 +406,9 @@ make check
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.5-4
 - Disable PSM2 in RHEL 10 builds
 

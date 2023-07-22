@@ -1,6 +1,6 @@
 Name:           libcpuid
 Version:        0.6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides CPU identification for x86
 License:        BSD
 URL:            https://github.com/anrieff/libcpuid
@@ -56,6 +56,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man3/*.3.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 03 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.6.3-1
 - Update to 0.6.3
 

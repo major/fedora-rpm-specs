@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/libselinux-3.5.tar.gz
@@ -215,6 +215,9 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Vit Mojzis <vmojzis@redhat.com> - 3.5-4
 - Add examples to man pages
 

@@ -4,7 +4,7 @@
 
 Name:           libva-vdpau-driver
 Version:        0.7.4
-Release:        202.%{date0}%{?dist}
+Release:        203.%{date0}%{?dist}
 Summary:        HW video decode support for VDPAU platforms
 License:        GPLv2+
 URL:            https://github.com/xuanruiqi/vdpau-va-driver-vp9
@@ -46,6 +46,9 @@ find %{buildroot} -name '*.la' -delete
 %exclude %{_libdir}/dri/nvidia_drv_video.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-203.20211013
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-202.20211013
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

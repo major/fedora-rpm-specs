@@ -1,7 +1,7 @@
 Summary: GNU macro processor
 Name: m4
 Version: 1.4.19
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv3+
 Source0: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz.sig
@@ -50,6 +50,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man1/m4.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.19-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.19-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

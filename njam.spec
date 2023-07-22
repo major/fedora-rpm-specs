@@ -1,6 +1,6 @@
 Name:           njam
 Version:        1.25
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Maze-game, eat all the cookies while avoiding the badguys
 License:        GPLv2+
 URL:            http://njam.sourceforge.net/
@@ -90,6 +90,9 @@ install -p -m 644 %{name}.png \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

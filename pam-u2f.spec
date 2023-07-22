@@ -6,7 +6,7 @@
 
 Name:          pam-u2f
 Version:       1.3.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Implements PAM authentication over U2F
 
 License:       BSD-2-Clause
@@ -69,6 +69,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 15 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.3.0-1
 - Update to 1.3.0 - resolves rhbz#2178735
 - Move keyring to SCM per packaging guidelines

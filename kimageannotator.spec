@@ -3,7 +3,7 @@
 
 Name: kimageannotator
 Version: 0.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-or-later
 Summary: Library and a tool for annotating images
@@ -56,6 +56,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/%{libname}.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 15 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.6.1-1
 - Updated to version 0.6.1.
 

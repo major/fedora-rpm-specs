@@ -1,6 +1,6 @@
 Name:           innotop
 Version:        1.13.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A MySQL and InnoDB monitor program
 BuildArch:      noarch
 License:        GPLv2+ or Artistic
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man1/innotop.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           libdisplay-info
 Version:        0.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        EDID and DisplayID library
 
 # Main license: MIT
@@ -82,5 +82,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.1.1-1
 - Initial import (#2170328)

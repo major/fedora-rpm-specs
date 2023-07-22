@@ -7,7 +7,7 @@
 Summary:   Japanese Console for Linux Frame Buffer Device
 Name:      jfbterm
 Version:   0.4.7
-Release:   53%{?dist}
+Release:   54%{?dist}
 License:   BSD
 Source0:   http://downloads.sourceforge.jp/jfbterm/13501/jfbterm-%{version}.tar.gz
 Patch0:    jfbterm-0.4.6-conf.patch
@@ -193,6 +193,9 @@ iconv -f EUCJP -t UTF8 README.ja.orig > README.ja && \
 %{_mandir}/man5/jfbterm.conf.5*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 16 2023 Florian Weimer <fweimer@redhat.com> - 0.4.7-53
 - Port configure script to C99
 

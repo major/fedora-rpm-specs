@@ -1,6 +1,6 @@
 Name:           gqrx
 Version:        2.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Software defined radio receiver powered by GNU Radio and Qt
 
 License:        GPLv3+ and GPLv2+ and BSD
@@ -82,6 +82,9 @@ appstream-util validate-relax --nonet \
 %doc COPYING README.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.16-3
 - Rebuilt due to spdlog 1.12 update.
 

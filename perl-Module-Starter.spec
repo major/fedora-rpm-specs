@@ -1,7 +1,7 @@
 Name:           perl-Module-Starter
 Epoch:          1
 Version:        1.77
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A simple starter kit for any module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Module-Starter
@@ -77,6 +77,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.77-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.77-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

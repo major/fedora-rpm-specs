@@ -1,6 +1,6 @@
 Name:           perl-File-Tee
 Version:        0.07
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Replicate data sent to a Perl stream
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/File-Tee
@@ -40,6 +40,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

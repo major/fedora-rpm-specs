@@ -1,6 +1,6 @@
 Name:          ktextaddons
 Version:       1.1.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Various text handling addons
 
 License:       CC0-1.0 AND LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -90,6 +90,9 @@ Summary:        Development files for %{name}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 08 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 1.1.1-2
 - Add missing BuildRequires: cmake(Qt5TextToSpeech)
 

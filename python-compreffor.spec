@@ -10,11 +10,20 @@ Source0:        %{url}/archive/%{version}/compreffor-%{version}.tar.gz
 # command’s --help output
 Source1:        compreffor.1
 
-# Drop the setuptools_git_ls_files dependency
+# Use old_build_ext for Cython 3 compatibility
+# https://github.com/googlefonts/compreffor/pull/152
 #
-# This dependency makes sense upstream, but we do not need it (and it is
-# not packaged) in Fedora.
-Patch:          0001-Drop-the-setuptools_git_ls_files-dependency.patch
+# Fixes:
+#
+# Fails to build with Cython 3
+# https://github.com/googlefonts/compreffor/issues/150
+#
+# Rebased on 0.5.3.
+Patch:          0001-Use-old_build_ext-for-Cython-3-compatibility.patch
+
+# Replace deprecated license_file with license_files in setup.cfg
+# https://github.com/googlefonts/compreffor/pull/149
+Patch:          %{url}/pull/149.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -40,6 +49,13 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n compreffor-%{version} -p1
+
+# Drop the setuptools_git_ls_files dependency
+#
+# This dependency makes sense upstream, but we do not need it (and it is
+# not packaged) in Fedora.
+sed -r -i '/setuptools_git_ls_files/d' pyproject.toml
+sed -r -i 's/, "setuptools_git_ls_files"//' setup.py
 
 # Remove shebangs from non-script sources. The find-then-modify pattern
 # preserves mtimes on sources that did not need to be modified.

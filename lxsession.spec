@@ -29,7 +29,7 @@
 %global	git_version	D%{gitbaredate}git%{git_short}
 %endif
 
-%global	baserelease 10
+%global	baserelease 11
 
 %if 0%{?use_release} >= 1
 %global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
@@ -306,6 +306,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-11.D20210419git82580e45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5-10.D20210419git82580e45
 - Always create parent directory for lxsession autostart file (bug 2213030)
 

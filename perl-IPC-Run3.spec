@@ -1,6 +1,6 @@
 Name:           perl-IPC-Run3
 Version:        0.048
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Run a subprocess in batch mode
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl OR BSD-2-Clause
 URL:            https://metacpan.org/release/IPC-Run3
@@ -61,6 +61,9 @@ find -type f -exec chmod -x {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.048-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.048-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

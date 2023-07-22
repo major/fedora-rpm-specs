@@ -6,7 +6,7 @@
 Name: hunspell-oc
 Summary: Occitan hunspell dictionaries
 Version: 0.6.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 Source: https://addons.mozilla.org/firefox/downloads/file/233710/correcteur_occitan_languedocien-%{version}-tb+sm+fx.xpi
 URL: https://addons.mozilla.org/en-US/firefox/addon/8235
 License: GPL-3.0-or-later
@@ -37,6 +37,9 @@ cp -p dictionaries/oc-FR.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/oc_FR.d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 0.6.2-14
 - migrated to SPDX license
 

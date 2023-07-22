@@ -17,7 +17,7 @@ douteuse est erronée, le correcteur ne signalera rien.}
 
 Name:           grammalecte
 Version:        2.1.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        French grammar checker
 Summary(fr):    Correcteur grammatical dédié à la langue française
 
@@ -158,6 +158,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.app
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.1.2-8
 - Rebuilt for Python 3.12
 

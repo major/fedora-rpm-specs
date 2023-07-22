@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qtest
 Version:        2.11.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Inline (Unit) Tests for OCaml
 
 License:        GPL-3.0-or-later
@@ -84,6 +84,9 @@ asciidoc README.adoc
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.11.2-14
 - OCaml 5.0 rebuild for Fedora 39
 

@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bisect-ppx
 Version:        2.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Code coverage for OCaml and Reason
 
 # The project as a whole is MIT.
@@ -80,6 +80,9 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 2.8.3-1
 - Version 2.8.3
 - Drop upstreamed patches

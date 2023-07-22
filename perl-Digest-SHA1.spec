@@ -1,6 +1,6 @@
 Name:           perl-Digest-SHA1
 Version:        2.13
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Digest-SHA1 Perl module
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.13-39
 - Perl 5.38 rebuild
 

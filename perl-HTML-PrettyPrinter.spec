@@ -1,6 +1,6 @@
 Name:           perl-HTML-PrettyPrinter
 Version:        0.03
-Release:        43%{?dist}
+Release:        44%{?dist}
 
 Summary:        Generate nice HTML files from HTML syntax trees
 
@@ -65,6 +65,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

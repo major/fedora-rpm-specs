@@ -7,7 +7,7 @@
 
 Name:           perl-MooseX-NonMoose
 Version:        0.26
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Easy subclassing of non-Moose classes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-NonMoose
@@ -84,6 +84,9 @@ make test
 %{_mandir}/man3/MooseX::NonMoose::Meta::Role::Constructor.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

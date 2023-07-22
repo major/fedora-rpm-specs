@@ -2,7 +2,7 @@
 
 Name:		mirage
 Version:	0.9.5.2
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	A fast and simple image viewer
 
 License:	GPLv3+
@@ -91,6 +91,9 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5.2-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.5.2-40
 - Rebuilt for Python 3.12
 

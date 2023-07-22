@@ -9,7 +9,7 @@
 Name:           perl-DateTime-Format-Builder
 # 0.83 in reality, but rpm can't get it
 Version:        0.8300
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Create DateTime parser classes and objects        
 # examples/W3CDTF.pm:               GPL-1.0-or-later OR Artistic-1.0-Perl
 # examples/MySQL.pm:                GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -102,6 +102,9 @@ make test
 %{_mandir}/man3/DateTime::Format::Builder::Tutorial.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8300-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8300-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

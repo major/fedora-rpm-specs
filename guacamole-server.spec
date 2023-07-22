@@ -7,7 +7,7 @@
 
 Name:           guacamole-server
 Version:        1.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
 License:        Apache-2.0
 URL:            https://guacamole.apache.org/
@@ -247,6 +247,9 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %attr(750,%{username},%{username}) %{_sharedstatedir}/guacd/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 07 2023 Robert Scheck <robert@fedoraproject.org> - 1.5.2-2
 - Added upstream patch to fix RDP related segfault (GUACAMOLE-1802)
 

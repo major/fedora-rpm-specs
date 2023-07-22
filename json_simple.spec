@@ -1,6 +1,6 @@
 Name:           json_simple
 Version:        1.1.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Simple Java toolkit for JSON
 License:        ASL 2.0
 URL:            http://code.google.com/p/json-simple/
@@ -65,6 +65,9 @@ find . -type f -exec %{__sed} -i 's/\r//' {} \;
 %license LICENSE.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Devel-Gladiator
 Version:        0.08
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Walk Perl's arena
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Devel-Gladiator
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-11
 - Perl 5.38 rebuild
 

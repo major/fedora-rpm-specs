@@ -18,7 +18,7 @@ ScaleIO functionality into other Go applications.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        ScaleIO API bindings for Go
 
 # Upstream license specification: Apache-2.0
@@ -47,6 +47,9 @@ BuildRequires:  golang(github.com/sirupsen/logrus)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

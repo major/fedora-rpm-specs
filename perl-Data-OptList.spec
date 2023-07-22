@@ -10,7 +10,7 @@
 
 Name:           perl-Data-OptList
 Version:        0.114
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parse and validate simple name/value option pairs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-OptList
@@ -98,6 +98,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Data::OptList.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.114-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May  7 2023 Paul Howarth <paul@city-fan.org> - 0.114-1
 - Update to 0.114
   - Data::OptList now requires perl v5.12.0

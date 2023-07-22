@@ -4,16 +4,14 @@
 %global crate sevctl
 
 Name:           rust-sevctl
-Version:        0.3.2
-Release:        4%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        Administrative utility for AMD SEV
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/sevctl
 Source0:        %{crates_source}
 Source1:        LICENSE.dependencies
-# Temporal patch to update the sev dependency
-Patch:          sevctl-update-sev.diff
 
 # SEV is an AMD x86_64 CPU feature so doesn't make sense to
 # try to build on other arches
@@ -65,6 +63,10 @@ cp -pav %{SOURCE1} .
 %endif
 
 %changelog
+* Wed Jul 19 2023 Tyler Fanelli <tfanelli@redhat.com> - 0.4.1-1
+* Update to 0.4.1
+- Remove patch to update sev dependency.
+
 * Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 0.3.2-4
 - Rebuild for openssl crate >= v0.10.48 (RUSTSEC-2023-{0022,0023,0024})
 

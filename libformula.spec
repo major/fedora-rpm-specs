@@ -1,6 +1,6 @@
 Name: libformula
 Version: 1.1.3
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: Formula Parser
 License: LGPL-2.1-only
 #Original source: http://downloads.sourceforge.net/jfreereport/%%{name}-%%{version}.zip
@@ -59,6 +59,9 @@ cp -rp bin/javadoc/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.3-39
 - Bump EVR
 

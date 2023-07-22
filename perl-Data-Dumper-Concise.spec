@@ -1,7 +1,7 @@
 Name:           perl-Data-Dumper-Concise
 Summary:        A convenient way to reproduce a set of Dumper options
 Version:        2.023
-Release:        19%{?dist}
+Release:        20%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Data-Dumper-Concise-%{version}.tar.gz
 URL:            https://metacpan.org/release/Data-Dumper-Concise
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.023-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.023-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

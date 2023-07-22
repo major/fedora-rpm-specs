@@ -1,6 +1,6 @@
 Name:           pengupop
 Version:        2.2.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Networked Game in the vein of Move/Puzzle Bobble
 
 License:        GPL-2.0-or-later
@@ -50,6 +50,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 24 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.2.2-33
 - Use _fortify_level to disable fortification.
 

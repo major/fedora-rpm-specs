@@ -1,6 +1,6 @@
 Name:           perl-Net-Netmask
 Version:        2.0002
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl module for manipulating and looking up IP network blocks
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Netmask
@@ -98,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0002-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0002-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

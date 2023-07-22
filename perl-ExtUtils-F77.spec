@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-F77
 Version:        1.26
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Simple interface to F77 libs
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/ExtUtils-F77
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

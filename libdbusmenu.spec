@@ -9,7 +9,7 @@
 
 Name:       libdbusmenu
 Version:    %{ubuntu_release}.0
-Release:    21%{?dist}
+Release:    22%{?dist}
 Summary:    Library for passing menus over DBus
 
 # All files installed in final rpms use C sources with dual licensing headers.
@@ -261,6 +261,9 @@ done
 %{_datadir}/%{name}/json/test-gtk-label.json
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.04.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.04.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

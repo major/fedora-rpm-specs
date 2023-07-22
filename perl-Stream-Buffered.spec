@@ -1,6 +1,6 @@
 Name:           perl-Stream-Buffered
 Version:        0.03
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Temporary buffer to save bytes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Stream-Buffered
@@ -43,6 +43,9 @@ length of the size.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

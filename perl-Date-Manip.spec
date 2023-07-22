@@ -1,6 +1,6 @@
 Name:           perl-Date-Manip
 Version:        6.92
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Date manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Manip
@@ -80,6 +80,9 @@ make test
 %{_bindir}/dm_*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.92-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Jan Pazdziora <jpazdziora@redhat.com> - 6.92-1
 - 2213282 - Rebase to upstream version 6.92.
 

@@ -3,7 +3,7 @@
 Summary:       Painting program for creating icons and pixel-based artwork
 Name:          mtpaint
 Version:       3.50
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       GPLv3+
 URL:           http://mtpaint.sourceforge.net/
 Source0:       http://downloads.sf.net/mtpaint/mtpaint-%{version}.tar.bz2
@@ -122,6 +122,9 @@ EOF
 %license %{name}_handbook-%{version}/COPYING
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.50-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.50-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

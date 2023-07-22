@@ -1,6 +1,6 @@
 Name:           lua-sql
 Version:        2.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Database connectivity for the Lua programming language
 
 License:        MIT
@@ -96,6 +96,9 @@ make install PREFIX=$RPM_BUILD_ROOT%{_prefix} LUA_LIBDIR=$RPM_BUILD_ROOT%{lua_li
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

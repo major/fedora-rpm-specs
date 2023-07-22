@@ -7,7 +7,7 @@
 
 Name:           moodle
 Version:        4.2.1
-Release:       	2%{?dist}
+Release:       	3%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
@@ -174,6 +174,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-2
 - aspell->hunspell.
 

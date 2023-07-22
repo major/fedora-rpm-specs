@@ -1,6 +1,6 @@
 Name:           perl-JSON-RPC
 Version:        1.06
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Perl implementation of JSON-RPC 1.1 protocol
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/JSON-RPC
@@ -109,6 +109,9 @@ to serve JSON-RPC requests.
 %{perl_vendorlib}/JSON/RPC/Legacy/Server/Daemon.pm
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

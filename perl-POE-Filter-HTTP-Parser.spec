@@ -1,6 +1,6 @@
 Name:           perl-POE-Filter-HTTP-Parser
 Version:        1.08
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        HTTP POE filter for HTTP clients or servers
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Filter-HTTP-Parser
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

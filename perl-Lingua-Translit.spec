@@ -1,6 +1,6 @@
 Name:           perl-Lingua-Translit
 Version:        0.29
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Transliterates text between writing systems
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Lingua-Translit
@@ -60,6 +60,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

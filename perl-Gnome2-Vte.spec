@@ -3,7 +3,7 @@
 
 Name:           perl-Gnome2-Vte
 Version:        0.12
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Perl interface to the Gtk2 Virtual Terminal Emulation library (deprecated)
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Gnome2-Vte
@@ -75,6 +75,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.12-9
 - Perl 5.38 rebuild
 

@@ -1,6 +1,6 @@
 Name:           maliit-keyboard
 Version:        2.3.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Maliit Keyboard 2
 
 License:        LGPLv3 and BSD
@@ -67,6 +67,9 @@ rm -rf %{buildroot}%{_datadir}/doc/maliit-keyboard
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 09 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 2.3.1-4
 - Add patch from upstream (related to #2174563)
 

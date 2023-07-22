@@ -1,6 +1,6 @@
 Name:           perl-Data-Constraint
 Version:        1.203
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Prototypical value checking
 License:        Artistic-2.0
 
@@ -60,6 +60,9 @@ chmod -x lib/Data/Constraint.pm
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.203-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.203-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

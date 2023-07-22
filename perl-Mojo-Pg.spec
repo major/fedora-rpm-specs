@@ -1,6 +1,6 @@
 Name:           perl-Mojo-Pg
 Version:        4.27
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Mojolicious ♥ PostgreSQL
 License:        Artistic 2.0
 
@@ -74,6 +74,9 @@ publish/subscribe pattern.
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.27-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.27-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

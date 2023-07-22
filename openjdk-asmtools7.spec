@@ -10,7 +10,7 @@
 
 Name:           %{project_name}7
 Version:        %{major}.%{minor}
-Release:        0.7.%{commitdate}.git%{shortcommit}%{?dist}
+Release:        0.8.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:        Set of tools used to assemble / disassemble proper and improper Java .class files for JDK version 11 and lesser
 
 License:        GPLv2+
@@ -95,6 +95,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 %files javadoc -f maven/.mfiles-javadoc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.b10-0.8.20210610.gitf40a2c0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 09 2023 Marian Koncek <mkoncek@redhat.com> - 7.0.b10-0.7.20210610.gitf40a2c0
 - Improve summary and description
 

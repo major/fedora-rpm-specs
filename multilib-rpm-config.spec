@@ -6,7 +6,7 @@
 Summary: Multilib packaging helpers
 Name: multilib-rpm-config
 Version: 1
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: GPLv2+
 
 # TODO: resolve directly in rpm/redhat-rpm-config (instead of this hack).
@@ -119,6 +119,9 @@ test `$capable --arch ppc64p7` = true
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Michal Schorm <mschorm@redhat.com> - 1-22
 - Rebuilt to apply fix regarding switch from 'uname -i' to 'uname -m' in the last commits
 

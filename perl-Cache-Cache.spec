@@ -1,6 +1,6 @@
 Name:           perl-Cache-Cache
 Version:        1.08
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Generic cache interface and implementations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Cache-Cache
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/Cache::SizeAwareSharedMemoryCache.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

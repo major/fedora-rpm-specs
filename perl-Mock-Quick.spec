@@ -1,6 +1,6 @@
 Name:		perl-Mock-Quick
 Version:	1.111
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Quickly mock objects and classes, side-effect free
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mock-Quick
@@ -74,6 +74,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Object::Quick.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.111-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.111-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

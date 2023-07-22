@@ -1,6 +1,6 @@
 Name:           harfbuzz
 Version:        8.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -92,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libharfbuzz-icu.so.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Parag Nemade <pnemade AT redhat DOT com> - 8.0.1-2
 - Attempt another build for previouslt failed i686 build
 

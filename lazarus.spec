@@ -3,7 +3,7 @@ Summary:        Lazarus Component Library and IDE for Free Pascal
 
 Version:        2.2.6
 
-%global baserelease 4
+%global baserelease 5
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
@@ -485,6 +485,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.2.6-4
 - Add missing dependencies to lcl-qt and lcl-qt5 packages
 

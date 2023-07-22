@@ -1,7 +1,7 @@
 Summary: Serial line sniffer including very simple terminal emulator
 Name: jpnevulator
 Version: 2.3.6
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv2+
 URL: http://jpnevulator.snarl.nl/
 Source: http://jpnevulator.snarl.nl/download/%{name}-%{version}.tgz
@@ -29,6 +29,9 @@ make DESTDIR=%{buildroot} INSTALL="install -p" install
 %{_mandir}/*/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

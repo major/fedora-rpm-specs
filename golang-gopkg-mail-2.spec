@@ -27,7 +27,7 @@ API, etc.}
 %global godocs          CHANGELOG.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Simple and efficient package to send emails
 
 License:        MIT
@@ -56,6 +56,9 @@ BuildRequires:  mailcap
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

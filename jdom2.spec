@@ -2,7 +2,7 @@
 
 Name:          jdom2
 Version:       2.0.6.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Java manipulation of XML made easy
 License:       Saxpath
 URL:           http://www.jdom.org/
@@ -81,6 +81,9 @@ mkdir lib
 %license LICENSE.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           notify-sharp3
 Version:        3.0.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A C# implementation for Desktop Notifications
 
 License:        MIT
@@ -74,6 +74,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv $RPM_BUILD_ROOT%{_prefix}/lib/pkgconf
 %files doc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

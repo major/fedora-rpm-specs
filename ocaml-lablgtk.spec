@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lablgtk
 Version:        2.18.13
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        Objective Caml interface to gtk+
 
@@ -149,6 +149,9 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.13-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2.18.13-5
 - OCaml 5.0 rebuild for Fedora 39
 

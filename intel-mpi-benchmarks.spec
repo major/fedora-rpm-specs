@@ -1,7 +1,7 @@
 Summary: Intel MPI benchmarks
 Name:    intel-mpi-benchmarks
 Version: 2021.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: CPL
 URL:     https://software.intel.com/en-us/articles/intel-mpi-benchmarks
 Source0: https://github.com/intel/mpi-benchmarks/archive/IMB-v%{version}.tar.gz
@@ -100,6 +100,9 @@ do_install
 %{_libdir}/mpich/bin/IMB-{MPI1,EXT,IO,NBC,RMA,MT,P2P}_mpich
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

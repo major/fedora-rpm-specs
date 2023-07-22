@@ -1,7 +1,7 @@
 Name: mythes-en
 Summary: English thesaurus
 Version: 3.0
-Release: 36%{?dist}
+Release: 37%{?dist}
 Source: http://www.danielnaber.de/wn2ooo/wn2ooo20050723.tgz
 URL: http://www.danielnaber.de/wn2ooo/
 BuildRequires: python3-devel
@@ -47,6 +47,9 @@ popd
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 3.0-36
 - migrated to SPDX license
 

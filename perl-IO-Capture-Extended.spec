@@ -1,6 +1,6 @@
 Name:           perl-IO-Capture-Extended
 Version:        0.13
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Extend functionality of IO::Capture
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/IO-Capture-Extended
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

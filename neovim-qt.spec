@@ -11,7 +11,7 @@
 
 Name:           neovim-qt
 Version:        0.2.17
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt GUI for Neovim
 
 License:        ISC
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %{_datadir}/nvim-qt/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

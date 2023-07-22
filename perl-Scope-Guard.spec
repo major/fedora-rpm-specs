@@ -1,7 +1,7 @@
 Name:           perl-Scope-Guard
 Summary:        Lexically scoped resource management
 Version:        0.21
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Scope-Guard
 Source0:        https://cpan.metacpan.org/modules/by-module/Scope/Scope-Guard-%{version}.tar.gz
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/Scope::Guard.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Paul Howarth <paul@city-fan.org> - 0.21-24
 - Use author-independent source URL
 - Drop redundant use of %%{?perl_default_filter}

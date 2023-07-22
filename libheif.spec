@@ -5,7 +5,7 @@
 
 Name:           libheif
 Version:        1.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
@@ -135,6 +135,9 @@ rm -rf third-party/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.16.1-1
 - Update to 1.16.1
 

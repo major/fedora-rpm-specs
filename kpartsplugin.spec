@@ -3,7 +3,7 @@
 
 Name:           kpartsplugin
 Version:        0.0.1
-Release:        0.29.%{snap}%{?dist}
+Release:        0.30.%{snap}%{?dist}
 Summary:        KParts technology to embed file viewers into non-KDE browsers
 
 License:        GPLv3+
@@ -54,6 +54,9 @@ make install/fast -C %{_target_platform} DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.30.20120723
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.29.20120723
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

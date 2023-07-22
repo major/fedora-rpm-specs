@@ -3,7 +3,7 @@
 Name:    kf5-%{framework}
 Summary: A KDE Frameworks 5 Tier 3 to organize user work into separate activities
 Version: 5.108.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+ and LGPLv2+
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -81,6 +81,9 @@ Requires:       qt5-qtbase-devel
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.108.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.108.0-1
 - 5.108.0
 

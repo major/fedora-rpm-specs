@@ -4,7 +4,7 @@
 
 Name:           libkrun
 Version:        1.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -162,6 +162,9 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 19 2023 Sergio Lopez <slp@redhat.com> - 1.5.0-4
 - Update license specification to conform SPDX format
 

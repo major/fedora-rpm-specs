@@ -13,7 +13,7 @@
 
 Name:           mysql-connector-python
 Version:        8.0.21
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        MySQL Connector for Python 3
 
 License:        GPLv2 with exceptions
@@ -88,6 +88,9 @@ chmod -x examples/*py
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.21-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 8.0.21-9
 - Rebuilt for Python 3.12
 

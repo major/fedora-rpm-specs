@@ -4,7 +4,7 @@ Name:		ibus-bogo
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Version:	0.4
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Vietnamese engine for IBus input platform
 
 License:	GPLv3
@@ -111,6 +111,9 @@ EOF
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

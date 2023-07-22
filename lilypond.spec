@@ -4,7 +4,7 @@
 
 Name:		lilypond
 Version:	2.25.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPL-3.0-only
@@ -120,6 +120,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.4-2
 - Patch for crash, BZ 2208024
 

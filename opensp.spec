@@ -1,7 +1,7 @@
 Summary: SGML and XML parser
 Name: opensp
 Version: 1.5.2
-Release: 42%{?dist}
+Release: 43%{?dist}
 Requires: sgml-common >= 0.5
 Provides: bundled(gettext) = 0.14.5
 URL: http://openjade.sourceforge.net/
@@ -119,6 +119,9 @@ make check || : # TODO: failures as of 1.5.2 :(
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Class-Std-Fast
 Version:        0.0.8
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Faster but less secure replacement for Class::Std
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-Std-Fast
@@ -67,6 +67,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

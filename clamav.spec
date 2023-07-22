@@ -8,10 +8,11 @@
 # Failing with llvm 14 https://github.com/Cisco-Talos/clamav/issues/581
 %bcond_with  llvm
 
-%ifnarch s390 s390x
-%global have_ocaml  1
+# No ocaml on ix86
+%ifarch %{ix86}
+%bcond_with ocaml
 %else
-%global have_ocaml  0
+%bcond_without ocaml
 %endif
 
 %global scanuser    clamscan
@@ -110,7 +111,7 @@ BuildRequires:  bc
 BuildRequires:  tcl
 BuildRequires:  groff
 BuildRequires:  graphviz
-%{?have_ocaml:BuildRequires: ocaml}
+%{?with_ocaml:BuildRequires: ocaml}
 # nc required for tests
 BuildRequires:  nc
 %{?systemd_requires}

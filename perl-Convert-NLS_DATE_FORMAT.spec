@@ -1,6 +1,6 @@
 Name:           perl-Convert-NLS_DATE_FORMAT
 Version:        0.06
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Convert Oracle NLS_DATE_FORMAT <-> strftime Format Strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-NLS_DATE_FORMAT
@@ -42,6 +42,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

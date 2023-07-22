@@ -2,7 +2,7 @@
 
 Name:           gts
 Version:        0.7.6
-Release:        45.20%{snapshot}%{?dist}
+Release:        46.20%{snapshot}%{?dist}
 Summary:        GNU Triangulated Surface Library
 License:        LGPL-2.0-or-later
 URL:            http://gts.sourceforge.net/index.html
@@ -95,6 +95,9 @@ make check ||:
 %{_mandir}/man1/gts-config.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-46.20121130
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.7.6-45.20121130
 - Use %%patch -P N instead of %%patchN
 - Spec file cosmetics.

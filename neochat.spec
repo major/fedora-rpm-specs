@@ -1,6 +1,6 @@
 Name: neochat
 Version: 23.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf5_datadir}/krunner/dbusplugins/*.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

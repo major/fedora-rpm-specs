@@ -1,6 +1,6 @@
 Name:       perl-FCGI-ProcManager
 Version:    0.28
-Release:    19%{?dist}
+Release:    20%{?dist}
 # ProcManager.pm -> LGPLv2, LGPLv3
 License:    LGPLv2+
 Summary:    A FastCGI process manager
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/FCGI*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

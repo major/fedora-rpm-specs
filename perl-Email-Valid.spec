@@ -1,6 +1,6 @@
 Name:           perl-Email-Valid
 Version:        1.203
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Check validity of internet email address
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Valid
@@ -57,6 +57,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.203-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 1.203-1
 - update to 1.203
 - Modernize spec file

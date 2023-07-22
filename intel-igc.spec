@@ -5,7 +5,7 @@
 
 Name: intel-igc
 Version: 1.0.13700.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Intel Graphics Compiler for OpenCL
 
 License: MIT
@@ -114,6 +114,9 @@ tar -xf %{SOURCE1}
 %{_libdir}/pkgconfig/igc-opencl.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13700.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.13700.7-1
 - intel-igc-1.0.13700.7 (fixes RHBZ#2177378 )
 

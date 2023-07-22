@@ -4,7 +4,7 @@
 
 Name:           mingw-binutils
 Version:        2.40
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPLv2+ and LGPLv2+ and GPLv3+ and LGPLv3+
@@ -467,6 +467,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Sandro Mani <manisandro@gmail.com> - 2.40-3
 - Backport fix for Backport fix for
   https://sourceware.org/bugzilla/show_bug.cgi?id=30079

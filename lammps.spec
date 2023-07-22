@@ -25,7 +25,7 @@ Version:        20220623.4
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -351,6 +351,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220623.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 20220623.4-2
 - Rebuilt for Python 3.12
 

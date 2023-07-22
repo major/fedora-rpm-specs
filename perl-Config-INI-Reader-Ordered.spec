@@ -1,6 +1,6 @@
 Name:           perl-Config-INI-Reader-Ordered
 Version:        0.022
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        INI file parser that returns sections in order
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-INI-Reader-Ordered
@@ -83,6 +83,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.022-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.022-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

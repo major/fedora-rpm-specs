@@ -16,7 +16,7 @@ The MongoDB driver for Go.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        MongoDB driver for Go
 
 # Upstream license specification: BSD-2-Clause
@@ -54,6 +54,9 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - r2016.08.01-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Maxwell G <gotmax@e.email> - r2016.08.01-12
 - Fix test failures
 - Fixes: rhbz#2045640

@@ -6,7 +6,7 @@
 
 Name:		ocp
 Version:	0.2.105%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # 2010/08/08: Verified that upstream has removed GPLv3+ gnulib and added
@@ -175,6 +175,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.105-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 18 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.105-2
 - Adjust .otf conditional to f38+
 

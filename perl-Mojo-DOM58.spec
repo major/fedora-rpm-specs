@@ -2,7 +2,7 @@
 
 Name:           perl-Mojo-DOM58
 Version:        3.001
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Minimalistic HTML/XML DOM parser with CSS selectors
 # CONTRIBUTING.md:      CC0
 # lib/Mojo/DOM58.pm:    Artistic 2.0
@@ -103,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.001-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.001-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

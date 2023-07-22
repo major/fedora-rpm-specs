@@ -1,6 +1,6 @@
 Name:		perl-Jcode
 Version:	2.07
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	Perl extension interface for converting Japanese text
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Jcode
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/Jcode::Nihongo.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

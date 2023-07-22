@@ -15,9 +15,9 @@
 Name:           mate-utils
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %else
-Release:        0.17%{?git_rel}%{?dist}
+Release:        0.18%{?git_rel}%{?dist}
 %endif
 Summary:        MATE utility programs
 License:        GPLv2+ and LGPLv2+
@@ -257,6 +257,9 @@ desktop-file-install                          \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-2
 - disable pt language for help in search tool again
 

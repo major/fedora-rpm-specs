@@ -5,7 +5,7 @@
 
 Name:           libinput
 Version:        1.23.0
-Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 License:        MIT
@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(mtdev) >= 1.1.0
 BuildRequires:  pkgconfig(libevdev) >= 0.4
 BuildRequires:  pkgconfig(libwacom) >= 0.20
 BuildRequires:  pkgconfig(udev)
-BuildRequires:  python3-devel
+BuildRequires:  python3-rpm-macros
 BuildRequires:  check-devel
 
 %description
@@ -156,6 +156,9 @@ intended to be run by users.
 
 
 %changelog
+* Thu Jul 20 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.23.0-3
+- BuildRequires python3-rpm-macros for pathfix.py
+
 * Tue Apr 11 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.23.0-2
 - Add two patches for better Apple touchpad behavior (see libinput MR
   834 and 897)

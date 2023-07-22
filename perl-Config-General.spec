@@ -1,6 +1,6 @@
 Name:           perl-Config-General
 Version:        2.65
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Generic configuration module for Perl
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/Config-General
@@ -89,6 +89,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.65-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.65-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

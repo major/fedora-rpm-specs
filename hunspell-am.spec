@@ -8,7 +8,7 @@ Name: hunspell-am
 Summary: Amharic hunspell dictionaries
 %global upstreamid 20090704
 Version: 0.%{upstreamid}
-Release: 26%{?dist}
+Release: 27%{?dist}
 Source: http://www.cs.ru.nl/~biniam/geez/dict/am_ET.zip
 URL: http://www.cs.ru.nl/~biniam/geez/index.php
 License: GPL-1.0-or-later
@@ -38,6 +38,9 @@ cp -p am_ET.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20090704-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 0.20090704-26
 - migrated to SPDX license
 

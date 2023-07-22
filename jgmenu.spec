@@ -1,6 +1,6 @@
 Name:		jgmenu
 Version:	4.4.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Simple X11 application menu
 License:	GPLv2+
 URL:		https://jgmenu.github.io
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/xfce4/panel/plugins/%{name}-applet.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

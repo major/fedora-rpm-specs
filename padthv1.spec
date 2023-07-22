@@ -1,6 +1,6 @@
 Name:           padthv1
 Version:        0.9.23
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An old-school polyphonic additive synthesizer
 
 License:        GPLv2+
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_libdir}/lv2/%{name}.lv2/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

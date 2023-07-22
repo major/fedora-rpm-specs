@@ -1,6 +1,6 @@
 Name:           perl-Algorithm-Combinatorics
 Version:        0.27
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Efficient generation of combinatorial sequences
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Algorithm-Combinatorics
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-28
 - Perl 5.38 rebuild
 

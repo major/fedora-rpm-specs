@@ -5,7 +5,7 @@
 
 Name:           perl-CryptX
 Version:        0.078
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
 # src/ltm/*:    Unlicense
@@ -152,6 +152,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.078-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.078-2
 - Perl 5.38 rebuild
 

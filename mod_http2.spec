@@ -3,7 +3,7 @@
 
 Name:		mod_http2
 Version:	2.0.18
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	module implementing HTTP/2 for Apache 2
 License:	Apache-2.0
 URL:		https://icing.github.io/mod_h2/
@@ -47,6 +47,9 @@ echo "LoadModule proxy_http2_module modules/mod_proxy_http2.so" > %{buildroot}%{
 %{_httpd_moddir}/mod_proxy_http2.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 01 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.0.18-1
 - new version 2.0.18
 - SPDX migration

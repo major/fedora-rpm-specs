@@ -1,6 +1,6 @@
 Name:           perl-Crypt-GeneratePassword
 Version:        0.05
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Generate secure random pronounceable passwords
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-GeneratePassword
@@ -38,6 +38,9 @@ so it should be a drop-in replacement in most cases.
 %{_mandir}/man3/Crypt*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

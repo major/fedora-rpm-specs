@@ -1,6 +1,6 @@
 Name:           lxrandr
 Version:        0.3.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Simple monitor configuration tool
 
 License:        GPLv3+
@@ -64,6 +64,9 @@ desktop-file-install                                       \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

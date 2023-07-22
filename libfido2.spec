@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -97,6 +97,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 07 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.13.0-2
 - Rebuilt for libcbor 0.10.2
 

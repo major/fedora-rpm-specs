@@ -16,7 +16,7 @@
 %global posttag 2012_07_02
 
 Version: 5.3.0
-Release: 25.%{posttag}%{?dist}
+Release: 26.%{posttag}%{?dist}
 URL:     http://linuxlibertine.sf.net
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
@@ -140,6 +140,9 @@ Source13: 29-linux-libertine-fonts-metrics-alias.conf
 %fontfiles -a
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-26.2012_07_02
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 13 2023 Akira TAGOH <tagoh@redhat.com> - 5.3.0-24.2012_07_02
 - Revise the spec file for new packaging guidelines.
 - Add linux-libertine-mono-fonts sub-package.

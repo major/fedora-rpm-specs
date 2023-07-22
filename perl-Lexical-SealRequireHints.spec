@@ -3,7 +3,7 @@
 
 Name:           perl-Lexical-SealRequireHints
 Version:        0.012
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Prevent leakage of lexical hints
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lexical-SealRequireHints
@@ -70,6 +70,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Lexical::SealRequireHints.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.012-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.012-2
 - Perl 5.38 rebuild
 

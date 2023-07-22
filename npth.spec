@@ -1,6 +1,6 @@
 Name:           npth
 Version:        1.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        The New GNU Portable Threads library
 License:        LGPL-2.1-or-later
 URL:            https://git.gnupg.org/cgi-bin/gitweb.cgi?p=npth.git
@@ -67,6 +67,9 @@ make check
 %{_datadir}/aclocal/%{name}.m4
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.6-13
 - fix multilib devel conflict (rhbz#2031783)
 

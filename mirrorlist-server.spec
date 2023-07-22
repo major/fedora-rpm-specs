@@ -5,7 +5,7 @@
 
 Name:           mirrorlist-server
 Version:        3.0.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Mirrorlist Server
 
 # Upstream license specification: MIT
@@ -78,6 +78,9 @@ than the Python version.}
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 3.0.6-6
 - Rebuild with h2 >= v0.3.18 and tokio >= v1.24.2 (RUSTSEC-2023-{0005,0034})
 

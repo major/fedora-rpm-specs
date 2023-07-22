@@ -1,6 +1,6 @@
 Name:           perl-EV
 Version:        4.33
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Wrapper for the libev high-performance event loop library
 
 # Note: The source archive includes a libev/ folder which contents are licensed
@@ -74,6 +74,9 @@ PERL_CANARY_STABILITY_NOPROMPT=1 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor OP
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.33-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.33-12
 - Perl 5.38 rebuild
 

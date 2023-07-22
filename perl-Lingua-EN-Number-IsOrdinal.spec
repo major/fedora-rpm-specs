@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-Number-IsOrdinal
 Version:        0.05
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Detect if English number is ordinal or cardinal
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Number-IsOrdinal
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

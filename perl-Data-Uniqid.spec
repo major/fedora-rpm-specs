@@ -1,6 +1,6 @@
 Name:           perl-Data-Uniqid
 Version:        0.12
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Perl extension for simple generating of unique id's
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Uniqid
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

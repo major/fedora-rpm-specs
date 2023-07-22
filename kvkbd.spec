@@ -1,6 +1,6 @@
 Name:           kvkbd
 Version:        0.6
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Virtual keyboard for KDE
 
 License:        GPLv2+
@@ -52,6 +52,9 @@ desktop-file-install                                    \
 %{_kde4_appsdir}/kvkbd/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

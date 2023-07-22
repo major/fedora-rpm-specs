@@ -1,6 +1,6 @@
 Name:           google-gson
 Version:        2.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java lib for conversion of Java objects into JSON representation
 License:        ASL 2.0
 URL:            https://github.com/google/gson
@@ -85,6 +85,9 @@ rm extras/src/test/java/com/google/gson/typeadapters/PostConstructAdapterFactory
 %license LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Sérgio Basto <sergio@serjux.com> - 2.10.1-1
 - Update google-gson to 2.10.1
 

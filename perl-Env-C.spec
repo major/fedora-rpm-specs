@@ -1,6 +1,6 @@
 Name:           perl-Env-C
 Version:        0.15
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Get/set/unset environment variables on the C level
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Env-C
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-18
 - Perl 5.38 rebuild
 

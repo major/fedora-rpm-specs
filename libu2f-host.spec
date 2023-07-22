@@ -1,6 +1,6 @@
 Name:           libu2f-host
 Version:        1.1.10
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Yubico Universal 2nd Factor (U2F) Host C Library
 
 License:        GPLv3 and LGPLv2
@@ -83,6 +83,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_includedir}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

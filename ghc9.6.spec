@@ -117,6 +117,8 @@ Patch8: ghc-configure-c99.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
 # needs more backporting to 9.6
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
+# distutils gone in python 3.12
+Patch10: ghc-users_guide-python3.12-distutils.patch
 
 # arm patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
@@ -425,6 +427,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P2 -p1 -b .orig
 %patch -P8 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
+%patch -P10 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 

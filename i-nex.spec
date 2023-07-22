@@ -7,7 +7,7 @@
 Name:           i-nex
 Version:        7.6.1
 #Release:        1%%{gver}%%{?dist}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        System information tool like hardinfo, sysinfo
 License:        GPLv3 and LGPLv3
 URL:            https://github.com/eloaders/I-Nex
@@ -176,6 +176,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 %{_datadir}/pixmaps/i-nex.png
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

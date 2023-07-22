@@ -24,7 +24,7 @@ Requires:  pkgconfig(libusb-1.0) >= 1.0
 }
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP reverse proxy, backed by IPP-over-USB connection to device
 
 # Upstream license specification: BSD-2-Clause
@@ -114,6 +114,9 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

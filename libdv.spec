@@ -1,6 +1,6 @@
 Name:           libdv
 Version:        1.0.0
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Software decoder for DV format video
 License:        LGPLv2+
 URL:            http://libdv.sourceforge.net/
@@ -84,6 +84,9 @@ find %{buildroot} -name "*.la" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

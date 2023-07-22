@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Plugin-Session
 Summary:        Catalyst generic session plugin
 Version:        0.43
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Plugin-Session-%{version}.tar.gz 
@@ -95,6 +95,9 @@ This plugin links the two pieces together.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

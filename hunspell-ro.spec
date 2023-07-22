@@ -6,7 +6,7 @@
 Name: hunspell-ro
 Summary: Romanian hunspell dictionaries
 Version: 3.3.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source: http://downloads.sourceforge.net/rospell/ro_RO.%{version}.zip
 URL: http://rospell.sourceforge.net/
 License: GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
@@ -33,6 +33,9 @@ cp -p ro_RO.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 3.3.10-4
 - migrated to SPDX license
 

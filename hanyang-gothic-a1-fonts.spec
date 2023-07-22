@@ -3,7 +3,7 @@
 %global git_commit_short %(c="%{git_commit}"; echo "${c:0:8}")
 
 Version: 163840
-Release: 9.%{git_date}git%{git_commit_short}%{?dist}
+Release: 10.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: https://www.hanyang.co.kr/hygothic/
 
@@ -54,6 +54,9 @@ Source99: gothicA1-fetch.sh
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 163840-10.20180313git16680f86
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 19 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 163840-9.20180313git16680f86
 - Convert License tag to SPDX
 

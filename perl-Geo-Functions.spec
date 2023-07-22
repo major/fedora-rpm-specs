@@ -1,6 +1,6 @@
 Name:           perl-Geo-Functions
 Version:        0.08
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Standard Geo:: functions
 
 License:        MIT
@@ -55,6 +55,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-2
 - Add missing test build-require perl(Test)
 

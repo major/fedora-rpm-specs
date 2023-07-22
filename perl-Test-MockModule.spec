@@ -7,7 +7,7 @@
 
 Name:           perl-Test-MockModule
 Version:        0.177.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Override subroutines in a module for unit testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-MockModule
@@ -68,6 +68,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::MockModule.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.177.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.177.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

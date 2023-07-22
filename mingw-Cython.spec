@@ -8,7 +8,7 @@
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       0.29.36
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 License:       Apache-2.0
 URL:           http://www.cython.org
@@ -108,6 +108,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.36-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Sandro Mani <manisandro@gmail.com> - 0.29.36-1
 - Update to 0.29.36
 

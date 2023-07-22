@@ -2,7 +2,7 @@
 
 Name:      mingw-gettext
 Version:   0.22
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   GNU libraries and utilities for producing multi-lingual messages
 
 License:   GPLv2+ and LGPLv2+
@@ -122,9 +122,9 @@ find %{buildroot} -name "*.la" -delete
 %{mingw32_bindir}/gettext.sh
 %{mingw32_bindir}/gettextize
 %{mingw32_bindir}/libasprintf-0.dll
-%{mingw32_bindir}/libgettextlib-0-21-1.dll
+%{mingw32_bindir}/libgettextlib-0-22.dll
 %{mingw32_bindir}/libgettextpo-0.dll
-%{mingw32_bindir}/libgettextsrc-0-21-1.dll
+%{mingw32_bindir}/libgettextsrc-0-22.dll
 %{mingw32_bindir}/libintl-8.dll
 %{mingw32_bindir}/libtextstyle-0.dll
 %{mingw32_bindir}/msg*.exe
@@ -163,9 +163,9 @@ find %{buildroot} -name "*.la" -delete
 %{mingw64_bindir}/gettext.sh
 %{mingw64_bindir}/gettextize
 %{mingw64_bindir}/libasprintf-0.dll
-%{mingw64_bindir}/libgettextlib-0-21-1.dll
+%{mingw64_bindir}/libgettextlib-0-22.dll
 %{mingw64_bindir}/libgettextpo-0.dll
-%{mingw64_bindir}/libgettextsrc-0-21-1.dll
+%{mingw64_bindir}/libgettextsrc-0-22.dll
 %{mingw64_bindir}/libintl-8.dll
 %{mingw64_bindir}/libtextstyle-0.dll
 %{mingw64_bindir}/msg*.exe
@@ -197,6 +197,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Sandro Mani <manisandro@gmail.com> - 0.22-1
 - Update to 0.22
 

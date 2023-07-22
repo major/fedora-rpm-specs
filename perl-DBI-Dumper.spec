@@ -1,6 +1,6 @@
 Name:           perl-DBI-Dumper
 Version:        2.01
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Dump data from a DBI datasource to file
 # see http://rt.cpan.org/Public/Bug/Display.html?id=27269
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man[13]/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.01-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.01-53
 - Perl 5.38 rebuild
 

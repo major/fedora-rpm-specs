@@ -1,6 +1,6 @@
 Name:           perl-Sort-MergeSort
 Version:        0.31
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Merge pre-sorted input streams
 License:        (Artistic 2.0 or LGPLv2) and (GPL+ or Artistic)
 URL:            https://metacpan.org/release/Sort-MergeSort
@@ -57,6 +57,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

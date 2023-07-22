@@ -26,7 +26,7 @@ directory.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Go library for detecting and expanding the user's home directory without cgo
 
 License:        MIT
@@ -64,6 +64,9 @@ end
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           perl-%{cpan_name}
 Version:        1.04
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Format and parse DateTime::Durations
 # Old FSF address reported to upstream as CPAN RT #82055
 License:        GPL+ or Artistic
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

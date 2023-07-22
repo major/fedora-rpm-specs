@@ -1,6 +1,6 @@
 Name:           opencsg
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for Constructive Solid Geometry using OpenGL
 # This is GPLv2+ since 1.5.0
 # Bundled rendertexture is licensed as zlib
@@ -101,6 +101,9 @@ cp -p include/opencsg.h %{buildroot}/%{_includedir}/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

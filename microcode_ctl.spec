@@ -4,7 +4,7 @@
 Summary:        Tool to transform and deploy CPU microcode update for x86
 Name:           microcode_ctl
 Version:        2.1
-Release:        55%{?dist}
+Release:        56%{?dist}
 Epoch:          2
 License:        GPLv2+ and Redistributable, no modification permitted
 URL:            https://pagure.io/microcode_ctl
@@ -35,6 +35,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} INSDIR=/usr/sbin install clean
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.1-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 25 2023 Eugene Syromiatnikov <esyr@redhat.com> 2:2.1-55
 - Update to upstream 2.1-40. 20230516
   - Addition of 06-6c-01/0x10 (ICL-D B0) microcode at revision 0x1000230;

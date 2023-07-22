@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-markup
 Version:        1.0.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Error-recovering streaming HTML5 and XML parsers for OCaml
 
 License:        MIT
@@ -96,6 +96,9 @@ sed -i '/uchar/d' markup.opam
 %files lwt-devel -f .ofiles-markup-lwt-devel
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.3-8
 - OCaml 5.0 rebuild for Fedora 39
 

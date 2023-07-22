@@ -18,7 +18,7 @@ have been left off.}
 %global godocs          doc README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Set of features similar to jQuery for the Go language
 
 # Upstream license specification: BSD-3-Clause
@@ -48,6 +48,9 @@ BuildRequires:  golang(golang.org/x/net/html)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

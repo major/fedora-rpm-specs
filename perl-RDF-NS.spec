@@ -1,6 +1,6 @@
 Name:           perl-RDF-NS
 Version:        20230619
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Popular RDF name space prefixes from prefix.cc
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/RDF-NS
@@ -106,6 +106,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230619-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Petr Pisar <ppisar@redhat.com> - 20230619-1
 - 20230619 bump
 - Package the tests

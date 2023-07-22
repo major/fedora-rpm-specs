@@ -1,6 +1,6 @@
 Name:		perl-Declare-Constraints-Simple
 Version:	0.03
-Release:	51%{?dist}
+Release:	52%{?dist}
 Summary:	Declarative Validation of Data Structures
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Declare-Constraints-Simple
@@ -87,6 +87,9 @@ make test
 %{_mandir}/man3/Declare::Constraints::Simple::Result.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 22 2023 Paul Howarth <paul@city-fan.org> - 0.03-51
 - Drop support for building with rpm < 4.9
 - Avoid deprecated patch syntax

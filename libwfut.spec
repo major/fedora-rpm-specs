@@ -1,6 +1,6 @@
 Name:           libwfut
 Version:        0.2.3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Software updater tool for WorldForge applications
 
 License:        LGPLv2+
@@ -74,6 +74,9 @@ make check
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

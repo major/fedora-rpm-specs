@@ -1,6 +1,6 @@
 Name:           perl-Crypt-Salsa20
 Version:        0.03
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Encrypt data with the Salsa20 cipher
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-Salsa20
@@ -59,6 +59,9 @@ make test AUTOMATED_TESTING=1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

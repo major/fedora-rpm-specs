@@ -2,7 +2,7 @@
 
 Name:		knights
 Version:	23.04.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A chess board for KDE
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.knights.d
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.04.3-1
 - 23.04.3
 

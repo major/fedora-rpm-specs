@@ -3,7 +3,7 @@
 
 Name:           perl-POE-Component-Server-SimpleHTTP
 Version:        2.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Serve HTTP requests in POE
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/POE-Component-Server-SimpleHTTP
@@ -137,6 +137,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 09 2023 Petr Pisar <ppisar@redhat.com> - 2.30-1
 - 2.30 bump
 

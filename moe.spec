@@ -1,6 +1,6 @@
 Name:		moe
 Version:	1.13
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A powerful clean text editor
 
 License:	GPL-3.0-or-later
@@ -42,6 +42,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.13-2
 - migrated to SPDX license
 

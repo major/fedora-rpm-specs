@@ -1,6 +1,6 @@
 Name: kstart
 Version: 4.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Daemon version of kinit for Kerberos v5
 License: MIT
 URL: http://www.eyrie.org/~eagle/software/kstart/
@@ -35,6 +35,9 @@ credentials until the command exits.
 %{_mandir}/man1/krenew.1.gz
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

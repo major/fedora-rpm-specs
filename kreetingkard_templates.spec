@@ -8,7 +8,7 @@
 
 Name:		kreetingkard_templates
 Version:	%{mainver}
-Release:	%{vendorrel}%{?dist}.21
+Release:	%{vendorrel}%{?dist}.22
 Summary:	Template files for KreetingKard
 
 License:	GPL+
@@ -54,6 +54,9 @@ echo "Nothing to do here"
 %{_datadir}/apps/%{appname}/templates/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-4.22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-4.21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

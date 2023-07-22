@@ -1,6 +1,6 @@
 Name:           perl-Canary-Stability
 Version:        2013
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Canary to check perl compatibility for Schmorp's modules
 # See COPYING file.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -40,6 +40,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2013-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2013-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

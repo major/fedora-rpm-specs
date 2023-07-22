@@ -1,7 +1,7 @@
 Summary: X.Org X11 libXss runtime library
 Name: libXScrnSaver
 Version: 1.2.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -54,6 +54,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/X11/extensions/scrnsaver.h
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

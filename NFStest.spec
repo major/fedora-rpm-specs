@@ -1,6 +1,6 @@
 Name: NFStest		
 Version: 3.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: NFS Testing Tool
 
 License: GPLv2+ 
@@ -9,6 +9,7 @@ Source0: http://www.linux-nfs.org/~mora/nfstest/releases/%{name}-%{version}.tar.
 
 BuildArch: noarch
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 Requires: nfs-utils sudo tcpdump 
 Requires: coreutils iproute iptables 
 Requires: openssh-clients psmisc util-linux
@@ -50,6 +51,9 @@ most of the functionality is focused mainly on testing the client.
 %doc COPYING README
 
 %changelog
+* Thu Jul 20 2023 Steve Dickson <steved@redhat.com> 3.2-4
+- F39FailsToInstall: NFStest (bz 2219922)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

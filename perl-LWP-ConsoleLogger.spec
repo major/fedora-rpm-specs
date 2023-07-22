@@ -4,7 +4,7 @@
 Name:           perl-LWP-ConsoleLogger
 %define cpan_version 1.000001
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LWP tracing and debugging
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/LWP-ConsoleLogger
@@ -157,6 +157,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Petr Pisar <ppisar@redhat.com> - 1.0.1-1
 - 1.000001 bump
 

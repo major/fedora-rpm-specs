@@ -15,7 +15,7 @@ Go library for accessing Amazon Cloud Drive.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.17%{?dist}
+Release:        0.18%{?dist}
 Summary:        Go library for accessing Amazon Cloud Drive
 
 License:        ISC
@@ -48,6 +48,9 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

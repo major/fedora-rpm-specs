@@ -2,7 +2,7 @@
 
 Name:           gpaste
 Version:        44.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD-2-Clause
@@ -200,6 +200,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Kalev Lember <klember@redhat.com> - 44.0-2
 - Rebuilt for gcr soname bump
 

@@ -1,6 +1,6 @@
 Name:           perl-Email-MIME-Attachment-Stripper
 Version:        1.317
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Strip the attachments from a mail message
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Email-MIME-Attachment-Stripper
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.317-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.317-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

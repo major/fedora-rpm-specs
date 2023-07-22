@@ -1,6 +1,6 @@
 Name:           perl-TAP-Formatter-HTML
 Version:        0.11
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        TAP Test Harness output delegate for html output
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TAP-Formatter-HTML
@@ -83,6 +83,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/TAP::Formatter::HTML::Session.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 29 2023 Paul Howarth <paul@city-fan.org> - 0.11-30
 - Modernize spec
   - Use SPDX-format license tag

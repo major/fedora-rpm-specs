@@ -32,7 +32,7 @@
 
 Name:           jakarta-oro
 Version:        2.0.8
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Full regular expressions API
 License:        ASL 1.1
 Source0:        http://archive.apache.org/dist/jakarta/oro/%{name}-%{version}.tar.gz
@@ -92,6 +92,9 @@ ant -Dfinal.name=%{base_name} jar javadocs -Dant.build.javac.source=1.8 -Dant.bu
 %license LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 
 Version: 2.000
-Release: 21%{?dist}
+Release: 22%{?dist}
 URL:     http://dev.naver.com/projects/nanumfont/
 
 %global foundry           Naver
@@ -50,6 +50,9 @@ done
 %fontfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 10 2023 Peng Wu <pwu@redhat.com> - 2.000-21
 - Drop Obsoletes and Provides for nhn-nanum-gothic-coding-fonts
 - Update to follow New Fonts Packaging Guidelines

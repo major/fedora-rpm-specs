@@ -12,7 +12,7 @@
 
 Name:           mingw-termcap
 Version:        1.3.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        MinGW terminal feature database
 
 License:        GPLv2+
@@ -170,6 +170,9 @@ mv $RPM_BUILD_ROOT%{mingw64_prefix}/info/* $RPM_BUILD_ROOT%{mingw64_infodir}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Natural language translation library
 Name: libtranslate
 Version: 0.99
-Release: 114%{?dist}
+Release: 115%{?dist}
 License: BSD
 URL: http://www.nongnu.org/libtranslate
 %define url	http://savannah.nongnu.org/download/libtranslate
@@ -118,6 +118,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libtranslate/modules/*.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-115
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-114
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

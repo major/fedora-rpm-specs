@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        39.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -168,6 +168,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 39.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Brian C. Lane <bcl@redhat.com> - 39.2-2
 - plans: prepare is reported to be unneeded and causing issues
 

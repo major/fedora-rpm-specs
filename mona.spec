@@ -3,7 +3,7 @@
 
 Name:           mona
 Version:        %{upver}r%{uprel}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A decision procedure for the WS1S and WS2S logics
 
 License:        GPL-2.0-or-later
@@ -138,6 +138,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/mona-mode.el .
 %{_emacs_sitelispdir}/mona/mona-mode.el*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4r18-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 16 2023 Jerry James <loganjerry@gmail.com> - 1.4r18-8
 - Correct License tag: CC-PDDC instead of public domain
 

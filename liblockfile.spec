@@ -1,6 +1,6 @@
 Name:           liblockfile
 Version:        1.17
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        This implements a number of functions found in -lmail on SysV systems
 
 # regarding license please see file COPYRIGHT
@@ -77,6 +77,9 @@ ldconfig -N -n %{buildroot}/%{_libdir}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 16 2023 Richard Lescak <rlescak@redhat.com> - 1.17-5
 - SPDX migration
 

@@ -9,7 +9,7 @@
 Summary:	Modular text mode IRC client with Perl scripting
 Name:		irssi
 Version:	1.4.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 License:	GPLv2+
 URL:		http://irssi.org/
@@ -111,6 +111,9 @@ chmod -R u+w $RPM_BUILD_ROOT%{perl_vendorarch}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.4.4-3
 - Perl 5.38 rebuild
 

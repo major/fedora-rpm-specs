@@ -1,6 +1,6 @@
 Name:           perl-IO-Socket-Timeout
 Version:        0.32
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        IO::Socket with read/write timeout
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Socket-Timeout
@@ -68,6 +68,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/IO::Socket::Timeout.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

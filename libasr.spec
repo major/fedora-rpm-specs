@@ -4,7 +4,7 @@
 Summary:	Free, simple and portable asynchronous resolver library
 Name:		libasr
 Version:	1.0.4
-Release:	9%{?prerelease:.%{prerelease}}%{?dist}
+Release:	10%{?prerelease:.%{prerelease}}%{?dist}
 
 License:	BSD
 URL:		https://github.com/OpenSMTPD/libasr
@@ -76,6 +76,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

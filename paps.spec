@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -146,6 +146,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.8.0-3
 - Rebuilt due to fmt 10 update.
 

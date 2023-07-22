@@ -5,7 +5,7 @@ Version:       1.2.2
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       5%{?dist}
+Release:       6%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 Patch0:        fix-nix-ioctl-feature.patch
@@ -98,6 +98,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 19 2023 Stefan Hajnoczi <stefanha@redhat.com> - 1.2.2-5
 - Patch Cargo.toml files to enable nix "ioctl" feature (RHBZ#2186159)
 

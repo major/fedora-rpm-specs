@@ -5,7 +5,7 @@
 
 Name: gtksourceview3
 Version: 3.24.11
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Source code editing widget
 
 License: LGPLv2+
@@ -92,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/installed-tests/gtksourceview-3.0/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.11-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.11-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

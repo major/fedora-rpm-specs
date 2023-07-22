@@ -1,6 +1,6 @@
 Name:           perl-TAP-Harness-Archive
 Version:        0.18
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Create an archive of TAP test results
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/TAP-Harness-Archive
@@ -53,6 +53,9 @@ RELEASE_TESTING=1 ./Build test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Application for extraction and decompilation of JVM byte code
 Name: java-runtime-decompiler
 Version: 7.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3
 URL: https://github.com/pmikova/java-runtime-decompiler
 Source0: https://github.com/pmikova/%{name}/archive/%{name}-%{version}.tar.gz
@@ -230,6 +230,9 @@ rm $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/plugins/JdDecompilerWrapper.json
 %license LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-2
 - added 2b99a244b592445962cdd15ca33f80449f9aa2ea.patch to fix compiler issue in jrd window
 

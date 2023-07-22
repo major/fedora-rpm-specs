@@ -5,7 +5,7 @@ Name:           perl-ExtUtils-CBuilder
 Epoch:          1
 # Mimic perl.spec
 Version:        0.280238
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Compile and link C code for Perl modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-CBuilder
@@ -121,6 +121,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.280238-500
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.280238-499
 - Increase release to favour standalone package
 

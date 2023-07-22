@@ -1,6 +1,6 @@
 Name:           perl-Code-TidyAll
 Version:        0.83
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Engine for tidyall, your all-in-one code tidier and validator
 # lib/Test/Code/TidyAll.pm:     GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                      GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -14,6 +14,8 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Code-TidyAll
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Code-TidyAll-%{version}.tar.gz
 Source1:        README.nodejs_plugins
+# Replace deprecated aspell by hunspell
+Patch0:         Code-TidyAll-0.83-Replace-aspell-by-hunspell.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -41,21 +43,21 @@ BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(IPC::Run3)
 BuildRequires:  perl(IPC::System::Simple)
 # Not used for tests - perl(JSON::MaybeXS)
-# Not used for tests - perl(List::Compare)
+BuildRequires:  perl(List::Compare)
 BuildRequires:  perl(List::SomeUtils)
-# Not used for tests - perl(Log::Any)
-# Not used for tests - perl(Mason::Tidy)
+BuildRequires:  perl(Log::Any)
+BuildRequires:  perl(Mason::Tidy)
 # Not used for tests - perl(Mason::Tidy::App)
 BuildRequires:  perl(Module::Runtime)
 BuildRequires:  perl(Moo) >= 2.000000
 BuildRequires:  perl(Moo::Role)
-# Not used for tests - perl(Parallel::ForkManager)
+BuildRequires:  perl(Parallel::ForkManager)
 BuildRequires:  perl(Path::Tiny) >= 0.098
-# Not used for tests - perl(Perl::Tidy)
-# Not used for tests - perl(Perl::Tidy::Sweetened)
-# Not used for tests - perl(Pod::Checker)
-# Not used for tests - perl(Pod::Spell)
-# Not used for tests - perl(Pod::Tidy)
+BuildRequires:  perl(Perl::Tidy)
+BuildRequires:  perl(Perl::Tidy::Sweetened)
+BuildRequires:  perl(Pod::Checker)
+BuildRequires:  perl(Pod::Spell)
+BuildRequires:  perl(Pod::Tidy)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Scope::Guard)
 BuildRequires:  perl(Specio) >= 0.40
@@ -84,7 +86,9 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings)
 
-Requires:       aspell
+BuildRequires:  hunspell
+Requires:       hunspell
+
 Requires:       git
 Requires:       nodejs
 Requires:       perl(Getopt::Long)
@@ -104,6 +108,7 @@ tidyall is all-in-one code tidier and validator.
 %prep
 %setup -q -n Code-TidyAll-%{version}
 cp %{SOURCE1} .
+%patch -P0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -119,12 +124,17 @@ make test
 %files
 %license LICENSE
 %doc Changes README.md README.nodejs_plugins CONTRIBUTING.md
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/tidyall
+%{perl_vendorlib}/Code/*
+%{perl_vendorlib}/Test/*
+%{_mandir}/man1/tidyall*
+%{_mandir}/man3/Code::TidyAll*
+%{_mandir}/man3/Test::Code::TidyAll*
 
 %changelog
+* Thu Jul 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.83-3
+- Replace deprecated aspell by hunspell (rhbz#2218167)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.83-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

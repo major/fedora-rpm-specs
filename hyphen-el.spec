@@ -2,7 +2,7 @@ Name: hyphen-el
 Summary: Greek hyphenation rules
 %global upstreamid 20051018
 Version: 0.%{upstreamid}
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source:  http://download.services.openoffice.org/contrib/dictionaries/hyph_el_GR.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
 License: LGPL-2.1-or-later
@@ -35,6 +35,9 @@ done
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20051018-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20051018-28
 - migrated to SPDX license
 

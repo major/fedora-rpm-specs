@@ -8,7 +8,7 @@ Name: hunspell-ms
 Summary: Malay hunspell dictionaries
 %global upstreamid 20050117
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/ms_MY.zip
 URL: https://wiki.openoffice.org/wiki/Dictionaries
 # affix file is under GPL+
@@ -45,6 +45,9 @@ done
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050117-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20050117-29
 - migrated to SPDX license
 

@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            https://keepassxc.org/
@@ -195,6 +195,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Jan Grulich <jgrulich@redhat.com> - 2.7.5-2
 - Rebuild (qt5)
 

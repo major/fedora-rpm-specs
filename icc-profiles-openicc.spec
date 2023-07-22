@@ -1,6 +1,6 @@
 Name:           icc-profiles-openicc
 Version:        1.3.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        The OpenICC profiles
 
 License:        zlib
@@ -78,6 +78,9 @@ install -pm 0644 *.png $RPM_BUILD_ROOT%{_datadir}/pixmaps
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

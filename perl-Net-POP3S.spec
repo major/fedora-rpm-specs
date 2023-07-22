@@ -1,6 +1,6 @@
 Name:           perl-Net-POP3S
 Version:        0.12
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        SSL/STARTTLS support for Net::POP3
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-POP3S
@@ -62,6 +62,9 @@ document of IO::Socket::SSL about these options detail.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

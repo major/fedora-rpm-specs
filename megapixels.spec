@@ -1,6 +1,6 @@
 Name:       megapixels
 Version:    1.6.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    GTK4 camera application that knows how to deal with the media request api
 
 License:    GPLv3+
@@ -80,6 +80,9 @@ SH
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 %autochangelog
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2

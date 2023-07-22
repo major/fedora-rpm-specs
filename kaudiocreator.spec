@@ -1,6 +1,6 @@
 Name:           kaudiocreator
 Version:        1.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Program for ripping and encoding Audio-CDs
 
 License:        GPLv2+
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/kaudiocreat
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

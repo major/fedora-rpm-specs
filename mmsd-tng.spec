@@ -1,6 +1,6 @@
 Name:       mmsd-tng
 Version:    2.2.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Multimedia Messaging Service
 
 License:    GPLv2
@@ -64,4 +64,7 @@ cp %{SOURCE1} %{buildroot}%{_userunitdir}
 %license COPYING
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 %autochangelog

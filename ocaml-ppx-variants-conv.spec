@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-variants-conv
 Version:        0.16.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Generate accessor & iteration functions for OCaml variant types
 
 License:        MIT
@@ -58,6 +58,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-2
 - OCaml 5.0 rebuild for Fedora 39
 

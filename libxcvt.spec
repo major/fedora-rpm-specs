@@ -1,6 +1,6 @@
 Name:      libxcvt
 Version:   0.1.2
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   VESA CVT standard timing modelines generator
 
 URL:       https://gitlab.freedesktop.org/xorg/lib/libxcvt/
@@ -58,6 +58,9 @@ provided by the Xorg server.
 %{_mandir}/man1/cvt.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

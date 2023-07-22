@@ -1,6 +1,6 @@
 Name:           kommit
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Git gui client for KDE
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 05 2023 Vasiliy Glazov <vascom2@gmail.com> 1.0.2-1
 - Update to 1.0.2
 

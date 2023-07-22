@@ -21,7 +21,7 @@
 
 Name:           libsvm
 Version:        3.32
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Library for Support Vector Machines
 
 %global upver   %(tr -d . <<< %{version})
@@ -303,6 +303,9 @@ cp -p README java/README-Java
 %{_datadir}/applications/*%{name}-svm-toy-qt.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 3.32-1
 - Version 3.32
 - Drop upstreamed matlab patch

@@ -1,6 +1,6 @@
 Name:    libkcompactdisc
 Version: 16.08.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: A KDE compact disc library
 
 # source code contains bundled workman library but we consider it as a part of the
@@ -71,6 +71,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

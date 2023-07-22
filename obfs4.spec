@@ -32,7 +32,7 @@ bridge to ease the transition to the new protocol.}
 %global godocs          doc README.md ChangeLog
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The obfourscator, a pluggable transport for Tor
 
 License:        GPLv3 and BSD
@@ -81,6 +81,9 @@ install -m 0644 -vp %{SOURCE1}          %{buildroot}%{_sysconfdir}/tor/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 0.0.14-1
 - Update to latest release: 0.0.14
 

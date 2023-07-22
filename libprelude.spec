@@ -7,7 +7,7 @@
 
 Name:           libprelude
 Version:        5.2.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Secure Connections between all Sensors and the Prelude Manager
 License:        LGPL-2.1-or-later
 URL:            https://www.prelude-siem.org/
@@ -241,6 +241,9 @@ patch -d %{buildroot}%{_includedir}/libprelude/ -p0 < %SOURCE1
 %doc AUTHORS ChangeLog README NEWS
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.2.0-20
 - Perl 5.38 rebuild
 

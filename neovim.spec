@@ -35,7 +35,7 @@
 
 Name:           neovim
 Version:        0.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
@@ -1945,6 +1945,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 06 2023 Andreas Schneider <asn@redhat.com> - 0.9.1-2
 - Build with new libluv-devel
 

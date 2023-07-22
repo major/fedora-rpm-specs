@@ -1,6 +1,6 @@
 Name:           perl-Test-Email
 Version:        0.07
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Test Email Contents
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Email
@@ -43,6 +43,9 @@ find -type f -exec chmod -x {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

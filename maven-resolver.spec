@@ -3,7 +3,7 @@
 Name:           maven-resolver
 Epoch:          1
 Version:        1.9.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        ASL 2.0
 Summary:        Apache Maven Artifact Resolver library
 URL:            https://maven.apache.org/resolver/
@@ -118,6 +118,9 @@ done
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.7-2
 - Rebuild with no changes
 

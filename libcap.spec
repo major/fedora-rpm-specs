@@ -1,6 +1,6 @@
 Name: libcap
 Version: 2.48
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Library for getting and setting POSIX.1e capabilities
 URL: https://sites.google.com/site/fullycapable/
 License: BSD or GPLv2
@@ -83,6 +83,9 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.48-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.48-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

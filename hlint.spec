@@ -11,7 +11,7 @@
 Name:           %{pkg_name}
 Version:        3.4.1
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Haskell source code suggestions
 
 License:        BSD-3-Clause
@@ -218,6 +218,9 @@ mv %{buildroot}%{_datadir}/%{name}-%{version}/hlint.1 %{buildroot}%{_mandir}/man
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 3.4.1-6
 - https://hackage.haskell.org/package/hlint-3.4.1/changelog
 - now depends on ghc instead of ghc-lib-parser

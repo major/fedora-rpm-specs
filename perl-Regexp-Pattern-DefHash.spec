@@ -1,6 +1,6 @@
 Name:           perl-Regexp-Pattern-DefHash
 Version:        0.001
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Regexp patterns related to DefHash
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -57,6 +57,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

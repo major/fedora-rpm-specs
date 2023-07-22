@@ -1,7 +1,7 @@
 Name: openoffice-lv
 Summary: Latvian linguistic dictionaries
 Version: 1.4.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source: http://dict.dv.lv/download/lv_LV-%{version}.oxt
 URL: http://dict.dv.lv/
 License: LGPL-2.1-or-later
@@ -70,6 +70,9 @@ cp -p th_lv_LV_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 1.4.0-4
 - migrated to SPDX license
 

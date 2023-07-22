@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-PageCache
 Version:        0.32
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Cache the output of entire pages
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Plugin-PageCache
@@ -59,6 +59,9 @@ TEST_POD=yep make test
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

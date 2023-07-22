@@ -1,6 +1,6 @@
 Name:           perl-Crypt-Blowfish_PP
 Version:        1.12
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Blowfish encryption algorithm implemented purely in Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/pod/release/MATTBM/Crypt-Blowfish_PP-1.12/Blowfish_PP.pm
@@ -49,6 +49,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

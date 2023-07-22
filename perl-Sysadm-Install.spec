@@ -1,7 +1,7 @@
 Summary:	Typical installation tasks for system administrators
 Name:		perl-Sysadm-Install
 Version:	0.48
-Release:	20%{?dist}
+Release:	21%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sysadm-Install
 Source0:	https://cpan.metacpan.org/authors/id/M/MS/MSCHILLI/Sysadm-Install-%{version}.tar.gz
@@ -85,6 +85,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man3/Sysadm::Install.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

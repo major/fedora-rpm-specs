@@ -21,7 +21,7 @@
 
 Name:           lxde-common
 Version:        0.99.2
-Release:        22%{?git_version:.%{?git_version}}%{?dist}
+Release:        23%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Default configuration files for LXDE
 
 License:        GPLv2+
@@ -168,6 +168,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.2-22
 - F-38 is using default.png, not .webp, reflect this
 

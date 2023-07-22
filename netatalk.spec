@@ -43,7 +43,7 @@
 Name:              netatalk
 Epoch:             5
 Version:           3.1.15
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 License:           GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT
 # Project is also mirrored at https://github.com/Netatalk/Netatalk
@@ -231,6 +231,9 @@ sh test/afpd/test.sh
 %{_mandir}/man*/netatalk-config.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5:3.1.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.15-1
 - 3.1.15 release
 

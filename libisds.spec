@@ -9,7 +9,7 @@
 
 Name:           libisds
 Version:        0.11.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for accessing the Czech Data Boxes
 # COPYING:      LGPL-3.0 text
 # README:       LGPL-3.0-or-later
@@ -175,6 +175,9 @@ rm -rf client/.deps client/Makefile{,.in}
 %doc client
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 02 2023 Petr Pisar <ppisar@redhat.com> - 0.11.2-5
 - Do not use deprecated CURLOPT_PROGRESSFUNCTION option
 - Fix a use-after-free in an example code

@@ -3,7 +3,7 @@
 
 Name:		lugaru
 Version:	1.2
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Ninja rabbit fighting game
 License:	GPLv2+
 URL:		https://osslugaru.gitlab.io
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

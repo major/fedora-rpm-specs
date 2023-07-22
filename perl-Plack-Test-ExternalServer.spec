@@ -1,6 +1,6 @@
 Name:           perl-Plack-Test-ExternalServer
 Version:        0.02
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Run HTTP tests on external live servers
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Plack-Test-ExternalServer
@@ -52,6 +52,9 @@ RELEASE_TESTING=1 make test
 %{_mandir}/man3/Plack*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

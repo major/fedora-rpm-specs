@@ -7,7 +7,7 @@ Version:       1.16.4
 %global tag libdnet-%{version}
 %forgemeta
 
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -94,6 +94,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.16.4-2
 - Rebuilt for Python 3.12
 

@@ -23,7 +23,7 @@
 
 Name:           moby-engine
 Version:        23.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The open-source application container engine
 License:        Apache-2.0
 Source0:        %{git_moby}/archive/v%{version}/moby-%{version}.tar.gz
@@ -281,6 +281,9 @@ done
 %{_datadir}/nano/Dockerfile.nanorc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 29 2023 John Ghatas <john@johnghatas.com>
 - Update moby-engine to 23.0.4
 

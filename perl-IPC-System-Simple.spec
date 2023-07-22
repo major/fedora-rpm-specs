@@ -7,7 +7,7 @@
 
 Name:		perl-IPC-System-Simple
 Version:	1.30
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Run commands simply, with detailed diagnostics
 URL:		https://metacpan.org/release/IPC-System-Simple
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man3/IPC::System::Simple.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

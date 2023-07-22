@@ -1,6 +1,6 @@
 Name:           perl-Long-Jump
 Version:        0.000001
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Mechanism for returning to a specific point from a deeply nested stack
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Long-Jump
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.000001-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.000001-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

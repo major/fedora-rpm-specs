@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Lite
 Version:        2.44
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Lightweight HTTP implementation
 License:        GPL+ or Artistic
 
@@ -54,6 +54,9 @@ RELEASE_TESTING=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.44-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.44-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

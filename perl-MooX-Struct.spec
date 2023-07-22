@@ -3,7 +3,7 @@
 
 Name:           perl-MooX-Struct
 Version:        0.020
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Record structure-like Moo classes
 # COPYRIGHT:    Public Domain
 # other files:  GPL+ or Artistic
@@ -84,6 +84,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.020-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.020-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

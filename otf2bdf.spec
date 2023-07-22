@@ -1,6 +1,6 @@
 Name:		otf2bdf
 Version:	3.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Generate BDF bitmap fonts from OpenType outline fonts
 
 License:	MIT
@@ -42,6 +42,9 @@ install -p -m 644 %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

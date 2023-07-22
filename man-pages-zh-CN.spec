@@ -3,7 +3,7 @@
 Summary: Chinese Man Pages from Chinese Man Pages Project
 Name: man-pages-zh-CN
 Version: 1.6.3.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GFDL-1.2-no-invariants-or-later
 #Vendor: From CMPP (Chinese Man Pages Project)
 URL: https://github.com/man-pages-zh/
@@ -64,6 +64,9 @@ rm -f %{manDest}/man1/newgrp.1
 %{_mandir}/zh_CN/man*/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 22 2023 Peng Wu <pwu@redhat.com> - 1.6.3.6-6
 - Rebuild the package
 

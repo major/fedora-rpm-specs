@@ -3,7 +3,7 @@
 Name:           httpcomponents-core
 Summary:        Set of low level Java HTTP transport components for HTTP services
 Version:        4.4.13
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        ASL 2.0
 URL:            http://hc.apache.org/
 Source0:        https://www.apache.org/dist/httpcomponents/httpcore/source/httpcomponents-core-%{version}-src.tar.gz
@@ -96,6 +96,9 @@ done
 %doc README.txt RELEASE_NOTES.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.13-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.13-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,7 +16,7 @@ A very simple thread-safe progress bar which should work on every OS.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Really basic thread-safe progress bar for Golang applications
 
 License:        MIT
@@ -52,6 +52,9 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

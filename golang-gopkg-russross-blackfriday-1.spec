@@ -28,7 +28,7 @@ HTML output is currently supported, along with Smartypants extensions.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Markdown processor for Go
 
 # Upstream license specification: BSD-2-Clause
@@ -58,6 +58,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

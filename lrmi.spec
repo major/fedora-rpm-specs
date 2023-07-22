@@ -1,6 +1,6 @@
 Name:           lrmi
 Version:        0.10
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Library for calling real mode BIOS routines
 
 License:        MIT
@@ -68,6 +68,9 @@ install -Dpm 755 vbetest $RPM_BUILD_ROOT%{_sbindir}/vbetest
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

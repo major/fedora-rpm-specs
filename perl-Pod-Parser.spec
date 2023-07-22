@@ -7,7 +7,7 @@
 
 Name:           perl-Pod-Parser
 Version:        1.66
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Basic perl modules for handling Plain Old Documentation (POD)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Parser
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.66-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 24 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.66-1
 - 1.66 bump
 

@@ -2,7 +2,7 @@
 
 Name:           obs-service-%{service}
 Version:        0.6.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        An OBS source service: download files
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ perl -p -i -e "s{#!/usr/bin/env bash}{#!/bin/bash}" download_files
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

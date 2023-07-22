@@ -1,6 +1,6 @@
 Name:           heimdall
 Version:        2.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Flash firmware on to Samsung Galaxy S devices
 License:        MIT
 URL:            http://glassechidna.com.au/heimdall/
@@ -97,6 +97,9 @@ EOF
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

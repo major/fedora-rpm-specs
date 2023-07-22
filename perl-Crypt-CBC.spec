@@ -1,7 +1,7 @@
 Summary:        Encrypt Data with Cipher Block Chaining Mode
 Name:           perl-Crypt-CBC
 Version:        3.04
-Release:        11%{?dist}
+Release:        12%{?dist}
 # Upstream confirms that they're under the same license as perl.
 # Wording in CBC.pm is less than clear, but still.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -88,6 +88,9 @@ make test
 %{_mandir}/man3/Crypt::CBC.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Michal Josef Špaček <mspacek@redhat.com> - 3.04-11
 - Fix %%patch macro
 - Update license to SPDX format

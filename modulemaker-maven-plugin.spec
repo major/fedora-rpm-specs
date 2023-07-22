@@ -2,7 +2,7 @@
 
 Name:           modulemaker-maven-plugin
 Version:        1.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A plugin for creating module-info.class files
 License:        Apache-2.0
 URL:            https://github.com/raphw/modulemaker-maven-plugin
@@ -56,6 +56,9 @@ cp -p %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.9-2
 - Implement bootstrap mode
 

@@ -1,6 +1,6 @@
 Name:		perl-Fennec
 Version:	2.018
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	A tester's toolbox, and best friend
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Fennec
@@ -101,6 +101,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::Workflow::Test.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.018-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.018-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

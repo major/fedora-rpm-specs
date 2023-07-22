@@ -1,6 +1,6 @@
 Name:           lsw
 Version:        0.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Prints all window titles of DISPLAY to standard output
 License:        MIT
 URL:            http://tools.suckless.org/%{name}
@@ -39,6 +39,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_mandir}/man1/lsw.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

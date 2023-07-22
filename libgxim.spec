@@ -1,6 +1,6 @@
 Name:		libgxim
 Version:	0.5.0
-Release:	25%{?dist}
+Release:	26%{?dist}
 License:	LGPL-2.1-or-later
 URL:		http://tagoh.bitbucket.org/libgxim/
 BuildRequires:	intltool gettext ruby rubygems
@@ -71,6 +71,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/gtk-doc/html/libgxim
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

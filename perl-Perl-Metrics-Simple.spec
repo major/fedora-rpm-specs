@@ -3,7 +3,7 @@
 
 Name:           perl-Perl-Metrics-Simple
 Version:        1.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Count packages, subs, lines, etc. of many files
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Perl-Metrics-Simple
@@ -132,6 +132,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

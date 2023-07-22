@@ -3,7 +3,7 @@
 
 Name:           perl-IPC-Run
 Version:        20220807.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl module for interacting with child processes
 # the rest:                     GPL+ or Artistic
 # The Win32* modules are not part of the binary RPM package
@@ -113,6 +113,9 @@ make test
 %{_mandir}/man3/IPC::Run::Timer.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220807.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 18 2023 Michal Josef Špaček <mspacek@redhat.com> - 20220807.0-3
 - Update license to SPDX format
 

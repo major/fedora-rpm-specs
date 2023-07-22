@@ -5,7 +5,7 @@
 Name:          mingw-%{pkgname}
 Version:       1.17
 Summary:       MinGW Windows libcharset library
-Release:       3%{?dist}
+Release:       4%{?dist}
 
 BuildArch:     noarch
 License:       LGPLv2+
@@ -78,6 +78,9 @@ find %{buildroot} -name *.la -delete
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

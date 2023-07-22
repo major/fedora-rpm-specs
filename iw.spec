@@ -1,6 +1,6 @@
 Name:           iw
 Version:        5.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A nl80211 based wireless configuration tool
 
 License:        ISC
@@ -40,6 +40,9 @@ export CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 24 2023 Michal Schmidt <mschmidt@redhat.com> - 5.19-1
 - Update to 5.19
 

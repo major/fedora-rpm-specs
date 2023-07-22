@@ -12,7 +12,7 @@
 
 Name:		passt
 Version:	0^20230627.g289301b
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPLv2+ and BSD
 Group:		System Environment/Daemons
@@ -107,6 +107,9 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0^20230627.g289301b-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230627.g289301b-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_06_25.32660ce..2023_06_27.289301b
 

@@ -1,6 +1,6 @@
 Name:		perl-OLE-Storage_Lite
 Version:	0.22
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple Class for OLE document interface
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/OLE-Storage_Lite
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/OLE::Storage_Lite.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.22-1
 - 0.22 bump
 - Update license to SPDX format

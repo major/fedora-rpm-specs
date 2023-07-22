@@ -1,6 +1,6 @@
 Name:       libsignal-protocol-c
 Version:    2.3.3
-Release:    9%{?dist}
+Release:    10%{?dist}
 
 License:    GPLv3
 Summary:    Signal Protocol C library
@@ -64,6 +64,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 19 2023 Randy Barlow <bowlofeggs@fedoraproject.org> - 2.3.3-9
 - Fix CVE-2022-48468: unsigned integer overflow (#2186673).
 

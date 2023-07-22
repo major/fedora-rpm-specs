@@ -1,6 +1,6 @@
 Name:           perl-Devel-FastProf
 Version:        0.08
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Fast perl per-line profiler
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-FastProf
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man[13]/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-43
 - Perl 5.38 rebuild
 

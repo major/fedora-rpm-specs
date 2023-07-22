@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-ViewCode
 Version:        1.02
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Allows you to view the source of a CGI::Application module
 License:        GPL+ or Artistic
 
@@ -51,6 +51,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

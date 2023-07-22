@@ -5,7 +5,7 @@ Name:    kdewebdev
 Summary: Web development applications 
 Epoch:   6
 Version: 3.5.10
-Release: 51%{?dist}
+Release: 52%{?dist}
 
 License: GPLv2
 Url:     http://kdewebdev.org/ 
@@ -217,6 +217,9 @@ done
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6:3.5.10-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 6:3.5.10-51
 - Port configure script to C99 (#2167643)
 

@@ -1,6 +1,6 @@
 Name:           libsemigroups
 Version:        2.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ library for semigroups and monoids
 
 # libsemigroups itself is GPL-3.0-or-later.
@@ -190,6 +190,9 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %license LICENSE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.7.1-2
 - Rebuilt due to fmt 10 update.
 

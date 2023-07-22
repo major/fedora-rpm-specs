@@ -2,7 +2,7 @@
 
 Name:           openscap-report
 Version:        0.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for generating human-readable reports from (SCAP) XCCDF and ARF results
 
 # The entire source code is LGPL-2.1+ and GPL-2.0+ and MIT except schemas/ and assets/, which are Public Domain
@@ -60,6 +60,9 @@ install -m 0644 -Dt %{buildroot}%{_mandir}/man1 _build_docs/oscap-report.1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Python Maint <python-maint@redhat.com> - 0.2.4-2
 - Rebuilt for Python 3.12
 

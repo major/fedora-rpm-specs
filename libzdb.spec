@@ -1,6 +1,6 @@
 Name:           libzdb
 Version:        3.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Small, easy to use Database Connection Pool Library
 License:        GPLv3+ and MIT
 URL:            http://www.tildeslash.com/libzdb/
@@ -54,6 +54,9 @@ make install DESTDIR=%{buildroot}
 %doc doc/api-docs
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

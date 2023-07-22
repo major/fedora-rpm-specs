@@ -16,7 +16,7 @@
 %undefine       prever
 %global         prerpmver    %(echo "%{?prever}" | sed -e 's|-||g')
 
-%global         baserelease     2
+%global         baserelease     3
 
 %if 0%{?usegitbare} >= 1
 %global         gitcommit   54cd5fc0af2407a70717ed3e8577d3ae9ae1a849
@@ -449,6 +449,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

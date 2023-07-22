@@ -1,6 +1,6 @@
 Name: 		perl-File-Flat
 Version: 	1.07
-Release: 	9%{?dist}
+Release: 	10%{?dist}
 Summary: 	Implements a flat filesystem
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/File-Flat
@@ -62,6 +62,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

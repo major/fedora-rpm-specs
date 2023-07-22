@@ -13,7 +13,7 @@
 Summary: Library to access the contents of an iPod
 Name: libgpod
 Version: 0.8.3
-Release: 45%{?dist}
+Release: 46%{?dist}
 License: LGPL-2.1-or-later
 URL: http://www.gtkpod.org/libgpod.html
 Source0: http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -192,6 +192,9 @@ find %{buildroot} -type f -name "*.a" -delete
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 17 2023 DJ Delorie <dj@redhat.com> - 0.8.3-45
 - Apply upstream patch to fix C99 compatibility issue
 

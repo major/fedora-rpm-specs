@@ -28,7 +28,7 @@
 ##########################################
 # Defined by vendor
 #
-%define         baserelease    1
+%define         baserelease    2
 %define         extra_rel     %{nil}
 #%%define         use_gitcommit_as_rel  1
 # Tag name changed from vendor to vendorname so as not to
@@ -210,6 +210,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.10.0-1
 - 0.10.0
 

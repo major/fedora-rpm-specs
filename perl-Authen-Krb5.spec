@@ -1,6 +1,6 @@
 Name:           perl-Authen-Krb5
 Version:        1.9
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Krb5 Perl module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Krb5
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.9-40
 - Perl 5.38 rebuild
 

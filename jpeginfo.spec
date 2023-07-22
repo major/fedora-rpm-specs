@@ -1,7 +1,7 @@
 
 Name:		jpeginfo
 Version:	1.7.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Error-check and generate informative listings from JPEG files
 
 License:	GPLv3+
@@ -45,6 +45,9 @@ install -Dpm 0644 jpeginfo.1 %{buildroot}/%{_mandir}/man1/jpeginfo.1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Denis Fateyev <denis@fateyev.com> - 1.7.0-1
 - Update to version 1.7.0
 

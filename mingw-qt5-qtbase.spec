@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -816,6 +816,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Sandro Mani <manisandro@gmail.com> - 5.15.10-2
 - Backport fix for CVE-2023-38197
 

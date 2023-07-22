@@ -15,9 +15,9 @@
 Name:          marco
 Version:       %{branch}.2
 %if 0%{?rel_build}
-Release:       1%{?dist}
+Release:       2%{?dist}
 %else
-Release:       0.18%{?git_rel}%{?dist}
+Release:       0.19%{?git_rel}%{?dist}
 %endif
 Summary:       MATE Desktop window manager
 License:       LGPLv2+ and GPLv2+
@@ -155,6 +155,9 @@ desktop-file-install                                \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 04 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
 - update to 1.26.2
 - Add setting to raise windows on alt+tab popup

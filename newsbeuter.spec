@@ -1,6 +1,6 @@
 Name:           newsbeuter
 Version:        2.9
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Configurable text-based feed reader
 
 License:        MIT
@@ -75,6 +75,9 @@ find contrib/ -type f -exec chmod -x '{}' ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

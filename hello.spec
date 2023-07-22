@@ -1,6 +1,6 @@
 Name:           hello
 Version:        2.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Prints a familiar, friendly greeting
 # All code is GPLv3+.
 # Parts of the documentation are under GFDL
@@ -57,6 +57,9 @@ make check
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul  4 2023 Jens Petersen <petersen@redhat.com> - 2.12.1-1
 - update to 2.12.1
 - SPDX migration of license tags

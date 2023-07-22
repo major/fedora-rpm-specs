@@ -15,9 +15,9 @@
 Name:           mate-panel
 Version:        %{branch}.3
 %if 0%{?rel_build}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %else
-Release:        0.17%{?git_rel}%{?dist}
+Release:        0.18%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop panel and applets
 #libs are LGPLv2+ applications GPLv2+
@@ -161,6 +161,9 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-2
 - fix Fix build with gettext-0.22
 

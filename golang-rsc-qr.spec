@@ -18,7 +18,7 @@ Requires:       pkgconfig(libqrencode)
 }
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Golang generator of QR codes
 
 # Upstream license specification: BSD-3-Clause
@@ -47,6 +47,9 @@ BuildRequires:  pkgconfig(libqrencode)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 10 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.0-10
 - Switch to SPDX license
 

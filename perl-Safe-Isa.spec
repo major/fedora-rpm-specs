@@ -1,6 +1,6 @@
 Name:           perl-Safe-Isa
 Version:        1.000010
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Call isa, can, does and DOES safely on things that may not be objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Safe-Isa
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/Safe::Isa.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000010-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000010-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

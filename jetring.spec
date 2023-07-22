@@ -1,6 +1,6 @@
 Name:           jetring
 Version:        0.31
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GPG keyring maintenance using changesets
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,9 @@ install -pm 0644 jetring-*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

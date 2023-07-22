@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 License:		ECL 2.0
@@ -514,6 +514,9 @@ mv QA.orig QA
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 7.2.0-3
 - Rebuilt for Python 3.12
 

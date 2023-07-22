@@ -1,7 +1,7 @@
 Summary:	GLib Ncurses Toolkit
 Name:		libgnt
 Version:	2.14.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	GPLv2+
 URL:		https://keep.imfreedom.org/libgnt/libgnt/
 BuildRequires:	gcc
@@ -64,6 +64,9 @@ Documentation files for libgnt.
 %{_datadir}/gtk-doc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -15,7 +15,7 @@ Go language driver for RethinkDB.}
 %global godocs          CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Go language driver for RethinkDB
 
 # Upstream license specification: Apache-2.0
@@ -63,6 +63,9 @@ sed -i 's|gopkg.in/cenkalti/backoff.v2|github.com/cenkalti/backoff/v4|' $(find .
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Module-Load-Util
 Version:        0.009
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Some utility routines related to module loading
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Load-Util/
@@ -87,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.009-1
 - 0.009 bump (BZ#2220905)
 

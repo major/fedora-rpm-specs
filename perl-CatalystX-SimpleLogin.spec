@@ -1,6 +1,6 @@
 Name:           perl-CatalystX-SimpleLogin
 Version:        0.21
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Provide a simple Login controller which can be reused
 License:        GPL+ or Artistic
 
@@ -92,6 +92,9 @@ rm -rf inc/*
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

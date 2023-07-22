@@ -1,6 +1,6 @@
 Name:           libpgf
 Version:        7.21.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PGF (Progressive Graphics File) library
 
 License:        LGPLv2+
@@ -72,6 +72,9 @@ export CXXFLAGS="%{optflags} -DLIBPGF_DISABLE_OPENMP -std=c++14"
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.21.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Alexey Kurov <nucleo@fedoraproject.org> - 7.21.7-1
 - libpgf-7.21.7
 

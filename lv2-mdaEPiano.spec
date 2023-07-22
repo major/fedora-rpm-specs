@@ -2,7 +2,7 @@
 
 Name:           lv2-mdaEPiano
 Version:        0
-Release:        0.26.git%{gitversion}%{?dist}
+Release:        0.27.git%{gitversion}%{?dist}
 Summary:        A port of the MDA EPiano VST plugin to LV2
 
 License:        GPLv3+
@@ -46,6 +46,9 @@ make install INSTALL_DIR=%{buildroot}%{_libdir}/lv2
 %{_libdir}/lv2/lv2-mdaEPiano.lv2
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.27.git9db45842
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26.git9db45842
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:		levmar
 Version:	2.6
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Levenberg-Marquardt nonlinear least squares algorithm
 URL:		http://www.ics.forth.gr/~lourakis/levmar/
 
@@ -84,6 +84,9 @@ chrpath --delete "%{buildroot}%{_bindir}/lmdemo"
 %{_bindir}/lmdemo
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

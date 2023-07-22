@@ -1,6 +1,6 @@
 Name:       perl-SOAP-Lite
 Version:    1.27
-Release:    19%{?dist}
+Release:    20%{?dist}
 Summary:    Client and server side SOAP implementation
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/SOAP-Lite
@@ -137,6 +137,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.27-19
 - Remove obsolete filter-requires.sh script
 

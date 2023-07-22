@@ -1,7 +1,7 @@
 Name:           perl-B-Hooks-OP-Check
 Summary:        Wrap OP check callbacks
 Version:        0.22
-Release:        20%{?dist}
+Release:        21%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Hooks-OP-Check
 Source0:        https://cpan.metacpan.org/modules/by-module/B/B-Hooks-OP-Check-%{version}.tar.gz
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/B::Hooks::OP::Check.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.22-20
 - Perl 5.38 rebuild
 

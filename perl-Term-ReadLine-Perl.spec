@@ -1,6 +1,6 @@
 Name:           perl-Term-ReadLine-Perl
 Version:        1.0303
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Readline implementation in Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Term-ReadLine-Perl
@@ -47,6 +47,9 @@ AUTOMATED_TESTING=1 make test
 %{perl_vendorlib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0303-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0303-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       perl-PSGI 
 Version:    1.102
-Release:    28%{?dist}
+Release:    29%{?dist}
 # PSGI.pod
 License:    CC-BY-SA
 Summary:    Perl Web Server Gateway Interface Specification 
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.102-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.102-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

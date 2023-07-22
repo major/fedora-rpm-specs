@@ -1,7 +1,7 @@
 Summary:	A FileHandle that supports ungetting of multiple bytes
 Name:		perl-FileHandle-Unget
 Version:	0.1634
-Release:	16%{?dist}
+Release:	17%{?dist}
 License:	GPL-2.0-only
 URL:		https://metacpan.org/release/FileHandle-Unget
 Source0:	https://cpan.metacpan.org/modules/by-module/FileHandle/FileHandle-Unget-%{version}.tar.gz
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/FileHandle::Unget.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1634-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Paul Howarth <paul@city-fan.org> - 0.1634-16
 - Use SPDX-format license tag
 - Drop support for building with rpm < 4.9

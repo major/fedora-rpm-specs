@@ -2,7 +2,7 @@
 
 Name:           moolticute
 Version:        1.01.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Companion GUI application for Mooltipass password manager devices
 
 # The entire source code is GPL-3.0-or-later except:
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_unitdir}/moolticuted.service
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 09 2023 Arthur Bols <arthur@bols.dev> - 1.01.0-1
 - Upstream release 1.01.0
 

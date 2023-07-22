@@ -1,6 +1,6 @@
 Name:           libslz
 Version:        1.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        StateLess Zip
 
 License:        MIT
@@ -62,6 +62,9 @@ rm %{buildroot}%{_libdir}/*.a
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 17 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 1.2.0-8
 - Bump release for SPDX license review (already correct)
 

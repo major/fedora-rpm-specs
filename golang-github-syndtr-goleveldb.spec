@@ -19,7 +19,7 @@ programming language.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Leveldb key/value database in Go
 
 # Upstream license specification: BSD-2-Clause
@@ -51,6 +51,9 @@ BuildRequires:  golang(github.com/onsi/gomega)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

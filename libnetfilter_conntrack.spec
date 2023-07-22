@@ -1,6 +1,6 @@
 Name:           libnetfilter_conntrack
 Version:        1.0.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Netfilter conntrack userspace library
 License:        GPLv2+
 URL:            http://netfilter.org
@@ -57,6 +57,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %{_includedir}/libnetfilter_conntrack/*.h
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Paul Wouters <paul.wouters@aiven.io - 1.0.9-1
 - Update to 1.0.9 required for conntrack-tools
 - Add upstream openpgp key and source verification

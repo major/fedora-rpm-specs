@@ -2,7 +2,7 @@
 
 Name:           obs-service-%{service}
 Version:        0.10.33
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An OBS source service: checkout or update a tarball from svn/git/hg
 License:        GPLv2+
 URL:            https://github.com/openSUSE/%{name}
@@ -133,6 +133,9 @@ make test3
 %{_prefix}/lib/obs/service/snapcraft*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.33-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

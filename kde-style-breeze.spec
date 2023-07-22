@@ -4,7 +4,7 @@
 Name:    kde-style-breeze 
 Epoch:   1
 Version: 5.18.5
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: KDE 4 version of Plasma 5 artwork, style and assets 
 
 License: GPLv2+
@@ -61,6 +61,9 @@ Supplements: (kde-runtime and plasma-workspace)
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.18.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 28 2023 Robert Scheck <robert@fedoraproject.org> - 1:5.18.5-8
 - Add missing cstdint include in libbreezecommon (#2171584, #2188911)
 

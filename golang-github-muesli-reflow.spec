@@ -15,7 +15,7 @@ io.Writer interface and supports ANSI escape sequences.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Word-wrap strings or entire blocks of text 
 
 License:        MIT
@@ -43,6 +43,9 @@ BuildRequires:  golang(github.com/mattn/go-runewidth)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

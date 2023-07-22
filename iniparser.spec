@@ -3,7 +3,7 @@
 
 Name:		iniparser
 Version:	4.1
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	C library for parsing "INI-style" files
 
 License:	MIT
@@ -73,6 +73,9 @@ make check
 %{_includedir}/*.h
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 David Cantrell <dcantrell@redhat.com> - 4.1-12
 - Fix for CVE-2023-33461 (BZ#2211622)
 

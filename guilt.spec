@@ -1,6 +1,6 @@
 Name:		guilt
 Version:	0.36
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Scripts to manage quilt-like patches on top of git
 
 License:	GPLv2
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man7/guilt*.7*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Eric Sandeen <sandeen@redhat.com> - 0.36-18
 - fix portability problem with using find -perm +111
 

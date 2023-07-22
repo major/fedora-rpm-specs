@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-FromCGI
 Version:        1.00
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Update Class::DBI data using CGI::Untaint
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-DBI-FromCGI
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Library of Optimized Inner Loops, CPU optimized functions
 Name: liboil
 Version: 0.3.16
-Release: 30%{?dist}
+Release: 31%{?dist}
 # See COPYING which details everything, various BSD licenses apply
 License: BSD
 URL: http://liboil.freedesktop.org/
@@ -80,6 +80,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.16-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 0.3.16-30
 - Port configure script to C99 (#2167172)
 

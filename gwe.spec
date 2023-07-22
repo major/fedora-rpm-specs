@@ -2,7 +2,7 @@
 
 Name:           gwe
 Version:        0.15.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        System utility designed to provide information of NVIDIA card
 BuildArch:      noarch
 
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.15.5-5
 - Rebuilt for Python 3.12
 

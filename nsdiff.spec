@@ -1,6 +1,6 @@
 Name:		nsdiff
 Version:	1.82
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	create an "nsupdate" script from DNS zone file differences
 
 License:	Public Domain
@@ -51,6 +51,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Net-NBName
 Version:        0.26
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        NetBIOS Name Service Requests
 License:        GPL+ or Artistic
 
@@ -58,6 +58,9 @@ done
 %{_mandir}/man3/Net*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

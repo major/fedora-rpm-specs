@@ -2,7 +2,7 @@
 
 Name:           lxlauncher
 Version:        0.2.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Open source replacement for Launcher on the EeePC
 
 License:        GPLv2+
@@ -57,6 +57,9 @@ mkdir -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}/icons
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

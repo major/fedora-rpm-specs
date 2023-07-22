@@ -1,6 +1,6 @@
 Name:               paho-c
 Version:            1.3.9
-Release:            6%{?dist}
+Release:            7%{?dist}
 Summary:            MQTT C Client
 License:            BSD and EPL
 URL:                https://eclipse.org/paho/clients/c/
@@ -68,6 +68,9 @@ rm -rvf %{buildroot}%{_docdir}/Eclipse\ Paho\ C/doc/MQTTAsync/man %{buildroot}%{
 %{_defaultdocdir}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

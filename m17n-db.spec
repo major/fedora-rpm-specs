@@ -1,7 +1,7 @@
 Name:       m17n-db
 Summary:    Multilingualization datafiles for m17n-lib
 Version:    1.8.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    LGPL-2.1-or-later
 URL:        http://www.nongnu.org/m17n
 
@@ -115,6 +115,9 @@ rm %{buildroot}%{_datadir}/m17n/ispell.mim
 %{_datadir}/pkgconfig/m17n-db.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 08 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.2-1
 - Update to 1.8.2
 - Remove bn-national-jatiya input method (included upstream)

@@ -1,7 +1,7 @@
 Name:           liboglappth
 Summary:        An OpenGL wrapper library
 Version:        1.0.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        GPLv2+
 URL:            http://www.bioinformatics.org/ghemical/ghemical/index.html
 Source0:        http://www.bioinformatics.org/ghemical/download/current/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ find %{buildroot}%{_libdir} -name *.la -exec rm -rf {} \;
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

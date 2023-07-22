@@ -1,6 +1,6 @@
 Name:           perl-List-SomeUtils
 Version:        0.59
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provide the stuff missing in List::Util
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/List-SomeUtils
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.59-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.59-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

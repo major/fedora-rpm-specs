@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-View-TT
 Summary:        Template Toolkit View Class
 Version:        0.46
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-View-TT-%{version}.tar.gz
@@ -54,6 +54,9 @@ sed -i 's/\r//' t/lib/TestApp/Template/Any.pm
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

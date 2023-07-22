@@ -1,6 +1,6 @@
 Name:           perl-CommonMark
 Version:        0.290000
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Interface to the CommonMark C library
 License:        GPL+ or Artistic
 
@@ -55,6 +55,9 @@ It closely follows the original API.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.290000-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.290000-17
 - Perl 5.38 rebuild
 

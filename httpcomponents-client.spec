@@ -3,7 +3,7 @@
 Name:              httpcomponents-client
 Summary:           HTTP agent implementation based on httpcomponents HttpCore
 Version:           4.5.13
-Release:           6%{?dist}
+Release:           7%{?dist}
 License:           ASL 2.0
 URL:               http://hc.apache.org/
 Source0:           https://www.apache.org/dist/httpcomponents/httpclient/source/%{name}-%{version}-src.tar.gz
@@ -125,6 +125,9 @@ rm httpclient/src/test/java/org/apache/http/client/config/TestRequestConfig.java
 %doc README.txt RELEASE_NOTES.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.13-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

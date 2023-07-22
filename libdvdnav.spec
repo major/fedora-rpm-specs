@@ -2,7 +2,7 @@
 
 Name:           libdvdnav
 Version:        6.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library for reading DVD video discs based on Ogle code
 License:        GPLv2+
 URL:            http://dvdnav.mplayerhq.hu/
@@ -60,6 +60,9 @@ rm %{buildroot}%{_pkgdocdir}/{COPYING,TODO}
 %{_libdir}/pkgconfig/dvdnav.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

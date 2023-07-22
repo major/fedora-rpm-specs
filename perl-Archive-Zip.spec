@@ -1,6 +1,6 @@
 Name:           perl-Archive-Zip
 Version:        1.68
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl library for accessing Zip archives
 # lib/Archive/Zip/Member.pm:    (GPL-1.0-or-later OR Artistic-1.0-Perl) and Info-ZIP
 #                               (The _mapPermissionsToUnix() comments are
@@ -131,6 +131,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.68-11
 - Package tests
 

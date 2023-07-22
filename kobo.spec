@@ -49,7 +49,7 @@
 
 Name:           kobo
 Version:        0.27.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        LGPLv2
 Summary:        Python modules for tools development
 URL:            https://github.com/release-engineering/kobo
@@ -423,6 +423,9 @@ rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/hub
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.27.0-2
 - Rebuilt for Python 3.12
 

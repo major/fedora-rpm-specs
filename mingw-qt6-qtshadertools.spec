@@ -17,7 +17,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - Qt Shader Tools component
 
 License:        GPL-3.0-only
@@ -132,6 +132,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 29 2023 Sandro Mani <manisandro@gmail.com> - 6.5.1-1
 - Update to 6.5.1
 

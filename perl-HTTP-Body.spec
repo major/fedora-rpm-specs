@@ -6,7 +6,7 @@
 Name:           perl-HTTP-Body
 Summary:        HTTP Body Parser
 Version:        1.22
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/G/GE/GETTY/HTTP-Body-%{version}.tar.gz
 URL:            https://metacpan.org/release/HTTP-Body
@@ -88,6 +88,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

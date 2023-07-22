@@ -3,7 +3,7 @@
 
 Name: libabigail
 Version: 2.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Set of ABI analysis tools
 
 License: ASL 2.0
@@ -163,6 +163,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Dodji Seketeli <dodji@redhat.com> - 2.3-1
 - Update to upstream 2.3 release
 - Don't do "dos2unix doc/manuals/html/_static/jquery.js"

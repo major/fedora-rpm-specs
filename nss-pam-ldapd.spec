@@ -5,7 +5,7 @@
 
 Name:           nss-pam-ldapd
 Version:        0.9.10
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        An nsswitch module which uses directory servers
 License:        LGPL-2.0-or-later
 URL:            http://arthurdejong.org/nss-pam-ldapd/
@@ -110,6 +110,9 @@ getent passwd nslcd > /dev/null || \
 %systemd_postun_with_restart nslcd.service
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 0.9.10-13
 - Add missing Requires on shadow-utils for user creation in pre
   Fixes: RHBZ#2208017

@@ -5,7 +5,7 @@
 
 Name:           mingw-opus
 Version:        1.2.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Audio codec for use in low-delay speech and audio communication
 
 License:        BSD
@@ -98,6 +98,9 @@ rm -f %{buildroot}%{mingw64_libdir}/libopus.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

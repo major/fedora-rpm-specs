@@ -1,6 +1,6 @@
 Name:           perl-Future
 Version:        0.50
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl object system to represent an operation awaiting completion
 License:        GPL+ or Artistic
 
@@ -62,6 +62,9 @@ flow of control, and data, through an asynchronous program.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Mar 19 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.50-1
 - Update to 0.50
 

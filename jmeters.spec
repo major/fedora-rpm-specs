@@ -1,7 +1,7 @@
 Summary:       Multichannel audio level meter
 Name:          jmeters
 Version:       0.4.1
-Release:       24%{?dist}
+Release:       25%{?dist}
 License:       GPLv2
 URL:           http://kokkinizita.linuxaudio.org/linuxaudio/
 Source0:       http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
@@ -48,6 +48,9 @@ make PREFIX=%{buildroot}%{_prefix} install
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

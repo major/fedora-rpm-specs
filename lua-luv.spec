@@ -44,7 +44,7 @@ BuildRequires:  lua5.1-compat53
 
 Name:           lua-luv
 Version:        %{real_version}.%{extra_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        Apache-2.0
 Summary:        Bare libuv bindings for lua
@@ -237,6 +237,9 @@ rm luv.so
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 06 2023 Andreas Schneider <asn@redhat.com> - 1.44.2.1-3
 - resolves: #2212583 - Create a common libluv and libluv-devel package
 

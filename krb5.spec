@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 2
+%global baserelease 3
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -708,6 +708,9 @@ exit 0
 %{_datarootdir}/%{name}-tests/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Marek Blaha <mblaha@redhat.com> - 1.21-2
 - Replace file dependency with package name
   Resolves: rhbz#2216903

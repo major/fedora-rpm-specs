@@ -1,7 +1,7 @@
 Name:    juk
 Summary: Music player
 Version: 23.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
 # handbook doc: GFDL
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.juk.deskt
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

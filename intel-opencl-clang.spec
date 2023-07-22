@@ -5,7 +5,7 @@
 
 Name: intel-opencl-clang
 Version: 15.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Library to compile OpenCL C kernels to SPIR-V modules
 
 License: NCSA
@@ -52,6 +52,9 @@ developing against %{name}
 %{_includedir}/cclang/common_clang.h
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

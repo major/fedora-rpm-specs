@@ -1,6 +1,6 @@
 Name:     nng
 Version:  1.5.2
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  nanomsg next generation: light-weight brokerless messaging
 
 License:  MIT
@@ -71,6 +71,9 @@ rm -rf %{buildroot}/%{_mandir}/man[3-7]*
 %{_mandir}/man1/nngcat.1.gz
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 18 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.5.2-1
 - Update to latest upstream release 1.5.2 (closes rhbz#1981004)
 

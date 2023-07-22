@@ -1,6 +1,6 @@
 Name:           nss_wrapper
 Version:        1.1.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-3-Clause
 Summary:        A wrapper for the user, group and hosts NSS API
@@ -86,6 +86,9 @@ sed -i '1 s|/usr/bin/env\ perl|/usr/bin/perl|' %{buildroot}%{_bindir}/nss_wrappe
 %{_libdir}/libnss_wrapper.so*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 06 2023 Andreas Schneider <asn@redhat.com> - 1.1.15-2
 - Update License to SPDX expression
 

@@ -11,7 +11,7 @@
 Name:    kproperty
 Summary: Property editing framework with editor widget
 Version: 3.2.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 License: LGPLv2+
 Url:     https://community.kde.org/KProperty
@@ -104,6 +104,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

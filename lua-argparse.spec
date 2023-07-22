@@ -12,7 +12,7 @@
 
 Name:           lua-%{pkg_name}
 Version:        0.6.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Feature-rich command line parser for Lua
 
 License:        MIT
@@ -83,6 +83,9 @@ install -m 644 -D -p src/%{pkg_name}.lua %{buildroot}%{luapkgdir}/%{pkg_name}.lu
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

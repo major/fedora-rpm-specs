@@ -1,7 +1,7 @@
 Summary:	Simple date object for perl
 Name:		perl-Date-Simple
 Version:	3.03
-Release:	45%{?dist}
+Release:	46%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Date-Simple
 Source0:	https://cpan.metacpan.org/authors/id/I/IZ/IZUT/Date-Simple-%{version}.tar.gz
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/Date::Simple::ISO.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.03-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.03-45
 - Perl 5.38 rebuild
 

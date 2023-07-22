@@ -1,6 +1,6 @@
 Name:           perl-Config-IniHash
 Version:        3.01.01
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Perl extension for reading and writing INI files
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Config-IniHash
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.01.01-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.01.01-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

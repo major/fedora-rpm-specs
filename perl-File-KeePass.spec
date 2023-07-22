@@ -1,6 +1,6 @@
 Name:           perl-File-KeePass
 Version:        2.03
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Interface to KeePass V1 and V2 database files
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/File-KeePass
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

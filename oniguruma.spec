@@ -21,7 +21,7 @@
 #%%global	betaver	rc4
 #%%define	prerelease	1
 
-%global	baserelease	1
+%global	baserelease	2
 
 Name:		oniguruma
 Version:	%{mainver}%{?postver:.%postver}%{?gitversion:^%{?gitversion}}
@@ -127,6 +127,9 @@ find $RPM_BUILD_ROOT -name '*.la' \
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.8^20230501git41a3b80-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.9.8^20230501git41a3b80-1
 - Update to the latest git
 

@@ -1,6 +1,6 @@
 Name:           perl-Perl-Tags
 Version:        0.32
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Generate Ctags style tags for Perl source code
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) OR Vim
 URL:            https://metacpan.org/release/Perl-Tags
@@ -88,6 +88,9 @@ make test
 %{_mandir}/man3/*Perl::Tags*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.32-26
 - Update license to SPDX format
 - Use macros make_*

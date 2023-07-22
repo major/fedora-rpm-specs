@@ -1,6 +1,6 @@
 Name:           perl-File-Tempdir
 Version:        0.02
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Object interface for File::Temp module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/File-Tempdir
@@ -59,6 +59,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

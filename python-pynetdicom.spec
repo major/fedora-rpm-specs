@@ -51,6 +51,12 @@ Patch1:         %{forgeurl}/pull/756.patch
 # TestPrimitive_N_GET::test_assignment failed
 # https://github.com/pydicom/pynetdicom/issues/773
 Patch2:		774.patch
+#
+# AttributeError: module 'importlib.abc' has no attribute 'Finder'
+# when calling getattr(importlib.abc, "MetaPathFinder", importlib.abc.Finder)
+# in Python3.12
+# https://github.com/pydicom/pynetdicom/pull/853
+Patch3:		https://github.com/pydicom/pynetdicom/pull/853.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -118,7 +124,7 @@ rm -rf docs/_build/html/{.doctrees,.buildinfo,.nojekyll} -vf
 # PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest --deselect=pynetdicom/apps/tests -vvv -k "not test_tls_yes_server_yes_client and not test_tls_transfer and not test_typical"
 %if 0%{?fedora}
 %if %{with tests}
-PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest --deselect=pynetdicom/apps/tests -k "not test_tls_yes_server_yes_client and not test_tls_transfer and not test_typical and not test_scp_handler_dataset_path"
+PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest --deselect=pynetdicom/apps/tests -k "not test_tls_yes_server_yes_client and not test_tls_transfer and not test_typical and not test_scp_handler_dataset_path and not test_acse_recv_ap_abort"
 %endif
 %endif
 
@@ -223,4 +229,3 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest --deselect=pyn
 
 * Mon Sep 30 2019 Alessio <alciregi AT fedoraproject DOT org> - 1.4.1-1
 - Initial package
-

@@ -1,7 +1,7 @@
 Name:           perl-MooseX-Types-Common 
 Summary:        A library of commonly used type constraints 
 Version:        0.001014
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        GPL+ or Artistic 
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-Types-Common-%{version}.tar.gz
 URL:            https://metacpan.org/release/MooseX-Types-Common
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001014-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001014-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

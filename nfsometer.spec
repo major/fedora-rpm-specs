@@ -1,6 +1,6 @@
 Name: nfsometer		
 Version: 1.9
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: NFS Performance Framework Tool
 
 License: GPLv2+ 
@@ -46,6 +46,9 @@ python3 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 1.9-17
 - Rebuilt for Python 3.12
 

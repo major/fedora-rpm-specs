@@ -3,7 +3,7 @@
 
 Name:      lua-luautf8
 Version:   0.1.5
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   A UTF-8 support module for Lua
 License:   MIT
 URL:       %{forgeurl}
@@ -64,6 +64,9 @@ lua test.lua
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Dec 08 2022 Jonny Heggheim <hegjon@gmail.com> - 0.1.5-1
 - Updated to version 0.1.5
 

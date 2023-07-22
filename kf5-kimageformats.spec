@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version:        5.108.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -74,6 +74,9 @@ image formats.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.108.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Marian Koncek <mkoncek@redhat.com> - 5.108.0-2
 - Enable HEIF support
 

@@ -2,7 +2,7 @@
 
 Name:           perl-OpenGL
 Version:        %{cpanversion}00
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perl OpenGL bindings
 License:        GPL+ or Artistic
 URL:            http://sourceforge.net/projects/pogl/
@@ -91,6 +91,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7000-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.7000-23
 - Perl 5.38 rebuild
 

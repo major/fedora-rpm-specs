@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	12.0.1
-Release:	3%{?dist}
+Version:	13.0.0
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -734,7 +734,7 @@ Development files for python3-pyarrow
 #--------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n apache-arrow-%{version}
+%autosetup -p1 -n arrow-apache-arrow-%{version}
 # We do not need to (nor can we) build for an old version of numpy:
 sed -r -i 's/(oldest-supported-)(numpy)/\2/' python/pyproject.toml
 
@@ -864,6 +864,12 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Thu Jul 20 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 13.0.0-1
+- Arrow 13.0.0 GA, rhbz#2224127
+
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 18 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 12.0.1-3
 - Rebuilt for Python 3.12 and thrift-0.15.0
 

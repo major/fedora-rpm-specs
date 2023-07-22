@@ -1,6 +1,6 @@
 Name:           kismon
 Version:        1.0.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        GUI client for kismet
 
 License:        BSD
@@ -48,6 +48,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.2-10
 - Rebuilt for Python 3.12
 

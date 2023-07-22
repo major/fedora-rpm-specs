@@ -3,7 +3,7 @@
 
 Name:           perl-POE-Component-Client-Ident
 Version:        1.16
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A component that provides non-blocking Ident lookups to your sessions
 # FSF address issue, CPAN RT #85675
 # lib/POE/Component/Client/Ident.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -141,6 +141,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Petr Pisar <ppisar@redhat.com> - 1.16-31
 - Convert a License tag to an SPDX format
 - Package the tests

@@ -3,7 +3,7 @@
 
 Name:           perl-Graphics-Toolkit-Color
 Version:        1.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Color palette creation helper
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Constant.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 25 2023 Petr Pisar <ppisar@redhat.com> - 1.08-1
 - 1.08 bump
 

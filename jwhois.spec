@@ -2,7 +2,7 @@
 
 Name: jwhois
 Version: 4.0
-Release: 74%{?dist}
+Release: 75%{?dist}
 URL: http://www.gnu.org/software/jwhois/
 Source0: ftp://ftp.gnu.org/gnu/jwhois/jwhois-%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/robert-scheck/jwhois/2bd561e06ca37cf6c2ef9f0a2e957e09f58e6972/example/jwhois.conf
@@ -124,6 +124,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-75
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 4.0-74
 - SPDX migration
 

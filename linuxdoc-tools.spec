@@ -5,7 +5,7 @@
 Summary: A text formatting package based on SGML
 Name: linuxdoc-tools
 Version: 0.9.82
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 Source: http://http.us.debian.org/debian/pool/main/l/linuxdoc-tools/%{name}_%{version}.orig.tar.gz
 Patch01: 0001-downstream-Changed-default-papersize-to-letter.patch
@@ -103,6 +103,9 @@ exit 0
 %{_mandir}/*/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.82-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 0.9.82-2
 - Port sgmls non-autoconf configure script to C99
 

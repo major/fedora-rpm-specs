@@ -1,6 +1,6 @@
 Name:           jansi1
 Version:        1.18
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Generate and interpret ANSI escape sequences in Java
 License:        Apache-2.0
 URL:            https://fusesource.github.io/jansi/
@@ -75,6 +75,9 @@ cd -
 %license license.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 14 2023 Jerry James <loganjerry@gmail.com> - 1.18-14
 - Convert License tag to SPDX
 

@@ -1,6 +1,6 @@
 Name:		libssh2
 Version:	1.11.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A library implementing the SSH2 protocol
 License:	BSD-3-Clause
 URL:		https://www.libssh2.org/
@@ -131,6 +131,9 @@ LC_ALL=en_US.UTF-8 make -C tests check
 %{_libdir}/pkgconfig/libssh2.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun  1 2023 Paul Howarth <paul@city-fan.org> - 1.11.0-1
 - Update to 1.11.0 (rhbz#2211200)
   - Adds support for encrypt-then-mac (ETM) MACs

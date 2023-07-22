@@ -1,6 +1,6 @@
 Name:           perl-Panotools-Script
 Version:        0.29
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Library for manipulating Hugin .pto files
 License:        GPLv2+
 URL:            https://metacpan.org/release/Panotools-Script
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           nemo-extensions
 Version:        5.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
@@ -334,6 +334,9 @@ desktop-file-install                                    \
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-3
 - Fix nemo-compare missing icons
 

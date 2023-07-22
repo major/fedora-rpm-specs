@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.3.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -367,6 +367,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 25 2023 Markus Neteler <neteler@mundialis.de> 8.3.0-1
 - New upstream version GRASS GIS 8.3.0
 

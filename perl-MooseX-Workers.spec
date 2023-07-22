@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Workers
 Version:        0.24
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Provides a simple sub-process management for asynchronous tasks
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-Workers
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

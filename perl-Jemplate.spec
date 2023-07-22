@@ -3,7 +3,7 @@
 Name:       perl-Jemplate 
 # Keep 3-digit version for history
 Version:    %{cpan_version}0
-Release:    24%{?dist}
+Release:    25%{?dist}
 # lib/Jemplate.pm -> GPL+ or Artistic
 # lib/Jemplate/Directive.pm -> GPL+ or Artistic
 # lib/Jemplate/Parser.pm -> GPL+ or Artistic
@@ -115,6 +115,9 @@ make test
 %{_mandir}/man1/jemplate.1.gz
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.300-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.300-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

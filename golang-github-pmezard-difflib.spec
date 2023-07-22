@@ -23,7 +23,7 @@ purposes.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Partial port of python difflib package to Go
 
 # Upstream license specification: BSD-3-Clause
@@ -53,6 +53,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

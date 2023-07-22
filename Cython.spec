@@ -1,30 +1,17 @@
-%bcond tests 0
+%bcond tests 1
 
 # This bcond allows to ship a non-compiled version
 # Slower, but sometimes necessary with alpha Python versions
 %bcond cython_compile 1
 
-# We don't ship emacs-cython-mode in EL.
-%bcond emacs %{undefined rhel}
-
 Name:           Cython
-Version:        0.29.35
-Release:        2%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        Apache-2.0
 URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
-
-# Wrap the docstring of cython-default-compile-format to 80 characters
-# Upstream PR: https://github.com/cython/emacs-cython-mode/pull/1
-# Fixes https://bugzilla.redhat.com/2155090
-Patch:          emacs-docstring-wrap.patch
-
-# Compile-time Python 3.12 compatibility for CYTHON_TRACE support
-# Taken from the 3.x branch upstream.
-# See: https://github.com/cython/cython/issues/5450
-Patch:          https://github.com/cython/cython/commit/03c498d3142ccee2da258c540e96f12c863159fc.patch?/py3.12-tracing.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -32,12 +19,15 @@ BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  gcc-c++
 BuildRequires:  python3-numpy
+BuildRequires:  python3-pythran
+%if %{undefined rhel}
+# We don't want to pull in ipython to RHEL just to run more tests.
+BuildRequires:  python3-ipython
 # The tests requiring jedi are optional and skipped when jedi is not installed.
 # Note that the jedi tests were forcefully disabled a long time ago,
 # in https://github.com/cython/cython/issues/1845 far, far away.
 # We keep the dependency here so we don't forget to re-add it once the balance is restored.
 # We don't want to pull in jedi to RHEL just to potentially run more tests.
-%if %{undefined rhel}
 BuildRequires:  python3-jedi
 %endif
 %endif
@@ -67,13 +57,14 @@ libraries, and for fast C modules that speed up the execution of Python code.}
 %description %{_description}
 
 
-%package -n python3-Cython
+%package -n python3-cython
 Summary:        %{summary}
 Provides:       Cython = %{?epoch:%{epoch}:}%{version}-%{release}
 Provides:       Cython%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Provides:       cython = %{?epoch:%{epoch}:}%{version}-%{release}
 Provides:       cython%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-%py_provides    python3-cython
+%py_provides    python3-Cython
+Obsoletes:      python3-Cython < 3~~
 
 # A small templating library is bundled in Cython/Tempita
 # Upstream version 0.5.2 is available from https://pypi.org/project/Tempita
@@ -81,21 +72,7 @@ Provides:       cython%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 # Upstream homepage is inaccessible.
 Provides:       bundled(python3dist(tempita))
 
-%description -n python3-Cython %{_description}
-
-
-%if %{with emacs}
-%package -n emacs-cython-mode
-Summary:        A major mode for editing Cython source files in Emacs
-BuildArch:      noarch
-BuildRequires:  emacs
-%{?_emacs_version:
-Requires:       emacs(bin) >= %{_emacs_version}
-}
-
-%description -n emacs-cython-mode
-cython-mode is an Emacs major mode for editing Cython source files.
-%endif
+%description -n python3-cython %{_description}
 
 
 %prep
@@ -105,30 +82,16 @@ cython-mode is an Emacs major mode for editing Cython source files.
 %build
 %py3_build -- %{!?with_cython_compile:--no-cython-compile}
 
-%if %{with emacs}
-# emacs-cython-mode build
-echo ";;
-(require 'cython-mode)" > cython-mode-init.el
-cp -p Tools/cython-mode.el .
-%{_emacs_bytecompile} *.el
-%endif
-
 
 %install
 %py3_install -- %{!?with_cython_compile:--no-cython-compile}
 
-%if %{with emacs}
-# emacs-cython-mode install
-mkdir -p %{buildroot}%{_emacs_sitelispdir}/
-cp -p cython-mode.el cython-mode.elc %{buildroot}%{_emacs_sitelispdir}/
-mkdir -p %{buildroot}%{_emacs_sitestartdir}/
-cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir}/
-%endif
-
 
 %if %{with tests}
 %check
+# run.pstats_profile_test* fails on Python 3.12
 %{python3} runtests.py -vv --no-pyregr %{?_smp_mflags} \
+  --exclude 'run.pstats_profile_test*' \
   %ifarch %{ix86}
   --exclude run.parallel  # https://github.com/cython/cython/issues/2807
   %endif
@@ -136,7 +99,7 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 %endif
 
 
-%files -n python3-Cython
+%files -n python3-cython
 %license LICENSE.txt
 %doc *.txt Demos Doc Tools
 %{_bindir}/cython
@@ -147,15 +110,16 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 %{python3_site}/pyximport/
 %pycached %{python3_site}/cython.py
 
-%if %{with emacs}
-%files -n emacs-cython-mode
-%license LICENSE.txt
-%{_emacs_sitelispdir}/cython*.el*
-%{_emacs_sitestartdir}/cython*.el*
-%endif
-
 
 %changelog
+* Mon Jul 17 2023 Miro Hrončok <mhroncok@redhat.com> - 3.0.0-1
+- Update to 3.0.0
+- Rename python3-Cython to python3-cython
+
+* Thu Jul 13 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.0.0~rc2-1
+- Update to 3.0.0rc2
+- The emacs-cython-mode package is no longer part of this project
+
 * Fri Jun 30 2023 Petr Viktorin <pviktori@redhat.com> - 0.29.35-2
 - Compile-time Python 3.12 compatibility for CYTHON_TRACE support
 

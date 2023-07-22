@@ -5,7 +5,7 @@
 Name:           %{fontname}-fonts
 Version:        2.08
 %global versiontag %(echo %{version}|tr . _)
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Two-element typeface for typesetting of small prints
 License:        LPPL
 URL:            http://jmn.pl/en/antykwa-torunska/
@@ -50,6 +50,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %_font_pkg -f %{fontconf} *.otf
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.08-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.08-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

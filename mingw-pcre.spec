@@ -7,7 +7,7 @@
 Name:		mingw-%{name1}
 Version:	8.45
 %global myversion %{version}%{?rcversion:-%rcversion}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	MinGW Windows pcre library
 
 License:	BSD
@@ -205,6 +205,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.45-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.45-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

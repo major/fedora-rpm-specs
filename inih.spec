@@ -1,6 +1,6 @@
 Name:     inih
 Version:  57
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Simple INI file parser library
 
 License:  BSD-3-Clause
@@ -64,6 +64,9 @@ embedded systems.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 57-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Robert Scheck <robert@fedoraproejct.org> - 57-1
 - New upstream release 57 (#2221191)
 

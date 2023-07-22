@@ -27,7 +27,7 @@
 %global	git_version	D%{gitbaredate}git%{git_short}
 %endif
 
-%global	baserelease 4
+%global	baserelease 5
 
 %if 0%{?use_release} >= 1
 %global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
@@ -238,6 +238,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1-4
 - batt: make the status green on batt when the state is "not charging"
 

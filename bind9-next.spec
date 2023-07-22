@@ -57,7 +57,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND Expat AND BSD-2-clause
 #
-Version:  9.19.14
+Version:  9.19.15
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -385,11 +385,9 @@ pushd build
 LIBDIR_SUFFIX=
 export LIBDIR_SUFFIX
 %configure \
-  --localstatedir=%{_var} \
   --with-pic \
   --disable-static \
   --includedir=%{_includedir}/bind9 \
-  --with-tuning=large \
   --with-libidn2 \
 %if %{with GEOIP2}
   --with-maxminddb \
@@ -411,9 +409,7 @@ export LIBDIR_SUFFIX
 %if %{with UNITTEST}
   --with-cmocka \
 %endif
-  --enable-fixed-rrset \
   --enable-full-report \
-  CPPFLAGS="$CPPFLAGS" \
 ;
 %if %{with DNSTAP}
   pushd lib

@@ -7,7 +7,7 @@
 Name: hunspell-ne
 Summary: Nepali hunspell dictionaries
 Version: 20080425
-Release: 29%{?dist}
+Release: 30%{?dist}
 # Upstream Source and URL is down now, please don't report FTBFS bugs
 Source: http://nepalinux.org/downloads/ne_NP_dict.zip
 URL: http://nepalinux.org/downloads
@@ -48,6 +48,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080425-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080425-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -15,7 +15,7 @@ Find the closest xterm color to anything implementing color.Color.}
 %global godocs          examples README.mkd CHANGELOG.mkd
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Command to convert color.Colour to the nearest xterm/bash/shell color
 
 License:        MIT
@@ -53,6 +53,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

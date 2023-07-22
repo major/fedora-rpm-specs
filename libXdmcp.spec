@@ -1,7 +1,7 @@
 Summary: X Display Manager Control Protocol library
 Name: libXdmcp
 Version: 1.1.3
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_libdir}/pkgconfig/xdmcp.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

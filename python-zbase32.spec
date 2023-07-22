@@ -5,7 +5,7 @@
 
 Name:           python-zbase32
 Version:        1.1.5
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A base32 encoder/decoder
 License:        BSD and LGPLv2
 URL:            http://allmydata.org/trac/zbase32
@@ -59,6 +59,9 @@ chmod 0755 %{buildroot}%{python3_sitelib}/zbase32/zbase32.py
 %{python3_sitelib}/zbase32-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 20 2023 Python Maint <python-maint@redhat.com> - 1.1.5-31
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.5-30
 - Bootstrap for Python 3.12
 

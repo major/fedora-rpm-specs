@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Nits
 Version:        1.0.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Policies of nits I like to pick
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Perl-Critic-Nits
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

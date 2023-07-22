@@ -2,7 +2,7 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.8
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -135,6 +135,9 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 19 2023 Frank Crawford <frank@crawford.emu.id.au> - 7.8-3
 - Add missing dependencies to fix BZ2203367
 - Convert to autosetup macro

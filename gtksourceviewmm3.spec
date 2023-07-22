@@ -7,7 +7,7 @@
 
 Name:           gtksourceviewmm3
 Version:        3.21.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A C++ wrapper for gtksourceview3
 
 License:        LGPL-2.0-or-later
@@ -89,6 +89,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %doc %{_docdir}/%{tarname}-%{api_ver}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Sandro Mani <manisandro@gmail.com> - 3.21.3-2
 - Use SPDX license identifier
 

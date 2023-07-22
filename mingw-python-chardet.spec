@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
 Version:       5.1.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 BuildArch:     noarch
 
 License:       LGPLv2
@@ -67,6 +67,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

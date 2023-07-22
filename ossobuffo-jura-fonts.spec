@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 5.103
-Release: 9%{?dist}
+Release: 10%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           ossobuffo
@@ -54,6 +54,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %doc documentation/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.103-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.103-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           movit
 Version:        1.6.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GPU video filter library
 License:        GPLv2+
 Url:            https://movit.sesse.net
@@ -96,6 +96,9 @@ rm %{buildroot}%{_libdir}/libmovit.la
 %{_libdir}/pkgconfig/movit.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.6.3-8
 - Work around bug in RHEL 9 GCC for ppc64le with LTO and eigen3
 

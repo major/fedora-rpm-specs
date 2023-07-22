@@ -18,7 +18,7 @@
 Name:          %{libname}
 Summary:       A fast and lightweight GIF encoder
 Version:       0.3.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT
 
 URL:           https://github.com/%{gh_owner}/%{gh_project}
@@ -90,6 +90,9 @@ for %{libname}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 23 2023 Remi Collet <remi@remirepo.net> - 0.3.2-1
 - update to 0.3.2 (no change)
 

@@ -2,7 +2,7 @@
 Summary:       JACK and ALSA Audio Analyzer
 Name:          jaaa
 Version:       0.8.4
-Release:       14%{?dist}
+Release:       15%{?dist}
 License:       GPLv2+
 URL:           http://kokkinizita.linuxaudio.org/
 Source0:       http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
@@ -56,6 +56,9 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

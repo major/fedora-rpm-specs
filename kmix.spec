@@ -1,7 +1,7 @@
 Name:    kmix
 Summary: KDE volume control
 Version: 23.04.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code is LGPLv2+ except for gui/osdwidget.* which is GPLv2+
 # docs GFDL
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kmix.desktop
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.3-1
 - 23.04.3
 

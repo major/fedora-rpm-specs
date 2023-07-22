@@ -2,7 +2,7 @@
 
 Name:           jctools
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java Concurrency Tools for the JVM
 License:        ASL 2.0
 
@@ -95,6 +95,9 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Paul Wouters <paul.wouters@aiven.io - 4.0.1-1
 - Resolves rhbz#2092837 jctools-4.0.1 is available
 

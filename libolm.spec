@@ -2,7 +2,7 @@
 
 Name: libolm
 Version: 3.2.15
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 Summary: Double Ratchet cryptographic library
 License: Apache-2.0
@@ -80,6 +80,9 @@ popd
 %{python3_sitearch}/python_%{appname}-*.egg-info
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.2.15-3
 - Removed no longer used python-future dependency. Fixes rhbz#2222263.
 

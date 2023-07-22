@@ -7,7 +7,7 @@
 
 Name:           perl-Devel-Hide
 Version:        0.0015
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Forces the unavailability of specified Perl modules (for testing)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Hide
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Devel::Hide.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0015-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0015-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

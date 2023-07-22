@@ -96,7 +96,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OS-level automated testing framework
 License:        GPLv2+
 Url:            http://os-autoinst.github.io/openQA/
@@ -686,6 +686,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6^20230525git0864455-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 26 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230525git0864455-1
 - Update to latest git, drop merged patch, re-sync spec
 

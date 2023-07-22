@@ -1,6 +1,6 @@
 Name:           perl-Devel-Caller
 Version:        2.07
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Meatier versions of caller
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Caller
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Devel::Caller.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.07-2
 - Perl 5.38 rebuild
 

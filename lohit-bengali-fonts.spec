@@ -1,7 +1,7 @@
 %global fontname lohit-bengali
 
 Version:        2.91.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 URL:            https://github.com/lohit-fonts/lohit-bengali-fonts
 
 %global foundry           Lohit
@@ -45,6 +45,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.5-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Sudip Shil <sshil@redhat.com> - 2.91.5-17
 - Included make ttf macro
 

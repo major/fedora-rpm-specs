@@ -2,7 +2,7 @@
 
 Name:           netbsd-iscsi
 Version:        20111006
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        User-space implementation of iSCSI target from NetBSD project
 
 License:        BSD
@@ -85,6 +85,9 @@ install -pm644 src/etc/targets %{buildroot}%{_sysconfdir}/iscsi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20111006-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20111006-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

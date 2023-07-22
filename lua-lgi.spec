@@ -10,7 +10,7 @@
 
 Name:		lua-lgi
 Version:	0.9.2
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Lua bindings to GObject libraries
 License:	MIT
 URL:		https://github.com/pavouk/lgi
@@ -153,6 +153,9 @@ popd
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar  4 2023 Thomas Moschny <thomas.moschny@gmx.de> - 0.9.2-16
 - Apply patch by yselkowi@redhat.com: Drop unneeded Requires: lua.
 

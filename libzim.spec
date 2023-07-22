@@ -1,6 +1,6 @@
 Name: libzim
 Version: 8.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-2.0-only AND Apache-2.0 AND BSD-3-Clause
 Summary: Reference implementation of the ZIM specification
@@ -56,6 +56,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 8.2.0-2
 - Rebuilt for ICU 73.2
 

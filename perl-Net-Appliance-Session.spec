@@ -1,6 +1,6 @@
 Name:           perl-Net-Appliance-Session
 Version:        4.300005
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Run command-line sessions to network appliances
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-Appliance-Session
@@ -65,6 +65,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.300005-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.300005-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

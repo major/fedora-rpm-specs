@@ -2,12 +2,12 @@
 
 # https://github.com/maxmind/geoipupdate
 %global goipath	github.com/maxmind/geoipupdate
-Version:	5.1.1
+Version:	6.0.0
 
 %gometa
 
 Name:		geoipupdate
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	Update GeoIP2 binary databases from MaxMind
 
 License:	Apache-2.0 OR MIT
@@ -17,6 +17,7 @@ Source1:	geoipupdate.cron
 
 BuildRequires:	coreutils
 BuildRequires:	crontabs
+BuildRequires:	golang(github.com/cenkalti/backoff/v4)
 BuildRequires:	golang(github.com/gofrs/flock)
 BuildRequires:	golang(github.com/spf13/pflag)
 BuildRequires:	golang(golang.org/x/sync/errgroup)
@@ -105,6 +106,35 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Thu Jul 20 2023 Paul Howarth <paul@city-fan.org> - 6.0.0-1
+- Update to 6.0.0
+  - 'geoipupdate' now supports configuration via environment variables: any
+    configuration set this way will override any value from the config file,
+    but still be overridden by any associated command line option (if any)
+  - The following new environment variables are supported:
+    - GEOIPUPDATE_ACCOUNT_ID
+    - GEOIPUPDATE_ACCOUNT_ID_FILE
+    - GEOIPUPDATE_CONF_FILE
+    - GEOIPUPDATE_DB_DIR
+    - GEOIPUPDATE_EDITION_IDS
+    - GEOIPUPDATE_HOST
+    - GEOIPUPDATE_LICENSE_KEY
+    - GEOIPUPDATE_LICENSE_KEY_FILE
+    - GEOIPUPDATE_LOCK_FILE
+    - GEOIPUPDATE_PARALLELISM
+    - GEOIPUPDATE_PRESERVE_FILE_TIMES
+    - GEOIPUPDATE_PROXY
+    - GEOIPUPDATE_PROXY_USER_PASSWORD
+    - GEOIPUPDATE_RETRY_FOR
+    - GEOIPUPDATE_VERBOSE
+  - Changed the signature of 'NewConfig' in 'pkg/geoipupdate' to no longer
+    accept a positional config file path argument, which can now be passed in
+    using the option from 'WithConfigFile' along with the other optional
+    parameters
+  - 'geoipupdate' and 'NewConfig' no longer require a config file to exist
+  - The '--stack-trace' flag has been removed; this flag has been broken since
+    4.11.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

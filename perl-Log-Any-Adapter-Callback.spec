@@ -1,6 +1,6 @@
 Name:           perl-Log-Any-Adapter-Callback
 Version:        0.101
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Send Log::Any logs to a subroutine
 License:        GPL+ or Artistic
 
@@ -54,6 +54,9 @@ detection methods (like $log->is_warning(), $log->is_fatal(), etc.).
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

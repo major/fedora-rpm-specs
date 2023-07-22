@@ -3,7 +3,7 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 1.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -124,6 +124,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=Adwaita/g;/General/a window_manag
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.0-3
 - Backport upstream patch to support procps-ng 4.0.x
 

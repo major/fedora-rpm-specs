@@ -5,7 +5,7 @@
 %global crate sev
 
 Name:           rust-sev
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        Library for AMD SEV
 
@@ -105,6 +105,10 @@ use the "snp" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Thu Jul 20 2023 Tyler Fanelli <tfanelli@redhat.com> - 1.2.1-1
+- Remove mmarinus dependency
+- Use older version of serde-big-array
+
 * Thu Jul 06 2023 Tyler Fanelli <tfanelli@redhat.com> - 1.2.0-1
 - Update to version 1.2.0
 

@@ -2,7 +2,7 @@
 
 Name:           pam_script
 Version:        1.1.9
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        PAM module for executing scripts
 
 License:        GPLv2+
@@ -43,6 +43,9 @@ rm %{buildroot}%{_sysconfdir}/README
 %{_mandir}/man7/%{upstream_name}.7*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           osmpbf
 Version:        1.5.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        C library to read and write OpenStreetMap PBF files
 
 License:        LGPL-3.0-or-later
@@ -63,6 +63,9 @@ rm %{buildroot}/%{_libdir}/libosmpbf.a
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

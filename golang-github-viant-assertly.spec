@@ -14,7 +14,7 @@ Arbitrary datastructure validation.}
 %global godocs          CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Arbitrary datastructure validation
 
 # Upstream license specification: Apache-2.0
@@ -49,6 +49,9 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

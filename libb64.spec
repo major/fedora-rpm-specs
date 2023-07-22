@@ -1,6 +1,6 @@
 Name:           libb64
 Version:        1.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Tools for fast encoding/decoding data into and from a base64-encoded format
 
 License:        Public Domain
@@ -77,6 +77,9 @@ install -D -m 0644 -p -t $RPM_BUILD_ROOT/%{_includedir}/b64/  include/b64/*
 %{_libdir}/libb64.a
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

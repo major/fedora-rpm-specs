@@ -1,6 +1,6 @@
 Name:           perl-Module-Load-Conditional
 Version:        0.74
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Looking up module information / loading at run-time
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Load-Conditional
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Module::Load::Conditional.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.74-500
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.74-499
 - Increase release to favour standalone package
 

@@ -1,6 +1,6 @@
 Name:           xdg-dbus-proxy
 Version:        0.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Filtering proxy for D-Bus connections
 
 License:        LGPLv2+
@@ -16,6 +16,9 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  /usr/bin/xsltproc
 
 Requires:       dbus
+
+# https://github.com/flatpak/xdg-dbus-proxy/pull/50
+Patch0: 0001-flatpak-proxy-Fix-D-Bus-disconnection-with-overly-lo.patch
 
 %description
 xdg-dbus-proxy is a filtering proxy for D-Bus connections. It was originally
@@ -38,6 +41,9 @@ to facilitate using it in other contexts.
 %{_mandir}/man1/xdg-dbus-proxy.1*
 
 %changelog
+* Wed Jul 19 2023 Bastien Nocera <bnocera@redhat.com> - 0.1.4-2
+- Fix D-Bus disconnection when an object path was overly long
+
 * Wed Jul 19 2023 Bastien Nocera <bnocera@redhat.com> - 0.1.4-1
 - Update to 0.1.4
 

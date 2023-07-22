@@ -2,7 +2,7 @@
 Name:    jreen
 Summary: Qt4 XMPP Library
 Version: 1.2.1
-Release: 23%{?dist}
+Release: 24%{?dist}
  
 License: GPLv2+
 #URL:     http://qutim.org/jreen
@@ -124,6 +124,9 @@ test "$(pkg-config --modversion libjreen-qt5)" = "%{version}"
 
  
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

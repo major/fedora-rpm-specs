@@ -1,6 +1,6 @@
 # https://github.com/cri-o/cri-o
 %global goipath         github.com/cri-o/cri-o
-Version:                1.27.0
+Version:                1.27.1
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
 %define gobuild(o:) %{expand:
@@ -33,7 +33,7 @@ Version:                1.27.0
 %global service_name crio
 
 # Commit for the builds
-%global commit0 11d8079ee81fb928b37fdef01882bd6977d68d3d
+%global commit0 65a8134d7c4722e1c39d0e1c473532a17c240682
 
 Name:           cri-o
 Epoch:          0
@@ -230,6 +230,9 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
+* Thu Jul 20 2023 T K Chandra Hasan <t.k.chandra.hasan@ibm.com> - 0:1.27.1-1
+- bump to v1.27.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.27.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

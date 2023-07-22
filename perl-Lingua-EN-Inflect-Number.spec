@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-Inflect-Number
 Version:        1.12
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Force number of words to singular or plural
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Lingua-EN-Inflect-Number
@@ -46,6 +46,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

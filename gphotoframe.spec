@@ -14,7 +14,7 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	19
+%global	baserelease	20
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
@@ -321,6 +321,9 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-20.hg2084299dffb6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-19.hg2084299dffb6
 - Rebuild for python 3.12
 - Port to setuptools: PEP632

@@ -2,7 +2,7 @@
 
 Name:		pcsc-lite-acsccid
 Version:	1.1.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	ACS CCID PC/SC Driver for Linux/Mac OS X
 
 License:	LGPLv2+
@@ -75,6 +75,9 @@ install -p -m 644 src/towitoko/README README.towitoko
 %{dropdir}/ifd-acsccid.bundle/Contents/Linux/libacsccid.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Jakub Jelen <jjelen@redhat.com> - 1.1.9-1
 - New upstream release (#2181481)
 

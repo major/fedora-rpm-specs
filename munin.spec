@@ -1,6 +1,6 @@
 Name:           munin
 Version:        2.0.73
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Network-wide resource monitoring tool
 License:        GPLv2
 URL:            http://munin-monitoring.org/
@@ -663,6 +663,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.73-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 Kim B. Heino <b@bbbs.net> - 2.0.73-1
 - Upgrade to 2.0.73
 - rhbz 2183484: Permission denied for group apache on /var/log/munin

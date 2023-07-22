@@ -15,9 +15,9 @@
 Name:           mate-applets
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
-Release:        0.6%{?git_rel}%{?dist}
+Release:        0.7%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop panel applets
 License:        GPLv2+ and LGPLv2+
@@ -137,6 +137,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

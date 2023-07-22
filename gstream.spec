@@ -1,6 +1,6 @@
 Name:           gstream
 Version:        1.6
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Simplified stream output/input for Allegro
 License:        Giftware
 URL:            http://allegro.molhanec.net/gstream.html
@@ -72,6 +72,9 @@ done
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           oksh
 Version:        6.8.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Portable OpenBSD ksh, based on the Public Domain Korn Shell
 
 # The main license is "public domain", with some support files
@@ -63,6 +63,9 @@ fi
 %config(noreplace) %{_sysconfdir}/ksh.kshrc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

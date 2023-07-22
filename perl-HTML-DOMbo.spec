@@ -1,6 +1,6 @@
 Name:           perl-HTML-DOMbo
 Version:        3.10
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Convert between XML::DOM and {XML/HTML}::Element trees
 License:        GPL+ or Artistic
 
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

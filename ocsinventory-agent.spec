@@ -22,7 +22,7 @@ Name:      ocsinventory-agent
 Summary:   Open Computer and Software Inventory Next Generation client
 
 Version:   2.10.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 
 Source0:   https://github.com/OCSInventory-NG/UnixAgent/releases/download/v%{official_version}/Ocsinventory-Unix-Agent-%{official_version}.tar.gz
 
@@ -308,6 +308,9 @@ find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

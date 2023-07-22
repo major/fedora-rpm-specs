@@ -12,7 +12,7 @@
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
 Version:       0.2.4
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -103,6 +103,9 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.4-7
 - Rebuilt for new python
   Resolves: rhbz#2220009

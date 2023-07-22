@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Class-Cursor-Cached
 Version:        1.001004
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Cursor class with built-in caching support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-Class-Cursor-Cached
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001004-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001004-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

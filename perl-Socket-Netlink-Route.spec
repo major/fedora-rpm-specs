@@ -1,6 +1,6 @@
 Name:           perl-Socket-Netlink-Route
 Version:        0.05
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Interface to Linux's NETLINK_ROUTE netlink socket protocol
 License:        GPL+ or Artistic
 
@@ -66,6 +66,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

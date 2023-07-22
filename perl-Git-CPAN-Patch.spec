@@ -1,7 +1,7 @@
 Name:           perl-Git-CPAN-Patch
 Summary:        Patch CPAN modules using Git
 Version:        2.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Git-CPAN-Patch-%{version}.tar.gz
 URL:            https://metacpan.org/release/Git-CPAN-Patch
@@ -170,6 +170,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

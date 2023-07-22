@@ -1,7 +1,7 @@
 Name:           perl-Context-Preserve
 Summary:        Run code after a subroutine call, preserving the context
 Version:        0.03
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Context-Preserve-%{version}.tar.gz
 URL:            https://metacpan.org/release/Context-Preserve
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

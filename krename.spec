@@ -1,6 +1,6 @@
 Name:           krename
 Version:        5.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Powerful batch file renamer
 License:        GPLv2
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

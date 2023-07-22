@@ -1,7 +1,7 @@
 Name:           perl-Email-Received
 Summary:        Parse an email Received: header
 Version:        1.00
-Release:        29%{?dist}
+Release:        30%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Email-Received
 Source0:        https://cpan.metacpan.org/authors/id/S/SI/SIMON/Email-Received-%{version}.tar.gz
@@ -55,6 +55,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

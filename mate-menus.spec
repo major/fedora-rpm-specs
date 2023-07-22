@@ -1,6 +1,6 @@
 Name:          mate-menus
 Version:       1.26.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Displays menus for MATE Desktop
 License:       GPLv2+ and LGPLv2+
 URL:           http://mate-desktop.org
@@ -86,6 +86,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 07 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1
 

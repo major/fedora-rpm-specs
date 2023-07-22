@@ -2,7 +2,7 @@
 
 Name: numad
 Version: 0.5
-Release: 39.20150602git%{?dist}
+Release: 40.20150602git%{?dist}
 Summary: NUMA user daemon
 
 License: LGPL-2.1-only
@@ -60,6 +60,9 @@ install -p -m 644 numad.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 %systemd_postun numad.service
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-40.20150602git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.5-39.20150602git
 - migrate to SPDX license format
 

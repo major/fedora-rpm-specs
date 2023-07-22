@@ -2,7 +2,7 @@
 
 Name:           mingw-libglade2
 Version:        2.6.4
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        MinGW Windows Libglade2 library
 
 License:        LGPLv2+
@@ -143,6 +143,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

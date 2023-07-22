@@ -1,7 +1,7 @@
 Name:		meshlab
 Summary:	A system for processing and editing unstructured 3D triangular meshes
 Version:	2022.02
-Release:	3%{?dist}
+Release:	4%{?dist}
 URL:		https://github.com/cnr-isti-vclab/meshlab
 # Bundled e57 is Boost-licensed
 License:	GPLv2+ and BSD and Public Domain and ASL 2.0 and Boost
@@ -161,6 +161,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/meshlab.desktop
 # %%license unsupported/plugins_unsupported/filter_poisson/license.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.02-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Miro Hrončok <mhroncok@redhat.com> - 2022.02-3
 - Fix build failure with GCC 13
 - Declare bundled e57 library by providing bundled(e57) and adding Boost to the list of licenses

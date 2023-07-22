@@ -4,7 +4,7 @@
 Name:    grantlee-qt5
 Summary: Qt5 string template engine based on the Django template system
 Version: 5.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2+
 URL:     https://github.com/steveire/grantlee
@@ -138,6 +138,9 @@ sed -i \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 21 2023 Jan Grulich <jgrulich@redhat.com> - 5.3.1-1
 - 5.3.1
 

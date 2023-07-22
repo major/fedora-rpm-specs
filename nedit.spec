@@ -1,7 +1,7 @@
 Summary: A GUI text editor for systems with X
 Name: nedit
 Version: 5.7
-Release: 14%{?dist}
+Release: 15%{?dist}
 Source: http://sourceforge.net/projects/nedit/files/nedit-source/nedit-%{version}-src.tar.gz
 Source1: nedit.desktop
 Source2: nedit-icon.png
@@ -74,6 +74,9 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

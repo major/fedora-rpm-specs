@@ -1,6 +1,6 @@
 Name:           mrack
 Version:        1.15.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -182,6 +182,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.15.1-2
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           nq
 Version:        0.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Unix command line queue utility
 
 License:        CC0-1.0
@@ -40,6 +40,9 @@ setup, maintenance, supervision or any long-running processes.
 %{_mandir}/man1/tq.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 01 2023 Gustavo Costa <xfgusta@gmail.com> - 0.5-4
 - Use SPDX license
 

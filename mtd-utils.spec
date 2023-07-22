@@ -1,6 +1,6 @@
 Name:    mtd-utils
 Version: 2.1.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 Summary: Utilities for dealing with MTD (flash) devices
 URL:     http://www.linux-mtd.infradead.org/
@@ -73,6 +73,9 @@ Various test programs related to mtd-utils
 %{_libexecdir}/mtd-utils/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-HTML-RewriteAttributes
 Version:        0.05
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Concise attribute rewriting
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-RewriteAttributes
@@ -50,6 +50,9 @@ sed -i -e '/^inc\/.*$/d' MANIFEST
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

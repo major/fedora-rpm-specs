@@ -2,7 +2,7 @@
 
 Name:           mingw-windows-default-manifest
 Version:        6.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        MinGW Default Windows application manifest
 
 # The source code is FSFAP (see COPYING) except install-sh which is MIT/X11
@@ -91,6 +91,9 @@ application manifest.
 %{mingw64_libdir}/default-manifest.o
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

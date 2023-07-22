@@ -1,6 +1,6 @@
 Name:		perl-Test-API
 Version:	0.010
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Test a list of subroutines provided by a module
 License:	Apache-2.0
 URL:		https://metacpan.org/release/Test-API
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Test::API.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 22 2023 Paul Howarth <paul@city-fan.org> - 0.010-17
 - Use SPDX-format license tag
 - Drop support for building on EL-6

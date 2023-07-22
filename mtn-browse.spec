@@ -1,6 +1,6 @@
 Name:           mtn-browse
 Version:        1.20
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Application for browsing Monotone VCS databases
 License:        GPLv3+
 URL:            http://www.coosoft.plus.com/software.html
@@ -114,6 +114,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

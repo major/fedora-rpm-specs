@@ -2,7 +2,7 @@
 
 Name:           libfabric
 Version:        1.18.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Fabric Interfaces
 
 License:        BSD-2-Clause OR GPL-2.0-only
@@ -94,6 +94,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.18.1-2
 - Disable PSM2 in RHEL 10 builds
 

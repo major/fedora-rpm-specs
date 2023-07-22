@@ -4,7 +4,7 @@
 
 Name:           nodejs-bash-language-server
 Version:        4.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A language server for Bash
 License:        MIT
 Url:            https://github.com/bash-lsp/bash-language-server
@@ -90,6 +90,9 @@ find %{buildroot}%{nodejs_sitelib}/%{pkg_name} -type f -name "\.*" -delete
 %{nodejs_sitelib}/%{pkg_name}/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.6.10-1
 - Update to version 4.10.0 - https://github.com/bash-lsp/bash-language-server/blob/server-4.10.0/server/CHANGELOG.md
 

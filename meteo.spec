@@ -1,8 +1,8 @@
 %global uuid    com.gitlab.bitseater.%{name}
 
 Name:           meteo
-Version:        0.9.9.1
-Release:        4%{?dist}
+Version:        0.9.9.2
+Release:        %autorelease
 Summary:        Forecast application using OpenWeatherMap API
 
 License:        GPLv3+
@@ -72,35 +72,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{uuid}.desktop
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Nov 02 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.9.1-1
-- chore(update): 0.9.9.1
-
-* Sat Oct 30 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.9-1
-- chore(update): 0.9.9
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Sep 30 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.8-1
-- Update to 0.9.8
-
-* Wed Aug 14 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.7-4
-- Initial package
+%autochangelog

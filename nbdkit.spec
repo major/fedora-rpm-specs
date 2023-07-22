@@ -52,7 +52,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.35.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1217,6 +1217,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.6-1
 - New upstream development version 1.35.6
 

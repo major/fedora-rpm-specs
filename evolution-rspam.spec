@@ -1,7 +1,7 @@
 Name: evolution-rspam
 Summary: Evolution Plugin for reporting spam
 Version: 0.6.0
-Release: 39%{?dist}
+Release: 40%{?dist}
 License: GPLv2+
 Source: http://gnome.eu.org/%{name}-%{version}.tar.xz
 URL: http://gnome.eu.org/evo/index.php/Report_as_Spam
@@ -15,6 +15,7 @@ Patch5: evolution-rspam-0.6.0-evo3136.patch
 Patch6: evolution-rspam-0.6.0-source-double-unref.patch
 Patch7: evolution-rspam-0.6.0-activity-leak.patch
 Patch8: evolution-rspam-0.6.0-evo3_23_2.patch
+Patch9: evolution-rspam-0.6.0-fix-po-charset.patch
 
 Requires: perl-Razor-Agent
 Requires: pyzor
@@ -32,16 +33,7 @@ This plugins requires a pretty new version of evolution to build.
 See README for more information about required programs.
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch0 -p1 -b .evo38
-%patch1 -p1 -b .convert-fix
-%patch2 -p1 -b .globals-clash
-%patch3 -p1 -b .evo312
-%patch4 -p1 -b .evo313
-%patch5 -p1 -b .evo3136
-%patch6 -p1 -b .source-double-unref
-%patch7 -p1 -b .activity-leak
-%patch8 -p1 -b .evo3_23_2
+%autosetup -p1 -S gendiff
 
 %build
 ./autogen.sh
@@ -71,6 +63,9 @@ find %{buildroot} -name \*\.la -print | xargs rm -f
 %doc TODO
 
 %changelog
+* Thu Jul 20 2023 Milan Crha <mcrha@redhat.com> - 0.6.0-40
+- Add patch to correct character set name in en_AU.po
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

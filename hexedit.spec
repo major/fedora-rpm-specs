@@ -5,7 +5,7 @@ Version: 1.6
 
 Summary: A hexadecimal file viewer and editor
 Name: hexedit
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 URL: http://rigaux.org/hexedit.html
 Source: %{forgesource}
@@ -47,6 +47,9 @@ make install \
 %{_mandir}/man1/hexedit.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

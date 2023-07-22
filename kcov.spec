@@ -10,7 +10,7 @@
 
 Name:           kcov
 Version:        41
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Code coverage tool without special compilation options
 
 # Licenses of kcov itself and its bundled js libraries (see below)
@@ -112,6 +112,9 @@ tests/tools/run-tests build/src/kcov /tmp/ build-tests/ $(pwd) -v
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 24 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 41-1
 - Bump to version 41
 - Remove upstream patch for GCC 13

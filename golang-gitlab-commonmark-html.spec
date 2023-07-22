@@ -19,7 +19,7 @@ parsing HTML entities.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 Summary:        HTML utilities for escaping/unescaping and for parsing HTML
 
 # Upstream license specification: BSD-2-Clause
@@ -46,6 +46,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

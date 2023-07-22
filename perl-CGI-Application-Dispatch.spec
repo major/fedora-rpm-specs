@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Dispatch
 Version:        3.12
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Dispatch requests to CGI::Application based objects
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Application-Dispatch
@@ -51,6 +51,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

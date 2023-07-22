@@ -1,6 +1,6 @@
 Name:           perl-File-Find-utf8
 Version:        0.014
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fully UTF-8 aware File::Find
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/File-Find-utf8
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

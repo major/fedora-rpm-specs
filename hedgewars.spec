@@ -1,6 +1,6 @@
 Name:           hedgewars
 Version:        1.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Funny turn-based artillery game, featuring fighting Hedgehogs!
 License:        GPL-1.0-or-later
 URL:            http://www.hedgewars.org/
@@ -202,6 +202,9 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.2-3
 - migrated to SPDX license
 

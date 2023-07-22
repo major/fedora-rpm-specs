@@ -2,7 +2,7 @@
 
 Name:           hostapd
 Version:        2.10
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator
 License:        BSD
 URL:            http://w1.fi/hostapd
@@ -187,6 +187,9 @@ fi
 %{_sysconfdir}/logwatch/scripts/services/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 John W. Linville <linville@redhat.com> - 2.10-6
 - Correct path for example hostapd.conf cited in hostapd.conf.5
 

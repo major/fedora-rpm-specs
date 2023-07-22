@@ -3,7 +3,7 @@
 
 Name:           manedit
 Version:        1.2.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        UNIX Manual Page Editor
 
 License:        GPLv2
@@ -108,6 +108,9 @@ popd
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

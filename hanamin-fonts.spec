@@ -1,5 +1,5 @@
 Version:	20170904
-Release:	16%{?dist}
+Release:	17%{?dist}
 URL:		http://fonts.jp/hanazono/
 
 %global	foundry		hanamin
@@ -61,6 +61,9 @@ done
 %fontfiles -a
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20170904-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr  4 2023 Akira TAGOH <tagoh@redhat.com> - 20170904-16
 - Migrated license tag to SPDX.
 

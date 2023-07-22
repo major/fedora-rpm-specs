@@ -4,7 +4,7 @@
 
 Name:           mysqltuner
 Version:        1.9.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MySQL configuration assistant
 
 License:        GPL-3.0-or-later
@@ -48,6 +48,9 @@ install -Dpm 755 mysqltuner.pl $RPM_BUILD_ROOT%{_bindir}/mysqltuner
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 08 2023 Major Hayden <major@redhat.com> - 1.9.9-2
 - Migrated to SPDX license
 

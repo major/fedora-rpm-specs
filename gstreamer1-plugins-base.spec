@@ -8,7 +8,7 @@
 
 Name:           gstreamer1-plugins-base
 Version:        1.22.3
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPLv2+
@@ -491,6 +491,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.3-2
 - Disable cdparanoia in RHEL builds
 

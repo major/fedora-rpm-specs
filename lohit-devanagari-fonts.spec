@@ -1,7 +1,7 @@
 %global fontname lohit-devanagari
 
 Version:        2.95.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 URL:            https://github.com/lohit-fonts/lohit-devanagari-fonts
 
 %global foundry           Lohit
@@ -45,6 +45,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.95.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Sudip Shil <sshil@redhat.com> - 2.95.5-7
 - Included make ttf macro
 

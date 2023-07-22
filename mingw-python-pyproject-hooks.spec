@@ -11,7 +11,7 @@
 Name:           mingw-python-%{pkgname}
 Summary:        MinGW Python %{pypi_name} library
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -108,6 +108,9 @@ cp -a src/pyproject_hooks %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Sandro Mani <manisandro@gmail.com> - 1.0.0-1
 - Full build
 

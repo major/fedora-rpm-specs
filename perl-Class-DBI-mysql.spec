@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-mysql
 Version:        1.00
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Extensions to Class::DBI for MySQL
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-DBI-mysql
@@ -48,6 +48,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -delete
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

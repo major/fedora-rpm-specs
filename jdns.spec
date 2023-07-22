@@ -7,7 +7,7 @@
 
 Name: jdns
 Version: 2.0.6
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: MIT
 Summary: A simple DNS queries library
@@ -188,6 +188,9 @@ popd
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

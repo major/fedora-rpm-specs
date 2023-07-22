@@ -1,6 +1,6 @@
 Name:           perl-Minion
 Version:        10.25
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        High performance job queue for the Perl programming language
 License:        Artistic 2.0 and MIT and OFL
 
@@ -75,6 +75,9 @@ chmod -x lib/Mojolicious/Plugin/Minion/resources/public/minion/epoch/*
 %{_mandir}/man3/Mojolicious::Plugin::Minion*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.25-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.25-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

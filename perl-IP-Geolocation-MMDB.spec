@@ -1,6 +1,6 @@
 Name:           perl-IP-Geolocation-MMDB
 Version:        1.010
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Read MaxMind DB files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/IP-Geolocation-MMDB
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/IP::Geolocation::MMDB::Metadata.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.010-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.010-2
 - Perl 5.38 rebuild
 

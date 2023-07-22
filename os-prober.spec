@@ -1,6 +1,6 @@
 Name:           os-prober
 Version:        1.81
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Probes disks on the system for installed operating systems
 
 # For more information about licensing, see copyright file.
@@ -91,6 +91,9 @@ fi
 %{_var}/lib/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.81-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.81-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           perl-L
 Version:        1.0.1
 %global cpan_version v%{version}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Perl extension to load module automatically in one-liner
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/L
@@ -53,6 +53,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

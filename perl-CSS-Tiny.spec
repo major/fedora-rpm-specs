@@ -1,6 +1,6 @@
 Name:           perl-CSS-Tiny
 Version:        1.20
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Read/Write .css files with as little code as possible
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -48,6 +48,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 22 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.20-22
 - Update license to SPDX format
 

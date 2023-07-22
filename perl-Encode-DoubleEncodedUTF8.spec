@@ -1,6 +1,6 @@
 Name:           perl-Encode-DoubleEncodedUTF8
 Version:        0.05
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Fix double encoded UTF-8 bytes to the correct one
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Encode-DoubleEncodedUTF8
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

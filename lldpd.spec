@@ -1,6 +1,6 @@
 Name:     lldpd
 Version:  1.0.16
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  ISC-licensed implementation of LLDP
 
 License:  ISC
@@ -113,6 +113,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May  2 2023 Peter Hjalmarsson <kanelxake@gmail.com> - 1.0.16-2
 - Correcting usage of rundir macro
 - Fix creation of sysuser

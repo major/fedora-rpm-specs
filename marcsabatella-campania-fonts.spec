@@ -1,5 +1,5 @@
 Version:        2.009
-Release:        7%{?dist}
+Release:        8%{?dist}
 URL:            https://github.com/MarcSabatella/Campania
 
 %global foundry           MarcSabatella
@@ -50,6 +50,9 @@ sed -e 's,updatecontact,update_contact,g' \
 %fontfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.009-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 2.009-7
 - Remove redundant metadata check
 

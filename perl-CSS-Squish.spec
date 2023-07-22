@@ -1,6 +1,6 @@
 Name:           perl-CSS-Squish
 Version:        0.10
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Compact many CSS files into one big file
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CSS-Squish
@@ -49,6 +49,9 @@ honor any valid @import statements included in the files.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

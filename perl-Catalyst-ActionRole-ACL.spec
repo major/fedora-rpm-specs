@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-ActionRole-ACL
 Version:        0.07
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        User role-based authorization action class
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-ActionRole-ACL
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

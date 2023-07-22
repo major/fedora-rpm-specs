@@ -1,6 +1,6 @@
 Name:           jaxb-dtd-parser
 Version:        1.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        SAX-like API for parsing XML DTDs
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-dtd-parser
@@ -52,6 +52,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Marian Koncek <mkoncek@redhat.com> - 1.5.0-6
 - Remove provision of glassfish artifact
 

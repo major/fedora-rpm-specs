@@ -1,6 +1,6 @@
 Name:           gridloc
 Version:        0.6
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A ncurses console application for the calculation of Maidenhead QRA Locators
 
 License:        GPLv2+
@@ -46,6 +46,9 @@ cp default/.gridlocrc $RPM_BUILD_ROOT/%{_docdir}/gridlocrc.sample
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

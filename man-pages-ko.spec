@@ -1,7 +1,7 @@
 Summary: Korean(Hangul) Man(manual) Pages from the Korean Manpage Project
 Name: man-pages-ko
 Version: 20050219
-Release: 45%{?dist}
+Release: 46%{?dist}
 # The Copyright only license is from the old spec file,
 # The other licenses are the result from the scancode toolkit.
 License: Copyright only AND Apache-1.0 AND BSD-3-Clause AND BSD-4-Clause-UC AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND Linux-man-pages-copyleft AND X11
@@ -75,6 +75,9 @@ cp -a man? $RPM_BUILD_ROOT%{_mandir}/ko/
 %{_mandir}/ko/man*/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:20050219-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Peng Wu <pwu@redhat.com> - 2:20050219-45
 - Update the License field
 

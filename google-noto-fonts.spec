@@ -29,7 +29,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20230601
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -1170,6 +1170,9 @@ done
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Akira TAGOH <tagoh@redhat.com> - 20230601-3
 - Use Noto Bengali for mni
   Resolves: rhbz#2214982

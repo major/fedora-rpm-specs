@@ -1,6 +1,6 @@
 Name: liboauth2
 Version: 1.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Generic library to build OAuth 2.x and OpenID Connect servers and clients in C
 License: AGPLv3
 URL: https://github.com/zmartzone/liboauth2
@@ -90,6 +90,9 @@ find %{buildroot}%{_includedir}/oauth2 -name '*.h' | grep -v apache | sed 's@%{b
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Packit <hello@packit.dev> - 1.5.1-1
 - fix pcre2-8 dependency
 - add END_TEST to test_openidc_resolver_url (Hans Zandbelt)

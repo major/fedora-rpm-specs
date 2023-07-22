@@ -1,7 +1,7 @@
 Summary: Database-specific drivers for libdbi
 Name: libdbi-drivers
 Version: 0.9.0
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: LGPLv2+
 URL: http://libdbi-drivers.sourceforge.net/
 
@@ -114,6 +114,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 %{_libdir}/dbd/libdbdsqlite3.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 24 2023 Bojan Smojver <bojan@rexursive.com> - 0.9.0-24
 - Patch buffer overflow (bug #2186025)
 

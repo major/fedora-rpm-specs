@@ -2,7 +2,7 @@
 
 Name:           parcellite
 Version:        1.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight GTK+ clipboard manager
 
 License:        GPLv3+
@@ -68,6 +68,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.2.2-2
 - enable debuginfo
 

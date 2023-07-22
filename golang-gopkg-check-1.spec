@@ -21,7 +21,7 @@ Rich testing for the Go language.}
 
 Name:           %{goname}
 Version:        1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Rich testing for the Go language
 
 # Upstream license specification: BSD-2-Clause
@@ -50,6 +50,9 @@ BuildRequires:  golang(github.com/kr/pretty)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

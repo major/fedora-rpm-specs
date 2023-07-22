@@ -1,6 +1,6 @@
 Name: libosip2
 Version: 5.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: oSIP is an implementation of SIP
 License: LGPL-2.0-or-later
 
@@ -74,6 +74,9 @@ mv %{buildroot}%{_mandir}/man1/osip.1 %{buildroot}%{_mandir}/man1/osip2.1
 %{_mandir}/man1/osip2.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 09 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.3.1-1
 - New upstream version 5.3.1.
 

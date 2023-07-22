@@ -2,7 +2,7 @@
 
 Name:    hyperscan
 Version: 5.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: High-performance regular expression matching library
 
 License: BSD
@@ -87,6 +87,9 @@ needed for developing Hyperscan applications.
 %{_includedir}/hs/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 14 2023 Jason Taylor <jtfas90@gmail.com> - 5.4.1-2
 - Patch broken validity check introduced upstream in release 
 

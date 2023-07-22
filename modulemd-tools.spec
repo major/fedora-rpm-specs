@@ -1,6 +1,6 @@
 Name: modulemd-tools
 Version: 0.16
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Collection of tools for modular (in terms of Fedora Modularity origin) content creators
 License: MIT
 BuildArch: noarch
@@ -104,6 +104,9 @@ cp man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 0.16-2
 - Rebuilt for Python 3.12
 

@@ -17,7 +17,7 @@
 # Upstream git:
 # git://pcmanfm.git.sourceforge.net/gitroot/pcmanfm/pcmanfm
 
-%global         baserelease     1
+%global         baserelease     2
 
 %if 0%{?use_gitbare} >= 1
 %global         gitbaredate	20210203
@@ -211,6 +211,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-1.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

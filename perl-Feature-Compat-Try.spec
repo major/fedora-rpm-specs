@@ -1,6 +1,6 @@
 Name:           perl-Feature-Compat-Try
 Version:        0.05
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Make try/catch syntax available
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -62,6 +62,9 @@ perl Build.PL installdirs=vendor
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           gpx-viewer
 Version:        0.4.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A simple gpx viewer
 
 License:        GPLv2+
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/gpx-viewer.xml
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           pamix
 Version:        1.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        PulseAudio terminal mixer
 License:        MIT
 URL:            https://github.com/patroclos/PAmix
@@ -38,6 +38,9 @@ PAmix is a simple, terminal-based mixer for PulseAudio inspired by pavucontrol.
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Petr Šabata <contyk@redhat.com> - 1.6-7
 - Fix FTBFS with current ncurses
 - SPDX migration

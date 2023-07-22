@@ -1,6 +1,6 @@
 Name:           lib3mf
 Version:        2.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Implementation of the 3D Manufacturing Format file standard
 License:        BSD-2-Clause
 URL:            https://3mf.io
@@ -126,6 +126,9 @@ ln -s lib3mf.pc %{buildroot}%{_libdir}/pkgconfig/lib3MF.pc
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 26 2023 Miro Hrončok <mhroncok@redhat.com> - 2.2.0-4
 - Don't force C++11 to fix FTBFS with gtest 1.13+
 - Convert the License tag to SPDX

@@ -6,7 +6,7 @@
 
 Name:           perl-Cairo
 Version:        1.109
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Perl interface to the cairo library
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Cairo
@@ -50,6 +50,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.109-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.109-9
 - Perl 5.38 rebuild
 

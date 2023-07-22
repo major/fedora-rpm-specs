@@ -2,7 +2,7 @@
 
 Name:           libportal
 Version:        0.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Flatpak portal library
 License:        LGPLv3
 Url:            https://github.com/flatpak/libportal
@@ -179,6 +179,9 @@ This package provides development documentations for libportal.
 %{_datadir}/doc/libportal-1
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6-7
 - Disable qt5 in RHEL 10 builds
 

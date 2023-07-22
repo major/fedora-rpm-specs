@@ -23,7 +23,7 @@ achieve well-defined lifecycle semantics for the group.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Universal mechanism to manage goroutine lifecycles
 
 # Upstream license specification: Apache-2.0
@@ -50,6 +50,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

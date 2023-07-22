@@ -17,7 +17,7 @@ testing.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        HTTP mock for Golang
 
 # Upstream license specification: Apache-2.0
@@ -47,6 +47,9 @@ Source0:        %{gosource}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 10 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.4.2-10
 - Switch to SPDX license
 

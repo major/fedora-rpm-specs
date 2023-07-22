@@ -1,6 +1,6 @@
 Name:           perl-HTML-FillInForm
 Version:        2.22
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Populates HTML Forms with data
 License:        GPL+ or Artistic
 
@@ -51,6 +51,9 @@ allowing you to keep the HTML and Perl separate.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

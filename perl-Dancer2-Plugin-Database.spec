@@ -1,6 +1,6 @@
 Name:           perl-Dancer2-Plugin-Database
 Version:        2.17
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Easy database connections for Dancer2 applications
 License:        GPL+ or Artistic
 
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/Dancer2*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

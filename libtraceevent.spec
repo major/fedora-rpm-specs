@@ -5,7 +5,7 @@
 
 Name: libtraceevent
 Version: 1.7.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: Library to parse raw trace event formats
 
@@ -64,6 +64,9 @@ rm -rf %{buildroot}/%{_libdir}/libtraceevent.a
 %{_libdir}/pkgconfig/libtraceevent.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 05 2023 Zamir SUN <sztsian@gmail.com> - 1.7.2-2
 - SPDX migration
 

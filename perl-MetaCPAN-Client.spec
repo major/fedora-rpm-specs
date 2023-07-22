@@ -4,7 +4,7 @@
 
 Name:		perl-MetaCPAN-Client
 Version:	2.030000
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A comprehensive, DWIM-featured client to the MetaCPAN API
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://github.com/CPAN-API/metacpan-client
@@ -108,6 +108,9 @@ mv ./[a-z]*.t t/api/
 %{_mandir}/man3/MetaCPAN::Client::Types.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.030000-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.030000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:		perl-Apache-Session-NoSQL
 Version:	0.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	(Deprecated) NoSQL implementation of Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-NoSQL
@@ -117,6 +117,9 @@ make test
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 26 2023 Paul Howarth <paul@city-fan.org> - 0.3-1
 - Update to 0.3
   - Mark as deprecated

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocamlify
 Version:        0.0.2
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Include files in OCaml code
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -69,6 +69,9 @@ ocaml -I +camlp-streams setup.ml -test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.0.2-36
 - OCaml 5.0 rebuild for Fedora 39
 

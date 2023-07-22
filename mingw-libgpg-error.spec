@@ -2,7 +2,7 @@
 
 Name:           mingw-libgpg-error
 Version:        1.36
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        MinGW Windows GnuPGP error library
 
 License:        LGPLv2+
@@ -139,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_infodir} $RPM_BUILD_ROOT%{mingw64_mandir}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: pdns
 Version: 4.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A modern, advanced and high performance authoritative-only nameserver
 License: GPLv2
 URL: http://powerdns.com
@@ -321,6 +321,9 @@ exit 0
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.8.1-1
 - Update to 4.8.1
 

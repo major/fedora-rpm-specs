@@ -1,7 +1,7 @@
 Summary: The Reliable Event Logging Protocol library
 Name: librelp
 Version: 1.11.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL: http://www.rsyslog.com/
 Source0: http://download.rsyslog.com/%{name}/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ rm $RPM_BUILD_ROOT/%{_libdir}/*.la
 %{_libdir}/pkgconfig/relp.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Attila Lakatos <alakatos@redhat.com> - 1.11.0-1
 - rebase to 1.11.0
   resolves: rhbz#2159703

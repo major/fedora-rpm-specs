@@ -16,7 +16,7 @@ flag package.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.22%{?dist}
+Release:        0.23%{?dist}
 Summary:        Simple api for flag serialization and parsing on top of the flag package
 
 # Upstream license specification: Apache-2.0
@@ -43,6 +43,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

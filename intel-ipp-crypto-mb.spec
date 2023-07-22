@@ -9,7 +9,7 @@ x25519 multi-buffer algorithms based on Intel Advanced Vector Extensions 512
 
 Name:		intel-ipp-crypto-mb
 Version:	1.0.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Intel IPP Cryptography multi-buffer library
 
 License:	Apache-2.0
@@ -79,6 +79,9 @@ popd
 %{_libdir}/libcrypto_mb.a
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.8-1
 - Update to 1.0.8
 

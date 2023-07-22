@@ -1,7 +1,7 @@
 Summary: GNOME Structured File library
 Name: libgsf
 Version: 1.14.50
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.1-only
 Source: https://download.gnome.org/sources/%{name}/1.14/%{name}-%{version}.tar.xz
 Patch0: libgsf-configure-c99.patch
@@ -80,6 +80,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/gsf-vba-dump.1*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.50-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 1.14.50-2
 - Port configure script to C99
 

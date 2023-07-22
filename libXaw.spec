@@ -3,7 +3,7 @@
 Summary: X Athena Widget Set
 Name: libXaw
 Version: 1.0.14
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -73,6 +73,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 #{_pkgdocdir}/%{name}.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.14-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

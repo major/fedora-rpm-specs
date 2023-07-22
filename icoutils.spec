@@ -1,6 +1,6 @@
 Name:           icoutils
 Version:        0.32.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Utility for extracting and converting Microsoft icon and cursor files
 
 License:        GPLv3+
@@ -62,6 +62,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

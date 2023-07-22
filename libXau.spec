@@ -1,7 +1,7 @@
 Summary: Sample Authorization Protocol for X
 Name: libXau
 Version: 1.0.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -68,6 +68,9 @@ make check
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

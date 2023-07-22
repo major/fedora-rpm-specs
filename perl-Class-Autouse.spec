@@ -1,6 +1,6 @@
 Name:		perl-Class-Autouse
 Version:	2.01
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	Run-time class loading on first method call
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Class-Autouse
@@ -78,6 +78,9 @@ AUTOMATED_TESTING=1 PERL_DL_NONLAZY=1 %{__perl} "-MExtUtils::Command::MM" "-e" "
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.01-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 14 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.01-36
 - Remove inc/ from MANIFEST.
 

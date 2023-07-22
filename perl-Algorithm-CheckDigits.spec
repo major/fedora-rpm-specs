@@ -1,6 +1,6 @@
 Name:       perl-Algorithm-CheckDigits
 Version:    1.3.6
-Release:    5%{?dist}
+Release:    6%{?dist}
 
 Summary:    Perl extension to generate and test check digits
 
@@ -64,6 +64,9 @@ perl Build.PL installdirs=vendor
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

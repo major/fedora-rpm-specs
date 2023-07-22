@@ -7,7 +7,7 @@
 
 Name:           perl-Module-Install
 Version:        1.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Standalone, extensible Perl module installer
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install
@@ -180,6 +180,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.21-1
 - 1.21 bump
 - Package tests

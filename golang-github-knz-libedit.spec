@@ -17,7 +17,7 @@ Go wrapper around libedit, a replacement to GNU readline using the BSD license.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        %{?dist}.5
+Release:        %{?dist}.6
 Summary:        Go wrapper around the BSD libedit replacement to GNU readline
 
 # Upstream license specification: Apache-2.0
@@ -49,6 +49,9 @@ BuildRequires:  pkgconfig(libedit)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

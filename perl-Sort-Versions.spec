@@ -1,6 +1,6 @@
 Name:           perl-Sort-Versions
 Version:        1.62
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Perl module for sorting of revision-like numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sort-Versions
@@ -46,6 +46,9 @@ undoubtedly be found.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.62-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.62-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

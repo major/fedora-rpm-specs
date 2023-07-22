@@ -5,7 +5,7 @@ Name:    kgamma
 Summary: A monitor calibration tool
 Epoch:   1
 Version: 5.27.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2
 URL:     https://cgit.kde.org/%{base_name}.git
@@ -64,6 +64,9 @@ Conflicts: kdegraphics < 7:4.6.95-10
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.27.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.27.6-1
 - 5.27.6
 

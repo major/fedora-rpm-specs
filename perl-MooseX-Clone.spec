@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Clone
 Version:        0.06
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Fine grained cloning support for Moose objects
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-Clone
@@ -58,6 +58,9 @@ value's own clone method.
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           java_cup
 Version:        0.11b
-Release:        23%{?dist}
+Release:        24%{?dist}
 Epoch:          1
 Summary:        LALR parser generator for Java
 License:        MIT
@@ -100,6 +100,9 @@ jar ufm dist/java-cup-%{pkg_version}-runtime.jar %{SOURCE4}
 %license licence.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.11b-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.11b-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

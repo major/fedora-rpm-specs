@@ -1,7 +1,7 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
 Version: 1.55.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: https://nghttp2.org/
 Source0: https://github.com/tatsuhiro-t/nghttp2/releases/download/v%{version}/nghttp2-%{version}.tar.xz
@@ -120,6 +120,9 @@ export "LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}:$LD_LIBRARY_PATH"
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.55.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Jan Macku <jamacku@redhat.com> 1.55.1-1
 - update to the latest upstream release
 - fixes CVE-2023-35945 - memmory leak

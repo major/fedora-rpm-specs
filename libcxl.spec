@@ -1,6 +1,6 @@
 Name:           libcxl
 Version:        1.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Coherent accelerator interface
 License:        Apache-2.0
 URL:            https://github.com/ibm-capi/libcxl
@@ -57,6 +57,9 @@ cp -a build/man3 $RPM_BUILD_ROOT%{_mandir}/
 %{_libdir}/libcxl.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 28 2023 Than Ngo <than@redhat.com> - 1.7-14
 - Migrated to SPDX license
 - Fixed deprecated patch rpm macro

@@ -19,7 +19,7 @@
 Name:      %{libname}
 Summary:   Client library for AMQP
 Version:   0.13.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 License:   MIT
 URL:       https://github.com/alanxz/rabbitmq-c
 
@@ -148,6 +148,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Than Ngo <than@redhat.com> - 0.13.0-2
 - fix security issue, CVE-2023-35789
 

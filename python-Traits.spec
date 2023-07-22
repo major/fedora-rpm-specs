@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 %global srcname Traits
 %global modname traits
 %global commit ac5d0296def6a389f932add5fbcab2eef6e7334e
@@ -9,7 +8,7 @@
 
 Name:           python-%{srcname}
 Version:        6.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Explicitly typed attributes for Python
 # Images have different licenses. For image license breakdown check
 # image_LICENSE.txt file.
@@ -92,6 +91,9 @@ popd
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Thu Jul 20 2023 Python Maint <python-maint@redhat.com> - 6.4.1-4
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 6.4.1-3
 - Bootstrap for Python 3.12
 

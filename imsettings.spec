@@ -1,6 +1,6 @@
 Name:		imsettings
 Version:	1.8.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -340,6 +340,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

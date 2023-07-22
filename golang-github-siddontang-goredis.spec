@@ -14,7 +14,7 @@ A simple redis client.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.6%{?dist}
+Release:        0.7%{?dist}
 Summary:        Simple redis client
 
 License:        MIT and ASL 2.0
@@ -45,6 +45,9 @@ BuildRequires:  golang(github.com/alicebob/miniredis)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

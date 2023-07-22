@@ -10,7 +10,7 @@
 
 Name:           kio-fuse
 Version:        5.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        KIO FUSE
 
 License:        GPLv3+
@@ -78,6 +78,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

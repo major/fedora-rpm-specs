@@ -6,7 +6,7 @@
 Name:			libvpx
 Summary:		VP8/VP9 Video Codec SDK
 Version:		1.13.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 License:		BSD
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
 Source1:		vpx_config.h
@@ -199,6 +199,9 @@ rm -rf %{buildroot}%{_prefix}/src
 %{_bindir}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 15 2023 Pete Walter <pwalter@fedoraproject.org> - 1.13.0-2
 - Fix whitespace in spec file
 - Drop 32 bit arm support

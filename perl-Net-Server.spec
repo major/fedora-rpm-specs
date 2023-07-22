@@ -1,6 +1,6 @@
 Name:           perl-Net-Server
 Version:        2.014
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extensible, general Perl server engine
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Server
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.014-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 17 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.014-2
 - Package tests
 - Update license to SPDX format

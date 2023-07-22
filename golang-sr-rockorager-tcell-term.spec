@@ -16,7 +16,7 @@ Version:                0.9.0
 %global godocs          example README.md
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An embeddable terminal widget for tcell
 
 License:        MIT
@@ -45,5 +45,8 @@ Source:         %{gourl}/archive/v%{version}.tar.gz#/tcell-term-%{version}.tar.g
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 %autochangelog
 

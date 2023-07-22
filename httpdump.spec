@@ -16,7 +16,7 @@ Capture and parse HTTP traffic.}
 
 Name:           httpdump
 Version:        0
-Release:        0.10%{?dist}
+Release:        0.11%{?dist}
 Summary:        Capture and parse HTTP traffic
 
 # Upstream license specification: BSD-2-Clause
@@ -72,6 +72,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Michal Ambroz <rebus _AT seznam.cz> - 0-0.10
 - bump to current git commit from 20220727
 

@@ -6,7 +6,7 @@ Summary: Digital rain in your terminal
 License: GPLv3+
 
 Version: 0.6.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: https://github.com/st3w/neo
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -55,6 +55,9 @@ for terminal color, and supports resizing gracefully.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

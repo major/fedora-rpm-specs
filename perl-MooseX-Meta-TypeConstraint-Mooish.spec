@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Meta-TypeConstraint-Mooish
 Version:        0.001
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Translate Moo-style constraints to Moose-style
 License:        LGPLv2
 URL:            https://metacpan.org/release/MooseX-Meta-TypeConstraint-Mooish
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

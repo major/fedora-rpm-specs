@@ -1,6 +1,6 @@
 Name:           perl-IO-Interface
 Version:        1.09
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Perl extension for accessing network card configuration information
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/IO-Interface
@@ -38,6 +38,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.09-27
 - Perl 5.38 rebuild
 

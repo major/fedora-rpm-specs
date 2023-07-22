@@ -7,7 +7,7 @@
 
 Name:           perl-Crypt-DES
 Version:        2.07
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Perl DES encryption module
 # License is like BSD-4-Clause but without the 4th clause
 License:        BSD
@@ -72,6 +72,9 @@ make test
 %{_mandir}/man3/Crypt::DES.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.07-33
 - Perl 5.38 rebuild
 

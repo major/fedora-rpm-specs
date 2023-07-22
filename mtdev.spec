@@ -3,7 +3,7 @@
 
 Name:           mtdev
 Version:        1.1.6
-Release:        5%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        6%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Multitouch Protocol Translation Library
 
 License:        MIT
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_bindir}/mtdev-test
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

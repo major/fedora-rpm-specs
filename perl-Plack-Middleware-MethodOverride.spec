@@ -1,6 +1,6 @@
 Name:           perl-Plack-Middleware-MethodOverride
 Version:        0.20
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Override REST methods to Plack apps via POST
 License:        GPL+ or Artistic
 
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Plack*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

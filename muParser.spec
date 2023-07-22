@@ -3,7 +3,7 @@
 Name:           muParser
 Summary:        A fast math parser library
 Version:        2.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  gcc
@@ -52,6 +52,9 @@ Development files and the documentation
 %{_libdir}/cmake/muparser/*.cmake
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Christoph Junghans <junghans@lanl.gov> - 2.3.4-1
 - Version bump to v2.3.4 (bug #2143538)
 - Fix url (bug #2138095)

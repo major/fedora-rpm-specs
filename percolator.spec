@@ -4,7 +4,7 @@
 Name:      percolator
 Summary:   Software for postprocessing of shotgun proteomics data
 Version:   3.06.01
-Release:   1%{?dist}
+Release:   2%{?dist}
 
 ## Code under src/ (except RAMP and Fido sub-directories) is licensed under a ASL 2.0 license.
 ## Code under src/Fido under MIT license.
@@ -255,6 +255,9 @@ popd
 %{_libdir}/percolator/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.06.01-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.06.01-1
 - Release 3.06.01
 - Elude support dropped

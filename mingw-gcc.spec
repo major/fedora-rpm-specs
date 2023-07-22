@@ -21,7 +21,7 @@
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions
@@ -918,6 +918,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 26 2023 Sandro Mani <manisandro@gmail.com> - 13.1.1-4
 - Update to gcc 20230426 snapshot
 

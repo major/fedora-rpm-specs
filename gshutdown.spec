@@ -1,6 +1,6 @@
 Name:		gshutdown
 Version:	0.2        
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	GShutDown is an advanced shut down utility for GNOME
 
 License:	GPLv2+
@@ -62,6 +62,9 @@ desktop-file-install					\
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

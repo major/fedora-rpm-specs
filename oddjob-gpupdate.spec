@@ -1,6 +1,6 @@
 Name:           oddjob-gpupdate
 Version:        0.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An oddjob helper which applies group policy objects
 License:        BSD
 URL:            https://github.com/altlinux/oddjob-gpupdate.git
@@ -75,6 +75,9 @@ fi
 %config(noreplace) %{_sysconfdir}/oddjobd.conf.d/oddjobd-gpupdate.conf
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

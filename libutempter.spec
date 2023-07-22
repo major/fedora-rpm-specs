@@ -3,7 +3,7 @@
 Summary: A privileged helper for utmp/wtmp updates
 Name: libutempter
 Version: 1.2.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: LGPL-2.1-or-later
 URL: ftp://ftp.altlinux.org/pub/people/ldv/utempter
 
@@ -62,6 +62,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Mar 12 2023 Tomas Korbar <tkorbar@redhat.com> - 1.2.1-9
 - Change the License tag to the SPDX format
 

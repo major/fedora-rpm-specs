@@ -34,7 +34,7 @@
 
 Name: mp
 Version: 3.1.0
-Release: 41.%{date}git%{shortcommit}%{?dist}
+Release: 42.%{date}git%{shortcommit}%{?dist}
 License: MIT and BSD
 Summary: An open-source library for mathematical programming
 URL: https://github.com/ampl/mp
@@ -314,6 +314,9 @@ popd
 %doc build/doc/ampl.github.io/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-42.20200303git7fd4828
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-41.20200303git7fd4828
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           nodejs-diagnostic-language-server
 Version:        1.13.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Diagnostic language server that integrate with linters
 License:        MIT
 Url:            https://github.com/iamcco/diagnostic-languageserver
@@ -76,6 +76,9 @@ find %{buildroot}%{nodejs_sitelib}/%{pkg_name} -type f -name "\.*" -delete
 %{nodejs_sitelib}/%{pkg_name}/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

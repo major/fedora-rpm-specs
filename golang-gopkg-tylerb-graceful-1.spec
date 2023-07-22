@@ -19,7 +19,7 @@ servers.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Go package enabling graceful shutdown of an http.Handler server
 
 License:        MIT
@@ -52,6 +52,9 @@ BuildRequires:  golang(golang.org/x/net/http2)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

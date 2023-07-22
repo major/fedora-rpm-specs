@@ -1,6 +1,6 @@
 Name:           perl-File-Spec-Native
 Version:        1.004
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Use native OS implementation of File::Spec from a subclass
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/File-Spec-Native
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

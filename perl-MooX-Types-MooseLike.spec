@@ -1,6 +1,6 @@
 Name:           perl-MooX-Types-MooseLike
 Version:        0.29
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Some Moosish types and a type builder
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooX-Types-MooseLike
@@ -68,6 +68,9 @@ parameterizable and non-parameterizable.
 %{_mandir}/man3/MooX*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

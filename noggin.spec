@@ -1,6 +1,6 @@
 Name:           noggin
 Version:        1.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -123,6 +123,9 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 1.7.1-2
 - Add patch for building in epel9
 

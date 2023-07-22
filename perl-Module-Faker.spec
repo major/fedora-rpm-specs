@@ -1,6 +1,6 @@
 Name:           perl-Module-Faker
 Version:        0.025
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build fake dists for testing CPAN tools
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Faker
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.025-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.025-1
 - 0.025 bump
 - Package tests

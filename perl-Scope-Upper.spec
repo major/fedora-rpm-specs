@@ -1,7 +1,7 @@
 Name:           perl-Scope-Upper
 Summary:        Act on upper scopes
 Version:        0.34
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/V/VP/VPIT/Scope-Upper-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Scope-Upper
@@ -103,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.34-2
 - Perl 5.38 rebuild
 

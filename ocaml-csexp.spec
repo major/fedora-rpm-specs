@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-csexp
 Version:        1.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parsing and printing of S-expressions in canonical form
 
 License:        MIT
@@ -147,6 +147,9 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5.2-3
 - OCaml 5.0 rebuild for Fedora 39
 

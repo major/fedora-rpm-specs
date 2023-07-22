@@ -4,7 +4,7 @@
 Name:    gthumb
 Epoch:   1
 Version: 3.12.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Image viewer, editor, organizer
 
 License: GPLv2+
@@ -98,6 +98,9 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.12.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 1:3.12.2-8
 - Mass rebuild for jpegxl-0.8.1
 

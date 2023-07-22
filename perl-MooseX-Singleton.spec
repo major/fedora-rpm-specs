@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Singleton
 Version:        0.30
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Turn your Moose class into a singleton
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-Singleton
@@ -46,6 +46,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

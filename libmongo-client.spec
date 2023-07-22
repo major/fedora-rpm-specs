@@ -1,6 +1,6 @@
 Name:		libmongo-client
 Version:	0.1.8
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Alternative C driver for MongoDB
 
 License:	Apache-2.0
@@ -73,6 +73,9 @@ rm -f %{buildroot}/%{_libdir}/*.{a,la}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Attila Lakatos <alakatos@redhat.com> - 0.1.8-21
 - Migrate to SPDX license
 

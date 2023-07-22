@@ -23,7 +23,7 @@ end}
 
 Name:             grafana
 Version:          9.2.10
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPLv3
 URL:              https://grafana.org
@@ -914,6 +914,9 @@ export GOEXPERIMENT=boringcrypto
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 18 2023 Stan Cox <scox@redhat.com> 9.2.10-2
 - Update to 9.2.10
 

@@ -1,7 +1,7 @@
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version:		3.21.0
-Release:		5%{?dist}
+Release:		6%{?dist}
 License:		CPL-1.0
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -356,6 +356,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Than Ngo <than@redhat.com> - 3.21.0-5
 - p11sak tool: slot option does not accept argument 0 for slot index 0
 - p11sak fails as soon as there reside non-key objects

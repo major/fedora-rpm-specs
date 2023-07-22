@@ -26,7 +26,7 @@
 Name:           %{pkg_name}
 Version:        2.19.2
 # can only be reset when all subpkgs bumped
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPL-2.0-or-later
@@ -500,6 +500,9 @@ touch %{buildroot}%{_datadir}/bash-completion/completions/%{name}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 13 2023 Jens Petersen <petersen@redhat.com> - 2.19.2-21
 - ppc64le: disable hslua version check to avoid --version crash (rhbz#2177568)
 

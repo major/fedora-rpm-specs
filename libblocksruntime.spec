@@ -4,7 +4,7 @@
 
 Name:       libblocksruntime
 Version:    7.0.0
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    LLVM's compiler-rt/BlocksRuntime development files 
 License:    NCSA and MIT
 URL:        http://compiler-rt.llvm.org
@@ -81,6 +81,9 @@ ln -fs libBlocksRuntime.so.0 %{buildroot}%{_libdir}/libBlocksRuntime.so
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

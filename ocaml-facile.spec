@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:          ocaml-facile
 Version:       1.1.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       OCaml library for constraint programming
 Summary(fr):   Librairie OCaml de programmation par contraintes
 License:       LGPL-2.1-or-later
@@ -89,6 +89,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.4-2
 - OCaml 5.0 rebuild for Fedora 39
 

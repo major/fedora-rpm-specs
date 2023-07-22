@@ -4,7 +4,7 @@
 Summary: NSS module to look up users in /usr/lib/passwd too
 Name: nss-altfiles
 Version: 2.18.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 #VCS: https://github.com/aperezdc/nss-altfiles
 Source0: https://github.com/aperezdc/nss-altfiles/archive/v%{version}.tar.gz
 # From pull request: https://github.com/marineam/nss-altfiles/commit/dda5073238b88b4537f2d2707b0ef67bdd11fe06
@@ -40,6 +40,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

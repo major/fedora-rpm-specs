@@ -3,7 +3,7 @@
 
 Name:           libsigc++30
 Version:        3.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Typesafe signal framework for C++
 
 License:        LGPLv2+
@@ -77,6 +77,9 @@ This package contains the full API documentation for %{name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

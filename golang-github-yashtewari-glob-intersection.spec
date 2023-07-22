@@ -16,7 +16,7 @@ regexp-style globs is non-empty.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.7%{?dist}
+Release:        0.8%{?dist}
 Summary:        Go package to check if the intersection of two regexp-style globs is non-empty
 
 # Upstream license specification: Apache-2.0
@@ -45,6 +45,9 @@ BuildRequires:  golang(github.com/pkg/errors)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Pod-MinimumVersion
 Version:        50
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Perl version for POD directives used
 License:        GPL-3.0-or-later
 URL:            https://metacpan.org/release/Pod-MinimumVersion
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 50-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 50-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

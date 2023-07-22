@@ -1,6 +1,6 @@
 Name:           librime
 Version:        1.8.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPL-3.0-only
@@ -80,6 +80,9 @@ The %{name}-tools package contains tools for %{name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Peng Wu <pwu@redhat.com> - 1.8.5-2
 - Migrate to SPDX license
 

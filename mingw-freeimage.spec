@@ -10,7 +10,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.19.0
-Release:       0.14%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:       0.15%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 # freeimage is tripple-licensed, see
@@ -195,6 +195,9 @@ install -Dpm 0644 %{win64dir}/Dist/FreeImagePlus.h %{buildroot}%{mingw64_include
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.15.svn1889
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.14.svn1889
 - Fix empty CVE-2021-33367.patch
 

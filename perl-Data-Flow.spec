@@ -1,6 +1,6 @@
 Name:           perl-Data-Flow
 Version:        1.02
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Perl extension for simple-minded recipe-controlled build of data
 # Author declared license there:
 # <https://rt.cpan.org/Public/Bug/Display.html?id=18068#txn-175743>
@@ -73,6 +73,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

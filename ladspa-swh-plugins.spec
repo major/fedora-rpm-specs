@@ -3,7 +3,7 @@
 Summary:        A set of audio plugins for LADSPA
 Name:           ladspa-%{pkgname}
 Version:        0.4.17
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        GPLv2+
 URL:            http://plugin.org.uk/
 Source0:        https://github.com/swh/ladspa/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -62,6 +62,9 @@ autoreconf -f -i -I m4
 %{_datadir}/ladspa/rdf/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.17-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.17-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

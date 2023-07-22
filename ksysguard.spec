@@ -1,6 +1,6 @@
 Name:    ksysguard
 Version: 5.22.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: KDE Process Management application
 
 License: GPLv2
@@ -117,6 +117,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.ksysguard
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.22.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.22.0-9
 - Backport patch from upstream.
 - Fix BZ#2179990

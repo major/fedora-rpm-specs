@@ -8,7 +8,7 @@
 #%%global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 8
+%global baserelease 9
 
 Name:       ipsilon
 Version:    3.0.4
@@ -460,6 +460,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Python Maint <python-maint@redhat.com> - 3.0.4-8
 - Rebuilt for Python 3.12
 

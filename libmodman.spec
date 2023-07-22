@@ -1,6 +1,6 @@
 Name:           libmodman
 Version:        2.0.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A simple library for managing C++ modules (plug-ins)
 
 License:        LGPLv2+
@@ -51,6 +51,9 @@ developing applications that use %{name}.
 %{_datadir}/cmake/Modules/Findlibmodman.cmake
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

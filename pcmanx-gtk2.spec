@@ -1,7 +1,7 @@
 Summary:    Telnet client designed for BBS browsing
 Name:       pcmanx-gtk2
 Version:    1.3
-Release:    16%{?dist}
+Release:    17%{?dist}
 License:    GPLv2+
 Source0:    https://github.com/pcman-bbs/pcmanx/releases/download/%{version}/%{name}-%{version}.tar.xz
 URL:        https://github.com/pcman-bbs/pcmanx
@@ -54,6 +54,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

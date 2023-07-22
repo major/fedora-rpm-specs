@@ -1,6 +1,6 @@
 Name:           perl-MooseX-ArrayRef
 Version:        0.005
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Blessed array references with Moose
 # CONTRIBUTING: GPL+ or Artistic or CC-BY-SA
 # other files:  GPL+ or Artistic
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

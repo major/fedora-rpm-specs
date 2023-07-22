@@ -1,7 +1,7 @@
 Name:           perl-ORLite
 Summary:        Extremely light weight SQLite-specific ORM
 Version:        1.98
-Release:        32%{?dist}
+Release:        33%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/ORLite-%{version}.tar.gz 
 URL:            https://metacpan.org/release/ORLite
@@ -94,6 +94,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.98-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.98-32
 - Update Makefile.PL to not use Module::Install::DSL
 

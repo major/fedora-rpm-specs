@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 
 Name:			gpaw
 Version:		23.6.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 License:		GPLv3+
@@ -278,6 +278,9 @@ popd
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 23.6.0-2
 - Rebuilt for Python 3.12
 

@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.57
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -852,6 +852,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.57-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul  5 2023 Joe Orton <jorton@redhat.com> - 2.4.57-2
 - package /etc/systemd/httpd/httpd.service.d
 - also sanitize LDFLAGS/CXXFLAGS in non-vendor config_vars.mk

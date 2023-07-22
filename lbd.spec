@@ -1,6 +1,6 @@
 Name:           lbd
 Version:        0.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A DNS/HTTP load balancing detector
 
 License:        GPLv2+
@@ -29,6 +29,9 @@ install -p -m 755 %{SOURCE0} %{buildroot}%{_bindir}/
 %{_bindir}/lbd
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

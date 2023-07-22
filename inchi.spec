@@ -4,7 +4,7 @@
 Summary: The IUPAC International Chemical Identifier library
 Name: inchi
 Version: 1.0.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: https://www.inchi-trust.org/about-the-inchi-standard/
 Source0: https://www.inchi-trust.org/download/%{url_ver}/INCHI-1-SRC.zip
 Source1: https://www.inchi-trust.org/download/%{url_ver}/INCHI-1-DOC.zip
@@ -118,6 +118,9 @@ popd
 %doc INCHI-1-DOC/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

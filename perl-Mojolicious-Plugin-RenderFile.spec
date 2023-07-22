@@ -1,6 +1,6 @@
 Name:           perl-Mojolicious-Plugin-RenderFile
 Version:        0.12
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Mojolicious plugin allowing customization to force file download
 # See lib/Mojolicious/Plugin/RenderFile.pm
 License:        GPL+ or Artistic
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Mojolicious*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

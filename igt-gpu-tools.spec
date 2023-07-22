@@ -4,7 +4,7 @@
 
 Name:           igt-gpu-tools
 Version:        1.27
-Release:        2%{?gitrev}%{?dist}
+Release:        3%{?gitrev}%{?dist}
 Summary:        Test suite and tools for DRM drivers
 
 License:        MIT
@@ -198,6 +198,9 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_datadir}/gtk-doc/html/igt-gpu-tools/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-3.20230215git45da871
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Jan Rybar <jrybar@redhat.com> - 1.27-2
 - libproc2 transition patch by Craig Small
 

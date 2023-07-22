@@ -1,6 +1,6 @@
 Name:           perl-Devel-Trace
 Version:        0.12
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Print out each line before it is executed (like sh -x)
 
 License:        Public Domain
@@ -55,6 +55,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

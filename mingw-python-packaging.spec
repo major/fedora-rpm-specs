@@ -10,7 +10,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python packaging core utils
 Version:        23.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        BSD or ASL 2.0
@@ -113,6 +113,9 @@ cp -a packaging %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 24 2023 Sandro Mani <manisandro@gmail.com> - 23.1-1
 - Update to 23.1
 

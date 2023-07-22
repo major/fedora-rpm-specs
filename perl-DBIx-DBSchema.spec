@@ -1,6 +1,6 @@
 Name:           perl-DBIx-DBSchema
 Version:        0.47
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Database-independent schema objects
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

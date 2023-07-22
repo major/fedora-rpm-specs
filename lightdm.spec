@@ -7,7 +7,7 @@
 Name:		lightdm
 Summary:	A cross-desktop Display Manager
 Version:	1.32.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 # library/bindings are LGPLv2 or LGPLv3, the rest GPLv3+
 License:	(LGPLv2 or LGPLv3) and GPLv3+
@@ -278,6 +278,9 @@ fi
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 25 2023 Leigh Scott <leigh123linux@gmail.com> - 1.32.0-4
 - Use systemd sysusers config to create user and group
 

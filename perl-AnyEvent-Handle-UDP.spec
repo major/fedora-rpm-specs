@@ -1,6 +1,6 @@
 Name:           perl-AnyEvent-Handle-UDP
 Version:        0.050
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Client/server UDP handles for AnyEvent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AnyEvent-Handle-UDP
@@ -49,6 +49,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.050-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.050-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

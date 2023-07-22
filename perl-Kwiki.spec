@@ -1,6 +1,6 @@
 Name:           perl-Kwiki
 Version:        0.39
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Kwiki Wiki Building Framework
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Kwiki
@@ -101,6 +101,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

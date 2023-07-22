@@ -1,7 +1,7 @@
 Name:    kwrited
 Summary: KDE Write Daemon
 Version: 5.27.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -62,6 +62,9 @@ Conflicts:      kde-workspace < 5.0.0-1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
 - 5.27.6
 

@@ -1,6 +1,6 @@
 Name:           perl-Image-Math-Constrain
 Version:        1.02
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Scaling math used in image size constraining (such as thumbnails)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Image-Math-Constrain
@@ -59,6 +59,9 @@ make test AUTOMATED_TESTING=1
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

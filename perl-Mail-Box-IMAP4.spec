@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box-IMAP4
 Version:        3.007
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Handle IMAP4 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-IMAP4
@@ -105,6 +105,9 @@ make test
 %{_mandir}/man3/Mail::Server*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.007-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.007-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

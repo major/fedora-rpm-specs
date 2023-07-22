@@ -1,6 +1,6 @@
 Name:           perl-ReadonlyX
 Version:        1.04
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Faster facility for creating read-only scalars, arrays, hashes
 License:        GPL+ or Artistic
 
@@ -54,6 +54,9 @@ tool for catching updates to variables that should not be changed.
 %{_mandir}/man3/ReadonlyX*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

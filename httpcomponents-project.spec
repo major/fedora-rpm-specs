@@ -3,7 +3,7 @@
 Name:           httpcomponents-project
 Summary:        Common POM file for HttpComponents
 Version:        12
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        ASL 2.0
 URL:            https://hc.apache.org/
 Source0:        https://archive.apache.org/dist/httpcomponents/httpcomponents-parent/httpcomponents-parent-%{version}-source-release.zip
@@ -49,6 +49,9 @@ cp -p %{SOURCE1} .
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

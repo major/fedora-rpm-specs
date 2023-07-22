@@ -1,6 +1,6 @@
 Name:		libavtp
 Version:	0.2.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	An AVTP protocol implementation
 
 License:	BSD
@@ -48,6 +48,9 @@ This package contains development files for %{name}.
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

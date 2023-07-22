@@ -1,6 +1,6 @@
 Name:           perl-Getopt-Simple
 Version:        1.52
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Provide a simple wrapper around Getopt::Long
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/Getopt-Simple
@@ -47,6 +47,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

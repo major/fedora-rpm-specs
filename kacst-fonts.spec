@@ -9,7 +9,7 @@ from the King Abdulaziz City for Science & Technology(kacst).
 
 Name: %{fontname}-fonts
 Version: 2.0
-Release: 30%{?dist}
+Release: 31%{?dist}
 License: GPL-2.0-only
 Source: http://downloads.sourceforge.net/sourceforge/arabeyes/%{fontname}_fonts_%{version}.tar.bz2
 Source1: %{fontconf}-art.conf
@@ -334,6 +334,9 @@ install -Dm 0644 -p %{SOURCE30} \
 %dir %{fontdir}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.0-30
 - Migrate to SPDX license expression
 

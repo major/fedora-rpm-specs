@@ -1,7 +1,7 @@
 Summary: Hercules S/370, ESA/390, and z/Architecture emulator
 Name: hercules
 Version: 3.13
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: QPL
 URL: http://www.hercules-390.eu/
 Source0: http://downloads.hercules-390.eu/%{name}-%{version}.tar.gz
@@ -99,6 +99,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 3.13-13
 - Port configure script to C99
 

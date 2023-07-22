@@ -1,6 +1,6 @@
 Name:     mod_mono
 Version:  3.13
-Release:  12%{?dist}
+Release:  13%{?dist}
 Summary:  A module to deploy an ASP.NET application on Apache with Mono
 
 License:  MIT
@@ -63,6 +63,9 @@ install -d -m 0755 %{buildroot}/run/%{name}/
 %doc %{_mandir}/man8/mod_mono.8*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 3.13-12
 - BuildRequires systemd for the _tmpfilesdir macro.
 

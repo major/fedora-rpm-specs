@@ -1,7 +1,7 @@
 Summary: The GNU Scientific Library for numerical analysis
 Name: gsl
 Version: 2.7.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: http://www.gnu.org/software/gsl/
 License: GPLv3+
 Source: http://ftp.gnu.org/gnu/gsl/%{name}-%{version}.tar.gz
@@ -83,6 +83,9 @@ rm -r %{buildroot}%{_libdir}/*.a
 %{_includedir}/gsl/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libevdev
 Version:        1.13.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Kernel Evdev Device Wrapper Library
 
 License:        MIT
@@ -9,7 +9,7 @@ Source0:        http://www.freedesktop.org/software/%{name}/%{name}-%{version}.t
 
 BuildRequires:  git-core
 BuildRequires:  meson gcc
-BuildRequires:  python3 python3-devel
+BuildRequires:  python3 python3-rpm-macros
 
 %description
 %{name} is a library to wrap kernel evdev devices and provide a proper API
@@ -32,7 +32,7 @@ Utilities to handle and/or debug evdev devices.
 %prep
 %autosetup -S git
 # Replace whatever the source uses with the approved call
-pathfix.py -i %{__python3} -p -n $(git grep -l '#!/usr/bin/.*python.*')
+%py3_shebang_fix $(git grep -l  '#!/usr/bin/.*python3')
 
 %build
 %meson -Dtests=disabled -Ddocumentation=disabled -Dcoverity=false
@@ -65,6 +65,9 @@ pathfix.py -i %{__python3} -p -n $(git grep -l '#!/usr/bin/.*python.*')
 %{_mandir}/man1/mouse-dpi-tool.1*
 
 %changelog
+* Thu Jul 20 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.13.1-2
+- BuildRequires python3-rpm-macros for pathfix.py and use the rpm macro
+
 * Fri May 05 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.13.1-1
 - libevdev 1.13.1
 

@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-DevPopup
 Version:        1.08
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Runtime cgiapp info in a popup window
 License:        GPL+ or Artistic
 
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

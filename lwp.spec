@@ -1,6 +1,6 @@
 Name:           lwp
 Version:        2.6
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        C library for user-mode threading
 License:        LGPLv2
 URL:            http://www.coda.cs.cmu.edu/
@@ -56,6 +56,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

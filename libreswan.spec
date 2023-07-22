@@ -31,7 +31,7 @@ Name: libreswan
 Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec
 # version is generated in the release script
 Version: 4.11
-Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}
+Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}.1
 License: GPLv2
 Url: https://libreswan.org/
 Source0: https://download.libreswan.org/%{?prever:development/}%{name}-%{version}%{?prever}.tar.gz
@@ -207,6 +207,9 @@ certutil -N -d sql:$tmpdir --empty-password
 %doc %{_mandir}/*/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 04 2023 Paul Wouters <paul.wouters@aiven.io - 4.11-1
 - Update to 4.11 for CVE-2023-30570
 

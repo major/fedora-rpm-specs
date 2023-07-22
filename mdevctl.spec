@@ -4,7 +4,7 @@
 
 Name:           mdevctl
 Version:        1.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A mediated device management utility for Linux
 
 License:        LGPLv2
@@ -64,6 +64,9 @@ vfio-mdev for assignment to virtual machines.
 %{_datadir}/bash-completion/completions/lsmdev
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.2.0-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 - Slightly modernize Rust packaging (drop ExclusiveArch, __cargo_skip_build).

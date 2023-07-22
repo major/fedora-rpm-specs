@@ -20,7 +20,7 @@
 Name:           gutenprint
 Summary:        Printer Drivers Package
 Version:        5.3.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 URL:            http://gimp-print.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
 # Post-install script to update CUPS native PPDs.
@@ -306,6 +306,9 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 06 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.3.4-11
 - Replace python3-chardet with python3-charset-normalizer
 

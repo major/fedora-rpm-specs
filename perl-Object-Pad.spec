@@ -5,7 +5,7 @@
 
 Name:           perl-Object-Pad
 Version:        0.79
-Release:        3%{dist}
+Release:        4%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pad
@@ -199,6 +199,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.79-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.79-3
 - Perl 5.38 re-rebuild of bootstrapped packages
 

@@ -2,7 +2,7 @@ Name: hyphen-mn
 Summary: Mongolian hyphenation rules
 %global upstreamid 20100531
 Version: 0.%{upstreamid}
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: http://tug.org/svn/texhyphen/trunk/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/hyph-mn-cyrl.tex?view=co#/hyph-mn-cyrl.tex
 URL: http://www.ctan.org/tex-archive/help/Catalogue/entries/mnhyphn.html
 License: LPPL-1.3a
@@ -37,6 +37,9 @@ cp -p hyph_mn_MN.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20100531-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 28 2023 Caolán McNamara <caolanm@redhat.com> - 0.20100531-24
 - migrated to SPDX license
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-SDL_mixer
 Version:        1.2.12
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        MinGW Windows port of Simple DirectMedia Layer's Sample Mixer Library
 
 License:        Zlib
@@ -95,6 +95,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

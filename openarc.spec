@@ -9,7 +9,7 @@
 Summary: An open source library and milter for providing ARC service
 Name: openarc
 Version: 1.0.0
-Release: %{?pre_rel:0.}15%{?pre_rel:.%pre_rel}%{?dist}.1
+Release: %{?pre_rel:0.}15%{?pre_rel:.%pre_rel}%{?dist}.2
 License: BSD and Sendmail
 URL: https://github.com/trusteddomainproject/OpenARC
 # actually https://github.com/trusteddomainproject/OpenARC/archive/rel-openarc-1-0-0-Beta3.tar.gz but our local tarball is misnamed
@@ -230,6 +230,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.15.Beta3.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.15.Beta3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

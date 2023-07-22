@@ -1,6 +1,6 @@
 Name:		kpcli	
 Version:	3.8.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	KeePass Command Line Interface (CLI) / interactive shell
 License:	GPL+ or Artistic
 BuildArch:	noarch
@@ -38,6 +38,9 @@ install -p -m0755 %{name}-%{version}.pl %{buildroot}%{_bindir}/%{name}
 %{_bindir}/kpcli
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

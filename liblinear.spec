@@ -1,6 +1,6 @@
 Name:			liblinear
 Version:		1.94
-Release:		34%{?dist}
+Release:		35%{?dist}
 Summary:		Library for Large Linear Classification
 %{?el5:Group:		System Environment/Libraries}
 
@@ -188,6 +188,9 @@ install -pm 0644 python/*.py %{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.94-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.94-34
 - Rebuilt for Python 3.12
 

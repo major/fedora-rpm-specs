@@ -15,7 +15,7 @@ Standard interface for holding authenticated identities and their attributes.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Standard interface for holding authenticated identities
 
 # Upstream license specification: Apache-2.0
@@ -49,6 +49,9 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 10 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.0-8
 - Switch to SPDX license
 

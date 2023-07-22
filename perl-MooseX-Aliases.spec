@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Aliases
 Version:        0.11
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Easy aliasing of methods and attributes in Moose
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Aliases
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           maven-archetype
 Version:        3.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Maven project templating toolkit
 
 # Most of the code is under ASL 2.0, but some bundled jdom sources are
@@ -186,6 +186,9 @@ popd
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 %define		mainver		0.7.1
-%define		vendorrel	9
+%define		baserelease	10
 %define		repoid		18105
 
 
 
 Name:		kreetingkard
 Version:	%{mainver}
-Release:	%{vendorrel}%{?dist}.3
+Release:	%{baserelease}%{?dist}
 Summary:	Japanese greeting card writing software for KDE
 
 License:	GPLv2+
@@ -14,6 +14,9 @@ URL:		http://linux-life.net/program/cc/kde/app/kreetingkard/
 Source0:	http://downloads.sourceforge.jp/%{name}/%{repoid}/%{name}-%{mainver}.tar.gz
 # From Mandriva
 Patch0:		kreetingkard-0.7.1-fix-build-gcc411.patch
+# Patch to detect strlcpy on Fedora 39 glibc, by avoiding
+# -pedantic error with std::exit
+Patch1:		kreetingkard-0.7.1-configure-no-std-exit-for-strlcpy-detection.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -30,7 +33,8 @@ make greeting cards easily by choosing a template and changing the words.
 
 %prep
 %setup -q
-%patch0 -p1 -b .gcc41
+%patch -P0 -p1 -b .gcc41
+%patch -P1 -p1 -b .strlcpy
 
 sed -i -e 's|grep klineedit|grep -i klineedit|' configure
 sed -i configure \
@@ -105,6 +109,13 @@ done
 %{_defaultdocdir}/HTML/en/%{name}/
 
 %changelog
+* Thu Jul 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.1-10
+- Fix strlcpy detection (with glibc 2.38), by fixing -pedantic-error
+  with std::exit usage
+
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9.4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       ncid
 Version:    1.14
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 License:    GPLv3+
@@ -466,6 +466,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.14-3
 - Rebuilt for ICU 73.2
 

@@ -2,7 +2,7 @@
 
 Name:		libkkc
 Version:	0.3.5
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Japanese Kana Kanji conversion library
 
 License:	GPLv3+
@@ -115,6 +115,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/kkc
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

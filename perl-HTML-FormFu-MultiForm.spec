@@ -1,6 +1,6 @@
 Name:           perl-HTML-FormFu-MultiForm
 Version:        1.03
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Handle multi-page/stage forms
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-FormFu-MultiForm
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

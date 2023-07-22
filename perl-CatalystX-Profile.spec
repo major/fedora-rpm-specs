@@ -1,6 +1,6 @@
 Name:           perl-CatalystX-Profile
 Version:        0.02
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Profile your Catalyst application with Devel::NYTProf
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CatalystX-Profile
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

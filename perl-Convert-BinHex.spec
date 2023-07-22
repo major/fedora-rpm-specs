@@ -1,6 +1,6 @@
 Name:		perl-Convert-BinHex
 Version:	1.125
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Convert to/from RFC1741 HQX7 (Mac BinHex)
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Convert-BinHex
@@ -75,6 +75,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Convert::BinHex.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.125-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.125-24
 - Update license to SPDX format
 

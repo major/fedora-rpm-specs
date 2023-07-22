@@ -1,6 +1,6 @@
 Name:           monsterz
 Version:        0.7.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Puzzle game, similar to Bejeweled or Zookeeper
 License:        WTFPL
 URL:            http://sam.zoy.org/monsterz/
@@ -86,6 +86,9 @@ install -pm0644 graphics/icon.png %{buildroot}%{_datadir}/icons/hicolor/64x64/ap
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.1-33
 - migrated to SPDX license
 

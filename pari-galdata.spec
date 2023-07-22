@@ -1,6 +1,6 @@
 Name:		pari-galdata
 Version:	20080411
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	PARI/GP Computer Algebra System Galois resolvents
 License:	GPL-2.0-or-later
 URL:		http://pari.math.u-bordeaux.fr/packages.html
@@ -33,6 +33,9 @@ cp -a data/galdata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080411-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080411-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -20,7 +20,7 @@ excludearch:    ppc64le
 
 Name:           hexchat-autoaway
 Version:        2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        HexChat plugin that automatically mark you away
 
 License:        GPLv3+
@@ -72,6 +72,9 @@ cd -
 %{_libdir}/hexchat/plugins/libautoaway.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

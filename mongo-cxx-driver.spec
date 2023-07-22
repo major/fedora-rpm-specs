@@ -3,7 +3,7 @@
 
 Name:           mongo-cxx-driver
 Version:        3.6.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A C++ Driver for MongoDB
 License:        ASL 2.0
 URL:            https://github.com/mongodb/mongo-cxx-driver/wiki
@@ -112,6 +112,9 @@ rm %{buildroot}%{_libdir}/cmake/bsoncxx-%{version}/*.cmake
 %{_libdir}/cmake/libbsoncxx*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

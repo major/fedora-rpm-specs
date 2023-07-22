@@ -1,6 +1,6 @@
 Name:       perl-HTML-LinkList 
 Version:    0.1701
-Release:    24%{?dist}
+Release:    25%{?dist}
 # lib/HTML/LinkList.pm -> GPL+ or Artistic
 License:    GPL+ or Artistic 
 
@@ -70,6 +70,9 @@ RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/HTML*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1701-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1701-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

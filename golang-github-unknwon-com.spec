@@ -19,7 +19,7 @@ programming language.}
 Name:           %{goname}
 # Upstream published v1.0.0 after v2
 Epoch:          1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Commonly used functions for the Go programming language
 
 # Upstream license specification: Apache-2.0
@@ -57,6 +57,9 @@ BuildRequires:  golang(github.com/smartystreets/goconvey/convey)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 Name:           %{pkg_name}
 Version:        1.27.1
 # can only be reset when all subpkgs bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Command-line interface for the hledger accounting system
 
 License:        GPL-3.0-or-later
@@ -241,6 +241,9 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 1.27.1-7
 - https://hackage.haskell.org/package/hledger-1.27.1/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

@@ -1,6 +1,6 @@
 Name:            monotone
 Version:         1.1
-Release:         45%{?dist}
+Release:         46%{?dist}
 Summary:         A free, distributed version control system
 License:         GPLv2+
 URL:             http://monotone.ca/
@@ -207,6 +207,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

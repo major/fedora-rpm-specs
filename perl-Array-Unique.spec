@@ -1,6 +1,6 @@
 Name:           perl-Array-Unique
 Version:        0.09
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tie-able array that allows only unique values
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Array-Unique
@@ -59,6 +59,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Denis Fateyev <denis@fateyev.com> - 0.09-1
 - Update to 0.09 release
 

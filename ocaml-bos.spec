@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bos
 Version:        0.2.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Basic OS interaction for OCaml
 
 License:        ISC
@@ -77,6 +77,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-10
 - OCaml 5.0 rebuild for Fedora 39
 

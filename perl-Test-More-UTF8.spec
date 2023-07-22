@@ -3,7 +3,7 @@
 
 Name:           perl-Test-More-UTF8
 Version:        0.05
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Test::More enhanced for UTF-8
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-More-UTF8/
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

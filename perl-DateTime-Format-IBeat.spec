@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-IBeat
 Version:        0.161
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Format times in .beat notation 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-IBeat            
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/DateTime::Format::IBeat.3*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.161-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Paul Howarth <paul@city-fan.org> - 0.161-46
 - Use SPDX-format license tag
 - Use author-independent source URL

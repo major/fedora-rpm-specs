@@ -28,7 +28,7 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.22.3
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -350,6 +350,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.3-2
 - Enable Qt6 plugin, disable Qt5 plugin for RHEL 10
 

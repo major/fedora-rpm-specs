@@ -1,6 +1,6 @@
 Name:           jurand
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for manipulating Java symbols
 License:        Apache-2.0
 URL:            https://github.com/fedora-java/jurand
@@ -43,6 +43,9 @@ make test
 %doc README.md
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 23 2023 Marian Koncek <mkoncek@redhat.com> - 1.3.1-1
 - Update to upstream version 1.3.1
 

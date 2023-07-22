@@ -15,7 +15,7 @@
 
 Name:           nettle
 Version:        3.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A low-level cryptographic library
 
 License:        LGPLv3+ or GPLv2+
@@ -171,6 +171,9 @@ make check
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun  5 2023 Daiki Ueno <dueno@redhat.com> - 3.9.1-1
 - Update to nettle 3.9.1
 

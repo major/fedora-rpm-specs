@@ -4,7 +4,7 @@
 
 Name:		libffi
 Version:	3.4.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A portable foreign function interface library
 License:	MIT
 URL:		http://sourceware.org/libffi
@@ -113,6 +113,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 DJ Delorie <dj@redhat.com> - 3.4.4-3
 - Enable static trampolines
 

@@ -36,10 +36,14 @@ infodir="%{_infodir}"
 # Run check target by default.
 %bcond_without check
 
+# Workaround for texinfo 7.0.x issue - allow disabling docs in info format
+# https://bugzilla.redhat.com/show_bug.cgi?id=2188018
+%bcond_with info
+
 
 Name:           cc65
 Version:        2.19
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A free C compiler for 6502 based systems
 
 # For license clarification see:
@@ -154,7 +158,11 @@ they have been split into this package.
   -o util_bin/deflater65 %{build_ldflags} -lz
 
 # Build the documentation.
+%if %{with info}
 %make_build doc
+%else
+%make_build html
+%endif
 
 
 %install
@@ -234,7 +242,9 @@ they have been split into this package.
 %doc %{_docdir}/%{name}
 %endif
 %doc %{_pkgdocdir}
+%if %{with info}
 %{_infodir}/*.info*
+%endif
 
 
 %files utils
@@ -256,6 +266,9 @@ they have been split into this package.
 
 
 %changelog
+* Thu Jul 20 2023 Dan Horák <dan[at]danny.cz> - 2.19-7
+- don't build docs in info format as a workaround (rhbz#2188018)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

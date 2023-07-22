@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-PluralToSingular
 Version:        0.21
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Change an English plural to a singular
 License:        GPL+ or Artistic
 
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/Lingua*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

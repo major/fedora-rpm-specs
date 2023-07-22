@@ -3,7 +3,7 @@
 Name:    kf5-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
 Version: 5.108.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 # most files LGPLv2+, configuration.cpp is KDE e.V. GPL variant
@@ -122,6 +122,9 @@ rm -fv %{buildroot}%{_datadir}/icons/hicolor/*/actions/kipiplugin_youtube.png
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.108.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.108.0-1
 - 5.108.0
 

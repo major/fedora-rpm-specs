@@ -1,6 +1,6 @@
 Name:           perl-Geo-Forward
 Version:        0.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Calculate geographic location from lat, lon, distance, and heading
 
 License:        MIT
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-1
 - 0.16 bump
 - Modernize spec

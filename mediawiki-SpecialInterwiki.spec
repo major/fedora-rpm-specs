@@ -1,6 +1,6 @@
 Name:           mediawiki-SpecialInterwiki
 Version:        0
-Release:        0.28.20080913svn%{?dist}
+Release:        0.29.20080913svn%{?dist}
 Summary:        An extension to provide an interwiki management system
 
 License:        GPLv2+
@@ -39,6 +39,9 @@ for each MediaWiki instance you wish to install %{name} on.' > README.Fedora
 %doc README.Fedora
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29.20080913svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.28.20080913svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

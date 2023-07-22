@@ -1,6 +1,6 @@
 Name:           miglayout
 Version:        4.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Versatile and flexible Swing layout manager
 URL:            http://www.miglayout.com/
 License:        BSD
@@ -60,6 +60,9 @@ cp -a doc %{buildroot}%{_javadocdir}/%{name}
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

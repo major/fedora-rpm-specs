@@ -15,9 +15,9 @@
 Name:          mate-power-manager
 Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       1%{?dist}
+Release:       2%{?dist}
 %else
-Release:       0.16%{?git_rel}%{?dist}
+Release:       0.17%{?git_rel}%{?dist}
 %endif
 Summary:       MATE power management service
 License:       GPLv2+
@@ -106,6 +106,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-power-manage
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May 06 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1
 

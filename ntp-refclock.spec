@@ -2,7 +2,7 @@
 
 Name:		ntp-refclock
 Version:	0.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Drivers for hardware reference clocks
 # MIT is the primary license of ntp and ntp-refclock, but some drivers
 # are licensed under BSD or BSD with advertising
@@ -119,6 +119,9 @@ getent passwd %{name} >/dev/null || \
 %{_unitdir}/*.service
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 01 2023 Miroslav Lichvar <mlichvar@redhat.com> 0.6-1
 - update ntp-refclock to 0.6 and ntp to 4.2.8p16
 

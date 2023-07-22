@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       0.27.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 License:       GPL-2.0-or-later
 BuildArch:     noarch
@@ -104,6 +104,9 @@ rm -f %{buildroot}%{mingw64_datadir}/man/man1/exiv2.1
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 01 2023 Sandro Mani <manisandro@gmail.com> - 0.27.6-1
 - Update to 0.27.6
 

@@ -26,7 +26,7 @@ will result in improper behavior.}
 
 Name:           %{goname}
 Epoch:          1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Rolling logger for Go
 
 License:        MIT
@@ -58,6 +58,9 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

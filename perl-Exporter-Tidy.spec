@@ -1,6 +1,6 @@
 Name:           perl-Exporter-Tidy
 Version:        0.08
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Another way of exporting symbols
 # Generated with licenses.pl
 License:        0BSD OR AAL OR AFL-3.0 OR AGPL-3.0-only OR APSL-2.0 OR Apache-1.1 OR Apache-2.0 OR Artistic-2.0 OR BSD-1-Clause OR BSD-2-Clause OR BSD-3-Clause OR BSD-3-Clause-LBNL OR BSL-1.0 OR CATOSL-1.1 OR CDDL-1.0 OR CNRI-Python OR CPAL-1.0 OR CPL-1.0 OR CUA-OPL-1.0 OR ECL-1.0 OR ECL-2.0 OR EFL-2.0 OR EPL-1.0 OR EPL-2.0 OR EUDatagrid OR EUPL-1.1 OR EUPL-1.2 OR Entessa OR Fair OR GPL-1.0-only OR GPL-2.0-only OR GPL-3.0-only OR HPND OR IPL-1.0 OR ISC OR LGPL-2.0-only OR LGPL-2.1-only OR LGPL-3.0-only OR LPL-1.02 OR MIT OR MIT-0 OR MPL-1.0 OR MPL-1.1 OR MPL-2.0 OR MS-PL OR MS-RL OR MirOS OR Motosoto OR NCSA OR NGPL OR NTP OR Naumen OR Nokia OR OLDAP-2.8 OR OSL-1.0 OR OSL-2.1 OR OSL-3.0 OR PHP-3.01 OR PostgreSQL OR QPL-1.0 OR RPSL-1.0 OR SISSL OR SPL-1.0 OR Sleepycat OR UPL-1.0 OR Unicode-DFS-2016 OR Unlicense OR VSL-1.0 OR W3C OR ZPL-2.0 OR ZPL-2.1 OR Zlib
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 09 2023 Petr Pisar <ppisar@redhat.com> - 0.08-28
 - Correct SPDX license syntax
 

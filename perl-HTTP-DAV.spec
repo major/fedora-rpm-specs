@@ -1,6 +1,6 @@
 Name:           perl-HTTP-DAV
 Version:        0.49
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        WebDAV client library for Perl5
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTTP-DAV
@@ -75,6 +75,9 @@ PERLDAV_TEST=default make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

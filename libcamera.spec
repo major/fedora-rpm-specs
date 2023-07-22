@@ -2,7 +2,7 @@
 
 Name:    libcamera
 Version: 0.0.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A library to support complex camera ISPs
 # Library is LGPLv2.1+ and the cam tool is GPLv2
 License: LGPLv2+ and GPLv2
@@ -199,6 +199,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_libexecdir}/libcamera/v4l2-compat.so
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 Javier Martinez Canillas <javierm@redhat.com> - 0.0.5-3
 - Fix path of key for IPA modules re-sign and drop unused env var
 

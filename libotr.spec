@@ -2,7 +2,7 @@
 Summary: Off-The-Record Messaging library and toolkit
 Name: libotr
 Version: 4.1.1
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: GPLv2 and LGPLv2
 Source0: http://otr.cypherpunks.ca/%{name}-%{version}.tar.gz
 Url: http://otr.cypherpunks.ca/
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

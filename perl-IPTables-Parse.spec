@@ -1,6 +1,6 @@
 Name:           perl-IPTables-Parse
 Version:        1.6.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perl extension for parsing iptables firewall rulesets
 License:        Artistic 2.0
 URL:            http://www.cipherdyne.org/modules/
@@ -44,6 +44,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Crypt-GCrypt
 Version:        1.26
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Perl interface to libgcrypt library
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-GCrypt
@@ -84,6 +84,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.26-27
 - Perl 5.38 rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           openjfx8
 Version:        8.0.202
-Release:        35.b07%{?dist}
+Release:        36.b07%{?dist}
 Summary:        Rich client application platform for Java
 
 #fxpackager is BSD
@@ -232,6 +232,9 @@ ln -s %{openjfxdir}/bin/javapackager %{buildroot}%{_bindir}
 %{openjfxdir}/javafx-src.zip
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.202-36.b07
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 05 2023 Florian Weimer <fweimer@redhat.com> - 8.0.202-35.b07
 - C99 compatibility fix
 

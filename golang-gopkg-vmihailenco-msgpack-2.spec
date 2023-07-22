@@ -16,7 +16,7 @@ MessagePack encoding for Golang.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        MessagePack encoding for Golang
 
 License:        BSD-3-Clause
@@ -49,6 +49,9 @@ done
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.9.1-10
 - Fix FTBFS rhbz#2113399
 

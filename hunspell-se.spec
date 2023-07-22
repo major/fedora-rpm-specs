@@ -6,7 +6,7 @@
 Name: hunspell-se
 Summary: Northern Saami hunspell dictionaries
 Version: 1.0
-Release: 0.26.beta7%{?dist}
+Release: 0.27.beta7%{?dist}
 Source: http://divvun.no/static_files/hunspell-se.tar.gz
 URL: http://www.divvun.no/index.html
 License: GPL-3.0-only
@@ -41,6 +41,9 @@ done
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.27.beta7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 1.0-0.26.beta7
 - migrated to SPDX license
 

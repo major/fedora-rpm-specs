@@ -1,6 +1,6 @@
 Name:       libecap
 Version:    1.0.1
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Squid interface for embedded adaptation modules
 License:    BSD
 URL:        http://www.e-cap.org/
@@ -65,6 +65,9 @@ install -pm644 %{SOURCE1} %{buildroot}%{_includedir}/%{name}/common/autoconf.h
 %{_includedir}/libecap
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Getopt-ArgvFile
 Version:        1.11
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Interpolates script options from files into @ARGV or another array
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Getopt-ArgvFile
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

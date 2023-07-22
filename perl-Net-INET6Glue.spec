@@ -1,6 +1,6 @@
 Name:           perl-Net-INET6Glue
 Version:        0.604
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Make common modules IPv6 ready by hot-patching
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-INET6Glue
@@ -42,6 +42,9 @@ PERL_MM_USE_DEFAULT=1 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.604-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.604-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

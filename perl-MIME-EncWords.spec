@@ -1,6 +1,6 @@
 Name:           perl-MIME-EncWords
 Version:        1.014.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Deal with RFC 2047 encoded words (improved)
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MIME-EncWords
@@ -90,6 +90,9 @@ make test
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.014.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.014.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

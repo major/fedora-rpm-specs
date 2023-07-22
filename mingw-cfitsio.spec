@@ -5,7 +5,7 @@
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
 Version:       4.2.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
 License:       MIT
@@ -104,6 +104,9 @@ MinGW Windows CFITSIO library.
 %{mingw64_bindir}/Funpack.exe
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:	nfacct	
 Version:	1.0.1
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Command line tool to create/retrieve/delete accounting objects
 
 License:	GPLv2+
@@ -36,6 +36,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

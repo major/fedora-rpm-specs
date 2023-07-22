@@ -16,7 +16,7 @@ URL: http://isl.gforge.inria.fr/
 #
 # % global buildid .local
 
-Release: 17%{?buildid}%{?dist}
+Release: 18%{?buildid}%{?dist}
 
 BuildRequires:  gcc
 BuildRequires: gmp-devel
@@ -109,6 +109,9 @@ cd isl-%{version}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

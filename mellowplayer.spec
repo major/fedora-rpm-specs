@@ -7,7 +7,7 @@
 Name:           mellowplayer
 Version:        3.6.8
 #Release:        1.%%{commitdate}git%%{shortcommit}%%{?dist}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Cloud music integration for your desktop
 License:        GPLv2
 Url:            https://colinduquesnoy.github.io/MellowPlayer/
@@ -122,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.%{rnam
 %{_mandir}/man1/%{rname}.1.*
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		mingw-log4c
 Version:	1.2.4
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Library for logging application messages
 
 # main license is LGPLv2
@@ -102,6 +102,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           optipng
 Version:        0.7.7
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        PNG optimizer and converter
 
 License:        zlib
@@ -55,6 +55,9 @@ chmod -c 755 $RPM_BUILD_ROOT%{_bindir}/optipng
 
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

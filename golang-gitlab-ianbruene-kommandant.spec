@@ -21,7 +21,7 @@ the user-visible behavior will be the same.}
 %global godocs          README.adoc kommandant-HOWTO.adoc
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Command line meta-interpreter for Go
 
 License:        ASL 2.0
@@ -50,6 +50,9 @@ rm -rf demos
 %gopkgfiles
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Message
 Version:        6.44
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP style message
 # CONTRIBUTING.md:  CC0-1.0
 # other files:      GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -125,6 +125,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.44-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.44-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

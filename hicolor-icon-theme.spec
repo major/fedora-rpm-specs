@@ -1,6 +1,6 @@
 Name: hicolor-icon-theme
 Version: 0.17
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Basic requirement for icon themes
 
 License: GPLv2+
@@ -77,6 +77,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/hicolor &>/dev/null || :
 %ghost %{_datadir}/icons/hicolor/icon-theme.cache
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

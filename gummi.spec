@@ -1,6 +1,6 @@
 Name:           gummi
 Version:        0.6.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A simple LaTeX editor
 
 License:        MIT
@@ -50,6 +50,9 @@ desktop-file-install                                 \
 %{_libdir}/%{name}/
 
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
