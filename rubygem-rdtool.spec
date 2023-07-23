@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.6.38
-Release:	21%{?dist}
+Release:	22%{?dist}
 
 Summary:	Formatter for RD
 # SPDX confirmed
@@ -115,6 +115,9 @@ popd
 %{gem_instdir}/utils/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.38-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.38-21
 - Modernize spec file
 - Use minitest5 instead of minitest4

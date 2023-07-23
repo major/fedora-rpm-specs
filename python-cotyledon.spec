@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.7.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Cotyledon provides a framework for defining long-running services
 
 License:        ASL 2.0
@@ -58,6 +58,9 @@ rm -rf html/.doctrees html/.buildinfo
 %doc html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.7.3-17
 - Rebuilt for Python 3.12
 

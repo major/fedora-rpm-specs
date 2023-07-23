@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.9.34
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
 
@@ -111,6 +111,9 @@ rspec -r spec_helper spec
 %doc	%{gem_instdir}/docs/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.34-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.34-1
 - 0.9.34
 

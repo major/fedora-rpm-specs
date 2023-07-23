@@ -6,7 +6,7 @@
 
 Name:           python-%{mod_name}
 Version:        0.6.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Url:            http://github.com/saschpe/py2pack
 Summary:        Generate distribution packages from Python packages on PyPI
 License:        GPLv2
@@ -75,6 +75,9 @@ rm -rf %{buildroot}/%{_docdir}/%{mod_name}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.6.3-25
 - Rebuilt for Python 3.12
 

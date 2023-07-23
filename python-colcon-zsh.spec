@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Extension for colcon to provide Z shell scripts
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ An extension for colcon-core to provide Z shell scripts.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.0-13
 - Rebuilt for Python 3.12
 

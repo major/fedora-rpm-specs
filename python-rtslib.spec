@@ -7,7 +7,7 @@ Name:             python-rtslib
 License:          ASL 2.0
 Summary:          API for Linux kernel LIO SCSI target
 Version:          2.1.76
-Release:          2%{?dist}
+Release:          3%{?dist}
 URL:              https://github.com/open-iscsi/%{oname}
 Source:           %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 Patch0:           0001-disable-xen_pvscsi.patch
@@ -126,6 +126,9 @@ install -m 644 doc/saveconfig.json.5 %{buildroot}%{_mandir}/man5/
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.76-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 2.1.76-2
 - Rebuilt for Python 3.12
 

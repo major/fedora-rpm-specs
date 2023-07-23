@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A single process, persistent multi-producer, multi-consumer queue
 
 License:        BSD
@@ -100,6 +100,9 @@ nose2 persistqueue.tests.test_queue
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 0.8.0-2
 - Rebuilt for Python 3.12
 

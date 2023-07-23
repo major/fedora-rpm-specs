@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python diff wrapper
 License:        MIT
 URL:            https://github.com/thatch/moreorless/
@@ -63,6 +63,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 0.3.0-9
 - Rebuilt for Python 3.12
 

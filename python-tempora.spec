@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Objects and routines pertaining to date and time (tempora)
 
 License:        MIT
@@ -88,6 +88,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 5.5.0-2
 - Rebuilt for Python 3.12
 

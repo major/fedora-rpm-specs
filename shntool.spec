@@ -1,6 +1,6 @@
 Name:           shntool
 Version:        3.0.10
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A multi-purpose WAVE data processing and reporting utility
 
 License:        GPLv2+
@@ -45,6 +45,9 @@ autoreconf -fiv
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

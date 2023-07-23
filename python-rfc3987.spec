@@ -1,6 +1,6 @@
 Name:           python-rfc3987
 Version:        1.3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parsing and validation of URIs (RFC 3986) and IRIs (RFC 3987)
 
 License:        GPL-3.0-or-later
@@ -57,6 +57,9 @@ sed -i -e '/^#!\//, 1d' %{buildroot}%{python3_sitelib}/rfc3987.py
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.8-2
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name:           simple-ccsm
 Version:        0.8.18
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Simple settings manager for Compiz
 License:        GPLv2+
 URL:            https://gitlab.com/compiz/%{name}
@@ -66,6 +66,9 @@ desktop-file-install                              \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.18-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.8.18-10
 - Rebuilt for Python 3.12
 

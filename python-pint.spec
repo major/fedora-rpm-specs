@@ -3,7 +3,7 @@
 
 Name:           python-pint
 Version:        0.16.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Physical quantities module
 
 License:        BSD
@@ -114,6 +114,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.16.1-11
 - Support numpy 1.24.x some types removal which were already deprecated
 - Workaround python3.12 changes for Fractions which now returns ValueError

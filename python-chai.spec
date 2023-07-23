@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            1.1.2
-Release:            26%{?dist}
+Release:            27%{?dist}
 Summary:            Easy to use mocking/stub/spy framework
 
 License:            BSD
@@ -64,6 +64,9 @@ $(find tests -type f)
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.2-26
 - Rebuilt for Python 3.12
 

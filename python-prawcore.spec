@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Low-level communication layer for PRAW 4+ library
 
 License:        BSD
@@ -50,6 +50,9 @@ Low-level communication layer for PRAW 4+ library.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.3.0-6
 - Rebuilt for Python 3.12
 

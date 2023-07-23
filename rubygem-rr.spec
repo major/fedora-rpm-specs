@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: RR is a test double framework with a terse syntax
 License: MIT
 URL: https://rr.github.io/rr
@@ -73,6 +73,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

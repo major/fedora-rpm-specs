@@ -1,6 +1,6 @@
 Name:           perl-URI-Nested
 Version:        0.10
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Perl support for nested URIs
 License:        GPL+ or Artistic
 
@@ -48,6 +48,9 @@ JDBC URIs and database URIs.
 %{_mandir}/man3/URI*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

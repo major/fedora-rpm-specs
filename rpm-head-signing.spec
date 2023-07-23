@@ -1,6 +1,6 @@
 Name:          rpm-head-signing
 Version:       1.7.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A python module for signing RPM header and file digests
 License:       BSD
 URL:           https://github.com/fedora-iot/rpm-head-signing
@@ -35,5 +35,8 @@ to the server.
 %{python3_sitearch}/rpm_head_signing-*/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.7.1-1
 - Initial package

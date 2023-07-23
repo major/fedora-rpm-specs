@@ -5,7 +5,7 @@
 
 Name:           python-gccinvocation
 Version:        0.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Library for parsing GCC command-line options
 
 License:        LGPLv2+
@@ -57,6 +57,9 @@ extract data of interest e.g. include paths, defines, etc.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1-33
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Time-handling functionality from netcdf4-python
 
 # calendar calculation routines in _cftime.pyx derived from calcalcs.c by David
@@ -50,6 +50,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -v
 %{python3_sitearch}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Orion Poplawski <orion@nwra.com> - 1.6.2-1
 - Update to 1.6.2
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.9.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Provides a unified method to mock Time.now, Date.today in a single call
 License: MIT
 URL: https://github.com/travisjeffery/timecop
@@ -69,6 +69,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

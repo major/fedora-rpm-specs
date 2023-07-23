@@ -1,6 +1,6 @@
 Name: prelockd
 Version: 0.9
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Lock binaries and libraries in memory to improve system responsiveness
 BuildArch: noarch
 
@@ -68,6 +68,9 @@ exit 0
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:             python-%{srcname}
 Version:          1.10.1
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          %{sum}
 
 License:          BSD
@@ -61,6 +61,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.10.1-9
 - Rebuilt for Python 3.12
 

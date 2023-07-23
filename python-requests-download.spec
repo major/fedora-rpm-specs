@@ -1,7 +1,7 @@
 %global pypi_name requests_download
 Name:           python-requests-download
 Version:        0.1.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Download files using requests and save them to a target path
 
 License:        MIT
@@ -59,6 +59,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.2-13
 - Rebuilt for Python 3.12
 

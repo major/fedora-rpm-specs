@@ -9,7 +9,7 @@ properties and function calls are forwarded to the correct interface.}
 
 Name:      python-%{srcname}
 Version:   2.2
-Release:   10%{?dist}
+Release:   11%{?dist}
 
 License:   MIT
 Summary:   Easy communication with NetworkManager
@@ -72,6 +72,9 @@ install -m 0644 -p docs/_build/man/%{name}.1 %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.2-10
 - Rebuilt for Python 3.12
 

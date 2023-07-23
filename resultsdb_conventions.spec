@@ -25,7 +25,7 @@ to help with reporting results that conform to the conventions.
 
 Name:           resultsdb_conventions
 Version:        %{pagure_version}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        %{sum}
 
 License:        GPLv3+
@@ -173,6 +173,9 @@ sed -i -e '/setuptools_git/d' setup.py
 %endif # with_python3
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.1.0-10
 - Rebuilt for Python 3.12
 

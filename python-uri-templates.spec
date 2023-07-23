@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -55,6 +55,9 @@ sed -i "1 d" uritemplate/__init__.py
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6-29
 - Rebuilt for Python 3.12
 

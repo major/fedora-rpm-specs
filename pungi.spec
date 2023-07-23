@@ -2,7 +2,7 @@
 
 Name:           pungi
 Version:        4.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -139,6 +139,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 19 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.4.0-3
 - Backport ostree runroot package additions
 

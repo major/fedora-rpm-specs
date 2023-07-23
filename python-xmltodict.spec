@@ -2,7 +2,7 @@
 
 Name:               python-xmltodict
 Version:            0.12.0
-Release:            19%{?dist}
+Release:            20%{?dist}
 Summary:            Python to transform XML to JSON
 
 License:            MIT
@@ -50,6 +50,9 @@ Wikipedia.
 %{python3_sitelib}/__pycache__/%{pypi_name}*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.12.0-19
 - Rebuilt for Python 3.12
 

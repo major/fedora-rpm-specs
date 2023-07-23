@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.1
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        Bash style brace expander
 
 License:        MIT
@@ -48,6 +48,12 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.1.1-11
+- Mark this as SPDX license expression converted
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.1.1-9
 - Rebuilt for Python 3.12
 

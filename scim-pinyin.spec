@@ -1,6 +1,6 @@
 Name:       scim-pinyin
 Version:    0.5.92
-Release:    25%{?dist}
+Release:    26%{?dist}
 Summary:    Smart Pinyin IMEngine for Smart Common Input Method platform
 
 License:    GPL-2.0-only
@@ -63,6 +63,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/scim-1.0/*/Helper/*.la
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.92-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 28 2023 Peng Wu <pwu@redhat.com> - 0.5.92-25
 - Migrate to SPDX license
 

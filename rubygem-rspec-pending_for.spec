@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.1.16
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Mark specs pending or skipped for specific Ruby engine
 
 License:        MIT
@@ -89,6 +89,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.16-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

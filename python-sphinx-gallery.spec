@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.11.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sphinx extension to automatically generate an examples gallery
 
 License:        BSD
@@ -68,6 +68,9 @@ rm -r %{buildroot}%{_bindir}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 0.11.1-3
 - Rebuilt for Python 3.12
 

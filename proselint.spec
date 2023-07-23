@@ -9,7 +9,6 @@ Source0:        %pypi_source
 BuildArch:      noarch
 
 Requires:       python3-click
-Requires:       python3-future
 Requires:       python3-six
 
 BuildRequires:  python3-setuptools
@@ -17,7 +16,6 @@ BuildRequires:  python3-devel
 
 # For running the tests:
 BuildRequires:  python3-click
-BuildRequires:  python3-future
 BuildRequires:  python3-pytest
 BuildRequires:  python3-six
 

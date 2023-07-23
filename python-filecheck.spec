@@ -7,7 +7,7 @@
 
 Name: python-%{pypi_name}
 Version: 0.0.23
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Flexible pattern matching file verifier
 License: ASL 2.0
 URL: https://github.com/mull-project/FileCheck.py
@@ -72,6 +72,9 @@ fi
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.23-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.0.23-2
 - Rebuilt for Python 3.12
 

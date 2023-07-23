@@ -1,7 +1,9 @@
+%global _fortify_level 2
+
 Name:		tint2
 Epoch:      1
 Version:	17.0.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A lightweight X11 desktop panel and task manager
 
 License:	GPLv2
@@ -74,6 +76,9 @@ desktop-file-install	\
 %{_mandir}/man1/tint2*
 
 %changelog
+* Fri Jul 21 2023 Leigh Scott <leigh123linux@gmail.com> - 1:17.0.2-2
+- Set fortify_level 2
+
 * Thu Jul 20 2023 Leigh Scott <leigh123linux@gmail.com> - 1:17.0.2-1
 - Revert back to 17.0.2
 

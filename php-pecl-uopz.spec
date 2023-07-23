@@ -20,7 +20,7 @@
 Summary:        User Operations for Zend
 Name:           php-pecl-%{pecl_name}
 Version:        7.1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        PHP-3.01
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -192,6 +192,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 7.1.1-7
 - use SPDX license ID
 

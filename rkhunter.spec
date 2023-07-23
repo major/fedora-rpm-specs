@@ -3,7 +3,7 @@
 
 Name:           rkhunter
 Version:        1.4.6
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A host-based tool to scan for rootkits, backdoors and local exploits
 
 License:        GPLv2+
@@ -100,6 +100,9 @@ EOF
 %{_mandir}/man8/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 29 2023 Kevin Fenzi <kevin@scrye.com> - 1.4.6-21
 - More complete fix for egrep changes.
 

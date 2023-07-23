@@ -16,7 +16,7 @@ for optimal values of a function.}
 
 Name:           python-%{pypi_name}
 Version:        0.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A genetic feature selection module for scikit-learn
 
 License:        LGPLv3
@@ -88,6 +88,9 @@ Documentation for %{name}.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Python Maint <python-maint@redhat.com> - 0.5.1-5
 - Rebuilt for Python 3.12
 

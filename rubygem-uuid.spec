@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.3.7
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        UUID generator based on RFC 4122
 
 License:        MIT or CC-BY-SA
@@ -103,6 +103,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-webtest
 Version:        3.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
@@ -86,6 +86,9 @@ cp -a CHANGELOG.rst docs/
 %{python3_sitelib}/WebTest-*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.0-8
 - Update to latest git commit, which fixes python 3.12 unittests
 

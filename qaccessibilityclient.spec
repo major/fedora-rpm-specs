@@ -1,7 +1,7 @@
 Name:    qaccessibilityclient
 Summary: Accessibility client library for Qt5
 Version: 0.4.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # KDE e.V. may determine that future LGPL versions are accepted
 License: LGPLv2 or LGPLv3
@@ -60,6 +60,9 @@ Requires: qt5-qtbase-devel
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

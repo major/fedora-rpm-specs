@@ -7,7 +7,7 @@
 
 Summary: Qt6 - QtTranslations module
 Name:    qt6-%{qt_module}
-Version: 6.5.1
+Version: 6.5.2
 Release: 2%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -126,6 +126,12 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Fri Jul 21 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.2-1
+- 6.5.2
+
 * Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-2
 - Rebuild for qtbase private API version change
 

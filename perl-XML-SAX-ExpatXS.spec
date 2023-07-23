@@ -1,6 +1,6 @@
 Name:           perl-XML-SAX-ExpatXS
 Version:        1.33
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Perl SAX 2 XS extension to Expat parser
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/XML-SAX-ExpatXS
@@ -67,6 +67,9 @@ fi
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.33-36
 - Perl 5.38 rebuild
 

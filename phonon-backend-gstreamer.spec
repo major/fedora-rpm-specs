@@ -3,7 +3,7 @@ Summary: Gstreamer phonon backend
 Name:    phonon-backend-gstreamer
 Epoch:   2
 Version: 4.10.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 License: LGPLv2+
 URL:     https://community.kde.org/Phonon
@@ -71,6 +71,9 @@ Requires: gstreamer1-plugins-good%{?_isa}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.10.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.10.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

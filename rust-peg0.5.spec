@@ -6,7 +6,7 @@
 
 Name:           rust-peg0.5
 Version:        0.5.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple Parsing Expression Grammar (PEG) parser generator
 
 License:        MIT
@@ -81,6 +81,9 @@ use the "trace" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.5.7-8
 - Drop binary which is only useful for upstream development.
 

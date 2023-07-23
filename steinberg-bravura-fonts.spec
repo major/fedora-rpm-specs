@@ -7,7 +7,7 @@ URL:            https://www.smufl.org/fonts/
 
 %forgemeta
 
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
@@ -97,6 +97,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %fontfiles -z 1
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.392-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.392-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

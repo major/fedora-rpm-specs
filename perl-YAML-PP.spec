@@ -1,6 +1,6 @@
 Name:           perl-YAML-PP
 Version:        0.036
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        YAML 1.2 processor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-PP/
@@ -144,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.036-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.036-1
 - 0.036 bump
 

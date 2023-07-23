@@ -9,7 +9,7 @@
 Summary:	A Fast, Enjoyable HTML Parser for Ruby
 Name:		rubygem-%{gem_name}
 Version:	0.8.6
-Release:	41%{?dist}
+Release:	42%{?dist}
 # ext/fast_xs/FastXsService.java is licensed under ASL 2.0
 License:	MIT and ASL 2.0
 URL:		http://github.com/hpricot/hpricot
@@ -143,6 +143,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

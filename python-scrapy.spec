@@ -2,7 +2,7 @@
 %global pkg_name scrapy
 Name:		python-scrapy
 Version:	2.8.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A high-level Python Screen Scraping framework
 
 License:	BSD
@@ -92,6 +92,9 @@ rm -f docs/build/html/.buildinfo
 %doc docs/build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.8.0-2
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           sblim-wbemcli
 Version:        1.6.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        SBLIM WBEM Command Line Interface
 
 License:        EPL-1.0
@@ -50,6 +50,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 13 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.3-25
 - SPDX migration
 

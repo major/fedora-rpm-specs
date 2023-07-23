@@ -26,7 +26,7 @@
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Lightweight library for event-based programming
 Version:        5.1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 URL:            http://sabre.io/event
 License:        BSD
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Library for dealing with http requests and responses
 Version:        5.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 License:        BSD-3-Clause
@@ -181,6 +181,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Remi Collet <remi@remirepo.net> - 5.1.7-1
 - update to 5.1.7
 

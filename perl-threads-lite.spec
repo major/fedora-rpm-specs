@@ -1,6 +1,6 @@
 Name:           perl-threads-lite
 Version:        0.034
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Actor model threading for Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/threads-lite
@@ -62,6 +62,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.034-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.034-29
 - Perl 5.38 rebuild
 

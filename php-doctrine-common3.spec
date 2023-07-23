@@ -37,7 +37,7 @@
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Epoch:         1
 Version:       %{github_version}
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Common library for Doctrine projects version %{major}
 
 License:       MIT
@@ -150,6 +150,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

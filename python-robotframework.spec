@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        6.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Generic automation framework for acceptance testing and RPA
 # Robot Framework is licensed as Apache-2.0
 # Support libraries to display HTML results:
@@ -72,6 +72,9 @@ Provides:      bundled(jsxcompressor)
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 6.0.2-3
 - Rebuilt for Python 3.12
 

@@ -3,7 +3,7 @@
 Summary: GeoHash encode/decode library for pure Ruby
 Name: rubygem-%{gem_name}
 Version: 1.0.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: MIT
 URL: http://github.com/masuidrive/%{gem_name}
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -74,6 +74,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

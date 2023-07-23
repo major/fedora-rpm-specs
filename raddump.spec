@@ -1,6 +1,6 @@
 Name:           raddump
 Version:        0.3.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        RADIUS packets interpreter
 
 License:        GPLv2+
@@ -33,6 +33,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

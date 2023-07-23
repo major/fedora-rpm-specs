@@ -44,7 +44,7 @@
 Name: psblas3
 Summary: Parallel Sparse Basic Linear Algebra Subroutines
 Version: %{major_minor}.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD
 URL: https://github.com/sfilippone/psblas3
 Source0: https://github.com/sfilippone/psblas3/archive/v%{version}%{?postrelease_version}/psblas3-%{version}%{?postrelease_version}.tar.gz
@@ -597,6 +597,9 @@ popd
 ######################################################
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.8.0-6
 - Renew SPEC file
 

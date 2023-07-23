@@ -1,6 +1,6 @@
 Name:			splint
 Version:		3.1.2
-Release:		30%{?dist}
+Release:		31%{?dist}
 Summary:		An implementation of the lint program
 
 License:		GPLv2+
@@ -43,6 +43,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

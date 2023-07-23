@@ -1,6 +1,6 @@
 Name:           spatialite-tools
 Version:        5.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A set of useful CLI tools for SpatiaLite
 # Add missing -lxml2
 Patch0:         spatialite-tools_lxml2.patch
@@ -65,6 +65,9 @@ export LDFLAGS="%{__global_ldflags} -lm"
 %{_bindir}/spatialite_xml2utf8
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Version-Requirements
 Version:        0.101023
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Set of version requirements for a CPAN dist (DEPRECATED)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Version-Requirements
@@ -63,6 +63,9 @@ make test PERL_CORE=1
 %{_mandir}/man3/Version::Requirements.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.101023-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.101023-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

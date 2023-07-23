@@ -15,7 +15,7 @@ application remains responsive.}
 
 Name: qcoro
 Version: 0.9.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: MIT
 Summary: C++ Coroutines for Qt
@@ -179,6 +179,9 @@ popd
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.0-4
 - Rebuild for qtbase private API version change
 

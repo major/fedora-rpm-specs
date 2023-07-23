@@ -1,7 +1,7 @@
 %global pypiname trollius
 Name:           python-trollius
 Version:        2.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A port of the Tulip asyncio module to Python 2
 
 License:        ASL 2.0
@@ -65,6 +65,9 @@ Linux, Mac OS X, FreeBSD and OpenIndiana.
 %{python3_sitelib}/%{pypiname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.1-25
 - Rebuilt for Python 3.12
 

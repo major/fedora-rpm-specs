@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.0
-Release:   2%{?dist}
+Release:   4%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -1397,7 +1397,7 @@ This package provides %{_langname} langpacks meta-package.
 
 ]]
   rpm.define("_lang " .. lang)
-  rpm.define("_fontlang " .. fontlang)
+  rpm.define("_fontlang " .. string.gsub(fontlang, "-", "_"))
   rpm.define("_langname " .. langname)
   if deps ~= "" then
     rpm.define("_req %{expand:" .. deps .. "}")
@@ -1427,7 +1427,7 @@ for i = 1, #langpacks_package_list do
   local lowerorth = string.lower(orth)
   local normlang = string.gsub(string.lower(lang), "_", "-")
   local langname = langpacks_package_list[i]["langname"]
-  local im = (tonumber(rpm.expand("%{fedora}")) ~= 0 and langpacks_package_list[i]["fedora_inputmethod"] ~= nil and langpacks_package_list[i]["fedora_inputmethod"] or langpacks_package_list[i]["inputmethod"])
+  local im = (tonumber(rpm.expand("0%{?fedora}")) ~= 0 and langpacks_package_list[i]["fedora_inputmethod"] ~= nil and langpacks_package_list[i]["fedora_inputmethod"] or langpacks_package_list[i]["inputmethod"])
   local fclang = (langpacks_package_list[i]["fclang"] == "" and string.gsub(lang, "_", "-") or langpacks_package_list[i]["fclang"])
   local prov = ""
 
@@ -1483,7 +1483,7 @@ for i = 1, #langpacks_package_list do
     default_deps = build_deps(prov, "Requires", drop_duplicate(default_deps))
     extra_deps = build_deps("", "Requires", drop_duplicate(extra_deps))
   end
-  if (tonumber(rpm.expand("%{fedora}")) ~= 0 and langpacks_package_list[i]["recommends"] ~= nil) then
+  if (tonumber(rpm.expand("0%{?fedora}")) ~= 0 and langpacks_package_list[i]["recommends"] ~= nil) then
     extra_deps = build_deps(extra_deps, "Recommends", drop_duplicate(langpacks_package_list[i]["recommends"]))
   end
 
@@ -1506,8 +1506,8 @@ for i = 1, #langpacks_package_list do
   defcorepkg(lang, fclang, langname, im)
 
   --Generate langpacks-* meta packages
-  local metadeps = (tonumber(rpm.expand("%{fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_requires"] ~= nil and langpacks_package_list[i]["meta"]["fedora_requires"] or langpacks_package_list[i]["meta"]["requires"])
-  local metarecd = (tonumber(rpm.expand("%{fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_recommends"] ~= nil and langpacks_package_list[i]["meta"]["fedora_recommends"] or langpacks_package_list[i]["meta"]["recommends"])
+  local metadeps = (tonumber(rpm.expand("0%{?fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_requires"] ~= nil and langpacks_package_list[i]["meta"]["fedora_requires"] or langpacks_package_list[i]["meta"]["requires"])
+  local metarecd = (tonumber(rpm.expand("0%{?fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_recommends"] ~= nil and langpacks_package_list[i]["meta"]["fedora_recommends"] or langpacks_package_list[i]["meta"]["recommends"])
   local deps = build_deps("", "Requires", drop_duplicate(metadeps))
   deps = build_deps(deps, "Recommends", drop_duplicate(metarecd))
   defmetapkg(lang, fclang, langname, deps)
@@ -1606,6 +1606,12 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE3}
 
 %changelog
+* Fri Jul 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.0-4
+- Fix wrong deps in langpacks-LL (zh languages) by Akira Tagoh
+
+* Fri Jul 21 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-3
+- Drop extra dependencies for ELN which is a regression.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

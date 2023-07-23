@@ -7,7 +7,7 @@ This contains tools to generate/convert a RPM spec file for fonts.
 
 Name:           python-%{srcname}
 Version:        0.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Font Packaging tool for Fedora
 License:        GPL-3.0-or-later
 URL:            https://github.com/fedora-i18n/font-rpm-spec-generator
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.12-2
 - Rebuilt for Python 3.12
 

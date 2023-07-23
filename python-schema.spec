@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        0.7.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple data validation library
 
 License:        MIT
@@ -52,6 +52,9 @@ py.test-%{python3_version} -v
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.5-6
 - Rebuilt for Python 3.12
 

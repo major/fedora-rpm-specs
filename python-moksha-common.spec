@@ -2,7 +2,7 @@
 
 Name:           python-moksha-common
 Version:        1.2.5
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Common components for Moksha
 
 License:        ASL 2.0 or MIT
@@ -68,6 +68,9 @@ cp moksha/__init__.py %{buildroot}/%{python3_sitelib}/moksha/
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.5-24
 - Rebuilt for Python 3.12
 

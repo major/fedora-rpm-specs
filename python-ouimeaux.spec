@@ -6,7 +6,7 @@
 
 Name: python-%{srcname}
 Version: 0.8.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Open source control for Belkin WeMo devices
 
 License: BSD and ASL 2.0 and MIT
@@ -112,6 +112,9 @@ install -pm 0644 %{SOURCE2} %{buildroot}%{fw_services}/
 %{fw_services}/%{srcname}.xml
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.8.2-20
 - Rebuilt for Python 3.12
 

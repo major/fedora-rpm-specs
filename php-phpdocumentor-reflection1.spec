@@ -17,7 +17,7 @@
 
 Name:           php-phpdocumentor-reflection1
 Version:        1.0.7
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Reflection library to do Static Analysis for PHP Projects (Version 1)
 
 License:        MIT
@@ -196,6 +196,9 @@ done
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

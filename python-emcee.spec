@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 3.1.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The Python ensemble sampling toolkit for affine-invariant MCMC
 License: MIT
 
@@ -65,6 +65,9 @@ popd
 %doc AUTHORS.rst HISTORY.rst README.rst 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 3.1.4-2
 - Rebuilt for Python 3.12
 

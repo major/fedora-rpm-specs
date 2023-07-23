@@ -12,7 +12,7 @@ Client library (cinderclient python module) and command line utility \
 
 Name:             python-cinderclient
 Version:          9.3.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Python API and CLI for OpenStack Cinder
 
 License:          ASL 2.0
@@ -130,6 +130,9 @@ install -p -D -m 644 doc/build/man/cinder.1 %{buildroot}%{_mandir}/man1/cinder.1
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 9.3.0-2
 - Rebuilt for Python 3.12
 

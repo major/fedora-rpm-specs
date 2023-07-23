@@ -20,7 +20,7 @@
 
 Name:           php-sebastian-global-state
 Version:        1.1.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Snapshotting of global state
 
 License:        BSD
@@ -97,6 +97,9 @@ EOF
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

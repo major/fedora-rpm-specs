@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        0.3.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Python bindings for util-linux libsmartcols-library
 
 License:        GPL-3.0-or-later
@@ -74,6 +74,9 @@ rm -f doc/_build/html/.buildinfo
 %doc examples doc/_build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3.0-20
 - Rebuilt for Python 3.12
 

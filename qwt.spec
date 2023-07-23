@@ -7,7 +7,7 @@
 Name:    qwt
 Summary: Qt Widgets for Technical Applications
 Version: 6.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPLv2 with exceptions
 URL:     http://qwt.sourceforge.net
@@ -167,6 +167,9 @@ mv %{buildroot}%{_qt6_docdir}/html/man/man3 %{buildroot}%{_mandir}/
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

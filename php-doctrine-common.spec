@@ -57,7 +57,7 @@
 Name:          php-%{composer_vendor}-%{composer_project}
 Epoch:         1
 Version:       %{github_version}
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       Common library for Doctrine projects
 
 License:       MIT
@@ -206,6 +206,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.13.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 1:2.13.3-9
 - Disable tests by default
 - FTBFS (RHBZ #2046813)

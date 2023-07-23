@@ -1,6 +1,6 @@
 Name:		perl-aliased
 Version:	0.34
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Use shorter versions of class names
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/aliased
@@ -53,6 +53,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/aliased.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.34-25
 - Update license to SPDX format
 

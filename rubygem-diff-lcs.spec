@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.5.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Provide a list of changes between two sequenced collections
 License: MIT OR Artistic-2.0 OR GPL-2.0-or-later
 URL: https://github.com/halostatue/diff-lcs
@@ -89,6 +89,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

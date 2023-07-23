@@ -4,7 +4,7 @@
 
 Name:		sdformat
 Version:	6.3.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Simulation Description Format
 
 License:	Apache-2.0
@@ -117,6 +117,9 @@ export GTEST_COLOR=no
 %doc %{_vpath_builddir}/doxygen/html
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Rich Mattes <richmattes@gmail.com> - 6.3.1-1
 - Update to release 6.3.1
 - migrated to SPDX license

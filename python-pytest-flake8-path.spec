@@ -1,8 +1,8 @@
 %global srcname pytest-flake8-path
 
 Name:           python-%{srcname}
-Version:        1.3.0
-Release:        3%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        A pytest fixture for testing flake8 plugins
 
 License:        MIT
@@ -54,6 +54,12 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+*Fri Jul 21 2023 Scott K Logan <logans@cottsay.net> - 1.5.0-1
+- Update to 1.5.0 (rhbz#2215680)
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 1.3.0-3
 - Rebuilt for Python 3.12
 

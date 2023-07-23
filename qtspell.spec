@@ -1,6 +1,6 @@
 Name:           qtspell
 Version:        1.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Spell checking for Qt text widgets
 
 License:        GPL-3.0-or-later
@@ -244,6 +244,9 @@ MINGW_BUILDDIR_SUFFIX=qt6 %mingw_make_install
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

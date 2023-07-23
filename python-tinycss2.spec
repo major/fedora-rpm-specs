@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Low-level CSS parser for Python
 
 License:        BSD
@@ -71,6 +71,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/__pycache__/test.*.py?
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.2.1-4
 - Rebuilt for Python 3.12
 

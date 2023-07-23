@@ -4,7 +4,7 @@
 
 Name: python-scikit-image
 Version: 0.21.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -118,6 +118,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.21.0-3
 - Disable some tests failling in i686 and s390x
 

@@ -1,7 +1,7 @@
 %global checkout 602hg
 Name:           rachota
 Version:        2.4
-Release:        2.%{checkout}%{?dist}
+Release:        3.%{checkout}%{?dist}
 Summary:        Straightforward timetracking
 
 License:        CDDL-1.0
@@ -71,6 +71,9 @@ desktop-file-install --dir=$RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE1}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-3.602hg
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-2.602hg
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

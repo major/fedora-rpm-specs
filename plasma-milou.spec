@@ -4,7 +4,7 @@
 
 Name:    plasma-%{base_name}
 Version: 5.27.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A dedicated KDE search application built on top of Baloo
 
 License: GPLv2+
@@ -66,6 +66,9 @@ Provides:       kde-plasma-milou = %{version}-%{release}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
 - 5.27.6
 

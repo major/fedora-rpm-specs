@@ -10,7 +10,7 @@
 Name:           psi4
 Epoch:          1
 Version:        1.3.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        An ab initio quantum chemistry package
 License:        LGPLv3 and MIT
 URL:            http://www.psicode.org/
@@ -174,6 +174,9 @@ ctest -L smoketests
 %{_includedir}/psi4/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 1:1.3.2-19
 - Address deprecated np.int (BZ #2192326).
 

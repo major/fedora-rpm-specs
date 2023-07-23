@@ -1,6 +1,6 @@
 Name:           perl-autovivification
 Version:        0.18
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Lexically disable autovivification
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autovivification
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/autovivification.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.18-19
 - Perl 5.38 rebuild
 

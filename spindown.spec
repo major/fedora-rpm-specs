@@ -1,7 +1,7 @@
 Summary:    Daemon that can spin idle disks down
 Name:       spindown
 Version:    0.4.0
-Release:    34%{?dist}
+Release:    35%{?dist}
 License:    GPLv3+
 Url:        http://code.google.com/p/spindown
 Source0:    http://spindown.googlecode.com/files/spindown-%{version}.tar.gz
@@ -60,6 +60,9 @@ install -p -m 755 spindown.service $RPM_BUILD_ROOT/%{_unitdir}/spindown.service
 %config(noreplace) %{_sysconfdir}/spindown.conf
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

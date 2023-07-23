@@ -4,7 +4,7 @@
 
 Name:           php-pear-Date-Holidays
 Version:        0.21.8
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Driver based class to calculate holidays
 
 License:        PHP
@@ -85,6 +85,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.8-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.8-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

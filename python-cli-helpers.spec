@@ -3,7 +3,7 @@
 Summary:        Python helpers for common CLI tasks
 Name:           python-cli-helpers
 Version:        2.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD
 URL:            https://github.com/dbcli/cli_helpers
 Source0:        https://github.com/dbcli/cli_helpers/archive/v%{version}/cli_helpers-%{version}.tar.gz
@@ -53,6 +53,9 @@ PYTHONPATH=build/lib/ py.test-3
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.3.0-4
 - Rebuilt for Python 3.12
 

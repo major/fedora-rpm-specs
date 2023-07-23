@@ -1,6 +1,6 @@
 Name:           python-netaddr
 Version:        0.8.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ py.test-%{python3_version}
 %{_bindir}/netaddr
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.8.0-13
 - Rebuilt for Python 3.12
 

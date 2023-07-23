@@ -13,7 +13,7 @@ Version: 0.6.4
 %define dotrc           %{nil}
 %endif
 
-Release: 4%{dotrc}%{?dist}
+Release: 4%{dotrc}%{?dist}.1
 Summary:    A semantic parser of source files
 License:    MIT
 URL:        https://sparse.wiki.kernel.org
@@ -75,6 +75,9 @@ make clean
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-4.gce1a6720f69e.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Jeff Layton <jlayton@redhat.com> - 0.6.4-4.gce1a6720f69e
 - Update to latest sparse git (commit ce1a6720f69e)
 - Fix bogus snprintf length argument in linearize.c (bz2171731)

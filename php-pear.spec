@@ -27,7 +27,7 @@
 Summary: PHP Extension and Application Repository framework
 Name: php-pear
 Version: 1.10.13
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 1
 # BSD-2-Clause: PEAR, PEAR_Manpages, Archive_Tar, Console_Getopt
 # BSD-3-Clause: XML_Util
@@ -336,6 +336,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.13-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Remi Collet <remi@remirepo.net> - 1.10.13-5
 - fix PHP 8.2 deprecations using patch from
   https://github.com/pear/pear-core/pull/124

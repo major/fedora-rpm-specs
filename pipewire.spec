@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 74
+%global microversion 75
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -717,6 +717,12 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Jul 21 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.75-1
+- Update version to 0.3.75
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.74-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.74-1
 - Update version to 0.3.74
 

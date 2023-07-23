@@ -1,6 +1,6 @@
 Name:           python-tox-current-env
 Version:        0.0.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tox plugin to run tests in current Python environment
 
 License:        MIT
@@ -58,6 +58,9 @@ The tox-current-env plugin allows to run tests in current Python environment.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.0.11-4
 - Rebuilt for Python 3.12
 

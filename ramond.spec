@@ -1,6 +1,6 @@
 Name:       ramond
 Version:    0.5
-Release:    23%{?dist}
+Release:    24%{?dist}
 Summary:    Router advertisement monitoring daemon
 License:    BSD
 URL:        http://%{name}.sourceforge.net/
@@ -72,6 +72,9 @@ install -m 0644 -t '%{buildroot}%{_unitdir}' '%{SOURCE1}'
 %{_unitdir}/%{name}.service
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@ MS-ITSS encoded files - Compressed Html Help files (.chm).}
 
 Name:           python-chm
 Version:        0.8.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python package for CHM files handling
 License:        GPLv2+
 URL:            https://github.com/dottedmag/%{pypi_name}/
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitearch}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.6-9
 - Rebuilt for Python 3.12
 

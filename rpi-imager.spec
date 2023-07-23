@@ -1,6 +1,6 @@
 Name:           rpi-imager
 Version:        1.7.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical user-interface to write disk images and format SD cards
 
 License:        ASL 2.0
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 23 2023 K. de Jong <keesdejong@fedoraproject.org> - 1.7.5-1
 - New upstream release
 

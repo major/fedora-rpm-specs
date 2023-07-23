@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	4.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Python Gettext po to mo file compiler
 License:	BSD
 
@@ -45,6 +45,9 @@ rm -rf python_gettext.egg-info
 %{python3_sitelib}/python_gettext-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.0-9
 - Rebuilt for Python 3.12
 

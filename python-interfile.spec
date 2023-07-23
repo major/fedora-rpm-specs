@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        0.3.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Pyhon module for read/write/parse interfile
 
 # https://github.com/spedemon/interfile/pull/3
@@ -60,6 +60,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

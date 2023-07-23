@@ -6,7 +6,7 @@
 Summary:	Calculates the Levenshtein distance between two byte strings
 Name:		rubygem-%{gem_name}
 Version:	0.2.2
-Release:	32%{?dist}
+Release:	33%{?dist}
 
 # LICENSE file
 License:	GPLv2
@@ -123,6 +123,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

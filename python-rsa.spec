@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure-Python RSA implementation
 
 License:        Apache-2.0
@@ -73,6 +73,9 @@ cp %{buildroot}%{_bindir}/pyrsa-verify %{buildroot}%{_bindir}/pyrsa-verify-3
 # %{__python3} setup.py test
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Jason Montleon <jmontleo@redhat.com> - 4.9-2
 - Migrate to SPDX license
 

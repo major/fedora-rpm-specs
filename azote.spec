@@ -1,14 +1,14 @@
 # -*-Mode: rpm-spec -*-
 
 Name:      azote
-Version:   1.11.0
-Release:   3%{?dist}
+Version:   1.12.3
+Release:   1%{?dist}
 BuildArch: noarch
 Summary:   Wallpaper and color manager for Sway, i3 and some other WMs
 
 # GPLv3: main program
 # BSD: colorthief.py
-License:   GPLv3 and BSD
+License:   GPL-3.0-only and BSD-1-Clause
 
 URL:       https://github.com/nwg-piotr/azote
 Source0:   %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -73,6 +73,10 @@ done
 %license LICENSE LICENSE-COLORTHIEF
 
 %changelog
+* Fri Jul 21 2023 Bob Hepple <bob.hepple@gmail.com> - 1.12.3-1
+- new version
+- migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

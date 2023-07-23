@@ -6,7 +6,7 @@
 
 Name:           rust-cssparser-macros
 Version:        0.6.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Procedural macros for cssparser
 
 License:        MPL-2.0
@@ -66,6 +66,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

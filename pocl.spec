@@ -5,7 +5,7 @@
 
 Name: pocl
 Version: 4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # The entire code is under MIT
 # include/utlist.h which is under BSD-1-Clause (unbundled)
@@ -114,6 +114,9 @@ find . -depth -name utlist* -print -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 4.0-2
 - Disabled frame pointers to prevent crashes.
 

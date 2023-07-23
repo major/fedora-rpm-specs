@@ -1,6 +1,6 @@
 Name:           rats
 Version:        2.4
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Rough Auditing Tool for Security
 License:        GPLv2
 URL:            https://code.google.com/p/rough-auditing-tool-for-security/
@@ -48,6 +48,9 @@ sed -e 's/$(BINDIR)/$(DESTDIR)$(BINDIR)/g' \
 %{_mandir}/man1/rats.1*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

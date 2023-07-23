@@ -12,7 +12,7 @@
 
 Name:           php-pear-HTTP-OAuth
 Version:        0.3.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Implementation of the OAuth spec
 
 License:        BSD
@@ -112,6 +112,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

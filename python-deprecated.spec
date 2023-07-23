@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.2.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python decorator to deprecate old python classes, functions or methods
 License:        MIT
 URL:            https://github.com/tantale/%{pkgname}
@@ -42,6 +42,9 @@ rm -rf %{pkgname}.egg-info
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.14-2
 - Rebuilt for Python 3.12
 

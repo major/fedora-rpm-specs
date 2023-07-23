@@ -1,7 +1,7 @@
 %global pypi_name sphinx-epytext
 Name:           python-%{pypi_name}
 Version:        0.0.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Sphinx epytext extension
 
 License:        MIT
@@ -41,6 +41,9 @@ Summary:        %{summary}
 %{python3_sitelib}/sphinx_epytext-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.4-12
 - Rebuilt for Python 3.12
 

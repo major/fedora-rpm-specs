@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        5.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Container class boilerplate killer
 
 License:        BSD
@@ -85,6 +85,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} \
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 5.0.0-15
 - Rebuilt for Python 3.12
 

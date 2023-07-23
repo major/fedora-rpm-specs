@@ -6,7 +6,7 @@
 
 Name:           rust-vhost-user-backend
 Version:        0.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework to build vhost-user backend service daemon
 
 License:        Apache-2.0
@@ -80,6 +80,9 @@ cp %{SOURCE1} .
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Sergio Lopez <slp@redhat.com> - 0.10.0-1
 - Update to version 0.10.0
 - Regenerate with rust2rpm 24

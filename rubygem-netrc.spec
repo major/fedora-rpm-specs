@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.11.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Library to read and write netrc files
 License: MIT
 URL: https://github.com/geemus/netrc
@@ -77,6 +77,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

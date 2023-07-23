@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.7.1
-Release:	200%{?dist}
+Release:	201%{?dist}
 
 Summary:	LALR(1) parser generator
 # SPDX confirmed
@@ -122,6 +122,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.7.1-200
 - 1.7.1
 

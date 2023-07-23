@@ -2,7 +2,7 @@
 
 Name:               python3-%{modname}
 Version:            1.5.5
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            A fork of the ast module with type annotations
 
 License:            Apache-2.0 
@@ -41,6 +41,9 @@ as supported in Python 3.6.
 %{python3_sitearch}/%{modname}-*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.5-1
 - 1.5.5
 

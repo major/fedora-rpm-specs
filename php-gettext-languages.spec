@@ -1,6 +1,6 @@
 Name:       php-gettext-languages
 Version:    2.10.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 BuildArch:  noarch
 
 License:    MIT and Unicode-DFS-2016
@@ -77,6 +77,9 @@ phpunit7 --bootstrap tests/bootstrap.php --verbose
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 29 2023 Sundeep Anand <suanand@redhat.com> - 2.10.0-3
 - update license tag to as per SPDX identifiers
 

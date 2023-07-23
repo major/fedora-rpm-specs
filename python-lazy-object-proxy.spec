@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -47,6 +47,9 @@ A fast and thorough lazy object proxy.
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.9.0-4
 - Rebuilt for Python 3.12
 

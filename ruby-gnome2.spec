@@ -19,7 +19,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 
@@ -851,6 +851,9 @@ done
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-12
 - Change BR: ruby-cairo-devel to rubygem-cairo-devel
 

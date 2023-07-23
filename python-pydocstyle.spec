@@ -2,7 +2,7 @@
 
 Name: python-%{pypi_name}
 Version: 6.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Python docstring style checker
 
 License: MIT
@@ -88,6 +88,9 @@ sed -E -i 's|"python(2\|3)?( -m pydocstyle)|"%{__python3}\2|' \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 6.3.0-2
 - Rebuilt for Python 3.12
 

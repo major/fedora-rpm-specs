@@ -1,6 +1,6 @@
 Name:               sshuttle
 Version:            1.1.1
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Transparent Proxy VPN
 Source0:            https://files.pythonhosted.org/packages/source/s/%{name}/%{name}-%{version}.tar.gz
 URL:                https://github.com/%{name}/%{name}
@@ -75,6 +75,9 @@ popd
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Kevin Fenzi <kevin@scrye.com> - 1.1.1-3
 - Drop flake8 test
 

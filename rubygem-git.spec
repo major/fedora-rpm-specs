@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.18.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Ruby/Git is a Ruby library that can be used to create, read and manipulate Git repositories by wrapping system calls to the git binary
 License: MIT
 URL: http://github.com/schacon/ruby-git
@@ -91,6 +91,9 @@ cp -a .%{gem_dir}/* \
 %doc %{gem_instdir}/CONTRIBUTING.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Steve Traylen <steve.traylen@cern.ch> - 1.18.0-1
 - Up to 1.18.0
 

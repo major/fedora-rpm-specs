@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	1
+%global	baserelease	2
 
 %global	gem_name	rspec-mocks
 
@@ -130,6 +130,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.6-1
 - 3.12.6
 

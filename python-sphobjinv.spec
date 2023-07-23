@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Sphinx objects.inv inspection/manipulation tool
 
 License:        MIT
@@ -51,6 +51,9 @@ sed -i "s|\r||g" README.rst
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.1-11
 - Rebuilt for Python 3.12
 

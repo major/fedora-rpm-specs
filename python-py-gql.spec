@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Comprehensive GraphQL implementation for Python
 
 License:        MIT
@@ -66,6 +66,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %{python3_sitelib}/py_gql-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.6.1-11
 - Rebuilt for Python 3.12
 

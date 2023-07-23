@@ -3,7 +3,7 @@
 
 Name:               python-scour
 Version:            0.38.2
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            %{sum}
 
 License:            Apache-2.0 AND BSD-3-Clause
@@ -58,6 +58,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.38.2-4
 - Rebuilt for Python 3.12
 

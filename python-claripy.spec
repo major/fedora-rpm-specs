@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.39
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Abstraction layer for constraint solvers
 
 License:        BSD
@@ -44,6 +44,9 @@ sed -i -e '/z3-solver/d' setup.cfg
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.39-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 9.2.39-2
 - Rebuilt for Python 3.12
 

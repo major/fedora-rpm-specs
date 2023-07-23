@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Core library for anymarkup
 
 License:        BSD
@@ -53,6 +53,9 @@ python-anymarkup.
 %{python3_sitelib}/%{modulename}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.8.1-11
 - Rebuilt for Python 3.12
 

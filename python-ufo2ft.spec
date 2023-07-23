@@ -5,7 +5,7 @@ Version:        2.32.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -66,6 +66,9 @@ k="${k-}${k+ and }not (TTFInterpolatablePreProcessorTest and test_custom_filters
 %doc README.rst
  
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 23 2023 Benson Muite <benson_muite@emailplus.org> - 2.32.0-1
 - Upgrade to latest release
 - Remove fonttoolscu2qu.patch as no longer needed

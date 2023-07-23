@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        0.12.41
-Release:        2%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        3%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        High definition PHP structures with JSON-schema based validation
 
 License:        MIT
@@ -154,6 +154,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.41-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.41-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

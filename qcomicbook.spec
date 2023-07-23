@@ -3,7 +3,7 @@
 Summary: A viewer for comic book archives
 Name:    qcomicbook
 Version: 0.9.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 License: GPLv2
 URL:     https://github.com/stolowski/QComicBook/
@@ -112,6 +112,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/*%{name}.desktop
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

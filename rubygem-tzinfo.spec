@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Time Zone Library
 License: MIT
 URL: https://tzinfo.github.io
@@ -85,6 +85,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Vít Ondruch <vondruch@redhat.com> - 2.0.6-1
 - Add soft dependency on tzdata, which might not be available on the system.
 - Update to TZInfo 2.0.6.

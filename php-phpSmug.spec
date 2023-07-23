@@ -2,7 +2,7 @@
 
 Name:		php-phpSmug
 Version:	2.1
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	PHP wrapper for the SmugMug API
 
 License:	LGPLv3
@@ -41,6 +41,9 @@ cp -pr %{origname}.php $RPM_BUILD_ROOT%{_datadir}/php/%{origname}
 %{_datadir}/php/%{origname}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

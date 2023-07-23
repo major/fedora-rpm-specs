@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -52,6 +52,9 @@ sed -i -e '/setuptools-git/d' common_setup.py
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.7.0-17
 - Rebuilt for Python 3.12
 

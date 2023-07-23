@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 1.000
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 %global foundry           SIL
 %global fontlicense       OFL
@@ -55,6 +55,9 @@ Source10: 65-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

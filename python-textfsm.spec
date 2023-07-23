@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python module for parsing semi-structured text into python tables
 
 License:        ASL 2.0
@@ -56,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 %{_bindir}/textfsm
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.1.2-3
 - Rebuilt for Python 3.12
 

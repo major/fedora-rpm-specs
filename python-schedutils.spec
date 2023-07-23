@@ -1,7 +1,7 @@
 Summary: Linux scheduler python bindings
 Name: python-schedutils
 Version: 0.6
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPLv2
 URL: https://rt.wiki.kernel.org/index.php/Tuna
 Source: https://cdn.kernel.org/pub/software/libs/python/%{name}/%{name}-%{version}.tar.xz
@@ -42,6 +42,9 @@ Summary: %summary
 %{python3_sitearch}/*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6-20
 - Rebuilt for Python 3.12
 

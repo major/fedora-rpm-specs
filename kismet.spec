@@ -1,5 +1,5 @@
 %global _hardened_build 1
-%global _version        2022-08-R1
+%global _version        2023-07-R1
 
 ## {Local macros...
 %global cfgdir          %_sysconfdir/%name
@@ -19,6 +19,7 @@ Source0:        http://www.kismetwireless.net/code/%{name}-%_version.tar.xz
 
 Patch0:         kismet-include.patch
 Patch1:         kismet-install.patch
+Patch2:         hak5-types.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -45,8 +46,9 @@ traffic.
 %prep
 %setup -qn %{name}-%{_version}
 
-%patch0 -p0
-%patch1 -p0
+%patch -P 0 -p0
+%patch -P 1 -p0
+%patch -P 2 -p0
 
 sed -i 's!\$(prefix)/lib/!%{_libdir}/!g' plugin-*/Makefile
 
@@ -57,6 +59,8 @@ sed -i \
     -e '\!^ouifile=/etc/manuf!d' \
     -e '\!^ouifile=/usr/share/wireshark/wireshark/manuf!d' \
     conf/kismet.conf
+
+sed -i s/@VERSION@/%{version}/g packaging/kismet.pc.in
 
 %build
 
@@ -69,7 +73,6 @@ export LDFLAGS='-Wl,--as-needed'
 
 %make_build
 
-sed -i s/2019-08-GIT/%{version}-%{release}%{?dist}/g packaging/kismet.pc
 
 %install
 BIN=$RPM_BUILD_ROOT/bin ETC=$RPM_BUILD_ROOT/etc %{__make} suidinstall DESTDIR=%{?buildroot} INSTALL="%{__install} -p"
@@ -94,6 +97,7 @@ getent group kismet >/dev/null || groupadd -f -r kismet
 %{_bindir}/kismetdb_to_kml
 %{_bindir}/kismetdb_to_pcap
 %{_bindir}/kismetdb_to_wiglecsv
+%attr(4755,root,root) %{_bindir}/kismet_cap_hak5_wifi_coconut
 %attr(4755,root,root) %{_bindir}/kismet_cap_linux_bluetooth
 %attr(4755,root,root) %{_bindir}/kismet_cap_linux_wifi
 %attr(4755,root,root) %{_bindir}/kismet_cap_nrf_51822
@@ -107,6 +111,9 @@ getent group kismet >/dev/null || groupadd -f -r kismet
 %{_libdir}/pkgconfig/kismet.pc
 
 %changelog
+* Fri Jul 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.0.2023.07.R1-1
+- 2023-07-R1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2022.08.R1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

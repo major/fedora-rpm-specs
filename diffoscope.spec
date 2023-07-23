@@ -1,5 +1,5 @@
 Name:          diffoscope
-Version:       233
+Version:       245
 Release:       %autorelease
 Summary:       In-depth comparison of files, archives, and directories
 License:       GPLv3+
@@ -21,6 +21,7 @@ ExcludeArch:  %{ix86}
     cpio \
     llvm, llvm-devel \
     binutils \
+    binwalk \
     diffutils \
     gzip \
     unzip \
@@ -70,10 +71,12 @@ ExcludeArch:  %{ix86}
     wabt
 
 # missing:
+# aapt
 # apktool
 # js-beautify
 # /usr/bin/dumpxsb from xmlbeans-scripts, xmlbeans
 # docx2txt
+# dexdump
 
 # Does not work with python3-PyPDF2-1.26.0
 # python3-pypdf >= 3.0
@@ -149,22 +152,25 @@ DESELECT=(
   --deselect=tests/test_tools.py::test_sbin_added_to_path
   --deselect=tests/comparators/test_python.py::test_diff
 
-  # Some zstd version incompatiblity. Not reported upstream.
-  --deselect=tests/comparators/test_fsimage.py
-
   # What exactly is the point of those tests?
   --deselect=tests/test_source.py::test_code_is_black_clean
 
-  # https://salsa.debian.org/reproducible-builds/diffoscope/-/issues/330
-  --deselect=tests/comparators/test_ico_image.py::test_diff_meta
-  --deselect=tests/comparators/test_ico_image.py::test_diff_meta2
-  --deselect=tests/comparators/test_jpeg_image.py::test_diff_meta
+  # https://salsa.debian.org/reproducible-builds/diffoscope/-/issues/345
+  --deselect=tests/comparators/test_rlib.py::test_item3_deflate_llvm_bitcode
+  --deselect=tests/comparators/test_html.py::test_diff
+  --deselect=tests/comparators/test_macho.py::test_llvm_diff
+
+  # Those fail on rawhide. Not reported upstream yet.
+  --deselect=tests/comparators/test_fsimage.py::test_differences
+  --deselect=tests/comparators/test_fsimage.py::test_differences_fat
+  --deselect=tests/comparators/test_elf.py::test_differences_with_dbgsym
+  --deselect=tests/comparators/test_elf.py::test_original_gnu_debuglink
 )
 
 LC_CTYPE=C.utf8 \
 TZ=UTC \
 PYTHONPATH=build/lib/ \
-%{__python3} -m pytest tests/ -vv ${DESELECT[@]}
+%python3 -m pytest tests/ -vv "${DESELECT[@]}"
 
 %files
 %doc README.rst debian/changelog

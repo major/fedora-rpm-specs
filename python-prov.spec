@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        W3C Provenance Data Model supporting PROV-JSON and PROV-XML import/export
 
 License:        MIT
@@ -45,6 +45,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.0-3
 - Rebuilt for Python 3.12
 

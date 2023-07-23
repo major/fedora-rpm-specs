@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.5.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple DER/ASN.1 encoding/decoding library
 
 # Upstream license specification: ISC
@@ -68,6 +68,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

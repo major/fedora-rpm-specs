@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Spyder extensions for the python-language-server
 
 License:        MIT
@@ -44,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/pyls_spyder-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.0-7
 - Rebuilt for Python 3.12
 

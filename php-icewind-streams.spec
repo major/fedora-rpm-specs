@@ -20,7 +20,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_name}
 Version:        0.7.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A set of generic stream wrappers
 
 License:        MIT
@@ -99,6 +99,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 17 2023 Remi Collet <remi@remirepo.net> - 0.7.7-1
 - update to 0.7.7
 

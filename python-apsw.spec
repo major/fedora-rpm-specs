@@ -29,7 +29,7 @@
 
 Name:               python-apsw
 Version:            %{real_version}
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Another Python SQLite Wrapper
 License:            zlib
 URL:                https://github.com/rogerbinns/apsw
@@ -81,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} setup.py test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.40.1.0-3
 - Backport commit 19486dc (fix RHBZ#2220114)
 

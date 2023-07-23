@@ -4,7 +4,7 @@
 
 Name:           plasma-%{component}
 Version:        4.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Dynamic wallpaper plugin for KDE Plasma
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND CC0-1.0 AND CC-BY-SA-4.0
@@ -124,6 +124,9 @@ desktop-file-validate %{buildroot}%{_datadir}/kservices5/plasma-wallpaper-com.gi
 %{_datadir}/zsh/site-functions/_kdynamicwallpaperbuilder
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.0-9
 - Adapt license tag to SPDX
 

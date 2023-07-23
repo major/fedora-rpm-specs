@@ -3,7 +3,7 @@
 Summary: Simple Hash extension to make working with nested hashes
 Name: rubygem-%{gem_name}
 Version: 2.0.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: MIT
 URL: http://github.com/svenfuchs/hashr
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -59,6 +59,9 @@ rspec -rspec_helper spec
 popd
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

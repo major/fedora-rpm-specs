@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        File-based locks for Python for Linux and Windows
 
 License:        BSD
@@ -77,6 +77,9 @@ module in the standard library. Specifically, their behaviour is:
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.0-5
 - Rebuilt for Python 3.12
 

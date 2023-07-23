@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A command line object dispatcher
 
 License:        MIT
@@ -52,6 +52,9 @@ py.test-%{python3_version} -v tambo/tests
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.0-24
 - Rebuilt for Python 3.12
 

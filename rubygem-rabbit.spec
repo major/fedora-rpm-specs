@@ -6,7 +6,7 @@ BuildRequires:	%1 \
 
 Name:		rubygem-%{gem_name}
 Version:	3.0.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	RD-document-based presentation application
 # GPL-2.0-or-later:	overall
@@ -182,6 +182,9 @@ popd
 %doc	%{gem_instdir}/sample/	
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.3-2
 - Skip blockdiag integration test, python3-blockdiag now FTI
   because of loooong dependency chain breakage with python3.12

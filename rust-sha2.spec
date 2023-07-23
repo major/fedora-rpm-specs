@@ -49,6 +49,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+asm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+asm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "asm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+asm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+asm-aarch64-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+asm-aarch64-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "asm-aarch64" feature of the "%{crate}" crate.
+
+%files       -n %{name}+asm-aarch64-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+compress-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -83,6 +107,18 @@ This package contains library source intended for building other packages which
 use the "oid" feature of the "%{crate}" crate.
 
 %files       -n %{name}+oid-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha2-asm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha2-asm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha2-asm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha2-asm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

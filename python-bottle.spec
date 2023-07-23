@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.12.25
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast and simple WSGI-framework for small web-applications
 
 License:        MIT
@@ -58,6 +58,9 @@ rm %{buildroot}%{_bindir}/bottle.py
 %{python3_sitelib}/*.py
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.25-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Federico Pellegrin <fede@evolware.org> - 0.12.25-3
 - Fix module loading for Python 3.12
 

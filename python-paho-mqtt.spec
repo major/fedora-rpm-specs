@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python MQTT version 3.1/3.1.1/5.0 client class
 
 License:        EPL-1.0
@@ -56,6 +56,9 @@ and/or network bandwidth is at a premium.
 %{python3_sitelib}/paho*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.1-6
 - Rebuilt for Python 3.12
 

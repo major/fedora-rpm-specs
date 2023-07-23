@@ -4,7 +4,7 @@
 Summary: Hybrid image/package system
 Name: rpm-ostree
 Version: 2023.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
@@ -241,6 +241,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 21 2023 Joseph Marrero <jmarrero@fedoraproject.org> - 2023.5-1
 - https://github.com/coreos/rpm-ostree/releases/tag/v2023.5
 

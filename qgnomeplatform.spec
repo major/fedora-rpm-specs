@@ -2,7 +2,7 @@
 
 Name:           qgnomeplatform
 Version:        0.9.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Qt Platform Theme aimed to accommodate Gnome settings
 
 License:        LGPL-2.0-or-later
@@ -118,6 +118,9 @@ modifying them - making them fit into the environment as well as possible.
 %exclude %{_datadir}/color-schemes/*.colors
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.1-6
 - Rebuild for qtbase private API version change
 

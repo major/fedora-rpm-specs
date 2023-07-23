@@ -1,6 +1,6 @@
 Name:           python-y-py
 Version:        0.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for the Y-CRDT built from yrs (Rust)
 License:        MIT
 URL:            https://github.com/y-crdt/ypy
@@ -83,6 +83,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.6.0-3
 - Rebuilt for Python 3.12
 

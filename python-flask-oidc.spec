@@ -4,7 +4,7 @@
 
 Name:           python-%{tar_name}
 Version:        1.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -67,6 +67,9 @@ identity providers, for example, Microsoft’s Azure Active Directory
 %{_bindir}/oidc-register
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.5.0-4
 - Rebuilt for Python 3.12
 

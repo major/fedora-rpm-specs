@@ -25,7 +25,7 @@ The pyvo module currently provides these main capabilities:              \
 
 Name:           python-%{srcname}
 Version:        1.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -91,6 +91,9 @@ sed -i -e 's|mimeparse|python-mimeparse|' setup.cfg
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-2
 - Drop BR: python3-astropy-helpers, no longer used
 

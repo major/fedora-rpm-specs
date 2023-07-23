@@ -5,7 +5,7 @@
 Summary: A natural language date parser
 Name: rubygem-%{gem_name}
 Version: 0.10.2
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: MIT
 URL: http://github.com/mojombo/chronic
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -60,6 +60,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

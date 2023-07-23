@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        6.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library for working with RDF
 License:        BSD-3-Clause
 URL:            https://github.com/RDFLib/rdflib
@@ -106,6 +106,9 @@ sed -i '1s=^#!/usr/bin/\(python\|env python\).*=#!%{__python3}='  \
 %{_bindir}/rdfs2dot
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.2.0-3
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           perl-constant-boolean
 Version:        0.02
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Define TRUE and FALSE constants
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/constant-boolean
@@ -53,6 +53,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_mandir}/man3/constant::boolean.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun  2 2023 Paul Howarth <paul@city-fan.org> - 0.02-37
 - Spec clean-up
   - Use SPDX-format license tag

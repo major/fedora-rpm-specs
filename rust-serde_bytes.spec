@@ -5,7 +5,7 @@
 %global crate serde_bytes
 
 Name:           rust-serde_bytes
-Version:        0.11.11
+Version:        0.11.12
 Release:        %autorelease
 Summary:        Optimized handling of &[u8] and Vec<u8> for Serde
 

@@ -14,7 +14,7 @@ new clients.
 
 Name:       python-%{pypi_name}
 Version:    5.1.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Authentication Library for OpenStack Clients
 License:    ASL 2.0
 URL:        https://pypi.io/pypi/%{pypi_name}
@@ -136,6 +136,9 @@ PYTHON=%{__python3} stestr-3 run
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 5.1.2-2
 - Rebuilt for Python 3.12
 

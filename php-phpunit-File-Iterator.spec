@@ -19,7 +19,7 @@
 
 Name:           php-phpunit-File-Iterator
 Version:        1.4.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        FilterIterator implementation that filters files based on a list of suffixes
 
 License:        BSD-3-Clause
@@ -90,6 +90,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.4.5-13
 - minimal fix for PHP 8
 

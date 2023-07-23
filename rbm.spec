@@ -3,7 +3,7 @@
 
 Name:       rbm
 Version:    0.4^20230626git%{shortcommit0}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Reproducible Build Manager
 License:    CC0-1.0
 # A bug tracker is at <https://gitlab.torproject.org/tpo/applications/rbm/>.
@@ -148,6 +148,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4^20230626git37c204c-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Petr Pisar <ppisar@redhat.com> - 0.4^20230626git37c204c-1
 - Rebase to a git snapshot taken on 2023-06-25
 - Use dnf5 instead of dnf (bug #2209405)

@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.0.8
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Uploads Ruby test coverage data to Code Climate
 
 License:        MIT
@@ -68,6 +68,9 @@ rspec -Ilib spec
 %doc %{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

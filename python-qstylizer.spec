@@ -7,7 +7,7 @@ PyQt/PySide stylesheets.
 
 Name:           python-%{pypi_name}
 Version:        0.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt stylesheet generation utility for PyQt/PySide
 
 License:        MIT
@@ -65,6 +65,9 @@ export PBR_VERSION=%{version}
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.2-3
 - Modify calling called_once_with which seems typo
 

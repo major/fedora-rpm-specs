@@ -12,7 +12,7 @@
 Name: %{pypi_name}
 Summary: A portable multi-language file Python2 preprocessor
 Version: 2.0.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: MIT
 URL: https://github.com/doconce/preprocess/
 Source0: %{pypi_source}
@@ -320,6 +320,9 @@ popd
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.0.0-8
 - Rebuilt for Python 3.12
 

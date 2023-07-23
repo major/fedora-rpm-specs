@@ -6,7 +6,7 @@
 
 Name:           python-sphinx-copybutton
 Version:        0.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Add a copy button to code cells in Sphinx docs
 
 License:        MIT
@@ -56,6 +56,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5.1-3
 - Rebuilt for Python 3.12
 

@@ -11,7 +11,7 @@ Share API.
 
 Name:       python-manilaclient
 Version:    4.3.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Client Library for OpenStack Share API
 License:    ASL 2.0
 URL:        https://pypi.io/pypi/%{name}
@@ -128,6 +128,9 @@ install -pm 644 tools/manila.bash_completion \
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 4.3.0-1
 - Update to upstream version 4.3.0
 

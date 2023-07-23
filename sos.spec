@@ -1,7 +1,7 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
 Version: 4.5.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPL-2.0-or-later
 BuildArch: noarch
@@ -86,6 +86,9 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 4.5.5-2
 - Rebuilt for Python 3.12
 

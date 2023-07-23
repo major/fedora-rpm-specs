@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        1.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP enum implementation
 
 License:        BSD-2-Clause
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar  2 2023 Remi Collet <remi@remirepo.net> - 1.0.4-1
 - update to 1.0.4
 

@@ -7,7 +7,7 @@
 
 Name:           rust-assert_cli
 Version:        0.6.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Test CLI Applications
 
 License:        MIT OR Apache-2.0
@@ -71,6 +71,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 0.6.3-10
 - Stop building and shipping test-only binary.
 

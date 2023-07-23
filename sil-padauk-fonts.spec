@@ -1,5 +1,5 @@
 Version:  3.003
-Release:  12%{?dist}
+Release:  13%{?dist}
 URL:      https://software.sil.org/padauk/
 
 %global         foundry         SIL
@@ -55,6 +55,9 @@ Source11: 65-%{fontpkgname2}.conf
 %fontfiles -a
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 23 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 3.003-12
 - Convert to new fonts packaging guidelines
 - Migrate to SPDX license expression

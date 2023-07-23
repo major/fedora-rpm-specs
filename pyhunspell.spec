@@ -1,6 +1,6 @@
 Name:           pyhunspell
 Version:        0.5.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for hunspell
 
 License:        LGPL-3.0-or-later
@@ -45,6 +45,9 @@ from Python3.
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.5-3
 - Rebuilt for Python 3.12
 

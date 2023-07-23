@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python bindings for interacting with Vagrant virtual machines
 
 License:        MIT
@@ -63,6 +63,9 @@ nosetests --immediate --stop -vv --rednose
 %{python3_sitelib}/vagrantpy-%{version}-*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.0-12
 - Rebuilt for Python 3.12
 

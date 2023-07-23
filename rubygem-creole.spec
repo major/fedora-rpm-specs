@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.0
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Lightweight markup language
 # The license was never really clear, but based on the upstream license
 # content, we might assune the code is "Ruby OR BSD-2-Cluase" licensed.
@@ -72,6 +72,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 18 2023 Vít Ondruch <vondruch@redhat.com> - 0.5.0-20
 - Refresh of spec file.
 - Review license + use SPDX identifiers.

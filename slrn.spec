@@ -1,7 +1,7 @@
 Summary: A threaded Internet news reader
 Name: slrn
 Version: 1.0.3a
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: GPLv2+
 URL: http://slrn.sourceforge.net/
 Source0: http://jedsoft.org/releases/%{name}/%{name}-%{version}.tar.bz2
@@ -127,6 +127,9 @@ exit 0
 %{_mandir}/man1/slrnpull.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3a-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 04 2023 Florian Weimer <fweimer@redhat.com> - 1.0.3a-13
 - Port configure script to C99
 

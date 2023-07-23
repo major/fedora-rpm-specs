@@ -3,7 +3,7 @@
 
 Name:           perl-XRD-Parser
 Version:        0.201
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Parse XRD and host-meta files into RDF::Trine models
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/XRD-Parser
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.201-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.201-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

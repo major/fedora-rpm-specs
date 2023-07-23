@@ -1,7 +1,7 @@
 Summary:       A high-performance MySQL proxy
 Name:          proxysql
 Version:       2.4.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 # Proxysql Google group for free community support: https://groups.google.com/g/proxysql
 URL:           https://proxysql.com/
 # GPL-3.0-or-later
@@ -132,6 +132,9 @@ install -d -m 0755 %{buildroot}%{_sharedstatedir}/proxysql
 %attr(-,proxysql,root) %config(noreplace) %{_sysconfdir}/proxysql.cnf
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Igor Raits <igor@gooddata.com> - 2.4.8-1
 - Update to 2.4.8
 

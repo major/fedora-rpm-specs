@@ -6,7 +6,7 @@
 
 Name:           sdbus-cpp
 Version:        %{version_major}.%{version_minor}.%{version_micro}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
@@ -91,6 +91,9 @@ out of the D-Bus IDL XML description.
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 30 2023 Marek Blaha <mblaha@redhat.com> - 1.2.0-3
 - migrated to SPDX license
 

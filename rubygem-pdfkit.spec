@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.8.7.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	HTML+CSS to PDF using wkhtmltopdf
 # SPDX confirmed
@@ -107,6 +107,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.7.3-1
 - 0.8.7.3
 - SPDX confirmed

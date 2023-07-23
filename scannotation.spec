@@ -4,7 +4,7 @@
 
 Name:          scannotation
 Version:       1.0.3
-Release:       0.30.%{alphatag}%{?dist}
+Release:       0.31.%{alphatag}%{?dist}
 Summary:       A Java annotation scanner
 License:       ASL 2.0
 URL:           http://scannotation.sourceforge.net
@@ -69,6 +69,9 @@ cp -p %SOURCE1 .
 %license License.txt
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-0.31.r12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-0.30.r12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool and python library to interface with Ansible
 
 License:        ASL 2.0
@@ -91,6 +91,9 @@ ln -s ansible-runner-%{python3_version} %{buildroot}/%{_bindir}/ansible-runner-3
 %{_datadir}/ansible-runner/utils
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.3.3-2
 - Rebuilt for Python 3.12
 

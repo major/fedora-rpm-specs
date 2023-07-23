@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python library to work with Tesla API
 
 License:        ASL 2.0
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.11.0-8
 - Rebuilt for Python 3.12
 

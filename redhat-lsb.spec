@@ -77,7 +77,7 @@
 Summary: Implementation of Linux Standard Base specification
 Name: redhat-lsb
 Version: 4.1
-Release: 61%{?dist}
+Release: 62%{?dist}
 URL: http://www.linuxfoundation.org/collaborate/workgroups/lsb
 Source0: https://fedorahosted.org/releases/r/e/redhat-lsb/%{name}-%{version}-%{srcrelease}.tar.bz2
 Patch0: lsb-release-3.1-update-init-functions.patch
@@ -531,6 +531,9 @@ cp -p redhat_lsb_init $RPM_BUILD_ROOT/bin/redhat_lsb_init
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 10 2023 Sérgio Basto <sergio@serjux.com> - 4.1-61
 - Remove "Trial Use" specs, because LSB 5.0 Trial Use is completely outdated
 

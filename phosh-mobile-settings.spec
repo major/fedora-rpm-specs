@@ -1,6 +1,6 @@
 Name:		phosh-mobile-settings
 Version:	0.29.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Mobile Settings App for phosh and related components
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/guidog/phosh-mobile-settings
@@ -59,6 +59,9 @@ Mobile Settings App for phosh and related components
 %license COPYING
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 %autochangelog
 
 * Tue Jun 13 2023 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.26.0-2

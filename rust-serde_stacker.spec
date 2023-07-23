@@ -5,7 +5,7 @@
 %global crate serde_stacker
 
 Name:           rust-serde_stacker
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Serde adapter that avoids stack overflow by dynamically growing the stack
 

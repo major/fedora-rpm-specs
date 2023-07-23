@@ -12,7 +12,7 @@ permessage-deflate extension from RFC 7692.}
 
 Name:               python-%{srcname}
 Version:            1.3.3
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            WebSocket client for python
 License:            ASL 2.0
 URL:                https://github.com/websocket-client/websocket-client
@@ -64,6 +64,9 @@ Conflicts:          python2-websocket-client <= 0.40.0-4
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.3.3-4
 - Rebuilt for Python 3.12
 

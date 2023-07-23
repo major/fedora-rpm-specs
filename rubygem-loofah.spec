@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.18.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Manipulate and transform HTML/XML documents and fragments
 License: MIT
 URL: https://github.com/flavorjones/loofah
@@ -79,6 +79,9 @@ popd
 %doc %{gem_instdir}/SECURITY.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.18.0-3
 - Backport upstream patch to support libxml2 2.10.4
 

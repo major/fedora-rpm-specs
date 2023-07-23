@@ -1,6 +1,6 @@
 Name:           python-pdm-pep517
 Version:        1.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Yet another PEP 517 backend
 
 License:        MIT AND Apache-2.0 AND Public Domain AND BSD-3-Clause AND ISC
@@ -52,6 +52,9 @@ git config --global user.name "Your Name"
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 1.1.4-2
 - Rebuilt for Python 3.12
 

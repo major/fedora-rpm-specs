@@ -1,7 +1,7 @@
 Summary:        Feature rich, easy to use tag editor
 Name:           puddletag
 Version:        2.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        GPLv3+
 URL:            http://docs.puddletag.net/
 Source0:        https://github.com/puddletag/puddletag/archive/refs/tags/%{version}.tar.gz
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.0-5
 - Rebuilt for Python 3.12
 

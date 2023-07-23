@@ -15,7 +15,7 @@
 
 Name:           php-%{pk_owner}-%{pk_project}
 Version:        0.0.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        ID3 parser library
 
 # https://github.com/LukasReschke/ID3Parser/issues/1
@@ -82,6 +82,9 @@ cp -pr src %{buildroot}%{_datadir}/php/%{gh_project}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

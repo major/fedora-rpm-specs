@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -38,6 +38,9 @@ Robust and effective logging for Python 3.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.7.0-8
 - Rebuilt for Python 3.12
 

@@ -4,7 +4,7 @@
 %global __cmake_in_source_build 1
 Name:           snappy
 Version:        1.1.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast compression and decompression library
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Jiri Kucera <jkucera@redhat.com> - 1.1.10-2
 - Drop gtest on RHEL, migrate to SPDX license identifier
 

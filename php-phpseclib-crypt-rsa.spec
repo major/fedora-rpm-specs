@@ -4,7 +4,7 @@
 
 Name:           php-phpseclib-crypt-rsa
 Version:        0.3.9
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Pure-PHP PKCS#1 (v2.1) compliant implementation of RSA
 
 License:        MIT
@@ -80,6 +80,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

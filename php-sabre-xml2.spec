@@ -25,7 +25,7 @@
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        XML library that you may not hate
 Version:        2.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 License:        BSD-3-Clause
@@ -152,6 +152,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Remi Collet <remi@remirepo.net> - 2.2.6-1
 - update to 2.2.6
 

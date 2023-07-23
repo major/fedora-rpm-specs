@@ -3,7 +3,7 @@
 Summary: A utility for configuring serial ports
 Name: setserial
 Version: 2.17
-Release: 57%{?dist}
+Release: 58%{?dist}
 Source: https://sourceforge.net/projects/setserial/files/setserial/%{version}/%{name}-%{version}.tar.gz
 Patch0: setserial-2.17-fhs.patch
 Patch1: setserial-2.17-rc.patch
@@ -68,6 +68,9 @@ make install DESTDIR=${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-58
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 2.17-57
 - Port to C99
 

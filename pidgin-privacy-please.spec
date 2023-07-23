@@ -1,6 +1,6 @@
 Name: pidgin-privacy-please
 Version: 0.7.1
-Release: 25%{?dist}
+Release: 26%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Security and privacy plugin for Pidgin
@@ -51,6 +51,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %{_libdir}/pidgin/libpidgin_pp.so
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.1-25
 - Performed major SPEC cleanup.
 - Switched to SPDX license tag.

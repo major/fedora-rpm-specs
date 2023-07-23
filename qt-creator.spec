@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        11.0.0
-Release:        0.4%{?prerelease:.%prerelease}%{?dist}
+Release:        0.5%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -223,6 +223,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Jan Grulich <jgrulich@redhat.com>
 - Bump build for private API version change
 

@@ -7,7 +7,7 @@ speedy.}
 
 Name:           python-%{srcname}
 Version:        20.1.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python WSGI HTTP Server
 License:        MIT
 URL:            https://gunicorn.org/
@@ -87,6 +87,9 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 %doc docs/build/html/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.1.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 20.1.0-11
 - Rebuilt for Python 3.12
 

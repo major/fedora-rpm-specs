@@ -9,7 +9,7 @@
 Name:           python-%{module_name}
 # WARNING: When updating pycodestyle, check not to break flake8!
 Version:        2.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python style guide checker
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{module_name}
@@ -142,6 +142,9 @@ install -D docs/_build/man/%{module_name}.1 %{buildroot}%{_mandir}/man1/%{module
 %{python3_sitelib}/%{module_name}-%{version}-*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Adam Williamson <awilliam@redhat.com> - 2.10.0-1
 - Update to 2.10.0
 - Backport Python 3.12 fixes from upstream

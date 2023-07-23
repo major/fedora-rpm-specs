@@ -6,7 +6,7 @@
 
 Name:           python-zope-testrunner
 Version:        6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Zope testrunner script
 
 License:        ZPL-2.1
@@ -118,6 +118,9 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Jerry James <loganjerry@gmail.com> - 6.0-2
 - Add patch to work around a test failure with python 3.12
 

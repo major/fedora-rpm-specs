@@ -2,7 +2,7 @@
 
 Name: purple-%{plugin_name}
 Version: 0.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-3.0-or-later
 Summary: OMEMO Encryption plugin for libpurple
@@ -49,5 +49,8 @@ applications such as Pidgin by implementing the XEP-0384: OMEMO Encryption.
 %{_libdir}/purple-2/%{plugin_name}.so
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 06 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.0-1
 - Initial SPEC release.

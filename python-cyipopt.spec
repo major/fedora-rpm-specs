@@ -37,6 +37,10 @@ Patch:          %{url}/pull/191.patch
 # from install_requires, since it doesn’t appear to be a real runtime
 # dependency.”
 Patch:          %{url}/pull/212.patch
+# Add back cython to INSTALL_REQUIRES.
+#
+# TBD why this was considered necessary, but we follow upstream for now.
+Patch:          %{url}/commit/5088cfc081ecf2da73fbf6ab8b64e4bfc3e68d3d.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

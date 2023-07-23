@@ -6,7 +6,7 @@ VCS:            https://github.com/rizinorg/rizin
 
 %global         gituser         rizinorg
 %global         gitname         rizin
-%global         baserelease     2
+%global         baserelease     3
 %global         shortversion    %(c=%{version}; echo ${c} | cut -d'.' -f-2)
 
 Release:        %{baserelease}%{?dist}
@@ -180,6 +180,9 @@ information
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Michal Ambroz <rebus _AT seznam.cz> - 0.5.2-2
 - cosmetics, remove the excessive .2 in the release
 - use baserelese (recognized by rpmdev-bumpspec used for massrebuilds)

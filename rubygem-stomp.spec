@@ -3,7 +3,7 @@
 Summary: Ruby client for the Stomp messaging protocol
 Name: rubygem-%{gem_name}
 Version: 1.4.10
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: Apache-2.0
 URL: http://stomp.codehaus.org/
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -83,6 +83,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Steve Traylen <steve.traylen@cern.ch> - 1.4.10-9
 - Use an SPDX License field for Apache II
 

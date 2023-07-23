@@ -1,6 +1,6 @@
 Name:		perl-Test-Version
 Version:	2.09
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Check to see that versions in modules are sane
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test-Version
@@ -93,6 +93,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Test::Version.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.09-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.09-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

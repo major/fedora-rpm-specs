@@ -1,6 +1,6 @@
 Name:          perl-Verilog-Perl
 Version:       3.480
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Verilog parsing routines
 License:       LGPL-3.0-only OR Artistic-2.0
 URL:           http://www.veripool.org/wiki/verilog-perl
@@ -134,6 +134,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.480-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.480-3
 - Perl 5.38 rebuild
 

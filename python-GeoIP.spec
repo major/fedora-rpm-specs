@@ -3,7 +3,7 @@
 
 Name:           python-GeoIP
 Version:        1.3.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Python bindings for the GeoIP geographical lookup libraries
 
 License:        LGPLv2+
@@ -44,6 +44,9 @@ location lookups to country, city and organization level within Python code.
 %{python3_sitearch}/*egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.2-26
 - Rebuilt for Python 3.12
 

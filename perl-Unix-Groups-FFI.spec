@@ -1,6 +1,6 @@
 Name:           perl-Unix-Groups-FFI
 Version:        1.000
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Interface to Unix group system calls
 # LICENSE:      Artistic 2.0
 ## Not in any binary packge
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

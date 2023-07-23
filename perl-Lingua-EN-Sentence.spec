@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-Sentence
-Version:        0.33
-Release:        5%{?dist}
+Version:        0.34
+Release:        1%{?dist}
 Summary:        Module for splitting text into sentences
 # "same as perl", cf. lib/Lingua/EN/Sentence.pm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -34,6 +34,8 @@ and a list of abbreviations (built in and given).
 %setup -q -n Lingua-EN-Sentence-%{version}
 iconv -f ISO-8859-1 -t utf-8 Changes > Changes~
 mv Changes~ Changes
+# Eliminate of invalid use-case of PREREQ_PM in Makefile.PL causing a bogus warning
+sed -i -e "/'perl' => '5.10.0'/d" Makefile.PL
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -53,6 +55,9 @@ mv Changes~ Changes
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.34-1
+- Update to 0.34.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

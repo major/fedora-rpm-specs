@@ -1,6 +1,6 @@
 Name:           perl-Test-Requires-Git
 Version:        1.008
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Check your test requirements against the available version of Git
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Requires-Git
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

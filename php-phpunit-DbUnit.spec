@@ -17,7 +17,7 @@
 
 Name:           php-phpunit-DbUnit
 Version:        2.0.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        DbUnit port for PHP/PHPUnit
 
 License:        BSD
@@ -115,6 +115,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

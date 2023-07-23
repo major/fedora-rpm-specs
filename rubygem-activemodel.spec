@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A toolkit for building modeling frameworks (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -87,6 +87,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Pavel Valena <pvalena@redhat.com> - 7.0.5-1
 - Update to activemodel 7.0.5.
 

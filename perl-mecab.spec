@@ -5,7 +5,7 @@
 
 Name:		perl-mecab
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{relnumber}%{?betaver:.%betaver}%{?dist}.31
+Release:	%{?betaver:0.}%{relnumber}%{?betaver:.%betaver}%{?dist}.32
 Summary:	Perl binding for MeCab
 
 # License is the same as MeCab
@@ -60,6 +60,9 @@ find $RPM_BUILD_ROOT -depth -type d | xargs rmdir 2>/dev/null || :
 %{perl_vendorarch}/auto/MeCab/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-1.32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.996-1.31
 - Perl 5.38 rebuild
 

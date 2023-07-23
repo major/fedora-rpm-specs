@@ -4,7 +4,7 @@
 
 Name:       soup-sharp
 Version:    2.42.2
-Release:    8.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:    9.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:    .NET bindings for libsoup
 
 License:    LGPLv3+
@@ -73,6 +73,9 @@ rm -f %{buildroot}%{_libdir}/libsoupsharpglue-%{version}.la
 %{_prefix}/lib/monodoc/sources/soup-sharp*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.2-9.20190810git0f36d10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.2-8.20190810git0f36d10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,7 +11,7 @@ implementation are in the accepted Astropy Proposal for Enhancement (APE) 4.
 
 Name:           python-%{srcname}
 Version:        4.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -63,6 +63,9 @@ Requires:       python3-sphinx
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.1-11
 - Workaround for python 3.12 change of imp module removal
 

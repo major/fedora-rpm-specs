@@ -2,7 +2,7 @@
 
 Name:          rygel
 Version:       0.42.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A collection of UPnP/DLNA services
 
 License:       LGPL-2.1-or-later AND CC-BY-SA-3.0
@@ -140,6 +140,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_datadir}/vala/vapi/rygel*.vapi
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 24 2023 David King <amigadave@amigadave.com> - 0.42.3-1
 - Update to 0.42.3
 

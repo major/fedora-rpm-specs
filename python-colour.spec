@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python module to convert and manipulate color representations
 
 License:        BSD
@@ -59,6 +59,9 @@ Converts and manipulates common color representation (RGB, HSL, web, etc.)
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.5-15
 - Rebuilt for Python 3.12
 

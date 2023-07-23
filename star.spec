@@ -3,7 +3,7 @@
 Summary:  An archiving tool with ACL support
 Name: star
 Version: 1.6
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: CDDL
 URL: http://freecode.com/projects/star
 Source: https://downloads.sourceforge.net/s-tar/%{name}-%{version}.tar.bz2
@@ -201,6 +201,9 @@ fi
 %{_sysconfdir}/rmt
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 1.6-9
 - Build in C89 mode (#2187168)
 

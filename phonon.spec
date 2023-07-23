@@ -2,7 +2,7 @@
 Summary: Multimedia framework api
 Name:    phonon
 Version: 4.11.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: LGPLv2+
 URL:     https://community.kde.org/Phonon
 
@@ -105,6 +105,9 @@ test "$(pkg-config --modversion phonon4qt5)" = "%{version}"
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

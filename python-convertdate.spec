@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python module to convert date formats and calculating holidays
 
 License:        MIT
@@ -51,6 +51,9 @@ Julian, Mayan and Persian.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

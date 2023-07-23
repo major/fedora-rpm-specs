@@ -1,6 +1,6 @@
 Name:           stk
 Version:        4.6.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Synthesis ToolKit in C++
 License:        MIT
 URL:            https://ccrma.stanford.edu/software/stk/
@@ -177,6 +177,9 @@ chmod -R u=rwX,go=rX %{buildroot}
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

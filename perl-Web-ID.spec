@@ -1,6 +1,6 @@
 Name:           perl-Web-ID
 Version:        1.927
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Implementation of WebID (a.k.a. FOAF+SSL)
 License:        GPL+ or Artistic
 URL:            http://search.cpan.org/dist/Web-ID/
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.927-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.927-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

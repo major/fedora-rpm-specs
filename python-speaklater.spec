@@ -2,7 +2,7 @@
 
 Name:           python-%{tarName}
 Version:        1.3
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Implements a lazy string for python useful for use with gettext
 License:        BSD
 URL:            http://github.com/mitsuhiko/speaklater
@@ -56,6 +56,9 @@ popd
 %doc PKG-INFO README
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3-30
 - Rebuilt for Python 3.12
 

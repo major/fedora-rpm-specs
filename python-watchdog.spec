@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            2.1.9
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            File system events monitoring
 
 License:            ASL 2.0 and BSD and MIT
@@ -56,6 +56,9 @@ rm -rf %{modname}.egg-info
 %{_bindir}/watchmedo*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.1.9-4
 - Rebuilt for Python 3.12
 

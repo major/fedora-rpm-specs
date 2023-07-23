@@ -3,7 +3,7 @@
 Name: php-%{author}-%{project}
 
 Version: 1.0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: PHP-based JavaScript compressor
 License: BSD-3-Clause
@@ -96,6 +96,9 @@ phpunit8 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.1-2
 - Compress source archive to .tar.gz instead of .zip
 - Remove trailing whitespace in spec file

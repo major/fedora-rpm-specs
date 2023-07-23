@@ -2,7 +2,7 @@ Name:           pytest
 %global base_version 7.3.2
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
@@ -180,6 +180,9 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 7.3.2-3
 - Rebuilt for Python 3.12
 

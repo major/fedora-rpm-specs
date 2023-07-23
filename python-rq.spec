@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple, lightweight, library for creating background jobs, and processing them
 
 License:        BSD-2-Clause
@@ -62,6 +62,9 @@ Python 3 version.
 %{_bindir}/rqworker
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Python Maint <python-maint@redhat.com> - 1.12.0-3
 - Rebuilt for Python 3.12
 

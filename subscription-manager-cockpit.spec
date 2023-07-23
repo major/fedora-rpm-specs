@@ -1,6 +1,6 @@
 Name: subscription-manager-cockpit
 Version: 6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Subscription Manager Cockpit UI
 %if 0%{?suse_version}
 Group: System Environment/Base
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 %{_datadir}/icons/hicolor/symbolic/apps/*.svg
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Pino Toscano <ptoscano@redhat.com> 6-1
 - Translated using Weblate (Kannada) (jsefler@redhat.com)
 - Translated using Weblate (Georgian) (temuri.doghonadze@gmail.com)

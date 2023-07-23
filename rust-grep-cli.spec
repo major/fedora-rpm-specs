@@ -5,7 +5,7 @@
 %global crate grep-cli
 
 Name:           rust-grep-cli
-Version:        0.1.8
+Version:        0.1.9
 Release:        %autorelease
 Summary:        Utilities for search oriented command line applications
 

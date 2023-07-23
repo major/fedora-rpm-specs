@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bootloader updater
 
 License:        ASL 2.0
@@ -70,6 +70,9 @@ EOF
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Oct 18 2022 Colin Walters <walters@verbum.org> - 0.2.8-3
 - Update to v0.2.8
 

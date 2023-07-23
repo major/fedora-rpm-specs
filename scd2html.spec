@@ -1,6 +1,6 @@
 Name:           scd2html
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generates HTML for scdoc source files
 
 License:        MIT
@@ -49,5 +49,8 @@ sed -i Makefile \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Dec 15 2022 Maxwell G <gotmax@e.email> - 1.0.0-1
 - Initial package (rhbz#2169097).

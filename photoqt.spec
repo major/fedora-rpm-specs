@@ -1,6 +1,6 @@
 Name:		photoqt
 Version:	3.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A fast Qt image viewer
 
 License:	GPLv2+
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_datadir}/metainfo/org.%{name}.PhotoQt.metainfo.xml
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 3.3-2
 - Rebuilt for Python 3.12
 

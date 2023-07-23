@@ -10,7 +10,7 @@
 
 Name:           python-attrs
 Version:        23.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python attributes without boilerplate
 
 License:        MIT
@@ -58,6 +58,9 @@ object protocols.
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 23.1.0-3
 - Rebuilt for Python 3.12
 

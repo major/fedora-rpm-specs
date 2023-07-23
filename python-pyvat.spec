@@ -3,7 +3,7 @@
 
 Name:       python-%{sname}
 Version:    1.3.17
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    VAT validation and calculation for Python
 License:    ASL 2.0
 Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{version}.tar.gz
@@ -51,6 +51,9 @@ Iconfinder's marketplace to handle just this problem.
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.17-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.17-3
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           perl-XML-Parser-Lite-Tree-XPath
 Version:        0.24
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        XPath access to XML::Parser::Lite::Tree structures
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/XML-Parser-Lite-Tree-XPath
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

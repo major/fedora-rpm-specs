@@ -1,13 +1,19 @@
 %global srcname django-mailman3
 
 Name:           python-%{srcname}
-Version:        1.3.8
+Version:        1.3.9
 Release:        %autorelease
 Summary:        Django library to help interaction with Mailman
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.com/mailman/django-mailman3
-Source0:        %{pypi_source %{srcname}}
-Patch0:         %{srcname}-localdeps.patch
+Source:         %{pypi_source %{srcname}}
+Patch:          %{srcname}-localdeps.patch
+# mark as compatible with Django 4.2
+# see https://gitlab.com/mailman/django-mailman3/-/commit/ba432fc6964dd017718c772b1c729ba23dbc9043
+Patch:          %{srcname}-django42.diff
+# remove usage of assertEquals for Python 3.12 
+# https://gitlab.com/mailman/django-mailman3/-/merge_requests/214
+Patch:          django-mailman3-py312-no-assertEquals.diff
 
 BuildArch:      noarch
 

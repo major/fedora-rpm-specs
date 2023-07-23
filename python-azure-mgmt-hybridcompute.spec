@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        7.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Microsoft Azure Hybrid Compute Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -49,6 +49,9 @@ Obsoletes:      python3-azure-sdk < 5.0.1
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 7.0.0-7
 - Rebuilt for Python 3.12
 

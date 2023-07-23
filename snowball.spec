@@ -8,7 +8,7 @@
 
 Name:           snowball
 Version:        2.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Snowball compiler and stemming algorithms
 
 License:        BSD-3-Clause
@@ -262,6 +262,9 @@ make check_python
 %license COPYING
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.0-6
 - Rebuilt for Python 3.12
 

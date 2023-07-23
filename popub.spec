@@ -8,7 +8,7 @@
 
 Name:    %{reponame}
 Version: 0
-Release: 0.16.%{commitdate}git%{shortcommit}%{?dist}
+Release: 0.17.%{commitdate}git%{shortcommit}%{?dist}
 Summary: Publish a service from localhost onto your server
 License: GPLv3+
 URL:     https://github.com/m13253/%{name}
@@ -98,6 +98,9 @@ sed -i '/daemon-reload/d' systemd/Makefile
 %{_unitdir}/%{name}-relay@.service
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17.20171007git6ffa11c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16.20171007git6ffa11c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

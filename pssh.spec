@@ -1,7 +1,7 @@
 Summary:       Parallel SSH tools
 Name:          pssh
 Version:       2.3.5
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       BSD
 Url:           https://github.com/lilydjwg/pssh
 Source0:       https://github.com/lilydjwg/pssh/archive/refs/tags/v%{version}.tar.gz
@@ -58,6 +58,9 @@ mv %{buildroot}%{_mandir}/man1/pscp.1 %{buildroot}%{_mandir}/man1/pscp.pssh.1
 %{python3_sitelib}/psshlib
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.5-2
 - Rebuilt for Python 3.12
 

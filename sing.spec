@@ -1,7 +1,7 @@
 Summary:	Sends fully customized ICMP packets from command line
 Name:		sing
 Version:	1.1
-Release:	27%{?dist}
+Release:	28%{?dist}
 License:	GPLv2+
 URL:		http://www.sourceforge.net/projects/%{name}/
 Source:		http://downloads.sourceforge.net/%{name}/SING-%{version}.tgz
@@ -62,6 +62,9 @@ mv -f LEEME.utf8 LEEME
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

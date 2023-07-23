@@ -49,7 +49,7 @@
 Summary:	JDBC driver for PostgreSQL
 Name:		postgresql-jdbc
 Version:	42.6.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	BSD-2-Clause
 URL:		http://jdbc.postgresql.org/
 
@@ -173,6 +173,9 @@ opts="-f"
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 42.6.0-2
 - Remove unused BR: maven-clean-plugin
 

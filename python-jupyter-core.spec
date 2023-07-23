@@ -4,7 +4,7 @@
 
 Name:           python-jupyter-core
 Version:        5.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The base package for Jupyter projects
 
 License:        BSD
@@ -130,6 +130,9 @@ mkdir %{buildroot}%{_sysconfdir}/jupyter/nbconfig/tree.d
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 5.1.0-4
 - Rebuilt for Python 3.12
 

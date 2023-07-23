@@ -31,7 +31,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       8%{?github_release}%{?dist}
+Release:       9%{?github_release}%{?dist}
 Summary:       OOP proxy wrappers utilities
 
 License:       MIT
@@ -167,6 +167,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 2.2.3-8
 - Disable tests by default
 - FTBFS (RHBZ #2046826)

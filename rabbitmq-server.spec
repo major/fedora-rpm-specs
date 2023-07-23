@@ -7,7 +7,7 @@
 
 Name: rabbitmq-server
 Version: 3.11.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MPLv1.1
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
@@ -187,6 +187,9 @@ done
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr  3 2023 Peter Lemenkov <lemenkov@gmail.com> - 3.11.13-1
 - Ver. 3.11.13
 

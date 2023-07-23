@@ -5,7 +5,7 @@
 %global crate ecdsa
 
 Name:           rust-ecdsa
-Version:        0.16.7
+Version:        0.16.8
 Release:        %autorelease
 Summary:        Pure Rust implementation of the Elliptic Curve Digital Signature Algorithm
 

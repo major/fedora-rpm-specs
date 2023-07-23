@@ -2,7 +2,7 @@
 
 Name:             pykka
 Version:          2.0.2
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Python library that provides concurrency using actor model
 
 License:          ASL 2.0
@@ -79,6 +79,9 @@ cp -rp docs/_build/devhelp %{buildroot}%{_datarootdir}/devhelp/%{pypi_name}
 %exclude %{_datarootdir}/devhelp/%{pypi_name}/.*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.0.2-15
 - Rebuilt for Python 3.12
 

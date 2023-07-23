@@ -2,7 +2,7 @@
 
 Name:           python-aiohttp
 Version:        3.8.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
 License:        Apache-2.0
@@ -156,6 +156,9 @@ k="${k-}${k+ and }not test_tcp_connector_fingerprint_fail[pyloop]"
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.8.4-4
 - Rebuilt for Python 3.12
 

@@ -5,7 +5,7 @@ Version: 7.2.1
 # - Older releases used year.month
 # - Newer releases use x.y.z
 Epoch: 1
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: Qhull
 Source0: https://github.com/qhull/qhull/archive/v%{version}.tar.gz#/qhull-%{version}.tar.gz
 
@@ -119,6 +119,9 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_libdir}/lib*.so.*
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.2.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

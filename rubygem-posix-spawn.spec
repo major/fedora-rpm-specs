@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.15
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: posix_spawnp(2) for Ruby
 License: MIT
 URL: https://github.com/rtomayko/posix-spawn
@@ -113,6 +113,9 @@ popd
 %exclude %{gem_instdir}/test
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.15-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.15-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

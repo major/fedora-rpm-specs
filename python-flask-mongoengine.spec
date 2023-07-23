@@ -2,7 +2,7 @@
 
 Name:           python-flask-mongoengine
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Flask extension that provides integration with MongoEngine
 
 License:        BSD-3-Clause
@@ -58,6 +58,9 @@ Python 3 version.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.0.0-2
 - Rebuilt for Python 3.12
 

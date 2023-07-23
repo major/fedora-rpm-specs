@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        4.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-ruby colorizer based on pygments
 # From LICENSE file
 # SPDX confirmed
@@ -101,6 +101,9 @@ find spec -name \*_spec.rb -print0 | \
 %{gem_libdir}/%{gem_name}/demos
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-1
 - 4.1.0
 

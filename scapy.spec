@@ -1,6 +1,6 @@
 Name:           scapy
 Version:        2.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Interactive packet manipulation tool and network scanner
 
 %global         gituser         secdev
@@ -225,6 +225,9 @@ ln -s %{_bindir}/scapy3   %{buildroot}%{_bindir}/scapy
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.5.0-3
 - Rebuilt for Python 3.12
 

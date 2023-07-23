@@ -9,7 +9,7 @@
 %global	gitdate_num 20171230
 %endif
 
-%global	baserelease 4
+%global	baserelease 5
 
 %if 0%{?userelease} >= 1
 %global	fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
@@ -166,6 +166,9 @@ mv {.,}Gemfile.lock
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 11.1.3-4
 - A bit of spec file cleanup
 - SPDX migration

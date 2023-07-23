@@ -2,7 +2,7 @@
 
 Name:           rpc2
 Version:        2.10
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        C library for remote procedure calls over UDP
 License:        LGPLv2
 URL:            http://www.coda.cs.cmu.edu/
@@ -63,6 +63,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

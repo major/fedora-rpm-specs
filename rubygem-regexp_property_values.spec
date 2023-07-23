@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Inspect property values supported by Ruby's regex engine
 License: MIT
 URL: https://github.com/jaynetics/regexp_property_values
@@ -87,6 +87,9 @@ popd
 %{gem_instdir}/regexp_property_values.gemspec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

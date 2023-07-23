@@ -12,7 +12,7 @@ storable formats.
 
 Name:           python-%{pkg_name}
 Version:        5.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack oslo.serialization library
 
 License:        ASL 2.0
@@ -130,6 +130,9 @@ PYTHON=python3 stestr-3 --test-path $OS_TEST_PATH run
 %{python3_sitelib}/oslo_serialization/tests
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 5.1.1-2
 - Rebuilt for Python 3.12
 

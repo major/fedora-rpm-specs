@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fixtures, reusable state for writing clean tests and more
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -64,6 +64,9 @@ sed -e '/testtools/d' -i requirements.txt
 %doc README.rst GOALS NEWS
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 4.0.1-4
 - Rebuilt for Python 3.12
 

@@ -1,7 +1,7 @@
 Name:		perl-parent
 Epoch:		1
 Version:	0.241
-Release:	499%{?dist}
+Release:	500%{?dist}
 Summary:	Establish an ISA relationship with base classes at compile time
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/parent
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/parent.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.241-500
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.241-499
 - Increase release to favour standalone package
 

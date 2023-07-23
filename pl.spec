@@ -13,7 +13,7 @@
 
 Name:       pl
 Version:    9.0.4
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #LICENSE:                               BSD-2-Clause
 #library/dialect/iso/iso_predicates.pl  BSD-2-Clause AND (GPL-2.0-or-later WITH
@@ -602,6 +602,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 9.0.4-2
 - Update deprecated %%patchN usage
 - Update License tag with names recently added to Fedora

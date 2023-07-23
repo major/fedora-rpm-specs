@@ -3,7 +3,7 @@
 
 Name:           perl-constant-tiny
 Version:        1.02
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Perl pragma to declare constants
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/constant-tiny
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A pytest plugin for repeating test execution
 
 License:        MPLv2.0
@@ -59,6 +59,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.1-9
 - Rebuilt for Python 3.12
 

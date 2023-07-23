@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Persistent cache for requests library
 
 License:        BSD
@@ -80,6 +80,9 @@ sed -i 's/\r$//' LICENSE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5.1-15
 - Rebuilt for Python 3.12
 

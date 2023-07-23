@@ -1,6 +1,6 @@
 Name:           python-oletools
 Version:        0.56.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Tools to analyze Microsoft OLE2 files
 
 # oletools/*.py: BSD
@@ -447,6 +447,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/mraptor-3 cheat
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.56.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Python Maint <python-maint@redhat.com> - 0.56.2-11
 - Rebuilt for Python 3.12
 

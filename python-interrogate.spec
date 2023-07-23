@@ -10,7 +10,7 @@ HTML, LaTeX, PDFs, etc.}
 
 Name:           python-%{pypi_name}
 Version:        1.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Interrogate a codebase for docstring coverage
 
 License:        MIT
@@ -76,6 +76,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.5.0-6
 - Rebuilt for Python 3.12
 

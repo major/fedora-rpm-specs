@@ -19,7 +19,7 @@
 Summary:        Lockless user data cache
 Name:           php-pecl-%{pecl_name}
 Version:        2.3.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
@@ -199,6 +199,9 @@ TEST_PHP_ARGS="$OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.3.1-6
 - use SPDX license ID
 

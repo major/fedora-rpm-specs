@@ -10,7 +10,7 @@
 Name:       python-oslo-config
 Epoch:      2
 Version:    9.1.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    OpenStack common configuration library
 
 Group:      Development/Languages
@@ -162,6 +162,9 @@ PYTHON=python3 stestr-3 run
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:9.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2:9.1.1-2
 - Rebuilt for Python 3.12
 

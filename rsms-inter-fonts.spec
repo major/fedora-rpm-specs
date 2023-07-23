@@ -1,5 +1,5 @@
 Version:        3.19
-Release:        6%{?dist}
+Release:        7%{?dist}
 URL:            https://rsms.me/inter/
 
 %global foundry rsms
@@ -46,6 +46,9 @@ Source10:       63-%{fontpkgname}.conf
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.13.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python library to communicate with the Xiaomi Gateway
 
 License:        MIT
@@ -48,6 +48,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.13.3-9
 - Rebuilt for Python 3.12
 

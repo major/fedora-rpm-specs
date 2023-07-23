@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -48,6 +48,9 @@ nosetests-%{python3_version} supersmoother
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.4-22
 - Rebuilt for Python 3.12
 

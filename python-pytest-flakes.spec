@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pytest plugin to check source code with pyflakes
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/__pycache__/pytest_flakes.*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Python Maint <python-maint@redhat.com> - 4.0.5-6
 - Rebuilt for Python 3.12
 

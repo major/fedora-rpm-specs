@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MaxMind GeoIP2 API
 
 License:        Apache-2.0
@@ -64,6 +64,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m unittest tests/databas
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.7.0-2
 - Rebuilt for Python 3.12
 

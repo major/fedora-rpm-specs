@@ -1,6 +1,6 @@
 Name:           sqljet
 Version:        1.1.10
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Pure Java SQLite
 
 License:        GPLv2
@@ -70,6 +70,9 @@ ant jars osgi javadoc pom
 %license LICENSE.txt
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

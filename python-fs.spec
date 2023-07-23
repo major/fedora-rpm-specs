@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.16
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python's Filesystem abstraction layer
 
 # https://spdx.org/licenses/MIT.html
@@ -67,6 +67,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.16-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.4.16-4
 - Help msuchy to count this package as already using SPDX license expression
 

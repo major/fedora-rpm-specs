@@ -7,7 +7,7 @@
 Name:		perl-Test-Valgrind
 Summary:	Generate suppressions, analyze and test any command with valgrind
 Version:	1.19
-Release:	22%{?dist}
+Release:	23%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Valgrind
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Valgrind-%{version}.tar.gz
@@ -154,6 +154,9 @@ make test
 %{_mandir}/man3/Test::Valgrind::Version.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

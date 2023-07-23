@@ -5,7 +5,7 @@ Name:    python-AppTools
 Version: 5.2.1
 %forgemeta
 
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Enthought Tool Suite Application Tools
 License: BSD and LGPLv2+
 
@@ -97,6 +97,9 @@ popd
 %doc docs/build/html examples README.fedora
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 24 2023 Orion Poplawski <orion@nwra.com> - 5.2.1-1
 - Update to 5.2.1
 

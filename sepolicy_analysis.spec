@@ -1,6 +1,6 @@
 Name:           sepolicy_analysis
 Version:        0.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        SELinux policy analysis tool
 
 License:        GPLv3
@@ -52,6 +52,9 @@ providing policy visualization.
 %doc %{_mandir}/man1/se*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1-22
 - Rebuilt for Python 3.12
 

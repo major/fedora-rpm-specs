@@ -2,7 +2,7 @@
 Summary: Python bindings for QtWebEngine
 Name:    pyqtwebengine
 Version: 5.15.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv3
 Url:     https://www.riverbankcomputing.com/software/pyqt/
@@ -98,6 +98,9 @@ done
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 5.15.6-3
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:		solar-kde-theme
 Version:	0.1.19
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Solar KDE Theme
 
 License:	GPLv2 and CC-BY-SA
@@ -144,6 +144,9 @@ ln -s ../../../solar.png 2048x1536.png
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.19-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.19-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

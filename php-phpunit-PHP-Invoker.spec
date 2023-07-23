@@ -22,7 +22,7 @@
 
 Name:           php-phpunit-PHP-Invoker
 Version:        1.1.4
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Utility class for invoking callables with a timeout
 
 License:        BSD
@@ -124,6 +124,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

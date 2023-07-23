@@ -1,6 +1,6 @@
 Name:       spectre-meltdown-checker
 Version:    0.45
-Release:    3%{?dist}
+Release:    4%{?dist}
 
 Summary:    Spectre & Meltdown vulnerability/mitigation checker for Linux
 License:    GPLv3
@@ -46,6 +46,9 @@ help2man %{buildroot}%{_bindir}/%{name} -n "Spectre and Meltdown mitigation dete
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.45-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.45-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

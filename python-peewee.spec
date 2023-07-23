@@ -7,7 +7,7 @@
 
 Name:           python-peewee
 Version:        3.16.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A simple and small ORM
 
 License:        MIT
@@ -107,6 +107,9 @@ psql -c "CREATE EXTENSION hstore" peewee_test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.16.2-2
 - Rebuilt for Python 3.12 (fix RHBZ#2220402)
 

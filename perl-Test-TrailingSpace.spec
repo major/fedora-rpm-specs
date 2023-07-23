@@ -1,6 +1,6 @@
 Name:           perl-Test-TrailingSpace
 Version:        0.0601
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Test for trailing space in source files
 License:        MIT
 URL:            https://metacpan.org/release/Test-TrailingSpace
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Test::TrailingSpace.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0601-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 29 2023 Paul Howarth <paul@city-fan.org> - 0.0601-6
 - SPDX migration
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python MessagePack (de)serializer
 
 License:        ASL 2.0
@@ -55,6 +55,9 @@ rm -rf test/test_timestamp.py
 %{python3_sitearch}/%{srcname}*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.5-2
 - Rebuilt for Python 3.12
 

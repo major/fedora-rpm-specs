@@ -1,6 +1,6 @@
 Name:           pkcs11-dump
 Version:        0.3.4
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Small utility for querying PKCS#11 modules
 
 License:        GPLv2 with exceptions
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/pkcs11-dump/
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

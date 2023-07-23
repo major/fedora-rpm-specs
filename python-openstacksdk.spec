@@ -16,7 +16,7 @@ clouds - test files
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An SDK for building applications to work with OpenStack
 
 License:        ASL 2.0
@@ -151,6 +151,9 @@ PYTHON=python3 stestr-3 --test-path ./openstack/tests/unit run --exclude-regex '
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Joel Capitao <jcapitao@redhat.com> - 1.0.1-3
 - Skip unit test which depends on keystoneauth1
 

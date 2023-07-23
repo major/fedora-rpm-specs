@@ -3,7 +3,7 @@
 
 Name:               python-oauthlib
 Version:            3.2.1
-Release:            5%{?dist}
+Release:            6%{?dist}
 Summary:            An implementation of the OAuth request-signing logic
 
 License:            BSD-3-Clause
@@ -74,6 +74,9 @@ echo 'import pytest; __getattr__ = lambda _: pytest.skip("this test needs jwt")'
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.2.1-5
 - Rebuilt for Python 3.12
 

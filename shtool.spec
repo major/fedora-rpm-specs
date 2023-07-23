@@ -1,6 +1,6 @@
 Name:           shtool
 Version:        2.0.8
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A portable shell tool
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ make check
 %{_datadir}/aclocal/%{name}.m4
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

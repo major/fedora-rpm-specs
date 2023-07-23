@@ -4,7 +4,7 @@
 
 Name:    rocksdb
 Version: 8.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
 License: GPLv2 or ASL 2.0 and BSD
@@ -136,6 +136,9 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 22 2023 Jonny Heggheim <hegjon@gmail.com> - 8.1.1-1
 - Updated to version 8.1.1
 

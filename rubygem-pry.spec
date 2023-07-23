@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.14.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: An IRB alternative and runtime developer console
 License: MIT
 URL: http://pry.github.io
@@ -94,6 +94,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

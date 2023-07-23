@@ -2,7 +2,7 @@
 
 Name:           povray
 Version:        3.7.0.10
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        The Persistence of Vision Ray Tracer
 
 # Examples below distribution/ are CC-BY-SA
@@ -123,6 +123,9 @@ chmod +x %{buildroot}%{_datadir}/povray-%{api_vers}/scenes/camera/mesh_camera/ba
 %{_datadir}/povray-%{api_vers}/scenes
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0.10-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.7.0.10-10
 - Rebuilt for Boost 1.81
 

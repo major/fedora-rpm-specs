@@ -20,7 +20,7 @@
 
 Name:           python-tox
 Version:        4.4.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
 License:        MIT
@@ -159,6 +159,9 @@ k="${k-}${k+ and }not test_local_execute_write_a_lot"
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.4.12-3
 - Rebuilt for Python 3.12
 

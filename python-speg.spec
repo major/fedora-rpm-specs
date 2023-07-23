@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3
-Release:        18.git%{shortcommit}%{?dist}
+Release:        19.git%{shortcommit}%{?dist}
 Summary:        A PEG-based parser interpreter with memoization (in time)
 License:        MIT
 URL:            https://github.com/avakar/speg
@@ -67,6 +67,9 @@ A PEG-based parser interpreter with memoization.
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-19.git877acdd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3-18.git877acdd
 - Rebuilt for Python 3.12
 

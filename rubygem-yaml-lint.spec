@@ -5,7 +5,7 @@
 
 Name:          rubygem-%{gem_name}
 Version:       0.1.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Really simple YAML lint
 License:       MIT
 URL:           https://github.com/Pryz/yaml-lint
@@ -84,6 +84,9 @@ rspec -I%{gem_instdir} spec
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Steve Traylen <steve.traylen@cern.ch> - 0.1.2-1
 - Upstream to 0.1.2
 - Include README, LICENSE and tests(and run them) from upstream

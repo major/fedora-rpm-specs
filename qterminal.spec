@@ -2,7 +2,7 @@
 
 Name:		qterminal
 Version:	1.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPLv2
 URL:		https://github.com/qterminal/qterminal
 Source0:	https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -103,6 +103,9 @@ fi
 %dir %{_datadir}/qterminal/translations
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

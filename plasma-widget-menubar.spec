@@ -1,6 +1,6 @@
 Name:           plasma-widget-menubar
 Version:        0.2.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Show window menubars
 
 License:        GPLv3
@@ -42,6 +42,9 @@ make install DESTDIR=%{buildroot} -C %{_target_platform}
 %{_kde4_datadir}/kde4/services/plasma-applet-menubar.desktop
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

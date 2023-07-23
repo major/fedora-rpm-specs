@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -67,6 +67,9 @@ cp %{SOURCE1} .
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.1.0-2
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Django plugin for pytest
 
 License:        BSD
@@ -70,6 +70,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.1.0-9
 - Rebuilt for Python 3.12
 

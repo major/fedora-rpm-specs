@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.4.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 
 Summary:	Tk interface module using tcltklib
 # SPDX confirmred
@@ -118,6 +118,9 @@ popd
 %doc	%lang(ja) %{gem_instdir}/MANUAL_tcltklib.ja
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

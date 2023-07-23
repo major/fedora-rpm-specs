@@ -5,7 +5,7 @@
 
 Name:           python-pygments
 Version:        2.15.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Syntax highlighting engine written in Python
 
 License:        BSD-2-Clause
@@ -98,6 +98,9 @@ chmod -x %{buildroot}%{_mandir}/man1/*.1
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.15.1-3
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-mysqld
 Version:        1.0013
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Mysqld runner for tests
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-mysqld
@@ -65,6 +65,9 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0013-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0013-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

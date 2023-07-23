@@ -1,13 +1,17 @@
-Name: thefuck
-Version: 3.32
-Release: %autorelease
-Summary: App that corrects your previous console command
-License: MIT
-URL: https://github.com/nvbn/thefuck
-Source0: https://github.com/nvbn/%{name}/archive/%{version}.tar.gz
+Name:           thefuck
+Version:        3.32
+Release:        %autorelease
+Summary:        App that corrects your previous console command
+License:        MIT
+URL:            https://github.com/nvbn/thefuck
+Source0:        https://github.com/nvbn/%{name}/archive/%{version}.tar.gz
+BuildArch:      noarch
 
-BuildRequires: python3-devel
-BuildArch: noarch
+BuildRequires:  python3-devel
+# https://github.com/nvbn/thefuck/issues/1381
+%if 0%{?fedora} >= 39
+BuildRequires:  python3-zombie-imp
+%endif
 
 %description
 This application corrects your previous console command.

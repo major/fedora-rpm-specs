@@ -3,7 +3,7 @@
 
 Name:		python3-%{pkgname}
 Version:	5.2
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	An XML based template processor for TAL, TALES and METAL specifications
 License:	BSD
 URL:		http://www.owlfish.com/software/simpleTAL/
@@ -47,6 +47,9 @@ find examples -name '*.py' -exec chmod -x {} \;
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.2-23
 - Rebuilt for Python 3.12
 

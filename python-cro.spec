@@ -8,7 +8,7 @@ other corals for space and find depredation.}
 
 Name:           python-%{pypi_name}
 Version:        0.0.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An implementation of CRO metaheuristic algorithm
 License:        MIT
 URL:            https://github.com/VictorPelaez/coral-reef-optimization-algorithm
@@ -91,6 +91,9 @@ done
 %doc README.txt examples/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.0.5.2-1
 - Update to 0.0.5.2 (close RHBZ#2220174)
 

@@ -3,7 +3,7 @@
 # 1.1.9 is from ruby 3.0 only
 Name:		rubygem-%{gem_name}
 Version:	1.1.9
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 Summary:	A simple API for XML processing
 License:	MIT
@@ -76,6 +76,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.9-5
 - Fix tests which sometimes fail randomly due to generic mtime() resolution
   issue

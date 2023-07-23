@@ -3,7 +3,7 @@
 Summary:        SpamAssassin plugin to lookup e-mail checksums in blacklists
 Name:           spamassassin-%{pkgname}
 Version:        2.05
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        ASL 2.0
 URL:            http://mailfud.org/%{pkgname}/
 Source0:        http://mailfud.org/%{pkgname}/%{pkgname}-%{version}.tar.gz
@@ -48,6 +48,9 @@ perldoc %{pkgname}.pm > $RPM_BUILD_ROOT%{_mandir}/man3/Mail::SpamAssassin::Plugi
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

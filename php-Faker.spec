@@ -27,7 +27,7 @@
 
 Name:          php-%{github_name}
 Version:       %{github_version}
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       A PHP library that generates fake data
 
 License:       MIT
@@ -177,6 +177,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

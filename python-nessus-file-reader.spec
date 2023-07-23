@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python file reader for nessus files
 
 License:        GPLv3+
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/nessus_file_reader-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.0-11
 - Rebuilt for Python 3.12
 

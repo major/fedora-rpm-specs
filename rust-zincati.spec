@@ -11,7 +11,7 @@
 
 Name:           rust-%{crate}
 Version:        0.0.25
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -386,6 +386,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.25-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 10 2023 Fabio Valentini <decathorpe@gmail.com> - 0.0.25-4
 - Stop using long-deprecated __global_rustflags_toml macro.
 

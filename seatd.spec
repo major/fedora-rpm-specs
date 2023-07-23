@@ -5,7 +5,7 @@
 
 Name:           seatd
 Version:        0.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Minimal seat management daemon
 
 License:        MIT
@@ -119,6 +119,9 @@ install -D -m 0644 -pv %{SOURCE1} \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.7.0-4
 - Build seatd server
 

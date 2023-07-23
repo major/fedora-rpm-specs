@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Enum serializer/deserializer for use with Marshmallow
 
 License:        MIT
@@ -49,6 +49,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} py.test-%{python3_version} -v
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.5.1-12
 - Rebuilt for Python 3.12
 

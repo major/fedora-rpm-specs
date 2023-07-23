@@ -22,7 +22,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.0.5.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        QR code decoder / reader
 
 Group:          Development/Libraries
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

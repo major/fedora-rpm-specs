@@ -26,7 +26,7 @@ PidFile can also be used as a context manager or a decorator.}
 
 Name:           python-%{srcname}
 Version:        2.2.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        PID file management library
 
 License:        ASL 2.0
@@ -118,6 +118,9 @@ PYTHONPATH=%{buildroot}%{python2_sitelib} nosetests-%{python2_version} --verbose
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.3-17
 - Rebuilt for Python 3.12
 

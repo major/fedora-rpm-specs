@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.2.2
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Provides tables for PrawnPDF
 License: Ruby or GPLv2 or GPLv3
 URL: https://github.com/prawnpdf/prawn-table
@@ -74,6 +74,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

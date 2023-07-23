@@ -1,7 +1,7 @@
 %global srcname pyudev
 Name:             python-%{srcname}
 Version:          0.24.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          A libudev binding
 
 License:          LGPL-2.1-or-later
@@ -97,6 +97,9 @@ rm -rf pyudev.egg-info
 %{python3_sitelib}/pyudev/__pycache__/pyqt5.*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.24.1-4
 - Rebuilt for Python 3.12
 

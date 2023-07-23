@@ -4,7 +4,7 @@
 Summary: Utilities for monitoring process activities
 Name: psacct
 Version: 6.6.4
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/acct/
 
@@ -124,6 +124,9 @@ touch /var/account/pacct && chmod 0600 /var/account/pacct
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 02 2023 Jan Rybar <jrybar@redhat.com> - 6.6.4-18
 - forgot to add the second patch... again
 

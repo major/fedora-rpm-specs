@@ -1,6 +1,6 @@
 Name:           perl-Test-Reporter
 Version:        1.62
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Sends test results to cpan-testers@perl.org
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Reporter
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.62-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.62-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

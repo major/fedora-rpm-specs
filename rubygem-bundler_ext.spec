@@ -3,7 +3,7 @@
 Summary: Load system gems via Bundler DSL
 Name: rubygem-%{gem_name}
 Version: 0.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 URL: https://github.com/bundlerext/bundler_ext
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -67,6 +67,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

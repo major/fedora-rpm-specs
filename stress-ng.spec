@@ -1,6 +1,6 @@
 Name:		stress-ng
 Version:	0.16.02
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Stress test a computer system in various ways
 
 License:	GPLv2+
@@ -54,6 +54,9 @@ install -pm 644 bash-completion/%{name} \
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.02-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 0.16.02-1
 - Update to 0.16.02
 - Fixes rhbz#2222484

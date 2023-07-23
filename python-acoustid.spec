@@ -3,7 +3,7 @@
 Summary:        Python bindings for Chromaprint acoustic fingerprinting and the Acoustid API
 Name:           python-acoustid
 Version:        1.2.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        MIT
 URL:            http://pypi.python.org/pypi/pyacoustid
 Source0:        https://files.pythonhosted.org/packages/source/p/%{oname}/%{oname}-%{version}.tar.gz
@@ -48,6 +48,9 @@ which provides fingerprint look ups.
 %{python3_sitelib}/__pycache__/chromaprint.*.py*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.2-6
 - Rebuilt for Python 3.12
 

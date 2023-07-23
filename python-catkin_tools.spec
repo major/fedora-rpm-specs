@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command line tools for working with catkin
 
 License:        Apache-2.0
@@ -93,6 +93,9 @@ install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Scott K Logan <logans@cottsay.net> - 0.9.3-1
 - Update to 0.9.3 (rhbz#2059199)
 - Update to SPDX license identifier

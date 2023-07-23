@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.5.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Guard plugin for livereload
 License: MIT
 URL: https://rubygems.org/gems/guard-livereload
@@ -82,6 +82,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

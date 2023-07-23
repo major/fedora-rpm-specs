@@ -1,6 +1,6 @@
 Name:           perl-Time-Progress
 Version:        2.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Elapsed and estimated finish time reporting
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-Progress
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/Time*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.14-1
 - 2.14 bump
 

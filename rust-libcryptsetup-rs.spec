@@ -6,7 +6,7 @@
 
 Name:           rust-libcryptsetup-rs
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High level Rust bindings for libcryptsetup
 
 License:        MPL-2.0
@@ -78,6 +78,9 @@ use the "mutex" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 07 2023 Bryan Gurney <bgurney@redhat.com> - 0.8.0-1
 - Update to version 0.8.0
 

@@ -40,7 +40,7 @@
 
 Name:          php-%{composer_vendor}-datafixtures
 Version:       %{github_version}
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Data Fixtures for all Doctrine Object Managers
 
 License:       MIT
@@ -174,6 +174,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr  7 2023 Remi Collet <remi@remirepo.net> - 1.6.5-1
 - update to 1.6.5
 - add dependency on doctrine/deprecations

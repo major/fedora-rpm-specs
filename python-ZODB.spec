@@ -1,6 +1,6 @@
 Name:           python-ZODB
 Version:        5.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zope Object Database and persistence
 
 License:        ZPL-2.1
@@ -96,6 +96,9 @@ export PYTHONPATH=$PWD/src
 %doc docs/build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 5.8.1-1
 - Version 5.8.1
 

@@ -6,7 +6,7 @@
 
 Name:		rekonq
 Version: 	2.4.2
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	KDE browser based on QtWebkit
 
 License:	GPLv2+
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kde4/rekonq.desktop
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

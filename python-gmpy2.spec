@@ -1,6 +1,6 @@
 Name:           python-gmpy2
 Version:        2.1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python interface to GMP, MPFR, and MPC
 
 License:        LGPL-3.0-or-later
@@ -89,6 +89,9 @@ make -C docs html
 %doc docs/_build/html/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Jerry James <loganjerry@gmail.com> - 2.1.5-3
 - Add upstream patch for python 3.12 compatibility
 

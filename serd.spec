@@ -2,7 +2,7 @@
 
 Name:           serd
 Version:        0.30.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight C library for RDF syntax
 
 License:        ISC
@@ -68,6 +68,9 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %{_includedir}/%{name}-%{maj}/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 31 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.30.16-1
 - Update to 0.30.16
 

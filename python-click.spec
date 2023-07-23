@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
 License:        BSD
@@ -54,6 +54,9 @@ sed -i 's|requirements/tests.txt|requirements/tests.in|' tox.ini
 %doc README.rst CHANGES.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 8.1.3-4
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -272,6 +272,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.66-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.66-9
 - Rebuilt for Python 3.12
 

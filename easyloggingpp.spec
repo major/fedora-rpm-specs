@@ -1,8 +1,3 @@
-# We use a git snapshot because the release tag does not contain the
-# CHANGELOG.md and README.md updates for the release.
-%global commit 8489989bb26c6371df103f6cbced3fbee1bc3c2f
-%global snapdate 20210202
-
 # This library is historically header-only. At some point, it gained a C++
 # source file in an effort to reduce compile times. The upstream build system
 # supports building as a static library, and it could be extended to support a
@@ -29,15 +24,15 @@
 # library with one strangely-named header.
 
 Name:           easyloggingpp
-Version:        9.97.0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        9.97.1
 Release:        %autorelease
 Epoch:          1
 Summary:        C++ logging library
 
 # SPDX
 License:        MIT
-URL:            https://github.com/amrayn/easyloggingpp
-Source:         %{url}/archive/%{commit}/easyloggingpp-%{commit}.tar.gz
+URL:            https://github.com/abumq/easyloggingpp
+Source:         %{url}/archive/v%{version}/easyloggingpp-%{version}.tar.gz
 
 # No shebang = not executable
 # https://github.com/amrayn/easyloggingpp/pull/817
@@ -45,11 +40,6 @@ Patch:          %{url}/pull/817.patch
 # Convert words.txt from ISO-8859-1 to UTF-8
 # https://github.com/amrayn/easyloggingpp/pull/818
 Patch:          %{url}/pull/818.patch
-# Version 1.13.0 of gtest requires C++14
-# https://github.com/amrayn/easyloggingpp/issues/830
-#   Downstream-only patch switching *only the CMake build system* from C++11 to
-#   C++14:
-Patch:          0001-Switch-CMake-build-system-from-C-11-to-C-14.patch
 
 # No compiled code is installed, so there are no debugging symbols.
 %global debug_package %{nil}
@@ -103,7 +93,7 @@ developing applications that use Easylogging++.
 
 
 %prep
-%autosetup -n easyloggingpp-%{commit} -p1
+%autosetup -n easyloggingpp-%{version} -p1
 # Remove .gitignore and similar files that might accidentally be packaged,
 # especially in the samples.
 find . -type f \( -name '.git*' -o -name '.travis*' \) -print -delete

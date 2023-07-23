@@ -3,7 +3,7 @@
 
 Name:           python-%{shortname}
 Version:        3.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD
 URL:            https://github.com/mcfletch/pyopengl
@@ -122,6 +122,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Scott Talbert <swt@techie.net> - 3.1.7-1
 - Update to new upstream release 3.1.7 (#2209308)
 

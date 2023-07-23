@@ -3,7 +3,7 @@
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
 Name: rdiff-backup
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 URL: https://rdiff-backup.net/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{name}-%{version}.tar.gz
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.5-3
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:		sar2
 Version:	2.5.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	An open source helicopter simulator
 # Code is GPLv2+
 # Content is either GPLv2+ or Public Domain
@@ -61,6 +61,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications extra/%{name}.de
 %{_mandir}/man6/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

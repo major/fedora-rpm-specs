@@ -1,6 +1,6 @@
 Name:           qt4pas
 Version:        2.5
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Free Pascal Qt4 Binding
 License:        LGPLv3
 URL:            http://users.telenet.be/Jan.Van.hijfte/qtforfpc/fpcqt4.html
@@ -47,6 +47,9 @@ make install INSTALL_ROOT=%{buildroot}
 %{_libdir}/libQt4Pas.so
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

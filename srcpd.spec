@@ -1,7 +1,7 @@
 
 Name:		srcpd
 Version:	2.1.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple Railroad Command Protocol (SRCP) server
 
 License:	GPLv2
@@ -76,6 +76,9 @@ exit 0
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 06 2023 Denis Fateyev <denis@fateyev.com> - 2.1.6-1
 - Update to 2.1.6 release
 - Update build patches

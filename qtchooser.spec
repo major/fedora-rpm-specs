@@ -4,7 +4,7 @@
 Name:	 qtchooser
 Summary: Wrapper to select between Qt development binary versions
 Version: 39
-Release: 27%{?dist}
+Release: 28%{?dist}
 
 License: LGPLv2 or GPLv3
 URL:	 http://macieira.org/qtchooser
@@ -126,6 +126,9 @@ make check
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 39-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 39-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

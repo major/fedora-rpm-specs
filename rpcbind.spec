@@ -4,7 +4,7 @@
 
 Name:           rpcbind
 Version:        1.2.6
-Release:        4.rc2%{?dist}
+Release:        4.rc2%{?dist}.1
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD
 URL:            http://nfsv4.bullopensource.org
@@ -124,6 +124,9 @@ fi
 %attr(0700, %{rpcbind_user_group}, %{rpcbind_user_group}) %dir %{rpcbind_state_dir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-4.rc2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 28 2023 Steve Dickson <steved@redhat.com> 1.2.6-4.rc2
 - Updated to latest upstream RC release: rpcbind-1_2_7-rc2
 

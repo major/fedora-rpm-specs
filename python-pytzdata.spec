@@ -5,7 +5,7 @@ The Olson timezone database for Python.}
 
 Name: python-%{pypi_name}
 Version: 2020.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: MIT
 Summary: Timezone database for Python
@@ -51,6 +51,9 @@ Summary: %{summary}
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 2020.1-12
 - Rebuilt for Python 3.12
 

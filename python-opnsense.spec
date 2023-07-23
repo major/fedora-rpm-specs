@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python API client for OPNsense
 
 License:        GPLv3
@@ -66,6 +66,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.3.0-9
 - Rebuilt for Python 3.12
 

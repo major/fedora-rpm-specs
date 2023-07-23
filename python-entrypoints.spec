@@ -6,7 +6,7 @@ Name:		python-%{srcname}
 # WARNING: Check if an update does not break flake8!
 Version:	0.3
 
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	%{sum}
 
 # license clarification issue opened upstream
@@ -84,6 +84,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3-17
 - Rebuilt for Python 3.12
 

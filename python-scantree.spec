@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Flexible recursive directory iterator
 
 License:        MIT
@@ -59,6 +59,9 @@ Recursive directory iterator supporting:
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.0.1-4
 - Rebuilt for Python 3.12
 

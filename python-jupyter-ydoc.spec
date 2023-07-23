@@ -1,6 +1,6 @@
 Name:           python-jupyter-ydoc
 Version:        1.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Document structures for collaborative editing using Ypy
 License:        BSD-3-Clause
 URL:            https://jupyter.org
@@ -54,6 +54,9 @@ sed -i "s/VERSION_PLACEHOLDER/%{version}/" pyproject.toml
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.2-2
 - Rebuilt for Python 3.12
 

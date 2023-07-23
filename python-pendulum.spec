@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python datetimes made easy
 
 License:        MIT
@@ -56,6 +56,9 @@ timezone-aware and by default in UTC for ease of use.
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 2.1.2-10
 - Rebuilt for Python 3.12
 

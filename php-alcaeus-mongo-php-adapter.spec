@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-alcaeus-mongo-php-adapter
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -10,7 +10,7 @@
 # disabled for https://fedoraproject.org/wiki/Changes/MongoDB_Removal
 %bcond_with          tests
 
-%global gh_commit    0e99bf5ea15f8e9b7ddb3a6dc38c11aa95330ca1
+%global gh_commit    37fcd80793ef38165f6d987e66f050670e233670
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     alcaeus
 %global gh_project   mongo-php-adapter
@@ -18,8 +18,8 @@
 
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.2.2
-Release:        3%{?dist}
+Version:        1.2.3
+Release:        1%{?dist}
 Summary:        Mongo PHP Adapter
 
 License:        MIT
@@ -152,6 +152,12 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Remi Collet <remi@remirepo.net> - 1.2.3-1
+- update to 1.2.3
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

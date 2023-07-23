@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python ACL/ACE/Security Descriptor manipulation library
 
 License:        MIT
@@ -40,6 +40,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.1-8
 - Rebuilt for Python 3.12
 

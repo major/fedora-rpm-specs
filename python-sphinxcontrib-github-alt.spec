@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-github-alt
 Version:        1.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Link to GitHub issues, pull requests, commits and users from Sphinx docs
 License:        BSD-2-Clause
 URL:            https://github.com/jupyter/sphinxcontrib_github_alt
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2-11
 - Rebuilt for Python 3.12
 

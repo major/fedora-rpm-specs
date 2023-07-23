@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rust FFI bindings to KVM generated using bindgen
 
 # Upstream license specification: Apache-2.0
@@ -96,6 +96,9 @@ use the "vmm-sys-util" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Sergio Lopez <slp@redhat.com> - 0.6.0-1
 - Update to version 0.6.0
 

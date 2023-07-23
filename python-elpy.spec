@@ -9,7 +9,7 @@ Details of...}
 
 Name:           python-%{pypi_name}
 Version:        1.34.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Backend for the elpy Emacs mode
 
 License:        GPLv3
@@ -76,6 +76,9 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} ';'
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

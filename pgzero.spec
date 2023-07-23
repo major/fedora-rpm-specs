@@ -1,6 +1,6 @@
 Name:           pgzero
 Version:        1.2.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A zero-boilerplate 2D games framework
 
 License:        LGPLv3 and ASL 2.0 and CC-BY-SA and CC0 and MIT and OFL
@@ -58,6 +58,9 @@ rm test/test_screen.py test/test_actor.py test/test_sound_formats.py
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.1-8
 - Rebuilt for Python 3.12
 

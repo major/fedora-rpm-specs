@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library to configure Python logging easily
 
 License:        ASL 2.0
@@ -70,6 +70,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 19 2023 Joel Capitao <jcapitao@redhat.com> - 3.2.1-3
 - Exclude the unit tests failing with Python3.12
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        10.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Highly-optimized, pure-python HTTP server
 
 License:        BSD
@@ -107,6 +107,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build -W ignore::DeprecationWarning
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 10.0.0-2
 - Rebuilt for Python 3.12
 

@@ -1036,11 +1036,11 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
-* Thu Jul 13 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1677-1
+* Thu Jul 13 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1677-2
 - 2222671 - fix FTBFS due Python3 rebase
 - 2222648 - fix FailToInstall due Perl rebase
 
-* Tue Jul 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1677-1
+* Tue Jul 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1677-2
 - patchlevel 1677
 
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:9.0.1671-2

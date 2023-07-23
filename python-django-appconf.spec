@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A helper class for handling configuration defaults of packaged apps gracefully
 
 License:        BSD
@@ -74,6 +74,9 @@ export DJANGO_SETTINGS_MODULE=tests.test_settings
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.0.3-12
 - Rebuilt for Python 3.12
 

@@ -5,7 +5,7 @@
 
 Name:           python-whoosh
 Version:        2.7.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Fast, pure-Python full text indexing, search, and spell checking library 
 
 License:        BSD 
@@ -68,6 +68,9 @@ rm -rf docs/html/.doctrees
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.7.4-28
 - Rebuilt for Python 3.12
 

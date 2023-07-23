@@ -1,6 +1,6 @@
 Name:           stringtemplate4
 Version:        4.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Java template engine
 License:        BSD-3-Clause
 URL:            http://www.stringtemplate.org/
@@ -51,6 +51,9 @@ xvfb-run -d %mvn_build
 %license LICENSE.txt
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 23 2023 Jerry James <loganjerry@gmail.com> - 4.3.4-1
 - Version 4.3.4
 

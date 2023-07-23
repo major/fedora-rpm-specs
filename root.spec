@@ -55,7 +55,7 @@
 Name:		root
 Version:	6.28.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3771,6 +3771,9 @@ fi
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.28.04-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 09 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.04-3
 - Fix build on Fedora 39+ where glibc has strlcpy and strlcat
 - Enable build of root-gui-qt6webdisplay sub-package if Qt6 is available

@@ -4,7 +4,7 @@
 
 Name:           python-jupyter-client
 Version:        7.4.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Jupyter protocol implementation and client libraries
 
 License:        BSD
@@ -109,6 +109,9 @@ rm -r html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 7.4.9-4
 - Rebuilt for Python 3.12
 

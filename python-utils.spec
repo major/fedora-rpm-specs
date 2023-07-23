@@ -1,6 +1,6 @@
 Name:           python-utils
 Version:        3.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Utils is a module with some convenient utilities
 
 License:        BSD
@@ -76,6 +76,9 @@ rm -rf html/{.doctrees,.buildinfo,*.inv}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.3.3-3
 - Rebuilt for Python 3.12
 

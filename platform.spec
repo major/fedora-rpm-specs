@@ -1,6 +1,6 @@
 Name:           platform
 Version:        2.1.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Platform support library used by libCEC and binary add-ons for Kodi
 
 License:        GPLv2+
@@ -60,6 +60,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 29 2023 Sérgio Basto <sergio@serjux.com> - 2.1.0.1-16
 - Add minor fixes from upstream
 

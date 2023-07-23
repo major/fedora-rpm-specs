@@ -1,6 +1,6 @@
 Name:           python-yara
 Version:        4.3.1
-%global         baserelease     2
+%global         baserelease     3
 Summary:        Python binding for the YARA pattern matching tool
 License:        Apache-2.0
 URL:            https://github.com/VirusTotal/yara-python/
@@ -150,6 +150,9 @@ pytest-3 -k "$EXCLUDE" tests.py -v
 
 #====================================================================
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.3.1-2
 - Rebuilt for Python 3.12
 

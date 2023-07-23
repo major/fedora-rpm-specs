@@ -27,8 +27,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.22.3
-Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.22.5
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -144,6 +144,7 @@ BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(Qt5X11Extras)
 BuildRequires: pkgconfig(Qt5WaylandClient)
+BuildRequires: qt5-qtbase-private-devel
 
 Supplements: (gstreamer1-plugins-good and qt5-qtdeclarative)
 
@@ -167,6 +168,7 @@ BuildRequires: pkgconfig(Qt6Qml)
 BuildRequires: pkgconfig(Qt6Quick)
 BuildRequires: pkgconfig(Qt6WaylandClient)
 BuildRequires: pkgconfig(Qt6Linguist)
+BuildRequires: qt6-qtbase-private-devel
 
 Supplements: (gstreamer1-plugins-good and qt6-qtdeclarative)
 
@@ -224,6 +226,7 @@ to be installed.
 %if 0%{?_module_build} && "%{_module_name}" == "flatpak-runtime"
   -D v4l2-gudev=disabled \
 %endif
+  -D qt-egl=disabled \
   -D qt5=%{?with_qt5:enabled}%{!?with_qt5:disabled} \
   -D qt6=%{?with_qt6:enabled}%{!?with_qt6:disabled}
 
@@ -350,6 +353,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Fri Jul 21 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.5-1
+- Update to 1.22.5
+- Disable qt-egl and add some BuildRequires to make things compile.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python module to handle URLs
 
 License:        ASL 2.0
@@ -61,6 +61,9 @@ sed -e '/addopts/d' -i setup.cfg
 %{python3_sitearch}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.9.2-2
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:		perl-URI-cpan
 Version:	1.008
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	URLs that refer to things on the CPAN
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/URI-cpan
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/URI::cpan::package.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

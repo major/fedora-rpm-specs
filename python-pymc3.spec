@@ -6,7 +6,7 @@
 
 Name: python-%{srcname}
 Version: 3.11.4
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Exploratory analysis of Bayesian models
 
 License: ASL 2.0 and MIT and BSD
@@ -82,6 +82,9 @@ popd
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.11.4-6
 - Rebuilt for Python 3.12
 

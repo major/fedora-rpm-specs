@@ -11,7 +11,7 @@ doesn't create a new task.
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An asyncio-compatible timeout context manager
 
 License:        ASL 2.0
@@ -61,6 +61,9 @@ sed -e '/^addopts/d' -i setup.cfg
 %doc README.rst CHANGES.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 4.0.2-8
 - Rebuilt for Python 3.12
 

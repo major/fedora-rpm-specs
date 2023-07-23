@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.12.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command line tool to build sets of software packages
 
 License:        ASL 2.0
@@ -91,6 +91,9 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.12.1-2
 - Rebuilt for Python 3.12
 

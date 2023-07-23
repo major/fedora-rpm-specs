@@ -11,7 +11,7 @@
 
 Name:           python-%{pkg_name}
 Version:        3.2.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Basic and Digest HTTP authentication for Flask routes
 
 License:        MIT
@@ -120,6 +120,9 @@ rm -rf build/sphinx/html/.{doctrees,buildinfo}
 %endif # with_python3
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 3.2.3-23
 - Rebuilt for Python 3.12
 

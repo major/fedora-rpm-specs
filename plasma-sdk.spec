@@ -2,7 +2,7 @@
 
 Name:    plasma-sdk
 Version: 5.27.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Development tools for Plasma 5
 
 License: GPLv2+ and LGPLv2+
@@ -144,6 +144,9 @@ Plasma SDK contains the following tools for Plasma-related development:
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6.1-1
 - 5.27.6.1
 

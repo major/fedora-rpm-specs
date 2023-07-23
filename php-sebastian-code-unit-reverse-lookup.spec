@@ -21,7 +21,7 @@
 
 Name:           php-sebastian-%{gh_project}
 Version:        1.0.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Looks up which function or method a line of code belongs to, version 1
 
 License:        BSD-3-Clause
@@ -98,6 +98,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 1.0.2-7
 - use SPDX license ID
 

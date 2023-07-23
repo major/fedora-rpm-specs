@@ -1,6 +1,6 @@
 Name:               python-mccabe
 Version:            0.7.0
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            McCabe complexity checker
 License:            MIT
 URL:                http://pypi.python.org/pypi/mccabe
@@ -51,6 +51,9 @@ Summary:            %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.7.0-3
 - Rebuilt for Python 3.12
 

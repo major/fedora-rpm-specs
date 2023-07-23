@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: XML serialization for Active Model objects and Active Record models
 License: MIT
 URL: http://github.com/rails/activemodel-serializers-xml
@@ -86,6 +86,9 @@ popd
 %{gem_instdir}/activemodel-serializers-xml.gemspec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

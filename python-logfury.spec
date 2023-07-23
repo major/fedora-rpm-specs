@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library for logging of method calls for Python
 
 License:        BSD
@@ -47,6 +47,9 @@ rm -rf %{srcname}.egg-info
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.1-6
 - Rebuilt for Python 3.12
 

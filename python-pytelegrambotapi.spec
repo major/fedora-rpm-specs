@@ -9,7 +9,7 @@ It can be used to create powerful bots for the Telegram messenger.}
 
 Name: python-%{appname}
 Version: 4.11.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-2.0-or-later
 Summary: Python Telegram Bot API implementation
@@ -48,6 +48,9 @@ Summary: %{summary}
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.11.0-2
 - Rebuilt for Python 3.12
 

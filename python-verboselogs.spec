@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Verbose logging level for Python's logging module
 
 License:        MIT
@@ -96,6 +96,9 @@ PYTHONUNBUFFERED=1 py.test-%{python3_version} %{srcname}/tests.py \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.7-21
 - Rebuilt for Python 3.12
 

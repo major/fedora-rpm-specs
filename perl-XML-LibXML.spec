@@ -8,7 +8,7 @@ Name:           perl-XML-LibXML
 # it might not be needed anymore
 # this module is maintained, the other is not
 Version:        2.0209
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Perl interface to the libxml2 library
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
@@ -191,6 +191,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0209-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0209-1
 - 2.0209 bump (rhbz#2223070)
 

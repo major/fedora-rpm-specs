@@ -1,8 +1,8 @@
 Name:           freemarker
 Version:        2.3.31
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        The Apache FreeMarker Template Engine
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://freemarker.apache.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -108,6 +108,9 @@ JAVA_HOME=%{_jvmdir}/java-11 ant \
 %license LICENSE NOTICE
 
 %changelog
+* Sat Jul 22 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.3.31-10
+- migrate to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.31-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

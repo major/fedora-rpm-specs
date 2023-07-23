@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
 Version:        1.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # Macro files
 Source001:      macros.pyproject
@@ -161,6 +161,9 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 31 2023 Maxwell G <maxwell@gtmx.me> - 1.9.0-1
 - Allow passing config_settings to the build backend.
 - Resolves: rhbz#2192581

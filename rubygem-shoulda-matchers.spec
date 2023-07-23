@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Simple one-liner tests for common Rails functionality
 License: MIT
 URL: https://matchers.shoulda.io/
@@ -171,6 +171,9 @@ popd
 %{gem_instdir}/shoulda-matchers.gemspec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

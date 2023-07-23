@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 1.5.27
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A cross-platform windowing and multimedia library for Python
 
 License: BSD-3-Clause
@@ -156,6 +156,9 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.27-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jun 17 2023 Orion Poplawski <orion@nwra.com> - 1.5.27-1
 - Update to 1.5.27
 - Add patch for Python 3.12 support

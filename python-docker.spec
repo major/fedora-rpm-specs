@@ -15,7 +15,7 @@
 
 Name:           python-%{srcname}
 Version:        5.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python library for the Docker Engine API
 License:        ASL 2.0
 URL:            https://pypi.org/project/%{srcname}
@@ -116,6 +116,9 @@ cp -avr tests/ %{buildroot}%{_libexecdir}/installed-tests/%{name}/
 %endif # tests
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.0.3-4
 - Rebuilt for Python 3.12
 

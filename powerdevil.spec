@@ -2,7 +2,7 @@
 
 Name:    powerdevil
 Version: 5.27.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: GPLv2+
@@ -134,6 +134,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf5_qtplugindir}/powerdevil/action/powerdevil_*.so
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-3
 - Exclude enabling ddcutil on s390/s390x arches
 

@@ -4,7 +4,7 @@
 
 Name:             python-%{pypi_name}
 Version:          1.81
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Python tools for computational molecular biology
 Source0:          %{pypi_source}
 Patch0:           %{name}-fix_for_python312.patch
@@ -122,6 +122,9 @@ popd
 %license %{module}-%{version}/LICENSE.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.81-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.81-3
 - Patched for Python-3.12
 

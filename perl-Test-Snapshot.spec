@@ -1,6 +1,6 @@
 Name:           perl-Test-Snapshot
 Version:        0.06
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Test against data stored in automatically-named file
 License:        Artistic 2.0
 
@@ -56,6 +56,9 @@ for running executables.
 %{_mandir}/man3/Test*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

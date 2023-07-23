@@ -1,6 +1,6 @@
 Name:           python-pydantic
 Version:        1.10.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Data validation using Python type hinting
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf pydantic.egg-info
 %{python3_sitelib}/pydantic-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.10.2-3
 - Rebuilt for Python 3.12
 

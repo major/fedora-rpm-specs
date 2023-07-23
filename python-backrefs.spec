@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.5
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A wrapper around re and regex that adds additional back references
 
 License:        MIT
@@ -61,6 +61,12 @@ py.test-3
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 5.5-3
+- Mark this as SPDX license expression converted
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Parag Nemade <pnemade AT redhat DOT com> - 5.5-1
 - Update to 5.5 version (#2215535)
 

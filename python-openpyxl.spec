@@ -8,7 +8,7 @@ Office Open XML format.
 
 Name:           python-%{pypi_name}
 Version:        3.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        MIT and Python
@@ -53,6 +53,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.2-2
 - Rebuilt for Python 3.12
 

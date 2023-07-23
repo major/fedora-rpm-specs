@@ -3,7 +3,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.1.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 
 Summary:	Text-to-HTML conversion tool for web writers
 License:	MIT
@@ -107,6 +107,9 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

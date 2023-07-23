@@ -1,6 +1,6 @@
 Name:           samdump2
 Version:        3.0.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Retrieves syskey and extracts hashes from Windows 2k/NT/XP/Vista SAM
 
 #MD5 RC4 DES functions are linked from openssl library
@@ -49,6 +49,9 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir} MANDIR=%{_mandir}/man1/ OWNE
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

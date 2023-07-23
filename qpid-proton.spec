@@ -8,7 +8,7 @@
 
 Name:           qpid-proton
 Version:        0.38.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A high performance, lightweight messaging library
 License:        ASL 2.0
 URL:            http://qpid.apache.org/proton/
@@ -320,6 +320,9 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.38.0-3
 - Fix compatibility with Python 3.12 (rhbz#2220586)
 

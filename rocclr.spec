@@ -10,7 +10,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -306,6 +306,9 @@ chmod 755 %{buildroot}%{_libdir}/lib*.so*
 %{_docdir}/hip
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-2
 - Fix missing requires on rocm-hip-devel package
 

@@ -2,7 +2,7 @@
 
 Name:           plexus-interpolation
 Version:        1.26
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Plexus Interpolation API
 # Most of the code is ASL 2.0, a few source files are ASL 1.1 and some tests are MIT
 License:        ASL 2.0 and ASL 1.1 and MIT
@@ -48,6 +48,9 @@ related projects.
 %files -f .mfiles
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

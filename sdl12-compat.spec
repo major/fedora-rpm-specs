@@ -7,7 +7,7 @@
 
 Name:           sdl12-compat
 Version:        1.2.60
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SDL 1.2 runtime compatibility library using SDL 2.0
 # mp3 decoder code is MIT-0/PD
 # SDL_opengl.h is zlib and MIT
@@ -155,6 +155,9 @@ rm -rf %{buildroot}%{_libdir}/*.a
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.60-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 10 2023 Petr Pisar <ppisar@redhat.com> - 1.2.60-3
 - Fix a hang in SDL_FreeYUVOverlay() (RH#2173510)
 

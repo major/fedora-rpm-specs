@@ -2,7 +2,7 @@
 
 Name:           psi-plus
 Version:        1.5.1650
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 
 # GPL-2.0-or-later - core project.
@@ -164,6 +164,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.1650-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 05 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1:1.5.1650-1
 - Updated to version 1.5.1650.
 

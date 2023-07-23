@@ -3,7 +3,7 @@
 
 Name:           python-sly
 Version:        0.4
-Release:        0.30.%{shortcommit}%{?dist}
+Release:        0.31.%{shortcommit}%{?dist}
 Summary:        An implementation of lex and yacc for Python 3
 
 License:        BSD
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-0.31.f8fcbb0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4-0.30.f8fcbb0
 - Rebuilt for Python 3.12
 

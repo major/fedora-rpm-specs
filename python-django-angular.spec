@@ -20,7 +20,7 @@
 
 Name:			python-%{pypi_name}
 Version:		2.0.3
-Release:		17%{?gitrel}%{?dist}
+Release:		18%{?gitrel}%{?dist}
 Summary:		Classes and utility functions to integrate AngularJS with Django
 
 License:		MIT
@@ -140,6 +140,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.3-17
 - Rebuilt for Python 3.12
 

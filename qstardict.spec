@@ -4,7 +4,7 @@
 
 Name:       qstardict
 Version:    1.3
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    StarDict clone written using Qt
 License:    GPLv2+
 URL:        http://qstardict.ylsoftware.com/
@@ -107,6 +107,9 @@ rm -fr %{buildroot}%{_docdir}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:	SIP swiss army knife
 Name:		sipsak
 Version:	0.9.8.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	GPLv2+
 URL:		https://github.com/nils-ohlmeier/sipsak
 VCS:            scm:git:https://github.com/nils-ohlmeier/sipsak.git
@@ -40,6 +40,9 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

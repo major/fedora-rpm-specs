@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.32.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -308,6 +308,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.32.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Sandro Mani <manisandro@gmail.com> - 3.32.0-1
 - Update to 3.32.0
 

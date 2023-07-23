@@ -12,7 +12,7 @@
 Summary:        Random number generator related utilities
 Name:           rng-tools
 Version:        6.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 URL:            https://github.com/nhorman/rng-tools
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ install -D %{SOURCE2} -m0644 %{buildroot}%{_sysconfdir}/sysconfig/rngd
 %config(noreplace) %attr(0644,root,root)    %{_sysconfdir}/sysconfig/rngd
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 02 2023 Vladis Dronov <vdronov@redhat.com> - 6.16-1
 - Update to the upstream v6.16 + tip of origin/master @ 0e560296
 - Get rid of text relocations in -fPIE build

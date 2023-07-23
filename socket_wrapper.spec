@@ -1,6 +1,6 @@
 Name:           socket_wrapper
 Version:        1.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-3-Clause
 Summary:        A library passing all socket communications through Unix sockets
@@ -91,6 +91,9 @@ LD_PRELOAD=%{__cmake_builddir}/src/libsocket_wrapper.so bash -c '>/dev/null'
 %{_libdir}/pkgconfig/socket_wrapper_noop.pc
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Andreas Schneider <asn@redhat.com> - 1.4.0-2
 - Fix building with cmocka >= 1.1.6
 

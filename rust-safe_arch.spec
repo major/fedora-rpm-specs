@@ -5,7 +5,7 @@
 %global crate safe_arch
 
 Name:           rust-safe_arch
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Crate that exposes core::arch safely via #[cfg()]
 

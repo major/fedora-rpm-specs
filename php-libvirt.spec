@@ -22,7 +22,7 @@
 
 Name:		php-libvirt
 Version:	0.5.6
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	PHP language bindings for Libvirt
 
 # libvirt-php is under the same terms as libvirt
@@ -111,6 +111,9 @@ rm %{buildroot}%{php_extdir}/%{extname}.la
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

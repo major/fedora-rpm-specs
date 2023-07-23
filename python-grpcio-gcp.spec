@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        gRPC for GCP extensions
 
 License:        Apache-2.0
@@ -54,6 +54,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.2-11
 - Rebuilt for Python 3.12
 

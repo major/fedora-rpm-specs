@@ -10,7 +10,7 @@
 
 Name:           python-%{modname}
 Version:        0.5.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Assorted utilities for neuroimaging and cognitive science
 
 # moss/external/mvpasurf.py is MIT
@@ -102,6 +102,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.0-19
 - Rebuilt for Python 3.12
 

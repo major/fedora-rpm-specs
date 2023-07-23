@@ -2,7 +2,7 @@
 
 Name:           python-xrst
 Version:        2023.1.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extract Sphinx RST Files
 
 License:        GPL-3.0-or-later
@@ -86,6 +86,9 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2023.1.22-2
 - Rebuilt for Python 3.12
 

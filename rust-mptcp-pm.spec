@@ -7,7 +7,7 @@
 %global crate mptcp-pm
 
 Name:           rust-mptcp-pm
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Linux kernel MPTCP path manager netlink Library
 

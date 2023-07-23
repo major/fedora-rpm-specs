@@ -16,7 +16,7 @@
 
 Name:		ruby-mecab
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{relnumber}%{?betaver:.%betaver}%{?dist}.24
+Release:	%{?betaver:0.}%{relnumber}%{?betaver:.%betaver}%{?dist}.25
 Summary:	Ruby binding for MeCab
 
 # License is the same as MeCab
@@ -78,6 +78,9 @@ ruby -I. test.rb
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-6.25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-6.24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

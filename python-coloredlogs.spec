@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        15.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Colored terminal output for Python's logging module
 
 License:        MIT
@@ -98,6 +98,9 @@ PATH=%{buildroot}%{_bindir}:$PATH \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 15.0.1-5
 - Rebuilt for Python 3.12
 

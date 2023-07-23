@@ -3,7 +3,7 @@
 
 Name:		qpdfview
 Version:	0.5.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
@@ -185,6 +185,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %{_mandir}/man?/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 0.5.0-3
 - Rebuild (tesseract)
 

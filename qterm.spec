@@ -1,6 +1,6 @@
 Name:       qterm
 Version:    0.7.4
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    BBS client for X Window System written in Qt
 License:    GPLv2+
 URL:        https://github.com/qterm/qterm
@@ -49,6 +49,9 @@ desktop-file-install \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

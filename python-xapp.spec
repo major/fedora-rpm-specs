@@ -1,6 +1,6 @@
 Name:           python-xapp
 Version:        2.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for xapps
 
 License:        LGPLv2
@@ -48,6 +48,9 @@ Requires:      xapps
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Leigh Scott <leigh123linux@gmail.com> - 2.4.1-2
 - Rebuilt for Python 3.12
 

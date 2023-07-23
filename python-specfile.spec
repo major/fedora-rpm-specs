@@ -14,7 +14,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        0.20.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -71,6 +71,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Packit <hello@packit.dev> - 0.20.0-1
 - Fixed infinite loop when removing macros with `%` in the name. (#244)
 - Added a possibility to undefine system macros by setting a macro value to `None` in the `macros` argument of the `Specfile` constructor. (#244)

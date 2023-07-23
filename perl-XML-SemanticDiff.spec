@@ -1,7 +1,7 @@
 Name:		perl-XML-SemanticDiff
 Summary:	Perl extension for comparing XML documents
 Version:	1.0007
-Release:	15%{?dist}
+Release:	16%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/XML-SemanticDiff
 Source0:	https://cpan.metacpan.org/modules/by-module/XML/XML-SemanticDiff-%{version}.tar.gz
@@ -59,6 +59,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/XML::SemanticDiff::BasicHandler.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0007-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0007-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

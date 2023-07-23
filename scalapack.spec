@@ -45,7 +45,7 @@
 Summary: A subset of LAPACK routines redesigned for heterogeneous computing
 Name: scalapack
 Version: 2.2.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 # This is freely distributable without any restrictions.
 License: Public Domain
 URL: http://www.netlib.org/scalapack/
@@ -447,6 +447,9 @@ sed -i 's|mpi|ompi|g' %{buildroot}%{_libdir}/openmpi/lib/pkgconfig/scalapack.pc
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 15 2023 Arjun Shankar <arjun@redhat.com> - 2.2.0-4
 - Build in C89 mode (#2178710)
 

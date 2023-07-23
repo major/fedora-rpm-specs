@@ -2,7 +2,7 @@
 
 Name:            pseudo
 Version:         1.9.0
-Release:         18.20210205gitf332f56%{?dist}
+Release:         19.20210205gitf332f56%{?dist}
 Summary:         Advanced tool for simulating superuser privileges
 
 License:         GPLv3+ and LGPLv2+
@@ -103,6 +103,9 @@ fi
 %{_mandir}/man1/pseudolog.1*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-19.20210205gitf332f56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 1.9.0-18.20210205gitf332f56
 - Port non-autoconf feature probing to C99
 

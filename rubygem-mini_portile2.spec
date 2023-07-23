@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	2.8.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Simplistic port-like solution for developers
 # SPDX confirmed
@@ -87,6 +87,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.4-1
 - 2.8.4
 

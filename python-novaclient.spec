@@ -13,7 +13,7 @@ the OpenStack Nova API.
 Name:             python-novaclient
 Epoch:            1
 Version:          18.3.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Python API and CLI for OpenStack Nova
 License:          ASL 2.0
 URL:              https://launchpad.net/%{name}
@@ -129,6 +129,9 @@ rm -fr doc/build/html/.doctrees doc/build/html/.buildinfo doc/build/html/.htacce
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:18.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1:18.3.0-2
 - Rebuilt for Python 3.12
 

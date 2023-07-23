@@ -5,7 +5,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	3.4.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	RubyGem of Localization Library and Tools for Ruby
 
 # Ruby OR LGPL-3.0-or-later:	gemspec
@@ -156,6 +156,9 @@ popd
 %{gem_instdir}/samples/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.6-1
 - 3.4.6
 

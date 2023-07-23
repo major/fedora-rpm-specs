@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.10.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Small ERB Implementation
 License: MIT
 URL: https://github.com/jeremyevans/erubi
@@ -72,6 +72,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

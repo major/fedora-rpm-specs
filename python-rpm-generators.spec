@@ -1,7 +1,7 @@
 Name:           python-rpm-generators
 Summary:        Dependency generators for Python RPMs
 Version:        14
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Url:            https://src.fedoraproject.org/rpms/python-rpm-generators
 
@@ -56,6 +56,9 @@ install -Dpm0755 -t %{buildroot}%{_rpmconfigdir} *.py
 %{_rpmconfigdir}/pythonbundles.py
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 24 2023 Todd Zullinger <tmz@pobox.com> - 14-6
 - Fix URL tag
 

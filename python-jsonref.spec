@@ -1,6 +1,6 @@
 Name:           python-jsonref
 Version:        1.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python library for automatic dereferencing of JSON Reference objects
 
 License:        MIT
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.0-2
 - Rebuilt for Python 3.12
 

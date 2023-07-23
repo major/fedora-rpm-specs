@@ -4,7 +4,7 @@
 Name:           smartsim
 URL:            http://smartsim.org.uk/
 Version:        1.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 License:        GPLv3
 Summary:        Digital logic circuit design and simulation package
 Source0:        https://github.com/ashleynewson/SmartSim/archive/v1.4.tar.gz
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

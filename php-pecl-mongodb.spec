@@ -33,7 +33,7 @@ Name:           php-pecl-%{pecl_name}
 #global upstream_lower   ~rc1
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -191,6 +191,9 @@ cd ../ZTS
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Remi Collet <remi@remirepo.net> - 1.16.1-1
 - update to 1.16.1 (no change)
 

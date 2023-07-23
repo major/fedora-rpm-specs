@@ -1,6 +1,6 @@
 Name:		screenruler
 Version:	1.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	GNOME screen ruler
 # SPDX confirmed
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2-1
 - 1.2 (bug 2203515)
 - upstream changed to salsa.debian.org

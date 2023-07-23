@@ -17,7 +17,7 @@ which nobody trusts.  But you can trust it.  Trust me.}
 
 Name:           python-%{srcname}
 Version:        0.9.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        #1 quality TLS certs while you wait, for the discerning tester
 License:        MIT or ASL 2.0
 URL:            https://github.com/python-trio/trustme
@@ -96,6 +96,9 @@ sphinx-build-3 docs/source html
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.9.0-5
 - Rebuilt for Python 3.12
 

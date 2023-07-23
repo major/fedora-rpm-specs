@@ -6,8 +6,8 @@
 #
 
 Name:		perl-DBIx-SearchBuilder
-Version:	1.76
-Release:	2%{?dist}
+Version:	1.78
+Release:	1%{?dist}
 Summary:	Encapsulate SQL queries and rows in simple perl objects
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/DBIx-SearchBuilder
@@ -24,7 +24,7 @@ BuildRequires:	perl(Cache::Simple::TimedExpiry) >= 0.21
 BuildRequires:	perl(Class::Accessor)
 BuildRequires:	perl(Class::ReturnValue) >= 0.4
 BuildRequires:	perl(Carp)
-BuildRequires:	perl(DBD::SQLite)
+BuildRequires:	perl(DBD::SQLite) > 1.60
 BuildRequires:	perl(DBI)
 BuildRequires:	perl(Encode) >= 1.99
 BuildRequires:	perl(Exporter)
@@ -33,14 +33,11 @@ BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Test::More) >= 0.52
 BuildRequires:	perl(Want)
-%if "%{version}" > "1.74"
-# Use Module::Install::ReadmeFromPod instead of bundled version
-BuildRequires:  perl(Module::Install::ReadmeFromPod)
-%endif
 
 BuildRequires:	perl(base)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
+BuildRequires:	perl(version)
 BuildRequires:	perl(warnings)
 
 # Improved tests:
@@ -51,7 +48,9 @@ BuildRequires:	perl(capitalization) >= 0.03
 BuildRequires:	perl(Clone)
 BuildRequires:	perl(DBIx::DBSchema)
 
-BuildRequires:  perl(inc::Module::Install)
+BuildRequires:	perl(inc::Module::Install)
+# Use Module::Install::ReadmeFromPod instead of bundled version
+BuildRequires:	perl(Module::Install::ReadmeFromPod)
 
 %description
 This module provides an object-oriented mechanism for retrieving and
@@ -101,6 +100,12 @@ DBIx::SearchBuilder bindings for Oracle
 %endif
 
 %changelog
+* Fri Jul 21 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.78-1
+- Update to 1.78.
+
+* Fri Jul 21 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.77-1
+- Update to 1.77.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.76-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

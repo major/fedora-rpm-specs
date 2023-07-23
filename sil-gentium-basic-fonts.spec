@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 1.102
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL:     https://software.sil.org/gentium/
 
 %global foundry           SIL
@@ -78,6 +78,9 @@ This package provides optional documentation files shipped with
 %doc FONTLOG.txt GENTIUM-FAQ.txt OFL-FAQ.txt
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.102-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.102-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

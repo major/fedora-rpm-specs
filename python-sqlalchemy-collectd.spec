@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Send database connection pool stats to collectd
 
 License:        MIT
@@ -67,6 +67,9 @@ entrypoints and no code changes...
 %{_bindir}/connmon
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.0.7-7
 - Rebuilt for Python 3.12
 

@@ -5,7 +5,7 @@
 
 Name:           sane-airscan
 Version:        0.99.27
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        SANE backend for AirScan (eSCL) and WSD document scanners
 # the exception is defined in LICENSE, meant for SANE project in most cases
 License:        GPLv2+ with exceptions
@@ -96,6 +96,9 @@ rm -f %{buildroot}%{_libdir}/sane/libsane-airscan.so
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.27-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.99.27-8
 - move to meson
 

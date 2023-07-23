@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.11.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Bloom is a release automation tool
 
 License:        BSD
@@ -125,6 +125,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 04 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.11.2-4
 - Fix FTBFS with the latest setuptools version
 Resolves: rhbz#2183391

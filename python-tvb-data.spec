@@ -11,7 +11,7 @@ Various demonstration datasets for use with The Virtual Brain are provided here.
 
 Name:           python-%{pypi_name}
 Version:        1.5.9
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Demo data for The Virtual Brain software
 
 License:        GPLv3+
@@ -73,6 +73,9 @@ sed -i 's/1.5.10/1.5.9/' setup.py
 %{python3_sitelib}/%{module_name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.9-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.9-12
 - Rebuilt for Python 3.12
 

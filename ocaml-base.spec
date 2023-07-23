@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %bcond_with test
 
 Name:           ocaml-base
-Version:        0.16.1
-Release:        3%{?dist}
+Version:        0.16.2
+Release:        1%{?dist}
 Summary:        Jane Street standard library for OCaml
 
 # MIT: The project as a whole
@@ -71,6 +71,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jul 21 2023 Jerry James <loganjerry@gmail.com> - 0.16.2-1
+- Version 0.16.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

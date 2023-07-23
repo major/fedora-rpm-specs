@@ -11,7 +11,7 @@
 Summary:	Ruby binding of vte
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -138,6 +138,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

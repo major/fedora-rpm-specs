@@ -52,6 +52,10 @@ BuildRequires:  golang(google.golang.org/protobuf/types/descriptorpb)
 BuildRequires:  golang(google.golang.org/protobuf/types/dynamicpb)
 
 Patch0001:      delete-starlarkjson.patch
+# https://github.com/google/starlark-go/pull/489
+Patch0002:      fix_build_flags.patch
+# https://github.com/google/starlark-go/issues/488
+Patch0003:      skip_TestExecFile_in_s390x.patch
 
 %description
 %{common_description}

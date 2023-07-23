@@ -2,7 +2,7 @@
 
 Name:		stun
 Version:	0.97    
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Implements a simple Stun Client
 License:	Vovida Software License 1.0
 URL:		http://sourceforge.net/projects/%{name}
@@ -57,6 +57,9 @@ install   server $RPM_BUILD_ROOT%{_sbindir}/stun-server
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.97-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.97-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

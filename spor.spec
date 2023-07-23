@@ -1,7 +1,7 @@
 Name:      spor
 Summary:   Store file modes (permission/ownership) recursively 
 Version:   1.0
-Release:   27%{?dist}
+Release:   28%{?dist}
 License:   GPLv3+
 URL:       http://code.google.com/p/spor
 Source0:   http://spor.googlecode.com/files/%{name}-%{version}.tar.bz2 
@@ -39,6 +39,9 @@ of a given directory.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

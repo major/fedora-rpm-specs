@@ -2,7 +2,7 @@
 
 Name:           plexus-utils
 Version:        3.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plexus Common Utilities
 # ASL 1.1: several files in src/main/java/org/codehaus/plexus/util/
 # xpp: src/main/java/org/codehaus/plexus/util/xml/pull directory
@@ -57,6 +57,9 @@ cp %{SOURCE1} .
 %license NOTICE.txt LICENSE-2.0.txt
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

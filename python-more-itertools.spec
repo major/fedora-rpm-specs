@@ -2,7 +2,7 @@
 
 Name:           python-more-itertools
 Version:        8.13.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        More routines for operating on Python iterables, beyond itertools
 License:        MIT
 URL:            https://github.com/erikrose/more-itertools
@@ -46,6 +46,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.13.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 8.13.0-4
 - Rebuilt for Python 3.12
 

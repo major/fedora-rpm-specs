@@ -6,7 +6,7 @@
 
 Name:           python-string_utils
 Version:        1.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Utility functions for strings validation and manipulation
 
 # SPDX
@@ -126,6 +126,9 @@ find . -type f -perm /0111 \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.0-12
 - Fix source archive committed to dist-git
 - Stop pretending we will use this spec file for EPEL7/8

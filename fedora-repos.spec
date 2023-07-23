@@ -4,7 +4,7 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        39
-Release:        0.3%{?eln:.eln%{eln}}
+Release:        0.4%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -119,6 +119,7 @@ stable in Bodhi and been available in the Fedora updates repo in the past.
 
 %package -n fedora-gpg-keys
 Summary:        Fedora RPM keys
+Requires:       filesystem >= 3.18-6
 
 %description -n fedora-gpg-keys
 This package provides the RPM signature keys.
@@ -177,8 +178,7 @@ ln -s RPM-GPG-KEY-fedora-%{version}-primary RPM-GPG-KEY-%{version}-fedora
 popd
 
 # Install the ima keys
-install -d -m 755 $RPM_BUILD_ROOT/etc/pki/rpm-ima
-install -m 644 %{_sourcedir}/fedora*ima.* $RPM_BUILD_ROOT/etc/pki/rpm-ima/
+install -m 644 %{_sourcedir}/fedora*ima.* $RPM_BUILD_ROOT/etc/keys/ima/
 
 # Install repo files
 install -d -m 755 $RPM_BUILD_ROOT/etc/yum.repos.d
@@ -379,7 +379,7 @@ rm -f "$TMPRING"
 %files -n fedora-gpg-keys
 %dir /etc/pki/rpm-gpg
 /etc/pki/rpm-gpg/RPM-GPG-KEY-*
-/etc/pki/rpm-ima/fedora*ima*
+/etc/keys/ima/fedora*ima*
 
 
 %files ostree
@@ -392,6 +392,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Fri Jul 21 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 39-0.4
+- Update IMA keys location for kernel/dracut
+
 * Mon Jul 10 2023 Miro Hrončok <mhroncok@redhat.com> - 39-0.3
 - Drop fedora-repos-modular and fedora-repos-rawhide-modular packages
 - https://fedoraproject.org/wiki/Changes/RetireModularity

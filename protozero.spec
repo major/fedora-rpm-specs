@@ -2,7 +2,7 @@
 
 Name:           protozero
 Version:        1.7.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Minimalistic protocol buffer decoder and encoder in C++
 
 License:        BSD-2-Clause
@@ -73,6 +73,9 @@ mkdir build
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 11 2023 Tom Hughes <tom@compton.nu> - 1.7.1-5
 - Require catch2-devel instead of catch-devel
 

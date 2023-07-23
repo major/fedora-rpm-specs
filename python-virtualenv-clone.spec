@@ -2,7 +2,7 @@
 
 Name:             python-virtualenv-clone
 Version:          0.5.7
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Script to clone Python virtual environments
 
 License:          MIT
@@ -67,6 +67,9 @@ Requires:         python3-virtualenv
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Karolina Surma <ksurma@redhat.com> - 0.5.7-7
 - Allow Python 3.12 in tests
 

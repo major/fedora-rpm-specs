@@ -8,7 +8,7 @@
 
 Name:           %{srcname}
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -75,6 +75,9 @@ py.test-%{python3_version} -vv tests || :
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.7.0-2
 - Rebuilt for Python 3.12
 

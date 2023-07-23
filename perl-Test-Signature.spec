@@ -9,7 +9,7 @@
 
 Name:           perl-Test-Signature
 Version:        1.11
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Automated SIGNATURE testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Signature
@@ -98,6 +98,9 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Test::Signature.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

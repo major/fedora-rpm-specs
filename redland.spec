@@ -1,7 +1,7 @@
 
 Name:           redland
 Version:        1.0.17
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        RDF Application Framework
 
 License:        LGPL-2.1-or-later OR Apache-2.0
@@ -154,6 +154,9 @@ make check
 %{_mandir}/man1/redland-config.1*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 1.0.17-34
 - migrated to SPDX license
 

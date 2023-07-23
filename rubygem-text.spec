@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.3.1
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Collection of text algorithms
 
 # SPDX confirmed
@@ -72,6 +72,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.1-16
 - Use minitest5 for test
 - Cleanup spec file

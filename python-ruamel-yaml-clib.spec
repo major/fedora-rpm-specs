@@ -2,7 +2,7 @@
 
 Name:           python-ruamel-yaml-clib
 Version:        0.2.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C version of reader, parser and emitter for ruamel.yaml derived from libyaml
 
 # SPDX
@@ -95,6 +95,9 @@ rmdir ruamel.yaml.clib
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.2.7-2
 - Rebuilt for Python 3.12
 

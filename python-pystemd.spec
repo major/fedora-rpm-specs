@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A thin Cython-based wrapper on top of libsystemd
 
 License:        LGPL-2.1-or-later
@@ -73,6 +73,9 @@ popd
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.13.2-5
 - Fix deprecation warning and EL builds
 

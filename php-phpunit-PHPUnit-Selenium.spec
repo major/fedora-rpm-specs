@@ -17,7 +17,7 @@
 
 Name:           php-phpunit-PHPUnit-Selenium
 Version:        3.0.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Selenium RC integration for PHPUnit
 
 License:        BSD
@@ -109,6 +109,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

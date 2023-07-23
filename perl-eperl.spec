@@ -1,6 +1,6 @@
 Name:           perl-eperl
 Version:        2.2.14
-Release:        58%{?dist}
+Release:        59%{?dist}
 Summary:        Embedded Perl Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://www.ossp.org/pkg/tool/eperl/
@@ -89,6 +89,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.14-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.14-58
 - Perl 5.38 rebuild
 

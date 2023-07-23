@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 3.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Thread-pool Controls
 License: BSD-3-Clause
 
@@ -65,6 +65,9 @@ BuildRequires: python3dist(cython)
 %doc README.md multiple_openmp.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.2.0-3
 - Remove test broken 
 

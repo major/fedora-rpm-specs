@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.8.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Epoch:          1
 Summary:        Angular (XStatic packaging standard)
 
@@ -91,6 +91,9 @@ mv %{buildroot}/%{python3_sitelib}/xstatic/pkg/angular/data/angular* %{buildroot
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.8.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:1.5.8.0-22
 - Rebuilt for Python 3.12
 

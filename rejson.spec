@@ -1,6 +1,6 @@
 Name:		rejson
 Version:	1.0.2
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	JSON data type for Redis
 
 # Commit ID for latest goodform fix (not released)
@@ -49,6 +49,9 @@ install -pDm755 src/%{name}.so %{buildroot}%{redis_modules_dir}/%{name}.so
 %{redis_modules_dir}/%{name}.so
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 27 2023 Tom Stellard <tstellar@redhat.com> - 1.0.2-12
 - Fix implicit function definition warning
 

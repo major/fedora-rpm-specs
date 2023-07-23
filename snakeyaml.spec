@@ -3,7 +3,7 @@
 Name:           snakeyaml
 Summary:        YAML parser and emitter for Java
 Version:        1.32
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        ASL 2.0
 
 URL:            https://bitbucket.org/%{name}/%{name}
@@ -136,6 +136,9 @@ sed -i 's/\r//g' LICENSE.txt
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

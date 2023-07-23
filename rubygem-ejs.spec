@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.1
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: EJS (Embedded JavaScript) template compiler
 License: MIT
 URL: https://github.com/sstephenson/ruby-ejs/
@@ -74,6 +74,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

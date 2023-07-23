@@ -1,6 +1,6 @@
 Name:           python-pyupgrade
 Version:        3.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool to upgrade syntax of Python code for newer versions of the language
 
 License:        MIT
@@ -52,6 +52,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Python Maint <python-maint@redhat.com> - 3.3.0-3
 - Rebuilt for Python 3.12
 

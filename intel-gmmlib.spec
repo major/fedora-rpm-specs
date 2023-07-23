@@ -1,13 +1,11 @@
 Name:           intel-gmmlib
-Version:        22.3.7
-Release:        2%{?dist}
+Version:        22.3.9
+Release:        1%{?dist}
 Summary:        Intel Graphics Memory Management Library
 
 License:        MIT and BSD
 URL:            https://github.com/intel/gmmlib
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
-# https://github.com/intel/gmmlib/issues/103
-Patch0:         0001-Fix-for-intel-gmmlib-22.3.7.patch
 
 # This package relies on intel asm
 ExclusiveArch:  x86_64 i686
@@ -65,6 +63,9 @@ find Source -name "*.h" -exec chmod -x {} ';'
 
 
 %changelog
+* Fri Jul 21 2023 Nicolas Chauvet <kwizart@gmail.com> - 22.3.9-1
+- Update to 22.3.9
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

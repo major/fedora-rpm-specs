@@ -1,6 +1,6 @@
 Name:           perl-Text-Reform
 Version:        1.20
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Manual text wrapping and reformatting
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-Reform
@@ -52,6 +52,9 @@ LC_NUMERIC=C ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

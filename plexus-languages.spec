@@ -2,7 +2,7 @@
 
 Name:           plexus-languages
 Version:        1.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Plexus Languages
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-languages
@@ -51,6 +51,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

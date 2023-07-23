@@ -2,7 +2,7 @@
 
 Name:          python-%{srcname}
 Version:       3.2.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -91,6 +91,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.2.0-2
 - Rebuilt for Python 3.12
 

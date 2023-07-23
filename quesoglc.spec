@@ -1,6 +1,6 @@
 Name:           quesoglc
 Version:        0.7.2
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        The OpenGL Character Renderer
 
 License:        LGPLv2+
@@ -77,6 +77,9 @@ rm %{buildroot}%{_libdir}/libGLC.la
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

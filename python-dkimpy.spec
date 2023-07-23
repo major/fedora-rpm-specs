@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        DKIM, ARC, and TLSRPT email signing and verification
 
 License:        zlib
@@ -69,6 +69,9 @@ sed -e "s|#!/usr/bin/env python||" -i dkim/{arcsign.py,arcverify.py,dkimsign.py,
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.5-9
 - Rebuilt for Python 3.12
 

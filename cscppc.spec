@@ -3,8 +3,8 @@
 %undefine __cmake3_in_source_build
 
 Name:       cscppc
-Version:    2.2.3
-Release:    2%{?dist}
+Version:    2.2.4
+Release:    1%{?dist}
 Summary:    A compiler wrapper that runs Cppcheck in background
 
 License:    GPL-3.0-or-later
@@ -135,6 +135,9 @@ done
 %{_mandir}/man1/csmatch.1*
 
 %changelog
+* Fri Jul 21 2023 Kamil Dudka <kdudka@redhat.com> 2.2.4-1
+- update to latest upstream release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

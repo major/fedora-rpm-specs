@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parse Python docstrings
 License:        MIT
 URL:            https://github.com/rr-/docstring_parser
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.15-2
 - Rebuilt for Python 3.12
 

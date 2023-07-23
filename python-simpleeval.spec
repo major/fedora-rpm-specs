@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An expression evaluator library for Python
 
 License:        MIT
@@ -56,6 +56,9 @@ eval() or other unsafe or needlessly complex linguistics.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.13-2
 - Rebuilt for Python 3.12
 

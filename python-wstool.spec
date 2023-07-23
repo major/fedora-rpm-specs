@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.18
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Tool for managing a workspace of multiple heterogeneous SCM repositories
 
 License:        BSD
@@ -110,6 +110,9 @@ export GIT_COMMITTER_NAME="Foo Bar"
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.10
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Security flaw parser for upstream security advisories
 
 License:        LGPLv3+
@@ -51,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %{python3_sitelib}/advisory_parser-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.10-9
 - Rebuilt for Python 3.12
 

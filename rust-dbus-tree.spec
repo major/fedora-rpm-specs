@@ -6,7 +6,7 @@
 
 Name:           rust-dbus-tree
 Version:        0.9.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Framework for writing D-Bus method handlers (legacy)
 
 # Upstream license specification: Apache-2.0/MIT
@@ -66,6 +66,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 8 2023 mulhern <amulhern@redhat.com> - 0.9.2-6
 - Update license spec
 

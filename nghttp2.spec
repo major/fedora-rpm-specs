@@ -5,7 +5,7 @@ Release: 2%{?dist}
 License: MIT
 URL: https://nghttp2.org/
 Source0: https://github.com/tatsuhiro-t/nghttp2/releases/download/v%{version}/nghttp2-%{version}.tar.xz
-Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
+Source1: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2: tatsuhiro-t.pgp
 
 BuildRequires: CUnit-devel

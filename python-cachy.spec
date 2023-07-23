@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Simple yet effective caching library
 
 License:        MIT
@@ -44,6 +44,9 @@ Cachy provides a simple yet effective caching library.
 %exclude %{python3_sitelib}/tests/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.0-14
 - Rebuilt for Python 3.12
 

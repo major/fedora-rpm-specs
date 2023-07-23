@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        2.8.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        Powerful extensions to the standard datetime module
 
@@ -99,6 +99,9 @@ make -C docs html
 %doc docs/_build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.8.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Karolina Surma <ksurma@redhat.com> - 1:2.8.2-9
 - Backport replacement for deprecated datetime.datetime.utcfromtimestamp()
 

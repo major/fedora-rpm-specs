@@ -1,6 +1,6 @@
 Name:		perl-XML-DTDParser
 Version:	2.01
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Quick and dirty DTD parser
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/XML-DTDParser
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/XML::DTDParser.3pm*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.01-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.01-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

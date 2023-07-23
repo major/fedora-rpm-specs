@@ -5,7 +5,7 @@
 %global crate http-range-header
 
 Name:           rust-http-range-header
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        No-dep range header parser
 

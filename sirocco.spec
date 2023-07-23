@@ -1,6 +1,6 @@
 Name:           sirocco
 Version:        2.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROot Certified COntinuator
 
 # See https://github.com/miguelmarco/SIROCCO2/issues/1
@@ -71,6 +71,9 @@ make check
 %{_libdir}/libsirocco.so
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

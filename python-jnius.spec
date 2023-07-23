@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        1.3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -96,6 +96,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.3.0-14
 - Rebuilt for Python 3.12
 

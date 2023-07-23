@@ -21,7 +21,7 @@ and support for limiting size/connection etc.
 
 Name:           python-oslo-middleware
 Version:        5.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack Oslo Middleware library
 
 License:        Apache-2.0
@@ -156,6 +156,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_middleware/locale %{buildroot}%{_datadir}
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Hirotaka Wakabayashi <hiwkby@yahoo.com>  - 5.1.1-2
 - Switches to pyproject-rpm-macros on Python-3.12
 

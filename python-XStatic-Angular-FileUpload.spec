@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        12.0.4.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Angular-FileUpload JavaScript library (XStatic packaging standard)
 
 License:        MIT
@@ -131,6 +131,9 @@ rmdir %{buildroot}/%{python3_sitelib}/xstatic/pkg/angular_fileupload/data/
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.4.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 12.0.4.0-25
 - Rebuilt for Python 3.12
 

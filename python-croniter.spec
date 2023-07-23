@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Iteration for datetime object with cron like format
 
 License:        MIT
@@ -50,6 +50,9 @@ find -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 1.3.14-2
 - Rebuilt for Python 3.12
 

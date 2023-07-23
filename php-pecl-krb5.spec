@@ -17,7 +17,7 @@
 Summary:        Kerberos authentification extension
 Name:           php-pecl-%{pecl_name}
 Version:        1.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -169,6 +169,9 @@ cd ../ZTS
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 13 2023 Remi Collet <remi@remirepo.net> - 1.1.5-1
 - update to 1.1.5
 - license is MIT

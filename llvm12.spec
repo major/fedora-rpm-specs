@@ -187,7 +187,7 @@ LLVM's modified googletest sources.
 %patch101 -p2 -b .orig
 %endif
 
-pathfix.py -i %{__python3} -pn \
+%py3_shebang_fix \
 	test/BugPoint/compile-custom.ll.py \
 	tools/opt-viewer/*.py \
 	utils/update_cc_test_checks.py

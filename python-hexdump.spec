@@ -8,7 +8,7 @@
 
 Name:           python-hexdump
 Version:        3.4
-Release:        0.21.%{commitdate}hg%{shortcommit}%{?dist}
+Release:        0.22.%{commitdate}hg%{shortcommit}%{?dist}
 Summary:        Dump binary data to hex format and restore from there
 
 License:        Public Domain
@@ -66,6 +66,9 @@ install -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1/hexdumpy.1
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-0.22.20160818hg66325cb5fed8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.4-0.21.20160818hg66325cb5fed8
 - Rebuilt for Python 3.12
 

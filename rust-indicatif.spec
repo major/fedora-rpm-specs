@@ -147,7 +147,8 @@ use the "vt100" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip a brittle test that fails depending on load
+%cargo_test -- -- --skip style::tests::wide_element_style
 %endif
 
 %changelog

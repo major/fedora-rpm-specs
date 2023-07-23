@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python microframework built on werkzeug + twisted.web
 
 License:        MIT
@@ -66,6 +66,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.5.0-1
 - 23.5.0
 

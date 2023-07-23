@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.1.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Native packages installation helper
 
 # SPDX confirmed
@@ -78,6 +78,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.8-1
 - 1.1.8
 

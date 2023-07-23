@@ -78,6 +78,7 @@ Source13:          nginx-upgrade
 Source14:          nginx-upgrade.8
 Source15:          macros.nginxmods.in
 Source16:          nginxmods.attr
+Source17:          nginx-ssl-pass-dialog
 Source102:         nginx-logo.png
 Source103:         404.html
 Source104:         50x.html
@@ -91,6 +92,10 @@ Patch0:            0001-remove-Werror-in-upstream-build-scripts.patch
 # downstream patch - fix PIDFile race condition (rhbz#1869026)
 # rejected upstream: https://trac.nginx.org/nginx/ticket/1897
 Patch1:            0002-fix-PIDFile-handling.patch
+
+# downstream patch - Add ssl-pass-phrase-dialog helper script for
+# encrypted private keys with pass phrase decryption
+Patch2:            0003-add-ssl-pass-phrase-dialog.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -452,6 +457,11 @@ sed -e "s|@@NGINX_ABIVERSION@@|%{nginx_abiversion}|g" \
 ## Install dependency generator
 install -Dpm0644 %{SOURCE16} %{buildroot}%{_fileattrsdir}/nginxmods.attr
 
+# install http-ssl-pass-dialog
+mkdir -p $RPM_BUILD_ROOT%{_libexecdir}
+install -m755 $RPM_SOURCE_DIR/nginx-ssl-pass-dialog \
+        $RPM_BUILD_ROOT%{_libexecdir}/nginx-ssl-pass-dialog
+
 
 %pre filesystem
 getent group %{nginx_user} > /dev/null || groupadd -r %{nginx_user}
@@ -523,6 +533,7 @@ fi
 %license LICENSE
 %doc CHANGES README README.dynamic
 %{_sbindir}/nginx
+%{_libexecdir}/nginx-ssl-pass-dialog
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf.default
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi_params

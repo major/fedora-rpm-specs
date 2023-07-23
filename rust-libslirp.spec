@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        4.2.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        High-level bindings & helper process for libslirp
 
 License:        MIT
@@ -223,6 +223,9 @@ which use "url" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 4.2.2-14
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

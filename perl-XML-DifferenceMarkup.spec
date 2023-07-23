@@ -1,6 +1,6 @@
 Name:           perl-XML-DifferenceMarkup
 Version:        1.05
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        XML diff and merge
 # ppport.h:     GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.05-32
 - Perl 5.38 rebuild
 

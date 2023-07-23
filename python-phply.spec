@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        PHP parser written in Python using PLY 
 
 License:        BSD-3-Clause
@@ -47,6 +47,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}-nspkg.pth
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.5-5
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:       python-jupyter-collaboration
 Version:    1.0.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    JupyterLab Extension enabling Real-Time Collaboration
 
 # SPDX
@@ -75,6 +75,9 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 %{_datadir}/jupyter/labextensions/@jupyter/collaboration-extension
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.0.0-2
 - Rebuilt for Python 3.12
 

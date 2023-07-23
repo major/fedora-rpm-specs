@@ -1,7 +1,7 @@
 
 Name:           python-tempita
 Version:        0.5.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A very small text templating language
 
 License:        MIT
@@ -56,6 +56,9 @@ sed -i '/use_2to3/d' setup.py
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.2-9
 - Rebuilt for Python 3.12
 

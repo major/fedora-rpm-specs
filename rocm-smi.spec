@@ -5,7 +5,7 @@
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    NCSA and MIT and BSD
@@ -77,6 +77,9 @@ install -D -m 644 README.md %{buildroot}%{_docdir}/rocm_smi/README.md
 %{_libdir}/cmake/rocm_smi/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-1
 - Update to 5.6.0
 - Replace fixes with upstream patches

@@ -4,7 +4,7 @@ It was created to generate a zip file generator for streaming (ie web apps).
 
 Name:           python-%{srcname}
 Version:        1.1.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        ZIP archive generator for Python
 
 License:        GPLv3+
@@ -47,6 +47,9 @@ Python 3 version.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.4-28
 - Rebuilt for Python 3.12
 

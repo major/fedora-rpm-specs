@@ -9,9 +9,9 @@
 Name:    qt6ct
 Version: 0.8
 %if 0%{?usesnapshot}
-Release: 0.5%{?snapshottag}%{?dist}
+Release: 0.6%{?snapshottag}%{?dist}
 %else
-Release: 5%{?dist}
+Release: 6%{?dist}
 %endif
 Summary: Qt6 - Configuration Tool
 
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/libqt6ct-common.so.%{version}*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 0.8-5
 - Rebuild for qtbase private API version change
 

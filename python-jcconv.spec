@@ -10,7 +10,7 @@ half-width kana.
 
 Name:		python-%{pypi_name}
 Version:	0.2.4
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	JapaneseCharacterCONVerter
 
 License:	MIT
@@ -62,6 +62,9 @@ Requires:	python3-six
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.4-24
 - Rebuilt for Python 3.12
 

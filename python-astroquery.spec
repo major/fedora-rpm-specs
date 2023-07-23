@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -59,6 +59,9 @@ to access online Astronomical data.
 %exclude %{python3_sitelib}/%{srcname}/cosmosim/tests/test_cosmosim.py
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.5-7
 - Workaround for python 3.12 change of imp module removal
 

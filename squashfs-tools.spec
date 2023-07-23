@@ -11,7 +11,7 @@ Source:  %{forgesource}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2178510
 # Fix a crash caused by an out-of-bounds access that was inadvertently
 # re-introduced in a memory leak fix
-Release: 1%{dist}
+Release: 2%{dist}
 License: GPLv2+
 
 BuildRequires: make
@@ -54,6 +54,9 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 29 2023 Bruno Wolff III <bruno@wolff.to> - 4.6.1-1
 - Phillip is now doing two tags per release and we can
 - use the one that works better with forgemeta

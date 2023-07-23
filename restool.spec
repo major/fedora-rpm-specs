@@ -6,7 +6,7 @@
 
 Name:      restool
 Version:   2.4.0
-Release:   5%{?dist}
+Release:   6%{?dist}
 Summary:   A tool to create and manage the DPAA2 Management Complex (MC)
 License:   BSD or GPLv2+
 URL:       https://source.codeaurora.org/external/qoriq/qoriq-components/restool
@@ -49,6 +49,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/udev/rules.d/
 %{_sysconfdir}/udev/rules.d/fsl_mc_bus.rules
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

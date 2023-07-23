@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 1.0.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Progress bar for Jupyter Notebook and console 
 
 License: ASL 2.0
@@ -43,6 +43,9 @@ BuildRequires:  python3-pytest
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-9
 - Rebuilt for Python 3.12
 

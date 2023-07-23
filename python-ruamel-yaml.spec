@@ -5,7 +5,7 @@
 
 Name:           python-ruamel-yaml
 Version:        0.17.32
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        YAML 1.2 loader/dumper package for Python
 
 # SPDX
@@ -67,6 +67,9 @@ k="${k-}${k+ and }not test_dump_cyaml_1_2"
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.32-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Python Maint <python-maint@redhat.com> - 0.17.32-2
 - Rebuilt for Python 3.12
 

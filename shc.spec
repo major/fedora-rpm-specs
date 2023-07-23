@@ -4,7 +4,7 @@ Name: shc
 Summary: Shell script compiler
 URL: https://neurobin.org/projects/softwares/unix/shc/
 Version: 4.0.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 Source0: https://github.com/%{owner}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 License: GPLv3
 BuildRequires: make
@@ -34,6 +34,9 @@ tripped binary.
 %{_mandir}/*/%{name}*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

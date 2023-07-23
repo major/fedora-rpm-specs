@@ -7,7 +7,7 @@ Name:           rpmconf
 Summary:        Tool to handle rpmnew and rpmsave files
 License:        GPL-3.0-only
 Version:        1.1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://github.com/xsuchy/rpmconf
 # source is created by:
 # git clone https://github.com/xsuchy/rpmconf.git
@@ -122,6 +122,9 @@ pylint-3 rpmconf bin/rpmconf || :
 %dir %{_datadir}/rpmconf
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Miroslav Suchý <msuchy@redhat.com> 1.1.10-1
 - Use rpm.files instead of rpm.fi
 - Add upper version bound for setInterruptSafety()

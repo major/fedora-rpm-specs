@@ -1,6 +1,6 @@
 Name:           python-dotenv
 Version:        0.21.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Read key-value pairs from a .env file and set them as environment variables
 
 License:        BSD-3-Clause
@@ -63,6 +63,9 @@ sed -i -e '/ipython/d' requirements.txt tox.ini
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 0.21.1-4
 - Rebuilt for Python 3.12
 

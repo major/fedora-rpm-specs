@@ -17,7 +17,7 @@ actual REST API client actions.
 
 Name:             python-%{sname}
 Version:          6.2.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          OpenStack Command-line Client
 
 License:          ASL 2.0
@@ -194,6 +194,9 @@ stestr run --exclude-regex "openstackclient.tests.unit.common.test_module.TestMo
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 6.2.0-2
 - Rebuilt for Python 3.12
 

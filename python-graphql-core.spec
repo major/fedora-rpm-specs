@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.2.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GraphQL implementation for Python
 
 License:        MIT
@@ -63,6 +63,9 @@ rm -rf %{pypi_name}.egg-info
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.2.3-3
 - Rebuilt for Python 3.12
 

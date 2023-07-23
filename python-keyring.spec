@@ -4,7 +4,7 @@
 
 Name:           python-keyring
 Version:        23.11.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Store and access your passwords safely
 
 # Upstream was asked to clarify the applicability of the Python-2.0.1 license.
@@ -100,6 +100,9 @@ ln -s keyring %{buildroot}%{_bindir}/keyring-python3
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.11.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 23.11.0-4
 - Rebuilt for Python 3.12
 

@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        40.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -131,6 +131,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.0.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 40.0.2-4
 - Rebuilt for Python 3.12
 

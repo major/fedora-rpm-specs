@@ -1,6 +1,6 @@
 Name:           profanity
 Version:        0.13.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A console based XMPP client
 
 License:        GPLv3
@@ -145,6 +145,9 @@ make check
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.13.1-4
 - Rebuilt for Python 3.12
 

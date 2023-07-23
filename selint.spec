@@ -9,7 +9,7 @@
 Summary: Static code analysis tool for SELinux policy source files
 Name: selint
 Version: 1.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/SELinuxProject/selint
 License: Apache-2.0
 Source: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ autoreconf -fiv -Wall -Wno-portability
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Juraj Marcin <juraj@jurajmarcin.com> - 1.4.0-1
 - v 1.4.0
 

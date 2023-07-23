@@ -20,7 +20,7 @@
 Summary:        Inotify
 Name:           php-pecl-%{pecl_name}
 Version:        3.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -163,6 +163,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 3.0.0-7
 - use SPDX license ID
 

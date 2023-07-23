@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A library to deal with UFO font sources
 
 License:        Apache-2.0
@@ -56,6 +56,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest -v
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 0.7.1-13
 - Rebuilt for Python 3.12
 

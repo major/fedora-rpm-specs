@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.26.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        BSD
 Summary:        %{sum}
 Source:         https://pypi.python.org/packages/source/P/%{srcname}/%{srcname}-%{version}.tar.gz
@@ -91,6 +91,9 @@ chmod a-x Scripts/* Sample_Code/* LICENSE README.md CHANGELOG
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 František Zatloukal <fzatlouk@redhat.com> - 1.26.0-24
 - Backport upstream switch from distutils to setuptools (Fixes RHBZ#2155032)
 

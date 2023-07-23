@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        LaCrosse Python sensor library
 
 License:        LGPLv2+
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4-10
 - Rebuilt for Python 3.12
 

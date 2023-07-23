@@ -11,7 +11,7 @@
 Summary:	Milter (mail filter) for spamassassin
 Name:		spamass-milter
 Version:	0.4.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://savannah.nongnu.org/projects/spamass-milt/
 Source0:	http://savannah.nongnu.org/download/spamass-milt/spamass-milter-%{version}.tar.gz
@@ -74,30 +74,30 @@ cp -p %{SOURCE2} spamass-milter-tmpfs.conf
 cp -p %{SOURCE3} spamass-milter-postfix-tmpfs.conf
 
 # Fix Received-header generation (#496763)
-%patch3 -b .rcvd
+%patch -P 3 -b .rcvd
 
 # Add authentication info to dummy Received-header (#496769)
-%patch4 -b .bits
+%patch -P 4 -b .bits
 
 # Add -g option for group-writable socket for Postfix support (#452248)
-%patch5 -b .group
+%patch -P 5 -b .group
 
 # Help for users authenticating to Postfix (#730308)
-%patch8 -b .postfix-auth
+%patch -P 8 -b .postfix-auth
 
 # Local patch for initscript and socket paths
-%patch10 -b .pathnames
+%patch -P 10 -b .pathnames
 
 # Add -I option to ignore (don't check) mail from authenticated users
 # (#437506, #496767) http://savannah.nongnu.org/bugs/?21046
 # Note: upstream introduced a similar -a option in version 0.4.0, so this
 # option is retained only in builds prior to Fedora 22 for compatibility
 %if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 21)
-%patch2 -b .authuser
+%patch -P 2 -b .authuser
 %endif
 
 # With systemd, the runtime directory is /run rather than /var/run
-%patch11 -b .rundir
+%patch -P 11 -b .rundir
 
 # Copy in systemd files
 cp -p %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} .
@@ -193,6 +193,9 @@ usermod -a -G postfix sa-milt || :
 %ghost /run/spamass-milter/postfix/sock
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Paul Howarth <paul@city-fan.org> - 0.4.0-24
 - Package clean-up
   - Use SPDX-format license tag

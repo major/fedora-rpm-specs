@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.17.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -177,6 +177,9 @@ from the initramfs in IoT/Edge and is supported by the community.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 0.17.0-3
 - Rebuild for tokio, h2, and openssl crate security updates
 

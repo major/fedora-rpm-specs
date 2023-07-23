@@ -23,7 +23,7 @@ heap.
 
 Name:               python-dogpile-cache
 Version:            1.2.2
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            %{sum}
 
 License:            MIT
@@ -87,6 +87,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jonathan Wright <jonathan@almalinux.org> - 1.2.2-2
 - Add missing BR
 

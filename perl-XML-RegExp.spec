@@ -1,6 +1,6 @@
 Name:           perl-XML-RegExp
 Version:        0.04
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Regular expressions for XML tokens
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -48,6 +48,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.04-30
 - Update license to SPDX format
 - Specify all dependencies

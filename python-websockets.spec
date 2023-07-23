@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        11.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Implementation of the WebSocket Protocol for Python
 
 License:        BSD
@@ -63,6 +63,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 11.0.3-3
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           perl-XML-Tidy
 Version:        1.20
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Tidy indenting of XML documents
 
 License:        GPLv3+
@@ -71,6 +71,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

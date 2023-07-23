@@ -14,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0.21
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -230,6 +230,9 @@ rm %{buildroot}/usr/setup_requirements.txt
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.21-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 3.0.21-19
 - Rebuilt for Python 3.12
 

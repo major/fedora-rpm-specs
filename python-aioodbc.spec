@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Library for accessing a ODBC databases from the asyncio
 
 License:        ASL 2.0
@@ -39,6 +39,9 @@ BuildRequires:  python3-setuptools
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.3-14
 - Rebuilt for Python 3.12
 

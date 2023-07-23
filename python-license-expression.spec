@@ -1,6 +1,6 @@
 Name:           python-license-expression
 Version:        30.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to parse, compare, simplify and normalize license expressions
 # `irc-notify.py` in the tarball is licensed under GPL, but not re-distributed
 License:        Apache-2.0
@@ -54,6 +54,9 @@ sed -i 's/^fallback_version.*/fallback_version = "%{version}"/' pyproject.toml
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 30.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 30.1.0-2
 - Rebuilt for Python 3.12
 

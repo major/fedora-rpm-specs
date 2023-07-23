@@ -4,7 +4,7 @@
 
 Name:           rudeconfig
 Version:        5.0.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Library (C++ API) for reading and writing configuration/.ini files
 License:        GPLv2+
 URL:            http://www.rudeserver.com/config
@@ -55,6 +55,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

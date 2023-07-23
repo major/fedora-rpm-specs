@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        RFC 6570 URI Template Processor
 
 License:        MIT
@@ -49,6 +49,9 @@ sed -i 's/0.0.0/%{pypi_version}/g' setup.py
 %{python3_sitelib}/uri_template-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.2.0-6
+- Mark this as SPDX license expression converted
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.0-5
 - Rebuilt for Python 3.12
 

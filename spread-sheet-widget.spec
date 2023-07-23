@@ -1,6 +1,6 @@
 Name:		spread-sheet-widget
 Version:	0.7
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A library for Gtk+ which provides a spread sheet widget
 License:	GPLv3+
 URL:		https://www.gnu.org/software/ssw/
@@ -77,6 +77,9 @@ make check
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

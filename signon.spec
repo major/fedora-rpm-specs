@@ -5,7 +5,7 @@
 
 Name:           signon
 Version:        8.60
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
 License:        LGPLv2
@@ -141,6 +141,9 @@ make check ||:
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.60-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.60-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

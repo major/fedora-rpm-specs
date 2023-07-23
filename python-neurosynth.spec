@@ -6,7 +6,7 @@
 
 Name:		python-%{pypi_name}
 Version:	0.3.8
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Large-scale synthesis of functional neuroimaging data
 
 License:	MIT
@@ -80,6 +80,9 @@ chmod 0644 neurosynth/tests/data/sgacc_mask.nii.gz
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

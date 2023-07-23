@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python audio data toolkit (ID3 and MP3)
 License:        GPL-3.0-or-later
 URL:            https://github.com/nicfit/eyeD3
@@ -63,6 +63,9 @@ py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,i
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 David King <amigadave@amigadave.com> - 0.9.7-1
 - Update to 0.9.7
 

@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Use the correct accept type for an HTTP request
 License:        MIT
 URL:            https://bitbucket.org/%{owner}/%{name}
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.4.1-7
 - Rebuilt for Python 3.12
 

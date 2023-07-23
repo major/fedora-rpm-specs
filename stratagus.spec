@@ -3,7 +3,7 @@
 Name:		stratagus
 Summary:	Real-time strategy gaming engine
 Version:	3.3.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPLv2
 URL:		https://github.com/Wargus/Stratagus
 Source0:	https://github.com/Wargus/Stratagus/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -70,6 +70,9 @@ make install -C build DESTDIR=%{buildroot}
 %{_includedir}/%{name}*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

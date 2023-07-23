@@ -1,6 +1,6 @@
 Name:           rzip
 Version:        2.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A large-file compression program
 License:        GPLv2+
 URL:            http://rzip.samba.org
@@ -35,6 +35,9 @@ make install INSTALL_BIN=$RPM_BUILD_ROOT%{_bindir} INSTALL_MAN=$RPM_BUILD_ROOT%{
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

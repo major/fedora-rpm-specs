@@ -4,7 +4,7 @@
 
 Name:       python-%{pypi_name}
 Version:    2.1
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    EventEmitter using gevent
 BuildArch:  noarch
 
@@ -61,6 +61,9 @@ Summary:    %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.1-9
 - Rebuilt for Python 3.12
 

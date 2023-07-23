@@ -37,7 +37,7 @@
 
 Name:          %{composer_project}
 Version:       %{github_version}
-Release:       4%{?github_release}%{?dist}
+Release:       5%{?github_release}%{?dist}
 Summary:       Pure PHP implementation of the AMQP protocol
 
 License:       LGPLv2+
@@ -186,6 +186,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

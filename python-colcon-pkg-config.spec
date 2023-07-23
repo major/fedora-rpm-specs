@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Extension for colcon to find pkg-config files
 
 License:        ASL 2.0
@@ -59,6 +59,9 @@ files.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.0-16
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-Spelling
 Version:        0.25
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Check for spelling errors in POD files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Spelling
@@ -62,6 +62,9 @@ LANG=en_US make test
 %{_mandir}/man3/Test::Spelling.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An immutable dictionary
 
 License:        MIT
@@ -45,6 +45,9 @@ BuildRequires:  python3-wheel
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.8-2
 - Rebuilt for Python 3.12
 

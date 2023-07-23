@@ -1,6 +1,6 @@
 Name:           perl-XML-DOM
 Version:        1.46
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        DOM extension to XML::Parser
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.46-21
 - Update license to SPDX format
 

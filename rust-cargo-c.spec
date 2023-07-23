@@ -14,7 +14,8 @@ Summary:        Helper program to build and install c-like libraries
 
 License:        MIT
 URL:            https://crates.io/crates/cargo-c
-Source:         %{crates_source %{crate} %{upstream_version}}
+Source0:        %{crates_source %{crate} %{upstream_version}}
+Source1:        macros.cargo-c
 # Automatically generated patch to strip foreign dependencies
 Patch:          cargo-c-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
@@ -59,6 +60,7 @@ License:        Apache-2.0 AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-
 %{_bindir}/cargo-cbuild
 %{_bindir}/cargo-cinstall
 %{_bindir}/cargo-ctest
+%{_rpmmacrodir}/macros.cargo-c
 
 %package        devel
 Summary:        %{summary}
@@ -100,6 +102,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
+install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} %{SOURCE1}
 
 %if %{with check}
 %check

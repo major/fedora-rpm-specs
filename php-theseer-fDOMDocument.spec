@@ -17,7 +17,7 @@
 
 Name:           php-theseer-fDOMDocument
 Version:        1.6.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An Extension to PHP standard DOM
 
 License:        BSD
@@ -98,6 +98,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

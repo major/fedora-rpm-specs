@@ -1,6 +1,6 @@
 Name:           pstoedit
 Version:        4.00
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Translates PostScript and PDF graphics into other vector formats
 License:        GPLv2+
 URL:            http://www.pstoedit.net
@@ -11,6 +11,10 @@ Patch0:         pstoedit-pkglibdir.patch
 
 # drvpptx.cpp:68:1: note: 'std::unique_ptr' is defined in header '<memory>'; did you forget to '#include <memory>'?
 Patch1:         pstoedit-fix-gcc12.patch
+
+# C++ loadpstoeditplugins declaration breaks C compilation (e.g. autotrace)
+# https://sourceforge.net/p/pstoedit/patches/5/
+Patch2:         pstoedit-fix-plainC.patch
 
 BuildRequires:  make
 BuildRequires:  gd-devel
@@ -48,6 +52,7 @@ applications
 %if 0%{?fedora} || 0%{?rhel} > 9
 %patch -P 1 -p1
 %endif
+%patch -P 2 -p1
 
 dos2unix doc/*.htm doc/readme.txt
 
@@ -81,6 +86,12 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jul 21 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.00-3
+- Fix C usage of pstoedit.h
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.00-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.00-1
 - Release 4.00
 

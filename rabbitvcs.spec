@@ -2,7 +2,7 @@
 
 Name:           rabbitvcs
 Version:        0.18
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
@@ -128,6 +128,9 @@ install -p -m0644 clients/nemo/RabbitVCS.py -D %{buildroot}%{_datadir}/nemo-pyth
 %{_datadir}/nemo-python/extensions/*.py*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.18-12
 - Rebuilt for Python 3.12
 

@@ -26,7 +26,7 @@
 
 Name:           php-theseer-autoload
 Version:        1.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool and library to generate autoload code
 
 License:        BSD-3-Clause
@@ -159,6 +159,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Remi Collet <remi@remirepo.net> - 1.28.0-1
 - update to 1.28.0
 

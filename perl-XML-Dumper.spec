@@ -1,6 +1,6 @@
 Name:           perl-XML-Dumper
 Version:        0.81
-Release:        46%{dist}
+Release:        47%{dist}
 Summary:        Perl module for dumping Perl objects from/to XML
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

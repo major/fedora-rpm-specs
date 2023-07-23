@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        %{sum}
 
 License:        GPLv3+
@@ -65,6 +65,9 @@ sed -i 's/self.assert_/assert /g' vatnumber/tests.py
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2-27
 - Rebuilt for Python 3.12
 

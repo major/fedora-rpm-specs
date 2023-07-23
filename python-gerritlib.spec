@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Client library for accessing Gerrit
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/%{pypi_name}
@@ -55,6 +55,9 @@ rm -rf requirements.txt test-requirements.txt
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.6.0-23
 - Rebuilt for Python 3.12
 

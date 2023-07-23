@@ -1,6 +1,6 @@
 Name:           perl-Test-WWW-Mechanize-CGIApp
 Version:        0.05
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Test::WWW::Mechanize for CGI::Application
 License:        GPL+ or Artistic
 
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

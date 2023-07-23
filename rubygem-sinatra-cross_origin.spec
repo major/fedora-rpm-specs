@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Cross Origin Resource Sharing helper for Sinatra
 
 License:        MIT
@@ -72,6 +72,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

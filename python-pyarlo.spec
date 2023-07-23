@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python library to interact with Netgear Arlo cameras
 
 License:        LGPLv3+
@@ -63,6 +63,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.2.4-9
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-bibtex
 Version:        2.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Sphinx extension for BibTeX style citations
 
 License:        BSD-2-Clause
@@ -116,6 +116,9 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 %doc html/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-4
 - Add patch for docutils >= 0.18 (rhbz#2221984)
 

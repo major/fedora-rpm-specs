@@ -3,9 +3,9 @@
 Name:           pywbem
 Version:        0.17.6
 Epoch:          1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python WBEM client interface and related utilities
-License:        LGPLv2
+License:        LGPL-2.1-or-later
 URL:            https://github.com/pywbem/pywbem
 Source0:        https://github.com/pywbem/pywbem/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         0001-use-unittest-mock.patch
@@ -71,6 +71,9 @@ mv -v %{buildroot}/%{_bindir}/wbemcli.py %{buildroot}/%{_bindir}/pywbemcli.py
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Tony Asleson <tasleson@redhat.com> - 1:0.17.6-6
+- migrated to SPDX license
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:0.17.6-5
 - Rebuilt for Python 3.12
 

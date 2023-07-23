@@ -8,7 +8,7 @@ Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
 Version:        5.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is ASL 2.0
@@ -106,6 +106,9 @@ TZ=UTC %pytest
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Python Maint <python-maint@redhat.com> - 5.5.1-2
 - Rebuilt for Python 3.12
 

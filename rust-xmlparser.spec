@@ -7,7 +7,7 @@
 
 Name:           rust-xmlparser
 Version:        0.13.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pull-based, zero-allocation XML parser
 
 # Upstream license specification: MIT/Apache-2.0
@@ -81,6 +81,9 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

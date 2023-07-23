@@ -21,7 +21,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.9.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Endroid QR Code
 
 License:        MIT
@@ -171,6 +171,9 @@ exit $ret
      %{php_home}/%{ns_vendor}/%{ns_project}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

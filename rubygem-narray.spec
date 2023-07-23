@@ -13,7 +13,7 @@
 
 Name:			rubygem-%{gem_name}
 Version:		0.6.1.1
-Release:		27%{?dist}
+Release:		28%{?dist}
 Summary:		N-dimensional Numerical Array class for Ruby
 %{?el5:Group:		System Environment/Libraries}
 
@@ -159,6 +159,9 @@ ln -fs	%{gem_instdir}/%{gem_name}_ext.rb %{buildroot}%{gem_extdir_mri}
 %endif #0%{?fedora} >= 21 || 0%{?rhel} >= 8
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

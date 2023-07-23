@@ -4,7 +4,7 @@
 
 Name: purple-%{plugin_name}
 Version: 1.7.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPL-3.0-or-later
 URL: https://github.com/EionRobb/%{repo_name}
@@ -57,6 +57,9 @@ chmod 755 %{buildroot}%{_libdir}/purple-2/%{plugin_name}.so
 %{_datadir}/pixmaps/pidgin/protocols/*/steam.png
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

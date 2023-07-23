@@ -12,7 +12,7 @@ been published and can be found at Kemp2003.}
 
 Name:           python-pyedflib
 Version:        0.1.33
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python library to read/write EDF+/BDF+ files, based on EDFlib
 
 # The entire source is BSD-3-Clause, except:
@@ -116,6 +116,9 @@ grep -E "^#define[[:blank:]]+EDFLIB_VERSION[[:blank:]]+\($(
 %doc demo
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.33-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.1.33-2
 - Rebuilt for Python 3.12
 

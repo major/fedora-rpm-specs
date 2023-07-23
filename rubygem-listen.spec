@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.7.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Listen to file modifications
 License: MIT
 URL: https://github.com/guard/listen
@@ -96,6 +96,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

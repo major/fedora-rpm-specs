@@ -6,7 +6,7 @@
 Summary: PyQt6 is Python bindings for Qt6
 Name:    python-pyqt6
 Version: 6.5.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: GPLv3
 Url:     http://www.riverbankcomputing.com/software/pyqt/
@@ -228,6 +228,9 @@ sed -i \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-5
 - Rebuild for qtbase private API version change
 

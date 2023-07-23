@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.20.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python bindings for libsass
 
 License:        MIT
@@ -95,6 +95,9 @@ py.test-3 sasstests.py
 %exclude %{_bindir}/sassc.py
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.20.0-12
 - Patch for sphinx 6.0 some deprecated items removal
 - Backport upstream patch for testsuite to support sasl 3.6.5

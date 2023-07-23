@@ -1,6 +1,6 @@
 Name:           python-waitress
 Version:        2.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Waitress WSGI server
 
 License:        ZPL-2.1
@@ -59,6 +59,9 @@ sed -e '/pytest-cover/d' \
 %{_bindir}/waitress-serve
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.1.2-4
 - Rebuilt for Python 3.12
 

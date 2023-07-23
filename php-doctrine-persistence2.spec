@@ -28,7 +28,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.5.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Doctrine Persistence abstractions, version %{major}
 
 License:        MIT
@@ -189,6 +189,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb  7 2023 Remi Collet <remi@remirepo.net> - 2.5.7-1
 - update to 2.5.7
 

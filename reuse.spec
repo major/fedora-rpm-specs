@@ -1,6 +1,6 @@
 Name:           reuse
 Version:        1.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool for compliance with the REUSE recommendations
 # The CC0-1.0 licence applies to json data files, not code.
 # CC-BY-SA-4.0 is applied to documentation.
@@ -57,6 +57,9 @@ popd
 %{_bindir}/reuse
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.1.1-3
 - Rebuilt for Python 3.12
 

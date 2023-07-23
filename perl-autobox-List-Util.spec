@@ -1,6 +1,6 @@
 Name:           perl-autobox-List-Util
 Version:        20090629
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Bring the List::Util functions to autobox
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autobox-List-Util
@@ -48,6 +48,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/autobox::List::Util.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20090629-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20090629-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

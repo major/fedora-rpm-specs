@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        7.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensible application framework
 
 # Images have different licenses. For image license breakdown check
@@ -114,6 +114,9 @@ xvfb-run %{__python3} -m unittest discover -v envisage
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 05 2023 Orion Poplawski <orion@nwra.com> - 7.0.3-1
 - Update to 7.0.3
 

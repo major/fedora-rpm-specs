@@ -2,7 +2,7 @@
 %global srcname justbases
 Name:       python-%{srcname}
 Version:    0.15.2
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    A small library for precise conversion between arbitrary bases
 
 License:    LGPL-2.1-or-later
@@ -43,6 +43,9 @@ rm -rf justbases.egg-info
 %{python3_sitelib}/justbases-%{version}-*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.15.2-4
 - Rebuilt for Python 3.12
 

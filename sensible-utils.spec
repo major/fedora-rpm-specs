@@ -1,6 +1,6 @@
 Name:           sensible-utils
 Version:        0.0.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities for sensible alternative selection
 
 BuildArch:      noarch
@@ -50,6 +50,9 @@ autoreconf -ifv
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Sandro Mani <manisandro@gmail.com> - 0.0.21-1
 - Update to 0.0.21
 

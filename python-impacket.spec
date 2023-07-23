@@ -1,6 +1,6 @@
 Name:           python-impacket
 Version:        0.10.0
-%global         baserelease     3
+%global         baserelease     4
 
 License:        ASL 1.1 and zlib
 URL:            https://github.com/fortra/impacket
@@ -185,6 +185,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10.0-3
 - Rebuilt for Python 3.12
 

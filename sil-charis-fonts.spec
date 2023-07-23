@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 6.200
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global foundry           SIL
 %global fontlicense       OFL
@@ -45,6 +45,9 @@ Source10: 60-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.200-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 08 2023 Parag Nemade <pnemade AT redhat DOT com> - 6.200-1
 - Update to 6.200 version (#2166353)
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python module for serializing and deserializing Java objects
 
 License:        ASL 2.0
@@ -60,6 +60,9 @@ sed -i -e '/^#!\//, 1d' {javaobj/*.py,javaobj/v1/*.py,javaobj/v2/*.py}
 %{python3_sitelib}/%{pypi_name}*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.4.3-8
 - Rebuilt for Python 3.12
 

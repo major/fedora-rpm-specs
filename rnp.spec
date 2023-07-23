@@ -26,7 +26,7 @@
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.17.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
@@ -197,6 +197,9 @@ FILTER="$FILTER|cli_tests-Encryption|cli_tests-Misc"
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Remi Collet <remi@remirepo.net> - 0.17.0-3
 - libsexp renamed to libsexpp
 

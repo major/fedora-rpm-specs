@@ -16,7 +16,7 @@ The OpenStack Oslo Utility library. \
 
 Name:           python-oslo-utils
 Version:        6.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack Oslo Utility library
 
 License:        ASL 2.0
@@ -173,6 +173,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 6.1.0-2
 - Rebuilt for Python 3.12
 

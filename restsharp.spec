@@ -5,7 +5,7 @@
 
 Name:           restsharp
 Version:        105.2.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Simple REST and HTTP API Client
 
 # Main license is Apache 2.0, but MIT/X11 for Extensions/MonoHttp and SimpleJson
@@ -96,6 +96,9 @@ nunit-console26 -labels -stoponerror bin/Debug/%{libname}.Tests.dll
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 105.2.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 105.2.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A patch parsing and application library
 
 License:        MIT
@@ -49,6 +49,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.2-6
 - Rebuilt for Python 3.12
 

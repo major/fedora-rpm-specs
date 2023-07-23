@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Lightweight UPnP client library
 
 License:        MIT
@@ -55,6 +55,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.8-9
 - Rebuilt for Python 3.12
 

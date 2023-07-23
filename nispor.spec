@@ -2,13 +2,14 @@
 %bcond_with check
 
 Name:           nispor
-Version:        1.2.11
+Version:        1.2.12
 Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
 License:        ASL 2.0
 URL:            https://github.com/nispor/nispor
 Source:         https://github.com/nispor/nispor/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        https://github.com/nispor/nispor/releases/download/v%{version}/nispor-vendor-%{version}.tar.xz
+Patch1:         0001-Makefile-Fix-version-1.2.12.patch
 BuildRequires:  make
 BuildRequires:  pkg-config
 BuildRequires:  python3-devel
@@ -23,15 +24,15 @@ BuildRequires:  rust-packaging
 BuildRequires:  (crate(clap/cargo) >= 4.2.0 with crate(clap/cargo) < 5.0)
 BuildRequires:  (crate(clap/default) >= 4.2.0 with crate(clap/default) < 5.0)
 BuildRequires:  (crate(env_logger/default) >= 0.10 with crate(env_logger/default) < 0.11)
-BuildRequires:  (crate(ethtool/default) >= 0.2.4 with crate(ethtool/default) < 0.3)
+BuildRequires:  (crate(ethtool/default) >= 0.2.5 with crate(ethtool/default) < 0.3)
 BuildRequires:  (crate(futures/default) >= 0.3 with crate(futures/default) < 0.4)
 BuildRequires:  (crate(libc/default) >= 0.2.126 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
-BuildRequires:  (crate(mptcp-pm/default) >= 0.1.2 with crate(mptcp-pm/default) < 0.2)
-BuildRequires:  (crate(netlink-packet-route/default) >= 0.15.0 with crate(netlink-packet-route/default) < 0.16)
+BuildRequires:  (crate(mptcp-pm/default) >= 0.1.3 with crate(mptcp-pm/default) < 0.2)
+BuildRequires:  (crate(netlink-packet-route/default) >= 0.17.0 with crate(netlink-packet-route/default) < 0.18)
 BuildRequires:  (crate(netlink-packet-utils/default) >= 0.5.2 with crate(netlink-packet-utils/default) < 0.6)
 BuildRequires:  (crate(netlink-sys/default) >= 0.8.4 with crate(netlink-sys/default) < 0.9)
-BuildRequires:  (crate(rtnetlink/default) >= 0.12.0 with crate(rtnetlink/default) < 0.13)
+BuildRequires:  (crate(rtnetlink/default) >= 0.13.1 with crate(rtnetlink/default) < 0.14)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)

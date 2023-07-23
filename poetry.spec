@@ -9,7 +9,7 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        MIT
 
@@ -110,6 +110,9 @@ not test_installer_with_pypi_repository"
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.5.0-3
 - Rebuilt for Python 3.12
 

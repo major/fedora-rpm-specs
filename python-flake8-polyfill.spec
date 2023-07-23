@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Polyfill package for Flake8 plugins
 
 License:        MIT
@@ -64,6 +64,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 1.0.2-18
 - Rebuilt for Python 3.12
 

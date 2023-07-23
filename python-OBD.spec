@@ -3,7 +3,7 @@
 
 Name:          python-%{srcname}
 Version:       0.7.1
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       OBD-II serial module for reading engine data
 License:       GPLv2+
 URL:           https://github.com/brendan-w/%{name}
@@ -60,6 +60,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-3 -v
 %{python3_sitelib}/obd
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Python Maint <python-maint@redhat.com> - 0.7.1-12
 - Rebuilt for Python 3.12
 

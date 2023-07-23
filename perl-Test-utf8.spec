@@ -1,6 +1,6 @@
 Name:           perl-Test-utf8
 Version:        1.02
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Handy utf8 tests
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-utf8
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Test::utf8.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

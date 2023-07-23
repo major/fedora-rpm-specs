@@ -3,7 +3,7 @@
 
 Name:             python-tgscheduler
 Version:          1.7.0
-Release:          27%{?dist}
+Release:          28%{?dist}
 Summary:          %{sum}
 
 License:          MIT
@@ -57,6 +57,9 @@ have one-time or recurring tasks run as needed. Python 3 version.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.7.0-27
 - Rebuilt for Python 3.12
 

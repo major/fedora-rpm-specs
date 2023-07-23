@@ -6,7 +6,7 @@
 
 Name:           python-%{pkg_name}
 Version:        12.12.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        GPLv2 or GPLv3
@@ -54,6 +54,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %{python3_sitearch}/PyQt5/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.12.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 12.12.1-4
 - Fix segfault with subclasses
 

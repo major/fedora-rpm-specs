@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -59,6 +59,9 @@ stand-alone processing or as part of a pipeline.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 2.3.0-6
 - Rebuilt for Python 3.12
 

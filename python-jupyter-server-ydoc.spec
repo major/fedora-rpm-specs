@@ -1,6 +1,6 @@
 Name:           python-jupyter-server-ydoc
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Jupyter Server Extension Providing Y Documents
 License:        BSD-3-Clause
 URL:            https://jupyter.org
@@ -63,5 +63,8 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 16 2023 Lumír Balhar <lbalhar@redhat.com> - 0.7.0-1
 - Initial package

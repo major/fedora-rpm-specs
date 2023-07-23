@@ -1,7 +1,7 @@
 %global pypi_name launchpadlib
 Name:           python-%{pypi_name}
 Version:        1.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Script Launchpad through its web services interfaces
 
 License:        LGPLv3
@@ -52,6 +52,9 @@ BuildRequires:  python3dist(wadllib)
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Ondřej Pohořelský <opohorel@redhat.com> - 1.11.0-1
 - Update to 1.11.0
 - Resolves: rhbz#2220302

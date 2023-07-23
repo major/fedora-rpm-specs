@@ -12,7 +12,7 @@ in various contexts.}
 
 Name: python-scikit-learn
 Version: 1.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Machine learning in Python
 # sklearn/externals/_arff.py is MIT
 # sklearn/src/liblinear is BSD
@@ -85,6 +85,9 @@ popd
 %{python3_sitearch}/scikit_learn-*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.3.0-1
 - New upstream source (1.3.0)
 

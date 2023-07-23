@@ -6,7 +6,7 @@ better introspection) right in pdb.
 
 Name:           python-ipdb
 Version:        0.13.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 BuildArch:      noarch
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.13.13-3
 - Rebuilt for Python 3.12
 

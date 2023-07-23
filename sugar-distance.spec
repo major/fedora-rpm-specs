@@ -1,6 +1,6 @@
 Name:           sugar-distance
 Version:        36
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Distance measurement for Sugar
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ find %{buildroot}%{sugaractivitydir}Distance.activity/arange.py -type f -name \*
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 36-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 36-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

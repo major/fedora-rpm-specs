@@ -40,7 +40,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{?namespace_version}
 Version:       %{github_version}
-Release:       1%{?github_release}%{?dist}
+Release:       2%{?github_release}%{?dist}
 Summary:       A library that can be used to serialize closures and arbitrary objects
 
 License:       MIT
@@ -154,6 +154,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Remi Collet <remi@remirepo.net> - 3.6.3-1
 - update to 3.6.3
 

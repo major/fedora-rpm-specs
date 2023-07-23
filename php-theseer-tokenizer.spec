@@ -15,7 +15,7 @@
 
 Name:           php-%{gh_vendor}-%{gh_project}
 Version:        1.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for converting tokenized PHP source code into XML
 
 License:        BSD-3-Clause
@@ -93,6 +93,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.2.1-5
 - use SPDX license ID
 - switch to phpunit9

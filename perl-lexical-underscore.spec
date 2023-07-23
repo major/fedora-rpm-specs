@@ -1,6 +1,6 @@
 Name:           perl-lexical-underscore
 Version:        0.004
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Access your caller's lexical underscore
 # COPYRIGHT:    Public Domain
 # other files:  GPL+ or Artistic
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Click extension to register CLI commands via setuptools
 %global _description \
 An extension module for click to register external CLI commands via setuptools \
@@ -55,6 +55,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.1-16
 - Rebuilt for Python 3.12
 

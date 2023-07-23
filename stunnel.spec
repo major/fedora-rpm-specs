@@ -10,7 +10,7 @@
 Summary: A TLS-encrypting socket wrapper
 Name: stunnel
 Version: 5.70
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 URL: https://www.stunnel.org/
 Source0: https://www.stunnel.org/downloads/stunnel-%{version}.tar.gz
@@ -146,6 +146,9 @@ fi
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.70-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Clemens Lang <cllang@redhat.com> - 5.70-1
 - New upstream release 5.70
   Resolves: rhbz#2222467

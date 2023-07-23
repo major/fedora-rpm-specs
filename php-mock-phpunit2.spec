@@ -15,7 +15,7 @@
 
 Name:           php-mock-phpunit%{major}
 Version:        2.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
 License:        WTFPL
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Remi Collet <remi@remirepo.net> - 2.7.2-1
 - update to 2.7.2 (no change)
 

@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.8.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Helps you pick items from a list by various algorithms
 
 # Upstream license specification: GPL-3.0-only
@@ -97,6 +97,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.8.11-4
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

@@ -20,7 +20,7 @@
 
 Name:           scorep
 Version:        8.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
@@ -464,6 +464,9 @@ make -C serial check V=1
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May  3 2023  <vagrant@rhel8.localdomain> - 8.1-3
 - Build the bundled libunwind on all archs
 - Only exclude el7 from the library wrapper build

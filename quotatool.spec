@@ -1,6 +1,6 @@
 Name:           quotatool
 Version:        1.6.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Command-line utility for filesystem quotas
 License:        GPLv2
 URL:            http://quotatool.ekenberg.se
@@ -44,6 +44,9 @@ mkdir -p %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

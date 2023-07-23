@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.1.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Bootstrap-Datepicker (XStatic packaging standard)
 
 License:        ASL 2.0
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/bootstrap_datepicker/bootstrap-datepicker.js
 %{_jsdir}/bootstrap_datepicker
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.1.0-27
 - Rebuilt for Python 3.12
 

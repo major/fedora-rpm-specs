@@ -1,6 +1,6 @@
 %global         srcname     yfinance
 %global         forgeurl    https://github.com/ranaroussi/%{srcname}
-Version:        0.2.23
+Version:        0.2.26
 %global         tag         %{version}
 %forgemeta
 
@@ -38,6 +38,8 @@ Summary:        %{summary}
 # Remove the python shebang from non-executable files.
 sed -i '1{\@^#!/usr/bin/env python@d}' yfinance/*.py
 
+# Allow an older version of requests.
+sed -i 's/requests>=2.31/requests>=2.28/' requirements.txt setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires

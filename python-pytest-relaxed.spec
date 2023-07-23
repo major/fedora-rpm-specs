@@ -1,6 +1,6 @@
 Name:           python-pytest-relaxed
 Version:        2.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Relaxed test discovery/organization for pytest
 
 License:        BSD-2-Clause
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.0-2
 - Rebuilt for Python 3.12
 

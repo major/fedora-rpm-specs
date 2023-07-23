@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast and tasty cookies handling
 
 License:        MIT
@@ -58,6 +58,9 @@ make compile PYTHON=%{__python3}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.0-2
 - Rebuilt for Python 3.12
 

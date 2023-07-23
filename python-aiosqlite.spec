@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.17.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Asyncio bridge to the standard SQLite3 module
 
 License:        MIT
@@ -44,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 %doc CHANGELOG.md README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.17.0-8
 - Rebuilt for Python 3.12
 

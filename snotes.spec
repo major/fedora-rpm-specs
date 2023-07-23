@@ -1,6 +1,6 @@
 Name:           snotes
 Version:        1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A flexible and easy to use notes system
 License:        MIT
 URL:            https://github.com/v4hn/%{name}
@@ -33,6 +33,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_bindir}/snotes*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

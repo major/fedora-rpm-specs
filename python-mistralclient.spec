@@ -13,7 +13,7 @@ and Command Line Interface (CLI) library.
 
 Name:           python-%{pypi_name}
 Version:        5.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python client for Mistral REST API
 
 License:        ASL 2.0
@@ -138,6 +138,9 @@ install -m 644 -T tools/mistral.bash_completion %{buildroot}%{_sysconfdir}/bash_
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 5.0.0-2
 - Rebuilt for Python 3.12
 

@@ -4,7 +4,7 @@
 Summary: An authorization framework
 Name: polkit
 Version: 122
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: LGPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/polkit
 Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
@@ -161,6 +161,9 @@ exit 0
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 122-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 122-6
 - migrate to SPDX license format
 

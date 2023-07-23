@@ -3,7 +3,7 @@
 
 Name:           python-%{sname}
 Version:        1.2.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A GSSAPI/SPNEGO authentication handler for python-requests
 
 License:        ISC
@@ -54,6 +54,9 @@ Requires:       python3-requests
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.3-8
 - Rebuilt for Python 3.12
 

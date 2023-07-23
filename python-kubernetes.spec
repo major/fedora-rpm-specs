@@ -18,7 +18,7 @@
 Name:       python-%{library}
 Epoch:      1
 Version:    26.1.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Python client for the kubernetes API.
 License:    ASL 2.0
 URL:        https://pypi.python.org/pypi/kubernetes
@@ -137,6 +137,9 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 %{python3_sitelib}/%{library}/e2e_test
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:26.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Jason Montleon <jmontleo@redhat.com> - 1:26.1.0-2
 - Replace git BuildRequire with git-core which is sufficient
 - Remove conditional for python2

@@ -20,7 +20,7 @@
 
 Name:           sddm
 Version:        0.20.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2+
 Summary:        QML based desktop and login manager
 
@@ -297,6 +297,9 @@ fi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Adam Williamson <awilliam@redhat.com> - 0.20.0-2
 - Fix user/group creation - the config file *has* to be a package source
 

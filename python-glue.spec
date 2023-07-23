@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -62,6 +62,9 @@ rm build/sphinx/html/.buildinfo
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.13-12
 - Rebuilt for Python 3.12
 

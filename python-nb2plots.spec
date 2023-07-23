@@ -1,6 +1,6 @@
 Name:           python-nb2plots
 Version:        0.6.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Convert between Jupyter notebooks and sphinx docs
 
 # BSD-2-Clause: All files with the following exception.
@@ -125,6 +125,9 @@ cp -a man1 %{buildroot}%{_mandir}
 %doc doc/_build/html/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jerry James <loganjerry@gmail.com> - 0.6.1-6
 - Add CC0-1.0 to the License field due to versioneer
 - Replace deprecated pyproject_build_lib macro

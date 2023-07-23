@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx extension for documenting CLI programs
 
 License:        BSD
@@ -65,6 +65,9 @@ cp %SOURCE1 .
 %{python3_sitelib}/sphinxcontrib_autoprogram-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 mh <mh+fedora@scrit.ch> - 0.1.8-1
 - Update to 0.1.8 (#2169100)
 - remove the upstreamed patch for argparse

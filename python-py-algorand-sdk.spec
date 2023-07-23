@@ -1,7 +1,7 @@
 %global pypi_name py-algorand-sdk
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Algorand Python SDK
 License:        MIT
 
@@ -46,6 +46,9 @@ cp %{SOURCE1} .
 %{python3_sitelib}/py_algorand_sdk-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.3.0-2
 - Rebuilt for Python 3.12
 

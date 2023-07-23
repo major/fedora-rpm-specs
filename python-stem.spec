@@ -18,7 +18,7 @@ directory and control specifications.
 
 Name: python-stem
 Version: 1.8.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Python controller library for Tor
 # All source code is LGPLv3 except stem/util/ordereddict.py which is MIT
 License: LGPLv3 and MIT
@@ -87,6 +87,9 @@ install -D -m 0644 docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{sr
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Juan Orti Alcaine <jortialc@redhat.com> - 1.8.2-3
 - Add BR: python3-setuptools
 

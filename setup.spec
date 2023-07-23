@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.14.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 Group: System Environment/Base
 URL: https://pagure.io/setup/
@@ -123,6 +123,9 @@ end
 %{_sysusersdir}/20-setup-users.conf
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 2.14.3-3
 - migrated to SPDX license
 

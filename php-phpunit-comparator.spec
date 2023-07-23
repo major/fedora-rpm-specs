@@ -22,7 +22,7 @@
 
 Name:           php-phpunit-comparator
 Version:        1.2.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Compare PHP values for equality
 
 License:        BSD
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Core utilities for Python packages
 
 License:        BSD or ASL 2.0
@@ -136,6 +136,9 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 23.1-3
 - Rebuilt for Python 3.12
 

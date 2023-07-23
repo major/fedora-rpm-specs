@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Lark is a modern general-purpose parsing library for Python
 License:        MIT
 Url:            https://github.com/lark-parser/lark
@@ -98,6 +98,9 @@ rm -rfv %{buildroot}/%{python3_sitelib}/lark-stubs/
 %{python3_sitelib}/lark/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.0-10
 - Rebuilt for Python 3.12
 

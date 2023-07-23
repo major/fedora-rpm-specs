@@ -1,7 +1,7 @@
 Summary:          An arpeggiator, sequencer and MIDI LFO for ALSA
 Name:             qmidiarp
 Version:          0.6.5
-Release:          14%{?dist}
+Release:          15%{?dist}
 License:          GPLv2+
 URL:              http://sourceforge.net/projects/qmidiarp 
 Source0:          http://downloads.sourceforge.net/qmidiarp/files/%{name}-%{version}.tar.bz2
@@ -63,6 +63,9 @@ make DESTDIR=%{buildroot} install
 %{_libdir}/lv2/qmidiarp*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

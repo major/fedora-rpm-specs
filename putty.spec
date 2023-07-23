@@ -1,6 +1,6 @@
 Name:		putty
 Version:	0.78
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	SSH, Telnet and Rlogin client
 License:	MIT
 URL:		http://www.chiark.greenend.org.uk/~sgtatham/putty/
@@ -65,6 +65,9 @@ install -m644 -D -p %{SOURCE3} %{buildroot}%{_metainfodir}/uk.org.greenend.chiar
 %{_metainfodir}/uk.org.greenend.chiark.sgtatham.putty.metainfo.xml
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.78-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Daniel Rusek <mail@asciiwolf.com> - 0.78-3
 - Add AppStream metadata, svg icon
   Resolves: rhbz#1792733

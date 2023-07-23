@@ -1,6 +1,6 @@
 Name:           python-jupyter-lsp
 Version:        2.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multi-Language Server WebSocket proxy for Jupyter Notebook/Lab server
 # SPDX
 License:        BSD-3-Clause
@@ -64,6 +64,9 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 2.2.0-2
 - Rebuilt for Python 3.12
 

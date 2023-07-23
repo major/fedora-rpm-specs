@@ -1,6 +1,6 @@
 Name:           python-nbsphinx
 Version:        0.8.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jupyter Notebook Tools for Sphinx
 
 License:        MIT
@@ -86,6 +86,9 @@ rm -rf html/{.doctrees,.buildinfo,conf.py}
 %doc html 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.8.9-3
 - Rebuilt for Python 3.12
 

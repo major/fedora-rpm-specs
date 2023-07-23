@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        4.0.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Wrapper around PHP tokenizer extension
 
 License:        BSD-3-Clause
@@ -118,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 4.0.4-8
 - use SPDX license ID
 

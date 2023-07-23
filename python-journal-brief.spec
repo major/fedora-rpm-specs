@@ -3,7 +3,7 @@
 
 Name:		python-%{srcname}
 Version:	1.1.8
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	%{sum}
 
 License:	GPLv2+
@@ -75,6 +75,9 @@ journal entries.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.8-6
 - Rebuilt for Python 3.12
 

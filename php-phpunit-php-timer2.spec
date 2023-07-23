@@ -29,7 +29,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.1.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        PHP Utility class for timing
 
 License:        BSD-3-Clause
@@ -103,6 +103,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.1.3-7
 - use SPDX license ID
 

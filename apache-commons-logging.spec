@@ -2,10 +2,10 @@
 
 Name:           apache-commons-logging
 Version:        1.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Apache Commons Logging
-License:        ASL 2.0
-URL:            http://commons.apache.org/logging
+License:        Apache-2.0
+URL:            https://commons.apache.org/proper/commons-logging/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -21,6 +21,7 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(javax.servlet:servlet-api)
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(log4j:log4j)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-failsafe-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
@@ -45,13 +46,16 @@ logging implementation.
 
 %pom_remove_dep -r :avalon-framework
 %pom_remove_dep -r :logkit
-%pom_remove_dep -r :log4j
 rm src/main/java/org/apache/commons/logging/impl/AvalonLogger.java
-rm src/main/java/org/apache/commons/logging/impl/Log4JLogger.java
 rm src/main/java/org/apache/commons/logging/impl/LogKitLogger.java
-rm -r src/test/java/org/apache/commons/logging/{avalon,log4j,logkit}
+rm -r src/test/java/org/apache/commons/logging/{avalon,logkit}
 rm src/test/java/org/apache/commons/logging/pathable/{Parent,Child}FirstTestCase.java
 
+%if %{with bootstrap}
+%pom_remove_dep -r :log4j
+rm src/main/java/org/apache/commons/logging/impl/Log4JLogger.java
+rm -r src/test/java/org/apache/commons/logging/log4j
+%endif
 
 # Avoid hard-coded versions in OSGi metadata
 %pom_xpath_set "pom:properties/pom:commons.osgi.import" '*;resolution:=optional'
@@ -83,6 +87,11 @@ rm -rf src/test/java/org/apache/commons/logging/log4j/log4j12
 %doc PROPOSAL.html RELEASE-NOTES.txt
 
 %changelog
+* Wed Jul 19 2023 Jerry James <loganjerry@gmail.com> - 1.2-34
+- Build with log4j support in non-bootstrap mode
+- Convert the License tag to SPDX
+- Update the project URL
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

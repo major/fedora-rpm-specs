@@ -1,6 +1,6 @@
 Name:           python-httptools
 Version:        0.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast HTTP parser
 
 # httptools is MIT
@@ -87,6 +87,9 @@ mv _httptools httptools
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.0-6
 - Rebuilt for Python 3.12
 

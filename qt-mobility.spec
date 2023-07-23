@@ -9,7 +9,7 @@
 Name:    qt-mobility
 Summary: Qt Mobility Framework
 Version: 1.2.2
-Release: 0.44.%{snap}git%{git_short}%{?dist}
+Release: 0.45.%{snap}git%{git_short}%{?dist}
 
 License: LGPLv2 with exceptions
 URL:     https://code.qt.io/cgit/qt-mobility/qt-mobility.git
@@ -454,6 +454,9 @@ cp -a doc/html/* %{buildroot}%{_qt4_docdir}/html/qtmobility/
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-0.45.20140317git169da60c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-0.44.20140317git169da60c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

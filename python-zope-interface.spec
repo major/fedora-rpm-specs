@@ -7,7 +7,7 @@
 
 Name:		python-zope-interface
 Version:	5.5.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Zope 3 Interface Infrastructure
 License:	ZPLv2.1
 URL:		https://pypi.io/project/zope.interface
@@ -95,6 +95,9 @@ popd
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 5.5.2-4
 - Rebuilt for Python 3.12
 

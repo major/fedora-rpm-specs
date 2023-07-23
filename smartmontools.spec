@@ -7,7 +7,7 @@
 Summary:	Tools for monitoring SMART capable hard disks
 Name:		smartmontools
 Version:	7.3
-Release:	7%{?dist}
+Release:	9%{?dist}
 Epoch:		1
 License:	GPL-2.0-or-later
 URL:		http://smartmontools.sourceforge.net/
@@ -20,7 +20,6 @@ Source5:	drivedb.h
 Source6:	%{modulename}.te
 Source7:	%{modulename}.if
 Source8:	%{modulename}.fc
-Source9:	%{modulename}.te.f33
 
 #fedora/rhel specific
 Patch1:		smartmontools-5.38-defaultconf.patch
@@ -159,6 +158,12 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:7.3-9
+- more selinux changes
+
+* Fri Jul 21 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:7.3-8
+- use new selinux context for smartdnotify
+
 * Thu Jul 20 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:7.3-7
 - use different selinux context for notification scripts (#2139199)
 

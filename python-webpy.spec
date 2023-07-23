@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.62
-Release:        7%{dist}
+Release:        8%{dist}
 Summary:        A simple web framework for Python
 
 # The entire source code is Public Domain save for the following exceptions:
@@ -63,6 +63,9 @@ pytest -k 'not test_routing' tests
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 0.62-7
 - Rebuilt for Python 3.12
 

@@ -4,7 +4,7 @@
 
 Name:               python-flask-multistatic
 Version:            1.0
-Release:            25%{?dist}
+Release:            26%{?dist}
 Summary:            %{sum}
 
 License:            BSD
@@ -56,6 +56,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.0-25
 - Rebuilt for Python 3.12
 

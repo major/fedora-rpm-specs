@@ -6,7 +6,7 @@
 
 Name:		python-%{pypi_name}
 Version:	1.3
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	%{global_sum}
 
 License:	MIT
@@ -77,6 +77,9 @@ Requires:	python3-nose
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.3-22
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name: sqlitecpp
 Version: 3.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 Summary: Smart and easy to use C++ SQLite3 wrapper
@@ -65,5 +65,8 @@ rm -rf {sqlite3,googletest}
 %{_datadir}/%{richname}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 25 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.3.0-1
 - Updated to version 3.3.0.

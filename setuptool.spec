@@ -1,6 +1,6 @@
 Name: setuptool
 Version: 1.19.11
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: A text mode system configuration tool
 License: GPL-2.0-or-later
 Url: http://git.fedorahosted.org/git/?p=setuptool.git
@@ -40,6 +40,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/setup.1.gz
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 26 2023 Michal Hlavinka <mhlavink@redhat.com> - 1.19.11-27
 - update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
 

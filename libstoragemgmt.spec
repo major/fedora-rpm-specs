@@ -2,9 +2,9 @@
 
 Name:           libstoragemgmt
 Version:        1.9.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Storage array management library
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/libstorage/libstoragemgmt
 Source0:        https://github.com/libstorage/libstoragemgmt/releases/download/%{version}/%{name}-%{version}.tar.gz
 Requires:       python3-%{name}%{_isa}
@@ -444,6 +444,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Fri Jul 21 2023 Tony Asleson <tasleson@redhat.com> - 1.9.8-4
+- migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

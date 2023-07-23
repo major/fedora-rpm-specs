@@ -1,6 +1,6 @@
 Name:           picosat
 Version:        965
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A SAT solver
 
 License:        MIT
@@ -151,6 +151,9 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man1
 %{_libdir}/libpicosat.so
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 965-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 965-17
 - R-maint-sig mass rebuild
 

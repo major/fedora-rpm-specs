@@ -2,7 +2,7 @@
 
 Name:           python-openslide
 Version:        1.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python bindings for the OpenSlide library
 
 License:        LGPLv2
@@ -73,6 +73,9 @@ rm -r build/html/.buildinfo build/html/.doctrees
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Benjamin Gilbert <bgilbert@backtick.net> - 1.2.0-6
 - Avoid invoking setup.py subcommands directly
 

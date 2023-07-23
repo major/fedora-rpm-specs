@@ -3,7 +3,7 @@
 
 Name:           python-six
 Version:        1.16.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python 2 and 3 compatibility utilities
 
 License:        MIT
@@ -63,6 +63,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.16.0-11
 - Rebuilt for Python 3.12
 

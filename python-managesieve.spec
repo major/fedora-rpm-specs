@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Accessing a Sieve-Server for managing Sieve scripts
 License:        PSF-2.0 AND GPL-3.0-only
 URL:            https://managesieve.readthedocs.io/
@@ -52,6 +52,9 @@ It is accompanied by a simple yet functional user application ‘sieveshell’.
 %{_bindir}/sieveshell
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Sandro <devel@penguinpee.nl> - 0.7.1-6
 - Add missing changelog entries
 

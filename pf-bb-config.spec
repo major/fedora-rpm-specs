@@ -1,6 +1,6 @@
 Name:           pf-bb-config
 Version:        22.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PF BBDEV (baseband device) Configuration Application
 
 License:        Apache-2.0
@@ -48,6 +48,9 @@ cp -a acc200/*.cfg %{buildroot}%{_datadir}/pf-bb-config/acc200/
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Maxime Coquelin <maxime.coquelin@redhat.com> - 22.11-3
 - Add missing ACC200 (VRB1) data files
 

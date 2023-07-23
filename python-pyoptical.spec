@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        0.4
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Pure python interface to OptiCAL
 License:        MIT
 # The upstream project has been deleted from github and does not seem
@@ -49,6 +49,9 @@ sed -i -e '1s|^.*$|#!%{__python3}|' %{buildroot}%{_bindir}/%{modname}
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4-26
 - Rebuilt for Python 3.12
 

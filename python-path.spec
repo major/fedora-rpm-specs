@@ -2,7 +2,7 @@
 
 Name:           python-path
 Version:        16.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module wrapper for os.path
 
 License:        MIT
@@ -52,6 +52,9 @@ operations on files to be invoked on those path objects directly.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Dan Radez <dradez@redhat.com> - 16.7.1-1
 - update to 16.7.1
 

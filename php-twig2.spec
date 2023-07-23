@@ -26,7 +26,7 @@
 
 Name:          php-%{composer_project}2
 Version:       2.15.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
 License:       BSD-3-Clause
@@ -164,6 +164,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May  4 2023 Remi Collet <remi@remirepo.net> - 2.15.5-1
 - update to 2.15.5
 

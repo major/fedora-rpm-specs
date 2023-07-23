@@ -28,7 +28,7 @@
 
 Name:           php-pecl-http
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Extended HTTP support
 
 License:        BSD-2-Clause
@@ -244,6 +244,9 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 4.2.3-9
 - Rebuilt for ICU 73.2
 

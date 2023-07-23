@@ -28,7 +28,7 @@ the purposes of CI/CD tasks.
 Name:       %srcname
 Summary:    %sum - client tooling
 Version:    4.9
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
 BuildArch:  noarch
@@ -294,6 +294,9 @@ useradd -r -g "$group" -G "$group" -s /bin/bash \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 4.9-3
 - Rebuilt for Python 3.12
 

@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.14.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Lesscss compiler
 
 License:        MIT
@@ -69,6 +69,9 @@ ln -s ./lesscpy %{buildroot}/%{_bindir}/py3-lesscpy
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.14.0-12
 - Rebuilt for Python 3.12
 

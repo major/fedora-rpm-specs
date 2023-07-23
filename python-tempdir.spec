@@ -10,7 +10,7 @@ race conditions. Cleanup might not work on windows if files are still opened. \
 
 Name: python-%{pname}
 Version: 0.7.1
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: Automatically manage temporary directories, based on tempfile.mkdtemp
 License: MIT
 URL: https://bitbucket.org/another_thomas/tempdir
@@ -47,6 +47,9 @@ rm -r tempdir.egg-info
 %{python3_sitelib}/tempdir.py
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.1-24
 - Rebuilt for Python 3.12
 

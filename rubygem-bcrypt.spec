@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.1.18
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Wrapper around bcrypt() password hashing algorithm
 # ext/mri/* - Public Domain
 # ext/jruby/* - ISC
@@ -73,6 +73,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Vít Ondruch <vondruch@redhat.com> - 3.1.18-1
 - Update to BCrypt 3.1.18.
   Resolves: rhbz#2086966

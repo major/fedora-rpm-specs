@@ -1,7 +1,7 @@
 Summary:       Manager for sqlite - Sqlite Databases Made Easy
 Name:          sqliteman
 Version:       1.2.2
-Release:       34%{?dist}
+Release:       35%{?dist}
 # src is GPLv2+, icons are LGPLv2+
 License:       GPLv2+ and LGPLv2+
 URL:           http://sqliteman.yarpen.cz/
@@ -52,6 +52,9 @@ rm -rf %{buildroot}%{_datadir}/icons
 %{_datadir}/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

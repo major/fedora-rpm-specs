@@ -8,7 +8,7 @@
 Summary:	Making C extensions for Ruby a bit easier
 Name:		rubygem-%{gem_name}
 Version:	0.2.3
-Release:	27%{?dist}
+Release:	28%{?dist}
 License:	MIT
 URL:		http://mkrf.rubyforge.org/
 Source0:	http://gems.rubyforge.org/gems/%{gem_name}-%{version}.gem
@@ -104,6 +104,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

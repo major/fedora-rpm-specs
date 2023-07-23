@@ -1,6 +1,6 @@
 Name:		pps-tools
 Version:	1.0.3
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	LinuxPPS user-space tools
 
 License:	GPL-2.0-or-later
@@ -41,6 +41,9 @@ install -p -m644 -t $RPM_BUILD_ROOT%{_includedir}/sys timepps.h
 %{_includedir}/sys/timepps.h
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 1.0.3-5
 - migrated to SPDX license
 

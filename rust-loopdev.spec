@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Setup and control loop devices
 
 # Upstream license specification: MIT
@@ -82,6 +82,9 @@ use the "direct_io" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 5 2023 mulhern <amulhern@redhat.com> - 0.4.0-2
 - Add patch to increase bindgen dependency lower-bound to 0.63.0; fixes FTBFS
 

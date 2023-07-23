@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        2.6
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Quick and dirty python debugging output
 
 License:        ASL 2.0
@@ -56,6 +56,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.6-26
 - Rebuilt for Python 3.12
 

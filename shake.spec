@@ -14,7 +14,7 @@
 Name:           %{pkg_name}
 Version:        0.19.7
 # can only be reset when all subpkgs bumped
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Build system library, like Make, but more accurate dependencies
 
 License:        BSD-3-Clause
@@ -222,6 +222,9 @@ rm %{buildroot}%{_datadir}/%{pkgver}/docs/manual/*
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.7-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 0.19.7-25
 - https://hackage.haskell.org/package/shake-0.19.7/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

@@ -1,6 +1,6 @@
 Name:           perl-Unicode-CaseFold
 Version:        1.01
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Unicode case-folding for case-insensitive lookups
 License:        GPL+ or Artistic
 
@@ -56,6 +56,9 @@ insensitive lookups.
 %{_mandir}/man3/Unicode*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.01-19
 - Perl 5.38 rebuild
 

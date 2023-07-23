@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/runxlrd.py* \
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.1-12
 - Rebuilt for Python 3.12
 

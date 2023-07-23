@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 1.008
-Release: 8%{?dist}
+Release: 9%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           SorkinType
@@ -43,6 +43,9 @@ Source10: 57-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

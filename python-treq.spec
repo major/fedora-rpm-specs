@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        21.5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A requests-like API built on top of twisted.web's Agent
 
 License:        MIT
@@ -83,6 +83,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 21.5.0-7
 - Rebuilt for Python 3.12
 

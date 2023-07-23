@@ -7,7 +7,7 @@
 
 Name:             python-%{mod_name}
 Version:          2.0.2
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Pure Python client for Apache Kafka
 
 License:          ASL 2.0
@@ -141,6 +141,9 @@ It makes sure the dependencies are installed.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.0.2-11
 - Applies patches for Python 3.12
 

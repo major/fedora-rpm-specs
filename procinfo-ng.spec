@@ -1,6 +1,6 @@
 Name:           procinfo-ng
 Version:        2.0.304
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Console-based system monitoring utility
 
 License:        GPLv2 and LGPLv2
@@ -46,6 +46,9 @@ mv %{buildroot}%{_mandir}/man8/procinfo.8 %{buildroot}%{_mandir}/man8/%{name}.8
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.304-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.304-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

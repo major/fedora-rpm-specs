@@ -12,7 +12,7 @@ ase-3.16 requires numpy 1.9 or newer
 
 Name:			python-ase
 Version:		3.22.1
-Release:		7%{?dist}
+Release:		8%{?dist}
 Summary:		Atomic Simulation Environment
 
 
@@ -148,6 +148,9 @@ cd -
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 3.22.1-7
 - Workaround for Python 3.12 removed 'importlib.find_loader' https://gitlab.com/ase/ase/-/issues/1256
 

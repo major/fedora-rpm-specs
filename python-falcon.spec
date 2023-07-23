@@ -12,7 +12,7 @@ architectural style.}
 
 Name:           python-falcon
 Version:        4.0.0~^1.%{shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast ASGI+WSGI framework for building data plane APIs at scale
 License:        Apache-2.0
 URL:            https://falconframework.org
@@ -69,6 +69,9 @@ rm -rf falcon/vendor
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0~^1.3816217-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0~^1.3816217-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

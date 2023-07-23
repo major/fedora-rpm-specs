@@ -1,7 +1,7 @@
 %global pypi_name xmlschema
 Name:           python-%{pypi_name}
 Version:        2.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python XML Schema validator and decoder
 
 License:        MIT
@@ -68,6 +68,9 @@ sed -i '/memory_profiler/d' tox.ini # optional test dep, not packaged in Fedora,
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.3-3
 - Rebuilt for Python 3.12
 

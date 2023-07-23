@@ -6,7 +6,7 @@ ESX, ESXi, and vCenter.}
 
 Name:           python-%{srcname}
 Version:        7.0.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        vSphere Python SDK
 License:        Apache-2.0
 URL:            https://github.com/vmware/%{srcname}
@@ -54,6 +54,9 @@ BuildRequires:  python3-devel
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 7.0.3-7
 - Rebuilt for Python 3.12
 

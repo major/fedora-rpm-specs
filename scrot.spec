@@ -1,6 +1,6 @@
 Name:           scrot
 Version:        1.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command line screen capture utility
 
 License:        MIT
@@ -41,6 +41,9 @@ autoreconf -if
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 1.8.1-2
 - Rebuild fo new imlib2
 

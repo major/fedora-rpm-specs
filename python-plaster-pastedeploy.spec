@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 0.7
-Release: 15%{?dist}
+Release: 16%{?dist}
 BuildArch: noarch
 
 License: MIT
@@ -64,6 +64,9 @@ PYTHONPATH="./src" py.test-3
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.7-15
 - Rebuilt for Python 3.12
 

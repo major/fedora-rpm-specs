@@ -2,7 +2,7 @@
 
 Name:           python-dpkt
 Version:        1.9.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -57,6 +57,9 @@ with definitions for the basic TCP/IP protocols.
 %{python3_sitelib}/dpkt*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.9.8-2
 - Rebuilt for Python 3.12
 

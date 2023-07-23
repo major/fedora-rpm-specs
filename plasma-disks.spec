@@ -3,7 +3,7 @@
 Name:    plasma-disks
 Summary: Hard disk health monitoring for KDE Plasma
 Version: 5.27.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+ and LGPLv3+ and BSD and CC0
 URL:     https://invent.kde.org/plasma/%{name}
@@ -70,6 +70,9 @@ signs of imminent failure appear.
 %{_kf5_datadir}/polkit-1/actions/org.kde.kded.smart.policy
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
 - 5.27.6
 

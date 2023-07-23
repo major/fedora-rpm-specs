@@ -1,6 +1,6 @@
 Name:           python-zc-lockfile
 Version:        3.0.post1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Basic Inter-Process Locks
 License:        ZPLv2.1
 URL:            https://pypi.io/project/zc.lockfile/
@@ -58,6 +58,9 @@ rm -f %{buildroot}%{python3_sitelib}/zc/lockfile/*.txt
 %dir %{python3_sitelib}/zc/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.post1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.post1-2
 - Rebuilt for Python 3.12
 

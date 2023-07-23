@@ -130,6 +130,7 @@ Python 3 version.
 0003-Add-feature-complex_deps-to-ifelse_rec.t-testcase.patch
 0004-Allow-to-break-arch-lock-step-on-erase-operations.patch
 0005-Only-disable-infarch-rules-on-erase-if-the-package-w.patch
+0006-Save-memory-in-repo_updateinfoxml-by-not-interleavin.patch
 
 %prep
 %autosetup -p1

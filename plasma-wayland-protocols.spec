@@ -4,7 +4,7 @@
 
 Name:    plasma-wayland-protocols
 Version: 1.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Plasma Specific Protocols for Wayland
 
 License: LGPLv2+ and MIT and BSD
@@ -52,6 +52,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 1.10.0-1
 - 1.10.0
 

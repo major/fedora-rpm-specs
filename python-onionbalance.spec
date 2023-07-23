@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 License:        GPLv3
@@ -128,6 +128,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{pkgname}.conf
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 0.2.1-8
 - Fix configparsers
 

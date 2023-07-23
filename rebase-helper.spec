@@ -4,7 +4,7 @@
 
 Name:           rebase-helper
 Version:        0.28.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The tool that helps you to rebase your package to the latest version
 
 License:        GPLv2+
@@ -105,6 +105,9 @@ PYTHONPATH=$(pwd) py.test-3 -v tests
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 0.28.0-2
 - Rebuilt for Python 3.12
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx theme for Enthought projects
 
 # Bundled bootstrap is MIT
@@ -48,6 +48,9 @@ Provides:       bundled(bootstrap) = 2.3.2
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Orion Poplawski <orion@nwra.com> - 0.7.3-1
 - Update to 0.7.3
 

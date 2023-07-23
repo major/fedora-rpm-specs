@@ -1,6 +1,6 @@
 Name:           python-smbpasswd
 Version:        1.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python SMB Password Hash Generator Module
 
 License:        GPLv2
@@ -47,6 +47,9 @@ This is a ported release for python 3.
 %{python3_sitearch}/*egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.2-12
 - Rebuilt for Python 3.12
 

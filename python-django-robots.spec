@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Robots exclusion application for Django, complementing Sitemaps
 
 License:        BSD
@@ -66,6 +66,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %{python3_sitelib}/django_robots*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.0-18
 - Rebuilt for Python 3.12
 

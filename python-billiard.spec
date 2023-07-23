@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        A multiprocessing pool extensions
 
@@ -52,6 +52,9 @@ py.test-3
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1:4.1.0-3
 - Rebuilt for Python 3.12
 

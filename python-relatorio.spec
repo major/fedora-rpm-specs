@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.10.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 License:        GPLv2+
@@ -65,6 +65,9 @@ objects and report together, find reports by mimetypes/name/python objects.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.10.1-4
 - Rebuilt for Python 3.12
 

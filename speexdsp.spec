@@ -1,6 +1,6 @@
 Name:           speexdsp
 Version:        1.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A voice compression format (DSP)
 
 License:        BSD-3-Clause
@@ -69,6 +69,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/libspeexdsp.so
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun  6 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.1-4
 - SPDX license
 

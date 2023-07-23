@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Promises, promises, promises
 
 License:        BSD
@@ -87,6 +87,9 @@ py.test-3 -xv --cov=vine --cov-report=xml --no-cov-on-fail
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.0.0-10
 - Rebuilt for Python 3.12
 

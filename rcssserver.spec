@@ -1,6 +1,6 @@
 Name:           rcssserver
 Version:        18.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Robocup 2D Soccer Simulation Server
 
 License:        LGPLv2+
@@ -69,6 +69,9 @@ desktop-file-install \
 %{_datadir}/applications/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 18.1.3-1
 - Update to latest upstream version
 

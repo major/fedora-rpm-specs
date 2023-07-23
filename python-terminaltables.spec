@@ -2,7 +2,7 @@
 Summary:       Generate tables in terminals from list of strings
 Name:          python-terminaltables
 Version:       3.1.10
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       MIT
 URL:           https://github.com/matthewdeanmartin/terminaltables
 Source0:       https://github.com/matthewdeanmartin/terminaltables/archive/v%{version}.tar.gz
@@ -41,6 +41,9 @@ Summary:        %summary
 %doc CHANGELOG.md CONTRIBUTING.md README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.1.10-8
 - Rebuilt for Python 3.12
 

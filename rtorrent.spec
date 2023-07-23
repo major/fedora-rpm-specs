@@ -2,7 +2,7 @@ Name:          rtorrent
 # OpenSSL exception, see README
 License:       GPLv2+ with exceptions
 Version:       0.9.8
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       BitTorrent client based on libtorrent 
 URL:           https://github.com/rakshasa/rtorrent
 Source0:       %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ install -Dpm 0644 %SOURCE1 %{buildroot}/%{_mandir}/man1/rtorrent.1
 %{_mandir}/man1/rtorrent.1.gz
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 19 2023 Cornad Meyer <cse.cem@gmail.com> - 0.9.8-11
 - Patch for rhbz# 2188136 snprintf misuse
 

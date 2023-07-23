@@ -5,7 +5,7 @@ Version:        1.4.36
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for reading and writing a variety of embroidery formats
 
 License:        MIT
@@ -61,6 +61,9 @@ sed -i 's/\r$//' README.md
 %exclude %{python3_sitelib}/test
  
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.36-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 1.4.36-2
 - Rebuilt for Python 3.12
 

@@ -25,7 +25,7 @@
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        WebDAV Framework for PHP
 Version:        4.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # sabre is BSD
@@ -230,6 +230,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

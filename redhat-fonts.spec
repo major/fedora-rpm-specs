@@ -26,7 +26,7 @@ and designed by Jeremy Mickel / MCKL for the new Red Hat identity.
 
 Name:           %{fontname}-fonts
 Version:        4.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Red Hat Typeface fonts
 # Only the metainfo files are CC-BY-SA
 License:        OFL and CC-BY-SA
@@ -126,6 +126,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,7 +11,7 @@ a maximum of 10 requests per second.}
 
 Name:           python-%{pypi_name}
 Version:        1.2.0
-Release:        11.%{extraver}%{?dist}
+Release:        12.%{extraver}%{?dist}
 Summary:        Python module providing rate limiting
 
 License:        ASL 2.0
@@ -69,6 +69,9 @@ PYTHONPATH="%{buildroot}/%{python3_sitelib}/" pytest-%{python3_version}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-12.post0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.0-11.post0
 - Rebuilt for Python 3.12
 

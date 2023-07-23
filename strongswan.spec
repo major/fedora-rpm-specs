@@ -16,7 +16,7 @@
 
 Name:           strongswan
 Version:        5.9.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 License:        GPLv2+
 URL:            https://www.strongswan.org/
@@ -416,6 +416,9 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Paul Wouters <paul.wouters@aiven.io - 5.9.11-1
 - Resolves: rhbz#2214186 strongswan-5.9.11 is available
 

@@ -3,7 +3,7 @@
 Name: php-%{author}-%{project}
 
 Version: 1.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 Summary: PHP library to build command line tools 
 License: MIT
@@ -84,6 +84,9 @@ phpunit8 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

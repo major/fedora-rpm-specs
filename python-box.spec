@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        7.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python dictionaries with advanced dot notation access
 
 License:        MIT
@@ -57,6 +57,9 @@ added to a Box or BoxList object are converted automatically.
 %{python3_sitelib}/python_box-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 7.0.1-2
 - Rebuilt for Python 3.12
 

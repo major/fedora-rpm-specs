@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.10.15.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        DataTables jquery javascript framework (XStatic packaging standard)
 
 License:        ASL 2.0
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/datatables/js/*.js
 %{_jsdir}/datatables
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.15.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.10.15.1-22
 - Rebuilt for Python 3.12
 

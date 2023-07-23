@@ -2,7 +2,7 @@
 
 Name:           gecode
 Version:        6.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Generic constraint development environment
 
 License:        MIT
@@ -12,6 +12,7 @@ Patch0:         gecode-4.0.0-no_examples.patch
 Patch1:         gecode-6.2.0-unbundle_boost.patch
 Patch2:         gecode-6.2.0-autoconf_builtin.patch
 Patch3:         gecode-6.2.0-builtin_unreachable.patch
+Patch4:         gecode-6.2.0-fix_warnings.patch
 
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
@@ -58,10 +59,11 @@ The %{name}-examples package contains example code for %{name}.
 
 %prep
 %setup -n %{name}-release-%{version}
-%patch0 -p1 -b .no_examples
-%patch1 -p1 -b .unbundle_boost
-%patch2 -p1 -b .autoconf_builtin
-%patch3 -p1 -b .builtin_unreachable
+%patch -P0 -p1 -b .no_examples
+%patch -P1 -p1 -b .unbundle_boost
+%patch -P2 -p1 -b .autoconf_builtin
+%patch -P3 -p1 -b .builtin_unreachable
+%patch -P4 -p1 -b .fix_warnings
 
 # Fix permissions
 find -O3 . \( -name '*.hh' -o -name '*.hpp' -o -name '*.cpp' -o \
@@ -155,6 +157,10 @@ make check
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Julian C. Dunn <jdunn@aquezada.com> - 6.2.0-13
+- Removed deprecated %patchN syntax
+- Significantly cut down compiler deprecation warnings (gecode-6.2.0-fix_warnings.patch)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

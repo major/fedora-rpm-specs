@@ -1,6 +1,6 @@
 Name:           quarry
 Version:        0.2.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        A multi-purpose board game GUI
 
 License:        GPLv2+
@@ -58,6 +58,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

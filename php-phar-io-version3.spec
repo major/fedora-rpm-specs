@@ -22,7 +22,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for handling version information and constraints
 
 License:        BSD-3-Clause
@@ -100,6 +100,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 3.2.1-3
 - use SPDX license id
 

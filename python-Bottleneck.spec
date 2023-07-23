@@ -2,7 +2,7 @@
 
 Name:		python-%{upname}
 Version:	1.3.7
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Collection of fast NumPy array functions written in Cython
 
 License:	BSD
@@ -102,6 +102,9 @@ rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.3.7-2
 - Rebuilt for Python 3.12
 

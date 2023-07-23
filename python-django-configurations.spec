@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A helper for organizing Django settings
 
 License:        BSD
@@ -76,6 +76,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.2-13
 - Rebuilt for Python 3.12
 

@@ -1,7 +1,7 @@
 Summary:        Secure HTTP request signing using the HTTP Signature draft specification
 Name:           python-httpsig-cffi
 Version:        15.0.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 License:        MIT
 URL:            https://github.com/hawkowl/httpsig_cffi
 Source0:        https://files.pythonhosted.org/packages/source/h/httpsig-cffi/httpsig_cffi-%{version}.tar.gz
@@ -54,6 +54,9 @@ rm -rf %{buildroot}%{python3_sitelib}/httpsig_cffi/tests
 %{python3_sitelib}/httpsig_cffi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 15.0.0-19
 - Rebuilt for Python 3.12
 

@@ -14,7 +14,7 @@
 
 Name:           php-pear-Net-DNS2
 Version:        1.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        PHP Resolver library used to communicate with a DNS server
 
 License:        BSD
@@ -129,6 +129,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

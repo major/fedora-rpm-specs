@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        PyWavelets, wavelet transform module
 License:        MIT
 URL:            https://pywavelets.readthedocs.io/en/latest
@@ -98,6 +98,9 @@ popd
 %{python3_sitearch}/%{pkgname}*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.3.0-4
 - Rebuilt for Python 3.12
 

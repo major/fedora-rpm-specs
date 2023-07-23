@@ -6,7 +6,7 @@
 
 Name:		pg-semver
 Version:	0.31.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	A semantic version data type for PostgreSQL
 License:	PostgreSQL
 Url:		https://github.com/theory/pg-semver
@@ -50,6 +50,9 @@ rm -f %{buildroot}%{_docdir}/pgsql/extension/semver.mmd
 %{_libdir}/pgsql/bitcode/src/semver/src/semver.bc
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

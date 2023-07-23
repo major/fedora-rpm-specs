@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Snuggs are S-expressions for Numpy
 
 License:        MIT
@@ -60,6 +60,9 @@ pytest-3 -v
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.4.7-13
 - Rebuilt for Python 3.12
 

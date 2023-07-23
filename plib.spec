@@ -1,6 +1,6 @@
 Name:           plib
 Version:        1.8.5
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Set of portable libraries especially useful for games
 License:        LGPLv2+
 URL:            http://plib.sourceforge.net/
@@ -95,6 +95,9 @@ cp -a `find . -name "libplib*.so*"` $RPM_BUILD_ROOT%{_libdir}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

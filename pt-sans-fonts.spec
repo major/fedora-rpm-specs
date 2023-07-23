@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 20141121
-Release: 23%{?dist}
+Release: 24%{?dist}
 # https://company.paratype.com/pt-sans-pt-serif
 URL:     http://www.paratype.com/public/
 
@@ -91,6 +91,9 @@ install -m 0644 -vp %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} \
 %doc *.pdf
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20141121-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20141121-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

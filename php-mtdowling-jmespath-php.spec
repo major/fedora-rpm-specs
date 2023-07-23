@@ -26,7 +26,7 @@
 
 Name:          php-%{composer_vendor}-jmespath-php
 Version:       %{github_version}
-Release:       5%{?github_release}%{?dist}
+Release:       6%{?github_release}%{?dist}
 Summary:       Declaratively specify how to extract elements from a JSON document
 
 License:       MIT
@@ -133,6 +133,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

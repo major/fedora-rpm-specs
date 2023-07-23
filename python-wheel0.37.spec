@@ -1,6 +1,6 @@
 Name:           python-wheel0.37
 Version:        0.37.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A built-package format for Python
 
 License:        MIT
@@ -79,6 +79,9 @@ export PYTHONPATH=%{buildroot}%{python_wheel_dir}/%{python_wheel_name}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

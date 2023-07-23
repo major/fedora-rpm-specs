@@ -17,7 +17,7 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 23.02.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
 URL:     http://poppler.freedesktop.org/
 Source0: http://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -278,6 +278,9 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.02.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.02.0-2
 - Disable qt5 in RHEL 10 builds
 - Enable qt6 on s390x

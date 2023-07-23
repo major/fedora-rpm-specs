@@ -4,7 +4,7 @@
 
 Name:           python-poetry-plugin-export
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Poetry plugin to export the dependencies to various formats
 
 License:        MIT
@@ -66,6 +66,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 22 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.1-2
 - Update to 1.3.1 - without bootstrap
 

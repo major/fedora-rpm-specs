@@ -4,7 +4,7 @@
 
 Name:           prelude-lml
 Version:        5.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Log analyzer sensor with IDMEF output
 # Prelude is GPL-2.0+
 # libmissing is LGPL-2.1+
@@ -150,6 +150,9 @@ make check
 %doc ChangeLog README NEWS AUTHORS
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 5.2.0-15
 - Rebuilt for ICU 73.2
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        3.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python helper for Semantic Versioning
 
 License:        BSD-3-Clause
@@ -51,6 +51,9 @@ Summary:        %{summary}
 %{_bindir}/pysemver
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 David Bold <davidsch@fedoraproeject.org> - 3.0.1-1
 - Update to 3.0.1
 - Fix FTBFS

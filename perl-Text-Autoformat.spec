@@ -1,6 +1,6 @@
 Name:           perl-Text-Autoformat
 Version:        1.750000
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Automatic text wrapping and reformatting
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-Autoformat
@@ -57,6 +57,9 @@ chmod -c -x config.*
 %{_mandir}/man3/Text::Autoformat.3pm*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.750000-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.750000-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-pyzabbix
 Version:        1.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        PyZabbix is a Python module for working with the Zabbix API
 
 # license is in README.markdown
@@ -57,6 +57,9 @@ sed -i 's/"httpretty<0.8.7",/"httpretty",/' setup.py
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.0-5
 - Rebuilt for Python 3.12
 

@@ -1,7 +1,7 @@
 %global srcname inflect
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Correctly generate plurals, singular nouns, ordinals and indefinite articles
 
 License:        MIT
@@ -80,6 +80,9 @@ pytest-3
 %{python3_sitelib}/inflect-%{version}-*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.1.0-16
 - Rebuilt for Python 3.12
 

@@ -11,7 +11,7 @@ characters, and many other things.}
 
 Name:           ptpython
 Version:        3.0.20
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python REPL build on top of prompt_toolkit
 License:        BSD
 URL:            https://github.com/prompt-toolkit/ptpython
@@ -74,6 +74,9 @@ rm %{buildroot}%{_bindir}/ptipython*
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.20-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 3.0.20-5
 - Rebuilt for Python 3.12
 

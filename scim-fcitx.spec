@@ -1,6 +1,6 @@
 Name:           scim-fcitx
 Version:        3.1.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        FCITX Input Method Engine for SCIM
 
 License:        GPL-2.0-or-later
@@ -64,6 +64,9 @@ popd
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 28 2023 Peng Wu <pwu@redhat.com> - 3.1.1-38
 - Migrate to SPDX license
 

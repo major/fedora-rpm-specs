@@ -8,7 +8,7 @@
 Summary:	Ruby binding of GDK-3.x
 Name:		rubygem-%{gem_name}
 Version:	4.1.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -155,6 +155,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.8-1
 - 4.1.8
 

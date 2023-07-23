@@ -1,7 +1,7 @@
 Name:		perl-Test-Requires
 Summary:	Checks to see if a given module can be loaded
 Version:	0.11
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Requires
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Requires-%{version}.tar.gz
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/Test::Requires.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 06 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.11-11
 - Update license to SPDX format
 

@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Timeout mechnisem for unit tests
 
 # Upstream license specification: Apache-2.0
@@ -68,6 +68,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

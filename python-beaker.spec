@@ -1,6 +1,6 @@
 Name: python-beaker
 Version: 1.12.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: WSGI middleware layer to provide sessions
 License: BSD and MIT
 URL: http://beaker.readthedocs.io
@@ -74,6 +74,9 @@ redis-server &
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.12.1-2
 - Rebuilt for Python 3.12
 

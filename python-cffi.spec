@@ -1,7 +1,7 @@
 Name:           python-cffi
 %global general_version 1.15.1
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Foreign Function Interface for Python to call C code
 # Patch 482f0af has bits copied from CPython (PSF-2.0)
 License:        MIT AND PSF-2.0
@@ -81,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -m pytest c/ testing/
 %doc doc/build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.15.1-5
 - Rebuilt for Python 3.12
 

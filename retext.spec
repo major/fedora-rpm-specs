@@ -2,7 +2,7 @@
 
 Name:           retext
 Version:        8.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple editor for Markdown and reStructuredText
 
 License:        GPLv3+
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 8.0.0-2
 - Rebuilt for Python 3.12
 

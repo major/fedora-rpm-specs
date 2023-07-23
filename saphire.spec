@@ -4,7 +4,7 @@
 
 Name:		saphire
 Version:	3.6.5
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Yet another shell
 
 License:	MIT
@@ -156,6 +156,9 @@ make install \
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

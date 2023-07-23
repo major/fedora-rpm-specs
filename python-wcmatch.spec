@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Wildcard/glob file name matcher
 
 License:        MIT
@@ -64,6 +64,9 @@ globmatch which functions like fnmatch, but for paths.
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 8.4.1-4
+- Mark this as SPDX license expression converted
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 8.4.1-3
 - Rebuilt for Python 3.12
 - Fixes: rhbz#2189489

@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.12.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Run any kind of code in parallel processes
 License:        MIT
 
@@ -92,6 +92,9 @@ rspec -I"lib" spec || :
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

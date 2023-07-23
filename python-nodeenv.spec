@@ -1,6 +1,6 @@
 Name:           python-nodeenv
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Node.js virtual environment builder
 
 License:        BSD-3-Clause
@@ -91,6 +91,9 @@ k="${k-}${k+ and }not test_smoke"
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-1
 - Update to 1.8.0 (close RHBZ#1466314)
 - Update License to SPDX

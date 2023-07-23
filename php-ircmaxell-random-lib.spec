@@ -14,7 +14,7 @@
 
 Name:           php-ircmaxell-random-lib
 Version:        1.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A Library For Generating Secure Random Numbers
 
 # See class headers
@@ -116,6 +116,9 @@ EOF
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

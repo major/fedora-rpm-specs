@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 # TODO: A Julia interface is now available, but requires
 # https://github.com/JuliaInterop/libcxxwrap-julia, which is not currently
 # available in Fedora.
@@ -130,6 +127,8 @@ Requires:       javapackages-tools
 Java interface to z3.
 %endif
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+%ifnarch %{ix86}
 %package -n ocaml-z3
 Summary:        Ocaml interface to z3
 Requires:       z3-libs%{?_isa} = %{version}-%{release}
@@ -144,6 +143,7 @@ Requires:       ocaml-zarith-devel%{?_isa}
 
 %description -n ocaml-z3-devel
 Files for building ocaml applications that use z3.
+%endif
 
 %package -n python3-z3
 Summary:        Python 3 interface to z3
@@ -287,6 +287,7 @@ cd -
 %{_jnidir}/com.microsoft.z3*jar
 %endif
 
+%ifnarch %{ix86}
 %files -n ocaml-z3
 %dir %{ocamldir}/Z3/
 %{ocamldir}/Z3/META
@@ -304,11 +305,15 @@ cd -
 %{ocamldir}/Z3/*.cmxa
 %endif
 %{ocamldir}/Z3/*.mli
+%endif
 
 %files -n python3-z3
 %{python3_sitelib}/z3/
 
 %changelog
+* Fri Jul 21 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-4
+- Exclude the OCaml and Java subpackages only on i386
+
 * Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.12.2-4
 - OCaml 5.0 rebuild for Fedora 39
 

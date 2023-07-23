@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Dev tools for Python
 
 License:        MIT
@@ -71,6 +71,9 @@ rm -f tests/test_insert_assert.py
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Python Maint <python-maint@redhat.com> - 0.11.0-2
 - Rebuilt for Python 3.12
 

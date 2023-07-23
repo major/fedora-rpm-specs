@@ -3,7 +3,7 @@
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
 Version:        9.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
 License:        MIT
@@ -322,6 +322,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 02 2023 Sandro Mani <manisandro@gmail.com> - 9.2.1-1
 - Update to 9.2.1
 

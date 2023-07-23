@@ -3,7 +3,7 @@
 
 Name:           streamtuner
 Version:        2.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An internet radio browser
 License:        Public Domain
 URL:            http://sourceforge.net/projects/streamtuner2/
@@ -97,6 +97,9 @@ fdupes -s %{buildroot}
 %{_mandir}/man1/streamtuner2.1.*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

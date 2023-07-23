@@ -3,7 +3,7 @@
 %global	mainver	3.12.1
 %undefine	prever
 
-%global	baserelease	1
+%global	baserelease	2
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %bcond_with bootstrap
@@ -107,6 +107,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.1-1
 - 3.12.1
 

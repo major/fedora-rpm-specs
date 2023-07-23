@@ -6,7 +6,7 @@
 
 Name:           rust-semver-parser
 Version:        0.10.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Parsing of the semver spec
 
 # Upstream license specification: MIT/Apache-2.0
@@ -71,6 +71,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.10.2-8
 - Drop useless example binary.
 

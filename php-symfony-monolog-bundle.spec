@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        3.3.1
-Release:        10%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Release:        11%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Symfony MonologBundle
 
 License:        MIT
@@ -178,6 +178,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

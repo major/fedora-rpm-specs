@@ -1,6 +1,6 @@
 Name:             rdopkg
 Version:          1.5.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          RPM packaging automation tool CLI
 
 License:          ASL 2.0
@@ -84,6 +84,9 @@ install -p -m 644 doc/man/*.7 %{buildroot}%{_mandir}/man7/
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.5.1-3
 - Rebuilt for Python 3.12
 

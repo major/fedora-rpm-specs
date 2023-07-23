@@ -16,7 +16,7 @@
 
 Name: phpMyAdmin
 Version: %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A web interface for MySQL and MariaDB
 
 # phpMyAdmin is GPL-2.0-or-later
@@ -302,6 +302,9 @@ sed -e "/'blowfish_secret'/s/MUSTBECHANGEDONINSTALL/$SECRET/" \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb  8 2023 Remi Collet <remi@remirepo.net> - 5.2.1-1
 - update to 5.2.1 (2023-02-08, security and bugfix release)
 

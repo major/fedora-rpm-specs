@@ -11,7 +11,7 @@
 Name:    qca
 Summary: Qt Cryptographic Architecture
 Version: 2.3.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2+
 URL:     https://userbase.kde.org/QCA
@@ -420,6 +420,9 @@ test "$(pkg-config --modversion qca2-qt6)" = "%{version}"
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 03 2023 Marie Loise Nolden <loise@kde.org> - 2.3.6-1
 - 2.3.6
 

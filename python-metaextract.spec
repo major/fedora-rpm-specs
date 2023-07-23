@@ -8,7 +8,7 @@ module to be useful for others, too.
 
 Name:           python-%{srcname}
 Version:        1.0.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Metaextract is a tool to collect metadata for Python modules
 
 License:        ASL 2.0
@@ -68,6 +68,9 @@ python3 -m pytest metaextract
 %doc doc/build/html/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.9-3
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:      robotfindskitten
 Version:   2.8284271.702
-Release:   8%{?dist}
+Release:   9%{?dist}
 Summary:   A game/zen simulation. You are robot. Your job is to find kitten.
 
 License:   GPLv2+
@@ -45,6 +45,9 @@ rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 %{_datadir}/man/man6/robotfindskitten.6*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8284271.702-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8284271.702-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.18.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Fuzzy string matching in Python
 
 License:        MIT
@@ -51,6 +51,9 @@ sed -i -e '/import pycodestyle/d' -e 's/test_pep8_conformance/notest_pep8_confor
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.18.0-12
 - Rebuilt for Python 3.12
 

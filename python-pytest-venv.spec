@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        py.test fixture for creating a virtual environment
 
 License:        MIT
@@ -52,6 +52,9 @@ sed -i '/pytest-cov/d' setup.py
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.2-11
 - Fix virtualenv usage for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           perl-Text-Unidecode
 Version:        1.30
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        US-ASCII transliterations of Unicode text
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-Unidecode
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 23 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.30-21
 - Update license to SPDX format
 

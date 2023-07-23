@@ -17,7 +17,7 @@
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
 Version:       0.12.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
@@ -195,6 +195,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May  2 2023 Remi Collet <remi@remirepo.net> - 0.12.3-1
 - update to 0.12.3
 - drop patch merged upstream

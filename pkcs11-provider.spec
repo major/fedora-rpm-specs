@@ -3,7 +3,7 @@
 
 Name:          pkcs11-provider
 Version:       0.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A PKCS#11 provider for OpenSSL 3.0+
 License:       Apache-2.0
 URL:           https://github.com/latchset/pkcs11-provider
@@ -76,6 +76,9 @@ make check || if [ $? -ne 0 ]; then cat tests/*.log; exit 1; fi;
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Sahana Prasad <sahana@redhat.com> - 0.2-1
 + New upstream release
 

@@ -1,7 +1,7 @@
 
 Name:           ps_mem
 Version:        3.14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Memory profiling tool
 License:        LGPL-2.1-only
 URL:            https://github.com/pixelb/ps_mem
@@ -46,6 +46,9 @@ install -Dpm644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 24 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3.14-4
 - migrate to SPDX license format
 

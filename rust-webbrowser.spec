@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.5.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open URLs in web browsers available on a platform
 
 # Upstream license specification: MIT OR Apache-2.0
@@ -75,6 +75,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Check catkin packages for common errors
 
 License:        BSD
@@ -83,6 +83,9 @@ install -p -D -m0644 shell/bash/%{srcname} %{buildroot}%{_sysconfdir}/bash_compl
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 1.6.22-2
 - Rebuilt for Python 3.12
 

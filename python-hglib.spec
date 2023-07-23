@@ -5,7 +5,7 @@
 Summary:        Mercurial Python library
 Name:           python-hglib
 Version:        2.6.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        MIT
 URL:            http://selenic.com/repo/python-hglib
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
@@ -75,6 +75,9 @@ hg.
 %{python3_sitelib}/python_hglib-*-py*egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.6.2-10
 - Rebuilt for Python 3.12
 

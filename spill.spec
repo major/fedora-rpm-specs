@@ -1,6 +1,6 @@
 Name:           spill
 Version:        0.8
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A segregated package install logical linker
 
 License:        GPLv2
@@ -36,6 +36,9 @@ install -Dp -m 0644 %{name}.8 %{buildroot}%{_mandir}/man8/%{name}.8
 %{_sbindir}/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

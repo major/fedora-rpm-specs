@@ -1,6 +1,6 @@
 Name:           python-black
 Version:        23.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The uncompromising code formatter
 License:        MIT
 URL:            https://github.com/psf/black
@@ -92,6 +92,9 @@ export PIP_NO_DEPS=yes
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Miro Hrončok <mhroncok@redhat.com> - 23.7.0-1
 - Update to 23.7.0
 - Fixes: rhbz#2132839

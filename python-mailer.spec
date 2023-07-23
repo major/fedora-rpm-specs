@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A module that simplifies sending email
 
 License:        MIT
@@ -42,6 +42,9 @@ Simple front end to the smtplib and email modules, to simplify sending email.
 %files -n python3-%{srcname} -f %{pyproject_files}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.1-23
 - Rebuilt for Python 3.12
 

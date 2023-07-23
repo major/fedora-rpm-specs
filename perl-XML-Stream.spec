@@ -1,6 +1,6 @@
 Name:           perl-XML-Stream
 Version:        1.24
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        XML::Stream - streaming XML library
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) OR LGPL-2.1-or-later
 URL:            https://metacpan.org/release/XML-Stream
@@ -80,6 +80,9 @@ rm -rf t/lib
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

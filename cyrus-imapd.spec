@@ -7,8 +7,8 @@
 %bcond_with cassandane
 
 Name: cyrus-imapd
-Version: 3.6.0
-Release: 9%{?dist}
+Version: 3.8.0
+Release: 1%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -29,28 +29,6 @@ URL: http://www.cyrusimap.org/
 Source0: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version/cyrus-imapd-%version.tar.gz
 Source1: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version/cyrus-imapd-%version.tar.gz.sig
 Source2: ellie-pub.key
-
-
-# Adapt a timeout to handle our slower builders
-Patch0: patch-cyrus-testsuite-timeout
-
-# Fedora-specific patch for the default configuration file
-Patch1: patch-cyrus-default-configs
-
-# We rename quota to cyr_quota to avoid a conflict with /usr/bin/quota; one
-# place in the source must be patched to match.
-Patch2: patch-cyrus-rename-quota
-
-# Workaround for some compiled Perl modules not being linked against
-# libpcreposix, which causes them to fail to load.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1668723
-# https://github.com/cyrusimap/cyrus-imapd/issues/2629#issuecomment-456925909
-Patch3: patch-cyrus-perl-linking
-
-# https://github.com/cyrusimap/cyrus-imapd/pull/3892
-Patch4: patch-cyrus-squatter-assert-crash
-
-
 Source10: cyrus-imapd.logrotate
 Source11: cyrus-imapd.pam-config
 Source12: cyrus-imapd.sysconfig
@@ -61,36 +39,49 @@ Source15: README.rpm
 Source16: cyrus-imapd.service
 Source17: cyrus-imapd-init.service
 Source18: cyrus-imapd.tmpfiles.conf
+Source19: cyrus-imapd.sysusers
 
+%if %{with cassandane}
 # Source files for running the Cassandane test suite at build time.
 Source80: https://github.com/brong/Net-CalDAVTalk/archive/%{testdata_commit}/cassandane-testdata-%{testdata_short}.tar.gz
-
 # A template config file for cassandane; we will substitute in varions values.
 Source81: cassandane.ini
-
 # These are source files and not patches because you can't use autosetup to
 # apply patches to secondary unpacked source files.
 
 # Prevent cassandane from trying to syslog things
 Source91: patch-cassandane-no-syslog
-
 # Tell the annotator script to run as the current user/group
 # Upstream ticket https://github.com/cyrusimap/cyrus-imapd/issues/1995
 Source92: patch-cassandane-fix-annotator
-
 # TODO libexec/cyrus-imapd path element got into upstream:
 # https://github.com/cyrusimap/cyrus-imapd/commit/9233f70bf7a2872ab0b456ea294ce36e0e01e182
 # try to get fixed the below upstream to work on Fedora:
 # https://github.com/cyrusimap/cyrus-imapd/commit/f10eee167313418d84e63d215310477d4fe68e94
 Source93: patch-cassandane-xapian-delve-path
+%endif
 
+# Adapt a timeout to handle our slower builders
+Patch0: patch-cyrus-testsuite-timeout
+# Fedora-specific patch for the default configuration file
+Patch1: patch-cyrus-default-configs
+# We rename quota to cyr_quota to avoid a conflict with /usr/bin/quota; one
+# place in the source must be patched to match.
+Patch2: patch-cyrus-rename-quota
+# Workaround for some compiled Perl modules not being linked against
+# libpcreposix, which causes them to fail to load.
+# https://bugzilla.redhat.com/show_bug.cgi?id=1668723
+# https://github.com/cyrusimap/cyrus-imapd/issues/2629#issuecomment-456925909
+Patch3: patch-cyrus-perl-linking
+# Remove attribute always_inline to fix compilation error:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2223951
+# TODO: report upstream with patch
+Patch4: patch-cyrus-remove-always-inline-for-buf-len
 
 BuildRequires: autoconf automake bison flex gcc gcc-c++ git glibc-langpack-en
 BuildRequires: groff libtool make pkgconfig rsync systemd transfig
-
 BuildRequires: perl-devel perl-generators perl(ExtUtils::MakeMaker)
 BuildRequires: perl(Pod::Html)
-
 
 %if 0%{?fedora} && 0%{?fedora}  >= 0
 BuildRequires: clamav-devel shapelib-devel
@@ -103,6 +94,8 @@ BuildRequires: sqlite-devel xapian-core-devel
 
 # Miscellaneous modules needed for 'make check' to function:
 BuildRequires: cyrus-sasl-plain cyrus-sasl-md5
+
+BuildRequires: systemd-rpm-macros
 
 %if %{with cassandane}
 # Additional packages required for cassandane to function
@@ -140,12 +133,14 @@ BuildRequires: perl(HTTP::Daemon) perl(DBI) perl(Net::LDAP::Constant)
 BuildRequires: perl(Net::LDAP::Server)
 BuildRequires: perl(Module::Load::Conditional)
 BuildRequires: cpan cld2-devel
+BuildRequires: perl(Plack::Loader) perl(Test::TCP) perl(Data::GUID) perl(Digest::CRC) perl(Moo) perl(Types::Standard)
 
 # These were only for JMAP-Tester
 # perl(Moo), perl(Moose), perl(MooseX::Role::Parameterized) perl(Throwable), perl(Safe::Isa)
 %endif
 
 Requires(pre): shadow-utils
+%{?sysusers_requires_compat}
 %{?systemd_requires}
 
 Requires: %name-utils = %version-%release
@@ -175,7 +170,6 @@ concurrent read/write connections to the same mailbox are permitted. The server
 supports access control lists on mailboxes and storage quotas on mailbox
 hierarchies.
 
-
 %package devel
 Summary: Cyrus IMAP server development files
 Requires: %name%{?_isa} = %version-%release
@@ -184,7 +178,6 @@ Requires: pkgconfig
 %description devel
 The %name-devel package contains header files and libraries
 necessary for developing applications which use the imclient library.
-
 
 %package doc-extra
 Summary: Extra documentation for the Cyrus IMAP server
@@ -195,14 +188,12 @@ This package contains the HTML documentation for the Cyrus IMAP server, as well
 as some legacy and internal documentation not useful for normal operation of
 the server.
 
-
 %package libs
 Summary: Runtime libraries for cyrus-imapd
 
 %description libs
 The cyrus-imapd-libs package contains libraries shared by the Cyrus IMAP server
 and the its utilities.
-
 
 %package utils
 Summary: Cyrus IMAP server administration utilities
@@ -212,7 +203,6 @@ Requires: cyrus-imapd = %{version}-%{release}
 The cyrus-imapd-utils package contains administrative tools for the
 Cyrus IMAP server. It can be installed on systems other than the
 one running the server.
-
 
 %package virusscan
 Summary: Cyrus virus scanning utility
@@ -225,13 +215,11 @@ the clamav suite don't have to.
 Install this package if you wish to use the internal cyrus virus scanning
 utility.
 
-
 %package -n perl-Cyrus
 Summary: Perl libraries for interfacing with Cyrus IMAPd
 
 %description -n perl-Cyrus
 This package contains Perl libraries used to interface with Cyrus IMAPd.
-
 
 %prep
 %if 0%{?fedora}
@@ -297,7 +285,6 @@ sed -i \
 # cyrus-imapd-*/tools/config2sample - fixed
 # cyrus-imapd-*/tools/mkimap - fixed
 # cyrus-imapd-*/tools/translatesieve - still contains shabang
-
 
 %build
 %if %{with cassandane}
@@ -376,7 +363,6 @@ done
 # This isn't built by default, but this package has always installed it.
 make notifyd/notifytest
 
-
 %install
 make install DESTDIR=%buildroot
 
@@ -427,6 +413,8 @@ install -p -m 644 doc/examples/imapd_conf/normal.conf %buildroot/etc/imapd.conf
 install -p -D -m 644 %SOURCE16 %buildroot/%_unitdir/cyrus-imapd.service
 install -p -D -m 644 %SOURCE17 %buildroot/%_unitdir/cyrus-imapd-init.service
 install -p -D -m 644 %SOURCE18 %buildroot/%_tmpfilesdir/cyrus-imapd.conf
+# systemd-sysusers
+install -p -D -m 644 %{SOURCE19} %{buildroot}%{_sysusersdir}/cyrus-imapd.conf
 
 # Cleanup of doc dir
 find doc perl -name CVS -type d -prune -exec rm -rf {} \;
@@ -501,7 +489,6 @@ find %buildroot -name ".packlist" -exec rm {} \;
 
 # And this one gets installed with executable permission
 chmod -x %buildroot/%perl_vendorlib/Cyrus/Annotator/Daemon.pm
-
 
 %check
 export LD_LIBRARY_PATH=%buildroot/%_libdir
@@ -586,12 +573,8 @@ exclude+=("!Master.maxforkrate")
 # Add -vvv for too much output
 ./testrunner.pl %{?_smp_mflags} -v -f pretty ${exclude[@]} 2>&1
 
-
 %pre
-# Create 'cyrus' user on target host
-getent group saslauth >/dev/null || /usr/sbin/groupadd -g %gid -r saslauth
-getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /var/lib/imap -g %cyrusgroup \
-  -G saslauth -s /sbin/nologin -u %uid -r %cyrususer
+%sysusers_create_compat %{SOURCE19}
 
 %post
 %systemd_post cyrus-imapd.service
@@ -601,7 +584,6 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 
 %postun
 %systemd_postun_with_restart cyrus-imapd.service
-
 
 %files
 %doc README.md doc/README.* doc/examples doc/text
@@ -616,7 +598,6 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 # For the legacy symlink to the deliver binary
 # RF hardcoded-library-path in /usr/lib/cyrus-imapd
 /usr/lib/cyrus-imapd/
-
 
 %dir /etc/pki/cyrus-imapd
 %attr(0644,root,%cyrusgroup) %ghost %config(missingok,noreplace) %verify(not md5 size mtime) %ssl_pem_file_prefix-ca.pem
@@ -633,6 +614,7 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 %_unitdir/cyrus-imapd.service
 %_unitdir/cyrus-imapd-init.service
 %_tmpfilesdir/cyrus-imapd.conf
+%{_sysusersdir}/cyrus-imapd.conf
 
 %dir %cyrexecdir/
 %cyrexecdir/[a-uw-z]*
@@ -665,32 +647,26 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 %attr(0700,%cyrususer,%cyrusgroup) /run/cyrus/proc/
 %attr(0750,%cyrususer,%cyrusgroup) /run/cyrus/socket/
 
-
 %files devel
 %_includedir/cyrus/
 %_libdir/libcyrus*.so
 %_libdir/pkgconfig/*.pc
 %_mandir/man3/imclient.3*
 
-
 %files doc-extra
 %doc doc/html doc/internal doc/legacy
-
 
 %files libs
 %license COPYING
 %_libdir/libcyrus*.so.*
 
-
 %files utils
 %{_bindir}/*
 %_mandir/man1/*
 
-
 %files virusscan
 %_sbindir/cyr_virusscan
 %_mandir/man8/cyr_virusscan.8*
-
 
 %files -n perl-Cyrus
 %license COPYING
@@ -702,8 +678,12 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 %perl_vendorlib/Cyrus
 %_mandir/man3/*.3pm*
 
-
 %changelog
+* Thu Jul 20 2023 Martin Osvald <mosvald@redhat.com> - 3.8.0-1
+- New version 3.8.0 (rhbz#2169331)
+- Remove attribute always_inline for buf_len to fix compilation error
+- Use systemd-sysusers for cyrus user and group (rhbz#2139054)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

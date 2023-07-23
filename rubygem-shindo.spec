@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.10
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Simple depth first Ruby testing
 License: MIT
 URL: http://github.com/geemus/shindo
@@ -79,6 +79,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

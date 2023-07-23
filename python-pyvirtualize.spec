@@ -25,7 +25,7 @@ And of course, you can use it to access all the API through python.
 Name:           python-%{modname}
 # pypi tells current version
 Version:        0.10
-Release:        14.%{date}git%(c=%commit0; echo ${c:0:7} )%{?dist}
+Release:        15.%{date}git%(c=%commit0; echo ${c:0:7} )%{?dist}
 Summary:        Another python frontend to access and manage pyvmomi
 
 License:        ASL 2.0
@@ -127,6 +127,9 @@ ln -fs %{_jsdir}/jquery/3/jquery.js docs/build/html/_static
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-15.20191018gitdc2d971
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Raphael Groner <raphgro@fedoraproject.org> - 0.10-14.20191018gitdc2d971
 - skip jquery dropped with sphinx 6 as in F39+ 
 

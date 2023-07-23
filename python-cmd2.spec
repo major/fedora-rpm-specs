@@ -2,7 +2,7 @@
 
 Name:             python-%{pypi_name}
 Version:          2.4.2
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Extra features for standard library's cmd module
 
 License:          MIT
@@ -64,6 +64,9 @@ Requires:         /usr/bin/which
 %{python3_sitelib}/%{pypi_name}-%{version}*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.4.2-3
 - Rebuilt for Python 3.12
 

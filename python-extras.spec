@@ -2,7 +2,7 @@
 
 Name:           python-extras
 Version:        1.0.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Useful extra bits for Python
 
 License:        MIT
@@ -51,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} setup.py test
 %doc NEWS README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.0.0-28
 - Rebuilt for Python 3.12
 

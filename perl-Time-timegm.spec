@@ -1,6 +1,6 @@
 Name:           perl-Time-timegm
 Version:        0.01
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        UTC version of mktime()
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-timegm
@@ -53,6 +53,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete -print
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.01-30
 - Perl 5.38 rebuild
 

@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 1.1.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Library used to edit or create SubRip files
 License: GPLv3
 URL: https://github.com/byroot/pysrt
@@ -52,6 +52,9 @@ done
 %{python3_sitelib}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.2-14
 - Rebuilt for Python 3.12
 

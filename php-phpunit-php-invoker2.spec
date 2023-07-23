@@ -22,7 +22,7 @@
 
 Name:           php-phpunit-php-invoker2
 Version:        2.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Invoke callables with a timeout
 
 License:        BSD-3-Clause
@@ -100,6 +100,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.0.1-7
 - use SPDX license ID
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A dark stylesheet for Python and Qt applications
 
 License:        MIT
@@ -72,6 +72,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{mod_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A backend toolkit for management of WebScrapBook collection
 
 License:        MIT
@@ -63,6 +63,9 @@ Recommends:     python3-%{pypi_name}+adhoc_ssl
 %{_bindir}/wsbview
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.16.0-1
 - New upstream release
 - Add mailcap as build requirement (for mime.types, needed by tests)

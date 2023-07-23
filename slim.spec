@@ -1,6 +1,6 @@
 Name:           slim
 Version:        1.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple Login Manager
 License:        GPL-2.0-or-later
 #changed from GPLv2+ per BZ: 2173236, comment 11 and https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
@@ -129,6 +129,9 @@ mkdir -p %{buildroot}/%{_libdir}/
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 14 2023 Ranjan Maitra <aarem@Fedoraproject.org> - 1.4.0-6
 - Bumped up version, really does nothing new
 

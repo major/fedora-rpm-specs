@@ -5,7 +5,7 @@
 %global crate target-lexicon
 
 Name:           rust-target-lexicon
-Version:        0.12.9
+Version:        0.12.10
 Release:        %autorelease
 Summary:        Targeting utilities for compilers and related tools
 

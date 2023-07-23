@@ -1,7 +1,7 @@
 Summary: Library for tracking application startup
 Name: startup-notification
 Version: 0.12
-Release: 25%{?dist}
+Release: 26%{?dist}
 URL: http://www.freedesktop.org/software/startup-notification/
 #VCS: git:git://git.freedesktop.org/git/startup-notification
 Source0: http://www.freedesktop.org/software/startup-notification/releases/%{name}-%{version}.tar.gz
@@ -55,6 +55,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

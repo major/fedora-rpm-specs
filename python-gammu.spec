@@ -3,7 +3,7 @@
 
 Name:       python-gammu
 Version:    3.2.4
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Python bindings for Gammu
 License:    GPLv2+
 URL:        http://wammu.eu/python-gammu/
@@ -54,6 +54,9 @@ system for feature requests.
 %{python3_sitearch}/python_gammu-*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.4-6
 - Rebuilt for Python 3.12
 

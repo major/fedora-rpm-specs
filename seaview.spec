@@ -1,6 +1,6 @@
 Name:           seaview
 Version:        5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Graphical multiple sequence alignment editor
 
 License:        GPLv2+
@@ -67,6 +67,9 @@ install -m 644 seaview.1 $RPM_BUILD_ROOT/%{_mandir}/man1
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

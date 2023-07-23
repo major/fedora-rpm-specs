@@ -1,6 +1,6 @@
 Name:           python-virtualenv
 Version:        20.21.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -151,6 +151,9 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
 %{_bindir}/virtualenv
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.21.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 20.21.1-3
 - Rebuilt for Python 3.12
 

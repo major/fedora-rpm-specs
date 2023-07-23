@@ -7,7 +7,7 @@
 
 Name: privoxy
 Version: 3.0.34
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Privacy enhancing proxy
 License: GPL-2.0-or-later
 Source0: http://downloads.sourceforge.net/ijbswa/%{name}-%{version}-%{beta_or_stable}-src.tar.gz
@@ -106,6 +106,9 @@ fi
 %doc doc
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.34-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.34-3
 - Upstream patch to move to pcre2.
 

@@ -2,7 +2,7 @@
 
 Name:           python-requests-futures
 Version:        1.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Asynchronous Python HTTP Requests
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ BuildRequires:  python3-pytest
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-15
 - Rebuilt for Python 3.12
 

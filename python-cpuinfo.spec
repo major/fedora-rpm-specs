@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        9.0.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -77,6 +77,12 @@ sed -i -e '/^#!\//, 1d' cpuinfo/cpuinfo.py
 
 
 %changelog
+* Fri Jul 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 9.0.0-5
+- Mark this as SPDX license expression converted
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 9.0.0-3
 - Rebuilt for Python 3.12
 

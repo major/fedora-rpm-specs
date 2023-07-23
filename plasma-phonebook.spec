@@ -3,7 +3,7 @@
 
 Name:           plasma-phonebook
 Version:        23.01.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        CC0 and GPLv2 and GPLv3 and GPLv3+ and LGPLv2+
 Summary:        Convergent Plasma Mobile phonebook application
 Url:            https://invent.kde.org/plasma-mobile/%{name}
@@ -65,6 +65,9 @@ Contacts application which allows adding, modifying and removing contacts.
 %{_qt5_plugindir}/kpeople/actions/phonebook_kpeople_plugin.so
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

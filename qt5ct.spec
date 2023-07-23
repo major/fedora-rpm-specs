@@ -1,6 +1,6 @@
 Name:           qt5ct
 Version:        1.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Qt5 Configuration Tool
 
 License:        BSD
@@ -60,6 +60,9 @@ install -D -pm 644 src/%{name}/translations/*.qm %{buildroot}%{_datadir}/%{name}
 %{_qt5_plugindir}/styles/libqt5ct-style.so
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Jan Grulich <jgrulich@redhat.com> - 1.1-17
 - Rebuild (qt5)
 

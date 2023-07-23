@@ -7,7 +7,7 @@ a storage back-end.}
 
 Name:           python-%{srcname}
 Version:        1.1.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Back-end data caching and persistence daemon for Graphite
 License:        ASL 2.0
@@ -218,6 +218,9 @@ getent passwd carbon >/dev/null || \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.1.10-3
 - Rebuilt for Python 3.12
 

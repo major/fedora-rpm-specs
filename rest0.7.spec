@@ -1,6 +1,6 @@
 Name:          rest0.7
 Version:       0.8.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       A library for access to RESTful web services
 
 License:       LGPLv2
@@ -74,6 +74,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/RestExtras-0.7.gir
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

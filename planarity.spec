@@ -1,7 +1,7 @@
 Name:		planarity
 Summary:	Implementations of several planarity-related graph algorithms
 Version:	3.0.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	BSD-3-Clause
 URL:		https://github.com/graph-algorithms/edge-addition-planarity-suite
 Source0:	%{url}/archive/Version_%{version}/%{name}-%{version}.tar.gz
@@ -98,6 +98,9 @@ rm -rf %{buildroot}%{_docdir}
 %doc c/samples/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

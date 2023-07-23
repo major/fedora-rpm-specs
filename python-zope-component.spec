@@ -4,7 +4,7 @@
 Summary: Zope Component Architecture
 Name: python-zope-component
 Version: 5.0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source0: https://pypi.io/packages/source/z/%{modname}/%{modname}-%{version}.tar.gz
 License: ZPLv2.1
 BuildArch: noarch
@@ -71,6 +71,9 @@ rm -fr html/{.buildinfo,.doctrees}
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 5.0.1-5
 - Rebuilt for Python 3.12
 

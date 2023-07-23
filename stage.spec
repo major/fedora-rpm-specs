@@ -3,7 +3,7 @@
 
 Name:           stage
 Version:        4.3.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A 2.5D multi-robot simulator
 
 License:        GPLv2+
@@ -109,6 +109,9 @@ rm -rf %{buildroot}%{_datadir}/stage/worlds/wifi*
 %{_includedir}/Stage-%{abiversion}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

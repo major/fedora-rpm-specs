@@ -100,7 +100,9 @@ This package contains the pkg-config file and development headers for %{name}.
 %package libs
 Summary:        Libraries for %{name}
 Requires:       bubblewrap >= %{bubblewrap_version}
-Requires:       ostree%{?_isa} >= %{ostree_version}
+# We can assume ostree is installed on ostree systems
+# So do not enforce it on non-ostree ones
+Requires:       ostree-libs%{?_isa} >= %{ostree_version}
 
 %description libs
 This package contains libflatpak.

@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extract metadata from remote conda packages without downloading whole file
 
 License:        BSD-3-Clause
@@ -77,6 +77,9 @@ export CONDA_EXE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 20 2023 Python Maint <python-maint@redhat.com> - 0.7.0-6
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           python-evdev
 Version:        1.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python bindings for the Linux input handling subsystem
 
 License:        BSD
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 #------------------------------------------------------------------------------
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.0-4
 - Rebuilt for Python 3.12
 

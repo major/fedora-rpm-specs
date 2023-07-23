@@ -1,6 +1,6 @@
 Name:           python-lunr
 Version:        0.6.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python implementation of Lunr.js
 
 License:        MIT
@@ -68,6 +68,9 @@ implementation as possible.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.6.2-5
 - Rebuilt for Python 3.12
 

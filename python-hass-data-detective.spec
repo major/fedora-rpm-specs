@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Tools for studying Home Assistant data
 
 License:        MIT
@@ -55,6 +55,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests \
 %{python3_sitelib}/HASS_data_detective-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2.4-8
 - Rebuilt for Python 3.12
 

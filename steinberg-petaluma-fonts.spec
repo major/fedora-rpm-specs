@@ -14,7 +14,7 @@ URL:            https://www.smufl.org/fonts/
 # If both %%petalumaver and %%petalumascriptver were increased,
 # release should be reset to 1. Otherwise, keep increasing it so that
 # name-version-release keeps growing for both subpackages.
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
@@ -120,6 +120,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %files          all
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.065-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.065-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

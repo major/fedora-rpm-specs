@@ -6,7 +6,7 @@
 
 Name: python-lit
 Version: %{lit_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 BuildArch: noarch
 
 License: NCSA
@@ -62,6 +62,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-2
 - Rebuilt for Python 3.12 again
 

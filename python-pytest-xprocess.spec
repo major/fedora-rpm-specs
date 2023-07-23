@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.22.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pytest plugin to manage external processes across test runs
 
 License:        MIT
@@ -66,6 +66,9 @@ chmod -x README.rst
 %{python3_sitelib}/pytest_xprocess-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.22.2-3
 - Rebuilt for Python 3.12
 

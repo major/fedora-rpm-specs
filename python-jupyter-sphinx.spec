@@ -1,6 +1,6 @@
 Name:           python-jupyter-sphinx
 Version:        0.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Jupyter Sphinx extensions
 License:        BSD-3-Clause
 URL:            https://jupyter-sphinx.readthedocs.io/
@@ -77,6 +77,9 @@ rm doc/build/html/.buildinfo
 %doc doc/build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 0.4.0-4
 - Rebuilt for Python 3.12
 

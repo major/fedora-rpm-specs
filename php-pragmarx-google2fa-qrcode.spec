@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        1.0.3
-Release:        8%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        9%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        QR Code package for Google2FA
 
 License:        MIT
@@ -151,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

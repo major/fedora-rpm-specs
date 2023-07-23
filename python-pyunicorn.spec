@@ -22,7 +22,7 @@ designed for analyzing networks of interacting/interdependent networks.}
 
 Name:           python-%{pypi_name}
 Version:        0.6.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Unified complex network and recurrence analysis toolbox
 
 # The entire source code is BSD except the following files:
@@ -132,6 +132,9 @@ sed -i -e 's/python-igraph/igraph/' requirements.txt tox.ini
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

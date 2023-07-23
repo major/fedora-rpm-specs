@@ -3,7 +3,7 @@
 
 Name: scitokens-cpp
 Version: 1.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 License: ASL 2.0
 URL: https://github.com/scitokens/scitokens-cpp
@@ -74,6 +74,9 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Derek Weitzel <dweitzel@unl.edu> - 1.0.2-1
 - Add support for API-configurable cache home
 - Fix enforcer_acl_free logic

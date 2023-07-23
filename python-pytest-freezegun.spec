@@ -1,6 +1,6 @@
 Name:           python-pytest-freezegun
 Version:        0.4.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Wrap pytest tests with fixtures in freeze_time
 
 License:        MIT
@@ -57,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.4.2-8
 - Rebuilt for Python 3.12
 

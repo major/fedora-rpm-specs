@@ -5,7 +5,7 @@
 %global crate automod
 
 Name:           rust-automod
-Version:        1.0.11
+Version:        1.0.12
 Release:        %autorelease
 Summary:        Pull in every source file in a directory as a module
 

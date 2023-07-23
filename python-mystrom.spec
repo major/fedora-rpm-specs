@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python API client for interacting with myStrom devices
 
 License:        MIT
@@ -53,6 +53,9 @@ CLI tool to interact with myStrom devices (bulbs, buttons and plugs).
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.0-9
 - Rebuilt for Python 3.12
 

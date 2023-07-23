@@ -143,7 +143,7 @@
 
 Name:          php-%{composer_project}4
 Version:       %{github_version}
-Release:       2%{?github_prerelease:.%{github_prerelease}}%{?dist}
+Release:       3%{?github_prerelease:.%{github_prerelease}}%{?dist}
 Summary:       Symfony PHP framework (version 4)
 
 # MIT and CC-BY-SA:
@@ -3314,6 +3314,9 @@ exit $RET
 # ##############################################################################
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.50-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb  2 2023 Remi Collet <remi@remirepo.net> - 4.4.50-1
 - update to 4.4.50
 

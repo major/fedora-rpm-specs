@@ -1,7 +1,7 @@
 Summary:      Platform independent library for scheme
 Name:         slib
 Version:      3b7
-Release:      2%{?dist}
+Release:      3%{?dist}
 License:      SLIB
 BuildArch:    noarch
 Source0:      http://groups.csail.mit.edu/mac/ftpdir/scm/slib-%{version}.zip
@@ -34,6 +34,9 @@ install -m644 slib.info $RPM_BUILD_ROOT%{_infodir}
 %{_infodir}/slib.*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3b7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3b7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

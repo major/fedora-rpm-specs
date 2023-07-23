@@ -1,6 +1,6 @@
 Name:           perl-XML-NamespaceFactory
 Version:        1.02
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Simple factory objects for SAX name-spaced names
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/XML-NamespaceFactory
@@ -65,6 +65,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

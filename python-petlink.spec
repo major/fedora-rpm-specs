@@ -6,7 +6,7 @@ The encode and decode routines are written in C and are wrapped with Python.}
 
 Name:           python-%{srcname}
 Version:        0.3.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Decode and encode Petlink data streams (32 and 64 bit)
 
 License:        BSD
@@ -56,6 +56,9 @@ rm -rfv %{srcname}.egg-info
 %{python3_sitearch}/%{srcname}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

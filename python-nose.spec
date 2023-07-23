@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.3.7
-Release:        41%{?dist}
+Release:        42%{?dist}
 BuildArch:      noarch
 
 License:        LGPLv2+ and Public Domain
@@ -106,6 +106,9 @@ ln -sf nosetests-3.1 %{buildroot}%{_mandir}/man1/nosetests.1
 %{python3_sitelib}/nose/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.7-41
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Humane Web Text Generator
 License:        BSD
 URL:            https://pypi.python.org/pypi/%{srcname}
@@ -76,6 +76,9 @@ find %{buildroot}%{python3_sitelib} -name '*.py' \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 4.0.2-6
 - Rebuilt for Python 3.12
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 # append my cmake path before swig is included
 Summary:        Python library parsing HL7 v2.x and v3.x messages
 
@@ -73,6 +73,9 @@ find docs/_build/ -name ".buildinfo" -execdir rm -fv '{}' \;
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3.3-28
 - Rebuilt for Python 3.12
 

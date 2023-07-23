@@ -1,7 +1,7 @@
 Summary:        A simple, lightweight interface to Amazon Web Services
 Name:           python-boto
 Version:        2.49.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 License:        MIT
 URL:            https://github.com/boto/boto
 Source0:        https://pypi.io/packages/source/b/boto/boto-%{version}.tar.gz
@@ -116,6 +116,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/*
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.49.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 05 2023 Miro Hrončok <mhroncok@redhat.com> - 2.49.0-17
 - Require python3-zombie-imp on runtime
 

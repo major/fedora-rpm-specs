@@ -1,6 +1,6 @@
 Name:           sugar-flipsticks
 Version:        14
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A keyframe animation activity for Sugar
 License:        GPLv2+
 URL:            http://wiki.sugarlabs.org/go/Activities/Flip_Sticks
@@ -41,6 +41,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/FlipSticks.activity/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

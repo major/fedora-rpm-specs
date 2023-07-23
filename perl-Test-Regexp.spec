@@ -1,6 +1,6 @@
 Name:		perl-Test-Regexp
 Version:	2017040101
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Test your regular expressions
 License:	MIT
 URL:		https://metacpan.org/release/Test-Regexp
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/Test::Regexp.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2017040101-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Paul Howarth <paul@city-fan.org> - 2017040101-21
 - SPDX migration
 

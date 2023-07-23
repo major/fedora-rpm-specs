@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ruby/ProgressBar is a flexible text progress bar library
 License:        MIT
 
@@ -92,6 +92,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Mar  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.0-1
 - 1.13.0
 

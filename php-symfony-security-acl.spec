@@ -44,7 +44,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       17%{?github_release}%{?dist}
+Release:       18%{?github_release}%{?dist}
 Summary:       Symfony Security Component - ACL (Access Control List)
 
 License:       MIT
@@ -193,6 +193,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Shawn Iwinski <shawn@iwin.ski> - 2.8.0-17
 - Disable tests by default
 - FTBFS (RHBZ #2046835)

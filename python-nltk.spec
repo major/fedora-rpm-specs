@@ -2,7 +2,7 @@
 Name:           python-nltk
 Epoch:          1
 Version:        3.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Natural Language Toolkit
 
 # The entire source code is ASL 2.0 except nltk/stem/porter.py is
@@ -69,6 +69,9 @@ done
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:3.8.1-2
 - Rebuilt for Python 3.12
 

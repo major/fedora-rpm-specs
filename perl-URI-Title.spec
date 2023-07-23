@@ -1,6 +1,6 @@
 Name:           perl-URI-Title
 Version:        1.904
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Get the titles of things on the web in a sensible way
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/URI-Title
@@ -116,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.904-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.904-1
 - 1.904 bump
 

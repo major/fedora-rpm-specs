@@ -3,7 +3,7 @@
 
 Name:		python-%{pkgname}
 Version:	0.20
-Release:	24%{dist}
+Release:	25%{dist}
 Summary:	Adds Virtual Interfaces support to python-novaclient
 License:	ASL 2.0
 URL:		http://pypi.python.org/pypi/%{srcname}
@@ -39,6 +39,9 @@ Requires:	python3-novaclient
 %{python3_sitelib}/__pycache__/%{srcname}*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.20-24
 - Rebuilt for Python 3.12
 

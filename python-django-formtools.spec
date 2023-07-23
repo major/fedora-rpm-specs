@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A set of high-level abstractions for Django forms
 
 License:        BSD
@@ -85,6 +85,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 2.2-9
 - Rebuilt for Python 3.12
 

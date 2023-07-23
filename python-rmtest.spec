@@ -8,7 +8,7 @@
 
 Name:    python-%{srcname}
 Version: 1.0.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: %{summary}
 
 License: BSD
@@ -90,6 +90,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/rmtest %{__python3} setup.py test
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.0.1-12
 - Rebuilt for Python 3.12
 

@@ -3,7 +3,7 @@ Name:               onboard
 Version:            1.4.1
 %global             major_version       1.4
 
-Release:            31%{?dist}
+Release:            32%{?dist}
 Summary:            On-screen keyboard for TabletPC and mobility impaired users (Xorg only)
 
 # The entire source code is GPLv3 apart from translation strings and
@@ -100,6 +100,9 @@ Requires:       onboard
 %{_sysconfdir}/xdg/autostart/onboard-autostart.desktop
 
 %changelog
+* Fri Jul 21 2023 Fabio Valentini <decathorpe@gmail.com> - 1.4.1-32
+- Bump Release to allow workaround for missing Fedora 38 update.
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.4.1-31
 - Rebuilt for Python 3.12
 

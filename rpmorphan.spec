@@ -1,7 +1,7 @@
 Summary:          List packages that have no dependencies (like deborphan)
 Name:             rpmorphan
 Version:          1.19
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPLv2+
 
 BuildArch:        noarch
@@ -87,6 +87,9 @@ mv $RPM_BUILD_ROOT/usr/lib/%{name} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19-1
 - New upstream version 1.19 (RHBZ#2176113)
 

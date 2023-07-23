@@ -7,7 +7,7 @@
 %global crate netlink-proto
 
 Name:           rust-netlink-proto
-Version:        0.11.1
+Version:        0.11.2
 Release:        %autorelease
 Summary:        Async netlink protocol
 

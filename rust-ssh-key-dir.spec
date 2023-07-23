@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        sshd AuthorizedKeysCommand to read ~/.ssh/authorized_keys.d
 
 License:        Apache-2.0
@@ -94,6 +94,9 @@ install -Dpm0644 -t %{buildroot}%{_sysconfdir}/ssh/sshd_config.d conf/40-ssh-key
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.1.4-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

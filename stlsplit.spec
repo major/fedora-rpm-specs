@@ -1,6 +1,6 @@
 Name:           stlsplit
 Version:        1.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Split STL file to more files - one shell each
 License:        AGPL-3.0-or-later
 URL:            https://github.com/admesh/stlsplit/
@@ -55,6 +55,9 @@ install -Dpm 644 %{name}.h %{buildroot}%{_includedir}/%{name}.h
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 07 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2-18
 - Switch the License tag to SPDX
 - Build with premake 5

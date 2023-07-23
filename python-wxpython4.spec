@@ -12,7 +12,7 @@ specific code.
 
 Name:           python-wxpython4
 Version:        4.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -162,6 +162,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 4.2.1-2
 - Backport patches needed for compatibility with Python 3.12
 

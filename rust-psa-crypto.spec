@@ -6,7 +6,7 @@
 
 Name:           rust-psa-crypto
 Version:        0.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Wrapper around the PSA Cryptography API
 
 License:        Apache-2.0
@@ -104,6 +104,9 @@ use the "operations" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

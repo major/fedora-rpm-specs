@@ -1,6 +1,6 @@
 Name:           prewikka
 Version:        5.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Graphical front-end analysis console for IDMEF
 License:        GPLv2+
 URL:            https://www.prelude-siem.org/
@@ -113,6 +113,9 @@ ln -s %{_datadir}/locale %{buildroot}%{python3_sitelib}/%{name}/locale
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.2.0-13
 - Rebuilt for Python 3.12
 

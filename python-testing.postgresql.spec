@@ -1,6 +1,6 @@
 Name:           python-testing.postgresql
 Version:        1.3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Automatically sets up a PostgreSQL testing instance
 
 License:        Apache-2.0
@@ -73,6 +73,9 @@ sed -r -i "s/'nose'/'pytest'/" setup.py
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.3.0-8
 - Rebuilt for Python 3.12
 

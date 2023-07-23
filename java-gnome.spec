@@ -1,7 +1,7 @@
 Summary:	Java GNOME bindings
 Name:		java-gnome
 Version:	4.1.3
-Release:	33%{?dist}
+Release:	34%{?dist}
 URL:		http://java-gnome.sourceforge.net
 Source0:	http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/java-gnome-%{version}.tar.xz
 # Workaround for brp-java-repack-jars skipping top-level dot-files
@@ -14,6 +14,8 @@ Patch2:		java-gnome-4.1.3-javaargs.patch
 Patch3:		java-gnome-4.1.3-javah.patch
 # Fix build script for Python 3
 Patch4:		java-gnome-4.1.3-py3.patch
+# Switch to Java 7
+Patch5:		java-gnome-4.1.3-java7.patch
 # This is the "Classpath" exception.
 License:	GPLv2 with exceptions
 BuildRequires:	pkgconfig
@@ -38,6 +40,7 @@ BuildRequires:	perl
 BuildRequires: make
 Requires:	java-headless >= 1:1.6.0
 Requires:	jpackage-utils
+ExclusiveArch:  %{java_arches}
 
 %description
 These are the Java bindings for GTK and GNOME! Featuring a robust 
@@ -62,11 +65,12 @@ design documentation and sample code.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch -p1 0
+%patch -p1 1
+%patch -p1 2
+%patch -p1 3
+%patch -p1 4
+%patch -p1 5
 
 # Remove all binaries
 find . -name "*.jar" -exec rm -f {} \;
@@ -117,6 +121,11 @@ cp -rp doc/api %{buildroot}%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Alexander Boström <abo@root.snowtree.se> - 4.1.3-34
+- Switch to Java 7
+- Add Java ExclusiveArch
+- Use modern patch numbering syntax
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

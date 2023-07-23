@@ -7,7 +7,7 @@ License:    GPLv2+
 %global git_commit_short %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version:    0.2.0
-Release:    11.%{git_date}git%{git_commit_short}%{?dist}
+Release:    12.%{git_date}git%{git_commit_short}%{?dist}
 
 URL:        https://github.com/Swordfish90/%{name}
 Source0:    %{URL}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -42,6 +42,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-12.20220109git6322802
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-11.20220109git6322802
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

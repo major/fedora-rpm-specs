@@ -18,7 +18,7 @@ container images to version your runtime environments.}
 %global golicenses LICENSE
 
 Name:           source-to-image
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for building artifacts from source and injecting into docker images
 License:        ASL 2.0
 URL:            %{gourl}
@@ -120,6 +120,9 @@ export LDFLAGS="$LDFLAGS -X %{goipath}/pkg/version.versionFromGit=v%{version} "
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.6-1
 - Update to v1.3.6 (#2177650)
 - Rebuilt for CVE-2022-41723 (#2178483)

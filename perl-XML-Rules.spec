@@ -1,6 +1,6 @@
 Name:		perl-XML-Rules
 Version:	1.16
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Parse XML and specify what and how to keep/process for individual tags
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/XML-Rules
@@ -69,6 +69,9 @@ find . -type f -exec sed -i 's/\r//' {} \;
 %{_bindir}/xml2XMLRules.pl
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

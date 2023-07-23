@@ -6,7 +6,7 @@
 
 Name:           qm-vamp-plugins
 Version:        1.7.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Vamp audio feature extraction plugin
 
 License:        GPLv2+
@@ -84,6 +84,9 @@ install -p -m 0755 qm-vamp-plugins.so %{buildroot}%{_libdir}/vamp/
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

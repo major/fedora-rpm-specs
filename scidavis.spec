@@ -5,7 +5,7 @@
 
 Name:           scidavis
 Version:        2.9.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Application for Scientific Data Analysis and Visualization
 
 License:        GPL-3.0-or-later
@@ -132,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.9.0-7
 - Rebuilt for Python 3.12
 

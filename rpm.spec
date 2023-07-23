@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.91
 #global snapver rc1
-%global baserelease 7
+%global baserelease 8
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -624,6 +624,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.91-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.91-7
 - Rebuilt for Python 3.12
 

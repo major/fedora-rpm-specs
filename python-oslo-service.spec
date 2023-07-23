@@ -11,7 +11,7 @@ using the patterns established by other OpenStack applications.
 
 Name:           python-%{pkg_name}
 Version:        3.1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Oslo service library
 
 License:        ASL 2.0
@@ -149,6 +149,9 @@ rm -rf .testrepository
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 24 2023 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 3.1.1-1
 - Update to 3.1.1
 

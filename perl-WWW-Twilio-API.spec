@@ -1,6 +1,6 @@
 Name:           perl-WWW-Twilio-API
 Version:        0.21
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Accessing Twilio's REST API with Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/WWW-Twilio-API
@@ -65,6 +65,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

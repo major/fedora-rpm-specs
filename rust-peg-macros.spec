@@ -6,7 +6,7 @@
 
 Name:           rust-peg-macros
 Version:        0.6.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Procedural macros for rust-peg
 
 # https://github.com/kevinmehall/rust-peg/pull/241
@@ -79,6 +79,9 @@ use the "trace" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.6.3-7
 - Drop binary which is only useful for upstream development.
 

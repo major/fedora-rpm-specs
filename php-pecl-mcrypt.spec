@@ -20,7 +20,7 @@
 Summary:      Bindings for the libmcrypt library
 Name:         php-pecl-mcrypt
 Version:      1.0.6
-Release:      1%{?dist}
+Release:      2%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/mcrypt
 Source0:      https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
@@ -157,6 +157,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar  1 2023 Remi Collet <remi@remirepo.net> - 1.0.6-1
 - update to 1.0.6
 

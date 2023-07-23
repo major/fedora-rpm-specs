@@ -1,6 +1,6 @@
 Name:           plantri
 Version:        5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generate certain types of planar graphs
 
 %global upstreamver %(sed 's/\\.//g' <<< %{version})
@@ -38,5 +38,8 @@ cp -p plantri fullgen %{buildroot}%{_bindir}
 %{_bindir}/fullgen
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 28 2023 Jerry James <loganjerry@gmail.com> - 5.3-1
 - Initial RPM

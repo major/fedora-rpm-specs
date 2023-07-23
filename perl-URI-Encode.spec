@@ -2,7 +2,7 @@
 
 Name:           perl-URI-Encode
 Version:        %(echo '%{cpan_version}' | tr -d 'v')
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Percent encoding/decoding for URIs
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/URI-Encode
@@ -56,6 +56,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/URI::Encode.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

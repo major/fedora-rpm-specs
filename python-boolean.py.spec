@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Define boolean algebras, and create and parse boolean expressions
 
 License:        BSD
@@ -52,6 +52,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python3_sitelib}/boolean/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.0-3
 - Rebuilt for Python 3.12
 

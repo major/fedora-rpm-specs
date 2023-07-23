@@ -30,7 +30,7 @@
 
 Name:           php-%{pecl_name}
 Version:        1.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 
 Summary:        Client extension for Redis
 
@@ -190,6 +190,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.0.1-12
 - use SPDX license ID
 

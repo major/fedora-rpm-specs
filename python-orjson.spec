@@ -10,7 +10,7 @@
 
 Name:           python-orjson
 Version:        3.8.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, correct Python JSON library
 
 License:        Apache-2.0 OR MIT
@@ -108,6 +108,9 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 3.8.12-2
 - Rebuilt for Python 3.12
 

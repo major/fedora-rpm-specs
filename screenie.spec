@@ -1,6 +1,6 @@
 Name:           screenie
 Version:        20120406
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A small and lightweight screen wrapper
 
 License:        GPLv2+
@@ -32,6 +32,9 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20120406-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20120406-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

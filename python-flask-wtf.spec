@@ -2,7 +2,7 @@
 
 Name:           python-flask-wtf
 Version:        1.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple integration of Flask and WTForms
 
 License:        BSD
@@ -53,6 +53,9 @@ includes optional CSRF handling for greater security.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.1.1-2
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.14.0.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        QUnit (XStatic packaging standard)
 
 License:        MIT
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/qunit/qunit.js
 %{_jsdir}/qunit
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.14.0.2-28
 - Rebuilt for Python 3.12
 

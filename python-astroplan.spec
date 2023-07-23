@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python package to help astronomers plan observations
 
 License:        BSD
@@ -70,6 +70,9 @@ popd
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8-8
 - Rebuilt for Python 3.12
 

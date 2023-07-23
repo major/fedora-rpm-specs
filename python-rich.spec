@@ -5,6 +5,7 @@ Version:        13.4.2
 Release:        %autorelease
 Summary:        Render rich text and beautiful formatting in the terminal
 
+# https://spdx.org/licenses/MIT.html
 License:        MIT
 URL:            https://github.com/Textualize/rich
 Source0:        %{url}/archive/v%{version}/rich-%{version}.tar.gz

@@ -1,6 +1,6 @@
 Name:           perl-Test-Smoke
 Version:        1.80
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl core test smoke suite
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Smoke
@@ -169,6 +169,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.80-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 04 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.80-2
 - Fix false negatives in reporter.t
 

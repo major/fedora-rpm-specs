@@ -36,7 +36,7 @@ MUSIC is distributed under the GNU General Public License v3.}
 
 Name:           MUSIC
 Version:        1.1.16
-Release:        12.20201002git%{shortcommit}%{?dist}
+Release:        13.20201002git%{shortcommit}%{?dist}
 Summary:        The MUltiSimulation Coordinator
 
 License:        GPLv3+
@@ -60,7 +60,10 @@ BuildRequires:  libtool
 BuildRequires:  patch
 BuildRequires:  hwloc-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-Cython
+# MUSIC is not compatible with Cython 3
+# https://bugzilla.redhat.com/show_bug.cgi?id=2224366
+# reported upstream: https://github.com/INCF/MUSIC/issues/77
+BuildRequires:  python3dist(cython) < 3~~
 # For distutils in Python 3.12+:
 # See: “In Python 3.12, the distutils package is removed”
 #      https://github.com/INCF/MUSIC/issues/74
@@ -386,6 +389,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Thu Jul 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.16-13.20201002git8c6b77a
+- Use the Cython compat package for now
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-12.20201002git8c6b77a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

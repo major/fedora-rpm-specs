@@ -2,7 +2,7 @@
 
 Name:           python-libpagure
 Version:        0.21
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A Python library for Pagure APIs
 License:        GPLv2+
 URL:            https://pagure.io/libpagure/
@@ -42,6 +42,9 @@ A Python library for Pagure APIs
 %{python3_sitelib}/libpagure*/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.21-16
 - Rebuilt for Python 3.12
 

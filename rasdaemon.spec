@@ -1,6 +1,6 @@
 Name:			rasdaemon
 Version:		0.8.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Utility to receive RAS error tracings
 Group:			Applications/System
 License:		GPLv2
@@ -74,6 +74,9 @@ rm INSTALL %{buildroot}/usr/include/*.h
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 
 * Sat Feb 18 2023 Mauro Carvalho Chehab <mchehab@kernel.org>  0.8.0
 - Bump to version 0.8.0 using libtraceevent.

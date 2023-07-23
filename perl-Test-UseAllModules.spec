@@ -1,6 +1,6 @@
 Name:           perl-Test-UseAllModules
 Version:        0.17
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Do use_ok() for all the MANIFESTed modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-UseAllModules
@@ -63,6 +63,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/Test::UseAllModules.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

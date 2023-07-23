@@ -1,6 +1,6 @@
 Name:           python-persistent
 Version:        5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Translucent persistent python objects
 
 License:        ZPL-2.1
@@ -119,6 +119,9 @@ zope-testrunner --test-path=src -vc
 %doc docs/_build/html/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Jerry James <loganjerry@gmail.com> - 5.0-3
 - Add upstream patch for python 3.12 compatibility
 

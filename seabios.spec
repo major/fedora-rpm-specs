@@ -4,7 +4,7 @@
 
 Name:           seabios
 Version:        1.16.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source legacy BIOS implementation
 
 License:        LGPL-3.0-only
@@ -160,6 +160,9 @@ install -m 0644 binaries/vgabios*.bin $RPM_BUILD_ROOT%{_datadir}/seavgabios
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 20 2023 Gerd Hoffmann <kraxel@redhat.com> - 1.16.2-1
 - Update to 1.16.2
 

@@ -2,7 +2,7 @@
 
 Name:           seafile
 Version:        8.0.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cloud storage cli client
 
 License:        GPLv2
@@ -88,6 +88,9 @@ find %{buildroot} -name 'seafile.desktop' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 8.0.10-3
 - Rebuilt for Python 3.12
 

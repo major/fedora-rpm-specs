@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 1.200
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 %global foundry           SIL
 %global fontlicense       OFL
@@ -65,6 +65,9 @@ This package provides optional documentation files shipped with
 %doc documentation/*.pdf
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.200-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.200-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

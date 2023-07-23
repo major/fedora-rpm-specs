@@ -1,6 +1,6 @@
 Name:    scottfree
 Version: 1.14
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: Interpreter for Scott Adams format text adventure games
 
 License: GPLv2+
@@ -61,6 +61,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man6/
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

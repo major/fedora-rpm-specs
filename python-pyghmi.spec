@@ -20,7 +20,7 @@ incorporate the pyghmi library into a Python application.
 Summary: %{common_summary}
 Name: python-%{sname}
 Version: %{?version:%{version}}%{!?version:1.5.29}
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source0: https://tarballs.opendev.org/x/%{sname}/%{sname}-%{version}.tar.gz
 License: ASL 2.0
 Prefix: %{_prefix}
@@ -176,6 +176,9 @@ popd
 %doc doc/build/html README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.29-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Dmitry Tantsur <dtantsur@protonmail.com> - 1.5.29-7
 - Avoid setup.py build_sphinx (#2221967)
 

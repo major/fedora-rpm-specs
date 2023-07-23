@@ -11,7 +11,7 @@
 
 Name:           php-pear-Net-SMTP
 Version:        1.10.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Provides an implementation of the SMTP protocol
 
 License:        BSD-2-Clause
@@ -102,6 +102,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 26 2023 Remi Collet <remi@remirepo.net> - 1.10.1-3
 - use SPDX license ID
 

@@ -1,6 +1,6 @@
 Name:           stomppy
 Version:        8.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python stomp client for messaging
 
 License:        ASL 2.0
@@ -48,6 +48,9 @@ sed -i 's/.*PyOpenSSL.*/PyOpenSSL = ">=20.0.1"/' pyproject.toml
 %{_bindir}/stomp
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 8.1.0-3
 - Rebuilt for Python 3.12
 

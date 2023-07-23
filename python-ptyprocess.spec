@@ -4,7 +4,7 @@
 
 Name:           python-ptyprocess
 Version:        0.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Run a subprocess in a pseudo terminal
 
 License:        ISC
@@ -52,6 +52,9 @@ process and its pty.
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.7.0-4
 - Rebuilt for Python 3.12
 

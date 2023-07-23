@@ -1,6 +1,6 @@
 Name:           python-swagger-spec-validator
 Version:        3.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Validation of Swagger specifications
 
 License:        Apache-2.0
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.0.3-2
 - Rebuilt for Python 3.12
 

@@ -28,7 +28,7 @@
 
 Name:          php-%{composer_project}%{major}
 Version:       3.6.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
 License:       BSD-3-Clause
@@ -158,6 +158,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Remi Collet <remi@remirepo.net> - 3.6.1-1
 - update to 3.6.1
 

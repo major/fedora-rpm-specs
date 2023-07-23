@@ -3,7 +3,7 @@
 Summary: A python SOAP client
 Name:  python-suds
 Version: 1.1.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: https://github.com/suds-community/suds/archive/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 Patch0: suds-pyname.patch
 License: LGPLv3+
@@ -47,6 +47,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.2-4
 - Rebuilt for Python 3.12
 

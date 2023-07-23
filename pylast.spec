@@ -2,7 +2,7 @@
 
 Name:		    %{srcname}
 Version:	  4.1.0
-Release:	  9%{?dist}
+Release:	  10%{?dist}
 Summary:	  Python interface to Last.fm API compatible social networks
 
 License:	  ASL 2.0
@@ -41,6 +41,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.1.0-9
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Context framework extracted from Shoulda
 License: MIT
 URL: https://github.com/thoughtbot/shoulda-context
@@ -135,6 +135,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 01 2023 Vít Ondruch <vondruch@redhat.com> - 1.2.2-15
 - Drop jQuery dependency, which is not needed by RoR 5.1+.
 

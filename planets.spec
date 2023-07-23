@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name: planets
 Version:  0.1.13
-Release:  35%{?dist}
+Release:  36%{?dist}
 Summary: A celestial simulator  
 
 License: GPL-2.0-or-later
@@ -59,6 +59,9 @@ install -p -m 644 planets.png \
 %{_mandir}/man1/planets.1.gz
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1.13-35
 - migrated to SPDX license
 

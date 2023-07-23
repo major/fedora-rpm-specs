@@ -1,6 +1,6 @@
 Name:           sdcc
 Version:        4.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Small Device C Compiler
 License:        GPLv2+
 URL:            http://sdcc.sourceforge.net/
@@ -131,6 +131,9 @@ popd
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 4.1.0-7
 - Fix C99 compatibility issues in configure scripts
 

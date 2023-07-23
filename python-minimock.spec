@@ -1,6 +1,6 @@
 Name:           python-minimock
 Version:        1.2.8
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        The simplest possible mock library
 
 License:        MIT
@@ -47,6 +47,9 @@ minimock is a simple library for doing Mock objects with doctest.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.8-33
 - Rebuilt for Python 3.12
 

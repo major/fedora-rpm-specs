@@ -1,6 +1,6 @@
 Name:		squeekboard
 Version:	1.22.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	a Wayland virtual keyboard
 
 License:	GPLv3+
@@ -85,6 +85,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.
 %license COPYING
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 %autochangelog
 
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.20.0-3

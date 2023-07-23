@@ -1,7 +1,7 @@
 %define real_name libwhisker2
 Name:           perl-%{real_name}
 Version:        2.5
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Perl module geared specifically for HTTP testing
 License:        BSD
 URL:            http://www.wiretrip.net/rfp/lw.asp
@@ -108,6 +108,9 @@ perl ./test.pl
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

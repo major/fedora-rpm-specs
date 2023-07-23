@@ -74,7 +74,7 @@
 Name:		sagemath
 Summary:	A free open-source mathematics software system
 Version:	9.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 # The file ${SAGE_ROOT}/COPYING.txt is the upstream license breakdown file.
 # Note that many of the components listed in that file are not built in, but
 # are used as external libraries, and therefore do not affect the License tag.
@@ -2073,6 +2073,9 @@ end
 
 ########################################################################
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 9.8-2
 - Rebuild for libbraiding 1.2
 

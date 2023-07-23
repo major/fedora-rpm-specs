@@ -57,7 +57,7 @@ Twilio, Twitter, Twist, XBMC, Voipms, Vonage, WhatsApp, Webex Teams}
 
 Name:           python-%{pypi_name}
 Version:        1.4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD
 URL:            https://github.com/caronc/%{pypi_name}
@@ -186,6 +186,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version
 %{python3_sitelib}/%{pypi_name}/cli.*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul  6 2023 Chris Caron <lead2gold@gmail.com> - 1.4.5
 - Updated to v1.4.5
 

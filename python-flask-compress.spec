@@ -10,7 +10,7 @@ Flask-Compress will solve the problem for you.}
 
 Name:           python-%{pypi_name}
 Version:        1.13
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Compress responses in your Flask app with gzip or brotli
 
 License:        MIT
@@ -68,6 +68,9 @@ sed -i 's|{version}|%{version}|' setup.py
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.13-5
 - Rebuilt for Python 3.12
 

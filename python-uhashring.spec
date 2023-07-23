@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python module uhashring
 
 License:        BSD-3-Clause
@@ -51,6 +51,9 @@ sed -i 's/ *"flake8",//g' pyproject.toml
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Alfredo Moralejo <amoralej@redhat.com> - 2.3-2
 - Update to 2.3
 

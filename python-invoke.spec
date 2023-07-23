@@ -7,7 +7,7 @@
 
 Name:           python-invoke
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python task execution tool and library
 
 License:        BSD-2-Clause
@@ -69,6 +69,9 @@ ln -s invoke %{buildroot}%{_bindir}/invoke3
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 2.2.0-1
 - Update to 2.2.0
   Resolves: #2192064, #2220281

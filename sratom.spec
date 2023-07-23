@@ -2,7 +2,7 @@
 
 Name:       sratom
 Version:    0.6.14
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A C library for serializing LV2 plugins
 
 License:    MIT
@@ -69,6 +69,9 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %{_includedir}/%{name}-%{maj}/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 22 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.6.14-1
 - Update to 0.6.14
 

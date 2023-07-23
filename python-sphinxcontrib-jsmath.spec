@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Sphinx extension for math in HTML via JavaScript
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -64,6 +64,9 @@ via JavaScript.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.0.1-21
 - Rebuilt for Python 3.12
 

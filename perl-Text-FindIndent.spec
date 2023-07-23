@@ -1,6 +1,6 @@
 Name:           perl-Text-FindIndent
 Version:        0.11
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Heuristically determine the indent style
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-FindIndent
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Text*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.11-23
 - Update Makefile.PL to not use Module::Install::DSL
 

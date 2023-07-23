@@ -6,7 +6,7 @@
 %global crate erased-serde
 
 Name:           rust-erased-serde
-Version:        0.3.27
+Version:        0.3.28
 Release:        %autorelease
 Summary:        Type-erased Serialize and Serializer traits
 

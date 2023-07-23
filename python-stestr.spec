@@ -11,7 +11,7 @@ stestr hard codes python-subunit-isms into how it works.
 
 Name:       python-%{pypi_name}
 Version:    4.0.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 License:    ASL 2.0
@@ -112,6 +112,9 @@ ln -s stestr-3 %{buildroot}/%{_bindir}/stestr-%{python3_version}
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 4.0.1-2
 - Rebuilt for Python 3.12
 

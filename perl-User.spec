@@ -1,6 +1,6 @@
 Name:           perl-User
 Version:        1.9
-Release:        36%{?dist}
+Release:        37%{?dist}
 
 Summary:        API for locating user information regardless of OS
 
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

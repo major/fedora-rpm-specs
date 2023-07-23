@@ -1,6 +1,6 @@
 Name:           sage
 Version:        0.2.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        OpenGL extensions library using SDL
 
 License:        LGPL-2.0-or-later
@@ -72,6 +72,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib%{name}.la
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.0-30
 - migrated to SPDX license
 

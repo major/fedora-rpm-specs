@@ -15,7 +15,7 @@ order to make this process easier.}
 
 Name:           python-%{original_name}
 Version:        0.2.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A simple command-line interface for manipulating toml files
 
 License:        MIT
@@ -74,6 +74,9 @@ install -D -t '%{buildroot}%{_mandir}/man1' -m 0644 %{original_name}.1
 %{_mandir}/man1/%{original_name}.1*
  
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.2.11-2
 - Rebuilt for Python 3.12
 

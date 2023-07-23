@@ -7,8 +7,8 @@
 
 Name:		perl-CPAN-Meta-Check
 Summary:	Verify requirements in a CPAN::Meta object
-Version:	0.017
-Release:	3%{?dist}
+Version:	0.018
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Meta-Check
 Source0:	https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Meta-Check-%{version}.tar.gz
@@ -31,6 +31,9 @@ BuildRequires:	perl(warnings)
 # Test
 BuildRequires:	perl(CPAN::Meta) >= 2.120920
 BuildRequires:	perl(Env)
+BuildRequires:	perl(File::Spec)
+BuildRequires:	perl(IO::Handle)
+BuildRequires:	perl(IPC::Open3)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Test::More) >= 0.88
@@ -41,14 +44,12 @@ BuildRequires:	perl(Test::More) >= 0.88
 # → perl-CPAN-Meta-Check
 # Extra tests
 BuildRequires:	perl(blib)
-BuildRequires:	perl(File::Spec)
-BuildRequires:	perl(IO::Handle)
-BuildRequires:	perl(IPC::Open3)
 BuildRequires:	perl(Pod::Coverage::TrustPod)
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module verifies if requirements described in a CPAN::Meta object are
@@ -78,6 +79,11 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/CPAN::Meta::Check.3*
 
 %changelog
+* Fri Jul 21 2023 Paul Howarth <paul@city-fan.org> - 0.018-1
+- Update to 0.018
+  - Fix version requirement for CPAN::Meta::Prereqs
+  - Move issue tracker to GitHub
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.017-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

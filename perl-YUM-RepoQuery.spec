@@ -1,7 +1,7 @@
 %global enable_net_tests 0
 Name:           perl-YUM-RepoQuery
 Version:        0.002
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Query a YUM repository for package information
 License:        LGPLv2+
 URL:            https://metacpan.org/release/YUM-RepoQuery
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

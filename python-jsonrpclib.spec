@@ -1,6 +1,6 @@
 Name:          python-jsonrpclib
 Version:       0.4.3.2
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       JSON-RPC v2.0 client library for Python
 
 License:       ASL 2.0
@@ -49,6 +49,9 @@ Summary: %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.3.2-5
 - Rebuilt for Python 3.12
 

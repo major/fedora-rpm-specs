@@ -1,6 +1,6 @@
 Name:           qmmp-plugin-pack
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 License:        GPLv2+
@@ -59,6 +59,9 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 27 2023 Karel Volný <kvolny@redhat.com> 2.1.1-1
 - new version 2.1.1 (rhbz#2181635)
 - see the upstream changelog at http://qmmp.ylsoftware.com/

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version:    1.4.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 URL:        https://gitlab.com/rit-fonts/tnjoy
 
 %global foundry RIT
@@ -50,6 +50,9 @@ make otf
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

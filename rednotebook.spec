@@ -1,6 +1,6 @@
 Name: rednotebook
 Version: 2.29.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Daily journal with calendar, templates and keyword searching
 License: GPL-2.0-or-later
 
@@ -72,6 +72,9 @@ mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir
 %{python3_sitelib}/%{name}/__pycache__
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.29.6-2
 - Rebuilt for Python 3.12
 

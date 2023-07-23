@@ -15,7 +15,7 @@
 
 Name:             byteman
 Version:          4.0.16
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Java agent-based bytecode injection tool
 License:          LGPLv2+
 URL:              http://www.jboss.org/byteman
@@ -26,7 +26,7 @@ BuildArch:        noarch
 ExclusiveArch:  %{java_arches} noarch
 
 # Byteman 4.x requires JDK 9+ to build. Require JDK 10 explicitly.
-BuildRequires:    java-11-openjdk-devel
+BuildRequires:    java-17-openjdk-devel
 BuildRequires:    maven-local
 BuildRequires:    maven-shade-plugin
 BuildRequires:    maven-source-plugin
@@ -124,6 +124,10 @@ sed -i "s|java-cup|java_cup|" tests/pom.xml
 %pom_xpath_remove "pom:build/pom:plugins/pom:plugin[pom:artifactId='maven-surefire-plugin']/pom:executions" contrib/bmunit
 %pom_xpath_set "pom:build/pom:plugins/pom:plugin[pom:artifactId='maven-surefire-plugin']/pom:configuration" '<skip>true</skip>' contrib/bmunit
 
+# source/target 1.6 is not supported by 17; default is now 1.8
+%pom_xpath_remove "pom:build/pom:plugins/pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:source" pom.xml
+%pom_xpath_remove "pom:build/pom:plugins/pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:target" pom.xml
+
 # Don't build download, docs modules
 %pom_disable_module download
 %pom_disable_module docs
@@ -144,7 +148,7 @@ sed -i "s|java-cup|java_cup|" tests/pom.xml
 %mvn_package ":byteman-dtest" dtest
 
 %build
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 # Use --xmvn-javadoc so as to avoid maven-javadoc-plugin issue
 # (fixed in 3.1.0, fedora has 3.0.1):
 # See https://issues.apache.org/jira/browse/MJAVADOC-555
@@ -216,6 +220,9 @@ ln -s %{_javadir}/byteman/byteman.jar $RPM_BUILD_ROOT%{homedir}/lib/byteman.jar
 %{homedir}/lib/byteman-dtest.jar
 
 %changelog
+* Wed Jul 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.0.16-10
+- Build with Java 17
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.16-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           php-phpseclib-crypt-rc4
 Version:        0.3.9
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Pure-PHP implementation of RC4
 
 License:        MIT
@@ -66,6 +66,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

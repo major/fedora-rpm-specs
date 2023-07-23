@@ -2,7 +2,7 @@
 
 Name:          python-%{modname}
 Version:       0.6.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
 License:       GPLv2+
@@ -53,6 +53,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 17 2023 Jan Hutar <jhutar@redhat.com> - 0.6.3-1
 - gotmax23: remove usage of deprecated rpm.fi
 

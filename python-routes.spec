@@ -1,6 +1,6 @@
 Name: python-routes
 Version: 2.5.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Routing Recognition and Generation Tools
 
 # tests/test_functional/test_recognition.py is BSD, not shipped in main RPM.
@@ -57,6 +57,9 @@ PYTHONPATH=$(pwd) python3 -m pytest
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.5.1-6
 - Rebuilt for Python 3.12
 

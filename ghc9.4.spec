@@ -118,8 +118,11 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 Patch5: https://gitlab.haskell.org/ghc/ghc/-/commit/6e12e3c178fe9ad16131eb3c089bd6578976f5d6.patch
 Patch7: ghc-compiler-enable-build-id.patch
 Patch8: ghc-configure-c99.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/23286
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23286 (needed for sphinx-6)
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
+# distutils gone in python 3.12
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922
+Patch10: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922.patch
 
 # arm patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
@@ -428,6 +431,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %endif
 %patch -P8 -p1 -b .orig
 %patch -P9 -p1 -b .orig
+%patch -P10 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 

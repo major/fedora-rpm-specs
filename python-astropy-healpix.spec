@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -76,6 +76,9 @@ rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
 %{python3_sitearch}/%{modname}*egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7-4
 - Disable tests related to FP limitation (upstream github bug 183)
 

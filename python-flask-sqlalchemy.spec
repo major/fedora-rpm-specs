@@ -2,7 +2,7 @@
 
 Name:           python-flask-sqlalchemy
 Version:        3.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Adds SQLAlchemy support to Flask application
 
 License:        BSD
@@ -60,6 +60,9 @@ Python 3 version.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.0.3-2
 - Rebuilt for Python 3.12
 

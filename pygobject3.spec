@@ -5,7 +5,7 @@
 
 Name:           pygobject3
 Version:        3.44.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
@@ -113,6 +113,9 @@ This package contains files required to embed PyGObject
 %{_libdir}/pkgconfig/pygobject-3.0.pc
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.44.1-2
 - Rebuilt for Python 3.12
 

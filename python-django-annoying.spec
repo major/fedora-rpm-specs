@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.10.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Eliminate annoying things in the Django framework
 Summary(sv):    Eliminera irriterande saker i Django-ramverket
 
@@ -58,6 +58,9 @@ Detta paket tillhandahåller ett Python 3-bygge av %{pypi_name}.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10.6-8
 - Rebuilt for Python 3.12
 

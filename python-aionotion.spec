@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python library for Notion Home Monitoring
 
 License:        MIT
@@ -41,6 +41,9 @@ A asyncio-friendly library for Notion Home Monitoring devices.
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 2.0.3-10
 - Rebuilt for Python 3.12
 

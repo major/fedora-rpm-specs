@@ -6,7 +6,7 @@
 
 Name:           rust-gptman
 Version:        0.8.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GPT manager that allows you to copy partitions from one disk to another
 
 License:        MIT OR Apache-2.0
@@ -70,6 +70,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 19 2023 Fabio Valentini <decathorpe@gmail.com> - 0.8.4-4
 - Regenerate spec file with modern rust2rpm.
 

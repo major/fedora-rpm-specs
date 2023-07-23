@@ -9,7 +9,7 @@ delegating behavior.
 
 Name:           python-%{pkgname}
 Version:        2.0.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        %{summary}
 
 License:        LGPLv3
@@ -97,6 +97,9 @@ Requires:       python%{python3_other_pkgversion}-zope-interface
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.3-23
 - Rebuilt for Python 3.12
 

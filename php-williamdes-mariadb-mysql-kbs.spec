@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        1.2.14
-Release:        2%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        3%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        An index of the MariaDB and MySQL Knowledge bases
 
 License:        MPLv2.0
@@ -145,6 +145,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           python-raven
 
 Version:        6.10.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Python client for Sentry
 
 License:        BSD
@@ -66,6 +66,9 @@ rmdir raven/data
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.10.0-17
 - Rebuilt for Python 3.12
 

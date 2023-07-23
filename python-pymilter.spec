@@ -16,7 +16,7 @@
 Summary: %{sum}
 Name: python-pymilter
 Version: 1.0.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Url:    https://github.com/sdgathman/pymilter
 # was   http://bmsi.com/pymilter
 Source: https://github.com/sdgathman/pymilter/archive/pymilter-%{version}.tar.gz
@@ -160,6 +160,9 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.5-3
 - Rebuilt for Python 3.12
 

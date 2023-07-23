@@ -8,7 +8,7 @@ to the Django ORM.
  
 Name: python-mongoengine
 Version: 0.27.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 BuildArch: noarch
  
 License: MIT
@@ -81,6 +81,9 @@ rm -rf docs/_build/html/_static/font
  
  
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.27.0-2
 - Rebuilt for Python 3.12
 

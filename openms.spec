@@ -16,7 +16,7 @@ Obsoletes: python2-openms < 0:2.4.0-1
 Name:      openms
 Summary:   LC/MS data management and analyses
 Version:   3.0.0
-Release:   0.2%{?dist}
+Release:   1%{?dist}
 License:   BSD
 URL:       http://www.openms.de/
 Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-Release%{version}.tar.gz
@@ -604,6 +604,9 @@ popd
 %endif
 
 %changelog
+* Fri Jul 21 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-1
+- Release 3.0.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

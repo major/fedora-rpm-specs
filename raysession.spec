@@ -1,6 +1,6 @@
 Name:               raysession
 Version:            0.9.1
-Release:            7%{?dist}
+Release:            8%{?dist}
 Summary:            Session manager for audio software
 BuildArch:          noarch
 
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 # No manpages, developer is aware https://github.com/Houston4444/RaySession/issues/40
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

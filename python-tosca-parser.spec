@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parser for TOSCA Simple Profile in YAML
 
 License:        ASL 2.0
@@ -98,6 +98,9 @@ find %{buildroot}/%{python3_sitelib}/toscaparser/tests -name '*.py' -exec sed -i
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2.7.0-3
 - Rebuilt for Python 3.12
 

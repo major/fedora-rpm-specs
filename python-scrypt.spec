@@ -10,7 +10,7 @@ brute force search of several...
 
 Name:           python-%{pypi_name}
 Version:        0.8.20
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Bindings for the scrypt key derivation function library
 
 License:        BSD
@@ -58,6 +58,9 @@ sed -i '1d' scrypt/scrypt.py
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.20-2
 - Rebuilt for Python 3.12
 

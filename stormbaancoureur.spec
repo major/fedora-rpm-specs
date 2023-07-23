@@ -1,6 +1,6 @@
 Name:           stormbaancoureur
 Version:        2.1.6
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Simulated obstacle course for automobiles
 License:        GPLv2+
 URL:            http://www.stolk.org/stormbaancoureur/
@@ -76,6 +76,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

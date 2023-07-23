@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        py.test plugin to store test expectations and mark tests based on them
 
 License:        MIT
@@ -60,6 +60,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.0-17
 - Rebuilt for Python 3.12
 

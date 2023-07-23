@@ -1,6 +1,6 @@
 Name:           solaar
 Version:        1.1.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
@@ -123,6 +123,9 @@ fi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.9-2
 - Rebuilt for Python 3.12
 

@@ -1,7 +1,7 @@
 Summary: The RARP daemon
 Name: rarpd
 Version: ss981107
-Release: 62%{?dist}
+Release: 63%{?dist}
 License: GPLv2+
 Source: ftp://ftp.fi.netbsd.org/.m/mirrors1/ftp.inr.ac.ru/ip-routing/dhcp.bootp.rarp/rarpd-%{version}.tar.gz
 Source1: rarpd.service
@@ -69,6 +69,9 @@ install -m 644 rarpd.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/rarpd.8
 %{_unitdir}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - ss981107-63
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - ss981107-62
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

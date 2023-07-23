@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.14.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Interact with GitLab API
 
 License:        LGPLv3
@@ -66,6 +66,9 @@ sed -i 's/pytest-github-actions-annotate-failures.*//' requirements-test.txt
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.14.0-3
 - Rebuilt for Python 3.12
 

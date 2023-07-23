@@ -1,6 +1,6 @@
 Name:           perl-Test-SQL-Data
 Version:        0.0.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Helps running SQL tests: database preparing and result matching
 License:        GPL+ or Artistic
 URL:            https://github.com/frankiejol/Test-SQL-Data
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

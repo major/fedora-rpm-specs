@@ -1,6 +1,6 @@
 Name:           reproc
 Version:        14.2.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A cross-platform (C99/C++11) process library
 License:        MIT 
 URL:            https://github.com/DaanDeMeyer/reproc
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.2.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

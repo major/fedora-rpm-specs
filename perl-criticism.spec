@@ -1,6 +1,6 @@
 Name:           perl-criticism
 Version:        1.02
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Perl pragma to enforce coding standards and best-practices
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/criticism
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

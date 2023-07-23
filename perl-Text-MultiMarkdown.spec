@@ -1,6 +1,6 @@
 Name:           perl-Text-MultiMarkdown
 Version:        1.000035
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Convert MultiMarkdown syntax to (X)HTML
 License:        BSD
 URL:            https://metacpan.org/release/Text-MultiMarkdown
@@ -74,6 +74,9 @@ TEST_POD=1 TEST_SPELLING=1 %{make_build} test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000035-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000035-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-jaraco-collections
 Version:        3.0.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Collection objects similar to those in stdlib by jaraco
 
 License:        MIT
@@ -91,6 +91,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.0.0-14
 - Rebuilt for Python 3.12
 

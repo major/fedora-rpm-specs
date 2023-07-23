@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
@@ -73,6 +73,9 @@ rm -f doc/build/html/objects.inv
 %doc pyqtgraph/examples doc/build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 06 2023 Scott Talbert <swt@techie.net> - 0.13.3-3
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           perl-Text-Clip
 Version:        0.0014
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Clip and extract text in clipboard-like way
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-Clip
@@ -39,6 +39,9 @@ you to slurp up the text "clipped" between the marks.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0014-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0014-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

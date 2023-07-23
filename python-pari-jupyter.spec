@@ -1,6 +1,6 @@
 Name:           python-pari-jupyter
 Version:        1.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Jupyter kernel for PARI/GP
 
 License:        GPL-3.0-or-later
@@ -8,6 +8,8 @@ URL:            https://github.com/sagemath/pari-jupyter
 Source0:        %{url}/archive/%{version}/pari-jupyter-%{version}.tar.gz
 # Adapt to recent versions of pari
 Patch0:         %{name}-pari.patch
+# Adapt to Cython 3
+Patch1:         %{name}-cython3.patch
 
 BuildRequires:  gcc
 BuildRequires:  pari-devel
@@ -69,6 +71,12 @@ rm -fr .ipython
 %{python3_sitearch}/pari_jupyter*
 
 %changelog
+* Fri Jul 21 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-3
+- Add patch to fix build with Cython 3
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 1.4.2-2
 - Rebuilt for Python 3.12
 

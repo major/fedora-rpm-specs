@@ -1,6 +1,6 @@
 Name:          standard-test-roles
 Version:       4.11
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Standard Test Interface Ansible roles
 
 License:       MIT
@@ -9,7 +9,7 @@ Source0:       http://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
 
 BuildArch:     noarch
 BuildRequires: coreutils
-Requires:      ansible fmf
+Requires:      ansible-core fmf
 # We want the real ssh for Ansible, otherwise it may fall back to paramiko
 # which doesn't work in a whole lot of scenarios. Ref: PR1 for STR.
 Requires:      openssh-clients
@@ -67,6 +67,9 @@ cp -p inventory/* %{buildroot}%{_datadir}/ansible/inventory/
 %{_datadir}/ansible/inventory/standard-inventory-docker
 
 %changelog
+* Fri Jul 21 2023 Andrei Stepanov <astepano@redhat.com> - 4.11-2
+- Require ansible-core
+
 * Mon Jul 10 2023 Andrei Stepanov <astepano@redhat.com> - 4.11-1
 - Build with the latest merged PRs.
 

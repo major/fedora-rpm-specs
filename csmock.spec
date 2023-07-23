@@ -3,8 +3,8 @@
 %undefine __cmake3_in_source_build
 
 Name:       csmock
-Version:    3.4.1
-Release:    3%{?dist}
+Version:    3.4.2
+Release:    1%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
 License:    GPL-3.0-or-later
@@ -52,7 +52,7 @@ Tool for plugging static analyzers into the build process, free of mock.
 
 %package -n csmock-common
 Summary: Core of csmock (a mock wrapper for Static Analysis tools)
-Requires: csdiff
+Requires: csdiff > 3.0.2
 Requires: csgcca
 Requires: cswrap
 Requires: mock
@@ -102,7 +102,6 @@ This package contains the divine plug-in for csmock.
 
 %package -n csmock-plugin-gitleaks
 Summary: experimental csmock plug-in
-Requires: csdiff > 3.0.0
 Requires: csmock-common
 
 %description -n csmock-plugin-gitleaks
@@ -131,7 +130,6 @@ This package contains the shellcheck plug-in for csmock.
 
 %package -n csmock-plugin-smatch
 Summary: csmock plug-in providing the support for smatch
-Requires: csdiff
 Requires: csmatch
 Requires: csmock-common
 Requires: cswrap
@@ -141,7 +139,6 @@ This package contains the smatch plug-in for csmock.
 
 %package -n csmock-plugin-snyk
 Summary: csmock plug-in providing the support for snyk
-Requires: csdiff > 2.8.0
 Requires: csmock-common
 
 %description -n csmock-plugin-snyk
@@ -288,6 +285,9 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Fri Jul 21 2023 Kamil Dudka <kdudka@redhat.com> 3.4.2-1
+- update to latest upstream
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

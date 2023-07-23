@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Sphinx extension for serialized HTML
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -81,6 +81,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.1.5-9
 - Rebuilt for Python 3.12
 

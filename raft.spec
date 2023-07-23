@@ -1,6 +1,6 @@
 Name:           raft
 Version:        0.17.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C implementation of the Raft consensus protocol
 
 License:        LGPL-3.0-only WITH LGPL-3.0-linking-exception
@@ -82,6 +82,9 @@ rm -f %{buildroot}%{_libdir}/libraft.la
 %doc docs/_build/html/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Apr 08 2023 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 0.17.1-1
 - Update to 0.17.1
 

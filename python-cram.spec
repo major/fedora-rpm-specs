@@ -3,7 +3,7 @@
 
 Name:           python-cram
 Version:        0.7
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Simple testing framework for command line applications
 License:        GPLv2+
 URL:            https://bitheap.org/cram/
@@ -56,6 +56,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} PYTHON=%python3 scripts/cram -v tests
 %{_bindir}/cram
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Python Maint <python-maint@redhat.com> - 0.7-15
 - Rebuilt for Python 3.12
 

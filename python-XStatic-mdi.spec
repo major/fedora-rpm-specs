@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.50.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        mdi (XStatic packaging standard)
 
 # mdi is licensed under SIL 1.1.
@@ -162,6 +162,9 @@ popd
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.50.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.50.2-11
 - Rebuilt for Python 3.12
 

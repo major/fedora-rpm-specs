@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        0.5.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        %{global_desc}
 
 License:        BSD
@@ -53,6 +53,9 @@ Summary: %{global_desc}. This package includes a commandline interface.
 %{python3_sitelib}/pyjokes/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.0-25
 - Rebuilt for Python 3.12
 

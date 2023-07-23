@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility belt for advanced users of python-requests
 
 License:        Apache-2.0
@@ -62,6 +62,9 @@ py.test-%{python3_version} -v --ignore=tests/test_x509_adapter.py -k "not test_s
 %{python3_sitelib}/%{altname}-*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.0-2
 - Rebuilt for Python 3.12
 

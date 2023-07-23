@@ -6,7 +6,7 @@
 
 Name:           shorewall
 Version:        %{mainver}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        An iptables front end for firewall configuration
 License:        GPLv2+
 URL:            http://www.shorewall.net/
@@ -349,6 +349,9 @@ sed -i.rpmbak -e '/^MODULE_SUFFIX=ko$/s/=ko$/="ko.xz ko"/' /etc/shorewall6/shore
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

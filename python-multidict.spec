@@ -1,6 +1,6 @@
 Name:           python-multidict
 Version:        6.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MultiDict implementation
 
 License:        Apache-2.0
@@ -51,6 +51,9 @@ sed -i -e '/addopts/d' setup.cfg
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.0.4-2
 - Rebuilt for Python 3.12
 

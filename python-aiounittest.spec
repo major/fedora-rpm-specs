@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Test asyncio code more easily
 
 License:        MIT
@@ -61,6 +61,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.1-13
 - Rebuilt for Python 3.12
 

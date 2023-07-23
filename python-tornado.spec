@@ -11,7 +11,7 @@ ideal for real-time web services.}
 
 Name:           python-%{srcname}
 Version:        6.3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Scalable, non-blocking web server and tools
 
 License:        Apache-2.0 
@@ -69,6 +69,9 @@ export TRAVIS=true
 %doc demos
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Orion Poplawski <orion@nwra.com> - 6.3.2-4
 - Add upstream patch for Python 3.12 support
 

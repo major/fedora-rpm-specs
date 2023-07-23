@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.3.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Set of tools to audit SIP based VoIP systems
 
 License:        GPLv3+
@@ -60,6 +60,9 @@ mv %{buildroot}/usr/man/man1/sv*.* %{buildroot}/%{_mandir}/man1/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.3-8
 - Rebuilt for Python 3.12
 

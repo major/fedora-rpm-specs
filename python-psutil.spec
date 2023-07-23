@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        5.9.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -95,6 +95,9 @@ make test APPVEYOR=1 PYTHON=%{__python3} PYTHONPATH=%{buildroot}/%{python3_sitea
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.9.2-3
 - Rebuilt for Python 3.12
 

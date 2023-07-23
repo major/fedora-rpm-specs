@@ -1,6 +1,6 @@
 Name:		sblim-indication_helper
 Version:	0.5.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Toolkit for CMPI indication providers
 
 License:	EPL-1.0
@@ -51,6 +51,9 @@ rm $RPM_BUILD_ROOT/%{_libdir}/libind_helper.la
 %{_libdir}/libind_helper.so
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Apr 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 0.5.0-11
 - SPDX migration
 

@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.4.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Rust bindings and wrappers for libxkbcommon
 
 # Upstream license specification: MIT
@@ -97,6 +97,9 @@ echo 'libxkbcommon-devel'
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

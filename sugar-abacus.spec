@@ -1,6 +1,6 @@
 Name:           sugar-abacus
 Version:        61
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A simple abacus activity for Sugar
 
 License:        LGPLv3+
@@ -49,6 +49,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Abacus.activity/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 61-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 61-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

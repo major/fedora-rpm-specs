@@ -3,7 +3,7 @@
 
 Name:           python-fontname
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A lib for guessing font name
 
 License:        MIT
@@ -54,6 +54,12 @@ It current supports SFNT format fonts, and is adept at dealing with CJK fonts.
 %license LICENSE.txt
 
 %changelog
+* Fri Jul 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.0.0-4
+- Mark this as SPDX license expression converted
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 1.0.0-2
 - Rebuilt for Python 3.12
 

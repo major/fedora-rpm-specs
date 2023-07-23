@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.12
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Configuration parser
 
 License:        BSD
@@ -48,6 +48,9 @@ sed -i -e 's/PyYAML>=3.13,<6/PyYAML/' requirements/base.txt
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.12-18
 - Rebuilt for Python 3.12
 

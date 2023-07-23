@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.4.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Ensure your Puppet manifests conform with the Puppetlabs style guide
 License: MIT
 URL: http://puppet-lint.com/
@@ -78,6 +78,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

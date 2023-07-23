@@ -8,7 +8,7 @@
 
 Name:           python-urllib3
 Version:        1.26.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
 # SPDX
@@ -166,6 +166,9 @@ ignore="${ignore-} --ignore=test/test_no_ssl.py"
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 01 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.26.16-1
 - Update to 1.26.16
 

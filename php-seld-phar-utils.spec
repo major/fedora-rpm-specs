@@ -13,7 +13,7 @@
 
 Name:           php-seld-phar-utils
 Version:        1.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PHAR file format utilities
 
 License:        MIT
@@ -82,6 +82,9 @@ exit(0);
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

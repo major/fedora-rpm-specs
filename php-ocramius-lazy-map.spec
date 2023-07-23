@@ -14,7 +14,7 @@
 
 Name:           php-ocramius-lazy-map
 Version:        1.0.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Lazy instantiation logic for a map of objects
 
 License:        MIT
@@ -76,6 +76,9 @@ phpunit \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

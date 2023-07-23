@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A lean WSGI object-dispatching web framework
 
 License:        BSD
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.2-4
 - Rebuilt for Python 3.12
 

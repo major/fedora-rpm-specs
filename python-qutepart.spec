@@ -18,7 +18,7 @@ Qutepart is a code editor widget for PyQt. Features: \
 
 Name:           python-%{srcname}
 Version:        3.3.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 # LGPL 2.1 >> 2.0 (explicitly allows dynamic linking)
@@ -101,6 +101,9 @@ xvfb-run -s '-screen :0 1024x768x16'\
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.3.3-4
 - Workaround for Python 3.12 PEP632 change
 

@@ -1,6 +1,6 @@
 Name:       python-slip
 Version:    0.6.4
-Release:    30%{?dist}
+Release:    31%{?dist}
 Summary:    Convenience, extension and workaround code for Python 2.x
 
 License:    GPLv2+
@@ -87,6 +87,9 @@ make install PYTHON=%{__python3} DESTDIR=%buildroot
 %{python3_sitelib}/slip.dbus-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.4-30
 - Rebuilt for Python 3.12
 

@@ -6,7 +6,7 @@
 Name:          scotch
 Summary:       Graph, mesh and hypergraph partitioning library
 Version:       7.0.3
-Release:       2%{?dist}
+Release:       3%{?dist}
 
 License:       CeCILL-C
 URL:           https://gitlab.inria.fr/scotch/scotch
@@ -411,6 +411,9 @@ rm -rf %{buildroot}%{_prefix}/man/*
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Antonio Trande <sagitter@fedoraproject.org> - 7.0.3-2
 - Undefine _ld_as_needed
 

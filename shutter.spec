@@ -9,10 +9,10 @@
 Name:       shutter
 %if 0%{?usesnapshot}
 Version:    0.99.5
-Release:    0.1%{?snapshottag}%{?dist}
+Release:    0.2%{?snapshottag}%{?dist}
 %else
 Version:    0.99.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 %endif
 Summary:    GTK+3-based screenshot application written in Perl
 
@@ -135,6 +135,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %{_datadir}/icons/HighContrast/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.99.4-1
 - Update to 0.99.4-1
 

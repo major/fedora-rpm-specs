@@ -4,7 +4,7 @@
 
 Name:       python-%{pkg_name}
 Version:    0.9.1
-Release:    20%{?dist}
+Release:    21%{?dist}
 Summary:    Flask extension for sending email
 License:    BSD
 URL:        http://github.com/mattupstate/%{pkg_name}/
@@ -46,6 +46,9 @@ A Flask extension for sending email messages.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.9.1-20
 - Rebuilt for Python 3.12
 

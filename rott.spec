@@ -1,6 +1,6 @@
 Name:           rott
 Version:        1.1.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Rise of the Triad
 License:        GPLv2+
 URL:            http://icculus.org/rott/
@@ -125,6 +125,9 @@ install -p -m 644 %{SOURCE8} \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-gitapi
 Version:        1.1.0
-Release:        0.a3%{?dist}.26
+Release:        0.a3%{?dist}.27
 Summary:        Pure-Python API to git, which uses the command-line interface
 
 License:        MIT
@@ -56,6 +56,9 @@ sed -i 's/\r$//' README.rst
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.a3.27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.0-0.a3.26
 - Rebuilt for Python 3.12
 

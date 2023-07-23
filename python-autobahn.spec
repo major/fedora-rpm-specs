@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
@@ -107,6 +107,9 @@ USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn -k 'not test_no_memory
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 23.6.2-2
 - Rebuilt for Python 3.12
 

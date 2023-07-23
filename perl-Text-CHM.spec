@@ -1,6 +1,6 @@
 Name:           perl-Text-CHM
 Version:        0.01
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Perl extension for handling MS Compiled HtmlHelp Files
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-CHM
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.01-48
 - Perl 5.38 rebuild
 

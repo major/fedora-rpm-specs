@@ -15,7 +15,7 @@
 
 Name:           php-mock%{major}
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP-Mock can mock built-in PHP functions
 
 License:        WTFPL
@@ -157,6 +157,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Remi Collet <remi@remirepo.net> - 2.4.1-1
 - update to 2.4.1 (no change)
 

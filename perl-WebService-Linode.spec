@@ -1,6 +1,6 @@
 Name:           perl-WebService-Linode
 Version:        0.29
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl Interface to the Linode.com API
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/WebService-Linode
@@ -68,6 +68,9 @@ unset RELEASE_TESTING
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Visual Studio Team Services Continuous Delivery Manager
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -51,6 +51,9 @@ sed -i 's/\r$//' README.rst
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.2-7
 - Rebuilt for Python 3.12
 

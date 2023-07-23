@@ -1,6 +1,6 @@
 Name:       perl-rpm-build-perl 
 Version:    0.82
-Release:    41%{?dist}
+Release:    42%{?dist}
 # README: GPLv2+
 # perl.prov: LGPLv2+
 # ConstOptree/ppport.h: GPL+ or Artistic
@@ -107,6 +107,9 @@ make test
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.82-41
 - Perl 5.38 rebuild
 

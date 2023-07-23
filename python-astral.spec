@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Calculations for the position of the sun and moon
 
 License:        ASL 2.0
@@ -55,6 +55,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v \
 %{python3_sitelib}/%{srcname}*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.2-11
 - Rebuilt for Python 3.12
 

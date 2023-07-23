@@ -4,7 +4,7 @@
 
 Name:           python-slixmpp-omemo
 Version:        0.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OMEMO plugin for Slixmpp
 
 License:        GPLv3
@@ -64,6 +64,9 @@ find ./%{srcname}/ -type f '(' -name __init__.py -o -name stanza.py -o -name ver
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.9.0-3
 - Rebuilt for Python 3.12
 

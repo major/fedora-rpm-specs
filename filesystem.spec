@@ -1,7 +1,7 @@
 Summary: The basic directory layout for a Linux system
 Name: filesystem
 Version: 3.18
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 URL: https://pagure.io/filesystem
 Source1: https://pagure.io/filesystem/raw/master/f/lang-exceptions
@@ -43,7 +43,7 @@ cd %{buildroot}
 
 Paths=(
         afs boot dev \
-        etc/{X11/{applnk,fontpath.d,xinit/{xinitrc,xinput}.d},xdg/autostart,opt,pm/{config.d,power.d,sleep.d},skel,sysconfig,pki,bash_completion.d,rwtab.d,statetab.d} \
+        etc/{X11/{applnk,fontpath.d,xinit/{xinitrc,xinput}.d},xdg/autostart,opt,pm/{config.d,power.d,sleep.d},skel,sysconfig,keys/ima,pki,bash_completion.d,rwtab.d,statetab.d} \
         home media mnt opt root run srv tmp \
         usr/{bin,games,include,%{_lib}/{bpf,games,X11,pm-utils/{module.d,power.d,sleep.d}},lib/{debug/{.dwz,usr},games,locale,modules,sysimage,systemd/{system,user},sysusers.d,tmpfiles.d},libexec,local/{bin,etc,games,lib,%{_lib}/bpf,sbin,src,share/{applications,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x},info},libexec,include,},sbin,share/{aclocal,appdata,applications,augeas/lenses,backgrounds,bash-completion{,/completions,/helpers},desktop-directories,dict,doc,empty,fish/vendor_completions.d,games,gnome,help,icons,idl,info,licenses,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p},metainfo,mime-info,misc,omf,pixmaps,sounds,themes,xsessions,X11/fonts,wayland-sessions,zsh/site-functions},src,src/kernels,src/debug} \
         var/{adm,empty,ftp,lib/{games,misc,rpm-state},local,log,nis,preserve,spool/{mail,lpd},tmp,db,cache/bpf,opt,games,yp}
@@ -194,6 +194,7 @@ end
 /etc/pm
 /etc/skel
 /etc/sysconfig
+/etc/keys
 /etc/pki
 /etc/bash_completion.d/
 %dir /etc/rwtab.d
@@ -310,6 +311,9 @@ end
 /var/yp
 
 %changelog
+* Fri Jul 21 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 3.18-6
+- Add /etc/keys for initrd/kernel related keys
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

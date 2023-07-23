@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.98.9
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python bindings for ADMesh, STL manipulation library
 
 License:        GPLv2+
@@ -65,6 +65,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-3 -v \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.98.9-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.98.9-16
 - Rebuilt for Python 3.12
 

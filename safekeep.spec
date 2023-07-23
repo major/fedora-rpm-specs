@@ -1,6 +1,6 @@
 %define name    safekeep
 %define version 1.5.1
-%define release 7
+%define release 8
 %define homedir %{_localstatedir}/lib/%{name}
 
 Name:           %{name}
@@ -103,6 +103,9 @@ id %{name} >/dev/null 2>&1 || \
 %doc samples/sample.backup
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

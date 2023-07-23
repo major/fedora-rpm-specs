@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        3.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ReStructuredText viewer
 
 License:        GPLv3+
@@ -56,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.0.0-3
 - Rebuilt for Python 3.12
 

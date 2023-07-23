@@ -8,7 +8,7 @@
 
 Name:           qemu-sanity-check
 Version:        1.1.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Simple qemu and Linux kernel sanity checker
 License:        GPLv2+
 
@@ -159,6 +159,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.6-9
 - Add package to EPEL 9, keep it synched with Fedora Rawhide.
 - Use qemu-kvm package on EPEL.

@@ -1,6 +1,6 @@
 Name:           python-jupyter-server-fileid
 Version:        0.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Jupyter Server extension for the File ID service
 License:        BSD-3-Clause
 URL:            https://pypi.org/project/jupyter-server-fileid/
@@ -59,6 +59,9 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 %config(noreplace) %{_sysconfdir}/jupyter/jupyter_server_config.d/jupyter_server_fileid.json
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.9.0-2
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        5.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight derivative of Enthought Traits for configuring Python objects
 
 License:        BSD-3-Clause
@@ -57,6 +57,9 @@ This package powers the config system of IPython and Jupyter.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.9.0-2
 - Rebuilt for Python 3.12
 

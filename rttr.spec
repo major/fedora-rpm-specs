@@ -3,7 +3,7 @@
 
 Name:           rttr
 Version:        0.9.7
-Release:        0.5git%{shortcommit0}%{?dist}
+Release:        0.6git%{shortcommit0}%{?dist}
 Summary:        Run Time Type Reflection
 
 License:        MIT
@@ -116,6 +116,9 @@ rm -rf %{buildroot}%{_datadir}/rttr/{LICENSE.txt,README.md}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-0.6git7edbd58
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.9.7-0.5git7edbd58
 - Disable Werror on rttr - rhbz#2113682
 

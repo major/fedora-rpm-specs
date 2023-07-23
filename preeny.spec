@@ -1,7 +1,7 @@
 Name:             preeny
 URL:              https://github.com/zardus/preeny
 Version:          0.1
-Release:          14%{?dist}
+Release:          15%{?dist}
 License:          BSD
 BuildRequires:    coreutils, make, gcc, libini_config-devel
 Summary:          Some helpful preload libraries for pwning stuff
@@ -34,6 +34,9 @@ install -pt %{buildroot}%{_libdir}/%{name} *.so
 %{_libdir}/%{name}/*.so
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

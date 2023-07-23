@@ -1,6 +1,6 @@
 Name:           python-trove-classifiers
 Version:        2023.5.24
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Canonical source for classifiers on PyPI (pypi.org)
 
 License:        Apache-2.0
@@ -58,6 +58,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.5.24-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2023.5.24-2
 - Rebuilt for Python 3.12
 

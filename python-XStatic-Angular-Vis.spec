@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.16.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Angular-Vis (XStatic packaging standard)
 
 License:        MIT
@@ -89,6 +89,9 @@ rmdir %{buildroot}%{python3_sitelib}/xstatic/pkg/angular_vis/data/
 %{python3_sitelib}/XStatic_Angular_Vis-%{version}-py3.*-nspkg.pth
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.0.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.16.0.0-17
 - Rebuilt for Python 3.12
 

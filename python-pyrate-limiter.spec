@@ -1,6 +1,6 @@
 Name:           python-pyrate-limiter
 Version:        2.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The request rate limiter using Leaky-bucket algorithm 
 License:        MIT
 URL:            https://github.com/vutran1710/PyrateLimiter
@@ -84,6 +84,9 @@ k="${k-}${k+ and }not test_ratelimit__delay_synchronous"
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.10.0-2
 - Rebuilt for Python 3.12
 

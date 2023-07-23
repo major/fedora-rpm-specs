@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.1.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: RSpec for Rails
 License: MIT
 URL: https://github.com/rspec/rspec-rails
@@ -115,6 +115,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           perl-Text-Fuzzy
 Version:        0.29
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Partial string matching using edit distances
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-Fuzzy
@@ -76,6 +76,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.29-9
 - Perl 5.38 rebuild
 

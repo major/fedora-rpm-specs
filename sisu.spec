@@ -3,7 +3,7 @@
 Name:           sisu
 Epoch:          1
 Version:        0.3.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Eclipse dependency injection framework
 # sisu is EPL-1.0, the bundled asm is BSD
 License:        EPL-1.0 and BSD
@@ -84,6 +84,9 @@ cp %{SOURCE102} sisu-plexus/pom.xml
 %license sisu-inject/LICENSE.txt
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 31 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:0.3.5-5
 - Rebuild with no changes
 

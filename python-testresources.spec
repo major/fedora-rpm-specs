@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Testresources, a pyunit extension for managing expensive test resources
 
 License:        ASL 2.0 and BSD and GPLv2+
@@ -53,6 +53,9 @@ sed -i 's/failIf/assertFalse/' testresources/tests/test_resourced_test_case.py
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.1-10
 - Rebuilt for Python 3.12
 

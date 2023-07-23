@@ -5,7 +5,7 @@
 %global crate serde_repr
 
 Name:           rust-serde_repr
-Version:        0.1.14
+Version:        0.1.15
 Release:        %autorelease
 Summary:        Derive Serialize and Deserialize for C-like enums
 

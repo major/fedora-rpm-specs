@@ -58,7 +58,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 4.6.0~rc2
+Version: 4.6.0
 License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and ISC and MIT and MPL-2.0
 Release: %autorelease
 %if %{defined golang_arches_future}
@@ -69,7 +69,7 @@ ExclusiveArch: aarch64 ppc64le s390x x86_64
 Summary: Manage Pods, Containers and Container Images
 URL: https://%{name}.io/
 # All SourceN files fetched from upstream
-Source0: %{git0}/archive/v4.6.0-rc2.tar.gz
+Source0: %{git0}/archive/v%{version}.tar.gz
 Source1: %{git_plugins}/archive/%{commit_plugins}/%{repo_plugins}-%{commit_plugins}.tar.gz
 Source2: %{git_gvproxy}/archive/%{commit_gvproxy}/%{repo_gvproxy}-%{commit_gvproxy}.tar.gz
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
@@ -207,7 +207,7 @@ It is a symlink to %{_bindir}/%{name} and execs into the `%{name}sh` container
 when `%{_bindir}/%{name}sh is set as a login shell or set as os.Args[0].
 
 %prep
-%autosetup -Sgit -n %{name}-4.6.0-rc2
+%autosetup -Sgit -n %{name}-%{version}
 sed -i 's;@@PODMAN@@\;$(BINDIR);@@PODMAN@@\;%{_bindir};' Makefile
 
 # untar dnsname

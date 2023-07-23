@@ -1,6 +1,6 @@
 Name:           perl-XML-Writer
 Version:        0.900
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A simple Perl module for writing XML documents
 License:        LicenseRef-Fedora-UltraPermissive
 URL:            https://metacpan.org/release/XML-Writer
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.900-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 15 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.900-11
 - Fix SPDX license
 

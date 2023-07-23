@@ -22,7 +22,7 @@
 
 Name:           publican
 Version:        4.3.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Common files and scripts for publishing with DocBook XML
 # For a breakdown of the licensing, refer to LICENSE
 License:        (GPLv2+ or Artistic) and CC0
@@ -320,6 +320,9 @@ fi
 %{wwwdir}/common-db5
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 4.3.2-26
 - Remove lklug-fonts require, not present in Fedora
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Twilio API client and TwiML generator
 
 License:        MIT
@@ -65,6 +65,9 @@ rm tests/cluster/test_cluster.py
 %doc README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Paul Wouters <paul.wouters@aiven.io - 8.5.0-1
 - Resolves: rhbz#2181314 Update to 8.5.0
 

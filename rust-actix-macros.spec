@@ -6,7 +6,7 @@
 %global crate actix-macros
 
 Name:           rust-actix-macros
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Macros for Actix system and runtime
 

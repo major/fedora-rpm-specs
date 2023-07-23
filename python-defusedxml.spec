@@ -4,7 +4,7 @@
 %global upstream_version %{base_version}%{?prerel}
 Name:           python-%{pypi_name}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        XML bomb protection for Python stdlib modules
 License:        Python
 URL:            https://github.com/tiran/defusedxml
@@ -56,6 +56,9 @@ module. This is the python%{python3_pkgversion} build.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.1-8
 - Rebuilt for Python 3.12
 

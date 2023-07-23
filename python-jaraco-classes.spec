@@ -6,7 +6,7 @@
 
 Name:           python-%{pkg_name}
 Version:        3.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility functions for Python class constructs
 
 License:        MIT
@@ -85,6 +85,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 Dan Radez <dradez@redhat.com> - 3.3.0-1
 - Update to 3.3.0 rhbz#2221498
 

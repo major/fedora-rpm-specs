@@ -16,7 +16,7 @@ OpenDX).
 
 Name: python-%{pname}
 Version: 1.0.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Read and write data on regular grids in Python
 License: LGPLv3+
 URL: https://github.com/orbeckst/GridDataFormats
@@ -69,6 +69,9 @@ pytest-3 -v --numprocesses=auto ./gridData/tests
 %{python3_sitelib}/gridData
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.0.1-6
 - fix build with Python 3.12 by removing bundled old versioneer module
 

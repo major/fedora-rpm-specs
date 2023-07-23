@@ -4,7 +4,7 @@
 
 Name:		sedutil
 Version:	%{gittag0}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Tools to manage the activation and use of self encrypting drives
 
 # Everything is GPLv3+ except:
@@ -84,6 +84,9 @@ ln -sr %{buildroot}%{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 23 2023 Charles R. Anderson <cra@alum.wpi.edu> - 1.20.0-4
 - Upstream PR#428: fix build with GCC 13
 

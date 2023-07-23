@@ -1,6 +1,6 @@
 Name:           powwow
 Version:        1.2.23
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A console MUD client
 
 License:        GPLv2+
@@ -64,6 +64,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/powwow/powwow.doc
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

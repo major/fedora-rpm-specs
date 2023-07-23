@@ -10,7 +10,7 @@ very helpful tool for higher code quality.
 
 Name:           python-%{pypi_name}
 Version:        2.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Find dead code
 
 License:        MIT
@@ -60,6 +60,9 @@ ln -s %{_bindir}/vulture-%{python3_version} %{buildroot}/%{_bindir}/vulture
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 16 2023 Python Maint <python-maint@redhat.com> - 2.6-3
 - Rebuilt for Python 3.12
 

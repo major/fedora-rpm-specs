@@ -5,7 +5,7 @@
 
 Name:           python-zbase32
 Version:        1.1.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A base32 encoder/decoder
 License:        BSD and LGPLv2
 URL:            http://allmydata.org/trac/zbase32
@@ -59,6 +59,9 @@ chmod 0755 %{buildroot}%{python3_sitelib}/zbase32/zbase32.py
 %{python3_sitelib}/zbase32-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 20 2023 Python Maint <python-maint@redhat.com> - 1.1.5-31
 - Rebuilt for Python 3.12
 

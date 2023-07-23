@@ -16,7 +16,7 @@
 
 Name:           scala
 Version:        2.13.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hybrid functional/object-oriented language for the JVM
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -447,6 +447,9 @@ install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 30 2023 Jerry James <loganjerry@gmail.com> - 2.13.11-1
 - Version 2.13.11
 - Fix bad scaladoc output (rhbz#2215780)

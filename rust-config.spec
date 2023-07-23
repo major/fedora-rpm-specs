@@ -6,7 +6,7 @@
 
 Name:           rust-config
 Version:        0.13.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Layered configuration system for Rust applications
 
 # Upstream license specification: MIT/Apache-2.0
@@ -219,6 +219,9 @@ use the "yaml-rust" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May 06 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.13.3-3
 - Bump rust-notify dependency to 5.x
 

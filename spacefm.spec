@@ -1,6 +1,6 @@
 Name:		spacefm
 Version:	1.0.6
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Multi-panel tabbed file and desktop manager
 
 License:	GPLv3+
@@ -109,6 +109,9 @@ gtk-update-icon-cache %{_datadir}/icons/Faenza &>/dev/null || :
 %{_datadir}/icons/Faenza/apps/*/%{name}*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

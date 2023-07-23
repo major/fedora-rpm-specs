@@ -4,7 +4,7 @@
 
 Name:           php-pear-Date
 Version:        1.4.7
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Date and Time Zone Classes
 
 License:        BSD
@@ -77,6 +77,9 @@ fi
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

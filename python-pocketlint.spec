@@ -2,7 +2,7 @@
 
 Name:      python-%{srcname}
 Version:   0.24
-Release:   6%{?dist}
+Release:   7%{?dist}
 Summary:   Support for running pylint against projects
 
 License:   GPL-2.0-or-later
@@ -51,6 +51,9 @@ make PYTHON=%{__python3} check
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Vojtech Trefny <vtrefny@redhat.com> - 0.24-6
 - Rebuilt for Python 3.12 and latest Pylint/Astroid (#2220412)
 

@@ -13,7 +13,7 @@
 Name:             rtl-sdr
 URL:              http://sdr.osmocom.org/trac/wiki/rtl-sdr
 Version:          0.6.0^%{git_suffix}
-Release:          2%{?dist}
+Release:          3%{?dist}
 License:          GPLv2+
 BuildRequires:    gcc
 BuildRequires:    cmake
@@ -80,6 +80,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0^20230403git142325a9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.6.0^20230403git142325a9-2
 - Fixed device group to be rtlsdr
   Resolves: rhbz#2186090

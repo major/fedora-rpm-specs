@@ -1,6 +1,6 @@
 Name:           ppc64-diag
 Version:        2.7.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PowerLinux Platform Diagnostics
 URL:            https://github.com/power-ras/%{name}
 License:        GPL-2.0-only
@@ -169,6 +169,9 @@ if [ "$1" = "0" ]; then # last uninstall
 fi
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 16 2023 Than Ngo <than@redhat.com> - 2.7.9-3
 - migrated to SPDX license
 

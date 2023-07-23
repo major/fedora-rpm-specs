@@ -1,8 +1,8 @@
 %bcond_with check
 
 Name:           libqb
-Version:        2.0.7
-Release:        2%{?dist}
+Version:        2.0.8
+Release:        1%{?dist}
 Summary:        Library providing high performance logging, tracing, ipc, and poll
 
 License:        LGPL-2.1-or-later
@@ -87,6 +87,9 @@ This package contains a program to create nicely-formatted man pages from Doxyge
 
 
 %changelog
+* Fri Jul 21 2023 Christine Caulfield <ccaulfie@redhat.com> 2.0.8-1
+- rebase to v2.0.8
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

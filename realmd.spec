@@ -1,6 +1,6 @@
 Name:    realmd
 Version: 0.17.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Kerberos realm enrollment service
 License: LGPLv2+
 URL:     https://gitlab.freedesktop.org/realmd/realmd
@@ -91,6 +91,9 @@ make install DESTDIR=%{buildroot}
 %doc ChangeLog
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

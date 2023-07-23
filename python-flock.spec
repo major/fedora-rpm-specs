@@ -1,6 +1,6 @@
 Name:           python-flock
 Version:        0.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Flock object for with statement
 
 License:        BSD
@@ -46,6 +46,9 @@ when entering (resp. leaving) runtime context related to it.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1-30
 - Rebuilt for Python 3.12
 

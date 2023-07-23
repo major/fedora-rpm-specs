@@ -2,7 +2,7 @@
 
 Name:           python-firkin
 Version:        0.02
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Python module to convert between different measurement units
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ done
 %{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.02-38
 - Rebuilt for Python 3.12
 

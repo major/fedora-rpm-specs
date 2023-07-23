@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.2.4
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Python JSON module and lint checker
 License:        LGPLv3+
 URL:            http://deron.meranda.us/python/%{srcname}/
@@ -68,6 +68,9 @@ popd
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.4-29
 - Rebuilt for Python 3.12
 

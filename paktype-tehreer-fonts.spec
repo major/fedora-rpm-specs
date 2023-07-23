@@ -2,15 +2,15 @@
 %global fontname paktype-tehreer
 %global fontconf %{priority}-%{fontname}
 
-Name:	%{fontname}-fonts
+Name:        %{fontname}-fonts
 Version:     6.0
-Release:     6%{?dist}
+Release:     7%{?dist}
 Summary:     Fonts for Arabic from PakType
-License:     GPLv2 with exceptions
-URL:		https://sourceforge.net/projects/paktype/
-Source0:	https://sourceforge.net/p/paktype/code/HEAD/tree/Fonts/Release/PakType-Tehreer-%{version}.tar.gz?format=raw#/%{name}-%{version}.tar.gz
+License:     GPL-2.0-only WITH Font-exception-2.0
+URL:	     https://sourceforge.net/projects/paktype/
+Source0:     https://sourceforge.net/p/paktype/code/HEAD/tree/Fonts/Release/PakType-Tehreer-%{version}.tar.gz?format=raw#/%{name}-%{version}.tar.gz
 
-Source1:	%{fontconf}.conf
+Source1:     %{fontconf}.conf
 BuildArch:   noarch
 BuildRequires:	fontpackages-devel
 Requires:   fontpackages-filesystem
@@ -53,6 +53,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf}.conf \
 %doc PakType_Tehreer_License.txt PakTypeTehreerFeatures.pdf 
 
 %changelog
+* Fri Jul 21 2023 Parag Nemade <pnemade@fedoraproject.org> - 6.0-7
+- Convert to SPDX license expression
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

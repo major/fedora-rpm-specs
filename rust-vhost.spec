@@ -6,7 +6,7 @@
 
 Name:           rust-vhost
 Version:        0.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure rust library for vdpa, vhost and vhost-user
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -179,6 +179,9 @@ cp %{SOURCE2} .
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 18 2023 Sergio Lopez <slp@redhat.com> - 0.8.1-1
 - Update to version 0.8.1
 - Drop no longer needed temporary patch

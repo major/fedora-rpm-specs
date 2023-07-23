@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            https://github.com/%{name}/%{name}
 Summary:        LZ4 Bindings for Python
 License:        BSD
@@ -71,6 +71,9 @@ mv docs/_build/html ./html
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.3.2-3
 - Rebuilt for Python 3.12
 

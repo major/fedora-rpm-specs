@@ -6,7 +6,7 @@
 Summary: A Scintilla port to Qt
 Name:    qscintilla
 Version: 2.13.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3
 Url:     http://www.riverbankcomputing.com/software/qscintilla/
@@ -245,6 +245,9 @@ grep "%{_qt6_translationdir}" qscintilla.lang > qscintilla-qt6.lang
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.13.4-2
 - Rebuilt for Python 3.12
 

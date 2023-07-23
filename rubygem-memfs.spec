@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Fake file system that can be used for tests
 License: MIT
 URL: http://github.com/simonc/memfs
@@ -82,6 +82,9 @@ popd
 %{gem_instdir}/Guardfile
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

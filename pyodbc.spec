@@ -1,6 +1,6 @@
 Name:           pyodbc
 Version:        4.0.39
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python DB API 2.0 Module for ODBC
 License:        MIT
 URL:            https://github.com/mkleehammer/pyodbc
@@ -59,6 +59,9 @@ echo 'Version: %{version}' > PKG-INFO
 %{python3_sitearch}/pyodbc.pyi
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.39-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.0.39-3
 - Rebuilt for Python 3.12
 

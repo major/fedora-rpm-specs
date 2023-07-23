@@ -15,7 +15,7 @@
 
 Name:           php-mock-integration%{major}
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Integration package for PHP-Mock
 
 License:        WTFPL
@@ -119,6 +119,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 13 2023 Remi Collet <remi@remirepo.net> - 2.2.1-1
 - update to 2.2.1
 - allow phpunit10

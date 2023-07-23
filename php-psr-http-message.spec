@@ -21,7 +21,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       1%{?github_release}%{?dist}
+Release:       2%{?github_release}%{?dist}
 Summary:       Common interface for HTTP messages (PSR-7)
 
 Group:         Development/Libraries
@@ -87,6 +87,9 @@ exit (interface_exists("Psr\\Http\\Message\\UriInterface") ? 0 : 1);
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr  7 2023 Remi Collet <remi@remirepo.net> - 1.1-1
 - update to 1.1
 - raise dependency on PHP 7.2

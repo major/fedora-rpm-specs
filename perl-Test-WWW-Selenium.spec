@@ -5,7 +5,7 @@
 
 Name:           perl-Test-WWW-Selenium
 Version:        1.36
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Perl Client for the Selenium Remote Control test tool
 License:        (GPL+ or Artistic) and ASL 2.0
 URL:            https://metacpan.org/release/Test-WWW-Selenium
@@ -93,6 +93,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

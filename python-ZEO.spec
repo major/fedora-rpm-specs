@@ -1,6 +1,6 @@
 Name:           python-ZEO
 Version:        5.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client-server storage implementation for ZODB
 
 License:        ZPL-2.1
@@ -107,6 +107,9 @@ rst2html --no-datestamp README.rst README.html
 %doc docs/_build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 5.4.0-1
 - Dynamically generate BuildRequires
 

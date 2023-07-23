@@ -8,7 +8,7 @@
 Name:      seqan
 Summary:   Open source C++ library of efficient algorithms and data structures
 Version:   1.4.2
-Release:   51%{?dist}
+Release:   52%{?dist}
 License:   BSD and GPLv3+ and LGPLv3+
 URL:       http://www.seqan.de/
 Source0:   http://packages.seqan.de/seqan-src/seqan-src-%{version}.tar.gz
@@ -146,6 +146,9 @@ find %{buildroot}%{_bindir} -type f -name "*.h" -exec chmod 0755 '{}' \;
 %{_includedir}/seqan/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.4.2-51
 - Use _fortify_level (rhbz#2161371)
 - Reduce optimization level in i686

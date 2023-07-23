@@ -1,6 +1,6 @@
 Name:           python-repoze-who-plugins-sa
 Version:        1.0.1
-Release:        39.20160106gite1a36c5%{?dist}
+Release:        40.20160106gite1a36c5%{?dist}
 Summary:        repoze.who SQLAlchemy plugin
 
 License:        BSD
@@ -73,6 +73,9 @@ based models on python3
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-40.20160106gite1a36c5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.0.1-39.20160106gite1a36c5
 - Rebuilt for Python 3.12
 

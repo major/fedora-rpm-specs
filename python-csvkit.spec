@@ -8,7 +8,7 @@ of tabular file formats.
 
 Name:           python-%{pypi_name}
 Version:        1.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Suite of utilities for converting to and working with CSV
 
 License:        MIT
@@ -97,6 +97,9 @@ pytest-%{python3_version} tests -v -k "not test_convert_dbf and not test_decimal
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.1.1-2
 - Rebuilt for Python 3.12
 

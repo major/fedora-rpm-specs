@@ -1,6 +1,6 @@
 Name:           python-jupyter-server-terminals
 Version:        0.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Jupyter Server Extension Providing Terminals
 License:        BSD-3-Clause
 URL:            https://jupyter.org
@@ -56,6 +56,9 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Python Maint <python-maint@redhat.com> - 0.4.2-3
 - Rebuilt for Python 3.12
 

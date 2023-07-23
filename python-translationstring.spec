@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.3
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Library used for internationalization (i18n) duties related to translation
 
 License:        BSD
@@ -52,6 +52,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3-24
 - Rebuilt for Python 3.12
 

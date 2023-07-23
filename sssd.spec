@@ -43,7 +43,7 @@
 
 Name: sssd
 Version: 2.9.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -1059,6 +1059,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 2.9.1-2
 - Rebuilt for Python 3.12
 

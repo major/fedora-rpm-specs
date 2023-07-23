@@ -1,6 +1,6 @@
 Name:           perl-WWW-Google-Contacts
 Version:        0.39
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Use Perl to access, list and edit Google Contacts
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/WWW-Google-Contacts
@@ -83,6 +83,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

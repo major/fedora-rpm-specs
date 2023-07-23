@@ -22,7 +22,7 @@ emulator.}
 
 Name:           sdl-softfloat
 Version:        3.5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Berkeley IEEE Binary Floating-Point Library (SDL version)
 
 License:        BSD
@@ -73,6 +73,9 @@ mv %{buildroot}%{_docdir}/%{name}-devel/softfloat.LICENSE.txt .
 %{_libdir}/lib%{srcname}*.a
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

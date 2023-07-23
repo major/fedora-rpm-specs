@@ -1,6 +1,6 @@
 Name:           spew
 Version:        1.0.8
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        I/O performance measurement and load generation tool
 
 License:        GPLv2
@@ -40,6 +40,9 @@ systems while verifying data integrity.
 %{_mandir}/man1/regorge.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

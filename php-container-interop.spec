@@ -26,7 +26,7 @@
 
 Name:      php-%{composer_project}
 Version:   %{github_version}
-Release:   16%{?github_release}%{?dist}
+Release:   17%{?github_release}%{?dist}
 Summary:   Promoting the interoperability of container objects (DIC, SL, etc.)
 
 Group:     Development/Libraries
@@ -130,6 +130,9 @@ exit (interface_exists("Interop\\Container\\ContainerInterface") ? 0 : 1);
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

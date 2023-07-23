@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.20
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python wrapper for the Velux KLF 200 API
 
 License:        LGPLv3+
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.20-5
 - Rebuilt for Python 3.12
 

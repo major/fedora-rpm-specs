@@ -13,8 +13,8 @@
 %bcond_without python3
 
 Name:       csdiff
-Version:    3.0.2
-Release:    3%{?dist}
+Version:    3.0.3
+Release:    1%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
 License:    GPL-3.0-or-later
@@ -133,6 +133,9 @@ make version.cc
 %endif
 
 %changelog
+* Fri Jul 21 2023 Kamil Dudka <kdudka@redhat.com> 3.0.3-1
+- update to latest upstream release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

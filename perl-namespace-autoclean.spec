@@ -7,7 +7,7 @@
 
 Name:           perl-namespace-autoclean
 Version:        0.29
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Keep imports out of your namespace
 URL:            https://metacpan.org/release/namespace-autoclean
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/namespace::autoclean.3*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.29-15
 - Update license to SPDX format
 

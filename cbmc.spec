@@ -5,7 +5,7 @@
 
 Name:           cbmc
 Version:        5.50.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Bounded Model Checker for ANSI-C and C++ programs
 
 License:        BSD-4-Clause
@@ -46,12 +46,14 @@ BuildRequires:  minisat2-devel
 BuildRequires:  ninja-build
 BuildRequires:  zlib-devel
 
+%ifarch x86_64
 # For the tests.
 BuildRequires:  jq
 BuildRequires:  gdb
 BuildRequires:  perl
 BuildRequires:  python3
 BuildRequires:  z3
+%endif
 
 Requires:       gcc-c++
 Requires:       sed
@@ -137,6 +139,9 @@ ln -s xml_y.tab.h src/xmllang/xml_y.tab.hpp
 %{_bindir}/csexec-%{name}
 
 %changelog
+* Fri Jul 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.50.0-6
+- Exclude installation of test dependencies on non-x86_64 architectures
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.50.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

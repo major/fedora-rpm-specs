@@ -1,6 +1,6 @@
 Name:           python-lxml
 Version:        4.9.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
 # The lxml project is licensed under BSD-3-Clause
@@ -100,6 +100,9 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Miro Hrončok <mhroncok@redhat.com> - 4.9.2-8
 - Bring back the isoschematron submodule,
   but without the validation of the schema file itself

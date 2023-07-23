@@ -15,7 +15,7 @@
 
 Name:           php-%{gh_project}
 Version:        5.4.12
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Free Feature-rich PHP Mailer
 
 License:        MIT
@@ -146,6 +146,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.12-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.12-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

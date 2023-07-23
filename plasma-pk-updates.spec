@@ -3,7 +3,7 @@
 Name:           plasma-pk-updates
 Epoch:          1
 Version:        0.3.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Plasma applet for system updates using PackageKit
 
 License:        GPLv2+
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.pl
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

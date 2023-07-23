@@ -16,7 +16,7 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 Name:           python-%{srcname}
 Version:        0.19
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Immutable Collections
 # The entire source code is Apache-2.0, except pythoncapi_compat.h, which is
 # 0BSD. While this file is unbundled, it is a header-only library; its entire
@@ -29,6 +29,10 @@ Summary:        Immutable Collections
 License:        Apache-2.0 AND 0BSD
 URL:            https://github.com/MagicStack/immutables
 Source:         %pypi_source
+# https://github.com/MagicStack/immutables/issues/104
+# https://github.com/MagicStack/immutables/pull/103
+Patch:          0001-Fix-for-Python-3.12-support.patch
+
 BuildRequires:  gcc
 
 
@@ -48,7 +52,7 @@ BuildRequires:  pythoncapi-compat-static
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p 1
 
 # don't install source files
 sed -e '/include_package_data=/ s/True/False/' -i setup.py
@@ -86,6 +90,12 @@ rm -vf immutables/pythoncapi_compat.h
 
 
 %changelog
+* Fri Jul 21 2023 Carl George <carl@george.computer> - 0.19-5
+- Python 3.12 compatibility, resolves rhbz#2220276
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.19-3
 - Rebuilt for Python 3.12
 

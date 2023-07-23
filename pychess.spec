@@ -3,7 +3,7 @@
 
 Name:           pychess
 Version:        1.0.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Chess game for GNOME
 
 License:        GPLv3
@@ -161,6 +161,9 @@ PYTHONPATH=../lib PYCHESS_UNITTEST=true xvfb-run -a coverage run \
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.3-7
 - Apply upstream patch for python3.12 imp module removal
 

@@ -1,6 +1,6 @@
 Name:           python-sphinx-math-dollar
 Version:        1.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Sphinx extension to enable LaTeX math with $$
 
 # MIT: All files with the following exception.
@@ -80,6 +80,9 @@ rm -f docs/_build/html/.{buildinfo,nojekyll}
 %license LICENSE
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1.2.1-5
 - Add CC0-1.0 to License tag due to versioneer
 

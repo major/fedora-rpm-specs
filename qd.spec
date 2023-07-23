@@ -3,7 +3,7 @@
 
 Name:		qd
 Version:	2.3.23
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Double-Double and Quad-Double Arithmetic
 License:	BSD-3-Clause-LBNL
 URL:		https://www.davidhbailey.com/dhbsoftware/
@@ -118,6 +118,9 @@ LD_LIBRARY_PATH=$PWD/src/.libs:$PWD/fortran/.libs make check
 %{_libdir}/pkgconfig/qd.pc
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

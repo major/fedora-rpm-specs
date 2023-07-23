@@ -13,7 +13,7 @@
 
 Name:           php-phpspec-php-diff
 Version:        1.1.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A library for generating differences between two hashable objects
 
 # LICENSE text is inclued in the README file
@@ -83,6 +83,9 @@ cd example
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-PAR-Packer
-Version:        1.058
-Release:        3%{?dist}
+Version:        1.059
+Release:        1%{?dist}
 Summary:        PAR Packager
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PAR-Packer
@@ -144,6 +144,9 @@ make test
 %{_datadir}/icons/hicolor/32x32/apps/tkpp.png
 
 %changelog
+* Fri Jul 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.059-1
+- 1.059 bump (rhbz#2224383)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.058-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

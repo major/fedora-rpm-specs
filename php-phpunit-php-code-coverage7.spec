@@ -30,7 +30,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
 Version:        7.0.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        PHP code coverage information
 
 # SPDX: Main license is BSD-3-Clause
@@ -187,6 +187,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.15-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 20 2023 Remi Collet <remi@fedoraproject.org> - 7.0.15-5
 - use SPDX license ID
 

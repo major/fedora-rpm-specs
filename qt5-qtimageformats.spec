@@ -3,7 +3,7 @@
 Summary: Qt5 - QtImageFormats component
 Name:    qt5-%{qt_module}
 Version: 5.15.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -83,6 +83,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-2
 - Backport fixes from KDE patchset collection
 

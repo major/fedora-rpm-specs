@@ -9,7 +9,7 @@ Python client to Zaqar messaging service API v1
 
 Name:           python-zaqarclient
 Version:        2.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Client Library for OpenStack Zaqar Queueing API
 
 License:        ASL 2.0
@@ -75,6 +75,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/python_zaqarclient-*-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.5.1-2
 - Rebuilt for Python 3.12
 

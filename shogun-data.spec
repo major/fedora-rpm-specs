@@ -19,7 +19,7 @@
 
 Name:			%{mainprg}-data
 Version:		0.12
-Release:		0.16%{?gitrel}%{?dist}
+Release:		0.17%{?gitrel}%{?dist}
 Summary:		Data-files for the SHOGUN machine learning toolbox
 %{?el5:Group:		Documentation}
 
@@ -80,6 +80,9 @@ EOF
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-0.17.git20171030.4b85bd7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-0.16.git20171030.4b85bd7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

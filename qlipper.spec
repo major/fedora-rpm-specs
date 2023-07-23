@@ -1,6 +1,6 @@
 Name:		qlipper
 Version:	5.1.2
-Release:	13%{?dist}
+Release:	14%{?dist}
 License:	GPLv3+
 Summary:	Lightweight clipboard history
 URL:		https://github.com/pvanek/qlipper
@@ -41,6 +41,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

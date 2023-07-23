@@ -1,6 +1,6 @@
 Name: rancid
 Version: 3.13
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Really Awesome New Cisco confIg Differ
 
 License: BSD with advertising
@@ -116,6 +116,9 @@ exit 0
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 17 2023 Charles R. Anderson <cra@alum.wpi.edu> - 3.13-7
 - add patch to filter PSU output on Dell OS10 10.5.3.2
   https://shrubbery.net/pipermail/rancid-discuss/2022-April/011186.html

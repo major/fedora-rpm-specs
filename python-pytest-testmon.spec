@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A py.test plug-in which executes only tests affected by recent changes
 License:        MIT
 URL:            http://testmon.org/
@@ -51,6 +51,9 @@ This a Python 3 version of the package.
 %{python3_sitelib}/pytest_testmon-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Dan Radez <dradez@redhat.com> - 2.0.12-1
 - update to 2.0.12 rhbz#2222214
 

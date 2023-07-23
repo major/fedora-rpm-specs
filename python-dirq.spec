@@ -3,7 +3,7 @@
 
 Name:           python-dirq
 Version:        1.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Directory based queue
 License:        ASL 2.0
 URL:            https://github.com/cern-mig/%{name}
@@ -57,6 +57,9 @@ rm -f test/*.pyc
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.8-8
 - Rebuilt for Python 3.12
 

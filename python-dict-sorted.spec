@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Dictionaries sorted by key or by comparison function
 
 License:        BSD
@@ -59,6 +59,9 @@ rm -f docs/_build/html/.buildinfo
 %doc docs/_build/html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.0-25
 - Rebuilt for Python 3.12
 

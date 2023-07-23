@@ -65,7 +65,7 @@ Summary: PostgreSQL client programs
 Name: postgresql
 %global majorversion 15
 Version: %{majorversion}.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1262,6 +1262,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jul 13 2023 Adam Williamson <awilliam@redhat.com> - 15.3-8
 - Rebuilt for ICU 73.2 one more time
 

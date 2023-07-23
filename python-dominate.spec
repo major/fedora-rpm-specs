@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library for HTML documents
 
 License:        GPLv3
@@ -50,6 +50,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.7.0-3
 - Rebuilt for Python 3.12
 

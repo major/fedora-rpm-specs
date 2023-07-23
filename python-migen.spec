@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        20.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        21.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        A Python toolbox for building complex digital hardware
 
 License:        BSD
@@ -65,6 +65,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-21.20230215gitccaee68
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.9.2-20.20230215gitccaee68
 - Rebuilt for Python 3.12
 

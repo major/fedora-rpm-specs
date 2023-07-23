@@ -4,7 +4,7 @@
 
 Name:           python-pycares
 Version:        4.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python interface for c-ares
 
 License:        MIT
@@ -106,6 +106,9 @@ chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/_cares.cpython-*.so
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.3.0-3
 - Rebuilt for Python 3.12
 

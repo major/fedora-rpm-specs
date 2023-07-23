@@ -2,7 +2,7 @@
 Name:           perl-threads
 Epoch:          1
 Version:        2.36
-Release:        499%{?dist}
+Release:        500%{?dist}
 Summary:        Perl interpreter-based threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.36-500
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.36-499
 - Upgrade to 2.36 as provided in perl-5.37.11
 

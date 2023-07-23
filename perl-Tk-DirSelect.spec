@@ -3,7 +3,7 @@
 
 Name:           perl-Tk-DirSelect
 Version:        1.12
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Cross-platform directory selection widget
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Tk-DirSelect
@@ -83,6 +83,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

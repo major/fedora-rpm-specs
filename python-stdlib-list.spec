@@ -6,7 +6,7 @@
 
 Name:       python-stdlib-list
 Version:    0.9.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A list of Python Standard Libraries
 
 # SPDX
@@ -79,6 +79,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 %endif
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.0-1
 - Update to 0.9.0 (fix RHBZ#2216610, fix RHBZ#2155214)
 - Confirm License is SPDX MIT

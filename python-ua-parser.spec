@@ -4,7 +4,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python port of Browserscope's user agent parser
 
 License:        Apache-2.0
@@ -63,6 +63,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} ua_parser/user_agent_pars
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Roman Inflianskas <rominf@aiven.io> - 0.18.0-1
 - Update to 0.18.0 (resolve rhbz#2221373)
 - Make test file exclusion work.

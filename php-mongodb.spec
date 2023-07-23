@@ -23,7 +23,7 @@
 
 Name:           php-%{gh_owner}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MongoDB driver library
 
 License:        Apache-2.0
@@ -192,6 +192,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Remi Collet <remi@remirepo.net> - 1.16.0-1
 - update to 1.16.0
 - raise dependency on mongodb extension version 1.16

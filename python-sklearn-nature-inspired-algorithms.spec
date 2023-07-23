@@ -16,12 +16,15 @@ https://sklearn-nature-inspired-algorithms.readthedocs.io/en/stable/ }
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Nature-inspired algorithms for scikit-learn
 
 License:        MIT
 URL:            https://github.com/timzatko/%{github_name}
 Source0:        %{url}/archive/v%{version}/%{github_name}-%{version}.tar.gz
+# Fix AttributeError assertEquals
+# https://github.com/timzatko/Sklearn-Nature-Inspired-Algorithms/pull/26
+Patch:          https://github.com/timzatko/Sklearn-Nature-Inspired-Algorithms/pull/26.patch
 # Update pyproject.toml to match Fedora package versions
 
 BuildArch:      noarch
@@ -57,12 +60,13 @@ Generated documentation for %{name}.
 %endif
 
 %prep
-%autosetup -n %{github_name}-%{version}
+%autosetup -p1 -n %{github_name}-%{version}
 rm -rf %{pretty_name}.egg-info
 rm -fv poetry.lock
 
 # Make deps consistent with Fedora deps
 toml-adapt -path pyproject.toml -a change -dep ALL -ver X
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -96,6 +100,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m unittest tests
 %endif
 
 %changelog
+* Thu Jul 20 2023 Sandro <devel@penguinpee.nl> - 0.11.0-6
+- Fix AttributeError (RHBZ#2220506)
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.11.0-5
 - Rebuilt for Python 3.12
 

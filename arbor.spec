@@ -47,7 +47,7 @@ Patch:          looseversion.patch
 # Random123 does not support:
 #   mips64r2 mips32r2 s390
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    mips64r2 mips32r2 s390 %{ix86}
+ExcludeArch:    mips64r2 mips32r2 s390x %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  make

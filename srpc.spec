@@ -3,7 +3,7 @@ Name:           srpc
 License:        Apache-2.0
 
 Version:        0.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 URL:            https://github.com/sogou/srpc
 Source0:        %{url}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -68,5 +68,8 @@ make check
 %{_libdir}/cmake/%{name}/*.cmake
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 05 2023 Benson Muite <benson_muite@emailplus.org> - 0.10.0-1
 - Initial package

@@ -1,6 +1,6 @@
 Name:           rpminspect-data-centos
 Version:        1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Build deviation compliance tool data files for CentOS
 Group:          Development/Tools
@@ -58,6 +58,9 @@ and data files used by the inspections provided by librpminspect.
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 14 2023 David Cantrell <dcantrell@redhat.com> - 1.2-1
 - Upgrade to rpminspect-data-centos-1.2
 

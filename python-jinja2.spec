@@ -2,7 +2,7 @@
 
 Name:           python-jinja2
 Version:        3.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        General purpose template engine
 License:        BSD
 URL:            https://palletsprojects.com/p/jinja/
@@ -86,6 +86,9 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 3.1.2-4
 - Rebuilt for Python 3.12
 

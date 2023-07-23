@@ -6,7 +6,7 @@
 Summary:       Python bindings for CUPS
 Name:          python-cups
 Version:       2.0.1
-Release:       17%{?dist}
+Release:       18%{?dist}
 # older URL, but still with useful information about pycups
 #URL:           http://cyberelk.net/tim/software/pycups/
 URL:           https://github.com/OpenPrinting/pycups/
@@ -78,6 +78,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %doc examples html
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.1-17
 - Rebuilt for Python 3.12
 

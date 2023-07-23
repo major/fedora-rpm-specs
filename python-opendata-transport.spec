@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python client for interacting with transport.opendata.ch
 
 License:        MIT
@@ -41,6 +41,9 @@ simply retrieving the details about a given connection between two stations.
 %{python3_sitelib}/python_opendata_transport*.egg-info
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.1-13
 - Rebuilt for Python 3.12
 

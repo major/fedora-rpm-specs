@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.18.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Net::LDAP for Ruby implements client access LDAP protocol
 License: MIT
 URL: http://github.com/ruby-ldap/ruby-net-ldap
@@ -75,6 +75,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Steve Traylen <steve.traylen@cern.ch> - 0.18.0-1
 - Update to Net::LDAP 0.18.1.
 

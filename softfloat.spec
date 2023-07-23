@@ -17,7 +17,7 @@ and 128-bit quadruple-precision.}
 
 Name:           softfloat
 Version:        3.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Berkeley IEEE Binary Floating-Point Library
 
 License:        BSD
@@ -68,6 +68,9 @@ mv %{buildroot}%{_docdir}/%{name}-devel/softfloat.LICENSE.txt .
 %{_libdir}/libSoftFloat*.a
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

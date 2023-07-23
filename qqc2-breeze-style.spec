@@ -3,7 +3,7 @@
 
 Name:    qqc2-breeze-style
 Version: 5.27.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: QtQuickControls2 breeze style
 
 License: GPLv2+ and LGPLv2+
@@ -68,6 +68,9 @@ This is a pure Qt Quick/Kirigami Qt Quick Controls style.
 %{_kf5_libdir}/cmake/KF5QQC2BreezeStyle/
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
 - 5.27.6
 

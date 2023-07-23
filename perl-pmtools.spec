@@ -1,6 +1,6 @@
 Name:           perl-pmtools
 Version:        2.2.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A suite of small programs to help manage Perl modules
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -99,6 +99,9 @@ make test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 31 2023 Petr Pisar <ppisar@redhat.com> - 2.2.0-18
 - Convert a license tag to an SPDX syntax
 - Adapt tests to changes in less-633 (bug #2208970)

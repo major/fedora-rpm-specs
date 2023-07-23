@@ -3,7 +3,7 @@
 
 Name:           shotwell
 Version:        0.32.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -131,6 +131,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.32.1-2
 - Enable RPM conditional --with facedetect, using opencv
   Disabled by default for now - see rhbz#2190013

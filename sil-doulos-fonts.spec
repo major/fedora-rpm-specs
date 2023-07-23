@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        4.104
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Doulos SIL fonts
 
 License:        OFL
@@ -49,6 +49,9 @@ install -Dm 0644 -p %{SOURCE1} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.104-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.104-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,7 +11,7 @@ detect which async library your code is running under.}
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Sniff out which async library your code is running under
 License:        MIT or ASL 2.0
 URL:            https://github.com/python-trio/sniffio
@@ -62,6 +62,9 @@ BuildRequires:  %{py3_dist pytest}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.2.0-10
 - Rebuilt for Python 3.12
 

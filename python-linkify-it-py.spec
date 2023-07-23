@@ -3,7 +3,7 @@
 
 Name:           python-linkify-it-py
 Version:        2.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Link recognition library with full Unicode support
 
 License:        MIT
@@ -51,6 +51,9 @@ rmdir SPECPARTS
 %doc CHANGELOG.md README.md
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 21 2023 Orion Poplawski <orion@nwra.com> - 2.0.2-2
 - Remove empty SPECPARTS directory that breaks build
 

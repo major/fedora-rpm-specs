@@ -72,12 +72,19 @@ Patch:          %{forgeurl}/pull/911.patch
 # A few regressions with Python 3.12
 # https://github.com/mozman/ezdxf/issues/909
 
-BuildRequires:  python3-devel
-BuildRequires:  gcc-c++
-
+# fix Cython 3 compatibility
+# https://github.com/mozman/ezdxf/commit/f805a73b188a5afc1f01ccf1605ba36ea012a77e
+#
+# Fixes:
+#
 # Test failures with Cython 3
 # https://github.com/mozman/ezdxf/issues/913
-BuildRequires:  python3dist(cython) < 3~~
+#
+# Cherry-picked to 1.0.3.
+Patch:          0001-fix-903-Cython-3-compatibility.patch
+
+BuildRequires:  python3-devel
+BuildRequires:  gcc-c++
 
 BuildRequires:  dos2unix
 

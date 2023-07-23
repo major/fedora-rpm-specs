@@ -5,7 +5,7 @@ projects.
 
 Name: python-%{srcname}
 Version: 1.0.13
-Release: 6%{?dist}
+Release: 7%{?dist}
 BuildArch: noarch
 
 License: BSD
@@ -51,6 +51,9 @@ Summary: %{summary}
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.13-6
 - Rebuilt for Python 3.12
 

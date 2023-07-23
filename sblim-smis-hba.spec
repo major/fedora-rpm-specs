@@ -2,7 +2,7 @@
 
 Name:           sblim-smis-hba
 Version:        1.0.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        SBLIM SMIS HBA HDR Providers
 
 License:        EPL-1.0
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %sblim_preun
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 29 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.0.0-33
 - SPDX migration
 

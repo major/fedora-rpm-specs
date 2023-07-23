@@ -12,7 +12,7 @@ so far seems to work (all tests pass on 2.7, 3.3, and 3.4).
 
 Name:           python-%{pypi_name}
 Version:        0.9.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python parser for the CommonMark Markdown spec
 
 License:        BSD
@@ -94,6 +94,9 @@ PYTHONPATH=$(pwd) %{__python3} setup.py test
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.9.1-12
 - Rebuilt for Python 3.12
 

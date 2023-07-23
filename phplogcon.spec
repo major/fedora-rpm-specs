@@ -1,7 +1,7 @@
 Summary: A syslog data viewer for the web
 Name: phplogcon
 Version: 2.1.6
-Release: 27.beta%{?dist}
+Release: 28.beta%{?dist}
 License: GPLv3+
 URL: http://www.phplogcon.com/
 Source0: http://download.adiscon.com/phplogcon/%{name}-%{version}.tar.gz
@@ -46,6 +46,9 @@ cp      %{SOURCE1} ./
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-28.beta
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-27.beta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

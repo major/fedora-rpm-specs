@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -69,6 +69,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.7.0-21
 - Adjust to Python 3.12
 

@@ -1,7 +1,7 @@
 %global tarname WWW-OrangeHRM-Client
 Name:           perl-%{tarname}
 Version:        0.12.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Client for OrangeHRM
 License:        GPL+
 URL:            http://ppisar.fedorapeople.org/%{tarname}/
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
