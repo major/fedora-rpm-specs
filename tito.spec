@@ -17,7 +17,7 @@
 
 Name: tito
 Version: 0.6.24
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPL-2.0-only
@@ -118,6 +118,9 @@ install -Dp -m 0644 share/tito_completion.sh %{buildroot}%{_datadir}/bash-comple
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jul 08 2023 Jakub Kadlcik <frostyx@email.cz> 0.6.24-1
 - Will now copy both source files and patch files declared in the spec
 - Fix UpstreamBuilder deprecation warning (#461) (frostyx@email.cz)

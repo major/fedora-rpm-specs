@@ -3,7 +3,7 @@
 
 Name:		xreader
 Version:	3.8.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple document viewer
 
 License:	GPLv2+
@@ -167,6 +167,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.1-1
 - Update to 3.8.1 release
 

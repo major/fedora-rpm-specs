@@ -6,7 +6,7 @@ BuildArch: noarch
 BuildRequires: fontforge make
 
 Version: 0.2.2
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: Bitstream-Vera
 URL:     http://linux.thai.net/projects/fonts-sipa-arundina
 
@@ -97,6 +97,9 @@ make
 %fontfiles -a
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr  3 2023 Peng Wu <pwu@redhat.com> - 0.2.2-13
 - Update to follow New Fonts Packaging Guidelines
 - Migrate to SPDX license

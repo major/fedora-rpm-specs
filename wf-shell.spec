@@ -5,7 +5,7 @@
 
 Name:           wf-shell
 Version:        0.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GTK3-based panel for wayfire
 
 License:        MIT
@@ -75,6 +75,9 @@ mv GNOME-libgnome-volume-control-%{gvc_shortcommit}/* \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

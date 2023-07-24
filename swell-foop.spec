@@ -2,7 +2,7 @@
 
 Name:           swell-foop
 Version:        41.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GNOME colored tiles puzzle game
 
 License:        GPLv2+ and GFDL
@@ -55,6 +55,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SwellFoo
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

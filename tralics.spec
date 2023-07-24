@@ -1,6 +1,6 @@
 Name:           tralics
 Version:        2.15.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        LaTeX to XML translator
 License:        CeCILL
 URL:            http://www-sop.inria.fr/marelle/tralics/
@@ -50,6 +50,9 @@ cd Test && ./alltests
 %{_datadir}/%{name}/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

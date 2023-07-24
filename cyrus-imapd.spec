@@ -8,7 +8,7 @@
 
 Name: cyrus-imapd
 Version: 3.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -197,7 +197,8 @@ and the its utilities.
 
 %package utils
 Summary: Cyrus IMAP server administration utilities
-Requires: cyrus-imapd = %{version}-%{release}
+Requires: cyrus-imapd-libs = %{version}-%{release}
+Requires: perl-Cyrus = %{version}-%{release}
 
 %description utils
 The cyrus-imapd-utils package contains administrative tools for the
@@ -679,6 +680,9 @@ exclude+=("!Master.maxforkrate")
 %_mandir/man3/*.3pm*
 
 %changelog
+* Sat Jul 22 2023 Martin Osvald <mosvald@redhat.com> - 3.8.0-2
+- Remove utils dependency on main package (rhbz#2224702)
+
 * Thu Jul 20 2023 Martin Osvald <mosvald@redhat.com> - 3.8.0-1
 - New version 3.8.0 (rhbz#2169331)
 - Remove attribute always_inline for buf_len to fix compilation error

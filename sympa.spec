@@ -83,7 +83,7 @@
 
 Name:        sympa
 Version:     6.2.72
-Release:     %{?pre_rel:0.}3%{?pre_rel:.%pre_rel}%{?dist}
+Release:     %{?pre_rel:0.}3%{?pre_rel:.%pre_rel}%{?dist}.1
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -870,6 +870,9 @@ fi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.72-3.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Xavier Bachelot <xavier@bachelot.org> 6.2.72-3
 - Workaround DKIM issues on EL7
 - Add missing BuildRequires:

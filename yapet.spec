@@ -2,7 +2,7 @@
 
 Name:           yapet
 Version:        2.6
-Release:        1%{?pre}%{?dist}
+Release:        2%{?pre}%{?dist}
 Summary:        Yet Another Password Encryption Tool
 License:        GPLv3+ with exceptions
 URL:            http://yapet.guengel.ch/
@@ -67,6 +67,9 @@ rm -frv %{buildroot}%{_docdir}
 %{_mandir}/man*/*yapet*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 21 2023 Greg Bailey <gbailey@lxpro.com> - 2.6-1
 - Update to 2.6
 - Remove unnecessary patch

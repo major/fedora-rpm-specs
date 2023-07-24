@@ -1,6 +1,6 @@
 Name:           ternimal
 Version:        0.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Simulate a lifeform in the terminal
 
 License:        GPLv3+
@@ -29,6 +29,9 @@ install -Dpm0755 -t %{buildroot}%{_bindir} ternimal
 %{_bindir}/ternimal
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Fabio Valentini <decathorpe@gmail.com> - 0.1.0-14
 - Stop using private RPM macros.
 

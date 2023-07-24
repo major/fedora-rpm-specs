@@ -11,7 +11,7 @@
 
 Name:           vdr-%{pname}
 Version:        0.2.58
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        VDR skin interface for the browser
 License:        GPLv2+
 URL:            https://github.com/horchi/vdr-plugin-osd2web
@@ -78,6 +78,9 @@ install -Dpm 755 scripts/startBrowser.sh %{buildroot}%{vdr_plugindir}/bin/startB
 %{vdr_plugindir}/bin/startBrowser.sh
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.58-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Mar 20 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.2.58-1
 - Update to 0.2.58
 

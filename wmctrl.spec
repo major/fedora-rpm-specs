@@ -1,6 +1,6 @@
 Name:           wmctrl
 Version:        1.07
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Command line tool to interact with an X Window Manager
 
 License:        GPLv2+
@@ -48,6 +48,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

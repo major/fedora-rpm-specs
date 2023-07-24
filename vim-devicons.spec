@@ -4,7 +4,7 @@
 
 Name:           vim-devicons
 Version:        0.11.0
-Release:        9.%{date}git%{shortcommit}%{?dist}
+Release:        10.%{date}git%{shortcommit}%{?dist}
 Summary:        Adds file type icons to Vim plugins
 
 License:        MIT
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-10.20200509gitd12c9b4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-9.20200509gitd12c9b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Talk client for one-on-one Internet chatting
 Name: talk
 Version: 0.17
-Release: 68%{?dist}
+Release: 69%{?dist}
 License: BSD-4-Clause-UC AND BSD-3-Clause
 # URL: There's no upstream URL at the moment, here's the latest one.
 URL: http://web.archive.org/web/20070817165301/http://www.hcs.harvard.edu/~dholland/computers/netkit.html
@@ -105,6 +105,9 @@ install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/ntalk.service
 %systemd_postun_with_restart ntalk.socket
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-69
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 31 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 0.17-68
 - SPDX migration
 

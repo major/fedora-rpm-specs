@@ -1,7 +1,7 @@
 %global revision 20220528
 Name:           tack
 Version:        1.09
-Release:        13.%{revision}%{?dist}
+Release:        14.%{revision}%{?dist}
 Summary:        Terminfo action checker
 
 License:        GPLv2+
@@ -33,6 +33,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/tack.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-14.20220528
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-13.20220528
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

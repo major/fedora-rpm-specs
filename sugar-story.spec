@@ -1,6 +1,6 @@
 Name:		sugar-story
 Version:	20
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	An activity that uses images to prompt the learner to tell stories
 
 # grecord.py and sprites.py is in MIT and all other files in GPLv3+
@@ -44,6 +44,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

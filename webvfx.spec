@@ -1,6 +1,6 @@
 Name:           webvfx
 Version:        1.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Video effects engine based on web technologies
 License:        BSD
 URL:            https://github.com/mltframework/webvfx
@@ -75,6 +75,9 @@ chrpath --delete %{buildroot}%{_bindir}/%{name}_render
 %doc doxydoc
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

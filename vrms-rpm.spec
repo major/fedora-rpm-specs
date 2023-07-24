@@ -1,6 +1,6 @@
 Name:          vrms-rpm
 Version:       2.2
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Report non-free software
 License:       GPLv3
 
@@ -37,6 +37,9 @@ make build PREFIX=%{_prefix} DEFAULT_LICENCE_LIST=tweaked %{?_smp_mflags}
 %license LICENCE.txt
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 Summary: Basic desktop integration functions 
 Name:    xdg-utils
 Version: 1.1.3
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 URL:     http://portland.freedesktop.org/ 
 %if 0%{?snap:1}
@@ -107,6 +107,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

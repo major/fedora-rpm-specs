@@ -7,7 +7,7 @@
 
 Name:           sympy
 Version:        1.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python library for symbolic mathematics
 
 # The project as a whole is BSD-3-Clause.
@@ -241,6 +241,9 @@ fi
 %{_docdir}/%{name}-doc/html
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Jerry James <loganjerry@gmail.com> - 1.12-1
 - Version 1.12
 - Add patch for python 3.12 compatibility

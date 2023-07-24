@@ -10,23 +10,21 @@
 %endif
 
 Name:           nx-libs
-Version:        3.5.99.26
-Release:        8%{?dist}
+Version:        3.5.99.27
+Release:        1%{?dist}
 Summary:        NX X11 protocol compression libraries
 
 License:        GPLv2+
 URL:            https://github.com/ArcticaProject/nx-libs
 Source0:        https://github.com/ArcticaProject/nx-libs/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix obsolete ar option usage
-Patch0:         nx-libs-ar.patch
 
-BuildRequires: make
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  gcc-c++
 BuildRequires:  expat-devel
 BuildRequires:  imake
+BuildRequires:  make
 BuildRequires:  quilt
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
@@ -46,10 +44,24 @@ BuildRequires:  libXpm-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  libXtst-devel
 BuildRequires:  pixman-devel
+%if 0%{?fedora}
+BuildRequires:  xkbcomp-devel
+%else
+%if 0%{?rhel} && 0%{?rhel} < 9
+BuildRequires:  xorg-x11-xkb-utils-devel
+%endif
+%endif
 # For imake
 BuildRequires:  xorg-x11-proto-devel
 BuildRequires:  zlib-devel
+%if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  python3-devel
+%else
+BuildRequires:  python-rpm-macros
+%endif
+%if !(0%{?fedora} >= 38 || 0%{?rhel} >= 8)
 BuildRequires:  /usr/bin/pathfix.py
+%endif
 
 Obsoletes:      nx < 3.5.0-19
 Provides:       nx = %{version}-%{release}
@@ -283,7 +295,7 @@ export LOCAL_LDFLAGS="%{__global_ldflags}"
 export CDEBUGFLAGS="%{optflags}"
 IMAKE_DEFINES="-DUseTIRPC=YES"
 # parallel make failed
-make CONFIGURE="$PWD/my_configure" LIBDIR=%{_libdir} CDEBUGFLAGS="${CDEBUGFLAGS}" LOCAL_LDFLAGS="${LOCAL_LDFLAGS}" SHLIBGLOBALSFLAGS="${SHLIBGLOBALSFLAGS}" IMAKE_DEFINES="${IMAKE_DEFINES}"
+make VERBOSE=1 CONFIGURE="$PWD/my_configure" LIBDIR=%{_libdir} CDEBUGFLAGS="${CDEBUGFLAGS}" LOCAL_LDFLAGS="${LOCAL_LDFLAGS}" SHLIBGLOBALSFLAGS="${SHLIBGLOBALSFLAGS}" IMAKE_DEFINES="${IMAKE_DEFINES}"
 
 
 %install
@@ -313,7 +325,7 @@ rm %{buildroot}%{_libdir}/*.la
 
 # Fix python scripts
 %if 0%{?fedora} || 0%{?rhel} >= 8
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_bindir}/nxdialog
+%py3_shebang_fix %{buildroot}%{_bindir}/nxdialog
 %else
 pathfix.py -pni "%{__python2} %{py2_shbang_opts}" %{buildroot}%{_bindir}/nxdialog
 %endif
@@ -470,6 +482,10 @@ pathfix.py -pni "%{__python2} %{py2_shbang_opts}" %{buildroot}%{_bindir}/nxdialo
 
 
 %changelog
+* Fri Jul 21 2023 Orion Poplawski <orion@nwra.com> - 3.5.99.27-1
+- Update to 3.5.99.27
+- Switch from pathfix.py to %%py3_shebang_fix
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99.26-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

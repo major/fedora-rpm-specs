@@ -3,7 +3,7 @@
 
 Name: tre
 Version: 0.8.0
-Release: 40.20140228git%{shortcommit}%{?dist}
+Release: 41.20140228git%{shortcommit}%{?dist}
 License: BSD
 Source0: https://github.com/laurikari/tre/archive/%{commit}/tre-%{commit}.tar.gz
 # based on https://github.com/laurikari/tre/pull/19
@@ -135,6 +135,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man1/agrep.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-41.20140228gitc2f5d13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.0-40.20140228gitc2f5d13
 - Rebuilt for Python 3.12
 

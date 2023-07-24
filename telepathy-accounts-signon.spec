@@ -1,7 +1,7 @@
 Name:           telepathy-accounts-signon
 Summary:        Telepathy integration for the Accounts SSO framework
 Version:        2.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        LGPLv2
 
 URL:            https://gitlab.com/accounts-sso/telepathy-accounts-signon
@@ -38,6 +38,9 @@ BuildRequires:  pkgconfig(mission-control-plugins)
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

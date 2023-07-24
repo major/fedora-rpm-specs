@@ -1,6 +1,6 @@
 Name:           xa
 Version:        2.3.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        6502/65816 cross-assembler
 
 License:        GPLv2+
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 16 2023 Dan Horák <dan[at]danny.cz> - 2.3.14-1
 - updated to version 2.3.14
 

@@ -3,7 +3,7 @@
 
 Name:		tkrzw
 Version:	1.0.27
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A straightforward implementation of DBM
 License:	ASL 2.0
 URL:		https://dbmx.net/%{name}/
@@ -102,6 +102,9 @@ install -t %{buildroot}%{_mandir}/man1 -m 0644 -p tkrzw_*.1
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.27-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 06 2023 TI_Eugene <ti.eugene@gmail.com> - 1.0.27-1
 - Version bump
 

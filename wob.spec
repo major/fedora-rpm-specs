@@ -2,7 +2,7 @@
 
 Name:     wob
 Version:  0.14.2
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  A lightweight overlay volume/backlight/progress/anything bar for Wayland
 License:  ISC
 URL:      https://github.com/francma/wob
@@ -51,6 +51,9 @@ Wayland.
 %license LICENSE
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

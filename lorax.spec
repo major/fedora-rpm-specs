@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        39.2
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,6 +14,9 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
+# https://github.com/weldr/lorax/pull/1334
+# Ensure we have SVG pixbuf loader now it's split out of librsvg2
+Patch0:         0001-runtime-install-install-rsvg-pixbuf-loader.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -168,6 +171,12 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Sat Jul 22 2023 Adam Williamson <awilliam@redhat.com> - 39.2-5
+- Rebuild with no changes on a side tag to resolve test problems
+
+* Sat Jul 22 2023 Adam Williamson <awilliam@redhat.com> - 39.2-4
+- Backport PR #1334 to fix installer with latest librsvg2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 39.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

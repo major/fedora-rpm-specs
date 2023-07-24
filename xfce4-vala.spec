@@ -8,7 +8,7 @@
 
 Name:           xfce4-vala
 Version:        4.10.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Vala bindings for the Xfce framework
 
 License:        LGPLv2+
@@ -53,6 +53,9 @@ Xfce4 Vala provides bindings for the Xfce framework
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.3-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.3-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

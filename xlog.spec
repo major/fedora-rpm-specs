@@ -1,6 +1,6 @@
 Name:          xlog
 Version:       2.0.22
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       Logging program for Hamradio Operators
 
 License:       GPLv3
@@ -77,6 +77,9 @@ install -D -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_metainfodir}/org.nongnu.Xlog.me
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Daniel Rusek <mail@asciiwolf.com> - 2.0.22-11
 - Add AppStream metadata, svg icon
   Resolves: rhbz#1792728

@@ -3,7 +3,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 1.3.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Automatic guest registration for Vagrant
 License: GPLv2
 URL: https://github.com/projectatomic/adb-vagrant-registration
@@ -71,6 +71,9 @@ popd
 %{vagrant_plugin_instdir}/vagrant-registration.gemspec
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

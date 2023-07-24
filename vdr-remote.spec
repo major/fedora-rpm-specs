@@ -8,7 +8,7 @@
 
 Name:           vdr-%{pname}
 Version:        0.7.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Extended remote control plugin for VDR
 
 License:        GPL+
@@ -71,6 +71,9 @@ usermod -a -G input %{vdr_user} || :
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:		xfe
 Version:	1.45
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	X File Explorer File Manager
 
 # GPL-2.0-or-later:	README
@@ -184,6 +184,9 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.45-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.45-4
 - Fix window disappearance after opening recent file (upstream bug 275)
   (bug 2190356)

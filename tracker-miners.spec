@@ -24,7 +24,7 @@
 
 Name:           tracker-miners
 Version:        3.6~alpha
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
@@ -160,6 +160,9 @@ This package contains various miners and metadata extractors for tracker.
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6~alpha-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 3.6~alpha-2
 - Rebuilt for ICU 73.2
 

@@ -1,6 +1,6 @@
 Name:           undbx
 Version:        0.21
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Outlook Express .dbx files extractor
 License:        GPLv3+
 URL:            https://github.com/ZungBang/undbx
@@ -33,6 +33,9 @@ Outlook Express .dbx file.
 %exclude %{_bindir}/undbx.hta
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

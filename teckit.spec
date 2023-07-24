@@ -1,6 +1,6 @@
 Name:           teckit
 Version:        2.5.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Conversion library and mapping compiler
 # COPYING:                      links to license/LICENSING.txt
 # license/License_CPLv05.txt:   CPL-1.0 text, "0.5" version in the license
@@ -135,6 +135,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/teckit.pc
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Petr Pisar <ppisar@redhat.com> - 2.5.11-1
 - 2.5.11 bump
 

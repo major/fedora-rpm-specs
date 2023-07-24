@@ -2,7 +2,7 @@
 
 Name:    sunxi-tools
 Version: 1.4.2
-Release: 17%{?snapshot:.%{snapshot}}%{?dist}
+Release: 18%{?snapshot:.%{snapshot}}%{?dist}
 Summary: Tools to help hacking Allwinner (sunxi) based devices
 License: GPLv2+
 URL:     http://linux-sunxi.org/Sunxi-tools
@@ -45,6 +45,9 @@ install sunxi-bootinfo %{buildroot}%{_bindir}/sunxi-bootinfo
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-18.42ffc5f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-17.42ffc5f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

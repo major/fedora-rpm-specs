@@ -1,7 +1,7 @@
 Summary:       ALSA C++ library
 Name:          zita-alsa-pcmi
 Version:       0.6.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       GPLv3+ 
 URL:           http://kokkinizita.linuxaudio.org
 Source0:       http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
@@ -73,6 +73,9 @@ ln -sf lib%{name}.so.%{version} source/lib%{name}.so
 %{_bindir}/alsa_loopback
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

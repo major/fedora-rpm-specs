@@ -1,6 +1,6 @@
 Name:		transfig
 Version:	3.2.8b
-Release:	7%{?dist}
+Release:	8%{?dist}
 Epoch:		1
 Summary:	Utility for converting FIG files (made by xfig) to other formats
 License:	Xfig
@@ -58,6 +58,9 @@ mv fig2dev.1.in.new man/fig2dev.1.in
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.8b-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.8b-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		yubico-piv-tool
 Version:	2.3.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tool for interacting with the PIV applet on a YubiKey
 
 License:	GPLv3+
@@ -83,6 +83,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libykcs11.{la,a}
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Jakub Jelen <jjelen@redhat.com> - 2.3.1-1
 - New upstream release (#2167694)
 

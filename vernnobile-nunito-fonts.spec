@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 3.504
-Release: 14%{?dist}
+Release: 15%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           vernnobile
@@ -43,6 +43,9 @@ Source10: 58-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.504-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.504-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

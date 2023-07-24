@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Sub-Exporter
-Version:	0.989
-Release:	3%{?dist}
+Version:	0.990
+Release:	1%{?dist}
 Summary:	Sophisticated exporter for custom-built routines
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Exporter
@@ -43,7 +43,7 @@ BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(Encode)
 BuildRequires:	perl(Test::Pod) >= 1.41
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Package::Generator)
 
 # Don't want doc-file provides or dependencies
@@ -94,6 +94,10 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Sub::Exporter::Util.3*
 
 %changelog
+* Sat Jul 22 2023 Paul Howarth <paul@city-fan.org> - 0.990-1
+- Update to 0.990
+  - Fixes to keep working in v5.39 (GH#17, GH#18)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.989-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

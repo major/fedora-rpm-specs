@@ -8,7 +8,7 @@
 
 Name:           wxsqlite3
 Version:        4.8.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        C++ wrapper around the SQLite 3.x database
 
 License:        wxWidgets
@@ -139,6 +139,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

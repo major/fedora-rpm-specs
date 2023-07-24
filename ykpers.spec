@@ -1,6 +1,6 @@
 Name:           ykpers
 Version:        1.20.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Yubikey personalization program
 
 License:        BSD
@@ -76,6 +76,9 @@ make check
 %exclude %{_libdir}/libykpers-1.la
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

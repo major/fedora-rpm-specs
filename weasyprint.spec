@@ -3,7 +3,7 @@
 
 Name:           weasyprint
 Version:        59.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD-3-Clause
@@ -77,6 +77,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 59.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 09 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 59.0-2
 - add patch so the test suite passes for Python 3.12
 

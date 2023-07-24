@@ -1,6 +1,6 @@
 Name:		wondershaper
 Version:	1.2.1
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Simple Network Shaper
 License:	GPLv2+
 URL:		http://sourceforge.net/projects/wondershaper/
@@ -31,6 +31,9 @@ install -pDm 755 wshaper %{buildroot}/%{_sbindir}/%{name}
 %{_sbindir}/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

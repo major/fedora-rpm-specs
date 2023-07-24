@@ -8,7 +8,7 @@
 
 Name:     w3m
 Version:  0.5.3
-Release:  60.git%{gitdate}%{?dist}
+Release:  61.git%{gitdate}%{?dist}
 # UCD is added for EastAsianWidth.txt source
 License:  MIT and UCD
 URL:      http://w3m.sourceforge.net/
@@ -109,6 +109,9 @@ rm -f doc*/w3m.1
 %{_libexecdir}/w3m/w3mimgdisplay
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-61.git20230121
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Robert Scheck <robert@fedoraproject.org> - 0.5.3-60.git20230121
 - Rebase to latest upstream gitrev 20230121 (#2163003)
 

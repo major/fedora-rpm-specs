@@ -3,7 +3,7 @@
 
 Name:           widelands
 Version:        1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open source realtime-strategy game
 
 License:        GPLv2+
@@ -198,6 +198,9 @@ popd
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 1.1-2
 - Rebuilt for ICU 73.2
 

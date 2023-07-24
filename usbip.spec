@@ -4,7 +4,7 @@ Name:		usbip
 License:	GPLv2+
 Summary:	USB/IP user-space
 Version:	5.7.9
-Release:	8%{?dist}
+Release:	9%{?dist}
 #Source:	https://www.kernel.org/pub/linux/kernel/v5.x/linux-%%{version}.tar.xz
 # In the interests of keeping the source rpm from being ridiculously large,
 # download the Linux kernel from above and run `extract_usbip.sh <version>`
@@ -88,6 +88,9 @@ install -pm 644 %{SOURCE2} %{buildroot}%{_unitdir}
 %{_libdir}/*.so
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

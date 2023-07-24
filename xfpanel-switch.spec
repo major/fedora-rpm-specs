@@ -3,7 +3,7 @@
 
 Name:		xfpanel-switch
 Version:	1.0.7
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	A simple application to manage Xfce panel layouts
 
 License:	GPLv3
@@ -57,6 +57,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appdata
 %{_datadir}/metainfo/*.appdata.xml
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

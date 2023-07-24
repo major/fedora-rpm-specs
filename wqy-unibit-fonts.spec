@@ -7,7 +7,7 @@ BuildRequires:  bdftopcf
 BuildRequires:  perl-interpreter
 
 Version: 1.1.0
-Release: 32%{?dist}
+Release: 33%{?dist}
 URL:     http://wenq.org/enindex.cgi
 
 %global foundry           WQY
@@ -61,6 +61,9 @@ make
 %fontfiles
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Apr 13 2023 Peng Wu <pwu@redhat.com> - 1.1.0-32
 - Update to follow New Fonts Packaging Guidelines
 - Migrate to SPDX license

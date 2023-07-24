@@ -1,7 +1,7 @@
 Name:    tbb2020.3
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2020.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Apache-2.0
 URL:     http://threadingbuildingblocks.org/
 
@@ -161,5 +161,8 @@ cmake \
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 10 2023 Orion Poplawski <orion@nwra.com> - 2020.3-1
 - Compat package for TBB 2020.3

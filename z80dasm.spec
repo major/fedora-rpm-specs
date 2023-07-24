@@ -1,6 +1,6 @@
 Name:		z80dasm
 Version:	1.1.3
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Z80 Disassembler
 License:	GPLv2+
 URL:		http://www.tablix.org/~avian/blog/articles/%{name}/
@@ -45,6 +45,9 @@ make install DESTDIR="%{buildroot}"
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

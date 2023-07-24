@@ -11,7 +11,7 @@ Version:       0.0.99.4
 %gometa -f
 %endif
 
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
@@ -246,6 +246,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.99.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 8 2023 Nieves Montero <nmontero@redhat.com> - 0.0.99.4-2
 - Sprinkle a debug log
 

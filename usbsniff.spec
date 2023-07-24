@@ -3,7 +3,7 @@
 
 Name:           usbsniff
 Version:        0
-Release:        19.20170624git%{shortcommit}%{?dist}
+Release:        20.20170624git%{shortcommit}%{?dist}
 Summary:        USB traffic capture and replay tools
 
 License:        GPLv3+
@@ -45,6 +45,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-20.20170624gitb4ba3c8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-19.20170624gitb4ba3c8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

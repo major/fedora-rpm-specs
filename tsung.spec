@@ -3,15 +3,13 @@
 %global debug_package %{nil}
 
 Name:           tsung
-Version:        1.7.0
-Release:        21%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        A distributed multi-protocol load testing tool
 License:        GPLv2
 URL:            http://tsung.erlang-projects.org/
 Source0:        http://tsung.erlang-projects.org/dist/%{name}-%{version}.tar.gz
-%if 0%{?fedora} || 0%{?rhel} >= 8
-Patch0:         tsung-python3.patch
-%endif
+
 BuildRequires: make
 BuildRequires:  erlang
 BuildRequires:  perl-generators
@@ -57,9 +55,7 @@ Documentation files for tsung
 
 %prep
 %setup -qn %{name}-%{version}
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%patch0 -p1
-%endif
+
 # Fix bogus shebangs.
 sed -i 's|/usr/bin/env bash|/bin/bash|' *.sh.in
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -92,7 +88,7 @@ done
 
 for i in `ls %{buildroot}%{_libdir}/%{name}/bin | grep .pl$ | cut -d"." -f1`
 do
-  ln -sf %{_libdir}/%{name}/bin/$i.pl %{buildroot}%{_bindir}/$i
+  ln -sf ../%{_lib}/%{name}/bin/$i.pl %{buildroot}%{_bindir}/$i
 done
 
 # Fix versioned/unversioned docdir
@@ -118,6 +114,9 @@ rm -frv examples/*.xml.in
 %doc docs examples
 
 %changelog
+* Sat Jul 22 2023 Didier Fabert <didier.fabert@gmail.com> - 1.8.0-1
+- Update to 1.8.0 (#2174608)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

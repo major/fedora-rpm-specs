@@ -1,6 +1,6 @@
 Name:           uacme
 Version:        1.7.4 
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight SSL certificate verification and issue client
 
 License:        GPL-3.0-only
@@ -79,6 +79,9 @@ ${RPM_BUILD_ROOT}%{_bindir}/ualpn --version 2>&1 | grep 'ualpn: version %version
 %doc AUTHORS ChangeLog NEWS README THANKS
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Feb 18 2023 Benson Muite <benson_muite@emailplus.org> 1.7.4-1
 - Update to new release
 

@@ -12,7 +12,7 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.8.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        BSD
 Url:            http://github.com/stefanberger/swtpm
 Source0:        %{url}/archive/%{gitcommit}/%{name}-%{gitshortcommit}.tar.gz
@@ -91,7 +91,7 @@ Tools for creating a local CA based on a pkcs11 device
 
 %package        selinux
 Summary:        SELinux security policy for swtpm
-Requires:       swtpm = %{version}-%{release}
+Requires(post): swtpm = %{version}-%{release}
 BuildArch:      noarch
 %if ! 0%{?flatpak}
 %{?selinux_requires}
@@ -197,6 +197,9 @@ fi
 %{_datadir}/swtpm/swtpm-create-tpmca
 
 %changelog
+* Sat Jul 22 2023 Adam Williamson <awilliam@redhat.com> - 0.8.0-7
+- Make swtpm-selinux Requires(post) swtpm (#2223276)
+
 * Thu Jul 20 2023 Stefan Berger <stefanb@linux.ibm.com> - 0.8.0-6
 - Added a 'Requires' on swtpm for swtpm-selinux package
 

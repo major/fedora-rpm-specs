@@ -9,7 +9,7 @@
 #%%global	minorver	D%{?tardate}git%{shorthash}
 #%%global	prerelease	1
 
-%global	baserelease	1
+%global	baserelease	2
 
 Name:		wkhtmltopdf
 Version:	%{mainver}
@@ -107,6 +107,9 @@ make install \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.6-2.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.6-1.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

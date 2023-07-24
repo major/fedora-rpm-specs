@@ -1,7 +1,7 @@
 Summary:    X client list utility
 Name:       xlsclients
 Version:    1.1.4
-Release:    6%{?dist}
+Release:    7%{?dist}
 License:    MIT
 URL:        http://www.x.org
 
@@ -35,6 +35,9 @@ xlsclients lists the names of the clients currently connected to an X server.
 %{_mandir}/man1/xlsclients.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		vboot-utils
 Version:	20230127
-Release:	1.git%{gitshort}%{?dist}
+Release:	2.git%{gitshort}%{?dist}
 Summary:	Verified Boot Utility from Chromium OS
 License:	BSD
 URL:		https://chromium.googlesource.com/chromiumos/platform/vboot_reference
@@ -91,6 +91,9 @@ rm -f %{buildroot}/usr/lib/libvboot_host.a
 %{_datadir}/vboot/devkeys/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230127-2.git9b08a3c4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jan 27 2023 Javier Martinez Canillas <javierm@redhat.com> - 20230127-1.git9b08a3c4
 - Update to upstream snapshot 9b08a3c4
 - Drop `BuildRequires: flashrom-devel` since all tools depending on it are removed.

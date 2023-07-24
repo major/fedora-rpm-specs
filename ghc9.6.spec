@@ -56,7 +56,7 @@ Version: 9.6.2
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -574,7 +574,8 @@ install -p -m 0644 %{SOURCE7} %{buildroot}%{_mandir}/man1/runghc.1
 %if %{with manual}
 rm %{buildroot}%{_pkgdocdir}/archives/Haddock.html.tar.xz
 rm %{buildroot}%{_pkgdocdir}/archives/users_guide.html.tar.xz
-mv %{buildroot}%{_ghc_doc_dir}/users_guide/build-man/ghc.1 %{buildroot}%{_mandir}/man1/
+rm %{buildroot}%{_ghc_doc_dir}/users_guide/build-man/ghc.1
+mv %{buildroot}%{_mandir}/man1/ghc{,-%{ghc_major}}.1
 %endif
 
 %ifarch armv7hl
@@ -756,7 +757,7 @@ make test
 %verify(not size mtime) %{ghc_html_libraries_dir}/synopsis.png
 %endif
 %if %{with manual}
-%{_mandir}/man1/ghc.1*
+%{_mandir}/man1/ghc-%{ghc_major}.1*
 %endif
 
 %files compiler-default
@@ -810,6 +811,9 @@ make test
 
 
 %changelog
+* Sat Jul 22 2023 Jens Petersen <petersen@redhat.com> - 9.6.2-9
+- rename ghc manpage to ghc-9.6
+
 * Fri Jul 21 2023 Jens Petersen <petersen@redhat.com> - 9.6.2-8
 - strip out the obsolete make buildsystem
 - build the ghc manpage with sphinx

@@ -1,6 +1,6 @@
 Name:             umockdev
 Version:          0.17.17
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock hardware devices
 
 License:          LGPLv2+
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 16 2023 Packit <hello@packit.dev> - 0.17.17-1
 - Fix race with worker thread accessing $UMOCKDEV_DIR
 - Disable -Wincompatible-function-pointer-types for clang

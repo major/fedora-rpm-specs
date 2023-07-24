@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define fedora_rel    3
+%define baserelease    4
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -74,7 +74,7 @@
 Summary:         X screen saver and locker
 Name:            %{name}
 Version:         %{mainversion}
-Release:         %{?beta_ver:0.}%{fedora_rel}%{?beta_ver:.%beta_ver}%{?dist}%{flagrel}%{?extrarel}
+Release:         %{?beta_ver:0.}%{baserelease}%{?beta_ver:.%beta_ver}%{?dist}%{flagrel}%{?extrarel}
 Epoch:           1
 License:         MIT
 URL:             http://www.jwz.org/xscreensaver/
@@ -1165,6 +1165,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.06-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.06-3
 - distort_reset: restrict radius by xgwa correctly (bug 2174626)
 

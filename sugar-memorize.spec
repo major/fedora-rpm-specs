@@ -1,6 +1,6 @@
 Name:          sugar-memorize
 Version:       58
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Memorize for Sugar
 License:       GPLv2+
 URL:           http://wiki.sugarlabs.org/go/Activities/Memorize
@@ -50,6 +50,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 58-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 58-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 0.11.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: libvirt provider for Vagrant
 License: MIT
 URL: https://github.com/vagrant-libvirt/vagrant-libvirt
@@ -137,6 +137,9 @@ popd
 %{vagrant_plugin_instdir}/spec
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 29 2023 Bart Kus <me@bartk.us> - 0.11.2-1
 - Update to vagrant-libvirt 0.11.2.
 

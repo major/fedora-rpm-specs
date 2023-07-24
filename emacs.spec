@@ -5,7 +5,7 @@ Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
 Version:       28.2
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
@@ -235,7 +235,7 @@ grep -v "pong.elc" lisp/Makefile.in > lisp/Makefile.in.new \
 
 # Avoid trademark issues
 rm -f lisp/play/tetris.el lisp/play/tetris.elc
-rm -f lisp/play/pong.el lisp/play/pong.el
+rm -f lisp/play/pong.el lisp/play/pong.elc
 
 %ifarch %{ix86}
 %define setarch setarch %{_arch} -R
@@ -550,6 +550,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Sat Jul 22 2023 Benson Muite <benson_muite@emailplus.org> - 1:28.2-9
+- Add entry for change made by jthat (Fedora fas) to fix typo
+  play/pong.el to play/pong.elc
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:28.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

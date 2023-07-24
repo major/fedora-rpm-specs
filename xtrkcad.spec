@@ -1,7 +1,7 @@
 Name: xtrkcad
 Summary: CAD for Model Railroad layout
 Version: 5.2.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2
 URL: https://sourceforge.net/projects/xtrkcad-fork
 Source0: https://sourceforge.net/projects/xtrkcad-fork/files/XTrackCad/Version%20%{version}/xtrkcad-source-%{version}GA.tar.gz
@@ -92,6 +92,9 @@ mv %{buildroot}/%{_datadir}/%{name}/applications/xtrkcad.xml \
 %{_datadir}/%{name}/html
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

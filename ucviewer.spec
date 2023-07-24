@@ -4,7 +4,7 @@
 Name:		ucviewer
 # The only place I could find a version was in the documentation.
 Version:	0.1
-Release:	0.29.%{svndate}svn%{svnrev}%{?dist}
+Release:	0.30.%{svndate}svn%{svnrev}%{?dist}
 Summary:	A tool for browsing Unicode tables
 License:	GPLv2+
 URL:		http://sourceforge.net/projects/ucviewer/
@@ -61,6 +61,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/UnicodeViewer/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.30.20101019svn4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.29.20101019svn4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

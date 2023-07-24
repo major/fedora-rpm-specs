@@ -4,7 +4,7 @@
 Summary: An X Window System based IBM 3278/3279 terminal emulator
 Name: x3270
 Version: 4.3beta1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL: https://x3270.miraheze.org/wiki/Main_Page
 Source0: http://downloads.sourceforge.net/%{name}/suite3270-%{version}-src.tgz
@@ -113,6 +113,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3beta1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Jakub Čajka <jcajka@redhat.com> 4.3beta1-1
 - updated to 4.3beta1(#2210893)
 

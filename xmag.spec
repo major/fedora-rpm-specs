@@ -1,6 +1,6 @@
 Name:       xmag
 Version:    1.0.7
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Display a magnified snapshot of an X11 screen
 # CutPaste.c:   MIT-open-group
 # CutPaste.h:   X11
@@ -70,6 +70,9 @@ autoreconf --force --install
 %{_datadir}/X11/app-defaults/Xmag
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

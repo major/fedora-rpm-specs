@@ -3,7 +3,7 @@
 
 Name:           zfp
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for compressed numerical arrays with high throughput R/W random access
 
 License:        BSD
@@ -81,6 +81,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 04 2023 Orion Poplawski <orion@nwra.com> - 1.0.0-1
 - Update to 1.0.0
 

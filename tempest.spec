@@ -12,7 +12,7 @@
 Name:           tempest
 # There is no version, so we use pre-release style versioning with a date
 Version:        0
-Release:        0.35.%{pkgtimestamp}%{?dist}
+Release:        0.36.%{pkgtimestamp}%{?dist}
 Summary:        Tempest OpenGL screensaver
 License:        GPLv2+
 URL:            http://www.personal.utulsa.edu/~dan-guernsey
@@ -149,6 +149,9 @@ fi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.36.20081027
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.35.20081027
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

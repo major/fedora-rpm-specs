@@ -5,7 +5,7 @@
 # determine install locations and Emacs version at build time,
 # otherwise set defaults.
 %if %($(pkg-config emacs) ; echo $?)
-%global emacs_version 22.1
+%global emacs_version 28.2
 %global emacs_lispdir %{_datadir}/emacs/site-lisp
 %global emacs_startdir %{_datadir}/emacs/site-lisp/site-start.d
 %else
@@ -14,47 +14,31 @@
 %global emacs_startdir %(pkg-config emacs --variable sitestartdir)
 %endif
 
-%if 0%{?fedora} < 36
-# If the xemacs-devel package has installed a pkgconfig file, use that
-# to determine install locations and Emacs version at build time,
-# otherwise set defaults.
-%if %($(pkg-config xemacs) ; echo $?)
-%global xemacs_version 21.5
-%global xemacs_lispdir %{_datadir}/xemacs/site-lisp
-%global xemacs_startdir %{_datadir}/xemacs/site-lisp/site-start.d
-%else
-%global xemacs_version %(pkg-config xemacs --modversion)
-%global xemacs_lispdir %(pkg-config xemacs --variable sitepkglispdir)
-%global xemacs_startdir %(pkg-config xemacs --variable sitestartdir)
-%endif
-%endif
-
 Name:           emacs-common-%{pkg}
-Version:        2.2.0
-Release:        13%{?dist}
-Summary:        Emacs and XEmacs mode for editing ocaml
+Version:        3.0.1
+Release:        1%{?dist}
+Summary:        Emacs mode for editing OCaml code
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/ocaml/%{pkg}
-Source0:        https://github.com/ocaml/tuareg/releases/download/%{version}/tuareg-%{version}.tar.gz
-Source1:        COPYING
+Source0:        https://github.com/ocaml/tuareg/archive/%{version}/tuareg-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  emacs, emacs-el
-%if 0%{?fedora} < 36
-BuildRequires:  xemacs, xemacs-devel
-%endif
-BuildRequires: make
+BuildRequires:  emacs-caml-mode
+BuildRequires:  emacs-merlin
+BuildRequires:  make
 
 # Needs caml-types.el in order to use *.annot files properly.
-Suggests:       ocaml-emacs
+Recommends:     emacs-caml-mode
+Recommends:     emacs-merlin
 
 
 %description
-Tuareg is an OCaml mode for GNU Emacs and XEmacs.  It handles
-automatic indentation of Objective Caml and Caml Light code.  Key
-parts of the code are highlighted using Font-Lock.  Support to run an
-interactive Caml toplevel and debbuger is provided.
+Tuareg is an OCaml mode for GNU Emacs.  It handles automatic indentation
+of Objective Caml and Caml Light code.  Key parts of the code are
+highlighted using Font-Lock.  Support to run an interactive Caml
+toplevel and debbuger is provided.
 
 This package contains the common files.  Install emacs-%{pkg} to get
 the complete package.
@@ -64,103 +48,62 @@ the complete package.
 Summary:        Compiled elisp files to run %{pkgname} under GNU Emacs
 Requires:       emacs(bin) >= %{emacs_version}
 Requires:       emacs-common-%{pkg} = %{version}-%{release}
-# May be removed in Fedora 25.
-Obsoletes:      emacs-%{pkg}-el <= %{version}-%{release}
-Provides:       emacs-%{pkg}-el <= %{version}-%{release}
-# May be removed in Fedora 39.
-%if 0%{?fedora} >= 36
-Obsoletes:      xemacs-%{pkg} < 2.2.0-8
-%endif
+
 
 %description -n emacs-%{pkg}
-Tuareg is an OCaml mode for GNU Emacs and XEmacs.  It handles
-automatic indentation of Objective Caml and Caml Light code.  Key
-parts of the code are highlighted using Font-Lock.  Support to run an
-interactive Caml toplevel and debbuger is provided.
+Tuareg is an OCaml mode for GNU Emacs.  It handles automatic indentation
+of Objective Caml and Caml Light code.  Key parts of the code are
+highlighted using Font-Lock.  Support to run an interactive Caml
+toplevel and debbuger is provided.
 
 Install this package if you need to edit OCaml code in Emacs.
 
 
-%if 0%{?fedora} < 36
-%package -n xemacs-%{pkg}
-Summary:        Compiled elisp files to run %{pkgname} under XEmacs
-Requires:       xemacs(bin) >= %{xemacs_version}
-Requires:       emacs-common-%{pkg} = %{version}-%{release}
-# May be removed in Fedora 25.
-Obsoletes:      xemacs-%{pkg}-el <= %{version}-%{release}
-Provides:       xemacs-%{pkg}-el <= %{version}-%{release}
-
-%description -n xemacs-%{pkg}
-Tuareg is an OCaml mode for GNU Emacs and XEmacs.  It handles
-automatic indentation of Objective Caml and Caml Light code.  Key
-parts of the code are highlighted using Font-Lock.  Support to run an
-interactive Caml toplevel and debbuger is provided.
-
-Install this package if you need to edit OCaml code in XEmacs.
-%endif
-
-
 %prep
-%setup -q -n %{pkg}-%{version}
+%autosetup -n %{pkg}-%{version}
 
 
 %build
-make
-make elc
-
-# Upstream sources no longer contain 'COPYING' although they are still
-# licensed under the GPL.
-cp %{SOURCE1} .
+%make_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-# For unknown reasons, the upstream 'make install' rule has been
-# commented out.  This code hopefully does the right thing.  Don't
-# install 'tuareg-site-file.el' since the upstream source doesn't
-# compile it and it didn't exist in previous versions at all.
-
-# Emacs.
+# The upstream 'make install' rule invokes opam to find install directories.
+# Install directly to avoid a dependency on opam.
 mkdir -p $RPM_BUILD_ROOT/%{emacs_lispdir}/%{pkg}
 echo %{version} > $RPM_BUILD_ROOT/%{emacs_lispdir}/%{pkg}/version
 install -m 0644 *.el *.elc $RPM_BUILD_ROOT/%{emacs_lispdir}/%{pkg}
-rm $RPM_BUILD_ROOT/%{emacs_lispdir}/%{pkg}/tuareg-site-file.el
+mkdir -p $RPM_BUILD_ROOT/%{emacs_startdir}
+mv $RPM_BUILD_ROOT/%{emacs_lispdir}/%{pkg}/tuareg-site-file.el \
+   $RPM_BUILD_ROOT/%{emacs_startdir}
 
-%if 0%{?fedora} < 36
-# XEmacs.
-mkdir -p $RPM_BUILD_ROOT/%{xemacs_lispdir}/%{pkg}
-echo %{version} > $RPM_BUILD_ROOT/%{xemacs_lispdir}/%{pkg}/version
-install -m 0644 *.el *.elc $RPM_BUILD_ROOT/%{xemacs_lispdir}/%{pkg}
-rm $RPM_BUILD_ROOT/%{xemacs_lispdir}/%{pkg}/tuareg-site-file.el
-%endif
+
+%check
+make check
 
 
 %files
-%doc COPYING README.md tuareg-site-file.el
+%doc CHANGES.md README.md
+%license COPYING
 
 
 %files -n emacs-%{pkg}
-%doc COPYING
+%license COPYING
 %{emacs_lispdir}/%{pkg}/*.elc
 %{emacs_lispdir}/%{pkg}/*.el
 %{emacs_lispdir}/%{pkg}/version
-#%{emacs_startdir}/*.el
+%{emacs_startdir}/*.el
 %dir %{emacs_lispdir}/%{pkg}
 
 
-%if 0%{?fedora} < 36
-%files -n xemacs-%{pkg}
-%doc COPYING
-%{xemacs_lispdir}/%{pkg}/*.elc
-%{xemacs_lispdir}/%{pkg}/*.el
-%{xemacs_lispdir}/%{pkg}/version
-#%{xemacs_startdir}/*.el
-%dir %{xemacs_lispdir}/%{pkg}
-%endif
-
-
 %changelog
+* Fri Jul 21 2023 Jerry James <loganjerry@gmail.com> - 3.0.1-1
+- Version 3.0.1
+- Convert License tag to SPDX
+- Drop XEmacs support
+- Optionally depend on caml-mode and merlin
+- Add a %%check script
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           x2goserver
 Version:        4.1.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        X2Go Server
 
 License:        GPLv2+
@@ -599,6 +599,9 @@ exit 0
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue May 30 2023 Orion Poplawski <orion@nwra.com> - 4.1.0.4-1
 - Update to 4.1.0.4
 

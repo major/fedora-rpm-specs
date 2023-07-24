@@ -1,6 +1,6 @@
 Name:           terminator
 Version:        2.1.3
-Release:        3%{?dist}.1
+Release:        4%{?dist}.1
 Summary:        Store and run multiple GNOME terminals in one window
 
 License:        GPLv2
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/terminator.desktop
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-4.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 2.1.3-3.1
 - Rebuilt for Python 3.12
 

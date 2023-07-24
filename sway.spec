@@ -6,7 +6,7 @@
 
 Name:           sway
 Version:        1.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
 URL:            https://github.com/swaywm/sway
@@ -217,6 +217,9 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %{_mandir}/man1/grimshot.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Feb 12 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.1-1
 - Update to 1.8.1
 - Set CAP_SYS_NICE on f38+

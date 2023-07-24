@@ -3,7 +3,7 @@
 
 Name:		tkimg
 Version:	1.4.14
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Image support library for Tk
 # This has some bundled "fun" in it.
 # The fork of libjpeg is licensed IJG
@@ -75,6 +75,9 @@ make %{?_smp_mflags} INSTALL_ROOT=%{buildroot} install
 %{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar  7 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.14-3
 - apply upstream libtiff fix for CVE-2022-4645
 

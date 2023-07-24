@@ -4,7 +4,7 @@
 Summary:       Visual tool for Git
 Name:          teamgit
 Version:       0.0.12
-Release:       34.%{date}%{?dist}
+Release:       35.%{date}%{?dist}
 Epoch:         1
 License:       GPLv2
 URL:           http://gitorious.org/projects/teamgit
@@ -52,6 +52,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications \
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.0.12-35.20130626
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.0.12-34.20130626
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

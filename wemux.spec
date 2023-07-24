@@ -1,6 +1,6 @@
 Name:           wemux
 Version:        3.2.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Multi-user terminal multiplexing utility
 License:        MIT
 URL:            https://github.com/zolrath/wemux
@@ -48,6 +48,9 @@ install -pDm644 %{name}.conf.example %{buildroot}%{_sysconfdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

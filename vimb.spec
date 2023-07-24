@@ -3,7 +3,7 @@ Name:           vimb
 License:        GPL-3.0-only
 
 Version:        3.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 URL:            https://fanglingsu.github.io/vimb/
 Source0:        https://github.com/fanglingsu/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Apr 05 2023 Benson Muite <benson_muite@emailplus.org> - 3.6.0-2
 - Use macros for installation
 - Update source location

@@ -1,3 +1,9 @@
+# build order for fsleyes packages:
+# 1. fsleyes-widgets
+# 2. fslpy
+# 3. fsleyes-props
+# 4. fsleyes
+
 %global desc \
 FSLeyes, the FSL image viewer
 
@@ -9,14 +15,14 @@ FSLeyes, the FSL image viewer
 %global forgeurl https://github.com/pauldmccarthy/fsleyes
 
 Name:           python-fsleyes
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        FSLeyes, the FSL image viewer
 
 %global tag %{version}
 %forgemeta
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 

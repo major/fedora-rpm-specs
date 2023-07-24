@@ -1,7 +1,7 @@
 Summary:        Performs a verified launch using Intel TXT
 Name:           tboot
 Version:        1.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 
 License:        BSD
@@ -55,6 +55,9 @@ make debug=y DISTDIR=$RPM_BUILD_ROOT install
 /boot/tboot-syms
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun May 07 2023 Jun Miao <jun.miao@intel.com> - 1:1.11.1-1
 - Update to v1.11.1 release
 

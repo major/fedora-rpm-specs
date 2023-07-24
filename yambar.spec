@@ -9,7 +9,7 @@ end}
 
 Name:           yambar
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modular status panel for X11 and Wayland
 
 # The main source is MIT
@@ -119,6 +119,9 @@ desktop-file-validate \
 %{_includedir}/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.10.0-1
 - Update to 1.10.0 (#2222873)
 

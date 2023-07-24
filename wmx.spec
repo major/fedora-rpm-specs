@@ -1,6 +1,6 @@
 Name: wmx
 Version: 8
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: A really simple window manager for X
 License: BSD
 URL: http://www.all-day-breakfast.com/wmx/
@@ -46,6 +46,9 @@ configurable options.
 %{_sysconfdir}/X11/xinit/Xclients.d/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

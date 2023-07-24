@@ -6,7 +6,7 @@
 
 Name:     wshowkeys
 Version:  0
-Release:  9.20200727git%{shortcommit}%{?dist}
+Release:  10.20200727git%{shortcommit}%{?dist}
 Summary:  Displays key presses on screen on supported Wayland compositors
 License:  GPLv3
 #URL:      https://git.sr.ht/~sircmpwn/wshowkeys
@@ -63,6 +63,9 @@ wshowkeys [-b|-f|-s #RRGGBB[AA]] [-F font] [-t timeout]
 %license LICENSE
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-10.20200727gite8bfc78
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-9.20200727gite8bfc78
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

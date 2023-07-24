@@ -1,6 +1,6 @@
 Name: thc-ipv6
 Version: 3.8
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Toolkit for attacking the IPv6 protocol suite
 
 License: AGPLv3 with exceptions
@@ -48,6 +48,9 @@ OPENSSL_LDFLAGS="$(pkg-config --libs-only-L openssl11)"
 %{_mandir}/man8/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

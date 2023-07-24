@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
 Name:           corsix-th
-Version:        0.67~beta1
+Version:        0.67~rc1
 Release:        %autorelease
 Summary:        Open source clone of Theme Hospital
 

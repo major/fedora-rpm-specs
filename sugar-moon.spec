@@ -1,5 +1,5 @@
 Version:   19
-Release:   13%{?dist}
+Release:   14%{?dist}
 Name:      sugar-moon
 Summary:   Moon phases activity for sugar
 License:   ASL 2.0
@@ -39,6 +39,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Moon.activity/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           touchcal
 Version:        1.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Calibration utility for touch screens
 
 License:        GPL-2.0-or-later
@@ -41,6 +41,9 @@ for use under Xorg.
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 Dan Horák <dan@danny.cz> - 1.30-1
 - update to upstream version 1.30 (rhbz#2187943)
 

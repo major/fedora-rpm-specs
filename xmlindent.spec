@@ -1,6 +1,6 @@
 Name: xmlindent
 Version: 0.2.17
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: XML stream reformatter
 License: GPLv2+
 URL: http://xmlindent.sf.net/
@@ -31,6 +31,9 @@ make install PREFIX=$RPM_BUILD_ROOT%{_prefix}
 %{_mandir}/man1/xmlindent.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

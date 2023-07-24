@@ -9,7 +9,7 @@ URL: http://xtrace.alioth.debian.org/
 #
 # % global buildid .local
 
-Release: 24%{?buildid}%{?dist}
+Release: 25%{?buildid}%{?dist}
 Obsoletes: xtrace < 1.3.1-7
 
 Source0: ftp://ftp.debian.org/debian/pool/main/x/xtrace/xtrace_%{version}.orig.tar.gz
@@ -61,6 +61,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

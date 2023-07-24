@@ -9,7 +9,7 @@
 
 Name:       whois       
 Version:    5.5.17
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Improved WHOIS client
 License:    GPL-2.0-or-later
 URL:        https://www.linux.it/~md/software/
@@ -149,6 +149,9 @@ fi
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 29 2023 Petr Menšík <pemensik@redhat.com> - 5.5.17-2
 - Change License tag to SPDX format
 

@@ -1,6 +1,6 @@
 Name:		zd1211-firmware
 Version:	1.5
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Firmware for wireless devices based on zd1211 chipset
 License:	GPLv2
 URL:		http://zd1211.wiki.sourceforge.net
@@ -36,6 +36,9 @@ xz -C crc32 $RPM_BUILD_ROOT/lib/firmware/zd1211/*
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Apr 03 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5-13
 - Compress firmware
 

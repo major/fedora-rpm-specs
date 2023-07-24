@@ -4,7 +4,7 @@
 
 Name:		unzboot
 Version:	0.1~git.%{commitdate}.%{shortcommit}
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Extracts a kernel vmlinuz image from a EFI application
 License:	MIT
@@ -41,5 +41,8 @@ compressed form.
 %{_bindir}/unzboot
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1~git.20230318.3285b55-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 18 2023 Enric Balletbo i Serra <eballetbo@redhat.com> - 0.1~git.20230318.3285b55-1
 - initial unzboot spec

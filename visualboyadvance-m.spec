@@ -10,7 +10,7 @@
 
 Name:           visualboyadvance-m
 Version:        %{upstreamtag}
-Release:        1%{?rctagfedora:.%{rctagfedora}}%{?dist}
+Release:        1%{?rctagfedora:.%{rctagfedora}}%{?dist}.1
 Summary:        High compatibility Gameboy Advance Emulator combining VBA builds
 
 License:        GPLv2
@@ -107,6 +107,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/%{shortname}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 2.1.6-1
 - Update to 2.1.6
 

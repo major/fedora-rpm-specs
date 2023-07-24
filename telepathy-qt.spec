@@ -12,7 +12,7 @@
 
 Name:    telepathy-qt
 Version: 0.9.8
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: High-level bindings for Telepathy
 
 License: LGPLv2+
@@ -144,6 +144,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

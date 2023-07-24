@@ -1,6 +1,6 @@
 Name:           websec
 Version:        1.9.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Web Secretary - Web page monitoring software with highlighting
 
 License:        GPLv2+
@@ -70,6 +70,9 @@ chmod -x .__doc/scripts/*
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

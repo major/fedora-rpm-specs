@@ -1,6 +1,6 @@
 Name:           xmlcopyeditor
 Version:        1.2.1.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A fast, free, validating XML editor
 
 License:        GPLv2
@@ -47,6 +47,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

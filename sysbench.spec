@@ -1,7 +1,7 @@
 Summary:       System performance benchmark
 Name:          sysbench
 Version:       1.0.20
-Release:       11%{?dist}
+Release:       12%{?dist}
 License:       GPLv2+
 Source0:       https://github.com/akopytov/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 URL:           https://github.com/akopytov/sysbench/
@@ -119,6 +119,9 @@ rm t/opt_report_interval.t
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Xavier Bachelot <xavier@bachelot.org> 1.0.20-11
 - Fix build on EL9
 - egrep is deprecated, use grep -E instead in order to fix build on F38+

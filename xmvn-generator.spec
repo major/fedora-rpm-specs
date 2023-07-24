@@ -3,7 +3,7 @@
 
 Name:           xmvn-generator
 Version:        1.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        RPM dependency generator for Java
 License:        Apache-2.0
 URL:            https://github.com/fedora-java/xmvn-generator
@@ -58,6 +58,9 @@ install -D -p -m 644 src/main/rpm/xmvngen.attr %{buildroot}%{_fileattrsdir}/xmvn
 %doc README.md
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.1-2
 - Enable javadoc package
 

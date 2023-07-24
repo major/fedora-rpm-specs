@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.3.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -490,6 +490,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 21 2023 Zdenek Zambersky <zzambers@redhat.com> - 2.3.4-2
 - Added missing dependency on rexml and mime-types
 

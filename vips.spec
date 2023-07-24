@@ -4,7 +4,7 @@
 
 Name:		vips
 Version:	%{vips_version}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
@@ -226,6 +226,9 @@ export CXXFLAGS="%{optflags} -ftree-vectorize"
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.14.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Kleis Auke Wolthuizen <fedora@kleisauke.nl> - 8.14.2-1
 - Update to 8.14.2 (#2098477)
 - Migrate build to Meson

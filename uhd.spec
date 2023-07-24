@@ -31,7 +31,7 @@ Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
 Version:        4.4.0.0
 %global images_ver %{version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv3+
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -279,6 +279,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.4.0.0-3
 - Rebuilt for Python 3.12
 

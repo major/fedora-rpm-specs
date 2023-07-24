@@ -4,7 +4,7 @@
 
 Name: vte
 Version: 0.28.2
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: A terminal emulator
 License: LGPL-2.0-or-later
 #VCS: git:git://git.gnome.org/vte
@@ -133,6 +133,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/python*/site-packages/gtk-2.0/*.a
 %doc %{_datadir}/gtk-doc/html/vte-0.0
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.28.2-39
 - migrated to SPDX license
 

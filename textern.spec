@@ -7,7 +7,7 @@
 
 Name:           textern
 Version:        0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Firefox add-on for editing text in your favorite external editor
 
 License:        GPLv3+
@@ -57,6 +57,9 @@ make native-install \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 12 2023 Pavel Raiskup <praiskup@redhat.com> - 0.8-1
 - new upstream release
 

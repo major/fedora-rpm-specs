@@ -27,7 +27,7 @@
 
 Name: ustr
 Version: 1.0.4
-Release: 36%{?dist}
+Release: 37%{?dist}
 Summary: String library, very low memory overhead, simple to import
 License: MIT or LGPLv2+ or BSD
 URL: http://www.and.org/ustr/
@@ -142,6 +142,9 @@ make $@ %{ustr_make_install} prefix=%{_prefix} \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

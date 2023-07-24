@@ -4,7 +4,7 @@
 
 Name:           xine-ui
 Version:        0.99.14
-Release:        3%{?snapshot:.%{date}hg%{commit}}%{?dist}
+Release:        4%{?snapshot:.%{date}hg%{commit}}%{?dist}
 Summary:        A skinned xlib-based gui for xine-lib
 License:        GPL-2.0-or-later
 URL:            http://www.xine-project.org/
@@ -247,6 +247,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 08 2023 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-3
 - Fix skins URLs
 

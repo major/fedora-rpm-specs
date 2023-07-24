@@ -10,7 +10,7 @@
 
 Name:           will-crash
 Version:        0.13.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Set of crashing executables written in various languages
 
 Group:          Development/Tools
@@ -98,6 +98,9 @@ rm meson_options.txt
 %{ruby_vendorlibdir}/will_crash.rb
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

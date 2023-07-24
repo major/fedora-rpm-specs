@@ -22,7 +22,7 @@
 Summary:    Suite of nonlinear solvers
 Name:       sundials2
 Version:    2.7.0
-Release:    12%{?dist}
+Release:    13%{?dist}
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.
 License:    BSD
@@ -524,6 +524,9 @@ find %{buildroot}${MPI_LIB} -name "libsundials-*" -exec rename 's/libsundials/li
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 2.7.0-12
 - C99 compatibility fixes
 

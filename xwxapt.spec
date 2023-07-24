@@ -1,6 +1,6 @@
 Name:           xwxapt
 Version:        3.4.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        GTK+ graphical application for decoding and saving weather images
 
 # Most files are GPLv2+ but some are GPLv3+ so combined work is GPLv3+
@@ -74,6 +74,9 @@ desktop-file-install  \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb  9 2023 DJ Delorie <dj@redhat.com> - 3.4.1-10
 - Fix C99 compatibility issue
 

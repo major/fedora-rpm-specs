@@ -1,6 +1,6 @@
 Name:    trezor-common
 Version: 2.3.6
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: udev rules and protobuf messages for the hardware wallet Trezor
 
 License:       LGPLv3+
@@ -39,6 +39,9 @@ popd
 %{_datadir}/trezor
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

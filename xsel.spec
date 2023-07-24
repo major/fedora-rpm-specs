@@ -1,6 +1,6 @@
 Name:           xsel
 Version:        1.2.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Command line clipboard and X selection tool
 License:        MIT
 URL:            http://www.vergenet.net/~conrad/software/xsel/
@@ -53,6 +53,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_bindir}/xsel
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

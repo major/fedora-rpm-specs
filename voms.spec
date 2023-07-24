@@ -8,7 +8,7 @@
 
 Name:		voms
 Version:	2.1.0
-Release:	0.29.rc3%{?dist}
+Release:	0.30.rc3%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	ASL 2.0
@@ -358,6 +358,9 @@ fi
 %doc README.Fedora
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-0.30.rc3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Feb 09 2023 Florian Weimer <fweimer@redhat.com> - 2.1.0-0.29.rc3
 - Port lexer/parser integration to C99 (#2168585)
 

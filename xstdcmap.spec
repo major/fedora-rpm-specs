@@ -1,6 +1,6 @@
 Name:           xstdcmap
 Version:        1.0.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Utility to define standard colormap properties
 
 License:        MIT
@@ -43,6 +43,9 @@ scarce colormap resources among clients using PseudoColor visuals.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

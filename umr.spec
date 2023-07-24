@@ -4,7 +4,7 @@
 Summary: AMDGPU Userspace Register Debugger
 Name: umr
 Version: 1.0.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: https://gitlab.freedesktop.org/tomstdenis/umr
 Source0: https://gitlab.freedesktop.org/tomstdenis/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
@@ -80,6 +80,9 @@ AMDGPU Userspace Register Debugger header files and libraries
 %{_libdir}/*.a
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 01 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.0.8-1
 - Update to 1.0.8
 

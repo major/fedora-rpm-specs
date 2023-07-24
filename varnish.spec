@@ -37,7 +37,7 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 7.3.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
@@ -303,6 +303,9 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 7.3.0-3
 - Enable system_allocator in RHEL/ELN builds
 

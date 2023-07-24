@@ -4,7 +4,7 @@
 Name:		%{fontname}-fonts
 Summary:	A rounded, sans-serif font useful for headlines
 Version:	1.000
-Release:	25%{?dist}
+Release:	26%{?dist}
 # License attribution confirmed by author
 # See: sniglet-license-confirmation-email.txt
 License:	OFL
@@ -47,6 +47,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

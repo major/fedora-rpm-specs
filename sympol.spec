@@ -3,7 +3,7 @@
 
 Name:           sympol
 Version:        0.1.9
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Symmetric polyhedra tool
 
 # GPL-2.0-or-later: the code
@@ -102,6 +102,9 @@ done
 %{_includedir}/%{name}/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.1.9-32
 - Rebuilt for Boost 1.81
 

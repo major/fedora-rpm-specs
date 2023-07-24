@@ -13,7 +13,7 @@
 Summary:    Xorg X11 vmware video driver
 Name:	    xorg-x11-drv-vmware
 Version:    13.4.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 URL:	    http://www.x.org
 License:    MIT
 
@@ -59,6 +59,9 @@ find $RPM_BUILD_ROOT -regex ".*\.la$" | xargs rm -f --
 %{_mandir}/man4/vmware.4*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Peter Hutterer <peter.hutterer@redhat.com> - 13.4.0-1
 - vmware 13.4.0
 

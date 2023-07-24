@@ -3,7 +3,7 @@
 
 Name:           tkabber
 Version:        1.1.2
-Release:        16%{?fosrev:.%{fosrev}}%{?dist}
+Release:        17%{?fosrev:.%{fosrev}}%{?dist}
 Summary:        Client for the Jabber instant messaging system
 
 License:        GPLv2+
@@ -84,6 +84,9 @@ chmod 755 %{buildroot}%{_bindir}/tkabber-remote
 %{_datadir}/pixmaps/tkabber.png
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-17.fos93d0303aad
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-16.fos93d0303aad
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

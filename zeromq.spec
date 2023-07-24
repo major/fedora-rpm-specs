@@ -3,7 +3,7 @@
 
 Name:           zeromq
 Version:        4.3.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Software library for fast, message-based applications
 
 License:        LGPL-3.0-or-later AND BSD-3-Clause AND MIT
@@ -107,6 +107,9 @@ make check V=1 || ( cat test-suite.log && exit 1 )
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 17 2023 David Cantrell <dcantrell@redhat.com> - 4.3.4-7
 - Convert License tag to SPDX identifiers
 

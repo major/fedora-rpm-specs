@@ -1,6 +1,6 @@
 Name:           tomcat-taglibs-parent
 Version:        3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Apache Taglibs Parent
 
 License:        ASL 2.0
@@ -30,6 +30,9 @@ cp -p %{SOURCE0} .
 %dir %{_mavenpomdir}/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

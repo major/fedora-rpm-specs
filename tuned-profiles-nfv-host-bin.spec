@@ -12,7 +12,7 @@
 
 Name:		tuned-profiles-nfv-host-bin
 Version:	0
-Release:	0.13.%{git_suffix}%{?dist}
+Release:	0.14.%{git_suffix}%{?dist}
 Summary:	Binaries that are needed for the NFV host Tuned profile
 License:	GPLv2
 URL:		http://www.linux-kvm.org/page/KVM-unit-tests
@@ -46,6 +46,9 @@ install -Dpm 0644 x86/tscdeadline_latency.flat %{buildroot}%{_datadir}/%{name}/t
 %{_datadir}/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14.20180302git1edfa966
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13.20180302git1edfa966
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

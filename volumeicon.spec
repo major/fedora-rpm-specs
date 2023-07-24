@@ -2,7 +2,7 @@
 
 Name:           volumeicon
 Version:        0.5.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Lightweight volume control for the system tray
 
 License:        GPLv3
@@ -59,6 +59,9 @@ desktop-file-install --dir=%{buildroot}%{_sysconfdir}/xdg/autostart %{SOURCE1}
 %{_datadir}/%{name}/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

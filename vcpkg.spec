@@ -3,7 +3,7 @@
 
 Name: vcpkg
 Version: %(echo %{repo_tag} | sed 's/-/./g')
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: MIT
 Summary: C++ Library Manager
@@ -80,6 +80,9 @@ install -D -m 0644 -p "%{SOURCE1}" "%{buildroot}%{_sysconfdir}/profile.d/%{name}
 %config(noreplace) %{_sysconfdir}/profile.d/%{name}.sh
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.06.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2023.06.22-2
 - Rebuilt due to fmt 10 update.
 

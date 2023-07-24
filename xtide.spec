@@ -2,7 +2,7 @@
 #%%define          betatag   dev-20160114
 %define          dwfdate   20220109
 
-%define          baserelease 2
+%define          baserelease 3
 
 
 %define          rel        %{?betatag:0.}%{baserelease}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
@@ -340,6 +340,9 @@ exit 0
 %{_datadir}/man/man8/xttpd.8*
 
 %changelog
+* Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 2.15.5-2
 - rebuild for new libgps
 

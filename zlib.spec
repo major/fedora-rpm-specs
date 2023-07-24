@@ -2,7 +2,7 @@
 
 Name:    zlib
 Version: 1.2.13
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Compression and decompression library
 # /contrib/dotzlib/ have Boost license
 License: Zlib AND BSL-1.0
@@ -173,6 +173,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

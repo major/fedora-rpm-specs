@@ -5,7 +5,7 @@
 
 Name: vim-rhubarb
 Version: 0
-Release: 8.%{posttag}%{?dist}
+Release: 9.%{posttag}%{?dist}
 Summary: GitHub support for vim-fugitive plugin
 License: Vim
 BuildArch: noarch
@@ -48,6 +48,9 @@ install -p -m 0644 autoload/rhubarb.vim %{buildroot}%{vimfiles_root}/autoload
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-9.20191014git513059
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-8.20191014git513059
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

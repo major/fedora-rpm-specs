@@ -1,6 +1,6 @@
 Name:           wgrib
 Version:        1.8.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Manipulate, inventory and decode GRIB files
 
 License:        Public Domain
@@ -70,6 +70,9 @@ gcc %{build_cflags} %{build_ldflags} -o testbin testbin.c -lm
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 02 2023 Orion Poplawski <orion@nwra.com> - 1.8.3-2
 - Add ldflags to build for proper hardening
 

@@ -1,7 +1,7 @@
 Summary:    X11 atom list utility
 Name:       xlsatoms
 Version:    1.1.4
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    MIT
 URL:        http://www.x.org
 
@@ -33,6 +33,9 @@ xlsatoms prints the atom database from an X server.
 %{_mandir}/man1/xlsatoms.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

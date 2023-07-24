@@ -2,7 +2,7 @@
 
 Name:           wget2
 Version:        2.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -123,6 +123,9 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 21 2023 Michal Ruprich <mruprich@redhat.com> - 2.0.0-5
 - SPDX migration
 

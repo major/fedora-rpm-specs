@@ -7,7 +7,7 @@
 Summary: Multiplayer, deathmatch oriented first person shooter
 Name: xonotic
 Version: 0.8.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later and LGPL-2.0-or-later
 URL: http://www.xonotic.org/
 # Custom tarball:
@@ -270,6 +270,9 @@ EOF
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.6-1
 - 0.8.6
 

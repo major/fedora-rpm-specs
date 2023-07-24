@@ -3,7 +3,7 @@
 
 Name:           unicode-emoji
 Version:        15.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unicode Emoji Data Files
 
 License:        Unicode-DFS-2016
@@ -46,6 +46,9 @@ cp -p %{SOURCE6} %{buildroot}%{emojidir}
 %{emojidir}/emoji-*txt
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Apr 14 2023 Mike FABIAN <mfabian@redhat.com> - 15.0-3
 - Change license tag from Unicode-TOU to Unicode-DFS-2016
   See: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/199

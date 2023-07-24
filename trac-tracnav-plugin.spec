@@ -2,7 +2,7 @@
 
 Name:           trac-tracnav-plugin
 Version:        4.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Navigation Bar for Trac
 License:        GPLv2+
 URL:            https://svn.ipd.kit.edu/trac/javaparty/wiki/TracNav
@@ -43,6 +43,9 @@ that was originally supplied with Trac.
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.3-9
 - Rebuilt for Python 3.12
 

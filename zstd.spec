@@ -18,7 +18,7 @@
 
 Name:           zstd
 Version:        1.5.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Zstd compression library
 
 License:        BSD-3-Clause AND GPL-2.0-only
@@ -140,6 +140,9 @@ install -D -m644 programs/%{name}.1 %{buildroot}%{_mandir}/man1/p%{name}.1
 %ldconfig_scriptlets -n lib%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Jiří Kučera <jkucera@redhat.com> - 1.5.5-3
 - Drop gtest on RHEL (c9s backport)
 

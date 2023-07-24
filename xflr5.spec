@@ -1,6 +1,6 @@
 Name:           xflr5
 Version:        6.47
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Analysis tool for airfoils, wings and planes
 
 License:        GPL-3.0-or-later
@@ -94,6 +94,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE1}
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.47-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.47-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

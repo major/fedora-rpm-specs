@@ -1,6 +1,6 @@
 Name:           wiggle
 Version:        1.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A tool for applying patches with conflicts
 
 License:        GPLv2+
@@ -56,6 +56,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

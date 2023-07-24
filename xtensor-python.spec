@@ -2,7 +2,7 @@
 
 Name:           xtensor-python
 Version:        0.26.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for xtensor
 License:        BSD
 URL:            https://xtensor-python.readthedocs.io/
@@ -69,6 +69,9 @@ Requires:       python3-numpy
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

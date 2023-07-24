@@ -2,7 +2,7 @@
 
 Name:           velocity
 Version:        1.7
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Java-based template engine
 License:        ASL 2.0
 URL:            http://velocity.apache.org/
@@ -98,6 +98,9 @@ rm src/java/org/apache/velocity/app/event/implement/Escape{Html,JavaScript,Sql,X
 %license LICENSE NOTICE
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

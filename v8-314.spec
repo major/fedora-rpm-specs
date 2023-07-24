@@ -25,7 +25,7 @@
 
 Name:		%{truename}-314
 Version:	%{somajor}.%{sominor}.%{sobuild}.%{sotiny}
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	JavaScript Engine
 License:	BSD
 URL:		https://developers.google.com/v8/
@@ -406,6 +406,9 @@ chmod -R -x %{buildroot}%{python_sitelib}/*.py*
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.5.10-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 3.14.5.10-33
 - Rebuilt for ICU 73.2
 

@@ -1,6 +1,6 @@
 Name:           perl-File-Find-Object
-Version:        0.3.7
-Release:        3%{?dist}
+Version:        0.3.8
+Release:        1%{?dist}
 Summary:        Object oriented File::Find replacement
 License:        GPL-2.0-or-later OR Artistic-2.0
 URL:            https://metacpan.org/release/File-Find-Object
@@ -32,6 +32,7 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::File) >= 1.993
 BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
+# (none)
 
 %description
 File::Find::Object does the same job as File::Find but works like an object
@@ -65,6 +66,10 @@ make test
 %{_mandir}/man3/File::Find::Object::Result.3*
 
 %changelog
+* Sat Jul 22 2023 Paul Howarth <paul@city-fan.org> - 0.3.8-1
+- Update to 0.3.8 (rhbz#2224699)
+  - Fix use_ok() call (GH#3)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

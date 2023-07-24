@@ -4,7 +4,7 @@
 Summary:   5250 Telnet protocol and Terminal
 Name:      tn5250
 Version:   0.17.4
-Release:   33%{?dist}
+Release:   34%{?dist}
 License:   LGPLv2+
 Source:    http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:   xt5250.desktop
@@ -92,6 +92,9 @@ cp -pf linux/README README.Linux
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

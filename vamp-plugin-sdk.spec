@@ -1,6 +1,6 @@
 Name:           vamp-plugin-sdk
 Version:        2.9.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        An API for audio analysis and feature extraction plugins
 
 License:        BSD
@@ -95,6 +95,9 @@ make clean
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           winetricks
 Version:        20230212
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Work around common problems in Wine
 
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230212-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 18 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 20230212-1
 - Update to 20230212 (fixes RHBZ#2169307 )
 

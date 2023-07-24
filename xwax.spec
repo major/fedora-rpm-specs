@@ -1,6 +1,6 @@
 Name:           xwax
 Version:        1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open source vinyl emulation software for Linux
 License:        GPLv2
 URL:            https://www.xwax.org
@@ -45,6 +45,9 @@ make ALSA=yes JACK=yes install PREFIX=%{buildroot}/%{_prefix} EXECDIR=%{buildroo
 %doc %{_mandir}/man1/xwax.1.gz
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jun 09 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.9-1
 - Update to 1.9 fixes rhbz#2204460
 

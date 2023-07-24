@@ -23,7 +23,7 @@ end}
 
 Name:             grafana
 Version:          9.2.10
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPLv3
 URL:              https://grafana.org
@@ -68,6 +68,8 @@ Patch6:           0006-skip-marketplace-plugin-install-test.patch
 Patch7:           0007-fix-alert-test.patch
 Patch8:           0008-graphite-functions-xss.patch
 Patch9:           0009-redact-weak-ciphers.patch
+# https://github.com/grafana/grafana/commit/bae86dbeb0ad68a205454e98e76985dc393183d4
+Patch10:          0010-remove-email-lookup.patch
 
 # Patches affecting the vendor tarball
 Patch1001:        1001-vendor-patch-removed-backend-crypto.patch
@@ -724,6 +726,7 @@ rm -r plugins-bundled
 %patch -P 7 -p1
 %patch -P 8 -p1
 %patch -P 9 -p1
+%patch -P 10 -p1
 
 %patch -P 1001 -p1
 %if %{enable_fips_mode}
@@ -914,6 +917,9 @@ export GOEXPERIMENT=boringcrypto
 
 
 %changelog
+* Sat Jul 22 2023 Carl George <carl@redhat.com> - 9.2.10-4
+- resolve CVE-2023-3128 grafana: Remove Email Lookup from oauth integrations
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

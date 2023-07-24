@@ -1,5 +1,5 @@
 %global date    20020801
-%global baserelease 17
+%global baserelease 18
 
 Name:           xhtml1-dtds
 Version:        1.0
@@ -113,6 +113,9 @@ cd - >/dev/null
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20020801.18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20020801.17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

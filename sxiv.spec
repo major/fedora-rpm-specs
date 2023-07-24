@@ -1,6 +1,6 @@
 Name:           sxiv
 Version:        26
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple (or small or suckless) X Image Viewer
 License:        GPLv2+
 URL:            https://github.com/muennich/%{name}/
@@ -50,6 +50,9 @@ cd icon && make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_datadir}/icons/hicolor/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 26-8
 - Rebuild fo new imlib2
 

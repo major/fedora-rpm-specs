@@ -4,7 +4,7 @@
 
 Name:           wise2
 Version:        2.4.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Tools for comparison of bio-polymers
 
 ## Everything is licensed under a BSD-style license except for
@@ -137,6 +137,9 @@ make -C src test
 %{_datadir}/wise2/examples/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

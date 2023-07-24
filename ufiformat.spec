@@ -1,6 +1,6 @@
 Name:           ufiformat
 Version:        0.9.8
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Disk formatting utility for USB floppy devices
 
 License:        GPLv2+
@@ -36,6 +36,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

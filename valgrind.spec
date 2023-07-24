@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.21.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -490,6 +490,9 @@ fi
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.21.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 22 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-7
 - Add valgrind-3.21.0-vgm.patch and valgrind-3.21.0-vgm-tests.patch
 - Add valgrind-3.21.0-pgste.patch

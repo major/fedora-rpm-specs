@@ -1,7 +1,7 @@
 Summary:    X11 display information utility
 Name:       xdpyinfo
 Version:    1.3.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    MIT
 URL:        http://www.x.org
 
@@ -47,6 +47,9 @@ xdpyinfo prints basic diagnostic information about a given X server.
 %{_mandir}/man1/xdpyinfo.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

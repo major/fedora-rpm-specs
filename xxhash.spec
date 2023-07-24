@@ -1,17 +1,13 @@
 Name:		xxhash
-Version:	0.8.1
-Release:	5%{?dist}
+Version:	0.8.2
+Release:	1%{?dist}
 Summary:	Extremely fast hash algorithm
 
-#		The source for the library (xxhash.c and xxhash.h) is BSD
-#		The source for the command line tool (xxhsum.c) is GPLv2+
-License:	BSD and GPLv2+
-URL:		http://www.xxhash.com/
+#		The source for the library (xxhash.c and xxhash.h) is BSD-2-Clause
+#		The source for the command line tool (xxhsum.c) is GPL-2.0-or-later
+License:	BSD-2-Clause AND GPL-2.0-or-later
+URL:		https://www.xxhash.com/
 Source0:	https://github.com/Cyan4973/xxHash/archive/v%{version}/%{name}-%{version}.tar.gz
-#		Fix compilation on RHEL 7 ppc64le (gcc 4.8)
-#		https://github.com/Cyan4973/xxHash/issues/622
-#		https://github.com/Cyan4973/xxHash/pull/631
-Patch0:		%{name}-epel7-ppc64le.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -26,7 +22,7 @@ platforms (little / big endian).
 
 %package libs
 Summary:	Extremely fast hash algorithm - library
-License:	BSD
+License:	BSD-2-Clause
 
 %description libs
 xxHash is an Extremely fast Hash algorithm, running at RAM speed
@@ -37,7 +33,7 @@ platforms (little / big endian).
 
 %package devel
 Summary:	Extremely fast hash algorithm - development files
-License:	BSD
+License:	BSD-2-Clause
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 # By setting XXH_INLINE_ALL, xxhash may be used as a header-only library.
 # Dependent packages that use xxhash this way must BR this virtual Provide:
@@ -48,7 +44,7 @@ Development files for the xxhash library
 
 %package doc
 Summary:	Extremely fast hash algorithm - documentation files
-License:	BSD
+License:	BSD-2-Clause
 BuildArch:	noarch
 
 %description doc
@@ -56,22 +52,22 @@ Documentation files for the xxhash library
 
 %prep
 %setup -q -n xxHash-%{version}
-%patch0 -p1
 
 %build
 # Enable runtime detection of sse2/avx2/avx512 on intel architectures
 %ifarch %{ix86} x86_64
 %global dispatch 1
-%dnl Some distribution variants build with -march=x86-64-v3.
-%dnl See xxh_x86dispatch.c.
+# Some distribution variants build with -march=x86-64-v3.
+# See xxh_x86dispatch.c.
 %global moreflags_dispatch -DXXH_X86DISPATCH_ALLOW_AVX
 %else
 %global dispatch 0
 %global moreflags_dispatch %{nil}
 %endif
 
-%make_build MOREFLAGS="%{__global_cflags} %{?__global_ldflags} %{moreflags_dispatch}" \
-	    DISPATCH=%{dispatch}
+%make_build \
+    MOREFLAGS="%{__global_cflags} %{?__global_ldflags} %{moreflags_dispatch}" \
+    DISPATCH=%{dispatch}
 doxygen
 
 %install
@@ -105,6 +101,14 @@ make test-xxhsum-c
 %doc doxygen/html
 
 %changelog
+* Sat Jul 22 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.2-1
+- Update to version 0.8.2
+- Drop patch xxhash-epel7-ppc64le.patch
+- Use SPDX license identifiers
+
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Florian Weimer <fweimer@redhat.com> - 0.8.1-5
 - Enable building with -march=x86-64-v3 (#2215831)
 

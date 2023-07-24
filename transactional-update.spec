@@ -1,6 +1,6 @@
 Name:           transactional-update
 Version:        3.6.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Transactional Updates with btrfs and snapshots
 
 # transactional-update and tukit is GPLv2+ everything else is LGPLv2+ or GPLv2+
@@ -146,6 +146,9 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 3.6.2-6
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

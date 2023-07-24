@@ -20,7 +20,7 @@
 
 Name:           tlog
 Version:        13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Terminal I/O logger
 
 %if "%{_vendor}" == "debbuild"
@@ -157,6 +157,9 @@ systemd-tmpfiles --create %{name}.conf >/dev/null 2>&1 || :
 /sbin/ldconfig
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Justin Stephenson <jstephen@redhat.com> - 13-2
 - Provide a sysusers.d file to get user() and group() provides
   (see https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format).

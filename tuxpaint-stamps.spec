@@ -1,6 +1,6 @@
 Name:           tuxpaint-stamps
 Version:        2020.05.29
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extra stamp files for tuxpaint
 License:        GPL-1.0-or-later and GFDL and CC-BY-SA and LicenseRef-Fedora-Public-Domain
 URL:            http://www.tuxpaint.org/
@@ -89,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/tuxpaint/stamps/vehicles/emergency/firetruck.o
 %{_datadir}/appdata/%{name}.metainfo.xml
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.05.29-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 2020.05.29-8
 - Convert to SPDX license.
 

@@ -1,6 +1,6 @@
 Name:           vim-ansible
 Version:        3.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Vim plugin for syntax highlighting ansible's common filetypes
 License:        MIT and BSD
 URL:            https://github.com/pearofducks/ansible-vim
@@ -39,6 +39,9 @@ cp -r --preserve=mode,timestamps ftdetect ftplugin indent syntax %{buildroot}%{v
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

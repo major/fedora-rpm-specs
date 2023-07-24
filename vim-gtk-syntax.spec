@@ -1,6 +1,6 @@
 Name:           vim-gtk-syntax
 Version:        20130716
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Vim syntax highlighting for GLib, Gtk+, Gstreamer, and more
 
 License:        Public Domain
@@ -51,6 +51,9 @@ appstream-util validate %{buildroot}%{_datadir}/appdata/%{name}.metainfo.xml --n
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20130716-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20130716-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

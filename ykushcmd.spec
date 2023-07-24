@@ -1,6 +1,6 @@
 Name:           ykushcmd
 Version:        1.2.3
-Release:        6%{?gitsnap:.%{gitsnap}}%{?dist}
+Release:        7%{?gitsnap:.%{gitsnap}}%{?dist}
 Summary:        YKUSH Boards Control Application 
 License:        ASL 2.0
 URL:            https://github.com/Yepkit/ykush
@@ -36,6 +36,9 @@ install bin/ykushcmd %{buildroot}%{_bindir}
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

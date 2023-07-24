@@ -1,6 +1,6 @@
 Name:       x11perf
 Version:    1.6.1
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    X11 server performance test program
 
 License:    MIT
@@ -45,6 +45,9 @@ autoreconf -v --install
 %{_datadir}/X11/x11perfcomp
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

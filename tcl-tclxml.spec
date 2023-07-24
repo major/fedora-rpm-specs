@@ -6,7 +6,7 @@
 Summary: XML parsing library for the Tcl scripting language
 Name:    tcl-%{realname}
 Version: 3.2
-Release: 33%{?dist}
+Release: 34%{?dist}
 License: BSD
 URL:     http://tclxml.sourceforge.net/
 Source0: http://downloads.sourceforge.net/tclxml/tclxml-%{version}.tar.gz
@@ -105,6 +105,9 @@ install -p -m 0644 examples/tcldom/domtree.tcl \
 %{tcl_sitelib}/%{realname}-gui%{version}/*.tcl
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

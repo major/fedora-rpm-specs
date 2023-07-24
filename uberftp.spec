@@ -1,6 +1,6 @@
 Name:           uberftp
 Version:        2.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GridFTP-enabled ftp client
 
 License:        NCSA
@@ -33,6 +33,9 @@ make install DESTDIR=%{buildroot}
 %license COPYING
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

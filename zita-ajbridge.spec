@@ -1,7 +1,7 @@
 Summary: Allows ALSA devices to be JACK clients
 Name: zita-ajbridge
 Version: 0.8.4
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv3
 URL: https://kokkinizita.linuxaudio.org/linuxaudio/
 Source0: https://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
@@ -53,6 +53,9 @@ popd
 %{_mandir}/man1/zita-ajbridge.*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

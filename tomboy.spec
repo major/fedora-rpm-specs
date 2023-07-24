@@ -1,6 +1,6 @@
 Name:           tomboy
 Version:        1.15.9
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Note-taking application
 License:        LGPLv2+ and GPLv2+ and MIT
 # Tomboy itself is LGPLv2+
@@ -182,6 +182,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/tomboy.desktop
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.9-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.9-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global upstream_name openslide-python
 
 Name:           python-openslide
-Version:        1.2.0
-Release:        7%{?dist}
+Version:        1.3.0
+Release:        2%{?dist}
 Summary:        Python bindings for the OpenSlide library
 
 License:        LGPLv2
@@ -60,19 +60,28 @@ rm -r build/html/.buildinfo build/html/.doctrees
 
 
 %check
-# Drop --import-mode after next release
-# https://github.com/openslide/openslide-python/pull/208
+%if 0%{?rhel} == 9
+# pytest 6; no support for pythonpath setting
 %pytest --import-mode append
+%else
+%pytest
+%endif
 
 
 %files -n python3-openslide
 %doc CHANGELOG.md build/html
-%license LICENSE.txt lgpl-2.1.txt
+%license COPYING.LESSER
 %{python3_sitearch}/openslide/
 %{python3_sitearch}/*.egg-info/
 
 
 %changelog
+* Sat Jul 22 2023 Benjamin Gilbert <bgilbert@backtick.net> - 1.3.0-2
+- Fix tests on EPEL 9
+
+* Sat Jul 22 2023 Benjamin Gilbert <bgilbert@backtick.net> - 1.3.0-1
+- New release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           telepathy-glib
 Version:        0.24.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GLib bindings for Telepathy
 
 License:        LGPLv2+
@@ -115,6 +115,9 @@ make check
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jan 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.24.2-7
 - Avoid autotool automatic invocation due to autotool scripts timestamp issue
 

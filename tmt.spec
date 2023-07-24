@@ -1,6 +1,6 @@
 Name: tmt
 Version: 1.25.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Test Management Tool
 License: MIT
@@ -248,6 +248,9 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 10 2023 Lukáš Zachar <lzachar@redhat.com> - 1.25.0
 - Test for pruning needs VM
 - Internal anonymous git:// access is deprecated

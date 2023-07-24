@@ -3,7 +3,7 @@ Name: tzdata
 Version: 2023c
 %define tzdata_version 2023c
 %define tzcode_version 2023c
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -151,6 +151,9 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023c-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 29 2023 Patsy Griffin <patsy@redhat.com> - 2023c-1
 - Rebase to tzdata-2023c
   - Reinstate Lebanon DST change effective March 25.

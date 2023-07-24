@@ -21,7 +21,7 @@
 
 Name:           virt-who
 Version:        1.31.21
-Release:        %{release_number}%{?dist}.4
+Release:        %{release_number}%{?dist}.5
 
 Summary:        Agent for reporting virtual guest IDs to subscription-manager
 
@@ -163,6 +163,9 @@ fi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.21-1.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.31.21-1.4
 - Rebuilt for Python 3.12
 

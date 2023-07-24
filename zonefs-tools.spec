@@ -1,6 +1,6 @@
 Name:		zonefs-tools
 Version:	1.6.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Provides user utilities for the zonefs file system
 
 License:	GPLv2+
@@ -38,6 +38,9 @@ sh autogen.sh
 %doc README.md CONTRIBUTING
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 22 2023 Damien Le Moal <damien.lemoal@wdc.com> 1.6.0-1
 - Version 1.6.0 initial package
 

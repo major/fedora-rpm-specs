@@ -1,6 +1,6 @@
 Name:		tgif
 Version:	4.2.5
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	2-D drawing tool
 
 License:	QPL
@@ -39,12 +39,15 @@ the World-Wide-Web.
 #%%patch10 -p0 -b textcursor
 # Check later
 #%%patch101 -p1 -b .size
-%patch102 -p1 -b .format
-%patch103 -p1
+%patch -P102 -p1 -b .format
+%patch -P103 -p1
 
 %{__perl} -pi \
 	-e 's,JISX-0208-1983-0,EUC-JP,g' \
 	po/ja/ja.po
+sed -i \
+	-e 's|charset= koi8-r|charset=ISO-8859-1|' \
+	po/fr/fr.po
 
 # use scalable bitmap font
 %{__sed} \
@@ -160,6 +163,10 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.5-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+- Fix fr.po encoding
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           xwaylandvideobridge
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
 License:        GPL-2.0-or-later
@@ -81,6 +81,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20230504.3445aff-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 0~git20230504.3445aff-2
 - Add dependency on hicolor-icon-theme
 

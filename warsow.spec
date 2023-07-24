@@ -7,7 +7,7 @@
 
 Name:           warsow
 Version:        2.1.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Fast paced 3D first person shooter
 
 License:        GPLv2+
@@ -145,6 +145,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/appdata/warsow.
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %global forgeurl https://github.com/datalad/datalad
 
 Name:           python-datalad
-Version:        0.18.4
+Version:        0.19.2
 %global tag     %{version}
 %forgemeta
 Release:        %autorelease
@@ -103,13 +103,6 @@ git commit -m "Dummy commit"
 # correct function argument auto_spec -> autospec
 sed -i 's/auto_spec/autospec/' datalad/support/tests/test_annexrepo.py
 %endif
-
-# loosen chardet requirement
-# this was because requests didn't support chardet 5 before, but it does now:
-# https://github.com/psf/requests/blob/main/setup.py#L126
-# https://github.com/psf/requests/commit/73793ce43e3d940a0f8d6b9b8ff125617828d8a1
-# Issue filed upstream: https://github.com/datalad/datalad/issues/7256
-sed -i "s/chardet.*'/chardet'/" setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x tests}

@@ -4,7 +4,7 @@
 
 Name:           trac-monotone-plugin
 Version:        0.0.15
-Release:        0.6.%{tardate}mtn%{tarrev}%{?dist}
+Release:        0.7.%{tardate}mtn%{tarrev}%{?dist}
 Summary:        Monotone version control plugin for Trac
 License:        GPLv2+
 URL:            http://tracmtn.1erlei.de/
@@ -44,6 +44,9 @@ This Trac plugin provides support for the Monotone SCM.
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.15-0.7.20210704mtn34341a53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.15-0.6.20210704mtn34341a53
 - Rebuilt for Python 3.12
 

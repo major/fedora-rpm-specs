@@ -10,7 +10,7 @@
 
 Name:       vdirsyncer
 Version:    0.18.0
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    %{sum}
 
 License:    BSD
@@ -146,6 +146,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.18.0-9
 - Rebuilt for Python 3.12
 

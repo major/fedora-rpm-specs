@@ -2,7 +2,7 @@
 
 Name:		yubihsm-shell
 Version:	2.4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tools to interact with YubiHSM 2
 
 License:	ASL 2.0 
@@ -110,6 +110,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/pkcs11/yubihsm_pkcs11.so
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jan 30 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.0-1
 - New upstream release (#2165239)
 

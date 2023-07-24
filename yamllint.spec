@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        1.32.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A linter for YAML files
 
 License:        GPLv3+
@@ -61,6 +61,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.32.0-2
 - Rebuilt for Python 3.12
 

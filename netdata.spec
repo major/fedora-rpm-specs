@@ -42,7 +42,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        1.40.1
+%global upver        1.41.0
 #global rcver        rc0
 
 # Last python 2 support (el7 only)
@@ -51,13 +51,13 @@ ExcludeArch: s390x
 %global judy_ver 1.0.5-netdata2
 
 # 
-%global plugin_go_ver 0.53.2
+%global plugin_go_ver 0.54.0
 
 %global netdata_conf_stock %{_prefix}/lib/%{name}
 
 Name:           netdata
 Version:        %{upver}%{?rcver:~%{rcver}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Real-time performance monitoring
 # For a breakdown of the licensing, see LICENSE-REDISTRIBUTED.md
 License:        GPLv3 and GPLv3+ and ASL 2.0 and CC-BY and MIT and WTFPL 
@@ -74,10 +74,10 @@ Source21:       netdata-install-go-plugins.sh
 Source10:       https://github.com/protocolbuffers/protobuf/releases/download/v%{protobuf_cpp_ver}/protobuf-cpp-%{protobuf_cpp_ver}.tar.gz
 # Only for el8
 Source11:       https://github.com/netdata/libjudy/archive/v%{judy_ver}/libjudy-%{judy_ver}.tar.gz
-Patch0:         netdata-fix-shebang-1.39.0.patch
+Patch0:         netdata-fix-shebang-1.41.0.patch
 %if 0%{?fedora}
 # Remove embedded font
-Patch10:        netdata-remove-fonts-1.38.0.patch
+Patch10:        netdata-remove-fonts-1.41.0.patch
 %endif
 
 BuildRequires:  zlib-devel
@@ -325,6 +325,8 @@ sed -i \
     -e 's;@DATADIR@;%{_datadir};' \
     -e 's;@LIBEXEC@;%{_libexecdir};' \
     %{buildroot}%{_sbindir}/netdata-install-go-plugins.sh
+    
+rm -f %{buildroot}%{_sysconfdir}/%{name}/netdata-updater.conf
 
 %check
 make tests
@@ -403,6 +405,9 @@ echo "Netdata go plugin can be easily installed with %{_sbindir}/netdata-install
 %caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 
 %changelog
+* Sat Jul 22 2023 Didier Fabert <didier.fabert@gmail.com> 1.41.0-1
+- Update from upstream
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.40.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

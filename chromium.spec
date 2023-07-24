@@ -234,7 +234,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 115.0.5790.98
+Version: 115.0.5790.102
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -384,6 +384,12 @@ Patch309: chromium-115-include_contains_h_header_for_V4L2StatefulVideoDecoder.pa
 
 # Load default cursor theme if theme name is empty
 Patch310: chromium-115-wayland-load_default_cursor_theme.patch
+
+# clang warnings
+Patch311: chromium-115-clang-warnings.patch
+
+# imp module is removed in python-3.12
+Patch312: chromium-115-python-3.12-deprecated.patch
 
 # Qt issue
 Patch321: chromium-114-qt-handle_scale_factor_changes.patch
@@ -999,6 +1005,8 @@ udev.
 %patch -P308 -p1 -b .do_not_restrict_new_V4L2_decoders.v4l2
 %patch -P309 -p1 -b .include_contains_h_header_for_V4L2StatefulVideoDecoder
 %patch -P310 -p1 -b .wayland_load_default_cursor_theme
+%patch -P311 -p1 -b .clang-warnings
+%patch -P312 -p1 -b .python-3.12-deprecated
 
 %patch -P321 -p1 -b .handle_scale_factor_changes
 %patch -P322 -p1 -b .fix_font_double_scaling
@@ -1686,6 +1694,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sat Jul 22 2023 Than Ngo <than@redhat.com> - 115.0.5790.102-1
+- update to 115.0.5790.102
+
 * Tue Jul 18 2023 Than Ngo <than@redhat.com> - 115.0.5790.98-1
 - update to 115.0.5790.98
 

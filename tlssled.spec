@@ -1,6 +1,6 @@
 Name:       tlssled
 Version:    1.3
-Release:    22%{?dist}
+Release:    23%{?dist}
 Summary:    An evaluation tool for SSL/TLS (HTTPS) web server implementations
 
 License:    GPLv3+
@@ -36,6 +36,9 @@ sed -i 's|#!/usr/bin/env bash|#!/usr/bin/bash|g' %{buildroot}%{_bindir}/tlssled
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

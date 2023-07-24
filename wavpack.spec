@@ -1,7 +1,7 @@
 Name:		wavpack
 Summary:	A completely open audiocodec
 Version:	5.6.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 Url:		http://www.wavpack.com/
 Source:		http://www.wavpack.com/%{name}-%{version}.tar.bz2
@@ -69,6 +69,9 @@ rm -rf %{buildroot}/%{_docdir}/
 %doc ChangeLog doc/WavPack5PortingGuide.pdf doc/WavPack5LibraryDoc.pdf doc/WavPack5FileFormat.pdf
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 11 2023 Tomas Korbar <tkorbar@redhat.com> - 5.6.0-3
 - Change the License tag to the SPDX format
 

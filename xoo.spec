@@ -1,7 +1,7 @@
 Summary: Xoo is a graphical wrapper around xnest
 Name: xoo
 Version: 0.8
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: GPLv2+
 # upstream was in the process of moving source to freedesktop.org
 # but now seems to be at yoctoproject.org. Still all confusing
@@ -48,6 +48,9 @@ export DESTDIR=%{buildroot}
 %doc README COPYING TODO AUTHORS NEWS
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

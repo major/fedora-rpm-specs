@@ -3,7 +3,7 @@
 Name:           zegrapher
 Summary:        Free and opensource math graphing software
 Version:        3.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPLv3+
 
 URL:            https://www.zegrapher.com/
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{altname}.app
 %dir %{_datadir}/%{altname}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

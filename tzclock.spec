@@ -1,6 +1,6 @@
 Name:		tzclock
 Version:	3.1.7
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	GTK+ graphical Clock displaying the time around the world
 
 License:	GPLv2
@@ -61,6 +61,9 @@ mv %{buildroot}%{_datadir}/applications/{tzclock,TzClock}.desktop
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.7-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

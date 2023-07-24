@@ -56,7 +56,7 @@
 Name:          tomcat
 Epoch:         1
 Version:       %{major_version}.%{minor_version}.%{micro_version}
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Apache Servlet/JSP Engine, RI for Servlet %{servletspec}/JSP %{jspspec} API
 
 License:       ASL 2.0
@@ -537,6 +537,9 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:9.0.76-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 20 2023 Hui Wang <huwang@redhat.com> - 1:9.0.76-2
 - Resolves: rhbz#2189672 Missing Tomcat POM files in Fedora Rawhide
 - Remove JDTCompiler patch because ecj has been update

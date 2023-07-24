@@ -1,7 +1,7 @@
 Summary: Embeddable, quick, light and fully compliant ISO C99 preprocessor
 Name: ucpp
 Version: 1.3.5
-Release: 10%{?dist}
+Release: 11%{?dist}
 URL: https://gitlab.com/scarabeusiv/ucpp
 Source0: https://gitlab.com/scarabeusiv/ucpp/-/archive/%{version}/ucpp-%{version}.tar.bz2
 License: BSD
@@ -70,6 +70,9 @@ rm %{buildroot}%{_libdir}/libucpp.la
 %{_libdir}/pkgconfig/libucpp.pc
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

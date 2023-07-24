@@ -7,7 +7,7 @@
 
 Name:		tss2
 Version:	1.6.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Epoch:	        1
 Summary:	IBM's TCG Software Stack (TSS) for TPM 2.0 and related utilities
 
@@ -70,6 +70,9 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %doc ibmtss.doc
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 03 2023 Jerry Snitselaar <jsnitsel@redhat.com> - 1:1.6.0-6
 - Rebuild after un-retiring package.
 

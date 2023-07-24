@@ -46,7 +46,7 @@
 %endif
 
 Name:           nest
-Version:        3.3
+Version:        3.4
 
 Release:        %autorelease
 Summary:        The neural simulation tool
@@ -71,12 +71,10 @@ Patch1:         0002-tweak-PYEXECDIR.patch
 Patch2:         0003-Use-system-Random123.patch
 # Remove rpath
 Patch3:         0004-Remove-rpath.patch
-# version shared objects
-Patch4:         https://github.com/nest/nest-simulator/commit/a6492c6f4a66e17e8f625635b83cd20d6e0afd0b.patch
 # Install in standard libdir
-Patch5:         0005-Install-in-libdir.patch
+Patch4:         0005-Install-in-libdir.patch
 # Use online docs for helpdesk
-Patch6:         0006-Use-online-documentation.patch
+Patch5:         0006-Use-online-documentation.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -94,6 +92,7 @@ BuildRequires:  libtool-ltdl-devel
 BuildRequires:  libneurosim-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-Cython
+BuildRequires:  python3-mock
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 BuildRequires:  readline-devel
@@ -241,16 +240,13 @@ cp %{name}-simulator-%{version}/{LICENSE,SECURITY.md,ACKNOWLEDGMENTS.md,CHANGES,
 # Tweaks
 pushd %{name}-simulator-%{version}
 # Apply the patch
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-# set the version: the git branch based logic there doesn't work for us in rpm
-# builds
-sed -i "s/UNKNOWN/nest-%{version}/" cmake/NestVersionInfo.cmake
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
+%patch 5 -p1
+
 # We'll set it ourselves - easier for mpi implementations
 sed -i.orig '/PYEXECDIR/ d' cmake/ProcessOptions.cmake
 # These files are all in standard locations so we don't need them
@@ -441,11 +437,12 @@ export PYTHON_BIN="%{python3}"
 %{do_install}
 %{do_pyinstall}
 
+# do not make docs, they now use sphinx + RTD, which will bundle lots of fonts/js/css
 # Update the helpindex manually
 # See: doc/CMakelists.txt
-pushd %{name}-simulator-%{version}/doc/slihelp_generator
-    %{python3} -B generate_helpindex.py $RPM_BUILD_ROOT/%{_docdir}/%{name}/
-popd
+#pushd %{name}-simulator-%{version}/doc/slihelp_generator
+#    %{python3} -B generate_helpindex.py $RPM_BUILD_ROOT/%{_docdir}/%{name}/
+#popd
 
 # Install MPICH version
 %if %{with mpich}
@@ -525,11 +522,11 @@ chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libnestkernel.so
 %{_openmpi_unload}
 %endif
 
-pushd $RPM_BUILD_ROOT/%{_datadir}/%{name}/slihelp_generator/
-    sed -i '/#!\/usr\/bin\/python/ d' generate_help.py
-    sed -i '/#!\/usr\/bin\/python/ d' generate_helpindex.py
-popd
-
+#pushd $RPM_BUILD_ROOT/%{_datadir}/%{name}/slihelp_generator/
+#    sed -i '/#!\/usr\/bin\/python/ d' generate_help.py
+#    sed -i '/#!\/usr\/bin\/python/ d' generate_helpindex.py
+#popd
+#
 # Remove test suite so that it isn't included in the package
 rm -rf $RPM_BUILD_ROOT/%{_datadir}/nest/testsuite/
 rm -rf $RPM_BUILD_ROOT/%{_bindir}/run_all_cpptests

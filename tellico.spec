@@ -1,6 +1,6 @@
 Name:           tellico
 Version:        3.4.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection manager
 
 License:        GPLv2
@@ -112,6 +112,9 @@ sed \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jan 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.6-1
 - Update to 3.4.6
 

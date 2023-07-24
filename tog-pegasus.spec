@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        70%{?dist}
+Release:        71%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -568,6 +568,9 @@ fi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.14.1-71
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb 10 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-70
 - SPDX migration
 - Remove -devel Obsoletes

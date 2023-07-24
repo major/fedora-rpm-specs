@@ -1,6 +1,6 @@
 Name: swayidle
 Version: 1.8.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: An idle daemon for wayland compositors
 
 License: MIT and LGPLv2+
@@ -52,6 +52,9 @@ swayidle is an idle management daemon for Wayland compositors.
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

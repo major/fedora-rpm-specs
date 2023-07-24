@@ -3,7 +3,7 @@
 
 Name:           wmweather+
 Version:        2.18^20211125gitbe2f4b30
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Weather status dockapp
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ autoreconf -fvi
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18^20211125gitbe2f4b30-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18^20211125gitbe2f4b30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:       Simple word frequency counter
 Name:          wf
 Version:       0.41
-Release:       30%{?dist}
+Release:       31%{?dist}
 License:       GPLv2
 URL:           http://www.async.com.br/~marcelo/wf/
 Source0:       http://www.async.com.br/~marcelo/wf/wf-%{version}.tar.bz2
@@ -30,6 +30,9 @@ whole text.
 %{_mandir}/man1/wf.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.41-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.41-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

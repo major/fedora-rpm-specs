@@ -2,7 +2,7 @@
 
 Name:		%{vagrant_plugin_name}
 Version:	0.13.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Vagrant plugin for OpenStack provider
 
 License:	MIT
@@ -84,6 +84,9 @@ cp -a .%{vagrant_plugin_dir}/* \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:		xfce4-verve-plugin
 Version:	2.0.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Comfortable command line plugin for the Xfce panel
 
 License:	GPLv2+
@@ -58,6 +58,9 @@ rm -f %{buildroot}/%{_libdir}/xfce4/panel/plugins/libverve.la
 %{_datadir}/xfce4/panel/plugins/*.desktop
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

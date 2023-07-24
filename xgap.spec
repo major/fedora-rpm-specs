@@ -1,6 +1,6 @@
 Name:           xgap
 Version:        4.31
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GUI for GAP
 
 # The project as a whole is GPL-2.0-or-later.
@@ -118,6 +118,9 @@ mv %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g.orig \
 %{gap_archdir}/pkg/%{name}/htm/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.31-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.31-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

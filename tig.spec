@@ -2,7 +2,7 @@
 
 Name:           tig
 Version:        2.5.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Text-mode interface for the git revision control system
 
 License:        GPL-2.0-or-later
@@ -63,6 +63,9 @@ install -Dpm 644 contrib/%{name}-completion.bash %{buildroot}%{bash_completion_d
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Feb 08 2023 Jason L Tibbitts III <j@tib.bs> - 2.5.8-2
 - Update to 2.5.8.
 

@@ -1,5 +1,5 @@
 %global         usegit      1
-%global         baserelease     4
+%global         baserelease     5
 
 %global         githash     3ba444a4f7a6835e4a717c46f95802faea03eaf5
 %global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
@@ -58,8 +58,8 @@ This package adds XScreenSaver integration.
 %else
 %setup -q -c
 %endif
-%patch1 -p1 -b .implicit
-%patch2 -p1 -b .fnocommon
+%patch -P1 -p1 -b .implicit
+%patch -P2 -p1 -b .fnocommon
 
 %global optflags %optflags -Werror=implicit-function-declaration
 
@@ -102,6 +102,9 @@ fi
 %{_datadir}/xscreensaver/*/*
 
 %changelog
+* Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9-5.D20170103git3ba444a4f7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-4.D20170103git3ba444a4f7.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

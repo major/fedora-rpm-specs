@@ -32,7 +32,7 @@
 
 Name:           suitesparse
 Version:        5.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A collection of sparse matrix libraries
 
 License:        (LGPLv2+ or BSD) and LGPLv2+ and GPLv2+
@@ -494,6 +494,9 @@ done
 %doc SuiteSparse-%{version}/Doc/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

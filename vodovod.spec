@@ -1,6 +1,6 @@
 Name:		vodovod
 Version:	1.10r22
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	A pipe connecting game
 
 License:	GPLv2+
@@ -96,6 +96,9 @@ desktop-file-install  \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10r22-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10r22-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

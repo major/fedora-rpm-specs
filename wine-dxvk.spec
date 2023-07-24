@@ -17,7 +17,7 @@
 
 Name:           wine-dxvk
 Version:        1.10.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Vulkan-based D3D11 and D3D10 implementation for Linux / Wine
 
 License:        zlib
@@ -167,6 +167,9 @@ fi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

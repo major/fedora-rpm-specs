@@ -8,7 +8,7 @@ BuildRequires: make
 BuildRequires: fontforge >= 20071110
 
 Version: 0.7.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-or-later AND Bitstream-Vera
 URL:     https://linux.thai.net/projects/fonts-tlwg
 
@@ -224,6 +224,9 @@ make
 %fontfiles -a
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Peng Wu <pwu@redhat.com> - 0.7.3-8
 - Fix dnf upgrade issue
 - Resolves: RHBZ#2214507

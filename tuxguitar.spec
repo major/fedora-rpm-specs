@@ -27,7 +27,7 @@
 Summary:          A multitrack tablature editor and player written in Java-SWT
 Name:             tuxguitar
 Version:          1.5.4
-Release:          7%{?dist}
+Release:          8%{?dist}
 URL:              http://www.tuxguitar.com.ar
 # Source file cleaned of potentially proprietary SF2, DLL, EXE files:
 #   export VERSION=1.5.2
@@ -291,6 +291,9 @@ appstream-util validate-relax --nonet \
 %{_javadir}/%{name}/tuxguitar-oss.jar
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 1.5.4-7
 - Fix C99 compatibility issue
 

@@ -1,6 +1,6 @@
 Name:           perl-IO-Prompter
-Version:        0.004015
-Release:        14%{?dist}
+Version:        0.005001
+Release:        1%{?dist}
 Summary:        Prompt for input, read it, clean it, return it
 
 License:        GPL+ or Artistic
@@ -9,7 +9,7 @@ Source0:        https://www.cpan.org/modules/by-module/IO/IO-Prompter-%{version}
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.010
@@ -26,6 +26,7 @@ BuildRequires:  perl(diagnostics)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
+BuildRequires:  perl(match::smart)
 
 
 %description
@@ -60,6 +61,10 @@ an object representing that text.
 
 
 %changelog
+* Sat Jul 22 2023 Björn Esser <besser82@fedoraproject.org> - 0.005001-1
+- New upstream release
+  Fixes rhbz#2224546
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004015-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

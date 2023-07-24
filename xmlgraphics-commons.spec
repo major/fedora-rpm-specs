@@ -1,6 +1,6 @@
 Name:           xmlgraphics-commons
 Version:        2.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          0
 Summary:        XML Graphics Commons
 
@@ -71,6 +71,9 @@ find -name "*.jar" -delete
 %license LICENSE NOTICE
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0:2.8-3
 - migrated to SPDX license
 

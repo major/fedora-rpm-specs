@@ -3,7 +3,7 @@
 
 Name:           test-interface
 Version:        %{test_interface_version}
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Uniform interface to Scala and Java test frameworks
 
 License:        BSD-3-Clause
@@ -100,6 +100,9 @@ cp pom.xml target/%{name}-%{version}.pom
 %doc LICENSE
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

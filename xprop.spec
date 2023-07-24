@@ -1,7 +1,7 @@
 Summary:    X property display utility
 Name:       xprop
 Version:    1.2.5
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    MIT
 URL:        http://www.x.org
 
@@ -35,6 +35,9 @@ The xprop utility is for displaying window and font properties in an X server.
 %{_mandir}/man1/xprop.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

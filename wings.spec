@@ -3,7 +3,7 @@
 
 Name:           wings
 Version:        2.2.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        3D Subdivision Modeler
 License:        MIT
 URL:            http://www.wings3d.com
@@ -126,6 +126,9 @@ install -D -p -m 0644 unix/wings.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata/
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           trackballs
 Version:        1.3.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Steer a marble ball through a labyrinth
 License:        GPLv2+
 URL:            https://trackballs.github.io/
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

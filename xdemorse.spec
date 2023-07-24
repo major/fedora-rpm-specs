@@ -1,6 +1,6 @@
 Name:           xdemorse
 Version:        3.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        GTK based application for decoding and displaying Morse code signals
 
 License:        GPLv2+
@@ -72,6 +72,9 @@ install -p -D -m 644 AUTHORS ChangeLog README doc/Morsecode.txt doc/%{name}.html
 %{_mandir}/man*/%{name}*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 3.5-13
 - Fix bundled configure check for C99 compatibility (#2167315)
 

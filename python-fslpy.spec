@@ -6,7 +6,7 @@ The fslpy project is a FSL programming library written in Python. It is used by 
 FSLeyes.
 
 Name:           python-fslpy
-Version:        3.12.1
+Version:        3.13.3
 Release:        %autorelease
 Summary:        The FSL Python Library
 
@@ -92,6 +92,7 @@ sleep 10
 xvfb-run pytest-3 tests/test_platform.py || exit 0
 %endif
 
+# https://github.com/pauldmccarthy/fslpy/issues/17
 # Ignore tests that have already been done
 # Ignore immv_imcp because it requires a "nobody" user
 # Ignore tests that require downloading data.
@@ -99,16 +100,37 @@ xvfb-run pytest-3 tests/test_platform.py || exit 0
 # Ignore test using dcm2niix
 # Ignore intermittently failing test: https://github.com/pauldmccarthy/fslpy/issues/10
 # Ignore submit tests
-%{pytest} tests  -m "not longtest and not test_submit" \
+k="not longtest and not test_submit"
+k="${k} and not test_FEATFSFDesign_firstLevelVoxelwiseEV"
+k="${k} and not test_compressed_voxelwise_ev"
+k="${k} and not test_image_readonly_compressed"
+k="${k} and not test_runfunc"
+k="${k} and not test_fslmaths_load"
+k="${k} and not test_fileOrImage"
+k="${k} and not test_fileOrThing_outprefix"
+k="${k} and not test_fileOrThing_outprefix_pathlib"
+k="${k} and not test_fileOrThing_outprefix_differentTypes"
+k="${k} and not test_fileOrThing_outprefix_directory"
+k="${k} and not test_chained_fileOrImageAndArray"
+k="${k} and not test_fileOrThing_submit_cmdonly"
+k="${k} and not test_fileOrImage_all_tempfiles_cleared"
+k="${k} and not test_atlas"
+k="${k} and not test_read_nifti"
+k="${k} and not test_VoxelwiseEVs"
+k="${k} and not test_imcp_shouldPass"
+k="${k} and not test_immv_shouldPass"
+k="${k} and not test_fileOrThing_chained_outprefix"
+%{pytest} tests  -k "${k}" \
   --ignore=tests/test_idle.py --ignore=tests/test_platform.py \
-  --ignore=tests/test_immv_imcp.py --ignore=tests/test_atlases.py \
+  --ignore=tests/test_atlases.py \
   --ignore=tests/test_atlases_query.py \
   --ignore=tests/test_scripts/test_atlasq_list_summary.py \
   --ignore=tests/test_scripts/test_atlasq_ohi.py \
-  --ignore=tests/test_scripts/test_atlasq_query.py --ignore=tests/test_callfsl.py \
-  --ignore=tests/test_mesh.py --ignore=tests/test_dicom.py \
-  --ignore=tests/test_parse_data.py \
-  --ignore=tests/test_scripts/test_fsl_apply_x5.py
+  --ignore=tests/test_scripts/test_atlasq_query.py \
+  --ignore=tests/test_dicom.py \
+  --ignore=tests/test_scripts/test_fsl_apply_x5.py \
+  --ignore=tests/test_scripts/test_fsl_convert_x5.py \
+  --ignore=tests/test_scripts/test_immv_imcp.py
 
 %files -n python3-fslpy -f %{pyproject_files}
 %doc README.rst

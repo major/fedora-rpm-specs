@@ -1,6 +1,6 @@
 Name:           uthash
 Version:        2.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A hash table for C structures
 
 License:        BSD
@@ -104,6 +104,9 @@ rm -f %{buildroot}%{_pkgdocdir}/html/google*.html
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Jun 27 2023 Björn Esser <besser82@fedoraproject.org> - 2.3.0-5
 - Add tools package
 - Add explicit perl BRs

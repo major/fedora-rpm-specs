@@ -1,6 +1,6 @@
 Name:           xmedcon
 Version:        0.22.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A medical image conversion utility and library
 
 # Please refer to http://xmedcon.sourceforge.net/pub/readme/README for details
@@ -129,6 +129,9 @@ find $RPM_BUILD_ROOT -name "*.la" -execdir rm -fv '{}' \;
 %{_bindir}/%{name}-config
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

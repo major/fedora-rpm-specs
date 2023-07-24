@@ -9,7 +9,7 @@
 Summary: Alternative packet radio system for Linux
 Name: uronode
 Version: 2.15
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 URL: http://uronode.sourceforge.net
 BuildRequires: make
@@ -113,6 +113,9 @@ touch %{buildroot}/%{_var}/lib/flexd/destinations
 %ghost %{_var}/lib/flexd/destinations
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

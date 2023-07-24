@@ -1,6 +1,6 @@
 Name:           whatweb
 Version:        0.5.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Web scanner to identify what are the websites running
 
 
@@ -115,6 +115,9 @@ ruby test/integration.rb
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 01 2023 Michal Ambroz <rebus at, seznam.cz> - 0.5.5-4
 - fix license tag and reference to ruby for runtime requirements
 

@@ -6,7 +6,7 @@
 
 Name:           %{project}-%{srcname}
 Version:        0
-Release:        0.14.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
+Release:        0.15.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
 Summary:        Minimalist theme for your desktop
 
 License:        GPLv3+
@@ -194,6 +194,9 @@ fi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15.20160511gitd3b9ad2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14.20160511gitd3b9ad2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

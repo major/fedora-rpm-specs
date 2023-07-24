@@ -6,7 +6,7 @@
 
 Name:          vmmlib
 Version:       1.8.0
-Release:       0.3.%{git_suffix}%{?dist}
+Release:       0.4.%{git_suffix}%{?dist}
 Summary:       A vector and matrix math library implemented using C++ templates
 License:       BSD
 #URL:           http://vmmlib.sourceforge.net/
@@ -63,6 +63,9 @@ cp -a vmmlib %{buildroot}%{_includedir}
 %{_datadir}/vmmlib/CMake/*.cmake
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-0.4.20220222git364732e3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-0.3.20220222git364732e3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

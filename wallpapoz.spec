@@ -8,7 +8,7 @@
 %define         mainver         0.6.2
 %undefine         betaver
 #%%define         svnver          svn92_trunk
-%define         baserelease		13
+%define         baserelease		14
 
 %define         rel             %{?betaver:0.}%{baserelease}%{?svnver:.%svnver}%{?betaver:.%betaver}
 
@@ -223,6 +223,9 @@ install -cpm 0644  \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.2-14.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-13.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           wlroots
 Version:        0.16.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -144,6 +144,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Apr 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.16.2-2
 - Apply upstream patch to remove hardcoded Vulkan validation layers
 

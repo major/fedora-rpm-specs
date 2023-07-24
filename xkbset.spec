@@ -1,6 +1,6 @@
 Name:           xkbset
 Version:        0.5
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Tool to configure XKB extensions
 
 License:        BSD
@@ -59,6 +59,9 @@ desktop-file-install                                    \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

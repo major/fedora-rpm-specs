@@ -14,7 +14,7 @@
 Summary: Raw image data retrieval tool for digital cameras
 Name: ufraw
 Version: 0.23
-Release: 0.16.20210425%{?dist}
+Release: 0.17.20210425%{?dist}
 License: GPLv2+
 URL: http://ufraw.sourceforge.net
 Source0: http://downloads.sourceforge.net/ufraw/ufraw-0.22.tar.gz
@@ -145,6 +145,9 @@ gconftool-2 --makefile-uninstall-rule /etc/gconf/schemas/ufraw.schemas >& /dev/n
 %endif
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-0.17.20210425
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-0.16.20210425
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Dictionary of English words for the /usr/share/dict directory
 Name: words
 Version: 3.0
-Release: 43%{?dist}
+Release: 44%{?dist}
 
 # https://gitlab.com/fedora/legal/fedora-license-data/-/commit/1fe1c5769b177e00749a324557f6631a964770b1
 License: LicenseRef-Fedora-Public-Domain
@@ -77,6 +77,9 @@ ln -sf linux.words $RPM_BUILD_ROOT%{_datadir}/dict/words
 %{_datadir}/dict/words
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed May 24 2023 Karel Zak <kzak@redhat.com> - 3.0-43
 - spec file cleanup (based on PR from Robert Scheck)
 

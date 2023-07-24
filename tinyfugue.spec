@@ -3,7 +3,7 @@
 
 Name:           tinyfugue
 Version:        5.0
-Release:        0.108.b8%{?dist}
+Release:        0.109.b8%{?dist}
 Summary:        A MU* client
 License:        GPLv2+
 URL:            http://tinyfugue.sourceforge.net/
@@ -70,6 +70,9 @@ install -D -p -m 644 src/tf.1.nroffman %{buildroot}%{_mandir}/man1/tf.1
 %{_mandir}/man1/tf.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.109.b8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.108.b8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

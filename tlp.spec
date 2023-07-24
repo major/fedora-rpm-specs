@@ -1,7 +1,7 @@
 %global gittag 1.5.0
 Name:           tlp
 Version:        1.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Optimize laptop battery life
 License:        GPLv2+
 URL:            https://linrunner.de/tlp
@@ -121,6 +121,9 @@ fi
 %systemd_postun_with_restart tlp.service
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

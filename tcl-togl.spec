@@ -5,7 +5,7 @@
 
 Name:           tcl-togl
 Version:        2.1
-Release:        0.14%{?rev:.%rev}%{?dist}
+Release:        0.15%{?rev:.%rev}%{?dist}
 Summary:        A Tk OpenGL widget
 
 License:        BSD
@@ -64,6 +64,9 @@ ln -s %{tcl_sitearch}/Togl%{version}/libTogl%{version}.so %{buildroot}/%{_libdir
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.15.cvs20170502
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.14.cvs20170502
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

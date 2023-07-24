@@ -27,7 +27,7 @@ Summary:        Notifier for USB Firewall to use with desktop environments
 URL:            https://github.com/kochstefan/usbauth-all/tree/master/usbauth-notifier
 Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2
 
 Requires(pre):  shadow-utils
@@ -76,6 +76,9 @@ popd
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Mar 04 2023 stefan.koch10@gmail.com - 1.0.5-1
 - update to v1.0.4
 

@@ -8,7 +8,7 @@ http://readthedocs.org/docs/libneuroml/en/latest/
 
 
 Name:           python-libNeuroML
-Version:        0.5.1
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Python libNeuroML for working with neuronal models specified in NeuroML
 
@@ -43,13 +43,11 @@ done
 # correct end of line encoding
 sed -i 's/\r$//' neuroml/examples/test_files/tmp2.swc
 
-# Do not try to use pytables snapshots from GitHub (Fedora already carries upstream patches for pytables)
-sed -i -e '/^git/ d' -e 's/^tables.*/tables >= 3.3.0/' requirements.txt
-# Do not try to install generateds: it is used by upstream to regenerate nml.py from schema but we don't do this in our build
-sed -i '/generateds/ d' requirements-dev.txt
+# remove unneeded dev reqs
+sed -i -e '/generateds/ d' -e '/flake8$/ d'  -e '/black$/ d' setup.cfg
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements.txt requirements-dev.txt
+%pyproject_buildrequires -x dev
 
 %build
 %pyproject_wheel

@@ -1,6 +1,6 @@
 Name:           zeitgeist
 Version:        1.0.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Framework providing Desktop activity awareness
 # most of the source code is LGPLv2+, except:
 # datahub/ is LGPLv3+
@@ -166,6 +166,9 @@ make check
 %{_datadir}/vala/vapi/zeitgeist-datamodel-2.0.vapi
 
 %changelog
+* Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.4-9
 - Rebuilt for Python 3.12
 

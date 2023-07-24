@@ -1,6 +1,6 @@
 Name:           tang
 Version:        14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Network Presence Binding Daemon
 
 License:        GPL-3.0-or-later
@@ -99,6 +99,9 @@ fi
 %{_sysusersdir}/tang.conf
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jun 14 2023 Sergio Arroutbi <sarroutb@redhat.com> - 14-1
 - New upstream release - v14
   Resolves: rhbz#2180990

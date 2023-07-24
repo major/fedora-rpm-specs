@@ -3,7 +3,7 @@
 
 Name:           tllist
 Version:        1.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C header file only implementation of a typed linked list
 
 License:        MIT
@@ -55,6 +55,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 %{_docdir}/%{name}/README.md
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

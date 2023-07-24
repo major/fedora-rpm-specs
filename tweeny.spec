@@ -4,7 +4,7 @@
 
 Name: tweeny
 Version: 3.2.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: MIT
 Summary: Modern C++ tweening library
@@ -47,6 +47,9 @@ Provides: %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/cmake/Tweeny
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

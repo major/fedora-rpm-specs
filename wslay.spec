@@ -2,7 +2,7 @@
 
 Name:           wslay
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight WebSocket library in C
 License:        MIT
 URL:            https://tatsuhiro-t.github.io/wslay
@@ -77,6 +77,9 @@ EOF
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Mar 09 2023 Rémi Verschelde <akien@fedoraproject.org> - 1.1.1-1
 - Import Mageia package to Fedora
 

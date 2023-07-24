@@ -1,6 +1,6 @@
 Name:           wayland-utils
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wayland utilities
 
 License:        MIT
@@ -39,6 +39,9 @@ XDG output protocols.
 %{_mandir}/man1/wayland-info.1*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jun  8 2023 Olivier Fourdan <ofourdan@redhat.com> - 1.2.0-1
 - wayland-utils 1.2.0
 

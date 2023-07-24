@@ -2,7 +2,7 @@
 
 Name:           transmission
 Version:        4.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -177,6 +177,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 14 2023 Kalev Lember <klember@redhat.com> - 4.0.3-3
 - Remove unnecessary post/preun/postun requires on systemd
 

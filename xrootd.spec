@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.6.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
@@ -686,6 +686,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Jul 12 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.1-1
 - Update to version 5.6.1
 - Add --use-pep517 --no-build-isolation to pip options for Fedora and EPEL 9+

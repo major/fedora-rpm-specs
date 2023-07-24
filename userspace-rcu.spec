@@ -1,6 +1,6 @@
 Name:           userspace-rcu
 Version:        0.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        RCU (read-copy-update) implementation in user-space
 License:        LGPL-2.1-or-later
 URL:            http://liburcu.org
@@ -93,6 +93,9 @@ make regtest
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon May 08 2023 Michael Jeanson <mjeanson@efficios.com> - 0.14.0-2
 - migrated to SPDX license
 

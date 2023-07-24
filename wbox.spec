@@ -1,6 +1,6 @@
 Name:           wbox
 Version:        5
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        HTTP testing tool and configuration-less HTTP server
 
 License:        BSD
@@ -43,6 +43,9 @@ install -Dp -m 0644 %{SOURCE1} %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

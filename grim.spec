@@ -1,15 +1,14 @@
 Name:		grim
-Version:	1.4.0
-Release:	4%{?dist}
+Version:	1.4.1
+Release:	1%{?dist}
 Summary:	Screenshot tool for Sway
 
 License:	MIT
-URL:		https://github.com/emersion/grim
-Source0:	%{url}/releases/download/v%{version}/grim-%{version}.tar.gz
-Source1:	%{url}/releases/download/v%{version}/grim-%{version}.tar.gz.sig
+URL:		https://sr.ht/~emersion/grim/
+%global forgeurl https://git.sr.ht/~emersion/grim
+Source0:	%{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:	%{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz.sig
 Source2:	dj3498u4hyyarh35rkjfnghbjxug6b19
-# Fix build on 32-bit systems
-Patch:		%{url}/commit/89e02e663fabc534b7e7039514f60a8c5d70070d.patch#/grim-1.4.0-write_jpg-fix-printf-format-specifier.patch
 
 BuildRequires:	pkgconfig(bash-completion)
 BuildRequires:	pkgconfig(libjpeg)
@@ -40,15 +39,17 @@ Grim is a command-line tool to grab images from Sway.
 %meson_install
 
 %files
+%doc README.md
 %license LICENSE
 %{_bindir}/grim
 %{_mandir}/man1/grim.1*
-%{_datadir}/bash-completion/completions/grim*
-%dir %{_datadir}/fish
-%dir %{_datadir}/fish/vendor_completions.d
-%{_datadir}/fish/vendor_completions.d/grim*
+%{bash_completions_dir}/grim*
+%{fish_completions_dir}/grim*
 
 %changelog
+* Sat Jul 22 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.4.1-1
+- Update to 1.4.1 (#2215017)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

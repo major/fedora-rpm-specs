@@ -1,6 +1,6 @@
 Name:           swatch
 Version:        3.2.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Tool for actively monitoring log files
 License:        GPLv2+
 URL:            http://swatch.sourceforge.net/
@@ -58,6 +58,9 @@ make test
 %{perl_vendorlib}/auto/Swatch/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

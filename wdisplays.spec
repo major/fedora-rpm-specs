@@ -2,7 +2,7 @@
 
 Name:     wdisplays
 Version:  1.1.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  GUI display configurator for wlroots compositors
 License:  GPLv3+
 URL:      https://github.com/artizirk/wdisplays
@@ -59,6 +59,9 @@ desktop-file-install --dir %{buildroot}/%{_datadir}/applications \
 %clean
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jul 03 2023 Bob Hepple <bob.hepple@gmail.com> - 1.1.1-1
 - new version
 

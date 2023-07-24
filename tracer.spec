@@ -18,7 +18,7 @@
 
 Name:       tracer
 Version:    0.7.11
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -197,6 +197,9 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sun Jun 18 2023 Python Maint <python-maint@redhat.com> - 0.7.11-2
 - Rebuilt for Python 3.12
 

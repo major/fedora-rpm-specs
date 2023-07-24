@@ -13,7 +13,7 @@
 
 Name:           z3
 Version:        4.12.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
@@ -311,6 +311,9 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Jul 21 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-4
 - Exclude the OCaml and Java subpackages only on i386
 

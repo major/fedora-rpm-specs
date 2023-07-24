@@ -3,7 +3,7 @@
 
 Name:           woffTools
 Version:        0.1
-Release:        0.38.20160211git%{?dist}
+Release:        0.39.20160211git%{?dist}
 Summary:        Tool for manipulating and examining WOFF files
 
 License:        MIT
@@ -52,6 +52,9 @@ sed -i -e '/^#! \//, 1d' Lib/woffTools/tools/validate.py
 %{python3_sitelib}/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.39.20160211git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 0.1-0.38.20160211git
 - Rebuilt for Python 3.12
 

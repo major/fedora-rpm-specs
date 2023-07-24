@@ -3,7 +3,7 @@
 Summary: A filemanager similar to XTree
 Name: ytree
 Version: 2.04
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+
 URL: https://www.han.de/~werner/ytree.html
@@ -33,6 +33,9 @@ install -m755 -D -p ytree $RPM_BUILD_ROOT/%{_bindir}/ytree
 %{_bindir}/ytree
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

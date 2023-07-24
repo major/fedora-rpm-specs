@@ -2,7 +2,7 @@
 
 Name:           tali
 Version:        40.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GNOME Tali game
 
 License:        GPLv2+ and GFDL
@@ -52,6 +52,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

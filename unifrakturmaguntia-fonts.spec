@@ -5,7 +5,7 @@
 
 Name:          %{fontname}-fonts
 Version:       0
-Release:       0.17.%{source_date}%{?dist}
+Release:       0.18.%{source_date}%{?dist}
 Summary:       Font that provide a Fraktur typeface that may be embedded on websites
 License:       OFL
 URL:           http://unifraktur.sourceforge.net/maguntia.html
@@ -66,6 +66,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18.20140706
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17.20140706
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

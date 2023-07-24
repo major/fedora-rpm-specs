@@ -2,7 +2,7 @@
 
 Name:           twincam
 Version:        0.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A lightweight camera application
 
 License:        GPLv2
@@ -63,4 +63,7 @@ dracut -f
 %{_unitdir}/multi-user.target.wants/twincam-quit.service
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 %autochangelog

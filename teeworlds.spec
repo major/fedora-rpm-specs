@@ -1,6 +1,6 @@
 Name:           teeworlds
 Version:        0.7.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Online multi-player platform 2D shooter
 
 # zlib: src/engine/externals/md5/*
@@ -140,6 +140,9 @@ exit 0
 %attr(-,teeworlds,teeworlds)%{_sysconfdir}/%{name}/
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.5-12
 - migrated to SPDX license
 

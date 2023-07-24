@@ -1,6 +1,6 @@
 Name:           taxipilot
 Version:        0.9.2
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Game where you pilot a taxi in space
 License:        GPLv2+
 URL:            http://taxipilot.sourceforge.net/
@@ -64,6 +64,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

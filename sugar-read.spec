@@ -1,6 +1,6 @@
 Name:      sugar-read
 Version:   123
-Release:   10%{?dist}
+Release:   11%{?dist}
 Summary:   A document reader for Sugar
 License:   GPLv2+
 URL:       http://wiki.laptop.org/go/Read
@@ -50,6 +50,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 123-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 123-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

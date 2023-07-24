@@ -6,7 +6,7 @@
 Name:    xforms
 Summary: XForms toolkit library
 Version: 1.2.4
-Release: 22%{?dist}
+Release: 23%{?dist}
 
 License: LGPLv2+
 URL:     http://xforms-toolkit.org/
@@ -134,6 +134,9 @@ fi
 
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

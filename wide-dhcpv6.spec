@@ -14,7 +14,7 @@ License:        BSD and GPLv2+
 Summary:        DHCP Client and Server for IPv6
 Version:        20080615
 Url:            https://launchpad.net/ubuntu/+source/%{name}/%{version}-%{ubuntu_release}
-Release:        %{ubuntu_release}.%{my_release}%{dist}.2
+Release:        %{ubuntu_release}.%{my_release}%{dist}.3
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        CHANGELOG-LINUX
 Source2:        COPYRIGHT
@@ -137,6 +137,9 @@ fi
 %{_unitdir}/*
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080615-23.3.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Mar 10 2023 DJ Delorie <dj@redhat.com> - 20080615-23.2.3
 - Fix C99 compatibility issue
 

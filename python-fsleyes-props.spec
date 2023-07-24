@@ -13,7 +13,7 @@ you to:
 
 
 Name:           python-fsleyes-props
-Version:        1.9.3
+Version:        1.10.0
 Release:        %autorelease
 Summary:        [wx]Python event programming framework
 
@@ -44,11 +44,8 @@ rm -rfv fsleyes_props.egg-info
 
 find . -name "*py" -exec sed -i '/#!\/usr\/bin\/env python/ d' '{}' \;
 
-# Fix requirements files, the auto-dep generator does not like "*".
-sed -i 's/fsleyes-widgets.*/fsleyes-widgets>=0.6/' requirements.txt
-
 # disable coverage
-sed -i 's/--cov=fsleyes_props//' setup.cfg
+sed -i 's/--cov=fsleyes_props//' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

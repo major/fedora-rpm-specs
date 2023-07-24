@@ -3,7 +3,7 @@
 Summary: Layer 2 Tunnelling Protocol Daemon (RFC 2661)
 Name: xl2tpd
 Version: 1.3.17
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL+
 Url: https://github.com/xelerance/xl2tpd/
 Source0: https://github.com/xelerance/xl2tpd/archive/refs/tags/v%{version}/xl2tpd-%{version}.tar.gz
@@ -117,6 +117,9 @@ install -p -D -m755 -d %{buildroot}%{_rundir}/xl2tpd
 %ghost %attr(0600,root,root) %{_rundir}/xl2tpd/l2tp-control
 
 %changelog
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
