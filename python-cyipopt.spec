@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-cyipopt
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Cython interface for the interior point optimizer IPOPT
 
@@ -16,12 +16,6 @@ URL:            https://github.com/mechmotum/cyipopt
 # the examples.
 Source:         %{url}/archive/v%{version}/cyipopt-%{version}.tar.gz
 
-# A little consistency in shebangs and execute bits
-# https://github.com/mechmotum/cyipopt/pull/136
-Patch:          %{url}/pull/136.patch
-# Fix a couple of small documentation typos
-# https://github.com/mechmotum/cyipopt/pull/137
-Patch:          %{url}/pull/137.patch
 # Don’t use deprecated/removed np.float alias
 # https://github.com/mechmotum/cyipopt/pull/191
 Patch:          %{url}/pull/191.patch
@@ -39,8 +33,24 @@ Patch:          %{url}/pull/191.patch
 Patch:          %{url}/pull/212.patch
 # Add back cython to INSTALL_REQUIRES.
 #
-# TBD why this was considered necessary, but we follow upstream for now.
+# https://github.com/mechmotum/cyipopt/commit/5088cfc081ecf2da73fbf6ab8b64e4bfc3e68d3d#commitcomment-122359591
+#
+# “Cython is required to install the package from source with python setup.py
+# install. It is in INSTALL_REQUIRES because historically it was needed to give
+# some kind of check that build reqs were present. When we move away from
+# setup.py in the future, these things can be changed.”
 Patch:          %{url}/commit/5088cfc081ecf2da73fbf6ab8b64e4bfc3e68d3d.patch
+
+# Downstream-only: drop Cython and setuptools from install_requires
+#
+# Upstream wants to keep these “setup” dependencies in install_requires to
+# support “setup.py install”:
+#
+# https://github.com/mechmotum/cyipopt/commit/5088cfc081ecf2da73fbf6ab8b64e4bfc3e68d3d#commitcomment-122359591
+#
+# However, they are only imported from setup.py, so we patch them out to
+# avoid bringing them in as runtime dependencies for the RPM.
+Patch:          cyipopt-1.1.0-no-runtime-cython-setuptools.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

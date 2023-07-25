@@ -41,6 +41,9 @@ BuildRequires:	perl(Time::Local)
 BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
 # Dependencies
+%if 0%{?fedora} < 38 && 0%{?rhel} < 10
+Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+%endif
 # Need perl(IO::Socket::SSL) for LDAP over SSL (#122066, #207430)
 Requires:	perl(IO::Socket::SSL)
 
@@ -54,10 +57,10 @@ groups and passwords.
 %setup -q
 
 # Use usersdn instead of full LDAP search base when looking for user accounts (#1456783)
-%patch0
+%patch -P 0
 
 # Fedora integration
-%patch10
+%patch -P 10
 
 # Not allowed to have executable docs any more
 chmod -R -c -x+X doc/

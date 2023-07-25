@@ -11,26 +11,26 @@
 ##########################################
 # Defined by upsteam
 #
-%define         main_ver      0.10.0
+%define         main_ver      0.10.1
 #%%define         strtag        20200118
 #%%define         pre_ver       beta
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20230708
-%global         gitcommit     682363fbc27175d9db79bf16ec736cfd06c85ce3
+%global         gitdate       20230723
+%global         gitcommit     a9a364306b99c480d1407f77f8a5fc9efc665a36
 #%%global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20230709
-%global         tarballtime   1548
+%global         tarballdate   20230723
+%global         tarballtime   2216
 
 ##########################################
 # Defined by vendor
 #
-%define         baserelease    2
+%define         baserelease    1
 %define         extra_rel     %{nil}
-#%%define         use_gitcommit_as_rel  1
+%define         use_gitcommit_as_rel  0
 # Tag name changed from vendor to vendorname so as not to
 # overwrite Vendor entry in Summary
 %define         vendorname    fedora
@@ -40,9 +40,13 @@
 
 ##########################################
 %if 0%{?use_gitcommit_as_rel} >= 1
-%global         rel           %{baserelease}.D%{gitdate}git%{shortcommit}%{?dist}
+%global         gittag        %{gitdate}git%{shortcommit}
+%global         gitver_rpm    ^%{gittag}
+%global         gitver_build  -%{gittag}
 %else
-%define         rel           %{baserelease}%{?dist}
+%global         gittag        %{nil}
+%global         gitver_rpm    %{nil}
+%global         gitver_build  %{nil}
 %endif
 
 %define         _with_migemo  1
@@ -70,8 +74,8 @@
 
 Name:           jd
 Epoch:          1
-Version:        %{main_ver}%{?strtag:.%{strtag}}%{?pre_ver:~%{pre_ver}}
-Release:        %{rel}%{flagrel}
+Version:        %{main_ver}%{?strtag:.%{strtag}}%{?pre_ver:~%{pre_ver}}%{gitver_rpm}
+Release:        1%{?dist}%{flagrel}
 Summary:        A 2ch browser
 
 License:        GPLv2
@@ -113,7 +117,7 @@ Requires:       %{fontpackage}
 JD is a 2ch browser based on gtkmm2.
 
 %prep
-%setup -q -c -T -a 0
+%setup -q -c -T -n %{name}-%{main_ver}%{?strtag:.%{strtag}}%{gitver_build} -a 0
 
 git clone ./%{reponame}.git
 cd JDim
@@ -210,6 +214,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Sun Jul 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.10.1-1
+- 0.10.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

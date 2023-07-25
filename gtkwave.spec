@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.115
-Release:	2%{?dist}
+Version:	3.3.116
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -187,6 +187,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/gtkwave.ap
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Sun Jul 23 2023 Paul Howarth <paul@city-fan.org> - 3.3.116-1
+- Update to 3.3.116
+  - Fix manpage/odt for vcd2fst command switch documentation for zlibpack
+  - Add GDK_WINDOWING_WAYLAND check for gdkwayland.h header usage
+  - Change sprintf to snprintf in fstapi.c
+  - Fix init crash on show_base_symbols enabled
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.115-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

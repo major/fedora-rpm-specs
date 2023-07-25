@@ -5,7 +5,7 @@
 # https://github.com/google/go-cloud
 %global goipath         gocloud.dev
 %global forgeurl        https://github.com/google/go-cloud
-Version:                0.30.0
+Version:                0.24.0
 
 %gometa
 
@@ -34,6 +34,9 @@ Summary:        Library and tools for open cloud development in Go
 License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
+# To use etcd 3.5.0 and newer
+Patch0:         0001-Fix-to-use-latest-etcd.patch
+Patch1:         0002-Fix-bool.patch
 
 BuildRequires:  golang(cloud.google.com/go/compute/metadata)
 BuildRequires:  golang(cloud.google.com/go/firestore/apiv1)
@@ -161,6 +164,8 @@ BuildRequires:  golang(golang.org/x/tools/go/packages/packagestest)
 
 %prep
 %goprep
+%patch0 -p1
+%patch1 -p1
 
 %install
 %gopkginstall
@@ -168,7 +173,6 @@ BuildRequires:  golang(golang.org/x/tools/go/packages/packagestest)
 %if %{with check}
 %check
 # Up to and including secrets/gcpkms requires network, according to previous maintainer.
-# After secrets/gcpkms requires packages not needed for build.
 %gocheck %{?with_bootstrap:-d secrets/hashivault} \
          %{?with_bootstrap:-d samples/gocdk-secrets} \
          -d docstore/mongodocstore \
@@ -180,21 +184,7 @@ BuildRequires:  golang(golang.org/x/tools/go/packages/packagestest)
          -d samples/gocdk-pubsub \
          -d blob/azureblob \
          -d blob/gcsblob \
-         -d secrets/gcpkms \
-         -d azure/azurecloud \
-         -d azure/azuredb \
-         -d blob \
-         -d docstore \
-         -d docstore/gcpfirestore \
-         -d gcp/gcpcloud \
-         -d pubsub \
-         -d pubsub/awssnssqs \
-         -d pubsub/azuresb \
-         -d runtimevar/gcpsecretmanager \
-         -d samples/gocdk-blob \
-         -d samples/gocdk-docstore \
-         -d secrets \
-         -d secrets/azurekeyvault
+         -d secrets/gcpkms
 %endif
 
 %gopkgfiles

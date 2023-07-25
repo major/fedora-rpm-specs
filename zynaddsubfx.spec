@@ -1,7 +1,7 @@
 Summary:        Real-time software synthesizer
 Name:           zynaddsubfx
 Version:        3.0.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Source is a collective work, distributed by
 License:        GPLv2 and GPLv2+
 URL:            http://zynaddsubfx.sourceforge.net
@@ -10,6 +10,7 @@ Source0:        http://download.sf.net/sourceforge/zynaddsubfx/zynaddsubfx-%{ver
 Patch0:         zynaddsubfx-buildflags.patch
 # Do not ask for cortex-a9 which conflicts with the armv7a baseline
 Patch1:         zynaddsubfx-cortex.patch
+Patch2:         %{name}-missing-cstdint.patch
 
 Requires:       hicolor-icon-theme
 Requires:       %{name}-common = %{version}-%{release}
@@ -162,6 +163,9 @@ install -d -m 0755 %{buildroot}%{_libdir}/%{name}
 %{_libdir}/vst/*.so
 
 %changelog
+* Sun Jul 23 2023 Guido Aulisi <guido.aulisi@gmail.com> - 3.0.6-4
+- Fix FTBFS in Fedora rawhide: missing cstdint
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

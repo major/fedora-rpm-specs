@@ -1,8 +1,8 @@
 %global forgeurl    https://bitbucket.org/gbcox/transflac/
-%global commit      985d785b20891fb506bbfcb0b6bf186423c12f80
+%global commit      07ac096fb21f
 
 Name:           transflac
-Version:        1.0.2
+Version:        1.1.0
 Summary:        Transcode FLAC to lossy formats
 License:        GPL-3.0-or-later
 
@@ -51,6 +51,8 @@ that transcodes FLAC audio files into various lossy formats.
 %{_libexecdir}/%{name}/src-tf-figlet.sh
 %{_libexecdir}/%{name}/src-tf-help.sh
 %{_libexecdir}/%{name}/src-tf-terminal-header.sh
+%{_libexecdir}/%{name}/src-tf-conf-override.sh
+%{_libexecdir}/%{name}/src-tf-set-variables.sh
 %{_libexecdir}/%{name}/src-tf-table.sh
 %{_libexecdir}/%{name}/src-tf-progress-bar.sh
 %{_mandir}/man1/transflac.1*

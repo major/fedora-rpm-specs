@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.1.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Mathematical expressions involving multidimensional arrays
 
 License:        BSD
@@ -144,6 +144,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %endif
 
 %changelog
+* Sun Jul 23 2023 Python Maint <python-maint@redhat.com> - 1.1.2-9
+- Rebuilt for Python 3.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

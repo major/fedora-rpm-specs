@@ -178,6 +178,7 @@ ln -s RPM-GPG-KEY-fedora-%{version}-primary RPM-GPG-KEY-%{version}-fedora
 popd
 
 # Install the ima keys
+install -d -m 755 $RPM_BUILD_ROOT/etc/keys/ima
 install -m 644 %{_sourcedir}/fedora*ima.* $RPM_BUILD_ROOT/etc/keys/ima/
 
 # Install repo files

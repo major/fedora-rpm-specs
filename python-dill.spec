@@ -1,8 +1,8 @@
 %global srcname dill
 
 Name: python-%{srcname}
-Version: 0.3.6
-Release: 4%{?dist}
+Version: 0.3.7
+Release: 1%{?dist}
 Summary: Serialize all of Python
 
 License: BSD
@@ -58,9 +58,13 @@ command.
 %license LICENSE
 %exclude %{_bindir}/undill
 %exclude %{_bindir}/get_objgraph
+%exclude %{_bindir}/get_gprof
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Sun Jul 23 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.3.7-1
+- New upstream source (0.3.7)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

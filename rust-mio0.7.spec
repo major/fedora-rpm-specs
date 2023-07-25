@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/mio
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          mio-fix-metadata-auto.diff
+# https://github.com/tokio-rs/mio/pull/1693
+Patch:          0001-Fix-compiling-net-udp-UdpSocket-doctest-with-Rust-1..patch
 
 BuildRequires:  rust-packaging >= 21
 

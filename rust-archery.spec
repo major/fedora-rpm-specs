@@ -5,7 +5,7 @@
 %global crate archery
 
 Name:           rust-archery
-Version:        0.5.0
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Abstract over the atomicity of reference-counting pointers
 
@@ -13,8 +13,6 @@ License:        MPL-2.0
 URL:            https://crates.io/crates/archery
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# - criterion is used only for running benchmarks
-# - compiletest_rs is used for tests not included in published sources
 Patch:          archery-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

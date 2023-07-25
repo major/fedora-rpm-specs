@@ -42,10 +42,12 @@ BuildRequires:  javapackages-tools
 %endif
 BuildRequires:  make
 BuildRequires:  ninja-build
+%ifnarch %{ix86}
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-zarith-devel
+%endif
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist setuptools}
 
@@ -200,6 +202,7 @@ export PYTHON=%{python3}
 
 %cmake_build
 
+%ifnarch %{ix86}
 # The cmake build system does not build the OCaml interface.  Do that manually.
 #
 # First, run the configure script to generate several files.
@@ -216,6 +219,7 @@ sed -i '/^api/s/ libz3\$(SO_EXT)//g' build/Makefile
 
 # Fourth, build the OCaml interface
 %make_build -C build ml
+%endif
 
 %install
 export LANG="C.UTF-8"
@@ -232,6 +236,7 @@ ln -s %{_jnidir}/com.microsoft.z3.jar %{buildroot}%{_libdir}/z3
 mv %{buildroot}%{_libdir}/libz3java.so %{buildroot}%{_libdir}/z3
 %endif
 
+%ifnarch %{ix86}
 # Install the OCaml interface
 cd build/api/ml
 mkdir -p %{buildroot}%{ocamldir}/Z3
@@ -242,6 +247,7 @@ cp -p META *.{a,cma,cmi,mli} %{buildroot}%{ocamldir}/Z3
 mkdir -p %{buildroot}%{ocamldir}/stublibs
 cp -p *.so %{buildroot}%{ocamldir}/stublibs
 cd -
+%endif
 
 # We handle the documentation files below
 rm -rf %{buildroot}%{_docdir}/Z3

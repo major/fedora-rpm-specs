@@ -13,6 +13,8 @@ Summary:        Implementation of futures and streams featuring zero allocations
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/futures
 Source:         %{crates_source}
+# https://github.com/rust-lang/futures-rs/pull/2765
+Patch:          0001-Fix-logic-bug-in-stream-Stream-filter_map-doctest.patch
 
 BuildRequires:  rust-packaging >= 21
 

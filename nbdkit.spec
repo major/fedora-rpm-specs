@@ -51,7 +51,7 @@ ExclusiveArch:  x86_64
 %global source_directory 1.35-development
 
 Name:           nbdkit
-Version:        1.35.6
+Version:        1.35.7
 Release:        2%{?dist}
 Summary:        NBD server
 
@@ -554,6 +554,10 @@ nbdkit-pause-filter        Pause NBD requests.
 
 nbdkit-protect-filter      Write-protect parts of a plugin.
 
+%if !0%{?rhel}
+nbdkit-qcow2dec-filter     Decode qcow2 files.
+
+%endif
 nbdkit-rate-filter         Limit bandwidth by connection or server.
 
 nbdkit-readahead-filter    Prefetch data when reading sequentially.
@@ -741,13 +745,15 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 rm -f $RPM_BUILD_ROOT%{_mandir}/man3/nbdkit-rust-plugin.3*
 
 %if 0%{?rhel}
-# In RHEL, remove some plugins we cannot --disable.
+# In RHEL, remove some plugins and filters we cannot --disable.
 for f in cc cdi ; do
     rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/nbdkit-$f-plugin.so
     rm -f $RPM_BUILD_ROOT%{_mandir}/man?/nbdkit-$f-plugin.*
 done
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/nbdkit-S3-plugin
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/nbdkit-S3-plugin.1*
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/filters/nbdkit-qcow2dec-filter.so
+rm -f $RPM_BUILD_ROOT%{_mandir}/man1/nbdkit-qcow2dec-filter.1*
 %endif
 
 # Install RPM dependency generator.
@@ -1086,6 +1092,9 @@ export LIBGUESTFS_TRACE=1
 %{_libdir}/%{name}/filters/nbdkit-partition-filter.so
 %{_libdir}/%{name}/filters/nbdkit-pause-filter.so
 %{_libdir}/%{name}/filters/nbdkit-protect-filter.so
+%if !0%{?rhel}
+%{_libdir}/%{name}/filters/nbdkit-qcow2dec-filter.so
+%endif
 %{_libdir}/%{name}/filters/nbdkit-rate-filter.so
 %{_libdir}/%{name}/filters/nbdkit-readahead-filter.so
 %{_libdir}/%{name}/filters/nbdkit-retry-filter.so
@@ -1123,6 +1132,9 @@ export LIBGUESTFS_TRACE=1
 %{_mandir}/man1/nbdkit-partition-filter.1*
 %{_mandir}/man1/nbdkit-pause-filter.1*
 %{_mandir}/man1/nbdkit-protect-filter.1*
+%if !0%{?rhel}
+%{_mandir}/man1/nbdkit-qcow2dec-filter.1*
+%endif
 %{_mandir}/man1/nbdkit-rate-filter.1*
 %{_mandir}/man1/nbdkit-readahead-filter.1*
 %{_mandir}/man1/nbdkit-retry-filter.1*
@@ -1217,6 +1229,10 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Sun Jul 23 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.7-2
+- New upstream development version 1.35.7
+- New nbdkit-qcow2dec-filter.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

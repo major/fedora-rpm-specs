@@ -1,8 +1,6 @@
-#define gitdate 20120904
-
 Name:           mesa-libGLU
-Version:        9.0.1
-Release:        9%{?dist}
+Version:        9.0.3
+Release:        1%{?dist}
 Summary:        Mesa libGLU library
 
 License:        MIT
@@ -10,11 +8,10 @@ URL:            http://mesa3d.org/
 Source0:        https://ftp.freedesktop.org/pub/mesa/glu/glu-%{version}.tar.xz
 Source2:        make-git-snapshot.sh
 
-BuildRequires: make
 BuildRequires:  gcc-c++
-BuildRequires:  autoconf automake libtool
+BuildRequires:  libglvnd-devel
 BuildRequires:  mesa-libGL-devel
-#Requires:       
+BuildRequires:  meson
 Provides: libGLU
 
 %description
@@ -31,22 +28,17 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n glu-%{?gitdate:%{gitdate}}%{?!gitdate:%{version}}
+%autosetup -p1 -n glu-%{version}
 
 %build
-autoreconf -v -i -f
-%configure --disable-static
-%make_build
-make %{?_smp_mflags}
+%meson -Dgl_provider=glvnd
+%meson_build
 
 %install
-%make_install
-find $RPM_BUILD_ROOT -name '*.la' -delete
-rm -rf $RPM_BUILD_ROOT%{_datadir}/man/man3/gl[A-Z]*
+%meson_install
+find $RPM_BUILD_ROOT -name '*.a' -delete
 
-%ldconfig_post
-
-%ldconfig_postun
+%ldconfig_scriptlets
 
 %files
 %{_libdir}/libGLU.so.1
@@ -58,6 +50,11 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/man/man3/gl[A-Z]*
 %{_libdir}/pkgconfig/glu.pc
 
 %changelog
+* Sun Jul 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 9.0.3-1
+- Update to 9.0.3
+- Move to meson build
+- Set gl_provider to libglvnd
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

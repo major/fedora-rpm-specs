@@ -7,6 +7,11 @@ Summary:        Super fast C++ logging library
 URL:            https://github.com/gabime/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/gabime/spdlog/commit/d8d23a660601a406a1e1aa07380b5b1c5781c190
+Patch100:       %{name}-1.12.0-circular_q-size-fix.patch
+# https://github.com/gabime/spdlog/commit/2ee8bac78e6525a8ad9a9196e65d502ce390d83a
+Patch101:       %{name}-1.12.0-level_to_string_view-fix.patch
+
 BuildRequires:  catch-devel >= 3.0.0
 BuildRequires:  cmake
 BuildRequires:  fmt-devel >= 9.1.0

@@ -8,8 +8,8 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	5.2.0
-Release:	4%{?dist}
+Version:	5.3.0
+Release:	1%{?dist}
 
 Summary:	Ruby binding to ImageMagick
 # SPDX confirmed
@@ -19,9 +19,6 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # %%{SOURCE2} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rmagick-create-full-tarball.sh
-# https://github.com/rmagick/rmagick/pull/1379
-# Fix crash on ImageList#write with animation gif
-Patch0:	rmagick-pr1379-fix-crash-ImageList_write-animation-gif.patch
 
 BuildRequires:	gcc
 BuildRequires:	rubygems-devel 
@@ -30,8 +27,6 @@ BuildRequires:	rubygem(pkg-config)
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(rspec)
 BuildRequires:	rubygem(pry)
-# For Patch0
-BuildRequires:	/usr/bin/git
 # Due to test/RMagick/rmmain.c test_Magick_version(), for now
 # we specify the exact version for ImageMagick
 %if 0%{?fedora}
@@ -63,9 +58,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -T -n %{gem_name}-%{version} -b 1
-#%%patch -P0 -p1
-cat %PATCH0 | git --git-dir=. apply -p1
-
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 # permission
@@ -156,6 +148,9 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Sun Jul 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.3.0-1
+- 5.3.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

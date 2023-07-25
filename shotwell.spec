@@ -2,8 +2,8 @@
 %bcond_with facedetect
 
 Name:           shotwell
-Version:        0.32.1
-Release:        3%{?dist}
+Version:        0.32.2
+Release:        1%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -131,6 +131,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 
 
 %changelog
+* Sun Jul 23 2023 David King <amigadave@amigadave.com> - 0.32.2-1
+- Update to 0.32.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

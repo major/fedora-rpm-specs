@@ -2,8 +2,8 @@
 %global srcname tifffile
 
 Name: python-%{srcname}
-Version: 2023.7.10
-Release: 2%{?dist}
+Version: 2023.7.18
+Release: 1%{?dist}
 Summary: Read and write TIFF(r) files
 
 License: BSD
@@ -78,6 +78,9 @@ pytest-%{python3_version} -v tests \
 %{_bindir}/tiffcomment
 
 %changelog
+* Sun Jul 23 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.7.18-1
+- New upstream source 2023.7.18
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.7.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

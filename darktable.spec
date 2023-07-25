@@ -6,7 +6,7 @@
 ###
 
 Name: darktable
-Version: 4.4.1
+Version: 4.4.2
 Release: 1%{?dist}
 
 Summary: Utility to organize and develop raw images
@@ -249,6 +249,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Sun Jul 23 2023 Germano Massullo <germano.massullo@gmail.com> - 4.4.2-1
+- 4.4.2 release
+
 * Thu Jul 20 2023 Milos Komarcevic <kmilos@gmail.com> - 4.4.1-1
 - 4.4.1 release
 - Remove flickrcurl-devel from BuildRequires, no longer used upstream

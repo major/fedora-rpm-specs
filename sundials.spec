@@ -257,6 +257,9 @@ cp -a sundials-%{version} buildmpich_dir
 %endif
 
 %build
+
+%global _smp_ncpus_max 1
+
 mkdir -p sundials-%{version}/build
 
 export LIBBLASLINK=-l%{blaslib}%{blasvar}
@@ -304,6 +307,7 @@ export CFLAGS="%{build_fflags}"
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
 %endif
+ -DSUNDIALS_BUILD_WITH_PROFILING:BOLL=ON \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
@@ -423,6 +427,7 @@ export CFLAGS="%{build_fflags}"
  -DPETSC_EXECUTABLE_RUNS:BOOL=ON \
 %endif
 %endif
+ -DSUNDIALS_BUILD_WITH_PROFILING:BOLL=ON \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
@@ -557,6 +562,7 @@ export CFLAGS="%{build_fflags}"
  -DPETSC_EXECUTABLE_RUNS:BOOL=ON \
 %endif
 %endif
+ -DSUNDIALS_BUILD_WITH_PROFILING:BOLL=ON \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \

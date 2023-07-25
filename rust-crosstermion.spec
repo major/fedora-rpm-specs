@@ -5,7 +5,7 @@
 %global crate crosstermion
 
 Name:           rust-crosstermion
-Version:        0.9.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Unification of crossterm and termion behind a common facade for use with feature flags
 

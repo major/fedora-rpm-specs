@@ -1,7 +1,7 @@
 %global pypi_name respx
 
 Name:           python-%{pypi_name}
-Version:        0.20.1
+Version:        0.20.2
 Release:        %autorelease
 Summary:        Utility for mocking out the HTTPX and HTTP Core libraries
 
@@ -9,10 +9,6 @@ License:        BSD
 URL:            https://lundberg.github.io/respx/
 Source0:        https://github.com/lundberg/respx/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
-
-# Fix test failures with httpx >= 0.24
-# Upstream: https://github.com/lundberg/respx/pull/231
-Patch0:         231.patch
 
 %description
 An utility for mocking out the Python HTTPX and HTTP Core libraries.

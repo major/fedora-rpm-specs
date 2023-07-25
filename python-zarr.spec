@@ -1,7 +1,7 @@
 %global srcname zarr
 
 Name:           python-%{srcname}
-Version:        2.14.2
+Version:        2.16.0
 Release:        %autorelease
 Summary:        Chunked, compressed, N-dimensional arrays for Python
 

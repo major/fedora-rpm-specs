@@ -1,17 +1,11 @@
 Name:           mpv
-Version:        0.35.1
-Release:        6%{?dist}
+Version:        0.36.0
+Release:        1%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
 URL:            https://%{name}.io/
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/mpv-player/mpv/pull/11398
-Patch100:       %{name}-0.35.1-yt-dlp-hook-fix.patch
-# Upstream patch for libplacebo v6.265
-Patch101:       https://github.com/mpv-player/mpv/commit/3a2f8d42ab203c961e50ce198ca4eb232de3819a.patch
-
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -34,11 +28,11 @@ BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libarchive) >= 3.4.0
 BuildRequires:  pkgconfig(libass)
-BuildRequires:  pkgconfig(libavcodec) >= 58.16.100
-BuildRequires:  pkgconfig(libavdevice) >= 57.0.0
-BuildRequires:  pkgconfig(libavfilter) >= 7.14.100
-BuildRequires:  pkgconfig(libavformat) >= 58.9.100
-BuildRequires:  pkgconfig(libavutil) >= 56.12.100
+BuildRequires:  pkgconfig(libavcodec) >= 59.27.100
+BuildRequires:  pkgconfig(libavdevice) >= 58.13.100
+BuildRequires:  pkgconfig(libavfilter) >= 7.110.100
+BuildRequires:  pkgconfig(libavformat) >= 59.24.100
+BuildRequires:  pkgconfig(libavutil) >= 57.24.100
 BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
@@ -48,8 +42,8 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.19
 BuildRequires:  pkgconfig(libplacebo)
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libswresample) >= 3.0.100
-BuildRequires:  pkgconfig(libswscale) >= 5.0.101
+BuildRequires:  pkgconfig(libswresample) >= 3.9.100
+BuildRequires:  pkgconfig(libswscale) >= 5.9.100
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(lua-5.1)
 BuildRequires:  pkgconfig(mujs)
@@ -181,6 +175,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Jul 23 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.36.0-1
+- Updated to version 0.36.0.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.35.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

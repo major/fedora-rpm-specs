@@ -16,6 +16,9 @@ License:        BSD-3-Clause AND OpenSSL
 URL:            https://github.com/intel/QAT_Engine
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/intel/QAT_Engine/pull/262
+Patch0:         0001-Fix-build-with-intel-ipsec-mb-1.4.patch
+
 # https://bugzilla.redhat.com/show_bug.cgi?id=1909065
 ExclusiveArch:  x86_64
 
@@ -38,7 +41,7 @@ for both hardware and optimized software using Intel QuickAssist Technology
 enabled Intel platforms.
 
 %prep
-%autosetup -n QAT_Engine-%{version}
+%autosetup -n QAT_Engine-%{version} -p1
 
 %build
 autoreconf -ivf

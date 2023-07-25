@@ -191,12 +191,9 @@ sed -e 's| <project_group></project_group>||g' -i share/OpenMS/DESKTOP/*.appdata
 
 
 %build
-%ifarch %{ix86}
 # Likely running out of memory during build
 %global _smp_ncpus_max 2
-%else
-%global _smp_ncpus_max 4
-%endif
+
 mkdir -p build
 %if %{with debug}
 cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
@@ -604,8 +601,9 @@ popd
 %endif
 
 %changelog
-* Fri Jul 21 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-1
+* Sun Jul 23 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-1
 - Release 3.0.0
+- Set _smp_ncpus_max equal to 2 for all architectures
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

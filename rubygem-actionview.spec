@@ -4,8 +4,8 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.0.5
-Release: 2%{?dist}
+Version: 7.0.6
+Release: 1%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -13,23 +13,18 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/actionview && git archive -v -o actionview-7.0.5-tests.txz v7.0.5 test/
+# cd rails/actionview && git archive -v -o actionview-7.0.6-tests.txz v7.0.6 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.5-tools.txz v7.0.5 tools/
+# cd rails && git archive -v -o rails-7.0.6-tools.txz v7.0.6 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
 Patch0: rubygem-actionview-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
 # https://github.com/rails/rails/pull/45370
 Patch1: rubygem-actionview-7.0.2.3-Fix-tests-for-minitest-5.16.patch
-# Fix i18n 1.14+ compatibility.
-# https://github.com/ruby-i18n/i18n/pull/654
-# https://github.com/rails/rails/issues/48377
-# https://github.com/rails/rails/commit/f618fa4bfd202c9be47f0d07f3799eef55e20fef
-Patch2: rubygem-actionview-7.1.0-Fix-actionview-test-to-work-regardless-of-capitalization-of-missing-translation-message.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -60,7 +55,6 @@ Documentation for %{name}.
 pushd %{_builddir}
 %patch 0 -p2
 %patch 1 -p2
-%patch 2 -p2
 popd
 
 %build
@@ -107,6 +101,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Sun Jul 23 2023 Pavel Valena <pvalena@redhat.com> - 7.0.6-1
+- Update to actionview 7.0.6.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

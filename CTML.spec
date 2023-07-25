@@ -12,11 +12,11 @@ Summary:        C++ HTML document constructor only depending on the standard lib
 
 License:        MIT
 URL:            https://github.com/tinfoilboy/CTML
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 
 %description
 %{common_description}

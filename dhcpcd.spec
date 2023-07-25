@@ -14,11 +14,18 @@ Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xa785ed2755955d9
 Source3: %{name}.service
 Source4: %{name}@.service
 Source5: systemd-sysusers.conf
+
+# https://github.com/NetworkConfiguration/dhcpcd/pull/231
+Patch1:  dhcpcd-10.0.2-test.patch
+
 BuildRequires: gcc
 BuildRequires: systemd-rpm-macros
 BuildRequires: chrony
 BuildRequires: systemd-devel
+%if 0%{?fedora}
+# Not in RHEL
 BuildRequires: ypbind
+%endif
 BuildRequires: make
 %if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires: gnupg2
@@ -33,15 +40,15 @@ through NDP, DHCPv4 and DHCPv6 protocols.
 %if 0%{?fedora} || 0%{?rhel} > 8
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
-%autosetup
+%autosetup -p1
 
 %build
 %configure \
-    --dbdir=/var/lib/%{name}
+    --dbdir=/var/lib/%{name} --runstatedir=%{_rundir}
 %make_build
 
 %check
-make test
+%make_build test
 
 %install
 export BINMODE=755

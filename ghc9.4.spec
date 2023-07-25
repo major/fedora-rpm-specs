@@ -1,15 +1,21 @@
-# disable prof, docs, perf build
-# bcond_with for production builds: disable quick build
-%bcond_with quickbuild
-
-# make sure ghc libraries' ABI hashes unchanged
-%bcond_with abicheck
-
-# bcond_without for production builds: use Hadrian buildsystem
-%bcond_without hadrian
-
-# bcond_without for production builds: build hadrian
+# Start: prod settings
+# all *bcond_without* for production builds:
+# - performance build (disable for quick build)
+%bcond_without perfbuild
 %bcond_without build_hadrian
+%global with_hadrian 1
+%if %{with hadrian}
+%bcond_without manual
+%endif
+# End: prod settings
+
+# not for production builds
+%if %{without perfbuild}
+# disable profiling libraries (overriding macros.ghc-srpm)
+%undefine with_ghc_prof
+# disable haddock documentation (overriding macros.ghc-os)
+%undefine with_haddock
+%endif
 
 %global ghc_major 9.4
 %global ghc_name ghc%{ghc_major}
@@ -24,48 +30,24 @@
 %global rts_ver 1.0.2
 %global xhtml_ver 3000.2.2.1
 
-# bootstrap needs 9.0+
+# bootstrap needs 9.0+ (registerized s390x needs 9.2)
 %global ghcboot_major 9.2
 %global ghcboot ghc%{ghcboot_major}
 
-# build profiling libraries
-# build haddock
-# perf production build (disable for quick build)
-%if %{with quickbuild}
-%undefine with_ghc_prof
-%undefine with_haddock
-%bcond_with perf_build
-%else
-%bcond_without ghc_prof
-# https://gitlab.haskell.org/ghc/ghc/-/issues/19754
-# https://github.com/haskell/haddock/issues/1384
-%ifarch armv7hl
-%undefine with_haddock
-%else
-%if %{with hadrian}
-%bcond_without haddock
-%bcond_without manual
-%else
-%ifarch s390x
-%if %{defined fedora}
-%bcond_without haddock
-%else
-%undefine with_haddock
-%endif
-%else
-%bcond_without haddock
-%endif
-%endif
-%endif
-%bcond_without perf_build
-%endif
-
 %if %{without hadrian}
+%ifarch s390x
+%if %{defined rhel9}
+%undefine with_haddock
+%endif
+%endif
 # locked together since disabling haddock causes no manuals built
 # and disabling haddock still created index.html
 # https://gitlab.haskell.org/ghc/ghc/-/issues/15190
 %{?with_haddock:%bcond_without manual}
 %endif
+
+# make sure ghc libraries' ABI hashes unchanged
+%bcond_with abicheck
 
 # no longer build testsuite (takes time and not really being used)
 %bcond_with testsuite
@@ -93,7 +75,7 @@ Version: 9.4.5
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -123,6 +105,9 @@ Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf4
 # distutils gone in python 3.12
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922
 Patch10: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922.patch
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10928
+# allow building hadrian with Cabal-3.8
+Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10928.patch
 
 # arm patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
@@ -432,6 +417,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P8 -p1 -b .orig
 %patch -P9 -p1 -b .orig
 %patch -P10 -p1 -b .orig
+%patch -P11 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -443,7 +429,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 
 # remove s390x after complete switching to llvm
-%ifarch %{ghc_unregisterized_arches} s390x
+%ifarch %{ghc_unregisterized_arches}
 %patch -P15 -p1 -b .orig
 %patch -P16 -p1 -b .orig
 %endif
@@ -464,7 +450,7 @@ fi
 %if %{without hadrian}
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 cat > mk/build.mk << EOF
-%if %{with perf_build}
+%if %{with perfbuild}
 %ifarch %{ghc_llvm_archs}
 BuildFlavour = perf-llvm
 %else
@@ -549,10 +535,10 @@ cd hadrian
 %ifarch %{ghc_llvm_archs}
 %global hadrian_llvm +llvm
 %endif
-%define hadrian_docs %{!?with_haddock:--docs=no-haddocks} %{!?with_manual:--docs=no-sphinx}%{?with_manual:--docs=no-sphinx-pdfs --docs=no-sphinx-man}
+%define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
 # quickest does not build shared libs
 # try release instead of perf
-%{hadrian} %{?_smp_mflags} --flavour=%{?with_quickbuild:quick+no_profiled_libs}%{!?with_quickbuild:perf%{!?with_ghc_prof:+no_profiled_libs}}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir
+%{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir
 %else
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22099
 # 48 cpus breaks build: Error: ghc-cabal: Encountered missing or private dependencies: rts >=1.0 && <1.1
@@ -706,6 +692,9 @@ rm %{buildroot}%{_pkgdocdir}/archives/libraries.html.tar.xz
 %if %{with manual}
 rm %{buildroot}%{_pkgdocdir}/archives/Haddock.html.tar.xz
 rm %{buildroot}%{_pkgdocdir}/archives/users_guide.html.tar.xz
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23707
+rm %{buildroot}%{_ghc_doc_dir}/users_guide/build-man/ghc.1
+mv %{buildroot}%{_mandir}/man1/ghc{,-%{ghc_major}}.1
 %endif
 %endif
 
@@ -933,8 +922,8 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %verify(not size mtime) %{ghc_html_libraries_dir}/quick-jump.css
 %verify(not size mtime) %{ghc_html_libraries_dir}/synopsis.png
 %endif
-%if %{with manual} && %{without hadrian}
-%{_mandir}/man1/ghc.1*
+%if %{with manual}
+%{_mandir}/man1/ghc-%{ghc_major}.1*
 %endif
 
 %files compiler-default
@@ -996,6 +985,12 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 9.4.5-21
+- backport bcond perfbuild changes from ghc9.6
+- build the ghc.1 manpage with sphinx and version not to conflict
+- patch hadrian to build with Cabal-3.8
+- s390x: no longer apply unregisterized patches
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

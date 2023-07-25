@@ -458,7 +458,7 @@ cd hadrian
 %ifarch %{ghc_llvm_archs}
 %global hadrian_llvm +llvm
 %endif
-%define hadrian_docs %{!?with_haddock:--docs=no-haddocks} %{!?with_manual:--docs=no-sphinx}%{?with_manual:--docs=no-sphinx-pdfs}
+%define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
 # quickest does not build shared libs
 # try release instead of perf
 %{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir
@@ -574,6 +574,7 @@ install -p -m 0644 %{SOURCE7} %{buildroot}%{_mandir}/man1/runghc.1
 %if %{with manual}
 rm %{buildroot}%{_pkgdocdir}/archives/Haddock.html.tar.xz
 rm %{buildroot}%{_pkgdocdir}/archives/users_guide.html.tar.xz
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23707
 rm %{buildroot}%{_ghc_doc_dir}/users_guide/build-man/ghc.1
 mv %{buildroot}%{_mandir}/man1/ghc{,-%{ghc_major}}.1
 %endif
