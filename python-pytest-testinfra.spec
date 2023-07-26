@@ -21,7 +21,7 @@ Release:        %autorelease
 Summary:        Unit testing for config-managed server state
 URL:            %{forgeurl}
 Source:         %{pypi_source}
-License:        ASL 2.0
+License:        Apache-2.0
 BuildArch:      noarch
 
 ########################################################################
@@ -39,7 +39,8 @@ BuildRequires: python3-devel
 %if %{with tests}
 BuildRequires: python3dist(salt)
 BuildRequires: python3dist(pywinrm)
-BuildRequires: python3dist(ansible)
+%{?fedora:BuildRequires: python3dist(ansible)}
+%{?rhel:BuildRequires: python3dist(ansible-core)}
 BuildRequires: python3dist(paramiko)
 %endif
 # docs requirements

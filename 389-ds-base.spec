@@ -46,7 +46,7 @@ ExcludeArch: i686
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
 Version:          2.4.2
-Release:          4%{?dist}
+Release:          5%{?dist}
 License:          GPLv3+ and (ASL 2.0 or MIT)
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
@@ -646,6 +646,7 @@ exit 0
 %{_mandir}/man1/logconv.pl.1.gz
 %{_bindir}/pwdhash
 %{_mandir}/man1/pwdhash.1.gz
+/usr/share/bash-completion/completions/ds-replcheck
 #%caps(CAP_NET_BIND_SERVICE=pe) {_sbindir}/ns-slapd
 %{_sbindir}/ns-slapd
 %{_mandir}/man8/ns-slapd.8.gz
@@ -724,6 +725,10 @@ exit 0
 %{_sbindir}/dsidm
 %{_mandir}/man8/dsidm.8.gz
 %{_libexecdir}/%{pkgname}/dscontainer
+/usr/share/bash-completion/completions/dsctl
+/usr/share/bash-completion/completions/dsconf
+/usr/share/bash-completion/completions/dscreate
+/usr/share/bash-completion/completions/dsdim
 
 %if %{use_cockpit}
 %files -n cockpit-389-ds -f cockpit.list
@@ -732,6 +737,10 @@ exit 0
 %endif
 
 %changelog
+* Mon Jul 24 2023 Mark Reynolds <mreynolds@redhat.com> - 2.4.2-5
+- Bump version to 2.4.2-5
+- Add the bash completion scripts to the appropriate files section
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

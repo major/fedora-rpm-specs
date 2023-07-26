@@ -4,12 +4,16 @@
 
 # https://github.com/peterbourgon/ff
 %global goipath         github.com/peterbourgon/ff/v3
-Version:                3.3.2
+Version:                3.4.0
 
 %gometa -f
 
 %global common_description %{expand:
-Flags-first package for configuration.}
+ff stands for flags-first, and provides an opinionated way to populate a
+flag.FlagSet with configuration data from the environment. By default, it
+parses only from the command line, but you can enable parsing from
+environment variables (lower priority) and/or a configuration file (lowest
+priority).}
 
 %global golicenses      LICENSE
 %global godocs          README.md

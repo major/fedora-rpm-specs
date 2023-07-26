@@ -2,18 +2,12 @@
 %bcond_with perl_LWP_Protocol_https_enables_internet_test
 
 Name:           perl-LWP-Protocol-https
-Version:        6.10
-Release:        10%{?dist}
+Version:        6.11
+Release:        1%{?dist}
 Summary:        Provide HTTPS support for LWP::UserAgent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LWP-Protocol-https
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/LWP-Protocol-https-%{version}.tar.gz
-# Fix CVE-2014-3230, bug #1094442,
-# proposed in https://github.com/libwww-perl/lwp-protocol-https/pull/14
-Patch0:         LWP-Protocol-https-6.06-Debian-746576-don-t-disale-verification-if-only-host.patch
-# Fix CVE-2014-3230, bug #1094442,
-# proposed in https://github.com/libwww-perl/lwp-protocol-https/pull/14
-Patch1:         LWP-Protocol-https-6.06-Debian-746576-fix-test-make-it-workable-for-Crypt-SS.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -25,7 +19,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(base)
-BuildRequires:  perl(IO::Socket::SSL) >= 1.54
+BuildRequires:  perl(IO::Socket::SSL) >= 1.970
 BuildRequires:  perl(LWP::Protocol::http)
 BuildRequires:  perl(LWP::Protocol::http::SocketMethods)
 BuildRequires:  perl(Mozilla::CA) >= 20180117
@@ -39,6 +33,7 @@ BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(LWP::UserAgent) >= 6.06
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(Test::More) >= 0.96
+BuildRequires:  perl(Test::Needs) >= 0.002010
 %if %{with perl_LWP_Protocol_https_enables_internet_test}
 BuildRequires:  perl(Test::RequiresInternet)
 %endif
@@ -69,11 +64,9 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n LWP-Protocol-https-%{version}
-%patch0 -p1
-%patch1 -p1
 %if !%{with perl_LWP_Protocol_https_enables_internet_test}
-rm t/apache.t
-perl -i -ne 'print $_ unless m{^t/apache.t}' MANIFEST
+rm t/example.t
+perl -i -ne 'print $_ unless m{^t/example.t}' MANIFEST
 %endif
 # Help generators to recognize Perl scripts
 for F in $(find t/ -name '*.t'); do
@@ -111,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 24 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.11-1
+- 6.11 bump
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

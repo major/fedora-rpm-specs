@@ -18,6 +18,7 @@ Source0: https://xorg.freedesktop.org/archive/individual/lib/xtrans-%{version}.t
 # Fedora specific patch
 Patch1: xtrans-1.0.3-avoid-gethostname.patch
 
+BuildRequires: gcc
 BuildRequires: make
 BuildRequires: pkgconfig
 BuildRequires: xorg-x11-util-macros

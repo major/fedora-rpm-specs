@@ -1,26 +1,27 @@
 Name:           perl-Sentinel
-Version:        0.06
-Release:        16%{?dist}
+Version:        0.07
+Release:        1%{?dist}
 Summary:        Create lightweight SCALARs with get/set callbacks
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Sentinel
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Sentinel-%{version}.tar.gz
 
+# build requirements
 BuildRequires:  perl-interpreter
-BuildRequires:  perl-devel
 BuildRequires:  perl-generators
-BuildRequires:  perl(constant)
-BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Test::Refcount)
-BuildRequires:  perl(warnings)
+# runtime requirements
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XSLoader)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Syntax::Keyword::Dynamically)
+BuildRequires:  perl(Test2::V0) >= 0.000148
 
 Requires:       perl(XSLoader)
 
@@ -58,6 +59,11 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/Sentinel*
 
 %changelog
+* Mon Jul 24 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.07-1
+- Update to 0.07
+- migrated to SPDX license
+- reorder dependencies
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

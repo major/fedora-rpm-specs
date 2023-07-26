@@ -4,6 +4,7 @@
 # https://github.com/robfig/cron
 %global goipath         github.com/robfig/cron
 Version:                3.0.1
+%global debug_package   %{nil}
 
 %gometa
 
@@ -28,6 +29,9 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+
+%generate_buildrequires
+%go_generate_buildrequires
 
 %install
 %gopkginstall

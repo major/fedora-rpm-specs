@@ -2,7 +2,7 @@ Summary: Content for the Anaconda built-in help system
 Name: anaconda-user-help
 URL: https://pagure.io/install-guide
 Version: 26.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 BuildArch: noarch
 
 # The tarball is created from the Fedora Installation Guide
@@ -15,7 +15,7 @@ BuildArch: noarch
 Source0: %{name}-%{version}.tar.gz
 Source1: %{name}-blivet-gui.tar.gz
 
-License: CC-BY-SA
+License: CC-BY-SA-4.0
 BuildRequires: python3-devel
 BuildRequires: python3-lxml
 BuildRequires: xmlto
@@ -41,6 +41,9 @@ cp -r blivetgui_help_content/* %{buildroot}%{_datadir}/anaconda/help/fedora
 %{_datadir}/anaconda/help/fedora/*
 
 %changelog
+* Mon Jul 24 2023 Martin Kolman <mkolman@redhat.com> - 26.2-6
+- Make the License: line SPDX compatible (mkolman)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 %else
 %global llvm_version 15
 %endif
-%global soversion 102
+%global soversion 103
 
 # bootstrapping is used for updating LDC to a newer version: it relies on an
 # older, working LDC compiler in the buildroot, which is then used to build a
@@ -16,15 +16,15 @@
 
 Name:           ldc
 Epoch:          1
-Version:        1.32.2%{?pre:~%{pre}}
-Release:        2%{?dist}
+Version:        1.33.0
+Release:        1%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
 # The files gen/asmstmt.cpp and gen/asm-*.hG PL version 2+ or artistic license
 License:        BSD
 URL:            https://github.com/ldc-developers/ldc
-Source0:        https://github.com/ldc-developers/ldc/releases/download/v%{version}%{?pre:-%{pre}}/%{name}-%{version}%{?pre:-%{pre}}-src.tar.gz
+Source0:        https://github.com/ldc-developers/ldc/releases/download/v%{version_no_tilde}/%{name}-%{version_no_tilde}-src.tar.gz
 Source3:        macros.%{name}
 
 # Make sure /usr/include/d is in the include search path
@@ -88,7 +88,7 @@ optimization and code generation capabilities.
 This package contains the Phobos D standard library and the D runtime library.
 
 %prep
-%autosetup -n %{name}-%{version}%{?pre:-%{pre}}-src -p1
+%autosetup -n %{name}-%{version_no_tilde}-src -p1
 
 %build
 # This package appears to be failing because links to the LLVM plugins
@@ -103,7 +103,7 @@ tar xf %{SOURCE0}
 mkdir build-bootstrap
 pushd build-bootstrap
 cmake -DLLVM_CONFIG:PATH=llvm-config%{?llvm_version:-%{llvm_version}} \
-      ../%{name}-%{version}%{?pre:-%{pre}}-src
+      ../%{name}-%{version_no_tilde}-src
 make %{?_smp_mflags}
 popd
 %endif
@@ -132,6 +132,7 @@ install --mode=0644 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/macros.d/macros.ldc
 %config(noreplace) %{_sysconfdir}/ldc2.conf
 %{_bindir}/ldc2
 %{_bindir}/ldmd2
+%{_bindir}/ldc-build-plugin
 %{_bindir}/ldc-build-runtime
 %{_bindir}/ldc-profdata
 %{_bindir}/ldc-prune-cache
@@ -158,6 +159,9 @@ install --mode=0644 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/macros.d/macros.ldc
 %{_libdir}/libphobos2-ldc-shared.so.%{soversion}*
 
 %changelog
+* Mon Jul 24 2023 Kalev Lember <klember@redhat.com> - 1:1.33.0-1
+- Update to 1.33.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.32.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

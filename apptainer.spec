@@ -31,7 +31,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.2.0
+%global package_version 1.2.1
 
 # Uncomment this to include gocryptfs
 %global gocryptfs_version 2.4.0
@@ -43,7 +43,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -192,11 +192,11 @@ Provides: bundled(golang(github.com/oklog/ulid)) = v1.3.1
 Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
 Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.1.0_rc4
 Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.7
-Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.1.0_rc.3
+Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.1.0
 Provides: bundled(golang(github.com/opencontainers/runtime_tools)) = v0.9.1_0.20221107090550_2e043c6bd626
 Provides: bundled(golang(github.com/opencontainers/selinux)) = v1.11.0
 Provides: bundled(golang(github.com/opencontainers/umoci)) = v0.4.7
-Provides: bundled(golang(github.com/pelletier/go_toml/v2)) = v2.0.8
+Provides: bundled(golang(github.com/pelletier/go_toml/v2)) = v2.0.9
 Provides: bundled(golang(github.com/pkg/errors)) = v0.9.1
 Provides: bundled(golang(github.com/proglottis/gpgme)) = v0.1.3
 Provides: bundled(golang(github.com/prometheus/client_golang)) = v1.14.0
@@ -219,7 +219,7 @@ Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.9.3
 Provides: bundled(golang(github.com/spf13/cobra)) = v1.7.0
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
 Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_20201008174630_78d3cae3a980
-Provides: bundled(golang(github.com/sylabs/json_resp)) = v0.8.2
+Provides: bundled(golang(github.com/sylabs/json_resp)) = v0.9.0
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
 Provides: bundled(golang(github.com/theupdateframework/go_tuf)) = v0.5.2
 Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
@@ -227,7 +227,7 @@ Provides: bundled(golang(github.com/ulikunitz/xz)) = v0.5.11
 Provides: bundled(golang(github.com/urfave/cli)) = v1.22.12
 Provides: bundled(golang(github.com/vbatts/go_mtree)) = v0.5.0
 Provides: bundled(golang(github.com/vbatts/tar_split)) = v0.11.3
-Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = v8.4.0
+Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = v8.5.2
 Provides: bundled(golang(github.com/vishvananda/netlink)) = v1.2.1_beta.2
 Provides: bundled(golang(github.com/vishvananda/netns)) = v0.0.4
 Provides: bundled(golang(github.com/xeipuuv/gojsonpointer)) = v0.0.0_20190905194746_02993c407bfb
@@ -239,13 +239,13 @@ Provides: bundled(golang(go.mongodb.org/mongo_driver)) = v1.11.3
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = v0.0.0_20210826202110_33d05740a352
 Provides: bundled(golang(go.opentelemetry.io/otel)) = v1.14.0
 Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = v1.14.0
-Provides: bundled(golang(golang.org/x/crypto)) = v0.10.0
+Provides: bundled(golang(golang.org/x/crypto)) = v0.11.0
 Provides: bundled(golang(golang.org/x/exp)) = v0.0.0_20230321023759_10a507213a29
 Provides: bundled(golang(golang.org/x/mod)) = v0.10.0
 Provides: bundled(golang(golang.org/x/net)) = v0.11.0
 Provides: bundled(golang(golang.org/x/sync)) = v0.1.0
 Provides: bundled(golang(golang.org/x/sys)) = v0.10.0
-Provides: bundled(golang(golang.org/x/term)) = v0.9.0
+Provides: bundled(golang(golang.org/x/term)) = v0.10.0
 Provides: bundled(golang(golang.org/x/text)) = v0.11.0
 Provides: bundled(golang(golang.org/x/tools)) = v0.8.0
 Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0_20230410155749_daa745c078e1
@@ -489,7 +489,10 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
-* Wed Jul 25 2023 Dave Dykstra <dwd@fnal.gov> - 1.2.0
+* Mon Jul 24 2023 Dave Dykstra <dwd@fnal.gov> - 1.2.1
+- Update to upstream 1.2.1
+
+* Wed Jul 19 2023 Dave Dykstra <dwd@fnal.gov> - 1.2.0
 - Update to upstream 1.2.0
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0~rc.2-2

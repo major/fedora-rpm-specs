@@ -7,19 +7,19 @@
 %bcond_with tests
 
 # See notes in make_release which patches this.
-## global     git_tag  .f03e4e7
+## global     git_tag  .e79b66b
 
 # Support jenkins build number if available.
 %global     build_nr %(echo "${BUILD_NUMBER:+.}${BUILD_NUMBER:-%%{nil\\}}")
 
 Name:       fedora-review
-Version:    0.9.0
-Release:    4%{?dist}
+Version:    0.10.0
+Release:    1%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://pagure.io/FedoraReview
-Source0:    https://releases.pagure.org/FedoraReview/%{name}-%{version}%{?git_tag}.fixed.tar.gz
+Source0:    https://releases.pagure.org/FedoraReview/%{name}-%{version}%{?git_tag}.tar.gz
 
 BuildArch:  noarch
 
@@ -45,6 +45,7 @@ Requires:       python3-dnf
 # licensecheck used to be in rpmdevtools, moved to devscripts later
 # this is compatible with both situations without ifdefs
 Requires:       %{_bindir}/licensecheck
+Requires:       license-validate
 # We require DNF and the repoquery command
 Requires:       dnf
 Requires:       dnf-command(repoquery)
@@ -115,7 +116,7 @@ cp -a pycodestyle.conf pylint.conf "%{buildroot}%{_datadir}/%{name}"
 
 # Fix shebangs in %%{_bindir}.
 chmod -c 0755 %{buildroot}%{_bindir}/*
-%py3_shebang_fix %{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/*
+%{py3_shebang_fix} %{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/*
 
 
 %check
@@ -123,8 +124,8 @@ chmod -c 0755 %{buildroot}%{_bindir}/*
 cd test
 export REVIEW_LOGLEVEL=warning
 export MAKE_RELEASE=1
-mock --quiet -r fedora-36-x86_64 --init
-mock --quiet -r fedora-36-x86_64 --uniqueext=hugo --init
+mock --quiet -r fedora-38-x86_64 --init
+mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 %{__python3} -m unittest discover -f
 %endif
 
@@ -155,6 +156,10 @@ mock --quiet -r fedora-36-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Mon Jul 24 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.10.0-1
+- New upstream release 0.10.0
+- Use SPDX license identifier
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

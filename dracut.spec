@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 9
+%global baserelease 10
 
 Name: dracut
 Version: 059
@@ -65,6 +65,10 @@ Patch8: 2290-remove-dependency-on-multipathd-socket.patch
 # fix(kernel-modules): add interconnect drivers
 # https://github.com/dracutdevs/dracut/pull/2377
 Patch9: 2377-fix-kernel-modules-add-interconnect-drivers.patch
+
+# feat(nvmf): support for NVMeoF
+# https://github.com/dracutdevs/dracut/pull/2184
+Patch10: 2184-add-nvmeof-module.patch
 
 BuildRequires: bash
 BuildRequires: git-core
@@ -472,6 +476,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Mon Jul 24 2023 Pavel Valena <pvalena@redhat.com> - 059-10
+- feat(nvmf): support for NVMeoF
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 059-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

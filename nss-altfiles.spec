@@ -1,18 +1,13 @@
-%global commit 89f3f0b390f3bbc58d8964b11a517173ed4eed78
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
-Summary: NSS module to look up users in /usr/lib/passwd too
+Summary: NSS module to look up from files in /usr/lib as well
 Name: nss-altfiles
-Version: 2.18.1
-Release: 23%{?dist}
-#VCS: https://github.com/aperezdc/nss-altfiles
-Source0: https://github.com/aperezdc/nss-altfiles/archive/v%{version}.tar.gz
-# From pull request: https://github.com/marineam/nss-altfiles/commit/dda5073238b88b4537f2d2707b0ef67bdd11fe06
-# FIXME: Change nss-altfiles to not use glibc internal symbols
-#Patch0: 0001-Explicitly-link-to-libc.patch
+Version: 2.23.0
+Release: 1%{?dist}
+Source0: https://github.com/flatcar/nss-altfiles/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch1: 0001-build-sys-Inherit-LDFLAGS.patch
+# From https://github.com/flatcar/nss-altfiles/commit/de2b32289bf701ce3c8167a1b58436866922085e
+Patch2: 0003-deprecate-RES_USE_INET6.patch
 License: LGPLv2+
-URL: https://github.com/aperezdc/nss-altfiles
+URL: https://github.com/flatcar/nss-altfiles
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -21,13 +16,13 @@ BuildRequires: git
 
 %description
 When installed, this package allows looking up users
-in %{prefix}/lib/passwd, similarly, groups in %{prefix}/lib/group.
+in %{prefix}/lib/passwd, and from respective files for all other NSS maps.
 
 %prep
 %autosetup -Sgit
 
 %build
-./configure --prefix=%{_prefix} --libdir=%{_libdir} CFLAGS="%{optflags}" LDFLAGS="%{build_ldflags}"
+./configure --with-types=all --prefix=%{_prefix} --libdir=%{_libdir} CFLAGS="%{optflags}" LDFLAGS="%{build_ldflags}"
 make %{?_smp_mflags}
 
 %install
@@ -40,6 +35,11 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Wed Jul 21 2023 Jan Pazdziora <jpazdziora@redhat.com> - 2.23.0-1
+- Rebase to 2.23.0 (fedora#2036375)
+- Change upstream to https://github.com/flatcar/nss-altfiles
+- Enable all maps (fedora#2036375)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,7 +8,7 @@ Epoch: 1
 Summary: Eclipse Compiler for Java
 Name: ecj
 Version: %{eclipse_ver}
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://www.eclipse.org
 License: EPL-2.0
 
@@ -26,7 +26,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires: ant
 BuildRequires: javapackages-local
-BuildRequires: java-11-openjdk-devel
+BuildRequires: java-devel >= 1:11
 
 %description
 ECJ is the Java bytecode compiler of the Eclipse Platform.  It is also known as
@@ -47,7 +47,7 @@ cp %{SOURCE2} scripts/binary/META-INF/MANIFEST.MF
   org.eclipse.tycho:org.eclipse.jdt.core org.eclipse.tycho:org.eclipse.jdt.compiler.apt
 
 %build
-export JAVA_HOME=/usr/lib/jvm/java-11
+export JAVA_HOME=/usr/lib/jvm/java
 ant
 
 %install
@@ -67,6 +67,9 @@ install -m 644 -p ecj.1 $RPM_BUILD_ROOT%{_mandir}/man1/ecj.1
 %{_mandir}/man1/ecj*
 
 %changelog
+* Wed Jul 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:4.23-6
+- Build with default Java version
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.23-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

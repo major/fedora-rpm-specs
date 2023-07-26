@@ -3,7 +3,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -97,18 +97,7 @@ Testsuite
 %setup -q
 # for missing providers
 tar xfvz %{SOURCE4}
-%patch1 -p1 -b .missing_providers
-%patch2 -p1 -b .typos
-%patch3 -p1 -b .docdir
-%patch4 -p1 -b .multilib
-%patch5 -p1 -b .pegasus-interop
-%patch6 -p1 -b .prov-reg-sfcb-systemd
-%patch7 -p1 -b .remove-assoc-conflict
-%patch8 -p1 -b .remove-cxx-check
-%patch9 -p1 -b .inline
-%patch10 -p1 -b .fix-multiple-definition
-%patch11 -p1 -b .covscan-fixes
-%patch12 -p1 -b .fix-use-of-temp-paths
+%autopatch -p1
 
 %build
 %ifarch s390 s390x ppc ppc64
@@ -303,6 +292,9 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Mon Jul 24 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-31
+- Fix tmpfiles path
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

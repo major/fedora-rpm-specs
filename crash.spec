@@ -39,6 +39,8 @@ Patch18: 0017-vmware-Improve-output-when-we-fail-to-read-vmware-vm.patch
 Patch19: 0018-Exclude-zero-entries-from-do_maple_tree-return-value.patch
 Patch20: 0019-Fix-irq-a-s-options-on-Linux-6.5-rc1-and-later.patch
 Patch21: 0020-Fix-segmentation-fault-by-tree-s-option-with-Maple-T.patch
+Patch22: 0021-Fix-warning-about-kernel-version-inconsistency-durin.patch
+Patch23: 0022-Fix-get_linux_banner_from_vmlinux-for-vmlinux-withou.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -80,6 +82,8 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
+%patch23 -p1
 
 %build
 

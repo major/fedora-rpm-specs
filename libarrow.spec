@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	13.0.0
-Release:	1%{?dist}
+Version:	12.0.1
+Release:	5%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -65,8 +65,9 @@ BuildRequires:	libzstd-devel
 BuildRequires:	lz4-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
-BuildRequires:	python3-devel
-BuildRequires:	python3-numpy
+BuildRequires:	python%{python3_pkgversion}-devel
+BuildRequires:	python%{python3_pkgversion}-numpy
+BuildRequires:	python3dist(cython) < 3~~
 BuildRequires:	xsimd-devel
 BuildRequires:	abseil-cpp-devel
 BuildRequires:	c-ares-devel
@@ -315,7 +316,7 @@ Summary:	Python integration library for Apache Arrow
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	%{name}-doc = %{version}-%{release}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-Requires:	python3-numpy
+Requires:	python%{python3_pkgversion}-numpy
 
 %description python-libs
 This package contains the Python integration library for Apache Arrow.
@@ -330,7 +331,7 @@ Summary:	Libraries and header files for Python integration library
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 Requires:	%{name}-python-libs%{?_isa} = %{version}-%{release}
-Requires:	python3-devel
+Requires:	python%{python3_pkgversion}-devel
 
 %description python-devel
 Libraries and header files for Python integration library for Apache Arrow.
@@ -734,7 +735,7 @@ Development files for python3-pyarrow
 #--------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n arrow-apache-arrow-%{version}
+%autosetup -p1 -n apache-arrow-%{version}
 # We do not need to (nor can we) build for an old version of numpy:
 sed -r -i 's/(oldest-supported-)(numpy)/\2/' python/pyproject.toml
 
@@ -864,8 +865,11 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
-* Thu Jul 20 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 13.0.0-1
-- Arrow 13.0.0 GA, rhbz#2224127
+* Mon Jul 24 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 12.0.1-5
+- for some reason the rebuild did not use Cython 3, despite the lack of a
+  BR selecting 0.29 or 3.0. Which was fortuitous because it fails to build
+  with Cython 3. (see https://github.com/apache/arrow/issues/36857).
+  Explicitly pinning cython to 0.29 temporarily while awaiting a fix.
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

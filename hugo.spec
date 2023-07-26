@@ -111,18 +111,12 @@ install -Dp man/* -t %{buildroot}%{_mandir}/man1
 
 %if %{with check}
 %check
-# releaser: We do not want to test upstream release process (needs git repo)
-# tpl/time: A test depends on the host timezone, we do now want to test it.
-# time_test.go:49: [3] DateFormat failed: Unable to Cast 1421733600 to Time # line 35 returns different results
-# common/herrors: Terminal colors seem to affect this test.
-# common/text: Terminal colors seem to affect this test.
-# deploy: We do not want to test deployment process.
-# hugolib: We should run this one, but it presently fails.
 # langs/i18n: Patched gohugoio/go-i18n/ back to nicksnyder/go-i18n.
-# markup/goldmark/codeblocks: We should run this one, but it presently fails.
-# resources/resource_transformers/js: Error message formats have changed.
 # resources/resource_factories/create: Now fails with latest Rawhide dependencies.
-%gocheck -d releaser -d tpl/time -d common/herrors -d common/text -d deploy -d hugolib -d langs/i18n -d markup/goldmark/codeblocks -d resources/resource_transformers/js -d resources/resource_factories/create
+# resources/resource_transformers/js: Error message formats have changed.
+# tpl/internal/go_templates/htmltemplate: Now fails with latest Rawhide dependencies.
+# tpl/internal/go_templates/texttemplate: Now fails with latest Rawhide dependencies.
+%gocheck -d langs/i18n -d resources/resource_factories/create -d resources/resource_transformers/js -d tpl/internal/go_templates/htmltemplate -d tpl/internal/go_templates/texttemplate
 %endif
 
 %files

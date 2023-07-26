@@ -5,8 +5,8 @@
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic 2.0
-Version: 6.000
-Release: 3%{?dist}
+Version: 6.020
+Release: 1%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 URL: https://www.chordpro.org
 
@@ -18,11 +18,11 @@ BuildArch: noarch
 %global __provides_exclude_from /*\\.pm$
 %global __requires_exclude App::Music::ChordPro
 
-Requires: perl(:VERSION) >= 5.10.1
+Requires: perl(:VERSION) >= 5.26.0
 
 Requires: perl(App::Packager)               >= 1.430
 Requires: perl(PDF::API2)                   >= 2.043
-Requires: perl(Text::Layout)                >= 0.028
+Requires: perl(Text::Layout)                >= 0.031
 Requires: perl(JSON::PP)                    >= 2.27203
 Requires: perl(String::Interpolate::Named)  >= 1.03
 Requires: perl(File::HomeDir)               >= 1.004
@@ -30,6 +30,7 @@ Requires: perl(File::LoadLines)             >= 1.021
 Requires: perl(Image::Info)                 >= 1.41
 Requires: perl(List::Util)                  >= 1.33
 Requires: perl(Storable)                    >= 3.08
+Requires: perl(Object::Pad)                 >= 0.78
 Requires: perl(Hash::Util)
 
 BuildRequires: make
@@ -37,7 +38,7 @@ BuildRequires: perl(App::Packager)               >= 1.430
 BuildRequires: perl(Carp)
 BuildRequires: perl(Data::Dumper)
 BuildRequires: perl(Encode)
-BuildRequires: perl(ExtUtils::MakeMaker)         >= 6.76
+BuildRequires: perl(ExtUtils::MakeMaker)         >= 7.24
 BuildRequires: perl(File::HomeDir)               >= 1.004
 BuildRequires: perl(File::LoadLines)             >= 1.021
 BuildRequires: perl(File::Spec)
@@ -46,11 +47,12 @@ BuildRequires: perl(Hash::Util)
 BuildRequires: perl(Getopt::Long)
 BuildRequires: perl(Image::Info)                 >= 1.41
 BuildRequires: perl(JSON::PP)                    >= 2.27203
-BuildRequires: perl(PDF::API2)                   >= 2.043
+BuildRequires: perl(PDF::API2)                   >= 2.044
 BuildRequires: perl(String::Interpolate::Named)  >= 1.03
 BuildRequires: perl(Test::More)
-BuildRequires: perl(Text::Layout)                >= 0.028
+BuildRequires: perl(Text::Layout)                >= 0.031
 BuildRequires: perl(List::Util)                  >= 1.33
+BuildRequires: perl(Object::Pad)                 >= 0.78
 BuildRequires: perl(Storable)                    >= 3.08
 BuildRequires: perl(base)
 BuildRequires: perl(constant)
@@ -115,9 +117,9 @@ This packages installs the requirements for LilyPond support for ChordPro.
 %setup -q -n %{FullName}-%{version}
 
 # Remove some stuff.
-rm lib/App/Music/ChordPro/res/linux/setup_desktop.sh
-rm lib/App/Music/ChordPro/Output/LaTeX.pm
-rm lib/App/Music/ChordPro/Output/Markdown.pm
+rm lib/ChordPro/res/linux/setup_desktop.sh
+rm lib/ChordPro/Output/LaTeX.pm
+rm lib/ChordPro/Output/Markdown.pm
 rm t/73_md.t
 
 %build
@@ -161,15 +163,15 @@ done
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 mkdir -p %{buildroot}%{_datadir}/mime/packages
 install -p -m 0664 \
-    lib/App/Music/ChordPro/res/icons/chordpro.png \
-    lib/App/Music/ChordPro/res/icons/chordpro-doc.png \
+    lib/ChordPro/res/icons/chordpro.png \
+    lib/ChordPro/res/icons/chordpro-doc.png \
     %{buildroot}%{_datadir}/pixmaps/
 desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications \
-    lib/App/Music/ChordPro/res/linux/%{name}.desktop
+    lib/ChordPro/res/linux/%{name}.desktop
 
 mkdir -p %{buildroot}%{_metainfodir}
-cp -p lib/App/Music/ChordPro/res/linux/%{name}.metainfo.xml \
+cp -p lib/ChordPro/res/linux/%{name}.metainfo.xml \
     %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 
 %{_fixperms} %{buildroot}/*
@@ -183,17 +185,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %{_bindir}/chordpro
-%{share}/lib/App/Music/ChordPro.pm
-%{share}/lib/App/Music/ChordPro
-%exclude %{share}/lib/App/Music/ChordPro/Wx.pm
-%exclude %{share}/lib/App/Music/ChordPro/Wx
-%exclude %{share}/lib/App/Music/ChordPro/Delegate
+%{share}/lib/ChordPro.pm
+%{share}/lib/ChordPro
+%exclude %{share}/lib/ChordPro/Wx.pm
+%exclude %{share}/lib/ChordPro/Wx
+%exclude %{share}/lib/ChordPro/Delegate
 %{_mandir}/man1/chordpro*
 
 %files gui
 %{_bindir}/wxchordpro
-%{share}/lib/App/Music/ChordPro/Wx.pm
-%{share}/lib/App/Music/ChordPro/Wx/
+%{share}/lib/ChordPro/Wx.pm
+%{share}/lib/ChordPro/Wx/
 %{_mandir}/man1/wxchordpro*
 %{_datadir}/applications/chordpro.desktop
 %{_datadir}/pixmaps/chordpro.png
@@ -202,16 +204,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files abc
 %doc README.ABC
-%{share}/lib/App/Music/ChordPro/Delegate/ABC.pm
+%{share}/lib/ChordPro/Delegate/ABC.pm
 
 %files lilypond
 %doc README.LilyPond
-%{share}/lib/App/Music/ChordPro/Delegate/Lilypond.pm
+%{share}/lib/ChordPro/Delegate/Lilypond.pm
 
 %post gui
-xdg-desktop-menu install --novendor %{share}/lib/App/Music/ChordPro/res/linux/chordpro.desktop
-xdg-icon-resource install --context mimetypes --size 256 %{share}/lib/App/Music/ChordPro/res/icons/chordpro-doc.png x-chordpro-doc
-xdg-mime install --novendor %{share}/lib/App/Music/ChordPro/res/linux/chordpro.xml
+xdg-desktop-menu install --novendor %{share}/lib/ChordPro/res/linux/chordpro.desktop
+xdg-icon-resource install --context mimetypes --size 256 %{share}/lib/ChordPro/res/icons/chordpro-doc.png x-chordpro-doc
+xdg-mime install --novendor %{share}/lib/ChordPro/res/linux/chordpro.xml
 update-desktop-database
 update-mime-database %{_datadir}/mime
 gtk-update-icon-cache %{_datadir}/icons/hicolor
@@ -228,6 +230,9 @@ update-mime-database %{_datadir}/mime
 gtk-update-icon-cache %{_datadir}/icons/hicolor
 
 %changelog
+* Mon Jul 24 2023 Johan Vromans <jvromans@squirrel.nl> - 6.020-1
+- Upgrade to upstream.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.000-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

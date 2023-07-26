@@ -14,7 +14,7 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	20
+%global	baserelease	21
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
@@ -79,6 +79,9 @@ Patch107:	gphotoframe-2.0.2-fix-double-click-at-startup.patch
 Patch108:	gphotoframe-twisted-2107-HTTPDownloader.patch
 # Port to setuptools: PEP632
 Patch109:	gphotoframe-2.0.2-pep632-distutils-port.patch
+# randrange argument needs to be int, python 3.12 causes error when
+# argument is float
+Patch110:	gphotoframe-2.0.2-python312-random-argument-int.patch
 Provides:	bundle(python3-twisted) = 21.7
 
 BuildRequires:	GConf2
@@ -193,8 +196,9 @@ grep -rlZ "/usr/bin/python$" . | xargs --null sed -i -e 's|/usr/bin/python$|/usr
 %patch -P105 -p1 -b .helpurl -Z
 %patch -P106 -p1 -b .py3_config -Z
 %patch -P107 -p1 -b .open_startup -Z
-%patch -P108 -p1
-%patch -P109 -p1
+%patch -P108 -p1 -Z
+%patch -P109 -p1 -Z
+%patch -P110 -p1 -b .py312 -Z
 
 %build
 # Do nothing
@@ -321,6 +325,9 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %endif
 
 %changelog
+* Mon Jul 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-21.hg2084299dffb6
+- Fix for python 3.12 rejecting non-integer arguments to randrange
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-20.hg2084299dffb6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Summary:       Virtualization host metrics daemon
 Name:          vhostmd
 Version:       1.1
 Release:       14%{?dist}
-License:       GPLv2+
+License:       LGPL-2.1-or-later
 
 URL:           https://github.com/vhostmd/vhostmd
 

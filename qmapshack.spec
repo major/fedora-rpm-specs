@@ -2,11 +2,12 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name: qmapshack
-Version: 1.16.1
-Release: 15%{?commit:.git%shortcommit}%{?dist}
+Version: 1.17.0
+Release: 1%{?dist}
 Summary: GPS mapping and management tool
 
-License: GPLv3+ and BSD
+# src/animation = WTFPL
+License: GPL-2.0-or-later AND GPL-3.0-or-later AND WTFPL
 URL: https://github.com/Maproom/qmapshack/wiki
 %if 0%{?commit:1}
 Source0: https://github.com/Maproom/qmapshack/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -110,6 +111,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 
 
 %changelog
+* Fri Jul 21 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.17.0-1
+- Update to 1.17.0 (rhbz#2224655)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -153,7 +157,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
 * Tue Dec 07 2021 Dan Horák <dan@danny.cz> - 1.16.1-1
-- update to 1.16.1 (#)
+- update to 1.16.1 (#2029117)
 
 * Thu Nov 11 2021 Sandro Mani <manisandro@gmail.com> - 1.16.0-3
 - Rebuild (gdal)

@@ -16,7 +16,7 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 Name:           python-%{srcname}
 Version:        0.19
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Immutable Collections
 # The entire source code is Apache-2.0, except pythoncapi_compat.h, which is
 # 0BSD. While this file is unbundled, it is a header-only library; its entire
@@ -29,9 +29,8 @@ Summary:        Immutable Collections
 License:        Apache-2.0 AND 0BSD
 URL:            https://github.com/MagicStack/immutables
 Source:         %pypi_source
-# https://github.com/MagicStack/immutables/issues/104
-# https://github.com/MagicStack/immutables/pull/103
-Patch:          0001-Fix-for-Python-3.12-support.patch
+# https://github.com/MagicStack/immutables/pull/105
+Patch:          0001-Python-3.12-compatibility-105.patch
 
 BuildRequires:  gcc
 
@@ -90,6 +89,9 @@ rm -vf immutables/pythoncapi_compat.h
 
 
 %changelog
+* Mon Jul 24 2023 Carl George <carl@george.computer> - 0.19-6
+- Use upstream merged commit for Python 3.12 compatibility
+
 * Fri Jul 21 2023 Carl George <carl@george.computer> - 0.19-5
 - Python 3.12 compatibility, resolves rhbz#2220276
 

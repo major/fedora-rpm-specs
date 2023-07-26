@@ -3,8 +3,8 @@
 %global         nvimfiles       %{_datadir}/nvim/runtime
 
 Name:           vim-%upstream_name
-Version:        3.2.0
-Release:        3%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Asynchronous Vim Lint Engine
 License:        BSD
 
@@ -77,6 +77,9 @@ done
 
 
 %changelog
+* Mon Jul 24 2023 Pavel Raiskup <praiskup@redhat.com> - 3.3.0-1
+- new upstream release
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

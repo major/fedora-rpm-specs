@@ -2,7 +2,7 @@
 %global pypi_name identify
 
 Name:           python-%{pypi_name}
-Version:        2.5.25
+Version:        2.5.26
 Release:        1%{?dist}
 Summary:        File identification library for Python
 
@@ -65,6 +65,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Mon Jul 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.26-1
+- 2.5.26
+
 * Wed Jul 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.25-1
 - 2.5.25
 

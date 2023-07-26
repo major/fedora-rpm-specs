@@ -48,8 +48,8 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.5.1
-Release: 4%{?dist}
+Version: 6.5.2
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -635,6 +635,9 @@ done
 
 
 %changelog
+* Mon Jul 24 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.2-1
+- 6.5.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

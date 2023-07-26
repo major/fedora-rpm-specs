@@ -4,7 +4,7 @@
 
 Name:           %{artifactId}
 Version:        1.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Clojure plugin for Maven
 
 License:        EPL-1.0
@@ -24,7 +24,6 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-invoker-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven:maven-toolchain)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 
@@ -73,6 +72,9 @@ export LANG=en_US.utf8
 
 
 %changelog
+* Mon Jul 24 2023 Markku Korkeala <markku.korkeala@iki.fi> - 1.9.2-3
+- Remove build requires dependency  mvn(org.apache.maven:maven-toolchain)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

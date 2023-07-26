@@ -15,6 +15,7 @@ BuildArch:      noarch
 BuildRequires:  octave-devel
 BuildRequires:  octave-doctest >= 0.8.0
 BuildRequires:  python3
+BuildRequires:  python3-packaging
 BuildRequires:  python%{python3_pkgversion}-sympy >= 1.4
 
 Requires:       octave(api) = %{octave_api}

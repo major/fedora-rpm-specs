@@ -11,10 +11,10 @@
 
 Name:    salt
 Version: 3006.1
-Release: 4%{?dist}
+Release: 6%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
-License: ASL 2.0
+License: Apache-2.0
 URL:     https://saltproject.io/
 Source0: %{pypi_source}
 Source1: %{name}-proxy@.service
@@ -41,6 +41,8 @@ Source21: %{name}-syndic.fish
 Source22: %{name}.sysusers
 
 Patch0: contextvars.patch
+Patch1: 64675.patch
+Patch2: match_hostname.patch
 BuildArch: noarch
 
 %ifarch %{ix86} x86_64
@@ -51,6 +53,7 @@ Requires: pciutils
 Requires: which
 Requires: dnf-utils
 Requires: logrotate
+Requires: python3-tornado
 
 BuildRequires: systemd-rpm-macros
 BuildRequires: python3-devel
@@ -330,6 +333,13 @@ chown salt:salt %{_sysconfdir}/%{name}/gpgkeys -R
 
 
 %changelog
+* Mon Jul 24 2023 Salman Butt <cn137@protonmail.com> - 3006.1-6
+- SPDX license update.
+
+* Mon Jul 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.1-5
+- Patch for dnf5 support from upstream.
+- Fix Python 3.12 issue.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3006.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

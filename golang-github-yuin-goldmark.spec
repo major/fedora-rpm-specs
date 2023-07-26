@@ -2,7 +2,7 @@
 
 # https://github.com/yuin/goldmark
 %global goipath         github.com/yuin/goldmark
-Version:                1.5.4
+Version:                1.5.5
 
 %gometa
 
@@ -16,7 +16,6 @@ compliant, well structured.}
 Name:           %{goname}
 Release:        %autorelease
 Summary:        Markdown parser written in Go
-Patch0001:      0001-Increase-timeout-for-32-bit-builds.patch
 
 License:        MIT
 URL:            %{gourl}
@@ -36,6 +35,9 @@ Source0:        %{gosource}
 
 %if %{with check}
 %check
+%ifarch aarch64 %{ix86}
+export GOLDMARK_TEST_TIMEOUT_MULTIPLIER=6
+%endif
 %gocheck
 %endif
 

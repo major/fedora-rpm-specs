@@ -15,8 +15,8 @@ Source11:       gpsd.sysconfig
 Patch1:         gpsd-apistatus.patch
 
 BuildRequires:  gcc
-BuildRequires:  dbus-devel            
-BuildRequires:  ncurses-devel            
+BuildRequires:  dbus-devel
+BuildRequires:  ncurses-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  gtk3-devel
@@ -46,7 +46,7 @@ queried on TCP port 2947 of the host computer.  With gpsd, multiple
 GPS client applications (such as navigational and war-driving software)
 can share access to a GPS without contention or loss of data.  Also,
 gpsd responds to queries with a format that is substantially easier to
-parse than NMEA 0183.  
+parse than NMEA 0183.
 
 %package libs
 Summary:        Client libraries in C for talking to a running gpsd or GPS
@@ -149,6 +149,7 @@ scons \
 %endif
     debug=yes \
     leapfetch=no \
+    manbuild=no \
     prefix="" \
     sysconfdif=%{_sysconfdir} \
     bindir=%{_bindir} \
@@ -189,7 +190,7 @@ desktop-file-install \
     --dir %{buildroot}%{_datadir}/applications \
     packaging/X11/xgpsspeed.desktop
 
-# Missed in scons install 
+# Missed in scons install
 install -p -m 0755 gpsinit %{buildroot}%{_sbindir}
 
 # Remove shebang and fix permissions
@@ -414,7 +415,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 * Tue Jan 28 2020 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.19-1
 - revert to 3.19 (#1787784)
 
-* Tue Jan 21 2020 Fabian Affolter <mail@fabian-affolter.ch> - 3.20-2            
+* Tue Jan 21 2020 Fabian Affolter <mail@fabian-affolter.ch> - 3.20-2
 - Update to latest upstream release 3.20
 
 * Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 3.19-4
@@ -621,7 +622,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 
 * Tue Mar 31 2009 Tom "spot" Callaway <tcallawa@redhat.com> - 2.39-3
 - some of the gpsd client bits went into gpsdclient.h, but that file wasn't getting installed
-  specifically, viking needs that header to build. 
+  specifically, viking needs that header to build.
 
 * Wed Mar 25 2009 Douglas E. Warner <silfreed@silfreed.net> - 2.39-2
 - adding patch to try to fix parallel make errors
@@ -662,7 +663,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 - Lots of little fixes to various packet parsers
 - Always keep the device open: "-n" is not optional any more
 - xgpsspeed no longer depends on Motif
-- gpsctl can now ship arbitrary payloads to a device; 
+- gpsctl can now ship arbitrary payloads to a device;
   It's possible to send binary through the control channel with the
   new "&" command
 - Experimental new driver for Novatel SuperStarII
@@ -697,7 +698,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 
 * Sat Jun 30 2007 Matthew Truch <matt at truch.net> - 2.34-7
 - Make sure the logo is actually included (via the spec file).
-  I need to wake up before I try even trivial updates.  
+  I need to wake up before I try even trivial updates.
 
 * Sat Jun 30 2007 Matthew Truch <matt at truch.net> - 2.34-6
 - Learn how to use search and replace (aka fix all instances of
@@ -713,7 +714,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 - Bump release for FE5 -> Fedora 7 upgrade path.
 
 * Tue Feb 27 2007 Matthew Truch <matt at truch.net> - 2.34-2
-- BR python-devel instead of python to make it build.  
+- BR python-devel instead of python to make it build.
 
 * Tue Feb 27 2007 Matthew Truch <matt at truch.net> - 2.34-1
 - Upgrade to 2.34.
@@ -748,7 +749,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 
 * Sun Apr 9 2006 Matthew Truch <matt at truch.net> - 2.32-3
 - Include xmlto and python in buildrequires so things build right.
-- Don't package static library file.  
+- Don't package static library file.
 
 * Wed Apr 5 2006 Matthew Truch <matt at truch.net> - 2.32-2
 - Use ye olde %%{?dist} tag.

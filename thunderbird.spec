@@ -99,13 +99,13 @@ ExcludeArch: s390x
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        102.13.0
-Release:        2%{?dist}
+Version:        115.0.1
+Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}-20230707.tar.xz
+Source1:        thunderbird-langpacks-%{version}-20230720.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -131,7 +131,7 @@ Patch103:       rhbz-1219542-s390-build.patch
 # gcc 12 build fix patches
 Patch422:       0001-GLIBCXX-fix-for-GCC-12.patch
 Patch425:       build-disable-elfhack.patch
-Patch426:       gcc13-header-dependencies.patch
+Patch426:       build-rnp.patch
 
 # PPC fix
 Patch304:       mozilla-1245783.patch
@@ -141,8 +141,6 @@ Patch304:       mozilla-1245783.patch
 # Upstream patches
 Patch402:       mozilla-526293.patch
 Patch406:        mozilla-1170092.patch
-Patch408:       D165150.diff
-Patch409:       D165152.diff
 
 # Bundled expat backported patches
 Patch501:       expat-CVE-2022-25235.patch
@@ -217,7 +215,7 @@ Obsoletes:      thunderbird-lightning-gdata <= 1:3.3.0.14
 BuildRequires:  rust
 BuildRequires:  cargo
 BuildRequires:  clang-devel
-BuildRequires:  python3-devel
+BuildRequires:  python3.11-devel
 %if !0%{?use_bundled_cbindgen}
 BuildRequires:  cbindgen
 %endif
@@ -308,16 +306,14 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %if 0%{?disable_elfhack}
 %patch -P 425 -p1 -b .build-disable-elfhack
 %endif
+%patch -P 426 -p1 -b .build-rnp
 # most likely fixed
 #%patch -P 419 -p1 -b .bindgen
 
 %patch -P 402 -p1 -b .526293
 %patch -P 406 -p1 -b .1170092-etc-conf
-%patch -P 408 -p1 -b .D165150
-%patch -P 409 -p1 -b .D165152
 
 %patch -P 422 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
-%patch -P 426 -p1 -b .gcc13-header-dependencies
 
 %patch -P 501 -p1 -b .expat-CVE-2022-25235
 %patch -P 502 -p1 -b .expat-CVE-2022-25236
@@ -564,7 +560,8 @@ MOZ_SMP_FLAGS=-j1
 
 export MOZ_MAKE_FLAGS="$MOZ_SMP_FLAGS"
 export STRIP=/bin/true
-export MACH_USE_SYSTEM_PYTHON=1
+export PYTHON=python3.11
+export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
 ./mach build -v
 
 # create debuginfo for crash-stats.mozilla.com
@@ -755,6 +752,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Mon Jul 24 2023 Jan Horak <jhorak@redhat.com> - 115.0.1-1
+- Update to 115.0.1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 102.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

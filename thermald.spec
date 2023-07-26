@@ -25,7 +25,7 @@ BuildRequires:	dbus-glib-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc-c++
 BuildRequires:	libxml2-devel
-BuildRequires:	systemd-devel
+BuildRequires:	systemd-rpm-macros
 BuildRequires:  upower-devel
 BuildRequires:  libevdev-devel
 BuildRequires:  gtk-doc
@@ -153,6 +153,7 @@ NO_CONFIGURE=1 ./autogen.sh
 
 %build
 %configure									\
+	--with-systemdsystemunitdir=%{_unitdir}					\
 	--disable-option-checking						\
 	--disable-silent-rules
 

@@ -1,8 +1,8 @@
 %global octpkg signal
 
 Name:           octave-%{octpkg}
-Version:        1.4.4
-Release:        2%{?dist}
+Version:        1.4.5
+Release:        1%{?dist}
 Summary:        Signal processing tools for Octave
 License:        GPLv3+
 URL:            http://octave.sourceforge.net/signal/
@@ -60,9 +60,15 @@ done;
 %{octpkgdir}/packinfo
 %doc %{octpkgdir}/packinfo/COPYING
 %{_metainfodir}/io.sourceforge.octave.signal.metainfo.xml
+%{octpkgdir}/PKG_ADD
+%{octpkgdir}/PKG_DEL
+%doc %{octpkgdir}/doc
 
 
 %changelog
+* Mon Jul 24 2023 Thomas Sailer <fedora@tsailer.ch> - 1.4.5-1
+- update to 1.4.5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

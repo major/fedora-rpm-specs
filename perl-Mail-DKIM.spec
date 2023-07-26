@@ -1,33 +1,39 @@
 Name:           perl-Mail-DKIM
-Version:        1.20230212
-Release:        3%{?dist}
+Version:        1.20230630
+Release:        1%{?dist}
 Summary:        Sign and verify Internet mail with DKIM/DomainKey signatures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dkimproxy.sourceforge.net/
 Source0:        https://cpan.metacpan.org/authors/id/M/MB/MBRADSHAW/Mail-DKIM-%{version}.tar.gz
 BuildArch:      noarch
+# build requirements
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(base)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# runtime requirements
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Crypt::OpenSSL::RSA) >= 0.24
-BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Crypt::PK::Ed25519)
 BuildRequires:  perl(Digest::SHA)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(lib)
-BuildRequires:  perl(Mail::Address)
-BuildRequires:  perl(Mail::AuthenticationResults)
 BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(Mail::Address)
+BuildRequires:  perl(Mail::AuthenticationResults::Header::AuthServID)
+BuildRequires:  perl(Mail::AuthenticationResults::Parser)
 BuildRequires:  perl(Net::DNS)
-BuildRequires:  perl(Net::DNS::Resolver::Mock)
+BuildRequires:  perl(base)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Net::DNS::Resolver)
+BuildRequires:  perl(Net::DNS::Resolver::Mock)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::RequiresInternet)
 BuildRequires:  perl(Test::Simple)
-BuildRequires:  perl(warnings)
 BuildRequires:  perl(YAML::XS)
+BuildRequires:  perl(lib)
 
 %description
 This module implements the various components of the DKIM and DomainKeys
@@ -65,6 +71,10 @@ chmod -x scripts/*.pl
 %{_mandir}/man3/*.3*
 
 %changelog
+* Mon Jul 24 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.20230630-1
+- Update to 1.20230630
+- Reorder dependencies
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20230212-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

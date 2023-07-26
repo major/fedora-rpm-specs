@@ -64,7 +64,7 @@ Requires: %{name} = %{version}-%{release}
 
 %package     devel
 Summary:     Breeze icon theme development files
-Requires:    %{name}%{?_isa} = %{version}-%{release}
+Requires:    %{name} = %{version}-%{release}
 %description devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.

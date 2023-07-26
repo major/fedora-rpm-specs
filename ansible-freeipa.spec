@@ -7,8 +7,8 @@
 
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
-Version: 1.11.0
-Release: 2%{?dist}
+Version: 1.11.1
+Release: 1%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPL-3.0-or-later
 Source: https://github.com/freeipa/ansible-freeipa/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -179,6 +179,17 @@ cp -rp tests %{buildroot}%{_datadir}/ansible-freeipa/
 %{_datadir}/ansible-freeipa/requirements-tests.txt
 
 %changelog
+* Mon Jul 24 2023 Thomas Woerner <twoerner@redhat.com> - 1.11.1-1
+- Update to version 1.11.1
+  https://github.com/freeipa/ansible-freeipa/releases/tag/v1.11.1
+  Highlights:
+  - Support for GECOS, street, smb and idp attributes in ipauser module
+  - Support for indirect maps in ipaautomountmap module
+  - Update of user_auth_type choices in ipaconfig and ipauser modules
+  - Update of auth_ind choices in ipahost and ipaservice modules
+  - Upstream test and environment enhancements
+  - Documentation updates
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

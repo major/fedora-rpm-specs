@@ -1,7 +1,7 @@
 %global ivykis_ver 0.42.3
 
 %global syslog_ng_major_ver 4
-%global syslog_ng_minor_ver 2
+%global syslog_ng_minor_ver 3
 %global syslog_ng_patch_ver 0
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
@@ -39,7 +39,7 @@ BuildRequires: libxslt
 BuildRequires: mongo-c-driver-devel
 BuildRequires: net-snmp-devel
 BuildRequires: openssl-devel
-BuildRequires: pcre-devel
+BuildRequires: pcre2-devel
 BuildRequires: perl-generators
 BuildRequires: pkgconfig
 BuildRequires: python3-devel
@@ -69,6 +69,25 @@ BuildRequires:  python3-rsa
 BuildRequires:  python3-six
 BuildRequires:  python3-urllib3
 BuildRequires:  python3-websocket-client
+
+%ifarch i686
+%bcond_with bpf
+%bcond_with otel
+%else
+%bcond_without bpf
+%bcond_without otel
+%endif
+
+%if %{with bpf}
+BuildRequires: libbpf-devel
+BuildRequires: bpftool
+BuildRequires: clang
+%endif
+
+%if %{with otel}
+BuildRequires:  grpc-devel
+BuildRequires:  protobuf-devel
+%endif
 
 Requires: logrotate
 Requires: ivykis >= %{ivykis_ver}
@@ -182,6 +201,24 @@ Obsoletes: %{name}-curl < 3.10
 
 %description http
 This module supports the http destination.
+
+
+%package opentelemetry
+Summary: OpenTelemetry support for %{name}
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description opentelemetry
+This module adds OpenTelemetry support.
+
+
+%package bpf
+Summary: Faster UDP log collection for %{name}
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description bpf
+This module provides faster UDP log collection using bpf.
 
 
 %package amqp
@@ -298,6 +335,12 @@ touch -r lib/cfg-grammar.y lib/merge-grammar.py
     --disable-java \
     --disable-java-modules \
     --enable-afsnmp \
+%if %{with otel}
+    --enable-cpp --enable-grpc \
+%endif
+%if %{with bpf}
+    --enable-ebpf \
+%endif
     --enable-riemann
 
 make %{_smp_mflags}
@@ -396,7 +439,6 @@ fi
 %dir %{_sysconfdir}/syslog-ng/conf.d
 %dir %{_sysconfdir}/syslog-ng/patterndb.d
 %config(noreplace) %{_sysconfdir}/logrotate.d/syslog
-%config(noreplace) %{_sysconfdir}/syslog-ng/scl.conf
 %config(noreplace) %{_sysconfdir}/syslog-ng/syslog-ng.conf
 
 %{_unitdir}/syslog-ng.service
@@ -515,6 +557,15 @@ fi
 %files amqp
 %{_libdir}/syslog-ng/libafamqp.so
 
+%if %{with bpf}
+%files bpf
+%{_libdir}/%{name}/libebpf.so
+%endif
+
+%if %{with otel}
+%files opentelemetry
+%{_libdir}/%{name}/libotel.so
+%endif
 
 %files python
 %{_libdir}/%{name}/libmod-python.so
@@ -543,6 +594,12 @@ fi
 
 
 %changelog
+* Mon Jul 24 2023 Peter Czanik <peter@czanik.hu> - 4.3.0-3
+- update to 4.3.0
+- pcre -> pcre2
+- add bpf and opentelemetry support
+- make bpf and opentelemetry conditional, exclude on i686
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           maven-invoker-plugin
 Version:        3.2.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Maven Invoker Plugin
 License:        ASL 2.0
 URL:            https://maven.apache.org/plugins/maven-invoker-plugin/
@@ -29,7 +29,6 @@ BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven:maven-project)
 BuildRequires:  mvn(org.apache.maven:maven-settings)
 BuildRequires:  mvn(org.beanshell:bsh)
 %if %{with groovy}
@@ -71,6 +70,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Mon Jul 24 2023 Markku Korkeala <markku.korkeala@iki.fi> - 3.2.2-7
+- Remove build requires dependency org.apache.maven:maven-project
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

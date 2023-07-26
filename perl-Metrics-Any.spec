@@ -1,6 +1,6 @@
 Name:           perl-Metrics-Any
-Version:        0.09
-Release:        3%{?dist}
+Version:        0.10
+Release:        1%{?dist}
 Summary:        Abstract collection of monitoring metrics
 License:        GPL+ or Artistic
 
@@ -22,8 +22,7 @@ BuildRequires:  perl(warnings)
 # test requirements
 BuildRequires:  perl(Errno)
 BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(Test::More) >= 0.88
-BuildRequires:  perl(Test::Fatal)
+BuildRequires:  perl(Test2::V0)
 
 %{?perl_default_filter}
 
@@ -53,6 +52,9 @@ programs to collect up and send those metrics to monitoring services.
 %{_mandir}/man3/Metrics*
 
 %changelog
+* Mon Jul 24 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.10-1
+- Update to 0.10
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

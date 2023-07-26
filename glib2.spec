@@ -23,6 +23,9 @@ Patch2: gspawn-eperm.patch
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3504
 Patch3: fix-missing-exported-symbols.patch
 
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3498
+Patch4: 3498.patch
+
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gettext

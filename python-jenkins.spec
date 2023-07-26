@@ -1,13 +1,16 @@
 %global srcname jenkins
 
 Name:           python-%{srcname}
-Version:        1.7.0
-Release:        10%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        Python bindings for the remote Jenkins API
 
 License:        BSD
 URL:            https://python-jenkins.readthedocs.org/en/latest
 Source0:        https://opendev.org/jjb/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+# Contributed at https://review.opendev.org/c/jjb/python-jenkins/+/881904
+Patch0:         0001-Fix-compatibility-with-setuptools-66.patch
 
 BuildRequires: make
 BuildRequires:  %{_bindir}/sphinx-build
@@ -91,6 +94,9 @@ install -D -m0644 -p doc/build/man/pythonjenkins.1 %{buildroot}%{_mandir}/man1/p
 
 
 %changelog
+* Sat Jul 22 2023 Christoph Erhardt <fedora@sicherha.de> - 1.8.0-1
+- Update to 1.8.0 (rhbz#1942544)
+
 * Thu Jul 20 2023 Python Maint <python-maint@redhat.com> - 1.7.0-10
 - Rebuilt for Python 3.12
 

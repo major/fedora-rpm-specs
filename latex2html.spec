@@ -19,7 +19,7 @@ Requires: tex(latex), tex(dvips), tex(url.sty), tex(preview.sty), netpbm-progs
 BuildRequires: perl-interpreter >= 5.003, perl-generators, ghostscript >= 4.03, netpbm-progs >= 9.21, tex(latex)
 BuildRequires: perl(Carp), perl(Config), perl(Cwd), perl(DB), perl(Exporter),
 BuildRequires: perl(File::Copy), perl(FindBin), perl(IO::File), perl(Sys::Hostname)
-BuildRequires: perl(lib), perl(strict), perl(vars)
+BuildRequires: perl(Unicode::Collate::Locale), perl(lib), perl(strict), perl(vars)
 BuildRequires: make
 BuildArch: noarch
 

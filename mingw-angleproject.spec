@@ -79,6 +79,9 @@ Patch103:       angle_novulkan.patch
 # Fix gcc11 build
 Patch104:       angle_gcc11.patch
 
+# Fix gcc13 build
+Patch105:       angle_gcc13.patch
+
 
 %description
 ANGLE is a conformant implementation of the OpenGL ES 2.0 specification that
@@ -181,32 +184,33 @@ cp -a %{SOURCE2} src/libGLESv2/libGLESv2_mingw64.def
 cp -a %{SOURCE3} src/libEGL/libEGL_mingw32.def
 cp -a %{SOURCE4} src/libEGL/libEGL_mingw64.def
 
-%patch0 -p4
-%patch1 -p4
-%patch2 -p4
-%patch3 -p4
-%patch4 -p4
-%patch5 -p4
-%patch6 -p4
-%patch7 -p4
-%patch8 -p4
-%patch9 -p4
-%patch10 -p4
-%patch11 -p4
-%patch12 -p4
-%patch13 -p4
-%patch14 -p4
-%patch15 -p4
-%patch16 -p4
-%patch17 -p4
-%patch18 -p4
-%patch19 -p4
+%patch 0 -p4
+%patch 1 -p4
+%patch 2 -p4
+%patch 3 -p4
+%patch 4 -p4
+%patch 5 -p4
+%patch 6 -p4
+%patch 7 -p4
+%patch 8 -p4
+%patch 9 -p4
+%patch 10 -p4
+%patch 11 -p4
+%patch 12 -p4
+%patch 13 -p4
+%patch 14 -p4
+%patch 15 -p4
+%patch 16 -p4
+%patch 17 -p4
+%patch 18 -p4
+%patch 19 -p4
 
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
-%patch104 -p1
+%patch 100 -p1
+%patch 101 -p1
+%patch 102 -p1
+%patch 103 -p1
+%patch 104 -p1
+%patch 105 -p1
 
 # Executing .bat scripts on Linux is a no-go so make this a no-op
 echo "" > src/copy_compiler_dll.bat

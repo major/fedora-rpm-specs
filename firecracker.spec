@@ -15,7 +15,7 @@
 
 Name:           firecracker
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
 License:        Apache-2.0 AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND MIT AND Unicode-DFS-2016
@@ -34,11 +34,12 @@ Provides:       bundled(crate(micro_http)) = 0.1.0^git4b18a04
 
 # Edit crate dependencies to track what is packaged in Fedora.
 # These patches do not make sense to send upstream given their purpose.
-Patch1:         %{name}-1.4.0-remove-aws-lc-rs.patch
-Patch2:         %{name}-1.4.0-remove-cargo_toml.patch
-Patch3:         %{name}-1.4.0-remove-criterion.patch
-Patch4:         %{name}-1.4.0-remove-device_tree.patch
-Patch5:         %{name}-1.4.0-upgrade-kvm-ioctls.patch
+Patch:          %{name}-1.4.0-remove-aws-lc-rs.patch
+Patch:          %{name}-1.4.0-remove-cargo_toml.patch
+Patch:          %{name}-1.4.0-remove-criterion.patch
+Patch:          %{name}-1.4.0-remove-device_tree.patch
+Patch:          %{name}-1.4.0-upgrade-kvm-ioctls.patch
+Patch:          %{name}-1.4.0-upgrade-linux-loader.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %defined cargo_target
@@ -111,6 +112,9 @@ done
 
 
 %changelog
+* Mon Jul 24 2023 David Michael <fedora.dm0@gmail.com> - 1.4.0-2
+- Backport updates for the kvm-ioctls, linux-loader, and vm-memory crates.
+
 * Wed Jul 19 2023 David Michael <fedora.dm0@gmail.com> - 1.4.0-1
 - Update to the 1.4.0 release.
 

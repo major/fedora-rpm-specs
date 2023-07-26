@@ -61,7 +61,7 @@ BuildRequires:  rust-packaging
 
 Requires:       cairo%{?_isa} >= %{cairo_version}
 Requires:       cairo-gobject%{?_isa} >= %{cairo_version}
-Recommends:     rsvg-pixbuf-loader
+Requires:       rsvg-pixbuf-loader
 
 %description
 An SVG library based on cairo.

@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box
-Version:        3.009
-Release:        9%{?dist}
+Version:        3.010
+Release:        1%{?dist}
 Summary:        Manage a mailbox, a folder with messages
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Mail-Box
@@ -34,7 +34,7 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Mail::Box::Parser::Perl)
 # Versions prior to 3.008 result in a failed test (prerequisite)
-BuildRequires:  perl(Mail::Message) >= 3.008
+BuildRequires:  perl(Mail::Message) >= 3.013
 BuildRequires:  perl(Mail::Message::Body)
 BuildRequires:  perl(Mail::Message::Body::File)
 BuildRequires:  perl(Mail::Message::Body::Lines)
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Mon Jul 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.010-1
+- 3.010 bump (rhbz#2224548)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.009-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

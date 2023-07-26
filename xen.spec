@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -113,6 +113,7 @@ Patch47: xen.gcc13.fixes.patch
 Patch48: xsa431.patch
 Patch49: xen.python3.12.patch
 Patch50: xen.ocaml5.fixes.patch
+Patch51: xsa433-4.17.patch
 
 
 %if %build_qemutrad
@@ -327,7 +328,10 @@ manage Xen virtual machines.
 %patch 47 -p1
 %patch 48 -p1
 %patch 49 -p1
+%if "%dist" >= ".fc39"
 %patch 50 -p1
+%endif
+%patch 51 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -935,6 +939,10 @@ fi
 %endif
 
 %changelog
+* Mon Jul 24 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-7
+- x86/AMD: Zenbleed [XSA-433]
+- omit OCaml 5 patch on fc38
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.17.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

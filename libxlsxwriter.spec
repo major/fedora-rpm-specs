@@ -9,6 +9,8 @@ Summary:        A C library for creating Excel XLSX files
 License:        BSD and Public Domain and MPLv2.0
 URL:            https://github.com/jmcnamara/libxlsxwriter/
 Source0:        https://github.com/jmcnamara/libxlsxwriter/archive/RELEASE_%{version}/%{name}-%{version}.tar.gz
+# Fix zlib and minizip detection
+Patch0:         https://github.com/jmcnamara/libxlsxwriter/commit/f477741dd3782101eefb35f9c6f9ed93ee3f642d.patch
 
 BuildRequires:  cmake
 BuildRequires:  make

@@ -1,6 +1,6 @@
 Name:       libloc
 Version:    0.9.16
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # COPYING:                  LGPL-2.1 text
 # data/database.db:         CC-BY-SA-4.0
@@ -76,6 +76,15 @@ Summary:    Library to determine a location of an IP address in the Internet
 License:    LGPL-2.1-or-later
 URL:        https://location.ipfire.org/
 Source0:    https://source.ipfire.org/releases/%{name}/%{name}-%{version}.tar.gz
+# 1/2 Fix "location list-networks-by-as --format ipset" output,
+# in upstream after 0.9.16, upstream bug #12897
+Patch0:     libloc-0.9.16-location-Fix-correct-set-name-when-family-is-selecte.patch
+# 2/2 Fix "location list-networks-by-as --format ipset" output,
+# in upstream after 0.9.16, upstream bug #12897
+Patch1:     libloc-0.9.16-export-Raise-an-error-when-trying-to-export-ipset-fo.patch
+# Fix string escaping with Python 3.12, proposed to the upstream,
+# upstream bug #13188
+Patch2:     libloc-0.9.16-Fix-string-escaping-in-location-tool.patch
 BuildRequires:  asciidoc
 BuildRequires:  autoconf >= 2.60
 # autoconf-archive for unbundled m4/ax_prog_perl_modules.m4
@@ -107,7 +116,7 @@ BuildRequires:  pkgconf-m4
 BuildRequires:  pkgconf-pkg-config
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(python) >= 3.4
-# pkgconfig(systemd) no needed, we configure a value from systemd-rpm-macros
+# pkgconfig(systemd) not needed, we configure a value from systemd-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  sed
 BuildRequires:  systemd-rpm-macros
@@ -262,6 +271,11 @@ make check %{?_smp_mflags}
 %{_unitdir}/*
 
 %changelog
+* Mon Jul 24 2023 Petr Pisar <ppisar@redhat.com> - 0.9.16-6
+- Fix "location list-networks-by-as --format ipset" output
+  (upstream bug #12897)
+- Fix string escaping with Python 3.12 (upstream bug #13188)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

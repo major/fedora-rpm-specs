@@ -29,6 +29,7 @@ BuildRequires:	perl(Module::Metadata) >= 1.000023
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
 # Test
+BuildRequires:	perl(blib)
 BuildRequires:	perl(CPAN::Meta) >= 2.120920
 BuildRequires:	perl(Env)
 BuildRequires:	perl(File::Spec)
@@ -43,7 +44,6 @@ BuildRequires:	perl(Test::More) >= 0.88
 # → perl-Config-AutoConf → perl-File-Slurper → perl-Test-Warnings
 # → perl-CPAN-Meta-Check
 # Extra tests
-BuildRequires:	perl(blib)
 BuildRequires:	perl(Pod::Coverage::TrustPod)
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08

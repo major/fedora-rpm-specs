@@ -3,7 +3,7 @@
 
 Name:           python-%{shortname}
 Version:        3.1.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD
 URL:            https://github.com/mcfletch/pyopengl
@@ -38,6 +38,7 @@ for Python including (Tkinter, wxPython, FxPy, PyGame, and Qt).
 %package -n     python3-%{shortname}
 Summary:        Python 3 bindings for OpenGL
 Requires:       freeglut
+Requires:       libglvnd-opengl
 Requires:       python3-numpy
 %{?python_provide:%python_provide python3-%{shortname}}
 
@@ -122,6 +123,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Mon Jul 24 2023 Scott Talbert <swt@techie.net> - 3.1.7-3
+- Add runtime depends on libglvnd-opengl also
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

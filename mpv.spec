@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.36.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -10,8 +10,9 @@ Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}/%{
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  libappstream-glib
+BuildRequires:  libatomic
+BuildRequires:  meson
 BuildRequires:  python3-docutils
-BuildRequires:  waf-python3
 
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Math::BigInt)
@@ -40,13 +41,14 @@ BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.19
-BuildRequires:  pkgconfig(libplacebo)
+BuildRequires:  pkgconfig(libplacebo) >= 5.264.1
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libswresample) >= 3.9.100
 BuildRequires:  pkgconfig(libswscale) >= 5.9.100
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(lua-5.1)
 BuildRequires:  pkgconfig(mujs)
+BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(rubberband)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(shaderc)
@@ -117,31 +119,79 @@ This package contains development header files and libraries for Mpv.
 %prep
 %autosetup -p1
 sed -e "s|/usr/local/etc|%{_sysconfdir}/%{name}|" -i etc/%{name}.conf
-sed -e "s|c_preproc.standard_includes.append('/usr/local/include')|c_preproc.standard_includes.append('$(pkgconf --variable=includedir libavcodec)')|" -i wscript
 
 %build
-%set_build_flags
-waf configure \
-    --prefix=%{_prefix} \
-    --bindir=%{_bindir} \
-    --libdir=%{_libdir} \
-    --mandir=%{_mandir} \
-    --docdir=%{_docdir}/%{name} \
-    --confdir=%{_sysconfdir}/%{name} \
-    --disable-build-date \
-    --enable-libmpv-shared \
-    --enable-sdl2 \
-    --enable-libarchive \
-    --enable-dvdnav \
-    --enable-cdda \
-    --enable-html-build \
-    --enable-dvbin \
-    --enable-gl-x11 \
-    --enable-wayland
-waf -v build %{?_smp_mflags}
+%meson --auto-features=auto \
+    -Dalsa=enabled \
+    -Dbuild-date=false \
+    -Dcaca=enabled \
+    -Dcdda=enabled \
+    -Dcplayer=true \
+    -Dcplugins=enabled \
+    -Dcuda-hwaccel=enabled \
+    -Dcuda-interop=enabled \
+    -Ddmabuf-wayland=enabled \
+    -Ddrm=enabled \
+    -Ddvbin=enabled \
+    -Ddvdnav=enabled \
+    -Degl-drm=enabled \
+    -Degl-wayland=enabled \
+    -Degl-x11=enabled \
+    -Degl=enabled \
+    -Dgbm=enabled \
+    -Dgl-x11=enabled \
+    -Dgl=enabled \
+    -Dhtml-build=enabled \
+    -Diconv=enabled \
+    -Djack=enabled \
+    -Djavascript=enabled \
+    -Djpeg=enabled \
+    -Dlcms2=enabled \
+    -Dlibarchive=enabled \
+    -Dlibavdevice=enabled \
+    -Dlibbluray=enabled \
+    -Dlibmpv=true \
+    -Dlibplacebo-next=enabled \
+    -Dlibplacebo=enabled \
+    -Dlua=enabled \
+    -Dmanpage-build=enabled \
+    -Dopenal=enabled \
+    -Dopensles=disabled \
+    -Doss-audio=disabled \
+    -Dpipewire=enabled \
+    -Dplain-gl=enabled \
+    -Dpulse=enabled \
+    -Drubberband=enabled \
+    -Dsdl2-audio=enabled \
+    -Dsdl2-gamepad=enabled \
+    -Dsdl2-video=enabled \
+    -Dsdl2=enabled \
+    -Dshaderc=enabled \
+    -Dsndio=disabled \
+    -Dspirv-cross=disabled \
+    -Dstdatomic=enabled \
+    -Duchardet=enabled \
+    -Dvaapi-drm=enabled \
+    -Dvaapi-wayland=enabled \
+    -Dvaapi-x-egl=enabled \
+    -Dvaapi-x11=enabled \
+    -Dvaapi=enabled \
+    -Dvapoursynth=enabled \
+    -Dvdpau-gl-x11=enabled \
+    -Dvdpau=enabled \
+    -Dvector=enabled \
+    -Dvulkan-interop=disabled \
+    -Dvulkan=enabled \
+    -Dwayland=enabled \
+    -Dwerror=false \
+    -Dx11=enabled \
+    -Dxv=enabled \
+    -Dzimg=enabled \
+    -Dzlib=enabled
+%meson_build
 
 %install
-waf install --destdir=%{buildroot}
+%meson_install
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
@@ -175,6 +225,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jul 24 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.36.0-2
+- Switched to meson by upstream request.
+
 * Sun Jul 23 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.36.0-1
 - Updated to version 0.36.0.
 

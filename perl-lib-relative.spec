@@ -1,11 +1,12 @@
 Name:           perl-lib-relative
-Version:        1.001
-Release:        4%{?dist}
+Version:        1.002
+Release:        1%{?dist}
 Summary:        Add paths relative to the current file to @INC
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/lib-relative
 Source0:        https://cpan.metacpan.org/authors/id/D/DB/DBOOK/lib-relative-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -55,7 +56,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
@@ -80,6 +81,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.002-1
+- 1.002 bump (rhbz#2224932)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

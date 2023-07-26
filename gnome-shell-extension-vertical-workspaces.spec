@@ -7,7 +7,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gnome-shell-extension-%{extension}
-Version:        28%{?commit:^1.%{shortcommit}}
+Version:        37%{?commit:^1.%{shortcommit}}
 Release:        %autorelease
 Summary:        Customize your GNOME Shell UX to suit your workflow
 License:        GPL-3.0-only
@@ -17,7 +17,7 @@ BuildArch:      noarch
 %if %{defined commit}
 Source:         %{url}/archive/%{commit}/%{extension}-%{shortcommit}.tar.gz
 %else
-Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}-fix-version/%{extension}-%{version}.tar.gz
 %endif
 
 BuildRequires:  gettext
@@ -32,7 +32,7 @@ horizontally or vertically stacked workspaces.
 
 
 %prep
-%autosetup -n %{extension}-%{?commit:%{commit}}%{!?commit:%{version}}
+%autosetup -n %{extension}-%{?commit:%{commit}}%{!?commit:%{version}-fix-version}
 
 
 %install

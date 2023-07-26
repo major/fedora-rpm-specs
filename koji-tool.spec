@@ -5,7 +5,7 @@
 %bcond_with tests
 
 Name:           koji-tool
-Version:        1.0.1
+Version:        1.1
 Release:        %autorelease
 Summary:        Koji CLI tool for querying tasks and installing builds
 
@@ -14,7 +14,6 @@ Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
 # End cabal-rpm sources
-Patch0:         https://github.com/juhp/koji-tool/commit/cc718978053dad85ea79a99cc10f0368a1fa1ac3.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -32,6 +31,7 @@ BuildRequires:  ghc-pretty-simple-devel
 BuildRequires:  ghc-rpm-nvr-devel
 BuildRequires:  ghc-simple-cmd-devel
 BuildRequires:  ghc-simple-cmd-args-devel
+BuildRequires:  ghc-simple-prompt-devel
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-utf8-string-devel
@@ -50,7 +50,6 @@ Koji is the RPM-based buildsystem of Fedora Linux and CentOS.
 # Begin cabal-rpm setup:
 %setup -q
 # End cabal-rpm setup
-%autopatch -p1
 
 
 %build

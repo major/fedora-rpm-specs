@@ -4,7 +4,7 @@
 
 # https://github.com/onsi/gomega
 %global goipath         github.com/onsi/gomega
-Version:                1.27.8
+Version:                1.27.9
 
 %gometa
 
@@ -21,6 +21,9 @@ Summary:        Ginkgo's Preferred Matcher Library
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+# Required for golang-1.21
+# https://github.com/onsi/gomega/pull/685
+Patch:          bdc7803e66e0db777db09edea3bb6e85df8c9d6d.patch
 
 %description %{common_description}
 

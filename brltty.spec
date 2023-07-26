@@ -1,5 +1,5 @@
-%define pkg_version 6.5
-%define api_version 0.8.4
+%define pkg_version 6.6
+%define api_version 0.8.5
 
 # minimal means brltty-minimal subpackage with minimal deps for
 # braille support in Anaconda installer
@@ -46,8 +46,8 @@
 %global __requires_exclude ^(%{_privatelibs})$
 
 Name: brltty
-Version: %{pkg_version}
-Release: 20%{?dist}
+Version: 6.6
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -57,8 +57,6 @@ Source3: brlapi-forbuild.h
 Patch1: brltty-6.3-loadLibrary.patch
 # libspeechd.h moved in latest speech-dispatch (NOT sent upstream)
 Patch2: brltty-6.3-libspeechd.patch
-# fix translations with gettext-0.22: https://github.com/brltty/brltty/pull/420
-Patch3: brltty-6.5-gettext.patch
 Summary: Braille display driver for Linux/Unix
 BuildRequires: byacc
 BuildRequires: glibc-kernheaders
@@ -157,7 +155,7 @@ Obsoletes: brltty-espeak <= 5.6-5
 This package provides the eSpeak-NG driver for BRLTTY.
 
 %package -n brlapi
-Version: %{api_version}
+Version: 6.6
 License: LGPL-2.0-or-later
 Summary: Application Programming Interface for BRLTTY
 Recommends: %{name} = %{pkg_version}-%{release}
@@ -171,7 +169,7 @@ Install this package if you have an application which directly accesses
 a refreshable braille display.
 
 %package -n brlapi-devel
-Version: %{api_version}
+Version: 6.6
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 Summary: Headers, static archive, and documentation for BrlAPI
@@ -189,7 +187,7 @@ Install this package if you are developing or maintaining an application
 which directly accesses a refreshable braille display.
 
 %package -n tcl-brlapi
-Version: %{api_version}
+Version: 6.6
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: tcl-devel
@@ -200,7 +198,7 @@ This package provides the Tcl binding for BrlAPI.
 %if %{with python2}
 %package -n python2-brlapi
 %{?python_provide:%python_provide python2-brlapi}
-Version: %{api_version}
+Version: 6.6
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: Cython
@@ -214,7 +212,7 @@ This package provides the Python 2 binding for BrlAPI.
 %if %{with python3}
 %package -n python3-brlapi
 %{?python_provide:%python_provide python3-brlapi}
-Version: %{api_version}
+Version: 6.6
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: python3-Cython
@@ -230,7 +228,7 @@ This package provides the Python 3 binding for BrlAPI.
 
 %if %{JAVA}
 %package -n brlapi-java
-Version: %{api_version}
+Version: 6.6
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: jpackage-utils
@@ -242,7 +240,7 @@ This package provides the Java binding for BrlAPI.
 
 %if 0%{?with_ocaml}
 %package -n ocaml-brlapi
-Version: %{api_version}
+Version: 6.6
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: ocaml
@@ -276,9 +274,8 @@ installer.
 mv %{name}-%{version} python2
 
 pushd python2
-%patch1 -p1 -b .loadLibrary
-%patch2 -p1 -b .libspeechd
-%patch3 -p1 -b .gettext
+%patch -P 1 -p1 -b .loadLibrary
+%patch -P 2 -p1 -b .libspeechd
 
 # remove packaged binary file
 rm -f Programs/brltty-ktb
@@ -692,6 +689,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Mon Jul 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.6-1
+- 6.6
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

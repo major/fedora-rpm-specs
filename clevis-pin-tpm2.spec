@@ -5,15 +5,25 @@
 
 Name:           clevis-pin-tpm2
 Version:        0.5.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Clevis PIN for unlocking with TPM2 supporting Authorized Policies
 
 License:        MIT
 URL:            https://github.com/fedora-iot/clevis-pin-tpm2/
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# To create the vendor tarball:
+#   tar xf %%{name}-%%{version}.crate ; pushd %%{name}-%%{version} ; \
+#   cargo vendor && tar Jcvf ../%%{name}-%%{version}-vendor.tar.xz vendor/ ; popd
+Source1:        %{name}-%{version}-vendor.tar.xz
 
 ExclusiveArch:  %{rust_arches}
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
 BuildRequires:  rust-packaging
+%endif
+BuildRequires:  openssl-devel
+BuildRequires:  tpm2-tss-devel
 Requires:       clevis
 
 %description
@@ -21,10 +31,14 @@ Requires:       clevis
 
 %prep
 %autosetup -p1
+%if 0%{?rhel}
+%cargo_prep -V 1
+%else
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
+%endif
 
 %build
 %cargo_build
@@ -45,6 +59,9 @@ ln -s /usr/bin/clevis-pin-tpm2 %{buildroot}/usr/bin/clevis-decrypt-tpm2plus
 %{_bindir}/clevis-*-tpm2plus
 
 %changelog
+* Wed Jul 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5.2-7
+- Use vendored dependencies in RHEL builds
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 Name:          muffin
-Version:       5.8.0
-Release:       2%{?dist}
+Version:       5.8.1
+Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
 URL:           https://github.com/linuxmint/%{name}
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:        zenity_fix.patch
+Patch0:        %{url}/commit/ff244dde0780bf186c7be3f4c52ac48e3d1ad7cc.patch#/zenity_fix.patch
 Patch1:        libinput.patch
 
 ExcludeArch:   %{ix86}
@@ -19,6 +19,7 @@ BuildRequires: pkgconfig(gudev-1.0)
 BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libcanberra)
+BuildRequires: pkgconfig(libpipewire-0.3)
 BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(libwacom)
 BuildRequires: pkgconfig(cinnamon-desktop) >= 5.8.0
@@ -59,15 +60,7 @@ utilities for testing Metacity/Muffin themes.
 %endif
 
 %build
-%meson \
-	-Dprofiler=false \
-%ifarch %{arm}
-	-Ddefault_driver=gles2 \
-%else
-	-Ddefault_driver=gl \
-%endif
-	-Dremote_desktop=false
-
+%meson
 %meson_build
 
 %install
@@ -97,6 +90,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Jul 24 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.1-1
+- Update to 5.8.1 release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

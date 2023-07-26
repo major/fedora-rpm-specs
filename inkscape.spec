@@ -9,8 +9,8 @@
 %endif
 
 Name:           inkscape
-Version:        1.2.2
-Release:        11%{?dist}
+Version:        1.3
+Release:        1%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -18,12 +18,14 @@ Summary:        Vector-based drawing program using SVG
 
 License:        GPL-2.0-or-later AND CC-BY-3.0
 URL:            https://inkscape.org/
-Source0:        https://inkscape.org/gallery/item/37360/inkscape-1.2.2.tar.xz
+Source0:        https://inkscape.org/gallery/item/42328/inkscape-1.3.tar.xz
 # https://gitlab.com/inkscape/inkscape/-/merge_requests/5108
-Patch:          0001-Fix-build-with-GCC13.patch
+#Patch:          0001-Fix-build-with-GCC13.patch
 
 # Fedora Color Palette, GIMP format, CC-BY 3.0
 Source2:	Fedora-Color-Palette.gpl
+
+ExcludeArch:    %{ix86}
 
 Provides: bundled(libcroco)
 Provides: bundled(autotrace)
@@ -126,7 +128,7 @@ graphics in W3C standard Scalable Vector Graphics (SVG) file format.
 
 
 %prep
-%autosetup -n inkscape-1.2.2_2022-12-01_b0a8486541 -p1
+%autosetup -n inkscape-1.3_2023-07-21_0e150ed6c4 -p1
 %py3_shebang_fix .
 find . -name CMakeLists.txt | xargs sed -i 's|COMMAND python |COMMAND %{__python3} |g'
 
@@ -159,7 +161,7 @@ find $RPM_BUILD_ROOT -type f -name 'lib*.a' | xargs rm -f
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/extensions/sk2svg.sh
 
 # Don't install development files for bundled libraries
-rm -r $RPM_BUILD_ROOT%{_includedir}/2geom-1.2.2/
+rm -r $RPM_BUILD_ROOT%{_includedir}/2geom-1.3.0/
 rm -r $RPM_BUILD_ROOT%{_libdir}/cmake/2Geom
 rm $RPM_BUILD_ROOT%{_libdir}/pkgconfig/2geom.pc
 
@@ -227,6 +229,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Mon Jul 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-1
+- 1.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

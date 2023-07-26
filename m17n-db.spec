@@ -1,7 +1,7 @@
 Name:       m17n-db
 Summary:    Multilingualization datafiles for m17n-lib
-Version:    1.8.2
-Release:    2%{?dist}
+Version:    1.8.3
+Release:    1%{?dist}
 License:    LGPL-2.1-or-later
 URL:        http://www.nongnu.org/m17n
 
@@ -115,6 +115,24 @@ rm %{buildroot}%{_datadir}/m17n/ispell.mim
 %{_datadir}/pkgconfig/m17n-db.pc
 
 %changelog
+* Mon Jul 24 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.3-1
+- Update to 1.8.3
+- kok-inscript2-deva, mr-inscript, mr-inscript2: Fix digit 0
+- ta-vutam: Change the header comment to a description
+- mr-gamabhana: icon resized to 48x48
+- latn1-pre: add icon
+- ar-translit: add icon
+- ath-phonetic: add icon
+- bla-phonetic: add icon
+- cr-western: add icon
+- iu-phonetic: add icon
+- nsk-phonetic: add icon
+- oj-phonetic: add icon
+- uk-kbd: add icon
+- eo-vi-sistemo: add icon
+- Rename the .mim files of some eo input methods to improve search for the icons
+- Workarounds for doxygen
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,26 +1,12 @@
-%ifarch %{ix86}
-%global without_sse %{!?_without_sse:0}%{?_without_sse:1}
-%endif
-%ifarch ia64 x86_64
-%global without_sse 0
-%endif
-%ifnarch %{ix86} ia64 x86_64
-%global without_sse 1
-%endif
-
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
-Version:       0.9.19
-Release:       6%{?dist}
+Version:       0.9.34
+Release:       1%{?dist}
 License:       GPLv2+
 URL:           http://qtractor.sourceforge.net/
 Source0:       http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
-Source20:      qmake-qt5.sh
-
-Patch3:        qtractor-0.6.4-secondary.patch
-
-BuildRequires: make
+BuildRequires: cmake
 BuildRequires: alsa-lib-devel
 BuildRequires: desktop-file-utils
 BuildRequires: dssi-devel
@@ -36,12 +22,11 @@ BuildRequires: libsndfile-devel
 BuildRequires: libvorbis-devel
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-linguist
+BuildRequires: qt5-qtsvg-devel
 BuildRequires: qt5-qtx11extras-devel
 BuildRequires: rubberband-devel
 BuildRequires: suil-devel
 BuildRequires: lilv-devel
-BuildRequires: autoconf
-BuildRequires: automake
 
 Requires:      hicolor-icon-theme
 
@@ -55,55 +40,36 @@ dedicated to the personal home-studio.
 
 %prep
 %setup -q -n %{name}-%{version}
-#patch3 -p1 -b .second
-
-# configure hard-codes prepending searches of /usr (already implicit, causes problems),
-# and /usr/local (not needed here), so force it's non-use -- rex
-sed -i.ac_with_paths -e "s|^ac_with_paths=.*|ac_with_paths=|g" configure configure.ac
-
-# Fix odd permissions
-chmod -x src/qtractorMmcEvent.*
 
 %build
-autoreconf
-
-CFLAGS="%{optflags}"; export CFLAGS
-CXXFLAGS="%{optflags}"; export CXXFLAGS
-LDFLAGS="%{?__global_ldflags}"; export LDFLAGS
-
-# force use of custom/local qmake, to inject proper build flags (above)
-install -m755 -D %{SOURCE20} bin/qmake-qt5
-PATH=`pwd`/bin:%{_qt5_bindir}:$PATH; export PATH
-
-%configure \
-   --enable-lilv --enable-suil \
-%if %{without_sse}
-   --enable-sse=no
-%endif
-
-make %{?_smp_mflags} QMAKE=`pwd`/bin/qmake-qt5
-
+%cmake
+%cmake_build
 
 %install
-make install DESTDIR=%{buildroot}
+%cmake_install
 %find_lang %{name} --with-qt
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.rncbc.qtractor.desktop
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog README TODO
-%license COPYING
-%{_datadir}/applications/%{name}.desktop
+%doc ChangeLog README
+%license LICENSE
+%{_datadir}/applications/org.rncbc.qtractor.desktop
 %{_datadir}/icons/hicolor/*/*/*
-%{_datadir}/mime/packages/%{name}.xml
+%{_datadir}/mime/packages/org.rncbc.qtractor.xml
 %{_bindir}/%{name}
 %{_libdir}/%{name}
 %{_datadir}/man/man1/%{name}*
 %{_datadir}/man/*/man1/%{name}*
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_datadir}/metainfo/org.rncbc.qtractor.metainfo.xml
 
 %changelog
+* Mon Jul 24 2023 Kalev Lember <klember@redhat.com> - 0.9.34-1
+- Update to 0.9.34
+- Switch to cmake build system
+- Drop SSE build conditionals
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

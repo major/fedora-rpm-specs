@@ -1,15 +1,15 @@
 #%%global prever rc3
 
 Name: log4cplus
-Version: 2.0.8
-Release: 5%{?prever:.%{prever}}%{?dist}
+Version: 2.1.0
+Release: 1%{?prever:.%{prever}}%{?dist}
 Summary: Logging Framework for C++
 
 License: ASL 2.0
 URL: http://sourceforge.net/projects/log4cplus
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz
 Source1: http://downloads.sourceforge.net/%{name}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz.sig
-Source2: codesign.txt
+Source2: codesign.key
 
 %description
 log4cplus is a simple to use C++ logging API providing thread-safe, flexible,
@@ -55,7 +55,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.la
 
 %files
 %doc LICENSE README.md ChangeLog
-%{_libdir}/liblog4cplus*.so.3*
+%{_libdir}/liblog4cplus*.so.9*
 
 %files devel
 %dir %{_includedir}/log4cplus
@@ -82,6 +82,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.la
 
 
 %changelog
+* Mon Jul 24 2023 Martin Osvald <mosvald@redhat.com> - 2.1.0-1
+- New version 2.1.0 (rhbz#2169015)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

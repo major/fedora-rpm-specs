@@ -2,8 +2,8 @@
 %bcond_without perl_Graphics_Toolkit_Color_enables_color_names
 
 Name:           perl-Graphics-Toolkit-Color
-Version:        1.08
-Release:        2%{?dist}
+Version:        1.09
+Release:        1%{?dist}
 Summary:        Color palette creation helper
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Constant.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -42,11 +42,11 @@ Recommends:     perl(Graphics::ColorNames)
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Carp|Exporter|Test::More|Test::Warn)\\)$
 
 %description
-Each object has 7 attributes, which are its RGB and HSL values and if
-possible a name. This is because humans access colors on hardware level
-(eye) in RGB, on cognition level in HSL (brain) and on cultural level
-(language) with names. Having easy access to all three and some color math
-should enable you to get the color palette you desire quickly and with no
+Read-only, color-holding Perl objects with methods to obtain their RGB and HSL
+values and if possible a name. This is because humans access colors on
+hardware level (eye) in RGB, on cognition level in HSL (brain) and on cultural
+level (language) with names. Having easy access to all three and some color
+math should enable you to get the color palette you desire quickly and with no
 additional dependencies.
 
 %package tests
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 24 2023 Petr Pisar <ppisar@redhat.com> - 1.09-1
+- 1.09 bump
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

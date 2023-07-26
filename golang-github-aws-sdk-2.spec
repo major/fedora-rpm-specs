@@ -7,8 +7,8 @@
 
 # https://github.com/aws/aws-sdk-go-v2
 %global goipath         github.com/aws/aws-sdk-go-v2
-Version:                20230620
-%global tag             release-2023-06-20
+Version:                20230724
+%global tag             release-2023-07-24
 %global distprefix      %{nil}
 
 %gometa

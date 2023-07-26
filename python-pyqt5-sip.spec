@@ -5,16 +5,13 @@
 %global _sip_api %{_sip_api_major}.%{_sip_api_minor}
 
 Name:           python-%{pkg_name}
-Version:        12.12.1
-Release:        5%{?dist}
+Version:        12.12.2
+Release:        1%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        GPLv2 or GPLv3
 URL:            https://www.riverbankcomputing.com/software/sip/
 Source0:        %{pypi_source}
-Patch0:         fix-py3.12-segfault-at-exit.patch
-# https://www.riverbankcomputing.com/hg/sip/rev/d36867e54192
-Patch1:         fix-py3.12-subclass-crash.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -54,6 +51,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %{python3_sitearch}/PyQt5/
 
 %changelog
+* Mon Jul 24 2023 Scott Talbert <swt@techie.net> - 12.12.2-1
+- Update to new upstream release 12.12.2 (#2225114)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.12.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

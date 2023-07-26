@@ -130,11 +130,12 @@ SET(CMAKE_EXE_LINKER_FLAGS "%{__global_ldflags}")
 EOF
 
 # Build native llvm-tblgen, rather than depending on version-matching native package
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=OFF
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_SKIP_RPATH=ON -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=OFF
 %cmake_build --target llvm-tblgen
 
 CMAKE_OPTS="
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_SHARED_LIBS=OFF \
     -DLLVM_TARGETS_TO_BUILD="X86" \
     -DLLVM_TARGET_ARCH="X86" \

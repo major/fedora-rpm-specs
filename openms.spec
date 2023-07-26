@@ -3,6 +3,9 @@
 
 ExclusiveArch: %{qt5_qtwebengine_arches}
 
+# LTO flags break Python binding on i686
+%define _lto_cflags %{nil}
+
 # Python binding
 %global with_pyOpenMS 1
 Obsoletes: python3-openms < 0:2.7.0-2
@@ -206,10 +209,6 @@ cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpver
  -DBoost_REGEX_LIBRARY_DEBUG:FILEPATH=%{_libdir}/libboost_regex.so \
  -DXercesC_LIBRARY_DEBUG:FILEPATH=%{_libdir}/libxerces-c.so \
 %else
-# LTO flags break Python binding on i686
-%ifarch %{ix86}
-%define _lto_cflags %{nil}
-%endif
 %cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
  -DGIT_TRACKING:BOOL=OFF \
  -DENABLE_UPDATE_CHECK:BOOL=OFF \
@@ -366,7 +365,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %if %{with check}
 ## starting tests
-pushd build
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}/OpenMS
 export PATH=%{buildroot}%{_bindir}:%{_bindir}
 export OPENMS_DATA_PATH=%{buildroot}%{_datadir}/OpenMS
@@ -375,8 +373,7 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS_GUI.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenSwathAlgo.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
-ctest -j 1 -VV --force-new-ctest-process --output-on-failure -E 'MRMAssay_test|SVMWrapper_test|File_test' && exit 1
-popd
+ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E 'MRMAssay_test|SVMWrapper_test|File_test' && exit 1
 %endif
 
 %files
@@ -601,9 +598,10 @@ popd
 %endif
 
 %changelog
-* Sun Jul 23 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-1
+* Mon Jul 24 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-1
 - Release 3.0.0
 - Set _smp_ncpus_max equal to 2 for all architectures
+- Disable LTO flags
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
