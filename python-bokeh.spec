@@ -13,7 +13,7 @@ and data applications.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        Interactive plots and applications in the browser from Python
 
 # License breakdown: licensecheck -r . | sed '/UNKNOWN/ d' | sort -t ':' -k 2
@@ -65,6 +65,12 @@ URL:            https://github.com/bokeh/bokeh
 Source0:        %pypi_source
 # Read package-lock.json and general list of bundled runtime libraries their versions
 Source1:        parse-deps.py
+# From https://github.com/bokeh/bokeh/commit/865c54896e6158c1195e5ec8352f300cbf10920f
+# https://github.com/bokeh/bokeh/pull/10987
+Patch0:         bokeh-pr10987-python312-configparser.patch
+# https://github.com/bokeh/bokeh/commit/7047c6a90535564c9d05121fc8a095aef1de3c21
+# https://github.com/bokeh/bokeh/pull/11174
+Patch1:         bokeh-pr11174-replace-jinja2-markup.patch
 
 BuildArch:      noarch
 
@@ -192,7 +198,7 @@ BuildRequires:  %{py3_dist typing_extensions} >= 3.7.4
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 rm -rf %{pypi_name}.egg-info
 
 %build
@@ -219,6 +225,12 @@ rm -f %{buildroot}/%{python3_sitelib}/bokeh/server/static/.keep
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Tue Jul 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.0-11
+- Backport upstream patch for Jinja2 3.1 change
+
+* Tue Jul 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.0-10
+- Backport upstream patch for python 3.12 SafeConfigParser removal
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

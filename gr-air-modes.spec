@@ -8,7 +8,7 @@
 Name:             gr-air-modes
 URL:              http://github.com/bistromath/gr-air-modes
 Version:          0
-Release:          0.103.%{git_suffix}%{?dist}
+Release:          0.104.%{git_suffix}%{?dist}
 License:          GPLv3+
 BuildRequires:    cmake
 BuildRequires:    gcc-c++
@@ -22,8 +22,6 @@ BuildRequires:    boost-devel
 BuildRequires:    graphviz
 BuildRequires:    python3-zmq
 BuildRequires:    gmp-devel
-# TODO: fix this, package not available on ppc64
-#BuildRequires:    mpir-devel
 BuildRequires:    python3-pyqtgraph
 BuildRequires:    libunwind-devel
 BuildRequires:    pybind11-devel
@@ -40,6 +38,9 @@ Summary:          SDR receiver for Mode S transponder signals (ADS-B)
 Source0:          https://github.com/bistromath/gr-air-modes/archive/%{git_commit}/%{name}-%{git_suffix}.tar.gz
 # https://github.com/bistromath/gr-air-modes/issues/111
 Patch0:           gr-air-modes-0-gnuradio-3.9.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description
 Software defined radio receiver for Mode S transponder signals, including
@@ -86,6 +87,10 @@ popd
 %{_libdir}/cmake/{air_modes,gr-air_modes}/*.cmake
 
 %changelog
+* Tue Jul 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0-0.104.20200807git9e2515a5
+- Drop x86 support (leaf package)
+- Drop commented-out BuildRequires on mpir-devel, which is retired
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.103.20200807git9e2515a5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

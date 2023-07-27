@@ -24,6 +24,11 @@ Patch1:    package-remove-password-prompt.patch
 # https://github.com/PackageKit/PackageKit/pull/600
 Patch2:    shutdown-on-idle.patch
 
+# https://github.com/PackageKit/PackageKit/pull/643
+# Fixes errors like
+# packagekitd[1113]: Failed to load the backend: opening module dnf failed : /usr/lib64/packagekit-backend/libpk_backend_dnf.so: undefined symbol: pk_backend_job_update_details
+Patch3:    0001-packagekitd-Use-export_dynamic-explicitly.patch
+
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: xmlto
 BuildRequires: gtk-doc

@@ -4,21 +4,25 @@
 
 Name:		R-%{packname}
 Version:	1.0.11
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Seamless R and C++ Integration
 
 #		The following three files uses the Boost Software License:
 #		- Rcpp/inst/include/Rcpp/utils/tinyformat/tinyformat.h
 #		- Rcpp/inst/include/Rcpp/macros/config.hpp
 #		- Rcpp/inst/include/Rcpp/macros/cat.hpp
-License:	GPL-2.0-or-later and BSL-1.0
+License:	GPL-2.0-or-later AND BSL-1.0
 URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 BuildRequires:	gcc-c++
-BuildRequires:	R-devel
+BuildRequires:	R-core-devel
 BuildRequires:	R-inline
 BuildRequires:	dos2unix
+BuildRequires:	tex(latex)
+%if %{?fedora}%{!?fedora:0} >= 38
+BuildRequires:	tex(inconsolata.sty)
+%endif
 
 %if %{?fedora}%{!?fedora:0} >= 31 || %{?rhel}%{!?rhel:0} >= 8
 BuildRequires:	R-rpm-macros
@@ -83,8 +87,7 @@ for f in `find %{buildroot}%{_libdir}/R/library/%{packname}/examples -type f` ; 
 done
 
 %check
-export _R_CHECK_FORCE_SUGGESTS_=0
-%{_bindir}/R CMD check --no-manual --ignore-vignettes %{packname}
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 %files
 %dir %{_libdir}/R/library/%{packname}
@@ -112,6 +115,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Sun Jul 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.11-3
+- Fix build requires
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

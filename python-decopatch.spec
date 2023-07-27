@@ -1,11 +1,12 @@
-Name:		python-decopatch
-Version:	1.4.10
-Release:	%autorelease
-Summary:	A helper to write python decorators
+Name:           python-decopatch
+Version:        1.4.10
+Release:        %autorelease
+Summary:        Helper to write python decorators
 
-License:	BSD
-URL:		https://pypi.org/project/decopatch
-Source0:	%{pypi_source decopatch}
+License:        BSD
+URL:            https://pypi.org/project/decopatch
+Source:	        %{pypi_source decopatch}
+Patch:          0001-Adjust-for-whitespace-changes-with-python-3.12.patch
 
 BuildArch:	noarch
 BuildRequires:	pyproject-rpm-macros
@@ -13,7 +14,7 @@ BuildRequires:	pyproject-rpm-macros
 # There is a build dependency loop when built with tests.
 # It involves pytest-cases, pytest-harvest, pytest-steps.
 # This bcons allows to bootstrap it.
-%bcond_without tests
+%bcond tests 1
 
 %global _description %{expand:
 Because of a tiny oddity in the python language, writing decorators without help
@@ -29,7 +30,7 @@ Summary: %{summary}
 %description -n python3-decopatch %_description
 
 %prep
-%autosetup -n decopatch-%{version}
+%autosetup -p 1 -n decopatch-%{version}
 cat >pyproject.toml <<EOF
 [build-system]
 requires = ["setuptools_scm"%{?with_tests:, "pypandoc", "pytest-cases"}]

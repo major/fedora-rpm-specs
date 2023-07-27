@@ -3,8 +3,8 @@
 %bcond_with tests
 
 Name:               python-boxsdk
-Version:            3.7.3
-Release:            2%{?dist}
+Version:            3.8.0
+Release:            1%{?dist}
 Summary:            Python wrapper for the Box API
 
 
@@ -66,6 +66,9 @@ pytest-3
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Tue Jul 25 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.8.0-1
+- 3.8.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

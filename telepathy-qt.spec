@@ -12,7 +12,7 @@
 
 Name:    telepathy-qt
 Version: 0.9.8
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: High-level bindings for Telepathy
 
 License: LGPLv2+
@@ -28,6 +28,8 @@ Source0: http://telepathy.freedesktop.org/releases/telepathy-qt/telepathy-qt-%{v
 ## upstreamable patches
 
 ## upstream patches
+# https://github.com/TelepathyIM/telepathy-qt/commit/188dece432d090809c5ad88a91cd573c5af61c09
+Patch0:  telepathy-qt-188dece-fix-build-with-newer-glib.patch
 
 BuildRequires: cmake
 BuildRequires: python3-dbus, python3-devel
@@ -144,6 +146,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Tue Jul 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.8-14
+- Backport upstream patch for detecting needed header file with newer glib
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

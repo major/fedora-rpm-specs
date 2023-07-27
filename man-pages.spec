@@ -5,7 +5,24 @@ Summary: Linux kernel and C library user-space interface documentation
 Name: man-pages
 Version: 6.04
 Release: %autorelease
-License: GPL+ and GPLv2+ and BSD and MIT and Copyright only
+# List of all licenses - each with an example of a man-page that uses it
+# (complete list of all man-pages per license would be too long)
+# BSD-2-Clause: man5/elf.5
+# BSD-3-Clause: man3/list.3
+# BSD-4.3TAHOE: man5/resolv.conf.5
+# BSD-4-Clause-UC: man2/accept.2
+# GPL-1.0-or-later: man1/ldd.1
+# GPL-2.0-only: man2/fallocate.2
+# GPL-2.0-or-later: man1/getent.1
+# LicenseRef-Fedora-Public-Domain: man2/nfsservctl.2
+# LicenseRef-Fedora-UltraPermissive: man2/futex.2
+# Linux-man-pages-1-para: man2/getcpu.2
+# Linux-man-pages-copyleft: man2/chdir.2
+# Linux-man-pages-copyleft-2-para: man2/move_pages.2
+# Linux-man-pages-copyleft-var: man2/get_mempolicy.2
+# MIT: man3/program_invocation_name.3
+# Spencer-94: man7/regex.7
+License: BSD-2-Clause AND BSD-3-Clause AND BSD-4.3TAHOE AND BSD-4-Clause-UC AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-Fedora-UltraPermissive AND Linux-man-pages-1-para AND Linux-man-pages-copyleft AND Linux-man-pages-copyleft-2-para AND Linux-man-pages-copyleft-var AND MIT AND Spencer-94
 URL: http://www.kernel.org/doc/man-pages/
 Source: http://www.kernel.org/pub/linux/docs/man-pages/man-pages-%{version}.tar.xz
 # additional man-pages, the source tarball is fedora/rhel only

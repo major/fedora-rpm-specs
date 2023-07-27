@@ -1,14 +1,13 @@
 Name:           xmvn-connector-ivy
-Version:        4.0.0~20210707.d300ce6
-Release:        8%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        XMvn Connector for Apache Ivy
 License:        ASL 2.0
 URL:            https://fedora-java.github.io/xmvn/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-#Source0:        https://github.com/fedora-java/xmvn-connector-ivy/releases/download/%{version}/xmvn-%{version}.tar.xz
-Source0:        https://github.com/fedora-java/xmvn-connector-ivy/archive/d300ce6.tar.gz
+Source0:        https://github.com/fedora-java/xmvn-connector-ivy/releases/download/%{version}/xmvn-connector-ivy-%{version}.tar.xz
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.ivy:ivy)
@@ -30,7 +29,7 @@ Summary:        API documentation for %{name}
 This package provides %{summary}.
 
 %prep
-%setup -q -n xmvn-connector-ivy-d300ce697fda33135c1a60b6606e28e3bca0dec6
+%setup -q
 
 %build
 %mvn_build
@@ -45,6 +44,9 @@ This package provides %{summary}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jul 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.0-1
+- Update to upstream version 4.0.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0~20210707.d300ce6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

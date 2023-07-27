@@ -10,6 +10,7 @@ BuildRequires:  python3-devel
 BuildRequires:  gcc-g++
 BuildRequires:  ninja-build
 BuildRequires:  blosc2-devel >= 2.10.0
+BuildRequires:  cython < 3
 
 ExcludeArch:    %{ix86}
 

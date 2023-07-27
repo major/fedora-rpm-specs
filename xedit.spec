@@ -1,6 +1,6 @@
 Name:		xedit
 Version:	1.2.2
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Simple text editor for X
 URL:		http://xorg.freedesktop.org
 Source0:	http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -10,9 +10,10 @@ BuildRequires: make
 BuildRequires:	desktop-file-utils
 BuildRequires:	libXaw-devel
 BuildRequires:	xorg-x11-util-macros
+Patch0:		xedit-hunspell.patch
 Requires:	xorg-x11-xbitmaps
-Requires:	aspell
-Requires:	aspell-en
+Requires:	hunspell
+Requires:	hunspell-en
 Requires:	grep
 Requires:	words
 Requires:	ctags
@@ -24,7 +25,7 @@ Requires:	xorg-x11-fonts-100dpi
 Xedit provides a simple text editor for X.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --with-lispdir=%{_datadir}/X11/%{name}
@@ -47,6 +48,9 @@ make check
 %{_mandir}/man1/xedit.1*
 
 %changelog
+* Tue Jul 25 2023 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.2.2-19
+- Use hunspell as ispell engine
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

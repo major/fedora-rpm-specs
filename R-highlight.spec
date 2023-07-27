@@ -2,14 +2,18 @@
 
 Name:		R-%{packname}
 Version:	0.5.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	R Syntax Highlighter
 License:	GPL-3.0-or-later
 URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 #		Don't create std::string from NULL (gcc 12 error)
 Patch0:		%{name}-no-std-string-from-null.patch
-BuildRequires:	R-devel, tex(latex)
+BuildRequires:	R-core-devel
+BuildRequires:	tex(latex)
+%if %{?fedora}%{!?fedora:0} >= 38
+BuildRequires:	tex(inconsolata.sty)
+%endif
 
 %if %{?fedora}%{!?fedora:0} >= 31 || %{?rhel}%{!?rhel:0} >= 8
 BuildRequires:	R-rpm-macros
@@ -24,7 +28,7 @@ syntax highlighting of R code chunks.
 
 %prep
 %setup -q -c
-%patch0 -p0
+%patch -P 0 -p0
 
 %build
 
@@ -53,6 +57,9 @@ rm -f %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/stylesheet
 
 %changelog
+* Sun Jul 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.1-4
+- Fix build requires
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

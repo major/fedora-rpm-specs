@@ -4,7 +4,7 @@
 
 # https://github.com/vultr/govultr
 %global goipath         github.com/vultr/govultr/v3
-Version:                3.1.0
+Version:                3.2.0
 
 %gometa -f
 

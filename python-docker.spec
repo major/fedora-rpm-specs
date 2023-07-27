@@ -14,8 +14,8 @@
 %global srcname docker
 
 Name:           python-%{srcname}
-Version:        5.0.3
-Release:        5%{?dist}
+Version:        6.1.3
+Release:        1%{?dist}
 Summary:        A Python library for the Docker Engine API
 License:        ASL 2.0
 URL:            https://pypi.org/project/%{srcname}
@@ -58,6 +58,8 @@ Summary:        A Python library for the Docker Engine API
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-setuptools_scm
+BuildRequires:  python3-pip
 Obsoletes:      python3-docker-py < 1:2
 
 %description -n python3-%{srcname}
@@ -116,6 +118,9 @@ cp -avr tests/ %{buildroot}%{_libexecdir}/installed-tests/%{name}/
 %endif # tests
 
 %changelog
+* Mon Jul 24 2023 Packit <hello@packit.dev> - 6.1.3-1
+- New upstream release 6.1.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

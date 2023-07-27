@@ -1,8 +1,8 @@
-%global libliftoff_minver 0.3.0
+%global libliftoff_minver 0.4.1
 
 Name:           gamescope
-Version:        3.11.49
-Release:        3%{?dist}
+Version:        3.12.0
+Release:        1%{?dist}
 Summary:        Micro-compositor for video games on Wayland
 
 License:        BSD
@@ -13,8 +13,13 @@ Source1:        stb.pc
 
 BuildRequires:  meson >= 0.54.0
 BuildRequires:  ninja-build
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  glm-devel
+BuildRequires:  google-benchmark-devel
+BuildRequires:  libXmu-devel
+BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xcomposite)
@@ -32,11 +37,13 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.17
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(libpipewire-0.3)
-BuildRequires:  (pkgconfig(wlroots) >= 0.15.0 with pkgconfig(wlroots) < 0.16)
-BuildRequires:  (pkgconfig(libliftoff) >= 0.3.0 with pkgconfig(libliftoff) < 0.4)
+BuildRequires:  (pkgconfig(wlroots) >= 0.16.0 with pkgconfig(wlroots) < 0.17)
+BuildRequires:  (pkgconfig(libliftoff) >= 0.4.1 with pkgconfig(libliftoff) < 0.5)
 BuildRequires:  pkgconfig(libcap)
+BuildRequires:  pkgconfig(hwdata)
 BuildRequires:  stb_image-devel
 BuildRequires:  stb_image_write-devel
+BuildRequires:  vkroots-devel
 BuildRequires:  /usr/bin/glslangValidator
 
 # libliftoff hasn't bumped soname, but API/ABI has changed for 0.2.0 release
@@ -54,29 +61,34 @@ Recommends:     mesa-vulkan-drivers
 mkdir -p pkgconfig
 cp %{SOURCE1} pkgconfig/stb.pc
 
-
 %build
 export PKG_CONFIG_PATH=pkgconfig
-%meson -Dpipewire=enabled -Dforce_fallback_for=[]
+%meson -Dpipewire=enabled -Denable_openvr_support=false -Dforce_fallback_for=[]
 %meson_build
-
 
 %install
 %meson_install
-
 
 %files
 %license LICENSE
 %doc README.md
 %{_bindir}/gamescope
+%{_libdir}/libVkLayer_FROG_gamescope_wsi.so
+%{_datadir}/vulkan/implicit_layer.d/VkLayer_FROG_gamescope_wsi.*.json
 
 
 %changelog
+* Wed Jul 26 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.12.0-1
+- Rebase to 3.12.0 (fixes RHBZ#2152065,RHBZ#2225815)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.49-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.49-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Wed Dec 07 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.11.51-1
+- Rebase to 3.11.51
 
 * Fri Nov 18 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 3.11.49-1
 - Rebase to 3.11.49 (fixes RHBZ#2143471 )

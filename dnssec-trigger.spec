@@ -27,6 +27,8 @@ Patch3: 0003-Move-the-NetworkManager-dispatcher-script-out-of-etc.patch
 # https://github.com/NLnetLabs/dnssec-trigger/pull/7
 Patch4: 0004-Add-options-edns0-and-trust-ad.patch
 Patch5: dnssec-trigger-configure-c99.patch
+# https://github.com/NLnetLabs/dnssec-trigger/commit/f187c2be221a26f3c4ef4d9b16f1df67104ae634
+Patch6: dnssec-trigger-0.17-allowed-characters.patch
 
 # to obsolete the version in which the panel was in main package
 Obsoletes: %{name} < 0.12-22

@@ -7,7 +7,7 @@
 
 Name:           PyYAML
 Version:        6.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 %global uversion %{version}
 Summary:        YAML parser and emitter for Python
 
@@ -25,7 +25,8 @@ BuildRequires:  python2-setuptools
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-Cython
+# This requires cython 0.29, see https://github.com/yaml/pyyaml/issues/601
+BuildRequires:  python3-cython < 3
 
 
 %global _description\
@@ -111,6 +112,9 @@ rm -rf ext/_yaml.c
 
 
 %changelog
+* Tue Jul 25 2023 Miro Hrončok <mhroncok@redhat.com> - 6.0.1-3
+- Pin Cython < 3 to build this package
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

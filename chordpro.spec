@@ -6,7 +6,7 @@ Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic 2.0
 Version: 6.020
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 URL: https://www.chordpro.org
 
@@ -16,7 +16,7 @@ BuildArch: noarch
 # This package would provide many (perl) modules, but these are
 # not intended for general use.
 %global __provides_exclude_from /*\\.pm$
-%global __requires_exclude App::Music::ChordPro
+%global __requires_exclude ChordPro
 
 Requires: perl(:VERSION) >= 5.26.0
 

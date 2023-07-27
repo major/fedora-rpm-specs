@@ -9,7 +9,7 @@
 
 Name:           ansible-collection-community-docker
 Version:        3.4.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
 # All files are GPL-3.0-or-later, except the following files, which are originally
@@ -65,6 +65,8 @@ URL:            %{ansible_collection_url community docker}
 %global forgeurl https://github.com/ansible-collections/community.docker
 Source0:        %{forgeurl}/archive/%{version}/community.docker-%{version}.tar.gz
 Patch0:         build_ignore-unnecessary-files.patch
+Patch1:         tests-import-match_hostname-from-urllib3.patch
+Patch2:         tests-remove-usage-of-deprecated-TestCase-methods.patch
 
 BuildArch:      noarch
 
@@ -109,6 +111,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Tue Jul 25 2023 Maxwell G <maxwell@gtmx.me> - 3.4.6-3
+- Fix FTBFS. Closes rhbz#2215512.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

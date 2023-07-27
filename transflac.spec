@@ -1,8 +1,8 @@
 %global forgeurl    https://bitbucket.org/gbcox/transflac/
-%global commit      07ac096fb21f
+%global commit      e940e809152b
 
 Name:           transflac
-Version:        1.1.0
+Version:        1.1.1
 Summary:        Transcode FLAC to lossy formats
 License:        GPL-3.0-or-later
 
@@ -22,6 +22,7 @@ Requires:       opus-tools
 Requires:       rsync
 Requires:       procps-ng
 Requires:       coreutils
+Requires:       ffmpeg
 
 %description
 transflac is a front end command line utility (actually, a bash script)

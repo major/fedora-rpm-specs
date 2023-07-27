@@ -7,8 +7,8 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        0.12.0
-Release:        4%{?dist}
+Version:        0.12.2
+Release:        1%{?dist}
 Summary:        Cython implementation of the toolz package
 
 License:        BSD
@@ -147,6 +147,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} PYTHONDONTWRITEBYTECODE=1 py.test-%{p
 %exclude %{python3_sitearch}/.pytest_cache/
 
 %changelog
+* Tue Jul 25 2023 Orion Poplawski <orion@nwra.com> - 0.12.2-1
+- Update to 0.12.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

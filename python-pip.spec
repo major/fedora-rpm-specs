@@ -16,7 +16,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -389,6 +389,9 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Tue Jul 25 2023 Python Maint <python-maint@redhat.com> - 23.1.2-5
+- Rebuilt for Python 3.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

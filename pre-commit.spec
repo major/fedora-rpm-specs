@@ -1,8 +1,8 @@
 %bcond_without check
 
 Name:           pre-commit
-Version:        3.2.2
-Release:        3%{?dist}
+Version:        3.3.3
+Release:        1%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
 # SPDX
@@ -192,6 +192,9 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Mon Jul 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.3.3-1
+- Update to 3.3.3 (close RHBZ#2192407)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

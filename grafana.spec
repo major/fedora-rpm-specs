@@ -25,7 +25,7 @@ Name:             grafana
 Version:          9.2.10
 Release:          4%{?dist}
 Summary:          Metrics dashboard and graph editor
-License:          AGPLv3
+License:          AGPL-3.0-only
 URL:              https://grafana.org
 
 # Source0 contains the tagged upstream sources

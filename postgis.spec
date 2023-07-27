@@ -3,6 +3,7 @@
 %{!?gcj_support:%global gcj_support 0}
 %{!?upgrade:%global upgrade 0}
 %{!?runselftest:%global runselftest 1}
+%{!?llvmjit:%global llvmjit 0}
 
 %global        majorversion 3.3
 %global        soversion 3
@@ -60,6 +61,9 @@ BuildRequires: postgresql-upgrade-devel
 %if %runselftest
 BuildRequires: postgresql-test-rpm-macros
 %endif
+%if %llvmjit
+Requires: clang-devel llvm-devel
+%endif
 
 
 %description
@@ -70,14 +74,14 @@ systems (GIS), much like ESRI's SDE or Oracle's Spatial extension. PostGIS
 follows the OpenGIS "Simple Features Specification for SQL" and has been
 certified as compliant with the "Types and Functions" profile.
 
-
+%if %llvmjit
 %package llvmjit
 Summary:       Just-in-time compilation support for PostGIS
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 
 %description llvmjit
 Just-in-time compilation support for PostGIS.
-
+%endif
 
 %package docs
 Summary:       Extra documentation for PostGIS
@@ -166,11 +170,15 @@ cp -p %{SOURCE2} .
 
 
 %build
+%configure %configure_opts --with-pgconfig=%{_bindir}/pg_server_config \
 %ifnarch armv7hl
-%configure %configure_opts --with-gui --with-pgconfig=%{_bindir}/pg_server_config --with-sfcgal
-%else
-%configure %configure_opts --with-gui --with-pgconfig=%{_bindir}/pg_server_config
+	--with-sfcgal \
 %endif
+%if %llvmjit
+	--with-llvm \
+%endif
+	--with-gui
+
 sed -i 's| -fstack-clash-protection | |' postgis/Makefile
 sed -i 's| -fstack-clash-protection | |' raster/rt_pg/Makefile
 sed -i 's| -fstack-clash-protection | |' topology/Makefile
@@ -354,6 +362,7 @@ fi
 %{_datadir}/icons/hicolor/*/apps/shp2pgsql-gui.png
 
 
+%if %llvmjit
 %files llvmjit
 %{_libdir}/pgsql/bitcode/address_standardizer-*
 %{_libdir}/pgsql/bitcode/postgis-*
@@ -362,6 +371,7 @@ fi
 %{_libdir}/pgsql/bitcode/postgis_sfcgal-*
 %endif
 %{_libdir}/pgsql/bitcode/postgis_topology-*
+%endif
 
 
 %if %javabuild

@@ -15,15 +15,8 @@ Source1:        pyMapVBVD-%{version}-test-data.tar.xz
 Source2:        get_test_data.sh
 
 BuildArch:      noarch
-# The library assumes that the host and the file format are both little-endian.
-# The necessary patch would not be trivial. Queried upstream:
-#
-# Big-endian host support?
-# https://github.com/wtclarke/pymapvbvd/issues/35
-#
-# A bug will be filed blocking F-ExcludeArch-s390x, per
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_architecture_build_failures,
-# once the package is imported.
+# PyMapVBVD assumes the platform is little-endian
+# https://bugzilla.redhat.com/show_bug.cgi?id=2225518
 ExcludeArch:    s390x
 
 BuildRequires:  python3-devel

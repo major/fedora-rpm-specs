@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 %global forgeurl https://github.com/premake/premake-core
-%global date 20230420
-%global commit 3f1e4f8ded5ce1397bd286eef5e2ebef02556422
+%global date 20230714
+%global commit 26725da04823f54ac324c186ed183f2ac3e6b271
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %forgemeta
 
 Name:           premake
-Version:        5.0.0^%{date}git%{shortcommit}
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Cross-platform build configuration tool
 
@@ -46,9 +46,10 @@ install -pDm 755 bin/release/premake5 %{buildroot}/%{_bindir}/premake5
 install -pDm 644 packages/debian/premake.1 %{buildroot}%{_mandir}/man1/premake5.1
 
 %check
-# for aarch64 and s390x, base_os.findlib_FindSystemLib failed. Disable for the
-# tests for now as I do not find a way to skip the specific test
-%ifarch x86_64 i686 ppc64le
+# for aarch64 and s390x, base_os.findlib_FindSystemLib failed.
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=103879506
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=103879508
+%ifnarch aarch64 s390x
 bin/release/premake5 test
 %endif
 

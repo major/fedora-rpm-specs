@@ -6,8 +6,8 @@
 %endif
 
 Name:           m17n-lib
-Version:        1.8.2
-Release:        2%{?dist}
+Version:        1.8.3
+Release:        1%{?dist}
 Summary:        Multilingual text library
 
 License:        LGPL-2.1-or-later
@@ -125,6 +125,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libm17n-gui.so.*
 
 %changelog
+* Tue Jul 25 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.3-1
+- Update to 1.8.3
+- Fixes to be able to create m17n-docs-1.8.3: Fix doxygen tags, change all EUC-JP files to UTF-8
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,36 +4,31 @@
 #   Version: bzr version, add subrelease version here
 #   bzrrc: release candidate version, if any, line starts with % for rc, # for stable releas (no %).
 #   baserelease: rpm release number (0.N for rc candidates, N for stable releases)
-%global brzmajor 3.2
-%global brzminor .2
+%global brzmajor 3.3
+%global brzminor .3
 #global brzrc b6
-%global baserelease 10
+%global baserelease 1
 
 Name:           breezy
 Version:        %{brzmajor}%{?brzminor}
 Release:        %{baserelease}%{?brzrc:.}%{?brzrc}%{?dist}
 Summary:        Friendly distributed version control system
 
-License:        GPL-2.0-or-later
+# breezy is GPL-2.0-or-later, but it has Rust dependencies
+# see packaged LICENSE.dependencies for details
+License:        GPL-2.0-or-later AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND MIT AND (Unlicense OR MIT)
 URL:            http://www.breezy-vcs.org/
 Source0:        https://launchpad.net/brz/%{brzmajor}/%{version}%{?brzrc}/+download/%{name}-%{version}%{?brzrc}.tar.gz
 Source1:        https://launchpad.net/brz/%{brzmajor}/%{version}%{?brzrc}/+download/%{name}-%{version}%{?brzrc}.tar.gz.asc
 Source2:        brz-icon-64.png
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-configobj
-BuildRequires:  python3-Cython
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx-epytext
-BuildRequires:  python3-setuptools
-BuildRequires:  python-fastbencode
+BuildRequires:  rust-packaging >= 21
 BuildRequires:  zlib-devel
 BuildRequires:  bash-completion
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  make
-
-Requires:       python3-paramiko
 
 # This is the name of the command, note that it is brz, not bzr
 Provides:       brz = %{version}-%{release}
@@ -59,6 +54,7 @@ By default, Breezy provides support for both the Bazaar and Git file formats.
 
 %package doc
 Summary:        Documentation for Breezy
+License:        GPL-2.0-or-later
 BuildArch:      noarch
 
 %description doc
@@ -66,6 +62,8 @@ This package contains the documentation for the Breezy version control system.
 
 %prep
 %autosetup -p0 -n %{name}-%{version}%{?brzrc}
+
+%cargo_prep
 
 # Remove unused shebangs
 sed -i '1{/#![[:space:]]*\/usr\/bin\/\(python\|env\)/d}' \
@@ -79,6 +77,12 @@ sed -i '1{/#![[:space:]]*\/usr\/bin\/\(python\|env\)/d}' \
 
 # Remove Cython generated .c files
 find . -name '*_pyx.c' -exec rm \{\} \;
+
+
+%generate_buildrequires
+%cargo_generate_buildrequires
+%pyproject_buildrequires -x doc
+
 
 %build
 %py3_build
@@ -95,6 +99,8 @@ for dir in *; do
 done
 popd
 
+# Add Rust licenses
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %py3_install
@@ -131,7 +137,7 @@ echo ".so man1/git-remote-brz.1" > %{buildroot}%{_mandir}/man1/git-remote-bzr.1
 
 %files
 # ... -f %%{name}.lang
-%license COPYING.txt
+%license COPYING.txt LICENSE.dependencies
 %doc NEWS README.rst TODO contrib/
 %{_bindir}/brz
 %{_bindir}/bzr-*-pack
@@ -146,11 +152,16 @@ echo ".so man1/git-remote-brz.1" > %{buildroot}%{_mandir}/man1/git-remote-bzr.1
 
 
 %files doc
-%license COPYING.txt
+%license COPYING.txt LICENSE.dependencies
 %doc en developers
 
 
 %changelog
+* Mon Jul 24 2023 Ondrej Pohorelsky <opohorel@redhat.com> - 3.3.3-1
+- Update to 3.3.3
+- Modernizes specfile, now using automatic buildrequires
+- Resolves: #2219952, #2133259
+
 * Sun Jul 23 2023 Python Maint <python-maint@redhat.com> - 3.2.2-10
 - Rebuilt for Python 3.12
 

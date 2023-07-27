@@ -5,7 +5,7 @@ Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
 Version:       28.2
-Release:       9%{?dist}
+Release:       10%{?dist}
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
@@ -550,6 +550,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Tue Jul 25 2023 Scott Talbert <swt@techie.net> - 1:28.2-10
+- Rebuild for libotf soname bump
+
 * Sat Jul 22 2023 Benson Muite <benson_muite@emailplus.org> - 1:28.2-9
 - Add entry for change made by jthat (Fedora fas) to fix typo
   play/pong.el to play/pong.elc

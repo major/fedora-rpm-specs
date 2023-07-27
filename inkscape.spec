@@ -18,7 +18,7 @@ Summary:        Vector-based drawing program using SVG
 
 License:        GPL-2.0-or-later AND CC-BY-3.0
 URL:            https://inkscape.org/
-Source0:        https://inkscape.org/gallery/item/42328/inkscape-1.3.tar.xz
+Source0:        https://inkscape.org/release/inkscape-%{version}/source/archive/xz/dl/inkscape-%{version}.tar.xz
 # https://gitlab.com/inkscape/inkscape/-/merge_requests/5108
 #Patch:          0001-Fix-build-with-GCC13.patch
 

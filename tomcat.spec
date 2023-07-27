@@ -31,7 +31,7 @@
 %global jspspec 2.3
 %global major_version 9
 %global minor_version 0
-%global micro_version 76
+%global micro_version 78
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 4.0
 %global elspec 3.0
@@ -56,7 +56,7 @@
 Name:          tomcat
 Epoch:         1
 Version:       %{major_version}.%{minor_version}.%{micro_version}
-Release:       3%{?dist}
+Release:       2%{?dist}
 Summary:       Apache Servlet/JSP Engine, RI for Servlet %{servletspec}/JSP %{jspspec} API
 
 License:       ASL 2.0
@@ -327,7 +327,7 @@ pushd ${RPM_BUILD_ROOT}%{libdir}
     %{__ln_s} ../../java/%{name}-el-%{elspec}-api.jar .
     %{__ln_s} $(build-classpath ecj/ecj) jasper-jdt.jar
     
-    %{__cp} -a ../../%{name}/bin/tomcat-juli.jar .
+    cp ../../%{name}/bin/tomcat-juli.jar .
 popd
 
 # symlink to the FHS locations where we've installed things
@@ -353,17 +353,16 @@ popd
 %mvn_artifact res/maven/tomcat-el-api.pom output/build/lib/el-api.jar
 %mvn_artifact res/maven/tomcat-jsp-api.pom output/build/lib/jsp-api.jar
 %mvn_artifact res/maven/tomcat-servlet-api.pom output/build/lib/servlet-api.jar
+
+%mvn_file org.apache.tomcat:tomcat-annotations-api tomcat/annotations-api
 %mvn_artifact res/maven/tomcat-annotations-api.pom ${RPM_BUILD_ROOT}%{libdir}/annotations-api.jar
 %mvn_artifact res/maven/tomcat-api.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-api.jar
+%mvn_file org.apache.tomcat:tomcat-catalina-ant tomcat/catalina-ant
 %mvn_artifact res/maven/tomcat-catalina-ant.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-ant.jar
+%mvn_file org.apache.tomcat:tomcat-catalina-ha tomcat/catalina-ha
 %mvn_artifact res/maven/tomcat-catalina-ha.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-ha.jar
-%mvn_artifact res/maven/tomcat-ssi.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-ssi.jar
-%mvn_artifact res/maven/tomcat-storeconfig.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-storeconfig.jar
-%mvn_artifact res/maven/tomcat-tribes.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-tribes.jar
+%mvn_file org.apache.tomcat:tomcat-catalina tomcat/catalina
 %mvn_artifact res/maven/tomcat-catalina.pom ${RPM_BUILD_ROOT}%{libdir}/catalina.jar
-%mvn_artifact res/maven/tomcat-jasper-el.pom ${RPM_BUILD_ROOT}%{libdir}/jasper-el.jar
-%mvn_artifact res/maven/tomcat-jasper.pom ${RPM_BUILD_ROOT}%{libdir}/jasper.jar
-%mvn_artifact res/maven/tomcat-jaspic-api.pom ${RPM_BUILD_ROOT}%{libdir}/jaspic-api.jar
 %mvn_artifact res/maven/tomcat-coyote.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-coyote.jar
 %mvn_artifact res/maven/tomcat-dbcp.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-dbcp.jar
 %mvn_artifact res/maven/tomcat-i18n-cs.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-cs.jar
@@ -375,11 +374,24 @@ popd
 %mvn_artifact res/maven/tomcat-i18n-pt-BR.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-pt-BR.jar
 %mvn_artifact res/maven/tomcat-i18n-ru.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-ru.jar
 %mvn_artifact res/maven/tomcat-i18n-zh-CN.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-zh-CN.jar
+%mvn_file org.apache.tomcat:tomcat-jasper-el tomcat/jasper-el
+%mvn_artifact res/maven/tomcat-jasper-el.pom ${RPM_BUILD_ROOT}%{libdir}/jasper-el.jar
+%mvn_file org.apache.tomcat:tomcat-jasper tomcat/jasper
+%mvn_artifact res/maven/tomcat-jasper.pom ${RPM_BUILD_ROOT}%{libdir}/jasper.jar
+%mvn_file org.apache.tomcat:tomcat-jaspic-api tomcat/jaspic-api
+%mvn_artifact res/maven/tomcat-jaspic-api.pom ${RPM_BUILD_ROOT}%{libdir}/jaspic-api.jar
 %mvn_artifact res/maven/tomcat-jdbc.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-jdbc.jar
 %mvn_artifact res/maven/tomcat-jni.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-jni.jar
 %mvn_artifact res/maven/tomcat-juli.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-juli.jar
+%mvn_file org.apache.tomcat:tomcat-ssi tomcat/catalina-ssi
+%mvn_artifact res/maven/tomcat-ssi.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-ssi.jar
+%mvn_file org.apache.tomcat:tomcat-storeconfig tomcat/catalina-storeconfig
+%mvn_artifact res/maven/tomcat-storeconfig.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-storeconfig.jar
+%mvn_file org.apache.tomcat:tomcat-tribes tomcat/catalina-tribes
+%mvn_artifact res/maven/tomcat-tribes.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-tribes.jar
 %mvn_artifact res/maven/tomcat-util-scan.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-util-scan.jar
 %mvn_artifact res/maven/tomcat-util.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-util.jar
+%mvn_file org.apache.tomcat:tomcat-websocket-api tomcat/websocket-api
 %mvn_artifact res/maven/tomcat-websocket-api.pom ${RPM_BUILD_ROOT}%{libdir}/websocket-api.jar
 %mvn_artifact res/maven/tomcat-websocket.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-websocket.jar
 %mvn_artifact res/maven/tomcat.pom
@@ -537,6 +549,13 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Tue Jul 25 2023 Hui Wang <huwang@redhat.com> - 1:9.0.78-2
+- Resolves: rhbz#2224318 There are duplicated jars in the tomcat lib-subpackage
+
+* Tue Jul 25 2023 Hui Wang <huwang@redhat.com> - 1:9.0.78-1
+- Resolves: rhbz#2224318 There are duplicated jars in the tomcat lib-subpackage
+- Update to 9.0.78
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:9.0.76-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

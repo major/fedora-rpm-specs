@@ -3,7 +3,7 @@
 %global         srcname     circuitbreaker
 
 Name:           python-%{srcname}
-Version:        1.4.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Python "Circuit Breaker" implementation
 
@@ -17,6 +17,8 @@ BuildRequires:  python3-devel
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  python3dist(pytest-mock)
 %endif
 
 %global _description %{expand:

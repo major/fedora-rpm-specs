@@ -6,6 +6,8 @@ Summary:        High-performance library for noncontiguous data
 %global forgeurl https://github.com/pmodels/yaksa/
 %forgemeta
 
+%global soversion 0
+
 License:        BSD-3-Clause
 URL:            %forgeurl
 Source0:        %forgesource
@@ -50,15 +52,13 @@ ln -fvs /usr/include/utlist.h src/external/yutlist.h
 rm %{buildroot}%{_libdir}/libyaksa.la
 
 %check
-%make_build testing
-
-%global soversion 0
+timeout -v 2h \
+    %make_build testing
 
 %files
 %license COPYRIGHT
 %doc README.md
-%{_libdir}/libyaksa.so.%{soversion}
-%{_libdir}/libyaksa.so.%{soversion}.*
+%{_libdir}/libyaksa.so.%{soversion}{,.*}
 
 %files devel
 %{_includedir}/yaksa.h

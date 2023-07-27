@@ -1,6 +1,6 @@
 Name:           apr-api-docs
-Version:        1.7.0
-Release:        10%{?dist}
+Version:        1.7.3
+Release:        1%{?dist}
 Summary:        Apache Portable Runtime API documentation
 
 License:        ASL 2.0
@@ -23,7 +23,7 @@ rm -rf %{name}-%{version}
 mkdir -p %{name}-%{version}
 cd %{name}-%{version}
 cp %{SOURCE0} doxygen.conf
-%patch0 -p0 -b .doxygen-apu
+%patch -P 0 -p0 -b .doxygen-apu
 
 %build
 cd %{name}-%{version}
@@ -53,6 +53,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_docdir}/apr/api-docs
 %doc %{_docdir}/apr/api-docs/*
 
 %changelog
+* Wed Jul 26 2023 Bojan Smojver <bojan@rexursive.com> 1.7.3-1
+- bump up to 1.7.3
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

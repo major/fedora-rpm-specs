@@ -9,6 +9,7 @@ License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
 
 Source0:	https://github.com/nfs-ganesha/ntirpc/archive/v%{version}/ntirpc-%{version}%{?dev:%{dev}}.tar.gz
+Patch0001:	0001-src-work_pool.c.patch
 
 BuildRequires:	gcc cmake
 %ifarch x86_64 aarch64
@@ -44,11 +45,12 @@ Requires:	%{name}%{?_isa} = %{version}
 Development headers and auxiliary files for developing with %{name}.
 
 %prep
-%setup -q -n ntirpc-%{version}%{?dev:%{dev}}
+%autosetup -p1 -n ntirpc-%{version}%{?dev:%{dev}}
 
 %build
 %cmake \
     -DOVERRIDE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_COLOR_MAKEFILE:BOOL=OFF \
     -DTIRPC_EPOLL=1 \
     -DUSE_GSS=ON \
@@ -83,6 +85,7 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.4
 %changelog
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+- rhbz#2225972
 
 * Fri Apr 21 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> 5.0-1
 - ntirpc-5.0 GA

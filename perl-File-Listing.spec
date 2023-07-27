@@ -1,6 +1,6 @@
 Name:           perl-File-Listing
-Version:        6.15
-Release:        6%{?dist}
+Version:        6.16
+Release:        1%{?dist}
 Summary:        Parse directory listing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Listing
@@ -77,6 +77,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 25 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.16-1
+- 6.16 bump
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

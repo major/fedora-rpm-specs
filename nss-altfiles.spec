@@ -35,7 +35,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
-* Wed Jul 21 2023 Jan Pazdziora <jpazdziora@redhat.com> - 2.23.0-1
+* Fri Jul 21 2023 Jan Pazdziora <jpazdziora@redhat.com> - 2.23.0-1
 - Rebase to 2.23.0 (fedora#2036375)
 - Change upstream to https://github.com/flatcar/nss-altfiles
 - Enable all maps (fedora#2036375)

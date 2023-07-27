@@ -31,12 +31,13 @@
 
 Name:		libarrow
 Version:	12.0.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://dist.apache.org/repos/dist/release/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
+Patch0001:	0001-python-pyarrow-includes-libarrow_flight.pxd
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -67,7 +68,7 @@ BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-numpy
-BuildRequires:	python3dist(cython) < 3~~
+BuildRequires:	python%{python3_pkgversion}-Cython
 BuildRequires:	xsimd-devel
 BuildRequires:	abseil-cpp-devel
 BuildRequires:	c-ares-devel
@@ -865,6 +866,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Tue Jul 25 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 12.0.1-6
+- rebuild with Cython 3
+
 * Mon Jul 24 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 12.0.1-5
 - for some reason the rebuild did not use Cython 3, despite the lack of a
   BR selecting 0.29 or 3.0. Which was fortuitous because it fails to build

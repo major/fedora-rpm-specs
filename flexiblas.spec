@@ -20,14 +20,14 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # GPLv3+ with an exception for the BLAS/LAPACK interface
 # https://www.gnu.org/licenses/gpl-faq.en.html#LinkingOverControlledInterface
 # libcscutils/ is LGPLv2+
 # contributed/ and test/ are BSD (Open MPI variant)
-License:        GPL-3.0-or-later WITH GPL-3.0-interface-exception and LGPL-2.0-or-later and BSD-3-Clause-Open-MPI
+License:        GPL-3.0-or-later WITH GPL-3.0-interface-exception AND LGPL-2.0-or-later AND BSD-3-Clause-Open-MPI
 URL:            https://www.mpi-magdeburg.mpg.de/projects/%{name}
 Source0:        https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -84,6 +84,7 @@ This package contains the development headers and libraries.
 
 %if %{with atlas}
 %package        atlas
+Supplements:    (atlas and %{name})
 Summary:        FlexiBLAS wrappers for ATLAS
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib%{?_isa} = %{version}-%{release}
@@ -94,6 +95,7 @@ This package contains FlexiBLAS wrappers for the ATLAS project.
 
 %if %{with blis}
 %package        blis-serial
+Supplements:    (blis-serial and %{name})
 Summary:        FlexiBLAS wrappers for BLIS
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib%{?_isa} = %{version}-%{release}
@@ -103,6 +105,7 @@ This package contains FlexiBLAS wrappers for the sequential library compiled
 with a 32-integer interface.
 
 %package        blis-openmp
+Supplements:    (blis-openmp and %{name})
 Summary:        FlexiBLAS wrappers for BLIS
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib%{?_isa} = %{version}-%{release}
@@ -112,6 +115,7 @@ This package contains FlexiBLAS wrappers for the library compiled with
 OpenMP support with a 32-integer interface.
 
 %package        blis-threads
+Supplements:    (blis-threads and %{name})
 Summary:        FlexiBLAS wrappers for BLIS
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib%{?_isa} = %{version}-%{release}
@@ -123,6 +127,7 @@ threading support with a 32-integer interface.
 
 %if %{with openblas}
 %package        openblas-serial
+Supplements:    (openblas-serial and %{name})
 Summary:        FlexiBLAS wrappers for OpenBLAS
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib%{?_isa} = %{version}-%{release}
@@ -132,6 +137,7 @@ This package contains FlexiBLAS wrappers for the sequential library compiled
 with a 32-integer interface.
 
 %package        openblas-openmp
+Supplements:    (openblas-openmp and %{name})
 Summary:        FlexiBLAS wrappers for OpenBLAS
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib%{?_isa} = %{version}-%{release}
@@ -141,6 +147,7 @@ This package contains FlexiBLAS wrappers for the library compiled with
 OpenMP support with a 32-integer interface.
 
 %package        openblas-threads
+Supplements:    (openblas-threads and %{name})
 Summary:        FlexiBLAS wrappers for OpenBLAS
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib%{?_isa} = %{version}-%{release}
@@ -169,6 +176,7 @@ This package contains a plugin that enables profiling support.
 
 %if %{with blis}
 %package        blis-serial64
+Supplements:    (blis-serial64 and %{name})
 Summary:        FlexiBLAS wrappers for BLIS (64-bit)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib64%{?_isa} = %{version}-%{release}
@@ -178,6 +186,7 @@ This package contains FlexiBLAS wrappers for the sequential library compiled
 with a 64-integer interface.
 
 %package        blis-openmp64
+Supplements:    (blis-openmp64 and %{name})
 Summary:        FlexiBLAS wrappers for BLIS (64-bit)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib64%{?_isa} = %{version}-%{release}
@@ -187,6 +196,7 @@ This package contains FlexiBLAS wrappers for the library compiled with
 OpenMP support with a 64-integer interface.
 
 %package        blis-threads64
+Supplements:    (blis-threads64 and %{name})
 Summary:        FlexiBLAS wrappers for BLIS (64-bit)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib64%{?_isa} = %{version}-%{release}
@@ -198,6 +208,7 @@ threading support with a 64-integer interface.
 
 %if %{with openblas}
 %package        openblas-serial64
+Supplements:    (openblas-serial64 and %{name})
 Summary:        FlexiBLAS wrappers for OpenBLAS (64-bit)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib64%{?_isa} = %{version}-%{release}
@@ -207,6 +218,7 @@ This package contains FlexiBLAS wrappers for the sequential library compiled
 with a 64-integer interface.
 
 %package        openblas-openmp64
+Supplements:    (openblas-openmp64 and %{name})
 Summary:        FlexiBLAS wrappers for OpenBLAS (64-bit)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib64%{?_isa} = %{version}-%{release}
@@ -216,6 +228,7 @@ This package contains FlexiBLAS wrappers for the library compiled with
 OpenMP support with a 64-integer interface.
 
 %package        openblas-threads64
+Supplements:    (openblas-threads64 and %{name})
 Summary:        FlexiBLAS wrappers for OpenBLAS (64-bit)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-netlib64%{?_isa} = %{version}-%{release}
@@ -425,6 +438,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Tue Jul 25 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.1-5
+- Add Supplements to help pull wrappers if libraries are installed directly
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

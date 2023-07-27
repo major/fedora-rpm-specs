@@ -2,8 +2,8 @@
 %bcond_with test_fuse
 
 Name:           perl-Config-Model
-Version:        2.152
-Release:        3%{?dist}
+Version:        2.153
+Release:        1%{?dist}
 Summary:        Framework to create configuration validation tools and editors
 License:        LGPL-2.1-or-later
 
@@ -69,6 +69,7 @@ BuildRequires:  perl(Test::Log::Log4perl)
 BuildRequires:  perl(Test::Memory::Cycle)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
+BuildRequires:  perl(Test::Synopsis::Expectation)
 BuildRequires:  perl(Test::Warn) >= 0.11
 BuildRequires:  perl(Text::Levenshtein::Damerau)
 BuildRequires:  perl(Text::Wrap)
@@ -126,6 +127,9 @@ modprobe fuse
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.153-1
+- 2.153 bump (rhbz#2224540)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.152-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

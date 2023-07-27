@@ -13,7 +13,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.27.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -57,7 +57,11 @@ BuildRequires: libappstream-glib
 BuildRequires: gettext
 BuildRequires: libxml2-devel
 BuildRequires: pkgconfig(libmarkdown)
+
+%if 0%{?fedora}
 BuildRequires: rpm-ostree-devel
+%endif
+
 %if 0%{?fwupd}
 BuildRequires: pkgconfig(fwupd)
 %endif
@@ -201,13 +205,15 @@ Requires: %{name} = %{version}-%{release}
 Enable Offline Updates feature by default
 in %{name}.
 
+%if 0%{?fedora}
+# Only used for Fedora Kinoite
 %package rpm-ostree
 Summary: Plasma Discover backend for rpm-ostree support
 Requires: %{name} = %{version}-%{release}
 Supplements: ((%{name} and rpm-ostree) unless dnf)
 %description rpm-ostree
-Plasma Discover backend for rpm-ostree support
-in %{name}.
+Plasma Discover backend for rpm-ostree support in %{name}.
+%endif
 
 
 %prep
@@ -216,7 +222,9 @@ in %{name}.
 
 %build
 %cmake_kf5 \
+%if 0%{?fedora}
   -DBUILD_RpmOstreeBackend:BOOL=ON
+%endif
 
 %cmake_build
 
@@ -282,7 +290,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 %{_kf5_qtplugindir}/discover/kns-backend.so
 %dir %{_datadir}/libdiscover
 %dir %{_datadir}/libdiscover/categories
-%{_datadir}/libdiscover/categories/rpm-ostree-backend-categories.xml
 %{_qt5_plugindir}/plasma/kcms/systemsettings/kcm_updates.so
 
 %files packagekit
@@ -314,12 +321,19 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 %files offline-updates
 %{_kf5_sysconfdir}/xdg/discoverrc
 
+%if 0%{?fedora}
 %files rpm-ostree
+%{_datadir}/libdiscover/categories/rpm-ostree-backend-categories.xml
 %{_kf5_qtplugindir}/discover/rpm-ostree-backend.so
 %{_kf5_qtplugindir}/discover-notifier/rpm-ostree-notifier.so
+%endif
 
 
 %changelog
+* Mon Jul 24 2023 Timothée Ravier <tim@siosm.fr> - 5.27.6-3
+- Enable the rpm-ostree backend only on Fedora (used in Fedora Kinoite).
+  Move the "Operating System" category definition to the rpm-ostree backend.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

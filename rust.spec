@@ -84,7 +84,7 @@
 
 Name:           rust
 Version:        1.71.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -117,6 +117,14 @@ Patch4:         0001-Revert-Fix-x-test-lint-docs-when-download-rustc-is-e.patch
 # Restore the bash completion path
 # https://github.com/rust-lang/rust/pull/110906#issuecomment-1629832675
 Patch5:         0001-Revert-fix-bug-etc-bash_complettion-src-etc-.-to-avo.patch
+
+# (c9s) rhbz2225471: relax the suspicious_double_ref_op lint
+# https://github.com/rust-lang/rust/pull/112517
+Patch6:         0001-Rollup-merge-of-112517-fee1-dead-contrib-sus-op-no-b.patch
+
+# Enable the profiler runtime for native hosts
+# https://github.com/rust-lang/rust/pull/114069
+Patch7:         0001-Allow-using-external-builds-of-the-compiler-rt-profi.patch
 
 ### RHEL-specific patches below ###
 
@@ -330,6 +338,9 @@ BuildRequires:  lld
 find '%{buildroot}%{rustlibdir}'/wasm*/lib -type f -regex '.*\\.\\(a\\|rlib\\)' -print -exec '%{llvm_root}/bin/llvm-ranlib' '{}' ';' \
 %{nil}
 %endif
+
+# For profiler_builtins
+BuildRequires:  compiler-rt
 
 # This component was removed as of Rust 1.69.0.
 # https://github.com/rust-lang/rust/pull/101841
@@ -589,6 +600,8 @@ test -f '%{local_rust_root}/bin/rustc'
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -744,6 +757,10 @@ end}
 end}
 %endif
 
+# The exact profiler path is version dependent, and uses LLVM-specific
+# arch names in the filename, but this find is good enough for now...
+PROFILER=$(find %{_libdir}/clang -type f -name 'libclang_rt.profile-*.a')
+
 %configure --disable-option-checking \
   --libdir=%{common_libdir} \
   --build=%{rust_triple} --host=%{rust_triple} --target=%{rust_triple} \
@@ -752,6 +769,7 @@ end}
   --set target.%{rust_triple}.cxx=%{__cxx} \
   --set target.%{rust_triple}.ar=%{__ar} \
   --set target.%{rust_triple}.ranlib=%{__ranlib} \
+  ${PROFILER:+--set target.%{rust_triple}.profiler="$PROFILER"} \
   %{?mingw_target_config} \
   %{?wasm_target_config} \
   --python=%{__python3} \
@@ -1063,6 +1081,10 @@ end}
 
 
 %changelog
+* Tue Jul 25 2023 Josh Stone <jistone@redhat.com> - 1.71.0-3
+- Relax the suspicious_double_ref_op lint
+- Enable the profiler runtime for native hosts
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.71.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

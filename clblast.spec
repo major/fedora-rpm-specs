@@ -14,8 +14,8 @@
 # at all at this point.  Try again when pocl 4.0 is released.
 
 Name:           clblast
-Version:        1.6.0
-Release:        2%{?dist}
+Version:        1.6.1
+Release:        %autorelease
 Summary:        Tuned OpenCL BLAS routines
 
 License:        Apache-2.0
@@ -104,67 +104,4 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 %{_bindir}/clblast*
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jun 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-1
-- Version 1.6.0
-- Disable tests due to problems with pocl
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Nov 21 2022 Tom Rix <trix@redhat.com> - 1.5.3-2
-- Prepare for building on epel
-
-* Thu Sep 29 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-1
-- Version 1.5.3
-- Drop upstreamed -reference patch
-- Run tests on all arches
-
-* Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 1.5.2-5
-- Convert License field to SPDX
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jan 20 2021 Jerry James <loganjerry@gmail.com> - 1.5.2-1
-- Version 1.5.2
-- Add -reference patch to reduce copying
-
-* Fri Aug 07 2020 Iñaki Úcar <iucar@fedoraproject.org> - 1.5.1-4
-- https://fedoraproject.org/wiki/Changes/FlexiBLAS_as_BLAS/LAPACK_manager
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Feb 18 2020 Jerry James <loganjerry@gmail.com> - 1.5.1-1
-- Version 1.5.1
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Dec 15 2018 Jerry James <loganjerry@gmail.com> - 1.5.0-1
-- New upstream version
-
-* Sat Sep  1 2018 Jerry James <loganjerry@gmail.com> - 1.4.1-1
-- Initial RPM
+%autochangelog

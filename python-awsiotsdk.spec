@@ -3,7 +3,7 @@
 %global         srcname     awsiotsdk
 
 Name:           python-%{srcname}
-Version:        1.15.4
+Version:        1.16.0
 Release:        %autorelease
 Summary:        AWS IoT SDK based on the AWS Common Runtime
 
@@ -42,6 +42,8 @@ Summary:        %{summary}
 
 # Add license file.
 cp %SOURCE1 .
+
+sed 's/awscrt==0.16.23/awscrt>=0.16.21/' -i setup.py
 
 
 %generate_buildrequires

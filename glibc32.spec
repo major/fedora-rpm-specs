@@ -5,13 +5,13 @@
 %define original_dist .fc36
 # Increase build_number in each new build.
 # When original version and/or release changes, set it back to 1.
-%global build_number 2
+%global baserelease 3
 
 %define debug_package %{nil}
 Summary: The GNU libc libraries (32-bit)
 Name: %{original_name}32
 Version: %{original_version}
-Release: %{original_release}.%{build_number}%{?dist}
+Release: %{original_release}.%{baserelease}%{?dist}
 License: LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL
 Group: System Environment/Libraries
 Source: %{name}-%{original_version}-%{original_release}%{?original_dist}.tar.bz2
@@ -68,6 +68,9 @@ rm -rf "$RPM_BUILD_ROOT"
 /usr/include/*
 
 %changelog
+* Tue Jul 25 2023 Florian Weimer <fweimer@redhat.com> - 2.34.9000-36.3
+- Switch to %%baserelease for rpmdev-bumpspec support
+
 * Fri Jan  7 2022 Florian Weimer <fweimer@redhat.com> - 2.34.9000-36.2
 - Do not ship RPM dependency generators
 

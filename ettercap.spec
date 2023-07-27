@@ -2,7 +2,7 @@
 %define _hardened_build 1
 Name: ettercap
 Version: 0.8.3.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Network traffic sniffer/analyser, NCURSES interface version
 License: GPL-2.0-or-later
 URL: http://ettercap.sourceforge.net
@@ -15,6 +15,7 @@ Patch1: ettercap-0.8.1-radius-stack-overflow.patch
 Patch2: harfbuzz.patch
 Patch3: 2168090f5b023573ebea0f83574950401ed5d67b.patch
 Patch4: 1170.patch
+Patch5: 40534662043b7d831d1f6c70448afa9d374a9b63.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: ImageMagick
@@ -56,10 +57,11 @@ analysis.
 %prep
 %setup -q
 
-%patch1 -p1
-%patch2 -p0
-%patch3 -p1
-%patch4 -p1
+%patch -P 1 -p1
+%patch -P 2 -p0
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
 
 %build
 mkdir build
@@ -119,6 +121,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/ettercap.metainfo.xml
 
 %changelog
+* Tue Jul 25 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3.1-12
+- Upstream patch for curl 8+
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

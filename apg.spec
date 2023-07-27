@@ -6,6 +6,7 @@ Release:		44%{?dist}
 License:		BSD-3-Clause
 URL:			http://www.adel.nursat.kz/%{name}/
 
+# Unpacked tarball, fixed permissions (chmod 755 all dirs) and reuploaded
 Source0:		http://www.adel.nursat.kz/%{name}/download/%{name}-%{version}.tar.gz
 Source1:		apg.socket
 Source2:		apg@.service
@@ -27,8 +28,9 @@ required type and prints them to standard output.
 
 %prep
 %setup -q
-%patch0 -p1 -b .gen_rand_pass
-%patch1 -p1
+
+%patch -P 0 -p1 -b .gen_rand_pass
+%patch -P 1 -p1
 
 %build
 # Build server
@@ -38,7 +40,6 @@ make CFLAGS="$RPM_OPT_FLAGS" FLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags} cliserv
 make CFLAGS="$RPM_OPT_FLAGS" FLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags} standalone
 
 %install
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 install -D apg %{buildroot}%{_bindir}/apg
 install -D apgbfm %{buildroot}%{_bindir}/apgbfm
 install -D apgd %{buildroot}%{_sbindir}/apgd

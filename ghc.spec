@@ -93,7 +93,7 @@ Version: 9.2.6
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 132%{?dist}
+Release: 133%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause and HaskellReport
@@ -462,7 +462,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 
 # remove s390x after complete switching to llvm
-%ifarch %{ghc_unregisterized_arches} s390x
+%ifarch %{ghc_unregisterized_arches}
 %patch -P15 -p1 -b .orig
 %patch -P16 -p1 -b .orig
 %endif
@@ -575,9 +575,9 @@ cd hadrian
 %ifarch %{ghc_llvm_archs}
 %global hadrian_llvm +llvm
 %endif
-%define hadrian_docs %{!?with_haddock:--docs=no-haddocks} %{!?with_manual:--docs=no-sphinx}%{?with_manual:--docs=no-sphinx-pdfs}
+%define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
 # quickest does not build shared libs
-%{hadrian} %{?_smp_mflags} --flavour=%{!?with_prodbuild:quick+no_profiled_libs}%{?with_prodbuild:perf%{!?with_ghc_prof:+no_profiled_libs}}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir
+%{hadrian} %{?_smp_mflags} --flavour=%[%{?with_prodbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir
 %else
 make %{?_smp_mflags}
 %endif
@@ -634,6 +634,8 @@ echo "%%license libraries/$name/LICENSE" >> %{name}-$name.files
 done
 
 echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
+echo "%%dir %{ghcliblib}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
+echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 
 %ghc_gen_filelists ghc %{ghc_version_override}
 %ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
@@ -921,7 +923,6 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %{ghclibdir}/bin/runhaskell
 %{ghclibdir}/bin/runhaskell-%{version}
 %{ghclibdir}/bin/unlit-ghc-%{version}
-%dir %{ghcliblib}
 %dir %{ghcliblib}/bin
 %{ghcliblib}/bin/ghc-iserv
 %{ghcliblib}/bin/ghc-iserv-dyn
@@ -930,7 +931,6 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %{ghcliblib}/ghcautoconf.h
 %{ghcliblib}/ghcplatform.h
 %{ghcliblib}/ghcversion.h
-%dir %ghclibplatform
 %endif
 %{ghcliblib}/ghc-usage.txt
 %{ghcliblib}/ghci-usage.txt
@@ -1014,8 +1014,14 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Tue Jul 25 2023 Jens Petersen <petersen@redhat.com> - 9.2.6-133
+- base subpkg now owns ghcliblib and ghclibplatform dirs (#2185357)
+- s390x: no longer apply unregisterized patches
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.6-132
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+- fix sphinx flags.py: python 3.12 dropped distutils (petersen)
+- fix BSD3 SPDX tags (petersen)
 
 * Thu May 25 2023 Jens Petersen <petersen@redhat.com> - 9.2.6-131
 - include backport of 9.4 m32_allocator_init changes by Sylvain Henry (#2209162)

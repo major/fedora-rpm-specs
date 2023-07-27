@@ -30,10 +30,10 @@ Patch0: standalone.patch
 
 BuildRequires:	clang llvm-devel llvm-cmake-utils cmake ninja-build
 # We need python3-devel for %%py3_shebang_fix
-BuildRequires:  python3-devel
+BuildRequires:	python3-devel
 
 # For documentation
-BuildRequires:  python3-sphinx
+BuildRequires:	python3-sphinx
 
 # For origin certification
 BuildRequires:	gnupg2
@@ -167,7 +167,7 @@ export ASMFLAGS=$CFLAGS
 # https://src.fedoraproject.org/rpms/libunwind
 #
 # The versionned path has a different soname (libunwind.so.1 compared to
-# libunwind.so.8) so they can live together in %{_libdir}
+# libunwind.so.8) so they can live together in %%{_libdir}
 #
 # ABI wise, even though llvm-libunwind's library is named libunwind, it doesn't
 # have the exact same ABI as gcc's libunwind (it actually provides a subset).

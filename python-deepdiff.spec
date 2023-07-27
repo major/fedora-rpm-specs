@@ -10,6 +10,9 @@ License:        MIT
 URL:            https://github.com/seperman/deepdiff/
 Source:         %{url}/archive/%{version}/%{name}-v%{version}.tar.gz
 
+# Allow pyyaml 6.0.1
+Patch:          https://github.com/seperman/deepdiff/pull/406.patch
+
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
@@ -18,9 +21,10 @@ BuildRequires:  python3-devel
 # Cherry picked test reqs from requirements-dev.txt
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(numpy)
-BuildRequires:  python3dist(toml)
+BuildRequires:  python3dist(tomli-w)
 BuildRequires:  python3dist(python-dateutil)
 BuildRequires:  python3dist(jsonpickle)
+BuildRequires:  python3dist(pydantic)
 
 # For docs
 %if %{with docs}

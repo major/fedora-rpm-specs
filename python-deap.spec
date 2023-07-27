@@ -3,7 +3,7 @@
 %bcond_without docs
 
 Name:           python-deap
-Version:        1.3.3
+Version:        1.4.1
 
 Release:        %autorelease
 Summary:        Distributed Evolutionary Algorithms in Python
@@ -14,6 +14,7 @@ Source:         https://github.com/deap/deap/archive/%{version}/deap-%{version}.
 
 Patch:          0001-Use-float-instead-of-np.float.patch
 Patch:          0002-setup-fix-git-invocation-for-exlinks-add-override.patch
+Patch:          0001-Fix-use-of-unknown-escape-seqeuences.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -87,14 +88,13 @@ rm -rf build/html/.{doctrees,buildinfo}
 %py3_install
 
 %check
-%ifarch s390x
-# Fails with: AssertionError: CMA algorithm did not converged properly.
-%global test_options -k 'not test_cma'
-%endif
+OPTIONS=(
+  # Fails with: AssertionError: CMA algorithm did not converged properly.
+  --deselect=tests/test_algorithms.py::test_cma
+)
 
-PYTHONPATH=%{buildroot}%{python3_sitearch} pytest -v \
-  %{buildroot}%{python3_sitearch}/deap/tests \
-  %{?test_options}
+%pytest tests/
+PYTHONPATH=%{buildroot}%{python3_sitearch} pytest -v "${OPTIONS[@]}"
 
 %files -n python3-deap
 %license LICENSE.txt

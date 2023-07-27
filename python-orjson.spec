@@ -6,24 +6,24 @@
 # Specfile compatability: EPEL >= 9 or Fedora >= 37 and RPM >= 4.16
 
 %bcond tests 1
-%bcond maturin %[ 0%{?fedora} >= 39 ]
 
 Name:           python-orjson
-Version:        3.8.12
-Release:        3%{?dist}
+Version:        3.9.2
+Release:        2%{?dist}
 Summary:        Fast, correct Python JSON library
 
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/ijl/orjson
 Source:         %{pypi_source orjson}
+
+# Compatibility with Python 3.12
+Patch:          https://github.com/ijl/orjson/pull/408.patch
+
 # Ineligble for upstreaming
 Patch:          Remove-unstable-simd-feature.patch
 
-# Ineligble for upstreaming
-# Used when maturin bcond is disabled
-Patch5000:      Use-setuptools-rust-instead-of-maturin.patch
-
 BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist pytest-forked}
 BuildRequires:  rust-packaging
 
 
@@ -36,42 +36,28 @@ datetimes, and numpy}
 
 %package -n     python3-orjson
 Summary:        %{summary}
-# Apache-2.0 OR MIT: orjson itself
-# (Apache-2.0 OR MIT) AND BSD-3-Clause: encoding_rs v0.8.32
-# Apache-2.0 OR BSL-1.0: ryu v1.0.13
-# Apache-2.0 OR MIT: bytecount v0.6.3
-# Apache-2.0 OR MIT: orjson v3.8.12
-# Apache-2.0: pyo3-ffi v0.18.3
-# MIT OR Apache-2.0: ahash v0.8.3
-# MIT OR Apache-2.0: arrayvec v0.7.2
-# MIT OR Apache-2.0: associative-cache v1.0.1
-# MIT OR Apache-2.0: beef v0.5.2
-# MIT OR Apache-2.0: cfg-if v1.0.0
-# MIT OR Apache-2.0: chrono v0.4.24
-# MIT OR Apache-2.0: itoa v1.0.6
-# MIT OR Apache-2.0: libc v0.2.144
-# MIT OR Apache-2.0: num-integer v0.1.45
-# MIT OR Apache-2.0: num-traits v0.2.15
-# MIT OR Apache-2.0: once_cell v1.17.1
-# MIT OR Apache-2.0: serde v1.0.162
-# MIT OR Apache-2.0: serde_json v1.0.96
-# MIT OR Apache-2.0: simdutf8 v0.1.4
-# MIT OR Apache-2.0: smallvec v1.10.0
-# MIT OR Apache-2.0: static_assertions v1.1.0
-# MIT: castaway v0.2.2
-# MIT: compact_str v0.7.0
-# MIT: itoap v1.0.1
-License:        (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSL-1.0) AND BSD-3-Clause AND Apache-2.0
+# (Apache-2.0 OR MIT) AND BSD-3-Clause
+# Apache-2.0
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# MIT
+License:        %{shrink:
+                (Apache-2.0 OR MIT) AND
+                BSD-3-Clause AND
+                Apache-2.0 AND
+                (Apache-2.0 OR BSL-1.0) AND
+                MIT
+                }
 
 
 %description -n python3-orjson %{_description}
 
 
 %prep
-%autosetup -p1 -n orjson-%{version} -N
-%autopatch -M 4999
-%{!?with_maturin:%autopatch -m5000 -M5000 -p1}
+%autosetup -p1 -n orjson-%{version}
 
+# Remove bundled rust crates
+rm -r include/cargo .cargo/config.toml
 # Remove bundled yyjson.
 rm -rv include/yyjson/
 
@@ -98,7 +84,8 @@ export RUSTFLAGS='%{build_rustflags}'
 %check
 %pyproject_check_import
 %if %{with tests}
-%pytest -vv
+# --forked: protect the pytest process against test segfaults
+%pytest --forked
 %endif
 
 
@@ -108,6 +95,16 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %changelog
+* Tue Jul 25 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.2-2
+- Backport patch to add PyType_GetDict for Python 3.12
+- Fixes: rhbz#2220383
+
+* Fri Jul 21 2023 Maxwell G <maxwell@gtmx.me> - 3.9.2-1
+- Update to 3.9.2. Fixes rhbz#2211703.
+
+* Fri Jul 21 2023 Maxwell G <maxwell@gtmx.me> - 3.8.14-1
+- Update to 3.8.14.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

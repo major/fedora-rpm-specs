@@ -4,14 +4,17 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.32
-Release: 5%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
 Source1: %{name}.tmpfiles
 Source2: %{name}.sysusers
-# git format-patch -N 3.3.30
+# git format-patch -N 3.3.32
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
+Patch0001: 0001-imp-module-is-deprecated-in-favor-of-importlib.patch
+Patch0002: 0002-Always-reset-pending-alarms-when-alarm-0.patch
+Patch0003: 0003-gitlab-ci-use-apt-get-to-install-python3-dbus-packag.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
@@ -191,6 +194,12 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Tue Jul 25 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.3.32-7
+- Always reset pending alarms when alarm(0) (rhbz#2112573)
+
+* Tue Jul 25 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.3.32-6
+- 'imp' module is deprecated in favor of 'importlib' (rhbz#2224393)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.32-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

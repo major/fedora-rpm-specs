@@ -1,8 +1,8 @@
 %global gem_name puppet-resource_api
 
 Name: rubygem-%{gem_name}
-Version: 1.8.14
-Release: 7%{?dist}
+Version: 1.8.18
+Release: 1%{?dist}
 Summary: This library provides a simple way to write new native resources for puppet
 License: Apache-2.0
 URL: https://github.com/puppetlabs/puppet-resource_api
@@ -48,12 +48,6 @@ rm -rf %{buildroot}%{gem_instdir}/{.gitignore,.rubocop.yml,.travis.yml,appveyor.
 %license %{gem_instdir}/LICENSE
 %license %{gem_instdir}/NOTICE
 %dir %{gem_instdir}
-%exclude %{gem_instdir}/.dependency_decisions.yml
-%exclude %{gem_instdir}/.github
-%exclude %{gem_instdir}/CODEOWNERS
-%exclude %{gem_instdir}/HISTORY.md
-%exclude %{gem_instdir}/bin
-%exclude %{gem_instdir}/contrib
 %{gem_libdir}
 %{gem_spec}
 %exclude %{gem_cache}
@@ -64,13 +58,12 @@ rm -rf %{buildroot}%{gem_instdir}/{.gitignore,.rubocop.yml,.travis.yml,appveyor.
 %doc %{gem_instdir}/CONTRIBUTING.md
 %doc %{gem_instdir}/README.md
 %doc %{gem_instdir}/docs
-%{gem_instdir}/.fixtures.yml
-%{gem_instdir}/Gemfile
-%{gem_instdir}/Rakefile
 %{gem_instdir}/puppet-resource_api.gemspec
-%exclude %{gem_instdir}/.rspec
 
 %changelog
+* Tue Jul 25 2023 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 1.8.18-1
+- Update to 1.8.18 (fixes rhbz#2224646)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

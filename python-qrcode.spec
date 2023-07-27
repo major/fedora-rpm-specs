@@ -17,6 +17,9 @@ BuildRequires:  python3-pytest
 Patch0:         qrcode_test.patch
 # Fix failure with Python3.12
 Patch1:         qrcode_assert-has-calls.patch
+# Make pypng requirement optional
+# https://github.com/lincolnloop/python-qrcode/pull/338
+Patch2:         qrcode-optional-pypng.patch
 
 %description
 This module uses the Python Imaging Library (PIL) to allow for the\
@@ -35,7 +38,7 @@ generation of QR Codes. Python 3 version.
 
 %generate_buildrequires
 # RHEL does not include the extra test dependencies (coverage, pillow)
-%pyproject_buildrequires %{?!rhel:-x test -x pil}
+%pyproject_buildrequires %{?!rhel:-x test -x pil -x png}
 
 
 %prep
@@ -62,7 +65,7 @@ ln -s qr %{buildroot}%{_bindir}/qrcode
 
 
 %check
-%pytest
+%pytest -v
 
 
 %files -n python3-%{pkgname} -f %{pyproject_files}

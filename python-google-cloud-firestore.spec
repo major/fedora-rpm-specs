@@ -78,7 +78,7 @@ rm -f %{buildroot}%{_bindir}/fixup*.py
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
 PYTHONUSERBASE=%{buildroot}%{_prefix} \
-    %pytest tests/unit -k "not test_update_testprotos"
+    %pytest tests/unit -k "not test_update_testprotos and not test_delete_testprotos and not test_listen_testprotos"
 %endif
 
 

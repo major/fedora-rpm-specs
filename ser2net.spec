@@ -10,6 +10,7 @@ Summary:        Proxy that allows TCP/UDP to serial port connections
 License:        GPL-2.0-only
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Source1:        %{name}.sysusers
 
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
@@ -25,6 +26,7 @@ BuildRequires:  pkgconfig(pam)
 %endif
 BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 %description
 ser2net provides a way for a user to connect from a network connection to a 
@@ -45,8 +47,12 @@ autoreconf -f -i
 
 %install
 %make_install
-install -Dm0644 %{name}.yaml %{buildroot}%{_sysconfdir}/%{name}/%{name}.yaml
-install -Dm0644 %{name}.service  %{buildroot}%{_unitdir}/%{name}.service
+install -Dpm0644 %{name}.yaml %{buildroot}%{_sysconfdir}/%{name}/%{name}.yaml
+install -Dpm0644 %{name}.service  %{buildroot}%{_unitdir}/%{name}.service
+install -Dpm0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
+
+%pre
+%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_post %{name}.service
@@ -65,6 +71,7 @@ install -Dm0644 %{name}.service  %{buildroot}%{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.yaml
 %{_unitdir}/%{name}.service
 %{_sbindir}/%{name}
+%{_sysusersdir}/%{name}.conf
 %{_mandir}/man5/%{name}.yaml.5.gz
 %{_mandir}/man8/%{name}.8.gz
 

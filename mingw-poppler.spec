@@ -22,7 +22,7 @@ BuildRequires: perl(File::Temp)
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-boost
-BuildRequires: mingw32-gcc
+BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-libjpeg-turbo
 BuildRequires: mingw32-libtiff
 BuildRequires: mingw32-openjpeg2
@@ -35,7 +35,7 @@ BuildRequires: mingw32-qt6-qtbase
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-boost
-BuildRequires: mingw64-gcc
+BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-libjpeg-turbo
 BuildRequires: mingw64-libtiff
 BuildRequires: mingw64-openjpeg2

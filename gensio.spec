@@ -55,6 +55,9 @@ Note that the gensio(5) man page has more details on individual gensio types.
 
 %package     -n libgensio
 Summary:        Dynamic gensio Libraries
+# Required as it installs and owns /run/lock/lockdev folder used for
+# UUCP locking
+Requires:       lockdev
 
 %description -n libgensio
 The %{name} package contains libraries for applications that use %{name}.
@@ -114,7 +117,11 @@ The %{name}-python package contains Python bindings for %{name}.
 %build
 autoreconf -f -i
 # Go bindings are available from https://github.com/cminyard/go, not building them here
-%configure --enable-static=no --with-go=no --with-pythoninstall=%{python3_sitearch}
+%configure \
+  --enable-static=no \
+  --with-go=no \
+  --with-pythoninstall=%{python3_sitearch} \
+  --with-uucp-locking=%{_rundir}/lock/lockdev
 # Fix linker bloat
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 

@@ -1,14 +1,13 @@
 %{?python_enable_dependency_generator}
 
 Name:           pungi
-Version:        4.4.0
-Release:        4%{?dist}
+Version:        4.4.1
+Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
-Patch0:         https://pagure.io/pungi/pull-request/1690.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -139,6 +138,12 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Tue Jul 25 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.4.1-1
+- ostree: Add configuration for custom runroot packages (lsedlar)
+- pkgset: Emit better error for missing modulemd file (lsedlar)
+- Add support for git-credential-helper (lsedlar)
+- Support OIDC Client Credentials authentication to CTS (hlin)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

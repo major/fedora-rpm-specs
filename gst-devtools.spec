@@ -1,13 +1,15 @@
 %global apiver 1.0
 
 Name:           gst-devtools
-Version:        1.19.2
-Release:        5%{?dist}
+Version:        1.22.5
+Release:        1%{?dist}
 Summary:        Development and debugging tools for GStreamer
 
 License:        LGPL-2.0-or-later
-URL:            https://github.com/GStreamer/gst-devtools
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://gstreamer.freedesktop.org/src/gst-devtools
+# git clone --depth 1 --branch %%{version} https://gitlab.freedesktop.org/gstreamer/gstreamer.git
+# cd gstreamer/subprojects ; tar -czf gst-devtools.tar.gz gst-devtools
+Source0:        %{name}.tar.gz
 
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gobject-2.0)
@@ -18,6 +20,7 @@ BuildRequires:  gobject-introspection-devel
 BuildRequires:  json-glib-devel
 BuildRequires:  gtk-doc
 BuildRequires:  python3-devel
+BuildRequires:  cairo-devel
 
 %description
 %{summary}.
@@ -31,7 +34,7 @@ Requires:       gstreamer1-devel%{?_isa}
 %{summary}.
 
 %prep
-%autosetup
+%autosetup -n %{name}
 
 %build
 %meson -D doc=disabled
@@ -66,12 +69,15 @@ sed -i "s/env\ //g" %{buildroot}%{_bindir}/gst-validate-launcher
 %files devel
 %{_includedir}/gstreamer-1.0/gst/validate/
 %{_libdir}/libgstvalidate-%{apiver}.so
-%{_libdir}/pkgconfig/gst-validate-%{apiver}.pc
+%{_libdir}/pkgconfig/gstreamer-validate-%{apiver}.pc
 %dir %{_datadir}/gir-1.0/
 %{_datadir}/gir-1.0/GstValidate-%{apiver}.gir
 %{_libdir}/libgstvalidate-default-overrides-1.0.so
 
 %changelog
+* Tue Jul 25 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.5-1
+- 1.22.5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

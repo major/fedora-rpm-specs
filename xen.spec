@@ -328,7 +328,7 @@ manage Xen virtual machines.
 %patch 47 -p1
 %patch 48 -p1
 %patch 49 -p1
-%if "%dist" >= ".fc39"
+%if "%dist" != ".fc38"
 %patch 50 -p1
 %endif
 %patch 51 -p1
@@ -939,6 +939,9 @@ fi
 %endif
 
 %changelog
+* Tue Jul 25 2023 Michael Young <m.a.young@durham.ac.uk>
+- adjust OCaml patch condition so eln builds work
+
 * Mon Jul 24 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-7
 - x86/AMD: Zenbleed [XSA-433]
 - omit OCaml 5 patch on fc38

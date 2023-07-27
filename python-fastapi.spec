@@ -13,9 +13,7 @@
 %global sum_tr  FastAPI framework
 %global sum_zh  FastAPI 框架
 
-# F39FailsToInstall: python3-orjson
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220383
-%bcond orjson 0
+%bcond orjson 1
 # F39FailsToInstall: python3-uvicorn+standard, python3-uvicorn
 # https://bugzilla.redhat.com/show_bug.cgi?id=2220550
 %bcond uvicorn 0

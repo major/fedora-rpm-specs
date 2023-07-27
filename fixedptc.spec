@@ -2,8 +2,8 @@ Name:                  fixedptc
 Version:               0
 
 %global forgeurl       https://sourceforge.net/projects/%{name}/
-%global date           20200228
-%global commit         b8acfecf8c010b0c003bbd04df62f89afbca1e20
+%global date           20200303
+%global commit         57887bd8c046c0c0394c22adc806d67bd5a71eaa
 %global scm            hg
 %global archiveext     zip
 %global archivename    %{name}-code
@@ -12,7 +12,7 @@ Version:               0
 
 %forgemeta
 
-Release:               13%{?dist}
+Release:               14%{?dist}
 Summary:               Fixed point math header only library for C
 License:               BSD
 Url:                   %{forgeurl}
@@ -43,16 +43,9 @@ Features:
 %prep
 %forgesetup
 
-# Generate a license text file
-# Upstream reference:
-#   https://sourceforge.net/p/fixedptc/code/merge-requests/2/
-awk '/^\/\*-/ {dump=1; next} \
-     / \*\//  {if (dump==1) exit 0} \
-     {if (dump) {gsub(/^ \* ?/, ""); print}}' \
-     fixedptc.h >LICENSE
-
 %build
 %set_build_flags
+export CFLAGS="${CFLAGS} -fPIE"
 %{make_build} test verify_32
 # This test requires 64-bit platform, so make it optional
 %{make_build} test verify_64 || true
@@ -76,6 +69,10 @@ install -p -m 0644 -D %{name}.h %{buildroot}%{_includedir}/%{name}/%{name}.h
 
 
 %changelog
+* Tue Jul 25 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0-14
+- Update to latest version
+- Add -fPIE, fixes linking in F39
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

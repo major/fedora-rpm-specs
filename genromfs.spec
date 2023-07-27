@@ -1,7 +1,7 @@
 Summary: Utility for creating romfs file systems
 Name: genromfs
 Version: 0.5.2
-Release: 30%{?dist}
+Release: 31%{?dist}
 License: GPLv2+
 URL: http://romfs.sourceforge.net/
 Source: http://downloads.sourceforge.net/romfs/%{name}-%{version}.tar.gz
@@ -19,8 +19,7 @@ used during installation.
 Install genromfs if you need to create romfs file systems.
 
 %prep
-%setup -q
-%patch -p1 -b .Makefile
+%autosetup -p1
 
 %build
 # the macro %{?_smp_mflags} was not considered useful as there is only one
@@ -38,6 +37,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man8/*
 
 %changelog
+* Mon Jul 24 2023 Vincent Mihalkovic <vmihalko@redhat.com> - 0.5.2-31
+- replace the "setup" macro with the "autosetup".
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

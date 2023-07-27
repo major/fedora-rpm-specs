@@ -1,22 +1,15 @@
 Name:           python-django
 %global         pkgname Django
-%global         ver 4.2.1
+%global         ver 4.2.3
 #global         pre ...
 %global         real_version %{ver}%{?pre:%{pre}}
 Version:        %{ver}%{?pre:~%{pre}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A high-level Python Web framework
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.djangoproject.com/
 Source0:        %{pypi_source %{pkgname} %{real_version}}
-
-# skip tests requiring network connectivity
-# Patch000:       Django-2.0-skip-net-tests.patch
-
-# Fix FunctionalTests.test_cached_property_reuse_different_names() on Python 3.12+
-# https://github.com/django/django/commit/fc9c90d9c4 (rebased trivially)
-Patch:          test_cached_property_reuse_different_names.patch
 
 # FAIL: test_complex_override_warning (settings_tests.tests.TestComplexSettingOverride.test_complex_override_warning)
 # Regression test for #19031
@@ -139,8 +132,12 @@ cd %{_builddir}/%{pkgname}-%{real_version}
 export PYTHONPATH=$(pwd)
 cd tests
 
-%{python3} runtests.py --settings=test_sqlite --verbosity=2 --parallel 1
-
+# disable two tests due to regression in 3.12b4:
+# https://github.com/python/cpython/issues/106669
+%{python3} runtests.py --settings=test_sqlite --verbosity=2 --parallel 1 \
+%if v"%{python3_version}" >= v"3.12"
+  -k "not test_safe_mime_multipart and not test_unicode_address_header"
+%endif
 
 %files bash-completion
 %{_datadir}/bash-completion
@@ -159,6 +156,11 @@ cd tests
 
 
 %changelog
+* Wed Jul 19 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 4.2.3-1
+- Update to 4.2.3 (rhbz#2212391)
+- Use SPDX license identifier
+- Drop unused patches
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

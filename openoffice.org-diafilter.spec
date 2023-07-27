@@ -4,7 +4,7 @@
 
 Name:          openoffice.org-diafilter
 Version:       1.7.6
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       DIA diagram shape importer and gallery extension for LibreOffice
 License:       GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:           http://fedorahosted.org/openoffice.org-diafilter
@@ -13,6 +13,11 @@ Source:        https://github.com/caolanm/diafilter/archive/%{version}.tar.gz
 BuildRequires: make
 BuildRequires: libreoffice-sdk, boost-devel, dia, pkgconfig(zlib), zip, gcc-c++
 Requires:      libreoffice-draw%{?_isa}
+
+%if 0%{?fedora} >= 37
+# Fedora 37 dropped java for i686, so libreoffice-sdk isn't there either
+ExclusiveArch: %{java_arches}
+%endif
 
 Patch0: fixbuild.patch
 
@@ -43,6 +48,9 @@ install -p -m 644 openoffice.org-diafilter.metainfo.xml $RPM_BUILD_ROOT/%{_datad
 %license gpl-3.0.txt lgpl-3.0.txt
 
 %changelog
+* Wed Jul 26 2023 Ian McInerney <ian.s.mcinerney@ieee.org> - 1.7.6-17
+- Only build on architectures with Java/libreoffice-sdk (RHBZ 2226065)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,10 +1,12 @@
 Name:		libpaper
-Version:	2.1.0
-Release:	2%{?dist}
+Version:	2.1.1
+Release:	1%{?dist}
 # Needed to replace separate paper package
 Epoch:		1
 Summary:	Library and tools for handling papersize
-License:	LGPL-2.1-or-later
+# libpaper is LGPL-2.1+
+# paperspecs is Public Domain
+License:	LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain
 URL:		https://github.com/rrthomas/libpaper/
 Source0:	https://github.com/rrthomas/libpaper/archive/v%{version}/%{name}-%{version}.tar.gz
 # Pulled from paper
@@ -37,8 +39,9 @@ Summary:	Print paper size information
 Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 # This is licensed differently from libpaper.
 # paper.c is GPL-3.0-or-later
+# paperconf.c is GPL 2.0 only
 # localepaper.c is FSFAP (except it is missing the warranty disclaimer... but the intent is clear)
-License:	GPL-3.0-or-later AND FSFAP
+License:	GPL-3.0-or-later AND FSFAP AND GPL-2.0-only
 
 %description -n paper
 The paper(1) utility can be used to find the user's preferred
@@ -108,6 +111,9 @@ install -m0755 src/localepaper %{buildroot}%{_libexecdir}
 %{_mandir}/man5/*
 
 %changelog
+* Tue Jul 25 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-1
+- 2.1.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

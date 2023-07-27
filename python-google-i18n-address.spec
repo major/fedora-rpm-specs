@@ -1,18 +1,18 @@
 Name:           python-google-i18n-address
 %global srcname %(echo %{name} | sed 's/^python-//')
+%global pypi_name %(echo %{srcname} | sed 's/-/_/g')
 
-Version:        2.5.2
-Release:        4%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        Address validation helpers for Google's i18n address database
 
 License:        BSD with advertising
 URL:            https://pypi.python.org/pypi/google-i18n-address/
-Source0:        %{pypi_source}
+Source0:        %{pypi_source %{pypi_name}}
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %global _description %{expand:
 This package contains a copy of Google’s i18n address metadata
@@ -35,27 +35,36 @@ Summary: Address validation helpers for Google's i18n address database
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
-%py3_build
+%pyproject_wheel
 
 %check
 # warns about obsolete testing, and then downloads files from the internet
 #{__python3} setup.py test
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files i18naddress
 # names used for test files are sure to cause clashses with other packages :/
 rm -rf %{buildroot}/%{python3_sitelib}/tests
+# 1. It requires `sudo`, since data files are saved in the code directory: `/usr/lib/python3.11/site-packages/i18naddress/data`
+# 2. Even with `sudo` it crashes.
+rm -rf %{buildroot}/%{_bindir}/update-validation-files
 
-%files -n python3-%{srcname}
-%license PKG-INFO
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/i18naddress
-%{python3_sitelib}/google_i18n_address*egg-info/
+
 
 %changelog
+* Tue Jul 25 2023 Roman Inflianskas <rominf@aiven.io> - 3.1.0-1
+- Update to 3.1.0 (resolve rhbz#2212266)
+- Update package to use new Python macros.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

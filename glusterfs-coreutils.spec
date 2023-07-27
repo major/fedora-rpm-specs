@@ -11,6 +11,7 @@ URL:              https://github.com/gluster/glusterfs-coreutils
 Source0:          https://github.com/gluster/glusterfs-coreutils/archive/v%{version}/%{name}-v%{version}.tar.gz
 Patch0: glusterfs-coreutils-truncate-c99.patch
 Patch1: glusterfs-coreutils-sys-stat.patch
+Patch2: 0001-src-glfs-stat-util.c.patch
 
 Provides:         bundled(gnulib)
 
@@ -45,6 +46,7 @@ make
 %changelog
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+- rhbz#2225834
 
 * Thu Feb 9 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> 0.3.1-13
 - rebuild w/ new coreutils, S_ISDIR

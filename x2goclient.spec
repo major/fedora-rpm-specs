@@ -1,11 +1,12 @@
 Name:           x2goclient
 Version:        4.1.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        X2Go Client application
 
 License:        GPLv2+
 URL:            http://www.x2go.org
 Source0:        http://code.x2go.org/releases/source/%{name}/%{name}-%{version}.tar.gz
+Source1:        org.x2go.X2GoClient.metainfo.xml
 # Drop clumsy attempt at Kerberos delegation
 # http://bugs.x2go.org/cgi-bin/bugreport.cgi?bug=731
 Patch0:         x2goclient-krb5.patch
@@ -24,6 +25,7 @@ BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 BuildRequires:  libssh-devel
 BuildRequires:  libXpm-devel
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -90,6 +92,10 @@ export PATH=%{_qt4_bindir}:$PATH
 %make_install PREFIX=%{_prefix}
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
+install -D -p -m644 %{SOURCE1} %{buildroot}%{_metainfodir}/org.x2go.X2GoClient.metainfo.xml
+appstream-util validate-relax \
+  --nonet %{buildroot}%{_metainfodir}/org.x2go.X2GoClient.metainfo.xml
+
 mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 
 
@@ -123,9 +129,13 @@ fi
 %{_datadir}/mime/packages/x-x2go.xml
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1.gz
+%{_metainfodir}/org.x2go.X2GoClient.metainfo.xml
 
 
 %changelog
+* Tue Jul 25 2023 Daniel Rusek <mail@asciiwolf.com> - 4.1.2.3-3
+- Add AppStream metadata
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

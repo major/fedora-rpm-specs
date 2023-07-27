@@ -62,7 +62,7 @@ BuildRequires:	perl(Net::LibIDN)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(utf8)
 BuildRequires:	procps
-# Runtime
+# Dependencies
 Requires:	openssl-libs >= 0.9.8
 Requires:	perl(Config)
 Requires:	perl(HTTP::Tiny)
@@ -142,7 +142,7 @@ make test
   - SSL_version default now TLS 1.2+ since TLS 1.1 and lower are deprecated
     (GH#122)
   - Fix output of alert string when debugging (GH#132)
-  - Improve regex for hostname validation (GH#130, (GH#126)
+  - Improve regex for hostname validation (GH#130, GH#126)
   - Add can_ciphersuites subroutine for feature checking (GH#127)
   - Utils::CERT_create - die if unexpected arguments are given instead of
     ignoring these

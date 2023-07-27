@@ -9,8 +9,8 @@
 Summary: GNU file archiving program
 Name: tar
 Epoch: 2
-Version: 1.34
-Release: 9%{?dist}
+Version: 1.35
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/tar/
 
@@ -24,8 +24,7 @@ Patch3:  tar-1.29-wildcards.patch
 Patch4:  tar-1.28-atime-rofs.patch
 Patch9:  tar-1.28-document-exclude-mistakes.patch
 Patch10: tar-1.33-fix-capabilities-test.patch
-Patch11: tar-configure-c99.patch
-Patch12: tar-1.30-CVE-2022-48303.patch
+Patch11: tar-1.35-add-forgotten-tests-from-upstream.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -124,6 +123,9 @@ make check || (
 
 
 %changelog
+* Tue Jul 25 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2:1.35-1
+- Rebase to version 1.35
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.34-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

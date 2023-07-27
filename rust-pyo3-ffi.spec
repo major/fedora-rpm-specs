@@ -16,6 +16,10 @@ Source:         %{crates_source}
 # * drop MSVC- and MinGW-only features
 Patch:          pyo3-ffi-fix-metadata.diff
 
+# Add PyType_GetDict for Python 3.12
+# https://github.com/PyO3/pyo3/commit/8c393dd.patch
+Patch:          Add-PyType_GetDict-for-Python-3.12.patch
+
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:

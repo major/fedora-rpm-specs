@@ -327,7 +327,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      6
+%global rpmrelease      7
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -2048,6 +2048,8 @@ cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
 rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/security/pkcs11/nss/lib/"
 rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/management/jmxremote/bootstrap/solaris-sparcv9/"
 rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-sparcv9/"
+rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/linux-i586/"
+rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-amd64/"
 
 # Install the jdk
 pushd ${jdk_image}
@@ -2532,6 +2534,10 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Mon Jul 24 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.372.b07-7
+- Remove few more binaries from full_sources that were throwing missing build-id warnings
+- Resolves: rhbz#2222629
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.0.372.b07-6.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

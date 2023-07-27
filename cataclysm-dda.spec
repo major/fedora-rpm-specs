@@ -1,15 +1,17 @@
 %global _lto_cflags %nil
 Name:           cataclysm-dda
-Version:        0.F.3
-Release:        3%{?dist}
+Version:        0.G
+Release:        1%{?dist}
 Summary:        Turn-based survival game set in a post-apocalyptic world
 
 License:        CC-BY-SA
 URL:            http://cataclysmdda.org
-# https://github.com/CleverRaven/Cataclysm-DDA/archive/refs/tags/0.F-3.tar.gz
-Source0:        Cataclysm-DDA-0.F-3.tar.gz
-Patch0:         cataclysm-dda-constexpr.patch
-Patch1:         cataclysm-dda-ttf-const.patch
+# https://github.com/CleverRaven/Cataclysm-DDA/archive/refs/tags/0.G.tar.gz
+Source0:        Cataclysm-DDA-0.G.tar.gz
+# https://github.com/CleverRaven/Cataclysm-DDA/commit/9ffcd2bb42b84ee4a8d13d5eb549a95cfeb19b0d
+Patch0:         compiler_warnings.patch
+# https://github.com/CleverRaven/Cataclysm-DDA/commit/d5cc23912d19a50f85e68460a9bcf0e014cd35d2
+Patch1:         compile_fix.patch
 
 # Due virtual memory exhausted and build fail
 ExcludeArch:    i686
@@ -85,7 +87,7 @@ Data files for %{name}-tiles.
 
 
 %prep
-%autosetup -n Cataclysm-DDA-0.F-3 -p1
+%autosetup -n Cataclysm-DDA-0.G -p1
 
 
 %build
@@ -149,9 +151,7 @@ Data files for %{name}-tiles.
 # rm -r   %{buildroot}%{_datadir}/%{name}/font
 # Bug is currently preventing Terminus from working
 rm %{buildroot}%{_datadir}/%{name}/font/Terminus.ttf
-
-rm -r   %{buildroot}%{_datadir}/%{name}/font/terminus.fon \
-        %{buildroot}%{_datadir}/%{name}/LICENSE-OFL-Terminus-Font.txt
+rm -r %{buildroot}%{_datadir}/%{name}/LICENSE-OFL-Terminus-Font.txt
 
 # Remove duplicate license file
 rm      %{buildroot}%{_datadir}/%{name}/LICENSE.txt
@@ -197,6 +197,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Jul 25 2023 Gergely Gombos <gombosg@disroot.org> - 0.G-1
+- new version
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.F.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

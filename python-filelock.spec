@@ -8,13 +8,13 @@
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        3.8.2
+Version:        3.12.2
 Release:        %autorelease
 Summary:        A platform independent file lock
 
 License:        Unlicense
 URL:            https://github.com/tox-dev/py-filelock
-Source0:        %{pypi_source %{srcname}}
+Source0:        https://github.com/tox-dev/py-filelock/archive/%{version}/py-%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -25,6 +25,7 @@ BuildRequires:  pyproject-rpm-macros
 # we do not have in Fedora like covdefaults in testing or furo in docs.
 # Test dependencies
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-mock
 BuildRequires:  python3-pytest-timeout
 %endif
 %if %{with docs}
@@ -63,22 +64,25 @@ Summary:        Documentation for %{srcname}, %{summary}
 %endif
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n py-%{srcname}-%{version}
+%if %{with docs}
 # furo theme is not available in Fedora
 sed -i "/html_theme =.*/d" docs/conf.py
+%endif
 # setuptools 65.6.3 is not yet in Fedora
 sed -i 's/"\(setuptools\)>=.*"/"\1"/' pyproject.toml
 
 %generate_buildrequires
+SETUPTOOLS_SCM_PRETEND_VERSION=%{version}; export SETUPTOOLS_SCM_PRETEND_VERSION
 %pyproject_buildrequires -r
 
 %build
+SETUPTOOLS_SCM_PRETEND_VERSION=%{version}; export SETUPTOOLS_SCM_PRETEND_VERSION
 %pyproject_wheel
 
 %if %{with docs}
 pushd docs
-PYTHONPATH=../src sphinx-build ./ html --color -b html
-PYTHONPATH=../src sphinx-build ./ man --color -b man
+PYTHONPATH=../src sphinx-build ./ html --color -b html -d doctrees
 rm html/.buildinfo
 popd
 %endif
@@ -86,10 +90,6 @@ popd
 %install
 %pyproject_install
 %pyproject_save_files %{srcname}
-
-%if %{with docs}
-install -p -m0644 -D docs/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{srcname}.1
-%endif
 
 %check
 %if %{with tests}
@@ -107,9 +107,6 @@ install -p -m0644 -D docs/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{srcname
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%if %{with docs}
-%{_mandir}/man1/%{srcname}.1.gz
-%endif
 
 
 %changelog

@@ -5,10 +5,10 @@
 
 Name:           python-%{pkgname}
 Version:        1.51.14
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A stylish alternative for caching your map tiles
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://tilestache.org
 Source0:        https://github.com/%{srcname}/%{srcname}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
 
@@ -24,6 +24,13 @@ Patch3:         %{name}-1.51.14-python3-compat.patch
 Patch4:         %{name}-1.51.14-python3-executable.patch
 # Bad escape in string literal - Submitted upstream as TileStache/TileStache#358
 Patch5:         %{name}-1.51.14-escape-sequence.patch
+# Support Shapely 2: Use shape instead of asShape from shapely.geometry
+# Submitted upstream as TileStache/TileStache#375
+Patch6:         %{name}-1.51.14-shapely2-compat.patch
+# Replace assertEquals with assertEqual
+# This deprecated unittest.TestCase alias was removed in Python 3.12.
+# Submitted upstream as TileStache/TileStache#377
+Patch7:         %{name}-1.51.14-assertEquals.patch
 
 BuildArch:      noarch
 
@@ -129,6 +136,11 @@ NO_DATABASE=1 OFFLINE_TESTS=1 %{__python3} -m nose \
 
 
 %changelog
+* Tue Jul 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.51.14-14
+- Patch for Shapely 2
+- Update License to SPDX
+- Patch for Python 3.12
+
 * Thu Jul 20 2023 Python Maint <python-maint@redhat.com> - 1.51.14-13
 - Rebuilt for Python 3.12
 

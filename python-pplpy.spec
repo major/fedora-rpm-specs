@@ -92,6 +92,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitearch}/ppl/*.pxd
 
 %changelog
+* Tue Jul 25 2023 Jerry James <loganjerry@gmail.com> - 0.8.7-11
+- Update cython patch for Cython 3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -22,12 +22,14 @@ BuildRequires:  mingw32-filesystem >= 102
 BuildRequires:  mingw32-python3
 %if %{without bootstrap}
 BuildRequires:  mingw32-python3-build
+BuildRequires:  mingw32-python3-flit-core
 %endif
 
 BuildRequires:  mingw64-filesystem >= 102
 BuildRequires:  mingw64-python3
 %if %{without bootstrap}
 BuildRequires:  mingw64-python3-build
+BuildRequires:  mingw64-python3-flit-core
 %endif
 
 

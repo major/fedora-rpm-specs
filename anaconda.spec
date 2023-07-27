@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.26
-Release: 2%{?dist}
+Version: 39.27
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -207,9 +207,10 @@ Requires: gdb
 Requires: rsync
 
 %description install-env-deps
-The anaconda-install-env-deps metapackage lists all installation environment dependencies.
-This makes it possible for packages (such as Initial Setup) to depend on the main Anaconda package without
-pulling in all the install time dependencies as well.
+The anaconda-install-env-deps metapackage lists all installation environment
+dependencies. This makes it possible for packages (such as Initial Setup) to
+depend on the main Anaconda package without pulling in all the install time
+dependencies as well.
 
 %package install-img-deps
 Summary: Installation image specific dependencies
@@ -247,8 +248,9 @@ Requires: ostree
 Requires: skopeo
 
 %description install-img-deps
-The anaconda-install-img-deps metapackage lists all boot.iso installation image dependencies.
-Add this package to an image build (eg. with lorax) to ensure all Anaconda capabilities are supported in the resulting image.
+The anaconda-install-img-deps metapackage lists all boot.iso installation
+image dependencies. Add this package to an image build (eg. with lorax) to
+ensure all Anaconda capabilities are supported in the resulting image.
 
 %package webui
 Summary: Cockpit based user interface for the Anaconda installer
@@ -305,7 +307,8 @@ Summary: A set of custom GTK+ widgets for use with anaconda
 Requires: %{__python3}
 
 %description widgets
-This package contains a set of custom GTK+ widgets used by the anaconda installer.
+This package contains a set of custom GTK+ widgets used by the anaconda
+installer.
 
 %package widgets-devel
 Summary: Development files for anaconda-widgets
@@ -313,9 +316,9 @@ Requires: glade
 Requires: %{name}-widgets%{?_isa} = %{version}-%{release}
 
 %description widgets-devel
-This package contains libraries and header files needed for writing the anaconda
-installer.  It also contains Python and Glade support files, as well as
-documentation for working with this library.
+This package contains libraries and header files needed for writing the
+anaconda installer.  It also contains Python and Glade support files,
+as well as documentation for working with this library.
 
 %package dracut
 Summary: The anaconda dracut module
@@ -475,6 +478,48 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 25 2023 Packit <hello@packit.dev> - 39.27-1
+- webui: if no scenario is available for selection show the options but
+  disabled (kkoukiou)
+- webui: new design for welcome page in live image (kkoukiou)
+- webui: rephrase text hints for disabled options (kkoukiou)
+- webui: make all actions return anonymous functions (kkoukiou)
+- webui: re-calculate the scenarios only if the selected devices or device data
+  changed (kkoukiou)
+- webui: tests: use installer helper 'reach' method for moving ahead multiple
+  steps (kkoukiou)
+- webui: fix typo 'screenWarning' for custom mountpoint selection (kkoukiou)
+- webui: select 'vda' disk instead of the scsi ram disk in the test (kkoukiou)
+- webui: safeguard access to deviceData properties to avoid crashes while state
+  is not fully loaded (kkoukiou)
+- webui: return a Promise when fetching all device data (kkoukiou)
+- webui: edit style files with errors (akankovs)
+- webui: setup lint for style files (akankovs)
+- tests: Fix expected value for "has_key" with latest blivet (vtrefny)
+- webui: tests: make some more tests non-destructive (kkoukiou)
+- webui: don't crash in case a AUTOMATIC partitioning object exists (kkoukiou)
+- webui: the encryption password screen is not subpage anymore (kkoukiou)
+- webui: Check for beta variable being undefined (mkolman)
+- Use DBus API to check for final release (mkolman)
+- webui: introduce an About screen (acruzgon)
+- Move more product-related values to the module itself (vslavik)
+- Simplify product-related constants (vslavik)
+- Drop the isFinal UI constructor parameter from WebUI (vslavik)
+- webui: do not silence exception when parsing languages from backend
+  (kkoukiou)
+- webui: language information should be fetched also for live media (kkoukiou)
+- Add minimal documentation to pyanaconda.product (vslavik)
+- Add IsFinal property to the UI module (vslavik)
+- webui: accept conf being undefined (yet) during a CriticalError (rvykydal)
+- webui: design adjustment on the disk encryption screen (kkoukiou)
+- spec: Honor 79 char limit for descriptions (vslavik)
+- webui: allow critical errors also in the first load of the application
+  (kkoukiou)
+- Add TUI for installing non-standard kernels (ozobal)
+- Add GUI option for installing 64k ARM kernel (ozobal)
+- Remove deprecated conf: kickstart_modules, addons_enabled (vslavik)
+- Update translations from Weblate
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 39.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,54 +1,55 @@
-%global pypi_name nudatus
-
-Name:           python-%{pypi_name}
+Name:           python-nudatus
 Version:        0.0.5
 Release:        9%{?dist}
 Summary:        Strip comments from Python scripts
 
+# SPDX
 License:        MIT
 URL:            https://github.com/zanderbrown/nudatus
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/nudatus-%{version}.tar.gz
+
+# Python 3.12 support, proposed upstream
+Patch:          https://github.com/ZanderBrown/nudatus/pull/11.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 # test requirements mixed with coverage upstream, BRing pytest manually is easier
 BuildRequires:  python3dist(pytest)
-BuildRequires:  pyproject-rpm-macros
 
 %description
 Nudatus is a tool to remove comments from python scripts. It's created for use
 in uflash to help squeeze longer programs onto the micro:bit but it should be
 suitable for various environments with restricted storage.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-nudatus
 Summary:        %{summary}
 
-Provides:       %{pypi_name} == %{version}-%{release}
+Provides:       nudatus == %{version}-%{release}
 
-%description -n python3-%{pypi_name}
+%description -n python3-nudatus
 Nudatus is a tool to remove comments from python scripts. It's created for use
 in uflash to help squeeze longer programs onto the micro:bit but it should be
 suitable for various environments with restricted storage.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n nudatus-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files nudatus
 
 %check
 %pytest -vvv tests
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
+%files -n python3-nudatus -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/nudatus
 

@@ -748,6 +748,8 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{mozappdir}/dependentlibs.list
 %{mozappdir}/fonts
 %{mozappdir}/pingsender
+%{mozappdir}/glxtest
+%{mozappdir}/vaapitest
 
 #===============================================================================
 

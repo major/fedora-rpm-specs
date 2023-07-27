@@ -4,9 +4,9 @@
 
 Name:		R-%{packname}
 Version:	1.60
-Release:	2%{?dist}
+Release:	3%{?dist}
 Source0:	https://rqtl.org/download/%{packname}_%{version}.tar.gz
-License:	GPLv3
+License:	GPL-3.0-only
 URL:		https://rqtl.org/
 Summary:	Tools for analyzing QTL experiments
 #		R versions before 3.1.1 have a bug that causes the checks
@@ -17,6 +17,9 @@ BuildRequires:	R-core-devel >= 3.1.1
 BuildRequires:	tex(latex)
 BuildRequires:	tex(fancyhdr.sty)
 BuildRequires:	tex(fullpage.sty)
+%if %{?fedora}%{!?fedora:0} >= 38
+BuildRequires:	tex(inconsolata.sty)
+%endif
 BuildRequires:	R-parallel, R-graphics, R-stats, R-utils, R-grDevices
 %if %{?fedora}%{!?fedora:0}
 #		R-testthat is not available in EPEL
@@ -89,6 +92,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/sampledata
 
 %changelog
+* Sun Jul 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.60-3
+- Fix build requires
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.60-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

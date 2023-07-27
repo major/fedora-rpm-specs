@@ -20,13 +20,15 @@ Source0:       %{pypi_source %{pypi_name} %{version}}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
 %if %{without bootstrap}
-BuildRequires:  mingw32-python3-build
+BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 %endif
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
 %if %{without bootstrap}
-BuildRequires:  mingw64-python3-build
+BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 %endif
 
 

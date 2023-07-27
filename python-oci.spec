@@ -4,7 +4,7 @@
 %global         srcname     oci
 
 Name:           python-%{srcname}
-Version:        2.107.0
+Version:        2.108.0
 Release:        %autorelease
 Summary:        Oracle Cloud Infrastructure SDK for Python
 
@@ -42,6 +42,9 @@ Summary:        %{summary}
 # Remove upper version limit on cryptography.
 sed -i 's/cryptography>=3.2.1,<40.0.0/cryptography>=3.2.1/' setup.py
 
+# Allow newer circuitbreaker.
+sed -i 's/circuitbreaker>=1.3.1,< 2.0.0/circuitbreaker>=1.3.0/' setup.py
+sed -i 's/circuitbreaker>=1.3.1,<2.0.0/circuitbreaker>=1.3.0/' requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires

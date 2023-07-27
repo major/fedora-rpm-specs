@@ -6,7 +6,7 @@
 %bcond doc %{undefined rhel}
 
 Name:           python-editables
-Version:        0.4
+Version:        0.5
 Release:        %autorelease
 Summary:        Editable installations
 

@@ -1,8 +1,8 @@
 %bcond_without check
 
 Name:           libarchive
-Version:        3.6.1
-Release:        6%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 Summary:        A library for handling streaming archive formats
 
 License:        BSD 2-Clause License AND BSD 2-clause NetBSD License BSD 2-Clause License
@@ -37,14 +37,6 @@ BuildRequires: make
 # loaded, which breaks the RIPEMD-160 test. This patch disables the RIPEMD-160
 # support explicitly.
 Patch0001: 0001-Drop-rmd160-from-OpenSSL.patch
-
-# Source: https://github.com/libarchive/libarchive/commit/fd180c36036df7181a64931264732a10ad8cd024
-Patch2:                %{name}-3.6.1-Fix-CVE-2022-36227.patch
-
-# For better pathname portability across OS, in particular Windows to Linux
-# archive_entry_pathname() tries UTF-8 if MBS returns EILSEQ
-# Source: https://github.com/libarchive/libarchive/commit/06a4b1018ee843cd491f6ff92813e67962fa0335
-Patch3:                %{name}-3.6.1-Better-pathname-portability.patch
 
 %description
 Libarchive is a programming library that can create and read several different
@@ -88,6 +80,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The bsdcat program typically takes a filename as an argument or reads standard
 input when used in a pipe.  In both cases decompressed data it written to
 standard output.
+
+%package -n bsdunzip
+Summary:        Extract files from a ZIP archive
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n bsdunzip
+The bsdunzip package contains standalone bsdunzip utility split off regular
+libarchive packages. It is designed to provide an interface compatible with Info-ZIP's.
 
 
 %prep
@@ -226,9 +226,19 @@ run_testsuite
 %{_bindir}/bsdcat
 %{_mandir}/*/bsdcat*
 
+%files -n bsdunzip
+%{!?_licensedir:%global license %%doc}
+%license COPYING
+%doc NEWS README.md
+%{_bindir}/bsdunzip
+%{_mandir}/*/bsdunzip*
 
 
 %changelog
+* Tue Jul 25 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.7.0-1
+- Rebase to version 3.7.0
+- Add new bsdunzip subpackage
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

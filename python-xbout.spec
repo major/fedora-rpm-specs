@@ -57,9 +57,6 @@ Documentation for xBOUT
 %autosetup -n %{pypi_name}-%{version} -p 1
 # Remove bundled egg-info
 rm -rf xbout.egg-info
-# boutdata doesn't have the provides
-# animatplot is to old RHBZ#1885115
-sed -e 's/boutdata.*//' -e 's/animatplot.*/animatplot/'  -i requirements.txt -i setup.cfg
 
 %build
 %py3_build

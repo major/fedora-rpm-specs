@@ -65,6 +65,7 @@ Summary:        %{summary}
 %pytest \
     --ignore=tests/asynctests/test_pipeline.py \
     --ignore=tests/asynctests/test_universal_http.py \
+    --ignore=tests/test_auth.py \
     --ignore=tests/test_runtime.py
 %endif
 

@@ -24,6 +24,7 @@ Source1:       https://github.com/llvm/llvm-project/releases/download/llvmorg-%{
 # Set LLVM_INCLUDE_BENCHMARKS=OFF by default
 Patch0:        llvm-no-benchmarks.patch
 
+BuildRequires: chrpath
 BuildRequires: make
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -198,6 +199,12 @@ rm -rf %{buildroot}%{mingw64_datadir}/opt-viewer
 # Install llvm-tblgen to host tools dir, can be used to cross-compile mingw-clang
 install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mingw32_target}/bin/llvm-tblgen
 install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
+
+# Kill rpaths
+chrpath --delete %{buildroot}%{_prefix}/%{mingw32_target}/bin/llvm-config
+chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-config
+chrpath --delete %{buildroot}%{_prefix}/%{mingw32_target}/bin/llvm-tblgen
+chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 
 %files -n mingw32-%{pkgname}

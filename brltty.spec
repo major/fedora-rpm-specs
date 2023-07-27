@@ -47,7 +47,7 @@
 
 Name: brltty
 Version: 6.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -155,7 +155,7 @@ Obsoletes: brltty-espeak <= 5.6-5
 This package provides the eSpeak-NG driver for BRLTTY.
 
 %package -n brlapi
-Version: 6.6
+Version: %{api_version}
 License: LGPL-2.0-or-later
 Summary: Application Programming Interface for BRLTTY
 Recommends: %{name} = %{pkg_version}-%{release}
@@ -169,7 +169,7 @@ Install this package if you have an application which directly accesses
 a refreshable braille display.
 
 %package -n brlapi-devel
-Version: 6.6
+Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 Summary: Headers, static archive, and documentation for BrlAPI
@@ -187,7 +187,7 @@ Install this package if you are developing or maintaining an application
 which directly accesses a refreshable braille display.
 
 %package -n tcl-brlapi
-Version: 6.6
+Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: tcl-devel
@@ -198,7 +198,7 @@ This package provides the Tcl binding for BrlAPI.
 %if %{with python2}
 %package -n python2-brlapi
 %{?python_provide:%python_provide python2-brlapi}
-Version: 6.6
+Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: Cython
@@ -212,7 +212,7 @@ This package provides the Python 2 binding for BrlAPI.
 %if %{with python3}
 %package -n python3-brlapi
 %{?python_provide:%python_provide python3-brlapi}
-Version: 6.6
+Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: python3-Cython
@@ -228,7 +228,7 @@ This package provides the Python 3 binding for BrlAPI.
 
 %if %{JAVA}
 %package -n brlapi-java
-Version: 6.6
+Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: jpackage-utils
@@ -240,7 +240,7 @@ This package provides the Java binding for BrlAPI.
 
 %if 0%{?with_ocaml}
 %package -n ocaml-brlapi
-Version: 6.6
+Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: ocaml
@@ -689,6 +689,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Tue Jul 25 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.6-2
+- Correct apiversioning
+
 * Mon Jul 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.6-1
 - 6.6
 

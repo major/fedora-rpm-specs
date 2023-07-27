@@ -17,8 +17,8 @@ BuildRequires:  qt6-qttools-devel
 BuildRequires:  enchant2-devel
 BuildRequires:  doxygen
 
-BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw32-gcc
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-enchant2
 BuildRequires: mingw32-qt5-qtbase
 BuildRequires: mingw32-qt5-qttools
@@ -26,8 +26,8 @@ BuildRequires: mingw32-qt5-qttools-tools
 BuildRequires: mingw32-qt6-qtbase
 BuildRequires: mingw32-qt6-qttools
 
-BuildRequires: mingw64-filesystem >= 95
-BuildRequires: mingw64-gcc
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-enchant2
 BuildRequires: mingw64-qt5-qtbase
 BuildRequires: mingw64-qt5-qttools
@@ -35,7 +35,7 @@ BuildRequires: mingw64-qt5-qttools-tools
 BuildRequires: mingw64-qt6-qtbase
 BuildRequires: mingw64-qt6-qttools
 
-Requires:       iso-codes
+Requires:      iso-codes
 
 %description
 QtSpell adds spell-checking functionality to Qt's text widgets, using the

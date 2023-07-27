@@ -1,11 +1,16 @@
+# need to pick up unreleased fixes to t/imapd.t
+%global commit 590023f6c3289810539b0994fd5c3216d81c9259
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date 20230714
+
 Name:           public-inbox
-Version:        1.9.0
+Version:        2.0.0~%{?date}git%{?shortcommit}
 Release:        %autorelease
 Summary:        An archives-first approach to mailing lists
 
-License:        AGPLv3
+License:        AGPL-3.0-or-later
 URL:            https://public-inbox.org
-Source0:        %{url}/public-inbox.git/snapshot/%{name}-%{version}.tar.gz
+Source0:        %{url}/public-inbox.git/snapshot/%{name}-%{commit}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  perl
@@ -44,13 +49,12 @@ or HTML archives.
 
 %package -n perl-PublicInbox
 Summary:        Perl libraries for public-inbox
-#Requires: git >= 2.6, libgit2, perl-DBD-SQLite, perl-Search-Xapian, xapian-core, perl-URI, perl-TimeDate, perl-Mail-IMAPClient, perl-Linux-Inotify2, perl-Email-Address-XS, perl-sort, perl-Sys-Syslog, perl-Sys-Hostname, perl-Inline-C, sqlite
 
 %description -n perl-PublicInbox
 Perl libraries for public-inbox.
 
 %package server
-Summary:        public-inbox server-side components
+Summary:        Server-side components for public-inbox
 Requires:       %{name} = %{version}-%{release}
 
 %description server
@@ -67,7 +71,7 @@ storage systems, including public-inbox servers.
 
 
 %prep
-%autosetup
+%autosetup -n %{name}-%{commit}
 
 
 %build
@@ -98,6 +102,7 @@ rm -rf $RPM_BUILD_ROOT/tmp
 %files
 %license COPYING
 %doc AUTHORS HACKING NEWS README TODO
+%{_bindir}/public-inbox-cindex
 %{_bindir}/public-inbox-clone
 %{_bindir}/public-inbox-compact
 %{_bindir}/public-inbox-convert
@@ -128,7 +133,7 @@ rm -rf $RPM_BUILD_ROOT/tmp
 %{_mandir}/man5/lei-*.5*
 %{_mandir}/man7/lei-*.7*
 %{_mandir}/man8/lei-*.8*
-%{_sysconfdir}/bash_completion.d/lei-completion.bash
+%config(noreplace) %{_sysconfdir}/bash_completion.d/lei-completion.bash
 
 %files -n perl-PublicInbox
 %license COPYING

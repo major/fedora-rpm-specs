@@ -180,7 +180,7 @@ install libgda-ui/data/import_encodings.xml %{buildroot}%{_datadir}/%{name}-%{ap
 %{_includedir}/%{name}-%{apiver}/%{name}
 %{_includedir}/%{name}-%{apiver}/%{name}-report
 %{_libdir}/%{name}-%{apiver}.so
-%{_libdir}/%%{name}-report-%{apiver}.so
+%{_libdir}/%{name}-report-%{apiver}.so
 %{_libdir}/%{name}-xslt-%{apiver}.so
 %{_libdir}/pkgconfig/%{name}-%{apiver}.pc
 %{_libdir}/pkgconfig/%{name}-*-%{apiver}.pc
@@ -191,7 +191,7 @@ install libgda-ui/data/import_encodings.xml %{buildroot}%{_datadir}/%{name}-%{ap
 %{_datadir}/vala/vapi/libgda-%{apiver}.deps
 %{_datadir}/devhelp/books/Gda-%{apiver}/
 %{_datadir}/devhelp/books/Gdaui-%{apiver}/
-%{_includedir}/%%{name}-%{apiver}/providers/
+%{_includedir}/%{name}-%{apiver}/providers/
 
 
 %files ui

@@ -15,10 +15,12 @@ Source0:       %{pypi_source}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 
 
 %description
