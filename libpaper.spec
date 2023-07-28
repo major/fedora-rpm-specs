@@ -5,8 +5,10 @@ Release:	1%{?dist}
 Epoch:		1
 Summary:	Library and tools for handling papersize
 # libpaper is LGPL-2.1+
+# bundled libgnu is LGPL-2.1+, LGPL-2+ and GPL-3+
 # paperspecs is Public Domain
-License:	LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain
+# localepaper.c is FSFAP
+License:	LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND GPL-3.0-or-later AND LGPL-2.0-or-later AND FSFAP
 URL:		https://github.com/rrthomas/libpaper/
 Source0:	https://github.com/rrthomas/libpaper/archive/v%{version}/%{name}-%{version}.tar.gz
 # Pulled from paper

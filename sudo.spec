@@ -1,9 +1,9 @@
 # comment out if no extra version
-%global extraver p2
+%global extraver p3
 
 Summary: Allows restricted root access for specified users
 Name: sudo
-Version: 1.9.13
+Version: 1.9.14
 # remove -b 3 after rebase !!!
 # use "-p -e % {?extraver}" when beta
 # use "-e % {?extraver}"" when patch version
@@ -13,7 +13,6 @@ License: ISC
 URL: https://www.sudo.ws
 Source0: %{url}/dist/%{name}-%{version}%{?extraver}.tar.gz
 Source1: sudoers
-Patch0: sudo-configure-c99.patch
 Requires: pam
 Recommends: system-default-editor
 Recommends: %{name}-python-plugin%{?_isa} = %{version}-%{release}

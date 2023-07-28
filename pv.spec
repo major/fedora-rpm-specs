@@ -1,6 +1,6 @@
 Summary: A tool for monitoring the progress of data through a pipeline
 Name: pv
-Version: 1.6.20
+Version: 1.7.0
 Release: %autorelease
 License: Artistic 2.0
 Source0: http://www.ivarch.com/programs/sources/%{name}-%{version}.tar.gz
@@ -22,14 +22,6 @@ will be until completion.
 
 %prep
 %setup -q
-%ifarch ppc64le
-# This test failed on ppc64le https://github.com/a-j-wood/pv/issues/51
-rm -v tests/019-remote-cksum
-%endif
-mv README README.iso8859
-iconv -f ISO-8859-1 -t UTF-8 README.iso8859  > README
-mv doc/NEWS doc/NEWS.iso8859
-iconv -f ISO-8859-1 -t UTF-8 doc/NEWS.iso8859 > doc/NEWS
 
 %build
 %configure
@@ -53,7 +45,7 @@ make test
 %{_mandir}/man1/%{name}.1.gz
 
 %license doc/COPYING
-%doc README doc/NEWS doc/TODO
+%doc README.md doc/NEWS.md doc/TODO.md
 
 
 %changelog

@@ -2,15 +2,15 @@
 %bcond_without perl_Tree_enables_optional_test
 
 Name:           perl-Tree
-Version:        1.15
-Release:        8%{?dist}
+Version:        1.16
+Release:        1%{?dist}
 Summary:        Tree data structure
-# lib/Tree/Binary2.pm:  GPL+ or Artistic
-# lib/Tree/DeepClone.pm:    GPL+ or Artistic
-# lib/Tree/Fast.pm:     GPL+ or Artistic
-# lib/Tree.pm:          GPL+ or Artistic
-# LICENSE:              GPL+ or Artistic
-License:        GPL+ or Artistic
+# lib/Tree/Binary2.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Tree/DeepClone.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Tree/Fast.pm:     GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Tree.pm:          GPL-1.0-or-later OR Artistic-1.0-Perl
+# LICENSE:              GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tree
 Source0:        https://cpan.metacpan.org/authors/id/R/RS/RSAVAGE/Tree-%{version}.tgz
 BuildArch:      noarch
@@ -44,14 +44,35 @@ BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(Test::Memory::Cycle) >= 1.02
 %endif
 
+# Filter private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Tests\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Tests\\)
+
 %description
 This implements a full-featured N-ary tree representation with configurable
 error-handling and a simple events system that allows for transparent
 persistence to a variety of data stores.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+%if %{with perl_Tree_enables_optional_test}
+Requires:       perl(Test::Memory::Cycle) >= 1.02
+%endif
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Tree-%{version}
 perl -MConfig -pi -e 's/\A#!.*/$Config{startperl}/' scripts/print.tree.pl
+# Help generators to recognize Perl scripts
+for F in t/*.t t/Tree*/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -59,19 +80,37 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 # README not useful
 %doc Changes scripts
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Tree
+%{perl_vendorlib}/Tree.pm
+%{_mandir}/man3/Tree.*
+%{_mandir}/man3/Tree::*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 26 2023 Petr Pisar <ppisar@redhat.com> - 1.16-1
+- 1.16 bump
+- Package the tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

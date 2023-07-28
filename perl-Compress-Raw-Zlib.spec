@@ -7,8 +7,8 @@
 
 
 Name:           perl-Compress-Raw-Zlib
-Version:        2.205
-Release:        2%{?dist}
+Version:        2.206
+Release:        1%{?dist}
 Summary:        Low-level interface to the zlib compression library
 # Zlib.xs:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
 # Others:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -161,6 +161,9 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.206-1
+- 2.206 bump (rhbz#2225674)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.205-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

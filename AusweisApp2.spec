@@ -39,8 +39,8 @@ fi                                               \
 
 
 Name:             AusweisApp2
-Version:          1.26.4
-Release:          5%{?dist}
+Version:          1.26.5
+Release:          1%{?dist}
 Summary:          %{pkg_sum}
 
 License:          EUPL 1.2
@@ -68,7 +68,6 @@ BuildRequires:    crypto-policies
 BuildRequires:    desktop-file-utils
 BuildRequires:    gcc-c++
 BuildRequires:    gnupg2
-BuildRequires:    help2man
 BuildRequires:    http-parser-devel
 BuildRequires:    libappstream-glib
 BuildRequires:    libudev-devel
@@ -254,16 +253,6 @@ mv %{buildroot}%{_datadir}/%{name}/translations/* \
 rm -fr %{buildroot}%{_datadir}/%{name}/translations
 %endif
 
-# Generate man-page.
-mkdir -p %{buildroot}%{_mandir}/man1
-help2man                                              \
-  --no-discard-stderr --no-info                       \
-  --manual="%{name}" --name="%{pkg_sum}" --section=1  \
-  --help-option="--platform offscreen --help-all"     \
-  --version-option="--platform offscreen --version"   \
-  --output=%{buildroot}%{_mandir}/man1/%{name}.1      \
-  %{buildroot}%{_libexecdir}/%{name}
-
 # Excessive docs.
 mkdir -p %{buildroot}%{_pkgdocdir}/{installation,integration,notes,sdk}
 install -pm 0644 README.rst %{buildroot}%{_pkgdocdir}
@@ -325,6 +314,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 26 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.5-1
+- New upstream release
+  Fixes rhbz#2226708
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

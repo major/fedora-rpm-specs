@@ -13,6 +13,7 @@
 
 # Exclude privately used libnrnmech from provides
 %global __provides_exclude ^libnrnmech\\.so.*$
+%global __requires_exclude   ^libnrnmech\\.so.*$
 
 %global _description %{expand:
 PyNN (pronounced 'pine') is a simulator-independent language for building
@@ -67,6 +68,10 @@ ExcludeArch:    mips64r2 mips32r2 s390x %{ix86}
 # Disable pynn's way of building extensions
 # We do it ourselves
 Patch0:         0001-Disable-nest-extension-build-by-setup.patch
+# nest-simulator 3.4 changes header definition
+# https://github.com/nest/nest-simulator/commit/5d85811af7a6aebb8de75adb3930a4a5a575f887
+# https://github.com/NeuralEnsemble/PyNN/commit/b45ef114410dd978f4198e416d0e098e8d23f870
+Patch1:         0002-update-nest-header-3_4.patch
 
 # For extensions
 BuildRequires:  boost-devel
@@ -142,7 +147,7 @@ BuildArch:      noarch
 Documentation for %{name}.
 
 %prep
-%autosetup -n PyNN-%{version}
+%autosetup -n PyNN-%{version} -p1
 rm -rfv PyNN-%{version}/pyNN.egg-info
 
 %build

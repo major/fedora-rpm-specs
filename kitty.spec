@@ -26,6 +26,7 @@ Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444
 # Don't build kitten inside setup.py, use gobuild macro in the spec instead to build with fedora flags
 Patch0:         kitty-do-not-build-kitten.patch
 ## upstream patches
+Patch1: https://github.com/kovidgoyal/kitty/commit/22dd8ecb62169f713048431ba5663ac16562af7b.patch#/kitty-fix-build-gorc.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -42,8 +43,6 @@ BuildRequires:  librsync-devel
 BuildRequires:  ncurses
 BuildRequires:  python3-devel >= 3.8
 BuildRequires:  wayland-devel
-
-BuildRequires:  python3dist(setuptools)
 
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(fontconfig)
@@ -103,6 +102,7 @@ Provides:       %{name}-fish-integration = %{version}-%{release}
 # kitty as per the maintainers suggestion. Install the terminfo file on the remote
 # machine.
 Requires:       %{name}-terminfo = %{version}-%{release}
+Requires:       %{name}-shell-integration = %{version}-%{release}
 
 # Very weak dependencies, these are required to enable all features of kitty's
 # "kittens" functions install separately
@@ -154,6 +154,12 @@ Cross-platform, fast, feature full, GPU based terminal emulator.
 
 The terminfo file for Kitty Terminal.
 
+%package        shell-integration
+Summary:        Shell integration scripts for %{name}
+BuildArch:      noarch
+
+%description    shell-integration
+%{summary}.
 
 # doc package
 %if %{with doc}
@@ -247,6 +253,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*.{png,svg}
 %{_libdir}/%{name}/
+%exclude %{_libdir}/%{name}/shell-integration
 %if %{with doc}
 %{_mandir}/man{1,5}/*.{1,5}*
 %endif
@@ -255,6 +262,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %files terminfo
 %license LICENSE
 %{_datadir}/terminfo/x/xterm-%{name}
+
+%files shell-integration
+%license LICENSE
+%{_libdir}/%{name}/shell-integration/
 
 %if %{with doc}
 %files doc

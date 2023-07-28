@@ -3,7 +3,7 @@
 
 # https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.32.0
+Version:                2.32.1
 
 %gometa -f
 
@@ -17,9 +17,6 @@ provides a seamless way to interact with GitHub repositories and perform various
 actions right from the command line, eliminating the need to switch between your
 terminal and the GitHub website.}
 
-%global godevelheader   %{expand:
-Obsoletes:              golang-github-cli-devel < 2.4.0-3
-}
 %global golicenses      LICENSE
 %global godocs          README.md
 

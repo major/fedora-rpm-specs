@@ -6,13 +6,15 @@
 Summary: Analysis plugins for use with setroubleshoot
 Name: setroubleshoot-plugins
 Version: 3.3.14
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/fedora-selinux/setroubleshoot
 Source0: https://releases.pagure.org/setroubleshoot/%{name}-%{version}.tar.gz
 # git format-patch -N setroubleshoot-plugins-<version> -- plugins
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 Patch0001: 0001-restorecon.py-exclude-more-paths.patch
+Patch0002: 0002-Improve-disable_ipv6-plugin-then_text.patch
+Patch0003: 0003-Update-generated-configuration-files.patch
 BuildArch: noarch
 
 # gcc is needed only for ./configure
@@ -50,6 +52,10 @@ rm -rf %{buildroot}
 %{_datadir}/setroubleshoot/plugins
 
 %changelog
+* Wed Jul 26 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.3.14-8
+- Update generated configuration files (rhbz#2226425)
+- Improve disable_ipv6 plugin then_text
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

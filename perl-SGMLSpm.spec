@@ -1,9 +1,9 @@
 Name:           perl-SGMLSpm
 Version:        1.03ii
-Release:        59%{?dist}
+Release:        60%{?dist}
 Summary:        Perl library for parsing the output of nsgmls
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/SGMLSpm
 Source0:        https://cpan.metacpan.org/authors/id/D/DM/DMEGG/SGMLSpm-%{version}.tar.gz
 
@@ -39,6 +39,9 @@ make install_system \
 
 
 %changelog
+* Tue Jul 25 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.03ii-60
+- Update license to SPDX format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03ii-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

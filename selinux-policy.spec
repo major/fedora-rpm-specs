@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit d98adbe88460ae672b4c26472f6de6729db8e680
+%global commit 2c0b0e5e22dae960f6aa3c470ab10f1692497a6c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,8 +23,8 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.21
-Release: 2%{?dist}
+Version: 38.22
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: modules-targeted-base.conf
@@ -814,6 +814,20 @@ exit 0
 %endif
 
 %changelog
+* Tue Jul 25 2023 Zdenek Pytela <zpytela@redhat.com> - 38.22-1
+- Allow systemd-network-generator send system log messages
+- Dontaudit the execute permission on sock_file globally
+- Allow fsadm_t the file mounton permission
+- Allow named and ndc the io_uring sqpoll permission
+- Allow sssd io_uring sqpoll permission
+- Fix location for /run/nsd
+- Allow qemu-ga get fixed disk devices attributes
+- Update bitlbee policy
+- Label /usr/sbin/sos with sosreport_exec_t
+- Update policy for the sblim-sfcb service
+- Add the files_getattr_non_auth_dirs() interface
+- Fix the CI to work with DNF5
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

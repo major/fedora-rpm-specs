@@ -2,25 +2,28 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/onsi/gomega
-%global goipath         github.com/onsi/gomega
-Version:                1.27.10
+# https://github.com/storj/picobuf
+%global goipath         storj.io/picobuf
+%global forgeurl        https://github.com/storj/picobuf
+Version:                0.0.1
 
-%gometa
+%gometa -f
+
 
 %global common_description %{expand:
-Ginkgo's Preferred Matcher Library.}
+Small replacement for subset of protobuf.}
 
 %global golicenses      LICENSE
-%global godocs          CHANGELOG.md CONTRIBUTING.md README.md RELEASING.md
+%global godocs          README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Ginkgo's Preferred Matcher Library
+Summary:        Small replacement for subset of protobuf
 
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+Patch:          https://github.com/storj/picobuf/commit/2a1eb9b8853cfa90a5c53f28c1eb832594f84570.patch
 
 %description %{common_description}
 
@@ -38,8 +41,6 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-# Need Internet access et Go modules
-rm -rfv gexec/build_test.go
 %gocheck
 %endif
 

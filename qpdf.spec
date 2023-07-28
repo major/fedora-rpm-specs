@@ -1,7 +1,7 @@
 Summary: Command-line tools and library for transforming PDF files
 Name:    qpdf
-Version: 11.4.0
-Release: 2%{?dist}
+Version: 11.5.0
+Release: 1%{?dist}
 # MIT: e.g. libqpdf/sha2.c
 # upstream uses ASL 2.0 now, but he allowed other to distribute qpdf under
 # old license (see README)
@@ -90,9 +90,9 @@ QPDF Manual
 %prep
 %setup -q
 
-%patch 1 -p1 -b .relax
+%patch -P 1 -p1 -b .relax
 %ifarch s390x
-%patch 2 -p1 -b .s390x-disable-streamtest
+%patch -P 2 -p1 -b .s390x-disable-streamtest
 %endif
 
 # unpack zip file with manual
@@ -135,10 +135,10 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 %{zsh_completions_dir}/_qpdf
 
 %files libs
-%doc README.md TODO ChangeLog
-%license Artistic-2.0
+%doc README.md TODO.md ChangeLog
+%license Artistic-2.0 LICENSE.txt NOTICE.md
 %{_libdir}/libqpdf.so.29
-%{_libdir}/libqpdf.so.29.4.0
+%{_libdir}/libqpdf.so.29.5.0
 
 %files devel
 %doc examples/*.cc examples/*.c
@@ -151,6 +151,9 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 
 
 %changelog
+* Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 11.5.0-1
+- 2221506 - qpdf-11.5.0 is available
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

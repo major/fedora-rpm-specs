@@ -1,6 +1,6 @@
 Name:           python-lxml
-Version:        4.9.2
-Release:        9%{?dist}
+Version:        4.9.3
+Release:        1%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
 # The lxml project is licensed under BSD-3-Clause
@@ -26,10 +26,6 @@ Patch:          https://github.com/lxml/lxml/pull/380.patch
 
 # Upstream issue: https://bugs.launchpad.net/lxml/+bug/2016939
 Patch:          Skip-failing-test-test_html_prefix_nsmap.patch
-
-# Avoid using the deprecated "imp" module (removed in Python 3.12)
-Patch:          https://github.com/lxml/lxml/commit/07db761f9f.patch
-Patch:          https://github.com/lxml/lxml/commit/c6b7e621e4.patch
 
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
@@ -72,6 +68,8 @@ Python 3 version.
 %autosetup -n lxml-%{version} -p1
 # Don't run html5lib tests --without extras
 %{!?without_extras:rm src/lxml/html/tests/test_html5parser.py}
+# lxml 4.9 is not yet ready for Cython 3
+sed -Ei 's/Cython>=([^,]+)/Cython>=\1,<3/' requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -x source%{?with_extras:,cssselect,html5,htmlsoup}
@@ -100,6 +98,9 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst
 
 %changelog
+* Fri Jul 21 2023 Lumír Balhar <lbalhar@redhat.com> - 4.9.3-1
+- Update to 4.9.3 (rhbz#2219811)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

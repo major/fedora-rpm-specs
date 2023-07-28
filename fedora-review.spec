@@ -14,12 +14,14 @@
 
 Name:       fedora-review
 Version:    0.10.0
-Release:    1%{?build_nr}%{?git_tag}%{?dist}
+Release:    2%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPL-2.0-or-later
 URL:        https://pagure.io/FedoraReview
 Source0:    https://releases.pagure.org/FedoraReview/%{name}-%{version}%{?git_tag}.tar.gz
+# adapted from https://pagure.io/FedoraReview/c/c9aa1122cd046ea3c6f43be4bb352c383c2e56ad.patch
+Patch0:     %{name}-shebang-fix.diff
 
 BuildArch:  noarch
 
@@ -114,10 +116,6 @@ cd ..
 cp -ar test "%{buildroot}%{_datadir}/%{name}"
 cp -a pycodestyle.conf pylint.conf "%{buildroot}%{_datadir}/%{name}"
 
-# Fix shebangs in %%{_bindir}.
-chmod -c 0755 %{buildroot}%{_bindir}/*
-%{py3_shebang_fix} %{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/*
-
 
 %check
 %if %{with tests}
@@ -156,6 +154,9 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Wed Jul 26 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.10.0-2
+- Properly fix shebangs to invoke Python 3
+
 * Mon Jul 24 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.10.0-1
 - New upstream release 0.10.0
 - Use SPDX license identifier

@@ -3,31 +3,16 @@
 # to make it work. Note that some tests are very slow.
 %bcond tests 1
 
-# F39FailsToInstall: python3-nibabel
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220356
-%bcond nibabel 0
+%bcond nibabel 1
 
 Name:           python-indexed_gzip
-Version:        1.7.1
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Fast random access of gzip files in Python
 
 License:        Zlib
 URL:            https://github.com/pauldmccarthy/indexed_gzip
 Source:         %{pypi_source indexed_gzip}
-
-# Replace IndexedGzipFile.__reduce__ with IndexedGzipFile.__reduce_ex__
-# https://github.com/pauldmccarthy/indexed_gzip/pull/126
-#
-# Fixes:
-#
-# Regressions on Python 3.12: TypeError: cannot pickle 'IndexedGzipFile'
-# instances
-# https://github.com/pauldmccarthy/indexed_gzip/issues/125
-#
-# F39FailsToInstall: python3-indexed-gzip
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220277
-Patch:          %{url}/pull/126.patch
 
 %global desc %{expand:
 The indexed_gzip project is a Python extension which aims to provide a drop-in
@@ -55,9 +40,6 @@ decompress (on average) 512KB of data to read from any location in the file.}
 %package -n python3-indexed-gzip
 Summary:        %{summary}
 BuildRequires:  python3-devel
-# Incompatible with Cython 3 due to division semantics
-# https://github.com/pauldmccarthy/indexed_gzip/issues/127
-BuildRequires:  python3dist(cython) < 3~~
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
@@ -104,7 +86,11 @@ find indexed_gzip -type f -name '*.pyx' | sed -r 's/\.pyx$/.c/' | xargs -r rm -v
 
 %check
 %if %{with tests}
-%pytest %{buildroot}%{python3_sitearch}/indexed_gzip -n auto
+# A couple more Python 3.12 regressions, in nibabel integration tests
+# https://github.com/pauldmccarthy/indexed_gzip/issues/136
+k="${k-}${k+ and }not test_readdata_twice"
+k="${k-}${k+ and }not test_nibabel_integration"
+%pytest %{buildroot}%{python3_sitearch}/indexed_gzip -n auto -k "${k-}"
 %endif
 
 %files -n python3-indexed-gzip -f %{pyproject_files}

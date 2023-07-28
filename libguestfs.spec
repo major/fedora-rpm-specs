@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.51.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -732,7 +732,7 @@ else
 fi
 
 %{configure} \
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
   QEMU=%{_libexecdir}/qemu-kvm \
 %endif
   PYTHON=%{__python3} \
@@ -743,7 +743,7 @@ fi
 %else
   --with-extra="rhel=%{rhel},release=%{release},libvirt" \
 %endif
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
   --with-qemu="qemu-kvm qemu-system-%{_build_arch} qemu" \
 %endif
 %ifnarch %{golang_arches}
@@ -1093,6 +1093,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Wed Jul 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.51.6-2
+- Use qemu-kvm in ELN builds
+
 * Thu Jul 20 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.6-1
 - New upstream development branch 1.51.6
 

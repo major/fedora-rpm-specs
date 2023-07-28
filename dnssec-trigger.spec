@@ -18,11 +18,15 @@ Source1: https://www.nlnetlabs.nl/downloads/dnssec-trigger/%{name}-%{version}.ta
 Source2: https://keys.openpgp.org/vks/v1/by-fingerprint/EDFAA3F2CA4E6EB05681AF8E9F6F1C2D7E045F8D#/wouter.asc
 %endif
 Source3: dnssec-trigger.tmpfiles.d
-Source4: dnssec-trigger-default.conf
-Source5: dnssec-trigger-workstation.conf
+#Source4: dnssec-trigger-default.conf
+#Source5: dnssec-trigger-workstation.conf
 Source6: ssh_config.conf
 
 # Patches
+# Downstream changes to configuration
+Patch1: dnssec-trigger-config-workstation.patch
+# Downstream changes to configuration
+Patch2: dnssec-trigger-config-default.patch
 Patch3: 0003-Move-the-NetworkManager-dispatcher-script-out-of-etc.patch
 # https://github.com/NLnetLabs/dnssec-trigger/pull/7
 Patch4: 0004-Add-options-edns0-and-trust-ad.patch
@@ -56,10 +60,8 @@ BuildRequires: NetworkManager-libnm-devel
 BuildRequires: gnupg2
 %endif
 
-BuildRequires: systemd
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+BuildRequires: systemd-rpm-macros
+%{?systemd_ordering}
 
 # Provides Workstation specific configuration
 # - No captive portal detection and no action available on Captive portal (No UI)
@@ -92,7 +94,8 @@ some user input is needed, the panel creates a dialog window.
 %if 0%{?fedora} && ! 0%{?snapshot:1}
 %gpgverify -d 0 -s 1 -k 2
 %endif
-%autosetup %{?snapshot:-n %{name}-%{version}_%{snapshot}} -p1
+%autosetup %{?snapshot:-n %{name}-%{version}_%{snapshot}} -N
+%autopatch -m 3 -p1
 
 # don't use DNSSEC for forward zones for now
 sed -i "s/validate_connection_provided_zones=yes/validate_connection_provided_zones=no/" dnssec.conf
@@ -106,9 +109,17 @@ sed -i "s/validate_connection_provided_zones=yes/validate_connection_provided_zo
     --with-networkmanager-dispatch=%{_sysconfdir}/NetworkManager/dispatcher.d \
 %endif
     --with-python=%{__python3} \
-    --with-pidfile=%{_rundir}/%{name}d.pid
+    --with-pidfile=%{_rundir}/%{name}d.pid \
+    --with-login-command=%{_bindir}/xdg-open \
+    --with-login-location="http://hotspot-nocache.fedoraproject.org/"
+
+# hotspot-nocache should have TTL=0
 
 %make_build
+
+%autopatch -p1 2
+cp -p example.conf dnssec-trigger-workstation.conf
+%autopatch -p1 1
 
 
 %install
@@ -117,10 +128,8 @@ install -d -m 0755 %{buildroot}%{_libexecdir}
 %make_install
 
 install -d 0755 %{buildroot}%{_unitdir}
-install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/%{name}/
-install -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/%{name}/
-
-mkdir -p %{buildroot}%{_libexecdir}
+install -p -m 0644 example.conf %{buildroot}%{_sysconfdir}/%{name}/dnssec-trigger-default.conf
+install -p -m 0644 dnssec-trigger-workstation.conf %{buildroot}%{_sysconfdir}/%{name}/
 
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications dnssec-trigger-panel.desktop
 

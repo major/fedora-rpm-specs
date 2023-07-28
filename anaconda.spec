@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 39.27
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -11,6 +11,12 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
+
+# https://github.com/rhinstaller/anaconda/pull/4858#issuecomment-1652180161
+# this change is broken and makes aarch64 installs crash, reverted
+# downstream while anaconda fix it to work properly upstream
+Patch0: 0001-Revert-Add-GUI-option-for-installing-64k-ARM-kernel.patch
+Patch1: 0002-Revert-Add-TUI-for-installing-non-standard-kernels.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -478,6 +484,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 26 2023 Adam Williamson <awilliam@redhat.com> - 39.27-3
+- Revert *both* commits from the broken PR, not just one
+
+* Wed Jul 26 2023 Adam Williamson <awilliam@redhat.com> - 39.27-2
+- Revert "Port GUI kernel switcher for ARM 64k", it's broken, causes crashes
+
 * Tue Jul 25 2023 Packit <hello@packit.dev> - 39.27-1
 - webui: if no scenario is available for selection show the options but
   disabled (kkoukiou)

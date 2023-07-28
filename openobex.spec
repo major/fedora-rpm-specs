@@ -6,7 +6,7 @@ Summary: Library for using OBEX
 Name: openobex
 Version: 1.7.2
 Release: 23%{?dist}
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: http://openobex.sourceforge.net
 # git clone https://git.gitorious.org/openobex/mainline.git
 Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}-Source.tar.gz
@@ -47,10 +47,10 @@ calendar entries (vCal) and business cards (vCard) using the OBEX protocol.
 
 %prep
 %setup -q -n %{name}-%{version}-Source
-%patch0 -p1 -b .flush
-%patch1 -p1 -b .push
-%patch2 -p1 -b .udev
-%patch3 -p1 -b .strtoul
+%patch -P 0 -p1 -b .flush
+%patch -P 1 -p1 -b .push
+%patch -P 2 -p1 -b .udev
+%patch -P 3 -p1 -b .strtoul
 
 %build
 export CFLAGS="%{optflags} -std=gnu99 -D_POSIX_C_SOURCE=200809L -D_DEFAULT_SOURCE"

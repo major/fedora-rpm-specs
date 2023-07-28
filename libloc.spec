@@ -82,7 +82,7 @@ Patch0:     libloc-0.9.16-location-Fix-correct-set-name-when-family-is-selecte.p
 # 2/2 Fix "location list-networks-by-as --format ipset" output,
 # in upstream after 0.9.16, upstream bug #12897
 Patch1:     libloc-0.9.16-export-Raise-an-error-when-trying-to-export-ipset-fo.patch
-# Fix string escaping with Python 3.12, proposed to the upstream,
+# Fix string escaping with Python 3.12, in upstream after 0.9.16,
 # upstream bug #13188
 Patch2:     libloc-0.9.16-Fix-string-escaping-in-location-tool.patch
 BuildRequires:  asciidoc

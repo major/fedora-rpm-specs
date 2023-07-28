@@ -3,7 +3,7 @@
 
 Name:           setools
 Version:        4.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only and LGPL-2.1-only
@@ -11,6 +11,14 @@ URL:            https://github.com/SELinuxProject/setools/wiki
 Source0:        https://github.com/SELinuxProject/setools/archive/%{version}.tar.gz
 Source1:        setools.pam
 Source2:        apol.desktop
+Patch0001:      0001-Disable-remove-neverallow-options-in-sediff.patch
+Patch0002:      0002-Improve-man-pages.patch
+Patch0003:      0003-tox.ini-Change-environments-to-use-python-instead-of.patch
+Patch0004:      0004-seinfoflow-Add-r-option-to-get-flows-into-the-source.patch
+Patch0005:      0005-seinfoflow.1-Remove-references-to-sepolgen-permissio.patch
+Patch0006:      0006-AVRule-AVRuleXperm-Treat-rules-with-no-permissions-a.patch
+Patch0007:      0007-SELinuxPolicy-Add-explicit-cast-for-libspol-message-.patch
+
 Obsoletes:      setools < 4.0.0, setools-devel < 4.0.0
 BuildRequires:  flex,  bison
 BuildRequires:  glibc-devel, gcc, git-core
@@ -143,6 +151,14 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/apol*
 
 %changelog
+* Wed Jul 26 2023 Petr Lautrbach <lautrbach@redhat.com> - 4.4.2-4
+- Disable/remove neverallow options in sediff.
+- Improve man pages
+- seinfoflow: Add -r option to get flows into the source type.
+- seinfoflow.1: Remove references to sepolgen permission map.
+- AVRule/AVRuleXperm: Treat rules with no permissions as invalid policy.
+- SELinuxPolicy: Add explicit cast for libspol message
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

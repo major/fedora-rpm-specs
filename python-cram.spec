@@ -1,61 +1,56 @@
-
-%define srcname cram
-
 Name:           python-cram
 Version:        0.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Simple testing framework for command line applications
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://bitheap.org/cram/
-Source0:        %{pypi_source}
+Source:         %{pypi_source cram}
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  /usr/bin/pathfix.py
-BuildRequires:  /usr/bin/pyflakes
 
-%description
-Cram tests look like snippets of interactive shell sessions. Cram runs each
-command and compares the command output in the test with the command's actual
-output.
+%global _description %{expand:
+Cram is a functional testing framework for command line applications. Cram
+tests look like snippets of interactive shell sessions. Cram runs each command
+and compares the command output in the test with the command's actual output.}
+
+%description %_description
 
 %package -n python3-cram
 Summary:        %{summary}
-Requires:       python3
 
-%description -n python3-cram
-Cram tests look like snippets of interactive shell sessions. Cram runs each
-command and compares the command output in the test with the command's actual
-output.
+%description -n python3-cram %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n cram-%{version}
 
-# Fix shebang - cram install adds -s so we avoid adding %%py3_shbang_opts here
-pathfix.py -pni "%python3" scripts/cram
+# Fix shebang in script for tests
+%py3_shebang_fix scripts/cram
 
-# remove shebangs
-find . -type f -name '*.py' \
-  -exec sed -i -e '/^#!/{1D}' {} \;
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files cram
 
 %check
 # dist.t needs check-manifest which isn't packaged
 # pep8.t needs pep8 which has been retired
 PYTHONPATH=%{buildroot}%{python3_sitelib} PYTHON=%python3 scripts/cram -v tests
 
-%files -n python3-%{srcname}
+%files -n python3-cram -f %{pyproject_files}
 %doc NEWS.rst README.rst TODO.md
-%license COPYING.txt
-
-%{python3_sitelib}/*
 %{_bindir}/cram
 
 %changelog
+* Thu Jul 27 2023 Carl George <carl@george.computer> - 0.7-17
+- Convert to pyproject macros
+- Switch to SPDX license identifier
+- Rebuild for Python 3.12, resolves rhbz#2226174
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

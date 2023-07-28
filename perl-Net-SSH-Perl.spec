@@ -1,10 +1,10 @@
 Summary:	SSH (Secure Shell) client
 Name:		perl-Net-SSH-Perl
-Version:	2.14
-Release:	22%{?dist}
+Version:	2.141
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Net-SSH-Perl
-Source0:	https://cpan.metacpan.org/authors/id/S/SC/SCHWIGON/Net-SSH-Perl-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSH-Perl-%{version}.tar.gz
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -14,7 +14,9 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.64
+BuildRequires:	perl(File::Spec)
+BuildRequires:	perl(Test::Manifest) >= 1.21
 # Module Runtime
 BuildRequires:	perl(base)
 BuildRequires:	perl(Carp)
@@ -99,13 +101,19 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%license LICENSE
+%license LICENSE LICENSE_ARTISTIC LICENSE_GNU
 %doc Changes README eg ToDo
 %{perl_vendorarch}/auto/Net/
 %{perl_vendorarch}/Net/
 %{_mandir}/man3/Net::SSH::Perl*.3*
 
 %changelog
+* Wed Jul 26 2023 Paul Howarth <paul@city-fan.org> - 2.141-1
+- Update to 2.141
+  - The code in now hosted at https://github.com/briandfoy/net-ssh-perl
+  - Allow IdentitiesOnly (GH#66)
+- Use author-independent source URL
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:             hawtjni
 Version:          1.18
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Code generator that produces the JNI code
 # Maven plugin is under ASL 2.0.
 # stdint.h, shipped in JAR as resource, used only with M$ VC++, is under BSD.
@@ -21,10 +21,8 @@ BuildRequires:    mvn(commons-cli:commons-cli)
 BuildRequires:    mvn(org.apache.commons:commons-lang3)
 BuildRequires:    mvn(org.apache.maven:maven-archiver)
 BuildRequires:    mvn(org.apache.maven:maven-artifact)
-BuildRequires:    mvn(org.apache.maven:maven-artifact-manager)
 BuildRequires:    mvn(org.apache.maven:maven-compat)
 BuildRequires:    mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:    mvn(org.apache.maven:maven-project)
 BuildRequires:    mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:    mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:    mvn(org.apache.xbean:xbean-finder)
@@ -68,19 +66,14 @@ This package allows to use HawtJNI from a maven plugin.
 
 %prep
 %setup -q -n %{name}-%{name}-project-%{version}
-%patch0 -p1
-
-# This package needs maven compat for ArtifactResolver class
-%pom_add_dep org.apache.maven:maven-compat hawtjni-maven-plugin
+%patch 0 -p1
 
 %pom_disable_module hawtjni-example
+%pom_disable_module hawtjni-maven-plugin
 %pom_remove_plugin -r :maven-shade-plugin
 %pom_remove_plugin -r :maven-eclipse-plugin
 
 %mvn_package ":hawtjni-runtime" runtime
-%mvn_package ":hawtjni-maven-plugin" maven-plugin
-
-%mvn_alias :hawtjni-maven-plugin :maven-hawtjni-plugin
 
 # javadoc generation fails due to strict doclint in JDK 8
 %pom_remove_plugin :maven-javadoc-plugin hawtjni-runtime
@@ -99,9 +92,10 @@ This package allows to use HawtJNI from a maven plugin.
 %files javadoc -f .mfiles-javadoc
 %doc license.txt
 
-%files -n maven-hawtjni-plugin -f .mfiles-maven-plugin
-
 %changelog
+* Thu Jul 27 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.18-9
+- Disable hawtjni-maven-plugin
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

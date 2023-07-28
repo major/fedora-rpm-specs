@@ -7,7 +7,7 @@
 
 # This list of drivers are included when compiling the 'migrate' program.
 %global _gobuildtags cassandra cockroachdb mongodb mysql postgres redshift \\\
-                     snowflake sqlite3 github gitlab go_bindata godoc_vfs \\\
+                     sqlite3 github gitlab go_bindata godoc_vfs \\\
                      google_cloud_storage iofs pkger aws_s3 filesystem
 
 # This list of drivers are removed before the package is built. This ensures
@@ -19,6 +19,7 @@
                         database/neo4j \\\
                         database/pgx \\\
                         database/ql \\\
+                        database/snowflake \\\
                         database/spanner \\\
                         database/sqlcipher \\\
                         database/sqlite \\\
@@ -44,7 +45,6 @@ This package is built with the following databases backends:
 * mysql
 * postgres
 * redshift
-* snowflake
 * sqlite3
 
 This package is built with the following source backends:
@@ -66,7 +66,6 @@ This package is built with the following source backends:
                        mysql-README.md \\\
                        redshift-README.md \\\
                        postgres-README.md \\\
-                       snowflake-README.md \\\
                        sqlite3-README.md \\\
                        file-README.md \\\
                        github-README.md \\\
@@ -104,7 +103,6 @@ BuildRequires: golang(github.com/lib/pq)
 BuildRequires: golang(github.com/markbates/pkger)
 BuildRequires: golang(github.com/markbates/pkger/pkging)
 BuildRequires: golang(github.com/mattn/go-sqlite3)
-BuildRequires: golang(github.com/snowflakedb/gosnowflake)
 BuildRequires: golang(github.com/xanzy/go-gitlab)
 BuildRequires: golang(go.mongodb.org/mongo-driver/bson)
 BuildRequires: golang(go.mongodb.org/mongo-driver/mongo)
@@ -148,7 +146,6 @@ mv database/mongodb/README.md            mongodb-README.md
 mv database/mysql/README.md              mysql-README.md
 mv database/postgres/README.md           postgres-README.md
 mv database/redshift/README.md           redshift-README.md
-mv database/snowflake/README.md          snowflake-README.md
 mv database/sqlite3/README.md            sqlite3-README.md
 mv source/aws_s3/README.md               s3-README.md
 mv source/file/README.md                 file-README.md
@@ -174,7 +171,6 @@ mv source/pkger/README.md                pkger-README.md
 %doc mysql-README.md
 %doc postgres-README.md
 %doc redshift-README.md
-%doc snowflake-README.md
 %doc sqlite3-README.md
 %doc file-README.md
 %doc github-README.md

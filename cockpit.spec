@@ -49,12 +49,11 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        296
-Release:        2%{?dist}
+Version:        297
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
-# Use Python bridge on non-stable versions
-%if 0%{?fedora} >= 39
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 9
 %define cockpit_enable_python 1
 %endif
 
@@ -426,12 +425,12 @@ Provides: cockpit-sosreport = %{version}-%{release}
 Recommends: (reportd if abrt)
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.53
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.98
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.14
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.10
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.100
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.9
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-prerelease.8
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.132
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.21
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.19
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.136
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.16
 Provides: bundled(npm(argparse)) = 1.0.10
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(autolinker)) = 3.16.2
@@ -441,7 +440,7 @@ Provides: bundled(npm(deep-equal)) = 2.0.5
 Provides: bundled(npm(define-properties)) = 1.2.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
 Provides: bundled(npm(file-selector)) = 0.6.0
-Provides: bundled(npm(focus-trap)) = 7.4.1
+Provides: bundled(npm(focus-trap)) = 7.4.3
 Provides: bundled(npm(for-each)) = 0.3.3
 Provides: bundled(npm(function-bind)) = 1.1.1
 Provides: bundled(npm(functions-have-names)) = 1.2.3
@@ -465,7 +464,6 @@ Provides: bundled(npm(is-regex)) = 1.1.4
 Provides: bundled(npm(is-set)) = 2.0.2
 Provides: bundled(npm(is-string)) = 1.0.7
 Provides: bundled(npm(is-symbol)) = 1.0.4
-Provides: bundled(npm(is-typed-array)) = 1.1.10
 Provides: bundled(npm(is-weakmap)) = 2.0.1
 Provides: bundled(npm(is-weakset)) = 2.0.2
 Provides: bundled(npm(isarray)) = 2.0.5
@@ -491,13 +489,13 @@ Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
-Provides: bundled(npm(tabbable)) = 6.1.2
+Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 2.3.0
-Provides: bundled(npm(tslib)) = 2.5.2
+Provides: bundled(npm(tslib)) = 2.6.1
 Provides: bundled(npm(uuid)) = 7.0.3
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
-Provides: bundled(npm(which-typed-array)) = 1.1.9
+Provides: bundled(npm(which-typed-array)) = 1.1.11
 Provides: bundled(npm(xterm-addon-canvas)) = 0.3.0
 Provides: bundled(npm(xterm)) = 5.1.0
 
@@ -783,6 +781,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 26 2023 Packit <hello@packit.dev> - 297-1
+- users: allow administrators to change the user shell
+- tools: Enable Python bridge on Fedora 38
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 296-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

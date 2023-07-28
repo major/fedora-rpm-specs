@@ -1,5 +1,5 @@
 Name:           rakudo
-Version:        2023.05
+Version:        2023.06
 Release:        %autorelease
 Summary:        Raku on MoarVM, JVM, and JS
 License:        Artistic-2.0
@@ -64,8 +64,8 @@ rm %{buildroot}%{_datadir}/perl6/core/repo.lock
 make test
 
 %files
-%doc README.md
 %license LICENSE
+%doc README.md
 %{_bindir}/perl6*
 %{_bindir}/raku
 %{_bindir}/raku-debug

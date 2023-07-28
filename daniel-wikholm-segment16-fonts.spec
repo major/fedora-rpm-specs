@@ -1,13 +1,13 @@
 Name: daniel-wikholm-segment16-fonts
 Summary: Collection of fonts mimicking 16-segment digital displays
-License: CC0
+License: CC0-1.0
 
 # I tried looking for the author's personal site, but no luck.
 # Thus, I'm using a generic font catalogue website as the source.
 URL: https://www.wfonts.com/font/segment16a
 
 Version: 20171229
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %global foundry  Daniel Wikholm
 %global fontdocs  Segment16.txt
@@ -113,6 +113,10 @@ cp %{SOURCE20} ./cc0.txt
 
 
 %changelog
+* Wed Jul 26 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20171229-4
+- Rebuild for Fedora 39
+- Migrate License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20171229-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -56,7 +56,7 @@
 Name:          tomcat
 Epoch:         1
 Version:       %{major_version}.%{minor_version}.%{micro_version}
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Apache Servlet/JSP Engine, RI for Servlet %{servletspec}/JSP %{jspspec} API
 
 License:       ASL 2.0
@@ -526,6 +526,7 @@ fi
 %exclude %{_javadir}/%{name}-servlet-api.jar
 %exclude %{_javadir}/%{name}-el-api.jar
 %exclude %{_javadir}/%{name}-jsp-api.jar
+%exclude %{_jnidir}/*
 
 %files jsp-%{jspspec}-api -f .mfiles-tomcat-jsp-api
 %{_javadir}/%{name}-jsp-%{jspspec}*.jar
@@ -549,8 +550,11 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Wed Jul 26 2023 Hui Wang <huwang@redhat.com> - 1:9.0.78-3
+- Exclude jnidir in the lib subpackage
+
 * Tue Jul 25 2023 Hui Wang <huwang@redhat.com> - 1:9.0.78-2
-- Resolves: rhbz#2224318 There are duplicated jars in the tomcat lib-subpackage
+- Resolves: rhbz#2224318 There are duplicated jars in the tomcat lib subpackage
 
 * Tue Jul 25 2023 Hui Wang <huwang@redhat.com> - 1:9.0.78-1
 - Resolves: rhbz#2224318 There are duplicated jars in the tomcat lib-subpackage

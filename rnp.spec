@@ -26,7 +26,7 @@
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.17.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
@@ -44,6 +44,8 @@ Patch0:         %{name}-static.patch
 Patch1:         %{name}-gcc13.patch
 # Use system libsexpp
 Patch2:         %{name}-sexpp.patch
+# Use setuptools
+Patch3:         %{name}-setup.patch
 
 BuildRequires:  cmake >= 3.14
 BuildRequires:  gcc
@@ -61,6 +63,7 @@ BuildRequires:  cmake(json-c) >= 0.11
 BuildRequires:  cmake(GTest)
 %endif
 BuildRequires:  python3
+BuildRequires:  python3-setuptools
 BuildRequires:  gnupg2
 BuildRequires:  rubygem-asciidoctor
 %if %{with licensecheck}
@@ -104,6 +107,7 @@ for %{libname}.
 %{?gpgverify:%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
 
 %patch -P0 -p1
+%patch -P3 -p1
 
 %if %{with libsexpp}
 rm -rf  src/libsexp
@@ -197,6 +201,13 @@ FILTER="$FILTER|cli_tests-Encryption|cli_tests-Misc"
 
 
 %changelog
+* Wed Jul 26 2023 Remi Collet <remi@remirepo.net> - 0.17.0-5
+- use upstream patch for setuptools
+
+* Wed Jul 26 2023 Remi Collet <remi@remirepo.net> - 0.17.0-4
+- use setuptools._distutils instead of distutils #2226397
+  see https://github.com/rnpgp/rnp/issues/2112
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

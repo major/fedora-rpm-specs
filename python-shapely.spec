@@ -1,5 +1,12 @@
+# Shapely 2.0.2 micro release?
+# https://github.com/shapely/shapely/issues/1852
+#
+# The snapshot fixes several issues with GEOS 3.12.0.
+%global commit eeb51ad4d80c902d5f0bcad209687f046019cb6e
+%global snapdate 20230725
+
 Name:           python-shapely
-Version:        2.0.1
+Version:        2.0.1^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
 
@@ -9,13 +16,15 @@ Summary:        Manipulation and analysis of geometric objects in the Cartesian 
 #   MIT: src/kvec.h
 License:        BSD-3-Clause AND Unlicense AND MIT
 URL:            https://github.com/shapely/shapely
-Source0:        %{pypi_source shapely}
+Source:         %{url}/archive/%{commit}/shapely-%{commit}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  geos-devel
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist Cython}
+
+# For packaging a snapshot with versioneer
+BuildRequires:  git-core
 
 %global _description %{expand:
 Shapely is a package for creation, manipulation, and analysis of planar
@@ -55,7 +64,8 @@ Provides:       bundled(klib-kvec) = 0.1.0
 
 
 %prep
-%autosetup -n shapely-%{version}
+# Git repository (-S git) is for versioneer
+%autosetup -n shapely-%{commit} -S git
 
 # Currently, the PyPI sdist does not ship with pre-generated Cython C sources.
 # We preventively check for them anyway, as they must be removed if they do
@@ -72,6 +82,11 @@ sed -r -i \
     -e 's/oldest-supported-(numpy)/\1/' \
     -e 's/^([[:blank:]]+)("pytest-cov")/\1# \2/' \
     pyproject.toml
+
+%{python3} versioneer.py setup
+git commit -m 'We need something to tag!'
+git tag -a -m 'shapely-%{version}-%{release}' \
+    '%(echo '%{version}' | cut -d'^' -f1)'
 
 
 %generate_buildrequires
@@ -92,9 +107,16 @@ sed -r -i \
 # cannot be tested.
 mkdir empty
 cd empty
-ln -s ../tests/
+ln -s ../shapely/tests/
 
-%pytest
+# minimum_rotated_rectangle is incorrect in 2.0.0
+# https://github.com/shapely/shapely/issues/1670
+k="${k-}${k+ and }not test_oriented_envelope[geometry0-expected0]"
+k="${k-}${k+ and }not test_oriented_envelope[geometry2-expected2]"
+k="${k-}${k+ and }not test_minimum_rotated_rectangle[geometry0-expected0]"
+k="${k-}${k+ and }not test_minimum_rotated_rectangle[geometry2-expected2]"
+
+%pytest -v -k "${k-}"
 
 
 %files -n python3-shapely -f %{pyproject_files}

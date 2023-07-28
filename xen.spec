@@ -943,7 +943,7 @@ fi
 - adjust OCaml patch condition so eln builds work
 
 * Mon Jul 24 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-7
-- x86/AMD: Zenbleed [XSA-433]
+- x86/AMD: Zenbleed [XSA-433, CVE-2023-20593]
 - omit OCaml 5 patch on fc38
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.17.1-6

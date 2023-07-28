@@ -2,8 +2,8 @@
 %bcond_without perl_Compress_Raw_Lzma_enables_optional_test
 
 Name:		perl-Compress-Raw-Lzma
-Version:	2.205
-Release:	2%{?dist}
+Version:	2.206
+Release:	1%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -45,7 +45,7 @@ BuildRequires:	perl(Test::NoWarnings)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	xz
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(XSLoader)
 # Built-against version is embedded in module, so we have a strict version dependency
 Requires:	xz-libs%{?_isa} = %((pkg-config --modversion liblzma 2>/dev/null || echo 0) | tr -dc '[0-9.]')
@@ -87,6 +87,11 @@ make test
 %{_mandir}/man3/Compress::Raw::Lzma.3*
 
 %changelog
+* Wed Jul 26 2023 Paul Howarth <paul@city-fan.org> - 2.206-1
+- Update to 2.206
+  - Drop rt.cpan.org from SUPPORT section
+  - Add instructions to deal with build failure on Ubuntu/Debian (GH#7)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.205-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

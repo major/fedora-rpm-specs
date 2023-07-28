@@ -71,7 +71,13 @@ sed -Ei "/^ *'?git-filter-repo/d" requirements.txt setup.py
 
 
 %check
-%pytest
+%pyproject_check_import
+# disable this test due to regression in 3.12b4:
+# https://github.com/python/cpython/issues/106669
+%pytest \
+%if v"%{python3_version}" >= v"3.12"
+  -k "not test_header_wrapping"
+%endif
 
 
 %files -n %{srcname} -f %{pyproject_files}

@@ -4,7 +4,7 @@
 
 # Versions are like 2.2.2-rc2-r6528. The first part (2.2.2 in this example)
 # goes into the Version: field, the rest (rc2-r6528 here) into %%src_release.
-%global src_release 7616
+%global src_release 8786
 
 %global src_version %{version}-r%{src_release}
 %if 0%{?sf_release}
@@ -13,11 +13,11 @@
 
 Summary: The Open Racing Car Simulator
 Name:    speed-dreams
-Version: 2.2.3
+Version: 2.3.0
 %if 0%{?sf_release}
-Release: 7%{?dist}
+Release: 1%{?dist}
 %else
-Release: 0.16.%{svndate}svn%(echo %{src_release} | tr '-' '_').rc1%{?dist}
+Release: 0.15.%{svndate}svn%(echo %{src_release} | tr '-' '_').rc1%{?dist}
 %endif
 Epoch:   1
          # Contains LGPLv2 files also published under GPLv2+
@@ -35,8 +35,9 @@ Source0: %{?repo_url}%{name}-src-base-%{src_version}.tar.xz
 Source1: %{?repo_url}%{name}-src-wip-cars-and-tracks-%{src_version}.tar.xz
 Source2: %{?repo_url}%{name}-src-hq-cars-and-tracks-%{src_version}.tar.xz
 Source3: %{?repo_url}%{name}-src-more-hq-cars-and-tracks-%{src_version}.tar.xz
-#Source4: %%{?repo_url}%%{name}-src-unmaintained-%%{src_version}.tar.xz
+Source4: %{?repo_url}%{name}-src-unmaintained-%{src_version}.tar.xz
 Source5: %{name}.desktop
+# Patch0:  fix_invalid_ascii_characters.patch
 
 ExcludeArch:   s390x
 
@@ -62,10 +63,10 @@ BuildRequires: libXmu-devel
 BuildRequires: libXrandr-devel
 BuildRequires: plib-devel
 BuildRequires: SDL2-devel
+BuildRequires: SDL2_mixer-devel
 BuildRequires: libogg-devel
 BuildRequires: libvorbis-devel
 BuildRequires: OpenSceneGraph-devel
-
 
 # Dont provide or require internal libs. Using new rpm builtin filtering,
 # see http://www.rpm.org/wiki/PackagerDocs/DependencyGenerator
@@ -103,7 +104,7 @@ This package contains the development files for the game.
 
 
 %prep
-%setup -q -c -n %{name}-src-base-%{version}-%{release} -a1 -a2 -a3
+%setup -q -c -n %{name}-src-base-%{version}-%{release} -a1 -a2 -a3 -a4
 
 # delete unused header file on arm achitecture
 sed -i -e 's|#include "OsgReferenced.h"||g' src/modules/graphic/osggraph/Sky/OsgDome.h
@@ -120,6 +121,7 @@ find . -name '*.c' -o -name '*.h' -o -name '*.cpp' -o -name '*.hpp' | \
         -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed"         \
         -DSD_BINDIR:PATH=bin                                  \
         -DOPTION_3RDPARTY_SOLID:BOOL=ON                       \
+        -DOPTION_TRACKEDITOR:BOOL=OFF                         \
         -DOPTION_OFFICIAL_ONLY:BOOL=ON
 %cmake_build
 
@@ -175,7 +177,6 @@ cp -a  %{buildroot}%{_datadir}/games/%{name}-2/*.xml docs
 # remove zero length files
 find %{buildroot} -size 0 -delete
 
-
 %files
 %doc docs/*.xml docs/*.txt
 %{_mandir}/man6/*
@@ -202,8 +203,9 @@ find %{buildroot} -size 0 -delete
 %{_includedir}/%{name}-2/
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Tue Jul 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:2.3.0-1
+- Update to 2.3.0
+- Add BR SDL2_mixer-devel
 
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

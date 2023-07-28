@@ -1,6 +1,6 @@
 Name: libmodsecurity
-Version: 3.0.9
-Release: 3%{?dist}
+Version: 3.0.10
+Release: 1%{?dist}
 Summary: A library that loads/interprets rules written in the ModSecurity SecRules
 
 License: Apache-2.0
@@ -92,6 +92,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed Jul 26 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.0.10-1
+- Update to 3.0.10 rhbz#2225895
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

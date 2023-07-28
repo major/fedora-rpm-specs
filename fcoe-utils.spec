@@ -29,6 +29,9 @@ Requires(postun):   systemd
 
 Patch1: 0001-fcoemon-add-snprintf-string-precision-modifiers-in-f.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %description
 Fibre Channel over Ethernet utilities
 fcoeadm - command line tool for configuring FCoE interfaces

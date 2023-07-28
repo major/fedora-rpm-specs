@@ -17,8 +17,8 @@ data fields, which can be used to integrate differential equations,
 and which can read and write data files.}
 
 Name:           python-%{pypi_name}
-Version:        1.0.2
-Release:        6%{?dist}
+Version:        1.0.4
+Release:        1%{?dist}
 Summary:        Python framework for setting up and running scientific simulations
 License:        BSD
 URL:            https://github.com/stammler/%{pypi_name}
@@ -79,6 +79,8 @@ find . -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 %check
 %pytest
 %endif
+# remove tests
+rm -rf %{buildroot}/%{python3_sitelib}/tests
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
@@ -93,6 +95,10 @@ find . -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 %doc examples/
 
 %changelog
+* Wed Jul 26 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 1.0.4-1
+- Update to the latest release
+- Do not package the tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

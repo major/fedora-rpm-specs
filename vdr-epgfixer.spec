@@ -11,12 +11,12 @@
 
 Name:           vdr-%{pname}
 Version:        0.3.1
-Release:        26.%{gitdate}git%{shortcommit}%{?dist}
+Release:        27.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        VDR plugin for doing extra fixing of EPG data
 
 License:        GPLv2+
-URL:            https://projects.vdr-developer.org/projects/plg-epgfixer
-Source0:        https://projects.vdr-developer.org/git/vdr-plugin-epgfixer.git/snapshot/vdr-plugin-epgfixer-%{commit}.tar.bz2
+URL:            https://github.com/vdr-projects/vdr-plugin-epgfixer
+Source0:        https://github.com/vdr-projects/vdr-plugin-epgfixer/archive/%{commit}/%{name}-%{version}-git%{shortcommit}.tar.gz
 Source1:        %{name}.conf
 
 BuildRequires:  make
@@ -39,13 +39,13 @@ editing all settings through setup menu.
      LIBDIR=. LOCALEDIR=./locale VDRDIR=%{_libdir}/vdr
 
 %install
-install -dm 755 $RPM_BUILD_ROOT%{vdr_configdir}/plugins/%{pname}
-install -pm 644 epgfixer/{blacklist,charset,epgclone,regexp}.conf \
-    $RPM_BUILD_ROOT%{vdr_configdir}/plugins/%{pname}
-install -Dpm 644 %{SOURCE1} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
-
 %make_install
+install -dm 755 %{buildroot}%{vdr_configdir}/plugins/%{pname}
+install -pm 644 epgfixer/{blacklist,charset,epgclone,regexp}.conf \
+    %{buildroot}%{vdr_configdir}/plugins/%{pname}
+install -Dpm 644 %{SOURCE1} \
+    %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+
 %find_lang %{name}
 
 %files -f %{name}.lang
@@ -58,6 +58,9 @@ install -Dpm 644 %{SOURCE1} \
 %defattr(-,root,root,-)
 
 %changelog
+* Wed Jul 26 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.3.1-27.20180416git354f28b
+- Rebuilt for rawhide
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-26.20180416git354f28b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

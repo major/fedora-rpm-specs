@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.14.3
-Release: 4%{?dist}
+Version: 2.14.4
+Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 Group: System Environment/Base
 URL: https://pagure.io/setup/
@@ -65,6 +65,13 @@ rm -f %{buildroot}/etc/shadowconvert.sh
 rm -f %{buildroot}/etc/setup.spec
 rm -rf %{buildroot}/etc/contrib
 
+# make setup a protected package
+install -p -d -m 755 %{buildroot}/etc/dnf/protected.d/
+touch %{name}.conf
+echo setup > %{name}.conf
+install -p -c -m 0644 %{name}.conf %{buildroot}/etc/dnf/protected.d/
+rm -f %{name}.conf
+
 #throw away useless and dangerous update stuff until rpm will be able to
 #handle it ( http://rpm.org/ticket/6 )
 %post -p <lua>
@@ -99,7 +106,7 @@ end
 %verify(not md5 size mtime) %config(noreplace) /etc/hosts
 %verify(not md5 size mtime) %config(noreplace) /etc/motd
 %dir /etc/motd.d
-%ghost /run/motd
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /run/motd
 %dir /run/motd.d
 %verify(not md5 size mtime) %config(noreplace) /usr/lib/motd
 %dir /usr/lib/motd.d
@@ -121,8 +128,15 @@ end
 %{_tmpfilesdir}/%{name}.conf
 %{_sysusersdir}/20-setup-groups.conf
 %{_sysusersdir}/20-setup-users.conf
+/etc/dnf/protected.d/%{name}.conf
 
 %changelog
+* Tue Jul 25 2023 Martin Osvald <mosvald@redhat.com> - 2.14.4-1
+- protocols: add mptcp (262)
+- setup.spec: make setup protected package (rhbz#2155547)
+- setup.spec: don't report rpm -Va error on /run/motd (rhbz#2160954)
+- services: replace hostmon with llmnr for port 5355 (rhbz#2216914)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.0
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -61,7 +61,12 @@ local core_font_package_list = {
     mono={ "google-noto-sans-mono-vf-fonts" },
     emoji={ "google-noto-emoji-color-fonts" },
     math={ "google-noto-sans-math-fonts", "stix-fonts", "google-noto-sans-symbols-vf-fonts", "google-noto-sans-symbols2-fonts" }
-  }
+  },
+  cjk={
+    sans={ "google-noto-sans-cjk-vf-fonts" },
+    serif={ "google-noto-serif-cjk-vf-fonts" },
+    mono={ "" },
+  },
 }
 local langpacks_package_list = {
  { lang="af", fclang="", langname="Afrikaans", default={
@@ -581,8 +586,8 @@ local langpacks_package_list = {
    },
  },
  { lang="ja", fclang="", langname="Japanese", default={
-                sans="google-noto-sans-cjk-vf-fonts",
-                serif="google-noto-serif-cjk-vf-fonts",
+                sans="", -- Use core_font_package_list if you want to have common fonts for CJK
+                serif="",
                 mono="" },
    recommends={
               },
@@ -652,8 +657,8 @@ local langpacks_package_list = {
    },
  },
  { lang="ko", fclang="", langname="Korean", default={
-                sans="google-noto-sans-cjk-vf-fonts",
-                serif="google-noto-serif-cjk-vf-fonts",
+                sans="", -- Use core_font_package_list if you want to have common fonts for CJK
+                serif="",
                 mono="" },
    recommends={
               },
@@ -874,11 +879,11 @@ local langpacks_package_list = {
  },
  { lang="pa", fclang="", langname="Punjabi", default={
                 sans="google-noto-sans-gurmukhi-vf-fonts",
-                serif="google-noto-naskh-arabic-vf-fonts",
+                serif="google-noto-serif-gurmukhi-vf-fonts",
                 mono="" },
    recommends={ "saab-fonts",
                 "lohit-gurmukhi-fonts",
-                "google-noto-serif-gurmukhi-vf-fonts",
+                "google-noto-naskh-arabic-vf-fonts",
               },
    inputmethod="ibus-m17n",
    meta={ requires={},
@@ -1186,8 +1191,8 @@ local langpacks_package_list = {
    },
  },
  { lang="zh_CN", fclang="", langname="Simplified Chinese", default={
-                sans="google-noto-sans-cjk-vf-fonts",
-                serif="google-noto-serif-cjk-vf-fonts",
+                sans="", -- Use core_font_package_list if you want to have common fonts for CJK
+                serif="",
                 mono="" },
    recommends={
               },
@@ -1197,8 +1202,8 @@ local langpacks_package_list = {
    },
  },
  { lang="zh_HK", fclang="", langname="Hong Kong Traditional Chinese", default={
-                sans="google-noto-sans-cjk-vf-fonts",
-                serif="google-noto-serif-cjk-vf-fonts",
+                sans="", -- Use core_font_package_list if you want to have common fonts for CJK
+                serif="",
                 mono="" },
    recommends={
               },
@@ -1208,8 +1213,8 @@ local langpacks_package_list = {
    },
  },
  { lang="zh_TW", fclang="", langname="Taiwan", default={
-                sans="google-noto-sans-cjk-vf-fonts",
-                serif="google-noto-serif-cjk-vf-fonts",
+                sans="", -- Use core_font_package_list if you want to have common fonts for CJK
+                serif="",
                 mono="" },
    recommends={
               },
@@ -1366,16 +1371,16 @@ local function deffontpkg(pkgname, summary1, summary2, deps)
               {"%{_datadir}/metainfo/org.fedoraproject.%{_pkgname}.metainfo.xml"})
 end
 
-local function defcorefontpkg(target_langs, deps)
+local function defsansfontpkg(cat, summary, target_langs, deps)
   local req = ""
-  local files = {"%{_datadir}/metainfo/org.fedoraproject.default-fonts-core-sans.metainfo.xml"}
+  local files = {"%{_datadir}/metainfo/org.fedoraproject.default-fonts-" .. cat .. "-sans.metainfo.xml"}
   for i = 1, #target_langs do
     -- Add Provides: font(:lang=LL) and Obsoletes/Provides: default-fonts-LL
     req = append_obsolete(append_fontprov(req, target_langs[i]), "default-fonts-" .. target_langs[i])
     req = append_obsolete(req, "langpacks-core-font-" .. target_langs[i])
     table.insert(files, "%{_datadir}/metainfo/org.fedoraproject.default-fonts-" .. target_langs[i] .. ".metainfo.xml")
   end
-  _deffontpkg("default-fonts-core-sans", "default sans-serif fonts", "Western characters", build_deps(req, "Requires", drop_duplicate(deps)), files)
+  _deffontpkg("default-fonts-" .. cat .. "-sans", "default sans-serif fonts", summary, build_deps(req, "Requires", drop_duplicate(deps)), files)
 end
 
 --
@@ -1414,6 +1419,8 @@ local cjk_deps = { sans={}, serif={}, mono={} }
 local face = { "sans", "serif", "mono" }
 local core_langs = {}
 local core_deps = {}
+local cjk_langs = {}
+local cjk_sans_deps = {}
 
 for i = 1, #langpacks_package_list do
   -- dependency list for default-fonts-<lang>
@@ -1448,7 +1455,7 @@ for i = 1, #langpacks_package_list do
       end
     end
     for j = 1, #face do
-      local current = (has_default and {langpacks_package_list[i]["default"][face[j]]} or core_font_package_list["default"][face[j]])
+      local current = (has_default and {langpacks_package_list[i]["default"][face[j]]} or (is_cjk(lang) and core_font_package_list["cjk"][face[j]] or core_font_package_list["default"][face[j]]))
 
       -- Only install a font which is set by "face" or "sans" if not, for default-fonts-<language code>
       if face[j] == default_face then
@@ -1499,7 +1506,17 @@ for i = 1, #langpacks_package_list do
         table.insert(core_langs, lang)
       end
     else
-      deffontpkg("default-fonts-" .. lang, "default fonts", langname, append_obsolete(default_deps, "langpacks-core-font-" .. lang))
+      if is_cjk(lang) then
+        if has_default then
+          -- We may need to take care of them separately.
+          table.insert(cjk_sans_deps, "default-fonts-" .. lang .. " = %{version}-%{release}")
+          deffontpkg("default-fonts-" .. lang, "default fonts", langname, append_obsolete(default_deps, "langpacks-core-font-" .. lang))
+        else
+          table.insert(cjk_langs, lang)
+        end
+      else
+        deffontpkg("default-fonts-" .. lang, "default fonts", langname, append_obsolete(default_deps, "langpacks-core-font-" .. lang))
+      end
     end
     deffontpkg("langpacks-fonts-" .. lang, "extra fonts", langname, append_obsolete(extra_deps, "default-fonts-extra-" .. lang))
   end
@@ -1513,16 +1530,24 @@ for i = 1, #langpacks_package_list do
   defmetapkg(lang, fclang, langname, deps)
 end
 
+--Special care of cjk-sans to reduce extra sub-packages and dependencies like core-sans
+for i = 1, #core_font_package_list["cjk"]["sans"] do
+  table.insert(cjk_sans_deps, core_font_package_list["cjk"]["sans"][i])
+end
+defsansfontpkg("cjk", "CJK languages", cjk_langs, cjk_sans_deps)
+
 for i = 1, #face do
-  deffontpkg("default-fonts-other-" .. face[i], "default fonts", "non-CJK languages", build_deps("", "Requires", drop_duplicate(other_deps[face[i]])))
-  deffontpkg("default-fonts-cjk-" .. face[i], "default fonts", "CJK languages", build_deps("", "Requires", drop_duplicate(cjk_deps[face[i]])))
+  deffontpkg("default-fonts-other-" .. face[i], "default " .. face[i] .. " fonts", "non-CJK languages", build_deps("", "Requires", drop_duplicate(other_deps[face[i]])))
+  if face[i] ~= "sans" then
+    deffontpkg("default-fonts-cjk-" .. face[i], "default " .. face[i] .. " fonts", "CJK languages", build_deps("", "Requires", drop_duplicate(cjk_deps[face[i]])))
+  end
 end
 
 --core font packages except sans - core-sans may want to have special deps to default-fonts-<language code>
 for i = 1, #core_font_package_list["default"]["sans"] do
   table.insert(core_deps, core_font_package_list["default"]["sans"][i])
 end
-defcorefontpkg(core_langs, core_deps)
+defsansfontpkg("core", "Western characters", core_langs, core_deps)
 
 local coreface = { "serif", "mono", "emoji", "math" }
 for i = 1, #coreface do
@@ -1606,6 +1631,13 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE3}
 
 %changelog
+* Mon Jul 24 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-5
+- Simplified sub-packages and dependencies for CJK.
+- Update serif font to google-noto-serif-gurmukhi-vf-fonts for Punjabi.
+  the original serif font for Punjabi, google-noto-naskh-arabic-vf-fonts was
+  figured out for Punjabi(Pakistan). but we don't have langpacks-pa_pk.
+  So updating based on Punjabi(Indic).
+
 * Fri Jul 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.0-4
 - Fix wrong deps in langpacks-LL (zh languages) by Akira Tagoh
 

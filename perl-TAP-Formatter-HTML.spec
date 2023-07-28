@@ -1,6 +1,6 @@
 Name:           perl-TAP-Formatter-HTML
-Version:        0.11
-Release:        31%{?dist}
+Version:        0.13
+Release:        1%{?dist}
 Summary:        TAP Test Harness output delegate for html output
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TAP-Formatter-HTML
@@ -83,6 +83,17 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/TAP::Formatter::HTML::Session.3*
 
 %changelog
+* Wed Jul 26 2023 Paul Howarth <paul@city-fan.org> - 0.13-1
+- Update to 0.13 (fix incomplete change log)
+
+* Wed Jul 26 2023 Paul Howarth <paul@city-fan.org> - 0.12-1
+- Update to 0.12
+  - Fix calculating todo_passed tests (GH#7)
+  - Use more international ISO8601-like date format (CPAN RT#132072)
+  - Update synopsis of main module and plugin (CPAN RT#91317)
+  - Typo fix (CPAN RT#89216)
+  - Fix double include of css and javascript (GH#4)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

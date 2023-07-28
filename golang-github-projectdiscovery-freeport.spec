@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/onsi/gomega
-%global goipath         github.com/onsi/gomega
-Version:                1.27.10
+# https://github.com/projectdiscovery/freeport
+%global goipath         github.com/projectdiscovery/freeport
+Version:                0.0.5
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
-Ginkgo's Preferred Matcher Library.}
+Free listening port from the OS.}
 
 %global golicenses      LICENSE
-%global godocs          CHANGELOG.md CONTRIBUTING.md README.md RELEASING.md
+%global godocs          example README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Ginkgo's Preferred Matcher Library
+Summary:        Free listening port from the OS
 
 License:        MIT
 URL:            %{gourl}
@@ -28,7 +28,6 @@ Source:         %{gosource}
 
 %prep
 %goprep
-%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -38,8 +37,6 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-# Need Internet access et Go modules
-rm -rfv gexec/build_test.go
 %gocheck
 %endif
 

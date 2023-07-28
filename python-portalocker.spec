@@ -19,7 +19,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Library to provide an easy API to file locking
 
-License:        PSF-2.0
+License:        BSD-3-Clause
 URL:            %forgeurl
 Source:         %forgesource
 
@@ -68,7 +68,11 @@ mv pytest.ini pytest.ini_disabled
 
 
 %check
+%if %{test_with_redis}
 %pyproject_check_import
+%else
+%pyproject_check_import -e portalocker.redis
+%endif
 
 %if %{with tests}
 %pytest %{?test_with_redis:--ignore=portalocker_tests/test_redis.py} portalocker_tests

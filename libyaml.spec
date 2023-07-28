@@ -1,6 +1,12 @@
+%global with_mingw 0
+
+%if 0%{?fedora}
+%global with_mingw 1
+%endif
+
 Name:       libyaml
 Version:    0.2.5
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    YAML 1.1 parser and emitter written in C
 
 License:    MIT
@@ -13,6 +19,13 @@ BuildRequires:  doxygen
 BuildRequires:  gcc
 BuildRequires:  libtool
 BuildRequires:  make
+
+%if %{with_mingw}
+BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-gcc-c++
+BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-gcc-c++
+%endif
 
 %description
 YAML is a data serialization format designed for human readability and
@@ -33,18 +46,52 @@ License:   GPL-2.0-or-later AND MIT
 The %{name}-devel package contains libraries and header files for
 developing applications that use LibYAML.
 
+%if %{with_mingw}
+%package -n mingw32-libyaml
+Summary: MinGW YAML 1.1 parser and emitter written in C
+BuildArch: noarch
+
+%description -n mingw32-libyaml
+YAML is a data serialization format designed for human readability and
+interaction with scripting languages.  LibYAML is a YAML parser and
+emitter written in C.
+
+%package -n mingw64-libyaml
+Summary: MinGW YAML 1.1 parser and emitter written in C
+BuildArch: noarch
+
+%description -n mingw64-libyaml
+YAML is a data serialization format designed for human readability and
+interaction with scripting languages.  LibYAML is a YAML parser and
+emitter written in C.
+%endif
 
 %prep
 %setup -q -n yaml-%{version}
 
 
 %build
+%define _configure ../configure
+mkdir build
+pushd build
 %configure
 %make_build all html
+popd
 
+%if %{with_mingw}
+%mingw_configure
+%mingw_make_build
+%endif
 
 %install
+pushd build
 %make_install
+popd
+
+%if %{with_mingw}
+%mingw_make_install
+%endif
+
 rm -f %{buildroot}%{_libdir}/*.{la,a}
 
 soname=$(readelf -d %{buildroot}%{_libdir}/libyaml.so | awk '$2 == "(SONAME)" {print $NF}' | tr -d '[]')
@@ -53,8 +100,9 @@ echo "INPUT($soname)" > %{buildroot}%{_libdir}/libyaml.so
 
 
 %check
+pushd build
 make check
-
+popd
 
 %ldconfig_scriptlets
 
@@ -72,7 +120,29 @@ make check
 %{_includedir}/yaml.h
 
 
+%if %{with_mingw}
+%files -n mingw32-libyaml
+%license License
+%{mingw32_bindir}/libyaml-0-2.dll
+%{mingw32_includedir}/yaml.h
+%{mingw32_libdir}/libyaml.a
+%{mingw32_libdir}/libyaml.dll.a
+%{mingw32_libdir}/pkgconfig/yaml-0.1.pc
+
+%files -n mingw64-libyaml
+%license License
+%{mingw64_bindir}/libyaml-0-2.dll
+%{mingw64_includedir}/yaml.h
+%{mingw64_libdir}/libyaml.a
+%{mingw64_libdir}/libyaml.dll.a
+%{mingw64_libdir}/pkgconfig/yaml-0.1.pc
+%endif
+
+
 %changelog
+* Wed Jul 26 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.2.5-12
+- Add MinGW packages.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

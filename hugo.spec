@@ -69,9 +69,7 @@ Recommends:     golang-bin
 %prep
 %goprep
 
-%patch 0001 -p1
-%patch 0002 -p1
-%patch 0003 -p1
+%autopatch -p1
 
 # Replace blackfriday import path to avoid conflict with v2
 sed -i \

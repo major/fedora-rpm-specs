@@ -2,8 +2,8 @@
 %bcond_without perl_Syntax_Operator_In_enables_optional_test
 
 Name:           perl-Syntax-Operator-In
-Version:        0.04
-Release:        5%{?dist}
+Version:        0.06
+Release:        1%{?dist}
 Summary:        Infix element-of-list meta-operator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Operator-In
@@ -18,14 +18,14 @@ BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-%define xs_parse_infix_minver 0.27
+%define xs_parse_infix_minver 0.28
 BuildRequires:  perl(XS::Parse::Infix::Builder) >= %{xs_parse_infix_minver}
 # Run-time:
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(XS::Parse::Infix) >= %{xs_parse_infix_minver}
 BuildRequires:  perl(XSLoader)
 # Tests:
-BuildRequires:  perl(Test::More) >= 0.88
 %if %{with perl_Syntax_Operator_In_enables_optional_test}
 # Optional tests:
 %if 0%{?fedora} >= 39
@@ -41,9 +41,6 @@ Requires:       perl(XS::Parse::Infix) >= %{xs_parse_infix_minver}
 Requires:       %{perl_XS_Parse_Infix_ABI}
 %endif
 
-# Remove underspecified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
-
 %description
 This Perl module provides an infix meta-operator that implements an
 element-of-list test on either strings or numbers.
@@ -53,7 +50,6 @@ Summary:        Tests for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::More) >= 0.88
 %if %{with perl_Syntax_Operator_In_enables_optional_test}
 # Optional tests:
 %if 0%{?fedora} >= 39
@@ -114,6 +110,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 26 2023 Petr Pisar <ppisar@redhat.com> - 0.06-1
+- 0.06 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

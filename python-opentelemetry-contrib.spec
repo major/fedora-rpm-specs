@@ -31,11 +31,6 @@
 # A subpackage needs httpx >= 0.18.0, <= 0.23.0; F39 has 0.24.0
 %bcond httpx 0
 
-# F39FailsToInstall: python3-kafka+snappy, python3-kafka+zstd, python3-kafka,
-# python3-kafka+lz4
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220295
-%bcond kafka 0
-
 # Some tests need moto ~= 2.0; but python-moto is not packaged
 %bcond moto 0
 
@@ -145,7 +140,7 @@ BuildRequires:  python3dist(packaging)
     instrumentation/opentelemetry-instrumentation-grpc
     %{?with_httpx:instrumentation/opentelemetry-instrumentation-httpx}
     instrumentation/opentelemetry-instrumentation-jinja2
-    %{?with_kafka:instrumentation/opentelemetry-instrumentation-kafka-python}
+    instrumentation/opentelemetry-instrumentation-kafka-python
     instrumentation/opentelemetry-instrumentation-logging
     instrumentation/opentelemetry-instrumentation-mysql
     instrumentation/opentelemetry-instrumentation-pika
@@ -948,7 +943,6 @@ python3-opentelemetry-instrumentation-jinja2. It makes sure the dependencies
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_jinja2-%{prerel_distinfo}
 
 
-%if %{with kafka}
 %package -n python3-opentelemetry-instrumentation-kafka-python
 Summary:        OpenTelemetry Kafka-Python instrumentation
 Version:        %{prerel_version}
@@ -977,7 +971,6 @@ dependencies (the packages that are instrumented) are installed.
 
 %files -n python3-opentelemetry-instrumentation-kafka-python+instruments
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_kafka_python-%{prerel_distinfo}
-%endif
 
 
 %package -n python3-opentelemetry-instrumentation-logging
@@ -1688,12 +1681,7 @@ Obsoletes:      python3-opentelemetry-instrumentation-httpx < 0.36~b0-11
 Obsoletes:      python3-opentelemetry-instrumentation-httpx+instruments < 0.36~b0-11
 %endif
 Requires:       python3-opentelemetry-instrumentation-jinja2 = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
-%if %{with kafka}
 Requires:       python3-opentelemetry-instrumentation-kafka-python = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
-%else
-Obsoletes:      python3-opentelemetry-instrumentation-kafka-python < 0.39~b0-19
-Obsoletes:      python3-opentelemetry-instrumentation-kafka-python+instruments < 0.39~b0-19
-%endif
 Requires:       python3-opentelemetry-instrumentation-logging = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-mysql = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-pika = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
@@ -1799,7 +1787,6 @@ for omit in \
     %{?!with_confluent_kafka:confluent-kafka} \
     %{?!with_falcon:falcon} \
     %{?!with_httpx:httpx} \
-    %{?!with_kafka:kafka-python} \
     %{?!with_remoulade:remoulade} \
     %{?!with_sklearn:sklearn} \
     %{?!with_starlette:starlette} \
@@ -1859,11 +1846,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
         # Loosen the bound on sphinx-rtd-theme
         sub(/sphinx-rtd-theme~=/, "sphinx-rtd-theme>=")
         print
-      }' docs-requirements.txt |
-%if %{without kafka}
-        sed -r '/^kafka-python/d' |
-%endif
-        tee docs-requirements-prefiltered.txt
+      }' docs-requirements.txt | tee docs-requirements-prefiltered.txt
 %endif
 
   # We can’t easily use %%pyproject_buildrequires -t to read tox.ini, since
@@ -2431,7 +2414,6 @@ done
 %{python3_sitelib}/opentelemetry_instrumentation_jinja2-%{prerel_distinfo}/
 
 
-%if %{with kafka}
 %files -n python3-opentelemetry-instrumentation-kafka-python
 %license instrumentation/opentelemetry-instrumentation-kafka-python/LICENSE
 %doc instrumentation/opentelemetry-instrumentation-kafka-python/README.rst
@@ -2441,7 +2423,6 @@ done
 
 %{python3_sitelib}/opentelemetry/instrumentation/kafka/
 %{python3_sitelib}/opentelemetry_instrumentation_kafka_python-%{prerel_distinfo}/
-%endif
 
 
 %files -n python3-opentelemetry-instrumentation-logging

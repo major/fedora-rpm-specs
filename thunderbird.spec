@@ -42,30 +42,13 @@ ExcludeArch: armv7hl
 ExcludeArch: s390x
 
 # libvpx is too new for Firefox 65
-%if 0%{?fedora} < 30
-%global system_libvpx     1
-%else
-%global system_libvpx     0
-%endif
-
 %define system_jpeg        1
-
-# Use system libicu? - libicu even on rawhide too old
-%if 0%{?fedora} >= 27
-%define system_libicu      0
-%else
-%define system_libicu      0
-%endif
 
 # Big endian platforms
 %ifarch ppc64 s390x
 # Javascript Intl API is not supported on big endian platforms right now:
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1322212
 %define big_endian         1
-%endif
-
-%if %{?system_libvpx}
-%global libvpx_version 1.4.0
 %endif
 
 %define thunderbird_app_id \{3550f703-e582-4d05-9a08-453d09bdfdc6\}
@@ -82,12 +65,6 @@ ExcludeArch: s390x
 %define official_branding 1
 
 %define enable_mozilla_crashreporter 0
-# enable crash reporter only for iX86
-%ifarch %{ix86} x86_64
-%if 0%{?fedora} < 27 && 0%{?rhel} <= 7
-%define enable_mozilla_crashreporter 1
-%endif
-%endif
 
 %if %{with toolchain_clang}
 %global toolchain clang
@@ -132,6 +109,7 @@ Patch103:       rhbz-1219542-s390-build.patch
 Patch422:       0001-GLIBCXX-fix-for-GCC-12.patch
 Patch425:       build-disable-elfhack.patch
 Patch426:       build-rnp.patch
+Patch427:       build-python312.patch
 
 # PPC fix
 Patch304:       mozilla-1245783.patch
@@ -200,9 +178,6 @@ BuildRequires:  m4
 BuildRequires:  desktop-file-utils
 BuildRequires:  libcurl-devel
 BuildRequires:  mesa-libGL-devel
-%if %{?system_libvpx}
-BuildRequires:  libvpx-devel >= %{libvpx_version}
-%endif
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  libicu-devel
 BuildRequires:  perl-interpreter
@@ -290,9 +265,6 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %endif
 
 %patch -P 304 -p1 -b .1245783
-# Patch for big endian platforms only
-#%if 0%{?big_endian}
-#%endif
 
 #ARM run-time patch
 %ifarch aarch64
@@ -307,6 +279,8 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P 425 -p1 -b .build-disable-elfhack
 %endif
 %patch -P 426 -p1 -b .build-rnp
+# python3.12 is not supported yet
+%patch -P 427 -p1 -b .build-python312
 # most likely fixed
 #%patch -P 419 -p1 -b .bindgen
 
@@ -396,23 +370,10 @@ echo "ac_add_options --with-arch=armv5te" >> .mozconfig
 echo "ac_add_options --with-float-abi=soft" >> .mozconfig
 echo "ac_add_options --disable-yarr-jit" >> .mozconfig
 %endif
-
-%if %{?system_libicu}
-echo "ac_add_options --with-system-icu" >> .mozconfig
-%else
-echo "ac_add_options --without-system-icu" >> .mozconfig
-%endif
-
-%if !%{?system_jpeg}
-echo "ac_add_options --without-system-jpeg" >> .mozconfig
-%else
+%if %{?system_jpeg}
 echo "ac_add_options --with-system-jpeg" >> .mozconfig
-%endif
-
-%if %{?system_libvpx}
-echo "ac_add_options --with-system-libvpx" >> .mozconfig
 %else
-echo "ac_add_options --without-system-libvpx" >> .mozconfig
+echo "ac_add_options --without-system-jpeg" >> .mozconfig
 %endif
 
 %if %{enable_mozilla_crashreporter}
@@ -560,7 +521,6 @@ MOZ_SMP_FLAGS=-j1
 
 export MOZ_MAKE_FLAGS="$MOZ_SMP_FLAGS"
 export STRIP=/bin/true
-export PYTHON=python3.11
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
 ./mach build -v
 

@@ -16,8 +16,8 @@
 #
 
 Name:           cockpit-machines
-Version:        294
-Release:        2%{?dist}
+Version:        295
+Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
@@ -75,11 +75,12 @@ Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.10
 Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.100
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.9
 Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
+Provides: bundled(npm(array-buffer-byte-length)) = 1.0.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
 Provides: bundled(npm(call-bind)) = 1.0.2
-Provides: bundled(npm(date-fns)) = 2.28.0
-Provides: bundled(npm(deep-equal)) = 2.0.5
+Provides: bundled(npm(date-fns)) = 2.30.0
+Provides: bundled(npm(deep-equal)) = 2.2.2
 Provides: bundled(npm(define-properties)) = 1.2.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
 Provides: bundled(npm(file-saver)) = 1.3.8
@@ -98,6 +99,7 @@ Provides: bundled(npm(has-tostringtag)) = 1.0.0
 Provides: bundled(npm(has)) = 1.0.3
 Provides: bundled(npm(internal-slot)) = 1.0.5
 Provides: bundled(npm(is-arguments)) = 1.1.1
+Provides: bundled(npm(is-array-buffer)) = 3.0.2
 Provides: bundled(npm(is-bigint)) = 1.0.4
 Provides: bundled(npm(is-boolean-object)) = 1.1.2
 Provides: bundled(npm(is-callable)) = 1.2.7
@@ -106,9 +108,10 @@ Provides: bundled(npm(is-map)) = 2.0.2
 Provides: bundled(npm(is-number-object)) = 1.0.7
 Provides: bundled(npm(is-regex)) = 1.1.4
 Provides: bundled(npm(is-set)) = 2.0.2
+Provides: bundled(npm(is-shared-array-buffer)) = 1.0.2
 Provides: bundled(npm(is-string)) = 1.0.7
 Provides: bundled(npm(is-symbol)) = 1.0.4
-Provides: bundled(npm(is-typed-array)) = 1.1.10
+Provides: bundled(npm(is-typed-array)) = 1.1.12
 Provides: bundled(npm(is-weakmap)) = 2.0.1
 Provides: bundled(npm(is-weakset)) = 2.0.2
 Provides: bundled(npm(isarray)) = 2.0.5
@@ -126,19 +129,19 @@ Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
 Provides: bundled(npm(redux-thunk)) = 2.4.2
-Provides: bundled(npm(redux)) = 4.1.2
+Provides: bundled(npm(redux)) = 4.2.1
 Provides: bundled(npm(regenerator-runtime)) = 0.13.11
 Provides: bundled(npm(regexp.prototype.flags)) = 1.5.0
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
 Provides: bundled(npm(tabbable)) = 6.2.0
-Provides: bundled(npm(throttle-debounce)) = 3.0.1
-Provides: bundled(npm(tslib)) = 2.6.0
+Provides: bundled(npm(throttle-debounce)) = 5.0.0
+Provides: bundled(npm(tslib)) = 2.6.1
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
-Provides: bundled(npm(which-typed-array)) = 1.1.9
-Provides: bundled(npm(xterm-addon-canvas)) = 0.3.0
+Provides: bundled(npm(which-typed-array)) = 1.1.11
+Provides: bundled(npm(xterm-addon-canvas)) = 0.4.0
 Provides: bundled(npm(xterm-addon-fit)) = 0.2.1
 Provides: bundled(npm(xterm)) = 4.19.0
 Provides: bundled(npm(xterm)) = 5.1.0
@@ -166,6 +169,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 26 2023 Packit <hello@packit.dev> - 295-1
+- Performance and stability improvements
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 294-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

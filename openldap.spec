@@ -13,8 +13,8 @@
 %global __brp_remove_la_files %nil
 
 Name: openldap
-Version: 2.6.4
-Release: 4%{?dist}
+Version: 2.6.5
+Release: 1%{?dist}
 Summary: LDAP support libraries
 License: OpenLDAP
 URL: http://www.openldap.org/
@@ -46,7 +46,6 @@ Patch6: openldap-switch-to-lt_dlopenadvise-to-get-RTLD_GLOBAL-set.patch
 # System-wide default for CA certs
 Patch7: openldap-openssl-manpage-defaultCA.patch
 Patch8: openldap-add-export-symbols-LDAP_CONNECTIONLESS.patch
-Patch9: openldap-configure-c99.patch
 
 # check-password module specific patches
 Patch90: check-password-makefile.patch
@@ -155,7 +154,6 @@ pushd openldap-%{version}
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
-%patch9 -p2
 
 # build smbk5pwd with other overlays
 ln -s ../../../contrib/slapd-modules/smbk5pwd/smbk5pwd.c servers/slapd/overlays
@@ -506,6 +504,10 @@ exit 0
 %{_libdir}/libslapi-2.4*.so.*
 
 %changelog
+* Wed Jul 26 2023 Simon Pichugin <spichugi@redhat.com> - 2.6.5-1
+- Rebase to version 2.6.5
+  Related: rhbz#2221798
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

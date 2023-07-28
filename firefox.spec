@@ -159,13 +159,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        115.0.2
-Release:        4%{?pre_tag}%{?dist}
+Version:        116.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230717.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230725.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -234,7 +234,6 @@ Patch230:        firefox-enable-vaapi.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
-Patch408:        D182447.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -507,13 +506,12 @@ This package contains results of tests executed during build.
 
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
-%patch408 -p1 -b .D182447
 
 # PGO patches
 %if %{build_with_pgo}
 %if !%{build_with_clang}
 %patch600 -p1 -b .pgo
-#%patch602 -p1 -b .1516803
+%patch602 -p1 -b .1516803
 %endif
 %endif
 %patch603 -p1 -b .inline

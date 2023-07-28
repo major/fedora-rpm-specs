@@ -27,7 +27,7 @@ This package is developed and maintained by the Neurosim lab
 (www.neurosimlab.org) }
 
 Name:           python-netpyne
-Version:        1.0.4.1
+Version:        1.0.4.2
 Release:        %autorelease
 Summary:        Develop, simulate and analyse biological neuronal networks in NEURON
 
@@ -36,6 +36,9 @@ Summary:        Develop, simulate and analyse biological neuronal networks in NE
 License:        MIT and GPLv3+
 URL:            https://github.com/Neurosim-lab/netpyne/
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Exclude tests/ from being installed as a top level module
+# https://github.com/suny-downstate-medical-center/netpyne/pull/767
+Patch:          https://github.com/suny-downstate-medical-center/netpyne/pull/767.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -69,7 +72,7 @@ Requires:  %{py3_dist neuron}
 %description -n python3-netpyne %_description
 
 %prep
-%autosetup -n netpyne-%{version}
+%autosetup -p1 -n netpyne-%{version}
 
 sed -i 's/matplotlib<=3.5.1/matplotlib/' setup.py
 

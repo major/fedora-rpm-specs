@@ -14,7 +14,7 @@
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
 Version:       1.9.22
-Release:       2%{?dist}
+Release:       3%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 URL:           https://www.jackaudio.org
@@ -22,6 +22,8 @@ Source0:       https://github.com/jackaudio/jack2/archive/v%{version}/v%{version
 Source1:       %{name}-README.Fedora
 Source2:       %{name}-script.pa
 Source3:       %{name}-limits.conf
+# Build with Python >= 3.12
+Patch0:        jack2-py312.patch
 # Adjust default priority. RHBZ#795094
 Patch1:        jack-realtime-compat.patch
 
@@ -159,6 +161,9 @@ exit 0
 %{_libdir}/pkgconfig/jack.pc
 
 %changelog
+* Tue Jul 25 2023 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 1.9.22-3
+- Fix build against Python >= 3.12
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

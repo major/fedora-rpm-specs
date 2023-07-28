@@ -114,8 +114,6 @@ rm -f %{buildroot}%{_pkgdocdir}/INSTALL
 # remove CHANGES-1.x.md, since it is carried by a dependency
 rm -f %{buildroot}%{_pkgdocdir}/CHANGES-1.x.md
 
-# escp.h is not needed for runtime and nothing 
-
 
 %check
 make check

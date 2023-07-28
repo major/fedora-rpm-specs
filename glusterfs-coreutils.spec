@@ -1,17 +1,14 @@
 
 Summary:          Core Utilities for the Gluster Distributed File System
 Name:             glusterfs-coreutils
-Version:          0.3.1
-Release:          14%{?dist}
+Version:          0.3.2
+Release:          1%{?dist}
 License:          GPL-3.0-only
 URL:              https://github.com/gluster/glusterfs-coreutils
 # The source for this package was created from upstream source using the
 # following command:
 #       make dist
 Source0:          https://github.com/gluster/glusterfs-coreutils/archive/v%{version}/%{name}-v%{version}.tar.gz
-Patch0: glusterfs-coreutils-truncate-c99.patch
-Patch1: glusterfs-coreutils-sys-stat.patch
-Patch2: 0001-src-glfs-stat-util.c.patch
 
 Provides:         bundled(gnulib)
 
@@ -44,6 +41,9 @@ make
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 26 2023 Anoop C S <anoopcs@cryptolab.net> - 0.3.2-1
+- glusterfs-coreutils 0.3.2 GA
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 - rhbz#2225834

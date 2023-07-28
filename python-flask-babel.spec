@@ -1,37 +1,26 @@
-%global pkg_name	flask-babel
-%global mod_name	Flask-Babel
+%global pkg_name flask-babel
+%global mod_name flask_babel
 %bcond_without docs
 
 %if 0%{?rhel}
 %undefine with_docs
 %endif
 
-Name:		python-%{pkg_name}
-Version:	2.0.0
-Release:	8%{?dist}
-Summary:	Adds i18n/l10n support to Flask applications
-License:	BSD
-URL:		http://github.com/mitsuhiko/%{pkg_name}/
-Source0:	https://pypi.python.org/packages/source/F/%{mod_name}/%{mod_name}-%{version}.tar.gz
-BuildArch:	noarch
-
-BuildRequires:	python%{python3_pkgversion}-babel
-BuildRequires:	python%{python3_pkgversion}-devel
-BuildRequires:	python%{python3_pkgversion}-flask
-BuildRequires:	python%{python3_pkgversion}-jinja2
-BuildRequires:	python%{python3_pkgversion}-setuptools
-BuildRequires:	python%{python3_pkgversion}-pytz
-
-# For tests
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-mock
+Name:           python-%{pkg_name}
+Version:        3.1.0
+Release:        1%{?dist}
+Summary:        Adds i18n/l10n support to Flask applications
+License:        BSD
+URL:            https://github.com/mitsuhiko/%{pkg_name}/
+Source0:        https://github.com/python-babel/flask-babel/archive/refs/heads/v%{version}/%{pkg_name}-%{version}.tar.gz
+BuildArch:      noarch
 
 # For documentation
 %if %{with docs}
 BuildRequires:  make
 BuildRequires:  python3-docs
+BuildRequires:  python3-furo
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-Pallets-Sphinx-Themes
 %endif
 
 %global _description\
@@ -39,26 +28,27 @@ Adds i18n/l10n support to Flask applications with the help of the Babel library.
 
 %description %_description
 
-%package -n python%{python3_pkgversion}-%{pkg_name}
-Summary:	Adds i18n/l10n support to Flask applications
+
+%package -n python3-%{pkg_name}
+Summary:        Adds i18n/l10n support to Flask applications
 # A modified version of speaklater is bundled
 Provides:       bundled(python3-speaklater)
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest-mock
 
-%description -n python%{python3_pkgversion}-%{pkg_name} %_description
+%description -n python3-%{pkg_name} %_description
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %prep
-%setup -q -n %{mod_name}-%{version}
+%autosetup -p1 -n %{pkg_name}-%{version}
 
-# Use local objects.inv for intersphinx
-# FIXME: the main flask package does not provide objects.inv (bz 1837646)
-sed -e "s|\('http://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
-    -i docs/conf.py
-
-# Update a call to a deprecated babel function
-sed -i 's/\(numbers\.format_\)number/\1decimal/' flask_babel/__init__.py
 
 %build
-%py3_build
+%pyproject_wheel
 
 %if %{with docs}
 # Build the documentation
@@ -68,23 +58,29 @@ make -C docs html
 rm -f docs/_build/html/.buildinfo
 %endif
 
+
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{mod_name}
+
 
 %check
-PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}:%{python3_sitelib} pytest -v
+%pytest
 
-%files -n python%{python3_pkgversion}-%{pkg_name}
+
+%files -n python3-%{pkg_name} -f %{pyproject_files}
 %if %{with docs}
 %doc docs/_build/html README.md
 %else
 %doc README.md
 %endif
 %license LICENSE
-%{python3_sitelib}/*.egg-info/
-%{python3_sitelib}/flask_babel
+
 
 %changelog
+* Tue Jul 25 2023 Sandro Mani <manisandro@gmail.com> - 3.1.0-1
+- Update to 3.1.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

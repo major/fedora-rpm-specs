@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.21
-Release: 2%{?dist}
+Version: 12.22
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later 
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jul 26 2023 Nick Clifron  <nickc@redhat.com> - 12.22-1
+- Annocheck: Fix double free.  (#2226749)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

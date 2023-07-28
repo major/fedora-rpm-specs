@@ -3,7 +3,7 @@
 
 Name: doxy2man
 Version: 0
-Release: 18.%{git_date}git%{?dist}
+Release: %autorelease
 Summary: Create man pages from doxygen XML output
 
 License: GPLv3+
@@ -25,7 +25,9 @@ see also tags, copyright, author information, brief and detailed
 descriptions, etc.
 
 %prep
+
 %setup -qn %{name}-%{git_commit_hash}
+sed -i 's|asciidoc.py|asciidoc|g' main.pro
 
 %build
 %{qmake_qt5}
@@ -45,65 +47,4 @@ install -p -m 644 doxy2man.8 %{buildroot}%{_mandir}/man8
 %license COPYING
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-18.20160831git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-17.20160831git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-16.20160831git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-15.20160831git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-14.20160831git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-13.20160831git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Oct 29 2020 Nikos Mavrogiannopoulos <nmav@redhat.com> - 0-1.20160831git
-- Updated to latest version
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0-12.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0-11.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0-10.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0-9.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0-8.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0-7.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0-6.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0-5.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0-4.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0-3.20150625git
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Mon Feb 01 2016 Rex Dieter <rdieter@fedoraproject.org> 0-2.20150625git
-- use %%qmake_qt5 macro to ensure proper build flags
-
-* Thu Jun 25 2015 Nikos Mavrogiannopoulos <nmav@redhat.com> - 0-1.20150625git
-- Updated to latest version to include license from upstream
-
-* Wed Jun 24 2015 Nikos Mavrogiannopoulos <nmav@redhat.com> - 0-1.20150624git
-- Updated to include manpage from upstream
-
-* Tue Jun  9 2015 Nikos Mavrogiannopoulos <nmav@redhat.com> - 0-1.20150609git
-- Initial version of the package
+%autochangelog

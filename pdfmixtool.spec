@@ -2,12 +2,15 @@
 
 Name:           pdfmixtool
 Version:        1.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An application to split, merge, rotate and mix PDF files
 
 License:        GPL-3.0-or-later
 URL:            https://scarpetta.eu/pdfmixtool
 Source0:        https://gitlab.com/scarpetta/pdfmixtool/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+
+# cmake: Don't downgrade default standards
+Patch0:         https://gitlab.com/scarpetta/pdfmixtool/-/commit/bd5f78c3a4d977d9b0c74302ce2521c737189b43.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -48,6 +51,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appid}.desktop
 %{_metainfodir}/%{appid}.appdata.xml
 
 %changelog
+* Wed Jul 26 2023 Gustavo Costa <xfgusta@gmail.com> - 1.1.1-7
+- Fix FTBFS (rhbz#2226083)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

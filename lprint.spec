@@ -3,10 +3,10 @@
 
 Name: lprint
 Version: 1.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A Label Printer Application
 
-License: ASL 2.0
+License: Apache-2.0
 URL: https://www.msweet.org/lprint
 Source0: https://github.com/michaelrsweet/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
@@ -35,8 +35,9 @@ BuildRequires: pkgconf-pkg-config
 # for macros in rpm scriptlets
 BuildRequires: systemd-rpm-macros
 
-# lprint server now can run as a systemd service
-Requires: systemd
+# lprint server can run as a systemd servicea, but to don't require systemd by default,
+# require filesystem (provides /usr/lib/systemd/system too)
+Requires: filesystem
 
 %description
 LPrint is a label printer application for macOS and Linux. Basically,
@@ -97,6 +98,9 @@ export CC=%{__cc}
 
 
 %changelog
+* Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.0-4
+- SPDX migration and require filesystem instead of systemd
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

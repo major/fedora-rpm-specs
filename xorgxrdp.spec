@@ -21,6 +21,9 @@ BuildRequires:  libXfont2-devel
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  libepoxy-devel
 BuildRequires:  libdrm-devel
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 
 Conflicts: %{name}-glamor
 %endif
@@ -54,6 +57,8 @@ for screen resizing and multiple monitors. Built with glamor support.
 %autosetup -p1
 
 %build
+autoreconf -i
+
 %if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
 # Build/install with glamor support first
 CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
@@ -122,6 +127,9 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %endif
 
 %changelog
+* Wed Jul 26 2023 Bojan Smojver <bojan@rexursive.com> - 0.9.19-7
+- run autoreconf before build, to avoid problems on F39
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

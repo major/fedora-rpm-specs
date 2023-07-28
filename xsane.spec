@@ -10,7 +10,7 @@
 Name: xsane
 Summary: X Window System front-end for the SANE scanner interface
 Version: 0.999
-Release: 47%{?dist}
+Release: 48%{?dist}
 Source0: http://www.xsane.org/download/%{name}-%{version}.tar.gz
 Source1: xsane-256x256.png
 # use "xdg-open" instead of "netscape" to launch help browser
@@ -73,7 +73,9 @@ Patch100: xsane-0.999-7-autoconf.patch.bz2
 Patch101: xsane-configure-c99.patch
 
 # LGPL-3.0-or-later is due of using gimp libraries
-License: GPL-2.0-or-later and LGPL-3.0-or-later
+# src/* - GPL2+
+# lib/* (copies from glibc) - LGPL2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.xsane.org/
 
 # gcc is no longer in buildroot by default
@@ -128,25 +130,25 @@ for doc in xsane.{CHANGES,PROBLEMS,INSTALL}; do
     mv "$doc.new" "$doc"
 done
 
-%patch 0 -p1 -b .xdg-open
-%patch 1 -p1 -b .close-fds
-%patch 2 -p1 -b .no-eula
-%patch 3 -p1 -b .off-root-build
-%patch 4 -p1 -b .no-file-selected
-%patch 5 -p1 -b .ipv6
-%patch 6 -p1 -b .preview-selection.patch
-%patch 7 -p1 -b .libpng
-%patch 8 -p1 -b .wmclass
-%patch 9 -p1 -b .desktop-file
-%patch 10 -p1 -b .man-page
-%patch 11 -p1 -b .pdf-no-high-bpp
-%patch 12 -p1 -b .lcms2
-%patch 13 -p1 -b .coverity
-%patch 14 -p1 -b .snprintf-update
-%patch 15 -p1 -b .signal-handling
+%patch -P 0 -p1 -b .xdg-open
+%patch -P 1 -p1 -b .close-fds
+%patch -P 2 -p1 -b .no-eula
+%patch -P 3 -p1 -b .off-root-build
+%patch -P 4 -p1 -b .no-file-selected
+%patch -P 5 -p1 -b .ipv6
+%patch -P 6 -p1 -b .preview-selection.patch
+%patch -P 7 -p1 -b .libpng
+%patch -P 8 -p1 -b .wmclass
+%patch -P 9 -p1 -b .desktop-file
+%patch -P 10 -p1 -b .man-page
+%patch -P 11 -p1 -b .pdf-no-high-bpp
+%patch -P 12 -p1 -b .lcms2
+%patch -P 13 -p1 -b .coverity
+%patch -P 14 -p1 -b .snprintf-update
+%patch -P 15 -p1 -b .signal-handling
 
-%patch 100 -p1 -b .autoconf
-%patch 101 -p1 -b .c99
+%patch -P 100 -p1 -b .autoconf
+%patch -P 101 -p1 -b .c99
 
 # in-root config.h breaks off-root building
 rm include/config.h
@@ -270,6 +272,9 @@ fi
 %{_datadir}/sane/xsane
 
 %changelog
+* Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.999-48
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.999-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

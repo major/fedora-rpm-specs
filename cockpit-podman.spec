@@ -16,8 +16,8 @@
 #
 
 Name:           cockpit-podman
-Version:        72
-Release:        2%{?dist}
+Version:        73
+Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
 URL:            https://github.com/cockpit-project/cockpit-podman
@@ -38,17 +38,18 @@ Requires:       podman >= 2.0.4
 Requires:       criu-libs
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.53
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.98
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.14
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.10
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.100
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.9
+Provides: bundled(npm(@babel/runtime)) = 7.22.6
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-prerelease.8
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.132
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.21
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.19
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.136
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.16
 Provides: bundled(npm(attr-accept)) = 2.2.2
-Provides: bundled(npm(date-fns)) = 2.28.0
+Provides: bundled(npm(date-fns)) = 2.30.0
 Provides: bundled(npm(docker-names)) = 1.2.1
 Provides: bundled(npm(file-selector)) = 0.6.0
-Provides: bundled(npm(focus-trap)) = 7.4.1
+Provides: bundled(npm(focus-trap)) = 7.4.3
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
@@ -58,11 +59,13 @@ Provides: bundled(npm(react-dom)) = 18.2.0
 Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
+Provides: bundled(npm(regenerator-runtime)) = 0.13.11
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(tabbable)) = 6.2.0
-Provides: bundled(npm(throttle-debounce)) = 2.3.0
-Provides: bundled(npm(tslib)) = 2.6.0
-Provides: bundled(npm(xterm)) = 4.18.0
+Provides: bundled(npm(throttle-debounce)) = 5.0.0
+Provides: bundled(npm(tslib)) = 2.6.1
+Provides: bundled(npm(xterm-addon-canvas)) = 0.4.0
+Provides: bundled(npm(xterm)) = 5.1.0
 
 %description
 The Cockpit user interface for Podman containers.
@@ -84,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jul 26 2023 Packit <hello@packit.dev> - 73-1
+- show time of container's latest checkpoint
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 72-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

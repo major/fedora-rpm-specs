@@ -2,11 +2,11 @@
 %global addrlibsover 3
 
 Name:           libkdumpfile
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Kernel coredump file access
 
-License:        LGPLv3+ or GPLv2+
+License:        LGPL-3.0-or-later OR GPL-2.0-or-later
 URL:            https://github.com/ptesarik/libkdumpfile
 Source:         %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
@@ -37,6 +37,14 @@ developing applications that use %{name}.
 
 %package        doc
 Summary:        Documentation for %{name}
+BuildArch:      noarch
+# keep this until F38 is EOL (so Fedora < 41) as 0.5.1 was not noarch due to
+# doxygen being run *after* rather than *before* build so it indexes "built"
+# Python sources too
+# likewise, EPEL 8 and 9 are affected
+%if (0%{?fedora} && 0%{?fedora} < 41) || (0%{?rhel} && 0%{?rhel} < 10)
+Obsoletes:      %{name}-doc < 0.5.2-1
+%endif
 
 %description    doc %{_description}
 
@@ -69,8 +77,8 @@ sed -e "\|#!/usr/bin/env python|d" -i python/*/*.py
 
 %build
 %configure
-%make_build
 %{__make} doxygen-doc
+%make_build
 
 
 %install

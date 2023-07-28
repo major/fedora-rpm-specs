@@ -1,8 +1,8 @@
 Name:		biosdevname
 Version:	0.7.3
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Udev helper for naming devices per BIOS names
-License:	GPLv2
+License:	GPL-2.0-only
 URL:		http://linux.dell.com/files/%{name}
 # SMBIOS only exists on these arches.  It's also likely that other
 # arches don't expect the PCI bus to be sorted breadth-first, or of
@@ -46,6 +46,9 @@ make install install-data DESTDIR=%{buildroot}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jul 26 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.7.3-13
+- migrate to SPDX license format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

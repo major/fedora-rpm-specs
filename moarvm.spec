@@ -3,7 +3,7 @@
 %endif
 
 Name:           moarvm
-Version:        2023.05
+Version:        2023.06
 Release:        %autorelease
 Summary:        Metamodel On A Runtime Virtual Machine
 License:        Artistic-2.0

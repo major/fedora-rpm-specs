@@ -1,64 +1,67 @@
-%{?python_enable_dependency_generator}
-%global srcname defcon
+# Dependency python3dist(fontPens) for “pens” extra is not yet packaged
+%bcond_with pens
 
-# Skip tests due to missing python fontPens test requirement
-%global with_check 0
-
-Name:           python-%{srcname}
-Version:        0.7.2
-Release:        11%{?dist}
+Name:           python-defcon
+Version:        0.10.2
+Release:        1%{?dist}
 Summary:        A set of flexible objects for representing UFO data
 
 License:        MIT
-URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        https://github.com/typesupply/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+URL:            https://github.com/robotools/defcon
+Source0:        %{pypi_source defcon %{version} zip}
 
 BuildArch:      noarch
 
-%description
-Defcon is a set of UFO (Unified Font Object) based objects optimized for use in
-font editing applications. Defcon implements UFO3 as described by the UFO font
-format.
-
-%package -n python3-%{srcname}
-Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%if 0%{?with_check}
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
-BuildRequires:  python3-fonttools
-%endif
 
-%description -n python3-%{srcname}
-Defcon is a set of UFO (Unified Font Object) based objects optimized for use in
-font editing applications. Defcon implements UFO3 as described by the UFO font
-format.
+%global _description %{expand:
+Defcon is a set of UFO based objects optimized for use in font editing
+applications. The objects are built to be lightweight, fast and flexible. The
+objects are very bare-bones and they are not meant to be end-all, be-all
+objects. Rather, they are meant to provide base functionality so that you can
+focus on your application’s behavior, not object observing or maintaining
+cached data. Defcon implements UFO3 as described by the UFO font format.}
 
+%description %{_description}
+
+%package -n python3-defcon
+Summary:        %{summary}
+
+%description -n python3-defcon %{_description}
+
+%pyproject_extras_subpkg -n python3-defcon lxml%{?with_pens: pens}
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n defcon-%{version}
+# Since requirements.txt is used for tox, loosen pinned versions
+sed -r -i 's/==/>=/' requirements.txt
+
+%generate_buildrequires
+%pyproject_buildrequires -t -x lxml%{?with_pens:,pens}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files defcon
 
 %check
-%if 0%{?with_check}
-%{__python3} setup.py test
-%endif
+%tox
 
-%files -n python3-%{srcname}
-%license License.txt
+%files -n python3-defcon -f %{pyproject_files}
+# pyproject_files handles License.txt; verify with “rpm -qL -p …”
 %doc README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info
-%{python3_sitelib}/%{srcname}
 
 %changelog
+* Wed Jul 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.10.2-1
+- Modernize spec file macros, and drop obsolete ones
+- Run the tests
+- Add metapackage for “lxml” extra
+- Port to pyproject-rpm-macros (“new Python guidelines”)
+- Reduce macro indirection by dropping the srcname macro
+- Update to 0.10.2 (close RHBZ#1936574)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

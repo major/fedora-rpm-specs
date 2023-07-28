@@ -1,6 +1,4 @@
-# F39FailsToInstall: python3-bokeh
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220137
-%bcond examples 0
+%bcond examples 1
 
 # We should package a commit corresponding to a release tag unless there is a
 # compelling reason to do otherwise. Normally this would mean referencing the
@@ -55,8 +53,6 @@ for Exploration Targeting.}
 
 %package -n python3-colorcet
 Summary:        %{summary}
-
-Obsoletes:      python3-colorcet+examples < 3.0.1^20221003git809e291-7
 
 %description -n python3-colorcet %{common_description}
 

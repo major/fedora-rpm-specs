@@ -6,6 +6,7 @@
 %global goipath         gocloud.dev
 %global forgeurl        https://github.com/google/go-cloud
 Version:                0.24.0
+Epoch:                  1
 
 %gometa
 
@@ -164,8 +165,7 @@ BuildRequires:  golang(golang.org/x/tools/go/packages/packagestest)
 
 %prep
 %goprep
-%patch0 -p1
-%patch1 -p1
+%autopatch -p1
 
 %install
 %gopkginstall

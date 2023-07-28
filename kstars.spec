@@ -3,7 +3,7 @@
 Name:    kstars
 Summary: Desktop Planetarium
 Version: 3.6.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -24,6 +24,7 @@ Source0: http://download.kde.org/%{stable}/%{name}/%{name}-%{version}.tar.xz
 ## upstream patches
 
 ## upstreamable patches
+Patch50: kstars-3.6.3-FTBFS-timestamp.patch
 
 ## Fedora specific patches
 Patch101: kstars-2.9.6-fix-compilerflag-exceptions.patch
@@ -111,7 +112,8 @@ all 8 planets, the Sun and Moon, and thousands of comets and asteroids.
 %prep
 %setup -q
 
-%patch101 -p1 -b .fix_cflag_exception
+%patch -P50 -p1 -b .FTBFS-timestamp
+%patch -P101 -p1 -b .fix_cflag_exception
 
 %build
 %{cmake_kf5}
@@ -164,6 +166,9 @@ fi
 
 
 %changelog
+* Wed Jul 26 2023 Than Ngo <than@redhat.com> - 1:3.6.3-3
+- Fix #2225959, FTBFS
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

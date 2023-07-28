@@ -15,11 +15,15 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.6
-Release: 2%{?dist}
+Release: 3%{?dist}
+# backend/failover.c - BSD-3-Clause
+# cups/md5* - Zlib
+# scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
+# * - Apache-2.0 WITH LLVM-exception
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
-License: Apache-2.0 WITH LLVM-exception
+License: Apache-2.0 WITH LLVM-exception AND BSD-3-Clause AND Zlib AND BSD-2-Clause
 Url: https://openprinting.github.io/cups/
 # Apple stopped uploading the new versions into github, use OpenPrinting fork
 Source0: https://github.com/OpenPrinting/cups/releases/download/v%{VERSION}/cups-%{VERSION}-source.tar.gz
@@ -759,6 +763,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.6-3
+- SPDX migration completed
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

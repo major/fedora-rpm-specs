@@ -4,11 +4,11 @@
 %endif
 
 Name:		mold
-Version:	1.11.0
-Release:	2%{?dist}
+Version:	2.0.0
+Release:	1%{?dist}
 Summary:	A Modern Linker
 
-License:	AGPL-3.0-or-later AND (Apache-2.0 OR MIT)
+License:	MIT AND (Apache-2.0 OR MIT)
 URL:		https://github.com/rui314/mold
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -21,9 +21,6 @@ Patch0:		tbb-strip-werror.patch
 
 # Allow building against the system-provided `xxhash.h`
 Patch1:		0001-Use-system-compatible-include-path-for-xxhash.h.patch
-
-# mold currently cannot produce native binaries for MIPS
-ExcludeArch:	%{mips}
 
 BuildRequires:	cmake
 %if 0%{?el8}
@@ -59,7 +56,7 @@ Requires(preun): %{_sbindir}/alternatives
 
 # API-incompatible with older tbb 2020.3 currently shipped by Fedora:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2036372
-Provides:	bundled(tbb) = 2021.7
+Provides:	bundled(tbb) = 2021.9
 
 %description
 mold is a faster drop-in replacement for existing Unix linkers.
@@ -108,6 +105,12 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Wed Jul 26 2023 Christoph Erhardt <fedora@sicherha.de> - 2.0.0-1
+- Bump version to 2.0.0
+- Change license from AGPL-3.0-or-later to MIT
+- Update version number of bundled tbb package to 2021.9
+- Remove `ExcludeArch` as mold now supports MIPS64
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

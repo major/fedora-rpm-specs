@@ -91,6 +91,8 @@ use the "with-deprecated" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
+# remove tests that are unreliable and often spin forever
+rm tests/buffer_unordered.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

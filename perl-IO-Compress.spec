@@ -13,8 +13,8 @@
 %{?perl_default_filter}
 
 Name:           perl-IO-Compress
-Version:        2.205
-Release:        2%{?dist}
+Version:        2.206
+Release:        1%{?dist}
 Summary:        Read and write compressed data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress
@@ -209,6 +209,9 @@ make test COMPRESS_ZLIB_RUN_%{?with_long_tests:ALL}%{!?with_long_tests:MOST}=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.206-1
+- 2.206 bump (rhbz#2225676)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.205-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

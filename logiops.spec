@@ -1,21 +1,20 @@
-%global forgeurl0 https://github.com/PixlOne/logiops
-%global forgeurl1 https://github.com/PixlOne/ipcgull
-%global name1 ipcgull
-%global version1 0.1
+%global forgeurl https://github.com/PixlOne/logiops
 
 Name:    logiops
-Version: 0.3.2
-Release: 2%{?dist}
+Version: 0.3.3
+Release: 1%{?dist}
 Summary: Unofficial driver for Logitech mice and keyboard
-%forgemeta -a
+%forgemeta
 
 License: GPLv3
-URL:     %{forgeurl0}
+URL:     %{forgeurl}
 
-Source0: %{forgesource0}
-Source1: %{forgesource1}
+Source:  %{forgesource}
 
-Patch0:         logiops-ipcgull-include-stdexcept.patch
+# Change from static to dynamic lib
+Patch0:  logiops-use-ipcgull-shared-lib.patch
+
+Requires:  ipcgull
 
 BuildRequires:  cmake
 BuildRequires:  systemd-devel
@@ -25,8 +24,7 @@ BuildRequires:  libconfig-devel
 BuildRequires:  libevdev-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  glib2-devel
-BuildRequires:  libstdc++-devel
+BuildRequires:  ipcgull-devel
 
 %description
 This is an unofficial driver for Logitech mice and keyboard.
@@ -34,13 +32,9 @@ This is an unofficial driver for Logitech mice and keyboard.
 This is currently only compatible with HID++ >2.0 devices.
 
 %prep
-# Ipcgull archive
-%forgesetup -z 1
+%forgesetup
 %patch -p1 0
-# Logiops archive
-%forgesetup -z 0
-rmdir ./src/%{name1}
-mv ../%{name1}-%{version1} ./src/%{name1}/
+rmdir src/ipcgull
 
 %build
 %{cmake}
@@ -68,11 +62,8 @@ mv ../%{name1}-%{version1} ./src/%{name1}/
 %doc logid.example.cfg
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed May 24 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 0.3.2-1
-- Bump to 0.3.2 and build with ipcgull library
+* Wed Jul 26 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 0.3.3-1
+- New version 0.3.3 and add dependency to ipcgull lib
 
 * Fri May 05 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 0.3.1-1
 - New version 0.3.1

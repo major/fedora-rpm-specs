@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-604-g7f079fdc16
+%global glibcsrcdir glibc-2.37.9000-635-g637aac2ae3
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 18
+%global baserelease 19
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2213,6 +2213,41 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Jul 25 2023 DJ Delorie <dj@redhat.com> - 2.37.9000-19
+- Auto-sync with upstream branch master,
+  commit 637aac2ae3980de31a6baab236a9255fe853cc76.
+- Include sys/rseq.h in tst-rseq-disable.c
+- string: Fix tester with fortify enabled
+- string: Fix bug-strncat1 with fortify enabled
+- nscd: Use errval, not errno to guide cache update (bug 30662)
+- Restore lookup of IPv4 mapped addresses in files database (bug 25457)
+- Revert "MIPS: Sync elf.h from binutils"
+- riscv: Update rvd libm test ulps
+- MIPS: Sync elf.h from binutils
+- Merge translations (bg, hr, pl, sv)
+- nptl: Unconditionally use a 32-byte rseq area
+- hurd: Fix tst-openloc
+- scripts: Fix fortify checks if compiler does not support _FORTIFY_SOURCE=3
+- configure: Disable building libcrypt by default
+- nptl: Make tst-tls3mod.so explicitly lazy
+- make ‘struct pthread’ a complete type
+- scripts: Add fortify checks on installed headers
+- Update x86_64 libm-test-ulps (x32 ABI)
+- Fix getting return address in elf/tst-audit28.c.
+- [PATCH v1] x86: Use `3/4*sizeof(per-thread-L3)` as low bound for NT threshold.
+- x86: Fix slight bug in `shared_per_thread` cache size calculation.
+- Update i686 libm-test-ulps (again)
+- Update i686 libm-test-ulps
+- Merge translations (de, ro, uk, zh_TW)
+- Regenerate libc.pot
+- configure: Use autoconf 2.71
+- Update sparc libm-test-ulps
+- s390: Add the clone3 wrapper
+- manual: Fix typos in struct dl_find_object
+- sparc: Fix la_symbind for bind-now (BZ 23734)
+- i386: make debug wrappers compatible with static PIE
+- LoongArch: Fix soft-float bug about _dl_runtime_resolve{,lsx,lasx}
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.37.9000-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

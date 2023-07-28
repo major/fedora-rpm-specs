@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-IO-Socket-IP
-Version:        0.41
-Release:        501%{?dist}
+Version:        0.42
+Release:        1%{?dist}
 Summary:        Drop-in replacement for IO::Socket::INET supporting both IPv4 and IPv6
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Socket-IP
@@ -24,6 +24,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(base)
@@ -64,7 +65,7 @@ with "%{_libexecdir}/%{name}/test".
 cp %{SOURCE1} .
 chmod -x lib/IO/Socket/IP.pm
 # Help generators to recognize Perl scripts
-for F in $(find t/ -name '*.t'); do
+for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
@@ -78,27 +79,31 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
-rm -f %{buildroot}%{_libexecdir}/%{name}/t/99pod.t*
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/99pod.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes examples README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/IO/*
+%{_mandir}/man3/IO::Socket::IP*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.42-1
+- 0.42 bump (rhbz#2225678)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.41-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

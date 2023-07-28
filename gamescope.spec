@@ -2,7 +2,7 @@
 
 Name:           gamescope
 Version:        3.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Micro-compositor for video games on Wayland
 
 License:        BSD
@@ -10,6 +10,10 @@ URL:            https://github.com/Plagman/gamescope
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Create stb.pc to satisfy dependency('stb')
 Source1:        stb.pc
+
+# Fix i686 build
+# https://github.com/ValveSoftware/gamescope/pull/918
+Patch01:        918.patch
 
 BuildRequires:  meson >= 0.54.0
 BuildRequires:  ninja-build
@@ -78,6 +82,9 @@ export PKG_CONFIG_PATH=pkgconfig
 
 
 %changelog
+* Wed Jul 26 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.12.0-2
+- Bacport i686 build fix
+
 * Wed Jul 26 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.12.0-1
 - Rebase to 3.12.0 (fixes RHBZ#2152065,RHBZ#2225815)
 

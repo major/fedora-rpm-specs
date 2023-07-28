@@ -18,6 +18,8 @@
 %global pecl_name  geos
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
 %global ini_name   40-%{pecl_name}.ini
+%global sources    %{name}
+%global _configure ../%{sources}/configure
 
 Name:           php-%{pecl_name}
 Version:        1.0.0
@@ -61,9 +63,8 @@ PHP module for GEOS.
 
 %prep
 %setup -q -c
-mv %{name} NTS
 
-cd NTS
+cd %{sources}
 %patch -P0 -p1 -b .test
 %patch -P1 -p1 -b .wformat
 %patch -P2 -p1 -b .arginfo
@@ -86,23 +87,23 @@ cat  << 'EOF' | tee %{ini_name}
 extension=%{pecl_name}.so
 EOF
 
-
+mkdir NTS
 %if %{with_zts}
-# Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 
 %build
-cd NTS
-%{_bindir}/phpize
-%configure --with-php-config=%{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+%configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-%configure --with-php-config=%{_bindir}/zts-php-config
+%configure --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -123,43 +124,49 @@ install -Dpm 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 %if %{with_zts}
 : Minimal load test for NTS extension
 %{__ztsphp} --no-php-ini \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 %endif
 
 %if %{with tests}
-%if 0%{?fedora} >= 32
+cd %{sources}
+if pkg-config geos --atleast-version 3.12; then
+# See https://git.osgeo.org/gitea/geos/php-geos/issues/31
+# ignore failing test with geos 3.12
+rm tests/002_WKTWriter.phpt
+rm tests/004_WKBWriter.phpt
+rm tests/005_WKBReader.phpt
+fi
+if pkg-config geos --atleast-version 3.8; then
 # See https://git.osgeo.org/gitea/geos/php-geos/issues/23
 # ignore failing test with geos 3.8
-rm -f ?TS/tests/001_Geometry.phpt
-%endif
+rm tests/001_Geometry.phpt
+fi
 %ifarch ppc64 ppc64le aarch64 armv7hl s390 s390x
-: ignore failed test see https://git.osgeo.org/gogs/geos/php-geos/issues/17
-rm -f ?TS/tests/001_Geometry.phpt
-rm -f ?TS/tests/005_WKBReader.phpt
+# see https://git.osgeo.org/gogs/geos/php-geos/issues/17
+# ignore failing tests
+rm -f tests/001_Geometry.phpt
+rm -f tests/005_WKBReader.phpt
 %endif
 
-cd NTS
 : Upstream test suite for NTS extension
 TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
 REPORT_EXIT_STATUS=1 \
-%{__php} -n run-tests.php --show-diff || ret=1
+%{__php} -n run-tests.php -q --show-diff || ret=1
 
 %if %{with_zts}
-cd ../ZTS
 : Upstream test suite for ZTS extension
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 NO_INTERACTION=1 \
 REPORT_EXIT_STATUS=1 \
-%{__ztsphp} -n run-tests.php --show-diff || ret=1
+%{__ztsphp} -n run-tests.php -q --show-diff || ret=1
 %endif
 
 exit $ret
@@ -167,8 +174,8 @@ exit $ret
 
 
 %files
-%license NTS/{COPYING,LGPL-2,MIT-LICENSE}
-%doc NTS/{CREDITS,NEWS,README.md,TODO}
+%license %{sources}/{COPYING,LGPL-2,MIT-LICENSE}
+%doc %{sources}/{CREDITS,NEWS,README.md,TODO}
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
@@ -180,6 +187,10 @@ exit $ret
 
 
 %changelog
+* Wed Jul 26 2023 Remi Collet <remi@remirepo.net> - 1.0.0-27
+- build out of sources tree
+- ignore 3 tests failing with libgeos 3.12 #2226098
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -13,7 +13,8 @@ License:        MPL-2.0
 URL:            https://crates.io/crates/rpds
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# - criterion is used only for running benchmarks
+# - remove criterion dependency
+# - bump archery dependency
 Patch:          rpds-fix-metadata.diff
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

@@ -1,7 +1,7 @@
 %global oqs_version 0.8.0
 Name:       liboqs
 Version:    %{oqs_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    liboqs is an open source C library for quantum-safe cryptographic algorithms.
 
 #liboqs uses MIT license by itself but includes several files licensed under different terms.
@@ -51,20 +51,6 @@ rm -rf src/kem/classic_mceliece
 rm -rf src/kem/frodokem
 rm -rf src/kem/hqc
 rm -rf src/kem/ntruprime
-#CC0-licensed code, we don't have exception for it - need to check later
-rm -rf /src/sig/sphincs/pqclean_sphincs-sha2-128f-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-sha2-128s-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-sha2-192f-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-sha2-192s-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-sha2-256f-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-sha2-256s-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-shake-128f-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-shake-128s-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-shake-192f-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-shake-192s-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-shake-256f-simple_avx2/
-rm -rf /src/sig/sphincs/pqclean_sphincs-shake-256s-simple_avx2/
-
 
 %build
 %cmake -GNinja -DBUILD_SHARED_LIBS=ON -DOQS_USE_AES_OPENSSL=ON -DOQS_USE_AES_INSTRUCTIONS=OFF -DOQS_DIST_BUILD=ON -DOQS_ALGS_ENABLED=STD -DOQS_USE_SHA3_OPENSSL=ON -DCMAKE_BUILD_TYPE=Debug -LAH ..
@@ -105,6 +91,9 @@ done
 #%doc %%{_datadir}/doc/oqs/xml/*
 
 %changelog
+* Wed Jul 26 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.8.0-3
+- The exception we get covers avx2 implementation, no need to remove it
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

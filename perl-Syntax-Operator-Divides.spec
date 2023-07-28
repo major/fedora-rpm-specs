@@ -9,8 +9,8 @@
 %endif
 
 Name:           perl-Syntax-Operator-Divides
-Version:        0.03
-Release:        5%{?dist}
+Version:        0.04
+Release:        1%{?dist}
 Summary:        Infix operator for division test
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Operator-Divides
@@ -31,7 +31,7 @@ BuildRequires:  perl(XS::Parse::Infix::Builder) >= 0.27
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(XSLoader)
 # Tests:
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test2::V0)
 %if %{optional_tests}
 # Optional tests:
 BuildRequires:  perl(Syntax::Keyword::Match) >= 0.08
@@ -43,9 +43,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 Requires:       %{perl_XS_Parse_Infix_ABI}
 %endif
 
-# Filter under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
-
 %description
 This module provides an infix operator that implements an integer divides
 test which returns true if the lefthand operand is a whole multiple of the
@@ -56,7 +53,6 @@ Summary:        Tests for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::More) >= 0.88
 %if %{optional_tests}
 Requires:       perl(Syntax::Keyword::Match) >= 0.08
 %endif
@@ -114,6 +110,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 26 2023 Petr Pisar <ppisar@redhat.com> - 0.04-1
+- 0.04 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.12.0
+Version:            2.13.3
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -13,9 +13,12 @@ URL:                https://github.com/aws/aws-cli/tree/v2
 
 Source0:            https://github.com/aws/aws-cli/archive/%{version}/%{pkgname}-%{version}.tar.gz
 
-# ruamel-yaml 0.17.22 changed whitespace formatting, breaking some TestUpdateKubeconfig tests
-# add a workaround for that until upstream comes with a proper fix
-Patch0:             ruamel-yaml-0.17.22.patch
+# adapt to whitespace formatting changes and removal of OrderedDict in ruamel-yaml
+Patch0:             ruamel-yaml-0.17.32.patch
+# fix Python 3.12 incompatibilities
+Patch1:             python312.patch
+# fix incorrect assertions in TestKubeconfigLoader
+Patch2:             assertions.patch
 
 BuildArch:          noarch
 

@@ -19,7 +19,8 @@
 %ifarch x86_64
 %bcond_without  oidn
 %bcond_without  opgl
-%bcond_without  rocm
+# Disable binary hip support for cycle
+%bcond_with  rocm
 %endif
 %bcond_without  usd
 %else
@@ -35,7 +36,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.6.0
+Version:        3.6.1
 Release:        %autorelease
 
 
@@ -157,7 +158,7 @@ BuildRequires:  cmake(Imath)
 BuildRequires:  cmake(OpenEXR)
 BuildRequires:  pkgconfig(OpenImageIO)
 BuildRequires:  pkgconfig(libopenjp2)
-BuildRequires:  pkgconfig(tbb)
+BuildRequires:  pkgconfig(tbb) = 2020.3
 BuildRequires:  potrace-devel
 
 # Audio stuff
@@ -294,7 +295,6 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %endif
     -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1 \
 %if %{with rocm}
-    -DWITH_CYCLES_DEVICE_HIP=ON \
     -DWITH_CYCLES_HIP_BINARIES=ON \
 %endif
     -DWITH_LIBS_PRECOMPILED=OFF

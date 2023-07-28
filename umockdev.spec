@@ -1,9 +1,9 @@
 Name:             umockdev
-Version:          0.17.17
-Release:          2%{?dist}
+Version:          0.17.18
+Release:          1%{?dist}
 Summary:          Mock hardware devices
 
-License:          LGPLv2+
+License:          LGPL-2.1-or-later
 URL:              https://github.com/martinpitt/%{name}
 Source0:          https://github.com/martinpitt/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
@@ -75,6 +75,11 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Wed Jul 26 2023 Packit <hello@packit.dev> - 0.17.18-1
+- preload: Don't read udev cache data from system (thanks Bastien Nocera)
+- spec: Update License: to SPDX format
+- Various test fixes
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

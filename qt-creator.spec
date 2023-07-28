@@ -1,14 +1,14 @@
-%define prerelease rc1
+#define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
-%global clangver 16.0.5
+%global clangver 16.0.6
 
 Name:           qt-creator
 Version:        11.0.0
-Release:        0.5%{?prerelease:.%prerelease}%{?dist}
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -223,6 +223,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Wed Jul 26 2023 Sandro Mani <manisandro@gmail.com> - 11.0.0-1
+- Update to 11.0.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
