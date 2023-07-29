@@ -4,7 +4,7 @@
 
 Name:          maven-native
 Version:       1.0
-Release:       0.14%{dotreltag}%{?dist}
+Release:       0.15%{dotreltag}%{?dist}
 Summary:       Compile c and c++ source under Maven
 License:       ASL 2.0 and MIT
 Url:           https://github.com/mojohaus/maven-native/
@@ -29,7 +29,6 @@ BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires: mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires: mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness)
 BuildRequires: mvn(org.codehaus.plexus:plexus-archiver)
-BuildRequires: mvn(org.codehaus.plexus:plexus-component-api)
 BuildRequires: mvn(org.codehaus.plexus:plexus-container-default)
 BuildRequires: mvn(org.codehaus.plexus:plexus-utils)
 
@@ -130,6 +129,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Thu Jul 27 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 1.0-0.15.alpha.11
+- Remove dependency plexus-component-api
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.14.alpha.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

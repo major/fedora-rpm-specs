@@ -1,7 +1,7 @@
 Name: py-radix
 Summary: Radix tree data structure for Python
 Version: 0.10.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 URL: https://github.com/mjschultz/py-radix
 Source0: https://github.com/mjschultz/py-radix/archive/v%{version}.tar.gz
@@ -10,6 +10,8 @@ Source0: https://github.com/mjschultz/py-radix/archive/v%{version}.tar.gz
 # https://github.com/mjschultz/py-radix/pull/55
 # Fixes Python 3.10 failures, https://bugzilla.redhat.com/1899466
 Patch1: py_ssize_t_clean.patch
+#  Change away from deprecated assertEquals and assertNotEquals to assertEqual
+Patch2: https://patch-diff.githubusercontent.com/raw/mjschultz/py-radix/pull/44.patch
 
 License: BSD with advertising
 BuildRequires: gcc
@@ -65,6 +67,9 @@ touch inet_ntop.c strlcpy.c
 %{python3_sitearch}/radix*
 
 %changelog
+* Sat Jul 22 2023 Kevin Fenzi <kevin@scrye.com> - 0.10.0-7
+- Apply upstream patch to fix FTBFS. https://github.com/mjschultz/py-radix/pull/44
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

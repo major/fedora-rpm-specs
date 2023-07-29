@@ -5,11 +5,10 @@
 %global crate gix-path
 
 Name:           rust-gix-path
-Version:        0.8.3
+Version:        0.8.4
 Release:        %autorelease
-Summary:        WIP crate of the gitoxide project dealing paths and their conversions
+Summary:        Utility crate for handling paths in gix
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-path
 Source:         %{crates_source}

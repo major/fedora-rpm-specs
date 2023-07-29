@@ -1,16 +1,19 @@
 Name:           perl-Dist-Zilla-Plugin-ReadmeFromPod
-Version:        0.37
-Release:        15%{?dist}
+Version:        0.38
+Release:        1%{?dist}
 Summary:        Automatically convert POD to a README for Dist::Zilla
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-ReadmeFromPod
 Source0:        https://cpan.metacpan.org/authors/id/F/FA/FAYLAND/Dist-Zilla-Plugin-ReadmeFromPod-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
+# glibc-coreutils for iconv tool
 BuildRequires:  glibc-common
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -30,19 +33,17 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
-# Test::Kwalitee 1.21 not used
-# Test::Pod 1.41 not used
 Requires:       perl(Dist::Zilla::File::InMemory)
 # Dist::Zilla::Role::FilePruner version from Dist::Zilla in META
 Requires:       perl(Dist::Zilla::Role::FilePruner) >= 6.000
 Requires:       perl(Dist::Zilla::Role::InstallTool) >= 5
 Requires:       perl(Pod::Readme) >= 1.2.0
 # Module names passed to Module::Load::load() via Pod::Readme::new() from %%FORMAT
-Suggests:       perl(Pod::Markdown)
-Suggests:       perl(Pod::Markdown::Github)
-Suggests:       perl(Pod::Simple::HTML)
-Suggests:       perl(Pod::Simple::RTF)
-Suggests:       perl(Pod::Simple::Text)
+Recommends:     perl(Pod::Markdown)
+Recommends:     perl(Pod::Markdown::Github)
+Recommends:     perl(Pod::Simple::HTML)
+Recommends:     perl(Pod::Simple::RTF)
+Recommends:     perl(Pod::Simple::Text)
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Pod::Readme\\)$
@@ -51,32 +52,70 @@ Suggests:       perl(Pod::Simple::Text)
 Generate the README file from main_module (or other if specified)
 with Pod::Readme.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Dist-Zilla-Plugin-ReadmeFromPod-%{version}
 # Normalize encoding
 iconv -f ISO-8859-1 -t UTF-8 < README.md > README.md.utf8
 touch -r README.md README.md.utf8
 mv README.md.utf8 README.md
+# Remove always skipped tests
+for F in t/author-pod-syntax.t t/release-kwalitee.t; do
+    rm "$F"
+    perl -i -ne 'print $_ unless m{\Q'"$F"'\E}' MANIFEST
+done
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done 
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-unset AUTHOR_TESTING RELEASE_TESTING
+unset AUTHOR_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Dist
+%dir %{perl_vendorlib}/Dist/Zilla
+%dir %{perl_vendorlib}/Dist/Zilla/Plugin
+%{perl_vendorlib}/Dist/Zilla/Plugin/ReadmeFromPod.pm
+%{_mandir}/man3/Dist::Zilla::Plugin::ReadmeFromPod.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 27 2023 Petr Pisar <ppisar@redhat.com> - 0.38-1
+- 0.38 bump
+- Package the tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

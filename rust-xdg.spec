@@ -5,7 +5,7 @@
 %global crate xdg
 
 Name:           rust-xdg
-Version:        2.5.0
+Version:        2.5.2
 Release:        %autorelease
 Summary:        Store and retrieve files according to XDG Base Directory specification
 

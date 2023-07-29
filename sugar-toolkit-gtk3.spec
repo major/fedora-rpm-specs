@@ -2,7 +2,7 @@
 
 Name:    sugar-toolkit-gtk3
 Version: 0.120
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Sugar toolkit GTK+ 3
 License: LGPLv2+
 URL:     http://wiki.laptop.org/go/Sugar
@@ -24,6 +24,8 @@ BuildRequires: pkgconfig
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: pygobject3-devel
+# py-compile needs updating
+BuildRequires: automake
 Requires: python3-dateutil
 Requires: python3-dbus
 Requires: python3-gobject
@@ -51,6 +53,13 @@ the SugarExt-1.0 library through gobject-introspection.
 %autosetup -p1
 
 %build
+autoreconf
+ls -1 %{_datadir}/automake-*/py-compile | sort | \
+	tail -n 1 | while read f
+do
+	cp -p $f .
+done
+
 %configure
 # There are missing dependencies in this project's Makefiles, in
 # particular dependencies on libsugarext.   LTO is tripping these
@@ -85,6 +94,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Thu Jul 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.120-6
+- Update py-compile for python 3.12, imp module removed
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

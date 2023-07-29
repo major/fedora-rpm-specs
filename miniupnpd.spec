@@ -1,6 +1,6 @@
 Name:       miniupnpd
-Version:    2.3.1
-Release:    3%{?dist}
+Version:    2.3.3
+Release:    1%{?dist}
 Summary:    Daemon to offer UPnP-IGD and NAT-PMP support
 
 License:    BSD
@@ -46,11 +46,12 @@ export LDFLAGS="%{__global_ldflags}"
 %else
  --firewall=nftables
 %endif
-sed -i 's/OS_NAME.*$/OS_NAME "Fedora"/' config.h
-sed -i 's/OS_VERSION.*$/OS_VERSION "%{fedora}"/' config.h
-sed -i 's/OS_URL.*$/OS_URL "https:\/\/getfedora.org"/' config.h
+sed -i 's/ OS_NAME.*$/ OS_NAME "Fedora"/' config.h
+sed -i 's/ OS_VERSION.*$/ OS_VERSION "%{fedora}\/%%s"/' config.h
+sed -i 's/ OS_URL.*$/ OS_URL "https:\/\/getfedora.org"/' config.h
 sed -i 's/^CFLAGS.*$//g' Makefile
 sed -i 's/^LDFLAGS.*$//g' Makefile
+sed -i 's/        policy drop;/        policy accept;/' netfilter_nft/scripts/nft_init.sh
 make %{?_smp_mflags}
 
 
@@ -88,6 +89,10 @@ rm -f %{buildroot}/etc/init.d/%{name}
 
 
 %changelog
+* Wed Jul 26 2023 - Michael Cronenworth <mike@cchtml.com> - 2.3.3-1
+- Version update
+- Fix reported fields (RHBZ#2161103)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

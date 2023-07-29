@@ -13,7 +13,7 @@
 
 Name:           pdc-client
 Version:        1.8.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Console client for interacting with Product Definition Center
 License:        MIT
 URL:            https://github.com/product-definition-center/pdc-client
@@ -29,6 +29,7 @@ BuildRequires:  python%{python3_pkgversion}-requests
 BuildRequires:  python3-requests-kerberos
 BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python3-beanbag
+BuildRequires:  python3-zombie-imp
 
 Requires:  python%{python3_pkgversion}-pdc-client = %{version}-%{release}
 
@@ -141,6 +142,10 @@ EOF
 
 
 %changelog
+* Thu Jul 27 2023 Kevin Fenzi <kevin@scrye.com> - 1.8.0-30
+- Add python3-zombie-imp to BuildRequires to bandaid ftbfs until it can be fixed.
+- Fixes rhbz#2220064
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

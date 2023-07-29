@@ -5,11 +5,10 @@
 %global crate gix-trace
 
 Name:           rust-gix-trace
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Minimal tracing support for gitoxide that can be turned off to zero cost
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-trace
 Source:         %{crates_source}

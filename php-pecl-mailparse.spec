@@ -12,18 +12,20 @@
 # we don't want -z defs linker flag
 %undefine _strict_symbol_defs_build
 
-%global pecl_name mailparse
-%global with_zts  0%{?__ztsphp:1}
+%global pecl_name  mailparse
+%global with_zts   0%{?__ztsphp:1}
 # After 20-mbstring
-%global ini_name  40-%{pecl_name}.ini
+%global ini_name   40-%{pecl_name}.ini
+%global sources    %{pecl_name}-%{version}
+%global _configure ../%{sources}/configure
 
 Summary:   PHP PECL package for parsing and working with email messages
 Name:      php-pecl-mailparse
-Version:   3.1.4
-Release:   4%{?dist}
+Version:   3.1.5
+Release:   1%{?dist}
 License:   PHP-3.01
 URL:       https://pecl.php.net/package/mailparse
-Source0:   https://pecl.php.net/get/mailparse-%{version}.tgz
+Source0:   https://pecl.php.net/get/%{sources}.tgz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -54,14 +56,12 @@ It can deal with rfc822 and rfc2045 (MIME) compliant messages.
 # the sources extract straight to it
 %setup -q -c
 
-mv %{pecl_name}-%{version} NTS
-
 # Don't install/register tests
 sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
+cd %{sources}
 extver=$(sed -n '/#define PHP_MAILPARSE_VERSION/{s/.* "//;s/".*$//;p}' php_mailparse.h)
 if test "x${extver}" != "x%{version}"; then
    : Error: Upstream version is ${extver}, expecting %{version}.
@@ -77,21 +77,23 @@ extension = mailparse.so
 ;mailparse.def_charset = us-ascii
 EOF
 
+mkdir NTS
 %if %{with_zts}
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 
 %build
-cd NTS
-phpize
-%configure --with-php-config=%{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+%configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-zts-phpize
-%configure --with-php-config=%{_bindir}/zts-php-config
+%configure --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -112,19 +114,19 @@ install -Dpm 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
+cd %{sources}
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=mbstring.so \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 : Upstream test suite for NTS extension
-cd NTS
 TEST_PHP_EXECUTABLE=%{__php} \
 NO_INTERACTION=1 \
 %{__php} run-tests.php \
@@ -138,10 +140,9 @@ NO_INTERACTION=1 \
 %{__ztsphp} --no-php-ini \
     --define extension=mbstring.so \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 : Upstream test suite for ZTS extension
-cd ../ZTS
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
 NO_INTERACTION=1 \
 php run-tests.php \
@@ -153,7 +154,7 @@ php run-tests.php \
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
@@ -166,6 +167,10 @@ php run-tests.php \
 
 
 %changelog
+* Thu Jul 27 2023 Remi Collet <remi@remirepo.net> - 3.1.5-1
+- update to 3.1.5
+- build out of sources tree
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

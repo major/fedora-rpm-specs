@@ -5,8 +5,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gtk4
-Version:        4.8.2
-Release:        3%{?dist}
+Version:        4.11.4
+Release:        1%{?dist}
 Summary:        MinGW Windows GTK+ library
 
 License:        LGPLv2+
@@ -215,6 +215,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 
 
 %changelog
+* Thu Jul 27 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.11.4-1
+- new version
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

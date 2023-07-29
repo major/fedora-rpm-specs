@@ -3,8 +3,8 @@
 %define semodule_version 0.0.4
 
 Name:           usbguard
-Version:        1.1.0
-Release:        8%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        A tool for implementing USB device usage policy
 License:        GPL-2.0-or-later
 ## Not installed
@@ -42,9 +42,9 @@ BuildRequires: systemd
 
 Patch1: usbguard-revert-catch.patch
 Patch2: policykit-dbus-chat-selinux.patch
-Patch3: usbguard-restore-support-access-control-names.patch
 # https://github.com/USBGuard/usbguard/pull/582
-Patch4: usbguard-gcc13.patch
+Patch3: usbguard-gcc13.patch
+Patch4: usbguard-selinux-audit-write.patch
 
 %description
 The USBGuard software framework helps to protect your computer against rogue USB
@@ -108,8 +108,8 @@ daemon.
 
 %patch -P 1 -p1 -b .catch
 %patch -P 2 -p1 -b .policykit
-%patch -P 3 -p1 -b .access-contol-names
-%patch -P 4 -p1 -b .gcc13
+%patch -P 3 -p1 -b .gcc13
+%patch -P 4 -p1
 
 # Remove bundled library sources before build
 rm -rf src/ThirdParty/{Catch,PEGTL}
@@ -232,6 +232,10 @@ fi
 
 
 %changelog
+* Thu Jul 27 2023 Attila Lakatos <alakatos@redhat.com> - 1.1.2-1
+- Rebase to 1.1.2
+Resolves: rhbz#2064543
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

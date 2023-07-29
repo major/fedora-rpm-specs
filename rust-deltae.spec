@@ -5,7 +5,7 @@
 %global crate deltae
 
 Name:           rust-deltae
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Calculate Delta E between two colors in CIE Lab space
 

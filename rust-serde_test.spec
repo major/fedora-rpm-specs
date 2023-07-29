@@ -6,7 +6,7 @@
 %global crate serde_test
 
 Name:           rust-serde_test
-Version:        1.0.171
+Version:        1.0.176
 Release:        %autorelease
 Summary:        Token De/Serializer for testing De/Serialize implementations
 
@@ -34,7 +34,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/crates-io.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

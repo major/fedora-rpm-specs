@@ -5,11 +5,10 @@
 %global crate gix-hash
 
 Name:           rust-gix-hash
-Version:        0.11.3
+Version:        0.11.4
 Release:        %autorelease
 Summary:        Borrowed and owned git hash digests used to identify git objects
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-hash
 Source:         %{crates_source}

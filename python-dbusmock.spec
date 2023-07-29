@@ -1,11 +1,11 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.29.0
-Release:          3%{?dist}
+Version:          0.29.1
+Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
-License:          LGPLv3+
+License:          LGPL-3.0-or-later
 URL:              https://pypi.python.org/pypi/python-dbusmock
 Source0:          https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 
@@ -51,6 +51,10 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Thu Jul 27 2023 Packit <hello@packit.dev> - 0.29.1-1
+- spec: Update License: to SPDX format
+- Test fixes (thanks Marco Trevisan)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

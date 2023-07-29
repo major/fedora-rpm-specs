@@ -3,13 +3,9 @@
 
 %global crate libbpf-cargo
 
-%if 0%{?fedora} == 38
-# Fedora 38's libbpf is new enough
-# currently: 1.1.0
-%bcond_without novendor
-%else
+# default to vendored libbpf
+# otherwise we have to keep reasoning about if the system libbpf is new enough
 %bcond_with novendor
-%endif
 
 Name:           rust-libbpf-cargo
 Version:        0.13.1

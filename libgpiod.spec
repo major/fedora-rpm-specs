@@ -2,10 +2,10 @@
 
 Name:          libgpiod
 Version:       2.0.1
-Release:       4%{?candidate:.%{candidate}}%{?dist}
+Release:       5%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 URL:           https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/
 Source0:       https://mirrors.edge.kernel.org/pub/software/libs/%{name}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.xz
 
@@ -31,6 +31,7 @@ open-source and open-drain GPIOs).
 
 %package utils
 Summary: Utilities for GPIO
+License: GPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description utils
@@ -106,6 +107,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/%{name}*.so
 
 %changelog
+* Thu Jul 27 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.1-5
+- migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

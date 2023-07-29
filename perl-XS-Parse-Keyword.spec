@@ -3,12 +3,15 @@
 
 Name:           perl-XS-Parse-Keyword
 Version:        0.36
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        XS functions to assist in parsing keyword syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XS-Parse-Keyword
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-%{version}.tar.gz
 Source1:        macros.perl-XS-Parse-Keyword
+# Fix a check for PL_infix_plugin, not suitable for upstream, bug #2226738,
+# CPAN RT#149179.
+Patch0:         XS-Parse-Keyword-0.36-No-special-linker-flags-for-checking-for-PL_infix_pl.patch
 BuildRequires:  coreutils
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -16,13 +19,11 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(B)
 BuildRequires:  perl(base)
-BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(ExtUtils::CChecker) >= 0.11
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(constant)
@@ -146,6 +147,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 26 2023 Petr Pisar <ppisar@redhat.com> - 0.36-2
+- Fix a check for PL_infix_plugin
+
 * Tue Jul 25 2023 Petr Pisar <ppisar@redhat.com> - 0.36-1
 - 0.36 bump
 

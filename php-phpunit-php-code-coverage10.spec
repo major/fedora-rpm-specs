@@ -11,7 +11,7 @@
 %bcond_with          tests
 
 # Github
-%global gh_commit    db1497ec8dd382e82c962f7abbe0320e4882ee4e
+%global gh_commit    be1fe461fdc917de2a29a452ccf2657d325b443d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
 %global gh_project   php-code-coverage
@@ -25,8 +25,8 @@
 %global ver_major    10
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        10.1.2
-Release:        3%{?dist}
+Version:        10.1.3
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -197,6 +197,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 27 2023 Remi Collet <remi@remirepo.net> - 10.1.3-1
+- update to 10.1.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

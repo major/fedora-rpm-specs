@@ -5,7 +5,7 @@ Version:        2.77.0
 Release:        2%{?dist}
 Summary:        MinGW Windows GLib2 library
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.gtk.org
 # first two digits of version
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')

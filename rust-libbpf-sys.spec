@@ -5,13 +5,9 @@
 %global crate libbpf-sys
 %global upstream_version 1.0.4+v1.0.1
 
-%if 0%{?fedora} == 38
-# Fedora 38's libbpf is new enough
-# currently: 1.1.0
-%bcond_without novendor
-%else
+# default to vendored libbpf
+# otherwise we have to keep reasoning about if the system libbpf is new enough
 %bcond_with novendor
-%endif
 
 Name:           rust-libbpf-sys
 Version:        1.0.4

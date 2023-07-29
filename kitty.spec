@@ -4,7 +4,7 @@
 %bcond_without doc
 
 Name:           kitty
-Version:        0.29.1
+Version:        0.29.2
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -26,7 +26,6 @@ Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444
 # Don't build kitten inside setup.py, use gobuild macro in the spec instead to build with fedora flags
 Patch0:         kitty-do-not-build-kitten.patch
 ## upstream patches
-Patch1: https://github.com/kovidgoyal/kitty/commit/22dd8ecb62169f713048431ba5663ac16562af7b.patch#/kitty-fix-build-gorc.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

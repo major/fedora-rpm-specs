@@ -1,6 +1,6 @@
 Name:           python-firehose
 Version:        0.5
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Library for working with output from static code analyzers
 
 License:        LGPLv2+
@@ -16,6 +16,7 @@ BuildRequires:  libxml2
 # ^^^: used during selftests
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
 BuildRequires:  python3-mock
 # ^^^: used during selftests
@@ -42,12 +43,13 @@ Requires:  python3-six
 
 
 %prep
-%setup -q -n firehose-%{version}
-%patch0 -p1
+%autosetup -p1 -n firehose-%{version}
 
 # Change shebang according to Python version
 sed -i '1s=^#!/usr/bin/\(python\|env python\)[0-9.]*=#!%{__python3}=' firehose/parsers/cppcheck.py
 sed -i '1s=^#!/usr/bin/\(python\|env python\)[0-9.]*=#!%{__python3}=' firehose/parsers/gcc.py
+
+sed -i 's/distutils\.core/setuptools/' setup.py
 
 %build
 %py3_build
@@ -70,6 +72,11 @@ chmod +x %{buildroot}/%{python3_sitelib}/firehose/parsers/gcc.py
 
 
 %changelog
+* Thu Jul 27 2023 Athos Ribeiro <athoscr@fedoraproject.org> - 0.5-25
+- Fix FTBFS and FTI issues (rhbz#2226189) (rhbz#2220223) (rhbz#2154946)
+- Remove deprecated patchN macro
+- Replace distutils with setuptools
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

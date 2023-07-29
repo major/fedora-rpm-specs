@@ -14,7 +14,7 @@ Patch1:         mingw-w64-tools-riscv64-on-s390x-ppc66le.patch
 
 # http://sourceforge.net/mailarchive/forum.php?thread_name=5157C0FC.1010309%40users.sourceforge.net&forum_name=mingw-w64-public
 # The tools gendef and genidl are GPLv3+, widl is LGPLv2+
-License:        GPLv3+ and LGPLv2+
+License:        GPL-3.0-or-later AND LGPL-2.0-or-later
 
 URL:            http://mingw-w64.sourceforge.net/
 %if 0%{?snapshot_date}

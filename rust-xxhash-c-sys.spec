@@ -75,7 +75,8 @@ echo 'pkgconfig(libxxhash) >= 0.8.1'
 
 %if %{with check}
 %check
-%cargo_test
+# * skip a test that hardcodes a check against the system xxhash version
+%cargo_test -- -- --skip assert_version
 %endif
 
 %changelog

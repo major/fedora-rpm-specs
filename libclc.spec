@@ -7,17 +7,17 @@
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:           libclc
-Version:	%{libclc_version}%{?rc_ver:~rc%{rc_ver}}
+Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
 Release:        2%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
 License:        Apache-2.0 WITH LLVM-exception OR BSD OR MIT
 URL:            https://libclc.llvm.org
-Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz
-Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz.sig
-Source2:	release-keys.asc
+Source0:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz
+Source1:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz.sig
+Source2:        release-keys.asc
 
-ExclusiveArch:	%{ix86} x86_64 %{arm} aarch64 %{power64} s390x
+ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64 %{power64} s390x
 
 BuildRequires:  clang-devel >= %{version}
 BuildRequires:  libedit-devel
@@ -28,7 +28,7 @@ BuildRequires:  cmake
 BuildRequires:  spirv-llvm-translator-tools
 
 # For signature verification
-BuildRequires:	gnupg2
+BuildRequires:  gnupg2
 
 %description
 libclc is an open source, BSD licensed implementation of the library
@@ -90,10 +90,10 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_libdir}/%{shortname}/*.bc
 %{_libdir}/%{shortname}/spirv-mesa3d-.spv
 %{_libdir}/%{shortname}/spirv64-mesa3d-.spv
-%{_includedir}/%{shortname}
 
 %files devel
 %{_libdir}/pkgconfig/%{name}.pc
+%{_includedir}/%{shortname}
 
 %changelog
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2

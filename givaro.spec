@@ -1,14 +1,7 @@
-# Doxygen HTML help is not suitable for packaging due to a minified JavaScript
-# bundle inserted by Doxygen itself. See discussion at
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
-#
-# We can enable the Doxygen PDF documentation as a substitute.
-%bcond_without doc_pdf
-
 Name:           givaro
 Version:        4.1.1
 %global so_version 9
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        C++ library for arithmetic and algebraic computations
 
 # The entire source is CECILL-B except for src/kernel/recint/reclonglong.h,
@@ -27,14 +20,6 @@ Patch:          %{name}-26932_recintvsflint_longlong.patch
 # Fixes failure to compile on GCC 13.
 # https://github.com/linbox-team/givaro/pull/218
 Patch:          https://github.com/linbox-team/%{name}/pull/218.patch
-
-%if %{with doc_pdf}
-BuildRequires:  doxygen
-BuildRequires:  doxygen-latex
-BuildRequires:  tex-xetex-bin
-BuildRequires:  /usr/bin/xindy
-BuildRequires:  tex(stmaryrd.sty)
-%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript
@@ -59,16 +44,10 @@ and univariate polynomials (and therefore recursive multivariate).
 Summary:        Files useful for %{name} development
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
+Obsoletes:      %{name}-devel-doc < 4.1.1-15
+
 %description    devel
 The libraries and header files for using %{name} for development.
-
-
-%package        devel-doc
-Summary:        Documentation for %{name} development
-BuildArch:      noarch
-
-%description    devel-doc
-Documentation for using %{name} for development.
 
 
 # The static library is required by Macaulay2. See its spec file for a full
@@ -95,19 +74,6 @@ A static library for %{name}.
 # and ABIs.
 sed -i '/INSTR_SET/,/fabi-version/d' configure.ac
 
-%if %{with doc_pdf}
-# We enable the Doxygen PDF documentation as a substitute. We must enable
-# GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
-# already be set as we like them. We also disable GENERATE_HTML, since we will
-# not use it.
-sed -r -i \
-    -e "s/^([[:blank:]]*(GENERATE_LATEX|LATEX_BATCHMODE|USE_PDFLATEX|\
-PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
-    -e "s/^([[:blank:]]*(LATEX_TIMESTAMP|GENERATE_HTML)\
-[[:blank:]]*=[[:blank:]]*)YES[[:blank:]]*/\1NO/" \
-    docs/Doxyfile.mod
-%endif
-
 # Regenerate configure after monkeying with configure.ac
 autoreconf -fi
 
@@ -120,7 +86,7 @@ autoreconf -fi
 %global optflags %optflags -ffp-contract=off
 %endif
 
-%configure %{?with_doc_pdf:--enable-doc --docdir=%{_docdir}/%{name}-devel}
+%configure
 chmod a+x givaro-config
 
 # Get rid of undesirable hardcoded rpaths, and workaround libtool reordering
@@ -131,12 +97,6 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -i libtool
 
 %make_build
-
-%if %{with doc_pdf}
-# Use xelatex since pdflatex cannot handle Unicode inputs in general:
-%make_build -C docs/latex LATEX_CMD=xelatex
-mv docs/latex/refman.pdf docs/latex/%{name}.pdf
-%endif
 
 
 %install
@@ -174,18 +134,14 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 %{_libdir}/pkgconfig/%{name}.pc
 
 
-%files devel-doc
-%license COPYING COPYRIGHT Licence_CeCILL-B_V1-en.txt Licence_CeCILL-B_V1-fr.txt
-%if %{with doc_pdf}
-%doc docs/latex/%{name}.pdf
-%endif
-
-
 %files static
 %{_libdir}/lib%{name}.a
 
 
 %changelog
+* Tue Jul 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.1-15
+- Drop and Obsolete the -devel-doc subpackage (fix RHBZ#2225830)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

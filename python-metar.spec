@@ -2,8 +2,8 @@
 %global summary Coded METAR and SPECI weather reports parser for Python
 
 Name: python-%{srcname}
-Version: 1.10.0
-Release: 3%{?dist}
+Version: 1.11.0
+Release: 1%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
@@ -15,10 +15,6 @@ URL: https://github.com/python-metar/python-metar
 # see also this discussion on the 2 project names:
 # https://github.com/python-metar/python-metar/issues/58
 Source: https://files.pythonhosted.org/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
-
-# Patch needed for compatibility with Python 3.12
-# https://github.com/python-metar/python-metar/pull/176/commits/7dfbe0770ff7d273e0cabc80bc10c6b41f136f17.patch
-Patch:  drop-python3.12-deprecated-utcnow.patch
 
 BuildArch: noarch
 
@@ -76,6 +72,9 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}" %{_bindir}/pytest-3
 %{python3_sitelib}/%{srcname}*egg-info
 
 %changelog
+* Thu Jul 27 2023 Jos de Kloe <josdekloe@gmail.com> 1.11.0-1
+- new upstream version 1.11.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

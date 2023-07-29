@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+ and MIT and BSD and IJG and GPLv2+ with exceptions and ISC
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
@@ -232,6 +232,10 @@ Patch68: hplip-plugin-curl.patch
 # 2221311 - [python3.12] hplip tools/binaries crash due depending on removed configparser.readfp()
 # Upstream https://bugs.launchpad.net/hplip/+bug/2028001
 Patch69: hplip-no-readfp.patch
+# fix SyntaxWarning from python3.12
+Patch70: hplip-use-raw-strings.patch
+# more unfriendly licenses...
+Patch71: hplip-remove-hbpl.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -584,6 +588,8 @@ done
 # 2221311 - [python3.12] hplip tools/binaries crash due depending on removed configparser.readfp()
 # Upstream https://bugs.launchpad.net/hplip/+bug/2028001
 %patch -P 69 -p1 -b .no-readfp
+%patch -P 70 -p1 -b .raw-strings
+%patch -P 71 -p1 -b .hbpl
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -603,12 +609,11 @@ sed -i.env-python -e 's,^#!/usr/bin/env python,#!%{__python3},' \
     prnt/filters/hpps \
     fax/filters/pstotiff
 
-rm locatedriver
-
 cp -p %{SOURCE4} %{SOURCE5} ppd/hpcups
 
 # 2129849 - move hp-plugin script into srcdir
 cp -p %{SOURCE7} .
+
 
 %build
 # Work-around Makefile.am imperfections.
@@ -955,6 +960,12 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Jul 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-6
+- remove redundant files
+
+* Fri Jul 21 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-6
+- fix syntax warnings
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

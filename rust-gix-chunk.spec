@@ -5,11 +5,10 @@
 %global crate gix-chunk
 
 Name:           rust-gix-chunk
-Version:        0.4.3
+Version:        0.4.4
 Release:        %autorelease
 Summary:        Interact with the git chunk file format
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-chunk
 Source:         %{crates_source}

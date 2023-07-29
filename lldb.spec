@@ -73,7 +73,7 @@ The package contains the LLDB Python module.
 %build
 %global _lto_cflags -flto=thin
 
-%cmake  -GNinja \
+%cmake -GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
 	-DLLVM_LINK_LLVM_DYLIB:BOOL=ON \

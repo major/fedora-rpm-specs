@@ -5,11 +5,10 @@
 %global crate gix-utils
 
 Name:           rust-gix-utils
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Utilities for gitoxide
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-utils
 Source:         %{crates_source}

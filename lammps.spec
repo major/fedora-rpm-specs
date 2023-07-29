@@ -25,7 +25,7 @@ Version:        20220623.4
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -92,16 +92,18 @@ designed to be easy to modify or extend with new functionality.
 %description
 %{lammps_desc}
 
+%ifnarch %ix86
+%global with_openmpi 1
 %package openmpi
 Summary:        LAMMPS Open MPI binaries and libraries
 Requires:       openmpi
 Requires:       %{name}-data
-ExcludeArch:    i686
 
 %description openmpi
 %{lammps_desc}
 
 This package contains LAMMPS Open MPI binaries and libraries
+%endif
 
 %package mpich
 Summary:        LAMMPS MPICH binaries and libraries
@@ -153,16 +155,17 @@ Requires:       %{name}-headers%{?_isa} = %{version}-%{release}
 
 This package contains development headers and libraries for MPICH LAMMPS.
 
+%ifnarch %ix86
 %package openmpi-devel
 Summary:        Development libraries for Open MPI LAMMPS
 Requires:       %{name}-openmpi%{?_isa} = %{version}-%{release}
 Requires:       %{name}-headers%{?_isa} = %{version}-%{release}
-ExcludeArch:    i686
 
 %description openmpi-devel
 %{lammps_desc}
 
 This package contains development libraries for Open MPI LAMMPS.
+%endif
 
 %if 0%{?el7}
 %package openmpi3
@@ -214,7 +217,7 @@ cd python
 . /etc/profile.d/modules.sh
 
 
-for mpi in '' mpich openmpi %{?el7:openmpi3} ; do
+for mpi in '' mpich %{?with_openmpi:openmpi} %{?el7:openmpi3} ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
   #python wrapper isn't mpi specific
   %{cmake3} \
@@ -254,7 +257,7 @@ cd python
 %install
 . /etc/profile.d/modules.sh
 
-for mpi in '' mpich openmpi %{?el7:openmpi3} ; do
+for mpi in '' mpich %{?with_openmpi:openmpi} %{?el7:openmpi3} ; do
   %cmake_install
 done
 
@@ -272,7 +275,7 @@ cd python
 
 . /etc/profile.d/modules.sh
 
-for mpi in '' mpich openmpi %{?el7:openmpi3} ; do
+for mpi in '' mpich %{?with_openmpi:openmpi} %{?el7:openmpi3} ; do
   old_PYTHONPATH="${PYTHONPATH}"
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch} && export PYTHONPATH="${MPI_PYTHON3_SITEARCH}:${PYTHONPATH}"
   %ctest --output-on-failure %{?testargs}
@@ -302,10 +305,12 @@ done
 %{_libdir}/pkgconfig/liblammps.pc
 %{_libdir}/cmake/LAMMPS
 
+%ifnarch %ix86
 %files openmpi-devel
 %{_libdir}/openmpi*/lib/liblammps_openmpi.so
 %{_libdir}/openmpi*/lib/pkgconfig/liblammps_openmpi.pc
 %{_libdir}/openmpi*/lib/cmake/LAMMPS
+%endif
 
 %files mpich-devel
 %{_libdir}/mpich*/lib/liblammps_mpich.so
@@ -318,11 +323,13 @@ done
 %license LICENSE
 %{_includedir}/%{name}/
 
+%ifnarch %ix86
 %files openmpi
 %license LICENSE
 %{_libdir}/openmpi*/bin/lmp_openmpi
 %{_mandir}/openmpi*/man1/lmp_openmpi.*
 %{_libdir}/openmpi*/lib/liblammps_openmpi.so.*
+%endif
 
 %if 0%{?el7}
 %files openmpi3
@@ -351,6 +358,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Wed Jul 26 2023 Christoph Junghans <junghans@votca.org>
+- Re-enable serial lammps on ix86
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220623.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

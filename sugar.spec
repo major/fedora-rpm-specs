@@ -1,6 +1,6 @@
 Name:    sugar
 Version: 0.120
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Constructionist learning platform
 URL:     http://sugarlabs.org/
 License: GPLv2+
@@ -21,6 +21,8 @@ BuildRequires: perl-XML-Parser
 BuildRequires: pkgconfig
 BuildRequires: python3-devel
 BuildRequires: python3-empy
+# py-compile needs updating
+BuildRequires: automake
 
 Requires: avahi-tools
 Requires: dbus-x11
@@ -158,6 +160,11 @@ This is the Sugar Web Account control panel
 
 %build
 autoreconf
+ls -1 %{_datadir}/automake-*/py-compile | sort | \
+	tail -n 1 | while read f
+do
+	cp -p $f .
+done
 %configure
 %make_build
 
@@ -236,6 +243,9 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/sugar/data/activities.defaults
 %{_datadir}/sugar/extensions/cpsection/webaccount
 
 %changelog
+* Thu Jul 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.120-5
+- Update py-compile for python 3.12, imp module removed
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

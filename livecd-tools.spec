@@ -17,13 +17,14 @@
 Summary: Tools for building live CDs
 Name: livecd-tools
 Version: 31.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 %if 0%{?fedora}
 Epoch: 1
 %endif
 License: GPLv2
 URL: https://github.com/livecd-tools/livecd-tools
 Source0: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
+Patch0:  livecd-tools-31.0-py312-distutils-removal.patch
 
 BuildRequires: make
 %if %{with python2}
@@ -225,6 +226,9 @@ rm -rfv %{buildroot}%{_mandir}/man8/livecd-iso-to-*
 %endif
 
 %changelog
+* Thu Jul 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:31.0-6
+- Workaround for python3.12 distutils removal
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:31.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

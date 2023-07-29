@@ -319,6 +319,7 @@ BuildRequires:  pkgconfig(libevent)
 %endif
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3.11-devel
 %if !0%{?flatpak}
 Requires:       u2f-hidraw-policy
 %endif
@@ -742,6 +743,9 @@ no-index=true
 EOF
 tar xf %{SOURCE37}
 
+#Use python 3.11 for mach
+sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
+
 %if %{build_with_pgo}
 %if %{test_on_wayland}
 env | grep "WAYLAND"
@@ -990,7 +994,6 @@ fi
 %{mozappdir}/firefox
 %{mozappdir}/firefox-bin
 %{mozappdir}/glxtest
-%{mozappdir}/vaapitest
 %doc %{_mandir}/man1/*
 %dir %{_sysconfdir}/%{name}
 %dir %{_sysconfdir}/%{name}/*
@@ -1044,6 +1047,13 @@ fi
 %{mozappdir}/plugin-container
 %{mozappdir}/gmp-clearkey
 %{mozappdir}/fonts/TwemojiMozilla.ttf
+%ifarch aarch64
+%{mozappdir}/v4l2test
+%{mozappdir}/vaapitest
+%endif
+%ifarch x86_64
+%{mozappdir}/vaapitest
+%endif
 %if !%{?system_nss}
 %exclude %{mozappdir}/libnssckbi.so
 %endif
@@ -1054,6 +1064,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Jul 27 2023 Martin Stransky <stransky@redhat.com>- 116.0-1
+- Updated to 116.0
+
 * Mon Jul 24 2023 Martin Stransky <stransky@redhat.com>- 115.0.2-4
 - Don't set MOZ_GMP_PATH as it's configured by /etc/profile.d/gmpopenh264.sh
   from mozilla-openh264 package.

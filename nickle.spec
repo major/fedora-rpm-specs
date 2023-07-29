@@ -6,7 +6,7 @@
 %endif
 
 Name:           nickle
-Version:        2.91
+Version:        2.92
 Release:        %autorelease
 Summary:        A programming language-based prototyping environment
 
@@ -14,9 +14,9 @@ License:        MIT
 URL:            https://nickle.org
 Source0:        https://nickle.org/release/nickle-%{version}.tar.gz
 
-BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  bison
+BuildRequires:  make
 BuildRequires:  ncurses-devel
 BuildRequires:  readline-devel
 %if %{with docs}
@@ -43,7 +43,7 @@ text-oriented languages such as AWK and PERL.
 
 %package devel
 Summary:  Include files for Nickle
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Include files for Nickle, used for building external FFI (foreign
@@ -70,10 +70,6 @@ make check
 %make_install DESTDIR=$RPM_BUILD_ROOT
 rm `find examples -name 'Makefile*'`
 rm examples/COPYING
-
-# Fix permissions on example files
-chmod a-x examples/menace2.5c
-chmod a-x examples/turtle/snowflake.5c
 
 
 %files

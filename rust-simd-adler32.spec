@@ -5,9 +5,9 @@
 %global crate simd-adler32
 
 Name:           rust-simd-adler32
-Version:        0.3.5
+Version:        0.3.7
 Release:        %autorelease
-Summary:        SIMD-accelerated Adler-32 rolling hash algorithm implementation
+Summary:        SIMD-accelerated Adler-32 hash algorithm implementation
 
 License:        MIT
 URL:            https://crates.io/crates/simd-adler32
@@ -19,7 +19,7 @@ Patch:          simd-adler32-fix-metadata.diff
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A SIMD-accelerated Adler-32 rolling hash algorithm implementation.}
+A SIMD-accelerated Adler-32 hash algorithm implementation.}
 
 %description %{_description}
 

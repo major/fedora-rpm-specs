@@ -5,11 +5,10 @@
 %global crate gix-date
 
 Name:           rust-gix-date
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Parse dates the way git does
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-date
 Source:         %{crates_source}

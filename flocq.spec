@@ -15,7 +15,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           flocq
 Version:        4.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Formalization of floating point numbers for Coq
 
 License:        LGPL-3.0-or-later
@@ -91,6 +91,9 @@ cp -p src/Prop/*.v $RPM_BUILD_ROOT%{flocqdir}/Prop
 %{flocqdir}/Prop/*.v
 
 %changelog
+* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-5
+- Rebuild for ocaml-zarith 1.13
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,7 +8,9 @@ Summary:        Jakarta Activation API
 License:        EPL-2.0 or BSD or GPLv2 with exceptions
 URL:            https://jakartaee.github.io/jaf-api/
 BuildArch:      noarch
+%if 0%{?java_arches:1}
 ExclusiveArch:  %{java_arches} noarch
+%endif
 
 Source0:        https://github.com/eclipse-ee4j/jaf/archive/%{version}/jaf-%{version}.tar.gz
 

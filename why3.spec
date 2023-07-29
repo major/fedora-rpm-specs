@@ -18,7 +18,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           why3
 Version:        1.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -308,6 +308,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-4
+- Rebuild for ocaml-zarith 1.13
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

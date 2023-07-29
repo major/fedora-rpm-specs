@@ -13,7 +13,7 @@ ExcludeArch: %{ix86}
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The project as a whole is Apache-2.0.
@@ -263,6 +263,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 2.3.3-10
+- Rebuild for ocaml-zarith 1.13
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

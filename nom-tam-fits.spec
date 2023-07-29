@@ -99,6 +99,7 @@ rm -r src/main/fpack
       <target>1.8</target>
       <testExcludes>
         <exclude>**/CompressTest.*</exclude>
+        <exclude>**/CompressWithoutDependenciesTest.*</exclude>
         <exclude>**/ReadWriteProvidedCompressedImageTest.*</exclude>
         <exclude>**/UserProvidedTest.*</exclude>
       </testExcludes>

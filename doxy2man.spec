@@ -10,6 +10,7 @@ License: GPLv3+
 URL: https://github.com/gsauthof/doxy2man
 Source0: https://github.com/gsauthof/%{name}/archive/%{git_commit_hash}/%{git_commit_hash}.tar.gz#/%{name}-%{git_commit_hash}.tar.gz
 
+BuildRequires: rpm findutils
 BuildRequires: asciidoc
 BuildRequires: libxslt
 BuildRequires: qt5-qtbase-devel
@@ -28,6 +29,7 @@ descriptions, etc.
 
 %setup -qn %{name}-%{git_commit_hash}
 sed -i 's|asciidoc.py|asciidoc|g' main.pro
+sed -i "s|/usr/share/asciidoc/docbook-xsl/manpage.xsl|$(rpm -q --fileprovide asciidoc|grep manpage.xsl|xargs)|g" main.pro
 
 %build
 %{qmake_qt5}

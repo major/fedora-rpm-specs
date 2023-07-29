@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    443bc6912c9bd5b409254a40f4b0f4ced7c80ea1
+%global gh_commit    b0a88255cb70d52653d80c890bd7f38740ea50d1
 #global gh_date      20150924
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
@@ -25,8 +25,8 @@
 %global ver_major    9
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        9.2.26
-Release:        2%{?dist}
+Version:        9.2.27
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -113,7 +113,7 @@ Provides:       bundled(js-popper)
 Library that provides collection, processing, and rendering functionality
 for PHP code coverage information.
 
-This package provides the version %{ver_major} of the library.
+This package provides version %{ver_major} of %{pk_vendor}/%{pk_project} library.
 
 Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php
 
@@ -185,6 +185,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 27 2023 Remi Collet <remi@remirepo.net> - 9.2.27-1
+- update to 9.2.27
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -50,6 +50,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+simd-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+simd-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "simd" feature of the "%{crate}" crate.
+
+%files       -n %{name}+simd-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+simd-adler32-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+simd-adler32-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "simd-adler32" feature of the "%{crate}" crate.
+
+%files       -n %{name}+simd-adler32-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch

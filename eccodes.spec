@@ -1,6 +1,6 @@
 Name:           eccodes
-Version:        2.30.0
-Release:        2%{?dist}
+Version:        2.31.0
+Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -23,7 +23,8 @@ Summary:        WMO data format decoding and encoding
 %endif
 
 # license remarks:
-# Most of eccodes is licensed ASL 2.0 but a special case must be noted.
+# Most of eccodes is licensed ASL 2.0 (which is identical to the SPDX
+# identifier Apache-2.0) but a special case must be noted.
 # These 2 files:
 #     src/grib_yacc.c
 #     src/grib_yacc.h
@@ -350,6 +351,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Thu Jul 27 2023 Jos de Kloe <josdekloe@gmail.com> - 2.31.0-1
+- Upgrade to upstream version 2.31.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.30.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

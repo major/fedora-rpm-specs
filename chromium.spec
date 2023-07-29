@@ -234,7 +234,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 115.0.5790.102
+Version: 115.0.5790.110
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -397,6 +397,10 @@ Patch322: chromium-114-qt-fix_font_double_scaling.patch
 Patch323: chromium-114-qt_deps.patch
 Patch324: chromium-114-qt_enable_AllowQt_feature_flag.patch
 Patch325: chromium-114-qt_logical_scale_factor.patch
+
+# theme
+# upstream, Set toolkit dark preference based on FDO dark preference
+Patch350: chromium-115-linux_ui_darkmode.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1013,6 +1017,8 @@ udev.
 %patch -P323 -p1 -b .qt_deps
 %patch -P324 -p1 -b .qt_enable_AllowQt_feature_flag
 %patch -P325 -p1 -b .qt_logical_scale_factor
+
+%patch -P350 -p1 -b .linux_ui_darkmode
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1694,6 +1700,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Jul 26 2023 Than Ngo <than@redhat.com> - 115.0.5790.110-1
+- update to 115.0.5790.110
+
 * Sat Jul 22 2023 Than Ngo <than@redhat.com> - 115.0.5790.102-1
 - update to 115.0.5790.102
 

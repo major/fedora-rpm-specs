@@ -1,6 +1,6 @@
 Name:           python-sphinx-design
-Version:        0.4.1
-Release:        4%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Sphinx extension for responsive web components
 
 # This project is MIT, but bundles JSON glyphs
@@ -61,12 +61,6 @@ Documentation for %{name}.
 %prep
 %autosetup -n sphinx-design-%{version} -p1
 
-# We have version 2.0.0 in F39 and it doesn't bring any breaking changes
-sed -i 's/"myst-parser>=0.18.0,<2"/"myst-parser>=0.18.0"/g' pyproject.toml
-# This is the only change required to enable Sphinx 7+ as per:
-# https://github.com/executablebooks/sphinx-design/pull/131
-sed -i 's/"sphinx>=4,<7"/"sphinx>=4"/' pyproject.toml
-
 %generate_buildrequires
 %pyproject_buildrequires -t -x testing
 
@@ -95,6 +89,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 0.5.0-1
+- Version 0.5.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,14 +5,17 @@
 %global crate gix-features
 
 Name:           rust-gix-features
-Version:        0.30.0
+Version:        0.32.1
 Release:        %autorelease
 Summary:        Integrate various capabilities using compile-time feature flags
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-features
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Disable feature that is only required for building documentation
+# * Disable feature for compatibility with zlib-ng
+Patch:          gix-features-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -71,18 +74,6 @@ This package contains library source intended for building other packages which
 use the "crc32" feature of the "%{crate}" crate.
 
 %files       -n %{name}+crc32-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+document-features-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+document-features-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "document-features" feature of the "%{crate}" crate.
-
-%files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+fast-sha1-devel
@@ -193,6 +184,30 @@ use the "rustsha1" feature of the "%{crate}" crate.
 %files       -n %{name}+rustsha1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+tracing-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tracing-detail-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-detail-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing-detail" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-detail-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+walkdir-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -215,30 +230,6 @@ This package contains library source intended for building other packages which
 use the "zlib" feature of the "%{crate}" crate.
 
 %files       -n %{name}+zlib-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+zlib-ng-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+zlib-ng-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "zlib-ng" feature of the "%{crate}" crate.
-
-%files       -n %{name}+zlib-ng-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+zlib-ng-compat-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+zlib-ng-compat-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "zlib-ng-compat" feature of the "%{crate}" crate.
-
-%files       -n %{name}+zlib-ng-compat-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+zlib-rust-backend-devel

@@ -3,14 +3,12 @@
 Summary: OpenSSL provider for IBMCA
 Name: openssl-ibmca
 Version: 2.4.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Apache-2.0
 URL: https://github.com/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # post GA fixes
 Patch0: %{name}-%{version}-fixes.patch
-# https://github.com/opencryptoki/openssl-ibmca/issues/107
-Patch1: %{name}-2.4.0-log-into-tmp.patch
 Requires: libica >= 4.0.0
 BuildRequires: make
 BuildRequires: gcc
@@ -58,6 +56,9 @@ make check
 
 
 %changelog
+* Thu Jul 27 2023 Dan Horák <dan@danny.cz> - 2.4.0-5
+- switch to upstream fix for logging into /tmp
+
 * Wed Jul 26 2023 Dan Horák <dan@danny.cz> - 2.4.0-4
 - one more fix
 

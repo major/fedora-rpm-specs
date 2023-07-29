@@ -5,11 +5,10 @@
 %global crate chainerror
 
 Name:           rust-chainerror
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Make chaining errors easy
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/chainerror
 Source:         %{crates_source}

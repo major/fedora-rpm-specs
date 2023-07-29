@@ -3,7 +3,7 @@ Name:               onboard
 Version:            1.4.1
 %global             major_version       1.4
 
-Release:            32%{?dist}
+Release:            33%{?dist}
 Summary:            On-screen keyboard for TabletPC and mobility impaired users (Xorg only)
 
 # The entire source code is GPLv3 apart from translation strings and
@@ -19,6 +19,10 @@ Patch0:             onboard-1.4.1-pythonversion.patch
 # remove an unsupported module
 # see: https://bugzilla.redhat.com/show_bug.cgi?id=1905661
 Patch1:             0001-remove-tweener.patch
+
+# remove obsolete compiler flags that fail the build with Python 3.12
+# (Python 3.12 headers are not compatible with -Werror=declaration-after-statement)
+Patch2:             0001-Drop-obsolete-compiler-warnings-to-fix-compiling-aga.patch
 
 BuildRequires:      gcc-c++
 BuildRequires:      python3-devel
@@ -100,6 +104,9 @@ Requires:       onboard
 %{_sysconfdir}/xdg/autostart/onboard-autostart.desktop
 
 %changelog
+* Thu Jul 27 2023 Fabio Valentini <decathorpe@gmail.com> - 1.4.1-33
+- Remove obsolete compiler flags that fail the build with Python 3.12.
+
 * Fri Jul 21 2023 Fabio Valentini <decathorpe@gmail.com> - 1.4.1-32
 - Bump Release to allow workaround for missing Fedora 38 update.
 

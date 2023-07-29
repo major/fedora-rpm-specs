@@ -1,160 +1,321 @@
-%bcond_without vendor
-
-%if %{without vendor}
-%bcond_without check
-%endif
-
 # https://github.com/caddyserver/caddy
 %global goipath         github.com/caddyserver/caddy
-%global basever         2.5.2
-#global prerel          rc
-#global prerelnum       3
+%global basever         2.7.0
+%global prerel          beta
+%global prerelnum       2
 Version:                %{basever}%{?prerel:~%{prerel}%{prerelnum}}
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
 Caddy is the web server with automatic HTTPS.}
 
 Name:           caddy
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
-%if %{with vendor}
-# github.com/caddyserver/caddy ASL 2.0
-# github.com/BurntSushi/toml MIT
-# github.com/Masterminds/sprig/v3 MIT
-# github.com/alecthomas/chroma MIT
-# github.com/aryann/difflib MIT
-# github.com/caddyserver/certmagic ASL 2.0
-# github.com/dustin/go-humanize MIT
-# github.com/go-chi/chi MIT
-# github.com/google/cel-go ASL 2.0
-# github.com/google/uuid BSD
-# github.com/klauspost/compress BSD and ASL 2.0
-# github.com/klauspost/cpuid/v2 MIT
-# github.com/lucas-clemente/quic-go MIT
-# github.com/mholt/acmez ASL 2.0
-# github.com/prometheus/client_golang ASL 2.0
-# github.com/smallstep/certificates ASL 2.0
-# github.com/smallstep/cli ASL 2.0
-# github.com/smallstep/nosql ASL 2.0
-# github.com/smallstep/truststore ASL 2.0
-# github.com/tailscale/tscert BSD
-# github.com/yuin/goldmark MIT
-# github.com/yuin/goldmark-highlighting MIT
-# go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp ASL 2.0
-# go.opentelemetry.io/otel ASL 2.0
-# go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc ASL 2.0
-# go.opentelemetry.io/otel/sdk ASL 2.0
-# go.uber.org/zap MIT
-# golang.org/x/crypto BSD
-# golang.org/x/net BSD
-# golang.org/x/term BSD
-# google.golang.org/genproto ASL 2.0
-# google.golang.org/protobuf BSD
-# gopkg.in/natefinch/lumberjack.v2 MIT
-# gopkg.in/yaml.v3 ASL 2.0 and MIT
-License:        ASL 2.0 and MIT and BSD
-%else
-License:        ASL 2.0
-%endif
+# main source code is Apache-2.0
+# see comments above provides tags for bundled license breakdown
+License:        Apache-2.0 AND (Apache-2.0 AND BSD-2-Clause) AND (Apache-2.0 AND BSD-3-Clause) AND (Apache-2.0 AND MIT) AND BSD-2-Clause AND (BSD-2-Clause-Views AND BSD-3-Clause) AND BSD-3-Clause AND (BSD-3-Clause AND Apache-2.0 AND MIT) AND ISC AND MIT AND (MIT AND Apache-2.0) AND (MIT AND CC0-1.0) AND MPL-2.0
 URL:            https://caddyserver.com
 
-%if %{with vendor}
 # see create-vendor-tarball.sh in this distgit repo
 Source0:        caddy-%{version}-vendored.tar.gz
-%else
-Source0:        %{gosource}
-%endif
 
 # based on reference files upstream
 # https://github.com/caddyserver/dist
-Source1:        Caddyfile
-Source2:        caddy.service
-Source3:        caddy-api.service
-Source4:        poweredby-white.png
-Source5:        poweredby-black.png
-Source6:        bash-completion
-Source7:        zsh-completion
+Source10:       Caddyfile
+Source20:       caddy.service
+Source21:       caddy-api.service
+Source22:       caddy.sysusers
+Source30:       poweredby-white.png
+Source31:       poweredby-black.png
 
 # downstream only patch to disable commands that can alter the binary
 Patch:          0001-Disable-commands-that-can-alter-the-binary.patch
 
-# https://github.com/caddyserver/caddy/commit/b4f1a713978f44b6f26721bd4eaa355164e3e6f4
-BuildRequires:  golang >= 1.17
+# https://github.com/caddyserver/caddy/commit/8cb1bb4af30b880f981b1ae6fdb13e5944bfaefe
+BuildRequires:  golang >= 1.19
 
-%if %{with vendor}
-Provides:       bundled(golang(github.com/BurntSushi/toml)) = 1.1.0
-Provides:       bundled(golang(github.com/Masterminds/sprig/v3)) = 3.2.2
-Provides:       bundled(golang(github.com/alecthomas/chroma)) = 0.10.0
-Provides:       bundled(golang(github.com/aryann/difflib))
-Provides:       bundled(golang(github.com/caddyserver/certmagic)) = 0.16.1
-Provides:       bundled(golang(github.com/dustin/go-humanize))
-Provides:       bundled(golang(github.com/go-chi/chi)) = 4.1.2
-Provides:       bundled(golang(github.com/google/cel-go)) = 0.11.4
+# BSD-3-Clause
+Provides:       bundled(golang(filippo.io/edwards25519)) = 1.0.0
+# MIT AND CC0-1.0
+Provides:       bundled(golang(github.com/AndreasBriese/bbloom)) = 46b345b
+# MIT
+Provides:       bundled(golang(github.com/BurntSushi/toml)) = 1.3.2
+# Apache-2.0
+Provides:       bundled(golang(github.com/Masterminds/goutils)) = 1.1.1
+# MIT
+Provides:       bundled(golang(github.com/Masterminds/semver/v3)) = 3.2.0
+# MIT
+Provides:       bundled(golang(github.com/Masterminds/sprig/v3)) = 3.2.3
+# MIT
+Provides:       bundled(golang(github.com/Microsoft/go-winio)) = 0.6.0
+# MIT
+Provides:       bundled(golang(github.com/alecthomas/chroma/v2)) = 2.7.0
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/antlr/antlr4/runtime/Go/antlr/v4)) = 8188dc5
+# MIT
+Provides:       bundled(golang(github.com/aryann/difflib)) = ff5ff6d
+# MIT
+Provides:       bundled(golang(github.com/beorn7/perks)) = 1.0.1
+# Apache-2.0
+Provides:       bundled(golang(github.com/caddyserver/certmagic)) = 0.18.2
+# MIT
+Provides:       bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
+# MIT
+Provides:       bundled(golang(github.com/cespare/xxhash)) = 1.1.0
+# MIT
+Provides:       bundled(golang(github.com/cespare/xxhash/v2)) = 2.2.0
+# MIT
+Provides:       bundled(golang(github.com/chzyer/readline)) = 1.5.1
+# MIT
+Provides:       bundled(golang(github.com/cpuguy83/go-md2man/v2)) = 2.0.2
+# ISC
+Provides:       bundled(golang(github.com/davecgh/go-spew)) = 1.1.1
+# Apache-2.0
+Provides:       bundled(golang(github.com/dgraph-io/badger)) = 1.6.2
+# Apache-2.0
+Provides:       bundled(golang(github.com/dgraph-io/badger/v2)) = 2.2007.4
+# Apache-2.0 AND MIT
+Provides:       bundled(golang(github.com/dgraph-io/ristretto)) = 0.1.0
+# MIT
+Provides:       bundled(golang(github.com/dgryski/go-farm)) = a6ae236
+# MIT
+Provides:       bundled(golang(github.com/dlclark/regexp2)) = 1.7.0
+# MIT
+Provides:       bundled(golang(github.com/dustin/go-humanize)) = 1.0.1
+# MIT
+Provides:       bundled(golang(github.com/felixge/httpsnoop)) = 1.0.3
+# MIT
+Provides:       bundled(golang(github.com/fxamacker/cbor/v2)) = 2.4.0
+# MIT
+Provides:       bundled(golang(github.com/go-chi/chi)) = 4.1.2+incompatible
+# MIT
+Provides:       bundled(golang(github.com/go-kit/kit)) = 0.10.0
+# MIT
+Provides:       bundled(golang(github.com/go-logfmt/logfmt)) = 0.5.1
+# Apache-2.0
+Provides:       bundled(golang(github.com/go-logr/logr)) = 1.2.4
+# Apache-2.0
+Provides:       bundled(golang(github.com/go-logr/stdr)) = 1.2.2
+# MPL-2.0
+Provides:       bundled(golang(github.com/go-sql-driver/mysql)) = 1.7.0
+# MIT
+Provides:       bundled(golang(github.com/go-task/slim-sprig)) = 52ccab3
+# Apache-2.0
+Provides:       bundled(golang(github.com/golang/glog)) = 1.1.0
+# Apache-2.0
+Provides:       bundled(golang(github.com/golang/mock)) = 1.6.0
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/golang/protobuf)) = 1.5.3
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/golang/snappy)) = 0.0.4
+# Apache-2.0
+Provides:       bundled(golang(github.com/google/cel-go)) = 0.15.1
+# Apache-2.0
+Provides:       bundled(golang(github.com/google/certificate-transparency-go)) = 1.1.4
+# Apache-2.0
+Provides:       bundled(golang(github.com/google/go-tpm)) = 0.3.3
+# Apache-2.0
+Provides:       bundled(golang(github.com/google/go-tspi)) = 0.3.0
+# Apache-2.0
+Provides:       bundled(golang(github.com/google/pprof)) = 4bb14d4
+# BSD-3-Clause
 Provides:       bundled(golang(github.com/google/uuid)) = 1.3.0
-Provides:       bundled(golang(github.com/klauspost/compress)) = 1.15.6
-Provides:       bundled(golang(github.com/klauspost/cpuid/v2)) = 2.0.13
-Provides:       bundled(golang(github.com/lucas-clemente/quic-go)) = 0.28.0
-Provides:       bundled(golang(github.com/mholt/acmez)) = 1.0.2
-Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.12.1
-Provides:       bundled(golang(github.com/smallstep/certificates)) = 0.19.0
-Provides:       bundled(golang(github.com/smallstep/cli)) = 0.18.0
-Provides:       bundled(golang(github.com/smallstep/nosql)) = 0.4.0
-Provides:       bundled(golang(github.com/smallstep/truststore)) = 0.11.0
-Provides:       bundled(golang(github.com/tailscale/tscert))
-Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.4.12
-Provides:       bundled(golang(github.com/yuin/goldmark-highlighting))
-Provides:       bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = 0.29.0
-Provides:       bundled(golang(go.opentelemetry.io/otel)) = 1.4.0
-Provides:       bundled(golang(go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc)) = 1.4.0
-Provides:       bundled(golang(go.opentelemetry.io/otel/sdk)) = 1.4.0
-Provides:       bundled(golang(go.uber.org/zap)) = 1.21.0
-Provides:       bundled(golang(golang.org/x/crypto))
-Provides:       bundled(golang(golang.org/x/net))
-Provides:       bundled(golang(golang.org/x/term))
-Provides:       bundled(golang(google.golang.org/genproto))
-Provides:       bundled(golang(google.golang.org/protobuf)) = 1.28.0
-Provides:       bundled(golang(gopkg.in/natefinch/lumberjack.v2)) = 2.0.0
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/grpc-ecosystem/grpc-gateway/v2)) = 2.7.0
+# MIT
+Provides:       bundled(golang(github.com/huandu/xstrings)) = 1.3.3
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/imdario/mergo)) = 0.3.12
+# Apache-2.0
+Provides:       bundled(golang(github.com/inconshreveable/mousetrap)) = 1.1.0
+# MIT
+Provides:       bundled(golang(github.com/jackc/chunkreader/v2)) = 2.0.1
+# MIT
+Provides:       bundled(golang(github.com/jackc/pgconn)) = 1.14.0
+# MIT
+Provides:       bundled(golang(github.com/jackc/pgio)) = 1.0.0
+# MIT
+Provides:       bundled(golang(github.com/jackc/pgpassfile)) = 1.0.0
+# MIT
+Provides:       bundled(golang(github.com/jackc/pgproto3/v2)) = 2.3.2
+# MIT
+Provides:       bundled(golang(github.com/jackc/pgservicefile)) = 091c0ba
+# MIT
+Provides:       bundled(golang(github.com/jackc/pgtype)) = 1.14.0
+# MIT
+Provides:       bundled(golang(github.com/jackc/pgx/v4)) = 4.18.0
+# BSD-3-Clause AND Apache-2.0 AND MIT
+Provides:       bundled(golang(github.com/klauspost/compress)) = 1.16.6
+# MIT
+Provides:       bundled(golang(github.com/klauspost/cpuid/v2)) = 2.2.5
+# MIT
+Provides:       bundled(golang(github.com/libdns/libdns)) = 0.2.1
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/manifoldco/promptui)) = 0.9.0
+# Apache-2.0
+Provides:       bundled(golang(github.com/mastercactapus/proxyprotocol)) = 0.0.4
+# MIT
+Provides:       bundled(golang(github.com/mattn/go-colorable)) = 0.1.8
+# MIT
+Provides:       bundled(golang(github.com/mattn/go-isatty)) = 0.0.16
+# Apache-2.0
+Provides:       bundled(golang(github.com/matttproud/golang_protobuf_extensions)) = 1.0.1
+# MIT
+Provides:       bundled(golang(github.com/mgutz/ansi)) = d51e80e
+# Apache-2.0
+Provides:       bundled(golang(github.com/mholt/acmez)) = 1.2.0
+# MIT
+Provides:       bundled(golang(github.com/micromdm/scep/v2)) = 2.1.0
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/miekg/dns)) = 1.1.55
+# MIT
+Provides:       bundled(golang(github.com/mitchellh/copystructure)) = 1.2.0
+# MIT
+Provides:       bundled(golang(github.com/mitchellh/go-ps)) = 1.0.0
+# MIT
+Provides:       bundled(golang(github.com/mitchellh/reflectwalk)) = 1.0.2
+# MIT
+Provides:       bundled(golang(github.com/onsi/ginkgo/v2)) = 2.9.5
+# BSD-2-Clause
+Provides:       bundled(golang(github.com/pkg/errors)) = 0.9.1
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/pmezard/go-difflib)) = 1.0.0
+# Apache-2.0
+Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.14.0
+# Apache-2.0
+Provides:       bundled(golang(github.com/prometheus/client_model)) = 0.3.0
+# Apache-2.0
+Provides:       bundled(golang(github.com/prometheus/common)) = 0.37.0
+# Apache-2.0
+Provides:       bundled(golang(github.com/prometheus/procfs)) = 0.8.0
+# MIT
+Provides:       bundled(golang(github.com/quic-go/qpack)) = 0.4.0
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/quic-go/qtls-go1-20)) = 0.3.0
+# MIT
+Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.37.0
+# MIT
+Provides:       bundled(golang(github.com/rs/xid)) = 1.5.0
+# BSD-2-Clause
+Provides:       bundled(golang(github.com/russross/blackfriday/v2)) = 2.1.0
+# MIT
+Provides:       bundled(golang(github.com/shopspring/decimal)) = 1.2.0
+# MIT
+Provides:       bundled(golang(github.com/shurcooL/sanitized_anchor_name)) = 1.0.0
+# MIT
+Provides:       bundled(golang(github.com/sirupsen/logrus)) = 1.9.0
+# MIT
+Provides:       bundled(golang(github.com/slackhq/nebula)) = 1.6.1
+# Apache-2.0
+Provides:       bundled(golang(github.com/smallstep/certificates)) = 0.24.2
+# Apache-2.0
+Provides:       bundled(golang(github.com/smallstep/go-attestation)) = e172914
+# Apache-2.0
+Provides:       bundled(golang(github.com/smallstep/nosql)) = 0.6.0
+# Apache-2.0
+Provides:       bundled(golang(github.com/smallstep/truststore)) = 0.12.1
+# MIT
+Provides:       bundled(golang(github.com/spf13/cast)) = 1.4.1
+# Apache-2.0
+Provides:       bundled(golang(github.com/spf13/cobra)) = 1.7.0
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/spf13/pflag)) = 1.0.5
+# MIT
+Provides:       bundled(golang(github.com/stoewer/go-strcase)) = 1.2.0
+# MIT
+Provides:       bundled(golang(github.com/stretchr/testify)) = 1.8.3
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/tailscale/tscert)) = 4e9cb4f
+# MIT
+Provides:       bundled(golang(github.com/urfave/cli)) = 1.22.13
+# MIT
+Provides:       bundled(golang(github.com/x448/float16)) = 0.8.4
+# MIT
+Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.5.4
+# MIT
+Provides:       bundled(golang(github.com/yuin/goldmark-highlighting/v2)) = 1513624
+# MIT
+Provides:       bundled(golang(go.etcd.io/bbolt)) = 1.3.7
+# MIT
+Provides:       bundled(golang(go.mozilla.org/pkcs7)) = 33d0574
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = 0.42.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/contrib/propagators/autoprop)) = 0.42.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/contrib/propagators/aws)) = 1.17.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/contrib/propagators/b3)) = 1.17.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/contrib/propagators/jaeger)) = 1.17.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/contrib/propagators/ot)) = 1.17.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/otel)) = 1.16.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/exporters/otlp/internal/retry)) = 1.16.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/exporters/otlp/otlptrace)) = 1.16.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc)) = 1.16.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/metric)) = 1.16.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/sdk)) = 1.16.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/trace)) = 1.16.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/proto/otlp)) = 0.19.0
+# Apache-2.0 AND BSD-2-Clause
+Provides:       bundled(golang(go.step.sm/cli-utils)) = 0.7.6
+# Apache-2.0 AND BSD-2-Clause
+Provides:       bundled(golang(go.step.sm/crypto)) = 0.30.0
+# Apache-2.0
+Provides:       bundled(golang(go.step.sm/linkedca)) = 0.19.1
+# MIT
+Provides:       bundled(golang(go.uber.org/atomic)) = 1.11.0
+# MIT
+Provides:       bundled(golang(go.uber.org/multierr)) = 1.11.0
+# MIT
+Provides:       bundled(golang(go.uber.org/zap)) = 1.24.0
+# BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/crypto)) = 0.10.0
+# BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/exp)) = 522b1b5
+# BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/mod)) = 0.11.0
+# BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/net)) = 0.11.0
+# BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/sync)) = 0.3.0
+# BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/sys)) = 0.9.0
+# BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/term)) = 0.9.0
+# BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/text)) = 0.10.0
+# BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/tools)) = 0.10.0
+# Apache-2.0
+Provides:       bundled(golang(google.golang.org/genproto)) = daa745c
+# Apache-2.0
+Provides:       bundled(golang(google.golang.org/grpc)) = 1.55.0
+# BSD-3-Clause
+Provides:       bundled(golang(google.golang.org/protobuf)) = 1.30.0
+# MIT
+Provides:       bundled(golang(gopkg.in/natefinch/lumberjack.v2)) = 2.2.1
+# Apache-2.0 AND BSD-3-Clause
+Provides:       bundled(golang(gopkg.in/square/go-jose.v2)) = 2.6.0
+# MIT AND Apache-2.0
 Provides:       bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
-%else
-BuildRequires:  golang(github.com/BurntSushi/toml)
-BuildRequires:  golang(github.com/Masterminds/sprig/v3)
-BuildRequires:  golang(github.com/alecthomas/chroma)
-BuildRequires:  golang(github.com/aryann/difflib)
-BuildRequires:  golang(github.com/caddyserver/certmagic)
-BuildRequires:  golang(github.com/dustin/go-humanize)
-BuildRequires:  golang(github.com/go-chi/chi)
-BuildRequires:  golang(github.com/google/cel-go)
-BuildRequires:  golang(github.com/google/uuid)
-BuildRequires:  golang(github.com/klauspost/compress)
-BuildRequires:  golang(github.com/klauspost/cpuid/v2)
-BuildRequires:  golang(github.com/lucas-clemente/quic-go)
-BuildRequires:  golang(github.com/mholt/acmez)
-BuildRequires:  golang(github.com/prometheus/client_golang)
-BuildRequires:  golang(github.com/smallstep/certificates)
-BuildRequires:  golang(github.com/smallstep/cli)
-BuildRequires:  golang(github.com/smallstep/nosql)
-BuildRequires:  golang(github.com/smallstep/truststore)
-BuildRequires:  golang(github.com/tailscale/tscert)
-BuildRequires:  golang(github.com/yuin/goldmark)
-BuildRequires:  golang(github.com/yuin/goldmark-highlighting)
-BuildRequires:  golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)
-BuildRequires:  golang(go.opentelemetry.io/otel)
-BuildRequires:  golang(go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc)
-BuildRequires:  golang(go.opentelemetry.io/otel/sdk)
-BuildRequires:  golang(go.uber.org/zap)
-BuildRequires:  golang(golang.org/x/crypto)
-BuildRequires:  golang(golang.org/x/net)
-BuildRequires:  golang(golang.org/x/term)
-BuildRequires:  golang(google.golang.org/genproto)
-BuildRequires:  golang(google.golang.org/protobuf)
-BuildRequires:  golang(gopkg.in/natefinch/lumberjack.v2)
-BuildRequires:  golang(gopkg.in/yaml.v3)
-%endif
+# BSD-2-Clause-Views AND BSD-3-Clause
+Provides:       bundled(golang(howett.net/plist)) = 1.0.0
 
 BuildRequires:  systemd-rpm-macros
 %{?systemd_requires}
+%{?sysusers_requires_compat}
 Requires:       system-logos-httpd
 Provides:       webserver
 
@@ -162,13 +323,8 @@ Provides:       webserver
 %description %{common_description}
 
 
-%if %{without vendor}
-%gopkg
-%endif
-
-
 %prep
-%goprep %{?with_vendor:-k}
+%goprep -k
 %autopatch -p 1
 
 sed -e '/mod.Version/ s/unknown/%{version}-%{release}/' -i caddy.go
@@ -179,51 +335,51 @@ sed -e '/mod.Version/ s/unknown/%{version}-%{release}/' -i caddy.go
 
 
 %install
-%if %{without vendor}
-%gopkginstall
-%endif
-
 # command
 install -D -p -m 0755 %{gobuilddir}/bin/caddy %{buildroot}%{_bindir}/caddy
 
+# man pages
+%{gobuilddir}/bin/caddy manpage --directory %{buildroot}%{_mandir}/man8
+
 # config
-install -D -p -m 0644 %{S:1} %{buildroot}%{_sysconfdir}/caddy/Caddyfile
+install -D -p -m 0644 %{S:10} %{buildroot}%{_sysconfdir}/caddy/Caddyfile
 install -d -m 0755 %{buildroot}%{_sysconfdir}/caddy/Caddyfile.d
 
 # systemd units
-install -D -p -m 0644 %{S:2} %{buildroot}%{_unitdir}/caddy.service
-install -D -p -m 0644 %{S:3} %{buildroot}%{_unitdir}/caddy-api.service
+install -D -p -m 0644 %{S:20} %{buildroot}%{_unitdir}/caddy.service
+install -D -p -m 0644 %{S:21} %{buildroot}%{_unitdir}/caddy-api.service
+
+# sysusers
+install -D -p -m 0644 %{S:22} %{buildroot}%{_sysusersdir}/caddy.conf
 
 # data directory
 install -d -m 0750 %{buildroot}%{_sharedstatedir}/caddy
 
 # welcome page
 %if %{defined fedora}
-install -D -p -m 0644 %{S:4} %{buildroot}%{_datadir}/caddy/poweredby.png
+install -D -p -m 0644 %{S:30} %{buildroot}%{_datadir}/caddy/poweredby.png
 %else
-install -D -p -m 0644 %{S:5} %{buildroot}%{_datadir}/caddy/poweredby.png
+install -D -p -m 0644 %{S:31} %{buildroot}%{_datadir}/caddy/poweredby.png
 %endif
 ln -s ../testpage/index.html %{buildroot}%{_datadir}/caddy/index.html
 install -d -m 0755 %{buildroot}%{_datadir}/caddy/icons
 ln -s ../../pixmaps/poweredby.png %{buildroot}%{_datadir}/caddy/icons/poweredby.png
 
-# shell completion
-install -D -p -m 0644 %{S:6} %{buildroot}%{_datadir}/bash-completion/completions/caddy
-install -D -p -m 0644 %{S:7} %{buildroot}%{_datadir}/zsh/site-functions/_caddy
+# shell completions
+install -d -m 0755 %{buildroot}%{_datadir}/bash-completion/completions
+%{gobuilddir}/bin/caddy completion bash > %{buildroot}%{_datadir}/bash-completion/completions/caddy
+install -d -m 0755 %{buildroot}%{_datadir}/zsh/site-functions
+%{gobuilddir}/bin/caddy completion zsh > %{buildroot}%{_datadir}/zsh/site-functions/_caddy
+install -d -m 0755 %{buildroot}%{_datadir}/fish/vendor_completions.d
+%{gobuilddir}/bin/caddy completion fish > %{buildroot}%{_datadir}/fish/vendor_completions.d/caddy.fish
 
 
-%if %{with check}
 %check
 %gocheck
-%endif
 
 
 %pre
-getent group caddy &> /dev/null || \
-groupadd -r caddy &> /dev/null
-getent passwd caddy &> /dev/null || \
-useradd -r -g caddy -d %{_sharedstatedir}/caddy -s /sbin/nologin -c 'Caddy web server' caddy &> /dev/null
-exit 0
+%sysusers_create_compat %{S:22}
 
 
 %post
@@ -281,27 +437,30 @@ fi
 %license LICENSE
 %doc README.md AUTHORS
 %{_bindir}/caddy
+%{_mandir}/man8/caddy*.8*
 %{_datadir}/caddy
 %{_unitdir}/caddy.service
 %{_unitdir}/caddy-api.service
+%{_sysusersdir}/caddy.conf
 %dir %{_sysconfdir}/caddy
 %config(noreplace) %{_sysconfdir}/caddy/Caddyfile
 %dir %{_sysconfdir}/caddy/Caddyfile.d
 %attr(0750,caddy,caddy) %dir %{_sharedstatedir}/caddy
-# filesystem owns all the parent directories here
 %{_datadir}/bash-completion/completions/caddy
-# own parent directories in case zsh is not installed
-%dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions
 %{_datadir}/zsh/site-functions/_caddy
-
-
-%if %{without vendor}
-%gopkgfiles
-%endif
+%{_datadir}/fish/vendor_completions.d/caddy.fish
 
 
 %changelog
+* Thu Jul 27 2023 Carl George <carl@george.computer> - 2.7.0~beta2-1
+- Update to version 2.7.0~beta2, resolves rhbz#2225732 rhbz#2124366
+- Resolves CVE-2022-41717 rhbz#2164315
+- Resolves CVE-2022-41723 rhbz#2178412
+- Add man pages
+- Use generated shell completion files instead of static ones
+- Add fish shell completions
+- Switch to systemd sysusers
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

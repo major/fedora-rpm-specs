@@ -1,6 +1,6 @@
 Name:    sugar-datastore
 Version: 0.120
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Sugar Datastore
 License: GPLv2+
 URL:     http://sugarlabs.org/
@@ -11,6 +11,8 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: python3-devel
 BuildRequires: python3-xapian
+# py-compile needs updating
+BuildRequires: automake
 Requires: python3-xapian
 
 %description
@@ -24,6 +26,12 @@ may become unavailable at times
 %autosetup -p1
 
 %build
+ls -1 %{_datadir}/automake-*/py-compile | sort | \
+	tail -n 1 | while read f
+do
+	cp -p $f .
+done
+
 %configure
 %make_build
 
@@ -41,6 +49,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/dbus-1/services/*.service
 
 %changelog
+* Thu Jul 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.120-5
+- Update py-compile for python 3.12, imp module removed
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 %global combined_license Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache 2.0) AND ISC AND MIT AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT)
 
 Name:           fido-device-onboard
-Version:        0.4.10
-Release:        3%{?dist}
+Version:        0.4.12
+Release:        1%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
@@ -12,9 +12,9 @@ URL:            https://github.com/fedora-iot/fido-device-onboard-rs
 Source0:        %{url}/archive/v%{version}/%{name}-rs-%{version}.tar.gz
 # See make-vendored-tarfile.sh in upstream repo
 Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
-# From upstream
-Patch0:         0001-chore-update-libcryptsetup-rs-to-0.8.patch
-Patch1:         fdo-fix-tss-esapi-features.patch
+Patch0:         0001-hack-drop-shadow.patch
+Patch1:         0001-fix-drop-unused-sha-crypt-dep.patch
+Patch2:         fix-devmapper-version.patch
 
 # Because nobody cares
 ExcludeArch: %{ix86}
@@ -36,9 +36,12 @@ BuildRequires:  tpm2-tss-devel
 %{summary}.
 
 %prep
-%autosetup -p1 -n %{name}-rs-%{version}
+%setup -q -n %{name}-rs-%{version}
+%patch0 -p1
+%patch1 -p1
 
 %if 0%{?rhel}
+%patch2 -p1
 %cargo_prep -V 1
 %else
 %cargo_prep
@@ -67,7 +70,20 @@ install -D -m 0644 -t %{buildroot}%{_docdir}/fdo examples/config/*
 # duplicates as needed by AIO command so link them
 ln -s %{_bindir}/fdo-owner-tool  %{buildroot}%{_libexecdir}/fdo/fdo-owner-tool
 ln -s %{_bindir}/fdo-admin-tool %{buildroot}%{_libexecdir}/fdo/fdo-admin-tool
+# Create directories needed by the various services so we own them
 mkdir -p %{buildroot}%{_sysconfdir}/fdo
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/keys
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/manufacturer_keys
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/manufacturing_sessions
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/owner_onboarding_sessions
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/owner_vouchers
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/rendezvous_registered
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/rendezvous_sessions
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/manufacturing-server.conf.d
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/owner-onboarding-server.conf.d
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/rendezvous-server.conf.d
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/serviceinfo-api-server.conf.d
 # Dracut manufacturing service
 install -D -m 0755 -t %{buildroot}%{dracutlibdir}/modules.d/52fdo dracut/52fdo/module-setup.sh
 install -D -m 0755 -t %{buildroot}%{dracutlibdir}/modules.d/52fdo dracut/52fdo/manufacturing-client-generator
@@ -96,6 +112,13 @@ Requires: openssl-libs >= 3.0.1-12
 
 %files -n fdo-owner-onboarding-server
 %license LICENSE LICENSE.dependencies
+%dir %{_sysconfdir}/fdo
+%dir %{_sysconfdir}/fdo/keys
+%dir %{_sysconfdir}/fdo/owner-onboarding-server.conf.d
+%dir %{_sysconfdir}/fdo/serviceinfo-api-server.conf.d
+%dir %{_sysconfdir}/fdo/stores
+%dir %{_sysconfdir}/fdo/stores/owner_onboarding_sessions
+%dir %{_sysconfdir}/fdo/stores/owner_vouchers
 %{_libexecdir}/fdo/fdo-owner-onboarding-server
 %{_libexecdir}/fdo/fdo-serviceinfo-api-server
 %dir %{_docdir}/fdo
@@ -125,6 +148,12 @@ License: %combined_license
 
 %files -n fdo-rendezvous-server
 %license LICENSE LICENSE.dependencies
+%dir %{_sysconfdir}/fdo
+%dir %{_sysconfdir}/fdo/keys
+%dir %{_sysconfdir}/fdo/rendezvous-server.conf.d
+%dir %{_sysconfdir}/fdo/stores
+%dir %{_sysconfdir}/fdo/stores/rendezvous_registered
+%dir %{_sysconfdir}/fdo/stores/rendezvous_sessions
 %{_libexecdir}/fdo/fdo-rendezvous-server
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/rendezvous-*.yml
@@ -148,6 +177,13 @@ Requires: openssl-libs >= 3.0.1-12
 
 %files -n fdo-manufacturing-server
 %license LICENSE LICENSE.dependencies
+%dir %{_sysconfdir}/fdo
+%dir %{_sysconfdir}/fdo/keys
+%dir %{_sysconfdir}/fdo/manufacturing-server.conf.d
+%dir %{_sysconfdir}/fdo/keys
+%dir %{_sysconfdir}/fdo/stores
+%dir %{_sysconfdir}/fdo/stores/manufacturer_keys
+%dir %{_sysconfdir}/fdo/stores/manufacturing_sessions
 %{_libexecdir}/fdo/fdo-manufacturing-server
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/manufacturing-server.yml
@@ -202,8 +238,6 @@ License: %combined_license
 Summary: FDO admin tools implementation
 License: %combined_license
 Requires: fdo-manufacturing-server = %{version}-%{release}
-Requires: fdo-init = %{version}-%{release}
-Requires: fdo-client = %{version}-%{release}
 Requires: fdo-rendezvous-server = %{version}-%{release}
 Requires: fdo-owner-onboarding-server = %{version}-%{release}
 Requires: fdo-owner-cli = %{version}-%{release}
@@ -212,10 +246,11 @@ Requires: fdo-owner-cli = %{version}-%{release}
 
 %files -n fdo-admin-cli
 %license LICENSE LICENSE.dependencies
+%dir %{_sysconfdir}/fdo
+%dir %{_sysconfdir}/fdo/keys
 %{_bindir}/fdo-admin-tool
 %{_libexecdir}/fdo/fdo-admin-tool
 %{_unitdir}/fdo-aio.service
-%dir %{_sysconfdir}/fdo
 
 %post -n fdo-admin-cli
 %systemd_post fdo-aio.service
@@ -227,6 +262,9 @@ Requires: fdo-owner-cli = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Thu Jul 27 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-1
+- Update to 0.4.12
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

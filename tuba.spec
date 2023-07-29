@@ -8,6 +8,10 @@ License:        GPL-3.0-only
 URL:            https://tuba.geopjr.dev/
 Source:         https://github.com/GeopJr/Tuba/archive/v%{version}/Tuba-%{version}.tar.gz
 
+# https://github.com/GeopJr/Tuba/pull/416
+Patch:          0001-Validate-appdata-file-with-nonet-flag.patch
+Patch:          0002-Rename-appdata-file-to-metainfo.patch
+
 BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  pkgconfig(glib-2.0)
@@ -16,9 +20,12 @@ BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libsecret-1)
-BuildRequires:  pkgconfig(gtksourceview-5)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
+
+# optional for features
+BuildRequires:  pkgconfig(libspelling-1)
+BuildRequires:  pkgconfig(gtksourceview-5)
 BuildRequires:  pkgconfig(libwebp)
 
 # for desktop-file-validate command
@@ -37,7 +44,7 @@ platforms like Mastodon, GoToSocial, Akkoma & more!
 
 
 %prep
-%autosetup -n Tuba-%{version}
+%autosetup -n Tuba-%{version} -p 1
 
 
 %build
@@ -51,8 +58,9 @@ platforms like Mastodon, GoToSocial, Akkoma & more!
 
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn}.appdata.xml
+# The .desktop and .metainfo.xml files are validated during the test suite, so
+# we don't need to run those validate commands separately.
+%meson_test
 
 
 %files -f %{rdnn}.lang
@@ -62,7 +70,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn}.appdat
 %{_datadir}/applications/%{rdnn}.desktop
 %{_datadir}/glib-2.0/schemas/%{rdnn}.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/%{rdnn}*.svg
-%{_metainfodir}/%{rdnn}.appdata.xml
+%{_metainfodir}/%{rdnn}.metainfo.xml
 
 
 %changelog

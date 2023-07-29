@@ -6,9 +6,9 @@
 %global crate serde_derive
 
 Name:           rust-serde_derive
-Version:        1.0.171
+Version:        1.0.177
 Release:        %autorelease
-Summary:        Macros 1.1 implementation of #[derive(Serialize, Deserialize)]
+Summary:        Implementation of #[derive(Serialize, Deserialize)]
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/serde_derive
@@ -17,7 +17,7 @@ Source:         %{crates_source}
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Macros 1.1 implementation of #[derive(Serialize, Deserialize)].}
+Implementation of #[derive(Serialize, Deserialize)].}
 
 %description %{_description}
 
@@ -33,7 +33,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
 %doc %{crate_instdir}/crates-io.md
 %{crate_instdir}/
 
@@ -64,6 +63,8 @@ use the "deserialize_in_place" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
+# remove pre-built binaries that are only used by an experimental feature
+rm -v serde_derive-x86_64-unknown-linux-gnu
 
 %generate_buildrequires
 %cargo_generate_buildrequires

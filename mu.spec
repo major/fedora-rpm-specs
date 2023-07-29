@@ -24,6 +24,9 @@ Patch:          system-site-packages.patch
 # Merged upstream
 Patch:          https://github.com/mu-editor/mu/pull/2281.patch
 
+# Fix asserts for called once in Python 3.12
+Patch:         	https://github.com/mu-editor/mu/pull/2448.patch
+
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros
@@ -124,7 +127,9 @@ cp -p conf/mu.appdata.xml %{buildroot}%{_metainfodir}/
 
 %check
 %global __pytest xvfb-run %__pytest
-%pytest -vv
+# test_Window_connect_zoom is temporarily disabled
+# upstream issue: https://github.com/mu-editor/mu/issues/2449
+%pytest -vv -k "not test_Window_connect_zoom"
 
 
 %files -f %{pyproject_files}

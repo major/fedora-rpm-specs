@@ -3,8 +3,8 @@
 
 Summary:    	Hoe is a simple rake/rubygems helper for project Rakefiles
 Name:       	rubygem-%{gem_name}
-Version:    	4.0.4
-Release:    	2%{?dist}
+Version:    	4.0.5
+Release:    	1%{?dist}
 # SPDX confirmed
 License:    	MIT
 URL:        	http://rubyforge.org/projects/seattlerb/

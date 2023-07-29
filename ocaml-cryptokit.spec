@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cryptokit
 Version:        1.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml library of cryptographic and hash functions
 
 %global upver %(tr -d . <<< %{version})
@@ -88,6 +88,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 1.18-4
+- Rebuild for ocaml-zarith 1.13
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

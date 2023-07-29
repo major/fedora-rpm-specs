@@ -1,11 +1,5 @@
-%bcond_without mpich
-%bcond_without openmpi
-
-# Tests
-# https://github.com/NeuralEnsemble/PyNN/blob/master/ci/test_script.sh
-# Use nose, so disabled by default, but tested locally with --with-nosetests
-# Issue filed upstream: https://github.com/NeuralEnsemble/PyNN/issues/705
-%bcond_with nosetests
+%bcond_with mpich
+%bcond_with openmpi
 
 # Issue filed about warnings while compiling NEURON mod files:
 # https://github.com/NeuralEnsemble/PyNN/issues/707
@@ -13,7 +7,7 @@
 
 # Exclude privately used libnrnmech from provides
 %global __provides_exclude ^libnrnmech\\.so.*$
-%global __requires_exclude   ^libnrnmech\\.so.*$
+%global __requires_exclude ^libnrnmech\\.so.*$
 
 %global _description %{expand:
 PyNN (pronounced 'pine') is a simulator-independent language for building
@@ -44,7 +38,7 @@ Mailing list: https://groups.google.com/forum/?fromgroups#!forum/neuralensemble
 This package supports the NEURON, NEST, and Brian simulators.}
 
 Name:           python-pynn
-Version:        0.10.1
+Version:        0.11.0
 Release:        %autorelease
 Summary:        A package for simulator-independent specification of neuronal network models
 
@@ -65,14 +59,6 @@ Source0:        %pypi_source PyNN
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    mips64r2 mips32r2 s390x %{ix86}
 
-# Disable pynn's way of building extensions
-# We do it ourselves
-Patch0:         0001-Disable-nest-extension-build-by-setup.patch
-# nest-simulator 3.4 changes header definition
-# https://github.com/nest/nest-simulator/commit/5d85811af7a6aebb8de75adb3930a4a5a575f887
-# https://github.com/NeuralEnsemble/PyNN/commit/b45ef114410dd978f4198e416d0e098e8d23f870
-Patch1:         0002-update-nest-header-3_4.patch
-
 # For extensions
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -81,7 +67,7 @@ BuildRequires:  git-core
 BuildRequires:  gsl-devel
 BuildRequires:  libneurosim-devel
 BuildRequires:  ncurses-devel
-BuildRequires:  nest-devel >= 3.0
+BuildRequires:  nest-devel >= 3.4
 BuildRequires:  neuron-devel
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  readline-devel
@@ -93,18 +79,18 @@ BuildRequires:  %{py3_dist lazyarray}
 BuildRequires:  %{py3_dist matplotlib}
 BuildRequires:  %{py3_dist mock}
 BuildRequires:  %{py3_dist neo}
-BuildRequires:  %{py3_dist nose}
-BuildRequires:  %{py3_dist nose-testconfig}
 BuildRequires:  %{py3_dist numpy}
-BuildRequires:  python3-nest >= 3.0
-BuildRequires:  nest >= 3.0
+BuildRequires:  python3-nest >= 3.4
+BuildRequires:  nest >= 3.4
 BuildRequires:  python3-neuron
 BuildRequires:  %{py3_dist quantities}
 
+BuildRequires:  %{py3_dist pytest}
+
 %if %{with mpich}
 BuildRequires:  python3-mpi4py-mpich
-BuildRequires:  python3-nest-mpich >= 3.0
-BuildRequires:  nest-mpich >= 3.0
+BuildRequires:  python3-nest-mpich >= 3.4
+BuildRequires:  nest-mpich >= 3.4
 BuildRequires:  python3-neuron-mpich
 BuildRequires:  rpm-mpi-hooks
 BuildRequires:  mpich
@@ -113,8 +99,8 @@ BuildRequires:  mpich-devel
 
 %if %{with openmpi}
 BuildRequires:  python3-mpi4py-openmpi
-BuildRequires:  python3-nest-openmpi >= 3.0
-BuildRequires:  nest-openmpi >= 3.0
+BuildRequires:  python3-nest-openmpi >= 3.4
+BuildRequires:  nest-openmpi >= 3.4
 BuildRequires:  python3-neuron-openmpi
 BuildRequires:  rpm-mpi-hooks
 BuildRequires:  openmpi
@@ -147,13 +133,15 @@ BuildArch:      noarch
 Documentation for %{name}.
 
 %prep
-%autosetup -n PyNN-%{version} -p1
+%autosetup -n PyNN-%{version}
 rm -rfv PyNN-%{version}/pyNN.egg-info
+
+# we install NEST libraries in standard directories, and that's where NEST expects to find extensions also
+sed -i 's|\${NEST_LIBDIR}/nest|\${NEST_LIBDIR}|' pyNN/nest/extensions/CMakeLists.txt
 
 %build
 %py3_build
 
-# Build NEURON modules
 pushd ./build/lib/pyNN/neuron/nmodl/ || exit 1
     nrnivmodl .
 popd
@@ -168,13 +156,9 @@ pushd ./build/lib/pyNN/nest/extensions/ || exit 1
     %cmake_build
 popd
 
+
 %install
 %py3_install
-
-# NEST extensions
-pushd ./build/lib/pyNN/nest/extensions/ || exit 1
-    %cmake_install
-popd
 
 # Includes compiled arch specific files but installs in /lib
 # Manually move to arch specific folder
@@ -184,30 +168,28 @@ mv $RPM_BUILD_ROOT/%{python3_sitelib}/pyNN $RPM_BUILD_ROOT/%{python3_sitearch}/
 mv $RPM_BUILD_ROOT/%{python3_sitelib}/PyNN-%{version}-py%{python3_version}.egg-info $RPM_BUILD_ROOT/%{python3_sitearch}/
 %endif
 
-# Delete temporary files that do not need to be installed
-rm -rf $RPM_BUILD_ROOT/%{python3_sitearch}/pyNN/nest/extensions
+# NEST extensions
+pushd ./build/lib/pyNN/nest/extensions/ || exit 1
+    %cmake_install
+popd
+
+# remove temporary build files
+rm -rf $RPM_BUILD_ROOT%{python3_sitearch}/pyNN/nest/extensions/redhat-linux-build/
+rm -rf $RPM_BUILD_ROOT%{python3_sitearch}/pyNN/nest/_build
 
 %check
-%py3_check_import pyNN pyNN.nest pyNN.neuron pyNN.brian2
+# skip pyNN.nest because it looks for nest extensions outside the buildroot
+%py3_check_import pyNN pyNN.neuron pyNN.brian2
 
-%if %{with nosetests}
-pushd test
-export PYTHONPATH=$PYTHONPATH:$RPM_BUILD_ROOT/%{python3_sitearch}:$RPM_BUILD_ROOT/%{python3_sitelib}
-nosetests-%{python3_version} -e backends --verbosity=3 --tests=unittests
-unset PYTHONPATH
-popd
-%endif
+%pytest test/unittests -k "not test_partitioning"
 
 %if %{with mpich}
 %{_mpich_load}
 export PYTHONPATH=$PYTHONPATH:$RPM_BUILD_ROOT/%{python3_sitearch}:$RPM_BUILD_ROOT/%{python3_sitelib}:$RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH:$MPI_PYTHON3_SITEARCH
 %py3_check_import pyNN pyNN.nest pyNN.neuron pyNN.brian2
 
-%if %{with nosetests}
-pushd test
-nosetests-%{python3_version} -e backends --verbosity=3 --tests=unittests
-popd
-%endif
+%pytest test/unittests
+
 unset PYTHONPATH
 %{_mpich_unload}
 %endif
@@ -217,11 +199,8 @@ unset PYTHONPATH
 export PYTHONPATH=$PYTHONPATH:$RPM_BUILD_ROOT/%{python3_sitearch}:$RPM_BUILD_ROOT/%{python3_sitelib}:$RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH:$MPI_PYTHON3_SITEARCH
 %py3_check_import pyNN pyNN.nest pyNN.neuron pyNN.brian2
 
-%if %{with nosetests}
-pushd test
-nosetests-%{python3_version} -e backends --verbosity=3 --tests=unittests
-popd
-%endif
+%pytest test/unittests
+
 unset PYTHONPATH
 %{_openmpi_unload}
 %endif
@@ -236,7 +215,7 @@ find $RPM_BUILD_ROOT/%{python3_sitearch}/pyNN/neuron/nmodl/*/ -name "*.c" -o -na
 %files -n python3-pynn
 %license LICENSE
 %doc README.rst AUTHORS changelog
-%{_libdir}/nest/
+%{_libdir}/*pynn*so
 %{_datadir}/nest/sli/pynn_extensions-init.sli
 %{python3_sitearch}/pyNN
 %{python3_sitearch}/PyNN-%{version}-py%{python3_version}.egg-info

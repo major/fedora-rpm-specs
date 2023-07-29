@@ -2,8 +2,8 @@
 %global gem_name minitest
 
 Name: rubygem-%{gem_name}
-Version: 5.18.1
-Release: 201%{?dist}
+Version: 5.19.0
+Release: 200%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 # README.rdoc
 # SPDX confirmed
@@ -100,6 +100,9 @@ popd
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Fri Jul 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.19.0-200
+- 5.19.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.18.1-201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,11 +5,10 @@
 %global crate gix-quote
 
 Name:           rust-gix-quote
-Version:        0.4.5
+Version:        0.4.6
 Release:        %autorelease
 Summary:        Deal with various quotations used by git
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-quote
 Source:         %{crates_source}
@@ -17,7 +16,8 @@ Source:         %{crates_source}
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A crate to deal with various quotations used by git.}
+A WIP crate of the gitoxide project dealing with various quotations used
+by git.}
 
 %description %{_description}
 

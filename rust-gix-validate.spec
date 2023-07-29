@@ -5,11 +5,10 @@
 %global crate gix-validate
 
 Name:           rust-gix-validate
-Version:        0.7.6
+Version:        0.7.7
 Release:        %autorelease
 Summary:        Validation functions for various kinds of names in git
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-validate
 Source:         %{crates_source}

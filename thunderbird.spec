@@ -109,7 +109,6 @@ Patch103:       rhbz-1219542-s390-build.patch
 Patch422:       0001-GLIBCXX-fix-for-GCC-12.patch
 Patch425:       build-disable-elfhack.patch
 Patch426:       build-rnp.patch
-Patch427:       build-python312.patch
 
 # PPC fix
 Patch304:       mozilla-1245783.patch
@@ -279,8 +278,6 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P 425 -p1 -b .build-disable-elfhack
 %endif
 %patch -P 426 -p1 -b .build-rnp
-# python3.12 is not supported yet
-%patch -P 427 -p1 -b .build-python312
 # most likely fixed
 #%patch -P 419 -p1 -b .bindgen
 
@@ -522,6 +519,8 @@ MOZ_SMP_FLAGS=-j1
 export MOZ_MAKE_FLAGS="$MOZ_SMP_FLAGS"
 export STRIP=/bin/true
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
+#Use python 3.11 for mach
+sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
 ./mach build -v
 
 # create debuginfo for crash-stats.mozilla.com

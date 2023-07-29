@@ -40,7 +40,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 6
+%global baserelease 7
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
@@ -67,6 +67,7 @@ Patch4:			proftpd-1.3.6-no-mod-wrap.patch
 Patch5:			proftpd-1.3.6-no-mod-geoip.patch
 Patch6:			https://patch-diff.githubusercontent.com/raw/proftpd/proftpd/pull/1592.patch
 Patch7:			proftpd-1.3.8-configure-c99.patch
+Patch8:			proftpd-1.3.8-api-test-buffer-overflow.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -270,6 +271,12 @@ mv contrib/README contrib/README.contrib
 
 # Port configure script to C99: https://github.com/proftpd/proftpd/pull/1665
 %patch -P 7 -p1 -b .c99
+
+# Fix for buffer overflow detected in response.c API test on s390x
+# causing FTBFS in Fedora 39
+# https://bugzilla.redhat.com/show_bug.cgi?id=2226148
+# https://github.com/proftpd/proftpd/pull/1692
+%patch -P 8 -p1 -b .api-test-buf-ovfl
 
 # OpenSSL Cipher Profiles introduced in Fedora 21
 # Elsewhere, we use the default of DEFAULT:!ADH:!EXPORT:!DES
@@ -508,6 +515,11 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Thu Jul 27 2023 Paul Howarth <paul@city-fan.org> - 1.3.8-7
+- Fix for buffer overflow detected in response.c API test on s390x
+  causing FTBFS in Fedora 39 (rhbz#2226148)
+  (https://github.com/proftpd/proftpd/pull/1692)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

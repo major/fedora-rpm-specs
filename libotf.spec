@@ -54,7 +54,7 @@ rm $RPM_BUILD_ROOT/usr/bin/libotf-config
 
 %files
 %doc AUTHORS COPYING README NEWS
-%{_libdir}/*.so.*
+%{_libdir}/libotf.so.1{,.*}
 %{_bindir}/otfdump
 %{_bindir}/otflist
 %{_bindir}/otftobdf
@@ -63,7 +63,7 @@ rm $RPM_BUILD_ROOT/usr/bin/libotf-config
 %files devel
 %doc example
 %{_includedir}/*
-%{_libdir}/*.so
+%{_libdir}/libotf.so
 %{_libdir}/pkgconfig/*
 
 %changelog

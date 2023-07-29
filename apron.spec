@@ -1,9 +1,9 @@
-%global prerel beta1
+%global prerel beta.2
 
 Name:           apron
 Version:        0.9.14
 Summary:        Numerical abstract domain library
-Release:        0.3%{?prerel:.%{prerel}}%{?dist}
+Release:        0.4%{?prerel:.%{prerel}}%{?dist}
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 # except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
@@ -21,10 +21,13 @@ Source0:        https://github.com/antoinemine/apron/archive/v%{version}%{?prere
 Patch0:         %{name}-weak.patch
 # Fix the OCaml build on bytecode-only architectures
 Patch1:         %{name}-ocaml-bytecode.patch
+# Update CSDP support for CSDP 6.2.0
+Patch2:         %{name}-csdp.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildRequires:  csdp-devel
 BuildRequires:  doxygen-latex
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript-tools-dvipdf
@@ -113,10 +116,11 @@ Java interface to the APRON library.
 
 %prep
 %autosetup -N -n %{name}-%{version}%{?prerel:-%{prerel}}
-%autopatch -M 0 -p0
+%patch -P0 -p0
 %ifnarch %{ocaml_native_compiler}
-%autopatch -m 1 -p0
+%patch -P1 -p0
 %endif
+%patch -P2 -p0
 
 # Fix library path for 64-bit installs
 if [ "%{_lib}" = "lib64" ]; then
@@ -141,9 +145,10 @@ sed -i '/shared/s/\$(CXX)/$(CXX_APRON_DYLIB)/' apronxx/Makefile
 
 %build
 # This is NOT an autoconf-generated script.  Do not use %%configure
-export CPPFLAGS='-D_GNU_SOURCE'
+export CPPFLAGS='-D_GNU_SOURCE -I%{_includedir}/csdp'
 export CFLAGS='%{build_cflags} -fsigned-char'
 export CXXFLAGS='%{build_cxxflags} -fsigned-char'
+export CSDP_PATH=%{_prefix}
 %ifarch %{java_arches}
 export JAVA_HOME='%{_jvmdir}/java'
 export JAVA_TOOL_OPTIONS='-Dfile.encoding=UTF8'
@@ -268,6 +273,10 @@ test/ctest1
 %endif
 
 %changelog
+* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-0.4.beta2
+- Update to 0.9.14-beta2
+- Enable csdp support
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.14-0.3.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

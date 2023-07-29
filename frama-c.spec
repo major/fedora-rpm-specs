@@ -15,7 +15,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           frama-c
 Version:        27.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Cobalt
@@ -282,6 +282,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 27.1-3
+- Rebuild for ocaml-zarith 1.13
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 27.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
