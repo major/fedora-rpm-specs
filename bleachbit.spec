@@ -6,7 +6,7 @@
 
 Name:		bleachbit
 Version:	4.4.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Remove sensitive data and free up disk space
 
 License:	GPLv3+
@@ -63,6 +63,9 @@ find ./bleachbit/  -type f  -iname '*.py'  -exec sed --regexp-extended '1s|^#! ?
 find ./  -type f  -iname '*.py'  -exec sed --regexp-extended '1s|^#! ?/usr/bin/env python3?$|#!%{_bindir}/python3|g' --in-place '{}' +
 find ./  -type f  -iname '*.py'  -exec sed --regexp-extended '1s|^#! ?/usr/bin/python[[:digit:][:punct:]]*$|#!%{_bindir}/python3|g' --in-place '{}' +
 
+# SafeConfigParser class removed from the configparser module in Python 3.12
+sed -i -e "s|SafeConfigParser|ConfigParser|" bleachbit/__init__.py
+
 %generate_buildrequires
 %pyproject_buildrequires -r
 
@@ -101,6 +104,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bleachbit
 
 
 %changelog
+* Fri Jul 28 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 4.4.2-4
+* Python 3.12 fix (RHBZ #2226993)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

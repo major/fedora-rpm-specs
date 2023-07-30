@@ -1,8 +1,8 @@
 %global srcname paramiko
 
 Name:          python-%{srcname}
-Version:       3.2.0
-Release:       3%{?dist}
+Version:       3.3.0
+Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -91,6 +91,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Fri Jul 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3.0-1
+- 3.3.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

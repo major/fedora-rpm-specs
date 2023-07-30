@@ -5,7 +5,7 @@
 
 Name:           stratisd
 Version:        3.5.8
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND MPL-2.0 AND (Unlicense OR MIT)
@@ -94,14 +94,28 @@ Requires:     stratisd
 # with the format and top-level directory that %setup expects cleaning up the
 # previously extracted directory and its contents at the same time. Move the
 # newly created tar file to the SOURCE0 location.
-tar --transform="s/^stratisd\-stratisd-v/stratisd-/" --extract --verbose --file %{SOURCE0}
-tar --extract --verbose --overwrite --file %{SOURCE2}
-tar --create --verbose --gzip --file %{SOURCE0}.newfile ./stratisd-%{version} --remove-files
+tar --transform="s/^stratisd\-stratisd-v/stratisd-/" --extract --file %{SOURCE0}
+tar --extract --overwrite --file %{SOURCE2}
+tar --create --gzip --file %{SOURCE0}.newfile ./stratisd-%{version} --remove-files
 mv %{SOURCE0}.newfile %{SOURCE0}
+
 %setup -q
+
 %if 0%{?rhel}
-# Source1 is vendored dependencies
+
+# Untar the vendor tarfile.
+tar --extract --file %{SOURCE1}
+
+# Remove pre-compiled procedural macro, compile from source
+rm ./vendor/serde_derive/serde_derive-x86_64-unknown-linux-gnu
+patch -p1 ./vendor-serde_derive.patch
+
+# Rezip the tarfile
+tar --create --gzip --file %{SOURCE1}.newfile ./vendor --remove-files
+mv %{SOURCE1}.newfile %{SOURCE1}
+
 %cargo_prep -V 1
+
 %else
 %cargo_prep
 %generate_buildrequires
@@ -192,7 +206,13 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
-* Thu Jul 27 2023 mulhern <amulhern@redhat.com> - 3.5.8
+* Fri Jul 28 2023 mulhern <amulhern@redhat.com> - 3.5.8-3
+- Patch vendored tarfile to remove executable
+
+* Thu Jul 27 2023 mulhern <amulhern@redhat.com> - 3.5.8-2
+- Add additional dependency for TMT tests
+
+* Thu Jul 27 2023 mulhern <amulhern@redhat.com> - 3.5.8-1
 - Update to 3.5.8
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.7-3

@@ -2,16 +2,19 @@
 
 Name:           python-%{srcname}
 Version:        0.22.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python Code Refactoring Library
 
 License:        LGPLv3+
 URL:            https://github.com/python-rope/rope
 Source0:        %pypi_source
+# https://github.com/python-rope/rope/pull/290
+Patch0:         rope-pr290-ast_str-deprecation.patch
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  pyproject-rpm-macros
+
 
 # pysvn, hg, git, and darcs are optional.  If installed, they give integration
 # between rope and the version control system.  (So refactorings that rename a
@@ -49,6 +52,10 @@ Summary: %summary
 %doc README.rst docs
 
 %changelog
+* Fri Jul 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.22.0-7
+- Backport upstream patch for ast.Str removal in favor of str.Constant
+  already deprecated in python 3.8
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

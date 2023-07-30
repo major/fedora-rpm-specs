@@ -2,7 +2,7 @@
 %global pypi_name injector
 
 Name:           python-%{pypi_name}
-Version:        0.20.1
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Python dependency injection framework inspired by Guice
 

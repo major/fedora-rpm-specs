@@ -1,9 +1,9 @@
 Name:           urlscan
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Extract and browse the URLs contained in an email (urlview replacement)
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/firecat53/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        muttrc

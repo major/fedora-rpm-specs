@@ -2,26 +2,29 @@
 %global modname markdown
 
 Name:           python-%{modname}_2
-Version:        2.6.11
-Release:        12%{?dist}
+Version:        3.4.4
+Release:        1%{?dist}
 Summary:        Python implementation of Markdown
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/Python-Markdown/markdown
 Source:         %{pypi_source}
 
 BuildArch:      noarch
 
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pyyaml
+
 %global _description %{expand:
-%{summary}.}
+This is a Python implementation of John Gruber's Markdown. It is almost 
+completely compliant with the reference implementation, though there are
+a few known issues.}
 
 %description %{_description}
 
-%package     -n python3-%{modname}_2
+%package -n python3-%{modname}_2
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 Conflicts:      python%{python3_version}dist(%{modname})
 
 %description -n python3-%{modname}_2 %{_description}
@@ -30,22 +33,31 @@ Python 3 version.
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
-rm -vr *.egg-info
-sed -i -e '/markdown.__main__/d' setup.py
+
+# PytestCollectionWarning for __init__ constructor
+sed -i -e '/unittest/d' tests/test_syntax/extensions/test_md_in_html.py
+ 
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
-%py3_build
+%pyproject_wheel
+
+%check
+%pytest -v
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
-%files -n python3-%{modname}_2
-%license LICENSE.md
+%files -n python3-%{modname}_2 -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/markdown/
-%{python3_sitelib}/Markdown-*.egg-info/
+%{_bindir}/markdown_py
 
 %changelog
+* Fri Jul 28 2023 Ali Erdinc Koroglu <aekoroglu@fedora.project.org> - 3.4.4-1
+- Update to 3.4.4 (RHBZ #2220322 and #2226240)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.11-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,13 +8,13 @@
 %global qt_version 5.9
 %global cmake_version 3.14
 
-#global fullversion %{version}
-%global fullversion 5.6-beta1
+%global fullversion %{version}
+#global fullversion 5.6-beta1
 
 
 Name:           CGAL
 Version:        5.6
-Release:        0.2.beta1%{?dist}
+Release:        1%{?dist}
 Summary:        Computational Geometry Algorithms Library
 
 License:        LGPLv3+ and GPLv3+ and Boost
@@ -159,6 +159,9 @@ ldd ./constrained_plus
 %exclude %{_datadir}/CGAL/*/*/skip_vcproj_auto_generation
 
 %changelog
+* Fri Jul 28 2023 Laurent Rineau <laurent.rineau@cgal.org> - 5.6-1
+- New upstream release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6-0.2.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

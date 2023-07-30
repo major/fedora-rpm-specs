@@ -21,8 +21,8 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.3.2
-Release: 3%{?dist}
+Version: 3.4.1
+Release: 1%{?dist}
 Summary: %{sum}
 
 License: BSD
@@ -58,8 +58,6 @@ Provides: bundled(python3-pyserial-asyncio)
 
 %prep
 %autosetup -p1
-sed -i '/setuptools/d' requirements.txt
-
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -69,10 +67,6 @@ sed -i '/setuptools/d' requirements.txt
 %install
 %pyproject_install
 %pyproject_save_files pymodbus
-
-# delete unnecessary shebang
-sed -i '/^#!\/usr\/bin\/env.*$/d' $RPM_BUILD_ROOT%{python3_sitelib}/pymodbus/transport/serial_asyncio/__init__.py
-sed -i '/^#!\/usr\/bin\/env.*$/d' $RPM_BUILD_ROOT%{python3_sitelib}/pymodbus/server/simulator/main.py
 
 # remove test files
 rm -rf %{buildroot}%{python3_sitelib}/test
@@ -85,6 +79,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Fri Jul 28 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 3.4.1-1
+- Update to 3.4.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

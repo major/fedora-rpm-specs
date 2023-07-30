@@ -4,7 +4,7 @@
 # NOTE(mhayden): The package is awscli, but the source is aws-cli.
 %global         source_name     aws-cli
 %global         forgeurl        https://github.com/aws/aws-cli/
-Version:        1.29.12
+Version:        1.29.15
 %global         tag             %{version}
 %forgemeta
 
@@ -44,7 +44,7 @@ sed -i "s/,<0.17//" setup.cfg
 sed -i "s/,<0.17//" setup.py
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1854288
-sed -Ei 's/^( *'"'"'?rsa>=[0-9.]+,)<=?[0-9.]+(.*)/\1<4.9\2/g' setup.cfg setup.py
+sed -Ei 's/^( *'"'"'?rsa>=[0-9.]+,)<=?[0-9.]+(.*)/\1<4.10\2/g' setup.cfg setup.py
 
 # https://github.com/aws/aws-cli/issues/5795
 sed -i s/\<0.4.5/\<=0.4.6/g setup.py
@@ -82,7 +82,10 @@ install -Dpm0644 bin/aws_zsh_completer.sh \
 %check
 # Botocore in Fedora is still 1.19.x but the EMR-related tests need a newer
 # botocore version.
-%pytest
+%pytest \
+  --deselect tests/functional/eks/test_kubeconfig.py::TestKubeconfigLoader::test_load_empty \
+  --deselect tests/functional/eks/test_kubeconfig.py::TestKubeconfigLoader::test_load_noexist \
+  --deselect tests/functional/eks/test_kubeconfig.py::TestKubeconfigLoader::test_load_simple
 %endif
 
 %files -f %{pyproject_files}
@@ -98,6 +101,12 @@ install -Dpm0644 bin/aws_zsh_completer.sh \
 %{_datadir}/zsh/site-functions/_awscli
 
 %changelog
+* Fri Jul 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.15-1
+- 1.29.15
+
+* Fri Jul 28 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 1.29.14-1
+- 1.29.14
+
 * Wed Jul 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.12-1
 - 1.29.12
 

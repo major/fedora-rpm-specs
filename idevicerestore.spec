@@ -1,11 +1,19 @@
+%global commit 609f7f058487596597e8e742088119fdd46729df
+%global date 20230523
+%{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
+
 Name:           idevicerestore
-Version:        1.0.0
+Version:        1.0.0^%{date}git%{shortcommit}
 Release:        %autorelease
 Summary:        Restore/upgrade firmware of iOS devices
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://github.com/libimobiledevice/idevicerestore
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+%if %{defined commit}
+Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+%else
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+%endif
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -15,6 +23,7 @@ BuildRequires:  make
 
 BuildRequires:  libcurl-devel
 BuildRequires:  libimobiledevice-devel
+BuildRequires:  libimobiledevice-glue-devel
 BuildRequires:  libirecovery-devel
 BuildRequires:  libzip-devel
 BuildRequires:  zlib-devel
@@ -25,10 +34,15 @@ devices. In general, upgrades and downgrades are possible, however subject to
 availability of SHSH blobs from Apple for signing the firmware files.
 
 %prep
-%autosetup
+%if %{defined commit}
+%autosetup -p1 -n %{name}-%{commit}
+echo %{version} > .tarball-version
+%else
+%autosetup -p1
+%endif
 
 %build
-./autogen.sh
+NOCONFIGURE=1 ./autogen.sh
 %configure
 %make_build
 

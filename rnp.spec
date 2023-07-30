@@ -26,7 +26,7 @@
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.17.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
@@ -44,7 +44,7 @@ Patch0:         %{name}-static.patch
 Patch1:         %{name}-gcc13.patch
 # Use system libsexpp
 Patch2:         %{name}-sexpp.patch
-# Use setuptools
+# Don't use distutils
 Patch3:         %{name}-setup.patch
 
 BuildRequires:  cmake >= 3.14
@@ -63,7 +63,6 @@ BuildRequires:  cmake(json-c) >= 0.11
 BuildRequires:  cmake(GTest)
 %endif
 BuildRequires:  python3
-BuildRequires:  python3-setuptools
 BuildRequires:  gnupg2
 BuildRequires:  rubygem-asciidoctor
 %if %{with licensecheck}
@@ -201,6 +200,9 @@ FILTER="$FILTER|cli_tests-Encryption|cli_tests-Misc"
 
 
 %changelog
+* Wed Jul 26 2023 Remi Collet <remi@remirepo.net> - 0.17.0-6
+- refresh upstream patch to use shutil
+
 * Wed Jul 26 2023 Remi Collet <remi@remirepo.net> - 0.17.0-5
 - use upstream patch for setuptools
 

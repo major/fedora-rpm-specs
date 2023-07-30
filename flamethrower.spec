@@ -1,10 +1,12 @@
 %undefine __cmake_in_source_build
 # Optional DNS over HTTP support
 %bcond_without doh
+# Simple test requiring online connection
+%bcond_with online
 
 Name:		flamethrower
 Version:	0.11.0
-Release:	15%{?dist}
+Release:	%autorelease
 Summary:	A DNS performance and functional testing utility
 
 License:	Apache-2.0
@@ -24,13 +26,14 @@ Patch5:		flamethrower-0.11-uvw.patch
 Patch6:		flamethrower-0.11-uvw-compat.patch
 # https://github.com/DNS-OARC/flamethrower/pull/88
 Patch7:		flamethrower-0.11-gcc12.patch
+# https://github.com/DNS-OARC/flamethrower/pull/94
+Patch8:		flamethrower-0.12-httpsession.patch
 
 BuildRequires:	gcc-c++, make
 BuildRequires:	cmake
 BuildRequires:	libuv-devel
 BuildRequires:	ldns-devel
 BuildRequires:	gnutls-devel
-BuildRequires:	catch-devel
 BuildRequires:	pandoc
 BuildRequires:	http-parser-devel
 BuildRequires:	json-devel
@@ -71,6 +74,19 @@ install -m 0644 -pD man/flame.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/flame.1
 
 %check
 %ctest
+export LD_LIBRARY_PATH="${RPM_BUILD_ROOT}%{_libdir}"
+${RPM_BUILD_ROOT}%{_bindir}/flame --help
+%if %{with online}
+	COMMON="-Q 30 -g randomlabel -l 3 -r test dns.google"
+	PROTOS="udp tcp dot"
+	%if %{with doh}
+		PROTOS+=" doh"
+	%endif
+	for PROTO in $PROTOS
+	do
+		${RPM_BUILD_ROOT}%{_bindir}/flame -P $PROTO $COMMON
+	done
+%endif
 
 %files
 %doc README.md
@@ -81,77 +97,4 @@ install -m 0644 -pD man/flame.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/flame.1
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 0.11.0-13
-- Update License tag to SPDX identifier
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Petr Menšík <pemensik@redhat.com> - 0.11.0-11
-- Build on gcc 12 again
-
-* Thu Jan 20 2022 Petr Menšík <pemensik@redhat.com> - 0.11.0-10
-- Use uvw-devel package
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Nov 24 2021 Petr Menšík <pemensik@redhat.com> - 0.11.0-8
-- Use docopt-cpp package
-
-* Sat Sep 18 2021 Petr Menšík <pemensik@redhat.com> - 0.11.0-7
-- Make the package compilable on EPEL8
-
-* Thu Aug 05 2021 Petr Menšík <pemensik@redhat.com> - 0.11.0-6
-- Use http_parser instead of bundled url_parser
-
-* Mon Aug 02 2021 Petr Menšík <pemensik@redhat.com> - 0.11.0-5
-- Build with latest catch library (#1987476)
-- Declare bundled libraries in package
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Dec 19 2020 Adam Williamson <awilliam@redhat.com> - 0.11.0-2
-- Rebuild for libldns soname bump
-
-* Tue Sep 22 2020 Petr Menšík <pemensik@redhat.com> - 0.11.0-1
-- Update to 0.11.0
-
-* Fri Aug 07 2020 Petr Menšík <pemensik@redhat.com> - 0.10.2-4
-- Update spec to recent cmake macros, fixes rawhide (#1863562)
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Mar 02 2020 Petr Menšík <pemensik@redhat.com> - 0.10.2-1
-- Update to 0.10.2
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Oct 07 2019 Petr Menšík <pemensik@redhat.com> - 0.10-3
-- Remove explicit library requires
-
-* Wed Oct 02 2019 Petr Menšík <pemensik@redhat.com> - 0.10-2
-- Use make install, improve descriptions
-- Correct permissions of manual
-- Use bindir
-
-* Tue Sep 10 2019 Petr Menšík <pemensik@redhat.com> - 0.10-1
-- Initial release
-
-
+%autochangelog

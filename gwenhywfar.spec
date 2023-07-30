@@ -4,12 +4,12 @@
 
 Summary: A multi-platform helper library for other libraries
 Name: gwenhywfar
-Version: 5.10.1
-Release: 4%{?dist}
+Version: 5.10.2
+Release: 1%{?dist}
 
 URL: http://www.aquamaniac.de/sites/download/packages.php?package=01&showall=1
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
-Source: https://www.aquamaniac.de/rdm/attachments/download/465/%{name}-%{version}.tar.gz
+Source: https://www.aquamaniac.de/rdm/attachments/download/501/%{name}-%{version}.tar.gz
 License: LGPL-2.1-or-later
 
 BuildRequires: cmake gcc gcc-c++
@@ -215,6 +215,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Fri Jul 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.10.2-1
+- 5.10.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

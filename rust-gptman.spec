@@ -5,8 +5,8 @@
 %global crate gptman
 
 Name:           rust-gptman
-Version:        0.8.4
-Release:        5%{?dist}
+Version:        1.0.1
+Release:        %autorelease
 Summary:        GPT manager that allows you to copy partitions from one disk to another
 
 License:        MIT OR Apache-2.0
@@ -70,47 +70,4 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Feb 19 2023 Fabio Valentini <decathorpe@gmail.com> - 0.8.4-4
-- Regenerate spec file with modern rust2rpm.
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue May 10 2022 Benjamin Gilbert <bgilbert@redhat.com> - 0.8.4-1
-- New release
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Dec 15 2021 Benjamin Gilbert <bgilbert@redhat.com> - 0.8.3-1
-- New release
-
-* Tue Jul 27 2021 Benjamin Gilbert <bgilbert@redhat.com> - 0.8.0-1
-- New release
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Dec 23 2020 Benjamin Gilbert <bgilbert@redhat.com> - 0.7.3-1
-- New release
-- Update license to add ASL 2.0 option
-- Build with nix 0.18
-
-* Tue Aug 25 2020 Benjamin Gilbert <bgilbert@redhat.com> - 0.7.0-1
-- New release
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 15 2020 Benjamin Gilbert <bgilbert@redhat.com> - 0.6.3-1
-- Initial package
+%autochangelog

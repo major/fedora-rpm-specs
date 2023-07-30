@@ -418,7 +418,9 @@ done
 %make_build scan
 %endif
 %if %{with cppcheck}
-%make_build cppcheck
+# string literal concatenation raises syntaxError with cppcheck-2.11
+# https://trac.cppcheck.net/ticket/11830
+%make_build cppcheck CPPCHECK="cppcheck -UCHECK_DIR"
 %endif
 
 %if %{with test}

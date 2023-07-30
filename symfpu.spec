@@ -5,7 +5,7 @@
 
 Name:           symfpu
 Version:        0
-Release:        0.14.%{gitdate}git%{shorttag}%{?dist}
+Release:        0.15.%{gitdate}git%{shorttag}%{?dist}
 Summary:        An implementation of IEEE-754 / SMT-LIB floating-point 
 
 License:        GPL-3.0-or-later
@@ -14,9 +14,12 @@ Source0:        %{url}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
 # Fedora-only patch: build a shared library instead of a static library
 Patch0:         %{name}-shared.patch
 # Fix an infinite recursion
+# See https://github.com/martin-cs/symfpu/issues/3
 Patch1:         %{name}-infinite-recursion.patch
 # Upstream PR to fix invalid creation of a zero-size bitvector
 Patch2:         %{url}/pull/9.patch
+# CVC5 patch for symfpu (apparently authored by the symfpu maintainer)
+Patch3:         %{name}-cvc5.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -90,6 +93,9 @@ export LD_LIBRARY_PATH=$PWD
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Fri Jul 28 2023 Jerry James <loganjerry@gmail.com> - 0-0.15.20190517gitc3acaf6
+- Add patch needed by CVC5
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14.20190517gitc3acaf6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

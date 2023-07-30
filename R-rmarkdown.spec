@@ -1,5 +1,5 @@
 %global packname rmarkdown
-%global packver  2.22
+%global packver  2.23
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((dygraphs)\\)
@@ -13,16 +13,13 @@ Release:          %autorelease
 Summary:          Dynamic Documents for R
 
 # Main is GPLv3; see bundled Provides below for others.
-License:          GPLv3 and ASL 2.0 and BSD and MIT and W3C
+License:          GPL-3.0-or-later AND Apache-2.0 AND BSD-3-Clause AND MIT AND W3C
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 Patch0001:        0001-Remove-unused-minified-ioslides-files.patch
-Patch0002:        0002-Unbundle-fonts-in-ioslides.patch
 Patch0004:        0004-Add-original-non-minified-Bootswatch-themes.patch
-Patch0005:        0005-Unbundle-fonts-from-bootstrap.patch
 Patch0006:        0006-Add-source-for-code-prettify.patch
 Patch0007:        0007-Skip-shiny-tests.patch
-Patch0008:        0008-handle-updated-Raleway-fonts-in-f33.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
@@ -146,11 +143,6 @@ rm inst/rmd/h/bootstrap/css/fonts/Ubuntu.ttf
 chmod -x inst/rmd/h/ionicons/{LICENSE,css/*.css,fonts/*.ttf}
 chmod -x inst/rmd/ioslides/ioslides-13.5.1/js/hammer.js
 
-# Fix fonts using new paths in Fedora 33+.
-for f in Bold It Light Regular; do
-    ln -sf /usr/share/fonts/adobe-source-sans-pro-fonts/SourceSans3-${f}.otf inst/rmd/h/bootstrap/css/fonts/SourceSansPro-${f}.otf
-done
-
 # This does nothing but reset the -n path.
 %setup -q -D -T -n %{packname}
 
@@ -175,41 +167,65 @@ rm -f %{buildroot}%{rlibdir}/R.css
 # Replace fonts by system fonts (note that this cannot be done in prep because
 # R CMD INSTALL copies symlink targets.)
 pushd %{buildroot}%{rlibdir}/%{packname}
-# Remove bundled fonts in ioslides.
-rm rmd/ioslides/ioslides-13.5.1/fonts/OpenSans*.ttf
-for f in OpenSans-Regular OpenSans-Italic OpenSans-Semibold OpenSans-SemiboldItalic; do
-    ln -s /usr/share/fonts/open-sans/${f}.ttf rmd/ioslides/ioslides-13.5.1/fonts/${f}.ttf
-done
-ln -sf /usr/share/fonts/adobe-source-code-pro/SourceCodePro-Regular.otf rmd/ioslides/ioslides-13.5.1/fonts/SourceCodePro-Regular.otf
-# Remove bundled fonts from bootstrap.
-ln -sf /usr/share/fonts/lato/Lato-Regular.ttf rmd/h/bootstrap/css/fonts/Lato.ttf
-ln -sf /usr/share/fonts/lato/Lato-Bold.ttf rmd/h/bootstrap/css/fonts/LatoBold.ttf
-ln -sf /usr/share/fonts/lato/Lato-Italic.ttf rmd/h/bootstrap/css/fonts/LatoItalic.ttf
-ln -sf /usr/share/fonts/glyphography-newscycle-fonts/newscycle-regular.ttf rmd/h/bootstrap/css/fonts/NewsCycle.ttf
-ln -sf /usr/share/fonts/glyphography-newscycle-fonts/newscycle-bold.ttf rmd/h/bootstrap/css/fonts/NewsCycleBold.ttf
-ln -sf /usr/share/fonts/open-sans/OpenSans-Regular.ttf rmd/h/bootstrap/css/fonts/OpenSans.ttf
-for f in Bold BoldItalic Italic Light LightItalic; do
-    ln -sf /usr/share/fonts/open-sans/OpenSans-${f}.ttf rmd/h/bootstrap/css/fonts/OpenSans${f}.ttf
-done
-for f in Regular Bold; do
-    ln -sf /usr/share/fonts/impallari-raleway-fonts/Raleway-${f}.ttf rmd/h/bootstrap/css/fonts/Raleway-${f}.ttf
-done
-ln -sf /usr/share/fonts/google-roboto/Roboto-Regular.ttf rmd/h/bootstrap/css/fonts/Roboto.ttf
-for f in Light Medium Bold; do
-    ln -sf /usr/share/fonts/google-roboto/Roboto-${f}.ttf rmd/h/bootstrap/css/fonts/Roboto${f}.ttf
-done
-for f in Bold It Light Regular; do
-    ln -sf /usr/share/fonts/adobe-source-sans-pro-fonts/SourceSans3-${f}.otf rmd/h/bootstrap/css/fonts/SourceSansPro-${f}.otf
-done
-ln -sf /usr/share/fonts/glyphicons-halflings/glyphicons-halflings-regular.ttf rmd/h/bootstrap/fonts/glyphicons-halflings-regular.ttf
+    # Remove bundled fonts in ioslides.
+    pushd rmd/ioslides/ioslides-13.5.1/fonts
+        ln -sf /usr/share/fonts/open-sans/OpenSans-Regular.ttf OpenSans.ttf
+        for f in Italic SemiboldItalic Semibold; do
+            ln -sf /usr/share/fonts/open-sans/OpenSans-${f}.ttf OpenSans${f}.ttf
+        done
+        rm -f SourceCodePro*.ttf
+        ln -sf /usr/share/fonts/adobe-source-code-pro/SourceCodePro-Regular.otf SourceCodePro.otf
+        sed -i "s/SourceCodePro.ttf) format('true/SourceCodePro.otf) format('open/" fonts.css
+    popd
+    # Remove bundled fonts from bootstrap.
+    pushd rmd/h/bootstrap/css/fonts
+        %if 0%{?fedora} > 38
+        ln -sf /usr/share/fonts/lato-fonts/Lato-Regular.ttf Lato.ttf
+        ln -sf /usr/share/fonts/lato-fonts/Lato-Bold.ttf LatoBold.ttf
+        ln -sf /usr/share/fonts/lato-fonts/Lato-Italic.ttf LatoItalic.ttf
+        %else
+        ln -sf /usr/share/fonts/lato/Lato-Regular.ttf Lato.ttf
+        ln -sf /usr/share/fonts/lato/Lato-Bold.ttf LatoBold.ttf
+        ln -sf /usr/share/fonts/lato/Lato-Italic.ttf LatoItalic.ttf
+        %endif
+        ln -sf /usr/share/fonts/glyphography-newscycle-fonts/newscycle-regular.ttf NewsCycle.ttf
+        ln -sf /usr/share/fonts/glyphography-newscycle-fonts/newscycle-bold.ttf NewsCycleBold.ttf
+        ln -sf /usr/share/fonts/open-sans/OpenSans-Regular.ttf OpenSans.ttf
+        for f in Bold BoldItalic Italic Light LightItalic; do
+            ln -sf /usr/share/fonts/open-sans/OpenSans-${f}.ttf OpenSans${f}.ttf
+        done
+        ln -sf /usr/share/fonts/impallari-raleway-fonts/Raleway-Regular.ttf Raleway.ttf
+        for f in Bold; do
+            ln -sf /usr/share/fonts/impallari-raleway-fonts/Raleway-${f}.ttf Raleway${f}.ttf
+        done
+        ln -sf /usr/share/fonts/google-roboto/Roboto-Regular.ttf Roboto.ttf
+        for f in Light Medium Bold; do
+            ln -sf /usr/share/fonts/google-roboto/Roboto-${f}.ttf Roboto${f}.ttf
+        done
+        rm -f SourceSansPro*.ttf
+        ln -sf /usr/share/fonts/adobe-source-sans-pro-fonts/SourceSans3-Regular.otf SourceSansPro.otf
+        ln -sf /usr/share/fonts/adobe-source-sans-pro-fonts/SourceSans3-It.otf SourceSansProItalic.otf
+        for f in Bold Light; do
+            ln -sf /usr/share/fonts/adobe-source-sans-pro-fonts/SourceSans3-${f}.otf SourceSansPro${f}.otf
+        done
+        sed -i ../{cosmo,lumen}.min.css \
+            -e "s/SourceSansPro.ttf) format('true/SourceSansPro.otf) format('open/" \
+            -e "s/SourceSansProLight.ttf) format('true/SourceSansProLight.otf) format('open/" \
+            -e "s/SourceSansProBold.ttf) format('true/SourceSansProBold.otf) format('open/" \
+            -e "s/SourceSansProItalic.ttf) format('true/SourceSansProItalic.otf) format('open/"
+    popd
+    pushd rmd/h/bootstrap/fonts
+        rm -f glyphicons-halflings*
+        ln -sf /usr/share/fonts/glyphicons-halflings/glyphicons-halflings-regular.ttf glyphicons-halflings-regular.ttf
+    popd
 popd
 
 
 %check
 %if %{with_suggests}
-%{_bindir}/R CMD check --ignore-vignettes %{packname}
+%{_bindir}/R CMD check --ignore-vignettes --no-manual %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname} --no-tests
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes --no-manual --no-tests %{packname}
 %endif
 
 

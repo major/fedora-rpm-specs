@@ -12,6 +12,8 @@ Source0:        https://github.com/dcleblanc/SafeInt/archive/%{version}/SafeInt-
 
 # https://github.com/dcleblanc/SafeInt/pull/48
 Patch0:         safeint-3.0.27-gcc13_fix.patch
+Patch1:         safeint-3.0.27-gcc98_test_rm.patch
+Patch2:         safeint-3.0.27-gcc14_test_fix.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

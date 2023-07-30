@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.36.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -225,6 +225,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jul 28 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.36.0-3
+- Rebuilt for libplacebo-6
+
 * Mon Jul 24 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.36.0-2
 - Switched to meson by upstream request.
 

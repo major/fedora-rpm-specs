@@ -1,7 +1,7 @@
 %global modname toot
 
 Name:           %{modname}
-Version:        0.37.0
+Version:        0.38.1
 Release:        %autorelease
 Summary:        A CLI and TUI tool for interacting with Mastodon
 
@@ -14,7 +14,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  %{py3_dist pytest} %{py3_dist requests} %{py3_dist wcwidth} %{py3_dist beautifulsoup4}
-BuildRequires:  %{py3_dist urwid} %{py3_dist psycopg2}
+BuildRequires:  %{py3_dist urwid} %{py3_dist psycopg2} %{py3_dist tomlkit}
 
 %description
 Toot is a CLI and TUI tool for interacting with Mastodon instances
@@ -41,7 +41,4 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %license LICENSE
 
 %changelog
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.36.0-2
-- Rebuilt for Python 3.12
-
 %autochangelog

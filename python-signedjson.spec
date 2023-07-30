@@ -1,18 +1,4 @@
-%bcond_without check
-
 %global srcname signedjson
-
-Name:           python-%{srcname}
-Version:        1.1.1
-Release:        12%{?dist}
-Summary:        Sign JSON with Ed25519 signatures
-
-License:        ASL 2.0
-URL:            https://github.com/matrix-org/python-signedjson
-Source0:        %{pypi_source}
-
-BuildArch:      noarch
-
 %global _description %{expand:
 Features:
 * More than one entity can sign the same object.
@@ -21,50 +7,50 @@ Features:
 * ED25519 can be replaced with a different algorithm.
 * Unprotected data can be added to the object under the "unsigned" key.}
 
+Name:           python-%{srcname}
+Version:        1.1.4
+Release:        1%{?dist}
+Summary:        Sign JSON with Ed25519 signatures
+
+License:        Apache-2.0
+URL:            https://github.com/matrix-org/python-signedjson
+Source0:        %{pypi_source}
+
+BuildArch:      noarch
+
+BuildRequires:	python3-devel
+BuildRequires:	python3-pytest
+
 %description %{_description}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm)
-%if %{with check}
-BuildRequires:  python3-nose
-BuildRequires:  python3dist(canonicaljson) >= 1
-BuildRequires:  python3dist(unpaddedbase64) >= 1.0.1
-BuildRequires:  python3dist(pynacl) >= 0.3
-BuildRequires:  python3dist(typing-extensions) >= 3.5
-%endif
 
 %description -n python3-%{srcname} %{_description}
 
-Python 3 version.
-
 %prep
 %autosetup -n %{srcname}-%{version}
-rm -vr *.egg-info
-# This is standard thing in 3.8+
-sed -i -e "/importlib_metadata/d" setup.py
-sed -i -e "s/importlib_metadata/importlib.metadata/" %{srcname}/__init__.py
+
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
-%py3_build
+%pyproject_wheel
+
+%check
+%pytest -v
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
-%if %{with check}
-%check
-nosetests-%{python3_version} -v
-%endif
-
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst CHANGELOG.md
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 28 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.1.4-1
+- Update to 1.1.4 (RHBZ #2070052, #2175196, #2220499 and #2226328)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

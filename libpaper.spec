@@ -99,7 +99,7 @@ install -m0755 src/localepaper %{buildroot}%{_libexecdir}
 %doc ChangeLog README
 %license COPYING
 %config(noreplace) %{_sysconfdir}/paperspecs
-%{_libdir}/libpaper.so.*
+%{_libdir}/libpaper.so.2*
 
 %files devel
 %{_includedir}/paper.h

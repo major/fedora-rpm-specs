@@ -22,7 +22,7 @@ Requires:       opus-tools
 Requires:       rsync
 Requires:       procps-ng
 Requires:       coreutils
-Requires:       ffmpeg
+Requires:       (ffmpeg or ffmpeg-free)
 
 %description
 transflac is a front end command line utility (actually, a bash script)

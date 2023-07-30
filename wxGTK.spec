@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -17,6 +17,7 @@ Source10:       wx-config
 # Backport from wxGTK
 Patch0:         %{name}-3.1.6-abicheck.patch
 Patch1:         https://github.com/wxWidgets/wxWidgets/commit/9688ccc0874c0c513b73d01679b1b426f463477f.patch
+Patch2:         os-release.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -314,6 +315,9 @@ fi
 %doc html
 
 %changelog
+* Tue Jul 25 2023 Scott Talbert <swt@techie.net> - 3.2.2.1-5
+- Make wxGetLinuxDistributionInfo work without lsb_release (#2184391)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

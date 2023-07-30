@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Plugin-Sysdeps
 Version:        0.70
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        CPAN client plugin for installing system dependencies
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Plugin-Sysdeps
@@ -17,7 +17,7 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 # Run-time:
-# dnf5 not used at tests
+# dnf not used at tests
 BuildRequires:  perl(constant)
 # CPAN::Distribution not used at tests
 BuildRequires:  perl(Data::Dumper)
@@ -38,7 +38,7 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       dnf5
+Requires:       dnf
 Requires:       perl(Data::Dumper)
 Recommends:     perl(Hash::Util)
 Requires:       perl(IPC::Open3)
@@ -112,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 28 2023 Petr Pisar <ppisar@redhat.com> - 0.70-11
+- Revert dnf to dnf5 migration (bug #2209402)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.70-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

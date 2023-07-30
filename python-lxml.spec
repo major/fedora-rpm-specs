@@ -1,6 +1,6 @@
 Name:           python-lxml
 Version:        4.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
 # The lxml project is licensed under BSD-3-Clause
@@ -26,6 +26,10 @@ Patch:          https://github.com/lxml/lxml/pull/380.patch
 
 # Upstream issue: https://bugs.launchpad.net/lxml/+bug/2016939
 Patch:          Skip-failing-test-test_html_prefix_nsmap.patch
+
+# Cython 3 support backported from future lxml 5.0
+Patch:          https://github.com/lxml/lxml/commit/dcbc0cc1cb0cedf8019184aaca805d2a649cd8de.patch
+Patch:          https://github.com/lxml/lxml/commit/a03a4b3c6b906d33c5ef1a15f3d5ca5fff600c76.patch
 
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
@@ -68,8 +72,6 @@ Python 3 version.
 %autosetup -n lxml-%{version} -p1
 # Don't run html5lib tests --without extras
 %{!?without_extras:rm src/lxml/html/tests/test_html5parser.py}
-# lxml 4.9 is not yet ready for Cython 3
-sed -Ei 's/Cython>=([^,]+)/Cython>=\1,<3/' requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -x source%{?with_extras:,cssselect,html5,htmlsoup}
@@ -98,6 +100,9 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst
 
 %changelog
+* Fri Jul 28 2023 Miro Hrončok <mhroncok@redhat.com> - 4.9.3-2
+- Fix build with Cython 3
+
 * Fri Jul 21 2023 Lumír Balhar <lbalhar@redhat.com> - 4.9.3-1
 - Update to 4.9.3 (rhbz#2219811)
 

@@ -39,7 +39,7 @@ fi                                               \
 
 
 Name:             AusweisApp2
-Version:          1.26.5
+Version:          1.26.7
 Release:          1%{?dist}
 Summary:          %{pkg_sum}
 
@@ -314,6 +314,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jul 28 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.7-1
+- New upstream release
+  Fixes rhbz#2227358
+
+* Fri Jul 28 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.6-1
+- New upstream release
+  Fixes rhbz#2227095
+
 * Wed Jul 26 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.5-1
 - New upstream release
   Fixes rhbz#2226708

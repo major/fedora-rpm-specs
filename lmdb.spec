@@ -35,7 +35,7 @@ Summary:        Shared libraries for %{name}
 
 %description    libs
 The %{name}-libs package contains shared libraries necessary for running
-applications that use %{name}.
+applications that use the %{name} embedded database.
 
 %package        devel
 Summary:        Development files for %{name}

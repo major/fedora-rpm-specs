@@ -4,8 +4,8 @@
 %global __cargo_is_lib() false
 
 Name:           clevis-pin-tpm2
-Version:        0.5.2
-Release:        7%{?dist}
+Version:        0.5.3
+Release:        1%{?dist}
 Summary:        Clevis PIN for unlocking with TPM2 supporting Authorized Policies
 
 License:        MIT
@@ -22,6 +22,7 @@ BuildRequires:  rust-toolset
 %else
 BuildRequires:  rust-packaging
 %endif
+BuildRequires:  clang-devel
 BuildRequires:  openssl-devel
 BuildRequires:  tpm2-tss-devel
 Requires:       clevis
@@ -59,6 +60,9 @@ ln -s /usr/bin/clevis-pin-tpm2 %{buildroot}/usr/bin/clevis-decrypt-tpm2plus
 %{_bindir}/clevis-*-tpm2plus
 
 %changelog
+* Fri Jul 28 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.3-1
+- Update to 0.5.3
+
 * Wed Jul 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5.2-7
 - Use vendored dependencies in RHEL builds
 

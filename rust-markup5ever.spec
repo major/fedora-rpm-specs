@@ -12,6 +12,9 @@ Summary:        Common code for xml5ever and html5ever
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/markup5ever
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump phf dependencies from 0.10 to 0.11
+Patch:          markup5ever-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

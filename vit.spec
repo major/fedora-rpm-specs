@@ -1,5 +1,5 @@
 Name:           vit
-Version:        2.3.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Visual Interactive Taskwarrior full-screen terminal interface
 

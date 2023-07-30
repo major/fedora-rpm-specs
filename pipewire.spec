@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 75
+%global microversion 76
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -415,7 +415,7 @@ cp %{SOURCE1} subprojects/packagefiles/
     -D sdl2=disabled 								\
     -D audiotestsrc=disabled -D videotestsrc=disabled				\
     -D volume=disabled -D bluez5-codec-aptx=disabled 		  		\
-    -D bluez5-codec-lc3plus=disabled						\
+    -D bluez5-codec-lc3plus=disabled -D bluez5-codec-lc3=disabled		\
 %ifarch s390x
     -D bluez5-codec-ldac=disabled						\
 %endif
@@ -554,6 +554,8 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-spa-device.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-spa-node-factory.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-spa-node.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-vban-send.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-vban-recv.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-zeroconf-discover.so
 %dir %{_datadir}/alsa-card-profile/
 %dir %{_datadir}/alsa-card-profile/mixer/
@@ -717,6 +719,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Jul 28 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.76-1
+- Update version to 0.3.76
+
 * Fri Jul 21 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.75-1
 - Update version to 0.3.75
 

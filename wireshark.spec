@@ -6,7 +6,7 @@
 Summary:	Network traffic analyzer
 Name:		wireshark
 Version:	4.0.7
-Release:	2%{?dist}
+Release:	3%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
 Url:		http://www.wireshark.org/
@@ -17,18 +17,19 @@ Source2:	90-wireshark-usbmon.rules
 Source3:	wireshark.sysusers
 
 # Fedora-specific
-Patch2:		wireshark-0002-Customize-permission-denied-error.patch
+Patch2:   wireshark-0002-Customize-permission-denied-error.patch
 # Will be proposed upstream
-Patch3:		wireshark-0003-fix-string-overrun-in-plugins-profinet.patch
+Patch3:   wireshark-0003-fix-string-overrun-in-plugins-profinet.patch
 # Fedora-specific
-Patch4:		wireshark-0004-Restore-Fedora-specific-groups.patch
+Patch4:   wireshark-0004-Restore-Fedora-specific-groups.patch
 # Fedora-specific
-Patch5:		wireshark-0005-Fix-paths-in-a-wireshark.desktop-file.patch
+Patch5:   wireshark-0005-Fix-paths-in-a-wireshark.desktop-file.patch
 # Fedora-specific
-Patch6:		wireshark-0006-Move-tmp-to-var-tmp.patch
-Patch7:		wireshark-0007-cmakelists.patch
-Patch8:		wireshark-0008-glib2-g_strdup-build.patch
-Patch9:		wireshark-0009-fix-asn2wrs-cmake.patch
+Patch6:   wireshark-0006-Move-tmp-to-var-tmp.patch
+Patch7:   wireshark-0007-cmakelists.patch
+Patch8:   wireshark-0008-glib2-g_strdup-build.patch
+Patch9:   wireshark-0009-fix-asn2wrs-cmake.patch
+Patch10:  wireshark-0010-ripemd-fips-core-dump.patch
 
 #install tshark together with wireshark GUI
 Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
@@ -279,6 +280,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jul 28 2023 Michal Ruprich <mruprich@redhat.com> - 1:4.0.7-3
+- Resolves: #2227004 - capinfos aborts in FIPS
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

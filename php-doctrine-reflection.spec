@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-doctrine-reflection
 #
-# Copyright (c) 2018-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2018-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
 %global bootstrap    0
-%global gh_commit    1034e5e71f89978b80f9c1570e7226f6c3b9b6fb
+%global gh_commit    6bcea3e81ab8b3d0abe5fde5300bbc8a968960c7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   reflection
@@ -26,8 +26,8 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.2.3
-Release:        4%{?dist}
+Version:        1.2.4
+Release:        1%{?dist}
 Summary:        Additional reflection functionality
 
 License:        MIT
@@ -49,7 +49,7 @@ BuildRequires:  php-tokenizer
 #        "phpstan/phpstan": "^1.4.10",
 #        "phpstan/phpstan-phpunit": "^1",
 #        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5"
-BuildRequires: (php-composer(doctrine/annotations) >= 1.0   with php-composer(doctrine/annotations) < 2)
+BuildRequires: (php-composer(doctrine/annotations) >= 1.0   with php-composer(doctrine/annotations) < 3)
 BuildRequires: (php-composer(doctrine/common)      >= 3.3   with php-composer(doctrine/common)      < 4)
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  phpunit9 >= 9.5
@@ -57,9 +57,9 @@ BuildRequires:  phpunit9 >= 9.5
 
 # From composer.json
 #        "php": "^7.1 || ^8.0"
-#        "doctrine/annotations": "^1.0"
+#        "doctrine/annotations": "^1.0 || ^2.0"
 Requires:       php(language) >= 7.1
-Requires:      (php-composer(doctrine/annotations) >= 1.0   with php-composer(doctrine/annotations) < 2)
+Requires:      (php-composer(doctrine/annotations) >= 1.0   with php-composer(doctrine/annotations) < 3)
 # From phpcompatinfo report for version 1.0.0
 Requires:       php-reflection
 Requires:       php-pcre
@@ -96,7 +96,10 @@ cat << 'EOF' | tee -a lib/%{ns_vendor}/%{ns_project}/%{ns_subproj}/autoload.php
 
 // Dependencies
 \Fedora\Autoloader\Dependencies::required([
-    '%{_datadir}/php/%{ns_vendor}/%{ns_project}/Annotations/autoload.php',
+    [
+        '%{_datadir}/php/%{ns_vendor}/%{ns_project}/Annotations2/autoload.php',
+        '%{_datadir}/php/%{ns_vendor}/%{ns_project}/Annotations/autoload.php',
+    ],
 ]);
 EOF
 
@@ -125,7 +128,7 @@ find tests -type f -exec grep -q PHPStan {} \; -delete -print
 
 : Run test suite
 ret=0
-for cmdarg in "php %{phpunit}" "php72 %{_bindir}/phpunit8" php73 php74 php80; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -148,6 +151,10 @@ exit $ret
 
 
 %changelog
+* Fri Jul 28 2023 Remi Collet <remi@remirepo.net> - 1.2.4-1
+- update to 1.2.4 (no change)
+- allow doctrine/annotations v2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

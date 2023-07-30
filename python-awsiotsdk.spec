@@ -1,15 +1,16 @@
 %bcond_without  tests
 
+%global         reponame    aws-iot-device-sdk-python-v2
 %global         srcname     awsiotsdk
 
 Name:           python-%{srcname}
-Version:        1.16.0
+Version:        1.17.0
 Release:        %autorelease
 Summary:        AWS IoT SDK based on the AWS Common Runtime
 
 License:        Apache-2.0
 URL:            https://github.com/aws/aws-iot-device-sdk-python-v2
-Source0:         %{pypi_source %{srcname}}
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Add a license file.
 # https://github.com/major/aws-iot-device-sdk-python-v2/pull/2
@@ -38,12 +39,13 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n %{reponame}-%{version}
 
 # Add license file.
 cp %SOURCE1 .
 
-sed 's/awscrt==0.16.23/awscrt>=0.16.21/' -i setup.py
+# Allow an older awscrt.
+sed 's/awscrt==0.17.0/awscrt/' -i setup.py
 
 
 %generate_buildrequires

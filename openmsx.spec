@@ -1,19 +1,13 @@
 %define pkgverdir %(echo %version|sed s/\\\\\./_/)
 
 Name:           openmsx
-Version:        18.0
-Release:        4%{?dist}
+Version:        19.0
+Release:        1%{?dist}
 Summary:        An emulator for the MSX home computer system
 License:        GPLv2
 URL:            https://openmsx.org/
 Source0:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-catapult-%{version}.tar.gz
-# Fix compiling with GCC 13
-# https://github.com/openMSX/openMSX/issues/1487
-Patch0:         %{name}-18.0-gcc13.patch
-# Fix XRC warnings in wxWidgets 3.2.0. Whilst keeping things working with 3.0.
-# https://github.com/openMSX/wxcatapult/pull/44
-Patch10:        %{name}-18.0-wx32.patch
 BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  docbook-utils
@@ -231,6 +225,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jul 27 2023 Andrea Musuruane <musuruan@gmail.com> - 19.0-1
+- New upstream version 19.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

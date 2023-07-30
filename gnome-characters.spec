@@ -8,7 +8,7 @@
 
 Name:		gnome-characters
 Version:	45~alpha
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Character map application for GNOME
 # Files from gtk-js-app are licensed under 3-clause BSD.
 # Other files are GPL 2.0 or later.
@@ -16,6 +16,8 @@ License:	BSD-3-Clause AND GPL-2.0-or-later
 URL:		https://wiki.gnome.org/Design/Apps/CharacterMap
 Source0:	https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
+# fix crash in gjs
+Patch0:         https://gitlab.gnome.org/GNOME/gnome-characters/-/commit/9ed597b027d32574bb3ebe45091f4123560ad42a.patch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	gobject-introspection-devel
@@ -70,6 +72,9 @@ desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/%{appname}.deskto
 
 
 %changelog
+* Fri Jul 28 2023 Kevin Fenzi <kevin@scrye.com> - 45~alpha-3
+- Add patch to fix gjs crash
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

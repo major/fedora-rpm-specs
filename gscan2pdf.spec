@@ -4,7 +4,7 @@
 
 Name:           gscan2pdf
 Version:        2.13.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -29,6 +29,9 @@ Patch2:         gscan2pdf-2.13.2-Fix-test-failure-in-t-131_save_tiff.t-due-to-ch
 # Ignore options of scanners which report a range minimum greater than a range
 # maximum, in upstream after 2.13.2
 Patch3:         gscan2pdf-2.13.2-Skip-options-where-min-max.patch
+# Adapt to deprecated smart match in Perl 5.38.0, proposed to the upstream,
+# <https://sourceforge.net/p/gscan2pdf/bugs/421/>
+Patch4:         gscan2pdf-2.13.2-Remove-given-and-when-keywords-and-operator.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
@@ -62,7 +65,6 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(English)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Fcntl)
-BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Path)
@@ -330,6 +332,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 28 2023 Petr Pisar <ppisar@redhat.com> - 2.13.2-5
+- Adapt to deprecated smart match in Perl 5.38.0 (upstream bug #421)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -13,6 +13,13 @@ Summary:        Implementation of #[derive(Serialize, Deserialize)]
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/serde_derive
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * ensure dependencies are available on all architectures
+Patch:          serde_derive-fix-metadata.diff
+
+# * do not rely on precompiled binaries on x86_64:
+#   https://github.com/serde-rs/serde/issues/2538
+Patch:          0001-Drop-usage-of-precompiled-binary-that-s-not-usable-f.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -63,7 +70,7 @@ use the "deserialize_in_place" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
-# remove pre-built binaries that are only used by an experimental feature
+# remove pre-built upstream binaries for x86_64 that MUST NOT be redistributed
 rm -v serde_derive-x86_64-unknown-linux-gnu
 
 %generate_buildrequires

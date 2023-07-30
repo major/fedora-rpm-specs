@@ -1,8 +1,8 @@
 #global prerelease -rc1
 
 Name:           libplacebo
-Version:        5.264.1
-Release:        2%{?dist}
+Version:        6.292.0
+Release:        1%{?dist}
 Summary:        Reusable library for GPU-accelerated video/image rendering primitives
 
 License:        LGPLv2+
@@ -69,7 +69,7 @@ developing applications that use %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libplacebo.so.264
+%{_libdir}/libplacebo.so.292
 
 %files devel
 %{_includedir}/*
@@ -78,6 +78,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 21 2023 Nicolas Chauvet <kwizart@gmail.com> - 6.292.0-1
+- Update to 6.292.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.264.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 256
+%global baseversion 257
 
 %undefine _auto_set_build_flags
 
@@ -48,7 +48,11 @@ BuildRequires:  pugixml-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinxcontrib-rsvgconverter
+%if 0%{?fedora} >= 38
+BuildRequires:  qt6-qtbase-devel
+%else
 BuildRequires:  qt5-qtbase-devel
+%endif
 BuildRequires:  rapidjson-devel
 BuildRequires:  SDL2_ttf-devel
 BuildRequires:  sqlite-devel
@@ -220,10 +224,11 @@ RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@ -Wp,-D_GLIBCXX_ASSERTIONS@@")
     NOWERROR=1 \
     OPTIMIZE=2 \
     PYTHON_EXECUTABLE=python3 \
-    VERBOSE=1 \
-%if 0%{?fedora} >= 37
-    USE_SYSTEM_LIB_ASIO=1 \
+%if 0%{?fedora} >= 38
+    QT_HOME=%{_libdir}/qt6 \
 %endif
+    VERBOSE=1 \
+    USE_SYSTEM_LIB_ASIO=1 \
     USE_SYSTEM_LIB_EXPAT=1 \
     USE_SYSTEM_LIB_FLAC=1 \
     USE_SYSTEM_LIB_GLM=1 \

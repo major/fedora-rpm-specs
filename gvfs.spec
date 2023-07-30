@@ -22,7 +22,7 @@
 
 Name:    gvfs
 Version: 1.51.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: GPLv3 and LGPLv2+ and BSD and MPLv2.0
@@ -431,6 +431,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Jul 28 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.51.1-4
+- Rebuilt for libimobiledevice and libplist soname bump
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.43.10
+%global real_version 1.43.90
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -183,7 +183,7 @@ Name: NetworkManager
 Summary: Network connection manager and user applications
 Epoch: %{epoch_version}
 Version: %{rpm_version}
-Release: %{release_version}%{?snap}%{?dist}.1
+Release: %{release_version}%{?snap}%{?dist}
 Group: System Environment/Base
 License: GPLv2+ and LGPLv2+
 URL: https://networkmanager.dev/
@@ -1246,6 +1246,9 @@ fi
 
 
 %changelog
+* Fri Jul 28 2023 Beniamino Galvani <bgalvani@redhat.com> - 1:1.43.90-1
+- Update to 1.44-rc1 (1.43.90) (release candidate)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.43.10-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 Summary: Library to access the contents of an iPod
 Name: libgpod
 Version: 0.8.3
-Release: 46%{?dist}
+Release: 47%{?dist}
 License: LGPL-2.1-or-later
 URL: http://www.gtkpod.org/libgpod.html
 Source0: http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -25,6 +25,7 @@ Patch2:  libgpod-0.8.3-mono4.patch
 Patch3:  libgpod-playcounts.patch
 Patch4:  libgpod-udev.patch
 Patch5:  0001-configure.ac-Add-support-for-libplist-2.2.patch
+Patch6:  libgpod-0.8.3-no-plist_dict_insert_item.patch
 Patch99: libgpod-0.8.3-implicit-int.patch
 
 BuildRequires: automake libtool
@@ -109,14 +110,7 @@ libgpod-sharp.
 
 
 %prep
-%setup -q
-%patch0 -p1 -b .pkgconfig_overlinking
-%patch1 -p1 -b .swig
-%patch2 -p1 -b .mono4
-%patch3 -p1 -b .playcounts
-%patch4 -p0 -b .udev
-%patch5 -p1 -b .libplist-2.2
-%patch99 -p1 -b .c99
+%autosetup -p1
 
 %if %{with_gtk3}
 sed -i "s#sharp-2.0#sharp-3.0#g" bindings/mono/libgpod-sharp/libgpod-sharp.pc.in
@@ -192,6 +186,10 @@ find %{buildroot} -type f -name "*.a" -delete
 %endif
 
 %changelog
+* Fri Jul 28 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.8.3-47
+- Rebuilt for libimobiledevice and libplist soname bump
+- Use autosetup rather than applying patches manually
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global crate hexyl
 
 Name:           rust-hexyl
-Version:        0.13.0
+Version:        0.13.1
 Release:        %autorelease
 Summary:        Command-line hex viewer
 
@@ -13,7 +13,6 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/hexyl
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump supports-color from 1 to 2
 # * exclude binary test data from packaged files
 Patch:          hexyl-fix-metadata.diff
 

@@ -1,19 +1,23 @@
 %global gem_name excon
 
+# Test suite fails with fresh certificates. Upstream hit this issue as well:
+# https://github.com/excon/excon/pull/823/commits/06659d6408faa4f7c17b90f1b3e204fc00448311
+%bcond_with certificate_refresh
+
 Name: rubygem-%{gem_name}
-Version: 0.97.0
-Release: 3%{?dist}
+Version: 0.100.0
+Release: 1%{?dist}
 Summary: Speed, persistence, http(s)
 License: MIT
 URL: https://github.com/excon/excon
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/excon/excon.git --no-checkout
-# cd excon && git archive -v -o excon-0.97.0-tests.txz v0.97.0 tests/ spec/
+# cd excon && git archive -v -o excon-0.100.0-tests.txz v0.100.0 tests/ spec/
 Source1: %{gem_name}-%{version}-tests.txz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-BuildRequires: %{_bindir}/openssl
+%{?with_certificate_refresh:BuildRequires: %{_bindir}/openssl}
 BuildRequires: %{_bindir}/rackup
 BuildRequires: %{_bindir}/shindont
 BuildRequires: rubygem(activesupport)
@@ -81,10 +85,12 @@ sed -i "/'bundler\/setup'/ s/^/#/" tests/test_helper.rb
 # This would require sinatra-contrib.
 sed -i '/redirecting_with_cookie.ru/,/^  end/ s/^/#/' tests/middlewares/capture_cookies_tests.rb
 
+%if %{with certificate_refresh}
 # Keep the test certificates fresh.
 # https://github.com/excon/excon/blob/fe8ec7b53905c4eb1ffd88c1b507b9ecb5e21226/Rakefile#L53-L54
 openssl req -subj '/CN=excon/O=excon' -new -newkey rsa:2048 -sha256 -days 3650 -nodes -x509 -keyout tests/data/excon.cert.key -out tests/data/excon.cert.crt
 openssl req -subj '/CN=127.0.0.1/O=excon' -new -newkey rsa:2048 -sha256 -days 3650 -nodes -x509 -keyout tests/data/127.0.0.1.cert.key -out tests/data/127.0.0.1.cert.crt
+%endif
 
 shindont
 popd
@@ -103,6 +109,10 @@ popd
 %{gem_instdir}/excon.gemspec
 
 %changelog
+* Fri Jul 28 2023 Vít Ondruch <vondruch@redhat.com> - 0.100.0-1
+- Update to Excon 0.100.0.
+  Resolves: rhbz#2160171
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.97.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

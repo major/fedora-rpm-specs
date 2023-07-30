@@ -54,6 +54,7 @@ sed -i "s#/lib/systemd/system#/usr/lib/systemd/system#" systemd/CMakeLists.txt
 
 %build
 %cmake -DLIBDIR=%{_libexecdir}/%{name} -DSDINSTALL=on -DACNG_CACHE_DIR=%{_var}/cache/%{name} -DACNG_LOG_DIR=%{_var}/log/%{name}
+sed -i 's/HAVE_STRLCPY/HAVE_STRLCPY 1/' */acsyscap.h
 %cmake_build
 
 %install
@@ -129,6 +130,9 @@ chown -R %{name}:%{name} /run/%{name}/
 %{_mandir}/man8/*
 
 %changelog
+* Fri Jul 28 2023 Alexandre Detiste <alexandre.detiste@gmail.com> - 3.7.4-6
+- Fix failure to build to a change in CMake (rhbz 2225704)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

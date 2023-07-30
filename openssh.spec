@@ -47,14 +47,14 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.3p1
-%global openssh_rel 5
+%global openssh_rel 6
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 9
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.1
+Release: %{openssh_rel}%{?dist}
 URL: http://www.openssh.com/portable.html
 #URL1: https://github.com/jbeverly/pam_ssh_agent_auth/
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
@@ -304,7 +304,7 @@ Requires: openssh = %{version}-%{release}
 %package -n pam_ssh_agent_auth
 Summary: PAM module for authentication with ssh-agent
 Version: %{pam_ssh_agent_ver}
-Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}.1
+Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}
 License: BSD
 
 %description
@@ -739,6 +739,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Wed Jul 26 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-6
+- Update gssapi-keyex patch for OpenSSH 9.0+
+
 * Fri Jul 21 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-5
 - Fix remote code execution in ssh-agent PKCS#11 support
   Resolves: CVE-2023-38408

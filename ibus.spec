@@ -1,3 +1,5 @@
+%global source_version %%(echo "%version" | tr '~' '-')
+
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
 %if (0%{?fedora} > 29 || 0%{?rhel} > 7)
 %global with_python2 0
@@ -49,16 +51,15 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.28
-Release:        14%{?dist}
+Version:        1.5.29~beta1
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
-Source0:        https://github.com/ibus/%name/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.gz
 Source1:        %{name}-xinput
 Source2:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 %if 0%{?fedora:0}%{?rhel:1}
@@ -96,6 +97,7 @@ BuildRequires:  intltool
 BuildRequires:  git
 BuildRequires:  vala
 BuildRequires:  iso-codes-devel
+BuildRequires:  libdbusmenu-gtk3-devel
 BuildRequires:  libnotify-devel
 BuildRequires:  wayland-devel
 BuildRequires:  cldr-emoji-annotation
@@ -291,12 +293,10 @@ the functionality of the installed %{name} package.
 
 
 %prep
-%autosetup -S git
+%autosetup -S git -n %{name}-%{source_version}
 # cp client/gtk2/ibusimcontext.c client/gtk3/ibusimcontext.c || :
 # cp client/gtk2/ibusim.c client/gtk3/ibusim.c || :
 # cp client/gtk2/ibusimcontext.c client/gtk4/ibusimcontext.c || :
-cp client/gtk2/ibusimcontext.c client/gtk3/ibusimcontext.c || :
-cp client/gtk2/ibusimcontext.c client/gtk4/ibusimcontext.c || :
 
 
 # prep test
@@ -345,7 +345,6 @@ autoreconf -f -i -v
     --enable-install-tests \
     %{nil}
 
-make -C ui/gtk3 maintainer-clean-generic
 %make_build
 
 %install
@@ -442,6 +441,7 @@ dconf update || :
 %{_bindir}/ibus-daemon
 %{_datadir}/applications/org.freedesktop.IBus.Panel.Emojier.desktop
 %{_datadir}/applications/org.freedesktop.IBus.Panel.Extension.Gtk3.desktop
+%{_datadir}/applications/org.freedesktop.IBus.Panel.Wayland.Gtk3.desktop
 %{_datadir}/bash-completion/completions/ibus.bash
 %{_datadir}/dbus-1/services/*.service
 %{_datadir}/GConf/gsettings/*
@@ -557,6 +557,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Jul 28 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta1-1
+- Implement Plasma Wayland
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.28-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

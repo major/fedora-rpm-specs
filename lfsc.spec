@@ -1,12 +1,12 @@
 # NOTE: upstream does not make releases and has no version numbering scheme.
 # We check the code out of git and use the date of the last commit as the
 # version number.
-%global gittag   15f53d6feb84e4ddb41deaf2b5630f5c1303b06d
+%global gittag   bbc1798864dbc328092356d4c01f02ddc39ea6bd
 %global shorttag %(cut -b -7 <<< %{gittag})
 
 Name:           lfsc
-Version:        0.20210305
-Release:        6%{?dist}
+Version:        0.20230523
+Release:        1%{?dist}
 Summary:        SMT proof checker
 
 License:        BSD-3-Clause
@@ -33,7 +33,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
 BuildRequires:  help2man
 BuildRequires:  make
-BuildRequires:  python3
+BuildRequires:  python3-devel
 
 %description
 This package contains an SMT proof checker.
@@ -65,7 +65,7 @@ if [ "%{_lib}" = "lib64" ]; then
 fi
 
 # Fix the test script
-sed -i 's,%{_bindir}/env python,%{python3},' tests/run_test.py
+%py3_shebang_fix tests/run_test.py
 
 %build
 %cmake
@@ -108,6 +108,9 @@ cd -
 %{_libdir}/liblfscc.so
 
 %changelog
+* Fri Jul 28 2023 Jerry James <loganjerry@gmail.com> - 0.20230523-1
+- Update to 20230523 git snapshot
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210305-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

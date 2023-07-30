@@ -6,9 +6,9 @@
 Name:           python-%{srcname}
 Summary:        CSS Cascading Style Sheets library for Python
 Version:        2.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/jaraco/cssutils
 Source0:        %pypi_source
 
@@ -32,17 +32,6 @@ Summary:        Documentation for %{name}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm+toml
-%if %{with tests}
-BuildRequires:  python3-mock
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-flake8
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-lxml
-BuildRequires:  python3-cssselect
-%endif
 
 %description -n python3-%{srcname} %{_description}
 A Python package to parse and build CSS Cascading Style Sheets. DOM only, not\
@@ -54,7 +43,6 @@ any rendering facilities.
 rm -f cssutils/tests/test_property.py cssutils/tests/test_selector.py
 
 %generate_buildrequires
-
 %pyproject_buildrequires -t
 
 %build
@@ -80,6 +68,10 @@ rm -f cssutils/tests/test_property.py cssutils/tests/test_selector.py
 %doc examples/
 
 %changelog
+* Fri Jul 28 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.6.0-4
+- Drop manual BRs and deprecated use of %%python_provide
+- Use SPDX license identifier
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
-%global date    20221019
-%global commit  cbd29151d263c901ff2d7b7d6dd64af8f1ee9e23
+%global date    20230709
+%global commit  16f1d7252925365ccbbc650322d9c5d27f544bd0
 %global forgeurl https://github.com/marijnheule/drat-trim
 
 Name:           drat-trim
@@ -8,18 +8,21 @@ Summary:        Proof checker for DIMACS proofs
 
 %forgemeta
 
-Release:        0.20%{?dist}
+Release:        0.21%{?dist}
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 # Drat2er wants to use drat-trim as a library, but drat-trim only provides a
 # binary.  Modify the sources to provide a library.
 Patch0:         %{name}-library.patch
-# Drat2er and CVC4 do not want to see commentary.  Apply a patch from the
+# Drat2er and CVC5 do not want to see commentary.  Apply a patch from the
 # drat2er developers to optionally make it shut up.
 Patch1:         %{name}-silent.patch
 # Eliminate maybe-uninitialized warnings
 Patch2:         %{name}-uninit.patch
+# Work around an integer overflow that leads to a segfault
+# https://github.com/marijnheule/drat-trim/pull/36
+Patch3:         %{name}-overflow.patch
 
 BuildRequires:  gcc
 BuildRequires:  help2man
@@ -48,8 +51,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains a command line interface to %{name}.
 
 %prep
-%forgesetup
-%autopatch -p1
+%forgeautosetup -p1
 
 %build
 CFLAGS='%{build_cflags} -DLONGTYPE %{build_ldflags}'
@@ -117,13 +119,16 @@ sh ./run-examples
 %{_mandir}/man1/drat-trim.1*
 
 %changelog
+* Fri Jul 28 2023 Jerry James <loganjerry@gmail.com> - 0-0.21.20230709git16f1d72
+- Update for several minor bug fixes
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 0-0.18
+* Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 0-0.18.20221019gitcbd2915
 - Update for drat-gapless and minor bug fixes
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17

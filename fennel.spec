@@ -1,11 +1,13 @@
 Name:           fennel
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        A Lisp that compiles to Lua
 
 License:        MIT
 URL:            https://fennel-lang.org/
-Source0:        https://git.sr.ht/~technomancy/fennel/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:         https://git.sr.ht/~technomancy/fennel/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# some manpages mentioned 1.3.1-dev instead of 1.3.1; will be fixed in next release
+Patch:          fennel-fix-version-in-manpages.diff
 
 BuildArch:      noarch
 
@@ -46,11 +48,7 @@ installing anything.
 %install
 %make_install \
   LUA_VERSION=%{lua_version} \
-  MAN_DIR=%{_mandir}/man1 \
   PREFIX=%{_prefix}
-MAN1=%{buildroot}%{_mandir}/man1/
-mkdir -p ${MAN1}
-cp -p fennel.1 ${MAN1}/
 
 
 %check
@@ -64,6 +62,9 @@ make test
 %{_bindir}/fennel
 %{lua_pkgdir}/fennel.lua
 %{_mandir}/man1/fennel.1*
+%{_mandir}/man3/fennel-api.3.gz
+%{_mandir}/man5/fennel-reference.5.gz
+%{_mandir}/man7/fennel-tutorial.7.gz
 
 
 %changelog

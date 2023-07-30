@@ -5,12 +5,9 @@ Summary:        Library and utility to talk to iBoot/iBSS via USB
 
 License:        LGPL-2.1-only
 URL:            https://github.com/libimobiledevice/libirecovery
-Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  libimobiledevice-glue-devel
 BuildRequires:  libusb1-devel
@@ -41,13 +38,11 @@ This package contains command line utilities for %{name}.
 %autosetup
 
 %build
-./autogen.sh
 %configure --disable-static --with-udev
 %make_build
 
 %install
 %make_install
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %files
 %license COPYING

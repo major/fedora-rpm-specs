@@ -1,6 +1,6 @@
 Name:           hedgewars
 Version:        1.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Funny turn-based artillery game, featuring fighting Hedgehogs!
 License:        GPL-1.0-or-later
 URL:            http://www.hedgewars.org/
@@ -23,6 +23,10 @@ Patch1:         hedgewars-clang.patch
 Patch2:        hedgewars-1.0.0-install-hwengine.patch
 
 Patch3:        0a8921bf167481045830095c731eb3c67af913e4.patch
+
+# fix pas2c for ghc-9.4
+# https://github.com/hedgewars/hw/pull/75
+Patch4:        https://patch-diff.githubusercontent.com/raw/hedgewars/hw/pull/75.patch
 
 BuildRequires:  cmake gcc-c++ fpc desktop-file-utils
 BuildRequires:  libatomic

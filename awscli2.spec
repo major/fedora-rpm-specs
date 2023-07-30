@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.13.3
+Version:            2.13.4
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -104,6 +104,9 @@ sed -i '/self.driver.start(env=env)/i \ \ \ \ \ \ \ \ env["PYTHONPATH"] = "%{bui
     tests/utils/botocore/__init__.py
 
 export TESTS_REMOVE_REPO_ROOT_FROM_PATH=1 TZ=UTC
+%if 0%{?rhel}
+export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
+%endif
 %pytest --verbose --numprocesses=auto --dist=loadfile tests/unit tests/functional
 
 

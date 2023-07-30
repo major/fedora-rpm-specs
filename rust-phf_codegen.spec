@@ -5,11 +5,10 @@
 %global crate phf_codegen
 
 Name:           rust-phf_codegen
-Version:        0.10.0
+Version:        0.11.2
 Release:        %autorelease
 Summary:        Codegen library for PHF types
 
-# https://github.com/sfackler/rust-phf/pull/118
 License:        MIT
 URL:            https://crates.io/crates/phf_codegen
 Source:         %{crates_source}
@@ -31,7 +30,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-# FIXME: no license files detected
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

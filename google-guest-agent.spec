@@ -5,7 +5,7 @@
 
 # https://github.com/GoogleCloudPlatform/guest-agent
 %global goipath         github.com/GoogleCloudPlatform/guest-agent
-Version:                20230725.00
+Version:                20230726.00
 %global tag             %{version}
 
 %gometa -f
@@ -20,6 +20,10 @@ Summary:        Google Compute Engine guest environment
 License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
+
+# Google cloud only has aarch64 + x86_64.
+ExcludeArch:    ppc64le
+ExcludeArch:    s390x
 
 BuildRequires: systemd-rpm-macros
 

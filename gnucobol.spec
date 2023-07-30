@@ -2,8 +2,8 @@
 %undefine _package_note_file
 
 Name:           gnucobol
-Version:        3.1.2
-Release:        11%{?dist}
+Version:        3.2
+Release:        1%{?dist}
 Summary:        COBOL compiler
 
 License:        GPLv3+ AND LGPL-3.0-or-later AND GFDL-1.3-only
@@ -100,6 +100,9 @@ make test CFLAGS="%optflags -O"
 %{_libdir}/gnucobol/CBL_OC_DUMP.so
 
 %changelog
+* Fri Jul 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.2-1
+- 3.2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

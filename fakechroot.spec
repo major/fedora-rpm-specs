@@ -1,16 +1,15 @@
 Name:           fakechroot
 Version:        2.20.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Gives a fake chroot environment
 License:        LGPLv2+
 URL:            https://github.com/dex4er/fakechroot
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:         https://github.com/dex4er/fakechroot/commit/b42d1fb9538f680af2f31e864c555414ccba842a.patch
 Patch2:         https://github.com/dex4er/fakechroot/pull/80.patch
-Patch3:         https://github.com/dex4er/fakechroot/pull/100.patch
 Patch4:         https://github.com/dex4er/fakechroot/pull/104.patch
-Patch5:         https://github.com/dex4er/fakechroot/pull/93.diff
-#Patch9:         fix_test_on_32bits.patch
+Patch9:         fix_test_on_32bits.patch
+Patch10:        autoupdate.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -42,7 +41,6 @@ This package contains the libraries required by %{name}.
 # For %%doc dependency-clean.
 chmod -x scripts/{relocatesymlinks,restoremode,savemode}.sh
 
-#rm test/t/escape-nested-chroot.t
 
 %build
 autoreconf -vfi
@@ -81,6 +79,12 @@ find %{buildroot}%{_libdir} -name '*.la' -delete -print
 %{_libdir}/%{name}/
 
 %changelog
+* Fri Jul 28 2023 Sérgio Basto <sergio@serjux.com> - 2.20.1-16
+- Update patch 104
+- Use fix_test_on_32bits.patch and also remove -d option on cp test to fix the build
+- Drop 93.diff and 100.patch, to sync with https://github.com/dex4er/fakechroot/pull/104
+- Add autoupdate.patch
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

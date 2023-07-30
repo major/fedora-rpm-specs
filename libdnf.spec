@@ -5,7 +5,7 @@
 %global swig_version 3.0.12
 %global libdnf_major_version 0
 %global libdnf_minor_version 70
-%global libdnf_micro_version 1
+%global libdnf_micro_version 2
 
 %define __cmake_in_source_build 1
 
@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -304,6 +304,12 @@ popd
 %endif
 
 %changelog
+* Fri Jul 28 2023 Nicola Sella <nsella@redhat.com> - 0.70.2-1
+- Update to 0.70.2
+- Support "proxy=none" in main config (RhBug:2155713)
+- Fix #1558: Don't assume inclusion of cstdint
+- Disconnect monitors in dnf_repo_loader_finalize() (RhBug:2070153)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.70.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

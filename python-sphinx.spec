@@ -14,6 +14,8 @@
 
 # Build without BuildRequires ImageMagick, to skip imgconverter tests
 %bcond imagemagick_tests %{undefined rhel}
+# Same for filelock -- we don't want it in RHEL just to run a handful of tests here
+%bcond filelock_tests %{undefined rhel}
 
 # During texlive updates, sometimes the latex environment is unstable
 %bcond latex_tests 1
@@ -25,7 +27,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -235,6 +237,11 @@ This package contains documentation in the HTML format.
 rm tests/test_ext_imgconverter.py
 %endif
 
+%if %{without filelock_tests}
+sed -i '/filelock/d' pyproject.toml
+rm tests/test_build_linkcheck.py tests/test_ext_intersphinx.py
+%endif
+
 %if %{defined rhel}
 # unwanted dependency in RHEL, https://bugzilla.redhat.com/show_bug.cgi?id=1945182
 sed -i '/html5lib/d' pyproject.toml
@@ -357,6 +364,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Thu Jul 27 2023 Miro Hrončok <mhroncok@redhat.com> - 1:6.2.1-4
+- Don't use filelock to test this package on RHEL
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

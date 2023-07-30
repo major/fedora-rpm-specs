@@ -2,10 +2,10 @@
 
 Name:          uchardet
 Version:       0.0.8
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       An encoding detector library ported from Mozilla
 
-License:       MPL-1.1 or GPL-2.0-or-later or LGPL-2.0-or-later
+License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:           https://www.freedesktop.org/wiki/Software/%{name}
 Source0:       https://www.freedesktop.org/software/%{name}/releases/%{name}-%{version}.tar.xz
 
@@ -66,6 +66,9 @@ popd
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jul 28 2023 Akira TAGOH <tagoh@redhat.com> - 0.0.8-4
+- Correct License tag for SPDX migration.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

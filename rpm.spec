@@ -16,7 +16,11 @@
 # build with libimaevm.so
 %bcond_without libimaevm
 # build with fsverity support?
+%if 0%{?rhel}
+%bcond_with fsverity
+%else
 %bcond_without fsverity
+%endif
 # build with zstd support?
 %bcond_without zstd
 # build with ndb backend?
@@ -32,7 +36,7 @@
 
 %global rpmver 4.18.91
 #global snapver rc1
-%global baserelease 8
+%global baserelease 9
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -329,12 +333,14 @@ Requires: rpm-libs%{_isa} = %{version}-%{release}
 %description plugin-audit
 %{summary}.
 
+%if %{with fsverity}
 %package plugin-fsverity
 Summary: Rpm plugin for fsverity file signatures
 Requires: rpm-libs%{_isa} = %{version}-%{release}
 
 %description plugin-fsverity
 %{summary}.
+%endif
 
 %package plugin-fapolicyd
 Summary: Rpm plugin for fapolicyd support
@@ -543,8 +549,10 @@ fi
 %{_mandir}/man8/rpm-plugin-ima.8*
 %endif
 
+%if %{with fsverity}
 %files plugin-fsverity
 %{_libdir}/rpm-plugins/fsverity.so
+%endif
 
 %files plugin-fapolicyd
 %{_libdir}/rpm-plugins/fapolicyd.so
@@ -624,6 +632,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Tue Jul 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.18.91-9
+- Drop fsverity plugin from RHEL builds
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.91-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

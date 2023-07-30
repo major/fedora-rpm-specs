@@ -5,19 +5,13 @@
 %global crate mbrman
 
 Name:           rust-mbrman
-Version:        0.5.0
-Release:        4%{?dist}
+Version:        0.5.2
+Release:        %autorelease
 Summary:        MBR Partition Management in Rust
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/mbrman
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump bitvec dependency from 0.22 to 1.0
-Patch:          mbrman-fix-metadata.diff
-# * port to bitvec 1.0:
-#   https://github.com/rust-disk-partition-management/mbrman/commit/8f10408
-Patch:          0001-port-to-bitvec-1.0.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -72,33 +66,4 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Feb 28 2023 Fabio Valentini <decathorpe@gmail.com> - 0.5.0-3
-- Bump bitvec dependency from 0.22 to 1.0.
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Oct 14 2022 Benjamin Gilbert <bgilbert@redhat.com> - 0.5.0-1
-- New release
-- Regenerate with rust2rpm 22
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jan 11 2022 Benjamin Gilbert <bgilbert@redhat.com> - 0.4.2-1
-- New release
-
-* Tue Jan 04 2022 Benjamin Gilbert <bgilbert@redhat.com> - 0.4.1-1
-- New release
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Mar 15 09:42:10 EDT 2021 Sohan Kunkerkar <skunkerk@redhat.com> - 0.4.0-1
-- Initial package
+%autochangelog

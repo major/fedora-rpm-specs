@@ -3,9 +3,10 @@
 # Set to bcond_with or use --without doc to disable doc build
 %bcond_without doc
 # Set to bcond_with or use --without octave to disable octave support
-%if 0%{?el7}%{?el8}
+%if 0%{?el7}%{?el8}%{?el9}
 # EL7 has too old of a swig - https://bugzilla.redhat.com/show_bug.cgi?id=1136487
 # EL8 has too old of a swig - https://bugzilla.redhat.com/show_bug.cgi?id=1753475
+# EL9 has too old of a swig, and we can't make use of the swig:4.1 module
 %bcond_with octave
 %else
 %bcond_without octave
@@ -113,6 +114,10 @@ Obsoletes:      %{name}-octave < %{version}-%{release}
 %endif
 %if %{with java}
 BuildRequires:  java-devel
+# Work around https://bugzilla.redhat.com/show_bug.cgi?id=2225018
+%if 0%{?el9}
+BuildRequires:  tzdata-java
+%endif
 %else
 Obsoletes:      %{name}-java < %{version}-%{release}
 Obsoletes:      %{name}-java-devel < %{version}-%{release}

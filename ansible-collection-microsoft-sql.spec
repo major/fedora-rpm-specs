@@ -21,7 +21,7 @@ BuildRequires: ansible-core >= 2.11.0
 Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
-Version: 2.0.0
+Version: 2.0.1
 Release: 1%{?dist}
 
 License: MIT
@@ -333,6 +333,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Fri Jul 28 2023 Sergei Petrosian <spetrosi@redhat.com> - 2.0.1-1
+- Update role to version 2.0.1 to fix issue in IDM CI
+
 * Thu Jul 27 2023 Sergei Petrosian <spetrosi@redhat.com> - 2.0.0-1
 - Update role to version 2.0.0 to enhance AD integration
 Resolves: RHEL-877

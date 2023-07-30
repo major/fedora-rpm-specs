@@ -12,6 +12,9 @@ Summary:        String interning library for Rust, developed as part of the Serv
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/string_cache
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump phf_shared dependency from 0.10 to 0.11
+Patch:          string_cache-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

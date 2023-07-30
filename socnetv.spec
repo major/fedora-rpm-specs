@@ -2,7 +2,7 @@
 
 Name:		socnetv
 Version:	3.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPLv3
 Summary:	A Social Networks Analyser and Visualiser
 URL:		https://socnetv.org/
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jul 28 2023 TI_Eugene <ti.eugene@gmail.com> 3.1-3
+- Rebuild against fresh Qt6
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

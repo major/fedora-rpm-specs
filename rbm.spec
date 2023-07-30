@@ -3,7 +3,7 @@
 
 Name:       rbm
 Version:    0.4^20230626git%{shortcommit0}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Reproducible Build Manager
 License:    CC0-1.0
 # A bug tracker is at <https://gitlab.torproject.org/tpo/applications/rbm/>.
@@ -57,8 +57,8 @@ Requires:       bzip2
 # coreutils for chown, mktemp, rm, uname
 Requires:       coreutils
 # debuild not yet packaged
-# dnf in default configuration,
-Requires:       dnf5
+# dnf in default configuration
+Requires:       dnf
 Requires:       git-core
 # gnupg for gpg defined in default configuration
 Requires:       gnupg
@@ -148,6 +148,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 28 2023 Petr Pisar <ppisar@redhat.com> - 0.4^20230626git37c204c-3
+- Revert dnf to dnf5 migration (bug #2209405)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4^20230626git37c204c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
