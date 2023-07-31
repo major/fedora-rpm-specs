@@ -7,7 +7,7 @@
 # testsuite missing deps: hspec-meta
 
 Name:           ghc-%{pkg_name}
-Version:        2.9.7
+Version:        2.10.10
 Release:        %autorelease
 Summary:        Automatically discover and run Hspec tests
 
@@ -33,7 +33,7 @@ BuildRequires:  ghc-filepath-prof
 %description
 Automatically discover and run Hspec tests
 
-<http://hspec.github.io/hspec-discover.html>.
+<https://hspec.github.io/hspec-discover.html>.
 
 
 %package devel

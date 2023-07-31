@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.4.12.0
+Version:        0.4.13.1
 Release:        %autorelease
 Summary:        A tiny lens library with no dependencies
 

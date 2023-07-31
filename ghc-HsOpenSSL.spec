@@ -9,7 +9,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.11.7.4
+Version:        0.11.7.6
 Release:        %autorelease
 Summary:        Partial OpenSSL binding for Haskell
 

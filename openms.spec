@@ -373,7 +373,7 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS_GUI.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenSwathAlgo.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
-ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E 'MRMAssay_test|SVMWrapper_test|File_test' && exit 1
+ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E 'MRMAssay_test|SVMWrapper_test|File_test'
 %endif
 
 %files

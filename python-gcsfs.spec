@@ -5,8 +5,8 @@
 %bcond_without doc_pdf
 
 Name:           python-gcsfs
-Version:        2022.11.0
-Release:        4%{?dist}
+Version:        2023.6.0
+Release:        1%{?dist}
 Summary:        Convenient Filesystem interface over GCS
 
 License:        BSD-3-Clause
@@ -14,6 +14,9 @@ URL:            https://github.com/fsspec/gcsfs
 # We must use the GitHub archive rather than the PyPI sdist if we want to have
 # all the necessary files to build the Sphinx docs.
 Source0:        %{url}/archive/%{version}/gcsfs-%{version}.tar.gz
+# update versioneer, backported to latest tag
+# https://github.com/fsspec/gcsfs/pull/568
+Patch0:         0001-feat-update-versioneer.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -47,9 +50,7 @@ Summary:        Documentation for gcsfs
 Documentation for gcsfs.
 
 %prep
-%autosetup -n gcsfs-%{version}
-# We cannot respect version pins:
-sed -r -i 's/<.*//' docs/requirements.txt
+%autosetup -n gcsfs-%{version} -S patch -p1
 # Do not pin the exact corresponding version of fsspec; this makes sense on
 # PyPI since both are developed under the same organization and have
 # coordinated releases, but it’s unlikely we’ll be able to maintain this level
@@ -57,8 +58,17 @@ sed -r -i 's/<.*//' docs/requirements.txt
 # version skew than *guaranteed* breakage from version skew.
 sed -r -i 's/==.*//' requirements.txt
 
+%if %{with doc_pdf}
+# workaround latex's "Too deply nested error"
+sed -i.backup \
+'/latex_elements/ a\
+"maxlistdepth": "99",
+' docs/source/conf.py
+
+%endif
+
 %generate_buildrequires
-%pyproject_buildrequires -x gcsfuse,crc %{?with_doc_pdf:docs/requirements.txt}
+%pyproject_buildrequires -x gcsfuse,crc
 
 %build
 %pyproject_wheel
@@ -89,6 +99,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %license LICENSE.txt
 
 %changelog
+* Fri Jul 21 2023 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 2023.6.0-1
+- Update to latest release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

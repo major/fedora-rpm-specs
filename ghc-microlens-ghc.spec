@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.4.13.2
+Version:        0.4.14.1
 Release:        %autorelease
 Summary:        Microlens + array, bytestring, containers, transformers
 

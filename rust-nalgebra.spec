@@ -123,18 +123,6 @@ use the "convert-bytemuck" feature of the "%{crate}" crate.
 %files       -n %{name}+convert-bytemuck-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+convert-glam020-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+convert-glam020-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "convert-glam020" feature of the "%{crate}" crate.
-
-%files       -n %{name}+convert-glam020-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+convert-mint-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -157,18 +145,6 @@ This package contains library source intended for building other packages which
 use the "debug" feature of the "%{crate}" crate.
 
 %files       -n %{name}+debug-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+glam020-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+glam020-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "glam020" feature of the "%{crate}" crate.
-
-%files       -n %{name}+glam020-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+io-devel

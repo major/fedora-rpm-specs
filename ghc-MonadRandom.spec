@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.5.3
+Version:        0.6
 Release:        %autorelease
 Summary:        Random-number generation monad
 

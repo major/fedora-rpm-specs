@@ -4,8 +4,8 @@
 %global pythonrelease %{nativever}.%{baserelease}
 
 Name:           GeographicLib
-Version:        %{nativever}
-Release:        %{baserelease}%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 Summary:        Library for geographic coordinate transformations
 
 License:        MIT
@@ -65,8 +65,8 @@ the %{name} library.
 
 %package -n python3-%{name}
 Summary:        Python 3 implementation of %{name}
-Version:        %{pythonver}
-Release:        %{pythonrelease}%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 BuildArch:      noarch
 
 %description -n python3-%{name}
@@ -83,8 +83,8 @@ MinGW Windows %{name} library.
 
 %package -n mingw32-python3-%{name}
 Summary:        MinGW Windows %{name} python 3 bindings
-Version:        %{pythonver}
-Release:        %{pythonrelease}%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 BuildArch:      noarch
 
 %description -n mingw32-python3-%{name}
@@ -101,8 +101,8 @@ MinGW Windows %{name} library.
 
 %package -n mingw64-python3-%{name}
 Summary:        MinGW Windows %{name} python 3 bindings
-Version:        %{pythonver}
-Release:        %{pythonrelease}%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 BuildArch:      noarch
 
 %description -n mingw64-python3-%{name}
@@ -244,6 +244,9 @@ popd
 
 
 %changelog
+* Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 2.3-1
+- Update to 2.3
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

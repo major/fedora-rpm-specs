@@ -2,34 +2,30 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate libz-sys
+%global crate input
 
-Name:           rust-libz-sys
-Version:        1.1.12
+Name:           rust-input
+Version:        0.8.3
 Release:        %autorelease
-Summary:        Low-level bindings to the system libz library (also known as zlib)
+Summary:        Libinput bindings for rust
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/libz-sys
+License:        MIT
+URL:            https://crates.io/crates/input
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop features for zlib-ng, static linking, and unavailalbe asm optimizations
-Patch:          libz-sys-fix-metadata.diff
-# * remove code related to building vendored zlib / zlib-ng sources
-# * unconditionally use pkg-config to link with system libz
-Patch:          0001-unconditionally-use-pkg-config-to-link-with-system-z.patch
+# * default to gen feature
+Patch:          input-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Low-level bindings to the system libz library (also known as zlib).}
+Libinput bindings for rust.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(zlib)
 
 %description    devel %{_description}
 
@@ -37,8 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -54,40 +50,48 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libc-devel
+%package     -n %{name}+gen-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libc-devel %{_description}
+%description -n %{name}+gen-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libc" feature of the "%{crate}" crate.
+use the "gen" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libc-devel
+%files       -n %{name}+gen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+stock-zlib-devel
+%package     -n %{name}+log-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+stock-zlib-devel %{_description}
+%description -n %{name}+log-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "stock-zlib" feature of the "%{crate}" crate.
+use the "log" feature of the "%{crate}" crate.
 
-%files       -n %{name}+stock-zlib-devel
+%files       -n %{name}+log-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+udev-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+udev-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "udev" feature of the "%{crate}" crate.
+
+%files       -n %{name}+udev-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-# remove bundled zlib and zlib-ng sources
-rm -r src/zlib/
-rm -r src/zlib-ng/
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
-echo 'pkgconfig(zlib)'
 
 %build
 %cargo_build

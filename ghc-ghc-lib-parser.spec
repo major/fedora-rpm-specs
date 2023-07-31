@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        9.2.5.20221107
+Version:        9.4.5.20230430
 Release:        %autorelease
 Summary:        The GHC API, decoupled from GHC versions
 

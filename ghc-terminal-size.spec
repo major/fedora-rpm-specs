@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.3.3
+Version:        0.3.4
 Release:        %autorelease
 Summary:        Get terminal window height and width
 

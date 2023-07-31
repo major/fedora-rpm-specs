@@ -6,17 +6,15 @@
 %global crate matchit
 
 Name:           rust-matchit
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Blazing fast URL router
 
-# https://github.com/ibraheemdev/matchit/issues/32
 License:        MIT AND BSD-3-Clause
 URL:            https://crates.io/crates/matchit
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop private __test_helpers feature
-# * update license in crate metadata
 Patch:          matchit-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -37,6 +35,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE.httprouter
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

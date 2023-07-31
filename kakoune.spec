@@ -1,18 +1,13 @@
 %bcond_without tests
 
 Name:           kakoune
-Version:        2022.10.31
-Release:        5%{?dist}
+Version:        2023.07.29
+Release:        1%{?dist}
 Summary:        Code editor heavily inspired by Vim
 
 License:        Unlicense
 URL:            https://kakoune.org/
 Source0:        https://github.com/mawww/kakoune/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# FTBFS 28 fix
-# Fix New gcc errors for missing types
-# https://github.com/mawww/kakoune/pull/4858
-Patch0:         https://github.com/mawww/kakoune/pull/4858.patch#/Fix-New-gcc-errors-for-missing-types.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc-c++ >= 10.3
@@ -89,6 +84,9 @@ popd
 
 
 %changelog
+* Sat Jul 29 2023 Artem Polishchuk <ego.cordatus@gmail.com> - 2023.07.29-1
+- chore: Update to 2023.07.29
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.10.31-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

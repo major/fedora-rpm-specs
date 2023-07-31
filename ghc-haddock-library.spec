@@ -7,7 +7,7 @@
 # testsuite missing deps: tree-diff
 
 Name:           ghc-%{pkg_name}
-Version:        1.10.0
+Version:        1.11.0
 Release:        %autorelease
 Summary:        Library exposing some functionality of Haddock
 
@@ -23,18 +23,14 @@ BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-base-devel
-BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-parsec-devel
 BuildRequires:  ghc-text-devel
-BuildRequires:  ghc-transformers-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-base-prof
-BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-containers-prof
 BuildRequires:  ghc-parsec-prof
 BuildRequires:  ghc-text-prof
-BuildRequires:  ghc-transformers-prof
 %endif
 # End cabal-rpm deps
 

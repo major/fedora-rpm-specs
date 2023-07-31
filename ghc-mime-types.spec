@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.1.0.9
+Version:        0.1.1.0
 Release:        %autorelease
 Summary:        Basic mime-type handling types and functions
 

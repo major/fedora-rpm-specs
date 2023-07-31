@@ -79,7 +79,7 @@ echo 'git-core'
 # install shell completions
 install -Dpm0644 etc/completion/completion.bash \
     -T %{buildroot}/%{bash_completions_dir}/delta.bash
-install -Dpm0644 etc/completion/completion.bash \
+install -Dpm0644 etc/completion/completion.fish \
     -T %{buildroot}/%{fish_completions_dir}/delta.fish
 install -Dpm0644 etc/completion/completion.zsh \
     -T %{buildroot}/%{zsh_completions_dir}/_delta

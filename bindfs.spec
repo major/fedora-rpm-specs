@@ -1,6 +1,6 @@
 Name:           bindfs
-Version:        1.17.2
-Release:        2%{?dist}
+Version:        1.17.4
+Release:        1%{?dist}
 Summary:        Fuse filesystem to mirror a directory
 License:        GPLv2+
 URL:            http://bindfs.org/
@@ -52,6 +52,9 @@ fi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jul 29 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.17.4-1
+- Update to 1.17.4 fixes rhbz#2212038
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

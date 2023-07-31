@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:           alex
-Version:        3.2.7.1
+Version:        3.3.0.0
 Release:        %autorelease
 Summary:        Tool for generating lexical analysers in Haskell
 
@@ -47,18 +47,12 @@ lex or flex for C/C++.
 # Begin cabal-rpm build:
 %ghc_bin_build
 # End cabal-rpm build
-cd doc
-autoreconf
-./configure --prefix=%{_prefix} --libdir=%{_libdir}
-make html
-cd ..
 
 
 %install
 # Begin cabal-rpm install
 %ghc_bin_install
 # End cabal-rpm install
-install -D -m 0644 doc/alex.1 %{buildroot}%{_mandir}/man1/alex.1
 
 
 %check
@@ -70,12 +64,10 @@ install -D -m 0644 doc/alex.1 %{buildroot}%{_mandir}/man1/alex.1
 %files
 # Begin cabal-rpm files:
 %license LICENSE
-%doc CHANGELOG.md README.md TODO examples
+%doc CHANGELOG.md README.md examples
 %{_bindir}/%{name}
 %{_datadir}/%{name}-%{version}
 # End cabal-rpm files
-%doc doc/alex
-%{_mandir}/man1/alex.1*
 
 
 %changelog

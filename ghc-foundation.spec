@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.0.29
+Version:        0.0.30
 Release:        %autorelease
 Summary:        Alternative prelude with batteries and no dependencies
 

@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.0.1
+Version:        0.2.1.0
 Release:        %autorelease
 Summary:        The MonadUnliftIO typeclass for unlifting monads to IO
 

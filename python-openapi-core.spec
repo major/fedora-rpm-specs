@@ -1,6 +1,4 @@
-# F39FailsToInstall: python3-falcon
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220217
-%bcond falcon 0
+%bcond falcon 1
 
 %global srcname openapi-core
 %global modname openapi_core
@@ -27,10 +25,6 @@ BuildRequires:  python3dist(responses)
 BuildRequires:  python3dist(starlette)
 BuildRequires:  python3dist(strict-rfc3339)
 BuildRequires:  python3dist(webob)
-
-%if %{without falcon}
-Obsoletes:      python3-%{srcname}+falcon < 0.17.1-4
-%endif
 
 %global _description %{expand:
 Openapi-core is a Python library that adds client-side and server-side

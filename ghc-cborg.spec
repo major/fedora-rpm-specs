@@ -10,7 +10,7 @@
 %endif
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.8.0
+Version:        0.2.9.0
 Release:        %autorelease
 Summary:        Concise Binary Object Representation (CBOR)
 
@@ -20,13 +20,9 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 ExcludeArch:    %{ix86}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
-Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
-Patch0:         https://patch-diff.githubusercontent.com/raw/well-typed/cborg/pull/307.patch
-Patch1:         cborg-0.2.8.0-Magic-IntWord64.patch
 
 # Begin cabal-rpm deps:
-BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-array-devel
@@ -119,10 +115,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
-dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
-%patch -P0 -p2 -b .orig
-%patch -P1 -p1 -b .orig
 
 
 %build

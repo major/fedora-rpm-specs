@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.3.2
+Version:        0.4.0.0
 Release:        %autorelease
 Summary:        A high-performance striped resource pooling implementation
 
@@ -20,21 +20,13 @@ BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-hashable-devel
-BuildRequires:  ghc-monad-control-devel
-BuildRequires:  ghc-stm-devel
+BuildRequires:  ghc-primitive-devel
 BuildRequires:  ghc-time-devel
-BuildRequires:  ghc-transformers-devel
-BuildRequires:  ghc-transformers-base-devel
-BuildRequires:  ghc-vector-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-base-prof
 BuildRequires:  ghc-hashable-prof
-BuildRequires:  ghc-monad-control-prof
-BuildRequires:  ghc-stm-prof
+BuildRequires:  ghc-primitive-prof
 BuildRequires:  ghc-time-prof
-BuildRequires:  ghc-transformers-prof
-BuildRequires:  ghc-transformers-base-prof
-BuildRequires:  ghc-vector-prof
 %endif
 # End cabal-rpm deps
 
@@ -103,7 +95,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %files devel -f %{name}-devel.files
-%doc README.markdown
+%doc CHANGELOG.md README.md
 
 
 %if %{with haddock}

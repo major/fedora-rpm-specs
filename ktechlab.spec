@@ -7,32 +7,26 @@ License:          GPLv2
 URL:              https://invent.kde.org/sdk/ktechlab
 Source:           https://download.kde.org/unstable/ktechlab/%{name}-%{version}.tar.xz
 
-BuildRequires:  autoconf
-BuildRequires:  automoc
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
+BuildRequires:  glib2-devel
 BuildRequires:  gpsim-devel
 BuildRequires:  kf5-kconfig-devel
 BuildRequires:  kf5-kcoreaddons-devel
 BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-khtml-devel
-BuildRequires:  kf5-ki18n-devel
 BuildRequires:  kf5-kiconthemes-devel
+BuildRequires:  kf5-ki18n-devel
+BuildRequires:  kf5-khtml-devel
 BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kjs-devel
 BuildRequires:  kf5-kparts-devel
 BuildRequires:  kf5-ktexteditor-devel
 BuildRequires:  kf5-ktextwidgets-devel
+BuildRequires:  kf5-solid-devel
 BuildRequires:  kf5-kwidgetsaddons-devel
 BuildRequires:  kf5-kwindowsystem-devel
 BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-solid-devel
-BuildRequires:  glib2-devel
-BuildRequires:  make
-BuildRequires:  phonon-devel
-BuildRequires:  readline-devel
 
 # Ktechlab requires gputils for PIC simulation.
 Requires:       electronics-menu

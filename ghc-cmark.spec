@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.6
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Fast, accurate CommonMark (Markdown) parser and renderer
 
@@ -37,7 +37,7 @@ Provides:       bundled(cmark) = 0.28.0
 %description
 This package provides Haskell bindings for <https://github.com/jgm/cmark
 libcmark>, the reference parser for <http://commonmark.org CommonMark>, a fully
-specified variant of Markdown. It includes sources for libcmark (0.29.0) and
+specified variant of Markdown. It includes sources for libcmark (0.30.3) and
 does not require prior installation of the C library.
 
 

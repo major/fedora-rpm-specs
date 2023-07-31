@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.0.15
+Version:        0.0.16
 Release:        %autorelease
 Summary:        Foundation scrap box of array & string
 
@@ -15,7 +15,7 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
 # https://github.com/haskell-foundation/foundation/issues/565
-Patch0:         basement-32bit-prim.patch
+Patch0:         https://patch-diff.githubusercontent.com/raw/haskell-foundation/foundation/pull/573.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -68,7 +68,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
-%autopatch -p1
+%autopatch -p2
 # End cabal-rpm setup
 
 

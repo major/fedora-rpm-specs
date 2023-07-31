@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.10.21
+Version:        0.10.22
 Release:        %autorelease
 Summary:        Command line argument processing
 

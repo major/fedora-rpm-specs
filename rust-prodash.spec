@@ -136,6 +136,18 @@ use the "futures-lite" feature of the "%{crate}" crate.
 %files       -n %{name}+futures-lite-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+human_format-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+human_format-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "human_format" feature of the "%{crate}" crate.
+
+%files       -n %{name}+human_format-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+humantime-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -302,6 +314,18 @@ This package contains library source intended for building other packages which
 use the "unit-bytes" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unit-bytes-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unit-human-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unit-human-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unit-human" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unit-human-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

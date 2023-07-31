@@ -3,13 +3,13 @@
 
 
 Name:           python-slixmpp
-Version:        1.8.3
-Release:        4%{?dist}
+Version:        1.8.4
+Release:        1%{?dist}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
 
 License:        MIT
-URL:            https://github.com/poezio/%{srcname}
-Source0:        https://lab.louiz.org/poezio/%{srcname}/-/archive/slix-%{version}/%{srcname}-slix-%{version}.tar.bz2
+URL:            https://codeberg.org/poezio/%{srcname}
+Source0:        https://codeberg.org/poezio/%{srcname}/archive/slix-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  python3-devel
@@ -69,7 +69,7 @@ This package contains documentation in reST and HTML formats.
 
 
 %prep
-%autosetup -n %{srcname}-slix-%{version}
+%autosetup -n %{srcname}
 # The spinx theme "furo" is not packaged in Fedora yet. Using theme
 # from "Read The Doc" instead.
 sed -i "s|html_theme = 'furo'|html_theme = 'sphinx_rtd_theme'|" docs/conf.py
@@ -90,9 +90,6 @@ popd # docs
 # Install html docs
 mkdir -p %{buildroot}%{_pkgdocdir}/
 cp -pr docs/_build/html %{buildroot}%{_pkgdocdir}/
-
-# Move sources
-mv -f %{buildroot}%{_pkgdocdir}/html/_sources/ %{buildroot}%{_pkgdocdir}/rst/
 
 # Remove buildinfo sphinx documentation
 rm -rf %{buildroot}%{_pkgdocdir}/html/.buildinfo
@@ -121,6 +118,11 @@ chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/stringprep.cpython-*.so
 
 
 %changelog
+* Sat Jul 29 2023 Matthieu Saulnier <fantom@fedoraproject.org> - 1.8.4-1
+- Update to 1.8.4
+- Update SourceURL
+- Minor fix in the doc subpackage (no need to move rst files in another directory)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        1.3.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -16,10 +16,10 @@ BuildRequires: make
 BuildRequires:  gcc
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-Cython
-BuildRequires:  python3-six
-BuildRequires:  python3-pytest
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(cython) < 3 
+BuildRequires:  python3dist(six)
+BuildRequires:  python3dist(pytest)
 
 BuildRequires:  ant
 BuildRequires:  java-devel
@@ -96,6 +96,9 @@ popd
 
 
 %changelog
+* Sat Jul 29 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.3.0-16
+- avoid Cython 3 
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

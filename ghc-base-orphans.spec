@@ -9,7 +9,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.8.7
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Backwards-compatible orphan instances for base
 

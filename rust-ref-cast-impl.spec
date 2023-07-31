@@ -6,7 +6,7 @@
 %global crate ref-cast-impl
 
 Name:           rust-ref-cast-impl
-Version:        1.0.18
+Version:        1.0.19
 Release:        %autorelease
 Summary:        Derive implementation for ref_cast::RefCast
 

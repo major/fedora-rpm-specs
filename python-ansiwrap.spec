@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Text wrapper with ANSI colors and styles support
 
 License:        ASL 2.0
@@ -10,7 +10,14 @@ URL:            https://github.com/jonathaneunice/ansiwrap
 Source0:        %{pypi_source %{pypi_name} %{version} zip}
 BuildArch:      noarch
 
-Patch:          %{url}/pull/19.patch
+# Fix Python 3.12 compatibility
+# https://github.com/jonathaneunice/ansiwrap/pull/20
+#
+# Builds on and includes:
+#
+# Fix tests on Python 3.11
+# https://github.com/jonathaneunice/ansiwrap/pull/19
+Patch:          %{url}/pull/20.patch
 
 %description
 ansiwrap wraps text, like the standard textwrap module. But it also correctly
@@ -59,6 +66,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v test
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 21 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.8.4-13
+- Patch for Python 3.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

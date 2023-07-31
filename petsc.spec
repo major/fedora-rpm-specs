@@ -441,17 +441,17 @@ Portable Extensible Toolkit for Scientific Computation (developer files).
 %endif
 
 %if %{with python}
-%package -n     python%{python3_version}-%{name}-openmpi
+%package -n     python3-%{name}-openmpi
 Summary:        Python3 bindings for OpenMPI PETSc
-%{?python_provide:%python_provide python%{python3_version}-%{name}-openmpi}
+%{?python_provide:%python_provide python3-%{name}-openmpi}
 
-BuildRequires:  python%{python3_version}-devel
-BuildRequires:  python%{python3_version}-setuptools
-BuildRequires:  python%{python3_version}-wheel
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
 BuildRequires:  hdf5-openmpi-devel
 BuildRequires:  scalapack-openmpi-devel
 BuildRequires:  ptscotch-openmpi-devel
-BuildRequires:  python%{python3_version}-numpy, python%{python3_version}-Cython
+BuildRequires:  python3-numpy, python3-Cython
 Requires:       petsc-openmpi%{?_isa}
 Requires:       hdf5-openmpi%{?_isa}
 Requires:       scalapack-openmpi%{?_isa}
@@ -460,26 +460,26 @@ Requires:       openmpi%{?_isa} = %{epoch}:%{openmpiversion}
 Requires:       MUMPS-openmpi%{?_isa}
 
 Obsoletes:      %{pymodule_name}-openmpi < 0:3.14.0-3
-Obsoletes:      python%{python3_version}-%{pymodule_name}-openmpi < 0:3.14.0-3
-Provides:       python%{python3_version}-%{pymodule_name}-openmpi = 0:%{pymodule_version}-%{release}
+Obsoletes:      python3-%{pymodule_name}-openmpi < 0:3.14.0-3
+Provides:       python3-%{pymodule_name}-openmpi = 0:%{pymodule_version}-%{release}
 Provides:       python-%{pymodule_name}-openmpi = 0:%{pymodule_version}-%{release}
 Provides:       %{pymodule_name}-openmpi = 0:%{pymodule_version}-%{release}
 
-%description -n python%{python3_version}-%{name}-openmpi
+%description -n python3-%{name}-openmpi
 This package provides Python3 bindings for OpenMPI PETSc,
 the Portable, Extensible Toolkit for Scientific Computation.
 
-%package -n     python%{python3_version}-%{name}-mpich
+%package -n     python3-%{name}-mpich
 Summary:        Python3 bindings for MPICH PETSc
-%{?python_provide:%python_provide python%{python3_version}-%{name}-mpich}
+%{?python_provide:%python_provide python3-%{name}-mpich}
 
-BuildRequires:  python%{python3_version}-devel
-BuildRequires:  python%{python3_version}-setuptools
-BuildRequires:  python%{python3_version}-wheel
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
 BuildRequires:  hdf5-mpich-devel
 BuildRequires:  scalapack-mpich-devel
 BuildRequires:  ptscotch-mpich-devel
-BuildRequires:  python%{python3_version}-numpy, python%{python3_version}-Cython
+BuildRequires:  python3-numpy, python3-Cython
 Requires:       petsc-mpich%{?_isa}
 Requires:       hdf5-mpich%{?_isa}
 Requires:       scalapack-openmpi%{?_isa}
@@ -488,12 +488,12 @@ Requires:       mpich%{?_isa} = 0:%{mpichversion}
 Requires:       MUMPS-mpich%{?_isa}
 
 Obsoletes:      %{pymodule_name}-mpich < 0:3.14.0-3
-Obsoletes:      python%{python3_version}-%{pymodule_name}-mpich < 0:3.14.0-3
-Provides:       python%{python3_version}-%{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
+Obsoletes:      python3-%{pymodule_name}-mpich < 0:3.14.0-3
+Provides:       python3-%{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
 Provides:       python-%{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
 Provides:       %{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
 
-%description -n python%{python3_version}-%{name}-mpich
+%description -n python3-%{name}-mpich
 This package provides Python3 bindings for MPICH PETSc,
 the Portable, Extensible Toolkit for Scientific Computation.
 %endif
@@ -1137,7 +1137,7 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %{_fmoddir}/openmpi/%{name}/
 
 %if %{with python}
-%files -n python%{python3_version}-%{name}-openmpi
+%files -n python3-%{name}-openmpi
 %{python3_sitearch}/openmpi/%{pymodule_name}/
 %{python3_sitearch}/openmpi/%{pymodule_name}-%{pymodule_version}-py%{python3_version}.egg-info
 %endif
@@ -1159,7 +1159,7 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %{_fmoddir}/mpich/%{name}/
 
 %if %{with python}
-%files -n python%{python3_version}-%{name}-mpich
+%files -n python3-%{name}-mpich
 %{python3_sitearch}/mpich/%{pymodule_name}/
 %{python3_sitearch}/mpich/%{pymodule_name}-%{pymodule_version}-py%{python3_version}.egg-info
 %endif

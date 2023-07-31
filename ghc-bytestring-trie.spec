@@ -7,7 +7,7 @@
 # testsuite missing deps: tasty-smallcheck
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.7
+Version:        0.2.7.2
 Release:        %autorelease
 Summary:        An efficient finite map from bytestrings to values
 

@@ -5,7 +5,7 @@
 %bcond_with tests
 
 Name:           happy
-Version:        1.20.0
+Version:        1.20.1.1
 Release:        %autorelease
 Summary:        Parser Generator for Haskell
 
@@ -13,7 +13,6 @@ License:        BSD-2-Clause
 Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
-Source1:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}.cabal#/%{name}-%{version}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
@@ -43,7 +42,6 @@ to the 'yacc' tool for C.
 %prep
 # Begin cabal-rpm setup:
 %setup -q
-cp -bp %{SOURCE1} %{name}.cabal
 # End cabal-rpm setup
 
 
@@ -74,7 +72,7 @@ cd ..
 %files
 # Begin cabal-rpm files:
 %license LICENSE
-%doc ANNOUNCE CHANGES README.md TODO examples
+%doc ChangeLog.md examples
 %{_bindir}/%{name}
 %{_datadir}/%{name}-%{version}
 # End cabal-rpm files

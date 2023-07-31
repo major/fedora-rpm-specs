@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        3.0.0.6
+Version:        3.0.0.9
 Release:        %autorelease
 Summary:        Additional types of channels for STM
 

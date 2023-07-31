@@ -1,6 +1,6 @@
 Name:           python-eccodes
-Version:        1.5.2
-Release:        3%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 # note: upstream has changed the name on pypi from eccodes-python to eccodes
@@ -101,6 +101,9 @@ rm build/sphinx/html/.buildinfo
 
 
 %changelog
+* Sat Jul 29 2023 Jos de Kloe <josdekloe@gmail.com> 1.6.0-1
+- new upstream release 1.6.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

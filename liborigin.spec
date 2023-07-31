@@ -2,14 +2,14 @@
 %undefine __cmake_in_source_build
 
 Name:           liborigin
-Version:        3.0.1
-Release:        8%{?dist}
+Version:        3.0.2
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Library for reading OriginLab OPJ project files
 
 License:        GPL-3.0-only
 URL:            https://sourceforge.net/projects/liborigin/
-Source0:        https://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.gz
+Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -71,6 +71,12 @@ The %{name}-doc package contains documentation for %{name}.
 %{_docdir}/%{name}/html/
 
 %changelog
+* Sat Jul 29 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 1:3.0.2-2
+- Fix source URL
+
+* Fri Jul 28 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 1:3.0.2-1
+- Update to 3.0.2 (#2227374)
+
 * Mon Jul 24 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 1:3.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

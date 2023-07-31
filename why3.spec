@@ -18,7 +18,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           why3
 Version:        1.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -123,7 +123,7 @@ This package contains an Emacs support file for working with %{name} files.
 %package all
 Summary:        Complete Why3 software verification platform suite
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       alt-ergo coq cvc4 E gappa yices-tools z3 zenon
+Requires:       alt-ergo coq cvc5 E gappa yices-tools z3 zenon
 
 # This can be removed when F36 reaches EOL
 Obsoletes:      why-all < 2.41-12
@@ -308,6 +308,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Sat Jul 29 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-5
+- Require cvc5 instead of cvc4
+
 * Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-4
 - Rebuild for ocaml-zarith 1.13
 

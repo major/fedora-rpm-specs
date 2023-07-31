@@ -7,7 +7,7 @@
 # testsuite missing deps: quickcheck-instances
 
 Name:           ghc-%{pkg_name}
-Version:        1.7.12
+Version:        1.7.14
 Release:        %autorelease
 Summary:        Extra Haskell functions
 

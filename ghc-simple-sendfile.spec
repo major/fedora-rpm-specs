@@ -7,7 +7,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.30
+Version:        0.2.32
 Release:        %autorelease
 Summary:        Cross-platform sendfile system call
 
@@ -35,7 +35,9 @@ BuildRequires:  ghc-HUnit-devel
 BuildRequires:  ghc-conduit-devel
 BuildRequires:  ghc-conduit-extra-devel
 BuildRequires:  ghc-directory-devel
+BuildRequires:  ghc-easy-file-devel
 BuildRequires:  ghc-hspec-devel
+BuildRequires:  ghc-hspec-discover-devel
 BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-resourcet-devel
 %endif

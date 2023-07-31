@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        1.0.2
+Version:        1.1
 Release:        %autorelease
 Summary:        Swap and assoc: Symmetric and Semigroupy Bifunctors
 
@@ -13,18 +13,15 @@ License:        BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
-Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-base-devel
-BuildRequires:  ghc-bifunctors-devel
 BuildRequires:  ghc-tagged-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-base-prof
-BuildRequires:  ghc-bifunctors-prof
 BuildRequires:  ghc-tagged-prof
 %endif
 # End cabal-rpm deps
@@ -73,7 +70,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
-cp -bp %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 

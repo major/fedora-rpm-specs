@@ -1,22 +1,11 @@
 Name:           libpoly
-Version:        0.1.11
-Release:        8%{?dist}
+Version:        0.1.12
+Release:        1%{?dist}
 Summary:        C library for manipulating polynomials
 
 License:        LGPL-3.0-or-later
 URL:            https://sri-csl.github.io/libpoly/
 Source0:        https://github.com/SRI-CSL/libpoly/archive/v%{version}/%{name}-%{version}.tar.gz
-# Post-release bug fixes needed by cvc5
-Patch0:         0001-Published-the-HEAD-as-0.1.11-on-launchpad.patch
-Patch1:         0002-Fix-issue-with-lp_algebraic_number_neg-when-number-i.patch
-Patch2:         0003-Add-operator-and-inverse-for-the-C-wrapper-Algebraic.patch
-Patch3:         0004-Have-to_rational-return-an-exact-rational-more-often.patch
-Patch4:         0005-Some-tests.patch
-Patch5:         0006-Add-positive-root-function-of-a-positive-algebraic-n.patch
-Patch6:         0007-Mispelling-documentation.patch
-Patch7:         0008-Improve-algebraic-number-to-rational.patch
-Patch8:         0009-Add-tests-for-positive_root.patch
-Patch9:         0010-libpoly-fix-doctest.h-to-allow-PPC-build.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -102,6 +91,10 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Sat Jul 29 2023 Jerry James <loganjerry@gmail.com> - 0.1.12-1
+- Version 0.1.12
+- Drop upstreamed patches
+
 * Fri Jul 28 2023 Jerry James <loganjerry@gmail.com> - 0.1.11-8
 - Add post-release bug fixes needed by cvc5
 

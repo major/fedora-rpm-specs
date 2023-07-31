@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.108.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module that provides hardware information
 
 License: LGPLv2+
@@ -85,8 +85,6 @@ developing applications that use %{name}.
 %license LICENSES/*.txt
 %{_kf5_datadir}/qlogging-categories5/%{framework}.*
 %{_kf5_bindir}/solid-hardware5
-# if building with new WIP api's
-%{_kf5_bindir}/solid-power
 #files libs
 %{_kf5_qmldir}/org/kde/solid/
 %{_kf5_libdir}/libKF5Solid.so.*
@@ -99,6 +97,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 28 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 5.108.0-4
+- Rebuilt for libimobiledevice and libplist soname bump
+- Remove solid-power from files listing, since WIP APIs are no longer enabled (rhbz#2225952)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.108.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

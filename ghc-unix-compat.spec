@@ -4,8 +4,10 @@
 %global pkg_name unix-compat
 %global pkgver %{pkg_name}-%{version}
 
+# testsuite missing deps: monad-parallel
+
 Name:           ghc-%{pkg_name}
-Version:        0.5.4
+Version:        0.7
 Release:        %autorelease
 Summary:        Portable POSIX-compatibility layer
 
@@ -13,11 +15,9 @@ License:        BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
-Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
-BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-base-devel
@@ -72,7 +72,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
-dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 
@@ -95,6 +94,7 @@ dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 
 
 %files devel -f %{name}-devel.files
+%doc CHANGELOG.md
 
 
 %if %{with haddock}

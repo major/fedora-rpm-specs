@@ -8,7 +8,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.8.3
+Version:        0.8.4
 Release:        %autorelease
 Summary:        High-resolution clock functions: monotonic, realtime, cputime
 

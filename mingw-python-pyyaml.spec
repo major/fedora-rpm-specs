@@ -4,8 +4,8 @@
 %global pypi_name PyYAML
 
 Name:          mingw-python-%{mod_name}
-Version:       6.0
-Release:       9%{?dist}
+Version:       6.0.1
+Release:       1%{?dist}
 Summary:       MinGW Windows Python %{pypi_name} library
 BuildArch:     noarch
 
@@ -72,6 +72,9 @@ MinGW Windows Python2 %{pypi_name} library.
 
 
 %changelog
+* Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 6.0.1-1
+- Update to 6.0.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

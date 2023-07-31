@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.19.1
+Version:        0.20
 Release:        %autorelease
 Summary:        Haskell Open Sound Control
 
@@ -24,6 +24,7 @@ BuildRequires:  ghc-blaze-builder-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-data-binary-ieee754-devel
 BuildRequires:  ghc-network-devel
+BuildRequires:  ghc-parsec-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-transformers-devel
 %if %{with ghc_prof}
@@ -33,16 +34,14 @@ BuildRequires:  ghc-blaze-builder-prof
 BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-data-binary-ieee754-prof
 BuildRequires:  ghc-network-prof
+BuildRequires:  ghc-parsec-prof
 BuildRequires:  ghc-time-prof
 BuildRequires:  ghc-transformers-prof
 %endif
 # End cabal-rpm deps
 
 %description
-'hosc' implements a subset of the Open Sound Control byte protocol,
-<http://opensoundcontrol.org/>.
-
-See "Sound.OSC.Core" or "Sound.OSC" or "Sound.OSC.FD".
+Haskell library implementing the Open Sound Control protocol.
 
 
 %package devel
