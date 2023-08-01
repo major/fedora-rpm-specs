@@ -1,10 +1,10 @@
 %global pypi_name bodhi-server
 %global src_name bodhi_server
-%global pypi_version 7.2.0
+%global pypi_version 7.2.1
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Bodhi server
 
 License:        GPL-2.0-or-later
@@ -118,7 +118,7 @@ install -p -D -m 0644 %{name}.sysusers %{buildroot}%{_sysusersdir}/%{name}.sysus
 # For some reason the pytest fixture responsible to set the testing
 # config file url doesn't work in Koji
 export BODHI_CONFIG=$(pwd)/tests/testing.ini
-%{pytest} -v -k "not TestSanityCheckRepodata and not test_sanity_check_"
+%{pytest} -v
 
 %pre -n %{pypi_name}
 %sysusers_create_compat %{name}.sysusers
@@ -160,6 +160,9 @@ export BODHI_CONFIG=$(pwd)/tests/testing.ini
 %pycached %{python3_sitelib}/bodhi/server/metadata.py
 
 %changelog
+* Sun Jul 30 2023 Mattia Verga <mattia.verga@proton.me> - 7.2.1-1
+- Update to 7.2.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

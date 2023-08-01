@@ -2,7 +2,7 @@
 #%%global prever RC1
 
 Name:           openttd
-Version:        13.3
+Version:        13.4
 Release:        %autorelease
 Summary:        Transport system simulation game
 

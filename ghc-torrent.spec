@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        10000.1.1
+Version:        10000.1.3
 Release:        %autorelease
 Summary:        BitTorrent file parser and generater
 

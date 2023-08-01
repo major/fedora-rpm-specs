@@ -1,8 +1,8 @@
 %define __cmake_in_source_build 1
 
 Name:           lxqt-build-tools
-Version:        0.12.0
-Release:        3%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        Packaging tools for LXQt
 
 License:        BSD
@@ -68,6 +68,9 @@ cd build
 
 
 %changelog
+* Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 0.13.0-1
+- Update version to 0.13.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

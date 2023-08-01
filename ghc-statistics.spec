@@ -10,9 +10,9 @@
 # testsuite missing deps: tasty-expected-failure
 
 Name:           ghc-%{pkg_name}
-Version:        0.16.1.2
+Version:        0.16.2.0
 # can only be reset when all subpkgs bumped
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A library of statistical types, data, and functions
 
 License:        BSD-2-Clause
@@ -167,6 +167,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 0.16.2.0-15
+- https://hackage.haskell.org/package/statistics-0.16.2.0/changelog
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -16,15 +16,15 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.1
-Release:        2%{?dist}
+Version:        6.5.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Positioning component
 
 # Base license is LGPLv3 or GPLv2
 # 3rdparty/clip2tri is MIT, see ./src/3rdparty/clip2tri/LICENSE
 # 3rdparty/poly2tri is BSD, see ./src/3rdparty/poly2tri/LICENSE
 # 3rdparty/clipper ist Boost, see ./src/3rdparty/clipper/LICENSE
-License:        (LGPLv3 or GPLv2) and MIT and BSD and Boost
+License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            http://qt.io/
 
 %if 0%{?commit:1}
@@ -172,6 +172,9 @@ cp -a src/3rdparty/clipper/LICENSE LICENSE.clipper
 
 
 %changelog
+* Sun Jul 30 2023 Sandro Mani <manisandro@gmail.com> - 6.5.2-1
+- Update to 6.5.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

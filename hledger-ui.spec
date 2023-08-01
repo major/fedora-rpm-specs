@@ -2,7 +2,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Haskell/
 
 Name:           hledger-ui
-Version:        1.27.1
+Version:        1.30
 Release:        %autorelease
 Summary:        Curses-style terminal interface for the hledger accounting system
 
@@ -10,15 +10,16 @@ License:        GPL-3.0-or-later
 Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source1:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}.cabal#/%{name}-%{version}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
+BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-ansi-terminal-devel
 BuildRequires:  ghc-async-devel
 BuildRequires:  ghc-base-devel
-BuildRequires:  ghc-breakpoint-devel
 BuildRequires:  ghc-brick-devel
 BuildRequires:  ghc-cmdargs-devel
 BuildRequires:  ghc-containers-devel
@@ -61,6 +62,7 @@ Read more at: <https://hledger.org>.
 %prep
 # Begin cabal-rpm setup:
 %setup -q
+dos2unix -k -n %{SOURCE1} %{name}.cabal
 # End cabal-rpm setup
 
 

@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        23.5.2
+Version:        23.7.2
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -14,8 +14,6 @@ Source0:        https://github.com/conda/conda/archive/%{version}/%{name}-%{vers
 # bash completion script moved to a separate project
 Source1:        https://raw.githubusercontent.com/tartansandal/conda-bash-completion/1.5/conda
 Patch0:         conda_sys_prefix.patch
-# Do not test with conda-build
-Patch2:         conda-conda-build.patch
 # Use system cpuinfo
 Patch3:         conda-cpuinfo.patch
 # Fix tests on 32bit
@@ -198,8 +196,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # test_use_only_tar_bz2 fail in F31 koji, but not with mock --enablerepo=local. Let's disable
 # them for now.
 # tests/conda_env/test_create.py::test_create_update_remote_env_file requires network access
-# tests/cli/test_main_{clean,list,list_reverse,rename}.py tests require network access
+# tests/cli/test_main_{clean,info,list,list_reverse,rename}.py tests require network access
 # tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands needs a conda_build fixture that we remove
+# tests/cli/test_main_run.py require /usr/bin/conda to be installed
 # tests/cli/test_subcommands.py tests require network access
 # tests/test_misc.py::test_explicit_missing_cache_entries requires network access
 # tests/core/test_initialize.py tries to unlink /usr/bin/python3 and fails when python is a release candidate
@@ -214,11 +213,14 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/test_misc.py::test_explicit_missing_cache_entries \
     --ignore=tests/conda_env/specs/test_binstar.py \
     --deselect=tests/conda_env/test_create.py::test_create_update_remote_env_file \
+    --deselect='tests/cli/test_common.py::test_is_active_prefix[active_prefix-True]' \
     --deselect=tests/cli/test_main_clean.py \
+    --deselect=tests/cli/test_main_info.py::test_info_conda_json \
     --deselect=tests/cli/test_main_list.py::test_list \
     --deselect=tests/cli/test_main_list.py::test_list_reverse \
     --deselect=tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands \
     --deselect=tests/cli/test_main_rename.py \
+    --deselect=tests/cli/test_main_run.py \
     --deselect=tests/cli/test_subcommands.py::test_env_create \
     --deselect=tests/cli/test_subcommands.py::test_env_update \
     --deselect=tests/cli/test_subcommands.py::test_init \

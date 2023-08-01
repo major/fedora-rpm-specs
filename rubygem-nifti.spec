@@ -2,12 +2,14 @@
 
 Name:          rubygem-%{gem_name}
 Version:       0.0.2
-Release:       21%{?dist}
+Release:       22%{?dist}
 Summary:       A pure Ruby API to the NIfTI Neuroimaging Format
 License:       LGPLv3+
 URL:           https://github.com/brainmap/%{gem_name}
 Source0:       https://rubygems.org/downloads/%{gem_name}-%{version}.gem
-
+Patch0:        nifti-0.0.2-deprecation.patch
+Patch1:	       nifti-0.0.2-spec_config.patch
+Patch2:        nifti-0.0.2-feature.patch
 BuildRequires: ruby
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -37,7 +39,9 @@ Documentation for %{name}.
 gem unpack %{SOURCE0}
 %setup -q -D -T -n %{gem_name}-%{version}
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
-
+%patch 0 -p0
+%patch 1 -p0
+%patch 2 -p0
 
 %build
 gem build %{gem_name}.gemspec
@@ -48,15 +52,14 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
+
 %check
 pushd .%{gem_instdir}
-  sed -i "s/config.color_enabled =/config.color =/g" spec/spec_helper.rb
   # rspec 2 -> 3
   grep -rl be_true spec | xargs sed -i -e 's|be_true|be_truthy|'
   grep -rl be_false spec | xargs sed -i -e 's|be_false|be_falsey|'
-  rspec -Ilib spec
-
-  ruby -Ilib -S cucumber
+  rspec -Ilib --tag ~skip_in_ci spec
+  ruby -Ilib -S cucumber --tags 'not @skip_in_ci'
 popd
 
 %files
@@ -82,6 +85,9 @@ popd
 
 
 %changelog
+* Mon Jul 31 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 0.0.2-22
+- fix tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

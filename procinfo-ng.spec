@@ -1,14 +1,12 @@
 Name:           procinfo-ng
 Version:        2.0.304
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Console-based system monitoring utility
-
 License:        GPLv2 and LGPLv2
 URL:            http://sourceforge.net/projects/procinfo-ng/
 Source0:        http://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.bz2
 Patch0:         %{name}-man.patch
-
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel
@@ -22,30 +20,26 @@ restore broken functionality.
 
 
 %prep
-%setup -q
-%patch0 -p1 -b .man
-
+%autosetup
 
 %build
 %configure --enable-maintainer-mode
-make %{?_smp_mflags} CFLAGS="%{optflags}"
-
+%make_build
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 mv %{buildroot}%{_bindir}/procinfo %{buildroot}%{_bindir}/%{name}
 mv %{buildroot}%{_mandir}/man8/procinfo.8 %{buildroot}%{_mandir}/man8/%{name}.8
-
-
 
 %files
 %doc GPL-2.txt LGPL-2.1.txt LICENSE.txt
 %{_mandir}/man8/%{name}.8.gz
 %{_bindir}/%{name}
 
-
 %changelog
+* Sun Jul 30 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.0.304-30
+- Fix FTBFS rhbz#2113604
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.304-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

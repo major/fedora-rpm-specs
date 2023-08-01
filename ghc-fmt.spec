@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.6.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A new formatting library
 
 License:        BSD-3-Clause
@@ -156,6 +156,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Sat Jul 29 2023 Jens Petersen <petersen@redhat.com> - 0.6.3.0-3
+- rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

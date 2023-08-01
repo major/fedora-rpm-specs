@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        1.10.17
+Version:        1.10.18
 Release:        %autorelease
 Summary:        Ungarble output from several threads or commands
 

@@ -1,6 +1,6 @@
 Name:       ibus-typing-booster
-Version:    2.23.1
-Release:    3%{?dist}
+Version:    2.23.2
+Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
 URL:        https://mike-fabian.github.io/ibus-typing-booster/
@@ -46,6 +46,7 @@ BuildRequires:  python34-devel
 # for the unit tests
 BuildRequires:  m17n-lib
 BuildRequires:  m17n-db-extras
+BuildRequires:  m17n-db-devel
 BuildRequires:  python3-enchant
 BuildRequires:  enchant2
 BuildRequires:  hunspell-en
@@ -250,6 +251,17 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Sun Jul 30 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.2-1
+- Update to 2.23.2
+- Move self._gsettings.connect('changed', self.on_gsettings_value_changed)
+  in __init__() *after* defining self._set_get_functions
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/454)
+  (Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2171140)
+- Translation update from Weblate (ar 100%)
+- Update emoji annotations from CLDR
+- Add m17n-db-devel to BuildRequires to be able to get the version of m17n-db
+  to avoid skipping some test cases unnecessarily.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

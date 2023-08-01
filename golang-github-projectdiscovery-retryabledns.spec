@@ -4,7 +4,7 @@
 
 # https://github.com/projectdiscovery/retryabledns
 %global goipath         github.com/projectdiscovery/retryabledns
-Version:                1.0.21
+Version:                1.0.32
 
 %gometa -f
 
@@ -39,7 +39,8 @@ Source:         %{gosource}
 %if %{with check}
 %check
 # test require network
-for test in "TestConsistentResolve" "TestUDP" "TestTCP" "TestDOH" "TestDOT" "TestQueryMultiple" "TestResolvers" \
+for test in "TestConsistentResolve" "TestUDP" "TestTCP" "TestDOH" "TestDOT" \
+            "TestQueryMultiple" "TestResolvers" "TestDialerLocalAddr" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done

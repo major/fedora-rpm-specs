@@ -5,8 +5,8 @@
 %define __cmake_in_source_build 1
 
 Name:		liblxqt
-Version:	1.2.0
-Release:	3%{?dist}
+Version:	1.3.0
+Release:	1%{?dist}
 License:	LGPLv2
 Summary:	Core shared library for LXQt desktop suite
 Url:		https://lxqt-project.org/
@@ -92,7 +92,7 @@ touch -r %{SOURCE1} %{buildroot}%{rpm_macros_dir}/macros.lxqt
 %files
 %doc AUTHORS COPYING
 %{_libdir}/liblxqt.so.1
-%{_libdir}/liblxqt.so.1.2.0
+%{_libdir}/liblxqt.so.1.3.0
 %{_bindir}/lxqt-backlight_backend
 %{_datadir}/lxqt/power.conf
 %{_datadir}/polkit-1/actions/org.lxqt.backlight.pkexec.policy
@@ -110,6 +110,9 @@ touch -r %{SOURCE1} %{buildroot}%{rpm_macros_dir}/macros.lxqt
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
+- Update version to 1.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

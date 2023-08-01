@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        3.3.7
+Version:        3.3.8
 Release:        %autorelease
 Summary:        Picture loading and serialization
 

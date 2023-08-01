@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.3.37
+Version:        0.3.40
 Release:        %autorelease
 Summary:        Class of monads which can log messages
 
@@ -13,11 +13,9 @@ License:        MIT
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
-Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
-BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-base-devel
@@ -104,7 +102,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
-dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 

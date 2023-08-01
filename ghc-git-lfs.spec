@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Git-lfs protocol
 

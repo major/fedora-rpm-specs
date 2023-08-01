@@ -8,7 +8,7 @@
 %bcond doc 1
 
 Name:           python-typeguard
-Version:        4.0.0
+Version:        4.1.0
 Release:        %autorelease
 Summary:        Run-time type checker for Python
 
@@ -16,17 +16,6 @@ Summary:        Run-time type checker for Python
 License:        MIT
 URL:            https://github.com/agronholm/typeguard
 Source:         %{pypi_source typeguard}
-
-# Fixed deprecation warnings on Python 3.12
-# https://github.com/agronholm/typeguard/commit/f377be389765ed0db104b41d78fce3c45e72e149
-#
-# Fixes:
-#
-# DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14
-# https://github.com/agronholm/typeguard/issues/368
-#
-# Backported to 4.0.0.
-Patch:          0001-Fixed-deprecation-warnings-on-Python-3.12.patch
 
 BuildArch:      noarch
 
@@ -60,7 +49,7 @@ Summary:        Documentation for typeguard
 
 
 %prep
-%autosetup -n typeguard-%{version} -p1
+%autosetup -n typeguard-%{version}
 
 # Because we do not build Sphinx-generated HTML documentation, and conf.py does
 # not import the HTML theme package, we do not need to require it at build

@@ -10,9 +10,9 @@
 # testsuite missing deps: quickcheck-instances
 
 Name:           ghc-%{pkg_name}
-Version:        2.13.3.5
+Version:        2.14.5.1
 # can only be reset when all subpkgs bumped
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Type-safe, multi-backend data serialization
 
 License:        MIT
@@ -24,7 +24,6 @@ Source2:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
-BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros-extra
 BuildRequires:  ghc-aeson-devel
@@ -35,6 +34,7 @@ BuildRequires:  ghc-blaze-html-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-conduit-devel
 BuildRequires:  ghc-containers-devel
+BuildRequires:  ghc-deepseq-devel
 BuildRequires:  ghc-fast-logger-devel
 BuildRequires:  ghc-http-api-data-devel
 #BuildRequires:  ghc-lift-type-devel
@@ -64,6 +64,7 @@ BuildRequires:  ghc-blaze-html-prof
 BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-conduit-prof
 BuildRequires:  ghc-containers-prof
+BuildRequires:  ghc-deepseq-prof
 BuildRequires:  ghc-fast-logger-prof
 BuildRequires:  ghc-http-api-data-prof
 #BuildRequires:  ghc-lift-type-prof
@@ -145,7 +146,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver} -a1
-dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
+cp -bp %{SOURCE2} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 
@@ -185,6 +186,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 2.14.5.1-7
+- https://hackage.haskell.org/package/persistent-2.14.5.1/changelog
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.3.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

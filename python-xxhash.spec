@@ -1,5 +1,5 @@
 Name:           python-xxhash
-Version:        3.2.0
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Python Binding for xxHash
 
@@ -14,7 +14,7 @@ Source:         %{pypi_source xxhash}
 BuildRequires:  python3-devel
 
 BuildRequires:  gcc
-BuildRequires:  pkgconfig(libxxhash)
+BuildRequires:  pkgconfig(libxxhash) >= 0.8.2
 
 %global common_description %{expand:
 xxhash is a Python binding for the xxHash library by Yann Collet.}

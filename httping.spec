@@ -1,18 +1,18 @@
 Name:           httping
-Version:        2.5
-Release:        17%{?dist}
+Version:        2.9
+Release:        1%{?dist}
 Summary:        Ping alike tool for http requests
 
 License:        GPL+ and OpenSSL
-URL:            http://www.vanheusden.com/httping/
-Source0:        http://www.vanheusden.com/%{name}/%{name}-%{version}.tgz
+URL:            https://github.com/folkertvanheusden/HTTPing/
+Source0:        https://github.com/folkertvanheusden/HTTPing/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  openssl-devel
 Buildrequires:  ncurses-devel
 Buildrequires:  fftw-devel
 BuildRequires:  gettext
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Httping is like 'ping' but for http-requests. Give it an url, and it'll 
@@ -21,7 +21,7 @@ reply (only the headers). Be aware that the transmission across the network
 also takes time.
 
 %prep
-%setup -q
+%autosetup -n HTTPing-%{version}
 
 %build
 %configure \
@@ -38,13 +38,14 @@ rm -rf %{buildroot}%{_defaultdocdir}
 %find_lang %{name}
 
 %files -f %{name}.lang
-%doc readme.txt
-%license license.txt license.OpenSSL 
 %{_mandir}/man*/%{name}*.*
 %{_mandir}/*/*/%{name}*.*
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jul 30 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.9-1
+- Update to 2.9 fixes rhbz#2113442
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

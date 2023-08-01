@@ -4,6 +4,8 @@
 %global pkg_name cmark-gfm
 %global pkgver %{pkg_name}-%{version}
 
+%global cmarkgfm_release 0.29.0.gfm.13
+
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
@@ -16,6 +18,8 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
+Source1:        https://github.com/github/cmark-gfm/archive/refs/tags/%{cmarkgfm_release}.tar.gz#/cmark-gfm-%{cmarkgfm_release}.tar.gz
+Patch0:         cmark-gfm-0.2.5-skip-footnote-test.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -32,14 +36,15 @@ BuildRequires:  ghc-text-prof
 BuildRequires:  ghc-HUnit-devel
 %endif
 # End cabal-rpm deps
-Provides:       bundled(cmark-gfm) = 0.29.0.gfm.3
+BuildRequires:  cmake gcc-c++
+Provides:       bundled(cmark-gfm) = %{cmarkgfm_release}
 
 %description
 This package provides Haskell bindings for <https://github.com/github/cmark-gfm
 libcmark-gfm>, the reference parser for <https://github.github.com/gfm/ GitHub
 Flavored Markdown>, a fully specified variant of Markdown. It includes sources
-for libcmark-gfm (0.29.0.gfm.6) and does not require prior installation of the
-C library.
+for libcmark-gfm (%{cmarkgfm_release}) and does not require prior installation
+of the C library.
 
 
 %package devel
@@ -79,8 +84,16 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 %prep
 # Begin cabal-rpm setup:
-%setup -q -n %{pkgver}
+%setup -q -n %{pkgver} -a1
+%autopatch -p1
 # End cabal-rpm setup
+(
+cd cmark-gfm-%{cmarkgfm_release}
+mkdir build
+cd build
+%cmake ..
+)
+cp cmark-gfm-%{cmarkgfm_release}/src/* cmark-gfm-%{cmarkgfm_release}/build/redhat-linux-build/src/*.h  cbits
 
 
 %build

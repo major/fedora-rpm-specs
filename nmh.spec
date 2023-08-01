@@ -1,6 +1,6 @@
 Name:          nmh
 Version:       1.8
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       A capable MIME-email-handling system with a command-line interface
 License:       BSD
 URL:           https://savannah.nongnu.org/projects/nmh
@@ -33,7 +33,7 @@ projects.  nmh is a descendant of the RAND MH, Mail Handler, project.
 
 %prep
 %setup -q -n %{name}-1.8
-%patch0 -p1
+%patch -P 0 -p1
 
 # Avoid regenerating autotools machinery.
 touch aclocal.m4 Makefile.in config.h.in configure
@@ -56,6 +56,9 @@ CFLAGS="$RPM_OPT_FLAGS"
 %doc %{_pkgdocdir}/*
 
 %changelog
+* Sun Jul 30 2023 David Levine  <par.packager@gmail.com> - 1.8-3
+- Replaced deprecated patch0 with patch -P 0.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           %{pkg_name}
-Version:        0.13.8.3
+Version:        0.13.10.0
 Release:        %autorelease
 Summary:        Tools to build the Gtk2Hs suite of User Interface libraries
 

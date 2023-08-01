@@ -7,7 +7,7 @@
 # testsuite missing deps: hedgehog
 
 Name:           ghc-%{pkg_name}
-Version:        1.1.0.0
+Version:        1.2.0.0
 Release:        %autorelease
 Summary:        Safe, performant, user-friendly and lightweight Haskell Standard Library
 

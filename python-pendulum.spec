@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python datetimes made easy
 
 License:        MIT
@@ -23,6 +23,9 @@ timezone-aware and by default in UTC for ease of use.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
+# F39FailsToInstall: python3-pendulum
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220403
+BuildRequires:  %py3_dist setuptools
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %py3_dist toml
 BuildRequires:  %py3_dist poetry-core
@@ -56,6 +59,9 @@ timezone-aware and by default in UTC for ease of use.
 %doc README.rst
 
 %changelog
+* Tue Jul 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.2-12
+- Add setuptools BR for distutils in Python 3.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,10 +1,10 @@
 %global pypi_name bodhi-client
 %global src_name bodhi_client
-%global pypi_version 7.2.0
+%global pypi_version 7.2.1
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Bodhi client
 
 License:        GPL-2.0-or-later
@@ -63,6 +63,9 @@ install -pm0644 bodhi-client.bash %{buildroot}%{_sysconfdir}/bash_completion.d/b
 %config(noreplace) %{_sysconfdir}/bash_completion.d/bodhi-client.bash
 
 %changelog
+* Sun Jul 30 2023 Mattia Verga <mattia.verga@proton.me> - 7.2.1-1
+- Update to 7.2.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

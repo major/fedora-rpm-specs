@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -719,6 +719,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Sun Jul 30 2023 Javier Martinez Canillas <javierm@redhat.com>  0.3.76-2
+- Rebuild for libcamera 0.1.0 bump
+
 * Fri Jul 28 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.76-1
 - Update version to 0.3.76
 

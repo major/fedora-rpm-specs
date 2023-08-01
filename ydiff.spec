@@ -5,7 +5,7 @@ Summary:    View colored, incremental diff
 URL:        https://github.com/ymattw/ydiff
 License:    BSD
 Source0:    https://github.com/ymattw/ydiff/archive/%{version}/%{name}-%{version}.tar.gz
-BuildRequires: python3-devel
+BuildRequires: python3-devel python3-setuptools
 BuildArch: noarch
 
 Requires: less

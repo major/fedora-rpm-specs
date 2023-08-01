@@ -1,8 +1,8 @@
 %bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:    libcamera
-Version: 0.0.5
-Release: 4%{?dist}
+Version: 0.1.0
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # Library is LGPLv2.1+ and the cam tool is GPLv2
 License: LGPLv2+ and GPLv2
@@ -21,9 +21,8 @@ Source0: %{name}-%{version}.tar.xz
 Source1: qcam.desktop
 Source2: qcam.metainfo.xml
 
-Patch01: v4l2-Move-the-v4l2-compat-layer-to-libexec-libcamera.patch
 # Fix build with Python 3.12
-Patch02: mojo-importlib.patch
+Patch01: mojo-importlib.patch
 
 BuildRequires: doxygen
 BuildRequires: gcc-c++
@@ -163,7 +162,8 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
-%{_libdir}/libcamera*.so.0.0.5
+%{_libdir}/libcamera*.so.0.1
+%{_libdir}/libcamera*.so.0.1.0
 
 %files devel
 %{_includedir}/%{name}/
@@ -199,6 +199,10 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_libexecdir}/libcamera/v4l2-compat.so
 
 %changelog
+* Sun Jul 30 2023 Javier Martinez Canillas <javierm@redhat.com> - 0.1.0-1
+- Update to version 0.1.0
+- Resolves: rhbz#2192455
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

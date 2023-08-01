@@ -8,8 +8,8 @@
 %global forgeurl https://github.com/rfc1036/whois
 
 Name:       whois       
-Version:    5.5.17
-Release:    3%{?dist}
+Version:    5.5.18
+Release:    1%{?dist}
 Summary:    Improved WHOIS client
 License:    GPL-2.0-or-later
 URL:        https://www.linux.it/~md/software/
@@ -88,10 +88,11 @@ whois tools messages translated into different natural languages.
 
 %prep
 %if 0%{?fedora}
-  TMPKEY=$(mktemp --tmpdir %{name}-XXXXXXX.gpg)
-  gpg --no-default-keyring --keyring "${TMPKEY}" --import %{SOURCE2}
+  export GNUPGHOME="$(mktemp --tmpdir -d %{name}-XXXXXXX)"
+  TMPKEY="$GNUPGHOME/keyring.key"
+  gpg --no-default-keyring --keyring "${TMPKEY}" --trust-model always --import %{SOURCE2}
   dscverify --keyring "${TMPKEY}" %{SOURCE1}
-  rm -f "${TMPKEY}"
+  rm -rf "$GNUPGHOME"
 %endif
 %autosetup -p1
 
@@ -149,6 +150,12 @@ fi
 %endif
 
 %changelog
+* Sun Jul 30 2023 Petr Menšík <pemensik@redhat.com> - 5.5.18-1
+- Update to 5.5.18 (#2224795)
+
+* Sun Jul 30 2023 Petr Menšík <pemensik@redhat.com> - 5.5.17-4
+- Use self-contained gnupg home for source verification (#2225463)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

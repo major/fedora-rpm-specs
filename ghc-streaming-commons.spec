@@ -7,7 +7,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.2.5
+Version:        0.2.2.6
 Release:        %autorelease
 Summary:        Common lower-level functions for streaming data libraries
 
@@ -101,10 +101,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
 # End cabal-rpm setup
-# remove bundled zlib headers
-mv include/text_cbits.h .
-rm include/*
-mv text_cbits.h include/
 
 
 %build

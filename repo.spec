@@ -1,5 +1,5 @@
 Name:           repo
-Version:        2.29.1
+Version:        2.35
 Release:        %autorelease
 Summary:        Repository management tool built on top of git
 
@@ -10,6 +10,7 @@ Source0:        %{url}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 BuildRequires:  git
 BuildRequires:  gnupg2
 BuildRequires:  sed
@@ -46,7 +47,7 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 man/%{name}*.1
 install -Dpm0644 completion.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
 
 %check
-%tox
+%{py3_test_envvars} %{python3} -c 'import pytest; pytest.main()'
 
 %files
 %license LICENSE

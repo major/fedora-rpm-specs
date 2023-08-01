@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        2.9.7
+Version:        2.10.10
 Release:        %autorelease
 Summary:        A Testing Framework for Haskell
 
@@ -44,7 +44,7 @@ are:
 
 * automatic discovery of test files
 
-The Hspec Manual is at <http://hspec.github.io/>.
+The Hspec Manual is at <https://hspec.github.io/>.
 
 
 %package devel

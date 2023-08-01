@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        2.0.27
+Version:        2.0.29
 Release:        %autorelease
 Summary:        GLib bindings
 

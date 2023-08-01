@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        3.3.4
+Version:        3.3.6
 Release:        %autorelease
 Summary:        HTTP over TLS support for Warp via the TLS package
 
@@ -23,6 +23,7 @@ BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-cryptonite-devel
 BuildRequires:  ghc-data-default-class-devel
 BuildRequires:  ghc-network-devel
+BuildRequires:  ghc-recv-devel
 BuildRequires:  ghc-streaming-commons-devel
 BuildRequires:  ghc-tls-devel
 BuildRequires:  ghc-tls-session-manager-devel
@@ -35,6 +36,7 @@ BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-cryptonite-prof
 BuildRequires:  ghc-data-default-class-prof
 BuildRequires:  ghc-network-prof
+BuildRequires:  ghc-recv-prof
 BuildRequires:  ghc-streaming-commons-prof
 BuildRequires:  ghc-tls-prof
 BuildRequires:  ghc-tls-session-manager-prof

@@ -10,9 +10,9 @@
 # testsuite missing deps: test-framework test-framework-hunit test-framework-quickcheck2
 
 Name:           ghc-%{pkg_name}
-Version:        1.0.5.0
+Version:        1.0.5.1
 # can only be reset when all subpkgs bumped
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Snap web framework core library
 
 License:        BSD-3-Clause
@@ -23,7 +23,6 @@ Source1:        https://hackage.haskell.org/package/%{readable}/%{readable}.tar.
 Source2:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 Patch0:         snap-core-0.9.2.2-portable-flag.patch
-Patch1:         snap-core-parseTime.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  dos2unix
@@ -146,6 +145,7 @@ cabal-tweak-drop-dep bytestring-builder
 (
 cd %{readable}
 cabal-tweak-dep-ver bytestring '< 0.11' '< 0.12'
+cabal-tweak-dep-ver text '< 1.3' '< 2.2'
 )
 
 
@@ -170,7 +170,7 @@ cabal-tweak-dep-ver bytestring '< 0.11' '< 0.12'
 
 
 %files devel -f %{name}-devel.files
-%doc CONTRIBUTORS README.SNAP.md README.md
+%doc CONTRIBUTORS README.SNAP.md README.md changelog.md
 
 
 %if %{with haddock}
@@ -185,6 +185,9 @@ cabal-tweak-dep-ver bytestring '< 0.11' '< 0.12'
 
 
 %changelog
+* Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 1.0.5.1-25
+- https://hackage.haskell.org/package/snap-core-1.0.5.1/changelog
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           %{pkg_name}
-Version:        0.2.19
+Version:        0.2.21
 Release:        %autorelease
 Summary:        Maintenance command for Haskell cabal packages
 
@@ -14,7 +14,6 @@ Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
-Patch0:         cab-unPackageName.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-rpm-macros
@@ -99,7 +98,6 @@ This package provides the Haskell %{name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q
 # End cabal-rpm setup
-%patch0 -p1 -b .orig
 
 
 %build

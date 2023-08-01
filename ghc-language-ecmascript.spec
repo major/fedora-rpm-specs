@@ -93,7 +93,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
 # End cabal-rpm setup
-cabal-tweak-dep-ver base '< 4.15' '< 4.17'
+cabal-tweak-dep-ver base '< 4.15' '< 4.18'
 
 
 %build

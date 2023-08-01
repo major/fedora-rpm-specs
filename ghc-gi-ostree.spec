@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        1.0.16
+Version:        1.0.18
 Release:        %autorelease
 Summary:        OSTree bindings
 

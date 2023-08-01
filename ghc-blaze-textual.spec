@@ -7,7 +7,7 @@
 # testsuite missing deps: double-conversion test-framework test-framework-quickcheck2
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.2.1
+Version:        0.2.3.1
 Release:        %autorelease
 Summary:        Fast rendering of common datatypes
 
@@ -25,7 +25,6 @@ BuildRequires:  ghc-blaze-builder-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-old-locale-devel
 BuildRequires:  ghc-text-devel
-BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-vector-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-base-prof
@@ -33,7 +32,6 @@ BuildRequires:  ghc-blaze-builder-prof
 BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-old-locale-prof
 BuildRequires:  ghc-text-prof
-BuildRequires:  ghc-time-prof
 BuildRequires:  ghc-vector-prof
 %endif
 # End cabal-rpm deps

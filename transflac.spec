@@ -1,8 +1,8 @@
 %global forgeurl    https://bitbucket.org/gbcox/transflac/
-%global commit      e940e809152b
+%global commit      22e93e00187f
 
 Name:           transflac
-Version:        1.1.1
+Version:        1.2.1
 Summary:        Transcode FLAC to lossy formats
 License:        GPL-3.0-or-later
 

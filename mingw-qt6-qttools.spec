@@ -19,11 +19,11 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.1
-Release:        2%{?dist}
+Version:        6.5.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtTools component
 
-License:        GPLv3 with exceptions or LGPLv2 with exceptions
+License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            http://qt.io/
 
 # Add qt6 suffix to tools to avoid collision with qt5 tools
@@ -246,6 +246,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 
 
 %changelog
+* Sun Jul 30 2023 Sandro Mani <manisandro@gmail.com> - 6.5.2-1
+- Update to 6.5.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.0.4
+Version:        0.0.5
 Release:        %autorelease
 Summary:        QuasiQuoter for non-interpolated strings, texts and bytestrings
 

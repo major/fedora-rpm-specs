@@ -1,5 +1,5 @@
 # Documentation sources:
-%global commit 47e17949d0fd95e524d4f90cc58a3fcb11bc0bae
+%global commit 9c89fef106799ddd6f5b383936853afecd2c0cce
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global docrepo uwsgi-docs
 
@@ -190,8 +190,8 @@
 %endif
 
 Name:           uwsgi
-Version:        2.0.21
-Release:        12%{?dist}
+Version:        2.0.22
+Release:        1%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -217,14 +217,9 @@ Patch7:         uwsgi_fix_mono.patch
 # https://github.com/unbit/uwsgi/issues/2283
 Patch12:        uwsgi_fix_php8.patch
 Patch13:        uwsgi_fix_chroot_chdir.patch
-# https://github.com/unbit/uwsgi/issues/2356
-Patch14:        uwsgi_fix_php_arginfo.patch
-Patch15:        uwsgi_fix_python_py_ssize_t.patch
-Patch16:        uwsgi_python311.patch
-# https://github.com/unbit/uwsgi/pull/2400
-Patch17:        uwsgi_fix_php81_filename_zend_string.patch
-Patch18:        uwsgi_fix_php82.patch
-Patch19:        uwsgi_fix_ruby_taint.patch
+# https://github.com/unbit/uwsgi/issues/2552
+Patch20:        uwsgi_fix_jvm_missing_path.patch
+Patch21:        uwsgi_python312.patch
 
 BuildRequires:  curl, libxml2-devel, libuuid-devel, jansson-devel
 BuildRequires:  libyaml-devel, ruby-devel
@@ -1248,8 +1243,8 @@ cp -p %{SOURCE5} README.Fedora
 %endif
 %patch12 -p1
 %patch13 -p1
-%patch18 -p1
-%patch19 -p1
+%patch20 -p1
+%patch21 -p1
 
 %if %{with perl} && (%{with python3} || %{with python3_other}) && %{with perlcoro}
 %{__python} -m lib2to3 --write --nobackups plugins/coroae/uwsgiplugin.py
@@ -1844,6 +1839,10 @@ exit 0
 
 
 %changelog
+* Fri Jul 28 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-1
+- Update to 2.0.22
+- Add initial patch for building against python3.12
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.21-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

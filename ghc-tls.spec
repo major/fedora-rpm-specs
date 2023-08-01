@@ -7,7 +7,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        1.5.8
+Version:        1.6.0
 Release:        %autorelease
 Summary:        TLS/SSL protocol native implementation (Server and Client)
 
@@ -68,8 +68,8 @@ This provides a high-level implementation of a sensitive security protocol,
 eliminating a common set of security issues through the use of the advanced
 type system, high level constructions and common Haskell features.
 
-Currently implement the SSL3.0, TLS1.0, TLS1.1, TLS1.2 and TLS 1.3 protocol,
-and support RSA and Ephemeral (Elliptic curve and regular) Diffie Hellman key
+Currently implement the TLS1.0, TLS1.1, TLS1.2 and TLS 1.3 protocol, and
+support RSA and Ephemeral (Elliptic curve and regular) Diffie Hellman key
 exchanges, and many extensions.
 
 Some debug tools linked with tls, are available through the

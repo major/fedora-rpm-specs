@@ -4,7 +4,7 @@
 
 # https://github.com/projectdiscovery/utils
 %global goipath         github.com/projectdiscovery/utils
-Version:                0.0.14
+Version:                0.0.41
 
 %gometa -f
 
@@ -28,6 +28,8 @@ Source:         %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
+sed -i 's|github.com/google/go-github/v30|github.com/google/go-github|' $(find . -iname '*.go' -type f)
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -37,11 +39,17 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-for test in "TestDownloadFile" "TestWhatsMyIP" "TestToFQDN" \
+# The following tests require Internet connection
+for test in "TestDownloadFile" "TestWhatsMyIP" "TestToFQDN" "TestCheckConnection" "TestDnsResolve" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done
+# No support of golang-github-ebitengine-purego for these archs
+%ifarch s390x ppc64le
+%gocheck -d github.com/projectdiscovery/utils/healthcheck -d github.com/projectdiscovery/utils/permission -d github.com/projectdiscovery/utils/syscallutil
+%else
 %gocheck
+%endif
 %endif
 
 %gopkgfiles

@@ -1,8 +1,8 @@
 %define __cmake_in_source_build 1
 
 Name:		qterminal
-Version:	1.2.0
-Release:	3%{?dist}
+Version:	1.3.0
+Release:	1%{?dist}
 License:	GPLv2
 URL:		https://github.com/qterminal/qterminal
 Source0:	https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -103,6 +103,9 @@ fi
 %dir %{_datadir}/qterminal/translations
 
 %changelog
+* Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
+- Update version to 1.3.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

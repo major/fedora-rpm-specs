@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        2.0.30
+Version:        2.0.32
 Release:        %autorelease
 Summary:        Gio bindings
 

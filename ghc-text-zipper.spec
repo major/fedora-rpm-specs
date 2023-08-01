@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.12
+Version:        0.13
 Release:        %autorelease
 Summary:        Text editor zipper library
 

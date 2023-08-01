@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        1.2.2
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Law-abiding lenses for aeson
 
@@ -13,13 +13,14 @@ License:        MIT
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
+Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
+BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-aeson-devel
-BuildRequires:  ghc-attoparsec-devel
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-lens-devel
@@ -30,7 +31,6 @@ BuildRequires:  ghc-unordered-containers-devel
 BuildRequires:  ghc-vector-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-aeson-prof
-BuildRequires:  ghc-attoparsec-prof
 BuildRequires:  ghc-base-prof
 BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-lens-prof
@@ -84,6 +84,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
+dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 

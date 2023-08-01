@@ -1,8 +1,8 @@
 %global srcname regex
 
 Name:           python-%{srcname}
-Version:        2022.10.31
-Release:        4%{?dist}
+Version:        2023.6.3
+Release:        1%{?dist}
 Summary:        Alternative regular expression module, to replace re
 # see also https://code.google.com/p/mrab-regex-hg/issues/detail?id=124
 License:        Python and CNRI
@@ -53,6 +53,9 @@ rst2html README.rst > README.html
 
 
 %changelog
+* Sun Jul 30 2023 Thomas Moschny <thomas.moschny@gmx.de> - 2022.6.3-1
+- Update to 2023.6.3.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.10.31-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

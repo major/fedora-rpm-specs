@@ -4,7 +4,6 @@
 %bcond_without	system_webp
 %bcond_without	system_icu
 %bcond_without	system_ffi
-%bcond_with	system_hunspell
 %bcond_with	system_cairo
 %bcond_without	system_av1
 
@@ -24,7 +23,6 @@
 %global webp_version	1.0.0
 %global icu_version	63.1
 %global ffi_version	3.0.9
-%global hunspell_version 1.6.1
 %global cairo_version	1.10
 %global libaom_version	1.0.0
 %global dav1d_version	0.1.1
@@ -38,8 +36,8 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.16
-Release:        4%{?dist}
+Version:        2.53.17
+Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -55,28 +53,27 @@ Source5:	seamonkey-mail.desktop
 Source6:	seamonkey-ua-update.json.in
 
 Patch1:		seamonkey-2.53.15-nss_3_79_0.patch
-Patch2:		seamonkey-2.53.16-mozilla-1769631.patch
-Patch3:		seamonkey-2.53.9-mozilla-1516803.patch
+Patch3:		seamonkey-2.53.17-mozilla-1516803.patch
 Patch5:		firefox-35-rhbz-1173156.patch
 Patch7:		firefox-51-mozilla-1005640.patch
 Patch9:		seamonkey-2.53.1-mozilla-revert-1332139.patch
-Patch10:	seamonkey-2.53.7-mozilla-440908.patch
+Patch10:	seamonkey-2.53.17-mozilla-440908.patch
 Patch11:	seamonkey-2.53.16-mozilla-1434478.patch
 Patch13:	seamonkey-2.53.10-mozilla-1460295.patch
 Patch14:	seamonkey-2.53.11-adjacent-sibling.patch
-Patch15:	seamonkey-2.53.10-mozilla-1442861.patch
+Patch15:	seamonkey-2.53.17-mozilla-1442861.patch
 Patch16:	seamonkey-2.53.14-fix-1485179.patch
 Patch17:	seamonkey-2.53.8-mozilla-1661070-1.patch
 Patch18:	seamonkey-2.53.8-mozilla-1661070-2.patch
-Patch19:	seamonkey-2.53.5-system-av1.patch
-Patch21:	seamonkey-2.53.12-media-document.patch
+Patch19:	seamonkey-2.53.17-system-av1.patch
+Patch21:	seamonkey-2.53.17-media-document.patch
 Patch22:	seamonkey-2.53.6-client_mk.patch
 Patch23:	seamonkey-2.53.9-revert-1593550.patch
 Patch24:	seamonkey-2.53.14-install_man.patch
 Patch25:	seamonkey-2.53.7-mailnews-useragent.patch
 Patch26:	seamonkey-2.53.13-userDisabled.patch
 Patch27:	seamonkey-2.53.8-ext-if-needed.patch
-Patch28:	seamonkey-2.53.8-mozilla-1619108.patch
+Patch28:	seamonkey-2.53.17-mozilla-1619108.patch
 Patch29:	seamonkey-2.53.15-prtypes.patch
 Patch30:	seamonkey-2.53.5-nss_pkcs11_v3.patch
 Patch31:	seamonkey-2.53.1-mozilla-526293.patch
@@ -88,16 +85,21 @@ Patch38:	seamonkey-2.53.8-mozilla-521861.patch
 Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
 Patch41:	seamonkey-2.53.15-revert-1737436.patch
-Patch42:	seamonkey-2.53.10-postmessage.patch
-Patch45:	seamonkey-2.53.16-regexp.patch
+Patch42:	seamonkey-2.53.10-postmessage-event.patch
+Patch43:	seamonkey-2.53.17-postMessage.patch
+Patch45:	seamonkey-2.53.17-regexp.patch
 Patch46:	seamonkey-2.53.10-regexp-imported.patch
+Patch47:	seamonkey-2.53.17-regexp-fix.patch
+Patch48:	seamonkey-2.53.17-ffmpeg60-headers.patch
+Patch49:	seamonkey-2.53.17-ffmpeg60-1819374.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
 Patch62:	seamonkey-2.53.11-compat-version.patch
+Patch63:       seamonkey-2.53.17-ascii.patch
+Patch64:       seamonkey-2.53.17-revert-1083470.patch
+Patch65:       seamonkey-2.53.17-fix-1406821.patch
 Patch66:	seamonkey-2.53.11-startupcache1.patch
-Patch67:	seamonkey-2.53.13-wasm-gc.patch
-Patch68:	seamonkey-2.53.16-mozilla-1519319.patch
 Patch69:	seamonkey-2.53.16-stylo_config.patch
 
 %{?with_system_nspr:BuildRequires:      nspr-devel >= %{nspr_version}}
@@ -107,7 +109,6 @@ Patch69:	seamonkey-2.53.16-stylo_config.patch
 %{?with_system_webp:BuildRequires:      libwebp-devel >= %{webp_version}}
 %{?with_system_icu:BuildRequires:       libicu-devel >= %{icu_version}}
 %{?with_system_ffi:BuildRequires:       libffi-devel >= %{ffi_version}}
-%{?with_system_hunspell:BuildRequires:  hunspell-devel >= %{hunspell_version}}
 %{?with_system_cairo:BuildRequires:     cairo-devel >= %{cairo_version}}
 %{?with_system_av1:BuildRequires:       libaom-devel >= %{libaom_version}}
 %{?with_system_av1:BuildRequires:       libdav1d-devel >= %{dav1d_version}}
@@ -119,7 +120,6 @@ BuildRequires:  zip
 BuildRequires:  libIDL-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk3-devel
-BuildRequires:  GConf2-devel
 BuildRequires:  dbus-glib-devel
 BuildRequires:  krb5-devel
 BuildRequires:  pango-devel
@@ -140,7 +140,6 @@ BuildRequires:  nasm >= 2.14
 
 BuildRequires:  make
 BuildRequires:  autoconf213
-BuildRequires:  python27
 BuildRequires:  perl-interpreter
 
 %if %{with clang} || %{with stylo}
@@ -150,11 +149,12 @@ BuildRequires:	clang, llvm-devel
 BuildRequires:	gcc-c++ >= 7.1
 %endif
 
-BuildRequires:	rust >= 1.58
+BuildRequires:	rust >= 1.61
 BuildRequires:	cargo
 
-# temporary to avoid python-3.11 issues
-BuildRequires: python3.9
+# temporary to avoid python-3.12 issues
+BuildRequires: python3.11
+BuildRequires: python3-setuptools
 
 Requires:       mozilla-filesystem
 Requires:       hicolor-icon-theme
@@ -195,7 +195,6 @@ cd mozilla
 cp %{SOURCE3} GNUmakefile
 
 %patch1 -p0 -b .nss_3_79_0
-%patch2 -p1 -b .1769631
 %patch3 -p1 -b .1516803
 %patch5 -p2 -b .1173156
 %patch7 -p1 -b .1005640
@@ -229,19 +228,24 @@ cp %{SOURCE3} GNUmakefile
 %patch39 -p1 -b .dateformat
 %patch40 -p0 -b .slowscript
 %patch41 -p0 -b .revert-1737436
-%patch42 -p1 -b .postmessage
+%patch42 -p1 -b .postmessage-event
+%patch43 -p1 -b .postMessage
 
 #  just pre-remove to avoid huge patches...
 rm -rf js/src/{irregexp,new-regexp}
 %patch45 -p1
 %patch46 -p1
+%patch47 -p1
+%patch48 -p1
+%patch49 -p1 -b .1819374
 
 %patch60 -p1 -b .ua-update
 %patch61 -p1 -b .ua-update-preload
 %patch62 -p1 -b .compat-version
+%patch63 -p1 -b .ascii
+%patch64 -p1 -b .1083470
+%patch65 -p1 -b .1406821
 %patch66 -p1 -b .startupcache1
-%patch67 -p1 -b .wasm-gc
-%patch68 -p1 -b .1519319
 %patch69 -p1 -b .stylo_config
 
 %if %{without calendar}
@@ -279,6 +283,7 @@ ac_add_options --with-system-bz2
 ac_add_options --disable-tests
 ac_add_options --disable-install-strip
 ac_add_options --enable-default-toolkit=cairo-gtk3
+ac_add_options --disable-gconf
 ac_add_options --disable-crashreporter
 ac_add_options --disable-updater
 ac_add_options --enable-chrome-format=omni
@@ -300,7 +305,6 @@ ac_add_options --enable-startupcache
 %{expand:%with_sys   av1}
 
 %{expand:%endis_sys  ffi}
-%{expand:%endis_sys  hunspell}
 %{expand:%endis_sys  cairo}
 
 #  always enable calendar to build needed internal components required for both bundled and external addons
@@ -368,9 +372,19 @@ lockPref("calendar.useragent.extra", "");
 pref("general.useragent.compatMode.strict-firefox", true);
 pref("general.useragent.compatMode.version", "91.0");
 
+pref("network.http.sendOriginHeader", 1);
+
 /* Keep the same behaviour as for years  */
 pref("browser.tabs.autoHide", true);
 pref("mail.tabs.autoHide", true);
+
+/* Avoid new "pulse-rust" for a while for stability reasons  */
+pref("media.cubeb.backend", "pulse");
+
+/* From upcoming 2.53.18, ready right now  */
+pref("dom.webcomponents.enabled", true);
+pref("dom.webcomponents.customelements.enabled", true);
+pref("dom.w3c_pointer_events.enabled", true);
 
 EOF
 # all-fedora.js
@@ -380,8 +394,8 @@ EOF
 
 cd mozilla
 
-# temporary to avoid python-3.11 issues
-export PYTHON3=%{_bindir}/python3.9
+# temporary to avoid python-3.12 issues
+sed -i -e 's/run_py python3/run_py python3.11/' mach
 
 %if %{with clang}
 export CC=clang
@@ -397,9 +411,6 @@ MOZ_LINK_FLAGS=
 %if %{with clang}
 MOZ_OPT_FLAGS=$(echo $MOZ_OPT_FLAGS | sed -e 's/-fstack-clash-protection//')
 %endif
-
-#  Temporary for build with libstdc++ >= 12
-MOZ_OPT_FLAGS=$(echo $MOZ_OPT_FLAGS | sed -s 's/-Wp,-D_GLIBCXX_ASSERTIONS//')
 
 #  needed for -Werror=format-security
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -Wformat"
@@ -527,6 +538,16 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Sun Jul 30 2023 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.17-1
+- update to 2.53.17
+- enable webcomponents and pointer-events (upcoming upstream changes)
+- send origin header (for same-origin only) to satisfy client checking sites
+- backport fixes for mozbz 1502801 and mozbz 1502802
+- fix mozbz 1406821 to avoid extra debug output
+- add support for ffmpeg-6.0
+- no more needed python2.7 for build
+- drop obsoleted gconf2 support
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.53.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

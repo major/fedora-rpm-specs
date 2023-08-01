@@ -2,14 +2,11 @@
 
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
-Version: 1.2.0
-Release: 4%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/lxqt/lxqt-session/pull/456
-# Support procps-ng 4
-Patch0:  lxqt-session-pr456-procps-ng-400.patch
 BuildRequires: make
 BuildRequires: %{?fedora:cmake}%{!?fedora:cmake3} >= 3.0
 BuildRequires: pkgconfig(lxqt) >= 1.1.0
@@ -55,7 +52,6 @@ This package provides translations for the lxqt-session package.
 
 %prep
 %setup -q
-%patch -P0 -p1
 
 %build
 %if 0%{?el7}
@@ -124,6 +120,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=Adwaita/g;/General/a window_manag
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
+- Update version to 1.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 # testsuite missing deps: test-framework test-framework-quickcheck2 test-framework-hunit simple-reflect
 
 Name:           ghc-%{pkg_name}
-Version:        5.1.1
+Version:        5.2.2
 Release:        %autorelease
 Summary:        Lenses, Folds and Traversals
 

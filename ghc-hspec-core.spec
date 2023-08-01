@@ -7,7 +7,7 @@
 # testsuite missing deps: hspec-meta
 
 Name:           ghc-%{pkg_name}
-Version:        2.9.7
+Version:        2.10.10
 Release:        %autorelease
 Summary:        A Testing Framework for Haskell
 
@@ -26,18 +26,18 @@ BuildRequires:  ghc-ansi-terminal-devel
 BuildRequires:  ghc-array-devel
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-call-stack-devel
-BuildRequires:  ghc-clock-devel
 BuildRequires:  ghc-deepseq-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-filepath-devel
-BuildRequires:  ghc-ghc-devel
-BuildRequires:  ghc-ghc-boot-th-devel
+BuildRequires:  ghc-haskell-lexer-devel
 BuildRequires:  ghc-hspec-expectations-devel
+BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-quickcheck-io-devel
 BuildRequires:  ghc-random-devel
 BuildRequires:  ghc-setenv-devel
 BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-tf-random-devel
+BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-transformers-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-HUnit-prof
@@ -46,18 +46,18 @@ BuildRequires:  ghc-ansi-terminal-prof
 BuildRequires:  ghc-array-prof
 BuildRequires:  ghc-base-prof
 BuildRequires:  ghc-call-stack-prof
-BuildRequires:  ghc-clock-prof
 BuildRequires:  ghc-deepseq-prof
 BuildRequires:  ghc-directory-prof
 BuildRequires:  ghc-filepath-prof
-BuildRequires:  ghc-ghc-prof
-BuildRequires:  ghc-ghc-boot-th-prof
+BuildRequires:  ghc-haskell-lexer-prof
 BuildRequires:  ghc-hspec-expectations-prof
+BuildRequires:  ghc-process-prof
 BuildRequires:  ghc-quickcheck-io-prof
 BuildRequires:  ghc-random-prof
 BuildRequires:  ghc-setenv-prof
 BuildRequires:  ghc-stm-prof
 BuildRequires:  ghc-tf-random-prof
+BuildRequires:  ghc-time-prof
 BuildRequires:  ghc-transformers-prof
 %endif
 # End cabal-rpm deps

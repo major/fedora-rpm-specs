@@ -1,14 +1,14 @@
 %global gem_name powerpack
 
 Name:           rubygem-%{gem_name}
-Version:        0.1.1
-Release:        15%{?dist}
+Version:        0.1.3
+Release:        1%{?dist}
 Summary:        A few useful extensions to core Ruby classes
 
 License:        MIT
 URL:            https://github.com/bbatsov/powerpack
 # git clone git@github.com:bbatsov/powerpack.git
-# cd powerpack && git checkout f7e2b9b7815e8fc202bd8874ed9376011af4a203
+# cd powerpack && git checkout 915a55800c8241a7334440449d0aa4285f72e0a1
 # gem build powerpack.gemspec
 Source0:        %{gem_name}-%{version}.gem
 
@@ -62,6 +62,9 @@ rspec -Ilib spec
 %exclude %{gem_instdir}/spec
 
 %changelog
+* Sun Jul 30 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 0.1.3-1
+- Update to 0.1.3-1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

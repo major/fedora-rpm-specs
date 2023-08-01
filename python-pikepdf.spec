@@ -5,7 +5,7 @@
 %bcond tests 1
 
 Name:           python-%{srcname}
-Version:        7.2.0
+Version:        8.2.2
 Release:        %autorelease
 Summary:        Read and write PDFs with Python, powered by qpdf
 
@@ -14,7 +14,7 @@ URL:            https://github.com/pikepdf/pikepdf
 Source0:        %pypi_source
 
 BuildRequires:  gcc-c++
-BuildRequires:  qpdf-devel >= 11.2.0
+BuildRequires:  qpdf-devel >= 11.5.0
 BuildRequires:  python3-devel
 %if %{with tests}
 # Tests:
@@ -52,8 +52,10 @@ Documentation for pikepdf
 # Drop coverage requirements
 sed -i -e '/coverage/d' -e '/pytest-cov/d' setup.cfg
 
+%if %{with docs}
 # We don't build docs against the installed version, so force the version.
 sed -i -e "s/release = .\+/release = '%{version}'/g" docs/conf.py
+%endif
 
 
 %generate_buildrequires
@@ -65,7 +67,7 @@ sed -i -e "s/release = .\+/release = '%{version}'/g" docs/conf.py
 
 %if %{with docs}
 # generate html docs
-export PYTHONPATH="%{pyproject_build_lib}"
+export PYTHONPATH="$PWD/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
 pushd docs
 sphinx-build-3 . ../html
 popd
@@ -76,14 +78,16 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
-# https://github.com/pikepdf/pikepdf/issues/447
-rm -r %{buildroot}%{python3_sitearch}/core
 %pyproject_save_files %{srcname}
 
 
 %if %{with tests}
 %check
-%{pytest} -ra
+%{pytest} -ra \
+%if %{fedora} >= 39
+    -k 'not test_stack_depth' \
+%endif
+    %{nil}
 %endif
 
 

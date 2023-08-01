@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        9.2.2
+Version:        9.3.1
 Release:        %autorelease
 Summary:        Monadic parser combinators
 

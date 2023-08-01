@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.15.7
+Version:        0.15.8
 Release:        %autorelease
 Summary:        Binding to the Gtk+ graphical user interface library
 

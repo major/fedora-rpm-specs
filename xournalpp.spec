@@ -4,14 +4,13 @@
 #%%global	profiling 0
 
 Name:           xournalpp
-Version:        1.1.3
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Handwriting note-taking software with PDF annotation support
 License:	GPLv2+
 URL:            https://github.com/%{name}/%{name}
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Add missing include for gcc 13
-Patch:          xournalpp-include.patch
+
 
 BuildRequires:  cmake >= 3.10
 BuildRequires:  desktop-file-utils
@@ -96,7 +95,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/com.github.%{n
 %{_datadir}/icons/hicolor/scalable/apps/com.github.%{name}.%{name}.svg
 %{_datadir}/icons/hicolor/scalable/mimetypes/*
 %{_datadir}/mime/packages/com.github.%{name}.%{name}.xml
-%exclude %{_datadir}/mimelnk/application/*
 %{_datadir}/thumbnailers/com.github.%{name}.%{name}.thumbnailer
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/resources/*_template.tex

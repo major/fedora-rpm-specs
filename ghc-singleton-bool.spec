@@ -10,7 +10,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.1.6
 # can only be reset when all subpkgs bumped
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Type level booleans
 
 License:        BSD-3-Clause
@@ -132,6 +132,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Sat Jul 29 2023 Jens Petersen <petersen@redhat.com> - 0.1.6-3
+- rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,10 +4,8 @@
 %global pkg_name vty
 %global pkgver %{pkg_name}-%{version}
 
-# testsuite missing deps: quickcheck-assertions test-framework test-framework-smallcheck test-framework-hunit
-
 Name:           ghc-%{pkg_name}
-Version:        5.37
+Version:        5.38
 Release:        %autorelease
 Summary:        A simple terminal UI library
 
@@ -29,12 +27,10 @@ BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-deepseq-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-filepath-devel
-BuildRequires:  ghc-hashable-devel
 BuildRequires:  ghc-microlens-devel
 BuildRequires:  ghc-microlens-mtl-devel
 BuildRequires:  ghc-microlens-th-devel
 BuildRequires:  ghc-mtl-devel
-BuildRequires:  ghc-parallel-devel
 BuildRequires:  ghc-parsec-devel
 BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-terminfo-devel
@@ -53,12 +49,10 @@ BuildRequires:  ghc-containers-prof
 BuildRequires:  ghc-deepseq-prof
 BuildRequires:  ghc-directory-prof
 BuildRequires:  ghc-filepath-prof
-BuildRequires:  ghc-hashable-prof
 BuildRequires:  ghc-microlens-prof
 BuildRequires:  ghc-microlens-mtl-prof
 BuildRequires:  ghc-microlens-th-prof
 BuildRequires:  ghc-mtl-prof
-BuildRequires:  ghc-parallel-prof
 BuildRequires:  ghc-parsec-prof
 BuildRequires:  ghc-stm-prof
 BuildRequires:  ghc-terminfo-prof
@@ -72,14 +66,13 @@ BuildRequires:  ghc-vector-prof
 
 %description
 Vty is terminal GUI library in the niche of ncurses. It is intended to be easy
-to use, have no confusing corner cases, and good support for common terminal
-types.
+to use and to provide good support for common terminal types.
 
 See the 'vty-examples' package as well as the program
-'test/interactive_terminal_test.hs' included in the 'vty' package for examples
-on how to use the library.
+'examples/interactive_terminal_test.hs' included in the 'vty' repository for
+examples on how to use the library.
 
-Import the "Graphics.Vty" convenience module to get access to the core parts of
+Import the 'Graphics.Vty' convenience module to get access to the core parts of
 the library.
 
 

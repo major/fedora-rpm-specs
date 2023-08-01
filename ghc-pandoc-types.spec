@@ -7,7 +7,7 @@
 # testsuite missing deps: test-framework test-framework-hunit test-framework-quickcheck2
 
 Name:           ghc-%{pkg_name}
-Version:        1.22.2.1
+Version:        1.23.0.1
 Release:        %autorelease
 Summary:        Types for representing a structured document
 

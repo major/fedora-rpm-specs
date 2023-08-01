@@ -16,11 +16,11 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.1
-Release:        2%{?dist}
+Version:        6.5.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
-License:        LGPL-3.0-only OR GPL-2.0-only
+License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            http://qt.io/
 
 %if 0%{?commit:1}
@@ -211,6 +211,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Sun Jul 30 2023 Sandro Mani <manisandro@gmail.com> - 6.5.2-1
+- Update to 6.5.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

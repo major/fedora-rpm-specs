@@ -1,17 +1,12 @@
-# Generated from http_parser.rb-0.6.0.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name http_parser.rb
 
 Name:		rubygem-%{gem_name}
-Version:	0.6.0
-Release:	28%{?dist}
+Version:	0.8.0
+Release:	1%{?dist}
 Summary:	Simple callback-based HTTP request/response parser
 License:	MIT
 URL:		https://github.com/tmm1/http_parser.rb
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Fedora ships with RSpec 3.0 and the Expectations have a different
-# name. Patch aims to update them to the newer Expectations.
-Patch0:		http_parser.rb-0.6.0-rspec3.patch
-Patch1:		http_parser.rb-0.6.0-usr_bin_ruby.patch
 BuildRequires:  gcc
 BuildRequires:	rubygems-devel
 BuildRequires:	ruby-devel
@@ -54,15 +49,13 @@ cp -ar .%{gem_instdir}/lib/ruby_http_parser.so %{buildroot}%{gem_extdir_mri}/lib
 %endif
 
 # Prevent dangling symlink in -debuginfo (rhbz#878863).
-rm -rf %{buildroot}%{gem_instdir}/ext/
+rm -rf %{buildroot}%{gem_instdir}/{ext/,.github/}
 
 rm -f %{buildroot}%{gem_instdir}/{.gitignore,.gitmodules,Gemfile.lock}
 
 # Run the test suite
 %check
 pushd .%{gem_instdir}
-# Workaround for issue https://github.com/tmm1/http_parser.rb/issues/27
-export LC_ALL=en_US.UTF-8
 rspec -Ilib -I%{buildroot}%{gem_extdir_mri} spec
 popd
 
@@ -86,6 +79,9 @@ popd
 %{gem_instdir}/tasks
 
 %changelog
+* Sun Jul 30 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 0.8.0-1
+- Update to 0.8.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

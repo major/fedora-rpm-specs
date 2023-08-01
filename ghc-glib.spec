@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.13.8.2
+Version:        0.13.10.0
 Release:        %autorelease
 Summary:        Binding to the GLIB library for Gtk2Hs
 

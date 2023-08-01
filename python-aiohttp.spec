@@ -1,8 +1,8 @@
 %bcond_without tests
 
 Name:           python-aiohttp
-Version:        3.8.4
-Release:        5%{?dist}
+Version:        3.8.5
+Release:        1%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
 License:        Apache-2.0
@@ -13,12 +13,6 @@ Source0:        %{url}/archive/v%{version}/aiohttp-%{version}.tar.gz
 
 # downstream only patch
 Patch:          0001-Unbundle-llhttp.patch
-# [3.8] Make the 3.10 related xfails non-strict
-# https://github.com/aio-libs/aiohttp/pull/7178
-#   Fixes:
-# python-aiohttp: FTBFS in Fedora 36, 37, and 38/Rawhide
-# https://bugzilla.redhat.com/show_bug.cgi?id=2158175
-Patch:          %{url}/pull/7178.patch
 
 # Update update_query calls to work with latest yarl (1.9.2)
 # Patch was inspired by this upstream commit:
@@ -32,7 +26,8 @@ Patch:          ignore-DeprecationWarning-set_child_watcher-is-depre.patch
 
 BuildRequires:  gcc
 
-BuildRequires:  llhttp-devel
+# CVE-2023-30589
+BuildRequires:  llhttp-devel >= 8.1.1
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(cython)
@@ -156,6 +151,9 @@ k="${k-}${k+ and }not test_tcp_connector_fingerprint_fail[pyloop]"
 %doc README.rst
 
 %changelog
+* Sun Jul 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.8.5-1
+- Update to 3.8.5 (close RHBZ#2227458)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

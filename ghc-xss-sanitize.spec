@@ -7,7 +7,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.3.7.1
+Version:        0.3.7.2
 Release:        %autorelease
 Summary:        Sanitize untrusted HTML to prevent XSS attacks
 

@@ -1,10 +1,10 @@
 %global pypi_name bodhi-messages
 %global src_name bodhi_messages
-%global pypi_version 7.2.0
+%global pypi_version 7.2.1
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        JSON schema for messages sent by Bodhi
 
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %doc README.rst
 
 %changelog
+* Sun Jul 30 2023 Mattia Verga <mattia.verga@proton.me> - 7.2.1-1
+- Update to 7.2.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

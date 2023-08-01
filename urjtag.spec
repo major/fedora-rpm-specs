@@ -6,7 +6,7 @@
 
 Name:           urjtag
 Version:        2021.03
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A tool for communicating over JTAG with flash chips and CPUs
 
 License:        GPLv2+
@@ -16,9 +16,11 @@ Patch0:         %{name}-fixarm.patch
 
 %global py3_prefix python3
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  libftdi-devel
+BuildRequires:  (python3-setuptools if python3-devel >= 3.12)
+BuildRequires:  readline-devel
 BuildRequires:  swig
 %if 0%{?rhel} || 0%{?centos}
 BuildRequires: %{py3_prefix}4-devel
@@ -101,6 +103,9 @@ pushd bindings/python/
 %doc bindings/python/t_srst.py
 
 %changelog
+* Sun Jul 30 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2021.03-10
+- Fix FTBFS rhbz#2226495 rhbz#2220616 rhbz#2175186 and rhbz#1785878
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.03-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

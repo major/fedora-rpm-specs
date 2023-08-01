@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.9.1.2
+Version:        0.9.2.0
 Release:        %autorelease
 Summary:        Securely store session data in a client-side cookie
 
@@ -15,6 +15,7 @@ License:        MIT
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
+Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
@@ -24,10 +25,8 @@ BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-base64-bytestring-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-cereal-devel
-BuildRequires:  ghc-cipher-aes-devel
-BuildRequires:  ghc-cprng-aes-devel
 BuildRequires:  ghc-crypto-api-devel
-BuildRequires:  ghc-crypto-random-devel
+BuildRequires:  ghc-cryptonite-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-entropy-devel
 BuildRequires:  ghc-setenv-devel
@@ -38,10 +37,8 @@ BuildRequires:  ghc-base-prof
 BuildRequires:  ghc-base64-bytestring-prof
 BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-cereal-prof
-BuildRequires:  ghc-cipher-aes-prof
-BuildRequires:  ghc-cprng-aes-prof
 BuildRequires:  ghc-crypto-api-prof
-BuildRequires:  ghc-crypto-random-prof
+BuildRequires:  ghc-cryptonite-prof
 BuildRequires:  ghc-directory-prof
 BuildRequires:  ghc-entropy-prof
 BuildRequires:  ghc-setenv-prof
@@ -100,6 +97,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
+cp -bp %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 

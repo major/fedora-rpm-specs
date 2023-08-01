@@ -8,7 +8,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.9.0.6
+Version:        0.9.0.7
 Release:        %autorelease
 Summary:        A Haskell interpreter built on top of the GHC API
 

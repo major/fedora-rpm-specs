@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        1.5.0.1
+Version:        1.6.0.0
 Release:        %autorelease
 Summary:        Large utility library
 

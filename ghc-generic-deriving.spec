@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        1.14.2
+Version:        1.14.4
 Release:        %autorelease
 Summary:        Generic programming library for generalised deriving
 

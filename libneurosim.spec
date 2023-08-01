@@ -22,12 +22,14 @@ developed to support the use of libcsa from NEST.}
 
 Name:           libneurosim
 Version:        1.2.0
-Release:        7.20210110.git%{shortcommit}%{?dist}
+Release:        8.20210110.git%{shortcommit}%{?dist}
 Summary:        Common interfaces for neuronal simulators
 
 License:        GPLv3+
 URL:            https://github.com/INCF/%{name}
 Source0:        https://github.com/INCF/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+# python 3.12 removes distutils, use sysconfig instead
+Patch0:         libneurosim-afc003f-py312-disutils-removal.patch
 
 BuildRequires:  automake
 BuildRequires:  autoconf
@@ -101,7 +103,11 @@ Requires:       %{name}-mpich%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -c -n %{name}-%{commit}
+%autosetup -c -n %{name}-%{commit} -N
+(
+cd %{name}-%{commit}
+%patch -P0 -p1
+)
 
 # Do not build bundled libltdl
 # sed -i -e '/AC_CONFIG_SUBDIRS(libltdl)/ d' -e '/LTDL_DIR/ d' -e '/_LTDL_CON/ d' %{name}-%{commit}/configure.ac
@@ -260,6 +266,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jul 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.0-8.20210110.gitafc003f
+- Fix python header path detection on python 3.12 wrt distutils removal
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7.20210110.gitafc003f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

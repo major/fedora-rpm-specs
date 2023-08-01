@@ -5,7 +5,7 @@
 
 Name: ModemManager
 Version: 1.20.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -185,6 +185,9 @@ cp -a cli/mmcli-completion %{buildroot}%{_datadir}/bash-completion/completions/m
 
 
 %changelog
+* Wed Jul 30 2023 Tao Jin <tao-j@outlook.com> - 1.20.6-3
+- Rebuilt for RHBZ#2226577
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

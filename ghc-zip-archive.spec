@@ -9,7 +9,7 @@
 %endif
 
 Name:           ghc-%{pkg_name}
-Version:        0.4.2.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        Library for creating and modifying zip archives
 

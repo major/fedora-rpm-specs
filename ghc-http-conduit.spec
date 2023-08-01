@@ -7,7 +7,7 @@
 # testsuite missing deps: wai-conduit
 
 Name:           ghc-%{pkg_name}
-Version:        2.3.8
+Version:        2.3.8.1
 Release:        %autorelease
 Summary:        HTTP client package with conduit interface and HTTPS support
 
@@ -15,9 +15,11 @@ License:        BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
+Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
+BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-aeson-devel
@@ -98,6 +100,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
+dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 

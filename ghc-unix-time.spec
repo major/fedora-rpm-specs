@@ -7,7 +7,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.4.8
+Version:        0.4.10
 Release:        %autorelease
 Summary:        Unix time parser/formatter and utilities
 
@@ -35,6 +35,7 @@ BuildRequires:  ghc-QuickCheck-devel
 BuildRequires:  ghc-hspec-devel
 BuildRequires:  ghc-hspec-discover-devel
 BuildRequires:  ghc-old-locale-devel
+BuildRequires:  ghc-template-haskell-devel
 BuildRequires:  ghc-time-devel
 %endif
 # End cabal-rpm deps

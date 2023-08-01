@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.1.3.0
+Version:        0.1.4.0
 Release:        %autorelease
 Summary:        Pretty-printing for RIO
 

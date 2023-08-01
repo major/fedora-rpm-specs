@@ -11,6 +11,7 @@ Release:	23%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Valgrind
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Valgrind-%{version}.tar.gz
+Patch1:		Test-Valgrind-1.19-Perl_pp_entersub.patch
 %if !%{with debug_valgrind}
 BuildArch:	noarch
 %endif
@@ -91,14 +92,26 @@ example HTML pages) by defining your own Test::Valgrind::Action class.
 %prep
 %setup -q -n Test-Valgrind-%{version}
 
+# Without debuginfo, the symbol 'Perl_pp_entersub' is not always
+# appearing in the valgrind trace report, causing t/20-bad.t to fail
+# as a result of not recognizing the trace record
+#
+# This is a workaround to help the test identify the trace correctly
+%patch -P 1
+
 # Avoid doc-file deps and fix shellbangs
 sed -i -e 's|^#!/usr/bin/env perl|#!/usr/bin/perl|' samples/map.pl
 chmod -c -x samples/map.pl
 
 %if %{with debug_valgrind}
-# Create a local valgrind with --track-origins=yes
+# Create a wrapper script for valgrind so we can see how it's being used
 mkdir bin
-echo '/usr/bin/valgrind --track-origins=yes "$@"' > bin/valgrind
+cat << 'EOF' > bin/valgrind
+#!/bin/bash
+
+echo "### valgrind " "$@" >> valgrind.output
+/usr/bin/valgrind "$@" | tee -a valgrind.output
+EOF
 chmod 755 bin/valgrind
 %endif
 
@@ -154,6 +167,9 @@ make test
 %{_mandir}/man3/Test::Valgrind::Version.3*
 
 %changelog
+* Sun Jul 30 2023 Paul Howarth <paul@city-fan.org> - 1.19-23
+- Fix FTBFS in Fedora 39 due to failing t/20-bad.t (rhbz#2222854)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

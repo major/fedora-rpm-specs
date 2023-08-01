@@ -7,7 +7,7 @@
 # testsuite missing deps: mysql mysql-simple persistent-mysql persistent-postgresql postgresql-simple
 
 Name:           ghc-%{pkg_name}
-Version:        3.5.8.1
+Version:        3.5.10.0
 Release:        %autorelease
 Summary:        Type-safe EDSL for SQL queries on persistent backends
 

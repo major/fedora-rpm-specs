@@ -1,8 +1,8 @@
 %define __cmake_in_source_build 1
 
 Name: libfm-qt
-Version: 1.2.0
-Release: 3%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 Summary: Companion library for PCManFM
 License: GPLv2+
 URL: https://lxqt-project.org
@@ -88,8 +88,8 @@ sed -i "s/Requires:.*/Requires: Qt5Widgets Qt5X11Extras/" %{buildroot}/%{_libdir
 %files
 %doc AUTHORS CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libfm-qt.so.12
-%{_libdir}/libfm-qt.so.12.0.0
+%{_libdir}/libfm-qt.so.13
+%{_libdir}/libfm-qt.so.13.0.0
 %{_datadir}/libfm-qt
 
 %files devel
@@ -108,6 +108,9 @@ sed -i "s/Requires:.*/Requires: Qt5Widgets Qt5X11Extras/" %{buildroot}/%{_libdir
 %dir %{_datadir}/libfm-qt/translations
 
 %changelog
+* Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
+- Update version to 1.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

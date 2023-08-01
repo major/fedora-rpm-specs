@@ -1,12 +1,14 @@
 %{?python_enable_dependency_generator}
 
-Name:           python-pvc
+%global srcname pvc 
+
+Name:           python-%{srcname}
 Version:        0.3.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python vSphere Client with a dialog interface
 License:        BSD
-URL:            https://github.com/dnaeon/pvc
-Source0:        %{url}/archive/v%{version}.tar.gz#/pvc-%{version}.tar.gz
+URL:            https://github.com/dnaeon/%{srcname}
+Source0:        %{url}/archive/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 Patch0:         %{url}/commit/79a6f63f5b57622f1d3871b86ce8f048803d0914.patch
 Patch1:         %{url}/commit/1b8b803d467d550fd21830d407f0e900b2b10363.patch
 
@@ -32,9 +34,9 @@ BuildArch:      noarch
 \
 This package installs the documentation files.
 
-%package     -n python%{python3_pkgversion}-pvc
+%package     -n python%{python3_pkgversion}-%{srcname}
 Summary:        Python vSphere Client with a dialog interface
-%{?python_provide:%python_provide python%{python3_pkgversion}-pvc}
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 BuildRequires: make
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
@@ -52,12 +54,14 @@ Requires:       python%{python3_pkgversion}-requests
 Requires:       python%{python3_pkgversion}-vconnector
 %endif
 
-%description -n python%{python3_pkgversion}-pvc
+%description -n python%{python3_pkgversion}-%{srcname}
 %{_description}
 
 
 %prep
-%autosetup -p1 -npvc-%{version}
+%autosetup -p1 -n%{srcname}-%{version}
+# dependency checker does not like dashes in version specifier
+sed -i -r 's/(>= +[\d\.]+)-.+/\1/' setup.py
 
 %build
 %{py3_build}
@@ -74,15 +78,18 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 %license LICENSE
 %doc docs/_build/html/
 
-%files -n python%{python3_pkgversion}-pvc
+%files -n python%{python3_pkgversion}-%{srcname}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/pvc/
-%{python3_sitelib}/pvc-%{version}-py%{python3_version}.egg-info/
-%{_bindir}/pvc-tui
+%{python3_sitelib}/%{srcname}/
+%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
+%{_bindir}/%{srcname}-tui
 
 
 %changelog
+* Sun Jul 30 2023 Raphael Groner <raphgro@fedoraproject.org> - 0.3.0-20
+- ignore dash in versioned dependency 
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 
 Name:    lxqt-globalkeys
 Summary: Global keys utility for LXQt desktop suite
-Version: 1.2.0
-Release: 3%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -70,9 +70,9 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %{_bindir}/lxqt-config-globalkeyshortcuts
 %{_datadir}/applications/lxqt-config-globalkeyshortcuts.desktop
 %{_libdir}/liblxqt-globalkeys.so.1
-%{_libdir}/liblxqt-globalkeys.so.1.2.0
+%{_libdir}/liblxqt-globalkeys.so.1.3.0
 %{_libdir}/liblxqt-globalkeys-ui.so.1
-%{_libdir}/liblxqt-globalkeys-ui.so.1.2.0
+%{_libdir}/liblxqt-globalkeys-ui.so.1.3.0
 %{_sysconfdir}/xdg/autostart/lxqt-globalkeyshortcuts.desktop
 %{_datadir}/lxqt/globalkeyshortcuts.conf
 
@@ -97,6 +97,9 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %{_datadir}/lxqt/translations/lxqt-config-globalkeyshortcuts/lxqt-config-globalkeyshortcuts_arn.qm
 
 %changelog
+* Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
+- Update version to 1.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

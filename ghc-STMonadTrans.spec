@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.4.6
+Version:        0.4.7
 Release:        %autorelease
 Summary:        A monad transformer version of the ST monad
 
@@ -15,26 +15,25 @@ License:        BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
-Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
-BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-array-devel
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-mtl-devel
+BuildRequires:  ghc-transformers-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-array-prof
 BuildRequires:  ghc-base-prof
 BuildRequires:  ghc-mtl-prof
+BuildRequires:  ghc-transformers-prof
 %endif
 %if %{with tests}
 BuildRequires:  ghc-tasty-devel
 BuildRequires:  ghc-tasty-hunit-devel
 BuildRequires:  ghc-tasty-quickcheck-devel
-BuildRequires:  ghc-transformers-devel
 %endif
 # End cabal-rpm deps
 
@@ -85,7 +84,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
-dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 

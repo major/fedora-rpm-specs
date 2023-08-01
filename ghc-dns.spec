@@ -8,7 +8,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        4.1.0
+Version:        4.1.1
 Release:        %autorelease
 Summary:        DNS library in Haskell
 
@@ -29,6 +29,7 @@ BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-base16-bytestring-devel
 BuildRequires:  ghc-base64-bytestring-devel
 BuildRequires:  ghc-bytestring-devel
+BuildRequires:  ghc-case-insensitive-devel
 BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-cryptonite-devel
 BuildRequires:  ghc-hourglass-devel
@@ -45,6 +46,7 @@ BuildRequires:  ghc-base-prof
 BuildRequires:  ghc-base16-bytestring-prof
 BuildRequires:  ghc-base64-bytestring-prof
 BuildRequires:  ghc-bytestring-prof
+BuildRequires:  ghc-case-insensitive-prof
 BuildRequires:  ghc-containers-prof
 BuildRequires:  ghc-cryptonite-prof
 BuildRequires:  ghc-hourglass-prof

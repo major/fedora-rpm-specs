@@ -2,8 +2,8 @@
 %global pkgname markdown
 
 Name:           python-%{pkgname}
-Version:        3.4.1
-Release:        4%{?dist}
+Version:        3.4.4
+Release:        1%{?dist}
 Summary:        Markdown implementation in Python
 License:        BSD
 URL:            https://python-markdown.github.io/
@@ -39,11 +39,12 @@ there are a few known issues.
 %autosetup -p1 -n %{srcname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pkgname}
 
 # process license file
 PYTHONPATH=%{buildroot}%{python3_sitelib} \
@@ -55,16 +56,18 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %python3 -m unittest discover tests
 
 
-%files -n python%{python3_pkgversion}-%{pkgname}
+%files -n python%{python3_pkgversion}-%{pkgname} -f %{pyproject_files}
 # temporarily skip packaging docs - see also
 # https://github.com/Python-Markdown/markdown/issues/621
 #doc python3/build/docs/*
-%license LICENSE.*
-%{python3_sitelib}/*
+%license LICENSE.html LICENSE.md
 %{_bindir}/markdown_py
 
 
 %changelog
+* Sun Jul 30 2023 Thomas Moschny <thomas.moschny@gmx.de> - 3.4.4-1
+- Update to 3.4.4.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

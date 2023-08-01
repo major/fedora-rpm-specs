@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        5.5.14
+Version:        5.5.15
 Release:        %autorelease
 Summary:        Bifunctors
 

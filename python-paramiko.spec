@@ -1,7 +1,7 @@
 %global srcname paramiko
 
 Name:          python-%{srcname}
-Version:       3.3.0
+Version:       3.3.1
 Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
@@ -83,7 +83,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 
 %files -n python%{python3_pkgversion}-%{srcname}
 %license LICENSE
-%doc NEWS README.rst
+%doc README.rst
 %{python3_sitelib}/%{srcname}-*.egg-info/
 %{python3_sitelib}/%{srcname}/
 
@@ -91,8 +91,20 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Sun Jul 30 2023 Paul Howarth <paul@city-fan.org> - 3.3.1-1
+- Update to 3.3.1 (rhbz#2227478)
+  - Cleaned up some very old root level files, mostly just to exercise some of
+    our doc build and release machinery
+
 * Fri Jul 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3.0-1
 - 3.3.0
+  - Add support and tests for 'Match final ..' (frequently used in ProxyJump
+    configurations to exclude the jump host) to our SSH config parser (GH#1907,
+    GH#1992)
+  - Add an explicit 'max_concurrent_prefetch_requests' argument to
+    'paramiko.client.SSHClient.get' and 'paramiko.client.SSHClient.getfo',
+    allowing users to limit the number of concurrent requests used during
+    prefetch (GH#1587, GH#2058)
 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

@@ -2,15 +2,11 @@
 
 Name:    lxqt-config
 Summary: Config tools for LXQt desktop suite
-Version: 1.2.0
-Release: 4%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/lxqt/lxqt-config/pull/915
-# https://github.com/lxqt/lxqt-config/issues/903
-# With libkscreen-qt5 5.26.90, more explicit header inclusion is needed.
-Patch0:  lxqt-config-pr915-config-monitor-add-more-header-file-inclusion-f.patch
 
 BuildRequires: make
 BuildRequires: %{?fedora:cmake}%{!?fedora:cmake3} >= 3.0
@@ -46,7 +42,6 @@ This package provides translations for the lxqt-config package.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %if 0%{?el7}
@@ -147,6 +142,9 @@ desktop-file-edit \
 %{_datadir}/lxqt/translations/lxqt-config/lxqt-config_ast.qm
 
 %changelog
+* Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
+- Update version to 1.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

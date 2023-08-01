@@ -4,7 +4,8 @@
 %global pkg_name math-functions
 %global pkgver %{pkg_name}-%{version}
 
-%bcond_without tests
+# https://github.com/haskell/math-functions/issues/73
+%bcond_with tests
 
 Name:           ghc-%{pkg_name}
 Version:        0.3.4.2

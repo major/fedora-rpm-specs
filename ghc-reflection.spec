@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        2.1.6
+Version:        2.1.7
 Release:        %autorelease
 Summary:        Reifies arbitrary terms into types that can be reflected back into terms
 
@@ -15,11 +15,9 @@ License:        BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
-Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
-BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-base-devel
@@ -47,10 +45,16 @@ That package is an implementation of the ideas presented in the paper
 Shan (<http://okmij.org/ftp/Haskell/tr-15-04.pdf original paper>).
 However, the API has been streamlined to improve performance.
 
-Austin Seipp's tutorial
+There are a handful of tutorials on how to use this library:
+
+* Austin Seipp's tutorial
 <https://www.schoolofhaskell.com/user/thoughtpolice/using-reflection Reflecting
 values to types and back> provides a summary of the approach taken by this
 library, along with more motivating examples.
+
+* Arnaud Spiwack's tutorial
+<https://www.tweag.io/posts/2017-12-21-reflection-tutorial.html All about
+reflection> explains how to use this library.
 
 
 %package devel
@@ -91,7 +95,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
-dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 

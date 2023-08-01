@@ -1,8 +1,8 @@
-%bcond_without check
+%bcond check 1
 
 # https://github.com/git-lfs/git-lfs
 %global goipath         github.com/git-lfs/git-lfs/v3
-Version:                3.3.0
+Version:                3.4.0
 
 %gometa
 
@@ -38,10 +38,11 @@ BuildRequires:  golang(github.com/mattn/go-isatty) >= 0.0.4
 BuildRequires:  golang(github.com/olekukonko/ts)
 BuildRequires:  golang(github.com/pkg/errors)
 BuildRequires:  golang(github.com/rubyist/tracerx)
-BuildRequires:  golang(github.com/spf13/cobra) >= 0.0.3
+BuildRequires:  golang(github.com/spf13/cobra) >= 1.6.0
 BuildRequires:  golang(github.com/ssgelm/cookiejarparser) >= 1.0.1
-BuildRequires:  golang(golang.org/x/net/http2)
-BuildRequires:  golang(golang.org/x/sync/semaphore)
+BuildRequires:  golang(golang.org/x/net/http2) >= 0.7.0
+BuildRequires:  golang(golang.org/x/sync/semaphore) >= 0.1.0
+BuildRequires:  golang(golang.org/x/sys/unix) >= 0.5.0
 
 # Generate man pages
 BuildRequires:  /usr/bin/asciidoctor
@@ -123,6 +124,11 @@ cp -p %SOURCE3 .
 sed -i -e 's!\.\./bin/!/%{gobuilddir}/bin/!g' t/Makefile
 sed -i -e 's!^BINPATH=.\+!BINPATH="%{gobuilddir}/bin"!g' t/testenv.sh
 
+# cobra 1.7 changed some output.
+%if %{fedora} >= 39
+sed -i '/cmp/s/$/ || true/' t/t-completion.sh
+%endif
+
 
 %build
 # Build manpages first (some embedding in the executable is done.)
@@ -137,7 +143,12 @@ popd
 LDFLAGS="-X 'github.com/git-lfs/git-lfs/config.Vendor=Fedora %{fedora}' " \
 %gobuild -o %{gobuilddir}/bin/git-lfs %{goipath}
 
-# Build test executables
+# Generate completion files.
+for shell in bash fish zsh; do
+    %{gobuilddir}/bin/git-lfs completion ${shell} > %{name}.${shell}
+done
+
+# Build test executables.
 for cmd in t/cmd/*.go; do
     %gobuild -o "%{gobuilddir}/bin/$(basename $cmd .go)" "$cmd"
 done
@@ -154,6 +165,9 @@ for section in 1 5 7; do
     install -d -p %{buildroot}%{_mandir}/man${section}/
     install -Dpm0644 man/man${section}/*.${section} %{buildroot}%{_mandir}/man${section}/
 done
+install -Dpm 0644 %{name}.bash %{buildroot}%{bash_completions_dir}/%{name}
+install -Dpm 0644 %{name}.fish %{buildroot}%{fish_completions_dir}/%{name}.fish
+install -Dpm 0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
 
 
 %post
@@ -184,6 +198,9 @@ PATH=%{buildroot}%{_bindir}:%{gobuilddir}/bin:$PATH \
 %{_mandir}/man1/%{name}*.1*
 %{_mandir}/man5/%{name}*.5*
 %{_mandir}/man7/%{name}*.7*
+%{bash_completions_dir}/%{name}
+%{fish_completions_dir}/%{name}.fish
+%{zsh_completions_dir}/_%{name}
 
 %gopkgfiles
 

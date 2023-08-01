@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        3000.11.4.1
+Version:        3000.11.5
 Release:        %autorelease
 Summary:        XML-RPC client and server library
 

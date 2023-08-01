@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.12.2
+Version:        0.12.3
 Release:        %autorelease
 Summary:        Base-compat with extra batteries
 

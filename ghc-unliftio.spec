@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.23.0
+Version:        0.2.25.0
 Release:        %autorelease
 Summary:        The MonadUnliftIO typeclass for unlifting monads to IO
 

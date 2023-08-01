@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        1.5.25
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Shell programming, Haskell-style
 
@@ -15,9 +15,11 @@ License:        BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
+Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
+BuildRequires:  dos2unix
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-ansi-wl-pprint-devel
@@ -28,6 +30,7 @@ BuildRequires:  ghc-clock-devel
 BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-exceptions-devel
+BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-foldl-devel
 BuildRequires:  ghc-hostname-devel
 BuildRequires:  ghc-managed-devel
@@ -36,8 +39,6 @@ BuildRequires:  ghc-optparse-applicative-devel
 BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-streaming-commons-devel
-BuildRequires:  ghc-system-fileio-devel
-BuildRequires:  ghc-system-filepath-devel
 BuildRequires:  ghc-temporary-devel
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
@@ -53,6 +54,7 @@ BuildRequires:  ghc-clock-prof
 BuildRequires:  ghc-containers-prof
 BuildRequires:  ghc-directory-prof
 BuildRequires:  ghc-exceptions-prof
+BuildRequires:  ghc-filepath-prof
 BuildRequires:  ghc-foldl-prof
 BuildRequires:  ghc-hostname-prof
 BuildRequires:  ghc-managed-prof
@@ -61,8 +63,6 @@ BuildRequires:  ghc-optparse-applicative-prof
 BuildRequires:  ghc-process-prof
 BuildRequires:  ghc-stm-prof
 BuildRequires:  ghc-streaming-commons-prof
-BuildRequires:  ghc-system-fileio-prof
-BuildRequires:  ghc-system-filepath-prof
 BuildRequires:  ghc-temporary-prof
 BuildRequires:  ghc-text-prof
 BuildRequires:  ghc-time-prof
@@ -72,6 +72,8 @@ BuildRequires:  ghc-unix-compat-prof
 %endif
 %if %{with tests}
 BuildRequires:  ghc-doctest-devel
+BuildRequires:  ghc-tasty-devel
+BuildRequires:  ghc-tasty-hunit-devel
 %endif
 # End cabal-rpm deps
 
@@ -95,7 +97,7 @@ Features include:
 
 * Formatting: Type-safe 'printf'-style text formatting
 
-* Modern: Supports 'text' and 'system-filepath'
+* Modern: Supports 'text'
 
 Read "Turtle.Tutorial" for a detailed tutorial or "Turtle.Prelude" for a
 quick-start guide
@@ -145,6 +147,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
+dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 

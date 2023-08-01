@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        1.0.27
+Version:        1.0.29
 Release:        %autorelease
 Summary:        Cairo bindings
 

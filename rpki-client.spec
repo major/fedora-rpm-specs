@@ -8,8 +8,8 @@
 
 Summary:        OpenBSD RPKI validator to support BGP Origin Validation
 Name:           rpki-client
-Version:        8.4
-Release:        3%{?with_snapshot:.git%{gitdate}}%{?dist}
+Version:        8.5
+Release:        1%{?with_snapshot:.git%{gitdate}}%{?dist}
 # rpki-client itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h and src/{http,output}.c
 # BSD-3-Clause: compat/{setproctitle,vis}.c and include/{sha2_openbsd,vis,sys/queue}.h and src/mkdir.c
@@ -50,6 +50,7 @@ BuildRequires:  libretls-devel
 BuildRequires:  expat-devel
 BuildRequires:  rsync
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  zlib-devel
 Requires:       rsync
 %{?systemd_requires}
 %{?sysusers_requires_compat}
@@ -119,6 +120,9 @@ install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/%{name}.timer
 %dir %attr(0755,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Sun Jul 30 2023 Robert Scheck <robert@fedoraproject.org> 8.5-1
+- Upgrade to 8.5 (#2227464)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

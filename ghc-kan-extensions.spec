@@ -10,7 +10,7 @@
 Name:           ghc-%{pkg_name}
 Version:        5.2.5
 # can only be reset when all subpkgs bumped
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Kan extensions, Kan lifts, the Yoneda lemma, and (co)density (co)monads
 
 License:        BSD-3-Clause
@@ -125,6 +125,10 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver} -a1
 # End cabal-rpm setup
+(
+cd %{invariant}
+cabal-tweak-dep-ver template-haskell '< 2.19' '< 2.20'
+)
 
 
 %build
@@ -163,6 +167,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Sun Jul 30 2023 Jens Petersen <petersen@redhat.com> - 5.2.5-3
+- revise .cabal file
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

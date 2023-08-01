@@ -12,7 +12,7 @@
 #%%endif
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.10.1
+Version:        0.2.11.0
 Release:        %autorelease
 Summary:        Run external processes, with strong typing of streams
 

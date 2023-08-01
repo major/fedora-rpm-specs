@@ -10,9 +10,9 @@
 # testsuite missing deps: hspec-contrib
 
 Name:           ghc-%{pkg_name}
-Version:        1.10.0
+Version:        1.12.1
 # can only be reset when all subpkgs bumped
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Shell-like (systems) programming in Haskell
 
 License:        BSD-3-Clause
@@ -20,7 +20,6 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 Source1:        https://hackage.haskell.org/package/%{liftedasync}/%{liftedasync}.tar.gz
-Source2:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
@@ -85,7 +84,7 @@ Shelly is originally forked from the Shellish package.
 See the shelly-extra package for additional functionality.
 
 An overview is available in the README:
-<https://github.com/yesodweb/Shelly.hs/blob/master/README.md>.
+<https://github.com/gregwebs/Shelly.hs/blob/master/README.md>.
 
 
 %package devel
@@ -135,7 +134,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver} -a1
-cp -bp %{SOURCE2} %{pkg_name}.cabal
 # End cabal-rpm setup
 
 
@@ -175,6 +173,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 1.12.1-13
+- https://hackage.haskell.org/package/shelly-1.12.1/changelog
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

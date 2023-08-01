@@ -1,8 +1,8 @@
 %define __cmake_in_source_build 1
 
 Name:           lxqt-themes
-Version:        1.2.0
-Release:        3%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        LXQt standard themes
 
 License:        LGPLv2+
@@ -103,6 +103,9 @@ install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/xdg/openbox/lxqt-rc.xml
 %{_sysconfdir}/xdg/openbox/lxqt-rc.xml
 
 %changelog
+* Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
+- Update version to 1.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

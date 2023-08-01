@@ -13,8 +13,8 @@
 # Basic descriptive tags for this package:
 #
 Name:           dar
-Version:        2.7.9
-Release:        2%{?dist}
+Version:        2.7.10
+Release:        1%{?dist}
 Summary:        Software for making/restoring incremental CD/DVD backups
 
 License:        GPLv2+
@@ -34,6 +34,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  libattr-devel
 BuildRequires:  e2fsprogs-devel
 BuildRequires:	lzo-devel
+BuildRequires:  libargon2-devel
 BuildRequires:	libcurl
 BuildRequires:	libcurl-devel
 BuildRequires:	xz-devel
@@ -118,7 +119,6 @@ make %{?_smp_mflags}
 ################################################################################
 
 %install
-rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 mkdir -p %{buildroot}%{_libdir}/pkgconfig/
 %find_lang %{name}
@@ -189,6 +189,9 @@ cp -a %{SOURCE1} .
 %endif
 
 %changelog
+* Mon Jul 31 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.7.10-1
+- Update to 2.7.10 fixes rhbz#2181851 and rhbz#2225746
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

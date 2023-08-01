@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        2.0.25
+Version:        2.0.27
 Release:        %autorelease
 Summary:        Atk bindings
 

@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.3.2
+Version:        0.3.3
 Release:        %autorelease
 Summary:        A small prelude
 
@@ -13,6 +13,7 @@ License:        MIT
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
+Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
@@ -88,9 +89,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
+cp -bp %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
 cabal-tweak-drop-dep mtl-compat
-cabal-tweak-dep-ver bytestring '<0.11.4' '<0.12'
 
 
 %build

@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        7.7.2
+Version:        7.8.0.2
 Release:        %autorelease
 Summary:        Web related tools and services
 
@@ -38,7 +38,6 @@ BuildRequires:  ghc-network-uri-devel
 BuildRequires:  ghc-old-locale-devel
 BuildRequires:  ghc-parsec-devel
 BuildRequires:  ghc-process-devel
-BuildRequires:  ghc-semigroups-devel
 BuildRequires:  ghc-sendfile-devel
 BuildRequires:  ghc-syb-devel
 BuildRequires:  ghc-system-filepath-devel
@@ -71,7 +70,6 @@ BuildRequires:  ghc-network-uri-prof
 BuildRequires:  ghc-old-locale-prof
 BuildRequires:  ghc-parsec-prof
 BuildRequires:  ghc-process-prof
-BuildRequires:  ghc-semigroups-prof
 BuildRequires:  ghc-sendfile-prof
 BuildRequires:  ghc-syb-prof
 BuildRequires:  ghc-system-filepath-prof

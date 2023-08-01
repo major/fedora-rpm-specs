@@ -7,6 +7,12 @@
 # No more Java on i686
 ExcludeArch: %{ix86}
 
+# Cannot link against libqhullcpp.a on EL 9.2 - https://bugzilla.redhat.com/show_bug.cgi?id=2227391
+%if 0%{?el9}
+%bcond_with qhull
+%else
+%bcond_without qhull
+%endif
 
 Name:           gdl
 Version:        1.0.2
@@ -66,7 +72,9 @@ BuildRequires:  grib_api-devel
 %endif
 #TODO - Build with mpi support
 #BuildRequires:  mpich2-devel
+%if %{with qhull}
 BuildRequires:  qhull-devel
+%endif
 BuildRequires:  udunits2-devel
 BuildRequires:  wxGTK-devel
 BuildRequires:  cmake3
@@ -146,7 +154,7 @@ popd
    -DOPENMP=ON \\\
    -DPYTHON_EXECUTABLE=%{__python} \\\
    -DWXWIDGETS=ON \\\
-   %{?cmake_qhull} \\\
+   %{!?with_qhull:-DQHULL=OFF} \\\
 %{nil}
 # TODO - build an mpi version
 #           INCLUDES="-I/usr/include/mpich2" \

@@ -87,7 +87,7 @@ install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 %transfiletriggerin -n asahi-fwupdate -- %{_sbindir}/asahi-fwupdate %{_bindir}/asahi-fwextract %{python3_sitearch}/asahi-firmware
 %{_sbindir}/asahi-fwupdate || :
 
-%transfiletriggerin -n update-m1n1 -- %{_libdir}/m1n1 %{_datadir}/uboot/apple_m1 /boot/dtb/apple
+%transfiletriggerin -n update-m1n1 -- %{_libdir}/m1n1 %{_datadir}/uboot/apple_m1 /boot/dtb-
 %{_sbindir}/update-m1n1 || :
 
 %files

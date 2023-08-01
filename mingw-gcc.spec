@@ -14,9 +14,9 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20230426
-%global gitrev 99aa4c60d1f6a96b09f65b669d44bbab206f0a75
-%global gcc_version 13.1.1
+%global DATE 20230728
+%global gitrev 8a3e2d71f2a0309540e68c79dadd66a06ca3da73
+%global gcc_version 13.2.1
 %global gcc_major 13
 
 Name:           mingw-gcc
@@ -918,6 +918,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Sun Jul 30 2023 Sandro Mani <manisandro@gmail.com> - 13.2.1-1
+- Update to 13.2.1 (20230728)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

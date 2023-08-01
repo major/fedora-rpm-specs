@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        2.0.29
+Version:        2.0.31
 Release:        %autorelease
 Summary:        GdkPixbuf bindings
 

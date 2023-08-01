@@ -1,6 +1,6 @@
 Name:    libcamera-apps
 Version: 1.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/libcamera-apps
@@ -64,6 +64,9 @@ find %{buildroot} -name '*.so' -delete
 %{_includedir}/libcamera-apps/
 
 %changelog
+* Sun Jul 30 2023 Javier Martinez Canillas <javierm@redhat.com> - 1.2.1-3
+- Rebuilt for libcamera 0.1.0 bump
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

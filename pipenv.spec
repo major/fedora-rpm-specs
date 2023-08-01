@@ -25,7 +25,7 @@
 
 Name:           pipenv
 Version:        %{base_version}%{?prerelease_version:~%{prerelease_version}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The higher level Python packaging tool
 
 # Pipenv source code is MIT, there are bundled packages having different licenses
@@ -46,6 +46,16 @@ Patch4:         dummy-certifi.patch
 # Remove the bundled windows executables from the bundled
 # pip and distlib
 Patch6:         remove-bundled-exe-files.patch
+
+# pipenv bundles pip, which bundles setuptools, then:
+
+# https://github.com/pypa/setuptools/pull/3685
+# https://github.com/pypa/setuptools/pull/3685/commits/6653e747c3815b140156249205397ef3719581ee
+Patch101:       setuptools-pr3685-wrap-deprecated-pkgutil-usage.patch
+# https://github.com/pypa/setuptools/pull/1563
+Patch102:       setuptools-pr1563-pep451.patch
+# https://github.com/pypa/setuptools/pull/2918
+Patch103:       setuptools-pr2918-fixpkg_resources-import-failure.patch
 
 BuildArch:      noarch
 
@@ -177,7 +187,14 @@ Documentation for Pipenv
 
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%setup -q -n %{name}-%{upstream_version}
+%autopatch -p1 -M 100
+(
+cd pipenv/patched/pip/_vendor/
+%patch -P101 -p1
+%patch -P102 -p1
+%patch -P103 -p1
+)
 
 tar -xf %{SOURCE1} --strip-components 1 -C tests/pypi
 
@@ -323,6 +340,10 @@ rm -rf check_path
 %license LICENSE
 
 %changelog
+* Sun Jul 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2023.2.18-4
+- Backport minimum patch from setuptools upstream for python 3.12
+  (setuptools is vendored in pipenv)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.2.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

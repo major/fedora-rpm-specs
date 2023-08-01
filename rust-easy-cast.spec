@@ -5,7 +5,7 @@
 %global crate easy-cast
 
 Name:           rust-easy-cast
-Version:        0.4.4
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Type conversions which are expected to succeed
 
@@ -58,6 +58,18 @@ This package contains library source intended for building other packages which
 use the "always_assert" feature of the "%{crate}" crate.
 
 %files       -n %{name}+always_assert-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+assert_digits-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+assert_digits-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "assert_digits" feature of the "%{crate}" crate.
+
+%files       -n %{name}+assert_digits-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+assert_float-devel
@@ -123,8 +135,8 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# overflows are wrapped in release mode instead of causing the expected panics
-%cargo_test -- -- --skip float_trunc_fail1 --skip int_to_float_inexact --skip signed_to_unsigned_n1 --skip u32_max_f32 --skip unsigned_to_signed_large
+# * overflows are wrapped in release mode instead of causing the expected panics
+%cargo_test -- -- --skip approx_nan --skip approx_f64_f32 --skip float_trunc_fail1 --skip int_to_float_inexact --skip signed_to_unsigned_n1 --skip u128_large_to_f32 --skip u32_max_f32 --skip unsigned_to_signed_large
 %endif
 
 %changelog

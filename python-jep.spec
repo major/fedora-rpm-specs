@@ -20,18 +20,19 @@ Some benefits of embedding CPython in a JVM:\
 
 Name:           python-%{srcname}
 Version:        3.9.1 
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Embed Python in Java
 
 License:        zlib
 URL:            https://github.com/ninia/%{srcname}
 Source0:        %{url}/archive/v%{version}.tar.gz
+Patch0:         test_numpy-bool.patch
 
 ExclusiveArch:  %{java_arches}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-numpy
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(numpy)
 
 BuildRequires:  java-devel
 BuildRequires:  gcc
@@ -58,16 +59,22 @@ BuildArch:      noarch
 %autosetup -p1 -n%{srcname}-%{version}
 find . -name \*.jar -print -delete
 
+%generate_buildrequires
+export JAVA_HOME=%{_prefix}/lib/jvm/java
+%pyproject_buildrequires
+
 
 %build
 export JAVA_HOME=%{_prefix}/lib/jvm/java
-CFLAGS="$RPM_OPT_FLAGS" %py3_build
+%pyproject_wheel
 %{__python3} setup.py javadoc
 
 
 %install
 export JAVA_HOME=%{_prefix}/lib/jvm/java
-%py3_install
+%pyproject_install
+
+%pyproject_save_files %{srcname}
 
 # install javadoc
 install -dm755 %{buildroot}%{_javadocdir}/%{name}
@@ -78,18 +85,13 @@ cp -pr javadoc/* %{buildroot}%{_javadocdir}/%{name}
 export JAVA_HOME=%{_prefix}/lib/jvm/java
 # be more verbose about tests, FIXME ugly hack!
 sed -i -r 's:TextTestRunner\(:\0verbosity=2:' src/test/python/runtests.py
-%{__python3} setup.py test || cat *.log
-# jdk may crash aka 'An error report file with more information is saved'
-true --- maybe core dumps
-cat core* || :
+%{py3_test_envvars} java -cp build/java/\* jep.Run src/test/python/runtests.py
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files} 
 %license LICENSE
 %doc README.rst
 %doc AUTHORS release_notes/
-%{python3_sitearch}/%{srcname}/
-%{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 %{_bindir}/%{srcname}
 
 %files javadoc
@@ -98,6 +100,10 @@ cat core* || :
 
 
 %changelog
+* Mon Jul 24 2023 Raphael Groner <raphgro@fedoraproject.org> - 3.9.1-11 
+- avoid deprecated direct call to setup.py as Python packaging guidelines
+- add patch for deprecated numpy.bool
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

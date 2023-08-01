@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        0.4.2.1
+Version:        0.4.3.3
 Release:        %autorelease
 Summary:        Microlens + all batteries included (best for apps)
 

@@ -10,7 +10,7 @@
 %endif
 
 Name:           ghc-%{pkg_name}
-Version:        0.8.9.6
+Version:        0.8.9.8
 Release:        %autorelease
 Summary:        An HTTP client using io-streams
 

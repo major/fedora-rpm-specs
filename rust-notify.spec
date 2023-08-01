@@ -9,14 +9,21 @@ Version:        5.2.0
 Release:        %autorelease
 Summary:        Cross-platform filesystem notification library
 
-# Upstream license specification: CC0-1.0 OR Artistic-2.0
-License:        Artistic-2.0
+# * license in crate metadata is misleading:
+#   - old code is covered by the CC0-1.0 license,
+#   - new code is dual-licensed under CC0-1.0 or (non-standard) Artistic-2.0
+# * choose to use this project under only the CC0-1.0 license due to the unusual
+#   and non-standard "choice of venue" clause that was attached to the
+#   Artistic-2.0 license text by upstream
+# https://github.com/notify-rs/notify/issues/514
+License:        CC0-1.0
 URL:            https://crates.io/crates/notify
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          notify-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Remove unwanted features
+# * update license in crate metadata
+# * remove macOS-specific features
 Patch:          notify-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

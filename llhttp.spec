@@ -26,7 +26,7 @@
 # additional source even if we do not do the re-generation ourselves.
 
 Name:           llhttp
-Version:        8.1.0
+Version:        8.1.1
 %global so_version 8.1
 Release:        %autorelease
 Summary:        Port of http_parser to llparse
@@ -53,6 +53,10 @@ Source2:        llhttp-%{version}-nm-dev.tgz
 # file.
 Source3:        check-null-licenses
 Source4:        audited-null-licenses.toml
+
+# Do not assume a particular sed implementation
+# https://github.com/nodejs/llhttp/pull/230
+Patch:          %{url}/pull/230.patch
 
 # The compiled RPM does not depend on NodeJS at all, but we cannot *build* it
 # on architectures without NodeJS.

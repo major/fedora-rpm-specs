@@ -1,8 +1,8 @@
 %define __cmake_in_source_build 1
 
 Name:           lximage-qt
-Version:        1.2.0
-Release:        3%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        The image viewer and screenshot tool for LXQt
 License:        GPLv2+
 URL:            https://lxqt-project.org/
@@ -90,7 +90,7 @@ fi
 %doc AUTHORS README.md
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}*.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.svg
 %{_datadir}/%{name}
 %{_datadir}/metainfo/lximage-qt.metainfo.xml
 
@@ -100,6 +100,9 @@ fi
 %dir %{_datadir}/lximage-qt/translations
 
 %changelog
+* Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
+- Update version to 1.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
