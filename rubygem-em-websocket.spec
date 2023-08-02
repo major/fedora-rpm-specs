@@ -1,9 +1,9 @@
-# Generated from em-websocket-0.5.1.gem by gem2rpm -*- rpm-spec -*-
+# Generated from em-websocket-0.5.3.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name em-websocket
 
 Name: rubygem-%{gem_name}
-Version: 0.5.2
-Release: 7%{?dist}
+Version: 0.5.3
+Release: 1%{?dist}
 Epoch: 1
 Summary: EventMachine based WebSocket server
 License: MIT
@@ -38,15 +38,11 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-
-%setup -q -D -T -n  %{gem_name}-%{version}
-
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}
 
 %build
 # Create the gem as gem install only works on a gem file
-gem build %{gem_name}.gemspec
+gem build ../%{gem_name}-%{version}.gemspec
 
 # %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
 # by default, so that we can move it into the buildroot in %%install
@@ -64,8 +60,7 @@ popd
 
 %files
 %dir %{gem_instdir}
-%exclude %{gem_instdir}/.*
-%exclude %{gem_instdir}/em-websocket.gemspec
+%exclude %{gem_instdir}/.gitignore
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
@@ -77,10 +72,15 @@ popd
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
+%{gem_instdir}/em-websocket.gemspec
 %{gem_instdir}/examples
 %{gem_instdir}/spec
 
 %changelog
+* Mon Jul 31 2023 Jarek Prokop <jprokop@redhat.com> - 1:0.5.3-1
+- Upgrade to em-websocket 0.5.3.
+  Resolves: rhbz#2227733
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.5.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

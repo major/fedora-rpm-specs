@@ -9,10 +9,16 @@
 # and with netpbm
 %bcond_without html2ps_enables_netpbm
 
+# Disable rendering MathML with TeX. The resulting PostScript cannot be
+# interpreted with GhostScript, a dependency on TeX is large, and MathML is
+# relatively rare. Without TeX, html2ps still renders MathML, only more
+# imperfectly.
+%bcond_with html2ps_enables_tex
+
 %define my_subversion b7
 Name:           html2ps
 Version:        1.0
-Release:        0.49.%{my_subversion}%{?dist}
+Release:        0.50.%{my_subversion}%{?dist}
 Summary:        HTML to PostScript converter
 # contrib/xhtml2ps/LICENSE:     GPL-2.0 text
 # contrib/xhtml2ps/README:      "X-html2ps is GPL"
@@ -48,8 +54,10 @@ Requires:       paper
 Requires:       perl(HTTP::Cookies)
 Requires:       perl(HTTP::Request)
 Requires:       perl(LWP::UserAgent)
+%if %{with html2ps_enables_tex}
 Requires:       tex(dvips)
 Requires:       tex(tex)
+%endif
 
 # Remove ImageMagick dependency if the feature is disabled
 %if %{without html2ps_enables_ImageMagick}
@@ -117,6 +125,9 @@ sed -i \
     -e '/package {/ a \ \ \ \ netpbm: %{with html2ps_enables_netpbm};' \
     debian/config/html2psrc
 %endif
+sed -i \
+    -E 's/(dvips|TeX): [01]/\1: %{with html2ps_enables_tex}/' \
+    debian/config/html2psrc
 
 
 %install
@@ -153,6 +164,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*xhtml2ps.desktop
 
 %changelog
+* Mon Jul 31 2023 Petr Pisar <ppisar@redhat.com> - 1.0-0.50.b7
+- Disable rendering MathML with TeX (bug #1695946)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.49.b7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnote
-Version:        44.1
+Version:        45~alpha
 Release:        1%{?dist}
 Summary:        Note-taking application
 
 License:        GPL-3.0-or-later AND GFDL-1.1
 URL:            https://wiki.gnome.org/Apps/Gnote
-Source0:        https://download.gnome.org/sources/gnote/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnote/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  boost-devel
 BuildRequires:  desktop-file-utils
@@ -16,8 +16,10 @@ BuildRequires:  gettext
 BuildRequires:  itstool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
-BuildRequires:  pkgconfig(gspell-1)
-BuildRequires:  pkgconfig(gtkmm-3.0)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(giomm-2.68)
+BuildRequires:  pkgconfig(glibmm-2.68)
+BuildRequires:  pkgconfig(gtkmm-4.0)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libxslt)
@@ -67,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Mon Jul 31 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
+- Update to 45.alpha
+
 * Sun Jul 23 2023 David King <amigadave@amigadave.com> - 44.1-1
 - Update to 44.1
 

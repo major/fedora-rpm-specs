@@ -34,6 +34,9 @@ License:    BSD and Boost and Public Domain
 Url:        http://www.scipy.org/scipylib/index.html
 Source0:    https://github.com/scipy/scipy/releases/download/v%{version}/scipy-%{version}.tar.gz
 
+# Fix build failure with Cython 3 when scipy is already installed
+Patch:      https://github.com/scipy/scipy/commit/3c89445b6439f3ce7bffc4cf11c6407c39faedc5.patch
+
 BuildRequires: fftw-devel, suitesparse-devel
 BuildRequires: %{blaslib}-devel
 BuildRequires: gcc-gfortran, swig, gcc-c++

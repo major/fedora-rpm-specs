@@ -17,6 +17,8 @@ URL:            https://gitlab.com/mailman/hyperkitty
 Source0:        %{pypi_source %{pypi_name}}
 # don't check out modules from git
 Patch0:         %{pypi_name}-tox-localdeps.patch
+# based on https://gitlab.com/mailman/hyperkitty/-/commit/9f5aa18689e66d6c7cdb57263932a72258dc243f
+Patch1:         %{pypi_name}-django42-compat.patch
 
 BuildArch:      noarch
 
@@ -74,8 +76,11 @@ This package contains the documentation for %{srcname}.
 %pyproject_save_files %{srcname}
 
 
-%if %{with tests}
 %check
+# requires the Django app to be configured
+# pyproject_check_import
+%if %{with tests}
+
 PYTHONPATH=$(pwd)/src:${PYTHONPATH} \
 %tox
 %endif

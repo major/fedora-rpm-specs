@@ -160,12 +160,12 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        116.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230725.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230731.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -723,8 +723,8 @@ echo "ac_add_options --enable-lto" >> .mozconfig
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 %endif
 
-# Require 2 GB of RAM per CPU core
-%constrain_build -m 2048
+# Require 4 GB of RAM per CPU core
+%constrain_build -m 4096
 echo "mk_add_options MOZ_MAKE_FLAGS=\"-j%{_smp_build_ncpus}\"" >> .mozconfig
 
 echo "mk_add_options MOZ_SERVICES_SYNC=1" >> .mozconfig
@@ -1064,6 +1064,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Jul 31 2023 Martin Stransky <stransky@redhat.com>- 116.0-2
+- Updated to 116.0 Build 2
+
 * Thu Jul 27 2023 Martin Stransky <stransky@redhat.com>- 116.0-1
 - Updated to 116.0
 

@@ -11,7 +11,7 @@ graphs.}
 
 Name:           python-%{pypi_name}
 Version:        0.14.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GeoTiler is a library to create map using tiles from a map provider
 
 License:        GPLv3+
@@ -31,6 +31,20 @@ Source1:        LICENSE-modestmaps-py
 Source2:        geotiler-fetch.1
 Source3:        geotiler-lint.1
 Source4:        geotiler-route.1
+
+# Adjust dependencies for tests extra
+# Drop uvloop, which seems to be unused.
+# Add numpy, which is imported directly in the test suite.
+# https://github.com/wrobell/geotiler/pull/37
+# Rebased on the PyPI sdist, which has different whitespace in setup.cfg.
+Patch:          geotiler-0.14.7-tests.patch
+# Update GeoTiler to use Pillow newer API
+# https://github.com/wrobell/geotiler/commit/5e0cfbafcda83ca14cfe6c63b2a791d4ad6c338b
+# Rebased on the 0.14.7 PyPI sdist (whitespace differs in setup.cfg)
+Patch:          geotiler-0.14.7-pillow10.patch
+# Downstream-only: patch out linting and coverage dependencies
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch:          geotiler-0.14.7-linters.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  make
@@ -71,7 +85,7 @@ Summary:        %{summary}
 Documentation for %{name}.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 
 rm -fv poetry.lock
@@ -124,6 +138,11 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 %doc _latex/geotiler.pdf
 
 %changelog
+* Mon Jul 31 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.14.7-4
+- Patch out unused uvloop test dependency
+- Patch for Pillow 10 (fix RHBZ#2220253, fix RHBZ#2226199)
+- Patch out unwanted linting and coverage test dependencies
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

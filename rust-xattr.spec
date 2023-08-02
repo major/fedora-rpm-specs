@@ -5,9 +5,9 @@
 %global crate xattr
 
 Name:           rust-xattr
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
-Summary:        UNIX extended filesystem attributes
+Summary:        Unix extended filesystem attributes
 
 # Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0

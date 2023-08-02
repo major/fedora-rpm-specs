@@ -1,17 +1,11 @@
-%{?filter_setup:
-%filter_provides_in %{python3_sitearch}/.*\.so$
-%filter_setup
-}
-
 Name:		python-logbook
-Version:	1.5.3
-Release:	15%{?dist}
+Version:	1.6.0
+Release:	1%{?dist}
 Summary:	A logging replacement for Python
 
 License:	BSD-3-Clause
 URL:		https://logbook.readthedocs.io
 Source0:	https://github.com/getlogbook/logbook/archive/%{version}.tar.gz#/Logbook-%{version}.tar.gz
-BuildArch:  noarch
 
 %description
 Logbook is a logging system for Python that replaces the standard library's
@@ -31,6 +25,7 @@ BuildRequires:	python3-sqlalchemy
 BuildRequires:	python3-redis
 BuildRequires:	python3-zmq
 BuildRequires:	python3-brotli
+BuildRequires:  python3-Cython
 %{?python_provide:%python_provide python3-logbook}
 
 %description -n python3-logbook
@@ -59,6 +54,9 @@ Logbook can do that.
 %{python3_sitearch}/logbook/
 
 %changelog
+* Mon Jul 31 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.6.0-1
+- 1.6.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

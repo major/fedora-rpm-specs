@@ -2,13 +2,13 @@
 
 %global syslog_ng_major_ver 4
 %global syslog_ng_minor_ver 3
-%global syslog_ng_patch_ver 0
+%global syslog_ng_patch_ver 1
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: Next-generation syslog server
 
 License: GPLv2+
@@ -594,6 +594,10 @@ fi
 
 
 %changelog
+* Mon Jul 31 2023 Peter Czanik <peter@czanik.hu> - 4.3.1-1
+- update to 4.3.1 (bugfix release)
+- add opensearch support to SCL
+
 * Mon Jul 24 2023 Peter Czanik <peter@czanik.hu> - 4.3.0-3
 - update to 4.3.0
 - pcre -> pcre2

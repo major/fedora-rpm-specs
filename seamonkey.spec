@@ -153,8 +153,7 @@ BuildRequires:	rust >= 1.61
 BuildRequires:	cargo
 
 # temporary to avoid python-3.12 issues
-BuildRequires: python3.11
-BuildRequires: python3-setuptools
+BuildRequires: python3.11-devel
 
 Requires:       mozilla-filesystem
 Requires:       hicolor-icon-theme
@@ -395,7 +394,7 @@ EOF
 cd mozilla
 
 # temporary to avoid python-3.12 issues
-sed -i -e 's/run_py python3/run_py python3.11/' mach
+sed -i -e 's/python3/python3.11/' mach configure
 
 %if %{with clang}
 export CC=clang

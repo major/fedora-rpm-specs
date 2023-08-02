@@ -15,6 +15,8 @@
 %global build_cris		%{build_all}
 %global build_frv		%{build_all}
 %global build_h8300		%{build_all}
+%global build_hppa		%{build_all}
+%global build_hppa64		%{build_all}
 %global build_ia64		%{build_all}
 %global build_loongarch64	%{build_all}
 %global build_m68k		%{build_all}
@@ -70,9 +72,9 @@
 # The gcc versioning information.  In a sed command below, the specfile winds
 # pre-release version numbers in BASE-VER back to the last actually-released
 # number.
-%global DATE 20230519
-%global gitrev 75b6adf0fdb4d09b64cddfdce59a030f69071fc5
-%global gcc_version 13.1.1
+%global DATE 20230728
+%global gitrev 8a3e2d71f2a0309540e68c79dadd66a06ca3da73
+%global gcc_version 13.2.1
 %global gcc_major 13
 
 # Note, cross_gcc_release must be integer, if you want to add suffixes
@@ -80,7 +82,7 @@
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
 %global gcc_release 2
-%global cross_gcc_release 2
+%global cross_gcc_release 1
 %global cross_binutils_version 2.39-3
 %global isl_version 0.16.1
 %global isl_libmajor 15
@@ -92,7 +94,7 @@
 Summary: Cross C compiler
 Name: %{cross}-gcc
 Version: %{gcc_version}
-Release: %{cross_gcc_release}%{?dist}.1
+Release: %{cross_gcc_release}%{?dist}
 # libgcc, libgfortran, libmudflap, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -227,6 +229,8 @@ the number of packages. \
 %do_package cris-linux-gnu	%{build_cris}
 %do_package frv-linux-gnu	%{build_frv}
 %do_package h8300-linux-gnu	%{build_h8300}
+%do_package hppa-linux-gnu	%{build_hppa}
+%do_package hppa64-linux-gnu	%{build_hppa64}
 %do_package i386-linux-gnu	%{build_i386}
 %do_package ia64-linux-gnu	%{build_ia64}
 %do_package loongarch64-linux-gnu %{build_loongarch64}
@@ -318,6 +322,8 @@ cd ..
     prep_target cris-linux-gnu		%{build_cris}
     prep_target frv-linux-gnu		%{build_frv}
     prep_target h8300-linux-gnu		%{build_h8300}
+    prep_target hppa-linux-gnu		%{build_hppa}
+    prep_target hppa64-linux-gnu	%{build_hppa64}
     prep_target i386-linux-gnu		%{build_i386}
     prep_target ia64-linux-gnu		%{build_ia64}
     prep_target loongarch64-linux-gnu	%{build_loongarch64}
@@ -416,6 +422,7 @@ function config_target () {
 	mn10300-*)	target=am33_2.0-linux;;
 	m68knommu-*)	target=m68k-linux;;
 	openrisc-*)	target=or1k-linux-gnu;;
+	parisc-*)	target=hppa-linux;;
 	score-*)	target=score-elf;;
 	sh64-*)		target=sh64-linux-elf;;
 	v850-*)		target=v850e-linux;;
@@ -723,6 +730,7 @@ function install_lang () {
 	h8300)		target_cpu=h8300;;
 	mn10300)	target_cpu=am33_2.0;;
 	openrisc)	target_cpu=or1k;;
+	parisc)		target_cpu=hppa;;
 	score)		target_cpu=score;;
 	v850)		target_cpu=v850e;;
 	x86)		target_cpu=x86_64;;
@@ -814,6 +822,8 @@ chmod +x %{__ar_no_strip}
 %do_files cris-linux-gnu	%{build_cris}
 %do_files frv-linux-gnu		%{build_frv}
 %do_files h8300-linux-gnu	%{build_h8300}
+%do_files hppa-linux-gnu	%{build_hppa}
+%do_files hppa64-linux-gnu	%{build_hppa64}
 %do_files i386-linux-gnu	%{build_i386}
 %do_files ia64-linux-gnu	%{build_ia64}
 %do_files loongarch64-linux-gnu	%{build_loongarch64}
@@ -846,6 +856,10 @@ chmod +x %{__ar_no_strip}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Mon Jul 31 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 13.2.1-1
+- Update to 13.2.1
+- Re-enable PARISC (hppa/hppa64)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.1-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

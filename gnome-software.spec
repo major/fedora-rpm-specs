@@ -1,12 +1,12 @@
 %global appstream_version 0.14.0
-%global flatpak_version 1.5.1
-%global fwupd_version 1.3.3
-%global glib2_version 2.61.1
-%global gtk4_version 4.9.2
-%global json_glib_version 1.2.0
+%global flatpak_version 1.9.1
+%global fwupd_version 1.5.6
+%global glib2_version 2.70.0
+%global gtk4_version 4.10.0
+%global json_glib_version 1.6.0
 %global libadwaita_version 1.3.alpha
 %global libxmlb_version 0.1.7
-%global packagekit_version 1.1.1
+%global packagekit_version 1.2.5
 
 # Disable WebApps for RHEL builds
 %bcond webapps %[!0%{?rhel}]
@@ -23,8 +23,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   45~alpha
-Release:   2%{?dist}
+Version:   45~beta
+Release:   1%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -215,7 +215,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_provenance-license.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_provenance.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_repos.so
-%{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_rewrite-resource.so
 %{_sysconfdir}/xdg/autostart/org.gnome.Software.desktop
 %dir %{_datadir}/swcatalog
 %dir %{_datadir}/swcatalog/xml
@@ -247,6 +246,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Mon Jul 31 2023 Milan Crha <mcrha@redhat.com> - 45~beta-1
+- Update to 45.beta
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

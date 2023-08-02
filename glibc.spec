@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 19
+%global baserelease 20
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -499,7 +499,7 @@ header files which cannot be included in glibc-devel package.
 %package common
 Summary: Common binaries and locale data for glibc
 Requires: %{name} = %{version}-%{release}
-Requires: tzdata >= 2003a
+Recommends: tzdata >= 2003a
 
 %description common
 The glibc-common package includes common binaries for the GNU libc
@@ -2213,6 +2213,10 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Jul 31 2023 Patsy Griffin <patsy@redhat.com> - 2.37.9000-20
+- Allow for the optional removal of tzdata.
+- Rebuilt for https://fedoraproject.org/wiki/Changes/AllowRemovalOfTzdata 
+
 * Tue Jul 25 2023 DJ Delorie <dj@redhat.com> - 2.37.9000-19
 - Auto-sync with upstream branch master,
   commit 637aac2ae3980de31a6baab236a9255fe853cc76.

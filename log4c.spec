@@ -1,6 +1,6 @@
 Name:       log4c
 Version:    1.2.4
-Release:    27%{?dist}
+Release:    28%{?dist}
 Summary:    Library for logging application messages
 
 License:    LGPLv2+
@@ -14,19 +14,10 @@ Patch0:     reinit.patch
 Patch1:     format.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  doxygen-latex
+BuildRequires:  doxygen
 BuildRequires:  expat-devel
 BuildRequires:  gcc
-BuildRequires:  ghostscript-core
-BuildRequires:  graphviz
-BuildRequires:  tex(adjustbox.sty)
-BuildRequires:  tex(etoc.sty)
-BuildRequires:  tex(hanging.sty)
-BuildRequires:  tex(listofitems.sty)
-BuildRequires:  tex(newunicodechar.sty)
-BuildRequires:  tex(stackengine.sty)
-BuildRequires:  tex(ulem.sty)
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Log4c is a C language library for flexible logging to files, syslog and other
@@ -102,10 +93,12 @@ sed -r -i \
 
 %files doc
 %{_pkgdocdir}/html/
-%{_pkgdocdir}/log4c.pdf
 
 
 %changelog
+* Mon Jul 31 2023 František Dvořák <valtri@civ.zcu.cz> - 1.2.4-28
+- Do not build pdf documentation (problem with doxygen-latext)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

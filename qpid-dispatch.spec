@@ -30,6 +30,7 @@ Source2:       qpid-dispatch-console-%{version}.tar.gz
 %{!?_licensedir:%global _pkglicensedir %{_pkgdocdir}}
 
 Patch1:        dispatch.patch
+Patch2:        0001-Patch-to-fix-2226386.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -148,6 +149,7 @@ Requires: python3-qpid-proton >= %{proton_minimum_version}
 %prep
 %setup -q
 %patch1 -p1
+%patch2 -p1
 
 mkdir pre_built
 cd pre_built
@@ -163,7 +165,7 @@ tar xvzpf %{SOURCE2} -C .
        -DUSE_LIBWEBSOCKETS=ON \
        -DCONSOLE_INSTALL=OFF \
       "-DCMAKE_CXX_FLAGS=$CXXFLAGS -Wno-error=use-after-free -Wno-error=array-bounds " \
-      "-DCMAKE_C_FLAGS=$CFLAGS -Wno-error=maybe-uninitialized " \
+      "-DCMAKE_C_FLAGS=$CFLAGS -Wno-error=maybe-uninitialized -Wno-error=unused-variable -Wno-error=unused-function " \
        .
 make
 make doc
@@ -193,6 +195,9 @@ rm -fr %{buildroot}/%{_includedir}/qpid/dispatch
 
 
 %changelog
+* Mon Jul 31 2023 Irina Boverman <iboverma@redhat.com> - 1.19.0-6
+- Added patch to resolve bz 2226386
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

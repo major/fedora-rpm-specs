@@ -2,7 +2,7 @@
 
 Name:           python-basemap
 Version:        1.3.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
 License:        LGPL-2.1-or-later
 URL:            https://matplotlib.org/basemap/
@@ -32,7 +32,7 @@ BuildRequires:  python3-devel, proj-devel, shapelib-devel, python3-numpy-f2py, g
 BuildRequires:  python3-setuptools
 BuildRequires:  chrpath
 # Needed to regenerate Cython generated files.
-BuildRequires:  python3-Cython
+BuildRequires:  python3-Cython < 3~~
 BuildRequires:  python3-httplib2
 BuildRequires:  python3-matplotlib >= 0.98
 BuildRequires:  python3-pyproj
@@ -93,6 +93,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Sun Jul 30 2023 Sandro <devel@penguinpee.nl> - 1.3.7-4
+- Use Cython compat package (RHBZ#2220128 RHBZ#2226160)
+
 * Sun Jul 23 2023 Python Maint <python-maint@redhat.com> - 1.3.7-3
 - Rebuilt for Python 3.12
 

@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           ghc-%{pkg_name}
-Version:        3.0.26
+Version:        3.0.28
 Release:        %autorelease
 Summary:        Gdk bindings
 

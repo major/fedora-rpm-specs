@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           libarchive
-Version:        3.7.0
+Version:        3.7.1
 Release:        1%{?dist}
 Summary:        A library for handling streaming archive formats
 
@@ -235,6 +235,9 @@ run_testsuite
 
 
 %changelog
+* Mon Jul 31 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.7.1-1
+- Rebase to version 3.7.1
+
 * Tue Jul 25 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.7.0-1
 - Rebase to version 3.7.0
 - Add new bsdunzip subpackage

@@ -2,8 +2,8 @@
 %global gtk3_version 3.20
 
 Name:           gspell
-Version:        1.12.1
-Release:        3%{?dist}
+Version:        1.12.2
+Release:        1%{?dist}
 Summary:        Spell-checking library for GTK+
 
 License:        LGPL-2.1-or-later
@@ -84,6 +84,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Mon Jul 31 2023 Kalev Lember <klember@redhat.com> - 1.12.2-1
+- Update to 1.12.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

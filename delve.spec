@@ -3,7 +3,7 @@
 
 # https://github.com/go-delve/delve
 %global goipath         github.com/go-delve/delve
-Version:                1.20.2
+Version:                1.21.0
 
 %global common_description %{expand:
 Delve is a debugger for the Go programming language. The goal of the project 
@@ -57,6 +57,8 @@ BuildRequires:  golang(go.starlark.net/syntax)
 BuildRequires:  lsof
 BuildRequires:  git
 
+Patch1: 0001-Skip-TestCgoStacktrace2.patch
+
 %description
 %{common_description}
 
@@ -66,8 +68,10 @@ echo "=== Start prep ==="
 %goprep -k
 # unpack vendored dependencies to GOPATH
 tar c -C vendor/ . | tar x -C %{gobuilddir}/src
+%autopatch -v -p1
 %else
 %goprep
+%autopatch -v -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

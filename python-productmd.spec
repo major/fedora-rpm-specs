@@ -8,8 +8,8 @@
 %global srcname productmd
 
 Name:           python-%{srcname}
-Version:        1.35
-Release:        3%{?dist}
+Version:        1.36
+Release:        1%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
 License:        LGPL-2.1-only
@@ -102,6 +102,9 @@ Requires:       python%{python3_pkgversion}-six
 %endif
 
 %changelog
+* Mon Jul 31 2023 Lubomír Sedlář <lsedlar@redhat.com> - 1.36-1
+- New upstream release 1.36
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

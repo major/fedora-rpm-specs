@@ -5,16 +5,15 @@
 %global modname django_extensions
 
 Name:           python-%{srcname}
-Version:        3.2.1
+Version:        3.2.3
 Release:        %autorelease
 Summary:        Extensions for Django
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/django-extensions/django-extensions
 # PyPI tarball doesn't contain some requirements files
 # Source0:        %%{pypi_source %%{srcname}}
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-#Patch0:         %%{srcname}-localdeps.patch
 
 BuildArch:      noarch
 
@@ -50,7 +49,15 @@ This package contains the documentation for %{srcname}.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
-
+# Remove commands incompatible with Python 3.12
+%if 0%{?python3_version_nodots} >= 312
+# https://github.com/django-extensions/django-extensions/issues/1831
+rm django_extensions/management/commands/mail_debug.py
+rm tests/management/commands/test_mail_debug.py
+# https://github.com/django-extensions/django-extensions/issues/1832
+rm django_extensions/management/commands/shell_plus.py
+rm -r tests/management/commands/shell_plus_tests/
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -72,7 +79,7 @@ This package contains the documentation for %{srcname}.
 %check
 # tox.ini invokes make invokes pytest
 # call directly so we can disable tests that require network
-%pytest django_extensions tests \
+%pytest -v django_extensions tests \
   -k "not PipCheckerTests"
 
 

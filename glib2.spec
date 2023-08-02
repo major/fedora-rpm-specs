@@ -1,5 +1,5 @@
 Name:    glib2
-Version: 2.77.0
+Version: 2.77.1
 Release: %autorelease
 Summary: A library of handy utility functions
 
@@ -11,20 +11,10 @@ Source0: https://download.gnome.org/sources/glib/2.77/glib-%{version}.tar.xz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/903
 Patch0: gnutls-hmac.patch
-# Avoid making anaconda crash
-# https://gitlab.gnome.org/GNOME/glib/-/issues/3054
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3501
-Patch1: 0001-gmain-Add-a-missing-return-on-error-path-in-g_main_c.patch
 
 # recent close_range() changes break CircleCI and GitHub actions -- we can remove this when
 # the baremetal Docker is updated there i.e. lets be a little bit pragmatic...
 Patch2: gspawn-eperm.patch
-
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3504
-Patch3: fix-missing-exported-symbols.patch
-
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3498
-Patch4: 3498.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++

@@ -13,7 +13,7 @@
 %global __brp_remove_la_files %nil
 
 Name: openldap
-Version: 2.6.5
+Version: 2.6.6
 Release: 1%{?dist}
 Summary: LDAP support libraries
 License: OpenLDAP
@@ -504,6 +504,10 @@ exit 0
 %{_libdir}/libslapi-2.4*.so.*
 
 %changelog
+* Mon Jul 31 2023 Simon Pichugin <spichugi@redhat.com> - 2.6.6-1
+- Rebase to version 2.6.6
+  Related: rhbz#2227948
+
 * Wed Jul 26 2023 Simon Pichugin <spichugi@redhat.com> - 2.6.5-1
 - Rebase to version 2.6.5
   Related: rhbz#2221798

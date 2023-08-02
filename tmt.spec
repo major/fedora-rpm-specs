@@ -1,6 +1,6 @@
 Name: tmt
-Version: 1.25.0
-Release: 2%{?dist}
+Version: 1.26.0
+Release: 1%{?dist}
 
 Summary: Test Management Tool
 License: MIT
@@ -49,7 +49,6 @@ BuildRequires: python%{python3_pkgversion}-markdown
 BuildRequires: python%{python3_pkgversion}-junit_xml
 BuildRequires: python%{python3_pkgversion}-ruamel-yaml
 BuildRequires: python%{python3_pkgversion}-jinja2
-# Removed python3-mrack-beaker BuildRequire to unblock build
 # Only needed for rhel-8 (it has python3.6)
 %if 0%{?rhel} == 8
 BuildRequires: python%{python3_pkgversion}-typing-extensions
@@ -248,8 +247,31 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Mon Jul 31 2023 Lukáš Zachar <lzachar@redhat.com> - 1.26.0
+- Do not throw an exception on missing mrack.log
+- Allow injecting credentials for git clone
+- Exception in web_link() when node root is missing
+- Rewrite url in git_clone
+- Add support for rendering error tracebacks
+- ReST export plugin should accept --template option
+- Add `role` to the Beaker provision plugin schema
+- Fix test checking custom destination for libraries
+- Create plans to cover individual step features (#2216)
+- Add cache_property for things that are generated but not often
+- Simplify public git conversion with a declarative list
+- Spec-based container becomes generic over input/output specs
+- Clean up logging in `tmt.utils.create_directory()`
+- Move test framework code into distinct framework classes
+- Add template option to polarion report
+- Group discover/fmf options, improve wording a bit
+- Record tmt command line in tmt log
+- Add note about dynamic ref to the plan import spec
+- Use the `Deprecated` class for deprecated options
+- Remove `python3-mrack-beaker` from `BuildRequires`
+- Switch discover/fmf to our field() implementation
+- Lock the `click` version < 8.1.4
+- Refine examples of plans > discover > fmf
+- Override packit actions for `propose_downstream`
 
 * Mon Jul 10 2023 Lukáš Zachar <lzachar@redhat.com> - 1.25.0
 - Test for pruning needs VM

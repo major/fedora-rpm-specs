@@ -14,11 +14,10 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    67%{?dist}
+Release:    68%{?dist}
 Summary:    Concurrent Versions System
 URL:        https://cvs.nongnu.org/
-# contrib/check_cvs.in:     FSFULLR-like (TODO: waiting on an identifier
-#                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/202>)
+# contrib/check_cvs.in:     check-cvs
 # contrib/clmerge.in:       GPL-2.0-or-later
 # contrib/cln_hist.in:      GPL-2.0-or-later
 # contrib/commit_prep.in:   GPL-2.0-or-later
@@ -274,8 +273,7 @@ URL:        https://cvs.nongnu.org/
 # zlib/Makfile.in:                  Zlib ("see copyright notice in zlib.h")
 # zlib/zlib.h:                      Zlib
 # zlib/zlib.html:                   Zlib
-## Convert to SPDX after obtaining an identifier for contrib/check_cvs.in.
-License:    BSD and GPL+ and GPLv2+ and LGPLv2+ and zlib and Public Domain
+License:    GPL-2.0-or-later AND GPL-1.0-or-later AND Latex2e-translated-notice AND LicenseRef-Fedora-Public-Domain
 Source0:    https://ftp.gnu.org/non-gnu/cvs/source/stable/%{version}/cvs-%{version}.tar.bz2
 Source1:    https://ftp.gnu.org/non-gnu/cvs/source/stable/%{version}/cvs-%{version}.tar.bz2.sig
 # Retrieved from <hkp://keyserver.ubuntu.com> key server.
@@ -412,8 +410,8 @@ release.
 %if %{with cvs_enables_contrib}
 %package contrib
 Summary: Unsupported contributions collected by CVS developers
-# check_cvs is Copyright only
-License: GPLv2+ and Copyright only
+# check_cvs is a check-cvs license
+License: GPL-2.0-or-later AND check-cvs
 BuildArch: noarch
 Requires: %{name} = %{version}-%{release}
 
@@ -426,7 +424,7 @@ contributions are really unsupported.
 %if %{with cvs_enables_xinetd}
 %package inetd
 Summary: CVS server configuration for xinetd
-License: GPL+
+License: GPL-1.0-or-later
 BuildArch: noarch
 Requires: %{name} = %{version}-%{release}
 Requires: xinetd
@@ -439,7 +437,7 @@ This package provides a configuration for xinetd, an inetd implementation.
 
 %package doc
 Summary: Additional documentation for Concurrent Versions System
-License: GPL+
+License: GPL-1.0-or-later AND Latex2e-translated-notice
 %if !%{with cvs_enables_pdf}
 # Ghostscript stores a time stamp into output files and that
 # violates RPM noarch rules.
@@ -615,6 +613,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 27 2023 Petr Pisar <ppisar@redhat.com> - 1.11.23-68
+- Convert License tags to an SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-67
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

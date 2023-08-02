@@ -7,7 +7,7 @@
 # testsuite missing deps: quickcheck-instances
 
 Name:           ghc-%{pkg_name}
-Version:        0.23
+Version:        0.24.1
 Release:        %autorelease
 Summary:        Amazon Web Services (AWS) for Haskell
 

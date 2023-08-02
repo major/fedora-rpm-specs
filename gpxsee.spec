@@ -1,8 +1,8 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        12.3
-Release:        2%{?dist}
+Version:        13.5
+Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
 License:        GPL-3.0-only
@@ -59,7 +59,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %doc README.md
 %{_bindir}/%{name}
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/csv/
+%{_datadir}/%{name}/CRS/
 %{_datadir}/%{name}/maps/
 %{_datadir}/%{name}/symbols/
 %dir %{_datadir}/%{name}/translations
@@ -70,6 +70,26 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Jul 31 2023 Packit <hello@packit.dev> - 13.5-1
+- Yet another one-way arrows improvement (Martin Tůma)
+- Use less agressive one-way street arrows (Martin Tůma)
+- Properly mark one-way streets in data from NET links (Martin Tůma)
+- Display one-way streets info in IMG maps (Martin Tůma)
+- Build universal x86_64/arm64 binaries on OS X (Martin Tůma)
+- Yet another ENV path fix (Martin Tůma)
+- Fixed ENV file path (Martin Tůma)
+- Switched to MSVC 2022 and Qt 6.5 (Martin Tůma)
+- Do not affect the map object scaling when resizing the tiles (Martin Tůma)
+- Removed obsolete include (Martin Tůma)
+- Added graph pinch zooming (Martin Tůma)
+- Revert "Removed SDK/buildtools workaround" (Martin Tůma)
+- Removed SDK/buildtools workaround (Martin Tůma)
+- Code cleanup (Martin Tůma)
+- Version++ (Martin Tůma)
+- Make the Mapsforge tiles sufficient large for the layout (Martin Tůma)
+- Back to Qt 6.4 on Windows (Martin Tůma)
+- Switched Qt 6 CI builds to Qt 6.5 (Martin Tůma)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

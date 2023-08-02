@@ -11,7 +11,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        9.25.5
+Version:        9.25.7
 Release:        2%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
@@ -23,6 +23,12 @@ Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}
 ## Use buildah instead of umoci by default for OCI image builds
 ## TODO: Consider getting umoci into Fedora?
 Patch1001:      0001-Use-buildah-by-default-for-OCI-image-builds.patch
+## Remove usage of the rtd sphinx theme (unpackaged)
+Patch1002:      kiwi-9.25.7-no-sphinx-rtd-theme.patch
+## Remove usage of the custom css (EL8 compatibility)
+Patch1003:      kiwi-9.25.7-no-sphinx-custom-css.patch
+## Use xml instead of none for code block highlights (EL8 compatibility)
+Patch1004:      kiwi-9.25.7-doc-use-xml-highlight.patch
 
 BuildRequires:  bash-completion
 BuildRequires:  dracut
@@ -37,10 +43,11 @@ BuildRequires:  shadow-utils
 BuildRequires:  python3dist(docopt) >= 0.6.2
 BuildRequires:  python3dist(future)
 BuildRequires:  python3dist(lxml)
-BuildRequires:  python3dist(pyxattr)
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(requests)
+BuildRequires:  python3dist(simplejson)
 BuildRequires:  python3dist(six)
+BuildRequires:  python3dist(sphinx)
 
 %description %{desc}
 
@@ -448,6 +455,9 @@ sed -e "s|#!/usr/bin/env python||" -i kiwi/xml_parse.py
 
 %py3_build
 
+# Build man pages
+make -C doc man
+
 # Build C-Tools
 make CFLAGS="%{build_cflags}" tools
 
@@ -558,6 +568,15 @@ done
 # Empty metapackage
 
 %changelog
+* Mon Jul 31 2023 Neal Gompa <ngompa@fedoraproject.org> - 9.25.7-2
+- Add patches to fix building man pages from source
+
+* Mon Jul 31 2023 Neal Gompa <ngompa@fedoraproject.org> - 9.25.7-1
+- Update to 9.25.7 (RH#2227830)
+
+* Mon Jul 31 2023 Neal Gompa <ngompa@fedoraproject.org> - 9.25.6-1
+- Update to 9.25.6 (RH#2227830)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.25.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

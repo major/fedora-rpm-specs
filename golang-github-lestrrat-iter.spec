@@ -2,22 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/gobuffalo/logger
-%global goipath         github.com/gobuffalo/logger
-Version:                1.0.7
+# https://github.com/lestrrat-go/iter
+%global goipath         github.com/lestrrat-go/iter
+Version:                1.0.2
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
-The logger.Logger interface is used throughout Buffalo apps, and other systems,
-to log a whole manner of things.}
+Iterator tools.}
 
 %global golicenses      LICENSE
-%global godocs          README.md SHOULDERS.md
+%global godocs          README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Common logging interface for the Buffalo ecosystem
+Summary:        Iterator tools
 
 License:        MIT
 URL:            %{gourl}

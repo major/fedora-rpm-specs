@@ -81,7 +81,7 @@ make test TEST_FILES=%{SOURCE2}
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Sun Jul 16 2023 Paul Howarth <paul@city-fan.org> - 0.2501-24
-- Fix FTPFS with Perl 5.38 (rhbz#2222742)
+- Fix FTBFS with Perl 5.38 (rhbz#2222742)
 
 * Fri Apr  7 2023 Paul Howarth <paul@city-fan.org> - 0.2501-23
 - Spec clean-up

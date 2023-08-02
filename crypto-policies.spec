@@ -1,12 +1,12 @@
-%global git_date 20230614
-%global git_commit 5f3458e619628288883f22695f3311f1ccd6a39f
+%global git_date 20230731
+%global git_commit 5ed06e038da1ae36b1379780f2ed09f69c106fee
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        2.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -18,6 +18,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires: asciidoc
 BuildRequires: libxslt
 BuildRequires: openssl
+BuildRequires: nss-tools
 BuildRequires: gnutls-utils >= 3.6.0
 BuildRequires: java-1.8.0-openjdk-devel
 BuildRequires: bind
@@ -33,9 +34,10 @@ BuildRequires: python3-coverage
 BuildRequires: codespell
 BuildRequires: make
 BuildRequires: krb5-devel
+BuildRequires: sequoia-policy-config
 
 Conflicts: openssl-libs < 3.0.2-2
-Conflicts: nss < 3.44.0
+Conflicts: nss < 3.90.0
 Conflicts: libreswan < 3.28
 %if 0%{?fedora} == 37
 Conflicts: openssh < 8.7p1-24
@@ -95,8 +97,9 @@ install -p -m 644 default-config %{buildroot}%{_sysconfdir}/crypto-policies/conf
 touch %{buildroot}%{_sysconfdir}/crypto-policies/state/current
 touch %{buildroot}%{_sysconfdir}/crypto-policies/state/CURRENT.pol
 
-# Drop pre-generated GOST-ONLY policy, we do not need to ship the files
+# Drop pre-generated GOST-ONLY & BSI policies, we do not need to ship the files
 rm -rf %{buildroot}%{_datarootdir}/crypto-policies/GOST-ONLY
+rm -rf %{buildroot}%{_datarootdir}/crypto-policies/BSI
 
 # Create back-end configs for mounting with read-only /etc/
 for d in LEGACY DEFAULT FUTURE FIPS ; do
@@ -176,6 +179,7 @@ end
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/libssh.config
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/sequoia.config
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/rpm-sequoia.config
+%ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/openssl_fips.config
 # %verify(not mode) comes from the fact
 # these turn into symlinks and back to regular files at will, see bz1898986
 
@@ -208,6 +212,16 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Tue Jul 25 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230731-1.git5ed06e0
+- BSI: start a BSI TR 02102 policy
+- krb5: sort enctypes mac-first, cipher-second, prioritize SHA-2 ones
+- FIPS: enforce EMS in FIPS mode
+- NO-ENFORCE-EMS: add subpolicy to undo the EMS enforcement in FIPS mode
+- nss: implement EMS enforcement in FIPS mode (not enabled yet)
+- openssl: implement EMS enforcement in FIPS mode
+- gnutls: implement EMS enforcement in FIPS mode (not enabled yet)
+- docs: replace `FIPS 140-2` with just `FIPS 140`
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230614-2.git5f3458e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

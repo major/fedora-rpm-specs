@@ -4,7 +4,7 @@
 
 # https://github.com/rs/zerolog
 %global goipath         github.com/rs/zerolog
-Version:                1.29.1
+Version:                1.30.0
 
 %gometa
 

@@ -14,7 +14,7 @@
 Name:           %{pkg_name}
 Version:        0.46
 # can only be reset when all subpkgs bumped
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A minimalistic text-based status bar
 
 License:        BSD-3-Clause
@@ -236,6 +236,9 @@ rm %{buildroot}%{_bindir}/{dump_nl80211,dump_rtnetlink,genlinfo}
 
 
 %changelog
+* Sat Jul 29 2023 Jens Petersen <petersen@redhat.com> - 0.46-28
+- rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

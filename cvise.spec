@@ -1,6 +1,6 @@
 Name: cvise
-Version: 2.4.0
-Release: 6%{?dist}
+Version: 2.8.0
+Release: 1%{?dist}
 Summary: Super-parallel Python port of the C-Reduce
 License: BSD
 URL: https://github.com/marxin/cvise
@@ -12,14 +12,15 @@ BuildRequires: flex
 BuildRequires: llvm-devel
 BuildRequires: unifdef
 BuildRequires: clang-devel
+BuildRequires: ninja-build
 BuildRequires: indent
 BuildRequires: gcc-c++
 BuildRequires: python3-pebble
 BuildRequires: python3-pytest
-BuildRequires: python3-pytest-flake8
 BuildRequires: python3-psutil
 BuildRequires: python3-chardet
 BuildRequires: make
+
 Requires: astyle
 Requires: clang-tools-extra
 Requires: unifdef
@@ -42,22 +43,15 @@ and report bugs in compilers and other tools that process C/C++ or OpenCL code.
 %setup -q
 
 %build
-# Fedora says we shouldn't put files in /usr/local/.
-mkdir objdir && cd objdir && \
-%cmake .. \
-  -B %{_target_platform} \
-  -DCMAKE_INSTALL_LIBEXECDIR=%{_libexecdir} \
-  -DCMAKE_INSTALL_BINDIR=%{_bindir} \
-  -DCMAKE_INSTALL_DATADIR=%{_datadir} \
-  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-  -DCMAKE_SKIP_RPATH=TRUE && \
-%make_build VERBOSE=1 -C %{_target_platform}
+export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=restrict"
+%cmake -DCMAKE_SKIP_RPATH=TRUE -GNinja
+%cmake_build
 
 %check
-cd objdir && pytest
+%cmake_build --target test
 
 %install
-%make_install -C objdir/%{_target_platform}
+%cmake_install
 
 %files
 %license COPYING
@@ -71,6 +65,10 @@ cd objdir && pytest
 %{_datadir}/cvise
 
 %changelog
+* Wed Jul 26 2023 Vincent Mihalkovic <vmihalko@redhat.com> - 2.8.0-1
+- update to cvise-2.8.0 (#2123703)
+  various spec file improvements
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

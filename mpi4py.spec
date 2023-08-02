@@ -29,7 +29,7 @@ Source0:        https://github.com/mpi4py/mpi4py/archive/%{version}/%{name}-%{ve
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-Cython >= 0.22
+BuildRequires:  python3-cython0.29
 # For testing
 BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  python%{python3_pkgversion}-simplejson

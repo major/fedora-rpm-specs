@@ -56,7 +56,6 @@ Source16:       https://hackage.haskell.org/package/%{pandocluamarshal}/%{pandoc
 Source17:       https://hackage.haskell.org/package/%{hslualist}/%{hslualist}.tar.gz
 # End cabal-rpm sources
 Source18:       https://hackage.haskell.org/package/%{base64}/base64.cabal#/%{base64}.cabal
-Patch0:         pandoc-version-disable-hslua.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -368,9 +367,6 @@ or texlive-collection-luatex respectively.
 # Begin cabal-rpm setup:
 %setup -q -n %{pandoccli} -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13 -a14 -a15 -a16 -a17
 # End cabal-rpm setup
-%ifarch ppc64le
-%patch -P0 -p1 -b .orig
-%endif
 cp -p %{SOURCE18} %{base64}/base64.cabal
 
 

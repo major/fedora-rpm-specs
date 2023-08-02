@@ -30,6 +30,7 @@ BuildRequires:  hwloc-devel >= 2.0
 %if ! (0%{?rhel} >= 10)
 %ifarch x86_64
 BuildRequires:  infinipath-psm-devel
+# BuildRequires:  json-c-devel
 BuildRequires:  libpsm2-devel
 %endif
 %endif
@@ -40,6 +41,7 @@ BuildRequires:  numactl-devel
 %ifarch aarch64 ppc64le x86_64
 BuildRequires:  ucx-devel
 %endif
+BuildRequires:  yaksa-devel
 # For ./maint/extractcvars
 BuildRequires:  perl(lib)
 %ifnarch s390 %{mips}
@@ -134,6 +136,7 @@ CONFIGURE_OPTS=(
         --enable-lib-depend
         --disable-rpath
         --disable-silent-rules
+        --disable-dependency-tracking
         --with-gnu-ld
         --with-pm=hydra:gforker
         --includedir=%{_includedir}/%{name}-%{_arch}
@@ -148,6 +151,7 @@ CONFIGURE_OPTS=(
 %ifarch aarch64 ppc64le x86_64
         --with-ucx
 %endif
+        --with-yaksa
 )
 #        --with-device=ch3:nemesis
 

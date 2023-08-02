@@ -73,6 +73,9 @@ Patch7:     D141581.diff
 # See https://reviews.llvm.org/D138472
 Patch8:     D138472.diff
 
+# Backport from LLVM 18.
+Patch9:     0001-clang-set-python3-as-required-build-dependency.patch
+
 Patch10:    fix-ieee128-cross.diff
 
 # https://reviews.llvm.org/D155192
@@ -91,19 +94,20 @@ Patch201:   0001-clang-tools-extra-Make-test-dependency-on-LLVMHello-.patch
 BuildRequires:	clang
 BuildRequires:	cmake
 BuildRequires:	ninja-build
+
 %if %{with compat_build}
-BuildRequires:	llvm%{maj_ver}-devel = %{version}
-BuildRequires:	llvm%{maj_ver}-static = %{version}
-BuildRequires:	llvm%{maj_ver}-cmake-utils = %{version}
+%global llvm_pkg_name llvm%{maj_ver}
 %else
-BuildRequires:	llvm-devel = %{version}
-BuildRequires:	llvm-cmake-utils = %{version}
-BuildRequires:	llvm-test = %{version}
+%global llvm_pkg_name llvm
+BuildRequires:  llvm-test = %{version}
+BuildRequires:  llvm-googletest = %{version}
+%endif
+
+BuildRequires:	%{llvm_pkg_name}-devel = %{version}
 # llvm-static is required, because clang-tablegen needs libLLVMTableGen, which
 # is not included in libLLVM.so.
-BuildRequires:	llvm-static = %{version}
-BuildRequires:	llvm-googletest = %{version}
-%endif
+BuildRequires:	%{llvm_pkg_name}-static = %{version}
+BuildRequires:	%{llvm_pkg_name}-cmake-utils = %{version}
 
 BuildRequires:	libxml2-devel
 BuildRequires:	perl-generators
@@ -348,6 +352,7 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DCLANG_BUILD_TOOLS:BOOL=OFF \
 	-DCMAKE_INSTALL_PREFIX=%{install_prefix} \
 	-DCLANG_INCLUDE_TESTS:BOOL=OFF \
+	-DLLVM_INCLUDE_TESTS:BOOL=OFF \
 	-DLLVM_CMAKE_DIR=%{install_libdir}/cmake/llvm \
 %else
 	-DCLANG_INCLUDE_TESTS:BOOL=ON \

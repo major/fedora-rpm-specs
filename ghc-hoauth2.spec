@@ -4,8 +4,10 @@
 %global pkg_name hoauth2
 %global pkgver %{pkg_name}-%{version}
 
+%bcond_without tests
+
 Name:           ghc-%{pkg_name}
-Version:        2.6.0
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Haskell OAuth2 authentication client
 
@@ -54,15 +56,14 @@ BuildRequires:  ghc-transformers-prof
 BuildRequires:  ghc-uri-bytestring-prof
 BuildRequires:  ghc-uri-bytestring-aeson-prof
 %endif
+%if %{with tests}
+BuildRequires:  ghc-hspec-devel
+BuildRequires:  ghc-hspec-discover-devel
+%endif
 # End cabal-rpm deps
 
 %description
-Haskell OAuth2 authentication client.
-
-Tutorial <https://github.com/freizl/hoauth2/tree/main/hoauth2-tutorial/>
-
-Demo application
-<https://github.com/freizl/hoauth2-demo/tree/main/hoauth2-demo/>.
+See readme for more details.
 
 
 %package devel
@@ -116,6 +117,12 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm install
 %ghc_lib_install
 # End cabal-rpm install
+
+
+%check
+%if %{with tests}
+%cabal_test
+%endif
 
 
 %files -f %{name}.files

@@ -13,8 +13,8 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.20.0
-Release:        2%{?dist}
+Version:        0.20.2
+Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -71,6 +71,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jul 31 2023 Packit <hello@packit.dev> - 0.20.2-1
+- Fixed Packit config to work properly with `propose-downstream` and `pull-from-upstream` jobs. (#261)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

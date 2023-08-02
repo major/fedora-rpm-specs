@@ -1,5 +1,5 @@
 Name:    shdoc
-Version: 1.1
+Version: 1.2
 Release: %autorelease
 Summary: Documentation generator for bash/zsh/sh for generating documentation in Markdown
 

@@ -2,10 +2,10 @@
 %bcond_without perl_Perl_Metrics_Simple_enables_optional_test
 
 Name:           perl-Perl-Metrics-Simple
-Version:        1.0.1
-Release:        8%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Count packages, subs, lines, etc. of many files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Metrics-Simple
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MATISSE/Perl-Metrics-Simple-v%{version}.tar.gz
 BuildArch:      noarch
@@ -46,6 +46,7 @@ BuildRequires:  perl(Test::Compile) >= 1.1.0
 BuildRequires:  perl(Test::More)
 %if %{with perl_Perl_Metrics_Simple_enables_optional_test}
 # Optional tests:
+# Perl::Critic::Utils not used
 # Test::Perl::Critic not used
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
@@ -102,14 +103,14 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
+# t/000_compile.t examines ./bin and ./lib. Do no create symlinks. They would
+# spoil generated dependencies.
+rm %{buildroot}%{_libexecdir}/%{name}/t/000_compile.t
 rm %{buildroot}%{_libexecdir}/%{name}/t/0901_pod.t
-# t/000_compile.t examines ./bin
-mkdir -p %{buildroot}%{_libexecdir}/%{name}/bin
-ln -s %{_bindir}/countperl %{buildroot}%{_libexecdir}/%{name}/bin
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -123,15 +124,22 @@ make test
 %files
 %license LICENSE
 %doc Changes EXAMPLES README Todo
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
-%{_mandir}/man1/*
+%{_bindir}/countperl
+%dir %{perl_vendorlib}/Perl
+%dir %{perl_vendorlib}/Perl/Metrics
+%{perl_vendorlib}/Perl/Metrics/Simple
+%{perl_vendorlib}/Perl/Metrics/Simple.pm
+%{_mandir}/man3/Perl::Metrics::Simple.*
+%{_mandir}/man3/Perl::Metrics::Simple::*
+%{_mandir}/man1/countperl.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 31 2023 Petr Pisar <ppisar@redhat.com> - 1.0.2-1
+- 1.0.2 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

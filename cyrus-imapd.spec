@@ -8,7 +8,7 @@
 
 Name: cyrus-imapd
 Version: 3.8.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -140,10 +140,11 @@ BuildRequires: perl(Plack::Loader) perl(Test::TCP) perl(Data::GUID) perl(Digest:
 %endif
 
 Requires(pre): shadow-utils
-%{?sysusers_requires_compat}
 %{?systemd_requires}
+%{?sysusers_requires_compat}
 
-Requires: %name-utils = %version-%release
+Requires: cyrus-imapd-libs%{?_isa} = %{version}-%{release}
+Requires: cyrus-imapd-utils = %{version}-%{release}
 Requires: file sscg
 
 %{?perl_default_filter}
@@ -172,7 +173,7 @@ hierarchies.
 
 %package devel
 Summary: Cyrus IMAP server development files
-Requires: %name%{?_isa} = %version-%release
+Requires: cyrus-imapd-libs%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 
 %description devel
@@ -197,7 +198,7 @@ and the its utilities.
 
 %package utils
 Summary: Cyrus IMAP server administration utilities
-Requires: cyrus-imapd-libs = %{version}-%{release}
+Requires: cyrus-imapd-libs%{?_isa} = %{version}-%{release}
 Requires: perl-Cyrus = %{version}-%{release}
 
 %description utils
@@ -207,6 +208,7 @@ one running the server.
 
 %package virusscan
 Summary: Cyrus virus scanning utility
+Requires: cyrus-imapd-libs%{?_isa} = %{version}-%{release}
 
 %description virusscan
 The cyrus-imapd-virusscan package contains the cyr_virusscan utility.  It
@@ -680,6 +682,10 @@ exclude+=("!Master.maxforkrate")
 %_mandir/man3/*.3pm*
 
 %changelog
+* Thu Jul 27 2023 Martin Osvald <mosvald@redhat.com> - 3.8.0-3
+- cyrus-imapd.spec - Refine Requires: to avoid the need to test interoperability
+  between various combinations of old and new subpackages
+
 * Sat Jul 22 2023 Martin Osvald <mosvald@redhat.com> - 3.8.0-2
 - Remove utils dependency on main package (rhbz#2224702)
 

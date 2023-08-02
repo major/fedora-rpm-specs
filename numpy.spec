@@ -20,7 +20,7 @@
 
 Name:           numpy
 Version:        1.24.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -30,6 +30,11 @@ URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
 Patch0:         https://github.com/numpy/numpy/commit/b0872b858e2e6ebc394e95c81a024dcf1573c690.patch
+# Cython 3 support, rebased from upstream:
+# https://github.com/numpy/numpy/commit/c7724ee776f3aa447d89170809aace0461ccacf0
+# https://github.com/numpy/numpy/commit/888fd7719965719321f160f79051aa5caf42b9ac
+# Also, Cython unpinned to allow Cython 3
+Patch1:         cython3.patch
 
 %description
 NumPy is a general-purpose array-processing package designed to
@@ -214,6 +219,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Mon Jul 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1:1.24.4-2
+- Backport support for Cython 3
+
 * Tue Jul 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:1.24.4-1
 - 1.24.4
 

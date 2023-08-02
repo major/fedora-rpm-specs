@@ -36,7 +36,9 @@ BuildRequires: systemd-devel
 %endif
 %if %{with_pyverbs}
 BuildRequires: python3-devel
-BuildRequires: python3-Cython
+# FTBFS with Cython 3
+# pyverbs/device.c: error: redefinition of '__Pyx_Enum_ibv_event_type_to_py'
+BuildRequires: python3dist(cython) < 3
 %else
 %if 0%{?rhel} >= 8 || 0%{?fedora} >= 30
 BuildRequires: python3
