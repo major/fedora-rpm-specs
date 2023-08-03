@@ -1,6 +1,6 @@
 Name:           perl-App-cpanminus
-Version:        1.7046
-Release:        5%{?dist}
+Version:        1.7047
+Release:        1%{?dist}
 Summary:        Get, unpack, build and install CPAN modules
 # Other files:  GPL+ or Artistic
 ## unbundled
@@ -80,7 +80,7 @@ Requires:       perl
 # Compress::Zlib is optional
 Requires:       perl(CPAN::DistnameInfo)
 Requires:       perl(CPAN::Meta)
-Requires:       perl(CPAN::Meta::Check)
+Requires:       perl(CPAN::Meta::Check) >= 0.018
 Requires:       perl(CPAN::Meta::YAML)
 Requires:       perl(Digest::SHA)
 Requires:       perl(ExtUtils::Install) >= 1.46
@@ -138,7 +138,7 @@ for F in bin/cpanm lib/App/cpanminus/fatscript.pm; do
     mv "${F}.stripped" "$F"
 done
 
-%patch0 -p1
+%patch -P0 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -168,15 +168,18 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
-%{_mandir}/man1/*
+%{perl_vendorlib}/App*
+%{_mandir}/man1/cpanm*
+%{_mandir}/man3/App::cpanminus*
 %{_bindir}/cpanm
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Aug 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.7047-1
+- 1.7047 bump (rhbz#2227489)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7046-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

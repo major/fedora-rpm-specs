@@ -11,8 +11,8 @@
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.15.1
-Release:        4%{?dist}
+Version:        1.15.2
+Release:        1%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -23,7 +23,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  check-devel
 BuildRequires:  doxygen
-BuildRequires:  pkgconfig(glib-2.0) >= 2.28
+BuildRequires:  pkgconfig(glib-2.0) >= 2.66
 BuildRequires:  gpgme-devel
 BuildRequires:  libattr-devel
 BuildRequires:  libcurl-devel >= %{libcurl_version}
@@ -96,6 +96,14 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Tue Aug 01 2023 Jan Kolarik <jkolarik@redhat.com> - 1.15.2-1
+- Update to 1.15.2
+- Fixes and optimizations in header files
+- Fix lr_gpg_list_keys function when keys are empty
+- Update PGP test vectors
+- Fix CMake warnings
+- Bump glib version
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

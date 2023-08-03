@@ -1,19 +1,24 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=442473
 
 Name:           parcellite
-Version:        1.2.2
-Release:        3%{?dist}
+Version:        1.2.5
+Release:        2%{?dist}
 Summary:        A lightweight GTK+ clipboard manager
 
 License:        GPLv3+
-URL:            http://parcellite.sourceforge.net/
-Source0:        https://github.com/rickyrockrat/%{name}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+URL:            http://%{name}.sf.net/
+Source0:        https://github.com/ZaWertun/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# migrate autostart from previous upstream rickyrockrat
+Source1:        %{name}-startup.desktop
 
-BuildRequires:  make
-BuildRequires:  gcc
+BuildRequires:  cmake >= 3.1
+BuildRequires:  gcc-g++
 BuildRequires:  gtk2-devel >= 2.10.0 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool >= 0.23
+
+Requires:       xdotool
+Requires:       hicolor-icons-theme
 
 %description
 Parcellite is a stripped down, basic-features-only clipboard manager with a 
@@ -23,51 +28,46 @@ In GNOME and Xfce the clipboard manager will be started automatically. For
 other desktops or window managers you should also install a panel with a 
 system tray or notification area if you want to use this package.
 
+
 %prep
-%setup -q
-sh -v autogen.sh
-# remove useless files
-rm -rfv autom4te.cache */*~ || :
+%autosetup -n%{name}-%{version}
 
 %build
-%configure
-CFLAGS="$RPM_OPT_FLAGS" %make_build -f Makefile.simple
-
+%cmake
+%make_build -C %{_vpath_builddir}
 
 %install
-%make_install
+%make_install -C %{_vpath_builddir}
 %find_lang %{name}
-
-desktop-file-install \
-    %if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 7)
-        --vendor fedora \
-    %endif
-    --delete-original \
+desktop-file-edit \
     --remove-category=Application \
     --remove-only-show-in=Old \
-    --dir=%{buildroot}%{_datadir}/applications \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
-
 desktop-file-install \
-    --delete-original \
     --add-category=TrayIcon \
     --add-only-show-in="GNOME;KDE;LXDE;MATE;Razor;ROX;TDE;Unity;XFCE;" \
     --dir=%{buildroot}%{_sysconfdir}/xdg/autostart \
-    %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}-startup.desktop
-
-
+    %{SOURCE1}
+install -D data/%{name}.appdata.xml %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog README NEWS
+%doc AUTHORS ChangeLog README.md
 %license COPYING
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}-startup.desktop
 %{_bindir}/%{name}
-%{_datadir}/applications/*%{name}.desktop
-%{_datadir}/pixmaps/%{name}.*
-%{_mandir}/man1/%{name}.1.*
-
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_mandir}/man1/%{name}.1*
+%{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Tue Aug 01 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.2.5-2
+- install appdata 
+
+* Tue Aug 01 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.2.5-1
+- new version, switch upstream
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

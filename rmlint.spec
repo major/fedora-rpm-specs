@@ -1,3 +1,5 @@
+%undefine _package_note_file
+
 Name:           rmlint
 Version:        2.10.1
 Release:        %autorelease
@@ -11,7 +13,8 @@ License:        GPLv3 and MIT and BSD and (CC0 or ASL 2.0 or OpenSSL) and Public
 URL:            https://rmlint.rtfd.org
 Source0:        https://github.com/sahib/rmlint/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-Add-RPM_BUILD_ROOT-to-env.patch
-Patch1: rmlint-scons-c99.patch
+Patch1:         rmlint-scons-c99.patch
+Patch2:         https://github.com/intelfx/rmlint/commit/d979995427b8f3c66e940c66f34dd53d6c8b34b2.patch
 
 BuildRequires:  scons
 BuildRequires:  gcc
@@ -25,6 +28,7 @@ BuildRequires:  sqlite-devel
 BuildRequires:  json-glib-devel
 BuildRequires:  desktop-file-utils
 Requires:       hicolor-icon-theme
+Recommends:     gtksourceview3
 
 Provides:       bundled(blake2)
 Provides:       bundled(sha3)
@@ -64,7 +68,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/shredder.desktop
 %{_datadir}/icons/hicolor/scalable/apps/shredder.svg
 %{_mandir}/man1/rmlint.1*
 %{python3_sitelib}/shredder/
-%{python3_sitelib}/Shredder-%{version}.*-py*.egg-info
+%{python3_sitelib}/Shredder-%{version}-py*.egg-info
 
 %changelog
 %autochangelog

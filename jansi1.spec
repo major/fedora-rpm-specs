@@ -1,6 +1,6 @@
 Name:           jansi1
 Version:        1.18
-Release:        16%{?dist}
+Release:        18%{?dist}
 Summary:        Generate and interpret ANSI escape sequences in Java
 License:        Apache-2.0
 URL:            https://fusesource.github.io/jansi/
@@ -15,8 +15,7 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.fusesource:fusesource-pom:pom:)
 BuildRequires:  mvn(org.fusesource.hawtjni:hawtjni-runtime)
-# jansi-native is embedded in jansi 2.x
-BuildRequires:  mvn(org.fusesource.jansi:jansi)
+BuildRequires:  mvn(org.fusesource.jansi:jansi-native)
 
 %description
 Jansi is a small Java library that allows you to use ANSI escape
@@ -24,6 +23,8 @@ sequences in your Java console applications.  It implements ANSI support
 on platforms which don't support it like Windows and provides graceful
 degradation when output is sent to output devices which cannot support
 ANSI sequences.
+
+%{?javadoc_package}
 
 %prep
 %autosetup -n jansi-jansi-project-%{version}
@@ -46,7 +47,6 @@ cd jansi
 # it's there only to be bundled in uberjar and we disable uberjar generation
 %pom_remove_dep :jansi-linux32
 %pom_remove_dep :jansi-linux64
-%pom_change_dep :jansi-native :jansi
 cd -
 
 # javadoc generation fails due to strict doclint in JDK 8
@@ -58,8 +58,7 @@ cd -
 
 %build
 %mvn_compat_version org.fusesource.jansi:jansi %{version} 1
-# don't build javadoc since it will try to create jansi2 javadoc, I guess
-%mvn_build -j
+%mvn_build
 
 %install
 %mvn_install
@@ -69,6 +68,12 @@ cd -
 %doc readme.md changelog.md
 
 %changelog
+* Tue Aug 01 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.18-18
+- rebuilt w/ no changes
+
+* Tue Aug 01 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.18-17
+- Revert changes on BR jansi-native
+
 * Wed Jul 26 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.18-16
 - Replace BR jansi-native with jansi
 

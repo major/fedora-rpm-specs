@@ -30,14 +30,14 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	12.0.1
-Release:	6%{?dist}
+Version:	13.0.0
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://dist.apache.org/repos/dist/release/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
-Patch0001:	0001-python-pyarrow-includes-libarrow_flight.pxd
+Patch0001:	0001-cpp-src-arrow-util-decimal_internal.h.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -68,7 +68,7 @@ BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-numpy
-BuildRequires:	python%{python3_pkgversion}-Cython
+BuildRequires:	python3dist(cython) < 3~~
 BuildRequires:	xsimd-devel
 BuildRequires:	abseil-cpp-devel
 BuildRequires:	c-ares-devel
@@ -736,7 +736,7 @@ Development files for python3-pyarrow
 #--------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n apache-arrow-%{version}
+%autosetup -p1 -n arrow-apache-arrow-%{version}
 # We do not need to (nor can we) build for an old version of numpy:
 sed -r -i 's/(oldest-supported-)(numpy)/\2/' python/pyproject.toml
 
@@ -866,6 +866,10 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Tue Aug 1 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 13.0.0-1
+- Arrow 13.0.0 GA, rhbz#2224127
+- and back to cython 0.29.31
+
 * Tue Jul 25 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 12.0.1-6
 - rebuild with Cython 3
 

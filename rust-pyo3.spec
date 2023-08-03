@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.19.1
+Version:        0.19.2
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -13,8 +13,6 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/pyo3
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
-# * drop unused benchmark definitions from Cargo.toml
 # * drop send_wrapper and widestring dev-dependencies (not packaged yet)
 # * drop MSVC- and MinGW-only features
 Patch:          pyo3-fix-metadata.diff
@@ -394,14 +392,7 @@ rm tests/test_pep_587.rs
 # * unit tests require an UTF-8 locale
 # * unit tests require the "auto-initialize" feature
 export LANG=C.utf8
-%if 0%{?fedora} >= 39
-# * skip a test that fails with Python 3.12:
-#   https://github.com/PyO3/pyo3/issues/3305
-# * skip tests that are unreliable with Python 3.12
-%cargo_test -f auto-initialize -- -- --skip err::tests::fetching_panic_exception_resumes_unwind --skip types::dict::tests::test_set_item_refcnt --skip types::list::tests::test_append_refcnt --skip types::list::tests::test_insert_refcnt
-%else
 %cargo_test -f auto-initialize
-%endif
 %endif
 
 %changelog

@@ -51,8 +51,8 @@ ExclusiveArch:  x86_64
 %global source_directory 1.35-development
 
 Name:           nbdkit
-Version:        1.35.7
-Release:        2%{?dist}
+Version:        1.35.8
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1229,6 +1229,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Tue Aug 01 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.8-1
+- New upstream development version 1.35.8
+
 * Sun Jul 23 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.7-2
 - New upstream development version 1.35.7
 - New nbdkit-qcow2dec-filter.

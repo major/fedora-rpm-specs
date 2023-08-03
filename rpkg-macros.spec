@@ -71,6 +71,9 @@ Please, see man rpkg-macros for more information.
 %setup -T -b 0 -q -n rpkg-util-macros
 
 %check
+export GIT_CONFIG_GLOBAL=`pwd`/gitconfig
+git config --global protocol.file.allow always
+git config --global init.defaultBranch master
 PATH=bin/:$PATH tests/run
 
 %install

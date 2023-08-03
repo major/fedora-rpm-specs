@@ -8,8 +8,8 @@
 ExcludeArch: aarch64 %{power64} s390x
 
 Name:           python-%{pypi_name}
-Version:        0.7.1
-Release:        4%{?dist}
+Version:        0.7.2
+Release:        %autorelease
 Summary:        Python binding for Giac
 License:        GPLv2+
 URL:            http://webusers.imj-prg.fr/~frederic.han/xcas/giacpy/
@@ -31,7 +31,7 @@ Summary:        Python3 binding for Giac
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  %{_bindir}/cython
-Requires:       python3-Cython%{?_isa}
+Requires:       python3-cython%{?_isa}
 BuildRequires:  libqcas-devel
 Requires:       giac-doc >= %{giacver}
 Obsoletes:      python2-%{pypi_name} < 0:%{version}
@@ -82,122 +82,4 @@ popd
 %{python3_sitearch}/%{pypi_name}/*.h
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.1-3
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Nov 18 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.7.1-1
-- Release 0.7.1
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 22 2022 Charalampos Stratakis <cstratak@redhat.com> - 0.7.0-12
-- Fix FTBFS with setuptools >= 62.1 Resolves: rhbz#2097111
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.7.0-11
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sat Jun 12 2021 Antonio Trande <sagitter@fedoraproject.org> - 0.7.0-8
-- Rebuilt for giac-1.7.0.13
-- Remove Python2 commands
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.7.0-7
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Jul 19 2020 Antonio Trande <sagitter@fedoraproject.org> - 0.7.0-4
-- Rebuild for giac-1.6.0.7
-
-* Wed Jun 24 2020 Antonio Trande <sagitter@fedoraproject.org> - 0.7.0-3
-- BuildRequires python3-setuptools explicitly
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-2
-- Rebuilt for Python 3.9
-
-* Wed Feb 05 2020 Antonio Trande <sagitter@fedoraproject.org> - 0.7.0-1
-- Release 0.7.0
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Sep 17 2019 Antonio Trande <sagitter@fedoraproject.org> - 0.6.9-1
-- Release 0.6.9
-
-* Mon Sep 16 2019 Antonio Trande <sagitter@fedoraproject.org> - 0.6.8-5
-- Rebuild for giac-1.5.0.63
-- Fix doctest failure
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.6.8-4
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Jun 07 2019 Charalampos Stratakis <cstratak@redhat.com> - 0.6.8-2
-- Recythonize the sources
-
-* Wed Jun 05 2019 Antonio Trande <sagitter@fedoraproject.org> - 0.6.8-1
-- Release 0.6.8
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Oct 10 2018 Antonio Trande <sagitter@fedoraproject.org> - 0.6.7-1
-- Release 0.6.7
-
-* Mon Aug 27 2018 Antonio Trande <sagitter@fedoraproject.org> - 0.6.6-5
-- Fix Cython requests
-
-* Mon Aug 27 2018 Antonio Trande <sagitter@fedoraproject.org> - 0.6.6-4
-- Deprecate Python2 on fedora 30+
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 0.6.6-2
-- Rebuilt for Python 3.7
-
-* Sat Feb 10 2018 Antonio Trande <sagitter@fedoraproject.org> - 0.6.6-1
-- Release 0.6.6
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sat Feb 03 2018 Antonio Trande <sagitter@fedoraproject.org> 0.6.5-3
-- Rebuild for giac-1.4.9.45
-
-* Sat Jan 27 2018 Antonio Trande <sagitter@fedoraproject.org> - 0.6.5-2
-- Fix dependencies
-
-* Mon Jan 15 2018 Antonio Trande <sagitter@fedoraproject.org> - 0.6.5-1
-- Release 0.6.5
-- Enable qcas support
-- Packaging of the development files
-
-* Fri Dec 22 2017 Antonio Trande <sagitter@fedoraproject.org> - 0.6.3-0.1
-- Pre-release 0.6.3
-
-* Sun Dec 17 2017 Antonio Trande <sagitter@fedoraproject.org> - 0.6.2-1
-- Source package renamed with python- suffix as required by Python guidelines
-- Source url grabbed by pythonhosted.org's repository
-- Building processes restricted to the original directory
-
-* Sat Dec 02 2017 Antonio Trande <sagitter@fedoraproject.org> - 0.6.2-1
-- Initial package
+%autochangelog

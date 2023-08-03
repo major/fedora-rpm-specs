@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.3
-Release:    6%{?dist}
+Release:    7%{?dist}
 Epoch:      1
 
 License:    Net-SNMP and OpenSSL
@@ -49,6 +49,9 @@ Patch19:    net-snmp-5.9-intermediate-certs.patch
 Patch20:    net-snmp-5.9.1-remove-des.patch
 Patch21:    net-snmp-5.9.1-autoconf.patch
 Patch22:    net-snmp-libs-misunderstanding.patch
+Patch23:    net-snmp-5.9-CVE-2022-44792-44793.patch
+Patch24:    net-snmp-5.9-ipv6-disable-leak.patch
+Patch25:    net-snmp-5.9-sendmsg-error-code.patch
 
 # Modern RPM API means at least EL6
 Patch101:   net-snmp-5.8-modern-rpm-api.patch
@@ -222,6 +225,9 @@ cp %{SOURCE10} .
 %patch 20 -p1 -b .remove-des
 %patch 21 -p1 -b .autoconf
 %patch 22 -p1
+%patch 23 -p1 
+%patch 24 -p1 -b .ipv6-disable-leak
+%patch 25 -p1 -b .sendmsg-error-code
 
 %patch 101 -p1 -b .modern-rpm-api
 %patch 102 -p1
@@ -490,6 +496,10 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Tue Aug 01 2023 Josef Ridky <jridky@redhat.com> - 1:5.9.3-7
+- Sync fixes with RHEL
+- Fix sendmesg error code change for new kernel
+
 * Wed Jul 19 2023 Josef Ridky <jridky@redhat.com> - 1:5.9.3-6
 - Migrate to SPDX license format
 

@@ -10,9 +10,9 @@
 %bcond_without tests
 
 Name:           %{pkg_name}
-Version:        1.27.1
+Version:        1.30
 # can only be reset when all subpkgs bumped
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Web-based user interface for the hledger accounting system
 
 License:        GPL-3.0-or-later
@@ -31,7 +31,6 @@ BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-base64-devel
 BuildRequires:  ghc-blaze-html-devel
 BuildRequires:  ghc-blaze-markup-devel
-BuildRequires:  ghc-breakpoint-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-case-insensitive-devel
 BuildRequires:  ghc-clientsession-devel
@@ -79,7 +78,6 @@ BuildRequires:  ghc-base-prof
 BuildRequires:  ghc-base64-prof
 BuildRequires:  ghc-blaze-html-prof
 BuildRequires:  ghc-blaze-markup-prof
-BuildRequires:  ghc-breakpoint-prof
 BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-case-insensitive-prof
 BuildRequires:  ghc-clientsession-prof
@@ -260,6 +258,9 @@ This package provides the Haskell %{name} profiling library.
 
 
 %changelog
+* Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 1.30-3
+- https://hackage.haskell.org/package/hledger-web-1.30/changelog
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

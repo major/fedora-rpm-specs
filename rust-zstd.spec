@@ -4,19 +4,17 @@
 %global debug_package %{nil}
 
 %global crate zstd
-%global upstream_version 0.12.3+zstd.1.5.2
 
 Name:           rust-zstd
-Version:        0.12.3
+Version:        0.12.4
 Release:        %autorelease
 Summary:        Binding for the zstd compression library
 
 License:        MIT
 URL:            https://crates.io/crates/zstd
-Source:         %{crates_source %{crate} %{upstream_version}}
+Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * remove zstd version from version field
-# * exclude development-only files
+# * exclude files that are only useful for upstream development
 Patch:          zstd-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -221,7 +219,7 @@ use the "zstdmt" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{upstream_version} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires

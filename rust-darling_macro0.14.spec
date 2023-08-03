@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate below_derive
+%global crate darling_macro
 
-Name:           rust-below_derive
-Version:        0.7.1
+Name:           rust-darling_macro0.14
+Version:        0.14.4
 Release:        %autorelease
-Summary:        Proc macros for below
+Summary:        Parse attributes into structs for custom derive implementations (internal support)
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/below_derive
+License:        MIT
+URL:            https://crates.io/crates/darling_macro
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Proc macros for below.}
+Internal support for a proc-macro library for reading attributes into
+structs when implementing custom derives. Use
+https://crates.io/crates/darling in your code.}
 
 %description %{_description}
 

@@ -1,13 +1,13 @@
 # Testing dependencies: deepdiff, flexmock are missing on EPEL 9. Cannot use testing environment
-%if 0%{?el9}
+%if 0%{?el9} || 0%{?fedora} >= 39
 %bcond_with tests
 %else
 %bcond_without tests
 %endif
 
 Name:           packit
-Version:        0.77.0
-Release:        2%{?dist}
+Version:        0.78.1
+Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -77,6 +77,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Tue Aug 1 2023 Packit <hello@packit.dev> - 0.78.1-1
+- Temporarily disabled test dependencies on Fedora Rawhide because of missing `python3-deepdiff`. (#2008)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.77.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

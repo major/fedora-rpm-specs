@@ -9,7 +9,7 @@
 %endif
 
 Name:           ghc-%{pkg_name}
-Version:        3.0.39
+Version:        3.0.41
 Release:        %autorelease
 Summary:        Gtk bindings
 

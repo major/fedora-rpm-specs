@@ -106,7 +106,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   1
-Version: 102.13.0
+Version: 102.14.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -264,8 +264,9 @@ BuildRequires: nss-static >= %{nss_version}
 
 BuildRequires: pango-devel
 BuildRequires: pipewire-devel
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+#BuildRequires: python3-devel
+#BuildRequires: python3-setuptools
+BuildRequires: python3.11-devel
 BuildRequires: perl-interpreter
 BuildRequires: pkgconfig(xrender)
 BuildRequires: pkgconfig(libstartup-notification-1.0)
@@ -671,7 +672,10 @@ cp -p %{SOURCE19} .
 export CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG=true
 %endif
 
-#export MACH_USE_SYSTEM_PYTHON=1
+	
+export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
+#Use python 3.11 for mach
+sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
 %if 0%{?build_with_pgo}
 %if 0%{?pgo_wayland}
 env | grep "WAYLAND"

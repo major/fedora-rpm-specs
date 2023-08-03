@@ -1,9 +1,9 @@
-%global rpmversion 0.07.01
-%global cpanversion 0.0701
+%global rpmversion 0.08
+%global cpanversion 0.08
 
 Name:           perl-DateTime-Format-MySQL
 Version:        %{rpmversion}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        Parse and format MySQL dates and times
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-MySQL
@@ -23,6 +23,7 @@ BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Test::More)
 # Dependencies
+# (none)
 
 %description
 This module understands the formats used by MySQL for its DATE, DATETIME,
@@ -51,6 +52,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/DateTime::Format::MySQL.3*
 
 %changelog
+* Tue Aug  1 2023 Paul Howarth <paul@city-fan.org> - 0.08-1
+- Update to 0.08
+  - Fix parsing microsecond < 100,000 off DateTime object by zero-padding
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07.01-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

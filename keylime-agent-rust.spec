@@ -15,7 +15,7 @@
 %endif
 
 Name:           keylime-agent-rust
-Version:        0.2.1
+Version:        0.2.2
 Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:        Rust agent for Keylime
 

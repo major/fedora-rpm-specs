@@ -6,16 +6,13 @@
 %global crate cxxbridge-macro
 
 Name:           rust-cxxbridge-macro
-Version:        1.0.100
+Version:        1.0.102
 Release:        %autorelease
 Summary:        Implementation detail of the cxx crate
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cxxbridge-macro
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * temporarily downgrade flate2 dependency from 1.0.26 to 1.0.25
-Patch:          cxxbridge-macro-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

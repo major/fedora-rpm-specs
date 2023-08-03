@@ -3,20 +3,18 @@
 %global debug_package %{nil}
 
 %global crate zstd-safe
-%global upstream_version 6.0.4+zstd.1.5.4
 
 Name:           rust-zstd-safe
-Version:        6.0.4
+Version:        6.0.6
 Release:        %autorelease
 Summary:        Safe low-level bindings for the zstd compression library
 
 # Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/zstd-safe
-Source:         %{crates_source %{crate} %{upstream_version}}
+Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * remove zstd version from version field
-# * exclude a development-only shell script
+# * exclude files that are only useful for upstream development
 Patch:          zstd-safe-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -223,7 +221,7 @@ use the "zstdmt" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{upstream_version} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires

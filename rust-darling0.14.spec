@@ -4,8 +4,8 @@
 
 %global crate darling
 
-Name:           rust-darling
-Version:        0.20.3
+Name:           rust-darling0.14
+Version:        0.14.4
 Release:        %autorelease
 Summary:        Parse attributes into structs for custom derive implementations
 

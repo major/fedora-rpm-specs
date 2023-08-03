@@ -20,6 +20,7 @@ BuildRequires:  SDL2_ttf-devel
 BuildRequires:  SDL2_gfx-devel
 BuildRequires:  SDL2_Pango-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 BuildRequires:  freetype-devel >= 2.0
 BuildRequires:  gettext
 BuildRequires:  libpaper-devel
@@ -56,78 +57,45 @@ sed -i -e '/\/gnome\/apps\/Graphics/d' Makefile
 find docs -type f -exec perl -pi -e 's/\r\n/\n/' {} \;
 find docs -type f -perm /100 -exec chmod a-x {} \;
 
-make PREFIX=/usr MAGIC_PREFIX=%{_libdir}/tuxpaint/plugins tp-magic-config
+make PREFIX=%{_prefix} MAGIC_PREFIX=%{_libdir}/tuxpaint/plugins tp-magic-config
 
 %build
+%set_build_flags
 make %{?_smp_mflags} \
-    PREFIX=/usr \
-    CFLAGS="$RPM_OPT_FLAGS -I/usr/include/freetype2" \
+    PREFIX=%{_prefix} \
+    CFLAGS="$CFLAGS -I/usr/include/freetype2 -I%{_includedir}/SDL2" \
+    LDFLAGS="$LDFLAGS -L%{_libdir}" \
     MAGIC_PREFIX=%{_libdir}/tuxpaint/plugins
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}
-make install PKG_ROOT=$RPM_BUILD_ROOT PREFIX=%{_usr} \
+make install PKG_ROOT=$RPM_BUILD_ROOT PREFIX=%{_prefix} \
+    COMPLETIONDIR=$RPM_BUILD_ROOT%{bash_completions_dir} \
     X11_ICON_PREFIX=$RPM_BUILD_ROOT%{_datadir}/pixmaps/ \
-    GNOME_PREFIX=/usr \
+    GNOME_PREFIX=%{_prefix} \
     KDE_PREFIX="" \
-    KDE_ICON_PREFIX=/usr/share/icons \
+    KDE_ICON_PREFIX=%{_datadir}/icons \
     MAGIC_PREFIX=$RPM_BUILD_ROOT%{_libdir}/tuxpaint/plugins
 find $RPM_BUILD_ROOT -type d|xargs chmod 0755
 %find_lang %{name}
+
+for d in 16x16 22x22 32x32 48x48 64x64 96x96 128x128 192x192; do
+    install -D -m0644 data/images/icon${d}.png \
+        $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${d}/apps/tuxpaint.png
+done
 
 desktop-file-install --dir $RPM_BUILD_ROOT/%{_datadir}/applications \
     --add-category KidsGame \
     --delete-original \
     src/tuxpaint.desktop
 
-# Register as an application to be visible in the software center
-#
-# NOTE: It would be *awesome* if this file was maintained by the upstream
-# project, translated and installed into the right place during `make install`.
-#
-# See http://www.freedesktop.org/software/appstream/docs/ for more details.
-#
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-cat > $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014 Richard Hughes <richard@hughsie.com> -->
-<!--
-BugReportURL: https://sourceforge.net/p/tuxpaint/feature-requests/172/
-SentUpstream: 2014-09-18
--->
-<application>
-  <id type="desktop">tuxpaint.desktop</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <summary>A drawing program for children</summary>
-  <description>
-    <p>
-      Tux Paint is a free, award-winning drawing program for children ages 3 to
-      12.
-      Tux Paint is used in schools around the world as a computer literacy
-      drawing activity.
-      It combines an easy-to-use interface, fun sound effects, and an
-      encouraging cartoon mascot who guides children as they use the program.
-    </p>
-    <p>
-      Kids are presented with a blank canvas and a variety of drawing tools to
-      help them be creative.
-    </p>
-  </description>
-  <url type="homepage">http://tuxpaint.org/</url>
-  <screenshots>
-    <screenshot type="default">http://tuxpaint.org/screenshots/starter-coloringbook.png</screenshot>
-    <screenshot>http://tuxpaint.org/screenshots/example_simple.png</screenshot>
-    <screenshot>http://tuxpaint.org/screenshots/example_space.png</screenshot>
-  </screenshots>
-  <updatecontact>tuxpaint-devel@lists.sourceforge.net</updatecontact>
-</application>
-EOF
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.tuxpaint.Tuxpaint.appdata.xml
 
 #purge bundled fonts
 rm -rf $RPM_BUILD_ROOT%{_datadir}/tuxpaint/fonts/*
 
-ln -s ../../fonts/dejavu-sans-fonts/DejaVuSans.ttf %{buildroot}/usr/share/tuxpaint/fonts/default_font.ttf
+ln -s /usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf %{buildroot}%{_datadir}/tuxpaint/fonts/default_font.ttf
 
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 
@@ -137,14 +105,14 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 %doc docs
 %{_bindir}/*
 %{_datadir}/%{name}
-%{_datadir}/appdata/*.appdata.xml
 %{_datadir}/applications/*
+%{_datadir}/icons/hicolor/*/apps/tuxpaint.png
 %{_datadir}/pixmaps/*
 %{_libdir}/%{name}/
 %{_mandir}/man1/*
 %{_mandir}/*/man1/*
-%{_sysconfdir}/bash_completion.d/tuxpaint-completion.bash
-%{_datadir}/metainfo/org.tuxpaint.Tuxpaint.appdata.xml
+%{bash_completions_dir}/tuxpaint-completion.bash
+%{_metainfodir}/org.tuxpaint.Tuxpaint.appdata.xml
 
 %files devel
 %doc %{_datadir}/doc/%{name}-%{version}/

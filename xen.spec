@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -115,6 +115,7 @@ Patch49: xen.python3.12.patch
 Patch50: xen.ocaml5.fixes.patch
 Patch51: xsa433-4.17.patch
 Patch52: xsa433-bugfix.patch
+Patch53: xsa436.patch
 
 
 %if %build_qemutrad
@@ -334,6 +335,7 @@ manage Xen virtual machines.
 %endif
 %patch 51 -p1
 %patch 52 -p1
+%patch 53 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -941,6 +943,10 @@ fi
 %endif
 
 %changelog
+* Tue Aug 01 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-9
+- arm: Guests can trigger a deadlock on Cortex-A77 [XSA-436, CVE-2023-34320]
+	(#2228238)
+
 * Mon Jul 31 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-8
 - bugfix for x86/AMD: Zenbleed [XSA-433, CVE-2023-20593]
 

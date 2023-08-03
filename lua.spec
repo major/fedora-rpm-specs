@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -36,7 +36,9 @@ Patch4:         %{name}-5.3.0-configure-compat-module.patch
 Patch5:         %{name}-5.3.0-autotoolize.patch
 Patch6:		%{name}-5.3.5-luac-shared-link-fix.patch
 %endif
+Patch7:         lua-5.4.6-big-endian-fix.patch
 # https://www.lua.org/bugs.html
+Patch8:		lua-5.4.6-bug1.patch
 
 BuildRequires:  automake autoconf libtool readline-devel ncurses-devel
 BuildRequires:  make
@@ -93,6 +95,9 @@ mv src/luaconf.h src/luaconf.h.template.in
 # Put proper version in configure.ac, patch0 hardcodes 5.3.0
 sed -i 's|5.3.0|%{version}|g' configure.ac
 autoreconf -ifv
+%patch -P7 -p1 -b .big-endian-fix
+%patch -P8 -p1 -b .bug1
+
 
 %if 0%{?bootstrap}
 cd lua-%{bootstrap_version}/
@@ -206,6 +211,10 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Tue Aug  1 2023 Tom Callaway <spot@fedoraproject.org> - 5.4.6-3
+- disable "corrupted binary dump" test that has issues on big-endian architectures
+- apply upstream fix for 5.4.6 bug 1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

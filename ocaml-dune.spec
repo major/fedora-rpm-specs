@@ -8,7 +8,7 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.9.2
+Version:        3.10.0
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -567,6 +567,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Tue Aug  1 2023 Jerry James <loganjerry@gmail.com> - 3.10.0-1
+- Version 3.10.0
+
 * Wed Jul 26 2023 Jerry James <loganjerry@gmail.com> - 3.9.2-1
 - Version 3.9.2
 

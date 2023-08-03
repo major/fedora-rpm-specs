@@ -2,7 +2,7 @@ Name:           sl
 Version:        5.02
 Release:        20%{?dist}
 Summary:        Joke command for when you type 'sl' instead of 'ls'
-License:        Copyright only
+License:        SL
 URL:            https://github.com/mtoyoda/sl
 Source0:        https://github.com/mtoyoda/sl/archive/%{version}/sl-%{version}.tar.gz
 BuildRequires: make

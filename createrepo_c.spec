@@ -45,6 +45,7 @@ BuildRequires:  glib2-devel >= 2.22.0
 BuildRequires:  libcurl-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
+BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  rpm-devel >= 4.8.0-28
 BuildRequires:  sqlite-devel
 BuildRequires:  xz

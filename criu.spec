@@ -20,6 +20,8 @@ Source0: https://github.com/checkpoint-restore/criu/archive/v%{version}/criu-%{v
 
 # Fix to work on CPUs with larger XSAVE area (Sapphire Rapids)
 Patch0: https://github.com/checkpoint-restore/criu/commit/d739260c57576c636759afb312340fa3827312f6.patch
+# https://github.com/checkpoint-restore/criu/pull/2232
+Patch1: kernel65-s390x.patch
 
 # Add protobuf-c as a dependency.
 # We use this patch because the protobuf-c package name
@@ -100,6 +102,7 @@ This script can help to workaround the so called "PID mismatch" problem.
 %prep
 %setup -q
 %patch -P 0 -p1
+%patch -P 1 -p1
 %patch -P 99 -p1
 
 %build

@@ -5,7 +5,7 @@
 %global crate rust_decimal
 
 Name:           rust-rust_decimal
-Version:        1.30.0
+Version:        1.31.0
 Release:        %autorelease
 Summary:        Decimal number implementation written in pure Rust
 

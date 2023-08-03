@@ -1,39 +1,33 @@
+%global forgeurl https://github.com/ytdl-org/youtube-dl/
+%global commit 2efc8de4d2299e08e0c84d674d7fc7f3fa669487
+%forgemeta
 Name:           youtube-dl
-Version:        2021.12.17
-Release:        7%{?dist}
+Version:        2023.07.30.git%(c=%{commit}; echo ${c:0:7})
+Release:        1%{?dist}
 Summary:        A small command-line program to download online videos
 License:        Unlicense
-URL:            https://yt-dl.org
-Source0:        https://yt-dl.org/downloads/%{version}/youtube-dl-%{version}.tar.gz
-Source1:        https://yt-dl.org/downloads/%{version}/youtube-dl-%{version}.tar.gz.sig
-# 2016-06-09:
-# Merged GPG keys from https://rg3.github.io/youtube-dl/download.html in one file
-# gpg --export  --export-options export-minimal "428D F5D6 3EF0 7494 BB45 5AC0 EBF0 1804 BCF0 5F6B" \
-# "ED7F 5BF4 6B3B BED8 1C87 368E 2C39 3E0F 18A9 236D" \
-# "7D33 D762 FD6C 3513 0481 347F DB4B 54CB A482 6A18" > youtube-dl-gpgkeys.gpg
-Source2:        youtube-dl-gpgkeys.gpg
+URL:	        %{forgeurl}
+Source:         %{forgesource}
 Source3:        %{name}.conf
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-setuptools
 # Tests failed because of no connection in Koji.
-# BuildRequires:  python-nose
 BuildArch:      noarch
-# For source verification with gpgv
-BuildRequires:  gnupg2
+BuildRequires:  pandoc
+BuildRequires:  make
 # https://bugzilla.redhat.com/show_bug.cgi?id=1951630
 Recommends:     AtomicParsley
+# https://bugzilla.redhat.com/show_bug.cgi?id=2203543
+Recommends:     /usr/bin/ffmpeg
+
 
 %description
 Small command-line program to download videos from YouTube and other sites.
 
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
-%setup -qn %{name}
-
-# remove pre-built file
-rm youtube-dl
+%forgesetup
 
 cp -a setup.py setup.py.installpath
 # Remove files that are installed to the wrong path
@@ -46,6 +40,8 @@ find youtube_dl -type f -exec sed -i -e '1{/^\#!\/usr\/bin\/env python$/d;};' {}
 
 %build
 %py3_build
+make PYTHON=python3
+
 
 
 %install
@@ -85,6 +81,10 @@ install -Dpm644 youtube-dl.fish %{buildroot}%{_datadir}/fish/vendor_functions.d/
 %{_datadir}/fish/vendor_functions.d/youtube-dl.fish
 
 %changelog
+* Tue Aug 01 2023 David Bold <davidsch@fedoraproject.org> - 2023.07.30.git2efc8de-1.20230801git2efc8de
+- Update to latest git snapshot
+- Ajust for building from snapshot
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.12.17-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

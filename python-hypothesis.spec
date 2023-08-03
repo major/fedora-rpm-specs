@@ -10,7 +10,7 @@
 %endif
 
 Name:           python-hypothesis
-Version:        6.62.1
+Version:        6.82.0
 Release:        %autorelease
 Summary:        Library for property based testing
 
@@ -93,7 +93,8 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/hypothesis.1
 
 %if %{with tests}
 %check
-k="not test_registered_from_entrypoint"
+# https://github.com/HypothesisWorks/hypothesis/issues/3704
+k="not test_registered_from_entrypoint and not test_make_full_patch[covering]"
 
 # https://github.com/pandas-dev/pandas/commit/95a86a9884e
 %if "%{_arch}" == "s390x"

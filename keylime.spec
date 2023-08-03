@@ -8,7 +8,7 @@
 %global selinuxtype targeted
 
 Name:    keylime
-Version: 7.2.5
+Version: 7.3.0
 Release: %autorelease
 Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 
@@ -19,11 +19,10 @@ Source1:        %{srcname}.sysusers
 Source2:        https://github.com/RedHat-SP-Security/%{name}-selinux/archive/v%{policy_version}/keylime-selinux-%{policy_version}.tar.gz
 
 Patch: 01-duplicate-str-to-version.patch
-Patch: 0002-templates-Fix-mapping-and-adjust-for-Rust-agent.patch
 
 # Main program: BSD
 # Icons: MIT
-License: ASL 2.0 and MIT
+License: Apache-2.0 AND MIT
 
 BuildRequires: git-core
 BuildRequires: swig
@@ -106,6 +105,7 @@ Requires: python3-gpg
 Requires: python3-lark-parser
 Requires: python3-pyasn1
 Requires: python3-pyasn1-modules
+Requires: python3-typing-extensions
 Requires: tpm2-tools
 
 %description -n python3-%{srcname}

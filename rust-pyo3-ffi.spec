@@ -5,7 +5,7 @@
 %global crate pyo3-ffi
 
 Name:           rust-pyo3-ffi
-Version:        0.19.1
+Version:        0.19.2
 Release:        %autorelease
 Summary:        Python-API bindings for the PyO3 ecosystem
 
@@ -15,10 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop MSVC- and MinGW-only features
 Patch:          pyo3-ffi-fix-metadata.diff
-
-# Add PyType_GetDict for Python 3.12
-# https://github.com/PyO3/pyo3/commit/8c393dd.patch
-Patch:          Add-PyType_GetDict-for-Python-3.12.patch
 
 BuildRequires:  rust-packaging >= 21
 

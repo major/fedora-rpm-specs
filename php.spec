@@ -65,12 +65,12 @@
 %bcond_without   lmdb
 
 %global upver        8.2.9
-%global rcver        RC1
+#global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1540,6 +1540,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Aug  1 2023 Remi Collet <remi@remirepo.net> - 8.2.9-1
+- Update to 8.2.9 - http://www.php.net/releases/8_2_9.php
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.9~RC1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

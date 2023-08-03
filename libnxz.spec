@@ -6,7 +6,7 @@ Name:		libnxz
 Version:	0.64
 Release:	3%{?dist}
 Summary:	Zlib implementation for POWER processors
-License:	ASL 2.0 or GPLv2+
+License:    Apache-2.0 OR GPL-2.0-or-later
 Url:		https://github.com/libnxz/power-gzip
 BuildRequires:	zlib-devel
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz

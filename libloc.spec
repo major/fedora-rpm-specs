@@ -1,7 +1,8 @@
 Name:       libloc
-Version:    0.9.16
-Release:    6%{?dist}
+Version:    0.9.17
+Release:    1%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
+# bash-completion/location: LGPL-2.1-or-later
 # COPYING:                  LGPL-2.1 text
 # data/database.db:         CC-BY-SA-4.0
 # man/libloc.txt:           LGPL-2.1-or-later
@@ -76,15 +77,6 @@ Summary:    Library to determine a location of an IP address in the Internet
 License:    LGPL-2.1-or-later
 URL:        https://location.ipfire.org/
 Source0:    https://source.ipfire.org/releases/%{name}/%{name}-%{version}.tar.gz
-# 1/2 Fix "location list-networks-by-as --format ipset" output,
-# in upstream after 0.9.16, upstream bug #12897
-Patch0:     libloc-0.9.16-location-Fix-correct-set-name-when-family-is-selecte.patch
-# 2/2 Fix "location list-networks-by-as --format ipset" output,
-# in upstream after 0.9.16, upstream bug #12897
-Patch1:     libloc-0.9.16-export-Raise-an-error-when-trying-to-export-ipset-fo.patch
-# Fix string escaping with Python 3.12, in upstream after 0.9.16,
-# upstream bug #13188
-Patch2:     libloc-0.9.16-Fix-string-escaping-in-location-tool.patch
 BuildRequires:  asciidoc
 BuildRequires:  autoconf >= 2.60
 # autoconf-archive for unbundled m4/ax_prog_perl_modules.m4
@@ -114,6 +106,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  pkgconf-m4
 # pkgconf-pkg-config for pkg-config program
 BuildRequires:  pkgconf-pkg-config
+BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(python) >= 3.4
 # pkgconfig(systemd) not needed, we configure a value from systemd-rpm-macros
@@ -164,6 +157,7 @@ in the Internet.
 Summary:        Tools for downloading and querying IPFire Location database
 BuildArch:      noarch
 Requires:       python3-%{name} = %{version}-%{release}
+Recommends:     %{name}-tools-bash-completion = %{version}-%{release}
 
 %description tools
 "location" program retrieves information from the location database. This data
@@ -171,6 +165,15 @@ can be used to determine a location of an IP address in the Internet and for
 building firewall rules to block access from certain autonomous systems or
 countries. There is also an integration with systemd which helps updating the
 location database periodically.
+
+%package tools-bash-completion
+Summary:        Bash completion support for IPFire location tools
+BuildArch:      noarch
+Requires:       bash-completion
+Requires:       %{name}-tools = %{version}-%{release}
+
+%description tools-bash-completion
+This package implements Bash completion scripts for IPFire location tools.
 
 %prep
 %autosetup -p1
@@ -184,6 +187,7 @@ autoreconf -fi -I%{_datadir}/gnulib/m4
 %global default_database_file %{_sharedstatedir}/location/database.db
 %{configure} \
     --disable-analyzer \
+    --enable-bash-completion \
     --with-database-path=%{default_database_file} \
     --enable-debug \
     --enable-largefile \
@@ -239,6 +243,7 @@ make check %{?_smp_mflags}
 
 %files -f %{name}.lang
 %license COPYING
+%doc debian/changelog
 %{_libdir}/libloc.so.1*
 
 %files devel
@@ -268,9 +273,15 @@ make check %{?_smp_mflags}
 %files tools
 %{_bindir}/location*
 %{_mandir}/man1/location.1*
-%{_unitdir}/*
+%{_unitdir}/location-update.*
+
+%files tools-bash-completion
+%{_datadir}/bash-completion/completions/location
 
 %changelog
+* Tue Aug 01 2023 Petr Pisar <ppisar@redhat.com> - 0.9.17-1
+- 0.9.17 bump
+
 * Mon Jul 24 2023 Petr Pisar <ppisar@redhat.com> - 0.9.16-6
 - Fix "location list-networks-by-as --format ipset" output
   (upstream bug #12897)

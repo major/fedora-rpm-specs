@@ -1,5 +1,5 @@
 Name:           libpoly
-Version:        0.1.12
+Version:        0.1.13
 Release:        1%{?dist}
 Summary:        C library for manipulating polynomials
 
@@ -91,6 +91,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Tue Aug  1 2023 Jerry James <loganjerry@gmail.com> - 0.1.13-1
+- Version 0.1.13
+
 * Sat Jul 29 2023 Jerry James <loganjerry@gmail.com> - 0.1.12-1
 - Version 0.1.12
 - Drop upstreamed patches

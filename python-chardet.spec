@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-chardet
-Version:        5.1.0
+Version:        5.2.0
 Release:        %autorelease
 Summary:        Python character encoding detector
 

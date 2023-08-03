@@ -10,7 +10,7 @@ Source0:        %{pypi_source %srcname}
 
 # Enable building without docs to avoid a circular dependency between this
 # and python-sphinx:
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{?flatpak}
 %bcond_with docs
 %else
 %bcond_without docs

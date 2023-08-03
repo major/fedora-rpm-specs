@@ -1,6 +1,6 @@
 Name:           powerpc-utils
 Version:        1.3.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PERL-based scripts for maintaining and servicing PowerPC systems
 
 License:        GPL-2.0-only
@@ -9,6 +9,10 @@ Source0:        https://github.com/ibm-power-utilities/%{name}/archive/v%{versio
 Source1:        nx-gzip.udev
 Patch0:         powerpc-utils-1.3.11-manpages.patch
 Patch1:         powerpc-utils-1.3.10-distro.patch
+# upstream patches
+Patch50:        powerpc-utils-73ba26-lparstat-fix_negative_values.patch
+Patch51:        powerpc-utils-1.3.10-lparstat-Fix-offline-threads-uninitialized-entries.patch
+Patch52:        powerpc-utils-1.3.10-lparstat-report-mixed-SMT-state.patch
 
 ExclusiveArch:  ppc %{power64}
 
@@ -199,6 +203,11 @@ systemctl enable hcn-init.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Aug 01 2023 Than Ngo <than@redhat.com> - 1.3.11-4
+- Fix negative values seen while running lpar
+- Fix lparstat error with mixed SMT state
+- Fix negative values seen while running lparstat with -E option
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

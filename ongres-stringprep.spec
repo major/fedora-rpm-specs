@@ -2,7 +2,7 @@
 
 Name:       ongres-%upstream_name
 Version:    1.1
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    RFC 3454 Preparation of Internationalized Strings in pure Java
 License:    BSD-2-Clause AND Apache-2.0
 URL:            https://github.com/ongres/%upstream_name
@@ -37,6 +37,9 @@ find \( -name '*.jar' -o -name '*.class' \) -delete
 %pom_remove_plugin :maven-source-plugin
 %pom_remove_plugin -r :maven-javadoc-plugin
 
+# codegenerator is only needed at build time, and has extra dependencies
+%mvn_package com.ongres.stringprep:codegenerator __noinstall
+
 %build
 %mvn_build
 
@@ -50,6 +53,9 @@ find \( -name '*.jar' -o -name '*.class' \) -delete
 %license LICENSE
 
 %changelog
+* Tue Jul 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1-8
+- Drop codegenerator from install
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

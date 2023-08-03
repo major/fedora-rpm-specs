@@ -4,7 +4,7 @@
 %global         srcname     azure-batch
 
 Name:           python-%{srcname}
-Version:        13.0.0
+Version:        14.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Batch Client Library for Python
 License:        MIT

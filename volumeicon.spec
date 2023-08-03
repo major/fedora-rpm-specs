@@ -1,13 +1,15 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=722914
 
+%global commit  b034dd1fefe38ef41a5e70f212f2aabf68010f93
+
 Name:           volumeicon
 Version:        0.5.1
-Release:        13%{?dist}
+Release:        14.20230208gitb034dd1%{?dist}
 Summary:        Lightweight volume control for the system tray
 
 License:        GPLv3
-URL:            http://www.softwarebakery.com/maato/volumeicon.html
-Source0:        http://www.softwarebakery.com/maato/files/volumeicon/volumeicon-%{version}.tar.gz
+URL:            https://github.com/Maato/%{name}
+Source0:        %{url}/archive/%{commit}.tar.gz#/%{name}-%{commit}.tar.gz
 # Source1 was borrowed from gnome-media package and adjusted for our needs
 Source1:        %{name}.desktop
 
@@ -39,9 +41,10 @@ Features:
 * Hotkey support
 
 %prep
-%setup -q
+%autosetup -n%{name}-%{commit}
 
 %build
+sh -v ./autogen.sh
 # Use pavucontrol by default in Fedora
 %configure --enable-notify --with-default-mixerapp=pavucontrol
 %make_build
@@ -53,12 +56,17 @@ desktop-file-install --dir=%{buildroot}%{_sysconfdir}/xdg/autostart %{SOURCE1}
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog
+%doc AUTHORS ChangeLog README.md
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}.desktop
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
+%{_datadir}/man/man1/%{name}.1*
+%{_datadir}/man/man5/%{name}.5*
 
 %changelog
+* Tue Aug 01 2023 Raphael Groner <raphgro@fedoraproject.org> - 0.5.1-14.20230208gitb034dd1
+- use latest snapshot 
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

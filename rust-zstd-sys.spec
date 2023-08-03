@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate zstd-sys
-%global upstream_version 2.0.7+zstd.1.5.4
+%global upstream_version 2.0.8+zstd.1.5.5
 
 Name:           rust-zstd-sys
-Version:        2.0.7
+Version:        2.0.8
 Release:        %autorelease
 Summary:        Low-level bindings for the zstd compression library
 
@@ -17,7 +17,9 @@ Source:         %{crates_source %{crate} %{upstream_version}}
 # Manually created patch for downstream crate metadata changes
 # * remove zstd version from version field
 # * make bindgen build-dependency non-optional
+# * temporarily downgrade bindgen build-dependency from 0.64 to 0.63
 # * fix logic for included / excluded files
+# * exclude files that are only useful for upstream development
 Patch:          zstd-sys-fix-metadata.diff
 # * unconditionally use bindgen and pkg-config to link against system libzstd
 Patch:          0001-unconditionally-use-bindgen-and-pkg-config-to-link-a.patch

@@ -93,6 +93,7 @@ This package provides extra utilities based on the librsvg library.
 %autosetup -n librsvg-%{version} -p1
 %if 0%{?bundled_rust_deps}
 # Use the bundled deps
+sed -i Makefile.am -e 's/-Z unstable-options//'
 %cargo_prep -V 1
 %else
 # No bundled deps
@@ -125,6 +126,13 @@ chrpath --delete %{buildroot}%{_libdir}/gdk-pixbuf-2.0/*/loaders/libpixbufloader
 
 # Not useful in this package.
 rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
+
+%if %{with check}
+%ifnarch s390x
+%check
+%make_build check
+%endif
+%endif
 
 %files
 %doc code-of-conduct.md NEWS README.md

@@ -2,8 +2,8 @@
 %global sover 2.4
 
 Name:           OpenImageIO
-Version:        2.4.12.0
-Release:        4%{?dist}
+Version:        2.4.14.0
+Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD and MIT
@@ -206,6 +206,12 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Aug 01 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.14.0-1
+- Update to 2.4.14.0.
+
+* Tue Aug 01 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.13.0-1
+- Update to 2.4.13.0.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -31,7 +31,7 @@
 
 Name:		efl
 Version:	1.26.3
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Collection of Enlightenment libraries
 License:	BSD and LGPLv2+ and GPLv2 and zlib
 URL:		http://enlightenment.org/
@@ -46,6 +46,9 @@ Patch3:		efl-1.25.0-no-neon.patch
 # This is hacky, but it gets us building in rawhide again.
 # Upstream efl probably needs to rework how they use check in their C tests
 Patch4:		efl-1.25.0-check-fix.patch
+
+# Fix headerless .po files that modern gettext doesn't like
+Patch5:		efl-1.26.3-gettextfix.patch
 
 %ifnarch s390 s390x
 BuildRequires:	libunwind-devel
@@ -207,8 +210,9 @@ Development files for EFL.
 #%patch1 -p1 -b .old
 %endif
 #%patch2 -p1 -b .luajitfix
-%patch3 -p1 -b .noneon
-%patch4 -p1 -b .checkfix
+%patch -P3 -p1 -b .noneon
+%patch -P4 -p1 -b .checkfix
+%patch -P5 -p1 -b .gettextfix
 
 # This is why hardcoding paths is bad.
 # sed -i -e 's|/opt/efl-%{version}/share/|%{_datadir}/|' \
@@ -580,6 +584,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libexactness*.so
 
 %changelog
+* Tue Aug  1 2023 Tom Callaway <spot@fedoraproject.org> - 1.26.3-8
+- fix headerless .po files that modern gettext does not like (bz2225767)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

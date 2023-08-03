@@ -1,18 +1,20 @@
 Name:           perl-Text-Soundex
 Version:        3.05
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Implementation of the soundex algorithm
 # The original license was (Copyright only). Since 3.05 somebody (RJBS?)
 # added Perl license but kept the original license text.
-License:        (Copyright only) and (GPL+ or Artistic)
+License:        Soundex AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/Text-Soundex
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Text-Soundex-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 # Run-time:
@@ -52,11 +54,11 @@ for F in t/*.t; do
 done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="$RPM_OPT_FLAGS" NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -65,8 +67,8 @@ cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -82,6 +84,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Aug 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.05-28
+- Update license to SPDX format
+- Use macros make_*
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.05-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

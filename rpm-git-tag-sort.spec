@@ -1,24 +1,23 @@
 # vim: syntax=spec
 
 Name:       rpm-git-tag-sort
-Version:    1.0
-Release:    13%{?dist}
+Version:    1.0.git.5.0b8afd62
+Release:    1%{?dist}
 Summary:    Sorts merged git annotated tags according to topology and rpm version sorting.
 License:    GPLv2+
 URL:        https://pagure.io/rpm-git-tag-sort
 
 %if 0%{?fedora} || 0%{?rhel} > 6
-VCS: git+ssh://git@pagure.io/rpm-git-tag-sort.git#518db2f75cbd20679d0522604aa35e43a167bd03:
+VCS: git+https://pagure.io/rpm-git-tag-sort.git#0b8afd628229a41858f24692946e3b905d6e46c6:
 %endif
 
 # Sources is created by:
 # git clone https://pagure.io/rpm-git-tag-sort.git
 # cd rpm-git-tag-sort
-# git checkout rpm-git-tag-sort-1.0-1
+# git checkout rpm-git-tag-sort-1.0.git.5.0b8afd62-1
 # ./rpkg spec --sources
-Source0:    rpm-git-tag-sort-518db2f7.tar.gz
-Source1:    rpm-git-tag-sort-c-vector-518db2f7.tar.gz
-Patch0:     rpm-git-tag-sort-c99.patch
+Source0:    rpm-git-tag-sort-0b8afd62.tar.gz
+Source1:    rpm-git-tag-sort-c-vector-0b8afd62.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -38,7 +37,6 @@ current HEAD).
 
 %prep
 %setup -T -b 0 -b 1 -q -n rpm-git-tag-sort
-%patch0 -p2
 # move c-vector sources to the correct place
 mv ../rpm-git-tag-sort-c-vector/* c-vector/
 
@@ -59,6 +57,9 @@ mv ../rpm-git-tag-sort-c-vector/* c-vector/
 /usr/bin/rpm-git-tag-sort
 
 %changelog
+* Tue Aug 01 2023 Pavel Raiskup <praiskup@redhat.com> - 1.0.git.5.0b8afd62-1
+- upgrade to the latest version from upstream main branch (rhbz#2210121)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

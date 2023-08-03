@@ -16,8 +16,8 @@ than all other static analysis frameworks for Python.}
 %global typeshed_commit     ae9d4f4b21bb5e1239816c301da7b1ea904b44c3
 
 Name:           python-jedi
-Version:        0.18.2
-Release:        6%{?dist}
+Version:        0.19.0
+Release:        1%{?dist}
 Summary:        An auto completion tool for Python that can be used for text editors
 
 # jedi is MIT
@@ -30,9 +30,6 @@ Source0:        https://github.com/davidhalter/jedi/archive/v%{version}/jedi-%{v
 Source1:        https://github.com/davidhalter/django-stubs/archive/%{django_stubs_commit}/django-stubs-%{django_stubs_commit}.tar.gz
 Source2:        https://github.com/davidhalter/typeshed/archive/%{typeshed_commit}/typeshed-%{typeshed_commit}.tar.gz
 BuildArch:      noarch
-
-# Fixes compatibility with attrs 23.1.0
-Patch:          https://github.com/davidhalter/jedi/pull/1935.patch
 
 %description %{common_description}
 
@@ -78,18 +75,15 @@ sed -e 's/pytest<7.0.0/pytest/' \
 
 %check
 %if %{with tests}
-# TODO investigate failing / skipped tests
-# venv_and_pths: %%pytest manipulates the sys.path
-# Around 15 tests have some troubles with Python 3.11
-# Reported upstream: https://github.com/davidhalter/jedi/issues/1858
-%pytest --ignore test/test_integration.py -k \
-    "not venv_and_pths and \
-     not test_import and \
-     not test_find_system_environments and \
-     not test_string_annotation and \
-     not test_find_module_not_package and \
-     not test_infer_and_goto and \
-     not test_goto_stubs"
+# %%pytest manipulates the sys.path
+# test_compiled_singature
+# - https://github.com/davidhalter/jedi/issues/1952
+# - https://github.com/python/cpython/issues/107526
+%pytest -k "\
+    not test_venv_and_pths and \
+    not test_compiled_signature and \
+    not test_find_system_environments and \
+    not test_import"
 %else
 %pyproject_check_import
 %endif
@@ -100,6 +94,9 @@ sed -e 's/pytest<7.0.0/pytest/' \
 
 
 %changelog
+* Tue Aug 01 2023 Lumír Balhar <lbalhar@redhat.com> - 0.19.0-1
+- Update to 0.19.0 (rhbz#2227382)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

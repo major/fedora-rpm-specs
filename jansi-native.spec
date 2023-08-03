@@ -7,7 +7,7 @@
 
 Name:           jansi-native
 Version:        1.8
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        Jansi Native implements the JNI Libraries used by the Jansi project
 License:        ASL 2.0
 URL:            http://jansi.fusesource.org/
@@ -17,7 +17,8 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.fusesource:fusesource-pom:pom:)
-BuildRequires:  mvn(org.fusesource.hawtjni:maven-hawtjni-plugin) >= 1.9-2
+# jansi-native is embedded in jansi 2.x
+BuildRequires:  mvn(org.fusesource.jansi:jansi)
 BuildRequires:  mvn(org.fusesource.hawtjni:hawtjni-runtime) >= 1.9-2
 # jansi-native provides JNI libraries for use by the JAVA Jansi project,
 # so it is only necessary on java_arches
@@ -56,8 +57,16 @@ This package contains the API documentation for %{name}.
 </configuration>
 </plugin>"
 
+%pom_xpath_remove "pom:plugin[pom:artifactId='hawtjni-maven-plugin']"
+
 %build
 %mvn_build
+
+# copy libjansi.so
+so_dir=target/generated-sources/hawtjni/lib/META-INF/native/linux%{bits}/
+mkdir -p $so_dir
+cp -a %{_prefix}/lib/jansi/libjansi.so $so_dir
+
 %mvn_build -- -Dplatform=linux%{bits}
 
 %install
@@ -71,6 +80,12 @@ This package contains the API documentation for %{name}.
 %license license.txt
 
 %changelog
+* Tue Aug 01 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.8-15
+- rebuilt w/ no changes
+
+* Tue Aug 01 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.8-14
+- Copy libjansi.so from jansi 2.x (jansi package)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

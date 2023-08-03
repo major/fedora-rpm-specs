@@ -206,6 +206,7 @@ This package contains an ALSA plugin for the PipeWire media server.
 Summary:        PipeWire JACK implementation libraries
 License:        MIT
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # Fixed jack subpackages
 Conflicts:      %{name}-libjack < 0.3.13-6
 Conflicts:      %{name}-jack-audio-connection-kit < 0.3.13-6

@@ -2,7 +2,7 @@
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 # MinGW is enabled by default (except for RHEL), to disable use '--without mingw'
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{?flatpak}
 %bcond_with mingw
 %else
 %bcond_without mingw

@@ -3,13 +3,13 @@
 
 # telemetry and testsdk don't follow azure-cli's versioning scheme.
 # They have their own versions in the main repository.
-%global         telemetry_version   1.0.8
+%global         telemetry_version   1.1.0
 # testsdk follows its own versioning scheme.
 %global         testsdk_version     0.3.0
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.50.0
+Version:        2.51.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta

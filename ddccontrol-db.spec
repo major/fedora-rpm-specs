@@ -1,14 +1,19 @@
 Name:             ddccontrol-db
 URL:              https://github.com/ddccontrol/ddccontrol-db
-Version:          20230627
-Release:          2%{?dist}
+Version:          20230727
+Release:          1%{?dist}
 # Agreed by usptream to be GPLv2+
 # http://sourceforge.net/mailarchive/message.php?msg_id=29762202
 License:          GPLv2+
 Summary:          DDC/CI control database for ddccontrol
 Source0:          https://github.com/ddccontrol/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # use autopoint instead of gettextize that is interactive tool
-BuildRequires:    gettext, gettext-devel, libtool, intltool, perl(XML::Parser)
+BuildRequires:    gettext
+BuildRequires:    gettext-devel
+BuildRequires:    libtool
+BuildRequires:    intltool
+BuildRequires:    perl(XML::Parser)
+BuildRequires:    gcc
 BuildRequires:    make
 BuildArch:        noarch
 
@@ -34,6 +39,10 @@ make install DESTDIR=%{buildroot}
 %{_datadir}/%{name}
 
 %changelog
+* Tue Aug  1 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 20230727-1
+- New version
+  Resolves: rhbz#2227117
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230627-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

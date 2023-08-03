@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.3p1
-%global openssh_rel 6
+%global openssh_rel 7
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 9
 
@@ -229,6 +229,8 @@ Patch1012: openssh-9.0p1-evp-fips-dh.patch
 Patch1013: openssh-9.0p1-evp-fips-ecdh.patch
 Patch1014: openssh-8.7p1-nohostsha1proof.patch
 Patch1015: openssh-9.3p1-upstream-cve-2023-38408.patch
+# upstream b7afd8a4ecaca8afd3179b55e9db79c0ff210237
+Patch1016: openssh-9.3p1-openssl-compat.patch
 
 License: BSD
 Requires: /sbin/nologin
@@ -432,6 +434,7 @@ popd
 %patch -P 1013 -p1 -b .evp-fips-ecdh
 %patch -P 1014 -p1 -b .nosha1hostproof
 %patch -P 1015 -p1 -b .cve-2023-38408
+%patch -P 1016 -p1 -b .ossl-version
 
 %patch -P 100 -p1 -b .coverity
 
@@ -739,6 +742,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Tue Aug 01 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-7
+- Relax checks of OpenSSL version
+
 * Wed Jul 26 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-6
 - Update gssapi-keyex patch for OpenSSH 9.0+
 

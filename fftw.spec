@@ -1,8 +1,13 @@
+%if %{defined rhel}
+%bcond_with mpich
+%bcond_with openmpi
+%else
 %bcond_without mpich
 %ifarch s390 s390x
 %bcond_with openmpi
 %else
 %bcond_without openmpi
+%endif
 %endif
 %if %{with mpich}
 %global mpi_list %{?mpi_list} mpich
@@ -277,9 +282,11 @@ library.
 %setup -q
 
 %build
+%if %{with mpich} || %{with openmpi}
 # Explicitly load shell support for the environment-modules package, used
 # below via 'module' pseudo-command.
 . /etc/profile.d/modules.sh
+%endif
 
 # Configure uses g77 by default, if present on system
 export F77=gfortran
@@ -359,9 +366,11 @@ done
 %install
 %prec_names
 
+%if %{with mpich} || %{with openmpi}
 # Explicitly load shell support for the environment-modules package, used
 # below via 'module' pseudo-command.
 source /etc/profile.d/modules.sh
+%endif
 
 for((iprec=0;iprec<%{nprec};iprec++)) ; do
     %make_install -C ${prec_name[iprec]}
@@ -384,9 +393,11 @@ find %{buildroot} -name \*.la -delete
 
 %check
 %prec_names
+%if %{with mpich} || %{with openmpi}
 # Explicitly load shell support for the environment-modules package, used
 # below via 'module' pseudo-command.
 . /etc/profile.d/modules.sh
+%endif
 
 bdir=$(pwd)
 for((iprec=0;iprec<%{nprec};iprec++)) ; do

@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/45Drives/cockpit-navigator/
-Version: 0.5.9
+Version: 0.5.10
 %forgemeta
 
 Name: cockpit-navigator

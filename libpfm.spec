@@ -12,7 +12,7 @@
 
 Name:		libpfm
 Version:	4.13.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
@@ -37,6 +37,7 @@ kernels performance monitoring interfaces. The current version provides support
 for the perf_events interface available in upstream Linux kernels since v2.6.31.
 
 %package devel
+License:	MIT
 Summary:	Development library to encode performance events for perf_events based tools
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -46,6 +47,7 @@ applications for the perf_events interface.
 
 %if %{with_static}
 %package static
+License:	MIT
 Summary:	Static library to encode performance events for perf_events based tools
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -56,6 +58,7 @@ applications for the perf_events interface.
 
 %if %{with python}
 %package -n python3-libpfm
+License:	MIT AND LicenseRef-Fedora-UltraPermissive
 %{?python_provide:%python_provide python3-libpfm}
 # Remove before F30
 Provides: %{name}-python = %{version}-%{release}
@@ -130,6 +133,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 %endif
 
 %changelog
+* Tue Aug 1 2023 William Cohen <wcohen@redhat.com> - 4.13.0-5
+- migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

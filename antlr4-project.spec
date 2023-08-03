@@ -13,7 +13,7 @@
 
 Name:           antlr4-project
 Version:        4.10.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Parser generator (ANother Tool for Language Recognition)
 
 License:        BSD-3-Clause
@@ -39,7 +39,6 @@ BuildRequires:  mvn(org.antlr:antlr-runtime)
 BuildRequires:  mvn(org.antlr:antlr3-maven-plugin)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-clean-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
@@ -382,6 +381,9 @@ rm -fr %{buildroot}%{_docdir}/libantlr4
 %endif
 
 %changelog
+* Tue Aug  1 2023 Jerry James <loganjerry@gmail.com> - 4.10.1-10
+- Remove maven-clean-plugin BR
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global         srcname     azure-mgmt-security
 
 Name:           python-%{srcname}
-Version:        3.0.0
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Security Center Management Client Library for Python
 License:        MIT

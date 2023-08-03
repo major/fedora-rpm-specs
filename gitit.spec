@@ -5,7 +5,7 @@
 %global pkgver %{pkg_name}-%{version}
 
 Name:           %{pkg_name}
-Version:        0.15.1.0
+Version:        0.15.1.1
 Release:        %autorelease
 Summary:        Wiki using happstack, git or darcs, and pandoc
 
@@ -27,9 +27,6 @@ Source1:        gitit.conf
 
 # Systemd service file for gitit.
 Source2:        gitit.service
-
-# see https://github.com/jgm/gitit/pull/685
-Patch0:         gitit-75899f1.patch
 
 # Bundled provides for some JS and CSS.
 Provides:       bundled(js-jquery) = 1.2.6
@@ -244,7 +241,6 @@ This package provides the Haskell %{name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q
 # End cabal-rpm setup
-%patch -P0 -p1 -b .orig
 
 
 %build

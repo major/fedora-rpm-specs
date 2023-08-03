@@ -77,7 +77,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -96,6 +96,8 @@ Patch1:		0001-SystemZ-Improve-error-messages-for-unsupported-reloc.patch
 Patch2:		0001-llvm-Add-install-targets-for-gtest.patch
 # Backport of https://reviews.llvm.org/D154212 from LLVM 17.
 Patch3: 0001-cmake-Add-LLVM_UNITTEST_LINK_FLAGS-option.patch
+# Backport of https://reviews.llvm.org/D156379 from LLVM 18.
+Patch4:		D156379.diff
 
 # RHEL-specific patch to avoid unwanted recommonmark dep
 Patch101:	0101-Deactivate-markdown-doc.patch
@@ -584,6 +586,9 @@ fi
 %endif
 
 %changelog
+* Mon Jul 31 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-6
+- Fix rhbz #2224885
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

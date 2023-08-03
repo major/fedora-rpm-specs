@@ -7,11 +7,13 @@
 
 Name:           perl-Glib
 Version:        1.3293
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Perl interface to GLib
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Glib
 Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Glib-%{version}.tar.gz
+# https://gitlab.gnome.org/GNOME/perl-glib/-/commit/c181d151b1cec06df1455fdc9a9055ec0440140e
+Patch0:         perl-Glib-1.3293-commentfix.patch
 BuildRequires:  gcc
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -78,6 +80,7 @@ to GLib and GObject libraries.
 
 %prep
 %setup -q -n Glib-%{version}
+%patch -P0 -p1 -b .commentfix
 for F in AUTHORS; do
     iconv -f ISO-8859-1 -t UTF-8 < "$F" > "${F}.utf8"
     touch -r "$F" "${F}.utf8"
@@ -122,6 +125,9 @@ make test
 %{_mandir}/man3/Glib::xsapi.3pm.gz
 
 %changelog
+* Tue Aug 1 2023 Tom Callaway <spot@fedoraproject.org> - 1.3293-13
+- fix issue with comment check and glib 2.77+ (thanks to Petr Pisar)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3293-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

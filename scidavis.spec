@@ -15,6 +15,7 @@ URL:            http://scidavis.sourceforge.net/
 #Source0:        https://github.com/%%{owner}/%%{name}/archive/%%{version}/%%{name}-master.tar.gz
 Source0:        https://github.com/%{owner}/%{name}/archive/master/%{name}-%{version}.tar.gz
 Patch0:         scidavis-build_w_system_qwtplot3d.patch
+Patch1:         scidavis-fix_building_w_liborigin302.patch
 
 BuildRequires:  cmake
 BuildRequires:  make
@@ -76,7 +77,8 @@ This module provides SciDAVis bindings to the Python3 programming language.
 %setup -q -n %{name}-%{version}
 # Development builds
 #%%setup -q -n %%{name}-master
-%patch0 -p1
+%patch 0 -p1
+%patch 1 -p1
 # Set the correct python paths
 sed -i 's+pythonconfig.path = "$$INSTALLBASE/../etc"+pythonconfig.path = "$$INSTALLBASE/..%{python3_sitearch}/scidavis"+g' config.pri
 sed -i 's+pythonutils.path = "$$INSTALLBASE/share/scidavis"+pythonutils.path = "$$INSTALLBASE/..%{python3_sitearch}/scidavis"+g' config.pri
@@ -132,8 +134,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
-* Sat Jul 29 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 2.9.0-9
-- Rebuilt for liborigin-3.0.2
+* Tue Aug 01 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 2.9.0-9
+- Add patch for liborigin-3.0.2 (https://github.com/SciDAVis/scidavis/issues/30)
+- Fix patch macro syntax
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

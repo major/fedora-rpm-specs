@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.27
-Release: 3%{?dist}
+Version: 39.28
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -11,12 +11,6 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
-
-# https://github.com/rhinstaller/anaconda/pull/4858#issuecomment-1652180161
-# this change is broken and makes aarch64 installs crash, reverted
-# downstream while anaconda fix it to work properly upstream
-Patch0: 0001-Revert-Add-GUI-option-for-installing-64k-ARM-kernel.patch
-Patch1: 0002-Revert-Add-TUI-for-installing-non-standard-kernels.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -447,6 +441,15 @@ rm -rf \
 %{_datadir}/cockpit/anaconda-webui/manifest.json
 %{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
+%dir %{_datadir}/anaconda/firefox-theme
+%dir %{_datadir}/anaconda/firefox-theme/default
+%dir %{_datadir}/anaconda/firefox-theme/default/chrome
+%{_datadir}/anaconda/firefox-theme/default/user.js
+%{_datadir}/anaconda/firefox-theme/default/chrome/userChrome.css
+%dir %{_datadir}/anaconda/firefox-theme/live
+%dir %{_datadir}/anaconda/firefox-theme/live/chrome
+%{_datadir}/anaconda/firefox-theme/live/user.js
+%{_datadir}/anaconda/firefox-theme/live/chrome/userChrome.css
 %{_libexecdir}/webui-desktop
 
 %files gui
@@ -484,6 +487,66 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 01 2023 Packit <hello@packit.dev> - 39.28-1
+- webui: update cockpit dependencies to the latest released in rawhide
+  (kkoukiou)
+- webui: tests: add method to partition disk (tomatus777)
+- webui: Quit button does not work on the Live image (akankovs)
+- webui: Update and simplify review page (mmarusak)
+- docs: use correct path for VM command (90795679+MahmoudHamdy02)
+- webui: Translate strings used in cockpit.format (mmarusak)
+- Allow reformatting of 'plain' btrfs volumes (vtrefny)
+- webui: catch also exceptions from GetDevicesAction when rescanning disks
+  (rvykydal)
+- webui: unpack GetDiskFreeSpace and GetDiskTotalSpace from array (skobyda)
+- webui: tests: remove duplicate pixel tests for the first storage page
+  (kkoukiou)
+- webui: tests: create a variable with the table row selector (kkoukiou)
+- webui: tests: simplify the open test helper (kkoukiou)
+- webui: tests: remove redundant check for disabled 'Next' button (kkoukiou)
+- webui: tests: add helper method for setting a valid password (kkoukiou)
+- webui: rename some components to more self explanatory names (kkoukiou)
+- webui: fix prefix for identifiers of the installation scenarios (kkoukiou)
+- webui: remove obsolete TODO (kkoukiou)
+- webui: change Alert on review screen to HelperText (mmarusak)
+- webui: Introduce cockpit-style debug() helper (martin)
+- Revert "Add GUI option for installing 64k ARM kernel" (jkonecny)
+- Revert "Add TUI for installing non-standard kernels" (jkonecny)
+- webui: debounce changes on the password confirmation field (kkoukiou)
+- webui: docs: fix documentation on how to re-create the updates.img (kkoukiou)
+- Simplify submodule subscription to storage changes (vslavik)
+- Enable iterating over managed modules (vslavik)
+- Use the new class in relevant Storage submodules (vslavik)
+- webui: Disable minification (mkolman)
+- Add a class for modules that keep track of storage (vslavik)
+- Use the submodule manager in Storage (vslavik)
+- Use the submodule manager in Runtime (vslavik)
+- Add a submodule manager class (vslavik)
+- webui: redesign and refactor custom partition mapper (kkoukiou)
+- webui: Add Firefox theme for use on Live media (mkolman)
+- webui: tests: Fix end to end tests to work with new storage design (zveleba)
+- webui: tests: Make reboot button selector more specific (zveleba)
+- webui: use term 'devices' not 'partitions' in the custom mountpoint step
+  (kkoukiou)
+- webui: debounce password quality checks to be done only once per 300ms
+  (kkoukiou)
+- tests: Update reference images for mountpoint assignment (vtrefny)
+- webui: Use device name instead of path as identifier (vtrefny)
+- tests: Fix expected device specs in check-storage (vtrefny)
+- webui: Use custom label when creating btrfs for tests (vtrefny)
+- Use blivet mount options for new subvolumes in mountpoint assignment
+  (vtrefny)
+- tui: Preserve blivet mount options in mountpoint assignment (vtrefny)
+- tui: allow to 'format' btrfs subvolumes in mount point assignment (rvykydal)
+- tui: Use name instead of path for devspec in mountpoint assignment (vtrefny)
+- tui: Use all btrfs subvolumes in mountpoint assignment (vtrefny)
+- webui: Update pixel tests broken from localization updates (kkoukiou)
+- ruff: Silence new warnings with 0.0.280 (vslavik)
+- webui: rename custom mountpoint assignment step to mountpoint mapper
+  (kkoukiou)
+- Check for webui with property (vslavik)
+- Update translations from Weblate
+
 * Wed Jul 26 2023 Adam Williamson <awilliam@redhat.com> - 39.27-3
 - Revert *both* commits from the broken PR, not just one
 

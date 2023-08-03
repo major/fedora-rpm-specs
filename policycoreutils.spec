@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/selinux-3.5.tar.gz
@@ -45,6 +45,11 @@ Patch0011: 0011-python-sepolicy-Improve-man-pages.patch
 Patch0012: 0012-sandbox-Add-examples-to-man-pages.patch
 Patch0013: 0013-python-sepolicy-Fix-template-for-confined-user-polic.patch
 Patch0014: 0014-python-sepolicy-Fix-spec-file-dependencies.patch
+Patch0015: 0015-python-improve-format-strings-for-proper-localizatio.patch
+Patch0016: 0016-python-Drop-hard-formating-from-localized-strings.patch
+Patch0017: 0017-semanage-Drop-unnecessary-import-from-seobject.patch
+Patch0018: 0018-python-update-python.pot.patch
+Patch0019: 0019-sepolicy-port-to-dnf4-python-API.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2
@@ -250,7 +255,7 @@ by python 3 in an SELinux environment.
 %package devel
 Summary: SELinux policy core policy devel utilities
 Requires: policycoreutils-python-utils = %{version}-%{release}
-Requires: /usr/bin/make dnf
+Requires: /usr/bin/make python3-dnf
 Requires: (selinux-policy-devel if selinux-policy)
 
 %description devel
@@ -452,6 +457,11 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Tue Aug  1 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-7
+- python: improve format strings for proper localization
+- python: Drop hard formating from localized strings
+- sepolicy: port to dnf4 python API (rhbz#2209404)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

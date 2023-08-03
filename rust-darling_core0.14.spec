@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate pyo3-macros-backend
+%global crate darling_core
 
-Name:           rust-pyo3-macros-backend0.17
-Version:        0.17.3
+Name:           rust-darling_core0.14
+Version:        0.14.4
 Release:        %autorelease
-Summary:        Code generation for PyO3 package
+Summary:        Parse attributes into structs for custom derive implementations (helper crate)
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/pyo3-macros-backend
+License:        MIT
+URL:            https://crates.io/crates/darling_core
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Code generation for PyO3 package.}
+Helper crate for proc-macro library for reading attributes into structs
+when implementing custom derives. Use https://crates.io/crates/darling
+in your code.}
 
 %description %{_description}
 
@@ -45,28 +47,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+abi3-devel
+%package     -n %{name}+diagnostics-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+abi3-devel %{_description}
+%description -n %{name}+diagnostics-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "abi3" feature of the "%{crate}" crate.
+use the "diagnostics" feature of the "%{crate}" crate.
 
-%files       -n %{name}+abi3-devel
+%files       -n %{name}+diagnostics-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pyproto-devel
+%package     -n %{name}+strsim-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pyproto-devel %{_description}
+%description -n %{name}+strsim-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pyproto" feature of the "%{crate}" crate.
+use the "strsim" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pyproto-devel
+%files       -n %{name}+strsim-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+suggestions-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+suggestions-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "suggestions" feature of the "%{crate}" crate.
+
+%files       -n %{name}+suggestions-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

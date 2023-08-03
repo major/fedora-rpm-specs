@@ -15,7 +15,7 @@ memory allocations.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        io.Reader wrapper that minimizes IO reads and memory allocations
 
 License:        MIT
@@ -41,6 +41,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Tue Aug 01 2023 Link Dupont <linkdupont@fedoraproject.org> - 2.0.1-8
+- Rebuilt for unretirement
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

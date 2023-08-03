@@ -4,8 +4,8 @@
 %global         srcname     azure-mgmt-policyinsights
 
 Name:           python-%{srcname}
-Version:        1.1.0~b2
-%global         pypi_version    1.1.0b2
+Version:        1.1.0~b4
+%global         pypi_version    1.1.0b4
 Release:        %autorelease
 Summary:        Microsoft Azure Policy Insights Client Library for Python
 License:        MIT
