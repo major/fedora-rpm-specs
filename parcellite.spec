@@ -1,8 +1,8 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=442473
 
 Name:           parcellite
-Version:        1.2.5
-Release:        2%{?dist}
+Version:        1.2.6
+Release:        1%{?dist}
 Summary:        A lightweight GTK+ clipboard manager
 
 License:        GPLv3+
@@ -18,7 +18,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  intltool >= 0.23
 
 Requires:       xdotool
-Requires:       hicolor-icons-theme
+Requires:       hicolor-icon-theme
 
 %description
 Parcellite is a stripped down, basic-features-only clipboard manager with a 
@@ -62,6 +62,9 @@ install -D data/%{name}.appdata.xml %{buildroot}/%{_datadir}/metainfo/%{name}.ap
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Wed Aug 02 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.2.6-1
+- new version
+
 * Tue Aug 01 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.2.5-2
 - install appdata 
 

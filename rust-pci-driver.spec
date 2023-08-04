@@ -6,7 +6,7 @@
 %global crate pci-driver
 
 Name:           rust-pci-driver
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        PCI/PCIe driver development library
 

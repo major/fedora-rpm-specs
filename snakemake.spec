@@ -12,7 +12,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        7.30.1
+Version:        7.31.1
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -32,11 +32,6 @@ BuildArch:      noarch
 # Since we build the docs as a PDF, we can’t include an animated GIF demo.
 # Patch out the image reference and the text referring to it.
 Patch:          snakemake-7.11.0-docs-no-animated-demo.patch
-
-# Fix SyntaxWarnings due to non-raw regex pattern strings
-# https://github.com/snakemake/snakemake/pull/2359
-# Rebased on 7.30.1.
-Patch:          snakemake-7.30.1-raw-regex.patch
 
 BuildRequires:  python3-devel
 
@@ -172,8 +167,21 @@ k="${k-}${k+ and }not test_tes"
 # Require a running slurm instance; maybe this is possible to set up
 # temporarily in the offline build environment, but we don’t know how.
 k="${k-}${k+ and }not test_slurm_"
-# tests/test_google_lifesciences.py needs a network connection (and GCP credentials)
-%pytest -v -k "${k-}" --ignore tests/test_google_lifesciences.py
+
+# Needs a network connection (and GCP credentials):
+ignore="${ignore-} --ignore=tests/test_google_lifesciences.py"
+# ______ ERROR collecting tests/test_conda_python_script/test_script.py ______
+# import file mismatch:
+# imported module 'test_script' has this __file__ attribute:
+#   /builddir/build/BUILD/snakemake-7.31.1/tests/test_conda_python_3_7_script/test_script.py
+# which is not the same as the test file we want to collect:
+#   /builddir/build/BUILD/snakemake-7.31.1/tests/test_conda_python_script/test_script.py
+# HINT: remove __pycache__ / .pyc files and/or use a unique basename for your test file modules
+#
+# Plus, this would add an unwanted BuildRequires on %%{py3_dist Pillow}.
+ignore="${ignore-} --ignore-glob=tests/test_conda_python_3_7_script/*"
+
+%pytest -v -k "${k-}" ${ignore-}
 %endif
 
 %files -f %{pyproject_files}

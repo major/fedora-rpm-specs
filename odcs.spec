@@ -1,6 +1,6 @@
 Name:       odcs
-Version:    0.6.0
-Release:    4%{?dist}
+Version:    0.7.0
+Release:    1%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -10,7 +10,6 @@ Source0:    https://files.pythonhosted.org/packages/source/o/%{name}/%{name}-%{v
 Source1:    odcs-backend.service
 # Fedora related configuration for ODCS.
 Patch0:     odcs-fedora-conf.patch
-Patch1:     https://pagure.io/odcs/pull-request/626.patch
 
 BuildArch:    noarch
 
@@ -197,6 +196,22 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Wed Aug 02 2023 Haibo Lin <hlin@redhat.com> - 0.7.0-1
+- backend: Add odcs-credential-helper executable
+- backend: Add support for git credentials
+- backend: Set env var with raw config source name
+- backend: Use credential helper for initial config clone
+- backend: pulp: Handle missing product_versions
+- client: Add --arch option to create-build subcommand
+- doc: Document env argument to utils.execute_cmd
+- frontend: Allow admins to request any compose
+- frontend: Delete deprecated conf.auth_ldap_group_base
+- frontend: Merge all metrics into a single thread
+- frontend: Optimize compose count metrics gathering
+- frontend: Support OIDC authentication to CTS
+- server: Fix compatibility with Python 3.12
+- server: Fix flake8 complaints
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

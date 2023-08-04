@@ -1,11 +1,11 @@
-%global nativever 2.2
-%global baserelease 5
+%global nativever 2.3
+%global baserelease 2
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
 Name:           GeographicLib
-Version:        2.3
-Release:        1%{?dist}
+Version:        %{nativever}
+Release:        %{baserelease}%{?dist}
 Summary:        Library for geographic coordinate transformations
 
 License:        MIT
@@ -65,8 +65,8 @@ the %{name} library.
 
 %package -n python3-%{name}
 Summary:        Python 3 implementation of %{name}
-Version:        2.3
-Release:        1%{?dist}
+Version:        %{pythonver}
+Release:        %{pythonrelease}%{?dist}
 BuildArch:      noarch
 
 %description -n python3-%{name}
@@ -83,8 +83,8 @@ MinGW Windows %{name} library.
 
 %package -n mingw32-python3-%{name}
 Summary:        MinGW Windows %{name} python 3 bindings
-Version:        2.3
-Release:        1%{?dist}
+Version:        %{pythonver}
+Release:        %{pythonrelease}%{?dist}
 BuildArch:      noarch
 
 %description -n mingw32-python3-%{name}
@@ -101,8 +101,8 @@ MinGW Windows %{name} library.
 
 %package -n mingw64-python3-%{name}
 Summary:        MinGW Windows %{name} python 3 bindings
-Version:        2.3
-Release:        1%{?dist}
+Version:        %{pythonver}
+Release:        %{pythonrelease}%{?dist}
 BuildArch:      noarch
 
 %description -n mingw64-python3-%{name}
@@ -168,6 +168,7 @@ popd
 %{_bindir}/GeodSolve
 %{_bindir}/GeoidEval
 %{_bindir}/Gravity
+%{_bindir}/IntersectTool
 %{_bindir}/MagneticField
 %{_bindir}/Planimeter
 %{_bindir}/RhumbSolve
@@ -175,7 +176,7 @@ popd
 %{_sbindir}/geographiclib-get-geoids
 %{_sbindir}/geographiclib-get-gravity
 %{_sbindir}/geographiclib-get-magnetic
-%{_libdir}/libGeographicLib.so.24*
+%{_libdir}/libGeographicLib.so.26*
 %{_mandir}/man1/*.1.*
 %{_mandir}/man8/*.8.*
 
@@ -203,6 +204,7 @@ popd
 %{mingw32_bindir}/GeodSolve.exe
 %{mingw32_bindir}/GeoidEval.exe
 %{mingw32_bindir}/Gravity.exe
+%{mingw32_bindir}/IntersectTool.exe
 %{mingw32_bindir}/MagneticField.exe
 %{mingw32_bindir}/Planimeter.exe
 %{mingw32_bindir}/RhumbSolve.exe
@@ -227,6 +229,7 @@ popd
 %{mingw64_bindir}/GeodSolve.exe
 %{mingw64_bindir}/GeoidEval.exe
 %{mingw64_bindir}/Gravity.exe
+%{mingw64_bindir}/IntersectTool.exe
 %{mingw64_bindir}/MagneticField.exe
 %{mingw64_bindir}/Planimeter.exe
 %{mingw64_bindir}/RhumbSolve.exe
@@ -244,6 +247,9 @@ popd
 
 
 %changelog
+* Wed Aug 02 2023 Sandro Mani <manisandro@gmail.com> - 2.3-2
+- Bump release
+
 * Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 2.3-1
 - Update to 2.3
 

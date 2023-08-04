@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Abstraction and Python API for Ansible Networking
 
 License:        ASL 2.0
@@ -66,10 +66,13 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 
 %files -n ansible-role-%{ansible_role}
 %license LICENSE
-%doc %{_sysconfdir}/ansible/roles/%{ansible_role}/README.md
 %{_sysconfdir}/ansible/roles/%{ansible_role}/
 
 %changelog
+* Wed Aug 02 2023 Dan Radez <dradez@redhat.com> - 0.3.6-10
+- remove README.md rhbz#2226256
+- RPM build warnings: File listed twice: /etc/ansible/roles/network-runner/README.md
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

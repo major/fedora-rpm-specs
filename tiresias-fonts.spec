@@ -11,7 +11,7 @@ signs.
 Name:		%{fontname}-fonts
 Summary: 	Low vision fonts
 Version:	1.0
-Release:	32%{?dist}
+Release:	33%{?dist}
 # Font exception
 License:	GPLv3+ with exceptions
 Source0:	http://www.tiresias.org/fonts/infofont.zip
@@ -65,7 +65,7 @@ Infofont and the Infofont Z families is whether the zero is crossed out or not.
 In the Infofont family, the zero is _not_ crossed out, which may lead to some
 confusion.
 
-%_font_pkg -n info -f %{fontconf}-infofont.conf "Tiresias*Infofont*.ttf"
+%_font_pkg -n info -f %{fontconf}-infofont.conf Tiresias*Infofont*.ttf
 %{_datadir}/appdata/%{fontname}-info.metainfo.xml
 
 %package -n %{fontname}-info-z-fonts
@@ -80,7 +80,7 @@ terminals such as ATMs using large characters. The only difference between the
 Infofont Z and the Infofont families is whether the zero is crossed out or not.
 In the Infofont	Z family, the zero is crossed out.
 
-%_font_pkg -n info-z -f %{fontconf}-infofont-z.conf "TIRESIAS*INFOFONTZ*.ttf"
+%_font_pkg -n info-z -f %{fontconf}-infofont-z.conf TIRESIAS*INFOFONTZ*.ttf
 %{_datadir}/appdata/%{fontname}-info-z.metainfo.xml
 
 %package -n %{fontname}-key-v2-fonts
@@ -104,7 +104,7 @@ Requires:	%{name}-common = %{version}-%{release}
 
 The LPfont family is specialized for use in large print publications.
 
-%_font_pkg -n lp -f %{fontconf}-lpfont.conf "Tiresias*LPfont*.ttf"
+%_font_pkg -n lp -f %{fontconf}-lpfont.conf Tiresias*LPfont*.ttf
 %{_datadir}/appdata/%{fontname}-lp.metainfo.xml
 
 %package -n %{fontname}-pc-fonts
@@ -120,7 +120,7 @@ the PCfont Z families is whether the zero is crossed out or not. In the
 PCfont family, the zero is _not_ crossed out, which may lead to some
 confusion.
 
-%_font_pkg -n pc -f %{fontconf}-pcfont.conf "Tiresias*PCfont*.ttf"
+%_font_pkg -n pc -f %{fontconf}-pcfont.conf Tiresias*PCfont*.ttf
 %{_datadir}/appdata/%{fontname}-pc.metainfo.xml
 
 %package -n %{fontname}-pc-z-fonts
@@ -135,7 +135,7 @@ screens using large characters.	The only difference between the PCfont and
 the PCfont Z families is whether the zero is crossed out or not. In the
 PCfont Z family, the zero is crossed out.
 
-%_font_pkg -n pc-z -f %{fontconf}-pcfont-z.conf "TIRESIAS*PCFONTZ*.ttf"
+%_font_pkg -n pc-z -f %{fontconf}-pcfont-z.conf TIRESIAS*PCFONTZ*.ttf
 %{_datadir}/appdata/%{fontname}-pc-z.metainfo.xml
 
 %package -n %{fontname}-sign-fonts
@@ -151,7 +151,7 @@ the Signfont Z families is whether the zero is crossed out or not. In the
 Signfont family, the zero is _not_ crossed out, which may lead to some
 confusion.
 
-%_font_pkg -n sign -f %{fontconf}-signfont.conf "Tiresias*Signfont*.ttf"
+%_font_pkg -n sign -f %{fontconf}-signfont.conf Tiresias*Signfont*.ttf
 %{_datadir}/appdata/%{fontname}-sign.metainfo.xml
 
 %package -n %{fontname}-sign-z-fonts
@@ -166,7 +166,7 @@ impaired, using	large characters. The only difference between the Signfont and
 the Signfont Z families is whether the zero is crossed out or not. In the 
 Signfont Z family, the zero is crossed out.
 
-%_font_pkg -n sign-z -f %{fontconf}-signfont-z.conf "TIRESIAS*SIGNFONTZ*.ttf"
+%_font_pkg -n sign-z -f %{fontconf}-signfont-z.conf TIRESIAS*SIGNFONTZ*.ttf
 %{_datadir}/appdata/%{fontname}-sign-z.metainfo.xml
 
 %prep
@@ -228,6 +228,11 @@ install -Dm 0644 -p %{SOURCE27} \
 %dir %{_fontdir}
 
 %changelog
+* Wed Aug  2 2023 Tom Callaway <spot@fedoraproject.org> - 1.0-33
+- drop quoting on file match strings
+- I tried to move this to the "new" fonts packaging format, but it was so poorly documented
+  and buried in macros that it was impossible
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -42,7 +42,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.81.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -874,6 +874,11 @@ echo ============================= install Boost.Build ==================
  # which seems not so great for our purposes, fix that up
  mv $RPM_BUILD_ROOT%{_datadir}/b2 $RPM_BUILD_ROOT%{_datadir}/boost-build
 
+ # but make a symlink so b2 knows where to look
+ pushd $RPM_BUILD_ROOT%{_datadir}/
+ ln -s ./boost-build b2
+ popd
+
  # Fix some permissions
  chmod +x $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxproc.py
  # Fix shebang using unversioned python
@@ -1263,6 +1268,7 @@ fi
 %files build
 %license LICENSE_1_0.txt
 %{_datadir}/%{name}-build/
+%{_datadir}/b2
 
 %files doctools
 %license LICENSE_1_0.txt
@@ -1275,6 +1281,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Wed Aug  2 2023 Tom Callaway <spot@fedoraproject.org> - 1.81.0-7
+- add symlink for b2 files
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.81.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

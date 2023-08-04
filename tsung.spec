@@ -4,7 +4,7 @@
 
 Name:           tsung
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A distributed multi-protocol load testing tool
 License:        GPLv2
 URL:            http://tsung.erlang-projects.org/
@@ -59,12 +59,12 @@ Documentation files for tsung
 # Fix bogus shebangs.
 sed -i 's|/usr/bin/env bash|/bin/bash|' *.sh.in
 %if 0%{?fedora} || 0%{?rhel} >= 8
-sed -i 's|/usr/bin/env python|%{__python3}|' src/tsung-plotter/tsplot.py.in
+sed -i 's|/usr/bin/env python|/usr/bin/python|' src/tsung-plotter/tsplot.py.in
 %else
-sed -i 's|/usr/bin/env python|%{__python2}|' src/tsung-plotter/tsplot.py.in
+sed -i 's|/usr/bin/env python|/usr/bin/python|' src/tsung-plotter/tsplot.py.in
 %endif
 sed -i '/SPHINXBUILD/ s|sphinx-build|sphinx-build-3|' docs/Makefile
-sed -i 's|/usr/bin/env perl|%{__perl}|' src/log2tsung.pl.in
+sed -i 's|/usr/bin/env perl|/usr/bin/perl|' src/log2tsung.pl.in
 # Switch to UTF-8
 for file in LISEZMOI
 do
@@ -95,6 +95,13 @@ done
 rm -frv %{buildroot}%{_docdir}
 rm -frv examples/*.xml.in
 
+# Fix bogus shebang again
+%if 0%{?fedora} || 0%{?rhel} >= 8
+sed -i 's|python33|python3|' %{buildroot}%{_bindir}/tsplot
+%else
+sed -i 's|python27|python2|' %{buildroot}%{_bindir}/tsplot
+%endif
+
 %files
 %doc CHANGELOG.md CONTRIBUTORS COPYING LISEZMOI README.md TODO
 %{_bindir}/%{name}
@@ -114,6 +121,9 @@ rm -frv examples/*.xml.in
 %doc docs examples
 
 %changelog
+* Wed Aug 02 2023 Didier Fabert <didier.fabert@gmail.com> - 1.8.0-2
+- Fix python and perl shebangs https://bugzilla.redhat.com/show_bug.cgi?id=2224873
+
 * Sat Jul 22 2023 Didier Fabert <didier.fabert@gmail.com> - 1.8.0-1
 - Update to 1.8.0 (#2174608)
 

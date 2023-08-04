@@ -10,7 +10,7 @@
 # https://github.com/google/starlark-go
 %global goipath             go.starlark.net
 %global forgeurl            https://github.com/google/starlark-go
-%global commit              cfacd890221418a2dc2c736f7b5e3476c38709b1
+%global commit              0d7263928a74a8d4cf6e23b648bace6925b65dbb
 
 %gometa
 
@@ -42,6 +42,7 @@ Source0:        %{gosource}
 
 BuildRequires:  golang(github.com/chzyer/readline)
 BuildRequires:  golang(golang.org/x/sys/unix)
+BuildRequires:  golang(golang.org/x/term)
 BuildRequires:  golang(google.golang.org/protobuf/encoding/protojson)
 BuildRequires:  golang(google.golang.org/protobuf/encoding/prototext)
 BuildRequires:  golang(google.golang.org/protobuf/proto)
@@ -51,12 +52,6 @@ BuildRequires:  golang(google.golang.org/protobuf/reflect/protoregistry)
 BuildRequires:  golang(google.golang.org/protobuf/types/descriptorpb)
 BuildRequires:  golang(google.golang.org/protobuf/types/dynamicpb)
 
-Patch0001:      delete-starlarkjson.patch
-# https://github.com/google/starlark-go/pull/489
-Patch0002:      fix_build_flags.patch
-# https://github.com/google/starlark-go/issues/488
-Patch0003:      skip_TestExecFile_in_s390x.patch
-
 %description
 %{common_description}
 
@@ -64,7 +59,7 @@ Patch0003:      skip_TestExecFile_in_s390x.patch
 
 %prep
 %goprep
-%autopatch -p1
+%go_generate_buildrequires
 
 %build
 for cmd in cmd/* ; do

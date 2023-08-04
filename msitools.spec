@@ -18,6 +18,8 @@ Summary:        Windows Installer tools
 License:        GPL-2.0-or-later
 URL:            http://ftp.gnome.org/pub/GNOME/sources/%{name}
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{version}/%{name}-%{version}%{?_version_suffix}.tar.xz
+# https://gitlab.gnome.org/GNOME/msitools/-/issues/55
+Patch0:         0001-Update-data-wixl.patch
 
 Requires:       libgsf >= 1.14.24-2
 
@@ -35,7 +37,7 @@ BuildRequires:  bison
 BuildRequires:  perl-base
 BuildRequires:  perl-XML-XPath
 # these are available in the RHEL/ELN buildroot
-# pcre2 and srvany are also available but not used by the tests
+# srvany is also available but not used by the tests
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw32-gcc
@@ -46,6 +48,8 @@ BuildRequires:  mingw32-glib2
 BuildRequires:  mingw64-glib2
 BuildRequires:  mingw32-libffi
 BuildRequires:  mingw64-libffi
+BuildRequires:  mingw32-pcre2
+BuildRequires:  mingw64-pcre2
 BuildRequires:  mingw32-pixman
 BuildRequires:  mingw64-pixman
 BuildRequires:  mingw32-termcap
@@ -133,8 +137,6 @@ BuildRequires:  mingw32-libjpeg-turbo
 BuildRequires:  mingw64-libjpeg-turbo
 BuildRequires:  mingw32-libogg
 BuildRequires:  mingw64-libogg
-BuildRequires:  mingw32-pcre
-BuildRequires:  mingw64-pcre
 BuildRequires:  mingw32-libpng
 BuildRequires:  mingw64-libpng
 BuildRequires:  mingw32-libpsl

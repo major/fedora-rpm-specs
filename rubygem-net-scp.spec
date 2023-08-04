@@ -3,7 +3,7 @@
 Summary: A pure Ruby implementation of the SCP client protocol
 Name: rubygem-%{gem_name}
 Version: 4.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: https://github.com/net-ssh/net-scp
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -11,6 +11,9 @@ Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/net-ssh/net-scp
 # git -C net-scp archive -v --format=tar.gz -o net-scp-4.0.0-test.tar.gz v4.0.0 test
 Source1: %{gem_name}-%{version}-test.tar.gz
+# This is required for Mocha 2+ compatibility.
+# https://github.com/net-ssh/net-scp/commit/5871b93867151a1f7e6bb41bce92bdc5ae083cab
+Patch0: rubygem-net-scp-4.0.0-Fix-Mocha-deprecation-warning.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(net-ssh)
@@ -31,6 +34,10 @@ Documentation for %{name}
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+
+pushd %{_builddir}
+%patch 0 -p1
+popd
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -68,6 +75,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Wed Aug 02 2023 Vít Ondruch <vondruch@redhat.com> - 4.0.0-3
+- Fix Mocha 2+ compatibility.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

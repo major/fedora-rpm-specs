@@ -8,7 +8,7 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   23.1.99.901
+Version:   23.1.99.902
 Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
@@ -91,6 +91,7 @@ Xwayland is an X server for running X clients under Wayland.
 %package devel
 Summary: Development package
 Requires: pkgconfig
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 The development package provides the developmental files which are
@@ -134,7 +135,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
-* Wed Jul 19 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.99.901
+* Wed Aug  2 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.99.902-1
+- xwayland 23.1.99.902 (xwayland 23.2.0 rc2)
+
+* Mon Jul 31 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.99.901-2
+- Fix devel package requires.
+
+* Wed Jul 19 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.99.901-1
 - xwayland 23.1.99.901 (xwayland 23.2.0 rc1)
 
 * Tue Jun  6 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.2-1

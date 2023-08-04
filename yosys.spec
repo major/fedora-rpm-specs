@@ -1,12 +1,12 @@
-%global commit0 5813809ad9afbe1c38f65c6aae7c3441d7614d0b
+%global commit0 b04d0e09e83102e14a53bb8b8dcc8c35f63b2fbe
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20230607
+%global snapdate 20230729
 
 %global __python %{__python3}
 
 Name:           yosys
-Version:        0.30
+Version:        0.31
 Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -53,6 +53,8 @@ Requires:       %{name}-share = %{version}-%{release}
 Requires:       graphviz python-xdot
 Requires:       abc >= 1.01-9
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval :
+ExcludeArch: %{ix86}
 # abc use broken on all Big Endian CPUs, specifically s390x (see BZ 1937362, 1937395):
 ExcludeArch: s390x
 
@@ -172,6 +174,12 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Wed Aug 02 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.31.2.20230729gitb04d0e0
+- drop i686 (https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval)
+
+* Sat Jul 29 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.31.1.20230729gitb04d0e0
+- update to 0.31 snapshot
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-2.20230607git5813809
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

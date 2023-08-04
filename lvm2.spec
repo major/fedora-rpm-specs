@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.195
+%global device_mapper_version 1.02.196
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -44,16 +44,11 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.21
-Release: 4%{?dist}
+Version: 2.03.22
+Release: 1%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
-# update py-compile script to a modern version that works with Python
-# 3.12. byte compiling during install isn't even necessary on Fedora,
-# but fixing it is easier than dropping it
-# https://github.com/lvmteam/lvm2/pull/121
-Patch0: 0001-Update-the-py-compile-script-works-with-Python-3.12.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -659,6 +654,10 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Wed Aug 02 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.22-1
+- Update to upstream version 2.03.22.
+- Allow snapshots of raid+integrity LV.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

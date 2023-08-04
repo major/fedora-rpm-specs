@@ -1,4 +1,4 @@
-%global	pver	20230203
+%global	pver	20230730
 
 Name:		mawk
 Version:	1.3.4
@@ -35,8 +35,12 @@ make install DESTDIR=%{buildroot} INSTALL='install -p'
 
 %{_bindir}/mawk
 %{_mandir}/man1/mawk.1*
+%{_mandir}/man7/mawk-*.7*
 
 %changelog
+* Wed Aug 02 2023 Thomas Dickey <dickey@invisible-island.net> - 1:1.3.4-1.20230730
+- upgrade to 1.3.4-20230730 (RHBZ#2228631)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.4-2.20230203
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

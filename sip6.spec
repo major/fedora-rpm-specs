@@ -1,8 +1,8 @@
 %global pypi_name sip
 
 Name:           sip6
-Version:        6.7.9
-Release:        3%{?dist}
+Version:        6.7.11
+Release:        1%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
@@ -47,6 +47,9 @@ Python bindings for wxWidgets.}
 %{python3_sitearch}/sipbuild/
 
 %changelog
+* Wed Aug 02 2023 Scott Talbert <swt@techie.net> - 6.7.11-1
+- Update to new upstream release 6.7.11 (#2225117)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

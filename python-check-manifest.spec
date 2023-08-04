@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.48
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Check MANIFEST.in in a Python source package
 
 License:        MIT
@@ -23,7 +23,7 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-mock
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-toml
+BuildRequires:  python3-tomli
 BuildRequires:  python3-mock
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pep517
@@ -67,6 +67,9 @@ sed -i -e '/^#!\//, 1d' check_manifest.py
 %{_bindir}/check-manifest
 
 %changelog
+* Wed Aug 02 2023 Sandro Mani <manisandro@gmail.com> - 0.48-7
+- BR: python3-tomli (#2142070)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

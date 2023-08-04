@@ -1,11 +1,11 @@
-%global commit 119b47acf3be0c7bd5b75f736ac07fdc81f74c2a
+%global commit 54b2045726fc3fe77857c05c81a5ab77e98ba851
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20230607
+%global snapdate 20230729
 
 Name:		nextpnr
 Version:	1
-Release:	26.%{snapdate}git%{shortcommit}%{?dist}
+Release:	27.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 License:	ISC and BSD and MIT and (MIT or Public Domain)
@@ -29,7 +29,7 @@ BuildRequires:	eigen3-devel
 #BuildRequires:	pybind11-devel
 # NOTE: remember to update icestorm & trellis before rebuilding nextpnr!!!
 BuildRequires:	icestorm >= 0-0.28
-BuildRequires:	trellis-devel >= 1.2.1-18
+BuildRequires:	trellis-devel >= 1.2.1-21
 
 # License: ISC
 Provides:	bundled(qtimgui)
@@ -86,6 +86,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Sat Jul 29 2023 Gabriel Somlo <gsomlo@gmail.com> - 1-27.20230729git54b2045
+- Update to newer snapshot
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-26.20230607git119b47a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

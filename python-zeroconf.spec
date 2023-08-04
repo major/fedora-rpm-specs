@@ -1,5 +1,5 @@
 Name:           python-zeroconf
-Version:        0.71.3
+Version:        0.72.0
 Release:        1%{?dist}
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
@@ -26,7 +26,7 @@ supporting Bonjour/Avahi.
 
 
 %prep
-%autosetup -p1 -n zeroconf-%{version}
+%autosetup -p1
 # Upstream requires this for https://github.com/python-poetry/poetry/issues/7505
 # But it's not relevant for the RPM package
 sed -i 's/poetry-core>=1.5.2/poetry-core/' pyproject.toml
@@ -57,6 +57,9 @@ sed -Ei 's/--cov(-|=)[^ "]+//g' pyproject.toml
 
 
 %changelog
+* Wed Aug 02 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.72.0-1
+- Update to 0.72.0
+
 * Mon Jul 24 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.71.3-1
 - Update to 0.71.3
 

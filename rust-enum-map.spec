@@ -5,7 +5,7 @@
 %global crate enum-map
 
 Name:           rust-enum-map
-Version:        2.6.0
+Version:        2.6.1
 Release:        %autorelease
 Summary:        Map with C-like enum keys represented internally as an array
 

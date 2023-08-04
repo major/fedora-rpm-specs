@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 10
+%global baserelease 12
 
 Name: dracut
 Version: 059
@@ -69,6 +69,10 @@ Patch9: 2377-fix-kernel-modules-add-interconnect-drivers.patch
 # feat(nvmf): support for NVMeoF
 # https://github.com/dracutdevs/dracut/pull/2184
 Patch10: 2184-add-nvmeof-module.patch
+
+# fix(dracut.sh): use dynamically uefi's sections offset
+# https://github.com/dracutdevs/dracut/pull/2277
+Patch11: 0001-fix-dracut.sh-use-dynamically-uefi-s-sections-offset.patch
 
 BuildRequires: bash
 BuildRequires: git-core
@@ -220,13 +224,6 @@ rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/00dash
 
 # we do not support mksh in the initramfs
 rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/00mksh
-
-%if %{defined _unitdir}
-# with systemd IMA and selinux modules do not make sense
-rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/96securityfs
-rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/97masterkey
-rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/98integrity
-%endif
 
 %ifnarch s390 s390x
 # remove architecture specific modules
@@ -385,11 +382,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/95zfcp
 %{dracutlibdir}/modules.d/95zfcp_rules
 %endif
-%if %{undefined _unitdir}
 %{dracutlibdir}/modules.d/96securityfs
 %{dracutlibdir}/modules.d/97masterkey
 %{dracutlibdir}/modules.d/98integrity
-%endif
 %{dracutlibdir}/modules.d/97biosdevname
 %{dracutlibdir}/modules.d/98dracut-systemd
 %{dracutlibdir}/modules.d/98ecryptfs
@@ -476,6 +471,12 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Wed Aug 02 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 059-12
+- Include modules for IMA
+
+* Mon Jul 24 2023 Lukáš Nykrýn <lnykryn@redhat.com> - 059-11
+- fix(dracut.sh): use dynamically uefi's sections offset
+
 * Mon Jul 24 2023 Pavel Valena <pvalena@redhat.com> - 059-10
 - feat(nvmf): support for NVMeoF
 

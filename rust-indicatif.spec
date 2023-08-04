@@ -5,7 +5,7 @@
 %global crate indicatif
 
 Name:           rust-indicatif
-Version:        0.17.5
+Version:        0.17.6
 Release:        %autorelease
 Summary:        Progress bar and cli reporting library for Rust
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          indicatif-fix-metadata-auto.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 A progress bar and cli reporting library for Rust.}
@@ -46,6 +46,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+futures-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+improved_unicode-devel

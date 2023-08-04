@@ -1,12 +1,3 @@
-
-# run internal testsuite?
-# fakechroot is severely broken beyond fedora 33, disable...
-%if 0%{?fedora} > 33 || 0%{?rhel} > 8
-%bcond_with check
-%else
-%bcond_without check
-%endif
-
 # build against xz?
 %bcond_without xz
 # build with plugins?
@@ -34,9 +25,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 4.18.91
+%global rpmver 4.18.92
 #global snapver rc1
-%global baserelease 9
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -63,11 +54,6 @@ Requires: popt%{_isa} >= 1.10.2.1
 Requires: curl
 Conflicts: systemd < 253.5-6
 Obsoletes: python2-rpm < %{version}-%{release}
-
-%if %{with check}
-BuildRequires: fakechroot gnupg2
-BuildRequires: debugedit >= 0.3
-%endif
 
 # XXX generally assumed to be installed but make it explicit as rpm
 # is a bit special...
@@ -149,19 +135,14 @@ rpm-4.18.x-siteconfig.patch
 rpm-4.9.90-no-man-dirs.patch
 # Disable new user/group handling
 
-rpm-4.18.90-disable-sysusers.patch
+rpm-4.18.92-disable-sysusers.patch
 rpm-4.18.90-weak-user-group.patch
 
 # Patches already upstream:
-0001-Don-t-muck-with-per-process-global-sqlite-configurat.patch
-0001-Actually-return-an-error-in-parseScript-if-parsing-f.patch
-0001-Fix-per-file-plugin-hook-regression-introduced-in-4..patch
 # ...
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
-# Probably to be upstreamed in slightly different form
-rpm-4.18.x-ldflags.patch
 
 %description
 The RPM Package Manager (RPM) is a powerful command line driven
@@ -406,6 +387,9 @@ install -m 644 %{SOURCE20} $RPM_BUILD_ROOT/%{_unitdir}
 mkdir -p $RPM_BUILD_ROOT%{rpmhome}
 install -m 755 %{SOURCE21} $RPM_BUILD_ROOT/%{rpmhome}
 
+# Built-in replacement for systemd-sysusers(8)
+install -m 755 scripts/sysusers.sh $RPM_BUILD_ROOT/%{rpmhome}
+
 # Save list of packages through cron
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/cron.daily
 install -m 755 scripts/rpm.daily ${RPM_BUILD_ROOT}%{_sysconfdir}/cron.daily/rpm
@@ -436,14 +420,6 @@ find $RPM_BUILD_ROOT -name "*.la"|xargs rm -f
 rm -f $RPM_BUILD_ROOT/%{rpmhome}/{perldeps.pl,perl.*,pythond*}
 rm -f $RPM_BUILD_ROOT/%{_fileattrsdir}/{perl*,python*}
 rm -rf $RPM_BUILD_ROOT/var/tmp
-
-%if %{with check}
-%check
-cd _build
-make check TESTSUITEFLAGS=-j%{_smp_build_ncpus} || (cat tests/rpmtests.log; exit 1)
-# rpm >= 4.16.0 testsuite leaves a read-only tree behind, clean it up
-make clean
-%endif
 
 %pre
 # Symlink all rpmdb files to the new location if we're still using /var/lib/rpm
@@ -520,6 +496,7 @@ fi
 %{rpmhome}/tgpg
 
 %{rpmhome}/platform
+%{rpmhome}/sysusers.sh
 
 %dir %{rpmhome}/fileattrs
 
@@ -616,6 +593,9 @@ fi
 %{python3_sitearch}/rpm/_rpm.so
 %artifact %{python3_sitearch}/rpm/__pycache__/
 
+# Python examples
+%{_defaultdocdir}/rpm/examples/*.py
+
 %files devel
 %{_mandir}/man8/rpmgraph.8*
 %{_bindir}/rpmgraph
@@ -632,6 +612,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Wed Aug 02 2023 Michal Domonkos <mdomonko@redhat.com> - 4.18.92-1
+- Update to 4.19 beta
+
 * Tue Jul 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.18.91-9
 - Drop fsverity plugin from RHEL builds
 

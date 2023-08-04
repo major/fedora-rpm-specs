@@ -4,7 +4,7 @@
 Summary:	The NetBSD Editline library
 Name:		libedit
 Version:	3.1
-Release:	46.%{snap}cvs%{?dist}
+Release:	47.%{snap}cvs%{?dist}
 
 # The project as a whole is BSD-3-Clause.
 # These files are BSD-2-Clause:
@@ -28,13 +28,6 @@ Release:	46.%{snap}cvs%{?dist}
 License:	BSD-3-Clause AND BSD-2-Clause AND ISC
 URL:		https://www.thrysoee.dk/editline/
 Source0:	https://www.thrysoee.dk/editline/%{name}-%{snap}-%{version}.tar.gz
-# Version 20210419 changes internal symbols named libedit_strlcat and
-# libedit_strlcpy to plain strlcat and strlcpy.  None of those symbols are
-# mentioned in the public header files.  Many projects check for the existence
-# of functions named strlcat and strlcpy.  I am not prepared to deal with the
-# possible fallout of those functions suddenly existing in a low-level Fedora
-# library, so restore the old names for now.
-Patch0:         %{name}-strlcat.patch
 
 BuildRequires:	gcc
 BuildRequires:	groff-base
@@ -72,8 +65,6 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 # See rhbz#1349671
 rm -f $RPM_BUILD_ROOT%{_mandir}/man3/history.3*
 
-%ldconfig_scriptlets
-
 %files
 %license COPYING
 %doc ChangeLog THANKS
@@ -95,6 +86,9 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man3/history.3*
 %{_includedir}/editline/readline.h
 
 %changelog
+* Wed Aug  2 2023 Jerry James <loganjerry@gmail.com> - 3.1-47.20221030cvs
+- Drop unneeded strlcat patch
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-46.20221030cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

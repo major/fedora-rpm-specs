@@ -14,6 +14,7 @@ Patch1: wget-1.17-path.patch
 Patch2: wget-1.21.3-hsts-32bit.patch
 # https://gitlab.com/gnuwget/wget/-/merge_requests/36
 Patch3: wget-1.21.4-py312.patch
+Patch4: wget-1.21.3-metalink-gnupg.patch
 
 Provides: webclient
 Provides: bundled(gnulib) 

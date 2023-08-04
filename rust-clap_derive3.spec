@@ -5,7 +5,7 @@
 %global crate clap_derive
 
 Name:           rust-clap_derive3
-Version:        3.2.18
+Version:        3.2.25
 Release:        %autorelease
 Summary:        Parse command line argument by defining a struct, derive crate
 

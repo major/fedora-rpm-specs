@@ -1,7 +1,7 @@
 Summary: GNU data compression program
 Name: gzip
 Version: 1.12
-Release: 5%{?dist}
+Release: 6%{?dist}
 # info pages are under GFDL license
 License: GPL-3.0-or-later AND GFDL-1.3-only
 Source0: https://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
@@ -49,7 +49,12 @@ export CPPFLAGS="-DHAVE_LSTAT"
 export CC="%{__cc}"
 export CPP="%{__cpp}"
 export CXX="%{__cxx}"
+%ifarch s390x
+export CFLAGS="$RPM_OPT_FLAGS -DDFLTCC_LEVEL_MASK=0x7e"
+%configure --enable-dfltcc
+%else
 %configure
+%endif
 make
 %check
 make check
@@ -80,6 +85,10 @@ install -p -m 644 %{SOURCE101} %{buildroot}%{profiledir}
 %{profiledir}/*
 
 %changelog
+* Wed Aug 02 2023 Jakub Martisko <jamartis@redhat.com> - 1.12-6
+- Enbale the s390x optimizations
+Resolves: rhbz#2175699
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

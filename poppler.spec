@@ -16,8 +16,8 @@
 
 Summary: PDF rendering library
 Name:    poppler
-Version: 23.02.0
-Release: 3%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 License: (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
 URL:     http://poppler.freedesktop.org/
 Source0: http://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -219,7 +219,7 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %files
 %doc README.md
 %license COPYING
-%{_libdir}/libpoppler.so.126*
+%{_libdir}/libpoppler.so.130*
 
 %files devel
 %{_libdir}/pkgconfig/poppler.pc
@@ -278,6 +278,9 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Wed Aug  2 2023 Marek Kasik <mkasik@redhat.com> - 23.08.0-1
+- Update to 23.08.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.02.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

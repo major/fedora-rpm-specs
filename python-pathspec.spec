@@ -1,6 +1,6 @@
 Name:           python-pathspec
-Version:        0.11.1
-Release:        3%{?dist}
+Version:        0.11.2
+Release:        1%{?dist}
 Summary:        Utility library for gitignore style pattern matching of file paths
 
 License:        MPL-2.0
@@ -54,6 +54,9 @@ is derived from Rsync's wildmatch. Git uses wildmatch for its gitignore files.
 
 
 %changelog
+* Wed Aug 02 2023 Dan Radez <dradez@redhat.com> - 0.11.2
+- update to 0.11.2 rhbz#2227393
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

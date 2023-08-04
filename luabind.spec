@@ -1,6 +1,6 @@
 Name:		luabind
 Version:	0.9.1
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary:	A library that helps create bindings between C++ and Lua
 License:	MIT
 URL:		http://www.rasterbar.com/products/luabind.html
@@ -21,6 +21,8 @@ Patch7:		007-luabind-lua-52-fix-test.patch
 Patch8:		008-luabind-lua_pushglobaltable.patch
 Patch9:		luabind-0.9.1-boost157fix.patch
 Patch10:	luabind-0.9.1-lua-5.4.patch
+# https://github.com/luabind/luabind/pull/34
+Patch11:	luabind-0.9.1-orderfix.patch
 
 %description
 Luabind is a library that helps you create bindings between C++ and Lua. It 
@@ -40,17 +42,18 @@ This package contains the development libraries and headers for luabind.
 
 %prep
 %setup -q
-%patch0 -p1 -b .boost
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1 -b .lua54
+%patch -P0 -p1 -b .boost
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
+%patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1 -b .lua54
+%patch -P11 -p1 -b .orderfix
 sed -i 's|$(prefix)/lib|$(prefix)/%{_lib}|g' Jamroot
 
 # Perms cleanup
@@ -76,6 +79,9 @@ b2 -d2 --prefix=%{buildroot}%{_prefix} --libdir=%{buildroot}%{_libdir} release i
 %{_libdir}/*.so
 
 %changelog
+* Wed Aug  2 2023 Tom Callaway <spot@fedoraproject.org> - 0.9.1-44
+- apply fix for non-functioning inheritance
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

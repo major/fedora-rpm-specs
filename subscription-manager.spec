@@ -95,14 +95,14 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.29.35
-Release: 3%{?dist}
+Version: 1.29.36
+Release: 1%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
 License: GPL-2.0
 %else
-License: GPLv2
+License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later
 %endif
 URL:     http://www.candlepinproject.org/
 
@@ -130,7 +130,7 @@ Source2: subscription-manager-rpmlintrc
 # nesting is required since RPM requires the various preamble directives to be
 # at the start of a line making meaningful indentation impossible.
 
-Requires:  %{py_package_prefix}-ethtool
+Requires:  iproute
 Requires:  %{py_package_prefix}-iniparse
 Requires:  %{py_package_prefix}-decorator
 Requires:  virt-what
@@ -164,7 +164,7 @@ Requires:  %{py_package_prefix}-setuptools
 
 %if %{use_dnf}
 %if %{create_libdnf_rpm}
-Requires: dnf >= 1.0.0
+Requires: python3-dnf
 Requires: python3-dnf-plugins-core
 Requires: python3-librepo
 %else
@@ -200,6 +200,8 @@ BuildRequires: %{py_package_prefix}-dateutil
 %endif
 
 BuildRequires: systemd
+
+Obsoletes: subscription-manager-migration <= %{version}-%{release}
 
 Obsoletes: subscription-manager-initial-setup-addon <= %{version}-%{release}
 
@@ -248,9 +250,6 @@ BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: json-c-devel
 BuildRequires: libdnf-devel >= 0.22.5
-Requires: json-c
-Requires: libdnf >= 0.22.5
-Requires: dnf >= 1.0.0
 
 Obsoletes: dnf-plugin-subscription-manager < 1.29.0
 
@@ -736,6 +735,30 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
+* Wed Aug 02 2023 Packit <hello@packit.dev> - 1.29.36-1
+- Automatic commit of package [subscription-manager] release [1.29.36-1]. (Pino Toscano)
+- Translated using Weblate (Korean) (김인수)
+- ENT-5581: Update messaging around the "container mode" (Matyas Horky)
+- Remove 'dbus' marker for pytest (Matyas Horky)
+- Rewrite D-Bus tests to be testable without pytest-forked (Matyas Horky)
+- Drop further ethtool dependency mentions (Matyas Horky)
+- tests: fix test_file_monitor without pyinotify (Pino Toscano)
+- tests: switch from imp to importlib (Pino Toscano)
+- Fix the order of user env var checking for translations. (Toshio Kuratomi)
+- 2215974: Collect network facts using 'ip' (Matyas Horky)
+- ENT-5582: Remove container detection envvar overwrite (Matyas Horky)
+- ENT-5603: Explicitly check for provided entitlement certificates (Matyas Horky)
+- fix test case (Chris Hambridge)
+- Collect GCP Project information as cloud facts (Chris Hambridge)
+- Collect Azure Subscription ID as a cloud fact (#3285) (Chris Hambridge)
+- ENT-5580: Disable the proper container detection (Matyas Horky)
+- spec: convert License to SPDX (Pino Toscano)
+- 2093291: Make reading of cache file more reliable (Jiri Hnidek)
+- 2093291: Make code of DNF plugins testable (Jiri Hnidek)
+- spec: change subscription-manager dnf dep (Pino Toscano)
+- spec: update libdnf-plugin-subscription-manager deps (Pino Toscano)
+- tests: repair attach cases in SCA mode (Pino Toscano)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

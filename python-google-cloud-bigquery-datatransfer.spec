@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-bigquery-datatransfer
 %global         forgeurl    https://github.com/googleapis/python-bigquery-datatransfer
-Version:        3.11.2
+Version:        3.12.0
 %global         tag         v%{version}
 %forgemeta
 

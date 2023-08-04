@@ -5,7 +5,7 @@
 %global crate maildir
 
 Name:           rust-maildir
-Version:        0.4.3
+Version:        0.6.4
 Release:        %autorelease
 Summary:        Simple library for maildir manipulation
 
@@ -44,6 +44,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+memmap2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+memmap2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "memmap2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+memmap2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+mmap-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+mmap-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "mmap" feature of the "%{crate}" crate.
+
+%files       -n %{name}+mmap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -10,7 +10,7 @@
 
 Name:           inkscape
 Version:        1.3
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -25,7 +25,9 @@ Source0:        https://inkscape.org/release/inkscape-%{version}/source/archive/
 # Fedora Color Palette, GIMP format, CC-BY 3.0
 Source2:	Fedora-Color-Palette.gpl
 
+%if 0%{?fedora} >= 39
 ExcludeArch:    %{ix86}
+%endif
 
 Provides: bundled(libcroco)
 Provides: bundled(autotrace)
@@ -146,6 +148,12 @@ find . -name '*.h' | xargs chmod -x
 dos2unix -k -q share/extensions/*.py
 
 %build
+
+%ifarch %{ix86}
+# FTBFS on i686 with LTO enabled
+%define _lto_cflags %{nil}
+%endif
+
 %cmake3 \
         -DWITH_GRAPHICS_MAGICK=%{?with_graphicsmagick:ON}%{!?with_graphicsmagick:OFF} \
         -DWITH_IMAGE_MAGICK=%{?with_imagemagick:ON}%{!?with_imagemagick:OFF} \
@@ -230,6 +238,13 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Wed Aug 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-4
+- No lto on i686
+
+* Wed Aug 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-3
+- Restore i686 for f38.
+- Poppler rebuild.
+
 * Tue Aug 01 2023 Kalev Lember <klember@redhat.com> - 1.3-2
 - Add missing python3-requests requires (rhbz#2227974)
 

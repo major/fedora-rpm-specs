@@ -5,14 +5,17 @@
 
 Name:           python-%{modname}
 Version:        1.3.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{sum}
 
 License:        MIT
 URL:            https://github.com/kivy/%{srcname}
+
+ExclusiveArch:  %{java_arches}
+
 Source0:        %{url}/archive/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 
 BuildRequires:  python3-devel
@@ -76,7 +79,7 @@ ant all
 pushd tests
 export CLASSPATH=../build/test-classes:../build/classes
 export JAVA_HOME=%{_prefix}/lib/jvm/java
-PYTHONPATH=%{buildroot}%{python3_sitearch} pytest -v
+%pytest -v
 popd
 
 
@@ -96,6 +99,10 @@ popd
 
 
 %changelog
+* Wed Aug 02 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.3.0-17
+- exclude i686, rhbz#2104095
+- use pytest macro 
+
 * Sat Jul 29 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.3.0-16
 - avoid Cython 3 
 

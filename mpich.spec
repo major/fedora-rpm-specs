@@ -41,7 +41,11 @@ BuildRequires:  numactl-devel
 %ifarch aarch64 ppc64le x86_64
 BuildRequires:  ucx-devel
 %endif
+%if ! 0%{?rhel}
 BuildRequires:  yaksa-devel
+%else
+Provides:       bundled(yaksa) = 0.2
+%endif
 # For ./maint/extractcvars
 BuildRequires:  perl(lib)
 %ifnarch s390 %{mips}
@@ -151,7 +155,9 @@ CONFIGURE_OPTS=(
 %ifarch aarch64 ppc64le x86_64
         --with-ucx
 %endif
+%if ! 0%{?rhel}
         --with-yaksa
+%endif
 )
 #        --with-device=ch3:nemesis
 

@@ -1,6 +1,12 @@
+%global with_mingw 0
+
+%if 0%{?fedora}
+%global with_mingw 1
+%endif
+
 Name:           gcab
 Version:        1.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cabinet file library and tool
 
 License:        LGPLv2+
@@ -19,6 +25,17 @@ BuildRequires:  meson
 BuildRequires:  git
 
 Requires:       libgcab1%{?_isa} = %{version}-%{release}
+
+%if %{with_mingw}
+BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-gcc
+BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-gcc
+BuildRequires: mingw64-glib2
+BuildRequires: mingw32-glib2
+BuildRequires: mingw64-zlib
+BuildRequires: mingw32-zlib
+%endif
 
 %description
 gcab is a tool to manipulate Cabinet archive.
@@ -40,12 +57,35 @@ libgcab is a library to manipulate Cabinet archive.
 
 Libraries, includes, etc. to compile with the gcab library.
 
+%if %{with_mingw}
+%package -n mingw32-libgcab1
+Summary: MinGW library to create Cabinet archive.
+BuildArch: noarch
+
+%description -n mingw32-libgcab1
+libgcab is a library to manipulate Cabinet archive.
+
+%package -n mingw64-libgcab1
+Summary: MinGW library to create Cabinet archive.
+BuildArch: noarch
+
+%description -n mingw64-libgcab1
+libgcab is a library to manipulate Cabinet archive.
+
+%{?mingw_debug_package}
+%endif
+
 %prep
 %autosetup -S git_am
 
 %build
 %meson
 %meson_build
+
+%if %{with_mingw}
+%mingw_meson -Dintrospection=false -Ddocs=false
+%mingw_ninja
+%endif
 
 %check
 %meson_test
@@ -57,13 +97,20 @@ Libraries, includes, etc. to compile with the gcab library.
 
 %ldconfig_scriptlets -n libgcab1
 
+%if %{with_mingw}
+%mingw_ninja_install
+%mingw_debug_install_post
+%mingw_find_lang %{name}
+%endif
+
+
 %files
-%doc COPYING NEWS
 %{_bindir}/gcab
 %{_mandir}/man1/gcab.1*
 
 %files -n libgcab1 -f %{name}.lang
-%doc COPYING NEWS
+%license COPYING
+%doc NEWS
 %{_libdir}/girepository-1.0/GCab-1.0.typelib
 %{_libdir}/libgcab-1.0.so.*
 
@@ -76,7 +123,30 @@ Libraries, includes, etc. to compile with the gcab library.
 %{_libdir}/libgcab-1.0.so
 %{_libdir}/pkgconfig/libgcab-1.0.pc
 
+%if %{with_mingw}
+%files -n mingw32-libgcab1 -f mingw32-%{name}.lang
+%license COPYING
+%{mingw32_bindir}/gcab.exe
+%{mingw32_bindir}/libgcab-1.0-0.dll
+%{mingw32_libdir}/libgcab-1.0.dll.a
+%{mingw32_includedir}/libgcab-1.0/
+%{mingw32_libdir}/pkgconfig/libgcab-1.0.pc
+%{mingw32_mandir}/man1/gcab.1
+
+%files -n mingw64-libgcab1 -f mingw64-%{name}.lang
+%license COPYING
+%{mingw64_bindir}/gcab.exe
+%{mingw64_bindir}/libgcab-1.0-0.dll
+%{mingw64_libdir}/libgcab-1.0.dll.a
+%{mingw64_includedir}/libgcab-1.0/
+%{mingw64_libdir}/pkgconfig/libgcab-1.0.pc
+%{mingw64_mandir}/man1/gcab.1
+%endif
+
 %changelog
+* Wed Aug 02 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.6-3
+- Add MinGW packages.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

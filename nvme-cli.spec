@@ -22,10 +22,11 @@ BuildRequires:  json-c-devel >= 0.13
 
 %if (0%{?rhel} == 0)
 BuildRequires:  python3-nose2
-BuildRequires:  python3-mypy
-BuildRequires:  python3-flake8
-BuildRequires:  python3-autopep8
-BuildRequires:  python3-isort
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+#BuildRequires:  python3-mypy
+#BuildRequires:  python3-flake8
+#BuildRequires:  python3-autopep8
+#BuildRequires:  python3-isort
 %endif
 BuildRequires:  asciidoc
 BuildRequires:  xmlto

@@ -1,13 +1,13 @@
 Name:           python-kmod
 License:        LGPLv2+
 Summary:        Python module to work with kernel modules
-Version:        0.9
-Release:        39%{?dist}
-URL:            https://github.com/agrover/python-kmod/
-Source0:        https://github.com/downloads/agrover/%{name}/%{name}-%{version}.tar.gz
+Version:        0.9.2
+Release:        1%{?dist}
+URL:            https://github.com/maurizio-lombardi/python-kmod/
+Source0:        https://github.com/downloads/maurizio-lombardi/%{name}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
+BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(cython) < 3
 BuildRequires:  python3-setuptools
 BuildRequires:  python3
 BuildRequires:  kmod-devel
@@ -40,6 +40,9 @@ Linux kernel modules, using libkmod.
 %doc COPYING.LESSER README
 
 %changelog
+* Tue Aug 01 2023 Maurizio Lombardi - 0.9.2-1
+- Release a new version and take over maintainership upstream
+
 * Mon Jul 24 2023 Maurizio Lombardi - 0.9-39
 - Build for Cython < 3
 

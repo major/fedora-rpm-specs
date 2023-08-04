@@ -5,7 +5,7 @@
 %global crate sequoia-cert-store
 
 Name:           rust-sequoia-cert-store
-Version:        0.2.0
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Certificate database interface
 
@@ -15,8 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          sequoia-cert-store-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * bump sequoia-net dependency from 0.26 to 0.27
-# * expose features for crypto backends without setting a default
+# * temporarily downgrade rusqlite dependency from 0.29 to 0.28
 # * exclude integration tests, test data, and scripts from installed files
 Patch:          sequoia-cert-store-fix-metadata.diff
 
@@ -54,51 +53,23 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+crypto-nettle-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crypto-nettle-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crypto-nettle" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crypto-nettle-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+crypto-openssl-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crypto-openssl-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crypto-openssl" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crypto-openssl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires
-# ensure all dependencies for building tests are available
-%cargo_generate_buildrequires -f crypto-nettle,crypto-openssl
+%cargo_generate_buildrequires
 
 %build
 # build with the default crypto backend (Nettle)
-%cargo_build -f crypto-nettle
+%cargo_build -f sequoia-openpgp/crypto-nettle
 
 %install
-%cargo_install -f crypto-nettle
+%cargo_install
 
 %if %{with check}
 %check
-# run tests with the default crypto backend (Nettle)
-%cargo_test -f crypto-nettle
-# run tests with the OpenSSL crypto backend
-%cargo_test -f crypto-openssl
+%cargo_test
 %endif
 
 %changelog

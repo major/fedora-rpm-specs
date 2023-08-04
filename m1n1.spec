@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           m1n1
-Version:        1.3.0
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Bootloader and experimentation playground for Apple Silicon
 

@@ -23,6 +23,12 @@ ExcludeArch: %{ix86}
 %endif
 %endif
 
+%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+%bcond_without dnf5
+%else
+%bcond_with dnf5
+%endif
+
 # Whether we should verify tarball signature with GPGv2.
 %global verify_tarball_signature 1
 
@@ -32,7 +38,7 @@ ExcludeArch: %{ix86}
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       14%{?dist}
+Release:       15%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -72,7 +78,12 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: /usr/bin/pod2html
 BuildRequires: rpm
 BuildRequires: rpm-devel
+%if %{with dnf5}
 BuildRequires: dnf5
+%else
+BuildRequires: dnf
+BuildRequires: dnf-plugins-core
+%endif
 BuildRequires: /usr/sbin/mke2fs
 BuildRequires: e2fsprogs-devel
 BuildRequires: findutils
@@ -139,7 +150,12 @@ Requires:      %{name} = %{version}-%{release}
 Requires:      rpm-build
 
 # Dependencies needed for supermin --prepare
+%if %{with dnf5}
 Requires:      dnf5
+%else
+Requires:      dnf
+Requires:      dnf-plugins-core
+%endif
 Requires:      findutils
 
 
@@ -165,7 +181,7 @@ autoreconf -fi
 # to remove this later.  See:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2209412
 # https://fedoraproject.org/wiki/Changes/ReplaceDnfWithDnf5
-%configure DNF=%{_bindir}/dnf5 --disable-network-tests
+%configure %{?with_dnf5:DNF=%{_bindir}/dnf5} --disable-network-tests
 
 %if %{with dietlibc}
 make -C init CC="diet gcc"
@@ -208,6 +224,9 @@ make check || {
 
 
 %changelog
+* Wed Aug 02 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.3.3-15
+- Defer dnf5 until Fedora 41
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

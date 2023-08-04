@@ -3,7 +3,7 @@ Version:	1.0.1
 Release:	2%{?dist}
 Summary:	Driver library for the IBM Z Neural Network Processing Assist Facility
 
-License:	ASL 2.0
+License:	Apache-2.0
 Url:		https://github.com/IBM/zDNN
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

@@ -1,12 +1,12 @@
 Name:			pyke
 Summary:		Knowledge-based inference engine
 Version:		1.1.1
-Release:		44%{?dist}
+Release:		45%{?dist}
 License:		MIT
 URL:			http://pyke.sourceforge.net/
 Source0:		http://download.sourceforge.net/%{name}/%{name}3-%{version}.zip
 BuildArch:		noarch
-BuildRequires:          python3-devel
+BuildRequires:          python3-devel, python3-setuptools
 
 %global _description\
 Pyke is a knowledge-based inference engine (expert system) written in 100%\
@@ -64,6 +64,9 @@ rm -rf doc/source/
 %doc examples/
 
 %changelog
+* Wed Aug  2 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.1-45
+- add BR:python3-setuptools for distutils
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

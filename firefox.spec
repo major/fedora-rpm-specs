@@ -160,7 +160,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        116.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -234,6 +234,7 @@ Patch230:        firefox-enable-vaapi.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
+Patch408:        D167159.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -507,6 +508,7 @@ This package contains results of tests executed during build.
 
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
+%patch408 -p1 -b .D167159
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1064,6 +1066,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Aug 2 2023 Martin Stransky <stransky@redhat.com>- 116.0-3
+- Added Canvas/WebGL VA-API playback patch (D167159 / mzbz#1769747)
+
 * Mon Jul 31 2023 Martin Stransky <stransky@redhat.com>- 116.0-2
 - Updated to 116.0 Build 2
 

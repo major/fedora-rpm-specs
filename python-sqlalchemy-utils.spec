@@ -10,6 +10,7 @@ URL:                http://pypi.python.org/pypi/SQLAlchemy-Utils
 Source0:            %{pypi_source SQLAlchemy-Utils}
 # Omit test on unpackaged python-psycopg2cffi
 Patch0:             no-psycopg2cffi.patch
+Patch1:             python-sqlalchemy-utils-0.41.1-no-pyodbc-dep.patch
 
 BuildArch:          noarch
 

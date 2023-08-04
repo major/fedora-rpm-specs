@@ -1,7 +1,13 @@
+%global with_mingw 0
+
+%if 0%{?fedora}
+%global with_mingw 1
+%endif
+
 Summary: GNOME Structured File library
 Name: libgsf
 Version: 1.14.50
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.1-only
 Source: https://download.gnome.org/sources/%{name}/1.14/%{name}-%{version}.tar.xz
 Patch0: libgsf-configure-c99.patch
@@ -20,6 +26,20 @@ BuildRequires: make
 Obsoletes: libgsf-gnome < 1.14.22
 Obsoletes: libgsf-python < 1.14.26
 
+%if %{with_mingw}
+BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-gcc-c++
+BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-gcc-c++
+
+BuildRequires: mingw64-bzip2
+BuildRequires: mingw32-bzip2
+BuildRequires: mingw64-glib2
+BuildRequires: mingw32-glib2
+BuildRequires: mingw64-libxml2
+BuildRequires: mingw32-libxml2
+%endif
+
 %description
 A library for reading and writing structured files (e.g. MS OLE and Zip)
 
@@ -33,20 +53,56 @@ Obsoletes: libgsf-gnome-devel < 1.14.22
 Libraries, headers, and support files necessary to compile applications using 
 libgsf.
 
+%if %{with_mingw}
+%package -n mingw32-libgsf
+Summary: MinGW GNOME Structured File library
+BuildArch: noarch
+
+%description -n mingw32-libgsf
+A library for reading and writing structured files (e.g. MS OLE and Zip)
+
+%package -n mingw64-libgsf
+Summary: MinGW GNOME Structured File library
+BuildArch: noarch
+
+%description -n mingw64-libgsf
+A library for reading and writing structured files (e.g. MS OLE and Zip)
+
+%{?mingw_debug_package}
+%endif
+
 %prep
 %autosetup -p1
 
 %build
+%global _configure ../configure
+
+mkdir -p build/doc && pushd build
+ln -s ../../doc/html doc # some day meson... libgsf!4
 %configure --disable-gtk-doc --disable-static --enable-introspection=yes \
 %if 0%{?flatpak}
 --with-typelib_dir=%{_libdir}/girepository-1.0 --with-gir-dir=%{_datadir}/gir-1.0
-%endif	
+%endif
 
 make %{?_smp_mflags} V=1
+popd
+
+%if %{with_mingw}
+%mingw_configure --disable-static
+%mingw_make_build
+%endif
 
 %install
 export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
+pushd build
 make DESTDIR=%{buildroot} install
+popd
+
+%if %{with_mingw}
+%mingw_make_install
+%mingw_debug_install_post
+%mingw_find_lang %{name} --all-name
+%endif
 
 %find_lang %{name}
 
@@ -79,7 +135,46 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/gsf.1*
 %{_mandir}/man1/gsf-vba-dump.1*
 
+%if %{with_mingw}
+%files -n mingw32-libgsf -f mingw32-libgsf.lang
+%license COPYING COPYING.LIB
+%{mingw32_bindir}/gsf.exe
+%{mingw32_bindir}/gsf-vba-dump.exe
+%{mingw32_bindir}/gsf-office-thumbnailer.exe
+%{mingw32_bindir}/libgsf-1-114.dll
+%{mingw32_bindir}/libgsf-win32-1-114.dll
+%{mingw32_libdir}/libgsf-1.dll.a
+%{mingw32_libdir}/libgsf-win32-1.dll.a
+%{mingw32_libdir}/pkgconfig/libgsf-1.pc
+%{mingw32_libdir}/pkgconfig/libgsf-win32-1.pc
+%{mingw32_includedir}/libgsf-1/
+%{mingw32_mandir}/man1/gsf.1*
+%{mingw32_mandir}/man1/gsf-vba-dump.1*
+%{mingw32_mandir}/man1/gsf-office-thumbnailer.1*
+%{mingw32_datadir}/thumbnailers/gsf-office.thumbnailer
+
+%files -n mingw64-libgsf -f mingw64-libgsf.lang
+%license COPYING COPYING.LIB
+%{mingw64_bindir}/gsf.exe
+%{mingw64_bindir}/gsf-vba-dump.exe
+%{mingw64_bindir}/gsf-office-thumbnailer.exe
+%{mingw64_bindir}/libgsf-1-114.dll
+%{mingw64_bindir}/libgsf-win32-1-114.dll
+%{mingw64_libdir}/libgsf-1.dll.a
+%{mingw64_libdir}/libgsf-win32-1.dll.a
+%{mingw64_libdir}/pkgconfig/libgsf-1.pc
+%{mingw64_libdir}/pkgconfig/libgsf-win32-1.pc
+%{mingw64_includedir}/libgsf-1/
+%{mingw64_mandir}/man1/gsf.1*
+%{mingw64_mandir}/man1/gsf-vba-dump.1*
+%{mingw64_mandir}/man1/gsf-office-thumbnailer.1*
+%{mingw64_datadir}/thumbnailers/gsf-office.thumbnailer
+%endif
+
 %changelog
+* Wed Aug 02 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.14.50-4
+- Add MinGW packages
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.50-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

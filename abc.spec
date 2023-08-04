@@ -21,7 +21,7 @@
 
 Name:           abc
 Version:        1.01
-Release:        39.git%{gitdate}%{?dist}
+Release:        40.git%{gitdate}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 
 # The ABC code itself is MIT-Modern-Variant.
@@ -54,6 +54,8 @@ Patch6:         %{name}-null-fprintf.patch
 # Weaken an overzealous assert
 # https://bitbucket.org/alanmi/abc/issue/27/assertion-failure-in-write_pla-command
 Patch7:         %{name}-weaken-assert.patch
+# yosys aiger segfault (yosyshq downstream commit):
+Patch8:         abc-yosys-segfault.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -164,6 +166,9 @@ install -p -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sun Jul 30 2023 Gabriel Somlo <gsomlo@gmail.com> - 1.01-40.git20230708
+- Apply patch from yosyshq to fix yosys FTBFS (#2226521)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-39.git20230708
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

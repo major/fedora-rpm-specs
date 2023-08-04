@@ -1,6 +1,6 @@
 Name:           python-pdm-backend
-Version:        2.0.7
-Release:        3%{?dist}
+Version:        2.1.4
+Release:        1%{?dist}
 Summary:        The build backend used by PDM that supports latest packaging standards
 License:        MIT
 URL:            https://github.com/pdm-project/pdm-backend
@@ -66,6 +66,9 @@ rm -rv src/pdm/backend/_vendor
 
 
 %changelog
+* Wed Aug 02 2023 Lumír Balhar <lbalhar@redhat.com> - 2.1.4-1
+- Update to 2.1.4 (rhbz#2213464)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

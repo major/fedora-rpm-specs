@@ -45,8 +45,8 @@ for test in "TestSlack" "TestDelayedRateLimiter" "TestRateLimiter"\
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done
-%gocheck
 %endif
+%gocheck
 %endif
 
 %gopkgfiles

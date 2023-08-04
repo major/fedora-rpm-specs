@@ -5,7 +5,7 @@
 %global crate below-store
 
 Name:           rust-below-store
-Version:        0.6.3
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Store crate for below
 
