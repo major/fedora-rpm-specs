@@ -1,7 +1,7 @@
 BuildArch: noarch
 
 Version:        1.31.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        ASL 2.0
 #URL:            
 
@@ -72,14 +72,6 @@ address document portability across platforms.}
 
 
 Source0:        http://gsdview.appspot.com/chromeos-localmirror/distfiles/%{archivename}.tar.bz2
-
-Source1:        62-%{fontpkgname1}.conf
-Source2:        62-%{fontpkgname2}.conf
-Source3:        62-%{fontpkgname3}.conf
-Source4:        30-0-%{fontpkgname1}.conf
-Source5:        30-0-%{fontpkgname2}.conf
-Source6:        30-0-%{fontpkgname3}.conf
-
 # Upstream has not provided license text in their tarball release
 # Add ASL2.0 license text in LICENSE-2.0.txt file
 Source8:        LICENSE-2.0.txt
@@ -91,6 +83,13 @@ Summary: The width-compatible fonts for improved on-screen readability
 %wordwrap -v common_description
 
 %fontpkg -a
+
+Source1:        62-%{fontpkgname1}.conf
+Source2:        62-%{fontpkgname2}.conf
+Source3:        62-%{fontpkgname3}.conf
+Source4:        30-0-%{fontpkgname1}.conf
+Source5:        30-0-%{fontpkgname2}.conf
+Source6:        30-0-%{fontpkgname3}.conf
 
 %prep
 %setup -q -n croscorefonts-%{version}
@@ -109,6 +108,9 @@ echo %{fontpkgname}
 %fontfiles -a
 
 %changelog
+* Wed Jul 26 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

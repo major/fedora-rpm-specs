@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.15.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Boot large ruby/rails apps faster
 License: MIT
 URL: https://github.com/Shopify/bootsnap
@@ -19,6 +19,9 @@ Source1: %{gem_name}-%{version}-tests.txz
 # https://github.com/Shopify/bootsnap/commit/72202aab5e5b3602ece4e8748bcdeefe2d789ab5
 Patch0: rubygem-bootsnap-1.15.0-Use-RbConfig-CONFIG-rubylibdir-to-check-for-stdlib-files.patch
 Patch1: rubygem-bootsnap-1.15.0-Use-RbConfig-CONFIG-rubylibdir-to-check-for-stdlib-files-test.patch
+# Minitest 5.19 puts `MiniTest` constant behind environment variable.
+# https://github.com/Shopify/bootsnap/pull/452
+Patch2: rubygem-bootsnap-1.16.0-Fix-compatibility-with-Minitest-5.19.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -50,6 +53,7 @@ Documentation for %{name}.
 
 pushd %{_builddir}
 %patch1 -p1
+%patch2 -p1
 popd
 
 sed -i -e "/^\s*\$CFLAGS / s/^/#/g" \
@@ -112,6 +116,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Aug 03 2023 Vít Ondruch <vondruch@redhat.com> - 1.15.0-4
+- Fix FTBFS due to compatibility with Minitest 5.19+.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

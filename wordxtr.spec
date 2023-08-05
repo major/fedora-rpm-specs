@@ -9,6 +9,7 @@ Source0:        http://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 ## we need wordlist2hunspell which is provided by hunspell-devel
 Requires:       hunspell-devel
 

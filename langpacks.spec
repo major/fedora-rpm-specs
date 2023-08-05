@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.0
-Release:   5%{?dist}
+Release:   6%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -65,7 +65,7 @@ local core_font_package_list = {
   cjk={
     sans={ "google-noto-sans-cjk-vf-fonts" },
     serif={ "google-noto-serif-cjk-vf-fonts" },
-    mono={ "" },
+    mono={ "google-noto-sans-mono-cjk-vf-fonts" },
   },
 }
 local langpacks_package_list = {
@@ -1631,6 +1631,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE3}
 
 %changelog
+* Thu Jul 27 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-6
+- Add google-noto-sans-mono-cjk-vf-fonts as mono for CJK.
+
 * Mon Jul 24 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-5
 - Simplified sub-packages and dependencies for CJK.
 - Update serif font to google-noto-serif-gurmukhi-vf-fonts for Punjabi.

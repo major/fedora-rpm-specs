@@ -30,7 +30,7 @@ Source2:       qpid-dispatch-console-%{version}.tar.gz
 %{!?_licensedir:%global _pkglicensedir %{_pkgdocdir}}
 
 Patch1:        dispatch.patch
-Patch2:        0001-Patch-to-fix-2226386.patch
+Patch2:        qpid-dispatch-1.19.0.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++

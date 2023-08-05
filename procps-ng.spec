@@ -4,12 +4,13 @@
 Summary: System and process monitoring utilities
 Name: procps-ng
 Version: 4.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL+ and GPLv2 and GPLv2+ and GPLv3+ and LGPLv2+
 URL: https://sourceforge.net/projects/procps-ng/
 
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 
+Patch1: sysctl-nameonly-shows-value.patch
 
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -146,6 +147,9 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files i18n -f %{name}.lang
 
 %changelog
+* Thu Aug 03 2023 Jan Rybar <jrybar@redhat.com> - 4.0.3-3
+- sysctl -N <file> shows values instead of names
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

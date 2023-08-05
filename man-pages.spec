@@ -73,10 +73,6 @@ rm man7/boot.7
 # remove man pages deprecated by libxcrypt (#1610307)
 rm man3/crypt{,_r}.3
 
-# license not allowed in Fedora
-# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/211
-rm man5/dir_colors.5
-
 %build
 # nothing to build
 

@@ -3,7 +3,7 @@ BuildArch: noarch
 %global archivename All_KhmerOS_%{version}
 
 Version:        5.0
-Release:        39%{?dist}
+Release:        40%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://www.khmeros.info/en/fonts
 
@@ -18,16 +18,6 @@ They were created by Danh Hong of the Cambodian Open Institute.}
 %global fontlicenses      License.txt
 
 Source0:        http://downloads.sourceforge.net/khmer/%{archivename}.zip
-Source1:        68-%{fontpkgname1}.conf
-Source2:        68-%{fontpkgname2}.conf
-Source3:        68-%{fontpkgname3}.conf
-Source4:        68-%{fontpkgname4}.conf
-Source5:        68-%{fontpkgname5}.conf
-Source6:        68-%{fontpkgname6}.conf
-Source7:        68-%{fontpkgname7}.conf
-Source8:        68-%{fontpkgname8}.conf
-Source9:        68-%{fontpkgname9}.conf
-Source10:       68-%{fontpkgname10}.conf
 Source11:       License.txt
 
 Name:      khmer-os-fonts
@@ -178,6 +168,17 @@ This package provides System font family.
 
 %fontpkg -a
 
+Source1:        68-%{fontpkgname1}.conf
+Source2:        68-%{fontpkgname2}.conf
+Source3:        68-%{fontpkgname3}.conf
+Source4:        68-%{fontpkgname4}.conf
+Source5:        68-%{fontpkgname5}.conf
+Source6:        68-%{fontpkgname6}.conf
+Source7:        68-%{fontpkgname7}.conf
+Source8:        68-%{fontpkgname8}.conf
+Source9:        68-%{fontpkgname9}.conf
+Source10:       68-%{fontpkgname10}.conf
+
 %fontmetapkg -z 1,2,3,6,9,10
 
 %global muolmetasummary All the Muol font family packages
@@ -195,11 +196,8 @@ This meta-package installs all the handwritten font family packages.
 
 %prep
 %autosetup -n %{archivename}
-install -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
-install -p %{SOURCE5} %{SOURCE6} %{SOURCE7} %{SOURCE8} .
-install -p %{SOURCE9} %{SOURCE10} %{SOURCE11} .
+install -p %{SOURCE11} .
 %linuxtext License.txt
-
 
 %build
 %fontbuild -a
@@ -213,6 +211,9 @@ install -p %{SOURCE9} %{SOURCE10} %{SOURCE11} .
 %fontfiles -a
 
 %changelog
+* Mon Jul 24 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Fri Feb  3 2023 Akira TAGOH <tagoh@redhat.com> - 5.0-39
 - Update fontconfig priority to 68 for
   https://fedoraproject.org/wiki/Changes/NotoFontsForMoreLang

@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 2c0b0e5e22dae960f6aa3c470ab10f1692497a6c
+%global commit 2ee39c559a721d86f1903ba8f7115e1583fa0e55
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.22
+Version: 38.23
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,23 @@ exit 0
 %endif
 
 %changelog
+* Wed Aug 02 2023 Zdenek Pytela <zpytela@redhat.com> - 38.23-1
+- Revert "Allow winbind-rpcd use its private tmp files"
+- Allow upsmon execute upsmon via a helper script
+- Allow openconnect vpn read/write inherited vhost net device
+- Allow winbind-rpcd use its private tmp files
+- Update samba-dcerpc policy for printing
+- Allow gpsd,oddjob,oddjob_mkhomedir rw user domain pty
+- Allow nscd watch system db dirs
+- Allow qatlib to read sssd public files
+- Allow fedora-third-party read /sys and proc
+- Allow systemd-gpt-generator mount a tmpfs filesystem
+- Allow journald write to cgroup files
+- Allow rpc.mountd read network sysctls
+- Allow blueman read the contents of the sysfs filesystem
+- Allow logrotate_t to map generic files in /etc
+- Boolean: Allow virt_qemu_ga create ssh directory
+
 * Tue Jul 25 2023 Zdenek Pytela <zpytela@redhat.com> - 38.22-1
 - Allow systemd-network-generator send system log messages
 - Dontaudit the execute permission on sock_file globally

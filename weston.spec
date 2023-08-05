@@ -1,8 +1,8 @@
 %global apiver 12
 
 Name:           weston
-Version:        %{apiver}.0.1
-Release:        2%{?dist}
+Version:        %{apiver}.0.2
+Release:        1%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        BSD and CC-BY-SA
@@ -198,6 +198,9 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Thu Aug 03 2023 Erico Nunes <ernunes@redhat.com> - 12.0.2-1
+- Update to 12.0.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

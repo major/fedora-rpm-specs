@@ -1,8 +1,8 @@
 Name:		fontawesome-fonts
 Summary:	Support files for the FontAwesome fonts
 Epoch:		1
-Version:	6.4.0
-Release:	2%{?dist}
+Version:	6.4.2
+Release:	1%{?dist}
 
 License:	MIT
 URL:		https://fontawesome.com/
@@ -129,6 +129,9 @@ sed -e 's,updatecontact,update_contact,g' \
 %{_datadir}/fontawesome/
 
 %changelog
+* Thu Aug  3 2023 Jerry James <loganjerry@gmail.com> - 1:6.4.2-1
+- Version 6.4.2
+
 * Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 1:6.4.0-2
 - Remove redundant metainfo checks
 

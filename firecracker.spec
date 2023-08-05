@@ -114,6 +114,7 @@ done
 %changelog
 * Mon Jul 24 2023 David Michael <fedora.dm0@gmail.com> - 1.4.0-2
 - Backport updates for the kvm-ioctls, linux-loader, and vm-memory crates.
+- Port arm64 to the new kvm-ioctls CPU register API.
 
 * Wed Jul 19 2023 David Michael <fedora.dm0@gmail.com> - 1.4.0-1
 - Update to the 1.4.0 release.

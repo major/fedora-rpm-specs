@@ -42,7 +42,7 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 
 * Thu Jul 06 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.20090415-29
 - Use new source archive generated using Kirghiz aspell dictionary
-- Resolves:rhbz#2218159 - Drop dependency on aspell
+- Resolves:rhbz#2218161 - Drop dependency on aspell
 
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20090415-28
 - migrated to SPDX license

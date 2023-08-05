@@ -52,7 +52,7 @@
 
 Name:           ibus
 Version:        1.5.29~beta1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -60,6 +60,7 @@ Source0:        https://github.com/ibus/%name/releases/download/%{source_version
 Source1:        %{name}-xinput
 Source2:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 %if 0%{?fedora:0}%{?rhel:1}
@@ -557,6 +558,11 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Aug 03 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta1-2
+- Fix some source tests
+- Fix configure --disable-appindicator
+- Fix typo in src/ibusservice.h
+
 * Fri Jul 28 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta1-1
 - Implement Plasma Wayland
 

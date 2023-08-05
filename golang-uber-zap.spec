@@ -5,7 +5,7 @@
 # https://github.com/uber-go/zap
 %global goipath         go.uber.org/zap
 %global forgeurl        https://github.com/uber-go/zap
-Version:                1.24.0
+Version:                1.25.0
 
 %gometa
 

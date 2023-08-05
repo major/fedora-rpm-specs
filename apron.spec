@@ -3,7 +3,7 @@
 Name:           apron
 Version:        0.9.14
 Summary:        Numerical abstract domain library
-Release:        0.4%{?prerel:.%{prerel}}%{?dist}
+Release:        0.5%{?prerel:.%{prerel}}%{?dist}
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 # except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
@@ -29,6 +29,7 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  csdp-devel
 BuildRequires:  doxygen-latex
+BuildRequires:  flint-devel
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript-tools-dvipdf
 BuildRequires:  glpk-devel
@@ -39,6 +40,7 @@ BuildRequires:  javapackages-local
 BuildRequires:  make
 BuildRequires:  mpfr-devel
 BuildRequires:  ppl-devel
+BuildRequires:  pplite-devel
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlidl-devel
 BuildRequires:  ocaml-findlib
@@ -152,9 +154,9 @@ export CSDP_PATH=%{_prefix}
 %ifarch %{java_arches}
 export JAVA_HOME='%{_jvmdir}/java'
 export JAVA_TOOL_OPTIONS='-Dfile.encoding=UTF8'
-./configure -prefix %{_prefix} -no-strip -java-prefix %{_jvmdir}/java
+./configure -prefix %{_prefix} -pplite-prefix %{_prefix} -no-strip -java-prefix %{_jvmdir}/java
 %else
-./configure -prefix %{_prefix} -no-strip
+./configure -prefix %{_prefix} -pplite-prefix %{_prefix} -no-strip
 %endif
 
 # Put back a flag that the configure script strips out
@@ -166,10 +168,6 @@ make -C apron depend
 
 # Parallel builds fail intermittently
 make
-
-# Documentation building fails due to missing *.ml and *.mli files
-touch pplite/pplite.ml
-touch pplite/pplite.mli
 make doc
 
 # for some reason this is no longer built in `make doc`
@@ -273,7 +271,10 @@ test/ctest1
 %endif
 
 %changelog
-* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-0.4.beta2
+* Thu Aug  3 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-0.5.beta.2
+- Enable pplite support
+
+* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-0.4.beta.2
 - Update to 0.9.14-beta2
 - Enable csdp support
 

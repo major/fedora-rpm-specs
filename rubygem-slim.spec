@@ -2,20 +2,17 @@
 %global gem_name slim
 
 Name: rubygem-%{gem_name}
-Version: 4.1.0
-Release: 8%{?dist}
+Version: 5.1.1
+Release: 1%{?dist}
 Summary: Slim is a template language
 License: MIT
-URL: http://slim-lang.com/
+URL: http://github.com/slim-template/slim/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# These are to revert dependency on sprocket-rails and slim-rails, because:
-# 1) It is not really clear what the dependencies actually fix (there is no
-#    test error without them).
-# 2) We don't want the sprockets-rails and slim-rails dependency.
-# https://github.com/slim-template/slim/commit/14a845a75047fd564acdc940c25f9bab599bbb9c
-Patch0: rubygem-slim-4.1.0-see-if-this-fixes-the-unknown-line-indicator.patch
-# https://github.com/slim-template/slim/pull/844
-Patch1: rubygem-slim-4.1.0-Fix-build-for-Rails.patch
+# Fix Rails 7 test compatibility.
+Patch0: rubygem-slim-5.1.1-Test-Rails-7.patch
+# Minitest 5.19 puts `MiniTest` class behind environment variable.
+# https://github.com/slim-template/slim/commit/7c42d101853126ff0ec1c9e7b544bdfb55820817
+Patch2: rubygem-slim-5.1.1-Literate-test-Update-name-of-Minitest-module.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -25,7 +22,6 @@ BuildRequires: rubygem(activemodel)
 BuildRequires: rubygem(rails-controller-testing)
 BuildRequires: rubygem(railties)
 BuildRequires: rubygem(kramdown)
-BuildRequires: rubygem(sassc)
 BuildRequires: rubygem(temple)
 BuildRequires: rubygem(tilt)
 BuildArch: noarch
@@ -46,8 +42,14 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 
-%patch1 -p1 -R
-%patch0 -p1 -R
+%patch 0 -p1
+%patch 2 -p1
+
+# Relax the Tilt dependency. We have just Tilt 2.0.11 in Fedora while the bump
+# does not seem to have any justification.
+# https://github.com/slim-template/slim/commit/a9db8474696752590b1c5d182dc67383d5a74813
+%gemspec_remove_dep -g tilt '>= 2.1.0'
+%gemspec_add_dep -g tilt '>= 2.0.6'
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -68,13 +70,13 @@ find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 %check
 pushd .%{gem_instdir}
 ruby -Ilib:test/core -rostruct -e 'Dir.glob "./test/core/**/test_*.rb", &method(:require)'
-ruby -Ilib:test/core -e 'Dir.glob "./test/include/**/test_*.rb", &method(:require)'
 ruby -Ilib:test/literate test/literate/run.rb
 ruby -Ilib:test/core -e 'Dir.glob "./test/logic_less/**/test_*.rb", &method(:require)'
+ruby -Ilib:test/core -e 'Dir.glob "./test/translator/**/test_*.rb", &method(:require)'
+ruby -Ilib:test/core -e 'Dir.glob "./test/smart/**/test_*.rb", &method(:require)'
+ruby -Ilib:test/core -e 'Dir.glob "./test/include/**/test_*.rb", &method(:require)'
 ruby -Ilib -e 'Dir.glob "./test/rails/**/test_*.rb", &method(:require)'
 ruby -Ilib -e 'Dir.glob "./test/sinatra/**/test_*.rb", &method(:require)'
-ruby -Ilib:test/core -e 'Dir.glob "./test/smart/**/test_*.rb", &method(:require)'
-ruby -Ilib:test/core -e 'Dir.glob "./test/translator/**/test_*.rb", &method(:require)'
 popd
 
 %files
@@ -89,11 +91,10 @@ popd
 
 %files doc
 %doc %{gem_docdir}
+%doc %{gem_instdir}/CHANGES
 %{gem_instdir}/Gemfile
 %lang(ja) %doc %{gem_instdir}/README.jp.md
-%doc %{gem_instdir}/CHANGES
 %doc %{gem_instdir}/README.md
-%{gem_instdir}/benchmarks/
 %{gem_instdir}/Rakefile
 %dir %{gem_instdir}/doc
 %doc %{gem_instdir}/doc/*.md
@@ -102,6 +103,13 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Thu Aug 03 2023 Vít Ondruch <vondruch@redhat.com> - 5.1.1-1
+- Update to Slim 5.1.1.
+  Resolves: rhbz#2163510
+
+* Thu Aug 03 2023 Vít Ondruch <vondruch@redhat.com> - 4.1.0-9
+- Fix FTBFS due to Minitest 5.19+.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

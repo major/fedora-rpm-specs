@@ -1,9 +1,5 @@
 %global testspec_version 3.6.3
-%if 0%{?epel} && 0%{?epel} <= 7
 %define with_tests 0
-%else
-%define with_tests 1
-%endif
 
 Name:           sassc
 Version:        3.6.2

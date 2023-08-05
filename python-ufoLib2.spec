@@ -1,28 +1,22 @@
 %global srcname ufoLib2
 
 Name:           python-%{srcname}
-Version:        0.7.1
-Release:        14%{?dist}
+Version:        0.16.0
+Release:        2%{?dist}
 Summary:        A library to deal with UFO font sources
 
 License:        Apache-2.0
 URL:            https://pypi.org/project/ufoLib2
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{version}}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(attrs)
-BuildRequires:  python3dist(fonttools)
-BuildRequires:  python3dist(lxml)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm)
-BuildRequires:  python3dist(typing-extensions)
-BuildRequires:  python3dist(wheel)
-BuildRequires:  python3dist(sphinx)
 
 # Required for running tests
 BuildRequires:  python3dist(pytest)
-
+BuildRequires:  python3dist(cattrs)
+BuildRequires:  python3dist(msgpack)
+BuildRequires:  python3dist(orjson)
 
 %global _description %{expand:
 ufoLib2 is meant to be a thin representation of the Unified Font Object (UFO)
@@ -40,22 +34,31 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 %check
+%pyproject_check_import
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest -v
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
 
 %changelog
+* Thu Aug 03 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.16.0-2
+- rewrite spec for pyproject macros
+
+* Thu Aug 03 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.16.0-1
+- Update to 0.16.0 version (#2225476)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

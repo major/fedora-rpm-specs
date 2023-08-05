@@ -1,60 +1,22 @@
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%bcond_with python3
-%if 0%{?rhel} <= 6
-%{!?python2_version: %global python2_version %(%{__python2} -c "import sys; sys.stdout.write(sys.version[:3])")}
-%{!?_licensedir:%global license %%doc}
-%endif
-%else
-%bcond_without python3
-%endif
-
-%if 0%{?fedora} && 0%{?fedora} >= 30
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-
 %bcond_without tests
 
 %global srcname dockerfile-parse
 %global modname %(n=%{srcname}; echo ${n//-/_})
 
 Name:           python-%{srcname}
-Version:        1.1.0
-Release:        16%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 
 Summary:        Python library for Dockerfile manipulation
 License:        BSD
-URL:            https://github.com/DBuildService/dockerfile-parse
-Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+URL:            https://github.com/containerbuildsystem/dockerfile-parse
+Source0:        https://github.com/containerbuildsystem/dockerfile-parse/archive/%{version}.tar.gz
 
 BuildArch:      noarch
 
 %description
 %{summary}.
 
-%if %{with python2}
-%package -n python2-%{srcname}
-Summary:        %{summary}
-%{?python_provide:%python_provide python2-%{srcname}}
-BuildRequires:  python2-devel
-BuildRequires:  python2-six
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires:  python-setuptools
-BuildRequires:  pytest
-%else
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-pytest
-%endif
-Requires:  python2-six
-
-%description -n python2-%{srcname}
-%{summary}.
-
-Python 2 version.
-%endif # python2 pkg
-
-%if %{with python3}
 %package -n python3-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
@@ -62,64 +24,83 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-pytest
-BuildRequires:  python3-six
 %endif
-Requires:  python3-six
 
 %description -n python3-%{srcname}
 %{summary}.
 
 Python 3 version.
-%endif #python3 pkg
 
 %prep
 %setup -q -n %{srcname}-%{version}
 
 
 %build
-%if %{with python2}
-%py2_build
-%endif # python2
-%if %{with python3}
 %py3_build
-%endif
 
 %install
-%if %{with python2}
-%py2_install
-%endif #python2
-%if %{with python3}
 %py3_install
-%endif
 
 %if %{with tests}
 %check
 export LANG=C.UTF-8
-%if %{with python2}
-py.test-%{python2_version} -v tests
-%endif # python2
-%if %{with python3}
 py.test-%{python3_version} -v tests
-%endif # python3
 %endif
 
-%if %{with python2}
-%files -n python2-%{srcname}
-%license LICENSE
-%doc README.md
-%{python2_sitelib}/%{modname}-*.egg-info/
-%{python2_sitelib}/%{modname}/
-%endif
-
-%if %{with python3}
 %files -n python3-%{srcname}
 %license LICENSE
 %doc README.md
 %{python3_sitelib}/%{modname}-*.egg-info/
 %{python3_sitelib}/%{modname}/
-%endif
+
 
 %changelog
+* Thu Aug 03 2023 Lukas Slebodnik <lslebodn@fedoraproject.org> - 2.0.1-1
+- Automatic commit of package [python-dockerfile-parse] release [2.0.1-1]. (mkosiarc)
+- fix(pylint): address broad-exception-raised (Martin Basti)
+- fix(spec): remove six module (Martin Basti)
+- Automatic commit of package [python-dockerfile-parse] release [2.0.0-1]. (mkosiarc)
+- Extend support for py3.11 (Martin Basti)
+- Extend testing to all supported python versions (Martin Basti)
+- Remove test.sh (Martin Basti)
+- GH workflows: Use tox in CI (Martin Basti)
+- pylint: fix redundant-u-string-prefix (Martin Basti)
+- Pylint: disable unspecified-encoding check (Martin Basti)
+- pylint: disable consider-using-f-string check (Martin Basti)
+- Add tox (Martin Basti)
+- Remove six from tests (Martin Basti)
+- Pylint: silence no-absolute-import (Martin Basti)
+- Remove six module (Martin Basti)
+- support only py3.6 and newer (Martin Basti)
+- Drop Python2 support (Martin Basti)
+- Bump actions/upload-artifact from 2 to 3 (dependabot[bot])
+- flake8: Fix whitespace issue (Martin Basti)
+- Automatic updates of GH actions with dependabot (Martin Basti)
+- support --platform parameter in image_from (Tim van Katwijk)
+- Add CodeQL workflow for GitHub code scanning (LGTM Migrator)
+- Fix compatibility with pytest 7.2.0 (Lumír 'Frenzy' Balhar)
+- pylint: fix unsupported-assignment-operation (Martin Basti)
+- workflow: use checkout action version 3 (Martin Basti)
+- Fix E741 ambiguous variable name 'l' (Adam Cmiel)
+- Add necessary noqa directive to version_init.template (Ben Alkov)
+- Automatic commit of package [python-dockerfile-parse] release [1.2.0-1]. (Robert Cerven)
+- Avoid adding repos to from scratch with alias (Ladislav Kolacek)
+- Update docstring (fixes #113) (Tim Waugh)
+- Pin pip<21.0 for running tests with Python 2 (Chenxiong Qi)
+- Replace f32 with f33 to run bandit and pylint (Chenxiong Qi)
+- Fix coveralls 422 Client Error (Chenxiong Qi)
+- Make the bandit action runnable with Python 2 (Chenxiong Qi)
+- Replace f31 with f33 in CI workflow (Chenxiong Qi)
+- Fix coverage collection in `test.sh` (Ben Alkov)
+- addopts for pytest-html have to go in test.sh because of packit... ...(rpm specfile runs unit tests) (Ben Alkov)
+- Add pytest.ini for pytest improvements (Ben Alkov)
+- Silence remaining flake8 hits; mostly WS and wraps (Ben Alkov)
+- Add GH workflows (Ben Alkov)
+- Add new reqs for unit tests (Ben Alkov)
+- Refactor test.sh (Ben Alkov)
+- Update README badges (Ben Alkov)
+- Remove unneeded config files (Ben Alkov)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

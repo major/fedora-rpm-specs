@@ -1,11 +1,11 @@
 Name:			antlr-maven-plugin
 Version:		2.2
-Release:		36%{?dist}
+Release:		37%{?dist}
 Summary:		Maven plugin that generates files based on grammar file(s)
-License:		ASL 2.0
+License:		Apache-2.0
 URL:			http://mojo.codehaus.org/antlr-maven-plugin/
 
-Source0:		http://repo1.maven.org/maven2/org/codehaus/mojo/%{name}/%{version}/%{name}-%{version}-source-release.zip
+Source0:		https://repo1.maven.org/maven2/org/codehaus/mojo/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
 # Modern modello expects to see <models></models>, even if there is only one.
 Patch0:			maven-antlr-plugin-2.2-modello-issue.patch
@@ -13,6 +13,8 @@ Patch0:			maven-antlr-plugin-2.2-modello-issue.patch
 Patch2:			maven-antlr-plugin-2.1-sinkfix.patch
 # Fix grammar processing bug (bz 1020312)
 Patch3:			0001-MANTLR-34-Fix-NPE-when-building-Jenkins.patch
+# Use maven-core
+Patch4:			antlr-maven-plugin-2.2-use-maven-core.patch
 
 BuildArch:		noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -20,7 +22,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.commons:commons-exec)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven:maven-project)
+BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-impl)
 BuildRequires:  mvn(org.apache.maven.shared:maven-plugin-testing-harness)
@@ -44,9 +46,10 @@ This package contains the API documentation for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b .modello
-%patch2 -b .sink
-%patch3 -p1 -b .fixnpe
+%patch -P0 -p1 -b .modello
+%patch -P2 -b .sink
+%patch -P3 -p1 -b .fixnpe
+%patch -P4 -p1 -b .core
 
 # reporting eventually pulls in another antlr and we'd break with weird errors
 %pom_xpath_inject "pom:dependency[pom:artifactId[text()='maven-reporting-impl']]/pom:exclusions" "
@@ -72,6 +75,10 @@ find -name '*.jar' -exec rm -f '{}' \;
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Thu Aug  3 2023 Tom Callaway <spot@fedoraproject.org> - 2.2-37
+- fix license tag
+- fix FTBFS (dependency moved into a new jar)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,8 +2,8 @@ Name:           perl-Mozilla-CA
 # You do not need to back-port a new version for updating a list of the
 # certificates. They are taken from ca-certificates package instead
 # per bug #738383.
-Version:        20221114
-Release:        3%{?dist}
+Version:        20230801
+Release:        1%{?dist}
 Summary:        Mozilla's CA certificate bundle in PEM format
 # README:                       MPL-2.0
 ## Unbundled
@@ -13,7 +13,7 @@ License:        MPL-2.0
 URL:            https://metacpan.org/release/Mozilla-CA
 Source0:        https://cpan.metacpan.org/authors/id/A/AB/ABH/Mozilla-CA-%{version}.tar.gz
 # Use a CA bundle from ca-certificates package, bug #738383
-Patch0:         Mozilla-CA-20211114-Redirect-to-ca-certificates-bundle.patch
+Patch0:         Mozilla-CA-20230801-Redirect-to-ca-certificates-bundle.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -44,7 +44,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Mozilla-CA-%{version}
-%patch0 -p1
+%patch -P0 -p1
 # Remove a bundled CA bundle for sure
 rm lib/Mozilla/CA/cacert.pem
 # Help generators to recognize Perl scripts
@@ -81,6 +81,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 20230801-1
+- 20230801 bump
+- Fix %patch macro usage
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221114-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

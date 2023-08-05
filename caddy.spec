@@ -1,21 +1,18 @@
 # https://github.com/caddyserver/caddy
 %global goipath         github.com/caddyserver/caddy
-%global basever         2.7.0
-%global prerel          beta
-%global prerelnum       2
+%global basever         2.7.2
+#global prerel          beta
+#global prerelnum       2
 Version:                %{basever}%{?prerel:~%{prerel}%{prerelnum}}
 
 %gometa -f
-
-%global common_description %{expand:
-Caddy is the web server with automatic HTTPS.}
 
 Name:           caddy
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 # main source code is Apache-2.0
 # see comments above provides tags for bundled license breakdown
-License:        Apache-2.0 AND (Apache-2.0 AND BSD-2-Clause) AND (Apache-2.0 AND BSD-3-Clause) AND (Apache-2.0 AND MIT) AND BSD-2-Clause AND (BSD-2-Clause-Views AND BSD-3-Clause) AND BSD-3-Clause AND (BSD-3-Clause AND Apache-2.0 AND MIT) AND ISC AND MIT AND (MIT AND Apache-2.0) AND (MIT AND CC0-1.0) AND MPL-2.0
+License:        Apache-2.0 AND (Apache-2.0 AND BSD-2-Clause) AND (Apache-2.0 AND BSD-3-Clause) AND (Apache-2.0 AND MIT) AND BSD-2-Clause AND (BSD-2-Clause-Views AND BSD-3-Clause) AND BSD-3-Clause AND (BSD-3-Clause AND Apache-2.0 AND MIT) AND CC0-1.0 AND ISC AND MIT AND (MIT AND Apache-2.0) AND (MIT AND CC0-1.0) AND MPL-2.0
 URL:            https://caddyserver.com
 
 # see create-vendor-tarball.sh in this distgit repo
@@ -33,8 +30,8 @@ Source31:       poweredby-black.png
 # downstream only patch to disable commands that can alter the binary
 Patch:          0001-Disable-commands-that-can-alter-the-binary.patch
 
-# https://github.com/caddyserver/caddy/commit/8cb1bb4af30b880f981b1ae6fdb13e5944bfaefe
-BuildRequires:  golang >= 1.19
+# https://github.com/caddyserver/caddy/commit/f45a6de20dd19e82e58c85b37e03957b2203b544
+BuildRequires:  golang >= 1.20
 
 # BSD-3-Clause
 Provides:       bundled(golang(filippo.io/edwards25519)) = 1.0.0
@@ -59,7 +56,7 @@ Provides:       bundled(golang(github.com/aryann/difflib)) = ff5ff6d
 # MIT
 Provides:       bundled(golang(github.com/beorn7/perks)) = 1.0.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/caddyserver/certmagic)) = 0.18.2
+Provides:       bundled(golang(github.com/caddyserver/certmagic)) = 0.19.1
 # MIT
 Provides:       bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
 # MIT
@@ -147,7 +144,7 @@ Provides:       bundled(golang(github.com/jackc/pgtype)) = 1.14.0
 # MIT
 Provides:       bundled(golang(github.com/jackc/pgx/v4)) = 4.18.0
 # BSD-3-Clause AND Apache-2.0 AND MIT
-Provides:       bundled(golang(github.com/klauspost/compress)) = 1.16.6
+Provides:       bundled(golang(github.com/klauspost/compress)) = 1.16.7
 # MIT
 Provides:       bundled(golang(github.com/klauspost/cpuid/v2)) = 2.2.5
 # MIT
@@ -195,7 +192,7 @@ Provides:       bundled(golang(github.com/quic-go/qpack)) = 0.4.0
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/quic-go/qtls-go1-20)) = 0.3.0
 # MIT
-Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.37.0
+Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.37.1
 # MIT
 Provides:       bundled(golang(github.com/rs/xid)) = 1.5.0
 # BSD-2-Clause
@@ -205,11 +202,11 @@ Provides:       bundled(golang(github.com/shopspring/decimal)) = 1.2.0
 # MIT
 Provides:       bundled(golang(github.com/shurcooL/sanitized_anchor_name)) = 1.0.0
 # MIT
-Provides:       bundled(golang(github.com/sirupsen/logrus)) = 1.9.0
+Provides:       bundled(golang(github.com/sirupsen/logrus)) = 1.9.3
 # MIT
 Provides:       bundled(golang(github.com/slackhq/nebula)) = 1.6.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/smallstep/certificates)) = 0.24.2
+Provides:       bundled(golang(github.com/smallstep/certificates)) = 0.24.3-rc.5
 # Apache-2.0
 Provides:       bundled(golang(github.com/smallstep/go-attestation)) = e172914
 # Apache-2.0
@@ -225,17 +222,19 @@ Provides:       bundled(golang(github.com/spf13/pflag)) = 1.0.5
 # MIT
 Provides:       bundled(golang(github.com/stoewer/go-strcase)) = 1.2.0
 # MIT
-Provides:       bundled(golang(github.com/stretchr/testify)) = 1.8.3
+Provides:       bundled(golang(github.com/stretchr/testify)) = 1.8.4
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/tailscale/tscert)) = 4e9cb4f
 # MIT
-Provides:       bundled(golang(github.com/urfave/cli)) = 1.22.13
+Provides:       bundled(golang(github.com/urfave/cli)) = 1.22.14
 # MIT
 Provides:       bundled(golang(github.com/x448/float16)) = 0.8.4
 # MIT
-Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.5.4
+Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.5.5
 # MIT
-Provides:       bundled(golang(github.com/yuin/goldmark-highlighting/v2)) = 1513624
+Provides:       bundled(golang(github.com/yuin/goldmark-highlighting/v2)) = 37449ab
+# CC0-1.0
+Provides:       bundled(golang(github.com/zeebo/blake3)) = 0.2.3
 # MIT
 Provides:       bundled(golang(go.etcd.io/bbolt)) = 1.3.7
 # MIT
@@ -269,41 +268,43 @@ Provides:       bundled(golang(go.opentelemetry.io/otel/trace)) = 1.16.0
 # Apache-2.0
 Provides:       bundled(golang(go.opentelemetry.io/proto/otlp)) = 0.19.0
 # Apache-2.0 AND BSD-2-Clause
-Provides:       bundled(golang(go.step.sm/cli-utils)) = 0.7.6
+Provides:       bundled(golang(go.step.sm/cli-utils)) = 0.8.0
 # Apache-2.0 AND BSD-2-Clause
-Provides:       bundled(golang(go.step.sm/crypto)) = 0.30.0
+Provides:       bundled(golang(go.step.sm/crypto)) = 0.33.0
 # Apache-2.0
-Provides:       bundled(golang(go.step.sm/linkedca)) = 0.19.1
-# MIT
-Provides:       bundled(golang(go.uber.org/atomic)) = 1.11.0
+Provides:       bundled(golang(go.step.sm/linkedca)) = 0.20.0
 # MIT
 Provides:       bundled(golang(go.uber.org/multierr)) = 1.11.0
 # MIT
-Provides:       bundled(golang(go.uber.org/zap)) = 1.24.0
+Provides:       bundled(golang(go.uber.org/zap)) = 1.25.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/crypto)) = 0.10.0
+Provides:       bundled(golang(golang.org/x/crypto)) = 0.11.0
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/exp)) = 522b1b5
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/mod)) = 0.11.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/net)) = 0.11.0
+Provides:       bundled(golang(golang.org/x/net)) = 0.12.0
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/sync)) = 0.3.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sys)) = 0.9.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.10.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/term)) = 0.9.0
+Provides:       bundled(golang(golang.org/x/term)) = 0.10.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/text)) = 0.10.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.11.0
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/tools)) = 0.10.0
 # Apache-2.0
-Provides:       bundled(golang(google.golang.org/genproto)) = daa745c
+Provides:       bundled(golang(google.golang.org/genproto)) = ccb25ca
 # Apache-2.0
-Provides:       bundled(golang(google.golang.org/grpc)) = 1.55.0
+Provides:       bundled(golang(google.golang.org/genproto/googleapis/api)) = ccb25ca
+# Apache-2.0
+Provides:       bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 782d3b1
+# Apache-2.0
+Provides:       bundled(golang(google.golang.org/grpc)) = 1.56.2
 # BSD-3-Clause
-Provides:       bundled(golang(google.golang.org/protobuf)) = 1.30.0
+Provides:       bundled(golang(google.golang.org/protobuf)) = 1.31.0
 # MIT
 Provides:       bundled(golang(gopkg.in/natefinch/lumberjack.v2)) = 2.2.1
 # Apache-2.0 AND BSD-3-Clause
@@ -320,7 +321,8 @@ Requires:       system-logos-httpd
 Provides:       webserver
 
 
-%description %{common_description}
+%description
+Caddy is the web server with automatic HTTPS.
 
 
 %prep
@@ -452,6 +454,9 @@ fi
 
 
 %changelog
+* Thu Aug 03 2023 Carl George <carl@george.computer> - 2.7.2-1
+- Update to version 2.7.2, resolves rhbz#2228776
+
 * Thu Jul 27 2023 Carl George <carl@george.computer> - 2.7.0~beta2-1
 - Update to version 2.7.0~beta2, resolves rhbz#2225732 rhbz#2124366
 - Resolves CVE-2022-41717 rhbz#2164315

@@ -3,7 +3,7 @@ BuildRequires: /usr/bin/makeotfexe
 BuildRequires: fontforge
 
 Version:   0.133
-Release:   7%{?dist}
+Release:   8%{?dist}
 License:   GPL-2.0-only
 URL:       http://culmus.sourceforge.net
 
@@ -17,22 +17,6 @@ Hebrew from the Culmus project.}
 %global fontdocsex        %{fontlicenses}
 
 Source0:   http://downloads.sourceforge.net/culmus/culmus-%{version}.tar.gz
-Source1:   66-%{fontpkgname1}.conf
-Source2:   66-%{fontpkgname2}.conf
-Source3:   65-%{fontpkgname3}.conf
-Source4:   66-%{fontpkgname4}.conf
-Source5:   66-%{fontpkgname5}.conf
-Source6:   66-%{fontpkgname6}.conf
-Source7:   66-%{fontpkgname7}.conf
-Source8:   66-%{fontpkgname8}.conf
-Source9:   66-%{fontpkgname9}.conf
-Source10:  66-%{fontpkgname10}.conf
-Source11:  66-%{fontpkgname11}.conf
-Source12:  66-%{fontpkgname12}.conf
-Source13:  66-%{fontpkgname13}.conf
-Source14:  66-%{fontpkgname14}.conf
-Source15:  66-%{fontpkgname15}.conf
-Source16:  66-%{fontpkgname16}.conf
 Source17:  modify-font-metadata.pe
 
 Name:      culmus-fonts
@@ -270,6 +254,23 @@ This package provides Yehuda CLM, a sans-serif font family.
 
 %fontpkg -a
 
+Source1:   66-%{fontpkgname1}.conf
+Source2:   66-%{fontpkgname2}.conf
+Source3:   65-%{fontpkgname3}.conf
+Source4:   66-%{fontpkgname4}.conf
+Source5:   66-%{fontpkgname5}.conf
+Source6:   66-%{fontpkgname6}.conf
+Source7:   66-%{fontpkgname7}.conf
+Source8:   66-%{fontpkgname8}.conf
+Source9:   66-%{fontpkgname9}.conf
+Source10:  66-%{fontpkgname10}.conf
+Source11:  66-%{fontpkgname11}.conf
+Source12:  66-%{fontpkgname12}.conf
+Source13:  66-%{fontpkgname13}.conf
+Source14:  66-%{fontpkgname14}.conf
+Source15:  66-%{fontpkgname15}.conf
+Source16:  66-%{fontpkgname16}.conf
+
 %fontmetapkg
 
 %prep
@@ -306,6 +307,9 @@ fontforge ./modify-font-metadata.pe
 %fontfiles -a
 
 %changelog
+* Mon Jul 24 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.133-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.133-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

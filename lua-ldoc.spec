@@ -4,14 +4,14 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		lua-ldoc
-Version:	1.4.6
-Release:	17%{?dist}
+Version:	1.5.0
+Release:	1%{?dist}
 BuildArch:	noarch
 Summary:	Lua documentation generator
 # the included css code is BSD licensed
 License:	MIT and BSD
-URL:		https://github.com/stevedonovan/ldoc
-Source0:	https://github.com/stevedonovan/LDoc/archive/%{version}/LDoc-%{version}.tar.gz
+URL:		https://github.com/lunarmodules/ldoc
+Source0:	https://github.com/lunarmodules/ldoc/archive/refs/tags/v%{version}.tar.gz
 BuildRequires:	lua >= %{luaver}
 BuildRequires:	lua-markdown
 BuildRequires:	lua-penlight >= 1.4.0
@@ -39,7 +39,7 @@ Requires:	%{name} = %{version}-%{release}
 
 
 %prep
-%setup -q -n LDoc-%{version}
+%autosetup -p1 -n ldoc-%{version}
 
 %build
 # nothing to do here
@@ -58,14 +58,12 @@ sed -i %{buildroot}%{_bindir}/ldoc -e '1i#!/bin/sh'
 sed -i %{buildroot}%{luapkgdir}/ldoc.lua -e '1{/^#!/d}'
 
 # create documentation
-pushd doc
-lua ../ldoc.lua .
-popd
-markdown.lua readme.md > readme.html
-markdown.lua changes.md > changes.html
+lua ldoc.lua .
+markdown.lua README.md > README.html
+markdown.lua CHANGELOG.md > CHANGELOG.html
 
 # fix permissions
-chmod u=rwX,go=rX -R out
+chmod u=rwX,go=rX -R public
 
 # fix line-endings
 sed -i 's/\r//' COPYRIGHT
@@ -79,14 +77,14 @@ rm %{buildroot}%{luapkgdir}/ldoc/SciTE.properties \
 
 # install docs
 mkdir -p %{buildroot}%{_pkgdocdir}
-cp -av %{!?_licensedir:COPYRIGHT} readme.html changes.html out/* \
+cp -av %{!?_licensedir:COPYRIGHT} README.html CHANGELOG.html public/* \
   %{buildroot}%{_pkgdocdir}
 
 
 %files
 %dir %{_pkgdocdir}
 %license COPYRIGHT
-%{_pkgdocdir}/readme.html
+%{_pkgdocdir}/README.html
 %{_bindir}/ldoc
 %{luapkgdir}/ldoc
 %{luapkgdir}/ldoc.lua
@@ -94,14 +92,17 @@ cp -av %{!?_licensedir:COPYRIGHT} readme.html changes.html out/* \
 
 %files doc
 %{_pkgdocdir}/index.html
-%{_pkgdocdir}/ldoc_pale.css
+%{_pkgdocdir}/ldoc_new.css
 %{_pkgdocdir}/examples
 %{_pkgdocdir}/manual
 %{_pkgdocdir}/programs
-%{_pkgdocdir}/changes.html
+%{_pkgdocdir}/CHANGELOG.html
 
 
 %changelog
+* Thu Aug  3 2023 Thomas Moschny <thomas.moschny@gmx.de> - 1.5.0-1
+- Update to 1.5.0.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

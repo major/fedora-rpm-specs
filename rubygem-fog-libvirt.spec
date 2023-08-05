@@ -3,11 +3,16 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.9.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Module for the 'fog' gem to support libvirt
 License: MIT
 URL: http://github.com/fog/fog-libvirt
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix compatibility with Minitest 5+. This is speficially required for
+# Minitest 5.19+, which hides the `MiniTest` test behind environment
+# variable.
+# https://github.com/fog/fog-libvirt/pull/130
+Patch0: rubygem-fog-libvirt-0.11.0-Fix-compatibility-with-Minitest-5.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -35,6 +40,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+
+%patch 0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -70,6 +77,9 @@ popd
 %{gem_instdir}/minitests
 
 %changelog
+* Wed Aug 02 2023 Vít Ondruch <vondruch@redhat.com> - 0.9.0-4
+- Fix Minitest 5.19+ compatibility.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

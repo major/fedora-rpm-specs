@@ -1,29 +1,24 @@
 %global gem_name mocha
 
 Name: rubygem-%{gem_name}
-Version: 1.15.0
-Release: 4%{?dist}
+Version: 2.1.0
+Release: 1%{?dist}
 Summary: Mocking and stubbing library
-License:        MIT or Ruby or BSD
+License: Ruby OR BSD-2-Clause OR MIT
 URL: https://mocha.jamesmead.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/freerange/mocha.git && cd mocha
-# git archive -v -o mocha-1.15.0-test.tar.gz v1.15.0 test/
+# git archive -v -o mocha-2.1.0-test.tar.gz v2.1.0 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
-# https://github.com/freerange/mocha/commit/ae9fed4a9f2ef6267302494ae0edf515d4a8a921
-# To apply Patch1 cleanly:
-Patch0:  %{name}-2.0.2-dry-up-regexp-test.patch
-# https://github.com/freerange/mocha/issues/590
-# https://github.com/freerange/mocha/commit/26b106a540ad57cd73401461451aa2711c541e9d
-# Fix regexp test, ruby3.2 removes Object#=~
-Patch1:  %{name}-2.0.2-ruby32-fix-regexp-test.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-#BuildRequires:  rubygem(metaclass)
 BuildRequires: rubygem(introspection)
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(test-unit)
 BuildArch: noarch
+
+%global __requires_exclude ruby2_keywords
 
 %description
 Mocking and stubbing library with JMock/SchMock syntax, which allows mocking
@@ -40,11 +35,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-(
-cd %{_builddir}/test
-%patch0 -p2
-%patch1 -p2
-)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -58,18 +48,21 @@ cp -a .%{gem_dir}/* \
 %check
 pushd .%{gem_instdir}
 ln -s %{_builddir}/test .
+
 # Each part of test suite must be run separately, otherwise the test suite fails.
 # https://github.com/freerange/mocha/issues/121
-for kind in unit acceptance integration; do
+for kind in unit acceptance; do
   ruby -e "Dir.glob('./test/$kind/**/*_test.rb').each {|t| require t}"
 done
+
+MOCHA_RUN_INTEGRATION_TESTS=minitest ruby -rminitest -e "Dir.glob('./test/integration/**/mini_test_test.rb').each {|t| require t}"
+MOCHA_RUN_INTEGRATION_TESTS=test-unit ruby -rtest/unit -e "Dir.glob('./test/integration/**/test_unit_test.rb').each {|t| require t}"
 popd
 
 %files
 %exclude %{gem_instdir}/.*
 %license %{gem_instdir}/COPYING.md
 %license %{gem_instdir}/MIT-LICENSE.md
-%exclude %{gem_instdir}/init.rb
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
@@ -83,10 +76,12 @@ popd
 %{gem_instdir}/Rakefile
 %{gem_instdir}/mocha.gemspec
 %{gem_instdir}/gemfiles/
-%{gem_instdir}/yard-templates/
-
 
 %changelog
+* Wed Aug 02 2023 Vít Ondruch <vondruch@redhat.com> - 2.1.0-1
+- Update to Mocha 2.1.0.
+  Resolves: rhbz#2135833
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-HTTP-Tiny
 Version:        0.088
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Tiny
@@ -53,9 +53,16 @@ Requires:       perl(bytes)
 Requires:       perl(Carp)
 Requires:       perl(Fcntl)
 Recommends:     perl(IO::Socket::IP) >= 0.32
+%if !%{defined perl_bootstrap}
+Requires:       perl(IO::Socket::SSL) >= 1.56
+Requires:       perl(Mozilla::CA)
+Requires:       perl(Net::SSLeay) >= 1.49
+%else
 Recommends:     perl(IO::Socket::SSL) >= 1.56
-Requires:       perl(MIME::Base64)
 Recommends:     perl(Mozilla::CA)
+Recommends:     perl(Net::SSLeay) >= 1.49
+%endif
+Requires:       perl(MIME::Base64)
 Requires:       perl(Time::Local)
 
 # Filter modules bundled for tests
@@ -76,9 +83,12 @@ resumes after EINTR.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-%if %{with perl_HTTP_Tiny_enables_optional_deps}
+%if %{with perl_HTTP_Tiny_enables_optional_deps} && !%{defined perl_bootstrap}
+Requires:       openssl
 Requires:       perl(IO::Socket::IP) >= 0.32
 Requires:       perl(IO::Socket::SSL) >= 1.56
+Requires:       perl(Mozilla::CA)
+Requires:       perl(Net::SSLeay) >= 1.49
 %endif
 
 %description tests
@@ -125,6 +135,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.088-3
+- Update run-requires for changing the `verify_SSL` default parameter
+  from 0 to 1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.088-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

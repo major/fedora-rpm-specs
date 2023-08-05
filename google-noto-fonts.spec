@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	23.6.1
+%global srcver	23.8.1
 # for default font
 %global hprio	56
 # for default font but static
@@ -28,8 +28,8 @@ in Unicode.\
 %global	nlat_lprio	67
 
 Name:           %{fontname}-fonts
-Version:        20230601
-Release:        4%{?dist}
+Version:        20230801
+Release:        1%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -212,6 +212,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Kannada UI", lang={ "kn" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
     },
+    { alias="sans-serif", family="Sans Kawi" },
     { alias="sans-serif", family="Sans Kayah Li" },
     { alias="sans-serif", family="Sans Kharoshthi" },
     { alias="sans-serif", family="Sans Khmer", lang={ "km" },
@@ -292,6 +293,9 @@ local subpackages = {
     { alias="sans-serif", family="Sans New Tai Lue", lang={ "khb" } },
     { alias="sans-serif", family="Sans Newa" },
     { alias="sans-serif", family="Sans NKo", lang={ "nqo" } },
+    { alias="sans-serif", family="Sans NKo Unjoined", lang={ "nqo" },
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+    },
     { alias="sans-serif", family="Sans Nushu" },
     { alias="sans-serif", family="Sans Ogham", lang={ "pgl" },
       obsoletes={ "sans-ogham-vf" }
@@ -551,6 +555,7 @@ local subpackages = {
       fontname="SansKannada-UI",
     },
     { alias="sans-serif", variable=true, family="Sans Kayah Li" },
+    { alias="sans-serif", variable=true, family="Sans Kawi" },
     { alias="sans-serif", variable=true, family="Sans Khmer", lang={ "km" },
       obsoletes={ "sans-khmer-ui-vf" },
       default=true
@@ -578,6 +583,9 @@ local subpackages = {
       obsoletes={ "serif-myanmar-vf", "sans-myanmar-ui-vf" }
     },
     { alias="sans-serif", variable=true, family="Sans New Tai Lue", lang={ "khb" } },
+    { alias="sans-serif", variable=true, family="Sans NKo Unjoined", lang={ "nqo" },
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+    },
     { alias="sans-serif", variable=true, family="Sans Ol Chiki" },
     { alias="sans-serif", variable=true, family="Sans Oriya", lang={ "or" },
       obsoletes={ "sans-oriya-ui-vf" },
@@ -1170,6 +1178,10 @@ done
 
 
 %changelog
+* Wed Aug  2 2023 Akira TAGOH <tagoh@redhat.com> - 20230801-1
+- Updates to monthly release of 23.8.1
+- Add google-noto-sans-kawi{,-vf}-fonts and google-noto-sans-nko-unjoined{,-vf}-fonts packages.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

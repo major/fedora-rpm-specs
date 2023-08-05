@@ -11,9 +11,6 @@ License:        GPL-3.0-or-later AND LGPL-3.0-only
 ExclusiveArch:  %{gap_arches}
 URL:            https://digraphs.github.io/Digraphs/
 Source0:        https://github.com/digraphs/Digraphs/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-# Work around a test failure
-# https://github.com/digraphs/Digraphs/issues/577
-Patch0:         %{name}-test.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
@@ -104,6 +101,9 @@ rm -fr ../pkg
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Aug  3 2023 Jerry James <loganjerry@gmail.com> - 1.6.2-2
+- Drop the patch to work around a test failure
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,10 +2,10 @@ Name: hyphen-mi
 Summary: Maori hyphenation rules
 %global upstreamid 20080630
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 # Source is dead now
 # Source: http://packages.papakupu.maori.nz/hunspell-hyphen/hunspell-hyphen-mi-0.1.%%{upstreamid}-beta.tar.gz
-Source: hunspell-hyphen-mi-0.1.%%{upstreamid}-beta.tar.gz
+Source: hunspell-hyphen-mi-0.1.%{upstreamid}-beta.tar.gz
 URL: http://papakupu.maori.nz/
 License: GPL-3.0-or-later
 BuildArch: noarch
@@ -31,6 +31,9 @@ cp -p mi.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/hyph_mi_NZ.dic
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Aug 03 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080630-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
 * Tue Mar 28 2023 Caolán McNamara <caolanm@redhat.com> - 0.20080630-27
 - migrated to SPDX license
 

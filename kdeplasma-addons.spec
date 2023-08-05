@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 5
-Version: 5.27.6
-Release: 3%{?dist}
+Version: 5.27.7
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -139,6 +139,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
+- 5.27.7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

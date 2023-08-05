@@ -2,14 +2,14 @@
 %global gem_name rack-cache
 
 Name: rubygem-%{gem_name}
-Version: 1.13.0
-Release: 3%{?dist}
+Version: 1.14.0
+Release: 1%{?dist}
 Summary: HTTP Caching for Rack
 License: MIT
-URL: https://github.com/rtomayko/rack-cache
+URL: https://github.com/rack/rack-cache
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/rtomayko/rack-cache.git && cd rack-cache
-# git archive -v -o rack-cache-1.13.0-test.tar.gz v1.13.0 test/
+# git clone https://github.com/rack/rack-cache.git && cd rack-cache
+# git archive -v -o rack-cache-1.14.0-test.tar.gz v1.14.0 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -21,8 +21,8 @@ BuildArch: noarch
 
 %description
 Rack::Cache is suitable as a quick drop-in component to enable HTTP caching
-for Rack-based applications that produce freshness (Expires, Cache-Control)
-and/or validation (Last-Modified, ETag) information.
+for Rack-based applications that produce freshness (expires, cache-control)
+and/or validation (last-modified, etag) information.
 
 
 %package doc
@@ -61,7 +61,7 @@ sed -i '/global_must/ s/^/#/' test/test_helper.rb
 sed -i 's/maxitest/minitest/' test/test_helper.rb
 mv test/meta_store_test.rb{,.disabled}
 
-ruby -Ilib -rtimeout -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+ruby -Ilib -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 
 %files
@@ -77,6 +77,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Aug 03 2023 Vít Ondruch <vondruch@redhat.com> - 1.14.0-1
+- Updated to rack-cache 1.14.0.
+  Resolves: rhbz#2223583
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

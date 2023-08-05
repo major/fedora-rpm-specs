@@ -3,12 +3,14 @@
 
 # Cassandane was split into separate CI test:
 # https://src.fedoraproject.org/tests/cyrus-imapd/blob/main/f/Sanity/cassandane
-# Run rpmbuild '--with cassandane' to enable it.
+# Run: `rpmbuild '--with cassandane'` to enable it.
+# Run: `echo '%_with_cassandane 1' >> ~/.rpmmacros && dnf builddep rpmbuild/SPECS/cyrus-imapd.spec`
+# to install dependencies for it.
 %bcond_with cassandane
 
 Name: cyrus-imapd
 Version: 3.8.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -23,6 +25,9 @@ Release: 3%{?dist}
 %global __provides_exclude ^perl\\(AnnotateInlinedCIDs\\)$
 
 Summary: A high-performance email, contacts and calendar server
+# Cannot be converted to SPDX format yet due to:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/249
+# https://github.com/spdx/license-list-XML/issues/2044
 License: BSD
 URL: http://www.cyrusimap.org/
 
@@ -82,6 +87,9 @@ BuildRequires: autoconf automake bison flex gcc gcc-c++ git glibc-langpack-en
 BuildRequires: groff libtool make pkgconfig rsync systemd transfig
 BuildRequires: perl-devel perl-generators perl(ExtUtils::MakeMaker)
 BuildRequires: perl(Pod::Html)
+%if 0%{?fedora} || 0%{?rhel} > 8
+BuildRequires: gnupg2
+%endif
 
 %if 0%{?fedora} && 0%{?fedora}  >= 0
 BuildRequires: clamav-devel shapelib-devel
@@ -225,7 +233,7 @@ Summary: Perl libraries for interfacing with Cyrus IMAPd
 This package contains Perl libraries used to interface with Cyrus IMAPd.
 
 %prep
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 8
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -p1
@@ -589,14 +597,103 @@ exclude+=("!Master.maxforkrate")
 %systemd_postun_with_restart cyrus-imapd.service
 
 %files
+%license COPYING
 %doc README.md doc/README.* doc/examples doc/text
 
-%_sbindir/*
-%_datadir/cyrus-imapd
-%_mandir/man5/*
-%_mandir/man8/*
-%exclude %_sbindir/cyr_virusscan
-%exclude %_mandir/man8/cyr_virusscan.8*
+%{_sbindir}/arbitron
+%{_sbindir}/chk_cyrus
+%{_sbindir}/ctl_backups
+%{_sbindir}/ctl_conversationsdb
+%{_sbindir}/ctl_cyrusdb
+%{_sbindir}/ctl_deliver
+%{_sbindir}/ctl_mboxlist
+%{_sbindir}/ctl_zoneinfo
+%{_sbindir}/cvt_cyrusdb
+%{_sbindir}/cvt_xlist_specialuse
+%{_sbindir}/cyr_backup
+%{_sbindir}/cyr_buildinfo
+%{_sbindir}/cyr_cd.sh
+%{_sbindir}/cyr_dbtool
+%{_sbindir}/cyr_deny
+%{_sbindir}/cyr_df
+%{_sbindir}/cyr_expire
+%{_sbindir}/cyr_fetchnews
+%{_sbindir}/cyr_info
+%{_sbindir}/cyr_ls
+%{_sbindir}/cyr_pwd
+%{_sbindir}/cyr_quota
+%{_sbindir}/cyr_restore
+%{_sbindir}/cyr_synclog
+%{_sbindir}/cyr_userseen
+%{_sbindir}/cyrdump
+%{_sbindir}/dav_reconstruct
+%{_sbindir}/deliver
+%{_sbindir}/ipurge
+%{_sbindir}/mbexamine
+%{_sbindir}/mbpath
+%{_sbindir}/mbtool
+%{_sbindir}/ptdump
+%{_sbindir}/ptexpire
+%{_sbindir}/reconstruct
+%{_sbindir}/relocate_by_id
+%{_sbindir}/sievec
+%{_sbindir}/sieved
+%{_sbindir}/squatter
+%{_sbindir}/sync_client
+%{_sbindir}/sync_reset
+%{_sbindir}/tls_prune
+%{_sbindir}/unexpunge
+%{_datadir}/cyrus-imapd
+%{_mandir}/man5/cyrus.conf.5*
+%{_mandir}/man5/imapd.conf.5*
+%{_mandir}/man5/krb.equiv.5*
+%{_mandir}/man8/arbitron.8*
+%{_mandir}/man8/backupd.8*
+%{_mandir}/man8/chk_cyrus.8*
+%{_mandir}/man8/ctl_backups.8*
+%{_mandir}/man8/ctl_conversationsdb.8*
+%{_mandir}/man8/ctl_cyrusdb.8*
+%{_mandir}/man8/ctl_deliver.8*
+%{_mandir}/man8/ctl_mboxlist.8*
+%{_mandir}/man8/ctl_zoneinfo.8*
+%{_mandir}/man8/cvt_cyrusdb.8*
+%{_mandir}/man8/cyr_backup.8*
+%{_mandir}/man8/cyr_buildinfo.8*
+%{_mandir}/man8/cyr_dbtool.8*
+%{_mandir}/man8/cyr_deny.8*
+%{_mandir}/man8/cyr_df.8*
+%{_mandir}/man8/cyr_expire.8*
+%{_mandir}/man8/cyr_fetchnews.8*
+%{_mandir}/man8/cyr_info.8*
+%{_mandir}/man8/cyr_quota.8*
+%{_mandir}/man8/cyr_restore.8*
+%{_mandir}/man8/cyr_synclog.8*
+%{_mandir}/man8/deliver.8*
+%{_mandir}/man8/fud.8*
+%{_mandir}/man8/httpd.8cyrus*
+%{_mandir}/man8/idled.8*
+%{_mandir}/man8/imapd.8cyrus*
+%{_mandir}/man8/ipurge.8*
+%{_mandir}/man8/lmtpd.8*
+%{_mandir}/man8/master.8cyrus*
+%{_mandir}/man8/mbexamine.8*
+%{_mandir}/man8/mbpath.8*
+%{_mandir}/man8/mbtool.8*
+%{_mandir}/man8/nntpd.8*
+%{_mandir}/man8/notifyd.8*
+%{_mandir}/man8/pop3d.8cyrus*
+%{_mandir}/man8/reconstruct.8*
+%{_mandir}/man8/smmapd.8*
+%{_mandir}/man8/squatter.8*
+%{_mandir}/man8/sync_client.8*
+%{_mandir}/man8/sync_reset.8*
+%{_mandir}/man8/sync_server.8*
+%{_mandir}/man8/timsieved.8*
+%{_mandir}/man8/tls_prune.8*
+%{_mandir}/man8/unexpunge.8*
+
+%exclude %{_sbindir}/cyr_virusscan
+%exclude %{_mandir}/man8/cyr_virusscan.8*
 
 # For the legacy symlink to the deliver binary
 # RF hardcoded-library-path in /usr/lib/cyrus-imapd
@@ -651,37 +748,77 @@ exclude+=("!Master.maxforkrate")
 %attr(0750,%cyrususer,%cyrusgroup) /run/cyrus/socket/
 
 %files devel
-%_includedir/cyrus/
-%_libdir/libcyrus*.so
-%_libdir/pkgconfig/*.pc
-%_mandir/man3/imclient.3*
+%{_includedir}/cyrus/
+%{_libdir}/libcyrus.so
+%{_libdir}/libcyrus_imap.so
+%{_libdir}/libcyrus_min.so
+%{_libdir}/libcyrus_sieve.so
+%{_libdir}/pkgconfig/*.pc
+%{_mandir}/man3/imclient.3*
 
 %files doc-extra
 %doc doc/html doc/internal doc/legacy
 
 %files libs
 %license COPYING
-%_libdir/libcyrus*.so.*
+%{_libdir}/libcyrus.so.0
+%{_libdir}/libcyrus.so.0.0.0
+%{_libdir}/libcyrus_imap.so.0
+%{_libdir}/libcyrus_imap.so.0.0.0
+%{_libdir}/libcyrus_min.so.0
+%{_libdir}/libcyrus_min.so.0.0.0
+%{_libdir}/libcyrus_sieve.so.0
+%{_libdir}/libcyrus_sieve.so.0.0.0
 
 %files utils
-%{_bindir}/*
-%_mandir/man1/*
+%{_bindir}/cyradm
+%{_bindir}/httptest
+%{_bindir}/imtest
+%{_bindir}/installsieve
+%{_bindir}/lmtptest
+%{_bindir}/mupdatetest
+%{_bindir}/nntptest
+%{_bindir}/notifytest
+%{_bindir}/pop3test
+%{_bindir}/sieveshell
+%{_bindir}/sivtest
+%{_bindir}/smtptest
+%{_bindir}/synctest
+%{_mandir}/man1/cyradm.1*
+%{_mandir}/man1/httptest.1*
+%{_mandir}/man1/imtest.1*
+%{_mandir}/man1/installsieve.1*
+%{_mandir}/man1/lmtptest.1*
+%{_mandir}/man1/mupdatetest.1*
+%{_mandir}/man1/nntptest.1*
+%{_mandir}/man1/pop3test.1*
+%{_mandir}/man1/sieveshell.1*
+%{_mandir}/man1/sivtest.1*
+%{_mandir}/man1/smtptest.1*
 
 %files virusscan
-%_sbindir/cyr_virusscan
-%_mandir/man8/cyr_virusscan.8*
+%{_sbindir}/cyr_virusscan
+%{_mandir}/man8/cyr_virusscan.8*
 
 %files -n perl-Cyrus
 %license COPYING
 %doc perl/imap/README
 %doc perl/imap/Changes
 %doc perl/imap/examples
-%perl_vendorarch/auto/Cyrus
-%perl_vendorarch/Cyrus
-%perl_vendorlib/Cyrus
-%_mandir/man3/*.3pm*
+%{perl_vendorarch}/auto/Cyrus
+%{perl_vendorarch}/Cyrus
+%{perl_vendorlib}/Cyrus
+%{_mandir}/man3/Cyrus::Annotator::Daemon.3pm*
+%{_mandir}/man3/Cyrus::Annotator::Message.3pm*
+%{_mandir}/man3/Cyrus::IMAP.3pm*
+%{_mandir}/man3/Cyrus::IMAP::Admin.3pm*
+%{_mandir}/man3/Cyrus::IMAP::Shell.3pm*
+%{_mandir}/man3/Cyrus::SIEVE::managesieve.3pm*
 
 %changelog
+* Thu Aug 03 2023 Martin Osvald <mosvald@redhat.com> - 3.8.0-4
+- Improve spec file to conform with packaging guidelines (rhbz#2228751)
+
 * Thu Jul 27 2023 Martin Osvald <mosvald@redhat.com> - 3.8.0-3
 - cyrus-imapd.spec - Refine Requires: to avoid the need to test interoperability
   between various combinations of old and new subpackages

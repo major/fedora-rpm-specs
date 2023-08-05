@@ -54,6 +54,7 @@ BuildRequires: docbook-style-xsl
 BuildRequires: flex
 BuildRequires: gcc
 BuildRequires: gettext-devel
+BuildRequires: git
 BuildRequires: itstool
 BuildRequires: libacl-devel
 BuildRequires: libattr-devel
@@ -98,16 +99,7 @@ Requires: shadow-utils-subid = %{epoch}:%{version}-%{release}
 Development files for shadow-utils-subid.
 
 %prep
-%setup -q -n shadow-%{version}
-%patch0 -p1 -b .redhat
-%patch1 -p1 -b .default-range
-%patch2 -p1 -b .manfix
-%patch3 -p1 -b .date-parsing
-%patch4 -p1 -b .audit-update
-%patch5 -p1 -b .unlock
-%patch6 -p1 -b .selinux-perms
-%patch7 -p1
-%patch8 -p1 -b .newidmap-pid-fd
+%autosetup -p 1 -S git -n shadow-%{version}
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO

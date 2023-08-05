@@ -4,8 +4,8 @@
 %bcond_without tests
 
 Name:           python-pluggy
-Version:        1.0.0
-Release:        9%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
 License:        MIT
@@ -60,6 +60,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest testing -k "not
 
 
 %changelog
+* Sun Jul 30 2023 Thomas Moschny <thomas.moschny@gmx.de> - 1.2.0-1
+- Update to 1.2.0.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

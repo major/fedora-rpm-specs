@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.13.1
+Version:        1.13.2
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Functions
 

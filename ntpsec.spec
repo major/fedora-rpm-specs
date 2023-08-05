@@ -1,6 +1,6 @@
 Name:           ntpsec
-Version:        1.2.2
-Release:        4%{?dist}
+Version:        1.2.2a
+Release:        1%{?dist}
 Summary:        NTP daemon and utilities
 
 # Primary license: MIT (NTP variant)
@@ -212,6 +212,9 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{python3_sitearch}/ntp
 
 %changelog
+* Thu Aug 03 2023 Miroslav Lichvar <mlichvar@redhat.com> 1.2.2a-1
+- update to 1.2.2a (CVE-2023-4012)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

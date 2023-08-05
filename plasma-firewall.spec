@@ -8,8 +8,8 @@
 %endif
 
 Name:    plasma-firewall
-Version: 5.27.6
-Release: 2%{?dist}
+Version: 5.27.7
+Release: 1%{?dist}
 Summary: Control Panel for your system firewall
 
 License: BSD
@@ -128,6 +128,9 @@ rm -rfv %{buildroot}%{_kf5_libexecdir}/kauth/kde_ufw_plugin_helper
 
 
 %changelog
+* Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
+- 5.27.7
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -754,9 +754,9 @@ function install_lang () {
 		;;
 	    *)
 		echo '/usr/lib/gcc/'$target_cpu'-*/'
-		echo '%{_libexecdir}/gcc/'$target_cpu'*/*/cc1'
-		echo '%{_libexecdir}/gcc/'$target_cpu'*/*/collect2'
-		echo '%{_libexecdir}/gcc/'$target_cpu'*/*/[abd-z]*'
+		echo '%{_libexecdir}/gcc/'$target_cpu'-*/*/cc1'
+		echo '%{_libexecdir}/gcc/'$target_cpu'-*/*/collect2'
+		echo '%{_libexecdir}/gcc/'$target_cpu'-*/*/[abd-z]*'
 		echo %{_prefix}/$arch/sys-root
 		;;
 	esac
@@ -771,7 +771,7 @@ function install_lang () {
 	    ppc*|ppc64*)
 		;;
 	    *)
-		echo '%{_libexecdir}/gcc/'$target_cpu'*/*/cc1plus'
+		echo '%{_libexecdir}/gcc/'$target_cpu'-*/*/cc1plus'
 	esac
     ) >files-c++.$arch
 }

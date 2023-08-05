@@ -1,4 +1,3 @@
-#%global shorttag 413855e
 Name:           direwolf
 Version:        1.6.0
 Release:        19%{?dist}
@@ -15,6 +14,7 @@ Source3:        direwolf.logrotate
 
 Patch0:         0001-Issue-296-Avoid-potential-buffer-overflow.patch
 Patch1:         https://fedorapeople.org/~mlichvar/tmp/gpsd/direwolf-gpsapi14.patch
+Patch2:         direwolf-strlcpy.patch
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  cmake
@@ -23,6 +23,7 @@ BuildRequires:  alsa-lib-devel
 BuildRequires:  gpsd-devel
 BuildRequires:  hamlib-devel
 BuildRequires:  systemd systemd-devel
+
 Requires:       ax25-tools ax25-apps
 Requires(pre):  shadow-utils
 

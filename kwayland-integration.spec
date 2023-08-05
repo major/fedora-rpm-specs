@@ -2,8 +2,8 @@
 %global  wayland_min_version 1.3
 
 Name:    kwayland-integration
-Version: 5.27.6
-Release: 2%{?dist}
+Version: 5.27.7
+Release: 1%{?dist}
 Summary: Provides integration plugins for various KDE Frameworks for Wayland
 
 License: LGPLv2+
@@ -61,6 +61,9 @@ Requires:       kf5-filesystem
 
 
 %changelog
+* Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
+- 5.27.7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -45,9 +45,9 @@ ExcludeArch: i686
 
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
-Version:          2.4.2
-Release:          5%{?dist}
-License:          GPLv3+ and (ASL 2.0 or MIT)
+Version:          2.4.3
+Release:          1%{?dist}
+License:          GPLv3+ and (ASL 2.0 or MIT) and MIT and (0BSD or MIT or ASL 2.0) and (Unlicense or MIT) and MPLv2.0 and BSD and (ASL 2.0 with exceptions or ASL 2.0 or MIT) and (MIT or zlib or ASL 2.0) and ASL 2.0 and (ASL 2.0 or Boost) and ((MIT or ASL 2.0) and Unicode-DFS-2016)
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
 Conflicts:        freeipa-server < 4.0.3
@@ -66,9 +66,10 @@ Provides:  bundled(crate(autocfg)) = 1.1.0
 Provides:  bundled(crate(backtrace)) = 0.3.68
 Provides:  bundled(crate(base64)) = 0.13.1
 Provides:  bundled(crate(bitflags)) = 1.3.2
+Provides:  bundled(crate(bitflags)) = 2.3.3
 Provides:  bundled(crate(byteorder)) = 1.4.3
 Provides:  bundled(crate(cbindgen)) = 0.9.1
-Provides:  bundled(crate(cc)) = 1.0.79
+Provides:  bundled(crate(cc)) = 1.0.81
 Provides:  bundled(crate(cfg-if)) = 1.0.0
 Provides:  bundled(crate(clap)) = 2.34.0
 Provides:  bundled(crate(concread)) = 0.2.21
@@ -80,9 +81,9 @@ Provides:  bundled(crate(crossbeam-queue)) = 0.3.8
 Provides:  bundled(crate(crossbeam-utils)) = 0.8.16
 Provides:  bundled(crate(entryuuid)) = 0.1.0
 Provides:  bundled(crate(entryuuid_syntax)) = 0.1.0
-Provides:  bundled(crate(errno)) = 0.3.1
+Provides:  bundled(crate(errno)) = 0.3.2
 Provides:  bundled(crate(errno-dragonfly)) = 0.1.2
-Provides:  bundled(crate(fastrand)) = 1.9.0
+Provides:  bundled(crate(fastrand)) = 2.0.0
 Provides:  bundled(crate(fernet)) = 0.1.4
 Provides:  bundled(crate(foreign-types)) = 0.3.2
 Provides:  bundled(crate(foreign-types-shared)) = 0.1.1
@@ -90,15 +91,13 @@ Provides:  bundled(crate(getrandom)) = 0.2.10
 Provides:  bundled(crate(gimli)) = 0.27.3
 Provides:  bundled(crate(hashbrown)) = 0.12.3
 Provides:  bundled(crate(hermit-abi)) = 0.1.19
-Provides:  bundled(crate(hermit-abi)) = 0.3.2
 Provides:  bundled(crate(instant)) = 0.1.12
-Provides:  bundled(crate(io-lifetimes)) = 1.0.11
-Provides:  bundled(crate(itoa)) = 1.0.8
+Provides:  bundled(crate(itoa)) = 1.0.9
 Provides:  bundled(crate(jobserver)) = 0.1.26
 Provides:  bundled(crate(libc)) = 0.2.147
 Provides:  bundled(crate(librnsslapd)) = 0.1.0
 Provides:  bundled(crate(librslapd)) = 0.1.0
-Provides:  bundled(crate(linux-raw-sys)) = 0.3.8
+Provides:  bundled(crate(linux-raw-sys)) = 0.4.5
 Provides:  bundled(crate(lock_api)) = 0.4.10
 Provides:  bundled(crate(log)) = 0.4.19
 Provides:  bundled(crate(lru)) = 0.7.8
@@ -118,33 +117,33 @@ Provides:  bundled(crate(pin-project-lite)) = 0.2.10
 Provides:  bundled(crate(pkg-config)) = 0.3.27
 Provides:  bundled(crate(ppv-lite86)) = 0.2.17
 Provides:  bundled(crate(proc-macro-hack)) = 0.5.20+deprecated
-Provides:  bundled(crate(proc-macro2)) = 1.0.63
+Provides:  bundled(crate(proc-macro2)) = 1.0.66
 Provides:  bundled(crate(pwdchan)) = 0.1.0
-Provides:  bundled(crate(quote)) = 1.0.29
+Provides:  bundled(crate(quote)) = 1.0.32
 Provides:  bundled(crate(rand)) = 0.8.5
 Provides:  bundled(crate(rand_chacha)) = 0.3.1
 Provides:  bundled(crate(rand_core)) = 0.6.4
 Provides:  bundled(crate(redox_syscall)) = 0.2.16
 Provides:  bundled(crate(redox_syscall)) = 0.3.5
 Provides:  bundled(crate(rustc-demangle)) = 0.1.23
-Provides:  bundled(crate(rustix)) = 0.37.23
-Provides:  bundled(crate(ryu)) = 1.0.14
-Provides:  bundled(crate(scopeguard)) = 1.1.0
-Provides:  bundled(crate(serde)) = 1.0.167
-Provides:  bundled(crate(serde_derive)) = 1.0.167
-Provides:  bundled(crate(serde_json)) = 1.0.100
+Provides:  bundled(crate(rustix)) = 0.38.6
+Provides:  bundled(crate(ryu)) = 1.0.15
+Provides:  bundled(crate(scopeguard)) = 1.2.0
+Provides:  bundled(crate(serde)) = 1.0.180
+Provides:  bundled(crate(serde_derive)) = 1.0.180
+Provides:  bundled(crate(serde_json)) = 1.0.104
 Provides:  bundled(crate(slapd)) = 0.1.0
 Provides:  bundled(crate(slapi_r_plugin)) = 0.1.0
 Provides:  bundled(crate(smallvec)) = 1.11.0
 Provides:  bundled(crate(strsim)) = 0.8.0
 Provides:  bundled(crate(syn)) = 1.0.109
-Provides:  bundled(crate(syn)) = 2.0.23
-Provides:  bundled(crate(tempfile)) = 3.6.0
+Provides:  bundled(crate(syn)) = 2.0.28
+Provides:  bundled(crate(tempfile)) = 3.7.0
 Provides:  bundled(crate(textwrap)) = 0.11.0
 Provides:  bundled(crate(tokio)) = 1.29.1
 Provides:  bundled(crate(tokio-macros)) = 2.1.0
 Provides:  bundled(crate(toml)) = 0.5.11
-Provides:  bundled(crate(unicode-ident)) = 1.0.10
+Provides:  bundled(crate(unicode-ident)) = 1.0.11
 Provides:  bundled(crate(unicode-width)) = 0.1.10
 Provides:  bundled(crate(uuid)) = 0.8.2
 Provides:  bundled(crate(vcpkg)) = 0.2.15
@@ -403,14 +402,12 @@ cp %{SOURCE2} README.devel
 
 OPENLDAP_FLAG="--with-openldap"
 %{?with_tmpfiles_d: TMPFILES_FLAG="--with-tmpfiles-d=%{with_tmpfiles_d}"}
-# hack hack hack https://bugzilla.redhat.com/show_bug.cgi?id=833529
-NSSARGS="--with-nss-lib=%{_libdir} --with-nss-inc=%{_includedir}/nss3"
 
 %if %{use_asan}
 ASAN_FLAGS="--enable-asan --enable-debug"
 %endif
 
-RUST_FLAGS="--enable-rust --enable-rust-offline"
+RUST_FLAGS="--enable-rust-offline"
 
 %if !%{use_cockpit}
 COCKPIT_FLAGS="--disable-cockpit"
@@ -462,10 +459,9 @@ autoreconf -fiv
            --with-systemdsystemconfdir=%{_sysconfdir}/systemd/system \
            --with-systemdgroupname=%{groupname}  \
            --libexecdir=%{_libexecdir}/%{pkgname} \
-           $NSSARGS $ASAN_FLAGS $RUST_FLAGS $CLANG_FLAGS $COCKPIT_FLAGS \
+           $ASAN_FLAGS $RUST_FLAGS $CLANG_FLAGS $COCKPIT_FLAGS \
            --enable-cmocka \
-           --with-libldap-r=no \
-           --enable-perl
+           --with-libldap-r=no
 
 # lib389
 pushd ./src/lib389
@@ -505,6 +501,13 @@ pushd src/lib389
 %py3_install
 popd
 
+# Register CLI tools for bash completion
+for clitool in dsconf dsctl dsidm dscreate ds-replcheck
+do
+    register-python-argcomplete "${clitool}" > "${clitool}"
+    install -p -m 0644 -D -t '%{buildroot}%{bash_completions_dir}' "${clitool}"
+done
+
 mkdir -p $RPM_BUILD_ROOT/var/log/%{pkgname}
 mkdir -p $RPM_BUILD_ROOT/var/lib/%{pkgname}
 mkdir -p $RPM_BUILD_ROOT/var/lock/%{pkgname}
@@ -541,12 +544,6 @@ else
     output=/dev/null
     output2=/dev/null
 fi
-
-# Register CLI tools for bash completion
-for clitool in dsconf dsctl dsidm dscreate ds-replcheck
-do
-  register-python-argcomplete "${clitool}" > "/usr/share/bash-completion/completions/${clitool}"
-done
 
 # reload to pick up any changes to systemd files
 /bin/systemctl daemon-reload >$output 2>&1 || :
@@ -638,6 +635,7 @@ exit 0
 %{_mandir}/man1/dbscan.1.gz
 %{_bindir}/ds-replcheck
 %{_mandir}/man1/ds-replcheck.1.gz
+%{bash_completions_dir}/ds-replcheck
 %{_bindir}/ds-logpipe.py
 %{_mandir}/man1/ds-logpipe.py.1.gz
 %{_bindir}/ldclt
@@ -646,7 +644,6 @@ exit 0
 %{_mandir}/man1/logconv.pl.1.gz
 %{_bindir}/pwdhash
 %{_mandir}/man1/pwdhash.1.gz
-/usr/share/bash-completion/completions/ds-replcheck
 #%caps(CAP_NET_BIND_SERVICE=pe) {_sbindir}/ns-slapd
 %{_sbindir}/ns-slapd
 %{_mandir}/man8/ns-slapd.8.gz
@@ -725,10 +722,10 @@ exit 0
 %{_sbindir}/dsidm
 %{_mandir}/man8/dsidm.8.gz
 %{_libexecdir}/%{pkgname}/dscontainer
-/usr/share/bash-completion/completions/dsctl
-/usr/share/bash-completion/completions/dsconf
-/usr/share/bash-completion/completions/dscreate
-/usr/share/bash-completion/completions/dsdim
+%{bash_completions_dir}/dsctl
+%{bash_completions_dir}/dsconf
+%{bash_completions_dir}/dscreate
+%{bash_completions_dir}/dsidm
 
 %if %{use_cockpit}
 %files -n cockpit-389-ds -f cockpit.list
@@ -737,6 +734,25 @@ exit 0
 %endif
 
 %changelog
+* Thu Aug 3 2023 Mark Reynolds<mreynolds@redhat.com> - 2.4.3-1
+- Bump version to 2.4.3-1
+- Issue 5729 - Memory leak in factory_create_extension (#5814)
+- Issue 5870 - ns-slapd crashes at startup if a backend has no suffix (#5871)
+- Issue 5876 - CI Test random failure - Import (#5879)
+- Issue 5877 - test_basic_ldapagent breaks test_setup_ds_as_non_root* tests
+- Issue 5867 - lib389 should use filter for tarfile as recommended by PEP 706 (#5868)
+- Issue 5853 - Update Cargo.lock and fix minor warning (#5854)
+- Issue 5785 - CLI - arg completion is broken
+- Issue 5864 - Server fails to start after reboot because it's unable to access nsslapd-rundir
+- Issue 5856 - SyntaxWarning: invalid escape sequence '\,'
+- Issue 5859 - dbscan fails with AttributeError: 'list' object has no attribute 'extends'
+- Issue 3527 - UI - Add nsslapd-haproxy-trusted-ip to server setting (#5839)
+- Issue 4551 - Paged search impacts performance (#5838)
+- Issue 4758 - Add tests for WebUI
+- Issue 4169 - UI - Fix retrochangelog and schema Typeaheads (#5837)
+- issue 5833 - dsconf monitor backend fails on lmdb (#5835)
+- Issue 3555 - UI - Fix audit issue with npm - stylelint (#5836)
+
 * Mon Jul 24 2023 Mark Reynolds <mreynolds@redhat.com> - 2.4.2-5
 - Bump version to 2.4.2-5
 - Add the bash completion scripts to the appropriate files section

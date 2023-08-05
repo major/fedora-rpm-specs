@@ -11,9 +11,9 @@ signs.
 Name:		%{fontname}-fonts
 Summary: 	Low vision fonts
 Version:	1.0
-Release:	33%{?dist}
+Release:	34%{?dist}
 # Font exception
-License:	GPLv3+ with exceptions
+License:	GPL-3.0-or-later WITH Font-exception-2.0
 Source0:	http://www.tiresias.org/fonts/infofont.zip
 Source1:	http://www.tiresias.org/fonts/keyfont.zip
 Source2:	http://www.tiresias.org/fonts/lpfont.zip
@@ -228,6 +228,9 @@ install -Dm 0644 -p %{SOURCE27} \
 %dir %{_fontdir}
 
 %changelog
+* Thu Aug  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.0-34
+- fix license tag
+
 * Wed Aug  2 2023 Tom Callaway <spot@fedoraproject.org> - 1.0-33
 - drop quoting on file match strings
 - I tried to move this to the "new" fonts packaging format, but it was so poorly documented

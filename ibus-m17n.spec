@@ -1,8 +1,8 @@
 %global require_ibus_version 1.4.0
 
 Name:       ibus-m17n
-Version:    1.4.19
-Release:    2%{?dist}
+Version:    1.4.20
+Release:    1%{?dist}
 Summary:    The M17N engine for IBus platform
 License:    GPL-2.0-or-later
 URL:        https://github.com/ibus/ibus-m17n
@@ -63,6 +63,17 @@ make check
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.m17n.gschema.xml
 
 %changelog
+* Sun Jul 30 2023 Mike FABIAN <mfabian@redhat.com> - 1.4.20-1
+- Update to 1.4.20
+- Reduce preedit flicker (Resolves: https://github.com/ibus/ibus/issues/2536)
+- Remove `xml:lang="en"` from the screenshot in appdata.xml
+  See: https://github.com/ximion/appstream/issues/494
+  There must be one image in the default locale, and there can be some
+  translated ones, but having only translated images is not okay.
+- Use ibus_text_new_from_string (string) instead of
+  ibus_text_new_from_static_string (string) in ibus_m17n_engine_commit_string()
+- Add missing g_free (buf) in ibus_m17n_mtext_to_utf8()
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

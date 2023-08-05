@@ -1,8 +1,8 @@
 %global with_mate 0
 
 Name:           verbiste
-Version:        0.1.47
-Release:        10%{?dist}
+Version:        0.1.48
+Release:        1%{?dist}
 Summary:        French conjugation system
 License:        GPLv2+
 URL:            http://sarrazip.com/dev/verbiste.html
@@ -67,6 +67,9 @@ autoreconf -ivf
 %if 0%{?with_mate}
            --with-mate-applet \
 %endif
+           --with-gnome-app \
+           --disable-maintainer-mode \
+           --without-examples \
            --disable-rpath
 %make_build
 
@@ -112,6 +115,9 @@ rm -frv %{buildroot}%{_docdir}
 %{_mandir}/man3/verbiste.3*
 
 %changelog
+* Thu Aug 03 2023 Didier Fabert <didier.fabert@gmail.com> - 0.1.48-1
+- Update to 0.1.48
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.47-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

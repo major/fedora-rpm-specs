@@ -9,34 +9,33 @@ License:        BSD
 URL:            https://python-markdown.github.io/
 Source0:        %{pypi_source}
 BuildArch:      noarch
-
-%description
-This is a Python implementation of John Gruber’s Markdown. It is
-almost completely compliant with the reference implementation, though
-there are a few very minor differences.
-
-
-%package -n python%{python3_pkgversion}-%{pkgname}
-Summary:        Markdown implementation in Python
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-PyYAML
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%if ( 0%{?rhel} && 0%{?rhel} < 9 ) || ( 0%{?fedora} && 0%{?fedora} < 35 )
-BuildRequires:  python%{python3_pkgversion}-importlib-metadata >= 4.4
-Requires:       python%{python3_pkgversion}-importlib-metadata >= 4.4
+BuildRequires:  python3-devel
+BuildRequires:  python3-PyYAML
+%if ( 0%{?rhel} && 0%{?rhel} <= 9 )
+BuildRequires:  python3-importlib-metadata >= 4.4
+Requires:       python3-importlib-metadata >= 4.4
 %endif
 
-Conflicts:      python2-%{pkgname} < 3.1-2
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pkgname}}
-
-%description -n python%{python3_pkgversion}-%{pkgname}
-This is a Python implementation of John Gruber's Markdown. It is
+%global _description %{expand:
+This is a Python implementation of John Gruber’s Markdown. It is
 almost completely compliant with the reference implementation, though
-there are a few known issues.
+there are a few very minor differences.}
+
+%description %_description
+
+
+%package -n python3-%{pkgname}
+Summary:        %{summary}
+
+%description -n python3-%{pkgname} %_description
 
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
 %pyproject_wheel
@@ -56,7 +55,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %python3 -m unittest discover tests
 
 
-%files -n python%{python3_pkgversion}-%{pkgname} -f %{pyproject_files}
+%files -n python3-%{pkgname} -f %{pyproject_files}
 # temporarily skip packaging docs - see also
 # https://github.com/Python-Markdown/markdown/issues/621
 #doc python3/build/docs/*
@@ -67,6 +66,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %changelog
 * Sun Jul 30 2023 Thomas Moschny <thomas.moschny@gmx.de> - 3.4.4-1
 - Update to 3.4.4.
+- Update packaging.
 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

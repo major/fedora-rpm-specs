@@ -4,8 +4,8 @@
 
 Name:    plasma-drkonqi
 Summary: DrKonqi crash handler for KF5/Plasma5
-Version: 5.27.6
-Release: 2%{?dist}
+Version: 5.27.7
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://cgit.kde.org/%{base_name}.git
@@ -104,6 +104,9 @@ fi
 %{_qt5_plugindir}/drkonqi/KDECoredumpNotifierTruck.so
 
 %changelog
+* Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
+- 5.27.7
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

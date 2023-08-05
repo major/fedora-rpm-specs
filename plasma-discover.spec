@@ -12,8 +12,8 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 5.27.6
-Release: 3%{?dist}
+Version: 5.27.7
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -330,6 +330,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
+- 5.27.7
+
 * Mon Jul 24 2023 Timothée Ravier <tim@siosm.fr> - 5.27.6-3
 - Enable the rpm-ostree backend only on Fedora (used in Fedora Kinoite).
   Move the "Operating System" category definition to the rpm-ostree backend.

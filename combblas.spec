@@ -1,38 +1,20 @@
 %global truename CombBLAS
 
-%if 0%{?fedora} && 0%{?fedora} > 37
-%ifarch %{ix86}
-%bcond_with openmpi
-%bcond_without mpich
-%else
 %bcond_without openmpi
 %bcond_without mpich
-%endif
-%endif
-
-%if 0%{?fedora} && 0%{?fedora} < 38
-%bcond_without openmpi
-%bcond_without mpich
-%endif
-
-%if 0%{?rhel}
-%bcond_without openmpi
-%bcond_without mpich
-%endif
-
 %bcond_without check
 
 # CTest flags for debugging only
-%bcond_with debug
+%bcond_without debug
 %if %{with debug}
-%global debug_flags -VV --debug --output-on-failure
+%global debug_flags -VV --debug -j1
 %else
 %global debug_flags %{nil}
 %endif
 
 Name:          combblas
 Version:       2.0.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD.
@@ -47,12 +29,8 @@ URL:           https://people.eecs.berkeley.edu/~aydin/%{truename}/html/index.ht
 Source0:       https://github.com/PASSIONLab/%{truename}/archive/refs/tags/v%{version}/%{truename}-%{version}.tar.gz
 Source1:       http://eecs.berkeley.edu/~aydin/%{truename}_FILES/testdata_%{name}1.6.1.tgz
 
-%if 0%{?rhel} == 7
-%global dts devtoolset-7-
-BuildRequires: %{?dts}toolchain, %{?dts}libatomic-devel
-%endif
-BuildRequires: %{?dts}gcc-c++
-BuildRequires: cmake3
+BuildRequires: gcc-c++
+BuildRequires: cmake
 BuildRequires: chrpath
 
 # Set MPI library paths
@@ -108,8 +86,7 @@ Provides:      %{truename}-mpich = %version-%release
 
 %package mpich-devel
 Summary: Development files for %{name}-mpich
-%{?fedora:Requires: mpich-devel%{?_isa}}
-%{?el7:Requires: mpich-3.0-devel%{?_isa}}
+Requires: mpich-devel%{?_isa}
 Requires: %{name}-mpich%{?_isa} = %version-%release
 
 %description mpich-devel
@@ -131,19 +108,19 @@ find . -type f -name "*.tcc" -exec chmod 0644 '{}' \;
 %build
 
 %if %{with openmpi}
-
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-7/enable}
-%endif
-
 %{_openmpi_load}
 mkdir -p build/openmpi
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
+%if %{with debug}
+export CFLAGS="-O0 -g -I$MPI_INCLUDE"
+export CXXFLAGS="-O0 -g -I$MPI_INCLUDE"
+%else
 export CFLAGS="%{optflags} -I$MPI_INCLUDE"
 export CXXFLAGS="%{optflags} -I$MPI_INCLUDE"
+%endif
 export LDFLAGS="%{__global_ldflags} -lm -lrt"
-%cmake3 -B build/openmpi -S ./ -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+%cmake -B build/openmpi -S ./ -DCMAKE_INSTALL_PREFIX=%{_prefix} \
  -DMPIEXEC_NUMPROC_FLAG=-n -DMPIEXEC_MAX_NUMPROCS:STRING="`/usr/bin/getconf _NPROCESSORS_ONLN`" \
  -DMPI_C_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_C_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
  -DMPI_CXX_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_CXX_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
@@ -156,19 +133,19 @@ export LDFLAGS="%{__global_ldflags} -lm -lrt"
 ###
 
 %if %{with mpich}
-
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-7/enable}
-%endif
-
 %{_mpich_load}
 mkdir -p build/mpich
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
+%if %{with debug}
+export CFLAGS="-O0 -g -I$MPI_INCLUDE"
+export CXXFLAGS="-O0 -g -I$MPI_INCLUDE"
+%else
 export CFLAGS="%{optflags} -I$MPI_INCLUDE"
 export CXXFLAGS="%{optflags} -I$MPI_INCLUDE"
+%endif
 export LDFLAGS="%{__global_ldflags} -lm -lrt"
-%cmake3 -B build/mpich -S ./ -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+%cmake -B build/mpich -S ./ -DCMAKE_INSTALL_PREFIX=%{_prefix} \
  -DMPIEXEC_NUMPROC_FLAG=-n -DMPIEXEC_MAX_NUMPROCS:STRING="`/usr/bin/getconf _NPROCESSORS_ONLN`" \
  -DMPI_C_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_C_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
  -DMPI_CXX_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_CXX_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
@@ -216,20 +193,16 @@ find %{buildroot} -type f -name "._CombBLAS.h" -exec rm -f '{}' \;
 %if %{with openmpi}
 %{_openmpi_load}
 cp -a TESTDATA build/openmpi/
-pushd build/openmpi
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-ctest3 %{debug_flags} --force-new-ctest-process -j1 -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
-popd
+%ctest -- %{debug_flags} --test-dir build/openmpi -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
 %{_openmpi_unload}
 %endif
 
 %if %{with mpich}
 %{_mpich_load}
 cp -a TESTDATA build/mpich/
-pushd build/mpich
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-ctest3 %{debug_flags} --force-new-ctest-process -j1 -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
-popd
+%ctest -- %{debug_flags} --test-dir build/mpich -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
 %{_mpich_unload}
 %endif
 %endif
@@ -275,6 +248,9 @@ popd
 %endif
 
 %changelog
+* Thu Aug 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-3
+- Debug builds
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

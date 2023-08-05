@@ -1,8 +1,8 @@
 %global sum Graphical user interface to version control systems
 
 Name:           rabbitvcs
-Version:        0.18
-Release:        13%{?dist}
+Version:        0.19
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
@@ -15,6 +15,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
+BuildRequires:  python3-setuptools
 
 %description
 RabbitVCS is a set of graphical tools written to provide simple
@@ -128,6 +129,10 @@ install -p -m0644 clients/nemo/RabbitVCS.py -D %{buildroot}%{_datadir}/nemo-pyth
 %{_datadir}/nemo-python/extensions/*.py*
 
 %changelog
+* Thu Aug 03 2023 Pete Walter <pwalter@fedoraproject.org> - 0.19-1
+- Update to 0.19 (rhbz#2224263)
+- Fix FTBFS with Python 3.12 (rhbz#2154814)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

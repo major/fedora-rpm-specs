@@ -34,16 +34,14 @@
 %global install_includedir %{install_prefix}/include
 %global install_libdir %{install_prefix}/lib
 
-%global pkg_bindir %{install_bindir}
 %global pkg_includedir %{_includedir}/%{name}
-%global pkg_libdir %{install_libdir}
 %global pkg_datadir %{install_prefix}/share
 %else
 %global pkg_name llvm
 %global install_prefix /usr
+%global install_bindir %{_bindir}
 %global install_libdir %{_libdir}
-%global pkg_bindir %{_bindir}
-%global pkg_libdir %{install_libdir}
+%global install_includedir %{_includedir}
 %global pkg_datadir %{_datadir}
 %global exec_suffix %{nil}
 %endif
@@ -253,7 +251,7 @@ mv %{third_party_srcdir} third-party
 %endif
 
 # Copy CFLAGS into ASMFLAGS, so -fcf-protection is used when compiling assembly files.
-export ASMFLAGS=$CFLAGS
+export ASMFLAGS="%{build_cflags}"
 
 # force off shared libs as cmake macros turns it on.
 %cmake	-G Ninja \
@@ -329,6 +327,7 @@ export ASMFLAGS=$CFLAGS
 	-DLLVM_INSTALL_SPHINX_HTML_DIR=%{_pkgdocdir}/html \
 	-DSPHINX_EXECUTABLE=%{_bindir}/sphinx-build-3 \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF \
+	-DCMAKE_SHARED_LINKER_FLAGS="-Wl,-z,cet-report=error" \
 	-DLLVM_UNITTEST_LINK_FLAGS="-Wl,-plugin-opt=O0"
 
 # Build libLLVM.so first.  This ensures that when libLLVM.so is linking, there
@@ -361,11 +360,7 @@ rm -rf test/tools/UpdateTestChecks
 %multilib_fix_c_header --file %{_includedir}/llvm/Config/llvm-config.h
 
 # Install libraries needed for unittests
-%if 0%{?__isa_bits} == 64
-%global build_libdir %{_vpath_builddir}/lib64
-%else
-%global build_libdir %{_vpath_builddir}/lib
-%endif
+%global build_libdir %{_vpath_builddir}/%{_lib}
 
 install %{build_libdir}/libLLVMTestingSupport.a %{buildroot}%{_libdir}
 install %{build_libdir}/libLLVMTestingAnnotations.a %{buildroot}%{_libdir}
@@ -395,7 +390,7 @@ ln -s ../../../%{install_includedir}/llvm-c %{buildroot}/%{pkg_includedir}/llvm-
 # Create ld.so.conf.d entry
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
 cat >> %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf << EOF
-%{pkg_libdir}
+%{install_libdir}
 EOF
 
 # Add version suffix to man pages and move them to mandir.
@@ -417,19 +412,19 @@ rm -Rf %{build_install_prefix}/share/opt-viewer
 
 %if %{without compat_build}
 
-mv %{buildroot}/%{pkg_bindir}/llvm-config %{buildroot}/%{pkg_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+mv %{buildroot}/%{install_bindir}/llvm-config %{buildroot}/%{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
 # We still maintain a versionned symlink for consistency across llvm versions.
 # This is specific to the non-compat build and matches the exec prefix for
 # compat builds. An isa-agnostic versionned symlink is also maintained in the (un)install
 # steps.
-(cd %{buildroot}/%{pkg_bindir} ; ln -s llvm-config%{exec_suffix}-%{__isa_bits} llvm-config-%{maj_ver}-%{__isa_bits} )
+(cd %{buildroot}/%{install_bindir} ; ln -s llvm-config%{exec_suffix}-%{__isa_bits} llvm-config-%{maj_ver}-%{__isa_bits} )
 # ghost presence
 touch %{buildroot}%{_bindir}/llvm-config-%{maj_ver}
 
 %else
 
 rm %{buildroot}%{_bindir}/llvm-config%{exec_suffix}
-(cd %{buildroot}/%{pkg_bindir} ; ln -s llvm-config llvm-config%{exec_suffix}-%{__isa_bits} )
+(cd %{buildroot}/%{install_bindir} ; ln -s llvm-config llvm-config%{exec_suffix}-%{__isa_bits} )
 
 %endif
 
@@ -454,7 +449,7 @@ rm test/tools/dsymutil/X86/swift-interface.test
 
 %if %{with check}
 # FIXME: use %%cmake_build instead of %%__ninja
-LD_LIBRARY_PATH=%{buildroot}/%{pkg_libdir}  %{__ninja} check-all -C %{_vpath_builddir}
+LD_LIBRARY_PATH=%{buildroot}/%{install_libdir}  %{__ninja} check-all -C %{_vpath_builddir}
 %endif
 
 %endif
@@ -462,16 +457,16 @@ LD_LIBRARY_PATH=%{buildroot}/%{pkg_libdir}  %{__ninja} check-all -C %{_vpath_bui
 %ldconfig_scriptlets libs
 
 %post devel
-%{_sbindir}/update-alternatives --install %{_bindir}/llvm-config%{exec_suffix} llvm-config%{exec_suffix} %{pkg_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}
+%{_sbindir}/update-alternatives --install %{_bindir}/llvm-config%{exec_suffix} llvm-config%{exec_suffix} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}
 %if %{without compat_build}
-%{_sbindir}/update-alternatives --install %{_bindir}/llvm-config-%{maj_ver} llvm-config-%{maj_ver} %{pkg_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}
+%{_sbindir}/update-alternatives --install %{_bindir}/llvm-config-%{maj_ver} llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}
 %endif
 
 %postun devel
 if [ $1 -eq 0 ]; then
-  %{_sbindir}/update-alternatives --remove llvm-config%{exec_suffix} %{pkg_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+  %{_sbindir}/update-alternatives --remove llvm-config%{exec_suffix} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
 %if %{without compat_build}
-  %{_sbindir}/update-alternatives --remove llvm-config-%{maj_ver} %{pkg_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+  %{_sbindir}/update-alternatives --remove llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
 %endif
 fi
 
@@ -482,11 +477,11 @@ fi
 %{_bindir}/*
 
 %exclude %{_bindir}/llvm-config%{exec_suffix}
-%exclude %{pkg_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+%exclude %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
 
 %if %{without compat_build}
 %exclude %{_bindir}/llvm-config-%{maj_ver}
-%exclude %{pkg_bindir}/llvm-config-%{maj_ver}-%{__isa_bits}
+%exclude %{install_bindir}/llvm-config-%{maj_ver}-%{__isa_bits}
 %exclude %{_bindir}/not
 %exclude %{_bindir}/count
 %exclude %{_bindir}/yaml-bench
@@ -495,12 +490,12 @@ fi
 %exclude %{_bindir}/llvm-opt-fuzzer
 %{_datadir}/opt-viewer
 %else
-%{pkg_bindir}
+%{install_bindir}
 %endif
 
 %files libs
 %license LICENSE.TXT
-%{pkg_libdir}/libLLVM-%{maj_ver}.so
+%{install_libdir}/libLLVM-%{maj_ver}.so
 %if %{without compat_build}
 %if %{with gold}
 %{_libdir}/LLVMgold.so
@@ -513,34 +508,30 @@ fi
 %if %{with gold}
 %{_libdir}/%{name}/lib/LLVMgold.so
 %endif
-%{pkg_libdir}/libLLVM-%{maj_ver}.%{min_ver}*.so
-%{pkg_libdir}/libLTO.so*
-%exclude %{pkg_libdir}/libLTO.so
+%{install_libdir}/libLLVM-%{maj_ver}.%{min_ver}*.so
+%{install_libdir}/libLTO.so*
+%exclude %{install_libdir}/libLTO.so
 %endif
-%{pkg_libdir}/libRemarks.so*
+%{install_libdir}/libRemarks.so*
 
 %files devel
 %license LICENSE.TXT
 
 %ghost %{_bindir}/llvm-config%{exec_suffix}
-%{pkg_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+%{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
 %{_mandir}/man1/llvm-config*
 
-%if %{without compat_build}
-%{_includedir}/llvm
-%{_includedir}/llvm-c
-%{_libdir}/libLLVM.so
-%{_libdir}/cmake/llvm
-%{pkg_bindir}/llvm-config-%{maj_ver}-%{__isa_bits}
-%ghost %{_bindir}/llvm-config-%{maj_ver}
-%else
 %{install_includedir}/llvm
 %{install_includedir}/llvm-c
+%{install_libdir}/libLLVM.so
+%{install_libdir}/cmake/llvm
+%if %{without compat_build}
+%{install_bindir}/llvm-config-%{maj_ver}-%{__isa_bits}
+%ghost %{_bindir}/llvm-config-%{maj_ver}
+%else
 %{pkg_includedir}/llvm
 %{pkg_includedir}/llvm-c
-%{pkg_libdir}/libLTO.so
-%{pkg_libdir}/libLLVM.so
-%{pkg_libdir}/cmake/llvm
+%{install_libdir}/libLTO.so
 %endif
 
 %files doc
@@ -549,14 +540,12 @@ fi
 
 %files static
 %license LICENSE.TXT
+%{install_libdir}/*.a
 %if %{without compat_build}
-%{_libdir}/*.a
-%exclude %{_libdir}/libLLVMTestingSupport.a
-%exclude %{_libdir}/libLLVMTestingAnnotations.a
-%exclude %{_libdir}/libllvm_gtest.a
-%exclude %{_libdir}/libllvm_gtest_main.a
-%else
-%{_libdir}/%{name}/lib/*.a
+%exclude %{install_libdir}/libLLVMTestingSupport.a
+%exclude %{install_libdir}/libLLVMTestingAnnotations.a
+%exclude %{install_libdir}/libllvm_gtest.a
+%exclude %{install_libdir}/libllvm_gtest_main.a
 %endif
 
 %files cmake-utils
@@ -576,12 +565,12 @@ fi
 
 %files googletest
 %license LICENSE.TXT
-%{_libdir}/libLLVMTestingSupport.a
-%{_libdir}/libLLVMTestingAnnotations.a
-%{_libdir}/libllvm_gtest.a
-%{_libdir}/libllvm_gtest_main.a
-%{_includedir}/llvm-gtest
-%{_includedir}/llvm-gmock
+%{install_libdir}/libLLVMTestingSupport.a
+%{install_libdir}/libLLVMTestingAnnotations.a
+%{install_libdir}/libllvm_gtest.a
+%{install_libdir}/libllvm_gtest_main.a
+%{install_includedir}/llvm-gtest
+%{install_includedir}/llvm-gmock
 
 %endif
 

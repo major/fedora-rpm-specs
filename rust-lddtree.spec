@@ -5,7 +5,7 @@
 %global crate lddtree
 
 Name:           rust-lddtree
-Version:        0.3.2
+Version:        0.3.3
 Release:        %autorelease
 Summary:        Read the ELF dependency tree
 

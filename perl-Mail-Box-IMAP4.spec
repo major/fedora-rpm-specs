@@ -1,16 +1,24 @@
 Name:           perl-Mail-Box-IMAP4
 Version:        3.007
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Handle IMAP4 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-IMAP4
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Mail-Box-IMAP4-%{version}.tar.gz
+# Adapt tests to Mail-Message-3.013, bug #2225452, CPAN RT#149119,
+# proposed to the upstream.
+Patch0:         Mail-Box-IMAP4-3.007-Adapt-tests-to-Mail-Message-3.013.patch
+# Make tests not to write into CWD, proposed to the upstream,
+# <https://github.com/markov2/perl5-Mail-Box-IMAP4/pull/2>.
+Patch1:         Mail-Box-IMAP4-3.007-Create-a-temporary-directory-with-File-Temp.patch
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(IO::Handle)
 # Run-time
@@ -36,9 +44,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests
-BuildRequires:  perl(File::Compare)
-BuildRequires:  perl(File::Copy)
-BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(File::Temp) >= 0.19
 BuildRequires:  perl(Mail::Box::Identity)
 BuildRequires:  perl(Mail::Box::MH)
 BuildRequires:  perl(Mail::Box::Test) >= 3
@@ -55,9 +61,10 @@ Requires:       perl(Mail::Transport::Receive) >= 3.004
 
 Conflicts:      perl-Mail-Box < 3
 
+# Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Mail::Box::Manage::User\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Mail::IMAPClient\\)$
-%global __requires_exclude %__requires_exclude|^perl\\(Mail::Box::(Net|Search)\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Mail::Box::(Net|Search|Test)\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Mail::Message(::Body::Lines|::Head::Complete|::Head::Delayed|)\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Mail::(Server|Transport::Receive)\\)$
 
@@ -69,7 +76,6 @@ using the IMAP4 protocol.
 %package -n perl-Mail-Server-IMAP4
 Summary:        IMAP4 server implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-BuildArch:      noarch
 Requires:       perl(Mail::Box::Manage::User) >= 3
 Requires:       perl(Mail::Box::Search) >= 3
 Requires:       perl(Mail::Server) >= 3
@@ -79,8 +85,31 @@ This module is a place-holder, which can be used to grow code which is
 needed to implement a full IMAP4 server.
 The server implementation is not completed.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Mail-Server-IMAP4 = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Mail::Box::Test) >= 3
+Requires:       perl(Mail::Message) >= 3
+Requires:       perl(Mail::Message::Body::Lines) >= 3
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n Mail-Box-IMAP4-%{version}
+%autosetup -p1 -n Mail-Box-IMAP4-%{version}
+# Remove tests that are always skipped
+for F in t/10client-read.t t/11client-write.t; do
+    rm "$F"
+    perl -i -ne 'print $_ unless m{\Q'"$F"'\E}' MANIFEST
+done
+# Correct shebangs
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -88,23 +117,43 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc ChangeLog README
-%{perl_vendorlib}/Mail/Box/*
-%{perl_vendorlib}/Mail/Transport/*
-%{_mandir}/man3/Mail::Box*
-%{_mandir}/man3/Mail::Transport*
+%dir %{perl_vendorlib}/Mail
+%{perl_vendorlib}/Mail/Box
+%{perl_vendorlib}/Mail/Transport
+%{_mandir}/man3/Mail::Box::*
+%{_mandir}/man3/Mail::Transport::*
 
 %files -n perl-Mail-Server-IMAP4
-%{perl_vendorlib}/Mail/Server/*
-%{_mandir}/man3/Mail::Server*
+%dir %{perl_vendorlib}/Mail
+%dir %{perl_vendorlib}/Mail/Server
+%{perl_vendorlib}/Mail/Server/IMAP4*
+%{_mandir}/man3/Mail::Server::IMAP4*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 03 2023 Petr Pisar <ppisar@redhat.com> - 3.007-14
+- Adapt tests to Mail-Message-3.013 (bug #2225452)
+- Specify all dependencies
+- Package the tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.007-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

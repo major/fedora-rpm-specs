@@ -333,7 +333,7 @@
 # New Version-String scheme-style defines
 %global featurever 17
 %global interimver 0
-%global updatever 7
+%global updatever 8
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -391,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      7
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -558,7 +558,7 @@ ExcludeArch: %{ix86}
 
 Name:    java-%{javaver}-%{origin}-portable
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -712,10 +712,6 @@ Patch1001: fips-17u-%{fipsver}.patch
 # OpenJDK patches appearing in 17.0.8
 #
 #############################################
-# JDK-8274864: Remove Amman/Cairo hacks in ZoneInfoFile
-Patch2001: jdk8274864-remove_amman_cairo_hacks.patch
-# JDK-8305113: (tz) Update Timezone Data to 2023c
-Patch2002: jdk8305113-tzdata2023c.patch
 Patch2003: jdk8305995-footprint_regression_from_jdk_8224957
 
 BuildRequires: autoconf
@@ -991,9 +987,6 @@ pushd %{top_level_dir_name}
 %patch1001 -p1
 # nss.cfg PKCS11 support; must come last as it also alters java.security
 %patch1000 -p1
-# tzdata update
-%patch2001 -p1
-%patch2002 -p1
 %patch2003 -p1
 popd # openjdk
 
@@ -1642,6 +1635,11 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchiveForFiles}
 
 %changelog
+* Thu Aug 03 2023 Jiri Vanek <jvanekw@redhat.com> - 1:17.0.8.0.7-1
+- Update to jdk-17.0.8.0+7
+- Update release notes to 17.0.8.0+7
+- removed upstreamed Patch2001 jdk8274864-remove_amman_cairo_hacks.patch Patch2002 jdk8305113-tzdata2023c.patch
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:17.0.7.0.7-7.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

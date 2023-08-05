@@ -3,10 +3,10 @@
 %global optflags %{optflags} -DGLM_ENABLE_EXPERIMENTAL
 
 Name:           asymptote
-Version:        2.85
-Release:        3%{?dist}
+Version:        2.86
+Release:        1%{?dist}
 Summary:        Descriptive vector graphics language
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            http://asymptote.sourceforge.net/
 Source0:        http://download.sourceforge.net/sourceforge/asymptote/asymptote-%{version}.src.tgz
 Source1:        asy.gif
@@ -187,6 +187,10 @@ texhash >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Aug  3 2023 Tom Callaway <spot@fedoraproject.org> - 2.86-1
+- update to 2.86
+- update license tag
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.85-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

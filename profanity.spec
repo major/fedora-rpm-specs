@@ -1,6 +1,6 @@
 Name:           profanity
-Version:        0.13.1
-Release:        5%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        A console based XMPP client
 
 License:        GPLv3
@@ -96,8 +96,7 @@ pushd apidocs/python/
 sphinx-apidoc -f -o . src
 make html  # results are in apidocs/python/_build/html
 popd
-# Remove ReST files from html doc and remove hidden file generated
-rm -rf apidocs/python/_build/html/_sources/
+# Remove hidden file generated
 rm -f apidocs/python/_build/html/.buildinfo
 
 
@@ -140,11 +139,17 @@ make check
 
 
 %files doc
-%{_pkgdocdir}/
+%{_pkgdocdir}/c/
+%{_pkgdocdir}/python/
 
 
 
 %changelog
+* Thu Aug 3 2023 Matthieu Saulnier <fantom@fedoraproject.org> - 0.14.0-1
+- Update to 0.14.0
+- Improve file ownership in doc subpackage
+- Minor fix in the doc subpackage (no need to remove rst files)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

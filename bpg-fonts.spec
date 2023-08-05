@@ -7,11 +7,11 @@
 Name:		%{fontname}-fonts
 Summary: 	Georgian Unicode fonts
 Version:	%{common_ver}
-Release:	22%{?dist}
+Release:	23%{?dist}
 # Font exception
 # See: http://groups.google.com/group/bpg-fonts/web/gpl-gnu-license
 # No version of the GPL is specified.
-License:	GPL+ with exceptions
+License:	GPL-1.0-or-later WITH Font-exception-2.0
 # Source was found here:
 # http://bpgfonts.wordpress.com/category/gpl-gnu/
 # But the link is annoying:
@@ -125,7 +125,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Algeti font family.
 
-%_font_pkg -n algeti -f %{fontconf}-algeti.conf "BPG_Algeti*.ttf"
+%_font_pkg -n algeti -f %{fontconf}-algeti.conf BPG_Algeti*.ttf
 %{_datadir}/appdata/%{fontname}-algeti.metainfo.xml
 
 %package -n %{fontname}-chveulebrivi-fonts
@@ -138,7 +138,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Chveulebrivi font family.
 
-%_font_pkg -n chveulebrivi -f %{fontconf}-chveulebrivi.conf "BPG_Chveulebrivi_*.ttf"
+%_font_pkg -n chveulebrivi -f %{fontconf}-chveulebrivi.conf BPG_Chveulebrivi_*.ttf
 %{_datadir}/appdata/%{fontname}-chveulebrivi.metainfo.xml
 
 %package -n %{fontname}-classic-fonts
@@ -151,7 +151,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Classic font family.
 
-%_font_pkg -n classic -f %{fontconf}-classic.conf "BPG_Classic_*.otf"
+%_font_pkg -n classic -f %{fontconf}-classic.conf BPG_Classic_*.otf
 %{_datadir}/appdata/%{fontname}-classic.metainfo.xml
 
 %package -n %{fontname}-courier-fonts
@@ -164,7 +164,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Courier font family.
 
-%_font_pkg -n courier -f %{fontconf}-courier.conf "BPG_Courier_GPL*.ttf"
+%_font_pkg -n courier -f %{fontconf}-courier.conf BPG_Courier_GPL*.ttf
 %{_datadir}/appdata/%{fontname}-courier.metainfo.xml
 
 %package -n %{fontname}-courier-s-fonts
@@ -177,7 +177,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Courier S font family.
 
-%_font_pkg -n courier-s -f %{fontconf}-courier-s.conf "BPG_Courier_S*.ttf"
+%_font_pkg -n courier-s -f %{fontconf}-courier-s.conf BPG_Courier_S*.ttf
 %{_datadir}/appdata/%{fontname}-courier-s.metainfo.xml
 
 %package -n %{fontname}-dedaena-block-fonts
@@ -190,7 +190,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the DedaEna Block font family.
 
-%_font_pkg -n dedaena-block -f %{fontconf}-dedaena-block.conf "BPG_DedEena_Block*.ttf"
+%_font_pkg -n dedaena-block -f %{fontconf}-dedaena-block.conf BPG_DedEena_Block*.ttf
 %{_datadir}/appdata/%{fontname}-dedaena-block.metainfo.xml
 
 %package -n %{fontname}-dejavu-sans-fonts
@@ -205,7 +205,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 This package contains an improved version of DejaVu Sans with BPG Georgian
 changes.
 
-%_font_pkg -n dejavu-sans -f %{fontconf}-bpg-dejavu-sans.conf "BPG_DejaVu_Sans_*.ttf" "BPG_DejaVu_SansCondensed_*.ttf"
+%_font_pkg -n dejavu-sans -f %{fontconf}-bpg-dejavu-sans.conf BPG_DejaVu_Sans_*.ttf BPG_DejaVu_SansCondensed_*.ttf
 %{_datadir}/appdata/%{fontname}-dejavu-sans.metainfo.xml
 
 %package -n %{fontname}-dejavu-sans-mono-fonts
@@ -220,7 +220,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 This package contains an improved version of DejaVu Sans Mono with BPG Georgian
 changes.
 
-%_font_pkg -n dejavu-sans-mono -f %{fontconf}-bpg-dejavu-sans-mono.conf "BPG_DejaVu_SansMono*.ttf"
+%_font_pkg -n dejavu-sans-mono -f %{fontconf}-bpg-dejavu-sans-mono.conf BPG_DejaVu_SansMono*.ttf
 %{_datadir}/appdata/%{fontname}-dejavu-sans-mono.metainfo.xml
 
 %package -n %{fontname}-dejavu-serif-fonts
@@ -235,7 +235,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 This package contains an improved version of DejaVu Serif with BPG Georgian
 changes.
 
-%_font_pkg -n dejavu-serif -f %{fontconf}-bpg-dejavu-serif.conf "BPG_DejaVu_Serif_*.ttf" "BPG_DejaVu_SerifCondensed_*.ttf"
+%_font_pkg -n dejavu-serif -f %{fontconf}-bpg-dejavu-serif.conf BPG_DejaVu_Serif_*.ttf BPG_DejaVu_SerifCondensed_*.ttf
 %{_datadir}/appdata/%{fontname}-dejavu-serif.metainfo.xml
 
 
@@ -249,7 +249,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Elite font family.
 
-%_font_pkg -n elite -f %{fontconf}-elite.conf "BPG_Elite*.ttf"
+%_font_pkg -n elite -f %{fontconf}-elite.conf BPG_Elite*.ttf
 %{_datadir}/appdata/%{fontname}-elite.metainfo.xml
 
 %package -n %{fontname}-excelsior-fonts
@@ -263,7 +263,7 @@ License:	Bitstream Vera
 
 This package contains the Excelsior font family.
 
-%_font_pkg -n excelsior -f %{fontconf}-excelsior.conf "BPG_Excelsior_GPL*.ttf"
+%_font_pkg -n excelsior -f %{fontconf}-excelsior.conf BPG_Excelsior_GPL*.ttf
 %{_datadir}/appdata/%{fontname}-excelsior.metainfo.xml
 
 %package -n %{fontname}-excelsior-caps-fonts
@@ -277,7 +277,7 @@ License:	Bitstream Vera
 
 This package contains the Excelsior Caps font family.
 
-%_font_pkg -n excelsior-caps -f %{fontconf}-excelsior-caps.conf "BPG_Excelsior_Caps*.ttf"
+%_font_pkg -n excelsior-caps -f %{fontconf}-excelsior-caps.conf BPG_Excelsior_Caps*.ttf
 %{_datadir}/appdata/%{fontname}-excelsior-caps.metainfo.xml
 
 %package -n %{fontname}-excelsior-condenced-fonts
@@ -291,7 +291,7 @@ License:	Bitstream Vera
 
 This package contains the Excelsior Condenced font family.
 
-%_font_pkg -n excelsior-condenced -f %{fontconf}-excelsior-condenced.conf "BPG_Excelsior_Condenced*.ttf"
+%_font_pkg -n excelsior-condenced -f %{fontconf}-excelsior-condenced.conf BPG_Excelsior_Condenced*.ttf
 %{_datadir}/appdata/%{fontname}-excelsior-condenced.metainfo.xml
 
 %package -n %{fontname}-glaho-fonts
@@ -303,7 +303,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 %common_desc
 
 This package contains the Glaho font family.
-%_font_pkg -n glaho -f %{fontconf}-glaho.conf "BPG_Glaho*.ttf"
+%_font_pkg -n glaho -f %{fontconf}-glaho.conf BPG_Glaho*.ttf
 %{_datadir}/appdata/%{fontname}-glaho.metainfo.xml
 
 %package -n %{fontname}-gorda-fonts
@@ -316,7 +316,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Gorda font family.
 
-%_font_pkg -n gorda -f %{fontconf}-gorda.conf "BPG_Gorda*.ttf"
+%_font_pkg -n gorda -f %{fontconf}-gorda.conf BPG_Gorda*.ttf
 %{_datadir}/appdata/%{fontname}-gorda.metainfo.xml
 
 %package -n %{fontname}-ingiri-fonts
@@ -329,7 +329,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Ingiri font family.
 
-%_font_pkg -n ingiri -f %{fontconf}-ingiri.conf "BPG_Ingiri*.ttf"
+%_font_pkg -n ingiri -f %{fontconf}-ingiri.conf BPG_Ingiri*.ttf
 %{_datadir}/appdata/%{fontname}-ingiri.metainfo.xml
 
 %package -n %{fontname}-irubaqidze-fonts
@@ -349,7 +349,7 @@ Asomtavruli and Mkhedruli. Majio spent 7 years in Georgia studying Georgian
 language, scripture and grammar. Font "BPG Irubaqidze" is a modernized 
 replica of this casted type. 
 
-%_font_pkg -n irubaqidze -f %{fontconf}-irubaqidze.conf "BPG_Irubaqidze*.otf"
+%_font_pkg -n irubaqidze -f %{fontconf}-irubaqidze.conf BPG_Irubaqidze*.otf
 %{_datadir}/appdata/%{fontname}-irubaqidze.metainfo.xml
 
 %package -n %{fontname}-mikhail-stephan-fonts
@@ -366,7 +366,7 @@ used to print "The Knight in the Panther's Skin" by Shota Rustaveli, then
 "New Testament" and "The Bible" were printed using updated types prepared 
 in Tbilisi by Hungarian Master Michael Stefan Hungaro-Valakhian.
 
-%_font_pkg -n mikhail-stephan -f %{fontconf}-mikhail-stephan.conf "BPG_Mikhail_Stephan*.otf"
+%_font_pkg -n mikhail-stephan -f %{fontconf}-mikhail-stephan.conf BPG_Mikhail_Stephan*.otf
 %{_datadir}/appdata/%{fontname}-mikhail-stephan.metainfo.xml
 
 %package -n %{fontname}-mrgvlovani-fonts
@@ -379,7 +379,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Mrgvlovani font family.
 
-%_font_pkg -n mrgvlovani -f %{fontconf}-mrgvlovani.conf "BPG_Mrgvlovani_GPL*.ttf"
+%_font_pkg -n mrgvlovani -f %{fontconf}-mrgvlovani.conf BPG_Mrgvlovani_GPL*.ttf
 %{_datadir}/appdata/%{fontname}-mrgvlovani.metainfo.xml
 
 %package -n %{fontname}-mrgvlovani-caps-fonts
@@ -392,7 +392,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Mrgvlovani Caps font family.
 
-%_font_pkg -n mrgvlovani-caps -f %{fontconf}-mrgvlovani-caps.conf "BPG_Mrgvlovani_Caps_*.ttf"
+%_font_pkg -n mrgvlovani-caps -f %{fontconf}-mrgvlovani-caps.conf BPG_Mrgvlovani_Caps_*.ttf
 %{_datadir}/appdata/%{fontname}-mrgvlovani-caps.metainfo.xml
 
 %package -n %{fontname}-nateli-fonts
@@ -405,7 +405,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Nateli font family.
 
-%_font_pkg -n nateli -f %{fontconf}-nateli.conf "BPG_Nateli_GPL*.ttf"
+%_font_pkg -n nateli -f %{fontconf}-nateli.conf BPG_Nateli_GPL*.ttf
 %{_datadir}/appdata/%{fontname}-nateli.metainfo.xml
 
 %package -n %{fontname}-nateli-caps-fonts
@@ -418,7 +418,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Nateli Caps font family.
 
-%_font_pkg -n nateli-caps -f %{fontconf}-nateli-caps.conf "BPG_Nateli_Caps*.ttf"
+%_font_pkg -n nateli-caps -f %{fontconf}-nateli-caps.conf BPG_Nateli_Caps*.ttf
 %{_datadir}/appdata/%{fontname}-nateli-caps.metainfo.xml
 
 %package -n %{fontname}-nateli-condenced-fonts
@@ -431,7 +431,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Nateli Condenced font family.
 
-%_font_pkg -n nateli-condenced -f %{fontconf}-nateli-condenced.conf "BPG_Nateli_Condenced*.ttf"
+%_font_pkg -n nateli-condenced -f %{fontconf}-nateli-condenced.conf BPG_Nateli_Condenced*.ttf
 %{_datadir}/appdata/%{fontname}-nateli-condenced.metainfo.xml
 
 %package -n %{fontname}-nino-medium-fonts
@@ -444,7 +444,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Nino Medium font family.
 
-%_font_pkg -n nino-medium -f %{fontconf}-nino-medium.conf "BPG_Nino_Medium_GPL*.ttf"
+%_font_pkg -n nino-medium -f %{fontconf}-nino-medium.conf BPG_Nino_Medium_GPL*.ttf
 %{_datadir}/appdata/%{fontname}-nino-medium.metainfo.xml
 
 %package -n %{fontname}-nino-medium-cond-fonts
@@ -457,7 +457,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Nino Medium Cond font family.
 
-%_font_pkg -n nino-medium-cond -f %{fontconf}-nino-medium-cond.conf "BPG_Nino_Medium_Cond*.ttf"
+%_font_pkg -n nino-medium-cond -f %{fontconf}-nino-medium-cond.conf BPG_Nino_Medium_Cond*.ttf
 %{_datadir}/appdata/%{fontname}-nino-medium-cond.metainfo.xml
 
 %package -n %{fontname}-sans-fonts
@@ -470,7 +470,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Sans font family.
 
-%_font_pkg -n sans -f %{fontconf}-sans.conf "BPG_Sans_GPL*.ttf"
+%_font_pkg -n sans -f %{fontconf}-sans.conf BPG_Sans_GPL*.ttf
 %{_datadir}/appdata/%{fontname}-sans.metainfo.xml
 
 %package -n %{fontname}-sans-medium-fonts
@@ -483,7 +483,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Sans Medium font family.
 
-%_font_pkg -n sans-medium -f %{fontconf}-sans-medium.conf "BPG_Sans_Medium*.ttf"
+%_font_pkg -n sans-medium -f %{fontconf}-sans-medium.conf BPG_Sans_Medium*.ttf
 %{_datadir}/appdata/%{fontname}-sans-medium.metainfo.xml
 
 %package -n %{fontname}-sans-modern-fonts
@@ -497,7 +497,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Sans Modern font family.
 
-%_font_pkg -n sans-modern -f %{fontconf}-sans-modern.conf "BPG_Sans_Modern*.ttf"
+%_font_pkg -n sans-modern -f %{fontconf}-sans-modern.conf BPG_Sans_Modern*.ttf
 %{_datadir}/appdata/%{fontname}-sans-modern.metainfo.xml
 
 %package -n %{fontname}-sans-regular-fonts
@@ -510,7 +510,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Sans Regular font family.
 
-%_font_pkg -n sans-regular -f %{fontconf}-sans-regular.conf "BPG_Sans_Regular*.ttf"
+%_font_pkg -n sans-regular -f %{fontconf}-sans-regular.conf BPG_Sans_Regular*.ttf
 %{_datadir}/appdata/%{fontname}-sans-regular.metainfo.xml
 
 %package -n %{fontname}-serif-fonts
@@ -523,7 +523,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Serif font family.
 
-%_font_pkg -n serif -f %{fontconf}-serif.conf "BPG_Serif_GPL*.ttf"
+%_font_pkg -n serif -f %{fontconf}-serif.conf BPG_Serif_GPL*.ttf
 %{_datadir}/appdata/%{fontname}-serif.metainfo.xml
 
 %package -n %{fontname}-serif-modern-fonts
@@ -537,7 +537,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Serif Modern font family.
 
-%_font_pkg -n serif-modern -f %{fontconf}-serif-modern.conf "BPG_Serif_Modern*.ttf"
+%_font_pkg -n serif-modern -f %{fontconf}-serif-modern.conf BPG_Serif_Modern*.ttf
 %{_datadir}/appdata/%{fontname}-serif-modern.metainfo.xml
 
 %package -n %{fontname}-ucnobi-fonts
@@ -550,7 +550,7 @@ Requires:	%{name}-common = %{common_ver}-%{release}
 
 This package contains the Ucnobi font family.
 
-%_font_pkg -n ucnobi -f %{fontconf}-ucnobi.conf "BPG_Ucnobi*.otf"
+%_font_pkg -n ucnobi -f %{fontconf}-ucnobi.conf BPG_Ucnobi*.otf
 %{_datadir}/appdata/%{fontname}-ucnobi.metainfo.xml
 
 %prep
@@ -708,6 +708,10 @@ install -Dm 0644 -p %{SOURCE88} \
 %doc Docs/*
 
 %changelog
+* Thu Aug  3 2023 Tom Callaway <spot@fedoraproject.org> - 20120413-23
+- update license tag
+- remove quoting from file matches
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20120413-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

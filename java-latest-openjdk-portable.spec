@@ -333,7 +333,7 @@
 # New Version-String scheme-style defines
 %global featurever 20
 %global interimver 0
-%global updatever 1
+%global updatever 2
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -391,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      5
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1627,6 +1627,10 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchiveForFiles}
 
 %changelog
+* Thu Aug 03 2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.2.0.9-1.rolling
+- Update to jdk-20.0.2+9
+- Update release notes to 20.0.2+9
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:20.0.1.0.9-5.rolling.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

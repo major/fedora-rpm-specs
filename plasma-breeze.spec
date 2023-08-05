@@ -6,8 +6,8 @@
 %global         base_name   breeze
 
 Name:    plasma-breeze
-Version: 5.27.6
-Release: 2%{?dist}
+Version: 5.27.7
+Release: 1%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: GPLv2+
@@ -144,6 +144,9 @@ Provides:       breeze-cursor-themes = %{version}-%{release}
 %{_kf5_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
+- 5.27.7
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

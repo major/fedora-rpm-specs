@@ -4,16 +4,16 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
-%global commit 4b91d9b0f919be41f7e7568c87c5c67dfac189aa
+%global commit 17041794360634e063c644aa355d5b7e354abd54
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global dxfrw_includedir %(pkg-config --cflags-only-I libdxfrw | sed 's|-I||g')
 
 Name:			librecad
-Version:		2.2.0
-Release:		3%{?dist}
+Version:		2.2.0.2
+Release:		1%{?dist}
 Summary:		Computer Assisted Design (CAD) Application
-License:		GPLv2 and GPLv2+
+License:		GPL-2.0-only AND GPL-2.0-or-later
 URL:			http://librecad.org/
 Source0:		https://github.com/LibreCAD/LibreCAD/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1:		ttf2lff.1
@@ -23,7 +23,7 @@ Source3:		Electronic8-LCAD.zip
 Patch0:			librecad-use-system-libdxfrw.patch
 Patch2:			librecad-install.patch
 Patch3:			librecad-plugindir.patch
-Patch4:			librecad-use-system-shapelib.patch
+# Patch4:		librecad-use-system-shapelib.patch
 Patch6:			librecad-gcc6.patch
 # need to use unique symbol names
 Patch8:			librecad-unique-symbol-names.patch
@@ -54,7 +54,7 @@ Development files for LibreCAD.
 
 %package fonts
 Summary:	Fonts in LibreCAD (lff) format
-License:	GPLv2+ and (ASL 2.0 or GPLv3 with exceptions)
+License:	GPL-2.0-or-later AND (Apache-2.0 OR GPL-3.0-only WITH Font-exception-2.0)
 BuildArch:	noarch
 
 %description fonts
@@ -64,7 +64,7 @@ Fonts converted to LibreCAD (lff) format.
 Summary:	Language (qm) files for LibreCAD
 BuildArch:	noarch
 
-%description langs 
+%description langs
 Language (qm) files for	LibreCAD.
 
 %package parts
@@ -84,11 +84,11 @@ Pattern files for LibreCAD.
 
 %prep
 %setup -qn LibreCAD-%{commit} -a 2 -a 3
-%patch0 -p1 -b .system
+%patch -P0 -p1 -b .system
 # %%patch2 -p1 -b .install
-%patch3 -p1
-%patch4 -p1 -b .system-shapelib
-%patch6 -p1 -b .gcc6
+%patch -P3 -p1
+# %%patch4 -p1 -b .system-shapelib
+%patch -P6 -p1 -b .gcc6
 # %%patch8 -p1 -b .unique
 sed -i 's|##LIBDIR##|%{_libdir}|g' librecad/src/lib/engine/rs_system.cpp
 sed -i 's|$${DXFRW_INCLUDEDIR}|%{dxfrw_includedir}|g' librecad/src/src.pro
@@ -98,7 +98,7 @@ sed -i 's|$${DXFRW_INCLUDEDIR}|%{dxfrw_includedir}|g' librecad/src/src.pro
 
 # Nuke bundled libraries
 # rm -rf libraries/libdxfrw
-rm -rf plugins/importshp/shapelib
+# rm -rf plugins/importshp/shapelib
 
 # unset +x flags on some source files
 for i in plugins/*/*.cpp plugins/*/*.h librecad/src/plugins/qc_plugininterface.h; do
@@ -114,6 +114,8 @@ cp /usr/share/licenses/wqy-microhei-fonts/LICENSE_* .
 
 sed -i 's|LRELEASE="lrelease"|LRELEASE="lrelease-qt5"|g' scripts/postprocess-unix.sh
 
+# Fix the version string
+sed -i 's|LC_VERSION="2.2.0-undef"|LC_VERSION="%{version}"|g' librecad/src/src.pro
 
 %build
 %{qmake_qt5} librecad.pro 'CONFIG+=release' 'BOOST_DIR=/usr' 'BOOST_LIBDIR=%{_libdir}' 'MUPARSER_DIR=/usr' 'QMAKE_LFLAGS_RELEASE=' 'DISABLE_POSTSCRIPT=true'
@@ -121,7 +123,7 @@ sed -i 's|LRELEASE="lrelease"|LRELEASE="lrelease-qt5"|g' scripts/postprocess-uni
 make %{?_smp_mflags} MUPARSER_DIR=/usr
 rm -rf unix/resources/fonts/wqy-unicode.lff
 mkdir -p unix/resources/fonts
-./unix/ttf2lff -L "ASL 2.0 or GPLv3 with exceptions" /usr/share/fonts/wqy-microhei/wqy-microhei.ttc unix/resources/fonts/wqy-unicode.lff 
+./unix/ttf2lff -L "Apache-2.0 OR GPL-3.0-only WITH Font-exception-2.0" /usr/share/fonts/wqy-microhei-fonts/wqy-microhei.ttc unix/resources/fonts/wqy-unicode.lff
 
 
 %install
@@ -233,6 +235,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/patterns/
 
 %changelog
+* Thu Aug  3 2023 Tom Callaway <spot@fedoraproject.org> - 2.2.0.2-1
+- make sure LC_VERSION is set properly
+- update to 2.2.0.2
+- fix license tags
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

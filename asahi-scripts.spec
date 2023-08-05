@@ -84,10 +84,15 @@ Keep m1n1 up to date on Apple Silicon systems.
 install -Ddpm0755 %{buildroot}%{_prefix}/lib/firmware/vendor
 install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 
-%transfiletriggerin -n asahi-fwupdate -- %{_sbindir}/asahi-fwupdate %{_bindir}/asahi-fwextract %{python3_sitearch}/asahi-firmware
+%transfiletriggerin -n asahi-fwupdate -- %{_sbindir}/asahi-fwupdate %{_bindir}/asahi-fwextract
 %{_sbindir}/asahi-fwupdate || :
 
-%transfiletriggerin -n update-m1n1 -- %{_libdir}/m1n1 %{_datadir}/uboot/apple_m1 /boot/dtb-
+# This needs to be a separate trigger because we can't use python3_sitearch here
+%transfiletriggerin -n asahi-fwupdate -- /usr/lib/python
+grep "asahi-firmware" && %{_sbindir}/asahi-fwupdate || :
+
+# We can't use _libdir here because it gets incorrectly expanded to /usr/lib
+%transfiletriggerin -n update-m1n1 -- /usr/lib/m1n1 /usr/lib64/m1n1 /usr/share/uboot/apple_m1 /boot/dtb-
 %{_sbindir}/update-m1n1 || :
 
 %files

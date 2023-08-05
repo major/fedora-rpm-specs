@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.23.2
+Version:    2.23.3
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -251,6 +251,10 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Thu Aug 03 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.3-1
+- Update to 2.23.3
+- Translation update from Weblate (tr 100%)
+
 * Sun Jul 30 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.2-1
 - Update to 2.23.2
 - Move self._gsettings.connect('changed', self.on_gsettings_value_changed)
