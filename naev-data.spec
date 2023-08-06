@@ -2,7 +2,7 @@ Name:           naev-data
 Version:        0.10.2
 Release:        3%{?dist}
 Summary:        Data files for NAEV
-License:        GPLv3 or GPLv3+ or GPLv2+ or Public Domain or CC-BY or CC-BY-SA
+License:        GPL-3.0-only AND GPL-3.0-or-later AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND CC0-1.0 AND CC-BY-SA-3.0 AND CC-BY-SA-4.0 AND CC-BY-3.0 AND CC-BY-4.0 AND (GPL-3.0-only OR CC-BY-SA-3.0) AND GFDL-1.2-no-invariants-only
 URL:            http://naev.org
 Source0:        https://github.com/naev/naev/archive/v%{version}/naev-%{version}-source.tar.xz
 Requires:       naev = %{version}

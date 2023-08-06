@@ -1,6 +1,6 @@
 Name:           python-qcelemental
-Version:        0.25.1
-Release:        2%{?dist}
+Version:        0.26.0
+Release:        1%{?dist}
 Summary:        Periodic table, physical constants, and molecule parsing for quantum chemistry
 License:        BSD
 URL:            https://github.com/MolSSI/QCElemental
@@ -8,17 +8,6 @@ Source0:        https://github.com/MolSSI/QCElemental/archive/v%{version}/%{name
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(networkx)
-BuildRequires:  python3dist(numpy)
-BuildRequires:  python3dist(pint)
-#BuildRequires:  python3dist(py3dmol)
-BuildRequires:  python3-pydantic
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-pytest-runner
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-rtd-theme)
 
 %description
 QCElemental is a resource module for quantum chemistry containing
@@ -53,27 +42,27 @@ Molecule QCSchema.
 %prep
 %setup -q -n QCElemental-%{version}
 # Remove bundled egg-info
-rm -rf QCElemental.egg-info
+rm -rf QCElemental.*-info
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
-
-# Build docs; doesn't work since sphinx-automodapi isn't available on Fedora
-#python3 setup.py build_sphinx
+%pyproject_wheel
 
 %install
-%py3_install
-
-%check
-%{__python3} setup.py test
+%pyproject_install
 
 %files -n python3-qcelemental
 %license LICENSE
 %doc README.md
 %{python3_sitelib}/qcelemental
-%{python3_sitelib}/qcelemental-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/qcelemental-%{version}.dist-info
 
 %changelog
+* Fri Aug 04 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.26.0-1
+- Update to 0.26.0.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

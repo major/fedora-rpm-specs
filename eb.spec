@@ -4,7 +4,7 @@ Release:        22%{?dist}
 Summary:        Library for accessing Japanese CD-ROM electronic books
 Summary(ja):    CD-ROM 書籍にアクセスするためのライブラリ
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://www.sra.co.jp/people/m-kasahr/eb/
 Source0:        ftp://ftp.sra.co.jp/pub/misc/eb/%{name}-%{version}.tar.bz2
 Patch1:         eb-aclocal-conf-libdir.patch

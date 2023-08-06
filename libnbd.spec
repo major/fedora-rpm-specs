@@ -8,8 +8,8 @@
 %global source_directory 1.17-development
 
 Name:           libnbd
-Version:        1.17.2
-Release:        2%{?dist}
+Version:        1.17.3
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -24,6 +24,9 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
+
+# Upstream patch to fix ./configure --disable-rust
+Patch:          0001-generator-Handle-.-configure-disable-rust.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -224,7 +227,8 @@ autoreconf -i
     --disable-ocaml \
 %endif
     --enable-fuse \
-    --disable-golang
+    --disable-golang \
+    --disable-rust
 
 make %{?_smp_mflags}
 
@@ -374,6 +378,10 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Fri Aug 04 2023 Richard W.M. Jones <rjones@redhat.com> - 1.17.3-1
+- New upstream development version 1.17.3
+- Disable Rust bindings.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %global sum A process and system utilities module for Python
 
 Name:           python-%{srcname}
-Version:        5.9.2
-Release:        4%{?dist}
+Version:        5.9.5
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -95,6 +95,10 @@ make test APPVEYOR=1 PYTHON=%{__python3} PYTHONPATH=%{buildroot}/%{python3_sitea
 
 
 %changelog
+* Fri Aug 04 2023 Jonathan Wright <jonathan@almalinux.org> - 5.9.5-1
+- Update to 5.9.5 rhbz#2135931
+- Skip unreliable test rhbz#2169395
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

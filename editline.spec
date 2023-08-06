@@ -5,7 +5,7 @@ Summary:        A small compatible replacement for readline
 
 # https://fedoraproject.org/wiki/Licensing/Henry_Spencer_Reg-Ex_Library_License
 # also cf https://www.openhub.net/licenses/cnews
-License:        HSRL
+License:        Spencer-94
 URL:            https://troglobit.com/projects/editline/
 Source0:        https://github.com/troglobit/editline/releases/download/%{version}/editline-%{version}.tar.xz
 BuildRequires:  gcc

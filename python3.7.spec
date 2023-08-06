@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel rc1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python
 
 
@@ -759,14 +759,15 @@ topdir=$(pwd)
 # Standard library built here will still use the %%build_...flags,
 # Fedora packages utilizing %%py3_build will use them as well
 # https://fedoraproject.org/wiki/Changes/Python_Extension_Flags
-export CFLAGS="%{extension_cflags} -D_GNU_SOURCE -fPIC -fwrapv"
+# https://fedoraproject.org/wiki/Changes/Python_Extension_Flags_Reduction
+export CFLAGS="%{extension_cflags}"
 export CFLAGS_NODIST="%{build_cflags} -D_GNU_SOURCE -fPIC -fwrapv"
-export CXXFLAGS="%{extension_cxxflags} -D_GNU_SOURCE -fPIC -fwrapv"
+export CXXFLAGS="%{extension_cxxflags}"
 export CPPFLAGS="$(pkg-config --cflags-only-I libffi)"
-export OPT="%{extension_cflags} -D_GNU_SOURCE -fPIC -fwrapv"
+export OPT="%{extension_cflags}"
 export LINKCC="gcc"
 export CFLAGS="$CFLAGS $(pkg-config --cflags openssl)"
-export LDFLAGS="%{extension_ldflags} -g $(pkg-config --libs-only-L openssl)"
+export LDFLAGS="%{extension_ldflags} $(pkg-config --libs-only-L openssl)"
 export LDFLAGS_NODIST="%{build_ldflags} -g $(pkg-config --libs-only-L openssl)"
 
 # We can build several different configurations of Python: regular and debug.
@@ -1674,6 +1675,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Aug 02 2023 Charalampos Stratakis <cstratak@redhat.com> - 3.7.17-3
+- Remove extra distro-applied CFLAGS passed to user built C extensions
+- https://fedoraproject.org/wiki/Changes/Python_Extension_Flags_Reduction
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

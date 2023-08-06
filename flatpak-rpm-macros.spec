@@ -1,6 +1,6 @@
 Name:           flatpak-rpm-macros
-Version:        37
-Release:        6%{?dist}
+Version:        39
+Release:        1%{?dist}
 Summary:        Macros for building RPMS for flatpaks
 Source0:        macros.flatpak.in
 Source1:        distutils.cfg
@@ -26,7 +26,7 @@ sed -e 's|__LIB__|%{_lib}|g' \
 %install
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rpm
 install -t $RPM_BUILD_ROOT%{_sysconfdir}/rpm -p -m 644 macros.flatpak
-for v in 3.11 ; do
+for v in 3.12 ; do
     mkdir -p $RPM_BUILD_ROOT%{_libdir}/python$v/distutils/
     install -t $RPM_BUILD_ROOT%{_libdir}/python$v/distutils/ %{SOURCE1}
 done
@@ -45,6 +45,10 @@ install -t $RPM_BUILD_ROOT%{_rpmconfigdir} -m 755 %{SOURCE3}
 %{_rpmconfigdir}/fontconfig-flatpak.prov
 
 %changelog
+* Fri Aug 04 2023 Kalev Lember <klember@redhat.com> - 39-1
+- Update %%python_sitearch for python-3.12 (rhbz#2225806)
+- Fix brp-compress search path to correctly compress man pages in /app
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

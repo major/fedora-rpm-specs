@@ -58,7 +58,7 @@ Version: 9.6.2
 Release: 10%{?dist}
 Summary: Glasgow Haskell Compiler
 
-License: BSD-3-Clause and HaskellReport
+License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
 Source0: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.lz
 %if %{with testsuite}
@@ -305,7 +305,7 @@ Version: 0.1.0.0
 This provides the hadrian tool which can be used to build ghc.
 %endif
 
-%global BSDHaskellReport %{quote:BSD-3-Clause and HaskellReport}
+%global BSDHaskellReport %{quote:BSD-3-Clause AND HaskellReport}
 
 # use "./libraries-versions.sh" to check versions
 %if %{defined ghclibdir}
@@ -352,7 +352,7 @@ This provides the hadrian tool which can be used to build ghc.
 
 %package devel
 Summary: GHC development libraries meta package
-License: BSD-3-Clause and HaskellReport
+License: BSD-3-Clause AND HaskellReport
 Requires: %{name}-compiler = %{version}-%{release}
 Obsoletes: %{name}-libraries < %{version}-%{release}
 Provides: %{name}-libraries = %{version}-%{release}
@@ -814,7 +814,7 @@ make test
 %changelog
 * Tue Jul 25 2023 Jens Petersen <petersen@redhat.com> - 9.6.2-10
 - base subpkg now owns ghcliblib and ghclibplatform dirs (#2185357)
-- update BSD license tag to SPDX
+- update BSD license tags to SPDX
 
 * Sat Jul 22 2023 Jens Petersen <petersen@redhat.com> - 9.6.2-9
 - rename ghc manpage to ghc-9.6

@@ -247,7 +247,7 @@ fi
 %config(noreplace) %attr(640,root,root) /etc/audit/plugins.d/syslog.conf
 %config(noreplace) %attr(640,root,root) /etc/audit/audisp-statsd.conf
 %config(noreplace) %attr(640,root,root) /etc/audit/plugins.d/au-statsd.conf
-%config(noreplace) %attr(640,root,root) /etc/audit/plugins.d/audisp-af_unix.conf
+%config(noreplace) %attr(640,root,root) /etc/audit/plugins.d/af_unix.conf
 %attr(750,root,root) %{_sbindir}/audisp-remote
 %attr(750,root,root) %{_sbindir}/audisp-syslog
 %attr(750,root,root) %{_sbindir}/audisp-af_unix

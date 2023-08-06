@@ -23,6 +23,7 @@ Summary:        A scalable overlay networking tool with a focus on performance, 
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+Source1:        nebula.service
 
 BuildRequires:  systemd-rpm-macros
 
@@ -52,7 +53,7 @@ install -m 0755 -vd                             %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/*         %{buildroot}%{_bindir}/
 install -m 0755 -vd                             %{buildroot}%{_sysconfdir}/%{name}
 install -m 0640 -vp examples/config.yml         %{buildroot}%{_sysconfdir}/%{name}
-install -m 0644 -vDp dist/fedora/nebula.service %{buildroot}%{_unitdir}/%{name}.service
+install -m 0644 -vDp %{SOURCE1}                 %{buildroot}%{_unitdir}/%{name}.service
 
 %if %{with check}
 %check

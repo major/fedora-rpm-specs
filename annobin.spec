@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.23
+Version: 12.24
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later 
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Aug 04 2023 Nick Clifron  <nickc@redhat.com> - 12.24-1
+- Annocheck: Change GO FIPS test to look for CGO_ENABLED markers.
+
 * Mon Jul 31 2023 Nick Clifron  <nickc@redhat.com> - 12.23-1
 - Annocheck: Add test for FIPS compliant GO binaries.
 

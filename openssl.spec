@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -120,7 +120,7 @@ Patch78:  0078-Add-FIPS-indicator-parameter-to-HKDF.patch
 # # https://github.com/openssl/openssl/pull/13817
 Patch100: 0100-RSA-PKCS15-implicit-rejection.patch
 
-License: ASL 2.0
+License: Apache-2.0
 URL: http://www.openssl.org/
 BuildRequires: gcc g++
 BuildRequires: coreutils, perl-interpreter, sed, zlib-devel, /usr/bin/cmp
@@ -450,6 +450,9 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Fri Aug 04 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.1.1-2
+- migrated to SPDX license
+
 * Thu Jul 27 2023 Sahana Prasad <sahana@redhat.com> - 1:3.1.1-1
 - Rebase to upstream version 3.1.1
   Resolves: CVE-2023-0464

@@ -50,6 +50,10 @@ Source1:        https://projects.%{name}.org/%{name}/%{name}-addons/archive/v%{v
 # Rename macros extension to avoid clashing with upstream version
 Source2:        macros.%{name}-rpm
 
+Patch1:         blender-3.6.1-py312-pyarg-parser-def.patch
+Patch2:         blender-3.6.1-py312-pylongobject.patch
+Patch3:         blender-3.6.1-py312-opcode.patch
+
 # Development stuff
 BuildRequires:  boost-devel
 BuildRequires:  ccache

@@ -6,7 +6,7 @@ Version:        0.30.3
 Release:        3%{?dist}
 Summary:        CommonMark parsing and rendering
 
-License:        BSD and MIT
+License:        BSD-2-Clause AND MIT
 URL:            https://github.com/jgm/cmark
 Source0:        https://github.com/jgm/cmark/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -88,6 +88,9 @@ This package provides the cmark library.
 
 
 %changelog
+* Fri Aug  4 2023 Jens Petersen <petersen@redhat.com>
+- migrate to SPDX license tags
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

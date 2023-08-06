@@ -59,8 +59,8 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.49.1
-Release: 3%{?dist}
+Version: 3.49.2
+Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
@@ -501,6 +501,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Aug 04 2023 Milan Crha <mcrha@redhat.com> - 3.49.2-1
+- Update to 3.49.2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.49.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

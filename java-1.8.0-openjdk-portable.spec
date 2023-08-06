@@ -310,7 +310,7 @@
 # note, following three variables are sedded from update_sources if used correctly. Hardcode them rather there.
 %global shenandoah_project      openjdk
 %global shenandoah_repo         shenandoah-jdk8u
-%global openjdk_revision        jdk8u372-b07
+%global openjdk_revision        jdk8u382-b05
 %global shenandoah_revision     shenandoah-%{openjdk_revision}
 # Define old aarch64/jdk8u tree variables for compatibility
 %global project         %{shenandoah_project}
@@ -331,7 +331,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      12
+%global rpmrelease      1
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
@@ -491,7 +491,7 @@ URL:      http://openjdk.java.net/
 # FILE_NAME_ROOT=%%{shenandoah_project}-%%{shenandoah_repo}-${VERSION}
 # REPO_ROOT=<path to checked-out repository> generate_source_tarball.sh
 # where the source is obtained from http://hg.openjdk.java.net/%%{project}/%%{repo}
-Source0: %{shenandoah_project}-%{shenandoah_repo}-%{shenandoah_revision}-4curve.tar.xz
+Source0: %{shenandoah_project}-%{shenandoah_repo}-%{shenandoah_revision}.tar.xz
 
 # Custom README for -src subpackage
 Source2:  README.md
@@ -658,18 +658,6 @@ Patch12: jdk8186464-rh1433262-zip64_failure.patch
 Patch581: jdk8257794-remove_broken_assert.patch
 # JDK-8282231: x86-32: runtime call to SharedRuntime::ldiv corrupts registers
 Patch582: jdk8282231-x86_32-missing_call_effects.patch
-
-#############################################
-#
-# Patches appearing in 8u382
-#
-# This section includes patches which are present
-# in the listed OpenJDK 8u release and should be
-# able to be removed once that release is out
-# and used by this RPM.
-#############################################
-# JDK-8271199, RH2175317: Mutual TLS handshake fails signing client certificate with custom sensitive PKCS11 key
-Patch2001: jdk8271199-rh2175317-custom_pkcs11_provider_support.patch
 
 #############################################
 #
@@ -892,8 +880,6 @@ pushd %{top_level_dir_name}
 %patch1001 -p1
 # nss.cfg PKCS11 support; must come last as it also alters java.security
 %patch1000 -p1
-# 8u382 fix
-%patch2001 -p1
 # system cacerts support
 %patch539 -p1
 popd
@@ -1437,6 +1423,26 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchiveForFiles}
 
 %changelog
+* Fri Aug 04 2023 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.382.b05-1
+- updated to CPU 07/23 jdk8u382-b05
+- - generated source tarball as
+-  - OPENJDK_URL=ssh://h*****.com:/***/repos BOOT_JDK=/usr/lib/jvm/java-1.8.0-openjdk  PROJECT_NAME=upstream-repos REPO_NAME=ojdk8...pu VERSION=shenandoah-jdk8u382-b05  sh `pwd`/generate_source_tarball.sh
+- -with
+-  -REPO_ROOT="${OPENJDK_URL}/${PROJECT_NAME}/${REPO_NAME}.git"
+-  +REPO_ROOT="${OPENJDK_URL}/${PROJECT_NAME}/${REPO_NAME}"
+- removed upstreamed Patch2001 jdk8271199-rh2175317-custom_pkcs11_provider_support.patch
+- updated NEWS
+
+* Tue Aug 01 2023 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.372.b07-12
+- removed removal of EC curves
+- - regenerated source tarball as
+-  - OPENJDK_URL=ssh://h*****.com:/***/repos BOOT_JDK=/usr/lib/jvm/java-1.8.0-openjdk  PROJECT_NAME=upstream-repos REPO_NAME=ojdk8...pu VERSION=shenandoah-jdk8u372-b07  sh `pwd`/generate_source_tarball.sh
+- -with
+-  -REPO_ROOT="${OPENJDK_URL}/${PROJECT_NAME}/${REPO_NAME}.git"
+-  +REPO_ROOT="${OPENJDK_URL}/${PROJECT_NAME}/${REPO_NAME}"
+-  - due to temporary location.
+- "Removed" unused and unmaintained generate_singlerepo_source_tarball.sh
+
 * Tue Aug 01 2023 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.372.b07-11
 - returned and applied patch12 jdk8186464-rh1433262-zip64_failure.patch
 

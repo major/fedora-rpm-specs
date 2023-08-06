@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.0.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A Ruby client library for Redis
 License: MIT
 URL: https://github.com/redis/redis-rb
@@ -63,6 +63,11 @@ chmod a+x bin/build
 # (uses require_relative; thus `ln` is not possible)
 mv %{_builddir}/bin/cluster_creator bin/
 
+# Disable test cases failing with Redis 7.2
+# https://github.com/redis/redis-rb/issues/1208
+sed -i '/def test_object/,/^  end/{ /assert encoding/ s/^/#/ }' test/redis/remote_server_control_commands_test.rb
+sed -i '/def test_sscan_with_encoding/,/^  end/ s/ hashtable//' test/redis/scanning_test.rb
+
 # Set locale because two tests fail in mock.
 # https://github.com/redis/redis-rb/issues/345
 LANG=C.UTF-8
@@ -85,7 +90,9 @@ for driver in ruby ; do
 done
 
 make BINARY=$(which redis-server) REDIS_CLIENT=$(which redis-cli) BUILD_DIR='${TMP}' start_sentinel wait_for_sentinel
-ruby -Itest -e 'Dir.glob "./test/sentinel/**/*_test.rb", &method(:require)'
+# Sentinel tests fail with redis-client 0.15.0
+# https://github.com/redis/redis-rb/issues/1209
+#ruby -Itest -e 'Dir.glob "./test/sentinel/**/*_test.rb", &method(:require)'
 make stop_all
 # Give some time for Redis shutdown.
 sleep 1
@@ -104,6 +111,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Aug 04 2023 Vít Ondruch <vondruch@redhat.com> - 5.0.6-3
+- Disable tests failing with Redis 7.2 and redis-client 0.15.0.
+  Resolves: rhbz#2226404
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

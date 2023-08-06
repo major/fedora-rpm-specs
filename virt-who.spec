@@ -20,13 +20,14 @@
 
 
 Name:           virt-who
-Version:        1.31.21
-Release:        %{release_number}%{?dist}.5
+Version:        1.31.26
+Release:        %{release_number}%{?dist}
 
 Summary:        Agent for reporting virtual guest IDs to subscription-manager
 
 Group:          System Environment/Base
-License:        GPLv2+
+# GPL for virt-who proper and LGPL for incorporated suds
+License:        GPLv2+ and LGPLv3+
 URL:            https://github.com/candlepin/virt-who
 Source0:        %{name}-%{version}.tar.gz
 
@@ -78,6 +79,7 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 %endif
+Provides: bundled(python-suds) = 0.8.4
 
 %description
 Agent that collects information about virtual guests present in the system and
@@ -163,20 +165,31 @@ fi
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.21-1.5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Wed Feb 01 2023 Jiri Hnidek <jhnidek@redhat.com> 1.31.26-1
+- Fix stylish issue in migrateconfiguration.py (jhnidek@redhat.com)
+- Added next rhel-9.x subversion to releasers.conf file. (jhnidek@redhat.com)
+- 2158710: Migrated virt-who.conf, when necessary (jhnidek@redhat.com)
+- Added documentation for the 'rhsm_insecure' option, for insecure connections
+  (fernandez.santos.d@gmail.com)
+- Added configuration for rhel-9.x into releasers.conf (jhnidek@redhat.com)
 
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.31.21-1.4
-- Rebuilt for Python 3.12
+* Thu Oct 06 2022 William Poteat <wpoteat@redhat.com> 1.31.25-1
+- 2099925: Drop support for RHEVM on RHEL 9 (jhnidek@redhat.com)
+- Update virt-who-config.5 (s10w.1ife.31@gmail.com)
+- Big optimization and refactoring of Nutanix code (jhnidek@redhat.com)
 
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.21-1.3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Thu Sep 01 2022 William Poteat <wpoteat@redhat.com> 1.31.24-1
+- 2118253: Nutanix: Gather information about VMs correctly (jhnidek@redhat.com)
 
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.21-1.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Thu Apr 21 2022 William Poteat <wpoteat@redhat.com> 1.31.23-1
+- 2054504: Use usedforsecurity=False for md5() calls to make suds work on FIPS
+  enabled systems (oalbrigt@redhat.com)
 
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.31.21-1.1
-- Rebuilt for Python 3.11
+* Wed Mar 16 2022 William Poteat <wpoteat@redhat.com> 1.31.22-1
+- 2060949: Indicate that virt-who provides python-suds in the spec file
+  (wpoteat@redhat.com)
+- Run complex tests as forked for consistent results (wpoteat@redhat.com)
+- Update releasers for current needs (wpoteat@redhat.com)
 
 * Tue Feb 08 2022 William Poteat <wpoteat@redhat.com> 1.31.21-1
 - 1987247: The connection value shows null for kubevirt mode in virt-who status

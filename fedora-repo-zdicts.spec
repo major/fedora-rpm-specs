@@ -2,7 +2,7 @@ Name:           fedora-repo-zdicts
 Version:        2303.1
 Release:        2%{?dist}
 Summary:        Zstd dictionaries for Fedora repository metadata
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://pagure.io/fedora-repo-zdicts
 Source0:        https://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
 BuildArch:      noarch

@@ -4,20 +4,19 @@
 
 Name:           mojo-executor
 Version:        2.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Execute other plugins within a maven plugin
 
 License:        Apache-2.0
 URL:            https://mojo-executor.github.io/mojo-executor/
 Source0:        https://github.com/mojo-executor/mojo-executor/archive/%{name}-parent-%{version}.tar.gz
-# Remove dependency on ant-contrib, which no longer builds successfully
-Patch0:         %{name}-ant-contrib.patch
 # Fix a javadoc comment
-Patch1:         %{name}-javadoc.patch
+Patch0:         %{name}-javadoc.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  maven-local
+BuildRequires:  mvn(ant-contrib:ant-contrib)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
@@ -84,6 +83,9 @@ This package contains %{summary}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Fri Aug  4 2023 Jerry James <loganjerry@gmail.com> - 2.4.0-6
+- Bring back the ant-contrib dependency
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

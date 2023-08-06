@@ -4,8 +4,7 @@ Name:           spandsp
 Summary:        A DSP library for telephony
 Version:        0.0.6
 Release:        17%{?pre:.pre%{pre}}%{?dist}
-
-License:        LGPLv2 and GPLv2
+License:        LGPL-2.1-only AND GPL-2.0-only
 URL:            https://www.soft-switch.org
 # Remove non-free file (no permission to redistribute)
 # rm -rf spandsp-0.0.6/test-data/local/lenna-colour.tif

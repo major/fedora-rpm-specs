@@ -16,7 +16,7 @@ Epoch:          1
 Summary:        A contact management utility for use with Emacs
 Summary(sv):    Ett verktyg för att hantera kontakter i Emacs
 
-License:        GPL-3.0-or-later
+License:        GPL-3.0-or-later AND GFDL-1.3-or-later
 URL:            http://savannah.nongnu.org/projects/bbdb/
 
 # Releases are somewhat sporadic. Using the lates commit seems more

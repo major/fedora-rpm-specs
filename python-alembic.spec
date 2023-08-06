@@ -1,5 +1,5 @@
 Name:             python-alembic
-Version:          1.11.1
+Version:          1.11.2
 Release:          %autorelease
 Summary:          Database migration tool for SQLAlchemy
 
@@ -7,10 +7,6 @@ Summary:          Database migration tool for SQLAlchemy
 License:          MIT
 URL:              https://pypi.io/project/alembic
 Source0:          %{pypi_source alembic}
-
-# Alembic fails with Python 3.10.0b2 due to DeprecationWarnings treated as an error.
-# Downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=1958159
-Patch1:           0001-filter-out-DeprecationWarnings.patch
 
 BuildArch:        noarch
 

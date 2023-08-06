@@ -7,14 +7,14 @@
 %global _hardened_build 1
 
 Name:           haproxy
-Version:        2.8.0
-Release:        2%{?dist}
+Version:        2.8.1
+Release:        1%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 URL:            http://www.haproxy.org/
-Source0:        %{url}/download/2.7/src/haproxy-%{version}.tar.gz
+Source0:        %{url}/download/2.8/src/haproxy-%{version}.tar.gz
 Source1:        %{name}.service
 Source2:        %{name}.cfg
 Source3:        %{name}.logrotate
@@ -127,6 +127,12 @@ done
 %{_sysusersdir}/%{name}.conf
 
 %changelog
+* Fri Aug 04 2023 Ryan O'Hara <rohara@redhat.com> - 2.8.1-1
+- Update to 2.8.1 (#2219397)
+
+* Fri Aug 04 2023 Ryan O'Hara <rohara@redhat.com> - 2.8.0-3
+- Migrate to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

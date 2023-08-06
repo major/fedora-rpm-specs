@@ -1,8 +1,8 @@
 %global github_name FeatherPad
 
 Name:           featherpad
-Version:        1.4.0
-Release:        2%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        Lightweight Qt5 Plain-Text Editor
 
 License:        GPLv3+
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/featherpad.metainfo.xml
 
 %changelog
+* Fri Aug 04 2023 Jonathan Wright <jonathan@almalinux.org> - 1.4.1-1
+- Update to 1.4.1 rhbz#2214871
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           zchunk
 Version:        1.3.1
 Release:        2%{?dist}
 Summary:        Compressed file format that allows easy deltas
-License:        BSD and MIT
+License:        BSD-2-Clause AND MIT
 URL:            https://github.com/zchunk/zchunk
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc

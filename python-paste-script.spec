@@ -9,8 +9,8 @@ Built-in features:\
 %global sum A pluggable command-line frontend
 
 Name:           python-paste-script
-Version:        3.2.1
-Release:        9%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 # paste/script/wsgiserver/ is BSD licensed from CherryPy
@@ -22,48 +22,14 @@ Summary:        %{sum}
 URL:            https://github.com/cdent/pastescript
 Source0:        https://pypi.python.org/packages/source/P/PasteScript/PasteScript-%{version}.tar.gz
 
-%if (0%{?fedora} && (0%{?fedora} <= 30)) || (0%{?rhel} && (0%{?rhel} <= 7))
-BuildRequires:  python2-devel
-BuildRequires:  python2-paste-deploy
-BuildRequires:  python2-six
-%endif
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-paste-deploy
-BuildRequires:  python3-six
 
 
 %description
 %{desc}
-%if (0%{?fedora} && (0%{?fedora} <= 30)) || (0%{?rhel} && (0%{?rhel} <= 7))
-%package -n python2-paste-script
-Summary:        %{sum}
-
-%{?python_provide:%python_provide python2-paste-script}
-
-Requires:       python2-paste >= 1.3
-Requires:       python2-cheetah
-Requires:       python2-cherrypy
-Requires:       python2-flup
-Requires:       python2-paste-deploy
-Requires:       python2-six
-%endif
-
-%if (0%{?fedora} && (0%{?fedora} <= 30)) || (0%{?rhel} && (0%{?rhel} <= 7))
-%description -n python2-paste-script
-%{desc}
-%endif
 
 %package -n python3-paste-script
 Summary:        %{sum}
-
-%{?python_provide:%python_provide python3-paste-script}
-
-Requires:       python3-paste >= 1.3
-Requires:       python3-paste-deploy
-Requires:       python3-cherrypy
-Requires:       python3-six
-
 
 %description -n python3-paste-script
 %{desc}
@@ -72,52 +38,42 @@ Requires:       python3-six
 %prep
 %autosetup -n PasteScript-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 find docs -type f -exec chmod 0644 \{\} \;
 
 
 %build
-%if (0%{?fedora} && (0%{?fedora} <= 30)) || (0%{?rhel} && (0%{?rhel} <= 7))
-%py2_build
-%endif
-
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
 mv %{buildroot}%{_bindir}/paster %{buildroot}%{_bindir}/paster-%{python3_version}
 ln -s ./paster-%{python3_version} %{buildroot}%{_bindir}/paster-3
 
-%if (0%{?fedora} && (0%{?fedora} <= 30)) || (0%{?rhel} && (0%{?rhel} <= 7))
-%py2_install
-mv %{buildroot}%{_bindir}/paster %{buildroot}%{_bindir}/paster-%{python2_version}
-ln -s ./paster-%{python2_version} %{buildroot}%{_bindir}/paster-2
-ln -s ./paster-%{python2_version} %{buildroot}%{_bindir}/paster
-%endif
+%pyproject_save_files paste
 
-%if (0%{?fedora} && (0%{?fedora} <= 30)) || (0%{?rhel} && (0%{?rhel} <= 7))
-%files -n python2-paste-script
+
+# TODO: enable tests in the future.  dependency mess right now for python 3.11+
+#%%check
+#%%tox
+
+
+%files -n python3-paste-script -f %{pyproject_files}
 %license docs/license.txt
 %doc docs/*
-%{python2_sitelib}/paste/script
-%{python2_sitelib}/PasteScript-%{version}-py%{python2_version}.egg-info
-%{python2_sitelib}/PasteScript-%{version}-py%{python2_version}-nspkg.pth
-%{_bindir}/paster
-%{_bindir}/paster-2
-%{_bindir}/paster-%{python2_version}
-%endif
-
-%files -n python3-paste-script
-%license docs/license.txt
-%doc docs/*
-%{python3_sitelib}/paste/script
-%{python3_sitelib}/PasteScript-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/PasteScript-%{version}-py%{python3_version}-nspkg.pth
 %{_bindir}/paster-3
 %{_bindir}/paster-%{python3_version}
 
 
 %changelog
+* Fri Aug 04 2023 Jonathan Wright <jonathan@almalinux.org> - 3.3.0-1
+- Update to 3.3.0 rhbz#2157959
+- Modernize spec file, drop python2 support
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

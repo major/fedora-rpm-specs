@@ -1,21 +1,24 @@
 # Generated from redis-client-0.12.1.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name redis-client
 
+%bcond_without regenerate_certs
+
 Name: rubygem-%{gem_name}
-Version: 0.12.1
-Release: 2%{?dist}
+Version: 0.15.0
+Release: 1%{?dist}
 Summary: Simple low-level client for Redis 6+
 License: MIT
 URL: https://github.com/redis-rb/redis-client
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/redis-rb/redis-client.git && cd redis-client
-# git archive -v -o redis-client-0.12.1-tests.txz v0.12.1 test/
+# git archive -v -o redis-client-0.15.0-tests.txz v0.15.0 test/
 Source1: %{gem_name}-%{version}-tests.txz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
 BuildRequires: rubygem(connection_pool)
 BuildRequires: rubygem(minitest)
+%{?with_regenerate_certs:BuildRequires: %{_bindir}/openssl}
 BuildRequires: %{_bindir}/redis-server
 BuildArch: noarch
 
@@ -52,6 +55,9 @@ cp -a .%{gem_dir}/* \
 %check
 pushd .%{gem_instdir}
 cp -a %{_builddir}/test .
+
+# Make sure we are using fresh certificates.
+%{?with_regenerate_certs: test/fixtures/generate-certs.sh}
 
 # Do not download Redis, use the system one.
 # https://github.com/redis-rb/redis-client/issues/88
@@ -96,6 +102,11 @@ popd
 %{gem_instdir}/redis-client.gemspec
 
 %changelog
+* Fri Aug 04 2023 Vít Ondruch <vondruch@redhat.com> - 0.15.0-1
+- Update to RedisClient 0.15.0.
+  Resolves: rhbz#2170659
+  Resolves: rhbz#2226405
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

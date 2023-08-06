@@ -2,7 +2,7 @@
 
 Name: pew
 Version: 1.2.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Tool to manage multiple virtualenvs written in pure Python
 
 License: MIT
@@ -68,37 +68,53 @@ single (configurable) location.
 # README.md.
 # NOTE: The source file should stay named README.md so that Pagure renders it
 # when one visits https://src.fedoraproject.org/rpms/pew.
-mv %{SOURCE1} README.Fedora.md
+cp -v %{SOURCE1} README.Fedora.md
 
 # This script for shell completion can't be used for Fedora package
 rm -rf %{name}/shell_config/complete_deploy
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pew
 
+# Manually install shell completions scripts for Bash/Fish/Zsh.
+install -m 0644 -p -D %{name}/shell_config/complete.bash %{buildroot}/%{bash_completions_dir}/pew
+install -m 0644 -p -D %{name}/shell_config/complete.fish %{buildroot}/%{fish_completions_dir}/pew.fish
+install -m 0644 -p -D %{name}/shell_config/complete.zsh %{buildroot}/%{zsh_completions_dir}/_pew
 
-%if %{with check}
 %check
+%if %{with check}
+# Temporarily disable tests failing with Python 3.12.
+# For more details, see: https://github.com/pew-org/pew/issues/233.
+k="not test_restore and not test_lssitepackages and not test_new_env_activated"
 PATH=%{buildroot}%{_bindir}:$PATH \
 PYTHONPATH=%{buildroot}%{python3_sitelib} \
-py.test-3 -v tests
+%{pytest} "${k:+-k $k}" -v tests
 %endif
 
 
-%files
-%license LICENSE
+%files -f %{pyproject_files}
 %doc README.md README.Fedora.md
 %{_bindir}/pew
-%{python3_sitelib}/%{name}
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
-
+%{bash_completions_dir}/pew
+%{fish_completions_dir}/pew.fish
+%{zsh_completions_dir}/_pew
 
 %changelog
+* Mon Jul 24 2023 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.2.0-20
+- Modernize SPEC file (use %%pyproject_* and %pytest macros)
+- Use cp instead of mv for README.Fedora.md
+- Install shell completion files for Bash/Fish/Zsh
+- Temporarily disable tests failing with Python 3.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

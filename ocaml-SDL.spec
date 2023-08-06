@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-SDL
 Version:        0.9.1
-Release:        61%{?dist}
+Release:        62%{?dist}
 Summary:        OCaml bindings for SDL
 License:        LGPL-2.1-or-later
 
@@ -16,6 +16,7 @@ Patch1:         ocamlsdl-0.9.1-safe-string.patch
 
 # Adapt to changes in OCaml 5.0
 Patch2:         ocamlsdl-0.9.1-ocaml5.patch
+Patch3:         ocamlsdl-0.9.1-ocaml5-blocking-section.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml-lablgl-devel
@@ -73,6 +74,10 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Fri Aug 04 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-62
+- Further adaptions for OCaml 5
+  https://bugzilla.redhat.com/show_bug.cgi?id=2225813#c8
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

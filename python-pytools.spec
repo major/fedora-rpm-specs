@@ -1,7 +1,7 @@
 %global srcname pytools
 
 Name:           python-%{srcname}
-Version:        2023.1
+Version:        2023.1.1
 Release:        %autorelease
 Summary:        Collection of tools for Python
 

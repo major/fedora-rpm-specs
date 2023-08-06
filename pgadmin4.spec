@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        6.21
-Release:        4%{?dist}
+Version:        7.0
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -36,10 +36,6 @@ Source6:        pgadmin4.conf
 Patch0:         pgadmin4_requirements.patch
 # Don't error out on sphinx warnings
 Patch1:         pgadmin4_sphinx_werror.patch
-# Pass allow_unsafe_werkzeug=True to socketio.run
-Patch2:         pgadmin4-socketio.patch
-# Flask 2.2 compatibility
-Patch3:         pgadmin4_flask22.patch
 # Fix python-azure-mgmt-rdbms-10.2.0~b5+ compatibility
 Patch4:         pgadmin4_azure-mgmt-rdbms.patch
 # ??? FIXME Fix crash on None username, retest with 6.16
@@ -51,10 +47,9 @@ Patch11:        pgadmin4_sphinx_youtube.patch
 %global mozjpeg_ver 4.1.1
 Source7:        https://github.com/mozilla/mozjpeg/archive/v%{mozjpeg_ver}/mozjpeg-%{mozjpeg_ver}.tar.gz
 Patch100:       mozjpeg.patch
-# Backport fix for CVE-2021-35065 for bundled glob-parent
-Patch101:       glob-parent-CVE-2021-35065.patch
 
-
+# For docs
+BuildRequires:  glibc-langpack-en
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-setuptools
@@ -70,50 +65,49 @@ BuildRequires:  optipng
 
 # cd pgadmin4-<ver>
 # patch -p1 < pgadmin4_requirements.patch
-# python3 /usr/lib/rpm/redhat/pyproject_buildrequires.py -N requirements.txt 2>/dev/null | awk '{print "Requires: "$0}'
-Requires: python3dist(flask) >= 2.1
+# python3 /usr/lib/rpm/redhat/pyproject_buildrequires.py -N requirements.txt 2>/dev/null --output requires && cat requires | awk '{print "Requires: "$0}'
+Requires: (python3dist(flask) >= 2.2 with python3dist(flask) < 2.3)
 Requires: (python3dist(flask-gravatar) >= 0 with python3dist(flask-gravatar) < 1)
 Requires: (python3dist(flask-login) >= 0 with python3dist(flask-login) < 1)
 Requires: (python3dist(flask-mail) >= 0 with python3dist(flask-mail) < 1)
 Requires: (python3dist(flask-migrate) >= 4 with python3dist(flask-migrate) < 5)
-Requires: python3dist(dnspython) >= 2.2.1
-Requires: python3dist(flask-sqlalchemy) >= 2.5
-Requires: python3dist(flask-wtf) >= 1.0.1
+Requires: (python3dist(flask-sqlalchemy) >= 3 with python3dist(flask-sqlalchemy) < 3.1)
+Requires: python3dist(flask-wtf) = 1.1.1
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
 Requires: (python3dist(flask-paranoid) >= 0 with python3dist(flask-paranoid) < 1)
-Requires: (python3dist(flask-babel) >= 2 with python3dist(flask-babel) < 3)
-Requires: (python3dist(flask-security-too) >= 4.1 with python3dist(flask-security-too) < 4.2)
-Requires: python3dist(flask-socketio)
-Requires: (python3dist(wtforms) >= 3 with python3dist(wtforms) < 4)
+Requires: python3dist(flask-babel) >= 3
+Requires: (python3dist(flask-security-too) >= 5.1 with python3dist(flask-security-too) < 5.2)
+Requires: (python3dist(flask-socketio) >= 5.3 with python3dist(flask-socketio) < 5.4)
+Requires: (python3dist(wtforms) >= 3 with python3dist(wtforms) < 3.1)
 Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
-Requires: python3dist(pytz) >= 2021
-Requires: (python3dist(simplejson) >= 3 with python3dist(simplejson) < 4)
+Requires: python3dist(pytz) >= 2022
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
-Requires: python3dist(psutil) >= 5.9.2
-Requires: (python3dist(psycopg2) >= 2.9 with python3dist(psycopg2) < 2.10)
+Requires: (python3dist(psutil) >= 5.9 with python3dist(psutil) < 5.10)
+Requires: (python3dist(psycopg) >= 3.1 with python3dist(psycopg) < 3.2)
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
-Requires: (python3dist(sqlalchemy) >= 1.4 with python3dist(sqlalchemy) < 1.5)
-Requires: (python3dist(bcrypt) >= 3 with python3dist(bcrypt) < 4)
-Requires: python3dist(cryptography) >= 3
+Requires: python3dist(sqlalchemy) >= 1.4
+Requires: (python3dist(bcrypt) >= 4 with python3dist(bcrypt) < 4.1)
+Requires: (python3dist(cryptography) >= 40 with python3dist(cryptography) < 40.1)
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: python3dist(gssapi) >= 1.7
-Requires: (python3dist(eventlet) >= 0.33 with python3dist(eventlet) < 0.34)
+Requires: python3dist(eventlet) = 0.33.3
 Requires: (python3dist(httpagentparser) >= 1.9 with python3dist(httpagentparser) < 1.10)
 Requires: python3dist(user-agents) = 2.2
-Requires: python3dist(authlib) >= 0.15
-Requires: python3dist(requests) >= 2.25
+Requires: (python3dist(authlib) >= 1.2 with python3dist(authlib) < 1.3)
+Requires: (python3dist(requests) >= 2.28 with python3dist(requests) < 2.29)
 Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(qrcode) >= 7 with python3dist(qrcode) < 8)
-Requires: (python3dist(pillow) >= 9 with python3dist(pillow) < 10)
-Requires: python3dist(boto3) >= 1.20
-Requires: (python3dist(botocore) >= 1.29 with python3dist(botocore) < 1.30)
+Requires: python3dist(pillow) >= 9
+Requires: python3dist(boto3) >= 1.26
+Requires: python3dist(botocore) >= 1.29
 Requires: (python3dist(urllib3) >= 1.26 with python3dist(urllib3) < 1.27)
-Requires: python3dist(werkzeug) >= 2.1.2
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 21
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(azure-identity) >= 1.9
+Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-api-python-client) < 3)
+Requires: python3dist(google-auth-oauthlib) >= 0.8
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -192,10 +186,6 @@ mozjpeg_dir=$(readlink -f .package-cache/v6/npm-mozjpeg-*/node_modules/mozjpeg/)
 cp -a %SOURCE7 ${mozjpeg_dir}/vendor/source/mozjpeg.tar.gz
 %patch 100 -p0 -d ${mozjpeg_dir}/lib
 
-# Patch glob-parent
-globparent_dir=$(readlink -f .package-cache/v6/npm-glob-parent-*/node_modules/glob-parent/)
-%patch 101 -p0 -d ${globparent_dir}
-
 
 %build
 (
@@ -208,7 +198,7 @@ rm -rf node_modules
 %ifarch %{qt5_qtwebengine_arches}
 g++ -o %{name}-qt %{SOURCE3} %{optflags} $(pkg-config --cflags --libs Qt5Core Qt5Widgets Qt5Network Qt5WebEngineWidgets)
 %endif
-make docs
+make docs PYTHON=%{__python3}
 
 
 %install
@@ -268,6 +258,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Aug 04 2023 Sandro Mani <manisandro@gmail.com> - 7.0-1
+- Update to 7.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

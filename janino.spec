@@ -1,8 +1,8 @@
 Name:           janino
-Version:        3.1.9
-Release:        2%{?dist}
+Version:        3.1.10
+Release:        %autorelease
 Summary:        Super-small, super-fast Java compiler
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://janino-compiler.github.io/janino
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -87,30 +87,4 @@ cd -
 %license LICENSE
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jun 26 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 3.1.9-1
-- Update to version 3.1.9
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 08 2022 Jiri Vanek <jvanek@redhat.com> - 3.1.7-2
-- Rebuilt for Drop i686 JDKs
-
-* Thu Apr 21 2022 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 3.1.7-1
-- New upstream release 3.1.7
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Jan 01 2022 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 3.1.6-2
-- Add Requires: commons-compiler = %%{version}-%%{release} to janino package
-- Remove bundled jar/classes
-
-* Fri Dec 31 2021 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 3.1.6-1
-- Initial package
+%autochangelog

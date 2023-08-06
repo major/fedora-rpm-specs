@@ -2,16 +2,16 @@
 %global gem_name fog-core
 
 Name: rubygem-%{gem_name}
-Version: 2.2.4
-Release: 7%{?dist}
+Version: 2.3.0
+Release: 1%{?dist}
 Summary: Shared classes and tests for fog providers and services
 License: MIT
 URL: https://github.com/fog/fog-core
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Fix "load bad cache data - empty file, from disk" test case broken by
-# different Psych return value.
-# https://github.com/fog/fog-core/commit/a662135d701ad79f543bbaa190e573ae56a5d049
-Patch0: rubygem-fog-core-2.2.4-fix-cache-test-for-ruby-3.1.patch
+# Fix compatibilty with Minitest 5.19+, which puts `MiniTest` constant behind
+# environment variable.
+# https://github.com/fog/fog-core/pull/289
+Patch0: rubygem-fog-core-2.3.0-Fix-compatibility-with-Minitest-5.19.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -37,7 +37,7 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 
-%patch0 -p1
+%patch 0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -70,7 +70,7 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CONTRIBUT*
-%{gem_instdir}/Gemfile*
+%{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
 %doc %{gem_instdir}/changelog.md
@@ -78,6 +78,13 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Aug 04 2023 Vít Ondruch <vondruch@redhat.com> - 2.3.0-1
+- Update to fog-core 2.3.0.
+  Resolves: rhbz#2061766
+
+* Fri Aug 04 2023 Vít Ondruch <vondruch@redhat.com> - 2.2.4-8
+- Fix FTBFS due to Minitest 5.19 incompatibilty.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

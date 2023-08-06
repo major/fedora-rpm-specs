@@ -2,7 +2,7 @@ Name:		jday
 Version:        2.4
 Release:        %autorelease
 Summary:        A simple command to convert calendar dates to julian dates
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://sourceforge.net/projects/jday/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch:		configure.patch

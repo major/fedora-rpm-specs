@@ -41,10 +41,10 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-# Note that testing is a namespace package, and the directory is co-owned with
-# python-testing.postgresql and python-testing.mysqld. Furthermore, each
-# installs an __init__.py to the namespace package, which is co-owned
-# and—wonderfully—is *actually* identical among the packages in question.
+# Note that testing is a namespace package; other packages in this namespace
+# could co-own it, but in practice will most likely depend on this package.
+# This is true of python-testing.postgresql and (if it packaged in the future)
+# python-testing.mysqld.
 %pyproject_save_files testing
 
 
@@ -54,7 +54,6 @@ Summary:        %{summary}
 
 
 %files -n python3-testing.common.database -f %{pyproject_files}
-# pyproject-rpm-macros handles the LICENSE file; verify with “rpm -qL -p …”
 %doc README.rst
 %{python3_sitelib}/testing.common.database-%{version}-py%{python3_version}-nspkg.pth
 

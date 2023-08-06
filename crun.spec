@@ -7,10 +7,12 @@
 %endif
 %endif
 
+%if 0%{?fedora}
 # wasmedge built only for aarch64 and x86_64
 %ifarch aarch64 || x86_64
 %global wasm_support enabled
 %global wasm_opts --with-wasmedge
+%endif
 %endif
 
 %global built_tag 1.8.6

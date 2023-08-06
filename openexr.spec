@@ -2,8 +2,8 @@
 %global sover 30
 
 Name:           openexr
-Version:        3.1.9
-Release:        3%{?dist}
+Version:        3.1.10
+Release:        2%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause
@@ -11,6 +11,8 @@ URL:            https://www.openexr.com/
 Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Patch0:         openexr-cstdint.patch
+# https://github.com/AcademySoftwareFoundation/openexr/pull/1507
+Patch1:         march-x86-64-v3.patch
 
 BuildRequires:  cmake gcc gcc-c++
 BuildRequires:  boost-devel
@@ -105,22 +107,13 @@ Summary:        Development files for %{name}
 
 %check
 # Some tests fail on particular architectures
-%ifarch %{ix86}
-# https://github.com/AcademySoftwareFoundation/openexr/issues/1459 (fixed in 3.1.10)
-# https://github.com/AcademySoftwareFoundation/openexr/issues/1460
-EXCLUDE_REGEX='DWA[AB]Compression|CPUIdent'
-%endif
-%ifarch aarch64 ppc64le
+%ifarch aarch64
 # https://github.com/AcademySoftwareFoundation/openexr/issues/1460
 EXCLUDE_REGEX='DWA[AB]Compression'
 %endif
 %ifarch s390x
 # https://github.com/AcademySoftwareFoundation/openexr/issues/1175
 EXCLUDE_REGEX='ReadDeep|DWA[AB]Compression|testCompression|Rgba|SampleImages|SharedFrameBuffer'
-%endif
-%ifarch x86_64
-# https://github.com/AcademySoftwareFoundation/openexr/issues/1456
-EXCLUDE_REGEX='OptimizedInterleavePatterns'
 %endif
 %ctest --exclude-regex "$EXCLUDE_REGEX"
 
@@ -158,6 +151,13 @@ EXCLUDE_REGEX='OptimizedInterleavePatterns'
 
 
 %changelog
+* Fri Aug 04 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.10-2
+- Fix build for x86-64-v3
+- Run all tests on i686, ppc64le, x86_64
+
+* Fri Aug 04 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.10-1
+- Update to 3.1.10.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.5
-Release: 7%{?dist}
+Release: 8%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267 - proposed as BSD-3-Clause-HP
@@ -229,6 +229,7 @@ Patch65: hplip-sclpml-strcasestr.patch
 # be shared and copied for other than archival purposes without HP permission
 # - this looks as incompatible conditional for Fedora, so the files are removed,
 # hplip repacked and this patch removes its mentions in Makefile.am
+# https://bugs.launchpad.net/hplip/+bug/2028938
 Patch66: hplip-nocdmfilter.patch
 # 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
 # https://bugs.launchpad.net/hplip/+bug/2027972
@@ -242,8 +243,10 @@ Patch68: hplip-plugin-curl.patch
 # Upstream https://bugs.launchpad.net/hplip/+bug/2028001
 Patch69: hplip-no-readfp.patch
 # fix SyntaxWarning from python3.12
+# https://bugs.launchpad.net/hplip/+bug/2029480
 Patch70: hplip-use-raw-strings.patch
 # more unfriendly licenses...
+# https://bugs.launchpad.net/hplip/+bug/2028938
 Patch71: hplip-remove-hbpl.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -587,6 +590,8 @@ done
 %patch -P 64 -p1 -b .pcardext-disable
 # C99 compatibility patch by fweimer - undefined strcasestr() in sclpml.c - build with _GNU_SOURCE
 %patch -P 65 -p1 -b .sclpml-strcasestr
+# jetlib.h/.c have suspicious license, root them out
+# https://bugs.launchpad.net/hplip/+bug/2028938
 %patch -P 66 -p1 -b .nocdmfilter
 # 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
 # https://bugs.launchpad.net/hplip/+bug/2027972
@@ -597,7 +602,10 @@ done
 # 2221311 - [python3.12] hplip tools/binaries crash due depending on removed configparser.readfp()
 # Upstream https://bugs.launchpad.net/hplip/+bug/2028001
 %patch -P 69 -p1 -b .no-readfp
+# fix warnings
+# upstream https://bugs.launchpad.net/hplip/+bug/2029480
 %patch -P 70 -p1 -b .raw-strings
+# upstream https://bugs.launchpad.net/hplip/+bug/2028938
 %patch -P 71 -p1 -b .hbpl
 
 # Fedora specific patches now, don't put a generic patches under it
@@ -969,6 +977,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Aug 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-8
+- fallback to using external plugin for Hbpl1 printers
+
 * Fri Jul 28 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-7
 - SPDX migration
 

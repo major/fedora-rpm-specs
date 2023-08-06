@@ -44,6 +44,7 @@ BuildRequires: libwebsockets-devel >= %{libwebsockets_minimum_version}
 BuildRequires: libnghttp2-devel >= %{libnghttp2_minimum_version}
 BuildRequires: asciidoc >= 8.6.8
 BuildRequires: systemd
+BuildRequires: python3-setuptools
 %if 0%{?fedora}
 BuildRequires: rubygem-asciidoctor
 %endif

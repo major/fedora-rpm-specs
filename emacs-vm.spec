@@ -22,7 +22,7 @@ Version: 8.2.0
 %global date 20220609
 %global bzr 1542
 Release: %autorelease -p -s %{date}bzr%{bzr}
-License: GPL-2.0-or-later
+License: GPL-1.0-or-later AND GPL-2.0-or-later
 URL: https://launchpad.net/vm
 # The source for this package was pulled from upstream's vcs.  Use the
 # following commands to generate the tarball:

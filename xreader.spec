@@ -2,8 +2,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	3.8.1
-Release:	2%{?dist}
+Version:	3.8.2
+Release:	1%{?dist}
 Summary:	Simple document viewer
 
 License:	GPLv2+
@@ -96,6 +96,7 @@ This package adds configuration to use %{name} as a thumbnailer.
 %autosetup -p1
 
 %build
+LDFLAGS+=' -lX11 -lICE -lSM'
 %meson	\
  -Ddeprecated_warnings=false \
  -Ddjvu=true \
@@ -167,6 +168,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Fri Aug 04 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.2-1
+- Update to 3.8.2 release
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

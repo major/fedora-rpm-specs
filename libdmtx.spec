@@ -1,28 +1,15 @@
 Name:           libdmtx
-Version:        0.7.5
-Release:        12%{?dist}
+Version:        0.7.7
+Release:        1%{?dist}
 Summary:        Library for working with Data Matrix 2D bar-codes
 
-License:        BSD
-# http://www.libdmtx.org/ doesn't work any more
-# outdated info is still at http://libdmtx.sourceforge.net/
+License:        BSD-2-Clause-Views
 URL:            https://github.com/dmtx
 Source0:        https://github.com/dmtx/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/dmtx/libdmtx/pull/13
-Patch0:         libdmtx-0.7.5-c99.patch
-# https://github.com/dmtx/libdmtx/pull/14
-Patch1:         libdmtx-0.7.5-size_t.patch
-# https://github.com/dmtx/libdmtx/pull/12
-Patch2:         libdmtx-0.7.5-math.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtool
-BuildRequires: make
-
-# obsolete language bindings we can't provide any more
-Obsoletes:      php-libdmtx < 0.7.4
-Obsoletes:      python-libdmtx < 0.7.4
-Obsoletes:      ruby-libdmtx < 0.7.4
+BuildRequires:  make
 
 
 %description
@@ -30,12 +17,6 @@ libdmtx is open source software for reading and writing Data Matrix 2D
 bar-codes on Linux, Unix, OS X, Windows, and mobile devices. At its core
 libdmtx is a shared library, allowing C/C++ programs to use its capabilities
 without restrictions or overhead.
-
-The included utility programs, dmtxread and dmtxwrite, provide the official
-interface to libdmtx from the command line, and also serve as a good reference
-for programmers who wish to write their own programs that interact with
-libdmtx. All of the software in the libdmtx package is distributed under
-the LGPLv2 and can be used freely under these terms.
 
 
 %package        devel
@@ -55,12 +36,11 @@ developing applications that use %{name}.
 
 %build
 %configure --disable-static
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+%make_install
 
 
 %check
@@ -87,6 +67,9 @@ popd
 
 
 %changelog
+* Fri Aug 04 2023 Dan Horák <dan[at]danny.cz> - 0.7.7-1
+- updated to 0.7.7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

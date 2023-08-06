@@ -1,13 +1,13 @@
-%global rpmversion 0.08
-%global cpanversion 0.08
+%global rpm_version 0.08
+%global cpan_version 0.08
 
 Name:           perl-DateTime-Format-MySQL
-Version:        %{rpmversion}
-Release:        1%{?dist}
+Version:        %{rpm_version}
+Release:        2%{?dist}
 Summary:        Parse and format MySQL dates and times
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-MySQL
-Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Format-MySQL-%{cpanversion}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Format-MySQL-%{cpan_version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -32,7 +32,7 @@ to create DateTime objects, and it can take a DateTime object and produce a
 string representing it in the MySQL format.
 
 %prep
-%setup -q -n DateTime-Format-MySQL-%{cpanversion}
+%setup -q -n DateTime-Format-MySQL-%{cpan_version}
 
 %build
 perl Build.PL --installdirs=vendor
@@ -52,6 +52,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/DateTime::Format::MySQL.3*
 
 %changelog
+* Fri Aug 04 2023 Petr Pisar <ppisar@redhat.com> - 0.08-2
+- Do not use rpmversion macro which is a new builtin since rpm-4.18.92
+
 * Tue Aug  1 2023 Paul Howarth <paul@city-fan.org> - 0.08-1
 - Update to 0.08
   - Fix parsing microsecond < 100,000 off DateTime object by zero-padding

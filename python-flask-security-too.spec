@@ -16,9 +16,11 @@ Patch0:         python-flask-security-too_testdeps.patch
 Patch1:         https://github.com/Flask-Middleware/flask-security/commit/4f5eefdcc583176dd1c8e98636f047062ba7ac08.patch
 # Use phonenumbers instead of phonenumberslite
 Patch2:         python-flask-security-too_phonenumbers.patch
+# Don't fail on warnings in tests
+Patch3:         python-flask-security-too_ignorewarnings.patch
 
 BuildRequires:  python3-devel
-# Explicit BR since
+
 
 %description
 Flask-Security quickly adds security features to your Flask application.
@@ -73,18 +75,6 @@ rm -rf Flask_Security_Too.egg-info
 
 * Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 5.1.1-1
 - Update to 5.1.1
-
-* Tue Jan 24 2023 Sandro Mani <manisandro@gmail.com> - 5.1.0-1
-- Update to 5.1.0
-
-* Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 5.0.2-1
-- Update to 5.0.2
-
-* Tue Sep 13 2022 Sandro Mani <manisandro@gmail.com> - 5.0.1-1
-- Update to 5.0.1
-
-* Tue Aug 30 2022 Sandro Mani <manisandro@gmail.com> - 5.0.0-1
-- Update to 5.0.0
 
 * Wed Mar 01 2023 Miro Hrončok <mhroncok@redhat.com> - 4.1.5-3
 - Declare a runtime dependency on setuptools (for pkg_resources)

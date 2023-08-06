@@ -2,7 +2,7 @@ Name:           naev
 Version:        0.10.2
 Release:        3%{?dist}
 Summary:        2d action, RPG space game
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            http://naev.org
 # To build source without massive data files:
 # Download https://github.com/naev/naev/archive/v<version>/naev-<version>-source.tar.xz

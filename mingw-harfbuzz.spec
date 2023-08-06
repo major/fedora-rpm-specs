@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        8.0.1
-Release:        3%{?dist}
+Version:        8.1.1
+Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
 License:        MIT
@@ -155,6 +155,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Fri Aug 04 2023 Sandro Mani <manisandro@gmail.com> - 8.1.1-1
+- Update to 8.1.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

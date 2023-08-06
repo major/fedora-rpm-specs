@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 261
+%global baserelease 262
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -254,6 +254,10 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Wed Aug 02 2023 Charalampos Stratakis <cstratak@redhat.com> - 262-1
+- Strip all extension builder flags except -fexceptions and -fcf-protection
+- https://fedoraproject.org/wiki/Changes/Python_Extension_Flags_Reduction
+
 * Fri Jul  7 2023 Florian Weimer <fweimer@redhat.com> - 261-1
 - Fix warnings that appear during the build of the llvm package
 

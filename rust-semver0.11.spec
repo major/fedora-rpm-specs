@@ -13,6 +13,9 @@ Summary:        Semantic version parsing and comparison
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/semver
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * remove CI feature and associated diesel dependency
+Patch:          semver-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -46,30 +49,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+ci-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+ci-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "ci" feature of the "%{crate}" crate.
-
-%files       -n %{name}+ci-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+diesel-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+diesel-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "diesel" feature of the "%{crate}" crate.
-
-%files       -n %{name}+diesel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

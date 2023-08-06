@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 
 Name:		usbip
-License:	GPLv2+
+License:	GPL-2.0-only
 Summary:	USB/IP user-space
 Version:	5.7.9
 Release:	9%{?dist}

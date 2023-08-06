@@ -1,10 +1,10 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 0
+%global project_version_patch 1
 
 Name:           dnf5
-Version:        5.1.0
-Release:        2%{?dist}
+Version:        5.1.1
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -12,18 +12,18 @@ Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
-%if 0%{?fedora} <= 38
+%if ! (0%{?fedora} > 40 || 0%{?rhel} > 10)
 Requires:       dnf-data
 %endif
 Recommends:     bash-completion
 
 # Remove if condition when Fedora 37 is EOL
-%if 0%{?fedora} > 37
+%if 0%{?fedora} > 37 || 0%{?rhel} > 10
 Provides:       microdnf = %{version}-%{release}
 Obsoletes:      microdnf < 4
 %endif
 
-%if 0%{?fedora} > 38
+%if 0%{?fedora} > 40 || 0%{?rhel} > 10
 Provides:       dnf = %{version}-%{release}
 Obsoletes:      dnf < 5
 
@@ -217,13 +217,13 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 
 %files
 %{_bindir}/dnf5
-%if 0%{?fedora} > 38
+%if 0%{?fedora} > 40 || 0%{?rhel} > 10
 %{_bindir}/dnf
 %{_bindir}/yum
 %endif
 
 # Remove if condition when Fedora 37 is EOL
-%if 0%{?fedora} > 37
+%if 0%{?fedora} > 37 || 0%{?rhel} > 10
 %{_bindir}/microdnf
 %endif
 
@@ -283,7 +283,7 @@ License:        LGPL-2.1-or-later
 Requires:       libsolv%{?_isa} >= %{libsolv_version}
 Requires:       librepo%{?_isa} >= %{librepo_version}
 Requires:       sqlite-libs%{?_isa} >= %{sqlite_version}
-%if 0%{?fedora} > 38
+%if 0%{?fedora} > 40 || 0%{?rhel} > 10
 Conflicts:      dnf-data < 4.16.0
 %endif
 
@@ -291,13 +291,14 @@ Conflicts:      dnf-data < 4.16.0
 Package management library.
 
 %files -n libdnf5
-%if 0%{?fedora} > 38
+%if 0%{?fedora} > 40 || 0%{?rhel} > 10
 %config(noreplace) %{_sysconfdir}/dnf/dnf.conf
 %dir %{_sysconfdir}/dnf/vars
 %dir %{_sysconfdir}/dnf/protected.d
 %else
 %exclude %{_sysconfdir}/dnf/dnf.conf
 %endif
+%dir %{_sysconfdir}/dnf/libdnf5-plugins
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so.1*
 %license lgpl-2.1.txt
@@ -509,6 +510,9 @@ Libdnf5 plugin that allows to run actions (external executables) on hooks.
 
 %files -n libdnf5-plugin-actions
 %{_libdir}/libdnf5/plugins/actions.*
+%config %{_sysconfdir}/dnf/libdnf5-plugins/actions.conf
+%dir %{_sysconfdir}/dnf/libdnf5-plugins/actions.d
+%{_mandir}/man8/libdnf5-actions.8.*
 %endif
 
 
@@ -562,7 +566,7 @@ Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
 Requires:       dbus
 Requires:       polkit
-%if 0%{?fedora} <= 38
+%if ! (0%{?fedora} > 40 || 0%{?rhel} > 10)
 Requires:       dnf-data
 %endif
 
@@ -668,7 +672,7 @@ Core DNF5 plugins that enhance dnf5 with builddep, changelog, copr, and repoclos
 %install
 %cmake_install
 
-%if 0%{?fedora} > 38
+%if 0%{?fedora} > 40 || 0%{?rhel} > 10
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/dnf
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/yum
 %endif
@@ -687,7 +691,7 @@ done
 #find_lang {name}
 
 # Remove if condition when Fedora 37 is EOL
-%if 0%{?fedora} > 37
+%if 0%{?fedora} > 37 || 0%{?rhel} > 10
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %endif
 
@@ -695,6 +699,30 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Fri Aug 04 2023 Packit <hello@packit.dev> - 5.1.1-1
+- Postpone replace of DNF to Fedora 41
+- Add a description of `with_binaries` option for dnf5daemon
+- Include RPM logs in KeyImportError
+- Abort PGP checking immediately if any checks fail
+- Display warning message when any PGP checks skipped
+- Don't allow main gpgcheck=0 to override repo config
+- gups and environments to `history info` ouput
+- Store missing id and repoid in db for groups/environments
+- Fix out-of-bounds access in Goal::Impl::add_install_to_goal
+- Fix repoquery `--list`
+- `allow_vendor_change` was reverted back to true
+- Doc update to allow `logdir` outside the installroot
+- Remove `grouplist` and `groupinfo` aliases
+- Add `grp` alias for group command
+- `repoquery --exactdeps` needs `--whatdepends` or `--whatrequires`
+- Update and unify repoquery manpage
+- Document replace of `-v` option by `repoinfo` command
+- Add `remove --no-autoremove` option
+- Document dropped `if` alias of `info` command
+- document `actions` plugin
+- Fix printing advisories for the running kernel
+- Revert "advisory: add running kernel before pkg_specs filtering"
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

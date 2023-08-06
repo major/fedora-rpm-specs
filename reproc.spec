@@ -1,10 +1,14 @@
+%global commit 1c07bdbec3f2ecba7125b9499b9a8a77bf9aa8c7
+%global shortcommit %(c=%commit; echo ${c:0:7})
+
 Name:           reproc
-Version:        14.2.2
-Release:        6%{?dist}
+Version:        14.2.4
+Release:        1.20230609git%{shortcommit}%{?dist}
 Summary:        A cross-platform (C99/C++11) process library
 License:        MIT 
 URL:            https://github.com/DaanDeMeyer/reproc
-Source0:        https://github.com/DaanDeMeyer/reproc/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/DaanDeMeyer/reproc/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 
@@ -33,7 +37,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup
+%autosetup -n %{name}-%{commit}
 
 
 %build
@@ -63,6 +67,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Aug 04 2023 Orion Poplawski <orion@nwra.com> - 14.2.4-1.20230609git1c07bdb
+- Update to 14.2.4 + latest git (FTBFS bz#2171704)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.2.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

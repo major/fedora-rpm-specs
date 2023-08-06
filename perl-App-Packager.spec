@@ -6,8 +6,8 @@
 Name: perl-%{FullName}
 Summary: Abstract interface to a number of common packagers
 License: GPL+ or Artistic
-Version: 1.430.1
-Release: 13%{?dist}
+Version: 1.440
+Release: 1%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -58,6 +58,9 @@ make test VERBOSE=1
 %{_mandir}/man3/*
 
 %changelog
+* Fri Aug 04 2023 Johan Vromans <jvromans@squirrel.nl> - 1.440-1
+- Upgrade to upstream.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.430.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Name:           duperemove
 Version:        0.11.3
 Release:        5%{?dist}
 Summary:        Tools for deduping file systems
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/markfasheh/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  pkgconfig(glib-2.0)

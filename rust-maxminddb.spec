@@ -4,18 +4,20 @@
 
 %global crate maxminddb
 
-%global testdata_commit 6e99232bb6a70d5169ecc96ed0614a52017ff654
+%global testdata_commit a8ae5b4ac0aa730e2783f708cdaa208aca20e9ec
+%global testdata_short  %(c=%{testdata_commit}; echo ${c:0:7})
 
 Name:           rust-maxminddb
-Version:        0.17.3
+Version:        0.23.0
 Release:        %autorelease
 Summary:        Library for reading MaxMind DB format used by GeoIP2 and GeoLite2
 
 License:        ISC
 URL:            https://crates.io/crates/maxminddb
 Source0:        %{crates_source}
-Source1:        https://github.com/maxmind/MaxMind-DB/archive/%{testdata_commit}/test-data.tar.gz
+Source1:        https://github.com/maxmind/MaxMind-DB/archive/%{testdata_commit}/test-data-%{testdata_short}.tar.gz
 # Manually created patch for downstream crate metadata changes
+# * bump ipnetwork dependency from 0.18 to 0.20
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          maxminddb-fix-metadata.diff
 
@@ -52,16 +54,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+memmap-devel
+%package     -n %{name}+memmap2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+memmap-devel %{_description}
+%description -n %{name}+memmap2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "memmap" feature of the "%{crate}" crate.
+use the "memmap2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+memmap-devel
+%files       -n %{name}+memmap2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+mmap-devel

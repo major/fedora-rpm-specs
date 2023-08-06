@@ -1,5 +1,3 @@
-%global _without_doc 1
-%global _without_tests 1
 # The original RHEL N+1 content set is defined by (build)dependencies
 # of the packages in Fedora ELN. Hence we disable tests and documentation here
 # to prevent pulling many unwanted packages in.
@@ -16,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -85,29 +83,6 @@ Patch:          nowarn-pip._internal.main.patch
 # Upstream issue: https://github.com/pypa/packaging/issues/368
 Patch:          no-version-warning.patch
 
-# Downstream only patch
-# Users might have local installations of pip from using
-# `pip install --user --upgrade pip` on older/newer versions.
-# If they do that and they run `pip` or  `pip3`, the one from /usr/bin is used.
-# However that's the one from this RPM package and the import in there might
-# fail (it tries to import from ~/.local, but older or newer pip is there with
-# a bit different API).
-# We add this patch as a dirty workaround to make /usr/bin/pip* work with
-# both pip10+ (from this RPM) and older or newer (19.3+) pip (from whatever).
-# A proper fix is to put ~/.local/bin in front of /usr/bin in the PATH,
-# however others are against that and we cannot change it for existing
-# installs/user homes anyway.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1569488
-# https://bugzilla.redhat.com/show_bug.cgi?id=1571650
-# https://bugzilla.redhat.com/show_bug.cgi?id=1767212
-# WARNING: /usr/bin/pip* are entrypoints, this cannot be applied in %%prep!
-# %%patch10 doesn't work outside of %%prep, so we add it as a source
-# Note that since pip 20, old main() import paths are preserved for backwards
-# compatibility: https://github.com/pypa/pip/issues/7498
-# Meaning we don't need to update any of the older pips to support 20+
-# We also don't need to update Pythons to use new import path in ensurepip
-Source10:        pip-allow-different-versions.patch
-
 %description
 pip is a package management system used to install and manage software packages
 written in Python. Many packages can be found in the Python Package Index
@@ -156,6 +131,9 @@ Provides: bundled(python%{1}dist(webencodings)) = 0.5.1
 # a long time until manylinux1 is phased out).
 # See: https://github.com/pypa/manylinux/issues/305
 # Note that manylinux is only applicable to x86 (both 32 and 64 bits)
+# As of Python 3.12, we no longer use this,
+# see https://discuss.python.org/t/29455/
+# However, we keep it around for previous Python versions that use the wheel package.
 %global crypt_compat_recommends() %{expand:
 Recommends: (libcrypt.so.1()(64bit) if python%{1}(x86-64))
 Recommends: (libcrypt.so.1 if python%{1}(x86-32))
@@ -205,12 +183,6 @@ Recommends:     python%{python3_pkgversion}-setuptools
 Provides:       pip = %{version}-%{release}
 Conflicts:      python-pip < %{version}-%{release}
 
-# The python3.11 version that stopped using the rpm_prefix scheme
-Requires:       python3-libs >= 3.11.0~rc1-2
-
-
-%{crypt_compat_recommends 3}
-
 %description -n python%{python3_pkgversion}-%{srcname}
 pip is a package management system used to install and manage software packages
 written in Python. Many packages can be found in the Python Package Index
@@ -238,7 +210,12 @@ Requires:       ca-certificates
 # Virtual provides for the packages bundled by pip:
 %{bundled 3}
 
-%{crypt_compat_recommends 3}
+# This is only relevant for Pythons that are older than 3.12 and don't use their own bundled wheels
+%{crypt_compat_recommends 3.11}
+%{crypt_compat_recommends 3.10}
+%{crypt_compat_recommends 3.9}
+%{crypt_compat_recommends 3.8}
+%{crypt_compat_recommends 3.7}
 
 %description -n %{python_wheel_pkg_prefix}-%{srcname}-wheel
 A Python wheel of pip to use with venv.
@@ -308,11 +285,6 @@ done
 done
 popd
 %endif
-
-# before we ln -s anything, we apply Source10 patch to all pips:
-for PIP in %{buildroot}%{_bindir}/pip*; do
-  patch -p1 --no-backup-if-mismatch $PIP < %{SOURCE10}
-done
 
 mkdir -p %{buildroot}%{bashcompdir}
 PYTHONPATH=%{buildroot}%{python3_sitelib} \
@@ -389,6 +361,14 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Fri Aug 04 2023 Miro Hrončok <mhroncok@redhat.com> - 23.1.2-7
+- Actually run the tests and build the docs when building this package
+
+* Wed Jul 26 2023 Miro Hrončok <mhroncok@redhat.com> - 23.1.2-6
+- Drop no-longer-needed custom changes to /usr/bin/pip*
+- Stop Recommending libcrypt.so.1 on Python 3.12+
+Resolves: rhbz#2150373
+
 * Tue Jul 25 2023 Python Maint <python-maint@redhat.com> - 23.1.2-5
 - Rebuilt for Python 3.12
 
