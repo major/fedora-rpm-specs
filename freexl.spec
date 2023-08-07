@@ -7,8 +7,10 @@
 
 %bcond autoreconf 1
 
+%bcond_without mingw
+
 Name:           freexl
-Version:        1.0.6
+Version:        2.0.0
 %global so_version 1
 Release:        %autorelease
 Summary:        Library to extract data from within an Excel spreadsheet
@@ -25,8 +27,8 @@ Summary:        Library to extract data from within an Excel spreadsheet
 #   - install-sh is X11
 #   - m4/libtool.m4 is (FSFULLR AND GPL-2.0-or-later)
 License:        MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
-URL:            http://www.gaia-gis.it/FreeXL
-Source:         http://www.gaia-gis.it/gaia-sins/freexl-sources/freexl-%{version}.tar.gz
+URL:            https://www.gaia-gis.it/fossil/freexl/index
+Source:         https://www.gaia-gis.it/gaia-sins/freexl-%{version}.tar.gz
 
 %if %{with autoreconf}
 BuildRequires:  autoconf
@@ -34,8 +36,27 @@ BuildRequires:  automake
 BuildRequires:  libtool
 %endif
 
+BuildRequires:  expat-devel
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  minizip-devel
+
+%if %{with mingw}
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-expat
+BuildRequires:  mingw32-libcharset
+BuildRequires:  mingw32-minizip
+BuildRequires:  mingw32-win-iconv
+
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-expat
+BuildRequires:  mingw64-libcharset
+BuildRequires:  mingw64-minizip
+BuildRequires:  mingw64-win-iconv
+%endif
+
 
 %description
 FreeXL is a library to extract valid data from within spreadsheets.
@@ -49,9 +70,7 @@ Design goals:
 
 %package doc
 Summary:        Documentation and examples for FreeXL
-
 BuildArch:      noarch
-
 %if %{with doc_pdf}
 BuildRequires:  doxygen
 BuildRequires:  doxygen-latex
@@ -63,12 +82,32 @@ BuildRequires:  doxygen-latex
 
 %package devel
 Summary:  Development Libraries for FreeXL
-
 Requires: freexl%{?_isa} = %{version}-%{release}
 
 %description devel
 The freexl-devel package contains libraries and header files for
 developing applications that use freexl.
+
+
+%if %{with mingw}
+%package -n mingw32-%{name}
+Summary:       MinGW Windows freexl library
+BuildArch:     noarch
+
+%description -n mingw32-%{name}
+MinGW Windows freexl library.
+
+
+%package -n mingw64-%{name}
+Summary:       MinGW Windows freexl library
+BuildArch:     noarch
+
+%description -n mingw64-%{name}
+MinGW Windows freexl library.
+
+
+%{?mingw_debug_package}
+%endif
 
 
 %prep
@@ -94,52 +133,84 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
     Doxyfile.in
 %endif
 
+# Prepare native build dir with testdata
+mkdir build_native
+cp -a tests build_native
+
 
 %build
 %if %{with autoreconf}
 autoreconf --force --install --verbose
 %endif
+
+pushd build_native
+%global _configure ../configure
 %configure --disable-static
 %make_build
+popd
+
+%if %{with mingw}
+%mingw_configure --disable-static
+%mingw_make_build
+%endif
 
 %if %{with doc_pdf}
+pushd build_native
 doxygen Doxyfile
 %make_build -C latex
 mv latex/refman.pdf latex/FreeXL.pdf
+popd
 %endif
 
 
-%check
-%make_build check
-
-
 %install
-%make_install
+%make_install -C build_native
+
+%if %{with mingw}
+%mingw_make_install
+%mingw_debug_install_post
+%endif
+
 # Delete undesired libtool archives
 find '%{buildroot}' -type f -name '*.la' -print -delete
 
 
+%check
+%make_build -C build_native check
+
+
 %files
 %license COPYING
-
 %{_libdir}/libfreexl.so.%{so_version}{,.*}
-
 
 %files devel
 %{_includedir}/freexl.h
 %{_libdir}/libfreexl.so
 %{_libdir}/pkgconfig/freexl.pc
 
-
 %files doc
 %license COPYING
-
 %doc AUTHORS
 %doc README
-
 %doc clean/examples/
 %if %{with doc_pdf}
-%doc latex/FreeXL.pdf
+%doc build_native/latex/FreeXL.pdf
+%endif
+
+%if %{with mingw}
+%files -n mingw32-%{name}
+%license COPYING
+%{mingw32_bindir}/libfreexl-1.dll
+%{mingw32_includedir}/freexl.h
+%{mingw32_libdir}/libfreexl.dll.a
+%{mingw32_libdir}/pkgconfig/freexl.pc
+
+%files -n mingw64-%{name}
+%license COPYING
+%{mingw64_bindir}/libfreexl-1.dll
+%{mingw64_includedir}/freexl.h
+%{mingw64_libdir}/libfreexl.dll.a
+%{mingw64_libdir}/pkgconfig/freexl.pc
 %endif
 
 

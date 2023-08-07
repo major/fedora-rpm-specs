@@ -1,12 +1,12 @@
 #global snapshot 0
-%global commit 2e88e84eea52c409cfcb746562302d8668967820
-%global commitdate 20230218
-%global gittag v0.2.103
+%global commit 6fc7e5c538d4f0bc41df7450e9daeb49b8b97d70
+%global commitdate 20230612
+%global gittag v0.2.106
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	0.2.105%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	3%{?dist}
+Version:	0.2.106%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:	1%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # 2010/08/08: Verified that upstream has removed GPLv3+ gnulib and added
@@ -26,8 +26,8 @@ Source1:	ftp://ftp.cubic.org/pub/player/gfx/opencp25image1.zip
 Source2:	ftp://ftp.cubic.org/pub/player/gfx/opencp25ani1.zip
 Source3:	ocp-git-snapshot.sh
 Source4:	ocp-bundled-versions.sh
-Patch0:		ocp-0.2.103-ini-optimize.patch
-Patch1:		ocp-0.2.105-ini-rompaths.patch
+Patch0:		ocp-0.2.106-ini-optimize.patch
+Patch1:		ocp-0.2.106-ini-rompaths.patch
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	bzip2-devel
@@ -35,6 +35,7 @@ BuildRequires:	cjson-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	flac-devel
 BuildRequires:	freetype-devel
+BuildRequires:	game-music-emu-devel
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	ancient-devel
@@ -97,6 +98,7 @@ mv license.txt license-videos.txt
 	   --without-oss \
 	   --with-lzw \
 	   --with-lzh \
+	   --with-libgme \
 	   --with-flac \
 	   --without-sdl \
 	   --with-sdl2 \
@@ -175,6 +177,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Sat Aug 05 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.106-1
+- Update to 0.2.106 which adds game-music-emu libgme support
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.105-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

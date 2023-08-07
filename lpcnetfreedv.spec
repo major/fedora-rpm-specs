@@ -1,9 +1,9 @@
 %undefine __cmake_in_source_build
-%global sover 0.2
+%global sover 0.5
 
 Name:           lpcnetfreedv
-Version:        0.2
-Release:        14%{?dist}
+Version:        0.5
+Release:        1%{?dist}
 Summary:        LPCNet for FreeDV
 
 License:        BSD
@@ -11,7 +11,7 @@ URL:            https://github.com/drowe67/LPCNet
 Source0:        https://github.com/drowe67/LPCNet/archive/v%{version}/LPCNet-%{version}.tar.gz
 Source1:        http://rowetel.com/downloads/deep/lpcnet_191005_v1.0.tgz
 
-Patch0:         lpcnetfreedv-test.patch
+#Patch0:         lpcnetfreedv-test.patch
 
 BuildRequires:  cmake gcc
 BuildRequires:  codec2-devel
@@ -39,20 +39,7 @@ Summary:        Development files and tools for LPCNet
 mkdir -p %{_vpath_builddir}
 cp %{SOURCE1} %{__cmake_builddir}/
 
-# We need to force optimizations to specific values since the build system and
-# host system will likely be different.
-%ifarch i686 x86_64
-    %global _cpuopt "-DAVX=TRUE"
-%endif
-%ifarch armv7hl
-    %global _cpuopt "-DNEON=TRUE"
-%endif
-%ifarch aarch64 ppc64le s390x
-    # NEON instructions are native in arm64.
-    %global _cpuopt ""
-%endif
-
-%cmake -DDISABLE_CPU_OPTIMIZATION=TRUE %{_cpuopt}
+%cmake
 %cmake_build
 
 
@@ -78,6 +65,9 @@ cp %{SOURCE1} %{__cmake_builddir}/
 
 
 %changelog
+* Sat Aug 05 2023 Richard Shaw <hobbes1069@gmail.com> - 0.5-1
+- Update to 0.5.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

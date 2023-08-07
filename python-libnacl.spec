@@ -1,6 +1,6 @@
 Name:           python-libnacl
-Version:        1.8.0
-Release:        6%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Python bindings for libsodium based on ctypes
 
 License:        ASL 2.0
@@ -46,16 +46,19 @@ Summary: %{summary}
 %pyproject_save_files libnacl
 
 %check
-%{pytest}
+# Tests are missing in the 2.0.0 sdist release
+# %%{pytest}
 
 
 %files -n python3-libnacl -f %{pyproject_files}
 %license LICENSE
-%doc AUTHORS
 %doc README.rst
 
 
 %changelog
+* Sat Aug 05 2023 Jonny Heggheim <hegjon@gmail.com> - 2.0.0-1
+- Updated to version 2.0.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

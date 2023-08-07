@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 2ee39c559a721d86f1903ba8f7115e1583fa0e55
+%global commit d71265e00b14d67d5df685484975fc66ec340804
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.23
+Version: 38.24
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,17 @@ exit 0
 %endif
 
 %changelog
+* Fri Aug 04 2023 Zdenek Pytela <zpytela@redhat.com> - 38.24-1
+- Allow rhsmcertd dbus chat with policykit
+- Allow polkitd execute pkla-check-authorization with nnp transition
+- Allow user_u and staff_u get attributes of non-security dirs
+- Allow unconfined user filetrans chrome_sandbox_home_t
+- Allow svnserve execute postdrop with a transition
+- Do not make postfix_postdrop_t type an MTA executable file
+- Allow samba-dcerpc service manage samba tmp files
+- Add use_nfs_home_dirs boolean for mozilla_plugin
+- Fix labeling for no-stub-resolv.conf
+
 * Wed Aug 02 2023 Zdenek Pytela <zpytela@redhat.com> - 38.23-1
 - Revert "Allow winbind-rpcd use its private tmp files"
 - Allow upsmon execute upsmon via a helper script

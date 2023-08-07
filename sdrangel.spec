@@ -1,6 +1,6 @@
 Name:		sdrangel
 Version:	7.15.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
 License:	GPLv3+
 URL:		https://github.com/f4exb/sdrangel
@@ -100,6 +100,9 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Sat Aug 05 2023 Richard Shaw <hobbes1069@gmail.com> - 7.15.1-3
+- Rebuild for codec2.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.15.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

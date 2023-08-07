@@ -21,6 +21,14 @@
 %global have_ocaml 1
 %endif
 
+# We don't yet have libblkio on RHEL.
+# libblkio is broken on i686: https://bugzilla.redhat.com/2229372
+%if !0%{?rhel}
+%ifnarch %{ix86}
+%global have_blkio 1
+%endif
+%endif
+
 # Architectures where we run the complete test suite including
 # the libguestfs tests.
 #
@@ -51,7 +59,7 @@ ExclusiveArch:  x86_64
 %global source_directory 1.35-development
 
 Name:           nbdkit
-Version:        1.35.8
+Version:        1.35.9
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -101,6 +109,8 @@ BuildRequires:  e2fsprogs, e2fsprogs-devel
 %if !0%{?rhel}
 BuildRequires:  xorriso
 BuildRequires:  rb_libtorrent-devel
+%endif
+%if 0%{?have_blkio}
 BuildRequires:  libblkio-devel
 %endif
 BuildRequires:  bash-completion
@@ -259,7 +269,7 @@ This package contains example plugins for %{name}.
 # The plugins below have non-trivial dependencies are so are
 # packaged separately.
 
-%if !0%{?rhel}
+%if 0%{?have_blkio}
 %package blkio-plugin
 Summary:        libblkio NVMe, vhost-user, vDPA, VFIO plugin for %{name}
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
@@ -695,7 +705,6 @@ export PYTHON=%{__python3}
     --enable-ruby \
     --enable-tcl \
     --enable-torrent \
-    --with-libblkio \
     --with-ext2 \
     --with-iso \
     --with-libvirt \
@@ -705,10 +714,14 @@ export PYTHON=%{__python3}
     --disable-ruby \
     --disable-tcl \
     --disable-torrent \
-    --without-libblkio \
     --without-ext2 \
     --without-iso \
     --without-libvirt \
+%endif
+%if 0%{?have_blkio}
+    --with-libblkio \
+%else
+    --without-libblkio \
 %endif
 %ifarch x86_64
     --enable-vddk \
@@ -887,7 +900,7 @@ export LIBGUESTFS_TRACE=1
 %{_mandir}/man1/nbdkit-example*-plugin.1*
 
 
-%if !0%{?rhel}
+%if 0%{?have_blkio}
 %files blkio-plugin
 %doc README.md
 %license LICENSE
@@ -1229,6 +1242,10 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Sat Aug 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.9-1
+- New upstream development version 1.35.9
+- Disable libblkio on i686 (RHBZ#2229372)
+
 * Tue Aug 01 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.8-1
 - New upstream development version 1.35.8
 

@@ -1,8 +1,8 @@
 %global framework solid
 
 Name:    kf5-%{framework}
-Version: 5.108.0
-Release: 4%{?dist}
+Version: 5.109.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module that provides hardware information
 
 License: LGPLv2+
@@ -97,6 +97,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
+- 5.109.0
+
 * Fri Jul 28 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 5.108.0-4
 - Rebuilt for libimobiledevice and libplist soname bump
 - Remove solid-power from files listing, since WIP APIs are no longer enabled (rhbz#2225952)

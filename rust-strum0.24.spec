@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate hmac
+%global crate strum
 
-Name:           rust-hmac
-Version:        0.12.1
+Name:           rust-strum0.24
+Version:        0.24.1
 Release:        %autorelease
-Summary:        Generic implementation of Hash-based Message Authentication Code (HMAC)
+Summary:        Helpful macros for working with enums and strings
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/hmac
+License:        MIT
+URL:            https://crates.io/crates/strum
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump phf dependency from 0.10 to 0.11
+Patch:          strum-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Generic implementation of Hash-based Message Authentication Code (HMAC).}
+Helpful macros for working with enums and strings.}
 
 %description %{_description}
 
@@ -30,10 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,16 +48,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+reset-devel
+%package     -n %{name}+derive-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+reset-devel %{_description}
+%description -n %{name}+derive-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "reset" feature of the "%{crate}" crate.
+use the "derive" feature of the "%{crate}" crate.
 
-%files       -n %{name}+reset-devel
+%files       -n %{name}+derive-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+phf-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+phf-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "phf" feature of the "%{crate}" crate.
+
+%files       -n %{name}+phf-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
@@ -70,6 +82,18 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+strum_macros-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+strum_macros-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "strum_macros" feature of the "%{crate}" crate.
+
+%files       -n %{name}+strum_macros-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -87,7 +111,7 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f derive
 %endif
 
 %changelog

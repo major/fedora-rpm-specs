@@ -16,13 +16,13 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.11.4
+Version:        4.12.0
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
 License:        LGPL-2.0-or-later
 URL:            https://www.gtk.org
-Source0:        https://download.gnome.org/sources/gtk/4.11/gtk-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtk/4.12/gtk-%{version}.tar.xz
 Source1:        settings.ini
 # Temporarily revert this until we figure out how to best restore
 # private requires that are needed for rpm automatic dep extraction.
@@ -213,6 +213,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_bindir}/gtk4-icon-browser
 %{_bindir}/gtk4-node-editor
 %{_bindir}/gtk4-print-editor
+%{_bindir}/gtk4-rendernode-tool
 %{_bindir}/gtk4-widget-factory
 %{_datadir}/applications/org.gtk.gtk4.NodeEditor.desktop
 %{_datadir}/applications/org.gtk.Demo4.desktop
@@ -234,6 +235,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/gtk4-demo-application.1*
 %{_mandir}/man1/gtk4-icon-browser.1*
 %{_mandir}/man1/gtk4-node-editor.1*
+%{_mandir}/man1/gtk4-rendernode-tool.1*
 %{_mandir}/man1/gtk4-widget-factory.1*
 
 %changelog

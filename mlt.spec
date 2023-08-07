@@ -12,8 +12,8 @@
 %bcond_with  ndi
 
 Name:           mlt
-Version:        7.16.0
-Release:        3%{?dist}
+Version:        7.18.0
+Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -234,6 +234,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Sat Jul 29 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 7.18.0-1
+- Update to 7.18.0 (#2227469)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

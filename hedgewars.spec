@@ -119,6 +119,8 @@ done
 # makes sure the system fonts are used. This avoids problems with physfs access
 # and having to symlink font files.
 
+export CFLAGS="%{build_cflags} -DGL_GLEXT_PROTOTYPES"
+export CXXFLAGS="%{build_cxxflags} -DGL_GLEXT_PROTOTYPES"
 %ifarch %{arm}
 %cmake -DMINIMAL_FLAGS=1 -DNOVIDEOREC=1 -DBUILD_ENGINE_C=1 -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`"
 %else
@@ -206,6 +208,9 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 
 
 %changelog
+* Sat Aug 05 2023 Hans de Goede <hdegoede@redhat.com> - 1.0.2-5
+- Fix FTBFS (rhbz#2225917)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

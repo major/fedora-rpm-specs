@@ -6,13 +6,13 @@
 %bcond_with     bootstrap
 
 Name:           codec2
-Version:        1.0.5
-Release:        3%{?dist}
+Version:        1.2.0
+Release:        2%{?dist}
 Summary:        Next-Generation Digital Voice for Two-Way Radio
 License:        LGPL-2.1-only
 
 URL:            http://rowetel.com/codec2.html
-Source0:        https://github.com/drowe67/codec2/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/drowe67/codec2/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake%{?rhel:3}
 BuildRequires:  gcc gcc-c++
@@ -76,7 +76,7 @@ libdir=\${exec_prefix}/%{_lib}
 
 Name: codec2
 Description: Next-Generation Digital Voice for Two-Way Radio
-Version: 1.0.5
+Version: 1.2.0
 Cflags: -I\${includedir}
 Libs: -L\${libdir} -l%{name}
 EOF
@@ -98,6 +98,12 @@ EOF
 
 
 %changelog
+* Sat Aug 05 2023 Richard Shaw <hobbes1069@gmail.com> - 1.2.0-2
+- Rebuild after bootstrap for lpcnetfreedv.
+
+* Sat Aug 05 2023 Richard Shaw <hobbes1069@gmail.com> - 1.2.0-1
+- Update to 1.2.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           freetennis
 Version:        0.4.8
-Release:        55%{?dist}
+Release:        56%{?dist}
 Summary:        Tennis simulation game
 License:        GPLv2+
 URL:            http://freetennis.sourceforge.net/
@@ -12,6 +12,7 @@ Source2:        freetennis.png
 Patch0:         freetennis-0.4.8-pathfixes.patch
 Patch1:         freetennis-0.4.8-build.patch
 Patch2:         freetennis-0.4.8-ocaml-4.12.patch
+Patch3:         freetennis-0.4.8-ocaml-5.0.0.patch
 ExcludeArch:    sparc64 s390 s390x
 BuildRequires:  make, ocaml, SDL_gfx-devel, SDL_mixer-devel
 BuildRequires:  libXmu-devel, gtk2-devel, desktop-file-utils
@@ -60,6 +61,9 @@ install -p %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/
 
 
 %changelog
+* Fri Aug  4 2023 Hans de Goede <hdegoede@redhat.com> - 0.4.8-56
+- Fix FTBFS (rhbz#2225813)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

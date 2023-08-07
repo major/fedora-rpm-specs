@@ -1,6 +1,6 @@
 Name:           cgreen
-Version:        1.5.1
-Release:        4%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        Modern unit test and mocking framework for C and C++
 License:        ISC
 URL:            https://github.com/cgreen-devs/%{name}
@@ -11,7 +11,6 @@ ExcludeArch: s390x
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  binutils-devel
 BuildRequires:  perl-interpreter
 BuildRequires:  asciidoctor
 
@@ -73,6 +72,9 @@ A runner for the Cgreen unit testing and mocking framework.
 
 
 %changelog
+* Sun Aug 06 2023 Egor Artemov <egor.artemov@gmail.com> - 1.6.2-1
+- Update to 1.6.2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

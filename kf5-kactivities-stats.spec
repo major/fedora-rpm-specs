@@ -2,8 +2,8 @@
 
 Name:    kf5-%{framework}
 Summary: A KDE Frameworks 5 Tier 3 library for accessing the usage data collected by the activities system
-Version: 5.108.0
-Release: 2%{?dist}
+Version: 5.109.0
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: LGPLv2 or LGPLv3
@@ -74,6 +74,9 @@ Requires: qt5-qtbase-devel
 
 
 %changelog
+* Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
+- 5.109.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.108.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

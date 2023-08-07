@@ -1,8 +1,8 @@
 %global framework kunitconversion
 
 Name:    kf5-%{framework}
-Version: 5.108.0
-Release: 2%{?dist}
+Version: 5.109.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 2 addon for unit conversions
 
 License: LGPLv2+
@@ -62,6 +62,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
+- 5.109.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.108.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

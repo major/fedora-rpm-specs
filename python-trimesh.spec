@@ -1,6 +1,4 @@
-# F39FailsToInstall: blender
-# https://bugzilla.redhat.com/show_bug.cgi?id=2219945
-%bcond blender 0
+%bcond blender 1
 %bcond skimage 1
 
 Name:           python-trimesh

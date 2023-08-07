@@ -4,15 +4,14 @@
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
-Version:       28.2
-Release:       10%{?dist}
+Version:       29.1
+Release:       1%{?dist}
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
 Source1:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz.sig
-# Stefan Kangas' key
-Source2:       https://keys.openpgp.org/vks/v1/by-fingerprint/CEA1DE21AB108493CC9C65742E82323B8F4353EE
-Source3:       https://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=blob_plain;f=lib/cdefs.h;hb=refs/heads/master#./cdefs.h
+# Emacs 29+ sign key
+Source2:       https://keys.openpgp.org/vks/v1/by-fingerprint/17E90D521672C04631B1183EE78DAE0F3115E06B
 Source4:       dotemacs.el
 Source5:       site-start.el
 Source6:       default.el
@@ -25,18 +24,7 @@ Patch2:        emacs-system-crypto-policies.patch
 # causes a dependency on pkgconfig(systemd)
 # => remove it if we stop using this patch
 Patch3:        emacs-libdir-vs-systemd.patch
-Patch4:        emacs-pdmp-fingerprint.patch
-Patch5:        emacs-configure-c99-1.patch
-Patch6:        emacs-configure-c99-2.patch
-# CVE-2022-45939
-Patch7:        https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=d48bb4874bc6cd3e69c7a15fc3c91cc141025c51#./fixed-ctags-local-command-execute-vulnerability.patch
-# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=60208
-# backport of https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=e59216d3be86918b995bd63273c851ebc6176a83
-Patch8:        native-compile-with_-Q.patch
-Patch9:        webkit2gtk-4.1.patch
-# Fix infinite loop error https://debbugs.gnu.org/cgi/bugreport.cgi?bug=58780
-# Can be removed on next release of Emacs rhbz#2187041
-Patch10:       fix-searching-for-end-of-string-in-python-nav-end-of.patch
+Patch5:        0001-configure-Remove-obsolete-check-for-b-i486-linuxaout.patch
 
 BuildRequires: gcc
 BuildRequires: atk-devel
@@ -211,21 +199,8 @@ Development header files for Emacs.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
+%autosetup -p1
 
-# workaround for ftbfs on ppc64, see https://bugzilla.redhat.com/show_bug.cgi?id=2045780#c8
-cp -p %{SOURCE3} lib/
-
-%patch1 -p1 -b .spellchecker
-%patch2 -p1 -b .system-crypto-policies
-%patch3 -p1 -b .libdir-vs-systemd
-%patch4 -p1 -b .pdmp-fingerprint
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1 -b .ctags-local-execution-cve
-%patch8 -p1 -b .native-compile-Q
-%patch9 -p1 -b .webkit2gtk-4.1
-%patch10 -p1
 autoconf
 
 grep -v "tetris.elc" lisp/Makefile.in > lisp/Makefile.in.new \
@@ -396,7 +371,7 @@ rm -f *-filelist {common,el}-*-files
 )
 
 # Sorted list of info files
-%define info_files auth autotype bovine calc ccmode cl dbus dired-x ebrowse ede ediff edt efaq eieio eintr elisp emacs-gnutls emacs-mime emacs epa erc ert eshell eudc eww flymake forms gnus htmlfontify idlwave ido mairix-el message mh-e modus-themes newsticker nxml-mode octave-mode org pcl-cvs pgg rcirc reftex remember sasl sc semantic ses sieve smtpmail speedbar srecode todo-mode tramp transient url vhdl-mode vip viper widget wisent woman
+%define info_files auth autotype bovine calc ccmode cl dbus dired-x ebrowse ede ediff edt efaq eglot eieio eintr elisp emacs-gnutls emacs-mime emacs epa erc ert eshell eudc eww flymake forms gnus htmlfontify idlwave ido mairix-el message mh-e modus-themes newsticker nxml-mode octave-mode org pcl-cvs pgg rcirc reftex remember sasl sc semantic ses sieve smtpmail speedbar srecode todo-mode tramp transient url use-package vhdl-mode vip viper vtable widget wisent woman
 
 for info_f in %info_files; do
     echo "%{_infodir}/${info_f}.info*" >> info-filelist
@@ -550,6 +525,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Mon Jul 31 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1:29.1-1
+- New upstream release 29.1, fixes rhbz#2227492
+
 * Tue Jul 25 2023 Scott Talbert <swt@techie.net> - 1:28.2-10
 - Rebuild for libotf soname bump
 

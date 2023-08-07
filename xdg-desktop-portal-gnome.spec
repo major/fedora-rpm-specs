@@ -1,9 +1,9 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-%global xdg_desktop_portal_version 1.15.0
+%global xdg_desktop_portal_version 1.17.0
 
 Name:           xdg-desktop-portal-gnome
-Version:        45~alpha
+Version:        45~beta
 Release:        %autorelease
 Summary:        Backend implementation for xdg-desktop-portal using GNOME
 

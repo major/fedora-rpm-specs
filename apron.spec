@@ -3,7 +3,7 @@
 Name:           apron
 Version:        0.9.14
 Summary:        Numerical abstract domain library
-Release:        0.5%{?prerel:.%{prerel}}%{?dist}
+Release:        0.6%{?prerel:.%{prerel}}%{?dist}
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 # except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
@@ -59,6 +59,9 @@ BuildRequires:  tex(ulem.sty)
 BuildRequires:  texinfo-tex
 
 %global sover %(cut -d. -f 1 <<< %{version})
+
+# Do not Require symbols we do not Provide
+%global __ocaml_requires_opts -i Coeff -i Dim -i Interval -i Lincons0 -i Linexpr0 -i Scalar -i Tcons0 -i Texpr0
 
 # This can be removed when F40 reaches EOL
 %ifnarch %{java_arches}
@@ -271,6 +274,9 @@ test/ctest1
 %endif
 
 %changelog
+* Sat Aug  5 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-0.6.beta.2
+- Fix failure to install (rhbz#2229356)
+
 * Thu Aug  3 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-0.5.beta.2
 - Enable pplite support
 

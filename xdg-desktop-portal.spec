@@ -4,17 +4,13 @@
 %global pipewire_version 0.2.90
 
 Name:    xdg-desktop-portal
-Version: 1.16.0
+Version: 1.17.0
 Release: %autorelease
 Summary: Portal frontend service to flatpak
 
 License: LGPLv2+
 URL:     https://github.com/flatpak/xdg-desktop-portal/
 Source0: https://github.com/flatpak/xdg-desktop-portal/releases/download/%{version}/%{name}-%{version}.tar.xz
-# https://bugzilla.redhat.com/show_bug.cgi?id=2176759
-# https://github.com/flatpak/xdg-desktop-portal/pull/985
-# Help fix apps hanging on start in KDE with GNOME portal installed
-Patch0:  985.patch
 
 BuildRequires: gcc
 BuildRequires: gettext
@@ -29,6 +25,10 @@ BuildRequires: pkgconfig(libgeoclue-2.0) >= %{geoclue_version}
 BuildRequires: pkgconfig(libpipewire-0.3) >= %{pipewire_version}
 BuildRequires: pkgconfig(libportal)
 BuildRequires: pkgconfig(libsystemd)
+BuildRequires: python3-dbusmock
+BuildRequires: python3-gobject-base
+BuildRequires: python3-pytest
+BuildRequires: python3-pytest-xdist
 BuildRequires: /usr/bin/xmlto
 
 Requires:      dbus

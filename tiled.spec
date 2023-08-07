@@ -1,8 +1,8 @@
 Name:           tiled
 Summary:        Tiled Map Editor
 
-Version:        1.10.1
-Release:        3%{?dist}
+Version:        1.10.2
+Release:        1%{?dist}
 
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
 License:        GPL-2.0-or-later AND BSD-2-Clause
@@ -279,6 +279,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %{_libdir}/%{name}/plugins/libtscn.so
 
 %changelog
+* Sat Aug 05 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.10.2-1
+- Update to v1.10.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

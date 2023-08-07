@@ -260,8 +260,8 @@ Recommends:     libpwquality.so.1(LIBPWQUALITY_1.0)%{?elf_bits}
 %if %{undefined rhel}
 Recommends:     libqrencode.so.4%{?elf_suffix}
 %endif
-Recommends:     libbpf.so.0%{?elf_suffix}
-Recommends:     libbpf.so.0(LIBBPF_0.4.0)%{?elf_bits}
+Recommends:     libbpf.so.1%{?elf_suffix}
+Recommends:     libbpf.so.1(LIBBPF_0.4.0)%{?elf_bits}
 
 # used by systemd-coredump and systemd-analyze
 Recommends:     libdw.so.1%{?elf_suffix}
@@ -1165,6 +1165,12 @@ fi
 %files standalone-sysusers -f .file-list-standalone-sysusers
 
 %files standalone-shutdown -f .file-list-standalone-shutdown
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+rm -f 10-timeout-abort.conf.user
+rm -f .file-list-*
+rm -f %{name}.lang
 
 %changelog
 %autochangelog

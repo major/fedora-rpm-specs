@@ -9,8 +9,8 @@
 
 Name:    kf5-%{framework}
 Epoch:   1
-Version: 5.108.0
-Release: 2%{?dist}
+Version: 5.109.0
+Release: 1%{?dist}
 Summary: The Syndication Library
 
 License: LGPLv2+ and BSD
@@ -84,6 +84,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.109.0-1
+- 5.109.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.108.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

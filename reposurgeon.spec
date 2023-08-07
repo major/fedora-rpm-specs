@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:           reposurgeon
-Version:        4.36
-Release:        2%{?dist}
+Version:        4.38
+Release:        1%{?dist}
 Summary:        SCM Repository Manipulation Tool
 License:        BSD
 URL:            http://www.catb.org/~esr/reposurgeon/
@@ -91,6 +91,9 @@ make check
 %{_mandir}/man1/repotool.1*
 
 %changelog
+* Fri Aug 04 2023 Denis Fateyev <denis@fateyev.com> - 4.38-1
+- Update to 4.38
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

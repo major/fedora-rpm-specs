@@ -1,8 +1,8 @@
 %global upstreamname debian-archive-keyring
 
 Name:           debian-keyring
-Version:        2023.3
-Release:        2%{?dist}
+Version:        2023.4
+Release:        1%{?dist}
 Summary:        GnuPG archive keys of the Debian archive
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -41,6 +41,9 @@ make
 
 
 %changelog
+* Sat Aug 05 2023 Sandro Mani <manisandro@gmail.com> - 2023.4-1
+- Update to 2023.4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

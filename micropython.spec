@@ -10,7 +10,7 @@
 
 Name:           micropython
 Version:        1.19.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -35,13 +35,9 @@ Patch1:        micropython-gcc13.patch
 # Resolved upstream: https://github.com/micropython/micropython/commit/f1c6cb7725960487195daa5c5c196fd8d3563811
 Patch2:        micropython-dangling-pointer-gcc13.patch
 
-# Other arches need active porting
-%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
+# Other arches need active porting, i686 removed via:
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExclusiveArch:  %{arm} x86_64
-%else
-ExclusiveArch:  %{arm} %{ix86} x86_64
-%endif
+ExclusiveArch:  %{arm} x86_64 riscv64
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -102,6 +98,11 @@ rm ports/cc3200/bootmgr/relocator/relocator.bin
 execstack -c ports/unix/micropython
 
 %check
+# Reference: https://git.alpinelinux.org/aports/tree/testing/micropython/APKBUILD
+# float rounding fails https://github.com/micropython/micropython/issues/4176
+%ifarch riscv64
+rm tests/float/float_parse.py tests/float/float_parse_doubleprec.py
+%endif
 pushd ports/unix
 export MICROPY_CPYTHON3=python%{cpython_version_tests}
 make PYTHON=%{python3} V=1 test
@@ -117,6 +118,9 @@ install -pm 755 ports/unix/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Fri Aug 4 2023 ZhengYu He <hezhy472013@gmail.com> - 1.19.1-8
+- Add support for riscv64
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

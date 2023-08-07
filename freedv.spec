@@ -3,7 +3,7 @@
 
 Name:           freedv
 Version:        1.8.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        FreeDV Digital Voice
 License:        GPL-2.0-or-later
 
@@ -108,6 +108,9 @@ fi
 
 
 %changelog
+* Sat Aug 05 2023 Richard Shaw <hobbes1069@gmail.com> - 1.8.4-4
+- Rebuild for codec2.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

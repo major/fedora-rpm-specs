@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.6.0
-Release:	8%{?alphatag:.%{alphatag}}%{?dist}
+Release:	9%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -213,6 +213,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Sat Aug 05 2023 Richard Shaw <hobbes1069@gmail.com> - 3.10.6.0-9
+- Rebuild for codec2.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
