@@ -1,10 +1,10 @@
-%global gvc_commit 8e7a5a4c3e51007ce6579292642517e3d3eb9c50
+%global gvc_commit a1ae68ff11dc6156f9c80069194ea39679700f3f
 %global libcall_ui_commit 6798b38d4d66d069751151b3e9a202c6de8d7f3c
-%global libgmobile_commit ebb5263122f6127b86c31e2debd9e3b98c3b035b
+%global libgmobile_commit f1b50f0f90604e0f125412932dae9b1e08d57ddc
 
 Name:		phosh
-Version:	0.29.0
-Release:	2%{?dist}
+Version:	0.30.0
+Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/World/Phosh/phosh

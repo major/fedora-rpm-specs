@@ -14,7 +14,7 @@ Summary:        Wiki using happstack, git or darcs, and pandoc
 # Bluetrip: MIT or GPLv2
 # YUI: BSD
 # TANGOICONS: CC-BY-SA
-License:        GPL-2.0-or-later and MIT and BSD-3-Clause and CC-BY-SA-2.5 and (MIT or GPL-2.0-or-later)
+License:        GPL-2.0-or-later AND MIT AND BSD-3-Clause AND CC-BY-SA-2.5 AND (MIT OR GPL-2.0-or-later)
 Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz

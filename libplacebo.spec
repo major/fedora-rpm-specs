@@ -1,7 +1,7 @@
 #global prerelease -rc1
 
 Name:           libplacebo
-Version:        6.292.0
+Version:        6.292.1
 Release:        1%{?dist}
 Summary:        Reusable library for GPU-accelerated video/image rendering primitives
 
@@ -78,6 +78,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Aug 06 2023 Nicolas Chauvet <kwizart@gmail.com> - 6.292.1-1
+- Update to 6.292.1
+
 * Fri Jul 21 2023 Nicolas Chauvet <kwizart@gmail.com> - 6.292.0-1
 - Update to 6.292.0
 

@@ -6,7 +6,7 @@
 %global crate parsec-client
 
 Name:           rust-parsec-client
-Version:        0.14.1
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Parsec Client library for the Rust ecosystem
 

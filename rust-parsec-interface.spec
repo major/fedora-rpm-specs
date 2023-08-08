@@ -5,7 +5,7 @@
 %global crate parsec-interface
 
 Name:           rust-parsec-interface
-Version:        0.27.0
+Version:        0.28.0
 Release:        %autorelease
 Summary:        Parsec interface library to communicate using the wire protocol
 

@@ -69,10 +69,10 @@ Version: 9.2.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Glasgow Haskell Compiler
 
-License: BSD-3-Clause and HaskellReport
+License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
 Source0: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.lz
 %if %{with testsuite}
@@ -89,6 +89,9 @@ ExcludeArch: armv7hl
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+# https://fedoraproject.org/wiki/Toolchain/PortingToModernC
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
+Patch7: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/23286 (sphinx modern extlinks)
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
 # distutils gone in python 3.12
@@ -100,9 +103,9 @@ Patch8: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922.patch
 # DerivedConstants.h not produced atomically
 Patch10: https://gitlab.haskell.org/ghc/ghc/-/commit/9aace0eaf6279f17368a1753b65afbdc466e8291.patch
 
-# https://fedoraproject.org/wiki/Toolchain/PortingToModernC
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
-Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394.patch
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10928
+# allow building hadrian with Cabal-3.8
+Patch11: 10928.patch
 
 # armv7hl patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
@@ -159,7 +162,7 @@ BuildRequires: ncurses-devel
 BuildRequires: perl-interpreter
 # needed for:
 # - binary-dist-dir
-# - patch11 and patch12
+# - patch7 and patch12
 BuildRequires:  autoconf automake
 %if %{with testsuite}
 BuildRequires: python3
@@ -332,7 +335,7 @@ Version: 0.1.0.0
 This provides the hadrian tool which can be used to build ghc.
 %endif
 
-%global BSDHaskellReport %{quote:BSD-3-Clause and HaskellReport}
+%global BSDHaskellReport %{quote:BSD-3-Clause AND HaskellReport}
 
 # use "./libraries-versions.sh" to check versions
 %if %{defined ghclibdir}
@@ -379,7 +382,7 @@ This provides the hadrian tool which can be used to build ghc.
 
 %package devel
 Summary: GHC development libraries meta package
-License: BSD-3-Clause and HaskellReport
+License: BSD-3-Clause AND HaskellReport
 Requires: %{name}-compiler = %{version}-%{release}
 Obsoletes: %{name}-libraries < %{version}-%{release}
 Provides: %{name}-libraries = %{version}-%{release}
@@ -409,10 +412,11 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P3 -p1 -b .orig
 
 %patch -P2 -p1 -b .orig
+%patch -P7 -p1 -b .orig7
 %patch -P9 -p1 -b .orig
 %patch -P8 -p1 -b .orig
 %patch -P10 -p1 -b .orig
-%patch -P11 -p1 -b .orig11
+%patch -P11 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -980,6 +984,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon Aug  7 2023 Jens Petersen <petersen@redhat.com> - 9.2.8-21
+- fixup SPDX license tags to use "AND"
+- patch hadrian to build with Cabal-3.8
+
 * Tue Jul 25 2023 Jens Petersen <petersen@redhat.com> - 9.2.8-20
 - self-bootstrap from ghc9.2
 - build the ghc.1 manpage with sphinx and version not to conflict

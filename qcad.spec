@@ -39,8 +39,9 @@ BuildRequires: qt5-qttools-static >= 5.9.0
 BuildRequires: qt5-qtscript-devel >= 5.9.0
 BuildRequires: qt5-qtsvg-devel >= 5.9.0
 BuildRequires: qt5-qtxmlpatterns-devel >= 5.9.0
-Requires: qt5-designer >= 5.9.0
-Requires: qt5-qtsvg
+Requires: qt5-designer%{?_isa} >= 5.9.0
+Requires: qt5-qtsvg%{?_isa}
+Requires: qt5-qtscript%{?_isa}
 Provides: bundled(qtscriptgenerator) = 5.9.0
 BuildRequires: gcc-c++, chrpath
 BuildRequires: libX11-devel

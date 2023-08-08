@@ -1,14 +1,12 @@
 
 Summary: User space tools for kernel auditing
 Name: audit
-Version: 3.1.1
-Release: 4%{?dist}
+Version: 3.1.2
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
-Patch1: audit-3.0.8-flex-array-workaround.patch
-Patch2: audit-3.0.8-undo-flex-array.patch
 
 BuildRequires: make gcc
 BuildRequires: krb5-devel
@@ -90,8 +88,6 @@ Management Facility) database, through an IBM Tivoli Directory Server
 %prep
 %setup -q
 cp %{SOURCE1} .
-cp /usr/include/linux/audit.h lib/
-%patch1 -p1
 
 # Remove the ids code, its not ready
 sed -i 's/ ids / /' audisp/plugins/Makefile.am
@@ -125,13 +121,6 @@ find $RPM_BUILD_ROOT/%{_libdir}/python%{python3_version}/site-packages -name '*.
 # On platforms with 32 & 64 bit libs, we need to coordinate the timestamp
 touch -r ./audit.spec $RPM_BUILD_ROOT/etc/libaudit.conf
 touch -r ./audit.spec $RPM_BUILD_ROOT/usr/share/man/man5/libaudit.conf.5.gz
-
-# undo the workaround
-cur=`pwd`
-cd $RPM_BUILD_ROOT
-patch -p0 < %{PATCH2}
-find . -name '*.orig' -delete
-cd $cur
 
 %check
 make check
@@ -239,7 +228,6 @@ fi
 %ghost %config(noreplace) %attr(600,root,root) /etc/audit/rules.d/audit.rules
 %ghost %config(noreplace) %attr(640,root,root) /etc/audit/audit.rules
 %config(noreplace) %attr(640,root,root) /etc/audit/audit-stop.rules
-%config(noreplace) %attr(640,root,root) /etc/audit/plugins.d/af_unix.conf
 
 %files -n audispd-plugins
 %config(noreplace) %attr(640,root,root) /etc/audit/audisp-remote.conf
@@ -267,6 +255,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Sun Aug 06 2023 Steve Grubb <sgrubb@redhat.com> 3.1.2-1
+- New upstream release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

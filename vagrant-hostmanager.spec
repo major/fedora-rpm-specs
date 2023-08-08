@@ -1,8 +1,8 @@
 %global vagrant_plugin_name vagrant-hostmanager
 
 Name: vagrant-hostmanager
-Version: 1.8.9
-Release: 11%{?dist}
+Version: 1.8.10
+Release: %autorelease
 BuildArch: noarch
 
 License: MPLv2.0
@@ -83,62 +83,4 @@ cp -a .%{vagrant_plugin_dir}/* \
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Sep 13 2018 Randy Barlow <bowlofeggs@fedoraproject.org> - 1.8.9-1
-- Upgrade to 1.8.9 (#1580042).
-- https://github.com/devopsgroup-io/vagrant-hostmanager/compare/v1.8.8...v1.8.9
-- Update the URL to the new upstream location.
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Apr 27 2018 Randy Barlow <bowlofeggs@fedoraproject.org> - 1.8.8-1
-- Update to 1.8.8 (#1469848).
-- https://github.com/devopsgroup-io/vagrant-hostmanager/compare/v1.8.6...v1.8.8
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Thu May 04 2017 Randy Barlow <bowlofeggs@fedoraproject.org> - 1.8.6-1
-- Update to 1.8.6 (#1447820).
-- Update license to MPLv2.0.
-- The doc subpackage no longer requires the main package.
-- https://github.com/devopsgroup-io/vagrant-hostmanager/compare/v1.8.5...v1.8.6
-
-* Tue Feb 14 2017 Vít Ondruch <vondruch@redhat.com> - 1.8.5-3
-- Drop registration macros for Vagrant 1.9.1 compatibility.
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+%autochangelog

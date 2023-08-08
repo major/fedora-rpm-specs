@@ -1,13 +1,13 @@
-%global libadwaita_version 1.3~alpha
+%global libadwaita_version 1.4~alpha
 
 Name:           gnome-console
-Version:        44.0
+Version:        45~beta
 Release:        %autorelease
 Summary:        Simple user-friendly terminal emulator for the GNOME desktop
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/console
-Source:         https://download.gnome.org/sources/gnome-console/44/gnome-console-%{version_no_tilde .}.tar.xz
+Source:         https://download.gnome.org/sources/gnome-console/45/gnome-console-%{version_no_tilde .}.tar.xz
 
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  gcc

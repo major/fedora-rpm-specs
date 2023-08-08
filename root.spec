@@ -55,7 +55,7 @@
 Name:		root
 Version:	6.28.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -2000,9 +2000,7 @@ This package contains extra tools for RooFit projects.
 %patch -P 11 -p1
 %patch -P 12 -p1
 %patch -P 13 -p1
-%if %{?fedora}%{!?fedora:0} >= 39
 %patch -P 14 -p1
-%endif
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -3771,6 +3769,9 @@ fi
 %endif
 
 %changelog
+* Sun Aug 06 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.04-5
+- Rebuilt for libarrow.so.1300
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.28.04-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

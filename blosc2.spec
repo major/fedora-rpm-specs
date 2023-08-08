@@ -1,5 +1,5 @@
 Name:           blosc2
-Version:        2.10.0
+Version:        2.10.1
 Release:        %autorelease
 Summary:        High performance compressor optimized for binary data
 
@@ -16,12 +16,12 @@ BuildRequires:  libzstd-devel
 BuildRequires:  xxhash-devel
 
 %description
-Blosc is a high performance compressor optimized for binary data (i.e. floating
-point numbers, integers and booleans, although it can handle string data too).
-It has been designed to transmit data to the processor cache faster than the
-traditional, non-compressed, direct memory fetch approach via a memcpy() OS
-call. Blosc main goal is not just to reduce the size of large datasets on-disk
-or in-memory, but also to accelerate memory-bound computations.
+Blosc is a high performance compressor optimized for binary data
+(i.e. floating-point numbers, integers, and booleans, although it can handle
+string data too). It has been designed to transmit data to the processor cache
+faster than the traditional, non-compressed, direct memory fetch approach via a
+memcpy() OS call. Blosc main goal is not just to reduce the size of large
+datasets on-disk or in-memory, but also to accelerate memory-bound computations.
 
 C-Blosc2 is the new major version of C-Blosc, and is backward compatible with
 both the C-Blosc1 API and its in-memory format. However, the reverse thing is

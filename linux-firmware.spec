@@ -4,8 +4,8 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20230625
-Release:	151%{?dist}
+Version:	20230804
+Release:	152%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
 URL:		http://www.kernel.org/
@@ -94,8 +94,9 @@ Provides:	iwl3945-firmware = %{version}-%{release}
 Provides:	iwl4965-firmware = %{version}-%{release}
 %description -n iwlegacy-firmware
 This package contains the firmware required by the iwlegacy driver
-for Linux.  Usage of the firmware is subject to the terms and conditions
-contained inside the provided LICENSE file. Please read it carefully.
+for Linux. This includes the 3945(A)BG and 4965AGN WiFi NICs. Usage
+of the firmware is subject to the terms and conditions contained
+inside the provided LICENSE file. Please read it carefully.
 
 %package -n iwlwifi-dvm-firmware
 Summary:	DVM Firmware for Intel(R) Wireless WiFi adapters
@@ -127,7 +128,7 @@ Provides:	iwl6000g2b-firmware = %{version}-%{release}
 Provides:	iwl6050-firmware = %{version}-%{release}
 %description -n iwlwifi-dvm-firmware
 This package contains the firmware required by the iwlwifi driver
-for Linux built with DVM firmware support (CONFIG_IWLDVM=y/m).  Usage of
+for Linux built with DVM firmware support (CONFIG_IWLDVM=y/m). Usage of
 the firmware is subject to the terms and conditions contained inside the
 provided LICENSE file. Please read it carefully.
 
@@ -147,35 +148,21 @@ for Linux built with MVM firmware support (CONFIG_IWLMVM=y/m).  Usage of
 the firmware is subject to the terms and conditions contained inside the
 provided LICENSE file. Please read it carefully.
 
-%package -n libertas-sd8686-firmware
-Summary:	Firmware for Marvell Libertas SD 8686 Network Adapter
+%package -n libertas-firmware
+Summary:	Firmware for Marvell Libertas SD/USB WiFi Network Adapters
 License:	Redistributable, no modification permitted
 Requires:	linux-firmware-whence
-%description -n libertas-sd8686-firmware
-Firmware for Marvell Libertas SD 8686 Network Adapter
-
-%package -n libertas-sd8787-firmware
-Summary:	Firmware for Marvell Libertas SD 8787 Network Adapter
-License:	Redistributable, no modification permitted
-Requires:	linux-firmware-whence
-%description -n libertas-sd8787-firmware
-Firmware for Marvell Libertas SD 8787 Network Adapter
-
-%package -n libertas-usb8388-firmware
-Summary:	Firmware for Marvell Libertas USB 8388 Network Adapter
-License:	Redistributable, no modification permitted
-Epoch:		2 
-Requires:	linux-firmware-whence
-%description -n libertas-usb8388-firmware
-Firmware for Marvell Libertas USB 8388 Network Adapter
-
-%package -n libertas-usb8388-olpc-firmware
-Summary:	OLPC firmware for Marvell Libertas USB 8388 Network Adapter
-License:	Redistributable, no modification permitted
-Requires:	linux-firmware-whence
-%description -n libertas-usb8388-olpc-firmware
-Firmware for Marvell Libertas USB 8388 Network Adapter with OLPC mesh network
-support.
+Obsoletes:      libertas-sd8686-firmware < %{version}-%{release}
+Obsoletes:      libertas-sd8787-firmware < %{version}-%{release}
+Obsoletes:      libertas-usb8388-firmware < 2:%{version}-%{release}
+Obsoletes:      libertas-usb8388-olpc-firmware < %{version}-%{release}
+Provides:       libertas-sd8686-firmware < %{version}-%{release}
+Provides:       libertas-sd8787-firmware < %{version}-%{release}
+Provides:       libertas-usb8388-firmware < 2:%{version}-%{release}
+Provides:       libertas-usb8388-olpc-firmware < %{version}-%{release}
+%description -n libertas-firmware
+Firmware for the Marvell Libertas series of WiFi Network Adapters
+Including the SD 8686/8787 and USB 8388/8388.
 
 %package -n mt7xxx-firmware
 Summary:	Firmware for Mediatek 7600/7900 series WiFi/Bluetooth adapters
@@ -219,6 +206,16 @@ License:	Redistributable, no modification permitted
 Requires:	linux-firmware-whence
 %description -n netronome-firmware
 Firmware for Netronome Smart NICs
+
+%package -n qcom-firmware
+Summary:	Firmware for Qualcomm SoCs
+License:	Redistributable, no modification permitted
+Requires:	linux-firmware-whence
+Requires:	atheros-firmware = %{version}-%{release}
+%description -n qcom-firmware
+Firmware for various compoents in Qualcomm SoCs including Adreno
+GPUs, Venus video encode/decode, Audio DSP, Compute DSP, WWAN
+modem, Sensor DSPs.
 
 # Random other hardware
 %package -n dvb-firmware
@@ -311,6 +308,7 @@ sed \
 	-i -e '/^mrvl\/sd8787/d' \
 	-i -e '/^netronome/d' \
 	-i -e '/^qca/d' \
+	-i -e '/^qcom/d' \
 	-i -e '/^radeon/d' \
 	-i -e '/^rtl_bt/d' \
 	-i -e '/^rtlwifi/d' \
@@ -404,25 +402,14 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/iwlwifi-ty-a0*
 %{_firmwarepath}/iwlwifi-so-a0*
 
-%files -n libertas-sd8686-firmware
+%files -n libertas-firmware
 %license LICENCE.Marvell
 %dir %{_firmwarepath}/libertas
-%{_firmwarepath}/libertas/sd8686*
-
-%files -n libertas-sd8787-firmware
-%license LICENCE.Marvell
 %dir %{_firmwarepath}/mrvl
-%{_firmwarepath}/mrvl/sd8787*
-
-%files -n libertas-usb8388-firmware
-%license LICENCE.Marvell
-%dir %{_firmwarepath}/libertas
-%{_firmwarepath}/libertas/usb8388_v9.bin*
-
-%files -n libertas-usb8388-olpc-firmware
-%license LICENCE.Marvell
-%dir %{_firmwarepath}/libertas
+%{_firmwarepath}/libertas/sd8686*
 %{_firmwarepath}/libertas/usb8388_olpc.bin*
+%{_firmwarepath}/libertas/usb8388_v9.bin*
+%{_firmwarepath}/mrvl/sd8787*
 
 %files -n mt7xxx-firmware
 %license LICENCE.mediatek
@@ -460,6 +447,12 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %dir %{_firmwarepath}/netronome
 %{_firmwarepath}/netronome/*
 
+# Silicon Vendor specific
+%files -n qcom-firmware
+%license LICENSE.qcom LICENSE.qcom_yamato qcom/NOTICE.txt
+%dir %{_firmwarepath}/qcom
+%{_firmwarepath}/qcom/*
+
 # Random other hardware
 %files -n dvb-firmware
 %license LICENSE.dib0700 LICENCE.it913x LICENCE.siano
@@ -475,6 +468,47 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Sun Aug 06 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230804-152
+- Update to upstream 20230804 release
+- Split out QCom Arm IP firmware
+- Merge Marvell libertas WiFi firmware
+- Mellanox: Add new mlxsw_spectrum firmware xx.2012.1012
+- Add URL for latest FW binaries for NXP BT chipsets
+- rtw89: 8851b: update firmware to v0.29.41.1
+- qcom: sdm845: add RB3 sensors DSP firmware
+- amdgpu: Update DMCUB for DCN314 & Yellow Carp
+- ice: add LAG-supporting DDP package
+- i915: Update MTL DMC to v2.13
+- i915: Update ADLP DMC to v2.20
+- cirrus: Add CS35L41 firmware for Dell Oasis Models
+- copy-firmware: Fix linking directories when using compression
+- copy-firmware: Fix test: unexpected operator
+- qcom: sc8280xp: LENOVO: remove directory sym link
+- qcom: sc8280xp: LENOVO: Remove execute bits
+- amdgpu: update VCN 4.0.0 firmware
+- amdgpu: add initial SMU 13.0.10 firmware
+- amdgpu: add initial SDMA 6.0.3 firmware
+- amdgpu: add initial PSP 13.0.10 firmware
+- amdgpu: add initial GC 11.0.3 firmware
+- Update AMD fam17h cpu microcode
+- Update AMD cpu microcode
+- amdgpu: update various generation VCN firmware
+- amdgpu: update DMCUB to v0.0.175.0 for various AMDGPU ASICs
+- Updated NXP SR150 UWB firmware
+- wfx: update to firmware 3.16.1
+- mediatek: Update mt8195 SCP firmware to support 10bit mode
+- i915: update DG2 GuC to v70.8.0
+- i915: update to GuC 70.8.0 and HuC 8.5.1 for MTL
+- cirrus: Add CS35L41 firmware for ASUS ROG 2023 Models
+- Partially revert "amdgpu: DMCUB updates for DCN 3.1.4 and 3.1.5"
+- Update firmware for MT7922 WiFi/Bluetooth device
+- Update firmware file for Intel Bluetooth AX200/201/203/210/211
+- Fix qcom ASoC tglp WHENCE entry
+- check_whence: Check link targets are valid
+- iwlwifi: add new FWs from core80-39 release
+- iwlwifi: update cc/Qu/QuZ firmwares for core80-39 release
+- qcom: Add Audio firmware for SC8280XP X13s
+
 * Sun Jul 02 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230625-151
 - Update to upstream 20230625 release
 - Move to upstreamed compression support

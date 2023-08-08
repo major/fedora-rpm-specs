@@ -1,5 +1,5 @@
 %global gtk3_version 3.24.15
-%global glib2_version 2.53.4
+%global glib2_version 2.73.2
 %global gnome_desktop_version 2.91.2
 %global libexif_version 0.6.14
 %global libhandy_version 1.5.0
@@ -7,13 +7,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    eog
-Version: 44.3
-Release: 2%{?dist}
+Version: 45~alpha
+Release: 1%{?dist}
 Summary: Eye of GNOME image viewer
 
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:     https://wiki.gnome.org/Apps/EyeOfGnome
-Source0: https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires: pkgconfig(exempi-2.0)
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
@@ -137,6 +137,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Sun Aug 06 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
+- Update to 45.alpha
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

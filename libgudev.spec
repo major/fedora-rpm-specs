@@ -1,9 +1,9 @@
 Name:           libgudev
 Version:        238
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GObject-based wrapper library for libudev
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/libgudev
 Source0:        https://download.gnome.org/sources/libgudev/%{version}/libgudev-%{version}.tar.xz
 
@@ -70,6 +70,9 @@ This package is necessary to build programs using %{name}.
 
 
 %changelog
+* Wed Aug 02 2023 Lukáš Zaoral <lzaoral@redhat.com> - 238-3
+- migrate to SPDX license format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 238-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

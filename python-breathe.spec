@@ -12,7 +12,7 @@ Version:        4.35.0
 Release:        %autorelease
 Summary:        Adds support for Doxygen xml output to reStructuredText and Sphinx
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{owner}/%{srcname}
 Source0:        %{URL}/archive/v%{version}.tar.gz
 Source1:        %{URL}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.sig
@@ -61,7 +61,7 @@ Requires:       doxygen >= 1.8.4
 %package        doc
 Summary:        Documentation files for %{srcname}
 # tinyxml uses zlib license
-License:        BSD and zlib
+License:        BSD-3-Clause AND Zlib
 
 %description    doc
 This package contains documentation for developer documentation for %{srcname}.

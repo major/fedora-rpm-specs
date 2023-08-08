@@ -6,7 +6,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.1.1
-Release:        1%{?dist}
+Release:        14%{?dist}
 Summary:        Locally cache a json file obtained by http
 
 License:        BSD-3-Clause
@@ -121,6 +121,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Fri Aug  4 2023 Jens Petersen <petersen@redhat.com> - 0.1.1-14
+- bump over fbrnch
+
 * Thu Feb 02 2023 Jens Petersen <petersen@redhat.com> - 0.1.1-1
 - https://hackage.haskell.org/package/cached-json-file-0.1.1/changelog
 

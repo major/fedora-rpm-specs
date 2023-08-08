@@ -3,17 +3,20 @@
 %else
 %bcond ffmpeg %{?with_bootstrap:0}%{!?with_bootstrap:1}
 %endif
+# Globing of libraries is against the packging guidelines
+%global sover 1
+
 
 Name:           chromaprint
 Version:        1.5.1
-Release:        11%{?dist}
+Release:        13%{?dist}
 Summary:        Library implementing the AcoustID fingerprinting
 
 License:        GPLv2+
 URL:            http://www.acoustid.org/chromaprint
 Source:         https://github.com/acoustid/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
-Patch1:          https://github.com/acoustid/chromaprint/commit/8ccad6937177b1b92e40ab8f4447ea27bac009a7.patch
+Patch1:         https://github.com/acoustid/chromaprint/commit/8ccad6937177b1b92e40ab8f4447ea27bac009a7.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -77,7 +80,7 @@ License for binaries is GPLv2+ but source code is MIT + LGPLv2+
 %autosetup -p1
 
 %build
-# examples and cli tools equire ffmpeg, so turn off; test depend of external artifact so turn off.
+# examples and cli tools require ffmpeg, so turn off; test depend of external artifact so turn off.
 %cmake -GNinja \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_TESTS=OFF \
@@ -93,8 +96,7 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %files -n libchromaprint
 %doc NEWS.txt README.md
 %license LICENSE.md
-
-%{_libdir}/lib*.so.*
+%{_libdir}/lib*.so.%{sover}*
 
 %files -n libchromaprint-devel
 %{_includedir}/chromaprint.h
@@ -107,6 +109,13 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %endif
 
 %changelog
+* Sun Aug 06 2023 Richard Shaw <hobbes1069@gmail.com> - 1.5.1-13
+- Rebuild post bootstrap build for ffmpeg/codec2.
+
+* Sun Aug 06 2023 Richard Shaw <hobbes1069@gmail.com> - 1.5.1-12
+- Rebuild without ffmpeg to break circular dependency with ffmpeg/codec2.
+- Add %%sover to prevent accidental soname bumps.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

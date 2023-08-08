@@ -11,6 +11,10 @@ URL:            https://gitlab.gnome.org/World/OpenPaperwork/paperwork/tree/mast
 Source0:        %pypi_source %{srcname}
 # https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/issues/1035
 Patch0001:      0001-Skip-docx-duplicated-import-test-entirely.patch
+# python-Levenshtein changed to just Levenshtein. There isn't an upstream
+# patch because upstream has decided to drop the dependency
+# https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/9072eea40e09b337939ed3c98b642df203752e9e
+Patch0002:      0002-fix-levenshtein.patch
 
 BuildArch:      noarch
 

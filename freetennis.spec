@@ -1,10 +1,8 @@
-%define debug_package %{nil}
-
 Name:           freetennis
 Version:        0.4.8
 Release:        56%{?dist}
 Summary:        Tennis simulation game
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://freetennis.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 Source1:        freetennis.desktop
@@ -13,7 +11,8 @@ Patch0:         freetennis-0.4.8-pathfixes.patch
 Patch1:         freetennis-0.4.8-build.patch
 Patch2:         freetennis-0.4.8-ocaml-4.12.patch
 Patch3:         freetennis-0.4.8-ocaml-5.0.0.patch
-ExcludeArch:    sparc64 s390 s390x
+# i686 support was dropped in OCaml 5 / Fedora 39
+ExcludeArch:    sparc64 s390 s390x %{ix86}
 BuildRequires:  make, ocaml, SDL_gfx-devel, SDL_mixer-devel
 BuildRequires:  libXmu-devel, gtk2-devel, desktop-file-utils
 BuildRequires:  SDL_ttf-devel
@@ -32,7 +31,11 @@ played against an A.I. or human-vs-human via LAN or internet.
 
 
 %build
-make %{?_smp_mflags}
+%ifarch %{ocaml_native_compiler}
+%make_build
+%else
+%make_build byte
+%endif
 
 
 %install
@@ -61,6 +64,11 @@ install -p %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/
 
 
 %changelog
+* Sun Aug  6 2023 Jerry James <loganjerry@gmail.com> - 0.4.8-56
+- Fix FTBFS on bytecode-only architectures (rhbz#2225813)
+- Convert License field to SPDX
+- Build with debuginfo
+
 * Fri Aug  4 2023 Hans de Goede <hdegoede@redhat.com> - 0.4.8-56
 - Fix FTBFS (rhbz#2225813)
 

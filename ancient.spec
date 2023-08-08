@@ -1,8 +1,8 @@
-%global gittag v2.0.0
+%global gittag v2.1.1
 
 Name:		ancient
-Version:	2.0.0
-Release:	3%{?dist}
+Version:	2.1.1
+Release:	1%{?dist}
 Summary:	Modern decompressor for old data compression formats
 
 # All files are BSD-2-Clause except src/BZIP2Table.hpp which is bzip2-1.0.6
@@ -71,7 +71,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/ancient verify %{S
 %files libs
 %license LICENSE
 %{_libdir}/libancient.so.2
-%{_libdir}/libancient.so.2.0.0
+%{_libdir}/libancient.so.2.0.1
 
 %files devel
 %{_includedir}/%{name}
@@ -81,6 +81,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/ancient verify %{S
 
 
 %changelog
+* Sun Aug 06 2023 Charles R. Anderson <cra@alum.wpi.edu> - 2.1.1-1
+- Update to 2.1.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

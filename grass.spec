@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.3.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -42,16 +42,12 @@ BuildRequires:	gcc-c++
 BuildRequires:	desktop-file-utils
 BuildRequires:	fftw-devel
 BuildRequires:	flex
-%if (0%{?rhel} > 6 || 0%{?fedora})
 BuildRequires:	freetype-devel
-%endif
 BuildRequires:	gdal-devel
 BuildRequires:	geos-devel
 BuildRequires:	gettext
 BuildRequires:	laszip-devel
-%if (0%{?rhel} > 6 || 0%{?fedora})
 BuildRequires:	libappstream-glib
-%endif
 BuildRequires:	libpng-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libXmu-devel
@@ -62,9 +58,7 @@ BuildRequires:	mariadb-connector-c-devel openssl-devel
 %else
 BuildRequires:	mysql-devel
 %endif
-%if (0%{?rhel} > 6 || 0%{?fedora})
 BuildRequires:	netcdf-devel
-%endif
 BuildRequires:	python3
 %if 0%{?rhel} == 7
 # EPEL7
@@ -72,16 +66,12 @@ BuildRequires:	python%{python3_version_nodots}-numpy
 %else
 BuildRequires:	python3-numpy
 %endif
-%if 0%{?rhel} && 0%{?rhel} <= 7
+%if 0%{?rhel} && 0%{?rhel} == 7
 BuildRequires:	postgresql-devel
 %else
 BuildRequires:	libpq-devel
 %endif
 BuildRequires:	proj-devel
-%if (0%{?rhel} <= 6 && !0%{?fedora})
-# argparse is included in python2.7+ but not python2.6
-BuildRequires:	python-argparse
-%endif
 %if 0%{?rhel} == 7
 # EPEL7
 BuildRequires:	python%{python3_version_nodots}-dateutil
@@ -89,12 +79,7 @@ BuildRequires:	python%{python3_version_nodots}-dateutil
 BuildRequires:	python3-dateutil
 %endif
 BuildRequires:	python3-devel
-%if (0%{?rhel} > 6 || 0%{?fedora})
 BuildRequires:	python3-pillow
-%else
-# EPEL6
-BuildRequires:	python-imaging
-%endif
 BuildRequires:	PDAL
 BuildRequires:	PDAL-libs
 BuildRequires:	PDAL-devel
@@ -122,23 +107,13 @@ Requires:	python%{python3_version_nodots}-numpy
 %else
 Requires:	python3-numpy
 %endif
-%if 0%{?rhel} > 6
-# EPEL7/EPEL8
-#Requires:  python3-matplotlib-wx
-%else
-Requires:	python3-matplotlib
-%endif
 %if 0%{?rhel} == 7
 # EPEL7
 Requires:	python%{python3_version_nodots}-dateutil
 %else
 Requires:	python3-dateutil
 %endif
-%if 0%{?rhel} && 0%{?rhel} < 7
-Requires: wxPython
-%else
 Requires:	python3-wxpython4
-%endif
 Requires:	PDAL
 Requires:	PDAL-libs
 
@@ -214,9 +189,7 @@ find -name \*.pl | xargs sed -i -e 's,#!/usr/bin/env perl,#!%{__perl},'
 	--with-lapack-includes=%{_includedir}/flexiblas \
 %endif
 	--with-cairo \
-%if (0%{?rhel} > 6 || 0%{?fedora})
 	--with-freetype \
-%endif
 	--with-nls \
 	--with-pdal \
 	--with-readline \
@@ -225,9 +198,7 @@ find -name \*.pl | xargs sed -i -e 's,#!/usr/bin/env perl,#!%{__perl},'
 	--with-gdal=%{_bindir}/gdal-config \
 	--with-wxwidgets=%{_bindir}/wx-config \
 	--with-geos=%{_bindir}/geos-config \
-%if (0%{?rhel} > 6 || 0%{?fedora})
 	--with-netcdf=%{_bindir}/nc-config \
-%endif
 	--with-mysql-includes=%{_includedir}/mysql \
 %if (0%{?fedora} >= 27)
 	--with-mysql-libs=%{_libdir} \
@@ -316,7 +287,7 @@ cat >  %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf<<EOF
 %{_libdir}/%{name}%{shortver}/lib
 EOF
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
+%if 0%{?rhel} && 0%{?rhel} == 7
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
@@ -367,6 +338,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sun Aug 06 2023 Alexandre Detiste <alexandre.detiste@gmail.com> - 8.3.0-3
+- Remove support for RHEL6: Grass is now Python3 only
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

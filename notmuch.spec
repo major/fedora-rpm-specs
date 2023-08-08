@@ -34,6 +34,7 @@ Source0:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz
 Source1:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz.asc
 # Imported from public key servers; author provides no fingerprint!
 Source2:        gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg
+Source3:        config-with-comments-glib2-2.77
 Patch1:         0001-test-allow-to-use-full-scan.patch
 Patch2:         0002-test-use-NOTMUCH_NEW-consistently.patch
 Patch3:         0001-python-adjust-legacy-bindings-to-py-3.12.patch
@@ -219,6 +220,10 @@ interface, utilizing the notmuch framework.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
+# Temporary FTBFS fix, see rhbz#2226033
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+cp -vf %{SOURCE3} test/setup.expected-output/config-with-comments
+%endif
 
 %build
 # DEBUG mtime/stat

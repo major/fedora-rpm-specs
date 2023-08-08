@@ -79,9 +79,12 @@ BuildRequires:  pkgconfig(OpenEXR)
 %endif
 BuildRequires:  cmake(OpenColorIO)
 BuildRequires:  cmake(OpenImageIO)
+# Disable pyside2 due to incompatibility with python 3.12
+%if 0%{?fedora} < 39
 BuildRequires:  pkgconfig(pyside2)
 BuildRequires:  pkgconfig(python3)
 BuildRequires:	pkgconfig(shiboken2)
+%endif
 BuildRequires:  pkgconfig(spdlog)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:  pkgconfig(yaml-cpp)
@@ -136,6 +139,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    examples
 The %{name}-examples package contains sample binaries using %{name}.
 
+%if 0%{?fedora} < 39
 %package        -n python3-%{name}
 Summary:        Python 3 interface to %{name}
 Requires:       blender-%{name}%{?_isa} = %{version}-%{release}
@@ -143,6 +147,7 @@ Requires:       blender-%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python3-%{name}
 The python3-%{name} contains Python 3 API for the library.
+%endif
 
 %package static
 Summary:	luxcorerender static libraries
@@ -245,13 +250,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.bl
 %{_metainfodir}/org.%{name}.blendluxcore.metainfo.xml
 %{blender_addons}/%{name}
 
+%if 0%{?fedora} < 39
 %files -n python3-%{name}
 %license COPYING.txt
 %{python3_sitearch}/pyluxcore.so
+%endif
 
 %files devel
 %{_includedir}/{luxcore,luxrays,slg}
-
+%exclude %{python3_sitearch}/pyluxcore.so
 %files static
 %{_libdir}/lib{luxcore,luxrays,slg-core,slg-film,slg-kernels}.a
 

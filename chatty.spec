@@ -1,18 +1,16 @@
 %global _build_id_links none
 %global __requires_exclude ^libjabber\\.so.*$
-%global libgd_commit c7c7ff4e05d3fe82854219091cf116cce6b19de0
-%global libcmatrix_commit ec50358d3bf102e7f8f1843e537bcf1f150d2b7a
+%global libcmatrix_commit 702b894675f12ecd43439b3b3eee66cc74899b82
 
 Name: chatty
-Version: 0.7.3
-Release: 3%{?dist}
+Version: 0.8.0~rc0
+Release: 1%{?dist}
 Summary: A libpurple messaging client
 
 License: GPLv3+
 URL: https://source.puri.sm/Librem5/chatty
-Source0: https://source.puri.sm/Librem5/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
-Source1: https://gitlab.gnome.org/GNOME/libgd/-/archive/%{libgd_commit}/libgd-%{libgd_commit}.tar.gz
-Source2: https://source.puri.sm/Librem5/libcmatrix/-/archive/%{libcmatrix_commit}/libcmatrix-%{libcmatrix_commit}.tar.gz
+Source0: https://source.puri.sm/Librem5/%{name}/-/archive/v0.8.0_rc0/%{name}-v0.8.0_rc0.tar.gz
+Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/%{libcmatrix_commit}/libcmatrix-%{libcmatrix_commit}.tar.gz
 
 # Chatty links against a libpurple private library (libjabber).
 # Obviously, Fedora build tooling doesn't support that, so we have to use
@@ -29,12 +27,16 @@ BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  dbus-daemon
+BuildRequires:	dbus-x11
 BuildRequires:	itstool
 BuildRequires:  pkgconfig(libebook-contacts-1.2)
 BuildRequires:  pkgconfig(libebook-1.2) >= 3.42.0
 BuildRequires:  pkgconfig(libfeedback-0.0)
-BuildRequires:  pkgconfig(libhandy-1) >= 1.1.90
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22.0
+BuildRequires:	pkgconfig(libadwaita-1) >= 1.2
+BuildRequires:	pkgconfig(gtk4) >= 4.6
+BuildRequires:	pkgconfig(gio-2.0) >= 2.66
+BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.62
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(sqlite3) >= 3.26.0
 BuildRequires:  pkgconfig(gee-0.8)
@@ -55,6 +57,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  /usr/bin/xvfb-run
 BuildRequires:  /usr/bin/xauth
+BuildRequires:	at-spi2-core
 
 Requires: hicolor-icon-theme
 
@@ -73,14 +76,11 @@ works best with the phosh mobile DE.
 # Copy private libjabber library in so we can build against it
 cp `pkg-config --variable=plugindir purple`/libjabber.so.0 /tmp/libjabber.so
 
-%setup -a1 -a2 -n %{name}-v%{version}
-%patch0 -p1
+%setup -a1 -n %{name}-v0.8.0_rc0
+%patch -P 0 -p1
 
 rm -rf subprojects/libcmatrix
 mv libcmatrix-%{libcmatrix_commit} subprojects/libcmatrix
-
-rmdir subprojects/libgd
-mv libgd-%{libgd_commit} subprojects/libgd
 
 %build
 %meson
@@ -131,7 +131,6 @@ echo "%{_libdir}/chatty" > %{buildroot}/%{_sysconfdir}/ld.so.conf.d/chatty.conf
 %license COPYING
 
 %changelog
+%autochangelog
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-%autochangelog

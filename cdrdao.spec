@@ -13,6 +13,7 @@ URL:       http://cdrdao.sourceforge.net/
 Source0:   http://prdownloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
+BuildRequires:  gtkmm3.0-devel
 BuildRequires:  libsigc++20-devel
 BuildRequires:  libvorbis-devel >= 1.0
 BuildRequires:  libao-devel
@@ -66,10 +67,16 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %doc AUTHORS README CREDITS ChangeLog
 %license COPYING
 %{_bindir}/cdrdao
+%{_bindir}/gcdmaster
 %{_bindir}/*toc*
 %{_datadir}/cdrdao
+%{_datadir}/*/gcdmaster*
+%{_datadir}/gcdmaster/glade/P*.glade
+%{_datadir}/glib-2.0/schemas/org.gnome.gcdmaster.gschema.xml
+%{_datadir}/mime/packages/gcdmaster.xml
 %{_mandir}/*/cdrdao*
 %{_mandir}/*/cue2toc*
+%{_mandir}/*/gcdmaster*
 %{_mandir}/*/toc2cue*
 %{_mandir}/*/toc2cddb*
 

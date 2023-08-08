@@ -5,18 +5,13 @@
 %global crate psa-crypto-sys
 
 Name:           rust-psa-crypto-sys
-Version:        0.9.3
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Wrapper around the PSA Cryptography API
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/psa-crypto-sys
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump bindgen build-dependency from 0.59.2 to 0.63.0
-#   (fixes incompatibilities and build issues with Clang 16):
-#   https://github.com/parallaxsecond/rust-psa-crypto/commit/b10014d
-Patch:          psa-crypto-sys-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -37,7 +32,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/vendor/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

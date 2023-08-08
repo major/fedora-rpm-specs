@@ -1,6 +1,6 @@
 Name:       megapixels
-Version:    1.6.1
-Release:    2%{?dist}
+Version:    1.7.0
+Release:    1%{?dist}
 Summary:    GTK4 camera application that knows how to deal with the media request api
 
 License:    GPLv3+
@@ -71,6 +71,8 @@ SH
 %{_datadir}/megapixels/config/pine64,pinephone-1.2.ini
 %{_datadir}/megapixels/config/pine64,pinetab.ini
 %{_datadir}/megapixels/config/xiaomi,scorpio.ini
+%{_datadir}/megapixels/config/pine64,pinephone,front.dcp
+%{_datadir}/megapixels/config/pine64,pinephone,rear.dcp
 %{_datadir}/megapixels/postprocess.sh
 %{_datadir}/metainfo/org.postmarketos.Megapixels.metainfo.xml
 %{_datadir}/glib-2.0/schemas/org.postmarketos.Megapixels.gschema.xml
@@ -80,10 +82,10 @@ SH
 
 
 %changelog
+%autochangelog
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-%autochangelog
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

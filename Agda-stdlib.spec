@@ -1,7 +1,7 @@
 # https://fedoraproject.org/wiki/Packaging:Haskell
 
 Name:           Agda-stdlib
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Agda standard libraries
 
@@ -15,7 +15,7 @@ BuildRequires:  Agda
 # .agdai files are arch independent
 BuildArch:      noarch
 Obsoletes:      ghc-agda-lib-ffi < 0.0.2-6, ghc-agda-lib-ffi-devel < 0.0.2-6
-Requires:       Agda = 2.6.2.2
+Requires:       Agda = 2.6.3
 # Agda can't build on armv7hl currently
 ExcludeArch:    armv7hl
 
@@ -54,7 +54,7 @@ install -p -m 0644 standard-library.agda-lib %{buildroot}%{_datadir}/%{name}/
 
 
 %check
-%{agda} README.agda
+LANG=C.utf8 %{agda} README.agda
 
 
 %files

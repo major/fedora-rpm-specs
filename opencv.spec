@@ -4,7 +4,7 @@
 %if %{without tests}
 %bcond_with     extras_tests
 %else
-%bcond_with  extras_tests
+%bcond_without  extras_tests
 %endif
 # linters are enabled by default if BUILD_DOCS OR BUILD_EXAMPLES
 %bcond_with     linters
@@ -13,15 +13,11 @@
 %bcond_with     eigen2
 %bcond_without  eigen3
 %bcond_without  opencl
-%if 0%{?rhel} >= 8
-%bcond_with     openni
-%else
 %ifarch x86_64 %{arm}
 %bcond_without  openni
 %else
 # we dont have openni in other archs
 %bcond_with     openni
-%endif
 %endif
 %bcond_without  tbb
 %bcond_with     cuda
@@ -68,13 +64,13 @@
 %endif
 
 Name:           opencv
-Version:        4.7.0
+Version:        4.8.0
 %global javaver %(foo=%{version}; echo ${foo//./})
 %global majorver %(foo=%{version}; a=(${foo//./ }); echo ${a[0]} )
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        15%{?dist}
+Release:        1%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause and Apache-2.0 and ISC
@@ -95,11 +91,13 @@ Source3:        face_landmark_model.dat.xz
 # mv v0.1.2a.zip $(md5sum v0.1.2a.zip | cut -d' ' -f1)-v0.1.2a.zip
 Source4:        fa4b3e25167319cb0fa9432ef8281945-v0.1.2a.zip
 Source5:        xorg.conf
+%global wechat_commit 3487ef7cde71d93c6a01bb0b84aa0f22c6128f6b
+%global wechat_shortcommit %(c=%{wechat_commit}; echo ${c:0:7})
+%global wechat_gitdate 20230712
+Source6:        https://github.com/WeChatCV/opencv_3rdparty/archive/%{wechat_commit}/wechat-%{wechat_gitdate}.git%{wechat_shortcommit}.tar.gz
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
 Patch3:         opencv.python.patch
-# Upstream commit to fix rhbz#2190013
-Patch4:         https://github.com/opencv/opencv/pull/23112.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 2.6.3
@@ -194,7 +192,7 @@ BuildRequires:  blas-devel
 BuildRequires:  lapack-devel
 }
 %{?with_gdcm:BuildRequires: gdcm-devel}
-%{?with_libmfx:BuildRequires:  libmfx-devel}
+%{?with_libmfx:BuildRequires:  oneVPL-devel}
 %{?with_clp:BuildRequires:  coin-or-Clp-devel}
 %{?with_va:BuildRequires:   libva-devel}
 %{?with_java:
@@ -202,6 +200,7 @@ BuildRequires:  ant
 BuildRequires:  java-devel
 }
 %{?with_vulkan:BuildRequires:  vulkan-headers}
+#BuildRequires: flatbuffers-devel
 %if %{with tests}
 BuildRequires:  xorg-x11-drv-dummy
 BuildRequires:  mesa-dri-drivers
@@ -281,20 +280,18 @@ to provide decent performance and stability.
 %prep
 # autosetup doesn't work with 2 sources
 # https://github.com/rpm-software-management/rpm/issues/1204
-%setup -q -a1 %{?with_extras_tests:-a2}
-%if 1
+%setup -q -a1 %{?with_extras_tests:-a2} -a6
+
 # we don't use pre-built contribs except quirc
 pushd 3rdparty
 shopt -s extglob
 #rm -r !(openexr|openvx|quirc)
-rm -r !(openvx|quirc)
+rm -r !(openvx|quirc|flatbuffers)
 shopt -u extglob
 popd &>/dev/null
-%endif
 
 %patch -P 0 -p1 -b .install_3rdparty_licenses
 %patch -P 3 -p1 -b .python_install_binary
-%patch -P 4 -p1 -b .backport_avx2
 
 pushd %{name}_contrib-%{version}
 #patch1 -p1 -b .install_cvv
@@ -302,15 +299,20 @@ popd
 
 # Install face_landmark_model
 mkdir -p .cache/data
-install -pm 0644 %{SOURCE3} .cache/data
+install -pm 0644 %{S:3} .cache/data
 pushd .cache/data
   xz -d face_landmark_model.dat.xz
   mv face_landmark_model.dat 7505c44ca4eb54b4ab1e4777cb96ac05-face_landmark_model.dat
 popd
+mkdir -p .cache/wechat_qrcode
+mv opencv_3rdparty-%{wechat_commit}/detect.caffemodel .cache/wechat_qrcode/238e2b2d6f3c18d6c3a30de0c31e23cf-detect.caffemodel
+mv opencv_3rdparty-%{wechat_commit}/detect.prototxt .cache/wechat_qrcode/6fb4976b32695f9f5c6305c19f12537d-detect.prototxt
+mv opencv_3rdparty-%{wechat_commit}/sr.caffemodel .cache/wechat_qrcode/cbfcd60361a73beb8c583eea7e8e6664-sr.caffemodel
+mv opencv_3rdparty-%{wechat_commit}/sr.prototxt .cache/wechat_qrcode/69db99927a70df953b471daaba03fbef-sr.prototxt
 
 # Install ADE, needed for opencv_gapi
 mkdir -p .cache/ade
-install -pm 0644 %{SOURCE4} .cache/ade/
+install -pm 0644 %{S:4} .cache/ade/
 
 %build
 # enabled by default if libraries are presents at build time:
@@ -319,6 +321,9 @@ install -pm 0644 %{SOURCE4} .cache/ade/
 # disabling IPP because it is closed source library from intel
 
 %cmake \
+%if 0%{?fedora} > 38
+ -DCMAKE_CXX_STANDARD=17 \
+%endif
  -DCV_TRACE=OFF \
  -DWITH_IPP=OFF \
  -DWITH_ITT=OFF \
@@ -335,7 +340,7 @@ install -pm 0644 %{SOURCE4} .cache/ade/
 %ifarch x86_64 %{ix86}
  -DCPU_BASELINE=SSE2 \
 %endif
- -DCMAKE_BUILD_TYPE=ReleaseWithDebInfo \
+ -DCMAKE_BUILD_TYPE=Release \
  %{?with_java: -DBUILD_opencv_java=ON \
  -DOPENCV_JAR_INSTALL_PATH=%{_jnidir} } \
  %{!?with_java: -DBUILD_opencv_java=OFF } \
@@ -366,7 +371,7 @@ install -pm 0644 %{SOURCE4} .cache/ade/
  } \
  -DBUILD_PROTOBUF=OFF \
  -DPROTOBUF_UPDATE_FILES=ON \
-%{?with_opencl: -DOPENCL_INCLUDE_DIR=%{_includedir}/CL } \
+%{?with_opencl: -DOPENCL_INCLUDE_DIR=%{_includedir}/CL -DOPENCV_DNN_OPENCL=ON} \
 %{!?with_opencl: -DWITH_OPENCL=OFF } \
  -DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-%{version}/modules \
  -DWITH_LIBV4L=ON \
@@ -375,7 +380,7 @@ install -pm 0644 %{SOURCE4} .cache/ade/
  -DOPENCV_GENERATE_PKGCONFIG=ON \
 %{?with_extras_tests: -DOPENCV_TEST_DATA_PATH=opencv_extra-%{version}/testdata} \
  %{?with_gdcm: -DWITH_GDCM=ON } \
- %{?with_libmfx: -DWITH_MFX=ON } \
+ %{?with_libmfx: -DWITH_MFX=ON  -DWITH_GAPI_ONEVPL=ON} \
  %{?with_clp: -DWITH_CLP=ON } \
  %{?with_va: -DWITH_VA=ON } \
  %{!?with_vtk: -DWITH_VTK=OFF} \
@@ -404,7 +409,7 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %check
 #ifnarch ppc64
 %if %{with tests}
-    cp %SOURCE5 %{__cmake_builddir}
+    cp %{S:5} %{__cmake_builddir}
     if [ -x /usr/libexec/Xorg ]; then
        Xorg=/usr/libexec/Xorg
     else
@@ -475,7 +480,7 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_alphamat.so.{%{abiver},%{version}}
 %{_libdir}/libopencv_aruco.so.{%{abiver},%{version}}
 %{_libdir}/libopencv_bgsegm.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_barcode.so.{%{abiver},%{version}}
+#%%{_libdir}/libopencv_barcode.so.{#%%{abiver},#%%{version}}
 %{_libdir}/libopencv_bioinspired.so.{%{abiver},%{version}}
 %{_libdir}/libopencv_ccalib.so.{%{abiver},%{version}}
 %{?with_cuda:
@@ -521,6 +526,13 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 4.8.0-1
+- Update opencv to 4.8.0
+- Use bundle flatbuffers, tried build with flatbuffers from system but doesn't build
+- Use oneVPL instead libmfx
+- Add WeChat QRCode
+- https://src.fedoraproject.org/rpms/opencv/pull-request/23 , upgrade C++ standard to C++17 for protobuf v4 (23.x etc.)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

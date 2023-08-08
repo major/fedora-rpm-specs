@@ -16,7 +16,7 @@
 Name:           %{pkg_name}
 Version:        2.12.0
 # can only be reset when all subpkgs bumped
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Dockerfile linter, validate inline bash
 
 License:        GPL-3.0-or-later
@@ -238,6 +238,9 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Sun Aug  6 2023 Jens Petersen <petersen@redhat.com> - 2.12.0-12
+- monoid-subclasses-1.2.3 needs commutative-semigroups
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

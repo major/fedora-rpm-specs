@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %bcond_with test
 
 Name:           ocaml-base
-Version:        0.16.2
+Version:        0.16.3
 Release:        1%{?dist}
 Summary:        Jane Street standard library for OCaml
 
@@ -71,6 +71,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Sat Aug  5 2023 Jerry James <loganjerry@gmail.com> - 0.16.3-1
+- Version 0.16.3
+
 * Fri Jul 21 2023 Jerry James <loganjerry@gmail.com> - 0.16.2-1
 - Version 0.16.2
 

@@ -30,7 +30,7 @@
 Name:           pandoc
 Version:        3.0.1
 # can only be reset when all subpkgs bumped
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPL-2.0-or-later
@@ -425,6 +425,9 @@ touch %{buildroot}%{_datadir}/bash-completion/completions/%{name}
 
 
 %changelog
+* Sun Aug  6 2023 Jens Petersen <petersen@redhat.com> - 3.0.1-24
+- rebuild
+
 * Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 3.0.1-23
 - https://hackage.haskell.org/package/pandoc-3.0.1/changelog
 

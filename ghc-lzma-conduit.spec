@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.2.3
 # can only be reset when all subpkgs bumped
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Conduit interface for lzma/xz compression
 
 License:        BSD-3-Clause
@@ -133,6 +133,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Sun Aug  6 2023 Jens Petersen <petersen@redhat.com> - 1.2.3-18
+- lzma-0.0.1.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

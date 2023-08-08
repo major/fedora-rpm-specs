@@ -1,7 +1,7 @@
 %global	mainver		1.15.3
 #%%global	prever		.rc4
 
-%global	baserelease		3
+%global	baserelease		4
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -29,6 +29,8 @@ Source1:	rubygem-%{gem_name}-%{version}%{?prever}-full.tar.gz
 Source2:	nokogiri-create-full-tarball.sh
 # Shut down libxml2 version unmatching warning
 Patch0:	%{name}-1.11.0.rc4-shutdown-libxml2-warning.patch
+# https://github.com/sparklemotion/nokogiri/pull/2938
+Patch1:	%{gem_name}-pr2938-minitest-5_19.patch
 BuildRequires:	ruby(release)
 BuildRequires:	ruby(rubygems)
 ##
@@ -76,10 +78,12 @@ This package provides non-Gem support for %{gem_name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -a 1
+cp -a %{gem_name}-%{version}/{.,*} .
 mv ../%{gem_name}-%{version}.gemspec .
 
 # patches
 %patch -P0 -p1
+%patch -P1 -p1
 
 # remove bundled external libraries
 sed -i \
@@ -108,11 +112,6 @@ sed -i \
 sed -i \
 	gumbo-parser/src/Makefile \
 	-e 's|^\(CFLAGS.*=.*\)$|\1 -fPIC|'
-
-# MiniTest 5.19+
-%if 0%{?fedora} >= 39
-grep -rl MiniTest nokogiri-*/test/ | xargs sed -i 's|MiniTest::|Minitest::|'
-%endif
 
 %build
 # Ummm...
@@ -170,7 +169,7 @@ do
 done
 
 # Copy document files from full source
-cp -p %{gem_name}-%{version}/[A-Z]* %{buildroot}%{gem_instdir}/
+cp -p [A-Z]* %{buildroot}%{gem_instdir}/
 
 # cleanups
 # Remove bundled gumbo parser
@@ -186,10 +185,9 @@ rm -rf \
 	ports \
 	%{nil}
 pushd gumbo-parser
-rm \
-	Makefile \
-	%{nil}
-find src -type f | \
+find . -type f | \
+	grep -v CHANGES.md | \
+	grep -v THANKS | \
 	grep -v README.md | \
 	xargs rm -f
 
@@ -205,7 +203,7 @@ export TZ="Asia/Tokyo"
 LANG=C.UTF-8
 
 # Copy test files from full tarball
-cp -a %{gem_name}-%{version}/test/ ./%{gem_instdir}
+cp -a test/ ./%{gem_instdir}
 pushd ./%{gem_instdir}
 
 # Remove unneeded simplecov coverage test
@@ -220,11 +218,6 @@ sed -i '/Minitest::Reporters/ s/^/#/' test/helper.rb
 # PPC64LE with ruby3.1 does not seem to support GC.compact
 %ifarch ppc64le
 export NOKOGIRI_TEST_GC_LEVEL=major
-# F36 ruby has not implemented runtime GC compaction support yet
-# c.f https://src.fedoraproject.org/rpms/ruby/pull-request/126
-%if 0%{?fedora} <= 36
-sed -i test/test_compaction.rb -e 's|skip unless GC.respond_to.*|skip|'
-%endif
 %endif
 %ifarch s390x
 # With ruby 3.2 GC_LEVEL=compact seems to cause segfault:
@@ -276,6 +269,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Sun Aug  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.3-4
+- Prefer upstream patch for the previous change
+
 * Fri Aug  4 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.3-3
 - Support MiniTest 5.19+
 

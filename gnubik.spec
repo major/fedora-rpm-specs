@@ -18,10 +18,8 @@ BuildRequires:	autoconf automake
 BuildRequires:  gcc
 BuildRequires:  libX11-devel pkgconfig(guile-2.2) libGL-devel libGLU-devel gtk2-devel gtkglext-devel
 BuildRequires:  gettext gettext-devel desktop-file-utils texinfo
-BuildRequires: make
+BuildRequires:  make
 Requires:       hicolor-icon-theme
-Requires(post): info
-Requires(preun): info
 
 %description
 GNUbik is a GNU package.  It is a 3D interactive graphics puzzle. It renders

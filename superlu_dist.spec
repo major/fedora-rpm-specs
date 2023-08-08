@@ -5,10 +5,6 @@
 # This flag prevents the linkage to libptscotch.so
 %undefine _ld_as_needed
 
-# Choose the build method
-%bcond_without cmake
-%bcond_with manual
-
 %bcond_without mpich
 %bcond_without openmpi
 
@@ -27,15 +23,6 @@
 %global mpich mpich
 %else
 %global mpich %nil
-%endif
-
-# For library soname.  Start at one in case we need the incompatible
-# v4 packaged separately.
-%if %{with manual}
-%global major 1
-%global minor 4
-%global miner 0
-%global sover %major.%minor.%miner
 %endif
 
 # Following scalapack
@@ -58,10 +45,8 @@
 
 %bcond_without check
 
-%if %{with cmake}
 # Enable CombBLAS support
 %bcond_with CombBLAS
-%endif
 
 # RHEL8 does not provide Metis64
 %if %{with index64}
@@ -78,19 +63,15 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 8.1.2
-Release: 3%{?dist}
+Release: 5%{?dist}
 Epoch:   1
 
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 License: BSD
 URL: http://crd-legacy.lbl.gov/~xiaoye/SuperLU/
 Source0: https://github.com/xiaoyeli/superlu_dist/archive/v%version/%name-%version.tar.gz
-Source1: %name-make.inc
 
-# Use CFLAGS in INSTALL/Makefile (was only failing on some targets)
-Patch0: %name-inst.patch
 Patch1: %name-fix_pkgconfig_creation.patch
-
 Patch3: %name-scotch_parmetis.patch
 
 # Longer tests take 1000 sec or timeout, so don't run them
@@ -98,9 +79,7 @@ Patch4: %name-only_short_tests.patch
 
 BuildRequires: scotch-devel
 BuildRequires: gcc-c++, dos2unix, chrpath
-%if %{with cmake}
-BuildRequires: cmake3
-%endif
+BuildRequires: cmake
 %if %{with optimized_blas}
 BuildRequires: %{blaslib}-devel
 %endif
@@ -198,56 +177,11 @@ Development files for %name-mpich
 %prep
 %autosetup -n superlu_dist-%version -N
 
-%if %{with manual}
-cp %SOURCE1 make.inc
-%patch 0 -p1 -b .orig
-%endif
-
-%if %{with cmake}
 dos2unix CMakeLists.txt
-%patch 1 -p1 -b .fix_pkgconfig_creation
-%endif
-%patch4 -p1 -b .only_short_tests
+%patch -P 1 -p1 -b .fix_pkgconfig_creation
+%patch -P 4 -p1 -b .only_short_tests
 
 %build
-%if %{with manual}
-export CFLAGS="%build_cflags" LDFLAGS="%build_ldflags" CXXFLAGS="%build_cxxflags"
-# This order to leave openmpi version in place for %%check
-for m in %mpich %openmpi; do
-case $m in
-openmpi) %_openmpi_load ;;
-mpich) %_mpich_load ;;
-esac
-find -name \*.[oa] | xargs rm 2>/dev/null || true # no "clean" target
-%if %{with optimized_blas}
-make SuperLUroot=$(pwd) BLASLIB=%{OPENBLASLINK} INCLUDEDIR=$(pwd)/SRC V=1
-%else
-make blaslib HEADER=. BLASLIB='../libblas.a' INCLUDEDIR=%_includedir V=1
-make SuperLUroot=$(pwd) BLASDEF= BLASLIB='../libblas.a' INCLUDEDIR=$(pwd)/SRC V=1
-%endif
-mkdir -p tmp $m
-pushd tmp
-ar x ../SRC/libsuperlu_dist.a
-mpicxx -shared -Wl,-soname=libsuperlu_dist.so.%major \
-      -o ../$m/libsuperlu_dist.so.%sover *.o -fopenmp \
-      -lptscotchparmetis -lscotchmetis -lscotch -lptscotch \
-      -lptscotcherr -lptscotcherrexit \
-      %{?with_optimized_blas:%OPENBLASLINK} \
-      %{?__global_ldflags}
-popd
-case $m in
-openmpi)
-  cp -a EXAMPLE/pddrive .
-  %_openmpi_unload ;;
-mpich)
-  make -C EXAMPLE clean
-  %_mpich_unload ;;
-esac
-done
-%endif
-# Manual build method
-
-%if %{with cmake}
 %if %{with openmpi}
 %{_openmpi_load}
 mkdir -p build/openmpi
@@ -255,7 +189,7 @@ export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
 export CXXFLAGS="%optflags -I$MPI_INCLUDE"
 export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
-%cmake3 -B build/openmpi -DCMAKE_BUILD_TYPE:STRING=Release \
+%cmake -B build/openmpi -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
  -DCMAKE_Fortran_COMPILER:FILEPATH=$MPI_BIN/mpifort \
  -DMPIEXEC_EXECUTABLE:FILEPATH=$MPI_BIN/mpiexec \
@@ -300,7 +234,7 @@ export CXX=$MPI_BIN/mpic++
 export CFLAGS="%optflags -DPRNTlevel=0 -DDEBUGlevel=0"
 export CXXFLAGS="%optflags -I$MPI_INCLUDE"
 export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
-%cmake3 -B build/mpich -DCMAKE_BUILD_TYPE:STRING=Release \
+%cmake -B build/mpich -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
  -DCMAKE_Fortran_COMPILER:FILEPATH=$MPI_BIN/mpifort \
  -DMPIEXEC_EXECUTABLE:FILEPATH=$MPI_BIN/mpiexec \
@@ -336,35 +270,9 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherr
 %make_build -C build/mpich
 %{_mpich_unload}
 %endif
-%endif
-# CMake build method
 
 
 %install
-%if %{with manual}
-for m in %mpich %openmpi; do
-case $m in
-openmpi) %_openmpi_load ;;
-mpich) %_mpich_load ;;
-esac
-mkdir -p %buildroot$MPI_LIB %buildroot$MPI_INCLUDE/superlu_dist
-install -m644 SRC/*.h %buildroot$MPI_INCLUDE/superlu_dist
-
-install -m 755 $m/libsuperlu_dist.so* %buildroot$MPI_LIB
-pushd %buildroot$MPI_LIB
-ln -s libsuperlu_dist.so.%sover libsuperlu_dist.so
-ln -s libsuperlu_dist.so.%sover libsuperlu_dist.so.%major
-ln -s libsuperlu_dist.so.%sover libsuperlu_dist.so.%major.%minor
-popd
-case $m in
-openmpi) %_openmpi_unload ;;
-mpich) %_mpich_unload ;;
-esac
-done
-%endif
-# Manual build method
-
-%if %{with cmake}
 %if %{with openmpi}
 %{_openmpi_load}
 %make_install -C build/openmpi
@@ -387,28 +295,9 @@ rm -rf %buildroot$MPI_LIB/superlu_dist/FORTRAN/CMakeFiles
 chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
 %{_mpich_unload}
 %endif
-%endif
-# CMake build method
-
 
 %if %{with check}
-
 %check
-%if %{with manual}
-%{?dts:source /opt/rh/devtoolset-7/enable}
-pushd EXAMPLE
-%if %{with openmpi}
-# just check that it runs
-%_openmpi_load
-# Allow for more processes than cores
-export OMPI_MCA_rmaps_base_oversubscribe=1
-mpirun -n 4 ../pddrive -r 2 -c 2 g20.rua
-%endif
-make clean
-%endif
-# Manual build method
-
-%if %{with cmake}
 %if %{with openmpi}
 %{_openmpi_load}
 # Waiting for excluding OpenMPI support in i686
@@ -419,6 +308,7 @@ make clean
 %{_openmpi_unload}
 %endif
 
+%ifnarch s390x
 %if %{with mpich}
 %{_mpich_load}
 #mpirun -n 4 -v ../build/mpich/EXAMPLE/pddrive -r 2 -c 2 g20.rua
@@ -426,7 +316,6 @@ make clean
 %{_mpich_unload}
 %endif
 %endif
-# CMake build method
 %endif
 # Check
 
@@ -439,9 +328,7 @@ make clean
 %files openmpi-devel
 %_libdir/openmpi/lib/*.so
 %_libdir/openmpi/lib/*.a
-%if %{with cmake}
 %_libdir/openmpi/lib/pkgconfig/*.pc
-%endif
 %_includedir/openmpi-%_arch/superlu_dist/
 %endif
 
@@ -458,14 +345,19 @@ make clean
 %files mpich-devel
 %_libdir/mpich/lib/*.so
 %_libdir/mpich/lib/*.a
-%if %{with cmake}
 %_libdir/mpich/lib/pkgconfig/*.pc
-%endif
 %_includedir/mpich-%_arch/superlu_dist/
 %endif
 
 
 %changelog
+* Sun Aug 06 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:8.1.2-5
+- Remove manual build method
+- Modernize patch commands
+
+* Sun Aug 06 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:8.1.2-4
+- Exclude mpich tests on s390x
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

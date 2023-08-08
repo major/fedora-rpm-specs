@@ -1,5 +1,5 @@
 Name:           python-libnacl
-Version:        2.0.0
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        Python bindings for libsodium based on ctypes
 
@@ -13,6 +13,10 @@ Requires:       libsodium
 BuildRequires:  libsodium-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+
+#Documentation
+BuildRequires:  python3-sphinx
+BuildRequires:  make
 
 %global _description %{expand:
 Python libnacl is used to gain direct access to the functions exposed by
@@ -39,23 +43,29 @@ Summary: %{summary}
 %build
 %pyproject_wheel
 
+make -C doc man
 
 %install
 %pyproject_install
 
 %pyproject_save_files libnacl
 
+install -D -m 644 doc/_build/man/libnacl.1 %{buildroot}%{_mandir}/man1/libnacl.1
+
 %check
-# Tests are missing in the 2.0.0 sdist release
-# %%{pytest}
+%{pytest}
 
 
 %files -n python3-libnacl -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
+%{_mandir}/man1/libnacl.1*
 
 
 %changelog
+* Sun Aug 06 2023 Jonny Heggheim <hegjon@gmail.com> - 2.1.0-1
+- Updated to version 2.1.0
+
 * Sat Aug 05 2023 Jonny Heggheim <hegjon@gmail.com> - 2.0.0-1
 - Updated to version 2.0.0
 
