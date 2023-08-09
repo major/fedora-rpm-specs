@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -257,6 +257,7 @@ Summary:        PipeWire media server JACK support
 License:        MIT
 BuildRequires:  jack-audio-connection-kit-devel
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-jack-audio-connection-kit-libs = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       jack-audio-connection-kit
 
@@ -720,6 +721,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Mon Aug 07 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 0.3.77-2
+- Explicitly require pipewire-jack-audio-connection-kit-libs for pipewire-plugin-jack
+
 * Fri Aug 04 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.77-1
 - Update version to 0.3.77
 

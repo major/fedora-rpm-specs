@@ -6,7 +6,7 @@
 %global crate gobject-sys
 
 Name:           rust-gobject-sys
-Version:        0.17.10
+Version:        0.18.0
 Release:        %autorelease
 Summary:        FFI bindings to libgobject-2.0
 
@@ -45,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+dox-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dox-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dox" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v2_58-devel
@@ -153,7 +141,7 @@ use the "v2_74" feature of the "%{crate}" crate.
 %package     -n %{name}+v2_76-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(gobject-2.0) >= 2.75
+Requires:       pkgconfig(gobject-2.0) >= 2.76
 
 %description -n %{name}+v2_76-devel %{_description}
 
@@ -161,6 +149,19 @@ This package contains library source intended for building other packages which
 use the "v2_76" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2_76-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v2_78-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gobject-2.0) >= 2.77
+
+%description -n %{name}+v2_78-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_78" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_78-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

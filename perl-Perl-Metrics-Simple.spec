@@ -2,7 +2,7 @@
 %bcond_without perl_Perl_Metrics_Simple_enables_optional_test
 
 Name:           perl-Perl-Metrics-Simple
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        Count packages, subs, lines, etc. of many files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -137,6 +137,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 07 2023 Petr Pisar <ppisar@redhat.com> - 1.0.3-1
+- 1.0.3 bump
+
 * Mon Jul 31 2023 Petr Pisar <ppisar@redhat.com> - 1.0.2-1
 - 1.0.2 bump
 

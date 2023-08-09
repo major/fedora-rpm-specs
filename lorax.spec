@@ -3,8 +3,8 @@
 %define debug_package %{nil}
 
 Name:           lorax
-Version:        39.2
-Release:        5%{?dist}
+Version:        39.3
+Release:        1%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,9 +14,6 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
-# https://github.com/weldr/lorax/pull/1334
-# Ensure we have SVG pixbuf loader now it's split out of librsvg2
-Patch0:         0001-runtime-install-install-rsvg-pixbuf-loader.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -171,17 +168,10 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
-* Sat Jul 22 2023 Adam Williamson <awilliam@redhat.com> - 39.2-5
-- Rebuild with no changes on a side tag to resolve test problems
-
-* Sat Jul 22 2023 Adam Williamson <awilliam@redhat.com> - 39.2-4
-- Backport PR #1334 to fix installer with latest librsvg2
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 39.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 14 2023 Brian C. Lane <bcl@redhat.com> - 39.2-2
-- plans: prepare is reported to be unneeded and causing issues
+* Mon Aug 07 2023 Brian C. Lane <bcl@redhat.com> 39.3-1
+- runtime-install: excluded renamed olpc firmware package (awilliam@redhat.com)
+- drop unneeded patch for rsvg-pixbuf-loader
+  librsvg2 now Requires it
 
 * Fri Jul 14 2023 Brian C. Lane <bcl@redhat.com> 39.2-1
 - pylint: Ignore false positive from pylint on rawhide (bcl@redhat.com)

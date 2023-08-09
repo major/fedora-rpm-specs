@@ -4,7 +4,7 @@
 %global crate sevctl
 
 Name:           rust-sevctl
-Version:        0.4.1
+Version:        0.4.3
 Release:        1%{?dist}
 Summary:        Administrative utility for AMD SEV
 
@@ -63,8 +63,11 @@ cp -pav %{SOURCE1} .
 %endif
 
 %changelog
+* Mon Aug 07 2023 Tyler Fanelli <tfanelli@redhat.com> - 0.4.3-1
+- Update to 0.4.3
+
 * Wed Jul 19 2023 Tyler Fanelli <tfanelli@redhat.com> - 0.4.1-1
-* Update to 0.4.1
+- Update to 0.4.1
 - Remove patch to update sev dependency.
 
 * Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 0.3.2-4

@@ -1,10 +1,10 @@
 Name:		polkit-pkla-compat
 Version:	0.1
-Release:	24%{?dist}
+Release:	26%{?dist}
 Summary:	Rules for polkit to add compatibility with pklocalauthority
 # GPLv2-licensed ltmain.sh and Apache-licensed mocklibc are not shipped in
 # the binary package.
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 URL:		https://pagure.io/polkit-pkla-compat
 Source0:	http://releases.pagure.org/polkit-pkla-compat/polkit-pkla-compat-%{version}.tar.xz
 
@@ -26,10 +26,10 @@ of later polkit releases.
 
 %build
 %configure
-make %{?_smp_mflags} V=1
+%make_build
 
 %install
-%make_install INSTALL='install -p'
+%make_install
 
 %check
 make check
@@ -50,6 +50,13 @@ make check
 %dir %{_localstatedir}/lib/polkit-1/localauthority/*.d
 
 %changelog
+* Mon Aug 07 2023 Jan Rybar <jrybar@redhat.com> - 0.1-26
+- use build macros, on behalf of original author Tom Stellard (tstellar)
+- Pagure doesn't allow one-click rebase, AFAIK
+
+* Mon Aug 07 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.1-25
+- migrate to SPDX license format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

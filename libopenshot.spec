@@ -5,7 +5,7 @@
 
 Name:           libopenshot
 Version:        0.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
@@ -108,6 +108,9 @@ rm -rf third_party/jsoncpp
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 0.3.0-5
+- Rebuild for opencv 4.8.0
+
 * Fri Aug 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.3.0-4
 - Add check section and run tests
 

@@ -1,8 +1,12 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
 Version: 1.55.1
-Release: 2%{?dist}
+Release: 3%{?dist}
+
+# Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
+# Kevlin Henney (this one is not recognized by Fedora!) but they are NOT shipped.
 License: MIT
+
 URL: https://nghttp2.org/
 Source0: https://github.com/tatsuhiro-t/nghttp2/releases/download/v%{version}/nghttp2-%{version}.tar.xz
 Source1: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
@@ -120,6 +124,9 @@ export "LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}:$LD_LIBRARY_PATH"
 
 
 %changelog
+* Mon Aug 07 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1.55.1-3
+- migrate to SPDX license format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.55.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

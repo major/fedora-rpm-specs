@@ -1,8 +1,8 @@
 Name: colobot
 %global orgname info.colobot.Colobot
 
-Version: 0.2.0
-Release: 11%{?dist}
+Version: 0.2.1
+Release: 1%{?dist}
 Summary: A video game that teaches programming in a fun way
 
 License: GPL-3.0-only
@@ -12,33 +12,7 @@ URL: https://colobot.info
 %global gittag colobot-gold-%{version}-alpha
 Source0: %{giturl}/colobot/archive/%{gittag}/colobot-%{gittag}.tar.gz
 Source1: %{giturl}/colobot-data/archive/%{gittag}/colobot-data-%{gittag}.tar.gz
-
-# Music files are licensed under GPLv3, like the rest of the game.
-# They are not kept in the colobot-data repo, and by default are downloaded during the build.
-# Since Fedora builders have net-access disabled, we need to download them beforehand.
-%global musicurl https://colobot.info/files/music
-Source100: %{musicurl}/Intro1.ogg
-Source101: %{musicurl}/Intro2.ogg
-Source102: %{musicurl}/music002.ogg
-Source103: %{musicurl}/music003.ogg
-Source104: %{musicurl}/music004.ogg
-Source105: %{musicurl}/music005.ogg
-Source106: %{musicurl}/music006.ogg
-Source107: %{musicurl}/music007.ogg
-Source108: %{musicurl}/music008.ogg
-Source109: %{musicurl}/music009.ogg
-Source110: %{musicurl}/music010.ogg
-Source111: %{musicurl}/music011.ogg
-Source112: %{musicurl}/music012.ogg
-Source113: %{musicurl}/music013.ogg
-Source114: %{musicurl}/Constructive.ogg
-Source115: %{musicurl}/Humanitarian.ogg
-Source116: %{musicurl}/Hv2.ogg
-Source117: %{musicurl}/Quite.ogg
-Source118: %{musicurl}/Infinite.ogg
-Source119: %{musicurl}/Proton.ogg
-Source120: %{musicurl}/Prototype.ogg
-
+Source2: https://colobot.info/files/music/colobot-music_ogg_%{version}-alpha.tar.gz
 
 # The game uses the translated string "Player" as the default player name
 # yet it does not properly handle UTF-8 in player names,
@@ -53,9 +27,6 @@ Patch1: 0001-fix-test-compile-failure.patch
 # Fix compilation failures due to GCC12 -Wrestrict warnings
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2047428
 Patch2: 0002-fix-gcc12-memcpy-restrict-warnings.patch
-
-# Fix some more compilation failures on GCC13
-Patch3: 0003-fix-gcc13-compile-failure.patch
 
 # Tests fail on ARM architectures. Needs some investigation.
 %ifarch %{arm} aarch64
@@ -122,34 +93,17 @@ Music files used by Colobot Gold.
 %prep
 %autosetup -n colobot-%{gittag} -p1
 
+# Unpack the -data tarball
 rm -rf ./data
-cp %{SOURCE1} ./data.tgz
-tar xzf ./data.tgz
-rm ./data.tgz
+tar xzf %{SOURCE1}
 mv ./colobot-data-%{gittag} ./data
 
-cp -a %{SOURCE100} data/music/
-cp -a %{SOURCE101} data/music/
-cp -a %{SOURCE102} data/music/
-cp -a %{SOURCE103} data/music/
-cp -a %{SOURCE104} data/music/
-cp -a %{SOURCE105} data/music/
-cp -a %{SOURCE106} data/music/
-cp -a %{SOURCE107} data/music/
-cp -a %{SOURCE108} data/music/
-cp -a %{SOURCE109} data/music/
-cp -a %{SOURCE110} data/music/
-cp -a %{SOURCE111} data/music/
-cp -a %{SOURCE112} data/music/
-cp -a %{SOURCE113} data/music/
-cp -a %{SOURCE114} data/music/
-cp -a %{SOURCE115} data/music/
-cp -a %{SOURCE116} data/music/
-cp -a %{SOURCE117} data/music/
-cp -a %{SOURCE118} data/music/
-cp -a %{SOURCE119} data/music/
-cp -a %{SOURCE120} data/music/
+# Unpack the -music tarball
+pushd data/music
+tar xzf %{SOURCE2}
+popd
 
+# Fix install paths
 sed \
 	-e 's|set(COLOBOT_INSTALL_BIN_DIR ${CMAKE_INSTALL_PREFIX}/games |set(COLOBOT_INSTALL_BIN_DIR %{_bindir}/ |' \
 	-e 's|set(COLOBOT_INSTALL_LIB_DIR ${CMAKE_INSTALL_PREFIX}/lib/colobot |set(COLOBOT_INSTALL_LIB_DIR %{_libdir}/colobot |' \
@@ -223,6 +177,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{orgname}.app
 
 
 %changelog
+* Mon Aug 07 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.2.1-1
+- Update to v0.2.1
+- Drop Patch3 (missing <cstdint> includes - submitted and merged upstream)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

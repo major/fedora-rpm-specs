@@ -2,10 +2,11 @@
 %bcond_without check
 
 # https://gitlab.com/WhyNotHugo/darkman
-%global goipath         gitlab.com/WhyNotHugo/darkman
-%global commit          5f30663e4cee23158978e382eea96d0148cf505d
+%global  goipath        gitlab.com/WhyNotHugo/darkman
+Version:                1.5.4
+%global  tag            v%{version}
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
 Daemon for dark-mode and light-mode transitions on Linux desktop.}
@@ -14,8 +15,7 @@ Daemon for dark-mode and light-mode transitions on Linux desktop.}
 %global godocs          examples CHANGELOG.md README.md
 
 Name:           darkman
-Version:        1.4.0
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Daemon for dark-mode and light-mode transitions on Linux desktop
 
 License:        ISC
@@ -43,9 +43,6 @@ for cmd in cmd/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done
 scdoc < darkman.1.scd > darkman.1
-%{gobuilddir}/bin/darkman completion zsh  > _darkman.zsh
-%{gobuilddir}/bin/darkman completion bash > darkman.bash
-%{gobuilddir}/bin/darkman completion fish > darkman.fish
 
 %install
 %gopkginstall
@@ -53,9 +50,6 @@ install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 install -m 0644 -Dp darkman.service     %{buildroot}%{_userunitdir}/darkman.service
 install -m 0644 -Dp darkman.1           %{buildroot}%{_mandir}/man1/darkman.1
-install -m 0644 -Dp _darkman.zsh        %{buildroot}%{_datadir}/zsh/site-functions/_darkman
-install -m 0644 -Dp darkman.bash        %{buildroot}%{_datadir}/bash-completion/completions/darkman
-install -m 0644 -Dp darkman.fish        %{buildroot}%{_datadir}/fish/vendor_completions.d/darkman.fish
 install -m 0644 -Dp contrib/dbus/nl.whynothugo.darkman.service %{buildroot}%{_datadir}/dbus-1/services/nl.whynothugo.darkman.service
 install -m 0644 -Dp contrib/dbus/org.freedesktop.impl.portal.desktop.darkman.service %{buildroot}%{_datadir}/dbus-1/services/org.freedesktop.impl.portal.darkman.service
 install -m 0644 -Dp contrib/portal/darkman.portal %{buildroot}%{_datadir}/xdg-desktop-portal/portals/darkman.portal
@@ -80,36 +74,12 @@ install -m 0644 -Dp contrib/portal/darkman.portal %{buildroot}%{_datadir}/xdg-de
 %{_bindir}/darkman
 %{_userunitdir}/darkman.service
 %{_mandir}/man1/darkman.1.gz
-%dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions/
-%{_datadir}/zsh/site-functions/_darkman
-%{_datadir}/bash-completion/completions/darkman
 %{_datadir}/dbus-1/services/*.service
 %dir %{_datadir}/xdg-desktop-portal
 %dir %{_datadir}/xdg-desktop-portal/portals/
 %{_datadir}/xdg-desktop-portal/portals/darkman.portal
-%dir %{_datadir}/fish
-%dir %{_datadir}/fish/vendor_completions.d
-%{_datadir}/fish/vendor_completions.d/darkman.fish
 
 %gopkgfiles
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Oct 31 2022 Link Dupont <linkdupont@fedoraproject.org> - 1.4.0-1
-- New upstream version
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-0.5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 1.3.1-0.4
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Mon Jun 20 2022 Link Dupont <linkdupont@fedoraproject.org> - 1.3.1-0.3.20220530gitc265698
-- Initial package (RHBZ#2092180)
+%autochangelog

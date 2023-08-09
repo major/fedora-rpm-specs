@@ -5,8 +5,8 @@
 %endif
 
 Name: libtalloc
-Version: 2.4.0
-Release: 4%{?dist}
+Version: 2.4.1
+Release: 1%{?dist}
 Summary: The talloc library
 License: LGPL-3.0-or-later
 URL: https://talloc.samba.org/
@@ -16,7 +16,6 @@ Source1: https://www.samba.org/ftp/talloc/talloc-%{version}.tar.asc
 Source2: https://download.samba.org/pub/samba/samba-pubkey.asc#/talloc.keyring
 
 # Patches
-Patch0001: 0003-wafsamba-Fix-few-SyntaxWarnings-caused-by-regular-ex.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -114,6 +113,9 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %endif
 
 %changelog
+* Mon Aug  07 2023 Guenther Deschner <gdeschne@redhat.com> - 2.4.1-1
+- rhbz#2224330 - libtalloc-2.4.1 is available
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

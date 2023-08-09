@@ -1,6 +1,6 @@
 Name:           python-libnacl
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for libsodium based on ctypes
 
 License:        ASL 2.0
@@ -10,11 +10,13 @@ Source0:        %{pypi_source libnacl}
 BuildArch:      noarch
 
 Requires:       libsodium
-BuildRequires:  libsodium-devel
 BuildRequires:  python3-devel
+
+# Testing
+BuildRequires:  libsodium-devel
 BuildRequires:  python3dist(pytest)
 
-#Documentation
+# Documentation
 BuildRequires:  python3-sphinx
 BuildRequires:  make
 
@@ -43,7 +45,7 @@ Summary: %{summary}
 %build
 %pyproject_wheel
 
-make -C doc man
+make -C doc man html
 
 %install
 %pyproject_install
@@ -59,10 +61,14 @@ install -D -m 644 doc/_build/man/libnacl.1 %{buildroot}%{_mandir}/man1/libnacl.1
 %files -n python3-libnacl -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
+%doc doc/_build/html/
 %{_mandir}/man1/libnacl.1*
 
 
 %changelog
+* Mon Aug 07 2023 Jonny Heggheim <hegjon@gmail.com> - 2.1.0-2
+- Include html documentation
+
 * Sun Aug 06 2023 Jonny Heggheim <hegjon@gmail.com> - 2.1.0-1
 - Updated to version 2.1.0
 

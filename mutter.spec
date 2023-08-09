@@ -125,6 +125,7 @@ utilities for testing Metacity/Mutter themes.
 
 %package  tests
 Summary:  Tests for the %{name} package
+Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
 

@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libgweather4
-Version:        4.2.0
-Release:        3%{?dist}
+Version:        4.3.2
+Release:        1%{?dist}
 Summary:        A library for weather information
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Projects/LibGWeather
-Source0:        https://download.gnome.org/sources/libgweather/4.2/libgweather-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/libgweather/4.3/libgweather-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -80,6 +80,9 @@ applications that use %{name}.
 %{_docdir}/libgweather-4.0
 
 %changelog
+* Mon Aug 07 2023 Kalev Lember <klember@redhat.com> - 4.3.2-1
+- Update to 4.3.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

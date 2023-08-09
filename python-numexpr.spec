@@ -1,6 +1,6 @@
 Summary:        Fast numerical array expression evaluator for Python and NumPy
 Name:           python-numexpr
-Version:        2.8.4
+Version:        2.8.5
 Release:        %autorelease
 URL:            https://github.com/pydata/numexpr
 Source0:        https://github.com/pydata/numexpr/archive/v%{version}/numexpr-%{version}.tar.gz
@@ -41,7 +41,7 @@ sed -i "1s|/usr/bin/env python$|%{python3}|" %{buildroot}%{python3_sitearch}/num
 
 %check
 pushd build/lib.linux*
-PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -c 'import numexpr, sys; sys.exit(not numexpr.test().wasSuccessful())'
+%py3_test_envvars %python3 -c 'import numexpr, sys; sys.exit(not numexpr.test().wasSuccessful())'
 popd
 
 %files -n python%{python3_pkgversion}-numexpr

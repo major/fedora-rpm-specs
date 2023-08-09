@@ -3,7 +3,7 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.24
+Version:        0.3.25
 Release:        1%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
@@ -55,6 +55,12 @@ BuildRequires:  hfsplus-tools
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gettext-devel
+# Partclone depends on specific source files, either not exposed to -devel package or no -devel package exists
+# Version information origin: src/btrfs/libbtrfs/version.h
+Provides:       bundled(libbtrfs) = 6.3.3
+Provides:       bundled(libbtrfsutil) = 6.3.3
+# Version information origin: include/builddefs
+Provides:       bundled(xfsprogs-libs) = 4.20.0
 
 %description
 Partclone provides utilities to clone and restore used blocks on a partition
@@ -141,6 +147,9 @@ make check || (cat tests/test-suite.log; exit 1)
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Mon Aug 07 2023 Robert Scheck <robert@fedoraproject.org> 0.3.25-1
+- Upgrade to 0.3.25 (#2229342)
+
 * Sat Jul 22 2023 Robert Scheck <robert@fedoraproject.org> 0.3.24-1
 - Upgrade to 0.3.24 (#2224618)
 

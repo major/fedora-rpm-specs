@@ -7,7 +7,7 @@
 %endif
 
 Name:           foot
-Version:        1.15.2
+Version:        1.15.3
 Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
@@ -147,6 +147,9 @@ desktop-file-validate \
 
 
 %changelog
+* Tue Aug 08 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.15.3-1
+- Update to 1.15.3 (#2229756)
+
 * Sun Jul 30 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.15.2-1
 - Update to 1.15.2 (#2227522)
 

@@ -1,7 +1,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 38.2
-Release: 3%{?dist}
+Version: 38.3
+Release: 1%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
@@ -210,6 +210,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Mon Aug 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 38.3-1
+- kwinrc: Disable the Blur plugin in kwin by default
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

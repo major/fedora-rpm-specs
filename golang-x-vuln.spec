@@ -4,7 +4,7 @@
 # https://github.com/golang/vuln
 %global goipath         golang.org/x/vuln
 %global forgeurl        https://github.com/golang/vuln
-%global commit          6ad3e3d0781578532aaedbed543b25d7d586c746
+%global commit          b2f5f90cdca79ef1340e20438795c62e1c0c73e2
 
 %gometa
 

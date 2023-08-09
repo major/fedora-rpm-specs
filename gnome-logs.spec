@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-logs
-Version:        43.0
-Release:        3%{?dist}
+Version:        45~beta
+Release:        1%{?dist}
 Summary:        Log viewer for the systemd journal
 
 License:        GPLv3+
 URL:            https://wiki.gnome.org/Apps/Logs
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-dtds
@@ -47,7 +47,6 @@ A log viewer for the systemd journal.
 %doc AUTHORS README NEWS
 %license COPYING
 %{_bindir}/%{name}
-%{_datadir}/%{name}
 %{_datadir}/applications/org.gnome.Logs.desktop
 %{_datadir}/dbus-1/services/org.gnome.Logs.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Logs.*.xml
@@ -58,6 +57,9 @@ A log viewer for the systemd journal.
 
 
 %changelog
+* Tue Aug 08 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
+- Update to 45.beta
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,14 +2,16 @@
 %global _name tpm2_pytss
 
 Name:           python-%{pypi_name}
-Version:        1.2.0
-Release:        4%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        TPM 2.0 TSS Bindings for Python
 
 License:        BSD-2-Clause
 URL:            https://github.com/tpm2-software/tpm2-pytss
 Source:         %{pypi_source %{pypi_name}}
 Patch0:         python-tpm2-pytss-1.2.0-openssl.patch
+
+ExcludeArch:   i686
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -58,9 +60,11 @@ Summary:        %{summary}
 
 %check
 %pyproject_check_import
-# tests are very dependent on the python/openssl versions and fail at various places
-# The test test_tools_decode_tpms_nv_public fails on Fedora rawhide now
-%pytest --import-mode=append -k "not test_tools_decode_tpms_nv_public" %{?!rhel:-n %{_smp_build_ncpus}}
+%ifarch s390x
+# this test does not work for some reason on the s390x as it times out
+%global testargs -k "not test_spi_helper_good"
+%endif
+%pytest --import-mode=append %{?!rhel:-n 1} %{?testargs}
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -68,6 +72,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Aug 07 2023 Jakub Jelen <jjelen@redhat.com> - 2.1.0-1
+- New upstream release (#2149103)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

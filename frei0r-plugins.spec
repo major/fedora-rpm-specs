@@ -1,6 +1,6 @@
 Name:           frei0r-plugins
 Version:        2.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Frei0r - a minimalist plugin API for video effects
 
 License:        GPLv2+
@@ -70,6 +70,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/frei0r.pc
 
 %changelog
+* Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 2.3.1-2
+- Rebuild for opencv 4.8.0
+
 * Sun Aug 06 2023 Nicolas Chauvet <kwizart@gmail.com> - 2.3.1-1
 - Update to 2.3.1
 

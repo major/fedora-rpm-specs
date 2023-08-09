@@ -1,5 +1,5 @@
 Name:           jupyterlab
-Version:        4.0.3
+Version:        4.0.4
 Release:        %autorelease
 Summary:        JupyterLab computational environment
 # JupyterLab itself is BSD-3-Clause and

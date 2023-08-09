@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        6.0.19
-Release:        2%{?dist}
+Version:        6.0.20
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 License:        GPLv2
@@ -324,11 +324,7 @@ Custom SELinux policy module
 
 
 %prep
-%setup0 -q -n %{srcname}-%{version}%{?prerelease:.%{prerelease}}
-%patch0 -p1 -b .config
-%patch1 -p1 -b .out-of-tree
-%patch2 -p1 -b .crypto-policy
-%patch3 -p1 -b .configure-sscanf
+%autosetup -p1
 autoreconf
 
 # Remove bundled java libs
@@ -798,6 +794,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Mon Aug 07 2023 Morten Stevens <mstevens@fedoraproject.org> - 1:6.0.20-1
+- Update to 6.0.20
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

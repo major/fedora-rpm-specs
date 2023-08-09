@@ -311,7 +311,7 @@
 # note, following three variables are sedded from update_sources if used correctly. Hardcode them rather there.
 %global shenandoah_project      openjdk
 %global shenandoah_repo         shenandoah-jdk8u
-%global openjdk_revision        jdk8u372-b07
+%global openjdk_revision        jdk8u382-b05
 %global shenandoah_revision     shenandoah-%{openjdk_revision}
 # Define old aarch64/jdk8u tree variables for compatibility
 %global project         %{shenandoah_project}
@@ -327,7 +327,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      7
+%global rpmrelease      1
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -1349,7 +1349,7 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 
 Name:    java-%{javaver}-%{origin}
 Version: %{javaver}.%{updatever}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -2534,6 +2534,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Mon Jul 24 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.382.b05-1
+- updatet to july security update 382.b05
+
 * Mon Jul 24 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.372.b07-7
 - Remove few more binaries from full_sources that were throwing missing build-id warnings
 - Resolves: rhbz#2222629

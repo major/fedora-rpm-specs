@@ -5,7 +5,7 @@
 %global crate statrs
 
 Name:           rust-statrs
-Version:        0.15.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Statistical computing library for Rust
 
@@ -17,7 +17,7 @@ Source:         %{crate}-%{version_no_tilde}-clean.crate
 Source:         gen_clean_tarball.sh
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
-# * bump nalgebra from 0.27.1 to 0.30:
+# * bump nalgebra from 0.29 to 0.32:
 #   https://github.com/statrs-dev/statrs/commit/9cb3081
 #   https://github.com/statrs-dev/statrs/pull/162
 #   https://github.com/statrs-dev/statrs/pull/187

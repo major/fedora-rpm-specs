@@ -3,8 +3,8 @@
 %endif
 
 Name: libtdb
-Version: 1.4.8
-Release: 3%{?dist}
+Version: 1.4.9
+Release: 1%{?dist}
 Summary: The tdb library
 License: LGPL-3.0-or-later
 URL: http://tdb.samba.org/
@@ -14,7 +14,6 @@ Source1: http://samba.org/ftp/tdb/tdb-%{version}.tar.asc
 Source2: tdb.keyring
 
 # Patches
-Patch0001: 0003-wafsamba-Fix-few-SyntaxWarnings-caused-by-regular-ex.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -101,6 +100,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Mon Aug 07 2023 Guenther Deschner <gdeschne@redhat.com> - 1.4.9-1
+- rhbz#2224331 - libtdb-1.4.9 is available
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

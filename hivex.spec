@@ -10,10 +10,10 @@
 
 Name:           hivex
 Version:        1.3.23
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
-License:        LGPL-2.1 AND LGPL-2.0-or-later AND GPL-2.0-or-later
+License:        LGPL-2.1-only AND LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            http://libguestfs.org/
 
 Source0:        http://libguestfs.org/download/hivex/%{name}-%{version}.tar.gz
@@ -25,6 +25,13 @@ Source1:        http://libguestfs.org/download/hivex/%{name}-%{version}.tar.gz.s
 %if 0%{verify_tarball_signature}
 Source2:       libguestfs.keyring
 %endif
+
+# Upstream patches to fix Ruby minitest support.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2229653
+Patch:          0001-ruby-Replace-MiniTest-with-Minitest.patch
+Patch:          0002-ruby-Get-rid-of-old-Test-Unit-compatibility.patch
+# Another upstream patch, not required.
+Patch:          0003-build-Go-back-to-gettext-0.19.patch
 
 BuildRequires:  make
 BuildRequires:  autoconf, automake, libtool, gettext-devel
@@ -104,7 +111,7 @@ For Ruby bindings, see 'ruby-hivex'.
 
 %package libs
 Summary:        Library for %{name}
-License:        LGPL-2.1 AND LGPL-2.0-or-later
+License:        LGPL-2.1-only AND LGPL-2.0-or-later
 Conflicts:      %{name} < 1.3.20-6
 Obsoletes:      %{name} < 1.3.20-6
 
@@ -127,7 +134,7 @@ for %{name}.
 %if !0%{?rhel}
 %package static
 Summary:        Statically linked library for %{name}
-License:        LGPL-2.1 AND LGPL-2.0-or-later
+License:        LGPL-2.1-only AND LGPL-2.0-or-later
 Requires:       %{name}-devel = %{version}-%{release}
 
 
@@ -319,6 +326,9 @@ fi
 
 
 %changelog
+* Mon Aug 07 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.23-12
+- Fix Ruby minitest support (RHBZ#2229653)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.23-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

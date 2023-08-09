@@ -58,7 +58,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.2
-Release:        2%{?libo_prerelease}%{?dist}
+Release:        3%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -115,7 +115,6 @@ BuildRequires: findutils
 BuildRequires: flex
 BuildRequires: gcc-c++
 BuildRequires: gettext
-BuildRequires: git
 BuildRequires: gnupg2
 BuildRequires: gperf
 BuildRequires: hunspell-en-US
@@ -998,11 +997,6 @@ gpgv2 --keyring ./keyring.gpg %{SOURCE5} %{SOURCE4}
 %setup -q -n %{name}-%{version}%{?libo_prerelease} -b 2 -b 4
 rm -rf git-hooks */git-hooks
 
-# This is normally done by %%autosetup -S git_am,
-# but that does not work with multiple -b options, so we use plain %%setup above
-%global __scm git_am
-%__scm_setup_git_am -q
-
 #Customize Palette to add Red Hat colours
 (head -n -1 extras/source/palettes/standard.soc && \
  echo -e '  <draw:color draw:name="Red Hat 1" draw:color="#cc0000"/>
@@ -1012,14 +1006,14 @@ rm -rf git-hooks */git-hooks
   <draw:color draw:name="Red Hat 5" draw:color="#4e376b"/>' && \
  tail -n 1 extras/source/palettes/standard.soc) > redhat.soc
 mv -f redhat.soc extras/source/palettes/standard.soc
-git commit -q -m 'add Red Hat colors to palette' extras/source/palettes/standard.soc
 
 # apply patches
-%autopatch -M 99
+%autopatch -p1 -M 99
 %if 0%{?rhel}
 %patch500 -p1
 %endif
 
+# Temporarily disable failig tests
 sed -i -e /CppunitTest_sc_array_functions_test/d sc/Module_sc.mk # ppc64le
 sed -i -e /CppunitTest_sc_addin_functions_test/d sc/Module_sc.mk # aarch64/ppc64*/s390x
 sed -i -e /CppunitTest_sc_financial_functions_test/d sc/Module_sc.mk # ppc64*
@@ -1029,14 +1023,7 @@ sed -i -e s/CppunitTest_dbaccess_RowSetClones// dbaccess/Module_dbaccess.mk # pp
 sed -i -e s/CppunitTest_sw_macros_test// sw/Module_sw.mk # s390x
 
 #see rhbz#2072615
-git rm vcl/qa/cppunit/graphicfilter/data/tiff/fail/CVE-2017-9936-1.tiff
-
-git commit -q -a -m 'temporarily disable failing tests'
-
-# Seeing .git dir makes some of the build tools change their behavior.
-# We do not want that. Note: it is still possible to use
-# git --git-dir=.git-rpm
-mv .git .git-rpm
+rm -f vcl/qa/cppunit/graphicfilter/data/tiff/fail/CVE-2017-9936-1.tiff
 
 %build
 # path to external tarballs
@@ -1475,12 +1462,9 @@ export DESTDIR=%{buildroot}
 
 %if 0%{?flatpak}
 # Assemble the libreoffice-*.appdata.xml files into a single
-# org.libreoffice.LibreOffice.appdata.xml; first create the single file:
-solenv/bin/assemble-flatpak-appdata-step1.sh \
+# org.libreoffice.LibreOffice.appdata.xml:
+solenv/bin/assemble-flatpak-appdata.sh \
  %{buildroot}%{_datadir}/metainfo/ 0
-# ...then append the original files to the single file:
-solenv/bin/assemble-flatpak-appdata-step2.sh \
- %{buildroot}%{_datadir}/metainfo/ %{buildroot}%{_datadir}/metainfo/
 rm %{buildroot}%{_datadir}/metainfo/libreoffice-*.appdata.xml
 %endif
 
@@ -2258,6 +2242,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Sun Aug 06 2023 Mattia Verga <mattia.verga@proton.me> - 1:7.5.5.2-3
+- Do not setup sources as git repo during build.
+
 * Wed Aug 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:7.5.5.2-2
 - Poppler rebuild.
 

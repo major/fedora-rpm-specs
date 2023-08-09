@@ -2,7 +2,7 @@
 
 Name:           libfreenect
 Version:        0.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
 #
@@ -21,6 +21,8 @@ Patch3:         %{name}-0.4.2-libdir.patch
 Patch4:         secarch.patch
 # Fix the installation path for python libs
 Patch5:         %{name}-0.7.0-py3.patch
+# Fix for cython3
+Patch6:         %{name}-0.7.0-cython3.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -102,6 +104,7 @@ rm -rf platform/windows
 %patch -P 3 -p0 -b .libdir
 %patch -P 4 -p1 -b .secarch
 %patch -P 5 -p1 -b .py3
+%patch -P 6 -p1 -b .cython3
 
 %build
 %cmake3 \
@@ -180,6 +183,12 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Mon Aug 07 2023 Rich Mattes <richmattes@gmail.com> - 0.7.0-4
+- Fix build error with cython 3
+
+* Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 0.7.0-4
+- Rebuild for opencv 4.8.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

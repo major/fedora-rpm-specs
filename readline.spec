@@ -1,8 +1,13 @@
 Summary: A library for editing typed command lines
 Name: readline
 Version: 8.2
-Release: 4%{?dist}
-License: GPLv3+
+Release: 5%{?dist}
+
+# * Main sources are GPL-3.0-or-later
+# * examples/rlfe are GPL-2.0-or-later
+# * docs are GFDL-1.3-no-invariants-or-later
+License: GPL-3.0-or-later AND GPL-2.0-or-later AND GFDL-1.3-no-invariants-or-later
+
 URL: https://tiswww.case.edu/php/chet/readline/rltop.html
 Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
 
@@ -83,6 +88,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %{_libdir}/libhistory.a
 
 %changelog
+* Mon Aug 07 2023 Lukáš Zaoral <lzaoral@redhat.com> - 8.2-5
+- migrate to SPDX license format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

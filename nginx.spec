@@ -528,12 +528,12 @@ fi
 %{_mandir}/man8/nginx.8*
 %{_mandir}/man8/nginx-upgrade.8*
 %{_unitdir}/nginx.service
+%{_libexecdir}/nginx-ssl-pass-dialog
 
 %files core
 %license LICENSE
 %doc CHANGES README README.dynamic
 %{_sbindir}/nginx
-%{_libexecdir}/nginx-ssl-pass-dialog
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf.default
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi_params

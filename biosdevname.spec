@@ -1,8 +1,12 @@
 Name:		biosdevname
 Version:	0.7.3
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Udev helper for naming devices per BIOS names
-License:	GPL-2.0-only
+
+# * biosdevname is GPL-2.0-only
+# * bundled dmidecode is GPL-2.0-or-later
+License:	GPL-2.0-only AND GPL-2.0-or-later
+
 URL:		http://linux.dell.com/files/%{name}
 # SMBIOS only exists on these arches.  It's also likely that other
 # arches don't expect the PCI bus to be sorted breadth-first, or of
@@ -46,6 +50,9 @@ make install install-data DESTDIR=%{buildroot}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 27 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.7.3-14
+- correct the License: field
+
 * Wed Jul 26 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.7.3-13
 - migrate to SPDX license format
 

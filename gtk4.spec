@@ -28,6 +28,9 @@ Source1:        settings.ini
 # private requires that are needed for rpm automatic dep extraction.
 # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/4756
 Patch0:         0001-Revert-Meson-Simplify-pkgconfig-file-generator.patch
+# Backported upstream MR
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6250
+Patch1:         6250.patch
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils

@@ -4,11 +4,11 @@
 %bcond_with python3
 %endif
 
-%global talloc_version 2.3.4
+%global talloc_version 2.4.1
 
 Name: libtevent
-Version: 0.14.1
-Release: 3%{?dist}
+Version: 0.15.0
+Release: 1%{?dist}
 Summary: The tevent library
 License: LGPL-3.0-or-later
 URL: http://tevent.samba.org/
@@ -107,6 +107,9 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %ldconfig_scriptlets
 
 %changelog
+* Mon Aug 07 2023 Guenther Deschner <gdeschner@redhat.com> - 0.15.0-1
+- rhbz#2224332 - libtevent-0.15.0 is available
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

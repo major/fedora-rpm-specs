@@ -14,6 +14,10 @@ Url:            https://nextcloud.com/install/#install-clients
 Source0:        https://github.com/nextcloud/desktop/archive/v%{version}/desktop-%{version}.tar.gz
 Source1:        com.nextcloud.desktopclient.nextcloud.metainfo.xml
 
+%if 0%{?fedora} >= 39
+ExcludeArch:    %{ix86}
+%endif
+
 %if 0%{?rhel}
 BuildRequires:  rpmautospec-rpm-macros
 BuildRequires:  policycoreutils

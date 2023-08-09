@@ -1,18 +1,16 @@
 %global srcname whisper
-%global commit0 59fb5e4906ea33d02f9f8c770d337468ae305cc1
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global sum Whisper is a file-based time-series database format for Graphite
 
 
 Name:           python-whisper
-Version:        1.1.6
-Release:        14%{?dist}
+Version:        1.1.10
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
 URL:            https://github.com/graphite-project/whisper
 
-Source0:        https://github.com/graphite-project/%{srcname}/archive/%{commit0}.tar.gz#/%{srcname}-%{shortcommit0}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source10:       rrd2whisper.1
 Source11:       whisper-create.1
 Source12:       whisper-dump.1
@@ -23,6 +21,8 @@ Source16:       whisper-resize.1
 Source17:       whisper-set-aggregation-method.1
 Source18:       whisper-update.1
 Source19:       whisper-fill.1
+
+Patch0:         python-whisper-1.1.10-whisper-resize-test-fix.patch
 
 BuildArch:      noarch
 
@@ -50,22 +50,23 @@ Python%{python3_pkgversion} version of the Graphite whisper module
 
 
 %prep
-%autosetup -n %{srcname}-%{commit0}
+%autosetup -p1 -n %{srcname}-%{version}
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 # remove .py suffix
-pushd %{buildroot}%{_bindir}
-for i in *.py; do
+for i in %{buildroot}%{_bindir}/*.py; do
     mv ${i} ${i%%.py}
 done
-popd
 
 # man pages
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -85,12 +86,9 @@ install -D -p -m0644 %{SOURCE19} %{buildroot}%{_mandir}/man1
 %{__python3} test_whisper.py
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/whisper.py*
-%{python3_sitelib}/whisper-*-py%{python3_version}.egg-info
-%{python3_sitelib}/__pycache__/*
 %{_bindir}/find-corrupt-whisper-files
 %{_bindir}/rrd2whisper
 %{_bindir}/update-storage-times
@@ -120,6 +118,9 @@ install -D -p -m0644 %{SOURCE19} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Aug 07 2023 Jonathan Steffan <jsteffan@fedoraproject.org> - 1.1.10-1
+- Update to 1.1.10
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

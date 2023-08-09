@@ -12,7 +12,7 @@
 Summary: GREYC's Magic for Image Computing
 Name:    gmic
 Version: 3.2.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://gmic.eu/files/source/%{name}_%{version}.tar.gz
 # GIT archive snapshot of https://github.com/c-koi/zart
 Source1: zart-%{zart_version}.tar.gz
@@ -225,6 +225,9 @@ fi
 %{_libdir}/libcgmic.so.3*
 
 %changelog
+* Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 3.2.6-3
+- Rebuild for opencv 4.8.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

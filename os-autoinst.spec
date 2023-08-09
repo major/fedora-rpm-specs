@@ -37,7 +37,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OS-level test automation
 License:        GPLv2+
 URL:            https://os-autoinst.github.io/openQA/
@@ -243,6 +243,9 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 4.6^20230527git1946eb1-4
+- Rebuild for opencv 4.8.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6^20230527git1946eb1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

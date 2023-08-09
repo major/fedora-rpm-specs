@@ -1,6 +1,6 @@
 Name:           perl-CPAN-02Packages-Search
-Version:        0.002
-Release:        3%{?dist}
+Version:        0.100
+Release:        1%{?dist}
 Summary:        Search Perl modules in 02packages.details.txt
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-02Packages-Search
@@ -15,8 +15,8 @@ BuildRequires:  perl(Module::Build::Tiny) >= 0.034
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Search::Dict) >= 1.07
+BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Tie::Handle::SkipHeader) >= 0.004
 # Tests:
 BuildRequires:  perl(Test::More)
@@ -70,13 +70,18 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes
-%{perl_vendorlib}/CPAN
+%dir %{perl_vendorlib}/CPAN
+%dir %{perl_vendorlib}/CPAN/02Packages
+%{perl_vendorlib}/CPAN/02Packages/Search.pm
 %{_mandir}/man3/CPAN::02Packages::Search.3pm.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 07 2023 Petr Pisar <ppisar@redhat.com> - 0.100-1
+- 0.100 bump
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

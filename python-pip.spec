@@ -6,7 +6,7 @@
 %bcond doc %[%{defined fedora} || %{defined epel}]
 
 %global srcname pip
-%global base_version 23.1.2
+%global base_version 23.2.1
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -14,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -96,7 +96,7 @@ Packages" or "Pip Installs Python".
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
 Provides: bundled(python%{1}dist(cachecontrol)) = 0.12.11
-Provides: bundled(python%{1}dist(certifi)) = 2022.12.7
+Provides: bundled(python%{1}dist(certifi)) = 2023.5.7
 Provides: bundled(python%{1}dist(chardet)) = 5.1
 Provides: bundled(python%{1}dist(colorama)) = 0.4.6
 Provides: bundled(python%{1}dist(distlib)) = 0.3.6
@@ -104,19 +104,19 @@ Provides: bundled(python%{1}dist(distro)) = 1.8
 Provides: bundled(python%{1}dist(idna)) = 3.4
 Provides: bundled(python%{1}dist(msgpack)) = 1.0.5
 Provides: bundled(python%{1}dist(packaging)) = 21.3
-Provides: bundled(python%{1}dist(platformdirs)) = 3.2
-Provides: bundled(python%{1}dist(pygments)) = 2.14
-Provides: bundled(python%{1}dist(pyparsing)) = 3.0.9
+Provides: bundled(python%{1}dist(platformdirs)) = 3.8.1
+Provides: bundled(python%{1}dist(pygments)) = 2.15.1
+Provides: bundled(python%{1}dist(pyparsing)) = 3.1
 Provides: bundled(python%{1}dist(pyproject-hooks)) = 1
-Provides: bundled(python%{1}dist(requests)) = 2.28.2
+Provides: bundled(python%{1}dist(requests)) = 2.31
 Provides: bundled(python%{1}dist(resolvelib)) = 1.0.1
-Provides: bundled(python%{1}dist(rich)) = 13.3.3
-Provides: bundled(python%{1}dist(setuptools)) = 67.7.2
+Provides: bundled(python%{1}dist(rich)) = 13.4.2
+Provides: bundled(python%{1}dist(setuptools)) = 68
 Provides: bundled(python%{1}dist(six)) = 1.16
 Provides: bundled(python%{1}dist(tenacity)) = 8.2.2
 Provides: bundled(python%{1}dist(tomli)) = 2.0.1
-Provides: bundled(python%{1}dist(typing-extensions)) = 4.5
-Provides: bundled(python%{1}dist(urllib3)) = 1.26.15
+Provides: bundled(python%{1}dist(typing-extensions)) = 4.7.1
+Provides: bundled(python%{1}dist(urllib3)) = 1.26.16
 Provides: bundled(python%{1}dist(webencodings)) = 0.5.1
 }
 
@@ -361,6 +361,10 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Fri Aug 04 2023 Miro Hrončok <mhroncok@redhat.com> - 23.2.1-1
+- Update to 23.2.1
+Resolves: rhbz#2223082
+
 * Fri Aug 04 2023 Miro Hrončok <mhroncok@redhat.com> - 23.1.2-7
 - Actually run the tests and build the docs when building this package
 

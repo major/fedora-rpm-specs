@@ -5,17 +5,15 @@
 %global crate encode_unicode
 
 Name:           rust-encode_unicode
-Version:        0.3.6
+Version:        1.0.0
 Release:        %autorelease
 Summary:        UTF-8 and UTF-16 character types, iterators and related methods
 
-# Upstream license specification: MIT/Apache-2.0
-License:        MIT OR Apache-2.0
+License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/encode_unicode
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop dependency on obsolete clippy crate
-# * relax stricter-than-semver lazy_static dev-dependency
+# * remove unused, benchmark-only minreq dev-dependency
 Patch:          encode_unicode-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

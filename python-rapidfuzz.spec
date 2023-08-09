@@ -3,20 +3,9 @@ Version:        2.13.7
 Release:        %autorelease
 Summary:        Rapid fuzzy string matching in Python and C++ using the Levenshtein Distance
 
-# Rapidfuzz itself is licensed under MIT
-# src/rapidfuzz/vector.pxd created in patch is taken from
-# Cython and is licensed under Apache-2.0
-# SPDX
-License:        MIT AND Apache-2.0
+License:        MIT
 URL:            https://github.com/maxbachmann/RapidFuzz
 Source:         %{pypi_source rapidfuzz}
-
-# Rapidfuzz needs Cython 3 to generate Cython sources,
-# the following patch allows building rapidfuzz against Cython 0.29.x
-# which we currently have in Fedora
-# The patch was created by Troy Curtis Jr
-# https://bugzilla.redhat.com/show_bug.cgi?id=2210427
-Patch:          Cythonize-rapidfuzz-with-Cython-0.29.x.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -24,8 +13,15 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pandas
 BuildRequires:  python3-pytest
+# The PyPi sources don't depend on Cython since they contain pre-generated sources,
+# but those are rebuilt for Fedora so Cython must be available.
+BuildRequires:  python3-cython >= 3
 BuildRequires:  rapidfuzz-cpp-static
 BuildRequires:  taskflow-static
+
+# Backport a Cython 3.0.0 fix from the latest python-rapidfuzz sources.
+# https://github.com/maxbachmann/RapidFuzz/commit/2db511010d03c6453c239066cba85ee1b84dcc1e
+Patch0: fix-cython3.0.0-build.patch
 
 %global _description %{expand:
 RapidFuzz is a fast string matching library for Python and C++, which is using

@@ -15,7 +15,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        45~alpha
+Version:        45~beta
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
@@ -116,7 +116,7 @@ Recommends: rygel
 # For the info/details panel
 Recommends: switcheroo-control
 # For the keyboard panel
-Requires: /usr/bin/gkbd-keyboard-display
+Requires: /usr/bin/tecla
 %if 0%{?fedora} >= 35 || 0%{?rhel} >= 9
 # For the power panel
 Recommends: power-profiles-daemon

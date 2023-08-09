@@ -19,13 +19,13 @@
 %bcond_with python3
 %endif
 
-%global talloc_version 2.4.0
-%global tdb_version 1.4.8
-%global tevent_version 0.14.1
+%global talloc_version 2.4.1
+%global tdb_version 1.4.9
+%global tevent_version 0.15.0
 
 Name: libldb
-Version: 2.7.2
-Release: 3%{?dist}
+Version: 2.8.0
+Release: 1%{?dist}
 Summary: A schema-less, ldap like, API and database
 Requires: libtalloc%{?_isa} >= %{talloc_version}
 Requires: libtdb%{?_isa} >= %{tdb_version}
@@ -38,7 +38,6 @@ Source1: https://www.samba.org/ftp/ldb/ldb-%{version}.tar.asc
 Source2: ldb.keyring
 
 # Patches
-Patch0001: 0001-PATCH-wafsamba-Fix-few-SyntaxWarnings-caused-by-regu.patch
 
 BuildRequires: gcc
 BuildRequires: libtalloc-devel >= %{talloc_version}
@@ -222,6 +221,9 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man3/_*
 %endif
 
 %changelog
+* Mon Aug 07 2023 Guenther Deschner <gdeschner@redhat.com> - 2.8.0-1
+- rhbz#2227229 - libldb-2.8.0 is available
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

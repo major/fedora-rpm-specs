@@ -3,8 +3,8 @@
 #
 Summary: An authorization framework
 Name: polkit
-Version: 122
-Release: 7%{?dist}
+Version: 123
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/polkit
 Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
@@ -161,6 +161,9 @@ exit 0
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Tue Aug 01 2023 Jan Rybar <jrybar@redhat.com> - 123-1
+- Rebase to version 123
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 122-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
 Version: 2.0.0
-Release: 3%{?dist}
+Release: 5%{?dist}
 URL:     http://www.firewalld.org
 License: GPLv2+
 Source0: https://github.com/firewalld/firewalld/releases/download/v%{version}/firewalld-%{version}.tar.bz2
@@ -23,7 +23,7 @@ BuildRequires: libxslt
 BuildRequires: iptables, ebtables, ipset
 BuildRequires: python3-devel
 BuildRequires: make
-Requires: iptables, ebtables, ipset
+Recommends: iptables, ebtables, ipset
 Suggests: iptables-nft
 Requires(post): systemd
 Requires(preun): systemd
@@ -81,7 +81,11 @@ Summary: Firewall panel applet
 Requires: %{name} = %{version}-%{release}
 Requires: firewall-config = %{version}-%{release}
 Requires: hicolor-icon-theme
+%if (0%{?fedora} >= 39 || 0%{?rhel} >= 10)
+Requires: python3-pyqt6                   
+%else                                     
 Requires: python3-qt5-base
+%endif
 Requires: python3-gobject
 Requires: libnotify
 Requires: NetworkManager-libnm
@@ -307,6 +311,12 @@ fi
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Mon Aug 07 2023 Eric Garver <eric@garver.life> - 2.0.0-5
+- Recommend iptables et al. instead of Require
+
+* Mon Aug 07 2023 Eric Garver <eric@garver.life> - 2.0.0-4
+- support qt6
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

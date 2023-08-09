@@ -5,7 +5,7 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.16
-Release:	16%{?dist}
+Release:	17%{?dist}
 License:	GPLv3+ and CC-BY
 Url:		http://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/archive/%{version}.%{git_build}/%{name}-%{version}.%{git_build}.tar.gz
@@ -117,6 +117,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 3.16-17
+- Rebuild for opencv 4.8.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,17 +7,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-initial-setup
-Version:        44.0
+Version:        45~beta
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Design/OS/InitialSetup
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 Source1:        vendor.conf
-
-# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/197
-Patch0:         fedora-third-party-disable.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -58,7 +55,7 @@ Requires: geoclue2-libs%{?_isa} >= %{geoclue_version}
 Requires: glib2%{?_isa} >= %{glib_required_version}
 # we install a rules file
 Requires: polkit-js-engine
-Requires: /usr/bin/gkbd-keyboard-display
+Requires: /usr/bin/tecla
 
 Requires(pre): shadow-utils
 
@@ -99,14 +96,15 @@ useradd -rM -d /run/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null ||
 %{_sysconfdir}/xdg/autostart/gnome-initial-setup-copy-worker.desktop
 %{_sysconfdir}/xdg/autostart/gnome-initial-setup-first-login.desktop
 %{_datadir}/applications/gnome-initial-setup.desktop
+%{_datadir}/dconf/profile/gnome-initial-setup
+%dir %{_datadir}/gnome-initial-setup
+%{_datadir}/gnome-initial-setup/initial-setup-dconf-defaults
+%{_datadir}/gnome-initial-setup/vendor.conf
 %{_datadir}/gnome-session/sessions/gnome-initial-setup.session
 %{_datadir}/gnome-shell/modes/initial-setup.json
 %{_datadir}/polkit-1/rules.d/20-gnome-initial-setup.rules
 %{_sysusersdir}/gnome-initial-setup.conf
 %{_userunitdir}/*
-
-%dir %{_datadir}/gnome-initial-setup
-%{_datadir}/gnome-initial-setup/vendor.conf
 
 %changelog
 %autochangelog

@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.0.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -8,6 +8,7 @@ URL:     https://pcp.io
 %global  artifactory https://performancecopilot.jfrog.io/artifactory
 Source0: %{artifactory}/pcp-source-release/pcp-%{version}.src.tar.gz
 Patch0: redhat-bugzilla-2175602.patch
+Patch1: redhat-bugzilla-2185803.patch
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -3363,6 +3364,8 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon Aug 07 2023 Sam Feifer <samfeifer@fedoraproject.org> - 6.0.5-6- Improve on pmieconf integration with Event Driven Ansible
+
 * Thu Aug 03 2023 Sam Feifer <samfeifer@fedoraproject.org> - 6.0.5-5
 - Fix path for pmie/conf testing rule
 

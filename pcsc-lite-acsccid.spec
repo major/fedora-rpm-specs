@@ -1,13 +1,13 @@
 %global dropdir %(pkg-config libpcsclite --variable usbdropdir 2>/dev/null)
 
 Name:		pcsc-lite-acsccid
-Version:	1.1.9
-Release:	2%{?dist}
+Version:	1.1.10
+Release:	1%{?dist}
 Summary:	ACS CCID PC/SC Driver for Linux/Mac OS X
 
 License:	LGPLv2+
-URL:		https://github.com/acshk/acsccid
-Source0:	https://github.com/acshk/acsccid/archive/refs/tags/v%{version}.tar.gz
+URL:		https://acsccid.sourceforge.io/
+Source0:	https://downloads.sourceforge.net/acsccid/acsccid-%{version}.tar.bz2
 
 BuildRequires:	make
 BuildRequires:	gettext-devel
@@ -75,6 +75,9 @@ install -p -m 644 src/towitoko/README README.towitoko
 %{dropdir}/ifd-acsccid.bundle/Contents/Linux/libacsccid.so
 
 %changelog
+* Mon Aug 07 2023 Jakub Jelen <jjelen@redhat.com> - 1.1.10-1
+- New upstream release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

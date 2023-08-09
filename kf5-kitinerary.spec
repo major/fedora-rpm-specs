@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.04.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: LGPLv2+
@@ -129,6 +129,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Mon Aug 07 2023 Marek Kasik <mkasik@redhat.com> - 23.04.3-3
+- Rebuild for poppler 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -11,15 +11,15 @@
 %global pcre2_version 10.21
 
 Name:           vte291
-Version:        0.72.2
-Release:        3%{?dist}
+Version:        0.73.93
+Release:        1%{?dist}
 Summary:        GTK+ 3 terminal emulator library
 
 # libvte-2.91.so is generated from LGPLv2+ and MIT sources
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later and MIT-open-group AND CC-BY-4.0
 
 URL:            https://wiki.gnome.org/Apps/Terminal/VTE
-Source0:        https://download.gnome.org/sources/vte/0.72/vte-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/vte/0.73/vte-%{version}.tar.xz
 
 # https://bugzilla.gnome.org/show_bug.cgi?id=711059
 # https://bugzilla.redhat.com/show_bug.cgi?id=1103380
@@ -179,6 +179,9 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %{_sysconfdir}/profile.d/vte.sh
 
 %changelog
+* Tue Aug 08 2023 Kalev Lember <klember@redhat.com> - 0.73.93-1
+- Update to 0.73.93
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.72.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

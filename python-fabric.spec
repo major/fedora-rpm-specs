@@ -6,7 +6,7 @@
 %global         srcname     fabric
 
 Name:           python-%{srcname}
-Version:        3.1.0
+Version:        3.2.1
 Release:        %autorelease
 Summary:        High level SSH command execution
 

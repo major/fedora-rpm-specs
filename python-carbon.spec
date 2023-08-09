@@ -7,7 +7,7 @@ a storage back-end.}
 
 Name:           python-%{srcname}
 Version:        1.1.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        Back-end data caching and persistence daemon for Graphite
 License:        ASL 2.0
@@ -34,6 +34,8 @@ Source43:       %{name}.sysconfig
 Patch1:         %{name}-0.10.0-Set-sane-defaults.patch
 # Fix path to storage-schemas.conf.
 Patch2:         %{name}-0.9.13-Fix-path-to-storage-schemas.conf.patch
+# Python 3.12 support https://github.com/graphite-project/carbon/issues/946
+Patch3:         %{name}-1.1.10-Py3.12-support.patch
 
 BuildArch:      noarch
 
@@ -218,6 +220,9 @@ getent passwd carbon >/dev/null || \
 
 
 %changelog
+* Fri Aug 04 2023 Jonathan Steffan <jsteffan@fedoraproject.org> - 1.1.10-5
+- Patch for Python 3.12 (RHBZ#2226168)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

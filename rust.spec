@@ -83,8 +83,8 @@
 %endif
 
 Name:           rust
-Version:        1.71.0
-Release:        3%{?dist}
+Version:        1.71.1
+Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -110,21 +110,12 @@ Patch2:         rustc-1.70.0-rust-gdb-substitute-path.patch
 # TODO: upstream this ability into the actual build configuration
 Patch3:         0001-Let-environment-variables-override-some-default-CPUs.patch
 
-# Restore LD_LIBRARY_PATH when running lint-docs
-# https://github.com/rust-lang/rust/pull/110521#issuecomment-1629705099
-Patch4:         0001-Revert-Fix-x-test-lint-docs-when-download-rustc-is-e.patch
-
-# Restore the bash completion path
-# https://github.com/rust-lang/rust/pull/110906#issuecomment-1629832675
-Patch5:         0001-Revert-fix-bug-etc-bash_complettion-src-etc-.-to-avo.patch
-
-# (c9s) rhbz2225471: relax the suspicious_double_ref_op lint
-# https://github.com/rust-lang/rust/pull/112517
-Patch6:         0001-Rollup-merge-of-112517-fee1-dead-contrib-sus-op-no-b.patch
-
 # Enable the profiler runtime for native hosts
 # https://github.com/rust-lang/rust/pull/114069
-Patch7:         0001-Allow-using-external-builds-of-the-compiler-rt-profi.patch
+Patch4:         0001-Allow-using-external-builds-of-the-compiler-rt-profi.patch
+
+# https://github.com/rust-lang/rust/pull/114440
+Patch5:         0001-bootstrap-config-fix-version-comparison-bug.patch
 
 ### RHEL-specific patches below ###
 
@@ -339,8 +330,10 @@ find '%{buildroot}%{rustlibdir}'/wasm*/lib -type f -regex '.*\\.\\(a\\|rlib\\)' 
 %{nil}
 %endif
 
+%if 0%{?fedora} || 0%{?rhel} >= 8
 # For profiler_builtins
 BuildRequires:  compiler-rt
+%endif
 
 # This component was removed as of Rust 1.69.0.
 # https://github.com/rust-lang/rust/pull/101841
@@ -600,8 +593,6 @@ test -f '%{local_rust_root}/bin/rustc'
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
-%patch -P6 -p1
-%patch -P7 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -757,9 +748,11 @@ end}
 end}
 %endif
 
+%if 0%{?fedora} || 0%{?rhel} >= 8
 # The exact profiler path is version dependent, and uses LLVM-specific
 # arch names in the filename, but this find is good enough for now...
 PROFILER=$(find %{_libdir}/clang -type f -name 'libclang_rt.profile-*.a')
+%endif
 
 %configure --disable-option-checking \
   --libdir=%{common_libdir} \
@@ -915,7 +908,10 @@ done
 
 # The results are not stable on koji, so mask errors and just log it.
 # Some of the larger test artifacts are manually cleaned to save space.
-%{__python3} ./x.py test --no-fail-fast || :
+
+# Bootstrap is excluded because it's not something we ship, and a lot of its
+# tests are geared toward the upstream CI environment.
+%{__python3} ./x.py test --no-fail-fast --exclude src/bootstrap || :
 rm -rf "./build/%{rust_triple}/test/"
 
 %{__python3} ./x.py test --no-fail-fast cargo || :
@@ -1081,6 +1077,10 @@ end}
 
 
 %changelog
+* Mon Aug 07 2023 Josh Stone <jistone@redhat.com> - 1.71.1-1
+- Update to 1.71.1.
+- Security fix for CVE-2023-38497
+
 * Tue Jul 25 2023 Josh Stone <jistone@redhat.com> - 1.71.0-3
 - Relax the suspicious_double_ref_op lint
 - Enable the profiler runtime for native hosts

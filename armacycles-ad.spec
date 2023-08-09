@@ -1,12 +1,16 @@
-%define _hardened_build 1
+%global forgeurl https://gitlab.com/armagetronad/armagetronad/
+%global tag v0.2.9.1.1
+
+%forgemeta
+
 Name: armacycles-ad
-Version: 0.2.9.1.0
-Release: 7%{?dist}
+Version: 0.2.9.1.1
+Release: 1%{?dist}
 Summary: A lightcycle game in 3D
 
 License: GPL-2.0-or-later
-URL: http://armagetronad.sf.net
-Source0: http://downloads.sourceforge.net/armagetronad/armagetronad-%{version}.tbz
+URL: %{forgeurl}
+Source0: %{forgesource}
 Source1: armacycles-logo.jpg
 Source2: armacycles-ad.desktop
 
@@ -36,14 +40,14 @@ the internet and/or the LAN.
 
 
 %prep
-%setup -qn armagetronad-%{version}
+%forgesetup
 
 #insert modified logo
 cp %{SOURCE1} textures/title.jpg
 # remove krawall logo
 rm -f armagetronad-0.2.8.2.1/textures/KGN*
 
-autoreconf -if
+./bootstrap.sh
 
 %build
 configure_flags="--disable-sysinstall --disable-games --disable-uninstall"
@@ -157,6 +161,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/armacyclesad-dedicated/language/update.py
 
 
 %changelog
+* Mon Aug 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.9.1.1-1
+- 0.2.9.1.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

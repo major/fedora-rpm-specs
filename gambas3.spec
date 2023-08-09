@@ -17,7 +17,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.18.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -1795,6 +1795,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Mon Aug 07 2023 Marek Kasik <mkasik@redhat.com> - 3.18.3-2
+- Rebuild for poppler 23.08.0
+
 * Thu Aug  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.18.3-1
 - update to 3.18.3
 

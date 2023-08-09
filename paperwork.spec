@@ -9,6 +9,10 @@ License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/OpenPaperwork/paperwork
 Source0:        %pypi_source %{srcname}
 Patch0001:      0001-Drop-extra-icon-dirs.patch
+# python-Levenshtein changed to just Levenshtein. There isn't an upstream
+# patch because upstream has decided to drop the dependency
+# https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/9072eea40e09b337939ed3c98b642df203752e9e
+Patch0002:      0002-fix-levenshtein.patch
 
 BuildArch:      noarch
 

@@ -1,6 +1,6 @@
 Name:           wordxtr
-Version:        1.0.0
-Release:        17%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Create hunspell dictionary from given plain text input data files
 
 License:        GPL-2.0-or-later
@@ -10,6 +10,8 @@ Source0:        http://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  pyproject-rpm-macros
+
 ## we need wordlist2hunspell which is provided by hunspell-devel
 Requires:       hunspell-devel
 
@@ -21,21 +23,28 @@ input language and plain text unicode data files.
 %prep
 %autosetup
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
- 
-%files
-%doc README 
-%license COPYING
+%pyproject_install
+%pyproject_save_files wordxtr
+
+%check
+%pyproject_check_import
+
+%files -f %{pyproject_files}
+%license LICENSE
+%doc README.md
 %{_bindir}/wordxtr
-%{python3_sitelib}/*
 
 %changelog
+* Mon Aug 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.0.0-1
+- Update to 2.0.0 version
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

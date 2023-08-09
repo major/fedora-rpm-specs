@@ -15,6 +15,8 @@ Patch0001:      0001-Skip-docx-duplicated-import-test-entirely.patch
 # patch because upstream has decided to drop the dependency
 # https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/9072eea40e09b337939ed3c98b642df203752e9e
 Patch0002:      0002-fix-levenshtein.patch
+# https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/merge_requests/851
+Patch0003:      0003-Use-default-OCR-language-for-C-locale.patch
 
 BuildArch:      noarch
 

@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.01.2
-Release:          2%{?dist}
+Release:          3%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -108,6 +108,7 @@ BuildRequires:    make
 
 Patch001: ghostscript-10.01.0-pdfwrite-Substituted-TTF-CIDFont-CID-hand.patch
 Patch002: ghostscript-10.01.0-convert-defaultpage-to-lowercase.patch
+Patch003: ghostscript-10.01.2-CVE-2023-38559.patch
 
 
 # Downstream patches -- these should be always included when doing rebase:
@@ -422,6 +423,9 @@ done
 # =============================================================================
 
 %changelog
+* Mon Aug 07 2023 Richard Lescak <rlescak@redhat.com> - 10.01.2-3
+- fix for CVE-2023-38559 (#2225380)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.01.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

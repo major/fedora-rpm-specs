@@ -1,6 +1,6 @@
 Name:           waifu2x-converter-cpp
 Version:        5.3.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Image Super-Resolution for Anime-style art using OpenCL and OpenCV
 
 License:        BSD and MIT
@@ -59,6 +59,9 @@ sed -i 's|-mfloat-abi=hard -mfloat-abi=softfp|-mfloat-abi=hard|' CMakeLists.txt
 %{_libdir}/libw2xc.so
 
 %changelog
+* Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 5.3.4-9
+- Rebuild for opencv 4.8.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

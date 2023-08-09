@@ -57,7 +57,7 @@ Version: 13.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1252,6 +1252,12 @@ fi
 %endif
 
 %changelog
+* Mon Aug  7 2023 Kevin Buettner <kevinb@redhat.com> - 13.2-7
+- Bump release.
+
+* Thu Aug  3 2023 Andrew Burgess <aburgess@redhat.com>
+- Backport upstream commit f3eee586174, which fixes RHBZ 2196395.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

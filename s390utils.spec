@@ -9,8 +9,8 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.28.0
-Release:        2%{?dist}
+Version:        2.29.0
+Release:        1%{?dist}
 Epoch:          2
 License:        MIT
 ExclusiveArch:  s390 s390x
@@ -73,6 +73,7 @@ be used together with the zSeries (s390) Linux kernel and device drivers.
 %build
 make \
         CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cxxflags}" LDFLAGS="%{build_ldflags}" \
+        HAVE_CARGO=0 \
         HAVE_DRACUT=1 \
 %if 0%{?with_pandoc}
         ENABLE_DOC=1 \
@@ -85,6 +86,7 @@ make \
 
 %install
 make install \
+        HAVE_CARGO=0 \
         HAVE_DRACUT=1 \
 %if 0%{?with_pandoc}
         ENABLE_DOC=1 \
@@ -895,6 +897,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Mon Aug 07 2023 Dan Horák <dan[at]danny.cz> - 2:2.29.0-1
+- rebased to 2.29.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.28.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
