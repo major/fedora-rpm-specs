@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -76,6 +76,7 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 Source1:        pipewire.sysusers
 
 ## upstream patches
+Patch0001:	0001-pulse-server-set-all-change_mask-flags-when-removing.patch
 
 ## upstreamable patches
 
@@ -721,6 +722,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Tue Aug 08 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.77-3
+- Add patch to avoid duplicate sinks and sources.
+
 * Mon Aug 07 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 0.3.77-2
 - Explicitly require pipewire-jack-audio-connection-kit-libs for pipewire-plugin-jack
 

@@ -1,6 +1,5 @@
 # Tests are enabled by default
-# RHEL does not have all the test dependencies
-%bcond tests %[! %[%{defined rhel} && %{undefined epel}]]
+%bcond tests 1
 
 Name:           python-flit
 Version:        3.9.0

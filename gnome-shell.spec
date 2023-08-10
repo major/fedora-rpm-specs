@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-shell
-Version:        45~alpha
+Version:        45~beta
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -23,7 +23,7 @@ Patch40001: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.0.0
-%define mutter_version 45~alpha
+%define mutter_version 45~beta
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 42~beta
 %define ibus_version 1.5.2
@@ -102,7 +102,7 @@ Requires:       at-spi2-atk%{?_isa}
 # needed for on-screen keyboard
 Requires:       ibus%{?_isa} >= %{ibus_version}
 # needed for "show keyboard layout"
-Requires:       libgnomekbd
+Requires:       tecla
 # needed for the user menu
 Requires:       accountsservice-libs%{?_isa}
 Requires:       gdm-libs%{?_isa}
@@ -179,7 +179,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_bindir}/gnome-extensions
 %{_bindir}/gnome-shell-extension-prefs
 %{_bindir}/gnome-shell-extension-tool
-%{_bindir}/gnome-shell-perf-tool
+%{_bindir}/gnome-shell-test-tool
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/glib-2.0/schemas/00_org.gnome.shell.gschema.override
 %{_datadir}/applications/org.gnome.Shell.Extensions.desktop

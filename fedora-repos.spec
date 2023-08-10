@@ -1,10 +1,10 @@
-%global rawhide_release 39
+%global rawhide_release 40
 %global updates_testing_enabled 0
 
 Summary:        Fedora package repositories
 Name:           fedora-repos
-Version:        39
-Release:        0.4%{?eln:.eln%{eln}}
+Version:        40
+Release:        0.1%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -80,6 +80,8 @@ Source57:       RPM-GPG-KEY-fedora-37-primary
 Source58:       RPM-GPG-KEY-fedora-38-primary
 Source59:       RPM-GPG-KEY-fedora-39-primary
 Source60:       RPM-GPG-KEY-fedora-40-primary
+Source61:       RPM-GPG-KEY-fedora-41-primary
+
 # When bumping Rawhide to fN, create N+1 key (and update archmap). (This
 # ensures users have the next future key installed and referenced, even if they
 # don't update very often. This will smooth out Rawhide N->N+1 transition for them).
@@ -393,6 +395,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Tue Aug 08 2023 Samyak Jain <samyak.jn11@gmail.com> - 40-0.1
+- Setup for rawhide being F40
+
 * Fri Jul 21 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 39-0.4
 - Update IMA keys location for kernel/dracut
 

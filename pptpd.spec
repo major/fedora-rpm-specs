@@ -13,10 +13,10 @@
 Summary:	PoPToP Point to Point Tunneling Server
 Name:		pptpd
 Version:	1.4.0
-Release:	32%{?dist}
+Release:	33%{?dist}
 License:	GPLv2+ and LGPLv2+
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:	make
+BuildRequires:	gcc
 BuildRequires:	perl-generators
 BuildRequires:	ppp-devel, systemd
 URL:		http://poptop.sourceforge.net/
@@ -27,6 +27,8 @@ Source3:	modules-load.conf
 Source4:	20-pptpd.conf
 # upstream ticket: https://sourceforge.net/p/poptop/patches/20/
 Patch0:		pptpd-1.4.0-bcrelay-iflog-size-limit.patch
+# upstream ticket: https://sourceforge.net/p/poptop/patches/21/
+Patch1:		pptpd-1.4.0-ppp-2.5.0.patch
 Requires:	ppp >= 2.4.2
 Requires:	perl-interpreter
 
@@ -51,9 +53,7 @@ The SysV initscript for PoPToP Point to Point Tunneling Server.
 %endif
 
 %prep
-%setup -q
-
-%patch0 -p1 -b .bcrelay-iflog-size-limit
+%autosetup -p1
 
 # Fix for distros with %%{_libdir} = /usr/lib64
 perl -pi -e 's,/usr/lib/pptpd,%{_libdir}/pptpd,;' pptpctrl.c
@@ -63,7 +63,6 @@ perl -pi -e 's,/usr/lib/pptpd,%{_libdir}/pptpd,;' pptpctrl.c
 	--without-libwrap \
 	%{!?_without_bcrelay:--enable-bcrelay} \
 	%{?_without_bcrelay:--disable-bcrelay}
-(echo '#undef VERSION'; echo '#include <pppd/patchlevel.h>') >> plugins/patchlevel.h
 make CFLAGS='-fno-builtin -fPIC -DSBINDIR=\"%{_sbindir}\" %{optflags} %{?harden}'
 
 %install
@@ -140,6 +139,10 @@ fi
 %endif
 
 %changelog
+* Tue Aug  8 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.0-33
+- Fixed build with ppp-2.5.0
+  Resolves: rhbz#2226121
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

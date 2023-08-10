@@ -5,8 +5,8 @@
 %bcond_with docs
 
 Name:           python-%{pkg_name}
-Version:        3.8.0
-Release:        3%{?dist}
+Version:        3.8.1
+Release:        1%{?dist}
 Summary:        Functools like those found in stdlib
 
 License:        MIT
@@ -84,6 +84,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Tue Aug 08 2023 Dan Radez <dradez@redhat.com> - 3.8.1-1
+- update to 3.8.1 rhbz#2229532
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

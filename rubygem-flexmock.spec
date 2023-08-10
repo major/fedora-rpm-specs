@@ -3,7 +3,7 @@
 Summary:	Mock object library for ruby
 Name:		rubygem-%{gem_name}
 Version:	2.3.6
-Release:	14%{?dist}
+Release:	15%{?dist}
 License:	MIT
 URL:		https://github.com/doudou/flexmock
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -18,6 +18,8 @@ Patch1:	rubygem-flexmock-2.3.6-testsuite-binding-source.patch
 Patch2:	rubygem-flexmock-2.3.6-accept-keywords.patch
 # relax error messages on test suite on ruby 3.0
 Patch3:	rubygem-flexmock-2.3.6-workaround-relax-error-message.patch
+# Support MiniTest 5.19+
+Patch4:	rubygem-flexmock-2.3.6-minitest-5_19-compat.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -40,23 +42,22 @@ Requires:	%{name} = %{version}-%{release}
 This package contains documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version} -a 1
-
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version} -a 1
+mv ../%{gem_name}-%{version}.gemspec .
 
 (
 cd flexmock
-%patch1 -p1
-%patch3 -p1
+%patch -P1 -p1
+%patch -P3 -p1
 )
-%patch2 -p1
+%patch -P2 -p1
+%patch -P4 -p1
 
 find . -name \*.rb | xargs sed -i -e '\@/usr/bin/env@d'
 find . -name \*.gem -or -name \*.rb -or -name \*.rdoc | xargs chmod 0644
 
 %build
-gem build %{gem_name}.gemspec
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -100,6 +101,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Tue Aug 08 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.6-15
+- Handle MiniTest 5.19+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

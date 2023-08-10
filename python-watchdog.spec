@@ -1,19 +1,23 @@
-%global modname watchdog
+%global srcname watchdog
 
-Name:               python-%{modname}
-Version:            2.1.9
-Release:            5%{?dist}
+%global common_description %{expand: \
+Python API and shell utilities to monitor file system events.
+
+Works on 3.7+.}
+
+Name:               python-%{srcname}
+Version:            3.0.0
+Release:            %autorelease
 Summary:            File system events monitoring
 
-License:            ASL 2.0 and BSD and MIT
-URL:                https://pypi.org/project/watchdog/
-Source0:            %pypi_source %{modname}
+License:            Apache-2.0
+URL:                https://github.com/gorakhargosh/watchdog
+Source0:            %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:          noarch
 
-%description
-A Python API and shell utilities to monitor file system events.
+%description %{common_description}
 
-%package -n python3-%{modname}
+%package -n python3-%{srcname}
 Summary:            %{summary}
 
 BuildArch:          noarch
@@ -24,38 +28,46 @@ BuildRequires:      python3-pytest
 BuildRequires:      python3-pytest-cov
 BuildRequires:      python3-pytest-rerunfailures
 BuildRequires:      python3-pytest-timeout
-BuildRequires:      python3-PyYAML >= 3.09
+BuildRequires:      python3-PyYAML
 
-%description -n python3-%{modname}
-A Python API and shell utilities to monitor file system events.
+%description -n python3-%{srcname} %{common_description}
+
 
 %prep
-%setup -q -n %{modname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 # Remove all shebangs
 find src -name "*.py" | xargs sed -i -e '/^#!\//, 1d'
 # Remove +x of the README file
 chmod -x README.rst
-# Remove bundled egg-info in case it exists
-rm -rf %{modname}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
+
 
 %check
 # test_unmount_watched_directory_filesystem,test_unmount_watched_directory_filesystem requires sudo and cannot work here.
 %pytest -v -k 'not test_unmount_watched_directory_filesystem' -k 'not test_unmount_watched_directory_filesystem'
 
-%files -n python3-%{modname}
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}-*/
 %{_bindir}/watchmedo*
 
+
 %changelog
+* Tue Aug 08 2023 Jonathan Steffan <jsteffan@fedoraproject.org> - 3.0.0-1
+- Update to 3.0.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

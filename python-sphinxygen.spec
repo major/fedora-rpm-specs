@@ -1,6 +1,6 @@
 Name:           python-sphinxygen
-Version:        1.0.0
-Release:        3%{?dist}
+Version:        1.0.2
+Release:        2%{?dist}
 Summary:        A script to read Doxygen XML output and emit ReST for Sphinx
 
 # All files under ISC, though some tests and
@@ -9,6 +9,8 @@ License:        ISC
 URL:            https://gitlab.com/drobilla/sphinxygen
 # Source from Pypi does not include all test files
 Source:        %{url}/-/archive/v%{version}/sphinxygen-v%{version}.tar.gz
+# https://gitlab.com/drobilla/sphinxygen/-/merge_requests/1
+Patch:         anonymous-struct.patch
 
 BuildRequires:  sed
 BuildRequires:  python3-devel
@@ -33,7 +35,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n sphinxygen-v%{version}
+%autosetup -p1 -n sphinxygen-v%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -64,6 +66,12 @@ install -Dpm 0644 doc/sphinxygen.1 -t %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/sphinxygen.1*
  
 %changelog
+* Tue Aug 08 2023 Benson Muite <benson_muite@emailplus.org> - 1.0.2-2
+- Add patch to for change in behavior of Doxygen 1.9.7
+
+* Wed Aug 02 2023 Benson Muite <benson_muite@emailplus.org> - 1.0.2-1
+- Upgrade to latest release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

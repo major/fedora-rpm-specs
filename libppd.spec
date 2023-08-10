@@ -8,7 +8,7 @@
 Name:           libppd
 Epoch:          1
 Version:        2.0~rc2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -24,6 +24,8 @@ Source0:        %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_
 Patch0001: libppd-disable-testppdfile.patch
 # https://github.com/OpenPrinting/libppd/pull/21
 Patch0002: 0001-ppd-ppd-ipp.c-Use-make-when-constructing-printer-mak.patch
+# https://github.com/OpenPrinting/libppd/commit/30b35cc751bc312a1f82db849b1c80dbd8d32aa4
+Patch0003: 0001-Decode-JCLToPDFInterpreter-value-in-ppdEmitJCLPDF.patch
 
 
 # for autogen.sh
@@ -196,6 +198,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Tue Aug 08 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-3
+- fix printing for PDF+PJL drivers
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0~rc2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

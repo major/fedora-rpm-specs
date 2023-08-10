@@ -3,7 +3,7 @@ Version:        1.2.1
 Release:        6%{?dist}
 Summary:        Allows to implement a user-space driver for an OpenCAPI accelerator
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/OpenCAPI/libocxl
 Source0:        https://github.com/OpenCAPI/libocxl/archive/%{version}/%{name}-%{version}.tar.gz
 

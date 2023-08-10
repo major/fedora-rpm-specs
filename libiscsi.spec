@@ -1,10 +1,10 @@
 Name: libiscsi
 Summary: iSCSI client library
-Version: 1.19.0^20230606git9ca4731
-Release: 2%{?dist}
+Version: 1.19.0^20230804git7577ec5
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 URL: https://github.com/sahlberg/%{name}
-%global commit 9ca47316f48b5ef7d0aa743031c5daccacdc0be7
+%global commit 7577ec589cb34900f83a95797ef473f79603ad61
 #Source: https://github.com/sahlberg/libiscsi/archive/{version}.tar.gz
 Source: https://github.com/sahlberg/libiscsi/archive/%{commit}.tar.gz
 
@@ -77,6 +77,8 @@ to iSCSI servers without having to set up the Linux iSCSI initiator.
 %{_bindir}/iscsi-perf
 %{_bindir}/iscsi-test-cu
 %{_bindir}/iscsi-pr
+%{_bindir}/iscsi-discard
+%{_bindir}/iscsi-md5sum
 %{_mandir}/man1/iscsi-ls.1.gz
 %{_mandir}/man1/iscsi-inq.1.gz
 %{_mandir}/man1/iscsi-swp.1.gz
@@ -97,6 +99,10 @@ The libiscsi-devel package includes the header files for libiscsi.
 %{_libdir}/pkgconfig/libiscsi.pc
 
 %changelog
+* Tue Aug 08 2023 Martin Hoyer <mhoyer@redhat.com> - 1.19.0^20230804git7577ec5-1
+- Update sources to 7577ec5 git snapshot from Aug 4 2023
+- New tools iscsi-discard, iscsi-md5sum
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0^20230606git9ca4731-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,16 +2,12 @@
 %global         dracutlibdir %{_prefix}/lib/dracut
 
 Name:           google-compute-engine-guest-configs
-Version:        20230801.00
+Version:        20230808.00
 Release:        %autorelease
 Summary:        Google Compute Engine guest environment tools
 License:        Apache-2.0
 URL:            https://github.com/GoogleCloudPlatform/%{srcname}
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
-
-# Delete 64-gce-disk-removal.rules
-# https://github.com/GoogleCloudPlatform/guest-configs/pull/51
-Patch0:         0001-64-gce-disk-removal.rules-delete.patch
 
 ExcludeArch:    %{ix86}
 BuildArch:      noarch

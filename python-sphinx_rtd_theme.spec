@@ -4,10 +4,11 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        1.2.1
-Release:        3%{?dist}
+Version:        1.2.2
+Release:        1%{?dist}
 Summary:        Sphinx theme for readthedocs.org
 
+# SPDX
 License:        MIT
 URL:            https://github.com/readthedocs/%{srcname}/
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
@@ -17,6 +18,8 @@ Source:         https://docs.readthedocs.io/en/latest/objects.inv
 # Remove all traces of html5shiv.  We have no interest in supporting ancient
 # versions of Internet Explorer.
 Patch:          %{name}-html5shiv.patch
+# Backport changes to support Sphinx 7
+Patch:          https://github.com/readthedocs/sphinx_rtd_theme/pull/1464.patch
 
 BuildArch:      noarch
 
@@ -65,12 +68,10 @@ readthedocs.org.
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
-# Make theme work with docutils 0.19+ in Fedora 39+
+# Make theme work with docutils 0.20+ in Fedora 39+
 # This is not officially supported yet, tracked upstram in:
 # https://github.com/readthedocs/sphinx_rtd_theme/issues/1323
-sed -i "s|docutils <0.19|docutils <0.20|" setup.cfg
-# Don't pin the upper bound of the sphinxcontrib-jquery
-sed -i "s|sphinxcontrib-jquery >=2.0.0,!=3.0.0|sphinxcontrib-jquery >=2.0.0|" setup.cfg
+sed -i "s|docutils <0.19|docutils <0.21|" setup.cfg
 
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.readthedocs\.io/en/stable/', \)None|\1'%{SOURCE1}'|" \
@@ -194,6 +195,11 @@ grep 'format("woff2\?")' \
 %endif
 
 %changelog
+* Mon Aug 07 2023 Karolina Surma <ksurma@redhat.com> - 1.2.2-1
+- Update to 1.2.2
+Fixes rhbz#2213220
+- Make the package compatible with docutils 0.20+ and Sphinx 7
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

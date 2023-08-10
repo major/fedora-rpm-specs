@@ -23,7 +23,7 @@
 # to handle RCs
 %global ghc_release %{version}
 
-%global base_ver 4.17.1.0
+%global base_ver 4.17.2.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.1.0
@@ -32,7 +32,7 @@
 
 # bootstrap needs 9.0+ (registerized s390x needs 9.2)
 %global ghcboot_major 9.2
-%global ghcboot ghc%{ghcboot_major}
+%global ghcboot ghc%{?ghcboot_major}
 
 %if %{without hadrian}
 %ifarch s390x
@@ -56,8 +56,8 @@
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
-%if 0%{?rhel} >= 10 || 0%{?fedora} >= 38
-%global llvm_major 13
+%if 0%{?rhel} >= 10 || 0%{?fedora} >= 37
+%global llvm_major 14
 %else
 %global llvm_major 12
 %endif
@@ -70,15 +70,15 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.4.5
+Version: 9.4.6
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Glasgow Haskell Compiler
 
-License: BSD and HaskellReport
+License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
 Source0: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.lz
 %if %{with testsuite}
@@ -100,8 +100,6 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 Patch5: https://gitlab.haskell.org/ghc/ghc/-/commit/6e12e3c178fe9ad16131eb3c089bd6578976f5d6.patch
 Patch7: ghc-compiler-enable-build-id.patch
 Patch8: ghc-configure-c99.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/23286 (needed for sphinx-6)
-Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
 # distutils gone in python 3.12
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922
 Patch10: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922.patch
@@ -115,6 +113,9 @@ Patch12: ghc-armv7-VFPv3D16--NEON.patch
 # reverts https://github.com/haskell/text/pull/405
 Patch13: text2-allow-ghc8-arm.patch
 
+# workaround https://github.com/haskell/bytestring/pull/604
+Patch14: ghc-9.4.6-bytestring-Rts.h.patch
+
 # for unregisterized
 # https://gitlab.haskell.org/ghc/ghc/-/issues/15689
 Patch15: ghc-warnings.mk-CC-Wall.patch
@@ -126,11 +127,12 @@ Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
 # fedora ghc has been bootstrapped on
-# %%{ix86} x86_64 ppc ppc64 armv7hl s390 s390x ppc64le aarch64
+# %%{ix86} x86_64 s390x ppc64le aarch64
+# and retired arches: alpha sparcv9 armv5tel ppc ppc64 s390 armv7hl
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
-BuildRequires: %{ghcboot}-compiler
+BuildRequires: %{ghcboot}-compiler > 9.0
 # for ABI hash checking
 %if %{with abicheck}
 BuildRequires: %{name}
@@ -238,7 +240,7 @@ for the functional language Haskell. Highlights:
 
 %package compiler
 Summary: GHC compiler and utilities
-License: BSD
+License: BSD-3-Clause
 Requires: gcc%{?_isa}
 Requires: %{name}-base-devel%{?_isa} = %{base_ver}-%{release}
 %if %{with haddock}
@@ -278,7 +280,7 @@ The package contains symlinks to make %{name} the default GHC compiler.
 %if %{with haddock} || (%{with hadrian} && %{with manual})
 %package doc
 Summary: Haskell library documentation meta package
-License: BSD
+License: BSD-3-Clause
 
 %description doc
 Installing this package causes %{name}-*-doc packages corresponding to
@@ -287,7 +289,7 @@ Installing this package causes %{name}-*-doc packages corresponding to
 
 %package doc-index
 Summary: GHC library documentation indexing
-License: BSD
+License: BSD-3-Clause
 Requires: %{name}-compiler = %{version}-%{release}
 BuildArch: noarch
 
@@ -308,7 +310,7 @@ Haskell libraries documentation.
 %if %{with manual}
 %package manual
 Summary: GHC manual
-License: BSD
+License: BSD-3-Clause
 BuildArch: noarch
 Requires: %{name}-filesystem = %{version}-%{release}
 
@@ -330,48 +332,48 @@ Version: 0.1.0.0
 This provides the hadrian tool which can be used to build ghc.
 %endif
 
-%global BSDHaskellReport %{quote:BSD and HaskellReport}
+%global BSDHaskellReport %{quote:BSD-3-Clause AND HaskellReport}
 
 # use "./libraries-versions.sh" to check versions
 %if %{defined ghclibdir}
-%ghc_lib_subpackage -d -l BSD Cabal-3.8.1.0
-%ghc_lib_subpackage -d -l BSD Cabal-syntax-3.8.1.0
+%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-3.8.1.0
+%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-syntax-3.8.1.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
-%ghc_lib_subpackage -d -l BSD binary-0.8.9.1
-%ghc_lib_subpackage -d -l BSD bytestring-0.11.4.0
+%ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.1
+%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.7.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.5
-%ghc_lib_subpackage -d -l BSD filepath-1.4.2.2
+%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.2.2
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
-%ghc_lib_subpackage -d -x -l BSD ghc-bignum-%{ghc_bignum_ver}
-%ghc_lib_subpackage -d -x -l BSD ghc-boot-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD ghc-boot-th-%{ghc_version_override}
-%ghc_lib_subpackage -d -x -l BSD ghc-compact-%{ghc_compact_ver}
-%ghc_lib_subpackage -d -x -l BSD ghc-heap-%{ghc_version_override}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-bignum-%{ghc_bignum_ver}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-boot-%{ghc_version_override}
+%ghc_lib_subpackage -d -l BSD-3-Clause ghc-boot-th-%{ghc_version_override}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-compact-%{ghc_compact_ver}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-heap-%{ghc_version_override}
 # see below for ghc-prim
-%ghc_lib_subpackage -d -x -l BSD ghci-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD haskeline-0.8.2
-%ghc_lib_subpackage -d -x -l BSD hpc-%{hpc_ver}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghci-%{ghc_version_override}
+%ghc_lib_subpackage -d -l BSD-3-Clause haskeline-0.8.2
+%ghc_lib_subpackage -d -x -l BSD-3-Clause hpc-%{hpc_ver}
 # see below for integer-gmp
 %ghc_lib_subpackage -d -x -l %BSDHaskellReport libiserv-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD mtl-2.2.2
-%ghc_lib_subpackage -d -l BSD parsec-3.1.16.1
-%ghc_lib_subpackage -d -l BSD pretty-1.1.3.6
-%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.16.0
+%ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.2.2
+%ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.16.1
+%ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
+%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.17.0
 # see below for rts
-%ghc_lib_subpackage -d -l BSD stm-2.5.1.0
-%ghc_lib_subpackage -d -l BSD template-haskell-2.19.0.0
-%ghc_lib_subpackage -d -l BSD -c ncurses-devel%{?_isa} terminfo-0.4.1.5
-%ghc_lib_subpackage -d -l BSD text-2.0.2
-%ghc_lib_subpackage -d -l BSD time-1.12.2
-%ghc_lib_subpackage -d -l BSD transformers-0.5.6.2
-%ghc_lib_subpackage -d -l BSD unix-2.7.3
+%ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.1.0
+%ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.19.0.0
+%ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.5
+%ghc_lib_subpackage -d -l BSD-3-Clause text-2.0.2
+%ghc_lib_subpackage -d -l BSD-3-Clause time-1.12.2
+%ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.5.6.2
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.7.3
 %if %{with haddock} || %{with hadrian}
-%ghc_lib_subpackage -d -l BSD xhtml-%{xhtml_ver}
+%ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 %endif
 
@@ -379,7 +381,7 @@ This provides the hadrian tool which can be used to build ghc.
 
 %package devel
 Summary: GHC development libraries meta package
-License: BSD and HaskellReport
+License: BSD-3-Clause AND HaskellReport
 Requires: %{name}-compiler = %{version}-%{release}
 Obsoletes: %{name}-libraries < %{version}-%{release}
 Provides: %{name}-libraries = %{version}-%{release}
@@ -393,7 +395,7 @@ except the ghc library, which is installed by the toplevel ghc metapackage.
 %if %{with ghc_prof}
 %package prof
 Summary: GHC profiling libraries meta package
-License: BSD
+License: BSD-3-Clause
 Requires: %{name}-compiler = %{version}-%{release}
 
 %description prof
@@ -415,9 +417,9 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P7 -p1 -b .orig
 %endif
 %patch -P8 -p1 -b .orig
-%patch -P9 -p1 -b .orig
 %patch -P10 -p1 -b .orig
 %patch -P11 -p1 -b .orig
+%patch -P14 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -494,7 +496,7 @@ export CC=%{_bindir}/gcc
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22195
 export LD=%{_bindir}/ld.gold
 
-export GHC=%{_bindir}/ghc-%{ghcboot_major}
+export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
 # * %%configure induces cross-build due to different target/host/build platform names
 ./configure --prefix=%{_prefix} --exec-prefix=%{_exec_prefix} \
@@ -600,6 +602,8 @@ echo "%%license libraries/$name/LICENSE" >> %{name}-$name.files
 done
 
 echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
+echo "%%dir %{ghcliblib}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
+echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 
 %ghc_gen_filelists ghc %{ghc_version_override}
 %ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
@@ -610,7 +614,7 @@ echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists hpc %{hpc_ver}
 %ghc_gen_filelists libiserv %{ghc_version_override}
 
-%ghc_gen_filelists ghc-prim 0.9.0
+%ghc_gen_filelists ghc-prim 0.9.1
 %ghc_gen_filelists integer-gmp 1.1
 %if %{with hadrian}
 %ghc_gen_filelists rts %{rts_ver}
@@ -685,6 +689,11 @@ sh %{gen_contents_index} --intree --verbose
 cd ..
 %endif
 
+mkdir -p %{buildroot}%{_mandir}/man1
+install -p -m 0644 %{SOURCE5} %{buildroot}%{_mandir}/man1/ghc-pkg.1
+install -p -m 0644 %{SOURCE6} %{buildroot}%{_mandir}/man1/haddock.1
+install -p -m 0644 %{SOURCE7} %{buildroot}%{_mandir}/man1/runghc.1
+
 %if %{with hadrian}
 %if %{with haddock}
 rm %{buildroot}%{_pkgdocdir}/archives/libraries.html.tar.xz
@@ -702,11 +711,6 @@ mv %{buildroot}%{_mandir}/man1/ghc{,-%{ghc_major}}.1
 %if %{without hadrian}
 find %{buildroot}%{ghc_html_libraries_dir} -name LICENSE -exec rm '{}' ';'
 %endif
-
-mkdir -p %{buildroot}%{_mandir}/man1
-install -p -m 0644 %{SOURCE5} %{buildroot}%{_mandir}/man1/ghc-pkg.1
-install -p -m 0644 %{SOURCE6} %{buildroot}%{_mandir}/man1/haddock.1
-install -p -m 0644 %{SOURCE7} %{buildroot}%{_mandir}/man1/runghc.1
 
 %ifarch armv7hl
 export RPM_BUILD_NCPUS=1
@@ -885,12 +889,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %{ghclibdir}/bin/runhaskell
 %{ghclibdir}/bin/runhaskell-%{version}
 %{ghclibdir}/bin/unlit-ghc-%{version}
-%dir %{ghcliblib}
 %dir %{ghcliblib}/bin
 %{ghcliblib}/bin/ghc-iserv
 %{ghcliblib}/bin/ghc-iserv-dyn
 %{ghcliblib}/bin/unlit
-%dir %ghclibplatform
 %endif
 %{ghcliblib}/ghc-usage.txt
 %{ghcliblib}/ghci-usage.txt
@@ -923,7 +925,11 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %verify(not size mtime) %{ghc_html_libraries_dir}/synopsis.png
 %endif
 %if %{with manual}
+%if %{with hadrian}
 %{_mandir}/man1/ghc-%{ghc_major}.1*
+%else
+%{_mandir}/man1/ghc.1*
+%endif
 %endif
 
 %files compiler-default
@@ -985,6 +991,11 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Tue Aug  8 2023 Jens Petersen <petersen@redhat.com> - 9.4.6-22
+- https://downloads.haskell.org/~ghc/9.4.6/docs/users_guide/9.4.6-notes.html
+- update license tags to SPDX
+- base subpkg now owns ghcliblib and ghclibplatform dirs (#2185357)
+
 * Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 9.4.5-21
 - backport bcond perfbuild changes from ghc9.6
 - build the ghc.1 manpage with sphinx and version not to conflict

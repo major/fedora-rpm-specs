@@ -40,6 +40,7 @@ BuildRequires:  pixman-devel
 BuildRequires:  zlib-devel
 # Desktop
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 # Output
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(jack)
@@ -70,6 +71,8 @@ BuildRequires:  pkgconfig(libusb)
 BuildRequires:  libifp-devel
 BuildRequires:  pkgconfig(lua)
 BuildRequires:  sed
+
+Requires:       hicolor-icon-theme
 
 %description
 Aqualung is an advanced music player originally targeted at the GNU/Linux
@@ -122,8 +125,67 @@ sed -i 's@/usr/lib/@%{_libdir}/@g' src/plugin.c
 
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
-install -Dpm0644 src/img/icon_48.png \
-  %{buildroot}%{_datadir}/pixmaps/%{name}.png
+for i in 16 24 32 48 64; do
+  install -Dpm0644 src/img/icon_${i}.png \
+    %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/%{name}.png
+done
+
+cat <<EOF > %{name}.appdata.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>net.jeremyevans.aqualung</id>
+    <name>Aqualung</name>
+    <summary>Advanced music player</summary>
+    <metadata_license>FSFAP</metadata_license>
+    <project_license>GPL-2.0-or-later</project_license>
+    <description>
+        <p>
+            Aqualung is an advanced music player originally targeted at the GNU/Linux
+            operating system. It plays audio CDs, internet radio streams and pod casts as
+            well as sound files in just about any audio format and has the feature of
+            inserting no gaps between adjacent tracks.
+        </p>
+    </description>
+    <launchable type="desktop-id">%{name}.desktop</launchable>
+    <provides>
+        <binary>aqualung</binary>
+    </provides>
+    <content_rating type="oars-1.1"/>
+    <developer_name>Jeremy Evans</developer_name>
+    <releases>
+        <release version="%{version}" date="%(date +%F -r %{SOURCE0})" />
+    </releases>
+    <screenshots>
+      <screenshot type="default">
+        <caption>Default skin (Music Store builder)</caption>
+        <image>https://aqualung.jeremyevans.net/images/default.png</image>
+      </screenshot>
+      <screenshot>
+        <caption>Woody skin (File Info and volume calculation)</caption>
+        <image>https://aqualung.jeremyevans.net/images/woody.png</image>
+      </screenshot>
+      <screenshot>
+        <caption>Metal skin (Playlist featuring Album mode)</caption>
+        <image>https://aqualung.jeremyevans.net/images/metal.png</image>
+      </screenshot>
+      <screenshot>
+        <caption>Dark skin (LADSPA plugin support)</caption>
+        <image>https://aqualung.jeremyevans.net/images/dark.png</image>
+      </screenshot>
+      <screenshot>
+        <caption>Plain skin (Settings dialog and album cover)</caption>
+        <image>https://aqualung.jeremyevans.net/images/plain.png</image>
+      </screenshot>
+      <screenshot>
+        <caption>Ocean skin (Search in Music Store)</caption>
+        <image>https://aqualung.jeremyevans.net/images/ocean.png</image>
+      </screenshot>
+    </screenshots>
+    <url type="homepage">%{url}</url>
+</component>
+EOF
+install -D -p -m 644 %{name}.appdata.xml %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %find_lang %{name}
 
@@ -135,7 +197,8 @@ install -Dpm0644 src/img/icon_48.png \
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_metainfodir}/%{name}.appdata.xml
 
 %changelog
 * Fri Aug 04 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 1.2-3

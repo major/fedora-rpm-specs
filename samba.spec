@@ -138,9 +138,9 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.19.0
-%global baserelease 0
+%global baserelease 1
 # This should be rc1 or %%nil
-%global pre_release rc1
+%global pre_release rc2
 
 %global samba_release %{baserelease}
 %if "x%{?pre_release}" != "x"
@@ -4448,6 +4448,9 @@ fi
 %endif
 
 %changelog
+* Tue Aug 08 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.0rc2-1
+- resolves: #2227246 - Update to version 4.19.0rc2
+
 * Mon Aug 07 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.0rc1-0
 - resolves: #2227246 - Update to version 4.19.0rc1
 

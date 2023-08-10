@@ -1,4 +1,4 @@
-%global         upversion 4.0.2.2816
+%global         upversion 4.0.3.2975
 %global         pkgversion Firebird-%{upversion}-0
 
 %global         major 4.0
@@ -10,13 +10,13 @@
 
 Name:           firebird
 Version:        %{upversion}
-Release:        5%{?dist}
+Release:        1%{?dist}
 
 Summary:        SQL relational database management system
 License:        Interbase
 URL:            http://www.firebirdsql.org/
 
-Source0:        https://github.com/FirebirdSQL/firebird/releases/download/v4.0.2/%{pkgversion}.tar.xz
+Source0:        https://github.com/FirebirdSQL/firebird/releases/download/v4.0.3/%{pkgversion}.tar.xz
 Source1:        firebird-logrotate
 Source2:        README.Fedora
 Source3:        firebird.service
@@ -376,6 +376,9 @@ fi
 
 
 %changelog
+* Tue Aug 08 2023 Philippe Makowski <makowski@fedoraproject.org> - 4.0.3.2975-0
+- Update to 4.0.3 (#2228171)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2.2816-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

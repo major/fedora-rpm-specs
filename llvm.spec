@@ -327,7 +327,7 @@ export ASMFLAGS="%{build_cflags}"
 	-DLLVM_INSTALL_SPHINX_HTML_DIR=%{_pkgdocdir}/html \
 	-DSPHINX_EXECUTABLE=%{_bindir}/sphinx-build-3 \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF \
-	-DCMAKE_SHARED_LINKER_FLAGS="-Wl,-z,cet-report=error" \
+	-DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS -Wl,-z,cet-report=error" \
 	-DLLVM_UNITTEST_LINK_FLAGS="-Wl,-plugin-opt=O0"
 
 # Build libLLVM.so first.  This ensures that when libLLVM.so is linking, there

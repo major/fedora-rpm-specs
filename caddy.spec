@@ -1,6 +1,6 @@
 # https://github.com/caddyserver/caddy
 %global goipath         github.com/caddyserver/caddy
-%global basever         2.7.2
+%global basever         2.7.3
 #global prerel          beta
 #global prerelnum       2
 Version:                %{basever}%{?prerel:~%{prerel}%{prerelnum}}
@@ -190,9 +190,9 @@ Provides:       bundled(golang(github.com/prometheus/procfs)) = 0.8.0
 # MIT
 Provides:       bundled(golang(github.com/quic-go/qpack)) = 0.4.0
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/quic-go/qtls-go1-20)) = 0.3.0
+Provides:       bundled(golang(github.com/quic-go/qtls-go1-20)) = 0.3.1
 # MIT
-Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.37.1
+Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.37.3
 # MIT
 Provides:       bundled(golang(github.com/rs/xid)) = 1.5.0
 # BSD-2-Clause
@@ -454,6 +454,9 @@ fi
 
 
 %changelog
+* Tue Aug 08 2023 Carl George <carl@george.computer> - 2.7.3-1
+- Update to version 2.7.3, resolves rhbz#2229638
+
 * Thu Aug 03 2023 Carl George <carl@george.computer> - 2.7.2-1
 - Update to version 2.7.2, resolves rhbz#2228776
 

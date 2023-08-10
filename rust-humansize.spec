@@ -5,9 +5,9 @@
 %global crate humansize
 
 Name:           rust-humansize
-Version:        1.1.1
+Version:        2.1.3
 Release:        %autorelease
-Summary:        Configurable crate to easily represent file sizes in a human-readable format
+Summary:        Configurable crate to easily represent sizes in a human-readable format
 
 # Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
@@ -17,7 +17,7 @@ Source:         %{crates_source}
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A configurable crate to easily represent file sizes in a human-readable
+A configurable crate to easily represent sizes in a human-readable
 format.}
 
 %description %{_description}
@@ -35,6 +35,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/changelog.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,6 +48,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+impl_style-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+impl_style-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "impl_style" feature of the "%{crate}" crate.
+
+%files       -n %{name}+impl_style-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+no_alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+no_alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "no_alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+no_alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -12,7 +12,8 @@ Summary:        Utilities and daemons for IBM z Systems
 Version:        2.29.0
 Release:        1%{?dist}
 Epoch:          2
-License:        MIT
+# MIT covers nearly all the files, except init files
+License:        MIT AND LGPL-2.1-or-later
 ExclusiveArch:  s390 s390x
 URL:            https://github.com/ibm-s390-linux/s390-tools
 Source0:        https://github.com/ibm-s390-linux/s390-tools/archive/v%{version}.tar.gz#/s390-tools-%{version}.tar.gz
@@ -256,7 +257,7 @@ This package provides minimal set of tools needed to system to boot.
 #
 
 %package base
-License:        MIT
+License:        MIT AND LGPL-2.1-or-later
 Summary:        S390 base tools
 Requires:       gawk sed coreutils
 Requires:       sg3_utils

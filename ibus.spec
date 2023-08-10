@@ -51,16 +51,15 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.29~beta1
-Release:        2%{?dist}
+Version:        1.5.29~beta2
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
-License:        LGPL-2.0-or-later
+License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
 Source0:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.gz
 Source1:        %{name}-xinput
 Source2:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 %if 0%{?fedora:0}%{?rhel:1}
@@ -558,6 +557,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue Aug 08 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta2-1
+- Distinguish Arabic XKB and Keypad XKB options
+
 * Thu Aug 03 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta1-2
 - Fix some source tests
 - Fix configure --disable-appindicator

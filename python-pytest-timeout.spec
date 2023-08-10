@@ -2,9 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        py.test plugin to abort hanging tests
 
+# SPDX
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-timeout
 Source0:        %{pypi_source}
@@ -50,6 +51,9 @@ Summary:        %{summary}
 %{python3_sitelib}/__pycache__/pytest_timeout*
 
 %changelog
+* Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 2.1.0-7
+- Declare license as an SPDX expression
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

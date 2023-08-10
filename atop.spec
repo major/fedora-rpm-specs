@@ -11,8 +11,7 @@ Source0:        https://www.atoptool.nl/download/%{name}-%{version}.tar.gz
 Source1:        atop.d
 
 Patch0:         atop-sysconfig.patch
-Patch1:         atop-2.3.0-newer-gcc.patch
-Patch2:         format.patch
+Patch1:         format.patch
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
@@ -45,8 +44,7 @@ performance-monitors:
 %prep
 %setup -q
 %patch -P 0 -p0 -b .sysconfig
-%patch -P 1 -p1 -b .newer-gcc
-%patch -P 2 -p0 -b .format
+%patch -P 1 -p0 -b .format
 
 # Correct unit file path
 sed -i "s|/etc/default/atop|/etc/sysconfig/atop|g" atop.service

@@ -3,7 +3,7 @@
 
 Name:		urh
 Version:	2.9.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 License:	ASL 2.0 and GPLv2
 URL:		https://github.com/jopohl/urh
@@ -18,7 +18,8 @@ BuildRequires:	hackrf-devel
 BuildRequires:	rtl-sdr-devel
 BuildRequires:	uhd-devel
 BuildRequires:	python3-qt5
-BuildRequires:	python3-Cython
+# temporal workaround until upstream adds support for cython-3.0.0
+BuildRequires:	python3-cython0.29
 Requires:	python3-numpy
 Requires:	python3-qt5
 
@@ -81,6 +82,10 @@ desktop-file-install --add-category="Utility" \
 %{python3_sitearch}/urh-%{version}-*.egg-info
 
 %changelog
+* Tue Aug  8 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.9.4-5
+- Fixed FTBFS
+  Resolves: rhbz#2226494
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,8 +1,6 @@
 %global pypi_name dnspython
 %global rctag %{nil}
 
-# curio is discontinued upstream and not ready for Python 3.12
-%bcond_with curio
 %if 0%{?rhel}
 %bcond_with trio
 %bcond_with doh
@@ -12,8 +10,8 @@
 %endif
 
 Name:           python-dns
-Version:        2.3.0
-Release:        7%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -41,14 +39,14 @@ manipulation of DNS zones, messages, names, and records.
 %description %_description
 %package -n python3-dns
 Summary:        %{summary}
-%if %{without curio} && ! 0%{?rhel}
+%if ! 0%{?rhel}
 Obsoletes:      python3-dns+curio < 2.3.0-6
 %endif
 
 %description -n python3-dns %_description
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x dnssec -x idna %{?with_trio:-x trio} %{?with_curio:-x curio} %{?with_doh:-x doh}
+%pyproject_buildrequires -r -x dnssec -x idna %{?with_trio:-x trio} %{?with_doh:-x doh}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}%{rctag}
@@ -74,7 +72,6 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %license LICENSE
 %doc README.md examples
 %pycached %exclude %{python3_sitelib}/dns/_trio_backend.py
-%pycached %exclude %{python3_sitelib}/dns/_curio_backend.py
 
 %pyproject_extras_subpkg -n python3-dns dnssec idna
 
@@ -87,12 +84,10 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %pycached %{python3_sitelib}/dns/_trio_backend.py
 %endif
 
-%if %{with curio}
-%pyproject_extras_subpkg -n python3-dns curio
-%pycached %{python3_sitelib}/dns/_curio_backend.py
-%endif
-
 %changelog
+* Mon Jul 31 2023 Lumír Balhar <lbalhar@redhat.com> - 2.4.1-1
+- Update to 2.4.1 (rhbz#2219703)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

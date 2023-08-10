@@ -15,7 +15,7 @@ Summary: OpenPrinting CUPS filters and backends for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0~rc2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -24,6 +24,8 @@ License: Apache-2.0 WITH LLVM-exception
 
 URL:     https://github.com/OpenPrinting/cups-filters
 Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+Source1: lftocrlf.ppd
+Source2: lftocrlf
 
 
 # Patches
@@ -99,6 +101,10 @@ workflow introduced by OpenPrinting.
 %install
 %make_install
 
+# 2229776 - Add textonly driver back, but as lftocrlf
+install -p -m 0755 %{SOURCE2} %{buildroot}%{_cups_serverbin}/filter/lftocrlf
+install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/ppd/cupsfilters/lftocrlf.ppd
+
 # LSB3.2 requires /usr/bin/foomatic-rip,
 # create it temporarily as a relative symlink
 # (2.0b3) try using universal filter, it should have foomatic-rip functionality
@@ -142,6 +148,8 @@ make check
 %attr(0755,root,root) %{_cups_serverbin}/filter/imagetopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/imagetops
 %attr(0755,root,root) %{_cups_serverbin}/filter/imagetoraster
+# 2229776 - Add textonly driver back, but as lftocrlf
+%attr(0755,root,root) %{_cups_serverbin}/filter/lftocrlf
 %attr(0755,root,root) %{_cups_serverbin}/filter/pclmtoraster
 %attr(0755,root,root) %{_cups_serverbin}/filter/pdftopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/pdftops
@@ -174,6 +182,9 @@ make check
 
 
 %changelog
+* Mon Aug 07 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-3
+- 2229776 - Add textonly driver back as lftocrlf driver
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0~rc2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 # https://github.com/tinygo-org/tinygo
 %global goipath         github.com/tinygo-org/tinygo
-Version:                0.27.0
+Version:                0.28.1
 
 %global CMSIS_commit        9fe411cef1cef5de58e5957b89760759de44e393
 %global avr_commit          6624554c02b237b23dc17d53e992bf54033fc228
@@ -85,41 +85,32 @@ Patch0002:      0002-Skip-some-cross-Linux-tests-where-qemu-is-broken.patch
 # Add Fedora specific dnf instructions
 Patch0003:      0003-Suggest-optional-packages-to-install-if-missing.patch
 
-# https://github.com/tinygo-org/tinygo/pull/2840
-Patch0004:      0004-Skip-TestDirFS-on-32-bit-systems.patch
-Patch0005:      0005-Skip-broken-tests-on-i686.patch
-
 # Support LLVM 16.
 # https://github.com/tinygo-org/tinygo/pull/3649
-Patch0006:      0006-cgo-Handle-elaborated-typedefs-from-libclang.patch
-Patch0007:      0007-Add-CPU-to-RISCV-targets.patch
-Patch0008:      0008-Handle-argmemonly-attribute-change-in-LLVM16.patch
-# https://github.com/tinygo-org/tinygo/pull/3566
-Patch0009:      0009-Update-transform-tests-with-opaque-pointers.patch
-# https://github.com/tinygo-org/tinygo/pull/3658
-Patch0010:      0010-Switch-interp-tests-to-opaque-pointers.patch
+Patch0004:      0004-cgo-Handle-elaborated-typedefs-from-libclang.patch
+Patch0005:      0005-Add-CPU-to-RISCV-targets.patch
+Patch0006:      0006-Handle-argmemonly-attribute-change-in-LLVM16.patch
 # https://github.com/tinygo-org/tinygo/pull/3649
-Patch0011:      0011-Update-types-in-cgo-tests-for-LLVM-16.patch
+Patch0007:      0007-Update-types-in-cgo-tests-for-LLVM-16.patch
 
 # Not supported upstream yet.
-ExcludeArch:    armv7hl ppc64le s390x
+ExcludeArch:    ppc64le s390x
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  (clang-devel >= %{clang_llvm_version} with clang-devel < %{lua: print(tonumber(rpm.expand('%{clang_llvm_version}')) + 1)})
 BuildRequires:  golang(github.com/aykevl/go-wasm)
 BuildRequires:  golang(github.com/blakesmith/ar)
-%ifnarch %{ix86}
 BuildRequires:  chromium
 BuildRequires:  golang(github.com/chromedp/chromedp) >= 0.7.6
 BuildRequires:  golang(github.com/chromedp/cdproto/cdp)
-%endif
 BuildRequires:  golang(github.com/gofrs/flock) >= 0.8.1
 BuildRequires:  golang(github.com/google/shlex)
 BuildRequires:  golang(github.com/inhies/go-bytesize)
 BuildRequires:  golang(github.com/marcinbor85/gohex)
 BuildRequires:  golang(github.com/mattn/go-colorable) >= 0.1.8
 BuildRequires:  golang(github.com/mattn/go-tty) >= 0.0.4
+BuildRequires:  golang(github.com/sigurn/crc16)
 BuildRequires:  golang(go.bug.st/serial) >= 1.3.5
 BuildRequires:  golang(golang.org/x/tools/go/ast/astutil)
 BuildRequires:  golang(golang.org/x/tools/go/ssa) >= 0.1.11
@@ -217,11 +208,6 @@ mv lib/wasi-libc-%{wasi_libc_commit} lib/wasi-libc
 tar -C lib -xf %{SOURCE11}
 rmdir lib/mingw-w64
 mv lib/mingw-w64-%{mingw64_commit} lib/mingw-w64
-
-# This test is too slow and pretty much freezes.
-%ifarch %{ix86}
-sed -i -e 's!archive/zip!$(nil)!' Makefile
-%endif
 
 %build
 # Use only GOBUILDTAGS when https://pagure.io/go-rpm-macros/pull-request/34 is
@@ -327,16 +313,10 @@ export GO111MODULE=off
 export XDG_CACHE_HOME="${PWD}/$(mktemp -d tinygo.XXXXXX)"
 %gocheck -v -t src -t tests
 ( cd _build/src/%{goipath} && GOPATH=%{currentgosourcedir}/_build:$GOPATH make smoketest STM32=0 XTENSA=0 )
-%ifnarch %{ix86} aarch64
+%ifnarch aarch64
 make wasmtest
 %endif
-# Ignoring errors due to CGo issue:
-# https://github.com/tinygo-org/tinygo/issues/3057
-%ifarch %{ix86}
-make tinygo-test-fast
-%else
 make tinygo-test
-%endif
 %endif
 
 

@@ -4,7 +4,7 @@
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.3.6
+Version:  3.4.0
 Release:  %autorelease
 License:  GPLv2+
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -16,6 +16,7 @@ Patch004: opensips-0004-Return-actual-payload-ID-in-case-of-a-dynamic-payloa.pat
 Patch005: opensips-0005-Add-support-for-upcoming-json-c-0.14.0.patch
 Patch006: opensips-0006-tm-clone-message-in-async-mode-only-in-request-route.patch
 Patch007: opensips-0007-libcouchbase-API-v3.patch
+Patch008: opensips-0008-Guard-VERSIONTYPE.patch
 
 URL:      https://opensips.org
 
@@ -841,7 +842,7 @@ clients.
 %autosetup -p1
 
 %build
-LOCALBASE=/usr NICER=0 CFLAGS="%{optflags} -fgnu89-inline" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 \
+LOCALBASE=/usr NICER=0 CFLAGS="%{optflags} -fgnu89-inline" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=34693fe5e \
   exclude_modules="%EXCLUDE_MODULES" \
   PYTHON=/usr/bin/python3 \
   cfg_target=%{_sysconfdir}/opensips/

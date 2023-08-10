@@ -5,7 +5,7 @@
 %global crate askama
 
 Name:           rust-askama
-Version:        0.11.1
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Type-safe, compiled Jinja-like templates for Rust
 
@@ -35,6 +35,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -59,6 +60,30 @@ This package contains library source intended for building other packages which
 use the "config" feature of the "%{crate}" crate.
 
 %files       -n %{name}+config-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dep_humansize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dep_humansize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dep_humansize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dep_humansize-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dep_num_traits-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dep_num_traits-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dep_num_traits" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dep_num_traits-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+humansize-devel
@@ -109,6 +134,30 @@ use the "num-traits" feature of the "%{crate}" crate.
 %files       -n %{name}+num-traits-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+percent-encoding-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+percent-encoding-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "percent-encoding" feature of the "%{crate}" crate.
+
+%files       -n %{name}+percent-encoding-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-json-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -131,6 +180,30 @@ This package contains library source intended for building other packages which
 use the "serde-yaml" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-yaml-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde_json-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde_json-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde_json" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde_json-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde_yaml-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde_yaml-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde_yaml" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde_yaml-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+urlencode-devel
@@ -179,6 +252,18 @@ This package contains library source intended for building other packages which
 use the "with-gotham" feature of the "%{crate}" crate.
 
 %files       -n %{name}+with-gotham-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+with-hyper-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+with-hyper-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "with-hyper" feature of the "%{crate}" crate.
+
+%files       -n %{name}+with-hyper-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+with-mendes-devel

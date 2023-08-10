@@ -2,7 +2,7 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
@@ -12,7 +12,7 @@ Source0:        https://github.com/fontforge/%{name}/archive/%{version}.tar.gz#/
 Patch0:         0001-Fix-errors-in-French-and-Italian-translations.patch
 
 Requires:       xdg-utils
-Requires:       autotrace
+Requires:       (autotrace or potrace)
 Requires:       hicolor-icon-theme
 
 BuildRequires:  gcc-c++
@@ -126,6 +126,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Aug 08 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 20230101-7
+- Allow potrace as an alternative to autotrace
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230101-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

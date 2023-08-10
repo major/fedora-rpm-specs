@@ -3,7 +3,7 @@
 
 %define eol_date 2024-05-14
 
-%define dist_version 39
+%define dist_version 40
 %define rhel_dist_version 10
 
 %if %{is_rawhide}
@@ -81,7 +81,7 @@
 
 Summary:        Fedora release files
 Name:           fedora-release
-Version:        39
+Version:        40
 # The numbering is 0.<r> before a given Fedora Linux release is released,
 # with r starting at 1, and then just <r>, with r starting again at 1.
 # Use '%%autorelease -p' before final, and then drop the '-p'.

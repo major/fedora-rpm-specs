@@ -3,10 +3,10 @@
 
 Name:           python-%{srcname}
 Version:        5.9.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/giampaolo/psutil
 Source0:        %{url}/archive/release-%{version}/%{srcname}-%{version}.tar.gz
 #
@@ -95,6 +95,9 @@ make test APPVEYOR=1 PYTHON=%{__python3} PYTHONPATH=%{buildroot}/%{python3_sitea
 
 
 %changelog
+* Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 5.9.5-2
+- Declare the license as an SPDX expression
+
 * Fri Aug 04 2023 Jonathan Wright <jonathan@almalinux.org> - 5.9.5-1
 - Update to 5.9.5 rhbz#2135931
 - Skip unreliable test rhbz#2169395

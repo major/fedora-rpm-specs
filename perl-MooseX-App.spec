@@ -3,17 +3,20 @@
 Name:           perl-MooseX-App
 # Keep 2-digit precision
 Version:        %(echo '%{cpan_version}' | sed 's/\(\...\)\(.\)/\1.\2/')
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Write user-friendly command line apps with even less suffering
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-App
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAROS/MooseX-App-%{cpan_version}.tar.gz
+# Adapt to Perl 5.38.0, bug #2223530, proposed to an upstream,
+# <https://github.com/maros/MooseX-App/issues/69>
+Patch0:         MooseX-App-1.42-Remove-given-when-and-smartmatch-operators.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(base)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
@@ -75,7 +78,7 @@ command in an underlying namespace. Options and positional parameters can
 be defined as simple Moose accessors.
 
 %prep
-%setup -q -n MooseX-App-%{cpan_version}
+%autosetup -p1 -n MooseX-App-%{cpan_version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -86,15 +89,24 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_fixperms} %{buildroot}/*
 
 %check
+unset APP_DEVELOPER
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 %{make_build} test
 
 %files
 %license LICENCE
 %doc Changes README.md TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/MooseX
+%{perl_vendorlib}/MooseX/App
+%{perl_vendorlib}/MooseX/App.pm
+%{_mandir}/man3/MooseX::App.*
+%{_mandir}/man3/MooseX::App::*
 
 %changelog
+* Tue Aug 08 2023 Petr Pisar <ppisar@redhat.com> - 1.42-7
+- Adapt to Perl 5.38.0 (bug #2223530)
+- Convert a license tag to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,9 +1,15 @@
 Name:           libmicrohttpd
 Version:        0.9.77
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Lightweight library for embedding a webserver in applications
-License:        LGPLv2+
+
+# * COPYING says that some main sources are only under LGPL-2.1-or-later
+#   and the rest is dual licensed under LGPL-2.1-or-later OR GPL-2.0-or-later WITH eCos-exception-2.0.
+# * Some docs are under GFDL-1.3-no-invariants-or-later.
+# * Tests and some parts of the build system are under other licenses but they are NOT shipped.
+License:        LGPL-2.1-or-later AND (LGPL-2.1-or-later OR GPL-2.0-or-later WITH eCos-exception-2.0) AND GFDL-1.3-no-invariants-or-later
+
 URL:            http://www.gnu.org/software/libmicrohttpd/
 Source0:        https://ftp.gnu.org/gnu/libmicrohttpd/%{name}-%{version}.tar.gz
 Patch0:         gnutls-utilize-system-crypto-policy.patch
@@ -100,6 +106,9 @@ fi
 %doc html
 
 %changelog
+* Mon Aug 07 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1:0.9.77-2
+- migrate to SPDX license format
+
 * Fri Jul 28 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:0.9.77-1
 - Update to 1:0.9.77
 

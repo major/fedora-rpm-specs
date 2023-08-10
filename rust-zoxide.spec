@@ -15,10 +15,11 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          zoxide-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * bump askama dependency from 0.11 to 0.12
 # * drop incompatible compiler flag settings (strip = true, debug = 0)
 Patch:          zoxide-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 A smarter cd command for your terminal.}
@@ -27,15 +28,12 @@ A smarter cd command for your terminal.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-
-# (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# CC0-1.0 OR MIT-0
+# CC0-1.0 OR MIT-0 OR Apache-2.0
 # MIT
 # MIT OR Apache-2.0
-# Unlicense OR MIT
-License:        MIT AND MIT-0 AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
+License:        MIT AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (CC0-1.0 OR MIT-0 OR Apache-2.0)
 # LICENSE.dependencies contains a full license breakdown
 
 # recommend fuzzy finder for interactive completions
@@ -70,8 +68,7 @@ echo '/usr/bin/zsh'
 
 %build
 %cargo_build
-# write license summary and breakdown
-%cargo_license_summary
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install

@@ -14,7 +14,7 @@
 %global liblzfse_majver 1
 
 Name:           asahi-installer
-Version:        0.5.7
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Asahi Linux installer
 

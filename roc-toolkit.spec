@@ -8,7 +8,7 @@
 Name:		roc-toolkit
 #Version:	0.2.1^%{git_suffix}
 Version:	0.2.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Real-time audio streaming
 License:	MPL-2.0 AND LGPL-2.1-or-later AND CECILL-C
 URL:		https://github.com/roc-streaming/roc-toolkit
@@ -22,7 +22,7 @@ BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRequires:	pkgconf-pkg-config
 BuildRequires:	gengetopt
-BuildRequires:	ragel-devel
+BuildRequires:	ragel
 BuildRequires:	libuv-devel
 BuildRequires:	libunwind-devel
 BuildRequires:	sox-devel
@@ -97,6 +97,10 @@ scons test --with-openfec-includes=%{_includedir}/openfec --enable-tests
 %doc docs/html
 
 %changelog
+* Tue Aug  8 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.1-4
+- Fixed FTBFS
+  Resolves: rhbz#2226398
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Name:           libzfcphbaapi
 Summary:        HBA API for the zFCP device driver
 Version:        2.2.0
 Release:        19%{?dist}
-License:        CPL
+License:        CPL-1.0
 URL:            http://www.ibm.com/developerworks/linux/linux390/zfcp-hbaapi.html
 # http://www.ibm.com/developerworks/linux/linux390/zfcp-hbaapi-%%{hbaapiver}.html
 Source0:        http://download.boulder.ibm.com/ibmdl/pub/software/dw/linux390/ht_src/%{srcname}-%{version}.tar.gz
@@ -44,8 +44,8 @@ Documentation in HTML format for the zFCP HBA API Library.
 %prep
 %setup -q -n %{srcname}-%{version}
 
-%patch1 -p1 -b .fedora
-%patch2 -p1
+%patch 1 -p1 -b .fedora
+%patch 2 -p1
 
 
 %build

@@ -5,19 +5,23 @@
 %global gnome_desktop_version                   40~rc
 %global glib2_version                           2.68.0
 %global gtk4_version                            3.24.27
-%global mutter_version                          44~beta
+%global mutter_version                          45~beta
 %global gsettings_desktop_schemas_version       40~rc
 %global ibus_version                            1.5.24
 %global gnome_settings_daemon_version           40~rc
 
 Name:           gnome-kiosk
 Version:        44.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+
+# Build against mutter 45
+# https://gitlab.gnome.org/GNOME/gnome-kiosk/-/merge_requests/28
+Patch:          28.patch
 
 Provides:       firstboot(windowmanager) = %{name}
 
@@ -35,7 +39,7 @@ BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= %{ibus_version}
-BuildRequires:  pkgconfig(libmutter-12) >= %{mutter_version}
+BuildRequires:  pkgconfig(libmutter-13) >= %{mutter_version}
 
 Requires:       gnome-settings-daemon%{?_isa} >= %{gnome_settings_daemon_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
@@ -105,6 +109,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/xsessions/gnome-kiosk-script-xorg.desktop
 
 %changelog
+* Tue Aug 08 2023 Kalev Lember <klember@redhat.com> - 44.0-3
+- Build against mutter 45
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

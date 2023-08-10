@@ -1,6 +1,6 @@
 Summary:	SSH (Secure Shell) client
 Name:		perl-Net-SSH-Perl
-Version:	2.141
+Version:	2.142
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Net-SSH-Perl
@@ -108,6 +108,12 @@ make test
 %{_mandir}/man3/Net::SSH::Perl*.3*
 
 %changelog
+* Tue Aug  8 2023 Paul Howarth <paul@city-fan.org> - 2.142-1
+- Update to 2.142
+  - Yank out the SIGNATURES stuff; this is something you can do locally if you
+    need that (GH#63)
+  - Update the license files to match those in Perl (GH#67)
+
 * Wed Jul 26 2023 Paul Howarth <paul@city-fan.org> - 2.141-1
 - Update to 2.141
   - The code in now hosted at https://github.com/briandfoy/net-ssh-perl

@@ -1,0 +1,94 @@
+%global commit0 fd1a1b7757e28ac547954f2eb63f4815fa241bd3
+%global date 20230212
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
+Name:       c-icap-modules
+Version:    0.5.6
+Release:    2.%{date}git%{shortcommit0}%{?dist}
+Summary:    Services for the c-icap server
+License:    LGPL-2.0-or-later
+URL:        http://c-icap.sourceforge.net/
+
+Source0:    https://github.com/c-icap/c-icap-modules/archive/%{commit0}.tar.gz#/c-icap-modules-%{shortcommit0}.tar.gz
+
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  bzip2-devel
+BuildRequires:  c-icap-devel >= %{version}
+BuildRequires:  clamav-devel
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  libatomic
+BuildRequires:  libtool
+BuildRequires:  lmdb-devel
+BuildRequires:  make
+
+Requires:   c-icap >= %{version}
+
+%description
+C-icap is an implementation of an ICAP server. It can be used with HTTP proxies
+that support the ICAP protocol to implement content adaptation and filtering
+services. Most of the commercial HTTP proxies must support the ICAP protocol,
+the open source Squid 3.x proxy server supports it too.
+
+Currently the following services have been implemented for the c-icap server:
+  - virus_scan, an antivirus ICAP service
+  - url_check, an URL blacklist/whitelist icap service
+  - srv_content_filtering, a score based content filtering icap service
+
+%prep
+%autosetup -p1 -n c-icap-modules-%{commit0}
+
+# See RECONF
+echo "master-%{shortcommit0}" > VERSION.m4
+autoreconf -vif
+
+%build
+%configure \
+  --disable-static \
+  --enable-shared \
+  --enable-virus_scan-profiles \
+  --with-clamav \
+  --with-lmdb
+
+%make_build
+
+%install
+mkdir -p %{buildroot}%{_sysconfdir}/c-icap
+
+%make_install
+
+rm -f %{buildroot}%{_libdir}/c_icap/*.la
+
+# Do not add default configuration files
+rm -f %{buildroot}%{_sysconfdir}/c-icap/*.default
+
+%files
+%license COPYING
+%attr(640,root,c-icap) %config(noreplace) %{_sysconfdir}/c-icap/*.conf
+%{_bindir}/c-icap-mods-sguardDB
+%{_libdir}/c_icap/clamav_mod.so
+%{_libdir}/c_icap/clamd_mod.so
+%{_libdir}/c_icap/srv_content_filtering.so
+%{_libdir}/c_icap/srv_url_check.so
+%{_libdir}/c_icap/virus_scan.so
+%{_datadir}/c_icap/templates/srv_content_filtering/en/BLOCK
+%{_datadir}/c_icap/templates/srv_url_check/en/DENY
+%{_datadir}/c_icap/templates/virus_scan/en/VIRUS_FOUND
+%{_datadir}/c_icap/templates/virus_scan/en/VIR_MODE_HEAD
+%{_datadir}/c_icap/templates/virus_scan/en/VIR_MODE_PROGRESS
+%{_datadir}/c_icap/templates/virus_scan/en/VIR_MODE_TAIL
+%{_datadir}/c_icap/templates/virus_scan/en/VIR_MODE_VIRUS_FOUND
+%{_mandir}/man8/c-icap-mods-sguardDB.8*
+%{_mandir}/man8/c-icap-mktcb.8*
+
+%changelog
+* Mon Jul 10 2023 Simone Caronni <negativo17@gmail.com> - 0.5.6-2.20230212gitfd1a1b7
+- Add missing BuildRequires.
+
+* Wed May 24 2023 Simone Caronni <negativo17@gmail.com> - 0.5.6-1.20230212gitfd1a1b7
+- Switch to LMDB.
+- Update to latest snapshot.
+
+* Sat Aug 20 2022 Simone Caronni <negativo17@gmail.com> - 0.5.5-2
+- Initial import.

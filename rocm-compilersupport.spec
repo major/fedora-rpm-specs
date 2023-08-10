@@ -11,7 +11,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
@@ -92,6 +92,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Tue Aug 08 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.2-3
+- Rebuild against rocm-device-libs 16.4
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

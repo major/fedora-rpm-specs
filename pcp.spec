@@ -3364,7 +3364,8 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
-* Mon Aug 07 2023 Sam Feifer <samfeifer@fedoraproject.org> - 6.0.5-6- Improve on pmieconf integration with Event Driven Ansible
+* Mon Aug 07 2023 Sam Feifer <samfeifer@fedoraproject.org> - 6.0.5-6
+- Improve on pmieconf integration with Event Driven Ansible
 
 * Thu Aug 03 2023 Sam Feifer <samfeifer@fedoraproject.org> - 6.0.5-5
 - Fix path for pmie/conf testing rule

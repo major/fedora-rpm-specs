@@ -5,22 +5,17 @@
 %bcond_with tests
 
 Name:               gfal2
-Version:            2.21.4
-Release:            3%{?dist}
+Version:            2.21.5
+Release:            1%{?dist}
 Summary:            Grid file access library 2.0
 License:            ASL 2.0
 URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
-# git clone --depth=1 --branch master https://gitlab.cern.ch/dmc/gfal2.git gfal2-2.21.4
-# pushd gfal2-2.21.4
-# git checkout v2.21.4
+# git clone --depth=1 --branch master https://gitlab.cern.ch/dmc/gfal2.git gfal2-2.21.5
+# pushd gfal2-2.21.5
+# git checkout v2.21.5
 # popd
-# tar czf gfal2-2.21.4.tar.gz --exclude-vcs gfal2-2.21.4
+# tar czf gfal2-2.21.5.tar.gz --exclude-vcs gfal2-2.21.5
 Source0:            %{name}-%{version}.tar.gz
-
-# Allow compiling on 32-bit architectures by correctly finding
-# the cryptopp library and header files.
-# (change ported from upstream)
-Patch0:             0001_FindCryptopp_32bit_architectures.patch
 
 #main lib dependencies
 BuildRequires:      gcc-c++
@@ -221,7 +216,7 @@ gfal2 tests
 %cmake3_build --target clean
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 # Make sure the version in the spec file and the version used
@@ -346,6 +341,9 @@ fi
 
 
 %changelog
+* Tue Aug 08 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 2.21.5-1
+- Upgrade to upstream release 2.21.5
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

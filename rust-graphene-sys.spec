@@ -62,7 +62,12 @@ echo 'pkgconfig(graphene-gobject-1.0) >= 1.10'
 
 %if %{with check}
 %check
+%ifarch x86_64 aarch64
 %cargo_test
+%else
+# https://github.com/gtk-rs/gtk-rs-core/issues/1107
+%cargo_test -- -- --skip cross_validate_layout_with_c
+%endif
 %endif
 
 %changelog

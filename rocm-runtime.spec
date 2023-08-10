@@ -8,7 +8,7 @@
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -77,6 +77,9 @@ ROCm Runtime development files
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Tue Aug 08 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-4
+- Rebuild against rocm-device-libs 16.4
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

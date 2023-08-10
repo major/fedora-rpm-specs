@@ -3,8 +3,10 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
+%global adwaita_version 1.2.0
+
 Name:          gnome-extensions-app
-Version:       45~alpha
+Version:       45~beta
 Release:       %autorelease
 Summary:       Manage GNOME Shell extensions
 
@@ -25,7 +27,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 Requires:      gjs%{_isa}
-Requires:      libadwaita%{_isa}
+Requires:      libadwaita%{_isa} >= %{adwaita_version}
 
 %define exec_name gnome-extensions-app
 %define bus_name org.gnome.Extensions

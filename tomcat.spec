@@ -510,11 +510,9 @@ fi
 %{appdir}/manager
 
 %files docs-webapp
-%defattr(-,root,root,-)
 %{appdir}/docs
 
 %files lib -f .mfiles
-%defattr(-,root,root,-)
 %dir %{libdir}
 %{libdir}/*.jar
 %{_javadir}/*.jar
@@ -531,20 +529,17 @@ fi
 %exclude %{_jnidir}/*
 
 %files jsp-%{jspspec}-api -f .mfiles-tomcat-jsp-api
-%defattr(-,root,root,-)
 %{_javadir}/%{name}-jsp-%{jspspec}*.jar
 %{libdir}/%{name}-jsp-%{jspspec}*.jar
 %{_javadir}/%{name}-jsp-api.jar
 
 %files servlet-%{servletspec}-api -f .mfiles-tomcat-servlet-api
-%defattr(-,root,root,-)
 %doc LICENSE
 %{_javadir}/%{name}-servlet-%{servletspec}*.jar
 %{libdir}/%{name}-servlet-%{servletspec}*.jar
 %{_javadir}/%{name}-servlet-api.jar
 
 %files el-%{elspec}-api -f .mfiles-tomcat-el-api
-%defattr(-,root,root,-)
 %doc LICENSE
 %{_javadir}/%{name}-el-%{elspec}-api.jar
 %{libdir}/%{name}-el-%{elspec}-api.jar

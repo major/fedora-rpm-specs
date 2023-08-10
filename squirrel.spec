@@ -1,23 +1,26 @@
 Name:           squirrel
-Version:        2.2.5
-Release:        27%{?dist}
+Version:        3.2
+Release:        1%{?dist}
 Summary:        High level imperative/OO programming language
 
-License:        zlib
+License:        Zlib
 URL:            http://squirrel-lang.org/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}_%{version}_stable.tar.gz
-Patch0:         squirrel-autotools.patch
-Patch1:         squirrel-2.2.4-mem.patch
-# https://github.com/albertodemichelis/squirrel/commit/a6413aa690e0bdfef648c68693349a7b878fe60d
-# https://bugzilla.redhat.com/show_bug.cgi?id=2082176
-Patch2:         squirrel-2.2.5-thread.patch
-# https://github.com/albertodemichelis/squirrel/commit/23a0620658714b996d20da3d4dd1a0dcf9b0bd98
-# https://bugzilla.redhat.com/show_bug.cgi?id=2112794
-Patch3:         squirrel-2.2.5-max-count.patch
+Source0:        https://github.com/albertodemichelis/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# borrowed from Debian with s/squirrel/sq/g
+Source1:        sq.1
+# backported fixes and Fedora specific changes
+# https://github.com/sharkcz/squirrel/tree/fedora
+Patch0:         squirrel-3.2-fedora.patch
 
-BuildRequires:  make
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 
 %description
 Squirrel is a high level imperative/OO programming language, designed
@@ -39,65 +42,49 @@ Development files needed to use Squirrel libraries.
 
 
 %prep
-%setup -q -c
-
-# fix file permissions
-find . -type f -exec chmod a-x {} \;
-
-pushd SQUIRREL2
-%patch0 -p1 -b .autotools
-%patch1 -p1 -b .mem
-%patch2 -p1 -b .thread
-%patch3 -p1 -b .max-count
-
-# fix extension for autotools
-mv sq/sq.c sq/sq.cpp
-
-# fix EOL + preserve timestamps
-for f in README HISTORY COPYRIGHT
-do
-    sed -i.orig 's/\r//g' $f
-    touch -r $f.orig $f
-done
-
-sh autogen.sh
-popd
+%autosetup -p1
 
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
-pushd SQUIRREL2
-%configure --disable-static
-make %{?_smp_mflags}
+%cmake -DDISABLE_STATIC=1
+%cmake_build
+
+pushd doc
+make html
 popd
 
 
 %install
-pushd SQUIRREL2
-make DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p" install
-popd
+%cmake_install
 
-rm $RPM_BUILD_ROOT%{_libdir}/*.la
+mkdir -p %{buildroot}%{_mandir}/man1/
+install -p -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1/
 
 
 %files
-%doc SQUIRREL2/{README,HISTORY,COPYRIGHT}
+%license COPYRIGHT
 %{_bindir}/sq
+%{_mandir}/man1/sq.1*
 
 %files libs
-%doc SQUIRREL2/COPYRIGHT
-%{_libdir}/libsqstdlib-%{version}.so
-%{_libdir}/libsquirrel-%{version}.so
+%license COPYRIGHT
+%doc README HISTORY
+%{_libdir}/libsqstdlib.so.%{version}
+%{_libdir}/libsquirrel.so.%{version}
 
 %files devel
-%doc SQUIRREL2/doc/*.pdf
-%{_includedir}/squirrel
-%{_libdir}/pkgconfig/squirrel.pc
+%doc doc/build/html
+%{_includedir}/%{name}
+%{_libdir}/cmake/%{name}
+%{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/libsqstdlib.so
 %{_libdir}/libsquirrel.so
 
 
 %changelog
+* Tue Aug 08 2023 Dan Horák <dan[at]danny.cz> - 3.2-1
+- update to upstream version 3.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

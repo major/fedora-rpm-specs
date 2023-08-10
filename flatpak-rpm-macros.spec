@@ -14,8 +14,8 @@ BuildRequires:  python3
 %description
 The macros in this package set up the RPM build environment so built
 applications install in /app rather than /usr. This package is meant
-only for installation in buildroots for modules that will be packaged
-as Flatpaks.
+only for installation in buildroots when rebuilding RPMS to package
+in Flatpaks.
 
 %prep
 
@@ -45,6 +45,9 @@ install -t $RPM_BUILD_ROOT%{_rpmconfigdir} -m 755 %{SOURCE3}
 %{_rpmconfigdir}/fontconfig-flatpak.prov
 
 %changelog
+* Mon Aug 7 2023 Owen Taylor <otaylor@redhat.com> - 39-1
+- Set %%dist to f%%{fedora}app - this is for building without modules
+
 * Fri Aug 04 2023 Kalev Lember <klember@redhat.com> - 39-1
 - Update %%python_sitearch for python-3.12 (rhbz#2225806)
 - Fix brp-compress search path to correctly compress man pages in /app

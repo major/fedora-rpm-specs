@@ -9,7 +9,7 @@
 %define	radicale_major	3
 
 %define	radicale_version	3.1.8
-%define	radicale_release	52
+%define	radicale_release	54
 
 %define	radicale_name	radicale
 
@@ -17,7 +17,7 @@
 
 Name:             radicale
 Version:          %{radicale_version}
-Release:          %{radicale_release}%{?dist}.2
+Release:          %{radicale_release}%{?dist}
 Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
 License:          GPLv3+
 URL:              https://radicale.org
@@ -156,6 +156,9 @@ cp -p %{SOURCE4} %{SOURCE5} %{SOURCE6} SELinux
 
 # adjust _rundir according to definition
 sed -i 's|\(/var/run\)|%{_rundir}|' SELinux/%{name}.fc
+
+# restore original version after applying patches
+sed -i 's|VERSION = "%{radicale_major}.dev"|VERSION = "%{radicale_version}"|' setup.py
 
 
 %build
@@ -379,6 +382,9 @@ fi
 
 
 %changelog
+* Tue Aug 08 2023 Peter Bieringer <pb@bieringer.de> - 3.1.8-54
+- Readjust setup.py after applying patch to proper version (#2229519)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.8-52.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

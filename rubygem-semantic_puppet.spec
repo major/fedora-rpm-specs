@@ -3,8 +3,8 @@
 %global with_test 1
 
 Name:          rubygem-%{gem_name}
-Version:       1.0.4
-Release:       8%{?dist}
+Version:       1.1.0
+Release:       1%{?dist}
 Summary:       Useful tools for working with Semantic Versions
 License:       Apache-2.0
 URL:           https://github.com/puppetlabs/semantic_puppet
@@ -43,7 +43,7 @@ gem build %{gem_name}.gemspec
 mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
-rm -rf %{buildroot}%{gem_instdir}/{appveyor.yml,.gitignore,.rubocop.yml,.travis.yml,.yardopts}
+rm -rf %{buildroot}%{gem_instdir}/{.github,.gitignore,.rubocop.yml,.yardopts}
 
 %check
 %if 0%{?with_test}
@@ -64,12 +64,15 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
-%{gem_instdir}/CODEOWNERS
+%exclude %{gem_instdir}/CODEOWNERS
 %{gem_instdir}/Rakefile
 %{gem_instdir}/semantic_puppet.gemspec
 %{gem_instdir}/spec
 
 %changelog
+* Tue Aug 08 2023 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 1.1.0-1
+- Update to 1.1.0 (fixes rhbz#2185967)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

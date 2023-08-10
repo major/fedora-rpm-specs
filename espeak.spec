@@ -9,7 +9,7 @@
 
 Name:           espeak
 Version:        1.48.04
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Software speech synthesizer (text-to-speech)
 
 License:        GPLv3+
@@ -124,13 +124,11 @@ exit 0
 
 
 %files
-%doc $RPM_BUILD_DIR/espeak-%{version}-source/ReadMe $RPM_BUILD_DIR/espeak-%{version}-source/ChangeLog.txt $RPM_BUILD_DIR/espeak-%{version}-source/License.txt $RPM_BUILD_DIR/espeak-%{version}-source/html/
+%doc ReadMe ChangeLog.txt License.txt html
 %{_mandir}/man1/espeak.1*
 %{_bindir}/espeak
 %{_datadir}/espeak-data
 %{_libdir}/libespeak.so.*
-# Hack to workaround RPM bug 924660 to allow clean update from espeak-1.46 to espeak-1.47, could be probably dropped in f21+
-%ghost %{_datadir}/espeak-data/voices/en
 
 %files devel
 %{_libdir}/*.so
@@ -138,6 +136,11 @@ exit 0
 
 
 %changelog
+* Tue Aug  8 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.48.04-26
+- Fixed FTBFS, added rpm bug workaround (rhbz#2229971)
+  Resolves: rhbz#2225795
+- Dropped f21 upgrade compatibility hack
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.48.04-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

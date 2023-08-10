@@ -24,7 +24,7 @@
 
 Name:           haskell-platform
 Version:        2023.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Standard Haskell distribution
 
 License:        BSD-3-Clause
@@ -47,6 +47,10 @@ Source12:       https://hackage.haskell.org/package/%{projecttemplate}/%{project
 Source13:       https://hackage.haskell.org/package/%{rioorphans}/%{rioorphans}.tar.gz
 Source20:       stack-symlink-distro-ghc
 # End cabal-rpm sources
+# https://github.com/commercialhaskell/stack/issues/5866
+# https://github.com/commercialhaskell/stack/pull/6028
+Patch0:         6028-2.9.3.1.patch
+Patch1:         stack-disable-ghc-Cabal-version-warnings.patch
 
 BuildRequires:  ghc
 BuildRequires:  alex
@@ -411,6 +415,7 @@ This package provides the Haskell stack profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver} -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13
 # End cabal-rpm setup
+%autopatch -p1
 
 
 %build
@@ -474,6 +479,11 @@ rm %{buildroot}%{_licensedir}/%{name}/LICENSE
 
 
 %changelog
+* Tue Aug  8 2023 Jens Petersen <petersen@redhat.com> - 2023.1-25
+- bring back the stack InvalidAbsFile patch updated for 2.9.3
+  https://github.com/commercialhaskell/stack/pull/6028
+- disable warnings about untested ghc and Cabal versions
+
 * Sat Jul 29 2023 Jens Petersen <petersen@redhat.com> - 2023.1-24
 - stack-2.9.3.1
 - https://hackage.haskell.org/package/stack-2.9.3.1/changelog
