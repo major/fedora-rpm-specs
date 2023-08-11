@@ -17,8 +17,8 @@
 %global _hardened_build 1
 
 Name:		hitch
-Version:	1.7.3
-Release:	3%{?dist}
+Version:	1.8.0
+Release:	1%{?dist}
 Summary:	Network proxy that terminates TLS/SSL connections
 
 License:	BSD
@@ -71,6 +71,7 @@ sed   '
 	s/user = .*/user = "%{hitch_user}"/g;
 	s/group = .*/group = "%{hitch_group}"/g;
 	s/backend = "\[127.0.0.1\]:8000"/backend = "[127.0.0.1]:6081"/g;
+	s/workers = ..../workers = auto/;
 	$a\syslog = on
 	$a\log-level = 1
 	$a\# Add pem files to this directory
@@ -126,6 +127,10 @@ useradd -r -g %{hitch_group} -s /sbin/nologin -d %{hitch_homedir} %{hitch_user} 
 %ghost %verify(not md5 size mtime)  /run/%{name}/%{name}.pid
 
 %changelog
+* Wed Aug 09 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.8.0-1
+* New upstream release
+* Number of workers are now default set to 'auto', ie. one per cpu
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

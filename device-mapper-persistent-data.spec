@@ -9,14 +9,14 @@
 
 Summary: Device-mapper Persistent Data Tools
 Name: device-mapper-persistent-data
-Version: 1.0.5
+Version: 1.0.6
 Release: 1%{?dist}%{?release_suffix}
 License: GPLv3+
 #ExcludeArch: %%{ix86}
 URL: https://github.com/jthornber/thin-provisioning-tools
 #Source0: https://github.com/jthornber/thin-provisioning-tools/archive/thin-provisioning-tools-%%{version}.tar.gz
 Source0: https://github.com/jthornber/thin-provisioning-tools/archive/v%{version}%{?version_suffix}.tar.gz
-Source1: dmpd105-vendor.tar.gz
+Source1: dmpd106-vendor.tar.gz
 Patch1: 0001-Tweak-cargo.toml-to-work-with-vendor-directory.patch
 
 %if %{defined rhel}
@@ -116,6 +116,9 @@ make DESTDIR=%{buildroot} MANDIR=%{_mandir} install
 #% {_sbindir}/thin_show_duplicates
 
 %changelog
+* Wed Aug 09 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.6-1
+- Update to latest upstream release 1.0.6.
+
 * Thu Jul 27 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.5-1
 - Update to latest upstream release 1.0.5.
 

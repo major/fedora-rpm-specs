@@ -2,7 +2,7 @@
 
 Name:     squid
 Version:  6.1
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -36,6 +36,8 @@ Patch203: squid-6.1-perlpath.patch
 # revert this upstream patch - https://bugzilla.redhat.com/show_bug.cgi?id=1936422
 # workaround for #1934919
 Patch204: squid-6.1-symlink-lang-err.patch
+# Upstream PR: https://github.com/squid-cache/squid/pull/1442
+Patch205: squid-6.1-crash-half-closed.patch
 
 # cache_swap.sh
 Requires: bash gawk
@@ -105,6 +107,7 @@ lookup program (dnsserver), a program for retrieving FTP data
 %patch -P 202 -p1 -b .location
 %patch -P 203 -p1 -b .perlpath
 %patch -P 204 -p1 -b .symlink-lang-err
+%patch -P 205 -p1 -b .crash-half-closed
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1679526
 # Patch in the vendor documentation and used different location for documentation
@@ -332,6 +335,9 @@ fi
 
 
 %changelog
+* Fri Aug 04 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:6.1-3
+- Fix "!commHasHalfClosedMonitor(fd)" assertion
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7:6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

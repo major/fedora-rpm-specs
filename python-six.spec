@@ -6,6 +6,7 @@ Version:        1.16.0
 Release:        12%{?dist}
 Summary:        Python 2 and 3 compatibility utilities
 
+# SPDX
 License:        MIT
 URL:            https://github.com/benjaminp/six
 Source0:        %{pypi_source six}

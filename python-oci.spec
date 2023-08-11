@@ -46,6 +46,10 @@ sed -i 's/cryptography>=3.2.1,<40.0.0/cryptography>=3.2.1/' setup.py
 sed -i 's/circuitbreaker>=1.3.1,< 2.0.0/circuitbreaker>=1.3.0/' setup.py
 sed -i 's/circuitbreaker>=1.3.1,<2.0.0/circuitbreaker>=1.3.0/' requirements.txt
 
+# Compatibility with pytest 7.4.0
+# reported upstream: https://github.com/oracle/oci-python-sdk/issues/565
+sed -i 's/--config-file/--config-file-path/' tests/conftest.py
+
 %generate_buildrequires
 %pyproject_buildrequires
 

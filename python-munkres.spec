@@ -2,10 +2,10 @@
 
 Name:           python-%{srcname}
 Version:        1.1.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A Munkres algorithm for Python
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://software.clapper.org/munkres/
 Source0:        https://github.com/bmc/munkres/archive/release-%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 Buildarch:      noarch
@@ -50,6 +50,9 @@ the matrix, such that no row and no column are used more than once.
 %{python3_sitelib}/__pycache__/%{srcname}*
 
 %changelog
+* Wed Aug 09 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.1.2-17
+- Convert license to SPDX expression
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -41,16 +41,15 @@
 %global test_failure_override false
 %endif
 
-%global prerel rc2
+# %%global prerel rc2
 
 Summary: An unwinding library
 Name: libunwind
-Version: 1.7.0
-Release: 0.2.%{prerel}%{?dist}
+Version: 1.7.2
+Release: 1%{?dist}
 License: BSD
 URL: http://savannah.nongnu.org/projects/libunwind
-Source: https://github.com/libunwind/libunwind/archive/refs/tags/v%{version}-%{prerel}.tar.gz
-# http://download-mirror.savannah.gnu.org/releases/libunwind/libunwind-%%{version}.tar.gz
+Source: https://github.com/libunwind/libunwind/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 #Fedora specific patch
 Patch1: libunwind-arm-default-to-exidx.patch
@@ -79,7 +78,7 @@ The libunwind-devel package includes the libraries and header files for
 libunwind.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}-%{prerel}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 %global optflags %{optflags} -fcommon
@@ -132,6 +131,9 @@ echo ====================TESTING END=====================
 %{_includedir}/libunwind*.h
 
 %changelog
+* Wed Aug  9 2023 Tom Callaway <spot@fedoraproject.org> - 1.7.2-1
+- update to 1.7.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-0.2.rc2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

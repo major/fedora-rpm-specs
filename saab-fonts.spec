@@ -1,51 +1,47 @@
-%global fontname saab
-%global fontconf 67-%{fontname}.conf
+Version: 0.91
+Release: 29%{?dist}
+URL:     http://guca.sourceforge.net/typography/fonts/saab/
 
-Name:        %{fontname}-fonts
-Version:     0.91
-Release:     28%{?dist}
-Summary:     Free Punjabi Unicode OpenType Serif Font
+%global fontlicense       GPLv2+ with exceptions
+%global fontlicenses      License_font_exception.txt
 
-
-License:     GPLv2+ with exceptions
-URL:         http://guca.sourceforge.net/typography/fonts/saab/
-Source0:     http://downloads.sf.net/guca/saab.0.91.zip
-Source1:     %{name}-fontconfig.conf
-#Font file itself does not add exception text, so add it manually
-#from http://guca.sourceforge.net/typography/fonts/saab/
-Source2:     License_font_exception.txt
-BuildArch:   noarch
-BuildRequires: fontpackages-devel
-Requires:    fontpackages-filesystem
-
-%description 
+%global fontfamily        Saab
+%global fontsummary       Free Punjabi Unicode OpenType Serif Font
+%global fonts             Saab.otf
+%global fontconfs         %{SOURCE10}
+%global fontdescription   %{expand:
 This package provides a free OpenType Punjabi (Gurmukhi) Serif font.
 Developed by Bhupinder Singh.
+}
 
+Source0:  http://downloads.sf.net/guca/saab.0.91.zip
+Source10: 67-saab-fonts.conf
+#Font file itself does not add exception text, so add it manually
+#from http://guca.sourceforge.net/typography/fonts/saab/
+Source20: License_font_exception.txt
+
+%fontpkg
 
 %prep
-%setup -q -c
+%autosetup -c
+cp -p %{SOURCE20} .
 
 %build
-echo "Nothing to do in Build."
+%fontbuild
 
 %install
-install -m 0644 -p %{SOURCE2} .
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p Saab.otf %{buildroot}%{_fontdir}
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
+%check
+%fontcheck
 
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-%_font_pkg Saab.otf -f %{fontconf}
-%doc License_font_exception.txt
+%fontfiles
 
 %changelog
+* Wed Aug 09 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.91-29
+- Convert SPEC to follow new packaging guidelines
+- Use SPDX license expression
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.91-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

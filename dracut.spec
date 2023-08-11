@@ -152,7 +152,9 @@ Summary: dracut modules to build a dracut initramfs with live image capabilities
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-network = %{version}-%{release}
 Requires: tar gzip coreutils bash device-mapper curl parted
+%if ! 0%{?rhel}
 Requires: fuse ntfs-3g
+%endif
 
 %description live
 This package requires everything which is needed to build an

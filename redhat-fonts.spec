@@ -26,10 +26,10 @@ and designed by Jeremy Mickel / MCKL for the new Red Hat identity.
 
 Name:           %{fontname}-fonts
 Version:        4.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Red Hat Typeface fonts
 # Only the metainfo files are CC-BY-SA
-License:        OFL and CC-BY-SA
+License:        OFL-1.1-RFN and CC-BY-SA-4.0
 URL:            https://github.com/RedHatOfficial/%{projname}
 
 Source0:        %{url}/archive/%{version}/%{projname}-%{version}.tar.gz
@@ -126,6 +126,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Wed Aug 09 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.0.3-4
+- Use SPDX license expression
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

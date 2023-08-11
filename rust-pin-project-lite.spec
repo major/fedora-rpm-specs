@@ -6,7 +6,7 @@
 %global crate pin-project-lite
 
 Name:           rust-pin-project-lite
-Version:        0.2.10
+Version:        0.2.12
 Release:        %autorelease
 Summary:        Lightweight version of pin-project written with declarative macros
 

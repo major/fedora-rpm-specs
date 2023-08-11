@@ -43,7 +43,6 @@ Patch6:         %{name}-vec.patch
 # See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
 ExclusiveArch:  %{java_arches}
 
-BuildRequires:  abc-devel
 BuildRequires:  antlr3-C-devel
 BuildRequires:  antlr3-tool
 BuildRequires:  cadical
@@ -74,6 +73,7 @@ BuildRequires:  %{py3_dist pyparsing}
 BuildRequires:  %{py3_dist scikit-build}
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  symfpu-devel
+BuildRequires:  yosyshq-abc-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 

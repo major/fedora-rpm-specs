@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        73
+Version:        74
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -39,12 +39,12 @@ Requires:       criu-libs
 %endif
 
 Provides: bundled(npm(@babel/runtime)) = 7.22.6
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-prerelease.8
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.132
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.21
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.19
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.136
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.16
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.2
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(date-fns)) = 2.30.0
 Provides: bundled(npm(docker-names)) = 1.2.1
@@ -87,6 +87,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Aug 09 2023 Packit <hello@packit.dev> - 74-1
+- PatternFly 5
+- Bug fixes and translation updates
+
 * Wed Jul 26 2023 Packit <hello@packit.dev> - 73-1
 - show time of container's latest checkpoint
 

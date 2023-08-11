@@ -1,3 +1,5 @@
+%bcond_with cmake
+
 %global _QCAD_DIR %{_libdir}/%{name}
 %global _QT_PLUGINS %{_qt5_plugindir}
 
@@ -39,11 +41,15 @@ BuildRequires: qt5-qttools-static >= 5.9.0
 BuildRequires: qt5-qtscript-devel >= 5.9.0
 BuildRequires: qt5-qtsvg-devel >= 5.9.0
 BuildRequires: qt5-qtxmlpatterns-devel >= 5.9.0
+BuildRequires: qt5-qtdeclarative-devel >= 5.9.0
 Requires: qt5-designer%{?_isa} >= 5.9.0
 Requires: qt5-qtsvg%{?_isa}
 Requires: qt5-qtscript%{?_isa}
 Provides: bundled(qtscriptgenerator) = 5.9.0
 BuildRequires: gcc-c++, chrpath
+%if %{with cmake}
+BuildRequires: cmake
+%endif
 BuildRequires: libX11-devel
 BuildRequires: libXext-devel
 BuildRequires: libXrender-devel
@@ -83,7 +89,11 @@ QCAD is an easy to use but powerful 2D CAD system for everyone.
 You dont need any CAD experience to get started with QCAD immediately.
 
 %prep
-%autosetup -n %{name}-%{version} -p0
+%setup -n %{name}-%{version} -q
+
+%patch -P 0 -p0 -b .backup
+
+rm -rf ../*-SPECPARTS
 
 # Use Fedora Qt5 scripts
 cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.10
@@ -97,12 +107,23 @@ mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.10/qt-labs-qtscriptgenerator-5.15
 # Disable LTO
 %define _lto_cflags %{nil}
 
+%if %{with cmake}
+%define _vpath_srcdir ./
+%define _vpath_builddir ./
+export LDFLAGS="%{__global_ldflags} -Wl,-rpath -Wl,%{_QCAD_DIR}"
+%cmake -DBUILD_QT6:BOOL=OFF -DCMAKE_BUILD_TYPE:STRING=Release \
+       -DCMAKE_CFLAGS_RELEASE="%{build_cflags} %(pkg-config --cflags Qt5UiTools) -I$PWD/src/3rdparty/spatialindexnavel/include" \
+       -DCMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} %(pkg-config --cflags Qt5UiTools) -I$PWD/src/3rdparty/spatialindexnavel/include" \
+       -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
+%cmake_build
+%else
 %{_qt5_qmake} -makefile CONFIG+=release %{name}.pro \
  QMAKE_CFLAGS_RELEASE+="%{_qt5_optflags} %(pkg-config --cflags Qt5UiTools) -I$PWD/src/3rdparty/spatialindexnavel/include" \
  QMAKE_CXXFLAGS_RELEASE+="%{_qt5_optflags} %(pkg-config --cflags Qt5UiTools) -I$PWD/src/3rdparty/spatialindexnavel/include" \
  QMAKE_LFLAGS+="%{_qt5_ldflags} -Wl,-rpath -Wl,%{_QCAD_DIR}" \
  LFLAGS+="%{_qt5_ldflags} -Wl,-rpath -Wl,%{_QCAD_DIR}"
 %make_build
+%endif
 
 %install
 
@@ -224,3 +245,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %changelog
 %autochangelog
+

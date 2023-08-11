@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.4.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -69,6 +69,13 @@ and source packages as well as spec files can be checked.
 # Replace python-magic dep with file-magic (rhbz#1899279)
 sed -i 's/python-magic/file-magic/g' setup.py
 
+%if 0%{?rhel}
+# Avoid extra dependencies for checks not needed in RHEL
+# pybeam: ErlangCheck
+sed -i -e '/pybeam/d' setup.py
+sed -i -e '/ErlangCheck/d' rpmlint/configdefaults.toml test/test_lint.py
+%endif
+
 # Don't lint the code or measure coverage in %%check
 # On RHEL, also avoid xdist by disabling parallelism
 sed -i -e 's/ --cov=rpmlint//' -e 's/ --flake8//' %{?rhel:-e 's/ -n auto//'} setup.cfg
@@ -93,7 +100,7 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 
 %check
 %if %{with tests}
-%pytest
+%pytest %{?rhel:--ignore test/test_erlang.py}
 %endif
 
 %files -f %{pyproject_files}
@@ -106,6 +113,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Mon Jul 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.0-11
+- Disable ErlangCheck by default in RHEL builds
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

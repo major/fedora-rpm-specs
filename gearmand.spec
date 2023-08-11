@@ -10,6 +10,7 @@ Source1:        gearmand.init
 Source2:        gearmand.sysconfig
 Source3:        gearmand.service
 Patch0:         gearmand-1.1.12-ppc64le.patch
+Patch1:         gearmand-1.1.20-riscv64.patch
 # Fails to build on PPC.
 # See https://bugzilla.redhat.com/987104 and https://bugzilla.redhat.com/987109
 ExcludeArch:    ppc

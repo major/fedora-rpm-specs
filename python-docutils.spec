@@ -1,10 +1,13 @@
 Name:           python-docutils
 Version:        0.19
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        System for processing plaintext documentation
 
 # See COPYING.txt for information
-License:        Public Domain and BSD and Python and GPLv3+
+# PSF-2.0 was chosen for the SPDX identifier as it's the spirit of the original
+# author's notice, even though the shipped license text is copied from Python 2.1.1
+# See: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/216
+License:        LicenseRef-Fedora-Public-Domain AND BSD-2-Clause AND BSD-3-Clause AND PSF-2.0 AND GPL-3.0-or-later
 URL:            https://docutils.sourceforge.net
 Source0:        https://sourceforge.net/projects/docutils/files/docutils/%{version}/docutils-%{version}.tar.gz
 
@@ -78,6 +81,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 
 
 %changelog
+* Wed Aug 09 2023 Karolina Surma <ksurma@redhat.com> - 0.19-5
+- Declare the license as an SPDX expression
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

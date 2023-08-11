@@ -11,8 +11,8 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        9.25.7
-Release:        2%{?dist}
+Version:        9.25.12
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -48,6 +48,7 @@ BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(simplejson)
 BuildRequires:  python3dist(six)
 BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(typing-extensions)
 
 %description %{desc}
 
@@ -568,6 +569,9 @@ done
 # Empty metapackage
 
 %changelog
+* Wed Aug 09 2023 Neal Gompa <ngompa@fedoraproject.org> - 9.25.12-1
+- Update to 9.25.12 (RH#2227909)
+
 * Mon Jul 31 2023 Neal Gompa <ngompa@fedoraproject.org> - 9.25.7-2
 - Add patches to fix building man pages from source
 

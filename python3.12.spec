@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b4
+%global prerel rc1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -71,7 +71,7 @@ License: Python-2.0.1
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
-%global pip_version 23.1.2
+%global pip_version 23.2.1
 %global setuptools_version 67.6.1
 %global wheel_version 0.40.0
 # All of those also include a list of indirect bundled libs:
@@ -79,7 +79,7 @@ License: Python-2.0.1
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
 Provides: bundled(python3dist(cachecontrol)) = 0.12.11
-Provides: bundled(python3dist(certifi)) = 2022.12.7
+Provides: bundled(python3dist(certifi)) = 2023.5.7
 Provides: bundled(python3dist(chardet)) = 5.1
 Provides: bundled(python3dist(colorama)) = 0.4.6
 Provides: bundled(python3dist(distlib)) = 0.3.6
@@ -87,19 +87,19 @@ Provides: bundled(python3dist(distro)) = 1.8
 Provides: bundled(python3dist(idna)) = 3.4
 Provides: bundled(python3dist(msgpack)) = 1.0.5
 Provides: bundled(python3dist(packaging)) = 21.3
-Provides: bundled(python3dist(platformdirs)) = 3.2
-Provides: bundled(python3dist(pygments)) = 2.14
-Provides: bundled(python3dist(pyparsing)) = 3.0.9
+Provides: bundled(python3dist(platformdirs)) = 3.8.1
+Provides: bundled(python3dist(pygments)) = 2.15.1
+Provides: bundled(python3dist(pyparsing)) = 3.1
 Provides: bundled(python3dist(pyproject-hooks)) = 1
-Provides: bundled(python3dist(requests)) = 2.28.2
+Provides: bundled(python3dist(requests)) = 2.31
 Provides: bundled(python3dist(resolvelib)) = 1.0.1
-Provides: bundled(python3dist(rich)) = 13.3.3
-Provides: bundled(python3dist(setuptools)) = 67.7.2
+Provides: bundled(python3dist(rich)) = 13.4.2
+Provides: bundled(python3dist(setuptools)) = 68
 Provides: bundled(python3dist(six)) = 1.16
 Provides: bundled(python3dist(tenacity)) = 8.2.2
 Provides: bundled(python3dist(tomli)) = 2.0.1
-Provides: bundled(python3dist(typing-extensions)) = 4.5
-Provides: bundled(python3dist(urllib3)) = 1.26.15
+Provides: bundled(python3dist(typing-extensions)) = 4.7.1
+Provides: bundled(python3dist(urllib3)) = 1.26.16
 Provides: bundled(python3dist(webencodings)) = 0.5.1
 }
 # setuptools
@@ -1140,10 +1140,14 @@ CheckPython() {
   # test_freeze_simple_script is skipped, because it fails without bundled libs.
   #  the freeze tool is only usable from the source checkout anyway,
   #  we don't ship it in the RPM package.
+  # test_check_probes is failing since it was introduced in 3.12.0rc1,
+  # the test is skipped until it is fixed in upstream.
+  # see: https://github.com/python/cpython/issues/104280#issuecomment-1669249980
 
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} --timeout=2700 \
     -i test_freeze_simple_script \
+    -i test_check_probes \
     %ifarch %{mips64}
     -x test_ctypes \
     %endif
@@ -1396,6 +1400,8 @@ CheckPython optimized
 %dir %{pylibdir}/zipfile/
 %{pylibdir}/zipfile/*.py
 %{pylibdir}/zipfile/__pycache__/*%{bytecode_suffixes}
+%{pylibdir}/zipfile/_path/*.py
+%{pylibdir}/zipfile/_path/__pycache__/*%{bytecode_suffixes}
 
 %{pylibdir}/zoneinfo
 
@@ -1652,6 +1658,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Aug 07 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~rc1-1
+- Update to 3.12.0rc1
+
 * Wed Aug 02 2023 Charalampos Stratakis <cstratak@redhat.com> - 3.12.0~b4-3
 - Remove extra distro-applied CFLAGS passed to user built C extensions
 - https://fedoraproject.org/wiki/Changes/Python_Extension_Flags_Reduction

@@ -2,10 +2,10 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20230520
-%global	gitcommit		9fde8b776ed6a19d12c5c0c4b2c3679627537047
+%global	gitdate		20230807
+%global	gitcommit		ee09d6707a5a4b50cffa8858b21d78092f9aa310
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		87c61cc62a6c34f6e0b95c08e642321ab6cfa018
+%global	gitcommit_free		99237dea8ed4120ecf4c2a58d70ccfd458f57967
 %else
 # currently 41.0 branch
 %global	gitdate		20211117
@@ -18,8 +18,8 @@
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 %global	git_version	%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20230521
-%global	tarballtime	1533
+%global	tarballdate	20230808
+%global	tarballtime	1655
 
 %global	use_release	1
 %global	use_gitbare	0
@@ -35,7 +35,7 @@
 %global	GIT	git
 %endif
 
-%global	mainver		47.0
+%global	mainver		48.0
 %undefine	prever
 
 %if		0%{?use_release} >= 1
@@ -50,7 +50,7 @@ Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
 Version:	%{fedoraver}
-Release:	2%{?dist}
+Release:	1%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2
@@ -70,15 +70,14 @@ Source1:	create-ugene-free-tarball.sh
 Source2:	create-%{name}-git-bare-tarball.sh
 # This is not installed
 Source10:	ugene.wrapper
-Patch1:	ugene-45.1-gcc13-header-inclusion.patch
 # Currently distro-specific
 Patch102:	ugene-44.x-libs_3rdparty-breakpad-sys_mmap_use_system_mmap.patch
 Patch103:	ugene-40.1-libs_3rdparty-breakpad-unwind-nonsupported-arch.patch
-Patch104:	ugene-46.x-plugins_3rdparty-hmm2-nosse-arch.patch
+Patch104:	ugene-47.x-plugins_3rdparty-hmm2-nosse-arch.patch
 Patch105:	ugene-40.1-libs_3rdparty-breakpad-arch-port.patch
-Patch106:	ugene-43.0-git-plgins-smith_waterman-nonsse2-arch.patch
+Patch106:	ugene-47.x-git-plgins-smith_waterman-nonsse2-arch.patch
 Patch107:	ugene-40.1-qbswap-bigendian-workaround.patch
-Patch108:	ugene-43.x-wrong-elif-SendReportDialog.patch
+Patch108:	ugene-47.x-has-sse-i686.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -133,9 +132,6 @@ git config user.name "%{name} Fedora maintainer"
 git config user.email "%{name}-maintainers@fedoraproject.org"
 %endif
 
-%patch -P1 -p1 -b .gcc13 -Z
-	%GIT commit -m "add missing header file" -a
-
 %patch -P102 -p1 -b .sys_mmap -Z
 	%GIT commit -m "libs_3rdparty/breakpad: use C function instead of directly using syscall assemble code" -a
 %patch -P103 -p1 -b .unwind -Z
@@ -148,8 +144,8 @@ git config user.email "%{name}-maintainers@fedoraproject.org"
 	%GIT	commit -m "plugins/smith_waterman: support architecture not supporting SSE2" -a
 %patch -P107 -p1 -b .char_bigen -Z
 	%GIT	commit -m "src/corelibs/U2Core et al.: Workaround for Qt qbswap issue on Q_BIG_ENDIAN" -a
-%patch -P108 -p1 -b .elif -Z
-	%GIT commit -m "ugenem/src/SendReportDialog.cpp: fix wrong elif usage" -a
+%patch -P108 -p1 -b .sse_i686 -Z
+	%GIT commit -m "ugene_globals.pri: tell sse2 available also on i686" -a
 
 sed -i.nonfree CMakeLists.txt -e '\@add_subdirectory.*plugins_3rdparty/psipred@d'
 sed -i.nonfree ugene.pro -e '\@plugins_3rdparty/psipred@d'
@@ -254,6 +250,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Aug 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 48.0-1
+- 48.0
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 47.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

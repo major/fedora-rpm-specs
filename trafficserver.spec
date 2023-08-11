@@ -3,8 +3,8 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        9.2.1
-Release:        2%{?dist}
+Version:        9.2.2
+Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        ASL 2.0
@@ -298,6 +298,9 @@ fi
 
 
 %changelog
+* Wed Aug 9 2023 Jered Floyd <jered@redhat.com> 9.2.2-1
+- Update to upstream 9.2.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

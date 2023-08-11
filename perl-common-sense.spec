@@ -1,17 +1,18 @@
 # Suspect that upstream prefers single-decimal versions
-%global cpanversion 3.75
-%global rpmversion 3.7.5
+%global cpan_version 3.75
+%global rpm_version 3.7.5
 
 # This arch-specific package has no binaries and generates no debuginfo
 %global debug_package %{nil}
 
 Name:		perl-common-sense
 Summary:	"Common sense" Perl defaults 
-Version:	%{rpmversion}
-Release:	13%{?dist}
+Version:	%{rpm_version}
+Release:	14%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/common-sense
-Source0:	https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/common-sense-%{cpanversion}.tar.gz
+Source0:	https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/common-sense-%{cpan_version}.tar.gz
+# Specify POD encoding
 Patch1:		common-sense-3.71-podenc.patch
 # Module Build
 BuildRequires:	coreutils
@@ -52,10 +53,7 @@ It's supposed to be mostly the same, with much lower memory usage, as:
 	no warnings qw(exec newline unopened);
 
 %prep
-%setup -q -n common-sense-%{cpanversion}
-
-# Specify POD encoding
-%patch1
+%autosetup -p0 -n common-sense-%{cpan_version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -85,6 +83,9 @@ make test
 %{_mandir}/man3/common::sense.3*
 
 %changelog
+* Wed Aug 09 2023 Petr Pisar <ppisar@redhat.com> - 3.7.5-14
+- Adapt a spec file to rpm-4.18.92
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

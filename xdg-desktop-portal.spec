@@ -28,7 +28,9 @@ BuildRequires: pkgconfig(libsystemd)
 BuildRequires: python3-dbusmock
 BuildRequires: python3-gobject-base
 BuildRequires: python3-pytest
+%if %{undefined rhel}
 BuildRequires: python3-pytest-xdist
+%endif
 BuildRequires: /usr/bin/xmlto
 
 Requires:      dbus

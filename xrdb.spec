@@ -1,11 +1,11 @@
 Name:       xrdb
-Version:    1.2.1
-Release:    6%{?dist}
+Version:    1.2.2
+Release:    1%{?dist}
 Summary:    X server resource database utility
 
 License:    MIT
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
+Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires:  automake libtool
 BuildRequires:  gcc make
@@ -39,6 +39,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Aug 10 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.2-1
+- xrdb 1.2.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

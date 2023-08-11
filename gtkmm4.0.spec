@@ -3,17 +3,17 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 %global glibmm_version 2.68.0
-%global gtk4_version 4.11.3
+%global gtk4_version 4.12.0
 %global cairomm_version 1.15.4
 %global pangomm_version 2.50.0
 %global gdk_pixbuf2_version 2.35.5
 
 Name:           gtkmm4.0
-Version:        4.11.3
+Version:        4.12.0
 Release:        %autorelease
 Summary:        C++ interface for the GTK+ library
 
-License:        LGPL-2.1-or-later AND GPL-2.0-or-later
+License:        LGPL-2.1-or-later
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/gtkmm/%{release_version}/gtkmm-%{version}.tar.xz
 
@@ -79,8 +79,8 @@ cp -a demos/ _docs/
 
 
 %files
-%license COPYING COPYING.tools
-%doc AUTHORS NEWS README.md
+%license COPYING
+%doc NEWS README.md
 %{_libdir}/libgtkmm-%{apiver}.so.0*
 
 %files devel

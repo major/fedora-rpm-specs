@@ -36,10 +36,10 @@ Source403:      brp-fix-pyc-reproducibility
 
 # macros and lua: MIT
 # import_all_modules.py: MIT
-# compileall2.py, clamp_source_mtime.py: PSFv2
-# pathfix.py: PSFv2
-# brp scripts: GPLv2+
-License:        MIT and Python and GPLv2+
+# compileall2.py, clamp_source_mtime.py: PSF-2.0
+# pathfix.py: PSF-2.0
+# brp scripts: GPL-2.0-or-later
+License:        MIT AND PSF-2.0 AND GPL-2.0-or-later
 
 # The package version MUST be always the same as %%{__default_python3_version}.
 # To have only one source of truth, we load the macro and use it.
@@ -53,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 BuildArch:      noarch
 
@@ -163,6 +163,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Wed Aug 09 2023 Karolina Surma <ksurma@redhat.com> - 3.11-3
+- Declare the license as an SPDX expression
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 Summary: ACPI Event Daemon
 Name: acpid
 Version: 2.0.34
-Release: 3%{?dist}
-License: GPLv2+
+Release: 5%{?dist}
+License: GPL-2.0-or-later
 Source: http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source2: acpid.video.conf
 Source3: acpid.power.conf
@@ -100,6 +100,12 @@ fi
 	/bin/systemctl try-restart acpid.service >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug  9 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.34-5
+- SPDX license fix
+
+* Wed Aug  9 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.34-4
+- Converted license to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.34-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

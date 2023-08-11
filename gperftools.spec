@@ -3,9 +3,9 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		gperftools
-Version:	2.9.1
-Release:	6%{?dist}
-License:	BSD
+Version:	2.10
+Release:	1%{?dist}
+License:	BSD-3-Clause
 Summary:	Very fast malloc and performance analysis tools
 URL:		https://github.com/gperftools/gperftools
 Source0:	https://github.com/gperftools/gperftools/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -59,7 +59,7 @@ Pprof is a heap and CPU profiler tool, part of the gperftools suite.
 
 %prep
 %setup -q
-%patch1 -p1 -b .dynload
+%patch -P1 -p1 -b .dynload
 
 # Fix end-of-line encoding
 sed -i 's/\r//' README_windows.txt
@@ -119,6 +119,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/INSTALL
 %{_libdir}/*.so.*
 
 %changelog
+* Wed Aug  9 2023 Tom Callaway <spot@fedoraproject.org> - 2.10-1
+- update to 2.10
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 
 # https://github.com/redhatinsights/yggdrasil-worker-package-manager
 %global goipath         github.com/redhatinsights/yggdrasil-worker-package-manager
-Version:                0.2.0
-%global tag             0.2.0
+Version:                0.2.1
+%global tag             0.2.1
 
 %gometa -f
 
@@ -23,7 +23,7 @@ Summary:        Package manager worker for yggdrasil
 
 License:        GPL-3.0-only
 URL:            %{gourl}
-Source:         %{gosource}
+Source:         %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  meson
@@ -34,11 +34,13 @@ BuildRequires:  pkgconfig(dbus-1)
 %gopkg
 
 %prep
-%goprep
+%goprep %{?rhel:-k}
 %autopatch -p1
 
+%if %{undefined rhel}
 %generate_buildrequires
 %go_generate_buildrequires
+%endif
 
 %build
 %undefine _auto_set_build_flags
@@ -58,6 +60,9 @@ export %gomodulesmode
 
 %files
 %license LICENSE
+%if %{defined rhel}
+%license vendor/modules.txt
+%endif
 %doc README.md
 %{_libexecdir}/*
 %config(noreplace) %{_sysconfdir}/%{name}

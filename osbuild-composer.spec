@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        86
+Version:        87
 
 %gometa
 
@@ -48,7 +48,7 @@ BuildRequires:  git
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
 Provides: bundled(golang(cloud.google.com/go)) = 0.110.4
-Provides: bundled(golang(cloud.google.com/go/compute)) = 1.22.0
+Provides: bundled(golang(cloud.google.com/go/compute)) = 1.23.0
 Provides: bundled(golang(cloud.google.com/go/compute/metadata)) = 0.2.3
 Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.0
 Provides: bundled(golang(cloud.google.com/go/storage)) = 1.31.0
@@ -70,7 +70,7 @@ Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.3.2
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.44.304
+Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.44.316
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
@@ -163,7 +163,7 @@ Provides: bundled(golang(github.com/opencontainers/runc)) = 1.1.7
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.1.0-rc.3
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.315
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 246b718
+Provides: bundled(golang(github.com/osbuild/images)) = 0321216
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 1.0.0
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.3
@@ -191,7 +191,7 @@ Provides: bundled(golang(github.com/valyala/bytebufferpool)) = 1.0.0
 Provides: bundled(golang(github.com/valyala/fasttemplate)) = 1.2.2
 Provides: bundled(golang(github.com/vbatts/tar-split)) = 0.11.3
 Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = 8.4.0
-Provides: bundled(golang(github.com/vmware/govmomi)) = 0.30.6
+Provides: bundled(golang(github.com/vmware/govmomi)) = 0.30.7
 Provides: bundled(golang(go.etcd.io/bbolt)) = 1.3.7
 Provides: bundled(golang(go.mongodb.org/mongo-driver)) = 1.11.3
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = 33d0574
@@ -208,11 +208,11 @@ Provides: bundled(golang(golang.org/x/text)) = 0.11.0
 Provides: bundled(golang(golang.org/x/time)) = 0.3.0
 Provides: bundled(golang(golang.org/x/tools)) = 0.9.3
 Provides: bundled(golang(golang.org/x/xerrors)) = 04be3eb
-Provides: bundled(golang(google.golang.org/api)) = 0.132.0
+Provides: bundled(golang(google.golang.org/api)) = 0.134.0
 Provides: bundled(golang(google.golang.org/appengine)) = 1.6.7
 Provides: bundled(golang(google.golang.org/genproto)) = ccb25ca
 Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = ccb25ca
-Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 782d3b1
+Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 659f7aa
 Provides: bundled(golang(google.golang.org/grpc)) = 1.56.2
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.31.0
 Provides: bundled(golang(gopkg.in/go-jose/go-jose.v2)) = 2.6.1
@@ -589,6 +589,22 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Aug 09 2023 Packit <hello@packit.dev> - 87-1
+Changes with 87
+----------------
+  * Koji: expose image metadata in build extra metadata, including boot mode (#3599)
+  * Main cloud size (#3597)
+  * Update snapshots to 20230801 (#3592)
+  * deps: update osbuild/images to 157e798fdf8d (#3593)
+  * test/cases/api: add check for subscription-manager facts (#3257)
+  * test: Fix Fedora 39 snapshot urls in test repo (#3574)
+  * tests: Add a check for valid snapshot urls (#3572)
+
+Contributions from: Achilleas Koutsou, Brian C. Lane, Jakub Rusz, Sanne Raymaekers, Tomáš Hozza, Xiaofeng Wang, schutzbot, yih
+
+— Somewhere on the Internet, 2023-08-09
+
+
 * Wed Jul 26 2023 Packit <hello@packit.dev> - 86-1
 Changes with 86
 ----------------

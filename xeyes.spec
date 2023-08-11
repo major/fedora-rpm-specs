@@ -1,11 +1,11 @@
 Name:       xeyes
-Version:    1.2.0
-Release:    7%{?dist}
+Version:    1.3.0
+Release:    1%{?dist}
 Summary:    A follow the mouse X demo
 
 License:    MIT
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
+Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires:  automake libtool
 BuildRequires:  gcc make
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Aug 10 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.3.0-1
+- xeyes 1.3.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

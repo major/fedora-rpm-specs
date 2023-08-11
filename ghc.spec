@@ -20,8 +20,8 @@
 # use Hadrian buildsystem for production builds
 %bcond hadrian 1
 
-# disabled to allow parallel install of ghc9.2-9.2.7 and ghc-9.2.6
-%if 1
+# disabled to allow parallel install of ghcX.Y-X.Y.(Z+1) and ghc-X.Y.Z
+%if 0
 %global ghc_major 9.4
 %global ghc_obsoletes_name ghc%{ghc_major}
 %endif
@@ -87,7 +87,7 @@ Version: 9.4.5
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 134%{?dist}
+Release: 135%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -418,7 +418,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %if %{with prodbuild}
-#%%{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
+#%%{gpgverify} --keyring='%%{SOURCE3}' --signature='%%{SOURCE2}' --data='%%{SOURCE0}'
 %endif
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 
@@ -995,6 +995,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Tue Aug  8 2023 Jens Petersen <petersen@redhat.com> - 9.4.5-135
+- disable ghc9.4 obsoletes due to 9.4.6 release
+
 * Tue Jul 25 2023 Jens Petersen <petersen@redhat.com> - 9.4.5-134
 - rebase to 9.4.5 from ghc9.4 package
 - https://downloads.haskell.org/~ghc/9.4.5/docs/users_guide/9.4.1-notes.html

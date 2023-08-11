@@ -6,10 +6,10 @@
 
 Name:           %{fontname}-fonts
 Version:        2.91.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Free Gurmukhi truetype font for Punjabi language
 
-License:        OFL
+License:        OFL-1.1
 URL:            https://pagure.io/lohit
 Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
 Source1:        %{name}.conf
@@ -61,6 +61,9 @@ install -Dm 0644 -p %{metainfo}.xml \
 %{_datadir}/metainfo/%{metainfo}.xml
 
 %changelog
+* Wed Aug 09 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.91.2-18
+- Convert license to SPDX expression 
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

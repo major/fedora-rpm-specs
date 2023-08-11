@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.42.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -33,7 +33,6 @@ BuildRequires:  python3-Cython
 BuildRequires:  gcc
 
 Requires:       python3-brotli
-Requires:       python3-munkres
 Requires:       python3-lxml
 Requires:       python3-scipy
 Requires:       python3-fs
@@ -42,14 +41,15 @@ Requires:       python3-fs
 %bcond_without tests
 %if %{with tests}
 # Need to run test files in %%check
-BuildRequires:  python3-zopfli
 BuildRequires:  python3-pytest
 BuildRequires:  python3-brotli
-BuildRequires:  python3-munkres
 BuildRequires:  python3-scipy
 BuildRequires:  python3-fs
 BuildRequires:  python3-lxml
+%if %{undefined rhel}
 BuildRequires:  python3-ufoLib2
+BuildRequires:  python3-zopfli
+%endif
 %endif
 
 # From 3.31.0 and on, python3-fonttools incorporated the ufolib project under fontTools.ufoLib
@@ -96,6 +96,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m pytest --ignore Tests/o
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Aug 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.42.0-2
+- Skip unwanted test dependencies in RHEL builds
+
 * Thu Aug 03 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.42.0-1
 - Update to 4.42.0 version (#2228656)
 

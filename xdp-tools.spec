@@ -1,10 +1,10 @@
 Name:             xdp-tools
 Version:          1.4.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Utilities and example programs for use with XDP
 %global _soversion 1.4.0
 
-License:          GPLv2
+License:          GPL-2.0-only
 URL:              https://github.com/xdp-project/%{name}
 Source0:          https://github.com/xdp-project/%{name}/releases/download/v%{version}/xdp-tools-%{version}.tar.gz
 Patch0:           xdp-tools-1.4.0-configure-Don-t-fail-on-missing-bpftool.patch
@@ -39,15 +39,18 @@ Utilities and example programs for use with XDP
 
 %package -n libxdp
 Summary:          XDP helper library
+License:          LGPL-2.1-only OR BSD-2-Clause
 Requires:         kernel-headers
 
 %package -n libxdp-devel
 Summary:          Development files for libxdp
+License:          LGPL-2.1-only OR BSD-2-Clause
 Requires:         kernel-headers
 Requires:         libxdp = %{version}-%{release}
 
 %package -n libxdp-static
 Summary:          Static library files for libxdp
+License:          LGPL-2.1-only OR BSD-2-Clause
 Requires:         kernel-headers
 Requires:         libxdp-devel = %{version}-%{release}
 
@@ -122,6 +125,9 @@ make install V=1
 %{_libdir}/pkgconfig/libxdp.pc
 
 %changelog
+* Wed Aug 9 2023 Toke Høiland-Jørgensen <toke@redhat.com> 1.4.0-3
+- Migrated to SPDX format for licenses
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

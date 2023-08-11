@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        295
+Version:        296
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -65,15 +65,15 @@ Recommends: libosinfo
 Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
-Provides: bundled(npm(@babel/runtime)) = 7.22.6
+Provides: bundled(npm(@babel/runtime)) = 7.22.10
 Provides: bundled(npm(@novnc/novnc)) = 1.4.0
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.53
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.2
 Provides: bundled(npm(@patternfly/react-console)) = 5.0.0-alpha.1
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.98
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.14
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.10
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.100
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.9
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0
 Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
 Provides: bundled(npm(array-buffer-byte-length)) = 1.0.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
@@ -85,7 +85,7 @@ Provides: bundled(npm(define-properties)) = 1.2.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
 Provides: bundled(npm(file-saver)) = 1.3.8
 Provides: bundled(npm(file-selector)) = 0.6.0
-Provides: bundled(npm(focus-trap)) = 7.4.1
+Provides: bundled(npm(focus-trap)) = 7.4.3
 Provides: bundled(npm(for-each)) = 0.3.3
 Provides: bundled(npm(function-bind)) = 1.1.1
 Provides: bundled(npm(functions-have-names)) = 1.2.3
@@ -130,7 +130,7 @@ Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
 Provides: bundled(npm(redux-thunk)) = 2.4.2
 Provides: bundled(npm(redux)) = 4.2.1
-Provides: bundled(npm(regenerator-runtime)) = 0.13.11
+Provides: bundled(npm(regenerator-runtime)) = 0.14.0
 Provides: bundled(npm(regexp.prototype.flags)) = 1.5.0
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(side-channel)) = 1.0.4
@@ -169,6 +169,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Aug 09 2023 Packit <hello@packit.dev> - 296-1
+- Update to PatternFly 5
+
 * Wed Jul 26 2023 Packit <hello@packit.dev> - 295-1
 - Performance and stability improvements
 

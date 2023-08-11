@@ -12,6 +12,8 @@ Source0:        https://github.com/MRChemSoft/mrcpp/archive/v%{version}/%{name}-
 Patch0:         mrcpp-1.4.0-eigen3.patch
 # Disable rpath
 Patch1:         mrcpp-1.4.0-rpath.patch
+# Patch in catchv3 support, see https://github.com/MRChemSoft/mrcpp/pull/213
+Patch2:         mrcpp-1.5.0-catchv3.patch
 
 # We need the data
 Requires:       %{name}-data = %{version}-%{release}
@@ -68,6 +70,7 @@ This package contains the runtime data.
 %setup -q
 %patch 0 -p1 -b .eigen3
 %patch 1 -p1 -b .rpath
+%patch 2 -p1 -b .catchv3
 # Remove bundled catch
 rm -rf external/catch/
 

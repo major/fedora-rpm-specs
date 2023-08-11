@@ -12,11 +12,11 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 3
+%global baserelease 1
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.2.0
+Version:        1.3.0
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -127,6 +127,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Wed Aug  9 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.3.0-372.1.1
+- New upstream release 1.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-372.1.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

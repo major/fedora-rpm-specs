@@ -21,7 +21,7 @@ Summary:        Remote data transmission and processing client
 
 License:        GPL-3.0-only
 URL:            %{gourl}
-Source:         %{gosource}
+Source:         %{url}/releases/download/%{version}/yggdrasil-%{version}.tar.xz
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  meson
@@ -34,11 +34,13 @@ BuildRequires:  pkgconfig(bash-completion)
 %gopkg
 
 %prep
-%goprep
+%goprep %{?rhel:-k}
 %autopatch -p1
 
+%if %{undefined rhel}
 %generate_buildrequires
 %go_generate_buildrequires
+%endif
 
 %build
 %undefine _auto_set_build_flags
@@ -59,6 +61,9 @@ export %gomodulesmode
 
 %files
 %license LICENSE
+%if %{defined rhel}
+%license vendor/modules.txt
+%endif
 %doc CONTRIBUTING.md README.md
 %{_bindir}/*
 %config(noreplace) %{_sysconfdir}/%{name}

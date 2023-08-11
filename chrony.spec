@@ -1,6 +1,5 @@
 %global _hardened_build 1
-%global clknetsim_ver 13b0a5
-%global prerelease -pre2
+%global clknetsim_ver ef2a7a
 %bcond_without debug
 %bcond_without nts
 
@@ -10,14 +9,14 @@
 
 Name:           chrony
 Version:        4.4
-Release:        0.4.pre2%{?dist}
+Release:        1%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
-URL:            https://chrony.tuxfamily.org
-Source0:        https://download.tuxfamily.org/chrony/chrony-%{version}%{?prerelease}.tar.gz
-Source1:        https://download.tuxfamily.org/chrony/chrony-%{version}%{?prerelease}-tar-gz-asc.txt
-Source2:        https://chrony.tuxfamily.org/gpgkey-8F375C7E8D0EE125A3D3BD51537E2B76F7680DAC.asc
+URL:            https://chrony-project.org
+Source0:        https://chrony-project.org/releases/chrony-%{version}%{?prerelease}.tar.gz
+Source1:        https://chrony-project.org/releases/chrony-%{version}%{?prerelease}-tar-gz-asc.txt
+Source2:        https://chrony-project.org/gpgkey-8F375C7E8D0EE125A3D3BD51537E2B76F7680DAC.asc
 Source3:        chrony.dhclient
 Source4:        chrony.sysusers
 # simulator for test suite
@@ -34,6 +33,9 @@ BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
 
 %{?systemd_requires}
 %{?sysusers_requires_compat}
+
+# Needed by the leapsectz directive in default chrony.conf
+Requires:       tzdata
 
 # Old NetworkManager expects the dispatcher scripts in a different place
 Conflicts:      NetworkManager < 1.20
@@ -203,6 +205,10 @@ fi
 %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed Aug 09 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.4-1
+- update to 4.4
+- require tzdata (#2218368)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-0.4.pre2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

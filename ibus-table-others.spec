@@ -1,6 +1,6 @@
 Name:       ibus-table-others
-Version:    1.3.16
-Release:    2%{?dist}
+Version:    1.3.17
+Release:    1%{?dist}
 Summary:    Various tables for IBus-Table
 License:    LGPL-2.1-or-later AND GPL-3.0-or-later AND WTFPL
 URL:        http://github.com/moebiuscurve/ibus-table-others
@@ -17,11 +17,11 @@ Latin-America, Europe, Southeast Asia, as well as math and other symbols
 
 %package -n ibus-table-code
 Requires:  ibus-table
-Summary:   Ibus-Tables for Latex, CNS11643 & Emoji
+Summary:   Ibus-Tables for Latex, CNS11643 & Emoticons
 License:   LGPL-2.1-or-later
 
 %description -n ibus-table-code
-The package contains ibus-tables for Latex, CNS11643, Emoji. 
+The package contains ibus-tables for Latex, CNS11643, Emoticons.
 
 %package -n ibus-table-cyrillic
 Requires:  ibus-table
@@ -84,7 +84,7 @@ make DESTDIR=${RPM_BUILD_ROOT} NO_INDEX=true install
 cd ${RPM_BUILD_ROOT}/%{_datadir}/ibus-table/tables/
 %{_bindir}/ibus-table-createdb -i -n cns11643.db
 %{_bindir}/ibus-table-createdb -i -n compose.db
-%{_bindir}/ibus-table-createdb -i -n emoji-table.db
+%{_bindir}/ibus-table-createdb -i -n emoticon-table.db
 %{_bindir}/ibus-table-createdb -i -n ipa-x-sampa.db
 %{_bindir}/ibus-table-createdb -i -n latex.db
 %{_bindir}/ibus-table-createdb -i -n rusle.db
@@ -104,19 +104,20 @@ cd ${RPM_BUILD_ROOT}/%{_datadir}/ibus-table/tables/
 # See http://www.freedesktop.org/software/appstream/docs/ for more details.
 #
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-cat > $RPM_BUILD_ROOT%{_datadir}/appdata/emoji-table.appdata.xml <<EOF
+cat > $RPM_BUILD_ROOT%{_datadir}/appdata/emoticon-table.appdata.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="inputmethod">
-  <id>emoji-table.db</id>
+  <id>emoticon-table.db</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1-or-later</project_license>
-  <name>Emoji</name>
-  <summary>Emoji input method</summary>
+  <name>Emoticon</name>
+  <summary>Emoticon input method</summary>
   <description>
     <p>
-      Emoji is an input method that allows the user to enter pictographs that are used
-      like emoticons.
-      Some emoji strings are specific to Japanese culture.
+      Emoticon is an input method that allows the user to enter pictorial representation
+      of a facial or other expressions using characters—usually punctuation marks, numbers,
+      and letters—to express a person's feelings, mood, or reaction, without needing to describe it in detail.
+      This emoticon input method is mainly for Chinese users.
     </p>
     <p>
       Input methods are typing systems allowing users to input complex languages.
@@ -124,11 +125,11 @@ cat > $RPM_BUILD_ROOT%{_datadir}/appdata/emoji-table.appdata.xml <<EOF
       out on a traditional keyboard.
     </p>
   </description>
-  <url type="homepage">https://code.google.com/p/ibus-table-emoji/</url>
+  <url type="homepage">https://code.google.com/p/ibus-table-emoticon/</url>
   <screenshots>
     <!-- FIXME: Needs an official up to date screenshot -->
     <screenshot type="default">
-      <image>http://ibus-table-emoji.googlecode.com/hg/screenshot.png</image>
+      <image>http://ibus-table-emoticon.googlecode.com/hg/screenshot.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
   </screenshots>  <url type="bugtracker">https://code.google.com/p/ibus/issues/list</url>
@@ -227,13 +228,13 @@ EOF
 %doc AUTHORS COPYING README
 
 %files -n ibus-table-code
-%{_datadir}/appdata/emoji-table.appdata.xml
+%{_datadir}/appdata/emoticon-table.appdata.xml
 %{_datadir}/ibus-table/tables/latex.db
 %{_datadir}/ibus-table/tables/cns11643.db
-%{_datadir}/ibus-table/tables/emoji-table.db
+%{_datadir}/ibus-table/tables/emoticon-table.db
 %{_datadir}/ibus-table/icons/latex.svg
 %{_datadir}/ibus-table/icons/cns11643.png
-%{_datadir}/ibus-table/icons/ibus-emoji.svg
+%{_datadir}/ibus-table/icons/ibus-emoticon.svg
 
 %files -n ibus-table-cyrillic
 %{_datadir}/ibus-table/tables/rusle.db
@@ -279,6 +280,13 @@ EOF
 %{_datadir}/ibus-table/icons/mongol_bichig.svg
 
 %changelog
+* Wed Aug 09 2023 Mike FABIAN <mfabian@redhat.com> - 1.3.17-1
+- Update to latest upstream 1.3.17
+- Rename emoji-table to emoticon-table
+  Resolves: https://github.com/moebiuscurve/ibus-table-others/issues/15
+- Remove useless m4/as-version.m4
+  Resolves: https://github.com/moebiuscurve/ibus-table-others/issues/36
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

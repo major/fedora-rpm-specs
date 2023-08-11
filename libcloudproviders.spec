@@ -2,8 +2,8 @@
 
 Name:           libcloudproviders
 Summary:        Library for integration of cloud storage providers
-Version:        0.3.1
-Release:        8%{?dist}
+Version:        0.3.2
+Release:        1%{?dist}
 License:        LGPLv3+
 
 URL:            https://gitlab.gnome.org/World/libcloudproviders
@@ -64,6 +64,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Aug 09 2023 Kalev Lember <klember@redhat.com> - 0.3.2-1
+- Update to 0.3.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

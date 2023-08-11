@@ -50,8 +50,8 @@
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
 Version: 2.20.0
-Release: 3%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
-License: GPLv2+
+Release: 4%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
 %else
@@ -564,6 +564,9 @@ fi
 %{_mandir}/man7/tuned-profiles-openshift.7*
 
 %changelog
+* Wed Aug  9 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.20.0-4
+- Converted license to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

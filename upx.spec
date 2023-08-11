@@ -1,6 +1,6 @@
 Name:           upx
-Version:        4.0.2
-Release:        3%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Ultimate Packer for eXecutables
 
 License:        GPL-2.0-or-later AND Public Domain
@@ -37,12 +37,15 @@ rm -f %{buildroot}%{_datadir}/doc/upx/*
 
 %files
 %license COPYING LICENSE
-%doc NEWS README README.SRC THANKS upx-doc.*
+%doc NEWS README README.SRC doc/THANKS.txt upx-doc.*
 %{_bindir}/upx
 %{_mandir}/man1/upx.1*
 
 
 %changelog
+* Wed Aug 09 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.1.0-1
+- 4.1.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

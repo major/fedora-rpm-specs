@@ -1252,6 +1252,10 @@ fi
 %endif
 
 %changelog
+* Wed Aug  9 2023 Guinevere Larsen <blarsen@redhat.com>
+- Remove gdb-6.7-testsuite-stable-results.patch, it only made the test
+  fail more.
+
 * Mon Aug  7 2023 Kevin Buettner <kevinb@redhat.com> - 13.2-7
 - Bump release.
 

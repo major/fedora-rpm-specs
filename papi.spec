@@ -11,8 +11,8 @@
 Summary: Performance Application Programming Interface
 Name: papi
 Version: 7.0.1
-Release: 4%{?dist}
-License: BSD
+Release: 5%{?dist}
+License: BSD-3-Clause
 Requires: papi-libs = %{version}-%{release}
 URL: http://icl.cs.utk.edu/papi/
 Source0: http://icl.cs.utk.edu/projects/papi/downloads/%{name}-%{version}.tar.gz
@@ -51,12 +51,14 @@ PAPI provides a programmer interface to monitor the performance of
 running programs.
 
 %package libs
+License: BSD-3-Clause
 Summary: Libraries for PAPI clients
 %description libs
 This package contains the run-time libraries for any application that wishes
 to use PAPI.
 
 %package devel
+License: BSD-3-Clause
 Summary: Header files for the compiling programs with PAPI
 Requires: papi = %{version}-%{release}
 Requires: papi-libs = %{version}-%{release}
@@ -67,6 +69,7 @@ libraries and interfaces. This is required for rebuilding any program
 that uses PAPI.
 
 %package testsuite
+License: BSD-3-Clause
 Summary: Set of tests for checking PAPI functionality
 Requires: papi = %{version}-%{release}
 Requires: papi-libs = %{version}-%{release}
@@ -76,6 +79,7 @@ that PAPI functions on particular hardware.
 
 %if %{with_static}
 %package static
+License: BSD-3-Clause
 Summary: Static libraries for the compiling programs with PAPI
 Requires: papi = %{version}-%{release}
 %description static
@@ -181,6 +185,9 @@ find %{buildroot} -type f -executable ! -iname "*.py" ! -iname "*.sh" | xargs ch
 %endif
 
 %changelog
+* Wed Aug 9 2023 William Cohen <wcohen@redhat.com> - 7.0.1-5
+- migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
