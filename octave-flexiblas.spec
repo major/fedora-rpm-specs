@@ -47,4 +47,5 @@ without recompiling the programs.
 %{octpkgdir}/packinfo
 %license %{octpkgdir}/packinfo/COPYING
 
+%changelog
 %autochangelog

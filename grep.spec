@@ -1,8 +1,8 @@
 Summary: Pattern matching utilities
 Name: grep
 Version: 3.11
-Release: 4%{?dist}
-License: GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
+Release: 5%{?dist}
+License: GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GFDL-1.3-no-invariants-or-later
 URL: https://www.gnu.org/software/grep/
 
 Source0: https://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.xz
@@ -97,6 +97,9 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Thu Aug 10 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.11-5
+- Updated SPDX license expression
+
 * Wed Aug  9 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.11-4
 - Converted license to SPDX
 

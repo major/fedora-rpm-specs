@@ -1,8 +1,8 @@
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2020.3
-Release: 20%{?dist}
-License: ASL 2.0
+Release: 21%{?dist}
+License: Apache-2.0 AND BSD-3-Clause
 URL:     http://threadingbuildingblocks.org/
 
 Source0: https://github.com/intel/tbb/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -214,6 +214,9 @@ cmake \
 %{python3_sitearch}/__pycache__/TBB*
 
 %changelog
+* Thu Aug 10 2023 Jonathan Wakely <jwakely@fedoraproject.org> - 2020.3-21
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

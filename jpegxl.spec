@@ -39,7 +39,6 @@ Source1:        third_party-%{version}.tar.gz
 BuildRequires:  asciidoc
 BuildRequires:  cmake
 BuildRequires:  doxygen
-BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  giflib-devel
 %if %{with tcmalloc}
@@ -49,20 +48,21 @@ BuildRequires:  ninja-build
 %if %{with gimp_plugin}
 BuildRequires:  pkgconfig(gimp-2.0)
 %endif
-BuildRequires:  (pkgconfig(glut) or pkgconfig(freeglut))
+## sjpeg examples are not built
+#BuildRequires:  (pkgconfig(glut) or pkgconfig(freeglut))
 BuildRequires:  gtest-devel
 BuildRequires:  gflags-devel
 BuildRequires:  pkgconfig(libhwy)
 BuildRequires:  pkgconfig(libbrotlicommon)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(libwebp)
+## benchmark tools are not built
+#BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(OpenEXR)
-%if 0
-# viewers are not built
-BuildRequires:  pkgconfig(Qt5)
-BuildRequires:  pkgconfig(Qt5X11Extras)
-%endif
+## viewers are not built
+#BuildRequires:  extra-cmake-modules
+#BuildRequires:  pkgconfig(Qt5)
+#BuildRequires:  pkgconfig(Qt5X11Extras)
 BuildRequires:  pkgconfig(zlib)
 # epel 8 need this other already have it
 BuildRequires:  python3-devel

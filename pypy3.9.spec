@@ -1,5 +1,5 @@
 %global basever 7.3
-%global micro 11
+%global micro 12
 #global pre ...
 %global pyversion 3.9
 Name:           pypy%{pyversion}
@@ -10,7 +10,7 @@ Version:        %{basever}.%{micro}%{?pre:~%{pre}}
 # by Python version as well.
 # This potentially allows tags like Obsoletes: pypy3 < %%{version}-%%{release}.
 # https://bugzilla.redhat.com/2053880
-%global baserelease 5
+%global baserelease 1
 Release:        %{baserelease}.%{pyversion}%{?dist}
 Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 
@@ -27,12 +27,10 @@ Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 # before building).  If we restore those we'll have to work out the new
 # licensing terms
 License:        MIT and Python and UCD and BSD and (ASL 2.0 or BSD)
-URL:            http://pypy.org/
+URL:            https://www.pypy.org/
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
-%endif
 
 # High-level configuration of the build:
 
@@ -70,7 +68,6 @@ ExcludeArch:    %{ix86}
 # We refer to this subdir of the source tree in a few places during the build:
 %global goal_dir pypy/goal
 
-%if 0%{?fedora} >= 36
 # REMINDER: When updating the main pypy3 version for a certain Fedora release
 # make sure to update the python-classroom group in https://pagure.io/fedora-comps/
 #   1. locate comps-fXX.xml.in for each affected Fedora release
@@ -78,9 +75,6 @@ ExcludeArch:    %{ix86}
 #   3. change the package name to match the new version
 #   4. submit changes as a pull request and make sure somebody merges it
 %bcond_without main_pypy3
-%else
-%bcond_with main_pypy3
-%endif
 
 %ifarch %{ix86} x86_64 %{arm}
 %global _package_note_linker gold
@@ -119,16 +113,6 @@ Patch9: 009-add-libxcrypt-support.patch
 # /usr/share/python-wheels
 # We conditionally apply this, but we use autosetup, so we use Source here
 Source189: 189-use-rpm-wheels.patch
-
-# 00399 #
-# CVE-2023-24329
-#
-# gh-102153: Start stripping C0 control and space chars in `urlsplit` (GH-102508)
-#
-# `urllib.parse.urlsplit` has already been respecting the WHATWG spec a bit GH-25595.
-#
-# This adds more sanitizing to respect the "Remove any leading C0 control or space from input" [rule](https://url.spec.whatwg.org/GH-url-parsing:~:text=Remove%%20any%%20leading%%20and%%20trailing%%20C0%%20control%%20or%%20space%%20from%%20input.) in response to [CVE-2023-24329](https://nvd.nist.gov/vuln/detail/CVE-2023-24329).
-Patch399: 399-cve-2023-24329.patch
 
 # Build-time requirements:
 
@@ -209,9 +193,7 @@ Provides: pypy3%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3 < 7.3.4-4
 # This is when pypy3 was provided by pypy3.8:
 Conflicts: pypy3 < %{version}-%{release}
-%if 0%{?fedora} >= 37
 Obsoletes: pypy3.7 < 7.3.9-20
-%endif
 %if 0%{?fedora} >= 38
 Obsoletes: pypy3.8 < 7.3.11-20
 %endif
@@ -251,9 +233,7 @@ Requires: emacs-filesystem >= %{_emacs_version}
 Provides: pypy3-libs = %{version}-%{release}
 Provides: pypy3-libs%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3-libs < 7.3.4-4
-%if 0%{?fedora} >= 37
 Obsoletes: pypy3.7-libs < 7.3.9-20
-%endif
 %if 0%{?fedora} >= 38
 Obsoletes: pypy3.8-libs < 7.3.11-20
 %endif
@@ -263,7 +243,7 @@ Obsoletes: pypy3.8-libs < 7.3.11-20
 Requires: python-setuptools-wheel
 Requires: python-pip-wheel
 %else
-Provides: bundled(python3dist(pip)) = 22.0.4
+Provides: bundled(python3dist(pip)) = 23.0.1
 Provides: bundled(python3dist(setuptools)) = 58.1.0
 %endif
 
@@ -274,7 +254,7 @@ Provides: bundled(libmpdec) = %{libmpdec_version}
 }
 
 # Find the version in lib_pypy/cffi.dist-info/METADATA
-Provides: bundled(python3dist(cffi)) = 1.15.0
+Provides: bundled(python3dist(cffi)) = 1.15.1
 
 # Find the version in lib_pypy/cffi/_pycparser/__init__.py
 Provides: bundled(python3dist(pycparser)) = 2.21
@@ -285,8 +265,8 @@ Provides: bundled(python3dist(ply)) = 3.9
 # Find the version in lib_pypy/_cffi_ssl/cryptography/__about__.py
 Provides: bundled(python3dist(cryptography)) = 2.7
 
-# Find the version in lib_pypy/hpy.dist-info/METADATA
-Provides: bundled(python3dist(hpy)) = 0.0.3
+# Find the version in lib_pypy/hpy-XXX.dist-info/METADATA
+Provides: bundled(python3dist(hpy)) = 0.0.4~~dev179+g9b5d200
 
 %description libs
 Libraries required by the various PyPy implementations of Python %{pyversion}.
@@ -300,9 +280,7 @@ Requires: pypy%{pyversion}-libs%{?_isa} = %{version}-%{release}
 %if %{with main_pypy3}
 Provides: pypy3-test = %{version}-%{release}
 Provides: pypy3-test%{?_isa} = %{version}-%{release}
-%if 0%{?fedora} >= 37
 Obsoletes: pypy3.7-test < 7.3.9-20
-%endif
 %if 0%{?fedora} >= 38
 Obsoletes: pypy3.8-test < 7.3.11-20
 %endif
@@ -322,9 +300,7 @@ Requires: pypy%{pyversion}-libs%{?_isa} = %{version}-%{release}
 Provides: pypy3-devel = %{version}-%{release}
 Provides: pypy3-devel%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3-devel < 7.3.4-4
-%if 0%{?fedora} >= 37
 Obsoletes: pypy3.7-devel < 7.3.9-20
-%endif
 %if 0%{?fedora} >= 38
 Obsoletes: pypy3.8-devel < 7.3.11-20
 %endif
@@ -796,7 +772,7 @@ CheckPyPy pypy%{pyversion}-c
 %license %{pypylibdir}/_cffi_ssl/LICENSE
 %license %{pypylibdir}/cffi.dist-info/LICENSE
 %license %{pypylibdir}/cffi/_pycparser/ply/LICENSE
-%license %{pypylibdir}/hpy.dist-info/LICENSE
+%license %{pypylibdir}/hpy-*.dist-info/LICENSE
 %{pypylibdir}/
 %if %{with rpmwheels}
 %exclude %{pypylibdir}/ensurepip/_bundled
@@ -815,7 +791,7 @@ CheckPyPy pypy%{pyversion}-c
 %exclude %{pypylibdir}/_ctypes_test.*
 %exclude %{pypylibdir}/_pypy_testcapi.*
 %exclude %{pypylibdir}/_test*
-%exclude %{pypylibdir}/__pycache__/_ctypes_test.*
+%exclude %{pypylibdir}/__pycache__/_ctypes_test*
 %exclude %{pypylibdir}/__pycache__/_pypy_testcapi.*
 %exclude %{pypylibdir}/__pycache__/_test*
 %exclude %{pypylibdir}/test/
@@ -835,7 +811,7 @@ CheckPyPy pypy%{pyversion}-c
 %{pypylibdir}/_ctypes_test.*
 %{pypylibdir}/_pypy_testcapi.*
 %{pypylibdir}/_test*
-%{pypylibdir}/__pycache__/_ctypes_test.*
+%{pypylibdir}/__pycache__/_ctypes_test*
 %{pypylibdir}/__pycache__/_pypy_testcapi.*
 %{pypylibdir}/__pycache__/_test*
 %{pypylibdir}/test/
@@ -860,6 +836,10 @@ CheckPyPy pypy%{pyversion}-c
 
 
 %changelog
+* Wed Jul 26 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.12-1.3.9
+- Update to 7.3.12
+- Fixes: rhbz#2203423
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.11-5.3.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

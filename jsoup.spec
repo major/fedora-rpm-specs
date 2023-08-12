@@ -14,10 +14,10 @@ Source0:        %{name}-%{version}.tar.gz
 # The sources contain non-free scraped web pages as test data
 Source1:        generate-tarball.sh
 
-BuildRequires:  maven-local-openjdk8
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap
+BuildRequires:  javapackages-bootstrap-openjdk8
 %else
+BuildRequires:  maven-local-openjdk8
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
 

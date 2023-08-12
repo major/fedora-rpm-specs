@@ -2,7 +2,7 @@
 
 Name: log4cplus
 Version: 2.1.0
-Release: 1%{?prever:.%{prever}}%{?dist}
+Release: 2%{?prever:.%{prever}}%{?dist}
 Summary: Logging Framework for C++
 
 License: ASL 2.0
@@ -82,7 +82,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.la
 
 
 %changelog
-* Mon Jul 24 2023 Martin Osvald <mosvald@redhat.com> - 2.1.0-1
+* Thu Aug 10 2023 Martin Osvald <mosvald@redhat.com> - 2.1.0-2
 - New version 2.1.0 (rhbz#2169015)
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-5

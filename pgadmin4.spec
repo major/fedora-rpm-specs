@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        7.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -87,7 +87,7 @@ Requires: (python3dist(psycopg) >= 3.1 with python3dist(psycopg) < 3.2)
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: python3dist(sqlalchemy) >= 1.4
 Requires: (python3dist(bcrypt) >= 4 with python3dist(bcrypt) < 4.1)
-Requires: (python3dist(cryptography) >= 40 with python3dist(cryptography) < 40.1)
+Requires: python3dist(cryptography) >= 40
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: python3dist(gssapi) >= 1.7
@@ -258,6 +258,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Aug 10 2023 Sandro Mani <manisandro@gmail.com> - 7.0-3
+- Update Requires
+
+* Thu Aug 10 2023 Sandro Mani <manisandro@gmail.com> - 7.0-2
+- Relax python-cryptography version constraint
+
 * Fri Aug 04 2023 Sandro Mani <manisandro@gmail.com> - 7.0-1
 - Update to 7.0
 

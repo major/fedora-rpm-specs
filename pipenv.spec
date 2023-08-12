@@ -12,7 +12,7 @@
 #     * pipenv/vendor/pythonfinder/_vendor/vendor.txt
 #   inside the sources, and possibly diff them with the previous version)
 
-%global base_version        2023.2.18
+%global base_version        2023.6.12
 # %%global prerelease_version  --
 
 # Test artifacts are not released, we have to download the commit tree
@@ -25,7 +25,7 @@
 
 Name:           pipenv
 Version:        %{base_version}%{?prerelease_version:~%{prerelease_version}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        The higher level Python packaging tool
 
 # Pipenv source code is MIT, there are bundled packages having different licenses
@@ -47,16 +47,6 @@ Patch4:         dummy-certifi.patch
 # pip and distlib
 Patch6:         remove-bundled-exe-files.patch
 
-# pipenv bundles pip, which bundles setuptools, then:
-
-# https://github.com/pypa/setuptools/pull/3685
-# https://github.com/pypa/setuptools/pull/3685/commits/6653e747c3815b140156249205397ef3719581ee
-Patch101:       setuptools-pr3685-wrap-deprecated-pkgutil-usage.patch
-# https://github.com/pypa/setuptools/pull/1563
-Patch102:       setuptools-pr1563-pep451.patch
-# https://github.com/pypa/setuptools/pull/2918
-Patch103:       setuptools-pr2918-fixpkg_resources-import-failure.patch
-
 BuildArch:      noarch
 
 BuildRequires:  ca-certificates
@@ -72,9 +62,11 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pytz)
 BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(myst-parser)
 BuildRequires:  python3dist(sphinx-click)
 BuildRequires:  python3dist(sphinxcontrib-spelling)
 BuildRequires:  python3dist(twine)
+BuildRequires:  python3dist(linkify-it-py)
 
 # Runtime dependencies required for tests
 # (even though they're also bundled...)
@@ -109,21 +101,21 @@ Requires:       which
 # pipenv bundles and has proven working - staying close to what upstream brings
 # will hopefully spare some maintenance burden in the future
 %global bundled %{expand:
-Provides: bundled(python3dist(click-didyoumean)) = 0.0.3
-Provides: bundled(python3dist(pipdeptree)) = 2.3.1
+Provides: bundled(python3dist(click-didyoumean)) = 0.3
+Provides: bundled(python3dist(pipdeptree)) = 2.8
 Provides: bundled(python3dist(ruamel-yaml)) = 0.17.21
 # This library uses pip.internals. Some changes in init methods happened there.
 # So version 1.3.3 is useless with pip 19+ and newer versions will break pipenv
 # because pipenv has bundled patched pip.
-Provides: bundled(python3dist(requirementslib)) = 2.2.3
+Provides: bundled(python3dist(requirementslib)) = 2.3
 
 # The sources contains patched versions of following packages:
-Provides: bundled(python3dist(pip)) = 23.0.1
+Provides: bundled(python3dist(pip)) = 23.1.2
 Provides: bundled(python3dist(safety)) = 2.3.2
 
 # We cannot unbundle this easily,
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1767003
-Provides: bundled(python3dist(tomlkit)) = 0.9.2
+Provides: bundled(python3dist(tomlkit)) = 0.11.7
 
 # The packages bundled with pip:
 Provides: bundled(python3dist(cachecontrol)) = 0.12.11
@@ -132,42 +124,39 @@ Provides: bundled(python3dist(colorama)) = 0.4.6
 Provides: bundled(python3dist(distlib)) = 0.3.6
 Provides: bundled(python3dist(distro)) = 1.8
 Provides: bundled(python3dist(idna)) = 3.4
-Provides: bundled(python3dist(msgpack)) = 1.0.4
+Provides: bundled(python3dist(msgpack)) = 1.0.5
 Provides: bundled(python3dist(packaging)) = 21.3
-Provides: bundled(python3dist(platformdirs)) = 2.6.2
-Provides: bundled(python3dist(pygments)) = 2.13
+Provides: bundled(python3dist(platformdirs)) = 3.2
+Provides: bundled(python3dist(pydantic)) = 1.10.9
+Provides: bundled(python3dist(pygments)) = 2.14
 Provides: bundled(python3dist(pyproject-hooks)) = 1
 Provides: bundled(python3dist(requests)) = 2.28.2
-Provides: bundled(python3dist(resolvelib)) = 0.8.1
-Provides: bundled(python3dist(rich)) = 12.6
-Provides: bundled(python3dist(setuptools)) = 44
+Provides: bundled(python3dist(resolvelib)) = 1.0.1
+Provides: bundled(python3dist(rich)) = 13.3.3
+Provides: bundled(python3dist(setuptools)) = 67.7.2
 Provides: bundled(python3dist(six)) = 1.16
-Provides: bundled(python3dist(tenacity)) = 8.1
+Provides: bundled(python3dist(tenacity)) = 8.2.2
 Provides: bundled(python3dist(tomli)) = 2.0.1
-Provides: bundled(python3dist(typing-extensions)) = 4.4
+Provides: bundled(python3dist(typing-extensions)) = 4.5
 Provides: bundled(python3dist(webencodings)) = 0.5.1
 
 # The packages bundles with pipenv
 # Some occur twice - with pip and pipenv, possibly with different versions
-Provides: bundled(python3dist(attrs)) = 22.1
-Provides: bundled(python3dist(cerberus)) = 1.3.4
+Provides: bundled(python3dist(attrs)) = 23.1
 Provides: bundled(python3dist(certifi)) = 2022.12.7
-Provides: bundled(python3dist(click)) = 8.0.3
+Provides: bundled(python3dist(click)) = 8.1.3
 Provides: bundled(python3dist(dparse)) = 0.6.2
-Provides: bundled(python3dist(markupsafe)) = 2.0.1
+Provides: bundled(python3dist(markupsafe)) = 2.1.2
 Provides: bundled(python3dist(packaging)) = 21.3
-Provides: bundled(python3dist(pep514tools))
 Provides: bundled(python3dist(pep517)) = 0.13
 Provides: bundled(python3dist(pexpect)) = 4.8
 Provides: bundled(python3dist(plette)) = 0.4.4
 Provides: bundled(python3dist(ptyprocess)) = 0.7
 Provides: bundled(python3dist(pyparsing)) = 3.0.9
-Provides: bundled(python3dist(pythonfinder)) = 1.3.2
-Provides: bundled(python3dist(python-dotenv)) = 0.19
-Provides: bundled(python3dist(shellingham)) = 1.5
-Provides: bundled(python3dist(toml)) = 0.10.2
-Provides: bundled(python3dist(urllib3)) = 1.26.14
-Provides: bundled(python3dist(vistir)) = 0.7.5
+Provides: bundled(python3dist(pythonfinder)) = 2.0.4
+Provides: bundled(python3dist(python-dotenv)) = 1
+Provides: bundled(python3dist(shellingham)) = 1.5^post1
+Provides: bundled(python3dist(urllib3)) = 1.26.15
 }
 %{bundled}
 
@@ -187,14 +176,7 @@ Documentation for Pipenv
 
 
 %prep
-%setup -q -n %{name}-%{upstream_version}
-%autopatch -p1 -M 100
-(
-cd pipenv/patched/pip/_vendor/
-%patch -P101 -p1
-%patch -P102 -p1
-%patch -P103 -p1
-)
+%autosetup -p1 -n %{name}-%{upstream_version}
 
 tar -xf %{SOURCE1} --strip-components 1 -C tests/pypi
 
@@ -208,13 +190,10 @@ rm -rf pipenv/patched/yaml2/
 # Remove setup_requires, as we cannot install invoke
 sed -i /setup_requires/d setup.py
 
-# Remove constraint on the version of setuptools
-# Upstream commit: https://github.com/pypa/pipenv/commit/8939c863464b23b5503569669d1c3f9ad31a498f
-sed -i 's/"setuptools>=67.0.0",/"setuptools",/' setup.py
-
 # Remove windows executable binaries
 # This goes together with patch6
 rm -v pipenv/patched/pip/_vendor/distlib/*.exe
+
 
 %build
 %py3_build
@@ -288,6 +267,7 @@ rm -rf check_path
 %license %{python3_sitelib}/%{name}/patched/pip/_vendor/packaging/LICENSE
 %license %{python3_sitelib}/%{name}/patched/pip/_vendor/packaging/LICENSE.APACHE
 %license %{python3_sitelib}/%{name}/patched/pip/_vendor/packaging/LICENSE.BSD
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/pkg_resources/LICENSE
 %license %{python3_sitelib}/%{name}/patched/pip/_vendor/platformdirs/LICENSE
 %license %{python3_sitelib}/%{name}/patched/pip/_vendor/pygments/LICENSE
 %license %{python3_sitelib}/%{name}/patched/pip/_vendor/pyparsing/LICENSE
@@ -304,8 +284,6 @@ rm -rf check_path
 %license %{python3_sitelib}/%{name}/patched/pip/six.LICENSE
 %license %{python3_sitelib}/%{name}/patched/pip/typing_extensions.LICENSE
 %license %{python3_sitelib}/%{name}/patched/safety/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/attrs/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/cerberus/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/click/LICENSE.rst
 %license %{python3_sitelib}/%{name}/vendor/click_didyoumean/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/colorama/LICENSE.txt
@@ -317,17 +295,14 @@ rm -rf check_path
 %license %{python3_sitelib}/%{name}/vendor/pipdeptree/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/plette/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/ptyprocess/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/pyparsing/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/pythonfinder/LICENSE
+%license %{python3_sitelib}/%{name}/vendor/pydantic/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/pythonfinder/LICENSE.txt
-%license %{python3_sitelib}/%{name}/vendor/pythonfinder/_vendor/pep514tools/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/requirementslib/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/ruamel.yaml-0.17.21-py3.9-nspkg.pth.LICENSE
 %license %{python3_sitelib}/%{name}/vendor/ruamel.yaml.LICENSE
 %license %{python3_sitelib}/%{name}/vendor/shellingham/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/toml/LICENSE
+%license %{python3_sitelib}/%{name}/vendor/tomli/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/tomlkit/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/vistir/LICENSE
 
 %doc README.md NOTICES CHANGELOG.rst HISTORY.txt
 %{_bindir}/pipenv
@@ -340,6 +315,10 @@ rm -rf check_path
 %license LICENSE
 
 %changelog
+* Thu Aug 10 2023 Tomas Orsava <torsava@redhat.com> - 2023.6.12-1
+- Rebase to version 2023.6.12
+Resolves: rhbz#2179550
+
 * Sun Jul 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2023.2.18-4
 - Backport minimum patch from setuptools upstream for python 3.12
   (setuptools is vendored in pipenv)

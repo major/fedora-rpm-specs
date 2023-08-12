@@ -9,8 +9,8 @@
 
 Summary: Builds packages inside chroots
 Name: mock
-Version: 4.1
-Release: 4%{?dist}
+Version: 5.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -59,10 +59,7 @@ Requires: python%{python3_pkgversion}-requests
 Requires: python%{python3_pkgversion}-rpm
 Requires: python%{python3_pkgversion}-pyroute2
 Requires: python%{python3_pkgversion}-templated-dictionary
-# py/mockbuild/plugin.py imports imp, which was removed from Python 3.12
-%if v"0%{?python3_version}" >= v"3.12"
-Requires: python%{python3_pkgversion}-zombie-imp
-%endif
+Requires: python%{python3_pkgversion}-backoff
 BuildRequires: python%{python3_pkgversion}-devel
 %if %{with lint}
 BuildRequires: python%{python3_pkgversion}-pylint
@@ -83,7 +80,7 @@ Recommends: btrfs-progs
 Recommends: dnf-utils
 Suggests: qemu-user-static
 Suggests: procenv
-Suggests: podman
+Recommends: podman
 
 %if %{with tests}
 BuildRequires: python%{python3_pkgversion}-distro
@@ -103,6 +100,7 @@ BuildRequires: perl
 Requires: util-linux
 Requires: coreutils
 Requires: procps-ng
+Requires: shadow-utils
 
 
 %description
@@ -274,14 +272,8 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %dir  %{_datadir}/cheat
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 04 2023 Miro Hrončok <mhroncok@redhat.com> - 4.1-3
-- Require python3-zombie-imp on runtime
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.1-2
-- Rebuilt for Python 3.12
+* Wed Aug 09 2023 Pavel Raiskup <praiskup@redhat.com> 5.0-1
+- new upstream release, per https://rpm-software-management.github.io/mock/Release-Notes-5.0
 
 * Fri Jun 02 2023 Pavel Raiskup <praiskup@redhat.com> 4.1-1
 - bootstrap: fix certificate copying into the bootstrap chroot

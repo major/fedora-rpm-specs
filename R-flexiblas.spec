@@ -53,4 +53,5 @@ export LANG=C.UTF-8
 %{rlibdir}/%{packname}/libs
 %{rlibdir}/%{packname}/tinytest
 
+%changelog
 %autochangelog

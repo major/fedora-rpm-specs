@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.7.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -570,6 +570,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Wed Aug  9 2023 Tom Callaway <spot@fedoraproject.org> - 3.7.1-4
+- rebuild for new qhull
+
 * Mon Aug 07 2023 Marek Kasik <mkasik@redhat.com> - 3.7.1-3
 - Rebuild for poppler 23.08.0
 

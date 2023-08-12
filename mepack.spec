@@ -116,4 +116,5 @@ make -C build64 test
 %{_libdir}/pkgconfig/%{name}64.pc
 %endif
 
+%changelog
 %autochangelog

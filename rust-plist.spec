@@ -5,13 +5,16 @@
 %global crate plist
 
 Name:           rust-plist
-Version:        1.4.3
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Rusty plist parser
 
 License:        MIT
 URL:            https://crates.io/crates/plist
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump quick-xml dependency from 0.29 to 0.30
+Patch:          plist-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

@@ -8,12 +8,11 @@
 
 Summary:   Library for querying compressed XML metadata
 Name:      libxmlb
-Version:   0.3.11
+Version:   0.3.12
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/hughsie/%{name}
 Source0:   https://github.com/hughsie/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-Patch0001: 0001-meson-fix-prefix-for-windows-build.patch
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk-doc
@@ -136,7 +135,7 @@ rm -f $RPM_BUILD_ROOT/%{mingw64_mandir}/man1/xb-tool.1*
 %files tests
 %dir %{_libexecdir}/installed-tests/libxmlb
 %{_libexecdir}/installed-tests/libxmlb/xb-self-test
-%{_libexecdir}/installed-tests/libxmlb/test.xml.gz.gz.gz
+%{_libexecdir}/installed-tests/libxmlb/test.*
 %dir %{_datadir}/installed-tests/libxmlb
 %{_datadir}/installed-tests/libxmlb/libxmlb.test
 

@@ -1,3 +1,5 @@
+%bcond_with bootstrap
+
 Name:           jakarta-mail
 Version:        1.6.7
 Release:        5%{?dist}
@@ -9,6 +11,9 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/eclipse-ee4j/mail/archive/%{version}/mail-%{version}.tar.gz
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.sun.activation:jakarta.activation)
 BuildRequires:  mvn(junit:junit)
@@ -16,6 +21,7 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+%endif
 
 # javadoc package is currently not built
 Obsoletes:      javamail-javadoc  < 1.5.2-16

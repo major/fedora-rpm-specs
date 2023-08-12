@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.23.3
+Version:    2.23.4
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -251,6 +251,20 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Thu Aug 10 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.4-1
+- Update to 2.23.4
+- Support msymbol 'S-C-Return' as a commit to preedit key
+  (Resolves https://github.com/mike-fabian/ibus-typing-booster/issues/457).
+  Needed by hi-itrans.mim, hi-optitransv2.mim, kn-optitransv2.mim,
+  mr-gamabhana.mim, sa-itrans.mim, sa-vedic-itrans.mim
+- Remove useless m4/{Makefile.am,as-version.m4}
+- Update emoji annotations from CLDR
+- Update UnicodeData.txt to current Unicode 15.1.0 draft
+  (https://www.unicode.org/Public/draft/UCD/ucd/UnicodeData.txt)
+- Update emoji data files for current Unicode 15.1 DRAFT
+  (https://www.unicode.org/Public/draft/UCD/ucd/emoji/emoji-data.txt
+   https://www.unicode.org/Public/draft/UCD/ucd/emoji/emoji-variation-sequences.txt)
+
 * Thu Aug 03 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.3-1
 - Update to 2.23.3
 - Translation update from Weblate (tr 100%)

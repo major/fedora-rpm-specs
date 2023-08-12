@@ -3,8 +3,8 @@
 %endif
 
 Name:       mock-core-configs
-Version:    38.6
-Release:    2%{?dist}
+Version:    39
+Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -24,7 +24,7 @@ Provides: mock-configs
 # distribution-gpg-keys contains GPG keys used by mock configs
 Requires:   distribution-gpg-keys >= 1.85
 # specify minimal compatible version of mock
-Requires:   mock >= 4.0
+Requires:   mock >= 5.0
 Requires:   mock-filesystem
 
 Requires(post): coreutils
@@ -144,8 +144,8 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Wed Aug 09 2023 Pavel Raiskup <praiskup@redhat.com> 39-1
+- new upstream release, per https://rpm-software-management.github.io/mock/Release-Notes-5.0
 
 * Mon Jun 05 2023 Pavel Raiskup <praiskup@redhat.com> 38.6-1
 - use python3 macro for post scriptlet (mroche@omenos.dev)

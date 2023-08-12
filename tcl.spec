@@ -5,9 +5,9 @@
 Summary: Tool Command Language, pronounced tickle
 Name: tcl
 Version: %{vers}
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 1
-License: TCL
+License: TCL AND GPL-3.0-or-later WITH bison-exception-2.2 AND BSD-3-Clause
 URL: http://tcl.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/tcl/tcl-core%{version}-src.tar.gz
 BuildRequires: make
@@ -146,6 +146,9 @@ rm -rf %{buildroot}/%{_datadir}/%{name}%{majorver}/ldAix
 %{_datadir}/%{name}%{majorver}/tclAppInit.c
 
 %changelog
+* Thu Aug 10 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.12-6
+- Converted license to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.6.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

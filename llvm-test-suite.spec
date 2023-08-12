@@ -1,12 +1,12 @@
 %global _binaries_in_noarch_packages_terminate_build %{nil}
 
-#global rc_ver 1
-%global llvm_test_suite_version 16.0.6
+%global llvm_test_suite_version 17.0.0
+%global rc_ver 1
 %global test_suite_srcdir test-suite-%{llvm_test_suite_version}%{?rc_ver:rc%{rc_ver}}.src.fedora
 
 Name:		llvm-test-suite
 Version:	%{llvm_test_suite_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	C/C++ Compiler Test Suite
 
 License:	NCSA and BSD and GPLv1 and GPLv2+ and GPLv2 and MIT and Python and Public Domain and CRC32 and AML and Rdisc and ASL 2.0 and LGPLv3
@@ -26,8 +26,6 @@ Source0:	%{test_suite_srcdir}.tar.xz
 Source1:	license-files.txt
 Source2:	pkg_test_suite.sh
 BuildArch:	noarch
-
-Patch0: 0001-Fix-extra-Python3-print-statements.patch
 
 # We need python3-devel for pathfix.py.
 BuildRequires: python3-devel
@@ -82,6 +80,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Tue Aug 01 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

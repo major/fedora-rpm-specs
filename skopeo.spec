@@ -40,7 +40,7 @@ Epoch: %{conditional_epoch}
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.13.1
+Version: 1.13.2
 License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and ISC and MIT and MPL-2.0
 Release: %autorelease
 %if %{defined golang_arches_future}
@@ -69,49 +69,6 @@ BuildRequires: glib2-devel
 BuildRequires: make
 BuildRequires: shadow-utils-subid-devel
 Requires: containers-common >= 4:1-21
-# DO NOT DELETE BELOW LINE - used for updating downstream goimports
-# vendored libraries
-Provides: bundled(golang(github.com/containers/common/pkg/auth))
-Provides: bundled(golang(github.com/containers/common/pkg/flag))
-Provides: bundled(golang(github.com/containers/common/pkg/report))
-Provides: bundled(golang(github.com/containers/common/pkg/retry))
-Provides: bundled(golang(github.com/containers/image/v5/copy))
-Provides: bundled(golang(github.com/containers/image/v5/directory))
-Provides: bundled(golang(github.com/containers/image/v5/docker))
-Provides: bundled(golang(github.com/containers/image/v5/docker/archive))
-Provides: bundled(golang(github.com/containers/image/v5/docker/reference))
-Provides: bundled(golang(github.com/containers/image/v5/image))
-Provides: bundled(golang(github.com/containers/image/v5/manifest))
-Provides: bundled(golang(github.com/containers/image/v5/oci/layout))
-Provides: bundled(golang(github.com/containers/image/v5/pkg/blobinfocache))
-Provides: bundled(golang(github.com/containers/image/v5/pkg/cli))
-Provides: bundled(golang(github.com/containers/image/v5/pkg/cli/sigstore))
-Provides: bundled(golang(github.com/containers/image/v5/pkg/compression))
-Provides: bundled(golang(github.com/containers/image/v5/signature))
-Provides: bundled(golang(github.com/containers/image/v5/signature/signer))
-Provides: bundled(golang(github.com/containers/image/v5/signature/sigstore))
-Provides: bundled(golang(github.com/containers/image/v5/transports))
-Provides: bundled(golang(github.com/containers/image/v5/transports/alltransports))
-Provides: bundled(golang(github.com/containers/image/v5/types))
-Provides: bundled(golang(github.com/containers/ocicrypt/config))
-Provides: bundled(golang(github.com/containers/ocicrypt/helpers))
-Provides: bundled(golang(github.com/containers/storage/pkg/homedir))
-Provides: bundled(golang(github.com/containers/storage/pkg/reexec))
-Provides: bundled(golang(github.com/containers/storage/pkg/unshare))
-Provides: bundled(golang(github.com/docker/distribution/registry/api/errcode))
-Provides: bundled(golang(github.com/docker/distribution/registry/api/v2))
-Provides: bundled(golang(github.com/opencontainers/go-digest))
-Provides: bundled(golang(github.com/opencontainers/image-spec/specs-go/v1))
-Provides: bundled(golang(github.com/sirupsen/logrus))
-Provides: bundled(golang(github.com/spf13/cobra))
-Provides: bundled(golang(github.com/spf13/pflag))
-Provides: bundled(golang(github.com/stretchr/testify/assert))
-Provides: bundled(golang(github.com/stretchr/testify/require))
-Provides: bundled(golang(github.com/syndtr/gocapability/capability))
-Provides: bundled(golang(golang.org/x/exp/maps))
-Provides: bundled(golang(golang.org/x/exp/slices))
-Provides: bundled(golang(golang.org/x/term))
-Provides: bundled(golang(gopkg.in/yaml.v3))
 
 %description
 Command line utility to inspect images and repositories directly on Docker

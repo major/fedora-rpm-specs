@@ -1,3 +1,4 @@
+%bcond_with bootstrap
 %bcond_without  jp_minimal
 
 Name:           log4j
@@ -15,6 +16,9 @@ Source0:        %{name}-%{version}.tar.gz
 
 Patch2:         logging-log4j-Remove-unsupported-EventDataConverter.patch
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.lmax:disruptor)
 BuildRequires:  mvn(com.sun.activation:jakarta.activation)
@@ -30,6 +34,7 @@ BuildRequires:  mvn(org.fusesource.jansi:jansi)
 BuildRequires:  mvn(org.jctools:jctools-core)
 BuildRequires:  mvn(org.osgi:osgi.core)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
+%endif
 
 %if %{without jp_minimal}
 BuildRequires:  mvn(com.datastax.cassandra:cassandra-driver-core)

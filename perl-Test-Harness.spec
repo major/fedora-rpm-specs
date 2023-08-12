@@ -7,8 +7,8 @@
 
 Name:           perl-Test-Harness
 Epoch:          1
-Version:        3.44
-Release:        501%{?dist}
+Version:        3.46
+Release:        1%{?dist}
 Summary:        Run Perl standard test scripts with statistics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Harness
@@ -17,6 +17,7 @@ Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-%{v
 Patch0:         Test-Harness-3.38-Remove-shell-bangs.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -98,7 +99,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Test-Harness-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 # Help generators to recognize Perl scripts
 for F in `find t -name *.t -o -name *.pl`; do
@@ -147,6 +148,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Aug 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.46-1
+- 3.46 bump (rhbz#2229823)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.44-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

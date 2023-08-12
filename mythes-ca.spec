@@ -1,10 +1,10 @@
 Name: mythes-ca
 Summary: Catalan thesaurus
-Version: 1.5.0
-Release: 28%{?dist}
-Source: http://www.softcatala.org/diccionaris/actualitzacions/sinonims/thesaurus-ca.oxt
+Version: 2.3.1
+Release: 1%{?dist}
+Source: https://github.com/Softcatala/sinonims-cat/releases/latest/download/thesaurus-ca.oxt
 URL: http://www.softcatala.org/wiki/Projectes/Openthesaurus-ca
-License: GPL-1.0-or-later
+License: CC-BY-4.0
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-ca)
@@ -16,7 +16,7 @@ Catalan thesaurus.
 %setup -q -c
 
 %build
-for i in release_note-ca.txt dictionaries/README_th_ca_ES_v3.txt; do
+for i in release_note-ca.txt dictionaries/README_th_ca.txt; do
   tr -d '\r' < $i > $i.new
   touch -r $i $i.new
   mv -f $i.new $i
@@ -24,8 +24,8 @@ done
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/mythes
-cp -p dictionaries/th_ca_ES_v3.dat $RPM_BUILD_ROOT/%{_datadir}/mythes/th_ca_ES_v2.dat
-cp -p dictionaries/th_ca_ES_v3.idx $RPM_BUILD_ROOT/%{_datadir}/mythes/th_ca_ES_v2.idx
+cp -p dictionaries/th_ca_ES.dat $RPM_BUILD_ROOT/%{_datadir}/mythes/th_ca_ES_v2.dat
+cp -p dictionaries/th_ca_ES.idx $RPM_BUILD_ROOT/%{_datadir}/mythes/th_ca_ES_v2.idx
 pushd $RPM_BUILD_ROOT/%{_datadir}/mythes/
 ca_ES_aliases="ca_AD ca_FR ca_IT"
 for lang in $ca_ES_aliases; do
@@ -36,10 +36,13 @@ popd
 
 
 %files
-%doc dictionaries/README_th_ca_ES_v3.txt LICENCES-fr.txt LICENSES-en.txt LICENCIAS-es.txt LLICENCIES-ca.txt release_note-ca.txt
+%doc dictionaries/README_th_ca.txt LICENCES-fr.txt LICENSES-en.txt LICENCIAS-es.txt LLICENCIES-ca.txt release_note-ca.txt
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Aug 10 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.3.1-1
+- Resolves:rh#2230534 - Update to new Upstream Source
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

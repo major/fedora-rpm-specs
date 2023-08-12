@@ -2,10 +2,10 @@
 
 Name: beakerlib-libraries
 Version: 0.7
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Beakerlib libraries
 
-License: GPLv2 and GPLv2+
+License: GPL-2.0-only
 URL: https://pagure.io/beakerlib-libraries/
 Source0: https://releases.pagure.org/beakerlib-libraries/%{name}-%{version}.tar.gz
 BuildArch: noarch
@@ -34,6 +34,9 @@ install -m755 "bin/get-test-deps" "$RPM_BUILD_ROOT/%_bindir"
 %_bindir/get-test-deps
 
 %changelog
+* Thu Aug 10 2023 Andrei Stepanov <astepano@redhat.com> - 0.7-7
+- Tune License entry.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,14 +2,14 @@
 %bcond_without perl_Graphics_Toolkit_Color_enables_color_names
 
 Name:           perl-Graphics-Toolkit-Color
-Version:        1.09
+Version:        1.51
 Release:        1%{?dist}
 Summary:        Color palette creation helper
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Constant.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Value.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:      GPL-1.0-or-later OR Artistic-1.0-Perl
-# README.md:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# README:       GPL-1.0-or-later OR Artistic-1.0-Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Graphics-Toolkit-Color
 Source0:        https://cpan.metacpan.org/authors/id/L/LI/LICHTKIND/Graphics-Toolkit-Color-%{version}.tar.gz
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 10 2023 Petr Pisar <ppisar@redhat.com> - 1.51-1
+- 1.51 bump
+
 * Mon Jul 24 2023 Petr Pisar <ppisar@redhat.com> - 1.09-1
 - 1.09 bump
 

@@ -6,11 +6,11 @@
 
 Name: hunspell-ca
 Summary: Catalan hunspell dictionaries
-Version: 2.3
-Release: 24%{?dist}
-Source: http://www.softcatala.org/diccionaris/actualitzacions/OOo/catalan.oxt
-URL: http://www.softcatala.org/wiki/Projectes/Corrector_ortogràfic
-License: GPL-2.0-or-later
+Version: 3.0.8
+Release: 1%{?dist}
+Source: https://github.com/Softcatala/catalan-dict-tools/releases/download/v%{version}/ca.%{version}-hunspell.zip
+URL: https://www.softcatala.org/projectes/corrector-ortografic/
+License: GPL-2.0-or-later OR LGPL-2.1-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -23,10 +23,10 @@ Catalan hunspell dictionaries.
 %setup -q -c
 
 %build
-tr -d '\r' < dictionaries/catalan.aff > ca_ES.aff
-touch -r dictionaries/catalan.aff ca_ES.aff
-tr -d '\r' < dictionaries/catalan.dic > ca_ES.dic
-touch -r dictionaries/catalan.dic ca_ES.dic
+tr -d '\r' < catalan.aff > ca_ES.aff
+touch -r catalan.aff ca_ES.aff
+tr -d '\r' < catalan.dic > ca_ES.dic
+touch -r catalan.dic ca_ES.dic
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
@@ -41,10 +41,14 @@ popd
 
 
 %files
-%doc LICENSES-en.txt LLICENCIES-ca.txt       
+%doc README.txt release-notes_en.txt
+%license LICENSE gpl-2.0.txt lgpl-2.1.txt
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Aug 10 2023 Parag Nemade <pnemade AT redhat DOT com> - 3.0.8-1
+- Resolves:rh#2230531 - Update to new Upstream Source
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

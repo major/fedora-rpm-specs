@@ -51,12 +51,6 @@ rm src/main/java/org/apache/commons/logging/impl/LogKitLogger.java
 rm -r src/test/java/org/apache/commons/logging/{avalon,logkit}
 rm src/test/java/org/apache/commons/logging/pathable/{Parent,Child}FirstTestCase.java
 
-%if %{with bootstrap}
-%pom_remove_dep -r :log4j
-rm src/main/java/org/apache/commons/logging/impl/Log4JLogger.java
-rm -r src/test/java/org/apache/commons/logging/log4j
-%endif
-
 # Avoid hard-coded versions in OSGi metadata
 %pom_xpath_set "pom:properties/pom:commons.osgi.import" '*;resolution:=optional'
 

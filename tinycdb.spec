@@ -1,8 +1,8 @@
 Name:		tinycdb
 Summary:	Utility and library for manipulating constant databases
 Version:	0.78
-Release:	21%{?dist}
-License:	Public Domain
+Release:	22%{?dist}
+License:	LicenseRef-Fedora-Public-Domain
 URL:		http://www.corpit.ru/mjt/tinycdb.html
 Source0:	http://www.corpit.ru/mjt/%{name}/%{name}-%{version}.tar.gz
 # taken from the 0.77 tarball
@@ -62,6 +62,9 @@ cp -p debian/libcdb.pc %{buildroot}%{_libdir}/pkgconfig/libcdb.pc
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Aug 10 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.78-22
+- Converted license to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.78-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

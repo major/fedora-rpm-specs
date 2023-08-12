@@ -1,3 +1,5 @@
+%bcond_with bootstrap
+
 Name:          disruptor
 Version:       3.4.4
 Release:       6%{?dist}
@@ -10,9 +12,13 @@ ExclusiveArch: %{java_arches} noarch
 Source0:       https://github.com/LMAX-Exchange/disruptor/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:       https://repo1.maven.org/maven2/com/lmax/%{name}/%{version}/%{name}-%{version}.pom
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires: maven-local
 BuildRequires: mvn(junit:junit)
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
+%endif
 
 %description
 A High Performance Inter-Thread Messaging Library.

@@ -5,8 +5,8 @@
 %global srcname cryptography
 
 Name:           python-%{srcname}
-Version:        40.0.2
-Release:        5%{?dist}
+Version:        41.0.3
+Release:        1%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -18,6 +18,8 @@ Source0:        https://github.com/pyca/cryptography/archive/%{version}/%{srcnam
                 # created by ./vendor_rust.py helper script
 Source1:        cryptography-%{version}-vendor.tar.bz2
 Source2:        conftest-skipper.py
+
+Patch1:         pyo3-0.19.patch
 
 ExclusiveArch:  %{rust_arches}
 
@@ -69,8 +71,10 @@ cryptography is a package designed to expose cryptographic primitives and
 recipes to Python developers.
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -N -n %{srcname}-%{version}
 %if 0%{?fedora}
+# patch pyo3 depedency
+%autopatch -p1 1
 %cargo_prep
 rm src/rust/Cargo.lock
 %else
@@ -131,6 +135,10 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Wed Aug 09 2023 Christian Heimes <cheimes@redhat.com> - 41.0.3-1
+- Update to 41.0.3, resolves rhbz#2211237
+- Use pyo3 0.19
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

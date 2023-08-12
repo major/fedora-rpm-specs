@@ -1,6 +1,6 @@
 Name:           nauty
 Version:        2.8.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Graph canonical labeling and automorphism group computation
 
 %global nautytarver %(tr . _ <<< %{version})
@@ -153,6 +153,9 @@ LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Aug 10 2023 Jerry James <loganjerry@gmail.com> - 2.8.6-4
+- Use a more reliable way of detecting CPU features
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

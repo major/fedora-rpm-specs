@@ -1,3 +1,5 @@
+%bcond_with bootstrap
+
 Name:           jakarta-activation1
 Version:        1.2.2
 Release:        9%{?dist}
@@ -9,12 +11,16 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/eclipse-ee4j/jaf/archive/%{version}/jaf-%{version}.tar.gz
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+%endif
 
 %description
 Jakarta Activation lets you take advantage of standard services to:

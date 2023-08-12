@@ -6,7 +6,7 @@
 
 Name:           kea
 Version:        2.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 
 License:        MPL-2.0 AND BSL-1.0
@@ -197,16 +197,32 @@ EOF
 %license COPYING
 %doc AUTHORS ChangeLog README CONTRIBUTING.md examples html platforms.rst code_of_conduct.md
 %{_bindir}/kea-msg-compiler
-%{_sbindir}/%{name}*
+%{_sbindir}/kea-admin
+%{_sbindir}/kea-ctrl-agent
+%{_sbindir}/kea-dhcp-ddns
+%{_sbindir}/kea-dhcp4
+%{_sbindir}/kea-dhcp6
+%{_sbindir}/kea-lfc
+%{_sbindir}/kea-shell
+%{_sbindir}/keactrl
 %{_sbindir}/perfdhcp
-%{_unitdir}/%{name}*.service
-%dir %{_sysconfdir}/%{name}/
-%config(noreplace) %{_sysconfdir}/kea/%{name}*.conf
-%{_datarootdir}/%{name}
-%dir %{_sharedstatedir}/%{name}
+%{_unitdir}/kea*.service
+%dir %{_sysconfdir}/kea/
+%config(noreplace) %{_sysconfdir}/kea/kea*.conf
+%{_datarootdir}/kea
+%dir %{_sharedstatedir}/kea
 %config(noreplace) %{_sharedstatedir}/kea/kea-leases*.csv
-%{python3_sitelib}/%{name}
-%{_mandir}/man8/*
+%{python3_sitelib}/kea
+%{_mandir}/man8/kea-admin.8*
+%{_mandir}/man8/kea-ctrl-agent.8*
+%{_mandir}/man8/kea-dhcp-ddns.8*
+%{_mandir}/man8/kea-dhcp4.8*
+%{_mandir}/man8/kea-dhcp6.8*
+%{_mandir}/man8/kea-lfc.8*
+%{_mandir}/man8/kea-netconf.8*
+%{_mandir}/man8/kea-shell.8*
+%{_mandir}/man8/keactrl.8*
+%{_mandir}/man8/perfdhcp.8*
 %dir /run/kea/
 %{_tmpfilesdir}/kea.conf
 
@@ -216,17 +232,42 @@ EOF
 %{_libdir}/libkea-*.so
 
 %files hooks
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/hooks
+%dir %{_libdir}/kea
+%{_libdir}/kea/hooks
 
 %files libs
 %license COPYING
-%{_libdir}/libkea-*.so.*
+%{_libdir}/libkea-asiodns.so.35*
+%{_libdir}/libkea-asiolink.so.56*
+%{_libdir}/libkea-cc.so.54*
+%{_libdir}/libkea-cfgclient.so.51*
+%{_libdir}/libkea-cryptolink.so.38*
+%{_libdir}/libkea-d2srv.so.30*
+%{_libdir}/libkea-database.so.48*
+%{_libdir}/libkea-dhcp++.so.73*
+%{_libdir}/libkea-dhcp_ddns.so.41*
+%{_libdir}/libkea-dhcpsrv.so.89*
+%{_libdir}/libkea-dns++.so.42*
+%{_libdir}/libkea-eval.so.52*
+%{_libdir}/libkea-exceptions.so.23*
+%{_libdir}/libkea-hooks.so.77*
+%{_libdir}/libkea-http.so.56*
+%{_libdir}/libkea-log.so.48*
+%{_libdir}/libkea-mysql.so.53*
+%{_libdir}/libkea-pgsql.so.53*
+%{_libdir}/libkea-process.so.57*
+%{_libdir}/libkea-stats.so.29*
+%{_libdir}/libkea-tcp.so.5*
+%{_libdir}/libkea-util-io.so.0*
+%{_libdir}/libkea-util.so.68*
 
 
 %changelog
-* Mon Jul 24 2023 Martin Osvald <mosvald@redhat.com> - 2.4.0-3
+* Thu Aug 10 2023 Martin Osvald <mosvald@redhat.com> - 2.4.0-4
 - Rebuilt for log4cplus 2.1.0
+- kea.spec: do not use %%{name} to allow different package name
+- kea.spec: do not use glob on %%{_libdir}, %%{_mandir} and %%{_sbindir}
+  to conform with packaging guidelines
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

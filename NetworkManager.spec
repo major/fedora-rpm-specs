@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.43.90
+%global real_version 1.44.0
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -161,6 +161,12 @@
 %global ifcfg_warning 0
 %endif
 
+%if 0%{?fedora} >= 39
+%global ifcfg_migrate 1
+%else
+%global ifcfg_migrate 0
+%endif
+
 %if 0%{?fedora}
 # Although eBPF would be available on Fedora's kernel, it seems
 # we often get SELinux denials (rh#1651654). But even aside them,
@@ -185,7 +191,7 @@ Epoch: %{epoch_version}
 Version: %{rpm_version}
 Release: %{release_version}%{?snap}%{?dist}
 Group: System Environment/Base
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://networkmanager.dev/
 
 Source: https://download.gnome.org/sources/NetworkManager/%{real_version_major}/%{name}-%{real_version}.tar.xz
@@ -734,6 +740,9 @@ Preferably use nmcli instead.
 %if %{?config_plugins_default_ifcfg_rh}
 	-Dconfig_plugins_default=ifcfg-rh \
 %endif
+%if %{?ifcfg_migrate}
+	-Dconfig_migrate_ifcfg_rh_default=true \
+%endif
 	-Dresolvconf=no \
 	-Dnetconfig=no \
 	-Dconfig_dns_rc_manager_default=%{dns_rc_manager_default} \
@@ -878,6 +887,9 @@ autoreconf --install --force
 	--with-dist-version=%{version}-%{release} \
 %if %{?config_plugins_default_ifcfg_rh}
 	--with-config-plugins-default=ifcfg-rh \
+%endif
+%if %{?ifcfg_migrate}
+	--with-config-migrate-ifcfg-rh-default=yes \
 %endif
 	--with-resolvconf=no \
 	--with-netconfig=no \
@@ -1246,6 +1258,11 @@ fi
 
 
 %changelog
+* Thu Aug 10 2023 Beniamino Galvani <bgalvani@redhat.com> - 1:1.44.0-1
+- Update to 1.44.0 release
+- Enable automatic migration of ifcfg profiles to keyfile:
+  https://fedoraproject.org/wiki/Changes/MigrateIfcfgToKeyfile
+
 * Fri Jul 28 2023 Beniamino Galvani <bgalvani@redhat.com> - 1:1.43.90-1
 - Update to 1.44-rc1 (1.43.90) (release candidate)
 

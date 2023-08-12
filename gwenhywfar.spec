@@ -99,11 +99,11 @@ Requires: %{name}-gui-cpp-devel%{?_isa} = %{version}-%{release}
 
 
 %build
-# help configure find qt5 lrelease/lupdate
-export PATH=$PATH:%{_qt5_bindir}
-
 # avoid detection/use of stuff like x86_64-redhat-linux-gnu-pkg-config -- rdieter
 export PKG_CONFIG=/usr/bin/pkg-config
+# help configure find qt5 lrelease/lupdate
+export QT5_HOST_BINS=$($PKG_CONFIG --variable=host_bins Qt5Core)
+export PATH=$PATH:$QT5_HOST_BINS
 
 %configure \
   --disable-static\
@@ -115,9 +115,9 @@ export PKG_CONFIG=/usr/bin/pkg-config
   --with-qt4-moc=%{_bindir}/moc-qt4 \
   --with-qt4-uic=%{_bindir}/uic-qt4 \
 %endif
-  --with-qt5-qmake=%{_qt5_datadir}/wrappers/qmake-qt5 \
-  --with-qt5-moc=%{_bindir}/moc-qt5 \
-  --with-qt5-uic=%{_bindir}/uic-qt5 \
+  --with-qt5-qmake=$QT5_HOST_BINS/qmake \
+  --with-qt5-moc=$QT5_HOST_BINS/moc \
+  --with-qt5-uic=$QT5_HOST_BINS/uic \
 
 
 # kill rpath

@@ -1,13 +1,27 @@
+%bcond_with snapshot_build
+
+%if %{with snapshot_build}
+# Unlock LLVM Snapshot LUA functions
+%{llvm_sb_verbose}
+%{llvm_sb}
+%endif
+
 %global toolchain clang
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global maj_ver 16
+%global maj_ver 17
 %global min_ver 0
-%global patch_ver 6
-#global rc_ver 4
+%global patch_ver 0
+%global rc_ver 1
+%if %{with snapshot_build}
+%global maj_ver %{llvm_snapshot_version_major}
+%global min_ver %{llvm_snapshot_version_minor}
+%global patch_ver %{llvm_snapshot_version_patch}
+%undefine rc_ver
+%endif
 %global compiler_rt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -19,15 +33,20 @@
 %global optflags %(echo %{optflags} -Dasm=__asm__)
 
 Name:		compiler-rt
-Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
+Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
 Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
 URL:		http://llvm.org
+%if %{with snapshot_build}
+Source0:    %{llvm_snapshot_source_prefix}compiler-rt-%{llvm_snapshot_yyyymmdd}.src.tar.xz
+%{llvm_snapshot_extra_source_tags}
+%else
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
+%endif
 
 BuildRequires:	clang
 BuildRequires:	cmake
@@ -67,6 +86,12 @@ export ASMFLAGS=$CFLAGS
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
+	-DCOMPILER_RT_INSTALL_PATH=%{_prefix}/lib/clang/%{maj_ver} \
+	-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON \
+	\
+%if %{with snapshot_build}
+	-DLLVM_VERSION_SUFFIX="%{llvm_snapshot_version_suffix}" \
+%endif
 	\
 %if 0%{?__isa_bits} == 64
 	-DLLVM_LIBDIR_SUFFIX=64 \
@@ -80,51 +105,36 @@ export ASMFLAGS=$CFLAGS
 %install
 
 %cmake_install
-
-# move blacklist/abilist files to where clang expect them
-mkdir -p %{buildroot}%{_libdir}/clang/%{maj_ver}/share
-mv -v %{buildroot}%{_datadir}/*list.txt  %{buildroot}%{_libdir}/clang/%{maj_ver}/share/
-
-# move sanitizer libs to better place
-%global libclang_rt_installdir lib/linux
-mkdir -p %{buildroot}%{_libdir}/clang/%{maj_ver}/lib
-mv -v %{buildroot}%{_prefix}/%{libclang_rt_installdir}/*_rt* %{buildroot}%{_libdir}/clang/%{maj_ver}/lib
-mkdir -p %{buildroot}%{_libdir}/clang/%{maj_ver}/lib/linux/
-pushd %{buildroot}%{_libdir}/clang/%{maj_ver}/lib
-for i in *.a *.so
-do
-	ln -s ../$i linux/$i
-done
-
-# multilib support: also create symlink from lib to lib64, fixes rhbz#1678240
-# the symlinks will be dangling if the 32 bits version is not installed, but that should be fine
-%ifarch x86_64
-
-mkdir -p %{buildroot}/%{_exec_prefix}/lib/clang/%{maj_ver}/lib/linux
-for i in *.a *.so
-do
-	target=`echo "$i" | sed -e 's/x86_64/i386/'`
-	ln -s ../../../../../lib/clang/%{maj_ver}/lib/$target ../../../../%{_lib}/clang/%{maj_ver}/lib/linux/
-done
-
+%ifarch ppc64le
+# Fix install path on ppc64le so that the directory name matches the triple used
+# by clang.
+mv %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/powerpc64le-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/ppc64le-redhat-linux-gnu
 %endif
 
-popd
-
 %check
-
 #%%cmake_build --target check-compiler-rt
 
 %files
 %license LICENSE.TXT
-%{_includedir}/*
-%{_libdir}/clang/%{maj_ver}/lib/*
-%{_libdir}/clang/%{maj_ver}/share/*
 %ifarch x86_64 aarch64
-%{_bindir}/hwasan_symbolize
+%{_prefix}/lib/clang/%{maj_ver}/bin/*
 %endif
+%{_prefix}/lib/clang/%{maj_ver}/include/*
+%{_prefix}/lib/clang/%{maj_ver}/lib/*
+%{_prefix}/lib/clang/%{maj_ver}/share/*
+#%ifarch x86_64 aarch64
+#{_bindir}/hwasan_symbolize
+#%endif
 
 %changelog
+%{?llvm_snapshot_changelog_entry}
+
+* Wed Aug 02 2023 Tom Stellard <tstellar@redhat.com> - 17.0.0~rc1-2
+- Fix for ppc64le
+
+* Thu Aug 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

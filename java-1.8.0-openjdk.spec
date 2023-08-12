@@ -327,7 +327,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      1
+%global rpmrelease      2
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -2045,6 +2045,8 @@ cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
 #JDK11 specific, bianry file in sources
 #rm -vf "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/test/jdk/sun/management/jmxremote/bootstrap/solaris-sparcv9/launcher"
 #JDK8 specific, binary file in sources
+find "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/" -type f -name "*.so" -exec rm -vf {} \;
+find "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/" -type f -executable
 rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/security/pkcs11/nss/lib/"
 rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/management/jmxremote/bootstrap/solaris-sparcv9/"
 rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-sparcv9/"
@@ -2534,6 +2536,10 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Thu Aug 10 2023 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.382.b05-2
+- removed .so files from full_sources
+- list executbales in same
+
 * Mon Jul 24 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.382.b05-1
 - updatet to july security update 382.b05
 

@@ -4,9 +4,9 @@
 # %%{_libdir}/pypy%%{pyversion} (see e.g. pypy3.7 or pypy3.8 for inspiration).
 %global basever 7.3
 Name:           pypy
-Version:        %{basever}.11
+Version:        %{basever}.12
 %global pyversion 2.7
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Python implementation with a Just-In-Time compiler
 
 # PyPy is MIT
@@ -20,12 +20,10 @@ Summary:        Python implementation with a Just-In-Time compiler
 # before building).  If we restore those we'll have to work out the new
 # licensing terms
 License:        MIT and Python and UCD and BSD and (ASL 2.0 or BSD)
-URL:            http://pypy.org/
+URL:            https://www.pypy.org/
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
-%endif
 
 # High-level configuration of the build:
 
@@ -367,7 +365,7 @@ Provides: bundled(python2dist(webencodings)) = 0.5.1
 %endif
 
 # Find the version in lib_pypy/cffi/_pycparser/__init__.py
-Provides: bundled(python2dist(pycparser)) = 2.20
+Provides: bundled(python2dist(pycparser)) = 2.21
 
 # Find the version in lib_pypy/cffi/_pycparser/ply/__init__.py
 Provides: bundled(python2dist(ply)) = 3.9
@@ -879,6 +877,10 @@ CheckPyPy %{name}-c-stackless
 
 
 %changelog
+* Wed Jul 26 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.12-1
+- Update to 7.3.12
+- Fixes: rhbz#2203422
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Name: hyphen-ca
 Summary: Catalan hyphenation rules
 Epoch: 1
-Version: 0.9.3
-Release: 26%{?dist}
-Source: https://downloads.sourceforge.net/project/aoo-extensions/2010/7/hyph-ca.oxt
-URL: http://extensions.services.openoffice.org/project/ca_hyph
-License: GPL-3.0-only
+Version: 1.5
+Release: 1%{?dist}
+Source: https://github.com/jaumeortola/hyphen-ca/archive/refs/tags/v1.5.tar.gz#/%{name}-%{version}.tar.gz
+URL: https://github.com/jaumeortola/hyphen-ca
+License: GPL-3.0-or-later
 BuildArch: noarch
 
 Requires: hyphen
@@ -15,10 +15,10 @@ Supplements: (hyphen and langpacks-ca)
 Catalan hyphenation rules.
 
 %prep
-%autosetup -c
+%autosetup
 
 %build
-for i in release-note_en.txt release-note_ca.txt; do
+for i in office/release-note_en.txt; do
   tr -d '\r' < $i > $i.new
   touch -r $i $i.new
   mv -f $i.new $i
@@ -26,7 +26,7 @@ done
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/hyphen
-cp -p hyph_ca_ANY.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/hyph_ca_ES.dic
+cp -p office/hyph_ca_ANY.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/hyph_ca_ES.dic
 pushd $RPM_BUILD_ROOT/%{_datadir}/hyphen/
 ca_ES_aliases="ca_AD ca_FR ca_IT"
 for lang in $ca_ES_aliases; do
@@ -36,10 +36,14 @@ popd
 
 
 %files
-%doc release-note_en.txt release-note_ca.txt LICENSES-en.txt LLICENCIES-ca.txt
+%doc office/release-note_en.txt README.md
+%license office/gpl.txt
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Aug 10 2023 Parag Nemade <pnemade AT redhat DOT com> - 1:1.5-1
+- Resolves:rh#2230536 - Update to new Upstream Source
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

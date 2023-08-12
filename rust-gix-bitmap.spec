@@ -5,11 +5,10 @@
 %global crate gix-bitmap
 
 Name:           rust-gix-bitmap
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 Summary:        Implementation of the standard git bitmap format
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-bitmap
 Source:         %{crates_source}

@@ -3,6 +3,7 @@ Version:        6.0.1
 Release:        %autorelease
 Summary:        YAML parser and emitter for Python
 
+# SPDX
 License:        MIT
 URL:            https://github.com/yaml/pyyaml
 Source:         https://github.com/yaml/pyyaml/archive/%{version}.tar.gz

@@ -15,7 +15,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -31,6 +31,9 @@ Source0: https://github.com/OpenPrinting/cups/releases/download/v%{VERSION}/cups
 Source1: cupsprinter.png
 # cups_serverbin macro definition for use during builds
 Source2: macros.cups
+# upgrade script for CUPS-Get-Document fix
+# remove after Fedora 40 is EOL and C10S is released
+Source3: upgrade_get_document.py
 
 # PAM enablement, very old patch, not even git can track when or why
 # the patch was added.
@@ -156,6 +159,9 @@ Requires(post): systemd
 Requires(post): grep, sed
 Requires(preun): systemd
 Requires(postun): systemd
+
+# for upgrade-get-document script - remove after C10S is released and F40 is EOL
+Requires(post): python3
 
 
 %package client
@@ -466,6 +472,10 @@ s:.*\('%{_datadir}'/\)\([^/_]\+\)\(.*\.po$\):%lang(\2) \1\2\3:
 /^\([^%].*\)/d
 ' > %{name}.lang
 
+# install get-document upgrade script - remove it after
+# C10S is released and Fedora 40 is EOL
+install -m 0755 %{SOURCE3} %{buildroot}%{_sbindir}/upgrade_get_document
+
 %post
 # remove after CentOS Stream 10 is released
 # Require authentication for accessing /admin location
@@ -479,6 +489,9 @@ s:.*\('%{_datadir}'/\)\([^/_]\+\)\(.*\.po$\):%lang(\2) \1\2\3:
 sed -ne '/^\s*<Location \/admin>/ { :loop; /<\/Location>/ ! {N; b loop}; p }' %{_sysconfdir}/cups/cupsd.conf \
 | grep -E '^\s*(AuthType|Require)' &> /dev/null || \
 sed -i.rpmsave '/^\s*<Location \/admin>/a\  AuthType Default\n  Require user @SYSTEM' %{_sysconfdir}/cups/cupsd.conf
+
+# remove after C10S release and Fedora 40 EOL
+%{_sbindir}/upgrade_get_document
 
 # required for systemd units
 %systemd_post %{name}.path %{name}.socket %{name}.service
@@ -550,6 +563,8 @@ rm -f %{cups_serverbin}/backend/smb
 %{_sbindir}/lpadmin
 %{_sbindir}/lpinfo
 %{_sbindir}/lpmove
+# remove upgrade-get-document once C10S is released and Fedora 40 EOL
+%{_sbindir}/upgrade_get_document
 %dir %{cups_serverbin}/daemon
 %{cups_serverbin}/daemon/cups-deviced
 %{cups_serverbin}/daemon/cups-driverd
@@ -763,6 +778,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Thu Aug 10 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.6-4
+- add upgrade script for setting authentication for CUPS-Get-Document operation
+
 * Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.6-3
 - SPDX migration completed
 

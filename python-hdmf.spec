@@ -24,7 +24,7 @@ https://hdmf.readthedocs.io}
 %global schema_version 1.7.0
 
 Name:           python-hdmf
-Version:        3.7.0
+Version:        3.8.1
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
@@ -37,10 +37,6 @@ Source1:        validate_hdmf_spec.1
 # Downstream-only: Patch out coverage from pytest invocation
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Patch-out-coverage-from-pytest-invocation.patch
-
-# Fix GenericDataChunkIteratorTests.test_abstract_assertions for Python 3.12
-# https://github.com/hdmf-dev/hdmf/pull/903
-Patch:          %{url}/pull/903.patch
 
 BuildArch:      noarch
 

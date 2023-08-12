@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-shell
-Version:        45~beta
+Version:        45~beta.1
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -23,7 +23,7 @@ Patch40001: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.0.0
-%define mutter_version 45~beta
+%define mutter_version 45~beta.1
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 42~beta
 %define ibus_version 1.5.2

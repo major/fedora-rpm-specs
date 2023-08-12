@@ -20,7 +20,7 @@ BuildRequires: libxslt
 BuildRequires: openssl
 BuildRequires: nss-tools
 BuildRequires: gnutls-utils >= 3.6.0
-BuildRequires: java-1.8.0-openjdk-devel
+BuildRequires: java-devel
 BuildRequires: bind
 BuildRequires: perl-interpreter
 BuildRequires: perl-generators

@@ -2,7 +2,7 @@
 
 Name:           rabbitvcs
 Version:        0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
@@ -48,6 +48,7 @@ and straightforward access to the version control systems you use.
 Summary:        CLI extension for RabbitVCS
 BuildArch:      noarch
 Requires:       %{name}-core = %{version}-%{release}
+Requires:       python3-rabbitvcs = %{version}-%{release}
 
 %description    cli
 A command line command to use RabbitVCS
@@ -129,6 +130,9 @@ install -p -m0644 clients/nemo/RabbitVCS.py -D %{buildroot}%{_datadir}/nemo-pyth
 %{_datadir}/nemo-python/extensions/*.py*
 
 %changelog
+* Fri Aug 04 2023 Orion Poplawski <orion@nwra.com> - 0.19-2
+- Add Requires for python3-rabbitvcs to rabbitvcs-cli
+
 * Thu Aug 03 2023 Pete Walter <pwalter@fedoraproject.org> - 0.19-1
 - Update to 0.19 (rhbz#2224263)
 - Fix FTBFS with Python 3.12 (rhbz#2154814)

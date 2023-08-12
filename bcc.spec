@@ -24,14 +24,16 @@
 
 
 Name:           bcc
-Version:        0.27.0
-Release:        4%{?dist}
+Version:        0.28.0
+Release:        1%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        Apache-2.0
 URL:            https://github.com/iovisor/bcc
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         Updating-Powerpc-vmlinux-headers-from-Linux-kernel-6.patch
-Patch1:         sync-with-latest-libbpf-repo.patch
+Patch0:         Use-bpf_obj_get_info_by_fd-instead-of-bpf_btf_get_in.patch
+Patch1:         libbpf-tools-add-block_io_-start-done-tracepoints-su.patch
+Patch2:         tools-Add-support-for-the-new-block_io_-tracepoints.patch
+Patch3:         tool-slabratetop-add-definition-of-freelist_aba_t.patch
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
@@ -240,6 +242,11 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %endif
 
 %changelog
+* Thu Aug 10 2023 Jerome Marchand <jmarchan@redhat.com> - 0.28.0-1
+- Rebase to the latest release version (#2218440)
+- Fix bio tools (#2184370)
+- Fix slabratetop
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

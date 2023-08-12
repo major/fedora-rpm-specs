@@ -1,35 +1,50 @@
 %global srcname flatpak-module-tools
+%global project_version 1.0a2
 
 Name:		%{srcname}
-Version:	0.13
-Release:	9%{?dist}
+Version:	1.0~a2
+Release:	3%{?dist}
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
 License:	MIT
 URL:		https://pagure.io/flatpak-module-tools
-Source0:	https://releases.pagure.org/flatpak-module-tools/flatpak-module-tools-%{version}.tar.gz
+Source0:	https://releases.pagure.org/flatpak-module-tools/flatpak-module-tools-%{project_version}.tar.gz
 
 BuildArch:	noarch
+# Tests only work on x86_64 because there are a few hardcoded x86 references
+ExclusiveArch:  x86_64
+# Tests fail on i386, because its not supported by flatpak_module_tools.utils.Arch
+# ExcludeArch:    i386 i686
 
-BuildRequires:	python3-setuptools
-BuildRequires:	python3-devel
+BuildRequires: python3-build
+BuildRequires: python3-devel
+BuildRequires: python3-pip
+BuildRequires: python3-setuptools
+BuildRequires: python3-setuptools_scm+toml
+BuildRequires: python3-wheel
 
 # For tests
 BuildRequires: flatpak
 BuildRequires: libappstream-glib
 BuildRequires: librsvg2
 BuildRequires: ostree
+BuildRequires: python3-click
+BuildRequires: python3-pytest-cov
 BuildRequires: python3-jinja2
+BuildRequires: python3-koji
 BuildRequires: python3-libmodulemd
 BuildRequires: python3-pytest
+BuildRequires: python3-rpm
 BuildRequires: python3-six
 BuildRequires: python3-yaml
 
-Requires: module-build-service >= 2.25.0
 Requires: python3-%{srcname} = %{version}-%{release}
 Requires: python3-click
 Requires: python3-koji
+Requires: python3-networkx
 Requires: python3-requests
+# for pkg_resources
+Requires: python3-setuptools
 
 %description
 flatpak-module-tools is a set of command line tools (all accessed via a single
@@ -59,25 +74,28 @@ Requires: python3-yaml
 Python3 library for Flatpak handling
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{project_version}
 
 
 %build
-%py3_build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
+%pyproject_wheel
 
 
 %check
-%pytest
+# Tests using RPM don't work well inside %%check
+%pytest -k "not test_create_rpm_manifest"
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %files
 %license LICENSE
 %doc README.md
 %{_bindir}/flatpak-module
+%{_bindir}/flatpak-module-depchase
 
 
 %files -n python3-%{srcname}
@@ -85,6 +103,20 @@ Python3 library for Flatpak handling
 %{python3_sitelib}/*
 
 %changelog
+* Thu Aug 10 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a2-3
+- Build on x86_64 to avoid test failures
+
+* Thu Aug 10 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a2-2
+- Avoid building on i386 to avoid test failures
+
+* Thu Aug 10 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a2-1
+- Update to 1.0a2 - fixes Python-3.12 compatibility
+
+* Thu Aug 10 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a1-1
+- Update to 1.0a1 - this is a major change that removes support for buiding
+  Flatpaks with modules from the command line (the parts used by OSBS are
+  still present in the Python API.)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

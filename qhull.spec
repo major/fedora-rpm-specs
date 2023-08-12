@@ -1,19 +1,21 @@
 Summary: General dimension convex hull programs
 Name: qhull
-Version: 7.2.1
+Version: 8.0.2
 # Add epoch, because upstream changed their versioning scheme:
 # - Older releases used year.month
 # - Newer releases use x.y.z
 Epoch: 1
-Release: 13%{?dist}
+Release: 2%{?dist}
 License: Qhull
 Source0: https://github.com/qhull/qhull/archive/v%{version}.tar.gz#/qhull-%{version}.tar.gz
 
-Patch1: 0001-Link-executables-against-shared-libs.patch
-Patch2: 0002-Install-docs-into-subdirs.patch
-# Compile libqhullcpp.a with -fPIC
-# https://github.com/qhull/qhull/pull/47
-Patch3: qhull-pic.patch
+# Install cmake and pkgconfig file into proper libdir
+# https://github.com/qhull/qhull/pull/123
+Patch0: qhull-lib64.patch
+# Install extra targets - libqhull and qhull_p
+Patch1: qhull-install.patch
+# The static_r library needs fPIC
+Patch2: qhull-staticr-pic.patch
 
 URL: http://www.qhull.org
 
@@ -53,6 +55,7 @@ Summary: Development files for qhull
 Requires: lib%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: lib%{name}_r%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: lib%{name}_p%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
 Qhull is a general dimension convex hull program that reads a set
@@ -63,15 +66,17 @@ about a point.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p1 -b .lib64
+%patch -P1 -p1 -b .install
+%patch -P2 -p1 -b .pic
 
 %build
 mkdir -p build
 cd build
-%cmake -S .. -B .
+%cmake -S .. -B . -DLINK_APPS_SHARED=ON
 make VERBOSE=1 %{?_smp_mflags}
+# These items are deprecated as of 8.0.2
+make VERBOSE=1 %{?_smp_mflags} libqhull qhull_p
 cd ..
 
 %install
@@ -85,8 +90,6 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_libdir}/lib*.so.*
 %files
 %{_pkgdocdir}
 %exclude %{_pkgdocdir}/COPYING.txt
-%exclude %{_pkgdocdir}/src/libqhull
-%exclude %{_pkgdocdir}/src/libqhull_r
 %license COPYING.txt
 %{_bindir}/*
 %{_mandir}/man1/*
@@ -110,15 +113,25 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_libdir}/lib*.so.*
 
 
 %files devel
-%{_pkgdocdir}/src/libqhull
-%{_pkgdocdir}/src/libqhull_r
 %{_libdir}/*.so
 %{_includedir}/*
+# Easier to include these than to hack them out of the cmake bits
 %{_libdir}/libqhullcpp.a
-%exclude %{_libdir}/libqhullstatic*.a
-
+%{_libdir}/libqhullstatic*.a
+%dir %{_libdir}/cmake/Qhull
+%{_libdir}/cmake/Qhull/QhullConfig*.cmake
+%{_libdir}/cmake/Qhull/QhullTargets*.cmake
+%{_libdir}/pkgconfig/qhull_r.pc
+%{_libdir}/pkgconfig/qhullcpp.pc
+%{_libdir}/pkgconfig/qhullstatic*.pc
 
 %changelog
+* Thu Aug 10 2023 Tom Callaway <spot@fedoraproject.org> - 1:8.0.2-2
+- make the static_r library pic
+
+* Thu Aug  3 2023 Tom Callaway <spot@fedoraproject.org> - 1:8.0.2-1
+- update to 8.0.2 (thanks to Orion Poplawski)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.2.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

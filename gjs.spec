@@ -1,10 +1,10 @@
 %global glib2_version 2.66.0
 %global gobject_introspection_version 1.66.0
-%global mozjs102_version 102.12.0
+%global mozjs115_version 115.1.0
 
 Name:           gjs
-Version:        1.77.1
-Release:        2%{?dist}
+Version:        1.77.2
+Release:        1%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
@@ -23,7 +23,7 @@ BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires:  pkgconfig(gtk4)
-BuildRequires:  pkgconfig(mozjs-102) >= %{mozjs102_version}
+BuildRequires:  pkgconfig(mozjs-115) >= %{mozjs115_version}
 BuildRequires:  pkgconfig(sysprof-capture-4)
 # For GTK+ 3 tests
 BuildRequires:  gtk3
@@ -36,7 +36,7 @@ BuildRequires:  xorg-x11-server-Xvfb
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gobject-introspection%{?_isa} >= %{gobject_introspection_version}
-Requires: mozjs102%{?_isa} >= %{mozjs102_version}
+Requires: mozjs115%{?_isa} >= %{mozjs115_version}
 
 %description
 Gjs allows using GNOME libraries from Javascript. It's based on the
@@ -94,6 +94,10 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Thu Aug 10 2023 Kalev Lember <klember@redhat.com> - 1.77.2-1
+- Update to 1.77.2
+- Switch to mozjs115
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.77.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

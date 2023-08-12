@@ -12,7 +12,7 @@ License:        CDDL-1.0
 URL:            https://crates.io/crates/inferno
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump quick-xml dependency from 0.26 to 0.28
+# * bump quick-xml dependency from 0.26 to 0.30
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          inferno-fix-metadata.diff
 Patch:          0001-port-to-quick-xml-0.28.patch

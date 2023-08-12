@@ -67,4 +67,5 @@ install -D -t %{buildroot}%{_mandir}/man1 mn.1 mnexec.1
 %{_mandir}/man1/mnexec.1*
 
 
+%changelog
 %autochangelog

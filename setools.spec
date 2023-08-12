@@ -2,8 +2,8 @@
 %global selinux_ver 3.5-1
 
 Name:           setools
-Version:        4.4.2
-Release:        4%{?dist}
+Version:        4.4.3
+Release:        1%{?dist}
 Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only and LGPL-2.1-only
@@ -11,13 +11,6 @@ URL:            https://github.com/SELinuxProject/setools/wiki
 Source0:        https://github.com/SELinuxProject/setools/archive/%{version}.tar.gz
 Source1:        setools.pam
 Source2:        apol.desktop
-Patch0001:      0001-Disable-remove-neverallow-options-in-sediff.patch
-Patch0002:      0002-Improve-man-pages.patch
-Patch0003:      0003-tox.ini-Change-environments-to-use-python-instead-of.patch
-Patch0004:      0004-seinfoflow-Add-r-option-to-get-flows-into-the-source.patch
-Patch0005:      0005-seinfoflow.1-Remove-references-to-sepolgen-permissio.patch
-Patch0006:      0006-AVRule-AVRuleXperm-Treat-rules-with-no-permissions-a.patch
-Patch0007:      0007-SELinuxPolicy-Add-explicit-cast-for-libspol-message-.patch
 
 Obsoletes:      setools < 4.0.0, setools-devel < 4.0.0
 BuildRequires:  flex,  bison
@@ -151,6 +144,9 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/apol*
 
 %changelog
+* Wed Aug  9 2023 Petr Lautrbach <lautrbach@redhat.com> - 4.4.3-1
+- SETools 4.4.3 release
+
 * Wed Jul 26 2023 Petr Lautrbach <lautrbach@redhat.com> - 4.4.2-4
 - Disable/remove neverallow options in sediff.
 - Improve man pages

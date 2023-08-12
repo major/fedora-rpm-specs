@@ -4,7 +4,7 @@
 
 Name:           flann
 Version:        1.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast Library for Approximate Nearest Neighbors
 
 License:        BSD
@@ -47,6 +47,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 # flann/flann_mpi.hpp requires boost/mpi.hpp, which is a convenience header
 # inside of the boost-devel package
 Requires: boost-devel
+# The cmake files get very unhappy if they can't find the static libs
+Requires: %{name}-static%{?_isa} = %{version}-%{release}
 
 %description devel
 Development headers and libraries for flann.
@@ -120,6 +122,9 @@ rm -rf %{buildroot}%{_datadir}/doc/flann
 %{python3_sitearch}/flann-%{version}*.egg-info
 
 %changelog
+* Thu Aug 10 2023 Tom Callaway <spot@fedoraproject.org> - 1.9.2-3
+- the cmake files need to find the static libs or they error out, so -devel depends on -static now
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:           inkscape
 Version:        1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -25,9 +25,10 @@ Source0:        https://inkscape.org/release/inkscape-%{version}/source/archive/
 # Fedora Color Palette, GIMP format, CC-BY 3.0
 Source2:	Fedora-Color-Palette.gpl
 
-%if 0%{?fedora} >= 39
-ExcludeArch:    %{ix86}
-%endif
+# Don't drop i686 until at least texlive no longer needs it -GC, 2023-08-10
+#%%if 0%%{?fedora} >= 39
+#ExcludeArch:    %%{ix86}
+#%%endif
 
 Provides: bundled(libcroco)
 Provides: bundled(autotrace)
@@ -238,6 +239,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Thu Aug 10 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-5
+- Bring back i686 on f39+
+
 * Wed Aug 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-4
 - No lto on i686
 

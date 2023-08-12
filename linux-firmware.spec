@@ -5,15 +5,17 @@
 
 Name:		linux-firmware
 Version:	20230804
-Release:	152%{?dist}
+Release:	153%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
 URL:		http://www.kernel.org/
 BuildArch:	noarch
 
 Source0:	https://www.kernel.org/pub/linux/kernel/firmware/%{name}-%{version}.tar.xz
+Patch1:		0001-linux-firmware-Update-AMD-cpu-microcode.patch
 
 BuildRequires:	make
+BuildRequires:	git-core
 
 Requires:	linux-firmware-whence
 Provides:	kernel-firmware = %{version}
@@ -229,7 +231,7 @@ cx23885, cx23840, cx231xx), Xceive xc4000/xc5000, DiBcom dib0700,
 Terratec H5 DRX-K, ITEtech IT9135 Ax and Bx, and av7110.
 
 %prep
-%autosetup -p1
+%autosetup -S git -p1
 
 %build
 
@@ -468,6 +470,9 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Thu Aug 10 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230804-153
+- Update AMD cpu microcode
+
 * Sun Aug 06 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230804-152
 - Update to upstream 20230804 release
 - Split out QCom Arm IP firmware

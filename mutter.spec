@@ -13,7 +13,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       45~beta
+Version:       45~beta.1
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -29,15 +29,6 @@ Patch1:        mutter-42.alpha-disable-tegra.patch
 
 # https://pagure.io/fedora-workstation/issue/79
 Patch2:        0001-place-Always-center-initial-setup-fedora-welcome.patch
-
-# fix super key no longer triggering overview
-# https://gitlab.gnome.org/GNOME/mutter/-/issues/2951
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3162
-Patch3:        3162.patch
-
-# Fix mouse clicks sometimes not working
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3168
-Patch4:        3168.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)

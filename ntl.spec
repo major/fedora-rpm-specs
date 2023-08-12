@@ -3,7 +3,7 @@
 Summary: High-performance algorithms for vectors, matrices, and polynomials 
 Name:    ntl 
 Version: 11.5.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # LGPL-2.1-or-later: the project as a whole
 # BSD-2-Clause: src/FFT.cpp
@@ -128,6 +128,9 @@ done
 
 
 %changelog
+* Thu Aug 10 2023 Jerry James <loganjerry@gmail.com> - 11.5.1-7
+- Use a more reliable way of detecting CPU features
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

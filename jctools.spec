@@ -1,3 +1,5 @@
+%bcond_with bootstrap
+
 %global srcname JCTools
 
 Name:           jctools
@@ -12,11 +14,15 @@ Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap-openjdk8
+%else
 BuildRequires:  maven-local-openjdk8
 BuildRequires:  mvn(com.google.guava:guava-testlib)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.hamcrest:hamcrest-all)
+%endif
 
 %description
 This project aims to offer some concurrent data structures

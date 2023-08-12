@@ -4,13 +4,15 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.79
-Release:        4%{dist}
+Version:        0.800
+Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pad
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Object-Pad-%{version}.tar.gz
 Source1:        macros.perl-Object-Pad
+# Fix VERSION method, bug #2230553, CPAN RT#149357, proposed to an upstream
+Patch0:         Object-Pad-0.800-Fix-handling-VERSION-arguments.patch
 BuildRequires:  coreutils
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -24,7 +26,7 @@ BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-%define xs_parse_keyword_min_ver 0.29
+%define xs_parse_keyword_min_ver 0.37
 BuildRequires:  perl(XS::Parse::Keyword::Builder) >= %{xs_parse_keyword_min_ver}
 %define xs_parse_sublike_min_ver 0.15
 BuildRequires:  perl(XS::Parse::Sublike::Builder) >= %{xs_parse_sublike_min_ver}
@@ -199,6 +201,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 10 2023 Petr Pisar <ppisar@redhat.com> - 0.800-1
+- 0.800 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.79-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

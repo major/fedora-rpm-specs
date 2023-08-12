@@ -14,6 +14,7 @@ License:        MIT
 URL:            https://crates.io/crates/xcb
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump quick-xml dependency from 0.28 to 0.30
 # * remove unused optional as-raw-xcb-connection dependency
 Patch:          xcb-fix-metadata.diff
 

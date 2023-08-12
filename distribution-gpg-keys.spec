@@ -1,6 +1,6 @@
 Name:		distribution-gpg-keys
-Version:	1.89
-Release:	2%{?dist}
+Version:	1.91
+Release:	1%{?dist}
 Summary:	GPG keys of various Linux distributions
 
 License:	CC0-1.0
@@ -53,8 +53,13 @@ cp -a keys/* %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/copr
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.89-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Thu Aug 10 2023 Miroslav Suchý <msuchy@redhat.com> 1.91-1
+- update Google key
+
+* Thu Aug 10 2023 Miroslav Suchý <msuchy@redhat.com> 1.90-1
+- add Fedora 41 key
+- Add source URL for AL2023
+- update copr keys
 
 * Fri Jun 16 2023 Pavel Raiskup <praiskup@redhat.com> 1.89-1
 - Update expired RPM-GPG-KEY-Mageia key

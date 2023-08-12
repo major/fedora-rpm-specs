@@ -55,7 +55,7 @@ Version: 9.0.2
 Release: 14%{?dist}
 Summary: Glasgow Haskell Compiler
 
-License: BSD-3-Clause and HaskellReport
+License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
 Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.xz
 %if %{with testsuite}
@@ -269,7 +269,7 @@ This package provides the User Guide and Haddock manual.
 # ghclibdir also needs ghc_version_override for bootstrapping
 %global ghc_version_override %{version}
 
-%global BSDHaskellReport %{quote:BSD-3-Clause and HaskellReport}
+%global BSDHaskellReport %{quote:BSD-3-Clause AND HaskellReport}
 
 # use "./libraries-versions.sh" to check versions
 %if %{defined ghclibdir}
@@ -316,7 +316,7 @@ This package provides the User Guide and Haddock manual.
 
 %package devel
 Summary: GHC development libraries meta package
-License: BSD-3-Clause and HaskellReport
+License: BSD-3-Clause AND HaskellReport
 Requires: %{name}-compiler = %{version}-%{release}
 Obsoletes: %{name}-libraries < %{version}-%{release}
 Provides: %{name}-libraries = %{version}-%{release}
