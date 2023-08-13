@@ -21,9 +21,10 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(libdazzle-1.0)
 BuildRequires:  pkgconfig(libsystemd)
+%if %{undefined rhel}
 BuildRequires:  pkgconfig(libunwind-generic)
+%endif
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  /usr/bin/appstream-util
@@ -98,7 +99,7 @@ developing applications that use %{name}.
 
 
 %build
-%meson
+%meson %{?rhel:-Dlibunwind=false}
 %meson_build
 
 

@@ -6,7 +6,7 @@
 
 Name:       bitcoin-core
 Version:    25.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -57,11 +57,15 @@ BuildRequires:  checkpolicy
 BuildRequires:  desktop-file-utils
 BuildRequires:  gnupg2
 BuildRequires:  libappstream-glib
+BuildRequires:  libnatpmp-devel
 BuildRequires:  libtool
 BuildRequires:  miniupnpc-devel
 BuildRequires:  procps-ng
+%if 0%{?rhel} == 8
+BuildRequires:  python3.11
+%else
 BuildRequires:  python3
-BuildRequires:  python3-zmq
+%endif
 BuildRequires:  pkgconfig(libevent) >= 2.0.21
 BuildRequires:  pkgconfig(libevent_pthreads) >= 2.0.21
 BuildRequires:  pkgconfig(libqrencode)
@@ -154,7 +158,7 @@ need this package.
 
 # Bundled script to verify release signatures using offline pubring:
 cp %{SOURCE4} .
-contrib/verify-binaries/verify.py bin %{SOURCE2}
+contrib/verify-binaries/verify.py --min-good-sigs 3 bin %{SOURCE2} %{SOURCE0}
 
 # Check the hash of the tarball, not in the same folder where we are now:
 grep -q $(sha256sum %{SOURCE0}) %{SOURCE2}
@@ -336,6 +340,11 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Fri Aug 11 2023 Simone Caronni <negativo17@gmail.com> - 25.0-3
+- Adjust verify script invocation.
+- Fix build on el8.
+- Drop unused build requirement.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 25.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           lpcnetfreedv
 Version:        0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LPCNet for FreeDV
 
 License:        BSD
@@ -65,6 +65,9 @@ cp %{SOURCE1} %{__cmake_builddir}/
 
 
 %changelog
+* Fri Aug 11 2023 Than Ngo <than@redhat.com> - 0.5-2
+- Rebuilt
+
 * Sat Aug 05 2023 Richard Shaw <hobbes1069@gmail.com> - 0.5-1
 - Update to 0.5.
 

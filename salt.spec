@@ -10,8 +10,8 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:    salt
-Version: 3006.1
-Release: 6%{?dist}
+Version: 3006.2
+Release: 1%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
 License: Apache-2.0
@@ -333,6 +333,9 @@ chown salt:salt %{_sysconfdir}/%{name}/gpgkeys -R
 
 
 %changelog
+* Fri Aug 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.2-1
+- 3006.2
+
 * Mon Jul 24 2023 Salman Butt <cn137@protonmail.com> - 3006.1-6
 - SPDX license update.
 

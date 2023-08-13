@@ -6,7 +6,7 @@
 %global crate gdk4-x11-sys
 
 Name:           rust-gdk4-x11-sys
-Version:        0.6.3
+Version:        0.7.0
 Release:        %autorelease
 Summary:        FFI bindings of GDK4 X11
 
@@ -45,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+dox-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dox-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dox" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_10-devel

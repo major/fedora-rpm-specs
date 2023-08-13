@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.6.3
-Release: 1%{?dist}
+Release: 1.rc3%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -13,6 +13,9 @@ Source1: id_resolver.conf
 Source2: lockd.conf
 Source3: 24-nfs-server.conf
 Source4: 10-nfsv4.conf
+
+Patch001: nfs-utils.2.6.4-rc3.patch
+Patch002: nfs-utils-2.6.3-junction-regression.patch
 
 Patch100: nfs-utils-1.2.1-statdpath-man.patch
 Patch101: nfs-utils-1.2.1-exp-subtree-warn-off.patch
@@ -454,6 +457,10 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %{_mandir}/*/nfsiostat.8.gz
 
 %changelog
+* Fri Aug 11 2023 Steve Dickson <steved@redhat.com> 2.6.3-1.rc3
+- Updated to the latest RC release: nfs-utils-2-6-4-rc3
+- Fixed a regression in the junction code (bz 2213669)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.6.3-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,16 +4,16 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global maj_ver 16
-%global libcxx_version %{maj_ver}.0.6
-#global rc_ver 4
+%global maj_ver 17
+%global libcxx_version %{maj_ver}.0.0
+%global rc_ver 1
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libunwind_srcdir libunwind-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -25,6 +25,8 @@ Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libunwind_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
 Source7:	CMakeLists.txt
+Source8:	https://github.com/llvm/llvm-project/raw/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/runtimes/cmake/Modules/HandleFlags.cmake
+Source9:	https://github.com/llvm/llvm-project/raw/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/runtimes/cmake/Modules/WarningFlags.cmake
 
 Patch0: standalone.patch
 
@@ -130,6 +132,8 @@ cp %{SOURCE7} .
 mv ../%{libcxx_srcdir} libcxx
 mv ../%{libcxxabi_srcdir} libcxxabi
 mv ../%{libunwind_srcdir} libunwind
+mkdir -p runtimes/cmake/Modules
+mv %{SOURCE8} %{SOURCE9} runtimes/cmake/Modules/
 %autopatch -p1
 
 %py3_shebang_fix libcxx/utils/
@@ -236,6 +240,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Wed Aug 02 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate gdk4-wayland
 
 Name:           rust-gdk4-wayland
-Version:        0.6.3
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Rust bindings of the GDK 4 Wayland library
 
@@ -57,6 +57,18 @@ This package contains library source intended for building other packages which
 use the "v4_10" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_10-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_12-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v4_12-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_12" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_12-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_4-devel

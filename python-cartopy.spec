@@ -5,7 +5,7 @@
 %bcond_with network
 
 Name:           python-%{srcname}
-Version:        0.21.1
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Cartographic Python library with Matplotlib visualisations
 
@@ -16,23 +16,11 @@ Source0:        %pypi_source %{Srcname}
 Source1:        siteconfig.py
 
 # Might not go upstream in current form.
-Patch0001:      0001-Increase-tolerance-for-new-FreeType.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2088864
-Patch0002:      0002-Use-pkg-config-to-find-GEOS-instead-of-geos-config.patch
-Patch0003:      0003-Remove-extraneous-insertion-of-default-compiler-path.patch
-# We don't need to worry about the bugs with setuptools-scm < 7.
-Patch0004:      0004-Allow-older-setuptools-scm.patch
-# Fix build with Matplotlib 3.7
-Patch0005:      https://github.com/SciTools/cartopy/commit/6b4572ba1a8a877f28e25dfe9559c14b7a565958.patch
-# Fix tests with Proj 9.2
-Patch0006:      https://github.com/SciTools/cartopy/pull/2163.patch
-Patch0007:      https://github.com/SciTools/cartopy/pull/2209.patch
+Patch:          0001-Increase-tolerance-for-new-FreeType.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  geos-devel >= 3.7.2
 BuildRequires:  proj-data-uk
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(pytest-xdist)
 
 %global _description %{expand:
 Cartopy is a Python package designed to make drawing maps for data analysis
@@ -54,7 +42,9 @@ Summary:        %{summary}
 Requires:       python-%{srcname}-common = %{version}-%{release}
 Recommends:     python3dist(cartopy[ows]) = %{version}-%{release}
 Recommends:     python3dist(cartopy[plotting]) = %{version}-%{release}
-Recommends:     python3dist(pykdtree) >= 1.2.2
+%ifnarch %{ix86}
+Recommends:     python3dist(cartopy[speedups]) = %{version}-%{release}
+%endif
 
 %description -n python3-%{srcname} %{_description}
 
@@ -74,7 +64,11 @@ Suggests:       natural-earth-map-data-10m
 Data files for %{srcname}.
 
 
+%ifnarch %{ix86}
+%pyproject_extras_subpkg -n python3-cartopy ows plotting speedups
+%else
 %pyproject_extras_subpkg -n python3-cartopy ows plotting
+%endif
 
 
 %prep
@@ -82,13 +76,18 @@ Data files for %{srcname}.
 cp -a %SOURCE1 lib/cartopy/
 
 sed -i -e 's/oldest-supported-numpy/numpy/g' pyproject.toml
+sed -i -e 's/, "pytest-cov", "coveralls"//g' pyproject.toml
 
 # Remove generated Cython sources
 rm lib/cartopy/trace.cpp
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x ows,plotting,tests
+%ifnarch %{ix86}
+%pyproject_buildrequires -r -x ows,plotting,speedups,test
+%else
+%pyproject_buildrequires -r -x ows,plotting,test
+%endif
 
 
 %build
@@ -106,10 +105,12 @@ for theme in physical cultural; do
         %{buildroot}%{_datadir}/cartopy/shapefiles/natural_earth/${theme}
 done
 
+mv %{buildroot}%{_bindir}/feature_download %{buildroot}%{_bindir}/cartopy_feature_download
+
 
 %check
 MPLBACKEND=Agg \
-    %{pytest} -n auto --doctest-modules --mpl --pyargs cartopy \
+    %{pytest} -n auto --doctest-modules --mpl --mpl-generate-summary=html --pyargs cartopy \
 %if %{with network}
     %{nil}
 %else
@@ -123,7 +124,7 @@ MPLBACKEND=Agg \
 %{_datadir}/cartopy/
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%{_bindir}/cartopy_feature_download.py
+%{_bindir}/cartopy_feature_download
 
 
 %changelog

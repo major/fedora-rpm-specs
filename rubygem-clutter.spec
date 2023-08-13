@@ -1,8 +1,8 @@
 %global	gem_name	clutter
 
 Name:		rubygem-%{gem_name}
-Version:	4.1.8
-Release:	2%{?dist}
+Version:	4.1.9
+Release:	1%{?dist}
 Summary:	Ruby binding of Clutter
 
 %undefine        _changelog_trimtime
@@ -51,7 +51,7 @@ Documentation for %{name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-sed -i -e 's|= 4\.1\.8|>= 4.1.8|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.9|>= 4.1.9|' %{gem_name}-%{version}.gemspec
 # clutter should be okay, pkgconfig(clutter-1.0) not strictly needed.
 # hacking
 sed -i dependency-check/Rakefile \
@@ -144,6 +144,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sat Aug 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.9-1
+- 4.1.9
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

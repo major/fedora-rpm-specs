@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.0
-Release:   6%{?dist}
+Release:   8%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -130,12 +130,11 @@ local langpacks_package_list = {
    },
  },
  { lang="as", fclang="", langname="Assamese", default={
-                sans="lohit-assamese-fonts",
-                serif="",
+                sans="google-noto-sans-bengali-vf-fonts",
+                serif="google-noto-serif-bengali-vf-fonts",
                 mono="" },
-   recommends={ "google-noto-sans-bengali-vf-fonts",
-                "google-noto-sans-bengali-ui-vf-fonts",
-                "google-noto-serif-bengali-vf-fonts"
+   recommends={ "google-noto-sans-bengali-ui-vf-fonts",
+                "lohit-assamese-fonts",
               },
    inputmethod="ibus-m17n",
    meta={ requires={},
@@ -176,12 +175,11 @@ local langpacks_package_list = {
    },
  },
  { lang="bn", fclang="", langname="Bengali", default={
-                sans="lohit-bengali-fonts",
-                serif="",
+                sans="google-noto-sans-bengali-vf-fonts",
+                serif="google-noto-serif-bengali-vf-fonts",
                 mono="" },
-   recommends={ "google-noto-sans-bengali-vf-fonts",
-                "google-noto-sans-bengali-ui-vf-fonts",
-                "google-noto-serif-bengali-vf-fonts"
+   recommends={ "google-noto-sans-bengali-ui-vf-fonts",
+                "lohit-bengali-fonts",
               },
    inputmethod="ibus-m17n",
    meta={ requires={},
@@ -445,12 +443,11 @@ local langpacks_package_list = {
    },
  },
  { lang="gu", fclang="", langname="Gujarati", default={
-                sans="lohit-gujarati-fonts",
-                serif="",
+                sans="google-noto-sans-gujarati-vf-fonts",
+                serif="google-noto-serif-gujarati-vf-fonts",
                 mono="" },
-   recommends={ "google-noto-sans-gujarati-fonts",
-                "google-noto-sans-gujarati-ui-fonts",
-                "google-noto-serif-gujarati-fonts",
+   recommends={ "google-noto-sans-gujarati-ui-fonts",
+                "lohit-gujarati-fonts",
                 "samyak-gujarati-fonts"
               },
    inputmethod="ibus-m17n",
@@ -484,12 +481,11 @@ local langpacks_package_list = {
    },
  },
  { lang="hi", fclang="", langname="Hindi", default={
-                sans="lohit-devanagari-fonts",
-                serif="",
+                sans="google-noto-sans-devanagari-vf-fonts",
+                serif="google-noto-serif-devanagari-vf-fonts",
                 mono="" },
-   recommends={ "google-noto-sans-devanagari-vf-fonts",
-                "google-noto-sans-devanagari-ui-vf-fonts",
-                "google-noto-serif-devanagari-vf-fonts",
+   recommends={ "google-noto-sans-devanagari-ui-vf-fonts",
+                "lohit-devanagari-fonts",
                 "samyak-devanagari-fonts",
               },
    inputmethod="ibus-m17n",
@@ -642,13 +638,12 @@ local langpacks_package_list = {
    },
  },
  { lang="kn", fclang="", langname="Kannada", default={
-                sans="lohit-kannada-fonts",
-                serif="",
+                sans="google-noto-sans-kannada-vf-fonts",
+                serif="google-noto-serif-kannada-vf-fonts",
                 mono="" },
-   recommends={ "google-noto-sans-kannada-vf-fonts",
-                "google-noto-sans-kannada-ui-vf-fonts",
-                "google-noto-serif-kannada-vf-fonts",
+   recommends={ "google-noto-sans-kannada-ui-vf-fonts",
                 "gubbi-fonts",
+                "lohit-kannada-fonts",
                 "navilu-fonts",
               },
    inputmethod="ibus-m17n",
@@ -712,12 +707,11 @@ local langpacks_package_list = {
    },
  },
  { lang="mai", fclang="", langname="Maithili", default={
-                sans="lohit-devanagari-fonts",
-                serif="",
+                sans="google-noto-sans-devanagari-vf-fonts",
+                serif="google-noto-serif-devanagari-vf-fonts",
                 mono="" },
-   recommends={ "google-noto-sans-devanagari-vf-fonts",
-                "google-noto-sans-devanagari-ui-vf-fonts",
-                "google-noto-serif-devanagari-vf-fonts",
+   recommends={ "google-noto-sans-devanagari-ui-vf-fonts",
+                "lohit-devanagari-fonts",
               },
    inputmethod="ibus-m17n",
    meta={ requires={},
@@ -759,12 +753,11 @@ local langpacks_package_list = {
    },
  },
  { lang="mr", fclang="", langname="Marathi", default={
-                sans="lohit-marathi-fonts",
-                serif="",
+                sans="google-noto-sans-devanagari-vf-fonts",
+                serif="google-noto-serif-devanagari-vf-fonts",
                 mono="" },
-   recommends={ "google-noto-sans-devanagari-vf-fonts",
-                "google-noto-sans-devanagari-ui-vf-fonts",
-                "google-noto-serif-devanagari-vf-fonts",
+   recommends={ "google-noto-sans-devanagari-ui-vf-fonts",
+                "lohit-marathi-fonts",
                 "samyak-devanagari-fonts",
               },
    inputmethod="ibus-m17n",
@@ -863,14 +856,11 @@ local langpacks_package_list = {
    },
  },
  { lang="or", fclang="", langname="Odia", default={
-                sans="lohit-odia-fonts",
-                serif="",
+                sans="google-noto-sans-oriya-vf-fonts",
+                serif="google-noto-serif-oriya-vf-fonts",
                 mono="" },
    recommends={ "samyak-odia-fonts",
-                "google-noto-sans-oriya-fonts",
-                "google-noto-sans-oriya-vf-fonts",
-                "google-noto-serif-oriya-fonts",
-                "google-noto-serif-oriya-vf-fonts",
+                "lohit-odia-fonts",
               },
    inputmethod="ibus-m17n",
    meta={ requires={},
@@ -1023,12 +1013,11 @@ local langpacks_package_list = {
    },
  },
  { lang="ta", fclang="", langname="Tamil", default={
-                sans="lohit-tamil-fonts",
-                serif="",
+                sans="google-noto-sans-tamil-vf-fonts",
+                serif="google-noto-serif-tamil-vf-fonts",
                 mono="" },
-   recommends={ "google-noto-sans-tamil-vf-fonts",
-                "google-noto-sans-tamil-ui-vf-fonts",
-                "google-noto-serif-tamil-vf-fonts",
+   recommends={ "google-noto-sans-tamil-ui-vf-fonts",
+                "lohit-tamil-fonts",
                 "samyak-tamil-fonts",
                 "serafettin-cartoon-fonts",
               },
@@ -1038,12 +1027,11 @@ local langpacks_package_list = {
    },
  },
  { lang="te", fclang="", langname="Telugu", default={
-                sans="lohit-telugu-fonts",
-                serif="",
+                sans="google-noto-sans-telugu-vf-fonts",
+                serif="google-noto-serif-telugu-vf-fonts",
                 mono="" },
-   recommends={ "google-noto-sans-telugu-fonts",
-                "google-noto-sans-telugu-ui-fonts",
-                "google-noto-serif-telugu-fonts",
+   recommends={ "google-noto-sans-telugu-ui-vf-fonts",
+                "lohit-telugu-fonts",
                 "pothana2000-fonts",
                 "vemana2000-fonts",
               },
@@ -1060,13 +1048,13 @@ local langpacks_package_list = {
                 "tlwg-kinnari-fonts",
                 "tlwg-laksaman-fonts",
                 "tlwg-loma-fonts",
+                "tlwg-mono-fonts",
                 "tlwg-norasi-fonts",
                 "tlwg-purisa-fonts",
                 "tlwg-sawasdee-fonts",
-                "tlwg-tlwgmono-fonts",
-                "tlwg-tlwgtypewriter-fonts",
-                "tlwg-tlwgtypist-fonts",
-                "tlwg-tlwgtypo-fonts",
+                "tlwg-typewriter-fonts",
+                "tlwg-typist-fonts",
+                "tlwg-typo-fonts",
                 "tlwg-umpush-fonts",
                 "tlwg-waree-fonts",
               },
@@ -1631,6 +1619,13 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE3}
 
 %changelog
+* Fri Aug 11 2023 Peng Wu <pwu@redhat.com> - 4.0-8
+- Update for the tlwg-fonts package
+
+* Fri Aug  4 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-7
+- Update Indic fonts.
+  https://fedoraproject.org/wiki/Changes/Indic_Noto_fonts
+
 * Thu Jul 27 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-6
 - Add google-noto-sans-mono-cjk-vf-fonts as mono for CJK.
 

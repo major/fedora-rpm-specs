@@ -10,7 +10,7 @@
 %endif
 
 Name:           python-dns
-Version:        2.4.1
+Version:        2.4.2
 Release:        1%{?dist}
 Summary:        DNS toolkit for Python
 
@@ -85,6 +85,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Thu Aug 10 2023 Lumír Balhar <lbalhar@redhat.com> - 2.4.2-1
+- Update to 2.4.2 (rhbz#2230509)
+
 * Mon Jul 31 2023 Lumír Balhar <lbalhar@redhat.com> - 2.4.1-1
 - Update to 2.4.1 (rhbz#2219703)
 

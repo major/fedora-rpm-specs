@@ -4,15 +4,13 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.800
+Version:        0.801
 Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pad
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Object-Pad-%{version}.tar.gz
 Source1:        macros.perl-Object-Pad
-# Fix VERSION method, bug #2230553, CPAN RT#149357, proposed to an upstream
-Patch0:         Object-Pad-0.800-Fix-handling-VERSION-arguments.patch
 BuildRequires:  coreutils
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -201,6 +199,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Aug 11 2023 Petr Pisar <ppisar@redhat.com> - 0.801-1
+- 0.801 bump
+
 * Thu Aug 10 2023 Petr Pisar <ppisar@redhat.com> - 0.800-1
 - 0.800 bump
 

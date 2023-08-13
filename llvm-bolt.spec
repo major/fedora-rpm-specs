@@ -4,16 +4,16 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global maj_ver 16
+%global maj_ver 17
 %global min_ver 0
-#global rc_ver 4
-%global patch_ver 6
+%global patch_ver 0
+%global rc_ver 1
 %global bolt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global bolt_srcdir llvm-project-%{bolt_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name: llvm-bolt
 Version: %{bolt_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: a post-link optimizer developed to speed up large applications
 
 License: Apache-2.0 WITH LLVM-exception
@@ -23,13 +23,9 @@ Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source2: release-keys.asc
 
 # BOLT is not respecting the component split of LLVM and requires some private
-# header to be able in order to compile. Try to disable as much libraries as
+# headers in order to compile itself. Try to disable as much libraries as
 # possible in order to reduce build time.
 Patch0: rm-llvm-libs.diff
-
-# Backports from LLVM 17:
-Patch1: 0001-Add-REQUIRES-asserts-to-test-that-uses-debug-only-fl.patch
-Patch2: 0001-BOLT-Fix-section-end-sym.s-test-to-only-run-x86-Linu.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -135,6 +131,7 @@ rm -f %{buildroot}/%{_builddir}/%{bolt_srcdir}/%{_vpath_builddir}/%{_lib}/lib*.a
 %license LICENSE.TXT
 %{_bindir}/llvm-bolt
 %{_bindir}/llvm-boltdiff
+%{_bindir}/llvm-bolt-heatmap
 %{_bindir}/merge-fdata
 %{_bindir}/perf2bolt
 
@@ -149,6 +146,9 @@ rm -f %{buildroot}/%{_builddir}/%{bolt_srcdir}/%{_vpath_builddir}/%{_lib}/lib*.a
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu Aug 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

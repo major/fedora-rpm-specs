@@ -1,11 +1,11 @@
 Name:           free42
-URL:            http://www.thomasokken.com/free42/
 Epoch:          1
-Version:        3.0.20
+Version:        3.0.21
 Release:        %autorelease
 License:        GPL-2.0-only AND BSD-3-Clause
 Summary:        42S Calculator Simulator
-Source:         http://www.thomasokken.com/free42/upstream/free42-nologo-%{version}.tgz
+URL:            https://www.thomasokken.com/free42/
+Source:         https://www.thomasokken.com/free42/upstream/free42-nologo-%{version}.tgz
 Patch0:         free42-makefile.patch
 Patch1:         free42-intel-lib-arches.patch
 
@@ -18,6 +18,9 @@ BuildRequires:  libappstream-glib
 BuildRequires:  make
 
 Provides:       bundled(IntelRDFPMathLib) = 2.1
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description
 Free42 is a complete re-implementation of the 42S calculator and the

@@ -5,7 +5,7 @@
 %global crate gsk4
 
 Name:           rust-gsk4
-Version:        0.6.3
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Rust bindings of the GSK 4 library
 
@@ -59,18 +59,6 @@ use the "broadway" feature of the "%{crate}" crate.
 %files       -n %{name}+broadway-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+dox-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dox-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dox" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dox-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+v4_10-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -117,6 +105,18 @@ This package contains library source intended for building other packages which
 use the "v4_6" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_6-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+vulkan-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+vulkan-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "vulkan" feature of the "%{crate}" crate.
+
+%files       -n %{name}+vulkan-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

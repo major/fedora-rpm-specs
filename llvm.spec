@@ -1,3 +1,10 @@
+%bcond_with snapshot_build
+
+%if %{with snapshot_build}
+# Unlock LLVM Snapshot LUA functions
+%{llvm_sb}
+%endif
+
 # We are building with clang for faster/lower memory LTO builds.
 # See https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_macros
 %global toolchain clang
@@ -17,10 +24,18 @@
 %bcond_with compat_build
 %bcond_without check
 
-#global rc_ver 4
-%global maj_ver 16
+%global maj_ver 17
 %global min_ver 0
-%global patch_ver 6
+%global patch_ver 0
+%global rc_ver 1
+
+%if %{with snapshot_build}
+%undefine rc_ver
+%global maj_ver %{llvm_snapshot_version_major}
+%global min_ver %{llvm_snapshot_version_minor}
+%global patch_ver %{llvm_snapshot_version_patch}
+%endif
+
 %global llvm_srcdir llvm-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global third_party_srcdir third-party-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
@@ -74,12 +89,18 @@
 %undefine _py3_shebang_P
 
 Name:		%{pkg_name}
-Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	6%{?dist}
+Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
 URL:		http://llvm.org
+%if %{with snapshot_build}
+Source0:	%{llvm_snapshot_source_prefix}llvm-%{llvm_snapshot_yyyymmdd}.src.tar.xz
+Source2:	%{llvm_snapshot_source_prefix}cmake-%{llvm_snapshot_yyyymmdd}.src.tar.xz
+Source4:	%{llvm_snapshot_source_prefix}third-party-%{llvm_snapshot_yyyymmdd}.src.tar.xz
+%{llvm_snapshot_extra_source_tags}
+%else
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{llvm_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{llvm_srcdir}.tar.xz.sig
 Source2:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz
@@ -88,19 +109,9 @@ Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
 
-# Backported from LLVM 17
-Patch1:		0001-SystemZ-Improve-error-messages-for-unsupported-reloc.patch
-# See https://reviews.llvm.org/D137890 for the next two patches
-Patch2:		0001-llvm-Add-install-targets-for-gtest.patch
-# Backport of https://reviews.llvm.org/D154212 from LLVM 17.
-Patch3: 0001-cmake-Add-LLVM_UNITTEST_LINK_FLAGS-option.patch
-# Backport of https://reviews.llvm.org/D156379 from LLVM 18.
-Patch4:		D156379.diff
-
 # RHEL-specific patch to avoid unwanted recommonmark dep
 Patch101:	0101-Deactivate-markdown-doc.patch
-# Patching third-party dir with a 200 offset in patch number
-Patch201:	0201-third-party-Add-install-targets-for-gtest.patch
+%endif
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -151,14 +162,15 @@ Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 # app that requires the libLLVMLineEditor, so we need to make sure
 # libedit-devel is available.
 Requires:	libedit-devel
-# The installed cmake files reference binaries from llvm-test and llvm-static.
-# We tried in the past to split the cmake exports for these binaries out into
-# separate files, so that llvm-devel would not need to Require these packages,
+# The installed cmake files reference binaries from llvm-test, llvm-static, and
+# llvm-gtest.  We tried in the past to split the cmake exports for these binaries
+# out into separate files, so that llvm-devel would not need to Require these packages,
 # but this caused bugs (rhbz#1773678) and forced us to carry two non-upstream
 # patches.
 Requires:	%{name}-static%{?_isa} = %{version}-%{release}
 %if %{without compat_build}
 Requires:	%{name}-test%{?_isa} = %{version}-%{release}
+Requires:	%{name}-googletest%{?_isa} = %{version}-%{release}
 %endif
 
 
@@ -222,16 +234,17 @@ LLVM's modified googletest sources.
 %endif
 
 %prep
+%if %{without snapshot_build}
 %{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
 %{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE5}' --data='%{SOURCE4}'
+%endif
 %setup -T -q -b 2 -n %{cmake_srcdir}
 # TODO: It would be more elegant to set -DLLVM_COMMON_CMAKE_UTILS=%{_builddir}/%{cmake_srcdir},
 # but this is not a CACHED variable, so we can't actually set it externally :(
 cd ..
 mv %{cmake_srcdir} cmake
 %setup -T -q -b 4 -n %{third_party_srcdir}
-%autopatch -m200 -p2
 cd ..
 mv %{third_party_srcdir} third-party
 
@@ -245,6 +258,11 @@ mv %{third_party_srcdir} third-party
 
 %build
 
+# Disable LTO to speed up builds
+%if %{with snapshot_build}
+%global _lto_cflags %nil
+%endif
+
 %ifarch s390 s390x %{arm} %ix86
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
@@ -254,6 +272,7 @@ mv %{third_party_srcdir} third-party
 export ASMFLAGS="%{build_cflags}"
 
 # force off shared libs as cmake macros turns it on.
+# TODO: Disable LLVM_UNREACHABLE_OPTIMIZE.
 %cmake	-G Ninja \
 	-DBUILD_SHARED_LIBS:BOOL=OFF \
 	-DLLVM_PARALLEL_LINK_JOBS=1 \
@@ -313,10 +332,14 @@ export ASMFLAGS="%{build_cflags}"
 	-DLLVM_ENABLE_SPHINX:BOOL=ON \
 	-DLLVM_ENABLE_DOXYGEN:BOOL=OFF \
 	\
+%if %{with snapshot_build}
+	-DLLVM_VERSION_SUFFIX="%{llvm_snapshot_version_suffix}" \
+%else
 %if %{without compat_build}
 	-DLLVM_VERSION_SUFFIX='' \
 %endif
-	-DLLVM_UNREACHABLE_OPTIMIZE:BOOL=OFF \
+%endif
+	-DLLVM_UNREACHABLE_OPTIMIZE:BOOL=ON \
 	-DLLVM_BUILD_LLVM_DYLIB:BOOL=ON \
 	-DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
 	-DLLVM_BUILD_EXTERNAL_COMPILER_RT:BOOL=ON \
@@ -495,7 +518,7 @@ fi
 
 %files libs
 %license LICENSE.TXT
-%{install_libdir}/libLLVM-%{maj_ver}.so
+%{install_libdir}/libLLVM-%{maj_ver}%{?llvm_snapshot_version_suffix:%{llvm_snapshot_version_suffix}}.so
 %if %{without compat_build}
 %if %{with gold}
 %{_libdir}/LLVMgold.so
@@ -575,6 +598,14 @@ fi
 %endif
 
 %changelog
+%{?llvm_snapshot_changelog_entry}
+
+* Tue Aug 01 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-2
+- Enable LLVM_UNREACHABLE_OPTIMIZE temporarily
+
+* Mon Jul 31 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Mon Jul 31 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-6
 - Fix rhbz #2224885
 

@@ -23,11 +23,11 @@
 %global upstream_name Sphinx
 
 Name:       python-sphinx
-%global     general_version 6.2.1
+%global     general_version 7.0.1
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    4%{?dist}
+Release:    1%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -364,6 +364,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Mon Aug 07 2023 Karolina Surma <ksurma@redhat.com> - 1:7.0.1-1
+- Update to 7.0.1
+
 * Thu Jul 27 2023 Miro Hrončok <mhroncok@redhat.com> - 1:6.2.1-4
 - Don't use filelock to test this package on RHEL
 

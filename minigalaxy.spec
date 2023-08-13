@@ -1,5 +1,5 @@
 Name:           minigalaxy
-Version:        1.2.2
+Version:        1.2.5
 Release:        %autorelease
 Summary:        GOG client for Linux that lets you download and play your GOG Linux games
 BuildArch:      noarch

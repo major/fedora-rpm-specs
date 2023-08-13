@@ -2,16 +2,16 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.07c
+Version:       4.08c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global tag      4.07c
+%global tag    v4.08c
 %forgemeta
 
 Name:          american-fuzzy-lop
 Summary:       Practical, instrumentation-driven fuzzer for binary formats
 License:       ASL 2.0
 
-Release:       2%{?dist}
+Release:       1%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -258,6 +258,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Fri Aug 11 2023 Richard W.M. Jones <rjones@redhat.com> - 4.08c-1
+- New upstream release 4.08c (RHBZ#2231265)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.07c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

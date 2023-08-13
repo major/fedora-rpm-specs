@@ -1,6 +1,6 @@
 Name:           python-docutils
-Version:        0.19
-Release:        5%{?dist}
+Version:        0.20.1
+Release:        1%{?dist}
 Summary:        System for processing plaintext documentation
 
 # See COPYING.txt for information
@@ -45,11 +45,6 @@ sed -i -e '/#! *\/usr\/bin\/.*/{1D}' $(grep -Erl '^#!.+python' docutils)
 # We want the licenses but don't need this build file
 rm -f licenses/docutils.conf
 
-# docutils's upstream generates HTML files from the txt files, which affects
-# some of the egg-info's files too. We don't want those files in our package
-# Reported upstream: https://sourceforge.net/p/docutils/bugs/461/
-rm -v *.egg-info/*.html
-
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -81,6 +76,10 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 
 
 %changelog
+* Fri Aug 11 2023 Karolina Surma <ksurma@redhat.com> - 0.20.1-1
+- Update to 0.20.1
+Resolves: rhbz#2207802
+
 * Wed Aug 09 2023 Karolina Surma <ksurma@redhat.com> - 0.19-5
 - Declare the license as an SPDX expression
 

@@ -1,14 +1,28 @@
+%bcond_with snapshot_build
+
+%if %{with snapshot_build}
+# Unlock LLVM Snapshot LUA functions
+%{llvm_sb}
+%endif
+
+%global maj_ver 17
+%global libomp_version %{maj_ver}.0.0
+%global rc_ver 1
+%global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
+%global so_suffix %{maj_ver}
+
+%if %{with snapshot_build}
+%undefine rc_ver
+%global maj_ver %{llvm_snapshot_version_major}
+%global libomp_version %{llvm_snapshot_version}
+%global so_suffix %{maj_ver}%{llvm_snapshot_version_suffix}
+%endif
+
 %global toolchain clang
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
-
-%global maj_ver 16
-%global libomp_version %{maj_ver}.0.6
-#global rc_ver 4
-%global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
-
 
 %ifarch ppc64le
 %global libomp_arch ppc64
@@ -17,15 +31,20 @@
 %endif
 
 Name: libomp
-Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
+Release: 1%{?dist}
 Summary: OpenMP runtime for clang
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
 URL: http://openmp.llvm.org
+%if %{with snapshot_build}
+Source0: %{llvm_snapshot_source_prefix}openmp-%{llvm_snapshot_yyyymmdd}.src.tar.xz
+%{llvm_snapshot_extra_source_tags}
+%else
 Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{libomp_srcdir}.tar.xz
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{libomp_srcdir}.tar.xz.sig
 Source2: release-keys.asc
+%endif
 
 BuildRequires: clang >= %{maj_ver}
 # For clang-offload-packager
@@ -62,7 +81,9 @@ Requires: clang-resource-filesystem%{?isa} = %{version}
 OpenMP header files.
 
 %prep
+%if %{without snapshot_build}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 %autosetup -n %{libomp_srcdir} -p2
 
 %build
@@ -71,11 +92,14 @@ OpenMP header files.
 	-DLIBOMP_INSTALL_ALIASES=OFF \
 	-DCMAKE_MODULE_PATH=%{_datadir}/llvm/cmake/Modules \
 	-DLLVM_DIR=%{_libdir}/cmake/llvm \
-	-DCMAKE_INSTALL_INCLUDEDIR=%{_libdir}/clang/%{maj_ver}/include \
+	-DCMAKE_INSTALL_INCLUDEDIR=%{_prefix}/lib/clang/%{maj_ver}/include \
 %if 0%{?__isa_bits} == 64
 	-DOPENMP_LIBDIR_SUFFIX=64 \
 %else
 	-DOPENMP_LIBDIR_SUFFIX= \
+%endif
+%if %{with snapshot_build}
+	-DLLVM_VERSION_SUFFIX="%{llvm_snapshot_version_suffix}" \
 %endif
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
 	-DLIBOMP_HAVE_VERSION_SCRIPT_FLAG:BOOL=ON
@@ -101,31 +125,25 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %endif
 %ifnarch %{ix86} %{arm}
 # libomptarget is not supported on 32-bit systems.
-%{_libdir}/libomptarget.rtl.amdgpu.so.%{maj_ver}
-%{_libdir}/libomptarget.rtl.amdgpu.nextgen.so.%{maj_ver}
-%{_libdir}/libomptarget.rtl.cuda.so.%{maj_ver}
-%{_libdir}/libomptarget.rtl.cuda.nextgen.so.%{maj_ver}
-%{_libdir}/libomptarget.rtl.%{libomp_arch}.so.%{maj_ver}
-%{_libdir}/libomptarget.rtl.%{libomp_arch}.nextgen.so.%{maj_ver}
-%{_libdir}/libomptarget.so.%{maj_ver}
+%{_libdir}/libomptarget.rtl.amdgpu.so.%{so_suffix}
+%{_libdir}/libomptarget.rtl.cuda.so.%{so_suffix}
+%{_libdir}/libomptarget.rtl.%{libomp_arch}.so.%{so_suffix}
+%{_libdir}/libomptarget.so.%{so_suffix}
 %endif
 
 %files devel
-%{_libdir}/clang/%{maj_ver}/include/omp.h
-%{_libdir}/cmake/openmp/FindOpenMPTarget.cmake
+%{_prefix}/lib/clang/%{maj_ver}/include/omp.h
 %ifnarch %{arm}
-%{_libdir}/clang/%{maj_ver}/include/omp-tools.h
-%{_libdir}/clang/%{maj_ver}/include/ompt.h
-%{_libdir}/clang/%{maj_ver}/include/ompt-multiplex.h
+%{_prefix}/lib/clang/%{maj_ver}/include/omp-tools.h
+%{_prefix}/lib/clang/%{maj_ver}/include/ompt.h
+%{_prefix}/lib/clang/%{maj_ver}/include/ompt-multiplex.h
 %endif
+%{_libdir}/cmake/openmp/FindOpenMPTarget.cmake
 %ifnarch %{ix86} %{arm}
 # libomptarget is not supported on 32-bit systems.
 %{_libdir}/libomptarget.rtl.amdgpu.so
-%{_libdir}/libomptarget.rtl.amdgpu.nextgen.so
 %{_libdir}/libomptarget.rtl.cuda.so
-%{_libdir}/libomptarget.rtl.cuda.nextgen.so
 %{_libdir}/libomptarget.rtl.%{libomp_arch}.so
-%{_libdir}/libomptarget.rtl.%{libomp_arch}.nextgen.so
 %{_libdir}/libomptarget.devicertl.a
 %{_libdir}/libomptarget-amdgpu-*.bc
 %{_libdir}/libomptarget-nvptx-*.bc
@@ -133,6 +151,11 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %endif
 
 %changelog
+%{?llvm_snapshot_changelog_entry}
+
+* Wed Aug 02 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

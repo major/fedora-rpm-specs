@@ -6,20 +6,16 @@
 %bcond tests %[%{with check} && %{undefined rhel}]
 
 Name:           python-%{pypi_name}
-Version:        2.0.0
-Release:        12%{?dist}
+Version:        2.0.3
+Release:        1%{?dist}
 Summary:        Sphinx extension for HTML help files
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
-# In Sphinx 5 path.read_text() replaces path.text() - compatibility fix
-Patch:          https://github.com/sphinx-doc/sphinxcontrib-htmlhelp/pull/16.patch
-
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %if %{with check}
 BuildRequires:  python%{python3_pkgversion}-sphinx >= 1:2
@@ -28,6 +24,10 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-html5lib
 %endif
 %endif
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %description
 sphinxcontrib-htmlhelp is a sphinx extension which renders HTML help files.
@@ -50,11 +50,11 @@ find -name '*.mo' -delete
 for po in $(find -name '*.po'); do
   msgfmt --output-file=${po%.po}.mo ${po}
 done
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 # Move language files to /usr/share
 pushd %{buildroot}%{python3_sitelib}
@@ -85,11 +85,13 @@ popd
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/sphinxcontrib/
-%{python3_sitelib}/sphinxcontrib_htmlhelp-%{version}-py%{python3_version}-*.pth
-%{python3_sitelib}/sphinxcontrib_htmlhelp-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/sphinxcontrib_htmlhelp*.dist-info
 
 
 %changelog
+* Fri Aug 11 2023 Tom Callaway <spot@fedoraproject.org> - 2.0.3-1
+- update to 2.0.3
+
 * Thu Aug 10 2023 Karolina Surma <ksurma@redhat.com> - 2.0.0-12
 - Declare the license as an SPDX expression
 

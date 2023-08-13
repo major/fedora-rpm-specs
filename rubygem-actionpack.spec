@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.6
+Version: 7.0.7
 Release: 1%{?dist}
 Summary: Web-flow and rendering framework putting the VC in MVC (part of Rails)
 License: MIT
@@ -15,12 +15,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # ActionPack gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/actionpack && git archive -v -o actionpack-7.0.6-tests.txz v7.0.6 test/
+# cd rails/actionpack && git archive -v -o actionpack-7.0.7-tests.txz v7.0.7 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.6-tools.txz v7.0.6 tools/
+# cd rails && git archive -v -o rails-7.0.7-tools.txz v7.0.7 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45370
@@ -110,6 +110,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Aug 10 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.7-1
+- Update to actionpack 7.0.7.
+
 * Sun Jul 23 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.6-1
 - Update to actionpack 7.0.6.
 

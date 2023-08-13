@@ -49,6 +49,13 @@ popd
 
 %install
 make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
+%if 0%{?flatpak}
+# qtbase is part of runtime in /usr, this is built in /app
+mv %{buildroot}/usr %{buildroot}%{_prefix}
+sed -i -e "\|^libdir=|s|/usr/%{_lib}|%{_libdir}|" %{buildroot}%{_qt5_libdir}/*.la
+sed -i -e "\|^prefix=|s|/usr|%{_prefix}|" %{buildroot}%{_qt5_libdir}/pkgconfig/*.pc
+sed -i -e "\|^[^\#]|s|/usr|%{_prefix}|" %{buildroot}%{_qt5_libdir}/cmake/*/*.cmake
+%endif
 
 
 %ldconfig_scriptlets

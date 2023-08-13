@@ -1,12 +1,11 @@
 %global libhandy_version 1.5.0
-%global libunwind_version 1.6.2
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          yelp
 Epoch:         2
 Version:       42.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Help browser for the GNOME desktop
 
 License:       LGPLv2+ and ASL 2.0 and GPLv2+
@@ -25,7 +24,6 @@ BuildRequires: pkgconfig(libxslt)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(webkit2gtk-4.1)
 BuildRequires: pkgconfig(yelp-xsl)
-BuildRequires: libunwind
 BuildRequires: desktop-file-utils
 BuildRequires: bzip2-devel
 BuildRequires: gcc
@@ -34,7 +32,6 @@ BuildRequires: intltool
 BuildRequires: itstool
 BuildRequires: make
 Requires:      libhandy%{?_isa} >= %{libhandy_version}
-Requires:      libunwind%{?_isa} >= %{libunwind_version}
 Requires:      yelp-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:      yelp-xsl
 
@@ -98,6 +95,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/yelp.desktop
 
 
 %changelog
+* Fri Aug 11 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:42.2-4
+- Drop unused libunwind dependencies
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:42.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

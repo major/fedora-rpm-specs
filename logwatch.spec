@@ -2,7 +2,7 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -16,8 +16,6 @@ Requires: perl(lib)
 Requires: perl(re)
 Requires: perl(Socket)
 Requires: perl(subs)
-Requires: perl(Sys::CPU)
-Requires: perl(Sys::MemInfo)
 Requires: perl(Time::Local)
 Requires: perl(URI::URL)
 Requires: perl(vars)
@@ -131,6 +129,9 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Thu Aug 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 7.9-2
+- Remove unused dependencies perl(Sys::CPU), perl(Sys::MemInfo)
+
 * Sun Jul 23 2023 Frank Crawford <frank@crawford.emu.id.au> - 7.9-1
 - Update to 7.9
 

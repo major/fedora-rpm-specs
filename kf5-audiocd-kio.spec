@@ -3,7 +3,7 @@
 Name:    kf5-audiocd-kio
 Summary: KF5 Audiocd kio slave
 Version: 23.04.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # code GPLv2+, handbook/docs GFDL
 License: GPLv2+
@@ -40,10 +40,16 @@ BuildRequires: cmake(KF5Cddb)
 BuildRequires: cmake(KF5CompactDisc)
 
 BuildRequires: pkgconfig(alsa)
-BuildRequires: pkgconfig(flac)
 BuildRequires: pkgconfig(phonon4qt5)
+
+# See: https://docs.kde.org/trunk5/en/audiocd-kio/kcontrol/kcmaudiocd/index.html
+# Those are explicitely required at build time
+BuildRequires: pkgconfig(flac)
 BuildRequires: pkgconfig(theora)
 BuildRequires: pkgconfig(vorbis)
+# The MP3 and Opus Encoder tabs are only available if the tools are installed
+Recommends: lame
+Recommends: opus-tools
 
 Requires:  %{name}-doc = %{version}-%{release}
 
@@ -122,6 +128,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Mon Aug 07 2023 Timothée Ravier <tim@siosm.fr> - 23.04.3-3
+- Add lame & opus-tools to Recommends
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

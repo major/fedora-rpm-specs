@@ -4,8 +4,8 @@
 %bcond_without check
 
 Name:           python-%{pypi_name}
-Version:        1.0.2
-Release:        15%{?dist}
+Version:        1.0.6
+Release:        1%{?dist}
 Summary:        Sphinx extension for Apple help books
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
@@ -14,12 +14,14 @@ BuildArch:      noarch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %if %{with check}
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-sphinx >= 1:2
 %endif
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 sphinxcontrib-applehelp is a sphinx extension which outputs Apple help books.
@@ -42,11 +44,11 @@ find -name '*.mo' -delete
 for po in $(find -name '*.po'); do
   msgfmt --output-file=${po%.po}.mo ${po}
 done
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 # Move language files to /usr/share
 pushd %{buildroot}%{python3_sitelib}
@@ -59,7 +61,6 @@ done
 rm -rf sphinxcontrib/applehelp/locales
 ln -s %{_datadir}/locale sphinxcontrib/applehelp/locales
 popd
-
 
 %find_lang sphinxcontrib.applehelp
 
@@ -74,11 +75,13 @@ popd
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/sphinxcontrib/
-%{python3_sitelib}/sphinxcontrib_applehelp-%{version}-py%{python3_version}-*.pth
-%{python3_sitelib}/sphinxcontrib_applehelp-%{version}-py%{python3_version}.egg-info/
-
+%{python3_sitelib}/sphinxcontrib_applehelp*.dist-info
 
 %changelog
+* Fri Aug 11 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.6-1
+- update to 1.0.6
+- use modern macros
+
 * Wed Aug 09 2023 Karolina Surma <ksurma@redhat.com> - 1.0.2-15
 - Declare the license as an SPDX expression
 

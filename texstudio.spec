@@ -1,5 +1,5 @@
 Name:           texstudio
-Version:        4.6.2
+Version:        4.6.3
 Release:        1%{?dist}
 
 Summary:        A feature-rich editor for LaTeX documents
@@ -118,6 +118,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %doc utilities/AUTHORS utilities/COPYING utilities/manual/source/CHANGELOG.md
 
 %changelog
+* Fri Aug 11 2023 Johannes Lips <hannes@fedoraproject.org> 4.6.3-1
+- update to 4.6.3
+
 * Fri Aug 04 2023 Johannes Lips <hannes@fedoraproject.org> 4.6.2-1
 - update to 4.6.2
 

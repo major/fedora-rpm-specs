@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tecla
-Version:        45~alpha
+Version:        45~beta
 Release:        %autorelease
 Summary:        Keyboard layout viewer
 
@@ -10,6 +10,7 @@ URL:            https://gitlab.gnome.org/GNOME/tecla
 Source:         https://download.gnome.org/sources/tecla/45/tecla-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
+BuildRequires:  gettext
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(gtk4-wayland)
@@ -35,13 +36,15 @@ libxkbcommon to deal with keyboard maps.
 %install
 %meson_install
 
+%find_lang tecla
+
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Tecla.desktop
 %meson_test
 
 
-%files
+%files -f tecla.lang
 %license LICENSE
 %doc NEWS README.md
 %{_bindir}/tecla

@@ -9,7 +9,7 @@ both kinds of files.
 Documentation can be found here: http://pymatreader.readthedocs.io/en/latest/}
 
 Name:           python-pymatreader
-Version:        0.0.30
+Version:        0.0.32
 Release:        %autorelease
 Summary:        Convenient reader for Matlab mat files
 

@@ -8,8 +8,8 @@
 
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.1.8
-Release:	2%{?dist}
+Version:	4.1.9
+Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -83,7 +83,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Patches and etc
-%patch100 -p1
+%patch -P100 -p1
 
 # Make pkg-config devel dependency (not runtime)
 sed -i \
@@ -227,6 +227,9 @@ popd
 
 
 %changelog
+* Sat Aug 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.9-1
+- 4.1.9
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

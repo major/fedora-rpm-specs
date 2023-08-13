@@ -6,8 +6,8 @@
 %endif
 
 Name:           libsecret
-Version:        0.20.5
-Release:        4%{?dist}
+Version:        0.21.0
+Release:        1%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
 License:        LGPLv2+
@@ -85,10 +85,13 @@ rm -rf build/valgrind/
 %dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/libsecret-1.deps
 %{_datadir}/vala/vapi/libsecret-1.vapi
-%doc %{_docdir}/libsecret-1
+%doc %{_docdir}/libsecret-1/
 
 
 %changelog
+* Fri Aug 11 2023 Kalev Lember <klember@redhat.com> - 0.21.0-1
+- Update to 0.21.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

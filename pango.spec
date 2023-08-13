@@ -8,13 +8,13 @@
 %global freetype_version 2.1.5
 
 Name:    pango
-Version: 1.50.14
-Release: 2%{?dist}
+Version: 1.51.0
+Release: 1%{?dist}
 Summary: System for layout and rendering of internationalized text
 
 License: LGPL-2.0-or-later
 URL:     https://pango.gnome.org/
-Source0: https://download.gnome.org/sources/%{name}/1.50/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/1.51/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(cairo) >= %{cairo_version}
 BuildRequires: pkgconfig(cairo-gobject) >= %{cairo_version}
@@ -146,6 +146,9 @@ fi
 
 
 %changelog
+* Fri Aug 11 2023 Kalev Lember <klember@redhat.com> - 1.51.0-1
+- Update to 1.51.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.50.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.1.8
-Release:	2%{?dist}
+Version:	4.1.9
+Release:	1%{?dist}
 
 Summary:	Ruby binding of gtksourceview-3.x
 # SPDX confirmed
@@ -48,7 +48,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs -0 chmod 0644
 
 # Relax ruby-gnome2 internal dependency
-sed -i -e 's|= 4\.1\.8|>= 4.1.8|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.9|>= 4.1.9|' %{gem_name}-%{version}.gemspec
 sed -i dependency-check/Rakefile \
 	-e '\@PKGConfig\.check_version@s|gtksourceview-3.0|glib-2.0|'
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
@@ -113,6 +113,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sat Aug 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.9-1
+- 4.1.9
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

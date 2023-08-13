@@ -1,7 +1,7 @@
 Summary: Financial, statistics, scientific and programmers calculator for GTK+
 Name: gdcalc
-Version: 3.3
-Release: 4%{?dist}
+Version: 3.4
+Release: 1%{?dist}
 License: GPLv2
 URL: https://gitlab.com/wef/%{name}
 Source: %{url}/-/archive/%version/%{name}-%{version}.tar.gz
@@ -45,26 +45,24 @@ http://www.hpcalc.org
 
 %install
 %make_install
-install -Dpm0644 %{name}.glade %{buildroot}%{_datadir}/%{name}/%{name}.glade
-install -Dpm0644 %{name}.css %{buildroot}%{_sysconfdir}/%{name}/%{name}.css
-install -Dpm0644 pixmaps/HP-16C-48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-mkdir -p %{buildroot}/%{_mandir}/man1
-gzip -c doc/%{name}.1 > %{buildroot}%{_mandir}/man1/%{name}.1.gz
-gzip -c doc/dcalc.1 > %{buildroot}%{_mandir}/man1/dcalc.1.gz
 desktop-file-install --dir %{buildroot}/%{_datadir}/applications %{name}.desktop
 
 %files
 %license COPYING
 %{_bindir}/*
-%{_datadir}/%{name}/
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/*
 %{_datadir}/applications/*
-%{_datadir}/icons/hicolor/48x48/apps/*
+%{_datadir}/pixmaps/*
 %config(noreplace) %{_sysconfdir}/%{name}/
 
 %doc README.md doc/manual_en.html
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Aug 11 2023 Bob Hepple - 3.4-1
+- new version
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

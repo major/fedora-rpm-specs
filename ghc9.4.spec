@@ -430,11 +430,17 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P13 -p1 -b .orig
 %endif
 
-# remove s390x after complete switching to llvm
 %ifarch %{ghc_unregisterized_arches}
 %patch -P15 -p1 -b .orig
+%endif
+
+%if %{with hadrian}
+# remove s390x if all ghc using llvm
+%ifarch %{ghc_unregisterized_arches} s390x
 %patch -P16 -p1 -b .orig
 %endif
+%endif
+
 
 #debian
 #%%patch -P24 -p1 -b .orig

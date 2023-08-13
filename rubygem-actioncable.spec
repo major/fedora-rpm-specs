@@ -9,7 +9,7 @@
 %global recompile_js 0
 
 Name: rubygem-%{gem_name}
-Version: 7.0.6
+Version: 7.0.7
 Release: 1%{?dist}
 Summary: WebSocket framework for Rails
 License: MIT
@@ -17,12 +17,12 @@ URL: http://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite, you may check it out like so
 # git clone https://github.com/rails/rails.git
-# cd rails/actioncable && git archive -v -o actioncable-7.0.6-tests.txz v7.0.6 test/
+# cd rails/actioncable && git archive -v -o actioncable-7.0.7-tests.txz v7.0.7 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The source code of pregenerated JS files is not packaged.
 # You may get them like so
 # git clone https://github.com/rails/rails.git
-# cd rails/actioncable && git archive -v -o actioncable-7.0.6-app.txz v7.0.6 app/
+# cd rails/actioncable && git archive -v -o actioncable-7.0.7-app.txz v7.0.7 app/
 Source2: %{gem_name}-%{version}%{?prerelease}-app.txz
 # Recompile with script extracted from
 # https://github.com/rails/rails/blob/71d406697266fc2525706361b86aeb85183fe4c7/actioncable/Rakefile
@@ -30,7 +30,7 @@ Source3: recompile_js.rb
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone https://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.6-tools.txz v7.0.6 tools/
+# cd rails && git archive -v -o rails-7.0.7-tools.txz v7.0.7 tools/
 Source4: rails-%{version}%{?prerelease}-tools.txz
 
 BuildRequires: ruby(release)
@@ -129,6 +129,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Aug 10 2023 Pavel Valena <pvalena@redhat.com> - 7.0.7-1
+- Update to actioncable 7.0.7.
+
 * Sun Jul 23 2023 Pavel Valena <pvalena@redhat.com> - 7.0.6-1
 - Update to actioncable 7.0.6.
 

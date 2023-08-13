@@ -2,8 +2,8 @@
 
 Name:           kdevelop-php
 Summary:        Php language and documentation plugins for KDevelop
-Version:        23.04.3
-Release:        2%{?dist}
+Version:        23.07.90
+Release:        1%{?dist}
 
 # Most files LGPLv2+/GPLv2+
 License:        GPL-2.0-or-later
@@ -63,6 +63,9 @@ BuildRequires:  qt5-qtwebkit-devel
 
 
 %changelog
+* Fri Aug 11 2023 Than Ngo <than@redhat.com> - 23.07.90-1
+- 23.07.90
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

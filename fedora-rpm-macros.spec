@@ -3,7 +3,7 @@ Version:        26
 Release:        15%{?dist}
 Summary:        Miscellaneous Fedora RPM macros
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Source0:        macros.fedora
 
 BuildArch:      noarch

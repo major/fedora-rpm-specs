@@ -111,6 +111,19 @@ use the "v1_50" feature of the "%{crate}" crate.
 %files       -n %{name}+v1_50-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+v1_52-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(pango) >= 1.51
+
+%description -n %{name}+v1_52-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_52" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_52-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep

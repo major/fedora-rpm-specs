@@ -60,6 +60,10 @@ Patch1003:      0003-Set-FreeType-version-to-%{ftver}-and-update-tolerances.patc
 # https://github.com/matplotlib/matplotlib/pull/21190#issuecomment-1223271888
 Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
 
+# Fix issue with Sphinx 7.1+
+# https://github.com/matplotlib/matplotlib/commit/a01fbaeba4bdefc2ff6782bac73a9a03b8a9bce7
+Patch0002:      0005-Disable-add_html_cache_busting-on-sphinx-7.1.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-langpack-en

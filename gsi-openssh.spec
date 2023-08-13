@@ -24,7 +24,7 @@
 %global libedit 1
 
 %global openssh_ver 9.3p1
-%global openssh_rel 2
+%global openssh_rel 3
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
@@ -39,7 +39,6 @@ Source2: gsisshd.pam
 Source3: gpgkey-736060BA.gpg
 Source7: gsisshd.sysconfig
 Source9: gsisshd@.service
-Source10: gsisshd.socket
 Source11: gsisshd.service
 Source12: gsisshd-keygen@.service
 Source13: gsisshd-keygen
@@ -177,6 +176,8 @@ Patch1012: openssh-9.0p1-evp-fips-dh.patch
 Patch1013: openssh-9.0p1-evp-fips-ecdh.patch
 Patch1014: openssh-8.7p1-nohostsha1proof.patch
 Patch1015: openssh-9.3p1-upstream-cve-2023-38408.patch
+# upstream b7afd8a4ecaca8afd3179b55e9db79c0ff210237
+Patch1016: openssh-9.3p1-openssl-compat.patch
 
 # Fix issue with read-only ssh buffer during gssapi key exchange (#1938224)
 # https://github.com/openssh-gsskex/openssh-gsskex/pull/19
@@ -339,6 +340,7 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch -P 1013 -p1 -b .evp-fips-ecdh
 %patch -P 1014 -p1 -b .nosha1hostproof
 %patch -P 1015 -p1 -b .cve-2023-38408
+%patch -P 1016 -p1 -b .ossl-version
 
 %patch -P 100 -p1 -b .coverity
 
@@ -440,10 +442,10 @@ install -d $RPM_BUILD_ROOT%{_libexecdir}/gsissh
 install -m644 %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/gsisshd
 install -m644 %{SOURCE7} $RPM_BUILD_ROOT/etc/sysconfig/gsisshd
 install -m644 ssh_config_redhat $RPM_BUILD_ROOT%{_sysconfdir}/gsissh/ssh_config.d/50-redhat.conf
+install -m644 sshd_config_redhat_cp $RPM_BUILD_ROOT%{_sysconfdir}/gsissh/sshd_config.d/40-redhat-crypto-policies.conf
 install -m644 sshd_config_redhat $RPM_BUILD_ROOT%{_sysconfdir}/gsissh/sshd_config.d/50-redhat.conf
 install -d -m755 $RPM_BUILD_ROOT/%{_unitdir}
 install -m644 %{SOURCE9} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd@.service
-install -m644 %{SOURCE10} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd.socket
 install -m644 %{SOURCE11} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd.service
 install -m644 %{SOURCE12} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd-keygen@.service
 install -m644 %{SOURCE15} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd-keygen.target
@@ -483,10 +485,10 @@ if [ $1 -gt 1 ]; then
     # script for Fedora 38 to remove group ownership for host keys.
     %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 fi
-%systemd_post gsisshd.service gsisshd.socket
+%systemd_post gsisshd.service
 
 %preun server
-%systemd_preun gsisshd.service gsisshd.socket
+%systemd_preun gsisshd.service
 
 %postun server
 %systemd_postun_with_restart gsisshd.service
@@ -525,18 +527,21 @@ fi
 %attr(0644,root,root) %{_mandir}/man8/gsisftp-server.8*
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/gsissh/sshd_config
 %dir %attr(0700,root,root) %{_sysconfdir}/gsissh/sshd_config.d/
+%attr(0600,root,root) %config(noreplace) %{_sysconfdir}/gsissh/sshd_config.d/40-redhat-crypto-policies.conf
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/gsissh/sshd_config.d/50-redhat.conf
 %attr(0644,root,root) %config(noreplace) /etc/pam.d/gsisshd
 %attr(0640,root,root) %config(noreplace) /etc/sysconfig/gsisshd
 %attr(0644,root,root) %{_unitdir}/gsisshd.service
 %attr(0644,root,root) %{_unitdir}/gsisshd@.service
-%attr(0644,root,root) %{_unitdir}/gsisshd.socket
 %attr(0644,root,root) %{_unitdir}/gsisshd-keygen@.service
 %attr(0644,root,root) %{_unitdir}/gsisshd-keygen.target
 %attr(0644,root,root) %{_sysusersdir}/%{name}-server.conf
 %attr(0744,root,root) %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 
 %changelog
+* Fri Aug 11 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-3
+- Based on openssh-9.3p1-8.fc39
+
 * Sun Jul 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-2
 - Based on openssh-9.3p1-5.fc39.1
 

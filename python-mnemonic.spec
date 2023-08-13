@@ -1,15 +1,18 @@
-%global srcname mnemonic
+Name:          python-mnemonic
+Version:       0.20
+Release:       8%{?dist}
+Summary:       Implementation of Bitcoin BIP-0039
 
-Name:      python-%{srcname}
-Version:   0.20
-Release:   7%{?dist}
-Summary:   Implementation of Bitcoin BIP-0039
+License:       MIT
+URL:           https://github.com/trezor/python-mnemonic
+Source0:       %{pypi_source mnemonic}
 
-License:   MIT
-URL:       https://github.com/trezor/python-mnemonic
-Source0:   %{pypi_source}
+#Needed for tests
+Source1:       https://github.com/trezor/python-mnemonic/raw/v%{version}/vectors.json
 
-BuildArch: noarch
+BuildArch:     noarch
+BuildRequires: python3-devel
+
 
 %global _description %{expand:
 This BIP describes the implementation of a mnemonic code or mnemonic sentence -
@@ -24,35 +27,48 @@ specification.}
 
 %description %_description
 
-%package -n python3-%{srcname}
-Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+%package -n python3-mnemonic
+Summary: %{summary}
 
-%description -n python3-%{srcname} %_description
+%description -n python3-mnemonic %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
-rm -rf %{srcname}.egg-info
+%autosetup -n mnemonic-%{version}
+
+cp %{SOURCE1} .
+rm -rf mnemonic.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files mnemonic
+
 
 %check
-%{python3} setup.py test
+%tox
 
-%files -n python3-%{srcname}
+
+%files -n python3-mnemonic -f %{pyproject_files}
 %doc AUTHORS
 %doc CHANGELOG.rst
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+
 
 %changelog
+* Fri Aug 11 2023 Jonny Heggheim <hegjon@gmail.com> - 0.20-8
+- Updated to use new Python RPM macros
+- Fixed broken tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

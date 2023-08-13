@@ -1,8 +1,8 @@
 Summary: Tools for using the foomatic database of printers and printer drivers
 Name:       foomatic
 Version:    4.0.13
-Release:    28%{?dist}
-License:    GPLv2+
+Release:    29%{?dist}
+License:    GPL-2.0-or-later
 
 # The database engine.
 Source0: http://www.openprinting.org/download/foomatic/foomatic-db-engine-%{version}.tar.gz
@@ -18,6 +18,8 @@ Url:          https://github.com/OpenPrinting/foomatic-db-engine
 
 # gcc is no longer in buildroot by default
 BuildRequires:  gcc
+# for autosetup
+BuildRequires:  git-core
 # uses make
 BuildRequires:  make
 BuildRequires:  perl-interpreter >= 3:5.8.1
@@ -59,12 +61,7 @@ queues (foomatic-configure) and to print files/manipulate jobs
 The site http://www.linuxprinting.org/ is based on this database.
 
 %prep
-%setup -q -n foomatic-db-engine-%{version}
-
-# Ship more manpages.
-%patch101 -p1 -b .manpages
-# backported from upstream https://github.com/OpenPrinting/foomatic-db-engine/commit/75de02d
-%patch102 -p1 -b .pagesize-fract
+%autosetup -n foomatic-db-engine-%{version} -S git
 
 chmod a+x mkinstalldirs
 
@@ -142,6 +139,10 @@ exit 0
 %{_var}/cache/foomatic
 
 %changelog
+* Fri Aug 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 4.0.13-29
+- Rebuild with new foomatic-db
+- SPDX migration
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.13-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

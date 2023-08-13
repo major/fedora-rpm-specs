@@ -1,16 +1,12 @@
 %global rdnn        dev.geopjr.Tuba
 
 Name:           tuba
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Browse the Fediverse
 License:        GPL-3.0-only
 URL:            https://tuba.geopjr.dev/
 Source:         https://github.com/GeopJr/Tuba/archive/v%{version}/Tuba-%{version}.tar.gz
-
-# https://github.com/GeopJr/Tuba/pull/416
-Patch:          0001-Validate-appdata-file-with-nonet-flag.patch
-Patch:          0002-Rename-appdata-file-to-metainfo.patch
 
 BuildRequires:  meson
 BuildRequires:  vala

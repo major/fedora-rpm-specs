@@ -25,7 +25,7 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        Alibaba Cloud CLI
 
-License:        MIT and Apache-2.0
+License:        MIT AND Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource0}
 Source1:        https://github.com/aliyun/aliyun-openapi-meta/archive/%{metacommit}/aliyun-openapi-meta-%{metacommit}.tar.gz

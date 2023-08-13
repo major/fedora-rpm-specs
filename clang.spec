@@ -1,3 +1,9 @@
+%bcond_with snapshot_build
+
+%if %{with snapshot_build}
+%{llvm_sb}
+%endif
+
 %global toolchain clang
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
@@ -7,10 +13,18 @@
 %bcond_with compat_build
 %bcond_without check
 
-%global maj_ver 16
+%global maj_ver 17
 %global min_ver 0
-%global patch_ver 6
-#global rc_ver 4
+%global patch_ver 0
+%global rc_ver 1
+
+%if %{with snapshot_build}
+%undefine rc_ver
+%global maj_ver %{llvm_snapshot_version_major}
+%global min_ver %{llvm_snapshot_version_minor}
+%global patch_ver %{llvm_snapshot_version_patch}
+%endif
+
 %global clang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
 %if %{with compat_build}
@@ -23,14 +37,12 @@
 %global install_libdir %{install_prefix}/lib
 %global install_datadir %{install_prefix}/share
 
-%global pkg_bindir %{install_bindir}
 %global pkg_includedir %{install_includedir}
-%global pkg_libdir %{install_libdir}
 %else
 %global pkg_name clang
 %global install_prefix /usr
 %global install_datadir %{_datadir}
-%global pkg_libdir %{_libdir}
+%global install_libdir %{_libdir}
 %endif
 
 %ifarch ppc64le
@@ -42,12 +54,18 @@
 %global clang_tools_srcdir clang-tools-extra-%{clang_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		%pkg_name
-Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
+Release:	1%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
 URL:		http://llvm.org
+%if %{with snapshot_build}
+Source0:    %{llvm_snapshot_source_prefix}clang-%{llvm_snapshot_yyyymmdd}.src.tar.xz
+Source1:    %{llvm_snapshot_source_prefix}clang-tools-extra-%{llvm_snapshot_yyyymmdd}.src.tar.xz
+%{llvm_snapshot_extra_source_tags}
+
+%else
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{clang_srcdir}.tar.xz
 Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{clang_srcdir}.tar.xz.sig
 %if %{without compat_build}
@@ -55,31 +73,18 @@ Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_
 Source2:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{clang_tools_srcdir}.tar.xz.sig
 %endif
 Source4:	release-keys.asc
+%endif
 %if %{without compat_build}
 Source5:	macros.%{name}
 %endif
 
 # Patches for clang
-Patch1:     0003-PATCH-Make-funwind-tables-the-default-on-all-archs.patch
+Patch1:     0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2:     0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch3:     0001-Driver-Add-a-gcc-equivalent-triple-to-the-list-of-tr.patch
 # Drop the following patch after debugedit adds support to DWARF-5:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=28728
-Patch5:     0010-PATCH-clang-Produce-DWARF4-by-default.patch
-# Make clangBasic and clangDriver depend on LLVMTargetParser
-# See https://reviews.llvm.org/D141581
-Patch7:     D141581.diff
-# clang/cmake: Use installed gtest libraries for stand-alone builds
-# See https://reviews.llvm.org/D138472
-Patch8:     D138472.diff
-
-# Backport from LLVM 18.
-Patch9:     0001-clang-set-python3-as-required-build-dependency.patch
-
-Patch10:    fix-ieee128-cross.diff
-
-# https://reviews.llvm.org/D155192
-Patch11:    D155192.diff
+Patch4:     0001-Produce-DWARF4-by-default.patch
 
 # RHEL specific patches
 # Avoid unwanted dependency on python-recommonmark
@@ -272,16 +277,20 @@ Requires:      python3
 
 
 %prep
+%if %{without snapshot_build}
 %{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
+%endif
 
 %if %{with compat_build}
 %autosetup -n %{clang_srcdir} -p2
 %else
 
+%if %{without snapshot_build}
 %{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE1}'
+%endif
+
 %setup -T -q -b 1 -n %{clang_tools_srcdir}
 %autopatch -m200 -p2
-
 
 # failing test case
 rm test/clang-tidy/checkers/altera/struct-pack-align.cpp
@@ -316,6 +325,12 @@ rm test/CodeGen/profile-filter.c
 %define _lto_cflags %{nil}
 %endif
 
+# Disable LTO to speed up builds
+%if %{with snapshot_build}
+%global _lto_cflags %nil
+%endif
+
+
 %if 0%{?__isa_bits} == 64
 sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@/64/g' test/lit.cfg.py
 %else
@@ -334,7 +349,7 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 
 # We set CLANG_DEFAULT_PIE_ON_LINUX=OFF and PPC_LINUX_DEFAULT_IEEELONGDOUBLE=ON to match the
 # defaults used by Fedora's GCC.
-%cmake  -G Ninja \
+%cmake -G Ninja \
 	-DCLANG_DEFAULT_PIE_ON_LINUX=OFF \
 %if 0%{?fedora} || 0%{?rhel} > 9
 	-DPPC_LINUX_DEFAULT_IEEELONGDOUBLE=ON \
@@ -368,6 +383,10 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 %endif
 %endif
 	\
+%if %{with snapshot_build}
+	-DLLVM_VERSION_SUFFIX="%{llvm_snapshot_version_suffix}" \
+%endif
+	\
 %if %{with compat_build}
 	-DLLVM_TABLEGEN_EXE:FILEPATH=%{_bindir}/llvm-tblgen-%{maj_ver} \
 %else
@@ -389,6 +408,7 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DCLANG_BUILD_EXAMPLES:BOOL=OFF \
 	-DBUILD_SHARED_LIBS=OFF \
 	-DCLANG_REPOSITORY_STRING="%{?dist_vendor} %{version}-%{release}" \
+	-DCLANG_RESOURCE_DIR=../lib/clang/%{maj_ver} \
 %ifarch %{arm}
 	-DCLANG_DEFAULT_LINKER=lld \
 %endif
@@ -469,7 +489,7 @@ chmod u-x %{buildroot}%{_mandir}/man1/scan-build.1*
 
 # Create sub-directories in the clang resource directory that will be
 # populated by other packages
-mkdir -p %{buildroot}%{pkg_libdir}/clang/%{maj_ver}/{include,lib,share}/
+mkdir -p %{buildroot}%{install_libdir}/clang/%{maj_ver}/{include,lib,share}/
 
 
 %if %{without compat_build}
@@ -512,13 +532,8 @@ false
 %endif
 
 %files libs
-%if %{without compat_build}
-%{_libdir}/clang/%{maj_ver}/include/*
-%{_libdir}/*.so.*
-%else
-%{pkg_libdir}/*.so.*
-%{pkg_libdir}/clang/%{maj_ver}/include/*
-%endif
+%{install_prefix}/lib/clang/%{maj_ver}/include/*
+%{install_libdir}/*.so.*
 
 %files devel
 %if %{without compat_build}
@@ -530,18 +545,18 @@ false
 %dir %{_datadir}/clang/
 %{_rpmmacrodir}/macros.%{name}
 %else
-%{pkg_libdir}/*.so
+%{install_libdir}/*.so
 %{pkg_includedir}/clang/
 %{pkg_includedir}/clang-c/
-%{pkg_libdir}/cmake/
+%{install_libdir}/cmake/
 %endif
 
 %files resource-filesystem
-%dir %{pkg_libdir}/clang/
-%dir %{pkg_libdir}/clang/%{maj_ver}/
-%dir %{pkg_libdir}/clang/%{maj_ver}/include/
-%dir %{pkg_libdir}/clang/%{maj_ver}/lib/
-%dir %{pkg_libdir}/clang/%{maj_ver}/share/
+%dir %{install_libdir}/clang/
+%dir %{install_libdir}/clang/%{maj_ver}/
+%dir %{install_libdir}/clang/%{maj_ver}/include/
+%dir %{install_libdir}/clang/%{maj_ver}/lib/
+%dir %{install_libdir}/clang/%{maj_ver}/share/
 
 %if %{without compat_build}
 %files analyzer
@@ -618,6 +633,11 @@ false
 
 %endif
 %changelog
+%{?llvm_snapshot_changelog_entry}
+
+* Tue Aug 01 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

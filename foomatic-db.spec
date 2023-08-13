@@ -1,13 +1,15 @@
 %global dbver_rel 4.0
 # When you change dbver_snap, rebuild also foomatic against this build to pick up new IEEE 1284 Device IDs.
 # The postscriptdriver tags get put onto foomatic, because that's there the actual CUPS driver lives.
-%global dbver_snap 20210611
+%global dbver_snap 20230810
 
 Summary: Database of printers and printer drivers
 Name: foomatic-db
 Version: %{dbver_rel}
-Release: 76.%{dbver_snap}%{?dist}
-License: GPLv2+
+Release: 77.%{dbver_snap}%{?dist}
+# GPL-2.0-or-later non-PPD files and some PPDs
+# MIT for ppds
+License: GPL-2.0-or-later AND MIT
 Requires: %{name}-filesystem = %{version}-%{release}
 Requires: %{name}-ppds = %{version}-%{release}
 
@@ -61,7 +63,7 @@ PPDs from printer manufacturers.
 %prep
 %setup -q -n foomatic-db-%{dbver_snap}
 
-find -type d | xargs chmod g-s
+find -type d | xargs -d '\n' chmod g-s
 
 pushd db/source
 
@@ -72,7 +74,7 @@ do
 done
 
 # Remove references to SpliX (Samsung/Xerox/Dell)
-find printer -name '*.xml' |xargs grep -l "<driver>splix"|xargs rm -vf
+find printer -name '*.xml' |xargs -d '\n' grep -l "<driver>splix"|xargs -d '\n' rm -vf
 rm -f driver/splix.xml
 
 # Remove references to foo2zjs, foo2oak, foo2hp and foo2qpdl (bug #208851).
@@ -83,29 +85,29 @@ rm -f driver/splix.xml
 # foo2hiperc-z1
 for x in zjs zjs-z1 zjs-z2 zjs-z3 oak oak-z1 hp qpdl lava kyo xqx slx hiperc hiperc-z1 hbpl2
 do
-  find printer -name '*.xml' |xargs grep -l "<driver>foo2${x}"|xargs rm -vf
+  find printer -name '*.xml' |xargs -d '\n' grep -l "<driver>foo2${x}"|xargs -d '\n' rm -vf
   rm -f driver/foo2${x}.xml opt/foo2${x}-*
 done
 
 # Binaries for these were previously provided by printer-filters, but aren't anymore (bug #972740)
 for x in lm1100 pentaxpj pbm2l2030 pbm2l7k lex5700 lex7000 c2050 c2070 cjet
 do
-  find printer -name '*.xml' |xargs grep -l "<driver>${x}</driver>"|xargs rm -vf
+  find printer -name '*.xml' |xargs -d '\n' grep -l "<driver>${x}</driver>"|xargs -d '\n' rm -vf
   rm -vf driver/${x}.xml opt/${x}-*
 done
 
 # Same for all these.
 for x in drv_x125 ml85p pbm2lwxl pbmtozjs bjc800j m2300w m2400w
 do
-  find printer -name '*.xml' |xargs grep -l "<driver>${x}</driver>"|xargs rm -vf
+  find printer -name '*.xml' |xargs -d '\n' grep -l "<driver>${x}</driver>"|xargs -d '\n' rm -vf
   rm -vf driver/${x}.xml opt/${x}-*
 done
 
 # Remove Samsung-CLP-610/620 (bug #967930), they're in foo2qpdl
-find printer -name '*.xml' |grep -E 'Samsung-CLP-610|Samsung-CLP-620'|xargs rm -vf
+find printer -name '*.xml' |grep -E 'Samsung-CLP-610|Samsung-CLP-620'|xargs -d '\n' rm -vf
 
 # This one is part of foo2zjs
-find printer -name '*.xml' |grep -E 'KONICA_MINOLTA-magicolor_2430_DL'|xargs rm -vf
+find printer -name '*.xml' |grep -E 'KONICA_MINOLTA-magicolor_2430_DL'|xargs -d '\n' rm -vf
 
 # Remove Brother P-touch (bug #560610, comment #10)
 rm -vf driver/ptouch.xml
@@ -125,10 +127,10 @@ popd
 # HP DeskJet 720C (bug #797099)
 # Kyocera FS-1118MFP (bug #782377)
 # Brother HL-2040 (bug #999040)
-%patch1 -p1
+%patch -P 1 -p1
 
 # These can't be generated at all (bug #866476)
-%patch2 -p1
+%patch -P 2 -p1
 
 # Use sed instead of perl in the PPDs (bug #512739).
 find db/source/PPD -type f -name '*.ppd' -exec sed -i 's,perl -p,sed,g' {} +
@@ -145,7 +147,7 @@ make	DESTDIR=%buildroot PREFIX=%{_prefix} \
 # Remove ghostscript UPP drivers that are gone in 7.07
 rm -f %{buildroot}%{_datadir}/foomatic/db/source/driver/{bjc6000a1,PM760p,PM820p,s400a1,sharp,Stc670pl,Stc670p,Stc680p,Stc760p,Stc777p,Stp720p,Stp870p}.upp.xml
 
-find %{buildroot}%{_datadir}/foomatic/db/source/ -type f | xargs chmod 0644
+find %{buildroot}%{_datadir}/foomatic/db/source/ -type f | xargs -d '\n' chmod 0644
 
 mkdir %{buildroot}%{_datadir}/foomatic/db/source/PPD/Custom
 
@@ -180,6 +182,12 @@ ln -sf ../../foomatic/db/source/PPD %{buildroot}%{_datadir}/cups/model/foomatic-
 %{_datadir}/cups/model/foomatic-db-ppds
 
 %changelog
+* Fri Aug 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 4.0-77.20230810
+- update to foomatic-db-4.0-20230810
+- fix xargs in %%prep to work with files with spaces
+- fix rpm warnings about patch macros
+- SPDX migration
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-76.20210611
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -32,7 +32,7 @@
 
 Name:           gap
 Version:        4.12.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Computational discrete algebra
 
 %global majver %(cut -d. -f1-2 <<< %{version})
@@ -444,6 +444,9 @@ make check
 %{_libdir}/libgap.so
 
 %changelog
+* Thu Aug 10 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-5
+- Use a more reliable way of detecting CPU features
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

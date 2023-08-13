@@ -10,8 +10,8 @@ handle thousands of simultaneous standing connections, which means it is
 ideal for real-time web services.}
 
 Name:           python-%{srcname}
-Version:        6.3.2
-Release:        5%{?dist}
+Version:        6.3.3
+Release:        1%{?dist}
 Summary:        Scalable, non-blocking web server and tools
 
 License:        Apache-2.0 
@@ -69,6 +69,9 @@ export TRAVIS=true
 %doc demos
 
 %changelog
+* Fri Aug 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.3.3-1
+- 6.3.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
@@ -24,7 +24,6 @@ BuildRequires:  giflib-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  freetype-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  libuninameslist-devel
 BuildRequires:  libXt-devel
 BuildRequires:  xorg-x11-proto-devel
 BuildRequires:  gettext
@@ -126,6 +125,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu Aug 10 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 20230101-8
+- Drop unused libuninameslist dependency
+
 * Tue Aug 08 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 20230101-7
 - Allow potrace as an alternative to autotrace
 

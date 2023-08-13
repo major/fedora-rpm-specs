@@ -6,7 +6,7 @@
 %global crate gtk4
 
 Name:           rust-gtk4
-Version:        0.6.6
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Rust bindings of the GTK 4 library
 
@@ -58,18 +58,6 @@ This package contains library source intended for building other packages which
 use the "blueprint" feature of the "%{crate}" crate.
 
 %files       -n %{name}+blueprint-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+dox-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dox-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dox" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+gnome_42-devel
@@ -130,6 +118,18 @@ This package contains library source intended for building other packages which
 use the "v4_10" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_10-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_12-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v4_12-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_12" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_12-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_2-devel

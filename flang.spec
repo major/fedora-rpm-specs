@@ -1,7 +1,7 @@
-%global maj_ver 16
+%global maj_ver 17
 %global min_ver 0
-%global patch_ver 6
-#global rc_ver 4
+%global patch_ver 0
+%global rc_ver 1
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global flang_srcdir flang-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -11,7 +11,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -23,7 +23,7 @@ Source2: release-keys.asc
 # flang depends on one internal clang tablegen file for documentation generation.
 Source3: https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/clang/include/clang/Driver/Options.td
 
-Source4: TestAliasAnalysis.h
+Source4: https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/mlir/test/lib/Analysis/TestAliasAnalysis.h
 
 # Needed for documentation generation
 Patch1: 0001-PATCH-flang-Disable-use-of-sphinx_markdown_tables.patch
@@ -36,6 +36,12 @@ Patch4: remove-clangBasic-dependency.diff
 
 # Fedora uses CLANG_DEFAULT_PIE_ON_LINUX=OFF.
 Patch5: 0001-Match-Fedora-s-value-for-CLANG_DEFAULT_PIE_ON_LINUX.patch
+
+# Backport from https://reviews.llvm.org/D157642
+Patch6: D157642.diff
+
+# Fix for standalone builds. Avoid running on non-x86 targets.
+Patch7: fastmath.diff
 
 %{lua:
 
@@ -236,6 +242,7 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %{_libdir}/libFIRBuilder.so.%{maj_ver}
 %{_libdir}/libFIRCodeGen.so.%{maj_ver}
 %{_libdir}/libFIRDialect.so.%{maj_ver}
+%{_libdir}/libFIRDialectSupport.so.%{maj_ver}
 %{_libdir}/libFIRSupport.so.%{maj_ver}
 %{_libdir}/libFIRTestAnalysis.so.%{maj_ver}
 %{_libdir}/libFIRTransforms.so.%{maj_ver}
@@ -252,6 +259,7 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %{_libdir}/libFIRBuilder.so
 %{_libdir}/libFIRCodeGen.so
 %{_libdir}/libFIRDialect.so
+%{_libdir}/libFIRDialectSupport.so
 %{_libdir}/libFIRSupport.so
 %{_libdir}/libFIRTestAnalysis.so
 %{_libdir}/libFIRTransforms.so
@@ -270,6 +278,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %doc %{_pkgdocdir}/html/
 
 %changelog
+* Mon Aug 07 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

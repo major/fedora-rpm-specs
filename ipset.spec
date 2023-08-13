@@ -1,9 +1,9 @@
 Name:             ipset
 Version:          7.17
-Release:          3%{?dist}
+Release:          7%{?dist}
 Summary:          Manage Linux IP sets
 
-License:          GPLv2
+License:          GPL-2.0-only
 URL:              http://ipset.netfilter.org/
 Source0:          %{url}/%{name}-%{version}.tar.bz2
 Source1:          %{name}.service
@@ -171,6 +171,18 @@ fi
 
 
 %changelog
+* Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 7.17-7
+- Convert license to SPDX format
+
+* Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 7.17-6
+- Convert license to SPDX format
+
+* Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 7.17-5
+- Convert license to SPDX format
+
+* Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 7.17-4
+- Convert license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -12,9 +12,6 @@ Source0:        %{forgesource}
 # Fix EllipticalArc::expandToTransformed()
 #Patch0:         https://gitlab.com/inkscape/lib2geom/-/merge_requests/107.patch
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch: %{ix86}
-
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build

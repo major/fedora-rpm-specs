@@ -1,11 +1,11 @@
 Name:           nftables
 Version:        1.0.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilites
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://netfilter.org/projects/nftables/
 Source0:        %{url}/files/%{name}-%{version}.tar.xz
 Source1:        nftables.service
@@ -130,6 +130,9 @@ sed -i -e 's/\(sofile=\)".*"/\1"'$sofile'"/' \
 %{python3_sitelib}/nftables/
 
 %changelog
+* Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 1:1.0.7-4
+- Convert license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

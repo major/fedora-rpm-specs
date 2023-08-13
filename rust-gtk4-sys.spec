@@ -6,7 +6,7 @@
 %global crate gtk4-sys
 
 Name:           rust-gtk4-sys
-Version:        0.6.3
+Version:        0.7.0
 Release:        %autorelease
 Summary:        FFI bindings of GTK 4
 
@@ -47,18 +47,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+dox-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dox-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dox" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dox-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+v4_10-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -70,6 +58,19 @@ This package contains library source intended for building other packages which
 use the "v4_10" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_10-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_12-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gtk4) >= 4.12
+
+%description -n %{name}+v4_12-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_12" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_12-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_2-devel

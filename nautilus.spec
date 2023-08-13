@@ -1,6 +1,6 @@
 %bcond cloudproviders %{undefined rhel}
 
-%global glib2_version 2.74.0
+%global glib2_version 2.77.0
 %global gnome_autoar_version 0.4.4
 %global gtk4_version 4.11.2
 %global libadwaita_version 1.4~alpha
@@ -8,8 +8,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus
-Version:        45~alpha
-Release:        2%{?dist}
+Version:        45~beta
+Release:        1%{?dist}
 Summary:        File manager for GNOME
 
 License:        GPL-3.0-or-later
@@ -144,6 +144,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Fri Aug 11 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
+- Update to 45.beta
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

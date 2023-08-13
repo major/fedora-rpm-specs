@@ -27,8 +27,8 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    4.9
-Release:    4%{?dist}
+Version:    5.0
+Release:    1%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
 BuildArch:  noarch
@@ -236,7 +236,7 @@ useradd -r -g "$group" -G "$group" -s /bin/bash \
 %systemd_postun_with_restart resalloc.service
 
 
-%global doc_files NEWS README
+%global doc_files NEWS README.md
 
 %files
 %doc %doc_files
@@ -294,6 +294,9 @@ useradd -r -g "$group" -G "$group" -s /bin/bash \
 
 
 %changelog
+* Fri Aug 11 2023 Pavel Raiskup <praiskup@redhat.com> - 5.0-1
+- new upstream release https://github.com/praiskup/resalloc/releases/tag/v5.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

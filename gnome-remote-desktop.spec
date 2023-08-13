@@ -12,13 +12,13 @@
 %endif
 
 Name:           gnome-remote-desktop
-Version:        45.alpha
-Release:        2%{?dist}
+Version:        45.beta
+Release:        1%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-remote-desktop
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 # Adds encryption support (requires patched LibVNCServer)
 Patch0:         gnutls-anontls.patch
@@ -76,6 +76,7 @@ GNOME desktop environment.
     -Dfdk_aac=false \
 %endif
     -Dsystemd=true \
+    -Dtests=false \
     -Dvnc=true
 %meson_build
 
@@ -113,6 +114,9 @@ GNOME desktop environment.
 
 
 %changelog
+* Fri Aug 11 2023 Kalev Lember <klember@redhat.com> - 45.beta-1
+- Update to 45.beta
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45.alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

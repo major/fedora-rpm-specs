@@ -43,7 +43,7 @@ BuildRequires:  java-devel
 
 # optional
 BuildRequires:  qt5-qtbase-devel, qhull-devel, libusbx-devel, gtest-devel, qt5-qtwebkit-devel
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 BuildRequires:  openni-devel
 %endif
 

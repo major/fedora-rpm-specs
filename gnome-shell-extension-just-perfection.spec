@@ -7,7 +7,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gnome-shell-extension-%{extension}
-Version:        24.0%{?commit:^1.%{shortcommit}}
+Version:        26.0%{?commit:^1.%{shortcommit}}
 Release:        %autorelease
 Summary:        Extension to Customize GNOME Shell and Disable UI Elements
 License:        GPL-3.0-only
@@ -20,7 +20,7 @@ Source:         %{url}/-/archive/%{version}/%{extension}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  gettext
-Requires:       gnome-shell >= 3.36
+Requires:       gnome-shell >= 42
 Recommends:     gnome-extensions-app
 Provides:       %{extension} = %{version}-%{release}
 
