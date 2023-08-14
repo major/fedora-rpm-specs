@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.109.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for filesystem abstraction
 
 License: GPLv2+ and MIT and BSD
@@ -164,6 +164,7 @@ its components.
 %package        gui
 Summary:        Gui components for the KIO Framework
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
+Requires:       switcheroo-control
 %description    gui
 %{summary}.
 
@@ -285,6 +286,9 @@ KIONTLM provides support for NTLM authentication mechanism in KIO
 %{_kf5_libdir}/cmake/KF5KIO/
 
 %changelog
+* Sat Aug 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-2
+- Add switcheroo-control as runtime dependency to kf5-kio-gui
+
 * Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
 - 5.109.0
 

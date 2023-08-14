@@ -59,7 +59,7 @@ ExclusiveArch:  x86_64
 %global source_directory 1.35-development
 
 Name:           nbdkit
-Version:        1.35.9
+Version:        1.35.10
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -101,6 +101,9 @@ BuildRequires:  libguestfs-devel
 BuildRequires:  libvirt-devel
 BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
+%if !0%{?rhel}
+BuildRequires:  zlib-ng-devel
+%endif
 BuildRequires:  libzstd-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libnbd-devel >= 1.3.11
@@ -689,6 +692,11 @@ export PYTHON=%{__python3}
     --with-selinux \
     --with-ssh \
     --with-zlib \
+%if !0%{?rhel}
+    --with-zlib-ng \
+%else
+    --without-zlib-ng \
+%endif
     --enable-linuxdisk \
     --enable-python \
     --disable-golang \
@@ -1242,6 +1250,10 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Sat Aug 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.10-1
+- New upstream development version 1.35.10
+- Use zlib-ng on Fedora but not RHEL.
+
 * Sat Aug 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.9-1
 - New upstream development version 1.35.9
 - Disable libblkio on i686 (RHBZ#2229372)

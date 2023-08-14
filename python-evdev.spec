@@ -1,6 +1,6 @@
 Name:           python-evdev
-Version:        1.6.0
-Release:        5%{?dist}
+Version:        1.6.1
+Release:        %autorelease
 Summary:        Python bindings for the Linux input handling subsystem
 
 License:        BSD
@@ -59,97 +59,4 @@ Summary:        %{summary}
 
 #------------------------------------------------------------------------------
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.0-4
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sun Jul 17 2022 Georgi Valkov <georgi.t.valkov@gmail.com> 1.6.0-1
-- Bump to version 1.6.0
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.5.0-2
-- Rebuilt for Python 3.11
-
-* Thu Mar 24 2022 Georgi Valkov <georgi.t.valkov@gmail.com> 1.5.0-1
-- Bump to version 1.5.0
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-12
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.1.2-11
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.1.2-8
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.1.2-6
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.1.2-5
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Oct 17 2018 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.2-2
-- Subpackage python2-evdev has been removed
-  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
-
-* Wed Sep 26 2018 Peter Hutterer <peter.hutterer@redhat.com> 1.1.2-1
-- Bump to version 1.1.2
-
-* Tue Jul 31 2018 Florian Weimer <fweimer@redhat.com> - 1.0.0-2
-- Rebuild with fixed binutils
-
-* Sat Jul 28 2018 Georgi Valkov <georgi.t.valkov@gmail.com> - 1.0.0-1
-- Bump to version 1.0.0
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-3
-- Rebuilt for Python 3.7
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Aug 22 2017 Georgi Valkov <georgi.t.valkov@gmail.com> - 0.7.0-1
-- Bump to version 0.7.0
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-2
-- Rebuild for Python 3.6
-
-* Sun Jun 05 2016 Georgi Valkov <georgi.t.valkov@gmail.com> - 0.6.1-1
-- Initial RPM Release
+%autochangelog

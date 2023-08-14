@@ -19,8 +19,10 @@ Source100:      flmsg.appdata.xml
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ make
 BuildRequires:  fltk-devel >= 1.3.0
+%if 0%{?fedora}
 BuildRequires:  flxmlrpc-devel >= 1.0
-%{?fedora:BuildRequires:  libappstream-glib}
+BuildRequires:  libappstream-glib
+%endif
 
 # While mongoose does make official releases, it is also designed as a copylib
 # The copy in flmsg is heavily modified and will not work with any upstream 

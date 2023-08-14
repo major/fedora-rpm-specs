@@ -5,9 +5,9 @@
 %global crate image
 
 Name:           rust-image
-Version:        0.24.6
+Version:        0.24.7
 Release:        %autorelease
-Summary:        Imaging library written in Rust
+Summary:        Imaging library
 
 License:        MIT
 URL:            https://crates.io/crates/image
@@ -21,8 +21,8 @@ Patch:          image-fix-metadata.diff
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Imaging library written in Rust. Provides basic filters and decoders for
-the most common image formats.}
+Imaging library. Provides basic image processing and encoders/decoders
+for common image formats.}
 
 %description %{_description}
 
@@ -237,7 +237,7 @@ use the "webp" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests with missing test files (not included in published crates)
-%cargo_test -- -- --skip codecs::bmp::decoder::test::read_rect --skip codecs::png::tests::ensure_no_decoder_off_by_one --skip codecs::png::tests::underlying_error --skip dynimage::test::image_dimensions --skip dynimage::test::open_16bpc_png --skip imageops::sample::tests::resize_transparent_image --skip imageops::sample::tests::test_resize_same_size --skip codecs::bmp::decoder::test::test_no_header
+%cargo_test -- -- --skip codecs::bmp::decoder::test::read_rect --skip codecs::png::tests::ensure_no_decoder_off_by_one --skip codecs::png::tests::underlying_error --skip dynimage::test::image_dimensions --skip dynimage::test::open_16bpc_png --skip imageops::sample::tests::resize_transparent_image --skip imageops::sample::tests::test_resize_same_size --skip imageops::sample::tests::test_sample_bilinear --skip imageops::sample::tests::test_sample_nearest --skip codecs::bmp::decoder::test::test_no_header
 %endif
 
 %changelog

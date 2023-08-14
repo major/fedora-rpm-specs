@@ -18,7 +18,9 @@ BuildRequires:  autoconf automake libtool
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc gcc-c++
 BuildRequires:  fltk-devel >= 1.3.0
+%if 0%{?fedora}
 BuildRequires:  flxmlrpc-devel
+%endif
 BuildRequires:  libX11-devel
 BuildRequires:  make
 

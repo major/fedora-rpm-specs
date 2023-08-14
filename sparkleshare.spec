@@ -2,19 +2,13 @@
 %global debug_package %{nil}
 
 Name:           sparkleshare
-Version:        3.28
-Release:        10%{?dist}
+Version:        3.38
+Release:        1%{?dist}
 Summary:        Share and collaborate by syncing with any Git repository instantly
 
 License:        GPLv3+
 URL:            http://www.sparkleshare.org/
 Source0:        https://github.com/hbons/SparkleShare/archive/%{version}/SparkleShare-%{version}.tar.gz
-# Don't use legacy path for AppStream metainfo file
-# https://github.com/hbons/SparkleShare/commit/e6775a462a8c56926c9364ae4e4fe2bdbfc08798.patch
-Patch0:         0001-Dont-use-legacy-path-for-AppStream-metainfo-file.patch
-# Fix AppStream metadata validation
-# https://github.com/hbons/SparkleShare/commit/2207328611fd7a2124c5a78f8a45b88fc6c8d761.patch
-Patch1:         sparkleshare-3.28-fix-appstream-meta-validation.patch
 
 BuildRequires:  pkgconfig(mono)
 BuildRequires:  pkgconfig(appindicator-sharp-0.1)
@@ -34,6 +28,7 @@ Requires:       git-lfs
 Requires:       gvfs
 
 ExclusiveArch:  %{mono_arches}
+ExcludeArch: %{ix86}
 
 %description
 SparkleShare creates a special folder on your computer. You can add remotely
@@ -72,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.sparklesh
 %{_metainfodir}/org.sparkleshare.SparkleShare.appdata.xml
 
 %changelog
+* Sat Aug 12 2023 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 3.38-1
+- Release 3.38 (#2227570) and dropping i686 support
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.28-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

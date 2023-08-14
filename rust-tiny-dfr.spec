@@ -13,6 +13,8 @@ URL:            https://crates.io/crates/tiny-dfr
 Source:         %{crates_source}
 # Actually use c_char instead of assuming it is the same as u8
 Patch:          https://github.com/WhatAmISupposedToPutHere/tiny-dfr/commit/f7e84ad69fa3754993e637850e5344702047b2de.patch
+# udev: Add rule matching the backlight to let systemd ignore it
+Patch:          https://github.com/WhatAmISupposedToPutHere/tiny-dfr/commit/cc50c3314c0ce748b1f9d3c22667f165b15e7b12.patch
 
 BuildRequires:  rust-packaging >= 23
 BuildRequires:  systemd-rpm-macros

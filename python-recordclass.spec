@@ -1,7 +1,7 @@
 %global srcname recordclass
 
 Name:           python-%{srcname}
-Version:        0.18.1.1
+Version:        0.20
 Release:        %autorelease
 Summary:        Mutable variant of namedtuple
 
@@ -11,6 +11,9 @@ Source:         %{pypi_source}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %global _description %{expand:
 Recordclass is Python library implementing a mutable variant of namedtuple,

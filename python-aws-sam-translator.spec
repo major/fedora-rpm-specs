@@ -1,6 +1,6 @@
 Name:           python-aws-sam-translator
 Summary:        Transform SAM templates into AWS CloudFormation templates
-Version:        1.72.0
+Version:        1.73.0
 Release:        %autorelease
 
 License:        Apache-2.0
@@ -8,6 +8,15 @@ URL:            https://github.com/aws/serverless-application-model
 # We use the GitHub tarball instead of the PyPI tarball to get documentation
 # and tests.
 Source:         %{url}/archive/v%{version}/serverless-application-model-%{version}.tar.gz
+
+# Downstream-only: omit coverage arguments for pytest
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch:          python-aws-sam-translator-1.73.0-no-coverage.patch
+
+# Failing tests on warnings makes sense for upstream CI, but is too strict for
+# distribution packaging, where warnings may arise at any time from updated
+# dependencies.
+Patch:          python-aws-sam-translator-1.73.0-no-warning-error.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -109,7 +118,6 @@ Obsoletes:      python-aws-sam-translator-doc < 1.54.0-1
 
 %prep
 %autosetup -n serverless-application-model-%{version} -p1
-sed -r -i '/^addopts[[:blank:]]*=/d' pytest.ini
 
 
 %generate_buildrequires

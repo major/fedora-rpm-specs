@@ -1,5 +1,5 @@
 Name:           python-trove-classifiers
-Version:        2023.7.6
+Version:        2023.8.7
 Release:        1%{?dist}
 Summary:        Canonical source for classifiers on PyPI (pypi.org)
 
@@ -58,6 +58,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Aug 7 2023 Maxwell G <maxwell@gtmx.me> - 2023.8.7-1
+- Update to 2023.8.7. Fixes rhbz#2229834.
+
 * Thu Jul 27 2023 Maxwell G <maxwell@gtmx.me> - 2023.7.6-1
 - Update to 2023.7.6. Fixes rhbz#2220945.
 

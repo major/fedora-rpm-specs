@@ -21,6 +21,7 @@ BuildRequires:  cmake
 BuildRequires:  alsa-lib-devel
 BuildRequires:  babl-devel
 BuildRequires:  ImageMagick-c++-devel
+# EPEL 8 don't have ffmpeg-free so we can't build it on EPEL 8
 BuildRequires:  ffmpeg-free-devel
 BuildRequires:  opencv-devel
 BuildRequires:  protobuf-devel

@@ -1,7 +1,7 @@
 #%%global gittag 1.6.2
-%global commit 8f43b0b8726f513eb75d84e711775a2e2b86071d
+%global commit cbdeede8a6eee9d8857f9e2b587c984e9fde4181
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20230716
+%global date 20230812
 
 Name:           celestia
 %if "%{?gittag}"
@@ -36,6 +36,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  ImageMagick
 
 BuildRequires:  ffmpeg-free-devel
+BuildRequires:  miniaudio-devel
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(epoxy)
 BuildRequires:  pkgconfig(fmt)
@@ -134,6 +135,7 @@ sed -i 's|DejaVuSans-Bold.ttf,15"|%{_datadir}/fonts/google-noto/NotoSans-Bold.tt
        -DENABLE_QT6=ON \
        -DENABLE_GTK=ON \
        -DENABLE_FFMPEG=ON \
+       -DENABLE_MINIAUDIO=ON \
        -DENABLE_LIBAVIF=ON \
        -DUSE_WAYLAND=ON \
        -DGIT_COMMIT="%{shortcommit}"

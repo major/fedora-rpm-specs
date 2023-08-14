@@ -1,9 +1,9 @@
 %global srcname Mathics_Scanner
 
 Name:           python-mathics-scanner
-Version:        1.2.4
+Version:        1.3.0
 Release:        %autorelease
-Summary:        Character Tables and Tokenizer for Mathics and the Wolfram Language.
+Summary:        Character Tables and Tokenizer for Mathics and the Wolfram Language
 
 License:        GPL-3.0-only
 URL:            https://mathics.org
@@ -14,8 +14,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 
 %global _description %{expand:
-Package provides character tables and a tokenizer for Mathics and the Wolfram
-Language.}
+This package provides character tables and a tokenizer for Mathics and the
+Wolfram Language.}
 
 %description %_description
 

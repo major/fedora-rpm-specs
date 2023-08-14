@@ -21,10 +21,10 @@
 %undefine _missing_build_ids_terminate_build
 %endif
 
-%global xamarinrelease 182
+%global xamarinrelease 199
 Name:           mono
 Version:        6.12.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Cross-platform, Open Source, .NET development framework
 
 License:        MIT
@@ -332,23 +332,23 @@ not install anything from outside the mono source (XSP, mono-basic, etc.).
 %prep
 %setup -q -n %{name}-%{version}.%{xamarinrelease}
 
-%patch0 -p1
+%patch -P 0 -p1
 %ifarch ppc ppc64 ppc64le s390x
-%patch1 -p1
+%patch -P 1 -p1
 %endif
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
 pushd external/api-doc-tools
-%patch10 -p1
-%patch11 -p1
+%patch -P 10 -p1
+%patch -P 11 -p1
 popd
-%patch12 -p1
-%patch13 -p1
+%patch -P 12 -p1
+%patch -P 13 -p1
 
 # don't build mono-helix-client which requires the helix-binaries to build
 sed -i 's|mono-helix-client||g' mcs/tools/Makefile
@@ -941,6 +941,9 @@ cert-sync --quiet /etc/pki/tls/certs/ca-bundle.crt
 %files complete
 
 %changelog
+* Sat Aug 12 2023 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 6.12.0-13
+- Upgrade to Mono 6.12.0.199
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.12.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

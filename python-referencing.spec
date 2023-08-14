@@ -1,18 +1,12 @@
 %global srcname referencing
 
-# For the test suite
-%global testcommit fe891e8ae5af7b623ed88db1f48ffb53eba9da21
-%global testshortcommit %(c=%{testcommit}; echo ${c:0:7})
-
 Name:           python-%{srcname}
-Version:        0.30.0
+Version:        0.30.2
 Release:        %autorelease
 Summary:        An implementation-agnostic implementation of JSON reference resolution
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        %{pypi_source referencing}
-# Data for running tests
-Source1:        https://github.com/python-jsonschema/referencing-suite/archive/%{testcommit}/referencing-suite-%{testshortcommit}.tar.gz
+Source:         %{pypi_source referencing}
 
 BuildArch:      noarch
 
@@ -39,8 +33,6 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
-# Unpack the test reference suite
-%setup -q -n %{srcname}-%{version} -a1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -56,7 +48,6 @@ Summary:        %{summary}
 
 
 %check
-export REFERENCING_SUITE="%{_builddir}/%{srcname}-%{version}/referencing-suite-%{testcommit}"
 %pyproject_check_import -e referencing.tests*
 %pytest referencing/tests
 

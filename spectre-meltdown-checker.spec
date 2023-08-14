@@ -1,6 +1,6 @@
 Name:       spectre-meltdown-checker
-Version:    0.45
-Release:    4%{?dist}
+Version:    0.46
+Release:    1%{?dist}
 
 Summary:    Spectre & Meltdown vulnerability/mitigation checker for Linux
 License:    GPLv3
@@ -11,17 +11,22 @@ BuildArch:  noarch
 
 Requires:   /bin/sh
 Requires:   binutils
+Requires:   bzip2
 Requires:   coreutils
+Requires:   findutils
 Requires:   gawk
-Requires:   gzip
 Requires:   grep
-Requires:   sed
-%if 0%{?rhel} == 6
-Requires:   module-init-tools
-Requires:   util-linux-ng
-%else
 Requires:   kmod
+Requires:   sed
 Requires:   util-linux
+
+%if !0%{?rhel} == 7
+Requires:   zstd
+Suggests:   iucode-tool
+Suggests:   procps-ng
+Suggests:   sqlite
+Suggests:   unzip
+Suggests:   wget
 %endif
 
 BuildRequires: help2man
@@ -46,6 +51,9 @@ help2man %{buildroot}%{_bindir}/%{name} -n "Spectre and Meltdown mitigation dete
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Sat Aug 12 2023 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 0.46-1
+- Update to 0.46
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.45-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
