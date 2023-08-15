@@ -1,5 +1,5 @@
 Name:           ugrep
-Version:        3.11.2
+Version:        3.12.6
 Release:        %autorelease
 Summary:        Faster, user-friendly, and compatible grep replacement
 License:        BSD-3-Clause
@@ -51,7 +51,9 @@ etc.  A faster, user-friendly and compatible grep replacement.
 %files
 %license LICENSE.txt
 %{_bindir}/ug
+%{_bindir}/ug+
 %{_bindir}/ugrep
+%{_bindir}/ugrep+
 %{_mandir}/man1/ug.1*
 %{_mandir}/man1/ugrep.1*
 %{_datadir}/ugrep

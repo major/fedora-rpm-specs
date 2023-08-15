@@ -17,6 +17,10 @@ Source0:	%{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 
+%if 0%{?fedora} >= 39
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gtk3-devel

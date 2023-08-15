@@ -35,8 +35,6 @@ BuildRequires:  liberation-fonts
 BuildRequires:  python%{python3_pkgversion}-devel
 # pyproject install python3-pyqt5-base instead, this is needed for PyQt5.QtSvg
 BuildRequires:  python%{python3_pkgversion}-qt5
-# Does not appear to be detected
-BuildRequires:  python%{python3_pkgversion}-shiboken2
 
 %description -n python%{python3_pkgversion}-%{modname}
 The TraitsUI package is a set of user interface tools designed to complement
@@ -52,7 +50,7 @@ Python 3 version.
 rm examples/demo
 
 %generate_buildrequires
-%pyproject_buildrequires -x pyqt5 -x pyqt6 -x pyside2 -x test -x wx
+%pyproject_buildrequires -x pyqt5 -x pyqt6 -x test -x wx
 
 %build
 %pyproject_wheel
@@ -68,7 +66,7 @@ export PYTHONUNBUFFERED=1
 pushd build/lib/traitsui/tests/
 status=0
 # pyside6 is not packaged
-for toolkit in null pyqt5 pyqt6 pyside2 wx # pyside6
+for toolkit in null pyqt5 pyqt6 wx # pyside6
 do
   # By default, fail build if tests fail
   fail=1
@@ -104,6 +102,11 @@ popd
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Sun Aug 13 2023 Orion Poplawski <orion@nwra.com> - 8.0.0-2
+- Build for Python 3.12
+- Drop BR on shiboken2
+- Drop pyside2 tests - no longer maintained
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

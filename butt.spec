@@ -1,7 +1,7 @@
 %global rdnn de.danielnoethen.butt
 
 Name:           butt
-Version:        0.1.37
+Version:        0.1.38
 Release:        %autorelease
 Summary:        Broadcast using this tool
 # Entire source code is GPL-2.0-or-later except:

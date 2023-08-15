@@ -1,9 +1,9 @@
 Name:           src
-Version:        1.29
-Release:        3%{?dist}
+Version:        1.32
+Release:        1%{?dist}
 Summary:        Simple Revision Control
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://gitlab.com/esr/src
 Source0:        https://gitlab.com/esr/src/-/archive/%{version}/%{name}-%{version}.tar.bz2
     
@@ -49,11 +49,15 @@ echo "${result}"
     
 %files
 %license COPYING
-%doc NEWS README FAQ.html
+%doc FAQ.html
 %{_bindir}/src
 %{_mandir}/man1/src.1*
 
 %changelog
+* Sun Aug 13 2023 Bob Hepple <bob.hepple@gmail.com> - 1.32-1
+- new version
+- SPDX license
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

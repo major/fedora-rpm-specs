@@ -2,7 +2,7 @@
 
 Name:           orca
 Version:        45~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
 License:        LGPL-2.1-or-later
@@ -34,6 +34,8 @@ Requires:       python3-brlapi
 Requires:       python3-louis
 Requires:       python3-pyatspi
 Requires:       python3-speechd
+# https://gitlab.gnome.org/GNOME/orca/-/issues/385
+Requires:       python3-zombie-imp
 
 %description
 Orca is a screen reader that provides access to the graphical desktop via
@@ -74,6 +76,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Sun Aug 13 2023 Kalev Lember <klember@redhat.com> - 45~alpha-2
+- Add requires on python3-zombie-imp
+
 * Sat Aug 05 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
 - Update to 45.alpha
 

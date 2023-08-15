@@ -4,11 +4,11 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # Circular test deps with traitsui
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:           python-%{srcname}
-Version:        6.4.1
-Release:        5%{?dist}
+Version:        6.4.2
+Release:        1%{?dist}
 Summary:        Explicitly typed attributes for Python
 # Images have different licenses. For image license breakdown check
 # image_LICENSE.txt file.
@@ -91,6 +91,10 @@ popd
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Sun Aug 13 2023 Orion Poplawski <orion@nwra.com> - 6.4.2-1
+- Update to 6.4.2
+- Bootstrap build for Python 3.12 (FTBFS #2226136)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

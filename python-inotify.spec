@@ -3,11 +3,14 @@
 Summary:       Monitor filesystem events with Python under Linux
 Name:          python-inotify
 Version:       0.9.6
-Release:       31%{?dist}
+Release:       32%{?dist}
 License:       MIT
 URL:           https://github.com/seb-m/pyinotify
 Source0:       http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-%{version}.tar.gz
 Patch01:       pyinotify-0.9.6-epoint.patch
+# Upstream pull request https://github.com/seb-m/pyinotify/pull/205
+# Upstream issue https://github.com/seb-m/pyinotify/issues/204
+Patch02:       pyinotify-python-3.12-fix.patch
 BuildRequires: gmp-devel
 BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: python%{python3_pkgversion}-setuptools
@@ -25,8 +28,7 @@ Summary:       %{summary}
 %description -n python%{python3_pkgversion}-inotify %_description
 
 %prep
-%setup -q -n %{oname}-%{version}
-%patch01 -p1
+%autosetup -p1 -n %{oname}-%{version}
 sed -i '1c#! %{__python3}' python3/pyinotify.py
 
 %build
@@ -34,6 +36,9 @@ sed -i '1c#! %{__python3}' python3/pyinotify.py
 
 %install
 %py3_install
+
+%check
+%py3_check_import pyinotify
 
 %files -n python%{python3_pkgversion}-inotify
 %license COPYING
@@ -43,6 +48,9 @@ sed -i '1c#! %{__python3}' python3/pyinotify.py
 %{python3_sitelib}/__pycache__/%{oname}*
 
 %changelog
+* Thu Aug 10 2023 Troy Curtis, Jr <troycurtisjr@fedoraproject.org> - 0.9.6-32
+- Fixes build for Python 3.12 (#2219556)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

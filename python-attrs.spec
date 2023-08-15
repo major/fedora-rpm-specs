@@ -13,6 +13,7 @@ Version:        23.1.0
 Release:        4%{?dist}
 Summary:        Python attributes without boilerplate
 
+# SPDX
 License:        MIT
 URL:            http://www.attrs.org/
 BuildArch:      noarch

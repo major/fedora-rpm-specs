@@ -2,7 +2,7 @@
 
 Name:           gkrellm-sun
 Version:        1.0.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Sun clock plugin for GKrellM
 License:        GPLv2
 URL:            http://gkrellsun.sourceforge.net/
@@ -12,11 +12,11 @@ Source1:        gnome-%{name}.metainfo.xml
 Patch0:         gkrellsun-1.0.0-fixes.patch
 # Fix rhbz 1231394
 Patch1:         gkrellsun-1.0.0-rhbz1231394.patch
+Patch2:         gkrellsun-1.0.0-ftbfs.patch
 Requires:       gkrellm >= 2.2.0
-BuildRequires:  gcc
+BuildRequires:  make gcc
 BuildRequires:  gkrellm-devel >= 2.2.0
 BuildRequires:  libappstream-glib
-BuildRequires: make
 
 %description
 A sun clock plugin for GKrellM which can display the sun's setting time,
@@ -24,9 +24,7 @@ rising time, path and current location and so on.
 
 
 %prep
-%setup -q -n gkrellsun-%{version}
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1 -n gkrellsun-%{version}
 
 
 %build
@@ -51,6 +49,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Aug 13 2023 Hans de Goede <hdegoede@redhat.com> - 1.0.0-37
+- Fix FTBFS (rhbz#2225831)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

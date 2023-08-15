@@ -22,10 +22,10 @@ Server Features \
 
 Name: pymodbus
 Version: 3.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{sum}
 
-License: BSD
+License: BSD-3-Clause
 URL: https://github.com/pymodbus-dev/pymodbus/
 Source0: https://github.com/pymodbus-dev/pymodbus/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -42,7 +42,6 @@ Summary: %{sum}
 
 BuildRequires: python3-devel
 Requires: python3-pyserial >= 2.6
-Requires: python3-pyserial-asyncio
 # weak requirements for pymodbus.server
 Recommends: python3-typer
 # weak requirements for pymodbus.console
@@ -51,6 +50,10 @@ Recommends: python3-prompt-toolkit >= 2.0
 Recommends: python3-click
 # upstream bundled temporarily pyserial-asyncio with additional bugfixes
 Provides: bundled(python3-pyserial-asyncio)
+# https://github.com/pymodbus-dev/pymodbus/commit/8419dc72fb65ecfc5a3eed4c61cc386dc3960269
+Patch0: 0001-pymodbus.server-allow-strings-for-p-paramter-1713.patch
+# based on https://github.com/pymodbus-dev/pymodbus/commit/5e8b68cbec713e9326bf62b78d9bf39ae8af0254
+Patch1: 0001-RFC-Reduce-parameters-for-REPL-server-classes-1714.patch
 
 %description -n python3-%{name}
 %{desc}
@@ -68,6 +71,9 @@ Provides: bundled(python3-pyserial-asyncio)
 %pyproject_install
 %pyproject_save_files pymodbus
 
+# delete unnecessary shebang
+sed -i '/^#!\/usr\/bin\/env.*$/d' $RPM_BUILD_ROOT%{python3_sitelib}/pymodbus/server/simulator/main.py
+
 # remove test files
 rm -rf %{buildroot}%{python3_sitelib}/test
 
@@ -79,6 +85,12 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Sun Aug 13 2023 Christian Krause <chkr@fedoraproject.org> - 3.4.1-2
+- Add upstreamed patches to fix problems running pymodbus.server
+- Remove unnecessary shebang
+- Remove obsolete Requires python3-pyserial-asyncio
+- Migrated to SPDX license
+
 * Fri Jul 28 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 3.4.1-1
 - Update to 3.4.1
 

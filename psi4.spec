@@ -119,6 +119,8 @@ This package contains static libraries and development headers for psi.
 %patch 5 -p1 -b .include
 %patch 6 -p1 -b .python311
 %patch 7 -p1 -b .npint
+# Remove deprecated cmake scripts
+\rm -v cmake/FindPython*
 
 %build
 export F77=gfortran

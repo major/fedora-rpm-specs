@@ -1,10 +1,10 @@
 # RPM version needs 4 digits after the decimal to preserve upgrade path
-%global module_version 1.57
+%global module_version 1.58
 %global RPM_version %(printf "%.4f" %{module_version})
 
 Name:           perl-Finance-Quote
 Version:        %{RPM_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -22,7 +22,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Date::Manip)
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Format::Strptime)
 BuildRequires:  perl(Encode)
@@ -33,6 +32,7 @@ BuildRequires:  perl(HTML::TokeParser)
 BuildRequires:  perl(HTML::TokeParser::Simple)
 BuildRequires:  perl(HTML::TreeBuilder)
 BuildRequires:  perl(HTML::TreeBuilder::XPath)
+BuildRequires:  perl(HTTP::CookieJar::LWP)
 BuildRequires:  perl(HTTP::Cookies)
 BuildRequires:  perl(HTTP::Headers)
 BuildRequires:  perl(HTTP::Request)
@@ -62,6 +62,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Web::Scraper)
 BuildRequires:  perl(XML::LibXML)
 # Test Suite
+BuildRequires:  perl(Date::Manip)
 BuildRequires:  perl(Date::Range)
 BuildRequires:  perl(Date::Simple)
 BuildRequires:  perl(DateTime::Duration)
@@ -112,22 +113,23 @@ make test
 %{_mandir}/man3/Finance::Quote::Bourso.3*
 %{_mandir}/man3/Finance::Quote::BSEIndia.3*
 %{_mandir}/man3/Finance::Quote::BVB.3*
-%{_mandir}/man3/Finance::Quote::CSE.3*
 %{_mandir}/man3/Finance::Quote::Cdnfundlibrary.3*
 %{_mandir}/man3/Finance::Quote::Comdirect.3*
+%{_mandir}/man3/Finance::Quote::Consorsbank.3*
+%{_mandir}/man3/Finance::Quote::CSE.3*
 %{_mandir}/man3/Finance::Quote::Currencies.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::AlphaVantage.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::ECB.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::Fixer.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::OpenExchange.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::YahooJSON.3*
-%{_mandir}/man3/Finance::Quote::DWS.3*
 %{_mandir}/man3/Finance::Quote::Deka.3*
-%{_mandir}/man3/Finance::Quote::FTfunds.3*
+%{_mandir}/man3/Finance::Quote::DWS.3*
 %{_mandir}/man3/Finance::Quote::Fidelity.3*
 %{_mandir}/man3/Finance::Quote::Finanzpartner.3*
 %{_mandir}/man3/Finance::Quote::Fondsweb.3*
 %{_mandir}/man3/Finance::Quote::Fool.3*
+%{_mandir}/man3/Finance::Quote::FTfunds.3*
 %{_mandir}/man3/Finance::Quote::Fundata.3*
 %{_mandir}/man3/Finance::Quote::GoldMoney.3*
 %{_mandir}/man3/Finance::Quote::GoogleWeb.3*
@@ -146,11 +148,12 @@ make test
 %{_mandir}/man3/Finance::Quote::SEB.3*
 %{_mandir}/man3/Finance::Quote::Sinvestor.3*
 %{_mandir}/man3/Finance::Quote::SIX.3*
+%{_mandir}/man3/Finance::Quote::Stooq.3*
 %{_mandir}/man3/Finance::Quote::TesouroDireto.3*
+%{_mandir}/man3/Finance::Quote::Tiaacref.3*
 %{_mandir}/man3/Finance::Quote::TMX.3*
 %{_mandir}/man3/Finance::Quote::Tradegate.3*
 %{_mandir}/man3/Finance::Quote::TSP.3*
-%{_mandir}/man3/Finance::Quote::Tiaacref.3*
 %{_mandir}/man3/Finance::Quote::TreasuryDirect.3*
 %{_mandir}/man3/Finance::Quote::Troweprice.3*
 %{_mandir}/man3/Finance::Quote::TwelveData.3*
@@ -161,6 +164,20 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Sun Aug 13 2023 Paul Howarth <paul@city-fan.org> - 1.5800-1
+- Update to 1.58
+  - New module Consorsbank.pm (GH#329)
+  - New module Stooq.pm (GH#203)
+  - Bloomberg.pm - Changed modules to utilize cookie jar (GH#324, GH#331)
+  - AlphaVantage.pm:
+    - Apply currency scaling (GBp -> GBP) when symbol had additional ".X"
+      suffix (GH#281)
+    - Fixed check for "Information" JSON usually returned when daily API limit
+      has been reached
+  - YahooWeb.pm - Fixed incorrect pricing for single character symbols and
+    changed URL to get trade date (GH#314, GH#319)
+  - Another fix to the URL in YahooJSON and CurrencyRates/YahooJSON (GH#318)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5700-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

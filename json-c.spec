@@ -21,12 +21,12 @@
 %global so_ver 5
 
 # Releases are tagged with a date stamp.
-%global reldate 20220414
+%global reldate 20230812
 
 
 Name:           json-c
-Version:        0.16
-Release:        5%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        JSON implementation in C
 
 License:        MIT
@@ -138,6 +138,10 @@ unset USE_VALGRIND
 
 
 %changelog
+* Sun Aug 13 2023 Björn Esser <besser82@fedoraproject.org> - 0.17-1
+- Update to 0.17
+- Fixes: rhbz#2231647
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

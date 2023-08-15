@@ -5,7 +5,7 @@
 %global xfceversion 4.18
 
 Name:           xfce4-cpugraph-plugin
-Version:        1.2.7
+Version:        1.2.8
 Release:        %autorelease
 Summary:        CPU monitor for the Xfce panel
 

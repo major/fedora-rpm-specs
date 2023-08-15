@@ -1,15 +1,15 @@
-%global gtk4_version 4.6
+%global gtk4_version 4.12
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-contacts
-Version:        44.0
+Version:        45~beta
 Release:        %autorelease
 Summary:        Contacts manager for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Contacts
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 Patch0:         216.patch
 
 BuildRequires:  desktop-file-utils
@@ -40,7 +40,6 @@ Requires:       hicolor-icon-theme
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
-export VALAFLAGS="-g"
 %meson
 %meson_build
 

@@ -2,22 +2,13 @@
 #
 
 # F37 nautilus is based on GTK4, incompatible with GTK3 nautilus extensions
-%if 0%{?fedora} > 36 || 0%{?rhel} > 9
-%bcond_with nautilus
-%else
-%bcond_without nautilus
-%endif
+%bcond nautilus %[!(0%{?fedora} > 36 || 0%{?rhel} > 9 || 0%{?flatpak})]
 
-# nemo is ExcludeArch ix86 since F34
-%ifarch %{ix86}
-%bcond_with nemo
-%else
-%bcond_without nemo
-%endif
+%bcond nemo %{undefined flatpak}
 
-%bcond_without thunar
+%bcond thunar %{undefined flatpak}
 
-%bcond_without caja
+%bcond caja %{undefined flatpak}
 
 
 Name:           gtkhash
@@ -61,6 +52,9 @@ Obsoletes:      %{name}-nautilus <= 1.4
 %if %{without nemo}
 Obsoletes:      %{name}-nemo <= 1.4
 %endif
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description
 GtkHash is a GTK+ utility for computing message digests or checksums. Currently

@@ -18,7 +18,12 @@ BuildRequires:  pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires:  pkgconfig(libsoup-3.0)
 
 Requires:       json-glib%{?_isa} >= %{json_glib_version}
-Requires:       %{name}-data = %{version}-%{release}
+
+# Renamed/Obsoleted in F39
+Obsoletes:      geocode-glib-data < %{version}-%{release}
+Obsoletes:      geocode-glib2 < %{version}-%{release}
+Provides:       geocode-glib2 = %{version}-%{release}
+Provides:       geocode-glib2%{?_isa} = %{version}-%{release}
 
 %description
 geocode-glib is a convenience library for the geocoding (finding longitude,
@@ -27,39 +32,14 @@ coordinates). It uses Nominatim service to achieve that. It also caches
 (reverse-)geocoding requests for faster results and to avoid unnecessary server
 load.
 
-%package        data
-Summary:        Icon files for %{name}
-
-%description    data
-The %{name}-devel package contains icon files for applications that use %{name}.
-
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+# Renamed/Obsoleted in F39
+Obsoletes:      geocode-glib2-devel < %{version}-%{release}
+Provides:       geocode-glib2-devel = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
-
-%package -n     geocode-glib2
-Summary:        Development files for %{name}
-Requires:       json-glib%{?_isa} >= %{json_glib_version}
-Requires:       %{name}-data = %{version}-%{release}
-
-%description -n geocode-glib2
-geocode-glib is a convenience library for the geocoding (finding longitude,
-and latitude from an address) and reverse geocoding (finding an address from
-coordinates). It uses Nominatim service to achieve that. It also caches
-(reverse-)geocoding requests for faster results and to avoid unnecessary server
-load.
-
-This package contains version 2 of the API, which uses libsoup3 internally.
-
-%package -n     geocode-glib2-devel
-Summary:        Development files for %{name}
-Requires:       geocode-glib2%{?_isa} = %{version}-%{release}
-
-%description -n geocode-glib2-devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
@@ -73,16 +53,14 @@ developing applications that use %{name}.
 %install
 %meson_install
 
-%files data
-%{_datadir}/icons/hicolor/scalable/places/*.svg
-
-%files -n geocode-glib2
+%files
 %license COPYING.LIB
 %doc AUTHORS NEWS README
 %{_libdir}/libgeocode-glib-2.so.0*
 %{_libdir}/girepository-1.0/GeocodeGlib-2.0.typelib
+%{_datadir}/icons/hicolor/scalable/places/*.svg
 
-%files -n geocode-glib2-devel
+%files devel
 %{_includedir}/geocode-glib-2.0/
 %{_libdir}/libgeocode-glib-2.so
 %{_libdir}/pkgconfig/geocode-glib-2.0.pc

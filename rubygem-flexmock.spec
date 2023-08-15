@@ -2,8 +2,8 @@
 
 Summary:	Mock object library for ruby
 Name:		rubygem-%{gem_name}
-Version:	2.3.6
-Release:	15%{?dist}
+Version:	2.3.8
+Release:	1%{?dist}
 License:	MIT
 URL:		https://github.com/doudou/flexmock
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -18,8 +18,6 @@ Patch1:	rubygem-flexmock-2.3.6-testsuite-binding-source.patch
 Patch2:	rubygem-flexmock-2.3.6-accept-keywords.patch
 # relax error messages on test suite on ruby 3.0
 Patch3:	rubygem-flexmock-2.3.6-workaround-relax-error-message.patch
-# Support MiniTest 5.19+
-Patch4:	rubygem-flexmock-2.3.6-minitest-5_19-compat.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -51,7 +49,6 @@ cd flexmock
 %patch -P3 -p1
 )
 %patch -P2 -p1
-%patch -P4 -p1
 
 find . -name \*.rb | xargs sed -i -e '\@/usr/bin/env@d'
 find . -name \*.gem -or -name \*.rb -or -name \*.rdoc | xargs chmod 0644
@@ -67,6 +64,7 @@ cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 pushd %{buildroot}%{gem_instdir}
 rm -rf \
 	.autotest .gitignore .togglerc .travis.yml .yardopts \
+	.github \
 	Gemfile \
 	Rakefile \
 	flexmock.blurb \
@@ -101,6 +99,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Mon Aug 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.8-1
+- 2.3.8
+
 * Tue Aug 08 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.6-15
 - Handle MiniTest 5.19+
 

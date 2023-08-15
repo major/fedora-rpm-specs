@@ -23,9 +23,9 @@
 ###########
 
 %global with_hypre 1
-%ifnarch s390x
+%ifarch x86_64
 %global with_openmpicheck 1
-%global with_mpichcheck 1
+%global with_mpichcheck 0
 %endif
 ###########
 %global with_sercheck 1
@@ -75,7 +75,7 @@
 Summary:    Suite of nonlinear solvers
 Name:       sundials
 Version:    6.5.1
-Release:    3%{?dist}
+Release:    5%{?dist}
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.
 License:    BSD
@@ -100,7 +100,7 @@ BuildRequires: gcc, gcc-c++
 %if 0%{?epel}
 BuildRequires: epel-rpm-macros
 %endif
-BuildRequires: cmake3 >= 3.10
+BuildRequires: cmake >= 3.10
 BuildRequires: %{blaslib}-devel
 %if 0%{?with_superlumt}
 %ifarch s390x x86_64 %{power64} aarch64
@@ -279,17 +279,20 @@ export LIBSUPERLUMTLINK=-lsuperlumt_d
 %undefine _hardened_build
 export CFLAGS=" "
 export FFLAGS=" "
-%global _cmake cmake3
-%_cmake -B sundials-%{version}/build -S sundials-%{version} \
+export FCFLAGS=" "
+%{_bindir}/cmake -B sundials-%{version}/build -S sundials-%{version} \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Debug \
  -DCMAKE_C_FLAGS_DEBUG:STRING="-O0 -g %{__global_ldflags} -I$INCBLAS" \
  -DCMAKE_Fortran_FLAGS_DEBUG:STRING="-O0 -g %{__global_ldflags} -I$INCBLAS" \
+ -DCMAKE_CXX_FLAGS_DEBUG:STRING="-O0 -g %{__global_ldflags} -I$INCBLAS" \
  -DCMAKE_SHARED_LINKER_FLAGS_DEBUG:STRING="%{__global_ldflags} $LIBBLASLINK $LIBSUPERLUMTLINK" \
 %else
 export CFLAGS="%{build_cflags}"
-export CFLAGS="%{build_fflags}"
-%cmake3 -B sundials-%{version}/build -S sundials-%{version} \
+export FFLAGS="%{build_fflags}"
+%cmake -B sundials-%{version}/build -S sundials-%{version} \
+ -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
+ -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
 %endif
 %if 0%{?with_klu64}
  -DSUNDIALS_INDEX_SIZE:STRING=64 \
@@ -307,11 +310,9 @@ export CFLAGS="%{build_fflags}"
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
 %endif
- -DSUNDIALS_BUILD_WITH_PROFILING:BOLL=ON \
+ -DSUNDIALS_BUILD_WITH_PROFILING:BOOL=OFF \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Release \
- -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
- -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
  -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} $LIBBLASLINK $LIBSUPERLUMTLINK" \
  -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_includedir} \
  -DLAPACK_ENABLE:BOOL=OFF \
@@ -392,17 +393,20 @@ export FC=$MPI_BIN/mpif77
 %undefine _hardened_build
 export CFLAGS=" "
 export FFLAGS=" "
-%global _cmake cmake3
-%_cmake -B buildopenmpi_dir/build -S buildopenmpi_dir \
+export FCFLAGS=" "
+%{_bindir}/cmake  -B buildopenmpi_dir/build -S buildopenmpi_dir \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Debug \
  -DCMAKE_C_FLAGS_DEBUG:STRING="-O0 -g %{__global_ldflags} -I$INCBLAS" \
  -DCMAKE_Fortran_FLAGS_DEBUG:STRING="-O0 -g %{__global_ldflags} -I$INCBLAS" \
+ -DCMAKE_CXX_FLAGS_DEBUG:STRING="-O0 -g %{__global_ldflags} -I$INCBLAS" \
  -DCMAKE_SHARED_LINKER_FLAGS_DEBUG:STRING="%{__global_ldflags} $LIBBLASLINK $LIBSUPERLUMTLINK $LIBHYPRELINK" \
 %else
 export CFLAGS="%{build_cflags}"
-export CFLAGS="%{build_fflags}"
-%cmake3 -B buildopenmpi_dir/build -S buildopenmpi_dir \
+export FFLAGS="%{build_fflags}"
+%cmake -B buildopenmpi_dir/build -S buildopenmpi_dir \
+ -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
+ -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
 %endif
 %if 0%{?with_klu64}
  -DSUNDIALS_INDEX_SIZE:STRING=64 \
@@ -427,11 +431,9 @@ export CFLAGS="%{build_fflags}"
  -DPETSC_EXECUTABLE_RUNS:BOOL=ON \
 %endif
 %endif
- -DSUNDIALS_BUILD_WITH_PROFILING:BOLL=ON \
+ -DSUNDIALS_BUILD_WITH_PROFILING:BOOL=OFF \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Release \
- -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
- -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
  -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} $LIBBLASLINK $LIBSUPERLUMTLINK $LIBHYPRELINK" \
  -DMPI_INCLUDE_PATH:PATH=$MPI_INCLUDE \
  -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE \
@@ -527,17 +529,20 @@ export FC=$MPI_BIN/mpif77
 %undefine _hardened_build
 export CFLAGS=" "
 export FFLAGS=" "
-%global _cmake cmake3
-%_cmake -B buildmpich_dir/build -S buildmpich_dir \
+export FCFLAGS=" "
+%{_bindir}/cmake -B buildmpich_dir/build -S buildmpich_dir \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Debug \
  -DCMAKE_C_FLAGS_DEBUG:STRING="-O0 -g %{__global_ldflags} -I$INCBLAS" \
  -DCMAKE_Fortran_FLAGS_DEBUG:STRING="-O0 -g %{__global_ldflags} -I$INCBLAS" \
+ -DCMAKE_CXX_FLAGS_DEBUG:STRING="-O0 -g %{__global_ldflags} -I$INCBLAS" \
  -DCMAKE_SHARED_LINKER_FLAGS_DEBUG:STRING="%{__global_ldflags} $LIBBLASLINK $LIBSUPERLUMTLINK $LIBHYPRELINK" \
 %else
 export CFLAGS="%{build_cflags}"
-export CFLAGS="%{build_fflags}"
-%cmake3 -B buildmpich_dir/build -S buildmpich_dir \
+export FFLAGS="%{build_fflags}"
+%cmake -B buildmpich_dir/build -S buildmpich_dir \
+ -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
+ -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
 %endif
 %if 0%{?with_klu64}
  -DSUNDIALS_INDEX_SIZE:STRING=64 \
@@ -562,11 +567,9 @@ export CFLAGS="%{build_fflags}"
  -DPETSC_EXECUTABLE_RUNS:BOOL=ON \
 %endif
 %endif
- -DSUNDIALS_BUILD_WITH_PROFILING:BOLL=ON \
+ -DSUNDIALS_BUILD_WITH_PROFILING:BOOL=OFF \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Release \
- -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
- -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
  -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} $LIBBLASLINK $LIBSUPERLUMTLINK $LIBHYPRELINK" \
  -DLAPACK_ENABLE:BOOL=OFF \
  -DMPI_INCLUDE_PATH:PATH=$MPI_INCLUDE \
@@ -658,11 +661,7 @@ export OMPI_MCA_rmaps_base_oversubscribe=yes
 %else
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 export OMPI_MCA_rmaps_base_oversubscribe=yes
-%ifarch aarch64 %{power64}
-%ctest -- --output-on-failure -E 'test_sunlinsol_superlumt'
-%else
 %ctest -- --output-on-failure -E 'test_sunlinsol_superlumt|test_fsunlinsol_dense_mod'
-%endif
 %endif
 %{_openmpi_unload}
 %endif
@@ -679,11 +678,7 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %ctest -- -VV --output-on-failure --debug
 %else
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-%ifarch aarch64 %{power64}
-%ctest -- --output-on-failure -E 'test_sunlinsol_superlumt'
-%else
 %ctest -- --output-on-failure -E 'test_sunlinsol_superlumt|test_fsunlinsol_dense_mod'
-%endif
 %endif
 %{_mpich_unload}
 %endif
@@ -698,11 +693,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %ctest -- -VV --output-on-failure --debug
 %else
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
-%ifarch aarch64 %{power64}
-%ctest -- --output-on-failure -E 'test_sunlinsol_superlumt'
-%else
 %ctest -- --output-on-failure -E 'test_sunlinsol_superlumt|test_fsunlinsol_dense_mod'
-%endif
 %endif
 %endif
 ## if with_sercheck
@@ -997,6 +988,13 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %doc sundials-%{version}/doc/arkode/*
 
 %changelog
+* Sun Aug 13 2023 Antonio Trande <sagitter@fedoraproject.org> - 6.5.1-5
+- Rebuild for petsc-3.19.4
+- Disable MPICH tests
+
+* Wed Aug 02 2023 Antonio Trande <sagitter@fedoraproject.org> - 6.5.1-4
+- Fix debug builds
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

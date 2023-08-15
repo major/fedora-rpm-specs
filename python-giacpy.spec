@@ -31,8 +31,8 @@ Summary:        Python3 binding for Giac
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  %{_bindir}/cython
-Requires:       python3-cython%{?_isa}
 BuildRequires:  libqcas-devel
+Requires:       python3dist(cython)
 Requires:       giac-doc >= %{giacver}
 Obsoletes:      python2-%{pypi_name} < 0:%{version}
 

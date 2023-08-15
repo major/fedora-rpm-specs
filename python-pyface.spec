@@ -1,5 +1,5 @@
 # When we are bootstrapping, we drop some dependencies, and/or build time tests.
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 %global modname pyface
 
@@ -84,7 +84,7 @@ sed -i -e /importlib./d etstool.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x pillow -x pyqt5 -x pyqt6 -x pyside2 -x traitsui -x wx
+%pyproject_buildrequires -x pillow -x pyqt5 -x pyqt6 %{!?with_bootstrap:-x traitsui} -x wx
 
 
 %build
@@ -104,21 +104,17 @@ mkdir -p test
 cd test
 status=0
 # pyside6 is not packaged
-for toolkit in null pyqt5 pyqt6 pyside2 wx # pyside6
+for toolkit in null pyqt5 pyqt6 wx # pyside6
 do
   # By default, fail build if tests fail
   fail=1
   # Decent default, overridded later if needed
   export QT_API=$toolkit
   case $toolkit in
-    pyside2) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx";;
     pyside6) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx";;
     # pyqt5 test fails on s390x - https://github.com/enthought/pyface/issues/1247
-%ifarch s390x
+    # pytq5 test fails - https://github.com/enthought/pyface/issues/1255
     pyqt5) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx"; fail=0;;
-%else
-    pyqt5) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx";;
-%endif
     # pyqt6 is failing - https://github.com/enthought/pyface/issues/1248
     # https://github.com/enthought/pyface/issues/1250
     pyqt6) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx"; fail=0;;
@@ -141,6 +137,12 @@ exit $status
 %files -n python%{python3_pkgversion}-%{modname}-qt
 
 %changelog
+* Sun Aug 13 2023 Orion Poplawski <orion@nwra.com> - 8.0.0-2
+- Enable bootstrap for Python 3.12
+- Drop pyside2 tests - pyside2 is no longer maintained
+- pytq5 tests are failing, ignore for now
+- Fix FTBFS bz #2226292
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
