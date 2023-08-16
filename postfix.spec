@@ -21,12 +21,9 @@
 # Postfix requires one exlusive uid/gid and a 2nd exclusive gid for its own
 # use.  Let me know if the second gid collides with another package.
 # Be careful: Redhat's 'mail' user & group isn't unique!
-%define postfix_uid	89
+# It's now handled by systemd-sysusers.
 %define postfix_user	postfix
-%define postfix_gid	89
-%define postfix_group	postfix
 %define maildrop_group	postdrop
-%define maildrop_gid	90
 
 %define postfix_config_dir	%{_sysconfdir}/postfix
 %define postfix_daemon_dir	%{_libexecdir}/postfix
@@ -49,15 +46,13 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.8.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
 Requires(post): systemd systemd-sysv hostname
 Requires(post): %{_sbindir}/alternatives
 Requires(post): %{_bindir}/openssl
-Requires(pre): %{_sbindir}/groupadd
-Requires(pre): %{_sbindir}/useradd
 Requires(preun): %{_sbindir}/alternatives
 Requires(preun): systemd
 Requires(postun): systemd
@@ -74,6 +69,7 @@ Source2: postfix.service
 Source3: README-Postfix-SASL-RedHat.txt
 Source4: postfix.aliasesdb
 Source5: postfix-chroot-update
+Source6: postfix.sysusers
 
 # Sources 50-99 are upstream [patch] contributions
 
@@ -110,6 +106,7 @@ BuildRequires: make
 BuildRequires: libdb-devel, perl-generators, pkgconfig, zlib-devel
 BuildRequires: systemd-units, libicu-devel
 BuildRequires: gcc, m4, findutils
+BuildRequires: systemd-rpm-macros
 %if 0%{?rhel} < 9
 BuildRequires: libnsl2-devel
 %endif
@@ -384,6 +381,9 @@ install -m 644 %{SOURCE2} %{buildroot}%{_unitdir}
 install -m 755 %{SOURCE4} %{buildroot}%{postfix_daemon_dir}/aliasesdb
 install -m 755 %{SOURCE5} %{buildroot}%{postfix_daemon_dir}/chroot-update
 
+# systemd-sysusers
+install -p -D -m 0644 %{SOURCE6} %{buildroot}%{_sysusersdir}/postfix.conf
+
 install -c auxiliary/rmail/rmail $RPM_BUILD_ROOT%{_bindir}/rmail.postfix
 
 for i in active bounce corrupt defer deferred flush incoming private saved maildrop public pid saved trace; do
@@ -539,10 +539,7 @@ exit 0
 
 %pre
 # Add user and groups if necessary
-%{_sbindir}/groupadd -g %{maildrop_gid} -r %{maildrop_group} 2>/dev/null
-%{_sbindir}/groupadd -g %{postfix_gid} -r %{postfix_group} 2>/dev/null
-%{_sbindir}/groupadd -g 12 -r mail 2>/dev/null
-%{_sbindir}/useradd -d %{postfix_queue_dir} -s /sbin/nologin -g %{postfix_group} -G mail -M -r -u %{postfix_uid} %{postfix_user} 2>/dev/null
+%sysusers_create_compat %{SOURCE6}
 
 # hack, to turn man8/smtpd.8.gz into alternatives symlink (part of the rhbz#1051180 fix)
 # this could be probably dropped in f23+
@@ -726,6 +723,9 @@ fi
 
 %ghost %attr(0644, root, root) %{_var}/lib/misc/postfix.aliasesdb-stamp
 
+# systemd-sysusers
+%{_sysusersdir}/postfix.conf
+
 %if 0%{?fedora} < 23 && 0%{?rhel} < 9
 %files sysvinit
 %{_initrddir}/postfix
@@ -804,6 +804,10 @@ fi
 %endif
 
 %changelog
+* Mon Aug 14 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.1-5
+- Use systemd-sysusers, original patch by
+  Jonathan Wright <jonathan@almalinux.org>
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

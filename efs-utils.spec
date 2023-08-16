@@ -87,7 +87,7 @@ PYTHONPATH=$(pwd)/src %pytest \
 %files -n %{name}
 %license LICENSE
 %doc CONTRIBUTING.md README.md
-%dir /var/log/amazon
+%dir /var/log/amazon/efs
 %dir %{_sysconfdir}/amazon
 %dir %{_sysconfdir}/amazon/efs
 %config(noreplace) %{_sysconfdir}/amazon/efs/efs-utils.conf

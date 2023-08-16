@@ -1,6 +1,6 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.116
+Version:	3.3.117
 Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
@@ -187,6 +187,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/gtkwave.ap
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Mon Aug 14 2023 Paul Howarth <paul@city-fan.org> - 3.3.117-1
+- Update to 3.3.117
+  - Fix stems reader processing code broken in 3.3.114
+
 * Sun Jul 23 2023 Paul Howarth <paul@city-fan.org> - 3.3.116-1
 - Update to 3.3.116
   - Fix manpage/odt for vcd2fst command switch documentation for zlibpack

@@ -18,6 +18,8 @@ Patch06:        0006-Use-PyCode_GetVarnames-added-in-3.11.0rc1.patch
 Patch07:        0007-Fix-IS_SUSPENDED-call-to-use-PyFrame_GetGenerator-gi.patch
 Patch09:        0009-Use-codeobject-co_varnames-for-Py-versions-11.patch
 Patch11:        0011-Cosmetic.patch
+Patch12:        0001-Support-python-3.12.patch
+
 
 BuildRequires:  git
 BuildRequires:  gcc
@@ -31,7 +33,6 @@ Summary:        Yet Another Python Profiler, supports Multithread/CPU time profi
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-gevent
 
 %description -n python3-%{srcname}
 Yappi, Yet Another Python Profiler, provides multithreading and cpu-time

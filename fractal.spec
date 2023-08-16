@@ -2,10 +2,11 @@
 
 Name:           fractal
 Version:        5~beta1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Matrix group messaging app
 
-License:        GPL-3.0-or-later
+# fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
+License:        GPL-3.0-or-later AND ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache-2.0) AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR Zlib OR Apache-2.0) AND MPL-2.0 AND MPL-2.0+ AND (Unlicense OR MIT) AND Zlib AND (Zlib OR Apache-2.0 OR MIT)
 URL:            https://gitlab.gnome.org/GNOME/fractal
 Source0:        https://gitlab.gnome.org/GNOME/fractal/-/package_files/366/download#/fractal-%{tarball_version}.tar.xz
 
@@ -13,6 +14,7 @@ Source0:        https://gitlab.gnome.org/GNOME/fractal/-/package_files/366/downl
 ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo
+BuildRequires:  cargo-rpm-macros
 BuildRequires:  clang-devel
 BuildRequires:  llvm-devel
 BuildRequires:  meson
@@ -49,6 +51,8 @@ sed -i -e '/\(gtk_update_icon_cache\|glib_compile_schemas\|update_desktop_databa
 %build
 %meson
 %meson_build
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
 
 
 %install
@@ -63,7 +67,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %files -f fractal.lang
-%license LICENSE
+%license LICENSE LICENSE.dependencies
 %doc README.md
 %{_bindir}/fractal
 %{_datadir}/applications/org.gnome.Fractal.desktop
@@ -75,6 +79,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Aug 15 2023 Pete Walter <pwalter@fedoraproject.org> - 5~beta1-3
+- Include statically linked rust library licenses in the license tag (rhbz#2223224)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5~beta1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

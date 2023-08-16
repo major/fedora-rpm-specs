@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        41.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -20,6 +20,7 @@ Source1:        cryptography-%{version}-vendor.tar.bz2
 Source2:        conftest-skipper.py
 
 Patch1:         pyo3-0.19.patch
+Patch2:         ouroboros-0.17.patch
 
 ExclusiveArch:  %{rust_arches}
 
@@ -73,8 +74,9 @@ recipes to Python developers.
 %prep
 %autosetup -p1 -N -n %{srcname}-%{version}
 %if 0%{?fedora}
-# patch pyo3 depedency
+# patch pyo3 and ouroboros depedency
 %autopatch -p1 1
+%autopatch -p1 2
 %cargo_prep
 rm src/rust/Cargo.lock
 %else
@@ -135,6 +137,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Mon Aug 14 2023 Christian Heimes <cheimes@redhat.com> - 41.0.3-2
+- Build with ouroboros 0.17, fixes rhbz#2214228 / RUSTSEC-2023-0042
+
 * Wed Aug 09 2023 Christian Heimes <cheimes@redhat.com> - 41.0.3-1
 - Update to 41.0.3, resolves rhbz#2211237
 - Use pyo3 0.19

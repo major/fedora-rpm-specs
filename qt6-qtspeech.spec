@@ -2,10 +2,12 @@
 
 %global examples 1
 
+%bcond flite %[0%{?fedora} || 0%{?rhel} < 10]
+
 Summary: Qt6 - Speech component
 Name:    qt6-%{qt_module}
 Version: 6.5.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Code can be either LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only
 # See e.g. src/plugins/speechdispatcher or src/tts
@@ -22,12 +24,17 @@ BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtmultimedia-devel >= %{version}
 BuildRequires: qt6-qtdeclarative-devel >= %{version}
 BuildRequires: speech-dispatcher-devel >= 0.8
-%if 0%{?fedora} || 0%{?rhel} < 10
+%if %{with flite}
 BuildRequires: flite-devel
 %endif
 
 BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
+
+%if %{with flite}
+Recommends:    (%{name}-flite%{?_isa} = %{version}-%{release} if flite)
+%endif
+Recommends:    (%{name}-speechd%{?_isa} = %{version}-%{release} if speech-dispatcher)
 
 %description
 The module enables a Qt application to support accessibility features
@@ -39,6 +46,20 @@ In such a scenario, the messaging application can read out the incoming
 message. Qt Serial Port provides the basic functionality, which includes
 configuring, I/O operations, getting and setting the control signals of
 the RS-232 pinouts.
+
+%if %{with flite}
+%package flite
+Summary: Festival Lite text-to-speech engine for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+%description flite
+%{summary}.
+%endif
+
+%package speechd
+Summary: Speech Dispatcher text-to-speech engine for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+%description speechd
+%{summary}.
 
 %package devel
 Summary: Development files for %{name}
@@ -84,9 +105,20 @@ popd
 %license LICENSES/GPL* LICENSES/LGPL* LICENSES/BSD*
 %{_qt6_libdir}/libQt6TextToSpeech.so.6{,.*}
 %dir %{_qt6_plugindir}/texttospeech
-%{_qt6_plugindir}/texttospeech/*.so
+%{_qt6_plugindir}/texttospeech/libqtexttospeech_mock.so
 %dir %{_qt6_qmldir}/QtTextToSpeech
 %{_qt6_qmldir}/QtTextToSpeech/*
+%dir %{_qt6_libdir}/cmake/Qt6TextToSpeech
+
+%if %{with flite}
+%files flite
+%{_qt6_plugindir}/texttospeech/libqtexttospeech_flite.so
+%{_qt6_libdir}/cmake/Qt6TextToSpeech/Qt6QTextToSpeechFlitePlugin*.cmake
+%endif
+
+%files speechd
+%{_qt6_plugindir}/texttospeech/libqtexttospeech_speechd.so
+%{_qt6_libdir}/cmake/Qt6TextToSpeech/Qt6QTextToSpeechSpeechdPlugin*.cmake
 
 %files devel
 %dir %{_qt6_headerdir}/QtTextToSpeech
@@ -97,7 +129,8 @@ popd
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6TextToSpeech
-%{_qt6_libdir}/cmake/Qt6TextToSpeech/*.cmake
+%{_qt6_libdir}/cmake/Qt6TextToSpeech/Qt6QTextToSpeechMockPlugin*.cmake
+%{_qt6_libdir}/cmake/Qt6TextToSpeech/Qt6TextToSpeech*.cmake
 %{_qt6_libdir}/pkgconfig/Qt6TextToSpeech.pc
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_texttospeech*.pri
 %{_qt6_libdir}/qt6/modules/*.json
@@ -108,6 +141,9 @@ popd
 
 
 %changelog
+* Wed Aug 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.2-3
+- Separate flite and speechd subpackages
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,14 +8,15 @@
 
 Name:           ara
 Version:        1.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Records Ansible playbooks and makes them easier to understand and troubleshoot
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/ansible-community/ara
 Source0:        %{pypi_source ara}
-# Maintain compatability with older versions of tzlocal
-Patch:          tzlocal-compat.patch
+# Lift the django requirement from 3.2LTS to 4.2LTS
+# (remove once ara 1.7.0 has been released)
+Patch:          bump-version-of-django.patch
 BuildArch:      noarch
 
 BuildRequires:  git-core
@@ -47,7 +48,7 @@ Provides:       ara = %{version}-%{release}
 %description -n python3-ara
 %{summary}.
 
-This package installs the python files and Ansible plugins
+This package installs the python files and Ansible plugins.
 
 
 %if 0%{?with_server}
@@ -71,11 +72,11 @@ Requires:       python3-ruamel-yaml
 %description -n python3-ara+server
 %{summary}.
 
-This package installs the API server dependencies
+This package installs the API server dependencies.
 
 
 %package -n python3-ara+postgresql
-Summary:        %{summary}.
+Summary:        %{summary}
 Requires:       python3-ara+server = %{version}-%{release}
 
 
@@ -108,7 +109,7 @@ Requires:       python3-faker
 %description -n python3-ara-tests
 %{summary}.
 
-This package installs the test dependencies
+This package installs the test dependencies.
 %endif
 
 
@@ -119,7 +120,7 @@ Summary:        %{summary}
 %description doc
 %{summary}.
 
-This package installs the documentation
+This package installs the documentation.
 %endif
 
 
@@ -143,6 +144,7 @@ pip install %{_pyproject_wheeldir}/ara-%{version}-*.whl
 sphinx-build -b html doc/source doc/build/html
 # Remove sphinx build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
+rm -rf doc/build/html/_{sources,static}
 %endif
 
 
@@ -197,6 +199,10 @@ ARA_TIME_ZONE=UTC %{__python3} manage.py test ara
 
 
 %changelog
+* Sun Aug 13 2023 David Moreau Simard <moi@dmsimard.com> - 1.6.1-4
+- Include upstream patch to allow recent versions of Django. Fixes rhbz#2225705.
+- Remove patch allowing older versions of tzlocal
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

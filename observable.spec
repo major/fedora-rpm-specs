@@ -15,14 +15,14 @@ Version:        0
 Release:        %autorelease
 Summary:        Generic observable objects and reactive expressions for C++
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 Patch0:         observable-use-system-catch.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 %if %{with docs}
 BuildRequires:  doxygen
 BuildRequires:  python3-sphinx

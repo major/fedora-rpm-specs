@@ -4,13 +4,14 @@
 Summary: System and process monitoring utilities
 Name: procps-ng
 Version: 4.0.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://sourceforge.net/projects/procps-ng/
 
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 
 Patch1: sysctl-nameonly-shows-value.patch
+Patch2: cve-2023-4016.patch
 
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -147,6 +148,10 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files i18n -f %{name}.lang
 
 %changelog
+* Mon Aug 14 2023 Jan Rybar <jrybar@redhat.com> - 4.0.3-5
+- ps: buffer overflow
+- Resolves: bz#2230186
+
 * Mon Aug 07 2023 Lukáš Zaoral <lzaoral@redhat.com> - 4.0.3-4
 - migrate to SPDX license format
 

@@ -8,7 +8,7 @@ types and metadata should be contributed there.
 See https://github.com/python/typeshed/blob/master/README.md for more details.}
 
 Name:           python-types-docutils
-Version:        0.20.0.1
+Version:        0.20.0.2
 Release:        %{autorelease}
 Summary:        Typing stubs for docutils
 

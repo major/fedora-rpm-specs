@@ -90,7 +90,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -108,6 +108,9 @@ Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
+
+# Backport of https://reviews.llvm.org/D156379 from LLVM 18.
+Patch1:		D156379.diff
 
 # RHEL-specific patch to avoid unwanted recommonmark dep
 Patch101:	0101-Deactivate-markdown-doc.patch
@@ -598,6 +601,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-3
+- Re-add patch removed by mistake
+
 %{?llvm_snapshot_changelog_entry}
 
 * Tue Aug 01 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-2

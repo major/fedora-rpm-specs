@@ -33,18 +33,18 @@
 %define stablerev %{stable_update}
 %define stable_base %{stable_update}
 %endif
-%define rpmversion 6.%{base_sublevel}.%{stable_update}
+%define pkgversion 6.%{base_sublevel}.%{stable_update}
 
 ## The not-released-kernel case ##
 %else
 # The next upstream release sublevel (base_sublevel+1)
 %define upstream_sublevel %(echo $((%{base_sublevel} + 1)))
 # The rc snapshot level
-%global rcrev 2
+%global rcrev 6
 # The git snapshot level
 %define gitrev 0
 # Set rpm version accordingly
-%define rpmversion 6.%{upstream_sublevel}.0
+%define pkgversion 6.%{upstream_sublevel}.0
 %endif
 
 # pkg_release is what we'll fill in for the rpm Release: field
@@ -78,7 +78,7 @@ Name: kernel-headers
 Summary: Header files for the Linux kernel for use by glibc
 License: GPLv2
 URL: http://www.kernel.org/
-Version: %{rpmversion}
+Version: %{pkgversion}
 Release: %{pkg_release}
 # This is a tarball with headers from the kernel, which should be created
 # using create_headers_tarball.sh provided in the kernel source package.
@@ -86,7 +86,7 @@ Release: %{pkg_release}
 # directory, or git kernel source repository, and do eg.:
 # For a RHEL package: (...)/create_headers_tarball.sh -m RHEL_RELEASE
 # For a Fedora package: kernel/scripts/create_headers_tarball.sh -r <release number>
-Source0: kernel-headers-%{rpmversion}-%{?srcversion}.tar.xz
+Source0: kernel-headers-%{pkgversion}-%{?srcversion}.tar.xz
 Obsoletes: glibc-kernheaders < 3.0-46
 Provides: glibc-kernheaders = 3.0-46
 %if "0%{?variant}"
@@ -170,6 +170,9 @@ done
 %{_prefix}/*-linux-gnu/*
 
 %changelog
+* Mon Aug 14 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.5.0-0.rc6.git0.1
+- Linux v6.5-rc6.git0
+
 * Mon Jul 17 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.5.0-0.rc2.git0.1
 - Linux v6.5-rc2.git0
 

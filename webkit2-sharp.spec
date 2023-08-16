@@ -4,7 +4,7 @@
 
 Name:       webkit2-sharp
 Version:    0
-Release:    0.18%{?snapshotdate:.%{snapshotdate}git%{shortcommit}}%{?dist}
+Release:    0.19%{?snapshotdate:.%{snapshotdate}git%{shortcommit}}%{?dist}
 Summary:    C# bindings for WebKit 2 with GTK+ 3
 
 License:    MIT
@@ -15,6 +15,7 @@ Source0:    %url/archive/%{commit}/%{name}-%{shortcommit}.tar.gz}
 Source0:    %url/archive/%{commit}/%{name}-%{version}.tar.gz}
 
 Patch0:     %{name}-a59fd76-fix_libdir.patch
+Patch1:     %{name}-a59fd76-fix_parentinstance.patch
 
 Requires:       webkit2gtk3
 BuildRequires: make
@@ -51,10 +52,9 @@ Development files for WebKit2-sharp
 
 %prep
 %{?shortcommit:
-%autosetup -n %{name}-%{commit}}
+%autosetup -n %{name}-%{commit} -p1}
 %{!?shortcommit:
-%autosetup -n %{name}-%{version}}
-
+%autosetup -n %{name}-%{version} -p1}
 
 %build
 ./autogen.sh
@@ -85,6 +85,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Mon Aug 14 2023 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 0.0.19.20170219gita59fd76
+- fix FTBFS: apply patch to generated file replacing parentinstance with parent
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18.20170219gita59fd76
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

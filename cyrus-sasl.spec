@@ -186,6 +186,7 @@ rm configure aclocal.m4 config/ltmain.sh Makefile.in
 export NOCONFIGURE=yes
 sh autogen.sh
 
+%set_build_flags
 # Find Kerberos.
 krb5_prefix=`krb5-config --prefix`
 if test x$krb5_prefix = x%{_prefix} ; then
@@ -222,7 +223,8 @@ if test x"$LIB_DIR" != "x-L%{_libdir}"; then
         LDFLAGS="$LIB_DIR $LDFLAGS"; export LDFLAGS
 fi
 
-CFLAGS="$RPM_OPT_FLAGS $CFLAGS $CPPFLAGS -fPIC -pie -Wl,-z,relro -Wl,-z,now"; export CFLAGS
+# run "make check" against the built library rather than the one in buildroot
+LDFLAGS="-Wl,--enable-new-dtags $LDFLAGS"; export LDFLAGS
 
 echo "$CFLAGS"
 echo "$CPPFLAGS"

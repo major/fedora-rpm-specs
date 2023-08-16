@@ -6,7 +6,7 @@
 Name:          mingw-%{pkgname}
 Summary:       MinGW Windows %{pkgname} library
 Version:       2.13.4
-Release:       4%{?dist}
+Release:       5%{?dist}
 BuildArch:     noarch
 
 License:       GPL-3.0-only
@@ -146,6 +146,9 @@ mv %{buildroot}%{mingw64_libdir}/qscintilla2_qt5.dll %{buildroot}%{mingw64_bindi
 
 
 %changelog
+* Mon Aug 14 2023 Sandro Mani <manisandro@gmail.com> - 2.13.4-5
+- Rebuild (sip)
+
 * Sun Jul 30 2023 Sandro Mani <manisandro@gmail.com> - 2.13.4-4
 - Rebuild (sip)
 

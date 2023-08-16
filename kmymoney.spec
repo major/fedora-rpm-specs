@@ -12,7 +12,7 @@
 Summary: Personal finance
 Name:    kmymoney
 Version: 5.1.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -225,6 +225,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 
 
 %changelog
+* Mon Aug 14 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 5.1.3-5
+- Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

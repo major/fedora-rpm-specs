@@ -1,3 +1,11 @@
+%bcond_with snapshot_build
+
+%if %{with snapshot_build}
+# Unlock LLVM Snapshot LUA functions
+%{llvm_sb_verbose}
+%{llvm_sb}
+%endif
+
 %global toolchain clang
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
@@ -7,11 +15,21 @@
 %bcond_without check
 %bcond_with compat_build
 
-#global rc_ver 4
-%global lld_srcdir lld-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
-%global maj_ver 16
+%global maj_ver 17
 %global min_ver 0
-%global patch_ver 6
+%global patch_ver 0
+%global rc_ver 1
+
+%if %{with snapshot_build}
+%undefine rc_ver
+%global maj_ver %{llvm_snapshot_version_major}
+%global min_ver %{llvm_snapshot_version_minor}
+%global patch_ver %{llvm_snapshot_version_patch}
+%endif
+
+%global lld_version %{maj_ver}.%{min_ver}.%{patch_ver}
+
+%global lld_srcdir lld-%{lld_version}%{?rc_ver:rc%{rc_ver}}.src
 
 %if %{with compat_build}
 %global pkg_name lld%{maj_ver}
@@ -28,26 +46,25 @@
 %endif
 
 Name:		%{pkg_name}
-Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Version:	%{lld_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
+Release:	1%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
 URL:		http://llvm.org
+%if %{with snapshot_build}
+Source0:	%{llvm_snapshot_source_prefix}lld-%{llvm_snapshot_yyyymmdd}.src.tar.xz
+%{llvm_snapshot_extra_source_tags}
+%else
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{lld_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{lld_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
+%endif
 
 ExcludeArch:	s390x
 
 # Bundle libunwind header need during build for MachO support
 Patch1:		0002-PATCH-lld-Import-compact_unwind_encoding.h-from-libu.patch
-
-# Backport from LLVM 17.
-Patch2:		0001-lld-Use-installed-llvm_gtest-in-standalone-builds.patch
-
-# Backport from LLVM 17.
-Patch3:		0001-lld-Pass-random.randint-stop-parameter-as-int.patch
 
 BuildRequires:	clang
 BuildRequires:	cmake
@@ -99,7 +116,10 @@ Summary:	LLD shared libraries
 Shared libraries for LLD.
 
 %prep
+%if %{without snapshot_build}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
+
 %autosetup -n %{lld_srcdir} -p2
 
 %if %{with compat_build}
@@ -130,6 +150,9 @@ sed 's/add_subdirectory(tools\/lld)//' -i CMakeLists.txt
 	-DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
 	-DLLVM_LIT_ARGS="-sv \
 	--path %{_libdir}/llvm" \
+%if %{with snapshot_build}
+	-DLLVM_VERSION_SUFFIX="%{llvm_snapshot_version_suffix}" \
+%endif
 %if 0%{?__isa_bits} == 64
 	-DLLVM_LIBDIR_SUFFIX=64 \
 %else
@@ -194,6 +217,11 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+%{?llvm_snapshot_changelog_entry}
+
+* Wed Aug 02 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

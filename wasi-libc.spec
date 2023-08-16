@@ -34,6 +34,11 @@ BuildRequires:  wasmedge
 %endif
 
 %global     toolchain clang
+# Re-packaging the static library tends to overwrite files
+# (and effectively undefine symbols like errno). Disable it.
+# See rhbz#2228297 for details.
+%global     __brp_llvm_compile_lto_elf %{nil}
+
 # WASI is a specific architecture; host (build machine) arch flags should not apply by default
 %global     build_cflags --target=wasm32-wasi -fstack-protector
 # Define cross-compiling prefix
@@ -89,7 +94,7 @@ xargs test '%{musl_version}' = <libc-top-half/musl/VERSION
 # Basic smoke test
 %if %{with check}
 # -> Smoke test is compilable and linkable against the built version
-clang --target=wasm32-wasi --sysroot=%{buildroot}%{wasi_prefix} -nodefaultlibs -lc -Wl,--allow-undefined -o smoke-test.wasm %{SOURCE1}
+clang --target=wasm32-wasi --sysroot=%{buildroot}%{wasi_prefix} -nodefaultlibs -lc -o smoke-test.wasm %{SOURCE1}
 # -> Smoke test works as expected (exit code 0, outputs 'smoke-test-ok')
 wasmedge smoke-test.wasm | grep -q --fixed-strings smoke-test-ok
 %endif

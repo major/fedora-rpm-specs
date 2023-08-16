@@ -7,6 +7,13 @@
 # but we use lib for compatibility with 3rd party drivers (at upstream request).
 %global cups_serverbin %{_exec_prefix}/lib/cups
 
+# we still need something for python2...
+%if 0%{?rhel} >= 8 || 0%{?fedora}
+%bcond_without python3
+%else
+%bcond_with python3
+%endif
+
 #%%global prever rc1
 #%%global VERSION %%{version}%%{prever}
 %global VERSION %{version}
@@ -15,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -33,7 +40,7 @@ Source1: cupsprinter.png
 Source2: macros.cups
 # upgrade script for CUPS-Get-Document fix
 # remove after Fedora 40 is EOL and C10S is released
-Source3: upgrade_get_document.py
+Source3: upgrade_get_document.py.in
 
 # PAM enablement, very old patch, not even git can track when or why
 # the patch was added.
@@ -161,7 +168,11 @@ Requires(preun): systemd
 Requires(postun): systemd
 
 # for upgrade-get-document script - remove after C10S is released and F40 is EOL
+%if %{with python3}
 Requires(post): python3
+%else
+Requires(post): python
+%endif
 
 
 %package client
@@ -476,6 +487,13 @@ s:.*\('%{_datadir}'/\)\([^/_]\+\)\(.*\.po$\):%lang(\2) \1\2\3:
 # C10S is released and Fedora 40 is EOL
 install -m 0755 %{SOURCE3} %{buildroot}%{_sbindir}/upgrade_get_document
 
+# adjust shebang for old python2 if needed - remove once C10S is released and F40 EOL
+%if %{with python3}
+  sed -i 's,@PYTHON_SHEBANG@,#!/usr/bin/python3,' %{buildroot}%{_sbindir}/upgrade_get_document
+%else
+  sed -i 's,@PYTHON_SHEBANG@,#!/usr/bin/python,' %{buildroot}%{_sbindir}/upgrade_get_document
+%endif
+
 %post
 # remove after CentOS Stream 10 is released
 # Require authentication for accessing /admin location
@@ -778,6 +796,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Mon Aug 14 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.6-5
+- comply the upgrade script with python2 as well if needed
+
 * Thu Aug 10 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.6-4
 - add upgrade script for setting authentication for CUPS-Get-Document operation
 

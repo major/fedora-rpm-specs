@@ -47,7 +47,7 @@
 
 Name: brltty
 Version: 6.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -201,7 +201,8 @@ This package provides the Tcl binding for BrlAPI.
 Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
-BuildRequires: Cython
+# https://brltty.app/pipermail/brltty/2023-August/020039.html
+BuildRequires: Cython < 3
 BuildRequires: python2-devel
 BuildRequires: python2-setuptools
 Summary: Python binding for BrlAPI
@@ -215,7 +216,8 @@ This package provides the Python 2 binding for BrlAPI.
 Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
-BuildRequires: python3-Cython
+# https://brltty.app/pipermail/brltty/2023-August/020039.html
+BuildRequires: python3-Cython < 3
 BuildRequires: python3-devel
 %if %{without python2}
 Obsoletes:     python2-brlapi < %{api_version}-%{release}
@@ -689,6 +691,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Mon Aug 14 2023 Adam Williamson <awilliam@redhat.com> - 6.6-3
+- Build with Cython 0.29, it crashes when built with Cython 3 (#2231865)
+
 * Tue Jul 25 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.6-2
 - Correct apiversioning
 

@@ -3,7 +3,7 @@
 
 Name:           koji-flatpak
 Version:        %{project_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Koji plugins for building Flatpaks
 
 License:        LGPL-2.1-only
@@ -24,7 +24,6 @@ line.
 
 %package common
 Summary: Common files for Flatpak plugins for Koji
-Requires: koji-hub
 
 %description common
 Common files for Flatpak plugins for Koji.
@@ -98,6 +97,9 @@ install -p -m 0644 koji_flatpak/plugins/flatpak_cli_plugin.py %{buildroot}%{pyth
 
 
 %changelog
+* Mon Aug 14 2023 Adam Williamson <awilliam@redhat.com> - 0.1-3
+- common subpackage shouldn't require koji-hub
+
 * Fri Aug 11 2023 Owen Taylor <otaylor@redhat.com> - 0.1-2
 - Fix review comments, rename subpackage koji-flatpak => koji-flatpak-common
   Add dependency on skopeo

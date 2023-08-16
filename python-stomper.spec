@@ -62,6 +62,9 @@ create and parse STOMP messages in a programatic fashion.
 
 %prep
 %autosetup -n stomper-%{version} -p1
+# Drop unneeded dependency on python3-future
+# https://github.com/oisinmulvihill/stomper/issues/16
+sed -i "s/'future'//" setup.py
 
 %build
 %if %{with python2}

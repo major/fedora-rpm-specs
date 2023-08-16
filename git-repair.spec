@@ -11,6 +11,7 @@ Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
 # End cabal-rpm sources
+Patch0:         git-repair-unix-compat.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -58,6 +59,7 @@ not yet pushed out.
 %prep
 # Begin cabal-rpm setup:
 %setup -q
+%autopatch -p1
 # End cabal-rpm setup
 
 

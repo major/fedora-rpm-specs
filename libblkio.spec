@@ -5,7 +5,7 @@ Version:       1.3.0
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 # To create the vendor tarball:
@@ -42,7 +42,6 @@ BuildRequires: (crate(autocfg/default) >= 1.0.0 with crate(autocfg/default) < 2.
 BuildRequires: (crate(bitflags/default) >= 1.2.0 with crate(bitflags/default) < 2.0.0~)
 BuildRequires: (crate(cc/default) >= 1.0.0 with crate(cc/default) < 2.0.0~)
 BuildRequires: (crate(concat-idents/default) >= 1.0.0 with crate(concat-idents/default) < 2.0.0~)
-BuildRequires: (crate(const-cstr/default) >= 0.3.0 with crate(const-cstr/default) < 0.4.0~)
 BuildRequires: (crate(io-uring/default) >= 0.6.0 with crate(io-uring/default) < 0.7.0~)
 BuildRequires: (crate(lazy_static/default) >= 1.0.0 with crate(lazy_static/default) < 2.0.0~)
 BuildRequires: (crate(libc/default) >= 0.2.134 with crate(libc/default) < 0.3.0~)
@@ -110,6 +109,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Mon Aug 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-2
+- Remove const-cstr dependency (RHBZ#2214208)
+
 * Thu Jul 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0-1
 - Update to 1.3.0
 

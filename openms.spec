@@ -19,7 +19,7 @@ Obsoletes: python2-openms < 0:2.4.0-1
 Name:      openms
 Summary:   LC/MS data management and analyses
 Version:   3.0.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   BSD
 URL:       http://www.openms.de/
 Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-Release%{version}.tar.gz
@@ -59,6 +59,7 @@ BuildRequires: eigen3-devel
 BuildRequires: desktop-file-utils
 BuildRequires: percolator
 BuildRequires: libappstream-glib
+Requires:      qt5-qtdeclarative-devel%{?_isa}
 
 ## Build documentation
 ## Doxygen useful only on SVN versions  
@@ -273,6 +274,10 @@ make -j1 pyopenms -C build
 %install
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
 %{_bindir}/xvfb-run -a %make_install -C build
+
+# RHBZ#2231587
+ln -sfv %{_libdir}/libQt5QuickWidgets.so %{buildroot}%{_libdir}/OpenMS/libQt5QuickWidgets.so.5.15.10
+ln -sfv %{_libdir}/libQt5QuickWidgets.so %{buildroot}%{_libdir}/OpenMS/libQt5QuickWidgets.so.5
 
 # Install executable tests
 %if %{with check}
@@ -599,6 +604,9 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %endif
 
 %changelog
+* Mon Aug 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-2
+- Unbundle Qt5QuickWidgets libraries (RHBZ#2231587)
+
 * Mon Jul 24 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-1
 - Release 3.0.0
 - Set _smp_ncpus_max equal to 2 for all architectures

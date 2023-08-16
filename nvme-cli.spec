@@ -3,7 +3,7 @@
 
 Name:           nvme-cli
 Version:        2.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPLv2
@@ -20,18 +20,12 @@ BuildRequires:  openssl-devel
 BuildRequires:  libnvme-devel >= 1.5
 BuildRequires:  json-c-devel >= 0.13
 
-%if (0%{?rhel} == 0)
-BuildRequires:  python3-nose2
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-#BuildRequires:  python3-mypy
-#BuildRequires:  python3-flake8
-#BuildRequires:  python3-autopep8
-#BuildRequires:  python3-isort
-%endif
 BuildRequires:  asciidoc
 BuildRequires:  xmlto
 
 Requires:       util-linux
+
+Patch0:         nvme-cli-2.6-fabrics-Use_corresponding_hostid_when_hostnqn_is_generated.patch
 
 %description
 nvme-cli provides NVM-Express user space tooling for Linux.
@@ -84,6 +78,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Mon Aug 14 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.5-3
+- Backport 'fabrics: Use corresponding hostid when hostnqn is generated'
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -13,8 +13,8 @@ of either asyncio or trio.  It implements trio-like structured concurrency (SC)
 on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
-Version:        3.7.0
-Release:        2%{?dist}
+Version:        3.7.1
+Release:        1%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
@@ -102,6 +102,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Mon Aug 7 2023 Lumír Balhar <lbalhar@redhat.com> - 3.7.1-1
+- Update to 3.7.1 (rhbz#2085426)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -30,14 +30,14 @@
 %global _docdir_fmt %{name}
 
 # Updated test images for new FreeType.
-%global mpl_images_version 3.7.2
+%global mpl_images_version 3.8.0rc1
 
 # The version of FreeType in this Fedora branch.
 %global ftver 2.13.1
 
 Name:           python-matplotlib
-Version:        3.7.2
-%global Version 3.7.2
+Version:        3.8.0~rc1
+%global Version 3.8.0rc1
 Release:        %autorelease
 Summary:        Python 2D plotting library
 # qt_editor backend is MIT
@@ -53,16 +53,15 @@ Source1:        mplsetup.cfg
 Source1000:     https://github.com/QuLogic/mpl-images/archive/v%{mpl_images_version}-with-freetype-%{ftver}/matplotlib-%{mpl_images_version}-with-freetype-%{ftver}.tar.gz
 # Search in /etc/matplotlibrc:
 Patch1001:      0001-matplotlibrc-path-search-fix.patch
-Patch1002:      0002-Don-t-require-oldest-supported-numpy.patch
+# We don't need to use NumPy 1.25.
+Patch1002:      0002-Unpin-NumPy-build-requirement.patch
 # Increase tolerances for new FreeType everywhere:
 Patch1003:      0003-Set-FreeType-version-to-%{ftver}-and-update-tolerances.patch
 
 # https://github.com/matplotlib/matplotlib/pull/21190#issuecomment-1223271888
 Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
-
-# Fix issue with Sphinx 7.1+
-# https://github.com/matplotlib/matplotlib/commit/a01fbaeba4bdefc2ff6782bac73a9a03b8a9bce7
-Patch0002:      0005-Disable-add_html_cache_busting-on-sphinx-7.1.patch
+# https://github.com/matplotlib/matplotlib/pull/26502
+Patch0002:      0005-TST-Increase-some-tolerances-for-non-x86-arches.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -328,7 +327,7 @@ PYTHONPATH="%{pyproject_site_lib}" \
 %endif
 # Ensure all example files are non-executable so that the -doc
 # package doesn't drag in dependencies
-find examples -name '*.py' -exec chmod a-x '{}' \;
+find galleries -name '*.py' -exec chmod a-x '{}' \;
 
 
 %install
@@ -390,7 +389,7 @@ MPLCONFIGDIR=$PWD \
 %endif
 
 %files -n python3-matplotlib-doc
-%doc examples
+%doc galleries/examples
 %if %{with html}
 %doc doc/build/html/*
 %endif
@@ -399,7 +398,6 @@ MPLCONFIGDIR=$PWD \
 %license LICENSE/
 %doc README.md
 %{python3_sitearch}/matplotlib-*.dist-info/
-%{python3_sitearch}/matplotlib-*-nspkg.pth
 %{python3_sitearch}/matplotlib/
 %exclude %{python3_sitearch}/matplotlib/tests/baseline_images/*
 %{python3_sitearch}/mpl_toolkits/

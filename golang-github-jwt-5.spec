@@ -8,7 +8,7 @@ Version:                5.0.0
 %gometa -f
 
 %global common_description %{expand:
-Community-maintained clone of https://github.com/dgrijalva/jwt-go.}
+A Go implementation of JSON Web Tokens.}
 
 %global golicenses      LICENSE
 %global godocs          MIGRATION_GUIDE.md README.md SECURITY.md\\\
@@ -16,7 +16,7 @@ Community-maintained clone of https://github.com/dgrijalva/jwt-go.}
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Community-maintained clone of https://github.com/dgrijalva/jwt-go
+Summary:        A Go implementation of JSON Web Tokens
 
 License:        MIT
 URL:            %{gourl}

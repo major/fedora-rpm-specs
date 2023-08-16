@@ -1,55 +1,61 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=445140
 
-%global	use_release	1
-%global	use_gitbare 	0
+%global		use_release	0
+%global		use_gitbare	1
 
 %if 0%{?use_gitbare} < 1
 # force
-%global	use_release 	1
+%global		use_release	1
 %endif
+
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global	gittardate		20190301
-%global	gittartime		2144
-%global	gitbaredate	20190224
-%global	git_rev		db6017ff991f298b7a362ce5acbdd4d84cf40b18
-%global	git_short		%(echo %{git_rev} | cut -c-8)
-%global	git_version	D%{gitbaredate}git%{git_short}
+%global		gittardate		20230814
+%global		gittartime		1305
+
+%global		gitbaredate	20230802
+%global		git_rev		5c0d34566ed1396e5dd8ed514b645a7b39f75f5b
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{gitbaredate}git%{git_short}
 %endif
 
-%global	baserelease		2
-
-%if 0%{?use_release} >= 1
-%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
-%endif
-%if 0%{?use_gitbare} >= 1
-%global         fedorarel   %{baserelease}.%{git_version}
+%if 0%{?use_git} || 0%{?use_gitbare}
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
 %endif
 
-Name:           lxtask
-Version:        0.1.10
-Release:        %{fedorarel}%{?dist}
-Summary:        Lightweight and desktop independent task manager
 
-License:        GPLv2+
-URL:            http://lxde.sourceforge.net/
+%global		main_version	0.1.10
+
+Name:			lxtask
+Version:		%{main_version}%{git_ver_rpm}
+Release:		1%{?dist}
+Summary:		Lightweight and desktop independent task manager
+
+# SPDX confirmed
+License:		GPL-2.0-or-later
+URL:			http://lxde.sourceforge.net/
 %if 0%{?use_gitbare}
 Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 %endif
 %if 0%{?use_release}
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{main_version}.tar.xz
 %endif
+Source100:		create-lxtask-git-bare-tarball.sh
 
-BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  git
-BuildRequires:  pkgconfig(gtk+-2.0) > 2.6
-BuildRequires:  desktop-file-utils
-BuildRequires:  gettext
-BuildRequires:  intltool
+BuildRequires:	make
+BuildRequires:	gcc
+BuildRequires:	git
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	desktop-file-utils
+BuildRequires:	gettext
+BuildRequires:	intltool
 %if 0%{?use_gitbare}
-BuildRequires:  automake
-BuildRequires:  libtool
+BuildRequires:	automake
+BuildRequires:	libtool
 %endif
 
 
@@ -62,17 +68,17 @@ totally desktop independent and only requires pure gtk+.
 
 %prep
 %if 0%{?use_release}
-%setup -q %{?git_version:-n %{name}-%{version}-%{?git_version}}
+%setup -q -n %{name}-%{main_version}%{git_builddir}
 
 git init
 %endif
 
 %if 0%{?use_gitbare}
-%setup -q -c -T -a 0
+%setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
 git clone ./%{name}.git/
 cd %{name}
 
-git checkout -b %{version}-fedora %{git_rev}
+git checkout -b %{main_version}-fedora %{git_rev}
 cp -a [A-Z]* ..
 %endif
 
@@ -91,8 +97,10 @@ cd %{name}
 bash autogen.sh
 %endif
 
-%configure
-make %{?_smp_mflags}
+%configure \
+	--enable-gtk3 \
+	%{nil}
+%make_build
 
 
 %install
@@ -100,15 +108,12 @@ make %{?_smp_mflags}
 cd %{name}
 %endif
 
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 
 desktop-file-install \
-    %if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 7)
-    --vendor fedora \
-    %endif
-    --delete-original \
-    --dir=%{buildroot}%{_datadir}/applications \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
+	--delete-original \
+	--dir=%{buildroot}%{_datadir}/applications \
+	%{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %if 0%{?use_gitbare}
 cd ..
@@ -117,7 +122,10 @@ cd ..
 %find_lang %{name}
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog README TODO
+%doc	AUTHORS
+%doc	ChangeLog
+%doc	README
+%doc	TODO
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/applications/*%{name}.desktop
@@ -125,6 +133,10 @@ cd ..
 
 
 %changelog
+* Mon Aug 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.10^20230802git5c0d3456-1
+- Update to the latest git
+- Switch to GTK3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %endif
 
 Name:           libgit2
-Version:        1.6.4
+Version:        1.7.1
 Release:        %autorelease
 Summary:        C implementation of the Git core methods as a library with a solid API
 License:        GPLv2 with exceptions
@@ -16,6 +16,7 @@ Source0:        https://github.com/libgit2/libgit2/archive/refs/tags/v%{version}
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.5.1
 BuildRequires:  ninja-build
+BuildRequires:  heimdal-devel
 BuildRequires:  http-parser-devel
 BuildRequires:  libcurl-devel
 %if %{with libssh2}
@@ -58,8 +59,10 @@ find examples -name ".gitignore" -delete -print
 # Don't run "online" tests
 sed -i '/-sonline/s/^/#/' tests/libgit2/CMakeLists.txt
 
-# Remove bundled libraries
-rm -vr deps
+# Remove bundled libraries (except libxdiff)
+pushd deps
+find . -maxdepth 1 -not -name xdiff -exec rm -rf {} ';'
+popd
 
 %build
 %cmake \
@@ -87,7 +90,7 @@ rm -vr deps
 
 %files
 %license COPYING
-%{_libdir}/libgit2.so.1.6*
+%{_libdir}/libgit2.so.1.7*
 
 %files devel
 %doc AUTHORS docs examples README.md

@@ -43,7 +43,7 @@ Corrected Four-sphere Head Model for EEG Signals. Front. Hum. Neurosci. 11:490.
 doi: 10.3389/fnhum.2017.00490}
 
 Name:           python-lfpykit
-Version:        0.5
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Electrostatic models for multicompartment neuron models
 

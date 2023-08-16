@@ -1,8 +1,8 @@
 Name:           conntrack-tools
 Version:        1.4.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Manipulate netfilter connection tracking table and run High Availability
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://conntrack-tools.netfilter.org/
 Source0:        http://netfilter.org/projects/%{name}/files/%{name}-%{version}.tar.bz2
 Source1:        http://netfilter.org/projects/%{name}/files/%{name}-%{version}.tar.bz2.sig
@@ -91,6 +91,9 @@ install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/conntrackd/
 %systemd_postun conntrackd.service
 
 %changelog
+* Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 1.4.7-4
+- Convert license to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

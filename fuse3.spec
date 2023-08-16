@@ -5,16 +5,22 @@
 %global _udevrulesdir %{_prefix}/lib/udev/rules.d
 %endif
 
+%global xyz_version 3.16.1
+%global xy_version %(sed 's/\\(.*\\)\\..*/\\1/'<<<%{xyz_version})
+
 Name:		fuse3
-Version:	3.14.1
-Release:	3%{?dist}
+Version:	%{xyz_version}
+Release:	1%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL+
 URL:		http://fuse.sf.net
-Source0:	https://github.com/libfuse/libfuse/archive/fuse-%{version}.tar.gz
-Source1:	fuse.conf
+Source0:	https://github.com/libfuse/libfuse/releases/download/fuse-%{version}/fuse-%{version}.tar.gz
+Source1:	https://github.com/libfuse/libfuse/releases/download/fuse-%{version}/fuse-%{version}.tar.gz.sig
+Source2:	https://raw.githubusercontent.com/libfuse/libfuse/master/signify/fuse-%{xy_version}.pub
+Source3:	fuse.conf
 Patch0:         fuse3-gcc11.patch
 
+BuildRequires:	signify
 BuildRequires:	which
 %if ! 0%{?el6}
 Conflicts:	filesystem < 3
@@ -78,7 +84,11 @@ Common files for FUSE v2 and FUSE v3.
 %endif
 
 %prep
-%setup -n libfuse-fuse-%{version}
+# Fuse is using signify rather than PGG since 3.15.1 For more details see:
+# 	https://github.com/libfuse/libfuse/releases/tag/fuse-3.15.1
+signify -V -m  '%{SOURCE0}' -p '%{SOURCE2}'
+
+%setup -n fuse-%{version}
 %patch -P0 -p1
 
 %build
@@ -137,7 +147,7 @@ rm -f %{buildroot}/etc/init.d/fuse3
 rm -f %{buildroot}%{_sysconfdir}/fuse.conf
 %else
 # Install config-file
-install -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}
+install -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}
 %endif
 
 # Delete pointless udev rules (brc#748204)
@@ -178,6 +188,10 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %endif
 
 %changelog
+* Wed Aug 09 2023 Pavel Reichl <preichl@redhat.com> - 3.16.1-1
+- update to 3.16.1
+- Add tarball signature verification
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

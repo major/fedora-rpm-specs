@@ -1,20 +1,24 @@
 %global majorversion 7.2
 
 Name:           ipe
-Version:        7.2.26
+Version:        7.2.28
 Release:        %autorelease
 Summary:        Drawing editor for creating figures in PDF or PostScript formats
 # GPLv2, with an exception for the CGAL libraries.
 License:        GPLv2+ with exceptions
 URL:            http://ipe.otfried.org/
-Source0:        https://github.com/otfried/%{name}/releases/download/v%{version}/%{name}-%{version}-src.tar.gz
+Source0:        https://github.com/otfried/%{name}/archive/refs/tags/v%{version}.tar.gz
 Source1:        %{name}.desktop
 Patch0:         %{name}-%{version}-gcc11.patch
+
+%if 0%{?fedora} >= 39
+ExcludeArch:    %{ix86}
+%endif
 
 BuildRequires:	gcc-c++
 BuildRequires:	desktop-file-utils
 BuildRequires:	pkgconfig
-BuildRequires:	qt5-qtbase-devel
+BuildRequires:	qt6-qtbase-devel
 BuildRequires:	cairo-devel
 BuildRequires:	freetype-devel
 BuildRequires:	libpng-devel
@@ -23,7 +27,7 @@ BuildRequires:	curl-devel
 BuildRequires:	gsl-devel
 BuildRequires:	libjpeg-turbo-devel
 BuildRequires:	libspiro-devel
-BuildRequires:	qtspell-qt5-devel
+BuildRequires:	qtspell-qt6-devel
 BuildRequires:	make
 
 Requires:       tex(latex)
@@ -59,7 +63,7 @@ Requires: %{name} = %{version}-%{release}
 
 %prep
 %setup -n %{name}-%{version} -q
-%patch0 -p1
+%patch 0 -p1
 
 # fix files permissions
 find src -type f -exec chmod -x {} +
@@ -71,7 +75,7 @@ export QTDIR=%{qtdir}
 pushd src
 %make_build LUA_CFLAGS="`pkg-config --cflags lua`" \
      LUA_LIBS="`pkg-config --libs lua`" \
-     MOC=moc-qt5 \
+     MOC=/usr/lib64/qt6/libexec/moc \
      IPEPREFIX="%{_prefix}" IPELIBDIR="%{_libdir}" \
      IPELETDIR="%{_libdir}/%{name}/%{version}/ipelets" \
      IPECURL=1 IPEGSL=1
@@ -90,9 +94,7 @@ popd
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
 %files
-%license gpl.txt
-%doc readme.txt news.txt
-
+%license doc/gpl.txt
 %{_bindir}/ipe
 %{_bindir}/ipe6upgrade
 %{_bindir}/ipecurl
@@ -128,8 +130,6 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_mandir}/man1/ipetoipe.1.gz
 
 %files devel
-%license gpl.txt
-%doc readme.txt news.txt
 %{_includedir}/*.h
 %{_libdir}/libipe.so
 %{_libdir}/libipeui.so
@@ -138,8 +138,6 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_libdir}/libipelua.so
 
 %files doc
-%license gpl.txt
-%doc readme.txt gpl.txt news.txt
 %{_datadir}/%{name}/%{version}
 
 %changelog

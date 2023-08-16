@@ -3,7 +3,7 @@
 
 Name:           lpcnetfreedv
 Version:        0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LPCNet for FreeDV
 
 License:        BSD
@@ -11,10 +11,9 @@ URL:            https://github.com/drowe67/LPCNet
 Source0:        https://github.com/drowe67/LPCNet/archive/v%{version}/LPCNet-%{version}.tar.gz
 Source1:        http://rowetel.com/downloads/deep/lpcnet_191005_v1.0.tgz
 
-#Patch0:         lpcnetfreedv-test.patch
+Patch0:         lpcnetfreedv-libm.patch
 
 BuildRequires:  cmake gcc
-BuildRequires:  codec2-devel
 
 %description
 Experimental version of LPCNet that has been used to develop FreeDV 2020 - a HF
@@ -65,6 +64,9 @@ cp %{SOURCE1} %{__cmake_builddir}/
 
 
 %changelog
+* Mon Aug 14 2023 Richard Shaw <hobbes1069@gmail.com> - 0.5-3
+- Add patch to link with math library.
+
 * Fri Aug 11 2023 Than Ngo <than@redhat.com> - 0.5-2
 - Rebuilt
 

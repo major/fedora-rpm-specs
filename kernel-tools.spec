@@ -5,7 +5,7 @@
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
 %global released_kernel 0
-%global baserelease 2
+%global baserelease 1
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -25,7 +25,7 @@
 %global stablerev %{stable_update}
 %global stable_base %{stable_update}
 %endif
-%global rpmversion %{base_major}.%{base_sublevel}.%{stable_update}
+%global pkgversion %{base_major}.%{base_sublevel}.%{stable_update}
 
 ## The not-released-kernel case ##
 %else
@@ -34,9 +34,9 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 2
+%global rcrev 6
 # Set rpm version accordingly
-%global rpmversion %{upstream_major}.%{upstream_sublevel}.0
+%global pkgversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
 # Nb: The above rcrev values automagically define Patch00 and Patch01 below.
 
@@ -118,7 +118,7 @@ Name: kernel-tools
 Summary: Assortment of tools for the Linux kernel
 License: GPLv2
 URL: http://www.kernel.org/
-Version: %{rpmversion}
+Version: %{pkgversion}
 Release: %{pkg_release}
 Provides:  cpupowerutils = 1:009-0.6.p1
 Obsoletes: cpupowerutils < 1:009-0.6.p1
@@ -590,6 +590,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Mon Aug 14 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.5.0-0.rc6.git0.1
+- Linux v6.5-rc6
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.0-0.rc2.git0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

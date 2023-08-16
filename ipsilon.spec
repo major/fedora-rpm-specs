@@ -8,7 +8,7 @@
 #%%global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 9
+%global baserelease 10
 
 Name:       ipsilon
 Version:    3.0.4
@@ -24,6 +24,7 @@ Source0:    https://pagure.io/%{name}/archive/v%{version}/ipsilon-%{version}.tar
 %endif
 Patch0:     https://pagure.io/ipsilon/c/f45e9df2b79780a493bfd19f9f7522f51ca622f9.patch
 Patch1:     https://pagure.io/ipsilon/c/5d0b7d883dfd240248e86d4c06ba63186ecceb0c.patch
+Patch2:     0001-Fix-SAML2-metadata-regeneration.patch
 
 BuildArch:  noarch
 
@@ -460,6 +461,9 @@ exit 0
 
 
 %changelog
+* Sat Aug 12 2023 Francois Andrieu <darknao@drkn.ninja> - 3.0.4-10
+- backport upstream patch 64a9d5e: Fix SAML2 metadata regeneration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

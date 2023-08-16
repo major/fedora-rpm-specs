@@ -19,7 +19,7 @@ It provides:
 - support for symbolic differentiation of formulas (and hence model matrices).}
 
 Name:           python-formulaic
-Version:        0.5.2
+Version:        0.6.4
 Release:        %{autorelease}
 Summary:        A high-performance implementation of Wilkinson formulas
 
@@ -27,14 +27,6 @@ Summary:        A high-performance implementation of Wilkinson formulas
 License:        MIT
 URL:            https://github.com/matthewwardrop/formulaic
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Backports https://github.com/matthewwardrop/formulaic/commit/e5dedcb0feed39f5ff6e2326d727ca65d247f26d to v0.5.2
-# fork lives at https://github.com/sanjayankur31/formulaic/tree/fedora-0.5.2
-Patch:          0001-fix-correct-pytest-usage.patch
-
-# Remove pin on sympy given that 1.10.1 fixes the regression that broke
-# formulaic.
-# https://github.com/matthewwardrop/formulaic/commit/8eb58e85f9f9b4e0dacf8b6478b6a1fb01074daf
-Patch:          %{url}/commit/8eb58e85f9f9b4e0dacf8b6478b6a1fb01074daf.patch
 
 BuildArch:      noarch
 
@@ -50,14 +42,13 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-sympy
-BuildRequires:  git-core
 
 %description -n python3-formulaic %_description
 
 %pyproject_extras_subpkg -n python3-formulaic arrow calculus
 
 %prep
-%autosetup -n formulaic-%{version} -S git
+%autosetup -n formulaic-%{version}
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

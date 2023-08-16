@@ -29,7 +29,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20230801
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -116,7 +116,9 @@ local subpackages = {
     { alias="sans-serif", family="Sans Bamum", lang={ "bax" } },
     { alias="sans-serif", family="Sans Bassa Vah" },
     { alias="sans-serif", family="Sans Batak", lang={ "bbc" } },
-    { alias="sans-serif", family="Sans Bengali", lang= { "as", "bn", "mni" } },
+    { alias="sans-serif", family="Sans Bengali", lang= { "as", "bn", "mni" },
+      default=true
+    },
     { alias="sans-serif", family="Sans Bengali UI", lang= { "as", "bn", "mni" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       obsoletes={ "sans-bengali-ui-vf" },
@@ -153,7 +155,9 @@ local subpackages = {
     { alias="sans-serif", family="Sans Deseret",
       obsoletes={ "sans-deseret-vf" }
     },
-    { alias="sans-serif", family="Sans Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
+    { alias="sans-serif", family="Sans Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
+      default=true,
+    },
     { alias="sans-serif", family="Sans Devanagari UI", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       obsoletes={ "sans-devanagari-ui-vf" }
@@ -177,7 +181,9 @@ local subpackages = {
       obsoletes={ "sans-gothic-vf" }
     },
     { alias="sans-serif", family="Sans Grantha" },
-    { alias="sans-serif", family="Sans Gujarati", lang={ "gu" } },
+    { alias="sans-serif", family="Sans Gujarati", lang={ "gu" },
+      default=true
+    },
     { alias="sans-serif", family="Sans Gujarati UI", lang={ "gu" },
       priority=rpm.expand('%{lprio}'), nogroup=1
     },
@@ -208,7 +214,9 @@ local subpackages = {
     { alias="sans-serif", family="Sans Inscriptional Parthian" },
     { alias="sans-serif", family="Sans Javanese" },
     { alias="sans-serif", family="Sans Kaithi" },
-    { alias="sans-serif", family="Sans Kannada", lang={ "kn" } },
+    { alias="sans-serif", family="Sans Kannada", lang={ "kn" },
+      default=true
+    },
     { alias="sans-serif", family="Sans Kannada UI", lang={ "kn" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
     },
@@ -311,6 +319,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Old Turkic" },
     { alias="sans-serif", family="Sans Oriya", lang={ "or" },
       obsoletes={ "sans-oriya-ui" },
+      default=true
     },
     { alias="sans-serif", family="Sans Osage" },
     { alias="sans-serif", family="Sans Osmanya",
@@ -367,7 +376,9 @@ local subpackages = {
     { alias="sans-serif", family="Sans Tai Viet",
       obsoletes={ "sans-tai-viet-vf" },
     },
-    { alias="sans-serif", family="Sans Tamil", lang={ "ta" } },
+    { alias="sans-serif", family="Sans Tamil", lang={ "ta" },
+      default=true
+    },
     { alias="sans-serif", family="Sans Tamil Supplement", lang={ "ta" },
       excludeci=true, nogroup=1
     },
@@ -375,7 +386,9 @@ local subpackages = {
       priority=rpm.expand('%{lprio}'), nogroup=1
     },
     { alias="sans-serif", family="Sans Tangsa" },
-    { alias="sans-serif", family="Sans Telugu", lang={ "te" } },
+    { alias="sans-serif", family="Sans Telugu", lang={ "te" },
+      default=true
+    },
     { alias="sans-serif", family="Sans Telugu UI", lang={ "te" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
     },
@@ -440,8 +453,12 @@ local subpackages = {
     { alias="serif",      family="Serif Balinese", lang={ "ban" },
       obsoletes={ "sans-balinese" }
     },
-    { alias="serif",      family="Serif Bengali", lang={ "as", "bn", "mni" } },
-    { alias="serif",      family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
+    { alias="serif",      family="Serif Bengali", lang={ "as", "bn", "mni" },
+      default=true
+    },
+    { alias="serif",      family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
+      default=true
+    },
     { alias="serif",      family="Serif Dives Akuru" },
     { alias="serif",      family="Serif Dogra",
       obsoletes={ "serif-dogra-vf" },
@@ -453,12 +470,16 @@ local subpackages = {
       default=true
     },
     { alias="serif",      family="Serif Grantha" },
-    { alias="serif",      family="Serif Gujarati", lang={ "gu" } },
+    { alias="serif",      family="Serif Gujarati", lang={ "gu" },
+      default=true
+    },
     { alias="serif",      family="Serif Gurmukhi", lang={ "pa" },
       default=true
     },
     { alias="serif",      family="Serif Hebrew", lang={ "he" } },
-    { alias="serif",      family="Serif Kannada", lang={ "kn" } },
+    { alias="serif",      family="Serif Kannada", lang={ "kn" },
+      default=true
+    },
     { alias="serif",      family="Serif Khitan Small Script" },
     { alias="serif",      family="Serif Khmer", lang={ "km" },
       default=true
@@ -474,18 +495,23 @@ local subpackages = {
       obsoletes={ "serif-nyiakeng-puachue-hmong" },
     },
     { alias="serif",      family="Serif Old Uyghur" },
-    { alias="serif",      family="Serif Oriya", lang={ "or" } },
+    { alias="serif",      family="Serif Oriya", lang={ "or" },
+      default=true
+    },
     { alias="serif",      family="Serif Ottoman Siyaq" },
     { alias="serif",      family="Serif Sinhala", lang={ "si" },
       default=true
     },
     { alias="serif",      family="Serif Tamil", lang={ "ta" },
       obsoletes={ "serif-tamil-slanted" },
+      default=true
     },
     { alias="serif",      family="Serif Tangut",
       obsoletes={ "serif-tangut-vf" }
     },
-    { alias="serif",      family="Serif Telugu", lang={ "te" } },
+    { alias="serif",      family="Serif Telugu", lang={ "te" },
+      default=true
+    },
     { alias="serif",      family="Serif Thai", lang={ "th" },
       default=true
     },
@@ -522,7 +548,9 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Balinese", lang={ "ban" } },
     { alias="sans-serif", variable=true, family="Sans Bamum", lang={ "bax" } },
     { alias="sans-serif", variable=true, family="Sans Bassa Vah" },
-    { alias="sans-serif", variable=true, family="Sans Bengali", lang={ "as", "bn", "mni" } },
+    { alias="sans-serif", variable=true, family="Sans Bengali", lang={ "as", "bn", "mni" },
+      default=true
+    },
     { alias="sans-serif", variable=true, family="Sans Canadian Aboriginal", lang={ "iu" },
       default=true
     },
@@ -530,14 +558,18 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Cherokee", lang={ "chr" },
       default=true
     },
-    { alias="sans-serif", variable=true, family="Sans Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
+    { alias="sans-serif", variable=true, family="Sans Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
+      default=true
+    },
     { alias="sans-serif", variable=true, family="Sans Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" },
       default=true
     },
     { alias="sans-serif", variable=true, family="Sans Georgian", lang={ "ka" },
       default=true
     },
-    { alias="sans-serif", variable=true, family="Sans Gujarati", lang={ "gu" } },
+    { alias="sans-serif", variable=true, family="Sans Gujarati", lang={ "gu" },
+      default=true
+    },
     { alias="sans-serif", variable=true, family="Sans Gunjala Gondi" },
     { alias="sans-serif", variable=true, family="Sans Gurmukhi", lang={ "pa" },
       obsoletes={ "sans-gurkukhi-ui-vf" },
@@ -549,7 +581,9 @@ local subpackages = {
       default=true
     },
     { alias="sans-serif", variable=true, family="Sans Javanese" },
-    { alias="sans-serif", variable=true, family="Sans Kannada", lang={ "kn" } },
+    { alias="sans-serif", variable=true, family="Sans Kannada", lang={ "kn" },
+      default=true
+    },
     { alias="sans-serif", variable=true, family="Sans Kannada UI", lang={ "kn" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       fontname="SansKannada-UI",
@@ -589,6 +623,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Ol Chiki" },
     { alias="sans-serif", variable=true, family="Sans Oriya", lang={ "or" },
       obsoletes={ "sans-oriya-ui-vf" },
+      default=true
     },
     { alias="sans-serif", variable=true, family="Sans Sinhala", lang={ "si" },
       default=true
@@ -601,13 +636,16 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Tai Tham" },
     { alias="sans-serif", variable=true, family="Sans Tamil", lang={ "ta" },
       obsoletes={ "sans-tamil-supplement-vf" },
+      default=true
     },
     { alias="sans-serif", variable=true, family="Sans Tamil UI", lang={ "ta" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       fontname="SansTamil-UI",
     },
     { alias="sans-serif", variable=true, family="Sans Tangsa" },
-    { alias="sans-serif", variable=true, family="Sans Telugu", lang={ "te" } },
+    { alias="sans-serif", variable=true, family="Sans Telugu", lang={ "te" },
+      default=true
+    },
     { alias="sans-serif", variable=true, family="Sans Telugu UI", lang={ "te" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       fontname="SansTelugu-UI",
@@ -635,20 +673,28 @@ local subpackages = {
     { alias="serif",      variable=true, family="Serif Armenian", lang={ "hy" },
       default=true
     },
-    { alias="serif",      variable=true, family="Serif Bengali", lang={ "as", "bn", "mni" } },
-    { alias="serif",      variable=true, family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
+    { alias="serif",      variable=true, family="Serif Bengali", lang={ "as", "bn", "mni" },
+      default=true
+    },
+    { alias="serif",      variable=true, family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
+      default=true
+    },
     { alias="serif",      variable=true, family="Serif Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" },
       default=true
     },
     { alias="serif",      variable=true, family="Serif Georgian", lang={ "ka" },
       default=true
     },
-    { alias="serif",      variable=true, family="Serif Gujarati", lang={ "gu" } },
+    { alias="serif",      variable=true, family="Serif Gujarati", lang={ "gu" },
+      default=true
+    },
     { alias="serif",      variable=true, family="Serif Gurmukhi", lang={ "pa" },
       default=true
     },
     { alias="serif",      variable=true, family="Serif Hebrew", lang={ "he" } },
-    { alias="serif",      variable=true, family="Serif Kannada", lang={ "kn" } },
+    { alias="serif",      variable=true, family="Serif Kannada", lang={ "kn" },
+      default=true
+    },
     { alias="serif",      variable=true, family="Serif Khmer", lang={ "km" },
       default=true
     },
@@ -661,14 +707,19 @@ local subpackages = {
     { alias="serif",      variable=true, family="Serif NP Hmong",
       obsoletes={ "serif-nyiakeng-puachue-hmong-vf" },
     },
-    { alias="serif",      variable=true, family="Serif Oriya", lang={ "or" } },
+    { alias="serif",      variable=true, family="Serif Oriya", lang={ "or" },
+      default=true
+    },
     { alias="serif",      variable=true, family="Serif Sinhala", lang={ "si" },
       default=true
     },
     { alias="serif",      variable=true, family="Serif Tamil", lang={ "ta" },
       obsoletes={ "serif-tamil-slanted-vf" },
+      default=true
     },
-    { alias="serif",      variable=true, family="Serif Telugu", lang={ "te" } },
+    { alias="serif",      variable=true, family="Serif Telugu", lang={ "te" },
+      default=true
+    },
     { alias="serif",      variable=true, family="Serif Thai", lang={ "th" },
       default=true
     },
@@ -951,7 +1002,7 @@ local function gentestyaml()
             for _,v in ipairs(subpackages[i].lang) do
 --                local f = has_value(fcorth, v)
                 local f = true
-                local fname = string.gsub(subpackages[i].filename, "(.*/)(.*)", "%2")
+                local fname = string.gsub(string.gsub(subpackages[i].filename, "(.*/)(.*)", "%2"), "\\", "")
                 if f and (not hash[v]) then
                     langs[#langs+1] = v
                     hash[v] = true
@@ -1178,6 +1229,10 @@ done
 
 
 %changelog
+* Thu Aug  3 2023 Akira TAGOH <tagoh@redhat.com> - 20230801-2
+- Make some Indic families default
+  https://fedoraproject.org/wiki/Changes/Indic_Noto_fonts
+
 * Wed Aug  2 2023 Akira TAGOH <tagoh@redhat.com> - 20230801-1
 - Updates to monthly release of 23.8.1
 - Add google-noto-sans-kawi{,-vf}-fonts and google-noto-sans-nko-unjoined{,-vf}-fonts packages.

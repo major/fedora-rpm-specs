@@ -1,118 +1,118 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=219930
 
-%global	use_release	1
+%global	use_release	0
 %global	use_git		0
-%global	use_gitbare 	0
+%global	use_gitbare	1
 
 %if 0%{?use_git} < 1
 %if 0%{?use_gitbare} < 1
 # force
-%global	use_release 	1
+%global	use_release	1
 %endif
 %endif
 
+%global	git_version	%{nil}
+%global	git_ver_rpm	%{nil}
+%global	git_builddir	%{nil}
+
 %if 0%{?use_git}
-%global	git_rev	138ff9b22b45192a3b020ebbbed04e9060470a66
-%global	git_date	20161125
-%global	git_short	%(echo %{git_rev} | cut -c-8)
-%global	git_version	D%{git_date}git%{git_short}
+%global	git_rev		138ff9b22b45192a3b020ebbbed04e9060470a66
+%global	git_date		20161125
+%global	git_short		%(echo %{git_rev} | cut -c-8)
+%global	git_version	%{git_date}git%{git_short}
 %endif
 
 %if 0%{?use_gitbare}
-%global	gittardate	20210201
-%global	gittartime	1626
-%global	gitbaredate	20210130
-%global	git_rev	60edebfef627d3b42e2226c54d4aeb7d553a3e23
-%global	git_short	%(echo %{git_rev} | cut -c-8)
-%global	git_version	D%{gitbaredate}git%{git_short}
+%global	gittardate		20230814
+%global	gittartime		1113
+
+%global	gitbaredate	20230806
+%global	git_rev		41a08b51181891f44aef4d87b849c94e2db58711
+%global	git_short		%(echo %{git_rev} | cut -c-8)
+%global	git_version	%{gitbaredate}git%{git_short}
 %endif
 
-%global	baserelease 5
-
-%if 0%{?use_release} >= 1
-%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
-%endif
-%if 0%{?use_git} >= 1
-%global         fedorarel   %{baserelease}.%{git_version}
-%endif
-%if 0%{?use_gitbare} >= 1
-%global         fedorarel   %{baserelease}.%{git_version}
+%if 0%{?use_git} || 0%{?use_gitbare}
+%global	git_ver_rpm	^%{git_version}
+%global	git_builddir	-%{git_version}
 %endif
 
-Name:           lxpanel
-Version:        0.10.1
-Release:        %{fedorarel}%{?dist}
-Summary:        A lightweight X11 desktop panel
+%global		main_version	0.10.1
 
-License:        GPLv2+
-URL:            http://lxde.org/
-#VCS: git:git://lxde.git.sourceforge.net/gitroot/lxde/lxpanel
+Name:			lxpanel
+Version:		%{main_version}%{git_ver_rpm}
+Release:		1%{?dist}
+Summary:		A lightweight X11 desktop panel
+
+# SPDX confirmed
+License:		GPL-2.0-or-later
+URL:			http://lxde.org/
 %if 0%{?use_gitbare}
 Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 %endif
 %if 0%{?use_git}
-Source0:        %{name}-%{version}-%{?git_version}.tar.bz2
+Source0:		%{name}-%{version}-%{?git_version}.tar.bz2
 %endif
 %if 0%{?use_release}
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
 %endif
 # Shell script to create tarball from git scm
-Source100:      create-tarball-from-git.sh
+Source100:		create-tarball-from-git.sh
 Source101:		create-lxpanel-git-bare-tarball.sh
 
 # Fedora bug: https://bugzilla.redhat.com/show_bug.cgi?id=746063
-Patch0:         lxpanel-0.8.1-Fix-pager-scroll.patch
+Patch0:		lxpanel-0.8.1-Fix-pager-scroll.patch
 
 # Patches reported upstream
 Patch52:		0002-SF-894-task-button-correctly-find-the-window-current.patch
 
 ## distro specific patches
 # default configuration
-Patch100:       lxpanel-0.5.9-default.patch
+Patch100:		lxpanel-0.5.9-default.patch
 # use nm-connection-editor to edit network connections
 # Applied in 0.8.2
-#Patch101:       lxpanel-0.8.1-nm-connection-editor.patch
+#Patch101:		lxpanel-0.8.1-nm-connection-editor.patch
 # use zenity instead of xmessage to display low battery warning
-Patch102:       lxpanel-0.8.2-battery-plugin-use-zenity.patch
+Patch102:		lxpanel-0.8.2-battery-plugin-use-zenity.patch
 # volumealsa: poll alsa mixer several times at startup (for pipewire)
 # https://bugzilla.redhat.com/show_bug.cgi?id=1960829
-Patch103:       lxpanel-0.10.1-0003-volumealsa-poll-alsa-mixer-several-times-at-startup.patch
+Patch103:		lxpanel-0.10.1-0003-volumealsa-poll-alsa-mixer-several-times-at-startup.patch
 # batt: make the status green on batt when the state is "not charging"
-Patch104:       lxpanel-0.10.1-batt-chaging-pending.patch
+Patch104:		lxpanel-0.10.1-batt-chaging-pending.patch
 
 
-#BuildRequires:  docbook-utils
-BuildRequires:  make
-BuildRequires:  gettext
-BuildRequires:  intltool
+#BuildRequires:	docbook-utils
+BuildRequires:	make
+BuildRequires:	gettext
+BuildRequires:	intltool
 
-BuildRequires:  pkgconfig(gtk+-2.0)
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
-BuildRequires:  pkgconfig(gdk-pixbuf-xlib-2.0)
-BuildRequires:  pkgconfig(libfm-gtk)
-BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  pkgconfig(libwnck-1.0)
-BuildRequires:  pkgconfig(keybinder)
-BuildRequires:  pkgconfig(indicator-0.4)
-BuildRequires:  pkgconfig(libmenu-cache) >= 0.3.0
-BuildRequires:  pkgconfig(alsa)
-BuildRequires:	%{_bindir}/curl-config
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
+BuildRequires:	pkgconfig(libfm-gtk)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(libwnck-1.0)
+BuildRequires:	pkgconfig(keybinder)
+BuildRequires:	pkgconfig(indicator-0.4)
+BuildRequires:	pkgconfig(libmenu-cache) >= 0.3.0
+BuildRequires:	pkgconfig(alsa)
+BuildRequires:	/usr/bin/curl-config
 
 %if 0%{?fedora} < 36
 # required for netstatus plugin
-BuildRequires:  wireless-tools-devel
+BuildRequires:	wireless-tools-devel
 %endif
 
 %if 0%{?use_git} || 0%{?use_gitbare}
-BuildRequires:  automake
-BuildRequires:  libtool
+BuildRequires:	automake
+BuildRequires:	libtool
 %endif
 
 BuildRequires:	git
 BuildRequires:	gcc
 
 # required for the battery plugin with Patch102
-Requires:       zenity
+Recommends:	zenity
 
 
 %description
@@ -121,28 +121,27 @@ compliant window manager (eg sawfish, metacity, xfwm4, kwin) and features a
 tasklist, pager, launchbar, clock, menu and sytray.
 
 %package        devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Summary:		Development files for %{name}
+Requires:		%{name}%{?_isa} = %{version}-%{release}
 
-%description    devel
+%description	devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
 %prep
 %if 0%{?use_release} || 0%{?use_git}
-%setup -q %{?git_version:-n %{name}-%{version}-%{?git_version}}
+%setup -q -n %{name}-%{version}%{git_builddir}
 
 git init
 %endif
 
 %if 0%{?use_gitbare}
-%setup -q -c -T -a 0
+%setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
 git clone ./%{name}.git/
 cd %{name}
 
-#git checkout -b %{version}-fedora %{version}
-git checkout -b %{version}-fedora %{git_rev}
+git checkout -b %{main_version}-fedora %{git_rev}
 cp -a [A-Z]* ..
 
 cat > GITHASH <<EOF
@@ -150,8 +149,8 @@ EOF
 
 cat GITHASH | while read line
 do
-  commit=$(echo "$line" | sed -e 's|[ \t].*||')
-  git cherry-pick $commit
+	commit=$(echo "$line" | sed -e 's|[ \t].*||')
+	git cherry-pick $commit
 done
 
 %endif
@@ -171,21 +170,19 @@ git commit -m "base" -q
 cat %PATCH52 | git am
 cat %PATCH103 | git am
 
-%patch0 -p1 -b .revert
+%patch -P0 -p1 -b .revert
 
-%patch100 -p1 -b .default
+%patch -P100 -p1 -b .default
 #%%patch101 -p1 -b .system-config-network
-%patch102 -p1 -b .zenity
-%patch104 -p1 -b .batt_pending
+%patch -P102 -p1 -b .zenity
+%patch -P104 -p1 -b .batt_pending
 
 # Fedora >= 19 doesn't use vendor prefixes for desktop files. Instead of
 # maintaining two patches we just strip the prefixes from the files we just
 # patched with patch 100.
-%if (0%{?fedora} && 0%{?fedora} >= 19) || (0%{?rhel} && 0%{?rhel} >= 7)
 sed -i 's|id=fedora-|id=|' data/default/panels/panel.in \
-    data/two_panels/panels/bottom.in \
-    data/two_panels/panels/top.in
-%endif
+	data/two_panels/panels/bottom.in \
+	data/two_panels/panels/top.in
 git commit -m "Apply Fedora specific configulation" -a
 
 %build
@@ -225,7 +222,9 @@ cd ..
 
 
 %files -f %{name}.lang
-%doc AUTHORS COPYING README
+%license	COPYING
+%doc	AUTHORS
+%doc	README
 %config(noreplace)	%{_sysconfdir}/xdg/lxpanel/
 
 %{_bindir}/lxpanel*
@@ -238,6 +237,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Mon Aug 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20230806git41a08b51-1
+- Update to the latest git
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,13 +6,13 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        4.2.1
-Release:       	3%{?dist}
+Version:        4.2.2
+Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
 URL:            https://moodle.org/
-Source0:        https://download.moodle.org/stable402/%{name}-%{version}.tgz
+Source0:        https://download.moodle.org/download.php/direct/stable402/%{name}-%{version}.tgz
 Source1:        moodle.conf
 Source2:        moodle-config.php
 Source3:        moodle.cron
@@ -174,6 +174,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Fri Aug 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.2.2-1
+- 4.2.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

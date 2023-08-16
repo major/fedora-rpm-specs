@@ -1,6 +1,6 @@
 Name:          zenity
-Version:       3.99.0
-Release:       2%{?dist}
+Version:       3.99.1
+Release:       1%{?dist}
 Summary:       Display dialog boxes from shell scripts
 
 License:       LGPL-2.1-or-later
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Zenity.desk
 
 
 %changelog
+* Mon Aug 14 2023 Kalev Lember <klember@redhat.com> - 3.99.1-1
+- Update to 3.99.1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.99.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,10 +1,10 @@
-%define upstream_version 2.1-40
+%define upstream_version 2.1-41
 %global debug_package %{nil}
 
 Summary:        Tool to transform and deploy CPU microcode update for x86
 Name:           microcode_ctl
 Version:        2.1
-Release:        56%{?dist}
+Release:        57%{?dist}
 Epoch:          2
 License:        GPLv2+ and Redistributable, no modification permitted
 URL:            https://pagure.io/microcode_ctl
@@ -35,6 +35,196 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} INSDIR=/usr/sbin install clean
 
 
 %changelog
+* Thu Aug 10 2023 Eugene Syromiatnikov <esyr@redhat.com> 2:2.1-57
+- Update to upstream 2.1-41. 20230808
+  - Update of 06-55-03/0x97 (SKX-SP B1) microcode from revision 0x1000171
+    up to 0x1000181;
+  - Update of 06-55-04/0xb7 (SKX-D/SP/W/X H0/M0/M1/U0) microcode from
+    revision 0x2006f05 up to 0x2007006;
+  - Update of 06-55-06/0xbf (CLX-SP B0) microcode from revision 0x4003501
+    up to 0x4003604;
+  - Update of 06-55-07/0xbf (CLX-SP/W/X B1/L1) microcode from revision
+    0x5003501 up to 0x5003604;
+  - Update of 06-55-0b/0xbf (CPX-SP A1) microcode from revision 0x7002601
+    up to 0x7002703;
+  - Update of 06-6a-06/0x87 (ICX-SP D0) microcode from revision 0xd000390
+    up to 0xd0003a5;
+  - Update of 06-7e-05/0x80 (ICL-U/Y D1) microcode from revision 0xba
+    up to 0xbc;
+  - Update of 06-8c-01/0x80 (TGL-UP3/UP4 B1) microcode from revision
+    0xaa up to 0xac;
+  - Update of 06-8c-02/0xc2 (TGL-R C0) microcode from revision 0x2a up
+    to 0x2c;
+  - Update of 06-8d-01/0xc2 (TGL-H R0) microcode from revision 0x44 up
+    to 0x46;
+  - Update of 06-8e-09/0xc0 (KBL-U/U 2+3e/Y H0/J1) microcode from revision
+    0xf2 up to 0xf4;
+  - Update of 06-8e-09/0x10 (AML-Y 2+2 H0) microcode from revision 0xf2
+    up to 0xf4;
+  - Update of 06-8e-0a/0xc0 (CFL-U 4+3e D0, KBL-R Y0) microcode from
+    revision 0xf2 up to 0xf4;
+  - Update of 06-8e-0b/0xd0 (WHL-U W0) microcode from revision 0xf2 up
+    to 0xf4;
+  - Update of 06-8e-0c/0x94 (AML-Y 4+2 V0, CML-U 4+2 V0, WHL-U V0)
+    microcode from revision 0xf6 up to 0xf8;
+  - Update of 06-8f-04/0x10 microcode from revision 0x2c0001d1 up to
+    0x2c000271;
+  - Update of 06-8f-04/0x87 (SPR-SP E0/S1) microcode from revision
+    0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-05/0x10 (SPR-HBM B1) microcode (in
+    intel-ucode/06-8f-04) from revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-05/0x87 (SPR-SP E2) microcode (in
+    intel-ucode/06-8f-04) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-06/0x10 microcode (in intel-ucode/06-8f-04) from
+    revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-06/0x87 (SPR-SP E3) microcode (in
+    intel-ucode/06-8f-04) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-07/0x87 (SPR-SP E4/S2) microcode (in
+    intel-ucode/06-8f-04) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-08/0x10 (SPR-HBM B3) microcode (in
+    intel-ucode/06-8f-04) from revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-08/0x87 (SPR-SP E5/S3) microcode (in
+    intel-ucode/06-8f-04) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-04/0x10 microcode (in intel-ucode/06-8f-05) from
+    revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-04/0x87 (SPR-SP E0/S1) microcode (in
+    intel-ucode/06-8f-05) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-05/0x10 (SPR-HBM B1) microcode from revision
+    0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-05/0x87 (SPR-SP E2) microcode from revision 0x2b000461
+    up to 0x2b0004b1;
+  - Update of 06-8f-06/0x10 microcode (in intel-ucode/06-8f-05) from
+    revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-06/0x87 (SPR-SP E3) microcode (in
+    intel-ucode/06-8f-05) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-07/0x87 (SPR-SP E4/S2) microcode (in
+    intel-ucode/06-8f-05) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-08/0x10 (SPR-HBM B3) microcode (in
+    intel-ucode/06-8f-05) from revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-08/0x87 (SPR-SP E5/S3) microcode (in
+    intel-ucode/06-8f-05) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-04/0x10 microcode (in intel-ucode/06-8f-06) from
+    revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-04/0x87 (SPR-SP E0/S1) microcode (in
+    intel-ucode/06-8f-06) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-05/0x10 (SPR-HBM B1) microcode (in
+    intel-ucode/06-8f-06) from revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-05/0x87 (SPR-SP E2) microcode (in
+    intel-ucode/06-8f-06) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-06/0x10 microcode from revision 0x2c0001d1 up to
+    0x2c000271;
+  - Update of 06-8f-06/0x87 (SPR-SP E3) microcode from revision 0x2b000461
+    up to 0x2b0004b1;
+  - Update of 06-8f-07/0x87 (SPR-SP E4/S2) microcode (in
+    intel-ucode/06-8f-06) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-08/0x10 (SPR-HBM B3) microcode (in
+    intel-ucode/06-8f-06) from revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-08/0x87 (SPR-SP E5/S3) microcode (in
+    intel-ucode/06-8f-06) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-04/0x87 (SPR-SP E0/S1) microcode (in
+    intel-ucode/06-8f-07) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-05/0x87 (SPR-SP E2) microcode (in
+    intel-ucode/06-8f-07) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-06/0x87 (SPR-SP E3) microcode (in
+    intel-ucode/06-8f-07) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-07/0x87 (SPR-SP E4/S2) microcode from revision
+    0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-08/0x87 (SPR-SP E5/S3) microcode (in
+    intel-ucode/06-8f-07) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-04/0x10 microcode (in intel-ucode/06-8f-08) from
+    revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-04/0x87 (SPR-SP E0/S1) microcode (in
+    intel-ucode/06-8f-08) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-05/0x10 (SPR-HBM B1) microcode (in
+    intel-ucode/06-8f-08) from revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-05/0x87 (SPR-SP E2) microcode (in
+    intel-ucode/06-8f-08) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-06/0x10 microcode (in intel-ucode/06-8f-08) from
+    revision 0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-06/0x87 (SPR-SP E3) microcode (in
+    intel-ucode/06-8f-08) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-07/0x87 (SPR-SP E4/S2) microcode (in
+    intel-ucode/06-8f-08) from revision 0x2b000461 up to 0x2b0004b1;
+  - Update of 06-8f-08/0x10 (SPR-HBM B3) microcode from revision
+    0x2c0001d1 up to 0x2c000271;
+  - Update of 06-8f-08/0x87 (SPR-SP E5/S3) microcode from revision
+    0x2b000461 up to 0x2b0004b1;
+  - Update of 06-97-02/0x07 (ADL-HX/S 8+8 C0) microcode from revision
+    0x2c up to 0x2e;
+  - Update of 06-97-05/0x07 (ADL-S 6+0 K0) microcode (in
+    intel-ucode/06-97-02) from revision 0x2c up to 0x2e;
+  - Update of 06-bf-02/0x07 (ADL C0) microcode (in intel-ucode/06-97-02)
+    from revision 0x2c up to 0x2e;
+  - Update of 06-bf-05/0x07 (ADL C0) microcode (in intel-ucode/06-97-02)
+    from revision 0x2c up to 0x2e;
+  - Update of 06-97-02/0x07 (ADL-HX/S 8+8 C0) microcode (in
+    intel-ucode/06-97-05) from revision 0x2c up to 0x2e;
+  - Update of 06-97-05/0x07 (ADL-S 6+0 K0) microcode from revision 0x2c
+    up to 0x2e;
+  - Update of 06-bf-02/0x07 (ADL C0) microcode (in intel-ucode/06-97-05)
+    from revision 0x2c up to 0x2e;
+  - Update of 06-bf-05/0x07 (ADL C0) microcode (in intel-ucode/06-97-05)
+    from revision 0x2c up to 0x2e;
+  - Update of 06-9a-03/0x80 (ADL-P 6+8/U 9W L0/R0) microcode from revision
+    0x42a up to 0x42c;
+  - Update of 06-9a-04/0x80 (ADL-P 2+8 R0) microcode (in
+    intel-ucode/06-9a-03) from revision 0x42a up to 0x42c;
+  - Update of 06-9a-03/0x80 (ADL-P 6+8/U 9W L0/R0) microcode (in
+    intel-ucode/06-9a-04) from revision 0x42a up to 0x42c;
+  - Update of 06-9a-04/0x80 (ADL-P 2+8 R0) microcode from revision 0x42a
+    up to 0x42c;
+  - Update of 06-9e-09/0x2a (KBL-G/H/S/X/Xeon E3 B0) microcode from
+    revision 0xf2 up to 0xf4;
+  - Update of 06-9e-0a/0x22 (CFL-H/S/Xeon E U0) microcode from revision
+    0xf2 up to 0xf4;
+  - Update of 06-9e-0b/0x02 (CFL-E/H/S B0) microcode from revision 0xf2
+    up to 0xf4;
+  - Update of 06-9e-0c/0x22 (CFL-H/S/Xeon E P0) microcode from revision
+    0xf2 up to 0xf4;
+  - Update of 06-9e-0d/0x22 (CFL-H/S/Xeon E R0) microcode from revision
+    0xf8 up to 0xfa;
+  - Update of 06-a5-02/0x20 (CML-H R1) microcode from revision 0xf6 up
+    to 0xf8;
+  - Update of 06-a5-03/0x22 (CML-S 6+2 G1) microcode from revision 0xf6
+    up to 0xf8;
+  - Update of 06-a5-05/0x22 (CML-S 10+2 Q0) microcode from revision 0xf6
+    up to 0xf8;
+  - Update of 06-a6-00/0x80 (CML-U 6+2 A0) microcode from revision 0xf6
+    up to 0xf8;
+  - Update of 06-a6-01/0x80 (CML-U 6+2 v2 K1) microcode from revision
+    0xf6 up to 0xf8;
+  - Update of 06-a7-01/0x02 (RKL-S B0) microcode from revision 0x58 up
+    to 0x59;
+  - Update of 06-b7-01/0x32 (RPL-S B0) microcode from revision 0x113 up
+    to 0x119;
+  - Update of 06-97-02/0x07 (ADL-HX/S 8+8 C0) microcode (in
+    intel-ucode/06-bf-02) from revision 0x2c up to 0x2e;
+  - Update of 06-97-05/0x07 (ADL-S 6+0 K0) microcode (in
+    intel-ucode/06-bf-02) from revision 0x2c up to 0x2e;
+  - Update of 06-bf-02/0x07 (ADL C0) microcode from revision 0x2c up
+    to 0x2e;
+  - Update of 06-bf-05/0x07 (ADL C0) microcode (in intel-ucode/06-bf-02)
+    from revision 0x2c up to 0x2e;
+  - Update of 06-97-02/0x07 (ADL-HX/S 8+8 C0) microcode (in
+    intel-ucode/06-bf-05) from revision 0x2c up to 0x2e;
+  - Update of 06-97-05/0x07 (ADL-S 6+0 K0) microcode (in
+    intel-ucode/06-bf-05) from revision 0x2c up to 0x2e;
+  - Update of 06-bf-02/0x07 (ADL C0) microcode (in intel-ucode/06-bf-05)
+    from revision 0x2c up to 0x2e;
+  - Update of 06-bf-05/0x07 (ADL C0) microcode from revision 0x2c up
+    to 0x2e;
+  - Update of 06-ba-02/0xe0 (RPL-H 6+8/P 6+8 J0) microcode from revision
+    0x4112 up to 0x4119 (old pf 0xc0);
+  - Update of 06-ba-03/0xe0 (RPL-U 2+8 Q0) microcode (in
+    intel-ucode/06-ba-02) from revision 0x4112 up to 0x4119 (old pf 0xc0);
+  - Update of 06-ba-02/0xe0 (RPL-H 6+8/P 6+8 J0) microcode (in
+    intel-ucode/06-ba-03) from revision 0x4112 up to 0x4119 (old pf 0xc0);
+  - Update of 06-ba-03/0xe0 (RPL-U 2+8 Q0) microcode from revision 0x4112
+    up to 0x4119 (old pf 0xc0);
+  - Update of 06-be-00/0x11 (ADL-N A0) microcode from revision 0x10 up
+    to 0x11 (old pf 0x1).
+- Addresses CVE-2022-21216, CVE-2022-40982, CVE-2022-41804, CVE-2023-23908
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.1-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

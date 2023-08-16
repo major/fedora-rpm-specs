@@ -4,7 +4,7 @@
 %global         srcname     awsiotsdk
 
 Name:           python-%{srcname}
-Version:        1.17.0
+Version:        1.18.0
 Release:        %autorelease
 Summary:        AWS IoT SDK based on the AWS Common Runtime
 
@@ -45,7 +45,7 @@ Summary:        %{summary}
 cp %SOURCE1 .
 
 # Allow an older awscrt.
-sed 's/awscrt==0.17.0/awscrt/' -i setup.py
+sed "s/'awscrt==[0-9\.]*'/'awscrt'/" -i setup.py
 
 
 %generate_buildrequires

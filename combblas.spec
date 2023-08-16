@@ -2,11 +2,14 @@
 
 %bcond_without openmpi
 %bcond_without mpich
-%bcond_without check
+
+# Tests are performed really slowly with current version of OpenMPI (4.1.5)
+%bcond_with check
 
 # CTest flags for debugging only
-%bcond_without debug
+%bcond_with debug
 %if %{with debug}
+%global _lto_cflags %{nil}
 %global debug_flags -VV --debug -j1
 %else
 %global debug_flags %{nil}
@@ -14,7 +17,7 @@
 
 Name:          combblas
 Version:       2.0.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD.
@@ -110,21 +113,22 @@ find . -type f -name "*.tcc" -exec chmod 0644 '{}' \;
 %if %{with openmpi}
 %{_openmpi_load}
 mkdir -p build/openmpi
+export LDFLAGS="%{__global_ldflags} -lm -lrt"
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
-%if %{with debug}
-export CFLAGS="-O0 -g -I$MPI_INCLUDE"
-export CXXFLAGS="-O0 -g -I$MPI_INCLUDE"
-%else
-export CFLAGS="%{optflags} -I$MPI_INCLUDE"
-export CXXFLAGS="%{optflags} -I$MPI_INCLUDE"
-%endif
-export LDFLAGS="%{__global_ldflags} -lm -lrt"
 %cmake -B build/openmpi -S ./ -DCMAKE_INSTALL_PREFIX=%{_prefix} \
  -DMPIEXEC_NUMPROC_FLAG=-n -DMPIEXEC_MAX_NUMPROCS:STRING="`/usr/bin/getconf _NPROCESSORS_ONLN`" \
  -DMPI_C_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_C_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
  -DMPI_CXX_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_CXX_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
- -DMPI_LIB:PATH=..$MPI_LIB -DMPI_INCLUDE:PATH=..$MPI_INCLUDE
+ -DMPI_LIB:PATH=..$MPI_LIB -DMPI_INCLUDE:PATH=..$MPI_INCLUDE \
+%if %{with debug}
+ -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
+ -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" \
+ -DCMAKE_C_FLAGS_DEBUG:STRING="-O0 -g -DDEBUG" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-O0 -g -DDEBUG" \
+ -DCMAKE_C_FLAGS_RELEASE:STRING=" " -DCMAKE_CXX_FLAGS_RELEASE:STRING=" "
+%else
+ -DCMAKE_BUILD_TYPE:STRING=Release
+%endif
 
 %make_build -C build/openmpi
 %{_openmpi_unload}
@@ -135,21 +139,21 @@ export LDFLAGS="%{__global_ldflags} -lm -lrt"
 %if %{with mpich}
 %{_mpich_load}
 mkdir -p build/mpich
+export LDFLAGS="%{__global_ldflags} -lm -lrt"
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
-%if %{with debug}
-export CFLAGS="-O0 -g -I$MPI_INCLUDE"
-export CXXFLAGS="-O0 -g -I$MPI_INCLUDE"
-%else
-export CFLAGS="%{optflags} -I$MPI_INCLUDE"
-export CXXFLAGS="%{optflags} -I$MPI_INCLUDE"
-%endif
-export LDFLAGS="%{__global_ldflags} -lm -lrt"
 %cmake -B build/mpich -S ./ -DCMAKE_INSTALL_PREFIX=%{_prefix} \
  -DMPIEXEC_NUMPROC_FLAG=-n -DMPIEXEC_MAX_NUMPROCS:STRING="`/usr/bin/getconf _NPROCESSORS_ONLN`" \
  -DMPI_C_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_C_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
  -DMPI_CXX_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_CXX_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
- -DMPI_LIB:PATH=..$MPI_LIB -DMPI_INCLUDE:PATH=..$MPI_INCLUDE
+ -DMPI_LIB:PATH=..$MPI_LIB -DMPI_INCLUDE:PATH=..$MPI_INCLUDE \
+%if %{with debug}
+ -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
+ -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" \
+ -DCMAKE_C_FLAGS_RELEASE:STRING=" " -DCMAKE_CXX_FLAGS_RELEASE:STRING=" "
+%else
+ -DCMAKE_BUILD_TYPE:STRING=Release
+%endif
 
 %make_build -C build/mpich
 %{_mpich_unload}
@@ -248,6 +252,10 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %endif
 
 %changelog
+* Mon Aug 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-4
+- Disable LTO flags in debug builds
+- Disable tests
+
 * Thu Aug 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-3
 - Debug builds
 

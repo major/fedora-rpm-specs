@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		knights
-Version:	23.07.80
+Version:	23.07.90
 Release:	1%{?dist}
 Summary:	A chess board for KDE
 
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.knights.d
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Mon Aug 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.07.90-1
+- 23.07.90
+
 * Mon Jul 31 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.07.80-1
 - 23.07.80
 

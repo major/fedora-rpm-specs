@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.17.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -25,7 +25,10 @@ Source2:        https://github.com/coreos/coreos-installer-dracut/archive/%{drac
 
 ## RHEL specific patches
 # enable rdcore in default feature set (RHEL macros do not take -f)
-Patch1000:      enable-rdcore.patch
+Patch0:         enable-rdcore.patch
+
+# https://github.com/coreos/coreos-installer/pull/1264
+Patch1:         0001-signing-keys-add-Fedora-40-key.patch
 
 ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel}
@@ -177,6 +180,9 @@ from the initramfs in IoT/Edge and is supported by the community.
 %endif
 
 %changelog
+* Mon Aug 14 2023 Aashish Radhakrishnan <aaradhak@redhat.com> - 0.17.0-5
+- Backport patch that adds F40 signing key
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

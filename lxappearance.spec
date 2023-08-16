@@ -1,56 +1,56 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=442269
 
-%global	use_release	0
-%global	use_git		0
-%global	use_gitbare 	1
+%global		use_release	0
+%global		use_git		0
+%global		use_gitbare	1
 
 %if 0%{?use_git} < 1
 %if 0%{?use_gitbare} < 1
 # force
-%global	use_release 	1
+%global		use_release	1
 %endif
 %endif
+
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global	gittardate	20210321
-%global	gittartime	2042
-%global	gitbaredate	20200807
-%global	git_rev	d132fdd829b1ed080f4c82a53b71d7e88dda8cc2
-%global	git_short	%(echo %{git_rev} | cut -c-8)
-%global	git_version	D%{gitbaredate}git%{git_short}
+%global		gittardate		20230814
+%global		gittartime		1421
+
+%global		gitbaredate	20230801
+%global		git_rev		8e634d03ac8f499358bfc09435b065d6b7060a96
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{gitbaredate}git%{git_short}
 %endif
 
-%global	baserelease 14
-
-%if 0%{?use_release} >= 1
-%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
-%endif
-%if 0%{?use_gitbare} >= 1
-%global         fedorarel   %{baserelease}.%{git_version}
-%endif
  
-Name:           lxappearance
-Version:        0.6.3
-Release:        %{fedorarel}%{?dist}
-Summary:        Feature-rich GTK+ theme switcher for LXDE
+%if 0%{?use_git} || 0%{?use_gitbare}
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
+%endif
 
-License:        GPLv2+
-URL:            http://lxde.org/
-#VCS: git:git://lxde.git.sourceforge.net/gitroot/lxde/lxappearance
+
+%global		main_version	0.6.3
+
+Name:			lxappearance
+Version:		%{main_version}%{git_ver_rpm}
+Release:		1%{?dist}
+Summary:		Feature-rich GTK+ theme switcher for LXDE
+
+# SPDX confirmed
+License:		GPL-2.0-or-later
+URL:			http://lxde.org/
 %if 0%{?use_gitbare}
-Source0:        %{name}-%{gittardate}T%{gittartime}.tar.gz
+Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 %endif
 %if 0%{?use_git}
-Source0:        %{name}-%{version}-%{?git_version}.tar.bz2
+Source0:		%{name}-%{main_version}-%{?git_version}.tar.bz2
 %endif
 %if 0%{?use_release}
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{main_version}.tar.xz
 %endif
-# https://github.com/lxde/lxappearance/pull/3
-Patch1:         lxappearance-0.6.3-0001-load_icon_themes_from_dir-never-reuse-GKeyFile-objec.patch
-# https://sourceforge.net/p/lxde/bugs/866/
-# https://github.com/lxde/lxappearance/pull/4
-Patch2:         lxappearance-0.6.3-0002-on_remove_theme_clicked-initialize-both-variable-cor.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -63,11 +63,11 @@ BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  docbook-utils
 BuildRequires:  docbook-style-xsl
-BuildRequires:  %{_bindir}/xsltproc
+BuildRequires:  /usr/bin/xsltproc
 
 BuildRequires:  automake
 BuildRequires:  autoconf
-BuildRequires:  %{_bindir}/git
+BuildRequires:  /usr/bin/git
 
 Requires:       lxsession >= 0.4.0
 
@@ -91,18 +91,18 @@ for LXAppearance.
 
 %prep
 %if 0%{?use_release}
-%setup -q
+%setup -q -n %{name}-%{main_version}%{git_builddir}
 
 git init
 %endif
 
 %if 0%{?use_gitbare}
-%setup -q -c -T -a 0
+%setup -q -c -T  -n %{name}-%{main_version}%{git_builddir} -a 0
 git clone ./%{name}.git/
 cd %{name}
 
 #git checkout -b %{version}-fedora %{version}
-git checkout -b %{version}-fedora %{git_rev}
+git checkout -b %{main_version}-fedora %{git_rev}
 cp -a [A-Z]* ..
 cp -a data/ ..
 
@@ -111,22 +111,23 @@ EOF
 
 cat GITHASH | while read line
 do
-  commit=$(echo "$line" | sed -e 's|[ \t].*||')
-  git cherry-pick $commit
+	commit=$(echo "$line" | sed -e 's|[ \t].*||')
+	git cherry-pick $commit
 done
 
 %endif
 
 git config user.name "lxpanel Fedora maintainer"
-git config user.email "lxpanel-owner@fedoraproject.org"
+git config user.email "lxpanel-maintainers@fedoraproject.org"
 
 %if 0%{?use_release}
 git add .
 git commit -m "base" -q
 %endif
 
-cat %PATCH1 | git am
-cat %PATCH2 | git am
+# For GTK-2 compilation, workaround
+sed -i src/lxappearance.c \
+	-e 's|GDK_IS_X11_DISPLAY|GDK_IS_DISPLAY|'
 
 sh autogen.sh
 
@@ -139,6 +140,9 @@ pushd %{name}
 %configure \
 	--disable-silent-rules \
 	--enable-man \
+%if 0
+	--enable-gtk3 \
+%endif
 	%{nil}
 %make_build
 
@@ -148,13 +152,7 @@ pushd %{name}
 pushd %{name}
 %endif
 
-rm -rf %{buildroot}
 %make_install
-
-desktop-file-install \
-    --delete-original \
-    --dir=%{buildroot}%{_datadir}/applications \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %if 0%{?use_gitbare}
 popd
@@ -162,20 +160,28 @@ popd
 
 %find_lang %{name}
 
-%files -f %{name}.lang
-%doc AUTHORS
-%license COPYING
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+%files	-f %{name}.lang
+%doc		AUTHORS
+%license	COPYING
+
 %{_bindir}/%{name}
 %{_datadir}/applications/*%{name}.desktop
-%{_datadir}/%{name}/
+%dir	%{_datadir}/%{name}/
+%{_datadir}/%{name}/ui/
 %{_mandir}/man1/%{name}*.1.*
 
-%files devel
+%files	devel
 %{_includedir}/%{name}/
 %{_libdir}/pkgconfig/%{name}.pc
 
 
 %changelog
+* Mon Aug 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.3^20230801git8e634d03-1
+- Update to the latest git
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-14.D20200807gitd132fdd8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1677
+%define patchlevel 1712
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -50,7 +50,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 4%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -98,13 +98,6 @@ Patch3003: vim-python3-tests.patch
 Patch3004: vim-crypto-warning.patch
 # don't ever set mouse (Fedora downstream patch)
 Patch3005: vim-8.0-copy-paste.patch
-# https://github.com/vim/vim/pull/12660
-Patch3006: 0001-if_python3.c-Fix-building-dynamic-Python3-interprete.patch
-# https://github.com/vim/vim/pull/12575 + https://github.com/vim/vim/pull/12575#issuecomment-1634226250
-Patch3007: perl538.patch
-# fix python syntax warnings which make test suite fail
-# reported upstream https://github.com/vim/vim/pull/12765
-Patch3008: vim-pysyntaxwarn.patch
 
 
 # uses autoconf in spec file
@@ -415,9 +408,6 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %patch -P 3003 -p1 -b .python-tests
 %patch -P 3004 -p1 -b .fips-warning
 %patch -P 3005 -p1 -b .copypaste
-%patch -P 3006 -p1 -b .python312
-%patch -P 3007 -p1 -b .perl538
-%patch -P 3008 -p1 -b .pysyntaxwarn
 
 %build
 cd src
@@ -1040,6 +1030,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Mon Aug 14 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1712-1
+- patchlevel 1712
+
 * Fri Aug 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1677-4
 - fix test suite from python3 syntax warnings
 

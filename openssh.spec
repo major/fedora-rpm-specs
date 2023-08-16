@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.3p1
-%global openssh_rel 8
+%global openssh_rel 9
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 9
 
@@ -741,6 +741,11 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Thu Aug 03 2023 Norbert Pocs <npocs@redhat.com> - 9.3p1-9
+- pkcs11: Add support for 'serial' in PKCS#11 URI
+- Apply the upstream MR related to the previous pkcs11 issue
+- https://github.com/openssh/openssh-portable/pull/406
+
 * Thu Aug 03 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-8
 - Split including crypto-policies to a separate config (rhbz#1970566)
 - Disable forking of ssh-agent on startup (rhbz#2148555)

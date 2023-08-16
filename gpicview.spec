@@ -1,24 +1,64 @@
-Name:           gpicview
-Version:        0.2.5
-Release:        18%{?dist}
-Summary:        Simple and fast Image Viewer for X
+%global		use_release	0
+%global		use_gitbare	1
 
-License:        GPLv2+
-URL:            http://lxde.sourceforge.net/gpicview/
-Source0:        http://downloads.sourceforge.net/lxde/%{name}-%{version}.tar.xz
-
-BuildRequires:  gcc
-BuildRequires:  gettext
-BuildRequires:  intltool
-%if 0%{?fedora} >= 37
-BuildRequires:  pkgconfig(gtk+-3.0)
-%else
-BuildRequires:  pkgconfig(gtk+-2.0)
+%if 0%{?use_gitbare} < 1
+# force
+%global		use_release	1
 %endif
-BuildRequires:  libjpeg-devel
-BuildRequires:  desktop-file-utils
-BuildRequires:  make
-Requires:       xdg-utils
+
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
+
+%if 0%{?use_gitbare}
+%global		gittardate		20230814
+%global		gittartime		1835
+
+%global		gitbaredate	20230802
+%global		git_rev		1c0c9211999696da4709ec26eff9486459e7bf9c
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{gitbaredate}git%{git_short}
+%endif
+
+%if 0%{?use_git} || 0%{?use_gitbare}
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
+%endif
+
+
+%global		main_version	0.2.5
+
+Name:			gpicview
+Version:		%{main_version}%{git_ver_rpm}
+Release:		1%{?dist}
+Summary:		Simple and fast Image Viewer for X
+
+# SPDX confirmed
+License:		GPL-2.0-or-later
+URL:			http://lxde.sourceforge.net/gpicview/
+%if 0%{?use_gitbare}
+Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
+%endif
+%if 0%{?use_release}
+Source0:		http://downloads.sourceforge.net/lxde/%{name}-%{version}.tar.xz
+%endif
+Source101:		create-gpicview-git-bare-tarball.sh
+
+BuildRequires:	make
+BuildRequires:	gcc
+BuildRequires:	gettext
+BuildRequires:	intltool
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	libjpeg-devel
+BuildRequires:	desktop-file-utils
+
+%if 0%{?use_gitbare}
+BuildRequires:	automake
+BuildRequires:	libtool
+%endif
+BuildRequires:	git
+
+Requires:		/usr/bin/xdg-mime
 
 %description
 Gpicview is an simple and image viewer with a simple and intuitive interface.
@@ -28,38 +68,77 @@ developed as the primary image viewer of LXDE, the Lightweight X11 Desktop
 Environment, it only requires GTK+ and can be used in any desktop environment.
 
 %prep
-%setup -q
+%if 0%{?use_release}
+%setup -q -n %{name}-%{main_version}%{git_builddir}
+
+git init
+%endif
+
+%if 0%{?use_gitbare}
+%setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
+git clone ./%{name}.git/
+cd %{name}
+
+git checkout -b %{main_version}-fedora %{git_rev}
+cp -a [A-Z]* ..
+%endif
+
+git config user.name "gpicview Fedora maintainer"
+git config user.email "gpicview-maintainers@fedoraproject.org"
+
+%if 0%{?use_release}
+git add .
+git commit -m "base" -q
+%endif
+
 
 %build
-%configure \
-%if 0%{?fedora} >= 37
-	--enable-gtk3 \
+%if 0%{?use_gitbare}
+cd %{name}
+bash autogen.sh
 %endif
+
+%configure \
+	--enable-gtk3 \
 	--disable-silent-rules \
 	%{nil}
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%if 0%{?use_gitbare}
+cd %{name}
+%endif
 
-desktop-file-install --delete-original      \
-  --dir=${RPM_BUILD_ROOT}%{_datadir}/applications               \
-  --remove-category=Application                                 \
-  --remove-category=Utility                                     \
-  --remove-category=Photography                                 \
-   $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
+%make_install
+desktop-file-install \
+	--delete-original \
+	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
+	--remove-category=Application \
+	--remove-category=Utility \
+	--remove-category=Photography \
+	$RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
+
+%if 0%{?use_gitbare}
+cd ..
+%endif
 
 %find_lang %{name}
 
 %files -f %{name}.lang
-%doc COPYING AUTHORS
+%license	COPYING
+%doc	AUTHORS
+
 %{_bindir}/gpicview
 %{_datadir}/applications/*gpicview.desktop
-%{_datadir}/gpicview/
+%dir	%{_datadir}/gpicview/
+%{_datadir}/gpicview/pixmaps/
+%{_datadir}/gpicview/ui/
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Mon Aug 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.5^20230802git1c0c9211-1
+- Update to the latest git
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

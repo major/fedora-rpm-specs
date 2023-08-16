@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit d71265e00b14d67d5df685484975fc66ec340804
+%global commit 77e7428bf98c645389b8efaf61a2c3ed6e2441d8
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.24
+Version: 38.25
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,28 @@ exit 0
 %endif
 
 %changelog
+* Fri Aug 11 2023 Zdenek Pytela <zpytela@redhat.com> - 38.25-1
+- ci: Move srpm/rpm build to packit
+- .copr: Avoid subshell and changing directory
+- Allow gpsd, oddjob and oddjob_mkhomedir_t write user_tty_device_t chr_file
+- Label /usr/libexec/openssh/ssh-pkcs11-helper with ssh_agent_exec_t
+- Make insights_client_t an unconfined domain
+- Allow insights-client manage user temporary files
+- Allow insights-client create all rpm logs with a correct label
+- Allow insights-client manage generic logs
+- Allow cloud_init create dhclient var files and init_t manage net_conf_t
+- Allow insights-client read and write cluster tmpfs files
+- Allow ipsec read nsfs files
+- Make tuned work with mls policy
+- Remove nsplugin_role from mozilla.if
+- allow mon_procd_t self:cap_userns sys_ptrace
+- Allow pdns name_bind and name_connect all ports
+- Set the MLS range of fsdaemon_t to s0 - mls_systemhigh
+- ci: Move to actions/checkout@v3 version
+- .copr: Replace chown call with standard workflow safe.directory setting
+- .copr: Enable `set -u` for robustness
+- .copr: Simplify root directory variable
+
 * Fri Aug 04 2023 Zdenek Pytela <zpytela@redhat.com> - 38.24-1
 - Allow rhsmcertd dbus chat with policykit
 - Allow polkitd execute pkla-check-authorization with nnp transition

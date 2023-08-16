@@ -1,5 +1,5 @@
 Name:           python-cfgv
-Version:        3.3.1
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Validate configuration and produce human readable error messages
 

@@ -1,56 +1,55 @@
-%if (0%{?fedora} && 0%{?fedora} < 19)
-%global with_desktop_vendor_tag 1
-%endif
-
-%global         use_release	1
-%global         use_gitbare 	0
+%global		use_release	0
+%global		use_gitbare	1
 
 %if 0%{?use_gitbare} < 1
 # force
-%global         use_release 	1
+%global		use_release	1
 %endif
 
-%global         mainver     1.3.2
-%undefine         prever
-%global         prerpmver    %(echo "%{?prever}" | sed -e 's|-||g')
+%global		main_version	1.3.2
+%undefine		prever
+%global		prerpmver		%(echo "%{?prever}" | sed -e 's|-||g')
 
 # Upstream git:
 # git://pcmanfm.git.sourceforge.net/gitroot/pcmanfm/pcmanfm
 
-%global         baserelease     2
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare} >= 1
-%global         gitbaredate	20210203
-%global         gitbaretime	1528
-%global         githeaddate	20210203
-%global         git_rev	31394e55a68a079da94e5c521846913898c5e259
-%global         git_short	%(echo %{git_rev} | cut -c-8)
-%global         git_version	D%{githeaddate}git%{git_short}
+%global		gitbaredate	20230814
+%global		gitbaretime	1207
+
+%global		githeaddate	20230807
+%global		git_rev		752d11b7162e2288b6cd5330b13b8ddfdfeceffd
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{githeaddate}git%{git_short}
 %endif
 
-%if 0%{?use_gitbare} >= 1
-%global         fedorarel   %{baserelease}.%{git_version}
-%endif
-%if 0%{?use_release} >= 1
-%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
-%endif
 
-%global	libfm_minver	1.2.0
+%global		libfm_minver	1.2.0
 
-%undefine        _changelog_trimtime
+%undefine		_changelog_trimtime
+
+%if 0%{?use_git} || 0%{?use_gitbare}
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
+%endif
 
 Name:		pcmanfm
-Version:	%{mainver}
-Release:	%{fedorarel}%{?dist}
+Version:	%{main_version}%{git_ver_rpm}
+Release:	1%{?dist}
 Summary:	Extremly fast and lightweight file manager
 
-License:	GPLv2+
+# SPDX confirmed
+License:	GPL-2.0-or-later
 URL:		http://pcmanfm.sourceforge.net/
 %if 0%{?use_gitbare} >= 1
-Source0:		%{name}-%{gitbaredate}T%{gitbaretime}.tar.gz
+Source0:	%{name}-%{gitbaredate}T%{gitbaretime}.tar.gz
 %endif
 %if 0%{?use_release} >= 1
-Source0:	http://downloads.sourceforge.net/pcmanfm/%{name}-%{mainver}%{?prever}.tar.xz
+Source0:	http://downloads.sourceforge.net/pcmanfm/%{name}-%{main_version}%{?prever}.tar.xz
 %endif
 ## Missing in the tarball, taken from git tree
 #Source1:	pcmanfm.conf
@@ -69,8 +68,8 @@ Patch104:	pcmanfm-0104-Finish-implementation-of-inserting-new-monitor.patch
 # connect_model: connect to signal before setting folder for model
 Patch202:	pcmanfm-0202-connect_model-connect-to-signal-before-setting-folde.patch
 
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:	make
+BuildRequires:	gcc
 BuildRequires:	libfm-gtk-devel >= %{libfm_minver}
 BuildRequires:	menu-cache-devel
 
@@ -89,7 +88,7 @@ BuildRequires:	git
 #BuildRequires:	automake
 
 # Request for now
-Requires:			libfm-gtk-utils
+Requires:		libfm-gtk-utils
 
 # Write explicitly
 Requires:	libfm >= %{libfm_minver}
@@ -98,9 +97,9 @@ Requires:	libfm >= %{libfm_minver}
 PCMan File Manager is an extremly fast and lightweight file manager 
 which features tabbed browsing and user-friendly interface.
 
-%package			devel
-Summary:			Development files for %{name}
-Requires:			%{name}%{?_isa} = %{version}-%{release}
+%package		devel
+Summary:		Development files for %{name}
+Requires:		%{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -108,19 +107,19 @@ developing applications that use %{name}.
 
 %prep
 %if 0%{?use_release}
-%setup -q -n %{name}-%{version}%{?prever}
+%setup -q -n %{name}-%{main_version}%{?prever}%{git_builddir}
 #install -cpm 644 %{SOURCE1} %{SOURCE2} data/
 
 git init
 %endif
 
 %if 0%{?use_gitbare}
-%setup -q -c -T -a 0
+%setup -q -c -T -n %{name}-%{main_version}%{?prever}%{git_builddir}%{?prever} -a 0
 git clone ./%{name}.git/
 cd %{name}
 
 #git checkout -b %{version}-fedora %{version}
-git checkout -b %{version}-fedora %{git_rev}
+git checkout -b %{main_version}-fedora %{git_rev}
 install -cpm 0644  [A-Z]* ..
 %endif
 
@@ -177,9 +176,6 @@ make install \
 	INSTALL="install -p"
 
 desktop-file-install \
-%if 0%{?with_desktop_vendor_tag}
-        --vendor fedora \
-%endif
 	--delete-original \
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications \
 	--remove-category 'Application' \
@@ -196,14 +192,15 @@ cd ..
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc	AUTHORS
-%doc	COPYING
+%license	COPYING
 %doc	README
 
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 %{_libdir}/%{name}/
-%{_datadir}/%{name}/
+%dir	%{_datadir}/%{name}/
+%{_datadir}/%{name}/ui/
 %{_datadir}/applications/*%{name}*.desktop
 %config(noreplace) %{_sysconfdir}/xdg/%{name}/
 
@@ -211,6 +208,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Mon Aug 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20230807git752d11b7-1
+- Update to the latest git
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

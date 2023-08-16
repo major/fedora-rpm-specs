@@ -94,7 +94,7 @@ python3 setup.py compile_catalog -d build/lib/oslo_i18n/locale --domain oslo_i18
 %{py3_install}
 
 %if 0%{?with_doc}
-python3 setup.py build_sphinx --build-dir . -b html
+sphinx-build -b html doc/source html
 # remove the sphinx-build-3 leftovers
 rm -rf html/.{doctrees,buildinfo}
 

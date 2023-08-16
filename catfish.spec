@@ -1,25 +1,23 @@
 %define BothRequires() \
-Requires:       %1 \
-BuildRequires:  %1 \
+Requires:		%1 \
+BuildRequires:	%1 \
 %{nil}
 
-%global		native_wayland	0
-%if 0%{?fedora} >= 35
 %global		native_wayland	1
-%endif
 
-%global		majorver	4.16
-%define		mainver		4.16.4
+%global		majorver		4.18
+%define		mainver		4.18.0
 %undefine		betaver		
 
-%define		fedoraver	1
+%define		baserelease		1
 
 Name:		catfish
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betaver}%{?dist}.3
+Release:	%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}%{?dist}
 Summary:	A handy file search tool
 
-License:	GPLv2+
+# SPDX confirmed
+License:	GPL-2.0-only
 URL:		https://docs.xfce.org/apps/catfish/start
 Source0:	https://archive.xfce.org/src/apps/catfish/%{majorver}/catfish-%{version}%{?betaver}.tar.bz2
 BuildArch:	noarch
@@ -31,7 +29,7 @@ BuildRequires:	intltool
 BuildRequires:	python3-devel
 BuildRequires:	python3-distutils-extra
 BuildRequires:	python3-setuptools
-BuildRequires:	%{_bindir}/appstream-util
+BuildRequires:	/usr/bin/appstream-util
 
 # python module
 %BothRequires	python3-gobject
@@ -175,6 +173,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Mon Aug 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.18.0-1
+- 4.18.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.4-1.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -287,7 +288,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 - 1.4.5
 
 * Fri Feb 16 2018 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.4-2
-- spec file craft: move %%description out of %_fedora scope
+- spec file craft: move %%description out of %%_fedora scope
 
 * Fri Feb 16 2018 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.4-1
 - 1.4.4

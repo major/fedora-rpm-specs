@@ -1,52 +1,57 @@
 Name:           perl-ORLite
 Summary:        Extremely light weight SQLite-specific ORM
-Version:        1.98
-Release:        33%{?dist}
+Version:        1.99
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/ORLite-%{version}.tar.gz 
-URL:            https://metacpan.org/release/ORLite
-# Update tests to work for SQLite 3.15 and later CPAN RT#118460
-Patch0:         ORLite-1.98-sqlite-vacuum.patch
+Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/ORLite-%{version}.tar.gz
 # Update tests to work for SQLite 3.38 and later CPAN RT#140748
-Patch1:         ORLite-1.98-sqlite-case-insensitive.patch
-# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148290
-Patch2:         ORLite-1.98-Remove-using-of-MI-DSL.patch
+Patch0:         ORLite-1.99-sqlite-case-insensitive.patch
+# Fix various test regressions in ORLite-1.99, CPAN RT#149414,
+# proposed to an upstream
+Patch1:         ORLite-1.99-Fix-various-tests-regression-in-1.99.patch
+# Normalize shebangs, not suitable for the upstream
+Patch2:         ORLite-1.99-Normalize-shebangs.patch
+URL:            https://metacpan.org/release/ORLite
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(inc::Module::Install)
-BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  perl(Module::Install::With)
-BuildRequires:  perl(Module::Install::WriteAll)
+BuildRequires:  perl(:VERSION) >= 5.14
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(DBD::SQLite) >= 1.27
 BuildRequires:  perl(DBI) >= 1.607
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Path) >= 2.08
-BuildRequires:  perl(File::Remove) >= 1.40
+BuildRequires:  perl(File::Remove)
 BuildRequires:  perl(File::Spec) >= 0.80
-BuildRequires:  perl(File::Temp) >= 0.20
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Params::Util) >= 1.00
-BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
-# Optional, test it while building
+# Optional run-time, test it while building
 BuildRequires:  perl(Class::XSAccessor) >= 1.05
 BuildRequires:  perl(Class::XSAccessor::Array) >= 1.05
 # Tests
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Deep)
-BuildRequires:  perl(Test::More) >= 0.47
-BuildRequires:  perl(Test::Script) >= 1.06
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::Script)
 BuildRequires:  perl(utf8)
-Requires:       perl(File::Remove) >= 1.40
-Requires:       perl(File::Temp) >= 0.20
+BuildRequires:  perl(vars)
+# Optional tests
+# CPAN::Meta and CPAN::Meta::Prereqs are not helpful
+Requires:       perl(File::Remove)
+Requires:       perl(File::Temp)
 
 %{?perl_default_filter}
+# Hide private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(LocalTest\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((LocalTest|t::lib::TableOne)\\)
 
 %description
 SQLite is a light weight single file SQL database that provides
@@ -66,15 +71,24 @@ for SQLite that follows many of the same principles as the ::Tiny
 series of modules and has a design that aligns directly to the capabilities
 of SQLite.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl-Test-Harness
+Requires:       perl(Class::XSAccessor) >= 1.05
+Requires:       perl(Class::XSAccessor::Array) >= 1.05
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n ORLite-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-# Remove bundled installation scripts
-rm -rf inc
-perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
-find -type f -exec chmod -x {} +
+%autosetup -p1 -n ORLite-%{version}
+# Correct permissions
+chmod a+x t/*.t t/08_prune.pl
+# Correct end of lines
+perl -i -pe 's/\r\n$/\n/' t/08_prune.pl
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -83,17 +97,42 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Many tests write into CWD, or just open an existing database read-write.
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+unset AUTHOR_TESTING
+prove
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset AUTHOR_TESTING
+# Not parallel safe
 make test
 
 %files
 %license LICENSE
-%doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes CONTRIBUTING README
+%{perl_vendorlib}/ORLite.pm
+%{_mandir}/man3/ORLite.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 14 2023 Petr Pisar <ppisar@redhat.com> - 1.99-1
+- 1.99 bump
+- Package the tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.98-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

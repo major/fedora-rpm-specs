@@ -1,5 +1,5 @@
 Name:           wl-mirror
-Version:        0.13.1
+Version:        0.13.2
 Release:        %autorelease
 Summary:        Simple Wayland output mirror client
 
@@ -17,7 +17,8 @@ BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-egl)
-BuildRequires:  scdoc
+BuildRequires:  pkgconfig(wayland-scanner)
+BuildRequires:  pkgconfig(scdoc)
 BuildRequires:  wayland-protocols-devel
 
 # wlr-protocols may have different licenses, but it does not affect

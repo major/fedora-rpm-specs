@@ -1,7 +1,7 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
 Version:        5.8.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
@@ -12,7 +12,7 @@ Patch1:         Don-t-scale-text-size-when-zooming.patch
 ExcludeArch:   %{ix86}
 
 Requires:       redhat-menus
-Requires:       gvfs%{?_isa}
+Requires:       gvfs-fuse%{?_isa}
 Requires:       gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
 # required for for gtk-stock fallback
@@ -149,6 +149,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Mon Aug 14 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-3
+- Add requires gvfs-fuse
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

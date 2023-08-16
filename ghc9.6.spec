@@ -29,7 +29,7 @@
 
 # bootstrap needs 9.2+
 %global ghcboot_major 9.2
-%global ghcboot ghc%{ghcboot_major}
+%global ghcboot ghc%{?ghcboot_major}
 
 # make sure ghc libraries' ABI hashes unchanged
 %bcond_with abicheck
@@ -82,6 +82,9 @@ Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 # distutils gone in python 3.12
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922
 Patch10: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23707
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085
+Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085.patch
 
 # arm patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
@@ -97,6 +100,8 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 #Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
+
+Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -385,6 +390,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P8 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
 %patch -P10 -p1 -b .orig
+%patch -P11 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -404,6 +410,11 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 
+#sphinx 7
+%if 0%{?fedora} >= 30
+%patch -P30 -p1 -b .orig
+%endif
+
 
 %build
 # patch5 and patch12
@@ -417,7 +428,7 @@ export CC=%{_bindir}/gcc
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22195
 export LD=%{_bindir}/ld.gold
 
-export GHC=%{_bindir}/ghc-%{ghcboot_major}
+export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
 # * %%configure induces cross-build due to different target/host/build platform names
 ./configure --prefix=%{_prefix} --exec-prefix=%{_exec_prefix} \
@@ -576,8 +587,6 @@ install -p -m 0644 %{SOURCE7} %{buildroot}%{_mandir}/man1/runghc.1
 %if %{with manual}
 rm %{buildroot}%{_pkgdocdir}/archives/Haddock.html.tar.xz
 rm %{buildroot}%{_pkgdocdir}/archives/users_guide.html.tar.xz
-# https://gitlab.haskell.org/ghc/ghc/-/issues/23707
-rm %{buildroot}%{_ghc_doc_dir}/users_guide/build-man/ghc.1
 mv %{buildroot}%{_mandir}/man1/ghc{,-%{ghc_major}}.1
 %endif
 

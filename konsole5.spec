@@ -108,6 +108,7 @@ Summary: Konsole5 kpart plugin
 
 %build
 %cmake_kf5 \
+  %{?flatpak:-DINSTALL_ICONS:BOOL=ON} \
   %{?tests:-DBUILD_TESTING:BOOL=ON}
 
 %cmake_build
@@ -156,6 +157,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 %{_kf5_libdir}/kconf_update_bin/konsole_globalaccel
 %{_kf5_libdir}/kconf_update_bin/konsole_show_menubar
 %{_kf5_metainfodir}/org.kde.konsole.appdata.xml
+%if 0%{?flatpak}
+%{_kf5_datadir}/icons/hicolor/*/apps/utilities-terminal.*
+%endif
 
 %ldconfig_scriptlets part
 

@@ -9,8 +9,8 @@
 %endif
 
 Name:           xtb
-Version:        6.6.0
-Release:        2%{?dist}
+Version:        6.6.1
+Release:        1%{?dist}
 Summary:        Semiempirical Extended Tight-Binding Program Package
 License:        LGPLv3+
 URL:            https://github.com/grimme-lab/xtb/
@@ -20,8 +20,6 @@ Source0:        https://github.com/grimme-lab/xtb/archive/v%{version}/xtb-%{vers
 Patch0:         xtb-6.5.1-fedora.patch
 # Add sanity checks to environment variables, https://github.com/grimme-lab/xtb/pull/317
 Patch4:         xtb-6.3.2-environment.patch
-# Restore support for custom lapack backend, https://github.com/grimme-lab/xtb/pull/785
-Patch5:         xtb-6.6.0-meson.patch
 
 BuildRequires:  gcc-gfortran
 BuildRequires:  meson
@@ -70,9 +68,8 @@ This package contains development headers for xtb.
 
 %prep
 %setup -q
-%patch0 -p1 -b .fedoraver
-%patch4 -p1 -b .env
-%patch5 -p1 -b .lapack
+%patch 0 -p1 -b .fedoraver
+%patch 4 -p1 -b .env
 
 %build
 export FFLAGS="%{optflags} -I%{_fmoddir} -fPIC"
@@ -135,6 +132,9 @@ export OMP_NUM_THREADS=1
 %{_libdir}/pkgconfig/xtb.pc
 
 %changelog
+* Mon Aug 14 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.6.1-1
+- Update to 6.6.1.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

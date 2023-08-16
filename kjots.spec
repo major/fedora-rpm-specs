@@ -3,7 +3,7 @@
 Name:           kjots
 Summary:        KDE Notes application
 Version:        5.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2
 URL:            https://userbase.kde.org/KJots
 
@@ -14,8 +14,6 @@ URL:            https://userbase.kde.org/KJots
 %global stable stable
 %endif
 Source0:        https://download.kde.org/%{stable}/%{name}/%{version}/src/%{name}-%{version}.tar.xz
-# upstream changes for compatibility with latest Akonadi/KPIM libraries
-Patch0:         kjots-akonadi-update.patch
 
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
@@ -23,27 +21,29 @@ Patch0:         kjots-akonadi-update.patch
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  extra-cmake-modules
 
-BuildRequires:  cmake(KF5KCMUtils)
-BuildRequires:  cmake(KF5KIO)
+# KDE Frameworks:
+BuildRequires:  cmake(KF5Bookmarks)
 BuildRequires:  cmake(KF5Config)
 BuildRequires:  cmake(KF5ConfigWidgets)
+BuildRequires:  cmake(KF5KCMUtils)
+BuildRequires:  cmake(KF5KIO)
 BuildRequires:  cmake(KF5Parts)
-BuildRequires:  cmake(KF5Bookmarks)
 BuildRequires:  cmake(KF5XmlGui)
 
+# KDE PIM
 BuildRequires:  cmake(KF5Akonadi)
-BuildRequires:  cmake(KF5Mime)
 BuildRequires:  cmake(KF5AkonadiNotes)
-BuildRequires:  cmake(KF5PimTextEdit)
 BuildRequires:  cmake(KF5KontactInterface)
+BuildRequires:  cmake(KF5Mime)
+BuildRequires:  cmake(KF5PimTextEdit)
 BuildRequires:  cmake(KF5TextEditTextToSpeech)
-
 
 BuildRequires:  cmake(Grantlee5)
 
 # xsltproc
 BuildRequires:  libxslt
 
+# Checks:
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
@@ -74,28 +74,26 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.k
 
 
 %files -f kjots.lang
-%license COPYING COPYING.LIB
 %doc README
+%license LICENSES/*
 %{_kf5_bindir}/kjots
-%{_kf5_qtplugindir}/kjotspart.so
-%{_kf5_qtplugindir}/kcm_kjots.so
-%{_kf5_qtplugindir}/kontact5/kontact_kjotsplugin.so
-%dir %{_kf5_datadir}/kontact/
-%dir %{_kf5_datadir}/kontact/ksettingsdialog/
-%{_kf5_datadir}/kontact/ksettingsdialog/kjots.setdlg
-%{_kf5_datadir}/kservices5/kjotspart.desktop
-%{_kf5_datadir}/kservices5/kjots_config_misc.desktop
-%dir %{_kf5_datadir}/kservices5/kontact/
-%{_kf5_datadir}/kservices5/kontact/kjotsplugin.desktop
 %{_kf5_datadir}/applications/org.kde.kjots.desktop
-%{_kf5_metainfodir}/org.kde.kjots.appdata.xml
+%{_kf5_datadir}/config.kcfg/kjots.kcfg
 %{_kf5_datadir}/icons/hicolor/*/apps/kjots.*
 %{_kf5_datadir}/kjots/
+%{_kf5_datadir}/kservices5/kjots_config_misc.desktop
+%{_kf5_datadir}/kservices5/kjotspart.desktop
 %{_kf5_datadir}/kxmlgui5/kjots/
-%{_kf5_datadir}/config.kcfg/kjots.kcfg
+%{_kf5_metainfodir}/org.kde.kjots.appdata.xml
+%{_kf5_qtplugindir}/kcm_kjots.so
+%{_kf5_qtplugindir}/kjotspart.so
+%{_kf5_qtplugindir}/pim5/kontact/kontact_kjotsplugin.so
 
 
 %changelog
+* Mon Aug 14 2023 Justin Zobel <justin.zobel@gmail.com> - 5.1.1-2
+- Fix 5.1.1 build, remove patch and fix file paths
+
 * Wed Jul 26 2023 Justin Zobel <justin.zobel@gmail.com> - 5.1.1-1
 - Update to 5.1.1
 

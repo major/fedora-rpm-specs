@@ -120,6 +120,8 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 %check
 export PYTHON=%{__python3}
+# A unit test fails because of a warning thrown from keystoneauth
+export PYTHONWARNINGS=ignore::DeprecationWarning
 PYTHONPATH=. %{__python3} setup.py test
 
 

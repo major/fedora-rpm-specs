@@ -28,6 +28,8 @@ Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstr
 # is available in uc tag.
 Patch0001:      0001-Use-project-when-logging-the-user-identity.patch
 %endif
+# Fixed required for python 3.12 https://review.opendev.org/c/openstack/oslo.log/+/890917
+Patch0002:      0001-Catch-RuntimeError-when-loading-log-config-file.patch
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz.asc

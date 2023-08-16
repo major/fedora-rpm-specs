@@ -6,7 +6,7 @@ continuous integration and releasing new versions of your software simply by
 creating a tag.}
 
 Name:           python-dunamai
-Version:        1.17.0
+Version:        1.18.0
 Release:        %{autorelease}
 Summary:        Dynamic version generation
 
@@ -14,8 +14,6 @@ Summary:        Dynamic version generation
 License:        MIT
 URL:            https://pypi.org/pypi/dunamai
 Source0:        https://github.com/mtkennerly/dunamai/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Man pages hand-written for Fedora in groff_man(7) format based on --help
 
 BuildArch:      noarch
 

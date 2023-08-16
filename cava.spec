@@ -1,12 +1,11 @@
 Name:           cava
-Version:        0.7.2
-Release:        14%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        Console-based Audio Visualizer for Alsa
 
 License:        MIT
 URL:            https://github.com/karlstav/cava
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0001:      0001-initialize-input_method_name.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  fftw-devel
