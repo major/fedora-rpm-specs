@@ -100,7 +100,7 @@ Static version of the MinGW Windows Pango library.
 
 
 %build
-%mingw_meson --default-library=both -Dintrospection=disabled -Dgtk_doc=false
+%mingw_meson --default-library=both -Dintrospection=disabled -Dgtk_doc=false -Dfontconfig=enabled
 %mingw_ninja
 
 

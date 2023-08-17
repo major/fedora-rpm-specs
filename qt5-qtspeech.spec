@@ -3,7 +3,7 @@
 Summary: Qt5 - Speech component
 Name:    qt5-%{qt_module}
 Version: 5.15.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -17,7 +17,10 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 
 BuildRequires: make
 BuildRequires: qt5-qtbase-devel >= %{version}
+BuildRequires: qt5-qtmultimedia-devel >= %{version}
 BuildRequires: speech-dispatcher-devel >= 0.8
+BuildRequires: alsa-lib-devel
+BuildRequires: flite-devel
 
 BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
@@ -48,6 +51,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Summary: %{name} speech-dispatcher plugin
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description speechd
+%{summary}.
+
+%package flite
+Summary: %{name} flite plugin
+Requires: %{name}%{?_isa} = %{version}-%{release}
+%description flite
 %{summary}.
 
 
@@ -94,6 +103,10 @@ popd
 %{_qt5_plugindir}/texttospeech/libqtexttospeech_speechd.so
 %{_qt5_libdir}/cmake/Qt5TextToSpeech/Qt5TextToSpeech_QTextToSpeechPluginSpeechd.cmake
 
+%files flite
+%{_qt5_plugindir}/texttospeech/libqttexttospeech_flite.so
+%{_qt5_libdir}/cmake/Qt5TextToSpeech/Qt5TextToSpeech_QTextToSpeechEngineFlite.cmake
+
 %files devel
 %{_qt5_headerdir}/QtTextToSpeech/
 %{_qt5_libdir}/libQt5TextToSpeech.so
@@ -108,6 +121,9 @@ popd
 
 
 %changelog
+* Mon Aug 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.15.10-3
+- Enable flite plugin
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

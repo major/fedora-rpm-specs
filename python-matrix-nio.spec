@@ -1,9 +1,17 @@
 Name:           python-matrix-nio
-Version:        0.20.2
+Version:        0.21.2
 Release:        %autorelease
 Summary:        A Matrix client library
 
-License:        ISC and ASL 2.0
+# ASL:
+# matrix_nio-0.21.2//nio/crypto/attachments.py: Apache License 2.0
+# matrix_nio-0.21.2//nio/crypto/key_export.py: Apache License 2.0
+# matrix_nio-0.21.2//nio/store/database.py: Apache License 2.0
+# matrix_nio-0.21.2//nio/store/models.py: Apache License 2.0
+
+# All other files: ISC
+
+License:        ISC and Apache-2.0
 URL:            https://pypi.python.org/pypi/matrix-nio
 Source0:        %{pypi_source matrix_nio}
 

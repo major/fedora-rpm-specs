@@ -14,8 +14,8 @@
 
 Summary: Utility for determining file types
 Name: file
-Version: 5.44
-Release: 5%{?dist}
+Version: 5.45
+Release: 1%{?dist}
 License: BSD
 Source0: http://ftp.astron.com/pub/file/file-%{version}.tar.gz
 Source1: http://ftp.astron.com/pub/file/file-%{version}.tar.gz.asc
@@ -31,11 +31,13 @@ Patch0: file-localmagic.patch
 Patch1: file-4.17-rpm-name.patch
 Patch2: file-5.04-volume_key.patch
 
-# upstream commit: https://github.com/file/file/commit/1dd21dd360472d7b830825df8e40a06cdc1cbbcf
-Patch3: file-5.44-compression.patch
+# revert upstream commits (rhbz#2167964)
+# 1. https://github.com/file/file/commit/e1233247bbe4d2d66b891224336a23384a93cce1
+# 2. https://github.com/file/file/commit/f7a65dbf1739a8f8671621e41c5648d1f7e9f6ae
+Patch3: file-5.45-readelf-limit-revert.patch
 
-# revert upstream commit: https://github.com/file/file/commit/e1233247bbe4d2d66b891224336a23384a93cce1
-Patch4: file-5.44-readelf-limit-revert.patch
+# upstream commit: https://github.com/file/file/commit/218fdf813fd5ccecbb8887a1b62509cd1c6dd3a1
+Patch4: file-5.45-time-t.patch
 
 URL: https://www.darwinsys.com/file/
 Requires: file-libs%{?_isa} = %{version}-%{release}
@@ -221,6 +223,9 @@ make -C tests check
 %endif
 
 %changelog
+* Mon Jul 31 2023 Vincent Mihalkovic <vmihalko@redhat.com> - 5.45-1
+- new upstream release 5.45
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.44-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

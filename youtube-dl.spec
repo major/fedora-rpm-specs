@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/ytdl-org/youtube-dl/
-%global commit 2efc8de4d2299e08e0c84d674d7fc7f3fa669487
+%global commit 86e3cf5e5849aefcc540c19bb5fa5ab7f470d1c1
 %forgemeta
 Name:           youtube-dl
-Version:        2023.07.30.git%(c=%{commit}; echo ${c:0:7})
+Version:        2023.08.04.git%(c=%{commit}; echo ${c:0:7})
 Release:        1%{?dist}
 Summary:        A small command-line program to download online videos
 License:        Unlicense
@@ -81,6 +81,9 @@ install -Dpm644 youtube-dl.fish %{buildroot}%{_datadir}/fish/vendor_functions.d/
 %{_datadir}/fish/vendor_functions.d/youtube-dl.fish
 
 %changelog
+* Tue Aug 15 2023 David Bold <davidsch@fedoraproject.org> - 2023.08.04.git286e3cf-1.20230815git286e3cf
+- Update to latest git snapshot
+
 * Tue Aug 01 2023 David Bold <davidsch@fedoraproject.org> - 2023.07.30.git2efc8de-1.20230801git2efc8de
 - Update to latest git snapshot
 - Ajust for building from snapshot

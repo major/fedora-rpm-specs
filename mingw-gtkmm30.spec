@@ -4,11 +4,11 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gtkmm30
-Version:        3.24.7
-Release:        3%{?dist}
+Version:        3.24.8
+Release:        1%{?dist}
 Summary:        MinGW Windows C++ interface for the GTK+ library
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.gtkmm.org/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/gtkmm/%{release_version}/gtkmm-%{version}.tar.xz
 
@@ -119,6 +119,9 @@ API version 3.0.
 
 
 %changelog
+* Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 3.24.8-1
+- Update to 3.24.8
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

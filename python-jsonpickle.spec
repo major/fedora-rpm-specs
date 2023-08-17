@@ -2,24 +2,17 @@ Name:           python-jsonpickle
 # version is inserted into setup.cfg manually (see %%prep). Please be careful
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
-Version:        3.0.1
-Release:        4%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        A module that allows any object to be serialized into JSON
 
 License:        BSD-3-Clause
 URL:            https://github.com/jsonpickle/jsonpickle
 Source0:        %{pypi_source jsonpickle}
-Source1:        %{pypi_source jsonpickle}.asc
-# Downloaded 2022-12-06. See:
-# https://github.com/jsonpickle/jsonpickle/issues/310
-Source2:        https://github.com/Theelx.gpg
 
 %global _docdir_fmt %{name}
 
 BuildArch:      noarch
-
-BuildRequires:  gnupg2
-
 BuildRequires:  python3-devel
 
 %global _description %{expand:
@@ -37,8 +30,6 @@ Summary:        A module that allows any object to be serialized into JSON
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-
 %autosetup -n jsonpickle-%{version} -p1
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -77,6 +68,10 @@ sed -r -i -e 's/^([[:blank:]]*)(pandas|scikit-learn)/\1# \2/' setup.cfg
 
 
 %changelog
+* Mon Aug 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.2-1
+- 3.0.2
+- Drop signature verification due to PyPi change.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

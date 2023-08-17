@@ -5,11 +5,11 @@
 %endif
 
 Name:          libspatialite
-Version:       5.0.1
+Version:       5.1.0
 Release:       1%{?dist}
 Summary:       Enables SQLite to support spatial data
 
-License:       MPLv1.1 or GPLv2+ or LGPLv2+
+License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:           https://www.gaia-gis.it/fossil/libspatialite
 Source0:       http://www.gaia-gis.it/gaia-sins/libspatialite-sources/libspatialite-%{version}.tar.gz
 
@@ -17,10 +17,8 @@ Source0:       http://www.gaia-gis.it/gaia-sins/libspatialite-sources/libspatial
 Patch0:        libspatialite_pkgconfig.patch
 # Fix mingw detection in configure.ac
 Patch1:        libspatialite_mingw.patch
-# Fix obsolete macros
-Patch2:        libspatialite_macros.patch
 # Use pkgconfig to find geos
-Patch3:        libspatialite_geos.patch
+Patch2:        libspatialite_geos.patch
 
 BuildRequires: autoconf automake libtool
 BuildRequires: freexl-devel
@@ -147,8 +145,8 @@ make check  -C build_native %{?_smp_mflags} || :
 %files
 %doc AUTHORS
 %license COPYING
-%{_libdir}/%{name}.so.7*
-%{_libdir}/mod_spatialite.so.7*
+%{_libdir}/%{name}.so.8*
+%{_libdir}/mod_spatialite.so.8*
 # The symlink must be present to allow loading the extension
 # https://groups.google.com/forum/#!topic/spatialite-users/zkGP-gPByXk
 %{_libdir}/mod_spatialite.so
@@ -163,7 +161,7 @@ make check  -C build_native %{?_smp_mflags} || :
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
-%{mingw32_bindir}/libspatialite-4.dll
+%{mingw32_bindir}/libspatialite-5.dll
 %{mingw32_includedir}/spatialite.h
 %{mingw32_includedir}/spatialite/
 %{mingw32_libdir}/libspatialite.dll.a
@@ -172,7 +170,7 @@ make check  -C build_native %{?_smp_mflags} || :
 
 %files -n mingw64-%{name}
 %license COPYING
-%{mingw64_bindir}/libspatialite-4.dll
+%{mingw64_bindir}/libspatialite-5.dll
 %{mingw64_includedir}/spatialite.h
 %{mingw64_includedir}/spatialite/
 %{mingw64_libdir}/libspatialite.dll.a
@@ -181,6 +179,9 @@ make check  -C build_native %{?_smp_mflags} || :
 %endif
 
 %changelog
+* Fri Aug 04 2023 Sandro Mani <manisandro@gmail.com> - 5.1.0-1
+- Update to 5.1.0
+
 * Fri Aug 04 2023 Sandro Mani <manisandro@gmail.com> - 5.0.1-1
 - Update to 5.0.1
 

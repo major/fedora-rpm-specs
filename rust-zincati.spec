@@ -11,8 +11,11 @@
 
 Name:           rust-%{crate}
 Version:        0.0.25
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Update agent for Fedora CoreOS
+
+# https://github.com/coreos/zincati/pull/1059
+Patch1:         0001-update_agent-handle-new-output-format-for-loginctl.patch
 
 # Upstream license specification: Apache-2.0
 License:        ASL 2.0
@@ -386,6 +389,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Tue Aug 15 2023 Aashish Radhakrishnan <aaradhak@redhat.com> - 0.0.25-6
+- Backport patch for handling new output format for loginctl
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.25-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

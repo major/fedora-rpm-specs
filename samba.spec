@@ -138,7 +138,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.19.0
-%global baserelease 1
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release rc2
 
@@ -898,6 +898,8 @@ Summary: Samba Python libraries for Samba AD
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-dc-libs = %{samba_depver}
 Requires: python3-%{name} = %{samba_depver}
+# for ms_forest_updates_markdown.py and ms_schema_markdown.py
+Requires: python3-markdown
 
 %description -n python3-samba-dc
 The python3-%{name}-dc package contains the Python libraries needed by programs
@@ -4448,10 +4450,13 @@ fi
 %endif
 
 %changelog
-* Tue Aug 08 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.0rc2-1
+* Tue Aug 15 2023 Adam Williamson <awilliam@redhat.com> - 4.19.0-0.2.rc2
+- python3-samba-dc requires python3-markdown now
+
+* Tue Aug 08 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.0-0.1.rc2
 - resolves: #2227246 - Update to version 4.19.0rc2
 
-* Mon Aug 07 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.0rc1-0
+* Mon Aug 07 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.0-0.0.rc1
 - resolves: #2227246 - Update to version 4.19.0rc1
 
 * Thu Jul 20 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.5-0

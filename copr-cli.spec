@@ -1,16 +1,16 @@
-%if 0%{?rhel} > 7 || 0%{?fedora}
-%global __python %_bindir/python3
-%global with_python3 1
-%else
+%if 0%{?rhel} && 0%{?rhel} <= 7
 %global __python %_bindir/python2
 %global with_python2 1
+%else
+%global __python %_bindir/python3
+%global with_python3 1
 %endif
 
-%global min_python_copr_version 1.128.1.dev
+%global min_python_copr_version 1.128.1
 
 Name:       copr-cli
-Version:    1.109
-Release:    3%{?dist}
+Version:    1.110
+Release:    1%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -35,7 +35,6 @@ Requires:      python3-jinja2
 Requires:      python3-simplejson
 Requires:      python3-humanize
 Requires:      python3-koji
-Requires:      python3-future
 
 Recommends:    python3-progress
 Suggests:      python3-beautifulsoup4
@@ -49,13 +48,11 @@ BuildRequires: python3-responses
 BuildRequires: python3-setuptools
 BuildRequires: python3-simplejson
 BuildRequires: python3-munch
-BuildRequires: python3-future
 %else
 Requires:      python-copr >= %min_python_copr_version
 Requires:      python-jinja2
 Requires:      python-simplejson
 Requires:      python-humanize
-Requires:      python-future
 
 BuildRequires: pytest
 BuildRequires: python-copr >= %min_python_copr_version
@@ -67,7 +64,6 @@ BuildRequires: python2-responses
 BuildRequires: python-setuptools
 BuildRequires: python-simplejson
 BuildRequires: python-munch
-BuildRequires: python-future
 %endif
 
 # We historically shipped empty doc package, uninstall it.
@@ -132,11 +128,10 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.109-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.109-2
-- Rebuilt for Python 3.12
+* Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 1.110-1
+- priority=X support for copr DNF repositories added
+- new 'copr-cli download-build --logs' option added
+- make the pyp2spec tool the default PyPI spec generator
 
 * Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 1.109-1
 - Show CHROOT in help output instead of CHROOTS

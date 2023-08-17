@@ -13,19 +13,20 @@
 %global	userelease	1
 %endif
 
-%global	majorver	40
+%global	majorver	41
 #%%global	minorver	3
-%global	docver	40
+%global	docver	41
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
 %if 0%{?usegitbare} >= 1
-%global	gitcommit	86951501a7ffffcd43454659d09f8a81055b7096
-%global	gitdate	20230319
+# master
+%global	gitcommit	2275fb85da31a8c802ebf9730935c8c00d6cdea0
+%global	gitdate	20230814
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 
-%global	tarballdate	20230324
-%global	tarballtime	1531
+%global	tarballdate	20230816
+%global	tarballtime	0753
 %endif
 
 %if	0%{?userelease} >= 1
@@ -39,7 +40,7 @@
 
 Name:			ngspice
 Version:		%{fedoraver}
-Release:		2%{?dist}
+Release:		1%{?dist}
 Summary:		A mixed level/signal circuit simulator
 
 License:		BSD
@@ -212,7 +213,8 @@ git commit -m "Fix permission" -a || :
 
 # Move spinit directory to arch-dependent
 sed -i configure.ac -e '\@AC_DEFINE_UNQUOTED.*NGSPICEDATADIR@s|echo .dprefix/share/ngspice|echo %{_libdir}/ngspice|'
-sed -i src/misc/ivars.c -e 's|/share/ngspice|/%_lib/ngspice|'
+sed -i src/misc/ivars.c -e 's|\(["/]\)share/ngspice|\1%_lib/ngspice|'
+sed -i src/misc/ivars.c -e 's|\(["/]\)lib/ngspice|\1%_lib/ngspice|'
 grep -rl "(pkgdatadir)/" . | xargs sed -i -e 's|(pkgdatadir)/|(pkglibdir)/|'
 git commit -m "move spinit directory to arch-dependent" -a
 
@@ -450,6 +452,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Wed Aug 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 41-1
+- Update to 41
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

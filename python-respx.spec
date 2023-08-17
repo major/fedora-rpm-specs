@@ -1,56 +1,66 @@
-%global pypi_name respx
+%bcond tests %{undefined rhel}
 
-Name:           python-%{pypi_name}
+Name:           python-respx
 Version:        0.20.2
 Release:        %autorelease
 Summary:        Utility for mocking out the HTTPX and HTTP Core libraries
 
 License:        BSD
 URL:            https://lundberg.github.io/respx/
-Source0:        https://github.com/lundberg/respx/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        https://github.com/lundberg/respx/archive/%{version}/respx-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
 An utility for mocking out the Python HTTPX and HTTP Core libraries.
 
-%package -n     python3-%{pypi_name}
+
+%package -n     python3-respx
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(httpx)
-BuildRequires:  python3dist(httpcore)
+%if %{with tests}
+# Test requirements
 BuildRequires:  python3dist(flask)
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(starlette)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-cov)
 BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(trio)
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%endif
 
-%description -n python3-%{pypi_name}
+%description -n python3-respx
 An utility for mocking out the Python HTTPX and HTTP Core libraries.
 
+
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
-rm -rf %{pypi_name}.egg-info
-# Coverage is under 100 % due to the excluded tests
-sed -i -e '/--cov-fail-under 100/d' setup.cfg
+%autosetup -n respx-%{version} -p1
+# We don't care about coverage in downstream builds,
+# and running it is against the Python Packaging Guidelines.
+sed -i -e '/--cov/d' setup.cfg
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files respx
+
 
 %check
+%if %{with tests}
 %pytest -v tests -k "not test_pass_through" --asyncio-mode=auto
+%endif
 
-%files -n python3-%{pypi_name}
+
+%files -n python3-respx -f %{pyproject_files}
 %license LICENSE.md
 %doc README.md
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
+
 
 %changelog
 %autochangelog

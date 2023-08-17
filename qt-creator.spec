@@ -7,7 +7,7 @@
 %global clangver 16.0.6
 
 Name:           qt-creator
-Version:        11.0.1
+Version:        11.0.2
 Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
@@ -223,6 +223,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com>
+- Update to 11.0.2
+
 * Fri Aug 04 2023 Sandro Mani <manisandro@gmail.com> - 11.0.1-1
 - Update to 11.0.1
 

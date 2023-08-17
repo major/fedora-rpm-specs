@@ -85,7 +85,7 @@ Source8:        libreoffice-multiliblauncher.sh
 Source9:        %{external_url}/dtoa-20180411.tgz
 Source10:       %{external_url}/dragonbox-1.1.3.tar.gz
 Source11:       %{external_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
-#Unfortunately later versions of hsqldb changed the file format, so if we use a later version we loose
+#Unfortunately later versions of hsqldb changed the file format, so if we use a later version we lose
 #backwards compatability.
 Source12:       %{external_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 Source13:       %{external_url}/../extern/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf

@@ -1,7 +1,7 @@
 %bcond_without gnutls
 
-%global gitdate     20221110
-%global gitcommit   2ae7b019370760e17f4f2675195a91ca53950eda
+%global gitdate     20230815
+%global gitcommit   d2849a9f5ced70438d67036693438344b47b4161
 %global gitshortcommit  %(c=%{gitcommit}; echo ${c:0:7})
 
 # Macros needed by SELinux
@@ -11,13 +11,13 @@
 
 Summary: TPM Emulator
 Name:           swtpm
-Version:        0.8.0
-Release:        7%{?dist}
+Version:        0.8.1
+Release:        2%{?dist}
 License:        BSD-3-Clause
 Url:            http://github.com/stefanberger/swtpm
 Source0:        %{url}/archive/%{gitcommit}/%{name}-%{gitshortcommit}.tar.gz
 
-Patch0001:	0001-swtpm_setup-Initialized-argv-to-NULL-Fedore-Rawhide.patch
+ExcludeArch:    i686
 
 BuildRequires: make
 BuildRequires:  git-core
@@ -56,14 +56,14 @@ TPM emulator built on libtpms providing TPM functionality for QEMU VMs
 
 %package        libs
 Summary:        Private libraries for swtpm TPM emulators
-License:        BSD
+License:        BSD-3-Clause
 
 %description    libs
 A private library with callback functions for libtpms based swtpm TPM emulator
 
 %package        devel
 Summary:        Include files for the TPM emulator's CUSE interface for usage by clients
-License:        BSD
+License:        BSD-3-Clause
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    devel
@@ -71,7 +71,7 @@ Include files for the TPM emulator's CUSE interface.
 
 %package        tools
 Summary:        Tools for the TPM emulator
-License:        BSD
+License:        BSD-3-Clause
 Requires:       swtpm = %{version}-%{release}
 # trousers: for tss account (unsupported in RHEL)
 Requires:       %{!?rhel:trousers >= 0.3.9} bash gnutls-utils
@@ -81,7 +81,7 @@ Tools for the TPM emulator from the swtpm package
 
 %package        tools-pkcs11
 Summary:        Tools for creating a local CA based on a TPM pkcs11 device
-License:        BSD
+License:        BSD-3-Clause
 Requires:       swtpm-tools = %{version}-%{release}
 Requires:       tpm2-pkcs11 tpm2-pkcs11-tools tpm2-tools tpm2-abrmd
 Requires:       expect gnutls-utils %{!?rhel:trousers >= 0.3.9}
@@ -197,6 +197,13 @@ fi
 %{_datadir}/swtpm/swtpm-create-tpmca
 
 %changelog
+* Tue Aug 15 2023 Stefan Berger <stefanb@linux.ibm.com> - 0.8.1-2
+- Don't build tools-pkcs11 for i686 since python-tpm2-pytss is not built for it
+- Set license to BSD-3-Clause for all packages
+
+* Tue Aug 15 2023 Stefan Berger <stefanb@linux.ibm.com> - 0.8.1-1
+- Update to v0.8.1 release
+
 * Sat Jul 22 2023 Adam Williamson <awilliam@redhat.com> - 0.8.0-7
 - Make swtpm-selinux Requires(post) swtpm (#2223276)
 

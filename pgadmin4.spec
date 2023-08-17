@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        7.0
-Release:        3%{?dist}
+Version:        7.5
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -23,14 +23,15 @@ Source0:        https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v%{version}/sour
 # ./prepare_vendor.sh
 Source1:        %{name}-%{version}-vendor.tar.xz
 Source2:        %{name}-%{version}-vendor-licenses.txt
+Source3:        %{name}-%{version}-yarn.lock
 
 # Unofficial qt runtime
-Source3:        pgadmin4-qt.cpp
-Source4:        org.postgresql.pgadmin4.metainfo.xml
-Source5:        pgadmin4-qt.svg
+Source4:        pgadmin4-qt.cpp
+Source5:        org.postgresql.pgadmin4.metainfo.xml
+Source6:        pgadmin4-qt.svg
 
 # Apache/WSGI config
-Source6:        pgadmin4.conf
+Source7:        pgadmin4.conf
 
 # Patch requirements for Fedora compat
 Patch0:         pgadmin4_requirements.patch
@@ -45,7 +46,7 @@ Patch11:        pgadmin4_sphinx_youtube.patch
 
 # Patch for building bundled mozjpeg
 %global mozjpeg_ver 4.1.1
-Source7:        https://github.com/mozilla/mozjpeg/archive/v%{mozjpeg_ver}/mozjpeg-%{mozjpeg_ver}.tar.gz
+Source8:        https://github.com/mozilla/mozjpeg/archive/v%{mozjpeg_ver}/mozjpeg-%{mozjpeg_ver}.tar.gz
 Patch100:       mozjpeg.patch
 
 # For docs
@@ -75,19 +76,19 @@ Requires: (python3dist(flask-sqlalchemy) >= 3 with python3dist(flask-sqlalchemy)
 Requires: python3dist(flask-wtf) = 1.1.1
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
 Requires: (python3dist(flask-paranoid) >= 0 with python3dist(flask-paranoid) < 1)
-Requires: python3dist(flask-babel) >= 3
+Requires: (python3dist(flask-babel) >= 3.1 with python3dist(flask-babel) < 3.2)
 Requires: (python3dist(flask-security-too) >= 5.1 with python3dist(flask-security-too) < 5.2)
 Requires: (python3dist(flask-socketio) >= 5.3 with python3dist(flask-socketio) < 5.4)
 Requires: (python3dist(wtforms) >= 3 with python3dist(wtforms) < 3.1)
 Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
-Requires: python3dist(pytz) >= 2022
+Requires: (python3dist(pytz) >= 2023 with python3dist(pytz) < 2024)
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
 Requires: (python3dist(psutil) >= 5.9 with python3dist(psutil) < 5.10)
-Requires: (python3dist(psycopg) >= 3.1 with python3dist(psycopg) < 3.2)
+Requires: python3dist(psycopg) >= 3.1.9
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: python3dist(sqlalchemy) >= 1.4
 Requires: (python3dist(bcrypt) >= 4 with python3dist(bcrypt) < 4.1)
-Requires: python3dist(cryptography) >= 40
+Requires: (python3dist(cryptography) >= 41 with python3dist(cryptography) < 41.1)
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: python3dist(gssapi) >= 1.7
@@ -95,19 +96,20 @@ Requires: python3dist(eventlet) = 0.33.3
 Requires: (python3dist(httpagentparser) >= 1.9 with python3dist(httpagentparser) < 1.10)
 Requires: python3dist(user-agents) = 2.2
 Requires: (python3dist(authlib) >= 1.2 with python3dist(authlib) < 1.3)
-Requires: (python3dist(requests) >= 2.28 with python3dist(requests) < 2.29)
 Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(qrcode) >= 7 with python3dist(qrcode) < 8)
 Requires: python3dist(pillow) >= 9
-Requires: python3dist(boto3) >= 1.26
-Requires: python3dist(botocore) >= 1.29
+Requires: (python3dist(boto3) >= 1.28 with python3dist(boto3) < 1.29)
+Requires: (python3dist(botocore) >= 1.31 with python3dist(botocore) < 1.32)
 Requires: (python3dist(urllib3) >= 1.26 with python3dist(urllib3) < 1.27)
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1
-Requires: python3dist(azure-mgmt-resource) >= 21
+Requires: python3dist(azure-mgmt-resource) >= 23.0.1
 Requires: python3dist(azure-mgmt-subscription) >= 3
-Requires: python3dist(azure-identity) >= 1.9
+Requires: python3dist(azure-identity) >= 1.10
 Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-api-python-client) < 3)
 Requires: python3dist(google-auth-oauthlib) >= 0.8
+Requires: python3dist(werkzeug) = 2.2.3
+Requires: (python3dist(keyring) >= 23 with python3dist(keyring) < 24)
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -183,20 +185,21 @@ ln -s %{_bindir}/optipng $(readlink -f .package-cache/v6/npm-optipng-bin-*/node_
 
 # Update bundled mozjpeg
 mozjpeg_dir=$(readlink -f .package-cache/v6/npm-mozjpeg-*/node_modules/mozjpeg/)
-cp -a %SOURCE7 ${mozjpeg_dir}/vendor/source/mozjpeg.tar.gz
+cp -a %SOURCE8 ${mozjpeg_dir}/vendor/source/mozjpeg.tar.gz
 %patch 100 -p0 -d ${mozjpeg_dir}/lib
 
 
 %build
 (
 cd web
+cp -a %{SOURCE3} yarn.lock
 YARN_CACHE_FOLDER="$PWD/../.package-cache" yarn install --offline
 yarn run bundle
 rm -rf node_modules
 )
 
 %ifarch %{qt5_qtwebengine_arches}
-g++ -o %{name}-qt %{SOURCE3} %{optflags} $(pkg-config --cflags --libs Qt5Core Qt5Widgets Qt5Network Qt5WebEngineWidgets)
+g++ -o %{name}-qt %{SOURCE4} %{optflags} $(pkg-config --cflags --libs Qt5Core Qt5Widgets Qt5Network Qt5WebEngineWidgets)
 %endif
 make docs PYTHON=%{__python3}
 
@@ -217,14 +220,14 @@ for size in 16 32 48 64 128; do
 done
 install -Dpm 0755 %{name}-qt %{buildroot}%{_bindir}/%{name}-qt
 install -Dpm 0644 pkg/linux/%{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
-install -Dpm 0644 %{SOURCE4} %{buildroot}%{_metainfodir}/org.postgresql.pgadmin4.metainfo.xml
-install -Dpm 0644 %{SOURCE5} %{buildroot}%{_datadir}/pgadmin4-qt/pgadmin4-qt.svg
+install -Dpm 0644 %{SOURCE5} %{buildroot}%{_metainfodir}/org.postgresql.pgadmin4.metainfo.xml
+install -Dpm 0644 %{SOURCE6} %{buildroot}%{_datadir}/pgadmin4-qt/pgadmin4-qt.svg
 %endif
 
 # Apache/WSGI config
 mkdir -p %{buildroot}%{_localstatedir}/lib/pgadmin
 mkdir -p %{buildroot}%{_localstatedir}/log/pgadmin
-install -Dpm 0644 %{SOURCE6} %{buildroot}%{_sysconfdir}/httpd/conf.d/pgadmin4.conf
+install -Dpm 0644 %{SOURCE7} %{buildroot}%{_sysconfdir}/httpd/conf.d/pgadmin4.conf
 
 
 
@@ -258,6 +261,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 7.5-1
+- Update to 7.5
+
 * Thu Aug 10 2023 Sandro Mani <manisandro@gmail.com> - 7.0-3
 - Update Requires
 

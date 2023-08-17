@@ -27,7 +27,7 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.53.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -366,6 +366,10 @@ find -type f -executable -name '*.py' -exec \
 sed -e '/^## Requirements/,/^#/s/^See below$/None/' \
     -e '/^### Collection requirements/,/^#/ {/^### Collection/d;/^#/!d}' \
     -i */README.md
+# sshd README is not in the same format
+sed -e '/^### Optional requirements/,/^Role variables/ {/^### Optional/d;/^Role variables/!d}' \
+    -i sshd/README.md
+
 
 %if %{with html}
 # HACK HACK HACK
@@ -662,6 +666,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Mon Aug  14 2023 Rich Megginson <rmeggins@redhat.com> - 1.53.0-2
+- Remove collection requirements from sshd README
+
 * Sat Aug  12 2023 Packit <hello@packit.dev> - 1.53.0-1
 - Update to upstream version 1.53.0
 

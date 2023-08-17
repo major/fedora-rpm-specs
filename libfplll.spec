@@ -1,3 +1,5 @@
+%bcond bundled_thread_pool 0
+
 Name:           libfplll
 Version:        5.4.4
 %global so_version 8
@@ -7,10 +9,14 @@ Summary:        Lattice algorithms using floating-point arithmetic
 # The entire source is LGPL-2.1-or-later, except:
 #
 #   - The contents of fplll/enum-parallel/ are MIT
-#   - fplll/io/thread_pool.hpp is MIT
-#   - fplll/io/json.hpp is MIT AND CC0-1.0 (the latter because it includes
-#     Hedley); while it is unbundled, it is a header-only library, and so it
-#     still contributes to the license of the binary RPMs
+#
+# The header-only libraries are unbundled; since header-only libraries are
+# treated as static libraries, their licenses still contribute to the licenses
+# of the binary RPMs
+#   - cr-marcstevens-snippets-thread_pool-static is MIT; it replaces
+#     fplll/io/thread_pool.hpp
+#   - json-static is is MIT AND CC0-1.0 (the latter because it includes
+#     Hedley); it replaces fplll/io/json.hpp
 #
 # Additionally, a number of autoconf build system sources, which do not
 # contribute to the binary RPM license because they are neither installed nor
@@ -45,16 +51,17 @@ BuildRequires:  json-static
 # bundled dependency because the separate fplll-extenum library was integrated
 # into fplll and is no longer separately developed.
 
+%if %{without bundled_thread_pool}
+BuildRequires:  cr-marcstevens-snippets-thread_pool-devel
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+BuildRequires:  cr-marcstevens-snippets-thread_pool-static
+%else
 # The file fplll/io/thread_pool.hpp is a copy of cxxheaderonly/thread_pool.hpp
 # from commit e01ae885cdbef3af265341110a434f6fa7b8e8ac (or, equivalently, a
 # number of earlier commits that did not modify that file) of
 # https://github.com/cr-marcstevens/snippets/.
-#
-# This can be unbundled once the package review is complete:
-# Review Request: cr-marcstevens-snippets - Collection of useful one-file C/C++
-#   headers
-# https://bugzilla.redhat.com/show_bug.cgi?id=2090707
 Provides:       bundled(cr-marcstevens-snippets-thread_pool-devel) = 0^20210722gite01ae88
+%endif
 
 %description
 fplll contains implementations of several lattice algorithms. The
@@ -83,6 +90,15 @@ Summary:        Development files for libfplll
 
 Requires:       libfplll%{?_isa} = %{version}-%{release}
 Requires:       qd-devel%{?_isa}
+
+%if %{without bundled_thread_pool}
+# We unbundled this; the API header now references the system copy of the
+# header, so dependent packages need it installed. (Technically, they should
+# also explicitly BR the -static package, since they are indirectly using the
+# header-only library.)
+Requires:       cr-marcstevens-snippets-thread_pool-devel
+Requires:       cr-marcstevens-snippets-thread_pool-static
+%endif
 
 %description    devel
 The libfplll-devel package contains libraries and header files for
@@ -120,6 +136,11 @@ the functionality of libfplll.
 %autosetup -n fplll-%{version}
 # Unbundle “JSON for Modern C++”:
 echo '#include <nlohmann/json.hpp>' > fplll/io/json.hpp
+%if %{without bundled_thread_pool}
+# Unbundle cr-marcstevens-snippets-thread_pool-devel
+sed -r -i 's@io/thread_pool\.hpp@@' fplll/Makefile.am
+sed -r -i 's@fplll/io(/thread_pool\.hpp)@cr-marcstevens\1@' fplll/threadpool.h
+%endif
 
 
 %build

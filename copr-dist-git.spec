@@ -1,8 +1,8 @@
 %global copr_common_version 0.16.4.dev
 
 Name:       copr-dist-git
-Version:    0.66
-Release:    3%{?dist}
+Version:    0.67
+Release:    1%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -19,7 +19,7 @@ BuildRequires: systemd
 BuildRequires: python3-devel
 BuildRequires: python3-munch
 BuildRequires: python3-requests
-BuildRequires: python3-rpkg
+BuildRequires: python3-rpkg >= 1.66-6
 BuildRequires: python3-pytest
 BuildRequires: python3-copr-common >= %copr_common_version
 BuildRequires: python3-oslo-concurrency
@@ -30,11 +30,11 @@ Recommends: logrotate
 Requires: systemd
 Requires: httpd
 Requires: coreutils
-Requires: crudini
+Requires: /usr/bin/crudini
 Requires: dist-git
 Requires: python3-copr-common >= %copr_common_version
 Requires: python3-requests
-Requires: python3-rpkg >= 1.63-5
+Requires: python3-rpkg >= 1.66-6
 Requires: python3-munch
 Requires: python3-oslo-concurrency
 Requires: python3-setproctitle
@@ -140,11 +140,12 @@ touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 %{_tmpfilesdir}/copr-dist-git.conf
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 0.66-2
-- Rebuilt for Python 3.12
+* Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 0.67-1
+- tell rpkg not to generate pre-push hook
+- allow importing pre-generated srpm in rpkg
+- refresh pyrpkg.Commands after import_srpm
+- make the generated cgitrc include file much smaller
+- redis authentication support added
 
 * Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 0.66-1
 - Skip broken tests caused by new python3-rpkg

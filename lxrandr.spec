@@ -1,23 +1,66 @@
-Name:           lxrandr
-Version:        0.3.2
-Release:        11%{?dist}
-Summary:        Simple monitor configuration tool
+%global		use_release	0
+%global		use_git		0
+%global		use_gitbare	1
 
-License:        GPLv3+
-URL:            http://lxde.org/
-#VCS: git:git://lxde.git.sourceforge.net/gitroot/lxde/lxrandr
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+%if 0%{?use_git} < 1
+%if 0%{?use_gitbare} < 1
+# force
+%global		use_release	1
+%endif
+%endif
 
-BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  pkgconfig(gtk+-2.0)
-BuildRequires:  desktop-file-utils
-BuildRequires:  gettext
-BuildRequires:  intltool
-BuildRequires:  %{_bindir}/xsltproc
-BuildRequires:  docbook-utils
-BuildRequires:  docbook-style-xsl
-Requires:       xrandr
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
+
+%if 0%{?use_gitbare}
+%global		gittardate		20230815
+%global		gittartime		1759
+
+%global		gitbaredate	20230802
+%global		git_rev		69fe500d5d90961bd738400ba569662bc52dd16d
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{gitbaredate}git%{git_short}
+%endif
+
+%if 0%{?use_git} || 0%{?use_gitbare}
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
+%endif
+
+
+%global		main_version	0.3.2
+
+Name:			lxrandr
+Version:		%{main_version}%{git_ver_rpm}
+Release:		1%{?dist}
+Summary:		Simple monitor configuration tool
+
+# SPDX confirmed
+License:		GPL-2.0-or-later
+URL:			http://lxde.org/
+%if 0%{?use_gitbare}
+Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
+%endif
+%if 0%{?use_release}
+Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+%endif
+
+BuildRequires:	make
+BuildRequires:	gcc
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	desktop-file-utils
+BuildRequires:	gettext
+BuildRequires:	intltool
+BuildRequires:	/usr/bin/xsltproc
+BuildRequires:	docbook-utils
+BuildRequires:	docbook-style-xsl
+
+BuildRequires:	automake
+BuildRequires:	autoconf
+BuildRequires:	/usr/bin/git
+
+Requires:		xrandr
 
 %description
 LXRandR is a simple monitor configuration tool utilizing X RandR extension. 
@@ -31,39 +74,73 @@ Environment, but can be used in other desktop environments as well.
 
 
 %prep
-%setup -q
-# quick fix for the icon
-sed -i 's/^Icon=display/Icon=video-display/g' data/lxrandr.desktop.in
+%if 0%{?use_release}
+%setup -q -n %{name}-%{main_version}%{git_builddir}
 
+git init
+%endif
+
+%if 0%{?use_gitbare}
+%setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
+git clone ./%{name}.git/
+cd %{name}
+
+git checkout -b %{main_version}-fedora %{git_rev}
+cp -a [A-Z]* ..
+%endif
+
+git config user.name "lxrandr Fedora maintainer"
+git config user.email "lxrandr-maintainers@fedoraproject.org"
+
+%if 0%{?use_release}
+git add .
+git commit -m "base" -q
+%endif
+
+sh autogen.sh
 
 %build
+%if 0%{?use_gitbare}
+cd %{name}
+%endif
+
 %configure \
+	--enable-gtk3 \
 	--enable-man \
 	--disable-silent-rules \
 	%{nil}
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
-desktop-file-install                                       \
-  --delete-original                                        \
-  --add-category="HardwareSettings;GTK;"                   \
-  --dir=${RPM_BUILD_ROOT}%{_datadir}/applications          \
-  ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
+%if 0%{?use_gitbare}
+cd %{name}
+%endif
+
+%make_install
+desktop-file-install \
+	--delete-original \
+	--add-category="HardwareSettings;GTK;" \
+	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
+	${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
+%if 0%{?use_gitbare}
+cd ..
+%endif
 %find_lang %{name}
 
 
-
 %files -f %{name}.lang
-%doc AUTHORS COPYING
+%doc	AUTHORS
+%license	COPYING
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1.*
 
 
 %changelog
+* Tue Aug 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.2^20230802git69fe500d-1
+- Update to the latest git
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

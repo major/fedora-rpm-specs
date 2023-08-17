@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.38
-%global glibcversion 2.38
+%global glibcsrcdir glibc-2.38.9000-40-gd6fe19facc
+%global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 2
+%global baserelease 4
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -1048,6 +1048,8 @@ rm localedata/SUPPORTED.spec localedata/SUPPORTED.glibc
 # Log osystem information
 uname -a
 LD_SHOW_AUXV=1 /bin/true
+ld.so --list-diagnostics || true
+ld.so --list-tunables || true
 cat /proc/cpuinfo
 cat /proc/sysinfo 2>/dev/null || true
 cat /proc/meminfo
@@ -2196,6 +2198,42 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Aug 15 2023 Carlos O'Donell <carlos@redhat.com> - 2.38-4
+- Collect dynamic loader diagnostics from the build system.
+
+* Tue Aug 15 2023 Florian Weimer <fweimer@redhat.com> - 2.38-3
+- Auto-sync with upstream branch master,
+  commit d6fe19facc61caffb25383d9c25eff86a0e115c8:
+- configure: Add -Wall again to the default CFLAGS
+- malloc: Remove bin scanning from memalign (bug 30723)
+- resolv/nss_dns/dns-host: Get rid of alloca.
+- x86_64: Add expm1 with FMA
+- elf: Add new LoongArch reloc types (101 to 108) into elf.h
+- x86: Fix incorrect scope of setting `shared_per_thread` [BZ# 30745]
+- x86_64: Add log2 with FMA
+- malloc: Enable merging of remainders in memalign (bug 30723)
+- nscd: Do not rebuild getaddrinfo (bug 30709)
+- x86_64: Sort fpu/multiarch/Makefile
+- i686: Fix build with --disable-multiarch
+- x86_64: Fix build with --disable-multiarch (BZ 30721)
+- Add PTRACE_SET_SYSCALL_USER_DISPATCH_CONFIG etc. from Linux 6.4 to sys/ptrace.h
+- Add PACKET_VNET_HDR_SZ from Linux 6.4 to netpacket/packet.h
+- linux: statvfs: allocate spare for f_type
+- x86: Fix for cache computation on AMD legacy cpus.
+- powerpc longjmp: Fix build after chk hidden builtin fix
+- LoongArch: Fix static PIE condition for toolchain bootstrapping.
+- chk: Add and fix hidden builtin definitions for *_chk
+- tst-realpath-toolong: return "unsupported" when PATH_MAX is undefined
+- tst-*glob*: Do not check d_name size
+- iconv: restore verbosity with unrecognized encoding names (bug 30694)
+- configure: Remove --enable-all-warnings option
+- Add IP_PROTOCOL from Linux 6.4 to bits/in.h
+- Update kernel version to 6.4 in header constant tests
+- PowerPC: Influence cpu/arch hwcap features via GLIBC_TUNABLES
+- vfprintf-internal: Get rid of alloca.
+- stdlib: Improve tst-realpath compatibility with source fortification
+- Open master branch for glibc 2.39 development
+
 * Tue Aug  1 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.38-2
 - Drop downstream glibc shadow stack userspace support patches.
 

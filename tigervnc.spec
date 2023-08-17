@@ -2,7 +2,7 @@
 %global selinuxtype targeted
 %global modulename vncsession
 
-%bcond_without server
+%bcond server %{undefined flatpak}
 
 Name:           tigervnc
 Version:        1.13.1

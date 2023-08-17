@@ -162,6 +162,11 @@ Source0:    README
 %obsolete libgweather 40.0-7
 %obsolete libgweather-devel 40.0-7
 
+# Remove in F41
+%obsolete_ticket https://src.fedoraproject.org/rpms/sssd/c/cf3c8f20eeb0e7fe8cc2cfb0d02db9e5f9ddf04e?branch=rawhide
+%obsolete sssd-libwbclient 2.3.1-3
+%obsolete sssd-libwbclient-devel 2.3.1-3
+
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()
 

@@ -47,7 +47,7 @@
 
 Name: brltty
 Version: 6.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -57,6 +57,10 @@ Source3: brlapi-forbuild.h
 Patch1: brltty-6.3-loadLibrary.patch
 # libspeechd.h moved in latest speech-dispatch (NOT sent upstream)
 Patch2: brltty-6.3-libspeechd.patch
+# https://brltty.app/pipermail/brltty/2023-August/020048.html
+# thanks to Lukáš Tyrychtr for the diagnosis and initial patch, and
+# Samuel Thibault for this improved patch
+Patch3: brltty-6.6-cython3.patch
 Summary: Braille display driver for Linux/Unix
 BuildRequires: byacc
 BuildRequires: glibc-kernheaders
@@ -201,8 +205,7 @@ This package provides the Tcl binding for BrlAPI.
 Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
-# https://brltty.app/pipermail/brltty/2023-August/020039.html
-BuildRequires: Cython < 3
+BuildRequires: Cython
 BuildRequires: python2-devel
 BuildRequires: python2-setuptools
 Summary: Python binding for BrlAPI
@@ -216,8 +219,7 @@ This package provides the Python 2 binding for BrlAPI.
 Version: %{api_version}
 License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
-# https://brltty.app/pipermail/brltty/2023-August/020039.html
-BuildRequires: python3-Cython < 3
+BuildRequires: python3-Cython
 BuildRequires: python3-devel
 %if %{without python2}
 Obsoletes:     python2-brlapi < %{api_version}-%{release}
@@ -278,6 +280,7 @@ mv %{name}-%{version} python2
 pushd python2
 %patch -P 1 -p1 -b .loadLibrary
 %patch -P 2 -p1 -b .libspeechd
+%patch -P 3 -p1 -b .cython3
 
 # remove packaged binary file
 rm -f Programs/brltty-ktb
@@ -691,6 +694,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Tue Aug 15 2023 Adam Williamson <awilliam@redhat.com> - 6.6-4
+- Fix the Cython 3 crash and build with Cython 3 again
+
 * Mon Aug 14 2023 Adam Williamson <awilliam@redhat.com> - 6.6-3
 - Build with Cython 0.29, it crashes when built with Cython 3 (#2231865)
 

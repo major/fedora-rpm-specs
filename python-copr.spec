@@ -1,16 +1,14 @@
 %global srcname copr
 
-%if 0%{?fedora} || 0%{?rhel} > 7
+%if 0%{?rhel} && 0%{?rhel} <= 7
+%global with_python2 1
+%else
 %global with_python3 1
 %endif
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%global with_python2 1
-%endif
-
 Name:       python-copr
-Version:    1.129
-Release:    3%{?dist}
+Version:    1.130
+Release:    1%{?dist}
 Summary:    Python interface for Copr
 
 License:    GPL-2.0-or-later
@@ -39,7 +37,6 @@ BuildRequires: python-configparser
 BuildRequires: pytest
 BuildRequires: python2-devel
 BuildRequires: python2-requests-gssapi
-BuildRequires: python-future
 # for doc package
 BuildRequires: python-sphinx
 BuildRequires: python-docutils
@@ -54,7 +51,6 @@ BuildRequires: python-munch
 BuildRequires: python2-filelock
 BuildRequires: python2-configparser
 BuildRequires: python2-requests-gssapi
-BuildRequires: python-future
 # for doc package
 BuildRequires: python2-sphinx
 BuildRequires: python2-docutils
@@ -86,7 +82,6 @@ Requires: python-requests-toolbelt
 Requires: python-requests-gssapi
 Requires: python-setuptools
 Requires: python-six >= 1.9.0
-Requires: python-future
 %else
 Requires: python2-configparser
 Requires: python2-munch
@@ -96,7 +91,6 @@ Requires: python2-requests-toolbelt
 Requires: python2-setuptools
 Requires: python2-requests-gssapi
 Requires: python2-six >= 1.9.0
-Requires: python-future
 %endif
 
 %{?python_provide:%python_provide python2-copr}
@@ -123,7 +117,6 @@ BuildRequires: python3-requests-toolbelt
 BuildRequires: python3-six
 BuildRequires: python3-sphinx
 BuildRequires: python3-requests-gssapi
-BuildRequires: python3-future
 
 Requires: python3-munch
 Requires: python3-filelock
@@ -132,12 +125,10 @@ Requires: python3-requests-toolbelt
 Requires: python3-setuptools
 Requires: python3-six
 Requires: python3-requests-gssapi
-Requires: python3-future
-%endif
 
 %{?python_provide:%python_provide python3-copr}
 
-%if 0%{?fedora} > 30 || 0%{?rhel} > 8
+%else
 # These are not in requirements.txt
 Requires: python3-requests-gssapi
 
@@ -145,8 +136,8 @@ BuildRequires: python3-devel
 BuildRequires: python3-sphinx
 BuildRequires: python3-pytest
 BuildRequires: python3-requests-gssapi
-BuildRequires: python3-future
 BuildRequires: python3-filelock
+BuildRequires: pyproject-rpm-macros
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -238,11 +229,9 @@ cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 %doc %{_pkgdocdir}
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.129-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.129-2
-- Rebuilt for Python 3.12
+* Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 1.130-1
+- priority=X support added for copr project repositories
+- several forward/backward compat fixes with libs/tooling
 
 * Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 1.129-1
 - General check if it makes sense to upload SRPM

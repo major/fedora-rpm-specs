@@ -1,16 +1,9 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
 %global __python        %__python3
 %global python          python3
 %global python_pfx      python3
 %global rpm_python      python3-rpm
 %global sitelib         %python3_sitelib
-%else
-%global __python        %__python2
-%global python          python2
-%global python_pfx      python
-%global rpm_python      rpm-python
-%global sitelib         %python_sitelib
-%endif
+
 %global copr_common_version 0.12.1.dev
 
 # do not build debuginfo sub-packages
@@ -21,9 +14,9 @@ Requires: %1 \
 %{expand: %%global latest_requires_packages %1 %%{?latest_requires_packages}}
 
 Name:    copr-rpmbuild
-Version: 0.68
+Version: 0.69
 Summary: Run COPR build tasks
-Release: 3%{?dist}
+Release: 1%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -46,12 +39,10 @@ BuildRequires: %{python}-pytest
 BuildRequires: %{python_pfx}-munch
 BuildRequires: %{python}-requests
 BuildRequires: %{python_pfx}-jinja2
-BuildRequires: %{python_pfx}-simplejson
+BuildRequires: %{python_pfx}-specfile >= 0.21.0
 BuildRequires: python3-backoff >= 1.9.0
 
-%if 0%{?fedora} || 0%{?rhel} > 7
-BuildRequires: argparse-manpage
-%endif
+BuildRequires: /usr/bin/argparse-manpage
 BuildRequires: python-rpm-macros
 
 %if "%{?python}" == "python2"
@@ -65,15 +56,17 @@ Requires: %{python}-copr-common >= %copr_common_version
 Requires: %{python_pfx}-jinja2
 Requires: %{python_pfx}-munch
 Requires: %{python}-requests
-Requires: %{python_pfx}-simplejson
+Requires: %{python_pfx}-specfile >= 0.21.0
 Requires: python3-backoff >= 1.9.0
 
-Requires: mock >= 2.0
+Requires: mock >= 5.0
 Requires: git
 Requires: git-svn
 # for the /bin/unbuffer binary
 Requires: expect
+%if !0%{?openEuler}
 Requires: qemu-user-static
+%endif
 Requires: sed
 
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -103,32 +96,27 @@ Requires: dnf-yum
 Requires: dnf-utils
 %endif
 # selinux toolset to allow running ansible against the builder
-%if 0%{?fedora}
 Requires: python3-libselinux
 Requires: python3-libsemanage
-%else
-Requires: libselinux-python
-Requires: libsemanage-python
-%endif
+%if 0%{?openEuler}
 # for mock to allow: config_opts['nosync'] = True
 Requires: nosync
-%ifarch x86_64
-# multilib counterpart to avoid: config_opts['nosync_force'] = True
-Requires: nosync(x86-32)
 %endif
 Requires: openssh-clients
 Requires: podman
+%if !0%{?openEuler}
 Requires: pyp2rpm
 Requires: pyp2spec
+Requires: rubygem-gem2rpm
+Requires: scl-utils-build
+Requires: fedora-review >= 0.8
+Requires: fedora-review-plugin-java
+%endif
 # We need %%pypi_source defined, which is in 3-29+
 Requires: python-srpm-macros >= 3-29
 Requires: rpkg
 Requires: rsync
-Requires: rubygem-gem2rpm
-Requires: scl-utils-build
 Requires: tito
-Requires: fedora-review >= 0.8
-Requires: fedora-review-plugin-java
 # yum* to allow mock to build against el* chroots without bootstrap_container
 %if 0%{?rhel}
 Requires: yum
@@ -138,20 +126,20 @@ Requires: yum-utils
 # We want those to be always up-2-date
 %latest_requires ca-certificates
 %latest_requires distribution-gpg-keys
-%if 0%{?fedora}
-%latest_requires dnf
+%if 0%{?fedora} >= 38
+%latest_requires dnf5
+%latest_requires dnf5-plugins
+%endif
+
+%latest_requires python3-dnf
 %latest_requires dnf-plugins-core
 %latest_requires libdnf
 %latest_requires librepo
 %latest_requires libsolv
-%endif
 %latest_requires mock
 %latest_requires mock-core-configs
-%latest_requires redhat-rpm-config
+%latest_requires system-rpm-config
 %latest_requires rpm
-
-# Outdated gem2rpm version may have problems with fetching from rubygems.org
-%latest_requires rubygem-gem2rpm
 
 
 %description -n copr-builder
@@ -276,14 +264,12 @@ install -p -m 755 copr-update-builder %buildroot%_bindir
 )
 
 install -p -m 755 bin/copr-distgit-client %buildroot%_bindir
-%if 0%{?fedora} || 0%{?rhel} > 7
 argparse-manpage --pyfile copr_distgit_client.py \
     --function _get_argparser \
     --author "Copr Team" \
     --author-email "copr-team@redhat.com" \
     --url %url --project-name Copr \
 > %{buildroot}%{_mandir}/man1/copr-distgit-client.1
-%endif
 mkdir -p %{buildroot}%{_sysconfdir}/copr-distgit-client
 install -p -m 644 etc/copr-distgit-client/default.ini \
     %{buildroot}%{_sysconfdir}/copr-distgit-client
@@ -324,9 +310,7 @@ install -p -m 644 copr_distgit_client.py %{buildroot}%{expand:%%%{python}_siteli
 %files -n copr-distgit-client
 %license LICENSE
 %_bindir/copr-distgit-client
-%if 0%{?fedora} || 0%{?rhel} > 7
 %_mandir/man1/copr-distgit-client.1*
-%endif
 %dir %_sysconfdir/copr-distgit-client
 %config %_sysconfdir/copr-distgit-client/default.ini
 %sitelib/copr_distgit_client.*
@@ -336,11 +320,21 @@ install -p -m 644 copr_distgit_client.py %{buildroot}%{expand:%%%{python}_siteli
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.68-2
-- Rebuilt for Python 3.12
+* Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 0.69-1
+- require python-specfile (in new enough) version, and use it for specfile
+  parsing instead of parsing the metadata from SRPMs
+- make sure we have (also) the latest DNF5 on builders
+- override disttag macro to None
+- make sure detected epoch is int() or None
+- build RPMs in one Mock step, instead of two (SRPM and then RPM)
+- use Mock's bootstrap_image_ready for the custom build (Mock 5.0+ required)
+- store review.json generated by fedora-review into the result directory
+- better/more verbose logging in the results.json generator
+- drop dependency on simplejson
+- repeatedly try to download files from lookaside cache
+- moving the package NEVRA parsing to from backend here into copr-rpmbuild
+- priority=X support added for the Copr repository itself
+- query exclusivearch and excludearch from the specfile, and store into results.json
 
 * Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 0.68-1
 - Fix python3-backoff dependency

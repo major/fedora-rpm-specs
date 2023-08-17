@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.32.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -308,6 +308,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 3.32.1-2
+- Rebuild (libspatialite)
+
 * Tue Jul 25 2023 Sandro Mani <manisandro@gmail.com> - 3.32.1-1
 - Update to 3.32.1
 

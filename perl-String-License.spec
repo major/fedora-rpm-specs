@@ -9,6 +9,9 @@ URL:            https://metacpan.org/pod/String::License
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASS/String-License-v%{version}.tar.gz
 # Fix failing test
 Patch0:         test.patch
+# Fix build with perl-5.38
+# See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1042847
+Patch1:         perl538.patch
 
 BuildRequires:  make
 BuildRequires:  perl-interpreter

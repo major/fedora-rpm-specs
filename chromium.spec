@@ -129,8 +129,9 @@
 %global toolchain gcc
 %endif
 
-# enable system brotli
-%global bundlebrotli 0
+# enable|disable system brotli
+# disable system brotli due to old system brotli
+%global bundlebrotli 1
 
 # Chromium's fork of ICU is now something we can't unbundle.
 # This is left here to ease the change if that ever switches.
@@ -234,8 +235,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 115.0.5790.170
-Release: 2%{?dist}
+Version: 116.0.5845.96
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -270,15 +271,6 @@ Patch20: chromium-disable-font-tests.patch
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/www-client/chromium/files/chromium-unbundle-zlib.patch
 Patch52: chromium-81.0.4044.92-unbundle-zlib.patch
 
-# missing limits.h, error: no member named 'numeric_limits' in namespace 'std'
-Patch53: chromium-110-limits.patch
-
-# ../../third_party/perfetto/include/perfetto/base/task_runner.h:48:55: error: 'uint32_t' has not been declared
-Patch56: chromium-96.0.4664.45-missing-cstdint-header.patch
-
-# Missing <cstring> (thanks c++17)
-Patch57: chromium-96.0.4664.45-missing-cstring.patch
-
 # Fix headers to look for system paths when we are using system minizip
 Patch61: chromium-109-system-minizip-header-fix.patch
 
@@ -296,7 +288,7 @@ Patch70: chromium-105.0.5195.52-python-six-1.16.0.patch
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
 # patch for using system brotli
-Patch89: chromium-115-system-brotli.patch
+Patch89: chromium-116-system-brotli.patch
 
 # disable GlobalMediaControlsCastStartStop to avoid crash
 # when using the address bar media player button
@@ -328,7 +320,7 @@ Patch105: chromium-85.0.4183.83-el7-old-libdrm.patch
 Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 
 # Add additional operator== to make el7 happy.
-Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
+Patch107: chromium-99.0.4844.51-el7-extra-operator.patch
 # workaround for clang bug on el7
 Patch109: chromium-114-wireless-el7.patch
 Patch110: chromium-115-buildflag-el7.patch
@@ -341,37 +333,29 @@ Patch116: chromium-112-ffmpeg-first_dts.patch
 # revert new-channel-layout-api on f36, old ffmpeg-free
 Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 
-# gcc13
-Patch122: chromium-115-gcc13.patch
-
 # revert AV1 VA-API video encode due to old libva on el9
 Patch130: chromium-114-revert-av1enc-el9.patch
 
-# Apply these patches to work around EPEL8 issues
-Patch300: chromium-113-rhel8-force-disable-use_gnome_keyring.patch
-
 # compiler build errors
+Patch300: chromium-116-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
 
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
 Patch302: chromium-115-workaround_clang_bug-structured_binding.patch
 
 # missing typename
-Patch303: chromium-115-typename.patch
+Patch303: chromium-116-typename.patch
 
-# missing cmath
-Patch304: chromium-115-missing-cmath.patch
-
-# add BoundSessionRefreshCookieFetcher::Result
-Patch305: chromium-115-add_BoundSessionRefreshCookieFetcher::Result.patch
+# missing include header files
+Patch304: chromium-116-missing-header-files.patch
 
 # compiler error with c++20
-Patch306: chromium-115-emplace_back_on_vector-c++20.patch
+Patch306: chromium-116-emplace_back_on_vector-c++20.patch
 
-# revert for epel8 on aarch64 due to new feature IFUNC-Resolver not supported
+# disable memory tagging for epel8 on aarch64 due to new feature IFUNC-Resolver not supported
 # in old glibc < 2.30
 # error: fatal error: 'sys/ifunc.h' file not found
-Patch307: chromium-115-revert-ifunc.patch
+Patch307: chromium-116-arm64-memory_tagging.patch
 
 # upstream, do not restrict new V4L2 decoders to ARM or ChromeOS 
 # error: use of undeclared identifier 'kV4L2FlatStatefulVideoDecoder'
@@ -382,25 +366,20 @@ Patch308: chromium-115-do_not_restrict_new_V4L2_decoders.v4l2.pach
 # error: no member named 'Contains' in namespace 'base'
 Patch309: chromium-115-include_contains_h_header_for_V4L2StatefulVideoDecoder.patch
 
-# Load default cursor theme if theme name is empty
-Patch310: chromium-115-wayland-load_default_cursor_theme.patch
-
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
 
 # imp module is removed in python-3.12
 Patch312: chromium-115-python-3.12-deprecated.patch
 
-# Qt issue
-Patch321: chromium-114-qt-handle_scale_factor_changes.patch
-Patch322: chromium-114-qt-fix_font_double_scaling.patch
-Patch323: chromium-114-qt_deps.patch
-Patch324: chromium-114-qt_enable_AllowQt_feature_flag.patch
-Patch325: chromium-114-qt_logical_scale_factor.patch
-
-# theme
-# upstream, Set toolkit dark preference based on FDO dark preference
+# upstream patches
+# Set toolkit dark preference based on FDO dark preference
 Patch350: chromium-115-linux_ui_darkmode.patch
+# Tweak about:gpu, Add dark mode support
+Patch351: chromium-116-tweak_about_gpu.patch
+# Guard the field assignment num_delta_pocs_of_ref_rps_idx as it is not supported
+# in fedora < 39
+Patch352: chromium-116-v4l2-num_delta_pocs_of_ref_rps_idx.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -621,13 +600,7 @@ BuildRequires:	opus-devel
 
 BuildRequires:	perl(Switch)
 BuildRequires: %{chromium_pybin}
-
-%if %{gtk3}
 BuildRequires:	pkgconfig(gtk+-3.0)
-%else
-BuildRequires:	pkgconfig(gtk+-2.0)
-%endif
-
 BuildRequires:	python3-devel
 BuildRequires: python3-zipp
 BuildRequires: python3-simplejson
@@ -930,10 +903,6 @@ udev.
 %patch -P52 -p1 -b .unbundle-zlib
 %endif
 
-%patch -P53 -p1 -b .limits-header
-%patch -P56 -p1 -b .missing-cstdint
-%patch -P57 -p1 -b .missing-cstring
-
 %if ! %{bundleminizip}
 %patch -P61 -p1 -b .system-minizip
 %endif
@@ -980,16 +949,11 @@ udev.
 %patch -P110 -p1 -b .buildflag-el7
 %endif
 
-%patch -P122 -p1 -b .gcc13
-
 %if 0%{?rhel} == 9
 %patch -P130 -p1 -b .revert-av1enc
 %endif
 
-%if 0%{?rhel} >= 8
-%patch -P300 -p1 -b .disblegnomekeyring
-%endif
-
+%patch -P300 -p1 -b .no_matching_constructor
 %if %{clang}
 %if 0%{?rhel} || 0%{?fedora} < 38
 %patch -P301 -p1 -b .workaround_clang-SkColor4f
@@ -998,27 +962,29 @@ udev.
 %endif
 
 %patch -P303 -p1 -b .typename
-%patch -P304 -p1 -b .cmath
-%patch -P305 -p1 -b .add_BoundSessionRefreshCookieFetcher::Result
+%patch -P304 -p1 -b .missing-header-files
 %patch -P306 -p1 -b .emplace_back_on_vector-c++20
+
 %ifarch aarch64
-%if 0%{?rhel} == 8
-%patch -P307 -p1 -R -b .ifunc
+%if 0%{?rhel} <= 8
+%patch -P307 -p1 -b .memory_tagging
 %endif
 %endif
+
 %patch -P308 -p1 -b .do_not_restrict_new_V4L2_decoders.v4l2
 %patch -P309 -p1 -b .include_contains_h_header_for_V4L2StatefulVideoDecoder
-%patch -P310 -p1 -b .wayland_load_default_cursor_theme
 %patch -P311 -p1 -b .clang-warnings
 %patch -P312 -p1 -b .python-3.12-deprecated
 
-%patch -P321 -p1 -b .handle_scale_factor_changes
-%patch -P322 -p1 -b .fix_font_double_scaling
-%patch -P323 -p1 -b .qt_deps
-%patch -P324 -p1 -b .qt_enable_AllowQt_feature_flag
-%patch -P325 -p1 -b .qt_logical_scale_factor
-
 %patch -P350 -p1 -b .linux_ui_darkmode
+%patch -P351 -p1 -b .tweak_about_gpu
+
+%ifarch aarch64
+%if 0%{?fedora} < 39
+%patch -P352 -p1 -b .num_delta_pocs_of_ref_rps_idx
+%endif 
+%endif
+
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1700,6 +1666,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Tue Aug 15 2023 Than Ngo <than@redhat.com> - 116.0.5845.96-1
+-  update to 116.0.5845.96 
+
 * Wed Aug 09 2023 Than Ngo <than@redhat.com> - 115.0.5790.170-2
 - set use_all_cpus=1 for aarch64
 

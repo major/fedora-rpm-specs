@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-camlp5
-Version:        8.01.00
-Release:        3%{?dist}
+Version:        8.02.00
+Release:        1%{?dist}
 Summary:        Preprocessor and pretty printer for OCaml
 
 License:        BSD-3-Clause
@@ -17,9 +17,6 @@ Source0:        https://github.com/camlp5/camlp5/archive/%{version}/camlp5-%{ver
 
 # Kill -warn-error A
 Patch0:         camlp5-8.00-kill-warn-error.patch
-
-# Fix assignment of a function to a variable that used to be a ref
-Patch1:         camlp5-8.01-function-ref.patch
 
 BuildRequires:  diffutils
 BuildRequires:  make
@@ -114,6 +111,10 @@ make -C test all
 
 
 %changelog
+* Tue Aug 15 2023 Jerry James <loganjerry@gmail.com> - 8.02.00-1
+- Version 8.02.00
+- Drop unnecessary function-ref patch
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.01.00-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

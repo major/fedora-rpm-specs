@@ -4,9 +4,9 @@
 # and gaiagraphics solved in the past. It is not a drop-in replacement for either.
 Name:          librasterlite2
 Version:       1.1.0
-Release:       0.12%{?pre:.%pre}%{?dist}
+Release:       0.13%{?pre:.%pre}%{?dist}
 Summary:       Stores and retrieves huge raster coverages using a SpatiaLite DBMS
-License:       MPLv1.1 or GPLv2+ or LGPLv2+
+License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:           https://www.gaia-gis.it/fossil/librasterlite2
 Source0:       http://www.gaia-gis.it/gaia-sins/%{name}-sources/%{name}-%{version}%{?pre:-%pre}.tar.gz
 
@@ -107,6 +107,9 @@ make check || true
 
 
 %changelog
+* Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 1.1.0-0.13.beta1
+- Rebuild (libspatialite)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.12.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -203,7 +203,7 @@ make check %{?_smp_mflags} VERBOSE=1 XFAIL_TESTS="test-group-cert"
 %systemd_preun ocserv.service
 
 %postun
-%systemd_postun ocserv.service
+%systemd_postun_with_restart ocserv.service
 %endif
 
 %install

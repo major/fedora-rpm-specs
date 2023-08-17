@@ -4,8 +4,8 @@
 %bcond_without bundled_sundials
 
 Name:           bionetgen
-Version:        2.8.4
-Release:        5%{?dist}
+Version:        2.9.0
+Release:        %autorelease
 Summary:        Software for rule-based modeling of biochemical systems
 # Bionetgen binary file is compiled against bundled muparser (MIT) and sundials-2.6.0 (BSD) libraries
 License:        GPLv3 and BSD and MIT
@@ -14,7 +14,7 @@ Source0:        https://github.com/RuleWorld/bionetgen/archive/BioNetGen-%{versi
 
 Patch0:         %{name}-fix_linker.patch
 Patch1:         %{name}-fix_cmake_minimum.patch
-Patch2:         bionetgen-cmake-c99.patch
+Patch2:         %{name}-cmake-c99.patch
 
 %if 0%{without bundled_sundials}
 BuildRequires:  sundials-devel
@@ -152,9 +152,9 @@ pushd bionetgen-BioNetGen-%{version}
 rm -f bng2/libsource/{gsl-1.9.tar.gz,Mathutils.tar.gz,muparser_v2_2_4.zip}
 tar -xvf bng2/libsource/cvode-2.6.0.tar.gz -C bng2/Network3
 tar -xvf bng2/libsource/muparser_v2_2_4.tar.gz -C bng2/Network3
-%patch0 -p1 -b .backup
-%patch1 -p1 -b .backup
-%patch2 -p1 -b .c99
+%patch -P 0 -p1 -b .backup
+%patch -P 1 -p1 -b .backup
+%patch -P 2 -p1 -b .c99
 rm -f bng2/libsource/*
 %endif
 popd
@@ -285,172 +285,4 @@ echo "Tests finished."
 %endif
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Dec 11 2022 Florian Weimer <fweimer@redhat.com> - 2.8.4-3
-- Port bundled CVODE CMake script to C99
-
-* Fri Sep 09 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.8.4-2
-- Switch to CMake method (rhbz#2124489)
-
-* Mon Aug 08 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.8.4-1
-- Release 2.8.4
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon May 30 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.8.2-2
-- Perl 5.36 rebuild
-
-* Sun May 15 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.8.2-1
-- Release 2.8.2
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Oct 02 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.7.0-1
-- Release 2.7.0
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri May 21 2021 Jitka Plesnikova <jplesnik@redhat.com> - 2.6.0-2
-- Perl 5.34 rebuild
-
-* Thu Apr 29 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.6.0-1
-- Release 2.6.0
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sun Dec 06 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.5.2-1
-- Release 2.5.2
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jun 22 2020 Jitka Plesnikova <jplesnik@redhat.com> - 2.5.1-2
-- Perl 5.32 rebuild
-
-* Fri Jun 05 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.5.1-1
-- Release 2.5.1
-
-* Fri Mar 20 2020 Petr Pisar <ppisar@redhat.com> - 2.5.0-7
-- Specify dependencies for the tests
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Jul 01 2019 Antonio Trande <sagitter@fedoraproject.org> - 2.5.0-4
-- Use devtoolset-8 on EPEL 7
-
-* Mon Jul 01 2019 Antonio Trande <sagitter@fedoraproject.org> - 2.5.0-3
-- Rebuild for sundials
-
-* Thu May 30 2019 Jitka Plesnikova <jplesnik@redhat.com> - 2.5.0-2
-- Perl 5.30 rebuild
-
-* Tue May 07 2019 Antonio Trande <sagitter@fedoraproject.org> - 2.5.0-1
-- Release 2.5.0
-
-* Sat Apr 20 2019 Antonio Trande <sagitter@fedoraproject.org> - 2.4.0-5
-- Ready for MPI (disabled)
-- Bundle Sundials
-
-* Wed Feb 13 2019 Orion Poplawski <orion@cora.nwra.com> - 2.4.0-4
-- Rebuild for openmpi 3.1.3
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Nov 09 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.4.0-2
-- Filtering of SBMLMultiAux module
-
-* Thu Nov 08 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.4.0-1
-- Release 2.4.0
-- Drop obsolete patch
-- Rebuild on epel7 (rhbz#1647989)
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Jun 28 2018 Jitka Plesnikova <jplesnik@redhat.com> - 2.3.0-8
-- Perl 5.28 rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Nov 08 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-6
-- Rebuild for sundials-3.0.0
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sun Jun 04 2017 Jitka Plesnikova <jplesnik@redhat.com> - 2.3.0-3
-- Perl 5.26 rebuild
-
-* Mon May 15 2017 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_27_Mass_Rebuild
-
-* Sun May 07 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-1
-- Update to 2.3.0
-
-* Wed Mar 08 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.2.6-7
-- Rebuild for sundials-2.7.0-10
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Nov 04 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.6-5
-- Rebuild for sundials-2.7.0-7
-
-* Tue Oct 25 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.6-4
-- Rebuild for sundials-2.7.0-6
-
-* Sun Oct 16 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.6-3
-- Rebuild for libsundials (#1384636)
-
-* Sun May 15 2016 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.6-2
-- Perl 5.24 rebuild
-
-* Thu Feb 11 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@bupkis> - 2.2.6-1
-- Update to latest version
-- Fix gcc6 compilation issue (#1306648)
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Fri Jun 05 2015 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.5-6
-- Perl 5.22 rebuild
-
-* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 2.2.5-5
-- Rebuilt for GCC 5 C++11 ABI change
-
-* Tue Mar 31 2015 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.5-4
-- Rebuilt for sundials 2.6.0.
-
-* Thu Feb 26 2015 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Changes/GCC5 (#1195309)
-
-* Sun Nov 30 2014 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.5-2
-- Drop dependency on compat f77, it is not needed.
-
-* Fri Nov 21 2014 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.5-1
-- Initial packaging.
+%autochangelog

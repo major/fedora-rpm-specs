@@ -13,12 +13,16 @@
 
 Name:           centpkg
 Version:        0.7.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
 URL:            https://git.centos.org/centos/centpkg
 Source0:        %{url}/archive/%{version}/centpkg-%{version}.tar.gz
 BuildArch:      noarch
+
+# https://git.centos.org/centos/centpkg/issue/80
+# Remove in version 0.7.5
+Patch0:         centpkg-0.7.4-correctly-clone-full-path.patch
 
 %if %{defined el7}
 BuildRequires:  python-devel
@@ -96,6 +100,9 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Tue Aug 15 2023 Troy Dawson <tdawson@redhat.com> - 0.7.4-4
+- Correctly clone full path rpms (Issue: 80)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,14 +3,14 @@
 %endif
 
 %global prunerepo_version 1.20
-%global tests_version 2
+%global tests_version 4
 %global tests_tar test-data-copr-backend
 
 %global copr_common_version 0.16.4.dev
 
 Name:       copr-backend
-Version:    1.171
-Release:    3%{?dist}
+Version:    1.172
+Release:    1%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -56,6 +56,7 @@ BuildRequires: python3-retask
 BuildRequires: python3-setproctitle
 BuildRequires: python3-sphinx
 BuildRequires: python3-tabulate
+BuildRequires: python3-zstandard
 BuildRequires: modulemd-tools >= 0.6
 BuildRequires: prunerepo >= %prunerepo_version
 BuildRequires: dnf
@@ -241,11 +242,17 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/playbooks
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.171-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.171-2
-- Rebuilt for Python 3.12
+* Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 1.172-1
+- dump the /update/ payload to worker.log
+- don't run external command(s) to collect built packages
+- don't eat the "build detail collecting" traceback
+- fixes in the unknown-resalloc-tickets.py helper
+- more careful format_evr() method
+- fix tests for zst compression on F39+
+- log task dict in case of error returned from redis
+- skip builds for ExcludeArch and "not" ExclusiveArch
+- offload NEVRA (s)rpm parsing to copr-rpmbuild
+- redis authentication support added
 
 * Tue Jun 06 2023 Pavel Raiskup <praiskup@redhat.com> 1.171-1
 - copr_prune_results.py: work-around the arg_max problem

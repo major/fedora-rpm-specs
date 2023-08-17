@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source: %{url}/files/%{name}-%{version}.tar.xz
 Source1: iptables.init
 Source2: iptables-config
@@ -40,7 +40,7 @@ Patch017: 0017-xshared-Fix-parsing-of-option-arguments-in-same-word.patch
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
-License: GPLv2 and Artistic Licence 2.0 and ISC
+License: GPL-2.0-only AND Artistic-2.0 AND ISC
 
 # libnetfilter_conntrack is needed for xt_connlabel
 BuildRequires: pkgconfig(libnetfilter_conntrack)
@@ -447,6 +447,9 @@ fi
 
 
 %changelog
+* Tue Aug 15 2023 Phil Sutter <psutter@redhat.com> - 1.8.9-6
+- Convert license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

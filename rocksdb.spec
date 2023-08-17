@@ -17,6 +17,8 @@ Patch1: shared-liburing.patch
 # and will use system libraries.
 Patch2: https://sources.debian.org/data/main/r/rocksdb/7.6.0-2/debian/patches/no_rpath.patch
 
+# Do not build or install the static library
+Patch3: disable-static-lib.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -65,7 +67,7 @@ Development files for RocksDB.
 %forgesetup
 %patch -P 1 -p1
 %patch -P 2 -p1
-
+%patch -P 3 -p1
 
 %build
 %cmake \
@@ -81,7 +83,7 @@ Development files for RocksDB.
   -DWITH_CORE_TOOLS=ON \
   -DWITH_TOOLS=ON \
   -DUSE_RTTI=ON \
-  -DPORTABLE=ON \
+  -DPORTABLE=1 \
   -DFAIL_ON_WARNINGS=OFF \
   -DWITH_TESTS=ON
 
@@ -98,8 +100,6 @@ install -m 755 %{__cmake_builddir}/db_bench %{buildroot}%{_bindir}/db_bench
 install -m 755 %{__cmake_builddir}/tools/ldb %{buildroot}%{_bindir}/ldb
 install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dump
 
-rm %{buildroot}%{_libdir}/librocksdb.a
-
 
 %files
 %doc README.md
@@ -109,7 +109,7 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 %license LICENSE.Apache
 %license LICENSE.leveldb
 %{_libdir}/librocksdb.so.8
-%{_libdir}/librocksdb.so.8.1.1
+%{_libdir}/librocksdb.so.8.3.2
 
 
 %files tools

@@ -23,7 +23,6 @@ Summary:        GTK graphical user interface library
 License:        LGPL-2.0-or-later
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/4.12/gtk-%{version}.tar.xz
-Source1:        settings.ini
 # Temporarily revert this until we figure out how to best restore
 # private requires that are needed for rpm automatic dep extraction.
 # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/4756
@@ -116,6 +115,10 @@ for writing applications with version 4 of the GTK widget toolkit.
 Summary: Developer documentation for GTK
 BuildArch: noarch
 Requires: gtk4 = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends: gi-docgen-fonts
 
 %description devel-docs
 This package contains developer documentation for version 4 of the GTK
@@ -157,8 +160,6 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/gtk4-broadwayd.1*
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/gtk-4.0
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/gtk-4.0/modules
 
-install -p %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/gtk-4.0/
-
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
@@ -182,7 +183,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.FileChooser.gschema.xml
 %dir %{_datadir}/gtk-4.0
 %{_datadir}/gtk-4.0/emoji/
-%{_datadir}/gtk-4.0/settings.ini
 %if 0%{?with_broadway}
 %{_bindir}/gtk4-broadwayd
 %{_mandir}/man1/gtk4-broadwayd.1*

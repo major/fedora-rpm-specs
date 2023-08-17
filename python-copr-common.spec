@@ -16,8 +16,8 @@
 %endif
 
 Name:       python-copr-common
-Version:    0.19
-Release:    3%{?dist}
+Version:    0.20
+Release:    1%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -74,6 +74,8 @@ Summary: %{summary}
 
 %prep
 %setup -q
+# Check that setup.py version matches our version
+grep '"%version"' setup.py
 
 
 %build
@@ -115,11 +117,9 @@ version=%version %py2_install
 
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.19-2
-- Rebuilt for Python 3.12
+* Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 0.20-1
+- move chroot_to_branch from frontend to copr-common
+- redis authentication support added
 
 * Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 0.19-1
 - Specfile compatibility with OpenEuler

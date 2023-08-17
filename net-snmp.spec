@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.3
-Release:    7%{?dist}
+Release:    8%{?dist}
 Epoch:      1
 
 License:    Net-SNMP and OpenSSL
@@ -52,6 +52,7 @@ Patch22:    net-snmp-libs-misunderstanding.patch
 Patch23:    net-snmp-5.9-CVE-2022-44792-44793.patch
 Patch24:    net-snmp-5.9-ipv6-disable-leak.patch
 Patch25:    net-snmp-5.9-sendmsg-error-code.patch
+Patch26:    net-snmp-5.9-rpmdb.patch
 
 # Modern RPM API means at least EL6
 Patch101:   net-snmp-5.8-modern-rpm-api.patch
@@ -139,8 +140,21 @@ applications for use with the NET-SNMP project's network management
 tools. You'll also need to have the net-snmp and net-snmp-utils
 packages installed.
 
+%package perl-module
+Summary:       The perl NET-SNMP module
+Requires:      %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}, perl-interpreter
+BuildRequires: perl-interpreter
+BuildRequires: perl-generators
+
+%description perl-module
+The net-snmp-perl package contains the perl files to use SNMP from within
+Perl.
+
+Install the net-snmp-perl package, if you want to use SNMP with perl.
+	
+
 %package perl
-Summary:       The perl NET-SNMP module and the mib2c tool
+Summary:       The perl-based utilities and the mib2c tool
 Requires:      %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}, perl-interpreter
 Requires:      %{name}-agent-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:      %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
@@ -148,15 +162,17 @@ BuildRequires: perl-interpreter
 BuildRequires: perl-generators
 
 %description perl
-The net-snmp-perl package contains the perl files to use SNMP from within
-Perl.
+The net-snmp-perl package contains the utilities written in perl.
 
-Install the net-snmp-perl package, if you want to use mib2c or SNMP 
-with perl.
+Install the net-snmp-perl package, if you want to use mib2c or other
+perl utilities. Use the net-snmp-perl-module package instead to get the
+SNMP perl module.
 
 %package gui
 Summary:  An interactive graphical MIB browser for SNMP
-Requires: perl-Tk, net-snmp-perl%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: perl-Tk, %{name}-perl-module%{?_isa} = %{epoch}:%{version}-%{release}
+BuildRequires: perl-interpreter
+BuildRequires: perl-generators
 
 %description gui
 The net-snmp-gui package contains tkmib utility, which is a graphical user 
@@ -228,6 +244,7 @@ cp %{SOURCE10} .
 %patch 23 -p1 
 %patch 24 -p1 -b .ipv6-disable-leak
 %patch 25 -p1 -b .sendmsg-error-code
+%patch 26 -p1 -b .rpmdbpatch
 
 %patch 101 -p1 -b .modern-rpm-api
 %patch 102 -p1
@@ -342,6 +359,7 @@ rm -f %{buildroot}/%{_mandir}/man1/fixproc*
 rm -f %{buildroot}/%{_bindir}/ipf-mod.pl
 rm -f %{buildroot}/%{_libdir}/*.la
 rm -f %{buildroot}/%{_libdir}/libsnmp*
+rm -f %{buildroot}/%{_libdir}/perl5/vendor_perl/Bundle/MakefileSubs.pm
 
 # remove special perl files
 find %{buildroot} -name perllocal.pod \
@@ -451,6 +469,12 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %attr(0755,root,root) %{_bindir}/net-snmp-config*
 %attr(0644,root,root) %{_mandir}/man1/net-snmp-config*.1.*
 
+%files perl-module
+%attr(0644,root,root) %{_mandir}/man3/*.3pm.*
+%{perl_vendorarch}/*SNMP*
+%{perl_vendorarch}/auto/*SNMP*
+%{perl_vendorarch}/auto/Bundle/*SNMP*
+
 %files perl
 %{_bindir}/mib2c-update
 %{_bindir}/mib2c
@@ -462,13 +486,8 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_datadir}/snmp/*.pl
 %{_bindir}/traptoemail
 %attr(0644,root,root) %{_mandir}/man[15]/mib2c*
-%attr(0644,root,root) %{_mandir}/man3/*.3pm.*
 %attr(0644,root,root) %{_mandir}/man1/traptoemail*.1*
 %attr(0644,root,root) %{_mandir}/man1/snmp-bridge-mib.1*
-%{perl_vendorarch}/*SNMP*
-%{perl_vendorarch}/auto/*SNMP*
-%{perl_vendorarch}/auto/Bundle/*SNMP*
-%{perl_vendorarch}/Bundle/MakefileSubs.pm
 
 %files -n python3-net-snmp
 %doc README
@@ -496,6 +515,13 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Mon Aug 14 2023 Josef Ridky <jridky@redhat.com> - 1:5.9.3-8
+- Fix warning for RPM DB
+- split perl module into separate package that doesn't pull in gcc and
+  other build dependencies (thanks Chris Adams)
+- don't install MakefileSubs.pm - it's just needed at module build time
+  (thanks Chris Adams)
+
 * Tue Aug 01 2023 Josef Ridky <jridky@redhat.com> - 1:5.9.3-7
 - Sync fixes with RHEL
 - Fix sendmesg error code change for new kernel

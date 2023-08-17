@@ -1,15 +1,11 @@
 Name:           gpodder
-Version:        3.11.1
-Release:        3%{?dist}
+Version:        3.11.2
+Release:        1%{?dist}
 Summary:        Podcast receiver/catcher written in Python
 # Mostly GPL-3.0-or-later, but some files use something different
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND ISC
 URL:            http://gpodder.org
 Source0:        https://github.com/gpodder/gpodder/archive/%{version}/gpodder-%{version}.tar.gz
-# https://github.com/gpodder/gpodder/commit/3cef7a3e1185ebbe83f22f50ca6410d21d62ec44
-Patch:          appdata-Fix-syntax-add-3.9-series-release-dates.patch
-# https://github.com/gpodder/gpodder/commit/530d026516aa6952bf5a5a01cb8df0f990e97fa5
-Patch:          appdata-Add-release-3.11.1.patch
 # Rename the appdata file to comply with Fedora Packaging Guidelines
 Patch:          rename-appdata.patch
 Patch:          disable-auto-update-check.patch
@@ -79,6 +75,9 @@ desktop-file-install --delete-original          \
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Tue Aug 15 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.11.2-1
+- 3.11.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

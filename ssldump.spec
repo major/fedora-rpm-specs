@@ -1,14 +1,17 @@
 Summary:        SSL/TLS network protocol analyzer
 Name:           ssldump
-Version:        1.7
-Release:        2%{?dist}
+Version:        1.8
+Release:        1%{?dist}
 # pcap/{attrib.h,{logpkt,sys}.[ch]} are BSD-2-Clause, rest is BSD-4-Clause
 License:        BSD-4-Clause AND BSD-2-Clause
 URL:            https://github.com/adulau/ssldump
 Source0:        https://github.com/adulau/ssldump/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        HOWTO
-BuildRequires:  autoconf
-BuildRequires:  automake
+Patch0:         https://github.com/adulau/ssldump/commit/44e963d12e6b25ba6f430aae8cf1b8142bcbab33.patch#/ssldump-1.8-cmake.patch
+BuildRequires:  cmake
+%if 0%{?rhel} && 0%{?rhel} < 8
+BuildRequires:  cmake3
+%endif
 BuildRequires:  gcc
 BuildRequires:  make
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -23,36 +26,45 @@ BuildRequires:  json-c-devel
 %description
 The ssldump program is an SSL/TLS network protocol analyzer. It identifies
 TCP connections on the chosen network interface and attempts to interpret
-them as SSL/TLS traffic. When ssldump identifies SSL/TLS traffic, ssldump 
+them as SSL/TLS traffic. When ssldump identifies SSL/TLS traffic, ssldump
 decodes the records and displays them in a textual form to stdout. And if
 provided with the appropriate keying material, ssldump will also decrypt
 the connections and display the application data traffic. This program is
 based on tcpdump, a network monitoring and data acquisition tool.
 
 %prep
-%setup -q
+%autosetup -p1
 install -p -m 0644 %{SOURCE1} .
 
 %build
-%if 0%{?rhel} == 7
-export CFLAGS="$RPM_OPT_FLAGS $(pkg-config --cflags-only-I openssl11) -D_BSD_SOURCE"
-export LDFLAGS="$RPM_LD_FLAGS $(pkg-config --libs-only-L openssl11)"
+%if 0%{?rhel} && 0%{?rhel} < 8
+%global cmake %cmake3
+%global cmake_build %cmake3_build
+%global cmake_install %cmake3_install
+
+export CFLAGS="$RPM_OPT_FLAGS -D_BSD_SOURCE"
 %endif
 
-./autogen.sh
-%configure
-%make_build
+%cmake \
+%if 0%{?rhel} && 0%{?rhel} < 8
+  -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl11;%{_libdir}/openssl11"
+%endif
+
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 
 %files
 %license COPYRIGHT
 %doc ChangeLog CREDITS HOWTO README README.md
-%{_sbindir}/%{name}
+%{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Aug 16 2023 Robert Scheck <robert@fedoraproject.org> 1.8-1
+- Upgrade to 1.8 (#2231870)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

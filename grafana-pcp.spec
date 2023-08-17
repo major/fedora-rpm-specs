@@ -18,7 +18,7 @@ Name:           grafana-pcp
 Version:        5.1.1
 Release:        3%{?dist}
 Summary:        Performance Co-Pilot Grafana Plugin
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/performancecopilot/grafana-pcp
 
 Source0:        https://github.com/performancecopilot/grafana-pcp/archive/v%{version}/%{name}-%{version}.tar.gz
