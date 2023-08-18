@@ -17,7 +17,6 @@ Patch1:         calibre-no-update.patch
 # Do not display multiple apps in desktop files, only the main app
 # This is so gnome-software only 'sees' calibre once.
 Patch3:         calibre-nodisplay.patch
-Patch4:         calibre-revert-new-podofo.patch
 
 ExclusiveArch: aarch64 x86_64
 
@@ -299,6 +298,7 @@ TEST_ARGS=(
     --exclude-test-name 7z                 # missing dependencies
     --exclude-test-name test_searching     # python3 porting issue?
     --exclude-test-name test_zstd          # pyzstd not packaged yet
+    --exclude-test-name test_zeroconf      # AttributeError: 'functools._lru_cache_wrapper' object has no attribute '__kwdefaults__'
 )
 
 CALIBRE_PY3_PORT=1 \

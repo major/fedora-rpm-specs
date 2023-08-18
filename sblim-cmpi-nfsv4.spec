@@ -3,7 +3,7 @@
 Name:           sblim-cmpi-nfsv4
 Summary:        SBLIM nfsv4 instrumentation
 Version:        1.1.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/providers/%{name}/%{version}/%{name}-%{version}.tar.bz2
@@ -47,10 +47,11 @@ SBLIM Base Fsvol Testcase Files for SBLIM Testsuite
 %autopatch -p1
 
 %build
+%global build_type_safety_c 0
 %ifarch s390 s390x ppc ppc64
-export CFLAGS="$RPM_OPT_FLAGS -fsigned-char -std=gnu89"
+export CFLAGS="$RPM_OPT_FLAGS -fsigned-char"
 %else
-export CFLAGS="$RPM_OPT_FLAGS -std=gnu89"
+export CFLAGS="$RPM_OPT_FLAGS"
 %endif
 %configure \
         --disable-static \
@@ -96,6 +97,9 @@ mv $RPM_BUILD_ROOT/%{_libdir}/libLinux_NFSv4SystemConfigurationUtil.so $RPM_BUIL
 %postun -p /sbin/ldconfig
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 1.1.0-33
+- Set build_type_safety_c to 0 (#2155657)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

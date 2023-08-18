@@ -4,27 +4,22 @@
 %bcond_with mingw
 %endif
 
+#global pre rc1
+
 Name:           podofo
-Version:        0.9.8
-Release:        4%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
-# The library is licensed under the LGPL.
-# The tests and tools which are included in PoDoFo are licensed under the GPL.
-# See the files COPYING and COPYING.LIB for details, see COPYING.exception.
-License:        GPLv2+ and LGPLv2+ with exceptions
-URL:            http://podofo.sourceforge.net
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-# Fix failure to detect FreeType
-Patch0:         podofo-0.9.4-freetype.patch
+License:        GPLv2+
+URL:            https://github.com/podofo/podofo
+Source0:        https://github.com/podofo/podofo/archive/%{version}%{?pre:-%pre}/%{name}-%{version}%{?pre:-%pre}.tar.gz
 
+# Fix header case
+Patch0:         podofo-case.patch
 # Downstream patch for CVE-2019-20093
 # https://sourceforge.net/p/podofo/tickets/75/
-Patch20:        podofo_CVE-2019-20093.patch
-# https://sourceforge.net/p/podofo/tickets/101/
-Patch22:        podofo_maxbytes.patch
-# Comment out some asserts in the testsuite which fail to build with gcc12
-Patch23:        podofo-gcc12.patch
+Patch1:         podofo_CVE-2019-20093.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -37,6 +32,7 @@ BuildRequires:  libidn-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
+BuildRequires:  libxml2-devel
 BuildRequires:  lua-devel
 BuildRequires:  openssl-devel
 BuildRequires:  texlive-epstopdf-bin
@@ -51,6 +47,7 @@ BuildRequires: mingw32-libidn
 BuildRequires: mingw32-libjpeg
 BuildRequires: mingw32-libpng
 BuildRequires: mingw32-libtiff
+BuildRequires: mingw32-libxml2
 BuildRequires: mingw32-openssl
 BuildRequires: mingw32-zlib
 
@@ -62,9 +59,14 @@ BuildRequires: mingw64-libidn
 BuildRequires: mingw64-libjpeg
 BuildRequires: mingw64-libpng
 BuildRequires: mingw64-libtiff
+BuildRequires: mingw64-libxml2
 BuildRequires: mingw64-openssl
 BuildRequires: mingw64-zlib
 %endif
+
+Obsoletes:      %{name}-libs < 0.10.0-1
+Provides:       %{name} < 0.10.0-1
+Provides:       %{name}-libs = %{version}-%{release}
 
 
 %description
@@ -81,23 +83,16 @@ your own PDF files. All classes are documented so it is easy to start writing
 your own application using PoDoFo.
 
 
-%package libs
-Summary:        Runtime library for %{name}
-License:        LGPLv2+
-
-%description libs
-Runtime library for %{name}.
-
-
 %package devel
 Summary:        Development files for %{name} library
-License:        LGPLv2+
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       openssl-devel%{?_isa}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Development files and documentation for the %{name} library.
 
+
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
@@ -106,10 +101,11 @@ BuildArch:     noarch
 MinGW Windows %{name} library.
 
 
-%if %{with mingw}
 %package -n mingw32-%{name}-tools
 Summary:       Tools for the MinGW Windows %{name} library
 BuildArch:     noarch
+Obsoletes:     mingw32-%{name}-tools < 0.10.0-1
+Provides:      mingw32-%{name}-tools = %{version}-%{release}
 
 %description -n mingw32-%{name}-tools
 Tools for the MinGW Windows %{name} library.
@@ -118,6 +114,8 @@ Tools for the MinGW Windows %{name} library.
 %package -n mingw64-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
+Obsoletes:     mingw64-%{name}-tools < 0.10.0-1
+Provides:      mingw64-%{name}-tools = %{version}-%{release}
 
 %description -n mingw64-%{name}
 MinGW Windows %{name} library.
@@ -129,35 +127,28 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}-tools
 Tools for the MinGW Windows %{name} library.
-%endif
 
 
 %{?mingw_debug_package}
 
+%endif
+
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}%{?pre:-%pre}
 
 # disable timestamps in docs
 echo "HTML_TIMESTAMP = NO" >> Doxyfile
 
-# switch to system provided files
-rm cmake/modules/FindFREETYPE.cmake
-rm cmake/modules/FindZLIB.cmake
-
 
 %build
 # Natve build
-%cmake \
-%if 0%{?__isa_bits} == 64
--DWANT_LIB64=1 \
-%endif
--DPODOFO_BUILD_SHARED=1
+%cmake -DPODOFO_ENABLE_TOOLS=1
 %cmake_build
 
 %if %{with mingw}
 # MinGW build
-%mingw_cmake -DPODOFO_BUILD_SHARED=1
+%mingw_cmake -DPODOFO_ENABLE_TOOLS=1
 %mingw_make_build
 %endif
 
@@ -178,52 +169,50 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %mingw_debug_install_post
 %endif
 
+# Move incorrectly installed files
+mkdir -p %{buildroot}%{_libdir}/cmake/podofo/
+mv %{buildroot}%{_datadir}/podofo/*.cmake %{buildroot}%{_libdir}/cmake/podofo/
+rmdir %{buildroot}%{_datadir}/podofo/
+
 
 %check
-# Takes ages on x86_64....
-# ./test/unit/podofo-test || :
+%ctest
 
 
 %files
+%doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING
-%{_bindir}/%{name}*
-%{_mandir}/man1/%{name}*.1*
-
-%files libs
-%doc AUTHORS ChangeLog FAQ.html README.html TODO
-%license COPYING.LIB COPYING.exception
-%{_libdir}/*.so.0.9.8
+%{_libdir}/*.so.0.10.1
+%{_libdir}/*.so.2
 
 %files devel
 %doc doc/html examples
 %{_includedir}/%{name}
 %{_libdir}/*.so
+%{_libdir}/cmake/%{name}/
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %if %{with mingw}
 %files -n mingw32-%{name}
-%license COPYING.LIB COPYING.exception
+%license COPYING
 %{mingw32_bindir}/libpodofo.dll
 %{mingw32_libdir}/libpodofo.dll.a
 %{mingw32_libdir}/pkgconfig/libpodofo.pc
 %{mingw32_includedir}/podofo/
 
-%files -n mingw32-%{name}-tools
-%{mingw32_bindir}/*.exe
-
 %files -n mingw64-%{name}
-%license COPYING.LIB COPYING.exception
+%license COPYING
 %{mingw64_bindir}/libpodofo.dll
 %{mingw64_libdir}/libpodofo.dll.a
 %{mingw64_libdir}/pkgconfig/libpodofo.pc
 %{mingw64_includedir}/podofo/
-
-%files -n mingw64-%{name}-tools
-%{mingw64_bindir}/*.exe
 %endif
 
 
 %changelog
+* Wed Aug 16 2023 Sandro Mani <manisandro@gmail.com> - 0.10.1-1
+- Update to 0.10.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

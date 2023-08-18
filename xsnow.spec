@@ -1,6 +1,6 @@
 Name:           xsnow
-Version:        3.7.4
-Release:        2%{?dist}
+Version:        3.7.5
+Release:        1%{?dist}
 Summary:        Let it snow on your desktop
 
 License:        GPLv3+
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Wed Aug 16 2023 Andrea Musuruane <musuruan@gmail.com> - 3.7.5-1
+- Updated to new upstream release
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

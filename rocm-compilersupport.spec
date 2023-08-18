@@ -1,17 +1,17 @@
 # The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 2
-%global comgr_full_api_ver %{comgr_maj_api_ver}.5.0
+%global comgr_full_api_ver %{comgr_maj_api_ver}.6.0
 # LLVM information:
-%global llvm_maj_ver 16
+%global llvm_maj_ver 17
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
-%global bugfix_version 2
+%global bugfix_version 0
 %global upstreamname ROCm-CompilerSupport
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
@@ -80,7 +80,7 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_libdir}/libamd_comgr.so.%{comgr_full_api_ver}
 %{_libdir}/libamd_comgr.so.%{comgr_maj_api_ver}
 #Files already included:
-%exclude %{_docdir}/amd_comgr/LICENSE.txt
+%exclude %{_docdir}/amd_comgr*/LICENSE.txt
 %exclude %{_docdir}/amd_comgr/NOTICES.txt
 %exclude %{_docdir}/amd_comgr/README.md
 
@@ -92,6 +92,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Tue Aug 15 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.0-1
+- Update to 17.0
+
 * Tue Aug 08 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.2-3
 - Rebuild against rocm-device-libs 16.4
 

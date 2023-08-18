@@ -1,6 +1,6 @@
 Name:           clonekeen
 Version:        0.8.4
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        "Commander Keen: Invasion of the Vorticons" clone
 License:        GPLv3+
 URL:            http://clonekeen.sourceforge.net/
@@ -42,13 +42,12 @@ the shareware datafiles for you.
 %prep
 %autosetup -p1 -a 1 -n keen
 find -name "*.o" -delete
-sed -i 's|gcc -O2|gcc %{optflags} -std=gnu89|g' src/Makefile
 cp -a %{SOURCE2} %{SOURCE3} .
 sed -i 's/\r//g' README src/changelog.txt
 
 
 %build
-CFLAGS="$CFLAGS -std=gnu89"
+%global build_type_safety_c 0
 make %{?_smp_mflags} -C src -f Makefile
 gcc -o %{name}-extract $CFLAGS extract.c -ldynamite
 gcc -o %{name}-extract-sounds $CFLAGS %{name}-extract-sounds.c
@@ -87,6 +86,9 @@ install -p -m 644 %{SOURCE7} \
 %{_datadir}/icons/hicolor/24x24/apps/%{name}.png
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 0.8.4-28
+- Set build_type_safety_c to 0 (#2161553)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

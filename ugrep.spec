@@ -1,5 +1,5 @@
 Name:           ugrep
-Version:        3.12.6
+Version:        3.12.7
 Release:        %autorelease
 Summary:        Faster, user-friendly, and compatible grep replacement
 License:        BSD-3-Clause

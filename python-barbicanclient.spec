@@ -13,7 +13,7 @@ a command-line script (barbican).
 
 Name:           python-barbicanclient
 Version:        5.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Client Library for OpenStack Barbican Key Management API
 
 License:        ASL 2.0
@@ -87,7 +87,7 @@ rm -rf {test-,}requirements.txt
 
 %if 0%{?with_doc}
 # doc
-%{__python3} setup.py build_sphinx -b html
+sphinx-build -b html doc/source doc/build/html
 # Fix hidden-file-or-dir warnings
 rm -fr doc/build/html/.buildinfo
 %endif
@@ -111,6 +111,9 @@ ln -s ./barbican %{buildroot}%{_bindir}/barbican-3
 %endif
 
 %changelog
+* Wed Aut 16 2023 Alfredo Moralejo <amoralej@gmail.com> - 5.5.0-4
+- Switch to sphinx-build to create the documentation
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

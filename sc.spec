@@ -1,6 +1,6 @@
 Name:    sc
 Version: 7.16
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Spreadsheet Calculator
 
 License: Public Domain
@@ -32,7 +32,8 @@ bindings similar to vi and less.
 %autosetup
 
 %build
-make all sc.1 psc.1 %{?_smp_mflags} CFLAGS="%{optflags} -DSYSV3 -std=gnu89"
+%global build_type_safety_c 0
+make all sc.1 psc.1 %{?_smp_mflags} CFLAGS="%{optflags} -DSYSV3"
 
 %install
 # The "install" target of upstream's makefile does not work, so install manually
@@ -58,6 +59,9 @@ install -m 0644 tutorial.sc %{buildroot}%{_datadir}/sc
 %{_datadir}/sc
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 7.16-23
+- Set build_type_safety_c to 0 (#2160639)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.16-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

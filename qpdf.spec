@@ -2,13 +2,13 @@ Summary: Command-line tools and library for transforming PDF files
 Name:    qpdf
 Version: 11.5.0
 Release: 1%{?dist}
-# MIT: e.g. libqpdf/sha2.c
+# MIT: e.g. libqpdf/sha2.c, but those are not compiled in (GNUTLS is used)
 # upstream uses ASL 2.0 now, but he allowed other to distribute qpdf under
 # old license (see README)
 License: Apache-2.0 OR Artistic-2.0
-URL:     http://qpdf.sourceforge.net/
-Source0: http://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
-Source1: http://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}-doc.zip
+URL:     https://qpdf.sourceforge.io/
+Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}-doc.zip
 
 # make qpdf working under FIPS, downstream patch
 Patch1:  qpdf-relax.patch

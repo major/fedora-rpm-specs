@@ -10,8 +10,8 @@ The maps can be used by interactive applications or to create data analysis
 graphs.}
 
 Name:           python-%{pypi_name}
-Version:        0.14.7
-Release:        4%{?dist}
+Version:        0.15.0
+Release:        1%{?dist}
 Summary:        GeoTiler is a library to create map using tiles from a map provider
 
 License:        GPLv3+
@@ -32,19 +32,9 @@ Source2:        geotiler-fetch.1
 Source3:        geotiler-lint.1
 Source4:        geotiler-route.1
 
-# Adjust dependencies for tests extra
-# Drop uvloop, which seems to be unused.
-# Add numpy, which is imported directly in the test suite.
-# https://github.com/wrobell/geotiler/pull/37
-# Rebased on the PyPI sdist, which has different whitespace in setup.cfg.
-Patch:          geotiler-0.14.7-tests.patch
-# Update GeoTiler to use Pillow newer API
-# https://github.com/wrobell/geotiler/commit/5e0cfbafcda83ca14cfe6c63b2a791d4ad6c338b
-# Rebased on the 0.14.7 PyPI sdist (whitespace differs in setup.cfg)
-Patch:          geotiler-0.14.7-pillow10.patch
 # Downstream-only: patch out linting and coverage dependencies
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-Patch:          geotiler-0.14.7-linters.patch
+Patch:          geotiler-0.15.0-linters.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  make
@@ -138,6 +128,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 %doc _latex/geotiler.pdf
 
 %changelog
+* Wed Aug 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.15.0-1
+- Update to 0.15.0 (close RHBZ#2228274)
+
 * Mon Jul 31 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.14.7-4
 - Patch out unused uvloop test dependency
 - Patch for Pillow 10 (fix RHBZ#2220253, fix RHBZ#2226199)

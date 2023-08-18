@@ -1,8 +1,8 @@
 
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
-Version: 2.40
-Release: 13%{?dist}
+Version: 2.41
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -187,103 +187,66 @@ Patch03: binutils-export-demangle.h.patch
 #           order.
 Patch04: binutils-no-config-h-check.patch
 
-# Purpose:  Include the filename concerned in readelf error and warning
-#           messages.  This helps when readelf is run with multiple
-#           input files or when multiple instances of readelf are
-#           running at the same time. 
-# Lifetime: Permanent.  This patch changes the format of readelf's output,
-#           making it better (IMHO) but also potentially breaking tools that
-#           depend upon readelf's current output format.  cf/ Patch07.
-#           It also tends to break parts of the binutils own
-#           testsuite.  Hence the patch remains local for now.
-Patch05: binutils-filename-in-readelf-messages.patch
-
 # Purpose:  Disable an x86/x86_64 optimization that moves functions from the
 #           PLT into the GOTPLT for faster access.  This optimization is
 #           problematic for tools that want to intercept PLT entries, such
 #           as ltrace and LD_AUDIT.  See BZs 1452111 and 1333481.
 # Lifetime: Permanent.  But it should not be.
 # FIXME:    Replace with a configure time option.
-Patch06: binutils-revert-PLT-elision.patch
-
-# Purpose:  Changes readelf so that when it displays extra information about
-#           a symbol, this information is placed at the end of the line.
-# Lifetime: Permanent.  cf/ Patch05.
-# FIXME:    The proper fix would be to update the scripts that are expecting
-#           a fixed output from readelf.  But it seems that some of them are
-#           no longer being maintained.
-Patch07: binutils-readelf-other-sym-info.patch
+Patch05: binutils-revert-PLT-elision.patch
 
 # Purpose:  Do not create PLT entries for AARCH64 IFUNC symbols referenced in
 #           debug sections.
 # Lifetime: Permanent.
 # FIXME:    Find related bug.  Decide on permanency.
-Patch08: binutils-2.27-aarch64-ifunc.patch
+Patch06: binutils-2.27-aarch64-ifunc.patch
 
 # Purpose:  Stop the binutils from statically linking with libstdc++.
 # Lifetime: Permanent.
-Patch09: binutils-do-not-link-with-static-libstdc++.patch
+Patch07: binutils-do-not-link-with-static-libstdc++.patch
 
 # Purpose:  Allow OS specific sections in section groups.
-# Lifetime: Fixed in 2.39 (maybe)
-Patch10: binutils-special-sections-in-groups.patch
-
-# Purpose:  Fix linker testsuite failures.
-# Lifetime: Fixed in 2.39 (maybe)
-Patch11: binutils-fix-testsuite-failures.patch
+# Lifetime: Fixed in 2.42 (maybe)
+Patch08: binutils-special-sections-in-groups.patch
 
 # Purpose:  Stop gold from aborting when input sections with the same name
 #            have different flags.
-# Lifetime: Fixed in 2.39 (maybe)
-Patch12: binutils-gold-mismatched-section-flags.patch
+# Lifetime: Fixed in 2.42 (maybe)
+Patch09: binutils-gold-mismatched-section-flags.patch
 
 # Purpose:  Change the gold configuration script to only warn about
 #            unsupported targets.  This allows the binutils to be built with
 #            BPF support enabled.
 # Lifetime: Permanent.
-Patch13: binutils-gold-warn-unsupported.patch
+Patch10: binutils-gold-warn-unsupported.patch
 
 # Purpose:  Enable the creation of .note.gnu.property sections by the GOLD
 #            linker for x86 binaries.
 # Lifetime: Permanent.
-Patch14: binutils-gold-i386-gnu-property-notes.patch
+Patch11: binutils-gold-i386-gnu-property-notes.patch
 
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
-# Lifetime: Fixed in 2.39 (maybe ?)
-Patch15: binutils-autoconf-version.patch
+# Lifetime: Fixed in 2.42 (maybe ?)
+Patch12: binutils-autoconf-version.patch
 
 # Purpose:  Stop libtool from inserting useless runpaths into binaries.
 # Lifetime: Who knows.
-Patch16: binutils-libtool-no-rpath.patch
+Patch13: binutils-libtool-no-rpath.patch
 
 %if %{enable_new_dtags}
 # Purpose:  Change ld man page so that it says that --enable-new-dtags is the default.
 # Lifetime: Permanent
-Patch17: binutils-update-linker-manual.patch
+Patch14: binutils-update-linker-manual.patch
 %endif
 
-# Purpose:  Speed up objcopy's note merging algorithm.
-# Lifetime: Fixed in 2.41
-Patch18: binutils-objcopy-note-merge-speedup.patch
-
-# Purpose:  Fix testsuite failures due to the patches applied here.
-# Lifetime: Permanent, but varying with each new rebase.
-Patch19: binutils-testsuite-fixes.patch
-
-# Purpose:  Stop the linker from associating allocated reloc sections with
-#            the .symtab section , which prevents it from being stripped.
-# Lifetime: Fixed in 2.41
-Patch20: binutils-reloc-symtab.patch
-
-# Purpose:  Stop an illegal memory access in the BFD library when loading
-#            a file with corrupt symbol version information.
-# Lifetime: Fixed in 2.41
-Patch21: binutils-CVE-2023-1972.patch
-
 # Purpose:  Stop an abort when using dwp to process a file with no dwo links.
-# Lifetime: Fixed in 2.41 (maybe)
-Patch22: binutils-gold-empty-dwp.patch
+# Lifetime: Fixed in 2.42 (maybe)
+Patch15: binutils-gold-empty-dwp.patch
+
+# Purpose:  Fix binutils testsuite failures.
+# Lifetime: Permanent, but varies with each rebase.
+Patch16: binutils-testsuite-fixes.patch
 
 #----------------------------------------------------------------------------
 
@@ -983,11 +946,11 @@ install_binutils()
 	%set_build_flags
 	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C libsframe
 
-	install -m 644 bfd/libbfd.a            $local_libdir
-	install -m 644 libiberty/libiberty.a   $local_libdir
-	install -m 644 ../include/libiberty.h  $local_incdir
-	install -m 644 opcodes/libopcodes.a    $local_libdir
-	install -m 644 libsframe/.libs/libsframe.a   $local_libdir
+	install -m 644 bfd/.libs/libbfd.a           $local_libdir
+	install -m 644 libiberty/libiberty.a        $local_libdir
+	install -m 644 ../include/libiberty.h       $local_incdir
+	install -m 644 opcodes/.libs/libopcodes.a   $local_libdir
+	install -m 644 libsframe/.libs/libsframe.a  $local_libdir
 
 	# Remove Windows/Novell only man pages
 	rm -f $local_mandir/{dlltool,nlmconv,windres,windmc}*
@@ -1207,6 +1170,7 @@ exit 0
 %{_infodir}/as.info.*
 %{_infodir}/binutils.info.*
 %{_infodir}/ld.info.*
+%{_infodir}/ldint.info.*
 %{_infodir}/bfd.info.*
 %{_infodir}/ctf-spec.info.*
 %{_infodir}/gprof.info.*
@@ -1283,6 +1247,16 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Aug 03 2023 Nick Clifton  <nickc@redhat.com> - 2.41-1
+- Rebase to GNU Binutils 2.41
+# Patch05: binutils-filename-in-readelf-messages.patch
+# Patch07: binutils-readelf-other-sym-info.patch
+# Patch11: binutils-fix-testsuite-failures.patch
+# Patch18: binutils-objcopy-note-merge-speedup.patch
+# Patch19: binutils-testsuite-fixes.patch
+# Patch20: binutils-reloc-symtab.patch
+# Patch21: binutils-CVE-2023-1972.patch
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

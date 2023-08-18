@@ -1,11 +1,11 @@
 # bitcode has no debuginfo
 %global debug_package %{nil}
 
-%global llvm_maj_ver 16
+%global llvm_maj_ver 17
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
-%global bugfix_version 4
+%global bugfix_version 0
 %global upstreamname ROCm-Device-Libs
 
 # This might be needed because EL9 llvm is built with clang:
@@ -64,6 +64,9 @@ libraries in the form of bit code. Specifically:
 %{_libdir}/clang/%{llvm_maj_ver}/amdgcn
 
 %changelog
+* Tue Aug 15 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.0-1
+- Update to 17.0
+
 * Tue Aug 08 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.4-1
 - Update to 16.4
 

@@ -1,6 +1,6 @@
 Name:           bitwise
-Version:        0.43
-Release:        3%{?dist}
+Version:        0.50
+Release:        %autorelease
 Summary:        Terminal based bit manipulator in ncurses
 
 # The entire source code is GPL-3.0-or-later except for
@@ -40,11 +40,4 @@ developers and device drivers developers.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Apr 20 2022 Gustavo Costa <xfgusta@fedoraproject.org> - 0.43-1
-- Initial package
+%autochangelog

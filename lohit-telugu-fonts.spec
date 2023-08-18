@@ -1,7 +1,7 @@
 %global fontname lohit-telugu
 
 Version:       2.5.5
-Release:       16%{?dist}
+Release:       17%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-odia-fonts
 
 %global foundry           Lohit
@@ -22,7 +22,7 @@ BuildRequires: make
 BuildRequires: fontforge
 BuildRequires: ttfautohint
 Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
-Source10:       65-0-%{fontpkgname}.conf
+Source10:       66-%{fontpkgname}.conf
 
 %fontpkg
 
@@ -44,6 +44,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Tue Aug 15 2023 Sudip Shil <sshil@redhat.com> - 2.5.5-17
+- lowering priority of lohit-telugu-fonts
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

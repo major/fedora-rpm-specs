@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -151,6 +151,8 @@ Patch103: qtbase-QTBUG-112136.patch
 # https://bugreports.qt.io/browse/QTBUG-103393
 Patch104: qtbase-QTBUG-103393.patch
 
+# upstream security fixes
+Patch150: CVE-2023-37369-qtbase-5.15.diff
 
 # Do not check any files in %%{_qt5_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -432,6 +434,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P102 -p1
 %patch -P103 -p1
 %patch -P104 -p1
+%patch -P150 -p1
 
 # move some bundled libs to ensure they're not accidentally used
 pushd src/3rdparty
@@ -1111,6 +1114,9 @@ fi
 
 
 %changelog
+* Wed Aug 16 2023 Than Ngo <than@redhat.com> - 5.15.10-5
+- Fixed bz#2232359, CVE-2023-37369 qtbase: buffer overflow in QXmlStreamReader
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

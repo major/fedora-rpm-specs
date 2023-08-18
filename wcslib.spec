@@ -46,7 +46,7 @@ make
 %install
 make install DESTDIR=%{buildroot}
 # fix permissions
-rm -rf %{buildroot}/usr/share/doc/wcslib*
+rm -rf %{buildroot}%{_datadir}/doc/wcslib*
 chmod 755 %{buildroot}%{_includedir}/wcslib-%{version}
 
 %check

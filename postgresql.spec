@@ -1,24 +1,3 @@
-# This is the PostgreSQL Global Development Group Official RPMset spec file,
-# or a derivative thereof.
-# Copyright 2003-2009 Lamar Owen <lowen@pari.edu> <lamar.owen@wgcr.org>
-# and others listed.                 ** vi: ts=4 sw=4 noexpandtab nosmarttab
-
-# Major Contributors:
-# ---------------
-# Lamar Owen
-# Trond Eivind Glomsrd <teg@redhat.com>
-# Thomas Lockhart
-# Reinhard Max
-# Karl DeBisschop
-# Peter Eisentraut
-# Joe Conway
-# Andrew Overholt
-# David Jee
-# Kaj J. Niemi
-# Sander Steffann
-# Tom Lane
-# and others in the Changelog....
-
 # This spec file and ancillary files are licensed in accordance with
 # The PostgreSQL license.
 
@@ -64,8 +43,8 @@
 Summary: PostgreSQL client programs
 Name: postgresql
 %global majorversion 15
-Version: %{majorversion}.3
-Release: 9%{?dist}
+Version: %{majorversion}.4
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -77,7 +56,7 @@ Url: http://www.postgresql.org/
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
 %global prevmajorversion 14
-%global prevversion %{prevmajorversion}.3
+%global prevversion %{prevmajorversion}.9
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -1262,6 +1241,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Wed Aug 16 2023 Filip Janus <fjanus@redhat.com> - 15.4-1
+- Update to 15.4
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

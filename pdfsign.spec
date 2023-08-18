@@ -16,7 +16,7 @@ BuildRequires: freetype-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libpng-devel
 BuildRequires: openssl-devel
-BuildRequires: podofo-devel
+BuildRequires: podofo0.9-devel
 
 %description
 Sign PDF (PAdES compatible)

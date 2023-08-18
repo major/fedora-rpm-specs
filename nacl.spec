@@ -2,7 +2,7 @@ Name:           nacl
 # http://nacl.cr.yp.to/
 URL:            http://nacl.cace-project.eu/
 Version:        20110221
-Release:        31%{?dist}
+Release:        32%{?dist}
 License:        Public Domain
 Summary:        Networking and Cryptography library
 
@@ -55,7 +55,8 @@ Statically linkable version of the NaCl library.
 
 # It's necessary to build in C89 mode because of implicit function
 # declarations and implicit int.
-sed -i 's|\${CFLAGS}|%{optflags} -fPIC -std=gnu89|g' okcompilers/c okcompilers/cpp
+%global build_type_safety_c 0
+sed -i 's|\${CFLAGS}|%{optflags} -fPIC|g' okcompilers/c okcompilers/cpp
 
 %build
 ./do
@@ -101,6 +102,9 @@ install -m 0755 -t %{buildroot}%{_bindir} build/fedora/bin/*
 %{_includedir}/nacl
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 20110221-32
+- Set build_type_safety_c to 0 (#2144813)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20110221-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

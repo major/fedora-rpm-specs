@@ -3,16 +3,13 @@
 
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
-Version:        1.31.26
+Version:        1.31.28
 Release:        1%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
 License:        Apache-2.0
 URL:            https://github.com/boto/botocore
 Source0:        %{pypi_source}
-
-# Reported upstream: https://github.com/boto/botocore/issues/2979
-Patch:          Fix-test-failures-with-Python-3.12.patch
 
 BuildArch:      noarch
 
@@ -29,7 +26,9 @@ BuildRequires:  python3-devel
 # For tests:
 BuildRequires:  python3-jsonschema
 BuildRequires:  python3-pytest
+%if %{undefined rhel}
 BuildRequires:  python3-pytest-xdist
+%endif
 %endif
 Provides:       bundled(python3-six) = 1.16.0
 Provides:       bundled(python3-requests) = 2.7.0
@@ -57,7 +56,7 @@ rm -vr tests/functional/leak
 
 %check
 %if %{with tests}
-%pytest
+%pytest %{!?rhel:-n auto}
 %else
 %pyproject_check_import -e botocore.crt.auth -e botocore.vendored*
 %endif
@@ -67,6 +66,15 @@ rm -vr tests/functional/leak
 %license LICENSE.txt
 
 %changelog
+* Wed Aug 16 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.31.28-1
+- 1.31.28
+
+* Wed Aug 16 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.31.27-2
+- Don't use xdist on RHEL.
+
+* Wed Aug 16 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.31.27-1
+- 1.31.27
+
 * Mon Aug 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.31.26-1
 - 1.31.26
 

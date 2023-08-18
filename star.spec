@@ -3,7 +3,7 @@
 Summary:  An archiving tool with ACL support
 Name: star
 Version: 1.6
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: CDDL
 URL: http://freecode.com/projects/star
 Source: https://downloads.sourceforge.net/s-tar/%{name}-%{version}.tar.bz2
@@ -104,6 +104,7 @@ done
 # GNU/Linux ecosystem.  Build in C89 mode (-std=gnu89) because these
 # many of these warnings are actually errors as later C standards are
 # concerned.
+%global build_type_safety_c 0
 %global make_flags GMAKE_NOWARN=true                                    \\\
     RUNPATH=                                                            \\\
     LDPATH=                                                             \\\
@@ -112,7 +113,7 @@ done
     INS_BASE=$RPM_BUILD_ROOT%{_prefix}                                  \\\
     INS_RBASE=$RPM_BUILD_ROOT                                           \\\
     INSTALL='sh $(SRCROOT)/conf/install-sh -c -m $(INSMODEINS)'         \\\
-    COPTX="%build_cflags -std=gnu89 -DTRY_EXT2_FS"                      \\\
+    COPTX="%build_cflags -DTRY_EXT2_FS"                      		\\\
     LDOPTX="$RPM_LD_FLAGS"                                              \\\
     DEFCCOM=gcc
 
@@ -201,6 +202,9 @@ fi
 %{_sysconfdir}/rmt
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 1.6-11
+- Set build_type_safety_c to 0 (#2187168)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

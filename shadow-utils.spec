@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.13
-Release: 8%{?dist}
+Version: 4.14.0
+Release: 1%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -17,27 +17,12 @@ Source6: shadow-utils.HOME_MODE.xml
 %global includesubiddir %{_includedir}/shadow
 
 ### Patches ###
-# Misc small changes - most probably non-upstreamable
-Patch0: shadow-4.12.3-redhat.patch
-# SElinux related - upstreamability unknown
-Patch1: shadow-4.13-default-range.patch
 # Misc manual page changes - non-upstreamable
-Patch2: shadow-4.9-manfix.patch
+Patch0: shadow-4.14.0-manfix.patch
 # Date parsing improvement - could be upstreamed
-Patch3: shadow-4.2.1-date-parsing.patch
+Patch1: shadow-4.2.1-date-parsing.patch
 # Audit message changes - partially upstreamed
-# https://github.com/shadow-maint/shadow/commit/37412f505ed0bc5c9e3f04b2266b40f8f6fc310f
-Patch4: shadow-4.11.1-audit-update.patch
-# Changes related to password unlocking - could be upstreamed
-Patch5: shadow-4.5-usermod-unlock.patch
-# Additional SElinux related changes - upstreamability unknown
-Patch6: shadow-4.12.3-selinux-perms.patch
-# https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef
-Patch7: shadow-utils-configure-gshadow.patch
-# https://github.com/shadow-maint/shadow/commit/6974df39a708abf8bafbdfa2b7827e0f70f874cb
-# https://github.com/shadow-maint/shadow/commit/7ff33fae6f9cd79c0e012671c37a172e9a681d0b
-# https://github.com/shadow-maint/shadow/commit/05e2adf509ba0e3779dae66a276b86927a8e1e0e
-Patch8: shadow-4.13-newidmap-support-passing-pid-as-fd.patch
+Patch2: shadow-4.14.0-audit-update.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -129,10 +114,13 @@ autoreconf
         --with-bcrypt \
         --with-yescrypt \
         --with-selinux \
+        --without-libbsd \
         --without-libcrack \
         --without-libpam \
         --enable-shared \
-        --with-group-name-max-length=32
+        --with-group-name-max-length=32 \
+        --enable-lastlog \
+        --enable-logind=no
 %make_build
 
 %install
@@ -273,6 +261,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Wed Aug 16 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-1
+- Rebase to version 4.14.0. Resolves: #2229000
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.13-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

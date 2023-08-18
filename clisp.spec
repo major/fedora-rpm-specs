@@ -26,7 +26,7 @@ Version:	2.49.93
 # - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
 # - src/xthread.d and modules/asdf/asdf.lisp are X11
 License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	33%{?dist}
+Release:	34%{?dist}
 URL:		http://www.clisp.org/
 Source0:	%{forgesource}
 # Upstream dropped this file from the distribution
@@ -79,7 +79,6 @@ BuildRequires:	libxcrypt-devel
 BuildRequires:	make
 BuildRequires:	pari-devel
 BuildRequires:	pari-gp
-BuildRequires:	pcre-devel
 BuildRequires:	libpq-devel
 BuildRequires:	readline-devel
 BuildRequires:	zlib-devel
@@ -181,7 +180,6 @@ export LC_ALL=C.UTF-8
 %endif
 	    --with-module=libsvm \
 	    --with-module=pari \
-	    --with-module=pcre \
 	    --with-module=postgresql \
 	    --with-module=rawsock \
 	    --with-module=zlib \
@@ -267,8 +265,6 @@ rm -f bdb.o
 ln -s ../berkeley-db/bdb.o bdb.o
 rm -f clx.o
 ln -s ../clx/new-clx/clx.o clx.o
-rm -f cpcre.o
-ln -s ../pcre/cpcre.o cpcre.o
 rm -f dbus.o
 ln -s ../dbus/dbus.o dbus.o
 rm -f gdbm.o
@@ -343,9 +339,6 @@ make -C build base-mod-check
 %dir %{_libdir}/%{instdir}/pari/
 %{_libdir}/%{instdir}/pari/*.fas
 %{_libdir}/%{instdir}/pari/preload.lisp
-%dir %{_libdir}/%{instdir}/pcre/
-%{_libdir}/%{instdir}/pcre/*.fas
-%{_libdir}/%{instdir}/pcre/preload.lisp
 %dir %{_libdir}/%{instdir}/postgresql/
 %{_libdir}/%{instdir}/postgresql/*.fas
 %dir %{_libdir}/%{instdir}/rawsock/
@@ -430,11 +423,6 @@ make -C build base-mod-check
 %{_libdir}/%{instdir}/pari/pari.lisp
 %{_libdir}/%{instdir}/pari/*.o
 %{_libdir}/%{instdir}/pari/*.sh
-%{_libdir}/%{instdir}/pcre/Makefile
-%{_libdir}/%{instdir}/pcre/*.h
-%{_libdir}/%{instdir}/pcre/pcre.lisp
-%{_libdir}/%{instdir}/pcre/*.o
-%{_libdir}/%{instdir}/pcre/*.sh
 %{_libdir}/%{instdir}/postgresql/README
 %{_libdir}/%{instdir}/postgresql/Makefile
 %{_libdir}/%{instdir}/postgresql/*.h
@@ -456,6 +444,9 @@ make -C build base-mod-check
 
 
 %changelog
+* Wed Aug 16 2023 Jerry James <loganjerry@gmail.com> - 2.49.93-34
+- Build without pcre support (rhbz#2128278)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.49.93-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           htmlcxx
 Version:        0.86
-Release:        20%{?dist}
+Release:        21%{?dist}
 License:        LGPLv2 and GPLv2+ and ASL 2.0 and MIT
 Summary:        A simple non-validating CSS1 and HTML parser for C++
 Url:            http://htmlcxx.sourceforge.net/
@@ -33,9 +33,10 @@ iconv -f iso8859-1 -t utf-8 AUTHORS > AUTHORS.conv && mv -f AUTHORS.conv AUTHORS
 iconv -f iso8859-1 -t utf-8 README > README.conv && mv -f README.conv README
 
 %build
-%set_build_flags
 # Build in C89 mode because the lexer/parser integration relies on implicit
 # function declarations.
+%global build_type_safety_c 0
+%set_build_flags
 CC="$CC -std=gnu89"
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 %configure --disable-static --enable-shared
@@ -67,6 +68,9 @@ make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 0.86-21
+- Set build_type_safety_c to 0 (#2168170)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

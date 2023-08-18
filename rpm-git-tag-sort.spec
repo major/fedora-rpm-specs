@@ -2,7 +2,7 @@
 
 Name:       rpm-git-tag-sort
 Version:    1.0.git.5.0b8afd62
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Sorts merged git annotated tags according to topology and rpm version sorting.
 License:    GPLv2+
 URL:        https://pagure.io/rpm-git-tag-sort
@@ -57,6 +57,9 @@ mv ../rpm-git-tag-sort-c-vector/* c-vector/
 /usr/bin/rpm-git-tag-sort
 
 %changelog
+* Wed Aug 16 2023 Pete Walter <pwalter@fedoraproject.org> - 1.0.git.5.0b8afd62-2
+- Rebuild for libgit2 1.7.x
+
 * Tue Aug 01 2023 Pavel Raiskup <praiskup@redhat.com> - 1.0.git.5.0b8afd62-1
 - upgrade to the latest version from upstream main branch (rhbz#2210121)
 

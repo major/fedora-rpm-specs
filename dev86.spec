@@ -1,7 +1,7 @@
 Summary: A real mode 80x86 assembler and linker
 Name: dev86
 Version: 0.16.21
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: GPL+ and GPLv2+ and LGPLv2+
 URL: http://v3.sk/~lkundrak/dev86/
 Source: http://v3.sk/~lkundrak/dev86/archive/Dev86src-%{version}.tar.gz
@@ -35,11 +35,12 @@ mode from their source code.
 %patch4 -p1 -b .long
 
 %build
+%global build_type_safety_c 0
 # the main makefile doesn't allow parallel build
-make bcc86 unproto copt as86 ld86 CFLAGS="-std=gnu89 $RPM_OPT_FLAGS -fno-strict-aliasing"
-make -C cpp CFLAGS="-std=gnu89 $RPM_OPT_FLAGS" %{?_smp_mflags}
-make -C ar CFLAGS="-std=gnu89 $RPM_OPT_FLAGS" %{?_smp_mflags}
-make -C ld CFLAGS="-std=gnu89 $RPM_OPT_FLAGS" %{?_smp_mflags}
+make bcc86 unproto copt as86 ld86 CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+make -C cpp CFLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags}
+make -C ar CFLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags}
+make -C ld CFLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags}
 # ncc doesn't support gcc optflags
 make
 
@@ -81,6 +82,9 @@ popd
 %{_mandir}/man1/*
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 0.16.21-24
+- Set build_type_safety_c to 0 (#2167300)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.21-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

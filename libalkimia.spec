@@ -91,7 +91,7 @@ BuildArch:      noarch
 
 
 %build
-%cmake \
+%cmake_kf5 \
   %{!?plasma:-DBUILD_APPLETS:BOOL=OFF} \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
 

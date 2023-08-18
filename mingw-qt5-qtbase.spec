@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -102,6 +102,9 @@ Patch19:        qtbase-5.15.8-fix-missing-qtsan-include.patch
 
 # Backport fix for CVE-2023-38197
 Patch20:        CVE-2023-38197.patch
+
+# Backport fix for CVE-2023-37369
+Patch21:        CVE-2023-37369.diff
 
 ## KDE 5.15 branch patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
@@ -816,6 +819,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Wed Aug 16 2023 Sandro Mani <manisandro@gmail.com> - 5.15.10-4
+- Backport fix for CVE-2023-37369
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

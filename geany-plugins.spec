@@ -3,7 +3,7 @@
 
 Name:           geany-plugins
 Version:        1.38
-Release:        10%{?dist}
+Release:        12%{?dist}
 Summary:        Plugins for Geany
 
 License:        GPLv3+
@@ -49,7 +49,7 @@ Plugins for Geany. Plugins included are:
 * Geanyminiscript (Geany Mini-Script filter plugin)
 * Geanyprj (Alternate project management for Geany)
 #* Geanypy (Python Bindings for Geany)
-* Geniuspaste (Use nopaste services directly from within Geany)
+#* Geniuspaste (Use nopaste services directly from within Geany)
 * Git-changebar (Highlights uncommitted changes, and allows navigation through hunks)
 * KeyRecord (record a sequence of keystrokes and to replay it several times)
 * Latex (Add LaTeX support to Geany)
@@ -69,7 +69,7 @@ Plugins for Geany. Plugins included are:
 * Spellcheck (Spell checking of documents or marked text)
 * Tableconvert (Helps on converting a tabulator separated selection into a table)
 * Treebrowser (Alternate file browser with tree view of folders)
-* Updatechecker (Automatically check for Geany updates)
+#* Updatechecker (Automatically check for Geany updates)
 * Vimode: The plugin you always waited for
 #* Webhelper (Provides some web development facilities for Geany)
 * Workbench (Manage multiple projects in Geany)
@@ -82,9 +82,11 @@ Requires:  geany >= %{req_geany_ver} geany-libgeany >= %{req_geany_ver}
 Obsoletes: geany-plugins-debugger <= 1.31
 Obsoletes: geany-plugins-geanylua < 1.25
 Obsoletes: geany-plugins-geanypy <= 1.31
+Obsoletes: geany-plugins-geniuspaste < 1.38-11
 Obsoletes: geany-plugins-markdown <= 1.29
 Obsoletes: geany-plugins-multiterm <= 1.31
 Obsoletes: geany-plugins-scope <= 1.31
+Obsoletes: geany-plugins-updatechecker < 1.38-11
 Obsoletes: geany-plugins-webhelper <= 1.30
 
 
@@ -457,23 +459,24 @@ BuildRequires:  libgit2-devel
 This plugin highlights uncommitted changes to files tracked with Git, and allows to navigate through the hunks.
 
 
-%package geniuspaste
-Summary:   Use nopaste services directly from within Geany
-Requires:  geany-plugins-common = %{version}-%{release}
-
-%description geniuspaste
-This plugin allows the user to paste the code from Geany into five different
-pastebins. At the moment it supports this services:
-
-* codepad.org
-* tinypaste.com
-* pastebin.geany.org
-* dpaste.de
-* sprunge.us
-
-GeniusPaste detects automatically the syntax of the code and paste it with
-syntax highlighting enabled. It can also display the pasted code opening a new
-browser tab.
+#%package geniuspaste
+#Summary:   Use nopaste services directly from within Geany
+#Requires:  geany-plugins-common = %{version}-%{release}
+#BuildRequires: libsoup-devel
+#
+#%description geniuspaste
+#This plugin allows the user to paste the code from Geany into five different
+#pastebins. At the moment it supports this services:
+#
+#* codepad.org
+#* tinypaste.com
+#* pastebin.geany.org
+#* dpaste.de
+#* sprunge.us
+#
+#GeniusPaste detects automatically the syntax of the code and paste it with
+#syntax highlighting enabled. It can also display the pasted code opening a new
+#browser tab.
 
 
 %package keyrecord
@@ -511,7 +514,7 @@ files.
 %package markdown
 Summary:       Real time preview for Markdown documents
 Requires:      geany-plugins-common = %{version}-%{release}
-BuildRequires: webkit2gtk3-devel
+BuildRequires: webkit2gtk4.1-devel
 Provides:      geany-plugins-markdown >= 1.34
 
 %description markdown
@@ -632,20 +635,19 @@ your files. It displays files and directories in a tree view and has more
 features than the file browser plugin delivered with Geany itself.
 
 
-%package updatechecker
-Summary:   Automatically check for Geany updates
-Requires:  geany-plugins-common = %{version}-%{release}
-BuildRequires: libsoup-devel
-
-%description updatechecker
-UpdateChecker is a plugin for Geany, which is able to check whether there is
-a more recent version of Geany available.
+#%package updatechecker
+#Summary:   Automatically check for Geany updates
+#Requires:  geany-plugins-common = %{version}-%{release}
+#BuildRequires: libsoup-devel
+#
+#%description updatechecker
+#UpdateChecker is a plugin for Geany, which is able to check whether there is
+#a more recent version of Geany available.
 
 
 %package vimode
 Summary:   Vim-mode plugin for Geany
 Requires:  geany-plugins-common = %{version}-%{release}
-BuildRequires: libsoup-devel
 BuildRequires: make
 
 %description vimode
@@ -707,6 +709,11 @@ automatically inserts a matching snippet after you type an opening tag.
 
 %prep
 %autosetup -p1
+# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+# this necessitates disabling the libsoup2-based geniuspaste and updatechecker
+# until they are ported to libsoup3
+sed -i -e 's/webkit2gtk-4.0/webkit2gtk-4.1/' build/markdown.m4
+autoreconf -fiv
 
 
 %build
@@ -836,10 +843,10 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %doc %{geany_plug_docdir}/geanyvc/
 %{_libdir}/geany/geanyvc.so
 
-%files geniuspaste
-%doc %{geany_plug_docdir}/geniuspaste/
-%{_libdir}/geany/geniuspaste.so
-%{_datadir}/%{name}/geniuspaste/
+#%files geniuspaste
+#%doc %{geany_plug_docdir}/geniuspaste/
+#%{_libdir}/geany/geniuspaste.so
+#%{_datadir}/%{name}/geniuspaste/
 
 %files git-changebar
 %doc %{geany_plug_docdir}/git-changebar/
@@ -915,9 +922,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %doc %{geany_plug_docdir}/treebrowser/
 %{_libdir}/geany/treebrowser.so
 
-%files updatechecker
-%doc %{geany_plug_docdir}/updatechecker/
-%{_libdir}/geany/updatechecker.so
+#%files updatechecker
+#%doc %{geany_plug_docdir}/updatechecker/
+#%{_libdir}/geany/updatechecker.so
 
 %files vimode
 %doc %{geany_plug_docdir}/vimode/
@@ -937,6 +944,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Wed Aug 16 2023 Pete Walter <pwalter@fedoraproject.org> - 1.38-12
+- Rebuild for libgit2 1.7.x
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.38-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

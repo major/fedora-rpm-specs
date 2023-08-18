@@ -12,6 +12,8 @@
 %global conflicts_dnf_plugins_extras_version 4.0.4
 %global conflicts_dnfdaemon_version 0.3.19
 
+%bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
+
 # override dependencies for rhel 7
 %if 0%{?rhel} == 7
     %global rpm_version 4.11.3-32
@@ -66,7 +68,7 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.16.2
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
@@ -95,7 +97,7 @@ Conflicts:      python3-dnf-plugins-extras-common < %{conflicts_dnf_plugins_extr
 %package data
 Summary:        Common data and configuration files for DNF
 Requires:       libreport-filesystem
-%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+%if %{with dnf5_obsoletes_dnf}
 Requires:       /etc/dnf/dnf.conf
 %endif
 Obsoletes:      %{name}-conf <= %{version}-%{release}
@@ -235,7 +237,7 @@ ln -sr  %{buildroot}%{confdir}/protected.d %{buildroot}%{_sysconfdir}/yum/protec
 ln -sr  %{buildroot}%{confdir}/vars %{buildroot}%{_sysconfdir}/yum/vars
 %endif
 
-%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+%if %{with dnf5_obsoletes_dnf}
 rm %{buildroot}%{confdir}/%{name}.conf
 %endif
 
@@ -290,13 +292,13 @@ popd
 %dir %{confdir}/modules.d
 %dir %{confdir}/modules.defaults.d
 %dir %{pluginconfpath}
-%if ! (0%{?fedora} > 40 || 0%{?rhel} > 10)
+%if %{without dnf5_obsoletes_dnf}
 %dir %{confdir}/protected.d
 %dir %{confdir}/vars
 %endif
 %dir %{confdir}/aliases.d
 %exclude %{confdir}/aliases.d/zypper.conf
-%if ! (0%{?fedora} > 40 || 0%{?rhel} > 10)
+%if %{without dnf5_obsoletes_dnf}
 %config(noreplace) %{confdir}/%{name}.conf
 %endif
 
@@ -380,6 +382,12 @@ popd
 %{python3_sitelib}/%{name}/automatic/
 
 %changelog
+* Wed Aug 16 2023 Jan Kolarik <jkolarik@redhat.com> - 4.16.2-4
+- Fixes of conditions in spec file
+
+* Wed Aug 16 2023 Jan Kolarik <jkolarik@redhat.com> - 4.16.2-3
+- Configure copr repo dnf5-testing
+
 * Fri Aug 04 2023 Jan Kolarik <jkolarik@redhat.com> - 4.16.2-2
 - Revert DNF obsoletion
 

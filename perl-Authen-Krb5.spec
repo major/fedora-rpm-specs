@@ -1,6 +1,6 @@
 Name:           perl-Authen-Krb5
 Version:        1.9
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Krb5 Perl module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Krb5
@@ -41,7 +41,8 @@ sed -i 's|/usr/local/bin/perl|/usr/bin/perl|' \
 %build
 # Build in C89 mode because this package uses internal krb5 functions
 # without prototypes in <krb5.h>.
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%build_cflags -std=gnu89"
+%global build_type_safety_c 0
+%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%build_cflags"
 make %{?_smp_mflags}
 
 %install
@@ -66,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 1.9-42
+- Set build_type_safety_c to 0 (#2172836)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

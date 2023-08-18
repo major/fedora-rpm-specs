@@ -3,8 +3,14 @@ Name:           python-numexpr
 Version:        2.8.5
 Release:        %autorelease
 URL:            https://github.com/pydata/numexpr
-Source0:        https://github.com/pydata/numexpr/archive/v%{version}/numexpr-%{version}.tar.gz
 License:        MIT
+Source:         https://github.com/pydata/numexpr/archive/v%{version}/numexpr-%{version}.tar.gz
+Patch:          0002-Revert-Make-more-difficult-sanitize-of-the-expressio.patch
+Patch:          0003-Revert-Add-in-protections-against-call-to-eval-expre.patch
+Patch:          0004-Revert-Adding-tests-for-validate-and-noticed-that-re.patch
+Patch:          0005-Revert-Add-in-docstring-intro-for-validate.patch
+Patch:          0006-Revert-Add-a-validate-.-function-that-can-be-used-to.patch
+Patch:          0007-Use-r-to-avoid-warning-about-unknown-escapes.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python%{python3_pkgversion}-devel

@@ -1,15 +1,15 @@
 Name:           libxml2
-Version:        2.10.4
-Release:        3%{?dist}
+Version:        2.11.5
+Release:        1%{?dist}
 Summary:        Library providing XML and HTML support
 
 License:        MIT
 URL:            http://xmlsoft.org/
-Source0:        https://download.gnome.org/sources/%{name}/2.10/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/2.11/%{name}-%{version}.tar.xz
 Patch0:         libxml2-multilib.patch
 # Patch from openSUSE.
 # See:  https://bugzilla.gnome.org/show_bug.cgi?id=789714
-Patch1:         libxml2-2.9.8-python3-unicode-errors.patch
+Patch1:         libxml2-2.11.1-python3-unicode-errors.patch
 
 BuildRequires:  cmake-rpm-macros
 BuildRequires:  gcc
@@ -106,7 +106,7 @@ gzip -9 -c doc/libxml2-api.xml > doc/libxml2-api.xml.gz
 
 %files
 %license Copyright
-%doc NEWS README.md TODO
+%doc NEWS README.md
 %{_libdir}/libxml2.so.2*
 %{_bindir}/xmllint
 %{_mandir}/man1/xmllint.1*
@@ -133,7 +133,6 @@ gzip -9 -c doc/libxml2-api.xml > doc/libxml2-api.xml.gz
 %{_libdir}/libxml2.a
 
 %files -n python3-%{name}
-%doc python/TODO
 %doc doc/*.py
 %{python3_sitearch}/libxml2mod.so
 %{python3_sitelib}/libxml2.py
@@ -142,6 +141,9 @@ gzip -9 -c doc/libxml2-api.xml > doc/libxml2-api.xml.gz
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Wed Aug 16 2023 David King <amigadave@amigadave.com> - 2.11.5-1
+- Update to 2.11.5 (#2190441)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

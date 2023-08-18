@@ -1,7 +1,7 @@
 %global fontname lohit-gujarati
 
 Version:       2.92.4
-Release:       18%{?dist}
+Release:       19%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-gujarati-fonts
 
 %global foundry           Lohit
@@ -21,7 +21,7 @@ This package provides a free Gujarati truetype/opentype font.
 BuildRequires: make
 BuildRequires: fontforge
 Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
-Source10:       65-0-%{fontpkgname}.conf
+Source10:       66-%{fontpkgname}.conf
 
 %fontpkg
 
@@ -42,6 +42,9 @@ make ttf %{?_smp_mflags}
 %fontfiles
 
 %changelog
+* Tue Aug 15 2023 Sudip Shil <sshil@redhat.com> - 2.91.5-19
+- lowering priority of lohit-gujarati-fonts
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.92.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

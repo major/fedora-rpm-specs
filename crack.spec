@@ -1,7 +1,7 @@
 Summary:   Password cracker
 Name:      crack
 Version:   5.0a
-Release:   42%{?dist}
+Release:   43%{?dist}
 License:   Artistic clarified
 Source:    ftp://ftp.cerias.purdue.edu/pub/tools/unix/pwdutils/crack/%{name}5.0.tar.gz
 Patch0:    %{name}-chris.patch
@@ -37,7 +37,8 @@ sed -i 's|/usr/dict/|/usr/share/dict/|g' conf/dictgrps.conf
 %patch1 -p1 -b .FHS
 
 %build
-C5FLAGS="-std=gnu89 -D_XOPEN_SOURCE -DUSE_STRING_H -DUSE_STDLIB_H -DUSE_SIGNAL_H -DUSE_SYS_TYPES_H -DUSE_UNISTD_H -DUSE_PWD_H"
+%global build_type_safety_c 0
+C5FLAGS="-D_XOPEN_SOURCE -DUSE_STRING_H -DUSE_STDLIB_H -DUSE_SIGNAL_H -DUSE_SYS_TYPES_H -DUSE_UNISTD_H -DUSE_PWD_H"
 make XDIR=../../bin XCC=gcc XCFLAGS="$RPM_OPT_FLAGS $C5FLAGS" XLIBS=-lcrypt utils
 CRACK_HOME=`pwd` CRACK_BIN_HOME=`pwd` CRACK_STATE_DIR=`pwd` ./Crack -makedict
 
@@ -76,6 +77,9 @@ fi
 
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 5.0a-43
+- Set build_type_safety_c to 0 (#2155212)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0a-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

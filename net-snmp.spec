@@ -9,8 +9,8 @@
 
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
-Version:    5.9.3
-Release:    8%{?dist}
+Version:    5.9.4
+Release:    1%{?dist}
 Epoch:      1
 
 License:    Net-SNMP and OpenSSL
@@ -47,12 +47,9 @@ Patch17:    net-snmp-5.9-aes-config.patch
 Patch18:    net-snmp-5.8-clientaddr-error-message.patch
 Patch19:    net-snmp-5.9-intermediate-certs.patch
 Patch20:    net-snmp-5.9.1-remove-des.patch
-Patch21:    net-snmp-5.9.1-autoconf.patch
-Patch22:    net-snmp-libs-misunderstanding.patch
-Patch23:    net-snmp-5.9-CVE-2022-44792-44793.patch
-Patch24:    net-snmp-5.9-ipv6-disable-leak.patch
-Patch25:    net-snmp-5.9-sendmsg-error-code.patch
-Patch26:    net-snmp-5.9-rpmdb.patch
+Patch21:    net-snmp-libs-misunderstanding.patch
+Patch22:    net-snmp-5.9-ipv6-disable-leak.patch
+Patch23:    net-snmp-5.9-rpmdb.patch
 
 # Modern RPM API means at least EL6
 Patch101:   net-snmp-5.8-modern-rpm-api.patch
@@ -239,12 +236,9 @@ cp %{SOURCE10} .
 %patch 18 -p1 -b .clientaddr-error-message
 %patch 19 -p1 -b .intermediate-certs
 %patch 20 -p1 -b .remove-des
-%patch 21 -p1 -b .autoconf
-%patch 22 -p1
-%patch 23 -p1 
-%patch 24 -p1 -b .ipv6-disable-leak
-%patch 25 -p1 -b .sendmsg-error-code
-%patch 26 -p1 -b .rpmdbpatch
+%patch 21 -p1
+%patch 22 -p1 -b .ipv6-disable-leak
+%patch 23 -p1 -b .rpmdbpatch
 
 %patch 101 -p1 -b .modern-rpm-api
 %patch 102 -p1
@@ -515,6 +509,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Wed Aug 16 2023 Josef Ridky <jridky@redhat.com> - 1:5.9.4-1
+- New upstream release 5.9.4 (#2184202)
+
 * Mon Aug 14 2023 Josef Ridky <jridky@redhat.com> - 1:5.9.3-8
 - Fix warning for RPM DB
 - split perl module into separate package that doesn't pull in gcc and

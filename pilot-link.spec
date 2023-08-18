@@ -1,3 +1,4 @@
+%bcond perl %{undefined flatpak}
 %global perl_version %(eval "`%{__perl} -V:version`"; echo $version)
 
 Summary: File transfer utilities between Linux and PalmPilots
@@ -30,8 +31,11 @@ Patch8: pilot-link-0.12.5-ftbfs-f21.patch
 ExcludeArch: s390 s390x
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: perl(ExtUtils::MakeMaker), libpng-devel, readline-devel
-BuildRequires: libusb1-devel, bluez-libs-devel, perl-devel, perl-generators, perl(Devel::PPPort)
+BuildRequires: libpng-devel, readline-devel
+BuildRequires: libusb1-devel, bluez-libs-devel
+%if %{with perl}
+BuildRequires: perl(ExtUtils::MakeMaker), perl-devel, perl-generators, perl(Devel::PPPort)
+%endif
 Requires: pilot-link-libs = %{epoch}:%{version}-%{release}
 
 %description
@@ -58,12 +62,14 @@ necessary to build static pilot applications.
 If you want to develop PalmPilot synchronizing applications, you'll
 need to install pilot-link-devel.
 
+%if %{with perl}
 %package perl
 Summary: PalmPilot utilies written in perl
 Requires: %{name} = %{epoch}:%{version}-%{release}
 
 %description perl
 This package contains utilities that depend on perl
+%endif
 
 %package libs
 Summary: PalmPilot libraries
@@ -99,7 +105,11 @@ mv NEWS.aux NEWS
     --with-tcl=no \
     --with-java=no \
     --with-cpp=yes \
+%if %{with perl}
     --with-perl=yes \
+%else
+    --with-perl=no \
+%endif
     --enable-conduits \
     --enable-libusb
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -111,6 +121,7 @@ make %{?_smp_mflags}
 make install DESTDIR=%{buildroot} libdir=%{_libdir}
 make install -C doc/man DESTDIR=%{buildroot} libdir=%{_libdir}
 
+%if %{with perl}
 if test -f bindings/Perl/Makefile.PL ; then
     cd bindings/Perl
     perl -pi -e 's|^\$libdir =.*|\$libdir = "%{buildroot}%{_libdir}";|g' Makefile.PL
@@ -130,6 +141,7 @@ find %{buildroot}%{_libdir}/perl5/ -type f -name '*.so' -exec chmod 0755 {} \;
 find %{buildroot}%{_libdir}/perl5/ -type f -name '*.pod' -exec rm -f {} \;
 rm -f %{buildroot}%{_libdir}/perl5/perllocal.pod
 rm -f %{buildroot}%{_libdir}/perl5/*/*/*/PDA/dump.pl
+%endif
 
 # remove files we don't want to include
 rm -f %{buildroot}%{_libdir}/*.la
@@ -170,6 +182,7 @@ install -p -m644 %{SOURCE4} %{buildroot}/lib/udev/rules.d/
 %{_includedir}/*
 %{_datadir}/aclocal/*.m4
 
+%if %{with perl}
 %files perl
 %{_bindir}/pilot-ietf2datebook
 %{_bindir}/pilot-sync-plan
@@ -177,6 +190,7 @@ install -p -m644 %{SOURCE4} %{buildroot}/lib/udev/rules.d/
 %{_mandir}/man1/ietf2datebook*
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/PDA*
+%endif
 
 %files libs
 %doc COPYING

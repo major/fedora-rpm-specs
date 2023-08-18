@@ -7,8 +7,8 @@
 # produce a smaller package.
 %bcond doc_pdf 0
 
-%global commit 1911dd4e085d47a90c255f1dd2cdb935381080ad
-%global snapdate 20230710
+%global commit 91e323f194df09dfd5822d2ae9562767f0c30e97
+%global snapdate 20230816
 
 Name:           pythoncapi-compat
 Summary:        Python C API compatibility

@@ -1,11 +1,18 @@
 Name:          gimagereader
 Version:       3.4.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       A front-end to tesseract-ocr
 
 License:       GPL-3.0-or-later
 URL:           https://github.com/manisandro/gimagereader
 Source0:       https://github.com/manisandro/gimagereader/releases/download/v%{version}/%{name}-%{version}.tar.xz
+
+# PoDoFo 0.10 support
+Patch0:        0001-Qt-Add-support-for-PoDoFo-0.10.x.patch
+Patch1:        0002-Qt-Drop-PoDoFo-0.9.3-code-path.patch
+Patch2:        0003-Gtk-Add-support-for-PoDoFo-0.10.x.patch
+Patch3:        0004-Gtk-Drop-PoDoFo-0.9.3-code-path.patch
+
 
 BuildRequires: desktop-file-utils
 BuildRequires: djvulibre-devel
@@ -144,6 +151,9 @@ Common files for %{name}.
 %{_datadir}/applications/%{name}-qt5.desktop
 
 %changelog
+* Wed Aug 16 2023 Sandro Mani <manisandro@gmail.com> - 3.4.1-6
+- Rebuild against podofo-0.10
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

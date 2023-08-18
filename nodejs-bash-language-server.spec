@@ -14,7 +14,7 @@ Source1:        %{pkg_name}-%{version}-vendor.tar.xz
 BuildRequires:  fdupes
 BuildRequires:  nodejs-typescript
 BuildRequires:  nodejs-packaging
-BuildRequires:  npm
+BuildRequires:  nodejs-npm
 BuildRequires:  perl-interpreter
 BuildRequires:  rsync
 BuildRequires:  yarnpkg

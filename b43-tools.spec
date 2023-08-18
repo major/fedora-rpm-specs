@@ -1,6 +1,6 @@
 Name:		b43-tools
 Version:	019
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Tools for the Broadcom 43xx series WLAN chip
 # assembler — GPLv2
 # debug — GPLv3
@@ -19,6 +19,7 @@ BuildRequires:	flex
 BuildRequires:	flex-static
 BuildRequires:	gcc
 BuildRequires:	python3-devel
+BuildRequires:	python3-setuptools
 BuildRequires: make
 
 
@@ -77,6 +78,9 @@ cd debug
 
 
 %changelog
+* Wed Aug 16 2023 Pete Walter <pwalter@fedoraproject.org> - 019-20
+- Add missing python3-setuptools buildrequires (rhbz#2154788)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 019-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global fontname lohit-odia
 
 Version:       2.91.2
-Release:       17%{?dist}
+Release:       18%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-odia-fonts
 
 %global foundry           Lohit
@@ -21,7 +21,7 @@ This package provides a free Odia truetype/opentype font.
 BuildRequires: make
 BuildRequires: fontforge
 Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
-Source10:       65-0-%{fontpkgname}.conf
+Source10:       66-%{fontpkgname}.conf
 
 %fontpkg
 
@@ -44,6 +44,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Tue Aug 15 2023 Sudip Shil <sshil@redhat.com> - 2.91.2-18
+- lowering priority of lohit-odia-fonts
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

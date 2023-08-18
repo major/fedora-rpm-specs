@@ -7,6 +7,7 @@ Version:                0.5.2
 
 %gometa -f
 
+%global gosupfiles      version/VERSION
 
 %global common_description %{expand:
 Go module for downloading or locating HashiCorp binaries, verifying signatures

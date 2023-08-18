@@ -1,8 +1,8 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        3.1.31
-Release:        3%{?dist}
+Version:        3.1.32
+Release:        1%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Wed Aug 16 2023 Lubomír Sedlář <lsedlar@redhat.com> - 3.1.32-1
+- New upstream release 3.1.32
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.31-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

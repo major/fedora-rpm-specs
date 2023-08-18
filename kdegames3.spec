@@ -3,7 +3,7 @@
 %define final 0
 
 # These games are already in KDE 4.
-%define donotcompilelist katomic kbattleship kblackbox kbounce kgoldrunner kjumpingcube klickety klines kmahjongg kmines knetwalk kolf konquest kpat kreversi ksame kshisen kspaceduel ktron ktuberling kwin4 lskat
+%define donotcompilelist atlantik katomic kbattleship kblackbox kbounce kgoldrunner kjumpingcube klickety klines kmahjongg kmines knetwalk kolf konquest kpat kreversi ksame kshisen kspaceduel ktron ktuberling kwin4 lskat
 
 # Disable automatic .la file removal
 %global __brp_remove_la_files %nil
@@ -11,7 +11,7 @@
 Name:    kdegames3
 Summary: KDE 3 Games not ported to KDE 4
 Version: 3.5.10
-Release: 46%{?dist}
+Release: 47%{?dist}
 
 License: GPL-2.0-only
 Url:     http://www.kde.org
@@ -44,17 +44,8 @@ BuildRequires: make
 
 %description
 Games and gaming libraries for KDE which have not been ported to KDE 4 yet.
-Included with this package are: atlantik, kasteroids, kbackgammon, kboxpush,
+Included with this package are: kasteroids, kbackgammon, kboxpush,
 kenolaba, kfouleggs, kpoker, ksirtet, ksmiletris, ksnakerace.
-
-%package devel
-Summary: Development files for kdegames3
-License: LGPLv2
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires: kdelibs3-devel >= %{version}
-
-%description devel
-Development files for Atlantik, required to build the Atlantik Designer.
 
 %package libs
 Summary: %{name} runtime libraries
@@ -165,8 +156,6 @@ export QA_RPATHS=0x0001
 %{_datadir}/config.kcfg/*
 %{_datadir}/icons/crystalsvg/*/*/*
 %{_datadir}/icons/hicolor/*/*/*
-%{_datadir}/service*/*
-%{_libdir}/kde3/*
 
 %ldconfig_scriptlets libs
 
@@ -174,12 +163,11 @@ export QA_RPATHS=0x0001
 %{_libdir}/lib*.so.*
 %{_libdir}/lib*.la
 
-%files devel
-%{_includedir}/kde/*
-%{_libdir}/lib*.so
-
 
 %changelog
+* Tue Aug 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.5.10-47
+- Drop atlantik, now available separately based on KF5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

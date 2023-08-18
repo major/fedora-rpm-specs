@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.4.1
-Release: 3%{?dist}
+Version: 2.4.2
+Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
@@ -74,6 +74,25 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Wed Aug 16 2023 Packit <hello@packit.dev> - 2.4.2-1
+- New version 2.4.2 (Vojtech Trefny)
+- pylint: Update pylintrc (Vojtech Trefny)
+- Allow creating biosboot even if not in installer mode (Vojtech Trefny)
+- Allow adding nested btrfs subvolumes (Vojtech Trefny)
+- Squashed 'translation-canary/' changes from d6a4098..5bb8125 (Vojtech Trefny)
+- Translated using Weblate (Georgian) (Temuri Doghonadze)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (yangyangdaji)
+- misc: Vagrantfile update (Vojtech Trefny)
+- Translated using Weblate (Korean) (김인수)
+- Translated using Weblate (Swedish) (Luna Jernberg)
+- Translated using Weblate (Korean) (김인수)
+- Translated using Weblate (Czech) (Jan Kalabza)
+- Translated using Weblate (Czech) (Pavel Borecki)
+- Translated using Weblate (Portuguese (Brazil)) (Felipe Nogueira)
+- Translated using Weblate (Czech) (Pavel Borecki)
+- Update translation files (Weblate)
+- Translated using Weblate (French) (grimst)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

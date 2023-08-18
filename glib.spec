@@ -2,7 +2,7 @@ Summary:	A library of handy utility functions
 Name:		glib
 Epoch:		1
 Version:	1.2.10
-Release:	70%{?dist}
+Release:	71%{?dist}
 License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/glib/1.2/glib-%{version}.tar.gz
@@ -75,10 +75,8 @@ chmod -c +x config.{guess,sub}
 
 %build
 %if 0%{?set_build_flags:1}
+%global build_type_safety_c 0
 %set_build_flags
-# Note: on older distributions without %%set_build_flags, the compiler
-# will be old enough to accept the old-fashioned code without resorting to C89 mode
-export CFLAGS="-std=gnu89 $CFLAGS"
 %endif
 
 LIBTOOL=%{_bindir}/libtool \
@@ -126,6 +124,9 @@ make check LIBTOOL=%{_bindir}/libtool
 %{_datadir}/aclocal/*
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 1:1.2.10-71
+- Set build_type_safety_c to 0 (#2167383)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.10-70
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

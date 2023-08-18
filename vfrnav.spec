@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPLv2+
@@ -51,7 +51,7 @@ BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  openjpeg2-devel
 BuildRequires:  libsoup-devel
 BuildRequires:  librsvg2-devel
-BuildRequires:  podofo-devel
+BuildRequires:  podofo0.9-devel
 BuildRequires:  systemd-devel
 BuildRequires:  transfig
 BuildRequires:  texlive
@@ -473,6 +473,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 16 2023 Sandro Mani <manisandro@gmail.com> - 20230429-4
+- Switch to BR podofo0.9-devel
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230429-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

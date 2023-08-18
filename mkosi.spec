@@ -25,26 +25,28 @@ BuildRequires:  systemd
 %global __brp_compress true
 
 Requires:       bubblewrap
-Requires:       systemd-repart
+Requires:       systemd-repart >= 254
+%{recoreq}:     systemd-container >= 254
 
-%{recoreq}:     gnupg
-%{recoreq}:     xz
-%{recoreq}:     tar
-%{recoreq}:     e2fsprogs
-%{recoreq}:     squashfs-tools
-%{recoreq}:     veritysetup
 %{recoreq}:     binutils
+%{recoreq}:     e2fsprogs
+%{recoreq}:     gnupg
+%{recoreq}:     squashfs-tools
+%{recoreq}:     tar
+%{recoreq}:     veritysetup
+%{recoreq}:     xz
+
 %if 0%{?el7} == 0
-Recommends:     debootstrap
 Recommends:     arch-install-scripts
-Recommends:     edk2-ovmf
 Recommends:     btrfs-progs
-Recommends:     dosfstools
 Recommends:     cpio
-Recommends:     zstd
+Recommends:     debootstrap
+Recommends:     (dnf5 or dnf)
+Recommends:     dosfstools
+Recommends:     edk2-ovmf
 Recommends:     python3dist(argcomplete)
 Recommends:     python3dist(cryptography)
-Recommends:     (dnf5 or dnf)
+Recommends:     zstd
 %else
 Recommends:     dnf
 %endif

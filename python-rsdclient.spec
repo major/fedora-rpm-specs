@@ -7,7 +7,7 @@
 
 Name:           python-%{sname}
 Version:        1.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        OpenStack client plugin for Rack Scale Design
 
 License:        ASL 2.0
@@ -65,7 +65,7 @@ Documentation for python-rsdclient
 
 %if 0%{?with_doc}
 # generate html docs
-%{__python3} setup.py build_sphinx
+sphinx-build -b html doc/source doc/build/html
 # remove the sphinx-build-3 leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
@@ -96,6 +96,9 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{pyname}
 %endif
 
 %changelog
+* Wed Aug 16 2023 Alfredo Moralejo <amoralej@redhat.com> - 1.0.2-12
+- Switch to sphinx-build to create the documentation
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

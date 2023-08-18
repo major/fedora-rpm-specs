@@ -4,8 +4,8 @@
 %global enginesdir %(pkg-config --variable=enginesdir libcrypto)
 
 Name:           qatengine
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Intel QuickAssist Technology (QAT) OpenSSL Engine
 
 # Most of the source code is BSD, with the following exceptions:
@@ -15,9 +15,6 @@ Summary:        Intel QuickAssist Technology (QAT) OpenSSL Engine
 License:        BSD-3-Clause AND OpenSSL
 URL:            https://github.com/intel/QAT_Engine
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/intel/QAT_Engine/pull/262
-Patch0:         0001-Fix-build-with-intel-ipsec-mb-1.4.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1909065
 ExclusiveArch:  x86_64
@@ -41,7 +38,7 @@ for both hardware and optimized software using Intel QuickAssist Technology
 enabled Intel platforms.
 
 %prep
-%autosetup -n QAT_Engine-%{version} -p1
+%autosetup -n QAT_Engine-%{version}
 
 %build
 autoreconf -ivf
@@ -73,6 +70,9 @@ openssl engine -v %{name}
 %{enginesdir}/%{name}.so
 
 %changelog
+* Wed Aug 09 2023 Yogaraj Alamenda <yogarajx.alamenda@intel.com> - 1.3.0-1
+- Update to qatengine v1.3.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

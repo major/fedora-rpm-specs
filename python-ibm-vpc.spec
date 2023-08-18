@@ -1,6 +1,6 @@
 Name:           python-ibm-vpc
-Version:        0.12.0
-Release:        4%{?dist}
+Version:        0.18.0
+Release:        1%{?dist}
 Summary:        Python client library for IBM Cloud VPC Services
 
 License:        ASL 2.0
@@ -56,6 +56,15 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Aug 02 2023 Pavel Raiskup <praiskup@redhat.com> - 0.18.0-1
+- new upstream release, per release notes:
+  https://github.com/IBM/vpc-python-sdk/releases/tag/v0.18.0
+  https://github.com/IBM/vpc-python-sdk/releases/tag/v0.17.0
+  https://github.com/IBM/vpc-python-sdk/releases/tag/v0.16.0
+  https://github.com/IBM/vpc-python-sdk/releases/tag/v0.15.0
+  https://github.com/IBM/vpc-python-sdk/releases/tag/v0.14.0
+  https://github.com/IBM/vpc-python-sdk/releases/tag/v0.13.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

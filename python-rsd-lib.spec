@@ -18,7 +18,7 @@
 
 Name:           python-%{sname}
 Version:        1.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python library for interfacing with Intel Rack Scale Design enabled hardware.
 
 License:        ASL 2.0
@@ -93,7 +93,7 @@ sed -i '/warning-is-error/d' setup.cfg
 
 %if 0%{?with_doc}
 # generate html docs
-%{pyver_bin} setup.py build_sphinx
+sphinx-build -b html doc/source doc/build/html
 # remove the sphinx-build-%{pyver} leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
@@ -124,6 +124,9 @@ export PYTHON=%{pyver_bin}
 %endif
 
 %changelog
+* Wed Aug 16 2023 Alfredo Moralejo <amoralej@redhat.com> - 1.2.0-14
+- Switch to sphinx-build to create the documentation
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

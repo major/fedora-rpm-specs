@@ -3,7 +3,7 @@
 Name:           folks
 Epoch:          1
 Version:        0.15.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GObject contact aggregation library
 
 License:        LGPL-2.1-or-later
@@ -58,13 +58,6 @@ developing applications that use %{name}.
 %autosetup -p1
 
 %build
-# Build in C89 mode due to Vala compiler problem:
-# C99 compatibility of internal setters
-# <https://discourse.gnome.org/t/c99-compatibility-of-internal-setters/13360>
-# valac does not respect internal header/vapi setting
-# <https://gitlab.gnome.org/GNOME/vala/-/issues/358>
-%set_build_flags
-CC="$CC -std=gnu89"
 %meson
 %meson_build
 
@@ -115,6 +108,9 @@ CC="$CC -std=gnu89"
 %{_datadir}/vala/vapi/%{name}*
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 1:0.15.6-3
+- Drop C89 exception (#2159284)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.15.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

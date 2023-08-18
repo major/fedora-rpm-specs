@@ -8,7 +8,7 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   23.1.99.902
+Version:   23.2.0
 Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
@@ -135,6 +135,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Wed Aug 16 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.2.0-1
+- xwayland 23.2.0
+
 * Wed Aug  2 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.99.902-1
 - xwayland 23.1.99.902 (xwayland 23.2.0 rc2)
 

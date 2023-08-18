@@ -160,7 +160,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        116.0.2
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -230,6 +230,7 @@ Patch226:        rhbz-1354671.patch
 Patch228:        disable-openh264-download.patch
 Patch229:        firefox-nss-addon-hack.patch
 Patch230:        firefox-enable-vaapi.patch
+Patch231:        fedora-customization.patch
 
 # Upstream patches
 Patch402:        mozilla-1196777.patch
@@ -505,6 +506,7 @@ This package contains results of tests executed during build.
 %patch228 -p1 -b .disable-openh264-download
 %patch229 -p1 -b .firefox-nss-addon-hack
 %patch230 -p1 -b .firefox-enable-vaapi
+%patch231 -p1 -b .fedora-customization
 
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
@@ -1066,6 +1068,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Aug 16 2023 Martin Stransky <stransky@redhat.com>- 116.0.2-2
+- Added Fedora customization patch
+
 * Mon Aug 7 2023 Martin Stransky <stransky@redhat.com>- 116.0.2-1
 - Updated to 116.0.2
 

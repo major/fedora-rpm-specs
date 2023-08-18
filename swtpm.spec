@@ -12,12 +12,10 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-3-Clause
 Url:            http://github.com/stefanberger/swtpm
 Source0:        %{url}/archive/%{gitcommit}/%{name}-%{gitshortcommit}.tar.gz
-
-ExcludeArch:    i686
 
 BuildRequires: make
 BuildRequires:  git-core
@@ -197,6 +195,9 @@ fi
 %{_datadir}/swtpm/swtpm-create-tpmca
 
 %changelog
+* Wed Aug 16 2023 Stefan Berger <stefanb@linux.ibm.com> - 0.8.1-3
+- Build for i686 again since dependency issue resolved
+
 * Tue Aug 15 2023 Stefan Berger <stefanb@linux.ibm.com> - 0.8.1-2
 - Don't build tools-pkcs11 for i686 since python-tpm2-pytss is not built for it
 - Set license to BSD-3-Clause for all packages

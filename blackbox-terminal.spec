@@ -46,7 +46,7 @@ Black Box is an elegant and customizable terminal for GNOME.
 
 
 %build
-%meson -Dblackbox_is_flatpak=false
+%meson -Dblackbox_is_flatpak=%{?flatpak:true}%{!?flatpak:false}
 %meson_build
 
 
@@ -64,6 +64,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn}.metain
 %license COPYING
 %doc README.md CHANGELOG.md
 %{_bindir}/blackbox-terminal
+%if %{defined flatpak}
+%{_bindir}/terminal-toolbox
+%endif
 %{_datadir}/applications/%{rdnn}.desktop
 %{_datadir}/blackbox
 %{_datadir}/glib-2.0/schemas/%{rdnn}.gschema.xml

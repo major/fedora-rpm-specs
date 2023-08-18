@@ -17,6 +17,9 @@ BuildRequires: intltool
 BuildRequires: gtk2-devel >= 2.0.3
 BuildRequires: pilot-link >= 0.12.5
 BuildRequires: make
+BuildRequires: ImageMagick
+
+Requires: hicolor-icon-theme
 
 ExcludeArch: s390, s390x
 
@@ -34,7 +37,7 @@ iconv -f windows-1252 -t utf-8 AUTHORS >AUTHORS.aux
 mv AUTHORS.aux AUTHORS
 
 %build
-%configure --disable-rpath
+%configure --disable-rpath --with-pilot-prefix=%{_prefix}
 
 cd po
 make clean
@@ -55,8 +58,8 @@ install -p empty/*.pdb $RPM_BUILD_ROOT%{_datadir}/jpilot/
 install -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/applications/jpilot.desktop
 
 # install icon
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
-install -m 644 icons/jpilot-icon3.xpm $RPM_BUILD_ROOT%{_datadir}/pixmaps/
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps
+convert icons/jpilot-icon3.xpm $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/jpilot.png
 
 %find_lang %name
 
@@ -64,7 +67,7 @@ install -m 644 icons/jpilot-icon3.xpm $RPM_BUILD_ROOT%{_datadir}/pixmaps/
 %doc %{_docdir}/jpilot
 %{_bindir}/*
 %{_datadir}/jpilot
-%{_datadir}/pixmaps/*
+%{_datadir}/icons/hicolor/*/*/jpilot.*
 %{_libdir}/%{name}
 %{_mandir}/man1/*.*
 %{_datadir}/applications/*

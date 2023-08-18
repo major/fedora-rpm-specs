@@ -146,6 +146,7 @@ Requires:       %{name}-bin = %{version}-%{release}
 Requires:       %{name}-src = %{version}-%{release}
 Requires:       go-filesystem
 
+Patch1:         0001-Modify-go.env.patch
 Patch4:         0004-cmd-link-use-gold-on-ARM-ARM64-only-if-gold-is-avail.patch
 
 # Having documentation separate was broken

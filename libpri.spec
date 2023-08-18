@@ -1,5 +1,5 @@
 Name:           libpri
-Version:        1.6.0
+Version:        1.6.1
 %global so_version 1.4
 Release:        %autorelease
 Summary:        An implementation of Primary Rate ISDN
@@ -11,12 +11,12 @@ URL:            https://www.asterisk.org/
 %global src_base https://downloads.asterisk.org/pub/telephony/libpri/releases
 Source0:        %{src_base}/libpri-%{version}.tar.gz
 Source1:        %{src_base}/libpri-%{version}.tar.gz.asc
-# Keyring with developer signatures created on 2021-02-23 with:
+# Keyring with developer signatures created on 2023-08-16 with:
 #   workdir="$(mktemp --directory)"
-#   gpg2 --with-fingerprint libpri-1.6.0.tar.gz.asc 2>&1 |
+#   gpg2 --with-fingerprint libpri-1.6.1.tar.gz.asc 2>&1 |
 #     awk '$2 == "using" { print "0x" $NF }' |
 #     xargs gpg2 --homedir="${workdir}" \
-#         --keyserver=hkp://pool.sks-keyservers.net --recv-keys
+#         --keyserver=hkps://keyserver.ubuntu.com --recv-keys
 #   gpg2 --homedir="${workdir}" --export --export-options export-minimal \
 #       > libpri.gpg
 #   rm -rf "${workdir}"
@@ -87,8 +87,6 @@ find %{buildroot} -name '*.a' -print -delete
 
 %files
 %license LICENSE
-%doc ChangeLog
-%doc README
 %{_libdir}/libpri.so.%{so_version}
 
 
@@ -99,7 +97,10 @@ find %{buildroot} -name '*.a' -print -delete
 
 %files doc
 %license LICENSE
-%doc ChangeLog
+# Symlinks
+%doc CHANGES.md README.md
+# Regular files
+%doc ChangeLogs/
 %doc README
 %doc doc/*.fsm
 

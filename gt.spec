@@ -1,6 +1,6 @@
 Name:           gt
 Version:        0.4
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Modified Timidity which supportes enhanced gus format patches
 License:        GPLv2+
 URL:            http://alsa.opensrc.org/GusSoundfont
@@ -41,7 +41,7 @@ cp -p src/README README.timidity
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -fsigned-char -std=gnu89"
+%global build_type_safety_c 0
 %configure
 make
 
@@ -70,6 +70,9 @@ touch -r utils/midifile.c $RPM_BUILD_ROOT%{_mandir}/man1/midi-disasm.1
 
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 0.4-41
+- Set build_type_safety_c to 0 (#2160035)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

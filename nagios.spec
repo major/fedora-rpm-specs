@@ -5,8 +5,8 @@
 %global selinuxtype targeted
 
 Name:           nagios
-Version:        4.4.10
-Release:        2%{?dist}
+Version:        4.4.14
+Release:        1%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -468,6 +468,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Wed Aug 16 2023 Guido Aulisi <guido.aulisi@gmail.com> - 4.4.14-1
+- Update to 4.4.14
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

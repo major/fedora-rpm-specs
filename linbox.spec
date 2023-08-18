@@ -1,17 +1,14 @@
-# The arm builders appear to run out of memory with LTO
-%ifarch %{arm}
-%global _lto_cflags %{nil}
-%endif
-
 Name:           linbox
 Version:        1.6.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 License:        LGPL-2.1-or-later
 URL:            https://linalg.org/
 Source0:        https://github.com/linbox-team/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Work around an ambiguous overload on 32-bit platforms
-Patch0:         %{name}-32bit.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# The sole dependent package, sagemath, is already not built on i686.
+ExcludeArch:    %{ix86}
 
 BuildRequires:  expat-devel
 BuildRequires:  fflas-ffpack-devel
@@ -105,13 +102,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -i libtool
 
 # Don't try to optimize the tests; the build takes gargantuan amounts of memory
-%ifarch %{arm}
-# Additionally, on 32-bit ARM, do not try to optimize at all, because then
-# test-serialize fails with a bus error.
-sed -i 's|-O2|-O0|g' tests/Makefile
-%else
 sed -i 's|-O2|-O|g' tests/Makefile
-%endif
 
 %make_build
 
@@ -154,6 +145,12 @@ LD_LIBRARY_PATH=$PWD/linbox/.libs make check
 
 
 %changelog
+* Tue Aug 15 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.6.3-17
+- Drop workarounds for 32-bit ARM
+  (https://fedoraproject.org/wiki/Changes/RetireARMv7)
+- Drop i686 (https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval)
+- Drop the patch for 32-bit since we no longer build for 32-bit architectures
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

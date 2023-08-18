@@ -1,8 +1,8 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  6.1
-Release:  3%{?dist}
+Version:  6.2
+Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -335,6 +335,9 @@ fi
 
 
 %changelog
+* Wed Aug 16 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:6.2-1
+- new version 6.2
+
 * Fri Aug 04 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:6.1-3
 - Fix "!commHasHalfClosedMonitor(fd)" assertion
 

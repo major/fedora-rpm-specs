@@ -1,7 +1,7 @@
 %global _hardened_build 1
 Name:             irsim
 Version:          9.7.104
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Switch-level simulator used even for VLSI
 
 License:          GPLv2
@@ -24,8 +24,8 @@ relative timing of events.
 %build
 # The sources heavily rely on implicit ints and implicit function
 # declarations and are not compatible with C99.
+%global build_type_safety_c 0
 %set_build_flags
-CFLAGS="$CFLAGS -std=gnu89"
 # ./configure kills CFLAGS
 # Invoke scripts/configure directly
 (cd scripts && %configure)
@@ -45,6 +45,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/doc/
 %{_mandir}/man3/%{name}-analyzer.3.gz
 
 %Changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 9.7.104-12
+- Set build_type_safety_c to 0 (#2154596)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.7.104-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

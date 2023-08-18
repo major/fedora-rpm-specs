@@ -15,7 +15,7 @@
 Name:       %{realname}-simulator
 Summary:    A general purpose simulation platform
 Version:    2.4
-Release:    18.20210608git%{shortcommit}%{?dist}
+Release:    19.20210608git%{shortcommit}%{?dist}
 Url:        http://www.genesis-sim.org/GENESIS/
 Source0:    https://github.com/genesis-sim/%{realname}-%{version}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # fix left over COPT
@@ -111,6 +111,7 @@ sed -i 's/netcdflib.o: netcdflib/netcdflib.o:/' ./src/diskio/interface/netcdf/Ma
 # Using configure doesn't quite work for us because the build scripts use ld
 # instead of gcc, and the Fedora LD flags are set to be used with gcc. Setting
 # them for ld breaks the configure script.
+%global build_type_safety_c 0
 cp src/Makefile.dist src/Makefile
 cat >>src/Makefile <<EOF
 MACHINE=Linux
@@ -188,6 +189,9 @@ rm -rf %{buildroot}%{_libdir}/%{realname}/Tutorials
 %doc Doc Hyperdoc Tutorials
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 2.4-19.20210608git7b0a66b
+- Set build_type_safety_c to 0 (#2150772)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-18.20210608git7b0a66b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -138,7 +138,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.19.0
-%global baserelease 2
+%global baserelease 3
 # This should be rc1 or %%nil
 %global pre_release rc2
 
@@ -1857,12 +1857,10 @@ fi
 %{_libdir}/samba/libMESSAGING-SEND-samba4.so
 %{_libdir}/samba/libMESSAGING-samba4.so
 %{_libdir}/samba/libaddns-samba4.so
-%{_libdir}/samba/libad-claims-samba4.so
 %{_libdir}/samba/libads-samba4.so
 %{_libdir}/samba/libasn1util-samba4.so
 %{_libdir}/samba/libauth-samba4.so
 %{_libdir}/samba/libauthkrb5-samba4.so
-%{_libdir}/samba/libauthn-policy-util-samba4.so
 %{_libdir}/samba/libcli-cldap-samba4.so
 %{_libdir}/samba/libcli-ldap-common-samba4.so
 %{_libdir}/samba/libcli-ldap-samba4.so
@@ -2157,6 +2155,8 @@ fi
 %endif
 
 %{_libdir}/libdcerpc-server.so.*
+%{_libdir}/samba/libad-claims-samba4.so
+%{_libdir}/samba/libauthn-policy-util-samba4.so
 %{_libdir}/samba/libdsdb-module-samba4.so
 %{_libdir}/samba/libdsdb-garbage-collect-tombstones-samba4.so
 %{_libdir}/samba/libscavenge-dns-records-samba4.so
@@ -4450,6 +4450,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:4.19.0-0.3.rc2
+- Move ad-claims and authn-policy-util to dc-libs
+
 * Tue Aug 15 2023 Adam Williamson <awilliam@redhat.com> - 4.19.0-0.2.rc2
 - python3-samba-dc requires python3-markdown now
 

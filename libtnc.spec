@@ -2,7 +2,7 @@
 
 Name:		libtnc
 Version:	1.25
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	Library implementation of the Trusted Network Connect (TNC) specification
 License:	GPLv2
 Source0:	http://dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
@@ -49,8 +49,9 @@ popd
 %patch2 -p1 -b .symbolfix
 
 %build
-%set_build_flags
 # Switch to C89 mode due to many C99 compatibility issues.
+%global build_type_safety_c 0
+%set_build_flags
 CC="$CC -std=gnu89"
 CFLAGS="%{optflags} -fPIC -DPIC"
 %configure --with-pic
@@ -104,6 +105,9 @@ popd
 %{_mandir}/man3/Interface::TNC*
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 1.25-40
+- Set build_type_safety_c to 0 (#2154692)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

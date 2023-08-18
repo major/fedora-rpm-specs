@@ -44,7 +44,8 @@ sed -i 's/\$destdir\/lib/\$destdir\/%{_lib}/g' ./install.sh
 
 
 %build
-%make_build arch_flags="-std=gnu89 %{optflags}" FED_LDFLAGS="%{build_ldflags}"
+%global build_type_safety_c 0
+%make_build arch_flags="%{optflags}" FED_LDFLAGS="%{build_ldflags}"
 
 
 %install

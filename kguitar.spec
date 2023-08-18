@@ -67,6 +67,9 @@ sed -i -e 's|\$(top_builddir)/libtool|%{_bindir}/libtool|g' \
 	-e 's|\./libtool|%{_bindir}/libtool|g' \
 	admin/*
 
+# Fix for gettext-0.22
+sed -i -e 's/CHARSET/ISO-8859-1/' po/es.po
+
 make -f admin/Makefile.common cvs ||:
 
 %build

@@ -1,11 +1,12 @@
 Name:           python-ibm-cloud-sdk-core
-Version:        3.16.0
-Release:        5%{?dist}
+Version:        3.16.7
+Release:        1%{?dist}
 Summary:        Core library used by SDKs for IBM Cloud Services
 
 License:        Apache-2.0
 URL:            https://github.com/IBM/python-sdk-core
 Source0:        %{pypi_source ibm-cloud-sdk-core}
+Patch0:         fix-deps.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -53,6 +54,16 @@ echo > requirements-dev.txt
 %exclude %{python3_sitelib}/test_integration
 
 %changelog
+* Wed Aug 02 2023 Pavel Raiskup <praiskup@redhat.com> - 3.16.7-1
+- new upstream release, per release notes:
+  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.7
+  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.6
+  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.5
+  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.4
+  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.3
+  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.2
+  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 %bcond doc 1
 
 Name:           python-typeguard
-Version:        4.1.0
+Version:        4.1.1
 Release:        %autorelease
 Summary:        Run-time type checker for Python
 
@@ -55,6 +55,9 @@ Summary:        Documentation for typeguard
 # not import the HTML theme package, we do not need to require it at build
 # time.
 sed -r -i 's/^([[:blank:]]*)(.(sphinx_rtd_theme))\b/\1# \2/' pyproject.toml
+# We can’t respect an upper-bound on the Sphinx version; let’s remove it and do
+# our best.
+sed -r -i 's/("Sphinx)[[:blank:]]*[<=][^"]*/\1/' pyproject.toml
 
 %if %{with bootstrap}
 sed -r -i 's/^([[:blank:]]*)(.(sphinx-autodoc-typehints))\b/\1# \2/' \

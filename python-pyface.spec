@@ -1,5 +1,5 @@
 # When we are bootstrapping, we drop some dependencies, and/or build time tests.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 %global modname pyface
 
@@ -137,6 +137,9 @@ exit $status
 %files -n python%{python3_pkgversion}-%{modname}-qt
 
 %changelog
+* Wed Aug 16 2023 Orion Poplawski <orion@nwra.com> - 8.0.0-2
+- Disable bootstrap
+
 * Sun Aug 13 2023 Orion Poplawski <orion@nwra.com> - 8.0.0-2
 - Enable bootstrap for Python 3.12
 - Drop pyside2 tests - pyside2 is no longer maintained

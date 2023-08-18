@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Simple Git Client for R
 
 License:          MIT
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Aug 16 2023 Pete Walter <pwalter@fedoraproject.org> - 1.9.0-8
+- Rebuild for libgit2 1.7.x
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

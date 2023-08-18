@@ -1,9 +1,11 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 1
+%global project_version_patch 2
+
+%bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
-Version:        5.1.1
+Version:        5.1.2
 Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
@@ -12,7 +14,7 @@ Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
-%if ! (0%{?fedora} > 40 || 0%{?rhel} > 10)
+%if %{without dnf5_obsoletes_dnf}
 Requires:       dnf-data
 %endif
 Recommends:     bash-completion
@@ -23,7 +25,7 @@ Provides:       microdnf = %{version}-%{release}
 Obsoletes:      microdnf < 4
 %endif
 
-%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+%if %{with dnf5_obsoletes_dnf}
 Provides:       dnf = %{version}-%{release}
 Obsoletes:      dnf < 5
 
@@ -217,7 +219,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 
 %files
 %{_bindir}/dnf5
-%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+%if %{with dnf5_obsoletes_dnf}
 %{_bindir}/dnf
 %{_bindir}/yum
 %endif
@@ -283,7 +285,7 @@ License:        LGPL-2.1-or-later
 Requires:       libsolv%{?_isa} >= %{libsolv_version}
 Requires:       librepo%{?_isa} >= %{librepo_version}
 Requires:       sqlite-libs%{?_isa} >= %{sqlite_version}
-%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+%if %{with dnf5_obsoletes_dnf}
 Conflicts:      dnf-data < 4.16.0
 %endif
 
@@ -291,7 +293,7 @@ Conflicts:      dnf-data < 4.16.0
 Package management library.
 
 %files -n libdnf5
-%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+%if %{with dnf5_obsoletes_dnf}
 %config(noreplace) %{_sysconfdir}/dnf/dnf.conf
 %dir %{_sysconfdir}/dnf/vars
 %dir %{_sysconfdir}/dnf/protected.d
@@ -566,7 +568,7 @@ Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
 Requires:       dbus
 Requires:       polkit
-%if ! (0%{?fedora} > 40 || 0%{?rhel} > 10)
+%if %{without dnf5_obsoletes_dnf}
 Requires:       dnf-data
 %endif
 
@@ -672,7 +674,7 @@ Core DNF5 plugins that enhance dnf5 with builddep, changelog, copr, and repoclos
 %install
 %cmake_install
 
-%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+%if %{with dnf5_obsoletes_dnf}
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/dnf
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/yum
 %endif
@@ -699,6 +701,17 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Wed Aug 16 2023 Nicola Sella <nsella@redhat.com> 5.1.2-1
+- Release 5.1.2
+- Print error messages in nested errors
+- Implement `dnf5daemon-server` introspection xml for Advisory interface
+- Implement `dnf5daemon-client advisory info` command
+- Implement `dnf5daemon-client advisory list` command
+- Implement `dnf5daemon-server` advisory service
+- Improve `dnf5daemon-client --help`
+- Enable `--repofrompath` repos by default
+- Fix error on creating repo with duplicate id
+
 * Fri Aug 04 2023 Packit <hello@packit.dev> - 5.1.1-1
 - Postpone replace of DNF to Fedora 41
 - Add a description of `with_binaries` option for dnf5daemon

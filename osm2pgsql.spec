@@ -1,15 +1,15 @@
 Name:           osm2pgsql
-Version:        1.8.1
-Release:        3%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Import map data from OpenStreetMap to a PostgreSQL database
 
 License:        GPLv2+
 URL:            https://github.com/openstreetmap/osm2pgsql
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/openstreetmap/osm2pgsql/pull/1958
-Patch0:         osm2pgsql-1.8.1-cstdint.patch
-# https://github.com/openstreetmap/osm2pgsql/pull/2000
-Patch1:         osm2pgsql-1.8.1-fmt10.patch
+# https://github.com/openstreetmap/osm2pgsql/issues/2041
+Patch0:         osm2pgsql-minzoom.patch
+
+ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -20,6 +20,7 @@ BuildRequires:  bzip2-devel
 BuildRequires:  catch2-devel catch2-static
 BuildRequires:  expat-devel
 BuildRequires:  fmt-devel
+BuildRequires:  json-devel
 BuildRequires:  libosmium-devel
 BuildRequires:  libpq-devel
 BuildRequires:  libxml2-devel
@@ -33,6 +34,7 @@ BuildRequires:  postgresql-test-rpm-macros
 BuildRequires:  postgis
 BuildRequires:  python3
 BuildRequires:  python3-behave
+BuildRequires:  python3-osmium
 BuildRequires:  python3-psycopg2
 
 %description
@@ -71,6 +73,9 @@ LANG="C.UTF-8" %ctest -j1
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Aug 16 2023 Tom Hughes <tom@compton.nu> - 1.9.0-1
+- Update to 1.9.0 upstream release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

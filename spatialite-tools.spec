@@ -1,12 +1,10 @@
 Name:           spatialite-tools
-Version:        5.0.1
-Release:        5%{?dist}
+Version:        5.1.0a
+Release:        1%{?dist}
 Summary:        A set of useful CLI tools for SpatiaLite
-# Add missing -lxml2
-Patch0:         spatialite-tools_lxml2.patch
 
 License:        GPL-3.0-or-later
-Source0:        http://www.gaia-gis.it/gaia-sins/%{name}-%{version}.tar.gz
+Source0:        https://www.gaia-gis.it/gaia-sins/spatialite-tools-sources/%{name}-%{version}.tar.gz
 URL:            https://www.gaia-gis.it/fossil/spatialite-tools
 
 BuildRequires: make
@@ -36,9 +34,7 @@ rm -f Makefile-static*
 
 
 %build
-%ifarch i686 armv7hl
-export LDFLAGS="%{__global_ldflags} -lm"
-%endif
+export LDFLAGS="%{__global_ldflags} -lxml2 -lm"
 %configure
 %make_build
 
@@ -65,6 +61,9 @@ export LDFLAGS="%{__global_ldflags} -lm"
 %{_bindir}/spatialite_xml2utf8
 
 %changelog
+* Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 5.1.0a-1
+- Update to 5.1.0a
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

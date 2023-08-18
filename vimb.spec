@@ -2,18 +2,17 @@ Summary:        A fast and lightweight vim like web browser
 Name:           vimb
 License:        GPL-3.0-only
 
-Version:        3.6.0
-Release:        3%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 
 URL:            https://fanglingsu.github.io/vimb/
 Source0:        https://github.com/fanglingsu/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:        vimb.metainfo.xml
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-BuildRequires:  pkgconfig(webkit2gtk-4.0)
+BuildRequires:  pkgconfig(webkit2gtk-4.1)
 BuildRequires:  pkgconfig(gtk+-3.0)
 
 %description
@@ -36,8 +35,6 @@ sed -i 's/EXTLDFLAGS  =/EXTLDFLAGS  = ${LDFLAGS} /g' config.mk
               LIBDIR=%{buildroot}/%{_libdir}/%{name} \
               EXTENSIONDIR=%{buildroot}/%{_libdir}/%{name}
 
-mkdir -p %{buildroot}%{_metainfodir}/
-install -m 644 %{SOURCE1} %{buildroot}%{_metainfodir}/
 strip --strip-unneeded %{buildroot}/%{_libdir}/%{name}/webext_main.so
 
 %check
@@ -56,6 +53,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.7.0-1
+- Update to 3.7.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

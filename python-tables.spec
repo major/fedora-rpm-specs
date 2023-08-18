@@ -14,6 +14,8 @@ Source0:        https://github.com/PyTables/PyTables/archive/v%{version}/python-
 # sometimes it doesn't get updated
 %global manual_version 3.3.0
 
+%bcond tests 1
+
 Source1:        https://github.com/PyTables/PyTables/releases/download/v%{manual_version}/pytablesmanual-%{manual_version}.pdf
 Patch1:         0001-Skip-tests-that-fail-on-s390x.patch
 Patch2:         0002-Relax-dependency-on-blosc2.patch
@@ -21,6 +23,7 @@ Patch3:         0003-Fix-build-errors-when-compiled-using-cython-3.0.0b1.patch
 Patch4:         0004-Fix-compatibility-with-numpu-v1.25.patch
 Patch5:         0005-python3.12-cython-fix-slice-indexing.patch
 Patch6:         0006-Add-workaround-for-staticmethod-invocation-error.patch
+Patch7:         0007-Drop-misguided-check.patch
 
 License:        BSD
 URL:            https://www.pytables.org
@@ -76,6 +79,7 @@ The %{name}-doc package contains the documentation for %{name}.
 %patch 4 -p1
 %patch 5 -p1
 %patch 6 -p1
+%patch 7 -p1
 
 cp -a %{SOURCE1} pytablesmanual.pdf
 
@@ -97,6 +101,7 @@ sed -i 's|bin/env |bin/|' utils/*
 %py3_install
 
 %check
+%if %{with tests}
 %ifarch %{ix86} s390x
 skip=true
 %else
@@ -105,6 +110,7 @@ skip=false
 
 cd /
 PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m tables.tests.test_all -v || $skip
+%endif
 
 %files -n python%{python3_pkgversion}-tables
 %license LICENSE.txt LICENSES

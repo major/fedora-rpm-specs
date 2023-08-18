@@ -2,13 +2,13 @@
 
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=540034
 
-%global git_snapshot 0
+%global		git_snapshot 0
 
-%if 0%{?git_snapshot}
-%global git_rev 87c368d79eddf272cd356837256495168c5c72a2
-%global git_date 20110328
-%global git_short %(echo %{git_rev} | cut -c-8)
-%global git_version %{git_date}git%{git_short}
+%if	0%{?git_snapshot}
+%global		git_rev		87c368d79eddf272cd356837256495168c5c72a2
+%global		git_date		20110328
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{git_date}git%{git_short}
 %endif
 
 # Source0 was generated as follows: 
@@ -16,65 +16,65 @@
 # cd %{name}
 # git archive --format=tar --prefix=%{name}/ %{git_short} | bzip2 > %{name}-%{?git_version}.tar.bz2
 
-%undefine        __brp_mangle_shebangs
-%undefine        _changelog_trimtime
+%undefine		__brp_mangle_shebangs
+%undefine		_changelog_trimtime
 
-Name:           lxde-common
-Version:        0.99.2
-Release:        23%{?git_version:.%{?git_version}}%{?dist}
-Summary:        Default configuration files for LXDE
+Name:			lxde-common
+Version:		0.99.2
+Release:		23%{?git_version:.%{?git_version}}%{?dist}
+Summary:		Default configuration files for LXDE
 
-License:        GPLv2+
-URL:            http://lxde.sourceforge.net/
+# SPDX confirmed
+License:		GPL-2.0-only
+URL:			http://lxde.sourceforge.net/
 %if 0%{?git_snapshot}
-Source0:        %{name}-%{?git_version}.tar.bz2
+Source0:		%{name}-%{?git_version}.tar.bz2
 %else
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
 %endif
-Source1:        lxde-lock-screen.desktop
-Source2:        lxde-desktop-preferences.desktop
+Source1: 		lxde-lock-screen.desktop
+Source2:		lxde-desktop-preferences.desktop
 # Install custom gtkrc to enable gtk-menu-images by default (bug 1830588)
 Source10:       gtkrc.custom
 # Set default LXDE terminal as lxterminal (bug 2011471)
-Source11:       libfm.conf.custom
+Source11:		libfm.conf.custom
 
 # Distro specific patches
-Patch10:        %{name}-0.99.2-pcmanfm-config.patch
-Patch11:        %{name}-0.99.2-lxpanel-config.patch
-Patch12:        %{name}-0.5.5-openbox-menu.patch
-Patch13:        %{name}-0.3.2.1-logout-banner.patch
+Patch10:		%{name}-0.99.2-pcmanfm-config.patch
+Patch11:		%{name}-0.99.2-lxpanel-config.patch
+Patch12:		%{name}-0.5.5-openbox-menu.patch
+Patch13:		%{name}-0.3.2.1-logout-banner.patch
 # Use Adwaita Icon Theme
 # FIXME: but the below is actually working?? Anyway for now
 # we install custon gtkrc (see Source10)
 Patch15:        %{name}-0.5.5-vendor.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1638808
 # https://sourceforge.net/p/lxde/bugs/868/
-Patch16:        %{name}-0.99.2-office-no-sal-variable.patch
+Patch16:		%{name}-0.99.2-office-no-sal-variable.patch
 
-BuildRequires:  make
-BuildRequires:  gcc
-BuildRequires:  desktop-file-utils
+BuildRequires:	make
+BuildRequires:	gcc
+BuildRequires:	desktop-file-utils
 # because of some patches:
-BuildRequires:  automake
-BuildRequires:  glib2-devel
-BuildRequires:  intltool
+BuildRequires:	automake
+BuildRequires:	glib2-devel
+BuildRequires:	intltool
 
-Requires:       lxsession >= 0.4.0
-Requires:       lxpanel pcmanfm openbox xdg-utils 
-Requires:       lxmenu-data
-Requires:       xorg-x11-xinit
+Requires:		lxmenu-data
+Requires:		lxsession >= 0.4.0
+Requires:		lxpanel
+Requires:		pcmanfm
+Requires:		openbox
+
+Requires:		xdg-utils
+Requires:		xorg-x11-xinit
 # needed because of new gdm
-Requires:       %{_bindir}/xprop
+Requires:		/usr/bin/xprop
 # Use vendor's artwork
-Requires:       system-logos
-Requires:       desktop-backgrounds-compat
+Requires:		system-logos
+Requires:		desktop-backgrounds-compat
 
-Obsoletes:      %{name}-data <= 0.3.2.1-5
-# needed because the lxde-common and lxde-common-data 
-# required each other with full n-v-r on F-11
-Provides:       %{name} = 0.3.2.1-4.fc11
-Provides:       %{name}-data = 0.3.2.1-4.fc11
-BuildArch:      noarch
+BuildArch:		noarch
 
 %description
 This package contains the configuration files for LXDE, the Lightweight X11 
@@ -84,19 +84,17 @@ Desktop Environment.
 %prep
 %setup -q %{?git_version:-n %{name}}
 
-%patch10 -p1 -b .orig
-%patch11 -p1 -b .orig2
-%patch12 -p1 -b .orig3
-%patch13 -p1 -b .logout-banner
-%patch15 -p1 -b .vendor
-%patch16 -p1 -b .office
+%patch -P10 -p1 -b .orig
+%patch -P11 -p1 -b .orig2
+%patch -P12 -p1 -b .orig3
+%patch -P13 -p1 -b .logout-banner
+%patch -P15 -p1 -b .vendor
+%patch -P16 -p1 -b .office
 
 # Fedora >= 19 doesn't use vendor prefixes for desktop files. Instead of
 # maintaining two patches we just strip the prefixes from the files we just
 # patched with patch 100.
-%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} >= 7)
 sed -i 's|id=fedora-|id=|' lxpanel/panel.in
-%endif
 
 # Fedora 37 changed default background file format
 # This is reverted, even on F-38
@@ -115,16 +113,15 @@ autoreconf -fi
 
 
 %install
-rm -rf %{buildroot}
 %make_install
 
-desktop-file-install                                           \
-      --remove-key=Encoding                                    \
-      --dir=%{buildroot}%{_datadir}/applications               \
-      lxde-logout.desktop
-desktop-file-install                                           \
-      --dir=%{buildroot}%{_datadir}/applications               \
-      %{SOURCE1}
+desktop-file-install \
+	--remove-key=Encoding \
+	--dir=%{buildroot}%{_datadir}/applications \
+	lxde-logout.desktop
+desktop-file-install \
+	--dir=%{buildroot}%{_datadir}/applications               \
+	%{SOURCE1}
 # cannot use desktop-file-utils because it is out of date
 install -pm 0644 %{SOURCE2} %{buildroot}%{_datadir}/applications/
 
@@ -138,29 +135,33 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %files
-%doc AUTHORS
-%license COPYING
+%doc	AUTHORS
+%license	COPYING
 
-%dir %{_sysconfdir}/xdg/lxsession/LXDE/
+%dir	%{_sysconfdir}/xdg/lxsession/LXDE/
 %config(noreplace) %{_sysconfdir}/xdg/lxsession/LXDE/autostart
 %config(noreplace) %{_sysconfdir}/xdg/lxsession/LXDE/desktop.conf
 
-%dir %{_sysconfdir}/xdg/lxsession/gtk-2.0
+%dir	%{_sysconfdir}/xdg/lxsession/gtk-2.0
 %{_sysconfdir}/xdg/lxsession/gtk-2.0/gtkrc
 
-%dir %{_sysconfdir}/xdg/lxsession/libfm
+%dir	%{_sysconfdir}/xdg/lxsession/libfm
 %config(noreplace) %{_sysconfdir}/xdg/lxsession/libfm/libfm.conf
 
-%dir %{_sysconfdir}/xdg/pcmanfm/
+%dir	%{_sysconfdir}/xdg/pcmanfm/
+%dir	%{_sysconfdir}/xdg/pcmanfm/LXDE/
 %config(noreplace) %{_sysconfdir}/xdg/pcmanfm/LXDE/pcmanfm.conf
 
 %{_bindir}/startlxde
 %{_bindir}/lxde-logout
 %{_bindir}/openbox-lxde
 
-%{_datadir}/lxde/
-%config(noreplace) %{_sysconfdir}/xdg/lxpanel/LXDE
-%config(noreplace) %{_sysconfdir}/xdg/openbox/LXDE
+%dir	%{_datadir}/lxde/
+%{_datadir}/lxde/images/
+%{_datadir}/lxde/wallpapers/
+
+%config(noreplace)	%{_sysconfdir}/xdg/lxpanel/LXDE
+%config(noreplace)	%{_sysconfdir}/xdg/openbox/LXDE
 
 %{_mandir}/man1/*.1.gz
 %{_datadir}/xsessions/LXDE.desktop

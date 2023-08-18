@@ -1,11 +1,14 @@
 Name:           krename
 Version:        5.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Powerful batch file renamer
 License:        GPLv2
 URL:            https://invent.kde.org/utilities/krename
 Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
+# Add support for PoDoFo-0.10
+Patch0:         https://github.com/KDE/krename/commit/056d614dc2166cd25749caf264b1b4d9d348f4d4.patch
+Patch1:         https://github.com/KDE/krename/commit/930e995dbcadc796424d261f75c90e98f02fc0b4.patch
 
 
 BuildRequires:  gcc-c++
@@ -42,7 +45,7 @@ image.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -71,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Wed Aug 16 2023 Sandro Mani <manisandro@gmail.com> - 1:5.0.2-4
+- Build against podofo-0.10
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

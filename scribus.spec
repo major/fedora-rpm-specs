@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.5.8
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Desktop Publishing application written in Qt
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
@@ -42,7 +42,7 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libmspub-0.1)
 BuildRequires:  pkgconfig(libpagemaker-0.0)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(libpodofo)
+BuildRequires:  podofo0.9-devel
 BuildRequires:  pkgconfig(libqxp-0.0)
 BuildRequires:  pkgconfig(librevenge-0.0)
 BuildRequires:  pkgconfig(libtiff-4)
@@ -141,6 +141,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Aug 16 2023 Sandro Mani <manisandro@gmail.com> - 1.5.8-16
+- Switch to BR podofo0.9-devel
+
 * Mon Aug 07 2023 Marek Kasik <mkasik@redhat.com> - 1.5.8-15
 - Rebuild for poppler 23.08.0
 

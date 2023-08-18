@@ -1,6 +1,6 @@
 Name:       dino
 Version:    0.4.3
-Release:    2%{?dist}
+Release:    3%{?dist}
 
 License:    GPLv3
 Summary:    Modern XMPP ("Jabber") Chat Client using GTK+/Vala
@@ -80,6 +80,7 @@ rm -r plugins/signal-protocol/libsignal-protocol-c
 # <https://discourse.gnome.org/t/c99-compatibility-of-internal-setters/13360>
 # valac does not respect internal header/vapi setting
 # <https://gitlab.gnome.org/GNOME/vala/-/issues/358>
+%global build_type_safety_c 0
 %set_build_flags
 CC="$CC -std=gnu89"
 # Use the system version of libsignal-protocol-c instead of the bundled one.
@@ -133,6 +134,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/im.dino.Dino.desktop
 
 
 %changelog
+* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 0.4.3-3
+- Set build_type_safety_c to 0 (#2173174)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
