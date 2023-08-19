@@ -1,30 +1,38 @@
 %bcond_with bootstrap
 
+%global upstream_version %(echo %{version} | tr '~' '.')
+
 Name:           sisu-mojos
-Version:        0.3.5
-Release:        4%{?dist}
+Version:        0.9.0~M2
+Release:        1%{?dist}
 Summary:        Sisu plugin for Apache Maven
 License:        EPL-1.0
 URL:            https://www.eclipse.org/sisu
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/eclipse/sisu.mojos/archive/refs/tags/releases/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Source0:        https://github.com/eclipse/sisu.mojos/archive/refs/tags/releases/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/eclipse/sisu.mojos/archive/refs/tags/milestones/%{upstream_version}.tar.gz#/%{name}-%{version}.tar.gz
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.shared:maven-common-artifact-filters)
+BuildRequires:  mvn(org.apache.maven:maven-artifact)
+BuildRequires:  mvn(org.apache.maven:maven-core)
+BuildRequires:  mvn(org.apache.maven:maven-model)
+BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
+BuildRequires:  mvn(org.codehaus.mojo:extra-enforcer-rules)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.slf4j:slf4j-nop)
+BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
-
 
 %description
 The Sisu Plugin for Maven provides mojos to generate
@@ -37,29 +45,26 @@ Summary:        API documentation for %{name}
 This package contains %{summary}.
 
 %prep
-%setup -q -n sisu.mojos-releases-%{version}
-
-# remove unnecessary dependency on parent POM
-%pom_remove_parent
-
-# Animal Sniffer is not useful in Fedora
-%pom_remove_plugin :animal-sniffer-maven-plugin
+%setup -q -n sisu.mojos-milestones-%{upstream_version}
 
 %mvn_alias : org.sonatype.plugins:
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE.txt
+%license LICENSE.txt
 
 %files javadoc -f .mfiles-javadoc
-%doc LICENSE.txt
+%license LICENSE.txt
 
 %changelog
+* Thu Aug 17 2023 Marian Koncek <mkoncek@redhat.com> - 0.9.0~M2-1
+- Update to upstream version 0.9.0~M2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

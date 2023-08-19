@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -1247,6 +1247,12 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Aug 17 2023 Adam Williamson <awilliam@redhat.com> - 2.41-3
+- More CI fixes
+
+* Thu Aug 17 2023 Adam Williamson <awilliam@redhat.com> - 2.41-2
+- Tests: use uname -m instead of uname -i
+
 * Thu Aug 03 2023 Nick Clifton  <nickc@redhat.com> - 2.41-1
 - Rebase to GNU Binutils 2.41
 # Patch05: binutils-filename-in-readelf-messages.patch

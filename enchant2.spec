@@ -1,8 +1,4 @@
-%if 0%{?rhel}
-%bcond_with mingw
-%else
-%bcond_without mingw
-%endif
+%bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
 
 Name:          enchant2
 Version:       2.5.0

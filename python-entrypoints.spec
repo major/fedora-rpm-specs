@@ -4,21 +4,14 @@
 Name:		python-%{srcname}
 
 # WARNING: Check if an update does not break flake8!
-Version:	0.3
-
-Release:	18%{?dist}
+Version:	0.4
+Release:	1%{?dist}
 Summary:	%{sum}
-
-# license clarification issue opened upstream
-# https://github.com/takluyver/entrypoints/issues/10
-
+# SPDX
 License:	MIT
 
 URL:		https://entrypoints.readthedocs.io/
 Source0:	https://github.com/takluyver/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Switch build-backend to flit_core, from upstream version 0.4
-Patch:		https://github.com/takluyver/entrypoints/commit/1869c4845e.patch
 
 BuildArch:	noarch
 BuildRequires: make
@@ -84,6 +77,9 @@ popd
 
 
 %changelog
+* Wed Aug 16 2023 Lumír Balhar <lbalhar@redhat.com> - 0.4-1
+- Update to 0.4 (rhbz#2049921)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

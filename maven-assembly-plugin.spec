@@ -1,15 +1,15 @@
 %bcond_with bootstrap
 
 Name:           maven-assembly-plugin
-Version:        3.3.0
-Release:        11%{?dist}
+Version:        3.6.0
+Release:        1%{?dist}
 Summary:        Maven Assembly Plugin
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/maven-assembly-plugin/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        http://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
+Source0:        https://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -23,6 +23,7 @@ BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugins:pom:)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.shared:file-management)
@@ -37,6 +38,7 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-io)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 %endif
 
 %description
@@ -52,9 +54,9 @@ This package provides %{summary}.
 %prep
 %setup -q
 
+%pom_remove_dep jaxen:jaxen
+
 %build
-# Tests need easymockclassextension version 2.x, which is incompatible
-# with easymockclassextension version 3.x we have in Fedora.
 %mvn_build -f
 
 %install
@@ -67,6 +69,9 @@ This package provides %{summary}.
 %license LICENSE NOTICE
 
 %changelog
+* Mon Aug 14 2023 Marian Koncek <mkoncek@redhat.com> - 3.6.0-1
+- Update to upstream version 3.6.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

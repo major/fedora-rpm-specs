@@ -3,11 +3,12 @@
 
 Name:		python-parsley
 Version:	1.3
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Parsing and pattern matching made easy
 License:	MIT
 URL:		https://launchpad.net/parsley
 Source0:	https://files.pythonhosted.org/packages/source/P/%{oname}/%{oname}-%{version}.tar.gz
+Patch:		tests-replace-usage-of-obsolete-TestCase-methods.patch
 BuildArch:	noarch
 
 BuildRequires: make
@@ -45,7 +46,7 @@ Summary: %summary
 %description -n python3-parsley %_description
 
 %prep
-%setup -q -n %{oname}-%{version}
+%autosetup -p1 -n %{oname}-%{version}
 rm -rf *.egg*
 
 %build
@@ -73,6 +74,9 @@ py.test-%{python3_version} terml/test ometa/test --ignore=ometa/test/test_vm_bui
 %{python3_sitelib}/terml/
 
 %changelog
+* Tue Aug 15 2023 Maxwell G <maxwell@gtmx.me> - 1.3-28
+- Fix Python 3.12 FTBFS. Fixes rhbz#2175191 and rhbz#2226275.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

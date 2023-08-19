@@ -40,8 +40,8 @@
 %endif
 
 Name:           wine
-Version:        8.12
-Release:        2%{?dist}
+Version:        8.13
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -51,8 +51,6 @@ Source10:       https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz.sig
 
 Source1:        wine.systemd
 Source2:        wine-README-Fedora
-Source3:        wine-32.conf
-Source4:        wine-64.conf
 
 # desktop files
 Source100:      wine-notepad.desktop
@@ -690,7 +688,7 @@ gzip -dc %{SOURCE900} | tar -xf - --strip-components=1
 
 # https://bugs.winehq.org/show_bug.cgi?id=54868
 sed -i 's/DWORD pitch_in, DWORD pitch_out/unsigned int pitch_in, unsigned int pitch_out/' patches/wined3d-WINED3DFMT_B8G8R8X8_UNORM/0001-wined3d-Implement-WINED3DFMT_B8G8R8X8_UNORM-to-WINED.patch
-staging/patchinstall.py DESTDIR="`pwd`" --all -W vkd3d-latest
+staging/patchinstall.py DESTDIR="`pwd`" --all
 
 %endif
 # 0%%{?wine_staging}
@@ -948,14 +946,6 @@ cp -p %{SOURCE502} README-tahoma
 
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d/
 
-%ifarch %{ix86} %{arm}
-install -p -m644 %{SOURCE3} %{buildroot}%{_sysconfdir}/ld.so.conf.d/
-%endif
-
-%ifarch x86_64 aarch64
-install -p -m644 %{SOURCE4} %{buildroot}%{_sysconfdir}/ld.so.conf.d/
-%endif
-
 
 # install Tahoma font for system package
 install -p -m 0755 -d %{buildroot}/%{_datadir}/fonts/wine-tahoma-fonts
@@ -1113,13 +1103,11 @@ fi
 %{_bindir}/wine32
 %{_bindir}/wine32-preloader
 %{_bindir}/wineserver32
-%config %{_sysconfdir}/ld.so.conf.d/wine-32.conf
 %endif
 
 %ifarch x86_64 aarch64
 %{_bindir}/wine64
 %{_bindir}/wineserver64
-%config %{_sysconfdir}/ld.so.conf.d/wine-64.conf
 %endif
 %ifarch x86_64 aarch64
 %{_bindir}/wine64-preloader
@@ -1152,7 +1140,7 @@ fi
 %{_libdir}/wine/%{winepedir}/fsutil.exe
 %{_libdir}/wine/%{winepedir}/hostname.exe
 %{_libdir}/wine/%{winepedir}/ipconfig.exe
-%{_libdir}/wine/%{winepedir}/winhlp32.exe
+%{_libdir}/wine/%{winepedir}/klist.exe
 %{_libdir}/wine/%{winepedir}/mshta.exe
 %{_libdir}/wine/%{winepedir}/msidb.exe
 %{_libdir}/wine/%{winepedir}/msiexec.exe
@@ -1190,6 +1178,7 @@ fi
 %{_libdir}/wine/%{winepedir}/winemenubuilder.exe
 %{_libdir}/wine/%{winepedir}/winecfg.exe
 %{_libdir}/wine/%{winepedir}/winedevice.exe
+%{_libdir}/wine/%{winepedir}/winhlp32.exe
 %{_libdir}/wine/%{winepedir}/wmplayer.exe
 %{_libdir}/wine/%{winepedir}/wscript.exe
 %{_libdir}/wine/%{winepedir}/uninstaller.exe
@@ -1222,6 +1211,7 @@ fi
 %{_libdir}/wine/%{winepedir}/avrt.dll
 %{_libdir}/wine/%{winesodir}/bcrypt.so
 %{_libdir}/wine/%{winepedir}/bcrypt.dll
+%{_libdir}/wine/%{winepedir}/bcryptprimitives.dll
 %{_libdir}/wine/%{winepedir}/bluetoothapis.dll
 %{_libdir}/wine/%{winepedir}/browseui.dll
 %{_libdir}/wine/%{winepedir}/bthprops.cpl
@@ -1345,6 +1335,7 @@ fi
 %{_libdir}/wine/%{winepedir}/gamingtcui.dll
 %{_libdir}/wine/%{winepedir}/gdi32.dll
 %{_libdir}/wine/%{winepedir}/gdiplus.dll
+%{_libdir}/wine/%{winepedir}/geolocation.dll
 %{_libdir}/wine/%{winepedir}/glu32.dll
 %{_libdir}/wine/%{winepedir}/gphoto2.ds
 %{_libdir}/wine/%{winesodir}/gphoto2.so
@@ -1690,7 +1681,6 @@ fi
 %{_libdir}/wine/%{winepedir}/win32u.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.bluetooth.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.enumeration.dll
-%{_libdir}/wine/%{winepedir}/windows.devices.geolocation.geolocator.dll
 %{_libdir}/wine/%{winepedir}/windows.gaming.ui.gamebar.dll
 %{_libdir}/wine/%{winepedir}/windows.gaming.input.dll
 %{_libdir}/wine/%{winepedir}/windows.globalization.dll
@@ -1958,6 +1948,7 @@ fi
 %{_libdir}/wine/%{winesodir}/fsutil.exe.so
 %{_libdir}/wine/%{winesodir}/hostname.exe.so
 %{_libdir}/wine/%{winesodir}/ipconfig.exe.so
+%{_libdir}/wine/%{winesodir}/klist.exe.so
 %{_libdir}/wine/%{winesodir}/winhlp32.exe.so
 %{_libdir}/wine/%{winesodir}/mshta.exe.so
 %if 0%{?wine_staging}
@@ -2021,6 +2012,7 @@ fi
 %{_libdir}/wine/%{winesodir}/avifil32.dll.so
 %{_libdir}/wine/%{winesodir}/avrt.dll.so
 %{_libdir}/wine/%{winesodir}/bcrypt.dll.so
+%{_libdir}/wine/%{winesodir}/bcryptprimitives.dll.so
 %{_libdir}/wine/%{winesodir}/bluetoothapis.dll.so
 %{_libdir}/wine/%{winesodir}/browseui.dll.so
 %{_libdir}/wine/%{winesodir}/bthprops.cpl.so
@@ -2135,6 +2127,7 @@ fi
 %{_libdir}/wine/%{winesodir}/gamingtcui.dll.so
 %{_libdir}/wine/%{winesodir}/gdi32.dll.so
 %{_libdir}/wine/%{winesodir}/gdiplus.dll.so
+%{_libdir}/wine/%{winesodir}/geolocation.dll.so
 %{_libdir}/wine/%{winesodir}/glu32.dll.so
 %{_libdir}/wine/%{winesodir}/gphoto2.ds.so
 %{_libdir}/wine/%{winesodir}/gpkcsp.dll.so
@@ -2456,7 +2449,6 @@ fi
 %{_libdir}/wine/%{winesodir}/win32u.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.bluetooth.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.enumeration.dll.so
-%{_libdir}/wine/%{winesodir}/windows.devices.geolocation.geolocator.dll.so
 %{_libdir}/wine/%{winesodir}/windows.gaming.ui.gamebar.dll.so
 %{_libdir}/wine/%{winesodir}/windows.gaming.input.dll.so
 %{_libdir}/wine/%{winesodir}/windows.globalization.dll.so
@@ -2794,6 +2786,9 @@ fi
 %endif
 
 %changelog
+* Thu Aug 17 2023 Michael Cronenworth <mike@cchtml.com> - 8.13-1
+- version update
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

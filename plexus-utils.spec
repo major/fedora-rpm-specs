@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-utils
-Version:        3.4.2
-Release:        3%{?dist}
+Version:        3.5.1
+Release:        1%{?dist}
 Summary:        Plexus Common Utilities
 # ASL 1.1: several files in src/main/java/org/codehaus/plexus/util/
 # xpp: src/main/java/org/codehaus/plexus/util/xml/pull directory
@@ -24,8 +24,6 @@ Source1:        http://apache.org/licenses/LICENSE-2.0.txt
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 %endif
 
@@ -57,6 +55,9 @@ cp %{SOURCE1} .
 %license NOTICE.txt LICENSE-2.0.txt
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.1-1
+- Update to upstream version 3.5.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

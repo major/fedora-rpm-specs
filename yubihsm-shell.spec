@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:		yubihsm-shell
-Version:	2.4.0
-Release:	2%{?dist}
+Version:	2.4.1
+Release:	1%{?dist}
 Summary:	Tools to interact with YubiHSM 2
 
 License:	ASL 2.0 
@@ -10,9 +10,6 @@ URL:		https://github.com/Yubico/%{name}/
 Source0:	https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1:	https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
 Source2:	gpgkey-9588EA0F.gpg
-# https://github.com/Yubico/yubihsm-shell/pull/312
-# https://github.com/Yubico/yubihsm-shell/pull/314
-Patch1:		yubihsm-shell-2.4.0-fix-id-type.patch
 
 BuildRequires:	cmake
 BuildRequires:	cppcheck
@@ -50,7 +47,6 @@ Development libraries for working with yubihsm 2.
 %prep
 gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %setup -q
-%patch1 -p1
 
 
 %build
@@ -110,6 +106,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/pkcs11/yubihsm_pkcs11.so
 
 
 %changelog
+* Thu Aug 17 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.1-1
+- New upstream release (#2232340)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

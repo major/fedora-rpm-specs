@@ -3,7 +3,7 @@
 
 Name: qrmumps
 Version: 3.0.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A multithreaded multifrontal QR solver
 License: LGPLv3+
 URL: http://buttari.perso.enseeiht.fr/qr_mumps/
@@ -12,7 +12,7 @@ URL: http://buttari.perso.enseeiht.fr/qr_mumps/
 Source0: http://buttari.perso.enseeiht.fr/qr_mumps/releases/qr_mumps-%{version}.tgz
 
 BuildRequires: gcc-gfortran, gcc-c++, gcc
-BuildRequires: cmake3 >= 3.11.4
+BuildRequires: cmake
 BuildRequires: metis-devel >= 5.1.0-12
 BuildRequires: scotch-devel
 BuildRequires: suitesparse-devel
@@ -81,7 +81,7 @@ PDF documentation files of %{name}.
 rm -f aux/find/Find{BLAS,LAPACK}.cmake
 
 %build
-%cmake3 -Wno-dev -S . -DQRM_VERSION:STRING=%{version} \
+%cmake -Wno-dev -S . -DQRM_VERSION:STRING=%{version} \
  -DARITH="d;s;z;c" -DCMAKE_BUILD_TYPE:STRING=Release \
  -DQRM_ORDERING_AMD:BOOL=ON -DQRM_ORDERING_METIS:BOOL=ON \
  -DQRM_ORDERING_SCOTCH:BOOL=ON -DQRM_WITH_STARPU:BOOL=OFF \
@@ -90,10 +90,10 @@ rm -f aux/find/Find{BLAS,LAPACK}.cmake
  -DBLAS_VERBOSE:BOOL=ON -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
 
-%cmake3_build
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 %if 0%{?with_check}
 %check
@@ -104,8 +104,10 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files
 %license doc/COPYING.LESSER
 %doc Changelog.org README.org
-%{_libdir}/lib*qrm.so.*
-%{_libdir}/libqrm_common.so.*
+%{_libdir}/lib*qrm.so.3
+%{_libdir}/libqrm_common.so.3
+%{_libdir}/lib*qrm.so.%{version}
+%{_libdir}/libqrm_common.so.%{version}
 
 %files devel
 %{_includedir}/qrm/
@@ -122,6 +124,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc doc/*
 
 %changelog
+* Thu Aug 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.2-9
+- Rebuild for scotch-7.0.4
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

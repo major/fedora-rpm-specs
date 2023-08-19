@@ -1,33 +1,30 @@
 %bcond_with bootstrap
 
 Name:           maven-shared-utils
-Version:        3.3.4
-Release:        7%{?dist}
+Version:        3.4.2
+Release:        1%{?dist}
 Summary:        Maven shared utility classes
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-shared-utils
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{version}/%{name}-%{version}-source-release.zip
 # XXX temporary for maven upgrade
-Patch1:         0001-Restore-compatibility-with-current-maven.patch
-Patch2:         0002-Avoid-setting-POSIX-attributes-for-symbolic-links.patch
+Patch1:         0001-Avoid-setting-POSIX-attributes-for-symbolic-links.patch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.code.findbugs:jsr305)
-BuildRequires:  %{?module_prefix}mvn(commons-io:commons-io)
+BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.commons:commons-lang3)
-BuildRequires:  mvn(org.apache.maven:maven-core)
-BuildRequires:  mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.fusesource.jansi:jansi)
 BuildRequires:  mvn(org.hamcrest:hamcrest-core)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
 
 %description
@@ -44,10 +41,7 @@ a lot of unused code.
 
 find -name '*.java' -exec sed -i 's/\r//' {} +
 
-%patch1 -p1
-%patch2 -p1
-
-%pom_remove_plugin org.codehaus.mojo:findbugs-maven-plugin
+%patch 1 -p1
 
 %pom_remove_dep org.apache.commons:commons-text
 rm src/test/java/org/apache/maven/shared/utils/CaseTest.java
@@ -62,6 +56,9 @@ rm src/test/java/org/apache/maven/shared/utils/CaseTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Wed Aug 16 2023 Marian Koncek <mkoncek@redhat.com> - 3.4.2-1
+- Update to upstream version 3.4.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

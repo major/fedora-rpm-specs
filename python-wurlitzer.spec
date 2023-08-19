@@ -1,53 +1,50 @@
-%global pypi_name wurlitzer
-
-Name:           python-%{pypi_name}
-Version:        1.0.3
-Release:        14%{?dist}
+Name:           python-wurlitzer
+Version:        3.0.3
+Release:        1%{?dist}
 Summary:        Capture C-level output in context managers
 
 License:        MIT
 URL:            https://github.com/minrk/wurlitzer
-Source0:        %pypi_source
+Source0:        %{url}/archive/%{version}/wurlitzer-%{version}.tar.gz
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(mock)
+BuildRequires:  %{py3_dist pytest}
 
 %description
 Capture C-level stdout/stderr pipes in Python via os.dup2.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-wurlitzer
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
+%description -n python3-wurlitzer
 Capture C-level stdout/stderr pipes in Python via os.dup2.
 
-
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n wurlitzer-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files wurlitzer
 
 %check
-pytest test.py
+%pytest test.py
 
-%files -n python3-%{pypi_name}
-%license LICENSE
-%doc README.md
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%files -n python3-wurlitzer -f %{pyproject_files}
+%doc CHANGELOG.md README.md
 
 %changelog
+* Thu Aug 17 2023 Jerry James <loganjerry@gmail.com> - 3.0.3-1
+- Version 3.0.3
+- Verify the License tag is valid SPDX
+- Modernize the spec file
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

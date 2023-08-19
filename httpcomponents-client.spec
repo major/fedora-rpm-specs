@@ -2,11 +2,11 @@
 
 Name:              httpcomponents-client
 Summary:           HTTP agent implementation based on httpcomponents HttpCore
-Version:           4.5.13
-Release:           7%{?dist}
+Version:           4.5.14
+Release:           1%{?dist}
 License:           ASL 2.0
 URL:               http://hc.apache.org/
-Source0:           https://www.apache.org/dist/httpcomponents/httpclient/source/%{name}-%{version}-src.tar.gz
+Source0:           https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/%{version}/httpcomponents-client-%{version}-source-release.zip
 BuildArch:         noarch
 ExclusiveArch:     %{java_arches} noarch
 
@@ -14,9 +14,9 @@ Patch0:            0001-Use-system-copy-of-effective_tld_names.dat.patch
 Patch1:            0002-Port-to-mockito-2.patch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:     javapackages-bootstrap
 %else
-BuildRequires:     maven-local-openjdk8
+BuildRequires:     maven-local
 BuildRequires:     mvn(commons-codec:commons-codec)
 BuildRequires:     mvn(commons-logging:commons-logging)
 BuildRequires:     mvn(junit:junit)
@@ -115,7 +115,7 @@ rm httpclient/src/test/java/org/apache/http/client/config/TestRequestConfig.java
 %build
 %mvn_file ":{*}" httpcomponents/@1
 
-%mvn_build
+%mvn_build -- -Dmaven.compiler.release=8
 
 %install
 %mvn_install
@@ -125,6 +125,12 @@ rm httpclient/src/test/java/org/apache/http/client/config/TestRequestConfig.java
 %doc README.txt RELEASE_NOTES.txt
 
 %changelog
+* Wed Aug 16 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.5.14-1
+- Update to upstream version 4.5.14
+
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.5.13-8
+- Build with default JDK 17
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.13-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

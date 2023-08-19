@@ -28,9 +28,6 @@
 # A subpackage needs falcon >= 1.4.1, < 4.0.0; F39 has 4.0.0
 %bcond falcon 0
 
-# A subpackage needs httpx >= 0.18.0, <= 0.23.0; F39 has 0.24.0
-%bcond httpx 0
-
 # Some tests need moto ~= 2.0; but python-moto is not packaged
 %bcond moto 0
 
@@ -97,6 +94,17 @@ Source11:       opentelemetry-instrument.1
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1821#issuecomment-1560136536
 Patch:          0001-Revert-Fix-expected-URL-in-aiohttp-instrumentation-t.patch
 
+# Relax httpx version to allow >= 0.18.0
+# https://github.com/open-telemetry/opentelemetry-python-contrib/commit/a5ed4da478c4360fd6e24893f7574b150431b7ee
+#
+# Rebased to v0.39b1
+#
+# Fixes:
+#
+# F38FailsToInstall: python3-opentelemetry-instrumentation-httpx+instruments
+# https://bugzilla.redhat.com/show_bug.cgi?id=2232605
+Patch:          0001-Relax-httpx-version-to-allow-0.18.0-1748.patch
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # While this package is noarch, excluding i686 unblocks many dependent packages
@@ -138,7 +146,7 @@ BuildRequires:  python3dist(packaging)
     instrumentation/opentelemetry-instrumentation-fastapi
     instrumentation/opentelemetry-instrumentation-flask
     instrumentation/opentelemetry-instrumentation-grpc
-    %{?with_httpx:instrumentation/opentelemetry-instrumentation-httpx}
+    instrumentation/opentelemetry-instrumentation-httpx
     instrumentation/opentelemetry-instrumentation-jinja2
     instrumentation/opentelemetry-instrumentation-kafka-python
     instrumentation/opentelemetry-instrumentation-logging
@@ -877,7 +885,6 @@ packages that are instrumented) are installed.
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_grpc-%{prerel_distinfo}
 
 
-%if %{with httpx}
 %package -n python3-opentelemetry-instrumentation-httpx
 Summary:        OpenTelemetry HTTPX Instrumentation
 Version:        %{prerel_version}
@@ -910,7 +917,6 @@ python3-opentelemetry-instrumentation-httpx. It makes sure the dependencies
 
 %files -n python3-opentelemetry-instrumentation-httpx+instruments
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_httpx-%{prerel_distinfo}
-%endif
 
 
 %package -n python3-opentelemetry-instrumentation-jinja2
@@ -1674,12 +1680,7 @@ Obsoletes:      python3-opentelemetry-instrumentation-falcon+instruments < 0.36~
 Requires:       python3-opentelemetry-instrumentation-fastapi = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-flask = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-grpc = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
-%if %{with httpx}
 Requires:       python3-opentelemetry-instrumentation-httpx = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
-%else
-Obsoletes:      python3-opentelemetry-instrumentation-httpx < 0.36~b0-11
-Obsoletes:      python3-opentelemetry-instrumentation-httpx+instruments < 0.36~b0-11
-%endif
 Requires:       python3-opentelemetry-instrumentation-jinja2 = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-kafka-python = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-logging = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
@@ -1786,7 +1787,6 @@ for omit in \
     %{?!with_aio_pika:aio-pika} \
     %{?!with_confluent_kafka:confluent-kafka} \
     %{?!with_falcon:falcon} \
-    %{?!with_httpx:httpx} \
     %{?!with_remoulade:remoulade} \
     %{?!with_sklearn:sklearn} \
     %{?!with_starlette:starlette} \
@@ -1880,7 +1880,7 @@ for dep in cfg.get("testenv", "deps").splitlines():
     excludes.add("pika0")
     excludes.update({"pymemcache135", "pymemcache200", "pymemcache300"})
     excludes.update({"pymemcache342", "pymemcache400"})
-    excludes.update({"httpx18", "httpx21"})
+    excludes.update({"httpx18"})
 %if %{without aio_pika}
     excludes.update({"aio-pika7", "aio-pika8", "aio-pika9"})
 %endif
@@ -2390,7 +2390,6 @@ done
 %{python3_sitelib}/opentelemetry_instrumentation_grpc-%{prerel_distinfo}/
 
 
-%if %{with httpx}
 %files -n python3-opentelemetry-instrumentation-httpx
 %license instrumentation/opentelemetry-instrumentation-httpx/LICENSE
 %doc instrumentation/opentelemetry-instrumentation-httpx/README.rst
@@ -2400,7 +2399,6 @@ done
 
 %{python3_sitelib}/opentelemetry/instrumentation/httpx/
 %{python3_sitelib}/opentelemetry_instrumentation_httpx-%{prerel_distinfo}/
-%endif
 
 
 %files -n python3-opentelemetry-instrumentation-jinja2

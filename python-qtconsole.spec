@@ -5,13 +5,10 @@
 %global pypi_name qtconsole
 
 Name:		python-%{pypi_name}
-Version:	5.3.2
+Version:	5.4.3
 Release:	%autorelease
 Summary:	Jupyter Qt console
-
-#license clarification issue opened with upstream
-# https://github.com/jupyter/qtconsole/issues/142
-License:	BSD
+License:	BSD-3-Clause
 
 URL:		http://jupyter.org
 Source0:	https://files.pythonhosted.org/packages/source/q/%{pypi_name}/%{pypi_name}-%{version}.tar.gz

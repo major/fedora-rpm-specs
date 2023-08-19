@@ -1,7 +1,7 @@
 Summary:        A program that extracts a catalog of sources from astronomical images, and the successor of SExtractor
 Name:           sourcextractor++
 Version:        0.19.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPLv3+
 URL:            https://github.com/astrorama/sourcextractorplusplus
 Source0:        https://github.com/astrorama/sourcextractorplusplus/archive/%{version}/%{name}-%{version}.tar.gz
@@ -18,6 +18,8 @@ Patch2:         sourcex_remove_custom_flags.patch
 Patch3:         sourcex_precision_test.patch
 Patch4:         sourcex_alexandria_2.30.1.patch
 Patch5:         sourcex_missing_include.patch
+# Fix build with onnxruntime 1.14
+Patch6:         sourcex_onnxruntime-1.14.patch
 
 %global elements_version 6.2.1
 %global alexandria_version 2.30.1 
@@ -42,6 +44,7 @@ BuildRequires: elements-doc = %{elements_version}
 BuildRequires: elements-alexandria-doc = %{alexandria_version}
 BuildRequires: doxygen
 BuildRequires: graphviz
+BuildRequires: onnxruntime-devel
 BuildRequires: texlive-latex
 %if 0%{?fedora} >= 30
 BuildRequires: texlive-newunicodechar
@@ -203,6 +206,9 @@ make test -C "%{_vpath_builddir}"
 %{_docdir}/sourcextractor++
 
 %changelog
+* Thu Aug 17 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 0.19.2-5
+- Enable onnxruntime support
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

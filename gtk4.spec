@@ -23,10 +23,9 @@ Summary:        GTK graphical user interface library
 License:        LGPL-2.0-or-later
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/4.12/gtk-%{version}.tar.xz
-# Temporarily revert this until we figure out how to best restore
-# private requires that are needed for rpm automatic dep extraction.
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/4756
-Patch0:         0001-Revert-Meson-Simplify-pkgconfig-file-generator.patch
+# Backported upstream MR
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6293
+Patch0:         6293.patch
 # Backported upstream MR
 # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6250
 Patch1:         6250.patch

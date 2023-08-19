@@ -2,27 +2,27 @@
 
 Name:           maven-file-management
 Epoch:          1
-Version:        3.0.0
-Release:        20%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        Maven File Management API
 License:        ASL 2.0
-URL:            http://maven.apache.org/shared/file-management
+URL:            https://maven.apache.org/shared/file-management
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        http://repo1.maven.org/maven2/org/apache/maven/shared/file-management/%{version}/file-management-%{version}-source-release.zip
+Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/file-management/%{version}/file-management-%{version}-source-release.zip
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
+BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
-BuildRequires:  mvn(org.apache.maven.shared:maven-shared-io)
-BuildRequires:  mvn(org.apache.maven.shared:maven-shared-utils)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
 
 %description
@@ -50,6 +50,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.1.0-1
+- Update to upstream version 3.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

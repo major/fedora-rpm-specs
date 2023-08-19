@@ -14,7 +14,7 @@ Release:	42%{?dist}
 #
 # dbz/md5.{c,h} are RSA Message-Digest licensed
 # lib/setenv.c is BSD-4-Clause-UC but not compiled into binary
-License:	GPL-2.0-or-later AND RSA-MD AND LicenseRef-Fedora-Public-Domain
+License:	GPL-2.0-or-later AND RSA-MD AND Zeeff
 Summary:	NNTP news exchange utility
 Summary(pl):	Narzędzie do wymiany newsów po NNTP
 Source0:	ftp://ftp.tin.org/pub/news/utils/newsx/%{name}-%{version}.tar.gz

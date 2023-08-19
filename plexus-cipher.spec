@@ -2,9 +2,9 @@
 
 Name:           plexus-cipher
 Version:        2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Plexus Cipher: encryption/decryption Component
-License:        ASL 2.0
+License:        Apache-2.0
 # project moved to GitHub and it looks like there is no official website anymore
 URL:            https://github.com/codehaus-plexus/plexus-cipher
 BuildArch:      noarch
@@ -13,9 +13,9 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        %{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
@@ -43,6 +43,9 @@ Plexus Cipher: encryption/decryption Component
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Aug 10 2023 Marian Koncek <mkoncek@redhat.com> - 2.0-5
+- Use implicit maven toolchains
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.14.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -21,6 +21,7 @@ Source2:	fc-cache
 Patch0:		%{name}-sleep-less.patch
 Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch5:		%{name}-disable-network-required-test.patch
+Patch6:		%{name}-lower-nonlatin-conf.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
@@ -191,6 +192,16 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel
 
 %changelog
+* Thu Aug 17 2023 Akira TAGOH <tagoh@redhat.com> - 2.14.2-5
+- Update 65-nonlatin.conf to 69-nonlatin.conf
+  This basically provides substitutes for certain languages and is helpful
+  to determine default behavior though, we have per-package config for similar purpose.
+  Since 65 is mostly used for default fonts and this config prevents some behavior for
+  packages named something coming later than "nonlatin" in the alphabetical order.
+  So moving this to the safer priority.
+  This would fixes an issue, particularly Lohit Marathi vs Lohit Devanagari after
+  updating their priorities from 65 to 66.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

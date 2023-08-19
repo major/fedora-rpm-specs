@@ -1,9 +1,8 @@
-%global java_home %{_jvmdir}/java-1.8.0-openjdk
 %define __requires_exclude system.bundle
 
 Name:          xerces-j2
 Version:       2.12.2
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Java XML parser
 # Most of the source is ASL 2.0
 # W3C licensed files:
@@ -41,7 +40,7 @@ BuildRequires: ant
 BuildRequires: apache-parent
 BuildRequires: xml-commons-apis >= 1.4.01
 BuildRequires: xml-commons-resolver >= 1.2
-BuildRequires: java-1.8.0-openjdk-devel
+BuildRequires: java-devel
 
 Requires:      xml-commons-apis >= 1.4.01
 Requires:      xml-commons-resolver >= 1.2
@@ -128,7 +127,7 @@ popd
 
 # Build everything
 export ANT_OPTS="-Xmx512m -Djava.awt.headless=true -Dbuild.sysclasspath=first -Ddisconnected=true"
-%ant -Djavac.source=1.6 -Djavac.target=1.6 \
+%ant -Djavac.source=1.8 -Djavac.target=1.8 \
     -Dbuild.compiler=modern \
     clean jars javadocs
 
@@ -145,7 +144,7 @@ mkdir -p %{buildroot}%{_javadocdir}/%{name}/xni
 mkdir -p %{buildroot}%{_javadocdir}/%{name}/other
 
 cp -pr build/docs/javadocs/xerces2/* %{buildroot}%{_javadocdir}/%{name}/impl
-cp -pr build/docs/javadocs/api/* %{buildroot}%{_javadocdir}/%{name}/xs
+cp -pr build/docs/javadocs/xs/* %{buildroot}%{_javadocdir}/%{name}/xs
 cp -pr build/docs/javadocs/xni/* %{buildroot}%{_javadocdir}/%{name}/xni
 cp -pr build/docs/javadocs/other/* %{buildroot}%{_javadocdir}/%{name}/other
 
@@ -180,6 +179,9 @@ ln -sf %{name}.jar %{_javadir}/jaxp_parser_impl.jar
 %{_datadir}/%{name}
 
 %changelog
+* Mon Aug 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.12.2-6
+- Build with default Java
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

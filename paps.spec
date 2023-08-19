@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -95,6 +95,10 @@ popd
 
 %build
 ./autogen.sh
+%set_build_flags
+%if 0%{?rhel}
+CXXFLAGS="$CXXFLAGS -DFMT_HEADER_ONLY"
+%endif
 %configure --disable-static
 make %{?_smp_mflags}
 
@@ -146,6 +150,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Mon Aug 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.0-5
+- Use fmt in header-only mode in RHEL builds
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

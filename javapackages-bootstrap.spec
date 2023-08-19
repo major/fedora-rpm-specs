@@ -18,8 +18,8 @@
 #global git_short_hash %(echo %{git_hash} | cut -b -7)
 
 Name:           javapackages-bootstrap
-Version:        1.10.0
-Release:        1%{?dist}
+Version:        1.11.0
+Release:        2%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
 License:        ASL 2.0 and ASL 1.1 and (ASL 2.0 or EPL-2.0) and (EPL-2.0 or GPLv2 with exceptions) and MIT and BSD with advertising and BSD and EPL-1.0 and EPL-2.0 and CDDL-1.0 and xpp and CC0 and Public Domain
@@ -31,8 +31,6 @@ Source0:        https://github.com/fedora-java/javapackages-bootstrap/releases/d
 
 # License breakdown
 Source1:        javapackages-bootstrap-PACKAGE-LICENSING
-
-Source101:      toolchains-openjdk8.xml
 
 # To obtain the following sources:
 # tar -xf ${name}-${version}.tar.xz
@@ -91,26 +89,26 @@ Source1047:     junit5.tar.xz
 Source1048:     log4j.tar.xz
 Source1049:     mail-api.tar.xz
 Source1050:     maven-antrun-plugin.tar.xz
-Source1051:     maven-archiver.tar.xz
-Source1052:     maven-artifact-transfer.tar.xz
-Source1053:     maven-assembly-plugin.tar.xz
-Source1054:     maven-bundle-plugin.tar.xz
-Source1055:     maven-common-artifact-filters.tar.xz
-Source1056:     maven-compiler-plugin.tar.xz
-Source1057:     maven-dependency-analyzer.tar.xz
-Source1058:     maven-dependency-plugin.tar.xz
-Source1059:     maven-dependency-tree.tar.xz
-Source1060:     maven-enforcer.tar.xz
-Source1061:     maven-file-management.tar.xz
-Source1062:     maven-filtering.tar.xz
-Source1063:     maven-jar-plugin.tar.xz
-Source1064:     maven-parent-pom.tar.xz
-Source1065:     maven-plugin-testing.tar.xz
-Source1066:     maven-plugin-tools.tar.xz
-Source1067:     maven-remote-resources-plugin.tar.xz
-Source1068:     maven-resolver.tar.xz
-Source1069:     maven-resources-plugin.tar.xz
-Source1070:     maven-resources.tar.xz
+Source1051:     maven-apache-resources.tar.xz
+Source1052:     maven-archiver.tar.xz
+Source1053:     maven-artifact-transfer.tar.xz
+Source1054:     maven-assembly-plugin.tar.xz
+Source1055:     maven-bundle-plugin.tar.xz
+Source1056:     maven-common-artifact-filters.tar.xz
+Source1057:     maven-compiler-plugin.tar.xz
+Source1058:     maven-dependency-analyzer.tar.xz
+Source1059:     maven-dependency-plugin.tar.xz
+Source1060:     maven-dependency-tree.tar.xz
+Source1061:     maven-enforcer.tar.xz
+Source1062:     maven-file-management.tar.xz
+Source1063:     maven-filtering.tar.xz
+Source1064:     maven-jar-plugin.tar.xz
+Source1065:     maven-parent-pom.tar.xz
+Source1066:     maven-plugin-testing.tar.xz
+Source1067:     maven-plugin-tools.tar.xz
+Source1068:     maven-remote-resources-plugin.tar.xz
+Source1069:     maven-resolver.tar.xz
+Source1070:     maven-resources-plugin.tar.xz
 Source1071:     maven-shared-incremental.tar.xz
 Source1072:     maven-shared-io.tar.xz
 Source1073:     maven-shared-utils.tar.xz
@@ -160,9 +158,9 @@ Source1116:     xz-java.tar.xz
 
 Provides:       bundled(ant) = 1.10.12
 Provides:       bundled(aopalliance) = 1.0
-Provides:       bundled(apache-parent) = 26
+Provides:       bundled(apache-parent) = 30
 Provides:       bundled(apiguardian) = 1.1.2
-Provides:       bundled(objectweb-asm) = 9.4
+Provides:       bundled(objectweb-asm) = 9.5
 Provides:       bundled(assertj-core) = 3.19.0
 Provides:       bundled(aqute-bnd) = 5.2.0
 Provides:       bundled(maven-plugin-build-helper) = 3.2.0
@@ -172,14 +170,14 @@ Provides:       bundled(cglib) = 3.3.0
 Provides:       bundled(jakarta-annotations) = 1.3.5
 Provides:       bundled(apache-commons-beanutils) = 1.9.4
 Provides:       bundled(apache-commons-cli) = 1.5.0
-Provides:       bundled(apache-commons-codec) = 1.15
+Provides:       bundled(apache-commons-codec) = 1.16.0
 Provides:       bundled(apache-commons-collections) = 3.2.2
 Provides:       bundled(apache-commons-compress) = 1.23.0
-Provides:       bundled(apache-commons-io) = 2.11.0
+Provides:       bundled(apache-commons-io) = 2.13.0
 Provides:       bundled(apache-commons-jxpath) = 1.3
-Provides:       bundled(apache-commons-lang3) = 3.12.0
+Provides:       bundled(apache-commons-lang3) = 3.13.0
 Provides:       bundled(apache-commons-logging) = 1.2
-Provides:       bundled(apache-commons-parent) = 53
+Provides:       bundled(apache-commons-parent) = 59
 Provides:       bundled(java_cup) = 0.11b
 Provides:       bundled(disruptor) = 3.4.4
 Provides:       bundled(easymock) = 4.3
@@ -207,70 +205,70 @@ Provides:       bundled(junit) = 4.13.1
 Provides:       bundled(junit5) = 5.8.1
 Provides:       bundled(log4j) = 2.17.2
 Provides:       bundled(jakarta-mail) = 1.6.7
-Provides:       bundled(maven-antrun-plugin) = 3.0.0
-Provides:       bundled(maven-archiver) = 3.5.1
+Provides:       bundled(maven-antrun-plugin) = 3.1.0
+Provides:       bundled(maven-apache-resources) = 1.5
+Provides:       bundled(maven-archiver) = 3.6.0
 Provides:       bundled(maven-artifact-transfer) = 0.13.1
-Provides:       bundled(maven-assembly-plugin) = 3.3.0
-Provides:       bundled(maven-plugin-bundle) = 5.1.1
-Provides:       bundled(maven-common-artifact-filters) = 3.2.0
-Provides:       bundled(maven-compiler-plugin) = 3.10.1
-Provides:       bundled(maven-dependency-analyzer) = 1.12.0
-Provides:       bundled(maven-dependency-plugin) = 3.3.0
-Provides:       bundled(maven-dependency-tree) = 3.1.0
+Provides:       bundled(maven-assembly-plugin) = 3.6.0
+Provides:       bundled(maven-plugin-bundle) = 5.1.9
+Provides:       bundled(maven-common-artifact-filters) = 3.3.2
+Provides:       bundled(maven-compiler-plugin) = 3.11.0
+Provides:       bundled(maven-dependency-analyzer) = 1.13.2
+Provides:       bundled(maven-dependency-plugin) = 3.6.0
+Provides:       bundled(maven-dependency-tree) = 3.2.1
 Provides:       bundled(maven-enforcer) = 3.3.0
 Provides:       bundled(maven-file-management) = 3.0.0
-Provides:       bundled(maven-filtering) = 3.2.0
-Provides:       bundled(maven-jar-plugin) = 3.2.0
-Provides:       bundled(maven-parent) = 39
+Provides:       bundled(maven-filtering) = 3.3.1
+Provides:       bundled(maven-jar-plugin) = 3.3.0
+Provides:       bundled(maven-parent) = 40
 Provides:       bundled(maven-plugin-testing) = 3.3.0
 Provides:       bundled(maven-plugin-tools) = 3.9.0
-Provides:       bundled(maven-remote-resources-plugin) = 1.7.0
-Provides:       bundled(maven-resolver) = 1.9.7
-Provides:       bundled(maven-resources-plugin) = 3.2.0
-Provides:       bundled(maven-resources) = 1.4
+Provides:       bundled(maven-remote-resources-plugin) = 3.1.0
+Provides:       bundled(maven-resolver) = 1.9.15
+Provides:       bundled(maven-resources-plugin) = 3.3.1
 Provides:       bundled(maven-shared-incremental) = 1.1
 Provides:       bundled(maven-shared-io) = 3.0.0
-Provides:       bundled(maven-shared-utils) = 3.3.4
-Provides:       bundled(maven-source-plugin) = 3.2.1
-Provides:       bundled(maven-surefire) = 3.0.0~M6
-Provides:       bundled(maven-verifier) = 1.7.2
-Provides:       bundled(maven-wagon) = 3.5.1
+Provides:       bundled(maven-shared-utils) = 3.4.2
+Provides:       bundled(maven-source-plugin) = 3.3.0
+Provides:       bundled(maven-surefire) = 3.1.2
+Provides:       bundled(maven-verifier) = 1.8.0
+Provides:       bundled(maven-wagon) = 3.5.3
 Provides:       bundled(maven) = 3.9.1
 Provides:       bundled(mockito) = 3.7.13
 Provides:       bundled(modello) = 2.0.0
 Provides:       bundled(modulemaker-maven-plugin) = 1.9
 Provides:       bundled(mojo-parent) = 67
-Provides:       bundled(objenesis) = 3.1
-Provides:       bundled(opentest4j) = 1.2.0
-Provides:       bundled(osgi-annotation) = 8.0.1
+Provides:       bundled(objenesis) = 3.3
+Provides:       bundled(opentest4j) = 1.3.0
+Provides:       bundled(osgi-annotation) = 8.1.0
 Provides:       bundled(osgi-compendium) = 7.0.0
 Provides:       bundled(osgi-core) = 8.0.0
 Provides:       bundled(sonatype-oss-parent) = 7
-Provides:       bundled(plexus-archiver) = 4.2.7
+Provides:       bundled(plexus-archiver) = 4.8.0
 Provides:       bundled(plexus-build-api) = 0.0.7
 Provides:       bundled(plexus-cipher) = 2.0
-Provides:       bundled(plexus-classworlds) = 2.6.0
-Provides:       bundled(plexus-compiler) = 2.11.1
-Provides:       bundled(plexus-components-pom) = 6.6
+Provides:       bundled(plexus-classworlds) = 2.7.0
+Provides:       bundled(plexus-compiler) = 2.13.0
+Provides:       bundled(plexus-components-pom) = 14.1
 Provides:       bundled(plexus-containers) = 2.1.1
 Provides:       bundled(plexus-interpolation) = 1.26
-Provides:       bundled(plexus-io) = 3.2.0
-Provides:       bundled(plexus-languages) = 1.1.1
-Provides:       bundled(plexus-pom) = 8
+Provides:       bundled(plexus-io) = 3.4.1
+Provides:       bundled(plexus-languages) = 1.1.2
+Provides:       bundled(plexus-pom) = 14
 Provides:       bundled(plexus-resources) = 1.2.0
 Provides:       bundled(plexus-sec-dispatcher) = 2.0
 Provides:       bundled(plexus-utils) = 3.5.1
-Provides:       bundled(qdox) = 2.0.0
+Provides:       bundled(qdox) = 2.0.3
 Provides:       bundled(jakarta-servlet) = 4.0.3
 Provides:       bundled(sisu) = 0.3.5
 Provides:       bundled(sisu-mojos) = 0.3.5
 Provides:       bundled(sisu-plexus) = 0.3.5
 Provides:       bundled(slf4j) = 1.7.36
-Provides:       bundled(testng) = 7.4.0
+Provides:       bundled(testng) = 7.8.0
 Provides:       bundled(univocity-parsers) = 2.9.1
 Provides:       bundled(velocity) = 1.7
-Provides:       bundled(xbean) = 4.18
-Provides:       bundled(xmlunit) = 2.8.2
+Provides:       bundled(xbean) = 4.23
+Provides:       bundled(xmlunit) = 2.9.1
 Provides:       bundled(xmvn-generator) = 1.2.1
 Provides:       bundled(xmvn) = 4.2.0
 Provides:       bundled(xz-java) = 1.9
@@ -306,20 +304,12 @@ depend on JPB for everything, without depending on any other Java packages. For
 example, JPB contains embedded version of XMvn, removing dependency of JPT on
 XMvn, allowing JPT to be used before one builds XMvn package.
 
-%package openjdk8
-Summary:        OpenJDK 8 toolchain for Java Packages Bootstrap
-Requires:       %{name}
-Requires:       java-1.8.0-openjdk-devel
-
-%description openjdk8
-OpenJDK 8 toolchain for Java Packages Bootstrap.
-
 %prep
 %setup -q
 
 # leave out the first source as it has already been extracted
 # leave out licensing breakdown file
-other_sources=$(echo %{sources} | cut -d' ' -f4-)
+other_sources=$(echo %{sources} | cut -d' ' -f3-)
 
 for source in ${other_sources}; do
   tar -xf "${source}"
@@ -351,9 +341,6 @@ JAVA_HOME=%{javaHomePath} ./mbi.sh dist \
   -launchersPath=%{launchersPath} \
   -licensesPath=%{_licensedir}/%{name} \
 
-# Use custom toolchains.xml
-cp -p %{SOURCE101} %{buildroot}%{mavenHomePath}/conf/toolchains.xml
-
 install -D -p -m 644 downstream/xmvn-generator/src/main/lua/xmvn-generator.lua %{buildroot}%{_rpmluadir}/%{name}-generator.lua
 install -D -p -m 644 downstream/xmvn-generator/src/main/rpm/macros.xmvngen %{buildroot}%{_rpmmacrodir}/macros.jpbgen
 install -D -p -m 644 downstream/xmvn-generator/src/main/rpm/macros.xmvngenhook %{buildroot}%{_sysconfdir}/rpm/macros.jpbgenhook
@@ -378,7 +365,6 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 
 %files
 %{mavenHomePath}
-%exclude %{mavenHomePath}/conf/toolchains.xml
 %{metadataPath}/*
 %{artifactsPath}/*
 %{launchersPath}/*
@@ -387,14 +373,14 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %{_fileattrsdir}/*
 %{_sysconfdir}/rpm/*
 
-%files openjdk8
-%{mavenHomePath}/conf/toolchains.xml
-
 %license %{_licensedir}/%{name}
 %doc README.md
 %doc AUTHORS
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.11.0-2
+- Update to upstream version 1.11.0
+
 * Thu Aug 10 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.0-1
 - Update to upstream version 1.10.0
 

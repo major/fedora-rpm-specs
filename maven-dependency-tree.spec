@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:          maven-dependency-tree
-Version:       3.1.0
-Release:       4%{?dist}
+Version:       3.2.1
+Release:       1%{?dist}
 Summary:       Maven dependency tree artifact
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           https://maven.apache.org/
 BuildArch:     noarch
 ExclusiveArch: %{java_arches} noarch
@@ -15,17 +15,14 @@ Source0:       https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(org.apache.maven:maven-compat)
-BuildRequires:  mvn(org.apache.maven:maven-core)
-BuildRequires:  mvn(org.apache.maven.shared:maven-plugin-testing-harness)
+BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
+BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.eclipse.aether:aether-api)
 BuildRequires:  mvn(org.eclipse.aether:aether-util)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
-
-Provides:      maven-shared-dependency-tree = %{version}-%{release}
 
 %description
 Apache Maven dependency tree artifact. Originally part of maven-shared.
@@ -39,17 +36,11 @@ This package contains javadoc for %{name}.
 %prep
 %setup -q
 
-rm -R src/main/java/org/apache/maven/shared/dependency/graph/internal/maven30
-rm src/main/java/org/apache/maven/shared/dependency/graph/internal/Maven3DependencyGraphBuilder.java
-rm src/main/java/org/apache/maven/shared/dependency/graph/internal/Maven3DependencyCollectorBuilder.java
-%pom_remove_dep org.sonatype.aether:
-
 %pom_remove_plugin :apache-rat-plugin
 %pom_remove_plugin :maven-invoker-plugin
 
 %build
-# Incompatible version of jMock (Fedora has 2.x, upstream uses 1.x)
-%mvn_build -f
+%mvn_build
 
 %install
 %mvn_install
@@ -61,6 +52,9 @@ rm src/main/java/org/apache/maven/shared/dependency/graph/internal/Maven3Depende
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Aug 15 2023 Marian Koncek <mkoncek@redhat.com> - 3.2.1-1
+- Update to upstream version 3.2.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

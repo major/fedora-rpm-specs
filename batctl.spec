@@ -1,5 +1,5 @@
 Name:           batctl
-Version:        2023.1
+Version:        2023.2
 Release:        1%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
@@ -51,6 +51,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Thu Aug 17 2023 Felix Kaechele <heffer@fedoraproject.org> - 2023.2-1
+- update to 2023.2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # Circular test deps with traitsui
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           python-%{srcname}
 Version:        6.4.2
@@ -91,6 +91,9 @@ popd
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Wed Aug 16 2023 Orion Poplawski <orion@nwra.com> - 6.4.2-1
+- Disable bootstrap
+
 * Sun Aug 13 2023 Orion Poplawski <orion@nwra.com> - 6.4.2-1
 - Update to 6.4.2
 - Bootstrap build for Python 3.12 (FTBFS #2226136)

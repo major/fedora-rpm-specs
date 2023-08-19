@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           maven-dependency-plugin
-Version:        3.3.0
-Release:        4%{?dist}
+Version:        3.6.0
+Release:        1%{?dist}
 Summary:        Plugin to manipulate, copy and unpack local and remote artifacts
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/%{name}
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -17,7 +17,6 @@ Patch0:         0001-Port-tests-to-maven-model-3.6.X.patch
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(commons-beanutils:commons-beanutils)
 BuildRequires:  mvn(commons-collections:commons-collections)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
@@ -39,8 +38,9 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-archiver)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-io)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.eclipse.aether:aether-api)
-BuildRequires:  mvn(org.eclipse.aether:aether-connector-wagon)
 BuildRequires:  mvn(org.eclipse.aether:aether-util)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
 
 %description
@@ -56,12 +56,8 @@ Summary:        API documentation for %{name}
 
 %prep
 %setup -q
-%patch0 -p1
-
-%pom_remove_plugin :maven-enforcer-plugin
-
-# Not actually needed
-%pom_remove_dep :wagon-http-lightweight
+find src -name '*.java' -exec sed -i 's/\r//' {} +
+%patch 0 -p1
 
 %pom_remove_dep :maven-reporting-impl
 %pom_remove_dep :commons-io
@@ -69,7 +65,10 @@ Summary:        API documentation for %{name}
 %pom_remove_dep :jetty-server
 %pom_remove_dep :jetty-util
 %pom_remove_dep :jetty-security
-%pom_remove_dep :maven-plugin-testing-tools
+
+%pom_remove_dep org.apache.maven.doxia:doxia-sink-api
+%pom_remove_dep org.apache.maven.reporting:maven-reporting-api
+%pom_remove_dep org.codehaus.plexus:plexus-i18n
 
 %pom_change_dep :commons-collections4 commons-collections:commons-collections
 sed -i '/import org.apache.commons.collections4/s/4//' src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDuplicateMojo.java
@@ -81,7 +80,7 @@ rm -r src/test/java/org/apache/maven/plugins/dependency/fromConfiguration
 rm src/test/java/org/apache/maven/plugins/dependency/utils/translators/TestClassifierTypeTranslator.java
 
 # Requires org.apache.maven.reporting
-rm src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeReport{Mojo,View}.java
+rm src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeReport{Mojo,Renderer}.java
 sed -i '/doSpecialTest( "analyze-report" );/d' src/test/java/org/apache/maven/plugins/dependency/TestSkip.java
 
 %build
@@ -97,6 +96,9 @@ sed -i '/doSpecialTest( "analyze-report" );/d' src/test/java/org/apache/maven/pl
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Aug 15 2023 Marian Koncek <mkoncek@redhat.com> - 3.6.0-1
+- Update to upstream version 3.6.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,18 +1,20 @@
 Name:           apache-commons-net
-Version:        3.8.0
-Release:        3%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        Internet protocol suite Java library
-License:        ASL 2.0
-URL:            http://commons.apache.org/net/
-Source0:        http://archive.apache.org/dist/commons/net/source/commons-net-%{version}-src.tar.gz
+License:        Apache-2.0
+URL:            https://commons.apache.org/net/
+Source0:        https://archive.apache.org/dist/commons/net/source/commons-net-%{version}-src.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
+BuildRequires:  mvn(org.junit.vintage:junit-vintage-engine)
 
 %description
 This is an Internet protocol suite Java library originally developed by
@@ -38,13 +40,16 @@ rm src/test/java/org/apache/commons/net/tftp/TFTPServerPathTest.java
 %pom_remove_plugin :exec-maven-plugin
 
 %pom_remove_dep org.apache.ftpserver:ftpserver-core
-rm src/test/java/org/apache/commons/net/ftp/FTPSClientTest.java
+rm \
+src/test/java/org/apache/commons/net/ftp/FTPSClientTest.java \
+src/test/java/org/apache/commons/net/ftp/AbstractFtpsTest.java \
+src/test/java/org/apache/commons/net/ftp/NoProtocolSslConfigurationProxy.java \
 
-%mvn_file  : commons-net %{name}
+%mvn_file : commons-net %{name}
 %mvn_alias : org.apache.commons:commons-net
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7 -Dcommons.osgi.symbolicName=org.apache.commons.net
+%mvn_build -- -Dcommons.osgi.symbolicName=org.apache.commons.net
 
 %install
 %mvn_install
@@ -57,6 +62,9 @@ rm src/test/java/org/apache/commons/net/ftp/FTPSClientTest.java
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 3.9.0-1
+- Update to upstream version 3.9.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

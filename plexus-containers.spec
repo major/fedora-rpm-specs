@@ -2,13 +2,13 @@
 
 Name:           plexus-containers
 Version:        2.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Containers for Plexus
-# Most of the files are either under ASL 2.0 or MIT
+# Most of the files are either under Apache-2.0 or MIT
 # The following files are under xpp:
 # plexus-component-metadata/src/main/java/org/codehaus/plexus/metadata/merge/Driver.java
 # plexus-component-metadata/src/main/java/org/codehaus/plexus/metadata/merge/MXParser.java
-License:        ASL 2.0 and MIT and xpp
+License:        Apache-2.0 AND MIT AND xpp
 URL:            https://github.com/codehaus-plexus/plexus-containers
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -18,9 +18,9 @@ Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 Source2:        LICENSE.MIT
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.guava:guava)
 BuildRequires:  mvn(com.thoughtworks.qdox:qdox)
 BuildRequires:  mvn(junit:junit)
@@ -123,6 +123,9 @@ rm plexus-component-metadata/src/test/java/org/codehaus/plexus/metadata/DefaultC
 %license LICENSE-2.0.txt LICENSE.MIT
 
 %changelog
+* Thu Aug 10 2023 Marian Koncek <mkoncek@redhat.com> - 2.1.1-5
+- Use implicit maven toolchains
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

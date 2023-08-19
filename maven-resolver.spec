@@ -3,7 +3,7 @@
 Name:           maven-resolver
 Epoch:          1
 Version:        1.9.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        ASL 2.0
 Summary:        Apache Maven Artifact Resolver library
 URL:            https://maven.apache.org/resolver/
@@ -15,9 +15,9 @@ Source0:        https://archive.apache.org/dist/maven/resolver/%{name}-%{version
 Patch0:         0001-Remove-use-of-deprecated-SHA-1-and-MD5-algorithms.patch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.guava:failureaccess)
 BuildRequires:  mvn(com.google.guava:guava)
 BuildRequires:  mvn(com.google.inject:guice)
@@ -118,6 +118,9 @@ done
 %license LICENSE NOTICE
 
 %changelog
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.7-4
+- Build with default JDK 17
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

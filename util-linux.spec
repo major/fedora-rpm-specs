@@ -1,8 +1,8 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.39.1
-Release: 3%{?dist}
+Version: 2.39.2
+Release: 1%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -97,6 +97,10 @@ Patch0: login-lastlog-create.patch
 # Add `/run/motd.d` to the hardcoded MOTD_FILE
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
+
+### Upstream
+###
+Patch2: libmount-Fix-regression-when-mounting-with-atime.patch
 
 
 %description
@@ -926,6 +930,11 @@ fi
 
 
 %changelog
+* Thu Aug 17 2023 Karel Zak <kzak@redhat.com> - 2.39.2-1
+- fix libmount atime regression
+- upgrade to v2.39.2
+  https://kernel.org/pub/linux/utils/util-linux/v2.39/v2.39.2-ReleaseNotes
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.39.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

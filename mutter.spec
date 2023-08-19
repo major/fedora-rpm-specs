@@ -95,6 +95,9 @@ Requires: pipewire%{_isa} >= %{pipewire_version}
 Requires: startup-notification
 Requires: dbus
 
+# Need common
+Requires: %{name}-common = %{version}-%{release}
+
 Recommends: mesa-dri-drivers%{?_isa}
 
 Provides: firstboot(windowmanager) = mutter
@@ -103,6 +106,8 @@ Provides: firstboot(windowmanager) = mutter
 # significantly since then.
 Provides: bundled(cogl) = 1.22.0
 Provides: bundled(clutter) = 1.26.0
+
+Conflicts: mutter < 45~beta.1-2
 
 %description
 Mutter is a window and compositing manager that displays and manages
@@ -115,6 +120,14 @@ used as the display core of a larger system such as GNOME Shell. For
 this reason, Mutter is very extensible via plugins, which are used both
 to add fancy visual effects and to rework the window management
 behaviors to meet the needs of the environment.
+
+%package common
+Summary: Common files used by %{name} and forks of %{name}
+BuildArch: noarch
+Conflicts: mutter < 45~beta.1-2
+
+%description common
+Common files used by Mutter and soft forks of Mutter
 
 %package devel
 Summary: Development package for %{name}
@@ -156,11 +169,13 @@ the functionality of the installed %{name} package.
 %{_libdir}/mutter-%{mutter_api_version}/
 %{_libexecdir}/mutter-restart-helper
 %{_libexecdir}/mutter-x11-frames
+%{_mandir}/man1/mutter.1*
+
+%files common
 %{_datadir}/GConf/gsettings/mutter-schemas.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.mutter.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.mutter.wayland.gschema.xml
 %{_datadir}/gnome-control-center/keybindings/50-mutter-*.xml
-%{_mandir}/man1/mutter.1*
 %{_udevrulesdir}/61-mutter.rules
 
 %files devel

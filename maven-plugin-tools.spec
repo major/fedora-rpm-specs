@@ -1,11 +1,11 @@
 %bcond_with bootstrap
 
 Name:           maven-plugin-tools
-Version:        3.6.4
-Release:        5%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        Maven Plugin Tools
-License:        ASL 2.0
-URL:            http://maven.apache.org/plugin-tools/
+License:        Apache-2.0
+URL:            https://maven.apache.org/plugin-tools/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -39,6 +39,8 @@ BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.jsoup:jsoup)
 %endif
 
 %description
@@ -97,14 +99,14 @@ Obsoletes:      %{name}-javadocs < 3.6.4-3
 %description javadoc
 API documentation for %{name}.
 
-
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+find -name '*.java' -exec sed -i 's/\r//' {} +
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 
-%pom_remove_plugin :maven-enforcer-plugin
+rm -r maven-plugin-tools-api/src/test/resources/javadoc
 
 %pom_xpath_inject "pom:project/pom:properties" "
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -113,28 +115,26 @@ API documentation for %{name}.
 %pom_xpath_remove "pom:execution[pom:id='generated-helpmojo']" maven-plugin-plugin
 
 %pom_disable_module maven-script
+%pom_disable_module maven-plugin-report-plugin
 
 %pom_remove_dep -r :maven-reporting-impl
 %pom_remove_dep -r :maven-reporting-api
 %pom_remove_dep -r :plexus-velocity
 %pom_remove_dep -r :velocity
 %pom_remove_dep -r :jtidy
-%pom_remove_dep -r :doxia-sink-api
-%pom_remove_dep -r :doxia-site-renderer
+%pom_remove_plugin -r :spotless-maven-plugin
 
+%pom_remove_dep org.junit:junit-bom
 %pom_remove_dep :maven-plugin-tools-ant maven-plugin-plugin
 %pom_remove_dep :maven-plugin-tools-beanshell maven-plugin-plugin
 
-rm maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/Plugin{Help,Xdoc}Generator.java
-rm maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/PluginReport.java
-
+rm maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java
 
 %build
 %mvn_build -s -f
 
 %install
 %mvn_install
-
 
 %files -f .mfiles-maven-plugin-tools
 %license LICENSE NOTICE
@@ -157,8 +157,10 @@ rm maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/PluginReport
 %files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
-
 %changelog
+* Wed Aug 16 2023 Marian Koncek <mkoncek@redhat.com> - 3.9.0-1
+- Update to upstream version 3.9.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

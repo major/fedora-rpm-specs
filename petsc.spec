@@ -8,12 +8,12 @@
 %global _lto_cflags %{nil}
 
 # Testing libpetsc ?
-%bcond_with check
+%bcond_without check
 #
 
 # Python binding and its testing
 %bcond_without python
-%bcond_with pycheck
+%bcond_without pycheck
 %global pymodule_name petsc4py
 %global pymodule_version %{version}
 #
@@ -1019,9 +1019,9 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C buildopenmpi_dir V=1
 
 %if %{with python}
 %if %{with pycheck}
-pushd buildopenmpi_dir
+pushd buildopenmpi_dir/src/binding/petsc4py
 export PETSC_ARCH=%{_arch}
-export PETSC_DIR=./
+export PETSC_DIR=../../../
 %if 0%{?rhel}
 MPI_PYTHON3_SITEARCH=%{python3_sitearch}/openmpi
 %endif
@@ -1060,9 +1060,9 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C buildmpich_dir V=1
 
 %if %{with python}
 %if %{with pycheck}
-pushd buildmpich_dir
+pushd buildmpich_dir/src/binding/petsc4py
 export PETSC_ARCH=%{_arch}
-export PETSC_DIR=./
+export PETSC_DIR=../../../
 %if 0%{?rhel}
 MPI_PYTHON3_SITEARCH=%{python3_sitearch}/mpich
 %endif

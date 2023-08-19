@@ -1,32 +1,27 @@
 %bcond_with bootstrap
 
-%global jar_version 1.4
-%global lh_version 1.1
-%global id_version 1.1
-
 Name:           apache-resource-bundles
-Version:        37
-Release:        3%{?dist}
+Epoch:          1
+Version:        1.5
+Release:        1%{?dist}
 Summary:        Apache Resource Bundles
 License:        ASL 2.0
-URL:            https://repo1.maven.org/maven2/org/apache/apache-resource-bundles/
+URL:            https://maven.apache.org/apache-resource-bundles/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://repo1.maven.org/maven2/org/apache/apache/resources/%{name}/%{version}/%{name}-%{version}.pom
-Source1:        https://repo1.maven.org/maven2/org/apache/apache-jar-resource-bundle/%{jar_version}/apache-jar-resource-bundle-%{jar_version}-sources.jar
-Source2:        https://repo1.maven.org/maven2/org/apache/apache-jar-resource-bundle/%{jar_version}/apache-jar-resource-bundle-%{jar_version}.pom
-Source3:        https://repo1.maven.org/maven2/org/apache/apache-license-header-resource-bundle/%{lh_version}/apache-license-header-resource-bundle-%{lh_version}-sources.jar
-Source4:        https://repo1.maven.org/maven2/org/apache/apache-license-header-resource-bundle/%{lh_version}/apache-license-header-resource-bundle-%{lh_version}.pom
-Source5:        https://repo1.maven.org/maven2/org/apache/apache-incubator-disclaimer-resource-bundle/%{id_version}/apache-incubator-disclaimer-resource-bundle-%{id_version}-sources.jar
-Source6:        https://repo1.maven.org/maven2/org/apache/apache-incubator-disclaimer-resource-bundle/%{id_version}/apache-incubator-disclaimer-resource-bundle-%{id_version}.pom
+Source0:        https://repo1.maven.org/maven2/org/apache/apache/resources/apache-resource-bundles/%{version}/apache-resource-bundles-%{version}-source-release.zip
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
+BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-remote-resources-plugin)
+BuildRequires:  mvn(org.apache.maven.shared:maven-verifier)
+BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-archiver)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 %endif
 
 %description
@@ -34,61 +29,24 @@ An archive which contains templates for generating the necessary license files
 and notices for all Apache releases.
 
 %prep
-%setup -cT
-cp -p %{SOURCE0} ./pom.xml
-%pom_xpath_inject 'pom:project' '
-<modules>
-  <module>apache-jar-resource-bundle</module>
-  <module>apache-license-header-resource-bundle</module>
-  <module>apache-incubator-disclaimer-resource-bundle</module>
-</modules>'
-
-%pom_xpath_set 'pom:project/pom:parent/pom:relativePath' '../pom/maven/pom.xml'
-%pom_xpath_set 'pom:project/pom:groupId' 'org.apache'
-
-# jar
-mkdir -p apache-jar-resource-bundle
-pushd apache-jar-resource-bundle
-jar xvf %{SOURCE1}
-cp -p %{SOURCE2} ./pom.xml
-%pom_xpath_set 'pom:project/pom:parent/pom:version' %{version}
-mkdir -p src/main/resources
-mv META-INF src/main/resources
-popd
-
-# license-header
-mkdir -p apache-license-header-resource-bundle
-pushd apache-license-header-resource-bundle
-jar xvf %{SOURCE3}
-cp -p %{SOURCE4} ./pom.xml
-%pom_xpath_set 'pom:project/pom:parent/pom:version' %{version}
-mkdir -p src/main/resources
-mv META-INF src/main/resources
-popd
-
-# incubator-disclaimer
-mkdir -p apache-incubator-disclaimer-resource-bundle
-pushd apache-incubator-disclaimer-resource-bundle
-jar xvf %{SOURCE5}
-cp -p %{SOURCE6} ./pom.xml
-%pom_xpath_set 'pom:project/pom:parent/pom:version' %{version}
-mkdir -p src/main/resources
-mv META-INF src/main/resources
-popd
-
-%mvn_file :apache-jar-resource-bundle apache-resource-bundles/jar
-%mvn_file :apache-license-header-resource-bundle apache-resource-bundles/license-header
-%mvn_file :apache-incubator-disclaimer-resource-bundle apache-resource-bundles/incubator-disclaimer
+%setup -q
+%pom_disable_module resources-bundles-sample
+%mvn_alias :apache-jar-resource-bundle org.apache:
 
 %build
-%mvn_build
+# Use system version of apache-resource-bundles instead of reactor version
+%mvn_build -- -Dversion.apache-resource-bundles=SYSTEM
 
 %install
 %mvn_install
 
 %files -f .mfiles
+%license LICENSE NOTICE
 
 %changelog
+* Fri Aug 11 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.5-1
+- Update to upstream version 1.5
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

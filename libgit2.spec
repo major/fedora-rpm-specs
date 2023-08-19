@@ -16,8 +16,8 @@ Source0:        https://github.com/libgit2/libgit2/archive/refs/tags/v%{version}
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.5.1
 BuildRequires:  ninja-build
-BuildRequires:  heimdal-devel
 BuildRequires:  http-parser-devel
+BuildRequires:  krb5-devel
 BuildRequires:  libcurl-devel
 %if %{with libssh2}
 BuildRequires:  libssh2-devel

@@ -1,11 +1,11 @@
 %bcond_with bootstrap
 
 Name:           testng
-Version:        7.6.1
-Release:        5%{?dist}
+Version:        7.8.0
+Release:        1%{?dist}
 Summary:        Java-based testing framework
-License:        ASL 2.0
-URL:            http://testng.org/
+License:        Apache-2.0
+URL:            https://testng.org/doc/
 
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
@@ -51,17 +51,17 @@ This package contains the API documentation for %{name}.
 
 cp %{SOURCE1} pom.xml
 
-%patch0 -p1
-%patch1 -p1
+%patch 0 -p1
+%patch 1 -p1
 
 # Contains differently licensed sources
-rm -rf testng-test-osgi
+rm -r testng-test-osgi
 
-find . -mindepth 2 -name src -type d -exec cp -r -t . {} +
+find . -mindepth 2 -name 'src' -type d -exec cp -r -t . {} +
 
 # remove any bundled libs, but not test resources
-find ! -path "*/test/*" -name *.jar -print -delete
-find -name *.class -delete
+find ! -path '*/test/*' -name '*.jar' -print -delete
+find -name '*.class' -delete
 
 %pom_remove_dep org.webjars:jquery
 
@@ -77,7 +77,7 @@ cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 
 %build
 # Tests extend a class written in Kotlin
-%mvn_build -f -- -Dmaven.compiler.source=8 -Dmaven.compiler.target=8
+%mvn_build -f -- -Dmaven.compiler.release=11
 
 %install
 %mvn_install
@@ -90,6 +90,9 @@ cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 %license LICENSE.txt
 
 %changelog
+* Thu Aug 17 2023 Marian Koncek <mkoncek@redhat.com> - 7.8.0-1
+- Update to upstream version 7.8.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

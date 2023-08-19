@@ -42,13 +42,6 @@ Source0:        %{gosource}
 # Skip tests that uses the network.
 # Based on https://sources.debian.org/data/main/h/hugo/0.58.3-1/debian/patches/0005-skip-modules-TestClient.patch
 Patch0001:      0010-skip-modules-TestClient.patch
-# Use clbanning-mxj, not clbanning-mxj-v2
-# See https://github.com/gohugoio/hugo/issues/9860
-Patch0002:      0020-clbanning-mxj.patch
-# Use nicksnyder-go-i18n, not gohugoio/go-i18n/
-# See https://github.com/gohugoio/hugo/issues/9860
-# and https://github.com/nicksnyder/go-i18n/pull/253
-Patch0003:      0030-nicksnyder-go-i18n.patch
 
 BuildRequires:  golang(github.com/bep/golibsass/libsass) >= 0.7.0
 
@@ -68,6 +61,13 @@ Recommends:     golang-bin
 
 %prep
 %goprep
+
+# See https://github.com/gohugoio/hugo/issues/9860
+sed -i 's|github.com/clbanning/mxj/v2|github.com/clbanning/mxj|' $(find . -iname '*.go' -type f)
+
+# See https://github.com/gohugoio/hugo/issues/9860
+# and https://github.com/nicksnyder/go-i18n/pull/253
+sed -i 's|github.com/gohugoio/go-i18n/v2|github.com/nicksnyder/go-i18n/v2|' $(find . -iname '*.go' -type f)
 
 %autopatch -p1
 

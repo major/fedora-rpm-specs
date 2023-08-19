@@ -1,6 +1,6 @@
 Name:    nvme-stas
 Summary: NVMe STorage Appliance Services
-Version: 2.3~rc3
+Version: 2.3~rc4
 Release: 1%{?dist}
 License: ASL 2.0
 URL:     https://github.com/linux-nvme/nvme-stas
@@ -95,6 +95,9 @@ mv %{buildroot}/%{_sysconfdir}/stas/sys.conf.doc %{buildroot}/%{_sysconfdir}/sta
 
 
 %changelog
+* Thu Aug 17 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.3~rc4-1
+- Upstream v2.3 Release Candidate 4
+
 * Tue Aug 01 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.3~rc3-1
 - Upstream v2.3 Release Candidate 3
 

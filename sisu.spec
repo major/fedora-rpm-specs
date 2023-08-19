@@ -3,7 +3,7 @@
 Name:           sisu
 Epoch:          1
 Version:        0.3.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Eclipse dependency injection framework
 # sisu is EPL-1.0, the bundled asm is BSD
 License:        EPL-1.0 and BSD
@@ -24,9 +24,9 @@ Patch3:         sisu-osgi-api.patch
 Patch4:         0001-Remove-dependency-on-glassfish-servlet-api.patch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.inject.extensions:guice-servlet)
 BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
@@ -84,6 +84,9 @@ cp %{SOURCE102} sisu-plexus/pom.xml
 %license sisu-inject/LICENSE.txt
 
 %changelog
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:0.3.5-7
+- Build with default JDK 17
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

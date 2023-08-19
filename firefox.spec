@@ -159,13 +159,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        116.0.2
-Release:        2%{?pre_tag}%{?dist}
+Version:        116.0.3
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230807.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230817.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -1068,6 +1068,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Aug 17 2023 Martin Stransky <stransky@redhat.com>- 116.0.3-1
+- Updated to 116.0.3
+
 * Wed Aug 16 2023 Martin Stransky <stransky@redhat.com>- 116.0.2-2
 - Added Fedora customization patch
 

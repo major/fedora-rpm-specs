@@ -4,7 +4,7 @@
 
 Name:           fido-device-onboard
 Version:        0.4.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
@@ -241,6 +241,8 @@ Requires: fdo-manufacturing-server = %{version}-%{release}
 Requires: fdo-rendezvous-server = %{version}-%{release}
 Requires: fdo-owner-onboarding-server = %{version}-%{release}
 Requires: fdo-owner-cli = %{version}-%{release}
+Requires: fdo-client = %{version}-%{release}
+Requires: fdo-init = %{version}-%{release}
 %description -n fdo-admin-cli
 %{summary}
 
@@ -262,6 +264,9 @@ Requires: fdo-owner-cli = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Thu Aug 17 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-2
+- Add client/init deps to fdo-admin-cli
+
 * Thu Jul 27 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-1
 - Update to 0.4.12
 

@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           maven-parent
-Version:        39
-Release:        3%{?dist}
+Version:        40
+Release:        1%{?dist}
 Summary:        Apache Maven parent POM
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org
 Source0:        https://repo1.maven.org/maven2/org/apache/maven/%{name}/%{version}/%{name}-%{version}-source-release.zip
 BuildArch:      noarch
@@ -27,7 +27,6 @@ Apache Maven parent POM file used by other Maven projects.
 
 %prep
 %setup -q
-%pom_disable_module apache-resource-bundles
 %pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :maven-checkstyle-plugin
 %pom_remove_plugin :apache-rat-plugin
@@ -46,6 +45,9 @@ Apache Maven parent POM file used by other Maven projects.
 %doc LICENSE NOTICE
 
 %changelog
+* Wed Aug 16 2023 Marian Koncek <mkoncek@redhat.com> - 40-1
+- Update to upstream version 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 39-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

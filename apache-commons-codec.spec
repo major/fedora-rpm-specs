@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-codec
-Version:        1.15
-Release:        9%{?dist}
+Version:        1.16.0
+Release:        1%{?dist}
 Summary:        Implementations of common encoders and decoders
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://commons.apache.org/codec/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -15,12 +15,14 @@ Source0:        https://archive.apache.org/dist/commons/codec/source/commons-cod
 Source1:        aspell-mail.txt
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
-BuildRequires:  mvn(junit:junit)
+BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
+BuildRequires:  mvn(org.hamcrest:hamcrest)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
 %endif
 
 %description
@@ -49,6 +51,12 @@ sed -i 's/\r//' RELEASE-NOTES*.txt LICENSE.txt NOTICE.txt
 %doc RELEASE-NOTES*
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.16.0-1
+- Update to upstream version 1.16.0
+
+* Thu Aug 10 2023 Marian Koncek <mkoncek@redhat.com> - 1.15-10
+- Use implicit maven toolchains
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

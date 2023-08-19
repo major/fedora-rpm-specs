@@ -2,7 +2,7 @@
 
 %global packname pbapply
 %global ver 1.7
-%global packrel 0
+%global packrel 2
 
 %global _description %{expand:
 A lightweight package that adds progress bar to vectorized R functions 
@@ -13,7 +13,7 @@ options. Supports several parallel processing backends.}
 
 Name:             R-%{packname}
 Version:          %{ver}.%{packrel}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{ver}-%{packrel}.tar.gz
 License:          GPLv2
 URL:              https://cran.rstudio.com/web/packages/pbapply/index.html
@@ -59,6 +59,9 @@ export LANG=C.UTF-8
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Thu Aug 17 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 1.7.2-1
+- Update to 1.7-2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

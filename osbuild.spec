@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        91
+Version:        92
 
 %forgemeta
 
@@ -263,6 +263,24 @@ fi
 
 
 %changelog
+* Wed Aug 16 2023 Packit <hello@packit.dev> - 92-1
+Changes with 92
+----------------
+  * Improve the linting setup (#1362)
+  * Refactor Fedora test manifests v2 and update them to F38 (#1351)
+  * Update fedora-39 runners and repositories (#1369)
+  * Update snapshots to 20230801 (#1355)
+  * Update snapshots to 20230815 (#1370)
+  * autopep8: Increase aggressive level (#1361)
+  * dnf4.mark: mark packages in DNF state database (#1333)
+  * osbuild: add `--checkpoint` can now use globs (#1358)
+  * ostree.encapsulate: It's rpm-ostree, not ostree (#1359)
+
+Contributions from: Brian C. Lane, Colin Walters, Jakub Rusz, Ondřej Budai, Simon de Vlieger, schutzbot
+
+— Somewhere on the Internet, 2023-08-16
+
+
 * Wed Aug 02 2023 Packit <hello@packit.dev> - 91-1
 Changes with 91
 ----------------

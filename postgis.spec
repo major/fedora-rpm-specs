@@ -5,7 +5,7 @@
 %{!?runselftest:%global runselftest 1}
 %{!?llvmjit:%global llvmjit 0}
 
-%global        majorversion 3.3
+%global        majorversion 3.4
 %global        soversion 3
 %global        prevmajorversion 2.5
 %global        prevversion %{prevmajorversion}.5
@@ -15,15 +15,15 @@
 %global        __provides_exclude_from %{_libdir}/pgsql
 
 Name:          postgis
-Version:       3.3.4
+Version:       3.4.0
 Release:       1%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
-License:       GPLv2+
+License:       GPL-2.0-or-later
 
-URL:           http://www.postgis.net
-Source0:       http://download.osgeo.org/%{name}/source/%{name}-%{version}.tar.gz
-Source2:       http://download.osgeo.org/%{name}/docs/%{name}-%{version}.pdf
-Source3:       http://download.osgeo.org/%{name}/source/%{name}-%{prevversion}.tar.gz
+URL:           https://www.postgis.net
+Source0:       https://download.osgeo.org/%{name}/source/%{name}-%{version}.tar.gz
+Source2:       https://download.osgeo.org/%{name}/docs/%{name}-%{version}-en.pdf
+Source3:       https://download.osgeo.org/%{name}/source/%{name}-%{prevversion}.tar.gz
 
 # Add proj8 compatibility to postgis-2.x (needed for upgrade package)
 Patch1:        postgis2-proj8.patch
@@ -165,7 +165,6 @@ cd %{name}-%{prevversion}
 ./autogen.sh
 )
 %endif
-%patch -P 3 -p1
 cp -p %{SOURCE2} .
 
 
@@ -258,10 +257,6 @@ sed -i 's| -fstack-clash-protection | |' extensions/address_standardizer/Makefil
 %make_install -C utils
 %make_install -C extensions
 
-# move application metadata to correct location
-mv %{buildroot}/%{_datadir}/pgsql/applications %{buildroot}/%{_datadir}
-mv %{buildroot}/%{_datadir}/pgsql/icons %{buildroot}/%{_datadir}
-
 %if %upgrade
 (cd %{name}-%{version} && %make_install)
 (cd %{name}-%{prevversion} && %make_install)
@@ -340,7 +335,9 @@ fi
 %{_datadir}/pgsql/extension/postgis_tiger_geocoder*.sql
 %{_datadir}/pgsql/extension/postgis_tiger_geocoder.control
 %{_datadir}/postgis/create_unpackaged.pl
+%{_datadir}/postgis/create_skip_signatures.pl
 %{_datadir}/postgis/create_spatial_ref_sys_config_dump.pl
+%{_datadir}/postgis/create_uninstall.pl
 %{_datadir}/postgis/repo_revision.pl
 %{_libdir}/pgsql/address_standardizer-%{soversion}.so
 %{_libdir}/pgsql/postgis_raster-%{soversion}.so
@@ -350,11 +347,19 @@ fi
 %{_libdir}/pgsql/postgis_topology-%{soversion}.so
 
 %files client
+%{_bindir}/postgis
+%{_bindir}/postgis_restore
 %{_bindir}/pgsql2shp
 %{_bindir}/raster2pgsql
 %{_bindir}/shp2pgsql
 %{_bindir}/pgtopo_export
 %{_bindir}/pgtopo_import
+%{_mandir}/man1/pgsql2shp.1*
+%{_mandir}/man1/pgtopo_export.1*
+%{_mandir}/man1/pgtopo_import.1*
+%{_mandir}/man1/postgis.1*
+%{_mandir}/man1/postgis_restore.1*
+%{_mandir}/man1/shp2pgsql.1*
 
 %files gui
 %{_bindir}/shp2pgsql-gui
@@ -403,9 +408,7 @@ fi
 %{_datadir}/%{name}/profile_intersects.pl
 %{_datadir}/%{name}/test_joinestimation.pl
 %{_datadir}/%{name}/create_extension_unpackage.pl
-%{_datadir}/%{name}/create_undef.pl
 %{_datadir}/%{name}/%{name}_restore.pl
-%{_datadir}/pgsql/contrib/postgis-%{majorversion}/postgis_restore.pl
 %{_datadir}/%{name}/read_scripts_version.pl
 %{_datadir}/%{name}/test_geography_estimation.pl
 %{_datadir}/%{name}/test_geography_joinestimation.pl
@@ -419,6 +422,9 @@ fi
 
 
 %changelog
+* Thu Aug 17 2023 Sandro Mani <manisandro@gmail.com> - 3.4.0-1
+- Update to 3.4.0
+
 * Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 3.3.4-1
 - Update to 3.3.4
 

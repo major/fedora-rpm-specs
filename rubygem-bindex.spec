@@ -3,11 +3,14 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Bindings for your Ruby exceptions
 License: MIT
 URL: https://github.com/gsamokovarov/bindex
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix test compatibility with Minitest 5.19+.
+# https://github.com/gsamokovarov/skiptrace/pull/12
+Patch0: rubygem-bindex-0.8.1-Fix-compatibility-with-Minitest-5.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel >= 2.0.0
@@ -30,6 +33,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+
+%patch 0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -78,6 +83,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Thu Aug 17 2023 Vít Ondruch <vondruch@redhat.com> - 0.8.1-11
+- Fix FTBFS due to Minitest 5.19+ incompatibility.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           jsoup
 Version:        1.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java library for working with real-world HTML
 License:        MIT
 URL:            https://jsoup.org/
@@ -15,9 +15,9 @@ Source0:        %{name}-%{version}.tar.gz
 Source1:        generate-tarball.sh
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
 
@@ -65,6 +65,9 @@ tree.
 %license LICENSE
 
 %changelog
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.16.1-2
+- Build with default JDK 17
+
 * Mon Jul 24 2023 Marian Koncek <mkoncek@redhat.com> - 1.16.1-1
 - Unretire with version 1.16.1
 

@@ -1,12 +1,12 @@
 %bcond_with bootstrap
 
 Name:           plexus-compiler
-Version:        2.12.1
-Release:        3%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        Compiler call initiators for Plexus
 # extras subpackage has a bit different licensing
-# parts of compiler-api are ASL2.0/MIT
-License:        MIT and ASL 2.0
+# parts of compiler-api are Apache-2.0/MIT
+License:        MIT and Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-compiler
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -32,10 +32,10 @@ additional compilers see %{name}-extras package.
 
 %package extras
 Summary:        Extra compiler support for %{name}
-# ASL 2.0: src/main/java/org/codehaus/plexus/compiler/util/scan/
+# Apache-2.0: src/main/java/org/codehaus/plexus/compiler/util/scan/
 #          ...codehaus/plexus/compiler/csharp/CSharpCompiler.java
-# ASL 1.1/MIT: ...codehaus/plexus/compiler/jikes/JikesCompiler.java
-License:        MIT and ASL 2.0 and ASL 1.1
+# Apache-1.1/MIT: ...codehaus/plexus/compiler/jikes/JikesCompiler.java
+License:        MIT and Apache-2.0 and Apache-1.1
 
 %description extras
 Additional support for csharp, eclipse and jikes compilers
@@ -48,7 +48,7 @@ This package provides %{summary}.
 
 %package javadoc
 Summary:        Javadoc for %{name}
-License:        MIT and ASL 2.0 and ASL 1.1
+License:        MIT and Apache-2.0 and Apache-1.1
 
 %description javadoc
 API documentation for %{name}.
@@ -96,14 +96,17 @@ cp %{SOURCE2} LICENSE.MIT
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE LICENSE.MIT
+%license LICENSE LICENSE.MIT
 %files extras -f .mfiles-extras
 %files pom -f .mfiles-pom
 
 %files javadoc -f .mfiles-javadoc
-%doc LICENSE LICENSE.MIT
+%license LICENSE LICENSE.MIT
 
 %changelog
+* Thu Aug 17 2023 Marian Koncek <mkoncek@redhat.com> - 2.13.0-1
+- Update to upstream version 2.13.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

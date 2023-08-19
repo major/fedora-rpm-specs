@@ -1,19 +1,23 @@
-# https://github.com/caddyserver/caddy
 %global goipath         github.com/caddyserver/caddy
-%global basever         2.7.3
-#global prerel          beta
-#global prerelnum       2
-Version:                %{basever}%{?prerel:~%{prerel}%{prerelnum}}
-
-%gometa -f
 
 Name:           caddy
+Version:        2.7.4
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 # main source code is Apache-2.0
 # see comments above provides tags for bundled license breakdown
-License:        Apache-2.0 AND (Apache-2.0 AND BSD-2-Clause) AND (Apache-2.0 AND BSD-3-Clause) AND (Apache-2.0 AND MIT) AND BSD-2-Clause AND (BSD-2-Clause-Views AND BSD-3-Clause) AND BSD-3-Clause AND (BSD-3-Clause AND Apache-2.0 AND MIT) AND CC0-1.0 AND ISC AND MIT AND (MIT AND Apache-2.0) AND (MIT AND CC0-1.0) AND MPL-2.0
+License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT AND BSD-2-Clause-Views AND CC0-1.0 AND ISC AND MPL-2.0
 URL:            https://caddyserver.com
+
+%if %{defined fedora}
+ExclusiveArch:  %{golang_arches_future}
+%else
+ExclusiveArch:  %{golang_arches}
+%endif
+
+%if %{undefined el8}
+BuildRequires:  go-rpm-macros
+%endif
 
 # see create-vendor-tarball.sh in this distgit repo
 Source0:        caddy-%{version}-vendored.tar.gz
@@ -56,7 +60,7 @@ Provides:       bundled(golang(github.com/aryann/difflib)) = ff5ff6d
 # MIT
 Provides:       bundled(golang(github.com/beorn7/perks)) = 1.0.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/caddyserver/certmagic)) = 0.19.1
+Provides:       bundled(golang(github.com/caddyserver/certmagic)) = 0.19.2
 # MIT
 Provides:       bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
 # MIT
@@ -192,7 +196,7 @@ Provides:       bundled(golang(github.com/quic-go/qpack)) = 0.4.0
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/quic-go/qtls-go1-20)) = 0.3.1
 # MIT
-Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.37.3
+Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.37.5
 # MIT
 Provides:       bundled(golang(github.com/rs/xid)) = 1.5.0
 # BSD-2-Clause
@@ -278,21 +282,21 @@ Provides:       bundled(golang(go.uber.org/multierr)) = 1.11.0
 # MIT
 Provides:       bundled(golang(go.uber.org/zap)) = 1.25.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/crypto)) = 0.11.0
+Provides:       bundled(golang(golang.org/x/crypto)) = 0.12.0
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/exp)) = 522b1b5
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/mod)) = 0.11.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/net)) = 0.12.0
+Provides:       bundled(golang(golang.org/x/net)) = 0.14.0
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/sync)) = 0.3.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sys)) = 0.10.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.11.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/term)) = 0.10.0
+Provides:       bundled(golang(golang.org/x/term)) = 0.11.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/text)) = 0.11.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.12.0
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/tools)) = 0.10.0
 # Apache-2.0
@@ -309,7 +313,7 @@ Provides:       bundled(golang(google.golang.org/protobuf)) = 1.31.0
 Provides:       bundled(golang(gopkg.in/natefinch/lumberjack.v2)) = 2.2.1
 # Apache-2.0 AND BSD-3-Clause
 Provides:       bundled(golang(gopkg.in/square/go-jose.v2)) = 2.6.0
-# MIT AND Apache-2.0
+# Apache-2.0 AND MIT
 Provides:       bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
 # BSD-2-Clause-Views AND BSD-3-Clause
 Provides:       bundled(golang(howett.net/plist)) = 1.0.0
@@ -326,22 +330,24 @@ Caddy is the web server with automatic HTTPS.
 
 
 %prep
-%goprep -k
-%autopatch -p 1
-
-sed -e '/mod.Version/ s/unknown/%{version}-%{release}/' -i caddy.go
+%autosetup -p 1
+mkdir -p src/$(dirname %{goipath})
+ln -s $PWD src/%{goipath}
 
 
 %build
-%gobuild -o %{gobuilddir}/bin/caddy %{goipath}/cmd/caddy
+export GO111MODULE=off
+export GOPATH=$PWD
+export LDFLAGS="-X %{goipath}.CustomVersion=v%{version}"
+%gobuild -o bin/caddy %{goipath}/cmd/caddy
 
 
 %install
 # command
-install -D -p -m 0755 %{gobuilddir}/bin/caddy %{buildroot}%{_bindir}/caddy
+install -D -p -m 0755 bin/caddy %{buildroot}%{_bindir}/caddy
 
 # man pages
-%{gobuilddir}/bin/caddy manpage --directory %{buildroot}%{_mandir}/man8
+./bin/caddy manpage --directory %{buildroot}%{_mandir}/man8
 
 # config
 install -D -p -m 0644 %{S:10} %{buildroot}%{_sysconfdir}/caddy/Caddyfile
@@ -369,15 +375,21 @@ ln -s ../../pixmaps/poweredby.png %{buildroot}%{_datadir}/caddy/icons/poweredby.
 
 # shell completions
 install -d -m 0755 %{buildroot}%{_datadir}/bash-completion/completions
-%{gobuilddir}/bin/caddy completion bash > %{buildroot}%{_datadir}/bash-completion/completions/caddy
+./bin/caddy completion bash > %{buildroot}%{_datadir}/bash-completion/completions/caddy
 install -d -m 0755 %{buildroot}%{_datadir}/zsh/site-functions
-%{gobuilddir}/bin/caddy completion zsh > %{buildroot}%{_datadir}/zsh/site-functions/_caddy
+./bin/caddy completion zsh > %{buildroot}%{_datadir}/zsh/site-functions/_caddy
 install -d -m 0755 %{buildroot}%{_datadir}/fish/vendor_completions.d
-%{gobuilddir}/bin/caddy completion fish > %{buildroot}%{_datadir}/fish/vendor_completions.d/caddy.fish
+./bin/caddy completion fish > %{buildroot}%{_datadir}/fish/vendor_completions.d/caddy.fish
 
 
 %check
-%gocheck
+# ensure that the version was embedded correctly
+[[ "$(./bin/caddy version)" == "v%{version}" ]] || exit 1
+
+# run the upstream tests
+export GOPATH=$PWD
+cd src/%{goipath}
+%gotest ./...
 
 
 %pre
@@ -454,6 +466,10 @@ fi
 
 
 %changelog
+* Thu Aug 17 2023 Carl George <carlwgeorge@fedoraproject.org> - 2.7.4-1
+- Update to version 2.7.4, resolves rhbz#2232696
+- Fix CVE-2023-3978, resolves rhbz#2229582
+
 * Tue Aug 08 2023 Carl George <carl@george.computer> - 2.7.3-1
 - Update to version 2.7.3, resolves rhbz#2229638
 

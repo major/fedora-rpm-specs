@@ -24,6 +24,16 @@
 %bcond_with compat_build
 %bcond_without check
 
+%ifarch %ix86
+# Disable LTO on x86 in order to reduce memory consumption
+%bcond_with lto_build
+%elif %{with snapshot_build}
+# Disable LTO to speed up builds
+%bcond_with lto_build
+%else
+%bcond_without lto_build
+%endif
+
 %global maj_ver 17
 %global min_ver 0
 %global patch_ver 0
@@ -90,7 +100,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -111,10 +121,10 @@ Source6:	release-keys.asc
 
 # Backport of https://reviews.llvm.org/D156379 from LLVM 18.
 Patch1:		D156379.diff
+%endif
 
 # RHEL-specific patch to avoid unwanted recommonmark dep
 Patch101:	0101-Deactivate-markdown-doc.patch
-%endif
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -261,8 +271,7 @@ mv %{third_party_srcdir} third-party
 
 %build
 
-# Disable LTO to speed up builds
-%if %{with snapshot_build}
+%if %{without lto_build}
 %global _lto_cflags %nil
 %endif
 
@@ -353,8 +362,10 @@ export ASMFLAGS="%{build_cflags}"
 	-DLLVM_INSTALL_SPHINX_HTML_DIR=%{_pkgdocdir}/html \
 	-DSPHINX_EXECUTABLE=%{_bindir}/sphinx-build-3 \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF \
-	-DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS -Wl,-z,cet-report=error" \
-	-DLLVM_UNITTEST_LINK_FLAGS="-Wl,-plugin-opt=O0"
+%if %{with lto_build}
+	-DLLVM_UNITTEST_LINK_FLAGS="-Wl,-plugin-opt=O0" \
+%endif
+	-DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS -Wl,-z,cet-report=error"
 
 # Build libLLVM.so first.  This ensures that when libLLVM.so is linking, there
 # are no other compile jobs running.  This will help reduce OOM errors on the
@@ -601,10 +612,13 @@ fi
 %endif
 
 %changelog
+%{?llvm_snapshot_changelog_entry}
+
+* Wed Aug 16 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-4
+- Disable LTO on i686
+
 * Mon Aug 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-3
 - Re-add patch removed by mistake
-
-%{?llvm_snapshot_changelog_entry}
 
 * Tue Aug 01 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-2
 - Enable LLVM_UNREACHABLE_OPTIMIZE temporarily

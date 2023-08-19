@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           plexus-io
-Version:        3.2.0
-Release:        12%{?dist}
+Version:        3.4.1
+Release:        1%{?dist}
 Summary:        Plexus IO Components
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-io
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -13,9 +13,9 @@ Source0:        https://github.com/codehaus-plexus/plexus-io/archive/plexus-io-%
 Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.code.findbugs:jsr305)
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
@@ -23,6 +23,7 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 %endif
 
 %description
@@ -44,8 +45,9 @@ cp %{SOURCE1} .
 # Test fails in mock
 sed -i /class/i@org.junit.Ignore src/test/java/org/codehaus/plexus/components/io/attributes/SymlinkUtilsTest.java
 
+%mvn_file : plexus/io
+
 %build
-%mvn_file  : plexus/io
 %mvn_build
 
 %install
@@ -58,6 +60,9 @@ sed -i /class/i@org.junit.Ignore src/test/java/org/codehaus/plexus/components/io
 %license NOTICE.txt LICENSE-2.0.txt
 
 %changelog
+* Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 3.4.1-1
+- Update to upstream version 3.4.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

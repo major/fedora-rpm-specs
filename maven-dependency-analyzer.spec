@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           maven-dependency-analyzer
-Version:        1.12.0
-Release:        4%{?dist}
+Version:        1.13.2
+Release:        1%{?dist}
 Summary:        Maven dependency analyzer
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-dependency-analyzer/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -15,14 +15,18 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
+BuildRequires:  mvn(commons-io:commons-io)
+BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.assertj:assertj-core)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.ow2.asm:asm)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
 
 %description
@@ -42,12 +46,8 @@ Summary:        API documentation for %{name}
 %prep
 %setup -q
 
-%pom_change_dep :maven-project :maven-core
-
-%pom_remove_plugin :maven-enforcer-plugin
-
 %build
-%mvn_build -f
+%mvn_build
 
 %install
 %mvn_install
@@ -59,6 +59,9 @@ Summary:        API documentation for %{name}
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Aug 15 2023 Marian Koncek <mkoncek@redhat.com> - 1.13.2-1
+- Update to upstream version 1.13.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

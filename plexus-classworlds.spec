@@ -1,33 +1,31 @@
 %bcond_with bootstrap
 
 Name:           plexus-classworlds
-Version:        2.6.0
-Release:        14%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        Plexus Classworlds Classloader Framework
-License:        ASL 2.0 and Plexus
+License:        Apache-2.0 and Plexus
 URL:            https://github.com/codehaus-plexus/plexus-classworlds
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/codehaus-plexus/%{name}/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 %endif
 
 %description
-Classworlds is a framework for container developers
-who require complex manipulation of Java's ClassLoaders.
-Java's native ClassLoader mechanisms and classes can cause
-much headache and confusion for certain types of
-application developers. Projects which involve dynamic
-loading of components or otherwise represent a 'container'
-can benefit from the classloading control provided by
+Classworlds is a framework for container developers who require complex
+manipulation of Java's ClassLoaders. Java's native ClassLoader mechanisms and
+classes can cause much headache and confusion for certain types of application
+developers. Projects which involve dynamic loading of components or otherwise
+represent a 'container' can benefit from the classloading control provided by
 classworlds.
 
 %{?javadoc_package}
@@ -37,14 +35,11 @@ classworlds.
 %mvn_file : %{name} plexus/classworlds
 %mvn_alias : classworlds:classworlds
 
-%pom_add_dep junit:junit:4.13.1:test
-
-%pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :maven-dependency-plugin
 
 # These tests depend on artifacts that are not packaged
-sed -i /testConfigure_Valid/s/./@org.junit.Ignore/ $(find -name ConfiguratorTest.java)
-sed -i /testConfigure_Optionally_Existent/s/./@org.junit.Ignore/ $(find -name ConfiguratorTest.java)
+sed -i /testConfigure_Valid/s/./@org.junit.Ignore/ src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
+sed -i /testConfigure_Optionally_Existent/s/./@org.junit.Ignore/ src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
 
 %build
 %mvn_build
@@ -53,9 +48,12 @@ sed -i /testConfigure_Optionally_Existent/s/./@org.junit.Ignore/ $(find -name Co
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE.txt LICENSE-2.0.txt
+%license LICENSE.txt LICENSE-Codehaus.txt
 
 %changelog
+* Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 2.7.0-1
+- Update to upstream version 2.7.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -51,8 +51,10 @@ Source116:      %{name}.sysusers
 
 Patch3:         build-with-debug-info.patch
 
+# Obsoletes removed 17 Aug 2023. No longer needed per email from
+# Jan Chaloupka
 # It obsoletes cadvisor but needs its source code (literally integrated)
-Obsoletes:      cadvisor
+# Obsoletes:      cadvisor
 
 # kubernetes is decomposed into master and node subpackages
 # require both of them for updates

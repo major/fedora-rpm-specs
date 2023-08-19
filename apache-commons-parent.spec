@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-parent
-Version:        53
-Release:        4%{?dist}
+Version:        59
+Release:        1%{?dist}
 Summary:        Apache Commons Parent Pom
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://commons.apache.org/commons-parent-pom.html
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -15,7 +15,6 @@ Source0:        https://github.com/apache/commons-parent/archive/rel/commons-par
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(org.apache:apache:pom:)
 BuildRequires:  mvn(biz.aQute.bnd:biz.aQute.bndlib)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
@@ -38,6 +37,8 @@ The Project Object Model files for the apache-commons packages.
 # Plugin is not in fedora
 %pom_remove_plugin org.apache.commons:commons-build-plugin
 %pom_remove_plugin org.apache.maven.plugins:maven-scm-publish-plugin
+%pom_remove_plugin org.spdx:spdx-maven-plugin
+%pom_remove_plugin org.cyclonedx:cyclonedx-maven-plugin
 
 # Plugins useless in package builds
 %pom_remove_plugin :apache-rat-plugin
@@ -47,9 +48,14 @@ The Project Object Model files for the apache-commons packages.
 %pom_remove_plugin :maven-source-plugin
 %pom_remove_plugin :versions-maven-plugin
 
+%pom_remove_dep org.junit:junit-bom
+
+# For now avoid moditect
+%pom_xpath_remove 'pom:profile[pom:id="moditect"]'
+
 # Remove profiles for plugins that are useless in package builds
-for profile in animal-sniffer japicmp jacoco cobertura clirr; do
-    %pom_xpath_remove "pom:profile[pom:id='$profile']"
+for profile in animal-sniffer japicmp jacoco cobertura; do
+    %pom_xpath_remove "pom:profile[pom:id='${profile}']"
 done
 
 %build
@@ -63,6 +69,9 @@ done
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 59-1
+- Update to upstream version 59
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 53-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

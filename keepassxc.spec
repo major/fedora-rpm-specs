@@ -2,8 +2,8 @@
 # EPEL7 not possible because libgcrypt version is 1.5
 
 Name:           keepassxc
-Version:        2.7.5
-Release:        3%{?dist}
+Version:        2.7.6
+Release:        1%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            https://keepassxc.org/
@@ -37,10 +37,7 @@ Source2:        https://keepassxc.org/keepassxc_master_signing_key.asc
 # https://bugzilla.redhat.com/show_bug.cgi?id=2186217
 # disabling the patch fixes the problem, therefore it has been disabled on
 # Fedora >= 38
-
-%if (%{defined rhel} || (%{defined fedora} && 0%{?fedora} < 38))
 Patch0:         xcb.patch
-%endif
 
 BuildRequires:  botan2-devel
 BuildRequires:  cmake >= 3.1
@@ -130,7 +127,13 @@ information can be considered as quite safe.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
+
+%setup -q
+
+# Apply xcb.patch only for EPEL and Fedora <38
+%if (%{defined rhel} || (%{defined fedora} && 0%{?fedora} < 38))
+%autopatch -p1
+%endif
 
 # Older version of appstream-util can't parse some url types
 %if (%{defined rhel} && 0%{?rhel} <= 9)
@@ -195,6 +198,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Aug 16 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.7.6-1
+- Update to 2.7.6
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

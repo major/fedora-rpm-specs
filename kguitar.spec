@@ -17,8 +17,11 @@ Source1:	  %{name}.desktop
 Source9:	  %{name}-snapshot.sh
 # Patch to make kguitar build with automake 1.11 or higher
 # https://sourceforge.net/tracker/?func=detail&aid=2804980&group_id=7693&atid=307693
-Patch0:		  %{name}-automake111.patch
-Patch1: kguitar-configure-c99.patch
+Patch:		  %{name}-automake111.patch
+# https://fedoraproject.org/wiki/Changes/PortingToModernC
+Patch:		  kguitar-configure-c99.patch
+# build with autoconf 2.72 (RHBZ#2183441)
+Patch:		  %{name}-autoconf272.patch
 
 BuildRequires:	  autoconf
 BuildRequires:	  automake
@@ -28,7 +31,7 @@ BuildRequires:	  kdelibs3-devel
 BuildRequires:	  libtool
 BuildRequires:	  texlive-scheme-basic
 BuildRequires:	  tse3-devel
-BuildRequires: make
+BuildRequires:	  make
 
 %description
 KGuitar is a powerful KDE-based music tabulature editor with support of
@@ -55,9 +58,7 @@ This package provides support for compiling MusixTex files exported from
 Kguitar.
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1 -b .automake111
-%patch1 -p1
+%autosetup -n %{name} -p1
 
 # Add more mime-types since the software is capable of handling them.
 sed -i 's|\*.kg|\*.kg;\*.gp3;\*.gp4;\*.mid;\*.tab;\*.xml|' %{name}/x-%{name}.desktop
@@ -84,10 +85,10 @@ make -f admin/Makefile.common cvs ||:
 	--enable-libsuffix="64"
 %endif
 
-make %{?_smp_flags}
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 # Make symlinks relative:
 ln -fs ../common $RPM_BUILD_ROOT/%{_datadir}/doc/HTML/en/%{name}/

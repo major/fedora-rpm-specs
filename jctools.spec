@@ -4,7 +4,7 @@
 
 Name:           jctools
 Version:        4.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java Concurrency Tools for the JVM
 License:        ASL 2.0
 
@@ -15,9 +15,9 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.guava:guava-testlib)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -101,6 +101,9 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 
 %changelog
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.1-3
+- Build with default JDK 17
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

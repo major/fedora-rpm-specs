@@ -1,10 +1,10 @@
 %global gtksourceview_version 5.3.0
-%global libadwaita_version 1.2~alpha
+%global libadwaita_version 1.4~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calculator
-Version:        45~beta
+Version:        45.0
 Release:        1%{?dist}
 Summary:        A desktop calculator
 
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Calculator
 
 
 %changelog
+* Thu Aug 17 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Thu Aug 03 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
 - Update to 45.beta
 

@@ -1,31 +1,38 @@
 %bcond_with bootstrap
 
 Name:           plexus-archiver
-Version:        4.2.7
-Release:        4%{?dist}
+Version:        4.8.0
+Release:        1%{?dist}
 Summary:        Plexus Archiver Component
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://codehaus-plexus.github.io/plexus-archiver
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/codehaus-plexus/plexus-archiver/archive/plexus-archiver-%{version}.tar.gz
 
-Patch0:         0001-Remove-support-for-snappy.patch
+Patch1:         0001-Remove-support-for-snappy.patch
+Patch2:         0002-Remove-support-for-zstd.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.code.findbugs:jsr305)
-BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(com.google.inject:guice)
+BuildRequires:  mvn(commons-io:commons-io)
+BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.commons:commons-compress)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
+BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-io)
-BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 BuildRequires:  mvn(org.tukaani:xz)
 %endif
 
@@ -45,18 +52,28 @@ Javadoc for %{name}.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
+%patch 1 -p1
+%patch 2 -p1
+
 %mvn_file :%{name} plexus/archiver
 
-%patch0 -p1
 %pom_remove_dep org.iq80.snappy:snappy
-rm -rf src/main/java/org/codehaus/plexus/archiver/snappy
-rm -f src/main/java/org/codehaus/plexus/archiver/tar/SnappyTarFile.java
-rm -f src/main/java/org/codehaus/plexus/archiver/tar/PlexusIoTarSnappyFileResourceCollection.java
-rm src/test/java/org/codehaus/plexus/archiver/snappy/SnappyArchiverTest.java
+rm -r src/main/java/org/codehaus/plexus/archiver/snappy
+rm -r src/test/java/org/codehaus/plexus/archiver/snappy
+rm src/main/java/org/codehaus/plexus/archiver/tar/SnappyTarFile.java
+rm src/main/java/org/codehaus/plexus/archiver/tar/PlexusIoTarSnappyFileResourceCollection.java
 rm src/test/java/org/codehaus/plexus/archiver/tar/TarSnappyUnArchiverTest.java
 
-# Tests use old plexus-containers-default
-sed -i '/getLoggerManager/d' src/test/java/org/codehaus/plexus/archiver/DuplicateFilesTest.java
+%pom_remove_dep com.github.luben:zstd-jni
+rm -r src/main/java/org/codehaus/plexus/archiver/zstd
+rm -r src/test/java/org/codehaus/plexus/archiver/zstd
+rm src/main/java/org/codehaus/plexus/archiver/tar/ZstdTarFile.java
+rm src/main/java/org/codehaus/plexus/archiver/tar/PlexusIoTarZstdFileResourceCollection.java
+rm src/main/java/org/codehaus/plexus/archiver/tar/PlexusIoTZstdFileResourceCollection.java
+rm src/test/java/org/codehaus/plexus/archiver/tar/TarZstdUnArchiverTest.java
+
+# Fails due to previously removed compressors
+rm src/test/java/org/codehaus/plexus/archiver/manager/ArchiverManagerTest.java
 
 %build
 %mvn_build
@@ -71,6 +88,12 @@ sed -i '/getLoggerManager/d' src/test/java/org/codehaus/plexus/archiver/Duplicat
 %license LICENSE
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.8.0-1
+- Update to upstream version 4.8.0
+
+* Thu Aug 17 2023 Marian Koncek <mkoncek@redhat.com> - 4.7.1-1
+- Update to upstream version 4.7.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

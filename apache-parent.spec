@@ -1,11 +1,11 @@
 %bcond_with bootstrap
 
 Name:           apache-parent
-Version:        27
-Release:        3%{?dist}
+Version:        30
+Release:        1%{?dist}
 Summary:        Parent POM file for Apache projects
-License:        ASL 2.0
-URL:            http://apache.org/
+License:        Apache-2.0
+URL:            https://apache.org/
 Source0:        https://repo1.maven.org/maven2/org/apache/apache/%{version}/apache-%{version}-source-release.zip
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -20,9 +20,9 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-remote-resources-plugin)
 
 # Not generated automatically
 %if %{without bootstrap}
-BuildRequires:  mvn(org.apache:apache-jar-resource-bundle)
+BuildRequires:  mvn(org.apache.apache.resources:apache-jar-resource-bundle)
 %endif
-Requires:       mvn(org.apache:apache-jar-resource-bundle)
+Requires:       mvn(org.apache.apache.resources:apache-jar-resource-bundle)
 
 %description
 This package contains the parent pom file for apache projects.
@@ -39,9 +39,12 @@ This package contains the parent pom file for apache projects.
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE NOTICE
+%license LICENSE NOTICE
 
 %changelog
+* Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 30-1
+- Update to upstream version 30
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 27-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

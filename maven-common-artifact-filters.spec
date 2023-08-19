@@ -1,17 +1,15 @@
 %bcond_with bootstrap
 
 Name:           maven-common-artifact-filters
-Version:        3.2.0
-Release:        6%{?dist}
+Version:        3.3.2
+Release:        1%{?dist}
 Summary:        Maven Common Artifact Filters
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/shared/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{version}/%{name}-%{version}-source-release.zip
-
-Patch1:         0001-Pass-empty-list-instead-of-null-to-DependencyFilter..patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -43,7 +41,6 @@ This package contains javadoc for %{name}.
 
 %prep
 %setup -q
-%patch1 -p1
 
 # Test depends on jmh performance benchmarking library
 %pom_remove_dep org.openjdk.jmh:jmh-core
@@ -64,6 +61,9 @@ rm src/test/java/org/apache/maven/shared/artifact/filter/PatternFilterPerfTest.j
 %license LICENSE NOTICE
 
 %changelog
+* Thu Aug 17 2023 Marian Koncek <mkoncek@redhat.com> - 3.3.2-1
+- Update to upstream version 3.3.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

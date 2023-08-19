@@ -7,7 +7,7 @@
 Name:           maven
 Epoch:          1
 Version:        3.9.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java project management and project comprehension tool
 # maven itself is ASL 2.0
 # bundled slf4j is MIT
@@ -26,9 +26,9 @@ Patch2:         0002-Invoke-logback-via-reflection.patch
 Patch3:         0003-Remove-dependency-on-powermock.patch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.guava:failureaccess)
 BuildRequires:  mvn(com.google.guava:guava)
 BuildRequires:  mvn(com.google.inject:guice)
@@ -187,6 +187,8 @@ sed -i "
 
 %mvn_package :apache-maven __noinstall
 
+%pom_add_dep javax.annotation:javax.annotation-api::provided maven-core
+
 %pom_change_dep :jansi :::runtime maven-embedder
 %pom_remove_dep -r :logback-classic
 
@@ -296,6 +298,9 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %config %{_javaconfdir}/maven.conf-openjdk17
 
 %changelog
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.1-4
+- Build with default JDK 17
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

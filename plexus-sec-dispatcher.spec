@@ -2,7 +2,7 @@
 
 Name:           plexus-sec-dispatcher
 Version:        2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Plexus Security Dispatcher Component
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-sec-dispatcher
@@ -13,9 +13,9 @@ Source0:        %{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
@@ -52,6 +52,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0-7
+- Build with default JDK 17
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

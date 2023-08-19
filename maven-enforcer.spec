@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           maven-enforcer
-Version:        3.0.0
-Release:        6%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Maven Enforcer
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/enforcer
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -18,21 +18,20 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.code.findbugs:jsr305)
 BuildRequires:  mvn(commons-codec:commons-codec)
 BuildRequires:  mvn(commons-io:commons-io)
+BuildRequires:  mvn(javax.annotation:javax.annotation-api)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-util)
-BuildRequires:  mvn(org.apache.maven.shared:maven-common-artifact-filters)
-BuildRequires:  mvn(org.apache.maven.shared:maven-dependency-tree)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
-BuildRequires:  mvn(org.apache.maven:maven-compat)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.codehaus.mojo:extra-enforcer-rules)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.eclipse.aether:aether-api)
+BuildRequires:  mvn(org.eclipse.aether:aether-util)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
 
 %description
@@ -79,17 +78,16 @@ pom.xml, but you can enforce a set of rules.
 find -name '*.java' -exec sed -i 's/\r//' {} +
 
 find -name EvaluateBeanshell.java -delete
-%pom_remove_dep :bsh enforcer-rules
 
-# Avoid dependency cycle
-%pom_xpath_inject pom:build/pom:pluginManagement/pom:plugins "
-    <plugin>
-      <artifactId>maven-enforcer-plugin</artifactId>
-      <version>SYSTEM</version>
-    </plugin>"
+%pom_remove_dep org.junit:junit-bom
+%pom_remove_dep :bsh enforcer-rules
+%pom_add_dep javax.annotation:javax.annotation-api maven-enforcer-plugin
+
+%pom_add_plugin org.eclipse.sisu:sisu-maven-plugin maven-enforcer-plugin
 
 %build
-%mvn_build -s -f
+# Use system version of maven-enforcer-plugin instead of reactor version
+%mvn_build -s -f -- -Dversion.maven-enforcer-plugin=SYSTEM
 
 %install
 %mvn_install
@@ -110,6 +108,9 @@ find -name EvaluateBeanshell.java -delete
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Aug 15 2023 Marian Koncek <mkoncek@redhat.com> - 3.3.0-1
+- Update to upstream version 3.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

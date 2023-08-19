@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           xbean
-Version:        4.21
-Release:        3%{?dist}
+Version:        4.23
+Release:        1%{?dist}
 Summary:        Java plugin based web server
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://geronimo.apache.org/xbean/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -43,8 +43,8 @@ This package provides %{summary}.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 cp xbean-asm-util/src/main/java/org/apache/xbean/asm9/original/commons/AsmConstants.java xbean-reflect/src/main/java/org/apache/xbean/recipe/
 
@@ -79,7 +79,7 @@ rm -r xbean-finder/src/main/java/org/apache/xbean/finder{,/archive}/Bundle*
 sed -i '/testGetBytecode/i@org.junit.Ignore' xbean-finder/src/test/java/org/apache/xbean/finder/archive/MJarJarArchiveTest.java
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -91,6 +91,9 @@ sed -i '/testGetBytecode/i@org.junit.Ignore' xbean-finder/src/test/java/org/apac
 %license LICENSE NOTICE
 
 %changelog
+* Thu Aug 17 2023 Marian Koncek <mkoncek@redhat.com> - 4.23-1
+- Update to upstream version 4.23
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.21-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

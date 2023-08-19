@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-lang3
-Version:        3.12.0
-Release:        9%{?dist}
+Version:        3.13.0
+Release:        1%{?dist}
 Summary:        Provides a host of helper utilities for the java.lang API
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://commons.apache.org/lang
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -13,9 +13,9 @@ Source0:        https://archive.apache.org/dist/commons/lang/source/commons-lang
 Patch1:         0001-Remove-test-dependency-on-JUnit-Pioneer.patch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(biz.aQute.bnd:biz.aQute.bndlib)
 BuildRequires:  mvn(com.google.code.findbugs:jsr305)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
@@ -48,12 +48,12 @@ package.
 %prep
 %setup -q -n commons-lang3-%{version}-src
 
-%patch1 -p1
+%patch 1 -p1
 
 %pom_remove_plugin :maven-javadoc-plugin
 %pom_remove_dep org.openjdk.jmh:jmh-core
 %pom_remove_dep org.openjdk.jmh:jmh-generator-annprocess
-%pom_remove_dep :junit-bom
+%pom_remove_dep org.apache.commons:commons-text
 
 %mvn_file : %{name} commons-lang3
 
@@ -72,7 +72,7 @@ sed -i '/<argLine>/d' pom.xml
 
 %build
 # See "-DcommonsLang3Version" in maven-surefire for the tested version
-%mvn_build
+%mvn_build -f
 
 %install
 %mvn_install
@@ -82,6 +82,9 @@ sed -i '/<argLine>/d' pom.xml
 %doc RELEASE-NOTES.txt
 
 %changelog
+* Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 3.13.0-1
+- Update to upstream version 3.13.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

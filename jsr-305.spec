@@ -2,7 +2,7 @@
 
 Name:           jsr-305
 Version:        3.0.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Correctness annotations for Java code
 
 # The majority of code is BSD-licensed, but some Java sources
@@ -18,9 +18,9 @@ Source0:        %{name}-%{version}.tar.gz
 Source1:        NOTICE-CC-BY.txt
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
 
@@ -35,7 +35,8 @@ Detection.
 %setup -q
 cp %{SOURCE1} NOTICE-CC-BY
 
-%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/*" 1.6
+%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/*" 1.8
+%pom_remove_plugin :maven-compiler-plugin ri
 
 sed -i 's|<groupId>com\.google\.code\.findbugs</groupId>|<groupId>org.jsr-305</groupId>|' ri/pom.xml
 sed -i 's|<artifactId>jsr305</artifactId>|<artifactId>ri</artifactId>|' ri/pom.xml
@@ -66,6 +67,9 @@ sed -i 's|<artifactId>jsr305</artifactId>|<artifactId>ri</artifactId>|' ri/pom.x
 %doc sampleUses
 
 %changelog
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.2-9
+- Build with default JDK 17
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

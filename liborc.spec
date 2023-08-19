@@ -1,7 +1,7 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
-Version: 1.9.0
-Release: 2%{?dist}
+Version: 1.9.1
+Release: 1%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source: https://archive.apache.org/dist/orc/orc-%{version}/orc-%{version}.tar.gz
@@ -110,6 +110,8 @@ mkdir %{buildroot}%{_docdir}/%{name}1
 mv %{buildroot}%{_docdir}/orc/NOTICE %{buildroot}%{_docdir}/%{name}1/
 mkdir -p %{buildroot}/%{_defaultlicensedir}/%{name}1
 mv %{buildroot}%{_docdir}/orc/LICENSE %{buildroot}/%{_defaultlicensedir}/%{name}1/
+rm -f %{buildroot}/%{_includedir}/orc/._*.hh
+rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
 
 %ldconfig_scriptlets
 
@@ -126,6 +128,9 @@ mv %{buildroot}%{_docdir}/orc/LICENSE %{buildroot}/%{_defaultlicensedir}/%{name}
      %{_libdir}/liborc.so
 
 %changelog
+* Thu Aug 17 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 1.9.1-1
+- 1.9.1 GA
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

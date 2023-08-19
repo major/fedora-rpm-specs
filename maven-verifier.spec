@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           maven-verifier
-Version:        1.7.2
-Release:        11%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        Apache Maven Verifier Component
 License:        ASL 2.0
 URL:            https://maven.apache.org/shared/maven-verifier
@@ -16,8 +16,14 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-http)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-utils)
+BuildRequires:  mvn(org.apache.maven:maven-compat)
+BuildRequires:  mvn(org.apache.maven:maven-embedder)
+BuildRequires:  mvn(org.hamcrest:hamcrest-core)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
 
 %description
@@ -34,6 +40,10 @@ API documentation for %{name}.
 
 # This test attempts to write outside the build directory
 rm src/test/java/org/apache/maven/it/ForkedLauncherTest.java
+# Depends on ForkedLauncherTest
+rm src/test/java/org/apache/maven/it/VerifierTest.java
+# This test attepmts to connect to the Internet
+rm src/test/java/org/apache/maven/it/Embedded3xLauncherTest.java
 
 %build
 %mvn_build
@@ -48,6 +58,9 @@ rm src/test/java/org/apache/maven/it/ForkedLauncherTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.8.0-1
+- Update to upstream version 1.8.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

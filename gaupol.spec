@@ -228,7 +228,7 @@ API documentation: https://otsaloma.io/gaupol/doc/api/aeidon.html
 find data/iso-codes -type f -name '*.json' |
   while read -r fn
   do
-    ln -svf "%{_datadir}/iso-codes/json/$(basename "${fn}")" "${fn}"
+    ln -svf "/usr/share/iso-codes/json/$(basename "${fn}")" "${fn}"
   done
 # We want to install the Markdown docs in a subdirectory of the package
 # documentation directory; copy them to a directory of the desired name.
@@ -278,7 +278,7 @@ appstreamcli validate --nonet \
     '%{buildroot}/%{_metainfodir}/%{app_id}.appdata.xml'
 
 %if %{with tests}
-%global __pytest %{_bindir}/xvfb-run -a %{_bindir}/pytest
+%global __pytest xvfb-run -a pytest
 # The skipped test passes in a real Fedora desktop session, but fails under
 # xvfb; we do not understand why, although it smells like a trivial font
 # issue.

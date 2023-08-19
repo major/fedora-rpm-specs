@@ -2,7 +2,7 @@
 
 Name:           guava
 Version:        31.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Google Core Libraries for Java
 # Most of the code is under ASL 2.0
 # Few classes are under CC0, grep for creativecommons
@@ -15,10 +15,10 @@ Source0:        https://github.com/google/guava/archive/v%{version}/guava-%{vers
 
 BuildRequires:  javapackages-extra
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
-BuildRequires:  %{?module_prefix}mvn(com.google.code.findbugs:jsr305)
+BuildRequires:  maven-local
+BuildRequires:  mvn(com.google.code.findbugs:jsr305)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
@@ -72,10 +72,11 @@ find . -name '*.jar' -delete
 %pom_remove_dep -r org.checkerframework:
 %pom_remove_dep -r :listenablefuture
 
-%java_remove_annotations guava guava-testlib -p org[.]checkerframework[.]
-%java_remove_annotations guava guava-testlib -p com[.]google[.]common[.]annotations[.]
-%java_remove_annotations guava guava-testlib -p com[.]google[.]errorprone[.]annotations[.]
-%java_remove_annotations guava guava-testlib -p com[.]google[.]j2objc[.]annotations[.]
+%java_remove_annotations guava guava-testlib -s \
+  -p org[.]checkerframework[.] \
+  -p com[.]google[.]common[.]annotations[.] \
+  -p com[.]google[.]errorprone[.]annotations[.] \
+  -p com[.]google[.]j2objc[.]annotations[.] \
 
 %mvn_package "com.google.guava:failureaccess" guava
 
@@ -96,6 +97,9 @@ find . -name '*.jar' -delete
 %files testlib -f .mfiles-guava-testlib
 
 %changelog
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 31.1-5
+- Build with default JDK 17
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 31.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

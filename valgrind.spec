@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.21.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -111,6 +111,10 @@ Patch11: valgrind-3.21.0-vgm-tests.patch
 # s390x: Valgrind cannot start qemu-kvm when "sysctl vm.allocate_pgste=0"
 # https://bugs.kde.org/show_bug.cgi?id=470978
 Patch12: valgrind-3.21.0-pgste.patch
+
+# gdb --multi mode stdout redirecting to stderr
+# https://bugs.kde.org/show_bug.cgi?id=471311
+Patch13: valgrind-3.21.0-gdb-multi-mode-stdout-redirecting-to-stderr.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -240,23 +244,24 @@ Valgrind User Manual for details.
 %prep
 %setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
 
-%patch1 -p1
-%patch2 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 # Old rhel gcc doesn't have -fstack-protector-strong.
 %if 0%{?fedora} || 0%{?rhel} >= 7
-%patch3 -p1
-%patch4 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 %endif
 
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
+%patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
+%patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
+%patch -P13 -p1
 
 
 %build
@@ -490,6 +495,10 @@ fi
 %endif
 
 %changelog
+* Thu Aug 17 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-9
+- Add valgrind-3.21.0-gdb-multi-mode-stdout-redirecting-to-stderr.patch
+- Use %%patch -Pn instead of deprecated %%patchn
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.21.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

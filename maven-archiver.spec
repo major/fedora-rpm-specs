@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           maven-archiver
-Version:        3.5.2
-Release:        4%{?dist}
+Version:        3.6.0
+Release:        1%{?dist}
 Summary:        Maven Archiver
 License:        ASL 2.0
 URL:            http://maven.apache.org/shared/maven-archiver/
@@ -15,17 +15,14 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/%{name}/%{versio
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(commons-io:commons-io)
-BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.maven:maven-artifact)
-BuildRequires:  mvn(org.apache.maven:maven-core)
-BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
-BuildRequires:  mvn(org.apache.maven.shared:maven-shared-utils)
+BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-archiver)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-io)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 %endif
 
 %description
@@ -54,6 +51,9 @@ Javadoc for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.6.0-1
+- Update to upstream version 3.6.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

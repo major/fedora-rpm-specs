@@ -3,7 +3,7 @@
 
 Name:           nvme-cli
 Version:        2.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPLv2
@@ -66,7 +66,7 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 %{_datadir}/bash-completion/completions/nvme
 %{_datadir}/zsh/site-functions/_nvme
 %dir %{_sysconfdir}/nvme
-%{_sysconfdir}/nvme/discovery.conf
+%config(noreplace) %{_sysconfdir}/nvme/discovery.conf
 %{_unitdir}/nvmefc-boot-connections.service
 %{_unitdir}/nvmf-autoconnect.service
 %{_unitdir}/nvmf-connect.target
@@ -78,6 +78,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Thu Aug 17 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.5-4
+- Mark /etc/nvme/discovery.conf as (noreplace)
+
 * Mon Aug 14 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.5-3
 - Backport 'fabrics: Use corresponding hostid when hostnqn is generated'
 

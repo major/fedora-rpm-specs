@@ -1,7 +1,7 @@
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
 Version:    1.15.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 # onnxruntime and SafeInt are MIT
 # onnx is Apache License 2.0
 # optional-lite is Boost Software License 1.0
@@ -36,15 +36,15 @@ Patch10:    disable-pytorch-tests.patch
 Patch11:    system-date-and-mp11.patch
 # Remove broken forward declarations and include flatbuffers instead
 Patch12:    fix_forward_decl_flatbuffers.patch
+# Use the system cpuinfo
+Patch13:    system-cpuinfo.patch
 
 # MLAS is not implemented for s390x
 # https://github.com/microsoft/onnxruntime/blob/master/cmake/onnxruntime_mlas.cmake#L222
 # The memory exhausted when building for armv7hl
 # safeint flatbuffers not available in i686
 #     https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# aarch64 needs pytorch cpuinfo
-#     https://bugzilla.redhat.com/show_bug.cgi?id=2181740
-ExcludeArch:    s390x %{arm} %{ix86} aarch64
+ExcludeArch:    s390x %{arm} %{ix86}
 
 BuildRequires:  cmake >= 3.13
 BuildRequires:  make
@@ -54,6 +54,7 @@ BuildRequires:	onnx-devel = 1.14.0
 BuildRequires:  abseil-cpp-devel
 BuildRequires:  boost-devel >= 1.66
 BuildRequires:  bzip2
+BuildRequires:  cpuinfo-devel
 BuildRequires:  date-devel
 BuildRequires:  flatbuffers-compiler
 BuildRequires:  flatbuffers-devel
@@ -108,9 +109,8 @@ Documentation files for the %{name} package
     -Donnxruntime_INSTALL_UNIT_TESTS=OFF \
     -Donnxruntime_BUILD_BENCHMARKS=OFF \
     -Donnxruntime_USE_PREINSTALLED_EIGEN=ON \
-    -Donnxruntime_ENABLE_CPUINFO=OFF \
+    -Donnxruntime_ENABLE_CPUINFO=ON \
     -Donnxruntime_DISABLE_ABSEIL=ON \
-    -Donnxruntime_ENABLE_CPUINFO=OFF \
     -Deigen_SOURCE_PATH=/usr/include/eigen3 \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -S cmake
@@ -141,6 +141,9 @@ cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
 %{_docdir}/%{name}
 
 %changelog
+* Thu Aug 17 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.15.1-2
+- Enable build on aarch64
+
 * Wed Jul 26 2023 Alejandro Álvarez Ayllón <a.alvarezayllon@gmail.com> - 1.15.1-1
 - Release 1.15.1
 

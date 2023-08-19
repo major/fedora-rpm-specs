@@ -8,6 +8,7 @@ Version:        1.2.0
 Release:        1%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
+# SPDX
 License:        MIT
 URL:            https://github.com/pytest-dev/pluggy
 Source0:        %{pypi_source}

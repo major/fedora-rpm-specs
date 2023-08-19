@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           maven-wagon
-Version:        3.5.1
-Release:        4%{?dist}
+Version:        3.5.3
+Release:        1%{?dist}
 Summary:        Tools to manage artifacts and deployment
 License:        ASL 2.0
 URL:            https://maven.apache.org/wagon
@@ -12,10 +12,9 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://repo1.maven.org/maven2/org/apache/maven/wagon/wagon/%{version}/wagon-%{version}-source-release.zip
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
-BuildRequires:  mvn(commons-io:commons-io)
+BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.httpcomponents:httpcore)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
@@ -87,6 +86,12 @@ following providers:
 %doc DEPENDENCIES
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.3-1
+- Update to upstream version 3.5.3
+
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.1-5
+- Build with default JDK 17
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

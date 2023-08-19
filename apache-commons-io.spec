@@ -2,20 +2,21 @@
 
 Name:           apache-commons-io
 Epoch:          1
-Version:        2.11.0
-Release:        4%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        Utilities to assist with developing IO functionality
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://commons.apache.org/io
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://archive.apache.org/dist/commons/io/source/commons-io-%{version}-src.tar.gz
 
+BuildRequires:  javapackages-extra
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
@@ -32,25 +33,21 @@ to assist with developing IO functionality.
 
 %prep
 %setup -q -n commons-io-%{version}-src
+
 sed -i 's/\r//' *.txt
 
 # Run tests in multiple reusable forks to improve test performance
 sed -i -e /reuseForks/d -e /forkCount/d pom.xml
 sed -i '/<argLine>/d' pom.xml
 
-%mvn_file  : commons-io %{name}
+%mvn_file : commons-io %{name}
 %mvn_alias : org.apache.commons:
 
 %pom_remove_dep org.junit-pioneer:junit-pioneer
-%pom_remove_dep :junit-bom
+%java_remove_annotations src -s -n DefaultLocale
+
 %pom_remove_dep com.google.jimfs:jimfs
-
-# Test depends on com.google.jimfs:jimfs
 rm src/test/java/org/apache/commons/io/input/ReversedLinesFileReaderTestParamFile.java
-
-# This annotation is part of junitpioneer
-sed -i '/DefaultLocale/d' src/test/java/org/apache/commons/io/output/XmlStreamWriterTest.java
-sed -i '/DefaultLocale/d' src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
 
 %build
 # See "-DcommonsIoVersion" in maven-surefire for the tested version
@@ -62,6 +59,7 @@ sed -i '/DefaultLocale/d' src/test/java/org/apache/commons/io/input/XmlStreamRea
 #  * PathUtilsDeleteTest.testDeleteDirectory1FileSize0OverrideReadonly:97->testDeleteDirectory1FileSize0:69 » FileSystem
 #  * PathUtilsDeleteTest.testDeleteDirectory1FileSize1OverrideReadOnly:145->testDeleteDirectory1FileSize1:117 » FileSystem
 
+# moditect profile generates module-info.class
 %mvn_build -f -- -Dcommons.osgi.symbolicName=org.apache.commons.io
 
 %install
@@ -72,6 +70,9 @@ sed -i '/DefaultLocale/d' src/test/java/org/apache/commons/io/input/XmlStreamRea
 %doc RELEASE-NOTES.txt
 
 %changelog
+* Wed Aug 09 2023 Marian Koncek <mkoncek@redhat.com> - 1:2.13.0-1
+- Update to upstream version 2.13.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

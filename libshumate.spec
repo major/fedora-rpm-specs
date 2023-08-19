@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libshumate
-Version:        1.0.5
+Version:        1.1~beta
 Release:        %autorelease
 Summary:        GTK widget to display maps
 
@@ -9,7 +9,7 @@ Summary:        GTK widget to display maps
 # LGPL-2.0-or-later while the rest of the code is LGPL-2.1-or-later
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/libshumate
-Source0:        https://download.gnome.org/sources/%{name}/1.0/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/libshumate/1.1/libshumate-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -56,7 +56,7 @@ This package contains developer documentation for %{name}.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n libshumate-%{tarball_version}
 
 
 %build

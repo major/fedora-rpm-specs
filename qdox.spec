@@ -3,8 +3,8 @@
 %global upstream_version %(echo %{version} | tr '~' '-')
 
 Name:           qdox
-Version:        2.0.0
-Release:        12%{?dist}
+Version:        2.0.3
+Release:        1%{?dist}
 Summary:        Extract class/interface/method definitions from sources
 License:        ASL 2.0
 URL:            https://github.com/paul-hammant/qdox
@@ -16,8 +16,6 @@ Source0:        %{name}-%{version}.tar.gz
 Source1:        qdox-MANIFEST.MF
 # Remove bundled binaries which are possibly proprietary
 Source2:        generate-tarball.sh
-
-Patch0:         0001-Port-to-JFlex-1.7.0.patch
 
 BuildRequires:  byaccj
 %if %{with bootstrap}
@@ -42,7 +40,6 @@ API docs for %{name}.
 
 %prep
 %setup -q -n %{name}-%{upstream_version}
-%patch0 -p1
 
 # remove unnecessary dependency on parent POM
 %pom_remove_parent
@@ -52,7 +49,7 @@ API docs for %{name}.
 %pom_remove_plugin :maven-assembly-plugin
 %pom_remove_plugin :maven-failsafe-plugin
 %pom_remove_plugin :maven-invoker-plugin
-%pom_remove_plugin :maven-jflex-plugin
+%pom_remove_plugin :jflex-maven-plugin
 %pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :exec-maven-plugin
 
@@ -89,6 +86,9 @@ jar ufm target/%{name}-%{upstream_version}.jar %{SOURCE1}
 %license LICENSE.txt
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.3-1
+- Update to upstream version 2.0.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

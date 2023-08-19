@@ -20,10 +20,10 @@
 
 Name:           python-%{pypi_name}
 Version:        23.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Core utilities for Python packages
 
-License:        BSD or ASL 2.0
+License:        BSD-2-Clause OR Apache-2.0
 URL:            https://github.com/pypa/packaging
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
@@ -136,6 +136,9 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %changelog
+* Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 23.1-5
+- Declare the license as an SPDX expression
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

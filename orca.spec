@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        45~beta
+Version:        45~beta2
 Release:        1%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Thu Aug 17 2023 Kalev Lember <klember@redhat.com> - 45~beta2-1
+- Update to 45.beta2
+
 * Mon Aug 14 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
 - Update to 45.beta
 - Drop requires on python3-zombie-imp now that orca is ported away from it

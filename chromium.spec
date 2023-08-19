@@ -298,7 +298,7 @@ Patch90: chromium-113-disable-GlobalMediaControlsCastStartStop.patch
 Patch91: chromium-108-system-opus.patch
 
 # need to explicitly include a kernel header on EL7 to support MFD_CLOEXEC, F_SEAL_SHRINK, F_ADD_SEALS, F_SEAL_SEAL
-Patch100: chromium-108-el7-include-fcntl-memfd.patch
+Patch100: chromium-116-el7-include-fcntl-memfd.patch
 
 # add define HAVE_STRNDUP on epel7
 Patch101: chromium-108-el7-wayland-strndup-error.patch

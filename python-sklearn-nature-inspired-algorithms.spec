@@ -15,17 +15,13 @@ Documentation is available at:
 https://sklearn-nature-inspired-algorithms.readthedocs.io/en/stable/ }
 
 Name:           python-%{pypi_name}
-Version:        0.11.0
-Release:        6%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        Nature-inspired algorithms for scikit-learn
 
 License:        MIT
 URL:            https://github.com/timzatko/%{github_name}
 Source0:        %{url}/archive/v%{version}/%{github_name}-%{version}.tar.gz
-# Fix AttributeError assertEquals
-# https://github.com/timzatko/Sklearn-Nature-Inspired-Algorithms/pull/26
-Patch:          https://github.com/timzatko/Sklearn-Nature-Inspired-Algorithms/pull/26.patch
-# Update pyproject.toml to match Fedora package versions
 
 BuildArch:      noarch
 
@@ -100,6 +96,10 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m unittest tests
 %endif
 
 %changelog
+* Thu Aug 17 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.12.0-1
+- Update to 0.12.0
+- Remove previous patch
+
 * Thu Jul 20 2023 Sandro <devel@penguinpee.nl> - 0.11.0-6
 - Fix AttributeError (RHBZ#2220506)
 

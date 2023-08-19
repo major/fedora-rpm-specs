@@ -11,6 +11,8 @@ Source:         %{url}/archive/%{version}/rust-packaging-%{version}.tar.gz
 Patch:          https://pagure.io/fedora-rust/rust-packaging/c/3df6ad1.patch
 Patch:          https://pagure.io/fedora-rust/rust-packaging/c/b9d6410.patch
 Patch:          https://pagure.io/fedora-rust/rust-packaging/c/8690145.patch
+Patch:          https://pagure.io/fedora-rust/rust-packaging/c/0ff9bb8.patch
+Patch:          https://pagure.io/fedora-rust/rust-packaging/c/801dd51.patch
 
 BuildArch:      noarch
 

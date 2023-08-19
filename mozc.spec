@@ -57,6 +57,7 @@ Patch3:		mozc-build-id.patch
 Patch4:		mozc-build-gcc-common.patch
 Patch5:		mozc-use-system-abseil-cpp.patch
 Patch6:		mozc-build-gyp.patch
+Patch7:		mozc-build-new-abseil.patch
 
 BuildRequires:	python gettext
 BuildRequires:	libstdc++-devel zlib-devel libxcb-devel protobuf-devel protobuf-c glib2-devel gtk2-devel
@@ -248,6 +249,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Aug 17 2023 Akira TAGOH <tagoh@redhat.com>
+- Fix the build issue with newer abseil.
+  Resolves: rhbz#2231905
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.5111.102-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

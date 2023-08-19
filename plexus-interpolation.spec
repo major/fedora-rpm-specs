@@ -2,10 +2,10 @@
 
 Name:           plexus-interpolation
 Version:        1.26
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Plexus Interpolation API
 # Most of the code is ASL 2.0, a few source files are ASL 1.1 and some tests are MIT
-License:        ASL 2.0 and ASL 1.1 and MIT
+License:        Apache-2.0 AND Apache-1.1 AND MIT
 URL:            https://github.com/codehaus-plexus/plexus-interpolation
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -15,9 +15,9 @@ Source0:        https://github.com/codehaus-plexus/plexus-interpolation/archive/
 Patch0:         0001-Use-PATH-env-variable-instead-of-JAVA_HOME.patch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-components:pom:)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -33,7 +33,7 @@ related projects.
 
 %prep
 %setup -q -n plexus-interpolation-plexus-interpolation-%{version}
-%patch0 -p1
+%patch 0 -p1
 %pom_add_dep junit:junit:4.13.1:test
 %pom_remove_plugin :maven-release-plugin
 %pom_remove_plugin :maven-scm-publish-plugin
@@ -48,6 +48,9 @@ related projects.
 %files -f .mfiles
 
 %changelog
+* Thu Aug 10 2023 Marian Koncek <mkoncek@redhat.com> - 1.26-15
+- Use implicit maven toolchains
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-docs-theme
-Version:        2023.5
-Release:        3%{?dist}
+Version:        2023.7
+Release:        1%{?dist}
 Summary:        The Sphinx theme for the CPython docs and related projects
 
 License:        PSF-2.0
@@ -39,6 +39,10 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Mon Aug 14 2023 Karolina Surma <ksurma@redhat.com> - 2023.7-1
+- Update to 2023.7
+Resolves: rhbz#2229025
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

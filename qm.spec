@@ -5,7 +5,7 @@
 %global moduletype services
 %global modulenames qm
 
-%global _installscriptdir %{_prefix}/lib/qm
+%global _installscriptdir %{_prefix}/lib/%{modulenames}
 
 # Usage: _format var format
 # Expand 'modulenames' into various formats as needed
@@ -20,12 +20,20 @@
 %bcond_without copr
 %endif
 
-%if 0%{?rhel}
+
+
+%if 0%{?fedora}
+%global podman_epoch 5
+%else
+%global podman_epoch 2
+%endif
+
+%if 0%{?rhel} && 0%{?centos} == 0
+# podman 4.5 is not available in RHEL 9 but it's available in CentOS Stream 9.
+# hirte-agent is available in EPEL 9.
 %bcond_with podman_45
-%bcond_with hirte_agent
 %else
 %bcond_without podman_45
-%bcond_without hirte_agent
 %endif
 
 Name: qm
@@ -36,14 +44,19 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 0.4.1
+Version: 0.5.1
+%if %{defined autorelease}
 Release: %autorelease
+%else
+Release: 1
+%endif
 License: GPL-2.0-only
 URL: https://github.com/containers/qm
 Summary: Containerized environment for running Quality Management software
 Source0: %{url}/archive/v%{version}.tar.gz
 BuildArch: noarch
-BuildRequires: %{_bindir}/go-md2man
+# golang-github-cpuguy83-md2man on CentOS Stream 9 is available in CRB repository
+BuildRequires: golang-github-cpuguy83-md2man
 BuildRequires: container-selinux
 BuildRequires: make
 BuildRequires: git-core
@@ -56,11 +69,9 @@ Requires(post): selinux-policy-targeted >= %_selinux_policy_version
 Requires(post): policycoreutils
 Requires(post): libselinux-utils
 %if %{with podman_45}
-Requires: podman >= 5:4.5
+Requires: podman >= %{podman_epoch}:4.5
 %endif
-%if %{with hirte_agent}
 Requires: hirte-agent
-%endif
 
 %description
 This package allow users to setup an environment which prevents applications
@@ -71,7 +82,7 @@ The QM runs its own version of systemd and Podman to isolate not only the
 applications and containers launched by systemd and Podman but systemd and
 Podman themselves.
 
-Software install into the QM environment under /usr/lib/qm/rootfs is
+Software install into the QM environment under `/usr/lib/qm/rootfs` is
 automatically isolated from the host. If developers need to further
 isolate there applications from other processes in the QM they should
 use container tools like Podman.
@@ -125,7 +136,7 @@ fi
 %ghost %dir %{_datadir}/containers
 %ghost %dir %{_datadir}/containers/systemd
 %{_datadir}/containers/systemd/qm.container
-%ghost %{_sysconfdir}/systemd/qm.container
+%ghost %{_sysconfdir}/containers/systemd/qm.container
 %{_mandir}/man8/*
 %ghost %dir %{_installscriptdir}
 %ghost %dir %{_installscriptdir}/rootfs

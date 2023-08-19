@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           osgi-annotation
-Version:        8.0.1
-Release:        7%{?dist}
+Version:        8.1.0
+Release:        1%{?dist}
 Summary:        Annotations for use in compiling OSGi bundles
 License:        ASL 2.0
 URL:            https://www.osgi.org
@@ -75,6 +75,9 @@ cp -p %{SOURCE1} pom.xml
 %license META-INF/LICENSE META-INF/NOTICE
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 8.1.0-1
+- Update to upstream version 8.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

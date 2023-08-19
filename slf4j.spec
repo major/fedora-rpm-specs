@@ -32,7 +32,7 @@
 
 Name:           slf4j
 Version:        1.7.32
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple Logging Facade for Java
 # the log4j-over-slf4j and jcl-over-slf4j submodules are ASL 2.0, rest is MIT
 License:        MIT and ASL 2.0
@@ -44,9 +44,9 @@ Source0:        https://github.com/qos-ch/slf4j/archive/v_%{version}.tar.gz
 Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap-openjdk8
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk8
+BuildRequires:  maven-local
 BuildRequires:  mvn(commons-logging:commons-logging)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
@@ -174,7 +174,7 @@ sed -i '/Import-Package/s/\}$/};resolution:=optional/' slf4j-api/src/main/resour
 %mvn_package :%{name}-nop
 
 %build
-%mvn_build -f -s -- -Drequired.jdk.version=1.6
+%mvn_build -f -s -- -Drequired.jdk.version=1.8
 
 %install
 # Compat symlinks
@@ -205,6 +205,9 @@ cp -pr target/site/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
 %{_defaultdocdir}/%{name}-manual
 
 %changelog
+* Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7.32-7
+- Build with default JDK 17
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.32-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

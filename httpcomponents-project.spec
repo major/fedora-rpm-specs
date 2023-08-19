@@ -2,12 +2,11 @@
 
 Name:           httpcomponents-project
 Summary:        Common POM file for HttpComponents
-Version:        12
-Release:        9%{?dist}
+Version:        13
+Release:        1%{?dist}
 License:        ASL 2.0
 URL:            https://hc.apache.org/
 Source0:        https://archive.apache.org/dist/httpcomponents/httpcomponents-parent/httpcomponents-parent-%{version}-source-release.zip
-Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -27,10 +26,6 @@ use it as runtime requirement.
 %prep
 %setup -q -n httpcomponents-parent-%{version}
 
-cp -p %{SOURCE1} .
-
-%pom_remove_plugin :clirr-maven-plugin
-%pom_remove_plugin :docbkx-maven-plugin
 %pom_remove_plugin :maven-site-plugin
 %pom_remove_plugin :animal-sniffer-maven-plugin
 %pom_remove_plugin :apache-rat-plugin
@@ -49,6 +44,9 @@ cp -p %{SOURCE1} .
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Aug 16 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 13-1
+- Update to upstream version 13
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

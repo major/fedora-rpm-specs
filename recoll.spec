@@ -2,15 +2,14 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.34.7
-Release:        3%{?dist}
+Version:        1.35.0
+Release:        1%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
 Source0:        https://www.lesbonscomptes.com/recoll/recoll-%{version}.tar.gz
 Source1:        https://www.lesbonscomptes.com/recoll/downloads/gssp-recoll-%{gsspver}.tar.gz
 Source10:       qmake-qt5.sh
 Patch01:        recoll-1.25.11-appdata.patch
-Patch02:        https://framagit.org/medoc92/recoll/-/commit/70acdfd8c25f3a5429fbc8988758e2fa00c3833f.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
 BuildRequires:  chmlib-devel
@@ -187,6 +186,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Thu Aug 17 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.35.0-1
+- 1.35.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

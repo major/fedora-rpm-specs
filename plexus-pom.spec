@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:          plexus-pom
-Version:       10
-Release:       3%{?dist}
+Version:       14
+Release:       1%{?dist}
 Summary:       Root Plexus Projects POM
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           https://github.com/codehaus-plexus/plexus-pom
 Source0:       https://github.com/codehaus-plexus/plexus-pom/archive/plexus-%{version}.tar.gz
 Source1:       https://www.apache.org/licenses/LICENSE-2.0.txt
@@ -26,10 +26,11 @@ Plexus packages.
 %setup -q -n plexus-pom-plexus-%{version}
 cp -p %{SOURCE1} LICENSE
 
+%pom_remove_dep org.junit:junit-bom
 %pom_remove_plugin :maven-site-plugin
 %pom_remove_plugin :maven-enforcer-plugin
-%pom_remove_plugin :findbugs-maven-plugin
 %pom_remove_plugin :taglist-maven-plugin
+%pom_remove_plugin :spotless-maven-plugin
 
 %build
 %mvn_build
@@ -41,6 +42,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Wed Aug 16 2023 Marian Koncek <mkoncek@redhat.com> - 14-1
+- Update to upstream version 14
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
