@@ -1,6 +1,6 @@
 Name:           bcel
-Version:        6.5.0
-Release:        5%{?dist}
+Version:        6.7.0
+Release:        2%{?dist}
 Summary:        Byte Code Engineering Library
 License:        ASL 2.0
 URL:            http://commons.apache.org/proper/commons-bcel/
@@ -9,10 +9,10 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        http://archive.apache.org/dist/commons/bcel/source/bcel-%{version}-src.tar.gz
 
-Patch1:         0001-CVE-2022-42920.patch
-
 BuildRequires:  maven-local
+BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 
 %description
 The Byte Code Engineering Library (formerly known as JavaClass) is
@@ -38,10 +38,10 @@ This package provides %{summary}.
 
 %prep
 %setup -q -n %{name}-%{version}-src
-%patch1 -p1
 
 %pom_remove_plugin :maven-source-plugin
 %pom_remove_plugin :spotbugs-maven-plugin
+%pom_remove_plugin :jacoco-maven-plugin
 
 %mvn_alias : bcel: apache:
 %mvn_file : %{name}
@@ -60,6 +60,12 @@ This package provides %{summary}.
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.7.0-2
+- Add missing build-requires
+
+* Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.7.0-1
+- Update to upstream version 6.7.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

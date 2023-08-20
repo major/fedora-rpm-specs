@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-anthy
-Version:    5.0.14
+Version:    5.1.0
 Release:    %autorelease
 Summary:    Anthy Wrapper for Fcitx5
 License:    GPLv2+
@@ -51,7 +51,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files -f %{name}.lang
 %license LICENSES/GPL-2.0-or-later.txt
 %doc README.md AUTHORS 
-%{_libdir}/fcitx5/anthy.so
+%{_libdir}/fcitx5/libanthy.so
 %{_datadir}/fcitx5/addon/anthy.conf
 %{_datadir}/fcitx5/anthy
 %{_datadir}/fcitx5/inputmethod/anthy.conf

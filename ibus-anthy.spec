@@ -18,7 +18,7 @@
 
 Name:           ibus-anthy
 Version:        1.5.14
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
@@ -156,6 +156,9 @@ make -C data check
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Fri Aug 18 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.14-15
+- Resolves #2232532 converting Super+Space to wide space character
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.14-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

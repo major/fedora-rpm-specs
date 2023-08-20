@@ -5,7 +5,7 @@
 %bcond_with tests
 
 Name:           dl-fedora
-Version:        0.9.5.1
+Version:        0.9.6
 Release:        %autorelease
 Summary:        Fedora image download tool
 
@@ -39,7 +39,7 @@ BuildRequires:  ghc-xdg-userdirs-devel
 # End cabal-rpm deps
 
 %description
-Tool to download Fedora iso and image files.
+Tool to download Fedora and Centos Stream iso and image files.
 
 
 %prep

@@ -1,15 +1,15 @@
 %bcond_with bootstrap
 
 Name:           extra-enforcer-rules
-Version:        1.5.1
-Release:        5%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        Extra rules for maven-enforcer-plugin
 License:        ASL 2.0
 URL:            https://github.com/mojohaus/extra-enforcer-rules
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/mojohaus/extra-enforcer-rules/archive/refs/tags/extra-enforcer-rules-%{version}.tar.gz
+Source0:        https://repo1.maven.org/maven2/org/codehaus/mojo/extra-enforcer-rules/%{version}/extra-enforcer-rules-%{version}-source-release.zip
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -20,9 +20,9 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.enforcer:enforcer-api)
 BuildRequires:  mvn(org.apache.maven.shared:maven-common-artifact-filters)
 BuildRequires:  mvn(org.apache.maven.shared:maven-dependency-tree)
-BuildRequires:  mvn(org.apache.maven:maven-compat)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.codehaus.mojo:mojo-parent:pom:)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
 
@@ -38,7 +38,7 @@ Summary: Javadoc for %{name}
 Javadoc for %{name}.
 
 %prep
-%setup -q -n extra-enforcer-rules-extra-enforcer-rules-%{version}
+%setup -q
 
 # Integration tests fetch upstream poms
 %pom_remove_plugin :maven-invoker-plugin
@@ -57,6 +57,9 @@ Javadoc for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7.0-1
+- Update to upstream version 1.7.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -14,7 +14,7 @@ Please refer to https://graph-tool.skewed.de/static/doc/index.html for
 documentation.}
 
 Name:           python-graph-tool
-Version:        2.57
+Version:        2.58
 Release:        %autorelease
 Summary:        Efficient network analysis tool written in Python
 

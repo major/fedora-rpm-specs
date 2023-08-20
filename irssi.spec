@@ -9,7 +9,7 @@
 Summary:	Modular text mode IRC client with Perl scripting
 Name:		irssi
 Version:	1.4.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 License:	GPLv2+
 URL:		http://irssi.org/
@@ -41,6 +41,8 @@ Requires:	perl(Symbol)
 # https://github.com/irssi/irssi/issues/1374
 Patch0:		irssi-1.4.1-botti-perl-link-fix.patch
 
+# https://github.com/irssi/irssi/pull/1474
+Patch1:		irssi-1.4.4-perl-ntype.patch
 
 %package devel
 Summary:	Development package for irssi
@@ -111,6 +113,10 @@ chmod -R u+w $RPM_BUILD_ROOT%{perl_vendorarch}
 
 
 %changelog
+* Thu Aug 18 2023 Boudhayan Bhattacharya <bbhtt.zn0i8@slmail.me> - 1.4.4-5
+- Add irssi perl-ntype patch for perl>=5.38
+  Resolves rhbz#2232750
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -459,7 +465,7 @@ chmod -R u+w $RPM_BUILD_ROOT%{perl_vendorarch}
 - Release bump
 
 * Sun Sep 17 2006 Dams <anvil[AT]livna.org> - 0.8.10-6.a
-- Bumped release 
+- Bumped release
 
 * Sun Sep 17 2006 Dams <anvil[AT]livna.org> - 0.8.10-5.a
 - Updated to 0.8.10a

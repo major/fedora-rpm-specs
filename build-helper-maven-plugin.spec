@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           build-helper-maven-plugin
-Version:        3.3.0
-Release:        5%{?dist}
+Version:        3.4.0
+Release:        1%{?dist}
 Summary:        Build Helper Maven Plugin
 License:        MIT
 URL:            https://www.mojohaus.org/build-helper-maven-plugin/
@@ -21,10 +21,11 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.shared:file-management)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.codehaus.mojo:mojo-parent:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
-BuildRequires:  mvn(org.testng:testng)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
 
 # TODO remove Provides / Obsoletes on maven-plugin-build-helper in Fedora 41
@@ -69,6 +70,9 @@ find -name BeanshellPropertyMojo.java -delete
 %license LICENSE.txt
 
 %changelog
+* Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.4.0-1
+- Update to upstream version 3.4.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:       fcitx5-table-other
-Version:    5.0.11
+Version:    5.1.0
 Release:    %autorelease
 Summary:    Other tables for Fcitx5
 License:    GPLv3

@@ -1,11 +1,11 @@
 %global srcname prometheus_client
 
 Name:           python-%{srcname}
-Version:        0.16.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        Python client for Prometheus
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/prometheus/client_python
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 Patch0001:      0001-Remove-the-bundled-decorator-package.patch

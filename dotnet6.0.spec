@@ -86,6 +86,8 @@ Source11:       dotnet.sh.in
 Patch100:       runtime-arm64-lld-fix.patch
 # Mono still has a dependency on (now unbuildable) ILStrip which was removed from CoreCLR: https://github.com/dotnet/runtime/pull/60315
 Patch101:       runtime-mono-remove-ilstrip.patch
+# Add Fedora 40 RIDs
+Patch102:       runtime-fedora-40-rid.patch
 
 # Disable apphost, needed for s390x
 Patch500:       fsharp-no-apphost.patch
@@ -389,9 +391,17 @@ ln -s %{_libdir}/dotnet/source-built-artifacts/Private.SourceBuilt.Artifacts.*.t
 # Fix bad hardcoded path in build
 sed -i 's|/usr/share/dotnet|%{_libdir}/dotnet|' src/runtime/src/native/corehost/hostmisc/pal.unix.cpp
 
+%if 0%{?fedora} == 40
+# Fix incorrectly using fedora.39 RIDs on fedora.40
+sed -i -E 's|(<PackAsTool>true</PackAsTool>)|\1<RuntimeIdentifier>%{runtime_id}</RuntimeIdentifier><SelfContained>false</SelfContained>|' \
+  src/aspnetcore/src/Tools/dotnet-dev-certs/src/dotnet-dev-certs.csproj \
+  src/aspnetcore/src/Tools/dotnet-user-secrets/src/dotnet-user-secrets.csproj \
+%endif
+
 pushd src/runtime
 %patch100 -p1
 %patch101 -p1
+%patch102 -p1
 popd
 
 pushd src/fsharp
@@ -440,6 +450,8 @@ cat /etc/os-release
 %if %{without bootstrap}
 # We need to create a copy because we will mutate this
 cp -a %{_libdir}/dotnet previously-built-dotnet
+sed -i -E 's|fedora.33|fedora.40|' previously-built-dotnet/sdk/6.0.120/RuntimeIdentifierGraph.json
+
 find previously-built-dotnet
 %endif
 

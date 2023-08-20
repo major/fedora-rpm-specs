@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-sayura
-Version:    5.0.8
+Version:    5.1.0
 Release:    %autorelease
 Summary:    Sinhala Transe IME engine for Fcitx5
 License:    GPLv2+

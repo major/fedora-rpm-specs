@@ -32,9 +32,9 @@
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        8.1.0
+Version:        8.3.0
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 
 # In addition to GPL-3.0-or-later, the following licenses apply.
 # License text that solely exists in file headers were not considered.
@@ -168,6 +168,9 @@ chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstac
 
 
 %changelog
+* Thu Aug 17 2023 Maxwell G <maxwell@gtmx.me> - 8.3.0-1
+- Update to 8.3.0.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

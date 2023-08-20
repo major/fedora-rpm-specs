@@ -10,9 +10,9 @@
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.15.2
+Version: 2.15.3
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -20,20 +20,18 @@ License: GPL-3.0-or-later AND BSD-2-Clause AND PSF-2.0 AND MIT AND Apache-2.0
 
 Source0: https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
 Source1: https://github.com/ansible/ansible-documentation/archive/v%{uversion}/ansible-documentation-%{uversion}.tar.gz
-Source2: build_manpages.py
 
-Patch: https://github.com/ansible/ansible/commit/734f38b2594692707d1fd3cbcfc8dc8a677f4ee3.patch#/GALAXY_COLLECTIONS_PATH_WARNINGS.patch
-# urls - remove deprecated client key calls (#80751)
-# This is needed for Python 3.12, but we apply it unconditionally so
-# controllers running on older Fedora versions can still work with Python 3.12
-# F39+ targets.
-Patch: https://github.com/ansible/ansible/commit/0df794e5a4fe4597ee65b0d492fbf0d0989d5ca0.patch#/urls-remove-deprecated-client-key-calls.patch
+# Add GALAXY_COLLECTIONS_PATH_WARNINGS option. (#78487)
+# Backport of https://github.com/ansible/ansible/pull/78487.
+Patch: GALAXY_COLLECTIONS_PATH_WARNINGS.patch
+
 # These patches are only applied on Rawhide to enable support for Python 3.12
 # See https://bugzilla.redhat.com/2196539
 #
 # Essential #
 # add Python 3.12 support to ansible-test (#80834)
-Patch5000: https://github.com/ansible/ansible/pull/80834.patch#/support-Python-3.12-in-ansible-test.patch
+# Slightly modified version of https://github.com/ansible/ansible/pull/80834
+Patch5000: support-Python-3.12-in-ansible-test.patch
 # Fix unit test asserts (#80500)
 Patch5001: https://github.com/ansible/ansible/commit/3ec828703f020551241b4169f6a3f07c701e240a.patch#/fix-unit-test-asserts.patch
 # Fix galaxy CLI unit test assertions (#80504)
@@ -158,13 +156,9 @@ echo 'python%{python3_pkgversion}-argcomplete'
 %pyproject_wheel
 
 # Build manpages
+mkdir -p docs/man/man1
+%{python3} packaging/cli-doc/build.py man --output-dir docs/man/man1
 
-# XXX: This should be removed once upstream provides a proper way to build
-# manpages from source.
-# See https://github.com/ansible/ansible/issues/80368
-# and the discussion in https://github.com/ansible/ansible/pull/80372
-# for more details.
-PYTHONPATH="$(pwd)/packaging" %{python3} %{S:2}
 
 %if %{with argcomplete}
 # Build shell completions
@@ -249,8 +243,8 @@ done
 mkdir -p %{buildroot}%{_sysconfdir}/ansible/
 mkdir -p %{buildroot}%{_sysconfdir}/ansible/roles/
 
-cp examples/hosts %{buildroot}/etc/ansible/
-cp examples/ansible.cfg %{buildroot}/etc/ansible/
+cp ansible-documentation-%{uversion}/examples/hosts %{buildroot}/etc/ansible/
+cp ansible-documentation-%{uversion}/examples/ansible.cfg %{buildroot}/etc/ansible/
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp -v docs/man/man1/*.1 %{buildroot}/%{_mandir}/man1/
 
@@ -272,7 +266,7 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 %files -f %{pyproject_files}
 %license COPYING
 %license %{_pkglicensedir}/{Apache-License,MIT-license,PSF-license,simplified_bsd}.txt
-%doc README.rst changelogs/CHANGELOG-v2.1?.rst
+%doc README.md changelogs/CHANGELOG-v2.1?.rst
 %dir %{_sysconfdir}/ansible/
 %config(noreplace) %{_sysconfdir}/ansible/*
 %{_bindir}/ansible*
@@ -291,6 +285,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Thu Aug 17 2023 Maxwell G <maxwell@gtmx.me> - 2.15.3-1
+- Update to 2.15.3. Fixes rhbz#2231963.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global srcname ijson
 
 Name:           python-%{srcname}
-Version:        3.2.0
+Version:        3.2.3
 Release:        %autorelease
 Summary:        Iterative JSON parser
 

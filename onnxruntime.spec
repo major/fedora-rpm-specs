@@ -54,7 +54,9 @@ BuildRequires:	onnx-devel = 1.14.0
 BuildRequires:  abseil-cpp-devel
 BuildRequires:  boost-devel >= 1.66
 BuildRequires:  bzip2
+%ifnarch ppc64le
 BuildRequires:  cpuinfo-devel
+%endif
 BuildRequires:  date-devel
 BuildRequires:  flatbuffers-compiler
 BuildRequires:  flatbuffers-devel
@@ -95,6 +97,11 @@ Documentation files for the %{name} package
 %autosetup -p1
 
 %build
+# Broken test in aarch64
+%ifarch aarch64
+rm -v onnxruntime/test/optimizer/nhwc_transformer_test.cc
+%endif
+
 # Re-generate flatbuffer headers
 %{__python3} onnxruntime/core/flatbuffers/schema/compile_schema.py --flatc %{_bindir}/flatc
 
@@ -109,7 +116,11 @@ Documentation files for the %{name} package
     -Donnxruntime_INSTALL_UNIT_TESTS=OFF \
     -Donnxruntime_BUILD_BENCHMARKS=OFF \
     -Donnxruntime_USE_PREINSTALLED_EIGEN=ON \
+%ifarch ppc64le
+    -Donnxruntime_ENABLE_CPUINFO=OFF \
+%else
     -Donnxruntime_ENABLE_CPUINFO=ON \
+%endif
     -Donnxruntime_DISABLE_ABSEIL=ON \
     -Deigen_SOURCE_PATH=/usr/include/eigen3 \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \

@@ -22,7 +22,10 @@ Patch5:         sourcex_missing_include.patch
 Patch6:         sourcex_onnxruntime-1.14.patch
 
 %global elements_version 6.2.1
-%global alexandria_version 2.30.1 
+%global alexandria_version 2.30.1
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval 
+ExcludeArch:    %{ix86}
 
 BuildRequires: make
 BuildRequires: CCfits-devel
@@ -44,7 +47,9 @@ BuildRequires: elements-doc = %{elements_version}
 BuildRequires: elements-alexandria-doc = %{alexandria_version}
 BuildRequires: doxygen
 BuildRequires: graphviz
+%ifnarch s390x %{arm}
 BuildRequires: onnxruntime-devel
+%endif
 BuildRequires: texlive-latex
 %if 0%{?fedora} >= 30
 BuildRequires: texlive-newunicodechar

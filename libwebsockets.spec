@@ -1,3 +1,4 @@
+%global _default_patch_fuzz 2
 # Absent libuv-devel on s390x at RHEL/CentOS 8
 %if 0%{?rhel} && 0%{?rhel} == 8 && "%{_arch}" == "s390x"
 %bcond_with libuv
@@ -7,7 +8,7 @@
 
 Name:           libwebsockets
 Version:        4.3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Lightweight C library for Websockets
 
 # base64-decode.c and ssl-http2.c is under MIT license with FPC exception.
@@ -17,6 +18,7 @@ Summary:        Lightweight C library for Websockets
 License:        LGPLv2 and Public Domain and BSD and MIT and zlib
 URL:            http://libwebsockets.org
 Source0:        https://github.com/warmcat/libwebsockets/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch1:         fix-openssl.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-g++
@@ -118,6 +120,9 @@ find %{buildroot} -name '*_static.pc' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Aug 18 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.3.2-5
+- Upstream patches for OpenSSLv3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

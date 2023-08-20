@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           python-immutabledict
-Version:        2.2.4
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Drop-in replacement for dictionaries where immutability is desired
 

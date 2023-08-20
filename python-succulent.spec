@@ -1,6 +1,9 @@
 %bcond_without tests
 # we do not build docs since current docs are immature
 
+
+%bcond_without doc_pdf
+
 %global pypi_name succulent
 
 %global _description %{expand:
@@ -15,7 +18,7 @@ via POST requests. }
 
 Name:           python-%{pypi_name}
 Version:        0.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collect POST requests
 
 License:        MIT
@@ -29,6 +32,14 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-toml-adapt
 BuildRequires:  python3-pytest
 
+%if %{with doc_pdf}
+BuildRequires:  make
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist sphinx-rtd-theme}
+BuildRequires:  %{py3_dist sphinxcontrib-bibtex}
+%endif
 
 %description %_description
 
@@ -36,6 +47,12 @@ BuildRequires:  python3-pytest
 Summary:        %{summary}
 
 %description -n python3-%{pypi_name} %_description
+
+%package doc
+Summary:        Documentation and examples for %{name}
+
+%description doc
+%{summary}.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
@@ -52,9 +69,13 @@ toml-adapt -path pyproject.toml -a change -dep pandas -ver X
 %build
 %pyproject_wheel
 
+%if %{with doc_pdf}
+%make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
+%endif
+
 %install
 %pyproject_install
-
 %pyproject_save_files succulent
 
 %check
@@ -66,7 +87,16 @@ toml-adapt -path pyproject.toml -a change -dep pandas -ver X
 %license LICENSE
 %doc README.md CHANGELOG.md CODE_OF_CONDUCT.md
 
+%files doc
+%license LICENSE
+%if %{with doc_pdf}
+%doc docs/_build/latex/succulent.pdf
+%endif
+
 %changelog
+* Fri Aug 18 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.2.5-2
+- Add subpackage for docs
+
 * Thu Aug 17 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.2.5-1
 - Update to 0.2.5
 

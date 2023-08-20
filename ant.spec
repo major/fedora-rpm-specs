@@ -40,7 +40,7 @@
 
 Name:           ant
 Version:        1.10.12
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Java build tool
 Summary(it):    Tool per la compilazione di programmi java
 Summary(fr):    Outil de compilation pour java
@@ -365,7 +365,7 @@ build-jar-repository -s -p lib/optional javapackages-bootstrap/junit javapackage
 %if %{with ant_minimal}
 build-jar-repository -s -p lib/optional junit hamcrest/core hamcrest/library
 %else
-build-jar-repository -s -p lib/optional antlr bcel javamail/mailapi jdepend junit oro regexp bsf commons-logging commons-net jsch xalan-j2 xml-commons-resolver xalan-j2-serializer hamcrest/core hamcrest/library xz-java junit5 opentest4j
+build-jar-repository -s -p lib/optional antlr bcel commons-lang3 javamail/mailapi jdepend junit oro regexp bsf commons-logging commons-net jsch xalan-j2 xml-commons-resolver xalan-j2-serializer hamcrest/core hamcrest/library xz-java junit5 opentest4j
 %endif
 %endif
 
@@ -497,7 +497,7 @@ echo "bsf commons-logging ant/ant-apache-bsf" > $RPM_BUILD_ROOT%{_sysconfdir}/%{
 echo "xml-commons-resolver ant/ant-apache-resolver" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/apache-resolver
 echo "apache-commons-logging ant/ant-commons-logging" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/commons-logging
 echo "apache-commons-net ant/ant-commons-net" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/commons-net
-echo "bcel ant/ant-apache-bcel" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/apache-bcel
+echo "bcel commons-lang3 ant/ant-apache-bcel" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/apache-bcel
 echo "oro ant/ant-apache-oro" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/apache-oro
 echo "regexp ant/ant-apache-regexp" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/apache-regexp
 echo "xalan-j2 xalan-j2-serializer ant/ant-apache-xalan2" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/apache-xalan2
@@ -655,6 +655,9 @@ LC_ALL=C.UTF-8 %{ant} test
 # -----------------------------------------------------------------------------
 
 %changelog
+* Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.12-11
+- Add transitive dependency on commons-lang3 through bcel
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.12-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

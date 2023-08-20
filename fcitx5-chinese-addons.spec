@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:           fcitx5-chinese-addons
-Version:        5.0.17
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Chinese related addon for fcitx5
 License:        LGPLv2+
@@ -91,6 +91,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_bindir}/scel2org5
 %{_libdir}/fcitx5/*.so
 %{_libdir}/fcitx5/qt5/libpinyindictmanager.so
+%{_libdir}/fcitx5/qt5/libcustomphraseeditor.so
 
 %files data
 %dir %{_datadir}/fcitx5/pinyin

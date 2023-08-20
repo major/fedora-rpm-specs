@@ -25,8 +25,8 @@
 
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
-Version:    1.0.1
-Release:    5%{?dist}
+Version:    1.0.2
+Release:    1%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -50,7 +50,7 @@ Source5:    clamd-README
 #http://database.clamav.net/main.cvd
 Source10:   main-62.cvd
 #http://database.clamav.net/daily.cvd
-Source11:   daily-26825.cvd
+Source11:   daily-26894.cvd
 #http://database.clamav.net/bytecode.cvd
 Source12:   bytecode-334.cvd
 #for update
@@ -250,20 +250,20 @@ This package contains files which are needed to run the clamav-milter.
 
 %prep
 %setup -q -n %{name}-%{version}%{?prerelease}
-sed -i -e 's/cbindgen = "0.20"/cbindgen = "0.24"/' libclamav_rust/Cargo.toml
+sed -i -e 's/cbindgen = "0.20"/cbindgen = "0.24"/' -e '/^bindgen *=/s/= .*/= "0.63"/' libclamav_rust/Cargo.toml
 %cargo_prep
 cd libclamav_rust
 rm -r .cargo
 %cargo_prep
 cd ..
 
-%patch0 -p1 -b .rustflags
-%patch1 -p1 -b .default_confs
-%patch2 -p1 -b .private
-%patch3 -p1 -b .rpath
-%patch5 -p1 -b .clamonacc-service
-%patch6 -p1 -b .freshclam-service
-%patch7 -p1 -b .big-endian
+%patch -P0 -p1 -b .rustflags
+%patch -P1 -p1 -b .default_confs
+%patch -P2 -p1 -b .private
+%patch -P3 -p1 -b .rpath
+%patch -P5 -p1 -b .clamonacc-service
+%patch -P6 -p1 -b .freshclam-service
+%patch -P7 -p1 -b .big-endian
 
 install -p -m0644 %{SOURCE300} clamav-milter/
 
@@ -568,6 +568,9 @@ exit 0
 
 
 %changelog
+* Fri Aug 18 2023 Orion Poplawski <orion@nwra.com> - 1.0.2-1
+- Update to 1.0.2 CVE-2023-20197 (bz#2232508)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

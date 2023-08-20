@@ -13,7 +13,8 @@
 
 # Python binding and its testing
 %bcond_without python
-%bcond_without pycheck
+# Python tests need Cython
+%bcond_with pycheck
 %global pymodule_name petsc4py
 %global pymodule_version %{version}
 #

@@ -8,8 +8,8 @@
 
 Name:  smoldyn
 Summary: A particle-based spatial stochastic simulator
-Version: 2.67.3
-Release: 6%{?dist}
+Version: 2.72
+Release: %autorelease
 
 # The rxnparam.c and SurfaceParam.c source code files are in the public domain.
 #
@@ -26,19 +26,11 @@ Source0: https://github.com/ssandrews/Smoldyn/archive/refs/tags/v%{version}/Smol
 
 # Fix library paths according to the Fedora Project guidelines
 Patch0: %{name}-fix_libpaths.patch
-
 Patch1: %{name}-freeglut.patch
 Patch2: %{name}-create_soname.patch
 Patch3: %{name}-avoid_automatic_wheel.patch
 
-Patch4: %{name}-bug121.patch
-Patch5: %{name}-bug123.patch
-
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: cmake
-%else
-BuildRequires: cmake3
-%endif
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: boost-devel
@@ -111,12 +103,10 @@ BuildRequires: python3-flaky
 
 %prep
 %autosetup -n Smoldyn-%{version} -N
-%patch0 -p0 -b .fix_libpaths
-%patch1 -p0 -b .freeglut
-%patch2 -p0 -b .create_soname
-%patch3 -p0 -b .avoid_automatic_wheel
-%patch4 -p1 -b .bug121
-%patch5 -p1 -b .bug123
+%patch -P 0 -p0 -b .fix_libpaths
+%patch -P 1 -p0 -b .freeglut
+%patch -P 2 -p0 -b .create_soname
+%patch -P 3 -p0 -b .avoid_automatic_wheel
 
 # Remove bundled archives
 rm -rf source/MSVClibs
@@ -154,7 +144,7 @@ find -name '*.pyc' -delete
 
 %build
 # Python binding needs shared libraries
-%cmake3 -Wno-dev -B build \
+%cmake -Wno-dev \
  -DCPACK_BINARY_STGZ:BOOL=OFF \
  -DCPACK_BINARY_TGZ:BOOL=OFF \
  -DCPACK_BINARY_TZ:BOOL=OFF \
@@ -182,21 +172,22 @@ find -name '*.pyc' -delete
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_SKIP_RPATH:BOOL=YES \
  -DHAVE_GL_FREEGLUT_H=TRUE -DOPTION_EXAMPLES:BOOL=OFF -DOPTION_DOCS:BOOL=OFF
-%make_build -C build
+%cmake_build
 
 %install
-%make_install -C build
-pushd build/py
+%cmake_install
+pushd %{__cmake_builddir}/py
 mkdir -p %{buildroot}%{python3_sitearch}
 cp -a smoldyn *.egg-info %{buildroot}%{python3_sitearch}/
 popd
 
 %check
 # Most tests look not executable
-cd build
+pushd %{__cmake_builddir}
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 xvfb-run ctest -j1 -VV -R "test_api|test_sanity|test_biosimulator" --output-on-failure --debug
+popd
 
 %files
 %{_bindir}/%{name}
@@ -206,11 +197,11 @@ xvfb-run ctest -j1 -VV -R "test_api|test_sanity|test_biosimulator" --output-on-f
 %license License.txt source/libSteve/SFMT/SFMT-LICENSE.txt LICENSE
 %{_libdir}/lib%{name}_shared.so.%{version}
 %{_libdir}/lib%{name}_shared.so.2
-%{_includedir}/%{name}/
 
 %files libs-devel
 %{_libdir}/lib%{name}_shared.so
 %{_libdir}/lib%{name}_static.a
+%{_includedir}/%{name}/
 
 %files -n python3-smoldyn
 %license License.txt source/libSteve/SFMT/SFMT-LICENSE.txt LICENSE
@@ -221,86 +212,4 @@ xvfb-run ctest -j1 -VV -R "test_api|test_sanity|test_biosimulator" --output-on-f
 %doc docs/*
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.67.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 2.67.3-5
-- Rebuilt for Python 3.12
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.67.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.67.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.67.3-2
-- Rebuilt for Python 3.11
-
-* Sat Mar 19 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.67.3-1
-- Release 2.67.3
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.66.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Oct 29 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.66.1-1
-- Release 2.66.1
-
-* Fri Sep 10 2021 Miro Hrončok <mhroncok@redhat.com> - 2.65-5
-- Remove unused Python 3.9 byte cache
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.65-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.65-3
-- Rebuilt for Python 3.10
-
-* Fri Jun 04 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.65-2
-- Add Provides for static libraries
-
-* Wed Jun 02 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.65-1
-- Release 2.65
-- Create Python binding
-- Create libraries
-
-* Sat Jan 30 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.63-2
-- Exclude example files (strange permissions)
-
-* Fri Jan 29 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.63-1
-- Release 2.63
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.61-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.61-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jul 24 2020 Jeff Law <law@redhat.com> - 2.61-4
-- Use  __cmake_in_source_build
-
-* Mon May 25 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.61-3
-- Fix patch for EPEL7
-
-* Mon May 25 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.61-2
-- Patched for using Boost169 on EPEL7
-
-* Sun May 24 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.61-1
-- Release 2.61
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.58-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Sep 17 2019 Gwyn Ciesla <gwync@protonmail.com> - 2.58-3
-- Rebuilt for new freeglut
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.58-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Mar 29 2019 Antonio Trande <sagitter@fedoraproject.org> - 2.58-1
-- Release 2.58
-
-* Sun Feb 03 2019 Antonio Trande <sagitter@fedoraproject.org> - 2.56-1
-- First package
-- Unbundle zlib, boost and BioNetGen
-- Remove unused header files
-- Fix file permissions
-- Add License file provided by upstream
+%autochangelog

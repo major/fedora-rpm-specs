@@ -2,24 +2,24 @@
 %global gsettings_desktop_schemas_version 3.21.2
 %global edataserver_version 3.45.1
 %global glib2_version 2.67.5
-%global gtk4_version 4.6.0
+%global gtk4_version 4.11.2
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calendar
-Version:        44.1
+Version:        45~beta
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 
 License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Apps/Calendar
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gtk-doc
 BuildRequires:  meson
-BuildRequires:  pkgconfig(geocode-glib-1.0)
+BuildRequires:  pkgconfig(geocode-glib-2.0)
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gsettings-desktop-schemas) >= %{gsettings_desktop_schemas_version}

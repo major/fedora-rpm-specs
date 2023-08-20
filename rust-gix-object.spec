@@ -5,7 +5,7 @@
 %global crate gix-object
 
 Name:           rust-gix-object
-Version:        0.33.1
+Version:        0.34.0
 Release:        %autorelease
 Summary:        Immutable and mutable git objects with decoding and encoding support
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused optional dependency that is only useful for building docs
 Patch:          gix-object-fix-metadata.diff
-# https://github.com/Byron/gitoxide/pull/958
-Patch:          0001-fix-test-for-struct-size-for-32-bit-architectures.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

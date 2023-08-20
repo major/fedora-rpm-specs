@@ -2,23 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/lestrrat-go/backoff
-%global goipath         github.com/lestrrat-go/backoff/v2
-Version:                2.0.8
+# https://github.com/juju/gnuflag
+%global goipath         github.com/juju/gnuflag
+Version:                1.0.0
 
 %gometa -f
 
 %global common_description %{expand:
-Backoff mechanics for Go.}
+GNU-compatible flag handling with a stdlib-like API for Go.}
 
 %global golicenses      LICENSE
 %global godocs          README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Backoff mechanics for Go
+Summary:        GNU-compatible flag handling with a stdlib-like API for Go
 
-License:        MIT
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
 
@@ -38,10 +38,6 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-for test in "TestExponential" \
-; do
-awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
-done
 %gocheck
 %endif
 

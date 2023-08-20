@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/lestrrat-go/backoff
-%global goipath         github.com/lestrrat-go/backoff/v2
-Version:                2.0.8
+# https://github.com/spkg/bom
+%global goipath         github.com/spkg/bom
+Version:                1.0.0
 
 %gometa -f
 
 %global common_description %{expand:
-Backoff mechanics for Go.}
+Strip UTF-8 byte order marks.}
 
-%global golicenses      LICENSE
+%global golicenses      LICENSE.md
 %global godocs          README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Backoff mechanics for Go
+Summary:        Strip UTF-8 byte order marks
 
 License:        MIT
 URL:            %{gourl}
@@ -38,10 +38,6 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-for test in "TestExponential" \
-; do
-awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
-done
 %gocheck
 %endif
 

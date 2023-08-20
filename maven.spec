@@ -6,8 +6,8 @@
 
 Name:           maven
 Epoch:          1
-Version:        3.9.1
-Release:        4%{?dist}
+Version:        3.9.4
+Release:        1%{?dist}
 Summary:        Java project management and project comprehension tool
 # maven itself is ASL 2.0
 # bundled slf4j is MIT
@@ -39,7 +39,6 @@ BuildRequires:  mvn(javax.annotation:javax.annotation-api)
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
-BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
@@ -56,6 +55,7 @@ BuildRequires:  mvn(org.apache.maven.shared:maven-shared-utils)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-file)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-http)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-provider-api)
+BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-cipher)
@@ -69,7 +69,7 @@ BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.fusesource.jansi:jansi)
-BuildRequires:  mvn(org.hamcrest:hamcrest-library)
+BuildRequires:  mvn(org.hamcrest:hamcrest)
 BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.slf4j:jcl-over-slf4j)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
@@ -298,6 +298,9 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %config %{_javaconfdir}/maven.conf-openjdk17
 
 %changelog
+* Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.4-1
+- Update to upstream version 3.9.4
+
 * Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.1-4
 - Build with default JDK 17
 

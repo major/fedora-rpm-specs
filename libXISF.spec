@@ -1,5 +1,5 @@
 Name:           libXISF
-Version:        0.2.8
+Version:        0.2.9
 Release:        %autorelease
 Summary:        Library to load and write XISF format
 License:        GPL-3.0-or-later
@@ -10,6 +10,7 @@ BuildRequires:  cmake >= 3.14
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(liblz4)
+BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(zlib)
 

@@ -110,7 +110,7 @@ sed -i -e '/^#!\//, 1d' asv/extern/asizeof.py
 %pyproject_wheel
 
 # generate html docs
-PYTHONPATH="%{pyproject_build_lib}" \
+PYTHONPATH="$PWD/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}" \
     sphinx-build-3 docs/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
@@ -142,6 +142,10 @@ git config --global protocol.file.allow always
 %ifarch x86_64 aarch64
 WEBDRIVER="--webdriver=ChromeHeadless"
 %endif
+# Since Python 3.12, virtualenv no longer installs the setuptools and wheel
+# packages which are needed to run the tests. The following environment
+# variables restore the old behaviour
+export VIRTUALENV_SETUPTOOLS=bundle VIRTUALENV_WHEEL=bundle
 %{pytest} -ra $WEBDRIVER \
 %if %{fedora} >= 34
     -k 'not test_web' \

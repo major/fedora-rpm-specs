@@ -1,6 +1,6 @@
 Name:           SDL2_sound
-Version:        2.0.1
-Release:        5%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        An abstract soundfile decoder library
 License:        zlib and LGPLv2+
 URL:            http://www.icculus.org/SDL_sound
@@ -11,10 +11,11 @@ BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  SDL2-devel
 # SDL_sound includes dr_flac and dr_mp3 from https://github.com/mackron/dr_libs
-Provides:       bundled(dr_flac) = 0.12.37
-Provides:       bundled(dr_mp3) = 0.6.32
+Provides:       bundled(dr_flac) = 0.12.39
+Provides:       bundled(dr_mp3) = 0.6.34
 # https://github.com/icculus/SDL_sound/issues/42
 Provides:       bundled(libmodplug) = 0.8.9.1
+Provides:       bundled(stb_vorbis) = 1.22
 # SDL_mixer fork, stripped further, see https://github.com/icculus/SDL_sound/tree/main/src/timidity/CHANGES
 Provides:       bundled(timidity) = 0.2i
 
@@ -33,6 +34,8 @@ behind-the-scenes, if the programmer desires.
 %package        devel
 Summary:        %{summary}
 Requires:       %{name}%{_isa} = %{version}-%{release}
+Requires:       cmake-filesystem
+Requires:       pkgconfig
 Requires:       SDL2-devel
 # manpages conflict
 Conflicts:      SDL_sound-devel
@@ -83,7 +86,7 @@ mv man3 %{buildroot}/%{_mandir}
 
 %files
 %license LICENSE.txt
-%doc docs/CREDITS.txt docs/README.txt
+%doc docs/CREDITS.txt README.md
 %{_bindir}/playsound
 %{_libdir}/libSDL2_sound.so.2{,.*}
 
@@ -92,9 +95,16 @@ mv man3 %{buildroot}/%{_mandir}
 %{_libdir}/libSDL2_sound.so
 %{_includedir}/SDL2/SDL_sound.h
 %{_mandir}/man3/*
+%{_libdir}/cmake/SDL2_sound
+%{_libdir}/pkgconfig/SDL2_sound.pc
 
 
 %changelog
+* Thu Aug 17 2023 Dominik Mierzejewski <dominik@greysector.net> - 2.0.2-1
+- update to 2.0.2 (#2218920)
+- update bundled dependencies versions
+- include cmake and pkgconfig files in -devel
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

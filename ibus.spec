@@ -52,7 +52,7 @@
 
 Name:           ibus
 Version:        1.5.29~beta2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -60,6 +60,7 @@ Source0:        https://github.com/ibus/%name/releases/download/%{source_version
 Source1:        %{name}-xinput
 Source2:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 %if 0%{?fedora:0}%{?rhel:1}
@@ -97,7 +98,6 @@ BuildRequires:  intltool
 BuildRequires:  git
 BuildRequires:  vala
 BuildRequires:  iso-codes-devel
-BuildRequires:  libdbusmenu-gtk3-devel
 BuildRequires:  libnotify-devel
 BuildRequires:  wayland-devel
 BuildRequires:  cldr-emoji-annotation
@@ -247,6 +247,17 @@ Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
 %description wayland
 This package contains IBus IM module for Wayland
 
+%package panel
+Summary:        IBus Panel icon
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+BuildRequires:  libdbusmenu-gtk3-devel
+
+%description panel
+This package contains IBus Panel icon using GtkStatusIcon or AppIndicator
+in non-GNOME desktop sessions likes XFCE or Plasma because gnome-shell
+shows the IBus Icon. This package depends on libdbusmenu-gtk3 for Wayland
+desktop sessions.
+
 %package devel
 Summary:        Development tools for ibus
 Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
@@ -297,6 +308,8 @@ the functionality of the installed %{name} package.
 # cp client/gtk2/ibusimcontext.c client/gtk3/ibusimcontext.c || :
 # cp client/gtk2/ibusim.c client/gtk3/ibusim.c || :
 # cp client/gtk2/ibusimcontext.c client/gtk4/ibusimcontext.c || :
+cp client/gtk2/ibusimcontext.c client/gtk3/ibusimcontext.c || :
+cp client/gtk2/ibusimcontext.c client/gtk4/ibusimcontext.c || :
 
 
 # prep test
@@ -441,7 +454,6 @@ dconf update || :
 %{_bindir}/ibus-daemon
 %{_datadir}/applications/org.freedesktop.IBus.Panel.Emojier.desktop
 %{_datadir}/applications/org.freedesktop.IBus.Panel.Extension.Gtk3.desktop
-%{_datadir}/applications/org.freedesktop.IBus.Panel.Wayland.Gtk3.desktop
 %{_datadir}/bash-completion/completions/ibus.bash
 %{_datadir}/dbus-1/services/*.service
 %{_datadir}/GConf/gsettings/*
@@ -462,7 +474,6 @@ dconf update || :
 %{_libexecdir}/ibus-portal
 %{_libexecdir}/ibus-extension-gtk3
 %{_libexecdir}/ibus-ui-emojier
-%{_libexecdir}/ibus-ui-gtk3
 %{_libexecdir}/ibus-x11
 %{_sysconfdir}/dconf/db/ibus.d
 %{_sysconfdir}/dconf/profile/ibus
@@ -526,6 +537,10 @@ dconf update || :
 %files wayland
 %{_libexecdir}/ibus-wayland
 
+%files panel
+%{_datadir}/applications/org.freedesktop.IBus.Panel.Wayland.Gtk3.desktop
+%{_libexecdir}/ibus-ui-gtk3
+
 %files devel
 %{_libdir}/ibus
 %{_libdir}/lib*.so
@@ -557,6 +572,11 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Aug 18 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta2-2
+- Separate ibus-ui-gtk3 as ibus-panel sub package depended on libdbusmenu
+- Update autogen.sh for Fedora 39
+- Fix cursor position with GTK4 in Xorg
+
 * Tue Aug 08 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta2-1
 - Distinguish Arabic XKB and Keypad XKB options
 

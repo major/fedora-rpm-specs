@@ -2,8 +2,8 @@
 
 Name:           maven-resolver
 Epoch:          1
-Version:        1.9.7
-Release:        4%{?dist}
+Version:        1.9.15
+Release:        1%{?dist}
 License:        ASL 2.0
 Summary:        Apache Maven Artifact Resolver library
 URL:            https://maven.apache.org/resolver/
@@ -18,18 +18,18 @@ Patch0:         0001-Remove-use-of-deprecated-SHA-1-and-MD5-algorithms.patch
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.google.guava:failureaccess)
-BuildRequires:  mvn(com.google.guava:guava)
 BuildRequires:  mvn(com.google.inject:guice)
+BuildRequires:  mvn(commons-codec:commons-codec)
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(javax.servlet:javax.servlet-api)
 BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.httpcomponents:httpcore)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-provider-api)
+BuildRequires:  mvn(org.apache.maven:maven-model-builder)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
+BuildRequires:  mvn(org.apache.maven:maven-resolver-provider)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
@@ -65,7 +65,8 @@ artifact transports and artifact resolution.
 %setup -q
 %patch0 -p1
 
-# requires internet connection
+# Skip tests that equire internet connection
+rm maven-resolver-supplier/src/test/java/org/eclipse/aether/supplier/RepositorySystemSupplierTest.java
 rm maven-resolver-transport-http/src/test/java/org/eclipse/aether/transport/http/{HttpServer,HttpTransporterTest}.java
 %pom_remove_dep org.eclipse.jetty: maven-resolver-transport-http
 
@@ -118,6 +119,9 @@ done
 %license LICENSE NOTICE
 
 %changelog
+* Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.15-1
+- Update to upstream version 1.9.15
+
 * Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.7-4
 - Build with default JDK 17
 

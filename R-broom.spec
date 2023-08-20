@@ -1,5 +1,5 @@
 %global packname broom
-%global packver  1.0.4
+%global packver  1.0.5
 %global rlibdir  %{_datadir}/R/library
 
 # Too many optional things.
@@ -13,8 +13,8 @@
 %endif
 
 Name:             R-%{packname}
-Version:          1.0.4
-Release:          3%{?dist}
+Version:          %{packver}
+Release:          %autorelease
 Summary:          Convert Statistical Objects into Tidy Tibbles
 
 License:          MIT
@@ -59,7 +59,6 @@ BuildRequires:    R-mgcv
 BuildRequires:    R-multcomp
 BuildRequires:    R-nnet
 BuildRequires:    R-orcutt >= 2.2
-BuildRequires:    R-rgeos
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-sp
 BuildRequires:    R-spelling
@@ -187,79 +186,4 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples --no
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.4-2
-- R-maint-sig mass rebuild
-
-* Tue Mar 14 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.4-1
-- update to 1.0.4
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Sep 04 2022 Iñaki Úcar <iucar@fedoraproject.org> - 0.7.7-5
-- R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 16 2021 Tom Callaway <spot@fedoraproject.org> - 0.7.7-1
-- update to 0.7.7
-- Rebuilt for R 4.1.0
-
-* Tue Apr 06 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.6-1
-- Update to latest version (#1946374)
-
-* Tue Feb 23 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.5-1
-- Update to latest version (#1922307)
-
-* Sun Feb 07 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.4-1
-- Update to latest version (#1922307)
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Dec 24 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.3-1
-- Update to latest version (#1908491)
-
-* Wed Oct 21 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.2-1
-- Update to latest version (#1889641)
-
-* Fri Oct 02 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.1-1
-- Update to latest version (#1884443)
-
-* Mon Sep 07 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.0-1
-- Update to latest version (#1855314)
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jun  8 2020 Tom Callaway <spot@fedoraproject.org> - 0.5.6-2
-- rebuild for R 4
-- move geepack under with_suggests to break loop
-
-* Thu May 21 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.5.6-1
-- Update to latest version
-
-* Sun Mar 01 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.5.5-1
-- Update to latest version
-
-* Mon Feb 24 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.5.4-1
-- Update to latest version
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jan 08 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.5.3-2
-- Fix line endings
-
-* Wed Jan 08 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.5.3-1
-- initial package for Fedora
+%autochangelog

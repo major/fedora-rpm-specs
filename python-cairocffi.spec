@@ -1,8 +1,8 @@
 %global srcname cairocffi
 
 Name:           python-cairocffi
-Version:        1.5.1
-Release:        3%{?dist}
+Version:        1.6.1
+Release:        1%{?dist}
 Summary:        cffi-based cairo bindings for Python
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/cairocffi/
@@ -39,7 +39,6 @@ Requires:       gtk3
 %prep
 %autosetup -n cairocffi-%{version} -p1
 sed -i -e 's/, "flake8"//' -e 's/, "isort"//' pyproject.toml
-rmdir SPECPARTS
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -61,6 +60,9 @@ rmdir SPECPARTS
 %doc README.rst
 
 %changelog
+* Thu Aug 17 2023 Orion Poplawski <orion@nwra.com> - 1.6.1-1
+- Update to 1.6.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:           python-basemap
-Version:        1.3.7
-Release:        4%{?dist}
+Version:        1.3.8
+Release:        1%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
 License:        LGPL-2.1-or-later
 URL:            https://matplotlib.org/basemap/
@@ -93,6 +93,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Aug 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3.8-1
+- 1.3.8
+
 * Sun Jul 30 2023 Sandro <devel@penguinpee.nl> - 1.3.7-4
 - Use Cython compat package (RHBZ#2220128 RHBZ#2226160)
 

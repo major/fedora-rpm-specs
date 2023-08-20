@@ -138,9 +138,9 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.19.0
-%global baserelease 3
+%global baserelease 4
 # This should be rc1 or %%nil
-%global pre_release rc2
+%global pre_release rc3
 
 %global samba_release %{baserelease}
 %if "x%{?pre_release}" != "x"
@@ -4450,6 +4450,9 @@ fi
 %endif
 
 %changelog
+* Fri Aug 18 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.0-0.4.rc3
+- resolves: #2232744 - Update to version 4.19.0rc3
+
 * Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:4.19.0-0.3.rc2
 - Move ad-claims and authn-policy-util to dc-libs
 

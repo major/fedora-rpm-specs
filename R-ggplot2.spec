@@ -1,5 +1,5 @@
 %global packname ggplot2
-%global packver  3.4.2
+%global packver  3.4.3
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((Hmisc|maptools|quantreg|sf|vdiffr)\\)
@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          %autorelease
 Summary:          Create Elegant Data Visualisations Using the Grammar of Graphics
 
 License:          MIT
@@ -41,6 +41,7 @@ BuildRequires:    R-stats
 BuildRequires:    R-tibble
 BuildRequires:    R-vctrs >= 0.5.0
 BuildRequires:    R-withr >= 2.5.0
+
 BuildRequires:    R-dplyr
 BuildRequires:    R-ggplot2movies
 BuildRequires:    R-hexbin
@@ -54,7 +55,6 @@ BuildRequires:    R-nlme
 BuildRequires:    R-profvis
 BuildRequires:    R-ragg
 BuildRequires:    R-RColorBrewer
-BuildRequires:    R-rgeos
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-rpart
 BuildRequires:    R-svglite >= 1.2.0.9001
@@ -120,67 +120,4 @@ _R_CHECK_FORCE_SUGGESTS_=0 VDIFFR_RUN_TESTS=false %{_bindir}/R CMD check %{packn
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.2-2
-- R-maint-sig mass rebuild
-
-* Mon Apr  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.4.2-1
-- update to 3.4.2
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 3.3.6-1
-- update to 3.3.6
-- rebuild for R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jun 15 2021 Tom Callaway <spot@fedoraproject.org> - 3.3.3-3
-- Rebuilt for R 4.1.0
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Dec 30 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.3.3-1
-- Update to latest version (#1911726)
-
-* Mon Aug 03 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.3.2-1
-- Update to latest version (rhbz#1810676)
-
-* Sun Aug 02 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.2.1-5
-- Add R-profvis to BuildRequires
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Jun  7 2020 Tom Callaway <spot@fedoraproject.org> - 3.2.1-3
-- ignore vignettes... actually, just disable check
-- rebuild for R 4
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Aug 26 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.2.1-1
-- Update to latest version
-
-* Sun Aug 11 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.1.1-3
-- Remove explicit dependencies provided by automatic dependency generator
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Apr 07 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.1.1-1
-- Update to latest version
-
-* Wed Mar 13 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.1.0-1
-- initial package for Fedora
+%autochangelog

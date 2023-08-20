@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           fcitx5
-Version:        5.0.23
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Next generation of fcitx
 License:        LGPLv2+
@@ -13,9 +13,6 @@ Source1:        https://download.fcitx-im.org/fcitx5/fcitx5/fcitx5-%{version}_di
 Source2:        https://pgp.key-server.io/download/0x8E8B898CBF2412F9
 Source3:        fcitx5-xinput
 Source4:        fcitx5.sh
-
-# https://github.com/fcitx/fcitx5/commit/7fb3a5500270877d93b61b11b2a17b9b8f6a506b
-Patch100:       fcitx5-fmt10-fixes.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
