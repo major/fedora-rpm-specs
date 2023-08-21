@@ -1,20 +1,28 @@
 Name:           dtkcore
-Version:        5.5.30
+Version:        5.6.13
 Release:        %autorelease
 Summary:        Deepin tool kit core modules
-License:        LGPLv3+
+# migrated to SPDX
+License:        LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dtkcore
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  dtkcommon-devel
+BuildRequires:  libicu-devel
 BuildRequires:  pkgconfig(gsettings-qt)
+BuildRequires:  pkgconfig(uchardet)
 BuildRequires:  gtest-devel
-BuildRequires:  make
+BuildRequires:  cmake
+BuildRequires:  qt5-doctools
+BuildRequires:  %{_bindir}/doxygen
 
 # Qt5 private headers needed
 BuildRequires:  qt5-qtbase-private-devel
 
 Requires:       dtkcommon%{_isa}
+Requires:       deepin-desktop-base
+Requires:       lshw
+
 
 # since f30
 Obsoletes:      deepin-tool-kit <= 0.3.3
@@ -35,40 +43,36 @@ Header files and libraries for %{name}.
 
 %prep
 %autosetup -p1
+sed -i 's|/etc/os-version|/etc/uos-version|' src/dsysinfo.cpp
 
 %build
-# help find (and prefer) qt5 utilities, e.g. qmake, lrelease
 export PATH=%{_qt5_bindir}:$PATH
-%qmake_qt5 PREFIX=%{_prefix} \
-           DTK_VERSION=%{version} \
-           LIB_INSTALL_DIR=%{_libdir} \
-           BIN_INSTALL_DIR=%{_libexecdir}/dtk5 \
-           TOOL_INSTALL_DIR=%{_libexecdir}/dtk5
-%make_build
+%cmake -DBUILD_DOCS=ON \
+       -DBUILD_EXAMPLES=OFF \
+       -DQCH_INSTALL_DESTINATION=%{_qt5_docdir}
+%cmake_build
 
 %install
-%make_install INSTALL_ROOT=%{buildroot}
+%cmake_install
 
 %files
 %doc README.md
 %license LICENSE
 %{_libdir}/lib%{name}.so.5*
-%dir %{_libexecdir}/dtk5/
-%{_libexecdir}/dtk5/dtk-settings
-%{_libexecdir}/dtk5/dtk-license.py
-%{_libexecdir}/dtk5/dtk-translate.py
-%{_libexecdir}/dtk5/deepin-os-release
-%{_prefix}/bin/qdbusxml2cpp-fix
+%{_libexecdir}/dtk5/
 
 %files devel
-%doc doc/Specification.md
-%{_includedir}/libdtk-*/
+%doc docs/Specification.md
+%{_includedir}/dtk5/
 %{_qt5_archdatadir}/mkspecs/modules/*.pri
-%{_libdir}/cmake/DtkCore*/
-%{_libdir}/cmake/DtkCMake*/
-%{_libdir}/cmake/DtkTools*/
-%{_libdir}/pkgconfig/dtkcore*.pc
+%{_qt5_archdatadir}/mkspecs/features/*.prf
+%{_libdir}/cmake/DtkCore/
+%{_libdir}/cmake/DtkCMake/
+%{_libdir}/cmake/DtkDConfig/
+%{_libdir}/cmake/DtkTools/
+%{_libdir}/pkgconfig/dtkcore.pc
 %{_libdir}/lib%{name}.so
+%{_qt5_docdir}/%{name}.qch
 
 %changelog
 %autochangelog

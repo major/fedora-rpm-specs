@@ -4,13 +4,11 @@
 %global __provides_exclude_from ^%{_libdir}/security/.*\.so$
 
 Name:           deepin-pw-check
-Version:        5.1.8
+Version:        5.1.18
 Release:        %autorelease
 Summary:        Tool used to check password and manager the configuration for password
-# The entire code is GPLv3+ except
-# lib/md5.c is Public Domain and
-# lib/md5_crypt.c is Beerware
-License:        GPLv3+ and Public Domain and Beerware
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/deepin-pw-check
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:         0001-Adapt-to-Fedora-cracklib-API.patch
@@ -44,14 +42,15 @@ adapt to fingerprint, face and other authentication methods.
 
 %prep
 %autosetup -p1
-sed -i -e 's|\${PREFIX}/lib/deepin-pw-check|${PREFIX}/libexec/deepin-pw-check|;  s|\${PREFIX}/lib$|\${PREFIX}/%{_lib}|; s|cp |cp -a |' Makefile
-sed -i -e 's|/usr/lib|%{_libexecdir}|' misc/system-services/com.deepin.daemon.PasswdConf.service
-sed -i -e 's|/usr/lib|%{_libdir}|' misc/pkgconfig/libdeepin_pw_check.pc
 
-%build
+sed -i -e 's|\${PREFIX}/lib$|\${PREFIX}/%{_lib}|; s|cp |cp -a |' Makefile
+sed -i -e 's|/usr/lib|%{_libdir}|' misc/pkgconfig/libdeepin_pw_check.pc
+sed -i 's|sprintf(outbuf, err_to_string|sprintf(outbuf, "%s", err_to_string|' pam/pam.c
+
 # expand build_ldflags at %%build section, RHBZ#2044028
 sed -i 's|gcc |gcc %{build_cflags} %{build_ldflags} |' Makefile
 
+%build
 # manually build the deepin-pw-check command since it is hard to override
 # Makefile with %%gobuild
 make prepare
@@ -62,7 +61,6 @@ export GOPATH=%{gopath}
 %make_build
 
 %install
-mkdir -p %{buildroot}/%{_sysconfdir}/deepin
 export GOPATH=%{gopath}
 export PKG_FILE_DIR=%{_libdir}/pkgconfig
 %make_install PKG_FILE_DIR=%{_libdir}/pkgconfig PAM_MODULE_DIR=%{_libdir}/security
@@ -74,9 +72,8 @@ rm -v %{buildroot}%{_libdir}/*.a
 %files -f deepin-pw-check.lang
 %doc README.md
 %license LICENSE
-%dir %{_sysconfdir}/deepin
 %{_bindir}/pwd-conf-update
-%{_libexecdir}/deepin-pw-check/
+%{_prefix}/lib/deepin-pw-check/
 %{_libdir}/libdeepin_pw_check.so.1*
 %{_libdir}/security/pam_deepin_pw_check.so
 %{_datadir}/dbus-1/system-services/*.service

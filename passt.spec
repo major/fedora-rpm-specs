@@ -7,12 +7,12 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 289301b39c40dfb9f48f54d9848fbc19a17523ba
+%global git_hash 0af928eaa020c1062fdc91598dfdc533966e2afe
 %global selinuxtype targeted
 
 Name:		passt
-Version:	0^20230627.g289301b
-Release:	2%{?dist}
+Version:	0^20230818.g0af928e
+Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPLv2+ and BSD
 Group:		System Environment/Daemons
@@ -54,10 +54,17 @@ This package adds SELinux enforcement to passt(1) and pasta(1).
 %make_build VERSION="%{version}-%{release}.%{_arch}"
 
 %install
+
 %make_install DESTDIR=%{buildroot} prefix=%{_prefix} bindir=%{_bindir} mandir=%{_mandir} docdir=%{_docdir}/%{name}
+# The Makefile creates symbolic links for pasta, but we need hard links for
+# SELinux file contexts to work as intended. Same with pasta.avx2 if present.
+ln -f %{buildroot}%{_bindir}/passt %{buildroot}%{_bindir}/pasta
 %ifarch x86_64
+ln -f %{buildroot}%{_bindir}/passt.avx2 %{buildroot}%{_bindir}/pasta.avx2
+
 ln -sr %{buildroot}%{_mandir}/man1/passt.1 %{buildroot}%{_mandir}/man1/passt.avx2.1
 ln -sr %{buildroot}%{_mandir}/man1/pasta.1 %{buildroot}%{_mandir}/man1/pasta.avx2.1
+install -p -m 755 %{buildroot}%{_bindir}/passt.avx2 %{buildroot}%{_bindir}/pasta.avx2
 %endif
 
 pushd contrib/selinux
@@ -107,6 +114,10 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 
 %changelog
+* Fri Aug 18 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230818.g0af928e-1
+- Install pasta as hard link to ensure SELinux file context match
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_06_27.289301b..2023_08_18.0af928e
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0^20230627.g289301b-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

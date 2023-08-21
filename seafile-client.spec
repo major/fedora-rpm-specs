@@ -1,15 +1,15 @@
 %global _hardened_build 1
 
 Name:           seafile-client
-Version:        8.0.10
-Release:        3%{?dist}
+Version:        9.0.3
+Release:        1%{?dist}
 Summary:        Seafile cloud storage desktop client
 
-# main source:  Apache 2.0
-# quazip:       LGPL 2.1 with static linking exception
+# main source:  Apache-2.0
+# quazip:       LGPL-2.1-or-later with static linking exception
 # QtAwesome:    MIT
-# fontawesome:  OFL
-License:        ASL 2.0 and LGPLv2 and MIT and OFL
+# FontAwesome:  OFL-1.1
+License:        ASL 2.0 and LGPLv2+ and MIT and OFL
 URL:            https://www.seafile.com/
 Source0:        https://github.com/haiwen/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        seafile.appdata.xml
@@ -22,21 +22,21 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 
-BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(libevent)
-BuildRequires:  pkgconfig(libsearpc)
 BuildRequires:  pkgconfig(libseafile) = %{version}
+BuildRequires:  pkgconfig(libsearpc)
 BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(zlib)
+BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtwebengine-devel
-BuildRequires:  qt5-linguist
 
 # 3.x.unidentified with local changes
 Provides:       bundled(QtAwesome)
 Provides:       bundled(fontawesome-fonts) = 3.2.1
-Provides:       bundled(quazip) = 0.7.3
+Provides:       bundled(quazip) = 0.9.1^20200820git2ea6bdf
 Requires:       seafile = %{version}
 
 
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 
 
 %changelog
+* Wed Aug 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.3-1
+- Update to 9.0.3
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://github.com/linuxdeepin/go-dbus-factory
 %global goipath         github.com/linuxdeepin/go-dbus-factory
-Version:                1.10.20
+Version:                1.11.2
 %global tag             %{version}
 
 %gometa
@@ -17,7 +17,8 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        Go DBus factory for Deepin Desktop Environment
 
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            %{gourl}
 Source0:        %{gosource}
 

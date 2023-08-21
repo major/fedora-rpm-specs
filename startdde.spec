@@ -7,20 +7,14 @@
 %endif
 
 Name:           startdde
-Version:        5.9.32
+Version:        5.10.1
 Release:        %autorelease
 Summary:        Starter of deepin desktop environment
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/startdde
-%if 0%{?openeuler}
-Source0:        %{name}_%{version}.orig.tar.xz
-
-BuildRequires:  gocode
-Requires:       gocode
-Requires:       libXfixes
-Requires:       libXcursor
-%else
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         0001-Run-lspci-with-full-path-on-Fedora.patch
 ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 %{arm}}
 
 BuildRequires:  compiler(go-compiler)
@@ -32,8 +26,6 @@ BuildRequires:  golang(github.com/davecgh/go-spew/spew)
 BuildRequires:  golang(golang.org/x/xerrors)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
-%endif
-
 BuildRequires:  golang
 BuildRequires:  jq
 BuildRequires:  glib2-devel
@@ -52,6 +44,8 @@ Requires:       %{dde_prefix}-daemon
 Requires:       procps
 Requires:       deepin-desktop-schemas
 Requires:       %{dde_prefix}-kwin
+# for lspci command
+Requires:       pciutils
 Recommends:     %{dde_prefix}-qt5integration
 
 %description
@@ -61,10 +55,8 @@ Recommends:     %{dde_prefix}-qt5integration
 %autosetup -p1 -n %{name}-%{version}
 ## Scripts in /etc/X11/Xsession.d are not executed after xorg start
 sed -i 's|X11/Xsession.d|X11/xinit/xinitrc.d|g' Makefile
-# fix deepin-daemon executables path
-find * -type f -not -path "rpm/*" -print0 | xargs -0 sed -i 's:/lib/deepin-daemon/:/libexec/deepin-daemon/:'
-# fix dde-polkit-agent path
-sed -i '/polkit/s|lib|libexec|' watchdog/dde_polkit_agent.go
+
+sed -i 's|/etc/os-version|/etc/uos-version|' vm.go utils.go misc/Xsession.d/00deepin-dde-env
 
 %build
 make prepare
@@ -104,8 +96,9 @@ fi
 %{_datadir}/xsessions/deepin.desktop
 %{_datadir}/lightdm/lightdm.conf.d/60-deepin.conf
 %{_datadir}/%{name}/
-%{_libexecdir}/deepin-daemon/greeter-display-daemon
+%{_prefix}/lib/deepin-daemon/greeter-display-daemon
 %{_datadir}/glib-2.0/schemas/*
+%{_datadir}/dsg/
 
 %changelog
 %autochangelog

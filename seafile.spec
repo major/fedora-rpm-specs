@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           seafile
-Version:        8.0.10
-Release:        4%{?dist}
+Version:        9.0.3
+Release:        1%{?dist}
 Summary:        Cloud storage cli client
 
 License:        GPLv2
@@ -64,9 +64,6 @@ sed -i -e /\(DESTDIR\)/d lib/libseafile.pc.in
 %install
 %make_install
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
-find %{buildroot} -name 'seafile.desktop' -exec rm -f {} ';'
-
-%ldconfig_scriptlets
 
 
 %files
@@ -88,6 +85,9 @@ find %{buildroot} -name 'seafile.desktop' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Aug 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.3-1
+- Update to 9.0.3
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

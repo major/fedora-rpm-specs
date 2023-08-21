@@ -3,10 +3,11 @@
 %global _enable_wayland 0
 
 Name:           deepin-%{repo}
-Version:        5.0.59.1
+Version:        5.6.12
 Release:        %autorelease
 Summary:        Qt platform integration plugins for Deepin Desktop Environment
-License:        GPLv3+
+# migrated to SPDX
+License:        LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/%{repo}
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 BuildRequires:  gcc-c++

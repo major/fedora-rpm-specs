@@ -1,14 +1,14 @@
 %undefine __cmake_in_source_build
 
 Name:           seadrive-gui
-Version:        2.0.22
-Release:        4%{?dist}
+Version:        2.0.28
+Release:        1%{?dist}
 Summary:        GUI part of Seafile Drive client
 
-# main source:  Apache 2.0
+# main source:  Apache-2.0
 # QtAwesome:    MIT
-# fontawesome:  OFL
-License:        ASL 2.0 and MIT and OFL
+# FontAwesome:  OFL-1.1
+License:        Apache-2.0 AND MIT AND OFL-1.1
 URL:            https://seafile.com
 Source0:        https://github.com/haiwen/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        seadrive.appdata.xml
@@ -59,6 +59,8 @@ enables you to access files on the server without syncing to local disk.
 
 %prep
 %autosetup -p1
+# ensure that these don't affect the build
+rm -rf third_party/{CrawlScopeCommandLine,macfuse.fs,MPMessagePack.framework,WinSparkle-0.5.3}
 
 
 %build
@@ -87,6 +89,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seadrive.appda
 %{_metainfodir}/seadrive.appdata.xml
 
 %changelog
+* Wed Aug 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.0.28-1
+- Update to 2.0.28 (#2232277)
+- Convert License tag to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

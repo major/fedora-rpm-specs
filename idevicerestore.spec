@@ -14,6 +14,8 @@ Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 %else
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 %endif
+# Add support for mac mini m2 pro
+Patch:          %{url}/pull/586.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake

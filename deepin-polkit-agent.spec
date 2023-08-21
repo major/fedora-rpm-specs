@@ -1,10 +1,11 @@
 %global repo dde-polkit-agent
 
 Name:           deepin-polkit-agent
-Version:        5.4.14
+Version:        5.4.17
 Release:        %autorelease
 Summary:        Deepin Polkit Agent
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dde-polkit-agent
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
@@ -35,8 +36,6 @@ Header files and libraries for %{name}.
 
 %prep
 %setup -q -n %{repo}-%{version}
-sed -i 's|/usr/lib|%{_libexecdir}|' dde-polkit-agent.pro polkit-dde-authentication-agent-1.desktop \
-    pluginmanager.cpp
 
 # https://github.com/linuxdeepin/developer-center/issues/1721
 sed -i 's/bool is_deepin = true/bool is_deepin = false/' policykitlistener.cpp
@@ -56,7 +55,7 @@ export PATH=%{_qt5_bindir}:$PATH
 %files
 %doc README.md
 %license LICENSE
-%{_libexecdir}/polkit-1-dde/
+%{_prefix}/lib/polkit-1-dde/
 %{_datadir}/%{repo}/
 
 %files devel

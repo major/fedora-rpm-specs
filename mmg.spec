@@ -1,6 +1,6 @@
 Name:           mmg
 Version:        5.7.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Surface and volume remeshers
 
 License:        LGPL-3.0-or-later
@@ -196,6 +196,9 @@ install -Dpm 0644 doc/man/mmg3d.1.gz %{buildroot}%{_mandir}/man1/mmg3d.1.gz
 
 
 %changelog
+* Sat Aug 19 2023 Sandro Mani <manisandro@gmail.com> - 5.7.1-5
+- Rebuild (scotch)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

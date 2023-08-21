@@ -3,7 +3,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ispc
-Version:	1.19.0
+Version:	1.21.0
 %if %{with_snapshot}
 Release:	%autorelease -p -s 20230102git%{shortcommit}
 %else
@@ -34,16 +34,11 @@ BuildRequires:	pkgconfig(python3)
 %ifarch x86_64
 BuildRequires:	/usr/lib/crt1.o
 %endif
+BuildRequires:  pkgconfig(tbb)
 BuildRequires:	pkgconfig(zlib)
 
 # Upstream only supports these architectures
 ExclusiveArch:	x86_64 aarch64
-
-# Include missing #include <cstdint> from gcc 13
-# https://github.com/EttusResearch/uhd/pull/652
-%if 0%{?fedora} > 37
-Patch:		0001-ipsc-include-cstdint.patch 
-%endif
 
 %description
 A compiler for a variant of the C programming language, with extensions for
@@ -104,13 +99,13 @@ sed -i 's| -Werror ||g' CMakeLists.txt
 %license LICENSE.txt
 %{_bindir}/%{name}
 %{_bindir}/check_isa
-%{_libdir}/lib%{name}rt.so.1
-%{_libdir}/lib%{name}rt.so.%{version}
-
+%{_libdir}/lib%{name}rt.so.{1,%{version}}
+%{_libdir}/lib%{name}rt_device_cpu.so.{1,%{version}}
 %files devel
 %{_includedir}/%{name}rt/
 %{_libdir}/cmake/%{name}rt-%{version}/
 %{_libdir}/lib%{name}rt.so
+%{_libdir}/lib%{name}rt_device_cpu.so
 
 %files static
 %license LICENSE.txt

@@ -1,11 +1,14 @@
 Name:           dtkwidget
-Version:        5.5.41
+Version:        5.6.12
 Release:        %autorelease
 Summary:        Deepin tool kit widget modules
-License:        LGPLv3+
+# migrated to SPDX
+License:        LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dtkwidget
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:  cmake
+BuildRequires:  %{_bindir}/doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtbase-static
@@ -20,6 +23,7 @@ BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5Svg)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:  pkgconfig(Qt5UiPlugin)
 BuildRequires:  pkgconfig(dframeworkdbus)
 BuildRequires:  pkgconfig(gsettings-qt)
 BuildRequires:  pkgconfig(libudev)
@@ -57,26 +61,31 @@ Header files and libraries for %{name}.
 %build
 # help find (and prefer) qt5 utilities, e.g. qmake, lrelease
 export PATH=%{_qt5_bindir}:$PATH
-%qmake_qt5 PREFIX=%{_prefix} LIB_INSTALL_DIR=%{_libdir} DBUS_VERSION_0_4_2=YES
-%make_build
+%cmake -DHUNTER_ENABLED=OFF \
+       -DLINUXNAME="fedora" \
+       -DNOTPACKAGE=OFF \
+       -DBUILD_DOCS=ON \
+       -DQCH_INSTALL_DESTINATION=%{_qt5_docdir}
+%cmake_build
 
 %install
-%make_install INSTALL_ROOT=%{buildroot}
+%cmake_install
 
 %files
 %doc README.md
 %license LICENSE
 %{_libdir}/lib%{name}.so.5*
-%{_libdir}/libdtk-*/
-%{_datadir}/libdtk-*/
+%{_libdir}/dtk5/DWidget
+%{_datadir}/dtk5/DWidget
+%{_datadir}/dsg/
 
 %files devel
-%{_includedir}/libdtk-*/
+%{_includedir}/dtk5/DWidget
 %{_qt5_archdatadir}/mkspecs/modules/*.pri
-%{_libdir}/cmake/DtkWidget*/
-%{_libdir}/pkgconfig/%{name}*.pc
+%{_libdir}/cmake/DtkWidget/
+%{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/lib%{name}.so
-%{_libdir}/examples/
+%{_qt5_docdir}/%{name}.qch
 
 %changelog
 %autochangelog

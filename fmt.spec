@@ -1,6 +1,6 @@
 Name:           fmt
 Version:        10.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        MIT
 Summary:        Small, safe and fast formatting library for C++
@@ -26,6 +26,8 @@ safe alternative to printf or as a fast alternative to IOStreams.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+# for usage with -DFMT_HEADER_ONLY
+Provides:       %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
 
 # This package replaces the old name of cppformat
 Provides:       cppformat-devel = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -63,6 +65,9 @@ This package contains the header file for using %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Aug 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 10.0.0-4
+- Add Provides: fmt-static to fmt-devel
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

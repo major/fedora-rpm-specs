@@ -9,7 +9,7 @@
 
 %global goipath  github.com/linuxdeepin/dde-api
 %global forgeurl https://github.com/linuxdeepin/dde-api
-Version:         5.5.25
+Version:         5.5.32
 %global tag     %{version}
 
 %gometa
@@ -42,10 +42,7 @@ BuildRequires:  deepin-gir-generator
 BuildRequires:  golang(github.com/linuxdeepin/go-lib)
 BuildRequires:  golang(github.com/linuxdeepin/go-x11-client)
 BuildRequires:  golang(github.com/linuxdeepin/go-dbus-factory/org.bluez)
-BuildRequires:  golang(github.com/BurntSushi/xgb)
-BuildRequires:  golang(github.com/BurntSushi/xgbutil)
 BuildRequires:  golang(github.com/disintegration/imaging)
-BuildRequires:  golang(github.com/cryptix/wav)
 BuildRequires:  golang(github.com/fogleman/gg)
 BuildRequires:  golang(github.com/nfnt/resize)
 BuildRequires:  golang(gopkg.in/alecthomas/kingpin.v2)
@@ -53,10 +50,10 @@ BuildRequires:  golang(github.com/mattn/go-sqlite3)
 BuildRequires:  golang(github.com/gosexy/gettext)
 BuildRequires:  golang(github.com/rickb777/date)
 BuildRequires:  make
+BuildRequires:  systemd-rpm-macros
 %{?systemd_requires}
 Requires:       deepin-desktop-base
 Requires:       rfkill
-Requires(pre):  shadow-utils
 
 %description
 %{summary}.
@@ -74,12 +71,6 @@ building other packages which use import path with
 
 %prep
 %goprep
-
-sed -i 's|/usr/lib|%{_libexecdir}|' misc/*services/*.service \
-    misc/systemd/system/deepin-shutdown-sound.service \
-    lunar-calendar/main.go \
-    theme_thumb/gtk/gtk.go \
-    thumbnails/gtk/gtk.go
 
 sed -i 's|boot/grub/|boot/grub2/|' adjust-grub-theme/main.go
 
@@ -107,9 +98,15 @@ done
 gofiles=$(find $(make print_libraries) %{?gofindfilter} -print)
 %goinstall $gofiles
 # install binaries based on Makefile
-%__make DESTDIR=%{buildroot} SYSTEMD_SERVICE_DIR="%{_unitdir}" libdir=/libexec GOBUILD_DIR=_build install-binary
-# HOME directory for user deepin-sound-player
-mkdir -p %{buildroot}%{_sharedstatedir}/deepin-sound-player
+%__make DESTDIR=%{buildroot} SYSTEMD_SERVICE_DIR="%{_unitdir}" GOBUILD_DIR=_build install-binary
+install -p -D -m 0644 archlinux/%{name}.sysusers %{buildroot}%{_sysusersdir}/%{name}.conf
+
+# Move sound-theme-player to %%{libexec}/%%{name} to get proper SELinux type
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+mv -v %{buildroot}%{_prefix}/lib/%{name}/sound-theme-player \
+      %{buildroot}%{_libexecdir}/%{name}
+ln -s ../../libexec/%{name}/sound-theme-player \
+      %{buildroot}%{_prefix}/lib/%{name}/sound-theme-player
 
 %if %{with check}
 %check
@@ -117,12 +114,7 @@ mkdir -p %{buildroot}%{_sharedstatedir}/deepin-sound-player
 %endif
 
 %pre
-getent group deepin-sound-player >/dev/null || groupadd -r deepin-sound-player
-getent passwd deepin-sound-player >/dev/null || \
-    useradd -r -g deepin-sound-player -d %{_sharedstatedir}/deepin-sound-player\
-    -s /sbin/nologin \
-    -c "User of com.deepin.api.SoundThemePlayer.service" deepin-sound-player
-exit 0
+%sysusers_create_compat archlinux/%{name}.sysusers
 
 %post
 %systemd_post deepin-shutdown-sound.service
@@ -138,6 +130,7 @@ exit 0
 %license LICENSE
 %{_bindir}/dde-open
 %{_libexecdir}/%{name}/
+%{_prefix}/lib/%{name}/
 %{_unitdir}/*.service
 %{_datadir}/dbus-1/services/*.service
 %{_datadir}/dbus-1/system-services/*.service
@@ -147,7 +140,7 @@ exit 0
 %{_datadir}/polkit-1/actions/com.deepin.api.locale-helper.policy
 %{_datadir}/polkit-1/actions/com.deepin.api.device.unblock-bluetooth-devices.policy
 %{_var}/lib/polkit-1/localauthority/10-vendor.d/com.deepin.api.device.pkla
-%attr(-, deepin-sound-player, deepin-sound-player) %{_sharedstatedir}/deepin-sound-player
+%{_sysusersdir}/%{name}.conf
 
 %files -n golang-%{name}-devel -f devel.file-list
 

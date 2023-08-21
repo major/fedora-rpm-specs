@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
 Version: 3.3.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: ASL 2.0
 BuildRequires: gcc, gcc-c++
 BuildRequires: cmake >= 3.5.1
@@ -9,9 +9,6 @@ BuildRequires: pkgconfig(libevent) >= 2
 BuildRequires: pkgconfig(libuv) >= 1
 BuildRequires: libev-devel >= 3
 BuildRequires: openssl-devel
-%ifnarch aarch64 ppc64le
-BuildRequires: systemtap-sdt-devel, systemtap-devel
-%endif
 BuildRequires: make
 URL: https://docs.couchbase.com/c-sdk/current/project-docs/sdk-release-notes.html
 Source: https://packages.couchbase.com/clients/c/%{name}-%{version}.tar.gz
@@ -67,7 +64,7 @@ Development files for the Couchbase client Library.
 
 %prep
 %autosetup -p1
-%cmake -DLCB_NO_MOCK=1
+%cmake -DLCB_NO_MOCK=1 -DLCB_BUILD_DTRACE=0
 
 %build
 %cmake_build
@@ -87,9 +84,6 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %doc README.markdown RELEASE_NOTES.markdown
 %license LICENSE
 %dir %{_libdir}/%{name}
-%ifnarch aarch64 ppc64le
-%{_datadir}/systemtap/tapset/libcouchbase.so*
-%endif
 
 %files libevent
 %{_libdir}/%{name}/%{name}_libevent.so
@@ -111,6 +105,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Aug 19 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.8-2
+- Disable systemtap integration to fix the build.
+
 * Thu Aug 17 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.8-1
 - Update to 3.3.8
 

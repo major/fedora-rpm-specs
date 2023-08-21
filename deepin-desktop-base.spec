@@ -1,4 +1,4 @@
-%global _tag 2022.07.26
+%global _tag 2023.03.31
 # manually read from Makefile
 %global _deepin_version 20.6
 
@@ -6,7 +6,8 @@ Name:           deepin-desktop-base
 Version:        %{_tag}
 Release:        %autorelease
 Summary:        Base component for Deepin
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/deepin-desktop-base
 Source0:        %{url}/archive/%{_tag}/%{name}-%{_tag}.tar.gz
 Source1:        distribution.info
@@ -58,6 +59,9 @@ rm -r %{buildroot}/etc/systemd
 # Make a symlink for deepin-version
 ln -sfv ..%{_datadir}/deepin/desktop-version %{buildroot}%{_sysconfdir}/deepin-version
 
+# Install os-version and rename to uos-version
+install -Dm644 files/os-version-amd %{buildroot}%{_sysconfdir}/uos-version
+
 # Remove apt-specific templates
 rm -r %{buildroot}%{_datadir}/python-apt
 
@@ -65,6 +69,7 @@ rm -r %{buildroot}%{_datadir}/python-apt
 %license LICENSE
 %config(noreplace) %{_sysconfdir}/appstore.json
 %{_sysconfdir}/deepin-version
+%{_sysconfdir}/uos-version
 %{_datadir}/deepin/
 %dir %{_datadir}/distro-info/
 %{_datadir}/i18n/i18n_dependent.json

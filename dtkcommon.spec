@@ -2,16 +2,17 @@
 %global debug_package %{nil}
 
 Name:           dtkcommon
-Version:        5.5.22
+Version:        5.6.9
 Release:        %autorelease
 Summary:        DTK common files
 
-License:        GPLv3+
+# migrated to SPDX
+License:        BSD-3-Clause
 URL:            https://github.com/linuxdeepin/dtkcommon
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
-BuildRequires:  make
+BuildRequires:  cmake
 BuildRequires:  qt5-qtbase-devel
 # glib2 provides %%{_datadir}/glib-2.0/schemas/
 Requires:       glib2%{?_isa}
@@ -30,15 +31,14 @@ This package contains common build configuration files for DTK.
 
 %prep
 %autosetup -p1
-sed -r -i 's|/lib/\$\$ARCH|/%{_lib}|; s|/lib/\$\(ARCH\)|/%{_lib}|' dtkcommon.pro
 
 %build
-%qmake_qt5 VERSION=%{version} LIB_INSTALL_DIR=%_libdir
-%make_build
+%cmake
+%cmake_build
 
 
 %install
-%make_install INSTALL_ROOT=%buildroot
+%cmake_install
 
 
 %files

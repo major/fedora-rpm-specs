@@ -1,16 +1,19 @@
 %global _hardened_build 1
 # checkout by commit for a valid persistent source link
-# the corresponding git tag is v3.2-latest
-%global commit      54145b03f4240222e336a9a2f402e93facefde65
-%global date        20220425
+# the corresponding git tag is v3.3-latest
+%global commit      783141fb694f3bd1f8bd8a783670dd25a53b9fc1
+%global date        20230527
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           libsearpc
-Version:        3.2.0
-Release:        11%{?dist}
+Version:        3.3
+Release:        1%{?dist}
 Summary:        A simple and easy-to-use C language RPC framework
 
-License:        LGPLv3
+# Main package license: Apache-2.0
+# debian/*: GPL-2.0-only (as stated in debian/copyright)
+# tests/clar*, tests/generate.py, tests/main.c: ISC
+License:        Apache-2.0
 URL:            https://github.com/haiwen/%{name}
 Source0:        %{url}/archive/%{commit}/%{name}-%{version}%{?date:-%{date}git%{shortcommit}}.tar.gz
 
@@ -42,8 +45,8 @@ applications that use %{name}.
 %prep
 %setup -qn %{name}-%{commit}
 sed -i -e /\(DESTDIR\)/d %{name}.pc.in
-sed -i 's@/usr/bin/env python@/usr/bin/env python3@' ./lib/searpc-codegen.py ./pysearpc/test_pysearpc.py ./tests/generate.py
-sed -i 's@/usr/bin/python@/usr/bin/python3@' ./pysearpc/pygencode.py
+%py3_shebang_fix ./lib/searpc-codegen.py ./pysearpc/test_pysearpc.py \
+    ./tests/generate.py ./pysearpc/pygencode.py
 
 
 %build
@@ -83,6 +86,11 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Aug 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.3-1
+- Update to v3.3-latest
+- Update license to Apache-2.0 (according to LICENSE.txt)
+- Convert License tag to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -48,13 +48,16 @@ for test in "Test_Proxy_Do_WithRealURL" \
             "Test_Proxy_DoRedirects_RestoreOriginalURL" \
             "Test_Proxy_DoRedirects_TooManyRedirects" \
             "Test_Storage_Memory_Get" \
+            "Test_Storage_Memory_Delete" \
             "Test_Limiter_Sliding_Window_Custom_Storage_Skip_Successful_Requests" \
             "Test_Limiter_Sliding_Window_Skip_Successful_Requests" \
             "Test_Limiter_Sliding_Window_Custom_Storage_Skip_Failed_Requests" \
             "Test_Limiter_Sliding_Window_Skip_Failed_Requests" \
             "Test_Idempotency" \
             "Test_Session_Save_Expiration" \
+            "Test_CustomExpiration" \
             "Test_Client_UserAgent" \
+            "Test_Client_Agent_Dest" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done

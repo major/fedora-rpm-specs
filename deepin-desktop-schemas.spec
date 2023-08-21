@@ -1,8 +1,9 @@
 Name:           deepin-desktop-schemas
-Version:        5.10.6
+Version:        6.0.2
 Release:        %autorelease
 Summary:        GSettings deepin desktop-wide schemas
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/deepin-desktop-schemas
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -31,14 +32,16 @@ Obsoletes:      deepin-artwork-themes <= 15.12.4
 sed -i '/picture-uri/s|default_background.jpg|default.png|' \
     overrides/common/com.deepin.wrap.gnome.desktop.override
 sed -i 's|python|python3|' Makefile tools/overrides.py
+# connectivity check uri copy from /usr/lib/NetworkManager/conf.d/20-connectivity-fedora.conf
+sed -i "s#'http://detect.uniontech.com', 'http://detectportal.deepin.com'#'http://fedoraproject.org/static/hotspot.txt'#" \
+    schemas/com.deepin.dde.network-utils.gschema.xml
+grep uniontech schemas/com.deepin.dde.network-utils.gschema.xml && exit 1 || :
 
 %build
-export GOPATH=%{gopath}
-%make_build ARCH=x86
+GOPATH=%{gopath} %make_build ARCH=x86
 
 %install
 %make_install PREFIX=%{_prefix}
-cp %{buildroot}/usr/share/deepin-desktop-schemas/server-override %{buildroot}/usr/share/glib-2.0/schemas/91_deepin_product.gschema.override
 
 %check
 make test

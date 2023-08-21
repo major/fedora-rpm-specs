@@ -5,7 +5,7 @@
 
 %global goipath         github.com/linuxdeepin/go-lib
 %global forgeurl        https://%{goipath}
-Version:                5.8.9.2
+Version:                5.8.27
 %global tag             %{version}
 
 %gometa
@@ -35,7 +35,8 @@ Name:           %{goname}
 Release:        %{autorelease}
 Summary:        Go bindings for Deepin Desktop Environment development
 
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -43,11 +44,7 @@ BuildRequires:  deepin-gir-generator
 BuildRequires:  dbus-x11
 BuildRequires:  iso-codes
 BuildRequires:  mobile-broadband-provider-info
-BuildRequires:  golang(github.com/cryptix/wav)
 BuildRequires:  golang(github.com/linuxdeepin/go-x11-client)
-BuildRequires:  golang(golang.org/x/image/bmp)
-BuildRequires:  golang(golang.org/x/image/tiff)
-BuildRequires:  golang(golang.org/x/net/context)
 BuildRequires:  golang(gopkg.in/alecthomas/kingpin.v2)
 BuildRequires:  golang(github.com/fsnotify/fsnotify)
 BuildRequires:  golang(github.com/godbus/dbus)
@@ -64,9 +61,11 @@ BuildRequires:  pam-devel
 
 %if %{with check}
 # Tests
-BuildRequires:  golang(github.com/smartystreets/goconvey/convey)
+BuildRequires:  dash
+#BuildRequires:  golang(github.com/smartystreets/goconvey/convey)
 BuildRequires:  golang(github.com/stretchr/testify/assert)
 BuildRequires:  golang(gopkg.in/check.v1)
+BuildRequires:  golang(github.com/youpy/go-wav)
 BuildRequires:  pkgconfig(libcanberra)
 %endif
 
@@ -77,6 +76,7 @@ BuildRequires:  pkgconfig(libcanberra)
 
 %prep
 %goprep
+sed -i 's|"sh"|"dash"|' shell/shell_test.go
 
 %install
 %gopkginstall
