@@ -3,10 +3,11 @@
 %global libname terminalwidget5
 
 Name:           deepin-terminal
-Version:        5.4.28
+Version:        5.9.43
 Release:        %autorelease
 Summary:        Default terminal emulation application for Deepin
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/%{repo}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -20,8 +21,11 @@ BuildRequires:  pkgconfig(atspi-2)
 BuildRequires:  pkgconfig(dframeworkdbus)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(xcb-ewmh)
+BuildRequires:  pkgconfig(chardet)
+BuildRequires:  pkgconfig(uchardet)
 BuildRequires:  gtest-devel
 BuildRequires:  gmock-devel
+BuildRequires:  libicu-devel
 BuildRequires:  qt5-qtbase-private-devel
 
 BuildRequires:  qt5-linguist
@@ -56,10 +60,6 @@ The %{name}-data package provides shared data for Deepin Terminal.
 
 %prep
 %autosetup -p1 -n %{repo}-%{version}
-# don't hard code -fPIE
-sed -i 's/-fPIE//' CMakeLists.txt
-# fix error: 'QString::QString(const char*)' is private within this context
-sed -i '/LXQtCompilerSettings/a remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII)' 3rdparty/terminalwidget/CMakeLists.txt
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo

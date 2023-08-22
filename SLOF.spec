@@ -1,7 +1,7 @@
 %undefine _auto_set_build_flags
 
-%global gittagdate 20210217
-%global gittagcommit 33a7322d
+%global gittagdate 20220719
+%global gittagcommit 6b6c16b4
 
 # Disable debuginfo because it is of no use to us.
 %global debug_package %{nil}
@@ -13,11 +13,9 @@
 %define targetdir qemu-kvm
 %endif
 
-%global gittag qemu-slof-%{gittagdate}
-
 Name:           SLOF
 Version:        %{gittagdate}
-Release:        7.git%{gittagcommit}%{?dist}
+Release:        1.git%{gittagcommit}%{?dist}
 Summary:        Slimline Open Firmware
 
 License:        BSD-3-Clause
@@ -86,6 +84,9 @@ install -c -m 0644 boot_rom.bin %{buildroot}%{_datadir}/%{targetdir}/slof.bin
 
 
 %changelog
+* Sun Aug 20 2023 Cole Robinson <crobinso@redhat.com> - 20220719-1.git6b6c16b4
+- Update to SLOF 20220719
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20210217-7.git33a7322d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

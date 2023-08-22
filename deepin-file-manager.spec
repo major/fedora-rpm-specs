@@ -1,24 +1,17 @@
 %global repo dde-file-manager
 
 Name:           deepin-file-manager
-Version:        5.6.4
+Version:        5.8.3
 Release:        %autorelease
 Summary:        Deepin File Manager
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dde-file-manager
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
 # fix: use Q_GLOBAL_STATIC to initialize eventHanlder and eventFilter
 # Author: Robin Lee <cheeselee@fedoraproject.org>
 Patch0001: 0001-fix-use-Q_GLOBAL_STATIC-to-initialize-eventHanlder-a.patch
-# Fix build when ANYTHING is disabled. Without this patch, error would be
-# ././search/dfsearch.h:28:10: fatal error: fsearch.h: No such file or directory
-Patch0002: 0002-Include-dfsearch.pri-if-ANYTHING-is-disabled.patch
-# Fix build on GCC 11
-Patch0003: 0003-fix-undefined-sleep_for.patch
-# Fix build on GCC 12
-Patch0004: 0004-fix-undefined-std-array.patch
-Patch0005: deepin-file-manager-c99-fsearch.patch
 # Drop unused pcre.h
 Patch0006: 0001-Drop-unused-pcre.h.patch
 
@@ -66,6 +59,7 @@ BuildRequires:  pkgconfig(xcb-util)
 BuildRequires:  pkgconfig(xcb-ewmh)
 BuildRequires:  pkgconfig(gio-qt)
 BuildRequires:  pkgconfig(docparser)
+BuildRequires:  pkgconfig(libcryptsetup)
 BuildRequires:  qt5-linguist
 BuildRequires:  systemd
 BuildRequires:  make
@@ -78,14 +72,21 @@ Requires:       file-roller
 Requires:       gvfs-client
 Requires:       samba
 Requires:       xdg-user-dirs
+Requires:       %{name}-lib%{?_isa} = %{version}-%{release}
 Recommends:     deepin-manual
 
 %description
 File manager front end of Deepin OS.
 
+%package lib
+Summary:        Shared library for %{name}
+
+%description lib
+This package provides shared library %{name}.
+
 %package devel
 Summary:        Development package for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-lib%{?_isa} = %{version}-%{release}
 
 %description devel
 Header files and libraries for %{name}.
@@ -107,15 +108,15 @@ Deepin desktop environment - desktop module.
 # fix file permissions
 find -type f -perm 775 -exec chmod 644 {} \;
 sed -i 's|systembusconf.path = /etc/dbus-1/system.d|systembusconf.path = %{_datadir}/dbus-1/system.d|' src/dde-file-manager-daemon/dde-file-manager-daemon.pro
-sed -i '/target.path/s|lib|%{_lib}|' src/dde-dock-plugins/disk-mount/disk-mount.pro
-sed -i '/deepin-daemon/s|lib|libexec|' src/dde-zone/mainwindow.h
 sed -i 's|lib/gvfs|libexec|' src/%{repo}-lib/gvfs/networkmanager.cpp
 sed -i 's|systemd_service.path = .*|systemd_service.path = %{_unitdir}|' src/dde-file-manager-daemon/dde-file-manager-daemon.pro
+
+sed -i '/ENABLE_ANYTHING/d' src/common/common.pri
 
 %build
 export PATH=%{_qt5_bindir}:$PATH
 # disable ffmpeg since ffmpegthumbnailer is not available on Fedora
-%qmake_qt5 PREFIX=%{_prefix} QMAKE_CFLAGS_ISYSTEM= CONFIG+="DISABLE_FFMPEG DISABLE_ANYTHING" filemanager.pro
+%qmake_qt5 PREFIX=%{_prefix} QMAKE_CFLAGS_ISYSTEM= CONFIG+="DISABLE_FFMPEG" filemanager.pro
 %make_build
 
 %install
@@ -130,7 +131,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dde-open.desktop
 
 %files
 %doc README.md
-%license LICENSE
+%license LICENSE.txt
 %{_datadir}/dbus-1/system.d/com.deepin.filemanager.daemon.conf
 %{_bindir}/%{repo}
 %{_bindir}/%{repo}-daemon
@@ -138,10 +139,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dde-open.desktop
 %{_bindir}/dde-property-dialog
 %{_bindir}/dde-select-dialog-wayland
 %{_bindir}/dde-select-dialog-x11
-%{_libdir}/lib%{repo}.so.*
-%{_libdir}/dde-dock/plugins/
+%{_prefix}/lib/dde-dock/plugins/
 %{_libdir}/%{repo}/
-%{_libdir}/libdfm-extension.so.1*
 %{_datadir}/%{repo}/
 %{_datadir}/deepin/%{repo}/
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
@@ -161,10 +160,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dde-open.desktop
 %{_datadir}/polkit-1/actions/com.deepin.*.policy
 %{_datadir}/glib-2.0/schemas/*
 %{_datadir}/deepin-manual/
+%{_datadir}/dsg/
 %ifarch aarch64
 %{_bindir}/file-manager.sh
 %{_sysconfdir}/xdg/autostart/%{repo}-autostart.desktop
 %endif
+
+%files lib
+%{_libdir}/lib%{repo}.so.1*
+%{_libdir}/libdfm-extension.so.1*
+%license LICENSE.txt
 
 %files devel
 %{_includedir}/%{repo}/

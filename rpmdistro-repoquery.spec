@@ -1,5 +1,5 @@
-%global commit cf75cee34163db03e24e6e71e3e887440f3a7094
-%global date 20230612
+%global commit 18ae234b6d4631f02d605bcdc898fc471591c965
+%global date 20230819
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           rpmdistro-repoquery

@@ -1,6 +1,6 @@
 Name:           liferea
 Epoch:          1
-Version:        1.15.0
+Version:        1.15.1
 Release:        2%{?dist}
 Summary:        An RSS/RDF feed reader
 
@@ -8,11 +8,7 @@ License:        GPL-2.0-or-later
 URL:            https://lzone.de/liferea/
 Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}/liferea-%{version}.tar.bz2
 
-%if 0%{?rhel} < 8
-BuildRequires:  webkitgtk4-devel
-%else
-BuildRequires:  webkit2gtk3-devel
-%endif
+BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gsettings-desktop-schemas-devel
@@ -87,6 +83,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Sun Aug 20 2023 josef radinger <cheese@nosuchhost.net> - 1:1.15.1-2
+- no current version for rhel
+- webkit2gtk4.1
+
+* Sun Aug 20 2023 josef radinger <cheese@nosuchhost.net> - 1:1.15.1-1
+- bump version
+- webkitgtk4 renamed to webkitgtk
+
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

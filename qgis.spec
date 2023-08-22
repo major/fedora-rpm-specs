@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.32.1
-Release:        2%{?dist}
+Version:        3.32.2
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -308,6 +308,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sat Aug 19 2023 Sandro Mani <manisandro@gmail.com> - 3.32.2-1
+- Update to 3.32.2
+
 * Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 3.32.1-2
 - Rebuild (libspatialite)
 

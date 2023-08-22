@@ -23,11 +23,11 @@
 %endif
 
 %if 0%{?use_gitbare}
-%global	gittardate		20230814
-%global	gittartime		1113
+%global	gittardate		20230820
+%global	gittartime		1429
 
-%global	gitbaredate	20230806
-%global	git_rev		41a08b51181891f44aef4d87b849c94e2db58711
+%global	gitbaredate	20230817
+%global	git_rev		dd0101154a5b87c5d844ccf055d5ce7b9a37d90d
 %global	git_short		%(echo %{git_rev} | cut -c-8)
 %global	git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -54,7 +54,7 @@ Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 Source0:		%{name}-%{version}-%{?git_version}.tar.bz2
 %endif
 %if 0%{?use_release}
-Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{main_version}.tar.xz
 %endif
 # Shell script to create tarball from git scm
 Source100:		create-tarball-from-git.sh
@@ -131,7 +131,7 @@ developing applications that use %{name}.
 
 %prep
 %if 0%{?use_release} || 0%{?use_git}
-%setup -q -n %{name}-%{version}%{git_builddir}
+%setup -q -n %{name}-%{main_version}%{git_builddir}
 
 git init
 %endif
@@ -237,6 +237,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Sun Aug 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20230817gitdd010115-1
+- Update to the latest git
+
 * Mon Aug 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20230806git41a08b51-1
 - Update to the latest git
 

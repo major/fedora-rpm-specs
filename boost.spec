@@ -42,7 +42,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.81.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -151,6 +151,9 @@ Patch5: boost-1.76.0-fix-narrowing-conversions-for-ppc.patch
 # https://github.com/boostorg/phoenix/issues/111
 # https://github.com/boostorg/phoenix/issues/115
 Patch6: boost-1.81-phoenix-multiple-defn.patch
+
+# PR https://github.com/boostorg/accumulators/pull/54
+Patch7: boost-1.81.0-always-initialize-member-variable.patch
 
 %bcond_with tests
 %bcond_with docs_generated
@@ -1281,6 +1284,10 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Sun Aug 20 2023 Kefu Chai <tchaikov@fedoraproject.org> - 1.81.0-8
+- Add patch for Boost.Accumulators bug
+  See https://github.com/boostorg/accumulators/pull/54
+
 * Wed Aug  2 2023 Tom Callaway <spot@fedoraproject.org> - 1.81.0-7
 - add symlink for b2 files
 

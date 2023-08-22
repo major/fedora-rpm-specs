@@ -1,14 +1,16 @@
 %global srcname jenkins-job-builder
 
 Name:           python-%{srcname}
-Version:        5.0.2
-Release:        2%{?dist}
+Version:        5.0.4
+Release:        1%{?dist}
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1
 Summary:        Manage Jenkins jobs with YAML
 License:        Apache-2.0
 URL:            https://jenkins-job-builder.readthedocs.io/en/latest/
 Source:         %{pypi_source}
+
+Patch0:         0001-Fix-compatibility-with-setuptools-66.patch
 
 BuildArch:      noarch
 
@@ -27,6 +29,10 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(testtools) >= 1.4
+
+# Explicitly require a version of python3-jenkins that includes the patch from
+# https://src.fedoraproject.org/rpms/python-jenkins/pull-request/1
+Requires:       python3dist(jenkins) >= 1.8.0
 
 %description -n python3-%{srcname}
 Jenkins Job Builder takes simple descriptions of Jenkins jobs in YAML format
@@ -58,6 +64,10 @@ export PBR_VERSION=%{version}
 %{_bindir}/jenkins-jobs
 
 %changelog
+* Sun Aug 20 2023 Christoph Erhardt <fedora@sicherha.de> - 1:5.0.4-1
+- Update to 5.0.4 (rhbz#2219565)
+- Fix compatibility with setuptools >= 66
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

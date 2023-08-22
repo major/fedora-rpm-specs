@@ -1,6 +1,6 @@
 Name:      yad
 Version:   9.3
-Release:   6%{?dist}
+Release:   7%{?dist}
 Summary:   Display graphical dialogs from shell scripts or command line
 
 Group:     Applications/System
@@ -12,7 +12,7 @@ Patch1:    yad-7.3-size-request.patch
 
 BuildRequires:  make
 BuildRequires:  gtk3-devel >= 3.22.0
-BuildRequires:  webkitgtk4-devel
+BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  perl(XML::Parser)
 BuildRequires:  intltool >= 0.40.0
@@ -87,6 +87,9 @@ fi
 
 
 %changelog
+* Sun Aug 20 2023 Dmitry Butskoy <Dmitry@Butskoy.name> - 9.3-7
+- build with webkit2gtk4.1 (#2232981)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

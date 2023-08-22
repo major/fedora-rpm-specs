@@ -6,7 +6,7 @@
 
 Name:		oidc-agent
 Version:	4.5.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
 License:	MIT AND ISC AND LGPL-2.1-or-later AND BSD-2-Clause
@@ -14,6 +14,8 @@ URL:		https://github.com/indigo-dc/%{name}
 Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 #		https://github.com/indigo-dc/oidc-agent/pull/527
 Patch0:		%{name}.patch
+#		https://github.com/indigo-dc/oidc-agent/issues/450
+Patch1:		%{name}-webkit.patch
 #		clibs-list-devel not available for ix86....
 ExcludeArch:	%{ix86}
 
@@ -30,9 +32,15 @@ BuildRequires:	libsecret-devel
 BuildRequires:	glib2-devel
 BuildRequires:	qrencode-devel
 BuildRequires:	gtk3-devel
+%if %{?fedora}%{!?fedora:0}
+%global webkitgtk webkit2gtk-4.1
+BuildRequires:	webkit2gtk4.1-devel
+%else
+%global webkitgtk webkit2gtk-4.0
 BuildRequires:	webkitgtk4-devel
 #BuildRequires:	webkit2gtk3-devel (equivalent, but doesn't work on EPEL 7)
 #BuildRequires:	webkit2gtk4.0-devel (equivalent, but doesn't work on EPEL)
+%endif
 BuildRequires:	help2man
 
 %description
@@ -117,6 +125,7 @@ This package provides headers for the oidc-agent library.
 %prep
 %setup -q
 %patch -P 0 -p1
+%patch -P 1 -p1
 
 %if %{?rhel}%{!?rhel:0} != 7
 # Remove bundled cJSON and clib-list (use system versions) except on EPEL 7
@@ -125,11 +134,12 @@ rm -rf lib/cJSON lib/list
 
 %build
 %set_build_flags
-%make_build %{maketrace}
+%make_build %{maketrace} WEBKITGTK=%{webkitgtk}
 
 %install
 %set_build_flags
 %make_install install_includes %{maketrace} \
+	WEBKITGTK=%{webkitgtk} \
 	PREFIX=%{buildroot} \
 	INCLUDE_PATH=%{buildroot}%{_includedir} \
 	LIB_PATH=%{buildroot}%{_libdir} \
@@ -189,5 +199,8 @@ update-desktop-database >/dev/null 2>&1 || :
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Sun Aug 20 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 4.5.2-2
+- Use webkit2gtk-4.1 (Fedora)
+
 * Mon Jul 10 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 4.5.2-1
 - Initial build for Fedora and EPEL

@@ -1,10 +1,11 @@
 %global repo dde-account-faces
 
 Name:           deepin-account-faces
-Version:        1.0.12
+Version:        1.0.14
 Release:        %autorelease
 Summary:        Account faces for Linux Deepin
-License:        GPLv2+
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dde-account-faces
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 BuildArch:      noarch

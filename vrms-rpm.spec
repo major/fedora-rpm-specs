@@ -1,29 +1,34 @@
 Name:          vrms-rpm
-Version:       2.2
-Release:       9%{?dist}
 Summary:       Report non-free software
-License:       GPLv3
+License:       GPL-3.0-only
 
-BuildRequires: make
+Version:       2.3
+Release:       1%{?dist}
+
 BuildRequires: gcc
 BuildRequires: gettext-devel
+BuildRequires: libcmocka-devel
+BuildRequires: make
+BuildRequires: rpm-devel
 
-%global githubowner suve
-%global gittag0 release-%{version}
-URL:           https://github.com/%{githubowner}/%{name}
-Source0:       %{url}/archive/%{gittag0}/%{name}-%{gittag0}.tar.gz
-
+%global git_tag release-%{version}
+URL:           https://github.com/suve/%{name}
+Source0:       %{url}/archive/%{git_tag}/%{name}-%{git_tag}.tar.gz
 
 %description
 vrms-rpm ("virtual Richard M. Stallman") reports non-free packages
 installed on the system.
 
 %prep
-%autosetup -n %{name}-%{gittag0}
+%autosetup -n %{name}-%{git_tag}
 
 %build
-%set_build_flags
-make build PREFIX=%{_prefix} DEFAULT_LICENCE_LIST=tweaked %{?_smp_mflags}
+make all PREFIX=%{_prefix} %{?_smp_mflags} \
+	DEFAULT_GRAMMAR=spdx-lenient \
+	DEFAULT_LICENCE_LIST=tweaked
+
+%check
+make test %{?_smp_mflags}
 
 %install
 %make_install PREFIX=%{_prefix}
@@ -34,9 +39,13 @@ make build PREFIX=%{_prefix} DEFAULT_LICENCE_LIST=tweaked %{?_smp_mflags}
 %{_mandir}/man1/%{name}*
 %{_datadir}/suve/
 %{_datadir}/bash-completion/completions/%{name}
-%license LICENCE.txt
+%license LICENCE.txt IMAGE-CREDITS.txt
 
 %changelog
+* Sun Aug 20 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.3-1
+- Update to latest release
+- Migrate license tag to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

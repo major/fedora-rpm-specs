@@ -1,8 +1,9 @@
 Name:           deepin-shortcut-viewer
-Version:        5.0.6
+Version:        5.0.7
 Release:        %autorelease
 Summary:        Deepin Shortcut Viewer
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/deepin-shortcut-viewer
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -10,7 +11,7 @@ BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(dtkwidget) >= 2.0.6
-BuildRequires: make
+BuildRequires:  make
 
 %description
 The program displays a shortcut key window when a JSON data is passed.

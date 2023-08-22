@@ -2,12 +2,16 @@
 %global sname deepin-launcher
 
 Name:           %{sname}
-Version:        5.5.19.1
+Version:        5.6.1
 Release:        %autorelease
 Summary:        Deepin desktop-environment - Launcher module
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dde-launcher
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
+# applied in upstream git0612c1181f232eb1c7be05a40c9c951a51cd0f2a
+Patch0:         0001-fix-window-mode-show-slowly.patch
+Patch1:         https://github.com/linuxdeepin/dde-launcher/pull/369.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(Qt5LinguistTools)
@@ -25,11 +29,7 @@ BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  make
 
 Requires:       deepin-menu
-%if 0%{?fedora}
 Requires:       deepin-daemon
-%else
-Requires:       dde-daemon
-%endif
 Requires:       startdde
 Requires:       hicolor-icon-theme
 Requires:       %{_bindir}/dbus-send
@@ -41,21 +41,12 @@ Requires:       %{_bindir}/dbus-send
 %autosetup -p1 -n %{repo}-%{version}
 
 %build
-sed -i 's|lrelease|lrelease-qt5|' translate_generation.sh
-%if 0%{?fedora}
+export PATH=%{_qt5_bindir}:$PATH
 %cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DWITHOUT_UNINSTALL_APP=1
 %cmake_build
-%else
-%cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DWITHOUT_UNINSTALL_APP=1 .
-%make_build
-%endif
 
 %install
-%if 0%{?fedora}
 %cmake_install
-%else
-%make_install INSTALL_ROOT=%{buildroot}
-%endif
 
 %files
 %license LICENSE

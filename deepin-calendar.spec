@@ -1,15 +1,14 @@
 %global repo dde-calendar
+%global __provides_exclude_from ^%{_prefix}/lib/dde-.*\\.so$
 
 Name:           deepin-calendar
-Version:        5.9.1
+Version:        5.10.0
 Release:        %autorelease
 Summary:        Calendar for Deepin Desktop Environment
-License:        GPLv3+
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dde-calendar
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
-
-# fix build for ARM architectures
-Patch0:         0001-needed-cstdint-for-uint32_t.patch
 
 BuildRequires:  cmake
 BuildRequires:  deepin-gettext-tools
@@ -24,6 +23,7 @@ BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Svg)
 BuildRequires:  pkgconfig(Qt5Multimedia)
 BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:  pkgconfig(libical)
 BuildRequires:  gmock-devel
 BuildRequires:  systemd-rpm-macros
 Requires:       hicolor-icon-theme
@@ -35,16 +35,11 @@ Calendar for Deepin Desktop Environment.
 
 %prep
 %autosetup -p1 -n %{repo}-%{version}
-sed -i "s:/usr/lib:%{_libdir}:" schedule-plugin/CMakeLists.txt
-sed -i "s:lib/deepin-daemon/:libexec/deepin-daemon/:" \
-    calendar-service/assets/data/com.deepin.dataserver.Calendar.service \
-    calendar-service/assets/dde-calendar-service.desktop \
-    calendar-service/CMakeLists.txt
 
 %build
 # help find (and prefer) qt5 utilities, e.g. qmake, lrelease
 export PATH=%{_qt5_bindir}:$PATH
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}
 %cmake_build
 
 %install
@@ -65,8 +60,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{repo}.desktop
 %{_datadir}/dbus-1/services/com.deepin.dataserver.Calendar.service
 %{_datadir}/applications/%{repo}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{repo}.svg
-%{_libdir}/deepin-aiassistant
-%{_libexecdir}/deepin-daemon/%{repo}-service
+%{_prefix}/lib/deepin-aiassistant
+%{_prefix}/lib/deepin-daemon/%{repo}-service
 %{_datadir}/deepin-manual/
 %{_userunitdir}/com.dde.calendarserver.calendar.*
 

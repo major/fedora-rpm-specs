@@ -2,8 +2,8 @@
 
 # https://github.com/jpillora/chisel
 %global goipath         github.com/jpillora/chisel
-Version:                1.7.7
-%global tag             v1.7.7
+Version:                1.9.0
+%global tag             v1.9.0
 
 %gometa
 
@@ -13,7 +13,7 @@ A fast TCP tunnel over HTTP.}
 %global godocs          example README.md
 
 Name:           chisel
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        TCP tunnel over HTTP
 
 License:        MIT
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Aug 20 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.9.0-1
+- Update to 1.9.0 fixes rhbz#2113146 rhbz#2163065 rhbz#2165257
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

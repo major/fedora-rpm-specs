@@ -2,7 +2,7 @@ Name:           prename
 Version:        1.14
 Release:        %autorelease
 Summary:        Perl script to rename multiple files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PEDERST/rename-%{version}
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEDERST/rename-%{version}.tar.gz
 Source1:        https://raw.githubusercontent.com/pstray/rename/master/LICENSE

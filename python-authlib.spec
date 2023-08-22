@@ -6,7 +6,7 @@ Version:        1.2.1
 Release:        %autorelease
 Summary:        Build OAuth and OpenID Connect servers in Python
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/lepture/authlib
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 

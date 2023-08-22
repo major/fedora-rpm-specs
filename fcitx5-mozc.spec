@@ -50,6 +50,7 @@ Source2:        http://www.post.japanpost.jp/zipcode/dl/jigyosyo/zip/jigyosyo.zi
 # add -v to ninja command, to make verbose output during building
 Patch0:         mozc-build-verbosely.patch
 Patch1:         0001-use-system-absl.patch
+Patch2:         mozc-build-new-abseil.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gettext 
@@ -85,6 +86,7 @@ A wrapper of mozc for fcitx5.
 %setup -q -n mozc -a 1 -a 2
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
 (cd src/data/dictionary_oss;
 PYTHONPATH="${PYTHONPATH}:../../" python3 ../../dictionary/gen_zip_code_seed.py --zip_code=../../../KEN_ALL.CSV --jigyosyo=../../../JIGYOSYO.CSV >> dictionary09.txt;
 )

@@ -197,6 +197,10 @@ Patch100:       gimp-2.10.24-external-help-browser.patch
 
 Patch101:       gimp-configure-c99.patch
 
+# fix loading HEVC-encoded HEIF images
+# patch from upstream: https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/905
+Patch102:       0001-plug-ins-use-heif_init-heif_deinit.patch
+
 %description
 GIMP (GNU Image Manipulation Program) is a powerful image composition and
 editing program, which can be extremely useful for creating logos and other
@@ -283,10 +287,12 @@ EOF
 %patch 100 -p1 -b .external-help-browser
 %endif
 
-%patch 101 -p1
+%patch 101 -p1 -b .configure-c99
 
 # Avoid re-running autotools.
 touch -r aclocal.m4 configure*
+
+%patch 102 -p1 -b .heif
 
 %build
 # allow python2 package for RHEL-8

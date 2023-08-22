@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           lutris
 Version:        0.5.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Install and play any video game easily
 
 License:        GPLv3
@@ -38,7 +38,7 @@ Requires:       python3-requests
 Requires:       python3-pillow
 Requires:       glx-utils
 Requires:       gvfs
-Requires:       webkit2gtk3
+Requires:       webkit2gtk4.1
 Requires:       python3-lxml
 Recommends: 	p7zip, curl
 Recommends:	fluid-soundfont-gs
@@ -95,6 +95,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/locale/
 
 %changelog
+* Sun Aug 20 2023 Steve Cossette <farchord@gmail.com> - 0.5.13-5
+- Changed the webkit2gtk3 dependancy to webkit2gtk4.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

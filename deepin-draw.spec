@@ -1,18 +1,16 @@
 Name:           deepin-draw
-Version:        5.10.6
+Version:        6.0.6
 Release:        %autorelease
 Summary:        A lightweight drawing tool for Linux Deepin
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/deepin-draw
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         0001-Fix-MimeTypeDir.patch
 
 
 BuildRequires:  gcc-c++
 BuildRequires:  freeimage-devel
 BuildRequires:  pkgconfig(dtkwidget) >= 2.0.6
-BuildRequires:  pkgconfig(dtkwm)
 BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(xcb-aux)
 BuildRequires:  pkgconfig(Qt5)
@@ -47,16 +45,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files
 %doc README.md
-%license LICENSE
+%license LICENSE.txt
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/dbus-1/services/*.service
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/icons/deepin/
 %{_datadir}/mime/packages/%{name}.xml
-%{_datadir}/mime/application/x-ddf.xml
 %{_datadir}/deepin-manual/
+%{_datadir}/icons/deepin/
+%{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
 %autochangelog

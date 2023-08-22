@@ -1,5 +1,5 @@
-%global hash 7f28286
-%global date 20200725
+%global hash af97fd7
+%global date 20230126
 
 # https://fedoraproject.org/wiki/Changes/SetBuildFlagsBuildCheck
 # breaks cross-building
@@ -10,7 +10,7 @@
 
 Name:           openbios
 Version:        %{date}
-Release:        7.git%{hash}%{?dist}
+Release:        1.git%{hash}%{?dist}
 Epoch:          1
 Summary:        OpenBIOS implementation of IEEE 1275-1994
 
@@ -97,6 +97,9 @@ cp -a obj-sparc64/openbios-builtin.elf $qemudir/openbios-sparc64
 
 
 %changelog
+* Sun Aug 20 2023 Cole Robinson <crobinso@redhat.com> - 20230126-1.gitaf97fd7
+- Update to openbios af97fd7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:20200725-7.git7f28286
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

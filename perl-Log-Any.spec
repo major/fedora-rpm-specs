@@ -1,6 +1,6 @@
 Name:           perl-Log-Any
-Version:        1.716
-Release:        2%{?dist}
+Version:        1.717
+Release:        1%{?dist}
 Summary:        Bringing loggers and listeners together
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Any
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Aug 20 2023 Xavier Bachelot <xavier@bachelot.org> - 1.717-1
+- Update to 1.717 (RHBZ#2232636)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.716-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

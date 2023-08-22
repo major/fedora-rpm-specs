@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -56,6 +56,8 @@ Patch19:        0019-Pre-push-hook-won-t-check-private-branches.patch
 Patch20:        0020-Use-release-s-rpmdefines-in-unused-sources-check.patch
 Patch21:        0021-Do-not-require-sources-file-for-all-namespaces.patch
 Patch22:        0022-commit-command-fails-on-containers-namespace.patch
+Patch23:        0023-Split-git-credential-data-on-first-only.patch
+Patch24:        0024-Support-for-checking-exploded-sources-before-push.patch
 
 %description
 Python library for interacting with rpm+git
@@ -272,6 +274,10 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Sun Aug 20 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-11
+- Patch: Support for checking exploded sources before push
+- Patch: Split git credential data on first = only
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.66-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

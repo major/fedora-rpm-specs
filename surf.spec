@@ -1,6 +1,6 @@
 Name:           surf
-Version:        2.0
-Release:        16%{?dist}
+Version:        2.1
+Release:        2%{?dist}
 Summary:        Simple web browser
 License:        MIT
 URL:            http://surf.suckless.org/
@@ -9,10 +9,12 @@ Source0:        http://dl.suckless.org/%{name}/%{name}-%{version}.tar.gz
 Source1:        %{name}.desktop
 Source2:        %{name}.svg
 
-BuildRequires: make
 BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(webkit2gtk-4.0)
+BuildRequires:  pkgconfig(webkit2gtk-4.1)
+BuildRequires:  pkgconfig(webkit2gtk-web-extension-4.1)
 BuildRequires:  desktop-file-utils
 
 Requires:       st
@@ -30,24 +32,20 @@ surf is a simple web browser based on WebKit/GTK+.
 %prep
 %autosetup
 
-# Thanks to Robert Scheck for the DSO-patch
-# https://bugzilla.redhat.com/attachment.cgi?id=402128
-# I decided to include this in the sed chain below
+# Adapt to Fedora FHS
+# Also use correct webkit2gtk version
+# Cf. https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
 sed \
   -e 's|/usr/local|%{_prefix}|g' \
-  -e 's|/usr/lib|%{_libdir}|g' \
-  -e 's|/usr/include|%{_includedir}|g' \
-  -e 's|/usr/X11R6/include|%{_includedir}/X11|g' \
-  -e 's|/usr/X11R6/lib|%{_libdir}/X11|g' \
-  -e 's|/lib/surf|/%{_lib}/surf|g' \
-  -e 's|-s ${LIBS}|-g ${LIBS}|g' \
-  -e 's|-std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}|-std=c99 -pedantic %{optflags} ${INCS} ${CPPFLAGS}|g' \
-  -e 's|LIBS = -L/usr/lib -lc ${GTKLIB} -lgthread-2.0|LIBS = -L%{_libdir} -lc ${GTKLIB} -lgthread-2.0 -lX11|g' \
+  -e 's|$(PREFIX)/lib|$(PREFIX)/%{_lib}|g' \
+  -e 's|webkit2gtk-4.0|webkit2gtk-4.1|g' \
+  -e 's|webkit2gtk-web-extension-4.0|webkit2gtk-web-extension-4.1|g' \
   -i config.mk
 
 sed -i 's!^\(\t\+\)@!\1!' Makefile
 
 %build
+%set_build_flags
 %make_build
 
 %install
@@ -61,11 +59,19 @@ install -pm0644 %{S:2} %{buildroot}%{_datadir}/pixmaps/
 %files
 %license LICENSE
 %{_bindir}/%{name}
+%{_libdir}/%{name}/webext-%{name}.so
 %{_mandir}/man*/%{name}.*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.svg
 
 %changelog
+* Sun Aug 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1-2
+- Add webkit2gtk-web-extension BR
+
+* Sun Aug 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1-1
+- Update to latest upstream
+- Adapt to use webkit2gtk-4.1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

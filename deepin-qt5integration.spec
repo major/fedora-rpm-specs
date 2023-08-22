@@ -2,18 +2,13 @@
 %global __provides_exclude_from ^%{_qt5_plugindir}/.*\.so$
 
 Name:           deepin-qt5integration
-Version:        5.5.20
+Version:        5.6.11
 Release:        %autorelease
 Summary:        Qt platform theme integration plugins for DDE
-# The entire source code is GPLv3+ except styles/ which is BSD,
-# styleplugins/dstyleplugin/dstyleanimation* which is LGPL
-License:        GPLv3+ and BSD and LGPLv2+
+# migrated to SPDX
+License:        LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/qt5integration
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
-# Fix duplicated plugins
-Patch0:         https://github.com/linuxdeepin/qt5integration/pull/52.patch
-# tests failed to build after patch0 applied
-Patch1:         0001-disable-building-tests.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(atk)
@@ -69,6 +64,7 @@ Multiple Qt plugins to provide better Qt5 integration for DDE is included.
 %{_qt5_plugindir}/iconengines/lib*.so
 %{_qt5_plugindir}/imageformats/lib*.so
 %{_qt5_plugindir}/styles/libchameleon*.so
+%{_datadir}/mime/packages/image-dci.xml
 
 %changelog
 %autochangelog

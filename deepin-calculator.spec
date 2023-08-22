@@ -1,10 +1,13 @@
 Name:           deepin-calculator
-Version:        5.7.20
+Version:        5.8.24
 Release:        %autorelease
 Summary:        An easy to use calculator for ordinary users
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/deepin-calculator
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# fix ldflags
+Patch0:         https://github.com/linuxdeepin/deepin-calculator/pull/82.patch
 
 BuildRequires:  qt5-linguist
 BuildRequires:  cmake

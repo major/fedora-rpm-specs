@@ -41,16 +41,16 @@
 %global archive_topdir %{name}-%{version}%{?prerel2}
 %endif
 
-#%%global prerelease rc
-#%%global prereleasenum 1
+%global prerelease rc
+%global prereleasenum 1
 
 %global prerel1 %{?prerelease:.%{prerelease}%{prereleasenum}}
 %global prerel2 %{?prerelease:-%{prerelease}.%{prereleasenum}}
 
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
-Version: 2.20.0
-Release: 4%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Version: 2.21.0
+Release: 0.1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -424,6 +424,7 @@ fi
 %exclude %{_prefix}/lib/tuned/spindown-disk
 %exclude %{_prefix}/lib/tuned/sap-netweaver
 %exclude %{_prefix}/lib/tuned/sap-hana
+%exclude %{_prefix}/lib/tuned/sap-hana-kvm-guest
 %exclude %{_prefix}/lib/tuned/mssql
 %exclude %{_prefix}/lib/tuned/oracle
 %exclude %{_prefix}/lib/tuned/atomic-host
@@ -448,7 +449,6 @@ fi
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/tuned/post_loaded_profile
 %config(noreplace) %{_sysconfdir}/tuned/tuned-main.conf
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/tuned/bootcmdline
-%{_sysconfdir}/dbus-1/system.d/com.redhat.tuned.conf
 %verify(not size mtime md5) %{_sysconfdir}/modprobe.d/tuned.conf
 %{_tmpfilesdir}/tuned.conf
 %{_unitdir}/tuned.service
@@ -460,6 +460,7 @@ fi
 %{_mandir}/man8/tuned*
 %dir %{_datadir}/tuned
 %{_datadir}/tuned/grub2
+%{_datadir}/dbus-1/system.d/com.redhat.tuned.conf
 %{_datadir}/polkit-1/actions/com.redhat.tuned.policy
 %ghost %{_sysconfdir}/modprobe.d/kvm.rt.tuned.conf
 %{_prefix}/lib/kernel/install.d/92-tuned.install
@@ -499,6 +500,7 @@ fi
 
 %files profiles-sap-hana
 %{_prefix}/lib/tuned/sap-hana
+%{_prefix}/lib/tuned/sap-hana-kvm-guest
 %{_mandir}/man7/tuned-profiles-sap-hana.7*
 
 %files profiles-mssql
@@ -564,6 +566,21 @@ fi
 %{_mandir}/man7/tuned-profiles-openshift.7*
 
 %changelog
+* Sun Aug 20 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.21.0-0.1.rc1
+- new release
+  - rebased tuned to latest upstream
+    resolves: rhbz#2182117
+  - plugin_scheduler: fix perf fd leaks
+    resolves: rhbz#2173938
+  - allow skipping rollback when restarting TuneD or switching profile
+    resolves: rhbz#2203142
+  - function_calc_isolated_cores: no errors for offline CPUs
+    resolves: rhbz#2217015
+  - sap-hana: new profile sap-hana-kvm-guest
+    resolves: rhbz#2173740
+  - serialized SIGHUP handler to prevent possible bootcmdline corruption
+    resolves: rhbz#2215298
+
 * Wed Aug  9 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.20.0-4
 - Converted license to SPDX
 

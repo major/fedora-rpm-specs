@@ -1,20 +1,20 @@
 %global sname deepin-dock
 %global repo dde-dock
-%global __provides_exclude_from ^%{_libdir}/%{repo}/.*\\.so$
+%global __provides_exclude_from ^%{_prefix}/lib/dde-.*\\.so$
 
 %global start_logo start-here
 Name:           %{sname}
-Version:        5.5.38.1
+Version:        5.5.81
 Release:        %autorelease
-Summary:        Deepin desktop-environment - Dock module
-License:        GPLv3
+Summary:        The dock of Deepin Desktop Environment
+# migrated to SPDX
+License:        LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dde-dock
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(dbusmenu-qt5)
-BuildRequires:  pkgconfig(dde-network-utils)
 BuildRequires:  dtkwidget-devel >= 5.1
 BuildRequires:  dtkgui-devel >= 5.2.2.16
 BuildRequires:  dtkcore-devel >= 5.1
@@ -38,15 +38,10 @@ BuildRequires:  gtest-devel
 BuildRequires:  gmock-devel
 BuildRequires:  deepin-control-center-devel >= 5.5.77
 Requires:       dbusmenu-qt5
-%if 0%{?fedora}
 BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  make
-Requires:       deepin-network-utils
+Requires:       deepin-network-core
 Requires:       deepin-qt-dbus-factory
-%else
-Requires:       dde-network-utils
-Requires:       dde-qt-dbus-factory
-%endif
 Requires:       xcb-util-wm
 Requires:       xcb-util-image
 Recommends:     %{name}-onboard-plugin
@@ -56,7 +51,6 @@ Deepin desktop-environment - Dock module.
 
 %package devel
 Summary:        Development package for %{sname}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Header files and libraries for %{sname}.
@@ -71,21 +65,6 @@ deepin desktop-environment - dock plugin.
 
 %prep
 %autosetup -p1 -n %{repo}-%{version}
-sed -i '/TARGETS/s|lib|%{_lib}|' plugins/*/CMakeLists.txt \
-                                 plugins/plugin-guide/plugins-developer-guide.md
-
-sed -i 's|/lib|/%{_lib}|' frame/controller/dockpluginscontroller.cpp \
-                          frame/window/mainpanelcontrol.cpp \
-                          plugins/tray/system-trays/systemtrayscontroller.cpp
-
-
-sed -i 's|/lib|/libexec|g' plugins/show-desktop/showdesktopplugin.cpp \
-                           frame/window/mainpanelcontrol.cpp
-
-sed -i 's:libdir.*:libdir=%{_libdir}:' dde-dock.pc.in
-
-sed -i 's|/usr/lib/dde-dock/plugins|%{_libdir}/dde-dock/plugins|' plugins/plugin-guide/plugins-developer-guide.md
-sed -i 's|local/lib/dde-dock/plugins|local/%{_lib}/dde-dock/plugins|' plugins/plugin-guide/plugins-developer-guide.md
 
 %if 0%{?fedora}
 # set icon to Fedora logo
@@ -94,41 +73,43 @@ sed -i 's|deepin-launcher|%{start_logo}|' frame/item/launcheritem.cpp
 
 %build
 export PATH=%{_qt5_bindir}:$PATH
-%if 0%{?fedora}
-%cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DARCHITECTURE=%{_arch}
+%cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+       -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} # needed to install configfile
 %cmake_build
-%else
-%cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DARCHITECTURE=%{_arch} .
-%make_build
-%endif
 
 %install
-%if 0%{?fedora}
 %cmake_install
-%else
-%make_install INSTALL_ROOT=%{buildroot}
-%endif
 
 %files
 %license LICENSE
 %{_sysconfdir}/%{repo}/
 %{_bindir}/%{repo}
-%{_libdir}/%{repo}/
+%dir %{_prefix}/lib/%{repo}/
+%dir %{_prefix}/lib/%{repo}/plugins
+%{_prefix}/lib/%{repo}/plugins/libdatetime.so
+%{_prefix}/lib/%{repo}/plugins/libmultitasking.so
+%{_prefix}/lib/%{repo}/plugins/liboverlay-warning.so
+%{_prefix}/lib/%{repo}/plugins/libshow-desktop.so
+%{_prefix}/lib/%{repo}/plugins/libshutdown.so
+%{_prefix}/lib/%{repo}/plugins/libtrash.so
+%{_prefix}/lib/%{repo}/plugins/libtray.so
+%{_prefix}/lib/%{repo}/plugins/system-trays/
 %{_datadir}/%{repo}/
 %{_datadir}/dcc-dock-plugin/
 %{_datarootdir}/glib-2.0/schemas/com.deepin.dde.dock.module.gschema.xml
 %{_datarootdir}/polkit-1/actions/com.deepin.dde.dock.overlay.policy
-%{_libdir}/dde-control-center/modules/
+%{_prefix}/lib/dde-control-center/modules/
 %{_datadir}/dsg/
 
 %files devel
+%license LICENSE
 %doc plugins/plugin-guide
 %{_includedir}/%{repo}/
 %{_libdir}/pkgconfig/%{repo}.pc
 %{_libdir}/cmake/DdeDock/DdeDockConfig.cmake
 
 %files onboard-plugin
-%{_libdir}/dde-dock/plugins/libonboard.so
+%{_prefix}/lib/%{repo}/plugins/libonboard.so
 
 
 %changelog

@@ -13,7 +13,7 @@ BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5X11Extras)
 BuildRequires:  qt5-qtdeclarative-devel
 BuildRequires:  pkgconfig(xscrnsaver)
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       %{name}-data = %{version}-%{release}
 
@@ -31,7 +31,8 @@ Extra data for Deepin Screensaver.
 
 %prep
 %setup -q
-sed -i 's|/lib|/libexec|' xscreensaver/xscreensaver.pro common.pri
+# fix patch to xscreensaver
+sed -i 's|/lib|/libexec|' xscreensaver/xscreensaver.pro
 sed -i 's|/usr/lib|%{_libexecdir}|' tools/preview/main.cpp
 
 %build
@@ -48,7 +49,7 @@ sed -i 's|/usr/lib|%{_libexecdir}|' tools/preview/main.cpp
 %{_datadir}/dbus-1/interfaces/*
 
 %files data
-%{_libexecdir}/%{name}
+%{_prefix}/lib/%{name}
 
 
 %changelog

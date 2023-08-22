@@ -1,11 +1,12 @@
 %global repo dde-session-ui
-%global __provides_exclude_from ^%{_libdir}/dde-dock/.*\\.so$
+%global __provides_exclude_from ^%{_prefix}/lib/dde-.*\\.so$
 
 Name:           deepin-session-ui
-Version:        5.5.23
+Version:        5.6.2
 Release:        %autorelease
 Summary:        Deepin desktop-environment - Session UI module
-License:        GPLv3
+# migrated to SPDX
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/%{repo}
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 # fix crash at start of dde-osd
@@ -34,12 +35,8 @@ BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  gio-qt-devel
 BuildRequires:  gtest-devel
-%if 0%{?fedora}
 Requires:       deepin-daemon
 Requires:       deepin-session-shell
-%else
-Requires:       dde-daemon
-%endif
 Requires:       startdde
 
 Provides:       deepin-notifications = %{version}-%{release}
@@ -59,14 +56,6 @@ This project include those sub-project:
 
 %prep
 %autosetup -p1 -n %{repo}-%{version}
-sed -i 's:lib/deepin-daemon:libexec/deepin-daemon:' \
-    dde-osd/files/com.deepin.dde.Notification.service \
-    dde-osd/files/com.deepin.dde.freedesktop.Notification.service \
-    dde-osd/files/com.deepin.dde.osd.service \
-    dde-warning-dialog/com.deepin.dde.WarningDialog.service \
-    dde-welcome/com.deepin.dde.welcome.service \
-    CMakeLists.txt
-sed -i 's|lib/dde-dock|%{_lib}/dde-dock|' CMakeLists.txt
 
 %build
 %cmake
@@ -80,10 +69,11 @@ sed -i 's|lib/dde-dock|%{_lib}/dde-dock|' CMakeLists.txt
 %license LICENSE
 %{_bindir}/dde-*
 %{_bindir}/dmemory-warning-dialog
-%{_libexecdir}/deepin-daemon/*
+%{_prefix}/lib/deepin-daemon/*
+%{_datadir}/applications/dde-osd.desktop
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/dbus-1/services/*.service
-%{_libdir}/dde-dock/plugins/libnotifications.so
+%{_prefix}/lib/dde-dock/
 %{_prefix}/share/glib-2.0/schemas/com.deepin.dde.dock.module.notifications.gschema.xml
 
 %changelog

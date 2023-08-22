@@ -1,13 +1,11 @@
-%global _default_patch_fuzz 2
 Name:           deepin-editor
-Version:        5.10.18
+Version:        6.0.10
 Release:        %autorelease
 Summary:        Simple editor for Linux Deepin
-License:        GPLv3
+# SPDX migration
+License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/deepin-editor
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         https://raw.githubusercontent.com/archlinux/svntogit-community/45c68761ad09e178a2b4be63bc7e2367019f556b/trunk/fix-include.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  freeimage-devel
@@ -57,12 +55,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files
 %doc README.md
-%license LICENSE
+%license LICENSE.txt
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/deepin-manual/
+%{_datadir}/dsg/
 
 %changelog
 %autochangelog

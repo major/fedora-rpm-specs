@@ -1,21 +1,12 @@
 Summary:        A fast, feature rich Window Manager
 Name:           WindowMaker
-Version:        0.95.9
-Release:        12%{?dist}
-License:        GPLv2+
+Version:        0.96.0
+Release:        %autorelease
+License:        GPL-2.0-or-later
 URL:            http://www.windowmaker.org 
-Source0:        http://windowmaker.org/pub/source/release/WindowMaker-%{version}.tar.gz
-Source1:        WindowMaker-xsession.desktop
-Source2:        WindowMaker-application.desktop
+Source0:        https://github.com/window-maker/wmaker/releases/download/wmaker-%{version}/%{name}-%{version}.tar.gz
 
 Source3:        WindowMaker-WMRootMenu-fedora
-
-# Backports from `next`-branch
-Patch0:		WindowMaker-0.95.9-fix-libXmu-configure-typo.patch
-Patch1:		WindowMaker-0.95.9-use-xflags-from-configure.patch
-Patch2:		WindowMaker-0.95.9-compile-with-ImageMagick-7.patch
-Patch3:		WindowMaker-0.95.9-fix-ImageMagick-macro-bug.patch
-Patch4:		WindowMaker-0.95.9-fix-ImageMagick-version-typo.patch
 
 # X BR
 BuildRequires: make
@@ -151,12 +142,7 @@ export CFLAGS LINGUAS NLSDIR
 %install
 %make_install NLSDIR=%{_datadir}/locale
 
-%find_lang '\(WPrefs\|WindowMaker\|WINGs\|wmgenmenu\)'
-
-install -D -m0644 -p %{SOURCE1} \
-%{buildroot}%{_datadir}/xsessions/WindowMaker.desktop
-install -D -m0644 -p %{SOURCE2} \
-%{buildroot}%{_datadir}/applications/WindowMaker.desktop
+%find_lang '\(WPrefs\|WindowMaker\|WINGs\|wmgenmenu\|WRaster\)'
 
 # make first login fedora specific
 install -D -m0644 -p %{SOURCE3} \
@@ -177,15 +163,15 @@ for f in wmaker wdwrite wdread getstyle setstyle convertfonts seticons \
   chrpath --delete %{buildroot}%{_bindir}/$f
 done
 
-chrpath --delete %{buildroot}%{_libdir}/libWINGs.so.3.1.0
-chrpath --delete %{buildroot}%{_libdir}/libwraster.so.6.0.0
+chrpath --delete %{buildroot}%{_libdir}/libWINGs.so.3.2.0
+chrpath --delete %{buildroot}%{_libdir}/libwraster.so.6.1.0
 chrpath --delete %{buildroot}%{_libdir}/libWMaker.so.1.0.1
 
 %ldconfig_scriptlets
 
 %ldconfig_scriptlets -n WINGs-libs
 
-%files -f '\(WPrefs\|WindowMaker\|WINGs\|wmgenmenu\)'.lang
+%files -f '\(WPrefs\|WindowMaker\|WINGs\|wmgenmenu\|WRaster\)'.lang
 %doc AUTHORS ChangeLog NEWS FAQ* README* COPYING*
 %dir %{_sysconfdir}/WindowMaker
 %config(noreplace) %{_sysconfdir}/WindowMaker/*
@@ -209,8 +195,8 @@ chrpath --delete %{buildroot}%{_libdir}/libWMaker.so.1.0.1
 %{_bindir}/wxpaste
 %{_bindir}/wmiv
 %{_libdir}/libWMaker.so.*
-%{_datadir}/xsessions/WindowMaker.desktop
-%{_datadir}/applications/WindowMaker.desktop
+%{_datadir}/xsessions/wmaker.desktop
+%{_datadir}/applications/WPrefs.desktop
 %dir %{_datadir}/WindowMaker
 %{_datadir}/WindowMaker/appearance.menu
 %{_datadir}/WindowMaker/appearance.menu.*
@@ -305,323 +291,4 @@ chrpath --delete %{buildroot}%{_libdir}/libWMaker.so.1.0.1
 %{_includedir}/wraster.h
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.9-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.9-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.95.9-10
-- Rebuild for ImageMagick 7
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.9-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.9-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Oct 17 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.95.9-7
-- Rebuild against new ImageMagick
-
-* Thu Aug 05 2021 Jani Juhani Sinervo <jani@sinervo.fi> - 0.95.9-6
-- Fix FTBFS in Rawhide and F35
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.9-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.9-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jun 11 2020 Jani Juhani Sinervo <jani@sinervo.fi> - 0.95.9-1
-- Update to 0.95.9
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.8-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.8-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.8-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Aug 28 2018 Michael Cronenworth <mike@cchtml.com> - 0.95.8-11
-- Rebuild for new ImageMagick 6.9.10
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.8-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sun Apr 08 2018 Sandro Mani <manisandro@gmail.com> - 0.95.8-9
-- Fix incorrect requires libungif-devel -> giflib-devel
-
-* Sun Feb 11 2018 Sandro Mani <manisandro@gmail.com> - 0.95.8-8
-- Rebuild (giflib)
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.8-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Sep 05 2017 Adam Williamson <awilliam@redhat.com> - 0.95.8-6
-- Rebuild back to ImageMagick 6 (we reverted 7), drop patch
-
-* Mon Aug 28 2017 Michael Cronenworth <mike@cchtml.com> - 0.95.8-5
-- Rebuild for new ImageMagick
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Mon Jul 31 2017 Kevin Fenzi <kevin@scrye.com> - 0.95.8-3
-- Rebuild for new ImageMagick
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Mar 18 2017 Andreas Bierfert <andreas.bierfert@lowlatency.de>
-- 0.95.8-1
-- version upgrade
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Feb 01 2017 Sandro Mani <manisandro@gmail.com> - 0.95.7-4
-- Rebuild (libwebp)
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Dec 29 2015 Kalev Lember <klember@redhat.com> - 0.95.7-2
-- Rebuilt for libwebp soname bump
-
-* Thu Dec 24 2015 Andreas Bierfert <andreas.bierfert@lowlatency.de>
-- 0.95.7-1
-- version upgrade
-- unneeded remove patches
-- adjust man pages
-- enable pango
-- enable ICCCM replace
-
-* Tue Jun 16 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.95.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Tue Oct 14 2014 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.6-2
-- make system config in /etc noreplace
-- add fedora specific WMRootMenu in /etc
-- set current fedora background as default background (via desktop-backgrounds-compat)
-- fix bogus date in changelog
-- utf8 cleanup
-
-* Tue Oct 14 2014 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.6-1
-- version upgrade (rhbz#1138296)
-
-* Fri Aug 15 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.95.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Fri Jun 06 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.95.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Sat Aug 31 2013 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.5-1
-- version upgrade
-- do some more /usr/local/ replacement so that WindowMaker-extra is detected correctly
-
-* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.95.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Sun Feb 10 2013 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.4-5
-- add proplist menu code from git
-
-* Fri Jan 18 2013 Adam Tkac <atkac redhat com> - 0.95.4-4
-- rebuild due to "jpeg8-ABI" feature drop
-
-* Tue Jan 08 2013 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.4-3
-- more fsf fixes from wmaker-crm git
-
-* Mon Jan 07 2013 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.4-2
-- fix incorrect fsf address
-- submit extra package for review so this is not updated each time we update
-  windowmaker
-
-* Mon Jan 07 2013 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.4-1
-- version upgrade
-- readd windowmaker extra stuff
-
-* Mon Jan 07 2013 Adam Tkac <atkac redhat com> - 0.95.3-4
-- rebuild against new libjpeg
-
-* Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.95.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
-
-* Thu May 31 2012 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.3-2
-- fix description
-
-* Mon May 28 2012 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.3-1
-- version upgrade (rhbz#824670)
-
-* Wed Feb 15 2012 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.2-1
-- version upgrade
-
-* Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.95.0-0.3.crm.a9e136ec41118f8842f7aa1457b2db83dbde6b7f
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
-
-* Sat Dec 17 2011 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.0-0.2.crm.a9e136ec41118f8842f7aa1457b2db83dbde6b7f
-- fix requires
-
-* Sat Dec 10 2011 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.95.0-0.1.crm.a9e136ec41118f8842f7aa1457b2db83dbde6b7f
-- build git snapshot
-- cleanup spec file
-- obsolete WindowMaker-devel package
-
-* Tue Dec 06 2011 Adam Jackson <ajax@redhat.com> - 0.92.0-23
-- Rebuild for new libpng
-
-* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.92.0-22
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
-
-* Wed Dec 08 2010 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.92.0-21
-- add -lfontconfig to WPrefs (fixes #660950)
-
-* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.92.0-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
-
-* Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.92.0-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
-
-* Wed Sep 24 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 0.92.0-18
-- fix patches to apply without fuzz
-- adjust URL/Source to new website
-
-* Mon Feb 11 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de> - 0.92.0-17
-- Rebuilt for gcc43
-
-* Thu Jan 03 2008 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.92.0-16
-- fix #427430
-
-* Sun Dec 09 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.92.0-15
-- add patches from #267041 for less wakeup calls
-- fix multilib stuff #343431
-
-* Thu Aug 23 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- 0.92.0-14
-- new license tag
-- rebuild for buildid
-
-* Sun Jun 03 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-13
-- fix a menu bug for WPrefs
-- clean up menu path
-
-* Thu Apr 26 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-12
-- apply some changes from Patrice Dumas
-- fix requires
-
-* Sun Mar 04 2007 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-11
-- fix install location of WPrefs (#228346)
-- fix menu modification sniplet
-- split into sub packages to fix multilib issues (#228346)
-- mark sh files executable
-
-* Sat Nov 04 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-10
-- fix #185579: bouncing animation will respect animations off setting
-- fix #211263: missing dependencies in devel package
-
-* Fri Sep 15 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-9
-- FE6 rebuild
-
-* Thu Mar 02 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-8
-- fix gdm detection
-
-* Sun Feb 26 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-7
-- fix #181981
-- go to new cvs snapshot (which includes qt fix)
-- add patches from altlinuxs rpm (suggested by Andrew Zabolotny)
-- get rid of static libs (finally)
-- tune configure
-- add uk translation
-- finally add extras source
-- fix stack-smash while reading workspace names
-
-* Thu Feb 16 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-6
-- Rebuild for Fedora Extras 5
-
-* Fri Nov 25 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-5
-- modular xorg integration
-
-* Thu Nov 17 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-4
-- add menu fix from Rudol Kastel (#173329)
-
-* Mon Aug 22 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-3
-- add gcc4/x86_64 patch from cvs
-
-* Tue Aug 09 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-2
-- try to fix x86_64 build
-
-* Tue Aug 09 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.92.0-1
-- upgrade to new version 
-- use dist tag
-- use smp_mflags
-- fix #163459
-
-* Tue May 31 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-- add disttag fc3<fc4
-
-* Tue May 31 2005 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.91.0-1
-- upgrade to 0.91.0
-
-* Thu Apr 7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
-- rebuilt
-
-* Fri Nov 28 2003 Dams <anvil[AT]livna.org> - 0:0.80.2-0.fdr.6
-- exclude -> rm
-- Added patch to fix gtk2 apps handling and other focus things
-
-* Wed Sep 17 2003 Dams <anvil[AT]livna.org> 0:0.80.2-0.fdr.5
-- Shortened files section
-- Fixed tarball permissions (now a+r)
-
-* Wed Sep 17 2003 Dams <anvil[AT]livna.org> 0:0.80.2-0.fdr.4
-- Header files were installed in the wrong directory. Fixed. Slovak
-  man pages installation fixed same way.
-- WindowWaker-libs is now obsolete.
-
-* Tue Aug 12 2003 Dams <anvil[AT]livna.org> 0:0.80.2-0.fdr.3
-- buildroot -> RPM_BUILD_ROOT
-- New devel package
-- No more libs package
-
-* Thu Apr 10 2003 Dams <anvil[AT]livna.org> 0:0.80.2-0.fdr.2
-- Added missing Require: for gettext
-
-* Tue Apr  8 2003 Dams <anvil[AT]livna.org>
-- Initial build.
+%autochangelog

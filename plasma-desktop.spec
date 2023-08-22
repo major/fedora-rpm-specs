@@ -9,7 +9,7 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 5.27.7
+Version: 5.27.7.1
 Release: 1%{?dist}
 
 License: GPLv2+ and (GPLv2 or GPLv3)

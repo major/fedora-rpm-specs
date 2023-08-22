@@ -20,7 +20,7 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        Simple retry mechanism for Go
 
-License:        LGPL-3.0
+License:        LGPL-3.0-or-later WITH LGPL-3.0-linking-exception
 URL:            %{gourl}
 Source0:        %{gosource}
 

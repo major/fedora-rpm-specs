@@ -1,8 +1,8 @@
 Name:           perl-Image-Info
-Version:        1.43
-Release:        3%{?dist}
+Version:        1.44
+Release:        1%{?dist}
 Summary:        Image meta information extraction module for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Image-Info
 Source0:        https://cpan.metacpan.org/authors/id/S/SR/SREZIC/Image-Info-%{version}.tar.gz
 BuildArch:      noarch
@@ -48,7 +48,7 @@ chmod -c 644 exifdump imgdump
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+%make_build
 
 %install
 make pure_install DESTDIR=%{buildroot}
@@ -65,6 +65,10 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sun Aug 20 2023 Xavier Bachelot <xavier@bachellot.org> - 1.44-1
+- Update to 1.44
+- Convert License to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.43-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

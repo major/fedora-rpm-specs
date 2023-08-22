@@ -1,5 +1,5 @@
 Name:             python-alembic
-Version:          1.11.2
+Version:          1.11.3
 Release:          %autorelease
 Summary:          Database migration tool for SQLAlchemy
 
