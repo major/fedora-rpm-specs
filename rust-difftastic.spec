@@ -4,7 +4,7 @@
 %global crate difftastic
 
 Name:           rust-difftastic
-Version:        0.49.0
+Version:        0.50.0
 Release:        %autorelease
 Summary:        Structural diff that understands syntax
 
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 # * remove upper bound on assert_cmd, predicates, and regex
 Patch:          difftastic-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 A structural diff that understands syntax.}
@@ -25,7 +25,8 @@ A structural diff that understands syntax.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-License:        (Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND MIT AND (MIT OR Unlicense) AND Unicode-DFS-2016 AND Zlib
+# from %%cargo_license_summary
+License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND (Unlicense OR MIT) AND Zlib
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -45,6 +46,7 @@ License:        (Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exce
 
 %build
 %cargo_build
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install

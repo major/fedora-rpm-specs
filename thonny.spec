@@ -1,6 +1,6 @@
 Name:           thonny
-Version:        4.0.2
-Release:        5%{?dist}
+Version:        4.1.1
+Release:        1%{?dist}
 Summary:        Python IDE for beginners
 
 # Code is MIT, toolbar icons are EPL-1.0
@@ -8,11 +8,6 @@ Summary:        Python IDE for beginners
 License:        MIT AND EPL-1.0
 URL:            https://thonny.org
 Source:         %{pypi_source}
-
-# zenity 3.91+ has removed some of the CLI options leading to failure in
-# opening and saving files in Gnome's thonny
-# Submitted upstream: https://github.com/thonny/thonny/pull/2786
-Patch:          Enable-thonny-to-open-and-save-files-with-zenity-3.91.patch
 
 BuildArch:      noarch
 
@@ -34,7 +29,7 @@ Requires:       python3-filelock
 Requires:       hicolor-icon-theme
 
 # Vendored library - not yet packaged in Fedora
-Provides:       bundled(python3dist(pipkin)) = 1.0~b7
+Provides:       bundled(python3dist(pipkin)) = 2.0~b2
 
 Recommends:     python3-asttokens
 Recommends:     python3-distro
@@ -56,15 +51,6 @@ rm thonny/locale/compile_mo.bat thonny/locale/update_pot.bat thonny/locale/thonn
 
 # Remove the vendored python-filelock
 rm -r thonny/vendored_libs/filelock/
-
-# Add placeholder to language file, already fixed in upstream.
-# https://github.com/thonny/thonny/issues/2626
-sed -i 's/Muovi nel Cestino/Muovi %s nel Cestino/' thonny/locale/it_IT/LC_MESSAGES/thonny.po
-
-# Remove shebang from pipkin files(rpm-lint error).Already Reported Upstream.
-# https://github.com/thonny/thonny/issues/2645
-sed -i 's/#!\/usr\/bin\/env python3//' thonny/vendored_libs/pipkin/__main__.py
-sed -i 's/#!\/usr\/bin\/env python3//' thonny/vendored_libs/pipkin/proxy.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -111,6 +97,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.thonn
 
 
 %changelog
+* Thu Aug 10 2023 abrarwali <abrarwali@tutanota.com> - 4.1.1-1
+- New Upstream Version 4.1.1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.21.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -115,6 +115,12 @@ Patch12: valgrind-3.21.0-pgste.patch
 # gdb --multi mode stdout redirecting to stderr
 # https://bugs.kde.org/show_bug.cgi?id=471311
 Patch13: valgrind-3.21.0-gdb-multi-mode-stdout-redirecting-to-stderr.patch
+
+# Add support for lazy reading and downloading of DWARF debuginfo
+# https://bugs.kde.org/show_bug.cgi?id=471807
+# Plus fixup commit a0d555a0dfe078ef04ea49d991a8090ab14bd4a5
+Patch14: valgrind-3.21.0-lazy-debuginfo.patch
+Patch15: valgrind-3.21.0-cleanup-read_elf_object.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -262,6 +268,8 @@ Valgrind User Manual for details.
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P13 -p1
+%patch -P14 -p1
+%patch -P15 -p1
 
 
 %build
@@ -495,6 +503,10 @@ fi
 %endif
 
 %changelog
+* Mon Aug 21 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-10
+- Add valgrind-3.21.0-lazy-debuginfo.patch
+- Add valgrind-3.21.0-cleanup-read_elf_object.patch
+
 * Thu Aug 17 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-9
 - Add valgrind-3.21.0-gdb-multi-mode-stdout-redirecting-to-stderr.patch
 - Use %%patch -Pn instead of deprecated %%patchn

@@ -16,7 +16,7 @@
 %bcond_without tests
 
 Name:           %{prefix}-healthcheck
-Version:        0.13
+Version:        0.14
 Release:        1%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
@@ -156,6 +156,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Mon Aug 21 2023 Rob Crittenden <rcritten@redhat.com> - 0.14-1
+- Update to 0.14 release
+
 * Wed Jul 19 2023 Rob Crittenden <rcritten@redhat.com> - 0.13-1
 - Update to 0.13 release
 

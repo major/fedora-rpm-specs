@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           modello
-Version:        2.0.0
-Release:        6%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        Modello Data Model toolkit
 # The majority of files are under MIT license, but some of them are ASL 2.0.
 # Some parts of the project are derived from the Exolab project,
@@ -12,8 +12,6 @@ URL:            https://codehaus-plexus.github.io/modello
 
 Source0:        https://repo1.maven.org/maven2/org/codehaus/%{name}/%{name}/%{version}/%{name}-%{version}-source-release.zip
 Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
-
-Patch0:         0001-Remove-dependency-on-Jsoup.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -26,14 +24,18 @@ BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-javac)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  mvn(org.jsoup:jsoup)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
 
@@ -58,7 +60,6 @@ API documentation for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
 cp -p %{SOURCE1} LICENSE
 # We don't generate site; don't pull extra dependencies.
 %pom_remove_plugin :maven-site-plugin
@@ -74,6 +75,11 @@ cp -p %{SOURCE1} LICENSE
 
 %pom_disable_module modello-plugin-snakeyaml modello-plugins
 %pom_remove_dep :modello-plugin-snakeyaml modello-maven-plugin
+
+# Requires velocity >= 2
+%pom_disable_module modello-plugin-velocity modello-plugins
+%pom_remove_dep :modello-plugin-velocity modello-maven-plugin
+rm modello-maven-plugin/src/main/java/org/codehaus/modello/maven/ModelloVelocityMojo.java
 
 %build
 # skip tests because we have too old xmlunit in Fedora now (1.0.8)
@@ -92,6 +98,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Mon Aug 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.1-1
+- Update to upstream version 2.1.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

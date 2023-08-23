@@ -15,18 +15,18 @@
 
 # Commit IDs for the (unversioned) redis-doc repository
 # https://fedoraproject.org/wiki/Packaging:SourceURL "Commit Revision"
-%global doc_commit ab025f62797f2622ddad7bad938e747bebb6ab09
+%global doc_commit 47e506c203cb876141d195429b45c01a52f62650
 %global short_doc_commit %(c=%{doc_commit}; echo ${c:0:7})
 
 # %%{rpmmacrodir} not usable on EL-6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%global upstream_ver 7.2
-%global upstream_pre rc3
+%global upstream_ver 7.2.0
+#global upstream_pre rc3
 
 Name:              redis
 Version:           %{upstream_ver}%{?upstream_pre:~%{upstream_pre}}
-Release:           2%{?dist}
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # redis, hiredis: BSD-3-Clause
 # hdrhistogram, jemalloc, lzf, linenoise: BSD-2-Clause
@@ -307,6 +307,9 @@ fi
 
 
 %changelog
+* Mon Aug 21 2023 Remi Collet <remi@remirepo.net> - 7.2.0-1
+- Upstream 7.2 release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2~rc3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,10 +7,10 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
 Version: 0.16.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 #URL:     http://www.freedesktop.org/wiki/Distributions/AppStream
 URL:     https://github.com/ximion/appstream
 Source0: http://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
@@ -214,6 +214,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 0.16.1-4
+- Migrate to SPDX license expression
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

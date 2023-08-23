@@ -3,16 +3,12 @@
 # SVN path: http://svn.sourceforge.jp/svnroot/yash/yash/trunk
 
 %global		repoid		78345
-%global		mainver	2.54
+%global		mainver		2.55
 %global		docver		%{mainver}
 
-%if 0%{?fedora} >= 20
 %global		yashdocdir		%{_datadir}/doc/%{name}-doc
-%else
-%global		yashdocdir		%{_datadir}/doc/%{name}-doc-%{version}
-%endif
 
-%global		baserelease		2
+%global		baserelease	1
 %undefine		minorver
 %undefine       _changelog_trimtime
 
@@ -25,9 +21,8 @@ Summary:	Yet Another SHell
 # However, doc/intro.txt says this is under GPL-2.0-only
 # SPDX confirmed
 License:	GPL-2.0-only
-URL:		http://yash.osdn.net/
-Source0:	http://osdn.dl.osdn.net/yash/%{repoid}/%{name}-%{version}%{?minorver}.tar.xz
-#Source1:	http://dl.osdn.jp/yash/%{repoid}/%{name}-doc-%{docver}%{?minorver}-ja.tar.gz
+URL:		https://github.com/magicant/yash/
+Source0:	https://github.com/magicant/yash/archive/%{version}/%{name}-%{version}%{?minorver}.tar.gz
 
 # Patches
 
@@ -35,6 +30,9 @@ BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	ncurses-devel
 BuildRequires:	ed
+BuildRequires:	/usr/bin/a2x
+BuildRequires:	/usr/bin/xgettext
+BuildRequires:	/usr/bin/ps
 Provides:		/bin/yash
 # Write needed Requires for scriptlets explicitly
 Requires(post):	grep
@@ -82,7 +80,7 @@ env \
 	--datarootdir=%{_datarootdir} \
 	--docdir=%{yashdocdir}/ \
 
-make -k %{?_smp_mflags}
+%make_build -k
 
 %install
 make install install-html \
@@ -117,12 +115,11 @@ sed -i -e '\@/bin/yash$@d' %{_sysconfdir}/shells
 exit 0
 
 %files -f %name.lang
-%defattr(-,root,root,-)
 %license	COPYING
 %doc	NEWS
-%doc	README
+%doc	README.md
 %lang(ja)	%doc	NEWS.ja
-%lang(ja)	%doc	README.ja
+%lang(ja)	%doc	README.ja.md
 
 %{_bindir}/%{name}
 
@@ -135,13 +132,15 @@ exit 0
 %lang(ja)	%{_mandir}/ja/man1/yash.1*
 
 %files	doc
-%defattr(-,root,root,-)
 %dir	%{yashdocdir}/
 %{yashdocdir}/*.html
 %{yashdocdir}/*.css
 %lang(ja)	%{yashdocdir}/ja/
 
 %changelog
+* Mon Aug 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.55-1
+- 2.55
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.54-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

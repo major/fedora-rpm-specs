@@ -1,13 +1,22 @@
 %global extension   blur-my-shell
 %global uuid        %{extension}@aunetx
+# Define a commit here to switch to snapshot versioning.  Note that just adding
+# a `#` to the beginning of this line is insufficient to disable snapshot
+# versioning, as RPM allows you to define macros anywhere, even in comments.
+%global commit      28a669d1558659c714bfa1c1ac8661fde69ca9d8
+%global shortcommit %{lua:print(macros.commit:sub(1,7))}
 
 Name:           gnome-shell-extension-%{extension}
-Version:        47
+Version:        47%{?commit:^1.%{shortcommit}}
 Release:        %autorelease
 Summary:        Adds a blur look to different parts of the GNOME Shell
 License:        GPL-3.0-or-later
 URL:            https://github.com/aunetx/blur-my-shell
+%if %{defined commit}
+Source:         %{url}/archive/%{commit}/%{extension}-%{shortcommit}.tar.gz
+%else
 Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
+%endif
 
 BuildArch:      noarch
 BuildRequires:  gettext
@@ -23,7 +32,11 @@ panel, dash and overview.
 
 
 %prep
+%if %{defined commit}
+%autosetup -n %{extension}-%{commit}
+%else
 %autosetup -n %{extension}-%{version}
+%endif
 
 
 %install

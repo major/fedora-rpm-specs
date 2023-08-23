@@ -1,7 +1,7 @@
 %global require_ibus_version 1.4.0
 
 Name:       ibus-m17n
-Version:    1.4.21
+Version:    1.4.22
 Release:    1%{?dist}
 Summary:    The M17N engine for IBus platform
 License:    GPL-2.0-or-later
@@ -63,6 +63,10 @@ make check
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.m17n.gschema.xml
 
 %changelog
+* Mon Aug 21 2023 Mike FABIAN <mfabian@redhat.com> - 1.4.22-1
+- Update to 1.4.22
+- Translation update from Weblate (Lithuanian, lt 100%)
+
 * Mon Aug 07 2023 Mike FABIAN <mfabian@redhat.com> - 1.4.21-1
 - Update to 1.4.21
 - Translation update from Weblate (Swedish, sv 100%)

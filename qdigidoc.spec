@@ -8,8 +8,8 @@
 
 
 Name:           qdigidoc
-Version:        4.3.0
-Release:        2%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        Estonian digital signature and encryption application
 License:        LGPLv2+
 URL:            https://github.com/open-eid/DigiDoc4-Client
@@ -36,12 +36,14 @@ BuildRequires: make
 BuildRequires:  cmake3 >= 3.5
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
-BuildRequires:  libdigidocpp-devel >= 3.15.0
+BuildRequires:  libdigidocpp-devel >= 3.16.0
+BuildRequires:  flatbuffers-compiler
 BuildRequires:  openldap-devel
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(Qt5Svg)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Designer)
+BuildRequires:  pkgconfig(flatbuffers)
 BuildRequires:  pkgconfig(libpcsclite) >= 1.7
 BuildRequires:  libappstream-glib
 BuildRequires:  qtsingleapplication-qt5-devel
@@ -149,6 +151,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/qdigidoc4.desktop
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Mon Aug 21 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 4.4.0-1
+- Upstream release 4.4.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

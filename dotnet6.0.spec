@@ -20,10 +20,10 @@
 # until that's done, disable LTO.  This has to happen before setting the flags below.
 %define _lto_cflags %{nil}
 
-%global host_version 6.0.20
-%global runtime_version 6.0.20
+%global host_version 6.0.21
+%global runtime_version 6.0.21
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 6.0.120
+%global sdk_version 6.0.121
 %global sdk_feature_band_version %(echo %{sdk_version} | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -60,7 +60,7 @@
 
 Name:           dotnet6.0
 Version:        %{sdk_rpm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        .NET Runtime and SDK
 License:        MIT and ASL 2.0 and BSD and LGPLv2+ and CC-BY and CC0 and MS-PL and EPL-1.0 and GPL+ and GPLv2 and ISC and OFL and zlib
 URL:            https://github.com/dotnet/
@@ -391,13 +391,6 @@ ln -s %{_libdir}/dotnet/source-built-artifacts/Private.SourceBuilt.Artifacts.*.t
 # Fix bad hardcoded path in build
 sed -i 's|/usr/share/dotnet|%{_libdir}/dotnet|' src/runtime/src/native/corehost/hostmisc/pal.unix.cpp
 
-%if 0%{?fedora} == 40
-# Fix incorrectly using fedora.39 RIDs on fedora.40
-sed -i -E 's|(<PackAsTool>true</PackAsTool>)|\1<RuntimeIdentifier>%{runtime_id}</RuntimeIdentifier><SelfContained>false</SelfContained>|' \
-  src/aspnetcore/src/Tools/dotnet-dev-certs/src/dotnet-dev-certs.csproj \
-  src/aspnetcore/src/Tools/dotnet-user-secrets/src/dotnet-user-secrets.csproj \
-%endif
-
 pushd src/runtime
 %patch100 -p1
 %patch101 -p1
@@ -450,7 +443,6 @@ cat /etc/os-release
 %if %{without bootstrap}
 # We need to create a copy because we will mutate this
 cp -a %{_libdir}/dotnet previously-built-dotnet
-sed -i -E 's|fedora.33|fedora.40|' previously-built-dotnet/sdk/6.0.120/RuntimeIdentifierGraph.json
 
 find previously-built-dotnet
 %endif
@@ -648,6 +640,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Aug 08 2023 Omair Majid <omajid@redhat.com> - 6.0.121-1
+- Update to .NET SDK 6.0.121 and Runtime 6.0.21
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.120-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

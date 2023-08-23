@@ -7,8 +7,8 @@
 %global vala_version 0.52.5
 
 Name:           budgie-desktop
-Version:        10.7.2
-Release:        2%{?dist}
+Version:        10.8
+Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -50,8 +50,8 @@ BuildRequires:  gnupg2
 BuildRequires:  gsettings-desktop-schemas >= %{gsettings_desktop_schemas_version}
 BuildRequires:  gtk-doc >= 1.33.0
 BuildRequires:  intltool
+BuildRequires:  magpie-devel
 BuildRequires:  meson
-BuildRequires:  mutter-devel
 BuildRequires:  sassc
 BuildRequires:  vala
 BuildRequires:  zenity >= 3.91.0
@@ -185,6 +185,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Mon Aug 21 2023 Joshua Strobl <me@joshuastrobl.com> - 10.8-1
+- Updated to 10.8
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

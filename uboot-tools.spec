@@ -1,4 +1,4 @@
-%global candidate rc2
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2023.10
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  0.4%{?candidate:.%{candidate}}%{?dist}
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
 URL:      http://www.denx.de/wiki/U-Boot
@@ -22,15 +22,15 @@ Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 Patch2:   smbios-Simplify-reporting-of-unknown-values.patch
 Patch3:   disable-VBE-by-default.patch
 Patch4:   enable-bootmenu-by-default.patch
+Patch5:   Add-video-damage-tracking.patch
 
 # Board fixes and enablement
 # RPi - uses RPI firmware device tree for HAT support
-Patch5:   rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
+Patch10:  rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
 # Rockchips improvements
-Patch6:   rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
-Patch7:   rock64-small-fixes.patch
-#Patch7:   0001-Revert-rockchip-rockpro64-Build-u-boot-rockchip-spi..patch
-Patch8:   rpi-Convert-to-standard-boot.patch
+Patch11:  rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
+#Patch12: 0001-Revert-rockchip-rockpro64-Build-u-boot-rockchip-spi..patch
+Patch13:  rpi-Convert-to-standard-boot.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -215,6 +215,12 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 %endif
 
 %changelog
+* Mon Aug 21 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10-0.4.rc3
+- Update to 2023.10 RC3
+
+* Mon Aug 21 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10-0.3.rc2
+- Add patch to speed up firmware UEFI video output
+
 * Sat Aug 19 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10-0.2.rc2
 - Add patch for Raspberry Pi boot
 

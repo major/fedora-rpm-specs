@@ -6,7 +6,7 @@
 Summary: GNU arbitrary precision library
 Name: gmp
 Version: 6.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 1
 URL: https://gmplib.org/
 Source0: https://gmplib.org/download/gmp/gmp-%{version}.tar.xz
@@ -14,7 +14,14 @@ Source2: gmp.h
 Source3: gmp-mparam.h
 Patch2: gmp-6.0.0-debuginfo.patch
 Patch3: gmp-intel-cet.patch
-License: LGPLv3+ or GPLv2+
+
+# * Main sources are dual licensed under LGPL-3.0-or-later and GPL-2.0-or-later
+#   Either only one may be active or both simultaneously.
+# * Some docs are under GFDL-1.3-invariants-or-later.
+# * demos are under GPL-3.0-or-later but they are NOT shipped.
+# * tests are under GPL-3.0-or-later but they are NOT shipped.
+License: (LGPL-3.0-or-later OR GPL-2.0-or-later OR (LGPL-3.0-or-later AND GPL-2.0-or-later)) AND GFDL-1.3-invariants-or-later
+
 BuildRequires: autoconf automake libtool
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -176,6 +183,9 @@ export LD_LIBRARY_PATH=`pwd`/.libs
 %{_libdir}/libgmpxx.a
 
 %changelog
+* Mon Aug 07 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1:6.2.1-6
+- migrate to SPDX license format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

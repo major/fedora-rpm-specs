@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.10
-Release: 5%{?dist}
+Release: 7%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -125,11 +125,6 @@ Patch64: qt5-qtbase-5.12.1-firebird-4.0.0.patch
 # fix for new mariadb
 Patch65: qtbase-opensource-src-5.9.0-mysql.patch
 
-
-# https://fedoraproject.org/wiki/Changes/Qt_Wayland_By_Default_On_Gnome
-# https://bugzilla.redhat.com/show_bug.cgi?id=1732129
-Patch80: qtbase-use-wayland-on-gnome.patch
-
 # gcc-11
 Patch90: %{name}-gcc11.patch
 
@@ -152,7 +147,39 @@ Patch103: qtbase-QTBUG-112136.patch
 Patch104: qtbase-QTBUG-103393.patch
 
 # upstream security fixes
-Patch150: CVE-2023-37369-qtbase-5.15.diff
+Patch110: CVE-2023-37369-qtbase-5.15.diff
+
+## Qt 6 backports for better Gtk/GNOME integration
+# https://fedoraproject.org/wiki/Changes/Qt_Wayland_By_Default_On_Gnome
+# https://bugzilla.redhat.com/show_bug.cgi?id=1732129
+Patch150: 0001-Use-Wayland-by-default-on-GNOME.patch
+
+# https://fedoraproject.org/wiki/Changes/NoCustomQtThemingForWorkstation
+# https://bugzilla.redhat.com/show_bug.cgi?id=2226797
+Patch151: 0002-Add-QPlatformTheme-Appearance-for-detecting-light-da.patch
+Patch152: 0003-Add-enum-class-Qt-Appearance.patch
+Patch153: 0004-QGtk3Theme-implement-appearance-function-to-detect-d.patch
+Patch154: 0005-Account-for-dark-system-themes-in-qt_fusionPalette.patch
+Patch155: 0006-qt_fusionPalette-make-links-more-legible-on-dark-bac.patch
+Patch156: 0007-Add-nullptr-check-for-theme-when-initializing-palett.patch
+Patch157: 0008-Replace-QPlatformTheme-Appearance-by-Qt-Appearance.patch
+Patch158: 0009-Sync-and-assert-StandardPixmap-enums-in-QPlatformThe.patch
+Patch159: 0010-QGtk3Theme-subscribe-to-theme-hint-changes.patch
+Patch160: 0011-Gtk3Theme-set-XCURSOR_SIZE-and-XCURSOR_THEME-for-way.patch
+Patch161: 0012-Gtk3-fix-stack-smashing-on-mismatch-between-bool-and.patch
+Patch162: 0013-Re-implement-palette-standardPixmap-file-icons-fonts.patch
+Patch163: 0014-GTK3-theme-simplify-code.patch
+Patch164: 0015-Fix-checkbox-and-radiobutton-background-in-QGtk3Them.patch
+Patch165: 0016-Cleanup-QGtk3Theme.patch
+Patch166: 0017-Detect-appearance-by-colors-unless-GTK-theme-name-co.patch
+Patch167: 0018-Change-parsing-log-output-in-QGtk3Json-from-qCDebug-.patch
+Patch168: 0019-Document-QGtk3Interface.patch
+Patch169: 0020-Document-QGtk3Storage.patch
+Patch170: 0021-QGtk3Theme-Improve-fixed-font-delivery.patch
+Patch171: 0022-QGtk3Theme-Do-not-default-Active-WindowText-to-butto.patch
+
+# Latest QGnomePlatform needs to be specified to be used
+Patch200: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
 
 # Do not check any files in %%{_qt5_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -422,10 +449,6 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P65 -p1 -b .mysql
 %endif
 
-%if 0%{?fedora} > 30 || 0%{?rhel} > 8
-%patch -P80 -p1 -b .use-wayland-on-gnome.patch
-%endif
-
 %patch -P90 -p1 -b .gcc11
 
 ## upstream patches
@@ -434,7 +457,40 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P102 -p1
 %patch -P103 -p1
 %patch -P104 -p1
-%patch -P150 -p1
+%patch -P110 -p1
+
+## Qt 6 backports
+%if 0%{?fedora} > 30 || 0%{?rhel} > 8
+%patch -P150 -p1 -b .use-wayland-on-gnome.patch
+%endif
+%if 0%{?fedora} > 38 || 0%{?rhel} > 9
+%patch -P151 -p1
+%patch -P152 -p1
+%patch -P153 -p1
+%patch -P154 -p1
+%patch -P155 -p1
+%patch -P156 -p1
+%patch -P157 -p1
+%patch -P158 -p1
+%patch -P159 -p1
+%patch -P160 -p1
+%patch -P161 -p1
+%patch -P162 -p1
+%patch -P163 -p1
+%patch -P164 -p1
+%patch -P165 -p1
+%patch -P166 -p1
+%patch -P167 -p1
+%patch -P168 -p1
+%patch -P169 -p1
+%patch -P170 -p1
+%patch -P171 -p1
+%endif
+
+%if 0%{?fedora} < 39
+# Use QGnomePlatform by default
+%patch -P200 -p1
+%endif
 
 # move some bundled libs to ensure they're not accidentally used
 pushd src/3rdparty
@@ -1114,6 +1170,14 @@ fi
 
 
 %changelog
+* Mon Aug 21 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-7
+- Drop unnecessary backports
+
+* Mon Aug 21 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-6
+- Backport Qt 6 improvements to QGtkStyle for better Gtk/GNOME integration
+- Use QGnomePlatform by default on F38 and older
+  Resolves: #2226797
+
 * Wed Aug 16 2023 Than Ngo <than@redhat.com> - 5.15.10-5
 - Fixed bz#2232359, CVE-2023-37369 qtbase: buffer overflow in QXmlStreamReader
 

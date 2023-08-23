@@ -18,8 +18,8 @@
 #global git_short_hash %(echo %{git_hash} | cut -b -7)
 
 Name:           javapackages-bootstrap
-Version:        1.11.0
-Release:        2%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
 License:        ASL 2.0 and ASL 1.1 and (ASL 2.0 or EPL-2.0) and (EPL-2.0 or GPLv2 with exceptions) and MIT and BSD with advertising and BSD and EPL-1.0 and EPL-2.0 and CDDL-1.0 and xpp and CC0 and Public Domain
@@ -163,7 +163,7 @@ Provides:       bundled(apiguardian) = 1.1.2
 Provides:       bundled(objectweb-asm) = 9.5
 Provides:       bundled(assertj-core) = 3.19.0
 Provides:       bundled(aqute-bnd) = 5.2.0
-Provides:       bundled(maven-plugin-build-helper) = 3.2.0
+Provides:       bundled(build-helper-maven-plugin) = 3.4.0
 Provides:       bundled(byte-buddy) = 1.11.22
 Provides:       bundled(cdi-api) = 2.0.2
 Provides:       bundled(cglib) = 3.3.0
@@ -217,7 +217,7 @@ Provides:       bundled(maven-dependency-analyzer) = 1.13.2
 Provides:       bundled(maven-dependency-plugin) = 3.6.0
 Provides:       bundled(maven-dependency-tree) = 3.2.1
 Provides:       bundled(maven-enforcer) = 3.3.0
-Provides:       bundled(maven-file-management) = 3.0.0
+Provides:       bundled(maven-file-management) = 3.1.0
 Provides:       bundled(maven-filtering) = 3.3.1
 Provides:       bundled(maven-jar-plugin) = 3.3.0
 Provides:       bundled(maven-parent) = 40
@@ -233,11 +233,11 @@ Provides:       bundled(maven-source-plugin) = 3.3.0
 Provides:       bundled(maven-surefire) = 3.1.2
 Provides:       bundled(maven-verifier) = 1.8.0
 Provides:       bundled(maven-wagon) = 3.5.3
-Provides:       bundled(maven) = 3.9.1
+Provides:       bundled(maven) = 3.9.4
 Provides:       bundled(mockito) = 3.7.13
 Provides:       bundled(modello) = 2.0.0
 Provides:       bundled(modulemaker-maven-plugin) = 1.9
-Provides:       bundled(mojo-parent) = 67
+Provides:       bundled(mojo-parent) = 76
 Provides:       bundled(objenesis) = 3.3
 Provides:       bundled(opentest4j) = 1.3.0
 Provides:       bundled(osgi-annotation) = 8.1.0
@@ -378,6 +378,9 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %doc AUTHORS
 
 %changelog
+* Mon Aug 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.12.0-1
+- Update to upstream version 1.12.0
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.11.0-2
 - Update to upstream version 1.11.0
 

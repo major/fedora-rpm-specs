@@ -1,28 +1,28 @@
 %bcond_with bootstrap
 
 Name:           plexus-build-api
-Version:        0.0.7
-Release:        39%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Plexus Build API
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-build-api
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/codehaus-plexus/plexus-build-api/archive/refs/tags/plexus-build-api-0.0.7.tar.gz
+Source0:        https://github.com/codehaus-plexus/plexus-build-api/archive/refs/tags/plexus-build-api-%{version}.tar.gz
 Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
-
-# Forwarded upstream: https://github.com/sonatype/sisu-build-api/pull/2
-Patch0:         %{name}-migration-to-component-metadata.patch
-Patch1:         0000-Port-to-plexus-utils-3.3.0.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
+BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
+BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
 
 %description
@@ -35,15 +35,8 @@ Summary:        Javadoc for %{name}
 API documentation for %{name}.
 
 %prep
-%setup -q -n plexus-build-api-plexus-build-api-0.0.7
+%setup -q -n plexus-build-api-plexus-build-api-%{version}
 cp -p %{SOURCE1} .
-
-%patch0 -p1
-%patch1 -p1
-
-%pom_remove_parent
-# From upstream commit: https://github.com/codehaus-plexus/plexus-build-api/commit/6566292a7d85e275b824857bdf92d6504bc4824e
-%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/*" 1.8
 
 %mvn_file : plexus/%{name}
 
@@ -63,6 +56,9 @@ cp -p %{SOURCE1} .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Mon Aug 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.0-1
+- Update to upstream version 1.2.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

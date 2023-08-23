@@ -1,8 +1,8 @@
-%global rc %{nil}
+%global rc -rc.0
 
 Name:           srt
-Version:        1.5.2
-Release:        2%{?dist}
+Version:        1.5.3
+Release:        0.rc0%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
 License:        MPLv2.0
@@ -88,6 +88,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Mon Aug 21 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.3-0.rc0
+- Update to 1.5.3-rc0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

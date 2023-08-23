@@ -31,11 +31,12 @@
 %bcond_without pgsql
 %bcond_without snmp
 %bcond_without udpspoof
+%bcond_without mmtaghostname
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
 Version: 8.2306.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -111,6 +112,12 @@ Requires: %name = %version-%release
 %package mmfields
 Summary: Fields extraction module
 Requires: %name = %version-%release
+
+%if %{with mmtaghostname}
+%package mmtaghostname
+Summary: Message modification module supporting adding tags
+Requires: %name = %version-%release
+%endif
 
 %if %{with snmp}
 %package mmsnmptrapd
@@ -270,6 +277,9 @@ The mmfield module permits to extract fields. Using this module is of special
 advantage if a field-based log format is to be processed, like for example CEF
 and either a large number of fields is needed or a specific field is used multiple
 times inside filters.
+
+%description mmtaghostname
+This module provides message modification for changing or adding the host name.
 
 %if %{with snmp}
 %description mmsnmptrapd
@@ -488,6 +498,9 @@ autoreconf -if
 	--enable-mmkubernetes \
 	--enable-mmjsonparse \
 	--enable-mmnormalize \
+%if %{with mmtaghostname}
+	--enable-mmtaghostname \
+%endif
 %if %{with snmp}
 	--enable-mmsnmptrapd \
 %endif
@@ -665,6 +678,9 @@ done
 %files mmnormalize
 %{_libdir}/rsyslog/mmnormalize.so
 
+%files mmtaghostname
+%{_libdir}/rsyslog/mmtaghostname.so
+
 %if %{with snmp}
 %files mmsnmptrapd
 %{_libdir}/rsyslog/mmsnmptrapd.so
@@ -754,6 +770,9 @@ done
 
 
 %changelog
+* Wed Aug 16 2023 Stewart Smith <trawets@amazon.com> - 8.2306.0-4
+- Add mmtaghostname module as a subpackage
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2306.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -70,7 +70,6 @@
 %global krb5_kdb_version 9.0
 # 0.7.16: https://github.com/drkjam/netaddr/issues/71
 %global python_netaddr_version 0.7.19
-# Require 4.14.5-11 which brings CVE-2020-25717 fixes
 %global samba_version 4.17.4-101
 %global slapi_nis_version 0.56.4
 %global python_ldap_version 3.1.0-1
@@ -79,26 +78,27 @@
 %global ds_version 1.4.3.16-12
 %global selinux_policy_version 3.14.3-107
 %else
-%global ds_version 2.0.3-3
-# TBD update selinux_policy_version when BZ#2114902 is fixed
-%global selinux_policy_version 3.14.3-52
+# DNA interval enabled
+%global ds_version 2.0.5-1
+%global selinux_policy_version 38.1.1-1
 %endif
 
 # Fix for TLS 1.3 PHA, RHBZ#1775158
 %global httpd_version 2.4.37-21
 %global bind_version 9.11.20-6
 
-# Fix for https://github.com/SSSD/sssd/issues/6331
-%global sssd_version 2.8.0
+# support for passkey
+%global sssd_version 2.9.0
 
 %else
 # Fedora
 %global package_name freeipa
 %global alt_name ipa
-%global krb5_version 1.20.1-1
 # 0.7.16: https://github.com/drkjam/netaddr/issues/71
 %global python_netaddr_version 0.7.16
-%global samba_version 2:4.15.7
+# Require 4.7.0 which brings Python 3 bindings
+# Require 4.12 which has DsRGetForestTrustInformation access rights fixes
+%global samba_version 2:4.12.10
 
 # 3.14.5-45 or later includes a number of interfaces fixes for IPA interface
 # 36.16-1 fixes BZ#2115691
@@ -109,23 +109,36 @@
 %endif
 %global slapi_nis_version 0.56.5
 
+%if 0%{?fedora} < 38
+# Fix for CVE-2020-28196
+%global krb5_version 1.18.2-29
+%global krb5_kdb_version 8.0
+%else
+# Fix for CVE-2020-28196
+%global krb5_version 1.20.1-3
 %global krb5_kdb_version 9.0
+%endif
 
 # fix for segfault in python3-ldap, https://pagure.io/freeipa/issue/7324
 %global python_ldap_version 3.1.0-1
 
-%global ds_version 2.0.15-1
+# Make sure to use 389-ds-base versions that fix https://github.com/389ds/389-ds-base/issues/4700
+# and has DNA interval enabled
+%if 0%{?fedora} < 34
+%global ds_version 1.4.4.16-1
+%else
+%global ds_version 2.0.7-1
+%endif
 
 # Fix for TLS 1.3 PHA, RHBZ#1775146
 %global httpd_version 2.4.41-9
 
 # Fix for RHBZ#2117342
 %if 0%{?fedora} < 37
-%global bind_version 9.16.33-1
+%global bind_version 9.11.24-1
 %else
-%global bind_version 32:9.18.8-1
+%global bind_version 32:9.18.7-1
 %endif
-
 # Don't use Fedora's Python dependency generator on Fedora 30/rawhide yet.
 # Some packages don't provide new dist aliases.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/
@@ -133,10 +146,10 @@
 
 %if 0%{?fedora} < 37
 # F35+, adds IdP integration
-%global sssd_version 2.7.4
+%global sssd_version 2.7.0
 %else
-# Fix for https://github.com/SSSD/sssd/issues/6331
-%global sssd_version 2.8.1
+# Support for passkey
+%global sssd_version 2.9.0
 %endif
 
 # Fedora
@@ -164,9 +177,6 @@
 
 # RHEL 8.2+, F32+ has 3.58
 %global nss_version 3.44.0-4
-
-# RHEL 8.7+, F35+
-%global sssd_version 2.7.1
 
 %define krb5_base_version %(LC_ALL=C /usr/bin/pkgconf --modversion krb5 2>/dev/null | grep -Eo '^[^.]+\.[^.]+' || echo %krb5_version)
 %global kdcproxy_version 0.4-3
@@ -200,9 +210,9 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.10.2
+%define IPA_VERSION 4.11.0
 # Release candidate version -- uncomment with one percent for RC versions
-#%%global rc_version %%nil
+%global rc_version beta1
 %define AT_SIGN @
 # redefine IPA_VERSION only if its value matches the Autoconf placeholder
 %if "%{IPA_VERSION}" == "%{AT_SIGN}VERSION%{AT_SIGN}"
@@ -213,7 +223,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1%{?rc_version:.%rc_version}%{?dist}.3
+Release:        1%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -222,12 +232,15 @@ Source0:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_vers
 # Only use detached signature for the distribution builds. If it is a developer build, skip it
 %if %{NON_DEVELOPER_BUILD}
 Source1:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_version}.tar.gz.asc
+# https://www.freeipa.org/page/Verify_Release_Signature
+#
+# The following commands can be used to fetch the signing key via fingerprint
+# and extract it:
+#   fpr=0E63D716D76AC080A4A33513F40800B6298EB963
+#   gpg --keyserver keys.openpgp.org --receive-keys $fpr
+#   gpg --armor --export-options export-minimal --export $fpr >gpgkey-$fpr.asc
+Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 %endif
-
-Patch0:         0001-Revert-cert_find-fix-call-with-all.patch
-
-# Downstream hotfix, reported in https://pagure.io/freeipa/issue/9409
-Patch1:         0001-Use-ssl.match_hostname-from-urllib3-as-it-was-remove.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -237,14 +250,15 @@ Patch1:         0001-Use-ssl.match_hostname-from-urllib3-as-it-was-remove.patch
 
 # RHEL spec file only: START
 %if %{NON_DEVELOPER_BUILD}
-%if 0%{?rhel} >= 8
+%if 0%{?rhel} == 8
+Patch1001:      1001-Change-branding-to-IPA-and-Identity-Management.patch
+Patch1002:      1002-Revert-freeipa.spec-depend-on-bind-dnssec-utils.patch
+%endif
+%if 0%{?rhel} == 9
 Patch1001:      1001-Change-branding-to-IPA-and-Identity-Management.patch
 %endif
 %endif
 # RHEL spec file only: END
-
-# For the timestamp trick in patch application
-BuildRequires:  diffstat
 
 BuildRequires:  openldap-devel
 # For KDB DAL version, make explicit dependency so that increase of version
@@ -263,6 +277,7 @@ BuildRequires:  jansson-devel
 %endif
 BuildRequires:  popt-devel
 BuildRequires:  gcc
+BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconf
@@ -291,7 +306,12 @@ BuildRequires:  libpwquality-devel
 BuildRequires:  libsss_idmap-devel
 BuildRequires:  libsss_certmap-devel
 BuildRequires:  libsss_nss_idmap-devel >= %{sssd_version}
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+# Do not use nodejs20 on fedora < 39, https://pagure.io/freeipa/issue/9374
 BuildRequires:  nodejs(abi)
+%else
+BuildRequires:  nodejs(abi) < 111
+%endif
 # use old dependency on RHEL 8 for now
 %if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
 BuildRequires:  python3-rjsmin
@@ -382,7 +402,6 @@ BuildRequires:  python3-libsss_nss_idmap
 BuildRequires:  python3-lxml
 BuildRequires:  python3-netaddr >= %{python_netaddr_version}
 BuildRequires:  python3-netifaces
-BuildRequires:  python3-paste
 BuildRequires:  python3-pki >= %{pki_version}
 BuildRequires:  python3-polib
 BuildRequires:  python3-pyasn1
@@ -442,7 +461,6 @@ Requires: nss-tools >= %{nss_version}
 Requires(post): krb5-server >= %{krb5_version}
 Requires(post): krb5-server >= %{krb5_base_version}
 Requires: krb5-kdb-version = %{krb5_kdb_version}
-Requires: krb5-pkinit-openssl >= %{krb5_version}
 Requires: cyrus-sasl-gssapi%{?_isa}
 Requires: chrony
 Requires: httpd >= %{httpd_version}
@@ -547,11 +565,11 @@ Requires: python3-pyasn1 >= 0.3.2-2
 Requires: python3-sssdconfig >= %{sssd_version}
 Requires: python3-psutil
 Requires: rpm-libs
-# Indirect dependency: use newer urllib3 with TLS 1.3 PHA support
 %if 0%{?rhel}
 Requires: python3-urllib3 >= 1.24.2-3
 %else
-Requires: python3-urllib3 >= 1.25.7
+# For urllib3.util.ssl_match_hostname
+Requires: python3-urllib3 >= 1.25.8
 %endif
 
 %description -n python3-ipaserver
@@ -668,6 +686,8 @@ Requires: python3-sssdconfig >= %{sssd_version}
 Requires: cyrus-sasl-gssapi%{?_isa}
 Requires: chrony
 Requires: krb5-workstation >= %{krb5_version}
+# support pkinit with client install
+Requires: krb5-pkinit-openssl >= %{krb5_version}
 # authselect: sssd profile with-subid
 %if 0%{?fedora} >= 36
 Requires: authselect >= 1.4.0
@@ -702,6 +722,9 @@ Requires(post): policycoreutils
 Recommends: libsss_sudo
 Recommends: sudo
 Requires: (libsss_sudo if sudo)
+
+# Passkey support
+Recommends: sssd-passkey
 
 Provides: %{alt_name}-client = %{version}
 Conflicts: %{alt_name}-client
@@ -867,12 +890,17 @@ Requires: python3-qrcode-core >= 5.0.0
 Requires: python3-requests
 Requires: python3-six
 Requires: python3-sss-murmur
-Requires: python3-urllib3
 Requires: python3-yubico >= 1.3.2-7
 %if 0%{?rhel} && 0%{?rhel} == 8
 Requires: platform-python-setuptools
 %else
 Requires: python3-setuptools
+%endif
+%if 0%{?rhel}
+Requires: python3-urllib3 >= 1.24.2-3
+%else
+# For urllib3.util.ssl_match_hostname
+Requires: python3-urllib3 >= 1.25.8
 %endif
 
 %description -n python3-ipalib
@@ -970,22 +998,12 @@ Custom SELinux policy module for FreeIPA
 
 
 %prep
-# Update timestamps on the files touched by a patch, to avoid non-equal
-# .pyc/.pyo files across the multilib peers within a build, where "Level"
-# is the patch prefix option (e.g. -p1)
-# Taken from specfile for sssd and python-simplejson
-UpdateTimestamps() {
-  Level=$1
-  PatchFile=$2
+# Verify release signature
+%if %{NON_DEVELOPER_BUILD}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 
-  # Locate the affected files:
-  for f in $(diffstat $Level -l $PatchFile); do
-    # Set the files to have the same timestamp as that of the patch:
-    touch -c -r $PatchFile $f
-  done
-}
-
-%setup -n freeipa-%{version}%{?rc_version} -q
+%autosetup -n freeipa-%{version}%{?rc_version} -N -p1
 
 # To allow proper application patches to the stripped po files, strip originals
 pushd po
@@ -995,10 +1013,7 @@ for i in *.po ; do
 done
 popd
 
-for p in %patches ; do
-    %__patch -p1 -i $p
-    UpdateTimestamps -p1 $p
-done
+%autopatch -p1
 
 %build
 # PATH is workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1005235
@@ -1746,6 +1761,10 @@ fi
 %endif
 
 %changelog
+* Mon Aug 21 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-1.beta1
+- FreeIPA 4.11.0 beta 1
+- Release notes: https://www.freeipa.org/release-notes/4-11-0-beta.html
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2-1.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

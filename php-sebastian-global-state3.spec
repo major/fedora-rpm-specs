@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    de036ec91d55d2a9e0db2ba975b512cdb1c23921
+%global gh_commit    66783ce213de415b451b904bfef9dda0cf9aeae0
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   global-state
@@ -24,8 +24,8 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.0.2
-Release:        5%{?dist}
+Version:        3.0.3
+Release:        1%{?dist}
 Summary:        Snapshotting of global state, version %{major}
 
 License:        BSD-3-Clause
@@ -82,7 +82,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch0 -p1
+%patch -P0 -p1
 
 
 %build
@@ -117,7 +117,7 @@ EOF
 : Run upstream test suite
 ret=0
 # testCanExportGlobalVariablesToCode reports our autoloader
-for cmd in php php80 php81 php82; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit8 \
@@ -140,6 +140,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug  2 2023 Remi Collet <remi@remirepo.net> - 3.0.3-1
+- update to 3.0.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

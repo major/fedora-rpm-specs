@@ -1,8 +1,8 @@
 %bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:           qgnomeplatform
-Version:        0.9.1
-Release:        8%{?dist}
+Version:        0.9.2
+Release:        1%{?dist}
 Summary:        Qt Platform Theme aimed to accommodate Gnome settings
 
 License:        LGPL-2.0-or-later
@@ -10,7 +10,6 @@ URL:            https://github.com/FedoraQt/QGnomePlatform
 Source0:        https://github.com/FedoraQt/QGnomePlatform/archive/%{version}/QGnomePlatform-%{version}.tar.gz
 
 # Upstream patches
-Patch0:         qgnomeplatform-only-set-qqc2-style-on-qt5.patch
 
 BuildRequires:  make
 BuildRequires:  pkgconfig(gio-2.0)
@@ -46,8 +45,10 @@ Provides:       %{name} = %{version}-%{release}
 Provides:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
+%if (0%{?fedora} && 0%{?fedora} <= 38)
 # When GNOME Shell and Qt 5 are installed, we want this by default
 Supplements:   (qt5-qtbase and gnome-shell)
+%endif
 
 %description qt5
 QGnomePlatform is a Qt5 Platform Theme aimed to accommodate as much of
@@ -68,8 +69,10 @@ BuildRequires:  libadwaita-qt6-devel >= 1.4.1
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 Requires:       adwaita-qt6%{?_isa}
 
+%if (0%{?fedora} && 0%{?fedora} <= 38)
 # When GNOME Shell and Qt 6 are installed, we want this by default
 Supplements:   (qt6-qtbase and gnome-shell)
+%endif
 
 %description qt6
 QGnomePlatform is a Qt6 Platform Theme aimed to accommodate as much of
@@ -118,6 +121,9 @@ modifying them - making them fit into the environment as well as possible.
 %exclude %{_datadir}/color-schemes/*.colors
 
 %changelog
+* Tue Aug 15 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.2-1
+- 0.9.2
+
 * Mon Jul 24 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.1-8
 - Rebuild (qt6)
 

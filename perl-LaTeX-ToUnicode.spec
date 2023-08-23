@@ -1,12 +1,15 @@
 Name:           perl-LaTeX-ToUnicode
-Version:        0.11
-Release:        9%{?dist}
+Version:        0.53
+Release:        1%{?dist}
 Summary:        Convert LaTeX commands to Unicode
 ## Not in the binary package
-# script/UnicodeData.txt:   Unicode
-License:        GPL+ or Artistic
+# script/UnicodeData.txt:   Unicode-DFS-2015
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LaTeX-ToUnicode
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BORISV/LaTeX-ToUnicode-%{version}.tar.gz
+# Remove an unhelpful dependency on texlive-kpathsea,
+# not suitable for an upstream
+Patch0:         LaTeX-ToUnicode-0.53-Do-not-add-bogus-paths-to-INC.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -16,15 +19,13 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
+# File::Spec not used at tests
+# Getopt::Long not used at tests
 BuildRequires:  perl(utf8)
 # Tests:
 BuildRequires:  perl(Test::More)
-# Optional tests:
-# Pod::Coverage::TrustPod not used
-# Test::Pod 1.41 not used
-# Test::Pod::Coverage 1.08 not used
-# Test::Synopsis not used
 
 %description
 This Perl module provides a method to convert LaTeX-style markups for accents
@@ -32,8 +33,22 @@ etc. into their Unicode equivalents. It translates commands for special
 characters or accents into their Unicode equivalents and removes
 formatting commands.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n LaTeX-ToUnicode-%{version}
+%autosetup -p1 -n LaTeX-ToUnicode-%{version}
+# Remove always skipped tests
+for F in t/release-pod-coverage.t t/release-pod-syntax.t t/release-synopsis.t; do
+    rm "$F"
+    perl -i -ne 'print $_ unless m{\A\Q'"$F"'\E}' MANIFEST
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -41,19 +56,38 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-unset RELEASE_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/LaTeX
+%{perl_vendorlib}/LaTeX/ToUnicode
+%{perl_vendorlib}/LaTeX/ToUnicode.pm
+%{_bindir}/ltx2unitxt
+%{_mandir}/man3/LaTeX::ToUnicode.*
+%{_mandir}/man3/LaTeX::ToUnicode::*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 21 2023 Petr Pisar <ppisar@redhat.com> - 0.53-1
+- 0.53 bump
+- Package the tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

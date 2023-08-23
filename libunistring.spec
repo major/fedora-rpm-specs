@@ -3,7 +3,7 @@ Version:	1.1
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Name: libunistring
 Summary: GNU Unicode string library
-License: GPLv2+ or LGPLv3+
+License: GPL-2.0-or-later OR LGPL-3.0-or-later
 URL: https://www.gnu.org/software/libunistring/
 Source0: https://ftp.gnu.org/gnu/libunistring/%{name}-%{version}.tar.xz
 BuildRequires: gcc

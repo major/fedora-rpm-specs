@@ -5,7 +5,7 @@ Name:           nmstate
 Version:        2.2.14
 Release:        %autorelease
 Summary:        Declarative network manager API
-License:        LGPLv2+
+License:        Apache-2.0 AND LGPL-2.1-or-later
 URL:            https://github.com/%{srcname}/%{srcname}
 Source0:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.asc

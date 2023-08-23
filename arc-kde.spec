@@ -3,7 +3,7 @@ Version:        20220908
 Release:        %autorelease
 Summary:        Port of the popular GTK theme Arc for the Plasma 5 desktop
 
-License:        GPL-3.0-only and CC-BY-SA-4.0
+License:        GPL-3.0-only AND CC-BY-SA-4.0
 URL:            https://github.com/PapirusDevelopmentTeam/arc-kde
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 

@@ -2,7 +2,7 @@ Name:               python-iniconfig
 Version:            1.1.1
 Release:            14%{?dist}
 Summary:            Brain-dead simple parsing of ini files
-# SDPX
+# SPDX
 License:            MIT
 URL:                http://github.com/RonnyPfannschmidt/iniconfig
 BuildArch:          noarch

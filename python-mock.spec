@@ -83,7 +83,7 @@ https://fedoraproject.org/wiki/Changes/DeprecatePythonMock
 - Bootstrap for Python 3.12
 
 * Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 4.0.3-7
-- migrated to SDPX license
+- migrated to SPDX license
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

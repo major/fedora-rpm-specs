@@ -26,8 +26,8 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.5
-Release:           2%{?dist}
+Version:           2.6.6
+Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution (beta release)
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -107,12 +107,12 @@ to similar features as the various script-hooks.
 %prep
 gpgv2 --quiet --keyring %{SOURCE10} %{SOURCE1} %{SOURCE0}
 %setup -q -n %{name}-%{version}
-%patch1 -p1
+%patch -P 1 -p1
 %if 0%{?rhel} > 7 || 0%{?fedora} > 34
 # The crypto-policy patch is only valid on RHEL-8 and newer plus Fedora
-%patch2 -p1
+%patch -P 2 -p1
 %endif
-%patch50 -p1
+%patch -P 50 -p1
 
 # %%doc items shouldn't be executable.
 find contrib sample -type f -perm /100 \
@@ -250,6 +250,10 @@ getent passwd openvpn &>/dev/null || \
 
 
 %changelog
+* Mon Aug 21 2023 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.6-1
+- Update to upstream OpenVPN 2.6.6
+- Fix "warning: %patchN is deprecated"
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

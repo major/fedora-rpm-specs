@@ -2,10 +2,10 @@
 
 Name:           python-%{srcname}
 Version:        3.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Internationalized Domain Names in Applications (IDNA)
 
-License:        BSD and Python and Unicode
+License:        BSD-3-Clause
 URL:            https://github.com/kjd/idna
 Source0:        https://pypi.io/packages/source/i/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
@@ -60,6 +60,9 @@ rm -rf %{srcname}.egg-info
 %doc README.rst HISTORY.rst
 
 %changelog
+* Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 3.4-5
+- Update the package's license
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,11 +7,11 @@
 
 Name:		tss2
 Version:	1.6.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Epoch:	        1
 Summary:	IBM's TCG Software Stack (TSS) for TPM 2.0 and related utilities
 
-License:	BSD
+License:	BSD-3-Clause AND LicenseRef-TCGL
 URL:		http://sourceforge.net/projects/ibmtpm20tss/
 Source0:	https://sourceforge.net/projects/ibmtpm20tss/files/ibmtss%{version}.tar.gz
 Patch0:         tss2-1.6.0-manpage-cleanup.patch
@@ -70,6 +70,10 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %doc ibmtss.doc
 
 %changelog
+* Mon Aug 21 2023 Jerry Snitselaar <jsnitsel@redhat.com> - 1:1.6.0-8
+- migrated to SPDX license
+resolves: rhbz#2219549
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -13,8 +13,12 @@
 # Run the test suite in %%check
 %bcond_without tests
 
-# By default, we build with tkinter, but e.g. the GIMP flatpak can turn this off
+# Simplify dependencis for Flatpaks that include Python-2.7
+%if 0%{?flatpak}
+%bcond_with tkinter
+%else
 %bcond_without tkinter
+%endif
 
 %global unicode ucs4
 %global pybasever 2.7
@@ -74,7 +78,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 32%{?dist}
+Release: 33%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -891,6 +895,26 @@ Patch394: 00394-cve-2022-45061-cpu-denial-of-service-via-inefficient-idna-decode
 # Backported to Python 2 from Python 3.12.
 Patch399: 00399-cve-2023-24329.patch
 
+# 00403 # 1cbe589d7b18cb74b205b9e9d48087c12fa2f6c1
+# Fix test suite failure with openssl >= 3.1.0
+#
+# https://www.openssl.org/news/openssl-3.1-notes.html
+#
+# > SSL 3, TLS 1.0, TLS 1.1, and DTLS 1.0 only work at security level 0.
+#
+# This causes a FTBFS in one of the members of the test suite -
+# it dies with a SSL internal error rather than the expected error - in detail:
+#
+# In test_subclass(), SSL_do_handshake() is called with SSL.version unmodified
+# from version passed to SSLContext() - but that's an impossible version
+# from the config (Fedora's default security level is 2),
+# and an internal error is returned.
+#
+# The assumption of the code is probably that earlier steps will have negotiated
+# a version that's allowed by the config, but this test skips them.
+# This is fixed by simply using TLSv1_2 to start with.
+Patch403: 00403-no-tls-10.patch
+
 # (New patches go here ^^^)
 #
 # When adding new patches to "python2" and "python3" in Fedora, EL, etc.,
@@ -1061,6 +1085,7 @@ git apply %{PATCH351}
 %patch382 -p1
 %patch394 -p1
 %patch399 -p1
+%patch403 -p1
 
 %if %{without tkinter}
 %patch4000 -p1
@@ -1762,6 +1787,10 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Mon Aug 21 2023 Owen Taylor <otaylor@redhat.com> - 2.7.18-33
+- Turn off tkinter for Flatpak builds
+- Fix test suite failure with openssl >= 3.1.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.18-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

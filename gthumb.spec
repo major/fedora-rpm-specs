@@ -4,10 +4,10 @@
 Name:    gthumb
 Epoch:   1
 Version: 3.12.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Image viewer, editor, organizer
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     https://wiki.gnome.org/Apps/gthumb
 Source0: https://download.gnome.org/sources/%{name}/3.12/%{name}-%{version}.tar.xz
 # upstream commit
@@ -28,7 +28,6 @@ BuildRequires: pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires: pkgconfig(gstreamer-video-1.0)
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(libheif)
-BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(libbrasero-burn3)
 BuildRequires: pkgconfig(libjxl)
@@ -36,9 +35,7 @@ BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libraw)
 BuildRequires: pkgconfig(librsvg-2.0)
 BuildRequires: pkgconfig(libsecret-1)
-BuildRequires: pkgconfig(libsoup-2.4)
 BuildRequires: pkgconfig(libwebp)
-BuildRequires: pkgconfig(webkit2gtk-4.0)
 BuildRequires: pkgconfig(zlib)
 BuildRequires: gcc gcc-c++
 BuildRequires: gettext
@@ -71,7 +68,7 @@ package.
 %autosetup -p1
 
 %build
-%meson
+%meson -Dwebservices=false
 %meson_build
 
 %install
@@ -98,6 +95,9 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Mon Aug 21 2023 David King <amigadave@amigadave.com> - 1:3.12.2-10
+- Disable webservices due to lack of webkit2gtk-4.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.12.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,82 +1,126 @@
 %global krun_opts %{nil}
+%global wasmedge_opts %{nil}
+%global wasmtime_opts %{nil}
 
-%if 0%{?fedora} >= 37
+# krun and wasm[edge,time] support only on aarch64 and x86_64
 %ifarch aarch64 || x86_64
-%global krun_support enabled
+%global wasm_support 1
+
+# wasmedge not present on Fedora ELN environments
+%if !0%{?eln}
+%global wasmedge_support 1
+%global wasmedge_opts --with-wasmedge
+%endif
+
+# krun only exists on fedora
+%if %{defined fedora}
+%global krun_support 1
 %global krun_opts --with-libkrun
 %endif
+
+# wasmtime exists only on podman-next copr for now
+%if %{defined copr_project} && "%{?copr_project}" == "podman-next"
+%global wasmtime_support 1
+%global wasmtime_opts --with-wasmtime
 %endif
 
-%if 0%{?fedora}
-# wasmedge built only for aarch64 and x86_64
-%ifarch aarch64 || x86_64
-%global wasm_support enabled
-%global wasm_opts --with-wasmedge
 %endif
-%endif
-
-%global built_tag 1.8.6
-%global gen_version %(b=%{built_tag}; echo ${b/-/"~"})
 
 Summary: OCI runtime written in C
 Name: crun
-Version: %{gen_version}
+%if %{defined copr_username}
+Epoch: 102
+%endif
+# DO NOT TOUCH the Version string!
+# The TRUE source of this specfile is:
+# https://github.com/containers/crun/blob/main/rpm/crun.spec
+# If that's what you're reading, Version must be 0, and will be updated by Packit for
+# copr and koji builds.
+# If you're reading this on dist-git, the version is automatically filled in by Packit.
+Version: 1.8.7
+Release: %autorelease
 URL: https://github.com/containers/%{name}
-# Fetched from upstream
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 License: GPL-2.0-only
-Release: %autorelease
+%if %{defined golang_arches_future}
 ExclusiveArch: %{golang_arches_future}
+%else
+ExclusiveArch: aarch64 ppc64le riscv64 s390x x86_64
+%endif
 BuildRequires: autoconf
 BuildRequires: automake
-BuildRequires: go-md2man
-BuildRequires: libtool
 BuildRequires: gcc
 BuildRequires: git-core
-BuildRequires: python3
+BuildRequires: gperf
 BuildRequires: libcap-devel
-BuildRequires: systemd-devel
-BuildRequires: yajl-devel
-BuildRequires: libgcrypt-devel
-%if "%{krun_support}" == "enabled"
+%if %{defined krun_support}
 BuildRequires: libkrun-devel
 %endif
-%if "%{wasm_support}" == "enabled"
-BuildRequires: wasmedge-devel
-%endif
+BuildRequires: systemd-devel
+BuildRequires: yajl-devel
 BuildRequires: libseccomp-devel
-BuildRequires: libselinux-devel
 BuildRequires: python3-libmount
-BuildRequires: make
-BuildRequires: glibc-static
+BuildRequires: libtool
 BuildRequires: protobuf-c-devel
-%ifnarch %ix86
 BuildRequires: criu-devel >= 3.17.1-2
-%endif
 Recommends: criu >= 3.17.1
 Recommends: criu-libs
+%if %{defined wasmedge_support}
+BuildRequires: wasmedge-devel
+%endif
+%if %{defined wasmtime_support}
+BuildRequires: wasmtime-c-api-devel
+%endif
+%if %{defined rhel} && 0%{?rhel} == 8
+BuildRequires: python3
+%else
+BuildRequires: python
+%endif
 Provides: oci-runtime
 
 %description
-%{name} is a runtime for running OCI containers
+%{name} is a OCI runtime
+
+%if %{defined krun_support}
+%package krun
+Summary: %{name} with libkrun support
+Requires: libkrun
+Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides: krun = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description krun
+krun is a symlink to the %{name} binary, with libkrun as an additional dependency.
+%endif
+
+%if %{defined wasm_support}
+%package wasm
+Summary: %{name} with wasm support
+Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: wasm-library
+Recommends: wasmedge
+
+%description wasm
+%{name}-wasm is a symlink to the %{name} binary, with wasm as an additional dependency.
+%endif
 
 %prep
-%autosetup -Sgit %{name}-%{built_tag}
+%autosetup -Sgit -n %{name}-%{version}
 
 %build
 ./autogen.sh
-%configure --disable-silent-rules %{krun_opts} %{wasm_opts}
+./configure --disable-silent-rules %{krun_opts} %{wasmedge_opts} %{wasmtime_opts}
 %make_build
 
 %install
-%make_install
+%make_install prefix=%{_prefix}
 rm -rf %{buildroot}%{_prefix}/lib*
-%if "%{krun_support}" == "enabled"
-ln -s ../bin/%{name} %{buildroot}%{_bindir}/krun
+
+%if %{defined krun_support}
+ln -s %{_bindir}/%{name} %{buildroot}%{_bindir}/krun
 %endif
 
-%if "%{wasm_support}" == "enabled"
-ln -s ../bin/%{name} %{buildroot}%{_bindir}/%{name}-wasm
+%if %{defined wasm_support}
+ln -s %{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-wasm
 %endif
 
 %files
@@ -84,31 +128,15 @@ ln -s ../bin/%{name} %{buildroot}%{_bindir}/%{name}-wasm
 %{_bindir}/%{name}
 %{_mandir}/man1/*
 
-%if "%{krun_support}" == "enabled"
-%package krun
-Summary: OCI Runtime providing Virtualization-based process isolation capabilities.
-Provides: krun
-Requires: %{name} = %{version}-%{release}
-Requires: libkrun
-
-%description krun
-%{name}-krun OCI Runtime providing Virtualization-based process isolation capabilities.
-
+%if %{defined krun_support}
 %files krun
+%license COPYING
 %{_bindir}/krun
 %endif
 
-%if "%{wasm_support}" == "enabled"
-%package wasm
-Summary: wasm support for %{name}
-Requires: wasm-library
-Recommends: wasmedge
-Requires: %{name} = %{version}-%{release}
-
-%description wasm
-%{name}-wasm provides %{name} built with wasm support
-
+%if %{defined wasm_support}
 %files wasm
+%license COPYING
 %{_bindir}/%{name}-wasm
 %endif
 

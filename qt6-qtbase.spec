@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.5.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -66,7 +66,6 @@ Source6: 10-qt6-check-opengl2.sh
 Source10: macros.qt6-qtbase
 
 Patch1: qtbase-tell-the-truth-about-private-API.patch
-Patch2: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
 
 # upstreamable patches
 # namespace QT_VERSION_CHECK to workaround major/minor being pre-defined (#1396755)
@@ -89,6 +88,11 @@ Patch58: qtbase-libglvnd.patch
 
 # gcc-11
 Patch90: qtbase-gcc11.patch
+
+%if 0%{?fedora} < 39
+# Latest QGnomePlatform needs to be specified to be used
+Patch100: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
+%endif
 
 ## upstream patches
 
@@ -817,6 +821,9 @@ make check -k ||:
 
 
 %changelog
+* Fri Aug 11 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.2-3
+- Don't use QGnomePlatform by default on F39+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

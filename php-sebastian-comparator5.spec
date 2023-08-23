@@ -8,9 +8,9 @@
 #
 
 # disabled until phpunit10 available
-%bcond_with          tests
+%bcond_without       tests
 
-%global gh_commit    72f01e6586e0caf6af81297897bd112eb7e9627c
+%global gh_commit    2db5010a484d53ebf536087a70b4a5423c102372
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
@@ -24,8 +24,8 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.0.0
-Release:        2%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -45,8 +45,8 @@ BuildRequires:  (php-composer(%{pk_vendor}/exporter) >= 5.0   with php-composer(
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^10.0"
-BuildRequires:  phpunit10
+#        "phpunit/phpunit": "^10.3"
+BuildRequires:  phpunit10 >= 10.3
 %endif
 
 # from composer.json
@@ -107,7 +107,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit10 --no-coverage || ret=1
@@ -126,6 +126,9 @@ exit $ret
 
 
 %changelog
+* Fri Aug 18 2023 Remi Collet <remi@remirepo.net> - 5.0.1-1
+- update to 5.0.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

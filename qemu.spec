@@ -202,6 +202,7 @@
 %define requires_audio_alsa Requires: %{name}-audio-alsa = %{evr}
 %define requires_audio_oss Requires: %{name}-audio-oss = %{evr}
 %define requires_audio_pa Requires: %{name}-audio-pa = %{evr}
+%define requires_audio_pipewire Requires: %{name}-audio-pipewire = %{evr}
 %define requires_audio_sdl Requires: %{name}-audio-sdl = %{evr}
 %define requires_char_baum Requires: %{name}-char-baum = %{evr}
 %define requires_device_usb_host Requires: %{name}-device-usb-host = %{evr}
@@ -218,7 +219,11 @@
 %define requires_device_display_virtio_vga_gl Requires: %{name}-device-display-virtio-vga-gl = %{evr}
 %define requires_package_qemu_pr_helper Requires: qemu-pr-helper
 %ifnarch %{ix86}
+%if 0%{?fedora} || 0%{?rhel} > 9
 %define requires_package_virtiofsd Requires: vhostuser-backend(fs)
+%else
+%define requires_package_virtiofsd Requires: virtiofsd
+%endif
 %define obsoletes_package_virtiofsd %{nil}
 %else
 %define requires_package_virtiofsd %{nil}
@@ -283,6 +288,7 @@
 %{requires_audio_dbus} \
 %{requires_audio_oss} \
 %{requires_audio_pa} \
+%{requires_audio_pipewire} \
 %{requires_audio_sdl} \
 %{requires_audio_jack} \
 %{requires_audio_spice} \
@@ -324,18 +330,18 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release} \
 Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 # Release candidate version tracking
-# global rcver rc4
+%global rcver rc4
 %if 0%{?rcver:1}
 %global rcrel .%{rcver}
 %global rcstr -%{rcver}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 4
+%global baserelease 0.2
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 8.0.3
+Version: 8.1.0
 Release: %{baserelease}%{?rcrel}%{?dist}
 Epoch: 2
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND FSFAP AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-2.0-or-later with GCC-exception-2.0 exception AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only and LGPL-2.1-or-later AND MIT and public-domain and CC-BY-3.0
@@ -354,9 +360,7 @@ Source30: kvm-s390x.conf
 Source31: kvm-x86.conf
 Source36: README.tests
 
-# Fix SGX assert
-Patch: 0001-target-i386-the-sgx_epc_get_section-stub-is-reachabl.patch
-Patch: 0002-hw-pci-bridge-Make-PCIe-and-CXL-PXB-Devices-inherit-.patch
+Patch0001: 0001-tests-Disable-iotests-like-RHEL-does.patch
 
 BuildRequires: meson >= %{meson_version}
 BuildRequires: bison
@@ -512,6 +516,7 @@ BuildRequires: SDL2_image-devel
 # Used by vnc-display-test
 BuildRequires: pkgconfig(gvnc-1.0)
 %endif
+BuildRequires: pipewire-devel
 
 %if %{user_static}
 BuildRequires: glibc-static glib2-static zlib-static
@@ -749,6 +754,12 @@ Summary: QEMU PulseAudio audio driver
 Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 %description audio-pa
 This package provides the additional PulseAudio audio driver for QEMU.
+
+%package  audio-pipewire
+Summary: QEMU Pipewire audio driver
+Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
+%description audio-pipewire
+This package provides the additional Pipewire audio driver for QEMU.
 
 %package  audio-sdl
 Summary: QEMU SDL audio driver
@@ -1457,17 +1468,20 @@ mkdir -p %{static_builddir}
   --disable-cfi-debug              \\\
   --disable-cloop                  \\\
   --disable-cocoa                  \\\
+  --disable-colo-proxy             \\\
   --disable-coreaudio              \\\
   --disable-coroutine-pool         \\\
   --disable-crypto-afalg           \\\
   --disable-curl                   \\\
   --disable-curses                 \\\
   --disable-dbus-display           \\\
+  --disable-debug-graph-lock       \\\
   --disable-debug-info             \\\
   --disable-debug-mutex            \\\
   --disable-debug-tcg              \\\
   --disable-dmg                    \\\
   --disable-docs                   \\\
+  --disable-download               \\\
   --disable-dsound                 \\\
   --disable-fdt                    \\\
   --disable-fuse                   \\\
@@ -1517,6 +1531,7 @@ mkdir -p %{static_builddir}
   --disable-pa                     \\\
   --disable-parallels              \\\
   --disable-pie                    \\\
+  --disable-pipewire               \\\
   --disable-pvrdma                 \\\
   --disable-qcow1                  \\\
   --disable-qed                    \\\
@@ -1544,12 +1559,15 @@ mkdir -p %{static_builddir}
   --disable-tcg                    \\\
   --disable-tools                  \\\
   --disable-tpm                    \\\
+  --disable-tsan                   \\\
   --disable-u2f                    \\\
   --disable-usb-redir              \\\
   --disable-user                   \\\
+  --disable-vpc                    \\\
   --disable-vde                    \\\
   --disable-vdi                    \\\
   --disable-vfio-user-server       \\\
+  --disable-vhdx                   \\\
   --disable-vhost-crypto           \\\
   --disable-vhost-kernel           \\\
   --disable-vhost-net              \\\
@@ -1570,8 +1588,8 @@ mkdir -p %{static_builddir}
   --disable-xen-pci-passthrough    \\\
   --disable-xkbcommon              \\\
   --disable-zstd                   \\\
-  --with-git-submodules=ignore     \\\
   --without-default-devices
+
 
 run_configure() {
     ../configure  \
@@ -1594,10 +1612,8 @@ run_configure() {
         --with-pkgversion="%{name}-%{version}-%{release}" \
         --with-suffix="%{name}" \
         --firmwarepath="%firmwaredirs" \
-        --meson="%{__meson}" \
         --enable-trace-backends=dtrace \
         --with-coroutine=ucontext \
-        --with-git=git \
         --tls-priority=@QEMU,SYSTEM \
         %{disable_everything} \
         "$@" \
@@ -1677,6 +1693,7 @@ run_configure \
   --enable-oss \
   --enable-pa \
   --enable-pie \
+  --enable-pipewire \
 %if %{have_block_rbd}
   --enable-rbd \
 %endif
@@ -1709,7 +1726,7 @@ run_configure \
   --enable-xkbcommon \
   \
   \
-  --audio-drv-list=pa,sdl,alsa,%{?jack_drv}oss \
+  --audio-drv-list=pipewire,pa,sdl,alsa,%{?jack_drv}oss \
   --target-list-exclude=moxie-softmmu \
   --with-default-devices \
   --enable-auth-pam \
@@ -1760,13 +1777,18 @@ run_configure \
 %if %{have_virgl}
   --enable-virglrenderer \
 %endif
+  --enable-vhdx \
   --enable-virtfs \
+  --enable-virtfs-proxy-helper \
+  --enable-vpc \
   --enable-vnc-jpeg \
   --enable-vte \
   --enable-vvfat \
 %if %{have_xen}
   --enable-xen \
+%ifarch x86_64
   --enable-xen-pci-passthrough \
+%endif
 %endif
   --enable-zstd
 
@@ -1865,7 +1887,7 @@ install -D -p -m 0644 %{modprobe_kvm_conf} %{buildroot}%{_sysconfdir}/modprobe.d
 %endif
 
 # Copy some static data into place
-install -D -p -m 0644 -t %{buildroot}%{qemudocdir} README.rst COPYING COPYING.LIB LICENSE docs/interop/qmp-spec.txt
+install -D -p -m 0644 -t %{buildroot}%{qemudocdir} README.rst COPYING COPYING.LIB LICENSE docs/interop/qmp-spec.rst
 install -D -p -m 0644 qemu.sasl %{buildroot}%{_sysconfdir}/sasl2/%{name}.conf
 
 install -m 0644 scripts/dump-guest-memory.py %{buildroot}%{_datadir}/%{name}
@@ -2278,6 +2300,8 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_libdir}/%{name}/audio-oss.so
 %files audio-pa
 %{_libdir}/%{name}/audio-pa.so
+%files audio-pipewire
+%{_libdir}/%{name}/audio-pipewire.so
 %files audio-sdl
 %{_libdir}/%{name}/audio-sdl.so
 %if %{have_jack}
@@ -2783,6 +2807,12 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Mon Aug 21 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 8.1.0-0.2-rc4
+- Adjust virtiofsd requires for el9 and older
+
+* Sun Aug 20 2023 Cole Robinson <crobinso@redhat.com> - 8.1.0-0.1-rc4
+- Rebase to qemu 8.1.0-rc4
+
 * Thu Jul 20 2023 Camilla Conte <cconte@redhat.com> - 2:8.0.3-1
 - New upstream release 8.0.3
 

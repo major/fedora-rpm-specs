@@ -6,15 +6,14 @@
 Name:		%{fontname}-fonts
 Summary:	Sans-serif Narrow fonts to replace commonly used Microsoft Arial Narrow
 Version:	1.07.6
-Release:	11%{?dist}
+Release:	12%{?dist}
 Epoch:		2
 # The license of the Liberation Fonts is a EULA that contains GPLv2 and two
 # exceptions:
 # The first exception is the standard FSF font exception.
 # The second exception is an anti-lockdown clause somewhat like the one in
 # GPLv3. This license is Free, but GPLv2 and GPLv3 incompatible.
-License:	Liberation
-Group:		User Interface/X
+License:	LicenseRef-Liberation
 URL:		https://github.com/liberationfonts/liberation-sans-narrow
 Source0:	%{url}/files/2579430/%{name}-%{version}.tar.gz
 Source1:	%{name}-generate.pe
@@ -81,6 +80,9 @@ appstream-util validate-relax --nonet \
 %{catalogue}/%{name}
 
 %changelog
+* Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 2:1.07.6-12
+- Migrate to SPDX license expression
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.07.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

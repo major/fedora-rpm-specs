@@ -1,6 +1,6 @@
 Name:           python-nb2plots
-Version:        0.6.1
-Release:        7%{?dist}
+Version:        0.7
+Release:        1%{?dist}
 Summary:        Convert between Jupyter notebooks and sphinx docs
 
 # BSD-2-Clause: All files with the following exception.
@@ -9,6 +9,9 @@ Summary:        Convert between Jupyter notebooks and sphinx docs
 License:        BSD-2-Clause AND CC0-1.0
 URL:            https://matthew-brett.github.io/nb2plots/
 Source0:        https://github.com/matthew-brett/nb2plots/archive/%{version}/nb2plots-%{version}.tar.gz
+# Fix reference to nonexistent bin_stdout
+# See https://github.com/matthew-brett/nb2plots/issues/31
+Patch0:         %{name}-bin-stdout.patch
 
 BuildArch:      noarch
 
@@ -125,6 +128,10 @@ cp -a man1 %{buildroot}%{_mandir}
 %doc doc/_build/html/*
 
 %changelog
+* Mon Aug 21 2023 Jerry James <loganjerry@gmail.com> - 0.7-1
+- Version 0.7
+- Add patch to fix reference to nonexistent bin_stdout function
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

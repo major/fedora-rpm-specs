@@ -9,8 +9,8 @@
 
 Summary:		Pgpool is a connection pooling/replication server for PostgreSQL
 Name:			postgresql-%{short_name}
-Version:		4.4.3
-Release:		2%{?dist}
+Version:		4.4.4
+Release:		1%{?dist}
 License:		BSD
 URL:			http://pgpool.net
 Source0:		http://www.pgpool.net/mediawiki/images/%{short_name}-%{version}.tar.gz
@@ -222,10 +222,6 @@ fi
 
 %files extensions
 %{_libdir}/pgsql/pgpool-recovery.so
-%{_libdir}/pgsql/bitcode/pgpool-recovery.index.bc
-%{_libdir}/pgsql/bitcode/pgpool-recovery/pgpool-recovery.bc
-%{_libdir}/pgsql/bitcode/pgpool-regclass.index.bc
-%{_libdir}/pgsql/bitcode/pgpool-regclass/pgpool-regclass.bc
 %{_datadir}/pgsql/extension/pgpool-recovery.sql
 %{_datadir}/pgsql/extension/pgpool_recovery--1.1.sql
 %{_datadir}/pgsql/extension/pgpool_recovery--1.2.sql
@@ -244,6 +240,9 @@ fi
 
 
 %changelog
+* Tue Aug 22 2023 Ondrej Sloup <osloup@redhat.com> -  4.4.4-1
+- Rebase to the latest upstream version (rhbz#2232454)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

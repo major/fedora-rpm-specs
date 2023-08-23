@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    0ca8db5a5fc9c8646244e629625ac486fa286bf2
+%global gh_commit    bde739e7565280bda77be70044ac1047bc007e34
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   global-state
@@ -23,8 +23,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.0.5
-Release:        5%{?dist}
+Version:        5.0.6
+Release:        1%{?dist}
 Summary:        Snapshotting of global state, version %{major}
 
 License:        BSD-3-Clause
@@ -116,7 +116,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit9 \
@@ -139,6 +139,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug  2 2023 Remi Collet <remi@remirepo.net> - 5.0.6-1
+- update to 5.0.6
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

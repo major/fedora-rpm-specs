@@ -11,10 +11,10 @@
 
 Name:           python-requests
 Version:        2.28.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        HTTP library, written in Python, for human beings
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.io/project/requests
 Source0:        https://github.com/requests/requests/archive/v%{version}/requests-v%{version}.tar.gz
 # Explicitly use the system certificates in ca-certificates.
@@ -97,6 +97,9 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %changelog
+* Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 2.28.2-6
+- Declare the license as an SPDX expression
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

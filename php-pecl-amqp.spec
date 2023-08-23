@@ -7,35 +7,33 @@
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
+%bcond_with         tests
 %global with_zts    0%{?__ztsphp:1}
-%global with_tests  0%{?_with_tests:1}
 %global pecl_name   amqp
 %global ini_name    40-%{pecl_name}.ini
 
-%global upstream_version 1.11.0
+%global upstream_version 2.0.0
 #global upstream_prever  RC1
 #global upstream_lower   rc1
+%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
+%global _configure       ../%{sources}/configure
 
 Summary:       Communicate with any AMQP compliant server
 Name:          php-pecl-amqp
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:       7%{?dist}
+Release:       1%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/amqp
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
-Patch0:        https://patch-diff.githubusercontent.com/raw/php-amqp/php-amqp/pull/418.patch
-
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: php-devel >= 5.6
+BuildRequires: php-devel >= 7.4
 BuildRequires: php-pear
-BuildRequires: pkgconfig(librabbitmq) >= 0.7.1
-%if %{with_tests}
+BuildRequires: pkgconfig(librabbitmq) >= 0.8.0
+%if %{with tests}
 BuildRequires: rabbitmq-server
+BuildRequires: hostname
 %endif
 
 Requires:      php(zend-abi) = %{php_zend_api}
@@ -62,14 +60,9 @@ sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
-cd NTS
-%patch -P0 -p1 -b .php82
-
-sed -e 's/CFLAGS="-I/CFLAGS="$CFLAGS -I/' -i config.m4
-
+cd %{sources}
 # Upstream often forget to change this
-extver=$(sed -n '/#define PHP_AMQP_VERSION/{s/.* "//;s/".*$//;p}' php_amqp.h)
+extver=$(sed -n '/#define PHP_AMQP_VERSION /{s/.* "//;s/".*$//;p}' php_amqp_version.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
    : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}.
    exit 1
@@ -123,25 +116,29 @@ extension = %{pecl_name}.so
 ;amqp.cacert = ''
 ;amqp.cert = ''
 ;amqp.key = ''
-;amqp.verify = ''
-;amqp.sasl_method = 0
+;amqp.verify = 1
+;amqp.sasl_method = 'AMQP_SASL_METHOD_PLAIN'
+;amqp.serialization_depth = 128
+;amqp.deserialization_depth = 128
 EOF
 
+mkdir NTS
 %if %{with_zts}
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 
 %build
-cd NTS
-%{_bindir}/phpize
-%configure --with-php-config=%{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+%configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-%configure --with-php-config=%{_bindir}/zts-php-config
+%configure --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -161,7 +158,7 @@ install -Dpm 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 # Documentation
-cd NTS
+cd %{sources}
 for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
@@ -180,7 +177,7 @@ done
     -m | grep '^%{pecl_name}$'
 %endif
 
-%if %{with_tests}
+%if %{with tests}
 mkdir log run base
 : Launch the RabbitMQ service
 export LANG=C.UTF-8
@@ -191,19 +188,17 @@ export RABBITMQ_MNESIA_BASE=$PWD/base
 /usr/lib/rabbitmq/bin/rabbitmqctl wait $RABBITMQ_PID_FILE
 
 ret=0
-pushd NTS
+pushd %{sources}
 : Run the upstream test Suite for NTS extension
-TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
+TEST_PHP_ARGS="-n -d extension=$PWD/../NTS/modules/%{pecl_name}.so" \
 %{__php} -n run-tests.php -q --show-diff || ret=1
-popd
 
 %if %{with_zts}
-pushd ZTS
 : Run the upstream test Suite for ZTS extension
-TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
+TEST_PHP_ARGS="-n -d extension=$PWD/../ZTS/modules/%{pecl_name}.so" \
 %{__ztsphp} -n run-tests.php -q --show-diff || ret=1
-popd
 %endif
+popd
 
 : Cleanup
 if [ -s $RABBITMQ_PID_FILE ]; then
@@ -216,7 +211,7 @@ exit $ret
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -230,6 +225,10 @@ exit $ret
 
 
 %changelog
+* Mon Aug 21 2023 Remi Collet <remi@remirepo.net> - 2.0.0-1
+- update to 2.0.0
+- build out of sources tree
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.29
+Version: 39.30
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -41,7 +41,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define nmver 1.0
 %define pykickstartver 3.47-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.7.1-4
+%define pythonblivetver 1:3.8.1-1
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.26
@@ -357,15 +357,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %else
 # Remove all live-installer files from the buildroot
 rm -rf \
-  %{buildroot}/%{_sysconfdir}/pam.d/liveinst \
-  %{buildroot}/%{_sysconfdir}/security/console.apps/liveinst \
   %{buildroot}/%{_sysconfdir}/xdg/autostart/liveinst-setup.desktop \
   %{buildroot}/%{_bindir}/liveinst \
   %{buildroot}/%{_libexecdir}/liveinst-setup.sh \
-  %{buildroot}/%{_sbindir}/liveinst \
   %{buildroot}/%{_datadir}/anaconda/gnome \
   %{buildroot}/%{_datadir}/anaconda/gnome/fedora-welcome \
   %{buildroot}/%{_datadir}/anaconda/gnome/org.fedoraproject.welcome-screen.desktop \
+  %{buildroot}/%{_datadir}/polkit-1/actions/* \
   %{buildroot}/%{_datadir}/applications/liveinst.desktop
 %endif
 
@@ -421,9 +419,7 @@ rm -rf \
 
 %files live
 %{_bindir}/liveinst
-%{_sbindir}/liveinst
-%config(noreplace) %{_sysconfdir}/pam.d/*
-%config(noreplace) %{_sysconfdir}/security/console.apps/*
+%{_datadir}/polkit-1/actions/*
 %{_libexecdir}/liveinst-setup.sh
 %{_datadir}/applications/*.desktop
 %{_datadir}/anaconda/gnome
@@ -489,6 +485,98 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 21 2023 Packit <hello@packit.dev> - 39.30-1
+- webui: update pixel tests (kkoukiou)
+- webui: move groupedAdditional content to PageGroup as specified in the
+  documentation (kkoukiou)
+- webui: port disk selector to the new Select implementation (kkoukiou)
+- webui: tests: workaround non-unique selector for the modal (kkoukiou)
+- webui: Upgrade to Patternfly 5 (kkoukiou)
+- Improve image building docs (mkolman)
+- Improve image building docs (mkolman)
+- webui: Do not show unused devices on the review page (vtrefny)
+- liveinst: Port to polkit (rstrode)
+- webui: Fixed typo to launch Live OS ISO with test/webui_testvm.py script
+  (akankovs)
+- webui: Automatically prefill mount point for swap devices (vtrefny)
+- manual: Allow using swap without reformatting (vtrefny)
+- Update translations from Weblate for master (github-actions)
+- webui: Allow changing and removing duplicate required mount points (vtrefny)
+- webui: test editing of the log in error reporting dialog (rvykydal)
+- Correct spelling of "formatted" (awilliam)
+- webui: Remove obsolete check for btrfs reformat support (vtrefny)
+- Add realease notes for keyboard from live system (jkonecny)
+- Add support for virtual console keymap from live (jkonecny)
+- Add live environment keyboard settings support (jkonecny)
+- Don't directly copy webui files in makeupdates script (mkolman)
+- webui: increase default size of log review text area in critical error dialog
+  (rvykydal)
+- test: allow booting a Live OS ISO with test/webui_testvm.py script (kkoukiou)
+- webui: use monospace font in critical error dialog (rvykydal)
+- webui: disable error reporting button when reading log for review (rvykydal)
+- webui: in Critical Error test click to report to BZ only after the log is
+  read (rvykydal)
+- Move get_missing_keyboard_configuration method (jkonecny)
+- Fix typo in the LocalizationInterface docstring (jkonecny)
+- Add execWithCaptureAsLiveUser to run as liveuser (jkonecny)
+- Extract liveuser data from help to generic tooling (jkonecny)
+- make: Document downloading .po from l10n repo (vslavik)
+- make: Update POT from branch, not pinned commit (vslavik)
+- webui: tests: cleanup webui.log in the end of the test (kkoukiou)
+- webui: give better feedback to user after 'Report issue' was clicked
+  (kkoukiou)
+- webui: add testing of log existence in critical error handling (rvykydal)
+- webui: translate critical error context only in the dialog (rvykydal)
+- webui: use Critical Error dialog for critical failures on Back button
+  (rvykydal)
+- webui: use Critical Error dialog in installation progress (rvykydal)
+- webui: use Critical Error dialog to handle erros in getting data about
+  storage (rvykydal)
+- webui: display also the background wizard page with Critical Error dialog
+  (rvykydal)
+- webui: use form layout and add log review of journal (rvykydal)
+- webui: add button for reporting to Bugzilla to CriticalError dialog
+  (rvykydal)
+- webui: tests: convert testErrorHandling to a non-destructive test (kkoukiou)
+- webui: tests: remove unused variable (kkoukiou)
+- webui: use storage exception for critical error dialog test (rvykydal)
+- webui: move partition_disk to Storage helper class (rvykydal)
+- webui: use Critical Error dialog to handle erros in getting data about
+  storage (rvykydal)
+- webui: use Critical Error dialog for disks rescan (rvykydal)
+- webui: use Critical Error dialog in installation progress (rvykydal)
+- webui: add context to Critical Error dialog (rvykydal)
+- webui: Prevent the Anaconda window from being closed by keyboard shortcuts
+  (akankovs)
+- webui: fix make rsync not updating the test VM (kkoukiou)
+- webui: Back/Next button are not localized (akankovs)
+- webui: tests are expecting #mount-point-mapping-table-row-{rowId}-format
+  selector (kkoukiou)
+- webui: fix TestStorageMountPoints.testBasic (rvykydal)
+- webui: tests: use m.write for writing files (kkoukiou)
+- webui: tests: extend the TestInstallationProgress test to include reboot
+  (jvanderwaa)
+- webui: introduce a button to launch blivet GUI (kkoukiou)
+- webui: when using the remote option just relax the address that cockpit-ws
+  binds to (kkoukiou)
+- webui: After returning to InstallationLanguage, the next button does not work
+  (akankovs)
+- Remove PatternFly workaround from build.js (mkolman)
+- spec: Bump required blivet version to 3.8.1 (vtrefny)
+- webui: Changing of checkbox for switch (akankovs)
+- iscsi: Allow changing iSCSI initiator name once set (vtrefny)
+- Update translations from Weblate for master (github-actions)
+- webui: fix logic for when to re-create the partitioning (kkoukiou)
+- webui: compress dist files also on development builds (kkoukiou)
+- webui: webui-desktop: don't use tls when spawning cockpit-ws (kkoukiou)
+- docs: Add translation bumper to CI status page (vslavik)
+- webui: extend condition that blocks rendering of the installation scenario
+  step (kkoukiou)
+- Update translations from Weblate for master (github-actions)
+- webui: do not keep in the central state all possible created partitioning
+  objects (kkoukiou)
+- Update translations from Weblate
+
 * Thu Aug 03 2023 Packit <hello@packit.dev> - 39.29-1
 - webui: spread the state update function into seperate hooks and useMemo
   (kkoukiou)

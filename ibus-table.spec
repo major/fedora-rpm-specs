@@ -1,6 +1,6 @@
 Name:       ibus-table
-Version:    1.17.1
-Release:    2%{?dist}
+Version:    1.17.2
+Release:    1%{?dist}
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later
 URL:        https://github.com/mike-fabian/ibus-table
@@ -150,6 +150,10 @@ fi
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Mon Aug 21 2023 Mike FABIAN <mfabian@redhat.com> - 1.17.2-1
+- Update to 1.17.2
+- Translation update from Weblate (de 100%, tr 100%)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,10 +3,11 @@
 %bcond bootstrap 0
 
 Name:           python-poetry-plugin-export
-Version:        1.3.1
-Release:        3%{?dist}
+Version:        1.4.0
+Release:        2%{?dist}
 Summary:        Poetry plugin to export the dependencies to various formats
 
+# SPDX
 License:        MIT
 URL:            https://python-poetry.org/
 Source:         %{pypi_source poetry_plugin_export}
@@ -66,6 +67,12 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Aug 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.4.0-2
+- Update to 1.4.0
+
+* Fri Aug 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.4.0-1
+- Update to 1.4.0 - with bootstrap
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

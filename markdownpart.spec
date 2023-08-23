@@ -1,0 +1,59 @@
+%global app_id  org.kde.markdownpart
+
+Name:           markdownpart
+Summary:        Markdown KPart
+Version:        23.04.3
+Release:        %autorelease
+License:        LGPL-2.1-or-later
+URL:            https://apps.kde.org/categories/utilities/
+
+%global revision %(echo %{version} | cut -d. -f3)
+%if %{revision} >= 50
+%global stable unstable
+%else
+%global stable stable
+%endif
+Source:         https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf5-rpm-macros
+BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5Parts)
+BuildRequires:  gcc-c++
+BuildRequires:  gettext
+BuildRequires:  libappstream-glib
+
+%description
+A Markdown viewer KParts plugin, which allows KParts-using applications to
+display files in Markdown format in the target format.
+
+
+%prep
+%autosetup -p1
+
+
+%build
+%cmake_kf5
+%cmake_build
+
+
+%install
+%cmake_install
+
+%find_lang %{name}
+
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{app_id}.metainfo.xml
+
+
+%files -f %{name}.lang
+%doc README.md
+%license LICENSES/*
+%{_kf5_plugindir}/parts/markdownpart.so
+%{_kf5_metainfodir}/%{app_id}.metainfo.xml
+
+
+%changelog
+%autochangelog

@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           m1n1
-Version:        1.3.2
+Version:        1.3.3
 Release:        %autorelease
 Summary:        Bootloader and experimentation playground for Apple Silicon
 
@@ -10,8 +10,6 @@ Summary:        Bootloader and experimentation playground for Apple Silicon
 License:        MIT AND CC0-1.0 AND OFL-1.1-RFN AND Zlib AND (BSD-2-Clause OR GPL-2.0-or-later) AND (BSD-3-Clause OR GPL-2.0-or-later)
 URL:            https://github.com/AsahiLinux/m1n1
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# PR#173: m1n1.asm: make it work again with gcc
-Patch:          %{url}/pull/173.patch
 
 %ifarch aarch64
 # On aarch64 do a native build

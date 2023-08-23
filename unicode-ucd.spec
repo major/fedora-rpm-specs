@@ -4,11 +4,12 @@
 
 Name:           unicode-ucd
 Version:        15.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unicode Character Database
 
-# https://fedoraproject.org/wiki/Licensing/MIT#Modern_Style_without_sublicense_.28Unicode.29
-License:        MIT
+# The current webpage https://www.unicode.org/license.txt is similar to
+# https://web.archive.org/web/20210830183830/https://www.unicode.org/license.html
+License:        Unicode-DFS-2016
 URL:            http://www.unicode.org/ucd/
 Source0:        http://www.unicode.org/Public/zipped/%{version}/UCD.zip
 # http://www.unicode.org/terms_of_use.html referenced in ReadMe.txt redirects to:
@@ -62,6 +63,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 15.0.0-4
+- Migrate to SPDX license expression
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

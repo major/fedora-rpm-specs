@@ -5,8 +5,8 @@
 %bcond_without doc
 
 Name:           python-%{modname}
-Version:        6.17.1
-Release:        6%{?dist}
+Version:        6.25.1
+Release:        1%{?dist}
 Summary:        IPython Kernel for Jupyter
 License:        BSD-3-Clause
 URL:            https://github.com/ipython/%{modname}
@@ -29,6 +29,7 @@ Requires:       python-jupyter-filesystem
 %if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx-autodoc-typehints
 BuildRequires:  python3-sphinxcontrib-github-alt
 BuildRequires:  python3-myst-parser
 BuildRequires:  python3-pydata-sphinx-theme
@@ -118,7 +119,7 @@ cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 
 
 %files -n python%{python3_pkgversion}-%{modname}
-%license COPYING.md
+%license LICENSE
 %doc CONTRIBUTING.md README.md
 %{python3_sitelib}/%{modname}
 %pycached %{python3_sitelib}/%{modname}_launcher.py
@@ -132,6 +133,9 @@ cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 
 
 %changelog
+* Thu Aug 03 2023 Lumír Balhar <lbalhar@redhat.com> - 6.25.1-1
+- Update to 6.25.1 (rhbz#2144566)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.17.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

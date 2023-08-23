@@ -5,9 +5,9 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Sphinx extension for Devhelp documents
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -79,6 +79,9 @@ popd
 
 
 %changelog
+* Wed Aug 09 2023 Karolina Surma <ksurma@redhat.com> - 1.0.2-15
+- Declare the license as an SPDX expression
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

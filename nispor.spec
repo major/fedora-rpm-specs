@@ -5,7 +5,7 @@ Name:           nispor
 Version:        1.2.12
 Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/nispor/nispor
 Source:         https://github.com/nispor/nispor/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        https://github.com/nispor/nispor/releases/download/v%{version}/nispor-vendor-%{version}.tar.xz

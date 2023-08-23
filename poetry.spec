@@ -8,9 +8,10 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        1.5.0
-Release:        4%{?dist}
+Version:        1.5.1
+Release:        2%{?dist}
 
+# SPDX
 License:        MIT
 
 URL:            https://python-poetry.org/
@@ -82,11 +83,22 @@ done
 
 %if %{without bootstrap}
 %check
+# Virtualenv changed its behaviour and since Python 3.12 it doesn't install
+# setuptools and wheel packages by default which are needed to run the tests.
+# In order to restore the previous behaviour the following environment variables
+# need to be exported.
+export VIRTUALENV_WHEEL=bundle
+export VIRTUALENV_SETUPTOOLS=bundle
 # don't use %%tox here because tox.ini runs "poetry install"
-# test_executor, test_chef: attempts a network connection to pypi
+# the following tests attempts a network connection to pypi:
+# test_executor, test_chef, test_info_setup_complex, test_info_setup_complex_pep517_legacy,
+# test_info_setup_missing_mandatory_should_trigger_pep517, test_builder_setup_generation_runs_with_pip_editable
 %pytest -k "not executor and \
 not test_chef and \
-not test_installer_with_pypi_repository"
+not test_installer_with_pypi_repository and \
+not test_info_setup_complex and not test_info_setup_complex_pep517_legacy and \
+not test_info_setup_missing_mandatory_should_trigger_pep517 and \
+not test_builder_setup_generation_runs_with_pip_editable"
 %endif
 
 
@@ -110,6 +122,12 @@ not test_installer_with_pypi_repository"
 
 
 %changelog
+* Fri Jul 28 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.5.1-2
+- Update to 1.5.1
+
+* Fri Jul 28 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.5.1-1
+- Update to 1.5.1 - with bootstrap
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,16 +10,19 @@
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
-%global with_zts   0%{?__ztsphp:1}
-%global pecl_name  mongodb
+%global with_zts          0%{?__ztsphp:1}
+%global pecl_name         mongodb
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
-%global ini_name   50-%{pecl_name}.ini
+%global ini_name          50-%{pecl_name}.ini
+
+%global upstream_version  1.16.2
+#global upstream_prever   RC1
+#global upstream_lower    ~rc1
+%global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
+%global _configure        ../%{sources}/configure
 
 # Bundled versions
-%global bundled_libmongo  1.24.1
+%global bundled_libmongo  1.24.3
 %global bundled_libcrypt  1.8.1
 
 # Build dependencies
@@ -28,12 +31,8 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.16.1
-#global upstream_prever  RC1
-#global upstream_lower   ~rc1
-%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -103,8 +102,6 @@ extension=%{pecl_name}.so
 ;mongodb.debug=''
 EOF
 
-
-%global _configure ../%{sources}/configure
 
 %build
 peclbuild() {
@@ -191,6 +188,9 @@ cd ../ZTS
 
 
 %changelog
+* Mon Aug 21 2023 Remi Collet <remi@remirepo.net> - 1.16.2-1
+- update to 1.16.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

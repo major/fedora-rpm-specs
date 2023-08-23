@@ -28,11 +28,10 @@ Requires(postun): %{_sbindir}/alternatives
 
 %prep
 %setup -q -n %{name}-%{version}
-sed -i 's|lib|libexec|' Makefile
 
 %build
 mv deepin/desktop.jpg deepin/deepin-desktop.jpg
-convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.png \
+convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
         deepin/desktop.jpg
 %make_build
 

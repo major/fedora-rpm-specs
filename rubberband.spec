@@ -3,11 +3,11 @@
 %global so_version 2
 
 Name:           rubberband
-Version:        3.2.1
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Audio time-stretching and pitch-shifting library
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.breakfastquay.com/rubberband/
 Source0:        https://breakfastquay.com/files/releases/%{name}-%{version}.tar.bz2
 # Two tests fail on ppc64le: https://todo.sr.ht/~breakfastquay/rubberband/29

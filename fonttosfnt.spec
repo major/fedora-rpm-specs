@@ -1,6 +1,6 @@
 Name:       fonttosfnt
 Version:    1.2.2
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Tool to wrap bdf or pcf bitmap fonts in an sfnt wrapper
 
 License:    MIT
@@ -35,6 +35,9 @@ OpenType) wrapper.
 %{_mandir}/man1/fonttosfnt.1*
 
 %changelog
+* Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 1.2.2-7
+- Mark this as SPDX license expression converted
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

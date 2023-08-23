@@ -58,9 +58,9 @@
 
 Name:             avahi
 Version:          0.8
-Release:          24%{?dist}
+Release:          25%{?dist}
 Summary:          Local network service discovery
-License:          LGPLv2+
+License:          LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause-Views AND MIT
 URL:              http://avahi.org
 Requires:         dbus
 Requires:         expat
@@ -877,6 +877,9 @@ exit 0
 
 
 %changelog
+* Wed Jul 26 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.8-25
+- migrate to SPDX license format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

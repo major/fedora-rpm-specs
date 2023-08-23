@@ -10,15 +10,15 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    92b019f6c8d79aa26349d0db7671d37440dc0ff3
+%global gh_commit    35af3cbbacfa91e164b252a28ec0b644f1ed4e78
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.22.0
-Release:        2%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Version:        3.23.0
+Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        PHP Coding Standards Fixer
 
 # see bundled list below, SPDX
@@ -152,6 +152,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Fri Aug 18 2023 Remi Collet <remi@remirepo.net> - 3.23.0-1
+- update to 3.23.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

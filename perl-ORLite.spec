@@ -1,23 +1,18 @@
 Name:           perl-ORLite
 Summary:        Extremely light weight SQLite-specific ORM
-Version:        1.99
+Version:        2.00
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/ORLite-%{version}.tar.gz
-# Update tests to work for SQLite 3.38 and later CPAN RT#140748
-Patch0:         ORLite-1.99-sqlite-case-insensitive.patch
-# Fix various test regressions in ORLite-1.99, CPAN RT#149414,
-# proposed to an upstream
-Patch1:         ORLite-1.99-Fix-various-tests-regression-in-1.99.patch
 # Normalize shebangs, not suitable for the upstream
-Patch2:         ORLite-1.99-Normalize-shebangs.patch
+Patch0:         ORLite-1.99-Normalize-shebangs.patch
 URL:            https://metacpan.org/release/ORLite
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.14
+BuildRequires:  perl(:VERSION) >= 5.8
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -51,7 +46,7 @@ Requires:       perl(File::Temp)
 %{?perl_default_filter}
 # Hide private modules
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(LocalTest\\)
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((LocalTest|t::lib::TableOne)\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((LocalTest|MyDB::TableOne)\\)
 
 %description
 SQLite is a light weight single file SQL database that provides
@@ -129,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 21 2023 Petr Pisar <ppisar@redhat.com> - 2.00-1
+- 2.00 bump
+
 * Mon Aug 14 2023 Petr Pisar <ppisar@redhat.com> - 1.99-1
 - 1.99 bump
 - Package the tests

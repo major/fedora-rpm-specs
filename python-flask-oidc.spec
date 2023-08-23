@@ -1,72 +1,65 @@
-%global srcname flask_oidc
-%global tar_name flask-oidc
-%global sum An openID Connect support for Flask
+%global project_name flask-oidc
+%global mod_name flask_oidc
 
-Name:           python-%{tar_name}
-Version:        1.5.0
-Release:        5%{?dist}
-Summary:        %{sum}
+Name:           python-%{project_name}
+Version:        2.0.0
+Release:        1%{?dist}
+Summary:        OpenID Connect extension for Flask
 
 License:        BSD-2-Clause
 URL:            https://github.com/fedora-infra/flask-oidc
-Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
+Source0:        %pypi_source %{mod_name}
+Patch0:         https://github.com/fedora-infra/flask-oidc/commit/5ed3937.patch
 
 BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  poetry
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-cov
+BuildRequires:  python3-responses
 
-%description
+%global _description %{expand:
 OpenID Connect support for Flask.
 This library should work with any standards compliant
-OpenID Connect provider. It has been tested with:
-Google+ Login, Ipsilon
+OpenID Connect provider. It has been tested with
+Ipsilon.}
 
-%package -n         python3-%{tar_name}
-Summary:            %{sum}
+%description %_description
 
-Requires:           python3-setuptools
-Requires:           python3-flask
-Requires:           python3-itsdangerous
-Requires:           python3-oauth2client
-Requires:           python3-six
-BuildRequires:      python3-pip
-BuildRequires:      python3-jwt
-BuildRequires:      python3-wheel
-BuildRequires:      python3-flask
-BuildRequires:      python3-itsdangerous
-BuildRequires:      python3-oauth2client
-BuildRequires:      python3-six
-BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
-BuildRequires:      python3-nose
-BuildRequires:      python3-mock
+%package -n python3-%{project_name}
+Summary:        %{summary}
 
+%description -n python3-%{project_name} %_description
 
-%{?python_provide:%python_provide python3-%{tar_name}}
-
-%description -n python3-%{tar_name}
-Currently designed around Google’s oauth2client library and OpenID Connect
-implementation. May or may not interoperate with other OpenID Connect
-identity providers, for example, Microsoft’s Azure Active Directory
 
 %prep
-%autosetup -n %{tar_name}-%{version}
+%autosetup -p1 -n %{mod_name}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{mod_name}
 
 %check
-%{__python3} setup.py test
+%pytest --cov %{mod_name} tests
 
-%files -n python3-%{tar_name}
+%files -n python3-%{project_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.txt
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/*.egg-info/
-%{_bindir}/oidc-register
+
 
 %changelog
+* Mon Aug 21 2023 Aurelien Bompard <abompard@fedoraproject.org> - 2.0.0-1
+- Version 2.0.0
+- Modernize by following https://docs.fedoraproject.org/en-US/packaging-guidelines/Python
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,9 +3,11 @@
 
 # https://github.com/hetznercloud/hcloud-go
 %global goipath         github.com/hetznercloud/hcloud-go
-Version:                1.47.0
+Version:                2.1.1
 
 %gometa
+
+%global goaltipaths     github.com/hetznercloud/hcloud-go/v2
 
 %global common_description %{expand:
 A Go library for the Hetzner Cloud API.}

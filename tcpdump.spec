@@ -4,7 +4,7 @@ Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
 Version: 4.99.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP
 URL: http://www.tcpdump.org
 Requires(pre): shadow-utils
@@ -34,7 +34,7 @@ Install tcpdump if you need a program to monitor network traffic.
 %autosetup -a 1 -S git
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS $(getconf LFS_CFLAGS) -fno-strict-aliasing"
+export CFLAGS="$RPM_OPT_FLAGS $(getconf LFS_CFLAGS) -fno-strict-aliasing -DGUESS_TSO"
 
 pushd %{tcpslice_dir}
 # update config.{guess,sub}
@@ -82,6 +82,9 @@ exit 0
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Mon Aug 21 2023 Michal Ruprich <mruprich@redhat.com> - 14:4.99.4-3
+- Enabling BIG TCP packets in tcpdump
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14:4.99.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

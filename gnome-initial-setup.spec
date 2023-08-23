@@ -16,6 +16,15 @@ URL:            https://wiki.gnome.org/Design/OS/InitialSetup
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 Source1:        vendor.conf
 
+Patch: 0001-gnome-initial-setup-Bump-GLib-required-version-to-2..patch
+Patch: 0002-driver-Specify-mode-via-flags-instead-of-boolean.patch
+Patch: 0003-gnome-initial-setup-Add-live-user-mode.patch
+Patch: 0004-initial-setup-Don-t-show-duplicated-pages-between-mo.patch
+Patch: 0005-keyboard-Don-t-add-default-input-sources-if-input-so.patch
+Patch: 0006-gnome-initial-setup-Add-OEM-mode.patch
+Patch: 0007-polkit-Add-fedora-specfic-rules.patch
+
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -85,11 +94,13 @@ cp %{SOURCE1} %{buildroot}%{_datadir}/gnome-initial-setup/
 %find_lang %{name}
 
 %pre
-useradd -rM -d /run/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null || :
+useradd -rM -d %{_localstatedir}/lib/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null || :
 
 %files -f %{name}.lang
 %license COPYING
 %doc NEWS README.md
+%attr(-, gnome-initial-setup, gnome-initial-setup) %dir %{_localstatedir}/lib/gnome-initial-setup
+%ghost %{_localstatedir}/gnome-initial-setup/state
 %{_libexecdir}/gnome-initial-setup
 %{_libexecdir}/gnome-initial-setup-copy-worker
 %{_libexecdir}/gnome-initial-setup-goa-helper

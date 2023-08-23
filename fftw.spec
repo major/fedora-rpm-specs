@@ -18,9 +18,10 @@
 
 Name:           fftw
 Version:        3.3.10
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Fast Fourier Transform library
-License:        GPLv2+
+# Generally, the code is under GPL but some headers are also under MIT or BSD:
+License:        GPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            http://www.fftw.org
 Source0:        http://www.fftw.org/fftw-%{version}.tar.gz
 
@@ -536,6 +537,9 @@ done
 %endif
 
 %changelog
+* Thu Jul 27 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3.3.10-9
+- migrate to SPDX license format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

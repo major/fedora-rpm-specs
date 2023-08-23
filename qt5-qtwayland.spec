@@ -3,7 +3,7 @@
 Summary: Qt5 - Wayland platform support and QtCompositor module
 Name:    qt5-%{qt_module}
 Version: 5.15.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -66,9 +66,12 @@ Patch49:  0049-Client-Manage-QMimeData-lifecycle.patch
 Patch50:  0050-client-Do-not-cast-placeholder-screens-to-QWaylandSc.patch
 Patch51:  0051-Client-Remove-flip-popup-constraints.patch
 
-Patch102: qtwayland-decoration-support-backports-from-qt6.patch
+# Use QAdwaitaDecorations by default
+Patch100: qtwayland-use-adwaita-decorations-by-default.patch
+Patch101: qtwayland-decoration-support-backports-from-qt6.patch
 
 # Upstreamable patches
+
 
 # filter qml provides
 %global __provides_exclude_from ^%{_qt5_archdatadir}/qml/.*\\.so$
@@ -175,6 +178,9 @@ popd
 
 
 %changelog
+* Wed Aug 16 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-3
+- Use QAdwaitaDecorations by default
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

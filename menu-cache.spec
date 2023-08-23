@@ -1,46 +1,63 @@
-%global         usegit      0
-%global         mainrel     2
+%global		use_release	0
+%global		use_git		0
+%global		use_gitbare	1
 
-%global         githash     8c8534159d4898935b47f9103cf32cd9b21b3df5
-%global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
-%global         gitdate     Thu, 14 Sep 2017 00:32:14 +0300
-%global         gitdate_num 20170914
-
-%if 0%{?usegit} >= 1
-%global         fedorarel   %{mainrel}.D%{gitdate_num}git%{shorthash}
-%else
-%global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%if 0%{?use_git} < 1
+%if 0%{?use_gitbare} < 1
+# force
+%global		use_release	1
 %endif
+%endif
+
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
+
+%if 0%{?use_gitbare}
+%global		gittardate		20230821
+%global		gittartime		1652
+
+%global		gitbaredate	20230724
+%global		git_rev		4a82095ca4a334ceaf306c128248eb020f11bef1
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{gitbaredate}git%{git_short}
+%endif
+
+%if 0%{?use_git} || 0%{?use_gitbare}
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
+%endif
+
+
+%global		main_version	1.1.0
+
 
 Name:           menu-cache
-Version:        1.1.0
-Release:        %{fedorarel}%{?dist}.9
+Version:        %{main_version}%{git_ver_rpm}
+Release:        1%{?dist}
 Summary:        Caching mechanism for freedesktop.org compliant menus
 
-License:        LGPL-2.0-or-later AND GPL-2.0-or-later
+# SPDX confirmed
+License:        LGPL-2.0-or-later
 URL:            http://lxde.org
-#VCS: git:git://lxde.git.sourceforge.net/gitroot/lxde/menu-cache
-%if 0%{?usegit} >= 1
-Source0:        https://github.com/lxde/menu-cache/archive/%{githash}/%{name}-%{version}-D%{gitdate_num}git%{githash}.tar.gz
-%else
-Source0:        http://downloads.sourceforge.net/lxde/%{name}-%{version}.tar.xz
+%if 0%{?use_gitbare}
+Source0:        %{name}-%{gittardate}T%{gittartime}.tar.gz
 %endif
-%if 0%{?el7}
-# bz#1451069 - CVE-2017-8933 menu-cache: Insecure temporary file creation in get_socket_name function 
-Patch0:         menu-cache-CVE-2017-8933.patch
+%if 0%{?use_release}
+Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
 %endif
-# https://github.com/lxde/menu-cache/pull/19
-Patch1:         menu-cache-1.1.0-0001-Support-gcc10-compilation.patch
+Source1:        create-menu-cache-git-bare-tarball.sh
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(libfm-extra)
-%if 0%{?usegit} >= 1
+%if 0%{?use_gitbare} >= 1
 BuildRequires:	automake
 BuildRequires:	gtk-doc
 BuildRequires:	libtool
 %endif
+BuildRequires:  /usr/bin/git
 
 %description
 Menu-cache is a caching mechanism for freedesktop.org compliant menus to 
@@ -57,29 +74,47 @@ developing applications that use %{name}.
 
 
 %prep
-%if 0%{?usegit} >= 1
-%setup -q -n %{name}-%{githash}
-%else
-%setup -q
+%if 0%{?use_release}
+%setup -q -n %{name}-%{main_version}%{git_builddir}
+
+git init
 %endif
 
-%if 0%{?usegit} >= 1
+%if 0%{?use_gitbare}
+%setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
+git clone ./%{name}.git/
+cd %{name}
+
+git checkout -b %{main_version}-fedora %{git_rev}
+cp -a [A-Z]* ..
+%endif
+
+git config user.name "%{name} Fedora maintainer"
+git config user.email "%{name}-maintainers@fedoraproject.org"
+
+%if 0%{?use_release}
+git add .
+git commit -m "base" -q
+%endif
+
+%if 0%{?use_gitbare}
 sh autogen.sh
 %endif
-%patch1 -p1 -b .gcc10
 
 %build
-%global optflags %optflags -fno-common
+%if 0%{?use_gitbare}
+cd %{name}
+%endif
+
 %configure --disable-static --disable-silent-rules
-# remove rpath in menu-cache-gen
-#sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-#sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-make %{?_smp_mflags}
-
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%if 0%{?use_gitbare}
+cd %{name}
+%endif
+
+%make_install
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %ldconfig_scriptlets
@@ -89,9 +124,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 #FIXME: add ChangeLog and NEWS if there is content
 %doc AUTHORS
 %license COPYING
-%if 0%{?usegit} < 1
 %doc NEWS
-%endif
 %doc README
 %{_libexecdir}/%{name}/menu-cache-gen
 %{_libexecdir}/%{name}/menu-cached
@@ -107,6 +140,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Aug 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0^20230724git4a82095c-1
+- Update to the latest git
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

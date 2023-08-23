@@ -2,34 +2,18 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-poetry-core
-Version:        1.6.0
-Release:        2%{?dist}
+Version:        1.6.1
+Release:        1%{?dist}
 Summary:        Poetry PEP 517 Build Backend
-
-# We bundle a lot of libraries with poetry, which itself is under MIT license.
-# Here is the list of the libraries with corresponding licenses:
-
-# attrs: MIT
-# jsonschema: MIT
-# lark: MIT
-# packaging: ASL 2.0 or BSD
-# pkgutil-resolve-name: MIT
-# pyparsing: MIT
-# pyrsistent: MIT
-# tomlkit: MIT
-# typing-extensions: Python
-
-License:        MIT and (ASL 2.0 or BSD) and Python
+# SPDX
+License:        MIT
 URL:            https://github.com/python-poetry/poetry-core
 Source0:        %{url}/archive/%{version}/poetry-core-%{version}.tar.gz
 
 # This patch moves the vendored requires definition
 # from vendors/pyproject.toml to pyproject.toml
 # Intentionally contains the removed hunk to prevent patch aging
-
-# poetry is broken with packaging 21+ (https://github.com/python-poetry/poetry/issues/4264).
-# We are temporarily disabling this patch so installed poetry works again.
-#Patch1:         poetry-core-1.0.2-devendor.patch
+Patch1:         poetry-core-1.6.1-devendor.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -62,13 +46,6 @@ Summary:        %{summary}
 
 # Previous versions of poetry included poetry-core in it
 Conflicts:      python%{python3_version}dist(poetry) < 1.1
-# The bundled versions are taken from src/poetry/core/_vendor/vendor.txt
-Provides:       bundled(python3dist(attrs)) = 23.1.0
-Provides:       bundled(python3dist(jsonschema)) = 4.17.3
-Provides:       bundled(python3dist(lark)) = 1.1.5
-Provides:       bundled(python3dist(packaging)) = 23.1
-Provides:       bundled(python3dist(pyrsistent)) = 0.19.3
-Provides:       bundled(python3dist(tomli)) = 2.0.1
 
 %description -n python3-poetry-core %_description
 
@@ -83,7 +60,7 @@ Provides:       bundled(python3dist(tomli)) = 2.0.1
 
 %build
 # we debundle the deps after we use the bundled deps in previous step to parse the deps 🤯
-#rm -r poetry/core/_vendor
+rm -r src/poetry/core/_vendor
 
 %pyproject_wheel
 
@@ -109,6 +86,10 @@ Provides:       bundled(python3dist(tomli)) = 2.0.1
 
 
 %changelog
+* Wed Jul 26 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.6.1-1
+- Update to 1.6.1
+- Fixes: rhbz#2144878
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

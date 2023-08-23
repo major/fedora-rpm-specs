@@ -69,7 +69,7 @@ Patch44: libdb-configure-c99.patch
 Patch45: libdb-sqlite-c99.patch
 
 URL: http://www.oracle.com/database/berkeley-db/
-License: BSD and LGPLv2 and Sleepycat
+License: BSD-3-Clause AND LGPL-2.1-only AND Sleepycat
 BuildRequires: gcc gcc-c++
 BuildRequires: perl-interpreter libtool
 BuildRequires: tcl-devel >= %{__tclversion}

@@ -28,6 +28,12 @@
 %bcond_with    gtk4
 %endif
 
+# FIXME: How to write a condition with multiple lines
+%global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3)
+%global pcd1 budgie-desktop or cinnamon or deepin-desktop or i3
+%global pcd2 lxqt-session or lxsession or mate-panel or phosh
+%global pcd3 plasma-workspace or sugar or xfce4-session
+
 %if %with_pkg_config
 %if %{with gtk2}
 %{!?gtk2_binary_version: %global gtk2_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-2.0)}
@@ -52,7 +58,7 @@
 
 Name:           ibus
 Version:        1.5.29~beta2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -113,6 +119,7 @@ Requires:      (%{name}-gtk2%{?_isa}   = %{version}-%{release} if gtk2)
 %endif
 Requires:       %{name}-gtk3%{?_isa}   = %{version}-%{release}
 Requires:       %{name}-setup          = %{version}-%{release}
+Requires:      (%{name}-panel%{?_isa}   = %{version}-%{release} if %ibus_panel_condition)
 
 Requires:       iso-codes
 Requires:       dconf
@@ -572,6 +579,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Mon Aug 21 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta2-3
+- Add ibus_panel_condition
+
 * Fri Aug 18 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta2-2
 - Separate ibus-ui-gtk3 as ibus-panel sub package depended on libdbusmenu
 - Update autogen.sh for Fedora 39

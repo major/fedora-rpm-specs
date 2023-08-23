@@ -1,6 +1,6 @@
 Name:           fonts-compare
-Version:        1.3.2
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Tool to compare fonts for a language
 
 License:        GPL-2.0-or-later
@@ -11,12 +11,14 @@ BuildArch: noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  freetype-devel 
 Requires: python3-gobject
 Requires: python3-langtable
 Requires: python3-langdetect
 Requires: fontconfig
 Requires: hicolor-icon-theme
 Requires: gtk4
+Requires: python3-freetype
 
 %description
 Fonts-Compare is a tool that enables individuals
@@ -74,6 +76,24 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.github.sudipshil9
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Mon Aug 21 2023 Sudip Shil <sshil@redhat.com> - 1.4.0-1
+- get fontversion for a font that is selected. python3-freetype will be used for this.
+- fontversion update upon language change from drop-down and alsofont change in each fontbutton
+- the style/weight is hide by default. added option to show style
+- show-style and fontversion feature won't be available in f37
+- font filter for rawhide is fast now and fonts are now fast to populate
+- Set activate on single click to false for the language selection listbox
+- fixed indexing bug: Clicking arabic language in drop-down selects assamese
+- now fontsize adjustment will work
+- fixed non printable string getting from freetype function
+- removed classmethod and added instance method for label_font_change_newversion
+- noto sans won't appear as noto sans regular
+- gtk.dialog deprecation warning issue fixed
+- dialog button bug of fontbutton2 fixed
+- added run.sh script
+- fonts-compare will work on rhel9
+- Selecting second font from fc-list for second font button
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

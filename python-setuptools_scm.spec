@@ -90,7 +90,7 @@ It also handles file finders for the supported SCMs.
 
 * Wed May 24 2023 Miro Hrončok <mhroncok@redhat.com> - 7.1.0-3
 - Drop the build dependency on tox
-- Verify the license tag is SDPX
+- Verify the license tag is SPDX
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

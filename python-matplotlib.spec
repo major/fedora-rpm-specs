@@ -360,6 +360,8 @@ mktexfmt latex.fmt
 mktexfmt lualatex.fmt
 mktexfmt pdflatex.fmt
 mktexfmt xelatex.fmt
+# Also prime the font cache.
+%{py3_test_envvars} %{python3} -c 'import matplotlib.font_manager'
 
 export http_proxy=http://127.0.0.1/
 # Skips:

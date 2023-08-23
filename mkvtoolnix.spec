@@ -39,8 +39,8 @@ BuildRequires: pkgconfig(zlib)
 BuildRequires: rubygem-drake
 BuildRequires: rubygem-json
 BuildRequires: utf8cpp-devel >= 3.2-2
-BuildRequires: %{_bindir}/qmake6
-BuildRequires: %{_bindir}/xsltproc
+BuildRequires: /usr/bin/qmake6
+BuildRequires: /usr/bin/xsltproc
 Requires: libebml%{_isa} >= 1.4.4
 Requires: libmatroska%{_isa} >= 1.7.1
 # bundles a modified avilib GPLv2+

@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -19,6 +19,10 @@ Patch1: 0001-zsh-5.9-do-not-use-egrep-in-tests.patch
 Patch2: 0002-zsh-Use-int-main-in-test-c-codes.patch
 # upstream commit a84fdd7c8f77935ecce99ff2b0bdba738821ed79
 Patch3: 0003-zsh-fix-module-loading-problem-with-full-RELRO.patch
+# upstream commit  1b421e4978440234fb73117c8505dad1ccc68d46
+Patch4: 0004-zsh-enable-PCRE-locale-switching.patch
+# upstream commits b62e911341c8ec7446378b477c47da4256053dc0...b4d1c756f50909b4a13e5c8fe5f26f71e9d54f63
+Patch5: 0005-zsh-port-to-pcre2.patch
 
 BuildRequires: autoconf
 BuildRequires: coreutils
@@ -29,7 +33,7 @@ BuildRequires: glibc-langpack-ja
 BuildRequires: libcap-devel
 BuildRequires: make
 BuildRequires: ncurses-devel
-BuildRequires: pcre-devel
+BuildRequires: pcre2-devel
 BuildRequires: sed
 BuildRequires: texi2html
 BuildRequires: texinfo
@@ -164,6 +168,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Mon Aug 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.9-9
+- port to PCRE 2 (rhbz#1938979)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

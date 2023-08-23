@@ -1,12 +1,12 @@
 %undefine __cmake_in_source_build
 
 %global version_major 1
-%global version_minor 2
+%global version_minor 3
 %global version_micro 0
 
 Name:           sdbus-cpp
 Version:        %{version_major}.%{version_minor}.%{version_micro}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
@@ -91,6 +91,9 @@ out of the D-Bus IDL XML description.
 
 
 %changelog
+* Mon Aug 21 2023 Marek Blaha <mblaha@redhat.com> - 1.3.0-1
+- Update to release 1.3.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

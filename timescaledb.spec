@@ -1,8 +1,8 @@
 %global core_name timescale
 
 Name:           %{core_name}db
-Version:        2.11.1
-Release:        2%{?dist}
+Version:        2.11.2
+Release:        1%{?dist}
 Summary:        Open-source time-series database powered by PostgreSQL
 
 License:        ASL 2.0
@@ -53,6 +53,9 @@ rm -rf tsl
 
 
 %changelog
+* Tue Aug 22 2023 Ondrej Sloup <osloup@redhat.com> - 2.11.2-1
+- Rebase to the latest upstream version (rhbz#2232726)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

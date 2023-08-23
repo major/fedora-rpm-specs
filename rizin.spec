@@ -1,12 +1,12 @@
 Name:           rizin
 Summary:        UNIX-like reverse engineering framework and command-line tool-set
-Version:        0.5.2
+Version:        0.6.1
 URL:            https://rizin.re/
 VCS:            https://github.com/rizinorg/rizin
 
 %global         gituser         rizinorg
 %global         gitname         rizin
-%global         baserelease     3
+%global         baserelease     1
 %global         shortversion    %(c=%{version}; echo ${c} | cut -d'.' -f-2)
 
 Release:        %{baserelease}%{?dist}
@@ -180,6 +180,9 @@ information
 
 
 %changelog
+* Mon Aug 21 2023 Riccardo Schirone <rschirone91@gmail.com> - 0.6.1-1
+- Rebase to upstream version 0.6.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

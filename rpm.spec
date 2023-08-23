@@ -27,7 +27,7 @@
 
 %global rpmver 4.18.92
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -139,6 +139,7 @@ rpm-4.18.92-disable-sysusers.patch
 rpm-4.18.90-weak-user-group.patch
 
 # Patches already upstream:
+0001-Behave-more-consistently-when-target-arch-optflags-a.patch
 # ...
 
 # These are not yet upstream
@@ -612,6 +613,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Aug 21 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.92-2
+- Behave more consistently when target %%optflags are not defined (#2231727)
+
 * Wed Aug 02 2023 Michal Domonkos <mdomonko@redhat.com> - 4.18.92-1
 - Update to 4.19 beta
 

@@ -3,8 +3,8 @@
 
 Summary:        ASN.1 encode/decode library
 Name:           perl-Convert-ASN1
-Version:        0.33
-Release:        6%{?dist}
+Version:        0.34
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-ASN1
 Source0:        https://cpan.metacpan.org/authors/id/T/TI/TIMLEGGE/Convert-ASN1-%{version}.tar.gz
@@ -69,8 +69,7 @@ Tests from %{name}-%{version}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Convert-ASN1-%{version}
-%patch0 -p1
+%autosetup -p1 -n Convert-ASN1-%{version}
 
 # Help file to recognise the Perl scripts
 for F in t/*.t; do
@@ -102,12 +101,15 @@ make test
 %license LICENSE
 %doc ChangeLog OldChanges README.md examples/
 %{perl_vendorlib}/Convert/
-%{_mandir}/man3/*.3pm*
+%{_mandir}/man3/Convert::ASN1*.3pm*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.34-1
+- 0.34 bump (bug #2229845)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

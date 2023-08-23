@@ -10,7 +10,7 @@ Version:	8.45
 Release:	3%{?dist}
 Summary:	MinGW Windows pcre library
 
-License:	BSD
+License:	BSD-3-Clause
 URL:		http://www.pcre.org/
 Source0:        https://ftp.pcre.org/pub/%{name1}/%{?rcversion:Testing/}%{name1}-%{myversion}.tar.bz2
 Source1:        https://ftp.pcre.org/pub/%{name1}/%{?rcversion:Testing/}%{name1}-%{myversion}.tar.bz2.sig

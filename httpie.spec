@@ -11,14 +11,8 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-%if 0%{?fedora}
-# On Fedora, the tests are enabled by default, --without tests option exists
+# The tests are enabled by default, --without tests option exists
 %bcond_without tests
-%else
-# On EPEL 9, we don't have all the dependencies, the tests are disabled
-# Missing (2023-07-08): python-pytest-lazy-fixture
-%bcond_with tests
-%endif
 
 %description
 HTTPie is a CLI HTTP utility built out of frustration with existing tools. The

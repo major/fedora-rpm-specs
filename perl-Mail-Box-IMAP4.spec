@@ -1,16 +1,10 @@
 Name:           perl-Mail-Box-IMAP4
-Version:        3.007
-Release:        14%{?dist}
+Version:        3.008
+Release:        1%{?dist}
 Summary:        Handle IMAP4 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-IMAP4
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Mail-Box-IMAP4-%{version}.tar.gz
-# Adapt tests to Mail-Message-3.013, bug #2225452, CPAN RT#149119,
-# proposed to the upstream.
-Patch0:         Mail-Box-IMAP4-3.007-Adapt-tests-to-Mail-Message-3.013.patch
-# Make tests not to write into CWD, proposed to the upstream,
-# <https://github.com/markov2/perl5-Mail-Box-IMAP4/pull/2>.
-Patch1:         Mail-Box-IMAP4-3.007-Create-a-temporary-directory-with-File-Temp.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -48,7 +42,7 @@ BuildRequires:  perl(File::Temp) >= 0.19
 BuildRequires:  perl(Mail::Box::Identity)
 BuildRequires:  perl(Mail::Box::MH)
 BuildRequires:  perl(Mail::Box::Test) >= 3
-BuildRequires:  perl(Mail::Message) >= 3
+BuildRequires:  perl(Mail::Message) >= 3.013
 BuildRequires:  perl(Mail::Message::Body::Lines) >= 3
 BuildRequires:  perl(Test::More)
 Requires:       perl(Mail::Box) >= 3.007
@@ -91,7 +85,7 @@ Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Mail-Server-IMAP4 = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Mail::Box::Test) >= 3
-Requires:       perl(Mail::Message) >= 3
+Requires:       perl(Mail::Message) >= 3.013
 Requires:       perl(Mail::Message::Body::Lines) >= 3
 
 %description tests
@@ -149,6 +143,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.008-1
+- 3.008 bump (bug #2230299)
+
 * Thu Aug 03 2023 Petr Pisar <ppisar@redhat.com> - 3.007-14
 - Adapt tests to Mail-Message-3.013 (bug #2225452)
 - Specify all dependencies
