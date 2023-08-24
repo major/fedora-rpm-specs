@@ -11,6 +11,9 @@ Summary:        Most basic dynamic function row daemon possible
 License:        MIT AND Apache-2.0
 URL:            https://crates.io/crates/tiny-dfr
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * use librsvg 2.57.0-beta and cairo-rs 0.18
+Patch:          tiny-dfr-fix-metadata.diff
 # Actually use c_char instead of assuming it is the same as u8
 Patch:          https://github.com/WhatAmISupposedToPutHere/tiny-dfr/commit/f7e84ad69fa3754993e637850e5344702047b2de.patch
 # udev: Add rule matching the backlight to let systemd ignore it

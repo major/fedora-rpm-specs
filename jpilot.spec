@@ -1,10 +1,10 @@
 Summary: pilot desktop software
 Name: jpilot
 Version: 1.8.2
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: GPL-2.0-only
-URL: http://www.jpilot.org/
-Source0: http://jpilot.org/jpilot-%{version}.tar.gz
+URL: https://www.jpilot.org/
+Source0: https://www.jpilot.org/tarballs/jpilot-%{version}.tar.gz
 Source1: jpilot.desktop
 
 Patch0: jpilot-0.99.7-conf.patch
@@ -18,6 +18,8 @@ BuildRequires: gtk2-devel >= 2.0.3
 BuildRequires: pilot-link >= 0.12.5
 BuildRequires: make
 BuildRequires: ImageMagick
+BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
 
 Requires: hicolor-icon-theme
 
@@ -55,11 +57,59 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/jpilot/ \
 ls -la jpilotrc*
 install -m644 jpilotrc.* $RPM_BUILD_ROOT%{_datadir}/jpilot/
 install -p empty/*.pdb $RPM_BUILD_ROOT%{_datadir}/jpilot/
-install -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/applications/jpilot.desktop
+desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE1}
 
 # install icon
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps
 convert icons/jpilot-icon3.xpm $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/jpilot.png
+
+mkdir $RPM_BUILD_ROOT%{_metainfodir}
+cat <<EOF > $RPM_BUILD_ROOT%{_metainfodir}/%{name}.appdata.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>org.jpilot.JPilot</id>
+    <name>J-Pilot</name>
+    <summary>pilot desktop software</summary>
+    <metadata_license>FSFAP</metadata_license>
+    <project_license>GPL-2.0-only</project_license>
+    <description>
+        <p>
+            J-Pilot is a desktop organizer application for the palm pilot that runs under
+            Linux.  It is similar in functionality to the one that 3com distributes for a
+            well known rampant legacy operating system.
+        </p>
+    </description>
+    <launchable type="desktop-id">%{name}.desktop</launchable>
+    <provides>
+        <binary>jpilot</binary>
+    </provides>
+    <content_rating type="oars-1.1"/>
+    <developer_name>Judd Montgomery</developer_name>
+    <releases>
+        <release version="%{version}" date="%(date +%F -r %{SOURCE0})" />
+    </releases>
+    <screenshots>
+        <screenshot type="default">
+            <caption>Datebook Screen</caption>
+            <image>https://www.jpilot.org/screenshots/jpilot-datebook.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Address Screen</caption>
+            <image>https://www.jpilot.org/screenshots/jpilot-address.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Todo Screen</caption>
+            <image>https://www.jpilot.org/screenshots/jpilot-todo.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Memo Screen</caption>
+            <image>https://www.jpilot.org/screenshots/jpilot-memo.png</image>
+        </screenshot>
+    </screenshots>
+    <url type="homepage">%{url}</url>
+</component>
+EOF
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.appdata.xml
 
 %find_lang %name
 
@@ -71,8 +121,12 @@ convert icons/jpilot-icon3.xpm $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/ap
 %{_libdir}/%{name}
 %{_mandir}/man1/*.*
 %{_datadir}/applications/*
+%{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Tue Aug 22 2023 Nikola Forró <nforro@redhat.com> - 1.8.2-27
+- Added appstream file (thanks yselkowitz)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -39,7 +39,7 @@ Git gui client for KDE.
 
 
 %build
-%cmake
+%cmake_kf5
 %cmake_build
 
 

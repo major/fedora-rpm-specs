@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.30
+Version: 39.32
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -485,6 +485,35 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 22 2023 Packit <hello@packit.dev> - 39.32-1
+- liveinst: Ensure DBUS_SESSION_BUS_ADDRESS is set in live install (rstrode)
+- screensaver: Look at $PKEXEC_UID not $USERHELPER_UID (rstrode)
+- webui: disable disk selection while disks are being rescanned (kkoukiou)
+- webui: show spinner in the disk selection while the backend did not update
+  (kkoukiou)
+- WebUI: update pixel tests for Fedora 40 (jvanderwaa)
+- webui: show 25 rows in the bug report log review. (rvykydal)
+- webui: add option to report an issue to global menu (rvykydal)
+- webui: bump cockpit-* dependencies in updates.img (kkoukiou)
+- Update translations from Weblate for master (github-actions)
+- release-notes: Document support for compressed kernel modules in Driver Discs
+  (peter.georg)
+- Add documentation about support for compressed kernel modules (peter.georg)
+- dd_extract: Update test info to reflect added support for compressed kernel
+  modules (peter.georg)
+- dd_extract: Add test for zstd compressed kernel module (peter.georg)
+- dd_extract: Add test for xz compressed kernel module (peter.georg)
+- dd_extract: Add support for compressed kernel modules (peter.georg)
+- Update translations from Weblate
+
+* Tue Aug 22 2023 Packit <hello@packit.dev> - 39.31-1
+- po: Don't try to delete extra.pot (vslavik)
+- tests: Rename test to match file with code (vslavik)
+- tests: Split localed wrapper from module (vslavik)
+- tests: Split live keyboard from module (vslavik)
+- tets: Split localization module task tests (vslavik)
+- Update translations from Weblate
+
 * Mon Aug 21 2023 Packit <hello@packit.dev> - 39.30-1
 - webui: update pixel tests (kkoukiou)
 - webui: move groupedAdditional content to PageGroup as specified in the

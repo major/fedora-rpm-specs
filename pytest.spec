@@ -1,5 +1,5 @@
 Name:           pytest
-%global base_version 7.3.2
+%global base_version 7.4.0
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
 Release:        4%{?dist}
@@ -180,6 +180,10 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Mon Aug 07 2023 Lumír Balhar <lbalhar@redhat.com> - 7.4.0-1
+- Update to 7.4.0
+Resolves: rhbz#2216956
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

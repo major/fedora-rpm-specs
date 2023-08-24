@@ -39,12 +39,12 @@
 %global ant_home %{_datadir}/ant
 
 Name:           ant
-Version:        1.10.12
-Release:        11%{?dist}
+Version:        1.10.14
+Release:        1%{?dist}
 Summary:        Java build tool
 Summary(it):    Tool per la compilazione di programmi java
 Summary(fr):    Outil de compilation pour java
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://ant.apache.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -55,7 +55,6 @@ Source2:        apache-ant-1.8.ant.conf
 Source3:        ant.asciidoc
 
 Patch0:         %{name}-build.xml.patch
-Patch1:         0001-Fix-integer-overflow-when-parsing-SOURCE_DATE_EPOCH.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  xmlto
@@ -76,7 +75,8 @@ BuildRequires:  mvn(bsf:bsf)
 BuildRequires:  mvn(com.jcraft:jsch)
 BuildRequires:  mvn(commons-logging:commons-logging-api)
 BuildRequires:  mvn(commons-net:commons-net)
-BuildRequires:  mvn(javax.mail:mail)
+BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
+BuildRequires:  mvn(jakarta.mail:jakarta.mail-api)
 BuildRequires:  mvn(jdepend:jdepend)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.tukaani:xz)
@@ -255,15 +255,17 @@ Requires:       %{name} = %{version}-%{release}
 %description imageio
 Optional imageio tasks for %{name}.
 
-%package javamail
-Summary:        Optional javamail tasks for %{name}
+%package jakartamail
+Summary:        Optional jakartamail tasks for %{name}
 Requires:       %{name} = %{version}-%{release}
+# TODO Remove after Fedora 41
+Obsoletes:      ant-javamail < 1.13.1
 
-%description javamail
-Optional javamail tasks for %{name}.
+%description jakartamail
+Optional jakartamail tasks for %{name}.
 
-%description javamail -l fr
-Taches javamail optionelles pour %{name}.
+%description jakartamail -l fr
+Taches jakartamail optionelles pour %{name}.
 
 %package jdepend
 Summary:        Optional jdepend tasks for %{name}
@@ -336,8 +338,7 @@ Javadoc pour %{name}.
 
 %prep
 %setup -q -n apache-ant-%{version}
-%patch0 -p0
-%patch1 -p1
+%patch 0 -p0
 
 # clean jar files
 find . -name "*.jar" | xargs -t rm
@@ -365,7 +366,7 @@ build-jar-repository -s -p lib/optional javapackages-bootstrap/junit javapackage
 %if %{with ant_minimal}
 build-jar-repository -s -p lib/optional junit hamcrest/core hamcrest/library
 %else
-build-jar-repository -s -p lib/optional antlr bcel commons-lang3 javamail/mailapi jdepend junit oro regexp bsf commons-logging commons-net jsch xalan-j2 xml-commons-resolver xalan-j2-serializer hamcrest/core hamcrest/library xz-java junit5 opentest4j
+build-jar-repository -s -p lib/optional antlr bcel commons-lang3 jakarta-mail/jakarta.mail-api jakarta-activation/jakarta.activation-api jdepend junit oro regexp bsf commons-logging commons-net jsch xalan-j2 xml-commons-resolver xalan-j2-serializer hamcrest/core hamcrest/library xz-java junit5 opentest4j
 %endif
 %endif
 
@@ -391,7 +392,7 @@ mv LICENSE.utf8 LICENSE
 %pom_xpath_remove pom:optional src/etc/poms/ant-antlr/pom.xml
 
 # fix javamail dependency coordinates (remove once javamail is updated)
-%pom_change_dep -r com.sun.mail:jakarta.mail javax.mail:mail src/etc/poms/ant-javamail/pom.xml
+%pom_change_dep -r com.sun.mail:jakarta.mail jakarta.mail:jakarta.mail-api src/etc/poms/ant-jakartamail/pom.xml
 
 %build
 %if %{with ant_minimal}
@@ -409,7 +410,8 @@ xmlto man man/%{name}.xml -o man
 rm build/lib/ant-jai.jar build/lib/ant-netrexx.jar
 # log4j logging is deprecated
 rm build/lib/ant-apache-log4j.jar
-
+# dropped in favor of jakartamail
+rm build/lib/ant-javamail.jar
 
 %install
 # ANT_HOME and subdirs
@@ -430,10 +432,9 @@ mv build/lib0/ant-junit.jar build/lib/
 mv build/lib0/ant-junit4.jar build/lib/
 %endif
 
-for jar in build/lib/*.jar
-do
+for jar in build/lib/*.jar; do
   # Make sure that installed JARs are not empty
-  jar tf ${jar} | egrep -q *.class
+  jar tf ${jar} | grep -E -q '.*\.class'
 
   jarname=$(basename $jar .jar)
 
@@ -502,7 +503,7 @@ echo "oro ant/ant-apache-oro" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/apache-o
 echo "regexp ant/ant-apache-regexp" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/apache-regexp
 echo "xalan-j2 xalan-j2-serializer ant/ant-apache-xalan2" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/apache-xalan2
 echo "ant/ant-imageio" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/imageio
-echo "javamail jaf ant/ant-javamail" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/javamail
+echo "jakartamail jaf ant/ant-jakartamail" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/jakartamail
 echo "jdepend ant/ant-jdepend" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/jdepend
 echo "jsch ant/ant-jsch" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/jsch
 echo "junit5 hamcrest/core junit opentest4j ant/ant-junitlauncher" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.d/junitlauncher
@@ -616,9 +617,9 @@ LC_ALL=C.UTF-8 %{ant} test
 %{ant_home}/lib/%{name}-imageio.jar
 %config(noreplace) %{_sysconfdir}/%{name}.d/imageio
 
-%files javamail -f .mfiles-javamail
-%{ant_home}/lib/%{name}-javamail.jar
-%config(noreplace) %{_sysconfdir}/%{name}.d/javamail
+%files jakartamail -f .mfiles-jakartamail
+%{ant_home}/lib/%{name}-jakartamail.jar
+%config(noreplace) %{_sysconfdir}/%{name}.d/jakartamail
 
 %files jdepend -f .mfiles-jdepend
 %{ant_home}/lib/%{name}-jdepend.jar
@@ -655,6 +656,12 @@ LC_ALL=C.UTF-8 %{ant} test
 # -----------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 22 2023 Marian Koncek <mkoncek@redhat.com> - 1.10.14-1
+- Update to upstream version 1.10.14
+
+* Mon Aug 21 2023 Marian Koncek <mkoncek@redhat.com> - 1.10.13-1
+- Update to upstream version 1.10.13
+
 * Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.12-11
 - Add transitive dependency on commons-lang3 through bcel
 

@@ -3,7 +3,7 @@
 Summary: Qt5 - Wayland platform support and QtCompositor module
 Name:    qt5-%{qt_module}
 Version: 5.15.10
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -178,6 +178,9 @@ popd
 
 
 %changelog
+* Tue Aug 22 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-4
+- Rebuild (qtbase)
+
 * Wed Aug 16 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-3
 - Use QAdwaitaDecorations by default
 

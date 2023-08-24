@@ -3,8 +3,9 @@ Version:        0.1.2
 Release:        4%{?dist}
 Summary:        Markdown URL utilities
 
+# SPDX
 License:        MIT
-URL:            https://github.com/hukkin/mdurl
+URL:            https://github.com/executablebooks/mdurl
 Source0:        %{url}/archive/%{version}/mdurl-%{version}.tar.gz
 
 BuildArch:      noarch

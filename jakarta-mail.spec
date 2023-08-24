@@ -1,10 +1,10 @@
 %bcond_with bootstrap
 
 Name:           jakarta-mail
-Version:        1.6.7
-Release:        5%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Jakarta Mail API
-License:        EPL-2.0 or GPLv2 with exceptions
+License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
 URL:            https://github.com/eclipse-ee4j/mail
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -15,84 +15,57 @@ Source0:        https://github.com/eclipse-ee4j/mail/archive/%{version}/mail-%{v
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.sun.activation:jakarta.activation)
+BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %endif
-
-# javadoc package is currently not built
-Obsoletes:      javamail-javadoc  < 1.5.2-16
 
 %description
 The Jakarta Mail API provides a platform-independent and
 protocol-independent framework to build mail and messaging applications.
 
-%prep
-%setup -q -n mail-%{version}
+%package javadoc
+Summary:        Javadoc for %{name}
 
-# remove unnecessary dependency on parent POM
+%description javadoc
+This package contains javadoc for %{name}.
+
+%prep
+%setup -q -n mail-api-%{version}
+
+pushd api
+# Remove unnecessary dependency on parent POM
 %pom_remove_parent
 
-# disable unnecessary maven plugins
-%pom_remove_plugin :maven-enforcer-plugin
-%pom_remove_plugin :osgiversion-maven-plugin
-%pom_remove_plugin :directory-maven-plugin
+%pom_remove_plugin :buildnumber-maven-plugin
 
-# disable android-specific code
-%pom_disable_module android
-
-# remove profiles that only add unnecessary things
-%pom_xpath_remove "pom:project/pom:profiles"
-
-# inject OSGi bundle versions manually instead of using osgiversion-maven-plugin
-find -name pom.xml -exec sed -i "s/\${mail\.osgiversion}/%{version}/g" {} +
-
-# -Werror is considered harmful
-sed -i "/-Werror/d" mail/pom.xml
-
-# add aliases for old maven artifact coordinates
-%mvn_alias com.sun.mail:mailapi \
-    javax.mail:mailapi
-%mvn_alias com.sun.mail:jakarta.mail \
-    com.sun.mail:javax.mail \
-    javax.mail:mail \
-    org.eclipse.jetty.orbit:javax.mail.glassfish
-%mvn_alias jakarta.mail:jakarta.mail-api \
-    javax.mail:javax.mail-api
-
-# add symlinks for compatibilty with old classpaths
-%mvn_file com.sun.mail:jakarta.mail \
-    %{name}/jakarta.mail \
-    javamail/mail \
-    javamail/javax.mail \
-    javax.mail/javax.mail
+# Missing dependency
+%pom_remove_dep :angus-activation
+rm src/test/java/jakarta/mail/internet/NonAsciiFileNamesTest.java
+popd
 
 %build
-# skip javadoc build due to https://github.com/fedora-java/xmvn/issues/58
-#
-# XXX 2022-01-05 disable tests for now due to issue with DNS resolution caused by glibc change.
-# Tests fail with: java.net.UnknownHostException: myhostname: Temporary failure in name resolution
-# Simple reproducer: echo 'java.net.InetAddress.getLocalHost();' | jshell -s
-# Until glibc-2.34.9000-27.fc36 jakarta-mail tests pass.
-# Starting with glibc-2.34.9000-28.fc36 jakarta-mail tests fail.
-# Related bugs:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2023741
-# https://bugzilla.redhat.com/show_bug.cgi?id=2033020
-#
-# define the variable ${main.basedir} to avoid using directory-maven-plugin
-%mvn_build -j -f -- -Dmain.basedir=${PWD}
+pushd api
+%mvn_build
+popd
 
 %install
+pushd api
 %mvn_install
+popd
 
-%files -f .mfiles
+%files -f api/.mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
 
+%files javadoc -f api/.mfiles-javadoc
+%license LICENSE.md NOTICE.md
+
 %changelog
+* Mon Aug 21 2023 Marian Koncek <mkoncek@redhat.com> - 2.1.0-1
+- Update to upstream version 2.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -135,4 +108,3 @@ sed -i "/-Werror/d" mail/pom.xml
 
 * Sat Sep 19 2020 Fabio Valentini <decathorpe@gmail.com> - 1.6.5-1
 - Initial package renamed from javamail.
-

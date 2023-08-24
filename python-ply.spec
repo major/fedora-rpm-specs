@@ -5,8 +5,8 @@
 Name:           python-%{modname}
 Summary:        Python Lex-Yacc
 Version:        3.11
-Release:        20%{?dist}
-License:        BSD
+Release:        21%{?dist}
+License:        BSD-3-Clause
 URL:            http://www.dabeaz.com/ply/
 Source0:        http://www.dabeaz.com/ply/%{modname}-%{version}.tar.gz
 # Fix build against Python 3.11
@@ -83,6 +83,9 @@ popd
 %{python3_sitelib}/%{modname}-%{version}-*.egg-info/
 
 %changelog
+* Tue Aug 22 2023 Rob Crittenden <rcritten@redhat.com> - 3.11-21
+- migrated to SPDX license
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -196,7 +196,7 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.0
-Release:          4%{?prereltag:%{prereltag}}%{?dist}
+Release:          5%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
@@ -718,7 +718,7 @@ BuildArch:        noarch
 # for glusterd
 Requires:         %{name}-server = %{version}-%{release}
 # depending on the distribution, we need pacemaker or resource-agents
-Requires:         %{_prefix}/lib/ocf/resource.d
+Requires:         resource-agents
 
 %description resource-agents
 GlusterFS is a distributed file-system capable of scaling to several
@@ -1625,6 +1625,10 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Tue Aug 22 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 11.0-5
+- glusterfs 11, /usr/lib/ocf/resource-agents.d -> resource-agents
+  rhbz#2229910
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,11 +3,11 @@
 Summary: ELF utils that can check files for security relevant properties
 Name: pax-utils
 Version: 1.3.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 # http://packages.gentoo.org/package/app-misc/pax-utils
 URL: https://wiki.gentoo.org/wiki/Hardened/PaX_Utilities
 Source0: https://distfiles.gentoo.org/distfiles/%{name}-%{version}.tar.xz
-# fix python shebang in lddtree.py
+# fix python shebang in lddtree.py and pylint
 Patch0: %{name}-py3shebang.patch
 License: GPLv2
 BuildRequires:  gcc
@@ -16,7 +16,7 @@ BuildRequires: libcap-devel
 BuildRequires: xmlto
 %if %{with check}
 BuildRequires: python3-pyelftools
-BuildRequires: %{_bindir}/python
+BuildRequires: python3
 %endif
 
 %description
@@ -33,7 +33,7 @@ PaX helpers for people interested in that.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch 0 -p1
 
 %build
 %meson \
@@ -42,6 +42,7 @@ PaX helpers for people interested in that.
     -Dbuild_manpages=enabled \
     -Dtests=true \
     -Duse_fuzzing=false \
+    -Dlddtree_implementation=sh \
 
 %meson_build
 
@@ -69,6 +70,11 @@ export LD_LIBRARY_PATH=%{_libdir}
 %{_mandir}/man1/scanmacho.1*
 
 %changelog
+* Wed Aug 23 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.3.7-3
+- ship the bash version of lddtree to avoid dependency on python3-pyelftools
+- fix python shebang in pylint
+- fix deprecated patchN macro usage
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

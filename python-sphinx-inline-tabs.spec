@@ -5,6 +5,7 @@ Version:        2022.01.02~b11
 %global tag     2022.01.02.beta11
 Release:        7%{?dist}
 Summary:        Add inline tabbed content to your Sphinx documentation
+# SPDX
 License:        MIT
 URL:            https://github.com/pradyunsg/sphinx-inline-tabs
 Source0:        %{url}/archive/%{tag}/sphinx-inline-tabs-%{tag}.tar.gz

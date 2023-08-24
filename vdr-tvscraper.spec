@@ -6,13 +6,13 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        1.2.1
+Version:        1.2.2
 Release:        1%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
 License:        GPL-2.0-or-later AND MIT
 URL:            https://github.com/MarkusEh/vdr-plugin-tvscraper
-Source0:        %url/archive/refs/tags/v1.2.1.tar.gz#/vdr-plugin-tvscraper-1.2.1.tar.gz
+Source0:        %url/archive/refs/tags/v%{version}.tar.gz#/vdr-plugin-tvscraper-%{version}.tar.gz
 Source1:        %{name}.conf
 
 # Build for armv7hl failed
@@ -70,6 +70,9 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
+* Tue Aug 22 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.2.2-1
+- Update to 1.2.2
+
 * Sat Aug 05 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.2.1-1
 - Update to 1.2.1
 

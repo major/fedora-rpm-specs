@@ -1,6 +1,6 @@
 Name:           fastfetch
-Version:        1.12.2
-Release:        2%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
 License:        MIT
@@ -32,9 +32,7 @@ BuildRequires:  vulkan-loader-devel
 %else
 BuildRequires:  vulkan-loader-devel
 %endif
-%if 0%{?fedora} >= 36
 BuildRequires:  chafa-devel
-%endif
 
 Recommends:     pciutils
 Recommends:     libxcb
@@ -46,9 +44,7 @@ Recommends:     libglvnd-glx
 Recommends:     ImageMagick
 Recommends:     glib2
 Recommends:     ocl-icd
-%if 0%{?fedora} > 36
 Recommends:     chafa
-%endif
 
 %description
 fastfetch is a neofetch-like tool for fetching system information and
@@ -88,7 +84,6 @@ BuildArch: noarch
 %files
 %license LICENSE
 %doc README.md
-%config(noreplace) %{_sysconfdir}/%{name}/
 %{_bindir}/%{name}
 %{_bindir}/flashfetch
 %{_datadir}/%{name}/
@@ -97,6 +92,9 @@ BuildArch: noarch
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Tue Aug 22 2023 Jonathan Wright <jonathan@almalinux.org> - 2.0.2-1
+- Update to 2.0.2 rhbz#2232058
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

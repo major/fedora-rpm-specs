@@ -2,27 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate bitmaps
+%global crate glib-build-tools
 
-Name:           rust-bitmaps
-Version:        2.1.0
+Name:           rust-glib-build-tools
+Version:        0.17.10
 Release:        %autorelease
-Summary:        Fixed size boolean arrays
+Summary:        Rust bindings for the Gio library, build script utils crate
 
-License:        MPL-2.0
-URL:            https://crates.io/crates/bitmaps
+License:        MIT
+URL:            https://crates.io/crates/glib-build-tools
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * fix invalid SPDX identifier in crate license:
-#   https://github.com/bodil/bitmaps/issues/24
-# * bump proptest dev-dependency from 0.9 to 1.0
-# * bump proptest-derive dev-dependency from 0.1 to 0.3
-Patch:          bitmaps-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Fixed size boolean arrays.}
+Rust bindings for the Gio library, build script utils crate.}
 
 %description %{_description}
 
@@ -36,9 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENCE.md
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CODE_OF_CONDUCT.md
+%license %{crate_instdir}/COPYRIGHT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -54,16 +47,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+dox-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+dox-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "dox" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+dox-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

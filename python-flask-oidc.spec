@@ -2,14 +2,13 @@
 %global mod_name flask_oidc
 
 Name:           python-%{project_name}
-Version:        2.0.0
+Version:        2.0.1
 Release:        1%{?dist}
 Summary:        OpenID Connect extension for Flask
 
 License:        BSD-2-Clause
 URL:            https://github.com/fedora-infra/flask-oidc
 Source0:        %pypi_source %{mod_name}
-Patch0:         https://github.com/fedora-infra/flask-oidc/commit/5ed3937.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -56,6 +55,16 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Aug 22 2023 Packit <hello@packit.dev> - 2.0.1-1
+- Version 2.0.1 (Aurélien Bompard)
+- Add the extlinks extension to sphinx (Aurélien Bompard)
+- Disable user info collection if the `client_secrets` don't contain the URL (Aurélien Bompard)
+- Fix README (Aurélien Bompard)
+- Add test status in README (Aurélien Bompard)
+- Add Packit config (Aurélien Bompard)
+- Handle older versions of Werkzeug (Aurélien Bompard)
+- Some doc fixes (Aurélien Bompard)
+
 * Mon Aug 21 2023 Aurelien Bompard <abompard@fedoraproject.org> - 2.0.0-1
 - Version 2.0.0
 - Modernize by following https://docs.fedoraproject.org/en-US/packaging-guidelines/Python

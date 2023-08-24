@@ -1,8 +1,8 @@
 %global srcname flatpak-module-tools
-%global project_version 1.0a3
+%global project_version 1.0a5
 
 Name:		%{srcname}
-Version:	1.0~a3
+Version:	1.0~a5
 Release:	1%{?dist}
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
@@ -11,10 +11,8 @@ URL:		https://pagure.io/flatpak-module-tools
 Source0:	https://releases.pagure.org/flatpak-module-tools/flatpak-module-tools-%{project_version}.tar.gz
 
 BuildArch:	noarch
-# Tests only work on x86_64 because there are a few hardcoded x86 references
-ExclusiveArch:  x86_64
-# Tests fail on i386, because its not supported by flatpak_module_tools.utils.Arch
-# ExcludeArch:    i386 i686
+# i386 is not supported by flatpak_module_tools.utils.Arch
+ExcludeArch:    i386 i686
 
 BuildRequires: python3-build
 BuildRequires: python3-devel
@@ -24,25 +22,27 @@ BuildRequires: python3-setuptools_scm+toml
 BuildRequires: python3-wheel
 
 # For tests
+BuildRequires: createrepo_c
 BuildRequires: flatpak
 BuildRequires: libappstream-glib
+BuildRequires: libmodulemd
 BuildRequires: librsvg2
 BuildRequires: ostree
 BuildRequires: python3-click
+BuildRequires: python3-gobject-base
 BuildRequires: python3-pytest-cov
 BuildRequires: python3-jinja2
 BuildRequires: python3-koji
-BuildRequires: python3-libmodulemd
 BuildRequires: python3-pytest
+BuildRequires: python3-requests
+BuildRequires: python3-responses
 BuildRequires: python3-rpm
-BuildRequires: python3-six
 BuildRequires: python3-yaml
 
 Requires: python3-%{srcname} = %{version}-%{release}
-Requires: python3-click
+Requires: python3-jinja2
 Requires: python3-koji
 Requires: python3-networkx
-Requires: python3-requests
 Requires: python3-requests-toolbelt
 # for pkg_resources
 Requires: python3-setuptools
@@ -61,15 +61,16 @@ Summary: Shared code for building Flatpak applications and runtimes from Fedora 
 # for using this as a library for atomic-reactor. The dependencies here are those
 # needed for library usage, the main package has the remainder.
 
+Requires: createrepo_c
 Requires: flatpak
-Requires: python3-libmodulemd
 # For appstream-compose
 Requires: libappstream-glib
 # for SVG gdk-pixbuf loader
 Requires: librsvg2
 Requires: ostree
-Requires: python3-jinja2
-Requires: python3-six
+Requires: python3-click
+Requires: python3-requests
+Requires: python3-rpm
 Requires: python3-yaml
 
 %description -n python3-%{srcname}
@@ -105,13 +106,19 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
 %{python3_sitelib}/*
 
 %changelog
-* Mon Aug 15 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a3-1
+* Tue Aug 22 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a5-1
+- Version 1.0~a5
+- Fix operation when the main package is a subpackage
+- Add --local-repo option to CLI
+- Fix up Requires:
+
+* Tue Aug 15 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a3-1
 - New version
 - Fixes problem with triggers from flatpak-runtime-config not running for apps
 - Fixes local RPMs not working for 'flatpak-module build-container-local'
 - Makes bwrap invocation check more exact
 
-* Mon Aug 15 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a2-4
+* Tue Aug 15 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a2-4
 - Add a patch to debug why the test for working bwrap isn't working on the
   Koji builders.
 - Add some missing requires for flatpak-module-depchase

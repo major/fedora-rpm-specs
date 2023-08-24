@@ -2,27 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate bitmaps
+%global crate yansi-term
 
-Name:           rust-bitmaps
-Version:        2.1.0
+Name:           rust-yansi-term
+Version:        0.1.2
 Release:        %autorelease
-Summary:        Fixed size boolean arrays
+Summary:        Library for ANSI terminal colours and styles (bold, underline)
 
-License:        MPL-2.0
-URL:            https://crates.io/crates/bitmaps
+License:        MIT
+URL:            https://crates.io/crates/yansi-term
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * fix invalid SPDX identifier in crate license:
-#   https://github.com/bodil/bitmaps/issues/24
-# * bump proptest dev-dependency from 0.9 to 1.0
-# * bump proptest-derive dev-dependency from 0.1 to 0.3
-Patch:          bitmaps-fix-metadata.diff
+# Automatically generated patch to strip foreign dependencies
+Patch:          yansi-term-fix-metadata-auto.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Fixed size boolean arrays.}
+Library for ANSI terminal colours and styles (bold, underline).}
 
 %description %{_description}
 
@@ -36,9 +32,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENCE.md
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CODE_OF_CONDUCT.md
+%license %{crate_instdir}/LICENCE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -54,16 +48,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+derive_serde_style-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+derive_serde_style-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "derive_serde_style" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+derive_serde_style-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

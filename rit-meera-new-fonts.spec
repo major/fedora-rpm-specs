@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version:    1.5.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
 
 %global foundry RIT
@@ -13,7 +13,7 @@ URL:        https://gitlab.com/rit-fonts/%{fontsource}
 %global fontsummary    OpenType sans-serif font for Malayalam traditional script
 
 %global fonts fonts/otf/*.otf
-%global fontconfs meta/67-meera-new-fonts.conf
+%global fontconfs meta/65-meera-new-fonts.conf
 %global fontappstreams meta/in.org.rachana.meera-new.metainfo.xml
 
 %global fontdescription %{expand:
@@ -50,6 +50,9 @@ make otf
 
 
 %changelog
+* Tue Aug 22 2023 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.5.1-2
+- Change fontconfig priority from 67 to 65
+
 * Sun Aug 20 2023 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.5.1-1
 - New release, version 1.5.1
 

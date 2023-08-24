@@ -1,5 +1,5 @@
 Name:           python-scikit-build-core
-Version:        0.4.4
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Build backend for CMake based projects
 
@@ -9,10 +9,12 @@ Source:         %{pypi_source scikit_build_core}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+# Testing dependences
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  git
 
 %global _description %{expand:
 A next generation Python CMake adaptor and Python API for plugins
@@ -36,7 +38,7 @@ Suggests:       gcc
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires -x test,test-meta,test-numpy
 
 
 %build
@@ -50,7 +52,7 @@ Suggests:       gcc
 
 %check
 %pytest \
-    -m "not isolated"
+    -m "not network"
 
 
 %files -n python3-scikit-build-core -f %{pyproject_files}

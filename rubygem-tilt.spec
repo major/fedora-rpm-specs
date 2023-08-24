@@ -4,37 +4,29 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 2.0.11
-Release: 2%{?dist}
+Version: 2.2.0
+Release: 1%{?dist}
 Summary: Generic interface to multiple Ruby template engines
 License: MIT
-URL: https://github.com/rtomayko/tilt/
+URL: https://github.com/jeremyevans/tilt
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/rtomayko/tilt.git && cd tilt
-# git archive -v -o tilt-2.0.11-man.tar.gz v2.0.11 man/
-Source1: %{gem_name}-%{version}-man.tar.gz
-# git clone https://github.com/rtomayko/tilt.git && cd tilt
-# git archive -v -o tilt-2.0.11-test.tar.gz v2.0.11 test/
+# Man pages were dropped by upstream :'(
+# https://github.com/jeremyevans/tilt/issues/7
+## git clone https://github.com/jeremyevans/tilt.git && cd tilt
+## git archive -v -o tilt-2.2.0-man.tar.gz v2.2.0 man/
+#Source1: %%{gem_name}-%%{version}-man.tar.gz
+
+# git clone https://github.com/jeremyevans/tilt.git && cd tilt
+# git archive -v -o tilt-2.2.0-test.tar.gz v2.2.0 test/
 Source2: %{gem_name}-%{version}-test.tar.gz
-# We don't use Bundler neither upstream necessarily does.
-# https://github.com/rtomayko/tilt/pull/375/commits/66e702813b4fef3951dff941b4778b595929e092
-Patch0: rubygem-tilt-2.0.11-Remove-use-of-Bundler-setup.patch
-# Fix Sass test failures.
-# https://github.com/rtomayko/tilt/pull/375/commits/20b6424425037adf2029bba2e86f0d1b3c007251
-Patch1: rubygem-tilt-2.0.11-Chomp-newline-in-sass-tests.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 # These templating engines are removed or deprecated in Fedora.
+# BuildRequires: rubygem(coffee-script)
 # BuildRequires: rubygem(erubis)
 # BuildRequires: rubygem(maruku)
 # BuildRequires: rubygem(wikicloth)
-# Disable in an effort to let Coffeescript to be updated to version 2.x
-# https://bugzilla.redhat.com/show_bug.cgi?id=2139183
-# and possibly to let `rubygem(coffee-script)` go away. It seems both cannot
-# be reasonably achieved.
-# https://github.com/rtomayko/tilt/issues/384
-# BuildRequires: rubygem(coffee-script)
 BuildRequires: rubygem(creole)
 BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(nokogiri)
@@ -51,9 +43,10 @@ BuildRequires: rubygem(prawn)
 BuildRequires: rubygem(pdf-reader)
 %if %{without bootstrap}
 BuildRequires: rubygem(haml)
+BuildRequires: rubygem(slim)
 %endif
-# To generate man pages.
-BuildRequires: /usr/bin/ronn
+## To generate man pages.
+#BuildRequires: /usr/bin/ronn
 BuildArch: noarch
 
 %description
@@ -69,12 +62,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -b 1 -b 2
-
-pushd %{_builddir}
-%patch0 -p1
-%patch1 -p1
-popd
+%setup -q -n %{gem_name}-%{version} -b 2
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -97,22 +85,22 @@ cp -a .%{_bindir}/* \
 # Fix shebang.
 sed -i -e 's|/usr/bin/env ruby|/usr/bin/ruby|' %{buildroot}%{gem_instdir}/bin/tilt
 
-# Generate man pages.
-pushd %{_builddir}
-  ronn --manual="Tilt Manual" --organization="Tilt %{version}" -r man/*.ronn
-
-  mkdir -p %{buildroot}%{_mandir}/man1
-  mv man/*.1 %{buildroot}%{_mandir}/man1
-popd
+## Generate man pages.
+#pushd %{_builddir}
+#  ronn --manual="Tilt Manual" --organization="Tilt %{version}" -r man/*.ronn
+#
+#  mkdir -p %{buildroot}%{_mandir}/man1
+#  mv man/*.1 %{buildroot}%{_mandir}/man1
+#popd
 
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
 %if %{without bootstrap}
 %check
 pushd .%{gem_instdir}
-ln -s %{_builddir}/test test
+cp -a %{_builddir}/test test
 
-LANG=C.UTF-8 ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+LANG=C.UTF-8 ruby -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 %endif
 
@@ -124,13 +112,17 @@ popd
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
-%doc %{_mandir}/man1/*
+#%%doc %%{_mandir}/man1/*
 
 %files doc
 %doc %{gem_docdir}
 
 
 %changelog
+* Tue Aug 22 2023 Vít Ondruch <vondruch@redhat.com> - 2.2.0-1
+- Update to Tilt 2.2.0.
+  Resolves: rhbz#2170954
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

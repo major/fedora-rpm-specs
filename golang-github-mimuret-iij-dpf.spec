@@ -2,21 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/goccy/go-json
-%global goipath         github.com/goccy/go-json
-Version:                0.10.2
+# https://github.com/mimuret/golang-iij-dpf
+%global goipath         github.com/mimuret/golang-iij-dpf
+Version:                0.9.1
 
 %gometa -f
 
+
 %global common_description %{expand:
-Fast JSON encoder/decoder compatible with encoding/json for Go.}
+IIJ DNS Platform Service API for Go.}
 
 %global golicenses      LICENSE
-%global godocs          CHANGELOG.md README.md
+%global godocs          README.md boilerplate.go.txt
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Fast JSON encoder/decoder compatible with encoding/json for Go
+Summary:        IIJ DNS Platform Service API for Go
 
 License:        MIT
 URL:            %{gourl}
@@ -38,19 +39,12 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-# https://github.com/goccy/go-json/issues/466
-%ifarch s390x
-for test in "TestUnmarshalMarshal" \
-            "TestUnmarshalRescanLiteralMangledUnquote" \
-            "TestATestHTMLEscapective" \
-            "TestCompactBig" \
-            "TestIndentBig" \
-            "TestEncoderSetEscapeHTML" \
-            "TestHTMLEscape" \
+# https://github.com/mimuret/golang-iij-dpf/issues/14
+
+for test in "TestGinkgo" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done
-%endif
 %gocheck
 %endif
 

@@ -2,7 +2,7 @@
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.4
-Release: 6.%{revision}%{?dist}
+Release: 7.%{revision}%{?dist}
 License: MIT
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -128,7 +128,7 @@ common_options="\
     --enable-pc-files \
     --enable-xmc-glitch \
     --disable-root-access \
-    --disable-root-environ \
+    --disable-setuid-environ \
     --disable-stripping \
     --disable-wattr-macros \
     --with-cxx-shared \
@@ -283,6 +283,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Tue Aug 22 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-7.20230520
+- ignore TERMINFO and HOME only if setuid/setgid/capability
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-6.20230520
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

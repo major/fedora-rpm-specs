@@ -9,7 +9,7 @@
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.2.7
-Release: 4%{?prerelease}%{?dist}
+Release: 5%{?prerelease}%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -41,6 +41,7 @@ Provides: bundled(zlib) = 1.2.8
 License: GPL-3.0-or-later
 
 Patch1: rsync-3.2.2-runtests.patch
+Patch2: rsync-3.2.7-buffer-overflow.patch
 
 %description
 Rsync uses a reliable algorithm to bring remote and host files into
@@ -72,7 +73,8 @@ package provides the anonymous rsync service.
 %endif
 
 #%patch0 -p1 -b .verify-hostname
-%patch1 -p1 -b .runtests
+%patch 1 -p1 -b .runtests
+%patch 2 -p1 -b .buffer-overflow
 
 %build
 %configure \
@@ -123,6 +125,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Tue Aug 22 2023 Michal Ruprich <mruprich@redhat.com> - 3.2.7-5
+- Resolves: #2229654 - rsync - buffer overflow detected
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -44,10 +44,9 @@ Summary:        %{summary}
 # MIT OR Apache-2.0 OR BSD-1-Clause
 # MIT OR Apache-2.0 OR Zlib
 # MPL-2.0
-# MPL-2.0+
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        Apache-2.0 AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT AND MPL-2.0 AND MPL-2.0+ AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR BSD-1-Clause) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        Apache-2.0 AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT AND MPL-2.0 AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR BSD-1-Clause) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

@@ -1,6 +1,6 @@
 Name:		imsettings
-Version:	1.8.3
-Release:	10%{?dist}
+Version:	1.8.4
+Release:	1%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -23,8 +23,6 @@ Patch2:		%{name}-xinput-xcompose.patch
 %if 0%{?rhel}
 Patch4:		%{name}-glib.patch
 %endif
-Patch5:		%{name}-fix-infinite-loop-of-restarting.patch
-Patch6:		%{name}-disable-gnome.patch
 ## Fedora specific: Force enable the IM management on imsettings for Cinnamon
 Patch7:		%{name}-force-enable-for-cinnamon.patch
 
@@ -340,6 +338,11 @@ fi
 %endif
 
 %changelog
+* Tue Aug 22 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.4-1
+- New upstream release.
+- Add IMSETTINGS_IGNORE_SESSION to not take any actions for certain desktops.
+  Resolves: rhbz#2232064
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

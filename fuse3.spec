@@ -10,7 +10,7 @@
 
 Name:		fuse3
 Version:	%{xyz_version}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL+
 URL:		http://fuse.sf.net
@@ -20,7 +20,9 @@ Source2:	https://raw.githubusercontent.com/libfuse/libfuse/master/signify/fuse-%
 Source3:	fuse.conf
 Patch0:         fuse3-gcc11.patch
 
+%if %{undefined rhel}
 BuildRequires:	signify
+%endif
 BuildRequires:	which
 %if ! 0%{?el6}
 Conflicts:	filesystem < 3
@@ -84,9 +86,11 @@ Common files for FUSE v2 and FUSE v3.
 %endif
 
 %prep
+%if %{undefined rhel}
 # Fuse is using signify rather than PGG since 3.15.1 For more details see:
 # 	https://github.com/libfuse/libfuse/releases/tag/fuse-3.15.1
 signify -V -m  '%{SOURCE0}' -p '%{SOURCE2}'
+%endif
 
 %setup -n fuse-%{version}
 %patch -P0 -p1
@@ -188,6 +192,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %endif
 
 %changelog
+* Tue Aug 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.16.1-2
+- Skip tarball signature verification in RHEL builds
+
 * Wed Aug 09 2023 Pavel Reichl <preichl@redhat.com> - 3.16.1-1
 - update to 3.16.1
 - Add tarball signature verification

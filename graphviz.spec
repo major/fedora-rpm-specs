@@ -104,7 +104,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		8.1.0
-Release:		5%{?dist}
+Release:		6%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -202,9 +202,7 @@ BuildRequires:		doxygen
 %if %{GOLANG}
 BuildRequires:		golang
 %endif
-# ISO8859-1 fonts are required by lefty
 Requires:		urw-base35-fonts
-Requires:		xorg-x11-fonts-ISO8859-1-100dpi
 Requires(post):		/sbin/ldconfig
 Requires(postun):	/sbin/ldconfig
 # rhbz#1838679
@@ -777,6 +775,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Tue Aug 22 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.1.0-6
+- Dropped unused xserver fonts dependency
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

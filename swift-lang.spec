@@ -32,7 +32,7 @@
 
 Name:           swift-lang
 Version:        %{package_version}
-Release:        %{fedora_release}%{?dist}.2
+Release:        %{fedora_release}%{?dist}
 Summary:        The Swift programming language
 License:        Apache-2.0
 URL:            https://www.swift.org
@@ -80,6 +80,9 @@ Patch2:		enablelzma.patch
 Patch3:   	fs.patch
 Patch4:		unusedvars.patch
 Patch5:		no-test.patch
+Patch7:         fclose_issues.patch
+Patch8:         new_glibc.patch
+
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -183,14 +186,25 @@ mv ninja-%{ninja_version} ninja
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 # Fix for uinit_ptr not being declared implicitly
-%patch1 -p0
+%patch -P1 -p0
 
 # Enable LZMA
-%patch2 -p0
+%patch -P2 -p0
 
 # Tests fail for some reason preventing the package from being built
-%patch5 -p0
+%patch -P5 -p0
 
+# Issue with >= F39 not liking not having the file object
+# explicitly forced in an fclose()
+%if 0%{?fedora} >= 39
+%patch -P7 -p0
+%endif
+
+# 39 and later, so this patch modifies the CMakeLists.txt file
+# to add a check for them, along with a patch to the header
+# file that if they are present, don't define the functions
+# seperately.
+%patch -P8 -p0
 
 %build
 export VERBOSE=1
@@ -237,6 +251,10 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Aug 22 2023 Ron Olson <tachoknight@gmail.com> 5.8.1-2
+- Added patch to work with glibc 2.38
+  Resolves: rhbz#2226476
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.1-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

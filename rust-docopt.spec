@@ -26,7 +26,7 @@ Summary:        %{summary}
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        MIT AND Unicode-DFS-2016 AND ((MIT OR Apache-2.0) AND (Unlicense OR MIT)
+License:        MIT AND Unicode-DFS-2016 AND (MIT OR Apache-2.0) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

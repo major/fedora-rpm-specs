@@ -1,7 +1,7 @@
 %global basever 7.3
 %global micro 12
 #global pre ...
-%global pyversion 3.9
+%global pyversion 3.10
 Name:           pypy%{pyversion}
 Version:        %{basever}.%{micro}%{?pre:~%{pre}}
 %global version_ %{basever}.%{micro}%{?pre}
@@ -68,7 +68,7 @@ ExcludeArch:    %{ix86}
 # We refer to this subdir of the source tree in a few places during the build:
 %global goal_dir pypy/goal
 
-%if 0%{?fedora} < 39
+%if 0%{?fedora} >= 39
 # REMINDER: When updating the main pypy3 version for a certain Fedora release
 # make sure to update the python-classroom group in https://pagure.io/fedora-comps/
 #   1. locate comps-fXX.xml.in for each affected Fedora release
@@ -112,11 +112,6 @@ Patch7: 007-remove-startup-message.patch
 # to be added to privent compilation error.
 # https://fedoraproject.org/wiki/Changes/Replace_glibc_libcrypt_with_libxcrypt
 Patch9: 009-add-libxcrypt-support.patch
-
-# Instead of bundled wheels, use our RPM packaged wheels from
-# /usr/share/python-wheels
-# We conditionally apply this, but we use autosetup, so we use Source here
-Source189: 189-use-rpm-wheels.patch
 
 # Build-time requirements:
 
@@ -319,12 +314,11 @@ Header files for building C extension modules against PyPy%{pyversion}.
 %prep
 %autosetup -n pypy%{pyversion}-v%{version_}-src -p1 -S git
 
-# Temporary workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1954999
-%{?!apply_patch:%define apply_patch(qp:m:) {%__apply_patch %**}}
-
 %if %{with rpmwheels}
-%apply_patch -m %(basename %{SOURCE189}) %{SOURCE189}
+# Instead of bundled wheels, use our RPM packaged wheels from /usr/share/python-wheels
 rm lib-python/3/ensurepip/_bundled/*.whl
+# This append to _sysconfigdata.py is a hacked equivalent to CPython's configure --with-wheel-pkg-dir
+echo "build_time_vars['WHEEL_PKG_DIR'] = '%{python_wheel_dir}'" >> lib_pypy/_sysconfigdata.py
 %endif
 
 
@@ -359,9 +353,6 @@ rm lib-python/3/idlelib/idle.bat
   # use the pycparser from PyPy even on CPython
   ln -s lib_pypy/cffi/_pycparser pycparser
 %endif
-
-# Remove windows executable binaries
-rm lib-python/3/distutils/command/*.exe
 
 %build
 # Top memory usage is about 4.5GB on arm7hf
@@ -840,8 +831,11 @@ CheckPyPy pypy%{pyversion}-c
 
 
 %changelog
-* Tue Aug 22 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.12-2.3.9
+* Tue Aug 22 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.12-2.3.10
 - Make PyPy 3.10 the main PyPy 3 on Fedora 39+
+
+* Wed Jul 26 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.12-1.3.10
+- Initial PyPy 3.10 package
 
 * Wed Jul 26 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.12-1.3.9
 - Update to 7.3.12

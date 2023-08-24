@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-40-gd6fe19facc
+%global glibcsrcdir glibc-2.38.9000-55-gf6c8204fd7
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2198,6 +2198,25 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Aug 22 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-5
+- Auto-sync with upstream branch master,
+  commit f6c8204fd7fabf0cf4162eaf10ccf23258e4d10e:
+- elf: Do not run constructors for proxy objects
+- x86_64: Add log1p with FMA
+- Remove references to the defunct db2 subdir
+- string: Fix tester build with fortify enable with gcc < 12
+- s390x: Fix static PIE condition for toolchain bootstrapping.
+- m68k: fix __mpn_lshift and __mpn_rshift for non-68020
+- sysdeps: tst-bz21269: fix -Wreturn-type
+- Loongarch: Add ifunc support for memcpy{aligned, unaligned, lsx, lasx} and memmove{aligned, unaligned, lsx, lasx}
+- Loongarch: Add ifunc support for strchr{aligned, lsx, lasx} and strchrnul{aligned, lsx, lasx}
+- sysdeps: tst-bz21269: handle ENOSYS & skip appropriately
+- sysdeps: tst-bz21269: fix test parameter
+- hurd: Fix strictness of <mach/thread_state.h>
+- hurd: Add prototype for and thus fix _hurdsig_abort_rpcs call
+- io/tst-statvfs: fix statfs().f_type comparison test on some arches
+- fxprintf: Get rid of alloca
+
 * Tue Aug 15 2023 Carlos O'Donell <carlos@redhat.com> - 2.38-4
 - Collect dynamic loader diagnostics from the build system.
 

@@ -1,29 +1,30 @@
 %bcond_with bootstrap
-%bcond_without  jp_minimal
+%bcond_without jp_minimal
 
 Name:           log4j
-Version:        2.17.2
-Release:        10%{?dist}
+Version:        2.20.0
+Release:        2%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://logging.apache.org/%{name}
 
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
 
-Patch2:         logging-log4j-Remove-unsupported-EventDataConverter.patch
+Patch1:         logging-log4j-Remove-unsupported-EventDataConverter.patch
+Patch2:         0002-Remove-usage-of-toolchains.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.lmax:disruptor)
-BuildRequires:  mvn(com.sun.activation:jakarta.activation)
-BuildRequires:  mvn(com.sun.mail:javax.mail)
 BuildRequires:  mvn(commons-logging:commons-logging)
+BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
+BuildRequires:  mvn(jakarta.mail:jakarta.mail-api)
 BuildRequires:  mvn(javax.servlet:javax.servlet-api)
 BuildRequires:  mvn(org.apache.commons:commons-compress)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -45,7 +46,7 @@ BuildRequires:  mvn(com.fasterxml.jackson.dataformat:jackson-dataformat-xml)
 BuildRequires:  mvn(com.fasterxml.jackson.dataformat:jackson-dataformat-yaml)
 BuildRequires:  mvn(com.fasterxml.woodstox:woodstox-core)
 BuildRequires:  mvn(com.lmax:disruptor)
-BuildRequires:  mvn(com.sun.mail:javax.mail)
+BuildRequires:  mvn(jakarta.mail:jakarta.mail-api)
 BuildRequires:  mvn(jakarta.servlet:jakarta.servlet-api)
 BuildRequires:  mvn(javax.servlet.jsp:jsp-api)
 BuildRequires:  mvn(org.apache.commons:commons-csv)
@@ -95,6 +96,12 @@ Summary:        Apache Log4j Web
 %description web
 Support for Log4j in a web servlet container.
 
+%package bom
+Summary:        Apache Log4j BOM
+
+%description bom
+Apache Log4j 2 Bill of Material
+
 %if %{without jp_minimal}
 %package osgi
 Summary:        Apache Log4J Core OSGi Bundles
@@ -116,19 +123,11 @@ Requires:       java-devel
 Swing-based client for remotely editing the log4j configuration and remotely
 monitoring StatusLogger output. Includes a JConsole plug-in.
 
-%package bom
-Summary:        Apache Log4j BOM
-
-%description bom
-Apache Log4j 2 Bill of Material
-
-
 %package nosql
 Summary:        Apache Log4j NoSql
 
 %description nosql
 Use NoSQL databases such as MongoDB and CouchDB to append log messages.
-
 %endif
 
 %package        javadoc
@@ -139,17 +138,20 @@ Summary:        API documentation for %{name}
 
 %prep
 %setup -q -n apache-%{name}-%{version}-src
-%autopatch -p1
+%patch 1 -p1
+%patch 2 -p1
 
+%pom_remove_plugin -r :apache-rat-plugin
 %pom_remove_plugin -r :maven-site-plugin
-%pom_remove_plugin -r :maven-remote-resources-plugin
-%pom_remove_plugin -r :maven-doap-plugin
 %pom_remove_plugin -r :maven-source-plugin
 %pom_remove_plugin -r :maven-toolchains-plugin
-%pom_remove_plugin -r :revapi-maven-plugin
+%pom_remove_plugin -r :maven-enforcer-plugin
+%pom_remove_plugin -r com.diffplug.spotless:spotless-maven-plugin
+%pom_remove_plugin -r org.apache.logging.log4j:log4j-changelog-maven-plugin
+%pom_remove_plugin -r org.codehaus.mojo:xml-maven-plugin
 
 # remove all the stuff we'll build ourselves
-find -name "*.jar" -o -name "*.class" -delete
+find -name '*.jar' -o -name '*.class' -delete
 rm -rf docs/api
 
 %pom_disable_module %{name}-distribution
@@ -161,8 +163,14 @@ rm -rf docs/api
 # artifact for upstream testing of log4j itself, shouldn't be distributed
 %pom_disable_module %{name}-perf
 
-# add dependency for javax.activation package (no longer part of OpenJDK)
-%pom_add_dep com.sun.activation:jakarta.activation
+%pom_remove_dep -r org.codehaus.groovy:groovy-bom
+%pom_remove_dep -r com.fasterxml.jackson:jackson-bom
+%pom_remove_dep -r jakarta.platform:jakarta.jakartaee-bom
+%pom_remove_dep -r org.eclipse.jetty:jetty-bom
+%pom_remove_dep -r org.junit:junit-bom
+%pom_remove_dep -r io.fabric8:kubernetes-client-bom
+%pom_remove_dep -r io.netty:netty-bom
+%pom_remove_dep -r org.springframework:spring-framework-bom
 
 # unavailable com.conversantmedia:disruptor
 rm log4j-core/src/main/java/org/apache/logging/log4j/core/async/DisruptorBlockingQueueFactory.java
@@ -172,11 +180,7 @@ rm log4j-core/src/main/java/org/apache/logging/log4j/core/async/DisruptorBlockin
 rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/appender/mom/kafka
 %pom_remove_dep -r :kafka-clients
 
-# not compatible with fedora's version
-%pom_disable_module %{name}-liquibase
-
-# we don't have slf4j 1.8 yet
-%pom_disable_module %{name}-slf4j18-impl
+%pom_remove_dep -r javax.jms:javax.jms-api
 
 # we don't have commons-dbcp2
 %pom_disable_module %{name}-jdbc-dbcp2
@@ -192,23 +196,25 @@ rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/appender/mom/kafka
 # old AID is provided by felix, we want osgi-core
 %pom_change_dep -r org.osgi:org.osgi.core org.osgi:osgi.core
 
-# BOM package shouldn't require Apache RAT
-%pom_remove_plugin :apache-rat-plugin %{name}-bom
-
 # tests are disabled
 %pom_remove_plugin :maven-failsafe-plugin
 
 # Remove deps on slf4j-ext, it is no longer available in Fedora 35
 %pom_remove_dep -r :slf4j-ext
 %pom_remove_parent
+%pom_remove_parent log4j-bom
 
 # Make compiled code compatible with OpenJDK 8
 %pom_xpath_inject 'pom:plugin[pom:artifactId="maven-compiler-plugin"]/pom:configuration' "<release>8</release>"
 
+%pom_disable_module %{name}-api-test
+%pom_disable_module %{name}-core-test
+%pom_disable_module %{name}-layout-template-json-test
+%pom_disable_module %{name}-slf4j2-impl
+
 %if %{with jp_minimal}
 %pom_disable_module %{name}-taglib
 %pom_disable_module %{name}-jmx-gui
-%pom_disable_module %{name}-bom
 %pom_disable_module %{name}-jakarta-web
 %pom_disable_module %{name}-iostreams
 %pom_disable_module %{name}-jul
@@ -223,14 +229,11 @@ rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/appender/mom/kafka
 %pom_disable_module %{name}-kubernetes
 %pom_disable_module %{name}-layout-template-json
 
-%pom_remove_dep -r :jackson-annotations
 %pom_remove_dep -r :jackson-core
 %pom_remove_dep -r :jackson-databind
 %pom_remove_dep -r :jackson-dataformat-yaml
 %pom_remove_dep -r :jackson-dataformat-xml
 %pom_remove_dep -r :woodstox-core
-%pom_remove_dep -r :javax.persistence
-%pom_remove_dep -r :jboss-jms-api_1.1_spec
 %pom_remove_dep -r :jeromq
 %pom_remove_dep -r :commons-csv
 
@@ -261,6 +264,22 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 
 %mvn_package :log4j-core-its __noinstall
 
+%mvn_package ::zip: __noinstall
+
+%pom_remove_dep com.sun.mail:javax.mail log4j-core
+%pom_remove_dep javax.mail:javax.mail-api log4j-core
+%pom_remove_dep javax.activation:javax.activation-api log4j-core
+rm log4j-core/src/main/java/org/apache/logging/log4j/core/net/MimeMessageBuilder.java
+rm log4j-core/src/main/java/org/apache/logging/log4j/core/net/SmtpManager.java
+rm log4j-core/src/main/java/org/apache/logging/log4j/core/appender/SmtpAppender.java
+rm log4j-core/src/main/java/org/apache/logging/log4j/core/filter/MutableThreadContextMapFilter.java
+
+%pom_remove_dep org.eclipse.angus:angus-activation log4j-jakarta-smtp
+%pom_remove_dep org.eclipse.angus:jakarta.mail log4j-jakarta-smtp
+
+%pom_remove_plugin -r org.apache.maven.plugins:maven-failsafe-plugin
+%pom_remove_plugin -r org.ops4j.pax.exam:exam-maven-plugin
+
 %build
 # missing test deps (mockejb)
 %mvn_build -f
@@ -278,9 +297,9 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 %files slf4j -f .mfiles-slf4j
 %files jcl -f .mfiles-jcl
 %files web -f .mfiles-web
+%files bom -f .mfiles-bom
 %if %{without jp_minimal}
 %files taglib -f .mfiles-taglib
-%files bom -f .mfiles-bom
 %files nosql -f .mfiles-nosql
 %files jmx-gui -f .mfiles-jmx-gui
 %{_bindir}/%{name}-jmx
@@ -289,8 +308,13 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 %files javadoc -f .mfiles-javadoc
 %doc LICENSE.txt NOTICE.txt
 
-
 %changelog
+* Tue Aug 22 2023 Marian Koncek <mkoncek@redhat.com> - 2.20.0-2
+- Do not install zip files
+
+* Mon Aug 21 2023 Marian Koncek <mkoncek@redhat.com> - 2.20.0-1
+- Update to upstream version 2.20.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

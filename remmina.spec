@@ -2,7 +2,7 @@
 
 Name: remmina
 Version: 1.4.31
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -190,7 +190,7 @@ This package contains the x2go plugin for the Remmina remote desktop client.
 %endif
 
 %package plugins-python
-Summary: Pyhton plugin for Remmina Remote Desktop Client
+Summary: Python plugin for Remmina Remote Desktop Client
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description plugins-python
@@ -333,6 +333,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Tue Aug 22 2023 René Genz <liebundartig@freenet.de> - 1.4.31-4
+- Fix typing mistake
+ 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.31-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

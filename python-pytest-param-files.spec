@@ -3,6 +3,7 @@ Version:        0.3.4
 Release:        5%{?dist}
 Summary:        Create pytest parametrize decorators from external files
 
+# SPDX
 License:        MIT
 URL:            https://pypi.org/project/pytest_param_files/
 Source:         %{pypi_source pytest_param_files}

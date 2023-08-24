@@ -1,9 +1,9 @@
-%global project_version 0.1
-%global flatpak_module_tools_min_version 1.0~a1
+%global project_version 0.2
+%global flatpak_module_tools_min_version 1.0~a5
 
 Name:           koji-flatpak
 Version:        %{project_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Koji plugins for building Flatpaks
 
 License:        LGPL-2.1-only
@@ -97,6 +97,10 @@ install -p -m 0644 koji_flatpak/plugins/flatpak_cli_plugin.py %{buildroot}%{pyth
 
 
 %changelog
+* Tue Aug 22 2023 Owen Taylor <otaylor@redhat.com> - 0.2-1
+- Version 0.2
+  Handle case where the main package name doesn't match the corresponding source package.
+
 * Mon Aug 14 2023 Adam Williamson <awilliam@redhat.com> - 0.1-3
 - common subpackage shouldn't require koji-hub
 

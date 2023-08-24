@@ -6,8 +6,8 @@
 %define NINJA ninja-build
 
 Name:           knot-resolver
-Version:        5.6.0
-Release:        2%{?dist}
+Version:        5.7.0
+Release:        1%{?dist}
 Summary:        Caching full DNS Resolver
 
 License:        GPL-3.0-or-later
@@ -378,6 +378,9 @@ fi
 %endif
 
 %changelog
+* Tue Aug 22 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 5.7.0-1
+- New upstream version 5.7.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

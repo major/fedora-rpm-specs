@@ -6,8 +6,8 @@
 
 Name: hunspell-es
 Summary: Spanish hunspell dictionaries
-Version: 2.3
-Release: 16%{?dist}
+Version: 2.8
+Release: 1%{?dist}
 Epoch: 1
 Source0: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_AR.oxt
 Source1: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_BO.oxt
@@ -18,18 +18,19 @@ Source5: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_CU.ox
 Source6: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_DO.oxt
 Source7: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_EC.oxt
 Source8: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_ES.oxt
-Source9: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_GT.oxt
-Source10: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_HN.oxt
-Source11: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_MX.oxt
-Source12: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_NI.oxt
-Source13: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PA.oxt
-Source14: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PE.oxt
-Source15: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PR.oxt
-Source16: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PY.oxt
-Source17: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_SV.oxt
-Source18: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_UY.oxt
-Source19: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_US.oxt
-Source20: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_VE.oxt
+Source9: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_GQ.oxt
+Source10: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_GT.oxt
+Source11: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_HN.oxt
+Source12: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_MX.oxt
+Source13: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_NI.oxt
+Source14: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PA.oxt
+Source16: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PE.oxt
+Source17: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PR.oxt
+Source18: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PY.oxt
+Source19: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_SV.oxt
+Source20: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_US.oxt
+Source21: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_UY.oxt
+Source22: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_VE.oxt
 
 URL: https://github.com/sbosio/rla-es/
 License: LGPL-3.0-or-later OR GPL-3.0-or-later OR MPL-1.1
@@ -46,6 +47,7 @@ Requires: hunspell-es-DO = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-EC = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-ES = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-GT = %{epoch}:%{version}-%{release}
+Requires: hunspell-es-GQ = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-HN = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-MX = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-NI = %{epoch}:%{version}-%{release}
@@ -132,6 +134,13 @@ Summary:        Guatemalan Spanish hunspell dictionary
 %description    GT
 Guatemalan Spanish hunspell dictionary
 
+%package        GQ
+Requires:       hunspell
+Summary:        Equatorial Guinean Spanish hunspell dictionary
+
+%description    GQ
+Equatorial Guinean Spanish hunspell dictionary
+
 %package        HN
 Requires:       hunspell
 Summary:        Honduran Spanish hunspell dictionary
@@ -209,7 +218,7 @@ Summary:        Venezuelan Spanish hunspell dictionary
 %description    VE
 Venezuelan Spanish hunspell dictionary
 
-%define es_REGIONS es_ES es_AR es_BO es_CL es_CO es_CR es_CU es_DO es_EC es_GT es_HN es_MX es_NI es_PA es_PE es_PR es_PY es_SV es_US es_UY es_VE
+%define es_REGIONS es_AR es_BO es_CL es_CO es_CR es_CU es_DO es_EC es_ES es_GQ es_GT es_HN es_MX es_NI es_PA es_PE es_PR es_PY es_SV es_US es_UY es_VE
 
 %prep
 %setup -q -c -n hunspell-es
@@ -285,6 +294,12 @@ done
 %{_datadir}/%{dict_dirname}/es_EC.*
 
 
+%files GQ
+%doc README.txt Changelog.txt
+%license GPLv3.txt MPL-1.1.txt LGPLv3.txt
+%{_datadir}/%{dict_dirname}/es_GQ.*
+
+
 %files GT
 %doc README.txt Changelog.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
@@ -357,6 +372,9 @@ done
 %{_datadir}/%{dict_dirname}/es_VE.*
 
 %changelog
+* Tue Aug 22 2023 Ismeel Olea <ismael@olea.org> - 1:2.8-1
+* Update to v2.8. Now includes variants for Equatorial Guinea.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

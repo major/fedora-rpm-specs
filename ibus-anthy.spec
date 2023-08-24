@@ -17,8 +17,8 @@
 %endif
 
 Name:           ibus-anthy
-Version:        1.5.14
-Release:        15%{?dist}
+Version:        1.5.15
+Release:        1%{?dist}
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
@@ -26,7 +26,6 @@ Source0:        https://github.com/ibus/ibus-anthy/releases/download/%{version}/
 
 # Upstreamed patches.
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 Patch1:         %{name}-1938129-default-hiragana.patch
 
 BuildRequires:  anthy-unicode-devel
@@ -91,7 +90,6 @@ the functionality of the installed %{name} package.
 
 %build
 #autoreconf -f -i -v
-autoreconf -f -i -v
 %configure \
 %if %have_default_layout
   --with-layout='default' \
@@ -156,6 +154,9 @@ make -C data check
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Tue Aug 22 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.15-1
+- Bump to 1.5.15
+
 * Fri Aug 18 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.14-15
 - Resolves #2232532 converting Super+Space to wide space character
 

@@ -1,9 +1,12 @@
+# TZ data for Java 6/7, requires Java 8 or older to compile
+%bcond java7 %[!(0%{?fedora} >= 40 || 0%{?rhel} >= 10)]
+
 Summary: Timezone data
 Name: tzdata
 Version: 2023c
 %define tzdata_version 2023c
 %define tzcode_version 2023c
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -15,7 +18,9 @@ Patch003: 0003-continue-to-ship-posixrules.patch
 BuildRequires: make
 BuildRequires: gawk, glibc, perl-interpreter
 BuildRequires: java-devel
+%if %{with java7}
 BuildRequires: java-1.8.0-devel
+%endif
 BuildRequires: glibc-common >= 2.5.90-7
 Conflicts: glibc-common <= 2.3.2-63
 BuildArchitectures: noarch
@@ -60,6 +65,7 @@ popd
 tar zxf rearguard/tzdata%{version}-rearguard.tar.gz
 %endif
 
+%if %{with java7}
 mkdir javazic
 tar zxf %{SOURCE3} -C javazic
 pushd javazic
@@ -80,6 +86,7 @@ find . -type f -name '*.java' -print0 \
     | xargs -0 -- sed -i -e 's:sun\.tools\.:rht.tools.:g' \
                          -e 's:sun\.util\.:rht.util.:g'
 popd
+%endif
 
 tar xf %{SOURCE4}
 
@@ -110,6 +117,7 @@ JAVA_FILES="rearguard/africa rearguard/antarctica rearguard/asia \
       rearguard/southamerica rearguard/etcetera \
       rearguard/backward"
 
+%if %{with java7}
 # Java 6/7 tzdata
 pushd javazic
 /usr/lib/jvm/java-1.8.0-openjdk/bin/javac -source 1.6 -target 1.6 -classpath . `find . -name \*.java`
@@ -118,6 +126,7 @@ popd
 java -classpath javazic/ rht.tools.javazic.Main -V %{version} \
   -d javazi \
   $JAVA_FILES javazic/tzdata_jdk/gmt javazic/tzdata_jdk/jdk11_backward
+%endif
 
 # Java 8 tzdata
 pushd javazic-1.8
@@ -134,7 +143,9 @@ rm -fr $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}
 cp -prd zoneinfo $RPM_BUILD_ROOT%{_datadir}
 install -p -m 644 zone.tab zone1970.tab iso3166.tab leap-seconds.list leapseconds tzdata.zi $RPM_BUILD_ROOT%{_datadir}/zoneinfo
+%if %{with java7}
 cp -prd javazi $RPM_BUILD_ROOT%{_datadir}/javazi
+%endif
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/javazi-1.8
 install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 
@@ -147,10 +158,15 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %doc tz-art.html
 
 %files java
+%if %{with java7}
 %{_datadir}/javazi
+%endif
 %{_datadir}/javazi-1.8
 
 %changelog
+* Mon Jul 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2023c-3
+- Disable Java 6/7 data in RHEL 10 builds
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

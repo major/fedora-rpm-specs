@@ -1,5 +1,5 @@
 Name:       libime  
-Version:    1.1.0
+Version:    1.1.1
 License:    LGPLv2+ and MIT and BSD
 Release:    %autorelease
 Summary:    This is a library to support generic input method implementation

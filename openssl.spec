@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -105,7 +105,7 @@ Patch61:  0061-Deny-SHA-1-signature-verification-in-FIPS-provider.patch
 Patch62:  0062-fips-Expose-a-FIPS-indicator.patch
 # # https://bugzilla.redhat.com/show_bug.cgi?id=2102535
 Patch73:  0073-FIPS-Use-OAEP-in-KATs-support-fixed-OAEP-seed.patch
-# [PATCH 30/35] 
+# [PATCH 30/48] 
 #  0074-FIPS-Use-digest_sign-digest_verify-in-self-test.patch
 Patch74:  0074-FIPS-Use-digest_sign-digest_verify-in-self-test.patch
 # # https://bugzilla.redhat.com/show_bug.cgi?id=2102535
@@ -118,7 +118,41 @@ Patch77:  0077-FIPS-140-3-zeroization.patch
 # # https://bugzilla.redhat.com/show_bug.cgi?id=2114772
 Patch78:  0078-Add-FIPS-indicator-parameter-to-HKDF.patch
 # # https://github.com/openssl/openssl/pull/13817
-Patch100: 0100-RSA-PKCS15-implicit-rejection.patch
+Patch79:  0079-RSA-PKCS15-implicit-rejection.patch
+# # We believe that some changes present in CentOS are not necessary
+# # because ustream has a check for FIPS version
+Patch80:  0080-rand-Forbid-truncated-hashes-SHA-3-in-FIPS-prov.patch
+# [PATCH 37/48] 
+#  0081-signature-Remove-X9.31-padding-from-FIPS-prov.patch
+Patch81:  0081-signature-Remove-X9.31-padding-from-FIPS-prov.patch
+# [PATCH 38/48] 
+#  0083-hmac-Add-explicit-FIPS-indicator-for-key-length.patch
+Patch83:  0083-hmac-Add-explicit-FIPS-indicator-for-key-length.patch
+# [PATCH 39/48] 
+#  0084-pbkdf2-Set-minimum-password-length-of-8-bytes.patch
+Patch84:  0084-pbkdf2-Set-minimum-password-length-of-8-bytes.patch
+# 0085-FIPS-RSA-disable-shake.patch
+Patch85:  0085-FIPS-RSA-disable-shake.patch
+# 0088-signature-Add-indicator-for-PSS-salt-length.patch
+Patch88:  0088-signature-Add-indicator-for-PSS-salt-length.patch
+# 0091-FIPS-RSA-encapsulate.patch
+Patch91:  0091-FIPS-RSA-encapsulate.patch
+# [PATCH 43/48] 
+#  0093-DH-Disable-FIPS-186-4-type-parameters-in-FIPS-mode.patch
+Patch93:  0093-DH-Disable-FIPS-186-4-type-parameters-in-FIPS-mode.patch
+# 0109-fips-Zeroize-out-in-fips-selftest.patch
+Patch109: 0109-fips-Zeroize-out-in-fips-selftest.patch
+# [PATCH 45/48] 
+#  0110-GCM-Implement-explicit-FIPS-indicator-for-IV-gen.patch
+Patch110: 0110-GCM-Implement-explicit-FIPS-indicator-for-IV-gen.patch
+# [PATCH 46/48] 
+#  0112-pbdkf2-Set-indicator-if-pkcs5-param-disabled-checks.patch
+Patch112: 0112-pbdkf2-Set-indicator-if-pkcs5-param-disabled-checks.patch
+# 0113-asymciphers-kem-Add-explicit-FIPS-indicator.patch
+Patch113: 0113-asymciphers-kem-Add-explicit-FIPS-indicator.patch
+# # We believe that some changes present in CentOS are not necessary
+# # because ustream has a check for FIPS version
+Patch114: 0114-FIPS-enforce-EMS-support.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -450,6 +484,9 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Aug 22 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.1.1-3
+- Integrate FIPS patches from CentOS
+
 * Fri Aug 04 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.1.1-2
 - migrated to SPDX license
 

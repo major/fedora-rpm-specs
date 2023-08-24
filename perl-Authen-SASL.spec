@@ -1,22 +1,19 @@
 Name:           perl-Authen-SASL
-Version:        2.16
-Release:        30%{?dist}
+Version:        2.1700
+Release:        1%{?dist}
 Summary:        SASL Authentication framework for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-SASL
-Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBARR/Authen-SASL-%{version}.tar.gz
-# Update the function WRITE to properly handle string which is shorter than
-# provided length
-Patch0:         Authen-SASL-RT85294-Fix-WRITE.patch
+Source0:        https://cpan.metacpan.org/authors/id/E/EH/EHUELS/Authen-SASL-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(inc::Module::Install)
-BuildRequires:  perl(Module::Install::Makefile)
-BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  perl(Module::Install::WriteAll)
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time
@@ -37,16 +34,29 @@ SASL is a generic mechanism for authentication used by several network
 protocols. Authen::SASL provides an implementation framework that all
 protocols should be able to share.
 
-%prep
-%setup -q -n Authen-SASL-%{version}
-%patch0 -p1
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Carp)
+Requires:       perl(Digest::MD5)
+Requires:       perl(Digest::HMAC_MD5)
 
-# Remove bundled libraries
-rm -r inc
-perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
+%prep
+%autosetup -p1 -n Authen-SASL-%{version}
 
 # Fix permissions
 chmod -c a-x example_pl
+
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t -o -name *.pl`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -54,17 +64,37 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT
+%{_fixperms} %{buildroot}
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/author-pod-syntax.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+unset AUTHOR_TESTING
 make test
 
 %files
-%doc api.txt Changes example_pl
+%license LICENSE
+%doc api.txt Changes example_pl README
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Aug 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.1700-1
+- 2.1700 bump (rhbz#2231059)
+- Package tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

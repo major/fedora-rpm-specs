@@ -6,29 +6,20 @@ It contains a web server, numerous chat clients, chat servers, mail servers
 and more.}
 
 Name:           python-%{srcname}
-Version:        22.10.0
-Release:        %autorelease
+Version:        23.8.0
+Release:        %autorelease -p -e rc1
 Summary:        Twisted is a networking engine written in Python
 
 License:        MIT
 URL:            http://twistedmatrix.com/
 VCS:            https://github.com/twisted/twisted
-Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
-# Import gobject from gi.repository for Python 3
-# https://twistedmatrix.com/trac/ticket/9642
-Patch1:         0001-Import-gobject-from-gi.repository-in-Python-3.patch
-# https://github.com/twisted/twisted/issues/11839
-Patch2:         0002-Use-old-import-path-for-attrs-classes-and-functions.patch
-# https://github.com/twisted/twisted/pull/11734
-Patch3:         0003-Fix-tests-for-Python-3.11.patch
+Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}rc1.tar.gz
+# downstream-only hatch-fancy-pypi-readme not available in Fedora
+Patch1:         0001-23.8.0rc1-remove-hatch-fancy-pypi-readme.patch
+# downstream-only fix tests, skip network tests that fail in buildsys
+Patch2:         0002-23.8.0rc1-fix-and-skip-tests-fedora.patch
 # https://github.com/twisted/twisted/pull/11787
-Patch4:         0004-11786-fix-misuse-of-mktime-in-tests.patch
-# https://github.com/twisted/twisted/pull/11733
-Patch5:         0005-fix-sendmail-tests-for-python-3.11.patch
-# downstream-only patch for skipping tests that fail during a mock build
-Patch6:         0006-Skip-failing-tests.patch
-# downstream-only patch for skipping tests that fail with Python 3.12
-Patch7:         0007-Skip-tests-failing-with-Python-3.12.patch
+Patch3:         0003-11786-fix-misuse-of-mktime-in-tests.patch
 
 BuildArch:      noarch
 
@@ -37,8 +28,11 @@ BuildArch:      noarch
 %package -n python3-%{srcname}
 Summary:        %{summary}
 
-BuildRequires:  git-core
 BuildRequires:  python3-devel >= 3.3
+BuildRequires:  python3-pyasn1-modules, python3-cryptography, python3-pynacl
+BuildRequires:  python3-service-identity, python3-pyOpenSSL, python3-h2
+BuildRequires:  python3-bcrypt, python3-subunit
+BuildRequires:  python3-hamcrest, python3-hypothesis
 
 Recommends:  python3-%{srcname}+tls
 
@@ -46,20 +40,16 @@ Recommends:  python3-%{srcname}+tls
 
 %pyproject_extras_subpkg -n python3-%{srcname} tls
 
+
 %prep
-%autosetup -p1 -n %{srcname}-%{srcname}-%{version}
-# cython-test-exception-raiser isn't packaged yet
-sed -e '/cython-test-exception-raiser/d' -i setup.cfg
-# cowardly remove tests that hang with Python 3.12
-rm src/twisted/test/test_log.py
-# from https://github.com/twisted/twisted/commit/4ba766b86
-sed -i 's/from imp import reload/from importlib import reload/' src/twisted/python/rebuild.py src/twisted/conch/scripts/ckeygen.py
+%autosetup -p1 -n %{srcname}-%{srcname}-%{version}rc1
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
+
 
 %install
 %pyproject_install
@@ -81,10 +71,10 @@ ln -s ./twistd %{buildroot}%{_bindir}/twistd-3
 %pyproject_save_files %{srcname}
 echo "%ghost %{python3_sitelib}/twisted/plugins/dropin.cache" >> %{pyproject_files}
 
+
 %check
-# avoid "unsupported locale setting" error
-export LC_ALL=C
-PATH=%{buildroot}%{_bindir}:$PATH PYTHONPATH=%{pyproject_build_lib} %{buildroot}%{_bindir}/trial twisted
+PATH=%{buildroot}%{_bindir}:$PATH PYTHONPATH=$PWD/src %{buildroot}%{_bindir}/trial twisted
+
 
 %files -n python3-twisted  -f %{pyproject_files}
 %doc NEWS.rst README.rst
@@ -108,6 +98,7 @@ PATH=%{buildroot}%{_bindir}:$PATH PYTHONPATH=%{pyproject_build_lib} %{buildroot}
 %{_mandir}/man1/tkconch.1*
 %{_mandir}/man1/trial.1*
 %{_mandir}/man1/twistd.1*
+
 
 %changelog
 %autochangelog

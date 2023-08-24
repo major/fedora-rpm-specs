@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -18,11 +18,13 @@ Source10:       wx-config
 Patch0:         %{name}-3.1.6-abicheck.patch
 Patch1:         https://github.com/wxWidgets/wxWidgets/commit/9688ccc0874c0c513b73d01679b1b426f463477f.patch
 Patch2:         os-release.patch
+Patch3:         webkit2gtk4.1.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  gtk3-devel
-BuildRequires:  webkit2gtk3-devel
+BuildRequires:  autoconf
+BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
@@ -172,6 +174,10 @@ sed -i -e 's|aclocal)|aclocal/wxwin32.m4)|' Makefile.in
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 sed -i -e 's|/lib|/%{_lib}|' src/unix/stdpaths.cpp
 
+# Since we're currently patching configure.in
+rm -f configure
+./autogen.sh
+
 
 %build
 %global _configure ../configure
@@ -315,6 +321,9 @@ fi
 %doc html
 
 %changelog
+* Mon Aug 21 2023 Scott Talbert <swt@techie.net> - 3.2.2.1-6
+- Rebuild with webkit2gtk4.1 (#2232979)
+
 * Tue Jul 25 2023 Scott Talbert <swt@techie.net> - 3.2.2.1-5
 - Make wxGetLinuxDistributionInfo work without lsb_release (#2184391)
 

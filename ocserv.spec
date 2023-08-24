@@ -27,8 +27,8 @@ Summary:	OpenConnect SSL VPN server
 # To simplify licenses LGPLv2+ files have been promoted to GPLv2+.
 License:	GPLv2+ and BSD and MIT and CC0
 URL:		http://www.infradead.org/ocserv/
-Source0:	ftp://ftp.infradead.org/pub/ocserv/%{name}-%{version}.tar.xz
-Source1:	ftp://ftp.infradead.org/pub/ocserv/%{name}-%{version}.tar.xz.sig
+Source0:	https://www.infradead.org/pub/ocserv/%{name}-%{version}.tar.xz
+Source1:	https://www.infradead.org/pub/ocserv/%{name}-%{version}.tar.xz.sig
 Source2:	gpgkey-1F42418905D8206AA754CCDC29EE58B996865171.gpg
 Source3:	ocserv.conf
 Source4:	ocserv.service

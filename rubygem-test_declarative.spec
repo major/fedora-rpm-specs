@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.0.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Simply adds a declarative test method syntax to test/unit
 License: MIT
 URL: http://github.com/svenfuchs/test_declarative
@@ -11,6 +11,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/svenfuchs/test_declarative.git && cd test_declarative
 # git archive -v -o test_declarative-0.0.6-test.tar.gz v0.0.6 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
+# Fix Minitest 5.19+ compatibility.
+# https://github.com/svenfuchs/test_declarative/pull/24
+Patch0: rubygem-test_declarative-0.0.6-Use-Minitest-Test-as-a-test-runner.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -32,6 +35,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+pushd %{_builddir}
+%patch 0 -p1
+popd
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -69,6 +76,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Aug 22 2023 Vít Ondruch <vondruch@redhat.com> - 0.0.6-4
+- Fix FTBFS due to Minitest 5.19 incompatibility.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

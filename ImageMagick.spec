@@ -2,6 +2,12 @@
 
 %bcond_without libheif
 
+%if 0%{?flatpak}
+%bcond_with perl
+%else
+%bcond_without perl
+%endif
+
 # Disable automatic .la file removal
 %global __brp_remove_la_files %nil
 
@@ -13,8 +19,8 @@ Epoch:          1
 %else
 Epoch:          0
 %endif
-Version:        7.1.1.13
-Release:        2%{?dist}
+Version:        7.1.1.15
+Release:        1%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -39,8 +45,10 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  giflib-devel
 BuildRequires:  pkgconfig(zlib)
+%if %{with perl}
 BuildRequires:  perl-devel >= 5.8.1
 BuildRequires:  perl-generators
+%endif
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  ghostscript-devel
 %else
@@ -175,6 +183,7 @@ Note this documentation can also be found on the ImageMagick website:
 http://www.imagemagick.org/
 
 
+%if %{with perl}
 %package perl
 Summary:        ImageMagick perl bindings
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
@@ -186,6 +195,7 @@ Perl bindings to ImageMagick.
 
 Install ImageMagick-perl if you want to use any perl scripts that use
 ImageMagick.
+%endif
 
 
 %package c++
@@ -238,7 +248,10 @@ export CFLAGS="%{optflags} -DIMPNG_SETJMP_IS_THREAD_SAFE"
         --enable-shared \
         --disable-static \
         --with-modules \
+%if %{with perl}
         --with-perl \
+        --with-perl-options="INSTALLDIRS=vendor %{?perl_prefix} CC='%__cc -L$PWD/magick/.libs' LDDLFLAGS='-shared -L$PWD/magick/.libs'" \
+%endif
         --with-x \
         --with-threads \
         --with-magick_plus_plus \
@@ -250,7 +263,6 @@ export CFLAGS="%{optflags} -DIMPNG_SETJMP_IS_THREAD_SAFE"
         --with-openexr \
         --with-rsvg \
         --with-xml \
-        --with-perl-options="INSTALLDIRS=vendor %{?perl_prefix} CC='%__cc -L$PWD/magick/.libs' LDDLFLAGS='-shared -L$PWD/magick/.libs'" \
         --with-urw-base35-font-dir="%{urw_base35_fontpath}" \
         --without-dps \
         --without-gcc-arch \
@@ -286,6 +298,7 @@ cp -a www/source %{buildroot}%{_datadir}/doc/%{name}-%{VER}
 # Delete *ONLY* _libdir/*.la files! .la files used internally to handle plugins - BUG#185237!!!
 rm %{buildroot}%{_libdir}/*.la
 
+%if %{with perl}
 # perlmagick: fix perl path of demo files
 %{__perl} -MExtUtils::MakeMaker -e 'MY->fixin(@ARGV)' PerlMagick/demo/*.pl
 
@@ -306,6 +319,7 @@ if [ -z perl-pkg-files ] ; then
         echo "ERROR: EMPTY FILE LIST"
         exit -1
 fi
+%endif
 
 # fix multilib issues: Rename provided file with platform-bits in name.
 # Create platform independant file inplace of provided and conditionally include required.
@@ -408,11 +422,16 @@ rm PerlMagick/demo/Generic.ttf
 %{_libdir}/pkgconfig/Magick++-7.Q16HDRI.pc
 %{_mandir}/man1/Magick++-config.*
 
+%if %{with perl}
 %files perl -f perl-pkg-files
 %{_mandir}/man3/*
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
+%endif
 
 %changelog
+* Tue Aug 22 2023 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.15-1
+- Update ImageMagick to 7.1.1.15 (#2217558)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.1.1.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,10 +4,10 @@ Release:        2%{?dist}
 Summary:        Tools to be used with smart cards and PC/SC
 
 License:        GPLv2+
-URL:            http://ludovic.rousseau.free.fr/softwares/pcsc-tools/
-Source0:        http://ludovic.rousseau.free.fr/softwares/pcsc-tools/%{name}-%{version}.tar.bz2
-Source1:        http://ludovic.rousseau.free.fr/softwares/pcsc-tools/%{name}-%{version}.tar.bz2.asc
-Source2:        http://ludovic.rousseau.free.fr/softwares/pcsc-tools/smartcard_list.txt
+URL:            https://pcsc-tools.apdu.fr/
+Source0:        https://pcsc-tools.apdu.fr/%{name}-%{version}.tar.bz2
+Source1:        https://pcsc-tools.apdu.fr/%{name}-%{version}.tar.bz2.asc
+Source2:        https://pcsc-tools.apdu.fr/smartcard_list.txt
 Source3:        LICENCE
 
 BuildRequires: make

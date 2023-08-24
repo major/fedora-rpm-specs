@@ -5,22 +5,15 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 5.1.1
-Release: 4%{?dist}
+Version: 6.0.3
+Release: 1%{?dist}
 Summary: RSpec for Rails
 License: MIT
 URL: https://github.com/rspec/rspec-rails
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rspec/rspec-rails.git && cd rspec-rails
-# git archive -v -o rspec-rails-5.1.1-tests.tar.gz v5.1.1 features/ spec/
+# git archive -v -o rspec-rails-6.0.3-tests.tar.gz v6.0.3 features/ spec/
 Source1: %{gem_name}-%{version}-tests.tar.gz
-# Fix Rails 7 argument matching.
-# https://github.com/rspec/rspec-rails/pull/2546
-Patch0: rspec-rails-5.1.1-Fix-have_enqueued_mail-for-Rails-7-and-argument-matching.patch
-Patch1: rspec-rails-5.1.1-Fix-have_enqueued_mail-for-Rails-7-and-argument-matching-test.patch
-# Fix Ruby 3.1 compatibility.
-# https://github.com/rspec/rspec-rails/pull/2563/commits/948b67be61e09e3225eb6d5dbb47c3e4ed7a8065
-Patch2: rspec-rails-5.1.1-Fix-arguments-for-have_enqueued_mail-matcher.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -54,13 +47,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-
-%patch0 -p1
-%patch2 -p1
-
-pushd %{_builddir}
-%patch1 -p1
-popd
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -115,6 +101,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Aug 22 2023 Vít Ondruch <vondruch@redhat.com> - 6.0.3-1
+- Update to rspec-rails 6.0.3.
+  Resolves: rhbz#2078184
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

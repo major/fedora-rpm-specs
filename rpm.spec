@@ -27,7 +27,7 @@
 
 %global rpmver 4.18.92
 #global snapver rc1
-%global baserelease 2
+%global baserelease 3
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -140,6 +140,10 @@ rpm-4.18.90-weak-user-group.patch
 
 # Patches already upstream:
 0001-Behave-more-consistently-when-target-arch-optflags-a.patch
+0001-Unroll-the-utility-finding-loop-in-cmake-for-flexibi.patch
+0002-Look-for-alternative-implementations-of-7zip-like-au.patch
+0003-Stop-looking-for-apparently-non-existent-7zip-comman.patch
+0001-Revert-recent-_root_prefix-macro-addition-RhBug-2233.patch
 # ...
 
 # These are not yet upstream
@@ -613,6 +617,10 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Tue Aug 22 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.92-3
+- Fix regression on uncompressing 7zip compressed sources (#2229984)
+- Fix a conflict with pre-existing scl-utils %_root_prefix macro (#2233454)
+
 * Mon Aug 21 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.92-2
 - Behave more consistently when target %%optflags are not defined (#2231727)
 

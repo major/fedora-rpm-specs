@@ -40,7 +40,7 @@
 %endif
 
 Name:           wine
-Version:        8.13
+Version:        8.14
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -1352,6 +1352,7 @@ fi
 %{_libdir}/wine/%{winepedir}/hrtfapo.dll
 %{_libdir}/wine/%{winepedir}/http.sys
 %{_libdir}/wine/%{winepedir}/httpapi.dll
+%{_libdir}/wine/%{winepedir}/hvsimanagementapi.dll
 %{_libdir}/wine/%{winepedir}/ia2comproxy.dll
 %{_libdir}/wine/%{winepedir}/icacls.exe
 %{_libdir}/wine/%{winepedir}/iccvid.dll
@@ -1394,6 +1395,7 @@ fi
 %{_libdir}/wine/%{winepedir}/localui.dll
 %{_libdir}/wine/%{winepedir}/lodctr.exe
 %{_libdir}/wine/%{winepedir}/lz32.dll
+%{_libdir}/wine/%{winepedir}/magnification.dll
 %{_libdir}/wine/%{winepedir}/mapi32.dll
 %{_libdir}/wine/%{winepedir}/mapistub.dll
 %{_libdir}/wine/%{winepedir}/mciavi32.dll
@@ -1479,6 +1481,7 @@ fi
 %{_libdir}/wine/%{winepedir}/msvcp140_1.dll
 %{_libdir}/wine/%{winepedir}/msvcp140_2.dll
 %{_libdir}/wine/%{winepedir}/msvcp140_atomic_wait.dll
+%{_libdir}/wine/%{winepedir}/msvcp140_codecvt_ids.dll
 %{_libdir}/wine/%{winepedir}/msvcr70.dll
 %{_libdir}/wine/%{winepedir}/msvcr71.dll
 %{_libdir}/wine/%{winepedir}/msvcr80.dll
@@ -1681,6 +1684,7 @@ fi
 %{_libdir}/wine/%{winepedir}/win32u.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.bluetooth.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.enumeration.dll
+%{_libdir}/wine/%{winepedir}/windows.devices.usb.dll
 %{_libdir}/wine/%{winepedir}/windows.gaming.ui.gamebar.dll
 %{_libdir}/wine/%{winepedir}/windows.gaming.input.dll
 %{_libdir}/wine/%{winepedir}/windows.globalization.dll
@@ -2143,6 +2147,7 @@ fi
 %{_libdir}/wine/%{winesodir}/hrtfapo.dll.so
 %{_libdir}/wine/%{winesodir}/http.sys.so
 %{_libdir}/wine/%{winesodir}/httpapi.dll.so
+%{_libdir}/wine/%{winesodir}/hvsimanagementapi.dll.so
 %{_libdir}/wine/%{winesodir}/ia2comproxy.dll.so
 %{_libdir}/wine/%{winesodir}/icacls.exe.so
 %{_libdir}/wine/%{winesodir}/iccvid.dll.so
@@ -2180,6 +2185,7 @@ fi
 %{_libdir}/wine/%{winesodir}/localspl.dll.so
 %{_libdir}/wine/%{winesodir}/localui.dll.so
 %{_libdir}/wine/%{winesodir}/lodctr.exe.so
+%{_libdir}/wine/%{winesodir}/magnification.dll.so
 %{_libdir}/wine/%{winesodir}/mapi32.dll.so
 %{_libdir}/wine/%{winesodir}/mapistub.dll.so
 %{_libdir}/wine/%{winesodir}/mciavi32.dll.so
@@ -2260,6 +2266,7 @@ fi
 %{_libdir}/wine/%{winesodir}/msvcp140_1.dll.so
 %{_libdir}/wine/%{winesodir}/msvcp140_2.dll.so
 %{_libdir}/wine/%{winesodir}/msvcp140_atomic_wait.dll.so
+%{_libdir}/wine/%{winesodir}/msvcp140_codecvt_ids.dll.so
 %{_libdir}/wine/%{winesodir}/msvcr70.dll.so
 %{_libdir}/wine/%{winesodir}/msvcr71.dll.so
 %{_libdir}/wine/%{winesodir}/msvcr80.dll.so
@@ -2449,6 +2456,7 @@ fi
 %{_libdir}/wine/%{winesodir}/win32u.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.bluetooth.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.enumeration.dll.so
+%{_libdir}/wine/%{winesodir}/windows.devices.usb.dll.so
 %{_libdir}/wine/%{winesodir}/windows.gaming.ui.gamebar.dll.so
 %{_libdir}/wine/%{winesodir}/windows.gaming.input.dll.so
 %{_libdir}/wine/%{winesodir}/windows.globalization.dll.so
@@ -2786,6 +2794,9 @@ fi
 %endif
 
 %changelog
+* Tue Aug 22 2023 Michael Cronenworth <mike@cchtml.com> - 8.14-1
+- version update
+
 * Thu Aug 17 2023 Michael Cronenworth <mike@cchtml.com> - 8.13-1
 - version update
 

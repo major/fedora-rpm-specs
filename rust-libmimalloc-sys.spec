@@ -5,7 +5,7 @@
 %global crate libmimalloc-sys
 
 Name:           rust-libmimalloc-sys
-Version:        0.1.30
+Version:        0.1.33
 Release:        %autorelease
 Summary:        Sys crate wrapping the mimalloc allocator
 
@@ -17,7 +17,7 @@ BuildRequires:  rust-packaging >= 21
 
 # TODO: get this to build against system mimalloc
 # or ask mimalloc dev to switch to mimalloc-sys
-Provides:       bundled(mimalloc) = 2.0.7
+Provides:       bundled(mimalloc) = 2.1.2
 
 %global _description %{expand:
 Sys crate wrapping the mimalloc allocator.}
@@ -138,7 +138,7 @@ use the "secure" feature of the "%{crate}" crate.
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 # these are Windows .exe and .dlls, and unneeded
 # see build.rs for the ones that are actually referenced
-rm -rf c_src/mimalloc/bin
+rm -r c_src/mimalloc/bin
 %cargo_prep
 
 %generate_buildrequires

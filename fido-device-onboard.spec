@@ -4,7 +4,7 @@
 
 Name:           fido-device-onboard
 Version:        0.4.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
@@ -15,6 +15,7 @@ Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
 Patch0:         0001-hack-drop-shadow.patch
 Patch1:         0001-fix-drop-unused-sha-crypt-dep.patch
 Patch2:         fix-devmapper-version.patch
+Patch3:         0001-fix-relabel-devcreds-before-onboarding.patch
 
 # Because nobody cares
 ExcludeArch: %{ix86}
@@ -84,6 +85,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/fdo/manufacturing-server.conf.d
 mkdir -p %{buildroot}%{_sysconfdir}/fdo/owner-onboarding-server.conf.d
 mkdir -p %{buildroot}%{_sysconfdir}/fdo/rendezvous-server.conf.d
 mkdir -p %{buildroot}%{_sysconfdir}/fdo/serviceinfo-api-server.conf.d
+mkdir -p %{buildroot}%{_localstatedir}/lib/fdo
 # Dracut manufacturing service
 install -D -m 0755 -t %{buildroot}%{dracutlibdir}/modules.d/52fdo dracut/52fdo/module-setup.sh
 install -D -m 0755 -t %{buildroot}%{dracutlibdir}/modules.d/52fdo dracut/52fdo/manufacturing-client-generator
@@ -121,6 +123,7 @@ Requires: openssl-libs >= 3.0.1-12
 %dir %{_sysconfdir}/fdo/stores/owner_vouchers
 %{_libexecdir}/fdo/fdo-owner-onboarding-server
 %{_libexecdir}/fdo/fdo-serviceinfo-api-server
+%dir %{_localstatedir}/lib/fdo
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/device_specific_serviceinfo.yml
 %{_docdir}/fdo/serviceinfo-api-server.yml
@@ -155,6 +158,7 @@ License: %combined_license
 %dir %{_sysconfdir}/fdo/stores/rendezvous_registered
 %dir %{_sysconfdir}/fdo/stores/rendezvous_sessions
 %{_libexecdir}/fdo/fdo-rendezvous-server
+%dir %{_localstatedir}/lib/fdo
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/rendezvous-*.yml
 %{_unitdir}/fdo-rendezvous-server.service
@@ -185,6 +189,7 @@ Requires: openssl-libs >= 3.0.1-12
 %dir %{_sysconfdir}/fdo/stores/manufacturer_keys
 %dir %{_sysconfdir}/fdo/stores/manufacturing_sessions
 %{_libexecdir}/fdo/fdo-manufacturing-server
+%dir %{_localstatedir}/lib/fdo
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/manufacturing-server.yml
 %{_unitdir}/fdo-manufacturing-server.service
@@ -264,6 +269,9 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Tue Aug 22 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-3
+- Own var/lib/fdo, SELinux fixes
+
 * Thu Aug 17 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-2
 - Add client/init deps to fdo-admin-cli
 

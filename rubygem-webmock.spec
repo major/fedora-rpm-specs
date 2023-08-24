@@ -14,16 +14,15 @@
 %bcond_without typhoeus
 
 Name: rubygem-%{gem_name}
-Version: 3.14.0
-Release: 4%{?dist}
+Version: 3.18.1
+Release: 1%{?dist}
 Summary: Library for stubbing HTTP requests in Ruby
 License: MIT
-URL: http://github.com/bblimke/webmock
+URL: https://github.com/bblimke/webmock
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Latest RSpec distinguish between hash and kwargs.
-# https://github.com/rspec/rspec-mocks/issues/1460
-# https://github.com/bblimke/webmock/pull/965/commits/fb8bf400e5a1e56f66318b6ea5a8b64894b05596
-Patch0: rubygem-webmock-3.14.0-Fixup-failures-with-latest-RSpec.patch
+# Fix Minitest 5.19+ compatibility.
+# https://github.com/bblimke/webmock/commit/ece01dcaad022735516cca2ca562d1e648f3f31b
+Patch0: rubygem-webmock-3.18.1-It-s-Minitest-now-not-MiniTest.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -66,7 +65,7 @@ Documentation for %{name}.
 # JSON is required by lib/webmock/request_body_diff.rb
 %gemspec_add_dep -g json
 
-%patch0 -p1
+%patch 0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -141,6 +140,13 @@ popd
 %{gem_instdir}/webmock.gemspec
 
 %changelog
+* Mon Aug 21 2023 Vít Ondruch <vondruch@redhat.com> - 3.18.1-1
+- Update to WebMock 3.18.1.
+  Resolves: rhbz#2113829
+
+* Mon Aug 21 2023 Vít Ondruch <vondruch@redhat.com> - 3.14.0-5
+- Fix FTBFS due to rubygem-minitest 5.19+.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

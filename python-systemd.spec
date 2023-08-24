@@ -31,7 +31,6 @@ Summary:        %{summary}
 Provides:       systemd-python3 = %{version}-%{release}
 Provides:       systemd-python3%{?_isa} = %{version}-%{release}
 Obsoletes:      systemd-python3 < 230
-Recommends:     %{name}-doc
 
 %description -n python3-systemd %_description
 

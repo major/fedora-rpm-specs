@@ -9,9 +9,13 @@ Version:        0.6.5
 Release:        %autorelease
 Summary:        Efficient sized chunk datatypes
 
-License:        MPL-2.0+
+License:        MPL-2.0
 URL:            https://crates.io/crates/sized-chunks
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * fix invalid SPDX identifier in crate license:
+#   https://github.com/bodil/sized-chunks/issues/32
+Patch:          sized-chunks-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

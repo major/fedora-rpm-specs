@@ -8,7 +8,7 @@ Summary:        Alternative regular expression module, to replace re
 License:        Python and CNRI
 URL:            https://bitbucket.org/mrabarnett/mrab-regex
 Source0:        https://files.pythonhosted.org/packages/source/r/%{srcname}/%{srcname}-%{version}.tar.gz
-BuildRequires:  %{_bindir}/rst2html
+BuildRequires:  /usr/bin/rst2html
 BuildRequires:  python3-pygments
 BuildRequires:  gcc
 

@@ -10,10 +10,12 @@ Version:        15.1.0
 Release:        %autorelease
 Summary:        Immutable collection datatypes (the fast but not thread safe version)
 
-License:        MPL-2.0+
+License:        MPL-2.0
 URL:            https://crates.io/crates/im-rc
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * fix invalid SPDX identifier in crate license:
+#   https://github.com/bodil/im-rs/issues/210
 # * drop optional "pool" feature with missing "refpool" dependency
 Patch:          im-rc-fix-metadata.diff
 

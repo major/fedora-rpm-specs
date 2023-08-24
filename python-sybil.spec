@@ -1,13 +1,15 @@
 %global pypi_name sybil
 
 Name:           python-%{pypi_name}
-Version:        3.0.1
-Release:        6%{?dist}
+Version:        5.0.3
+Release:        1%{?dist}
 Summary:        Automated testing for the examples in your documentation
 
 License:        MIT
 URL:            https://sybil.readthedocs.io/
 Source0:        https://github.com/cjw296/sybil/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+# seedir is not available in Fedora yet
+Patch:          drop-dependency-on-seedir.patch
 BuildArch:      noarch
 
 %description
@@ -24,6 +26,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-cov
+BuildRequires:  python3-testfixtures
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -51,6 +54,9 @@ test runners.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Wed Aug 09 2023 Lumír Balhar <lbalhar@redhat.com> - 5.0.3-1
+- Update to 5.0.3 (rhbz#2156205)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

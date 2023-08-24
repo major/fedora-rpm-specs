@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: MIT
 
 Epoch:   1
-Version: 2.001
-Release: 4%{?dist}
+Version: 2.002
+Release: 1%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 BuildRequires:            python3
@@ -63,6 +63,9 @@ python3 genfontconf.py "ja" "serif" "Noto Serif CJK JP" \
 %fontfiles
 
 %changelog
+* Tue Aug 22 2023 Peng Wu <pwu@redhat.com> - 1:2.002-1
+- Update to 2.002
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.001-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

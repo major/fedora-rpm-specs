@@ -51,7 +51,7 @@ Epoch: 102
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
 Version: 1.7.0
-License: Apache-2.0 and MIT and Zlib
+License: Apache-2.0 AND MIT AND Zlib
 Release: %autorelease
 %if %{with golang_arches_future}
 ExclusiveArch: %{golang_arches_future}

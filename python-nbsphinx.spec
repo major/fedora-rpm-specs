@@ -3,6 +3,7 @@ Version:        0.8.9
 Release:        4%{?dist}
 Summary:        Jupyter Notebook Tools for Sphinx
 
+# SPDX
 License:        MIT
 URL:            http://nbsphinx.rtfd.io/
 Source0:        %{pypi_source nbsphinx}

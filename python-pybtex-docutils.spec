@@ -1,6 +1,6 @@
 Name:           python-pybtex-docutils
-Version:        1.0.2
-Release:        6%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Docutils backend for pybtex
 
 # The content is MIT.  Other licenses are due to files copied in by Sphinx.
@@ -74,6 +74,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html doc/_build/html/*
 
 %changelog
+* Tue Aug 22 2023 Jerry James <loganjerry@gmail.com> - 1.0.3-1
+- Version 1.0.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

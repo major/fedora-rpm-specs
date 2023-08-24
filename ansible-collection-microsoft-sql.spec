@@ -11,17 +11,10 @@ BuildRequires: ansible-core >= 2.11.0
 
 %bcond_with collection_artifact
 
-# Do not convert .md to .html on RHEL 7 because pandoc is not available
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%bcond_without html
-%else
-%bcond_with html
-%endif
-
 Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
-Version: 2.0.1
+Version: 2.0.2
 Release: 1%{?dist}
 
 License: MIT
@@ -68,17 +61,6 @@ Source1002: ansible-packaging.inc
 
 BuildArch: noarch
 
-%if %{with html}
-# Requirements for md2html.sh to build the documentation
-%if 0%{?fedora} || 0%{?rhel} >= 9
-BuildRequires: rubygem-kramdown-parser-gfm
-%else
-BuildRequires: pandoc
-BuildRequires: asciidoc
-BuildRequires: highlight
-%endif
-%endif
-
 # Requirements for galaxy_transform.py
 BuildRequires: python3
 BuildRequires: python%{python3_pkgversion}-ruamel-yaml
@@ -119,14 +101,11 @@ if [ -d %{rolename}/tests/roles ]; then
 fi
 
 %build
-%if %{with html}
-# Convert README.md to README.html in the source roles
-sh md2html.sh -t %{rolename}/README.md
-%endif
+# Move a hidden .README.html to a not hidden README.html
+mv %{rolename}/.README.html %{rolename}/README.html
 
 mkdir .collections
-# Copy README.md for the collection build
-cp %{rolename}/.collection/README.md lsr_role2collection/collection_readme.md
+
 # Copy galaxy.yml for the collection build
 cp %{rolename}/.collection/galaxy.yml ./
 
@@ -135,9 +114,9 @@ cp %{rolename}/.collection/galaxy.yml ./
 ./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
                       "Ansible collection for Microsoft SQL Server management" \
                       "https://github.com/linux-system-roles/mssql" \
-                      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/administration_and_configuration_tasks_using_system_roles_in_rhel/assembly_configuring-microsoft-sql-server-using-microsoft-sql-server-ansible-role_assembly_updating-packages-to-enable-automation-for-the-rhel-system-roles" \
-                      "https://github.com/linux-system-roles/mssql/blob/main/README.md" \
-                      "https://bugzilla.redhat.com/enter_bug.cgi?product=Red%20Hat%20Enterprise%20Linux%208&component=ansible-collection-microsoft-sql" \
+                      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/automating_system_administration_by_using_rhel_system_roles/assembly_configuring-microsoft-sql-server-using-microsoft-sql-server-ansible-role_automating-system-administration-by-using-rhel-system-roles" \
+                      "https://access.redhat.com/articles/3050101" \
+                      "https://issues.redhat.com/secure/CreateIssueDetails!init.jspa?pid=12332745&summary=Your%20request%20summary&issuetype=1&priority=10200&labels=Partner-Feature-Request&components=12377164" \
                       > galaxy.yml.tmp
 %else
 ./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
@@ -159,7 +138,7 @@ python3 lsr_role2collection.py --role "%{rolename}" \
     --src-path "%{rolename}" \
     --src-owner linux-system-roles \
     --dest-path .collections \
-    --readme lsr_role2collection/collection_readme.md \
+    --readme %{rolename}/.collection/README.md \
     --namespace %{collection_namespace} \
     --collection %{collection_name} \
     --new-role "%{collection_rolename}" \
@@ -174,12 +153,12 @@ find .collections/ansible_collections/%{collection_namespace}/%{collection_name}
 rm -r .collections/ansible_collections/%{collection_namespace}/%{collection_name}/.[A-Za-z]*
 rm -r .collections/ansible_collections/%{collection_namespace}/%{collection_name}/tests/%{collection_rolename}/.[A-Za-z]*
 
+# Copy CHANGELOG.md from collection role to parent collection dir
+cp .collections/ansible_collections/%{collection_namespace}/%{collection_name}/roles/%{collection_rolename}/CHANGELOG.md \
+    .collections/ansible_collections/%{collection_namespace}/%{collection_name}
+
 # Copy galaxy.yml to the collection directory
 cp -p galaxy.yml .collections/ansible_collections/%{collection_namespace}/%{collection_name}
-
-# Copy CHANGELOG.md from mssql to collection dir
-mv .collections/ansible_collections/%{collection_namespace}/%{collection_name}/roles/%{collection_rolename}/CHANGELOG.md \
-    .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
 
 # Build collection
 pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
@@ -189,10 +168,11 @@ popd
 %install
 mkdir -p %{buildroot}%{ansible_roles_dir}
 
+# Step 1: Install the role in legacy format
 # Copy role in legacy format and rename rolename in tests
 cp -pR "%{rolename}" "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}"
 find %{buildroot}%{ansible_roles_dir}/%{legacy_rolename} -type f -exec \
-     sed -e "s/linux-system-roles\.%{rolename}/%{legacy_rolename}/g" \
+     sed -e "s/%{collection_namespace}.%{collection_name}.%{collection_rolename}/%{legacy_rolename}/g" \
          -i {} \;
 
 # Copy README, COPYING, and LICENSE files to the corresponding directories
@@ -200,10 +180,8 @@ mkdir -p %{buildroot}%{_pkglicensedir}
 mkdir -p "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
 ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.md" \
     "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
-%if %{with html}
 ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.html" \
     "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
-%endif
 if [ -f "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/COPYING" ]; then
     ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/COPYING" \
         "%{buildroot}%{_pkglicensedir}/%{legacy_rolename}.COPYING"
@@ -217,34 +195,33 @@ fi
 rm -r %{buildroot}%{ansible_roles_dir}/*/.[A-Za-z]*
 rm -r %{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/tests/.[A-Za-z]*
 
-# Remove the molecule directory
+# Step 2: Remove molecule directory from all roles under ansible_roles_dir
 rm -r %{buildroot}%{ansible_roles_dir}/*/molecule
 
-# Install collection
+# Step 3: Install the role in collection format
 pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
 %ansible_collection_install
 popd
 
 mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles
 
-# Copy the collection README files to the collection
+# Link collection README to /usr/share/doc/ansible-collection-microsoft-sql/collection.
 ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/README.md \
    %{buildroot}%{_pkgdocdir}/collection
 
-# Copy role's readme to /usr/share/doc/
-if [ -f "%{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md" ]; then
-    mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
-    ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md \
-        %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
-fi
+# Copy README.html from mssql to the collection role dir
+cp %{rolename}/README.html \
+    %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}
 
-%if %{with html}
-# Convert README.md to README.html for collection in %%{buildroot}%%{_pkgdocdir}/collection
-sh md2html.sh -t %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}/README.md
-%endif
+# Link role READMEs to /usr/share/doc/ansible-collection-microsoft-sql/collection/roles/server
+mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
+ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md \
+    %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
+ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.html \
+    %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
 
+# Step 4: Copy collection artifact to /usr/share/ansible/collections/ for collection-artifact
 %if %{with collection_artifact}
-# Copy collection artifact to /usr/share/ansible/collections/ for collection-artifact
 pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
 if [ -f %{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz ]; then
     mv %{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz \
@@ -253,7 +230,7 @@ fi
 popd
 %endif
 
-# Generate the %%files section in files_section.txt
+# Step 5: Generate the %%files section in files_section.txt
 # Bulk files inclusion is not possible because roles store doc and licence
 # files together with other files
 format_item_for_files() {
@@ -333,6 +310,11 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Wed Aug 16 2023 Sergei Petrosian <spetrosi@redhat.com> - 2.0.2-1
+- Update role to version 2.0.2 to improve collection readme
+- Remove with_html, instead use built-in .README.html
+- Update galaxy fields
+
 * Fri Jul 28 2023 Sergei Petrosian <spetrosi@redhat.com> - 2.0.1-1
 - Update role to version 2.0.1 to fix issue in IDM CI
 

@@ -18,7 +18,7 @@
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
-Version:        2.56.90
+Version:        2.56.92
 Release:        %autorelease
 
 License:        LGPLv2+
@@ -93,7 +93,6 @@ This package provides extra utilities based on the librsvg library.
 %autosetup -n librsvg-%{version} -p1
 %if 0%{?bundled_rust_deps}
 # Use the bundled deps
-sed -i Makefile.am -e 's/-Z unstable-options//'
 %cargo_prep -V 1
 %else
 # No bundled deps
