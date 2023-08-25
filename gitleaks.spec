@@ -4,7 +4,7 @@
 # https://github.com/zricethezav/gitleaks
 %global forgeurl        https://github.com/zricethezav/gitleaks
 %global goipath         github.com/zricethezav/gitleaks/v8
-Version:                8.17.0
+Version:                8.18.0
 
 %gometa -f
 
@@ -34,6 +34,7 @@ BuildRequires:  git-core
 %go_generate_buildrequires
 
 %build
+export LDFLAGS="-X=github.com/zricethezav/gitleaks/v8/cmd.Version=%{VERSION}"
 %gobuild -o %{gobuilddir}/bin/gitleaks %{goipath}
 %{gobuilddir}/bin/%{name} completion bash > %{name}.bash
 %{gobuilddir}/bin/%{name} completion fish > %{name}.fish

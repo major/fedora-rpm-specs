@@ -1,11 +1,11 @@
-%global gittag v0.9.84
+%global gittag v0.9.85
 #%%global commit b0f6c7ba092f2526481ce8340a349685e51db9a3
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20220410
 
 Name:           ccdciel
 %if "%{?gittag}"
-Version:        0.9.84
+Version:        0.9.85
 %else
 Version:        0.9.79^%{date}%{shortcommit}
 %endif
@@ -23,16 +23,24 @@ Source0:        https://github.com/pchev/%{name}/archive/%{commit}/%{name}-%{com
 
 # Patch to avoid stripping debuginfo from executable
 # Since this is Fedora specific we don't ask upstream to include
-Patch100:       ccdciel-0.9.77_fix_debuginfo.patch
+Patch100:       ccdciel-0.9.85_fix_debuginfo.patch
 
 ExclusiveArch:  %{fpc_arches}
-ExcludeArch:    ppc64le %{ix86}
+ExcludeArch:    %{ix86}
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  fpc
-BuildRequires:  lazarus >= 1.6.2
 BuildRequires:  libappstream-glib
 BuildRequires:  make
+BuildRequires:  fpc
+BuildRequires:  qt5pas-devel
+%if 0%{?fedora} >= 39
+BuildRequires:  fpc-src
+BuildRequires:  lazarus-lcl-nogui
+BuildRequires:  lazarus-lcl-qt5
+BuildRequires:  lazarus-tools
+%else
+BuildRequires:  lazarus >= 1.6.2
+%endif
 
 # CCDciel requires libpasastro to function properly
 # but rpm doesn't find this autorequire

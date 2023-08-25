@@ -1,10 +1,10 @@
-%bcond_without tests
+%bcond tests 1
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 %global pypi_name sklearn-genetic
 
@@ -13,15 +13,22 @@ sklearn-genetic is a genetic feature selection module for scikit-learn.
 Genetic algorithms mimic the process of natural selection to search
 for optimal values of a function.}
 
+# Package a snapshot to support modern versions of sklearn and numpy. We do
+# this rather than applying a patch because the other changes since 0.5.1 are
+# trivial and desirable:
+# https://github.com/manuel-calzolari/sklearn-genetic/compare/0.5.1...12ee9b2e591ec379793bcff1966095b43dac10c6
+%global commit 12ee9b2e591ec379793bcff1966095b43dac10c6
+%global snapdate 20230819
 
 Name:           python-%{pypi_name}
-Version:        0.5.1
-Release:        6%{?dist}
+Version:        0.5.1%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
+Release:        1%{?dist}
 Summary:        A genetic feature selection module for scikit-learn
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://github.com/manuel-calzolari/%{pypi_name}
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+%global srcversion %{expr:%{defined commit}?"%{?commit}":"%{version}"}
+Source:         %{url}/archive/%{srcversion}/%{pypi_name}-%{srcversion}.tar.gz
 
 BuildArch:      noarch
 
@@ -55,7 +62,7 @@ BuildRequires:  %{py3_dist sphinxcontrib-bibtex}
 Documentation for %{name}.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{srcversion}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -64,7 +71,7 @@ Documentation for %{name}.
 %pyproject_wheel
 
 %if %{with doc_pdf}
-%make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 
@@ -78,7 +85,6 @@ Documentation for %{name}.
 %endif
 
 %files -n python3-sklearn-genetic -f %{pyproject_files}
-%license LICENSE.txt
 %doc README.rst
 
 %files doc
@@ -88,6 +94,10 @@ Documentation for %{name}.
 %endif
 
 %changelog
+* Wed Aug 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.1^20230819git12ee9b2-1
+- Fix compatibility with numpy 1.20 and later and with modern scikit-learn
+- Convert License to SPDX
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

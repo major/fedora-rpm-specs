@@ -86,7 +86,8 @@ A Koji plugin for generating RPM releases and changelogs.
 %files -n koji-builder-plugin-rpmautospec
 %{_prefix}/lib/koji-builder-plugins/*
 
-# Package the placeholder rpm-macros
+%if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
+# Package the placeholder rpm-macros (moved to redhat-rpm-config in F40)
 
 %package -n rpmautospec-rpm-macros
 Summary: Rpmautospec RPM macros for local rpmbuild
@@ -97,6 +98,7 @@ RPM macros with placeholders for building rpmautospec enabled packages localy
 
 %files -n rpmautospec-rpm-macros
 %{rpmmacrodir}/macros.rpmautospec
+%endif
 
 #--------------------------------------------------------
 
@@ -117,9 +119,11 @@ install -m 0644 koji_plugins/rpmautospec_builder.py \
 
 %py_byte_compile %{python3} %{buildroot}%{_prefix}/lib/koji-builder-plugins/
 
+%if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 # RPM macros
 mkdir -p %{buildroot}%{rpmmacrodir}
 install -m 644  rpm/macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
+%endif
 
 %check
 %pytest \

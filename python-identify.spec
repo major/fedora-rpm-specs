@@ -2,7 +2,7 @@
 %global pypi_name identify
 
 Name:           python-%{pypi_name}
-Version:        2.5.26
+Version:        2.5.27
 Release:        1%{?dist}
 Summary:        File identification library for Python
 
@@ -15,7 +15,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(ukkonen)
 %if %{with check}
-BuildRequires:  python3dist(editdistance-s)
 BuildRequires:  python3-pytest
 %endif
 
@@ -65,6 +64,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Wed Aug 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.27-1
+- 2.5.27
+
 * Mon Jul 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.26-1
 - 2.5.26
 

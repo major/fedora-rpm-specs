@@ -1,7 +1,7 @@
 %global uuid com.github.phase1geo.%{name}
 
 Name:           minder
-Version:        1.15.2
+Version:        1.15.5
 Release:        %autorelease
 Summary:        Mind-mapping application
 
@@ -85,8 +85,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_bindir}/%{uuid}
 %{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
-%{_datadir}/gtksourceview-4/language-specs/*.lang
-%{_datadir}/gtksourceview-4/styles/*.xml
+%{_datadir}/%{name}/gtksourceview-4/language-specs/*.lang
+%{_datadir}/%{name}/gtksourceview-4/styles/*.xml
 %{_datadir}/icons/hicolor/*/*/*.svg
 %{_datadir}/mime/packages/*.xml
 %{_metainfodir}/*.xml

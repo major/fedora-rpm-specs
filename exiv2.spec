@@ -3,16 +3,16 @@
 
 Summary: Exif and Iptc metadata manipulation library
 Name:    exiv2
-Version: 0.27.6
+Version: 0.28.0
 %global internal_ver %{version}
-Release: 5%{?dist}
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.exiv2.org/
 %if 0%{?beta:1}
 Source0: https://github.com/Exiv2/exiv2/archive/v%{version}-%{beta}/%{name}-%{version}-%{beta}.tar.gz
 %else
-Source0: http://exiv2.org/builds/%{name}-%{version}-Source.tar.gz
+Source0: https://github.com/Exiv2/exiv2/releases/download/v%{version}/%{name}-%{version}-Source.tar.gz
 %endif
 
 ## upstream patches
@@ -24,6 +24,8 @@ BuildRequires: expat-devel
 BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: pkgconfig
+BuildRequires: brotli-devel
+BuildRequires: inih-devel
 BuildRequires: zlib-devel
 # docs
 BuildRequires: doxygen graphviz libxslt
@@ -107,7 +109,7 @@ test -x %{buildroot}%{_libdir}/libexiv2.so
 %ldconfig_scriptlets libs
 
 %files libs
-%{_libdir}/libexiv2.so.27*
+%{_libdir}/libexiv2.so.28*
 %{_libdir}/libexiv2.so.%{internal_ver}
 
 %files devel
@@ -115,14 +117,15 @@ test -x %{buildroot}%{_libdir}/libexiv2.so
 %{_libdir}/libexiv2.so
 %{_libdir}/pkgconfig/exiv2.pc
 %{_libdir}/cmake/exiv2/
-# todo: -static subpkg?  -- rex
-%{_libdir}/libexiv2-xmp.a
 
 %files doc
 %{_pkgdocdir}/
 
 
 %changelog
+* Mon Aug 21 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.28.0-1
+- 0.28.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

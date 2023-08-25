@@ -4,7 +4,7 @@
 %endif
 
 Name:		mold
-Version:	2.0.0
+Version:	2.1.0
 Release:	1%{?dist}
 Summary:	A Modern Linker
 
@@ -21,6 +21,10 @@ Patch0:		tbb-strip-werror.patch
 
 # Allow building against the system-provided `xxhash.h`
 Patch1:		0001-Use-system-compatible-include-path-for-xxhash.h.patch
+
+# Fix binaries on ppc64le (https://github.com/rui314/mold/issues/1087)
+Patch2:		0002-Avoid-reading-data-from-.plt.patch
+Patch3:		0003-Avoid-reading-data-from-.plt.patch
 
 BuildRequires:	cmake
 %if 0%{?el8}
@@ -96,6 +100,7 @@ fi
 
 %files
 %license %{_docdir}/mold/LICENSE
+%license %{_docdir}/mold/LICENSE.third-party
 %ghost %{_bindir}/ld
 %{_bindir}/mold
 %{_bindir}/ld.mold
@@ -105,6 +110,9 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Wed Aug 23 2023 Christoph Erhardt <fedora@sicherha.de> - 2.1.0-1
+- Bump version to 2.1.0 (rhbz#2231758)
+
 * Wed Jul 26 2023 Christoph Erhardt <fedora@sicherha.de> - 2.0.0-1
 - Bump version to 2.0.0
 - Change license from AGPL-3.0-or-later to MIT

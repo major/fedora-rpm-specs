@@ -1,8 +1,12 @@
 # Not yet packaged: python3dist(pettingzoo)
 %bcond gymnasium 0
+# PyTorch is not yet packaged, and since it is normally used with (and compiled
+# using) the non-free CUDA SDK, it might never be packaged. On the other hand,
+# see https://www.fedoraproject.org/wiki/SIGs/PyTorch.
+%bcond torch 0
 
 Name:           python-ratinabox
-Version:        1.8.0
+Version:        1.9.0
 Release:        %autorelease
 Summary:        A package for simulating motion and ephys data in continuous environments
 
@@ -19,9 +23,6 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-# Add scikit-learn to “test” extra
-# https://github.com/TomGeorge1234/RatInABox/pull/48
-BuildRequires:  %{py3_dist scikit-learn}
 # Run tests in parallel (“-n auto”)
 BuildRequires:  %{py3_dist pytest-xdist}
 
@@ -62,6 +63,12 @@ Summary:        %{summary}
 
 
 %check
+# Let’s do this in addition to running the tests, so we can be aware of any
+# issues in contribs that may not be tested.
+%{pyproject_check_import \
+    %{?!with_torch:-e '*.contribs.NeuralNetworkNeurons'} \
+    %{?!with_gymnasium:-e '*.contribs.TaskEnvironment'} }
+
 %if %{without gymnasium}
 # Indirectly (via ratinabox/contribs/TaskEnvironment.py) requires pettingzoo:
 ignore="${ignore-} --ignore=tests/test_taskenv.py"

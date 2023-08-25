@@ -7,8 +7,7 @@
 # Please, preserve the changelog entries
 #
 
-# disable until phpunit10 available
-%bcond_with          tests
+%bcond_without       tests
 
 %global gh_commit    7ea9ead78f6d380d2a667864c132c2f7b83055e4
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
@@ -25,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        6.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Snapshotting of global state, version %{major}
 
 License:        BSD-3-Clause
@@ -130,6 +129,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 6.0.1-3
+- Enable test suite
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

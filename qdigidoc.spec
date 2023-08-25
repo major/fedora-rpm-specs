@@ -9,7 +9,7 @@
 
 Name:           qdigidoc
 Version:        4.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Estonian digital signature and encryption application
 License:        LGPLv2+
 URL:            https://github.com/open-eid/DigiDoc4-Client
@@ -32,6 +32,10 @@ Source7:        eu-lotl.xml
 Patch0:         sandbox-qdigidoc4.patch
 # read https://github.com/open-eid/DigiDoc4-Client/issues/1119
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# Dependency flatbuffers already not available on x86
+ExcludeArch:    %{ix86}
+
 BuildRequires: make
 BuildRequires:  cmake3 >= 3.5
 BuildRequires:  desktop-file-utils
@@ -40,6 +44,7 @@ BuildRequires:  libdigidocpp-devel >= 3.16.0
 BuildRequires:  flatbuffers-compiler
 BuildRequires:  openldap-devel
 BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(Qt5Svg)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Designer)
@@ -151,6 +156,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/qdigidoc4.desktop
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Wed Aug 23 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 4.4.0-2
+- Exclude x86 architecture from builds due to dependencies (flatbuffers) being unavailable on x86
+
 * Mon Aug 21 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 4.4.0-1
 - Upstream release 4.4.0
 

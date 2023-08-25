@@ -5,7 +5,7 @@
 %global crate notify-rust
 
 Name:           rust-notify-rust
-Version:        4.8.0
+Version:        4.9.0
 Release:        %autorelease
 Summary:        Show desktop notifications
 
@@ -162,18 +162,6 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+server-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+server-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "server" feature of the "%{crate}" crate.
-
-%files       -n %{name}+server-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+z-devel

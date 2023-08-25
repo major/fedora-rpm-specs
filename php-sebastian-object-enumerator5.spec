@@ -7,8 +7,7 @@
 # Please, preserve the changelog entries
 #
 
-# disable until phpunit10 available
-%bcond_with          tests
+%bcond_without       tests
 
 %global gh_commit    202d0e344a580d7f7d04b3fafce6933e59dae906
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
@@ -25,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        5.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Traverses array and object to enumerate all referenced objects, version %{major}
 
 License:        BSD-3-Clause
@@ -117,6 +116,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 5.0.0-4
+- Enable test suite
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

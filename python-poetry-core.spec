@@ -3,7 +3,7 @@
 
 Name:           python-poetry-core
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Poetry PEP 517 Build Backend
 # SPDX
 License:        MIT
@@ -86,6 +86,9 @@ rm -r src/poetry/core/_vendor
 
 
 %changelog
+* Wed Aug 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.6.1-2
+- Drop unwanted tomli dependency
+
 * Wed Jul 26 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.6.1-1
 - Update to 1.6.1
 - Fixes: rhbz#2144878

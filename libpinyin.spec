@@ -2,7 +2,7 @@
 
 Name:           libpinyin
 Version:        2.8.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library to deal with pinyin
 
 License:        GPL-3.0-or-later
@@ -13,8 +13,8 @@ Patch0:         libpinyin-2.8.x-head.patch
 %endif
 
 BuildRequires:  gcc-c++
-BuildRequires:  libdb-devel, glib2-devel
-BuildRequires: make
+BuildRequires:  kyotocabinet-devel, glib2-devel
+BuildRequires:  make
 Requires:       %{name}-data%{?_isa} = %{version}-%{release}
 
 %description
@@ -65,7 +65,7 @@ The libzhuyin package contains libzhuyin compatibility library.
 
 %build
 %configure --disable-static \
-           --with-dbm=BerkeleyDB \
+           --with-dbm=KyotoCabinet \
            --enable-libzhuyin
 %make_build
 
@@ -108,6 +108,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Wed Aug 23 2023 Peng Wu <pwu@redhat.com> - 2.8.1-5
+- Switch to use Kyoto Cabinet
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

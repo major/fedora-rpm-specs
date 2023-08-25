@@ -34,7 +34,7 @@
 %endif
 
 Name:      weechat
-Version:   3.6
+Version:   4.0.4
 Release:   %autorelease
 Summary:   Portable, fast, light and extensible IRC client
 Group:     Applications/Communications
@@ -45,14 +45,9 @@ Source:    http://weechat.org/files/src/%{name}-%{version}.tar.xz
 # /usr/bin/ld: CMakeFiles/charset.dir/charset.o:
 # relocation R_X86_64_PC32 against symbol `weechat_charset_plugin'
 # can not be used when making a shared object; recompile with -fPIC
-Patch0:    weechat-1.0.1-plugins-fPIC.patch
-Patch1:    weechat-3.4-tests-fPIC.patch
+Patch0:    weechat-3.4-tests-fPIC.patch
 # this fails on too many tests, we want to let them finish anyway
-Patch2:    weechat-3.4-disable-memleak-detection.patch
-# https://github.com/weechat/weechat/issues/1883
-# https://github.com/weechat/weechat/commit/fb0248f5572f9f8c5727731c5d065459238c0eeb
-# Fix gui_chat_printf_y_date_tags with glibc 2.37
-Patch3:    weechat-3.8-fix-crash-on-null-msg-glibc-237.patch
+Patch1:    weechat-3.4-disable-memleak-detection.patch
 
 BuildRequires: gcc
 %if %{with check}
@@ -79,6 +74,8 @@ BuildRequires: lua-devel
 BuildRequires: ncurses-devel
 BuildRequires: perl-ExtUtils-Embed
 BuildRequires: perl-devel
+BuildRequires: php-embedded
+BuildRequires: php-devel
 BuildRequires: pkgconfig
 BuildRequires: python3-devel
 BuildRequires: ruby
@@ -131,8 +128,6 @@ sed -i 's/NAMES python3.7/NAMES python%{python3_version}m python%{python3_versio
   -DPREFIX=%{_prefix} \
   -DLIBDIR=%{_libdir} \
   -DENABLE_ENCHANT=ON \
-  -DENABLE_PYTHON3=ON \
-  -DENABLE_PHP=OFF \
 %if %{with check}
   -DENABLE_TESTS=ON \
 %else

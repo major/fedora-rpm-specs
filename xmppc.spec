@@ -1,6 +1,6 @@
 Name:           xmppc
 Version:        0.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A command-line interface (CLI) XMPP Client
 
 License:        GPLv3
@@ -53,7 +53,7 @@ popd
 %install
 %make_install
 # Install HTML documentation for the doc subpackage
-mkdir -p %{buildroot}%{_pkgdocdir}/
+# (destination directory already exists)
 cp -a doc/doxygen/html/ %{buildroot}%{_pkgdocdir}/
 
 
@@ -70,11 +70,16 @@ make check
 
 
 %files doc
-%{_pkgdocdir}/
+%{_pkgdocdir}/html/
+%{_pkgdocdir}/%{name}.1.html
 
 
 
 %changelog
+* Wed Aug 23 2023 Matthieu Saulnier <fantom@fedoraproject.org> - 0.1.2-5
+- Rebuild for libstrophe 0.12.3
+- Improve file ownership in doc subpackage
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

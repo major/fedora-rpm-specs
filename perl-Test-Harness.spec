@@ -7,7 +7,7 @@
 
 Name:           perl-Test-Harness
 Epoch:          1
-Version:        3.46
+Version:        3.47
 Release:        1%{?dist}
 Summary:        Run Perl standard test scripts with statistics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -148,6 +148,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Aug 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.47-1
+- 3.47 bump (rhbz#2231692)
+
 * Wed Aug 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.46-1
 - 3.46 bump (rhbz#2229823)
 

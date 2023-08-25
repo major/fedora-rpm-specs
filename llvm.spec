@@ -37,7 +37,7 @@
 %global maj_ver 17
 %global min_ver 0
 %global patch_ver 0
-%global rc_ver 1
+%global rc_ver 2
 
 %if %{with snapshot_build}
 %undefine rc_ver
@@ -100,7 +100,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	4%{?dist}
+Release:	1%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -613,6 +613,9 @@ fi
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Thu Aug 17 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc2-1
+- Update to LLVM 17.0.0 RC2
 
 * Wed Aug 16 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-4
 - Disable LTO on i686

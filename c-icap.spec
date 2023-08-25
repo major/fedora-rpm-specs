@@ -4,7 +4,7 @@
 
 Name:       c-icap
 Version:    0.5.11
-Release:    14.%{date}git%{shortcommit0}%{?dist}
+Release:    15.%{date}git%{shortcommit0}%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
@@ -212,6 +212,9 @@ exit 0
 %{_libdir}/c_icap/perl_handler.so
 
 %changelog
+* Wed Aug 23 2023 Simone Caronni <negativo17@gmail.com> - 0.5.11-15.20230621git7a7b929
+- Do not fork process in systemd unit.
+
 * Tue Jul 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.5.11-14.20230621git7a7b929
 - Perl 5.38 rebuild
 

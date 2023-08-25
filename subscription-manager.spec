@@ -95,7 +95,7 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.29.36
+Version: 1.29.37
 Release: 1%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
@@ -735,6 +735,19 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
+* Wed Aug 23 2023 Packit <hello@packit.dev> - 1.29.37-1
+- Automatic commit of package [subscription-manager] release [1.29.37-1]. (Pino Toscano)
+- Translated using Weblate (Korean) (김인수)
+- Update translation files (Weblate)
+- 2225446: Hotfix of D-Bus policy (Jiri Hnidek)
+- TESTING: Update testing requirements (Matyas Horky)
+- Use Fedora registry to pull container images (Matyas Horky)
+- 2232316: dbus: check "force" again from the registration option (Pino Toscano)
+- dbus: run EntCertActionInvoker on PoolAttach (Pino Toscano)
+- ENT-5624: Properly translate error strings (Matyas Horky)
+- Mock IOError for Insights fact collection tests (Matyas Horky)
+- New extraction for translatable strings (Pino Toscano)
+
 * Wed Aug 02 2023 Packit <hello@packit.dev> - 1.29.36-1
 - Automatic commit of package [subscription-manager] release [1.29.36-1]. (Pino Toscano)
 - Translated using Weblate (Korean) (김인수)

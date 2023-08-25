@@ -7,7 +7,7 @@
 %global crate gix-command
 
 Name:           rust-gix-command
-Version:        0.2.8
+Version:        0.2.9
 Release:        %autorelease
 Summary:        Handle gitoxide internal git command execution
 
@@ -18,8 +18,7 @@ Source:         %{crates_source}
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A WIP crate of the gitoxide project handling internal git command
-execution.}
+A crate of the gitoxide project handling internal git command execution.}
 
 %description %{_description}
 

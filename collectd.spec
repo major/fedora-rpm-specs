@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 31%{?dist}
+Release: 32%{?dist}
 License: GPLv2
 URL: https://collectd.org/
 
@@ -301,6 +301,14 @@ BuildRequires: libmodbus-devel
 %description modbus
 This plugin connects to a Modbus "slave" via Modbus/TCP
 and reads register values.
+
+
+%package mqtt
+Summary:       MQTT plugin for collectd
+Requires:      %{name}%{?_isa} = %{version}-%{release}
+BuildRequires: mosquitto-devel
+%description mqtt
+The MQTT plugin publishes and subscribes to MQTT topics.
 
 
 %package mysql
@@ -655,7 +663,6 @@ touch src/pinba.proto
     --disable-lpar \
     --disable-lvm \
     --disable-mic \
-    --disable-mqtt \
     --disable-netapp \
     --disable-netstat_udp \
 %ifarch s390 s390x
@@ -1049,6 +1056,10 @@ make check
 %{_libdir}/collectd/modbus.so
 
 
+%files mqtt
+%{_libdir}/collectd/mqtt.so
+
+
 %files mysql
 %{_libdir}/collectd/mysql.so
 %config(noreplace) %{_sysconfdir}/collectd.d/mysql.conf
@@ -1225,6 +1236,9 @@ make check
 
 
 %changelog
+* Fri Aug 18 2023 Eric Sandeen <sandeen@sandeen.net> - 5.12.0-32
+- Re-enable mqtt plugin
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

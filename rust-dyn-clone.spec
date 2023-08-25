@@ -5,7 +5,7 @@
 %global crate dyn-clone
 
 Name:           rust-dyn-clone
-Version:        1.0.12
+Version:        1.0.13
 Release:        %autorelease
 Summary:        Clone trait that is object-safe
 

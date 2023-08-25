@@ -6,8 +6,8 @@
 %endif
 
 Name:           m17n-lib
-Version:        1.8.3
-Release:        2%{?dist}
+Version:        1.8.4
+Release:        1%{?dist}
 Summary:        Multilingual text library
 
 License:        LGPL-2.1-or-later
@@ -125,6 +125,11 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libm17n-gui.so.*
 
 %changelog
+* Wed Aug 23 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.4-1
+- Update to 1.8.4
+- Fixes “typedef in m17n-core.h causing error when compiling with C++ code”
+  (Resolves: https://savannah.nongnu.org/bugs/index.php?64566)
+
 * Wed Jul 26 2023 Björn Esser <besser82@fedoraproject.org> - 1.8.3-2
 - Rebuild(libotf)
 

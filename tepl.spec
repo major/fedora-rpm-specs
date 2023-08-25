@@ -1,12 +1,12 @@
 %global apiver 6
 
 Name:           tepl
-Version:        6.4.0
+Version:        6.6.0
 Release:        %autorelease
 Summary:        Text editor product line library
 License:        LGPL-3.0-or-later
 URL:            https://gitlab.gnome.org/swilmet/tepl
-Source0:        https://download.gnome.org/sources/tepl/6.4/tepl-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/tepl/6.6/tepl-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -17,7 +17,7 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.62
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22
-BuildRequires:  pkgconfig(gtksourceview-4)
+BuildRequires:  pkgconfig(libgedit-gtksourceview-300)
 BuildRequires:  pkgconfig(icu-uc) pkgconfig(icu-i18n)
 
 %description
@@ -54,7 +54,7 @@ developing applications that use %{name}.
 %doc NEWS README.md
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Tepl-%{apiver}.typelib
-%{_libdir}/libtepl-%{apiver}.so.2{,.*}
+%{_libdir}/libtepl-%{apiver}.so.3{,.*}
 
 %files devel
 %{_includedir}/tepl-%{apiver}/

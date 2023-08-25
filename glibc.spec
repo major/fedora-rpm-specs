@@ -322,6 +322,7 @@ Conflicts: prelink < 0.4.2
 
 %if %{without bootstrap}
 %if %{with testsuite}
+BuildRequires: diffutils
 # The testsuite builds static C++ binaries that require a C++ compiler,
 # static C++ runtime from libstdc++-static, and lastly static glibc.
 BuildRequires: gcc-c++

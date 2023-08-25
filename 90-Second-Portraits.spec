@@ -1,12 +1,15 @@
 Name:           90-Second-Portraits
 Version:        1.01b
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Frantic street painting game
 
-#See LICENSE file in source for details
-#All code is zlib excluding slam.lua, which is MIT
-#All assets are CC-BY-SA 4.0, excluding music, which is CC-BY 3.0
-License:        zlib and MIT and CC-BY-SA and CC-BY
+# Zlib: Main package
+# CC-BY-SA-4.0: assets by Tangram Games
+# CC-BY-3.0: data/music/monkeys.ogg
+# OFL-1.1: data/fonts/neuton.ttf
+# MIT: middleclass/
+# X11: slam.lua and hump/
+License:        Zlib AND CC-BY-SA-4.0 AND CC-BY-3.0 AND OFL-1.1 AND MIT AND X11
 URL:            http://tangramgames.dk/games/90secondportraits/
 Source0:        https://github.com/SimonLarsen/%{name}/releases/download/%{version}/90secondportraits-%{version}.love#/%{name}-%{version}.zip
 #Patch for appdata, manpage, execution script, and desktop file
@@ -35,6 +38,9 @@ Your work day ends after 5 customers!
 %prep
 %autosetup -c -p1
 sed -i 's/VERSION/%{version}/g' appdata/%{name}.6
+#Remove non-free font and replace with existing font:
+rm data/fonts/yb.ttf
+sed -i "s/yb.ttf/neuton.ttf/" *.lua
 
 %build
 #love "binary" files are just zipped sources, but should exclude appdata/docs
@@ -64,7 +70,7 @@ install -p -D -m 0644 data/images/title_background.png \
 
 %files
 %doc README.md CREDITS.txt
-%license LICENSE.txt
+%license LICENSE.txt middleclass/MIT-LICENSE.txt
 %{_mandir}/man6/%{name}.*
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
@@ -73,6 +79,12 @@ install -p -D -m 0644 data/images/title_background.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Wed Aug 23 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 1.01b-17
+- Migrate to SPDX license
+- Fix license breakdown
+- Add MIT license file to license macro
+- Remove non-free font
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01b-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

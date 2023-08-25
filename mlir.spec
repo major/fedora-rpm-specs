@@ -1,8 +1,8 @@
 %global toolchain clang
-%global maj_ver 16
+%global maj_ver 17
 %global min_ver 0
-%global patch_ver 6
-#global rc_ver 4
+%global patch_ver 0
+%global rc_ver 1
 %global mlir_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global mlir_srcdir mlir-%{mlir_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -12,7 +12,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -95,6 +95,8 @@ MLIR development files.
         -DLLVM_COMMON_CMAKE_UTILS=%{_datadir}/llvm/cmake \
         -DLLVM_BUILD_TOOLS:BOOL=ON \
         -DLLVM_BUILD_UTILS:BOOL=ON \
+        -DLLVM_LIBRARY_OUTPUT_INTDIR="." \
+        -DLLVM_SHLIB_OUTPUT_INTDIR="%{_builddir}/%{mlir_srcdir}/%{__cmake_builddir}/lib/ExecutionEngine/" \
         -DMLIR_INCLUDE_DOCS:BOOL=ON \
         -DMLIR_INCLUDE_TESTS:BOOL=ON \
         -DMLIR_INCLUDE_INTEGRATION_TESTS:BOOL=OFF \
@@ -115,7 +117,6 @@ MLIR development files.
 # build process .exe tools normally use rpath or static linkage
 export LD_LIBRARY_PATH=%{_builddir}/%{mlir_srcdir}/%{name}/%{_build}/%{_lib}
 %cmake_build
-
 
 %install
 %cmake_install
@@ -199,6 +200,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Wed Aug 02 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

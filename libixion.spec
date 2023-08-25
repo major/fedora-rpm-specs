@@ -1,7 +1,7 @@
-%global apiversion 0.17
+%global apiversion 0.18
 
 Name: libixion
-Version: 0.17.0
+Version: 0.18.1
 Release: %autorelease
 Summary: A general purpose formula parser & interpreter library
 
@@ -13,7 +13,7 @@ BuildRequires: boost-devel
 BuildRequires: gcc-c++
 BuildRequires: help2man
 BuildRequires: automake
-BuildRequires: pkgconfig(mdds-2.0)
+BuildRequires: pkgconfig(mdds-2.1)
 BuildRequires: pkgconfig(python3)
 BuildRequires: pkgconfig(spdlog)
 BuildRequires: make

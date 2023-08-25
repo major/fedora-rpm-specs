@@ -7,8 +7,7 @@
 # Please, preserve the changelog entries
 #
 
-# disabled until phpunit10 available
-%bcond_with          tests
+%bcond_without       tests
 
 %global gh_commit    912dc2fbe3e3c1e7873313cc801b100b6c68c87b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
@@ -26,7 +25,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        5.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Diff implementation, version %{major}
 
 License:        BSD-3-Clause
@@ -91,7 +90,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit10 || ret=1
@@ -112,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 5.0.3-3
+- Enable test suite
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -37,7 +37,7 @@ Patch101:       https://github.com/ROCm-Developer-Tools/HIPCC/commit/560bee0df3b
 Patch6:         0001-Move-FindHIP-to-datadir.patch
 
 # a fix for building blender
-Patch8:         0001-add-uint64_t-variant-for-__ffsll.patch
+Patch8:         0001-add-long-variants-for-__ffsll.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -306,6 +306,9 @@ chmod 755 %{buildroot}%{_libdir}/lib*.so*
 %{_docdir}/hip
 
 %changelog
+* Sun Aug 20 2023 Tom Rix <trix@redhat.com> - 5.6.0-4
+- A better fix for blender 3.6.x and rocFFT
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

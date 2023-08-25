@@ -1,28 +1,28 @@
 %global amtk_version 5.6
 %global glib2_version 2.64
 %global gtk3_version 3.22
-%global gtksourceview_version 4.0.2
+%global gtksourceview_version 299.0.1
 %global libpeas_version 1.14.1
 %global gspell_version 1.0
 %global pygo_version 3.0.0
-%global tepl_version 6.4
+%global tepl_version 6.5.1
 
 # Filter provides for plugin .so files
 %global __provides_exclude_from ^%{_libdir}/gedit/plugins/
 
-%global apiver 44
+%global apiver 45
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gedit
 Epoch:		2
-Version:	44.2
-Release:	3%{?dist}
+Version:	45.0
+Release:	1%{?dist}
 Summary:	Text editor for the GNOME desktop
 
 License:	GPLv2+ and GFDL
 URL:		https://wiki.gnome.org/Apps/Gedit
-Source0:	https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires: pkgconfig(amtk-5) >= %{amtk_version}
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
@@ -30,7 +30,7 @@ BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(gsettings-desktop-schemas)
 BuildRequires: pkgconfig(gspell-1) >= %{gspell_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
-BuildRequires: pkgconfig(gtksourceview-4) >= %{gtksourceview_version}
+BuildRequires: pkgconfig(libgedit-gtksourceview-300) >= %{gtksourceview_version}
 BuildRequires: pkgconfig(libpeas-gtk-1.0) >= %{libpeas_version}
 BuildRequires: pkgconfig(pygobject-3.0)
 BuildRequires: pkgconfig(tepl-6) >= %{tepl_version}
@@ -49,7 +49,7 @@ BuildRequires: /usr/bin/appstream-util
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gspell%{?_isa} >= %{gspell_version}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
-Requires: gtksourceview4%{?_isa} >= %{gtksourceview_version}
+Requires: libgedit-gtksourceview%{?_isa} >= %{gtksourceview_version}
 Requires: libpeas-loader-python3%{?_isa}
 Requires: python3-gobject >= %{pygo_version}
 # the run-command plugin uses zenity
@@ -62,6 +62,8 @@ Obsoletes: gedit-plugin-zeitgeist < 3.35.90
 Obsoletes: gedit-plugin-commander < 43.0
 Obsoletes: gedit-plugin-findinfiles < 43.0
 Obsoletes: gedit-plugin-translate < 43.0
+Obsoletes: gedit-plugin-colorschemer < 45.0
+Obsoletes: gedit-plugin-synctex < 45.0
 
 
 %description
@@ -161,9 +163,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_includedir}/gedit-%{apiver}/
 %{_libdir}/pkgconfig/gedit.pc
 %{_datadir}/gtk-doc/
-%{_datadir}/vala/
 
 %changelog
+* Fri Aug 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:45.0-1
+- Update to 45.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:44.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

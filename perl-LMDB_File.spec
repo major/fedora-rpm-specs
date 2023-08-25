@@ -1,21 +1,23 @@
 Name:           perl-LMDB_File
 Version:        0.12
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Perl5 wrapper around the OpenLDAP's LMDB
-License:        (GPL+ or Artistic) and Artistic 2.0
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) OR Artistic-2.0
 URL:            https://metacpan.org/release/LMDB_File
 Source0:        https://cpan.metacpan.org/authors/id/S/SO/SORTIZ/LMDB_File-0.12.tar.gz
 Patch0:         0001-Fix-tests-on-ppc64-le-architecture.patch
 # Fix building with Perl 5.28.0, CPAN RT#125707
 Patch1:         LMDB_File-0.12-Fix-passing-mdb_strerror-value-to-croak.patch
+# Fix building with Perl 5.38.0, CPAN RT#148421
+Patch2:         LMDB_File-0.12-Lift-vecget-function-from-Perl-core-for-5.38-compati.patch
 
 # BZ1524377
 ExcludeArch:    armv7hl i686
 
-BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  libdb-devel
 BuildRequires:  lmdb-devel >= 0.9.17
+BuildRequires:  make
 BuildRequires:  perl(:VERSION) >= 5.10.0
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -72,18 +74,16 @@ compatible with others DBMs.
 
 
 %prep
-%setup -q -n LMDB_File-%{version}
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1 -n LMDB_File-%{version}
 
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
-make %{?_smp_mflags}
+%{make_build}
 
 
 %install
-%make_install
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 
@@ -100,6 +100,10 @@ make test
 
 
 %changelog
+* Wed Aug 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.12-28
+- Fix building with Perl 5.38.0 (rhbz#2222636)
+- Update license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

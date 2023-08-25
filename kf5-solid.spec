@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.109.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module that provides hardware information
 
 License: LGPLv2+
@@ -64,10 +64,16 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n %{framework}-%{version} -p1
+# do not build the solid-power executable, it conflicts with KF6 Solid
+sed -i -e 's/if(WITH_NEW_SOLID_JOB AND WITH_NEW_POWER_ASYNC_API)/if(0)/g' \
+  src/tools/CMakeLists.txt
 
 
 %build
-%cmake_kf5
+%cmake_kf5 \
+  -DWITH_NEW_POWER_ASYNC_API:BOOL=ON \
+  -DWITH_NEW_POWER_ASYNC_FREEDESKTOP:BOOL=ON \
+  -DWITH_NEW_SOLID_JOB:BOOL=ON
 
 %cmake_build
 
@@ -97,6 +103,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Aug 23 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 5.109.0-2
+- Restore the power management backend, needed for plasma-pk-updates (#2233613)
+- But do not build the solid-power executable that conflicts with KF6 Solid
+
 * Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
 - 5.109.0
 

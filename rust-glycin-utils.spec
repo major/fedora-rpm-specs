@@ -3,22 +3,16 @@
 %global debug_package %{nil}
 
 %global crate glycin-utils
-%global crate_version 0.1.0-beta.3
+%global crate_version 0.1.0-beta.4
 
 Name:           rust-glycin-utils
-Version:        0.1.0~beta.3
+Version:        0.1.0~beta.4
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
-# https://gitlab.gnome.org/sophie-h/glycin/-/issues/15
-License:        LGPL-2.1-only
+License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin-utils
 Source:         %{crates_source %{crate} %{crate_version}}
-# Add missing LICENSE file from upstream
-Source1:        https://gitlab.gnome.org/sophie-h/glycin/-/raw/main/LICENSE
-# Manually created patch for downstream crate metadata changes
-# * Use LGPL-2.1-only for license until we get confirmation from upstream
-Patch:          glycin-utils-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -38,6 +32,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-LGPL-2.1
+%license %{crate_instdir}/LICENSE-MPL-2.0
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -78,7 +74,6 @@ use the "image-rs" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
-cp %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

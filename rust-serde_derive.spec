@@ -6,25 +6,18 @@
 %global crate serde_derive
 
 Name:           rust-serde_derive
-Version:        1.0.177
+Version:        1.0.185
 Release:        %autorelease
-Summary:        Implementation of #[derive(Serialize, Deserialize)]
+Summary:        Macros 1.1 implementation of #[derive(Serialize, Deserialize)]
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/serde_derive
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * ensure dependencies are available on all architectures
-Patch:          serde_derive-fix-metadata.diff
-
-# * do not rely on precompiled binaries on x86_64:
-#   https://github.com/serde-rs/serde/issues/2538
-Patch:          0001-Drop-usage-of-precompiled-binary-that-s-not-usable-f.patch
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Implementation of #[derive(Serialize, Deserialize)].}
+Macros 1.1 implementation of #[derive(Serialize, Deserialize)].}
 
 %description %{_description}
 
@@ -40,6 +33,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %doc %{crate_instdir}/crates-io.md
 %{crate_instdir}/
 
@@ -70,8 +64,6 @@ use the "deserialize_in_place" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
-# remove pre-built upstream binaries for x86_64 that MUST NOT be redistributed
-rm -v serde_derive-x86_64-unknown-linux-gnu
 
 %generate_buildrequires
 %cargo_generate_buildrequires

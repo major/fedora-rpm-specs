@@ -1,13 +1,11 @@
 Name:           osm2pgsql
-Version:        1.9.0
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        Import map data from OpenStreetMap to a PostgreSQL database
 
 License:        GPLv2+
 URL:            https://github.com/openstreetmap/osm2pgsql
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/openstreetmap/osm2pgsql/issues/2041
-Patch0:         osm2pgsql-minzoom.patch
 
 ExcludeArch:    %{ix86}
 
@@ -73,6 +71,9 @@ LANG="C.UTF-8" %ctest -j1
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Aug 23 2023 Tom Hughes <tom@compton.nu> - 1.9.1-1
+- Update to 1.9.1 upstream release
+
 * Wed Aug 16 2023 Tom Hughes <tom@compton.nu> - 1.9.0-1
 - Update to 1.9.0 upstream release
 

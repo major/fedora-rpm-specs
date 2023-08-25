@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        296
+Version:        297
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -137,7 +137,7 @@ Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
 Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.0
-Provides: bundled(npm(tslib)) = 2.6.1
+Provides: bundled(npm(tslib)) = 2.6.2
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
 Provides: bundled(npm(which-typed-array)) = 1.1.11
@@ -169,6 +169,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Aug 23 2023 Packit <hello@packit.dev> - 297-1
+- Bug fixes and stability improvements
+
 * Wed Aug 09 2023 Packit <hello@packit.dev> - 296-1
 - Update to PatternFly 5
 

@@ -5,7 +5,7 @@
 %global crate thread-id
 
 Name:           rust-thread-id
-Version:        4.1.0
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Get a unique thread ID
 

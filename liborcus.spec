@@ -1,4 +1,4 @@
-%global apiversion 0.17
+%global apiversion 0.18
 
 %if 0%{?rhel}
 
@@ -16,15 +16,13 @@
 %endif
 
 Name: liborcus
-Version: 0.17.2
+Version: 0.18.1
 Release: %autorelease
 Summary: Standalone file import filter library for spreadsheet documents
 
 License: MPL-2.0
 URL: https://gitlab.com/orcus/orcus
 Source0: https://kohei.us/files/orcus/src/%{name}-%{version}.tar.xz
-Patch0:  liborcus-noexamples.patch
-Patch1:  0001-include-cstdint.patch
 
 BuildRequires: make
 BuildRequires: boost-devel
@@ -33,9 +31,9 @@ BuildRequires: gcc-c++
 BuildRequires: automake
 %if %{with convtools}
 BuildRequires: help2man
-BuildRequires: pkgconfig(libixion-0.17)
+BuildRequires: pkgconfig(libixion-0.18)
 %endif
-BuildRequires: pkgconfig(mdds-2.0)
+BuildRequires: pkgconfig(mdds-2.1)
 %if %{with python}
 BuildRequires: pkgconfig(python3)
 %if 0%{?rhel}

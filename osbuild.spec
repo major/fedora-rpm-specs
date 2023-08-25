@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        92
+Version:        93
 
 %forgemeta
 
@@ -263,6 +263,18 @@ fi
 
 
 %changelog
+* Wed Aug 23 2023 Packit <hello@packit.dev> - 93-1
+Changes with 93
+----------------
+  * extend org.osbuild.systemd.unit stage ability to update user units (#1363)
+  * schutzbot: unregister test hosts (#1372)
+  * tests: Add a check for valid snapshot urls (#1366)
+
+Contributions from: Brian C. Lane, Sanne Raymaekers, Sayan Paul
+
+— Somewhere on the Internet, 2023-08-23
+
+
 * Wed Aug 16 2023 Packit <hello@packit.dev> - 92-1
 Changes with 92
 ----------------

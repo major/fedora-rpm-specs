@@ -5,7 +5,7 @@
 %global crate gix-quote
 
 Name:           rust-gix-quote
-Version:        0.4.6
+Version:        0.4.7
 Release:        %autorelease
 Summary:        Deal with various quotations used by git
 
@@ -16,8 +16,8 @@ Source:         %{crates_source}
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A WIP crate of the gitoxide project dealing with various quotations used
-by git.}
+A crate of the gitoxide project dealing with various quotations used by
+git.}
 
 %description %{_description}
 

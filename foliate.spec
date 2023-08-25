@@ -18,11 +18,11 @@ BuildRequires:  meson >= 0.40
 BuildRequires:  pkgconfig(gjs-1.0) >= 1.52
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(iso-codes) >= 3.67
-BuildRequires:  pkgconfig(webkit2gtk-4.0)
+BuildRequires:  pkgconfig(webkit2gtk-4.1)
 
 Requires:       gjs
 Requires:       hicolor-icon-theme
-Requires:       webkit2gtk3
+Requires:       webkit2gtk4.1
 
 # For text-to-speech (TTS) support
 Recommends:     espeak-ng
@@ -39,6 +39,11 @@ A simple and modern GTK eBook viewer, built with GJS and Epub.js.
 
 %prep
 %autosetup -p1
+# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+# libsoup is not used directly
+sed -i -e '/WebKit2/s/4\.0/4.1/' src/main.js
+# do not use flatpak-spawn for runtime deps
+sed -i -e 's/flatpak-spawn/do-not-use-&/' src/utils.js
 
 
 %build

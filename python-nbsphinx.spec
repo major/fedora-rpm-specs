@@ -1,6 +1,6 @@
 Name:           python-nbsphinx
-Version:        0.8.9
-Release:        4%{?dist}
+Version:        0.9.2
+Release:        1%{?dist}
 Summary:        Jupyter Notebook Tools for Sphinx
 
 # SPDX
@@ -8,8 +8,6 @@ License:        MIT
 URL:            http://nbsphinx.rtfd.io/
 Source0:        %{pypi_source nbsphinx}
 Patch0:         allow-errors-in-notebooks-with-external-images.patch
-# Ensure smooth PDF LaTeX builds with Sphinx 5.1.0+
-Patch1:         https://github.com/spatialaudio/nbsphinx/pull/657.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -70,7 +68,7 @@ git tag %{version}
 # generate html docs 
 PYTHONPATH=build/lib sphinx-build-3 doc html
 # remove the sphinx-build leftovers
-rm -rf html/{.doctrees,.buildinfo,conf.py}
+rm -rf html/{.doctrees,.buildinfo,conf.py,_sources}
 
 %install
 %py3_install
@@ -79,7 +77,7 @@ rm -rf html/{.doctrees,.buildinfo,conf.py}
 %files -n python3-nbsphinx
 %license LICENSE
 %doc README.rst
-%pycached %{python3_sitelib}/nbsphinx.py
+%{python3_sitelib}/nbsphinx
 %{python3_sitelib}/nbsphinx-%{version}-py%{python3_version}.egg-info/
 
 %files -n python-nbsphinx-doc
@@ -87,6 +85,9 @@ rm -rf html/{.doctrees,.buildinfo,conf.py}
 %doc html 
 
 %changelog
+* Wed Aug 23 2023 Lumír Balhar <lbalhar@redhat.com> - 0.9.2-1
+- Update to 0.9.2 (rhbz#2142414)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

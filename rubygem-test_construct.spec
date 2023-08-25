@@ -3,11 +3,14 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Creates temporary files and directories for testing
 License: MIT
 URL: https://github.com/bhb/test_construct
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix Mocha 2.0+ compatibility.
+# https://github.com/bhb/test_construct/pull/12
+Patch0: rubygem-test_construct-2.0.2-Fix-compatibility-with-Mocha-2.0.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -30,6 +33,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+
+%patch 0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -70,6 +75,9 @@ popd
 %{gem_instdir}/test_construct.gemspec
 
 %changelog
+* Wed Aug 23 2023 Vít Ondruch <vondruch@redhat.com> - 2.0.2-8
+- Fix FTBFS due to Mocha 2.0 incompatibility.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

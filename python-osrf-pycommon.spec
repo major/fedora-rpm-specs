@@ -2,7 +2,7 @@
 %global pkgname osrf-pycommon
 
 Name:           python-%{pkgname}
-Version:        2.1.3
+Version:        2.1.4
 Release:        1%{?dist}
 Summary:        Commonly needed Python modules used by software developed at OSRF
 
@@ -107,6 +107,9 @@ install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{
 
 
 %changelog
+* Wed Aug 23 2023 Scott K Logan <logans@cottsay.net> - 2.1.4-1
+- Update to 2.1.4 (rhbz#2233722)
+
 * Fri Jul 21 2023 Scott K Logan <logans@cottsay.net> - 2.1.3-1
 - Update to 2.1.3 (rhbz#2222415)
 

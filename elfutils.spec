@@ -1,6 +1,6 @@
 Name: elfutils
 Version: 0.189
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -82,6 +82,8 @@ Patch3: elfutils-0.189-elfcompress.patch
 Patch4: elfutils-0.189-elf_getdata_rawchunk.patch
 # PR29696: Removed secondary fd close in cache config causing race condition
 Patch5: elfutils-0.189-debuginfod_config_cache-double-close.patch
+# Bug 28495 - Add support for SHT_RELR to eu-readelf
+Patch6: elfutils-0.189-relr.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -450,6 +452,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Wed Aug 23 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-5
+- Add elfutils-0.189-relr.patch
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.189-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

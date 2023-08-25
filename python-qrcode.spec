@@ -5,7 +5,7 @@ Version:        7.4.2
 Release:        %autorelease
 Summary:        Python QR Code image generator
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/lincolnloop/python-qrcode
 Source0:        %{pypi_source qrcode}
 BuildArch:      noarch

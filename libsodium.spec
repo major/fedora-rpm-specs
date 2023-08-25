@@ -8,9 +8,15 @@
 %global libname libsodium
 %global soname  23
 
+%if 0%{?fedora}
+%bcond_without  mingw
+%else
+%bcond_with     mingw
+%endif
+
 Name:           libsodium
 Version:        1.0.18
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            https://libsodium.org/
@@ -24,6 +30,14 @@ Source2:        %{name}.pubkey
 BuildRequires: gnupg2
 BuildRequires: gcc
 BuildRequires: make
+
+%if %{with mingw}
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-gcc
+
+BuildRequires: mingw64-gcc
+BuildRequires: mingw64-filesystem
+%endif
 
 # manage update from 3rd party repository
 Obsoletes:      %{libname}%{soname} <= %{version}
@@ -61,6 +75,24 @@ Obsoletes:      %{libname}%{soname}-static <= %{version}
 This package contains the static library for statically
 linking applications to use %{name}.
 
+%if %{with mingw}
+%package -n     mingw32-%{name}
+Summary:        MinGW compiled %{name} library for Win32 target
+
+%description -n mingw32-%{name}
+This package contains the MinGW compiled library of %{name}
+for Win32 target.
+
+%package -n     mingw64-%{name}
+Summary:        MinGW compiled %{name} library for Win64 target
+
+%description -n mingw64-%{name}
+This package contains the MinGW compiled library of %{name}
+for Win64 target.
+
+%{?mingw_debug_package}
+%endif
+
 
 %prep
 %{?gpgverify:%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
@@ -78,21 +110,40 @@ linking applications to use %{name}.
 # F34, so we use it here explicitly
 %define _lto_cflags -flto=auto -ffat-lto-objects
 
+mkdir build_native
+pushd build_native
+%global _configure ../configure
 %configure \
   --disable-silent-rules \
   --disable-opt
 
 %make_build
+popd
+
+%if %{with mingw}
+%mingw_configure \
+  --disable-silent-rules \
+  --disable-opt
+
+%mingw_make_build
+%endif
 
 
 %install
-%make_install
+%make_install -C build_native
 
-rm -f %{buildroot}%{_libdir}/%{libname}.la
+rm %{buildroot}%{_libdir}/%{libname}.la
+
+%if %{with mingw}
+%mingw_make_install
+rm %{buildroot}%{mingw32_libdir}/libsodium.a
+rm %{buildroot}%{mingw64_libdir}/libsodium.a
+%mingw_debug_install_post
+%endif
 
 
 %check
-make check
+make -C build_native check
 
 
 %files
@@ -111,8 +162,29 @@ make check
 %files static
 %{_libdir}/libsodium.a
 
+%if %{with mingw}
+%files -n mingw32-%{name}
+%license LICENSE
+%{mingw32_bindir}/*.{dll,def}
+%{mingw32_includedir}/sodium.h
+%{mingw32_includedir}/sodium/
+%{mingw32_libdir}/pkgconfig/libsodium.pc
+%{mingw32_libdir}/libsodium.dll.a
+
+%files -n mingw64-%{name}
+%license LICENSE
+%{mingw64_bindir}/*.{dll,def}
+%{mingw64_includedir}/sodium.h
+%{mingw64_includedir}/sodium/
+%{mingw64_libdir}/pkgconfig/libsodium.pc
+%{mingw64_libdir}/libsodium.dll.a
+%endif
+
 
 %changelog
+* Mon Aug 21 2023 Marian Koncek <mkoncek@redhat.com> - 1.0.18-14
+- Add mingw subpackages
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

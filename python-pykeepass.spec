@@ -1,5 +1,5 @@
 Name:           python-pykeepass
-Version:        4.0.5
+Version:        4.0.6
 Release:        %autorelease
 Epoch:          1
 Summary:        Python library to interact with keepass databases
@@ -30,7 +30,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n pykeepass-%{version} -p1
+%autosetup -n pykeepass-%{version}
 
 # Convert exact-version pins, which we cannot respect, to lower bounds.
 sed -r -i 's/==/>=/' requirements.txt

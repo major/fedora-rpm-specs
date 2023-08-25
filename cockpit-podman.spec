@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        74
+Version:        75
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -38,7 +38,7 @@ Requires:       podman >= 2.0.4
 Requires:       criu-libs
 %endif
 
-Provides: bundled(npm(@babel/runtime)) = 7.22.6
+Provides: bundled(npm(@babel/runtime)) = 7.22.10
 Provides: bundled(npm(@patternfly/patternfly)) = 5.0.2
 Provides: bundled(npm(@patternfly/react-core)) = 5.0.0
 Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0
@@ -59,11 +59,11 @@ Provides: bundled(npm(react-dom)) = 18.2.0
 Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
-Provides: bundled(npm(regenerator-runtime)) = 0.13.11
+Provides: bundled(npm(regenerator-runtime)) = 0.14.0
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.0
-Provides: bundled(npm(tslib)) = 2.6.1
+Provides: bundled(npm(tslib)) = 2.6.2
 Provides: bundled(npm(xterm-addon-canvas)) = 0.4.0
 Provides: bundled(npm(xterm)) = 5.1.0
 
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Aug 23 2023 Packit <hello@packit.dev> - 75-1
+- Performance and stability improvements
+
 * Wed Aug 09 2023 Packit <hello@packit.dev> - 74-1
 - PatternFly 5
 - Bug fixes and translation updates

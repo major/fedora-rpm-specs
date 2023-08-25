@@ -7,12 +7,17 @@
 
 Name:           gnome-maps
 Version:        45~beta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Maps
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-maps/-/merge_requests/329
+# https://gitlab.gnome.org/GNOME/gnome-maps/-/issues/583
+# Focus the start location when opening route planning
+Patch:          0001-sidebar-Add-method-to-focus-the-start-route-entry.patch
+Patch:          0002-mainWindow-Focus-on-start-when-revealing-sidebar.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -91,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Wed Aug 23 2023 Adam Williamson <awilliam@redhat.com> - 45~beta-2
+- Backport MR #329 to fix focus on opening route planning
+
 * Fri Aug 04 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
 - Update to 45.beta
 

@@ -6,8 +6,13 @@
 Summary:        C library for parsing command line parameters
 Name:           popt
 Version:        %{ver}%{?snap:~%{snap}}
-Release:        3%{?dist}
-License:        MIT
+Release:        4%{?dist}
+# COPYING:      MIT text
+# po/eo.po:     LicenseRef-Fedora-Public-Domain
+# po/fi.po:     MIT AND LicenseRef-Fedora-Public-Domain
+# po/lv.po:     MIT AND LicenseRef-Fedora-Public-Domain
+# popt.3:       MIT ("the X consortium license, see the file COPYING")
+License:        MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/rpm-software-management/popt/
 Source0:        http://ftp.rpm.org/popt/releases/popt-1.x/%{name}-%{srcver}.tar.gz
 BuildRequires:  gcc
@@ -26,6 +31,7 @@ shell-like rules.
 
 %package devel
 Summary:        Development files for the popt library
+License:        MIT
 Requires:       %{name}%{?_isa} = %{version}-%{release}, pkgconfig
 
 %description devel
@@ -36,6 +42,7 @@ API documentation of the popt library, too.
 %if 0%{!?_without_static:1}
 %package static
 Summary:        Static library for parsing command line parameters
+License:        MIT
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
@@ -79,6 +86,9 @@ make check || (cat tests/*.log; exit 1)
 %endif
 
 %changelog
+* Wed Aug 23 2023 Petr Pisar <ppisar@redhat.com> - 1.19-4
+- Correct a license tag to "MIT AND LicenseRef-Fedora-Public-Domain"
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

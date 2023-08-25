@@ -1,16 +1,13 @@
 %bcond_without tests
 
 Name:    libzip
-Version: 1.10.0
-Release: 2%{?dist}
+Version: 1.10.1
+Release: 1%{?dist}
 Summary: C library for reading, creating, and modifying zip archives
 
 License: BSD-3-Clause
 URL:     https://libzip.org/
 Source0: https://libzip.org/download/libzip-%{version}.tar.xz
-
-# Upstream patch
-Patch0:  libzip-tests.patch
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
@@ -21,7 +18,7 @@ BuildRequires:  libzstd-devel >= 1.3.6
 BuildRequires:  cmake >= 3.4
 BuildRequires:  mandoc
 %if %{with tests}
-BuildRequires:  python3-nihtest
+BuildRequires:  nihtest
 %endif
 
 
@@ -119,6 +116,9 @@ sed -e '/clone-fs-/d' \
 
 
 %changelog
+* Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 1.10.1-1
+- update to 1.10.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 # https://gitlab.com/gitlab-org/cli
 %global goipath         gitlab.com/gitlab-org/cli
 %global forgeurl        https://gitlab.com/gitlab-org/cli
-Version:                1.31.0
+Version:                1.32.0
 
 %global repo            cli
 %global archivename     %{repo}-%{version}
@@ -97,6 +97,7 @@ done
          -d gitlab.com/gitlab-org/cli/commands/ci/lint \
          -d gitlab.com/gitlab-org/cli/commands/ci/list \
          -d gitlab.com/gitlab-org/cli/commands/ci/retry \
+         -d gitlab.com/gitlab-org/cli/commands/ci/run \
          -d gitlab.com/gitlab-org/cli/commands/ci/trace \
          -d gitlab.com/gitlab-org/cli/commands/flag \
          -d gitlab.com/gitlab-org/cli/commands/incident/list \
@@ -104,6 +105,7 @@ done
          -d gitlab.com/gitlab-org/cli/commands/issue/board/create \
          -t gitlab.com/gitlab-org/cli/commands/issue \
          -d gitlab.com/gitlab-org/cli/commands/issuable/list \
+         -d gitlab.com/gitlab-org/cli/commands/issuable/note \
          -d gitlab.com/gitlab-org/cli/commands/issuable/view \
          -d gitlab.com/gitlab-org/cli/commands/label/list \
          -t gitlab.com/gitlab-org/cli/commands/mr \

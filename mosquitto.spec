@@ -1,7 +1,7 @@
 %global with_tests 0
 
 Name:           mosquitto
-Version:        2.0.16
+Version:        2.0.17
 Release:        1%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
@@ -117,6 +117,9 @@ exit 0
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Wed Aug 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.17-1
+- Update to 2.0.17
+
 * Fri Aug 18 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.16-1
 - Update to 2.0.16
 

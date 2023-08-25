@@ -1,4 +1,4 @@
-Version:	1.2.0
+Version:	1.2.1
 Release: %autorelease
 %global _hardened_build 1
 
@@ -27,8 +27,8 @@ Summary:	OpenConnect SSL VPN server
 # To simplify licenses LGPLv2+ files have been promoted to GPLv2+.
 License:	GPLv2+ and BSD and MIT and CC0
 URL:		http://www.infradead.org/ocserv/
-Source0:	https://www.infradead.org/pub/ocserv/%{name}-%{version}.tar.xz
-Source1:	https://www.infradead.org/pub/ocserv/%{name}-%{version}.tar.xz.sig
+Source0:	https://www.infradead.org/ocserv/download/%{name}-%{version}.tar.xz
+Source1:	https://www.infradead.org/ocserv/download/%{name}-%{version}.tar.xz.sig
 Source2:	gpgkey-1F42418905D8206AA754CCDC29EE58B996865171.gpg
 Source3:	ocserv.conf
 Source4:	ocserv.service
@@ -192,8 +192,7 @@ mkdir -p -m 700 %{_sysconfdir}/pki/ocserv/private
 mkdir -p %{_sysconfdir}/pki/ocserv/cacerts
 
 %check
-# The 1.2.0 release has a missing file
-make check %{?_smp_mflags} VERBOSE=1 XFAIL_TESTS="test-group-cert"
+make check %{?_smp_mflags} VERBOSE=1
 
 %if %{use_systemd}
 %post

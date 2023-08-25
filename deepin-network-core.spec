@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_prefix}/lib/dde-.*\\.so$
 
 Name:           deepin-network-core
-Version:        1.0.63
+Version:        1.1.9
 Release:        %autorelease
 Summary:        DDE network library and plugins
 
@@ -11,8 +11,6 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/%{repo}
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
-# don't ignore linker flags specified by system
-Patch0:         https://github.com/linuxdeepin/dde-network-core/pull/54.patch
 # soname versioning
 Patch1:         add-soname.patch
 
@@ -61,12 +59,10 @@ Header files and libraries for %{name}.
 
 
 %files
-%{_bindir}/dde-network-dialog
 %{_prefix}/lib/dde-control-center/
 %{_prefix}/lib/dde-dock/
 %{_prefix}/lib/dde-session-shell/
 %{_datadir}/dcc-network-plugin/
-%{_datadir}/dde-network-dialog/
 %{_datadir}/dock-network-plugin/
 %{_datadir}/dss-network-plugin/
 %{_datadir}/dsg/

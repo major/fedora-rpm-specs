@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        297
+Version:        299
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -425,12 +425,12 @@ Provides: cockpit-sosreport = %{version}-%{release}
 Recommends: (reportd if abrt)
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-prerelease.8
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.132
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.21
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.19
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.136
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.16
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.2
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0
 Provides: bundled(npm(argparse)) = 1.0.10
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(autolinker)) = 3.16.2
@@ -491,7 +491,7 @@ Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
 Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 2.3.0
-Provides: bundled(npm(tslib)) = 2.6.1
+Provides: bundled(npm(tslib)) = 2.6.2
 Provides: bundled(npm(uuid)) = 7.0.3
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
@@ -781,6 +781,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Aug 23 2023 Packit <hello@packit.dev> - 299-1
+- Kdump: Show location of kdump to verify the successful configuration test
+- Storage: Support for no-overprovisioning with Stratis
+- Storage: Cockpit can now add caches to encrypted Stratis pools
+
 * Wed Jul 26 2023 Packit <hello@packit.dev> - 297-1
 - users: allow administrators to change the user shell
 - tools: Enable Python bridge on Fedora 38

@@ -5,7 +5,7 @@
 %global crate gix-date
 
 Name:           rust-gix-date
-Version:        0.7.2
+Version:        0.7.3
 Release:        %autorelease
 Summary:        Parse dates the way git does
 
@@ -19,7 +19,7 @@ Patch:          gix-date-fix-metadata.diff
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A WIP crate of the gitoxide project parsing dates the way git does.}
+A crate of the gitoxide project parsing dates the way git does.}
 
 %description %{_description}
 

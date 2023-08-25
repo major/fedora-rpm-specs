@@ -3,20 +3,16 @@
 %global debug_package %{nil}
 
 %global crate glycin
-%global crate_version 0.1.0-beta.3
+%global crate_version 0.1.0-beta.4
 
 Name:           rust-glycin
-Version:        0.1.0~beta.3
+Version:        0.1.0~beta.4
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
-# https://gitlab.gnome.org/sophie-h/glycin/-/issues/15
-License:        LGPL-2.1-only
+License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin
 Source:         %{crates_source %{crate} %{crate_version}}
-# Add missing LICENSE file from upstream
-# https://gitlab.gnome.org/sophie-h/glycin/-/merge_requests/9
-Source1:        https://gitlab.gnome.org/sophie-h/glycin/-/raw/main/LICENSE
 # Manually created patch for downstream crate metadata changes
 # * Add autobins = false to avoid unwanted /usr/bin/test binary
 Patch:          glycin-fix-metadata.diff
@@ -39,6 +35,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-LGPL-2.1
+%license %{crate_instdir}/LICENSE-MPL-2.0
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -56,8 +54,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
-# https://gitlab.gnome.org/sophie-h/glycin/-/merge_requests/9
-cp %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

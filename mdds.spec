@@ -1,10 +1,10 @@
 # header-only library
 %global debug_package %{nil}
 
-%global apiversion 2.0
+%global apiversion 2.1
 
 Name: mdds
-Version: 2.0.3
+Version: 2.1.1
 Release: %autorelease
 Summary: A collection of multi-dimensional data structures and indexing algorithms
 

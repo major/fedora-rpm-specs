@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	95%{?dist}
+Release:	97%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,12 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Tue Aug 22 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-97
+- efi/http: change uint32_t to uintn_t
+
+* Tue Aug 22 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-96
+- util: Enable default kernel for updates
+
 * Wed Apr 12 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-95
 - Add switch-root support to grub-emu
 

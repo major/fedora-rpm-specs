@@ -1,6 +1,6 @@
 Name:           perl-Sub-HandlesVia
 Version:        0.050000
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Alternative handles_via implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -22,7 +22,7 @@ BuildRequires:  perl(Exporter::Shiny)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(List::Util) >= 1.54
-# N/A in Fedora: BuildRequires:  perl(MooseX::Extended)
+BuildRequires:  perl(MooseX::Extended)
 BuildRequires:  perl(Moose::Role)
 BuildRequires:  perl(Mouse::Role)
 BuildRequires:  perl(Object::Pad)
@@ -77,6 +77,9 @@ you should have a fairly good idea what this does.
 %{_mandir}/man3/*
 
 %changelog
+* Wed Aug 23 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.050000-3
+- Add BR: perl(MooseX::Extended).
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.050000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

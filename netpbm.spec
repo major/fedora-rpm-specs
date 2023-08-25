@@ -124,15 +124,15 @@ make \
 	CFLAGS="$CFLAGS -fPIC -flax-vector-conversions -fno-strict-aliasing" \
 	CFLAGS_CONFIG="$CFLAGS" \
 	LADD="-lm" \
-	JPEGINC_DIR=%{_includedir} \
-	PNGINC_DIR=%{_includedir} \
-	TIFFINC_DIR=%{_includedir} \
-	JPEGLIB_DIR=%{_libdir} \
-	JBIGLIB=%{_libdir}/libjbig.so.2.1 \
-	PNGLIB_DIR=%{_libdir} \
-	TIFFLIB_DIR=%{_libdir} \
+	JPEGINC_DIR=%{_usr}/include \
+	PNGINC_DIR=%{_usr}/include \
+	TIFFINC_DIR=%{_usr}/include \
+	JPEGLIB_DIR=%{_usr}/%{_lib} \
+	JBIGLIB=%{_usr}/%{_lib}/libjbig.so.2.1 \
+	PNGLIB_DIR=%{_usr}/%{_lib} \
+	TIFFLIB_DIR=%{_usr}/%{_lib} \
 	LINUXSVGALIB="NONE" \
-	X11LIB=%{_libdir}/libX11.so \
+	X11LIB=%{_usr}/%{_lib}/libX11.so \
 	XML2LIBS="NONE"
 
 # prepare man files
@@ -150,12 +150,12 @@ done
 
 
 %install
-make package pkgdir=%{buildroot}/usr LINUXSVGALIB="NONE" XML2LIBS="NONE"
+make package pkgdir=%{buildroot}%{_prefix} LINUXSVGALIB="NONE" XML2LIBS="NONE"
 
 # Ugly hack to have libs in correct dir on 64bit archs.
 mkdir -p %{buildroot}%{_libdir}
-if [ "%{_libdir}" != "/usr/lib" ]; then
-  mv %{buildroot}/usr/lib/lib* %{buildroot}%{_libdir}
+if [ "%{_lib}" != "lib" ]; then
+  mv %{buildroot}%{_prefix}/lib/lib* %{buildroot}%{_libdir}
 fi
 
 cp -af lib/libnetpbm.a %{buildroot}%{_libdir}/libnetpbm.a
@@ -177,16 +177,16 @@ done
 rm -f %{buildroot}%{_mandir}/man5/extendedopacity.5
 
 mkdir -p %{buildroot}%{_datadir}/netpbm
-mv %{buildroot}/usr/misc/*.map %{buildroot}%{_datadir}/netpbm/
-mv %{buildroot}/usr/misc/rgb.txt %{buildroot}%{_datadir}/netpbm/
-rm -rf %{buildroot}/usr/README
-rm -rf %{buildroot}/usr/VERSION
-rm -rf %{buildroot}/usr/link
-rm -rf %{buildroot}/usr/misc
-rm -rf %{buildroot}/usr/man
-rm -rf %{buildroot}/usr/pkginfo
-rm -rf %{buildroot}/usr/config_template
-rm -rf %{buildroot}/usr/pkgconfig_template
+mv %{buildroot}%{_prefix}/misc/*.map %{buildroot}%{_datadir}/netpbm/
+mv %{buildroot}%{_prefix}/misc/rgb.txt %{buildroot}%{_datadir}/netpbm/
+rm -rf %{buildroot}%{_prefix}/README
+rm -rf %{buildroot}%{_prefix}/VERSION
+rm -rf %{buildroot}%{_prefix}/link
+rm -rf %{buildroot}%{_prefix}/misc
+rm -rf %{buildroot}%{_prefix}/man
+rm -rf %{buildroot}%{_prefix}/pkginfo
+rm -rf %{buildroot}%{_prefix}/config_template
+rm -rf %{buildroot}%{_prefix}/pkgconfig_template
 
 # Don't ship the static library
 rm -f %{buildroot}%{_libdir}/lib*.a

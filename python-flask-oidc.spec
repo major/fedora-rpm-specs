@@ -2,7 +2,7 @@
 %global mod_name flask_oidc
 
 Name:           python-%{project_name}
-Version:        2.0.1
+Version:        2.0.2
 Release:        1%{?dist}
 Summary:        OpenID Connect extension for Flask
 
@@ -55,6 +55,13 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Aug 23 2023 Packit <hello@packit.dev> - 2.0.2-1
+- Version 2.0.2 (Aurélien Bompard)
+- Avoid a redirect loop on logout when the token is expired (Aurélien Bompard)
+- Add a reference to the issue in the changelog (Aurélien Bompard)
+- We don't actually use `OIDC_USERINFO_URL` (Aurélien Bompard)
+- Update pre-commit hook charliermarsh/ruff-pre-commit to v0.0.285 (renovate[bot])
+
 * Tue Aug 22 2023 Packit <hello@packit.dev> - 2.0.1-1
 - Version 2.0.1 (Aurélien Bompard)
 - Add the extlinks extension to sphinx (Aurélien Bompard)

@@ -4,13 +4,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gedit-plugins
-Version:        44.1
-Release:        2%{?dist}
+Version:        45.0
+Release:        1%{?dist}
 Summary:        Plugins for gedit
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Gedit
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
@@ -18,7 +18,7 @@ BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  vala
 BuildRequires:  yelp-tools
-BuildRequires:  pkgconfig(gedit) >= 44.0
+BuildRequires:  pkgconfig(gedit) >= 45.0
 BuildRequires:  pkgconfig(libpeas-1.0)
 
 # this is a metapackage dragging in all the plugins
@@ -29,7 +29,6 @@ Requires:       gedit-plugin-charmap
 %endif
 Requires:       gedit-plugin-codecomment
 Requires:       gedit-plugin-colorpicker
-Requires:       gedit-plugin-colorschemer
 Requires:       gedit-plugin-drawspaces
 %if !0%{?rhel}
 Requires:       gedit-plugin-git
@@ -38,7 +37,6 @@ Requires:       gedit-plugin-joinlines
 Requires:       gedit-plugin-multiedit
 Requires:       gedit-plugin-sessionsaver
 Requires:       gedit-plugin-smartspaces
-Requires:       gedit-plugin-synctex
 Requires:       gedit-plugin-terminal
 Requires:       gedit-plugin-textsize
 Requires:       gedit-plugin-wordcompletion
@@ -90,13 +88,6 @@ Requires:       libpeas-loader-python3%{?_isa}
 %description -n gedit-plugin-colorpicker
 The gedit colorpicker plugin.
 
-%package -n     gedit-plugin-colorschemer
-Summary:        gedit colorschemer plugin
-Requires:       %{name}-data = %{version}-%{release}
-Requires:       libpeas-loader-python3%{?_isa}
-%description -n gedit-plugin-colorschemer
-The gedit colorschemer plugin.
-
 %package -n     gedit-plugin-drawspaces
 Summary:        gedit drawspaces plugin
 Requires:       %{name}-data = %{version}-%{release}
@@ -140,13 +131,6 @@ Requires:       %{name}-data = %{version}-%{release}
 Requires:       libpeas-loader-python3%{?_isa}
 %description -n gedit-plugin-smartspaces
 The gedit smartspaces plugin.
-
-%package -n     gedit-plugin-synctex
-Summary:        gedit synctex plugin
-Requires:       %{name}-data = %{version}-%{release}
-Requires:       libpeas-loader-python3%{?_isa}
-%description -n gedit-plugin-synctex
-The gedit synctex plugin.
 
 %package -n     gedit-plugin-terminal
 Summary:        gedit terminal plugin
@@ -231,12 +215,6 @@ The gedit wordcompletion plugin.
 %{_libdir}/gedit/plugins/__pycache__/colorpicker.*
 %{_metainfodir}/gedit-colorpicker.metainfo.xml
 
-%files -n gedit-plugin-colorschemer
-%{_datadir}/gedit/plugins/colorschemer/ui/schemer.ui
-%{_libdir}/gedit/plugins/colorschemer
-%{_libdir}/gedit/plugins/colorschemer.plugin
-%{_metainfodir}/gedit-colorschemer.metainfo.xml
-
 %files -n gedit-plugin-drawspaces
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.drawspaces.gschema.xml
 %{_libdir}/gedit/plugins/drawspaces.plugin
@@ -270,11 +248,6 @@ The gedit wordcompletion plugin.
 %{_libdir}/gedit/plugins/smartspaces.plugin
 %{_metainfodir}/gedit-smartspaces.metainfo.xml
 
-%files -n gedit-plugin-synctex
-%{_libdir}/gedit/plugins/synctex
-%{_libdir}/gedit/plugins/synctex.plugin
-%{_metainfodir}/gedit-synctex.metainfo.xml
-
 %files -n gedit-plugin-terminal
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.terminal.gschema.xml
 %{_libdir}/gedit/plugins/__pycache__/terminal.*
@@ -293,6 +266,9 @@ The gedit wordcompletion plugin.
 %{_metainfodir}/gedit-wordcompletion.metainfo.xml
 
 %changelog
+* Fri Aug 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

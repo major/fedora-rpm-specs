@@ -330,14 +330,14 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release} \
 Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 # Release candidate version tracking
-%global rcver rc4
+# global rcver rc4
 %if 0%{?rcver:1}
 %global rcrel .%{rcver}
 %global rcstr -%{rcver}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 0.2
+%global baserelease 1
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -2807,6 +2807,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Wed Aug 23 2023 Cole Robinson <crobinso@redhat.com> - 8.1.0-1
+- Rebase to qemu 8.1.0 GA
+
 * Mon Aug 21 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 8.1.0-0.2-rc4
 - Adjust virtiofsd requires for el9 and older
 

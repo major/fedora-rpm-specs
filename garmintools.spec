@@ -1,9 +1,9 @@
 Name:		garmintools
 Version:	0.10
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Tools for Garmin GPS-devices
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://%{name}.googlecode.com
 Source0:	%{url}/files/%{name}-%{version}.tar.gz
 
@@ -46,8 +46,8 @@ lib%{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b .gpx_laps_hr_cad
-%patch1 -p1 -b .fix-gcc-48
+%patch -P0 -p1 -b .gpx_laps_hr_cad
+%patch -P1 -p1 -b .fix-gcc-48
 
 
 %build
@@ -78,7 +78,7 @@ install -d -m 0755 \
 
 # Create needed config.
 cat >> 51-garmin.rules << EOF
-SYSFS{idVendor}=="091e", SYSFS{idProduct}=="0003", MODE="0666"
+ATTRS{idVendor}=="091e", ATTRS{idProduct}=="0003", MODE="0666"
 EOF
 
 cat >> %{name}.conf << EOF
@@ -126,6 +126,10 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Wed Aug 23 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.10-27
+- Fix use of invalid key in 51-garmin.rules
+- Convert License tag to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

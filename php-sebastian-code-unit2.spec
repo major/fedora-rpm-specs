@@ -7,8 +7,7 @@
 # Please, preserve the changelog entries
 #
 
-# disabled until phpunit10 available
-%bcond_with          tests
+%bcond_without       tests
 
 # Sources
 %global gh_commit    a81fee9eef0b7a76af11d121767abc44c104e503
@@ -26,7 +25,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of value objects that represent the PHP code units, version %{major}
 
 License:        BSD-3-Clause
@@ -102,7 +101,7 @@ EOF
 
 : Run tests
 ret=0
-for cmd in php php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit10 --bootstrap vendor/autoload.php || ret=1
@@ -120,6 +119,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 2.0.0-3
+- Enable test suite
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

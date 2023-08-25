@@ -1,6 +1,6 @@
 Name:           fonts-compare
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Tool to compare fonts for a language
 
 License:        GPL-2.0-or-later
@@ -76,6 +76,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.github.sudipshil9
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Thu Aug 24 2023 Sudip Shil <sshil@redhat.com> - 1.4.0-3
+- removed unnecessary dependency
+
+* Wed Aug 23 2023 Sudip Shil <sshil@redhat.com> - 1.4.0-2
+- removed some pylint errors and cleaned logs
+
 * Mon Aug 21 2023 Sudip Shil <sshil@redhat.com> - 1.4.0-1
 - get fontversion for a font that is selected. python3-freetype will be used for this.
 - fontversion update upon language change from drop-down and alsofont change in each fontbutton

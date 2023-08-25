@@ -15,7 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 # * disable little-endian-only openexr feature
-# * disable qoi feature as we don't have rust-qoi packaged
 Patch:          image-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -185,6 +184,18 @@ use the "pnm" feature of the "%{crate}" crate.
 %files       -n %{name}+pnm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+qoi-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+qoi-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "qoi" feature of the "%{crate}" crate.
+
+%files       -n %{name}+qoi-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tga-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -237,7 +248,7 @@ use the "webp" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests with missing test files (not included in published crates)
-%cargo_test -- -- --skip codecs::bmp::decoder::test::read_rect --skip codecs::png::tests::ensure_no_decoder_off_by_one --skip codecs::png::tests::underlying_error --skip dynimage::test::image_dimensions --skip dynimage::test::open_16bpc_png --skip imageops::sample::tests::resize_transparent_image --skip imageops::sample::tests::test_resize_same_size --skip imageops::sample::tests::test_sample_bilinear --skip imageops::sample::tests::test_sample_nearest --skip codecs::bmp::decoder::test::test_no_header
+%cargo_test -- -- --skip codecs::bmp::decoder::test::read_rect --skip codecs::png::tests::ensure_no_decoder_off_by_one --skip codecs::png::tests::underlying_error --skip codecs::qoi::tests::decode_test_image --skip dynimage::test::image_dimensions --skip dynimage::test::open_16bpc_png --skip imageops::sample::tests::resize_transparent_image --skip imageops::sample::tests::test_resize_same_size --skip imageops::sample::tests::test_sample_bilinear --skip imageops::sample::tests::test_sample_nearest --skip codecs::bmp::decoder::test::test_no_header
 %endif
 
 %changelog

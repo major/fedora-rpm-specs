@@ -1,15 +1,13 @@
 %global pypi_name ipywidgets
 
 Name:           python-%{pypi_name}
-Version:        8.0.7
+Version:        8.1.0
 Release:        %autorelease
 Summary:        IPython HTML widgets for Jupyter
 
 License:        BSD-3-Clause
 URL:            http://ipython.org
 Source0:        %{pypi_source}
-# Remove shebang lines from test_* files
-Patch:          https://github.com/jupyter-widgets/ipywidgets/pull/3807.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
