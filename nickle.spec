@@ -6,7 +6,7 @@
 %endif
 
 Name:           nickle
-Version:        2.92
+Version:        2.93
 Release:        %autorelease
 Summary:        A programming language-based prototyping environment
 

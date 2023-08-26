@@ -15,7 +15,7 @@
 
 %global provider_prefix         %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path             kubernetes.io/
-%global commit                  fa3d7990104d7c1f16943a67f11b154b71f6a132
+%global commit                  8dc49c4b984b897d423aab4971090e1879eb4f23
 %global shortcommit              %(c=%{commit}; echo ${c:0:7})
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
@@ -24,7 +24,7 @@
 
 ##############################################
 Name:           kubernetes
-Version:        1.27.4
+Version:        1.28.1
 Release:        %autorelease
 Summary:        Open Source Production-Grade Container Scheduling And Management Platform
 License:        ASL 2.0

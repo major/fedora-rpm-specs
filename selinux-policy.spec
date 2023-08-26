@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 77e7428bf98c645389b8efaf61a2c3ed6e2441d8
+%global commit f1d705ff0198481fbce07a9bea5bda9eedda7449
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.25
+Version: 38.26
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,22 @@ exit 0
 %endif
 
 %changelog
+* Thu Aug 24 2023 Zdenek Pytela <zpytela@redhat.com> - 38.26-1
+- Change file transition for systemd-network-generator
+- Additional support for gnome-initial-setup
+- Update gnome-initial-setup policy for geoclue
+- Allow openconnect vpn open vhost net device
+- Allow cifs.upcall to connect to SSSD also through the /var/run socket
+- Grant cifs.upcall more required capabilities
+- Allow xenstored map xenfs files
+- Update policy for fdo
+- Allow keepalived watch var_run dirs
+- Allow svirt to rw /dev/udmabuf
+- Allow qatlib  to modify hardware state information.
+- Allow key.dns_resolve connect to avahi over a unix stream socket
+- Allow key.dns_resolve create and use unix datagram socket
+- Use quay.io as the container image source for CI
+
 * Fri Aug 11 2023 Zdenek Pytela <zpytela@redhat.com> - 38.25-1
 - ci: Move srpm/rpm build to packit
 - .copr: Avoid subshell and changing directory

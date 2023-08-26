@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global ocamlver 500
 
 Name:           ocaml-merlin
-Version:        4.9
-Release:        3%{?dist}
+Version:        4.10
+Release:        1%{?dist}
 Summary:        Context sensitive completion for OCaml
 
 # The entire source is MIT except:
@@ -147,6 +147,9 @@ cd -
 %{vimfiles_root}/*/*
 
 %changelog
+* Thu Aug 24 2023 Jerry James <loganjerry@gmail.com> - 4.10-1
+- Version 4.10
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

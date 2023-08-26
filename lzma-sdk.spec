@@ -1,17 +1,23 @@
+%global ver_maj 22
+%global ver_min 01
+%global ver_rel 0
+
 Name:           lzma-sdk
-Version:        4.6.5
-Release:        32%{?dist}
+Version:        %{ver_maj}.%{ver_min}
+Release:        1%{?dist}
 Summary:        SDK for lzma compression
 
-License:        LGPLv2
-URL:            http://sourceforge.net/projects/sevenzip/
-Source0:        http://downloads.sourceforge.net/sevenzip/lzma465.tar.bz2
+License:        LGPL-2.1-or-later
+URL:            https://www.7-zip.org/sdk.html
+Source0:        https://downloads.sourceforge.net/project/sevenzip/LZMA%20SDK/lzma%{ver_maj}%{ver_min}.7z
 Source1:        lzma-sdk-LICENSE.fedora
-Patch0:         lzma-sdk-4.6.5-sharedlib.patch
-Patch1:         lzma-sdk-fprintf-format.patch
+Patch0:         lzma-sdk-22.01-sharedlib.patch
 
+BuildRequires:  dos2unix
 BuildRequires: make
 BuildRequires:  gcc-c++
+BuildRequires:  p7zip
+
 %description
 LZMA SDK provides the documentation, samples, header files, libraries,
 and tools you need to develop applications that use LZMA compression.
@@ -33,38 +39,39 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Development libraries and headers for %{name}.
 
 %prep
-%setup -q -c -n lzma465
-%patch0 -p1 -b .shared
-%patch1 -p0 -b .fprintf
-rm lzma.exe
+%autosetup -p1 -c -n lzma-sdk
+rm -rv bin
 
 for f in .h .c .cpp .dsw .dsp .java .cs .txt makefile; do
    find . -iname "*$f" | xargs chmod -x
 done
 
 # correct end-of-line encoding
-sed -i 's/\r//' *.txt 
+find . -type f -name '*.txt' | xargs dos2unix -k
 
 for i in \
-7zFormat.txt \
+DOC/7zC.txt \
+DOC/7zFormat.txt \
+DOC/installer.txt \
+DOC/lzma-history.txt \
+DOC/lzma-sdk.txt \
+DOC/lzma-specification.txt \
+DOC/lzma.txt \
+DOC/Methods.txt \
 CS/7zip/Compress/LzmaAlone/LzmaAlone.sln \
-7zC.txt \
-CS/7zip/Compress/LzmaAlone/LzmaAlone.csproj \
 CPP/7zip/Bundles/Alone7z/resource.rc \
-history.txt \
-lzma.txt \
-CPP/7zip/Compress/LZMA_Alone/makefile.gcc \
+CPP/7zip/Bundles/LzmaCon/makefile.gcc \
 CPP/Build.mak \
-C/LzmaUtil/makefile.gcc \
+C/Util/Lzma/makefile.gcc \
 CPP/7zip/Bundles/Format7zR/resource.rc \
-C/Archive/7z/makefile.gcc \
+C/Util/7z/makefile.gcc \
 CPP/7zip/Archive/Archive.def \
 CPP/7zip/Bundles/Format7zExtractR/resource.rc \
-C/LzmaLib/resource.rc \
+C/Util/LzmaLib/resource.rc \
 CPP/7zip/Archive/Archive2.def \
 CPP/7zip/MyVersionInfo.rc \
-Methods.txt \
-C/LzmaLib/LzmaLib.def; do
+DOC/Methods.txt \
+C/Util/LzmaLib/LzmaLib.def; do
     iconv -f iso-8859-1 -t utf-8 $i > $i.utf8
     touch -r $i $i.utf8
     mv $i.utf8 $i
@@ -73,32 +80,38 @@ done
 install -p -m 0644 %{SOURCE1} .
 
 %build
-cd CPP/7zip/Compress/LZMA_Alone
-make -f makefile.gcc clean all CXX="g++ %{optflags} -fPIC" CXX_C="gcc %{optflags} -fPIC" LDFLAGS="%{?__global_ldflags}"
+pushd CPP/7zip/Bundles/LzmaCon
+make -f makefile.gcc clean all CXXFLAGS_EXTRA="%{build_cxxflags}" CFLAGS_WARN="%{build_cflags}" LDFLAGS_STATIC_2="%{build_cxxflags}"
+popd
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_libdir}
-install -m0755 CPP/7zip/Compress/LZMA_Alone/liblzmasdk.so.4.6.5 %{buildroot}%{_libdir}
+install -dm0755 %{buildroot}%{_libdir}
+install -pm0755 CPP/7zip/Bundles/LzmaCon/liblzmasdk.so.%{ver_maj}.%{ver_min}.%{ver_rel} %{buildroot}%{_libdir}
 pushd %{buildroot}%{_libdir}
-ln -s liblzmasdk.so.4.6.5 liblzmasdk.so.4
-ln -s liblzmasdk.so.4.6.5 liblzmasdk.so
+ln -s liblzmasdk.so.%{ver_maj}.%{ver_min}.%{ver_rel} liblzmasdk.so.%{ver_maj}
+ln -s liblzmasdk.so.%{ver_maj}.%{ver_min}.%{ver_rel} liblzmasdk.so
 popd
-mkdir -p %{buildroot}/%{_includedir}/lzma465/
-find -iname '*.h' | xargs -I {} install -m0644 -D {} %{buildroot}/%{_includedir}/lzma465/{}
-
-%ldconfig_scriptlets
+install -dm0755 %{buildroot}/%{_includedir}/lzma
+find -iname '*.h' | xargs -I {} install -m0644 -D {} %{buildroot}/%{_includedir}/lzma-sdk/{}
+#contains only Windows related headers so for fedora useless
+rm -rv %{buildroot}/usr/include/lzma-sdk/CPP/Windows
 
 %files
-%doc lzma.txt history.txt lzma-sdk-LICENSE.fedora
-%{_libdir}/liblzmasdk.so.*
+%license lzma-sdk-LICENSE.fedora
+%doc DOC/lzma.txt DOC/lzma-history.txt
+%{_libdir}/liblzmasdk.so.%{ver_maj}{,.*}
 
 %files devel
-%doc 7z*.txt Methods.txt
-%{_includedir}/lzma465/
+%doc DOC/7z*.txt DOC/Methods.txt DOC/installer.txt DOC/lzma-sdk.txt DOC/lzma-specification.txt
+%{_includedir}/lzma-sdk/
 %{_libdir}/liblzmasdk.so
 
 %changelog
+* Tue Aug 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 22.01-1
+- Rebase to 22.01 (based on Gwyn Ciesla's spec), resolves: rhbz#1546091
+- Use SPDX identifier in License: tag
+- Modernize spec
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.5-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

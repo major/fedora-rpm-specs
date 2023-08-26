@@ -13,11 +13,12 @@ License:        MIT
 URL:            https://crates.io/crates/libheif-sys
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * don't use vcpkg for finding libheif
-# * downgrade required bindgen version to match what Fedora has
+# * temporarily downgrade bindgen dependency from 0.66 to 0.63
+# * remove unused, Windows-specific vcpkg build-dependency
 Patch:          libheif-sys-fix-metadata.diff
+Patch:          0001-unconditionally-regenerate-bindings-with-bindgen.patch
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
 Libheif bindings.}
@@ -79,11 +80,8 @@ echo 'pkgconfig(libheif) >= 1.14'
 %cargo_install
 
 %if %{with check}
-# tests fail on i686
-%ifnarch %{ix86}
 %check
 %cargo_test
-%endif
 %endif
 
 %changelog

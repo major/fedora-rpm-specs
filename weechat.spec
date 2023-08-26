@@ -74,8 +74,6 @@ BuildRequires: lua-devel
 BuildRequires: ncurses-devel
 BuildRequires: perl-ExtUtils-Embed
 BuildRequires: perl-devel
-BuildRequires: php-embedded
-BuildRequires: php-devel
 BuildRequires: pkgconfig
 BuildRequires: python3-devel
 BuildRequires: ruby
@@ -128,6 +126,7 @@ sed -i 's/NAMES python3.7/NAMES python%{python3_version}m python%{python3_versio
   -DPREFIX=%{_prefix} \
   -DLIBDIR=%{_libdir} \
   -DENABLE_ENCHANT=ON \
+  -DENABLE_PHP=OFF \
 %if %{with check}
   -DENABLE_TESTS=ON \
 %else
@@ -135,6 +134,7 @@ sed -i 's/NAMES python3.7/NAMES python%{python3_version}m python%{python3_versio
 %endif
 %if %{with docs}
   -DENABLE_DOC=ON \
+  -DENABLE_DOC_INCOMPLETE=ON \
   -DENABLE_MAN=ON \
 %else
   -DENABLE_DOC=OFF \

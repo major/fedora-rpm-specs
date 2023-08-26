@@ -4,8 +4,8 @@
 %global kbd_datadir %{_exec_prefix}/lib/kbd
 
 Name:           kbd
-Version:        2.6.1
-Release:        2%{?dist}
+Version:        2.6.2
+Release:        1%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
@@ -42,7 +42,7 @@ Requires:       %{name}-legacy = %{version}-%{release}
 Conflicts:      filesystem < 3
 Provides:       vlock = %{version}
 Conflicts:      vlock <= 1.3
-Obsoletes:      vlock
+Obsoletes:      vlock < 1.3-34
 
 %description
 The %{name} package contains tools for managing a Linux
@@ -183,6 +183,10 @@ make check
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Thu Aug 24 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.6.2-1
+- Update to kbd-2.6.2
+  Resolves: #2232126
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

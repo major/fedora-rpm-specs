@@ -1,13 +1,14 @@
 Name:           perl-RDF-NS-Curated
-Version:        1.004
-Release:        12%{?dist}
+Version:        1.006
+Release:        1%{?dist}
 Summary:        Curated set of RDF prefixes
-# COPYRIGHT:    Public Domain
-# other files:  GPL+ or Artistic
-License:        (GPL+ or Artistic) and Public Domain
+# COPYRIGHT:    LicenseRef-Fedora-Public-Domain
+# other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/RDF-NS-Curated
 Source0:        https://cpan.metacpan.org/authors/id/K/KJ/KJETILK/RDF-NS-Curated-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -25,6 +26,15 @@ The intention is that prefixes in this list can be safely used in code that
 has a long lifetime. The list has been derived mostly from W3C standards
 documents, but also some popularity lists.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n RDF-NS-Curated-%{version}
 
@@ -34,18 +44,36 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes COPYRIGHT CREDITS README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/RDF
+%dir %{perl_vendorlib}/RDF/NS
+%{perl_vendorlib}/RDF/NS/Curated.pm
+%{_mandir}/man3/RDF::NS::Curated.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 24 2023 Petr Pisar <ppisar@redhat.com> - 1.006-1
+- 1.006 bump
+- Install the tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global srcname flatpak-module-tools
-%global project_version 1.0a5
+%global project_version 1.0a7
 
 Name:		%{srcname}
-Version:	1.0~a5
+Version:	1.0~a7
 Release:	1%{?dist}
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
@@ -106,6 +106,15 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
 %{python3_sitelib}/*
 
 %changelog
+* Thu Aug 24 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a7-1
+- Fixes cleanup-commands not working at all
+- Run script create from cleanup-commands under 'sh -ex'
+
+* Thu Aug 24 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a6-1
+- Version 1.0~a6
+- Fixes bugs with local builds in fresh directories
+- Other bug fixes for local builds
+
 * Tue Aug 22 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a5-1
 - Version 1.0~a5
 - Fix operation when the main package is a subpackage

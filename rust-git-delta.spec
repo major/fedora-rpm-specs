@@ -16,7 +16,6 @@ Source:         %{crates_source}
 #   https://github.com/dandavison/delta/commit/953af74
 # * relax bytelines dependency from =2.2.2 to ^2.2.2
 # * temporarily downgrade palette dependency from 0.6.1 to 0.6.0
-# * temporarily downgrade vte dependency from 0.11 to 0.10
 Patch:          git-delta-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 23

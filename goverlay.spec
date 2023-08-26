@@ -13,6 +13,7 @@ Patch0:         goverlay-enable-debuginfo-generation.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  fpc-srpm-macros
 BuildRequires:  lazarus
+BuildRequires:  lazarus-lcl-qt5
 BuildRequires:  libappstream-glib
 BuildRequires:  libglvnd-devel
 BuildRequires:  make

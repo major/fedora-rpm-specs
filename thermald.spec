@@ -5,6 +5,8 @@
 
 %global pkgname thermal_daemon
 
+%bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
+
 
 Name:		thermald
 Version:	2.5
@@ -45,6 +47,7 @@ impact.  %{name} uses the existing Linux kernel infrastructure and can
 be easily enhanced.
 
 
+%if %{with qt}
 %package monitor
 Summary:	Application for monitoring %{name}
 License:	GPLv3+
@@ -61,6 +64,7 @@ developers who want to enable application developers and their
 customers with the responsive and flexible thermal management,
 supporting optimal performance in desktop, clam-shell, mobile and
 embedded devices.
+%endif
 
 
 %prep
@@ -72,6 +76,7 @@ embedded devices.
 d %{_rundir}/%{name} 0755 root root -
 EOF
 
+%if %{with qt}
 # Create desktop-file for the monitor-app.
 %{__cat} << EOF > fedora_addons/%{name}-monitor.desktop
 [Desktop Entry]
@@ -147,6 +152,7 @@ To communicate with thermald via dbus, the user has to be member
 of the "power" group.  So make sure to add your user id to this
 group before using the thermald-monitor-app.
 EOF
+%endif
 
 NO_CONFIGURE=1 ./autogen.sh
 
@@ -159,6 +165,7 @@ NO_CONFIGURE=1 ./autogen.sh
 
 %make_build
 
+%if %{with qt}
 # Build the monitor-app.
 pushd tools/thermal_monitor
 sed -i -e 's/-lqcustomplot/-lqcustomplot-qt5/' ThermalMonitor.pro
@@ -168,6 +175,7 @@ pushd %{_target_platform}
 %make_build
 popd
 popd
+%endif
 
 
 %install
@@ -191,6 +199,7 @@ popd
 /bin/echo "%{name}_pid" > %{buildroot}%{_rundir}/%{name}/%{name}.pid
 %{__chmod} -c 0644 %{buildroot}%{_rundir}/%{name}/%{name}.pid
 
+%if %{with qt}
 # Install the monitor-app.
 %{__install} -Dpm 0755 tools/thermal_monitor/%{_target_platform}/ThermalMonitor	\
 	%{buildroot}%{_bindir}/ThermalMonitor
@@ -198,11 +207,14 @@ popd
 	%{buildroot}%{_datadir}/applications/%{name}-monitor.desktop
 %{__install} -Dpm 0644 fedora_addons/%{name}-monitor.svg			\
 	%{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}-monitor.svg
+%endif
 
 
 %check
+%if %{with qt}
 %{_bindir}/desktop-file-validate						\
 	%{buildroot}%{_datadir}/applications/*.desktop
+%endif
 
 
 %pre
@@ -237,12 +249,14 @@ exit 0
 %{_unitdir}/%{name}.service
 
 
+%if %{with qt}
 %files monitor
 %doc fedora_addons/%{name}-monitor.ReadMe.txt
 %license tools/thermal_monitor/COPYING
 %{_bindir}/ThermalMonitor
 %{_datadir}/applications/%{name}-monitor.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}-monitor.svg
+%endif
 
 
 %changelog

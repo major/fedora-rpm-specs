@@ -1,20 +1,25 @@
 %global apiversion 0.1
 
 Name: libetonyek
-Version: 0.1.10
+Version: 0.1.11~20230802.git9c3a8cb
 Release: %autorelease
 Summary: A library for import of Apple iWork documents
 
 License: MPL-2.0
 URL: http://wiki.documentfoundation.org/DLP/Libraries/libetonyek
-Source: http://dev-www.libreoffice.org/src/%{name}/%{name}-%{version}.tar.xz
+# Source: http://dev-www.libreoffice.org/src/%%{name}/%%{name}-%%{version}.tar.xz
+# Sources have been prepared by cloning the master branch of git repo at
+# https://git.libreoffice.org/libetonyek
+Source: %{name}-20230802-git9c3a8cb.tar.xz
 
+BuildRequires: automake
 BuildRequires: boost-devel
 BuildRequires: doxygen
 BuildRequires: gcc-c++
 BuildRequires: glm-devel
 BuildRequires: gperf
 BuildRequires: help2man
+BuildRequires: libtool
 BuildRequires: make
 BuildRequires: pkgconfig(cppunit)
 BuildRequires: pkgconfig(liblangtag)
@@ -22,7 +27,7 @@ BuildRequires: pkgconfig(librevenge-0.0)
 BuildRequires: pkgconfig(librevenge-generators-0.0)
 BuildRequires: pkgconfig(librevenge-stream-0.0)
 BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(mdds-2.0)
+BuildRequires: pkgconfig(mdds-2.1)
 BuildRequires: pkgconfig(zlib)
 
 %description
@@ -53,10 +58,11 @@ Tools to transform Apple iWork documents into other formats. Currently
 supported: CSV, HTML, SVG, text, and raw.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}
 
 %build
-%configure --disable-silent-rules --disable-static --disable-werror --with-mdds=2.0
+autoreconf -i -f
+%configure --disable-silent-rules --disable-static --disable-werror --with-mdds=2.1
 sed -i \
     -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
@@ -92,7 +98,6 @@ fi
 %{_libdir}/%{name}-%{apiversion}.so.*
 
 %files devel
-%doc ChangeLog
 %{_includedir}/%{name}-%{apiversion}
 %{_libdir}/%{name}-%{apiversion}.so
 %{_libdir}/pkgconfig/%{name}-%{apiversion}.pc

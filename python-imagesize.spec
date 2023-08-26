@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.4.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -66,6 +66,10 @@ py.test-3 -k 'not test_get_filelike'
 %{python3_sitelib}/*
 
 %changelog
+* Tue Aug 22 2023 Karolina Surma <ksurma@redhat.com> - 1.4.1-5
+- License verified according to the SPDX specification
+  https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.5
-Release: 8%{?dist}
+Release: 9%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267 - proposed as BSD-3-Clause-HP
@@ -364,6 +364,8 @@ BuildRequires: libappstream-glib
 # for avahi-browse - looks for devices on local network
 Recommends: avahi-tools
 Recommends: libsane-hpaio%{?_isa} = %{version}-%{release}
+# for hp-check
+Recommends: pkgconf
 
 Requires: %{name}%{?_isa} = %{version}-%{release}
 # hpssd.py
@@ -977,6 +979,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Aug 24 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-9
+- hp-check: use pkgconf when checking for cups version
+
 * Thu Aug 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-8
 - fallback to using external plugin for Hbpl1 printers
 

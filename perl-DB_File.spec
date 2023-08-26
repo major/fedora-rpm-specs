@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-DB_File
-Version:        1.858
-Release:        501%{?dist}
+Version:        1.859
+Release:        1%{?dist}
 Summary:        Perl5 access to Berkeley DB version 1.x
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DB_File
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Aug 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.859-1
+- 1.859 bump (rhbz#2233072)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.858-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

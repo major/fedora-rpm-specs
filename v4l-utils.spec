@@ -1,7 +1,9 @@
+%bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
+
 Name:           v4l-utils
 
 Version:        1.25.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable and v4l2-sysfs-path are GPLv2 only
 License:        GPLv2+ and GPLv2
@@ -15,7 +17,9 @@ BuildRequires:  doxygen
 BuildRequires:  gettext
 BuildRequires:  kernel-headers
 BuildRequires:  libjpeg-devel
+%if %{with qt5}
 BuildRequires:  qt5-qtbase-devel
+%endif
 BuildRequires:  systemd-devel
 # For /usr/share/pkgconfig/udev.pc
 BuildRequires:  systemd
@@ -50,6 +54,7 @@ Utilities for v4l2 / DVB driver authors: decode_tm6000, v4l2-compliance and
 v4l2-dbg.
 
 
+%if %{with qt5}
 %package -n     qv4l2
 Summary:        QT v4l2 test control and streaming test application
 License:        GPLv2+
@@ -57,6 +62,7 @@ Requires:       libv4l%{?_isa} = %{version}-%{release}
 
 %description -n qv4l2
 QT v4l2 test control and streaming test application.
+%endif
 
 
 %package -n     libv4l
@@ -123,7 +129,8 @@ files for developing applications that use libdvbv5.
 %prep
 %autosetup -p1
 
-%meson -Dbpf=auto -Ddoxygen-man=true -Ddoxygen-html=false
+%meson -Dbpf=auto -Ddoxygen-man=true -Ddoxygen-html=false \
+  %{!?with_qt5:-Dqv4l2=disabled -Dqvidcap=disabled -Dv4l2-tracer=disabled}
 
 #%if %{with_bpf}
 #%meson -Ddoxygen-man=true -Ddoxygen-html=false
@@ -139,7 +146,9 @@ files for developing applications that use libdvbv5.
 %meson_install
 find $RPM_BUILD_ROOT -name '*.la' -delete
 rm -f $RPM_BUILD_ROOT%{_libdir}/{v4l1compat.so,v4l2convert.so}
+%if %{with qt5}
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
+%endif
 %find_lang %{name}
 %find_lang libdvbv5
 
@@ -166,7 +175,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 %{_bindir}/v4l2-sysfs-path
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*
+%if %{with qt5}
 %exclude %{_mandir}/man1/qv4l2.1*
+%endif
 %exclude %{_mandir}/man1/v4l2-compliance.1*
 
 %files devel-tools
@@ -176,6 +187,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 %{_mandir}/man1/v4l2-compliance.1*
 %{_sbindir}/v4l2-dbg
 
+%if %{with qt5}
 %files -n qv4l2
 %doc README.md
 %{_bindir}/qv4l2
@@ -187,6 +199,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 %{_datadir}/icons/hicolor/*/apps/qvidcap.*
 %{_mandir}/man1/qv4l2.1*
 %{_mandir}/man1/qvidcap.1*
+%endif
 
 %files -n libv4l
 %doc ChangeLog README.libv4l TODO
@@ -217,6 +230,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 
 
 %changelog
+* Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.25.0-4
+- Disable qv4l2 in RHEL 10 builds
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

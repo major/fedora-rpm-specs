@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    d1413755e26fe56a63455f7753221c86cbb88f66
+%global gh_commit    b8e0bb7d8c604046539c1115994632c74dcb361e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mockery
 %global gh_project   mockery
@@ -16,7 +16,7 @@
 %global major        1
 
 Name:           php-mockery
-Version:        1.6.4
+Version:        1.6.6
 Release:        1%{?dist}
 Summary:        Mockery is a simple but flexible PHP mock object framework
 
@@ -30,14 +30,14 @@ Patch0:         %{gh_project}-tests.patch
 
 BuildArch:      noarch
 %if %{with tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 7.3
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^8.5|^9.3",
+#        "phpunit/phpunit": "^8.5|^9.6.10",
 #        "psalm/plugin-phpunit": "^0.18.4",
 #        "symplify/easy-coding-standard": "^11.5.0",
-#        "vimeo/psalm": "^5.13.1"
+#        "vimeo/psalm": "^4.30"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires: phpunit9 >= 9.3
+BuildRequires: phpunit9 >= 9.6.10
 BuildRequires: (php-composer(hamcrest/hamcrest-php) >= 2.0.1 with php-composer(hamcrest/hamcrest-php) < 3)
 BuildRequires:  php-pdo
 # Autoloader
@@ -45,7 +45,7 @@ BuildRequires:  php-pdo
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": ">=7.4,<8.3",
+#        "php": ">=7.3",
 #        "lib-pcre": ">=7.0",
 #        "hamcrest/hamcrest-php": "~2.0"
 Requires:       php(language) >= 7.3
@@ -109,7 +109,7 @@ ret=0
 # need investigation
 rm tests/Mockery/MockeryCanMockClassesWithSemiReservedWordsTest.php
 
-for cmd in php php80 php81 php82; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 \
       --no-coverage \
@@ -129,6 +129,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 24 2023 Remi Collet <remi@remirepo.net> - 1.6.6-1
+- update to 1.6.6
+
 * Thu Jul 20 2023 Remi Collet <remi@remirepo.net> - 1.6.4-1
 - update to 1.6.4
 

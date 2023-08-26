@@ -2,6 +2,9 @@
 ## --with[out] ssp  ...  enable/disable SSP; default depends
 ##                       on target architecture
 
+# Disabled per upstream to fix FTBFS.
+%undefine _hardened_build
+
 #%%global prerelease	20170317
 #%%global githubref	c3f1cf67fcc186bb859e64a085bf98aaa6182a82
 %global pkglibdir	%{_prefix}/lib/dietlibc
@@ -24,7 +27,7 @@
 Summary:	Small libc implementation
 Name:		dietlibc
 Version:	0.34
-Release:	14%{?dist}
+Release:	15%{?dist}
 License:	GPL-2.0-only
 URL:		http://www.fefe.de/dietlibc/
 %if !0%{?prerelease:1}
@@ -83,8 +86,8 @@ This package contains the dynamic libraries for dietlibc.
 #%setup -qn dietlibc
 
 #%apply -n0 -p1
-%patch1 -p0
-%patch2 -p1
+%patch -P 1 -p0
+%patch -P 2 -p1
 
 %if %{without ssp}
 sed -i -e 's!^#define WANT_SSP$!// \0!g;
@@ -155,6 +158,9 @@ ulimit -m $[ 128*1024 ] -v $[ 256*1024 ] -d $[ 128*1024 ] -s 512
 %pkglibdir
 
 %changelog
+* Thu Aug 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.34-15
+- Fix FTBFS
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

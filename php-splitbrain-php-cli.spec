@@ -2,8 +2,8 @@
 %global project  php-cli
 Name: php-%{author}-%{project}
 
-Version: 1.2.0
-Release: 4%{?dist}
+Version: 1.2.1
+Release: 1%{?dist}
 
 Summary: PHP library to build command line tools 
 License: MIT
@@ -84,6 +84,9 @@ phpunit8 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Thu Aug 24 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.1-1
+- Update to v1.2.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,24 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate ansitok
+%global crate annotate-snippets
 
-Name:           rust-ansitok
-Version:        0.2.0
+Name:           rust-annotate-snippets
+Version:        0.9.1
 Release:        %autorelease
-Summary:        Library for parsing ANSI Escape Codes
+Summary:        Library for building code annotations
 
-License:        MIT
-URL:            https://crates.io/crates/ansitok
+# Upstream license specification: Apache-2.0/MIT
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/annotate-snippets
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump vte from 0.10.1 to 0.11
-Patch:          ansitok-fix-metadata.diff
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+Patch:          annotate-snippets-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A library for parsing ANSI Escape Codes.}
+Library for building code annotations.}
 
 %description %{_description}
 
@@ -33,7 +34,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,16 +52,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+color-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+color-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "color" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+color-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+yansi-term-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+yansi-term-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "yansi-term" feature of the "%{crate}" crate.
+
+%files       -n %{name}+yansi-term-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

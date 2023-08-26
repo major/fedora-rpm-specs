@@ -1,6 +1,6 @@
 Name: sqm-scripts
-Version: 1.5.2
-Release: 3%{?dist}
+Version: 1.6.0
+Release: 1%{?dist}
 Summary: Traffic shaper scripts for Smart Queue Management
 License: GPLv2
 URL: https://www.bufferbloat.net/projects/cerowrt/wiki/Smart_Queue_Management/
@@ -41,6 +41,9 @@ queue length management (AQM), traffic shaping/rate limiting, and QoS
 %{_tmpfilesdir}/sqm.conf
 
 %changelog
+* Thu Aug 24 2023 Toke Høiland-Jørgensen <toke@redhat.com> - 1.6.0-1
+- Bump to upstream 1.6.0 (RHBZ#2233870)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

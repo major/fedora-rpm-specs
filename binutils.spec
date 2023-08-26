@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -247,6 +247,10 @@ Patch15: binutils-gold-empty-dwp.patch
 # Purpose:  Fix binutils testsuite failures.
 # Lifetime: Permanent, but varies with each rebase.
 Patch16: binutils-testsuite-fixes.patch
+
+# Purpose:  Fix binutils testsuite failures for the RISCV-64 target.
+# Lifetime: Permanent, but varies with each rebase.
+Patch17: binutils-riscv-testsuite-fixes.patch
 
 #----------------------------------------------------------------------------
 
@@ -1247,21 +1251,24 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Aug 23 2023 Nick Clifton  <nickc@redhat.com> - 2.41-4
+- Add fixes for linker testsuite failures for the RISCV-64 target.
+
 * Thu Aug 17 2023 Adam Williamson <awilliam@redhat.com> - 2.41-3
-- More CI fixes
+- More CI fixes.
 
 * Thu Aug 17 2023 Adam Williamson <awilliam@redhat.com> - 2.41-2
-- Tests: use uname -m instead of uname -i
+- Tests: use uname -m instead of uname -i.
 
 * Thu Aug 03 2023 Nick Clifton  <nickc@redhat.com> - 2.41-1
 - Rebase to GNU Binutils 2.41
-# Patch05: binutils-filename-in-readelf-messages.patch
-# Patch07: binutils-readelf-other-sym-info.patch
-# Patch11: binutils-fix-testsuite-failures.patch
-# Patch18: binutils-objcopy-note-merge-speedup.patch
-# Patch19: binutils-testsuite-fixes.patch
-# Patch20: binutils-reloc-symtab.patch
-# Patch21: binutils-CVE-2023-1972.patch
+- Retire: binutils-filename-in-readelf-messages.patch
+- Retire: binutils-readelf-other-sym-info.patch
+- Retire: binutils-fix-testsuite-failures.patch
+- Retire: binutils-objcopy-note-merge-speedup.patch
+- Retire: binutils-testsuite-fixes.patch
+- Retire: binutils-reloc-symtab.patch
+- Retire: binutils-CVE-2023-1972.patch
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

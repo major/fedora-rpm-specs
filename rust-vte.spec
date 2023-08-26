@@ -5,7 +5,7 @@
 %global crate vte
 
 Name:           rust-vte
-Version:        0.10.1
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Parser for implementing terminal emulators
 
@@ -48,6 +48,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+ansi-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ansi-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ansi" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ansi-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+arrayvec-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -58,6 +70,18 @@ This package contains library source intended for building other packages which
 use the "arrayvec" feature of the "%{crate}" crate.
 
 %files       -n %{name}+arrayvec-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+log-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+log-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "log" feature of the "%{crate}" crate.
+
+%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+nightly-devel
@@ -82,6 +106,18 @@ This package contains library source intended for building other packages which
 use the "no_std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+no_std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

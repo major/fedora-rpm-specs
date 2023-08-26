@@ -2,7 +2,7 @@
 
 # https://github.com/vultr/vultr-cli
 %global goipath         github.com/vultr/vultr-cli
-Version:                2.17.0
+Version:                2.18.0
 
 %gometa
 

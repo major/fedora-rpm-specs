@@ -1,14 +1,16 @@
 Name:           lazygal
-Version:        0.10.5
-Release:        6%{?dist}
+Version:        0.10.7
+Release:        1%{?dist}
 Summary:        A static web gallery generator
 
-License:        GPLv2+ and MIT
+License:        GPL-2.0-or-later AND MIT
 URL:            https://sml.zincube.net/~niol/repositories.git/lazygal/about/
 Source0:        https://sml.zincube.net/~niol/repositories.git/lazygal/snapshot/lazygal-%{version}.tar.bz2
 
 BuildArch:      noarch
 
+BuildRequires:  /usr/bin/ffmpeg
+BuildRequires:  /usr/bin/ffprobe
 BuildRequires:  gettext
 BuildRequires:  js-jquery
 BuildRequires:  pandoc
@@ -17,6 +19,8 @@ BuildRequires:  python3-gexiv2
 BuildRequires:  python3-genshi
 BuildRequires:  python3-pillow
 BuildRequires:  python3-setuptools
+Recommends:     /usr/bin/ffmpeg
+Recommends:     /usr/bin/ffprobe
 Requires:       js-jquery
 Requires:       python3-gexiv2
 Requires:       python3-genshi
@@ -71,6 +75,11 @@ cp -pr build/mo/* %{buildroot}%{_datadir}/locale/
 %{_mandir}/man5/%{name}.conf.5*
 
 %changelog
+* Thu Aug 24 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.10.7-1
+- update to 0.10.7 (#2216216)
+- Add dependency on ffmpeg for video support and tests
+- Switch License: tag to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

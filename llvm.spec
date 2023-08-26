@@ -37,7 +37,7 @@
 %global maj_ver 17
 %global min_ver 0
 %global patch_ver 0
-%global rc_ver 2
+%global rc_ver 3
 
 %if %{with snapshot_build}
 %undefine rc_ver
@@ -119,8 +119,8 @@ Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
 
-# Backport of https://reviews.llvm.org/D156379 from LLVM 18.
-Patch1:		D156379.diff
+# Backport of https://reviews.llvm.org/D158252 from LLVM 18.
+Patch1:		0001-Fix-regression-of-D157680.patch
 %endif
 
 # RHEL-specific patch to avoid unwanted recommonmark dep
@@ -480,6 +480,10 @@ cp -Rv ../cmake/* %{buildroot}%{pkg_datadir}/llvm/cmake
 %ifarch %{arm}
 rm test/tools/llvm-readobj/ELF/dependent-libraries.test
 %endif
+%ifarch ppc64le
+# TODO: Re-enable when ld.gold fixed its internal error.
+rm test/tools/gold/PowerPC/mtriple.ll
+%endif
 
 # non reproducible errors
 rm test/tools/dsymutil/X86/swift-interface.test
@@ -613,6 +617,12 @@ fi
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Thu Aug 24 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-1
+- Update to LLVM 17.0.0 RC3
+
+* Thu Aug 24 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc2-2
+- Temporarily disable a failing test on ppc64le
 
 * Thu Aug 17 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc2-1
 - Update to LLVM 17.0.0 RC2

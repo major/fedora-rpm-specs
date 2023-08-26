@@ -1,6 +1,6 @@
 Name: elfutils
 Version: 0.189
-%global baserelease 5
+%global baserelease 6
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -452,6 +452,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Thu Aug 24 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-6
+- Update elfutils-0.189-relr.patch
+
 * Wed Aug 23 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-5
 - Add elfutils-0.189-relr.patch
 

@@ -8,8 +8,8 @@
 %endif
 
 Name:           perl-URI
-Version:        5.19
-Release:        2%{?dist}
+Version:        5.21
+Release:        1%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/URI
@@ -23,6 +23,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
+BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Cwd)
@@ -133,6 +134,8 @@ make test
 %{_mandir}/man3/URI::URL.3*
 %{_mandir}/man3/URI::WithBase.3*
 %{_mandir}/man3/URI::_punycode.3*
+%{_mandir}/man3/URI::icap.3*
+%{_mandir}/man3/URI::icaps.3*
 %{_mandir}/man3/URI::data.3*
 %{_mandir}/man3/URI::file.3*
 %{_mandir}/man3/URI::ldap.3*
@@ -141,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.21-1
+- 5.21 bump (rhbz#2233885)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

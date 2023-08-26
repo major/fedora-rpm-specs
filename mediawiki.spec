@@ -1,7 +1,7 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.39.3
-Release: 2%{?dist}
+Version: 1.40.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
 Source0: https://releases.wikimedia.org/mediawiki/1.39/%{name}-%{version}.tar.gz
@@ -23,7 +23,7 @@ BuildRequires: php-pdo
 BuildRequires: php-theseer-autoload
 BuildRequires: php-composer(cssjanus/cssjanus) >= 2.1.1
 BuildRequires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-BuildRequires: php-composer(oojs/oojs-ui) >= 0.44.5
+BuildRequires: php-composer(oojs/oojs-ui) >= 0.46.3
 BuildRequires: php-composer(psr/log) >= 1.1.4
 BuildRequires: php-composer(wikimedia/assert) >= 0.5.1
 BuildRequires: php-composer(wikimedia/avro) >= 1.9.0
@@ -46,7 +46,7 @@ Requires: diffutils
 Recommends: ImageMagick
 Requires: php-composer(cssjanus/cssjanus) >= 2.1.1
 Requires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-Requires: php-composer(oojs/oojs-ui) >= 0.44.5
+Requires: php-composer(oojs/oojs-ui) >= 0.46.3
 Requires: php-composer(psr/log) >= 1.1.4
 Requires: php-composer(wikimedia/assert) >= 0.5.1
 Requires: php-composer(wikimedia/avro) >= 1.9.0
@@ -66,26 +66,25 @@ Obsoletes: php-mediawiki-at-ease <= 1.1.0
 
 Provides: bundled(php-christian-riesen-base32) = 1.6.0
 Provides: bundled(php-composer-semver) = 3.3.2
-Provides: bundled(php-guzzlehttp-guzzle) = 7.4.5
-Provides: bundled(php-guzzlehttp-promises) = 1.5.1
-Provides: bundled(php-guzzlehttp-psr7) = 2.4.0
+Provides: bundled(php-guzzlehttp-guzzle) = 7.5.0
+Provides: bundled(php-guzzlehttp-promises) = 1.5.2
+Provides: bundled(php-guzzlehttp-psr7) = 2.4.5
 Provides: bundled(php-jakobo-hotp-php) = 2.0.0
-Provides: bundled(php-justinrainbow-json-schema) = 5.2.11
+Provides: bundled(php-justinrainbow-json-schema) = 5.2.12
 Provides: bundled(php-monolog-monolog) = 2.2.0
 Provides: bundled(php-pear-console_getopt) = 1.4.3
 Provides: bundled(php-pear-Net_URL2) = 2.2.2
 Provides: bundled(php-pear-pear-core-minimal) = 1.10.11
 Provides: bundled(php-pear-pear_exception) = 1.0.2
-Provides: bundled(php-psr-container) = 1.1.1
+Provides: bundled(php-psr-container) = 1.1.2
 Provides: bundled(php-psr-http-client) = 1.0.1
 Provides: bundled(php-psr-http-factory) = 1.0.1
 Provides: bundled(php-psr-http-message) = 1.0.1
-Provides: bundled(php-psr-simple-cache) = 1.0.1
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
-Provides: bundled(php-symfony-deprecation-contracts) = 2.5.1
-Provides: bundled(php-symfony-polyfill-php80) = 1.26.0
-Provides: bundled(php-symfony-polyfill-php81) = 1.26.0
-Provides: bundled(php-symfony-yaml) = 5.4.10
+Provides: bundled(php-symfony-deprecation-contracts) = 2.5.2
+Provides: bundled(php-symfony-polyfill-php80) = 1.27.0
+Provides: bundled(php-symfony-polyfill-php81) = 1.27.0
+Provides: bundled(php-symfony-yaml) = 5.4.17
 Provides: bundled(php-wikimedia-at-ease) = 2.1.0
 Provides: bundled(php-wikimedia-common-passwords) = 0.4.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.0.1
@@ -93,15 +92,16 @@ Provides: bundled(php-wikimedia-css-sanitizer) = 3.0.2
 Provides: bundled(php-wikimedia-equivset) = 1.4.3
 Provides: bundled(php-wikimedia-timestamp) = 3.0.0
 Provides: bundled(php-wikimedia-base-convert) = 2.0.2
+Provides: bundled(php-wikimedia-bcp-47-code) = 1.0.0
 Provides: bundled(php-wikimedia-cldr-plural-rule-parser) = 2.0.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.0.1
 Provides: bundled(php-wikimedia-html-formatter) = 3.0.1
 Provides: bundled(php-wikimedia-ip-utils) = 4.0.0
-Provides: bundled(php-wikimedia-less.php) = 3.1.0
+Provides: bundled(php-wikimedia-less.php) = 4.0.0
 Provides: bundled(php-wikimedia-minify) = 2.3.0
 Provides: bundled(php-wikimedia-normalized-exception) = 1.0.1
-Provides: bundled(php-wikimedia-object-factory) = 4.0.0
-Provides: bundled(php-wikimedia-parsoid) = 0.16.1
+Provides: bundled(php-wikimedia-object-factory) = 5.0.1
+Provides: bundled(php-wikimedia-parsoid) = 0.17.0
 Provides: bundled(php-wikimedia-php-session-serializer) = 2.0.1
 Provides: bundled(php-wikimedia-purtle) = 1.0.8
 Provides: bundled(php-wikimedia-relpath) = 3.0.0
@@ -110,12 +110,12 @@ Provides: bundled(php-wikimedia-request-timeout) = 1.2.0
 Provides: bundled(php-wikimedia-running-stat) = 2.1.0
 Provides: bundled(php-wikimedia-scoped-callback) = 4.0.0
 Provides: bundled(php-wikimedia-services) = 3.0.0
-Provides: bundled(php-wikimedia-shellbox) = 3.0.0
-Provides: bundled(php-wikimedia-timestamp) = 4.0.0
+Provides: bundled(php-wikimedia-shellbox) = 4.0.0
+Provides: bundled(php-wikimedia-timestamp) = 4.1.0
 Provides: bundled(php-wikimedia-wait-condition-loop) = 2.0.2
 Provides: bundled(php-wikimedia-wrappedstring) = 4.0.1
-Provides: bundled(php-wikimedia-xmp-reader) = 0.8.6
-Provides: bundled(php-wikimedia-zest-css) = 2.0.2
+Provides: bundled(php-wikimedia-xmp-reader) = 0.9.1
+Provides: bundled(php-wikimedia-zest-css) = 3.0.0
 
 
 %description
@@ -247,7 +247,7 @@ cd tests/phpunit
 
 
 %files
-%doc FAQ HISTORY README.md README.RPM RELEASE-NOTES-1.39 UPGRADE CREDITS docs
+%doc FAQ HISTORY README.md README.RPM RELEASE-NOTES-1.40 UPGRADE CREDITS docs
 %license COPYING
 %{_datadir}/mediawiki
 /var/www/wiki
@@ -259,6 +259,9 @@ cd tests/phpunit
 
 
 %changelog
+* Wed Aug 23 2023 Michael Cronenworth <mike@cchtml.com> - 1.40.0-1
+- Update to 1.40.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.39.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

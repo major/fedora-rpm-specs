@@ -14,7 +14,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump nix dependency from 0.19 to 0.26
 # * bump shlex dependency from 0.1.1 to 1
-# * bump vte dependency from 0.9 to 0.10
+# * bump vte dependency from 0.9 to 0.11
 Patch:          skim-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 23

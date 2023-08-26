@@ -8,9 +8,9 @@
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.70.0
-%global bootstrap_channel 1.70.0
-%global bootstrap_date 2023-06-01
+%global bootstrap_version 1.71.0
+%global bootstrap_channel 1.71.0
+%global bootstrap_date 2023-07-13
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -35,7 +35,8 @@
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 # (updated per https://github.com/rust-lang/rust/pull/96907)
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-%global wasi_libc_ref wasi-sdk-20
+#global wasi_libc_ref wasi-sdk-20
+%global wasi_libc_ref 7018e24d8fe248596819d2e884761676f3542a04
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -83,7 +84,7 @@
 %endif
 
 Name:           rust
-Version:        1.71.1
+Version:        1.72.0
 Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
@@ -114,8 +115,13 @@ Patch3:         0001-Let-environment-variables-override-some-default-CPUs.patch
 # https://github.com/rust-lang/rust/pull/114069
 Patch4:         0001-Allow-using-external-builds-of-the-compiler-rt-profi.patch
 
-# https://github.com/rust-lang/rust/pull/114440
-Patch5:         0001-bootstrap-config-fix-version-comparison-bug.patch
+# Fix --no-fail-fast
+# https://github.com/rust-lang/rust/pull/113214
+Patch5:         0001-Don-t-fail-early-if-try_run-returns-an-error.patch
+
+# The dist-src tarball doesn't include .github/
+# https://github.com/rust-lang/rust/pull/115109
+Patch6:         0001-Skip-ExpandYamlAnchors-when-the-config-is-missing.patch
 
 ### RHEL-specific patches below ###
 
@@ -123,11 +129,11 @@ Patch5:         0001-bootstrap-config-fix-version-comparison-bug.patch
 Source100:      macros.rust-toolset
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.71.0-disable-libssh2.patch
+Patch100:       rustc-1.72.0-disable-libssh2.patch
 
 # libcurl on RHEL7 doesn't have http2, but since cargo requests it, curl-sys
 # will try to build it statically -- instead we turn off the feature.
-Patch101:       rustc-1.71.0-disable-http2.patch
+Patch101:       rustc-1.72.0-disable-http2.patch
 
 # Get the Rust triple for any arch.
 %{lua: function rust_triple(arch)
@@ -593,6 +599,7 @@ test -f '%{local_rust_root}/bin/rustc'
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
+%patch -P6 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -1077,6 +1084,9 @@ end}
 
 
 %changelog
+* Thu Aug 24 2023 Josh Stone <jistone@redhat.com> - 1.72.0-1
+- Update to 1.72.0.
+
 * Mon Aug 07 2023 Josh Stone <jistone@redhat.com> - 1.71.1-1
 - Update to 1.71.1.
 - Security fix for CVE-2023-38497

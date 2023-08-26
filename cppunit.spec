@@ -10,6 +10,10 @@ License: LGPL-2.1-or-later
 Url: https://www.freedesktop.org/wiki/Software/cppunit/
 Source: http://dev-www.libreoffice.org/src/%{name}-%{version}.tar.gz
 
+# Backport patch to run tests in deterministic order
+# https://gerrit.libreoffice.org/c/cppunit/+/123963
+Patch: run-tests-in-deterministic-order.patch
+
 BuildRequires: doxygen
 BuildRequires: gcc-c++
 BuildRequires: graphviz

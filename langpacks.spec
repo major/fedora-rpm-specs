@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.0
-Release:   8%{?dist}
+Release:   9%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -873,7 +873,6 @@ local langpacks_package_list = {
                 mono="" },
    recommends={ "saab-fonts",
                 "lohit-gurmukhi-fonts",
-                "google-noto-naskh-arabic-vf-fonts",
               },
    inputmethod="ibus-m17n",
    meta={ requires={},
@@ -1619,6 +1618,10 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE3}
 
 %changelog
+* Wed Aug 23 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-9
+- Drop google-noto-naskh-arabic-vf-fonts from langpacks-fonts-pa.
+  Resolves: rhbz#2225410
+
 * Fri Aug 11 2023 Peng Wu <pwu@redhat.com> - 4.0-8
 - Update for the tlwg-fonts package
 

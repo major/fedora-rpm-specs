@@ -13,6 +13,9 @@ Summary:        Strip ANSI escape sequences from byte streams
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/strip-ansi-escapes
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# bump vte from 0.10 to 0.11
+Patch:          strip-ansi-escapes-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

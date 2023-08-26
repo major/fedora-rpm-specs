@@ -1,0 +1,87 @@
+%global glib2_version 2.45.8
+%global systemd_version 231
+
+Summary:   Local caching server
+Name:      passim
+Version:   0.1.1
+Release:   1%{?dist}
+License:   LGPL-2.1-or-later
+URL:       https://github.com/hughsie/%{name}
+Source0:   https://github.com/hughsie/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+
+BuildRequires: glib2-devel >= %{glib2_version}
+BuildRequires: systemd >= %{systemd_version}
+BuildRequires: systemd-rpm-macros
+BuildRequires: meson
+BuildRequires: gcc
+BuildRequires: git-core
+BuildRequires: gobject-introspection-devel
+BuildRequires: gnutls-devel
+BuildRequires: libsoup3-devel
+BuildRequires: libappstream-glib
+
+Requires: glib2%{?_isa} >= %{glib2_version}
+
+%description
+Passim is a daemon that allows software to share files on your local network.
+
+%package devel
+Summary: Development package for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Files for development with %{name}.
+
+%prep
+%autosetup -p1
+
+%build
+
+%meson
+%meson_build
+%meson_test
+
+%install
+%meson_install
+rm $RPM_BUILD_ROOT/var/lib/passim/data/*
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+
+%post
+%systemd_post passim.service
+
+%preun
+%systemd_preun passim.service
+
+%postun
+%systemd_postun_with_restart passim.service
+
+%files
+%doc README.md
+%license LICENSE
+%config(noreplace)%{_sysconfdir}/passim.conf
+%{_bindir}/passim
+%{_libexecdir}/passimd
+%dir %{_datadir}/passim
+%{_datadir}/passim/*.ico
+%{_datadir}/passim/*.css
+%{_datadir}/dbus-1/system.d/org.freedesktop.Passim.conf
+%{_datadir}/dbus-1/interfaces/org.freedesktop.Passim.xml
+%{_datadir}/dbus-1/system-services/org.freedesktop.Passim.service
+%{_mandir}/man1/passim.1*
+%{_datadir}/metainfo/org.freedesktop.Passim.metainfo.xml
+%{_datadir}/icons/hicolor/scalable/apps/org.freedesktop.Passim.png
+%{_unitdir}/passim.service
+%{_libdir}/libpassim.so.1*
+%{_libdir}/girepository-1.0/Passim-1.0.typelib
+
+%files devel
+%{_datadir}/gir-1.0/Passim-1.0.gir
+%dir %{_includedir}/passim-1
+%{_includedir}/passim-1/passim*.h
+%{_libdir}/libpassim*.so
+%{_libdir}/pkgconfig/passim.pc
+
+%changelog
+%autochangelog

@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        87
+Version:        88
 
 %gometa
 
@@ -47,11 +47,11 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  git
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
-Provides: bundled(golang(cloud.google.com/go)) = 0.110.4
+Provides: bundled(golang(cloud.google.com/go)) = 0.110.6
 Provides: bundled(golang(cloud.google.com/go/compute)) = 1.23.0
 Provides: bundled(golang(cloud.google.com/go/compute/metadata)) = 0.2.3
-Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.0
-Provides: bundled(golang(cloud.google.com/go/storage)) = 1.31.0
+Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.1
+Provides: bundled(golang(cloud.google.com/go/storage)) = 1.32.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go)) = 68.0.0+incompatible
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.6.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/internal)) = 1.3.0
@@ -70,13 +70,13 @@ Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.3.2
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.44.316
+Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.44.329
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
 Provides: bundled(golang(github.com/cespare/xxhash/v2)) = 2.2.0
-Provides: bundled(golang(github.com/containers/common)) = 0.55.2
-Provides: bundled(golang(github.com/containers/image/v5)) = 5.26.1
+Provides: bundled(golang(github.com/containers/common)) = 0.55.3
+Provides: bundled(golang(github.com/containers/image/v5)) = 5.27.0
 Provides: bundled(golang(github.com/containers/libtrust)) = c1716e8
 Provides: bundled(golang(github.com/containers/ocicrypt)) = 1.1.7
 Provides: bundled(golang(github.com/containers/storage)) = 1.48.0
@@ -112,8 +112,8 @@ Provides: bundled(golang(github.com/golang/groupcache)) = 41bb18b
 Provides: bundled(golang(github.com/golang/protobuf)) = 1.5.3
 Provides: bundled(golang(github.com/google/go-cmp)) = 0.5.9
 Provides: bundled(golang(github.com/google/go-containerregistry)) = 0.15.2
-Provides: bundled(golang(github.com/google/s2a-go)) = 0.1.4
-Provides: bundled(golang(github.com/google/uuid)) = 1.3.0
+Provides: bundled(golang(github.com/google/s2a-go)) = 0.1.5
+Provides: bundled(golang(github.com/google/uuid)) = 1.3.1
 Provides: bundled(golang(github.com/googleapis/enterprise-certificate-proxy)) = 0.2.5
 Provides: bundled(golang(github.com/googleapis/gax-go/v2)) = 2.12.0
 Provides: bundled(golang(github.com/gophercloud/gophercloud)) = 1.5.0
@@ -161,9 +161,9 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.0-rc4
 Provides: bundled(golang(github.com/opencontainers/runc)) = 1.1.7
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.1.0-rc.3
-Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.315
+Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.362
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0321216
+Provides: bundled(golang(github.com/osbuild/images)) = 0.3.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 1.0.0
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.3
@@ -196,24 +196,24 @@ Provides: bundled(golang(go.etcd.io/bbolt)) = 1.3.7
 Provides: bundled(golang(go.mongodb.org/mongo-driver)) = 1.11.3
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = 33d0574
 Provides: bundled(golang(go.opencensus.io)) = 0.24.0
-Provides: bundled(golang(golang.org/x/crypto)) = 0.11.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.12.0
 Provides: bundled(golang(golang.org/x/exp)) = 2e198f4
 Provides: bundled(golang(golang.org/x/mod)) = 0.10.0
-Provides: bundled(golang(golang.org/x/net)) = 0.12.0
-Provides: bundled(golang(golang.org/x/oauth2)) = 0.10.0
+Provides: bundled(golang(golang.org/x/net)) = 0.14.0
+Provides: bundled(golang(golang.org/x/oauth2)) = 0.11.0
 Provides: bundled(golang(golang.org/x/sync)) = 0.3.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.10.0
-Provides: bundled(golang(golang.org/x/term)) = 0.10.0
-Provides: bundled(golang(golang.org/x/text)) = 0.11.0
+Provides: bundled(golang(golang.org/x/sys)) = 0.11.0
+Provides: bundled(golang(golang.org/x/term)) = 0.11.0
+Provides: bundled(golang(golang.org/x/text)) = 0.12.0
 Provides: bundled(golang(golang.org/x/time)) = 0.3.0
 Provides: bundled(golang(golang.org/x/tools)) = 0.9.3
 Provides: bundled(golang(golang.org/x/xerrors)) = 04be3eb
-Provides: bundled(golang(google.golang.org/api)) = 0.134.0
+Provides: bundled(golang(google.golang.org/api)) = 0.138.0
 Provides: bundled(golang(google.golang.org/appengine)) = 1.6.7
-Provides: bundled(golang(google.golang.org/genproto)) = ccb25ca
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = ccb25ca
-Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 659f7aa
-Provides: bundled(golang(google.golang.org/grpc)) = 1.56.2
+Provides: bundled(golang(google.golang.org/genproto)) = f966b18
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = f966b18
+Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 1744710
+Provides: bundled(golang(google.golang.org/grpc)) = 1.57.0
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.31.0
 Provides: bundled(golang(gopkg.in/go-jose/go-jose.v2)) = 2.6.1
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
@@ -467,10 +467,10 @@ The core osbuild-composer binary. This is suitable both for spawning in containe
 Summary:    The worker for osbuild-composer
 Requires:   systemd
 Requires:   qemu-img
-Requires:   osbuild >= 89
-Requires:   osbuild-ostree >= 89
-Requires:   osbuild-lvm2 >= 89
-Requires:   osbuild-luks2 >= 89
+Requires:   osbuild >= 93
+Requires:   osbuild-ostree >= 93
+Requires:   osbuild-lvm2 >= 93
+Requires:   osbuild-luks2 >= 93
 Requires:   %{name}-dnf-json = %{version}-%{release}
 
 %description worker
@@ -589,6 +589,33 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Thu Aug 24 2023 Packit <hello@packit.dev> - 88-1
+Changes with 88
+----------------
+  * COMPOSER-2016: blueprint: make Convert respect nils (#3612)
+  * Update rhel ga runners (#3596)
+  * Use newer RHEL 8.9 & 9.3 images for testing (#3603)
+  * build(deps): bump github.com/aws/aws-sdk-go from 1.44.318 to 1.44.322 (#3620)
+  * build(deps): bump github.com/openshift-online/ocm-sdk-go from 0.1.315 to 0.1.362 (#3627)
+  * cloudapi: Add ability to skip uploading and save image locally (#3585)
+  * dashboards/worker: default to showing the past 6 hours (#3651)
+  * dependabot: group go package updates (#3642)
+  * deps: update osbuild/images to 9548bf0d0140 (#3606)
+  * deps: update osbuild/images to v0.3.0 (#3634)
+  * go.mod: bump osbuild/images to c2aa82cc9a86 (#3640)
+  * internal/cloud/gcp/compute: Add SEV_SNP_CAPABLE Guest OS Feature (#3579)
+  * schutzbot: unregister test hosts (#3630)
+  * test/cases/ubi-wsl: double ssh timeout (#3624)
+  * test: add workaround for bug 2230537 and 2229722 (#3615)
+  * test: run greenboot rollback test on ostree.sh, ostree-ami-image.sh and ostree-vsphere.sh (#3618)
+  * test: update edge-ami test to support aarch64 (#3613)
+  * test: wait for ami image avaiable to use before tag creation (#3619)
+
+Contributions from: Achilleas Koutsou, Alexander Todorov, Brian C. Lane, Ondřej Budai, Sanne Raymaekers, Timothée Ravier, Tomáš Hozza, Xiaofeng Wang, dependabot[bot]
+
+— Somewhere on the Internet, 2023-08-24
+
+
 * Wed Aug 09 2023 Packit <hello@packit.dev> - 87-1
 Changes with 87
 ----------------

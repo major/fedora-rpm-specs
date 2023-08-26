@@ -3,7 +3,7 @@
 %global cfgfile %{_datadir}/%{name}/%{name}
 
 Name:           boxes
-Version:        2.2.0
+Version:        2.2.1
 Release:        %autorelease
 Summary:        Command line ASCII boxes unlimited!
 

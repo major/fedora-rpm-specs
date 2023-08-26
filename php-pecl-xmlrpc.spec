@@ -10,29 +10,29 @@
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
 %bcond_without      tests
 
 %global with_zts    0%{!?_without_zts:%{?__ztsphp:1}}
 %global pecl_name   xmlrpc
 %global upver       1.0.0
 %global rcver       RC3
-%global lower       rc3
+%global rclower     rc3
 # After 20-xml
 %global ini_name    30-%{pecl_name}.ini
+%global sources     %{pecl_name}-%{upver}%{?rcver}
+%global _configure  ../%{sources}/configure
+
 
 Summary:        Functions to write XML-RPC servers and clients
 Name:           php-pecl-%{pecl_name}
-Version:        %{upver}%{?lower:~%{lower}}
-Release:        6%{?dist}
+Version:        %{upver}%{?rclower:~%{rclower}}
+Release:        7%{?dist}
 
 # Extension is PHP
 # Library is MIT
 License:        PHP-3.01 AND MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{upver}%{?rcver}.tgz
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 Patch0:         %{pecl_name}-php82.patch
 
@@ -68,15 +68,14 @@ this extension.
 
 %prep
 %setup -qc
-mv %{pecl_name}-%{upver}%{?rcver} NTS
 
 sed -e 's/role="test"/role="src"/' \
     -e '/COPYING/s/role="doc"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
-%patch0 -p1 -b .up
+cd %{sources}
+%patch -P0 -p1 -b .up
 
 # Check version as upstream often forget to update this
 extver=$(sed -n '/#define PHP_XMLRPC_VERSION/{s/.* "//;s/".*$//;p}' php_xmlrpc.h)
@@ -92,10 +91,9 @@ cat << 'EOF' | tee %{ini_name}
 extension=%{pecl_name}
 EOF
 
-
+mkdir NTS
 %if %{with_zts}
-# duplicate for ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 
@@ -106,15 +104,16 @@ peclconf() {
     --with-php-config=$1
 }
 
-cd NTS
-%{_bindir}/phpize
-peclconf %{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+peclconf %{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-peclconf %{_bindir}/zts-php-config
+peclconf %{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -135,21 +134,20 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Test & Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
-cd NTS
+cd %{sources}
 
 : Minimal load test for NTS extension
-%{_bindir}/php --no-php-ini \
+%{__php} --no-php-ini \
     --define extension=xml \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
 
 %if %{with_zts}
-cd ../ZTS
 
 : Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini \
@@ -160,8 +158,6 @@ cd ../ZTS
 %endif
 
 %if %{with tests}
-cd ../NTS
-
 : Run upstream test suite
 TEST_PHP_ARGS="-n -d extension=xml -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 %{__php} -n run-tests.php -q --show-diff
@@ -170,8 +166,8 @@ TEST_PHP_ARGS="-n -d extension=xml -d extension=%{buildroot}%{php_extdir}/%{pecl
 
 
 %files
-%license NTS/LICENSE
-%license NTS/libxmlrpc/COPYING
+%license %{sources}/LICENSE
+%license %{sources}/libxmlrpc/COPYING
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -185,6 +181,9 @@ TEST_PHP_ARGS="-n -d extension=xml -d extension=%{buildroot}%{php_extdir}/%{pecl
 
 
 %changelog
+* Thu Aug 24 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~rc3-7
+- build out of sources tree and fix FTBFS
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~rc3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 %bcond_without      tests
 
 # Github
-%global gh_commit    b6fa04f42f49156eaab3fb890c79f4c43a9559b7
+%global gh_commit    f9f3d1fba8916fa2f4ec25636c4fedc26cb94e02
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   http
@@ -24,8 +24,8 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Library for dealing with http requests and responses
-Version:        5.1.7
-Release:        2%{?dist}
+Version:        5.1.10
+Release:        1%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 License:        BSD-3-Clause
@@ -181,6 +181,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 24 2023 Remi Collet <remi@remirepo.net> - 5.1.10-1
+- update to 5.1.10
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

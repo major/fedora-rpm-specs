@@ -5,7 +5,7 @@
 %global crate versionize_derive
 
 Name:           rust-versionize_derive
-Version:        0.1.5
+Version:        0.1.6
 Release:        %autorelease
 Summary:        Implements the Versionize derive proc macro
 

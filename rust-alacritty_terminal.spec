@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/alacritty_terminal
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          alacritty_terminal-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * bump vte from 0.10.0 to 0.11.0
+Patch:          alacritty_terminal-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

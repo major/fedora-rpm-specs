@@ -2,24 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/vultr/govultr
-%global goipath         github.com/vultr/govultr/v3
-Version:                3.3.1
+# https://github.com/exoscale/egoscale
+%global goipath         github.com/exoscale/egoscale
+Version:                0.100.1
 
 %gometa -f
 
-
 %global common_description %{expand:
-Vultr Go API client.}
+Exoscale golang bindings.}
 
 %global golicenses      LICENSE
-%global godocs          CHANGELOG.md CONTRIBUTING.md README.md
+%global godocs          AUTHORS CHANGELOG.md README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Vultr Go API client
+Summary:        Exoscale golang bindings
 
-License:        MIT
+License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
 
@@ -33,6 +32,7 @@ Source:         %{gosource}
 
 %generate_buildrequires
 %go_generate_buildrequires
+
 
 %install
 %gopkginstall

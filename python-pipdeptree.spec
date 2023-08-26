@@ -6,7 +6,7 @@ packages in form of a dependency tree. It works for packages installed\
 globally on a machine as well as in a virtualenv.
 
 Name:           python-%{srcname}
-Version:        2.8.0
+Version:        2.13.0
 Release:        %autorelease
 Summary:        Command line utility to show dependency tree of packages
 
@@ -49,7 +49,8 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_save_files %{srcname}
 
 %check
-%pytest
+# test_console expects /usr/bin/pipdeptree to exists
+%pytest -k "not test_console"
 
 %files -n python3-%{srcname} -f %pyproject_files
 %license LICENSE

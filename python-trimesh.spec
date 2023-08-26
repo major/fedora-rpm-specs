@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        3.23.3
+Version:        3.23.5
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -66,6 +66,7 @@ BuildArch:      noarch
 
 Recommends:     python3-trimesh+easy = %{version}-%{release}
 Suggests:       python3-trimesh+all = %{version}-%{release}
+Suggests:       python3-trimesh+recommends = %{version}-%{release}
 
 # A number of external command-line executables provide optional functionality.
 # We choose to make these weak dependencies (Recommends). Hints (Suggests)
@@ -127,7 +128,7 @@ Recommends:     /usr/bin/openscad
 
 
 %if 0%{?fedora} > 38
-%pyproject_extras_subpkg -n python3-trimesh easy all
+%pyproject_extras_subpkg -n python3-trimesh easy all recommends
 %else
 # We base these extras metapackages
 # (https://fedoraproject.org/wiki/Changes/PythonExtras#Extras_metapackages)
@@ -169,6 +170,8 @@ It makes sure the dependencies are installed.
 
 %files -n python3-trimesh+all
 %ghost %{python3_sitelib}/*.dist-info
+
+%pyproject_extras_subpkg -n python3-trimesh recommends
 %endif
 
 
@@ -199,27 +202,29 @@ It makes sure the dependencies are installed.
 #
 # [all]
 %if %{without skimage}
-sed -r -i "/^[[:blank:]]*'scikit-image',/d" setup.py
+sed -r -i '/^[[:blank:]]*"scikit-image",/d' setup.py
 %endif
-#   glooey: not yet packaged, https://github.com/kxgames/glooey; needs fonts
-#           that are not currently packaged unbundled from its assets
-sed -r -i "/^[[:blank:]]*'glooey',/d" setup.py
-#   meshio: not yet packaged, https://github.com/nschloe/meshio
-sed -r -i "/^[[:blank:]]*'meshio',/d" setup.py
 #   python-fcl: not yet packaged; upstream is not compatible with the current
 #               release of fcl,
 #               https://github.com/BerkeleyAutomation/python-fcl/issues/19
-sed -r -i "/^[[:blank:]]*'python-fcl',/d" setup.py
+sed -r -i '/^[[:blank:]]*"python-fcl",/d' setup.py
 #   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
 #           depends on https://github.com/jpcy/xatlas, also not yet packaged
-sed -r -i "/^[[:blank:]]*'xatlas',/d" setup.py
+sed -r -i '/^[[:blank:]]*"xatlas",/d' setup.py
 #
 # [easy]
 #   embreex: not packaged, https://github.com/mikedh/embreeX; this would
 #   require version 2.x of embree, which was once available in a compat package
 #   (https://src.fedoraproject.org/rpms/embree2) but was retired; the current
 #   version was 4.x.
-sed -r -i "/^[[:blank:]]*'embreex',/d" setup.py
+sed -r -i '/^[[:blank:]]*"embreex",/d' setup.py
+#
+# [recommends]
+#   meshio: not yet packaged, https://github.com/nschloe/meshio
+sed -r -i '/^[[:blank:]]*"meshio",/d' setup.py
+#   glooey: not yet packaged, https://github.com/kxgames/glooey; needs fonts
+#           that are not currently packaged unbundled from its assets
+sed -r -i '/^[[:blank:]]*"glooey",/d' setup.py
 
 # Patch out an unavailable test dependency:
 #
@@ -227,7 +232,7 @@ sed -r -i "/^[[:blank:]]*'embreex',/d" setup.py
 #              bundles MeshLab, which is a nontrivial package that has its own
 #              bundling; see “Support a system/external copy of meshlab?”
 #              https://github.com/cnr-isti-vclab/PyMeshLab/issues/309
-sed -r -i "/^[[:blank:]]*'pymeshlab',/d" setup.py
+sed -r -i '/^[[:blank:]]*"pymeshlab",/d' setup.py
 
 # Stub out unavailable pyinstrument test dependency; we don’t really need to do
 # profiling anyway. Note that this does mean that API function
@@ -252,7 +257,7 @@ class Profiler(object):
 Profiling output would be here if pyinstrument were available.
 """
 EOF
-sed -r -i "/'pyinstrument',/d" setup.py
+sed -r -i '/"pyinstrument",/d' setup.py
 
 
 %generate_buildrequires

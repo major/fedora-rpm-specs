@@ -2,7 +2,7 @@
 
 Name:		usb_modeswitch
 Version:	2.6.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	USB Modeswitch gets mobile broadband cards in operational mode
 Summary(de):	USB Modeswitch aktiviert UMTS-Karten
 License:	GPLv2+
@@ -41,7 +41,7 @@ Vodafone, Option, ZTE und Novatell werden unterstützt.
 %setup -q -n %{source_name}-%{version}
 cp -f %{SOURCE1} device_reference.txt
 
-%patch0 -p0
+%patch 0 -p0
 
 
 %build
@@ -66,10 +66,15 @@ mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 %{_prefix}/lib/udev/usb_modeswitch
 %{_unitdir}/usb_modeswitch@.service
 %config(noreplace) %{_sysconfdir}/usb_modeswitch.conf
-%doc COPYING README ChangeLog device_reference.txt 
+%doc README ChangeLog device_reference.txt
+%license COPYING
 
 
 %changelog
+* Thu Aug 24 2023 Till Maas <opensource@till.name> - 2.6.1-8
+- Cleanup spec: use %%license, use %%patch 0
+- Use spdx license specifier
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
