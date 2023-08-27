@@ -19,7 +19,7 @@
 %endif
 
 Name:       tor
-Version:    0.4.7.14
+Version:    0.4.8.4
 Release:    1%{?dist}
 License:    BSD
 Summary:    Anonymizing overlay network for TCP
@@ -38,7 +38,7 @@ Source11:   tor@.service
 Source12:   tor-master.service
 Source20:   README
 
-Patch0:     tor-0.2.7.6-torrc-ControlSocket-and-CookieAuthFile.patch
+Patch0:     tor-0.4.8.4-torrc-ControlSocket-and-CookieAuthFile.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -184,6 +184,9 @@ fi
 
 
 %changelog
+* Fri Aug 25 2023 Marcel Härry <mh+fedora@scrit.ch> - 0.4.8.4-1
+- update to latest upstream release https://forum.torproject.org/t/stable-release-0-4-8-4/8884
+
 * Tue Aug 01 2023 Marcel Härry <mh+fedora@scrit.ch> - 0.4.7.14-1
 - update to latest upstream release
 

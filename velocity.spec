@@ -1,31 +1,31 @@
 %bcond_with bootstrap
 
 Name:           velocity
-Version:        1.7
-Release:        41%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 Summary:        Java-based template engine
 License:        ASL 2.0
 URL:            http://velocity.apache.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-# ./generate-tarball.sh
-Source0:        %{name}-%{version}.tar.gz
-Source1:        http://repo1.maven.org/maven2/org/apache/%{name}/%{name}/%{version}/%{name}-%{version}.pom
-# Remove bundled binaries which cannot be easily verified for licensing
-Source2:        generate-tarball.sh
+Source0:        https://github.com/apache/velocity-engine/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-Patch1:         0001-Port-to-apache-commons-lang3.patch
-Patch2:         0002-Force-use-of-JDK-log-chute.patch
-Patch3:         0003-CVE-2020-13936.patch
+Patch0:         0001-Template-is-a-reserved-keyword-in-javacc.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(commons-collections:commons-collections)
+BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
-BuildRequires:  mvn(org.apache:apache:pom:)
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
+BuildRequires:  mvn(org.codehaus.mojo:extra-enforcer-rules)
+BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
+BuildRequires:  mvn(junit:junit)
 %endif
 
 %description
@@ -56,48 +56,49 @@ Summary:        Javadoc for %{name}
 Javadoc for %{name}.
 
 %prep
-%setup -q
-cp %{SOURCE1} ./pom.xml
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%setup -q -n velocity-engine-%{version}
+%patch0 -p1
 
-find . -name '*.jar' ! -name 'test*.jar' -print -delete
-find . -name '*.class' ! -name 'Foo.class' -print -delete
+%mvn_alias : velocity:velocity
+%mvn_alias : org.apache.velocity:velocity
 
-# Disable unneeded features
-rm -r src/java/org/apache/velocity/{anakia,texen,servlet,convert}
-rm src/java/org/apache/velocity/runtime/log/{Avalon,Log4J}Log{Chute,System}.java
-rm src/java/org/apache/velocity/runtime/log/{CommonsLog,Servlet}LogChute.java
-rm src/java/org/apache/velocity/runtime/log/SimpleLog4JLogSystem.java
-rm src/java/org/apache/velocity/runtime/log/VelocityFormatter.java
-rm src/java/org/apache/velocity/app/event/implement/Escape{Html,JavaScript,Sql,Xml,}Reference.java
+%pom_remove_parent
+%pom_xpath_inject pom:project "<groupId>org.apache.velocity</groupId>"
 
-%pom_remove_dep :oro
-%pom_remove_dep :jdom
-%pom_remove_dep :commons-logging
-%pom_remove_dep :log4j
-%pom_remove_dep :servlet-api
-%pom_remove_dep :logkit
-%pom_remove_dep :ant
-%pom_remove_dep :werken-xpath
+%pom_disable_module spring-velocity-support
+%pom_disable_module velocity-custom-parser-example
+%pom_disable_module velocity-engine-examples
+%pom_disable_module velocity-engine-scripting
 
-%mvn_alias : %{name}:%{name}
+%pom_remove_plugin :maven-javadoc-plugin
+
+%pom_remove_plugin :templating-maven-plugin velocity-engine-core
+sed 's/${project.version}/%{version}/' \
+    velocity-engine-core/src/main/java-templates/org/apache/velocity/runtime/VelocityEngineVersion.java \
+   >velocity-engine-core/src/main/java/org/apache/velocity/runtime/VelocityEngineVersion.java
+
+%pom_remove_plugin com.google.code.maven-replacer-plugin:replacer velocity-engine-core
+%pom_remove_plugin :maven-shade-plugin velocity-engine-core
+
+%pom_xpath_remove "pom:dependency[pom:scope='test']" velocity-engine-core
 
 %build
-%mvn_build -f
+%mvn_build -f -- -Djavacc.visitor=false
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%doc README.txt
+%doc README.md
 %license LICENSE NOTICE
 
 %files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog
+* Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.3-1
+- Update to upstream version 2.3
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

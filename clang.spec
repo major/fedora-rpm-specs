@@ -16,7 +16,7 @@
 %global maj_ver 17
 %global min_ver 0
 %global patch_ver 0
-%global rc_ver 2
+%global rc_ver 3
 
 %if %{with snapshot_build}
 %undefine rc_ver
@@ -85,6 +85,9 @@ Patch3:     0001-Driver-Add-a-gcc-equivalent-triple-to-the-list-of-tr.patch
 # Drop the following patch after debugedit adds support to DWARF-5:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=28728
 Patch4:     0001-Produce-DWARF4-by-default.patch
+# Backport https://reviews.llvm.org/D158252 from LLVM 18
+Patch5:     0001-Fix-regression-of-D157680.patch
+
 
 # RHEL specific patches
 # Avoid unwanted dependency on python-recommonmark
@@ -634,6 +637,9 @@ false
 %endif
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Wed Aug 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-1
+- Update to LLVM 17.0.0 RC3
 
 * Mon Aug 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc2-1
 - Update to LLVM 17.0.0 RC2

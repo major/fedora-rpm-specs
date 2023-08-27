@@ -10,7 +10,7 @@
 
 Name:           inkscape
 Version:        1.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -19,8 +19,6 @@ Summary:        Vector-based drawing program using SVG
 License:        GPL-2.0-or-later AND CC-BY-3.0
 URL:            https://inkscape.org/
 Source0:        https://inkscape.org/release/inkscape-%{version}/source/archive/xz/dl/inkscape-%{version}.tar.xz
-# https://gitlab.com/inkscape/inkscape/-/merge_requests/5108
-#Patch:          0001-Fix-build-with-GCC13.patch
 
 # Fedora Color Palette, GIMP format, CC-BY 3.0
 Source2:	Fedora-Color-Palette.gpl
@@ -35,7 +33,6 @@ Provides: bundled(autotrace)
 Provides: bundled(libdepixelize)
 Provides: bundled(libuemf)
 Provides: bundled(adaptagrams)
-Provides: bundled(lib2geom)
 
 BuildRequires:  gcc-c++
 BuildRequires:  hunspell-devel hunspell-en
@@ -59,6 +56,7 @@ BuildRequires:  pkgconfig(GraphicsMagick++)
 %endif
 BuildRequires:  intltool
 BuildRequires:  lcms2-devel
+BuildRequires:  lib2geom-devel
 BuildRequires:  libpng-devel >= 1.2
 BuildRequires:  libwpg-devel
 BuildRequires:  libxml2-devel >= 2.6.11
@@ -78,6 +76,9 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libsigc++20-devel
 BuildRequires:  libsoup-devel
 BuildRequires:  gspell-devel
+%if 0%{?fedora} >= 39
+BuildRequires:  lib2geom-devel
+%endif
 BuildRequires: make
 
 # Disable all for now. TODO: Be smarter
@@ -102,6 +103,7 @@ Suggests:       tex(latex)
 Suggests:       tex(dvips)
 Suggests:       texlive-amsmath
 Suggests:       texlive-amsfonts
+Suggests:       texlive-standalone
 
 %description
 Inkscape is a vector graphics editor, with capabilities similar to
@@ -170,11 +172,6 @@ find $RPM_BUILD_ROOT -type f -name 'lib*.a' | xargs rm -f
 # No skencil anymore
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/extensions/sk2svg.sh
 
-# Don't install development files for bundled libraries
-rm -r $RPM_BUILD_ROOT%{_includedir}/2geom-1.3.0/
-rm -r $RPM_BUILD_ROOT%{_libdir}/cmake/2Geom
-rm $RPM_BUILD_ROOT%{_libdir}/pkgconfig/2geom.pc
-
 # Install Fedora Color Pallette
 install -pm 644 %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/inkscape/palettes/
 
@@ -239,6 +236,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Thu Aug 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-6
+- Use system lib2geom on f39+
+
 * Thu Aug 10 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-5
 - Bring back i686 on f39+
 

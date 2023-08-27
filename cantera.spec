@@ -1,24 +1,18 @@
+# RPATH issues are standard paths and result from upstream
+%global __brp_check_rpaths %{nil}
+%global debug_package %{nil}
 %global fork Cantera
 
 Name:          cantera
-Version:       2.6.0
+Version:       3.0.0
 Release:       %{?autorelease}%{!?autorelease:22{?dist}} 
 Summary:       Chemical kinetics, thermodynamics, and transport tool suite
 License:       BSD
 URL:           https://github.com/%{fork}/%{name}/
 Source0:       %{url}archive/refs/tags/v%{version}.tar.gz
 
-# thermoToYaml test failures on ppc64le and aarch64 and s390x - BZ #2081451
-# increase test tolerance to pass
-Patch0:        cantera-test-ppc64le-aarch64-s390x.patch
-
-# Fails to build under Python 3.11 due to deprecated mode 'rU' - BZ #2094258
-# implement patch until upstream releases fix
-Patch1:        cantera-py311-deprecated-U.patch
-
-# Fix failure to build with pip >= 21.1
-# Fixed upstream: https://github.com/Cantera/cantera/pull/1272
-Patch2:        fix-pip-build-21.1.patch
+# Python 3.12 currently in pre-release and not officially supported
+Patch0:        add-python3_12.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  eigen3-devel
@@ -31,10 +25,14 @@ BuildRequires:  gtest-devel
 BuildRequires:  python3
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
+BuildRequires:  python3-h5py
 BuildRequires:  python3-numpy
+BuildRequires:  python3-pandas
+BuildRequires:  python3-pint
 BuildRequires:  python3-pip
 BuildRequires:  python3-pytest
 BuildRequires:  python3-ruamel-yaml
+BuildRequires:  python3-scipy
 BuildRequires:  python3-scons
 BuildRequires:  python3-wheel
 BuildRequires:  sundials-devel
@@ -101,17 +99,13 @@ Summary: Static libraries for Cantera
 
 
 %prep
-%setup -n %{name}-%{version}
-%patch0 -p0
-%patch1 -p1
-%patch2 -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
 %set_build_flags
 
 %scons build \
-    cxx_flags='-std=c++14' \
-    extra_inc_dirs=/usr/include/eigen3 \
+    extra_inc_dirs=%{_includedir}/eigen3 \
     f90_interface=y \
     libdirname=%{_lib} \
     prefix=%{_prefix} \
@@ -143,14 +137,12 @@ Summary: Static libraries for Cantera
 %doc %{_mandir}/man1/ck2yaml.1.gz
 %doc %{_mandir}/man1/cti2yaml.1.gz
 %doc %{_mandir}/man1/ctml2yaml.1.gz
-%doc %{_mandir}/man1/ck2cti.1.gz
-%doc %{_mandir}/man1/ctml_writer.1.gz
+%doc %{_mandir}/man1/yaml2ck.1.gz
 
 %{_bindir}/ck2yaml
 %{_bindir}/cti2yaml
 %{_bindir}/ctml2yaml
-%{_bindir}/ctml_writer
-%{_bindir}/ck2cti
+%{_bindir}/yaml2ck
 
 %{_datadir}/%{name}
 
@@ -168,11 +160,12 @@ Summary: Static libraries for Cantera
 
 %{_libdir}/pkgconfig/cantera.pc
 %{_libdir}/libcantera.so
-%{_libdir}/libcantera.so.2
+%{_libdir}/libcantera.so.3
 %{_libdir}/libcantera.so.%{version}
 %{_libdir}/libcantera_fortran.so
-%{_libdir}/libcantera_fortran.so.2
+%{_libdir}/libcantera_fortran.so.3
 %{_libdir}/libcantera_fortran.so.%{version}
+%{_libdir}/libcantera_python*.so
 
 
 %files static

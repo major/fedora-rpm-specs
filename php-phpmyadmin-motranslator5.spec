@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-phpmyadmin-motranslator5
 #
-# Copyright (c) 2017-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2017-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    87baa97809ec556c40e4cba4bdef998a2de2a003
+%global gh_commit    d03b4d9c608e7265091bf6decc05323d16c7c047
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpmyadmin
 %global gh_project   motranslator
@@ -20,12 +20,12 @@
 %global sym_max_ver 7
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.3.0
-Release:        4%{?dist}
+Version:        5.3.1
+Release:        1%{?dist}
 Summary:        Translation API for PHP using Gettext MO files
 
 Group:          Development/Libraries
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
 
@@ -118,7 +118,7 @@ require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" php74 php80 php81; do
+for cmd in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmd; then
     set $cmd
     $1 -d apc.enable_cli=1 \
@@ -140,6 +140,9 @@ exit $ret
 
 
 %changelog
+* Fri Aug 25 2023 Remi Collet <remi@remirepo.net> - 5.3.1-1
+- update to 5.3.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

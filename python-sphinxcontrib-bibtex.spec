@@ -1,22 +1,22 @@
 Name:           python-sphinxcontrib-bibtex
-Version:        2.5.0
-Release:        5%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        Sphinx extension for BibTeX style citations
 
 License:        BSD-2-Clause
 URL:            https://github.com/mcmtroffaes/sphinxcontrib-bibtex
-Source0:        %{url}/archive/%{version}/sphinxcontrib-bibtex-%{version}.tar.gz
-# Skip the rinohtype tests if rinohtype is not available.  See
-# https://github.com/mcmtroffaes/sphinxcontrib-bibtex/commit/56961438ddad6773c17c5a389f7a26e29248e938
-Patch0:         %{name}-pytest.patch
-# Adapt to changed output in docutils >= 0.18 (already fixed upstream)
-Patch1:         %{name}-docutils.patch
+Source0:        %{url}/archive/%{version}/sphinxcontrib-bibtex-%{version}.post0.tar.gz
+# Suppress the sup tag in addition to the brackets in the ``:cite:alp:`` role
+# https://github.com/mcmtroffaes/sphinxcontrib-bibtex/commit/31d03b30e105f240228df5caa9df963fb8684a79
+# https://github.com/mcmtroffaes/sphinxcontrib-bibtex/commit/150c4614c0760cf7d5654449fae45c94296ca7bd
+Patch0:         %{name}-sup.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python-sphinx-doc
+BuildRequires:  %{py3_dist cython}
 BuildRequires:  %{py3_dist numpydoc}
 BuildRequires:  %{py3_dist pytest}
 
@@ -69,9 +69,12 @@ Documentation for python-sphinxcontrib-bibtex.
 %autosetup -p1 -n sphinxcontrib-bibtex-%{version}
 
 # Use local objects.inv for intersphinx
-sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
-    -e "s|\('http://www\.sphinx-doc\.org/en/master/', \)None|\1'%{_docdir}/python-sphinx-doc/html/objects.inv'|" \
+sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
+    -e 's|\("http://www\.sphinx-doc\.org/en/master/", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
     -i doc/conf.py
+
+# Fedora does not have autoapi, so do not try to test with it
+rm -fr test/test_autoapi.py test/roots/test-autoapi
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -116,6 +119,11 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 %doc html/*
 
 %changelog
+* Fri Aug 25 2023 Jerry James <loganjerry@gmail.com> - 2.6.0-1
+- Version 2.6.0.post0
+- Drop upstreamed patches
+- Add upstream patch to suppress the sup tag in the :cite:alp: role
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

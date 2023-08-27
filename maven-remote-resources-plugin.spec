@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           maven-remote-resources-plugin
-Version:        1.7.0
-Release:        12%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        Maven Remote Resources Plugin
 License:        ASL 2.0
 URL:            http://maven.apache.org/plugins/maven-remote-resources-plugin/
@@ -10,8 +10,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
-
-Patch0:         0001-Port-to-Maven-3.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -26,19 +24,20 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-plugins:pom:)
 BuildRequires:  mvn(org.apache.maven.shared:maven-common-artifact-filters)
 BuildRequires:  mvn(org.apache.maven.shared:maven-filtering)
 BuildRequires:  mvn(org.apache.maven.shared:maven-verifier)
-BuildRequires:  mvn(org.apache.maven.wagon:wagon-provider-api)
 BuildRequires:  mvn(org.apache.maven:maven-archiver)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-compat)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
+BuildRequires:  mvn(org.apache.maven:maven-model-builder)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven:maven-settings)
-BuildRequires:  mvn(org.apache.velocity:velocity)
+BuildRequires:  mvn(org.apache.velocity:velocity-engine-core)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-resources)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.eclipse.aether:aether-api)
+BuildRequires:  mvn(org.eclipse.aether:aether-util)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
 
 %description
@@ -57,7 +56,6 @@ API documentation for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %mvn_build
@@ -72,6 +70,9 @@ API documentation for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Wed Aug 23 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.1.0-1
+- Update to upstream version 3.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

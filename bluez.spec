@@ -5,8 +5,8 @@
 %endif
 
 Name:    bluez
-Version: 5.68
-Release: 2%{?dist}
+Version: 5.69
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
@@ -234,7 +234,6 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %doc AUTHORS ChangeLog
 %dir %{_sysconfdir}/bluetooth
 %config(noreplace) %{_sysconfdir}/bluetooth/main.conf
-%config %{_sysconfdir}/dbus-1/system.d/bluetooth.conf
 %{_bindir}/avinfo
 %{_bindir}/bluemoon
 %{_bindir}/bluetoothctl
@@ -246,6 +245,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_bindir}/l2test
 %{_bindir}/mpris-proxy
 %{_bindir}/rctest
+%{_mandir}/man1/bluetoothctl-mgmt.1.*
+%{_mandir}/man1/bluetoothctl-monitor.1.*
+%{_mandir}/man1/btmgmt.1.*
 %{_mandir}/man1/btattach.1.*
 %{_mandir}/man1/btmon.1.*
 %{_mandir}/man1/l2ping.1.*
@@ -255,6 +257,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_libexecdir}/bluetooth/bluetoothd
 %{_libdir}/bluetooth/
 %{_localstatedir}/lib/bluetooth
+%{_datadir}/dbus-1/system.d/bluetooth.conf
 %{_datadir}/dbus-1/system-services/org.bluez.service
 %{_unitdir}/bluetooth.service
 %{_datadir}/zsh/site-functions/_bluetoothctl
@@ -303,11 +306,10 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_udevrulesdir}/97-hid2hci.rules
 
 %files mesh
-#%doc tools/mesh-gatt/*.json
 %config(noreplace) %{_sysconfdir}/bluetooth/mesh-main.conf
-%config %{_sysconfdir}/dbus-1/system.d/bluetooth-mesh.conf
 %{_bindir}/mesh-cfgclient
 %{_bindir}/mesh-cfgtest
+%{_datadir}/dbus-1/system.d/bluetooth-mesh.conf
 %{_datadir}/dbus-1/system-services/org.bluez.mesh.service
 %{_libexecdir}/bluetooth/bluetooth-meshd
 %{_unitdir}/bluetooth-mesh.service
@@ -320,6 +322,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Aug 25 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.69-1
+- Update to 5.69
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.68-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

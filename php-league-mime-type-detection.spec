@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-league-mime-type-detection
 #
-# Copyright (c) 2020-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2020-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    ff6248ea87a9f116e78edd6002e39e5128a0d4dd
+%global gh_commit    a6dfb1194a2946fcdc1f38219445234f65b35c96
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     thephpleague
 %global gh_project   mime-type-detection
@@ -19,8 +19,8 @@
 %global ns_project   MimeTypeDetection
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        1.11.0
-Release:        4%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 Summary:        Mime-type detection for Flysystem
 
 License:        MIT
@@ -31,22 +31,22 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 
-BuildRequires:  php(language) >= 7.2
+BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-fileinfo
 BuildRequires:  php-json
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^8.5.8 || ^9.3",
+#        "phpunit/phpunit": "^8.5.8 || ^9.3 || ^10.0",
 #        "phpstan/phpstan": "^0.12.68",
 #        "friendsofphp/php-cs-fixer": "^3.2"
-BuildRequires:  phpunit9 >= 9.3
-%global phpunit %{_bindir}/phpunit9
+BuildRequires:  phpunit10
+%global phpunit %{_bindir}/phpunit10
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": "^7.2 || ^8.0",
+#        "php": "^7.4 || ^8.0",
 #        "ext-fileinfo": "*"
-Requires:       php(language) >= 7.2
+Requires:       php(language) >= 7.4
 Requires:       php-fileinfo
 # From phpcompatifo report for 1.4.0
 Requires:       php-json
@@ -96,13 +96,13 @@ sed -e 's/PHPStan\\Testing\\TestCase/PHPUnit\\Framework\\TestCase/' -i src/Overr
 : Run upstream test suite
 # the_generated_map_should_be_up_to_date is online
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" "php80 %{_bindir}/phpunit9" php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
-    $1 ${2:-%{_bindir}/phpunit9} \
+    $1 ${2:-%{_bindir}/phpunit10} \
       --filter '^((?!(the_generated_map_should_be_up_to_date)).)*$' \
       --no-coverage \
-      --verbose || ret=1
+      || ret=1
   fi
 done
 exit $ret
@@ -117,6 +117,11 @@ exit $ret
 
 
 %changelog
+* Fri Aug 25 2023 Remi Collet <remi@remirepo.net> - 1.13.0-1
+- update to 1.13.0
+- raise dependency on PHP 7.4
+- use phpunit10
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

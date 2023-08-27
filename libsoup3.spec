@@ -8,6 +8,13 @@ Summary: Soup, an HTTP library implementation
 License: LGPL-2.0-or-later
 URL:     https://wiki.gnome.org/Projects/libsoup
 Source0: https://download.gnome.org/sources/libsoup/3.4/libsoup-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/libsoup/-/merge_requests/374
+# https://gitlab.gnome.org/GNOME/libsoup/-/issues/361
+# https://gitlab.gnome.org/GNOME/libsoup/-/issues/348
+# Fixes a couple of cases where apps can crash in connection_disconnect()
+Patch:   0001-connection-manager-don-t-crash-if-connection-outlive.patch
+Patch:   0002-connection-auth-don-t-crash-if-connection-outlives-t.patch
+
 
 BuildRequires: gcc
 BuildRequires: gettext

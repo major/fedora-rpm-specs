@@ -4,8 +4,8 @@
 %global gitversion 58abea394
 
 Name:           libinput
-Version:        1.23.0
-Release:        3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        1.24.0
+Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 License:        MIT
@@ -17,9 +17,6 @@ Source2:        commitid
 %else
 Source0:        https://gitlab.freedesktop.org/libinput/libinput/-/archive/%{version}/libinput-%{version}.tar.bz2
 %endif
-
-Patch0001:      0001-evdev-Enable-natural-scrolling-by-default-on-Apple.patch
-Patch0002:      0001-touchpad-Disable-edge-palm-detection-Apple-touchpads.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc
@@ -156,6 +153,9 @@ intended to be run by users.
 
 
 %changelog
+* Fri Aug 25 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.24.0-1
+- libinput 1.24.0
+
 * Thu Jul 20 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.23.0-3
 - BuildRequires python3-rpm-macros for pathfix.py
 

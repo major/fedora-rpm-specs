@@ -1,9 +1,11 @@
 %global uid 133
 %global username bacula
 
+%bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
+
 Name:               bacula
 Version:            13.0.3
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 License:            AGPLv3 with exceptions
@@ -62,7 +64,9 @@ BuildRequires:      make
 BuildRequires:      ncurses-devel
 BuildRequires:      openldap-devel
 BuildRequires:      openssl-devel
+%if %{with qt}
 BuildRequires:      qt5-qtbase-devel
+%endif
 BuildRequires:      readline-devel
 BuildRequires:      sed
 BuildRequires:      sqlite-devel
@@ -238,6 +242,7 @@ based on a client/server architecture.
 This package contains the command-line management console for the bacula backup
 system.
 
+%if %{with qt}
 %package console-bat
 Summary:            Bacula bat console
 Requires:           bacula-libs%{?_isa} = %{version}-%{release}
@@ -262,6 +267,7 @@ based on a client/server architecture.
 
 This package contains the Gnome and KDE compatible tray monitor to monitor your
 bacula server.
+%endif
 
 %package devel
 Summary:            Bacula development files
@@ -303,14 +309,18 @@ sed -i -e 's|/bin/dash|/bin/sh|g' scripts/baculabackupreport.in
 %build
 export CFLAGS="%{optflags} -I%{_includedir}/ncurses"
 export CPPFLAGS="%{optflags} -I%{_includedir}/ncurses"
+%if %{with qt}
 export PATH="$PATH:%{_qt5_bindir}"
+%endif
 
 %configure \
     --disable-conio \
     --disable-rpath \
     --disable-s3 \
     --docdir=%{_datadir}/bacula \
+%if %{with qt}
     --enable-bat \
+%endif
     --enable-batch-insert \
     --enable-build-dird \
     --enable-build-stored \
@@ -363,6 +373,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # change between upgrades, so the versioned library name can not be used.
 rm -f %{buildroot}%{_libdir}/libbaccats.so
 
+%if %{with qt}
 # Bat
 install -p -m 644 -D src/qt-console/images/bat_icon.png %{buildroot}%{_datadir}/pixmaps/bat_icon.png
 install -p -m 644 -D scripts/bat.desktop %{buildroot}%{_datadir}/applications/bat.desktop
@@ -372,6 +383,9 @@ install -p -m 644 -D manpages/bacula-tray-monitor.1 %{buildroot}%{_mandir}/man1/
 install -p -m 644 -D %{SOURCE19} %{buildroot}%{_datadir}/pixmaps/bacula-tray-monitor.png
 install -p -m 644 -D scripts/bacula-tray-monitor.desktop %{buildroot}%{_datadir}/applications/bacula-tray-monitor.desktop
 install -p -m 755 -D src/qt-console/tray-monitor/.libs/bacula-tray-monitor %{buildroot}%{_sbindir}/bacula-tray-monitor
+%else
+rm -f %{buildroot}%{_mandir}/man1/bat.1*
+%endif
 
 # Logrotate
 mkdir -p %{buildroot}%{_localstatedir}/log/bacula
@@ -614,6 +628,7 @@ exit 0
 %{_sbindir}/bconsole
 %{_sbindir}/bbconsjson
 
+%if %{with qt}
 %files console-bat
 %config(noreplace) %{_sysconfdir}/bacula/bat.conf %attr(640,root,root)
 %{_datadir}/applications/bat.desktop
@@ -629,6 +644,7 @@ exit 0
 %{_datadir}/pixmaps/bacula-tray-monitor.png
 %{_mandir}/man1/bacula-tray-monitor.1*
 %{_sbindir}/bacula-tray-monitor
+%endif
 
 %files devel
 %{_includedir}/bacula
@@ -642,6 +658,9 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 13.0.3-3
+- Disable Qt components in RHEL builds
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

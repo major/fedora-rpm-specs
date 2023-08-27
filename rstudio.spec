@@ -26,9 +26,9 @@
 %global rstudio_visual_editor       panmirror-0.0.0
 %global rstudio_version_major       2023
 %global rstudio_version_minor       06
-%global rstudio_version_patch       1
-%global rstudio_version_suffix      524
-%global rstudio_git_revision_hash   547dcf861cac0253a8abb52c135e44e02ba407a1
+%global rstudio_version_patch       2
+%global rstudio_version_suffix      561
+%global rstudio_git_revision_hash   de44a3118f7963972e24a78b7a1ad48b4be8a217
 %global rstudio_version             %{rstudio_version_major}.%{rstudio_version_minor}.%{rstudio_version_patch}
 %global rstudio_codename            mountain-hydrangea
 %global rstudio_flags \
@@ -46,7 +46,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -343,6 +343,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Fri Aug 25 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.06.2+561-1
+- Update to 2023.06.2+561
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.06.1+524-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

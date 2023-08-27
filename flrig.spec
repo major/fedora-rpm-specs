@@ -2,8 +2,8 @@
 %global alpha 0
 
 Name:           flrig
-Version:        2.0.02
-Release:        2%{?dist}
+Version:        2.0.03
+Release:        1%{?dist}
 Summary:        Transceiver control program
 
 License:        GPL-3.0-or-later
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Aug 25 2023 Richard Shaw <hobbes1069@gmail.com> - 2.0.03-1
+- Update to 2.0.03.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.02-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

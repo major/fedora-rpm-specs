@@ -4,21 +4,21 @@
 Summary:   Local caching server
 Name:      passim
 Version:   0.1.1
-Release:   1%{?dist}
+Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/hughsie/%{name}
 Source0:   https://github.com/hughsie/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires: glib2-devel >= %{glib2_version}
-BuildRequires: systemd >= %{systemd_version}
-BuildRequires: systemd-rpm-macros
-BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: git-core
-BuildRequires: gobject-introspection-devel
+BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gnutls-devel
-BuildRequires: libsoup3-devel
+BuildRequires: gobject-introspection-devel
 BuildRequires: libappstream-glib
+BuildRequires: libsoup3-devel
+BuildRequires: meson
+BuildRequires: systemd-rpm-macros
+BuildRequires: systemd >= %{systemd_version}
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 
@@ -36,16 +36,15 @@ Files for development with %{name}.
 %autosetup -p1
 
 %build
-
 %meson
 %meson_build
-%meson_test
 
 %install
 %meson_install
-rm $RPM_BUILD_ROOT/var/lib/passim/data/*
+rm %{buildroot}/var/lib/passim/data/*
 
 %check
+%meson_test
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %post
@@ -60,21 +59,21 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files
 %doc README.md
 %license LICENSE
-%config(noreplace)%{_sysconfdir}/passim.conf
 %{_bindir}/passim
-%{_libexecdir}/passimd
+%config(noreplace)%{_sysconfdir}/passim.conf
 %dir %{_datadir}/passim
 %{_datadir}/passim/*.ico
 %{_datadir}/passim/*.css
 %{_datadir}/dbus-1/system.d/org.freedesktop.Passim.conf
 %{_datadir}/dbus-1/interfaces/org.freedesktop.Passim.xml
 %{_datadir}/dbus-1/system-services/org.freedesktop.Passim.service
-%{_mandir}/man1/passim.1*
-%{_datadir}/metainfo/org.freedesktop.Passim.metainfo.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.freedesktop.Passim.png
-%{_unitdir}/passim.service
+%{_datadir}/metainfo/org.freedesktop.Passim.metainfo.xml
 %{_libdir}/libpassim.so.1*
 %{_libdir}/girepository-1.0/Passim-1.0.typelib
+%{_libexecdir}/passimd
+%{_mandir}/man1/passim.1*
+%{_unitdir}/passim.service
 
 %files devel
 %{_datadir}/gir-1.0/Passim-1.0.gir

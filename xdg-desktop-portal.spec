@@ -31,6 +31,7 @@ BuildRequires: python3-pytest
 %if %{undefined rhel}
 BuildRequires: python3-pytest-xdist
 %endif
+BuildRequires: /usr/bin/rst2man
 BuildRequires: /usr/bin/xmlto
 
 Requires:      dbus
@@ -102,6 +103,7 @@ install -dm 755 %{buildroot}/%{_datadir}/xdg-desktop-portal/portals
 %{_libexecdir}/xdg-desktop-portal-validate-icon
 %{_libexecdir}/xdg-document-portal
 %{_libexecdir}/xdg-permission-store
+%{_mandir}/man5/portals.conf.5*
 %{_userunitdir}/xdg-desktop-portal.service
 %{_userunitdir}/xdg-desktop-portal-rewrite-launchers.service
 %{_userunitdir}/xdg-document-portal.service

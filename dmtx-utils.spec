@@ -1,6 +1,6 @@
 Name:           dmtx-utils
 Version:        0.7.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Tools for working with Data Matrix 2D bar-codes
 
 License:        LGPLv2+
@@ -8,6 +8,8 @@ License:        LGPLv2+
 # outdated info is still at http://libdmtx.sourceforge.net/
 URL:            https://github.com/dmtx
 Source0:        https://github.com/dmtx/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/dmtx/dmtx-utils/commit/f7b97efc3bd6fc2e4403803f46514ae28318743b
+Patch0:         dmtx-utils-0.7.6-buffer.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtool
@@ -54,6 +56,9 @@ libdmtx.
 
 
 %changelog
+* Fri Aug 25 2023 Dan Horák <dan@danny.cz> - 0.7.6-16
+- fix buffer overflow (rhbz#2228923)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,12 +2,21 @@
 
 Name:		python-%{upname}
 Version:	0.1.2
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Pattern matching and various utilities for file systems paths
 
 License:	MIT
 URL:		https://github.com/gorakhargosh/%{upname}
 Source0:	%{pypi_source %{upname}}
+# This is hacky, but I don't feel like writing a real fix for this
+# silly upstream approach. imp is retired in python 3.12, so we need
+# to not use it. This replaces the use of it with a marker string
+# we'll sub out with the real version in %prep
+# not upstreamable, upstream would need to do the mess recommended at
+# https://docs.python.org/3.12/whatsnew/3.12.html#removed , or just
+# use a less silly way of getting version numbers into setup.py...
+# reported as https://github.com/gorakhargosh/pathtools/issues/13
+Patch:		pathtools-0.1.2-version_imp.patch
 
 BuildArch:	noarch
 BuildRequires: make
@@ -30,7 +39,7 @@ Summary: %summary
 
 
 %prep
-%setup -qn %{upname}-%{version}
+%autosetup -n %{upname}-%{version} -p1
 
 # remove hashbang from lib's files
 sed -i -e '/#!\//d' pathtools/*.py
@@ -38,6 +47,9 @@ sed -i -e '/#!\//d' pathtools/*.py
 # Use the default sphinx theme
 # python-flask-sphinx-themes is orphaned
 sed -i "s/html_theme = 'flask'/html_theme = 'default'/" ./docs/source/conf.py
+
+# replace the marker from the imp-removal patch with the real version
+sed -i -e "s,||VERSION||,'%{version}',g" setup.py
 
 %build
 %py3_build
@@ -60,6 +72,9 @@ popd
 
 
 %changelog
+* Fri Aug 25 2023 Adam Williamson <awilliam@redhat.com> - 0.1.2-33
+- Use a hacky patch to get rid of imp usage so it'll build with Python 3.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

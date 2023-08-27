@@ -3,7 +3,7 @@
 Name:           apache-resource-bundles
 Epoch:          1
 Version:        1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apache Resource Bundles
 License:        ASL 2.0
 URL:            https://maven.apache.org/apache-resource-bundles/
@@ -11,6 +11,8 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://repo1.maven.org/maven2/org/apache/apache/resources/apache-resource-bundles/%{version}/apache-resource-bundles-%{version}-source-release.zip
+
+Patch0:         0001-Port-ITs-to-Maven-Verifier-2.0.0-M1.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -30,6 +32,7 @@ and notices for all Apache releases.
 
 %prep
 %setup -q
+%patch0 -p1
 %pom_disable_module resources-bundles-sample
 %mvn_alias :apache-jar-resource-bundle org.apache:
 
@@ -44,6 +47,9 @@ and notices for all Apache releases.
 %license LICENSE NOTICE
 
 %changelog
+* Wed Aug 23 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.5-2
+- Port to maven-verifier 2.0.0~M1
+
 * Fri Aug 11 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.5-1
 - Update to upstream version 1.5
 

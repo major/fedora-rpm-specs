@@ -103,6 +103,7 @@ Requires:       kf5-kio-devel%{?_isa}
 
 %build
 %cmake_kf5 \
+  %{?flatpak:-DFLATPAK:BOOL=ON} \
   -DKDE_INSTALL_SYSTEMDUSERUNITDIR=%{_userunitdir} \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
 
@@ -123,6 +124,13 @@ desktop-file-edit \
   --add-only-show-in=KDE \
   --set-key=Exec --set-value="dolphin --daemon" \
   %{buildroot}%{_kf5_sysconfdir}/xdg/autostart/org.kde.%{name}.desktop
+%endif
+
+%if 0%{?flatpak}
+for i in 16 22 32 48 64 128; do
+  install -D -m0644 src/icons/${i}-system-file-manager.png %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/system-file-manager.png
+done
+install -D -m0644 src/icons/system-file-manager.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/system-file-manager.svg
 %endif
 
 
@@ -147,7 +155,11 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %if 0%{?dolphin_autostart}
 %{_kf5_sysconfdir}/xdg/autostart/org.kde.%{name}.desktop
 %else
+%if 0%{?flatpak}
+%{_datadir}/dbus-1/services/org.freedesktop.FileManager1.service
+%else
 %{_datadir}/dbus-1/services/org.kde.dolphin.FileManager1.service
+%endif
 %endif
 %{_userunitdir}/*
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
@@ -159,6 +171,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %dir %{_kf5_datadir}/dolphin
 %{_kf5_datadir}/dolphin/dolphinpartactions.desktop
 %{_kf5_datadir}/zsh/site-functions/_dolphin
+%if 0%{?flatpak}
+%{_datadir}/icons/hicolor/*/apps/system-file-manager.*
+%endif
 
 %files libs
 %{_kf5_libdir}/libdolphinprivate.so.*

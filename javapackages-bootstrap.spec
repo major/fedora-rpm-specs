@@ -18,7 +18,7 @@
 #global git_short_hash %(echo %{git_hash} | cut -b -7)
 
 Name:           javapackages-bootstrap
-Version:        1.12.0
+Version:        1.13.0
 Release:        1%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
@@ -77,91 +77,93 @@ Source1035:     httpcomponents-parent-pom.tar.xz
 Source1036:     injection-api.tar.xz
 Source1037:     jaf-api.tar.xz
 Source1038:     jansi.tar.xz
-Source1039:     jcommander.tar.xz
-Source1040:     jctools.tar.xz
-Source1041:     jdom.tar.xz
-Source1042:     jdom2.tar.xz
-Source1043:     jflex.tar.xz
-Source1044:     jsoup.tar.xz
-Source1045:     jsr-305.tar.xz
-Source1046:     junit4.tar.xz
-Source1047:     junit5.tar.xz
-Source1048:     log4j.tar.xz
-Source1049:     mail-api.tar.xz
-Source1050:     maven-antrun-plugin.tar.xz
-Source1051:     maven-apache-resources.tar.xz
-Source1052:     maven-archiver.tar.xz
-Source1053:     maven-artifact-transfer.tar.xz
-Source1054:     maven-assembly-plugin.tar.xz
-Source1055:     maven-bundle-plugin.tar.xz
-Source1056:     maven-common-artifact-filters.tar.xz
-Source1057:     maven-compiler-plugin.tar.xz
-Source1058:     maven-dependency-analyzer.tar.xz
-Source1059:     maven-dependency-plugin.tar.xz
-Source1060:     maven-dependency-tree.tar.xz
-Source1061:     maven-enforcer.tar.xz
-Source1062:     maven-file-management.tar.xz
-Source1063:     maven-filtering.tar.xz
-Source1064:     maven-jar-plugin.tar.xz
-Source1065:     maven-parent-pom.tar.xz
-Source1066:     maven-plugin-testing.tar.xz
-Source1067:     maven-plugin-tools.tar.xz
-Source1068:     maven-remote-resources-plugin.tar.xz
-Source1069:     maven-resolver.tar.xz
-Source1070:     maven-resources-plugin.tar.xz
-Source1071:     maven-shared-incremental.tar.xz
-Source1072:     maven-shared-io.tar.xz
-Source1073:     maven-shared-utils.tar.xz
-Source1074:     maven-source-plugin.tar.xz
-Source1075:     maven-surefire.tar.xz
-Source1076:     maven-verifier.tar.xz
-Source1077:     maven-wagon.tar.xz
-Source1078:     maven.tar.xz
-Source1079:     mockito.tar.xz
-Source1080:     modello.tar.xz
-Source1081:     modulemaker-maven-plugin.tar.xz
-Source1082:     mojo-parent-pom.tar.xz
-Source1083:     objenesis.tar.xz
-Source1084:     opentest4j.tar.xz
-Source1085:     osgi-annotation.tar.xz
-Source1086:     osgi-cmpn.tar.xz
-Source1087:     osgi-core.tar.xz
-Source1088:     oss-parent-pom.tar.xz
-Source1089:     plexus-archiver.tar.xz
-Source1090:     plexus-build-api.tar.xz
-Source1091:     plexus-cipher.tar.xz
-Source1092:     plexus-classworlds.tar.xz
-Source1093:     plexus-compiler.tar.xz
-Source1094:     plexus-components-pom.tar.xz
-Source1095:     plexus-containers.tar.xz
-Source1096:     plexus-interpolation.tar.xz
-Source1097:     plexus-io.tar.xz
-Source1098:     plexus-languages.tar.xz
-Source1099:     plexus-pom.tar.xz
-Source1100:     plexus-resources.tar.xz
-Source1101:     plexus-sec-dispatcher.tar.xz
-Source1102:     plexus-utils.tar.xz
-Source1103:     qdox.tar.xz
-Source1104:     servlet-api.tar.xz
-Source1105:     sisu-inject.tar.xz
-Source1106:     sisu-mojos.tar.xz
-Source1107:     sisu-plexus.tar.xz
-Source1108:     slf4j.tar.xz
-Source1109:     testng.tar.xz
-Source1110:     univocity-parsers.tar.xz
-Source1111:     velocity-engine.tar.xz
-Source1112:     xbean.tar.xz
-Source1113:     xmlunit.tar.xz
-Source1114:     xmvn-generator.tar.xz
-Source1115:     xmvn.tar.xz
-Source1116:     xz-java.tar.xz
+Source1039:     javacc-maven-plugin.tar.xz
+Source1040:     javacc.tar.xz
+Source1041:     jcommander.tar.xz
+Source1042:     jctools.tar.xz
+Source1043:     jdom.tar.xz
+Source1044:     jdom2.tar.xz
+Source1045:     jflex.tar.xz
+Source1046:     jsoup.tar.xz
+Source1047:     jsr-305.tar.xz
+Source1048:     junit4.tar.xz
+Source1049:     junit5.tar.xz
+Source1050:     log4j.tar.xz
+Source1051:     mail-api.tar.xz
+Source1052:     maven-antrun-plugin.tar.xz
+Source1053:     maven-apache-resources.tar.xz
+Source1054:     maven-archiver.tar.xz
+Source1055:     maven-artifact-transfer.tar.xz
+Source1056:     maven-assembly-plugin.tar.xz
+Source1057:     maven-bundle-plugin.tar.xz
+Source1058:     maven-common-artifact-filters.tar.xz
+Source1059:     maven-compiler-plugin.tar.xz
+Source1060:     maven-dependency-analyzer.tar.xz
+Source1061:     maven-dependency-plugin.tar.xz
+Source1062:     maven-dependency-tree.tar.xz
+Source1063:     maven-enforcer.tar.xz
+Source1064:     maven-file-management.tar.xz
+Source1065:     maven-filtering.tar.xz
+Source1066:     maven-jar-plugin.tar.xz
+Source1067:     maven-parent-pom.tar.xz
+Source1068:     maven-plugin-testing.tar.xz
+Source1069:     maven-plugin-tools.tar.xz
+Source1070:     maven-remote-resources-plugin.tar.xz
+Source1071:     maven-resolver.tar.xz
+Source1072:     maven-resources-plugin.tar.xz
+Source1073:     maven-shared-incremental.tar.xz
+Source1074:     maven-shared-io.tar.xz
+Source1075:     maven-shared-utils.tar.xz
+Source1076:     maven-source-plugin.tar.xz
+Source1077:     maven-surefire.tar.xz
+Source1078:     maven-verifier.tar.xz
+Source1079:     maven-wagon.tar.xz
+Source1080:     maven.tar.xz
+Source1081:     mockito.tar.xz
+Source1082:     modello.tar.xz
+Source1083:     modulemaker-maven-plugin.tar.xz
+Source1084:     mojo-parent-pom.tar.xz
+Source1085:     objenesis.tar.xz
+Source1086:     opentest4j.tar.xz
+Source1087:     osgi-annotation.tar.xz
+Source1088:     osgi-cmpn.tar.xz
+Source1089:     osgi-core.tar.xz
+Source1090:     oss-parent-pom.tar.xz
+Source1091:     plexus-archiver.tar.xz
+Source1092:     plexus-build-api.tar.xz
+Source1093:     plexus-cipher.tar.xz
+Source1094:     plexus-classworlds.tar.xz
+Source1095:     plexus-compiler.tar.xz
+Source1096:     plexus-components-pom.tar.xz
+Source1097:     plexus-containers.tar.xz
+Source1098:     plexus-interpolation.tar.xz
+Source1099:     plexus-io.tar.xz
+Source1100:     plexus-languages.tar.xz
+Source1101:     plexus-pom.tar.xz
+Source1102:     plexus-resources.tar.xz
+Source1103:     plexus-sec-dispatcher.tar.xz
+Source1104:     plexus-utils.tar.xz
+Source1105:     qdox.tar.xz
+Source1106:     servlet-api.tar.xz
+Source1107:     sisu-inject.tar.xz
+Source1108:     sisu-mojos.tar.xz
+Source1109:     sisu-plexus.tar.xz
+Source1110:     slf4j.tar.xz
+Source1111:     testng.tar.xz
+Source1112:     univocity-parsers.tar.xz
+Source1113:     velocity-engine.tar.xz
+Source1114:     xbean.tar.xz
+Source1115:     xmlunit.tar.xz
+Source1116:     xmvn-generator.tar.xz
+Source1117:     xmvn.tar.xz
+Source1118:     xz-java.tar.xz
 
-Provides:       bundled(ant) = 1.10.12
+Provides:       bundled(ant) = 1.10.14
 Provides:       bundled(aopalliance) = 1.0
 Provides:       bundled(apache-parent) = 30
 Provides:       bundled(apiguardian) = 1.1.2
 Provides:       bundled(objectweb-asm) = 9.5
-Provides:       bundled(assertj-core) = 3.19.0
+Provides:       bundled(assertj-core) = 3.24.2
 Provides:       bundled(aqute-bnd) = 5.2.0
 Provides:       bundled(build-helper-maven-plugin) = 3.4.0
 Provides:       bundled(byte-buddy) = 1.11.22
@@ -190,21 +192,23 @@ Provides:       bundled(google-guice) = 5.1.0
 Provides:       bundled(hamcrest) = 2.2
 Provides:       bundled(httpcomponents-client) = 4.5.13
 Provides:       bundled(httpcomponents-core) = 4.4.13
-Provides:       bundled(httpcomponents-project) = 12
+Provides:       bundled(httpcomponents-project) = 13
 Provides:       bundled(atinject) = 1.0.5
-Provides:       bundled(jakarta-activation1) = 1.2.2
+Provides:       bundled(jakarta-activation1) = 2.1.2
 Provides:       bundled(jansi) = 2.4.0
-Provides:       bundled(beust-jcommander) = 1.81
+Provides:       bundled(javacc-maven-plugin) = 3.0.1
+Provides:       bundled(javacc) = 7.0.12
+Provides:       bundled(beust-jcommander) = 1.82
 Provides:       bundled(jctools) = 4.0.1
 Provides:       bundled(jdom) = 1.1.3
-Provides:       bundled(jdom2) = 2.0.6
+Provides:       bundled(jdom2) = 2.0.6.1
 Provides:       bundled(jflex) = 1.7.0
 Provides:       bundled(jsoup) = 1.16.1
 Provides:       bundled(jsr-305) = 3.0.2
-Provides:       bundled(junit) = 4.13.1
-Provides:       bundled(junit5) = 5.8.1
-Provides:       bundled(log4j) = 2.17.2
-Provides:       bundled(jakarta-mail) = 1.6.7
+Provides:       bundled(junit) = 4.13.2
+Provides:       bundled(junit5) = 5.10.0
+Provides:       bundled(log4j) = 2.20.0
+Provides:       bundled(jakarta-mail) = 2.1.2
 Provides:       bundled(maven-antrun-plugin) = 3.1.0
 Provides:       bundled(maven-apache-resources) = 1.5
 Provides:       bundled(maven-archiver) = 3.6.0
@@ -231,11 +235,11 @@ Provides:       bundled(maven-shared-io) = 3.0.0
 Provides:       bundled(maven-shared-utils) = 3.4.2
 Provides:       bundled(maven-source-plugin) = 3.3.0
 Provides:       bundled(maven-surefire) = 3.1.2
-Provides:       bundled(maven-verifier) = 1.8.0
+Provides:       bundled(maven-verifier) = 2.0.0~M1
 Provides:       bundled(maven-wagon) = 3.5.3
 Provides:       bundled(maven) = 3.9.4
 Provides:       bundled(mockito) = 3.7.13
-Provides:       bundled(modello) = 2.0.0
+Provides:       bundled(modello) = 2.1.1
 Provides:       bundled(modulemaker-maven-plugin) = 1.9
 Provides:       bundled(mojo-parent) = 76
 Provides:       bundled(objenesis) = 3.3
@@ -266,7 +270,7 @@ Provides:       bundled(sisu-plexus) = 0.3.5
 Provides:       bundled(slf4j) = 1.7.36
 Provides:       bundled(testng) = 7.8.0
 Provides:       bundled(univocity-parsers) = 2.9.1
-Provides:       bundled(velocity) = 1.7
+Provides:       bundled(velocity) = 2.3
 Provides:       bundled(xbean) = 4.23
 Provides:       bundled(xmlunit) = 2.9.1
 Provides:       bundled(xmvn-generator) = 1.2.1
@@ -378,6 +382,9 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %doc AUTHORS
 
 %changelog
+* Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.13.0-1
+- Update to upstream version 1.13.0
+
 * Mon Aug 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.12.0-1
 - Update to upstream version 1.12.0
 

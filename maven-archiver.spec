@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           maven-archiver
-Version:        3.6.0
+Version:        3.6.1
 Release:        1%{?dist}
 Summary:        Maven Archiver
 License:        ASL 2.0
@@ -20,9 +20,8 @@ BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-archiver)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-io)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
 
 %description
@@ -37,6 +36,7 @@ Javadoc for %{name}.
 
 %prep
 %setup -q
+%pom_remove_dep :junit-bom
 
 %build
 %mvn_build
@@ -51,6 +51,9 @@ Javadoc for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.6.1-1
+- Update to upstream version 3.6.1
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.6.0-1
 - Update to upstream version 3.6.0
 

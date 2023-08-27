@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-parent
-Version:        59
+Version:        60
 Release:        1%{?dist}
 Summary:        Apache Commons Parent Pom
 License:        Apache-2.0
@@ -43,7 +43,6 @@ The Project Object Model files for the apache-commons packages.
 # Plugins useless in package builds
 %pom_remove_plugin :apache-rat-plugin
 %pom_remove_plugin :buildnumber-maven-plugin
-%pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :maven-site-plugin
 %pom_remove_plugin :maven-source-plugin
 %pom_remove_plugin :versions-maven-plugin
@@ -69,6 +68,9 @@ done
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 60-1
+- Update to upstream version 60
+
 * Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 59-1
 - Update to upstream version 59
 

@@ -4,7 +4,7 @@ Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Name:           p11-kit
 Summary:        Library for loading and sharing PKCS#11 modules
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://p11-glue.freedesktop.org/p11-kit.html
 Source0:        https://github.com/p11-glue/p11-kit/releases/download/%{version}/p11-kit-%{version}.tar.xz
 Source1:        https://github.com/p11-glue/p11-kit/releases/download/%{version}/p11-kit-%{version}.tar.xz.sig

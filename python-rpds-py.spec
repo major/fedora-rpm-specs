@@ -10,6 +10,9 @@ License:        MIT AND Apache-2.0 AND (MIT OR Apache-2.0) AND MPL-2.0
 URL:            https://github.com/crate-py/rpds
 Source:         %{pypi_source %{modname}}
 
+# Bump archery and rpds dependencies to v1.0.0
+Patch:          bump-dependencies.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # Also rust-rpds is not available on i686
 ExcludeArch:    %{ix86}

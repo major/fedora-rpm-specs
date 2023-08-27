@@ -1,6 +1,6 @@
 Name:           cockpit-composer
-Version:        45
-Release:        2%{?dist}
+Version:        46
+Release:        1%{?dist}
 Summary:        Composer GUI for use with Cockpit
 
 License:        MIT
@@ -8,6 +8,7 @@ URL:            http://weldr.io/
 Source0:        https://github.com/osbuild/cockpit-composer/releases/download/%{version}/cockpit-composer-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  libappstream-glib
 
 Requires:       cockpit
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 8
@@ -31,6 +32,7 @@ the cloud. It integrates into Cockpit as a frontend for osbuild.
 mkdir -p %{buildroot}/%{_datadir}/cockpit/composer
 cp -a public/* %{buildroot}/%{_datadir}/cockpit/composer
 mkdir -p %{buildroot}/%{_datadir}/metainfo/
+appstream-util validate-relax --nonet public/io.weldr.cockpit-composer.metainfo.xml
 cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/metainfo/ 
 
 %files
@@ -40,6 +42,11 @@ cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/met
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Aug 25 2023 Packit <hello@packit.dev> - 46-1
+- Fix blueprint config bugs
+- Update translations
+- Update NPM dependencies
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

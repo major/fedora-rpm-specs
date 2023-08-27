@@ -10,8 +10,8 @@
 %global pear_name Mail
 
 Name:           php-pear-Mail
-Version:        1.5.0
-Release:        4%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Class that provides multiple interfaces for sending emails
 
 License:        BSD-3-Clause
@@ -81,6 +81,9 @@ fi
 
 
 %changelog
+* Fri Aug 25 2023 Remi Collet <remi@remirepo.net> - 1.5.1-1
+- update to 1.5.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

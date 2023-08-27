@@ -16,19 +16,13 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.12.0
+Version:        4.12.1
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
 License:        LGPL-2.0-or-later
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/4.12/gtk-%{version}.tar.xz
-# Backported upstream MR
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6293
-Patch0:         6293.patch
-# Backported upstream MR
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6250
-Patch1:         6250.patch
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils

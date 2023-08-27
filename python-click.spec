@@ -1,19 +1,18 @@
-%global pypi_name click
-
-Name:           python-%{pypi_name}
+Name:           python-click
 Version:        8.1.3
 Release:        5%{?dist}
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
-License:        BSD
-URL:            https://github.com/mitsuhiko/click
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+License:        BSD-3-Clause
+URL:            https://github.com/pallets/click
+Source0:        %{url}/archive/%{version}/click-%{version}.tar.gz
 
 # Fix test failures with pytest 7.3.0
-# From https://github.com/pallets/click/issues/2489#issuecomment-1504160617 by Ran Benita 
+# From https://github.com/pallets/click/issues/2489#issuecomment-1504160617 by Ran Benita
 Patch:          pytest-7.3.patch
 
 BuildArch:      noarch
+BuildRequires:  python%{python3_pkgversion}-devel
 
 %global _description \
 click is a Python package for creating beautiful command line\
@@ -23,35 +22,40 @@ comes with good defaults out of the box.
 
 %description %{_description}
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+
+%package -n     python%{python3_pkgversion}-click
 Summary:        %{summary}
 
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  pyproject-rpm-macros
+%description -n python%{python3_pkgversion}-click %{_description}
 
-%description -n python%{python3_pkgversion}-%{pypi_name} %{_description}
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n click-%{version} -p1
 # Use test dependencies without version locks
 sed -i 's|requirements/tests.txt|requirements/tests.in|' tox.ini
+
 
 %generate_buildrequires
 %pyproject_buildrequires -t
 
+
 %build
 %pyproject_wheel
 
+
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files click
+
 
 %check
 %tox
 
-%files -n python%{python3_pkgversion}-%{pypi_name} -f %pyproject_files
+
+%files -n python%{python3_pkgversion}-click -f %pyproject_files
 %license LICENSE.rst
 %doc README.rst CHANGES.rst
+
 
 %changelog
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.3-5

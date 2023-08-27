@@ -15,7 +15,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        45~beta
+Version:        45~rc
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
@@ -28,6 +28,7 @@ BuildRequires:  docbook-style-xsl libxslt
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  meson
+BuildRequires:  setxkbmap
 BuildRequires:  pkgconfig(accountsservice)
 BuildRequires:  pkgconfig(clutter-gtk-1.0)
 BuildRequires:  pkgconfig(colord)

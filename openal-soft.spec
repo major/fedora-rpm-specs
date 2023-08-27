@@ -1,6 +1,6 @@
 Name:           openal-soft
 Version:        1.23.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Audio Library
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -19,10 +19,14 @@ BuildRequires:  portaudio-devel
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  pipewire-devel
 %endif
+%if 0%{?fedora}
 BuildRequires:  libmysofa-devel
+%endif
 BuildRequires:  libsndfile-devel
 BuildRequires:  pulseaudio-libs-devel
+%if 0%{?fedora} || 0%{?rhel} <= 9
 BuildRequires:  qt5-qtbase-devel
+%endif
 BuildRequires:  SDL2-devel
 Obsoletes:      openal <= 0.0.10
 Provides:       openal = %{version}
@@ -55,6 +59,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description	examples
 Sample applications for OpenAl Soft.
 
+%if 0%{?fedora} || 0%{?rhel} <= 9
 %package        qt
 Summary:        Qt frontend for configuring OpenAL Soft
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -62,6 +67,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    qt
 The %{name}-qt package contains alsoft-config, a Qt-based tool
 for configuring OpenAL features.
+%endif
 
 %prep
 %autosetup -p1
@@ -98,7 +104,9 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %exclude %{_datadir}/openal/presets/presets.txt
 
 %files devel
+%if 0%{?fedora}
 %{_bindir}/makemhr
+%endif
 %{_includedir}/*
 %{_libdir}/libopenal.so
 %{_libdir}/pkgconfig/openal.pc
@@ -115,10 +123,15 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %{_bindir}/alrecord
 %{_bindir}/altonegen
 
+%if 0%{?fedora} || 0%{?rhel} <= 9
 %files qt
 %{_bindir}/alsoft-config
+%endif
 
 %changelog
+* Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.23.1-3
+- Drop libmysofa and qt5 from RHEL builds
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

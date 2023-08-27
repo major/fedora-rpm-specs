@@ -1,8 +1,8 @@
 #global candidate rc3
 
 Name:          libgpiod
-Version:       2.0.1
-Release:       5%{?candidate:.%{candidate}}%{?dist}
+Version:       2.0.2
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/%{name}*.so
 
 %changelog
+* Fri Aug 25 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.2-1
+- Update to 2.02
+
 * Thu Jul 27 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.1-5
 - migrated to SPDX license
 

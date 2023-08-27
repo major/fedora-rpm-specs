@@ -2,8 +2,8 @@
 
 Summary: Qucs circuit simulator which works with SPICE
 Name:    qucs-s
-Version: 1.1.0
-Release: 2%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 License: GPLv2+
 URL:     https://ra3xdh.github.io/
 
@@ -21,8 +21,6 @@ BuildRequires: desktop-file-utils
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-linguist
 BuildRequires: qt5-qtsvg-devel
-# For the CR+LF fix
-BuildRequires: dos2unix
 Requires: ngspice
 Recommends: %{name}-library
 
@@ -65,9 +63,6 @@ Qucs-S examples.
 %prep
 %autosetup -n %{name_u}-%{version} -p1
 
-# Convert CR+LF to LF
-# https://github.com/ra3xdh/qucs_s/issues/115
-dos2unix CMakeLists.txt
 
 %build
 %cmake
@@ -105,6 +100,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Aug 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.0-1
+- New version
+  Resolves: rhbz#2232874
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

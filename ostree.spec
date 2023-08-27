@@ -7,8 +7,8 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2023.5
-Release: 3%{?dist}
+Version: 2023.6
+Release: 1%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
 URL: https://ostree.readthedocs.io/en/latest/
@@ -106,6 +106,7 @@ env NOCONFIGURE=1 ./autogen.sh
            --with-curl \
            --with-soup3 \
            --with-openssl \
+           --with-composefs \
            %{?with_tests:--enable-installed-tests=exclusive} \
            --with-dracut=yesbutnoconf
 %make_build
@@ -136,7 +137,6 @@ find %{buildroot} -name '*.la' -delete
 %{_prefix}/lib/systemd/system-generators/ostree-system-generator
 %exclude %{_sysconfdir}/grub.d/*ostree
 %exclude %{_libexecdir}/libostree/grub2*
-%exclude %{_libexecdir}/libostree/ostree-trivial-httpd
 %{_prefix}/lib/tmpfiles.d/*
 %{_prefix}/lib/ostree
 # Moved in git master
@@ -166,10 +166,12 @@ find %{buildroot} -name '*.la' -delete
 %files tests
 %{_libexecdir}/installed-tests
 %{_datadir}/installed-tests
-%{_libexecdir}/libostree/ostree-trivial-httpd
 %endif
 
 %changelog
+* Fri Aug 25 2023 Colin Walters <walters@verbum.org> - 2023.6-1
+- https://github.com/ostreedev/ostree/releases/tag/v2023.6
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

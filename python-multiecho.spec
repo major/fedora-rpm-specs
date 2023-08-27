@@ -5,37 +5,14 @@
 # rather than a usable test.
 %bcond tests 0
 
-# We temporarily package a post-release snapshot, with the following changes.
-# The justification is that we would have needed to apply most of this as
-# patches anyway, and the snapshot is cleaner and easier since it contains no
-# unwanted changes from the release (no functional changes to the
-# implementation or API).
-#
-# - Minor bugfixes to setup.py
-# - Do not install tests in site-packages
-# - Clarified the license usage
-# - Use argparse-manpage
-# - Minor cleanup in README.md
-%global commit b4078f0c3505be692279a6c322d687ed47d1f1bf
-%global snapdate 20230704
-
 Name:           python-multiecho
-Version:        0.28^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        0.29
 Release:        %autorelease
 Summary:        Combine multi-echoes from a multi-echo fMRI acquisition
 
-# In response to:
-#
-# Please clarify licenses
-# https://github.com/Donders-Institute/multiecho/issues/15
-#
-# Upstream confirmed disjunctive dual-licensing was intended in:
-#
-# Clarified the license usage (github issue #15)
-# https://github.com/Donders-Institute/multiecho/commit/70cc802c11dc051d122d42e9062a19fa275068ee
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/Donders-Institute/multiecho
-Source:         %{url}/archive/%{commit}/multiecho-%{commit}.tar.gz
+Source:         %{url}/archive/%{version}/multiecho-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -62,7 +39,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n multiecho-%{commit}
+%autosetup -n multiecho-%{version}
 # Remove the shebang from the multiecho.combination module; upstream seems to
 # have intended it to be directly executable as a script when working on the
 # source, but it will not be installed with the executable bit set, so the

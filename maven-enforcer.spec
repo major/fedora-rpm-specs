@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           maven-enforcer
-Version:        3.3.0
+Version:        3.4.0
 Release:        1%{?dist}
 Summary:        Maven Enforcer
 License:        Apache-2.0
@@ -21,7 +21,6 @@ BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-core)
@@ -108,6 +107,9 @@ find -name EvaluateBeanshell.java -delete
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.4.0-1
+- Update to upstream version 3.4.0
+
 * Tue Aug 15 2023 Marian Koncek <mkoncek@redhat.com> - 3.3.0-1
 - Update to upstream version 3.3.0
 

@@ -7,9 +7,12 @@
 %global debug_package %{nil}
 %endif
 
-# RHEL 8's default %%gobuild macro doesn't account for the BUILDTAGS variable, so we
-# set it separately here and do not depend on RHEL 8's go-srpm-macros package.
-%if %{defined rhel} && 0%{?rhel} == 8
+# RHEL's default %%gobuild macro doesn't account for the BUILDTAGS variable, so we
+# set it separately here and do not depend on RHEL's go-[s]rpm-macros package
+# until that's fixed.
+# c9s bz: https://bugzilla.redhat.com/show_bug.cgi?id=2227328
+# c8s bz: https://bugzilla.redhat.com/show_bug.cgi?id=2227331
+%if %{defined rhel}
 %define gobuild(o:) go build -buildmode pie -compiler gc -tags="rpm_crashtraceback libtrust_openssl ${BUILDTAGS:-}" -ldflags "-linkmode=external -compressdwarf=false ${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') -extldflags '%__global_ldflags'" -a -v -x %{?**};
 %endif
 
@@ -40,7 +43,8 @@ Epoch: %{conditional_epoch}
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.13.2
+Version: 1.13.3
+# The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
 %if %{defined golang_arches_future}

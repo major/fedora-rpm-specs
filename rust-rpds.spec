@@ -5,7 +5,7 @@
 %global crate rpds
 
 Name:           rust-rpds
-Version:        0.13.0
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Persistent data structures with structural sharing
 
