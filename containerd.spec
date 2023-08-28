@@ -7,7 +7,7 @@
 
 # https://github.com/containerd/containerd
 %global goipath         github.com/containerd/containerd
-Version:                1.6.19
+Version:                1.6.23
 
 %gometa
 
@@ -40,6 +40,8 @@ Patch1:         0002-Remove-windows-only-dep.patch
 Patch2:         0001-Use-typeurl.Any-instead-of-github.com-gogo-protobuf-.patch
 # To use with latest go-runc
 Patch3:         0001-Add-reaper-StartLocked.patch
+# To use with latest opencontainers/image-spec
+Patch4:         0001-opencontainers-image-spec-v1.1.0-rc3.patch
 
 BuildRequires:  btrfs-progs-devel
 BuildRequires:  go-md2man

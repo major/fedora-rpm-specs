@@ -2,7 +2,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 3.1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
@@ -15,7 +15,7 @@ BuildRequires: systemd
 BuildRequires: autoconf automake libtool
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires(post): systemd coreutils
+Requires(post): systemd coreutils procps-ng
 Requires(preun): systemd initscripts-service
 Requires(postun): systemd coreutils initscripts-service
 
@@ -30,7 +30,7 @@ the audit subsystem in the Linux 2.6 and later kernels.
 
 %package libs
 Summary: Dynamic library for libaudit
-License: LGPLv2+
+License: LGPL-2.0-or-later
 BuildRequires: libcap-ng-devel
 
 %description libs
@@ -39,7 +39,7 @@ applications to use the audit framework.
 
 %package libs-devel
 Summary: Header files for libaudit
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: kernel-headers >= 2.6.29
 
@@ -49,7 +49,7 @@ developing applications that need to use the audit framework libraries.
 
 %package -n python3-audit
 Summary: Python3 bindings for libaudit
-License: LGPLv2+
+License: LGPL-2.0-or-later
 BuildRequires: python3-devel python-setuptools swig
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Provides: audit-libs-python3 = %{version}-%{release}
@@ -62,7 +62,7 @@ and libauparse can be used by python3.
 
 %package -n audispd-plugins
 Summary: Plugins for the audit event dispatcher
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildRequires: krb5-devel libcap-ng-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -74,7 +74,7 @@ like relay events to remote machines.
 
 %package -n audispd-plugins-zos
 Summary: z/OS plugin for the audit event dispatcher
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildRequires: openldap-devel libcap-ng-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -181,7 +181,7 @@ fi
 %attr(755,root,root) %{python3_sitearch}/*
 
 %files
-%doc README ChangeLog init.d/auditd.cron
+%doc ChangeLog init.d/auditd.cron
 %{!?_licensedir:%global license %%doc}
 %license COPYING
 %attr(755,root,root) %{_datadir}/%{name}
@@ -255,6 +255,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Sat Aug 26 2023 Steve Grubb <sgrubb@redhat.com> 3.1.2-2
+- SPDX Migration
+
 * Sun Aug 06 2023 Steve Grubb <sgrubb@redhat.com> 3.1.2-1
 - New upstream release
 

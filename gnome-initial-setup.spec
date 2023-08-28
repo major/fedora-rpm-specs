@@ -3,6 +3,7 @@
 %global glib_required_version 2.63.1
 %global gtk_required_version 4.6
 %global geoclue_version 2.3.1
+%global gnome_desktop_version 44.0-6
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
@@ -16,14 +17,16 @@ URL:            https://wiki.gnome.org/Design/OS/InitialSetup
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 Source1:        vendor.conf
 
-Patch: 0001-gnome-initial-setup-Bump-GLib-required-version-to-2..patch
-Patch: 0002-driver-Specify-mode-via-flags-instead-of-boolean.patch
-Patch: 0003-gnome-initial-setup-Add-live-user-mode.patch
+Patch: 0001-keyboard-Get-default-input-sources-from-gnome-deskto.patch
+Patch: 0002-gnome-initial-setup-Bump-GLib-required-version-to-2..patch
+Patch: 0003-driver-Specify-mode-via-flags-instead-of-boolean.patch
 Patch: 0004-initial-setup-Don-t-show-duplicated-pages-between-mo.patch
-Patch: 0005-keyboard-Don-t-add-default-input-sources-if-input-so.patch
-Patch: 0006-gnome-initial-setup-Add-OEM-mode.patch
-Patch: 0007-polkit-Add-fedora-specfic-rules.patch
-
+Patch: 0005-summary-Write-uid-file-with-other-state-files.patch
+Patch: 0006-gnome-initial-setup-Add-live-user-mode.patch
+Patch: 0007-keyboard-Don-t-add-default-input-sources-if-input-so.patch
+Patch: 0008-gnome-initial-setup-Add-OEM-mode.patch
+Patch: 0009-polkit-Add-fedora-specfic-rules.patch
+Patch: 0010-gnome-initial-setup-Read-etc-sysconfig-anaconda.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -57,11 +60,13 @@ BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(pwquality)
 BuildRequires:  pkgconfig(rest-1.0)
 BuildRequires:  pkgconfig(webkitgtk-6.0)
+BuildRequires:  gnome-desktop4 >= %{gnome_desktop_version}
 
 # gnome-initial-setup is being run by gdm
 Requires: gdm
 Requires: geoclue2-libs%{?_isa} >= %{geoclue_version}
 Requires: glib2%{?_isa} >= %{glib_required_version}
+Requires: gnome-desktop4%{?_isa} >= %{gnome_desktop_version}
 # we install a rules file
 Requires: polkit-js-engine
 Requires: /usr/bin/tecla
@@ -94,7 +99,7 @@ cp %{SOURCE1} %{buildroot}%{_datadir}/gnome-initial-setup/
 %find_lang %{name}
 
 %pre
-useradd -rM -d %{_localstatedir}/lib/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null || :
+useradd -rM -d /run/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null || :
 
 %files -f %{name}.lang
 %license COPYING

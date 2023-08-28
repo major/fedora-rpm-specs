@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus
-Version:        45~beta
+Version:        45~beta2
 Release:        1%{?dist}
 Summary:        File manager for GNOME
 
@@ -144,6 +144,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Sat Aug 26 2023 Kalev Lember <klember@redhat.com> - 45~beta2-1
+- Update to 45.beta2
+
 * Fri Aug 11 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
 - Update to 45.beta
 

@@ -21,9 +21,17 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: systemd >= %{systemd_version}
 
 Requires: glib2%{?_isa} >= %{glib2_version}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
 Passim is a daemon that allows software to share files on your local network.
+
+%package libs
+Summary: Local caching server library
+
+%description libs
+libpassim is a library that allows software to share files on your local network
+using the passimd daemon.
 
 %package devel
 Summary: Development package for %{name}
@@ -69,11 +77,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/dbus-1/system-services/org.freedesktop.Passim.service
 %{_datadir}/icons/hicolor/scalable/apps/org.freedesktop.Passim.png
 %{_datadir}/metainfo/org.freedesktop.Passim.metainfo.xml
-%{_libdir}/libpassim.so.1*
 %{_libdir}/girepository-1.0/Passim-1.0.typelib
 %{_libexecdir}/passimd
 %{_mandir}/man1/passim.1*
 %{_unitdir}/passim.service
+
+%files libs
+%license LICENSE
+%{_libdir}/libpassim.so.1*
 
 %files devel
 %{_datadir}/gir-1.0/Passim-1.0.gir

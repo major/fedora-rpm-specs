@@ -2,8 +2,8 @@
 
 Summary: An X Window System tool for drawing basic vector graphics
 Name: xfig
-Version: 3.2.8b
-Release: 5%{?dist}
+Version: 3.2.9
+Release: 1%{?dist}
 License: MIT
 URL:     https://en.wikipedia.org/wiki/Xfig
 Source0: http://downloads.sourceforge.net/mcj/xfig-%{version}.tar.xz
@@ -11,8 +11,8 @@ Source1: xfig-icons.tar.gz
 Source2: xfig.desktop
 Source3: xfig.appdata.xml
 
-Patch0: xfig-3.2.5a-default-apps.patch
-Patch1: xfig-3.2.5-urwfonts.patch
+#Patch0: xfig-3.2.5a-default-apps.patch
+#Patch1: xfig-3.2.5-urwfonts.patch
 
 BuildRequires: make
 BuildRequires: gcc libtool
@@ -22,6 +22,7 @@ BuildRequires: libpng-devel
 BuildRequires: libICE-devel
 BuildRequires: libSM-devel
 BuildRequires: libX11-devel
+BuildRequires: libXft-devel
 BuildRequires: libXaw-devel
 BuildRequires: libXext-devel
 BuildRequires: libXi-devel
@@ -107,8 +108,8 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8b-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Sat Aug 26 2023 Ranjan Maitra <aarem@fedoraproject.org> - 3.2.9
+- New upstream release 3.2.9
 
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8b-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

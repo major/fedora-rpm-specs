@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        7.5
+Version:        7.6
 Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -261,6 +261,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Aug 26 2023 Sandro Mani <manisandro@gmail.com> - 7.6-1
+- Update to 7.6
+
 * Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 7.5-1
 - Update to 7.5
 

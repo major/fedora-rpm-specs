@@ -1,9 +1,16 @@
 # Break dependency loops in a bootstrap situation
 %bcond_with bootstrap
 
+# Disable Maven reporting in bootstrap mode and in RHEL
+%if %{with bootstrap} || 0%{?rhel}
+%bcond_with maven_reporting
+%else
+%bcond_without maven_reporting
+%endif
+
 Name:           javacc-maven-plugin
 Version:        3.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        JavaCC Maven Plugin
 
 License:        Apache-2.0
@@ -13,6 +20,9 @@ URL:            https://github.com/mojohaus/javacc-maven-plugin
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.java.dev.javacc:javacc)
@@ -22,8 +32,9 @@ BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:mojo-parent:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+%endif
 
-%if %{without bootstrap}
+%if %{with maven_reporting}
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-sink-api)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-site-renderer)
 BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-api)
@@ -52,7 +63,7 @@ rm -fr src/site
 
 # In bootstrap mode, disable documentation and reporting
 # Add in a formerly transitive dependency that is still needed
-%if %{with bootstrap}
+%if %{without maven_reporting}
 %pom_remove_dep org.apache.maven.doxia:
 %pom_remove_dep org.apache.maven.reporting:
 rm src/main/java/org/codehaus/mojo/javacc/JJDocMojo.java
@@ -69,6 +80,9 @@ rm src/main/java/org/codehaus/mojo/javacc/JJDocMojo.java
 %license LICENSE-2.0.txt src/main/resources/NOTICE
 
 %changelog
+* Sat Aug 26 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.1-3
+- Bootstrap using javapackages-bootstrap
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

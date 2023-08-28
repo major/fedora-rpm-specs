@@ -22,8 +22,8 @@
 %global shortcommit_tini %(c=%{commit_tini}; echo ${c:0:7})
 
 Name:           moby-engine
-Version:        23.0.4
-Release:        2%{?dist}
+Version:        24.0.5
+Release:        1%{?dist}
 Summary:        The open-source application container engine
 License:        Apache-2.0
 Source0:        %{git_moby}/archive/v%{version}/moby-%{version}.tar.gz
@@ -281,6 +281,9 @@ done
 %{_datadir}/nano/Dockerfile.nanorc
 
 %changelog
+* Wed Aug 23 2023 LuK1337 <priv.luk@gmail.com> - 24.0.5-1
+- Update moby-engine to 24.0.5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

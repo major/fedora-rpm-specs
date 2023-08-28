@@ -28,6 +28,15 @@ Source2:        hdfscli-avro.1
 # https://github.com/mtth/hdfs/issues/203
 Patch:          %{url}/pull/204.patch
 
+# Adjust Sphinx copyright strings to “<YEAR>, <AUTHOR>” form
+# https://github.com/mtth/hdfs/pull/206
+#
+# Fixes:
+#
+# python-hdfs FTBFS with Sphinx 7.1+ in Fedora Rawhide (F40)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2232580
+Patch:          %{url}/pull/206.patch
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 #

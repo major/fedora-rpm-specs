@@ -6,7 +6,7 @@
 %global crate base64
 
 Name:           rust-base64
-Version:        0.21.2
+Version:        0.21.3
 Release:        %autorelease
 Summary:        Encodes and decodes base64 as bytes or utf8
 

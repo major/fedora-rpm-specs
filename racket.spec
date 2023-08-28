@@ -1,16 +1,16 @@
 Name:           racket
 Version:        7.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        General purpose programming language
 
 License:        GPLv3 and LGPLv3 and MIT
 URL:            https://racket-lang.org
 Source0:        https://mirror.racket-lang.org/installers/%{version}/%{name}-%{version}-src.tgz
 
-# Remove SRFI library and docs with restrictive licensing. 
+# Remove SRFI library and docs with restrictive licensing.
 # See: https://github.com/racket/srfi/issues/4 (open)
 # Note: Upstream maintainers have confirmed this
-#       is safe, since the removed components are 
+#       is safe, since the removed components are
 #       extra elements which nothing else in the
 #       package depends on.
 # Note: SRFI 5 was replaced with a FOSS implementation.  Only
@@ -18,8 +18,8 @@ Source0:        https://mirror.racket-lang.org/installers/%{version}/%{name}-%{v
 Patch0:         racket-7.4-remove-nonfree.patch
 Patch1: racket-configure-c99.patch
 
-# Issue Building for armv7hl in koji
-ExcludeArch: %{arm} s390x
+# ppc64le: https://bugzilla.redhat.com/show_bug.cgi?id=2226390
+ExcludeArch: %{arm} s390x ppc64le
 
 # To compile the program
 BuildRequires: make
@@ -33,19 +33,19 @@ BuildRequires:  libffi-devel
 
 # For the racket/gui library (via libffi)
 # https://github.com/racket/gui/blob/master/gui-lib/mred/private/wx/gtk/gtk3.rkt
-BuildRequires:  gtk3 
+BuildRequires:  gtk3
 
 # For the racket/draw library (via libffi)
 # https://github.com/racket/draw/blob/master/draw-lib/racket/draw/unsafe/cairo-lib.rkt
-BuildRequires: cairo 
+BuildRequires: cairo
 # https://github.com/racket/draw/blob/master/draw-lib/racket/draw/unsafe/pango.rkt
-BuildRequires: pango 
+BuildRequires: pango
 # https://github.com/racket/draw/blob/master/draw-lib/racket/draw/unsafe/png.rkt
-BuildRequires: libpng 
+BuildRequires: libpng
 # https://github.com/racket/draw/blob/master/draw-lib/racket/draw/unsafe/jpeg.rkt
-BuildRequires: libjpeg-turbo 
+BuildRequires: libjpeg-turbo
 # https://github.com/racket/draw/blob/master/draw-lib/racket/draw/unsafe/glib.rkt
-BuildRequires: glib2 
+BuildRequires: glib2
 
 # To validate desktop file
 BuildRequires:  desktop-file-utils
@@ -58,9 +58,9 @@ Requires:       racket-pkgs = %{version}-%{release}
 Recommends:     racket-doc = %{version}-%{release}
 
 %description
-Racket is a general-purpose programming language as well as 
-the world's first ecosystem for developing and deploying new 
-languages. Make your dream language, or use one of the dozens 
+Racket is a general-purpose programming language as well as
+the world's first ecosystem for developing and deploying new
+languages. Make your dream language, or use one of the dozens
 already available.
 
 %prep
@@ -83,7 +83,7 @@ cd src
 # do not use generations on architectures
 # where it is broken
 #  (this is currently a no-op, since arm and s390x are not enabled yet.
-#   It is art of a fix that will land in a future release)
+#   It is part of a fix that will land in a future release)
 %configure \
 %ifarch %{arm} s390x
         --disable-generations \
@@ -97,7 +97,7 @@ cd src
 
 %install
 cd src
-%make_install 
+%make_install
 
 # Delete mred binaries and replace them with links.
 rm -vf ${RPM_BUILD_ROOT}%{_bindir}/mred
@@ -135,7 +135,7 @@ for i in $DOCS_TO_FIX; do
          ${RPM_BUILD_ROOT}/%{_datadir}/doc/racket/$i
 done
 
-# Remove the executable bit on legacy template file 
+# Remove the executable bit on legacy template file
 chmod -x ${RPM_BUILD_ROOT}%{_libdir}/racket/starter-sh
 
 %ldconfig_scriptlets
@@ -250,6 +250,9 @@ A local installation of the Racket documentation system.
 %{_datadir}/doc/racket
 
 %changelog
+* Sat Aug 26 2023 Jens Petersen <petersen@redhat.com> - 7.4-12
+- disable ppc64le (#2226390)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -309,8 +312,8 @@ A local installation of the Racket documentation system.
 
 * Wed Sep 5 2018 David Benoit <dbenoit@redhat.com> 7.0-2
 - Disable SSE math on i686 until issue is fixed upstream
-- Exclude ppc due to issue building Racket v7.0 and 
-  arch being deprecated in next release 
+- Exclude ppc due to issue building Racket v7.0 and
+  arch being deprecated in next release
 
 * Fri Aug 17 2018 David Benoit <dbenoit@redhat.com> 7.0-1
 - Update sources to Racket v7.0
@@ -337,15 +340,15 @@ A local installation of the Racket documentation system.
 - remove update-database post scripts
 - move libracket3m.so link into -devel
 - add ldconfig_scriptlets after install
-- remove disable debug_package and configure 
+- remove disable debug_package and configure
   with --disable-strip instead
-- add license to files section and update 
+- add license to files section and update
   license header field
 - validate desktop files
 - change ownership of /etc/racket
 - update changelog with release info
 - use specific man directory man/man1/*
-- refactor racket into subpackages 
+- refactor racket into subpackages
   racket-minimal, racket-collects, and racket-pkgs
 
 * Wed Apr 4 2018 David Benoit <dbenoit@redhat.com> 6.12-4
@@ -376,7 +379,7 @@ A local installation of the Racket documentation system.
 - Update to current stable version
 - Remove libedit readline patch (fixed upstream)
 - Break docs into separate package
-- Add scriptlets to set doc-open-url based on 
+- Add scriptlets to set doc-open-url based on
   whether docs are installed
 - Exclude armv7hl and s390x as target arches
 - Update description to match website

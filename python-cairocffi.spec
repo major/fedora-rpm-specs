@@ -2,7 +2,7 @@
 
 Name:           python-cairocffi
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        cffi-based cairo bindings for Python
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/cairocffi/
@@ -60,6 +60,9 @@ sed -i -e 's/, "flake8"//' -e 's/, "isort"//' pyproject.toml
 %doc README.rst
 
 %changelog
+* Sat Aug 26 2023 Orion Poplawski <orion@nwra.com> - 1.6.1-2
+- Drop rmdir SPECPARTS
+
 * Thu Aug 17 2023 Orion Poplawski <orion@nwra.com> - 1.6.1-1
 - Update to 1.6.1
 

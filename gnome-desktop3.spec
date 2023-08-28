@@ -31,7 +31,14 @@ Source4: loupe-defaults.list
 Source5: evince-defaults.list
 
 # https://fedoraproject.org/wiki/Changes/Enhanced_Inscript_as_default_Indic_IM
-Patch0:  make-inscript2-default-for-indic-languages.patch
+Patch: make-inscript2-default-for-indic-languages.patch
+
+# https://pagure.io/fedora-workstation/issue/362
+Patch: 0001-meson-Add-python3-to-build-scripts.patch
+Patch: 0002-gnome-languages-Add-function-to-detect-non-latin-lay.patch
+Patch: 0003-meson-Add-codegen-for-localed.patch
+Patch: 0004-languages-Add-functions-for-getting-default-input-so.patch
+
 
 BuildRequires: gcc
 BuildRequires: gettext
@@ -49,6 +56,8 @@ BuildRequires: pkgconfig(iso-codes)
 BuildRequires: pkgconfig(libseccomp)
 BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(xkeyboard-config)
+BuildRequires: python3
+BuildRequires: python3dist(langtable)
 
 Conflicts: shared-mime-info < 2.0-4
 Requires: shared-mime-info

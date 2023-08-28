@@ -5,7 +5,7 @@
 %global crate regex-syntax
 
 Name:           rust-regex-syntax
-Version:        0.7.4
+Version:        0.7.5
 Release:        %autorelease
 Summary:        Regular expression parser
 

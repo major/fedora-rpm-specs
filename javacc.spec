@@ -33,7 +33,7 @@
 
 Name:           javacc
 Version:        7.0.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          0
 Summary:        A parser/scanner generator for java
 
@@ -52,9 +52,11 @@ Patch0:         0001-Fix-javadoc-errors-in-JavaCharStream.template.patch
 # https://github.com/javacc/javacc/pull/259
 Patch1:         0002-Remove-extraneous-Deprecated-annotations.patch
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  javapackages-local
 BuildRequires:  ant
-%if %{without bootstrap}
 BuildRequires:  javacc
 %endif
 
@@ -97,10 +99,8 @@ Examples for %{name}.
 %prep
 %autosetup -n %{name}-%{name}-%{version} -p1
 
-%if %{without bootstrap}
 # Remove binary information in the source tar
 find . -name "*.jar" -delete
-%endif
 find examples -name .gitignore -delete
 
 fixtimestamp() {
@@ -117,13 +117,15 @@ sed -i.orig 's/\r//' examples/JJTreeExamples/cpp/eg3.jjt
 fixtimestamp examples/JJTreeExamples/cpp/eg3.jjt
 
 %build
-%if %{without bootstrap}
+%if %{with bootstrap}
+cp $(find-jar javapackages-bootstrap/javacc) bootstrap/javacc.jar
+%else
 build-jar-repository -p bootstrap javacc
 %endif
 
 # There is maven pom which doesn't really work for building. The tests don't
 # work either (even when using bundled jars).
-ant jar javadoc -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
+%ant jar javadoc -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
 
 # The pom dependencies are also wrong
 %mvn_artifact --skip-dependencies pom.xml target/javacc.jar
@@ -134,13 +136,9 @@ ant jar javadoc -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
 %mvn_install -J target/javadoc
 
 %jpackage_script javacc '' '' javacc javacc true
-ln -s %{_bindir}/javacc %{buildroot}%{_bindir}/javacc.sh
+ln -s javacc %{buildroot}%{_bindir}/javacc.sh
 %jpackage_script jjdoc '' '' javacc jjdoc true
 %jpackage_script jjtree '' '' javacc jjtree true
-
-# Swizzle an absolute symlink into a relative symlink
-rm %{buildroot}%{_bindir}/javacc.sh
-ln -s javacc %{buildroot}%{_bindir}/javacc.sh
 
 %files -f .mfiles
 %license LICENSE
@@ -157,6 +155,9 @@ ln -s javacc %{buildroot}%{_bindir}/javacc.sh
 %doc examples
 
 %changelog
+* Sat Aug 26 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:7.0.12-3
+- Bootstrap using javapackages-bootstrap
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:7.0.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

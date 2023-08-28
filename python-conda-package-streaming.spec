@@ -2,11 +2,11 @@
 %global pkgname conda_package_streaming
 
 # We have a circular dep on conda for tests
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:           python-%{srcname}
-Version:        0.7.0
-Release:        7%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        Extract metadata from remote conda packages without downloading whole file
 
 License:        BSD-3-Clause
@@ -45,6 +45,9 @@ BuildRequires:  conda
 %autosetup -n %{srcname}-%{version}
 # do not run coverage in pytest, drop unneeded and unpackaged boto3-stubs dev dep
 sed -i -e '/cov/d' -e '/boto3-stubs/d' pyproject.toml requirements.txt
+%if %{with bootstrap}
+sed -i -e '/conda-package-handling/d' pyproject.toml
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -77,6 +80,9 @@ export CONDA_EXE
 
 
 %changelog
+* Sat Aug 26 2023 Orion Poplawski <orion@nwra.com> - 0.9.0-1
+- Update to 0.9.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

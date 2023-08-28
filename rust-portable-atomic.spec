@@ -6,7 +6,7 @@
 %global crate portable-atomic
 
 Name:           rust-portable-atomic
-Version:        1.4.2
+Version:        1.4.3
 Release:        %autorelease
 Summary:        Portable atomic types including support for 128-bit atomics, atomic float, etc
 

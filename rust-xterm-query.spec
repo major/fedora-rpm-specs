@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate cxx-gen
+%global crate xterm-query
 
-Name:           rust-cxx-gen
-Version:        0.7.106
+Name:           rust-xterm-query
+Version:        0.2.0
 Release:        %autorelease
-Summary:        C++ code generator for integrating cxx crate into higher level tools
+Summary:        Query your terminal
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/cxx-gen
+License:        MIT
+URL:            https://crates.io/crates/xterm-query
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump crossterm dev-dependency from 0.21 to 0.26
+Patch:          xterm-query-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-C++ code generator for integrating `cxx` crate into higher level tools.}
+Query your terminal.}
 
 %description %{_description}
 
@@ -30,8 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

@@ -5,7 +5,7 @@
 %global crate regex
 
 Name:           rust-regex
-Version:        1.9.1
+Version:        1.9.4
 Release:        %autorelease
 Summary:        Implementation of regular expressions for Rust
 
@@ -320,7 +320,7 @@ use the "use_std" feature of the "%{crate}" crate.
 %check
 %ifarch %{ix86}
 # * ignore harmless test failures on 32-bit architectures:
-#   https://github.com/rust-lang/regex/issues/1039
+#   https://github.com/rust-lang/regex/issues/1041
 %cargo_test -- -- --skip builders::bytes::RegexBuilder::size_limit --skip builders::bytes::RegexSetBuilder::size_limit --skip builders::string::RegexBuilder::size_limit --skip builders::string::RegexSetBuilder::size_limit --skip regex::bytes::CaptureLocations --skip regex::string::CaptureLocations
 %else
 %cargo_test

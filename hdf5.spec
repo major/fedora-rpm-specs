@@ -16,7 +16,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.12.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -33,6 +33,9 @@ Patch0: hdf5-LD_LIBRARY_PATH.patch
 # Fix fortran build with gcc 12
 # https://github.com/HDFGroup/hdf5/pull/1412
 Patch1: hdf5-gfortran12.patch
+# [CVE-2021-37501] buffer overflow in h5dump 
+# https://github.com/HDFGroup/hdf5/pull/2459.patch
+Patch2: 0001-Backport-https-github.com-HDFGroup-hdf5-pull-2459.patch
 # Fix java build
 Patch3: hdf5-build.patch
 # Remove Fedora build flags from h5cc/h5c++/h5fc
@@ -544,6 +547,9 @@ fi
 
 
 %changelog
+* Sat Aug 26 2023 Orion Poplawski <orion@nwra.com> - 1.12.1-14
+- Apply upstream fix for CVE-2021-37501 buffer overflow in h5dump
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
