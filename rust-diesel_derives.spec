@@ -5,7 +5,7 @@
 %global crate diesel_derives
 
 Name:           rust-diesel_derives
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        You should not use this crate directly, it is internal to Diesel
 
@@ -82,6 +82,18 @@ use the "64-column-tables" feature of the "%{crate}" crate.
 %files       -n %{name}+64-column-tables-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+chrono-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+chrono-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "chrono" feature of the "%{crate}" crate.
+
+%files       -n %{name}+chrono-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+postgres-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -116,6 +128,18 @@ This package contains library source intended for building other packages which
 use the "sqlite" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sqlite-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+time-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+time-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "time" feature of the "%{crate}" crate.
+
+%files       -n %{name}+time-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+with-deprecated-devel

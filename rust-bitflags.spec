@@ -6,7 +6,7 @@
 %global crate bitflags
 
 Name:           rust-bitflags
-Version:        2.3.3
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Macro to generate structures which behave like bitflags
 
@@ -41,6 +41,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %doc %{crate_instdir}/SECURITY.md
+%doc %{crate_instdir}/spec.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

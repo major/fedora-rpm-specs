@@ -5,11 +5,10 @@
 %global crate pest
 
 Name:           rust-pest
-Version:        2.7.1
+Version:        2.7.2
 Release:        %autorelease
 Summary:        Elegant Parser
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pest
 Source:         %{crates_source}

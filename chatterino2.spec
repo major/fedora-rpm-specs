@@ -35,16 +35,16 @@ ExcludeArch: %{ix86}
 %global shortcommit10   %(c=%{commit10}; echo ${c:0:7})
 
 #   * miniaudio
-%global commit11        9a7663496fc06f7a9439c752fd7666ca93328c20
-%global shortcommit11   %(c=%{commit10}; echo ${c:0:7})
+%global commit11        3898fff8ed923e118326bf07822961d222cb2a9a
+%global shortcommit11   %(c=%{commit11}; echo ${c:0:7})
 
 #   * websocketpp
 %global commit12        b9aeec6eaf3d5610503439b4fae3581d9aff08e8
-%global shortcommit12   %(c=%{commit10}; echo ${c:0:7})
+%global shortcommit12   %(c=%{commit12}; echo ${c:0:7})
 
 
 Name:           chatterino2
-Version:        2.4.3
+Version:        2.4.5
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 

@@ -1,29 +1,27 @@
 Name:           perl-Text-MultiMarkdown
-Version:        1.000035
-Release:        26%{?dist}
+Version:        1.001000
+Release:        1%{?dist}
 Summary:        Convert MultiMarkdown syntax to (X)HTML
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Text-MultiMarkdown
-Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Text-MultiMarkdown-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Text-MultiMarkdown-1.001.tar.gz
 BuildArch:      noarch
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl-podlators
-BuildRequires:  perl(inc::Module::Install)
-BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  perl(Module::Install::Scripts)
-BuildRequires:  perl(Module::Install::WriteAll)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Spec::Functions)
 # Run-time:
-BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Encode)
-BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(HTML::Entities)
+BuildRequires:  perl(Text::Markdown) >= 1.000026
+BuildRequires:  perl(base)
 BuildRequires:  perl(re)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Text::Markdown) >= 1.000026
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(FindBin)
@@ -49,10 +47,7 @@ similar to that of plain text email, and supports features such as headers,
 *emphasis*, code blocks, block quotes, and links.
 
 %prep
-%setup -q -n Text-MultiMarkdown-%{version}
-# Remove bundled modules
-rm -r inc
-/usr/bin/perl -pi -e 's/^inc\/.*//' MANIFEST
+%setup -q -n Text-MultiMarkdown-1.001
 
 %build
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -66,14 +61,18 @@ rm -r inc
 TEST_POD=1 TEST_SPELLING=1 %{make_build} test
 
 %files
-%doc Changes README Readme.text Todo
-%license License.text
-%{perl_vendorlib}/*
+%doc Changes README.pod
+%license LICENSE
+%{perl_vendorlib}/Text
 %{_bindir}/*
 %{_mandir}/man1/*
 %{_mandir}/man3/*
 
 %changelog
+* Sun Aug 27 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.001000-1
+- Update to 1.001
+- migrated to SPDX license
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000035-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

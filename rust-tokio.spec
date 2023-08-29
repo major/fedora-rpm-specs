@@ -5,7 +5,7 @@
 %global crate tokio
 
 Name:           rust-tokio
-Version:        1.30.0
+Version:        1.32.0
 Release:        %autorelease
 Summary:        Event-driven, non-blocking I/O platform
 
@@ -335,7 +335,8 @@ rm tests/io_read_until.rs
 
 %if %{with check}
 %check
-# * skip a test that tends to hang indefinitely
+# * skip a test that tends to hang indefinitely:
+#   https://github.com/tokio-rs/tokio/issues/5955
 %cargo_test -a -- -- --skip runtime::tests::queue::stress1
 %endif
 

@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate argh_shared
+%global crate enumn
 
-Name:           rust-argh_shared
-Version:        0.1.12
+Name:           rust-enumn
+Version:        0.1.11
 Release:        %autorelease
-Summary:        Derive-based argument parsing optimized for code size
+Summary:        Convert number to enum
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/argh_shared
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/enumn
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Derive-based argument parsing optimized for code size.}
+Convert number to enum.}
 
 %description %{_description}
 
@@ -30,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

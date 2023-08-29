@@ -1,10 +1,9 @@
 Name:          neard
-Version:       0.18
-Release:       4%{?dist}
+Version:       0.19
+Release:       1%{?dist}
 Summary:       Near Field Communication (NFC) manager
 License:       GPLv2
 URL:           https://01.org/linux-nfc/
-# Source0:       https://www.kernel.org/pub/linux/network/nfc/%{name}-%{version}.tar.xz
 Source0:       https://git.kernel.org/pub/scm/network/nfc/neard.git/snapshot/%{name}-%{version}.tar.gz
 
 BuildRequires: automake autoconf libtool autoconf-archive
@@ -43,7 +42,7 @@ Files for development with neard.
 %build
 autoreconf -vif
 %configure --enable-tools
-%{make_build} V=1
+%{make_build}
 
 %install
 %{make_install}
@@ -51,7 +50,7 @@ autoreconf -vif
 rm -f %{buildroot}/usr/include/version.h
 
 %check
-make check %{?_smp_mflags} V=1
+make check %{?_smp_mflags}
 
 %ldconfig_scriptlets
 
@@ -74,6 +73,9 @@ make check %{?_smp_mflags} V=1
 %{_libdir}/pkgconfig/neard.pc
 
 %changelog
+* Sun Aug 27 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.19-1
+- Update to 0.19
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

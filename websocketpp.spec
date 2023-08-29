@@ -2,7 +2,7 @@
 Name:    websocketpp
 Summary: C++ WebSocket Protocol Library
 Version: 0.8.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 License: BSD
 Url:     https://www.zaphoyd.com/websocketpp
@@ -28,6 +28,11 @@ Patch3: websocketpp-0.7.0-disable-test_transport-test_transport_asio_timers.patc
 # https://github.com/zaphoyd/websocketpp/pull/855
 # https://github.com/zaphoyd/websocketpp/commit/3590d77
 Patch4: websocketpp-0.8.2-fix-cmake-find-boost.patch
+
+# fix c++20 build error
+# https://github.com/zaphoyd/websocketpp/issues/991
+# https://github.com/zaphoyd/websocketpp/commit/3197a520eb4c1e4754860441918a5930160373eb
+Patch5: websocketpp-0.8.2-cpp20-fixes.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -86,6 +91,9 @@ rm -rfv %{buildroot}%{_includedir}/test_connection/
 
 
 %changelog
+* Sun Aug 27 2023 Christian Birk <mail@birkc.de> - 0.8.2-12
+- add patch to fix c++20 compile errors
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

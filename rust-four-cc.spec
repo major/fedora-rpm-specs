@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate anyhow
+%global crate four-cc
 
-Name:           rust-anyhow
-Version:        1.0.75
+Name:           rust-four-cc
+Version:        0.3.0
 Release:        %autorelease
-Summary:        Flexible concrete Error type built on std::error::Error
+Summary:        Newtype wrapper for representing four-character-code values
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/anyhow
+URL:            https://crates.io/crates/four-cc
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Flexible concrete Error type built on std::error::Error.}
+Newtype wrapper providing a convenient representation of four-character-
+code values.}
 
 %description %{_description}
 
@@ -32,7 +34,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,16 +49,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+backtrace-devel
+%package     -n %{name}+nightly-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+backtrace-devel %{_description}
+%description -n %{name}+nightly-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "backtrace" feature of the "%{crate}" crate.
+use the "nightly" feature of the "%{crate}" crate.
 
-%files       -n %{name}+backtrace-devel
+%files       -n %{name}+nightly-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

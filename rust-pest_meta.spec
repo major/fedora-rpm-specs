@@ -6,11 +6,10 @@
 %global crate pest_meta
 
 Name:           rust-pest_meta
-Version:        2.7.1
+Version:        2.7.2
 Release:        %autorelease
 Summary:        Pest meta language parser and validator
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pest_meta
 Source:         %{crates_source}

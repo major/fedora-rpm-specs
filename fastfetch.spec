@@ -1,10 +1,10 @@
 Name:           fastfetch
-Version:        2.0.2
+Version:        2.0.5
 Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
 License:        MIT
-URL:            https://github.com/LinusDierheimer/fastfetch
+URL:            https://github.com/fastfetch-cli/fastfetch
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
@@ -24,6 +24,7 @@ BuildRequires:  xfconf-devel
 BuildRequires:  glib2-devel
 BuildRequires:  ocl-icd-devel
 BuildRequires:  rpm-devel
+BuildRequires:  libddcutil-devel
 # vulkan-loader not available in el8 on some arches
 %if 0%{?rhel} == 8
   %if "%{_arch}" != "s390x" && "%{_arch}" != "ppc64le"
@@ -45,6 +46,7 @@ Recommends:     ImageMagick
 Recommends:     glib2
 Recommends:     ocl-icd
 Recommends:     chafa
+Recommends:     ddcutil
 
 %description
 fastfetch is a neofetch-like tool for fetching system information and
@@ -92,6 +94,10 @@ BuildArch: noarch
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sun Aug 27 2023 Jonathan Wright <jonathan@almalinux.org> - 2.0.5-1
+- Update to 2.0.5 rhbz#2235036
+- Add new optional dependency rhbz#2235137
+
 * Tue Aug 22 2023 Jonathan Wright <jonathan@almalinux.org> - 2.0.2-1
 - Update to 2.0.2 rhbz#2232058
 

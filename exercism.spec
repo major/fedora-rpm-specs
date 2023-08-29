@@ -3,7 +3,7 @@
 
 # https://github.com/exercism/cli
 %global goipath         github.com/exercism/cli
-Version:                3.1.0
+Version:                3.2.0
 
 %gometa
 
@@ -29,14 +29,14 @@ Patch0002:      0002-Fix-tests-with-Go1.17.patch
 
 BuildRequires:  golang(github.com/blang/semver)
 BuildRequires:  golang(github.com/spf13/cobra)
-BuildRequires:  golang(github.com/spf13/pflag)
+BuildRequires:  golang(github.com/spf13/pflag) >= 1
 BuildRequires:  golang(github.com/spf13/viper)
 BuildRequires:  golang(golang.org/x/net/html/charset)
 BuildRequires:  golang(golang.org/x/text/transform)
 
 %if %{with check}
 # Tests
-BuildRequires:  golang(github.com/stretchr/testify/assert)
+BuildRequires:  golang(github.com/stretchr/testify/assert) >= 1.1.4
 %endif
 
 %description

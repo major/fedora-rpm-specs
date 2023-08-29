@@ -43,7 +43,7 @@
 %endif
 
 Name:           xpra
-Version:        4.4.6
+Version:        5.0
 Release:        %autorelease
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
@@ -76,6 +76,7 @@ BuildRequires:  systemd-devel
 BuildRequires:  procps-ng-devel
 %endif
 BuildRequires:  pkgconfig(libavif)
+BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  libdrm-devel
 BuildRequires:  pkgconfig(libwebp)
@@ -175,7 +176,7 @@ sed -i 's|-mfpmath=387|-mfloat-abi=hard|' setup.py
 
 %build
 %set_build_flags
-%{__python3} setup.py build --executable="%{__python3} -s" \
+%py3_build -- \
     --with-verbose \
     --with-vpx \
     %{?_with_enc_x264} \

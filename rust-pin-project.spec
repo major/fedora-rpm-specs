@@ -6,7 +6,7 @@
 %global crate pin-project
 
 Name:           rust-pin-project
-Version:        1.1.2
+Version:        1.1.3
 Release:        %autorelease
 Summary:        Crate for safe and ergonomic pin-projection
 

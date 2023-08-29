@@ -5,11 +5,10 @@
 %global crate pest_derive
 
 Name:           rust-pest_derive
-Version:        2.7.1
+Version:        2.7.2
 Release:        %autorelease
 Summary:        Pest's derive macro
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pest_derive
 Source:         %{crates_source}

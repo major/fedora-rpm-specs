@@ -26,6 +26,8 @@ Patch:          0002-Skip-coverage-testing.patch
 Patch:          0003-TST-Increase-maximum-for-sizeof-test-to-pass-32-bit.patch
 # https://github.com/dask/dask/pull/10451
 Patch:          0004-Fix-test_pandas_timestamp_overflow_pyarrow-condition.patch
+# https://github.com/dask/dask/issues/10423
+Patch:          https://salsa.debian.org/python-team/packages/dask/-/raw/08ffea1b7b53e9c71c9a926d5786288c2e6c1b5b/debian/patches/force-little-endian-random.patch
 
 %description
 Dask is a flexible parallel computing library for analytics.

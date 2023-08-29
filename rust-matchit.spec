@@ -6,7 +6,7 @@
 %global crate matchit
 
 Name:           rust-matchit
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Blazing fast URL router
 

@@ -1,12 +1,22 @@
 Name:		quodlibet
-Version:	4.5.0
-Release:	7%{?dist}
+Version:	4.6.0
+Release:	1%{?dist}
 Summary:	A music management program
 
 License:	GPLv2+
 URL:		https://quodlibet.readthedocs.org/en/latest/
 Source0:	https://github.com/quodlibet/quodlibet/releases/download/release-%{version}/quodlibet-%{version}.tar.gz
 Source1:	README.fedora
+
+# https://github.com/quodlibet/quodlibet/pull/4361
+Patch0:		0001-make-flake8-happy.patch
+
+# https://github.com/quodlibet/quodlibet/pull/4358
+Patch1:		0001-Fix-startup-on-Python-3.12.patch
+Patch2:		0002-Fix-SoundCloud-browser-tests.patch
+
+# https://github.com/quodlibet/quodlibet/pull/4363
+Patch3:		0001-Add-missing-network-mark-to-test_click_add_station.patch
 
 BuildArch:	noarch
 
@@ -20,6 +30,19 @@ BuildRequires:	(python3-setuptools if python3-devel >= 3.12)
 BuildRequires:	gtk2 >= 2.6.0
 # needed for py_byte_compile
 BuildRequires:	python3-devel
+# needed for tests
+BuildRequires:	glibc-langpack-en
+BuildRequires:	gstreamer1
+BuildRequires:	gstreamer1-plugins-good
+BuildRequires:	gtk3 >= 3.18
+BuildRequires:	libmodplug
+BuildRequires:	python3-feedparser
+BuildRequires:	python3-flake8
+BuildRequires:	python3-gobject >= 3.18
+BuildRequires:	python3-mutagen >= 1.14
+BuildRequires:	python3-pytest
+BuildRequires:	python3-pyvirtualdisplay
+BuildRequires:	xine-lib
 
 Requires:	exfalso = %{version}-%{release}
 Requires:	gstreamer1
@@ -94,6 +117,10 @@ desktop-file-install \
 %find_lang quodlibet
 
 
+%check
+%pytest -m "not network"
+
+
 %files
 %doc README.fedora
 %{_bindir}/quodlibet
@@ -128,6 +155,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Aug 26 2023 LuK1337 <priv.luk@gmail.com> - 4.6.0-1
+- update to recent upstream version
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

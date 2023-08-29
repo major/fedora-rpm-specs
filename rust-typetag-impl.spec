@@ -5,7 +5,7 @@
 %global crate typetag-impl
 
 Name:           rust-typetag-impl
-Version:        0.2.12
+Version:        0.2.13
 Release:        %autorelease
 Summary:        Implementation detail of the typetag crate
 

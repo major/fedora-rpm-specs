@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        7.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -43,6 +43,8 @@ Patch4:         pgadmin4_azure-mgmt-rdbms.patch
 Patch10:        pgadmin4_username.patch
 # Drop requirement on unpackaged python-sphinxcontrib-youtube
 Patch11:        pgadmin4_sphinx_youtube.patch
+# Fix invalid parameters for sqlalchemy 1.x
+Patch12:        pgadmin4_sqlalchemy1.patch
 
 # Patch for building bundled mozjpeg
 %global mozjpeg_ver 4.1.1
@@ -261,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Aug 27 2023 Sandro Mani <manisandro@gmail.com> - 7.6-2
+- Add pgadmin4_sqlalchemy1.patch
+
 * Sat Aug 26 2023 Sandro Mani <manisandro@gmail.com> - 7.6-1
 - Update to 7.6
 

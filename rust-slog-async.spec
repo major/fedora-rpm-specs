@@ -5,7 +5,7 @@
 %global crate slog-async
 
 Name:           rust-slog-async
-Version:        2.7.0
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Asynchronous drain for slog-rs
 

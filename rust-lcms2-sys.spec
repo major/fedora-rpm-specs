@@ -5,7 +5,7 @@
 %global crate lcms2-sys
 
 Name:           rust-lcms2-sys
-Version:        4.0.1
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Bindings for liblcms2
 

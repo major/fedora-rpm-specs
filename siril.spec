@@ -1,5 +1,5 @@
 Name:           siril
-Version:        1.0.6
+Version:        1.2.0~rc1
 Release:        %autorelease
 Summary:        Astronomical image processing software
 
@@ -8,7 +8,7 @@ Summary:        Astronomical image processing software
 # - src/core/sleef.h
 License:        GPLv3+ and Boost
 URL:            https://siril.org
-Source0:        https://free-astro.org/download/%{name}-%{version}.tar.bz2
+Source0:        https://free-astro.org/download/%{name}-1.2.0-rc1.tar.bz2
 
 Patch1:         siril-1.0.2-opencv_flann.patch
 
@@ -53,13 +53,15 @@ SER files)
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-1.2.0-rc1
 
 
 %build
 %meson \
     -Drelocatable-bundle=no \
     -Dopenmp=true \
+    -Dlibheif=false \
+    -Dffms2=false \
     -Denable-libcurl=yes
 
 %meson_build

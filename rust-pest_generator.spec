@@ -5,11 +5,10 @@
 %global crate pest_generator
 
 Name:           rust-pest_generator
-Version:        2.7.1
+Version:        2.7.2
 Release:        %autorelease
 Summary:        Pest code generator
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pest_generator
 Source:         %{crates_source}

@@ -5,7 +5,7 @@
 %global crate rust_decimal
 
 Name:           rust-rust_decimal
-Version:        1.31.0
+Version:        1.32.0
 Release:        %autorelease
 Summary:        Decimal number implementation written in pure Rust
 
@@ -53,18 +53,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+byteorder-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+byteorder-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "byteorder" feature of the "%{crate}" crate.
-
-%files       -n %{name}+byteorder-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bytes-devel

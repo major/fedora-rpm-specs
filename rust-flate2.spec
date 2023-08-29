@@ -5,7 +5,7 @@
 %global crate flate2
 
 Name:           rust-flate2
-Version:        1.0.26
+Version:        1.0.27
 Release:        %autorelease
 Summary:        DEFLATE compression and decompression exposed as Read/BufRead/Write streams
 
@@ -36,6 +36,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/MAINTENANCE.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,6 +50,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+any_impl-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+any_impl-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "any_impl" feature of the "%{crate}" crate.
+
+%files       -n %{name}+any_impl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+any_zlib-devel

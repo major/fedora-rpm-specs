@@ -24,13 +24,8 @@ issues is located at
 https://github.com/uqfoundation/multiprocess/issues, with a legacy list
 maintained at https://uqfoundation.github.io/project/pathos/query.}
 
-# Package a pre-release snapshot for Python 3.12 support.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2175136
-%global commit 3daf4ba7031fa9ce0536bbbb8388d15ac7935c8f
-%global snapdate 20230220
-
 Name:           python-multiprocess
-Version:        0.70.15~dev0^%{?commit:%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Version:        0.70.15
 Release:        %autorelease
 Summary:        Better multiprocessing and multithreading in python
 
@@ -44,9 +39,7 @@ Summary:        Better multiprocessing and multithreading in python
 # https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/211
 License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/uqfoundation/multiprocess
-%{?!commit:%global srcurl %{pypi_source multiprocess}}
-%{?commit:%global srcurl %{url}/archive/%{commit}/multiprocess-%{commit}.tar.gz}
-Source0:        %{srcurl}
+Source:         %{pypi_source multiprocess}
 BuildArch:      noarch
 
 BuildRequires:  dos2unix
@@ -72,7 +65,7 @@ Summary:        Documentation for %{name}
 This package provides documentation for %{name}.
 
 %prep
-%autosetup -n multiprocess-%{?!commit:%{version}}%{?commit}
+%autosetup -n multiprocess-%{version}
 
 # Convert line endings
 find py%{python3_version}/{doc,examples}/ -type f -exec dos2unix '{}' '+'
@@ -84,6 +77,22 @@ sed -r -i '1{/^#!/d}' py%{python3_version}/multiprocess/tests/__main__.py
 # and platform-specific naming of bdist_wheel”; this isn’t needed here, and we
 # don’t want the RPM package to have to be arched.
 sed -r -i 's/^([[:blank:]]*)(distclass=BinaryDistribution,)/\1# \2/' setup.py
+
+# These tests appear to fail because the Python interpreter subprocess called
+# through test.support.script_helper.assert_python_ok() does not inherit the
+# PYTHONPATH environment variable, so it cannot find the multiprocess package
+# in the buildroot.
+s='@unittest.skip("Does not respect PYTHONPATH")'
+for t in \
+    test_spawn_sys_executable_none_allows_import \
+    test_global_named_resource_spawn
+do
+  # The find-then-modify pattern keeps us from discarding mtimes on any sources
+  # that do not need modification.
+  find . -type f -name '*.py' -exec \
+      gawk '/^[[:blank:]]*def '"$t"'\(/ { print FILENAME; nextfile }' '{}' '+' |
+    xargs -r -t sed -r -i 's/^([[:blank:]]*)def '"$t"'\(/\1'"$s"'\n&/'
+done
 
 %generate_buildrequires
 %pyproject_buildrequires
