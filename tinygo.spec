@@ -6,7 +6,7 @@
 
 # https://github.com/tinygo-org/tinygo
 %global goipath         github.com/tinygo-org/tinygo
-Version:                0.28.1
+Version:                0.29.0
 
 %global CMSIS_commit        9fe411cef1cef5de58e5957b89760759de44e393
 %global avr_commit          6624554c02b237b23dc17d53e992bf54033fc228
@@ -92,6 +92,8 @@ Patch0005:      0005-Add-CPU-to-RISCV-targets.patch
 Patch0006:      0006-Handle-argmemonly-attribute-change-in-LLVM16.patch
 # https://github.com/tinygo-org/tinygo/pull/3649
 Patch0007:      0007-Update-types-in-cgo-tests-for-LLVM-16.patch
+# https://github.com/tinygo-org/tinygo/pull/3883
+Patch0008:      0008-Update-golang.org-x-tools-to-v0.12.0.patch
 
 # Not supported upstream yet.
 ExcludeArch:    ppc64le s390x
@@ -111,7 +113,7 @@ BuildRequires:  golang(github.com/marcinbor85/gohex)
 BuildRequires:  golang(github.com/mattn/go-colorable) >= 0.1.8
 BuildRequires:  golang(github.com/mattn/go-tty) >= 0.0.4
 BuildRequires:  golang(github.com/sigurn/crc16)
-BuildRequires:  golang(go.bug.st/serial) >= 1.3.5
+BuildRequires:  golang(go.bug.st/serial) >= 1.6.0
 BuildRequires:  golang(golang.org/x/tools/go/ast/astutil)
 BuildRequires:  golang(golang.org/x/tools/go/ssa) >= 0.1.11
 BuildRequires:  golang(gopkg.in/yaml.v2) >= 2.4.0

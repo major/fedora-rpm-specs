@@ -39,11 +39,9 @@ Patch12:    fix_forward_decl_flatbuffers.patch
 # Use the system cpuinfo
 Patch13:    system-cpuinfo.patch
 
-# MLAS is not implemented for s390x
-# https://github.com/microsoft/onnxruntime/blob/master/cmake/onnxruntime_mlas.cmake#L222
-# The memory exhausted when building for armv7hl
-# safeint flatbuffers not available in i686
-#     https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
+# armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
+# i686:    https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    s390x %{arm} %{ix86}
 
 BuildRequires:  cmake >= 3.13

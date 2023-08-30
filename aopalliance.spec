@@ -5,7 +5,7 @@ Epoch:          0
 Version:        1.0
 Release:        33%{?dist}
 Summary:        Java/J2EE AOP standards
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 URL:            http://aopalliance.sourceforge.net/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch

@@ -4,17 +4,18 @@
 %global somajor 0
 
 Name:           libeconf
-Version:        0.4.0
-Release:        6%{?dist}
+Version:        0.5.2
+Release:        1%{?dist}
 Summary:        Enhanced config file parser library
 
 License:        MIT
 URL:            https://github.com/openSUSE/libeconf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Proposed upstream: https://github.com/openSUSE/libeconf/pull/151
-Patch0101:      0001-cmake-Install-econftool.patch
-Patch0102:      0002-cmake-Install-man-pages.patch
+### Patches ###
+# This should be a temporary workaround. I don't have enough time to check what's happening, but since we aren't shipping the html documentation it's fine to stop installing it
+Patch0101:      0001-cmake-no-install-html.patch
+
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  gcc
@@ -79,6 +80,11 @@ configuration files from applications that use %{name}.
 %{_mandir}/man8/econftool.8*
 
 %changelog
+* Mon Aug 28 2023 Iker Pedrosa <ipedrosa@redhat.com> - 0.5.2-1
+- Update to 0.5.2 (RH#1980774)
+- Fix CVE-2023-22652 (RH#2212464)
+- Fix CVE-2023-30079 (RH#2235236)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

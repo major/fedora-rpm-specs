@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/sonic-visualiser/sonic-visualiser
 
 Name:           sonic-visualiser
-Version:        4.5.1
+Version:        4.5.2
 Release:        %autorelease
 Summary:        A program for viewing and exploring audio data
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://sonicvisualiser.org/
 Source:         %{forgeurl}/releases/download/sv_v%{version}/%{name}-%{version}.tar.gz
 

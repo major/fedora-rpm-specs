@@ -70,12 +70,12 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.4.6
+Version: 9.4.7
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -100,21 +100,12 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 Patch5: https://gitlab.haskell.org/ghc/ghc/-/commit/6e12e3c178fe9ad16131eb3c089bd6578976f5d6.patch
 Patch7: ghc-compiler-enable-build-id.patch
 Patch8: ghc-configure-c99.patch
-# distutils gone in python 3.12
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922
-Patch10: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922.patch
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10928
-# allow building hadrian with Cabal-3.8
-Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10928.patch
 
 # arm patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
 # https://github.com/haskell/text/issues/396
 # reverts https://github.com/haskell/text/pull/405
 Patch13: text2-allow-ghc8-arm.patch
-
-# workaround https://github.com/haskell/bytestring/pull/604
-Patch14: ghc-9.4.6-bytestring-Rts.h.patch
 
 # for unregisterized
 # https://gitlab.haskell.org/ghc/ghc/-/issues/15689
@@ -125,6 +116,10 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
+
+Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
+
+# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
 # fedora ghc has been bootstrapped on
 # %%{ix86} x86_64 s390x ppc64le aarch64
@@ -341,7 +336,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.1
-%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.1
+%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.2
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.7.1
@@ -417,9 +412,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P7 -p1 -b .orig
 %endif
 %patch -P8 -p1 -b .orig
-%patch -P10 -p1 -b .orig
-%patch -P11 -p1 -b .orig
-%patch -P14 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -447,6 +439,11 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 
+#sphinx 7
+%if 0%{?fedora} >= 40
+%patch -P30 -p1 -b .orig
+%endif
+
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig
 if [ ! -f "libraries/%{gen_contents_index}" ]; then
@@ -456,7 +453,6 @@ fi
 %endif
 
 %if %{without hadrian}
-# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 cat > mk/build.mk << EOF
 %if %{with perfbuild}
 %ifarch %{ghc_llvm_archs}
@@ -544,6 +540,9 @@ cd hadrian
 %global hadrian_llvm +llvm
 %endif
 %define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
+# aarch64 with 224 cpus: _build/stage0/bin/ghc: createProcess: pipe: resource exhausted (Too many open files)
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=105428124
+%global _smp_ncpus_max 64
 # quickest does not build shared libs
 # try release instead of perf
 %{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir
@@ -997,6 +996,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Sun Aug 27 2023 Jens Petersen <petersen@redhat.com> - 9.4.7-23
+- https://downloads.haskell.org/~ghc/9.4.7/docs/users_guide/9.4.7-notes.html
+
 * Tue Aug  8 2023 Jens Petersen <petersen@redhat.com> - 9.4.6-22
 - https://downloads.haskell.org/~ghc/9.4.6/docs/users_guide/9.4.6-notes.html
 - update license tags to SPDX

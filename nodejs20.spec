@@ -230,7 +230,7 @@ BuildRequires: openssl-devel >= %{openssl11_minimum}
 %global openssl_fips_configure %{nil}
 %endif
 
-%global ssl_configure --shared-openssl %{openssl_fips_configure}
+%global ssl_configure --shared-openssl --openssl-conf-name=openssl_conf %{openssl_fips_configure}
 %endif
 
 

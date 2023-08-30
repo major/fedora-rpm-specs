@@ -1,6 +1,6 @@
 Name:           langtable
-Version:        0.0.62
-Release:        3%{?dist}
+Version:        0.0.63
+Release:        1%{?dist}
 Summary:        Guessing reasonable defaults for locale, keyboard layout, territory, and language.
 # the translations in languages.xml and territories.xml are (mostly)
 # imported from CLDR and are thus under the Unicode license, the
@@ -75,6 +75,15 @@ xmllint --noout --relaxng \
 %{python3_sitelib}/langtable-*.egg-info/*
 
 %changelog
+* Mon Aug 28 2023 Mike FABIAN <mfabian@redhat.com> - 0.0.63-1
+- Update to 0.0.63
+- Add more translations from CLDR
+- Get translation changes from CLDR
+- Japanese: prefer anthy over kkc
+  (Thanks to adam Williamson: https://github.com/mike-fabian/langtable/pull/17)
+- Use skipTerritory also in list_keyboards(), list_consolefonts(), and list_timezones()
+  (Resolves: https://github.com/mike-fabian/langtable/issues/18)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.62-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

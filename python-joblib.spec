@@ -3,18 +3,16 @@
 %global srcname joblib
 
 Name:  python-%{srcname}
-Version: 1.3.0
-Release: 2%{?dist}
+Version: 1.3.2
+Release: 1%{?dist}
 Summary: Lightweight pipelining: using Python functions as pipeline jobs
 
-License: BSD
+License: BSD-3-Clause
 URL: https://joblib.readthedocs.io
 Source0: %{pypi_source}
 
 Patch: joblib-unbundle-cloudpickle.patch
 
-# Adjust test regex for Python 3.12 improved error message
-Patch: https://github.com/joblib/joblib/pull/1476.patch#/joblib-test_memory-regext-python3.12.patch
 # Avoid using deprecated ast.Num and node.n
 Patch: https://github.com/joblib/joblib/pull/1477.patch#/joblib-no-ast.Num.patch
 # Downstream only: Don't count DeprecationWarnings in test_main_thread_renamed_no_warning
@@ -49,7 +47,7 @@ BuildRequires:  %{py3_dist threadpoolctl}
 Recommends: %{py3_dist numpy}
 Recommends: %{py3_dist lz4}
 Recommends: %{py3_dist psutil} 
-Provides: bundled(python3dist(loky)) = 3.4.0
+Provides: bundled(python3dist(loky)) = 3.4.1
 
 %description -n python3-%{srcname} %_description
 
@@ -81,10 +79,14 @@ rm -rf joblib/externals/cloudpickle/
 %doc README.rst
 
 %changelog
+* Mon Aug 28 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.3.2-1
+- New upstream source 1.3.2
+- Convert to SPDX
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Sat Jul 09 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 1.3.0-1
+* Sat Jul 08 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.3.0-1
 - New upstream source 1.3.0
 
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.2.0-3

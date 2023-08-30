@@ -5,7 +5,7 @@
 %bcond_with webdrivers
 
 Name: rubygem-%{gem_name}
-Version: 7.0.7
+Version: 7.0.7.2
 Release: 1%{?dist}
 Summary: Rich text framework
 License: MIT
@@ -13,12 +13,12 @@ URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # Tests are not shipped with the gem
 # git clone https://github.com/rails/rails.git --no-checkout
-# cd rails/actiontext && git archive -v -o actiontext-7.0.7-tests.txz v7.0.7 test/
+# cd rails/actiontext && git archive -v -o actiontext-7.0.7.2-tests.txz v7.0.7.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.7-tools.txz v7.0.7 tools/
+# cd rails && git archive -v -o rails-7.0.7.2-tools.txz v7.0.7.2 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 
 BuildRequires: ruby(release)
@@ -99,6 +99,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Aug 28 2023 Pavel Valena <pvalena@redhat.com> - 7.0.7.2-1
+- Update to actiontext 7.0.7.2.
+
 * Thu Aug 10 2023 Pavel Valena <pvalena@redhat.com> - 7.0.7-1
 - Update to actiontext 7.0.7.
 

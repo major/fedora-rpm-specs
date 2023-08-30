@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Plugin-Sysdeps
-Version:        0.70
-Release:        11%{?dist}
+Version:        0.71
+Release:        1%{?dist}
 Summary:        CPAN client plugin for installing system dependencies
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Plugin-Sysdeps
@@ -112,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 28 2023 Petr Pisar <ppisar@redhat.com> - 0.71-1
+- 0.71 bump
+
 * Fri Jul 28 2023 Petr Pisar <ppisar@redhat.com> - 0.70-11
 - Revert dnf to dnf5 migration (bug #2209402)
 

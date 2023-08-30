@@ -1,3 +1,5 @@
+%undefine _auto_set_build_flags
+
 %bcond_with tests
 %bcond_with tools
 
@@ -9,8 +11,8 @@
 
 
 Name:           kcov
-Version:        41
-Release:        2%{?dist}
+Version:        42
+Release:        1%{?dist}
 Summary:        Code coverage tool without special compilation options
 
 # Licenses of kcov itself and its bundled js libraries (see below)
@@ -75,7 +77,6 @@ long-running applications.
 
 %prep
 %autosetup -p1
-rm -frv external/ # remove LLDB headers bundled for MacOS
 
 
 %build
@@ -112,6 +113,9 @@ tests/tools/run-tests build/src/kcov /tmp/ build-tests/ $(pwd) -v
 
 
 %changelog
+* Mon Aug 28 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 42-1
+- Bump to version 42
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

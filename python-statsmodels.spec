@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 0.14.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Statistics in Python
 
 # Package is licensed under BSD (3 clauses)
@@ -44,7 +44,7 @@ Summary: %{summary}
 
 BuildRequires: %{py3_dist setuptools}
 BuildRequires: %{py3_dist setuptools_scm}
-BuildRequires: %{py3_dist Cython}
+BuildRequires: %{py3_dist Cython} < 3
 BuildRequires: %{py3_dist scipy} >= 1.1
 %if %{with check}
 BuildRequires: xorg-x11-server-Xvfb
@@ -127,6 +127,9 @@ popd
 ## %doc build/sphinx/html
 
 %changelog
+* Tue Aug 29 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.14.0-4
+- Use cython < 3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

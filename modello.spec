@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           modello
-Version:        2.1.1
+Version:        2.1.2
 Release:        1%{?dist}
 Summary:        Modello Data Model toolkit
 # The majority of files are under MIT license, but some of them are ASL 2.0.
@@ -9,19 +9,19 @@ Summary:        Modello Data Model toolkit
 # and are licensed under a 5-clause BSD license.
 License:        MIT and ASL 2.0 and BSD
 URL:            https://codehaus-plexus.github.io/modello
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://repo1.maven.org/maven2/org/codehaus/%{name}/%{name}/%{version}/%{name}-%{version}-source-release.zip
 Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
+Patch0:         0001-Revert-Switch-to-codehaus-plexus-build-api-1.2.0-345.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.inject:guice)
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
@@ -29,11 +29,11 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-api)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-javac)
+BuildRequires:  mvn(org.apache.velocity:velocity-engine-core)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.jsoup:jsoup)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
@@ -60,11 +60,13 @@ API documentation for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 cp -p %{SOURCE1} LICENSE
 # We don't generate site; don't pull extra dependencies.
 %pom_remove_plugin :maven-site-plugin
 
-%pom_remove_dep -r :sisu-guice
+%pom_remove_dep :plexus-xml modello-core
+%pom_remove_dep :sisu-guice modello-core
 %pom_add_dep com.google.inject:guice modello-core
 
 %pom_remove_dep :jackson-bom
@@ -76,10 +78,7 @@ cp -p %{SOURCE1} LICENSE
 %pom_disable_module modello-plugin-snakeyaml modello-plugins
 %pom_remove_dep :modello-plugin-snakeyaml modello-maven-plugin
 
-# Requires velocity >= 2
-%pom_disable_module modello-plugin-velocity modello-plugins
-%pom_remove_dep :modello-plugin-velocity modello-maven-plugin
-rm modello-maven-plugin/src/main/java/org/codehaus/modello/maven/ModelloVelocityMojo.java
+%pom_disable_module modello-test
 
 %build
 # skip tests because we have too old xmlunit in Fedora now (1.0.8)
@@ -88,7 +87,7 @@ rm modello-maven-plugin/src/main/java/org/codehaus/modello/maven/ModelloVelocity
 %install
 %mvn_install
 
-%jpackage_script org.codehaus.modello.ModelloCli "" "" modello:org.eclipse.sisu.plexus:org.eclipse.sisu.inject:google-guice:aopalliance:atinject:plexus-containers/plexus-component-annotations:plexus/classworlds:plexus/utils:plexus/plexus-build-api:guava:plexus-compiler/plexus-compiler-api:plexus-compiler/plexus-compiler-javac %{name} true
+%jpackage_script org.codehaus.modello.ModelloCli "" "" modello:org.eclipse.sisu.plexus:org.eclipse.sisu.inject:google-guice:aopalliance:atinject:plexus-containers/plexus-component-annotations:plexus/classworlds:plexus/utils:plexus/plexus-build-api0:guava:velocity/velocity-engine-core %{name} true
 
 %files -f .mfiles
 %doc LICENSE
@@ -98,6 +97,9 @@ rm modello-maven-plugin/src/main/java/org/codehaus/modello/maven/ModelloVelocity
 %doc LICENSE
 
 %changelog
+* Mon Aug 28 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.2-1
+- Update to upstream version 2.1.2
+
 * Mon Aug 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.1-1
 - Update to upstream version 2.1.1
 

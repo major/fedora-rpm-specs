@@ -2,23 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate sys-locale
+%global crate terminal-light
 
-Name:           rust-sys-locale
-Version:        0.3.1
+Name:           rust-terminal-light
+Version:        1.1.1
 Release:        %autorelease
-Summary:        Small and lightweight library to obtain the active system locale
+Summary:        Tells you whether your terminal is dark or light
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/sys-locale
+License:        MIT
+URL:            https://crates.io/crates/terminal-light
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          sys-locale-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * prevent unused binary from being built and shipped
+# * bump crossterm dependency from 0.23 to 0.26
+Patch:          terminal-light-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Small and lightweight library to obtain the active system locale.}
+Tells you whether your terminal is dark or light.}
 
 %description %{_description}
 
@@ -32,9 +34,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

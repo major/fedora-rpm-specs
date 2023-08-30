@@ -1,5 +1,5 @@
 Name:           cockpit-composer
-Version:        46
+Version:        47
 Release:        1%{?dist}
 Summary:        Composer GUI for use with Cockpit
 
@@ -42,6 +42,9 @@ cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/met
 %{_datadir}/metainfo/*
 
 %changelog
+* Mon Aug 28 2023 Packit <hello@packit.dev> - 47-1
+- Fix OCI sizing bug
+
 * Fri Aug 25 2023 Packit <hello@packit.dev> - 46-1
 - Fix blueprint config bugs
 - Update translations

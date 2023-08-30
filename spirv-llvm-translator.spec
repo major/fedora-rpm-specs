@@ -1,10 +1,10 @@
 
-%global commit 8703d43bd14d000fc630c2d3918d918819d23741
+%global commit 854179a7451d04bd7fcde0ac200271482bfa8cd2
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm-translator
-Version:        16.0.0
-Release:        4%{?dist}
+Version:        17.0.0
+Release:        1%{?dist}
 Summary:        LLVM to SPIRV Translator
 
 License:        NCSA
@@ -78,6 +78,9 @@ This package contains the standalone llvm to spirv tool.
 %{_libdir}/pkgconfig/LLVMSPIRVLib.pc
 
 %changelog
+* Mon Aug 07 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0-1
+- Update to LLVM 17.0.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

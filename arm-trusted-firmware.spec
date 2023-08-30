@@ -5,7 +5,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.9
-Release: 2%{?candidate:.%{candidate}}%{?dist}
+Release: 3%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD
 URL:     https://github.com/ARM-software/arm-trusted-firmware/wiki
@@ -55,7 +55,16 @@ sed -i 's/arm-none-eabi-/arm-linux-gnu-/' plat/rockchip/rk3399/drivers/m0/Makefi
 for soc in $(cat %{_arch}-bl31)
 do
 # At the moment we're only making the secure firmware (bl31)
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" PLAT=$(echo $soc) bl31
+case $(echo $soc) in
+  "k3")
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" PLAT=$(echo $soc) TARGET_BOARD=generic SPD=opteed bl31
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" PLAT=$(echo $soc) TARGET_BOARD=j784s4 SPD=opteed K3_USART=0x8 bl31
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" PLAT=$(echo $soc) TARGET_BOARD=lite SPD=opteed bl31
+    ;;
+  *)
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" PLAT=$(echo $soc) bl31
+    ;;
+esac
 done
 %endif
 
@@ -73,6 +82,12 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/$(echo $soc)/
  do
   if [ -f build/$(echo $soc)/release/$(echo $file) ]; then
     install -p -m 0644 build/$(echo $soc)/release/$(echo $file) /%{buildroot}%{_datadir}/%{name}/$(echo $soc)/
+  elif [ $(echo $soc) = "k3" ]; then
+    # TI K3 platforms have a different directory layout, binaries are in build/k3/$board directory
+    for board in generic j784s4 lite
+    do
+       install -pD -m 0644 build/$(echo $soc)/$(echo $board)/release/$(echo $file) /%{buildroot}%{_datadir}/%{name}/$(echo $soc)/$(echo $board)/$(echo $file)
+    done
   fi
  done
 done
@@ -99,6 +114,9 @@ done
 %endif
 
 %changelog
+* Mon Aug 28 2023 Enric Balletbo i Serra <eballetbo@redhat.com> - 2.9-3
+- Add support for TI k3 SoCs
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

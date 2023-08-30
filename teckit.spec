@@ -1,17 +1,16 @@
 Name:           teckit
-Version:        2.5.11
-Release:        2%{?dist}
-Summary:        Conversion library and mapping compiler
+Version:        2.5.12
+Release:        1%{?dist}
+Summary:        Encoding conversion library and mapping compiler
 # COPYING:                      links to license/LICENSING.txt
 # license/License_CPLv05.txt:   CPL-1.0 text, "0.5" version in the license
 #                               title is irrelevant
 #                               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>
 # license/License_LGPLv21.txt:  LGPL-2.1 text
 # license/LICENSING.txt:        license declarations
-# SFconv/UtfCodec.cpp:      LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL(?version) (bundled Graphite2)
-# SFconv/UtfCodec.h:        LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL(?version) (bundled Graphite2)
-#                           <https://github.com/silnrsi/graphite/issues/58>,
-#                           graphite2 package uses "MPL"
+# SFconv/UtfCodec.cpp:      LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-2.0 (bundled Graphite2)
+# SFconv/UtfCodec.h:        LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-2.0 (bundled Graphite2)
+#                           MPL version clarified at <https://github.com/silnrsi/graphite/issues/58>,
 # source/Engine.cpp:        LGPL-2.1-or-later OR CPL-1.0, CPL-1.0 identifier already
 #                           encompases "or later" choice
 #                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>
@@ -42,8 +41,8 @@ Summary:        Conversion library and mapping compiler
 # SFconv/expat/xmlparse/xmlparse.c:     MPL-1.1 OR GPL-1.0-or-later (bundled expat)
 # zlib-1.2.3:           "sse copyright notice in zlib.h"
 # zlib-1.2.3/zlib.h:    zlib-acknowledgement
-License:        (LGPL-2.1-or-later OR CPL-1.0) AND (LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-2.0 OR MPL-1.1)
-URL:            https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=teckit
+License:        (LGPL-2.1-or-later OR CPL-1.0) AND (LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-2.0)
+URL:            https://software.sil.org/teckit/
 Source0:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.gz
 Source1:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.gz.asc
 # Exported from ppisar's keyring
@@ -76,8 +75,6 @@ a human-readable mapping description (a simple text file).
 
 %package devel
 Summary:        Developmental files for TECkit library
-# TODO: Augment CPL-1.0 to CPL-0.5-or-later after resolving
-# <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>.
 License:        LGPL-2.1-or-later OR CPL-1.0
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -89,7 +86,7 @@ that use TECkit, a character encoding and mapping, library.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # Remove bundled libraries
-rm -r zlib-*/*.c SFconv/expat
+rm -r zlib-*/*.{c,h} SFconv/expat
 
 %build
 # Regenerate a build script
@@ -125,16 +122,23 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/libTECkit.so.0.*
 %{_libdir}/libTECkit_Compiler.so.0
 %{_libdir}/libTECkit_Compiler.so.0.*
-%{_mandir}/man1/*
+%{_mandir}/man1/sfconv.*
+%{_mandir}/man1/teckit_compile.*
+%{_mandir}/man1/txtconv.*
 
 %files devel
 %doc docs/*.pdf
-%{_includedir}/teckit/
+%{_includedir}/teckit
 %{_libdir}/libTECkit.so
 %{_libdir}/libTECkit_Compiler.so
 %{_libdir}/pkgconfig/teckit.pc
 
 %changelog
+* Mon Aug 28 2023 Petr Pisar <ppisar@redhat.com> - 2.5.12-1
+- 2.5.12 bump
+- Correct a license tag to "(LGPL-2.1-or-later OR CPL-1.0) AND
+  (LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-2.0)"
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -62,6 +62,8 @@ City street names.
 %package libs
 Summary:        KDE monopd client libraries
 License:        LGPL-2.1-only
+# no KDE4 or KF5 port, was last built for KDE3
+Obsoletes:      kdeaddons-atlantikdesigner < 4
 
 %description libs
 %{summary}.

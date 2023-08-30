@@ -5,16 +5,13 @@
 %global crate url
 
 Name:           rust-url
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        URL library for Rust, based on the WHATWG URL Standard
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/url
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * remove debugger_test and debugger_test_parser dev-dependencies
-Patch:          url-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -35,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -76,8 +72,6 @@ use the "serde" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-# drop tests that require connecting a debugger to the test runner
-rm tests/debugger_visualizer.rs
 %cargo_prep
 
 %generate_buildrequires

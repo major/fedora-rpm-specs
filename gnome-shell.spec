@@ -16,8 +16,12 @@ Patch10001: gnome-shell-favourite-apps-firefox.patch
 # downstream patch to stop trying on configuration errors.
 Patch40001: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 
+Patch: 0001-status-keyboard-Add-a-catch-around-reload-call.patch
+Patch: 0002-status-keyboard-Load-keyboard-from-system-settings-i.patch
+Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
+
 %define eds_version 3.45.1
-%define gnome_desktop_version 40
+%define gnome_desktop_version 44.0-7
 %define glib2_version 2.56.0
 %define gobject_introspection_version 1.49.1
 %define gjs_version 1.73.1
@@ -43,7 +47,7 @@ BuildRequires:  pkgconfig(gcr-4)
 BuildRequires:  pkgconfig(gjs-1.0) >= %{gjs_version}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gnome-autoar-0)
-BuildRequires:  pkgconfig(gnome-desktop-4)
+BuildRequires:  pkgconfig(gnome-desktop-4) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libEGL-devel

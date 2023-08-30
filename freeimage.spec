@@ -2,11 +2,11 @@
 %undefine _ld_as_needed
 
 %define major 3
-%global svn_rev 1889
+%global svn_rev 1909
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.18%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.19%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -26,8 +26,6 @@ Patch0:         FreeImage_unbundle.patch
 Patch1:         FreeImage_doxygen.patch
 # Patch for openexr 3
 Patch2:         freeimage-openexr3.patch
-# Patch for LibRaw 0.21.0 compatibility
-Patch3:         libraw.patch
 # Proposed fix for CVE-2021-33367
 Patch4:         CVE-2021-33367.patch
 
@@ -163,6 +161,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Mon Aug 28 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.19.svn1909
+- Update to svn rev 1909
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.18.svn1889
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

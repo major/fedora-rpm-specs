@@ -4,7 +4,7 @@ Name:           apiguardian
 Version:        1.1.2
 Release:        7%{?dist}
 Summary:        API Guardian Java annotation
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/apiguardian-team/apiguardian
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch

@@ -331,14 +331,14 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 20
+%global featurever 21
 %global interimver 0
-%global updatever 2
+%global updatever 0
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
 # and this it is better to change it here, on single place
-%global buildjdkver %{featurever}
+%global buildjdkver 20
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it would have the %%{rhel} macro defined.
 %if 0%{?rhel} && !0%{?epel}
@@ -383,14 +383,14 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver fd3de3d95b5
+%global fipsver 75ffdc48eda
 
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        9
+%global buildver       35
 %global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -632,9 +632,6 @@ Source15: TestSecurityProperties.java
 # Ensure vendor settings are correct
 Source16: CheckVendor.java
 
-# nss fips configuration file
-Source17: nss.fips.cfg.in
-
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
 
@@ -667,8 +664,8 @@ Patch3:    rh649512-remove_uses_of_far_in_jpeg_libjpeg_turbo_1_4_compat_for_jdk1
 Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-devel.patch
 
 # Crypto policy and FIPS support patches
-# Patch is generated from the fips-20u tree at https://github.com/rh-openjdk/jdk/tree/fips-20u
-# as follows: git diff %%{vcstag} src make > fips-20u-$(git show -s --format=%h HEAD).patch
+# Patch is generated from the fips-21u tree at https://github.com/rh-openjdk/jdk/tree/fips-21u
+# as follows: git diff %%{vcstag} src make test > fips-21u-$(git show -s --format=%h HEAD).patch
 # Diff is limited to src and make subdirectories to exclude .github changes
 # Fixes currently included:
 # PR3183, RH1340845: Follow system wide crypto policy
@@ -691,8 +688,18 @@ Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-d
 # RH2090378: Revert to disabling system security properties and FIPS mode support together
 # RH2104724: Avoid import/export of DH private keys
 # RH2092507: P11Key.getEncoded does not work for DH keys in FIPS mode
+# RH2048582: Support PKCS#12 keystores
+# RH2020290: Support TLS 1.3 in FIPS mode
+# Add nss.fips.cfg support to OpenJDK tree
+# RH2117972: Extend the support for NSS DBs (PKCS11) in FIPS mode
+# Remove forgotten dead code from RH2020290 and RH2104724
+# OJ1357: Fix issue on FIPS with a SecurityManager in place
+# RH2134669: Add missing attributes when registering services in FIPS mode.
+# test/jdk/sun/security/pkcs11/fips/VerifyMissingAttributes.java: fixed jtreg main class
+# RH1940064: Enable XML Signature provider in FIPS mode
 # Build the systemconf library on all platforms
-Patch1001: fips-20u-%{fipsver}.patch
+# Remove GCC minor versioning (JDK-8284772) to unbreak testing
+Patch1001: fips-21u-%{fipsver}.patch
 
 #############################################
 #
@@ -761,8 +768,8 @@ BuildRequires: java-latest-openjdk-devel
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
 %endif
-# 2022g required as of JDK-8297804
-BuildRequires: tzdata-java >= 2022g
+# 2023c required as of JDK-8305113
+BuildRequires: tzdata-java >= 2023c
 
 # cacerts build requirement in portable mode
 BuildRequires: ca-certificates
@@ -1039,9 +1046,6 @@ done
 # Setup nss.cfg
 sed -e "s:@NSS_LIBDIR@:%{NSS_LIBDIR}:g" %{SOURCE11} > nss.cfg
 
-# Setup nss.fips.cfg
-sed -e "s:@NSS_LIBDIR@:%{NSS_LIBDIR}:g" %{SOURCE17} > nss.fips.cfg
-
 %build
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
 mkdir bootjdk
@@ -1202,9 +1206,6 @@ function installjdk() {
 
         # Install nss.cfg right away as we will be using the JRE above
         install -m 644 nss.cfg ${imagepath}/conf/security/
-
-        # Install nss.fips.cfg: NSS configuration for global FIPS mode (crypto-policies)
-        install -m 644 nss.fips.cfg ${imagepath}/conf/security/
 
         # Create fake alt-java as a placeholder for future alt-java
         if [ -d man/man1 ] ; then
@@ -1534,8 +1535,8 @@ $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|
 %if %{include_staticlibs}
 # Check debug symbols in static libraries (smoke test)
 export STATIC_LIBS_HOME=${top_dir_abs_main_build_path}/../../%{buildoutputdir -- ${suffix}%{staticlibs_suffix}}/images/static-libs/lib/
-readelf --debug-dump $STATIC_LIBS_HOME/libfdlibm.a | grep w_remainder.c
-readelf --debug-dump $STATIC_LIBS_HOME/libfdlibm.a | grep e_remainder.c
+readelf --debug-dump  $STATIC_LIBS_HOME/libnet.a | grep Inet4AddressImpl.c
+readelf --debug-dump  $STATIC_LIBS_HOME/libnet.a | grep Inet6AddressImpl.c
 %endif
 
 # Check src.zip has all sources. See RHBZ#1130490
@@ -1627,6 +1628,29 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchiveForFiles}
 
 %changelog
+* Tue Aug 08 2023 Petra Alice Mikova <pmikova@redhat.com> 1:21.0.0.0.35-0.1.rolling
+- updated to jdk-21+35, which is no longer EA
+
+* Tue Aug 08 2023 Petra Alice Mikova <pmikova@redhat.com> 1:21.0.0.0.34-0.1.ea.rolling
+- initial update to jdk21
+- commented out fips patches
+- updated to jdk21 ea
+- updated patch 1001 - rh1648249-add_commented_out_nss_cfg_provider_to_java_security
+- replace smoketests in staticlibs test, as the previous files used were removed by a patch in JDK
+- require tzdata 2023c
+- Update FIPS support to bring in latest changes
+- * RH2048582: Support PKCS#12 keystores
+- * RH2020290: Support TLS 1.3 in FIPS mode
+- * Add nss.fips.cfg support to OpenJDK tree
+- * RH2117972: Extend the support for NSS DBs (PKCS11) in FIPS mode
+- * Remove forgotten dead code from RH2020290 and RH2104724
+- * OJ1357: Fix issue on FIPS with a SecurityManager in place
+- * RH2134669: Add missing attributes when registering services in FIPS mode.
+- * test/jdk/sun/security/pkcs11/fips/VerifyMissingAttributes.java: fixed jtreg main class
+- * RH1940064: Enable XML Signature provider in FIPS mode
+- * Remove GCC minor versioning (JDK-8284772) to unbreak testing
+- Drop local nss.fips.cfg.in handling now this is handled in the patched OpenJDK build
+
 * Thu Aug 03 2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.2.0.9-1.rolling
 - Update to jdk-20.0.2+9
 - Update release notes to 20.0.2+9

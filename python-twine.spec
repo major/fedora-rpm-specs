@@ -4,8 +4,8 @@
 %bcond_with internet
 
 Name:           python-%{srcname}
-Version:        4.0.1
-Release:        5%{?dist}
+Version:        4.0.2
+Release:        1%{?dist}
 Summary:        Collection of utilities for interacting with PyPI
 
 License:        ASL 2.0
@@ -90,6 +90,10 @@ install -p -D -T -m 0644 docs/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/twine
 
 %changelog
+* Mon Aug 28 2023 Charalampos Stratakis <cstratak@redhat.com> - 4.0.2-1
+- Update to 4.0.2
+Resolves: rhbz#2150064
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

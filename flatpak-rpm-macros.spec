@@ -1,6 +1,6 @@
 Name:           flatpak-rpm-macros
 Version:        39
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        Macros for building RPMS for flatpaks
 Source0:        macros.flatpak.in
 Source1:        distutils.cfg
@@ -45,6 +45,15 @@ install -t $RPM_BUILD_ROOT%{_rpmconfigdir} -m 755 %{SOURCE3}
 %{_rpmconfigdir}/fontconfig-flatpak.prov
 
 %changelog
+* Mon Aug 28 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 39-4
+- Define %%_localstatedir and %%__git
+
+* Tue Aug 22 2023 Owen Taylor <otaylor@redhat.com> - 39-3
+- Fix %%dist tag to be consistent with fedora-release
+
+* Mon Aug 7 2023 Owen Taylor <otaylor@redhat.com> - 39-2
+- Bump release for rebuild
+
 * Mon Aug 7 2023 Owen Taylor <otaylor@redhat.com> - 39-1
 - Set %%dist to f%%{fedora}app - this is for building without modules
 

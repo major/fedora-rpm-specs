@@ -1,16 +1,17 @@
 
 Name: rst2pdf
-Version: 0.97
-Release: 14%{?dist}
+Version: 0.101
+Release: 1%{?dist}
 Summary: Tool for transforming reStructuredText to PDF
 License: MIT
 
 URL: https://rst2pdf.org/
 Source0: %{pypi_source}
 # merged in https://github.com/rst2pdf/rst2pdf/commit/af7259a57ca7c167160438fd989e3356cea11359
-Patch0:  0001-Adjust-to-py-3.12.patch
+##Patch0:  0001-Adjust-to-py-3.12.patch
 
-BuildRequires: python3-setuptools python3-devel
+BuildRequires: python3-devel
+BuildRequires: %{py3_dist setuptools}
 BuildArch: noarch
 
 %description
@@ -19,21 +20,26 @@ Tool for transforming reStructuredText to PDF using ReportLab
 %prep
 %autosetup -n %{name}-%{version} -p 1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%files
-# Missing license
-# https://github.com/rst2pdf/rst2pdf/issues/866
-#%doc CHANGES.rst Contributors.txt README.rst
-#%license LICENSE.txt
+%pyproject_save_files rst2pdf
+
+%files -n %{name} -f %{pyproject_files}
+%doc CHANGES.rst Contributors.txt README.rst
+%license LICENSE.txt
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}*
 
 %changelog
+* Mon Aug 28 2023 Sergio Pascual <sergiopr at fedoraproject.org> - 0.101-1
+- New upstream version 0.101
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.97-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

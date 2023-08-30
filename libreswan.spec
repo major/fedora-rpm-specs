@@ -32,7 +32,9 @@ Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec
 # version is generated in the release script
 Version: 4.12
 Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}
-License: GPLv2
+# The code in lib/libswan/nss_copies.c is under MPL-2.0, while the
+# rest is under GPL-2.0-or-later
+License: GPL-2.0-or-later AND MPL-2.0
 Url: https://libreswan.org/
 Source0: https://download.libreswan.org/%{?prever:development/}%{name}-%{version}%{?prever}.tar.gz
 Source1: https://download.libreswan.org/%{?prever:development/}%{name}-%{version}%{?prever}.tar.gz.asc

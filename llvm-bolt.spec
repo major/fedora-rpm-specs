@@ -7,7 +7,7 @@
 %global maj_ver 17
 %global min_ver 0
 %global patch_ver 0
-%global rc_ver 1
+%global rc_ver 3
 %global bolt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global bolt_srcdir llvm-project-%{bolt_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -146,6 +146,12 @@ rm -f %{buildroot}/%{_builddir}/%{bolt_srcdir}/%{_vpath_builddir}/%{_lib}/lib*.a
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Aug 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-1
+- Update to LLVM 17.0.0 RC3
+
+* Wed Aug 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc2-1
+- Update to LLVM 17.0.0 RC2
+
 * Thu Aug 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
 - Update to LLVM 17.0.0 RC1
 

@@ -16,6 +16,12 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(ffnvcodec) >= 11.1.5.1
 BuildRequires:  pkgconfig(gstreamer-va-1.0)
 
+# Replace the rpmfusion package
+Provides:       nvidia-vaapi-driver = %{version}-%{release}
+Obsoletes:      nvidia-vaapi-driver < 0.0.10-3
+# Alternative name that better describes the API involved
+Provides:       nvdec-vaapi-driver = %{version}-%{release}
+
 # Only one NVIDIA VA-API shim on a system at a time
 Conflicts:      libva-vdpau-driver
 

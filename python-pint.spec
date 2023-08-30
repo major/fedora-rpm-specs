@@ -2,8 +2,8 @@
 %bcond_with docs
 
 Name:           python-pint
-Version:        0.16.1
-Release:        12%{?dist}
+Version:        0.17
+Release:        %autorelease
 Summary:        Physical quantities module
 
 License:        BSD
@@ -114,6 +114,10 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Aug 25 2023 Mark E. Fuller <fuller@fedoraproject.org> - 0.17-1
+- Bump to minimum version required to compile Cantera 3.0.0
+- Switch to autorelease in spec
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

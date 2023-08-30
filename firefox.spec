@@ -159,13 +159,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        116.0.3
+Version:        117.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230817.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230828.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -205,7 +205,6 @@ Patch40:        build-aarch64-skia.patch
 Patch44:        build-arm-libopus.patch
 Patch46:        firefox-nss-version.patch
 Patch47:        fedora-shebang-build.patch
-Patch49:        build-arm-libaom.patch
 Patch53:        firefox-gcc-build.patch
 Patch54:        mozilla-1669639.patch
 Patch55:        firefox-testing.patch
@@ -484,7 +483,6 @@ This package contains results of tests executed during build.
 %patch40 -p1 -b .aarch64-skia
 %patch44 -p1 -b .build-arm-libopus
 %patch47 -p1 -b .fedora-shebang
-%patch49 -p1 -b .build-arm-libaom
 %patch53 -p1 -b .firefox-gcc-build
 %patch54 -p1 -b .1669639
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
@@ -1068,6 +1066,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Aug 28 2023 Martin Stransky <stransky@redhat.com>- 117.0-1
+- Updated to 117.0
+
 * Thu Aug 17 2023 Martin Stransky <stransky@redhat.com>- 116.0.3-1
 - Updated to 116.0.3
 

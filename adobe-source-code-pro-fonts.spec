@@ -37,8 +37,8 @@ Release:        %autorelease
 URL:            https://github.com/adobe-fonts/source-code-pro
 
 Source:         https://github.com/adobe-fonts/source-code-pro/archive/%{version_roman}R-u/%{version_italic}R-i/%{version_vf}R-vf.tar.gz#/source-code-pro-%{version_roman}R-u-%{version_italic}R-i-%{version_vf}R-vf.tar.gz
-Source10:       61-%{name}-fontconfig.conf
-Source11:       61-%{fontpkgname2}-fontconfig.conf
+Source10:       61-%{name}.conf
+Source11:       61-%{fontpkgname2}.conf
 
 %fontpkg -a
 

@@ -12,7 +12,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -103,7 +103,7 @@ MLIR development files.
         -DBUILD_SHARED_LIBS=OFF \
         -DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF \
         -DMLIR_BUILD_MLIR_C_DYLIB=ON \
-%ifarch %ix86 ppc64le
+%ifarch %ix86 ppc64le x86_64
         -DLLVM_PARALLEL_LINK_JOBS=1 \
 %endif
 %ifarch %ix86
@@ -200,6 +200,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Mon Aug 28 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-2
+- Restrict link jobs on x86_64
+
 * Fri Aug 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-1
 - Update to LLVM 17.0.0 RC3
 

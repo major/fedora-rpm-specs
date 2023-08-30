@@ -6,8 +6,8 @@
 %bcond_without tests
 
 Name:           debhelper
-Version:        13.11.4
-Release:        3%{?dist}
+Version:        13.11.5
+Release:        1%{?dist}
 Summary:        Helper programs for debian/rules
 
 License:        GPL-2.0-or-later
@@ -124,7 +124,7 @@ dpkg --print-architecture
 cc -dumpmachine
 
 %setup -q -n %{name}
-%patch2 -p1 -b .no-debian-layout
+%patch -P2 -p1 -b .no-debian-layout
 
 %build
 %make_build build
@@ -169,6 +169,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Mon Aug 14 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 13.11.5-1
+- Update to 13.11.5 (#2231971)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.11.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

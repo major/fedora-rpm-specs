@@ -4,7 +4,7 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.0.7
+Version: 7.0.7.2
 Release: 1%{?dist}
 Summary: A toolkit for building modeling frameworks (part of Rails)
 License: MIT
@@ -13,12 +13,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone https://github.com/rails/rails.git
-# cd rails/activemodel && git archive -v -o activemodel-7.0.7-tests.txz v7.0.7 test/
+# cd rails/activemodel && git archive -v -o activemodel-7.0.7.2-tests.txz v7.0.7.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.7-tools.txz v7.0.7 tools/
+# cd rails && git archive -v -o rails-7.0.7.2-tools.txz v7.0.7.2 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 
 # Let's keep Requires and BuildRequires sorted alphabeticaly
@@ -87,6 +87,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Aug 28 2023 Pavel Valena <pvalena@redhat.com> - 7.0.7.2-1
+- Update to activemodel 7.0.7.2.
+
 * Thu Aug 10 2023 Pavel Valena <pvalena@redhat.com> - 7.0.7-1
 - Update to activemodel 7.0.7.
 

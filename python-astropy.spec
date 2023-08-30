@@ -3,10 +3,10 @@
 %global srcname astropy
 
 Name: python-%{srcname}
-Version: 5.3.1
-Release: 3%{?dist}
+Version: 5.3.2
+Release: 2%{?dist}
 Summary: A Community Python Library for Astronomy
-License: BSD and MIT
+License: BSD-3-Clause AND CFITSIO
 
 URL: http://astropy.org
 Source0: %{pypi_source}
@@ -18,8 +18,8 @@ Patch1: python-astropy-system-ply.patch
 # wcslib 7.12
 
 # As per https://github.com/astropy/astropy/pull/14311
-# cfitsio is not bundled anymore, just a few files
-# needed for decompresion. It cannot be unbundled anymore
+# cfitsio is not bundled, upstream includes just a few files
+# needed for decompresion. cfitsio cannot be unbundled anymore
 
 %global _description %{expand:
 The Astropy project is a common effort to develop a single core package
@@ -107,7 +107,7 @@ export CPATH="/usr/include/wcslib"
 %if %{with check}
 %check
 export PYTEST_ADDOPTS='-p no:cacheprovider'
-# https://github.com/astropy/astropy/issues/13522
+# https://github.com/astropy/astropy/issues/15238
 pytest_args=(
 %ifarch i686
  --deselect "astropy/modeling/tests/test_models.py::TestFittable1DModels::test_fitter1D[TRFLSQFitter-BrokenPowerLaw1D-test_parameters22]"
@@ -116,6 +116,9 @@ pytest_args=(
  --deselect "astropy/modeling/tests/test_quantities_fitting.py::test_fitting_with_initial_values[DogBoxLSQFitter]"
  --deselect astropy/wcs/tests/test_tabprm.py::test_tabprm_print
 %endif
+ --deselect astropy/io/votable/tests/vo_test.py::test_gzip_filehandles
+ --deselect astropy/nddata/mixins/tests/test_ndslicing.py::test_slicing_all_something_wrong
+ --deselect astropy/table/tests/test_table.py::test_table_attribute_fail
 )
 
 cp conftest.py %{buildroot}/%{python3_sitearch}
@@ -141,6 +144,11 @@ popd
 %license LICENSE.rst cextern/cfitsio/License.txt
 
 %changelog
+* Mon Aug 28 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 5.3.2-2
+- New upstream source 5.3.2
+- SPDX migration, license is BSD-3-Clause AND CFITSIO
+- Include the sources
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

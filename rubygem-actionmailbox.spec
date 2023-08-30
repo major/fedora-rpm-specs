@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 
-Version: 7.0.7
+Version: 7.0.7.2
 Release: 1%{?dist}
 Summary: Inbound email handling framework
 License: MIT
@@ -11,12 +11,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # Actionmailbox gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/actionmailbox && git archive -v -o actionmailbox-7.0.7-tests.txz v7.0.7 test/
+# cd rails/actionmailbox && git archive -v -o actionmailbox-7.0.7.2-tests.txz v7.0.7.2 test/
 Source1: actionmailbox-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.7-tools.txz v7.0.7 tools/
+# cd rails && git archive -v -o rails-7.0.7.2-tools.txz v7.0.7.2 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 
 BuildRequires: ruby(release)
@@ -93,6 +93,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Aug 28 2023 Pavel Valena <pvalena@redhat.com> - 7.0.7.2-1
+- Update to actionmailbox 7.0.7.2.
+
 * Thu Aug 10 2023 Pavel Valena <pvalena@redhat.com> - 7.0.7-1
 - Update to actionmailbox 7.0.7.
 

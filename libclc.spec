@@ -2,13 +2,13 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 16.0.6
-#global rc_ver 4
+%global libclc_version 17.0.0
+%global rc_ver 3
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:           libclc
 Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
 License:        Apache-2.0 WITH LLVM-exception OR BSD OR MIT
@@ -96,6 +96,12 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_includedir}/%{shortname}
 
 %changelog
+* Fri Aug 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-1
+- Update to LLVM 17.0.0 RC3
+
+* Mon Aug 07 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
+- Update to LLVM 17.0.0 RC1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,15 +1,11 @@
 Name:           python-sphinxcontrib-bibtex
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        Sphinx extension for BibTeX style citations
 
 License:        BSD-2-Clause
 URL:            https://github.com/mcmtroffaes/sphinxcontrib-bibtex
-Source0:        %{url}/archive/%{version}/sphinxcontrib-bibtex-%{version}.post0.tar.gz
-# Suppress the sup tag in addition to the brackets in the ``:cite:alp:`` role
-# https://github.com/mcmtroffaes/sphinxcontrib-bibtex/commit/31d03b30e105f240228df5caa9df963fb8684a79
-# https://github.com/mcmtroffaes/sphinxcontrib-bibtex/commit/150c4614c0760cf7d5654449fae45c94296ca7bd
-Patch0:         %{name}-sup.patch
+Source0:        %{url}/archive/%{version}/sphinxcontrib-bibtex-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -119,6 +115,10 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 %doc html/*
 
 %changelog
+* Mon Aug 28 2023 Jerry James <loganjerry@gmail.com> - 2.6.1-1
+- Version 2.6.1
+- Drop upstreamed sup patch
+
 * Fri Aug 25 2023 Jerry James <loganjerry@gmail.com> - 2.6.0-1
 - Version 2.6.0.post0
 - Drop upstreamed patches

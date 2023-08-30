@@ -67,5 +67,4 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-* Wed Aug 23 2023 Jakub Čajka <jcajka@redhat.com> - 0.6.3-1
-- Initial package import
+%autochangelog

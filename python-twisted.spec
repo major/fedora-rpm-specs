@@ -7,13 +7,13 @@ and more.}
 
 Name:           python-%{srcname}
 Version:        23.8.0
-Release:        %autorelease -p -e rc1
+Release:        %autorelease
 Summary:        Twisted is a networking engine written in Python
 
 License:        MIT
 URL:            http://twistedmatrix.com/
 VCS:            https://github.com/twisted/twisted
-Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}rc1.tar.gz
+Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
 # downstream-only hatch-fancy-pypi-readme not available in Fedora
 Patch1:         0001-23.8.0rc1-remove-hatch-fancy-pypi-readme.patch
 # downstream-only fix tests, skip network tests that fail in buildsys
@@ -42,7 +42,7 @@ Recommends:  python3-%{srcname}+tls
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{srcname}-%{version}rc1
+%autosetup -p1 -n %{srcname}-%{srcname}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

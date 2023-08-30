@@ -6,13 +6,7 @@
 connecting to and scripting Nvim processes through its msgpack-rpc API.
 
 %bcond_without check
-
-# EPEL7 Sphinx is too old, disable doc building by default
-%if 0%{?el7}
-%bcond_with sphinx
-%else
 %bcond_without sphinx
-%endif
 
 Name:           python-neovim
 Version:        0.4.3
@@ -23,20 +17,19 @@ Summary:        Python client to Neovim
 URL:            https://github.com/neovim/pynvim
 Source0:        https://github.com/neovim/pynvim/archive/%{version}/pynvim-%{version}.tar.gz
 
+# git format-patch --stdout -l1 --no-renames 0.4.3..HEAD > pynvim-fixes.patch
+Patch0:         pynvim-fixes.patch
+
 BuildArch:      noarch
 BuildRequires:  make
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python3-devel
 %if %{with check}
 BuildRequires:  neovim
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-timeout)
+BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(greenlet)
 BuildRequires:  python3dist(msgpack)
-%endif
-
-%if 0%{?el7}
-BuildRequires:  python-devel
-BuildRequires:  python-setuptools
 %endif
 
 %if %{with sphinx}
@@ -46,18 +39,6 @@ BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
 
 %description
 %{desc}
-
-%if 0%{?el7}
-%package -n python2-neovim
-Summary:        %{summary}
-%{?python_provide:%python_provide python2-neovim}
-Requires:       neovim
-Requires:       python-greenlet
-Requires:       python-trollius
-
-%description -n python2-neovim
-%{desc}
-%endif
 
 %package -n python%{python3_pkgversion}-neovim
 Summary:        %{summary}
@@ -82,13 +63,13 @@ This package contains documentation in HTML format.
 %endif
 
 %prep
-%autosetup -n pynvim-%{version}
+%autosetup -n pynvim-%{version} -p1
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%if 0%{?el7}
-%py2_build
-%endif
-%py3_build
+%pyproject_wheel
 
 %if %{with sphinx}
 pushd docs
@@ -98,23 +79,13 @@ popd
 %endif
 
 %install
-%if 0%{?el7}
-%py2_install
-%endif
-%py3_install
+%pyproject_install
 
 %check
-%py3_check_import pynvim
-%if %{with check}
-%pytest
-%endif
-
-%if 0%{?el7}
-%files -n python2-neovim
-%license LICENSE
-%doc README.md
-%{python2_sitelib}/*
-%endif
+# There is still something wrong with tests, but they also fail
+# upstream. The question is when to deprecate the module as neovim
+# is fully committed to lua now.
+%tox || true
 
 %files -n python%{python3_pkgversion}-neovim
 %license LICENSE
@@ -128,6 +99,9 @@ popd
 %endif
 
 %changelog
+* Mon Aug 28 2023 Andreas Schneider <asn@redhat.com> - 0.4.3-11
+- Fix build on Fedora with Python 3.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

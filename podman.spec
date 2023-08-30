@@ -76,7 +76,8 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 4.6.1
+Version: 4.6.2
+# The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
 %if %{defined golang_arches_future}
@@ -115,6 +116,7 @@ BuildRequires: libselinux-devel
 BuildRequires: shadow-utils-subid-devel
 BuildRequires: pkgconfig
 BuildRequires: make
+BuildRequires: man-db
 BuildRequires: ostree-devel
 BuildRequires: systemd
 BuildRequires: systemd-devel

@@ -58,7 +58,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.3
-Release:        3%{?libo_prerelease}%{?dist}
+Release:        4%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -270,8 +270,6 @@ Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
 # backported
 Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
 Patch4: 0001-default-to-sifr-for-gnome-light-mode.patch
-# TODO investigate these
-Patch5: 0001-aarch64-failing-here.patch
 # backported
 Patch8: 0001-Only-pass-I.-arguments-to-g-ir-scanner-by-using-pkg-.patch
 Patch9: 0001-Adapt-test-code-to-cURL-8.2.0.patch
@@ -1027,8 +1025,7 @@ sed -i -e /CppunitTest_dbaccess_hsqldb_test/d dbaccess/Module_dbaccess.mk
 sed -i -e s/CppunitTest_dbaccess_RowSetClones// dbaccess/Module_dbaccess.mk
 %endif
 %ifarch aarch64
-sed -i -e /CppunitTest_sc_addin_functions_test/d sc/Module_sc.mk
-sed -i -e /CppunitTest_sc_statistical_functions_test/d sc/Module_sc.mk
+# Nothing to do
 %endif
 %ifarch s390x
 sed -i -e /CppunitTest_sc_array_functions_test/d sc/Module_sc.mk
@@ -1057,7 +1054,7 @@ for i in $RPM_OPT_FLAGS; do
         esac
         ARCH_FLAGS="$ARCH_FLAGS $i"
 done
-%ifarch s390 s390x %{arm} aarch64
+%ifarch s390 s390x %{arm}
 # these builders typically do not have enough memory to link the big libs with -g2
 ARCH_FLAGS="$ARCH_FLAGS -g1"
 %endif
@@ -2261,6 +2258,10 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Sun Aug 27 2023 Mattia Verga <mattia.verga@proton.me> - 1:7.6.0.3-4
+- Remove test exclusions from aarch64
+- Link aarch64 executable with standard -g level
+
 * Wed Aug 23 2023 Mattia Verga <mattia.verga@proton.me> - 1:7.6.0.3-3
 - Disable other failing tests under s390x
 - Add patch to fix FTB under ppc64le

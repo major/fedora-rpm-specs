@@ -27,7 +27,6 @@ Patch0:         python-whisper-1.1.10-whisper-resize-test-fix.patch
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-setuptools
 

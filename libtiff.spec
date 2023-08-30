@@ -1,7 +1,7 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
 Version:       4.4.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
@@ -14,7 +14,7 @@ Patch3:        libtiff-CVE-2022-34526.patch
 Patch4:        libtiff-CVE-2023-0804.patch
 
 BuildRequires: gcc, gcc-c++
-BuildRequires: zlib-devel libjpeg-devel jbigkit-devel libzstd-devel libwebp-devel
+BuildRequires: zlib-devel libjpeg-devel jbigkit-devel libzstd-devel libwebp-devel liblerc-devel
 BuildRequires: libtool automake autoconf pkgconfig
 BuildRequires: make
 
@@ -170,6 +170,9 @@ find html -name 'Makefile*' | xargs rm
 %{_mandir}/man1/*
 
 %changelog
+* Mon Aug 28 2023 Nikola Forró <nforro@redhat.com> - 4.4.0-8
+- Enable support for LERC compression (#2234459)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

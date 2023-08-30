@@ -5,7 +5,7 @@
 %global crate sharded-slab
 
 Name:           rust-sharded-slab
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Lock-free concurrent slab
 

@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        39.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,6 +14,10 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
+# https://github.com/weldr/lorax/pull/1338
+# https://bugzilla.redhat.com/show_bug.cgi?id=2231605
+# cut qcom firmwares from x86_64 installer images to save space
+Patch0:         0001-runtime-install-only-pull-in-qcom-firmware-on-aarch6.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -168,6 +172,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Mon Aug 28 2023 Adam Williamson <awilliam@redhat.com> - 39.4-2
+- Backport PR #1338 to cut qcom firmwares and save space
+
 * Wed Aug 09 2023 Brian C. Lane <bcl@redhat.com> 39.4-1
 - Exclude more obsoleted libertas firmware packages (awilliam@redhat.com)
 - Revert "test_minimizer: dnf5 wants --use-host-config" (bcl@redhat.com)

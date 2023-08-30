@@ -7,13 +7,15 @@
 
 Name: privoxy
 Version: 3.0.34
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Privacy enhancing proxy
 License: GPL-2.0-or-later
 Source0: http://downloads.sourceforge.net/ijbswa/%{name}-%{version}-%{beta_or_stable}-src.tar.gz
 Source1: privoxy.service
 Source2: privoxy.logrotate
 Patch0: 53748ca8ca3c893025be34dd4f104546fcbd0602.patch
+Patch1: e73b93ea9ad1f3e980bd78ed3ebf65dedbb598a2.patch
+Patch2: 87253c999d5628a6e9287bb0cc613d7b44bcec09.patch
 URL: http://www.privoxy.org/
 Requires(pre): shadow-utils
 BuildRequires: make
@@ -33,6 +35,8 @@ Privoxy is based on the Internet Junkbuster.
 %setup -q -n %{name}-%{version}-%{beta_or_stable}
 
 %patch -P 0 -p 1
+%patch -P 1 -p 1
+%patch -P 2 -p 1
 
 %build
 rm -rf autom4te.cache
@@ -106,6 +110,9 @@ fi
 %doc doc
 
 %changelog
+* Mon Aug 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.34-5
+- Additional pcre2 patches from upstream.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.34-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

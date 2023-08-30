@@ -1,10 +1,11 @@
 Name:           pyodbc
-Version:        4.0.39
-Release:        4%{?dist}
+Version:        5.0.0~b1
+%global uversion 5.0.0b1
+Release:        2%{?dist}
 Summary:        Python DB API 2.0 Module for ODBC
 License:        MIT
 URL:            https://github.com/mkleehammer/pyodbc
-Source0:        https://github.com/mkleehammer/pyodbc/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/mkleehammer/pyodbc/archive/%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  unixODBC-devel
 BuildRequires:  python3-devel
@@ -32,15 +33,7 @@ convenient interface to ODBC using native data types like datetime and
 decimal.
 
 %prep
-%autosetup -n %{name}-%{version} -p1
-
-# the setup.py script tries to determine the version of the package by
-#  - git describe (which does not work in github tarball)
-#  - parsing PKG-INFO (which is onyl included in sdist)
-# Let's help it:
-echo 'Version: %{version}' > PKG-INFO
-# (If the logic and/or parser in setup.py is changed, this might not work,
-# but the exact .egg-info filename in %%files works as a regression test.)
+%autosetup -n %{name}-%{uversion} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -51,14 +44,26 @@ echo 'Version: %{version}' > PKG-INFO
 %install
 %pyproject_install
 
+# Hotfix - move pyodbc.pyi from %%{_usr} dir to %%{python3_sitearch}
+# Upstream changes of setup.py:
+# https://github.com/mkleehammer/pyodbc/blob/5.0.0b1/setup.py#L55
+mv %{buildroot}%{_usr}/pyodbc.pyi %{buildroot}%{python3_sitearch}/pyodbc.pyi
+
 %files -n python3-%{name}
 %license LICENSE.txt
 %doc README.md notes.txt
 %{python3_sitearch}/%{name}%{python3_ext_suffix}
-%{python3_sitearch}/%{name}-%{version}.dist-info/
-%{python3_sitearch}/pyodbc.pyi
+%{python3_sitearch}/%{name}-%{uversion}.dist-info/
+%{python3_sitearch}/%{name}.pyi
 
 %changelog
+* Mon Aug 28 2023 Ondřej Sloup <osloup@redhat.com> - 5.0.0~b1-2
+- Move /usr/pyodbc.pyi to /usr/lib64/python3.X/site-packages/pyodbc.pyi as originally intended
+
+* Mon Aug 28 2023 Ondřej Sloup <osloup@redhat.com> - 5.0.0~b1-1
+- Rebase to the newest version, test the beta (rhbz#2235122)
+- This release drops Python 2 and adds Python 3.12 support
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.39-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,20 +5,21 @@
 %global crate openssl-sys
 
 Name:           rust-openssl-sys
-Version:        0.9.90
+Version:        0.9.92
 Release:        %autorelease
 Summary:        FFI bindings to OpenSSL
 
 License:        MIT
 URL:            https://crates.io/crates/openssl-sys
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          openssl-sys-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * temporarily downgrade optional bindgen dependency from 0.64 to 0.63
 # * drop feature and dependencies for unstable BoringSSL support
 # * drop feature and dependencies for building against vendored OpenSSL sources
+# * drop Windows-specific vcpkg build-dependency:
+#   https://github.com/sfackler/rust-openssl/issues/2031
 Patch:          openssl-sys-fix-metadata.diff
+Patch:          0001-drop-Windows-specific-references-to-vcpkg.patch
 
 BuildRequires:  rust-packaging >= 21
 

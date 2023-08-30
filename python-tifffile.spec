@@ -2,11 +2,11 @@
 %global srcname tifffile
 
 Name: python-%{srcname}
-Version: 2023.7.18
+Version: 2023.8.25
 Release: 1%{?dist}
 Summary: Read and write TIFF(r) files
 
-License: BSD
+License: BSD-3-Clause
 URL: https://www.lfd.uci.edu/~gohlke/
 Source0: %{pypi_source}
 
@@ -78,6 +78,10 @@ pytest-%{python3_version} -v tests \
 %{_bindir}/tiffcomment
 
 %changelog
+* Mon Aug 28 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.8.25-1
+- New upstream source 2023.8.25
+- SPDX migration
+
 * Sun Jul 23 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.7.18-1
 - New upstream source 2023.7.18
 

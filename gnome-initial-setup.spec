@@ -3,7 +3,7 @@
 %global glib_required_version 2.63.1
 %global gtk_required_version 4.6
 %global geoclue_version 2.3.1
-%global gnome_desktop_version 44.0-6
+%global gnome_desktop_version 44.0-7
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
@@ -17,16 +17,17 @@ URL:            https://wiki.gnome.org/Design/OS/InitialSetup
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 Source1:        vendor.conf
 
-Patch: 0001-keyboard-Get-default-input-sources-from-gnome-deskto.patch
-Patch: 0002-gnome-initial-setup-Bump-GLib-required-version-to-2..patch
-Patch: 0003-driver-Specify-mode-via-flags-instead-of-boolean.patch
-Patch: 0004-initial-setup-Don-t-show-duplicated-pages-between-mo.patch
-Patch: 0005-summary-Write-uid-file-with-other-state-files.patch
+Patch: 0001-keyboard-stop-setting-current-input-source.patch
+Patch: 0002-keyboard-write-to-mru-sources-setting-if-it-has-neve.patch
+Patch: 0003-keyboard-Get-default-input-sources-from-gnome-deskto.patch
+Patch: 0004-gnome-initial-setup-Bump-GLib-required-version-to-2..patch
+Patch: 0005-driver-Specify-mode-via-flags-instead-of-boolean.patch
 Patch: 0006-gnome-initial-setup-Add-live-user-mode.patch
-Patch: 0007-keyboard-Don-t-add-default-input-sources-if-input-so.patch
-Patch: 0008-gnome-initial-setup-Add-OEM-mode.patch
-Patch: 0009-polkit-Add-fedora-specfic-rules.patch
-Patch: 0010-gnome-initial-setup-Read-etc-sysconfig-anaconda.patch
+Patch: 0007-initial-setup-Don-t-show-duplicated-pages-between-mo.patch
+Patch: 0008-keyboard-Don-t-add-default-input-sources-if-input-so.patch
+Patch: 0009-gnome-initial-setup-Add-OEM-mode.patch
+Patch: 0010-polkit-Add-fedora-specfic-rules.patch
+Patch: 0011-gnome-initial-setup-Read-etc-sysconfig-anaconda.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

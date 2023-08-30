@@ -12,17 +12,14 @@
 
 
 Name:           centpkg
-Version:        0.7.4
-Release:        4%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
 URL:            https://git.centos.org/centos/centpkg
 Source0:        %{url}/archive/%{version}/centpkg-%{version}.tar.gz
 BuildArch:      noarch
 
-# https://git.centos.org/centos/centpkg/issue/80
-# Remove in version 0.7.5
-Patch0:         centpkg-0.7.4-correctly-clone-full-path.patch
 
 %if %{defined el7}
 BuildRequires:  python-devel
@@ -100,6 +97,12 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Mon Aug 28 2023 Troy Dawson <tdawson@redhat.com> - 0.8.0-1
+- Update stabilization phase detection (CS-1726)
+- Correctly clone tests/* (CS-1725)
+- Added current-state option (CS-1551)
+- Fix exit codes and error messages (Issue: 81)
+
 * Tue Aug 15 2023 Troy Dawson <tdawson@redhat.com> - 0.7.4-4
 - Correctly clone full path rpms (Issue: 80)
 

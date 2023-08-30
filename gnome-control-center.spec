@@ -1,6 +1,6 @@
 %define gnome_online_accounts_version 3.25.3
 %define glib2_version 2.75.0
-%define gnome_desktop_version 42~alpha
+%define gnome_desktop_version 44.0-7
 %define gsd_version 41.0
 %define gsettings_desktop_schemas_version 42~alpha
 %define upower_version 0.99.8
@@ -22,6 +22,8 @@ Summary:        Utilities to configure the GNOME desktop
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+
+Patch:          0001-keyboard-Use-new-gnome-desktop-api-for-getting-defau.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt

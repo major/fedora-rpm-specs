@@ -2,18 +2,23 @@
 %global repo_name ProcDump-for-Linux
 
 Name:           procdump
-Version:        1.3
-Release:        3%{?dist}
+Version:        2.1
+Release:        1%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
 URL:            https://github.com/Sysinternals/%{repo_name}
 Source:         %{url}/archive/%{version}/%{repo_name}-%{version}.tar.gz
+Patch1:         0001-Fixing-some-leaks-in-src-Monitor.c-code-204.patch
 
 BuildRequires:  gcc
+BuildRequires:  clang
 BuildRequires:  make
 BuildRequires:  zlib-devel
 Requires:       gdb >= 7.6.1
+
+# ProcDump does not support PPC64 yet (#163)
+ExcludeArch:    ppc64le
 
 %description
 ProcDump is a command-line utility whose primary purpose is monitoring an
@@ -28,7 +33,8 @@ other scripts.
 
 
 %build
-%make_build
+# The makefile doesn't like %%make_build (parallel make)
+make CFLAGS=""
 
 
 %install
@@ -45,6 +51,10 @@ other scripts.
 
 
 %changelog
+* Mon Aug 28 2023 Julio Faracco <jfaracco@redhat.com> - 2.1-1
+- New upstream release 2.1
+- Fix issue with missing va_end() call inside GetClientDataHelper (#204).
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

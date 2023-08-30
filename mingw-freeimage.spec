@@ -6,11 +6,11 @@
 
 %global pkgname freeimage
 %global ver_major 3
-%global svn_rev 1889
+%global svn_rev 1909
 
 Name:          mingw-%{pkgname}
 Version:       3.19.0
-Release:       0.15%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:       0.16%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 # freeimage is tripple-licensed, see
@@ -31,10 +31,6 @@ Patch0:        FreeImage_unbundle.patch
 Patch1:        FreeImage_mingw.patch
 # Support openexr-3.x
 Patch2:        freeimage-openexr3.patch
-# Support LibRaw 0.21.0
-%if 0%{?fedora} >= 38
-Patch3:        freeimage-libraw021.patch
-%endif
 # Proposed fix for CVE-2021-33367
 Patch4:         CVE-2021-33367.patch
 
@@ -195,6 +191,9 @@ install -Dpm 0644 %{win64dir}/Dist/FreeImagePlus.h %{buildroot}%{mingw64_include
 
 
 %changelog
+* Mon Aug 28 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.16.svn1889
+- Update to r1909
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.15.svn1889
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

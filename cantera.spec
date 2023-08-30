@@ -1,14 +1,12 @@
 # RPATH issues are standard paths and result from upstream
 %global __brp_check_rpaths %{nil}
-%global debug_package %{nil}
-%global fork Cantera
 
 Name:          cantera
 Version:       3.0.0
-Release:       %{?autorelease}%{!?autorelease:22{?dist}} 
+Release:       %{?autorelease}
 Summary:       Chemical kinetics, thermodynamics, and transport tool suite
 License:       BSD
-URL:           https://github.com/%{fork}/%{name}/
+URL:           https://github.com/Cantera/%{name}/
 Source0:       %{url}archive/refs/tags/v%{version}.tar.gz
 
 # Python 3.12 currently in pre-release and not officially supported
@@ -20,26 +18,37 @@ BuildRequires:  fmt-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  git
-BuildRequires:  gmock-devel
-BuildRequires:  gtest-devel
 BuildRequires:  python3
-BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
-BuildRequires:  python3-h5py
 BuildRequires:  python3-numpy
-BuildRequires:  python3-pandas
-BuildRequires:  python3-pint
 BuildRequires:  python3-pip
 BuildRequires:  python3-pytest
-BuildRequires:  python3-ruamel-yaml
 BuildRequires:  python3-scipy
-BuildRequires:  python3-scons
 BuildRequires:  python3-wheel
 BuildRequires:  sundials-devel
 BuildRequires:  yaml-cpp-devel
 
-%if 0%{?fedora}
+
+%if 0%{?suse_version}
+BuildRequires:  gmock
+BuildRequires:  gtest
+BuildRequires:  scons
+BuildRequires:  python3-Cython
+BuildRequires:  python3-numpy-devel
+BuildRequires:  python3-Pint
+BuildRequires:  python3-ruamel.yaml
+%else
+BuildRequires:  gmock-devel
+BuildRequires:  gtest-devel
+BuildRequires:  python3-cython
+BuildRequires:  python3-pint
+BuildRequires:  python3-scons
+BuildRequires:  python3-ruamel-yaml
+%endif
+
+%if 0%{?fedora} || 0%{?suse_version}
 BuildRequires:  gcc-fortran
+BuildRequires:  python3-pandas
 %else
 BuildRequires:  gcc-gfortran
 %endif

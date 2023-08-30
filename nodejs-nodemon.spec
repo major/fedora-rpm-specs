@@ -6,7 +6,7 @@
 
 Name:          nodejs-%{npm_name}
 Version:       2.0.3
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Simple monitor script for use during development of a node.js app
 License:       MIT
 URL:           https://github.com/remy/nodemon
@@ -15,6 +15,11 @@ Source0:       %{npm_name}-v%{version}-bundled.tar.gz
 BuildRequires: nodejs-devel
 BuildRequires: nodejs-packaging
 BuildRequires: npm
+
+# Let the nodemon work with any nodejs version available
+%global __requires_exclude ^\/usr\/bin\/node
+Requires:      nodejs(engine)
+Suggests:      nodejs
 
 ExclusiveArch: %{nodejs_arches} noarch
 BuildArch:     noarch
@@ -64,6 +69,10 @@ npm run test
 %{_bindir}/nodemon
 
 %changelog
+* Wed Aug 09 2023 Honza Horak <hhorak@redhat.com> - 2.0.3-9
+- Let nodemon work with any Node.js version
+  Resolves: #2230317
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

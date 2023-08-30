@@ -4,7 +4,7 @@
 %global crate gimoji
 
 Name:           rust-gimoji
-Version:        0.5.1
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Easily add emojis to your git commit messages 🎉
 
@@ -49,7 +49,7 @@ License:        MIT AND Apache-2.0 AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) 
 
 %build
 %cargo_build
-%cargo_license_summary
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install

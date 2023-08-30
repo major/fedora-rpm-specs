@@ -1,6 +1,6 @@
 %global toolchain clang
 %global polly_version 17.0.0
-%global rc_ver 1
+%global rc_ver 3
 %global polly_srcdir polly-%{polly_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
@@ -107,6 +107,12 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Fri Aug 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-1
+- Update to LLVM 17.0.0 RC3
+
+* Wed Aug 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc2-1
+- Update to LLVM 17.0.0 RC2
+
 * Mon Aug 07 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc1-1
 - Update to LLVM 17.0.0 RC1
 

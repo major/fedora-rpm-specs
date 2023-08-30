@@ -72,7 +72,7 @@
 %global patch_version 4
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -122,6 +122,9 @@ Patch100:       %{name}-findruby.patch
 %if 0%{?name_suffix:1}
 Patch1:         %{name}-rename.patch
 %endif
+
+# https://gitlab.kitware.com/cmake/cmake/-/issues/25204
+Patch10001:     0001-Source-Link-libatomic-when-needed-on-any-Linux-archi.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -549,6 +552,9 @@ popd
 
 
 %changelog
+* Mon Aug 28 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-2
+- Add upstream patch to fix linking non-builtin libatomic on some arches
+
 * Thu Aug 24 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-1
 - cmake-3.27.4
   Fixes rhbz#2233852
