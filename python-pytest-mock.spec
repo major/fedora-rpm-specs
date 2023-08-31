@@ -23,7 +23,9 @@ BuildRequires:  python3-devel
 BuildRequires:  %py3_dist setuptools
 BuildRequires:  %py3_dist pytest
 BuildRequires:  %py3_dist setuptools_scm
+%if %{undefined rhel}
 BuildRequires:  %py3_dist pytest-asyncio
+%endif
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -50,7 +52,8 @@ sed -i "s/import py\.code//" tests/test_pytest_mock.py
   -k "not test_standalone_mock and not test_detailed_introspection and not test_detailed_introspection \
   and not test_assert_called_args_with_introspection and not test_assert_called_kwargs_with_introspection \
   and not test_plain_stopall and not test_used_with_class_scope and not est_used_with_module_scope \
-  and not test_used_with_package_scope and not test_used_with_session_scope"
+  and not test_used_with_package_scope and not test_used_with_session_scope \
+  %{?rhel:and not test_instance_async_method_spy}"
 
 %files -n python3-%{pypi_name}
 %doc CHANGELOG.rst README.rst

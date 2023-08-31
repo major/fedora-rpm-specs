@@ -26,8 +26,8 @@
 # additional source even if we do not do the re-generation ourselves.
 
 Name:           llhttp
-Version:        8.1.1
-%global so_version 8.1
+Version:        9.0.1
+%global so_version 9.0
 Release:        %autorelease
 Summary:        Port of http_parser to llparse
 
@@ -54,10 +54,6 @@ Source2:        llhttp-%{version}-nm-dev.tgz
 Source3:        check-null-licenses
 Source4:        audited-null-licenses.toml
 
-# Do not assume a particular sed implementation
-# https://github.com/nodejs/llhttp/pull/230
-Patch:          %{url}/pull/230.patch
-
 # The compiled RPM does not depend on NodeJS at all, but we cannot *build* it
 # on architectures without NodeJS.
 ExclusiveArch:  %{nodejs_arches}
@@ -80,9 +76,6 @@ BuildRequires:  python3-devel
 This project is a port of http_parser to TypeScript. llparse is used to
 generate the output C source file, which could be compiled and linked with the
 embedder's program (like Node.js).
-
-This copy of the library is compiled with LLHTTP_STRICT_MODE set to 0
-(disabled), which is the default.
 
 
 %package devel

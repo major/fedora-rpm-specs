@@ -15,7 +15,7 @@ Version:        1.3.1
 Release:        34%{?dist}
 Summary:        MinGW terminal feature database
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            ftp://ftp.gnu.org/gnu/termcap/
 Source0:        ftp://ftp.gnu.org/gnu/termcap/termcap-%{version}.tar.gz
 

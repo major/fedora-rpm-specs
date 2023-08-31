@@ -1,6 +1,6 @@
 %global with_mingw 0
 
-%if 0%{?fedora}
+%if 0%{?fedora} && !0%{?flatpak}
 %global with_mingw 1
 %endif
 

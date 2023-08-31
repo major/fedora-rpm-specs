@@ -1,9 +1,9 @@
 # Installed library version
-%global lib_version 2301.0.0
+%global lib_version 2308.0.0
 
 Name:           abseil-cpp
-Version:        20230125.3
-Release:        2%{?dist}
+Version:        20230802.0
+Release:        1%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -155,6 +155,7 @@ Development headers for %{name}
 %{_libdir}/libabsl_hash.so.%{lib_version}
 %{_libdir}/libabsl_hashtablez_sampler.so.%{lib_version}
 %{_libdir}/libabsl_int128.so.%{lib_version}
+%{_libdir}/libabsl_kernel_timeout_internal.so.%{lib_version}
 %{_libdir}/libabsl_leak_check.so.%{lib_version}
 %{_libdir}/libabsl_log_entry.so.%{lib_version}
 %{_libdir}/libabsl_log_flags.so.%{lib_version}
@@ -195,6 +196,7 @@ Development headers for %{name}
 %{_libdir}/libabsl_strerror.so.%{lib_version}
 %{_libdir}/libabsl_strings.so.%{lib_version}
 %{_libdir}/libabsl_strings_internal.so.%{lib_version}
+%{_libdir}/libabsl_string_view.so.%{lib_version}
 %{_libdir}/libabsl_symbolize.so.%{lib_version}
 %{_libdir}/libabsl_synchronization.so.%{lib_version}
 %{_libdir}/libabsl_throw_delegate.so.%{lib_version}
@@ -231,6 +233,9 @@ Development headers for %{name}
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Thu Aug 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20230802.0-1
+- Update to 20230802.0 (Abseil LTS branch, Aug 2023): close RHBZ#2229015
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230125.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

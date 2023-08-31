@@ -13,7 +13,6 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pyparsing
-BuildRequires:  python3-future
 BuildRequires:  python3-sphinx
 
 %description

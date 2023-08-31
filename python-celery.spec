@@ -63,7 +63,6 @@ BuildRequires:  python3-click-plugins
 BuildRequires:  python3-click-repl
 BuildRequires:  python3-dns
 BuildRequires:  python3-dateutil
-BuildRequires:  python3-future
 BuildRequires:  python3-kombu
 BuildRequires:  python3-msgpack
 BuildRequires:  python3-pytest

@@ -276,9 +276,9 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 20
+%global featurever 21
 %global interimver 0
-%global updatever 2
+%global updatever 0
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -320,7 +320,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        9
+%global buildver        35
 %global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -832,6 +832,7 @@ exit 0
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjimage.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjsound.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/liblcms.so
+%{_jvmdir}/%{sdkdir -- %{?1}}/lib/lible.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libmanagement.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libmanagement_agent.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libmanagement_ext.so
@@ -902,6 +903,7 @@ exit 0
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/management.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/net.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/sound.properties
+%config(noreplace) %{etcjavadir -- %{?1}}/conf/jaxp.properties
 %{_jvmdir}/%{sdkdir -- %{?1}}/conf
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/security
 %if %is_system_jdk
@@ -2125,8 +2127,8 @@ $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|
 %if %{include_staticlibs}
 # Check debug symbols in static libraries (smoke test)
 export STATIC_LIBS_HOME=${JAVA_HOME}/%{static_libs_install_dir}
-readelf --debug-dump $STATIC_LIBS_HOME/libfdlibm.a | grep w_remainder.c
-readelf --debug-dump $STATIC_LIBS_HOME/libfdlibm.a | grep e_remainder.c
+readelf --debug-dump $STATIC_LIBS_HOME/libnet.a | grep Inet4AddressImpl.c
+readelf --debug-dump $STATIC_LIBS_HOME/libnet.a | grep Inet6AddressImpl.c
 %endif
 
 # Check src.zip has all sources. See RHBZ#1130490
@@ -2389,6 +2391,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Tue Aug 29 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.0.0.35-1.rolling
+- updated to jdk 21
+
 * Mon Aug 07 2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.2.0.9-2.rolling
 - updated to July security update  20.0.2.9 portables
 

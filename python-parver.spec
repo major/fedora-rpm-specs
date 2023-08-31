@@ -1,7 +1,7 @@
 %global pypi_name parver
 Name:           python-%{pypi_name}
-Version:        0.3.1
-Release:        10%{?dist}
+Version:        0.4
+Release:        1%{?dist}
 Summary:        Parse and manipulate version numbers
 
 License:        MIT
@@ -50,6 +50,10 @@ Parver allows parsing and manipulation of PEP 440 version numbers.
 
 
 %changelog
+* Fri Aug 25 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.4-1
+- Update to 0.4
+Resolves: rhbz#2142180
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

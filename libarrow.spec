@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	13.0.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -866,6 +866,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Tue Aug 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 13.0.0-3
+- Rebuilt for abseil-cpp-20230802.0
+
 * Thu Aug 24 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 13.0.0-2
 - Arrow 13.0.0, source from https://archive.apache.org/dist/arrow/
 

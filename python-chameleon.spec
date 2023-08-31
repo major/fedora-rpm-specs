@@ -1,8 +1,8 @@
 %global srcname Chameleon
 
 Name:           python-chameleon
-Version:        4.0.1
-Release:        3%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        XML-based template compiler
 
 License:        BSD
@@ -62,6 +62,9 @@ find %{buildroot}%{python3_sitelib}/chameleon -name '*.txt' -exec rm \{\} \;
 %{python3_sitelib}/Chameleon-%{version}*
 
 %changelog
+* Tue Aug 29 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.1.0-1
+- Update to upstream.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

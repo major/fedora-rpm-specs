@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.32
+Version: 39.33
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -485,6 +485,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 29 2023 Packit <hello@packit.dev> - 39.33-1
+- webui: Update request IDs when removing mount point row (vtrefny)
+- Update translations from Weblate for master (github-actions)
+- Fix spelling mistake / typo: "Criticall error" (awilliam)
+- webui: Let error reporting dialog test area auto resize (kkoukiou)
+- webui: Show error when trying to reformat unsupported format (vtrefny)
+- Use `isinstance(x, t)` instead of `type(x) is t` (vslavik)
+- Ignore subprocess.run without the check parameter (vslavik)
+- storage: Add 'formattable' property to the format data (vtrefny)
+- Disable geolocation on the Fedora Workstation live image (mkolman)
+- Update translations from Weblate
+
 * Tue Aug 22 2023 Packit <hello@packit.dev> - 39.32-1
 - liveinst: Ensure DBUS_SESSION_BUS_ADDRESS is set in live install (rstrode)
 - screensaver: Look at $PKEXEC_UID not $USERHELPER_UID (rstrode)

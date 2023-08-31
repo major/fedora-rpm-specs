@@ -6,23 +6,22 @@ https://github.com/AllenInstitute/sonata/blob/master/docs/SONATA_DEVELOPER_GUIDE
 }
 
 Name:           libsonata
-Version:        0.1.11
+Version:        0.1.23
 Release:        %autorelease
 Summary:        A Python and C++ interface to the SONATA format
 
-# Boost: include/bbp/sonata/optional.hpp
+# spdx
+# Boost: include/bbp/sonata/{optional,variant}.hpp
 # single file header only library: https://github.com/martinmoene/optional-lite
-License:        LGPLv3 and Boost
+License:        LGPL-3.0-only and BSL-1.0
 URL:            https://github.com/BlueBrain/libsonata
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/sanjayankur31/libsonata/tree/fedora-0.1.11
+# https://github.com/sanjayankur31/libsonata/tree/fedora-0.1.23
 Patch0:         0001-include-catch-cmake.patch
 Patch1:         0002-use-cpp-17-filesystem.patch
 Patch2:         0003-Remove-pybind-redeclarations.patch
 Patch3:         0004-disable-python-ext-build.patch
 Patch4:         0005-set-libdir.patch
-# https://github.com/BlueBrain/libsonata/pull/182
-Patch5:         0006-fix-assertion-error.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -64,15 +63,13 @@ BuildRequires:  python3-h5py
 %autosetup -n libsonata-%{version} -S git
 rm -rf libsonata.egg-info
 rm -rf extlib/{Catch2,Highfive,fmt,nlohmann}
-# Work around np.int removal; it was only an alias anyway
-sed -r -i 's/\bnp\.(int)/\1/' python/tests/test.py
 
 # Comment out to remove /usr/bin/env shebangs
 # Can use something similar to correct/remove /usr/bin/python shebangs also
 # find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
 %build
-%cmake -DSONATA_PYTHON=ON -DEXTLIB_FROM_SUBMODULES=OFF -DSONATA_VERSION="%{version}" -DSONATA_TESTS=ON -DSONATA_CXX_WARNINGS=OFF
+%cmake -DSONATA_PYTHON=ON -DEXTLIB_FROM_SUBMODULES=OFF -DSONATA_VERSION="%{version}" -DSONATA_TESTS=ON -DSONATA_CXX_WARNINGS=OFF -DCMAKE_CXX_STANDARD=17
 %cmake_build
 
 # python bits need to be run in the out of source build directory so we need to
@@ -124,7 +121,7 @@ popd
 %license COPYING.LESSER
 %doc README.rst CHANGELOG.md
 %{_libdir}/libsonata.so.0.1
-%{_libdir}/libsonata.so.0.1.11
+%{_libdir}/libsonata.so.0.1.23
 
 %files devel
 %{_includedir}/bbp

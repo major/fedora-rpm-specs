@@ -12,6 +12,8 @@ Patch0:         0001-Use-zlib-instead-of-embedded-miniz.patch
 Patch1:         0002-Explicitly-export-required-symbols.patch
 Patch2:         0003-Fix-CMake-build-system.patch
 Patch3:         0004-Add-test-executable-for-CTest.patch
+# https://github.com/syoyo/tinyexr/pull/175/files
+Patch4:         0005-CVE-2022-34300-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

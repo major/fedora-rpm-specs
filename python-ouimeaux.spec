@@ -42,7 +42,6 @@ BuildRequires: %{py3_dist gevent} >= 1.3
 BuildRequires: %{py3_dist requests} >= 2.3.0
 BuildRequires: %{py3_dist pyyaml}
 BuildRequires: %{py3_dist six}
-BuildRequires: %{py3_dist future}
 BuildRequires: %{py3_dist pysignals}
 
 %global _description %{expand:
@@ -70,6 +69,10 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p 1 -n %{srcname}-%{version}
+
+# This project does not need future since
+# pysignals is no longer bundled.
+sed -i "/future/d" requirements.txt
 
 install -pm 0644 %{SOURCE1} .
 

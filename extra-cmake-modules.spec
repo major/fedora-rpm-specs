@@ -1,3 +1,10 @@
+%global gitdate 20230828.163639
+%global cmakever 5.240.0
+%global commit0 a93943adfe95a48573ab9f62488b7b0352de4eba
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
+%global framework extra-cmake-modules
+
 # uncomment to enable bootstrap mode
 #global bootstrap 1
 
@@ -8,119 +15,69 @@
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: 5.109.0
+Version: %{cmakever}^%{gitdate}.%{shortcommit0}
 Release: 1%{?dist}
-
 License: BSD
 URL:     https://api.kde.org/ecm/
-
-%global majmin %majmin_ver_kf5
-%global stable %stable_kf5
-Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{name}-%{version}.tar.xz
+Source0:        https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
 BuildArch:      noarch
-
-## bundle clang python bindings here, at least until they are properly packaged elsewhere, see:
-## https://bugzilla.redhat.com/show_bug.cgi?id=1490997
-#Source1: clang-python-4.0.1.tar.gz
-#if 0%{?fedora} && 0%{?fedora} < 27
-%if 0
-%global clang 1
-Provides: bundled(python2-clang) = 4.0.1
-%if 0%{?tests}
-BuildRequires: python2-PyQt5-devel
-%endif
-%endif
 
 ## upstreamable patches
 # do not unconditionally link in base/core libpoppler library
 Patch2: extra-cmake-modules-5.39.0-poppler_overlinking.patch
-# https://bugzilla.redhat.com/1435525
-Patch3: extra-cmake-modules-5.89.0-qt_prefix.patch
 
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: make
 %if 0%{?docs}
 # qcollectiongenerator
-BuildRequires: qt5-qttools-devel
+BuildRequires: qt6-qttools-devel
 # sphinx-build
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: python3-sphinx
 %global sphinx_build -DSphinx_BUILD_EXECUTABLE:PATH=%{_bindir}/sphinx-build-3
-%else
-BuildRequires: python2-sphinx
-%endif
 %endif
 
-Requires: kf5-rpm-macros
-%if 0%{?fedora} || 0%{?rhel} > 7
-# /usr/share/ECM/kde-modules/appstreamtest.cmake references appstreamcli
-# hard vs soft dep?  --rex
+Requires: kf6-rpm-macros
 Recommends: appstream
-%endif
 # /usr/share/ECM/modules/ECMPoQmTools.cmake
-%if 0%{?fedora} || 0%{?rhel} > 7
-Requires: cmake(Qt5LinguistTools)
-%else
-# use pkgname instead of cmake since el7 qt5 pkgs currently do not include cmake() provides
-Requires: qt5-linguist
-%endif
+Requires: cmake(Qt6LinguistTools)
 
 %description
 Additional modules for CMake build system needed by KDE Frameworks.
 
-
 %prep
-%autosetup -p1 %{?clang:-a1}
-
+%autosetup -n %{name}-%{shortcommit0} -p1
 
 %build
-
-%if 0%{?clang}
-PYTHONPATH=`pwd`/python
-export PYTHONPATH
-%endif
-
-%cmake_kf5 \
+%cmake_kf6 \
   -DBUILD_HTML_DOCS:BOOL=%{?docs:ON}%{!?docs:OFF} \
   -DBUILD_MAN_DOCS:BOOL=%{?docs:ON}%{!?docs:OFF} \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF} \
   %{?sphinx_build}
-
 %cmake_build
-
 
 %install
 %cmake_install
 
-%if 0%{?clang}
-# hack clang-python install
-mkdir -p %{buildroot}%{_datadir}/ECM/python/clang
-install -m644 -p python/clang/* %{buildroot}%{_datadir}/ECM/python/clang/
-%endif
-
-
 %check
 %if 0%{?tests}
-%if 0%{?clang}
-PYTHONPATH=`pwd`/python
-export PYTHONPATH
-%endif
 export CTEST_OUTPUT_ON_FAILURE=1
 make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %endif
-
 
 %files
 %doc README.rst
 %license LICENSES/*.txt
 %{_datadir}/ECM/
 %if 0%{?docs}
-%{_kf5_docdir}/ECM/html/
-%{_kf5_mandir}/man7/ecm*.7*
+%{_kf6_docdir}/ECM/html/
+%{_kf6_mandir}/man7/ecm*.7*
 %endif
 
 
 %changelog
+* Tue Aug 29 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20230819.160601.120bb43-103
+- Upgrade to Qt6 build
+
 * Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
 - 5.109.0
 
@@ -596,3 +553,4 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 * Mon Sep 16 2013 Lubomir Rintel <lkundrak@v3.sk> - 0.0.9-0.1.20130013git5367954
 - Initial packaging
+

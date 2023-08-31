@@ -9,7 +9,7 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 Summary:        Fast, accurate GitHub Flavored Markdown parser and renderer
 
@@ -18,8 +18,6 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
-Source1:        https://github.com/github/cmark-gfm/archive/refs/tags/%{cmarkgfm_release}.tar.gz#/cmark-gfm-%{cmarkgfm_release}.tar.gz
-Patch0:         cmark-gfm-0.2.5-skip-footnote-test.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -36,7 +34,6 @@ BuildRequires:  ghc-text-prof
 BuildRequires:  ghc-HUnit-devel
 %endif
 # End cabal-rpm deps
-BuildRequires:  cmake gcc-c++
 Provides:       bundled(cmark-gfm) = %{cmarkgfm_release}
 
 %description
@@ -84,16 +81,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 %prep
 # Begin cabal-rpm setup:
-%setup -q -n %{pkgver} -a1
-%autopatch -p1
+%setup -q -n %{pkgver}
 # End cabal-rpm setup
-(
-cd cmark-gfm-%{cmarkgfm_release}
-mkdir build
-cd build
-%cmake ..
-)
-cp cmark-gfm-%{cmarkgfm_release}/src/* cmark-gfm-%{cmarkgfm_release}/build/redhat-linux-build/src/*.h  cbits
+cabal-tweak-dep-ver bytestring 0.11.5 0.10
 
 
 %build

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-55-gf6c8204fd7
+%global glibcsrcdir glibc-2.38.9000-90-ge1d3312015
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 5
+%global baserelease 6
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2199,6 +2199,45 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Aug 29 2023 DJ Delorie <dj@redhat.com> - 2.38.9000-6
+- Auto-sync with upstream branch master,
+  commit e1d3312015e8f70344620375aedf91afe7e7e7a4.
+- add GB18030-2022 charmap and test the entire GB18030 charmap [BZ #30243]
+- Use GMP 6.3.0, MPFR 4.2.1 in build-many-glibcs.py
+- localedata: Translit common emojis to smileys [BZ #30649]
+- nscd: Skip unusable entries in first pass in prune_cache (bug 30800)
+- LoongArch: Change loongarch to LoongArch in comments
+- LoongArch: Add ifunc support for memcmp{aligned, lsx, lasx}
+- LoongArch: Add ifunc support for memset{aligned, unaligned, lsx, lasx}
+- LoongArch: Add ifunc support for memrchr{lsx, lasx}
+- LoongArch: Add ifunc support for memchr{aligned, lsx, lasx}
+- LoongArch: Add ifunc support for rawmemchr{aligned, lsx, lasx}
+- LoongArch: Micro-optimize LD_PCREL
+- LoongArch: Remove support code for old linker in start.S
+- LoongArch: Simplify the autoconf check for static PIE
+- Add F_SEAL_EXEC from Linux 6.3 to bits/fcntl-linux.h.
+- argp-parse: Get rid of alloca
+- gencat: Get rid of alloca.
+- m68k: Use M68K_SCALE_AVAILABLE on __mpn_lshift and __mpn_rshift
+- m68k: Fix build with -mcpu=68040 or higher (BZ 30740)
+- elf: Check that --list-diagnostics output has the expected syntax
+- manual: Document ld.so --list-diagnostics output
+- manual/jobs.texi: Add missing @item EPERM for getpgid
+- LoongArch: Add ifunc support for strncmp{aligned, lsx}
+- LoongArch: Add ifunc support for strcmp{aligned, lsx}
+- LoongArch: Add ifunc support for strnlen{aligned, lsx, lasx}
+- htl: move pthread_attr_setdetachstate into libc
+- htl: move pthread_attr_getdetachstate into libc
+- htl: move pthread_attr_setschedpolicy into libc
+- htl: move pthread_attr_getschedpolicy into libc
+- htl: move pthread_attr_setinheritsched into libc
+- htl: move pthread_attr_getinheritsched into libc
+- htl: move pthread_attr_getschedparam into libc
+- htl: move pthread_setschedparam into libc
+- htl: move pthread_getschedparam into libc
+- htl: move pthread_equal into libc
+- Linux: Avoid conflicting types in ld.so --list-diagnostics
+
 * Tue Aug 22 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-5
 - Auto-sync with upstream branch master,
   commit f6c8204fd7fabf0cf4162eaf10ccf23258e4d10e:

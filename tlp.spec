@@ -1,13 +1,13 @@
-%global gittag 1.5.0
+%global gittag 1.6.0
 Name:           tlp
-Version:        1.5.0
-Release:        6%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Optimize laptop battery life
 License:        GPLv2+
 URL:            https://linrunner.de/tlp
 Source0:        https://github.com/linrunner/TLP/archive/%{gittag}.tar.gz#/%{name}-%{gittag}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  systemd
 BuildRequires:  libappstream-glib
@@ -22,6 +22,7 @@ Requires:       udev
 Requires:       usbutils
 Requires:       pciutils
 Recommends:     kernel-tools
+Recommends:     smartmontools
 
 #Note: Conflicts with laptop-mode-tools
 #Makes sure laptop_mode isn't being used:
@@ -92,7 +93,10 @@ appstream-util validate-relax --nonet \
 %{_udevrulesdir}/85-tlp.rules
 %{_udevrulesdir}/../tlp-usb-udev
 %{_datadir}/bash-completion/completions/*
+%{_datadir}/zsh/site-functions/*
 %exclude %{_datadir}/bash-completion/completions/tlp-rdw
+%exclude %{_datadir}/zsh/site-functions/_tlp-radio-device
+%exclude %{_datadir}/zsh/site-functions/_tlp-rdw
 %{_unitdir}/*.service
 %{_unitdir}/../system-sleep
 %{_datadir}/metainfo/*.metainfo.xml
@@ -106,6 +110,8 @@ appstream-util validate-relax --nonet \
 %{_udevrulesdir}/85-tlp-rdw.rules
 %{_udevrulesdir}/../tlp-rdw-udev
 %{_datadir}/bash-completion/completions/tlp-rdw
+%{_datadir}/zsh/site-functions/_tlp-radio-device
+%{_datadir}/zsh/site-functions/_tlp-rdw
 
 %post
 %systemd_post tlp.service
@@ -121,6 +127,9 @@ fi
 %systemd_postun_with_restart tlp.service
 
 %changelog
+* Tue Aug 29 2023 Sergi Jimenez <tripledes@fedoraproject.org> - 1.6.0-1
+- Update to 1.6.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

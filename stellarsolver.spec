@@ -85,6 +85,9 @@ developing applications that use %{name}.
 
 
 %build
+# The sources have C99 incompatibilies in the bundled astrometry copy.
+# See <https://github.com/rlancaste/stellarsolver/issues/125>.
+%global build_type_safety_c 0
 %cmake -DBUILD_TESTER=ON \
        -DBUILD_BATCH_SOLVER=ON
 %cmake_build

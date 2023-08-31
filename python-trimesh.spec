@@ -221,10 +221,10 @@ sed -r -i '/^[[:blank:]]*"embreex",/d' setup.py
 #
 # [recommends]
 #   meshio: not yet packaged, https://github.com/nschloe/meshio
-sed -r -i '/^[[:blank:]]*"meshio",/d' setup.py
+sed -r -i 's/"meshio",//' setup.py
 #   glooey: not yet packaged, https://github.com/kxgames/glooey; needs fonts
 #           that are not currently packaged unbundled from its assets
-sed -r -i '/^[[:blank:]]*"glooey",/d' setup.py
+sed -r -i 's/, "glooey"//' setup.py
 
 # Patch out an unavailable test dependency:
 #

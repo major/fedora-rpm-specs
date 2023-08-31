@@ -23,13 +23,15 @@ Summary:        Test generated HTML for problems
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+# Update to govcr v4
+Patch:          https://github.com/wjdp/htmltest/pull/201.patch
 
 BuildRequires:  golang(github.com/badoux/checkmail) >= 1.2.1
 BuildRequires:  golang(github.com/docopt/docopt-go)
 BuildRequires:  golang(github.com/fatih/color) >= 1.10.0
 BuildRequires:  golang(github.com/imdario/mergo) >= 0.3.11
 BuildRequires:  golang(golang.org/x/net/html)
-BuildRequires:  golang(gopkg.in/seborama/govcr.v2) >= 2.4.2
+BuildRequires:  golang(gopkg.in/seborama/govcr.v4) >= 4.5.0
 BuildRequires:  golang(gopkg.in/yaml.v2) >= 2.4.0
 
 %if %{with check}

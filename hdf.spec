@@ -7,7 +7,7 @@
 
 Name: hdf
 Version: 4.2.15
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/
@@ -139,6 +139,9 @@ touch -c -r ./hdf/src/hdfi.h.ppc ./hdf/src/hdfi.h
 
 
 %build
+# This should be removed once rebased to an upstream version with
+# C99 compatibility fixes (bug 2167466).
+%global build_type_safety_c 0
 
 # For destdir/examplesdir patches
 autoreconf -vif
@@ -269,6 +272,9 @@ make -j1 -C build-static check
 
 
 %changelog
+* Tue Aug 29 2023 Florian Weimer <fweimer@redhat.com> - 4.2.15-14
+- Set build_type_safety_c to 0 (#2167466)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.15-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

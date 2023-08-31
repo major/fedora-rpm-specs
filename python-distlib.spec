@@ -2,16 +2,13 @@
 %bcond_without check
 
 Name:       python-distlib
-Version:    0.3.6
-Release:    4%{?dist}
+Version:    0.3.7
+Release:    1%{?dist}
 Summary:    Low-level components of distutils2/packaging, augmented with higher-level APIs
 
 License:    Python
 URL:        https://readthedocs.org/projects/distlib/
 Source0:    %pypi_source %{srcname} %{version}
-
-# Python 3.12: Check for cert_file attribute before accessing it
-Patch:      https://github.com/pypa/distlib/pull/198.patch
 
 BuildArch:  noarch
 
@@ -70,6 +67,10 @@ export SKIP_ONLINE=1
 %doc README.rst
 
 %changelog
+* Mon Aug 28 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.3.7-1
+- Update to 0.3.7
+Resolves: rhbz#2223302
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

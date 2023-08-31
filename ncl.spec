@@ -9,7 +9,7 @@
 
 Name:           ncl
 Version:        6.6.2
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        NCAR Command Language and NCAR Graphics
 
 License:        BSD
@@ -185,7 +185,8 @@ sed -i -e 's;load "\$NCARG_ROOT/lib/ncarg/nclex\([^ ;]*\);loadscript(ncargpath("
 # (cd ./config; make -f Makefile.ini clean all)
 # ./config/ymake -config ./config -Curdir . -Topdir .
 
-#make Build CCOPTIONS="$RPM_OPT_FLAGS -fPIC -Werror-implicit-function-declaration" F77=gfortran F77_LD=gfortran\
+# The package does not build in strict C99 mode.  See bug 2145150.
+%global build_type_safety_c 0
 
 FCOPTIONS="$RPM_OPT_FLAGS -fPIC -fno-second-underscore -fno-range-check -fopenmp"
 %if 0%{?fedora} || 0%{?rhel} >= 9
@@ -360,6 +361,9 @@ done
 
 
 %changelog
+* Tue Aug 29 2023 Florian Weimer <fweimer@redhat.com> - 6.6.2-37
+- Set build_type_safety_c to 0 (#2145150)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 Name: cups-browsed
 Epoch: 1
 Version: 2.0~rc2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Daemon for local auto-installation of remote printers
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -23,6 +23,7 @@ Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version
 
 
 # Patches
+Patch001: 0001-cups-browsed.c-Ensure-we-always-send-a-valid-name-to.patch
 
 
 # remove once CentOS Stream 10 is released, cups-browsed
@@ -176,6 +177,9 @@ done
 
 
 %changelog
+* Tue Aug 29 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-3
+- 2150035 - [abrt] cups-filters: __strlen_avx2(): cups-browsed killed by SIGSEGV
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0~rc2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

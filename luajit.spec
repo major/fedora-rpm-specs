@@ -48,9 +48,8 @@ This package contains development files for %{name}.
 
 echo "%{luajit_version_patch}" > .relver
 
-# Copy tests to luajit source; can't symlink as Makefile uses relative path
-cp -a LuaJIT-test-cleanup-master/bench bench
-cp -a LuaJIT-test-cleanup-master/test test
+ln -s LuaJIT-test-cleanup-master/bench bench
+ln -s LuaJIT-test-cleanup-master/test test
 
 # Enable Lua 5.2 features
 sed -i -e '/-DLUAJIT_ENABLE_LUA52COMPAT/s/^#//' src/Makefile
@@ -83,12 +82,7 @@ find %{buildroot} -type f -name *.a -delete -print
 %ldconfig_scriptlets
 
 %check
-%ifarch %{ix86}
-# Don't fail the build on a check failure.
-make check || true
-%else
 make check
-%endif
 
 %files
 %license COPYRIGHT

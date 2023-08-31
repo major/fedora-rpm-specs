@@ -1,26 +1,48 @@
-%{!?_texmf: %global _texmf %(eval "echo `kpsewhich -expand-var '$TEXMFMAIN'`")}
-
-%global optflags %{optflags} -DGLM_ENABLE_EXPERIMENTAL
-
 Name:           asymptote
 Version:        2.86
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Descriptive vector graphics language
-License:        LGPL-3.0-or-later
-URL:            http://asymptote.sourceforge.net/
-Source0:        http://download.sourceforge.net/sourceforge/asymptote/asymptote-%{version}.src.tgz
-Source1:        asy.gif
-Source2:        xasy.desktop
-Source3:        asymptote.sty.204
+
+# LGPL-3.0-or-later: the project as a whole
+# LGPL-2.0-only:
+# - tr.{cc,h}
+# LGPL-2.0-or-later:
+# - rounding.h
+# LGPL-2.1-or-later:
+# - getopt.h
+# - examples/cpkcolors.asy
+# GPL-2.0-or-later:
+# - doc/asy-latex.dtx
+# - doc/asymptote.sty
+# GPL-3.0-or-later WITH Bison-exception-2.2:
+# - camp.tab.{cc,h}
+# Apache-2.0:
+# - base/smoothcontour3.asy
+# - LspCpp/src/jsonrpc/Context.cpp
+# - LspCpp/src/jsonrpc/RemoteEndPoint.cpp
+# - LspCpp/src/lsp/Markup.cpp
+# - LspCpp/include/LibLsp/JsonRpc/Context.h
+# - LspCpp/include/LibLsp/JsonRpc/ScopeExit.h
+# - LspCpp/include/LibLsp/JsonRpc/future.h
+# - LspCpp/include/LibLsp/JsonRpc/traits.h
+# BSL-1.0:
+# - LspCpp/include/LibLsp/JsonRpc/macro_map.h
+# MIT:
+# - LspCpp (except for the Apache-2.0 and BSL-1.0 files above)
+# - base/lmfit.asy
+# - gl-matrix-2.4.0-pruned
+# BSD-3-Clause:
+# - cudareflect/tinyexr
+License:        LGPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND Apache-2.0 AND BSL-1.0 AND MIT AND BSD-3-Clause
+URL:            https://asymptote.sourceforge.io/
+Source0:        https://download.sourceforge.net/sourceforge/asymptote/asymptote-%{version}.src.tgz
+Source1:        io.github.vectorgraphics.asymptote.desktop
+Source2:        io.github.vectorgraphics.asymptote.metainfo.xml
 Patch0:         asymptote-2.84-settings.patch
 # This doesn't need to go upstream. We put the info file in the topdir, not a subdir, so we need this fix.
-Patch3:         asymptote-2.73-info-path-fix.patch
-# Use libtirpc if found
-Patch4:		asymptote-2.81-libtirpc.patch
-# memrchr value does not match hardcoded one in /usr/include/string.h
-# only conflicts on s390x
-Patch5:		asymptote-2.52-const-memrchr.patch
-Patch6:         asymptote-2.63-freeglut.patch
+Patch1:         asymptote-2.73-info-path-fix.patch
+# Link with flexiblas instead of gslcblas
+Patch2:         asymptote-2.86-flexiblas.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  bison, flex
@@ -29,60 +51,47 @@ BuildRequires:  readline-devel
 BuildRequires:  fftw-devel >= 3.0
 BuildRequires:  gc-devel >= 6.8
 BuildRequires:  gsl-devel
+BuildRequires:  flexiblas-devel
 BuildRequires:  tex(latex) tex(epsf.tex)
 BuildRequires:  tex(cm-super-t1.enc)
 BuildRequires:  tex(media9.sty)
 BuildRequires:  tex(parskip.sty)
+BuildRequires:  texlive-dvisvgm
 BuildRequires:  ghostscript >= 9.55
 BuildRequires:  texinfo-tex
 BuildRequires:  ImageMagick
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 BuildRequires:  freeglut-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libtool
 BuildRequires:  libglvnd-devel
 BuildRequires:  emacs
-%if 0%{?fedora} < 36
-BuildRequires:  xemacs
-%endif
 BuildRequires:  libtirpc-devel
-%if 0%{?fedora} >= 28
+BuildRequires:  eigen3-static
+BuildRequires:  libcurl-devel
+BuildRequires:  libsigsegv-devel
+BuildRequires:  mesa-libOSMesa-devel
 BuildRequires:  ghostscript-tools-dvipdf
-%endif
-# For cc-mode
-%if 0%{?fedora} < 36
-BuildRequires:  xemacs-packages-extra
-%endif
 BuildRequires:  glm-devel
 BuildRequires:  boost-devel, rapidjson-devel
 BuildRequires:  cmake, make, python3-qt5
-Requires:       emacs-filesystem >= %{_emacs_version}
-%if 0%{?fedora} < 36
-Requires:       xemacs-filesystem >= %{_xemacs_version}
-%endif
-# Cleanup
-Provides:	emacs-%{name} = %{version}-%{release}
-Obsoletes:	emacs-%{name} <= 2.35
-Provides:	emacs-%{name}-el = %{version}-%{release}
-Obsoletes:	emacs-%{name}-el <= 2.35
-Provides:	xemacs-%{name} = %{version}-%{release}
-Obsoletes:	xemacs-%{name} <= 2.35
-Provides:	xemacs-%{name}-el = %{version}-%{release}
-Obsoletes:	xemacs-%{name}-el <= 2.35
 
+Requires:       emacs-filesystem >= %{?_emacs_version}%{!?_emacs_version:0}
+Requires:       hicolor-icon-theme
+Requires:       librsvg2-tools
 Requires:       tex(latex)
 Requires:       texlive-dvisvgm
 Requires:       python3-qt5
-Requires:       python3-cson, python3-speg
-Requires:       python3-imaging-tk
+Requires:       python3-cson
 Requires:       python3-numpy
 Recommends:     evince, xdg-utils
 
-# for /usr/bin/texhash
-Requires(post): texlive-kpathsea-bin, tex-kpathsea
-Requires(postun): texlive-kpathsea-bin, tex-kpathsea
+Provides:       bundled(LspCpp) = 1.0.0
+Provides:       bundled(gl-matrix) = 2.4.0
+Provides:       bundled(tinyexr) = 1.0.1
 
-%define texpkgdir   %{_texmf}/tex/latex/%{name}
+%global texpkgdir   %{_texmf}/tex/latex/%{name}
 
 %description
 Asymptote is a powerful descriptive vector graphics language for technical
@@ -93,11 +102,9 @@ that LaTeX does for scientific text.
 %prep
 %setup -q
 %patch -P0 -p1 -b .settings
-%patch -P3 -p1 -b .path-fix
-%patch -P4 -p1 -b .libtirpc
-%patch -P5 -p1 -b .const-memrchr
-%patch -P6 -p1 -b .glut
-%{__sed} -i 's/\r//' doc/CAD1.asy
+%patch -P1 -p1 -b .path-fix
+%patch -P2 -p1 -b .flexiblas
+sed -i 's/\r//' doc/CAD1.asy
 
 # convert to UTF-8
 iconv -f iso-8859-1 -t utf-8 -o examples/interpolate1.asy{.utf8,}
@@ -105,36 +112,28 @@ mv examples/interpolate1.asy{.utf8,}
 autoreconf -i
 
 %build
-%configure --enable-gc=system --with-docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}/} --with-latex=%{_texmf}/tex/latex --with-context=%{_texmf}/tex/context/ --enable-lsp
-make %{?_smp_mflags}
+%configure --enable-gc=system --with-docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}/} --with-latex=%{_texmf}/tex/latex --with-context=%{_texmf}/tex/context/ --enable-lsp --enable-offscreen
+%make_build
 cd doc/
 make all
+
+# Generate an SVG icon
+../asy -dir ../base -config "" -render=0 -f svg -o icon.svg icon.asy
 
 %install
 %make_install 
 
-install -p -m 644 BUGS ChangeLog LICENSE README ReleaseNotes TODO \
+install -p -m 644 BUGS ChangeLog README ReleaseNotes TODO \
     %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
 
 # Emacs files
 mkdir -p %{buildroot}%{_emacs_sitestartdir}
 mkdir -p %{buildroot}%{_emacs_sitelispdir}/%{name}
-cp -a %{buildroot}%{_datadir}/%{name}/*.el %{buildroot}%{_emacs_sitelispdir}/%{name}
+mv %{buildroot}%{_datadir}/%{name}/*.el %{buildroot}%{_emacs_sitelispdir}/%{name}
 mv %{buildroot}%{_emacs_sitelispdir}/%{name}/asy-init.el %{buildroot}%{_emacs_sitestartdir}
 for i in %{buildroot}%{_emacs_sitelispdir}/%{name}/*.el; do
    %{_emacs_bytecompile} $i
 done
-
-%if 0%{?fedora} < 36
-# XEmacs files
-mkdir -p %{buildroot}%{_xemacs_sitestartdir}
-mkdir -p %{buildroot}%{_xemacs_sitelispdir}/%{name}
-cp -a %{buildroot}%{_datadir}/%{name}/*.el %{buildroot}%{_xemacs_sitelispdir}/%{name}
-mv %{buildroot}%{_xemacs_sitelispdir}/%{name}/asy-init.el %{buildroot}%{_xemacs_sitestartdir}
-for i in %{buildroot}%{_xemacs_sitelispdir}/%{name}/*.el; do
-   %{_xemacs_bytecompile} $i
-done
-%endif
 
 # Vim syntax file(s)
 install -dm 755 %{buildroot}%{_datadir}/vim/vimfiles/syntax
@@ -149,26 +148,30 @@ popd
 # Move info file
 mv %{buildroot}%{_infodir}/asymptote/asymptote.info %{buildroot}%{_infodir}/asymptote.info
 
-# copy icon to pixmaps dir
-mkdir -p %{buildroot}%{_datadir}/pixmaps/
-cp %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/
+# Copy icon to scalable icon dir
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
+cp -p doc/icon.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/asy.svg
 
-mkdir -p %{buildroot}%{_datadir}/applications
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE2}
+# Install the desktop file
+desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
+
+# Install the AppData file
+mkdir -p %{buildroot}%{_metainfodir}
+install -pm 644 %{SOURCE2} %{buildroot}%{_metainfodir}
+appstream-util validate-relax --nonet \
+  %{buildroot}%{_metainfodir}/io.github.vectorgraphics.asymptote.metainfo.xml
 
 # Clean up symlink
 rm -rf %{buildroot}%{_bindir}/xasy
 cd %{buildroot}%{_bindir}
 ln -s ../share/%{name}/GUI/xasy.py xasy
 
-%post
-texhash >/dev/null 2>&1 || :
-
-%postun
-texhash >/dev/null 2>&1 || :
+# Fix executable bits
+chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 
 %files
 %doc %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}/}
+%license LICENSE LICENSE.LESSER
 %{_bindir}/*
 %{_datadir}/%{name}/
 %{texpkgdir}/
@@ -177,16 +180,26 @@ texhash >/dev/null 2>&1 || :
 %{_infodir}/*.info*
 %{_datadir}/vim/vimfiles/syntax/asy.vim
 %{_datadir}/vim/vimfiles/ftdetect/asy_filetype.vim
-%{_datadir}/pixmaps/asy.gif
-%{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/scalable/apps/asy.svg
+%{_datadir}/applications/io.github.vectorgraphics.asymptote.desktop
+%{_metainfodir}/io.github.vectorgraphics.asymptote.metainfo.xml
 %{_emacs_sitestartdir}/*.el
 %{_emacs_sitelispdir}/%{name}/
-%if 0%{?fedora} < 36
-%{_xemacs_sitestartdir}/*.el
-%{_xemacs_sitelispdir}/%{name}/
-%endif
 
 %changelog
+* Mon Aug 28 2023 Jerry James <loganjerry@gmail.com> - 2.86-2
+- BR eigen3-devel for Schur decomposition support
+- BR libcurl-devel for URL support in the parser
+- BR libsigsegv-devel for the stack overflow handler
+- Configure with --enable-offscreen, which requires libOSMesa again
+- Remove unneeded sources and patches, renumber patches
+- Link with flexiblas instead of gslcblas
+- Clean up desktop file and add metainfo file
+- Remove all traces of XEmacs
+- R librsvg2-tools for rsvg-convert
+- Add more SPDX license info; use the %%license macro
+- Minor spec file cleanups
+
 * Thu Aug  3 2023 Tom Callaway <spot@fedoraproject.org> - 2.86-1
 - update to 2.86
 - update license tag

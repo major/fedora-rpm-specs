@@ -1,11 +1,11 @@
 %define majorver 8.6
-%define	vers %{majorver}.12
+%define	vers %{majorver}.13
 %{!?sdt:%define sdt 1}
 
 Summary: Tool Command Language, pronounced tickle
 Name: tcl
 Version: %{vers}
-Release: 6%{?dist}
+Release: 1%{?dist}
 Epoch: 1
 License: TCL AND GPL-3.0-or-later WITH bison-exception-2.2 AND BSD-3-Clause
 URL: http://tcl.sourceforge.net/
@@ -19,9 +19,9 @@ Obsoletes: tcl-tcldict <= %{vers}
 Provides: tcl-tcldict = %{vers}
 Patch0: tcl-8.6.12-autopath.patch
 Patch1: tcl-8.6.12-conf.patch
-Patch2: tcl-8.6.12-hidden.patch
-Patch3: tcl-8.6.10-tcltests-path-fix.patch
-Patch4: tcl-configure-c99.patch
+Patch2: tcl-8.6.13-hidden.patch
+Patch3: tcl-8.6.13-tcltests-path-fix.patch
+Patch4: tcl-8.6.13-configure-c99.patch
 
 %if %sdt
 BuildRequires: systemtap-sdt-devel
@@ -60,15 +60,8 @@ applications.
 The package contains the development files and man pages for tcl.
 
 %prep
-%setup -q -n %{name}%{version}
+%autosetup -p1 -n %{name}%{version}
 rm -r compat/zlib
-chmod -x generic/tclStrToD.c
-
-%patch0 -p1 -b .autopath
-%patch1 -p1 -b .conf
-%patch2 -p1 -b .hidden
-%patch3 -p1 -b .tcltests-path-fix
-%patch4 -p1 -b .configure-c99
 
 %build
 pushd unix
@@ -146,6 +139,10 @@ rm -rf %{buildroot}/%{_datadir}/%{name}%{majorver}/ldAix
 %{_datadir}/%{name}%{majorver}/tclAppInit.c
 
 %changelog
+* Tue Aug 29 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.13-1
+- New version
+  Resolves: rhbz#2231272
+
 * Thu Aug 10 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.12-6
 - Converted license to SPDX
 

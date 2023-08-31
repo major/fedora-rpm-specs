@@ -1,6 +1,6 @@
 Name:           perl-Net-DNS-SEC
-Version:        1.20
-Release:        7%{?dist}
+Version:        1.21
+Release:        1%{?dist}
 Summary:        DNSSEC modules for Perl
 License:        MIT
 URL:            https://metacpan.org/release/Net-DNS-SEC
@@ -9,7 +9,7 @@ Source0:        https://cpan.metacpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-SEC-
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  openssl-devel => 1.1
+BuildRequires:  openssl-devel >= 1.1
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -54,11 +54,11 @@ using RSA, DSA, ECDSA, and Edwards curve algorithms.
 %setup -q -n Net-DNS-SEC-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Aug 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.21-1
+- 1.21 bump (rhbz#2212775)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

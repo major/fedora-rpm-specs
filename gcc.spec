@@ -4,7 +4,7 @@
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 1
+%global gcc_release 2
 %global nvptx_tools_gitrev 93e00909ceb9cbbc104f0fcba56c0361ffb3ca4b
 %global newlib_cygwin_gitrev 9e09d6ed83cce4777a5950412647ccc603040409
 %global _unpackaged_files_terminate_build 0
@@ -375,7 +375,7 @@ Summary: GNU Standard C++ Library
 Autoreq: true
 Requires: glibc >= 2.10.90-7
 BuildRequires: tzdata >= 2017c
-Requires: tzdata >= 2017c
+Recommends: tzdata >= 2017c
 
 %description -n libstdc++
 The libstdc++ package contains a rewritten standard compliant GCC Standard
@@ -3453,6 +3453,10 @@ end
 %endif
 
 %changelog
+* Mon Jul 31 2023 Patsy Griffin <patsy@redhat.com> 13.2.1-2
+- Allow for the optional removal of tzdata.
+- See https://fedoraproject.org/wiki/Changes/AllowRemovalOfTzdata
+
 * Fri Jul 28 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-1
 - update from releases/gcc-13 branch
   - GCC 13.2 release

@@ -17,6 +17,7 @@ BuildRequires:  qt5-linguist
 BuildRequires:  qt5-rpm-macros
 
 BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5X11Extras)
 
 Requires: hicolor-icon-theme
 Requires: kf5-kimageformats

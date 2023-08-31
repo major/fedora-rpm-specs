@@ -1,54 +1,61 @@
-%global srcname mujson
 %global common_description %{expand:
 mujson lets python libraries make use of the most performant JSON functions
 available at import time.  It is small, and does not itself implement any
 encoding or decoding functionality.}
 
-
-Name:           python-%{srcname}
+Name:           python-mujson
 Version:        1.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Use the fastest JSON functions available at import time
 License:        MIT
 URL:            https://github.com/mattgiles/mujson
 # PyPI tarball is missing license
 # https://github.com/mattgiles/mujson/issues/8
-Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/mujson-%{version}.tar.gz
 BuildArch:      noarch
 
 
 %description %{common_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-mujson
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools}
 
 
-%description -n python3-%{srcname} %{common_description}
+%description -n python3-mujson %{common_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n mujson-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files mujson
 
 
-%files -n python3-%{srcname}
-%license LICENSE
+%check
+%pyproject_check_import
+
+
+%files -n python3-mujson -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Wed Aug 30 2023 Carl George <carlwgeorge@fedoraproject.org> - 1.4-10
+- Convert to pyproject macros
+- Validated license as SPDX identifier
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

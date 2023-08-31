@@ -7,7 +7,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        4.10.3
+Version:        4.10.4
 Release:        %autorelease
 Summary:        Tools for working with spherical harmonics
 

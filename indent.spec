@@ -1,7 +1,7 @@
 Summary:    A GNU program for formatting C code
 Name:       indent
 Version:    2.2.13
-Release:    4%{?dist}
+Release:    5%{?dist}
 # COPYING:                      GPL-3.0 text
 # doc/indent.texi:              Latex2e-translated-notice
 #                               (AND a subset of Latex2e WITH a texinfo-commented GPL clause;
@@ -110,6 +110,12 @@ Source2:    https://shadura.me/key.pgp
 # Check for setlocale() at configure time, proposed to an upstream,
 # <https://lists.gnu.org/archive/html/bug-indent/2023-04/msg00001.html>.
 Patch0:     indent-2.2.13-Check-for-setlocale-function.patch
+# Fix a heap overread in search_brace/lexi, proposed to the upstream,
+# <https://savannah.gnu.org/bugs/index.php?64503>
+Patch1:     indent-2.2.13-Fix-an-out-of-buffer-read-in-search_brace-lexi-on-an.patch
+# Fix CVE-2023-40305 (a heap buffer overwrite in search_brace), bug #2231919,
+# proposed to the upstream, <https://savannah.gnu.org/bugs/index.php?64503>
+Patch2:     indent-2.2.13-Fix-a-heap-buffer-overwrite-in-search_brace-CVE-2023.patch
 BuildRequires:  autoconf >= 2.71
 # autoconf-archive for unbundled ax_cc_for_build.m4
 BuildRequires:  autoconf-archive
@@ -173,6 +179,10 @@ make check %{?_smp_mflags}
 %{_infodir}/indent.info*
 
 %changelog
+* Wed Aug 16 2023 Petr Pisar <ppisar@redhat.com> - 2.2.13-5
+- Fix a heap overread in search_brace/lexi
+- Fix CVE-2023-40305 (a heap buffer overwrite in search_brace) (bug #2231919)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

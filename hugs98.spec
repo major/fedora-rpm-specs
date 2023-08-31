@@ -2,7 +2,7 @@
 
 Name:		hugs98
 Version:	2006.09
-Release:	46%{?dist}
+Release:	47%{?dist}
 Summary:	Haskell Interpreter
 
 License:	BSD
@@ -114,6 +114,8 @@ cp /usr/lib/rpm/redhat/config.* .
 
 
 %build
+# Work around C99 compatibility issues (bug 2160645).
+%global build_type_safety_c 0
 %define __global_ldflags ""
 %configure --with-pthreads --enable-char-encoding=locale
 make %{?_smp_mflags}
@@ -192,6 +194,9 @@ sed -i "s|^bindir.*|bindir=\"%{_bindir}\"|
 
 
 %changelog
+* Tue Aug 29 2023 Florian Weimer <fweimer@redhat.com> - 2006.09-47
+- Set build_type_safety_c to 0 (#2160645)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2006.09-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

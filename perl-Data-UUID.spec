@@ -1,10 +1,13 @@
 Name:		perl-Data-UUID
 Version:	1.226
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Globally/Universally Unique Identifiers (GUIDs/UUIDs)
-# Upstream says BSD but LICENSE file looks more like MIT
-# https://lists.fedoraproject.org/pipermail/legal/2013-August/002226.html
-License:	BSD and MIT
+# Makefile.PL says BSD but LICENSE file is HP-1989
+# LICENSE: HP-1989
+# source/ptable.h: GPL-1.0-or-later OR Artistic-1.0-Perl
+# Issue for license clarification
+# https://github.com/bleargh45/Data-UUID/issues/26
+License:	HP-1989 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:		https://metacpan.org/release/Data-UUID
 Source0:	https://cpan.metacpan.org/modules/by-module/Data/Data-UUID-%{version}.tar.gz
 # Module Build
@@ -89,6 +92,9 @@ perl smp-test/collision.t
 %{_mandir}/man3/Data::UUID.3*
 
 %changelog
+* Tue Aug 29 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.226-14
+- Update license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.226-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

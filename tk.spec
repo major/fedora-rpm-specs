@@ -1,10 +1,10 @@
 %define majorver 8.6
-%define vers %{majorver}.12
+%define vers %{majorver}.13
 
 Summary: The graphical toolkit for the Tcl scripting language
 Name: tk
 Version: %{vers}
-Release: 5%{?dist}
+Release: 1%{?dist}
 Epoch:   1
 License: TCL
 URL: http://tcl.sourceforge.net
@@ -22,7 +22,7 @@ Provides: tile = 0.8.2
 Patch1: tk-8.6.12-make.patch
 Patch2: tk-8.6.12-conf.patch
 # https://core.tcl-lang.org/tk/tktview/dccd82bdc70dc25bb6709a6c14880a92104dda43
-Patch4: tk-8.6.10-font-sizes-fix.patch
+Patch3: tk-8.6.10-font-sizes-fix.patch
 
 %description
 When paired with the Tcl scripting language, Tk provides a fast and powerful
@@ -41,11 +41,7 @@ way to create cross-platform GUI applications.
 The package contains the development files and man pages for tk.
 
 %prep
-%setup -n %{name}%{vers} -q
-
-%patch1 -p1 -b .make
-%patch2 -p1 -b .conf
-%patch4 -p1 -b .font-sizes-fix
+%autosetup -p1 -n %{name}%{vers}
 
 %build
 cd unix
@@ -106,6 +102,10 @@ sed -i -e "s|$PWD/unix|%{_libdir}|; s|$PWD|%{_includedir}/%{name}-private|" %{bu
 %{_datadir}/%{name}%{majorver}/tkAppInit.c
 
 %changelog
+* Tue Aug 29 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.13-1
+- New version
+  Related: rhbz#2231272
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.6.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

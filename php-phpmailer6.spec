@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    df16b615e371d81fb79e506277faea67a1be18f1
+%global gh_commit    e88da8d679acc3824ff231fdc553565b802ac016
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPMailer
 %global gh_project   PHPMailer
@@ -23,8 +23,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_project}%{major}
-Version:        6.8.0
-Release:        2%{?dist}
+Version:        6.8.1
+Release:        1%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
 License:        LGPL-2.1-only
@@ -51,13 +51,13 @@ BuildRequires:  php-openssl
 BuildRequires:  php-pcre
 BuildRequires:  php-fedora-autoloader-devel
 # From composer.json, "require-dev": {
-#        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+#        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
 #        "doctrine/annotations": "^1.236 || ^1.13.3",
 #        "php-parallel-lint/php-console-highlighter": "^0.5.0",
 #        "php-parallel-lint/php-parallel-lint": "^1.3.1",
 #        "phpcompatibility/php-compatibility": "^9.3.5",
 #        "roave/security-advisories": "dev-latest",
-#        "squizlabs/php_codesniffer": "^3.7.1",
+#        "squizlabs/php_codesniffer": "^3.7.2",
 #        "yoast/phpunit-polyfills": "^1.0.4"
 %global phpunit %{_bindir}/phpunit7
 BuildRequires:  php-composer(yoast/phpunit-polyfills) >= 1.0.0
@@ -131,7 +131,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch0 -p1 -b .rpm
+%patch -P0 -p1 -b .rpm
 find src -name \*.rpm -delete
 
 cp %{SOURCE2} test/PHPMailerRpmTest.php
@@ -208,6 +208,9 @@ exit $ret
 
 
 %changelog
+* Tue Aug 29 2023 Remi Collet <remi@remirepo.net> - 6.8.1-1
+- update to 6.8.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

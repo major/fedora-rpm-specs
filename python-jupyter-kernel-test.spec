@@ -2,7 +2,7 @@
 %global srcname_ jupyter_kernel_test
 
 Name:           python-%{srcname}
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Machinery for testing Jupyter kernels via the messaging protocol
 

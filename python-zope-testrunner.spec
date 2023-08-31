@@ -5,8 +5,8 @@
 %global _docdir_fmt python3-zope-testrunner
 
 Name:           python-zope-testrunner
-Version:        6.0
-Release:        3%{?dist}
+Version:        6.1
+Release:        1%{?dist}
 Summary:        Zope testrunner script
 
 License:        ZPL-2.1
@@ -118,6 +118,9 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Tue Aug 29 2023 Jerry James <loganjerry@gmail.com> - 6.1-1
+- Version 6.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

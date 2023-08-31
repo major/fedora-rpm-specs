@@ -5,7 +5,7 @@ Version:   0.22
 Release:   2%{?dist}
 Summary:   GNU libraries and utilities for producing multi-lingual messages
 
-License:   GPLv2+ and LGPLv2+
+License:   GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:       http://www.gnu.org/software/gettext/
 Source0:   https://ftp.gnu.org/pub/gnu/gettext/gettext-%{version}.tar.xz
 

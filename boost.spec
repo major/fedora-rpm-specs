@@ -42,7 +42,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.81.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -154,6 +154,10 @@ Patch6: boost-1.81-phoenix-multiple-defn.patch
 
 # PR https://github.com/boostorg/accumulators/pull/54
 Patch7: boost-1.81.0-always-initialize-member-variable.patch
+
+# https://github.com/boostorg/random/commit/7561690135c67ecf88c2133bad7680ebd2665c36
+# https://github.com/boostorg/random/commit/4239d93dad32a11e4c3829050f8070d456266133
+Patch8: boost-1.81.0-random-test-fixes.patch
 
 %bcond_with tests
 %bcond_with docs_generated
@@ -1284,6 +1288,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Tue Aug 29 2023 Tom Callaway <spot@fedoraproject.org> - 1.81.0-9
+- apply upstream fixes for failing random tests
+
 * Sun Aug 20 2023 Kefu Chai <tchaikov@fedoraproject.org> - 1.81.0-8
 - Add patch for Boost.Accumulators bug
   See https://github.com/boostorg/accumulators/pull/54

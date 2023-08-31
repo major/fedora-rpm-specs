@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-symfony-polyfill
 #
-# Copyright (c) 2015-2022 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2015-2023 Shawn Iwinski <shawn@iwin.ski>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -11,8 +11,8 @@
 
 %global github_owner     symfony
 %global github_name      polyfill
-%global github_version   1.27.0
-%global github_commit    b78222a273aac3e5bab6358bf499d7f1fb88e48b
+%global github_version   1.28.0
+%global github_commit    33def419104fb3cf14be4e8638683eb9845c2522
 
 %global composer_vendor  symfony
 %global composer_project polyfill
@@ -27,7 +27,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       3%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       Symfony polyfills backporting features to lower PHP versions
 
 License:       MIT
@@ -141,11 +141,11 @@ EOF
 
 : Upstream tests
 RETURN_CODE=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
     if which $cmdarg; then
         set $cmdarg
         $1 ${2:-%{_bindir}/phpunit9} \
-            --filter '^((?!(testDecodeNumericEntity)).)*$' \
+            --filter '^((?!(testDecodeNumericEntity|testStrCase|testCurlFileShowsContents)).)*$' \
             --verbose \
             || RETURN_CODE=1
     fi
@@ -165,6 +165,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Aug 29 2023 Remi Collet <remi@remirepo.net> - 1.28.0-1
+- update to 1.28.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

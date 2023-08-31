@@ -1,35 +1,37 @@
 Name:           jacktrip
-Version:        1.10.1
+Version:        2.0.0
 Release:        %autorelease
 Summary:        A system for high-quality audio network performance over the Internet
 
 License:        MIT and GPL-3.0-or-later and LGPL-3.0-only
 URL:            https://github.com/%{name}/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-%global fft_ver 06f2377
-Source1:        https://github.com/%{name}/Simple-FFT/tarball/%{fft_ver}/%{name}-Simple-FFT-%{fft_ver}.tar.gz
 
 BuildRequires:  meson, cmake, gcc-c++
 BuildRequires:  python3-pyyaml, python3-jinja2
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(rtaudio)
-BuildRequires:  help2man
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5NetworkAuth)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5WebSockets)
+BuildRequires:  help2man, git
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6NetworkAuth)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6WebSockets)
+%ifarch aarch64 x86_64
+BuildRequires:  cmake(Qt6WebEngineCore)
+BuildRequires:  cmake(Qt6WebChannel)
+%endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 Requires:       hicolor-icon-theme
-Requires:       qt5-qtquickcontrols2%{?_isa}
-Requires:       qt5-qtsvg%{?_isa}
+Requires:       qt6-qtquickcontrols2%{?_isa}
+Requires:       qt6-qtsvg%{?_isa}
 Obsoletes:      jacktrip-doc < 1.4.0
 
 %description
@@ -40,12 +42,13 @@ bidirectional, high quality, uncompressed audio signal steaming.
 
 %prep
 %autosetup -p1
-rm -rf externals/*
-tar -C externals -xf %{SOURCE1}
-mv externals/%{name}-Simple-FFT-%{fft_ver} externals/Simple-FFT
 
 %build
-%meson -Drtaudio=enabled
+%meson \
+%ifnarch aarch64 x86_64
+    -Dnovs=true \
+%endif
+    -Drtaudio=enabled
 %meson_build
 
 %install

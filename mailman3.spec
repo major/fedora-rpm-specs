@@ -5,10 +5,10 @@
 
 Name:           mailman3
 Version:        %{baseversion}%{?prerelease:~%{prerelease}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The GNU mailing list manager
 
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            http://www.list.org
 Source0:        https://pypi.python.org/packages/source/m/%{pypi_name}/%{pypi_name}-%{baseversion}%{?prerelease}.tar.gz
 Source1:        mailman3.cfg
@@ -66,9 +66,7 @@ case second `m'.  Any other spelling is incorrect.
 %autosetup -p1 -n %{pypi_name}-%{baseversion}%{?prerelease}
 
 # Downgrade a few dependencies to satisfiable compatible versions
-sed -e "s/flufl.bounce>=4.0/flufl.bounce>=3.0/" \
-    -e "s/flufl.i18n>=3.2/flufl.i18n>=2.0/" \
-    -e "s/flufl.lock>=5.1/flufl.lock>=3.1/" \
+sed -e "s/flufl.i18n>=3.2/flufl.i18n>=2.0/" \
     -i setup.py
 
 # SELinux
@@ -221,6 +219,10 @@ done
 
 
 %changelog
+* Tue Aug 29 2023 Michel Lind <salimma@fedoraproject.org> - 3.3.8-3
+- Restore the required versions of flufl.bounce and flufl.lock
+- Use SPDX license identifier; fix license to GPL-3.0-or-later
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global crate difftastic
 
 Name:           rust-difftastic
-Version:        0.50.0
+Version:        0.51.1
 Release:        %autorelease
 Summary:        Structural diff that understands syntax
 
@@ -26,7 +26,15 @@ A structural diff that understands syntax.}
 %package     -n %{crate}
 Summary:        %{summary}
 # from %%cargo_license_summary
-License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND (Unlicense OR MIT) AND Zlib
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+# Zlib
+License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND (Unlicense OR MIT) AND Zlib
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

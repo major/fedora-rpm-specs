@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.12
+%global general_version %{pybasever}.13
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -1587,6 +1587,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Aug 28 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.13-1
+- Update to 3.10.13
+
 * Wed Aug 02 2023 Charalampos Stratakis <cstratak@redhat.com> - 3.10.12-3
 - Remove extra distro-applied CFLAGS passed to user built C extensions
 - https://fedoraproject.org/wiki/Changes/Python_Extension_Flags_Reduction

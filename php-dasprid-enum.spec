@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    8e6b6ea76eabbf19ea2bf5b67b98e1860474012f
+%global gh_commit    6faf451159fb8ba4126b925ed2d78acfce0dc016
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     DASPRiD
 %global gh_project   Enum
@@ -22,13 +22,15 @@
 %global major        %nil
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.0.4
-Release:        2%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        PHP enum implementation
 
 License:        BSD-2-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+# git snapshot to retrieve test suite removed by .gitattributes
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 %if %{with tests}
@@ -98,7 +100,7 @@ require '%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}/autoload.php';
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" php80 php81 php82; do
+for cmd in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmd; then
     set $cmd
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -120,6 +122,10 @@ exit $ret
 
 
 %changelog
+* Tue Aug 29 2023 Remi Collet <remi@remirepo.net> - 1.0.5-1
+- update to 1.0.5 (no change)
+- sources from git snapshot
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

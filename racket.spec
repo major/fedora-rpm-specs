@@ -1,21 +1,13 @@
 Name:           racket
-Version:        7.4
-Release:        12%{?dist}
+Version:        7.9
+Release:        1%{?dist}
 Summary:        General purpose programming language
 
-License:        GPLv3 and LGPLv3 and MIT
+# see LICENSE.txt
+# libscheme: MIT License Modern Variant
+License:        MIT AND Apache-2.0 AND LGPLv3 AND MIT-Modern-Variant
 URL:            https://racket-lang.org
 Source0:        https://mirror.racket-lang.org/installers/%{version}/%{name}-%{version}-src.tgz
-
-# Remove SRFI library and docs with restrictive licensing.
-# See: https://github.com/racket/srfi/issues/4 (open)
-# Note: Upstream maintainers have confirmed this
-#       is safe, since the removed components are
-#       extra elements which nothing else in the
-#       package depends on.
-# Note: SRFI 5 was replaced with a FOSS implementation.  Only
-#       nonfree docs need to be removed by this patch now.
-Patch0:         racket-7.4-remove-nonfree.patch
 Patch1: racket-configure-c99.patch
 
 # ppc64le: https://bugzilla.redhat.com/show_bug.cgi?id=2226390
@@ -65,10 +57,10 @@ already available.
 
 %prep
 
-%autosetup -v -p1
+%autosetup -p1
 
 # Remove bundled libffi
-rm -r src/foreign/libffi
+rm -r src/bc/foreign/libffi
 
 %build
 cd src
@@ -91,52 +83,40 @@ cd src
         --enable-pthread \
         --enable-shared \
         --enable-libffi \
+        --disable-libs \
         --disable-strip
 
 %make_build
 
 %install
-cd src
-%make_install
+%make_install -C src
 
 # Delete mred binaries and replace them with links.
-rm -vf ${RPM_BUILD_ROOT}%{_bindir}/mred
-rm -vf ${RPM_BUILD_ROOT}%{_bindir}/mred-text
-ln -vs %{_bindir}/gracket ${RPM_BUILD_ROOT}%{_bindir}/mred
-ln -vs %{_bindir}/gracket-text ${RPM_BUILD_ROOT}%{_bindir}/mred-text
-
-# Delete static library. Apperently --disable-libs does not stop it.
-rm -vf ${RPM_BUILD_ROOT}%{_libdir}/libracket3m.a
-
-# Delete duplicate license files
-rm -rf %{buildroot}%{_datadir}/racket/COPYING*txt
+rm %{buildroot}%{_bindir}/mred
+rm %{buildroot}%{_bindir}/mred-text
+ln -s gracket %{buildroot}%{_bindir}/mred
+ln -s gracket-text %{buildroot}%{_bindir}/mred-text
 
 # Fix the rpath error.
-chrpath --delete ${RPM_BUILD_ROOT}%{_bindir}/racket
-chrpath --delete ${RPM_BUILD_ROOT}%{_libdir}/racket/gracket
+chrpath --delete %{buildroot}%{_bindir}/racket
+chrpath --delete %{buildroot}%{_libdir}/racket/gracket
 
 # Remove the libtool files.
-rm -f ${RPM_BUILD_ROOT}%{_libdir}/*.la
+rm %{buildroot}%{_libdir}/*.la
 
 # Fix paths in the desktop files.
-sed -i "s#${RPM_BUILD_ROOT}##g" \
-       ${RPM_BUILD_ROOT}/%{_datadir}/applications/*.desktop
+sed -i "s#%{buildroot}##g" %{buildroot}/%{_datadir}/applications/*.desktop
 
 # Validate desktop files
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
-# Fix paths in html docs
-DOCS_TO_FIX="
-syntax/module-helpers.html
-rackunit/api.html
-reference/collects.html"
-for i in $DOCS_TO_FIX; do
-  sed -i "s#${RPM_BUILD_ROOT}##g" \
-         ${RPM_BUILD_ROOT}/%{_datadir}/doc/racket/$i
+# Fix buildroot references in html docs
+for i in $(find %{buildroot}/%{_datadir}/doc/racket/ -name '*.html'); do
+  sed -i "s#%{buildroot}##g" $i
 done
 
 # Remove the executable bit on legacy template file
-chmod -x ${RPM_BUILD_ROOT}%{_libdir}/racket/starter-sh
+chmod -x %{buildroot}%{_libdir}/racket/starter-sh
 
 %ldconfig_scriptlets
 
@@ -183,7 +163,7 @@ BuildArch:      noarch
 A local installation of the Racket documentation system.
 
 %files
-%license src/COPYING.txt src/COPYING_LESSER.txt src/COPYING-libscheme.txt
+%license src/LICENSE*.txt
 %{_bindir}/drracket
 %{_bindir}/gracket
 %{_bindir}/gracket-text
@@ -207,27 +187,25 @@ A local installation of the Racket documentation system.
 %{_datadir}/applications/
 
 %files collects
-%license src/COPYING.txt src/COPYING_LESSER.txt src/COPYING-libscheme.txt
+%license src/LICENSE*.txt
 %{_datadir}/racket/collects
 
 %files minimal
-%license src/COPYING.txt src/COPYING_LESSER.txt src/COPYING-libscheme.txt
+%license src/LICENSE*.txt
 %{_bindir}/racket
 %{_bindir}/raco
 %{_libdir}/racket
 %{_libdir}/libracket3m-%{version}.so
+%dir %{_datadir}/racket/
 %{_datadir}/racket/links.rktd
 %{_datadir}/racket/pkgs/racket-lib
 %{_datadir}/man/man1/racket*
 %{_datadir}/man/man1/raco*
-%dir %{_datadir}/racket
-%dir %{_datadir}/doc/racket
 %dir %{_sysconfdir}/racket/
 %config %{_sysconfdir}/racket/config.rktd
-%exclude %{_libdir}/libracket3m.so
 
 %files pkgs
-%license src/COPYING.txt src/COPYING_LESSER.txt src/COPYING-libscheme.txt
+%license src/LICENSE*.txt
 %{_datadir}/racket
 %{_datadir}/man/man1/drracket*
 %{_datadir}/man/man1/gracket*
@@ -241,15 +219,19 @@ A local installation of the Racket documentation system.
 %exclude %dir %{_datadir}/racket/collects
 
 %files devel
-%license src/COPYING.txt src/COPYING_LESSER.txt src/COPYING-libscheme.txt
+%license src/LICENSE-*.txt
 %{_includedir}/racket
 %{_libdir}/libracket3m.so
 
 %files doc
-%license src/COPYING.txt src/COPYING_LESSER.txt src/COPYING-libscheme.txt
+%license src/LICENSE*.txt
 %{_datadir}/doc/racket
 
 %changelog
+* Mon Aug 28 2023 Jens Petersen <petersen@redhat.com> - 7.9-1
+- update to 7.9
+- drop the nonfree doc patch
+
 * Sat Aug 26 2023 Jens Petersen <petersen@redhat.com> - 7.4-12
 - disable ppc64le (#2226390)
 

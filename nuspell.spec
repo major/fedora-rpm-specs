@@ -1,6 +1,6 @@
 Name:           nuspell
-Version:        5.1.2
-Release:        7%{?dist}
+Version:        5.1.3
+Release:        1%{?dist}
 Summary:        Fast and safe spellchecking C++ library and command-line tool
 License:        LGPL-3.0-or-later
 URL:            https://nuspell.github.io
@@ -13,7 +13,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  libicu-devel
 BuildRequires:  pandoc
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 
 BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-dlfcn
@@ -67,10 +67,10 @@ MinGW Windows %{name} library.
 
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=Release
+%cmake
 %cmake_build
 
-%mingw_cmake
+%mingw_cmake -DBUILD_TESTING=OFF
 %mingw_make_build
 
 
@@ -123,6 +123,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/%{name}
 
 
 %changelog
+* Tue Aug 29 2023 Sandro Mani <manisandro@gmail.com> - 5.1.3-1
+- Update to 5.1.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

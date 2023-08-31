@@ -1,8 +1,8 @@
 %global srcname pysignals
 
 Name: python-%{srcname}
-Version: 0.1.3
-Release: 11%{?dist}
+Version: 0.1.4
+Release: 1%{?dist}
 Summary: PySignals is a signal dispatcher for Python
 
 License: BSD
@@ -16,7 +16,6 @@ BuildRequires:  %{py3_dist setuptools}
 
 # required for check
 BuildRequires: %{py3_dist six}
-BuildRequires: %{py3_dist future}
 
 %global _description %{expand:
 PySignals is a signal dispatcher for Python, extracted from “django.dispatch”
@@ -52,6 +51,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Tue Aug 29 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.1.4-1
+- Release 0.1.4
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

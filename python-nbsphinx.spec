@@ -1,5 +1,5 @@
 Name:           python-nbsphinx
-Version:        0.9.2
+Version:        0.9.3
 Release:        1%{?dist}
 Summary:        Jupyter Notebook Tools for Sphinx
 
@@ -85,6 +85,9 @@ rm -rf html/{.doctrees,.buildinfo,conf.py,_sources}
 %doc html 
 
 %changelog
+* Mon Aug 28 2023 Lumír Balhar <lbalhar@redhat.com> - 0.9.3-1
+- Update to 0.9.3 (rhbz#2235169)
+
 * Wed Aug 23 2023 Lumír Balhar <lbalhar@redhat.com> - 0.9.2-1
 - Update to 0.9.2 (rhbz#2142414)
 

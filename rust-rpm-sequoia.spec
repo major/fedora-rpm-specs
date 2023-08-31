@@ -4,7 +4,7 @@
 %global crate rpm-sequoia
 
 Name:           rust-rpm-sequoia
-Version:        1.4.1
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Implementation of the RPM PGP interface using Sequoia
 
@@ -67,7 +67,7 @@ Requires:       %{crate}%{?_isa} = %{version}-%{release}
 export PREFIX="%{_prefix}"
 export LIBDIR="%{_libdir}"
 %cargo_build
-%cargo_license_summary
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install

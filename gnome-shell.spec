@@ -2,7 +2,7 @@
 
 Name:           gnome-shell
 Version:        45~beta.1
-Release:        %autorelease
+Release:        %autorelease -b 2
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+

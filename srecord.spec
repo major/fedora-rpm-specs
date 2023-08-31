@@ -1,15 +1,25 @@
 Name:		srecord
-Version:	1.64
-Release:	25%{?dist}
+Version:	1.65.0
+Release:	1%{?dist}
 Summary:	Manipulate EPROM load files
-License:	GPLv3+ and LGPLv3+
+License:	GPL-3.0-or-later AND LGPL-3.0-or-later
+# see also https://github.com/sierrafoxtrot/srecord
 URL:		http://srecord.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/srecord/srecord-%{version}.tar.gz
-BuildRequires: make
-BuildRequires:  gcc-c++
-BuildRequires:	diffutils, sharutils, groff, boost-devel, libgcrypt-devel, libtool
-# for ps2pdf
+Source0:	http://downloads.sourceforge.net/srecord/srecord-%{version}-Source.tar.gz
+# https://github.com/sharkcz/srecord/tree/fedora-1.65
+# - switch to a shared library with a sane name
+# - don't install runtime deps
+Patch0:		srecord-1.65-fedora.patch
+BuildRequires:	cmake
+BuildRequires:	gcc-c++
+BuildRequires:	git-core
+BuildRequires:	libgcrypt-devel
+# for building docs
+BuildRequires:	doxygen
 BuildRequires:	ghostscript
+BuildRequires:	groff
+BuildRequires:	netpbm-progs
+BuildRequires:	psutils
 
 %description
 The SRecord package is a collection of powerful tools for manipulating
@@ -42,44 +52,45 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 Development headers and libraries for developing applications against
 srecord.
 
+
 %prep
-%setup -q
+%autosetup -p1 -n %{name}-%{version}-Source
+
 
 %build
-%configure
-# Fails to build in SMP machines using "make %{?_smp_mflags}"
-make
+%cmake
+%cmake_build
+
 
 %install
-mkdir -p %{buildroot}%{_libdir}
-make DESTDIR="%{buildroot}" install
-rm -rf %{buildroot}%{_libdir}/*.a
-rm -rf %{buildroot}%{_libdir}/*.la
-chmod +x %{buildroot}%{_libdir}/libsrecord.so.*
+%cmake_install
+
+# the generated html docs are huge and unlikely to be used ...
+rm -rf %{buildroot}%{_defaultdocdir}/%{name}/htdocs
+
 
 %check
-# Test scripts requirements: cmp, diff, uudecode
-make sure
+%ctest
 
-%ldconfig_scriptlets
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
-%doc BUILDING README
 %{_defaultdocdir}/%{name}/
-%{_bindir}/*
-%{_libdir}/libsrecord.so.*
-%{_mandir}/man1/*.1*
-%{_mandir}/man3/*.3*
-%{_mandir}/man5/*.5*
+%{_bindir}/srec_*
+%{_libdir}/lib%{name}.so.%{version}
+%{_mandir}/man1/srec_*.1*
+%{_mandir}/man3/%{name}*.3*
+%{_mandir}/man5/srec_*.5*
 
 %files devel
-%{_includedir}/srecord/
-%{_libdir}/libsrecord.so
-%{_libdir}/pkgconfig/srecord.pc
+%{_includedir}/%{name}/
+%{_libdir}/lib%{name}.so
+
 
 %changelog
+* Tue Aug 15 2023 Dan Horák <dan[at]danny.cz> - 1.65.0-1
+- update to 1.65
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.64-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

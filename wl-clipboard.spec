@@ -1,5 +1,5 @@
 Name:           wl-clipboard
-Version:        2.2.0
+Version:        2.2.1
 Release:        1%{?dist}
 Summary:        Command-line copy/paste utilities for Wayland
 
@@ -46,6 +46,9 @@ sockets, files and so on.
 %{_datadir}/zsh/site-functions/_wl-*
 
 %changelog
+* Tue Aug 29 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 2.2.1-1
+- new version (rhbz#2235567)
+
 * Tue Jul 25 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 2.2.0-1
 - new version 2.2.0 (rhbz#2225327)
 

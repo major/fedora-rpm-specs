@@ -4,7 +4,7 @@
 
 # https://github.com/shirou/gopsutil
 %global goipath         github.com/shirou/gopsutil
-Version:                3.23.5
+Version:                3.23.7
 
 %gometa
 
@@ -25,6 +25,8 @@ License:        BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
 
+BuildRequires:	/usr/bin/pgrep
+
 %description %{common_description}
 
 %gopkg
@@ -41,9 +43,12 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-# host: needs access to /var/run
-# net: needs network
-%gocheck -d cpu -d disk -d host -d net -d process -d v3/cpu -d v3/disk -d v3/host -d v3/net -d v3/process
+# TestUsers: needs access to /var/run
+for test in "TestUsers" "Test_Process_Cwd" \
+; do
+awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
+done
+%gocheck
 %endif
 
 %gopkgfiles

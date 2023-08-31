@@ -24,6 +24,13 @@ Patch:          Update-update_query-calls-to-work-with-latest-yarl.patch
 # Upstream report: https://github.com/aio-libs/aiohttp/issues/7291
 Patch:          ignore-DeprecationWarning-set_child_watcher-is-depre.patch
 
+# Update to LLHTTP 9
+# https://github.com/aio-libs/aiohttp/pull/7485
+# https://github.com/aio-libs/aiohttp/commit/c0c7508b64951b83ea38d232857cc258159f930b
+#
+# Rebased on v3.8.5 with 0001-Unbundle-llhttp.patch.
+Patch:          0001-Update-to-LLHTTP-9-7485.patch
+
 BuildRequires:  gcc
 
 # CVE-2023-30589

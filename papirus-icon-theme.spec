@@ -1,11 +1,14 @@
 Name:           papirus-icon-theme
-Version:        20230601
+Version:        20230801
 Release:        %autorelease
 Summary:        Free and open source SVG icon theme based on Paper Icon Set
 
-# Some icons are based on Paper Icon Theme, CC-BY-SA
-# The rest is GPLv3
-License:        GPLv3 and CC-BY-SA
+# Some icons are based on
+# * Paper Icon Theme, CC-BY-SA-4.0
+# * Breeze Plasma Theme, LGPL-3.0-or-later
+#   https://invent.kde.org/frameworks/breeze-icons/-/blob/master/COPYING-ICONS
+# The rest is GPL-3.0-only; see AUTHORS
+License:        GPL-3.0-only AND CC-BY-SA-4.0 AND LGPL-3.0-or-later
 URL:            https://github.com/PapirusDevelopmentTeam/papirus-icon-theme
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -27,6 +30,9 @@ Papirus icon theme is available in six variants:
 
 %prep
 %autosetup
+
+%build
+# stub for rpmlint
 
 %install
 %make_install

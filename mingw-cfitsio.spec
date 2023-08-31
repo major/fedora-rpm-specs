@@ -4,8 +4,8 @@
 
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
-Version:       4.2.0
-Release:       3%{?dist}
+Version:       4.3.0
+Release:       1%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
 License:       MIT
@@ -19,11 +19,13 @@ Patch0:        cfitsio_build.patch
 BuildRequires: make
 BuildRequires: cmake
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-curl
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-zlib
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-curl
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-zlib
 
@@ -69,7 +71,7 @@ MinGW Windows CFITSIO library.
 
 %build
 # Disable curl support, otherwise a collision between #define TBYTE in fitsio.h and typedef TBYTE in tchar.h occurs
-%mingw_cmake -DUSE_CURL=OFF -DUTILS=ON
+%mingw_cmake -DUTILS=ON
 %mingw_make_build
 
 
@@ -82,6 +84,7 @@ MinGW Windows CFITSIO library.
 %{mingw32_bindir}/libcfitsio-10.dll
 %{mingw32_libdir}/libcfitsio.dll.a
 %{mingw32_libdir}/pkgconfig/cfitsio.pc
+%{mingw32_libdir}/cmake/%{pkgname}-targets*.cmake
 %{mingw32_libdir}/cmake/%{pkgname}-%{version}/
 %{mingw32_includedir}/cfitsio/
 
@@ -95,6 +98,7 @@ MinGW Windows CFITSIO library.
 %{mingw64_bindir}/libcfitsio-10.dll
 %{mingw64_libdir}/libcfitsio.dll.a
 %{mingw64_libdir}/pkgconfig/cfitsio.pc
+%{mingw64_libdir}/cmake/%{pkgname}-targets*.cmake
 %{mingw64_libdir}/cmake/%{pkgname}-%{version}/
 %{mingw64_includedir}/cfitsio/
 
@@ -104,6 +108,9 @@ MinGW Windows CFITSIO library.
 %{mingw64_bindir}/Funpack.exe
 
 %changelog
+* Tue Aug 29 2023 Sandro Mani <manisandro@gmail.com> - 4.3.0-1
+- Update to 4.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

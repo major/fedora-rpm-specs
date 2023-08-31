@@ -1,12 +1,13 @@
 Name:           perl-Mail-Box-POP3
-Version:        3.005
-Release:        14%{?dist}
+Version:        3.006
+Release:        1%{?dist}
 Summary:        Handle POP3 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-POP3
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Mail-Box-POP3-%{version}.tar.gz
-Patch0:         Mail-Box-POP3-3.001-Use-IO-Socket-IP-to-support-IPv6.patch
+Patch0:         Mail-Box-POP3-3.006-Use-IO-Socket-IP-to-support-IPv6.patch
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
@@ -22,12 +23,14 @@ BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(IO::Socket::IP)
+BuildRequires:  perl(IO::Socket::SSL)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Mail::Box::FastScalar) >= 3
 BuildRequires:  perl(Mail::Box::Net) >= 3
 BuildRequires:  perl(Mail::Box::Net::Message)
 BuildRequires:  perl(Mail::Box::Parser::Perl) >= 3
 BuildRequires:  perl(Mail::Transport::Receive) >= 3
+BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
@@ -35,8 +38,6 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Mail::Box::Test) >= 3
 BuildRequires:  perl(Test::More)
-Requires:       perl(IO::Socket::IP)
-Requires:       perl(IO::Socket::SSL)
 Requires:       perl(Mail::Box::FastScalar) >= 3
 Requires:       perl(Mail::Box::Net) >= 3
 Requires:       perl(Mail::Box::Parser::Perl) >= 3
@@ -55,26 +56,29 @@ transport of information, and focuses solely on the correct handling of
 messages within a POP3 folder.
 
 %prep
-%setup -q -n Mail-Box-POP3-%{version}
-%patch0 -p1
+%autosetup -p1 -n Mail-Box-POP3-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 MARKOV_DEVEL=1 make test
 
 %files
 %doc ChangeLog README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Mail
+%{_mandir}/man3/Mail::Box*
+%{_mandir}/man3/Mail::Transport*
 
 %changelog
+* Mon Aug 28 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.006-1
+- 3.006 bump (rhbz#2235314)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.005-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

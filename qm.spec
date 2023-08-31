@@ -30,7 +30,7 @@
 
 %if 0%{?rhel} && 0%{?centos} == 0
 # podman 4.5 is not available in RHEL 9 but it's available in CentOS Stream 9.
-# hirte-agent is available in EPEL 9.
+# bluechi-agent is available in EPEL 9.
 %bcond_with podman_45
 %else
 %bcond_without podman_45
@@ -44,7 +44,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 0.5.1
+Version: 0.5.4
 %if %{defined autorelease}
 Release: %autorelease
 %else

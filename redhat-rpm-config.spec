@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 264
+%global baserelease 265
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -257,6 +257,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Tue Aug 29 2023 Florian Weimer <fweimer@redhat.com> - 265-1
+- Add support for x86_64_v2, x86_64_v3, x86_64_v4 (#2233093)
+
 * Tue Aug 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 264-1
 - Add macros.rpmautospec
 
