@@ -4,8 +4,8 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.5.8
-Release:        4%{?dist}
+Version:        3.5.9
+Release:        2%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND MPL-2.0 AND (Unlicense OR MIT)
@@ -14,7 +14,6 @@ Source0:        %{url}/archive/stratisd-v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/stratisd-v%{version}/%{name}-%{version}-vendor.tar.gz
 Source2:        %{crates_source}
 
-Patch0:         vendor-serde_derive.patch
 
 ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel}
@@ -103,20 +102,7 @@ mv %{SOURCE0}.newfile %{SOURCE0}
 %setup -q
 
 %if 0%{?rhel}
-
-# Untar the vendor tarfile.
-tar --extract --file %{SOURCE1}
-
-# Remove pre-compiled procedural macro, compile from source
-rm ./vendor/serde_derive/serde_derive-x86_64-unknown-linux-gnu
-%patch0 -p1
-
-# Rezip the tarfile
-tar --create --gzip --file %{SOURCE1}.newfile ./vendor --remove-files
-mv %{SOURCE1}.newfile %{SOURCE1}
-
 %cargo_prep -V 1
-
 %else
 %cargo_prep
 %generate_buildrequires
@@ -207,6 +193,14 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
+* Wed Aug 30 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.9-2
+- Use testing tag v3.5.3
+- Remove vendor-serde_derive.patch file
+
+* Wed Aug 30 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.9-1
+- Update to 3.5.9
+- Remove patch macro for serde_derive patch
+
 * Mon Jul 31 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.8-4
 - Use patch macro for serde_derive patch
 

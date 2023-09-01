@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1712
+%define patchlevel 1822
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -133,6 +133,9 @@ BuildRequires: libselinux-devel
 %if %{with libsodium_crypt}
 BuildRequires: libsodium-devel
 %endif
+
+# uses libtool for linking
+BuildRequires: libtool
 
 # for lua plugin
 %if "%{withlua}" == "1"
@@ -1030,6 +1033,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Wed Aug 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1822-1
+- patchlevel 1822
+
 * Mon Aug 14 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1712-1
 - patchlevel 1712
 

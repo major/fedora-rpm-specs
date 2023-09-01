@@ -2,7 +2,7 @@
 
 Name:           classpathless-compiler
 Version:        2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for recompiling java sources with customizable class providers
 License:        Apache-2.0
 URL:            https://github.com/mkoncek/classpathless-compiler
@@ -11,7 +11,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  javapackages-extra
+BuildRequires:  jurand
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.beust:jcommander)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
@@ -65,6 +65,9 @@ Javadoc for %{name}.
 %license LICENSE
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.2-2
+- Build with Jurand instead of deprecated javapackages-extra
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-1
 - bumped to 2.2
 

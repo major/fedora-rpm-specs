@@ -1,5 +1,5 @@
 %global srcname keylime
-%global policy_version 1.0.0
+%global policy_version 38.1.0
 
 # Package is actually noarch, but it has an optional dependency that is
 # arch-specific.
@@ -8,7 +8,7 @@
 %global selinuxtype targeted
 
 Name:    keylime
-Version: 7.3.0
+Version: 7.5.0
 Release: %autorelease
 Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 
@@ -225,6 +225,7 @@ mkdir -p --mode=0700 %{buildroot}/%{_rundir}/%{srcname}
 mkdir -p --mode=0700 %{buildroot}/%{_sysconfdir}/%{srcname}/
 for comp in "verifier" "tenant" "registrar" "ca" "logging"; do
     mkdir -p --mode=0700  %{buildroot}/%{_sysconfdir}/%{srcname}/${comp}.conf.d
+    install -Dpm 400 config/${comp}.conf %{buildroot}/%{_sysconfdir}/%{srcname}
 done
 
 # Ship some scripts.
@@ -240,7 +241,7 @@ done
 cp -r ./templates %{buildroot}%{_datadir}/%{srcname}/templates/
 
 mkdir -p --mode=0755 %{buildroot}/%{_bindir}
-cp -a ./keylime/cmd/convert_config.py %{buildroot}/%{_bindir}/keylime_upgrade_config
+install -Dpm 755 ./keylime/cmd/convert_config.py %{buildroot}/%{_bindir}/keylime_upgrade_config
 
 %if 0%{?with_selinux}
 install -D -m 0644 %{srcname}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{srcname}.pp.bz2
@@ -267,19 +268,7 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{srcname}.conf
 exit 0
 
 %post base
-/usr/bin/keylime_upgrade_config
-exit 0
-
-%pre verifier
-/usr/bin/keylime_upgrade_config
-exit 0
-
-%pre registrar
-/usr/bin/keylime_upgrade_config
-exit 0
-
-%pre tenant
-/usr/bin/keylime_upgrade_config
+/usr/bin/keylime_upgrade_config --component ca --component logging >/dev/null
 exit 0
 
 %posttrans base
@@ -305,10 +294,16 @@ fi
 exit 0
 
 %post verifier
+/usr/bin/keylime_upgrade_config --component verifier >/dev/null
 %systemd_post %{srcname}_verifier.service
 
 %post registrar
+/usr/bin/keylime_upgrade_config --component registrar >/dev/null
 %systemd_post %{srcname}_registrar.service
+
+%post tenant
+/usr/bin/keylime_upgrade_config --component tenant >/dev/null
+exit 0
 
 %if 0%{?with_selinux}
 # SELinux contexts are saved so that only affected files can be
@@ -356,6 +351,7 @@ fi
 %files verifier
 %license LICENSE
 %attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/verifier.conf.d
+%config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{srcname},%{srcname}) %{_sysconfdir}/%{srcname}/verifier.conf
 %{_bindir}/%{srcname}_verifier
 %{_bindir}/%{srcname}_ca
 %{_unitdir}/keylime_verifier.service
@@ -363,6 +359,7 @@ fi
 %files registrar
 %license LICENSE
 %attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/registrar.conf.d
+%config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{srcname},%{srcname}) %{_sysconfdir}/%{srcname}/registrar.conf
 %{_bindir}/%{srcname}_registrar
 %{_unitdir}/keylime_registrar.service
 
@@ -376,6 +373,7 @@ fi
 %files tenant
 %license LICENSE
 %attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/tenant.conf.d
+%config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{srcname},%{srcname}) %{_sysconfdir}/%{srcname}/tenant.conf
 %{_bindir}/%{srcname}_tenant
 
 %files -n python3-%{srcname}
@@ -397,6 +395,8 @@ fi
 %license LICENSE
 %doc README.md
 %attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/{ca,logging}.conf.d
+%config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{srcname},%{srcname}) %{_sysconfdir}/%{srcname}/ca.conf
+%config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{srcname},%{srcname}) %{_sysconfdir}/%{srcname}/logging.conf
 %attr(700,%{srcname},%{srcname}) %dir %{_rundir}/%{srcname}
 %attr(700,%{srcname},%{srcname}) %dir %{_sharedstatedir}/%{srcname}
 %attr(500,%{srcname},%{srcname}) %dir %{_sharedstatedir}/%{srcname}/tpm_cert_store

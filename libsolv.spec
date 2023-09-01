@@ -16,7 +16,11 @@
 %bcond_without arch_repo
 # For handling deb + rpm at the same time
 %bcond_without multi_semantics
+%if %{defined rhel}
+%bcond_with zchunk
+%else
 %bcond_without zchunk
+%endif
 %bcond_without zstd
 
 %define __cmake_switch(b:) %[%{expand:%%{?with_%{-b*}}} ? "ON" : "OFF"]

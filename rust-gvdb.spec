@@ -5,20 +5,13 @@
 %global crate gvdb
 
 Name:           rust-gvdb
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Read and write GLib GVariant database files
 
 License:        MIT
 URL:            https://crates.io/crates/gvdb
 Source:         %{crates_source}
-# Add missing LICENSE.md file from upstream
-# https://github.com/felinira/gvdb-rs/pull/12
-Source1:        https://raw.githubusercontent.com/felinira/gvdb-rs/main/LICENSE.md
-# Manually created patch for downstream crate metadata changes
-# * Exclude test-data directory that has unclear licensing
-#   https://github.com/felinira/gvdb-rs/issues/11
-Patch:          gvdb-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -37,6 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE.Icons.md
 %license %{crate_instdir}/LICENSE.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -91,8 +85,6 @@ use the "mmap" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-# https://github.com/felinira/gvdb-rs/pull/12
-cp %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires
@@ -105,11 +97,8 @@ cp %{SOURCE1} .
 %cargo_install
 
 %if %{with check}
-# https://github.com/felinira/gvdb-rs/issues/13
-%ifnarch s390x
 %check
 %cargo_test
-%endif
 %endif
 
 %changelog

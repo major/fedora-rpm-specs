@@ -17,7 +17,6 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-nose
 BuildRequires:  python3-six
-BuildRequires:  python3-future
 BuildRequires:  python3-pip
 
 %description %_description

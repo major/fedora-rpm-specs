@@ -5,18 +5,17 @@
 %global crate chrono
 
 Name:           rust-chrono
-Version:        0.4.26
+Version:        0.4.27
 Release:        %autorelease
 Summary:        Date and time library for Rust
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/chrono
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          chrono-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * remove WASM-specific features
+# * remove WASM- and doc-specific features
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          chrono-fix-metadata.diff
 
@@ -225,7 +224,9 @@ use the "unstable-locales" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test -a
+# * skip a test that hard-codes 64-bit arch-specific type sizes:
+#   https://github.com/chronotope/chrono/issues/1234
+%cargo_test -a -- -- --skip format::strftime::tests::test_type_sizes
 %endif
 
 %changelog

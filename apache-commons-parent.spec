@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-parent
-Version:        60
+Version:        61
 Release:        1%{?dist}
 Summary:        Apache Commons Parent Pom
 License:        Apache-2.0
@@ -68,6 +68,9 @@ done
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 61-1
+- Update to upstream version 61
+
 * Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 60-1
 - Update to upstream version 60
 

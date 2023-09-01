@@ -1,6 +1,6 @@
 Name: libphonenumber
 Version: 8.13.15
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -78,6 +78,9 @@ popd
 
 
 %changelog
+* Wed Aug 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 8.13.15-4
+- Rebuilt for abseil-cpp 20230802.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.13.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

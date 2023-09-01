@@ -1,5 +1,5 @@
 Name:           python-time-machine
-Version:        2.9.0
+Version:        2.12.0
 Release:        %autorelease
 Summary:        Travel through time in your Python tests
 License:        MIT

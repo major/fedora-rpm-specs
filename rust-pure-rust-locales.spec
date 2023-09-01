@@ -5,7 +5,7 @@
 %global crate pure-rust-locales
 
 Name:           rust-pure-rust-locales
-Version:        0.5.6
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Pure Rust locales imported directly from the GNU C Library
 

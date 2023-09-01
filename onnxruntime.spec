@@ -1,7 +1,7 @@
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
 Version:    1.15.1
-Release:    2%{?dist}
+Release:    4%{?dist}
 # onnxruntime and SafeInt are MIT
 # onnx is Apache License 2.0
 # optional-lite is Boost Software License 1.0
@@ -57,7 +57,7 @@ BuildRequires:  cpuinfo-devel
 %endif
 BuildRequires:  date-devel
 BuildRequires:  flatbuffers-compiler
-BuildRequires:  flatbuffers-devel
+BuildRequires:  flatbuffers-devel >= 23.5.26
 BuildRequires:  gmock-devel
 BuildRequires:  gsl-devel
 BuildRequires:  gtest-devel
@@ -68,10 +68,12 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
+BuildRequires:  python3-pip
 BuildRequires:  re2-devel >= 20211101
 BuildRequires:  safeint-devel
 BuildRequires:  zlib-devel
 Buildrequires:  eigen3-devel >= 1.34
+BuildRequires:  pybind11-devel 
 
 %description
 %{name} is a cross-platform inferencing and training accelerator compatible
@@ -84,6 +86,13 @@ Requires:   %{name}%{_isa} = %{version}-%{release}
 
 %description devel
 The development part of the %{name} package
+
+%package -n python3-onnxruntime
+Summary:    %{summary}
+Requires:   %{name}%{_isa} = %{version}-%{release}
+
+%description -n python3-onnxruntime
+Python bindings for the %{name} package
 
 %package doc
 Summary:    Documentation files for the %{name} package
@@ -120,15 +129,25 @@ rm -v onnxruntime/test/optimizer/nhwc_transformer_test.cc
     -Donnxruntime_ENABLE_CPUINFO=ON \
 %endif
     -Donnxruntime_DISABLE_ABSEIL=ON \
+    -Donnxruntime_ENABLE_PYTHON=ON \
     -Deigen_SOURCE_PATH=/usr/include/eigen3 \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -S cmake
 %cmake_build
 
+# Build python libs
+mv ./onnxruntime ./onnxruntime.src
+cp -R ./%{__cmake_builddir}/onnxruntime ./onnxruntime
+cp ./%{__cmake_builddir}/requirements.txt ./requirements.txt
+%pyproject_wheel
+
 %install
 %cmake_install
 mkdir -p "%{buildroot}/%{_docdir}/"
 cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
+
+%pyproject_install
+%pyproject_save_files onnxruntime
 
 %check
 %ctest
@@ -146,10 +165,19 @@ cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
 %{_libdir}/libonnxruntime_providers_shared.so
 %{_libdir}/pkgconfig/libonnxruntime.pc
 
+%files -n python3-onnxruntime -f %{pyproject_files}
+%{_bindir}/onnxruntime_test
+
 %files doc
 %{_docdir}/%{name}
 
 %changelog
+* Wed Aug 30 2023 Diego Herrera <dherrera@redhat.com> - 1.15.1-4
+- Fix python package build dependencies
+
+* Tue Aug 22 2023 Diego Herrera <dherrera@redhat.com> - 1.15.1-3
+- Add python library package
+
 * Thu Aug 17 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.15.1-2
 - Enable build on aarch64
 

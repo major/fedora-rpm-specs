@@ -3,12 +3,12 @@
 %global enableimage 1
 %endif
 %global rocm_release 5.6
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    4%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -77,6 +77,9 @@ ROCm Runtime development files
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Wed Aug 30 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.1-1
+- Update to 5.6.1
+
 * Tue Aug 08 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-4
 - Rebuild against rocm-device-libs 16.4
 

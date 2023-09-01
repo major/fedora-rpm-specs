@@ -5,19 +5,15 @@
 %global crate memchr
 
 Name:           rust-memchr
-Version:        2.5.0
+Version:        2.6.2
 Release:        %autorelease
 Summary:        Safe interface to memchr
 
-# Upstream license specification: Unlicense/MIT
 License:        Unlicense OR MIT
 URL:            https://crates.io/crates/memchr
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * exclude files that are only useful for upstream development
-Patch:          memchr-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Safe interface to memchr.}
@@ -52,6 +48,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+libc-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -62,6 +70,18 @@ This package contains library source intended for building other packages which
 use the "libc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+libc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+logging-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+logging-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "logging" feature of the "%{crate}" crate.
+
+%files       -n %{name}+logging-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

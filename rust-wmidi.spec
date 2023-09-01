@@ -5,7 +5,7 @@
 %global crate wmidi
 
 Name:           rust-wmidi
-Version:        4.0.6
+Version:        4.0.8
 Release:        %autorelease
 Summary:        Midi parsing library
 
@@ -13,10 +13,8 @@ License:        MIT
 URL:            https://crates.io/crates/wmidi
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop criterion dependency
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          wmidi-fix-metadata.diff
-# Add license text
-Patch:          https://github.com/RustAudio/wmidi/pull/15.patch
 
 BuildRequires:  rust-packaging >= 21
 

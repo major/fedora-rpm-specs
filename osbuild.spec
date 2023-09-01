@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        93
+Version:        94
 
 %forgemeta
 
@@ -263,6 +263,20 @@ fi
 
 
 %changelog
+* Wed Aug 30 2023 Packit <hello@packit.dev> - 94-1
+Changes with 94
+----------------
+  * .gitlab-ci: update RHEL ga runners (#1371)
+  * Add support for btrfs subvolumes, metadata profiles and compression (#1312)
+  * Update snapshots to 20230824 (#1373)
+  * stages/dracut: add dracut omit drivers option (#1374)
+  * tests/ostree-container: Drop hardcoded max layers (#1375)
+
+Contributions from: Brian Masney, Colin Walters, Ondřej Budai, Sanne Raymaekers, schutzbot
+
+— Somewhere on the Internet, 2023-08-30
+
+
 * Wed Aug 23 2023 Packit <hello@packit.dev> - 93-1
 Changes with 93
 ----------------

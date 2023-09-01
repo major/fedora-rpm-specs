@@ -1,6 +1,6 @@
 Name:       kst
 Version:    2.0.8
-Release:    44%{?dist}
+Release:    45%{?dist}
 Summary:    A data viewing program
 
 License:    GPL-3.0-only
@@ -18,6 +18,7 @@ Patch3:     nest.patch
 
 BuildRequires: gsl-devel cmake
 BuildRequires: cfitsio-devel
+BuildRequires: pkgconf
 %if 0%{?fedora} >= 17
 BuildRequires:  netcdf-cxx-devel
 %else
@@ -75,8 +76,7 @@ Requires:   %{name}%{?_isa} = %{version}-%{release}
 # Hack because cfitsio won't run if it's internal library version
 # doesn't perfectly match between installed library and compiled
 # against library.  Meh.
-Requires:   cfitsio = %(pkg-config --modversion cfitsio 2>/dev/null)0
-#Requires:   cfitsio = 3.300
+Requires:   cfitsio = %(pkgconf --modversion cfitsio 2>/dev/null || echo "0")
 
 %description fits
 A plugin allowing kst to open and read data and images contained within 
@@ -173,6 +173,9 @@ rm -frv %{buildroot}%{_datadir}/{applnk,mimelink}/
 #%{_datadir}/services/kst/kstdata_dirfilesource.desktop
 
 %changelog
+* Wed Aug 30 2023 Adam Williamson <awilliam@redhat.com> - 2.0.8-45
+- Fix cfitsio dependency
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

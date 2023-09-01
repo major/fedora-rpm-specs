@@ -2,7 +2,7 @@
 
 Name:           google-guice
 Version:        5.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Lightweight dependency injection framework for Java 5 and above
 License:        ASL 2.0
 URL:            https://github.com/google/guice
@@ -13,7 +13,6 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        %{name}-%{version}.tar.xz
 Source1:        create-tarball.sh
 
-BuildRequires:  javapackages-extra
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -32,6 +31,7 @@ BuildRequires:  mvn(org.ow2.asm:asm)
 %if %{without bootstrap}
 BuildRequires:  mvn(org.apache:apache-jar-resource-bundle)
 %endif
+BuildRequires:  jurand
 
 Obsoletes:      guice-multibindings < 5
 
@@ -201,6 +201,9 @@ and above. This package provides Bill of Materials module for Guice.
 %files -n guice-bom -f .mfiles-guice-bom
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.1.0-5
+- Build with Jurand instead of deprecated javapackages-extra
+
 * Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.1.0-4
 - Build with default JDK 17
 

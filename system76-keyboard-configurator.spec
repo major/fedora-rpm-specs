@@ -1,8 +1,8 @@
 %bcond_without check
 
-%global tag      v1.3.7
+%global tag      v1.3.9
 %global forgeurl https://github.com/pop-os/keyboard-configurator
-Version:         1.3.7
+Version:         1.3.9
 %forgemeta
 
 Name:          system76-keyboard-configurator

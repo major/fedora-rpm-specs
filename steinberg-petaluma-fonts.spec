@@ -14,7 +14,7 @@ URL:            https://www.smufl.org/fonts/
 # If both %%petalumaver and %%petalumascriptver were increased,
 # release should be reset to 1. Otherwise, keep increasing it so that
 # name-version-release keeps growing for both subpackages.
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
@@ -66,8 +66,6 @@ Source1:        65-%{fontpkgname0}.conf
 Source2:        65-%{fontpkgname1}.conf
 Source3:        65-%{fontpkgname2}.conf
 
-BuildRequires:  appstream
-
 %fontpkg -a
 
 # We cannot use %%fontmetapkg, because it doesn't know how to deal with a
@@ -84,7 +82,7 @@ This meta-package installs all the font packages generated from the
 %{name} source package.
 
 %prep
-%forgesetup
+%forgeautosetup
 
 %build
 %fontbuild -a
@@ -98,20 +96,16 @@ metainfo="%{buildroot}%{_metainfodir}/%{fontorg}.%{name}.metainfo.xml \
 # The Fedora font macros generate invalid metainfo; see bz 1943727.
 sed -i 's,updatecontact,update_contact,g' $metainfo
 
-appstreamcli validate --no-net $metainfo
-
 # Install the SMuFL metadata
+mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma
 install -m 0644 -p redist/petaluma_metadata.json \
-        %{buildroot}%{_fontdir}/metadata.json
+        %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma/Petaluma.json
 
 %check
-# FIXME: This should not be necessary
-ln -s %{_datadir}/xml/fontconfig/fonts.dtd %{buildroot}%{_fontconfig_templatedir}
 %fontcheck -a
-rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 
 %fontfiles -z 0
-%{_fontdir}/metadata.json
+%{_datadir}/SMuFL/
 
 %fontfiles -z 1
 
@@ -120,6 +114,11 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %files          all
 
 %changelog
+* Wed Aug 30 2023 Jerry James <loganjerry@gmail.com> - 1.065-8
+- Install SMuFL metadata in a standard location
+- Simplify the font config files
+- Remove redundant metainfo check
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.065-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

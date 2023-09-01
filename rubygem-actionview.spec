@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -25,6 +25,11 @@ Source2: rails-%{version}%{?prerelease}-tools.txz
 Patch0: rubygem-actionview-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
 # https://github.com/rails/rails/pull/45370
 Patch1: rubygem-actionview-7.0.2.3-Fix-tests-for-minitest-5.16.patch
+# Fixes jbuilder test errors:
+# JbuilderTemplateTest#test_supports_the_cached:_->()_{}_option
+# JbuilderTemplateTest#test_supports_the_cached:_true_option
+# https://github.com/rails/rails/pull/48937
+Patch2: rubygem-actionview-7.0.7-Handle-non-string-partial-body-in-ActionView-CollectionCaching.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -51,6 +56,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
+
+%patch 2 -p2
 
 pushd %{_builddir}
 %patch 0 -p2
@@ -101,6 +108,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Wed Aug 30 2023 Vít Ondruch <vondruch@redhat.com> - 7.0.7.2-2
+- Fix Jbuilder compatibility.
+
 * Mon Aug 28 2023 Pavel Valena <pvalena@redhat.com> - 7.0.7.2-1
 - Update to actionview 7.0.7.2.
 

@@ -5,13 +5,15 @@
 %global crate vm-memory
 
 Name:           rust-vm-memory
-Version:        0.12.0
-Release:        2%{?dist}
+Version:        0.12.2
+Release:        %autorelease
 Summary:        Safe abstractions for accessing the VM physical memory
 
 License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://crates.io/crates/vm-memory
 Source:         %{crates_source}
+# Automatically generated patch to strip foreign dependencies
+Patch:          vm-memory-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 # * exclude files that are only useful for upstream development
@@ -160,46 +162,4 @@ use the "xen" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jul 12 2023 Sergio Lopez <slp@redhat.com> - 0.12.0-1
-- Update to version 0.12.0
-
-* Mon May 08 2023 Fabio Valentini <decathorpe@gmail.com> - 0.10.0-2
-- Include upstream patch to fix UB in test code.
-- Regenerate with rust2rpm 24.
-
-* Wed Feb 08 2023 Sergio Lopez <slp@redhat.com> - 0.10.0-1
-- Update to version 0.10.0
-- Drop no longer needed vm-memory-fix-atomics.diff patch
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Nov 04 2022 Fabio Valentini <decathorpe@gmail.com> - 0.8.0-3
-- Drop unused, benchmark-only criterion dev-dependency.
-- Regenerate with rust2rpm 23.
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue May 31 2022 Sergio Lopez <slp@redhat.com> - 0.8.0-1
-- Update to 0.8.0
-- Enable tests now that BZ#1902663 is fixed
-- Enable all rust_arches except i686 (32 bits targets are not supported)
-
-* Thu Mar 03 2022 Sergio Lopez <slp@redhat.com> - 0.7.0-4
-- Add missing rust-vm-memory+backend-bitmap-devel subpackage
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Dec 24 2021 Sergio Lopez <slp@redhat.com> - 0.7.0-1
-- Update to 0.7.0
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon May 03 2021 Sergio Lopez <slp@redhat.com> - 0.5.0-1
-- Initial package
+%autochangelog

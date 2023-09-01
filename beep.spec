@@ -107,6 +107,8 @@ mandir = %{_mandir}
 EOF
 make %{?_smp_mflags}
 
+%{?el7:sed -i '1s|.*|#!/bin/sed -f|' contrib/morse/morse2beep.sed}
+
 
 %install
 rm -rf "%{buildroot}"

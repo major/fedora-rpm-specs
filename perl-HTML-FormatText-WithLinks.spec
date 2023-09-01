@@ -7,7 +7,7 @@
 
 Name:           perl-HTML-FormatText-WithLinks
 Version:        0.15
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        HTML to text conversion with links as footnotes
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -15,9 +15,11 @@ URL:            https://metacpan.org/release/HTML-FormatText-WithLinks
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STRUAN/HTML-FormatText-WithLinks-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time
 BuildRequires:  perl(base)
 BuildRequires:  perl(HTML::FormatText)
@@ -36,6 +38,9 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 0.08
 # not picked up automatically since it is called through SUPER
 Requires:       perl(HTML::FormatText) >= 2
 
+# Filter unversioned dependency
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(HTML::FormatText\\)$
+
 %description
 HTML::FormatText::WithLinks takes HTML and turns it into plain text but 
 prints all the links in the HTML as footnotes. By default, it attempts 
@@ -45,25 +50,26 @@ to mimic the format of the lynx text based web browser's --dump option.
 %setup -q -n HTML-FormatText-WithLinks-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
-
+%{perl_vendorlib}/HTML
+%{_mandir}/man3/HTML::FormatText::WithLinks*.3*
 
 %changelog
+* Wed Aug 30 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-26
+- Modernize spec
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

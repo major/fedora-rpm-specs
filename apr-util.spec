@@ -25,13 +25,14 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: ASL 2.0
 URL: https://apr.apache.org/
 Source0: https://www.apache.org/dist/apr/%{name}-%{version}.tar.bz2
 Patch1: apr-util-1.2.7-pkgconf.patch
 Patch2: apr-util-1.4.1-private.patch
 Patch3: apr-util-1.6.3-allow-ipv6.patch
+Patch4: apr-util-configure-c99.patch
 BuildRequires: gcc
 BuildRequires: autoconf, apr-devel >= 1.3.0
 BuildRequires: %{dbdep}, expat-devel, libuuid-devel
@@ -135,6 +136,7 @@ This package provides the NSS crypto support for the apr-util.
 %patch1 -p1 -b .pkgconf
 %patch2 -p1 -b .private
 %patch3 -p1 -b .r1907541
+%patch4 -p1
 
 : Configured for LDAP library: %{ldaplib}
 
@@ -232,6 +234,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Wed Aug 30 2023 Florian Weimer <fweimer@redhat.com> - 1.6.3-5
+- Restore configure script port to C99
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

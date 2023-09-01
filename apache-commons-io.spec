@@ -3,7 +3,7 @@
 Name:           apache-commons-io
 Epoch:          1
 Version:        2.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities to assist with developing IO functionality
 License:        Apache-2.0
 URL:            https://commons.apache.org/io
@@ -12,7 +12,6 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://archive.apache.org/dist/commons/io/source/commons-io-%{version}-src.tar.gz
 
-BuildRequires:  javapackages-extra
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -23,6 +22,7 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
+BuildRequires:  jurand
 
 %description
 Commons-IO contains utility classes, stream implementations,
@@ -70,6 +70,9 @@ rm src/test/java/org/apache/commons/io/input/ReversedLinesFileReaderTestParamFil
 %doc RELEASE-NOTES.txt
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:2.13.0-2
+- Build with Jurand instead of deprecated javapackages-extra
+
 * Wed Aug 09 2023 Marian Koncek <mkoncek@redhat.com> - 1:2.13.0-1
 - Update to upstream version 2.13.0
 

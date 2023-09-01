@@ -3,7 +3,7 @@
 
 Name:           %{parent}-%{subproj}
 Version:        1.11.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Doxia content generation framework
 License:        Apache-2.0
 URL:            https://maven.apache.org/doxia/
@@ -15,6 +15,8 @@ Source1:        https://repo1.maven.org/maven2/org/apache/maven/doxia/doxia-site
 Source2:        https://downloads.apache.org/maven/KEYS
 
 Patch1:         0002-Remove-dependency-on-velocity-tools.patch
+# Adapt to recent versions of velocity
+Patch2:         %{name}-velocity.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  maven-local
@@ -26,6 +28,7 @@ BuildRequires:  mvn(org.apache.maven.doxia:doxia-logging-api)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-apt)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-fml)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-fo)
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-markdown)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xdoc)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xhtml)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xhtml5)
@@ -92,8 +95,6 @@ API documentation for %{name}.
 rm -rf $(find -type d -name itext)
 %pom_remove_dep -r :doxia-module-itext
 
-%pom_remove_dep -r :doxia-module-markdown
-
 %mvn_alias :doxia-integration-tools org.apache.maven.shared:maven-doxia-tools
 
 %build
@@ -110,6 +111,10 @@ rm -rf $(find -type d -name itext)
 %license LICENSE NOTICE
 
 %changelog
+* Wed Aug 30 2023 Jerry James <loganjerry@gmail.com> - 1.11.1-7
+- Enable markdown support
+- Adapt to recent versions of velocity
+
 * Wed Jul 19 2023 Jerry James <loganjerry@gmail.com> - 1.11.1-6
 - Enable fop support
 

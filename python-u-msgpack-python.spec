@@ -1,8 +1,8 @@
 %global pypi_name u-msgpack-python
 
 Name:           python-%{pypi_name}
-Version:        2.7.1
-Release:        10%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        A portable, lightweight MessagePack serializer and deserializer
 
 License:        MIT
@@ -54,6 +54,10 @@ application-defined ext types.
 
 
 %changelog
+* Tue Aug 29 2023 Charalampos Stratakis <cstratak@redhat.com> - 2.8.0-1
+- Update to 2.8.0
+Resolves: rhbz#2140895
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -31,7 +31,7 @@ Patch: gnutls-3.7.8-ktls_skip_tls12_chachapoly_test.patch
 %bcond_with certificate_compression
 %bcond_without tests
 
-%if 0%{?fedora} < 38
+%if 0%{?fedora} && 0%{?fedora} < 38
 %bcond_without srp
 %else
 %bcond_with srp

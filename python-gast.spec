@@ -1,6 +1,6 @@
 Name:           python-gast
-Version:        0.5.3
-Release:        8%{?dist}
+Version:        0.5.4
+Release:        1%{?dist}
 Summary:        Python AST that abstracts the underlying Python version
 License:        BSD-3-Clause
 URL:            https://github.com/serge-sans-paille/gast/
@@ -51,6 +51,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Aug 29 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.5.4-1
+- Update to 0.5.4
+Resolves: rhbz#2192138
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

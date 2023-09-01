@@ -27,7 +27,7 @@ and the ability to specify which databases to backup.
 %patch1 -p1 -b .c99
 
 %build
-%configure --libdir=/%{_lib}/jpilot/plugins
+%configure --libdir=/%{_lib}/jpilot/plugins --with-pilot-prefix=%{_prefix}
 
 make %{?_smp_mflags}
 

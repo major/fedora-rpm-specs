@@ -5,17 +5,12 @@
 
 Name:           sane-airscan
 Version:        0.99.27
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        SANE backend for AirScan (eSCL) and WSD document scanners
-# SANE related source and header files - GPL 2.0+ with gnu-javamail exception
+# SANE related source and header files - GPL 2.0+ with SANE exception
 # http_parser.c/.h - MIT
 # the exception is defined in LICENSE, meant for SANE project in most cases
-# the exception matches with gnu-javamail exception, which is not currently
-# among Fedora allowed exceptions over SPDX.
-# reported here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/264
-# future License tag:
-# License: GPL-2.0-or-later WITH gnu-javamail-exception AND MIT
-License:        GPL-2.0-or-later AND MIT
+License:        GPL-2.0-or-later WITH SANE-exception AND MIT
 URL:            https://github.com/alexpevzner/sane-airscan
 Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -103,6 +98,9 @@ rm -f %{buildroot}%{_libdir}/sane/libsane-airscan.so
 
 
 %changelog
+* Wed Aug 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.99.27-10
+- applied accepted license exception - SANE-exception
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.27-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

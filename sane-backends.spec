@@ -24,21 +24,17 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
-# backend/qcam* - MIT AND GPL-2.0-or-later WITH gnu-javamail-exception
+# backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
 # include/sane.h,sanei_net.h,sanei_tcp.h,sanei_udp.h - LicenseRef-Fedora-Public-Domain
 # sanei/sanei_jpeg.c - IJG
-# sanei/*, backend/*, include/*, japi/* - GPL-2.0-or-later WITH gnu-javamail-exception
+# sanei/*, backend/*, include/*, japi/* - GPL-2.0-or-later WITH SANE-exception
 # frontend/*, tools/* - GPL-2.0-or-later
 # lib/* - LGPL-2.0-or-later, LGPL-2.1-or-later (copied from glibc, remove in the future...)
 # !DISABLED DURING CONFIGURE, thus not in License tag! backend/escl* - GPL-3.0-or-later
-# GPL-2.0-or-later WITH gnu-javamail-exception reported for including into
-# Fedora - https://gitlab.com/fedora/legal/fedora-license-data/-/issues/264
-# future:
-# License: GPL-2.0-or-later WITH gnu-javamail-exception AND GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND MIT AND IJG
-License: GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND IJG AND MIT
+License: GPL-2.0-or-later WITH SANE-exception AND GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND IJG AND MIT
 # GitLab Download URLs are amazing. But the source code link has different name and doesnt have generated autotools stuff
 Source0: https://gitlab.com/sane-project/backends/uploads/104f09c07d35519cc8e72e604f11643f/%{name}-%{version}.tar.gz
 
@@ -408,6 +404,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Wed Aug 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-6
+- applied accepted license exception - SANE-exception
+
 * Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-5
 - SPDX migration and rescan completed
 

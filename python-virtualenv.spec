@@ -1,6 +1,6 @@
 Name:           python-virtualenv
 Version:        20.21.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -21,6 +21,9 @@ Patch2:         prevent-PermissionError-when-using-venv-creator-on-s.patch
 # files missing in sdist removed from the path file
 # https://github.com/pypa/virtualenv/pull/2558
 Patch3:         3.12-support-and-no-setuptools-wheel-on-3.12-2558.patch
+# (20.24.0) Fix tests with pluggy 1.2.0+
+# Manually cherry-picked from https://github.com/pypa/virtualenv/pull/2593
+Patch4:         Fix-tests-with-pluggy-1.2.0.patch
 
 BuildArch:      noarch
 
@@ -151,6 +154,9 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
 %{_bindir}/virtualenv
 
 %changelog
+* Wed Aug 30 2023 Miro Hrončok <mhroncok@redhat.com> - 20.21.1-5
+- Fix tests with pluggy 1.2.0+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.21.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

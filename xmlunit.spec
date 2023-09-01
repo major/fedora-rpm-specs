@@ -2,7 +2,7 @@
 
 Name:           xmlunit
 Version:        2.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Provides classes to do asserts on xml
 # The whole package is ASL 2.0 except for xmlunit-legacy which is BSD
 License:        ASL 2.0 and BSD
@@ -22,7 +22,6 @@ Patch2:         0002-Use-local-schema.patch
 Patch3:         0003-Drop-support-for-JAXB.patch
 Patch4:         0004-Port-to-assertj-core-3.patch
 
-BuildRequires:  javapackages-extra
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -35,6 +34,7 @@ BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 BuildRequires:  mvn(org.hamcrest:hamcrest-library)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
+BuildRequires:  jurand
 
 %description
 XMLUnit provides you with the tools to verify the XML you emit is the one you
@@ -128,6 +128,9 @@ rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.
 %files placeholders -f .mfiles-xmlunit-placeholders
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.9.0-5
+- Build with Jurand instead of deprecated javapackages-extra
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

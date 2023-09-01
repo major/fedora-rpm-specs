@@ -3,7 +3,7 @@
 Name:           maven-doxia
 Epoch:          0
 Version:        1.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Content generation framework
 License:        Apache-2.0
 
@@ -19,12 +19,26 @@ Patch0:         0001-Fix-itext-dependency.patch
 # Build against commons-configuration 2.x
 Patch1:         0002-Commons-configuration2.patch
 
+# Build against flexmark 0.60+
+Patch2:         0003-Update-to-flexmark-0.60.patch
+
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  gnupg2
 BuildRequires:  maven-local
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark)
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-abbreviation)
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-autolink)
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-definition)
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-escaped-character)
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-gfm-strikethrough)
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-tables)
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-typographic)
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-wikilink)
+BuildRequires:  mvn(com.vladsch.flexmark:flexmark-util)
 BuildRequires:  mvn(commons-collections:commons-collections)
+BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-configuration2)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
@@ -32,6 +46,7 @@ BuildRequires:  mvn(org.apache.commons:commons-text)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.httpcomponents:httpcore)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-invoker-plugin)
 BuildRequires:  mvn(org.apache.xmlgraphics:fop)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
@@ -108,6 +123,12 @@ Summary: Latex module for %{name}
 %description module-latex
 This package provides %{summary}.
 
+%package module-markdown
+Summary: Markdown module for %{name}
+
+%description module-markdown
+This package provides %{summary}.
+
 %package module-rtf
 Summary: RTF module for %{name}
 
@@ -181,6 +202,9 @@ done
 # we don't have clirr-maven-plugin
 %pom_remove_plugin org.codehaus.mojo:clirr-maven-plugin pom.xml
 
+# we don't have maven-install-plugin
+%pom_remove_plugin :maven-install-plugin doxia-modules/doxia-module-markdown
+
 # complains
 %pom_remove_plugin :apache-rat-plugin
 
@@ -189,15 +213,20 @@ done
 "/pom:executions/pom:execution/pom:configuration" \
 "<useJava5>true</useJava5>" doxia-modules/doxia-module-fml/pom.xml
 
+# build for java 8 at a minimum
+%pom_xpath_set '//pom:javaVersion' 8
+
+# we don't have maven-clean-plugin or maven-site-plugin
+%pom_xpath_remove '//pom:goals' doxia-modules/doxia-module-markdown
+
 # requires network
 rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 
 %mvn_package :::tests: tests
 
-%pom_disable_module doxia-module-markdown doxia-modules
-
 %if %{without itext}
 %pom_disable_module doxia-module-itext doxia-modules
+sed -i '/doxia-module-itext/d' doxia-modules/pom.xml
 %endif
 
 %build
@@ -221,6 +250,7 @@ rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 %files module-itext -f .mfiles-doxia-module-itext
 %endif
 %files module-latex -f .mfiles-doxia-module-latex
+%files module-markdown -f .mfiles-doxia-module-markdown
 %files module-rtf -f .mfiles-doxia-module-rtf
 %files modules -f .mfiles-doxia-modules
 %files module-twiki -f .mfiles-doxia-module-twiki
@@ -235,6 +265,10 @@ rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Wed Aug 30 2023 Jerry James <loganjerry@gmail.com> - 0:1.12.0-3
+- Enable markdown support
+- Build for Java 8 at a minimum
+
 * Wed Jul 19 2023 Jerry James <loganjerry@gmail.com> - 0:1.12.0-2
 - Enable fop support
 

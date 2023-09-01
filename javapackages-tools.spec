@@ -1,8 +1,8 @@
-%bcond_with xmvn_generator
-
 %if 0%{?fedora}
+%bcond_with xmvn_generator
 %bcond_without ivy
 %else
+%bcond_without xmvn_generator
 %bcond_with ivy
 %endif
 
@@ -15,8 +15,8 @@
 %global maven_home %{_datadir}/xmvn
 
 Name:           javapackages-tools
-Version:        6.1.0
-Release:        10%{?dist}
+Version:        6.2.0
+Release:        2%{?dist}
 Summary:        Macros and scripts for Java packaging support
 License:        BSD
 URL:            https://github.com/fedora-java/javapackages
@@ -28,8 +28,6 @@ Source3:        javapackages-config.json
 Source8:        toolchains-openjdk8.xml
 Source11:       toolchains-openjdk11.xml
 Source17:       toolchains-openjdk17.xml
-
-Patch0:         0001-Remove-annotation-removal-scripts.patch
 
 BuildRequires:  coreutils
 BuildRequires:  which
@@ -128,14 +126,13 @@ Requires:       javapackages-generators = %{version}-%{release}
 This package provides non-essential, but commonly used macros and
 scripts to support Java packaging.
 
-%package -n javapackages-extra
-Summary:        Rarely-used macros and scripts for Java packaging support
-Requires:       javapackages-common = %{version}-%{release}
-Requires:       jurand
+%package -n javapackages-compat
+Summary:        Previously deprecated macros and scripts for Java packaging support
+Requires:       javapackages-local = %{version}-%{release}
 
-%description -n javapackages-extra
-This package provides rarely-used and obsolete macros and scripts to
-support Java packaging.
+%description -n javapackages-compat
+This package provides previously deprecated macros and scripts to
+support Java packaging as well as some additions to them.
 
 %package -n maven-local-openjdk8
 Summary:        OpenJDK 8 toolchain for XMvn
@@ -166,9 +163,6 @@ OpenJDK 17 toolchain for XMvn
 
 %prep
 %setup -q -n javapackages-%{version}
-%patch0 -p1
-
-sed -i /javapackages-metadata.xml/d install
 
 %build
 %configure --pyinterpreter=%{python_interpreter} \
@@ -207,7 +201,7 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 
 %files -n javapackages-common -f files-common
 
-%files -n javapackages-extra
+%files -n javapackages-compat -f files-compat
 
 %files -n javapackages-local
 
@@ -233,6 +227,12 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 %license LICENSE
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.2.0-2
+- Enable XMvn dependency generator in ELN
+
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.2.0-1
+- Update to upstream version 6.2.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

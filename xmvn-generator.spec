@@ -3,13 +3,15 @@
 
 Name:           xmvn-generator
 Version:        1.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        RPM dependency generator for Java
 License:        Apache-2.0
 URL:            https://github.com/fedora-java/xmvn-generator
 ExclusiveArch:  %{java_arches}
 
 Source0:        https://github.com/fedora-java/xmvn-generator/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+Patch0:         0001-Enable-JPMS-provides-and-JAR-transformer.patch
 
 BuildRequires:  gcc
 BuildRequires:  rpm-devel
@@ -37,6 +39,9 @@ from Lua.
 
 %prep
 %setup -q
+%if !0%{?fedora}
+%patch0 -p1
+%endif
 %mvn_file : %{name}
 
 %build
@@ -58,6 +63,9 @@ install -D -p -m 644 src/main/rpm/xmvngen.attr %{buildroot}%{_fileattrsdir}/xmvn
 %doc README.md
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.1-4
+- Enable JPMS provides and JAR transformation in ELN
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

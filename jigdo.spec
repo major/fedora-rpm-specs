@@ -1,10 +1,10 @@
 Name:          jigdo
-Version:       0.8.1
+Version:       0.8.2
 Release:       %autorelease
 Summary:       Ease distribution of large files over the Internet
 
 # Exception is permission to link with OpenSSL
-License:       GPLv2 with exceptions
+License:       GPL-2.0-only WITH x11vnc-openssl-exception
 URL:           https://www.einval.com/~steve/software/jigdo/
 Source0:       %{url}download/%{name}-%{version}.tar.xz
 Source1:       %{url}download/%{name}-%{version}.tar.xz.sig
@@ -12,8 +12,6 @@ Source2:       https://www.einval.com/~steve/pgp/587979573442684E.asc
 Source3:       jigdo.desktop
 # fix doc SGML sources e.g. for missing end tags
 Patch:         %{name}-0.8.1-fix-docs.patch
-# Fix header inclusions for compiling with GCC 13
-Patch:         %{name}-0.8.1-fix-gcc13.patch
 
 BuildRequires: bzip2-devel
 BuildRequires: curl-devel

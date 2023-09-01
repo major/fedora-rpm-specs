@@ -2,7 +2,7 @@
 
 Name:           byte-buddy
 Version:        1.14.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
 License:        ASL 2.0
 URL:            http://bytebuddy.net/
@@ -12,7 +12,6 @@ Source0:        https://github.com/raphw/byte-buddy/archive/refs/tags/byte-buddy
 Patch1:         0001-Avoid-bundling-asm.patch
 Patch2:         0002-Remove-dependencies.patch
 
-BuildRequires:  javapackages-extra
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -38,6 +37,7 @@ BuildRequires:  mvn(org.eclipse.aether:aether-util)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 %endif
+BuildRequires:  jurand
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -149,6 +149,9 @@ profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompil
 %license LICENSE NOTICE
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.14.2-3
+- Build with Jurand instead of deprecated javapackages-extra
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

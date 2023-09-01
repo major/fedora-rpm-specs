@@ -7,13 +7,14 @@
 
 Name:           zpaq
 Version:        7.15
-Release:        18%{?dist}
+Release:        20%{?dist}
 Summary:        Incremental journaling back-up archiver
-# COPYING:      Unlicense text and MIT text
-# Parts of libzpaq.cpp: Public Domain
+# COPYING:      Unlicense text AND MIT text
+# Parts of libzpaq.cpp: LicenseRef-Fedora-Public-Domain
+#               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/306>
 ## In zpaq-libs package
-# libzpaq.cpp:  Unlicense and MIT and Public Domain
-License:        Unlicense and Public Domain
+# libzpaq.cpp:  Unlicense AND MIT AND LicenseRef-Fedora-Public-Domain
+License:        Unlicense AND LicenseRef-Fedora-Public-Domain
 URL:            http://mattmahoney.net/dc/%{name}.html
 Source0:        http://mattmahoney.net/dc/%{name}%(echo %{version}|tr -d .).zip
 # Do not bundle zpaq library into zpaq tool, upstream does not want it
@@ -23,6 +24,7 @@ BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  perl-podlators
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
 This is a journaling archiver optimized for user-level incremental backup of
@@ -37,7 +39,7 @@ program.
 
 %package        libs
 Summary:        Library for ZPAQ compression and decompression
-License:        Unlicense and MIT and Public Domain
+License:        Unlicense AND MIT AND LicenseRef-Fedora-Public-Domain
 # libdivsufsort-lite-2.00 is bundled to libzpaq.cpp from
 # <https://libdivsufsort.googlecode.com/files/libdivsufsort-lite.zip> that
 # is simplified version of
@@ -58,8 +60,7 @@ These are header files for developing applications that support ZPAQ
 compression.
 
 %prep
-%setup -c -n %{name}-%{version} -q
-%patch0 -p1
+%autosetup -p1 -c -n %{name}-%{version}
 # Normalize EOLs
 for F in readme.txt; do
     tr -d "\r" < "${F}" > "${F}.new"
@@ -69,7 +70,7 @@ done
 
 %build
 # -Wl,--as-needed to not require unused libm, bug #1310128
-make %{?_smp_mflags} \
+%{make_build} \
     CXXFLAGS='%{optflags}' \
     LDFLAGS='%{?__global_ldflags} -Wl,--as-needed' \
     CPPFLAGS="${CPPFLAGS} -Dunix %{!?with_jit: -DNOJIT}"
@@ -78,7 +79,7 @@ make %{?_smp_mflags} \
 make check %{?_smp_mflags}
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir}
+%{make_install} PREFIX=%{_prefix} LIBDIR=%{_libdir}
 
 %ldconfig_scriptlets libs
 
@@ -89,13 +90,19 @@ make install DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir}
 
 %files libs
 %license COPYING
-%{_libdir}/libzpaq.so.*
+%{_libdir}/libzpaq.so.0.1
 
 %files devel
 %{_includedir}/libzpaq.h
-%{_libdir}/*.so
+%{_libdir}/libzpaq.so
 
 %changelog
+* Wed Aug 30 2023 Petr Pisar <ppisar@redhat.com> - 7.15-20
+- zpaq to require an exact release of zpaq-libs
+
+* Fri Aug 25 2023 Petr Pisar <ppisar@redhat.com> - 7.15-19
+- Convert a license tag to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.15-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

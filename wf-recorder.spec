@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec -*-
 # Use 0 for release and 1 for git
-%global   git 1
-Version:  0.3.1
+%global   git 0
+Version:  0.4.0
 %global   forgeurl https://github.com/ammen99/wf-recorder
 %if %{?git}
 %global   commit a9725f75dd3469e1434c99e32607ad2b7ef62ace
@@ -11,10 +11,11 @@ Version:  0.3.1
 
 Name:     wf-recorder
 Summary:  Screen recorder for wlroots-based compositors eg swaywm
-Release:  0.4%{?dist}
+Release:  1%{?dist}
 License:  MIT
 URL:      %{forgeurl}
 Source0:  %{forgesource}
+Patch0:   wf-recorder-use-free-codecs.patch
 
 %ifarch ppc64le
 # fix compilation on ppc64le (gcc#58241)
@@ -29,6 +30,7 @@ BuildRequires: pulseaudio-libs-devel
 BuildRequires: scdoc
 BuildRequires: wayland-devel
 BuildRequires: wayland-protocols-devel
+BuildRequires: mesa-libgbm-devel
 
 %description
 wf-recorder is a utility program for screen recording of wlroots-based
@@ -37,6 +39,7 @@ and xdg-output).
 
 %prep
 %forgesetup -a
+%patch -P 0 -p1
 
 %build
 %meson %{?configure_flags}
@@ -54,6 +57,9 @@ and xdg-output).
 %license LICENSE
 
 %changelog
+* Wed Aug 30 2023 Bob Hepple <bob.hepple@gmail.com> - 0.4.0-1
+- new version
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-0.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

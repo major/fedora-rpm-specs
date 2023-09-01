@@ -1,6 +1,6 @@
 Name:           jurand
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for manipulating Java symbols
 License:        Apache-2.0
 URL:            https://github.com/fedora-java/jurand
@@ -13,6 +13,8 @@ BuildRequires:  asciidoc
 BuildRequires:  diffutils
 BuildRequires:  make
 BuildRequires:  xmlto
+
+Obsoletes:      javapackages-extra < 6.2.0
 
 %description
 The tool can be used for patching .java sources in cases where using sed is
@@ -43,6 +45,9 @@ make test
 %doc README.md
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3.1-3
+- Obsolete javapackages-extra
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

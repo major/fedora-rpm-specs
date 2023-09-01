@@ -1,7 +1,7 @@
 %global srcname qutebrowser
 
 Name:		%{srcname}
-Version:	2.5.4
+Version:	3.0.0
 Release:	%autorelease
 Summary:	A keyboard-driven, vim-like browser based on PyQt5 and QtWebEngine
 License:	GPLv3
@@ -13,14 +13,13 @@ BuildRequires:	asciidoc
 BuildRequires:	desktop-file-utils
 BuildRequires:	libappstream-glib
 BuildRequires:	python3-setuptools
-Requires:	qt5-qtbase
-Requires:	qt5-qtdeclarative
-Requires:	python3-qt5
+Requires:	qt6-qtbase
+Requires:	qt6-qtdeclarative
+Requires:	python3-pyqt6
 Requires:	python3-jinja2
 Requires:	python3-PyYAML
-Requires:	((qt5-qtwebengine and python3-qt5-webengine) or (qt5-qtwebkit and python3-qt5-webkit))
-Recommends:	(qt5-qtwebengine and python3-qt5-webengine and qt5-qtwebengine-devtools)
-Recommends:	(qt5-qtwebkit and python3-qt5-webkit)
+Requires:	(qt6-qtwebengine and python3-pyqt6-webengine)
+Recommends:	qt6-qtwebengine-devtools
 Recommends:	python3-pygments
 Recommends:	python3-adblock
 
@@ -61,10 +60,10 @@ install -Dm644 misc/org.qutebrowser.qutebrowser.appdata.xml -t %{buildroot}%{_da
 install -Dm644 doc/%{srcname}.1 -t %{buildroot}%{_mandir}/man1
 
 # Install icons
-install -Dm644 icons/qutebrowser.svg \
+install -Dm644 qutebrowser/icons/qutebrowser.svg \
 	-t "%{buildroot}%{_datadir}/icons/hicolor/scalable/apps"
 for i in 16 24 32 48 64 128 256 512; do
-	install -Dm644 "icons/qutebrowser-${i}x${i}.png" \
+	install -Dm644 "qutebrowser/icons/qutebrowser-${i}x${i}.png" \
 		"%{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/qutebrowser.png"
 done
 
@@ -80,7 +79,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 %files
 %license LICENSE
-%doc README.asciidoc doc/changelog.asciidoc qutebrowser/html/doc
+%doc README.asciidoc doc/changelog.asciidoc doc
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/%{srcname}
 %{_bindir}/%{srcname}

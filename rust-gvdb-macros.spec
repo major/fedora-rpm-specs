@@ -5,17 +5,13 @@
 %global crate gvdb-macros
 
 Name:           rust-gvdb-macros
-Version:        0.1.8
+Version:        0.1.9
 Release:        %autorelease
 Summary:        Convenience macros for gvdb
 
 License:        MIT
 URL:            https://crates.io/crates/gvdb-macros
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Exclude test-data directory that has unclear licensing
-#   https://github.com/felinira/gvdb-rs/issues/11
-Patch:          gvdb-macros-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -34,6 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE.Icons.md
 %license %{crate_instdir}/LICENSE.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/

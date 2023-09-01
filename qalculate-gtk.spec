@@ -6,7 +6,7 @@
 
 Summary:	A multi-purpose desktop calculator for GNU/Linux
 Name:		qalculate-gtk
-Version:	4.7.0
+Version:	4.8.0
 Release:	%autorelease
 License:	GPLv2+
 

@@ -54,7 +54,6 @@ Summary:        Python 3 bindings for %{name}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-six
 Requires:       python%{python3_pkgversion}-jinja2 python%{python3_pkgversion}-six
-Requires:       python%{python3_pkgversion}-future
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-otf2

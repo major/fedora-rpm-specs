@@ -2,8 +2,8 @@
 %undefine __cmake_in_source_build
 
 Name:		dnfdragora
-Version:	2.1.2
-Release:	7%{?dist}
+Version:	2.1.4
+Release:	1%{?dist}
 Summary:	DNF package-manager based on libYui abstraction
 
 License:	GPLv3+
@@ -130,6 +130,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Wed Aug 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.4-1
+- Version 2.1.4
+
 * Fri Aug 11 2023 Leigh Scott <leigh123linux@gmail.com> - 2.1.2-7
 - Add build requires python3-setuptools
 

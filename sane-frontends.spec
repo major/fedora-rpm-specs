@@ -1,6 +1,6 @@
 Name: sane-frontends
 Version: 1.0.14
-Release: 48%{?dist}
+Release: 49%{?dist}
 Summary: Graphical frontend to SANE
 URL: http://www.sane-project.org
 
@@ -30,13 +30,7 @@ Patch5: sane-frontends-c99.patch
 # https://gitlab.com/sane-project/frontends/-/merge_requests/12
 Patch6: 0001-src-scanadf.c-Fix-segfault-when-scanadf-h-d-device.patch
 
-# there is other license with exceptions:
-# GPL-2.0-or-later WITH gnu-javamail-exception-like exception
-# reported as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/264
-# use plain GPLv2+ for now
-# future:
-# License: GPL-2.0-or-later AND GPL-2.0-or-later WITH gnu-javamail-exception
-License: GPL-2.0-or-later
+License: GPL-2.0-or-later AND GPL-2.0-or-later WITH SANE-exception
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
 # use for autosetup
@@ -76,6 +70,9 @@ rm -f %{buildroot}%{_datadir}/sane/sane-style.rc
 # intended to be used from the command line
 
 %changelog
+* Wed Aug 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.14-49
+- applied accepted license exception
+
 * Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.14-48
 - 2225209 - scanadf crashes when showing help for specific device
 

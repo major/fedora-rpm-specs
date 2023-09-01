@@ -2,7 +2,7 @@
 
 Name:           guava
 Version:        31.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Google Core Libraries for Java
 # Most of the code is under ASL 2.0
 # Few classes are under CC0, grep for creativecommons
@@ -13,7 +13,6 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/google/guava/archive/v%{version}/guava-%{version}.tar.gz
 
-BuildRequires:  javapackages-extra
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -23,6 +22,7 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 %endif
+BuildRequires:  jurand
 
 %description
 Guava is a suite of core and expanded libraries that include
@@ -97,6 +97,9 @@ find . -name '*.jar' -delete
 %files testlib -f .mfiles-guava-testlib
 
 %changelog
+* Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 31.1-6
+- Build with Jurand instead of deprecated javapackages-extra
+
 * Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 31.1-5
 - Build with default JDK 17
 

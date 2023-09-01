@@ -42,7 +42,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        1.42.1
+%global upver        1.42.2
 #global rcver        rc0
 
 # Last python 2 support (el7 only)
@@ -60,7 +60,7 @@ Version:        %{upver}%{?rcver:~%{rcver}}
 Release:        1%{?dist}
 Summary:        Real-time performance monitoring
 # For a breakdown of the licensing, see LICENSE-REDISTRIBUTED.md
-License:        GPLv3 and GPLv3+ and ASL 2.0 and CC-BY and MIT and WTFPL 
+License:        GPL-3.0-only
 URL:            http://my-netdata.io
 Source0:        https://github.com/netdata/netdata/releases/download/v%{upver}%{?rcver:-%{rcver}}/%{name}-v%{upver}%{?rcver:-%{rcver}}.tar.gz
 Source1:        netdata.tmpfiles.conf
@@ -405,6 +405,12 @@ echo "Netdata go plugin can be easily installed with %{_sbindir}/netdata-install
 %caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 
 %changelog
+* Wed Aug 30 2023 Didier Fabert <didier.fabert@gmail.com> 1.42.2-1
+- Update from upstream
+
+* Tue Aug 22 2023 Didier Fabert <didier.fabert@gmail.com> - 1.42.1-2
+- migrated to SPDX license
+
 * Wed Aug 16 2023 Didier Fabert <didier.fabert@gmail.com> 1.42.1-1
 - Update from upstream
 

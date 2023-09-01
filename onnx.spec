@@ -2,7 +2,7 @@
 
 Name:       onnx
 Version:    1.14.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -114,6 +114,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Sat Aug 5 2023 Diego Herrera C <dherrera@redhat.com> - 1.14.0-6
+- Lower version requirement for parameterized.
+- Lower version requirement for protobuf.
+
 * Sat Aug 5 2023 Diego Herrera C <dherrera@redhat.com> - 1.14.0-5
 - Build python libs using the proper macros.
 

@@ -30,8 +30,6 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 Requires:       hicolor-icon-theme
-Requires:       qt6-qtquickcontrols2%{?_isa}
-Requires:       qt6-qtsvg%{?_isa}
 Obsoletes:      jacktrip-doc < 1.4.0
 
 %description
