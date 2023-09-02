@@ -1,5 +1,5 @@
 Name:           python-pytest-regressions
-Version:        2.4.3
+Version:        2.5.0
 Release:        1%{?dist}
 Summary:        Pytest fixtures for writing regression tests
 
@@ -96,6 +96,9 @@ fi
 %doc doc/_build/html
 
 %changelog
+* Thu Aug 31 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-1
+- Version 2.5.0
+
 * Wed Aug 30 2023 Jerry James <loganjerry@gmail.com> - 2.4.3-1
 - Version 2.4.3
 

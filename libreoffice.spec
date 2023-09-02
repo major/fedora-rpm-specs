@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 7.6.0
+%global libo_version 7.6.1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -57,8 +57,8 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.3
-Release:        4%{?libo_prerelease}%{?dist}
+Version:        %{libo_version}.1
+Release:        1%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -243,6 +243,7 @@ BuildRequires: dejavu-sans-fonts
 BuildRequires: dejavu-serif-fonts
 BuildRequires: google-carlito-fonts
 BuildRequires: google-rubik-fonts
+BuildRequires: google-crosextra-caladea-fonts
 # Amiri used in vcl/qa/cppunit tests
 BuildRequires: amiri-fonts
 BuildRequires: amiri-quran-fonts
@@ -271,11 +272,10 @@ Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
 Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
 Patch4: 0001-default-to-sifr-for-gnome-light-mode.patch
 # backported
-Patch8: 0001-Only-pass-I.-arguments-to-g-ir-scanner-by-using-pkg-.patch
-Patch9: 0001-Adapt-test-code-to-cURL-8.2.0.patch
-Patch10: 0002-Fix-heap-use-after-free.patch
+Patch5: 0001-Only-pass-I.-arguments-to-g-ir-scanner-by-using-pkg-.patch
 # not upstreamed
 # fix FTB in ppc64le from sharkcz
+# https://lists.freedesktop.org/archives/libreoffice/2023-August/090870.html
 Patch11: lo-7.6-ppc64le-tests.patch
 Patch500: 0001-disable-libe-book-support.patch
 
@@ -2258,6 +2258,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Mon Aug 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:7.6.1.1-1
+- 7.6.1.1
+
 * Sun Aug 27 2023 Mattia Verga <mattia.verga@proton.me> - 1:7.6.0.3-4
 - Remove test exclusions from aarch64
 - Link aarch64 executable with standard -g level

@@ -29,7 +29,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20230801
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -40,6 +40,7 @@ Source3:        google-noto-naskh-arabic-ex.conf
 Source5:        google-noto-sans-symbols-ex.conf
 Source6:        google-noto-sans-symbols2-ex.conf
 Source7:        google-noto-sans-symbols-vf-ex.conf
+Source8:	google-noto-sans-sinhala-ex.conf
 
 BuildArch:      noarch
 BuildRequires:  fonts-rpm-macros
@@ -346,7 +347,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Siddham" },
     { alias="sans-serif", family="Sans SignWriting" },
     { alias="sans-serif", family="Sans Sinhala", lang={ "si" },
-      default=true
+      default=true,
+      fcconfexfile=rpm.expand('%{SOURCE8}')
     },
     { alias="sans-serif", family="Sans Sinhala UI", lang={ "si" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
@@ -626,7 +628,8 @@ local subpackages = {
       default=true
     },
     { alias="sans-serif", variable=true, family="Sans Sinhala", lang={ "si" },
-      default=true
+      default=true,
+      fcconfexfile=rpm.expand('%{SOURCE8}')
     },
     { alias="sans-serif", variable=true, family="Sans Sora Sompeng" },
     { alias="sans-serif", variable=true, family="Sans Sundanese" },
@@ -1229,6 +1232,11 @@ done
 
 
 %changelog
+* Thu Aug 31 2023 Akira TAGOH <tagoh@redhat.com> - 20230801-3
+- Add Noto Sans Sinhala as monospace for a workaround that
+  Noto Serif Sinhala is picked up for monospace.
+  Resolves: rhbz#2236485
+
 * Thu Aug  3 2023 Akira TAGOH <tagoh@redhat.com> - 20230801-2
 - Make some Indic families default
   https://fedoraproject.org/wiki/Changes/Indic_Noto_fonts

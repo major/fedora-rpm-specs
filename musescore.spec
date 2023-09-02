@@ -19,7 +19,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -179,7 +179,7 @@ Provides:       mscore-gootville-fonts = %{musescore_ver}-%{release}
 %global fontlicense9    OFL-1.1
 %global fonts9          fonts/gootville/GootvilleText.otf
 %global fontdocs9       fonts/gootville/readme.txt
-%global fontconfs9      %{SOURCE10}
+%global fontconfs9      %{SOURCE9}
 %global fontdescription9 %{expand:
 The Gootville Text font is designed to complement the Gootville font.}
 %global fontpkgheader9  %{expand:
@@ -546,6 +546,9 @@ hardlink %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %fontfiles -z 9
 
 %changelog
+* Thu Aug 31 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-2
+- Fix Gootville font config file error
+
 * Wed Aug 30 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-1
 - Version 4.1.1
 - Rename from mscore to musescore

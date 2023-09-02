@@ -5,16 +5,16 @@
 %global ftest_shortcommit %(c=%{ftest_commit}; echo ${c:0:7})
 
 Name:       utf8cpp
-Version:    3.2.3
-Release:    3%{?dist}
+Version:    3.2.4
+Release:    1%{?dist}
 Summary:    A simple, portable and lightweight library for handling UTF-8 encoded strings
-License:    Boost
+License:    BSL-1.0
 URL:        https://github.com/nemtrif/utfcpp
 Source0:    https://github.com/nemtrif/utfcpp/archive/v%{version}/utfcpp-%{version}.tar.gz
 Source1:    https://github.com/nemtrif/ftest/archive/%{ftest_commit}/ftest-%{ftest_shortcommit}.tar.gz
 # put cmake import file in arch-agnostic directory
 Patch1:     %{name}-noarch.patch
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gcc-c++
 
 %description
@@ -46,19 +46,18 @@ This project currently only contains header files, which can be found in the
 %{name}-devel package.
 
 %prep
-%setup -q -n utfcpp-%{version} -a1
+%autosetup -n utfcpp-%{version} -a1 -p1
 rmdir extern/ftest && mv ftest-%{ftest_commit} extern/ftest
-%patch1 -p1 -b .noarch
 
 %build
-%cmake3 \
+%cmake \
    -DUTF8_TESTS=ON \
    -DUTF8_SAMPLES=ON \
    %{nil}
-%cmake3_build
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 pushd %{buildroot}%{_includedir}
 ln -s utf8cpp/utf8.h ./
 mkdir utf8
@@ -83,6 +82,11 @@ popd
 %{_datadir}/cmake/utf8cpp
 
 %changelog
+* Thu Aug 31 2023 Dominik Mierzejewski <dominik@greysector.net> - 3.2.4-1
+- update to 3.2.4 (resolves rhbz#2231660)
+- switch to SPDX expression in License tag
+- use modern autosetup and plain cmake dependency and macros
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

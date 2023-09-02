@@ -1,7 +1,7 @@
 %{?python_enable_dependency_generator}
 
 Name:           pungi
-Version:        4.4.1
+Version:        4.5.0
 Release:        1%{?dist}
 Summary:        Distribution compose tool
 
@@ -35,6 +35,7 @@ BuildRequires:  python3-gobject
 BuildRequires:  python3-createrepo_c
 BuildRequires:  python3-dogpile-cache
 BuildRequires:  python3-parameterized
+BuildRequires:  python3-flufl-lock
 
 #deps for doc building
 BuildRequires:  python3-sphinx
@@ -56,6 +57,7 @@ Requires:       python3-gobject
 Requires:       python3-createrepo_c
 Requires:       python3-PyYAML
 Requires:       python3-productmd >= 1.28
+Requires:       python3-flufl-lock
 
 # This package is not available on i686, hence we cannot require it
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1743421
@@ -118,8 +120,8 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-make-ostree
 %{_mandir}/man1/pungi.1.gz
 %{_datadir}/pungi
-/var/cache/pungi
-%dir %attr(1777, root, root) /var/cache/pungi/createrepo_c
+%{_localstatedir}/cache/pungi
+%dir %attr(1777, root, root) %{_localstatedir}/cache/pungi/createrepo_c
 %{_tmpfilesdir}/pungi-clean-cache.conf
 
 %files -n python3-%{name}
@@ -136,8 +138,20 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-patch-iso
 %{_bindir}/%{name}-compare-depsolving
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
+%{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Thu Aug 31 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.5.0-1
+- kojiwrapper: Stop being smart about local access (lsedlar)
+- Fix unittest errors (ounsal)
+- Add integrity checking for builds (lsedlar)
+- Add script for cleaning up the cache (lsedlar)
+- Add ability to download images (lsedlar)
+- Add support for not having koji volume mounted locally (lsedlar)
+- Remove repository cloning multiple times (abisoi)
+- Support require_all_comps_packages on DNF backend (lsedlar)
+- Fix new warnings from flake8 (lsedlar)
+
 * Tue Jul 25 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.4.1-1
 - ostree: Add configuration for custom runroot packages (lsedlar)
 - pkgset: Emit better error for missing modulemd file (lsedlar)

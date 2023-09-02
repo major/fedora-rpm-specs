@@ -1,11 +1,11 @@
 Name:           python-h5io
-Version:        0.1.8
+Version:        0.1.9
 Release:        %autorelease
 Summary:        Read and write simple Python objects using HDF5
 
 License:        BSD-3-Clause
 URL:            https://github.com/h5io/h5io
-Source0:        %{url}/archive/h5io-%{version}/h5io-h5io-%{version}.tar.gz
+Source:         %{url}/archive/h5io-%{version}/h5io-h5io-%{version}.tar.gz
 
 BuildArch:      noarch
 

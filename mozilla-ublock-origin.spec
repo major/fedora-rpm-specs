@@ -6,8 +6,8 @@
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
 Name:           mozilla-ublock-origin
-Version:        1.50.0
-Release:        2%{?dist}
+Version:        1.51.0
+Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
 License:        GPLv3 and MIT and OFL and Unlicense
@@ -39,6 +39,8 @@ Provides:       bundled(fontawesome-fonts) = 4.7.0
 Provides:       bundled(inter-fonts)
 # css/fonts/Metropolis/Metropolis-*.woff2 https://github.com/chrismsimpson/Metropolis Unlicense
 Provides:       bundled(metropolis-fonts)
+# lib/js-beautify https://github.com/beautify-web/js-beautify MIT
+Provides:       bundled(js-beautify) = 1.14.7
 # lib/punycode.js https://mths.be/punycode MIT
 Provides:       bundled(js-punycode) = 1.3.2
 # lib/diff https://github.com/Swatinem/diff LGPLv3
@@ -75,6 +77,7 @@ popd
 rm src/{js/wasm,lib/{lz4,publicsuffixlist/wasm}}/*.wasm
 mv src/css/fonts/Inter/LICENSE.txt LICENSE.Inter.txt
 mv src/img/fontawesome/LICENSE.txt LICENSE.fontawesome.txt
+mv src/lib/js-beautify/LICENSE LICENSE.js-beautify.txt
 mv src/lib/codemirror/LICENSE LICENSE.codemirror.txt
 
 %build
@@ -100,12 +103,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %license LICENSE.txt
 %license LICENSE.codemirror.txt
 %license LICENSE.fontawesome.txt
+%license LICENSE.js-beautify.txt
 %license LICENSE.Inter.txt
 %license src/css/fonts/Metropolis/UNLICENSE
 %{firefox_inst_dir}/%{ext_id}.xpi
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Thu Aug 31 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.51.0-1
+- update to 1.51.0 (#2224682)
+- new bundled dependency: js-beautify
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.50.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

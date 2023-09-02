@@ -1,16 +1,12 @@
 %global         modname greenlet
 
 Name:           python-%{modname}
-Version:        2.0.2
-Release:        3%{?dist}
+Version:        3.0.0~a1
+Release:        1%{?dist}
 Summary:        Lightweight in-process concurrent programming
 License:        MIT AND PSF-2.0
 URL:            https://github.com/python-greenlet/greenlet
-Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
-
-# Patch needed for compatibility with Python 3.12
-# From: https://github.com/python-greenlet/greenlet/pull/327
-Patch:          https://github.com/python-greenlet/greenlet/pull/327.patch
+Source0:        %{url}/archive/3.0.0a1/%{modname}-3.0.0a1.tar.gz
 
 # Skip leak checking to avoid a missing dependency, `objgraph`
 Patch:          skip-leak-checks.patch
@@ -49,7 +45,7 @@ Requires:       python3-%{modname}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{rel
 Python 3 version.
 
 %prep
-%autosetup -n %{modname}-%{version} -p1
+%autosetup -n %{modname}-3.0.0a1 -p1
 
 %build
 %py3_build
@@ -74,6 +70,9 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}" \
 %{_includedir}/python%{python3_version}*/%{modname}/
 
 %changelog
+* Sun Aug 13 2023 Orion Poplawski <orion@nwra.com> - 3.0.0~a1-1
+- Update to 3.0.0a1
+
 * Sat Aug 05 2023 Ondřej Budai <ondrej@budai.cz> - 2.0.2-3
 - SPDX migration
 

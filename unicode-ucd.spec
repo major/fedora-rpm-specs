@@ -3,19 +3,19 @@
 %global ucddir %{unicodedir}/ucd
 
 Name:           unicode-ucd
-Version:        15.0.0
-Release:        4%{?dist}
+Version:        15.1.0
+Release:        0.2%{?dist}
 Summary:        Unicode Character Database
 
-# The current webpage https://www.unicode.org/license.txt is similar to
-# https://web.archive.org/web/20210830183830/https://www.unicode.org/license.html
-License:        Unicode-DFS-2016
+# http://www.unicode.org/terms_of_use.html in ReadMe.txt redirects to:
+# http://www.unicode.org/copyright.html
+# which links to https://www.unicode.org/license.txt
+License:        Unicode-DFS-2016 AND Unicode-TOU
 URL:            http://www.unicode.org/ucd/
+# update with fbrnch update-version -f
 Source0:        http://www.unicode.org/Public/zipped/%{version}/UCD.zip
-# http://www.unicode.org/terms_of_use.html referenced in ReadMe.txt redirects to:
-# curl http://www.unicode.org/copyright.html | dos2unix > copyright.html
-Source1:        http://www.unicode.org/copyright.html
-Source2:        http://www.unicode.org/Public/zipped/%{version}/Unihan.zip
+Source1:        http://www.unicode.org/Public/zipped/%{version}/Unihan.zip
+Source2:        https://www.unicode.org/license.txt
 BuildArch:      noarch
 
 %description
@@ -47,13 +47,12 @@ grep -q "%{version}" ReadMe.txt || (echo "zip file seems not %{version}" ; exit 
 %install
 mkdir -p %{buildroot}%{ucddir}
 cp -ar . %{buildroot}%{ucddir}
-cp -p %{SOURCE2} %{buildroot}%{ucddir}
-
-cp -p %{SOURCE1} .
+cp -p %{SOURCE1} %{buildroot}%{ucddir}
+cp %{SOURCE2} .
 
 
 %files
-%doc copyright.html
+%license license.txt
 %dir %{unicodedir}
 %{ucddir}
 %exclude %{ucddir}/Unihan.zip
@@ -63,6 +62,14 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Thu Aug 31 2023 Jens Petersen <petersen@redhat.com> - 15.1.0-0.2
+- add license.txt
+
+* Thu Aug 31 2023 Jens Petersen <petersen@redhat.com> - 15.1.0-0.1
+- update to draft 15.1.0: https://unicode.org/versions/Unicode15.1.0/
+- do not add copyright.html file from website
+- add missing Unicode-TOU license tag
+
 * Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 15.0.0-4
 - Migrate to SPDX license expression
 

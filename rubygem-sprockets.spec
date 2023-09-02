@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Rack-based asset packaging system
 License: MIT
 URL: https://github.com/rails/sprockets
@@ -11,6 +11,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rails/sprockets.git && cd sprockets/
 # git archive -v -o sprockets-4.2.0-tests.tar.gz v4.2.0 test/
 Source1: sprockets-%{version}-tests.tar.gz
+# Fix Minitest 5.19+ test failures.
+# https://github.com/rails/sprockets/pull/791
+Patch0: rubygem-sprockets-4.2.0-Fix-Minitest-constant-name-in-tests.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
@@ -42,6 +45,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+pushd %{_builddir}
+%patch 0 -p1
+popd
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -203,6 +210,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Aug 31 2023 Vít Ondruch <vondruch@redhat.com> - 4.2.0-3
+- Fix FTBFS caused by Minitest 5.19+ incompatibility.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

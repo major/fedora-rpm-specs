@@ -3,7 +3,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 
 Name:           credentials-fetcher
 Version:        %{major_version}.%{minor_version}.%{patch_version}
@@ -63,6 +63,9 @@ ctest3
 %attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Thu Aug 31 2023 Tom Callaway <spot@fedoraproject.org> - 1.2.0-3
+- rebuild for abseil
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

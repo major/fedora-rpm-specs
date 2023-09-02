@@ -1,13 +1,11 @@
 Name:           python-pplpy
-Version:        0.8.7
-Release:        11%{?dist}
+Version:        0.8.8
+Release:        1%{?dist}
 Summary:        Python PPL wrapper
 
 License:        GPL-3.0-or-later
 URL:            https://pypi.org/project/pplpy/
 Source0:        %pypi_source pplpy
-# Fix the Cython include path and set the language level to 3
-Patch0:         %{name}-cython.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  libmpc-devel
@@ -92,6 +90,10 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitearch}/ppl/*.pxd
 
 %changelog
+* Thu Aug 31 2023 Jerry James <loganjerry@gmail.com> - 0.8.8-1
+- Version 0.8.8
+- Drop upstreamed cython patch
+
 * Tue Jul 25 2023 Jerry James <loganjerry@gmail.com> - 0.8.7-11
 - Update cython patch for Cython 3
 

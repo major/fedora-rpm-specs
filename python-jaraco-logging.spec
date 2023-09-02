@@ -5,7 +5,7 @@
 %global pkgname  %{modname}-logging
 
 Name:           python-%{pkgname}
-Version:        3.1.2
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Support for Python logging facility
 
@@ -53,7 +53,7 @@ sed -i 's/setuptools>=56/setuptools/' pyproject.toml
 
 %files -n python3-%{pkgname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst CHANGES.rst
+%doc README.rst NEWS.rst
 # Owned by python3dist(jaraco)
 %exclude %dir %{python3_sitelib}/jaraco 
 

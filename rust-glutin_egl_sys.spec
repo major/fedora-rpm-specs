@@ -5,7 +5,7 @@
 %global crate glutin_egl_sys
 
 Name:           rust-glutin_egl_sys
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Egl bindings for glutin
 

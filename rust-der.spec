@@ -5,7 +5,7 @@
 %global crate der
 
 Name:           rust-der
-Version:        0.7.7
+Version:        0.7.8
 Release:        %autorelease
 Summary:        Pure Rust embedded-friendly implementation of DER for ASN.1
 
@@ -72,6 +72,18 @@ This package contains library source intended for building other packages which
 use the "arbitrary" feature of the "%{crate}" crate.
 
 %files       -n %{name}+arbitrary-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+bytes-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bytes-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bytes" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bytes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+derive-devel

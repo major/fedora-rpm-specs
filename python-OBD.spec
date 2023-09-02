@@ -2,10 +2,10 @@
 %global srcname OBD
 
 Name:          python-%{srcname}
-Version:       0.7.1
-Release:       13%{?dist}
+Version:       0.7.2
+Release:       1%{?dist}
 Summary:       OBD-II serial module for reading engine data
-License:       GPLv2+
+License:       GPL-2.0-or-later
 URL:           https://github.com/brendan-w/%{name}
 Source0:       https://github.com/brendan-w/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fix python dependency generator error
@@ -26,7 +26,7 @@ Summary:       %{summary}
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 %if %{with check}
-BuildRequires: python3-pint >= 0.7
+BuildRequires: python3-pint >= 0.16
 BuildRequires: python3-pytest
 BuildRequires: python3-pyserial >= 3
 %endif
@@ -60,6 +60,11 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-3 -v
 %{python3_sitelib}/obd
 
 %changelog
+* Thu Aug 31 2023 Dominik Mierzejewski <rpm@greysector.net> - 0.7.2-1
+- update to 0.7.2 (resolves rhbz#2221848)
+- relax pint dependency
+- switch to SPDX expression in License tag
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,14 +5,16 @@
 %global crate pcre2-sys
 
 Name:           rust-pcre2-sys
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 Summary:        Low level bindings to PCRE2
 
-# Upstream license specification: Unlicense/MIT
 License:        Unlicense OR MIT
 URL:            https://crates.io/crates/pcre2-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * exclude files that are only useful for upstream development
+Patch:          pcre2-sys-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -52,9 +54,9 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-# remove bundled copy of pcre2
-rm -rv pcre2/
 %cargo_prep
+# remove bundled copy of pcre2
+rm -rv upstream/
 
 %generate_buildrequires
 %cargo_generate_buildrequires

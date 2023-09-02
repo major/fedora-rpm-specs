@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.12.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: High-level wrapper for processing images for the web with ImageMagick or libvips
 License: MIT
 URL: https://github.com/janko/image_processing
@@ -15,6 +15,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/janko/image_processing
 # git -C image_processing archive -v -o image_processing-1.12.2-tests.txz v1.12.2 test/
 Source1: %{gem_name}-%{version}-tests.txz
+# Fix compatibility with Minitest 5.19+
+# https://github.com/janko/image_processing/pull/114
+Patch0: rubygem-image_processing-1.12.2-Fix-compatibility-with-Minitest-5.19.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -42,6 +45,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+
+pushd %{_builddir}
+%patch 0 -p1
+popd
 
 # dhash-vips is not in Fedora yet.
 %if %{without dhash-vips}
@@ -98,6 +105,9 @@ popd
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Thu Aug 31 2023 Vít Ondruch <vondruch@redhat.com> - 1.12.2-4
+- Fix FTBFS due to incompatibility with Minitest 5.19+.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

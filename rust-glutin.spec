@@ -5,18 +5,15 @@
 %global crate glutin
 
 Name:           rust-glutin
-Version:        0.30.9
+Version:        0.30.10
 Release:        %autorelease
 Summary:        Cross-platform OpenGL context provider
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/glutin
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          glutin-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-#  * rust2rpm is too eager in stripping foreign deps.
-#    glutin_egl_sys is still required on unix
+# * drop Windows- and macOS-specific dependencies
 Patch:          glutin-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

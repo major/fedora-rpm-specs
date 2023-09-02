@@ -6,7 +6,7 @@
 Name:           pypy
 Version:        %{basever}.12
 %global pyversion 2.7
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Python implementation with a Just-In-Time compiler
 
 # PyPy is MIT
@@ -185,6 +185,15 @@ Source189: 189-use-rpm-wheels.patch
 #
 # Backported from python3.
 Patch382: 382-cve-2015-20107.patch
+
+# 00394 #
+# gh-98433: Fix quadratic time idna decoding.
+#
+# There was an unnecessary quadratic loop in idna decoding. This restores
+# the behavior to linear.
+#
+# Backported from python3.
+Patch394: 394-cve-2022-45061-cpu-denial-of-service-via-inefficient-idna-decoder.patch
 
 # 00399 #
 # CVE-2023-24329
@@ -877,6 +886,10 @@ CheckPyPy %{name}-c-stackless
 
 
 %changelog
+* Tue Aug 29 2023 Charalampos Stratakis <cstratak@redhat.com> - 7.3.12-3
+- Security fix for CVE-2022-45061
+- Fixes: rhbz#2144428
+
 * Wed Jul 26 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.12-1
 - Update to 7.3.12
 - Fixes: rhbz#2203422

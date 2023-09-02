@@ -7,7 +7,7 @@
 %bcond_without	ispc
 
 Name:		embree
-Version:	4.1.0
+Version:	4.2.0
 Release:	%autorelease
 Summary:	Collection of high-performance ray tracing kernels
 
@@ -16,7 +16,7 @@ URL:		https://embree.github.io
 %if %{with_snapshot}
 Source:		https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz#/%{name}-%{version}-%{shortcommit}.tar.gz
 %else
-Source:		https://github.com/%{name}/%{name}/archive/v%{version}%{?prerelease:%{-prerelease}.0}.tar.gz#/%{name}-%{version}%{?prerelease:-%{prerelease}.0}.tar.gz
+Source:		https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
 
 BuildRequires:	cmake
@@ -52,7 +52,7 @@ applications that use %{name}.
 %if %{with_snapshot}
 %autosetup -n %{name}-%{commit}
 %else 
-%autosetup -p1 -n %{name}-%{version}%{?prerelease:-%{prerelease}.0}
+%autosetup -p1 -n %{name}-%{version}
 %endif
 
 %build

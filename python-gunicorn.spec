@@ -6,34 +6,14 @@ web frameworks, simply implemented, light on server resources, and fairly
 speedy.}
 
 Name:           python-%{srcname}
-Version:        20.1.0
-Release:        12%{?dist}
+Version:        21.2.0
+Release:        1%{?dist}
 Summary:        Python WSGI HTTP Server
 License:        MIT
 URL:            https://gunicorn.org/
 Source:         %pypi_source %{srcname}
 # distro-specific, not upstreamable
 Patch:          0001-use-dev-log-for-syslog.patch
-# Patch for newer eventlet
-# https://github.com/benoitc/gunicorn/commit/6a8ebb4844b2f28596ffe7421eb9f7d08c8dc4d8
-Patch:          0002-eventlet-worker-ALREADY_HANDLED-WSGI_LOCAL.patch
-# The following patch contains the changes from the following two upstream
-# PR’s, rebased on the 20.1.0 release and combined into a single patch file.
-#
-#   2747-Replace pkg_resources.parse_version with packaging.version.parse
-#   https://github.com/benoitc/gunicorn/pull/2958
-#
-#   replace pkg_resources.load_entry_point
-#   https://github.com/benoitc/gunicorn/pull/2963
-#
-# Applying this patch eliminates a DeprecationWarning that was produced when
-# importing pkg_resources (with recent setuptools versions). That warning was
-# treated as an error in the tests for python-aiohttp, so this patch also
-# fixes:
-#
-#   python-aiohttp fails to build with the latest setuptools version
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2183385
-Patch:          gunicorn-20.1.0-remove-setuptools.patch
 BuildArch:      noarch
 
 %description %{_description}
@@ -55,8 +35,6 @@ Documentation for the %{name} package.
 %autosetup -n %{srcname}-%{version} -p 1
 # disable code coverage checks
 sed -e '/coverage/d' -e '/pytest-cov/d' -i requirements_test.txt
-# Unneeded - https://github.com/benoitc/gunicorn/issues/3014
-sed -e '/aiohttp/d' -i requirements_test.txt
 sed -e '/addopts/d' -i setup.cfg
 
 %generate_buildrequires
@@ -87,6 +65,9 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 %doc docs/build/html/*
 
 %changelog
+* Thu Aug 31 2023 Carl George <carlwgeorge@fedoraproject.org> - 21.2.0-1
+- Update to version 21.2.0, resolves rhbz#2223435
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

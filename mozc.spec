@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -249,7 +249,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
-* Thu Aug 17 2023 Akira TAGOH <tagoh@redhat.com>
+* Thu Aug 17 2023 Akira TAGOH <tagoh@redhat.com> - 2.29.5111.102-3
 - Fix the build issue with newer abseil.
   Resolves: rhbz#2231905
 

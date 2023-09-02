@@ -1,57 +1,70 @@
-%global git_snapshot 1
+%global		use_release	0
+%global		use_git		0
+%global		use_gitbare	1
 
-%if 0%{?git_snapshot}
-%define apply_git_patch git am
-%else
-%define apply_git_patch patch -p1
+%if 0%{?use_git} < 1
+%if 0%{?use_gitbare} < 1
+# force
+%global		use_release	1
+%endif
 %endif
 
-%if 0%{?git_snapshot}
-%global         gitdate       20211203
-%global         gitcommit     0febe16c2f97d75df04936df4ef34667655f084a
-%global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
 
-%global         tarballdate   20220918
-%global         tarballtime   1351
+%if 0%{?use_gitbare}
+%global		gittardate		20230831
+%global		gittartime		1615
 
-%global         gitversion    D%{gitdate}git%{shortcommit}
+%global		gitbaredate	20230828
+%global		git_rev		a349c517c17c236bc74b3cbb62796b61447cf30c
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{gitbaredate}git%{git_short}
 %endif
 
-#%%global         use_gcc_strict_sanitize 1
+%if 0%{?use_git} || 0%{?use_gitbare}
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
+%endif
 
-%undefine        _changelog_trimtime
 
-%global         baserelease   9
+%global		main_version	0.4.0
 
-Name:           lxterminal
-Version:        0.4.0
-Release:        %{baserelease}%{?gitversion:.%{?gitversion}}%{?dist}%{?use_gcc_strict_sanitize:.san}
-Summary:        Desktop-independent VTE-based terminal emulator
-Summary(de):    Desktop-unabhängiger VTE-basierter Terminal Emulator
+#%%global		use_gcc_strict_sanitize	1
+
+%undefine		_changelog_trimtime
+
+%global		baserelease	1
+
+Name:			lxterminal
+Version:		%{main_version}%{git_ver_rpm}
+Release:		%{baserelease}%{?dist}%{?use_gcc_strict_sanitize:.san}
+Summary:		Desktop-independent VTE-based terminal emulator
+Summary(de):	Desktop-unabhängiger VTE-basierter Terminal Emulator
 
 # SPDX confirmed
-License:        GPL-2.0-or-later
-URL:            http://lxde.sourceforge.net/
-%if 0%{?git_snapshot}
-Source0:        %{name}-%{version}-%{tarballdate}T%{tarballtime}.tar.gz
-%else
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+License:		GPL-2.0-or-later
+URL:			http://lxde.sourceforge.net/
+%if 0%{?use_gitbare}
+Source0:		%{name}-%{main_version}-%{gittardate}T%{gittartime}.tar.gz
+%endif
+%if 0%{?use_release}
+Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{main_version}.tar.xz
 %endif
 # Shell script to create tarball from git scm
-Source100:      create-lxterminal-git-bare-tarball.sh
+Source100:		create-lxterminal-git-bare-tarball.sh
 # Fix segfault when closing window (bug 2207699)
-Patch0:         lxterminal-0.4.0-avoid-segv-on-window-close.patch
+Patch0:		lxterminal-0.4.0-avoid-segv-on-window-close.patch
 
-%if 0%{?git_snapshot}
 BuildRequires:	git
-%endif
 
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(vte-2.91)
 
-BuildRequires:	%{_bindir}/xsltproc
+BuildRequires:	/usr/bin/xsltproc
 BuildRequires:	docbook-utils
 BuildRequires:	docbook-style-xsl
 
@@ -82,25 +95,32 @@ Abhängigkeiten. Um den Speicherverbrauch zu reduzieren und die Leistung zu
 erhöhen teilen sich alle Instanzen des Terminals einen einzigen Prozess.
 
 %prep
-%if 0%{?git_snapshot} > 0
+%if 0%{?use_release}
+%setup -q -n %{name}-%{main_version}%{git_builddir}
 
-%setup -q -c -T -a 0
-git clone ./%{name}.git
+git init
+%endif
+
+%if 0%{?use_gitbare}
+%setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
+git clone ./%{name}.git/
 cd %{name}
 
-git config user.name "%{name} Fedora maintainer"
-git config user.email "%{name}-owner@fedoraproject.org"
-
-git checkout -b %{version}-fedora %{gitcommit}
-
+git checkout -b %{main_version}-fedora %{git_rev}
 cp -a [A-Z]* ..
 %endif
 
-%if 0%{?git_snapshot} < 1
-%setup -q
+git config user.name "%{name} Fedora maintainer"
+git config user.email "%{name}-maintainers@fedoraproject.org"
+
+%if 0%{?use_release}
+git add .
+git commit -m "base" -q
 %endif
 
 %patch -P0 -p1 -b .closewin
+
+sh autogen.sh
 
 %build
 %global optflags_orig %optflags
@@ -111,13 +131,12 @@ export CC="${CC} -fsanitize=address -fsanitize=undefined"
 export LDFLAGS="${LDFLAGS} -pthread"
 # Currently -fPIE binary cannot work with ASAN on kernel 4.12
 # https://github.com/google/sanitizers/issues/837
-export CFLAGS="$(echo $CFLAGS   | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
-export LDFLAGS="$(echo $LDFLAGS | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
+export CFLAGS="$(echo $CFLAGS	| sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
+export LDFLAGS="$(echo $LDFLAGS	| sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
 %endif
 
-%if 0%{?git_snapshot}
+%if 0%{?use_gitbare}
 cd %{name}
-sh autogen.sh
 %endif
 
 %configure \
@@ -126,23 +145,24 @@ sh autogen.sh
 	--disable-silent-rules \
 	%{nil}
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-%if 0%{?git_snapshot}
+%if 0%{?use_gitbare}
 cd %{name}
 %endif
 
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+
+%make_install
 
 desktop-file-install \
-  --delete-original                                        \
-  --remove-category=Utility                                \
-  --add-category=System                                    \
-  --dir=${RPM_BUILD_ROOT}%{_datadir}/applications          \
-  ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
+	--delete-original \
+	--remove-category=Utility \
+	--add-category=System \
+	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
+	${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
 
-%if 0%{?git_snapshot}
+%if 0%{?use_gitbare}
 cd ..
 %endif
 
@@ -161,6 +181,9 @@ cd ..
 
 
 %changelog
+* Thu Aug 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0^20230828gita349c517-1
+- Update to the latest git
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-9.D20211203git0febe16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

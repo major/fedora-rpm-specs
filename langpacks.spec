@@ -81,7 +81,7 @@ local langpacks_package_list = {
  },
  { lang="am", fclang="", langname="Amharic", default={
                 sans="google-noto-sans-ethiopic-vf-fonts",
-                serif="",
+                serif="google-noto-serif-ethiopic-vf-fonts",
                 mono="" },
    recommends={ "senamirmir-washra-fantuwua-fonts",
                 "senamirmir-washra-fonts",
@@ -94,7 +94,6 @@ local langpacks_package_list = {
                 "senamirmir-washra-yigezu-bisrat-gothic-fonts",
                 "senamirmir-washra-zelan-fonts",
                 "xorg-x11-fonts-ethiopic",
-                "google-noto-serif-ethiopic-vf-fonts",
                 "sil-abyssinica-fonts"
                 },
    inputmethod="",

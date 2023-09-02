@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           elfio
-Version:        3.11
+Version:        3.12
 Release:        %autorelease
 Summary:        C++ library for reading and generating ELF files
 

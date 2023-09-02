@@ -72,7 +72,7 @@
 %global patch_version 4
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -208,7 +208,7 @@ BuildRequires:  %{name}-rpm-macros
 BuildRequires: make
 
 Requires:       %{name}-data = %{version}-%{release}
-Requires:       %{name}-rpm-macros = %{version}-%{release}
+Requires:       (%{name}-rpm-macros = %{version}-%{release} if rpm-build)
 Requires:       %{name}-filesystem%{?_isa} = %{version}-%{release}
 
 # Explicitly require make.  (rhbz#1862014)
@@ -552,6 +552,9 @@ popd
 
 
 %changelog
+* Thu Aug 31 2023 Panu Matilainen <pmatilai@redhat.com> - 3.27.4-3
+- Only require cmake-rpm-macros when rpm-build is installed
+
 * Mon Aug 28 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-2
 - Add upstream patch to fix linking non-builtin libatomic on some arches
 

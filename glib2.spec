@@ -1,5 +1,5 @@
 Name:    glib2
-Version: 2.77.2
+Version: 2.77.3
 Release: %autorelease
 Summary: A library of handy utility functions
 
@@ -193,6 +193,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_includedir}/*
 %{_datadir}/aclocal/*
 %{_libdir}/pkgconfig/*
+%{_datadir}/glib-2.0/dtds
 %{_datadir}/glib-2.0/gdb
 %{_datadir}/glib-2.0/gettext
 %{_datadir}/glib-2.0/schemas/gschema.dtd

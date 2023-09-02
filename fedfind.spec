@@ -1,8 +1,8 @@
 %global srcname fedfind
 
 Name:           fedfind
-Version:        5.1.1
-Release:        3%{?dist}
+Version:        5.1.2
+Release:        1%{?dist}
 Summary:        Fedora compose and image finder
 
 License:        GPLv3+
@@ -60,6 +60,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Thu Aug 31 2023 Adam Williamson <awilliam@redhat.com> - 5.1.2-1
+- New release 5.1.2: handle composes with no images.json
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

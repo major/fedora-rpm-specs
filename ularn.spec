@@ -1,6 +1,6 @@
 Name:           ularn
 Version:        1.5p4
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Simple roguelike game
 
 License:        GPL-1.0-or-later
@@ -42,6 +42,9 @@ chmod +x config.h.SH
 %patch3 -p1
 
 %build
+# This package requires C89 compatibility mode (bug 2155503).
+%global build_type_safety_c 0
+
 # Keep track of where we are.  Some of the configuration scripts change
 # the current working directory.
 builddir=`pwd`
@@ -49,7 +52,7 @@ builddir=`pwd`
 ${builddir}/Makefile.u.SH
 cd ${builddir}
 mv Makefile.u Makefile
-CC="gcc $RPM_OPT_FLAGS -fcommon -std=gnu89" make %{?_smp_mflags}
+CC="gcc $RPM_OPT_FLAGS -fcommon" make %{?_smp_mflags}
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -73,6 +76,9 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/32x32/app
 %license GPL
 
 %changelog
+* Thu Aug 31 2023 Florian Weimer <fweimer@redhat.com> - 1.5p4-45
+- Set build_type_safety_c to 0 (#2155503)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5p4-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

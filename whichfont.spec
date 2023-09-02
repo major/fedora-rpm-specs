@@ -1,6 +1,6 @@
 Name:          whichfont
-Version:       1.0.6
-Release:       2%{?dist}
+Version:       1.0.7
+Release:       1%{?dist}
 Summary:       Querying Fontconfig
 
 License:       GPL-3.0-or-later
@@ -34,6 +34,10 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Thu Aug 31 2023 Sudip Shil <sshil@redhat.com> - 1.0.7-1
+- feature added: fontname option, sans-serif would be default
+- feature added: add option to print utf8 hex sequence
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

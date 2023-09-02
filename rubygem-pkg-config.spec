@@ -5,8 +5,8 @@
 
 Summary:	A pkg-config implementation by Ruby
 Name:		rubygem-%{gem_name}
-Version:	1.5.2
-Release:	2%{?dist}
+Version:	1.5.3
+Release:	1%{?dist}
 # SPDX confirmed
 License:	LGPL-2.0-or-later
 URL:		http://github.com/rcairo/pkg-config
@@ -16,13 +16,8 @@ Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # with pkgconf 1.4.2
 Patch0:	rubygem-pkg-config-1.4.4-cflags-result-sort.patch
 
-%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
-%else
-Requires:	ruby(abi) = %{rubyabi}
-Requires:	ruby 
-%endif
 BuildRequires:	rubygems-devel
 # For %%check
 BuildRequires:	rubygem(test-unit)
@@ -88,6 +83,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Thu Aug 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5.3-1
+- 1.5.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

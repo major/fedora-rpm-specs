@@ -1,8 +1,8 @@
 %global	gem_name test-unit-ruby-core
 
 Name:		rubygem-%{gem_name}
-Version:	1.0.1
-Release:	3%{?dist}
+Version:	1.0.2
+Release:	1%{?dist}
 
 Summary:	Additional test assertions for Ruby standard libraries
 # SPDX confirmed
@@ -65,6 +65,9 @@ exit 0
 
 
 %changelog
+* Thu Aug 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.2-1
+- 1.0.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

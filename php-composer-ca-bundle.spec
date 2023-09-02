@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-composer-ca-bundle
 #
 # Copyright (c) 2016-2023 Remi Collet
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,15 +9,15 @@
 
 %bcond_without       tests
 
-%global gh_commit    90d087e988ff194065333d16bc5cf649872d9cdb
+%global gh_commit    76e46335014860eec1aa5a724799a00a2e47cc85
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.3.6
-Release:        2%{?dist}
+Version:        1.3.7
+Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -125,7 +125,7 @@ require_once '%{buildroot}%{php_home}/Composer/CaBundle/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -147,6 +147,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 31 2023 Remi Collet <remi@remirepo.net> - 1.3.7-1
+- update to 1.3.7 (no change)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

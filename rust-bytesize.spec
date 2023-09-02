@@ -5,7 +5,7 @@
 %global crate bytesize
 
 Name:           rust-bytesize
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Utility for human-readable bytes representations
 
@@ -13,7 +13,7 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/bytesize
 Source:         %{crates_source}
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
 An utility for human-readable bytes representations.}

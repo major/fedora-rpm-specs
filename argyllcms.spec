@@ -3,7 +3,7 @@
 
 Name: argyllcms
 Version: 2.3.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # Main code - AGPL-3.0-or-later
 # spectro, xml - GPL-2.0-or-later
@@ -14,6 +14,7 @@ License: AGPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT AND
 Summary: ICC compatible color management system
 URL: https://www.argyllcms.com
 Source0: %{url}/Argyll_V%{version}_src.zip#/%{name}-%{version}.zip
+Patch0: argyllcms-c99.patch
 
 BuildRequires: pkgconfig(libjpeg)
 BuildRequires: pkgconfig(libpng)
@@ -75,7 +76,7 @@ of displays.
 This package contains the Argyll color management system assets.
 
 %prep
-%autosetup -n Argyll_V%{version}
+%autosetup -p1 -n Argyll_V%{version}
 
 # Exporting correct build flags...
 echo "CCFLAGS += \${CFLAGS} -std=gnu89 -fcommon -fPIC -fno-strict-aliasing ;" >> Jamtop
@@ -158,6 +159,9 @@ rm -f %{buildroot}/%{_bindir}/*.txt
 %{_datadir}/color/argyll/
 
 %changelog
+* Thu Aug 31 2023 Florian Weimer <fweimer@redhat.com> - 2.3.1-6
+- Avoid build failure with future toolchain defaults
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

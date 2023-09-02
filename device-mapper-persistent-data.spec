@@ -10,7 +10,7 @@
 Summary: Device-mapper Persistent Data Tools
 Name: device-mapper-persistent-data
 Version: 1.0.6
-Release: 1%{?dist}%{?release_suffix}
+Release: 2%{?dist}%{?release_suffix}
 License: GPLv3+
 #ExcludeArch: %%{ix86}
 URL: https://github.com/jthornber/thin-provisioning-tools
@@ -18,6 +18,8 @@ URL: https://github.com/jthornber/thin-provisioning-tools
 Source0: https://github.com/jthornber/thin-provisioning-tools/archive/v%{version}%{?version_suffix}.tar.gz
 Source1: dmpd106-vendor.tar.gz
 Patch1: 0001-Tweak-cargo.toml-to-work-with-vendor-directory.patch
+Patch2: 0002-file_utils-Fix-the-ioctl-request-code-for-the-powerp.patch
+Patch3: 0003-file_utils-Verify-ioctl-request-code-in-tests.patch
 
 %if %{defined rhel}
 BuildRequires: rust-toolset
@@ -116,6 +118,9 @@ make DESTDIR=%{buildroot} MANDIR=%{_mandir} install
 #% {_sbindir}/thin_show_duplicates
 
 %changelog
+* Thu Aug 31 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.6-2
+- Fix broken installation on ppc64le caused by incorrect ioctl call.
+
 * Wed Aug 09 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.6-1
 - Update to latest upstream release 1.0.6.
 

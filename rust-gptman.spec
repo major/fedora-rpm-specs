@@ -5,7 +5,7 @@
 %global crate gptman
 
 Name:           rust-gptman
-Version:        1.0.1
+Version:        1.0.2
 Release:        %autorelease
 Summary:        GPT manager that allows you to copy partitions from one disk to another
 
@@ -49,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+nix-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+nix-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "nix" feature of the "%{crate}" crate.
+
+%files       -n %{name}+nix-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

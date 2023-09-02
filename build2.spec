@@ -7,8 +7,8 @@
 %undefine _auto_set_build_flags
 
 Name:           build2
-Version:        0.15.0
-Release:        3%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Cross-platform build toolchain for developing and packaging C++ code
 
 License:        MIT
@@ -22,17 +22,10 @@ Source5:        macros.%{name}
 
 # The latest official release of libodb is not compatible with build2
 %if %{with bundle_libodb}
-%global         libodb_bundle_version 2.5.0-b.23
+%global         libodb_bundle_version 2.5.0-b.25
 Source100:      https://pkg.cppget.org/1/beta/odb/libodb-%{libodb_bundle_version}.tar.gz
 Source101:      https://pkg.cppget.org/1/beta/odb/libodb-sqlite-%{libodb_bundle_version}.tar.gz
 %endif
-
-# Upstream https://git.build2.org/cgit/build2/commit/?id=343d6e69e412166cfc21f268a51b692cb0201653
-Patch0000:      libbuild2-libpkgconf-error_handler-non-const-data.patch
-# Upstream https://git.build2.org/cgit/build2/commit/?id=417be15231cb34a2e858d26b63406d1fb5535cb9
-Patch0001:      libbuild2-cxx23-aligned_storage-deprecation.patch
-# Upstream https://git.build2.org/cgit/bpkg/commit/?id=a97b12a027546b37f66d3e08064f92f5539cf79e
-Patch3000:      bpkg-git-v2.38.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  libpkgconf-devel
@@ -264,13 +257,6 @@ This package contains the %{name} RPM macros.
 %else
 %setup -q -c -n %{name}-toolchain-%{version} -a 1 -a 2 -a 3 -a 4 -a 100 -a 101
 %endif
-pushd %{name}-%{version}
-%patch -p 1 -P 0000
-%patch -p 1 -P 0001
-popd
-pushd bpkg-%{version}
-%patch -p 1 -P 3000
-popd
 mv libbutl-%{version} %{name}-%{version}
 
 %build
@@ -320,6 +306,7 @@ export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/bash:${LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/bin:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/c:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/cc:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/cli:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/cxx:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/in:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/version:${LD_LIBRARY_PATH}
@@ -474,6 +461,7 @@ export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/bash:${LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/bin:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/c:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/cc:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/cli:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/cxx:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/in:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$PWD/%{name}-%{version}/lib%{name}/version:${LD_LIBRARY_PATH}
@@ -510,30 +498,33 @@ b test:                                                                         
 %dir %{_defaultlicensedir}/lib%{name}
 %license %{_defaultlicensedir}/lib%{name}/AUTHORS
 %license %{_defaultlicensedir}/lib%{name}/LICENSE
-%{_libdir}/lib%{name}-0.15.so
-%{_libdir}/lib%{name}-bash-0.15-0.15.so
-%{_libdir}/lib%{name}-bin-0.15-0.15.so
-%{_libdir}/lib%{name}-c-0.15-0.15.so
-%{_libdir}/lib%{name}-cc-0.15-0.15.so
-%{_libdir}/lib%{name}-cxx-0.15-0.15.so
-%{_libdir}/lib%{name}-in-0.15-0.15.so
-%{_libdir}/lib%{name}-version-0.15-0.15.so
+%{_libdir}/lib%{name}-0.16.so
+%{_libdir}/lib%{name}-bash-0.16-0.16.so
+%{_libdir}/lib%{name}-bin-0.16-0.16.so
+%{_libdir}/lib%{name}-c-0.16-0.16.so
+%{_libdir}/lib%{name}-cc-0.16-0.16.so
+%{_libdir}/lib%{name}-cli-0.16-0.16.so
+%{_libdir}/lib%{name}-cxx-0.16-0.16.so
+%{_libdir}/lib%{name}-in-0.16-0.16.so
+%{_libdir}/lib%{name}-version-0.16-0.16.so
 
 %files -n       lib%{name}-devel
 %{_includedir}/lib%{name}
 %{_libdir}/lib%{name}.so
-%{_libdir}/lib%{name}-bash{,-0.15}.so
-%{_libdir}/lib%{name}-bin{,-0.15}.so
-%{_libdir}/lib%{name}-c{,-0.15}.so
-%{_libdir}/lib%{name}-cc{,-0.15}.so
-%{_libdir}/lib%{name}-cxx{,-0.15}.so
-%{_libdir}/lib%{name}-in{,-0.15}.so
-%{_libdir}/lib%{name}-version{,-0.15}.so
+%{_libdir}/lib%{name}-bash{,-0.16}.so
+%{_libdir}/lib%{name}-bin{,-0.16}.so
+%{_libdir}/lib%{name}-c{,-0.16}.so
+%{_libdir}/lib%{name}-cc{,-0.16}.so
+%{_libdir}/lib%{name}-cli{,-0.16}.so
+%{_libdir}/lib%{name}-cxx{,-0.16}.so
+%{_libdir}/lib%{name}-in{,-0.16}.so
+%{_libdir}/lib%{name}-version{,-0.16}.so
 %{_libdir}/pkgconfig/lib%{name}{,.shared}.pc
 %{_libdir}/pkgconfig/lib%{name}-bash{,.shared}.pc
 %{_libdir}/pkgconfig/lib%{name}-bin{,.shared}.pc
 %{_libdir}/pkgconfig/lib%{name}-c{,.shared}.pc
 %{_libdir}/pkgconfig/lib%{name}-cc{,.shared}.pc
+%{_libdir}/pkgconfig/lib%{name}-cli{,.shared}.pc
 %{_libdir}/pkgconfig/lib%{name}-cxx{,.shared}.pc
 %{_libdir}/pkgconfig/lib%{name}-in{,.shared}.pc
 %{_libdir}/pkgconfig/lib%{name}-version{,.shared}.pc
@@ -545,6 +536,7 @@ b test:                                                                         
 %{_libdir}/lib%{name}-bin.a
 %{_libdir}/lib%{name}-c.a
 %{_libdir}/lib%{name}-cc.a
+%{_libdir}/lib%{name}-cli.a
 %{_libdir}/lib%{name}-cxx.a
 %{_libdir}/lib%{name}-in.a
 %{_libdir}/lib%{name}-version.a
@@ -553,6 +545,7 @@ b test:                                                                         
 %{_libdir}/pkgconfig/lib%{name}-bin.static.pc
 %{_libdir}/pkgconfig/lib%{name}-c.static.pc
 %{_libdir}/pkgconfig/lib%{name}-cc.static.pc
+%{_libdir}/pkgconfig/lib%{name}-cli.static.pc
 %{_libdir}/pkgconfig/lib%{name}-cxx.static.pc
 %{_libdir}/pkgconfig/lib%{name}-in.static.pc
 %{_libdir}/pkgconfig/lib%{name}-version.static.pc
@@ -563,7 +556,7 @@ b test:                                                                         
 %license %{_defaultlicensedir}/libbutl/AUTHORS
 %license %{_defaultlicensedir}/libbutl/COPYRIGHT
 %license %{_defaultlicensedir}/libbutl/LICENSE
-%{_libdir}/libbutl-0.15.so
+%{_libdir}/libbutl-0.16.so
 
 %files -n       libbutl-devel
 %dir %{_docdir}/libbutl
@@ -584,7 +577,7 @@ b test:                                                                         
 %dir %{_defaultlicensedir}/libbpkg
 %license %{_defaultlicensedir}/libbpkg/AUTHORS
 %license %{_defaultlicensedir}/libbpkg/LICENSE
-%{_libdir}/libbpkg-0.15.so
+%{_libdir}/libbpkg-0.16.so
 
 %files -n       libbpkg-devel
 %dir %{_docdir}/libbpkg
@@ -640,6 +633,9 @@ b test:                                                                         
 %{_rpmmacrodir}/macros.%{name}
 
 %changelog
+* Thu Aug 31 2023 Matthew Krupcale <mkrupcale@matthewkrupcale.com> - 0.16.0-1
+- Update to v0.16.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 Name:           openosc
-Version:        1.0.2
-Release:        8%{?dist}
+Version:        1.0.6
+Release:        %autorelease
 Summary:        Open Object Size Check Library
-License:        ASL 2.0
+License:        Apache-2.0
 
 %global forgeurl https://github.com/cisco/openosc
 %forgemeta
@@ -49,7 +49,7 @@ OpenOSC static package, containing the static library.
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
@@ -72,26 +72,4 @@ make %{?_smp_mflags}
 
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Nov 25 2018 Yongkui Han <yonhan@cisco.com> 1.0.2-1
-- Initial packaging.
+%autochangelog

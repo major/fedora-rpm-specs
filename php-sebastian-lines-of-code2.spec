@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    17c4d940ecafb3d15d2cf916f4108f664e28b130
+%global gh_commit    649e40d279e243d985aa8fb6e74dd5bb28dc185d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   lines-of-code
@@ -24,8 +24,8 @@
 %global ns_project   LinesOfCode
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.0.0
-Release:        3%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        Counting the lines of code in PHP source code, version %{major}
 
 License:        BSD-3-Clause
@@ -115,6 +115,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 31 2023 Remi Collet <remi@remirepo.net> - 2.0.1-1
+- update to 2.0.1
+
 * Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 2.0.0-3
 - Enable test suite
 

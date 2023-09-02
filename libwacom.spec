@@ -1,6 +1,6 @@
 Name:           libwacom
-Version:        2.7.0
-Release:        2%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        Tablet Information Client Library
 Requires:       %{name}-data
 
@@ -93,6 +93,9 @@ install -d ${RPM_BUILD_ROOT}/%{_udevrulesdir}
 %{_mandir}/man1/libwacom-list-devices.1*
 
 %changelog
+* Thu Aug 31 2023 Peter Hutterer <peter.hutterer@redhat.com> - 2.8.0-1
+- libwacom 2.8.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

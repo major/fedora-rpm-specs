@@ -13,7 +13,7 @@
 %else
 %global with_nginx 0
 %endif
-%global upstream_version 6.3
+%global upstream_version 6.3.1
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -112,7 +112,7 @@ Provides: bundled(php-simplepie) = 1.5.8
 # grep ' VERSION '  wordpress/wp-includes/ID3/getid3.php
 Provides: bundled(php-getid3) = 1.9.22
 # grep ' VERSION ' wordpress/wp-includes/PHPMailer/PHPMailer.php
-Provides: bundled(php-phpmailer)  = 6.7
+Provides: bundled(php-phpmailer)  = 6.8.0
 Provides: wordpress-mu = %{version}-%{release}
 Obsoletes: wordpress-mu < 2.9.3
 
@@ -266,6 +266,9 @@ end
 
 
 %changelog
+* Thu Aug 31 2023 Remi Collet <remi@remirepo.net> - 6.3.1-1
+* WordPress 6.3.1 Maintenance Release
+
 * Sun Aug 20 2023 Remi Collet <remi@remirepo.net> - 6.3-1
 - WordPress 6.3 “Lionel”
 

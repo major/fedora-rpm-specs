@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-composer-semver3
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    3953f23262f2bff1919fc82183ad9acb13ff62c9
+%global gh_commit    35e8d0af4486141bc745f23a29cc2091eb624a32
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     composer
@@ -20,8 +20,8 @@
 %global major        3
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.3.2
-Release:        4%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Version:        3.4.0
+Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Semver library version %{major}
 
 License:        MIT
@@ -85,7 +85,7 @@ cp -pr src %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}
 %check
 %if %{with tests}
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
     $cmd %{phpunit} \
       --bootstrap %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
@@ -108,6 +108,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 31 2023 Remi Collet <remi@remirepo.net> - 3.4.0-1
+- update to 3.4.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

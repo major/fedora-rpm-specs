@@ -24,8 +24,8 @@
 %endif
 
 Name:		openwsman
-Version:	2.7.1
-Release:	14%{?dist}
+Version:	2.7.2
+Release:	1%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -49,8 +49,6 @@ Patch2:		openwsman-2.4.12-ruby-binding-build.patch
 Patch3:		openwsman-2.6.2-openssl-1.1-fix.patch
 Patch4:		openwsman-2.6.5-http-status-line.patch
 Patch5:		openwsman-2.6.8-update-ssleay-conf.patch
-Patch6:		openwsman-2.7.1-http-unauthorized-improve.patch
-Patch7:		openwsman-2.7.1-fix-ruby-bindings-for-swig-41.patch
 BuildRequires:	make
 BuildRequires:	swig
 BuildRequires:	libcurl-devel libxml2-devel pam-devel sblim-sfcc-devel
@@ -187,13 +185,7 @@ Custom SELinux policy module
 %prep
 %setup -q
 
-%patch1 -p1 -b .pamsetup
-%patch2 -p1 -b .ruby-binding-build
-%patch3 -p1 -b .openssl-1.1-fix
-%patch4 -p1 -b .http-status-line
-%patch5 -p1 -b .update-ssleay-conf
-%patch6 -p1 -b .http-unauthorized-improve
-%patch7 -p1 -b .fix-ruby-bindings-for-swig-41
+%autopatch -p1
 
 %build
 # Removing executable permissions on .c and .h files to fix rpmlint warnings. 
@@ -415,6 +407,9 @@ fi
 %endif
 
 %changelog
+* Thu Aug 31 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.2-1
+- Update to openwsman-2.7.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

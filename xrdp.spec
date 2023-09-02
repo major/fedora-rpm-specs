@@ -16,8 +16,8 @@
 Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
-Version:   0.9.22.1
-Release:   4%{?dist}
+Version:   0.9.23
+Release:   1%{?dist}
 License:   ASL 2.0 and GPLv2+ and MIT
 URL:       http://www.xrdp.org/
 Source0:   https://github.com/neutrinolabs/xrdp/releases/download/v%{version}/xrdp-%{version}.tar.gz
@@ -298,6 +298,10 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Fri Sep  1 2023 Bojan Smojver <bojan@rexursive.com> - 1:0.9.23-1
+- Update to 0.9.23
+- CVE-2023-40184
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.22.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

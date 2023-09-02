@@ -106,7 +106,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   1
-Version: 102.14.0
+Version: 102.15.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -182,6 +182,7 @@ Patch221: firefox-nss-addon-hack.patch
 Patch223: %{name}-glibc-dynstack.patch
 Patch224: %{name}-GLIBCXX-fix-for-GCC-12.patch
 Patch225: %{name}-102.7.0-fix_gcc13_build.patch
+Patch227: %{name}-rhbz-2235654.patch
 
 # ARM run-time patch
 Patch226: rhbz-1354671.patch
@@ -380,6 +381,7 @@ tar -xf %{SOURCE5}
 %endif
 %patch -P 224 -p 1 -b .glibcxx
 %patch -P 225 -p 1 -b .gcc13
+%patch -P 227 -p 1 -b .backup
 
 # ARM run-time patch
 %ifarch aarch64

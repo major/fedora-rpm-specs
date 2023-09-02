@@ -5,8 +5,8 @@
 %global crate vhost-user-backend
 
 Name:           rust-vhost-user-backend
-Version:        0.10.0
-Release:        2%{?dist}
+Version:        0.10.1
+Release:        %autorelease
 Summary:        Framework to build vhost-user backend service daemon
 
 License:        Apache-2.0
@@ -63,7 +63,7 @@ use the "xen" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
-cp %{SOURCE1} .
+cp -pav %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -80,28 +80,4 @@ cp %{SOURCE1} .
 %endif
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 14 2023 Sergio Lopez <slp@redhat.com> - 0.10.0-1
-- Update to version 0.10.0
-- Regenerate with rust2rpm 24
-- Drop no longer need patch downgrading nix dependency
-
-* Wed Feb 08 2023 Sergio Lopez <slp@redhat.com> - 0.8.0-1
-- Update to version 0.8.0
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Jul 26 2022 Sergio Lopez <slp@redhat.com> - 0.5.1-1
-- Update to crate 0.5.1
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 01 2022 Sergio Lopez <slp@redhat.com> - 0.4.0-1
-- Update to 0.4.0
-
-* Wed May 11 2022 Sergio Lopez <slp@redhat.com> - 0.2.0-1
-- Initial package
+%autochangelog

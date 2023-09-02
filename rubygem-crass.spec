@@ -3,11 +3,14 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.4
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: CSS parser based on the CSS Syntax Level 3 spec
 License: MIT
 URL: https://github.com/rgrove/crass/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix compatibility with Minitest 5.19+
+# https://github.com/rgrove/crass/pull/13
+Patch0: rubygem-crass-1.0.6-Fix-compatibility-with-Minitest-5.19.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 1.9.2
@@ -28,6 +31,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+
+%patch 0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -62,6 +67,9 @@ popd
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Thu Aug 31 2023 Vít Ondruch <vondruch@redhat.com> - 1.0.4-13
+- Fix FTBFS due to Minitest 5.19+ incompatibility.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

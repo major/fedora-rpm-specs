@@ -5,11 +5,10 @@
 %global crate pcre2
 
 Name:           rust-pcre2
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        High level wrapper library for PCRE2
 
-# Upstream license specification: Unlicense/MIT
 License:        Unlicense OR MIT
 URL:            https://crates.io/crates/pcre2
 Source:         %{crates_source}

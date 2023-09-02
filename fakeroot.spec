@@ -2,8 +2,8 @@
 
 Summary: Gives a fake root environment
 Name: fakeroot
-Version: 1.31
-Release: 2%{?dist}
+Version: 1.32.1
+Release: 1%{?dist}
 # setenv.c: LGPLv2+
 # contrib/Fakeroot-Stat-1.8.8: Perl (GPL+ or Artistic)
 # the rest: GPLv3+
@@ -19,8 +19,6 @@ Patch2: debian_fix-shell-in-fakeroot.patch
 # Fix LD_LIBRARY_PATH for multilib: https://bugzilla.redhat.com/show_bug.cgi?id=1241527
 Patch5: fakeroot-multilib.patch
 # Patch7: relax_tartest.patch
-# Fix from Debian for i686
-Patch8: compile-time64-wraps-with-D_TIME_BITS-64.patch
 
 
 BuildRequires: make
@@ -167,6 +165,9 @@ fi
 %ghost %{_libdir}/libfakeroot/libfakeroot-0.so
 
 %changelog
+* Thu Aug 31 2023 Sérgio Basto <sergio@serjux.com> - 1.32.1-1
+- Update fakeroot to 1.32.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

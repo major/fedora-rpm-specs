@@ -1,13 +1,11 @@
 Name:           libtins
-Version:        4.4
-Release:        3%{?dist}
+Version:        4.5
+Release:        1%{?dist}
 Summary:        A high-level, multiplatform C++ network packet sniffing and crafting library
 
 License:        BSD
 URL:            https://github.com/mfontanini/libtins
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/mfontanini/libtins/pull/472
-Patch0:         %{name}-cmake_libdir.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -69,6 +67,9 @@ sed -i 's|stdint.h|cstdint|' include/tins/ip_address.h
 
 
 %changelog
+* Thu Aug 31 2023 Vasiliy Glazov <vascom2@gmail.com> - 4.5-1
+- Update to 4.5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -23,8 +23,8 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.11.4
-Release:       2%{?dist}
+Version:       3.11.5
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -496,6 +496,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Thu Aug 31 2023 Sandro Mani <manisandro@gmail.com> - 3.11.5-1
+- Update to 3.11.5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

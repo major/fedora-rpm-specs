@@ -1,5 +1,5 @@
 Name:           nmon
-Version:        16n
+Version:        16p
 Release:        %autorelease
 Summary:        Nigel's performance Monitor for Linux 
 

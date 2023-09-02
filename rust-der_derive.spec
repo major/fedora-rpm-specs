@@ -5,7 +5,7 @@
 %global crate der_derive
 
 Name:           rust-der_derive
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Custom derive support for the der crate's Choice and Sequence traits
 

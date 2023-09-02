@@ -1,8 +1,8 @@
 %global build_javadoc 0
 
 Name:           mariadb-java-client
-Version:        3.1.4
-Release:        2%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        Connects applications developed in Java to MariaDB and MySQL databases
 # added BSD license because of https://bugzilla.redhat.com/show_bug.cgi?id=1291558#c13
 License:        LGPL-2.1-only
@@ -79,7 +79,7 @@ sed -i '/aws/d' src/test/resources/META-INF/services/org.mariadb.jdbc.plugin.Cre
 # also remove the file using the removed plugin
 rm -f src/main/java/org/mariadb/jdbc/plugin/authentication/addon/gssapi/WindowsNativeSspiAuthentication.java
 # patch the sources so that the missing file is not making trouble
-%patch0 -p1
+%patch -P 0 -p1
 
 %mvn_file org.mariadb.jdbc:%{name} %{name}
 %mvn_alias org.mariadb.jdbc:%{name} mariadb:mariadb-connector-java
@@ -111,6 +111,9 @@ opts="-j"
 %endif
 
 %changelog
+* Thu Aug 31 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.2.0-1
+- Rebase to version 3.2.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

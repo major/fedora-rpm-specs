@@ -10,7 +10,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    5647d65443818959172645e7ed999217360654b6
+%global gh_commit    a95037b6d9e608ba092da1b23931e537cadc3c3c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-file-iterator
@@ -25,8 +25,8 @@
 
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        4.0.2
-Release:        3%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        FilterIterator implementation based on a list of suffixes, version %{major}
 
 License:        BSD-3-Clause
@@ -108,6 +108,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 31 2023 Remi Collet <remi@remirepo.net> - 4.1.0-1
+- update to 4.1.0
+
 * Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 4.0.2-3
 - Enable test suite
 

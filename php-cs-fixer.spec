@@ -10,14 +10,14 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    35af3cbbacfa91e164b252a28ec0b644f1ed4e78
+%global gh_commit    bb6c9d7945dcbf6942e151b018c44d3767e21403
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.23.0
+Version:        3.24.0
 Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -70,12 +70,12 @@ Provides:       bundled(php-symfony-event-dispatcher-contracts) = v3.0.2
 Provides:       bundled(php-symfony-filesystem) = v6.0.19
 Provides:       bundled(php-symfony-finder) = v6.0.19
 Provides:       bundled(php-symfony-options-resolver) = v6.0.19
-Provides:       bundled(php-symfony-polyfill-ctype) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-intl-normalizer) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-mbstring) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-php80) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-php81) = v1.27.0
+Provides:       bundled(php-symfony-polyfill-ctype) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-intl-normalizer) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-mbstring) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-php80) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-php81) = v1.28.0
 Provides:       bundled(php-symfony-process) = v6.0.19
 Provides:       bundled(php-symfony-service-contracts) = v3.0.2
 Provides:       bundled(php-symfony-stopwatch) = v6.0.19
@@ -152,6 +152,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Thu Aug 31 2023 Remi Collet <remi@remirepo.net> - 3.24.0-1
+- update to 3.24.0
+
 * Fri Aug 18 2023 Remi Collet <remi@remirepo.net> - 3.23.0-1
 - update to 3.23.0
 

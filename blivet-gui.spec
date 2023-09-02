@@ -1,9 +1,10 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
+Patch0: 0001-Fix-segfault-when-trying-to-reuse-an-invalid-GtkTreeIter.patch
 License: GPL-2.0-or-later
 BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
@@ -74,6 +75,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Thu Aug 31 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.4.2-2
+- Fix segfault when trying to reuse an invalid GtkTreeIter (#2234466)
+
 * Wed Aug 16 2023 Packit <hello@packit.dev> - 2.4.2-1
 - New version 2.4.2 (Vojtech Trefny)
 - pylint: Update pylintrc (Vojtech Trefny)
