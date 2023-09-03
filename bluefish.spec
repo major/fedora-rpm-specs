@@ -1,6 +1,6 @@
 %global pkgver 2.2.14
 #global prerel rc1
-%global baserelease 3
+%global baserelease 4
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -11,6 +11,7 @@ URL:		http://bluefish.openoffice.nl/
 Source0:	http://www.bennewitz.com/bluefish/stable/source/bluefish-%{version}%{?prerel:-%{prerel}}.tar.bz2
 Patch0:		bluefish-2.2.13-strict-aliasing.patch
 Patch1:		bluefish-2.2.12-shellbang.patch
+Patch2: bluefish-c99.patch
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
 BuildRequires:	enchant-devel >= 1.4.2
@@ -78,6 +79,8 @@ Files common to every architecture version of %{name}.
 # Avoid use of /usr/bin/env in shipped scripts
 # Also change /usr/bin/python → /usr/bin/python3
 %patch -P 1
+
+%patch -P 2 -p1
 
 %build
 %configure	--disable-dependency-tracking \
@@ -184,6 +187,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Fri Sep 01 2023 Florian Weimer <fweimer@redhat.com> - 2.2.14-5
+- Improve C99 compatibility
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.23.4
+Version:    2.24.0
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -251,6 +251,14 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Fri Sep 01 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.0-1
+- Update to 2.24.0
+- Implement “commit_and_forward_key” command
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/461)
+- m17n-lib interface: transliterate “produced” part and “preedit” separately
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/460)
+- Update emoji annotations from CLDR
+
 * Thu Aug 10 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.4-1
 - Update to 2.23.4
 - Support msymbol 'S-C-Return' as a commit to preedit key

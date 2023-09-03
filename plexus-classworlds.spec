@@ -2,9 +2,9 @@
 
 Name:           plexus-classworlds
 Version:        2.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plexus Classworlds Classloader Framework
-License:        Apache-2.0 and Plexus
+License:        Apache-2.0 AND Plexus
 URL:            https://github.com/codehaus-plexus/plexus-classworlds
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -51,6 +51,9 @@ sed -i /testConfigure_Optionally_Existent/s/./@org.junit.Ignore/ src/test/java/o
 %license LICENSE.txt LICENSE-Codehaus.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.7.0-2
+- Convert License tag to SPDX format
+
 * Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 2.7.0-1
 - Update to upstream version 2.7.0
 

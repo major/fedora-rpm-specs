@@ -2,9 +2,9 @@
 
 Name:           maven-mapping
 Version:        3.0.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Apache Maven Mapping
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://maven.apache.org/shared/maven-mapping/
 Source0:        https://repo.maven.apache.org/maven2/org/apache/maven/shared/%{name}/%{version}/%{name}-%{version}-source-release.zip
@@ -50,6 +50,9 @@ This package provides %{summary}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.0-22
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

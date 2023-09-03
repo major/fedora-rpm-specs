@@ -5,9 +5,7 @@
 Name:           hdmf-common-schema
 Version:        1.8.0
 Epoch:          1
-# Base release added to get a unique NVR; drop it when the Version is updated
-# past 1.7.0.
-Release:        %autorelease -b 1
+Release:        %autorelease
 Summary:        Specifications for pre-defined data structures provided by HDMF
 
 License:        BSD-3-Clause-LBNL

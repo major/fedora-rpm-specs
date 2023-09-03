@@ -7,6 +7,9 @@ License: LGPL-2.1-or-later
 URL:     https://gitlab.gnome.org/World/dLeyna
 Source0: https://gitlab.gnome.org/World/dLeyna/-/archive/v%{version}/dLeyna-v%{version}.tar.bz2
 
+# https://gitlab.gnome.org/World/dLeyna/-/merge_requests/6
+Patch:   0001-subprojects-Meson-1-2-compat.patch
+
 BuildRequires: /usr/bin/rst2man
 BuildRequires: gcc
 BuildRequires: meson

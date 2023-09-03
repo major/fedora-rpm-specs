@@ -8,7 +8,7 @@
 
 Name:           python-urllib3
 Version:        1.26.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
 # SPDX
@@ -73,9 +73,8 @@ Requires:       ca-certificates
 BuildRequires:  %{py3_dist idna}
 Requires:       %{py3_dist idna}
 
-# Unbundled
-BuildRequires:  %{py3_dist six} >= 1.16
-Requires:       %{py3_dist six} >= 1.16
+# grep __version__ src/urllib3/packages/six.py
+Provides:       bundled(python3dist(six)) = 1.16.0
 
 # There has historically been a manual hard dependency on python3-pysocks;
 # since bringing it in is the sole function of python3-urllib3+socks, we just
@@ -130,17 +129,6 @@ sed -i -e 's/^import mock/from unittest import mock/' \
 %install
 %pyproject_install
 
-# Unbundle the Python 3 build
-rm -rf %{buildroot}/%{python3_sitelib}/urllib3/packages/six.py
-rm -rf %{buildroot}/%{python3_sitelib}/urllib3/packages/__pycache__/six.*
-
-mkdir -p %{buildroot}/%{python3_sitelib}/urllib3/packages/
-ln -s %{python3_sitelib}/six.py %{buildroot}/%{python3_sitelib}/urllib3/packages/six.py
-ln -s %{python3_sitelib}/__pycache__/six.cpython-%{python3_version_nodots}.opt-1.pyc \
-      %{buildroot}/%{python3_sitelib}/urllib3/packages/__pycache__/
-ln -s %{python3_sitelib}/__pycache__/six.cpython-%{python3_version_nodots}.pyc \
-      %{buildroot}/%{python3_sitelib}/urllib3/packages/__pycache__/
-
 %pyproject_save_files urllib3
 
 
@@ -166,6 +154,9 @@ ignore="${ignore-} --ignore=test/test_no_ssl.py"
 
 
 %changelog
+* Wed Aug 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.16-3
+- Use bundled six
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

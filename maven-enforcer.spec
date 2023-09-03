@@ -2,7 +2,7 @@
 
 Name:           maven-enforcer
 Version:        3.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Enforcer
 License:        Apache-2.0
 URL:            https://maven.apache.org/enforcer
@@ -107,6 +107,9 @@ find -name EvaluateBeanshell.java -delete
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.4.0-2
+- Rebuild
+
 * Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.4.0-1
 - Update to upstream version 3.4.0
 

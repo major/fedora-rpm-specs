@@ -1,8 +1,8 @@
 Name:           jaxb-stax-ex
 Version:        2.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extended StAX API
-License:        BSD
+License:        BSD-3-Clause
 
 URL:            https://github.com/eclipse-ee4j/jaxb-stax-ex
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -50,6 +50,9 @@ the following areas:
 %doc README.md
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.0-4
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 Name:           httpcomponents-project
 Summary:        Common POM file for HttpComponents
 Version:        13
-Release:        1%{?dist}
-License:        ASL 2.0
+Release:        2%{?dist}
+License:        Apache-2.0
 URL:            https://hc.apache.org/
 Source0:        https://archive.apache.org/dist/httpcomponents/httpcomponents-parent/httpcomponents-parent-%{version}-source-release.zip
 BuildArch:      noarch
@@ -44,6 +44,9 @@ use it as runtime requirement.
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 13-2
+- Convert License tag to SPDX format
+
 * Wed Aug 16 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 13-1
 - Update to upstream version 13
 

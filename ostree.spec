@@ -1,5 +1,5 @@
-# Don't ship tests on RHEL > 7.
-%if 0%{?rhel} > 7
+# We haven't tried to ship the tests on RHEL
+%if 0%{?rhel}
     %bcond_with tests
 %else
     %bcond_without tests
@@ -23,8 +23,9 @@ BuildRequires: gtk-doc
 BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: openssl-devel
-# The tests still require soup
+%if %{with tests}
 BuildRequires: pkgconfig(libsoup-3.0)
+%endif
 BuildRequires: libattr-devel
 # The tests require attr
 BuildRequires: attr

@@ -72,7 +72,7 @@
 %global patch_version 4
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 3
+%global baserelease 4
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -552,6 +552,9 @@ popd
 
 
 %changelog
+* Fri Sep 01 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-4
+- Fix outdated CI configuration
+
 * Thu Aug 31 2023 Panu Matilainen <pmatilai@redhat.com> - 3.27.4-3
 - Only require cmake-rpm-macros when rpm-build is installed
 

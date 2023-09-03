@@ -16,9 +16,9 @@
 
 Name:           javapackages-tools
 Version:        6.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Macros and scripts for Java packaging support
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/fedora-java/javapackages
 BuildArch:      noarch
 
@@ -227,6 +227,9 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 %license LICENSE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.2.0-3
+- Convert License tag to SPDX format
+
 * Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.2.0-2
 - Enable XMvn dependency generator in ELN
 

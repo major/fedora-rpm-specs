@@ -4,9 +4,9 @@
 
 Name:           hamcrest
 Version:        2.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Library of matchers for building test expressions
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/hamcrest/JavaHamcrest
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -93,6 +93,9 @@ popd
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.2-12
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

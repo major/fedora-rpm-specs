@@ -3,9 +3,9 @@
 Name:           apache-resource-bundles
 Epoch:          1
 Version:        1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Apache Resource Bundles
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/apache-resource-bundles/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -47,6 +47,9 @@ and notices for all Apache releases.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.5-3
+- Convert License tag to SPDX format
+
 * Wed Aug 23 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.5-2
 - Port to maven-verifier 2.0.0~M1
 

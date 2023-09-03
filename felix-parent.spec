@@ -2,9 +2,9 @@
 
 Name:           felix-parent
 Version:        7
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Parent POM file for Apache Felix Specs
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://felix.apache.org/
 Source0:        https://repo1.maven.org/maven2/org/apache/felix/felix-parent/%{version}/%{name}-%{version}-source-release.tar.gz
 BuildArch:      noarch
@@ -44,6 +44,9 @@ Parent POM file for Apache Felix Specs.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 7-12
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

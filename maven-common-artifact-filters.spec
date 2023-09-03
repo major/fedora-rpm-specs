@@ -2,7 +2,7 @@
 
 Name:           maven-common-artifact-filters
 Version:        3.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Common Artifact Filters
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/
@@ -61,6 +61,9 @@ rm src/test/java/org/apache/maven/shared/artifact/filter/PatternFilterPerfTest.j
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.2-2
+- Rebuild
+
 * Thu Aug 17 2023 Marian Koncek <mkoncek@redhat.com> - 3.3.2-1
 - Update to upstream version 3.3.2
 

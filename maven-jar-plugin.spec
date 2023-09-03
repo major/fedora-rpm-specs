@@ -2,9 +2,9 @@
 
 Name:           maven-jar-plugin
 Version:        3.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven JAR Plugin
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/maven-jar-plugin/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -58,6 +58,9 @@ API documentation for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.0-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.0-1
 - Update to upstream version 3.3.0
 

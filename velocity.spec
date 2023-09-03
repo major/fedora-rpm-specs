@@ -2,9 +2,9 @@
 
 Name:           velocity
 Version:        2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java-based template engine
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://velocity.apache.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -96,6 +96,9 @@ sed 's/${project.version}/%{version}/' \
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.3-2
+- Convert License tag to SPDX format
+
 * Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.3-1
 - Update to upstream version 2.3
 

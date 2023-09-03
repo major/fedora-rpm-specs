@@ -1,25 +1,24 @@
 Name:           lastpass-cli
-Version:        1.3.4
+Version:        1.3.5
 Release:        %autorelease
 Summary:        Command line interface to LastPass.com
 
-License:        GPL-2.0-only
+License:        GPL-2.0-only WITH cryptsetup-OpenSSL-exception AND OpenSSL
 URL:            https://github.com/LastPass/lastpass-cli
-Source0:        %url/archive/v%{version}/lastpass-cli-%{version}.tar.gz
+Source:         %url/archive/v%{version}/lastpass-cli-%{version}.tar.gz
+# https://bugzilla.redhat.com/show_bug.cgi?id=1457758
+Patch:          lastpass-cli-1.3.1-remove_reallocarray.patch
+# https://github.com/lastpass/lastpass-cli/pull/535
+Patch:          0001-Mark-global-variable-as-extern.patch
 
-# RHBZ#1457758
-Patch0:         lastpass-cli-1.3.1-remove_reallocarray.patch
-# https://github.com/lastpass/lastpass-cli/issues/532
-Patch1:         0001-Mark-global-variable-as-extern.patch
-
+BuildRequires:  asciidoc
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  openssl-devel
-BuildRequires:  libxml2-devel
 BuildRequires:  libcurl-devel
-BuildRequires:  asciidoc
-BuildRequires: make
+BuildRequires:  libxml2-devel
+BuildRequires:  make
+BuildRequires:  openssl-devel
 Requires:       pinentry
 Requires:       xclip
 
@@ -30,34 +29,34 @@ A command line interface to LastPass.com.
 %autosetup -p1
 
 %build
-%cmake .
-%make_build
+%cmake
+%cmake_build --target lpass doc-man doc-html
 
 %install
-%make_install install-doc
+export DESTDIR=%{buildroot}
+%cmake_build --target install-doc
+%cmake_install
 
 # Install shell completions
-install -Dpm0644 contrib/lpass_bash_completion \
-    %{buildroot}%{_datadir}/bash-completion/completions/lpass-completion.bash
-install -Dpm0644 contrib/completions-lpass.fish \
-    %{buildroot}%{_datadir}/fish/vendor_functions.d/lpass.fish
-install -Dpm0644 contrib/lpass_zsh_completion \
-    %{buildroot}%{_datadir}/zsh/site-functions/_lpass
+install -Dpm0644 contrib/lpass_bash_completion -t \
+    %{buildroot}%{bash_completions_dir}/lpass-completion.bash
+install -Dpm0644 contrib/completions-lpass.fish -t \
+    %{buildroot}%{fish_completions_dir}/lpass.fish
+install -Dpm0644 contrib/lpass_zsh_completion -t \
+    %{buildroot}%{zsh_completions_dir}/_lpass
 
 %files
-%license COPYING
-%license LICENSE.OpenSSL
-%doc README.md
-%doc CONTRIBUTING
-%doc contrib/examples
+%license COPYING LICENSE.OpenSSL
+%doc CHANGELOG.md CONTRIBUTING README.md
+%doc contrib/examples %{__cmake_builddir}/lpass.1.html
 %{_bindir}/lpass
-%{_mandir}/man1/lpass.1.*
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/lpass-completion.bash
-%dir %{_datadir}/fish/vendor_functions.d
-%{_datadir}/fish/vendor_functions.d/lpass.fish
-%dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/site-functions/_lpass
+%{_mandir}/man1/lpass.1*
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/lpass-completion.bash
+%dir %{fish_completions_dir}
+%{fish_completions_dir}/lpass.fish
+%dir %{zsh_completions_dir}
+%{zsh_completions_dir}/_lpass
 
 %changelog
 %autochangelog

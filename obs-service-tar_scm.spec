@@ -1,10 +1,10 @@
 %define service tar_scm
 
 Name:           obs-service-%{service}
-Version:        0.10.33
-Release:        3%{?dist}
+Version:        0.10.41
+Release:        1%{?dist}
 Summary:        An OBS source service: checkout or update a tarball from svn/git/hg
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -14,6 +14,7 @@ BuildRequires:  python3-mock
 BuildRequires:  python3-six
 BuildRequires:  bzr
 BuildRequires:  git-core
+BuildRequires:  gnupg2
 BuildRequires:  mercurial
 BuildRequires:  subversion
 
@@ -39,6 +40,7 @@ Requires:       (glibc-langpack-en or glibc-all-langpacks)
 Requires:       python3-PyYAML
 Requires:       python3-dateutil
 Requires:       git-core
+Requires:       gnupg2
 Requires:       obs-service-download_files
 # Ensure that the interpreter is installed
 Requires:       /usr/bin/python3
@@ -133,6 +135,12 @@ make test3
 %{_prefix}/lib/obs/service/snapcraft*
 
 %changelog
+* Fri Sep  1 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.10.41-1
+- New upstream release 0.10.41
+- add missing gnupg dependency
+- fixes rhbz#2171621
+- fixes rhbz#2226038
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.33-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

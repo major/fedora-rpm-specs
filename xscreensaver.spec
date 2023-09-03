@@ -1,6 +1,6 @@
 %define name          xscreensaver
 
-%define mainversion   6.06
+%define mainversion   6.07
 #%%undefine extratarver   1
 #%%define beta_ver      b2
 %undefine beta_ver
@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    4
+%define baserelease    2
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -98,12 +98,10 @@ Patch1:          xscreensaver-5.45-0001-barcode-glsnake-sanitize-the-names-of-mo
 ## Patches which must be discussed with upstream
 # See bug 472061
 Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
-# misc: kill gcc warn_unused_result warnings
-Patch3607:       xscreensaver-5.36-0007-misc-kill-gcc-warn_unused_result-warnings.patch
-# switch_page_cb: backport debian fix for DPMS settings issue (debian bug 1031076)
-Patch4601:       xscreensaver-6.06-0001-switch_page_cb-backport-debian-1031076-for-DPMS-settings.patch
-# distort_reset: restrict radius by xgwa correctly (bug 2174626)
-Patch4602:       xscreensaver-6.06-0002-distort_reset-restrict-radius-by-xgwa-correctly.patch
+# make_ximage: avoid integer overflow on left shift
+Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-left-shift.patch
+# convert_ximage_to_rgba32: avoid integer overflow on left shift
+Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -180,7 +178,7 @@ BuildRequires:   libXt-devel
 #BuildRequires:   libXxf86misc-devel
 BuildRequires:   libXxf86vm-devel
 # XScreenSaver 5.31
-BuildRequires:   libXft-devel
+BuildRequires:   pkgconfig(xft)
 BuildRequires:   pkgconfig(gtk+-3.0) >= 2.22.0
 BuildRequires:   pkgconfig(gmodule-2.0)
 BuildRequires:   pkgconfig(libxml-2.0)
@@ -197,6 +195,14 @@ BuildRequires:   pkgconfig(libcap)
 %if 0%{?support_systemd} >= 1
 BuildRequires:   pkgconfig(libsystemd)
 %endif
+# From xscreensaver 6.07
+%if 0%{?enable_animation}
+BuildRequires:   pkgconfig(libavutil)
+BuildRequires:   pkgconfig(libavcodec)
+BuildRequires:   pkgconfig(libavformat)
+BuildRequires:   pkgconfig(libswscale)
+BuildRequires:   pkgconfig(libswresample)
+%endif
 %if 0%{?fedora}
 BuildRequires:   %{default_text}
 %endif
@@ -204,6 +210,9 @@ BuildRequires:   %{default_text}
 # https://fedoraproject.org/wiki/Changes/Build_Root_Without_Perl
 BuildRequires:    perl-interpreter
 BuildRequires:    perl-generators
+# xscreensaver 6.07 calls check-configs.pl
+BuildRequires:    perl(strict)
+BuildRequires:    perl(diagnostics)
 # For --with-login-manager option
 %if 0%{?fedora} >= 14
 # Use pseudo symlink, not writing BR: gdm
@@ -218,6 +227,9 @@ Requires:        appres
 %endif
 # For switch user wrapper
 Requires:        %{_bindir}/pidof
+# XScreenSaver 6.07: For manual
+# Actually the following is not needed, yelp is still used
+#Recommends:      xterm
 %if 0%{?build_tests} < 1
 # Obsoletes but not Provides
 Obsoletes:       xscreeensaver-tests < %{epoch}:%{version}-%{release}
@@ -386,9 +398,8 @@ find . -name \*.c -exec chmod ugo-x {} \;
 %__cat %PATCH1 | %__git am
 %__cat %PATCH21 | %__git am
 
-#%%__cat %PATCH3607 | %__git am
-%__cat %PATCH4601 | %__git am
-%__cat %PATCH4602 | %__git am
+%__cat %PATCH4701 | %__git am
+%__cat %PATCH4702 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -437,6 +448,7 @@ for f in \
    driver/XScreenSaver.ad.in \
 %endif
    hacks/glx/sproingies.man \
+   hacks/glx/cubocteversion.man \
    ; do
    iconv -f ISO-8859-1 -t UTF-8 $f > $f.tmp || cp -p $f $f.tmp
    touch -r $f $f.tmp
@@ -507,6 +519,12 @@ done
 sed -i.manentry -e 's@man %%s@man 6x %%s 2>/dev/null || man 1 %%s @' \
    driver/XScreenSaver.ad.in
 %__git commit -m "%PATCH_desc" -a
+
+# XScreenSaver 6.07: use xterm
+sed -i.term \
+   driver/XScreenSaver.ad.in \
+   -e 's|lxterminal|xterm|'
+%__git commit -m "Manual: change terminal to xterm" -a
 
 # Suppress rpmlint warnings.
 # suppress about pam config (although this is 
@@ -1165,6 +1183,11 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.07-2
+- Update to 6.07
+- make_ximage: avoid integer overflow on left shift
+- convert_ximage_to_rgba32: likewise
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.06-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

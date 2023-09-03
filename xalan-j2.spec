@@ -2,10 +2,10 @@
 
 Name:           xalan-j2
 Version:        2.7.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Java XSLT processor
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
-License:        ASL 2.0 and W3C
+License:        Apache-2.0 AND W3C
 URL:            http://xalan.apache.org/
 
 # ./generate-tarball.sh
@@ -46,7 +46,7 @@ in other program.
 
 %package        xsltc
 Summary:        XSLT compiler
-License:        ASL 2.0
+License:        Apache-2.0
 Requires:       java_cup
 Requires:       bcel
 Requires:       regexp
@@ -58,7 +58,7 @@ lightweight and portable Java byte codes called translets.
 
 %package        manual
 Summary:        Manual for %{name}
-License:        ASL 2.0
+License:        Apache-2.0
 
 %description    manual
 Documentation for %{name}.
@@ -139,6 +139,9 @@ mv %{_javadir}/jaxp_transform_impl.jar{.tmp,} || :
 %doc build/docs/*
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.7.2-16
+- Convert License tag to SPDX format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

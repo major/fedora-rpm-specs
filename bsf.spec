@@ -1,8 +1,8 @@
 Name:           bsf
 Version:        2.4.0
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Bean Scripting Framework
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://commons.apache.org/bsf/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -68,6 +68,9 @@ ant -Dsource.level=1.7 -Dant.build.javac.target=1.7 jar
 %doc AUTHORS.txt CHANGES.txt README.txt TODO.txt RELEASE-NOTE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.4.0-49
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

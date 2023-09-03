@@ -2,9 +2,9 @@
 
 Name:           maven-resources-plugin
 Version:        3.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Resources Plugin
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/maven-resources-plugin
 Source0:        https://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
@@ -60,6 +60,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.1-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.1-1
 - Update to upstream version 3.3.1
 

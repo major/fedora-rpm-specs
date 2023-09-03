@@ -20,8 +20,8 @@
 
 Name:    dbus
 Epoch:   1
-Version: 1.14.8
-Release: 2%{?dist}
+Version: 1.14.10
+Release: 1%{?dist}
 Summary: D-BUS message bus
 
 # The effective license of the majority of the package, including the shared
@@ -441,6 +441,9 @@ fi
 
 
 %changelog
+* Fri Sep 01 2023 David King <amigadave@amigadave.com> - 1:1.14.10-1
+- Update to 1.14.10
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.14.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,9 +3,9 @@
 
 Name:           maven-verifier
 Version:        2.0.0~M1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Apache Maven Verifier Component
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-verifier
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -59,6 +59,9 @@ rm src/test/java/org/apache/maven/shared/verifier/Embedded3xLauncherTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.0~M1-3
+- Convert License tag to SPDX format
+
 * Wed Aug 23 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.0~M1-2
 - Update to upstream version 2.0.0~M1
 

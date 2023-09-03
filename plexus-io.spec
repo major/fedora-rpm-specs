@@ -2,7 +2,7 @@
 
 Name:           plexus-io
 Version:        3.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plexus IO Components
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-io
@@ -60,6 +60,9 @@ sed -i /class/i@org.junit.Ignore src/test/java/org/codehaus/plexus/components/io
 %license NOTICE.txt LICENSE-2.0.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.4.1-2
+- Rebuild
+
 * Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 3.4.1-1
 - Update to upstream version 3.4.1
 

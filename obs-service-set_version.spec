@@ -2,12 +2,13 @@
 %global service set_version
 
 Name:           obs-service-%{service}
-Version:        0.5.12
-Release:        9%{?dist}
+Version:        0.6.2
+Release:        1%{?dist}
 Summary:        An OBS source service: Update spec file version
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/obs-service-%{service}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:          https://github.com/openSUSE/obs-service-set_version/pull/86.patch#./0001-Remove-usage-of-deprecated-imp-module-with-importlib.patch
 BuildRequires:  sed
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(ddt)
@@ -23,7 +24,7 @@ Very simply script to update the version in .spec or .dsc files according to
 a given version or to the existing files.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 sed -i -e "1 s,#!/usr/bin/python$,#!%{__python3}," set_version
@@ -37,12 +38,15 @@ install -m 0644 set_version.service %{buildroot}%{_prefix}/lib/obs/service
 %{__python3} -m unittest discover tests/
 
 %files
-# In lieu of a proper license file: https://github.com/openSUSE/obs-service-set_version/issues/57
-%license debian/copyright
+%license COPYING
 %dir %{_prefix}/lib/obs
 %{_prefix}/lib/obs/service
 
 %changelog
+* Fri Sep  1 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.6.2-1
+- New upstream release 0.6.2, fixes rhbz#1923237
+- Add patch to fix imp removal of Python 3.12, fixes rhbz#2226037
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

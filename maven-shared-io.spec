@@ -3,9 +3,9 @@
 Name:           maven-shared-io
 Epoch:          1
 Version:        3.0.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        API for I/O support like logging, download or file scanning
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://maven.apache.org/shared/maven-shared-io
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -56,6 +56,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.0.0-21
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

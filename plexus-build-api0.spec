@@ -2,9 +2,9 @@
 
 Name:           plexus-build-api0
 Version:        0.0.7
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Plexus Build API
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-build-api
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -63,6 +63,9 @@ cp -p %{SOURCE1} .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0.0.7-41
+- Convert License tag to SPDX format
+
 * Mon Aug 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0.0.7-40
 - Rename plexus-build-api to plexus-build-api0
 

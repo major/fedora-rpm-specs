@@ -1,8 +1,8 @@
 Name:           xml-commons-resolver
 Version:        1.2
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Resolver subproject of xml-commons
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://xerces.apache.org/xml-commons/components/resolver/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -72,6 +72,9 @@ install -p -m 644 %{SOURCE8} ${RPM_BUILD_ROOT}%{_mandir}/man1/xml-xread.1
 %doc LICENSE.resolver.txt NOTICE-resolver.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2-41
+- Convert License tag to SPDX format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

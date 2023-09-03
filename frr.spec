@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        8.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -274,6 +274,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Fri Sep 01 2023 Michal Ruprich <mruprich@redhat.com> - 8.5.2-4
+- Adding a couple of SELinux rules, includes fix for rhbz#2149299
+
 * Wed Aug 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 8.5.2-3
 - Rebuilt for abseil-cpp 20230802.0
 

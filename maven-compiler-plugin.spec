@@ -2,7 +2,7 @@
 
 Name:           maven-compiler-plugin
 Version:        3.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Compiler Plugin
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/maven-compiler-plugin
@@ -62,6 +62,9 @@ sed -i 's|localRepository,\ "junit/junit/3.8.1/junit-3.8.1.jar"|"%(find-jar juni
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.11.0-2
+- Rebuild
+
 * Tue Aug 15 2023 Marian Koncek <mkoncek@redhat.com> - 3.11.0-1
 - Update to upstream version 3.11.0
 

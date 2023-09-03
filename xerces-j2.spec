@@ -2,13 +2,13 @@
 
 Name:          xerces-j2
 Version:       2.12.2
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Java XML parser
 # Most of the source is ASL 2.0
 # W3C licensed files:
 # src/org/apache/xerces/dom3/as
 # src/org/w3c/dom/html/HTMLDOMImplementation.java
-License:       ASL 2.0 and W3C
+License:       Apache-2.0 AND W3C
 URL:           http://xerces.apache.org/xerces2-j/
 
 %global cvs_version %(tr . _ <<< %{version})
@@ -179,6 +179,9 @@ ln -sf %{name}.jar %{_javadir}/jaxp_parser_impl.jar
 %{_datadir}/%{name}
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.12.2-7
+- Convert License tag to SPDX format
+
 * Mon Aug 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.12.2-6
 - Build with default Java
 

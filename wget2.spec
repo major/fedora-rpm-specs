@@ -1,14 +1,19 @@
-%global somajor 1
+%bcond as_wget 0
+
+%global somajor 2
 
 Name:           wget2
-Version:        2.0.0
-Release:        6%{?dist}
+Version:        2.1.0
+Release:        2%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GFDL-1.3-or-later
 URL:            https://gitlab.com/gnuwget/wget2
 Source0:        https://ftp.gnu.org/gnu/wget/%{name}-%{version}.tar.gz
+Source1:        https://ftp.gnu.org/gnu/wget/%{name}-%{version}.tar.gz.sig
+# key 08302DB6A2670428
+Source2:        tim.ruehsen-keyring.asc
 
 # Buildsystem build requirements
 BuildRequires:  autoconf
@@ -22,6 +27,7 @@ BuildRequires:  make
 
 # Documentation build requirements
 BuildRequires:  doxygen
+BuildRequires:  git-core
 BuildRequires:  pandoc
 
 # Wget2 build requirements
@@ -50,6 +56,10 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  lcov
 BuildRequires:  lzip
 
+# For gpg signature verification
+BuildRequires:  gnupg2
+
+Provides:       webclient
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
@@ -80,7 +90,26 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Development libraries and headers needed for building applications to
 use functionality from GNU Wget2.
 
+%if %{with as_wget}
+%package wget
+Summary:        %{name} shim to provide wget
+Requires:       wget2%{?_isa} = %{version}-%{release}
+# Replace wget
+Conflicts:      wget < 2
+Obsoletes:      wget < 2
+Provides:       wget = %{version}-%{release}
+Provides:       wget%{?_isa} = %{version}-%{release}
+# From original wget package
+Provides:       webclient
+
+%description wget
+This package provides the shim links for %{name} to be automatically
+used in place of wget. This ensures that %{name} is used as
+the system provider of wget.
+%endif
+
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 
@@ -99,6 +128,14 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # Purge all libtool archives
 find %{buildroot} -type f -name "*.la" -delete -print
 
+# Delete useless noinstall binary
+rm -v %{buildroot}%{_bindir}/%{name}_noinstall
+
+%if %{with as_wget}
+ln -sr %{buildroot}%{_bindir}/%{name} %{buildroot}%{_bindir}/wget
+# Link wget(1) to wget2(1)
+echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
+%endif
 
 %check
 %make_build check
@@ -108,8 +145,7 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %license COPYING*
 %doc README.md
 %{_bindir}/%{name}
-%{_bindir}/%{name}_noinstall
-%{_mandir}/man1/*
+%{_mandir}/man1/%{name}.1*
 
 %files libs
 %license COPYING*
@@ -120,9 +156,23 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %{_includedir}/wgetver.h
 %{_libdir}/libwget*.so
 %{_libdir}/pkgconfig/libwget.pc
-%{_mandir}/man3/*
+%{_mandir}/man3/libwget*.3*
+
+%if %{with as_wget}
+%files wget
+%{_bindir}/wget
+%{_mandir}/man1/wget.1*
+%endif
+
 
 %changelog
+* Fri Sep 01 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.1.0-2
+- Add gpg signature check
+
+* Fri Sep 01 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.0-1
+- New upstream version
+- Add conditional for using wget2 as wget
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

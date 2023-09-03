@@ -5,7 +5,7 @@
 
 Name:           perl-CryptX
 Version:        0.078
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
 # src/ltm/*:    Unlicense
@@ -72,7 +72,7 @@ Requires:       perl(JSON)
 %endif
 %if %{with perl_CryptX_enables_optional_test}
 Requires:       perl(File::Find)
-Requires:       perl(Math::BigFloat) >= 1.999715
+%{!?el7:Requires:       perl(Math::BigFloat) >= 1.999715}
 Requires:       perl(Math::BigInt) >= 1.9997
 Requires:       perl(Math::Complex)
 Requires:       perl(Storable) >= 2.0
@@ -152,6 +152,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Aug 25 2023 Xavier Bachelot <xavier@bachelot.org> - 0.078-4
+- Don't Requires: perl(Math::BigFloat) for tests subpackage on EL7 (RHBZ#2234802)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.078-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,9 +2,9 @@
 
 Name:           osgi-compendium
 Version:        7.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Interfaces and Classes for use in compiling OSGi bundles
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://www.osgi.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -90,6 +90,9 @@ rm -r src/main/java/org/osgi/service/transaction/control/jpa
 
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 7.0.0-16
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

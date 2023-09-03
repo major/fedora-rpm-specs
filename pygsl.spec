@@ -2,26 +2,28 @@
 %global sum GNU Scientific Library Interface for python
 
 Name:          pygsl
-Version:       2.3.0
-Release:       23%{?dist}
+Version:       2.3.3
+Release:       1%{?dist}
 Summary:       %{sum}
 
 # The package is mostly GPL+ but there are two scripts
 # GLPv2+: pygsl/odeiv.py and examples/siman_tsp.py
-License:       GPLv2+
-Url:           http://pygsl.sourceforge.net
-Source0:       http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Patch0:        pygsl-swig-c99.patch
+License:       GPL-2.0-or-later
+Url:           https://pypi.python.org/pypi/pygsl
+Source:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
+Patch0:        pygsl-python312.patch
+
 BuildRequires: gcc
 BuildRequires: gsl-devel
-
 BuildRequires: python3-devel
-BuildRequires: python3-numpy
 BuildRequires: python3-numpy-f2py
-BuildRequires: python3-setuptools
+
+BuildRequires: python3dist(numpy)
+BuildRequires: python3dist(setuptools)
+BuildRequires: python3dist(wheel)
 
 # Only need if the generated sources are different from the version used in source
-# BuildRequires: swig
+BuildRequires: swig
 
 Requires:      python3-%{srcname} = %{version}-%{release}
 
@@ -62,6 +64,7 @@ Development files for pygsl
 %build
 # Only need if the generated sources are different from the version used in source
 # rm -f swig_src/gslwrap_wrap.c
+%__python3 setup.py gsl_wrappers
 %__python3 setup.py config
 %py3_build
 
@@ -74,8 +77,8 @@ Development files for pygsl
 
 %files -n python3-%{srcname}
 %license COPYING
-%doc ChangeLog README CREDITS
-%doc examples/  doc/index.html doc/README.html doc/TODO.html
+%doc ChangeLog README.rst CREDITS.rst TODO.rst
+%doc examples/  doc/
 %{python3_sitearch}/*
 
 %files -n python3-%{srcname}-devel
@@ -83,6 +86,12 @@ Development files for pygsl
 %doc testing tests
 
 %changelog
+* Fri Sep  1 2023 José Matos <jamatos@fedoraproject.org> - 2.3.3-1
+- Update to 2.3.3
+- Update license tag to SPDX license identifier
+- Update url for source
+- Add patch to work with Python 3.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

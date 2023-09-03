@@ -1,9 +1,8 @@
 Name:           jaxb
 Version:        4.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        JAXB Reference Implementation
-# EDL-1.0 license is BSD-3-clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-ri
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -64,7 +63,7 @@ JAXB Core module. Contains sources required by XJC, JXC and Runtime modules.
 
 %package rngom
 # pom.xml and module-info.java are under BSD, rest is MIT
-License:        MIT and BSD
+License:        MIT AND BSD-3-Clause
 Summary:        RELAX NG Object Model/Parser
 
 %description rngom
@@ -84,7 +83,7 @@ TXW is a library that allows you to write XML documents.
 
 %package xjc
 # jaxb-ri/xjc/src/main/java/com/sun/tools/xjc/reader/internalizer/NamespaceContextImpl.java is under ASL 2.0
-License:        BSD and ASL 2.0
+License:        BSD-3-Clause AND Apache-2.0
 Summary:        JAXB XJC
 
 %description xjc
@@ -159,6 +158,9 @@ popd
 %files xjc -f jaxb-ri/.mfiles-jaxb-xjc
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.2-3
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

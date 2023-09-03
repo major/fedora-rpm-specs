@@ -2,9 +2,9 @@
 
 Name:           maven-archiver
 Version:        3.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Archiver
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://maven.apache.org/shared/maven-archiver/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -51,6 +51,9 @@ Javadoc for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.6.1-2
+- Convert License tag to SPDX format
+
 * Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.6.1-1
 - Update to upstream version 3.6.1
 

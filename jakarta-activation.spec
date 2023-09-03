@@ -2,12 +2,12 @@
 
 Name:           jakarta-activation
 Version:        2.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jakarta Activation API
 # the whole project is licensed under (EPL-2.0 or BSD)
 # the source code additionally can be licensed under GPLv2 with exceptions
 # we only ship built source code
-License:        EPL-2.0 or BSD or GPLv2 with exceptions
+License:        EPL-2.0 OR BSD-3-Clause OR GPL-2.0-only WITH Classpath-exception-2.0
 URL:            https://jakartaee.github.io/jaf-api/
 BuildArch:      noarch
 %if 0%{?java_arches:1}
@@ -67,6 +67,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.2-2
+- Convert License tag to SPDX format
+
 * Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.2-1
 - Update to upstream version 2.1.2
 

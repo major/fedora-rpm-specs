@@ -2,10 +2,9 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.23.05
+%global downstream_so_version 0.23.8
 
 %bcond alembic       1
-%bcond documentation 0
 %bcond draco         1
 %bcond embree        1
 %bcond jemalloc      0
@@ -32,7 +31,7 @@
 %bcond test          0
 
 Name:           usd
-Version:        23.05
+Version:        23.08
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
@@ -41,16 +40,21 @@ Summary:        3D VFX pipeline interchange file format
 # BSD-3-Clause:
 #   - pxr/base/gf/ilmbase_*
 #   - pxr/base/js/rapidjson/msinttypes/
-#   - pxr/base/tf/pxrDoubleConversion/
 #   - pxr/base/tf/pxrCLI11/
+#   - pxr/base/tf/pxrDoubleConversion/
+#   - pxr/imaging/hio/OpenEXR/OpenEXRCore/
 # BSD-2-Clause:
 #   - pxr/base/tf/pxrLZ4/
 # MIT:
-#   - pxr/imaging/garch/khrplatform.h
+#   - docs/doxygen/doxygen-awesome-css/ (removed in %%prep)
 #   - pxr/base/js/rapidjson/, except pxr/base/js/rapidjson/msinttypes/
-#   - third_party/renderman-24/plugin/rmanArgsParser/pugixml/
+#   - pxr/base/tf/pxrPEGTL/
 #   - pxr/base/tf/pxrTslRobinMap/
+#   - pxr/imaging/garch/khrplatform.h
 #   - pxr/imaging/hgiVulkan/vk_mem_alloc.h
+#   - pxr/imaging/hio/EpenEXR/deflate/
+#   - pxr/usd/sdf/invoke.hpp
+#   - third_party/renderman-24/plugin/rmanArgsParser/pugixml/
 # MIT OR Unlicense:
 #   - pxr/imaging/hio/stb/
 # Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2:
@@ -62,8 +66,8 @@ Summary:        3D VFX pipeline interchange file format
 # do not contribute their license terms to the built RPMs.)
 License:        Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND (MIT OR Unlicense) AND (Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2)
 URL:            http://www.openusd.org/
-%global forgeurl https://github.com/PixarAnimationStudios/usd
-Source0:        %{forgeurl}/archive/v%{version}/usd-%{version}.tar.gz
+%global forgeurl https://github.com/PixarAnimationStudios/OpenUSD
+Source0:        %{forgeurl}/archive/v%{version}/OpenUSD-%{version}.tar.gz
 Source1:        org.openusd.usdview.desktop
 # Latest stb_image.patch that applies cleanly against 2.27:
 #   %%{forgeurl}/raw/8f9bb9563980b41e7695148b63bf09f7abd38a41/pxr/imaging/hio/stb/stb_image.patch
@@ -97,7 +101,7 @@ Source2:        stb_image.patch
 # to be versioned as well, which is undesired. This is not a serious problem
 # because we do not want to package the built plugin anyway. (It should not be
 # built with -DPXR_BUILD_EXAMPLES=OFF, but it is.)
-Patch:          USD-23.05-soversion.patch
+Patch:          usd-23.08-soversion.patch
 
 # Port to Embree 4.x
 # https://github.com/PixarAnimationStudios/USD/pull/2266
@@ -121,16 +125,10 @@ BuildRequires:  hdf5-devel
 BuildRequires:  opensubdiv-devel
 BuildRequires:  pkgconfig(tbb)
 
-BuildRequires:  cmake(OpenEXR) >= 3.0
 BuildRequires:  cmake(Imath) >= 3.0
 
 %if %{with alembic}
 BuildRequires:  cmake(Alembic)
-%endif
-
-%if %{with documentation}
-BuildRequires:  doxygen
-BuildRequires:  graphviz
 %endif
 
 %if %{with draco}
@@ -197,9 +195,12 @@ description for interchange between graphics applications.
 %package        libs
 Summary:        Universal Scene Description library
 
-# Upstream bundles
 # Filed ticket to convince upstream to use system libraries
-# https://github.com/PixarAnimationStudios/USD/issues/1490
+#   Use system libraries instead of bundling them when possible
+#   https://github.com/PixarAnimationStudios/USD/issues/1490
+# See also:
+#   Path to using external/system copies of OpenEXRCore and libdeflate?
+#   https://github.com/PixarAnimationStudios/OpenUSD/issues/2619
 # Version from: pxr/base/tf/pxrDoubleConversion/README
 Provides:       bundled(double-conversion) = 2.0.0
 # Version from: pxr/base/gf/ilmbase_half.README
@@ -219,9 +220,21 @@ Provides:       bundled(rapidjson) = 1.1.0
 Provides:       bundled(SPIRV-Reflect) = 1.0
 # Version from: pxr/imaging/hgiVulkan/vk_mem_alloc.h (header comment)
 Provides:       bundled(VulkanMemoryAllocator) = 3.0.0~development
-# Forked from an unknown version:
-# pxr/base/tf/pxrTslRobinMap/
+# Forked from an unknown version: pxr/base/tf/pxrTslRobinMap/
 Provides:       bundled(robin-map)
+# Version from: pxr/base/tf/pxrPEGTL/pegtl.h (TAO_PEGTL_VERSION)
+Provides:       bundled(PEGTL) = 2.8.3
+# Version from pxr/imaging/hio/OpenEXR/OpenEXRCore/openexr_version.h
+Provides:       bundled(openexr) = 3.2.0
+# Version from pxr/imaging/hio/OpenEXR/deflate/libdeflate.h
+Provides:       bundled(libdeflate) = 1.18
+# Forked from https://github.com/blackmatov/invoke.hpp, which upstream has
+# never versioned; however, a copyright statement appears in the header comment
+# in pxr/usd/sdf/invoke.hpp with a date of 2023, and the only upstream commit
+# with the same date (as of this writing) is
+# 2c1eabc2e20ab02961f95c704ff0c0818671ddd1, so we infer that the bundled copy
+# was forked from that commit.
+Provides:       bundled(invoke-hpp) = 0^20230107git2c1eabc
 
 %description libs
 Universal Scene Description (USD) is an efficient, scalable system for
@@ -271,18 +284,8 @@ Requires:       python3dist(pyopengl)
 %description -n python3-usd
 Python language bindings for the Universal Scene Description (USD) C++ API
 
-
-%if %{with documentation}
-%package        doc
-Summary:        Documentation for usd
-BuildArch:      noarch
-
-%description doc
-Documentation for the Universal Scene Description (USD) C++ API
-%endif
-
 %prep
-%autosetup -p1 -n USD-%{version}
+%autosetup -p1 -n OpenUSD-%{version}
 
 # Convert NOTICE.txt from CRNL line encoding
 dos2unix NOTICE.txt
@@ -309,6 +312,10 @@ patch -p1 < '%{SOURCE2}'
 ln -svf %{_includedir}/stb_image_resize.h \
     %{_includedir}/stb_image_write.h ./
 popd
+
+# Remove bundled doxygen-awesome-css (CSS and JS files) since we are not
+# building Doxygen-generated HTML documentation.
+rm -rf docs/doxygen/doxygen-awesome-css/
 
 # Use c++17 standard otherwise build fails
 sed -i 's|set(CMAKE_CXX_STANDARD 14)|set(CMAKE_CXX_STANDARD 17)|g' \
@@ -343,10 +350,11 @@ chmod +x uic-wrapper
 
 
 %build
-# Although upstream supports OpenEXR3 / Imath now, the necessary include path
-# is not set everywhere it’s needed. It’s not immediately clear exactly why
-# this is happening here or what should be changed upstream.
+# The necessary include path for Imath is not set everywhere it’s needed. It’s
+# not immediately clear exactly why this is happening here or what should be
+# changed upstream.
 extra_flags="${extra_flags-} $(pkgconf --cflags Imath)"
+
 # Suppress deprecation warnings from TBB; upstream should act on them
 # eventually, but they just add noise here.
 extra_flags="${extra_flags-} -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1"
@@ -368,7 +376,7 @@ extra_flags="${extra_flags-} -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1"
      -DCMAKE_SKIP_RPATH=ON \
      -DCMAKE_VERBOSE_MAKEFILE=ON \
      \
-     -DPXR_BUILD_DOCUMENTATION=%{expr:%{with documentation}?"TRUE":"FALSE"} \
+     -DPXR_BUILD_DOCUMENTATION=FALSE \
      -DPXR_BUILD_EXAMPLES=OFF \
      -DPXR_BUILD_IMAGING=ON \
      -DPXR_BUILD_MONOLITHIC=ON \
@@ -529,12 +537,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.openusd.usdview.d
 %{_libdir}/cmake/pxr/pxrConfig.cmake
 %{_libdir}/cmake/pxr/pxrTargets.cmake
 %{_libdir}/cmake/pxr/pxrTargets-release.cmake
-
-%if %{with documentation}
-%files doc
-%license LICENSE.txt
-%{_docdir}/usd/
-%endif
 
 %changelog
 %autochangelog

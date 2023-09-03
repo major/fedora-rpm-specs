@@ -1,10 +1,10 @@
 Name:           jaxb-fi
 Version:        2.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Implementation of the Fast Infoset Standard for Binary XML
-# jaxb-fi is licensed ASL 2.0 and EDL-1.0 (BSD)
+# jaxb-fi is licensed Apache-2.0 and EDL-1.0 (BSD-3-Clause)
 # bundled org.apache.xerces.util.XMLChar.java is licensed ASL 1.1
-License:        ASL 2.0 and BSD and ASL 1.1
+License:        Apache-2.0 AND BSD-3-Clause AND Apache-1.1
 URL:            https://github.com/eclipse-ee4j/jaxb-fi
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -29,7 +29,7 @@ describes an open, standards-based "binary XML" format that is based on
 the XML Information Set.
 
 %package tests
-License:        ASL 2.0 and BSD
+License:        Apache-2.0 AND BSD-3-Clause
 Summary:        FastInfoset Roundtrip Tests
 %description tests
 %{summary}.
@@ -64,6 +64,9 @@ Summary:        FastInfoset Roundtrip Tests
 %license LICENSE NOTICE.md
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.0-7
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,10 +4,10 @@
 
 Name:           java_cup
 Version:        0.11b
-Release:        24%{?dist}
+Release:        25%{?dist}
 Epoch:          1
 Summary:        LALR parser generator for Java
-License:        MIT
+License:        SMLNJ
 URL:            http://www2.cs.tum.edu/projects/cup/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -100,6 +100,9 @@ jar ufm dist/java-cup-%{pkg_version}-runtime.jar %{SOURCE4}
 %license licence.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:0.11b-25
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.11b-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

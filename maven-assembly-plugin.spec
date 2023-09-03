@@ -2,7 +2,7 @@
 
 Name:           maven-assembly-plugin
 Version:        3.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Assembly Plugin
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/maven-assembly-plugin/
@@ -69,6 +69,9 @@ This package provides %{summary}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.6.0-2
+- Rebuild
+
 * Mon Aug 14 2023 Marian Koncek <mkoncek@redhat.com> - 3.6.0-1
 - Update to upstream version 3.6.0
 

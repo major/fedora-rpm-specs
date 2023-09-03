@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           jakarta-mail
-Version:        2.1.0
+Version:        2.1.2
 Release:        1%{?dist}
 Summary:        Jakarta Mail API
 License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
@@ -63,6 +63,12 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Sep 01 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 2.1.2-1
+- Update to 2.1.2 release
+
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.0-2
+- Rebuild
+
 * Mon Aug 21 2023 Marian Koncek <mkoncek@redhat.com> - 2.1.0-1
 - Update to upstream version 2.1.0
 

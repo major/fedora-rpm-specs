@@ -19,10 +19,10 @@
 
 Name:           javapackages-bootstrap
 Version:        1.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
-License:        ASL 2.0 and ASL 1.1 and (ASL 2.0 or EPL-2.0) and (EPL-2.0 or GPLv2 with exceptions) and MIT and BSD with advertising and BSD and EPL-1.0 and EPL-2.0 and CDDL-1.0 and xpp and CC0 and Public Domain
+License:        Apache-2.0 AND Apache-1.1 AND (Apache-2.0 OR EPL-2.0) AND (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND MIT AND BSD-3-Clause AND EPL-1.0 AND EPL-2.0 AND CDDL-1.0 AND xpp AND CC0-1.0 AND Plexus AND SMLNJ AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/fedora-java/javapackages-bootstrap
 ExclusiveArch:  %{java_arches}
 
@@ -382,6 +382,9 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %doc AUTHORS
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.13.0-2
+- Convert License tag to SPDX format
+
 * Fri Aug 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.13.0-1
 - Update to upstream version 1.13.0
 

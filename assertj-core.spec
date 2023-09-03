@@ -2,9 +2,9 @@
 
 Name:           assertj-core
 Version:        3.24.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library of assertions similar to fest-assert
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://joel-costigliola.github.io/assertj/
 Source0:        https://github.com/joel-costigliola/assertj-core/archive/assertj-build-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ This package provides API documentation for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.24.2-4
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

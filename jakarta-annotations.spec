@@ -2,9 +2,9 @@
 
 Name:           jakarta-annotations
 Version:        1.3.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Jakarta Annotations
-License:        EPL-2.0 or GPLv2 with exceptions
+License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
 URL:            https://github.com/eclipse-ee4j/common-annotations-api
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -68,6 +68,9 @@ that applies across a variety of Java technologies.
 %doc README.md
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3.5-17
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

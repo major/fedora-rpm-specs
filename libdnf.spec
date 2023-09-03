@@ -1,11 +1,11 @@
 %global libsolv_version 0.7.21
 %global libmodulemd_version 2.13.0
-%global librepo_version 1.13.1
+%global librepo_version 1.15.0
 %global dnf_conflict 4.11.0
 %global swig_version 3.0.12
 %global libdnf_major_version 0
-%global libdnf_minor_version 70
-%global libdnf_micro_version 2
+%global libdnf_minor_version 71
+%global libdnf_micro_version 0
 
 %define __cmake_in_source_build 1
 
@@ -86,7 +86,6 @@ BuildRequires:  pkgconfig(cppunit)
 BuildRequires:  pkgconfig(modulemd-2.0) >= %{libmodulemd_version}
 BuildRequires:  pkgconfig(smartcols)
 BuildRequires:  gettext
-BuildRequires:  gpgme-devel
 
 %if %{with sanitizers}
 BuildRequires:  libasan
@@ -304,6 +303,14 @@ popd
 %endif
 
 %changelog
+* Fri Sep 01 2023 Jan Kolarik <jkolarik@redhat.com> - 0.71.0-1
+- Update to 0.71.0
+- PGP: Use new librepo PGP API, remove gpgme dependency
+- API: Basic support for OpenPGP public keys
+- Avoid using GNU extensions in the dependency splitter regex
+- filterAdvisory: match installed_solvables sort with lower_bound (RhBug:2212838)
+- Make code C++20 compatible
+
 * Fri Jul 28 2023 Nicola Sella <nsella@redhat.com> - 0.70.2-1
 - Update to 0.70.2
 - Support "proxy=none" in main config (RhBug:2155713)

@@ -2,9 +2,9 @@
 
 Name:           maven-filtering
 Version:        3.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shared component providing resource filtering
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/shared/%{name}/index.html
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -65,6 +65,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.1-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.1-1
 - Update to upstream version 3.3.1
 

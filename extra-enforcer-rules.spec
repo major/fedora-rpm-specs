@@ -2,9 +2,9 @@
 
 Name:           extra-enforcer-rules
 Version:        1.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extra rules for maven-enforcer-plugin
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/mojohaus/extra-enforcer-rules
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -57,6 +57,9 @@ Javadoc for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7.0-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7.0-1
 - Update to upstream version 1.7.0
 

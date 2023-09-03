@@ -6,11 +6,12 @@
 %if 0%{?fedora}
 %global with_pandoc 1
 %endif
+%bcond_without rust
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.29.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -37,6 +38,8 @@ Source25:       91-zipl.install
 # change the defaults to match Fedora environment
 Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
+# https://github.com/ibm-s390-linux/s390-tools/pull/155
+Patch2:         snmp-semicolon.patch
 
 # upstream fixes/updates
 #Patch100:       s390utils-%%{version}-fedora.patch
@@ -51,6 +54,31 @@ Requires:       s390utils-ziomon = %{epoch}:%{version}-%{release}
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+%if %{with rust}
+BuildRequires:  crate(anstream)
+BuildRequires:  crate(anstyle-query)
+BuildRequires:  crate(anyhow)
+BuildRequires:  crate(byteorder)
+BuildRequires:  crate(cfg-if)
+BuildRequires:  crate(clap)
+BuildRequires:  crate(clap_complete)
+BuildRequires:  crate(clap_derive)
+BuildRequires:  crate(colorchoice)
+BuildRequires:  crate(curl)
+BuildRequires:  crate(is-terminal)
+BuildRequires:  crate(libc)
+BuildRequires:  crate(log)
+BuildRequires:  crate(openssl)
+BuildRequires:  crate(openssl-probe)
+BuildRequires:  crate(serde)
+BuildRequires:  crate(serde_derive)
+BuildRequires:  crate(serde_yaml)
+BuildRequires:  crate(strsim)
+BuildRequires:  crate(terminal_size)
+BuildRequires:  crate(thiserror)
+BuildRequires:  crate(zerocopy)
+BuildRequires:  rust-packaging
+%endif
 
 %description
 This is a meta package for installing the default s390-tools sub packages.
@@ -66,16 +94,22 @@ be used together with the zSeries (s390) Linux kernel and device drivers.
 # Fedora/RHEL changes
 %patch 0 -p1 -b .zipl-invert-script-options
 %patch 1 -p1 -b .blscfg-rpm-nvr-sort
+%patch 2 -p1 -b .snmp
 
 # upstream fixes/updates
 #%%patch 100 -p1
-
+%if %{with rust}
+%cargo_prep
+rm -rf ./rust/pvsecret/Cargo.lock
+%endif
 
 %build
 make \
         CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cxxflags}" LDFLAGS="%{build_ldflags}" \
-        HAVE_CARGO=0 \
         HAVE_DRACUT=1 \
+%if %{without rust}
+        HAVE_CARGO=0 \
+%endif
 %if 0%{?with_pandoc}
         ENABLE_DOC=1 \
 %endif
@@ -87,8 +121,10 @@ make \
 
 %install
 make install \
-        HAVE_CARGO=0 \
         HAVE_DRACUT=1 \
+%if %{without rust}
+        HAVE_CARGO=0 \
+%endif
 %if 0%{?with_pandoc}
         ENABLE_DOC=1 \
 %endif
@@ -471,6 +507,9 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_bindir}/mk-s390image
 %{_bindir}/pvattest
 %{_bindir}/pvextract-hdr
+%if %{with rust}
+%{_bindir}/pvsecret
+%endif
 %{_bindir}/zkey
 %{_bindir}/zkey-cryptsetup
 %{_unitdir}/dumpconf.service
@@ -499,6 +538,16 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_mandir}/man1/pvattest-create.1*
 %{_mandir}/man1/pvattest-perform.1*
 %{_mandir}/man1/pvattest-verify.1*
+%if %{with rust}
+%{_mandir}/man1/pvsecret-add.1*
+%{_mandir}/man1/pvsecret-create-association.1*
+%{_mandir}/man1/pvsecret-create-meta.1*
+%{_mandir}/man1/pvsecret-create.1*
+%{_mandir}/man1/pvsecret-list.1*
+%{_mandir}/man1/pvsecret-lock.1*
+%{_mandir}/man1/pvsecret-version.1*
+%{_mandir}/man1/pvsecret.1*
+%endif
 %{_mandir}/man1/zkey.1*
 %{_mandir}/man1/zkey-cryptsetup.1*
 %{_mandir}/man1/zkey-ekmfweb.1*
@@ -898,6 +947,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Thu Aug 31 2023 Jakub Čajka <jcajka[at]redhat.com> - 2:2.29.0-2
+- enable rust based tools
+
 * Mon Aug 07 2023 Dan Horák <dan[at]danny.cz> - 2:2.29.0-1
 - rebased to 2.29.0
 

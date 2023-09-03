@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.21.0
+Version:        0.22.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -62,7 +62,7 @@ Summary:        %{summary}
 
 %if %{with tests}
 %check
-%pytest
+%pytest --verbose tests/unit tests/integration
 %endif
 
 
@@ -71,6 +71,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 01 2023 Packit <hello@packit.dev> - 0.22.0-1
+- Macro definitions and tags gained a new `valid` attribute. A macro definition/tag is considered valid if it doesn't appear in a false branch of any condition appearing in the spec file. (#276)
+
 * Fri Aug 11 2023 Nikola Forró <nforro@redhat.com> - 0.21.0-1
 - `specfile` no longer tracebacks when some sources are missing and can't be _emulated_. In such case the spec file is parsed without them at the cost of `%%setup` and `%%patch` macros potentially expanding differently than with the sources present. (#271)
 - Specfile's license in RPM spec file is now confirmed to be SPDX compatible. (#269)

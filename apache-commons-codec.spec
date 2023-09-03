@@ -2,7 +2,7 @@
 
 Name:           apache-commons-codec
 Version:        1.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementations of common encoders and decoders
 License:        Apache-2.0
 URL:            https://commons.apache.org/codec/
@@ -51,6 +51,9 @@ sed -i 's/\r//' RELEASE-NOTES*.txt LICENSE.txt NOTICE.txt
 %doc RELEASE-NOTES*
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.16.0-2
+- Rebuild
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.16.0-1
 - Update to upstream version 1.16.0
 

@@ -1,8 +1,8 @@
 Name:           jaxb-istack-commons
 Version:        4.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        iStack Common Utility Code
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-istack-commons
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -82,6 +82,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.2.0-3
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

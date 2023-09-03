@@ -1,6 +1,6 @@
 Name:           apache-commons-net
 Version:        3.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Internet protocol suite Java library
 License:        Apache-2.0
 URL:            https://commons.apache.org/net/
@@ -62,6 +62,9 @@ src/test/java/org/apache/commons/net/ftp/NoProtocolSslConfigurationProxy.java \
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.9.0-2
+- Rebuild
+
 * Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 3.9.0-1
 - Update to upstream version 3.9.0
 

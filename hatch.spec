@@ -61,6 +61,15 @@ Source1300:     hatch-version.1
 # with hatchling 1.14.1.
 Patch:          %{url}/commit/1b10663e645efd6f37d616c5de34451dc2e015c0.patch
 
+# Fix CI (#940)
+# fix unrelated ci issue
+# https://github.com/pypa/hatch/commit/4ddbf0a9a720caed18d19c083ff88427c9d2a993
+#
+# This patch adjusts the expected whitespace in two tests to match recent
+# versions of tomlkit; the change in tomlkit was introduced no later than
+# 0.12.1 and no earlier than 0.11.5.
+Patch:          %{url}/commit/4ddbf0a9a720caed18d19c083ff88427c9d2a993.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

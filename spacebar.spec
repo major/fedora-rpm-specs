@@ -1,6 +1,6 @@
 Name:           spacebar
 Version:        23.01.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/spacebar
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Wed Aug 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 23.01.0-5
+- Rebuilt for abseil-cpp 20230802.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

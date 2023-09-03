@@ -1,7 +1,7 @@
 # fedora/remirepo spec file for phpcov
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -12,7 +12,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    8ec45dde34a84914a0ace355fbd6d7af2242c9a4
+%global gh_commit    e314a94c87176732267056b497e5a88931db90cc
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpcov
@@ -26,11 +26,11 @@
 
 
 Name:           %{pk_project}
-Version:        8.2.1
-Release:        4%{?dist}
+Version:        9.0.0
+Release:        1%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -39,33 +39,33 @@ Source1:        makesrc.sh
 Patch0:         %{gh_project}-rpm.patch
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
-BuildRequires:  phpunit9 >= 9.3
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 9.2    with php-composer(phpunit/php-code-coverage) < 10)
-BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 3.0    with php-composer(phpunit/php-file-iterator) < 4)
-BuildRequires:  (php-composer(sebastian/cli-parser)      >= 1.0    with php-composer(sebastian/cli-parser)      < 2)
-BuildRequires:  (php-composer(sebastian/diff)            >= 4      with php-composer(sebastian/diff)            < 5)
-BuildRequires:  (php-composer(sebastian/version)         >= 3.0    with php-composer(sebastian/version)         < 4)
+BuildRequires:  phpunit10
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 10.0   with php-composer(phpunit/php-code-coverage) < 11)
+BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 4.0    with php-composer(phpunit/php-file-iterator) < 5)
+BuildRequires:  (php-composer(sebastian/cli-parser)      >= 2.0    with php-composer(sebastian/cli-parser)      < 3)
+BuildRequires:  (php-composer(sebastian/diff)            >= 5.0    with php-composer(sebastian/diff)            < 6)
+BuildRequires:  (php-composer(sebastian/version)         >= 4.0    with php-composer(sebastian/version)         < 5)
 BuildRequires:  php-pecl(Xdebug) >= 3
 %endif
 
 # from composer.json
-#        "php": ">=7.3",
-#        "phpunit/phpunit": "^9.0",
-#        "phpunit/php-code-coverage": "^9.2",
-#        "phpunit/php-file-iterator": "^3.0",
-#        "sebastian/cli-parser": "^1.0",
-#        "sebastian/diff": "^4.0",
-#        "sebastian/version": "^3.0"
-Requires:       php(language) >= 7.3
-Requires:       phpunit9 >= 9.3
-Requires:       (php-composer(phpunit/php-code-coverage) >= 9.2    with php-composer(phpunit/php-code-coverage) < 10)
-Requires:       (php-composer(phpunit/php-file-iterator) >= 3.0    with php-composer(phpunit/php-file-iterator) < 4)
-Requires:       (php-composer(sebastian/cli-parser)      >= 1.0    with php-composer(sebastian/cli-parser)      < 2)
-Requires:       (php-composer(sebastian/diff)            >= 4      with php-composer(sebastian/diff)            < 5)
-Requires:       (php-composer(sebastian/version)         >= 3.0    with php-composer(sebastian/version)         < 4)
+#        "php": ">=8.1",
+#        "phpunit/phpunit": "^10.0",
+#        "phpunit/php-code-coverage": "^10.0",
+#        "phpunit/php-file-iterator": "^4.0",
+#        "sebastian/cli-parser": "^2.0",
+#        "sebastian/diff": "^5.0",
+#        "sebastian/version": "^4.0"
+Requires:       php(language) >= 8.1
+Requires:       phpunit10
+Requires:       (php-composer(phpunit/php-code-coverage) >= 10.0   with php-composer(phpunit/php-code-coverage) < 11)
+Requires:       (php-composer(phpunit/php-file-iterator) >= 4.0    with php-composer(phpunit/php-file-iterator) < 5)
+Requires:       (php-composer(sebastian/cli-parser)      >= 2.0    with php-composer(sebastian/cli-parser)      < 3)
+Requires:       (php-composer(sebastian/diff)            >= 5.0    with php-composer(sebastian/diff)            < 6)
+Requires:       (php-composer(sebastian/version)         >= 4.0    with php-composer(sebastian/version)         < 5)
 # from phpcompatinfo report for version 4.0.0
 # none
 
@@ -81,7 +81,7 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
-%patch0 -p0 -b .rpm
+%patch -P0 -p0 -b .rpm
 
 
 %build
@@ -93,12 +93,12 @@ phpab \
 cat << 'EOF' | tee -a src/autoload.php
 // Dependencies
 \Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/PHPUnit9/autoload.php',
-    '%{php_home}/%{ns_vendor}/CodeCoverage9/autoload.php',
-    '%{php_home}/%{ns_vendor}/FileIterator3/autoload.php',
-    '%{php_home}/%{ns_vendor}/CliParser/autoload.php',
-    '%{php_home}/%{ns_vendor}/Diff4/autoload.php',
-    '%{php_home}/%{ns_vendor}/Version3/autoload.php',
+    '%{php_home}/PHPUnit10/autoload.php',
+    '%{php_home}/%{ns_vendor}/CodeCoverage10/autoload.php',
+    '%{php_home}/%{ns_vendor}/FileIterator4/autoload.php',
+    '%{php_home}/%{ns_vendor}/CliParser2/autoload.php',
+    '%{php_home}/%{ns_vendor}/Diff5/autoload.php',
+    '%{php_home}/%{ns_vendor}/Version4/autoload.php',
 ]);
 EOF
 
@@ -123,19 +123,12 @@ fi
 rm tests/end-to-end/execute/valid-script-argument-with-cli-include-with-text-report.phpt
 rm tests/end-to-end/merge/valid-directory-with-text-report.phpt
 rm tests/end-to-end/merge/valid-directory-with-text-report-stdout.phpt
-# test incompatible with coverage 9.2 (--cobertura)
-# https://github.com/sebastianbergmann/phpcov/issues/108
-rm tests/end-to-end/help/help.phpt
-rm tests/end-to-end/help/help2.phpt
-
-# Needed for XDebug 3
-find tests -name \*.phpt \
-  -exec sed -e '/xdebug.overload_var_dump/d' -i {} \;
+rm tests/end-to-end/patch-coverage/valid-arguments-with-valid-path-prefix.phpt
 
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php81 php82; do
   if which $cmd; then
-    $cmd $EXT %{_bindir}/phpunit9 --testsuite end-to-end --verbose || ret=1
+    $cmd $EXT -d xdebug.mode=coverage %{_bindir}/phpunit10 --testsuite end-to-end || ret=1
   fi
 done
 exit $ret;
@@ -153,6 +146,16 @@ exit $ret;
 
 
 %changelog
+* Fri Sep  1 2023 Remi Collet <remi@remirepo.net> - 9.0.0-1
+- update to 9.0.0
+- raise dependency on PHP 8.1
+- raise dependency on phpunit/phpunit 10
+- raise dependency on phpunit/php-code-coverage 10
+- raise dependency on phpunit/php-file-iterator 4
+- raise dependency on sebastian/cli-parser 2
+- raise dependency on sebastian/diff 5
+- raise dependency on sebastian/version 4
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

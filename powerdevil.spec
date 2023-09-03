@@ -2,7 +2,7 @@
 
 Name:    powerdevil
 Version: 5.27.7
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: GPLv2+
@@ -20,6 +20,12 @@ URL:     https://invent.kde.org/plasma/%{name}
 Source0: http://download.kde.org/%{stable}/plasma/%{plasma_version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
+# https://bugzilla.redhat.com/show_bug.cgi?id=2232711
+# https://bugs.kde.org/show_bug.cgi?id=473835
+# https://invent.kde.org/plasma/powerdevil/-/merge_requests/230
+# Disable auto-suspend in VMs to avoid hangs
+# Rebased on 5.27.7
+Patch: 0001-profiledefaults-don-t-automatically-suspend-by-defau.patch
 
 ## upstreamable patches
 
@@ -134,6 +140,12 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf5_qtplugindir}/powerdevil/action/powerdevil_*.so
 
 %changelog
+* Fri Sep 01 2023 Adam Williamson <awilliam@redhat.com> - 5.27.7-3
+- Fix a bug in the backported patch (thanks Natalie, the original author)
+
+* Fri Sep 01 2023 Adam Williamson <awilliam@redhat.com> - 5.27.7-2
+- Backport MR #230 to disable auto-suspend on VMs (#2232711)
+
 * Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
 - 5.27.7
 

@@ -1,17 +1,25 @@
 %global service download_files
 
 Name:           obs-service-%{service}
-Version:        0.6.2
-Release:        10%{?dist}
+Version:        0.9.2
+Release:        1%{?dist}
 Summary:        An OBS source service: download files
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/obs-service-%{service}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-interpreter
+# tests
+BuildRequires:  /usr/bin/prove
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(Path::Class)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(HTTP::Server::Simple::CGI)
+BuildRequires:  perl(File::Type)
+BuildRequires:  obs-build
 Requires:       diffutils
 Requires:       wget
 # for appimage parser:
@@ -36,6 +44,9 @@ perl -p -i -e "s{#!/usr/bin/env bash}{#!/bin/bash}" download_files
 %install
 %make_install
 
+%check
+%make_build test
+
 
 %files
 %license COPYING
@@ -49,6 +60,9 @@ perl -p -i -e "s{#!/usr/bin/env bash}{#!/bin/bash}" download_files
 
 
 %changelog
+* Fri Sep  1 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.9.2-1
+- New upstream release 0.9.2, fixes rhbz#1906136
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

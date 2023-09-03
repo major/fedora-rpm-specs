@@ -2,7 +2,7 @@
 
 Name:           plexus-containers
 Version:        2.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Containers for Plexus
 # Most of the files are either under Apache-2.0 or MIT
 # The following files are under xpp:
@@ -123,6 +123,9 @@ rm plexus-component-metadata/src/test/java/org/codehaus/plexus/metadata/DefaultC
 %license LICENSE-2.0.txt LICENSE.MIT
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.1-6
+- Rebuild
+
 * Thu Aug 10 2023 Marian Koncek <mkoncek@redhat.com> - 2.1.1-5
 - Use implicit maven toolchains
 

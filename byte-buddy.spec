@@ -2,9 +2,9 @@
 
 Name:           byte-buddy
 Version:        1.14.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://bytebuddy.net/
 Source0:        https://github.com/raphw/byte-buddy/archive/refs/tags/byte-buddy-%{version}.tar.gz
 
@@ -149,6 +149,9 @@ profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompil
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.14.2-4
+- Convert License tag to SPDX format
+
 * Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.14.2-3
 - Build with Jurand instead of deprecated javapackages-extra
 

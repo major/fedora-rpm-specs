@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-qcheck
-Version:        0.21.1
-Release:        4%{?dist}
+Version:        0.21.2
+Release:        1%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -17,6 +17,9 @@ Source0:        https://github.com/c-cube/qcheck/archive/v%{version}/%{name}-%{v
 Patch0:         %{name}-mathlib.patch
 # Remove references to the bytes library for OCaml 5.0
 Patch1:         %{name}-ocaml5.patch
+# Fix an asciidoc error
+# https://github.com/c-cube/qcheck/pull/284
+Patch2:         %{name}-asciidoc.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  ocaml >= 4.08.0
@@ -126,7 +129,6 @@ files for developing applications that use %{name}-alcotest.
 
 %package     -n ocaml-ppx-deriving-qcheck
 Summary:        PPX deriver for QCheck
-Requires:       %{name}-alcotest%{?_isa} = %{version}-%{release}
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 
 
@@ -150,9 +152,6 @@ ocaml-ppx-deriving-qcheck.
 
 %prep
 %autosetup -n qcheck-%{version} -p1
-
-# Fix a markup bug in the README
-sed -i 's/\[@@deriving/\\&/' README.adoc
 
 
 %build
@@ -200,6 +199,10 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Fri Sep  1 2023 Jerry James <loganjerry@gmail.com> - 0.21.2-1
+- Version 0.21.2
+- Add patch to fix an asciidoc error
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

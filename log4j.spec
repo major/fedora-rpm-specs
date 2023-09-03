@@ -3,7 +3,7 @@
 
 Name:           log4j
 Version:        2.20.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -309,6 +309,9 @@ rm log4j-core/src/main/java/org/apache/logging/log4j/core/filter/MutableThreadCo
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.20.0-3
+- Rebuild
+
 * Tue Aug 22 2023 Marian Koncek <mkoncek@redhat.com> - 2.20.0-2
 - Do not install zip files
 

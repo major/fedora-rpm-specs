@@ -2,9 +2,9 @@
 
 Name:           mojo-parent
 Version:        76
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Codehaus MOJO parent project pom file
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://www.mojohaus.org/mojo-parent/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -44,6 +44,9 @@ cp %SOURCE1 .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 76-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 76-1
 - Update to upstream version 76
 

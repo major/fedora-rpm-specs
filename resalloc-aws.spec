@@ -1,7 +1,7 @@
 Name:       resalloc-aws
 Summary:    Resource allocator scripts for AWS
-Version:    1.4
-Release:    2%{?dist}
+Version:    1.5
+Release:    1%{?dist}
 License:    GPLv2+
 URL:        https://github.com/praiskup/resalloc-aws
 BuildArch:  noarch
@@ -58,8 +58,8 @@ install -p -m 0755 %{name}-wait-for-ssh %{buildroot}%{_bindir}/resalloc-aws-wait
 
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Fri Sep 01 2023 Pavel Raiskup <praiskup@redhat.com> 1.5-1
+- resalloc-aws-new: add `--root-volume-size` option (svashisht@redhat.com)
 
 * Wed May 10 2023 Pavel Raiskup <praiskup@redhat.com> 1.4-1
 - resalloc-aws-new: use gp3 volume for the root filesystem (frostyx@email.cz)

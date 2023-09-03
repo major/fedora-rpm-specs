@@ -32,10 +32,10 @@
 
 Name:           slf4j
 Version:        1.7.32
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Simple Logging Facade for Java
 # the log4j-over-slf4j and jcl-over-slf4j submodules are ASL 2.0, rest is MIT
-License:        MIT and ASL 2.0
+License:        MIT AND Apache-2.0
 URL:            http://www.slf4j.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -205,6 +205,9 @@ cp -pr target/site/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
 %{_defaultdocdir}/%{name}-manual
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7.32-8
+- Convert License tag to SPDX format
+
 * Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7.32-7
 - Build with default JDK 17
 

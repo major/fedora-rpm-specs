@@ -2,9 +2,9 @@
 
 Name:           plexus-languages
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plexus Languages
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-languages
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -51,6 +51,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.1.2-2
+- Convert License tag to SPDX format
+
 * Wed Aug 23 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.1.2-1
 - Update to upstream version 1.1.2
 

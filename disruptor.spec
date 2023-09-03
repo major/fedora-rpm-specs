@@ -2,9 +2,9 @@
 
 Name:          disruptor
 Version:       3.4.4
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Concurrent Programming Framework
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           https://lmax-exchange.github.io/disruptor/
 BuildArch:     noarch
 ExclusiveArch: %{java_arches} noarch
@@ -83,6 +83,9 @@ rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 %license LICENCE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.4.4-7
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 3.1.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
@@ -16,7 +16,8 @@ BuildRequires: autoconf automake libtool
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires(post): systemd coreutils procps-ng
-Requires(preun): systemd initscripts-service
+Requires(preun): systemd
+Recommends: initscripts-service
 Requires(postun): systemd coreutils initscripts-service
 
 # Placing this here under the assumption that anything using the
@@ -148,13 +149,25 @@ fi
 
 %preun
 %systemd_preun auditd.service
-if [ $1 -eq 0 ]; then
-    /sbin/service auditd stop > /dev/null 2>&1
+# Prefer script because it waits for auditd to terminate
+if [ -e /usr/libexec/initscripts/legacy-actions/auditd/stop ] ; then
+	/usr/libexec/initscripts/legacy-actions/auditd/stop
+else
+	auditctl --signal stop
 fi
 
 %postun
 if [ $1 -ge 1 ]; then
-    /sbin/service auditd condrestart > /dev/null 2>&1 || :
+    state=$(systemctl status auditd | awk '/Active:/ { print $2 }')
+    if [ $state = "active" ] ; then
+        # Prefer script because it waits for auditd to terminate
+        if [ -e /usr/libexec/initscripts/legacy-actions/auditd/stop ] ; then
+            /usr/libexec/initscripts/legacy-actions/auditd/stop
+        else
+            auditctl --signal stop
+        fi
+        systemctl start auditd
+    fi
 fi
 
 %files libs
@@ -255,6 +268,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Fri Sep 01 2023 Steve Grubb <sgrubb@redhat.com> 3.1.2-3
+- Change initscrips-service to a Recommends
+
 * Sat Aug 26 2023 Steve Grubb <sgrubb@redhat.com> 3.1.2-2
 - SPDX Migration
 

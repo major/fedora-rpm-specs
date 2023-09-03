@@ -1,15 +1,15 @@
 %global pypi_name xmlschema
 Name:           python-%{pypi_name}
-Version:        2.0.3
-Release:        4%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        A Python XML Schema validator and decoder
 
 License:        MIT
 URL:            https://github.com/brunato/xmlschema
 Source0:        %{pypi_source}
 
-# Python 3.12: Refactor _PurePath to not use PurePath internals 
-Patch:          https://github.com/sissaschool/xmlschema/commit/62e317e210.patch
+# Skip tests requiring an internet connection
+Patch:          https://github.com/sissaschool/xmlschema/pull/365.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -68,6 +68,10 @@ sed -i '/memory_profiler/d' tox.ini # optional test dep, not packaged in Fedora,
 
 
 %changelog
+* Fri Aug 25 2023 Charalampos Stratakis <cstratak@redhat.com> - 2.4.0-1
+- Update to 2.4.0
+- Fixes: rhbz#2121551
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    be1fe461fdc917de2a29a452ccf2657d325b443d
+%global gh_commit    cd59bb34756a16ca8253ce9b2909039c227fff71
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
 %global gh_project   php-code-coverage
@@ -24,8 +24,8 @@
 %global ver_major    10
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        10.1.3
-Release:        2%{?dist}
+Version:        10.1.4
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -196,6 +196,9 @@ exit $ret
 
 
 %changelog
+* Fri Sep  1 2023 Remi Collet <remi@remirepo.net> - 10.1.4-1
+- update to 10.1.4
+
 * Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 10.1.3-2
 - Enable test suite
 

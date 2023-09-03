@@ -4,9 +4,9 @@
 
 Name:           jctools
 Version:        4.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java Concurrency Tools for the JVM
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://github.com/JCTools/JCTools
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
@@ -101,6 +101,9 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.1-4
+- Convert License tag to SPDX format
+
 * Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.1-3
 - Build with default JDK 17
 

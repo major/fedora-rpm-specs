@@ -13,7 +13,7 @@ applying the same operation to 'lanes'.}
 %endif
 
 Name:           highway
-Version:        1.0.5
+Version:        1.0.7
 Release:        %autorelease
 Summary:        Efficient and performance-portable SIMD
 

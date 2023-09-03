@@ -7,11 +7,11 @@
 Name:           maven
 Epoch:          1
 Version:        3.9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java project management and project comprehension tool
-# maven itself is ASL 2.0
+# maven itself is Apache-2.0
 # bundled slf4j is MIT
-License:        ASL 2.0 and MIT
+License:        Apache-2.0 AND MIT
 URL:            https://maven.apache.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -298,6 +298,9 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %config %{_javaconfdir}/maven.conf-openjdk17
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.4-2
+- Convert License tag to SPDX format
+
 * Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.4-1
 - Update to upstream version 3.9.4
 

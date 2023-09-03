@@ -2,9 +2,9 @@
 
 Name:           maven-remote-resources-plugin
 Version:        3.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Remote Resources Plugin
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://maven.apache.org/plugins/maven-remote-resources-plugin/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -70,6 +70,9 @@ API documentation for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.1.0-2
+- Convert License tag to SPDX format
+
 * Wed Aug 23 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.1.0-1
 - Update to upstream version 3.1.0
 

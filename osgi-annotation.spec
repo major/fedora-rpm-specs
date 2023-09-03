@@ -2,9 +2,9 @@
 
 Name:           osgi-annotation
 Version:        8.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Annotations for use in compiling OSGi bundles
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://www.osgi.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -75,6 +75,9 @@ cp -p %{SOURCE1} pom.xml
 %license META-INF/LICENSE META-INF/NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 8.1.0-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 8.1.0-1
 - Update to upstream version 8.1.0
 

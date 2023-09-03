@@ -2,7 +2,7 @@
 
 Name:          maven-dependency-tree
 Version:       3.2.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Maven dependency tree artifact
 License:       Apache-2.0
 URL:           https://maven.apache.org/
@@ -52,6 +52,9 @@ This package contains javadoc for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.2.1-2
+- Rebuild
+
 * Tue Aug 15 2023 Marian Koncek <mkoncek@redhat.com> - 3.2.1-1
 - Update to upstream version 3.2.1
 

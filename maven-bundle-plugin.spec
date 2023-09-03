@@ -2,9 +2,9 @@
 
 Name:           maven-bundle-plugin
 Version:        5.1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Bundle Plugin
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://felix.apache.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -86,6 +86,9 @@ rm -f src/main/java/org/apache/felix/bundleplugin/baseline/BaselineReport.java
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.1.9-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.1.9-1
 - Update to upstream version 5.1.9
 

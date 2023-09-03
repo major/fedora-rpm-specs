@@ -3,8 +3,8 @@
 Name:           httpcomponents-core
 Summary:        Set of low level Java HTTP transport components for HTTP services
 Version:        4.4.16
-Release:        1%{?dist}
-License:        ASL 2.0
+Release:        2%{?dist}
+License:        Apache-2.0
 URL:            http://hc.apache.org/
 Source0:        https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/%{version}/httpcomponents-core-%{version}-source-release.zip
 Patch0:         0001-Port-to-mockito-2.patch
@@ -95,6 +95,9 @@ done
 %doc README.txt RELEASE_NOTES.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.4.16-2
+- Convert License tag to SPDX format
+
 * Wed Aug 16 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.4.16-1
 - Update to upstream version 4.4.16
 

@@ -2,9 +2,9 @@
 
 Name:           apache-commons-jxpath
 Version:        1.3
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Simple XPath interpreter
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://commons.apache.org/jxpath/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -68,6 +68,9 @@ rm src/test/org/apache/commons/jxpath/servlet/JXPathServletContextTest.java
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3-47
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

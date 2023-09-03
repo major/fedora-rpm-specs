@@ -2,7 +2,7 @@
 
 Name:           plexus-components-pom
 Version:        14.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plexus Components POM
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-components
@@ -39,6 +39,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 14.1-2
+- Rebuild
+
 * Wed Aug 16 2023 Marian Koncek <mkoncek@redhat.com> - 14.1-1
 - Update to upstream version 14.1
 

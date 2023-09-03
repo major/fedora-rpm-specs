@@ -2,9 +2,9 @@
 
 Name:           google-guice
 Version:        5.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Lightweight dependency injection framework for Java 5 and above
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/google/guice
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -201,6 +201,9 @@ and above. This package provides Bill of Materials module for Guice.
 %files -n guice-bom -f .mfiles-guice-bom
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.1.0-6
+- Convert License tag to SPDX format
+
 * Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.1.0-5
 - Build with Jurand instead of deprecated javapackages-extra
 

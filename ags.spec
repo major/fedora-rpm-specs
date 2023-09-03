@@ -1,7 +1,7 @@
 %bcond_without freetype
 %bcond_without openal
 
-%global fver v.%{version}
+%global fver v%{version}
 %define ags_license Artistic 2.0 and BSD and Giftware and LGPLv2+ and Public Domain and zlib
 %if %{without freetype}
 %define license_full %{ags_license} and FTL
@@ -11,9 +11,9 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.0.48
+Version: 3.6.0.51
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 2%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
 # unbundle freetype
 Patch2:  %{name}-use-system-freetype.patch
@@ -66,7 +66,7 @@ Originally created by Chris Jones back in 1999, AGS was opensourced in 2011 and
 since continued to be developed by contributors.
 
 %prep
-%setup -q -n %{name}-%{?commit:%{commit}}%{!?commit:%{fver}}
+%setup -q
 %if %{with freetype}
 %patch2 -p1 -b .noft
 %endif
@@ -115,6 +115,9 @@ make V=1 -C Engine PREFIX=%{buildroot}%{_prefix} install
 %{_bindir}/ags
 
 %changelog
+* Fri Sep 01 2023 Dominik Mierzejewski <dominik@greysector.net> - 3.6.0.51-1
+- update to 3.6.0.51
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0.48-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

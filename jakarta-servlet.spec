@@ -2,12 +2,12 @@
 
 Name:           jakarta-servlet
 Version:        5.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Server-side API for handling HTTP requests and responses
 # most of the project is EPL-2.0 or GPLv2 w/exceptions,
 # but some files still have Apache-2.0 license headers:
 # https://github.com/eclipse-ee4j/servlet-api/issues/347
-License:        (EPL-2.0 or GPLv2 with exceptions) and ASL 2.0
+License:        (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND Apache-2.0
 URL:            https://github.com/eclipse-ee4j/servlet-api
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -75,6 +75,9 @@ sed -i -e 's/jakarta\./javax./g' $(find api/src/main/java/javax -name *.java)
 %doc README.md
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.0.0-14
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

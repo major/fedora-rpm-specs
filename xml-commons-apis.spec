@@ -1,8 +1,8 @@
 Name:          xml-commons-apis
 Version:       1.4.01
-Release:       41%{?dist}
+Release:       42%{?dist}
 Summary:       APIs for DOM, SAX, and JAXP
-License:       ASL 2.0 and W3C and Public Domain
+License:       Apache-2.0 AND W3C AND SAX-PD
 URL:           http://xml.apache.org/commons/
 BuildArch:     noarch
 ExclusiveArch: %{java_arches} noarch
@@ -87,6 +87,9 @@ rm -rf build/docs/javadoc
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.4.01-42
+- Convert License tag to SPDX format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.01-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

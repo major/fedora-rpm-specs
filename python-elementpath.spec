@@ -1,7 +1,7 @@
 %global pypi_name elementpath
 Name:           python-%{pypi_name}
-Version:        3.0.2
-Release:        6%{?dist}
+Version:        4.1.5
+Release:        2%{?dist}
 Summary:        XPath 1.0/2.0 parsers and selectors for ElementTree and lxml
 
 License:        MIT
@@ -37,10 +37,10 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
-sed -i 's/~=/>=/' setup.py tox.ini  # https://bugzilla.redhat.com/show_bug.cgi?id=1758141
-
-# https://github.com/sissaschool/elementpath/issues/66
-sed -i 's/self.assertEqual(/self.assertAlmostEqual(/' tests/test_xpath1_parser.py tests/xpath_test_class.py
+# Remove an upstream workaround for the mypy tests
+# https://github.com/sissaschool/elementpath/commit/3431f6d907bda73512edbe1d68507f675b234384
+# Upstream has been notified: https://github.com/sissaschool/elementpath/issues/64#issuecomment-1696519082
+sed -i '/lxml-stubs/d' tox.ini
 
 %generate_buildrequires
 %if %{with tests}
@@ -71,6 +71,14 @@ export LANG=en_US.utf-8
 
 
 %changelog
+* Fri Sep 01 2023 Charalampos Stratakis <cstratak@redhat.com> - 4.1.5-2
+- Update to 4.1.5 - enable tests
+
+* Fri Aug 25 2023 Charalampos Stratakis <cstratak@redhat.com> - 4.1.5-1
+- Update to 4.1.5
+- Disable tests for bootstraping with new version of xmlschema
+- Fixes: rhbz#2166299
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

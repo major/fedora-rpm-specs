@@ -2,7 +2,7 @@
 
 Name:          plexus-pom
 Version:       14
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Root Plexus Projects POM
 License:       Apache-2.0
 URL:           https://github.com/codehaus-plexus/plexus-pom
@@ -42,6 +42,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 14-2
+- Rebuild
+
 * Wed Aug 16 2023 Marian Koncek <mkoncek@redhat.com> - 14-1
 - Update to upstream version 14
 

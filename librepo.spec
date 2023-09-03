@@ -8,10 +8,16 @@
 %bcond_without zchunk
 %endif
 
+%if 0%{?fedora} >= 39
+%bcond_with use_gpgme
+%else
+%bcond_without use_gpgme
+%endif
+
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.15.2
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        Repodata downloading library
 
@@ -24,7 +30,11 @@ BuildRequires:  gcc
 BuildRequires:  check-devel
 BuildRequires:  doxygen
 BuildRequires:  pkgconfig(glib-2.0) >= 2.66
+%if %{with use_gpgme}
 BuildRequires:  gpgme-devel
+%else
+BuildRequires:  pkgconfig(rpm) >= 4.18.0
+%endif
 BuildRequires:  libattr-devel
 BuildRequires:  libcurl-devel >= %{libcurl_version}
 BuildRequires:  pkgconfig(libxml-2.0)
@@ -66,7 +76,9 @@ Python 3 bindings for the librepo library.
 %autosetup -p1
 
 %build
-%cmake %{!?with_zchunk:-DWITH_ZCHUNK=OFF}
+%cmake \
+    -DWITH_ZCHUNK=%{?with_zchunk:ON}%{!?with_zchunk:OFF} \
+    -DUSE_GPGME=%{?with_use_gpgme:ON}%{!?with_use_gpgme:OFF}
 %cmake_build
 
 %check
@@ -96,6 +108,10 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Fri Sep 01 2023 Jan Kolarik <jkolarik@redhat.com> - 1.16.0-1
+- Update to 1.16.0
+- Implement OpenPGP using librpm API
+
 * Tue Aug 01 2023 Jan Kolarik <jkolarik@redhat.com> - 1.15.2-1
 - Update to 1.15.2
 - Fixes and optimizations in header files

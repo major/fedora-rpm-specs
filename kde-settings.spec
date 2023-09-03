@@ -1,6 +1,6 @@
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 38.3
+Version: 39.0
 Release: 1%{?dist}
 
 License: MIT
@@ -210,6 +210,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Fri Sep 01 2023 Adam Williamson <awilliam@redhat.com> - 39.0-1
+- New release 39.0 (to pick up Fedora 39 backgrounds)
+
 * Mon Aug 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 38.3-1
 - kwinrc: Disable the Blur plugin in kwin by default
 

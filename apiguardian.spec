@@ -2,7 +2,7 @@
 
 Name:           apiguardian
 Version:        1.1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        API Guardian Java annotation
 License:        Apache-2.0
 URL:            https://github.com/apiguardian-team/apiguardian
@@ -111,6 +111,9 @@ mv src/module/java/* src/main/java
 %license LICENSE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.1.2-8
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

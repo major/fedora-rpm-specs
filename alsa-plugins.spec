@@ -1,14 +1,16 @@
 %if 0%{?rhel}
+%bcond_with avtp
 %bcond_with jack
 %bcond_with ffmpeg
 %else
+%bcond_without avtp
 %bcond_without jack
 %bcond_without ffmpeg
 %endif
 
 Name:           alsa-plugins
 Version:        1.2.7.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The Advanced Linux Sound Architecture (ALSA) Plugins
 # All packages are LGPL-2.1-or-later with the exception of samplerate
 # which is GPL-2.0-or-later, pph plugin is BSD-3-Clause licensed
@@ -129,6 +131,7 @@ License:        LGPL-2.1-or-later
 This plugin converts the ALSA API over PCM task nodes protocol. In this way,
 ALSA native applications can run over DSP Gateway and use DSP PCM task nodes.
 
+%if %{with avtp}
 %package avtp
 BuildRequires:  libavtp-devel
 Summary:        Audio Video Transport Protocol (AVTP) plugin for ALSA
@@ -137,6 +140,7 @@ License:        LGPL-2.1-or-later
 %description avtp
 This plugin supports Audio Video Transport Protocol (AVTP) as specified in
 IEEE 1722-2016 spec. AVTP is part of the Audio/Video Broadcast using TSN.
+%endif
 
 %if %{with ffmpeg}
 %package a52
@@ -305,9 +309,11 @@ find %{buildroot} -name "*.la" -delete
 %{_libdir}/alsa-lib/libasound_module_ctl_dsp_ctl.so
 %{_libdir}/alsa-lib/libasound_module_pcm_alsa_dsp.so
 
+%if %{with avtp}
 %files avtp
 %license COPYING COPYING.GPL
 %{_libdir}/alsa-lib/libasound_module_pcm_aaf.so
+%endif
 
 %if %{with ffmpeg}
 %files a52
@@ -338,6 +344,9 @@ find %{buildroot} -name "*.la" -delete
 %endif
 
 %changelog
+* Fri Aug 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.7.1-8
+- Disable avtp plugin in RHEL builds
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

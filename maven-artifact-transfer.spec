@@ -2,10 +2,10 @@
 
 Name:           maven-artifact-transfer
 Version:        0.13.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        Apache Maven Artifact Transfer
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-artifact-transfer
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -73,6 +73,9 @@ find -name Maven30\*.java -delete
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:0.13.1-10
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

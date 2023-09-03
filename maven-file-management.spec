@@ -3,9 +3,9 @@
 Name:           maven-file-management
 Epoch:          1
 Version:        3.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven File Management API
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/shared/file-management
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -50,6 +50,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.1.0-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.1.0-1
 - Update to upstream version 3.1.0
 

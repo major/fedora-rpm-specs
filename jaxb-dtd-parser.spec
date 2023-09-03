@@ -1,8 +1,8 @@
 Name:           jaxb-dtd-parser
 Version:        1.5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        SAX-like API for parsing XML DTDs
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-dtd-parser
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -52,6 +52,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.5.0-8
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

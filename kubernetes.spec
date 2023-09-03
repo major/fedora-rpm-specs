@@ -72,6 +72,8 @@ BuildRequires: golang >= 1.20.6
 BuildRequires: systemd
 BuildRequires: rsync
 BuildRequires: go-md2man
+BuildRequires: systemd-rpm-macros
+%{?sysusers_requires_compat}
 #BuildRequires: go-bindata
 
 Requires(pre): shadow-utils
@@ -96,6 +98,8 @@ BuildRequires: golang >= 1.20.6
 BuildRequires: systemd
 BuildRequires: rsync
 BuildRequires: go-md2man
+BuildRequires: systemd-rpm-macros
+%{?sysusers_requires_compat}
 #BuildRequires: go-bindata
 
 Requires(pre): shadow-utils
@@ -198,6 +202,8 @@ make WHAT="cmd/genman"
 make WHAT="cmd/genyaml"
 kube::util::gen-docs .
 
+###############
+
 %install
 pushd src/k8s.io/kubernetes/
 source hack/lib/init.sh
@@ -248,7 +254,7 @@ install -d -m 0755 %{buildroot}%{_tmpfilesdir}
 install -p -m 0644 -t %{buildroot}/%{_tmpfilesdir} %{SOURCE115}
 
 echo "+++ INSTALLING sysusers.d"
-install -D -m644 -vp %{SOURCE116}       %{buildroot}%{_sysusersdir}/%{name}.conf
+install -D -m 0644 -vp %{SOURCE116}       %{buildroot}%{_sysusersdir}/%{name}.conf
 
 # enable CPU and Memory accounting
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/systemd/system.conf.d

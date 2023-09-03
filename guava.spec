@@ -2,11 +2,11 @@
 
 Name:           guava
 Version:        31.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Google Core Libraries for Java
 # Most of the code is under ASL 2.0
 # Few classes are under CC0, grep for creativecommons
-License:        ASL 2.0 and CC0
+License:        Apache-2.0 AND CC0-1.0
 URL:            https://github.com/google/guava
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -97,6 +97,9 @@ find . -name '*.jar' -delete
 %files testlib -f .mfiles-guava-testlib
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 31.1-7
+- Convert License tag to SPDX format
+
 * Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 31.1-6
 - Build with Jurand instead of deprecated javapackages-extra
 

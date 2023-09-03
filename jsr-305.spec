@@ -2,12 +2,12 @@
 
 Name:           jsr-305
 Version:        3.0.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Correctness annotations for Java code
 
 # The majority of code is BSD-licensed, but some Java sources
 # are licensed under CC-BY license, see: $ grep -r Creative .
-License:        BSD and CC-BY
+License:        BSD-3-Clause AND CC-BY-2.5
 URL:            https://code.google.com/p/jsr-305
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -67,6 +67,9 @@ sed -i 's|<artifactId>jsr305</artifactId>|<artifactId>ri</artifactId>|' ri/pom.x
 %doc sampleUses
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.2-10
+- Convert License tag to SPDX format
+
 * Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.2-9
 - Build with default JDK 17
 

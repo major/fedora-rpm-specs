@@ -1,9 +1,9 @@
 Name:           regexp
 Epoch:          1
 Version:        1.5
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Simple regular expressions API
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://jakarta.apache.org/%{name}/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -72,6 +72,9 @@ mkdir lib
 %doc LICENSE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.5-43
+- Convert License tag to SPDX format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

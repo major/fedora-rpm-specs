@@ -8,8 +8,8 @@
 %bcond_without openssl
 
 Name:           omniORB
-Version:        4.3.0
-Release:        9%{?dist}
+Version:        4.3.1
+Release:        1%{?dist}
 Summary:        A robust high performance CORBA ORB for C++ and Python
 
 License:        LGPLv2+
@@ -19,9 +19,6 @@ Source1:        omniORB-nameserver.init
 Source2:        omniORB-nameserver.logrotate
 Source3:        omniORB.cfg
 Source4:        omniNames.service
-
-# Don't use distutils module removed in python 3.12
-Patch0:         omniORB_py312.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -242,6 +239,9 @@ fi
 
 
 %changelog
+* Thu Aug 31 2023 Sandro Mani <manisandro@gmail.com> - 4.3.1-1
+- Update to 4.3.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

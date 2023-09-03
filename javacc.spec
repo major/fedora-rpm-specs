@@ -33,7 +33,7 @@
 
 Name:           javacc
 Version:        7.0.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          0
 Summary:        A parser/scanner generator for java
 
@@ -155,6 +155,9 @@ ln -s javacc %{buildroot}%{_bindir}/javacc.sh
 %doc examples
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:7.0.12-4
+- Rebuild
+
 * Sat Aug 26 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:7.0.12-3
 - Bootstrap using javapackages-bootstrap
 

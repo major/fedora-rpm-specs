@@ -2,12 +2,12 @@
 
 Name:           modello
 Version:        2.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modello Data Model toolkit
 # The majority of files are under MIT license, but some of them are ASL 2.0.
 # Some parts of the project are derived from the Exolab project,
-# and are licensed under a 5-clause BSD license.
-License:        MIT and ASL 2.0 and BSD
+# and are licensed under a 5-clause BSD license (Plexus in SPDX).
+License:        MIT AND Apache-2.0 AND Plexus
 URL:            https://codehaus-plexus.github.io/modello
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -97,6 +97,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.2-2
+- Convert License tag to SPDX format
+
 * Mon Aug 28 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.2-1
 - Update to upstream version 2.1.2
 

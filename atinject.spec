@@ -2,9 +2,9 @@
 
 Name:           atinject
 Version:        1.0.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Dependency injection specification for Java (JSR-330)
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/eclipse-ee4j/injection-api
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -47,6 +47,9 @@ beneficial to most nontrivial applications.
 %license LICENSE.txt NOTICE.md
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.0.5-7
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

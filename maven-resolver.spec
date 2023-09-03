@@ -3,8 +3,8 @@
 Name:           maven-resolver
 Epoch:          1
 Version:        1.9.15
-Release:        1%{?dist}
-License:        ASL 2.0
+Release:        2%{?dist}
+License:        Apache-2.0
 Summary:        Apache Maven Artifact Resolver library
 URL:            https://maven.apache.org/resolver/
 BuildArch:      noarch
@@ -119,6 +119,9 @@ done
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.15-2
+- Convert License tag to SPDX format
+
 * Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.15-1
 - Update to upstream version 1.9.15
 

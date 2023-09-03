@@ -2,7 +2,7 @@
 
 Name:           plexus-archiver
 Version:        4.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plexus Archiver Component
 License:        Apache-2.0
 URL:            https://codehaus-plexus.github.io/plexus-archiver
@@ -88,6 +88,9 @@ rm src/test/java/org/codehaus/plexus/archiver/manager/ArchiverManagerTest.java
 %license LICENSE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.8.0-2
+- Rebuild
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.8.0-1
 - Update to upstream version 4.8.0
 

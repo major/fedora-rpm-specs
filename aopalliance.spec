@@ -3,7 +3,7 @@
 Name:           aopalliance
 Epoch:          0
 Version:        1.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Java/J2EE AOP standards
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://aopalliance.sourceforge.net/
@@ -55,6 +55,9 @@ jar umf %{SOURCE2} build/%{name}.jar
 %files -f .mfiles
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:1.0-34
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

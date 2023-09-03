@@ -2,7 +2,7 @@
 
 Name:           apache-commons-logging
 Version:        1.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Apache Commons Logging
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/commons-logging/
@@ -81,6 +81,9 @@ rm -rf src/test/java/org/apache/commons/logging/log4j/log4j12
 %doc PROPOSAL.html RELEASE-NOTES.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2-35
+- Rebuild
+
 * Wed Jul 19 2023 Jerry James <loganjerry@gmail.com> - 1.2-34
 - Build with log4j support in non-bootstrap mode
 - Convert the License tag to SPDX

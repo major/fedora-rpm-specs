@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Integrate SassC-Ruby into Rails
 # SIL license found in
 # test/dummy/app/assets/stylesheets/erb_render_with_context.css.erb
@@ -17,6 +17,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Fix test suite compatibility with Rails 7+.
 # https://github.com/sass/sassc-rails/pull/178
 Patch0: rubygem-sassc-rails-2.1.2-Fix-test-suite-for-Rails-7.patch
+# Fix compatibility with Minitest 5.19+.
+# https://github.com/sass/sassc-rails/pull/179
+Patch1: rubygem-sassc-tails-2.1.2-Fix-compatibility-with-Minitest-5.19.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -46,6 +49,7 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 
 %patch0 -p1
+%patch1 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -101,6 +105,9 @@ popd
 %doc %{gem_instdir}/CODE_OF_CONDUCT.md
 
 %changelog
+* Fri Sep 01 2023 Vít Ondruch <vondruch@redhat.com> - 2.1.2-9
+- Fix FTBFS due to incompatibility with Minitest 5.19+.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,12 +2,12 @@ Name:           i3status
 Version:        2.14
 Release:        %autorelease
 Summary:        Status bar generator for i3bar, dzen2, xmobar or similar programs
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://i3wm.org/i3status/
 Source0:        %{url}/%{name}-%{version}.tar.xz
 Source1:        %{url}/%{name}-%{version}.tar.xz.asc
 # Michael Stapelberg's GPG key:
-Source2:        gpgkey-424E14D703E7C6D43D9D6F364E7160ED4AC8EE1D.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/424E14D703E7C6D43D9D6F364E7160ED4AC8EE1D#./gpgkey-424E14D703E7C6D43D9D6F364E7160ED4AC8EE1D.gpg
 Source3:        fedora-i3-status-config
 
 BuildRequires:  gcc
@@ -56,7 +56,7 @@ Conflicts:      %{name}-config
 This is the configuration file of %{name} used for the Fedora i3 Spin.
 
 %prep
-gpg2 --keyring %{SOURCE2} --verify %{SOURCE1}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

@@ -5,27 +5,24 @@
 Summary: Image browser and viewer
 Name: geeqie
 License: GPLv2+
-Version: 2.0.1
+Version: 2.1
 Release: %autorelease
 URL: https://www.geeqie.org
 
 %if %{defined gitcommit}
-Source0: https://github.com/BestImageViewer/%{name}/archive/%{gitcommit}/%{name}-%{gitcommitshort}.tar.gz
+Source:  https://github.com/BestImageViewer/%{name}/archive/%{gitcommit}/%{name}-%{gitcommitshort}.tar.gz
 %else
-Source0: https://github.com/BestImageViewer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Source:  https://github.com/BestImageViewer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 %endif
 
-# need to document what this is for (and upstream it?)
-Patch1:   geeqie-2.0.1_sun_path.patch
-# https://github.com/BestImageViewer/geeqie/pull/1049
-Patch2:   geeqie-2.0.1_find-lua.patch
-# this is upstream and should be there in any future release
-Patch3:   geeqie-2.0.1_fix_appdata.patch
+# https://github.com/BestImageViewer/geeqie/pull/1182
+Patch:   0001-Do-not-truncate-socket-path.patch
+Patch:   0002-fix-compilation-with-lua.patch
 
 BuildRequires: meson
 BuildRequires: gcc-c++
-BuildRequires: libtool
 BuildRequires: yelp-tools
+BuildRequires: evince
 # for /usr/bin/appstream-util
 BuildRequires: libappstream-glib
 BuildRequires: gtk3-devel
@@ -39,7 +36,7 @@ BuildRequires: libarchive-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libjxl-devel
 BuildRequires: libtiff-devel
-# BuildRequires: libheif-devel (uncomment when available in Fedora)
+BuildRequires: libheif-devel
 BuildRequires: libwebp-devel
 BuildRequires: openjpeg2-devel
 BuildRequires: poppler-glib-devel
@@ -48,6 +45,8 @@ BuildRequires: gettext intltool desktop-file-utils
 BuildRequires: gnome-doc-utils
 BuildRequires: LibRaw-devel
 BuildRequires: gspell-devel
+BuildRequires: webp-pixbuf-loader
+# BuildRequires: xvfb-run
 
 # This is needed to generate one of the icc headers in the build
 # process. Kind of annoyingly, this is part of _vim_, but, eh,
@@ -97,7 +96,9 @@ for f in ufraw-batch ; do
 done
 %endif
 
-%meson -Dvideothumbnailer=disabled -Dheif=disabled
+export CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations"
+
+%meson -Dvideothumbnailer=disabled
 %meson_build
 
 
@@ -108,11 +109,13 @@ done
 %meson_install
 
 # guard against missing HTML tree
-[ ! -f %{buildroot}%{_pkgdocdir}/html/index.html ] && exit 1
+test -f %{buildroot}%{_pkgdocdir}/html/index.html
 
 # We want these _docdir files in GQ_HELPDIR.
-install -p -m 0644 AUTHORS COPYING NEWS README* TODO \
+install -p -m 0644 COPYING NEWS README* TODO \
     %{buildroot}%{_pkgdocdir}
+
+ln -s NEWS %{buildroot}%{_pkgdocdir}/ChangeLog
 
 desktop-file-install \
     --delete-original \

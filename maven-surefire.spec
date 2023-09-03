@@ -2,9 +2,9 @@
 
 Name:           maven-surefire
 Version:        3.0.0~M6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Test framework project
-License:        ASL 2.0 and CPL
+License:        Apache-2.0 AND CPL-1.0
 URL:            https://maven.apache.org/surefire/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -173,6 +173,9 @@ find -name *.java -exec sed -i -e s/org.apache.maven.surefire.shared.utils/org.a
 %license LICENSE NOTICE cpl-v10.html
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.0~M6-6
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0~M6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

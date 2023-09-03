@@ -2,7 +2,7 @@
 
 Name:           maven-plugin-tools
 Version:        3.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Plugin Tools
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugin-tools/
@@ -158,6 +158,9 @@ rm maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/gen
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.9.0-2
+- Rebuild
+
 * Wed Aug 16 2023 Marian Koncek <mkoncek@redhat.com> - 3.9.0-1
 - Update to upstream version 3.9.0
 

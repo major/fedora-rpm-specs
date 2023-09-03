@@ -2,9 +2,9 @@
 
 Name:           cdi-api
 Version:        2.0.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        CDI API
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/eclipse-ee4j/cdi
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -49,6 +49,9 @@ rm -rf api/src/main/java/javax/enterprise/{context/,inject/spi/,inject/se/,injec
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.2-9
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

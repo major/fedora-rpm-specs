@@ -2,9 +2,9 @@
 
 Name:             fusesource-pom
 Version:          1.12
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          Parent POM for FuseSource Maven projects
-License:          ASL 2.0
+License:          Apache-2.0
 URL:              http://fusesource.com/
 
 Source0:          http://repo1.maven.org/maven2/org/fusesource/fusesource-pom/%{version}/fusesource-pom-%{version}.pom
@@ -42,6 +42,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.12-14
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

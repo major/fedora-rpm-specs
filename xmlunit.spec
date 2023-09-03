@@ -2,10 +2,10 @@
 
 Name:           xmlunit
 Version:        2.9.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Provides classes to do asserts on xml
 # The whole package is ASL 2.0 except for xmlunit-legacy which is BSD
-License:        ASL 2.0 and BSD
+License:        Apache-2.0
 URL:            https://www.xmlunit.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -61,6 +61,7 @@ This package provides %{summary}.
 
 %package        legacy
 Summary:        Legacy package for %{name}
+License:        BSD-3-Clause
 
 %description    legacy
 This package provides %{summary}.
@@ -128,6 +129,9 @@ rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.
 %files placeholders -f .mfiles-xmlunit-placeholders
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.9.0-6
+- Convert License tag to SPDX format
+
 * Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.9.0-5
 - Build with Jurand instead of deprecated javapackages-extra
 

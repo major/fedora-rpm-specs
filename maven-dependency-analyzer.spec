@@ -2,7 +2,7 @@
 
 Name:           maven-dependency-analyzer
 Version:        1.13.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven dependency analyzer
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-dependency-analyzer/
@@ -59,6 +59,9 @@ Summary:        API documentation for %{name}
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.13.2-2
+- Rebuild
+
 * Tue Aug 15 2023 Marian Koncek <mkoncek@redhat.com> - 1.13.2-1
 - Update to upstream version 1.13.2
 

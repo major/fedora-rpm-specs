@@ -2,9 +2,9 @@
 
 Name:           univocity-parsers
 Version:        2.9.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Collection of parsers for Java
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/uniVocity/univocity-parsers
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -56,6 +56,9 @@ API documentation for %{name}.
 %license LICENSE-2.0.html
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.9.1-10
+- Convert License tag to SPDX format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,9 +2,9 @@
 
 Name:           apache-commons-beanutils
 Version:        1.9.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Java utility methods for accessing and modifying the properties of arbitrary JavaBeans
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://commons.apache.org/beanutils
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -57,6 +57,9 @@ sed -i 's/\r//' *.txt
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.9.4-14
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

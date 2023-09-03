@@ -10,7 +10,7 @@
 
 Name:           javacc-maven-plugin
 Version:        3.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        JavaCC Maven Plugin
 
 License:        Apache-2.0
@@ -80,6 +80,9 @@ rm src/main/java/org/codehaus/mojo/javacc/JJDocMojo.java
 %license LICENSE-2.0.txt src/main/resources/NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.1-4
+- Rebuild
+
 * Sat Aug 26 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.1-3
 - Bootstrap using javapackages-bootstrap
 

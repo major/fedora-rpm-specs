@@ -2,9 +2,9 @@
 
 Name:           plexus-sec-dispatcher
 Version:        2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Plexus Security Dispatcher Component
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-sec-dispatcher
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -52,6 +52,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0-8
+- Convert License tag to SPDX format
+
 * Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0-7
 - Build with default JDK 17
 

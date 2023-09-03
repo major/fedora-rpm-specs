@@ -2,9 +2,9 @@
 
 Name:           maven-wagon
 Version:        3.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manage artifacts and deployment
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/wagon
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -86,6 +86,9 @@ following providers:
 %doc DEPENDENCIES
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.3-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.3-1
 - Update to upstream version 3.5.3
 

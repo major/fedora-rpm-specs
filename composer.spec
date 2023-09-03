@@ -10,15 +10,15 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    4c516146167d1392c8b9b269bb7c24115d262164
+%global gh_commit    ee851d6b6bb4bf2e0fbfb22b22b44727cded6f29
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
 %global gh_project   composer
-%global api_version  2.3.0
+%global api_version  2.6.0
 %global run_version  2.2.2
 
-%global upstream_version 2.5.8
+%global upstream_version 2.6.1
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -29,7 +29,7 @@
 
 Name:           composer
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Dependency Manager for PHP
 
 # SPDX: composer and all dependencies are MIT
@@ -80,34 +80,34 @@ Requires:       php-cli
 Requires:       ca-certificates
 # Bundled libraries
 # License MIT
-Provides:       bundled(php-composer-ca-bundle) = 1.3.6
-Provides:       bundled(php-composer-class-map-generator) = 1.0.0
+Provides:       bundled(php-composer-ca-bundle) = 1.3.7
+Provides:       bundled(php-composer-class-map-generator) = 1.1.0
 Provides:       bundled(php-composer-metadata-minifier) = 1.0.0
 Provides:       bundled(php-composer-pcre) = 2.1.0
-Provides:       bundled(php-composer-semver) = 3.3.2
+Provides:       bundled(php-composer-semver) = 3.4.0
 Provides:       bundled(php-composer-spdx-licenses) = 1.5.7
 Provides:       bundled(php-composer-xdebug-handler) = 3.0.3
 Provides:       bundled(php-justinrainbow-json-schema) = 5.2.12
 Provides:       bundled(php-psr-container) = 1.1.1
 Provides:       bundled(php-psr-log) = 1.1.4
-Provides:       bundled(php-react-promise) = v2.10.0
+Provides:       bundled(php-react-promise) = v3.0.0
 Provides:       bundled(php-seld-jsonlint) = 1.10.0
 Provides:       bundled(php-seld-phar-utils) = 1.2.1
 Provides:       bundled(php-seld-signal-handler) = 2.0.1
-Provides:       bundled(php-symfony-console) = v5.4.24
+Provides:       bundled(php-symfony-console) = v5.4.28
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
-Provides:       bundled(php-symfony-filesystem) = v5.4.23
-Provides:       bundled(php-symfony-finder) = v5.4.21
-Provides:       bundled(php-symfony-polyfill-ctype) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-intl-normalizer) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-mbstring) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-php73) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-php80) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-php81) = v1.27.0
-Provides:       bundled(php-symfony-process) = v5.4.24
+Provides:       bundled(php-symfony-filesystem) = v5.4.25
+Provides:       bundled(php-symfony-finder) = v5.4.27
+Provides:       bundled(php-symfony-polyfill-ctype) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-intl-normalizer) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-mbstring) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-php73) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-php80) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-php81) = v1.28.0
+Provides:       bundled(php-symfony-process) = v5.4.28
 Provides:       bundled(php-symfony-service-contracts) = v2.5.2
-Provides:       bundled(php-symfony-string) = v5.4.22
+Provides:       bundled(php-symfony-string) = v5.4.26
 
 # From composer.json, suggest
 #        "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -249,6 +249,12 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Fri Sep  1 2023 Remi Collet <remi@remirepo.net> - 2.6.1-1
+- update to 2.6.1
+
+* Fri Sep  1 2023 Remi Collet <remi@remirepo.net> - 2.6.0-1
+- update to 2.6.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

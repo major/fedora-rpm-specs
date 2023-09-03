@@ -2,7 +2,7 @@
 
 Name:           apache-commons-parent
 Version:        61
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apache Commons Parent Pom
 License:        Apache-2.0
 URL:            https://commons.apache.org/commons-parent-pom.html
@@ -68,6 +68,9 @@ done
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 61-2
+- Rebuild
+
 * Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 61-1
 - Update to upstream version 61
 

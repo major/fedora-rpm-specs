@@ -4,9 +4,9 @@
 
 Name:           qdox
 Version:        2.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extract class/interface/method definitions from sources
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/paul-hammant/qdox
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -86,6 +86,9 @@ jar ufm target/%{name}-%{upstream_version}.jar %{SOURCE1}
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.3-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.3-1
 - Update to upstream version 2.0.3
 

@@ -9,8 +9,8 @@ Version:                2.0.0
 %gometa -f
 
 %global common_description %{expand:
-Package renameio provides a way to atomically create or replace a file or
-symbolic link.}
+Provides a way to atomically create or replace a file or
+symbolic link}
 
 %global golicenses      LICENSE
 %global godocs          CONTRIBUTING.md README.md

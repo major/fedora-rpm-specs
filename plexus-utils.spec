@@ -2,7 +2,7 @@
 
 Name:           plexus-utils
 Version:        3.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plexus Common Utilities
 # ASL 1.1: several files in src/main/java/org/codehaus/plexus/util/
 # xpp: src/main/java/org/codehaus/plexus/util/xml/pull directory
@@ -12,13 +12,12 @@ Summary:        Plexus Common Utilities
 #      src/main/java/org/codehaus/plexus/util/cli/Commandline.java
 # Public domain: src/main/java/org/codehaus/plexus/util/TypeFormat.java
 # rest is ASL 2.0
-License:        ASL 1.1 and ASL 2.0 and xpp and BSD and Public Domain
+License:        Apache-1.1 AND Apache-2.0 AND xpp AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://codehaus-plexus.github.io/plexus-utils/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/codehaus-plexus/%{name}/archive/%{name}-%{version}.tar.gz
-Source1:        http://apache.org/licenses/LICENSE-2.0.txt
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -40,8 +39,6 @@ is like a J2EE application server, without all the baggage.
 %prep
 %setup -q -n %{name}-%{name}-%{version}
 
-cp %{SOURCE1} .
-
 %mvn_file : plexus/utils
 %mvn_alias : plexus:plexus-utils
 
@@ -52,9 +49,12 @@ cp %{SOURCE1} .
 %mvn_install
 
 %files -f .mfiles
-%license NOTICE.txt LICENSE-2.0.txt
+%license NOTICE.txt LICENSE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.1-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.1-1
 - Update to upstream version 3.5.1
 

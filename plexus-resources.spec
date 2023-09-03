@@ -2,9 +2,9 @@
 
 Name:           plexus-resources
 Version:        1.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Plexus Resource Manager
-License:        MIT
+License:        Apache-2.0 AND MIT
 URL:            https://github.com/codehaus-plexus/plexus-resources
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -51,6 +51,9 @@ API documentation for %{name}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.0-5
+- Convert License tag to SPDX format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

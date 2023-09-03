@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    9f3d3709577a527025f55bcf0f7ab8052c8bb37d
+%global gh_commit    0c7b06ff49e3d5072f057eb1fa59258bf287a748
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-text-template
@@ -23,8 +23,8 @@
 %global ver_major    3
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        3.0.0
-Release:        3%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        Simple template engine, version %{ver_major}
 
 License:        BSD-3-Clause
@@ -100,6 +100,9 @@ exit $ret
 
 
 %changelog
+* Fri Sep  1 2023 Remi Collet <remi@remirepo.net> - 3.0.1-1
+- update to 3.0.1
+
 * Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 3.0.0-3
 - Enable test suite
 

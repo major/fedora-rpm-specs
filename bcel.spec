@@ -1,8 +1,8 @@
 Name:           bcel
 Version:        6.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Byte Code Engineering Library
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://commons.apache.org/proper/commons-bcel/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -60,6 +60,9 @@ This package provides %{summary}.
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.7.0-3
+- Convert License tag to SPDX format
+
 * Fri Aug 18 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.7.0-2
 - Add missing build-requires
 

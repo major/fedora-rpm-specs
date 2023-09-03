@@ -23,17 +23,14 @@
 %endif
 
 Name:           freerdp
-Version:        2.10.0
-Release:        4%{?dist}
+Version:        2.11.0
+Release:        1%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        ASL 2.0
 URL:            http://www.freerdp.com/
 
 Source0:        https://github.com/FreeRDP/FreeRDP/archive/%{version}/FreeRDP-%{version}.tar.gz
-
-# https://github.com/FreeRDP/FreeRDP/issues/8686
-Patch0:         7f55c97d60453738323e0ecafe6d357019528227.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -289,6 +286,12 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Fri Sep 01 2023 Ondrej Holy <oholy@redhat.com> - 2:2.11.0-1
+- Update to 2.11.0 (CVE-2023-39350, CVE-2023-39351, CVE-2023-39352,
+  CVE-2023-39353, CVE-2023-39354, CVE-2023-39356, CVE-2023-40181,
+  CVE-2023-40186, CVE-2023-40188, CVE-2023-40567, CVE-2023-40569 and
+  CVE-2023-40589).
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

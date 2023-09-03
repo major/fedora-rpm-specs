@@ -2,9 +2,9 @@
 
 Name:           apache-commons-compress
 Version:        1.21
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Java API for working with compressed files and archivers
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://commons.apache.org/proper/commons-compress/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -92,6 +92,9 @@ rm src/test/java/org/apache/commons/compress/archivers/tar/TarMemoryFileSystemTe
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.21-7
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

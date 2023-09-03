@@ -1,6 +1,6 @@
 Name:		qmmp
-Version:	2.1.4
-Release:	2%{?dist}
+Version:	2.1.5
+Release:	1%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPLv2+ and CC-BY-SAv4+
@@ -21,6 +21,7 @@ BuildRequires:	libcddb-devel
 BuildRequires:	libcdio-paranoia-devel
 BuildRequires:	libcurl-devel
 BuildRequires:	libmad-devel
+BuildRequires:	libmms-devel
 BuildRequires:	libmpcdec-devel
 BuildRequires:	libogg-devel
 BuildRequires:	libprojectM-devel
@@ -101,7 +102,6 @@ QMMP is Qt-based audio player. This package contains its development files.
 %build
 %cmake \
 	-D USE_AAC:BOOL=FALSE \
-	-D USE_MMS:BOOL=FALSE \
 	-D USE_MPLAYER:BOOL=FALSE \
 	-D USE_LIBRCD:BOOL=TRUE \
 	-D QMMP_DEFAULT_OUTPUT=pipewire \
@@ -147,6 +147,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Thu Aug 31 2023 Karel Volný <kvolny@redhat.com> 2.1.5-1
+- new version 2.1.5 (rhbz#2235874)
+- enabled MMS support (rhbz#2235608)
+- see the upstream changelog at http://qmmp.ylsoftware.com/
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

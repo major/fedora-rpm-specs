@@ -2,7 +2,7 @@
 
 Name:           apache-commons-lang3
 Version:        3.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides a host of helper utilities for the java.lang API
 License:        Apache-2.0
 URL:            https://commons.apache.org/lang
@@ -82,6 +82,9 @@ sed -i '/<argLine>/d' pom.xml
 %doc RELEASE-NOTES.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.13.0-2
+- Rebuild
+
 * Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 3.13.0-1
 - Update to upstream version 3.13.0
 

@@ -2,9 +2,9 @@
 
 Name:           apache-commons-collections
 Version:        3.2.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Provides new interfaces, implementations and utilities for Java Collections
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://commons.apache.org/collections/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -87,6 +87,9 @@ sed -i 's/\r//' LICENSE.txt PROPOSAL.html README.txt NOTICE.txt
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.2.2-31
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

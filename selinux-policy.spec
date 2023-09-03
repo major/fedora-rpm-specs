@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit f1d705ff0198481fbce07a9bea5bda9eedda7449
+%global commit ded2cf077576e3a3ab20263ff3b07b2a5b397ca1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.26
+Version: 38.27
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,12 @@ exit 0
 %endif
 
 %changelog
+* Thu Aug 31 2023 Zdenek Pytela <zpytela@redhat.com> - 38.27-1
+- Allow fedora-third-party get generic filesystem attributes
+- Allow sssd use usb devices conditionally
+- Update policy for qatlib
+- Allow ssh_agent_type manage generic cache home files
+
 * Thu Aug 24 2023 Zdenek Pytela <zpytela@redhat.com> - 38.26-1
 - Change file transition for systemd-network-generator
 - Additional support for gnome-initial-setup

@@ -2,9 +2,9 @@
 
 Name:           objectweb-asm
 Version:        9.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java bytecode manipulation and analysis framework
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://asm.ow2.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -87,6 +87,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 9.5-3
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -16,10 +16,10 @@
 }
 
 Name:          rpy
-Version:       3.5.10
-Release:       4%{?dist}
+Version:       3.5.14
+Release:       1%{?dist}
 Summary:       %{sum}
-License:       GPLv2+
+License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
 Source:        https://files.pythonhosted.org/packages/source/r/%{srcname}2/%{srcname}2-%{version}.tar.gz
 
@@ -44,9 +44,6 @@ converted to Python exceptions.
 %package -n python3-%{srcname}
 Summary:       %{sum}
 Requires:      %add_rver R-core
-%if (0%{?fedora} && 0%{?fedora} < 33)
-%{?python_provide:%python_provide python3-%{srcname}}
-%endif
 
 %description -n python3-%{srcname}
 RPy provides a robust Python interface to the R
@@ -58,9 +55,6 @@ converted to Python exceptions.
 %setup -q -n %{srcname}2-%{version}
 
 %build
-# Temporary workaround to fix a bug in R
-# see https://stat.ethz.ch/pipermail/r-devel/2016-December/073548.html
-export CFLAGS="$RPM_OPT_FLAGS -DHAVE_UINTPTR_T=1"
 %py3_build
 
 %install
@@ -83,6 +77,14 @@ cd %{srcname}2
 %{python3_sitearch}/__pycache__/*
 
 %changelog
+* Fri Sep  1 2023 José Matos <jamatos@fedoraproject.org> - 3.5.14-1
+- Update to 3.5.14
+
+* Fri Sep  1 2023 José Matos <jamatos@fedoraproject.org> - 3.5.13-1
+- Update to 3.5.13
+- Update license tag to SPDX license identifier
+- Clean package (workarounds no longer required)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

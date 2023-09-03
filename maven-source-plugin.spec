@@ -2,9 +2,9 @@
 
 Name:           maven-source-plugin
 Version:        3.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plugin creating source JAR
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://maven.apache.org/plugins/maven-source-plugin/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -57,6 +57,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.0-2
+- Convert License tag to SPDX format
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.0-1
 - Update to upstream version 3.3.0
 

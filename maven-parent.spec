@@ -2,7 +2,7 @@
 
 Name:           maven-parent
 Version:        40
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apache Maven parent POM
 License:        Apache-2.0
 URL:            https://maven.apache.org
@@ -45,6 +45,9 @@ Apache Maven parent POM file used by other Maven projects.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 40-2
+- Rebuild
+
 * Wed Aug 16 2023 Marian Koncek <mkoncek@redhat.com> - 40-1
 - Update to upstream version 40
 

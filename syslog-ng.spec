@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Next-generation syslog server
 
 License: GPLv2+
@@ -594,6 +594,9 @@ fi
 
 
 %changelog
+* Wed Aug 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.3.1-2
+- Rebuilt for abseil-cpp 20230802.0
+
 * Mon Jul 31 2023 Peter Czanik <peter@czanik.hu> - 4.3.1-1
 - update to 4.3.1 (bugfix release)
 - add opensearch support to SCL

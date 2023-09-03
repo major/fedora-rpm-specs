@@ -2,7 +2,7 @@
 
 Name:           xbean
 Version:        4.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java plugin based web server
 License:        Apache-2.0
 URL:            https://geronimo.apache.org/xbean/
@@ -91,6 +91,9 @@ sed -i '/testGetBytecode/i@org.junit.Ignore' xbean-finder/src/test/java/org/apac
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.23-2
+- Rebuild
+
 * Thu Aug 17 2023 Marian Koncek <mkoncek@redhat.com> - 4.23-1
 - Update to upstream version 4.23
 

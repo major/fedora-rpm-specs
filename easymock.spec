@@ -2,9 +2,9 @@
 
 Name:           easymock
 Version:        4.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Easy mock objects
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://www.easymock.org
 
 # ./generate-tarball.sh
@@ -127,6 +127,9 @@ rm core/src/test/java/org/easymock/tests2/ClassExtensionHelperTest.java
 %license core/LICENSE.txt
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.3-4
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

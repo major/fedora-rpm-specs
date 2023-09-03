@@ -2,7 +2,7 @@
 
 Name:           apache-parent
 Version:        30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parent POM file for Apache projects
 License:        Apache-2.0
 URL:            https://apache.org/
@@ -42,6 +42,9 @@ This package contains the parent pom file for apache projects.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 30-2
+- Rebuild
+
 * Fri Aug 11 2023 Marian Koncek <mkoncek@redhat.com> - 30-1
 - Update to upstream version 30
 

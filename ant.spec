@@ -40,7 +40,7 @@
 
 Name:           ant
 Version:        1.10.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java build tool
 Summary(it):    Tool per la compilazione di programmi java
 Summary(fr):    Outil de compilation pour java
@@ -656,6 +656,9 @@ LC_ALL=C.UTF-8 %{ant} test
 # -----------------------------------------------------------------------------
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-2
+- Rebuild
+
 * Tue Aug 22 2023 Marian Koncek <mkoncek@redhat.com> - 1.10.14-1
 - Update to upstream version 1.10.14
 

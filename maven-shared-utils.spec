@@ -2,7 +2,7 @@
 
 Name:           maven-shared-utils
 Version:        3.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven shared utility classes
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-shared-utils
@@ -56,6 +56,9 @@ rm src/test/java/org/apache/maven/shared/utils/CaseTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.4.2-2
+- Rebuild
+
 * Wed Aug 16 2023 Marian Koncek <mkoncek@redhat.com> - 3.4.2-1
 - Update to upstream version 3.4.2
 
