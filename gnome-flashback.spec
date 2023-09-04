@@ -3,17 +3,14 @@
 %bcond_with compiz_session
 
 Name:           gnome-flashback
-Version:        3.46.0
+Version:        3.49.1
 Release:        %autorelease
 Summary:        GNOME Flashback session
 
 License:        GPLv3+
 URL:            https://wiki.gnome.org/Projects/GnomeFlashback
-Source0:        https://download.gnome.org/sources/%{name}/3.46/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.49/%{name}-%{version}.tar.xz
 Source1:        %{name}.pamd
-
-# https://gitlab.gnome.org/GNOME/gnome-flashback/-/merge_requests/48
-Patch0:         0001-gnome-bluetooth-optional.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -98,7 +95,6 @@ NOCONFIGURE=1 gnome-autogen.sh
 
 %install
 %make_install
-find %{buildroot} -name '*.la' -delete;
 %find_lang %{name}
 
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
@@ -117,7 +113,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -f %{name}.lang
 %license COPYING
-%doc NEWS
+%doc NEWS README.md
 %config %{_sysconfdir}/pam.d/%{name}
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
@@ -134,10 +130,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libexecdir}/%{name}-idle-monitor
 %{_libexecdir}/%{name}-media-keys
 %{_libexecdir}/%{name}-metacity
+%{_libexecdir}/%{name}-polkit
 %{_sysconfdir}/xdg/autostart/%{name}-clipboard.desktop
 %{_sysconfdir}/xdg/autostart/%{name}-idle-monitor.desktop
 %{_sysconfdir}/xdg/autostart/%{name}-media-keys.desktop
 %{_sysconfdir}/xdg/autostart/%{name}-nm-applet.desktop
+%{_sysconfdir}/xdg/autostart/%{name}-polkit.desktop
 %{_sysconfdir}/xdg/menus/%{name}-applications.menu
 %{_userunitdir}/*%{name}*
 

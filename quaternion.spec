@@ -1,9 +1,11 @@
 %global appid com.github.quaternion
 %global forgeurl    https://github.com/quotient-im/Quaternion
-%global commit      0315b395584b184cafef358aaf7ff309bc410583
+%global commit      3d7083aad02b8892b2ba6843d64ff9766095f52f
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global snapdate    20230827
 
 Name:       quaternion
-Version:    0.0.95.50~20230106g0315b395
+Version:    0.0.95.50~%{snapdate}g%{shortcommit}
 Release:    %autorelease
 
 %forgemeta
@@ -46,11 +48,12 @@ Quaternion is a cross-platform desktop IM client for the Matrix protocol.
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_WITH_QT6=NO \
     -DUSE_INTREE_LIBQMC=NO
-%make_build -C %{_vpath_builddir}
+%cmake_build
 
 %install
-%make_install -C %{_vpath_builddir}
+%cmake_install
 %find_lang %{name} --with-qt
 cp -p linux/%{appid}.appdata.xml %{buildroot}%{_metainfodir}
 

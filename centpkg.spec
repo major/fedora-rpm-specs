@@ -1,15 +1,7 @@
-# In order to use unversioned python macros in the spec file, we need to
-# explicitly define %%__python.
-%global __python %{_bindir}/python3
-
+# Explicitly define on RHEL8 to avoid an unnecessary dependency on python36
 %if %{defined el8}
-%global __python %{_libexecdir}/platform-python
+%global __python3 %{_libexecdir}/platform-python
 %endif
-
-%if %{defined el7}
-%global __python %{_bindir}/python
-%endif
-
 
 Name:           centpkg
 Version:        0.8.0
@@ -21,18 +13,6 @@ Source0:        %{url}/archive/%{version}/centpkg-%{version}.tar.gz
 BuildArch:      noarch
 
 
-%if %{defined el7}
-BuildRequires:  python-devel
-BuildRequires:  python36-pytz
-BuildRequires:  python-setuptools
-BuildRequires:  python-six
-BuildRequires:  python-rpkg
-# The equivalent dependencies are added automatically everywhere except el7.
-Requires:       python-pycurl
-Requires:       pyOpenSSL
-Requires:       python-rpkg >= 1.65
-Requires:       python-six
-%else
 BuildRequires:  python3-devel
 BuildRequires:  python3-gitlab
 BuildRequires:  python3-pytz
@@ -42,7 +22,6 @@ BuildRequires:  python3-rpkg
 # Auto dependencies are not showing the version.
 Requires:       python3-rpkg >= 1.65
 Requires:       python3-gitlab
-%endif
 
 # /etc/koji.conf.d/stream.conf was previously part of streamkoji
 Conflicts:      streamkoji < 1.1-3
@@ -66,12 +45,12 @@ Provides the centpkg-sig command for working with dist-git.
 
 
 %build
-%py_build
-%{__python} doc/centpkg_man_page.py > centpkg.1
+%py3_build
+%{python3} doc/centpkg_man_page.py > centpkg.1
 
 
 %install
-%py_install
+%py3_install
 install -D -p -m 0644 src/stream.conf      %{buildroot}%{_sysconfdir}/koji.conf.d/stream.conf
 install -D -p -m 0644 src/centpkg.conf     %{buildroot}%{_sysconfdir}/rpkg/centpkg.conf
 install -D -p -m 0644 src/centpkg-sig.conf %{buildroot}%{_sysconfdir}/rpkg/centpkg-sig.conf
@@ -85,8 +64,8 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 %config(noreplace) %{_sysconfdir}/koji.conf.d/stream.conf
 %config(noreplace) %{_sysconfdir}/rpkg/centpkg.conf
 %{_bindir}/%{name}
-%{python_sitelib}/%{name}
-%{python_sitelib}/%{name}-%{version}-py%{python_version}.egg-info
+%{python3_sitelib}/%{name}
+%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 %{_datadir}/bash-completion/completions/centpkg
 %{_mandir}/man1/centpkg.1*
 

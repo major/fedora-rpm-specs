@@ -72,7 +72,7 @@
 %global patch_version 4
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 4
+%global baserelease 5
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -99,7 +99,7 @@ Summary:        Cross-platform make system
 # Source/kwsys/MD5.c is zlib
 # some GPL-licensed bison-generated files, which all include an
 # exception granting redistribution under terms of your choice
-License:        BSD and MIT and zlib%{?with_bundled_cppdap: and Apache-2.0}
+License:        BSD-3-Clause AND MIT-open-group AND Zlib%{?with_bundled_cppdap: AND Apache-2.0}
 URL:            http://www.cmake.org
 Source0:        http://www.cmake.org/files/v%{major_version}.%{minor_version}/%{orig_name}-%{tar_version}.tar.gz
 Source1:        %{name}-init.el
@@ -552,6 +552,9 @@ popd
 
 
 %changelog
+* Sat Sep 02 2023 Tom Stellard <tstellar@redhat.com> - 3.27.4-5
+- Convert license to SPDX
+
 * Fri Sep 01 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-4
 - Fix outdated CI configuration
 

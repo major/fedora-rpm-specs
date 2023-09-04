@@ -1,9 +1,9 @@
 %define service cargo_vendor
 Name:           obs-service-%{service}
 Summary:        An OBS source service: Download, verify and vendor Rust crates (libraries)
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/obs-service-%{service}
-Version:        0.4.3
+Version:        0.4.5
 Release:        %autorelease
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  python3

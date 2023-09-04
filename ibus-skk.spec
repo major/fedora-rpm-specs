@@ -1,9 +1,9 @@
 Name:		ibus-skk
 Version:	1.4.3
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Japanese SKK input method for ibus
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://github.com/ueno/ibus-skk
 Source0:	http://cloud.github.com/downloads/ueno/ibus-skk/%{name}-%{version}.tar.xz
 
@@ -88,6 +88,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-skk.deskt
 
 
 %changelog
+* Sat Sep 02 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 1.4.3-16
+- Migrate to SPDX license expression
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

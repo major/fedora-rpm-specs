@@ -19,6 +19,8 @@ Source:  https://github.com/BestImageViewer/%{name}/releases/download/v%{version
 Patch:   0001-Do-not-truncate-socket-path.patch
 Patch:   0002-fix-compilation-with-lua.patch
 
+ExcludeArch: %{ix86}
+
 BuildRequires: meson
 BuildRequires: gcc-c++
 BuildRequires: yelp-tools

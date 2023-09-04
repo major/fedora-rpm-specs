@@ -5,8 +5,8 @@
 Name:			fcitx
 Summary:		An input method framework
 Version:		4.2.9.9
-Release:		4%{?dist}
-License:		GPLv2+
+Release:		5%{?dist}
+License:		GPL-2.0-or-later
 URL:			https://fcitx-im.org/wiki/Fcitx
 Source0:		http://download.fcitx-im.org/fcitx/%{name}-%{version}_dict.tar.xz
 Source1:		xinput-%{name}
@@ -300,6 +300,9 @@ fi
 %{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
 
 %changelog
+* Sat Sep 02 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 4.2.9.9-5
+- Migrate to SPDX license expression
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.9.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

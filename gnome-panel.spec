@@ -3,16 +3,16 @@
 %global use_evolution_data_server 1
 
 Name:           gnome-panel
-Version:        3.46.0
+Version:        3.49.1
 Release:        %autorelease
 Summary:        GNOME Flashback panel
 
 License:        GPLv2+ and LGPLv2+
 URL:            https://wiki.gnome.org/Projects/GnomePanel
-Source0:        https://download.gnome.org/sources/%{name}/3.46/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.49/%{name}-%{version}.tar.xz
 
 BuildRequires:  autoconf
-BuildRequires:  automake
+BuildRequires:  automake >= 1.16.4
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
@@ -125,8 +125,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %files -f %{po_package}.lang
-%license COPYING COPYING.LESSER COPYING-DOCS
-%doc AUTHORS NEWS README
+%license COPYING COPYING.LESSER
+%doc AUTHORS NEWS README.md
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.*.xml
@@ -140,7 +140,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/lib%{name}.so.*
 
 %files devel
-%{_datadir}/gtk-doc/
+
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/lib%{name}.pc

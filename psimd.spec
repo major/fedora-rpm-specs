@@ -1,0 +1,47 @@
+%global commit0 072586a71b55b7f8c584153d223e95687148a900
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20200517
+# there is no debug package
+%global debug_package %{nil}
+
+Summary:        P(ortable) SIMD
+Name:           psimd
+License:        MIT
+Version:        %{date0}.%{shortcommit0}
+Release:        1%{?dist}
+
+URL:            https://github.com/Maratyszcza
+Source0:        %{url}/%{name}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+
+BuildRequires:  cmake
+BuildRequires:  gcc
+
+%description
+Portable 128-bit SIMD intrinsics
+
+%package devel
+Summary: P(ortable) SIMD
+BuildArch:      noarch
+Provides:       %{name}-static = %{version}-%{release}
+
+%description devel
+Portable 128-bit SIMD intrinsics
+
+%prep
+%autosetup -p1 -n %{name}-%{commit0}
+
+%build
+%cmake 
+%cmake_build
+
+%install
+%cmake_install
+
+%files devel
+%doc README.md
+%license LICENSE
+%{_includedir}/psimd.h
+
+%changelog
+* Thu Aug 17 2023 Tom Rix <trix@redhat.com> - 20200517.072586a-1
+- Initial release

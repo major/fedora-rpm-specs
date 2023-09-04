@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           kakoune
-Version:        2023.07.29
+Version:        2023.08.05
 Release:        1%{?dist}
 Summary:        Code editor heavily inspired by Vim
 
@@ -84,6 +84,9 @@ popd
 
 
 %changelog
+* Sat Sep 02 2023 Artem Polishchuk <ego.cordatus@gmail.com> - 2023.08.05-1
+- chore: Update to 2023.08.05 (rh#2229464)
+
 * Sat Jul 29 2023 Artem Polishchuk <ego.cordatus@gmail.com> - 2023.07.29-1
 - chore: Update to 2023.07.29
 

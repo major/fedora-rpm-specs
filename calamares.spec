@@ -1,11 +1,3 @@
-#global snapdate 20161119
-#global snaphash 34516e9477b2fd5e9b3e5823350d1efc2099573f
-
-#global prerelease beta2
-
-# For rpmdev-bumpspec and releng scripts
-%global baserelease 8
-
 # do not use QtWebEngine because it no longer works with QtWebEngine >= 5.11
 # (it now refuses to run as root unless "export QTWEBENGINE_DISABLE_SANDBOX=1")
 # https://github.com/calamares/calamares/issues/1051
@@ -17,8 +9,8 @@
 %endif
 
 Name:           calamares
-Version:        3.2.61
-Release:        %{baserelease}%{?snaphash:.%{snapdate}git%(echo %{snaphash} | cut -c -13)}%{!?snaphash:%{?prerelease:.%{prerelease}}}%{?dist}
+Version:        3.2.62
+Release:        2%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPLv3+
@@ -38,17 +30,29 @@ Source4:        calamares-auto_de.ts
 # then translate the template in linguist-qt5.
 Source5:        calamares-auto_it.ts
 
-# adjust some default settings (default shipped .conf files)
-Patch0:         calamares-3.2.61-default-settings.patch
+# Backports from upstream
+Patch0001:       0001-users-Read-product-from-the-device-tree-on-DT-platfo.patch
+Patch0002:       0002-users-Clean-up-DMI-model-more-for-hostname.patch
+Patch0003:       0003-keyboard-Add-support-for-setting-the-layout-via-loca.patch
+Patch0004:       0004-keyboard-Add-support-for-getting-the-layout-via-loca.patch
+Patch0005:       0005-keyboard-Do-not-update-configs-in-locale1-mode-when-.patch
+Patch0006:       0006-keyboard-Add-an-option-to-disable-layout-guessing.patch
+Patch0007:       0007-keyboard-Use-the-current-keyboard-model-as-the-defau.patch
+Patch0008:       0008-keyboard-Fix-locale1-support-for-alternate-layouts.patch
 
-# use kdesu instead of pkexec (works around #1171779)
-Patch1:         calamares-3.2.40-kdesu.patch
+# Fedora-specific changes
+## adjust some default settings (default shipped .conf files)
+Patch1001:       calamares-3.2.62-default-settings.patch
+## use kdesu instead of pkexec (works around #1171779)
+Patch1002:       calamares-3.2.62-kdesu.patch
+
 
 # Calamares is only supported where live images (and GRUB) are. (#1171380)
 # This list matches the arches where grub2-efi is used to boot the system
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
 # Macros
+BuildRequires:  git-core
 BuildRequires:  kf5-rpm-macros
 
 # Compilation tools
@@ -202,11 +206,7 @@ developing custom modules for Calamares.
 
 
 %prep
-%setup -q %{?snaphash:-n %{name}-%{snaphash}} %{!?snaphash:%{?prerelease:-n %{name}-%{version}-%{prerelease}}}
-%patch0 -p1 -b .default-settings
-# delete backup files so they don't get installed
-rm -f src/modules/*/*.conf.default-settings
-%patch1 -p1 -b .kdesu
+%autosetup -S git_am
 
 %build
 %{cmake_kf5} -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo" \
@@ -360,6 +360,12 @@ EOF
 
 
 %changelog
+* Sat Sep 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2.62-2
+- Refresh backported patch stack
+
+* Sat Sep 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2.62-1
+- Update to 3.2.62 and backport fixes for Asahi
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.61-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

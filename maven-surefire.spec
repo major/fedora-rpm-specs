@@ -2,7 +2,7 @@
 
 Name:           maven-surefire
 Version:        3.0.0~M6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Test framework project
 License:        Apache-2.0 AND CPL-1.0
 URL:            https://maven.apache.org/surefire/
@@ -173,6 +173,9 @@ find -name *.java -exec sed -i -e s/org.apache.maven.surefire.shared.utils/org.a
 %license LICENSE NOTICE cpl-v10.html
 
 %changelog
+* Sat Sep 02 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.0~M6-7
+- Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.0~M6-6
 - Convert License tag to SPDX format
 

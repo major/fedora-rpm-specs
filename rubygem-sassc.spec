@@ -10,8 +10,10 @@ License:        MIT
 URL:            https://github.com/sass/sassc-ruby
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
+# Use Minitest module instead of MiniTest compatibility layer
+Patch:          %{url}/pull/242.patch
 # disable tests that are broken because of the unbundled libsass
-Patch0:         00-disable-broken-tests.patch
+Patch:          00-disable-broken-tests.patch
 
 BuildRequires:  ruby-devel >= 2.0.0
 BuildRequires:  rubygems-devel

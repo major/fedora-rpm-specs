@@ -43,7 +43,7 @@
 %endif
 
 Name:           xpra
-Version:        5.0
+Version:        5.0.1
 Release:        %autorelease
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
@@ -65,6 +65,7 @@ BuildRequires:  libvpx-devel
 BuildRequires:  libXdamage-devel
 BuildRequires:  libXres-devel
 BuildRequires:  cups-devel, cups
+BuildRequires:  python3-cups
 BuildRequires:  redhat-rpm-config
 BuildRequires:  python3-rpm-macros
 BuildRequires:  gcc
@@ -177,6 +178,7 @@ sed -i 's|-mfpmath=387|-mfloat-abi=hard|' setup.py
 %build
 %set_build_flags
 %py3_build -- \
+    --without-nvidia --without-pandoc_lua \
     --with-verbose \
     --with-vpx \
     %{?_with_enc_x264} \

@@ -28,7 +28,7 @@ ExcludeArch: %{ix86}
 %global url1    https://github.com/pbek
 
 Name:           qownnotes
-Version:        23.8.0
+Version:        23.9.0
 Release:        %autorelease
 Summary:        Plain-text file markdown note taking with Nextcloud integration
 

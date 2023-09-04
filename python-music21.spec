@@ -1,7 +1,7 @@
 Name:           python-music21
-Version:        7.3.3
+Version:        9.1.0
 Release:        %autorelease
-Summary:        A toolkit for computational musicology
+Summary:        Toolkit for computational musicology
 
 License:        BSD or LGPLv3
 URL:            http://web.mit.edu/music21/
@@ -73,13 +73,14 @@ Obsoletes:      %{name}-doc < 6.7
 %prep
 %autosetup -n music21-%{version} -p1
 
-rm -rfv .mypy_cache
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 mkdir -p %{buildroot}%{_datadir}/music21/corpus \
          %{buildroot}%{_datadir}/music21/scale/scala
@@ -106,8 +107,8 @@ LC_ALL=C.utf8 \
 
 %files -n python3-music21
 %{python3_sitelib}/music21/
-%{python3_sitelib}/*.egg-info
 %exclude %{python3_sitelib}/music21/LICENSE
+%{python3_sitelib}/music21-%{version}.dist-info/
 
 %files common
 %license LICENSE

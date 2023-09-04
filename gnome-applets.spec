@@ -1,16 +1,16 @@
 %global po_package %{name}-3.0
 
 Name:           gnome-applets
-Version:        3.46.0
+Version:        3.49.1
 Release:        %autorelease
 Summary:        Small applications for the GNOME Flashback panel
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Projects/GnomeApplets
-Source0:        https://download.gnome.org/sources/%{name}/3.46/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.49/%{name}-%{version}.tar.xz
 
 BuildRequires:  autoconf
-BuildRequires:  automake
+BuildRequires:  automake >= 1.16.4
 BuildRequires:  gcc
 BuildRequires:  intltool
 BuildRequires:  libSM-devel
@@ -88,16 +88,13 @@ autoreconf -fiv
 %make_install
 %find_lang %{po_package} --all-name
 
-# Clean up unpackaged files
-find %{buildroot}%{_libdir}/gnome-panel/ -name '*.la' -delete
-
 # drop non-XKB support files
 rm -rf %{buildroot}%{_datadir}/xmodmap
 
 
 %files -f %{po_package}.lang
-%license COPYING
-%doc README AUTHORS NEWS
+%license COPYING COPYING-DOCS
+%doc README.md AUTHORS NEWS
 %{_datadir}/%{name}/
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
 %{_datadir}/icons/hicolor/*/*/*.png
@@ -107,8 +104,8 @@ rm -rf %{buildroot}%{_datadir}/xmodmap
 %ifnarch s390 s390x i686
 %{_bindir}/cpufreq-selector
 %{_datadir}/dbus-1/system-services/org.gnome.CPUFreqSelector.service
+%{_datadir}/dbus-1/system.d/org.gnome.CPUFreqSelector.conf
 %{_datadir}/polkit-1/actions/org.gnome.cpufreqselector.policy
-%config %{_sysconfdir}/dbus-1/system.d/org.gnome.CPUFreqSelector.conf
 %endif
 
 # Don't make it as separate noarch package since it builds differently on 's390x'
