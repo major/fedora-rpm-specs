@@ -3,8 +3,8 @@
 %{!?runselftest:%global runselftest 0}
 
 Name:		%{srcname}
-Version:	5.2.4
-Release:	6%{?dist}
+Version:	5.2.5
+Release:	1%{?dist}
 Summary:	Python client library for PostgreSQL
 
 URL:		http://www.pygresql.org/
@@ -84,10 +84,13 @@ dbhost = ''
 dbport = $PGPORT
 EOF
 
-%{__python3} setup.py test
+%{python3} setup.py test
 
 
 %changelog
+* Mon Sep 04 2023 Ondrej Sloup <osloup@redhat.com> - 5.2.5-1
+- Rebase to the latest upstream version (rhbz#2235341)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

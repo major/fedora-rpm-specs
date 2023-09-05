@@ -30,8 +30,8 @@ BuildRequires:   gnutls-devel
 %endif
 BuildRequires:   zlib-ada-devel chrpath
 BuildRequires:   templates_parser-devel openldap-devel
-# python3-devel is used in adjusting the shebang in awsascb.
-BuildRequires:   python3-devel
+# python3-rpm-macros is used in adjusting the shebang in awsascb.
+BuildRequires:   python3-rpm-macros
 BuildRequires:   python3-sphinx
 BuildRequires: make
 # gcc-gnat only available on these:
@@ -86,11 +86,6 @@ tar -xvf %{SOURCE1}
 %patch2 -p1 -b .python-version
 rm -rf templates_parser
 rm -rf include/zlib*
-# Adjust the shebang in awsascb to use Python 3.
-# -p preserves timestamps.
-# -n prevents creating backup files.
-# -i specifies the interpreter for the shebang.
-pathfix.py -p -n -i "%{__python3}" tools/awsascb
 
 
 %build
@@ -125,6 +120,9 @@ rm -rf %{buildroot}/%{_datadir}/gps
 ## packages. The manifest file is therefore irrelevant in this RPM package, so
 ## delete it.
 rm -rf %{buildroot}%{_GNAT_project_dir}/manifests
+
+# Adjust the shebang in awsascb to run Python the Fedora way.
+%{py3_shebang_fix} %{buildroot}/%{_bindir}/awsascb
 
 
 %files

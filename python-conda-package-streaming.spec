@@ -2,7 +2,7 @@
 %global pkgname conda_package_streaming
 
 # We have a circular dep on conda for tests
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           python-%{srcname}
 Version:        0.9.0
@@ -33,7 +33,7 @@ Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 # For tests
 %if %{without bootstrap}
-# Filed https://github.com/conda/conda-package-streaming/pull/52 to add conda dep upstream
+# Need conda executable for tests
 BuildRequires:  conda
 %endif
 
@@ -46,7 +46,7 @@ BuildRequires:  conda
 # do not run coverage in pytest, drop unneeded and unpackaged boto3-stubs dev dep
 sed -i -e '/cov/d' -e '/boto3-stubs/d' pyproject.toml requirements.txt
 %if %{with bootstrap}
-sed -i -e '/conda-package-handling/d' pyproject.toml
+sed -i -e '/"conda"/d' -e '/conda-package-handling/d' pyproject.toml
 %endif
 
 %generate_buildrequires

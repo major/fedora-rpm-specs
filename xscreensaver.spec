@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    2
+%define baserelease    3
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -1183,6 +1183,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Sep  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.07-3
+- Fix patch again
+
 * Fri Sep  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.07-2
 - Update to 6.07
 - make_ximage: avoid integer overflow on left shift

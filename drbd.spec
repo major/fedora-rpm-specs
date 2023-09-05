@@ -1,10 +1,11 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
-Version: 9.23.0
-Release: 2%{?dist}
+Version: 9.25.0
+Release: 1%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.12.2-disable_xsltproc_network_read.patch
 Patch1: drbd-utils-9.15.0-make_configure-workaround.patch
+Patch2: drbd-utils-9.25.0-missing_include.patch
 License: GPLv2+
 ExclusiveOS: linux
 URL: http://www.drbd.org/
@@ -38,8 +39,9 @@ This is a virtual package, installing the full user-land suite.
 %setup -q -n drbd-utils-%{version}
 
 # Don't let xsltproc make network calls during build
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 %configure \
@@ -274,6 +276,10 @@ fi
 
 
 %changelog
+* Sun Sep  3 2023 Peter Hanecak <hany@hany.sk> - 9.25.0-1
+- Upstream release of 9.25.0
+- Update of patch macro syntax
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

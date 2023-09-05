@@ -1,7 +1,7 @@
 %global srcname tmuxp
 
 Name:           python-%{srcname}
-Version:        1.27.0
+Version:        1.29.1
 Release:        %autorelease
 Summary:        Tmux session manager
 
@@ -18,7 +18,6 @@ BuildArch:      noarch
 %package -n python3-%{srcname}
 Summary:	%{summary}
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 
 %description -n python3-%{srcname}
 %{summary}.
@@ -34,13 +33,12 @@ BuildRequires:  pyproject-rpm-macros
 
 %install
 %pyproject_install
+%pyproject_save_files tmuxp
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md CHANGES examples
 %{_bindir}/tmuxp
-%{python3_sitelib}/%{srcname}-*.dist-info/
-%{python3_sitelib}/%{srcname}/
 
 %changelog
 %autochangelog

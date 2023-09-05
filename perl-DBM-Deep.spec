@@ -1,13 +1,11 @@
 Name:           perl-DBM-Deep
-Version:        2.0016
-Release:        19%{?dist}
+Version:        2.0017
+Release:        1%{?dist}
 Summary:        A pure perl multi-level hash/array DBM
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBM-Deep
 Source0:        https://cpan.metacpan.org/authors/id/S/SP/SPROUT/DBM-Deep-%{version}.tar.gz
-Patch0:         DBM-Deep-2.0016-Module-Build.patch
-# Remove using of ' as a package name separator (CPAN RT#148417)
-Patch1:         DBM-Deep-2.0016-Fix-for-perl-5.38.patch
+Patch0:         DBM-Deep-2.0017-Module-Build.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -69,7 +67,6 @@ C-based DBM. Out-of-the-box compatibility with Unix, Mac OS X and Windows.
 
 # Relax Module::Build version requirement for EPEL7 build
 %patch -P0 -p1
-%patch -P1 -p1
 
 %build
 perl Build.PL --installdirs=vendor
@@ -99,6 +96,11 @@ LONG_TESTS=1 TEST_SQLITE=1 ./Build test
 %{_mandir}/man3/DBM::Deep::Storage::File.3*
 
 %changelog
+* Sun Sep  3 2023 Paul Howarth <paul@city-fan.org> - 2.0017-1
+- Update to 2.0017 (rhbz#2236875)
+  - Get rid of old perl4-style ' package separator and use :: instead for
+    compatibility with perl 5.38 (CPAN RT#148417)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0016-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

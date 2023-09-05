@@ -2,11 +2,11 @@
 %global sover 2.4
 
 Name:           OpenImageIO
-Version:        2.4.14.0
-Release:        2%{?dist}
+Version:        2.4.15.0
+Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
-License:        BSD and MIT
+License:        BSD-3-Clause AND MIT
 # The included fmtlib is MIT licensed
 # src/include/OpenImageIO/fmt
 URL:            https://sites.google.com/site/openimageio/home
@@ -206,6 +206,10 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sun Sep 03 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.15.0-1
+- Update to 2.4.15.0.
+- Update License tag to SPDX identifiers.
+
 * Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 2.4.14.0-2
 - Rebuild for opencv 4.8.0
 

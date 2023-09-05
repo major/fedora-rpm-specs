@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:           python-%{projname}
-Version:        3.41.0
+Version:        3.41.1
 Release:        %autorelease
 Summary:        Python Atlassian REST API Wrapper
 

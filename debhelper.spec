@@ -6,7 +6,7 @@
 %bcond_without tests
 
 Name:           debhelper
-Version:        13.11.5
+Version:        13.11.6
 Release:        1%{?dist}
 Summary:        Helper programs for debian/rules
 
@@ -123,7 +123,8 @@ dpkg-architecture -qDEB_HOST_GNU_TYPE
 dpkg --print-architecture
 cc -dumpmachine
 
-%setup -q -n %{name}
+#%%setup -q -n %%{name}
+%setup -q -n work
 %patch -P2 -p1 -b .no-debian-layout
 
 %build
@@ -169,6 +170,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Sat Sep 02 2023 Sérgio Basto <sergio@serjux.com> - 13.11.6-1
+- Update debhelper to 13.11.6
+
 * Mon Aug 14 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 13.11.5-1
 - Update to 13.11.5 (#2231971)
 

@@ -1,14 +1,10 @@
 Name:       libkindrv
-Version:    0.1.2
+Version:    1.0.0
 Release:    %autorelease
 Summary:    Driver for controlling robotic arms by Kinova
 License:    LGPL-3.0-or-later
 URL:        https://github.com/fawkesrobotics/libkindrv
 Source0:    https://github.com/fawkesrobotics/libkindrv/archive/%{version}/%{name}-%{version}.tar.gz
-# merged in upstream master, will be removed once a new version has been tagged
-Patch0: libkindrv.printf.patch
-# merged in upstream master, will be removed once a new version has been tagged
-Patch1: libkindrv.configurable-udev-rules-dir.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  boost-system

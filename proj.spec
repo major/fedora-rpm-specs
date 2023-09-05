@@ -2,8 +2,8 @@
 
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.2.1
-Release:        2%{?dist}
+Version:        9.3.0
+Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
 License:        MIT
@@ -298,7 +298,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 %files -n mingw32-%{name}
 %license COPYING
-%{mingw32_bindir}/libproj_9_2.dll
+%{mingw32_bindir}/libproj_9_3.dll
 %{mingw32_bindir}/*.exe
 %{mingw32_libdir}/libproj.dll.a
 %{mingw32_libdir}/cmake/proj/
@@ -310,7 +310,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 %files -n mingw64-%{name}
 %license COPYING
-%{mingw64_bindir}/libproj_9_2.dll
+%{mingw64_bindir}/libproj_9_3.dll
 %{mingw64_bindir}/*.exe
 %{mingw64_libdir}/libproj.dll.a
 %{mingw64_libdir}/cmake/proj/
@@ -322,6 +322,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sat Sep 02 2023 Sandro Mani <manisandro@gmail.com> - 9.3.0-1
+- Update to 9.3.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

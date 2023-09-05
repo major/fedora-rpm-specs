@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.7.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -570,6 +570,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Sun Sep 03 2023 Sandro Mani <manisandro@gmail.com> - 3.7.1-7
+- Rebuild (proj)
+
 * Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 3.7.1-6
 - Rebuild (libspatialite)
 

@@ -19,7 +19,9 @@ BuildRequires: gcc
 BuildRequires: astyle
 BuildRequires: openssl-devel
 BuildRequires: python3-pytest
+%if %{undefined rhel}
 BuildRequires: python3-pytest-xdist
+%endif
 BuildRequires: unzip
 BuildRequires: xsltproc
 #BuildRequires: doxygen
@@ -51,6 +53,10 @@ rm -rf src/kem/classic_mceliece
 rm -rf src/kem/frodokem
 rm -rf src/kem/hqc
 rm -rf src/kem/ntruprime
+%if %{defined rhel}
+# pytest-xdist is not available in RHEL due to dependencies
+sed -i -e 's/--numprocesses=auto//' tests/CMakeLists.txt
+%endif
 
 %build
 %cmake -GNinja -DBUILD_SHARED_LIBS=ON -DOQS_USE_AES_OPENSSL=ON -DOQS_USE_AES_INSTRUCTIONS=OFF -DOQS_DIST_BUILD=ON -DOQS_ALGS_ENABLED=STD -DOQS_USE_SHA3_OPENSSL=ON -DCMAKE_BUILD_TYPE=Debug -LAH ..

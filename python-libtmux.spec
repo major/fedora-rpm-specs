@@ -1,11 +1,11 @@
 %global srcname libtmux
 
 Name:           python-%{srcname}
-Version:        0.21.0
+Version:        0.23.1
 Release:        %autorelease
 Summary:        Scripting library for tmux
 
-License:        BSD
+License:        MIT
 URL:            https://github.com/tmux-python/libtmux
 Source:         %{pypi_source}
 BuildArch:      noarch
@@ -20,8 +20,6 @@ mapping to traverse, inspect and interact with live tmux sessions.}
 %package -n python3-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-%{?python_provide:%python_provide python3-%{srcname}}
 Requires:       tmux >= 1.8
 
 %description -n python3-%{srcname} %{_description}
@@ -37,13 +35,11 @@ Requires:       tmux >= 1.8
 
 %install
 %pyproject_install
+%pyproject_save_files libtmux
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md CHANGES
-%{python3_sitelib}/%{srcname}-*.dist-info/
-%{python3_sitelib}/%{srcname}/
 
 %changelog
 %autochangelog
-

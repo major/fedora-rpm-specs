@@ -38,6 +38,8 @@ Source:         %{gosource}
 %install
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
+install -m 0755 -vd                     %{buildroot}%{_mandir}/man1
+install -m 0644 -vp git-credential-azure.1 -t %{buildroot}%{_mandir}/man1
 
 %if %{with check}
 %check
@@ -45,6 +47,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %endif
 
 %files
+%{_mandir}/man1/git-credential-azure.1*
 %license LICENSE.txt
 %doc README.md
 %{_bindir}/git-credential-azure

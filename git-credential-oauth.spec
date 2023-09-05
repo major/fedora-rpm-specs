@@ -44,6 +44,8 @@ Recommends: xdg-utils
 %gopkginstall
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
+install -m 0755 -vd                     %{buildroot}%{_mandir}/man1
+install -m 0644 -vp git-credential-oauth.1 -t %{buildroot}%{_mandir}/man1
 
 %if %{with check}
 %check
@@ -51,6 +53,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %endif
 
 %files
+%{_mandir}/man1/git-credential-oauth.1*
 %license LICENSE.txt
 %doc CONTRIBUTING.md README.md
 %{_bindir}/git-credential-oauth

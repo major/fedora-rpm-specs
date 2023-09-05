@@ -78,7 +78,7 @@ sed -i -e 's!^DOT_FONTNAME.*=.*!DOT_FONTNAME =!g' doc/doxyfile.in
 %if %{with jsoncpp_enables_doc}
 # Build the doc
 cp -p %{__cmake_builddir}/version .
-%{__python3} doxybuild.py --with-dot --doxygen %{_bindir}/doxygen
+%{__python3} doxybuild.py --with-dot --doxygen /usr/bin/doxygen
 rm -f version
 %endif
 

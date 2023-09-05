@@ -2,7 +2,7 @@
 
 Name:    powerdevil
 Version: 5.27.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: GPLv2+
@@ -140,6 +140,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf5_qtplugindir}/powerdevil/action/powerdevil_*.so
 
 %changelog
+* Sun Sep 03 2023 Adam Williamson <awilliam@redhat.com> - 5.27.7-4
+- Update patch again to also disable lid suspend on VMs (per Natalie)
+
 * Fri Sep 01 2023 Adam Williamson <awilliam@redhat.com> - 5.27.7-3
 - Fix a bug in the backported patch (thanks Natalie, the original author)
 

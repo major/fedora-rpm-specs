@@ -6,7 +6,7 @@
 
 Name:          libspatialite
 Version:       5.1.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Enables SQLite to support spatial data
 
 License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
@@ -179,6 +179,9 @@ make check  -C build_native %{?_smp_mflags} || :
 %endif
 
 %changelog
+* Sun Sep 03 2023 Sandro Mani <manisandro@gmail.com> - 5.1.0-2
+- Rebuild (proj)
+
 * Fri Aug 04 2023 Sandro Mani <manisandro@gmail.com> - 5.1.0-1
 - Update to 5.1.0
 
