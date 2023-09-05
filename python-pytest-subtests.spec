@@ -5,6 +5,7 @@ Version:        0.10.0
 Release:        3%{?dist}
 Summary:        Support for unittest subTest() and subtests fixture
 
+# SPDX
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-subtests
 Source0:        %{pypi_source}

@@ -5,8 +5,8 @@
 
 %global crate gdk-sys
 
-Name:           rust-gdk-sys
-Version:        0.18.0
+Name:           rust-gdk-sys0.17
+Version:        0.17.0
 Release:        %autorelease
 Summary:        FFI bindings to libgdk-3
 
@@ -45,6 +45,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dox-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dox-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dox" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v3_24-devel

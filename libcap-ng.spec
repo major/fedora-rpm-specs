@@ -1,12 +1,13 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.8.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: LGPL-2.0-or-later
 URL: https://people.redhat.com/sgrubb/libcap-ng/
 Source0: https://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
 # This patch can be removed when 1899540 is resolved
 Patch1: libcap-ng-0.8.3-apply-disable.patch
+Patch2: libcap-ng-0.8.3-wur.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: kernel-headers >= 2.6.11 
@@ -17,7 +18,7 @@ Libcap-ng is a library that makes using posix capabilities easier
 
 %package devel
 Summary: Header files for libcap-ng library
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: kernel-headers >= 2.6.11
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
@@ -28,7 +29,7 @@ applications that need to use the libcap-ng library.
 
 %package python3
 Summary: Python3 bindings for libcap-ng library
-License: LGPLv2+
+License: LGPL-2.0-or-later
 BuildRequires: python3-devel python-setuptools swig
 BuildRequires: make
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -39,7 +40,7 @@ and can be used by python3 applications.
 
 %package utils
 Summary: Utilities for analyzing and setting file capabilities
-License: GPLv2+
+License: LGPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description utils
@@ -49,7 +50,8 @@ lets you set the file system based capabilities.
 
 %prep
 %setup -q
-%patch1 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 %build
 %configure --libdir=%{_libdir} --with-python=no --with-python3
@@ -95,6 +97,10 @@ make check
 %attr(0644,root,root) %{_mandir}/man8/*
 
 %changelog
+* Mon Sep 04 2023 Steve Grubb <sgrubb@redhat.com> 0.8.3-8
+- Add function annotations to warn on unused results
+- SPDX Migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

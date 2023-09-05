@@ -1,3 +1,5 @@
+%bcond_without mingw
+
 %global data_version 1.14
 
 Name:           proj
@@ -20,6 +22,7 @@ BuildRequires:  make
 BuildRequires:  libtiff-devel
 BuildRequires:  sqlite-devel
 
+%if %{with mingw}
 BuildRequires: mingw32-curl
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
@@ -31,6 +34,7 @@ BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-libtiff
 BuildRequires: mingw64-sqlite
+%endif
 
 Obsoletes:      proj-datumgrid < 1.8-6.3.2.6
 
@@ -189,6 +193,7 @@ Supplements:  proj\
 %data_subpkg -c za -n %{quote:South Africa}
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       Cartographic projection software (PROJ.4)
 Obsoletes:     mingw32-%{name}-static < 6.3.2-3
@@ -213,6 +218,7 @@ projection functions. Proj docs: http://www.remotesensing.org/dl/new_docs/
 
 
 %{?mingw_debug_package}
+%endif
 
 
 %prep
@@ -224,19 +230,24 @@ projection functions. Proj docs: http://www.remotesensing.org/dl/new_docs/
 %cmake -DUSE_EXTERNAL_GTEST=ON
 %cmake_build
 
+%if %{with mingw}
 # MinGW build
 %mingw_cmake -DBUILD_TESTING=OFF
 %mingw_make_build
+%endif
 
 
 %install
 %cmake_install
+%if %{with mingw}
 %mingw_make_install
+%endif
 
 # Install data
 mkdir -p %{buildroot}%{_datadir}/%{name}
 tar -xf %{SOURCE1} --directory %{buildroot}%{_datadir}/%{name}
 
+%if %{with mingw}
 rm -rf %{buildroot}%{mingw32_docdir}
 rm -rf %{buildroot}%{mingw32_mandir}
 rm -rf %{buildroot}%{mingw64_docdir}
@@ -244,6 +255,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %mingw_debug_install_post
+%endif
 
 
 %check
@@ -296,6 +308,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{_datadir}/%{name}/triangulation.schema.json
 %{_mandir}/man1/*.1*
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
 %{mingw32_bindir}/libproj_9_3.dll
@@ -319,6 +332,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw64_includedir}/*.h
 %{mingw64_includedir}/proj/
 %{mingw64_datadir}/%{name}/
+%endif
 
 
 %changelog

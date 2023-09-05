@@ -2,12 +2,15 @@
 
 Name:           botan2
 Version:        2.19.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Crypto and TLS for C++11
 
 License:        BSD
 URL:            https://botan.randombit.net/
 Source0:        https://botan.randombit.net/releases/Botan-%{version}.tar.xz
+
+# upstream patch: distutils.version.StrictVersion dropped in Python 3.12
+Patch0:         0001-Disable-concurrency-sphinx-build.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3
@@ -58,7 +61,7 @@ This package contains the Python3 binding for %{name}.
 
 
 %prep
-%autosetup -n Botan-%{version}
+%autosetup -n Botan-%{version} -p1
 
 
 %build
@@ -131,6 +134,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./botan-test
 
 
 %changelog
+* Mon Sep 04 2023 Frantisek Sumsal <frantisek@sumsal.cz> - 2.19.3-5
+- Fix FTI/FTBFS (#2219948, #2225727)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

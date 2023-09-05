@@ -126,7 +126,7 @@ Version:        %{vmajor}.%{vminor}.%{vpatch}
 Release:        %autorelease
 Summary:        User space interface to the Linux Kernel Crypto API
 
-License:        BSD or GPLv2
+License:        BSD-3-Clause OR GPL-2.0-only
 URL:            https://www.chronox.de/%{name}.html
 Source0:        https://www.chronox.de/%{name}/%{name}-%{version}.tar.xz
 Source1:        https://www.chronox.de/%{name}/%{name}-%{version}.tar.xz.asc

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    b5853edea6204ff8fa10633c3a4cccc4058410ed
+%global gh_commit    2fd038f7c9d12d468130c6e1b3ce06e4160a7dbb
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     brick
 %global gh_project   varexporter
@@ -19,8 +19,8 @@
 %global ns_project   VarExporter
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.3.8
-Release:        2%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        A powerful alternative to var_export
 
 License:        MIT
@@ -31,7 +31,7 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 
-BuildRequires:  php(language) >= 7.2
+BuildRequires:  php(language) >= 7.4
 BuildRequires: (php-composer(nikic/php-parser) >= 4.0   with php-composer(nikic/php-parser) < 5)
 BuildRequires:  php-reflection
 BuildRequires:  php-date
@@ -40,19 +40,14 @@ BuildRequires:  php-spl
 # From composer.json, "require-dev": {
 #    "phpunit/phpunit": "^8.5 || ^9.0",
 #    "php-coveralls/php-coveralls": "^2.2",
-#    "vimeo/psalm": "4.4.1"
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
+#    "vimeo/psalm": "5.15.0"
 BuildRequires:  phpunit9
 %global phpunit %{_bindir}/phpunit9
-%else
-BuildRequires:  phpunit8 >= 8.5
-%global phpunit %{_bindir}/phpunit8
-%endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#    "php": "^7.2 || ^8.0",
+#    "php": "^7.4 || ^8.0",
 #    "nikic/php-parser": "^4.0"
 Requires:       php(language) >= 7.2
 Requires:      (php-composer(nikic/php-parser) >= 4.0   with php-composer(nikic/php-parser) < 5)
@@ -111,7 +106,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -130,6 +125,10 @@ exit $ret
 
 
 %changelog
+* Mon Sep  4 2023 Remi Collet <remi@remirepo.net> - 0.4.0-1
+- update to 0.4.0
+- raise dependency on PHP 7.4
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

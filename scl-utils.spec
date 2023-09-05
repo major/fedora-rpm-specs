@@ -3,25 +3,24 @@
 
 Name:       scl-utils
 Epoch:      1
-Version:    2.0.2
-Release:    24%{dist}
+Version:    2.0.3
+Release:    1%{dist}
 Summary:    Utilities for alternative packaging
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/sclorg/scl-utils
 Source0:    https://github.com/sclorg/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:    macros.scl-filesystem
 BuildRequires:	gcc make
-Buildrequires:  cmake 
-Buildrequires:  rpm-devel
+BuildRequires:  cmake
+BuildRequires:  rpm-devel
+BuildRequires:  libcmocka libcmocka-devel environment-modules
 Requires:   %{_bindir}/modulecmd
 
 Patch1:     0003-Scl-utils-layout-patch-from-fedora-famillecollet.com.patch
-
-# https://github.com/sclorg/scl-utils/pull/25
-Patch100:   scl-utils-2.0.2-rhbz-1728450.patch
-# https://github.com/sclorg/scl-utils/pull/43
-Patch101:   scl-utils-2.0.2-rhbz-2029959.patch
+Patch2:     BZ-2056462-do-not-error-out-on-SIGINT.patch
+Patch3:     BZ-2091000-remove-tmp-file.patch
+Patch4:     brp-python-hardlink.patch
 
 %description
 Run-time utility for alternative packaging.
@@ -41,9 +40,7 @@ Essential RPM build macros for alternative packaging.
 %cmake .
 make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
-
 %install
-rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 if [ %{macrosdir} != %{_sysconfdir}/rpm ]; then
     mkdir -p %{buildroot}%{macrosdir}
@@ -57,7 +54,11 @@ mkdir modulefiles
 mkdir prefixes
 ln -s prefixes conf
 
+%check
+make check
+
 %files
+%dir %{_sysconfdir}/scl
 %dir %{_sysconfdir}/scl/modulefiles
 %dir %{_sysconfdir}/scl/prefixes
 %{_sysconfdir}/scl/conf
@@ -80,6 +81,12 @@ ln -s prefixes conf
 %{_rpmconfigdir}/brp-scl-python-bytecompile
 
 %changelog
+* Wed Aug 23 2023 Remi Collet <remi@remirepo/net> - 1:2.0.3-1
+- Rebase to 2.0.3
+- add upstream patch to fix brp-python-hardlink path
+- use SPDX license ID
+- run upstream tests
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate atk
 
 Name:           rust-atk
-Version:        0.17.1
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Rust bindings for the ATK library
 
@@ -45,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+dox-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dox-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dox" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v2_30-devel
@@ -105,6 +93,18 @@ This package contains library source intended for building other packages which
 use the "v2_38" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2_38-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v2_46-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v2_46-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_46" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_46-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

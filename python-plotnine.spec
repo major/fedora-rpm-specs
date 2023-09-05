@@ -34,7 +34,7 @@ simple.
 Welcome to Plot 9 from Outerspace 🪐 🦇}
 
 Name:           python-%{pypi_name}
-Version:        0.12.1
+Version:        0.12.3
 Release:        %{autorelease}
 Summary:        Implementation of a grammar of graphics in Python, based on ggplot2
 BuildArch:      noarch

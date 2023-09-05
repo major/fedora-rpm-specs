@@ -10,7 +10,7 @@
 
 Name:           calamares
 Version:        3.2.62
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPLv3+
@@ -39,6 +39,9 @@ Patch0005:       0005-keyboard-Do-not-update-configs-in-locale1-mode-when-.patch
 Patch0006:       0006-keyboard-Add-an-option-to-disable-layout-guessing.patch
 Patch0007:       0007-keyboard-Use-the-current-keyboard-model-as-the-defau.patch
 Patch0008:       0008-keyboard-Fix-locale1-support-for-alternate-layouts.patch
+Patch0009:       0009-users-Use-usermod-to-disable-passwords.patch
+Patch0010:       0010-Make-HiDPI-SVG-rendering-work-on-Wayland.patch
+Patch0011:       0011-keyboard-Do-the-autodetection-stuff-after-setConfigu.patch
 
 # Fedora-specific changes
 ## adjust some default settings (default shipped .conf files)
@@ -360,6 +363,12 @@ EOF
 
 
 %changelog
+* Mon Sep 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2.62-4
+- Add a patch to fix keyboard layout detection
+
+* Mon Sep 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2.62-3
+- Add more patches for Fedora Asahi
+
 * Sat Sep 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2.62-2
 - Refresh backported patch stack
 

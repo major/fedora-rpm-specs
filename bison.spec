@@ -1,8 +1,12 @@
 Summary: A GNU general-purpose parser generator
 Name: bison
 Version: 3.8.2
-Release: 5%{?dist}
-License: GPLv3+
+Release: 6%{?dist}
+
+# An SPDX license string check done against bison-3.8.2 found strings
+# corresponding to the following licenses across the bison source tree:
+License: GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Bison-exception-2.2 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-generic AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND FSFULLR AND GFDL-1.3-or-later AND X11
+
 Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
 # genereted from https://ftp.gnu.org/gnu/gnu-keyring.gpg via:
@@ -120,6 +124,12 @@ gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/bison.info*
 %{_libdir}/liby.a
 
 %changelog
+* Fri Sep  1 2023 Arjun Shankar <arjun@redhat.com> - 3.8.2-6
+- Analyse bison sources for license information
+- Migrate License field to SPDX identifiers for
+  https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+  (#2222079)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

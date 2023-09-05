@@ -2,8 +2,8 @@
 %global gem_name shoulda
 
 Name: rubygem-%{gem_name}
-Version: 3.6.0
-Release: 14%{?dist}
+Version: 4.0.0
+Release: 1%{?dist}
 Summary: Making tests easy on the fingers and eyes
 License: MIT
 URL: https://github.com/thoughtbot/shoulda
@@ -11,12 +11,6 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-BuildRequires: rubygem(jbuilder)
-BuildRequires: rubygem(puma)
-BuildRequires: rubygem(rails)
-BuildRequires: rubygem(shoulda-context)
-BuildRequires: rubygem(shoulda-matchers)
-BuildRequires: rubygem(sqlite3)
 BuildArch: noarch
 
 %description
@@ -34,8 +28,8 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 
-%gemspec_remove_dep -g shoulda-matchers '~> 3.0'
-%gemspec_add_dep -g shoulda-matchers ['>= 3.0', '< 6']
+%gemspec_remove_dep -g shoulda-matchers '~> 4.0'
+%gemspec_add_dep -g shoulda-matchers ['>= 4.0', '< 6']
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -54,59 +48,11 @@ cp -a .%{gem_dir}/* \
 
 %check
 pushd .%{gem_instdir}
-# The upream .gemspec is not usable for tests due to depenency on Git.
-ln -sf %{_builddir}/%{gem_name}-%{version}.gemspec %{gem_name}.gemspec
+# We don't have available snow globe gem, which is required for Rails related
+# test cases. Unfortunately, that leaves nothing to test :'(
+mv test/acceptance/integrates_with_rails_test.rb{,.disable}
 
-# It is easier to recreate the Gemfile to use local versions of gems.
-cat << GF > Gemfile
-source 'https://rubygems.org'
-
-gem 'rails'
-GF
-
-# Pry is useless for our purposes.
-sed -i "/require 'pry/ s/^/#/" test/test_helper.rb
-
-# Avoid Appraisal and Bundler.
-sed -i "/current_bundle/ s/^/#/" test/acceptance_test_helper.rb
-sed -i "/assert_appraisal/ s/^/#/" test/acceptance_test_helper.rb
-
-# Avoid bootsnap, listen, puma, spring and sprockets dependencies
-# as well as turbolinks and webpacker.
-sed -i '/rails new/ s/"$/ --skip-bootsnap --skip-asset-pipeline --skip-javascript --skip-git"/' \
-  test/support/acceptance/helpers/step_helpers.rb
-
-# Remove useless test dependencies.
-sed -i "/updating_bundle do |bundle|/a \\
-        bundle.remove_gem 'capybara'" test/support/acceptance/helpers/step_helpers.rb
-sed -i "/updating_bundle do |bundle|/a \\
-        bundle.remove_gem 'selenium-webdriver'" test/support/acceptance/helpers/step_helpers.rb
-sed -i "/updating_bundle do |bundle|/a \\
-        bundle.remove_gem 'rack-mini-profiler'" test/support/acceptance/helpers/step_helpers.rb
-sed -i "/updating_bundle do |bundle|/a \\
-        bundle.remove_gem 'webdrivers'" test/support/acceptance/helpers/step_helpers.rb
-sed -i "/updating_bundle do |bundle|/a \\
-        bundle.remove_gem 'debug'" test/support/acceptance/helpers/step_helpers.rb
-
-# Fix Rails 5.1+ compatibility.
-# https://github.com/thoughtbot/shoulda/issues/267
-sed -i '/ActiveRecord::Migration/ s/$/["5.2"]/' \
-  test/acceptance/rails_integration_test.rb
-sed -i 's/render nothing: true/head :ok/' \
-  test/acceptance/rails_integration_test.rb
-sed -i "/create_rails_application/a \\
-    add_minitest_to_project" test/acceptance/rails_integration_test.rb
-
-# Remove minitest-reporters dependency.
-# https://github.com/thoughtbot/shoulda/pull/270
-sed -i '/initest.*eporters/ s/^/#/' test/test_helper.rb
-sed -i "/def add_minitest_to_project/,/^    end$/ {
-  /initest.*eporters/ s/^/#/
-}" test/support/acceptance/helpers/step_helpers.rb
-sed -i "/def add_minitest_reporters_to_test_helper/a \\
-      return" test/support/acceptance/helpers/step_helpers.rb
-
-ruby -rpathname -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+ruby -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 
 %files
@@ -120,15 +66,21 @@ popd
 %files doc
 %doc %{gem_docdir}
 %{gem_instdir}/Appraisals
+%doc %{gem_instdir}/CHANGELOG.md
 %doc %{gem_instdir}/CONTRIBUTING.md
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
 %{gem_instdir}/gemfiles
+%{gem_instdir}/script
 %{gem_instdir}/shoulda.gemspec
 %{gem_instdir}/test
 
 %changelog
+* Mon Sep 04 2023 Vít Ondruch <vondruch@redhat.com> - 4.0.0-1
+- Update to Shoulda 4.0.0.
+  Resolves: rhbz#1846902
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

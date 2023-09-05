@@ -1,3 +1,5 @@
+%bcond_without mingw
+
 Name:           librttopo
 Version:        1.1.0
 Release:        12%{?dist}
@@ -16,6 +18,7 @@ BuildRequires: geos-devel
 BuildRequires: libtool
 BuildRequires: make
 
+%if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-geos
@@ -23,6 +26,7 @@ BuildRequires: mingw32-geos
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-geos
+%endif
 
 
 %description
@@ -39,6 +43,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows Leptonica library
 BuildArch:     noarch
@@ -53,6 +58,7 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}
 MinGW Windows %{name} library.
+%endif
 
 
 %{?mingw_debug_package}
@@ -73,21 +79,26 @@ pushd build_native
 %make_build
 popd
 
+%if %{with mingw}
 # MinGW build
 MINGW32_CONFIGURE_ARGS="PKGCONFIG=%{mingw32_target}-pkg-config" \
 MINGW64_CONFIGURE_ARGS="PKGCONFIG=%{mingw64_target}-pkg-config" \
 %mingw_configure  --disable-static
 %mingw_make_build
+%endif
 
 
 %install
 %make_install -C build_native
+
+%if %{with mingw}
 %mingw_make_install
+%endif
 
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
-%mingw_debug_install_post
+%{?mingw_debug_install_post}
 
 
 %files
@@ -101,6 +112,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/rttopo.pc
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
 %{mingw32_bindir}/%{name}-1.dll
@@ -116,6 +128,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{mingw64_includedir}/%{name}_geom.h
 %{mingw64_libdir}/%{name}.dll.a
 %{mingw64_libdir}/pkgconfig/rttopo.pc
+%endif
 
 %changelog
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-12

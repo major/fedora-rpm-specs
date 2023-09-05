@@ -1,8 +1,8 @@
 %global snapshot 0
 
 Name:       ibus-libpinyin
-Version:    1.15.3
-Release:    3%{?dist}
+Version:    1.15.4
+Release:    1%{?dist}
 Summary:    Intelligent Pinyin engine based on libpinyin for IBus
 License:    GPL-3.0-or-later
 URL:        https://github.com/libpinyin/ibus-libpinyin
@@ -24,7 +24,7 @@ BuildRequires:  python3-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  ibus-devel >= 1.5.11
 BuildRequires:  libpinyin-devel >= 2.1.0
-BuildRequires: make
+BuildRequires:  make
 
 # Requires(post): sqlite
 
@@ -81,6 +81,11 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-libbopo
 %{_datadir}/ibus/component/*
 
 %changelog
+* Mon Sep  4 2023 Peng Wu <pwu@redhat.com> - 1.15.4-1
+- Update to 1.15.4
+- Update network dictionary
+- Fix Caps Lock for English mode
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

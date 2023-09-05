@@ -1,3 +1,10 @@
+# use snapshot to include bugfix
+# https://github.com/mne-tools/mne-python/issues/11931
+%global commit  f44636f00666b8eb869417960926d01690ff4f42
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global checkout_date 2023094
+%global upstream_version  1.5.0
+
 # setup.py does not list all requirements, and we also unbundle quite a few
 # from the externals folder, so we can't only rely on the automatic generator
 # here.
@@ -5,7 +12,15 @@
 # in setup.py for install_requires.
 
 Name:           python-mne
-Version:        1.3.1
+
+%if "0%{?commit}" != "0"
+Version:        %{upstream_version}^%{checkout_date}git%{shortcommit}
+%global python_version  %{upstream_version}.dev%{checkout_date}
+%else
+Version:        %{upstream_version}
+%global python_version  %{version}
+%endif
+
 Release:        %autorelease
 Summary:        Magnetoencephalography (MEG) and Electroencephalography (EEG) data analysis
 
@@ -15,7 +30,14 @@ Summary:        Magnetoencephalography (MEG) and Electroencephalography (EEG) da
 
 License:        BSD
 URL:            http://martinos.org/mne/
+
+
+%if "0%{?commit}" != "0"
+Source0:        https://github.com/mne-tools/mne-python/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+%else
 Source0:        https://github.com/mne-tools/mne-python/archive/v%{version}/%{name}-%{version}.tar.gz
+%endif
+
 #Source1:        https://s3.amazonaws.com/mne-python/datasets/MNE-sample-data-processed.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -113,7 +135,11 @@ Recommends:     python3-Traits
 %description -n python3-mne %_description
 
 %prep
-%autosetup -n mne-python-%{version} -p1
+%if "0%{?commit}" != "0"
+%autosetup -n mne-python-%{commit}
+%else
+%autosetup -n mne-python-%{version}
+%endif
 
 # fix non-executable scripts
 sed -i -e '1{\@^#!/usr/bin/env python@d}' mne/commands/*.py
@@ -122,19 +148,23 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' mne/stats/cluster_level.py
 
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{python_version}'
 %pyproject_buildrequires -r
 
 #cp -p %{SOURCE1} .
 #python -c "import mne; mne.datasets.sample.data_path(verbose=True, download=False)"
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{python_version}'
 %pyproject_wheel
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{python_version}'
 %pyproject_install
 %pyproject_save_files mne
 
 %check
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{python_version}'
 export MNE_SKIP_TESTING_DATASET_TESTS=true
 export MNE_SKIP_NETWORK_TESTS=1
 export MNE_DONTWRITE_HOME=true
@@ -151,7 +181,7 @@ mkdir subjects
 
 # https://github.com/mne-tools/mne-python/blob/v1.0.3/tools/github_actions_test.sh#L7
 # skip tests that require network
-%pytest -m "not (slowtest or pgtest)" \
+%pytest -v -m "not (slowtest or pgtest)" \
     --deselect mne/datasets/tests/test_datasets.py \
     --deselect mne/utils/tests/test_numerics.py
 

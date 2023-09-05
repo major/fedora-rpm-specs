@@ -8,6 +8,7 @@ Version:        1.24.0
 Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
+# SPDX
 License:        MIT
 URL:            http://www.freedesktop.org/wiki/Software/libinput/
 %if 0%{?gitdate}
@@ -153,6 +154,9 @@ intended to be run by users.
 
 
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: license is already SPDX compatible
+
 * Fri Aug 25 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.24.0-1
 - libinput 1.24.0
 

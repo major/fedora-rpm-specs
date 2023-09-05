@@ -10,6 +10,8 @@ URL:           https://buildstream.build/
 Version:       1.6.9
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
+# https://github.com/apache/buildstream/pull/1868
+Patch0:        0001-Updating-versioneer-again-properly.patch
 
 BuildRequires: bubblewrap >= 0.1.2
 BuildRequires: make

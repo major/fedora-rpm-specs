@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.7.4
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A powerful but elegant CSS compiler that makes CSS fun again
 License: MIT
 URL: http://sass-lang.com/
@@ -70,6 +70,10 @@ pushd .%{gem_instdir}
 
 tar xaf %{SOURCE1}
 
+# Fix Minitest 5.19+ compatibility.
+# The fix is not proposed upstream, because this package is deprecated.
+grep -Rl MiniTest | xargs sed -i "/MiniTest::Test/ s/MiniTest/Minitest/"
+
 ruby -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 
@@ -100,6 +104,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Sep 04 2023 Vít Ondruch <vondruch@redhat.com> - 3.7.4-8
+- Fix FTBFS due to Minitest 5.19+ incompatibility.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

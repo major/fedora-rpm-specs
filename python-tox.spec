@@ -19,8 +19,8 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.4.12
-Release:        4%{?dist}
+Version:        4.11.0 
+Release:        1%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
 License:        MIT
@@ -28,12 +28,10 @@ URL:            https://tox.readthedocs.io/
 Source0:        %{pypi_source tox}
 
 # Remove dependency on devpi-process.
+# Remove dependency on detect-test-pollution.
 # Remove coverage-related dependencies.
 # Adjust virtualenv environment variables to make it work with our patched virtualenv.
 Patch1:         fix-tests.patch
-
-# Update a test regex to work with Python 3.12+
-Patch2:         https://github.com/tox-dev/tox/pull/3066.patch
 
 BuildArch:      noarch
 
@@ -49,6 +47,9 @@ BuildRequires:  /usr/bin/python
 BuildRequires:  libffi-devel
 # xdist is not used upstream, but we use it to speed up the %%check
 BuildRequires:  python3-pytest-xdist
+# for test_allowed_implicit_cli_envs[py310]
+# TODO remove this once https://github.com/tox-dev/tox/pull/3108 is released
+BuildRequires:  python3.10
 %if %{with ci_tests}
 # The CI tests only work if the tested tox is installed :(
 BuildRequires:  tox = %{version}-%{release}
@@ -105,7 +106,8 @@ Obsoletes:      python3-tox < 3.24.4-2
 
 # Upstream updates dependencies too aggressively
 # see https://github.com/tox-dev/tox/pull/2843#discussion_r1065028356
-sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|diff-cover|pyproject-api|pytest-xdist|wheel)>=.*/"\1",/g' \
+sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|diff-cover|pyproject-api|pytest|pytest-mock|pytest-xdist|wheel|pluggy|distlib|cachetools)>=.*/"\1",/g' \
+        -e "s/'(time-machine)>=[^;']+/'\1/" \
         -e 's/"(virtualenv)>=.*/"\1>=20",/g' \
         -e 's/"(hatchling)>=.*/"\1>=1.13",/g' \
     pyproject.toml
@@ -159,6 +161,9 @@ k="${k-}${k+ and }not test_local_execute_write_a_lot"
 
 
 %changelog
+* Wed Aug 30 2023 Miro Hrončok <mhroncok@redhat.com> - 4.11.0-1
+- Update to 4.11.0 (rhbz#2189321)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

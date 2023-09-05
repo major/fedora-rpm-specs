@@ -5,7 +5,7 @@
 
 # https://github.com/mattn/go-zglob
 %global goipath         github.com/mattn/go-zglob
-Version:                0.0.3
+Version:                0.0.4
 
 %gometa
 

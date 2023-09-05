@@ -4,7 +4,7 @@
 Summary:   Qt support library for PackageKit
 Name:      PackageKit-Qt
 Version:   1.1.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 
 License:   LGPLv2+
 URL:       http://www.packagekit.org/
@@ -12,6 +12,8 @@ URL:       http://www.packagekit.org/
 Source0:   https://github.com/hughsie/PackageKit-Qt/archive/v%{version}.tar.gz
 
 # Upstream patches
+Patch0:    offline-ask-authorization.patch
+Patch1:    set-hints-before-transaction.patch
 
 BuildRequires: cmake
 BuildRequires: cmake(Qt5DBus)
@@ -73,6 +75,9 @@ Requires: PackageKit-Qt5%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Sat Jul 22 2023 Alessandro Astone <ales.astone@gmail.com> - 1.1.1-2
+- Backport fixes for Discover distro upgrade
+
 * Sat Jul 22 2023 Alessandro Astone <ales.astone@gmail.com> - 1.1.1-1
 - Update to 1.1.1
 

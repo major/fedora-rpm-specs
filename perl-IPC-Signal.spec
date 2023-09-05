@@ -1,17 +1,25 @@
 Name:           perl-IPC-Signal
 Version:        1.00
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Utility functions dealing with signals for Perl 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/IPC-Signal
 Source0:        https://cpan.metacpan.org/modules/by-module/IPC/IPC-Signal-%{version}.tar.gz
 
 BuildArch:      noarch 
+# build dependencies
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# runtime dependencies
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Config)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
 
 %{?perl_default_filter}
 
@@ -26,17 +34,17 @@ numbers and vice versa.
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 
 %check
-make test
+%{make_build} test
 
 
 %files
@@ -46,6 +54,12 @@ make test
 
 
 %changelog
+* Mon Sep 04 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.00-39
+- Rework dependencies
+- migrated to SPDX license
+- Replace calls to %%{__perl} with /usr/bin/perl
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

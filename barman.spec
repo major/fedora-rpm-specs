@@ -1,5 +1,5 @@
 Name:       barman
-Version:    3.7.0
+Version:    3.8.0
 Release:    1%{?dist}
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPLv3
@@ -120,6 +120,9 @@ getent passwd %{name} >/dev/null || \
 exit 0
 
 %changelog
+* Mon Sep 04 2023 Simone Caronni <negativo17@gmail.com> - 3.8.0-1
+- Update to 3.8.0.
+
 * Mon Aug 07 2023 Simone Caronni <negativo17@gmail.com> - 3.7.0-1
 - Update to 3.7.0.
 

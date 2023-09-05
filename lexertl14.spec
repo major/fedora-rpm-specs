@@ -1,5 +1,5 @@
-%global commit aeddda84ad4c8083aedd35ecd764679f5fb1b640
-%global snapdate 20230227
+%global commit 86c90c37dd69ee45155d11e38a77b21eac5dccbe
+%global snapdate 20230904
 
 Name:           lexertl14
 Summary:        C++14 version of lexertl
@@ -55,10 +55,11 @@ find . -type f -exec file '{}' '+' |
   grep -E '\bCRLF\b' |
   cut -d ':' -f 1 |
   xargs -r dos2unix
+# sed -r -i 's@\(test\)@\(tests/fail_tests\)@' CMakeLists.txt
 
 
 %build
-%cmake -DBUILD_TESTING=on
+%cmake -DBUILD_TESTING:BOOL=on
 %cmake_build
 
 

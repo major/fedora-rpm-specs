@@ -11,7 +11,7 @@ priming sugar calculators, OG correction help, and a unique mash designing tool.
 It also can export and import recipes in BeerXML.}
 
 Name:           brewtarget
-Version:        3.0.6
+Version:        3.0.9
 Release:        %{autorelease}
 Summary:        An open source beer recipe creation tool 🍺
 %forgemeta
@@ -24,36 +24,42 @@ Summary:        An open source beer recipe creation tool 🍺
 License:    GPL-3.0-or-later AND BSD-2-Clause AND WTFPL AND (CC-BY-SA-3.0 OR LGPL-3.0-only) AND LGPL-2.1-only
 URL:        %{forgeurl}
 Source0:    %{forgesource}
+Patch:      fix_boost_requirements.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  qt5-qtbase-devel, qt5-qtwebkit-devel, qt5-qtsvg-devel
 BuildRequires:  qt5-qtmultimedia-devel, qt5-linguist
 BuildRequires:  boost-devel, xerces-c-devel, xalan-c-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  meson
+BuildRequires:  git-core
+BuildRequires:  pandoc
+BuildRequires:  xorg-x11-server-Xvfb
 Requires:       sqlite
 
 %description %_description
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -S git
+# Crude way of disabling testLogRotation
+sed -i -e '/testLogRotation/d' meson.build
+
 
 %build
-%cmake -DDO_RELEASE_BUILD:BOOL=ON
-%cmake_build
+%meson
+%meson_build
+
 
 %install
-%cmake_install
-# Remove generated files. We use what's provided in tarball.
-rm %buildroot/%{_docdir}/%{name}/{RelaseNotes.markdown,changelog.Debian.gz,copyright}
-gzip doc/brewtarget.1
-/usr/bin/install -m 0644 -Dp doc/brewtarget.1.gz %buildroot%{_mandir}/man1/brewtarget.1.gz
-# symlink manual, which is accessible in application
-rm %buildroot/%{_datadir}/%{name}/manual-en.pdf
-pushd %buildroot/%{_datadir}/%{name}
-ln -s ../doc/%{name}/manual-en.pdf .
-popd
+%meson_install
+
 
 %check
+# Run in minimal graphical env (thanks @ankursinha).
+# We need to pass the Meson test command as a script to xvfb-run.
+echo -e '#!/bin/sh\n\n%meson_test --verbose' > mesontest.sh
+chmod a+x mesontest.sh
+xvfb-run ./mesontest.sh
 desktop-file-validate %buildroot%{_datadir}/applications/%{name}.desktop
 
 %files
@@ -62,7 +68,9 @@ desktop-file-validate %buildroot%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_mandir}/man1/brewtarget*
-%doc CHANGES.markdown README.markdown doc/manual-en.pdf
+%{_docdir}/%{name}/*.markdown
+%{_docdir}/%{name}/copyright
+%doc doc/manual-en.pdf
 %license COPYRIGHT COPYING.GPLv3 COPYING.WTFPL
 
 %changelog

@@ -1,8 +1,8 @@
 %global gem_name shoulda-context
 
 Name: rubygem-%{gem_name}
-Version: 1.2.2
-Release: 16%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 Summary: Context framework extracted from Shoulda
 License: MIT
 URL: https://github.com/thoughtbot/shoulda-context
@@ -15,20 +15,16 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(bundler)
+BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(mocha)
-BuildRequires: rubygem(rails)
-BuildRequires: rubygem(sass-rails)
-BuildRequires: rubygem(sqlite3)
 BuildRequires: rubygem(test-unit)
 BuildArch: noarch
 
 %description
-Shoulda's contexts make it easy to write understandable and maintainable
-tests for Test::Unit. It's fully compatible with your existing tests in
-Test::Unit, and requires no retooling to use.
-
-Refer to the shoulda gem if you want to know more about using shoulda
-with Rails or RSpec.
+Shoulda Context makes it easy to write understandable and maintainable tests
+under Minitest and Test::Unit within Rails projects or plain Ruby projects.
+It's fully compatible with your existing tests and requires no retooling to
+use.
 
 
 %package doc
@@ -40,28 +36,22 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-
-%setup -q -D -T -n  %{gem_name}-%{version}
-
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
-
-# Fix wrong-file-end-of-line-encoding for rpmlint
-sed -i 's/\r$//' MIT-LICENSE
+%setup -q -n %{gem_name}-%{version}
 
 # Remove /usr/bin/env from shebang so RPM doesn't consider this a dependency
-sed -i 's|#!/usr/bin/env ruby|#!/usr/bin/ruby|' bin/convert_to_should_syntax
+sed -i 's|#!/usr/bin/env ruby|#!/usr/bin/ruby|' exe/convert_to_should_syntax
 
-# Remove zero-length developer-only file
-rm test/fake_rails_root/vendor/plugins/.keep
-sed -i -r 's|"test/fake_rails_root/vendor/plugins/\.keep"(\.freeze)?,||' %{gem_name}.gemspec
+%gemspec_remove_file -t "test/fake_rails_root/vendor/plugins/.keep"
+%gemspec_remove_file "test/fake_rails_root/vendor/plugins/.keep"
 
-%patch0 -p1
+%patch 0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
-gem build %{gem_name}.gemspec
+gem build ../%{gem_name}-%{version}.gemspec
 
+# %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
+# by default, so that we can move it into the buildroot in %%install
 %gem_install
 
 %install
@@ -71,41 +61,47 @@ cp -a .%{gem_dir}/* \
 
 
 mkdir -p %{buildroot}%{_bindir}
-cp -pa .%{_bindir}/* \
+cp -a .%{_bindir}/* \
         %{buildroot}%{_bindir}/
 
-find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
+find %{buildroot}%{gem_instdir}/exe -type f | xargs chmod a+x
 
 %check
 pushd .%{gem_instdir}
-# Remove locks to be able to use system dependencies.
-rm gemfiles/*.lock
+# No need to depend on git.
+sed -i '/git/ s/^/#/' shoulda-context.gemspec
 
-# Relax mocha and test-unit dependencies.
-%gemspec_remove_dep -s shoulda-context.gemspec -g mocha -d '~> 0.9.10'
-%gemspec_add_dep -s shoulda-context.gemspec -g mocha -d '~> 1.0'
-%gemspec_remove_dep -s shoulda-context.gemspec -g test-unit -d '~> 2.1.0'
-%gemspec_add_dep -s shoulda-context.gemspec -g test-unit -d '~> 3.0'
+# Create simple test file which satisfies the test suite.
+cat << EOF > gemfiles/test.gemfile
+source "https://rubygems.org"
 
-# Get rid of unnecessary dependencies.
-%gemspec_remove_dep -s shoulda-context.gemspec -g appraisal -d
-%gemspec_remove_dep -s shoulda-context.gemspec -g byebug -d
-%gemspec_remove_dep -s shoulda-context.gemspec -g pry -d
-%gemspec_remove_dep -s shoulda-context.gemspec -g pry-byebug -d
+gem "minitest"
+gem "mocha"
+gem "test-unit"
 
-# Use RoR available in build root.
-sed -i '/gem "rails"/ s/, :github=>"rails\/rails", :branch=>"4-1-stable"//' gemfiles/rails_4_1.gemfile
+gemspec path: "../"
+EOF
+BUNDLE_GEMFILE=gemfiles/test.gemfile bundle install --local
 
-# Fix compatibility with Mocha 1.0+.
-# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=743071
-sed -i "/require 'mocha'/ s/mocha/mocha\/setup/" test/test_helper.rb
+# Don't depend on Appraisal gem.
+sed -i '/require "appraisal"/ s/^/#/' test/support/current_bundle.rb
+sed -i '/assert_appraisal!/ s/^/#/' test/test_helper.rb
 
-# jQuery is not needed by recent rails. Drop the dependency.
-sed -i "/jquery-rails/ s/^/#/" gemfiles/rails_4_1.gemfile
+# We don't really need pry-byebug.
+sed -i '/require "pry-byebug"/ s/^/#/' test/test_helper.rb
 
-BUNDLE_GEMFILE=gemfiles/test_unit.gemfile bundle exec ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
-BUNDLE_GEMFILE=gemfiles/minitest_5_x.gemfile bundle exec ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
-BUNDLE_GEMFILE=gemfiles/rails_4_1.gemfile bundle exec ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+# We don't have warnings_logger gem available.
+sed -i '/require "warnings_logger"/ s/^/#/' test/test_helper.rb
+sed -i '/WarningsLogger/,/^)/ s/^/#/' test/test_helper.rb
+
+# We don't have available snow globe gem, which is required for Rails related
+# test cases.
+sed -i '/require_relative "support\/rails_application_with_shoulda_context"/ s/^/#/' test/test_helper.rb
+mv test/shoulda/railtie_test.rb{,.disable}
+mv test/shoulda/rerun_snippet_test.rb{,.disable}
+
+TEST_FRAMEWORK=minitest BUNDLE_GEMFILE=gemfiles/test.gemfile ruby -Ilib:test -rsingleton -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+TEST_FRAMEWORK=test_unit BUNDLE_GEMFILE=gemfiles/test.gemfile ruby -Ilib:test -rsingleton -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 
 %files
@@ -113,28 +109,31 @@ popd
 %{_bindir}/convert_to_should_syntax
 %exclude %{gem_instdir}/.*
 %license %{gem_instdir}/MIT-LICENSE
-%{gem_instdir}/bin
+%{gem_instdir}/exe
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/CONTRIBUTING.md
 %{gem_instdir}/Appraisals
+%doc %{gem_instdir}/CHANGELOG.md
+%doc %{gem_instdir}/CONTRIBUTING.md
 %{gem_instdir}/Gemfile
+%{gem_instdir}/Gemfile.lock
 %doc %{gem_instdir}/README.md
+%{gem_instdir}/bin
 %{gem_instdir}/gemfiles
-%{gem_instdir}/init.rb
-%dir %{gem_instdir}/rails
-%{gem_instdir}/rails/init.rb
 %{gem_instdir}/Rakefile
-# This is not the original file.
-%exclude %{gem_instdir}/shoulda-context.gemspec
+%{gem_instdir}/shoulda-context.gemspec
 %{gem_instdir}/tasks
 %{gem_instdir}/test
 
 %changelog
+* Mon Sep 04 2023 Vít Ondruch <vondruch@redhat.com> - 2.0.0-1
+- Update to shoulda-context 2.0.0.
+  Resolves: rhbz#1846899
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

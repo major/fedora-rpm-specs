@@ -3,8 +3,8 @@
 %global _docdir_fmt %{name}
 
 Name:           python-%{modname}
-Version:        1.46.0
-Release:        6%{?dist}
+Version:        1.47.0
+Release:        1%{?dist}
 Summary:        Mutagen is a Python module to handle audio meta-data
 
 # licensecheck -r . | grep -vEe "UNKNOWN" -e "GNU General Public License v2.0" | sort
@@ -23,8 +23,6 @@ License:        GPL-2.0-or-later AND MIT
 URL:            https://github.com/quodlibet/mutagen
 Source0:        %{url}/releases/download/release-%{version}/%{modname}-%{version}.tar.gz
 
-# Fix extlinks with sphinx >= 6.0.0
-Patch0:         37b4e6bddc03e1f715425c418ea84bac15116907.diff
 BuildArch:      noarch
 
 %global _description \
@@ -101,6 +99,10 @@ rm -rf docs/_build/{.buildinfo,.doctrees}
 %doc docs/_build/*
 
 %changelog
+* Mon Sep 04 2023 Michele Baldessari <michele@acksyn.org> - 1.47.0-1
+- New upstream
+- Drop unneeded patch
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.46.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

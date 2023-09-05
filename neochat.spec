@@ -1,6 +1,6 @@
 Name: neochat
 Version: 23.04.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -11,6 +11,9 @@ Source0: https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{vers
 ## Fixes build with libquotient 0.8.x
 ## From: https://invent.kde.org/network/neochat/-/merge_requests/1059
 Patch0101: neochat-MR1059.patch
+## Ensures E2EE is enabled
+## https://invent.kde.org/network/neochat/-/merge_requests/1014
+Patch0102: neochat-MR1014.patch
 
 BuildRequires: cmake(Qt5Concurrent)
 BuildRequires: cmake(Qt5Core)
@@ -101,6 +104,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf5_datadir}/krunner/dbusplugins/*.desktop
 
 %changelog
+* Mon Sep 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 23.04.3-5
+- Add patch to enforce E2EE enabled in libQuotient 0.8.x
+
 * Sun Sep 03 2023 Neal Gompa <ngompa@fedoraproject.org> - 23.04.3-4
 - Add runtime dependency on kf5-kitemmodels (#2216142)
 

@@ -6,7 +6,7 @@
 %global crate gtk3-macros
 
 Name:           rust-gtk3-macros
-Version:        0.17.1
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Rust bindings for the GTK 3 library
 

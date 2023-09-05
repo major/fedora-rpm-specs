@@ -1,13 +1,15 @@
 %bcond_without docs
 
 Name:           libipuz
-Version:        0.4.2
+Version:        0.4.4
 Release:        %autorelease
 Summary:        Library for parsing .ipuz puzzle files
 
 License:        LGPL-2.1-or-later AND LGPL-3.0-or-later AND GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/jrb/libipuz
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
+# docs: fix build with sphinx 7.1.2
+Patch:          %{url}/-/merge_requests/31.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -54,7 +56,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-tests package contains tests for %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %meson
@@ -73,7 +75,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %files
 %license COPYING
-%doc README.md NEWS.md TODO.md
+%doc README.md NEWS.md
 %{_libdir}/lib%{name}-0.4.so
 
 %files devel

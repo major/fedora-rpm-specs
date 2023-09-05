@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        0.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Platform-independent module for I/O completion events
 
 License:        LGPLv3+
@@ -27,6 +27,7 @@ is that, on Windows, it only works for sockets.
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{modname}}
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 %description -n python3-%{modname} %{_description}
 
@@ -51,6 +52,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Mon Sep 04 2023 Christiano Anderson <canderson9@fedoraproject.org> - 0.2-25
+- Added python3-setuptools dependency, closes RHBZ2155014
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

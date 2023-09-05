@@ -2,7 +2,7 @@
 %global pypi_name twilio
 
 Name:           python-%{pypi_name}
-Version:        8.6.0
+Version:        8.7.0
 Release:        1%{?dist}
 Summary:        Twilio API client and TwiML generator
 
@@ -65,6 +65,9 @@ rm tests/cluster/test_cluster.py
 %doc README.md
 
 %changelog
+* Mon Sep 04 2023 Roman Inflianskas <rominf@aiven.io> - 8.7.0-1
+- Resolves: rhbz#2234652 Update to 8.7.0
+
 * Sun Aug 13 2023 Roman Inflianskas <rominf@aiven.io> - 8.6.0-1
 - Resolves: rhbz#2226999 Update to 8.6.0
 

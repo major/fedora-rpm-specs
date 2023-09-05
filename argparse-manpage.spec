@@ -27,14 +27,14 @@ There is a limited support for (deprecated) optparse objects, too.
 
 
 Name:           argparse-manpage
-Version:        4.3
-Release:        3%{?dist}
+Version:        4.4
+Release:        1%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/praiskup/%{name}
-Source0:        https://github.com/praiskup/%name/releases/download/v%version/%name-%version.tar.gz
+Source0:        %pypi_source
 
 %if %{with python2}
 BuildRequires: python2-setuptools python2-devel
@@ -185,6 +185,10 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Mon Sep 04 2023 Pavel Raiskup <praiskup@redhat.com> - 4.4-1
+- new upstream release: https://github.com/praiskup/argparse-manpage/releases/tag/v4.4
+- license tag in SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

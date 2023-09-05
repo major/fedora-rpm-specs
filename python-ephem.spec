@@ -1,8 +1,8 @@
 %global pypi_name ephem
 
 Name:           python-%{pypi_name}
-Version:        4.1.3
-Release:        6%{?dist}
+Version:        4.1.4
+Release:        1%{?dist}
 Summary:        Compute positions of the planets and stars
 
 License:        MIT
@@ -11,6 +11,8 @@ Source0:        %{pypi_source}
 # Build libastro with -Wl,-Bsymbolic, to prevent symbol collision with range from netcdf
 # https://stackoverflow.com/questions/6538501/linking-two-shared-libraries-with-some-of-the-same-symbols
 Patch0:         ephem_bsymbolic.patch
+# Proposed patch for python >= 3.12 support
+Patch1:         https://github.com/brandon-rhodes/pyephem/pull/259.patch
 
 BuildRequires:  gcc
 
@@ -44,7 +46,7 @@ BuildRequires:  python3-sphinx
 Documentation for %{pypi_name}.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %build
 %py3_build
@@ -77,6 +79,12 @@ rm -rf %{buildroot}%{python3_sitearch}/%{pypi_name}/{.benchmarks,.hypothesis,.py
 %license LICENSE
 
 %changelog
+* Mon Sep 04 2023 Sandro Mani <manisandro@gmail.com> - 4.1.4-1
+- Update to 4.1.4
+
+* Tue Aug 01 2023 Sandro Mani <manisandro@gmail.com> - 4.1.3-7
+- Fix build against py3.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

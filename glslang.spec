@@ -5,7 +5,7 @@ Version:        11.9.0
 Release:        %autorelease
 Summary:        OpenGL and OpenGL ES shader front end and validator
 
-License:        BSD and GPLv3+ and ASL 2.0
+License:        BSD and GPLv3+ and Apache-2.0
 URL:            https://github.com/KhronosGroup/%{name}
 Source0:        %url/archive/sdk-%{sdkver}.tar.gz#/%{name}-sdk-%{sdkver}.tar.gz
 Patch1:         glslang-default-resource-limits_staticlib.patch

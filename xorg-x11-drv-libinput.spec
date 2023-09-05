@@ -10,6 +10,7 @@ Name:       xorg-x11-drv-libinput
 Version:    1.4.0
 Release:    1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 URL:        http://www.x.org
+# SPDX
 License:    MIT
 
 %if 0%{?gitdate}
@@ -77,7 +78,11 @@ Xorg X11 libinput input driver development files.
 %dir %{_includedir}/xorg/
 %{_includedir}/xorg/libinput-properties.h
 
+
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: mark license as SPDX compatible
+
 * Fri Aug 25 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.4.0-1
 - xf86-input-libinput 1.4.0
 

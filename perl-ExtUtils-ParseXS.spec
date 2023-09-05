@@ -1,15 +1,15 @@
-%global base_version 3.44
+%global base_version 3.51
 Name:           perl-ExtUtils-ParseXS
 # Epoch to compete with perl.spec
 Epoch:          1
 Version:        3.51
-Release:        500%{?dist}
+Release:        501%{?dist}
 Summary:        Module and a script for converting Perl XS code into C code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-ParseXS
-Source0:        https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/ExtUtils-ParseXS-%{base_version}.tar.gz
-# Unbundled from perl 5.37.12
-Patch0:         ExtUtils-ParseXS-3.44-Upgrade-to-3.51.patch
+Source0:        https://cpan.metacpan.org/modules/by-module/ExtUtils/ExtUtils-ParseXS-%{base_version}.tar.gz
+# # Added man page perlxs* which are missing in tarball
+Patch0:         ExtUtils-ParseXS-3.51-Add-perlxs-man-pages.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -117,6 +117,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 04 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.51-501
+- Replace patch update from Perl release by CPAN upstream 3.51 (rhbz#2237243)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.51-500
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

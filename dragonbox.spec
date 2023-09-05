@@ -10,10 +10,8 @@ License:        Apache-2.0 WITH LLVM-exception OR BSL-1.0
 URL:            https://github.com/jk-jeon/dragonbox
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Note that we set BuildArch:noarch here because package comes with no tests
-# If in future tests are added, we should move this under the -devel subpackage
-# to comply with FPG
-BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires: gcc-c++
 BuildRequires: cmake

@@ -1,13 +1,13 @@
 %undefine __cmake_in_source_build
 
-%global sdkver 1.3.250.0
+%global sdkver 1.3.261.1
 
 Name:           spirv-tools
 Version:        2023.2
 Release:        %autorelease
 Summary:        API and commands for processing SPIR-V modules
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/KhronosGroup/SPIRV-Tools
 Source0:        %url/archive/sdk-%{sdkver}.tar.gz#/SPIRV-Tools-sdk-%{sdkver}.tar.gz
 

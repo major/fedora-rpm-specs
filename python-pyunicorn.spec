@@ -9,6 +9,8 @@
 %bcond_without doc_pdf
 
 %global pypi_name pyunicorn
+%global forgeurl https://github.com/pik-copan/pyunicorn
+%global commit master
 
 %global _description %{expand:
 pyunicorn (Unified Complex Network and RecurreNce analysis toolbox)
@@ -21,8 +23,12 @@ Newman's random walk betweenness. pyunicorn features novel node-weighted
 designed for analyzing networks of interacting/interdependent networks.}
 
 Name:           python-%{pypi_name}
-Version:        0.6.1
-Release:        13%{?dist}
+
+%forgemeta
+
+# Set version to preliminary version defined in setup.cfg
+Version:        0.7.0a1
+Release:        %{autorelease}
 Summary:        Unified complex network and recurrence analysis toolbox
 
 # The entire source code is BSD except the following files:
@@ -32,49 +38,40 @@ Summary:        Unified complex network and recurrence analysis toolbox
 #pyunicorn-0.6.1/pyunicorn/utils/progressbar/widgets.py
 License:        BSD and LGPLv2+
 URL:            http://www.pik-potsdam.de/~donges/pyunicorn/
-Source0:        %{pypi_source pyunicorn}
+Source0:        %{forgesource}
 
 # patch intended for skipping two tests due to the failed attempts on i686
-Patch0:         0001-Skip-test.patch
+#Patch0:         0001-Skip-test.patch
 
 # patch removes two badges that are in svg format
 # it resolves problems with building docs
-Patch1:         0002-Remove-badges-in-README.patch
+#Patch1:         0002-Remove-badges-in-README.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
-# Fox %%tox macro
-BuildRequires:  python3-tox-current-env
 
 %if %{with doc_pdf}
 BuildRequires:  make
+BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
-BuildRequires:  Cython
+BuildRequires:  Cython < 3~~
 
 BuildRequires:  python3-igraph
 BuildRequires:  numpy
 BuildRequires:  python3-networkx
 BuildRequires:  python3-basemap
-BuildRequires:  python3-sphinx
 BuildRequires:  python3-scipy
-
-# For the patch
-BuildRequires:  git-core
 
 Requires:  matplotlib
 
 %if %{with tests}
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-pytest-flake8
-BuildRequires:  python3-pytest-xdist
-BuildRequires:  python3-pylint
-BuildRequires:  python3-tox
+BuildRequires:  python3-cartopy
 %endif
 
 %description %_description
@@ -91,31 +88,33 @@ Summary:        Documentation and examples for %{name}
 %{summary}.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{commit}
 for lib in $(find . -name "*.py"); do
  sed '1{\@^#!/usr/bin/python@d}' $lib > $lib.new &&
  touch -r $lib $lib.new &&
  mv $lib.new $lib
 done
-# Fix igraph dependency
-%if 0%{?fedora} >= 36
-sed -i -e 's/python-igraph/igraph/' requirements.txt tox.ini
-%endif
+# Disable coverage and fix pytest command (has no option '-n')
+sed -i -e 's/-n auto //' setup.cfg
 
 %build
 %py3_build
 
-%if %{with doc_pdf}
-%make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
-%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
-%endif
 
 %install
 %py3_install
 
+# We run this in %%install, since Sphinx imports __version__ from pyunicorn.
+# So, that needs to be installed first.
+%if %{with doc_pdf}
+%{py3_test_envvars} %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%{py3_test_envvars} %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
+%endif
+
+
 %check
 %if %{with tests}
-%tox -e units
+%pytest
 %endif
 
 %files -n python3-%{pypi_name}
@@ -132,45 +131,4 @@ sed -i -e 's/python-igraph/igraph/' requirements.txt tox.ini
 %endif
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 21 2022 Python Maint <python-maint@redhat.com> - 0.6.1-10
-- Rebuilt for Python 3.11
-
-* Sat Feb 19 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.6.1-9
-- Add subpackage for docs
-
-* Thu Feb 17 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.6.1-8
-- Install examples/ in docs
-
-* Thu Feb 17 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.6.1-7
-- Improve description; define acronym
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec 06 2021 Orion Poplawski <orion@nwra.com> - 0.6.1-5
-- Fix igraph dependency (bz#2019113)
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.6.1-3
-- Rebuilt for Python 3.10
-
-* Mon Mar 29 2021 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.6.1-2
-- New patch - one test is failing on s390x
-
-* Mon Mar 29 2021 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.6.1-1
-- Multiple licences added
-
-* Mon Mar 22 2021 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.6.1-1
-- Initial package
-
+%autochangelog

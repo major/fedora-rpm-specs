@@ -6,12 +6,20 @@
 
 Name:           telepathy-glib
 Version:        0.24.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GLib bindings for Telepathy
 
-License:        LGPLv2+
+# LGPL-2.1-or-later: overall
+# FSFAP: examples/client/ et al. (not included in the binary)
+# FSFAP: tests/contact-search-result.c et al.
+# SPDX confirmed
+License:        LGPL-2.1-or-later
 URL:            http://telepathy.freedesktop.org/wiki/FrontPage
 Source0:        http://telepathy.freedesktop.org/releases/%{name}/%{name}-%{version}.tar.gz
+# https://gitlab.freedesktop.org/telepathy/telepathy-glib/-/issues/145
+# https://gitlab.freedesktop.org/telepathy/telepathy-glib/-/merge_requests/3
+# https://gitlab.freedesktop.org/telepathy/telepathy-glib/-/merge_requests/3.patch
+Patch0:         telepathy-glib-pr3-test-cm-with-newer-glib.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -115,6 +123,10 @@ make check
 
 
 %changelog
+* Mon Sep  4 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.24.2-9
+- SPDX migration
+- Patch to make testsuite work with newer GLib
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

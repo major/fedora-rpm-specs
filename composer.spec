@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    ee851d6b6bb4bf2e0fbfb22b22b44727cded6f29
+%global gh_commit    623e5e1de055e65bc6c3c61b8348dc4662d75e2b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +18,7 @@
 %global api_version  2.6.0
 %global run_version  2.2.2
 
-%global upstream_version 2.6.1
+%global upstream_version 2.6.2
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -93,7 +93,7 @@ Provides:       bundled(php-psr-log) = 1.1.4
 Provides:       bundled(php-react-promise) = v3.0.0
 Provides:       bundled(php-seld-jsonlint) = 1.10.0
 Provides:       bundled(php-seld-phar-utils) = 1.2.1
-Provides:       bundled(php-seld-signal-handler) = 2.0.1
+Provides:       bundled(php-seld-signal-handler) = 2.0.2
 Provides:       bundled(php-symfony-console) = v5.4.28
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
 Provides:       bundled(php-symfony-filesystem) = v5.4.25
@@ -249,6 +249,9 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Mon Sep  4 2023 Remi Collet <remi@remirepo.net> - 2.6.2-1
+- update to 2.6.2
+
 * Fri Sep  1 2023 Remi Collet <remi@remirepo.net> - 2.6.1-1
 - update to 2.6.1
 

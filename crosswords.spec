@@ -8,7 +8,7 @@
 %endif
 
 Name:           crosswords
-Version:        0.3.8
+Version:        0.3.11
 Release:        %autorelease
 Summary:        Solve crossword puzzles
 
@@ -17,6 +17,8 @@ Summary:        Solve crossword puzzles
 License:        GPL-3.0-or-later and CC-BY-SA-4.0
 URL:            https://gitlab.gnome.org/jrb/crosswords
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
+# docs: fix build with sphinx 7.1.2
+Patch:          %{url}/-/merge_requests/132.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake
@@ -190,6 +192,7 @@ desktop-file-validate \
 %{_datadir}/glib-2.0/schemas/org.gnome.Crosswords.Editor.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Crosswords.Editor.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Crosswords.Editor-symbolic.svg
+%{_metainfodir}/org.gnome.Crosswords.Editor.metainfo.xml
 
 %files -n ipuz-convertor
 %license COPYING

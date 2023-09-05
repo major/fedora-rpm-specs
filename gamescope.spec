@@ -1,7 +1,7 @@
 %global libliftoff_minver 0.4.1
 
 Name:           gamescope
-Version:        3.12.3
+Version:        3.12.5
 Release:        %autorelease
 Summary:        Micro-compositor for video games on Wayland
 

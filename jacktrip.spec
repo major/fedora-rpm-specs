@@ -1,5 +1,5 @@
 Name:           jacktrip
-Version:        2.0.1
+Version:        2.0.2
 Release:        %autorelease
 Summary:        A system for high-quality audio network performance over the Internet
 
@@ -11,7 +11,7 @@ BuildRequires:  meson, cmake, gcc-c++
 BuildRequires:  python3-pyyaml, python3-jinja2
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(rtaudio)
-BuildRequires:  help2man, git
+BuildRequires:  help2man
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Network)
@@ -42,7 +42,7 @@ bidirectional, high quality, uncompressed audio signal steaming.
 %autosetup -p1
 
 %build
-%meson \
+%meson -Dbuildinfo="$(cat /etc/redhat-release)" \
 %ifnarch aarch64 x86_64
     -Dnovs=true \
 %endif

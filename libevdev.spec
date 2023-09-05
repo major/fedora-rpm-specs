@@ -3,6 +3,7 @@ Version:        1.13.1
 Release:        2%{?dist}
 Summary:        Kernel Evdev Device Wrapper Library
 
+# SPDX
 License:        MIT
 URL:            http://www.freedesktop.org/wiki/Software/libevdev
 Source0:        http://www.freedesktop.org/software/%{name}/%{name}-%{version}.tar.xz
@@ -65,6 +66,9 @@ Utilities to handle and/or debug evdev devices.
 %{_mandir}/man1/mouse-dpi-tool.1*
 
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: licences is already SPDX compatible
+
 * Thu Jul 20 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.13.1-2
 - BuildRequires python3-rpm-macros for pathfix.py and use the rpm macro
 

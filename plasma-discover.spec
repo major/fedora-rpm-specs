@@ -13,7 +13,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.27.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -32,6 +32,8 @@ Source0: http://download.kde.org/%{stable}/plasma/%{verdir}/%{base_name}-%{versi
 Source10: discoverrc
 
 ## upstream patches
+# Backport distro upgrade: https://invent.kde.org/aleasto/discover/-/commits/distro-upgrade-backport/
+Patch100: distro-upgrade.patch
 
 ## downstream patches
 # workaround PK metadata refresh issues (always force refresh)
@@ -44,6 +46,15 @@ Patch200: discover-5.21.4-pk_refresh_force.patch
 #** (process:378626): WARNING **: 10:18:13.957: Not changing AppStream cache location: No longer supported.
 # and feature page shows error: "Unable to load applications" -- rdieter 20211229
 #Patch201: 0001-PackageKit-do-not-use-system-appstream-cache.patch
+
+# Do not distro-upgrade to rawhide
+# Currently we have no way to distinguish rawhide from the beta releases.
+# In order to test upgrading to fedora beta releases, such as during Upgrade Test Day,
+# here we ignore rawhide completely.
+# This hack should be removed once https://github.com/ximion/appstream/pull/491 lands
+# and rawhide is marked as 'snapshot' rather than 'development'. Then discover could
+# handle upgrading to either release type with different toggles.
+Patch202: distro-upgrade-skip-rawhide.patch
 
 ## upstreamable patches
 
@@ -151,6 +162,8 @@ Requires: qt5-qtquickcontrols2%{?_isa}
 Summary: Plasma Discover PackageKit support
 Requires: %{name} = %{version}-%{release}
 Requires: PackageKit
+# Fix for distro-upgrade authentication
+Requires: PackageKit-Qt5 >= 1.1.1-2
 %if 0%{?fedora}
 # Pull in the workstation repositories package
 Recommends: fedora-workstation-repositories
@@ -330,6 +343,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Thu Aug 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.7-2
+- Backport distro upgrade
+
 * Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
 - 5.27.7
 

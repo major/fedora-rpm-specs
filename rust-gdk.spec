@@ -6,7 +6,7 @@
 %global crate gdk
 
 Name:           rust-gdk
-Version:        0.17.1
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Rust bindings for the GDK 3 library
 
@@ -46,18 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+dox-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dox-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dox" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unsafe-assume-initialized-devel

@@ -4,7 +4,7 @@
 # https://github.com/mvdan/sh
 %global goipath         mvdan.cc/sh/v3
 %global forgeurl        https://github.com/mvdan/sh
-Version:                3.5.1
+Version:                3.7.0
 
 %gometa
 
@@ -25,13 +25,6 @@ URL:            %{gourl}
 Source0:        %{gosource}
 
 BuildRequires:  scdoc
-BuildRequires:  golang(github.com/google/renameio/maybe)
-BuildRequires:  golang(github.com/pkg/diff)
-BuildRequires:  golang(github.com/pkg/diff/write)
-BuildRequires:  golang(golang.org/x/sync/errgroup)
-BuildRequires:  golang(golang.org/x/sys/unix)
-BuildRequires:  golang(golang.org/x/term)
-BuildRequires:  golang(mvdan.cc/editorconfig)
 
 %if %{with check}
 # Tests
@@ -62,6 +55,9 @@ POSIX shell at the moment, and its options are intentionally minimalistic.
 
 %prep
 %goprep
+
+%generate_buildrequires
+%go_generate_buildrequires
 
 %build
 for cmd in cmd/* ; do

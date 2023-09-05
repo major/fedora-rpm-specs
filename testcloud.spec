@@ -1,10 +1,10 @@
 Name:           testcloud
 # Update also version in testcloud/__init__.py and docs/source/conf.py when changing this!
-Version:        0.9.2
-Release:        3%{?dist}
+Version:        0.9.10
+Release:        1%{?dist}
 Summary:        Tool for running cloud images locally
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://pagure.io/testcloud
 Source0:        https://releases.pagure.org/testcloud/%{name}-%{version}.tar.gz
 
@@ -58,7 +58,7 @@ Python 3 interface to testcloud.
 getent group testcloud >/dev/null || groupadd testcloud
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 # Drop coverage testing
 sed -i 's/ --cov-report=term-missing --cov testcloud//g' tox.ini
 
@@ -125,6 +125,21 @@ rm -rf %{buildroot}%{_sysconfdir}/testcloud/__pycache__
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Mon Sep 04 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-1
+- configuration abstraction (domain/apiv2 by lbrabec)
+- Add workaround for Ubuntu
+- Remove compatibility code for tmt < 1.22
+- Drop long deprecated find_vm_ip from cli
+- Always try to run dhclient in cloud-init
+- Clarify that testcloud runs VMs and no containers (Anatoli Babenia)
+- Support Fedora OpenStack images handling
+- [Domain API] Cleanups, fixes, refactors, Part 1/n
+- [Domain API] Cleanups, fixes, refactors, Part 2/n
+- Downloader: support unknown file sizes, add retry mechanism
+- domain/apiv2: Fix CoreOS
+- Instance: inherit coreos param too for DomainConfiguration
+- Storage: provide domain/apiv2 facilities for storage sizing, refactor
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

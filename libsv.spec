@@ -55,4 +55,3 @@ This package contains headers and development files for %{name}.
 
 %changelog
 %autochangelog
-

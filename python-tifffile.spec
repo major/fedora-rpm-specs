@@ -2,8 +2,8 @@
 %global srcname tifffile
 
 Name: python-%{srcname}
-Version: 2023.8.25
-Release: 1%{?dist}
+Version: 2023.8.30
+Release: %autorelease
 Summary: Read and write TIFF(r) files
 
 License: BSD-3-Clause
@@ -78,54 +78,4 @@ pytest-%{python3_version} -v tests \
 %{_bindir}/tiffcomment
 
 %changelog
-* Mon Aug 28 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.8.25-1
-- New upstream source 2023.8.25
-- SPDX migration
-
-* Sun Jul 23 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.7.18-1
-- New upstream source 2023.7.18
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.7.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.7.10-1
-- New upstream source 2023.7.10
-
-* Mon Jul 10 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 2023.4.12-1
-- New upstream source 2023.4.12
-- New style macros
-- Checking only package import, some deps are still broken
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2020.7.4-11
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.7.4-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.7.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2020.7.4-8
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.7.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2020.7.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2020.7.4-5
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2020.7.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2020.7.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jul 09 2020 Sergio Pascual <sergiopr@fedoraproject.org> - 2020.7.4-2
-- Fix license
-
-* Wed Jul 08 2020 Sergio Pascual <sergiopr@fedoraproject.org> - 2020.7.4-1
-- Initial spec
-
+%autochangelog

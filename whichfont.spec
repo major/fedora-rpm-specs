@@ -1,6 +1,6 @@
 Name:          whichfont
 Version:       1.0.7
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Querying Fontconfig
 
 License:       GPL-3.0-or-later
@@ -34,6 +34,9 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Mon Sep 04 2023 Sudip Shil <sshil@redhat.com> - 1.0.7-2
+- bug solved: printing wrong unicode for multiple characters
+
 * Thu Aug 31 2023 Sudip Shil <sshil@redhat.com> - 1.0.7-1
 - feature added: fontname option, sans-serif would be default
 - feature added: add option to print utf8 hex sequence
