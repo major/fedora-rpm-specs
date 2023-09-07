@@ -5,7 +5,7 @@
 %global crate walkdir
 
 Name:           rust-walkdir
-Version:        2.3.3
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Recursively walk a directory
 

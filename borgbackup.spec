@@ -1,8 +1,8 @@
 %global srcname borgbackup
 
 Name:           %{srcname}
-Version:        1.2.4
-Release:        5%{?dist}
+Version:        1.2.6
+Release:        1%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -10,8 +10,8 @@ Summary:        A deduplicating backup program with compression and authenticate
 License:        BSD-3-clause AND zlib AND Apache-2.0 AND PSF-2.0
 
 URL:            https://borgbackup.readthedocs.org
-Source0:        %pypi_source
-Source1:        %pypi_source.asc
+Source0:        https://github.com/borgbackup/borg/releases/download/%{version}/borgbackup-%{version}.tar.gz
+Source1:        https://github.com/borgbackup/borg/releases/download/%{version}/borgbackup-%{version}.tar.gz.asc
 # upstream publishes only key ids:
 #    https://borgbackup.readthedocs.io/en/stable/support.html#verifying-signed-releases
 # gpg2 --export --export-options export-minimal "6D5B EF9A DD20 7580 5747 B70F 9F88 FB52 FAF7 B393" > gpgkey-6D5B_EF9A_DD20_7580_5747_B70F_9F88_FB52_FAF7_B393.gpg
@@ -19,9 +19,6 @@ Source2:        gpgkey-6D5B_EF9A_DD20_7580_5747_B70F_9F88_FB52_FAF7_B393.gpg
 
 # we don't need the guzzley_sphinx theme for only man page generation
 Patch1:         0002-disable-sphinx-man-page-build.patch
-# avoid deprecation warning for datetime.utcnow()
-# https://github.com/borgbackup/borg/pull/7717
-Patch2:         %{name}-replace-utcnow.patch
 
 BuildRequires:  gnupg2
 # build
@@ -142,6 +139,9 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Tue Sep 05 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.6-1
+- update to 1.2.6 to fix CVE-2023-36811
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

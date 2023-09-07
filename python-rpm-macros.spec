@@ -53,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 BuildArch:      noarch
 
@@ -163,10 +163,13 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
-* Wed Aug 09 2023 Karolina Surma <ksurma@redhat.com> - 3.11-3
+* Tue Sep 05 2023 Maxwell G <maxwell@gtmx.me> - 3.12-4
+- Remove %%py3_build_egg and %%py3_install_egg macros.
+
+* Wed Aug 09 2023 Karolina Surma <ksurma@redhat.com> - 3.12-3
 - Declare the license as an SPDX expression
 
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-2
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Tue Jun 13 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12-1

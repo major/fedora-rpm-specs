@@ -2,8 +2,8 @@
 %bcond_without tests
 
 Name:           pytz
-Version:        2023.3
-Release:        3%{?dist}
+Version:        2023.3.post1
+Release:        1%{?dist}
 Summary:        World Timezone Definitions for Python
 
 License:        MIT
@@ -68,6 +68,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 
 
 %changelog
+* Tue Sep 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2023.3.post1-1
+- 2023.3.post1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

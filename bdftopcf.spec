@@ -3,7 +3,7 @@ Version:    1.1
 Release:    7%{?dist}
 Summary:    Font compiler for the X server and font server
 
-License:    MIT
+License:    MIT-open-group
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
 
@@ -37,6 +37,9 @@ slowly) on other machines.
 %{_mandir}/man1/bdftopcf.1*
 
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: change to SPDX license identifier
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

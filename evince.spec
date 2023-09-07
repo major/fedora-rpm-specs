@@ -8,8 +8,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           evince
-Version:        45~alpha
-Release:        2%{?dist}
+Version:        45~rc
+Release:        1%{?dist}
 Summary:        Document viewer
 
 License:        GPLv2+ and GPLv3+ and LGPLv2+ and MIT and Afmparse
@@ -278,6 +278,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45~rc-1
+- Update to 45.rc
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

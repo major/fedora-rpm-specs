@@ -12,7 +12,7 @@
 %endif
 
 Name:           gnome-remote-desktop
-Version:        45.beta
+Version:        45.rc
 Release:        1%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
@@ -42,6 +42,7 @@ BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(libdrm)
+BuildRequires:  pkgconfig(libei-1.0)
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libsecret-1)
@@ -53,7 +54,7 @@ BuildRequires:  pkgconfig(tss2-mu)
 BuildRequires:  pkgconfig(tss2-rc)
 BuildRequires:  pkgconfig(tss2-tctildr)
 
-Requires:       pipewire%{?_isa} >= 0.3.0
+Requires:       pipewire%{?_isa} >= 0.3.49
 
 Obsoletes:      vino < 3.22.0-21
 
@@ -114,6 +115,9 @@ GNOME desktop environment.
 
 
 %changelog
+* Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45.rc-1
+- Update to 45.rc
+
 * Fri Aug 11 2023 Kalev Lember <klember@redhat.com> - 45.beta-1
 - Update to 45.beta
 

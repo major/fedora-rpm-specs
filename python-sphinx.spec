@@ -20,10 +20,8 @@
 # During texlive updates, sometimes the latex environment is unstable
 %bcond latex_tests 1
 
-%global upstream_name Sphinx
-
 Name:       python-sphinx
-%global     general_version 7.0.1
+%global     general_version 7.1.2
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
@@ -36,12 +34,14 @@ Summary:    Python documentation generator
 License:    BSD-2-Clause AND MIT
 
 URL:        https://www.sphinx-doc.org/
-Source:     %{pypi_source %{upstream_name} %{upstream_version}}
+Source:     %{pypi_source sphinx %{upstream_version}}
 
 # Allow extra themes to exist. We pull in python3-sphinx-theme-alabaster
 # which causes that test to fail.
 Patch:      sphinx-test_theming.diff
 
+# Fix test_assets_order for Sphinx 7.1.2
+Patch:      https://github.com/sphinx-doc/sphinx/commit/85ffb3b0.patch
 
 BuildArch:     noarch
 
@@ -231,7 +231,7 @@ This package contains documentation in the HTML format.
 
 
 %prep
-%autosetup -n %{upstream_name}-%{upstream_version} -p1
+%autosetup -n sphinx-%{upstream_version} -p1
 
 %if %{without imagemagick_tests}
 rm tests/test_ext_imgconverter.py
@@ -364,6 +364,10 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Mon Aug 14 2023 Karolina Surma <ksurma@redhat.com> - 1:7.1.2-1
+- Update to 7.1.2
+- Fixes rhbz#2225274
+
 * Mon Aug 07 2023 Karolina Surma <ksurma@redhat.com> - 1:7.0.1-1
 - Update to 7.0.1
 

@@ -65,9 +65,10 @@ BuildRequires: libtool
 BuildRequires: openssh-clients
 BuildRequires: libaec-devel
 BuildRequires: gcc, gcc-c++
+BuildRequires: git-core
 
-%global with_mpich 1
-%global with_openmpi 1
+%global with_mpich %{undefined flatpak}
+%global with_openmpi %{undefined flatpak}
 
 %if %{with_mpich}
 %global mpi_list mpich
@@ -180,7 +181,7 @@ HDF5 parallel openmpi static libraries
 
 
 %prep
-%autosetup -a 2 -n %{name}-%{version}%{?snaprel} -p1
+%autosetup -a 2 -n %{name}-%{version}%{?snaprel} -p1 -S git
 
 %if %{with java}
 # Replace jars with system versions
@@ -188,18 +189,18 @@ HDF5 parallel openmpi static libraries
 # Junit tests are failing with junit-4.13.1
 %if 0%{?rhel} >= 9 || 0%{?fedora}
 find . ! -name junit.jar -name "*.jar" -delete
-ln -s %{_javadir}/hamcrest/hamcrest.jar java/lib/hamcrest-core.jar
+ln -s $(build-classpath hamcrest) java/lib/hamcrest-core.jar
 %else
 find . -name "*.jar" -delete
-ln -s %{_javadir}/hamcrest/core.jar java/lib/hamcrest-core.jar
-ln -s %{_javadir}/junit.jar java/lib/junit.jar
+ln -s $(build-classpath hamcrest/core) java/lib/hamcrest-core.jar
+ln -s $(build-classpath junit) java/lib/junit.jar
 # Fix test output
 junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9.]*\)<.*/\1/;p;q}' /usr/share/maven-poms/junit.pom)
 sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
 %endif
-ln -s %{_javadir}/slf4j/api.jar java/lib/slf4j-api-1.7.25.jar
-ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.25.jar
-ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
+ln -s $(build-classpath slf4j/api) java/lib/slf4j-api-1.7.25.jar
+ln -s $(build-classpath slf4j/nop) java/lib/ext/slf4j-nop-1.7.25.jar
+ln -s $(build-classpath slf4j/simple) java/lib/ext/slf4j-simple-1.7.25.jar
 %endif
 
 # Force shared by default for compiler wrappers (bug #1266645)

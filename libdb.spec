@@ -1,6 +1,13 @@
+%if 0%{?fedora}
+%bcond_without subpackages
+%else
+%bcond_with subpackages
+%endif
+
 %define __soversion_major 5
 %define __soversion %{__soversion_major}.3
 %define __tclversion 8.6
+%define _converter_version 1.0.2
 
 # The SQLite configure script does not support --runstatedir and is not
 # regenerated.
@@ -9,13 +16,14 @@
 Summary: The Berkeley DB database library for C
 Name: libdb
 Version: 5.3.28
-Release: 56%{?dist}
+Release: 57%{?dist}
 Source0: http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 Source1: http://download.oracle.com/berkeley-db/db.1.85.tar.gz
 # For mt19937db.c
 Source2: http://www.gnu.org/licenses/lgpl-2.1.txt
 # libdb man pages generated from the 5.3.28 documentation
 Source3: libdb-5.3.28-manpages.tar.gz
+Source4: https://github.com/fila43/db_converter/archive/refs/tags/v%{_converter_version}.tar.gz
 Patch0: libdb-multiarch.patch
 # db-1.85 upstream patches
 Patch10: http://www.oracle.com/technology/products/berkeley-db/db/update/1.85/patch.1.1
@@ -75,7 +83,7 @@ BuildRequires: perl-interpreter libtool
 BuildRequires: tcl-devel >= %{__tclversion}
 BuildRequires: chrpath
 BuildRequires: zlib-devel
-BuildRequires: make
+BuildRequires: make gdbm-devel lmdb-devel
 Conflicts: filesystem < 3
 
 # libdb was marked as deprecated in F33:
@@ -228,10 +236,23 @@ provides embedded database support for both traditional and
 client/server applications. This package contains the libraries
 for building programs which use the Berkeley DB in SQL.
 
+%package convert-util
+Summary: Development files for using the Berkeley DB with sql
+
+%description convert-util
+The Berkeley Database (Berkeley DB) is a programmatic toolkit that
+provides embedded database support for both traditional and
+client/server applications. This package contains the libraries
+for building programs which use the Berkeley DB in SQL.
+
+
 %prep
 %setup -q -n db-%{version} -a 1
 cp %{SOURCE2} .
 tar -xf %{SOURCE3}
+# db_converter
+tar -xf %{SOURCE4}
+
 
 %patch0 -p1
 pushd db.1.85/PORT/linux
@@ -314,12 +335,20 @@ perl -pi -e 's/-shared -nostdlib/-shared/' libtool
 echo "source ../../test/tcl/test.tcl; r env; r mut; r memp" | tclsh
 popd
 
+pushd db_converter-%{_converter_version}
+# libdb-5.3.a is part of static package, build produces libdb.a
+sed -i 's/-ldb-5.3/-ldb/g' Makefile
+# Set path to headers and library to previously built files
+# since this tool is intended to build statically
+make LDFLAGS="-I../dist/dist-tls -L../dist/dist-tls -Wl,-z,now" CFLAGS="-g -fPIC %build_cflags" static
+popd
+
 %install
+%if %{with subpackages}
 rm -rf ${RPM_BUILD_ROOT}
 mkdir -p ${RPM_BUILD_ROOT}%{_includedir}
 mkdir -p ${RPM_BUILD_ROOT}%{_libdir}
 mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man1
-
 %make_install STRIP=/bin/true -C dist/dist-tls
 
 # XXX Nuke non-versioned archives and symlinks
@@ -360,13 +389,22 @@ mv man/* ${RPM_BUILD_ROOT}%{_mandir}/man1
 %ldconfig_scriptlets cxx
 %ldconfig_scriptlets sql
 %ldconfig_scriptlets tcl
+%else
+mkdir -p %{buildroot}%{_bindir}
+%endif
+install -m 0755 db_converter-%{_converter_version}/db_converter %{buildroot}/%{_bindir}/db_converter
 
 %files
 %license LICENSE lgpl-2.1.txt
+%if %{with subpackages}
 %doc README
 %{_libdir}/libdb-%{__soversion}.so
 %{_libdir}/libdb-%{__soversion_major}.so
+%else
+%{_bindir}/db_converter
+%endif
 
+%if %{with subpackages}
 %files devel
 %{_libdir}/libdb.so
 %dir %{_includedir}/%{name}
@@ -374,16 +412,22 @@ mv man/* ${RPM_BUILD_ROOT}%{_mandir}/man1
 %{_includedir}/%{name}/db_185.h
 %{_includedir}/db.h
 %{_includedir}/db_185.h
+%endif
 
+%if %{with subpackages}
 %files devel-doc
 %doc	docs/*
+%endif
 
+%if %{with subpackages}
 %files devel-static
 %{_libdir}/libdb-%{__soversion}.a
 %{_libdir}/libdb_cxx-%{__soversion}.a
 %{_libdir}/libdb_tcl-%{__soversion}.a
 %{_libdir}/libdb_sql-%{__soversion}.a
+%endif
 
+%if %{with subpackages}
 %files utils
 %{_bindir}/db*_archive
 %{_bindir}/db*_checkpoint
@@ -399,33 +443,56 @@ mv man/* ${RPM_BUILD_ROOT}%{_mandir}/man1
 %{_bindir}/db*_verify
 %{_bindir}/db*_tuner
 %{_mandir}/man1/db_*
+%endif
 
+%if %{with subpackages}
+%files convert-util
+%{_bindir}/db_converter
+%endif
+
+%if %{with subpackages}
 %files cxx
 %{_libdir}/libdb_cxx-%{__soversion}.so
 %{_libdir}/libdb_cxx-%{__soversion_major}.so
+%endif
 
+%if %{with subpackages}
 %files cxx-devel
 %{_includedir}/%{name}/db_cxx.h
 %{_includedir}/db_cxx.h
 %{_libdir}/libdb_cxx.so
+%endif
 
+%if %{with subpackages}
 %files tcl
 %{_libdir}/libdb_tcl-%{__soversion}.so
 %{_libdir}/libdb_tcl-%{__soversion_major}.so
+%endif
 
+%if %{with subpackages}
 %files tcl-devel
 %{_libdir}/libdb_tcl.so
+%endif
 
+%if %{with subpackages}
 %files sql
 %{_libdir}/libdb_sql-%{__soversion}.so
 %{_libdir}/libdb_sql-%{__soversion_major}.so
+%endif
 
+%if %{with subpackages}
 %files sql-devel
 %{_bindir}/dbsql
 %{_libdir}/libdb_sql.so
 %{_includedir}/%{name}/dbsql.h
+%endif
 
 %changelog
+* Tue Aug 29 2023 Filip Janus <fjanus@redhat.com> - 5.3.25-57
+- Add convert-util subpackage
+- It allowes to convert BerkeleyDB database format to GDBM/LMDB format
+- Disable shiping libdb for rhel except convert-tool
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.28-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

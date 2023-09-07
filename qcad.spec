@@ -9,7 +9,7 @@
 #
 
 Name:    qcad
-Version: 3.28.1.0
+Version: 3.28.2.2
 Release: %autorelease
 Summary: Powerful 2D CAD system
 
@@ -60,7 +60,7 @@ BuildRequires: make
 BuildRequires: openssl-devel
 BuildRequires: dbus-devel
 BuildRequires: mesa-libGLU-devel
-#BuildRequires: spatialindex-devel
+BuildRequires: spatialindex-devel
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: fontpackages-devel
@@ -95,6 +95,8 @@ You dont need any CAD experience to get started with QCAD immediately.
 
 rm -rf ../*-SPECPARTS
 
+rm -rf src/3rdparty/spatialindexnavel/include/*
+
 # Use Fedora Qt5 scripts
 cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.10
 mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.10/qt-labs-qtscriptgenerator-5.15.3.pro \
@@ -112,14 +114,14 @@ mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.10/qt-labs-qtscriptgenerator-5.15
 %define _vpath_builddir ./
 export LDFLAGS="%{__global_ldflags} -Wl,-rpath -Wl,%{_QCAD_DIR}"
 %cmake -DBUILD_QT6:BOOL=OFF -DCMAKE_BUILD_TYPE:STRING=Release \
-       -DCMAKE_CFLAGS_RELEASE="%{build_cflags} %(pkg-config --cflags Qt5UiTools) -I$PWD/src/3rdparty/spatialindexnavel/include" \
-       -DCMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} %(pkg-config --cflags Qt5UiTools) -I$PWD/src/3rdparty/spatialindexnavel/include" \
+       -DCMAKE_CFLAGS_RELEASE="%{build_cflags} %(pkg-config --cflags Qt5UiTools)" \
+       -DCMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} %(pkg-config --cflags Qt5UiTools)" \
        -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
 %cmake_build
 %else
 %{_qt5_qmake} -makefile CONFIG+=release %{name}.pro \
- QMAKE_CFLAGS_RELEASE+="%{_qt5_optflags} %(pkg-config --cflags Qt5UiTools) -I$PWD/src/3rdparty/spatialindexnavel/include" \
- QMAKE_CXXFLAGS_RELEASE+="%{_qt5_optflags} %(pkg-config --cflags Qt5UiTools) -I$PWD/src/3rdparty/spatialindexnavel/include" \
+ QMAKE_CFLAGS_RELEASE+="%{_qt5_optflags} %(pkg-config --cflags Qt5UiTools)" \
+ QMAKE_CXXFLAGS_RELEASE+="%{_qt5_optflags} %(pkg-config --cflags Qt5UiTools)" \
  QMAKE_LFLAGS+="%{_qt5_ldflags} -Wl,-rpath -Wl,%{_QCAD_DIR}" \
  LFLAGS+="%{_qt5_ldflags} -Wl,-rpath -Wl,%{_QCAD_DIR}"
 %make_build
@@ -245,4 +247,3 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %changelog
 %autochangelog
-

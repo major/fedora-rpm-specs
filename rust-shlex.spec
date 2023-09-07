@@ -5,7 +5,7 @@
 %global crate shlex
 
 Name:           rust-shlex
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Split a string into shell words, like Python's shlex
 

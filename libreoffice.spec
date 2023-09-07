@@ -58,7 +58,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.1
-Release:        1%{?libo_prerelease}%{?dist}
+Release:        2%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -83,7 +83,6 @@ Source7:        http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c31
 Source8:        libreoffice-multiliblauncher.sh
 
 Source9:        %{external_url}/dtoa-20180411.tgz
-Source10:       %{external_url}/dragonbox-1.1.3.tar.gz
 Source11:       %{external_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 #Unfortunately later versions of hsqldb changed the file format, so if we use a later version we lose
 #backwards compatability.
@@ -139,6 +138,7 @@ BuildRequires: %{libo_python}-setuptools
 BuildRequires: Box2D-devel
 BuildRequires: boost-devel
 BuildRequires: cups-devel
+BuildRequires: dragonbox-static
 BuildRequires: fontpackages-devel
 %if 0%{?fedora}
 BuildRequires: firebird-devel
@@ -1117,7 +1117,6 @@ touch autogen.lastrun
  --without-export-validation \
  --without-fonts \
  --without-lxml \
- --without-system-dragonbox \
  --without-system-libfixmath \
  --with-gdrive-client-secret="GYWrDtzyZQZ0_g5YoBCC6F0I" \
  --with-gdrive-client-id="457862564325.apps.googleusercontent.com" \
@@ -2258,6 +2257,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Mon Sep 04 2023 Mattia Verga <mattia.verga@proton.me> - 1:7.6.1.1-2
+- Unbundle dragonbox
+
 * Mon Aug 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:7.6.1.1-1
 - 7.6.1.1
 

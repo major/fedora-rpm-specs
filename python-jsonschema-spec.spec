@@ -2,7 +2,7 @@
 %global modname jsonschema_spec
 
 Name:           python-%{srcname}
-Version:        0.1.6
+Version:        0.2.4
 Release:        %autorelease
 Summary:        JSONSchema Spec with object-oriented paths
 
@@ -24,24 +24,11 @@ Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # [2] https://github.com/p1c2u/jsonschema-spec/commit/d207d233e31198942ba417875e2c1e09f848ab5d
 Patch:          0001-Do-not-require-quite-such-a-recent-version-of-reques.patch
 
-# Don't check with SupportsRead
-# https://github.com/p1c2u/jsonschema-spec/pull/46
-#
-# Fixes:
-#
-# Test failures (regressions) with Python 3.12
-# https://github.com/p1c2u/jsonschema-spec/issues/42
-#
-# F39FailsToInstall: python3-jsonschema-spec
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220292
-#
-# Backported to 0.1.6.
-Patch:          0001-Don-t-check-with-SupportsRead.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(responses)
 
 %global _description %{expand:
 A python library which provides traverse JSON resources like paths and

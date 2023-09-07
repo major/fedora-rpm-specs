@@ -1,20 +1,27 @@
 Name:           perl-mime-construct
 Version:        1.11
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Construct/send MIME messages from the command line 
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/mime-construct-%{version}
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROSCH/mime-construct-%{version}.tar.gz
 
 BuildArch:      noarch
-
-BuildRequires: make
+# build dependencies
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# runtime dependencies
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(FileHandle)
+BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(MIME::QuotedPrint)
 BuildRequires:  perl(MIME::Types)
 BuildRequires:  perl(Proc::WaitStat)
-
+BuildRequires:  perl(strict)
 
 %{?perl_default_filter}
 
@@ -29,17 +36,17 @@ by other programs, or people who act like programs.
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 
 %check
-make test
+%{make_build} test
 
 
 %files
@@ -49,6 +56,12 @@ make test
 
 
 %changelog
+* Tue Sep 05 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.11-38
+- Rework dependencies
+- migrated to SPDX license
+- Replace calls to %%{__perl} with /usr/bin/perl
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

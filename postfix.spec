@@ -45,8 +45,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.8.1
-Release: 5%{?dist}
+Version: 3.8.2
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
@@ -804,6 +804,10 @@ fi
 %endif
 
 %changelog
+* Tue Sep  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.2-1
+- New version
+  Resolves: rhbz#2236828
+
 * Mon Aug 14 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.1-5
 - Use systemd-sysusers, original patch by
   Jonathan Wright <jonathan@almalinux.org>

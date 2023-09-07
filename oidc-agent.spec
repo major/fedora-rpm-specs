@@ -5,17 +5,15 @@
 %endif
 
 Name:		oidc-agent
-Version:	4.5.2
-Release:	2%{?dist}
+Version:	5.0.1
+Release:	1%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
 License:	MIT AND ISC AND LGPL-2.1-or-later AND BSD-2-Clause
 URL:		https://github.com/indigo-dc/%{name}
 Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/indigo-dc/oidc-agent/pull/527
-Patch0:		%{name}.patch
-#		https://github.com/indigo-dc/oidc-agent/issues/450
-Patch1:		%{name}-webkit.patch
+#		https://github.com/indigo-dc/oidc-agent/pull/545
+Patch0:		0001-Use-the-right-cJSON.h-header-when-compiling-mustache.patch
 #		clibs-list-devel not available for ix86....
 ExcludeArch:	%{ix86}
 
@@ -28,7 +26,6 @@ BuildRequires:	clibs-list-devel
 BuildRequires:	curl-devel
 BuildRequires:	libsodium-devel
 BuildRequires:	libmicrohttpd-devel
-BuildRequires:	libsecret-devel
 BuildRequires:	glib2-devel
 BuildRequires:	qrencode-devel
 BuildRequires:	gtk3-devel
@@ -41,6 +38,7 @@ BuildRequires:	webkitgtk4-devel
 #BuildRequires:	webkit2gtk3-devel (equivalent, but doesn't work on EPEL 7)
 #BuildRequires:	webkit2gtk4.0-devel (equivalent, but doesn't work on EPEL)
 %endif
+BuildRequires:	systemd-rpm-macros
 BuildRequires:	help2man
 
 %description
@@ -97,8 +95,6 @@ graphical environment:
 
 %package libs
 Summary:	Library for oidc-agent
-Provides:	liboidc-agent4 = %{version}-%{release}
-Obsoletes:	liboidc-agent4 < %{version}-%{release}
 %if %{?rhel}%{!?rhel:0} == 7
 Provides:	bundled(cjson)
 Provides:	bundles(clibs-list)
@@ -125,7 +121,6 @@ This package provides headers for the oidc-agent library.
 %prep
 %setup -q
 %patch -P 0 -p1
-%patch -P 1 -p1
 
 %if %{?rhel}%{!?rhel:0} != 7
 # Remove bundled cJSON and clib-list (use system versions) except on EPEL 7
@@ -176,10 +171,13 @@ update-desktop-database >/dev/null 2>&1 || :
 %{_mandir}/man1/oidc-gen.1*
 %{_mandir}/man1/oidc-keychain.1*
 %{_mandir}/man1/oidc-token.1*
+%{_tmpfilesdir}/%{name}.conf
 %dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/config
 %config(noreplace) %{_sysconfdir}/%{name}/issuer.config
+%dir %{_sysconfdir}/%{name}/issuer.config.d
+%config(noreplace) %{_sysconfdir}/%{name}/issuer.config.d/*
 %config(noreplace) %{_sysconfdir}/%{name}/oidc-agent-service.options
-%config(noreplace) %{_sysconfdir}/%{name}/pubclients.config
 %license LICENSE
 %doc CHANGELOG.md PRIVACY README.md
 
@@ -191,7 +189,7 @@ update-desktop-database >/dev/null 2>&1 || :
 %{_datadir}/applications/oidc-gen.desktop
 
 %files libs
-%{_libdir}/liboidc-agent.so.4*
+%{_libdir}/liboidc-agent.so.5*
 %license LICENSE
 
 %files devel
@@ -199,6 +197,11 @@ update-desktop-database >/dev/null 2>&1 || :
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Mon Sep 04 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.0.1-1
+- Update to version 5.0.1
+- Drop patch oidc-agent-webkit.patch (previously backported
+- Drop patch oidc-agent.patch (accepted upstram)
+
 * Sun Aug 20 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 4.5.2-2
 - Use webkit2gtk-4.1 (Fedora)
 

@@ -2,12 +2,15 @@
 
 Name:           libcomps
 Version:        0.1.19
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/libcomps
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Backported
+Patch:          fix-fromxml_str-segfault.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -116,6 +119,9 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Sep 05 2023 Mattia Verga <mattia.verga@proton.me> - 0.1.19-4
+- Backport patch to fix segfault in fromxml_str
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

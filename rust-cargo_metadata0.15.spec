@@ -4,14 +4,18 @@
 
 %global crate cargo_metadata
 
-Name:           rust-cargo_metadata
-Version:        0.17.0
+Name:           rust-cargo_metadata0.15
+Version:        0.15.4
 Release:        %autorelease
 Summary:        Structured access to the output of cargo metadata
 
 License:        MIT
 URL:            https://crates.io/crates/cargo_metadata
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump derive_builder dependency from 0.11.1 to 0.12:
+#   https://github.com/oli-obk/cargo_metadata/pull/230
+Patch:          cargo_metadata-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

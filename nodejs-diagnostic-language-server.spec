@@ -4,7 +4,7 @@
 
 Name:           nodejs-diagnostic-language-server
 Version:        1.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Diagnostic language server that integrate with linters
 License:        MIT
 Url:            https://github.com/iamcco/diagnostic-languageserver
@@ -14,7 +14,7 @@ Source1:        %{pkg_name}-%{version}-vendor.tar.xz
 BuildRequires:  fdupes
 BuildRequires:  nodejs-typescript
 BuildRequires:  nodejs-packaging
-BuildRequires:  npm >= 14
+BuildRequires:  nodejs-npm
 BuildRequires:  perl-interpreter
 BuildRequires:  rsync
 BuildRequires:  yarnpkg
@@ -57,7 +57,7 @@ for S in $(grep -l '#!.*node' \
 done
 
 install -d -m 0755 %{buildroot}%{_bindir}
-ln -s %{nodejs_sitelib}/%{pkg_name}/bin/index.js %{buildroot}%{_bindir}/%{pkg_name}
+ln -rs %{nodejs_sitelib}/%{pkg_name}/bin/index.js %{buildroot}%{_bindir}/%{pkg_name}
 
 install -d -m 0755 %{buildroot}%{nodejs_sitelib}/%{pkg_name}/
 rsync -av --exclude=test * %{buildroot}%{nodejs_sitelib}/%{pkg_name}/
@@ -75,6 +75,11 @@ find %{buildroot}%{nodejs_sitelib}/%{pkg_name} -type f -name "\.*" -delete
 %{nodejs_sitelib}/%{pkg_name}/
 
 %changelog
+* Tue Sep 05 2023 Andreas Schneider <asn@redhat.com> - 1.15-0-2
+- Explicitly BR the default npm
+- Use a relative symlink for the binary
+- resolves: rhbz#2211255
+
 * Mon Aug 28 2023 Andreas Schneider <asn@redhat.com> - 1.15.0-1
 - Update to version 1.15.0
 - Fixes rhbz#2226028

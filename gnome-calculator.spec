@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calculator
-Version:        45.0
+Version:        45.0.1
 Release:        1%{?dist}
 Summary:        A desktop calculator
 
@@ -28,8 +28,8 @@ BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  vala
 BuildRequires:  /usr/bin/appstream-util
 
-Requires:      gtksourceview5%{?_isa} >= %{gtksourceview_version}
-Requires:      libadwaita%{?_isa} >= %{libadwaita_version}
+Requires:       gtksourceview5%{?_isa} >= %{gtksourceview_version}
+Requires :      libadwaita%{?_isa} >= %{libadwaita_version}
 
 %description
 gnome-calculator is a powerful graphical calculator with financial,
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Calculator
 
 
 %changelog
+* Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45.0.1-1
+- Update to 45.0.1
+
 * Thu Aug 17 2023 Kalev Lember <klember@redhat.com> - 45.0-1
 - Update to 45.0
 

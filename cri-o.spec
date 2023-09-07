@@ -1,6 +1,6 @@
 # https://github.com/cri-o/cri-o
 %global goipath         github.com/cri-o/cri-o
-Version:                1.27.1
+Version:                1.28.0
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
 %define gobuild(o:) %{expand:
@@ -37,7 +37,7 @@ Version:                1.27.1
 
 Name:           cri-o
 Epoch:          0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
 
 
@@ -230,6 +230,9 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
+* Thu Aug 24 2023 Peter Hunt <pehunt@redhat.com> - 0:1.28.0-1
+- bump to v1.28.0
+
 * Thu Jul 20 2023 T K Chandra Hasan <t.k.chandra.hasan@ibm.com> - 0:1.27.1-1
 - bump to v1.27.1
 

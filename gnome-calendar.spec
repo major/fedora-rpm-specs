@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calendar
-Version:        45~beta
+Version:        45~rc
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 

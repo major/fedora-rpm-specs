@@ -2,13 +2,14 @@
 # the github source does; unfortunately, upstream does not tag releases on
 # GitHub, but we are confident we are using the git commit that corresponds to
 # the PyPI release.
-%global commit c6d81ce7eede6db801d4e9a92b27ec5d409d0eab
+# https://github.com/HIPS/autograd/issues/392
+%global commit 1bb5cbc21d2aa06e0c61654a9cc6f38c174dacc0
 
 Name:           python-autograd
 # Because we are using the commit that corresponds to the PyPI release (even
 # though it is not tagged), we do not use the snapinfo version field even
 # though our source URL is based on the git commit hash.
-Version:        1.5
+Version:        1.6.2
 Release:        %autorelease
 Summary:        Efficiently computes derivatives of numpy code
 
@@ -16,13 +17,6 @@ Summary:        Efficiently computes derivatives of numpy code
 License:        MIT
 URL:            https://github.com/HIPS/autograd
 Source0:        %{url}/archive/%{commit}/autograd-%{commit}.tar.gz
-
-# Fix mvn tests (fixes #588)
-# https://github.com/HIPS/autograd/commit/7a66f14b9d3b8c371c803b9519de0c6db36d1eef
-#   Fixes:
-# Four scipy tests are failing
-# https://github.com/HIPS/autograd/issues/588
-Patch:          %{url}/commit/7a66f14b9d3b8c371c803b9519de0c6db36d1eef.patch
 
 BuildArch:      noarch
 

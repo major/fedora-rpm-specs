@@ -99,6 +99,7 @@ sed -i 's|/etc/%{name}.d|/etc/%{name}/conf.d|g' %{buildroot}%{_sysconfdir}/%{nam
 %{_mandir}/man1/%{name}-cloud-backup-delete.1.gz
 %{_mandir}/man1/%{name}-cloud-backup-keep.1.gz
 %{_mandir}/man1/%{name}-cloud-backup-list.1*
+%{_mandir}/man1/%{name}-cloud-backup-show.1*
 %{_mandir}/man1/%{name}-cloud-check-wal-archive.1.gz
 %{_mandir}/man1/%{name}-cloud-restore.1*
 %{_mandir}/man1/%{name}-cloud-wal-archive.1*

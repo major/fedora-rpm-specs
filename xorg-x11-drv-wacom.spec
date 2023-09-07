@@ -11,7 +11,7 @@ Name:       xorg-x11-drv-wacom
 Version:    1.2.0
 Release:    2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 URL:        http://www.x.org
-License:    GPLv2+
+License:    GPL-2.0-or-later
 
 %if 0%{?gitdate}
 Source0: %{tarball}-%{gitdate}.tar.bz2
@@ -102,6 +102,9 @@ will be available as normal evdev node.
 %{_unitdir}/wacom-inputattach@.service
 
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: update to SPDX-compatible license identifier
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

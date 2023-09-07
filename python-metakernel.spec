@@ -5,8 +5,8 @@ Name:		python-metakernel
 #		and release numbers - update below in each package section
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
-Version:	0.29.5
-Release:	2%{?dist}
+Version:	0.30.0
+Release:	1%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
@@ -29,6 +29,7 @@ BuildRequires:	python3dist(pytest)
 BuildRequires:	python3dist(pytest-timeout)
 BuildRequires:	python3dist(requests)
 BuildRequires:	python3dist(ipyparallel)
+BuildRequires:	python3dist(pydot)
 BuildRequires:	man
 #		For documentation
 BuildRequires:	python3dist(sphinx)
@@ -71,7 +72,7 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	62%{?dist}
+Release:	63%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -82,7 +83,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	62%{?dist}
+Release:	63%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -126,6 +127,8 @@ PYTHONPATH=metakernel_echo \
   --prefix %{buildroot}%{_prefix}
 
 %check
+# The completion magic test checks for the existence of ~/.bashrc
+touch ~/.bashrc
 PYTHONPATH=metakernel_python ipcluster start -n=3 &
 pid=$!
 pytest -v --color=no
@@ -167,6 +170,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/python3-metakernel-echo
 
 %changelog
+* Tue Sep 05 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.30.0-1
+- Update to version 0.30.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

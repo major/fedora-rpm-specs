@@ -3,7 +3,7 @@
 
 Name:		manafirewall
 Version:	0.0.3
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	ManaTools FirewallD configuration tool
 License:	GPLv2+
 URL:		https://github.com/manatools/%{name}
@@ -17,6 +17,7 @@ BuildRequires:	gettext
 BuildRequires:	libappstream-glib
 BuildRequires:	pkgconfig
 BuildRequires:	python3-devel		>= 3.4.0
+BuildRequires:	python3-setuptools
 BuildRequires:	python3-yaml
 BuildRequires:	python3-yui
 BuildRequires:	python3-manatools	>= 0.0.3
@@ -73,6 +74,9 @@ appstream-util validate-relax --nonet		\
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Tue Sep 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.0.3-7
+- Add setuptools as a BR
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

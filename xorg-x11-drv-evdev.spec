@@ -10,7 +10,7 @@ Name:       xorg-x11-drv-evdev
 Version:    2.10.6
 Release:    14%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 URL:        http://www.x.org
-License:    MIT
+License:    HPND-sell-variant AND MIT
 
 %if 0%{?gitdate}
 Source0:    %{tarball}-%{gitdate}.tar.bz2
@@ -73,6 +73,9 @@ X.Org X11 evdev input driver development files.
 
 
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: update to SPDX license identifiers
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

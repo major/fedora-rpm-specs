@@ -1,5 +1,5 @@
 Name:           at-spi2-core
-Version:        2.49.90
+Version:        2.49.91
 Release:        1%{?dist}
 Summary:        Protocol definitions and daemon for D-Bus at-spi
 
@@ -38,7 +38,7 @@ It has been completely rewritten to use D-Bus rather than
 ORBIT / CORBA for its transport protocol.
 
 %package devel
-Summary:  Development files and headers for at-spi2-core
+Summary: Development files and headers for at-spi2-core
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -65,7 +65,7 @@ This package includes libraries, header files, and developer documentation
 needed for development of applications or toolkits which use ATK.
 
 %package -n at-spi2-atk
-Summary:  A GTK+ module that bridges ATK to D-Bus at-spi
+Summary: A GTK+ module that bridges ATK to D-Bus at-spi
 Requires: atk%{?_isa} = %{version}-%{release}
 Requires: at-spi2-core%{?_isa} = %{version}-%{release}
 
@@ -74,18 +74,18 @@ at-spi allows assistive technologies to access GTK-based
 applications. Essentially it exposes the internals of applications for
 automation, so tools such as screen readers, magnifiers, or even
 scripting interfaces can query and interact with GUI controls.
- 
+
 This version of at-spi is a major break from previous versions.
 It has been completely rewritten to use D-Bus rather than
 ORBIT / CORBA for its transport protocol.
- 
+
 This package includes a gtk-module that bridges ATK to the new
 D-Bus based at-spi.
 
 %package -n at-spi2-atk-devel
-Summary:  A GTK+ module that bridges ATK to D-Bus at-spi
+Summary: A GTK+ module that bridges ATK to D-Bus at-spi
 Requires: at-spi2-atk%{?_isa} = %{version}-%{release}
- 
+
 %description -n at-spi2-atk-devel
 The at-spi2-atk-devel package includes the header files for the at-spi2-atk
 library.
@@ -162,6 +162,9 @@ install -m 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/00-
 %{_libdir}/pkgconfig/atk-bridge-2.0.pc
 
 %changelog
+* Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 2.49.91-1
+- Update to 2.49.91
+
 * Sat Aug 05 2023 Kalev Lember <klember@redhat.com> - 2.49.90-1
 - Update to 2.49.90
 

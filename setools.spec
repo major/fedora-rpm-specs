@@ -3,7 +3,7 @@
 
 Name:           setools
 Version:        4.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only and LGPL-2.1-only
@@ -11,12 +11,13 @@ URL:            https://github.com/SELinuxProject/setools/wiki
 Source0:        https://github.com/SELinuxProject/setools/archive/%{version}.tar.gz
 Source1:        setools.pam
 Source2:        apol.desktop
+Patch1:         0001-Use-the-The-New-Python-Enums.patch
+Patch2:         0002-Use-PyQt6.patch
 
 Obsoletes:      setools < 4.0.0, setools-devel < 4.0.0
 BuildRequires:  flex,  bison
 BuildRequires:  glibc-devel, gcc, git-core
 BuildRequires:  libsepol-devel >= %{sepol_ver}, libsepol-static >= %{sepol_ver}
-BuildRequires:  qt5-qtbase-devel
 BuildRequires:  swig
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
@@ -81,7 +82,7 @@ Python 3 modules designed to facilitate SELinux policy analysis.
 Summary:     Policy analysis graphical tools for SELinux
 License:     GPL-2.0-only
 Requires:    python3-setools = %{version}-%{release}
-Requires:    python3-qt5
+Requires:    python3-pyqt6 python3-pyqt6-sip
 Requires:    python3-networkx
 
 %description gui
@@ -144,6 +145,9 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/apol*
 
 %changelog
+* Mon Aug 28 2023 Petr Lautrbach <lautrbach@redhat.com> - 4.4.3-2
+- Use Qt 6
+
 * Wed Aug  9 2023 Petr Lautrbach <lautrbach@redhat.com> - 4.4.3-1
 - SETools 4.4.3 release
 

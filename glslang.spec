@@ -1,4 +1,4 @@
-%global sdkver 1.3.250.0
+%global sdkver 1.3.261.1
 
 Name:           glslang
 Version:        11.9.0
@@ -8,7 +8,6 @@ Summary:        OpenGL and OpenGL ES shader front end and validator
 License:        BSD and GPLv3+ and Apache-2.0
 URL:            https://github.com/KhronosGroup/%{name}
 Source0:        %url/archive/sdk-%{sdkver}.tar.gz#/%{name}-sdk-%{sdkver}.tar.gz
-Patch1:         glslang-default-resource-limits_staticlib.patch
 # Patch to build against system spirv-tools (rebased locally)
 #Patch3:         https://patch-diff.githubusercontent.com/raw/KhronosGroup/glslang/pull/1722.patch#/0001-pkg-config-compatibility.patch
 Patch3:         0001-pkg-config-compatibility.patch
@@ -56,6 +55,7 @@ popd
 
 %files
 %doc README.md README-spirv-remap.txt
+%{_bindir}/glslang
 %{_bindir}/glslangValidator
 %{_bindir}/spirv-remap
 

@@ -350,8 +350,8 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_libdir}/python%{python3_version}/site-packages/lirc
 %{_libdir}/python%{python3_version}/site-packages/lirc-setup
 %{_datadir}/lirc/
-/var/lib/lirc/images
-/var/lib/lirc/plugins
+%{_localstatedir}/lib/lirc/images
+%{_localstatedir}/lib/lirc/plugins
 %exclude %{_datadir}/lirc/configs/*
 %{_mandir}/man1/*ir*.1*
 %{_mandir}/man1/*mode2*.1*

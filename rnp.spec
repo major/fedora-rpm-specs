@@ -9,7 +9,7 @@
 
 %bcond_without      tests
 %bcond_with         licensecheck
-%bcond_with         libsexpp
+%bcond_without      libsexpp
 
 %if 0%{?rhel} == 8
 # use openssl by default as botan2 is too old
@@ -26,7 +26,7 @@
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.17.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
@@ -154,7 +154,13 @@ rm $LST
 %endif
 %if %{with libsexpp}
    -DSYSTEM_LIBSEXPP:BOOL=ON \
+%else
+   -DSYSTEM_LIBSEXPP:BOOL=OFF \
 %endif
+   -DENABLE_COVERAGE:BOOL=OFF \
+   -DENABLE_SANITIZERS:BOOL=OFF \
+   -DENABLE_SANITIZERS:BOOL=OFF \
+   -DENABLE_FUZZERS:BOOL=OFF \
    -DDOWNLOAD_GTEST:BOOL=OFF \
    -DDOWNLOAD_RUBYRNP:BOOL=OFF
 
@@ -200,6 +206,9 @@ FILTER="$FILTER|cli_tests-Encryption|cli_tests-Misc"
 
 
 %changelog
+* Tue Sep  5 2023 Remi Collet <remi@remirepo.net> - 0.17.0-7
+- use system libsexpp
+
 * Wed Jul 26 2023 Remi Collet <remi@remirepo.net> - 0.17.0-6
 - refresh upstream patch to use shutil
 

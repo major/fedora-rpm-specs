@@ -19,6 +19,9 @@ Patch:          0006-test-plugin_manager-disable-tests-requiring-gemspec-.patch
 Patch:          0007-Revert-tests-to-expect-jekyll-sass-converter-2.patch
 # https://github.com/jekyll/jekyll/pull/9285
 Patch:          0008-test-use-hash-explicitly-for-Struct-initializer-for-.patch
+# Use `shoulda-context` in place of `shoulda` to reduce dependency chain.
+# https://github.com/jekyll/jekyll/pull/9441
+Patch:          0009-Test-suite-uses-shoulda-context-only-.patch
 
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
@@ -46,9 +49,10 @@ BuildRequires:  rubygem(racc)
 BuildRequires:  rubygem(rouge)
 BuildRequires:  rubygem(rspec-mocks)
 BuildRequires:  rubygem(safe_yaml)
-BuildRequires:  rubygem(shoulda)
+BuildRequires:  rubygem(shoulda-context)
 BuildRequires:  rubygem(terminal-table)
 BuildRequires:  rubygem(tomlrb) >= 2.0.1
+BuildRequires:  rubygem(tzinfo)
 BuildRequires:  rubygem(webrick)
 
 # Additional gems required to run jekyll:

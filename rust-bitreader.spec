@@ -5,7 +5,7 @@
 %global crate bitreader
 
 Name:           rust-bitreader
-Version:        0.3.7
+Version:        0.3.8
 Release:        %autorelease
 Summary:        BitReader helps reading individual bits from a slice of bytes
 

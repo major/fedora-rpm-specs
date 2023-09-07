@@ -3,17 +3,11 @@
 %bcond_with xvfb_tests
 
 Name:           python-keyring
-Version:        23.11.0
-Release:        5%{?dist}
+Version:        24.2.0
+Release:        1%{?dist}
 Summary:        Store and access your passwords safely
 
-# Upstream was asked to clarify the applicability of the Python-2.0.1 license.
-# In summary, the license was meant to be OR rather than AND, and the Python
-# license was applied with the intent of possibly contributing the package to
-# the Python standard library, which is no longer planned. In later releases,
-# the license will be simply MIT. See:
-#   https://github.com/jaraco/keyring/issues/607#issuecomment-1341618763
-License:        MIT OR Python-2.0.1
+License:        MIT
 URL:            https://github.com/jaraco/keyring
 Source0:        %{pypi_source keyring}
 
@@ -59,19 +53,50 @@ Other keyring implementations are available through third-party backends.}
 %package -n     python3-keyring
 Summary:        Python 3 library to access the system keyring service
 
+Recommends:     python3-keyring+completion = %{version}-%{release}
+
 %description -n python3-keyring %desc
+
+
+# We don’t use “%%pyproject_extras_subpkg -n python3-keyring completion”
+# because we want to add the completion scripts to the files list and provide a
+# custom summary and description.
+%package -n     python3-keyring+completion
+Summary:        Shell completion support for the keyring command
+
+Requires:       python3-keyring = %{version}-%{release}
+
+%description -n python3-keyring+completion
+This package:
+
+• Makes sure the “completion” extra dependencies are installed
+• Installs the actual shell completion scripts
+
+There may be additional requirements to enable completion support *in general*
+for a particular shell. For example, bash needs the bash-completion package to
+be installed.
 
 
 %prep
 %setup -q -n keyring-%{version}
 
+# This will be installed in site-packages without the executable bit set, so
+# the shebang should be removed.
+sed -r -i '1{/^#!/d}' keyring/cli.py
+
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x completion
 
 
 %build
 %pyproject_wheel
+
+for sh in bash zsh tcsh
+do
+  PYTHONPATH="${PWD}/build/lib" '%{python3}' -m keyring \
+      --print-completion "${sh}" | tee "keyring.${sh}"
+done
 
 
 %install
@@ -80,6 +105,13 @@ Summary:        Python 3 library to access the system keyring service
 # For compatibility with historical versions of this package, when there were
 # both python2 and python3 packages:
 ln -s keyring %{buildroot}%{_bindir}/keyring-python3
+
+install -D -p -m 0644 keyring.bash \
+    '%{buildroot}%{bash_completions_dir}/keyring'
+install -D -p -m 0644 keyring.zsh \
+    '%{buildroot}%{zsh_completions_dir}/_keyring'
+install -D -p -m 0644 keyring.tcsh \
+    '%{buildroot}%{_sysconfdir}/profile.d/keyring.csh'
 
 
 %check
@@ -93,13 +125,29 @@ ln -s keyring %{buildroot}%{_bindir}/keyring-python3
 
 %files -n python3-keyring -f %{pyproject_files}
 # pyproject_files handles LICENSE; verify with “rpm -qL -p …”
-%doc CHANGES.rst README.rst
+%doc NEWS.rst README.rst
 
 %{_bindir}/keyring-python3
 %{_bindir}/keyring
 
 
+%files -n python3-keyring+completion
+%{bash_completions_dir}/keyring
+%{zsh_completions_dir}/_keyring
+%config(noreplace) %{_sysconfdir}/profile.d/keyring.csh
+
+%ghost %{python3_sitelib}/*.dist-info
+
+
 %changelog
+* Fri Sep 01 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 24.2.0-1
+- Update to 24.2.0
+- Fixes: rhbz#2154699
+- Upstream removed Python-2.0.1 license option; now only MIT
+- Add subpackage for “completions” extra
+- Replace deprecated pyproject_build_lib macro
+- Drop unwanted shebang in keyring/cli.py
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

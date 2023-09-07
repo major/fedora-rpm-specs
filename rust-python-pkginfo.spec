@@ -5,7 +5,7 @@
 %global crate python-pkginfo
 
 Name:           rust-python-pkginfo
-Version:        0.5.6
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Parse Python package metadata from sdist and bdists and etc
 

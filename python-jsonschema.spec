@@ -11,8 +11,8 @@ jsonschema is an implementation of JSON Schema for Python (supporting
 
 Name:           python-%{pypi_name}
 Summary:        Implementation of JSON Schema validation for Python
-Version:        4.17.3
-Release:        5%{?dist}
+Version:        4.19.0
+Release:        1%{?dist}
 License:        MIT
 URL:            https://github.com/Julian/jsonschema
 Source0:        %{pypi_source}
@@ -71,6 +71,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} trial-3 %{pypi_name}
 %{_bindir}/jsonschema
 
 %changelog
+* Mon Aug 07 2023 Joel Capitao <jcapitao@redhat.com> - 4.19.0-1
+- Update to 4.19.0 release (#2139238)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.17.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

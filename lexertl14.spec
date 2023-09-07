@@ -2,7 +2,7 @@
 %global snapdate 20230904
 
 Name:           lexertl14
-Summary:        C++14 version of lexertl
+Summary:        The Modular Lexical Analyser Generator
 Version:        0.1.0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 

@@ -4,7 +4,7 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.17.1
+Version:        0.18.0
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
@@ -21,6 +21,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(djangorestframework)
 BuildRequires:  python3dist(httpx)
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-aiohttp)
 BuildRequires:  python3dist(responses)
 BuildRequires:  python3dist(starlette)
 BuildRequires:  python3dist(strict-rfc3339)
@@ -39,7 +40,7 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %_description
 
 
-%pyproject_extras_subpkg -n python3-openapi-core django %{?with_falcon:falcon} flask requests starlette
+%pyproject_extras_subpkg -n python3-openapi-core aiohttp django %{?with_falcon:falcon} flask requests starlette
 
 
 %prep
@@ -49,7 +50,8 @@ sed -r -i '/^--cov[-=]/d' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x django %{?with_falcon:-x falcon} -x flask -x requests -x starlette
+
+%pyproject_buildrequires -x aiohttp -x django %{?with_falcon:-x falcon} -x flask -x requests -x starlette
 
 
 %build

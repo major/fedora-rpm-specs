@@ -1,8 +1,8 @@
 %global __requires_exclude .*BugzillaClient.*
 
 Name:           vym
-Version:        2.9.0
-Release:        2%{?dist}
+Version:        2.9.22
+Release:        1%{?dist}
 Summary:        View your mind
 
 License:        GPL-2.0-or-later
@@ -99,6 +99,9 @@ install -p -m a+r,u+w %{SOURCE2} %{buildroot}%{_datadir}/mime/packages/vym.xml
 
 
 %changelog
+* Tue Sep 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.9.22-1
+- 2.9.22
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

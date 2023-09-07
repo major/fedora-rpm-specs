@@ -24,32 +24,31 @@
 # Python path discovery
 %if 0%{?with_python2}
 %if 0%{?rhel} == 7
-%{!?python_sitearch: %define python_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
+%{!?python_sitearch: %define python_sitearch %(%{__python2} -c "from sysconfig import get_path; print get_path('platlib')")}
 %else
-%{!?python2_sitearch: %define python2_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
+%{!?python2_sitearch: %define python2_sitearch %(%{__python2} -c "from sysconfig import get_path; print get_path('platlib')")}
 %endif
 %endif
 
 %if 0%{?with_python3}
-%{!?python3_sitearch: %define python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
+%{!?python3_sitearch: %define python3_sitearch %(%{__python3} -c "from sysconfig import get_path; print(get_path('platlib'))")}
 %endif
 
 # Python modules filtering
 %global __provides_exclude_from ^((%{python2_sitearch})|(%{python3_sitearch})/.*\\.so)$
 
 Name:               gfal2-python
-Version:            1.12.0
-Release:            5%{?dist}
+Version:            1.12.1
+Release:            1%{?dist}
 Summary:            Python bindings for gfal 2
 License:            ASL 2.0
 URL:                http://dmc.web.cern.ch/
-# git clone --branch master https://gitlab.cern.ch/dmc/gfal2-bindings.git gfal2-python-1.12.0
-# pushd gfal2-python-1.12.0
-# git checkout v1.12.0
+# git clone --branch master https://gitlab.cern.ch/dmc/gfal2-bindings.git gfal2-python-1.12.1
+# pushd gfal2-python-1.12.1
+# git checkout v1.12.1
 # popd
-# tar czf gfal2-python-1.12.0.tar.gz --exclude-vcs gfal2-python-1.12.0
+# tar czf gfal2-python-1.12.1.tar.gz --exclude-vcs gfal2-python-1.12.1
 Source0:            %{name}-%{version}.tar.gz
-Patch0:             0000_CMake_FindPython3_11.patch
 
 BuildRequires:      gcc-c++
 BuildRequires:      cmake3
@@ -58,6 +57,7 @@ BuildRequires:      boost-devel
 # Python 2
 %if 0%{?with_python2}
 BuildRequires:      python2-devel
+BuildRequires:      python2-setuptools
 %endif
 # Epydoc
 %if 0%{?with_docs}
@@ -65,13 +65,9 @@ BuildRequires:      epydoc
 %endif
 # Python 3
 %if 0%{?with_python3}
-%if 0%{?rhel} == 7
-BuildRequires:      python36-devel
-BuildRequires:      boost-python36-devel
-%else
-BuildRequires:      python3-devel
-BuildRequires:      boost-python3-devel
-%endif
+BuildRequires:      python%{python3_pkgversion}-devel
+BuildRequires:      python%{python3_pkgversion}-setuptools
+BuildRequires:      boost-python%{python3_pkgversion}-devel
 %endif
 
 %global _description \
@@ -125,7 +121,6 @@ Documentation files for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 # Make sure the version in the spec file and the version used
@@ -182,6 +177,10 @@ fi
 %endif
 
 %changelog
+* Tue Sep 05 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.12.1-1
+- Upgrade to upstream release 1.12.1
+- Closes bugzilla#2154855, bugzilla#2220000, bugzilla#2225821
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -256,6 +255,9 @@ fi
 
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Thu Mar 07 2019 Troy Dawson <tdawson@redhat.com> - 1.9.5-3
+- Rebuilt to change main python from 3.4 to 3.6
 
 * Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild

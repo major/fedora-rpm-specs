@@ -2,7 +2,7 @@
 %global modname openapi_spec_validator
 
 Name:           python-%{srcname}
-Version:        0.5.7
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Python library for OpenAPI specs validation
 
@@ -29,9 +29,6 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %_description
 
 
-%pyproject_extras_subpkg -n python3-%{srcname} requests
-
-
 %prep
 %autosetup -p1 -n %{modname}-%{version}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -39,7 +36,7 @@ sed -r -i '/^--cov[-=]/d' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x requests
+%pyproject_buildrequires
 
 
 %build

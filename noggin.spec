@@ -1,6 +1,6 @@
 Name:           noggin
 Version:        1.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -12,17 +12,26 @@ Source3:        noggin-nginx.conf
 
 Source10:       noggin-README.Fedora
 
+# Backports from upstream
+## From:
+## * https://github.com/fedora-infra/noggin/commit/f98c22f627e7563d4b3f05f3b1f72d7115f27d22
+## * https://github.com/fedora-infra/noggin/commit/f16bf889440bb98b25e29a83eca00c11a67b229b
+Patch0001:      0001-Use-poetry-core.patch
+
+# Proposed upstream
+## Support flask-babel v3
+## From: https://github.com/fedora-infra/noggin/pull/1282
+Patch0101:      noggin-PR1282.patch
+
+# Downstream Fedora changes
+## Loosen a few version requirements for rhel
+Patch1001:      noggin-downgrade-deps-for-rhel.patch
+
 BuildArch:      noarch
 BuildRequires:  pyproject-rpm-macros >= 0-14
 BuildRequires:  systemd-rpm-macros
 Requires:       nginx-filesystem
 Requires:       (python3dist(gunicorn) with /usr/bin/gunicorn-3)
-
-%if 0%{?rhel}
-# https://github.com/fedora-infra/noggin/pull/1153
-# also loosens a few version requirements for rhel
-Patch:          poetry-core.patch
-%endif
 
 
 %description
@@ -123,6 +132,10 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
+* Tue Sep 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.7.1-4
+- Add patch to support flask-babel v3
+- Reorganize patches to apply unconditionally
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

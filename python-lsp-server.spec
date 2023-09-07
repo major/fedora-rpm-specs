@@ -1,4 +1,5 @@
 %global short_name lsp-server
+%global forgeurl https://github.com/python-lsp/python-lsp-server
 
 %global _description %{expand:
 A python implementation of language server protocol. pylsp provides for 
@@ -9,17 +10,19 @@ spyder-IDE maintainers.
 }
 
 Name:           python-%{short_name}
-Version:        1.4.1
+Version:        1.7.4
 Release:        %autorelease
 Summary:        Python implementation of language server protocol
-
+%forgemeta
 License:        MIT
-URL:            https://github.com/python-lsp/%{name}
-Source0:        %{pypi_source}
+URL:            %{forgeurl}
+Source0:        %{forgesource}
+# Backport of PR 416: Bump Jedi upper pin to <0.20
+Patch:          https://patch-diff.githubusercontent.com/raw/python-lsp/python-lsp-server/pull/416.patch
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
+BuildRequires:  python3-devel, git-core
 BuildRequires:  pyproject-rpm-macros
 
 %description %_description
@@ -43,10 +46,10 @@ Requires:       python3dist(yapf)
 
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -S git
 
 %generate_buildrequires
-%pyproject_buildrequires -x all,test
+%pyproject_buildrequires -x test,all
 
 %build
 %pyproject_wheel
@@ -57,7 +60,8 @@ Requires:       python3dist(yapf)
 %pyproject_save_files pylsp
 
 %check
-%pytest -k "not (test_syntax_error_pyflakes or test_pylint or test_syntax_error_pylint_py3)"
+%pytest --no-cov --ignore test/plugins/test_pyflakes_lint.py \
+  -k "not (test_pylint or test_syntax_error_pylint)"
 
 %files -n python3-%{short_name} -f %{pyproject_files}
 %license LICENSE

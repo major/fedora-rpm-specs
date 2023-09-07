@@ -4,7 +4,7 @@ Name:       fcitx5-zhuyin
 Version:    5.1.0
 Release:    %autorelease
 Summary:    Libzhuyin Wrapper for Fcitx
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/fcitx/fcitx5-zhuyin
 Source:     https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}_dict.tar.xz
 Source1:    https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}_dict.tar.xz.sig

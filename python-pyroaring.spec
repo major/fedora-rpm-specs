@@ -1,18 +1,21 @@
 %global pypi_name pyroaring
+%global gh_name PyRoaringBitMap
+%global forgeurl https://github.com/Ezibenroc/PyRoaringBitMap
 
 Name:           python-%{pypi_name}
-Version:        0.4.2
+Version:        0.4.4
 Release:        %{autorelease}
 Summary:        Fast and lightweight set for unsigned 32 bits integers
-
+%global tag %{version}
+%forgemeta
 # pyroaring/roaring.c and pyroaring/roaring.h are dual licensed
 License:        MIT or Apache-2.0
-URL:            https://github.com/Ezibenroc/PyRoaringBitMap
-Source:         %{pypi_source %{pypi_name}}
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 BuildRequires:  gcc, gcc-c++
 BuildRequires:  python3-devel
-BuildRequires:  python3-Cython < 3~~
+BuildRequires:  python3-Cython
 
 %global _description %{expand:
 An efficient and light-weight ordered set of 32 bits integers. This is
@@ -27,7 +30,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{gh_name}-%{version}
 
 
 %generate_buildrequires

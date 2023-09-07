@@ -11,7 +11,6 @@
     FINALMANDIR=%{_mandir} \\\
     PREFIX=%{_prefix} \\\
     INITSYSTEM=systemd \\\
-    PYTHON_BINARY=%{__python3} \\\
     SHELL_BINARY=%{_bindir}/sh \\\
     USE_DNSSEC=true \\\
     USE_LABELED_IPSEC=true \\\
@@ -31,7 +30,7 @@ Name: libreswan
 Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec
 # version is generated in the release script
 Version: 4.12
-Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}
+Release: %{?prever:0.}2%{?prever:.%{prever}}%{?dist}
 # The code in lib/libswan/nss_copies.c is under MPL-2.0, while the
 # rest is under GPL-2.0-or-later
 License: GPL-2.0-or-later AND MPL-2.0
@@ -135,6 +134,9 @@ FS=$(pwd)
 FS=$(pwd)
 rm -rf %{buildroot}/usr/share/doc/libreswan
 rm -rf %{buildroot}%{_libexecdir}/ipsec/*check
+# avoids python depency and are old / aging tools that are not very useful
+rm -rf %{buildroot}%{_libexecdir}/ipsec/show
+rm -rf %{buildroot}%{_libexecdir}/ipsec/verify
 
 install -d -m 0755 %{buildroot}%{_rundir}/pluto
 install -d %{buildroot}%{_sbindir}
@@ -209,6 +211,9 @@ certutil -N -d sql:$tmpdir --empty-password
 %doc %{_mandir}/*/*
 
 %changelog
+* Tue Sep 05 2023 Paul Wouters <paul.wouters@aiven.io - 4.12-2
+- Remove ipsec show and ipsec verify sub commands (not very useful, causes python requirement)
+
 * Fri Aug 11 2023 Paul Wouters <paul.wouters@aiven.io - 4.12-1
 - Update to 4.12 for CVE-2023-38710, CVE-2023-38711 and CVE-2023-38712
 - Resolves: rhbz#2230225 libreswan-4.12 is available

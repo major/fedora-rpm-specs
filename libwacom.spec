@@ -4,7 +4,7 @@ Release:        1%{?dist}
 Summary:        Tablet Information Client Library
 Requires:       %{name}-data
 
-License:        MIT
+License:        HPND
 URL:            https://github.com/linuxwacom/libwacom
 
 Source0:        https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
@@ -93,6 +93,10 @@ install -d ${RPM_BUILD_ROOT}/%{_udevrulesdir}
 %{_mandir}/man1/libwacom-list-devices.1*
 
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: update to SPDX identifiers.
+  Turns out the COPYING file references the HPND, not MIT.
+
 * Thu Aug 31 2023 Peter Hutterer <peter.hutterer@redhat.com> - 2.8.0-1
 - libwacom 2.8.0
 

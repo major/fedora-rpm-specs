@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.1
+Version: 40.2
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -485,6 +485,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 05 2023 Packit <hello@packit.dev> - 40.2-1
+- webui: tests: move wait for re-scanning to finish before moving forward with
+  the tests (kkoukiou)
+- webui: When re-scanning don't reset disk selection (kkoukiou)
+- Update translations from Weblate for master (github-actions)
+- webui: Show warning when trying to use non-ASCII LUKS passphrase (vtrefny)
+- Add a note about the need to rebuild containers after branching (mkolman)
+- Note to push to master branch after updating Rawhide config (mkolman)
+- Document the need for changing the l10n commit hash (mkolman)
+- Fix Cockpit CI docs for branching (mkolman)
+- Fix localization branch name in branching docs (mkolman)
+- Update translations from Weblate
+
 * Wed Aug 30 2023 Packit <hello@packit.dev> - 40.1-1
 - tests: Add a webui test case with EFI system (vtrefny)
 - webui: Show error when mounting /boot/efi to a non-EFI partition (vtrefny)

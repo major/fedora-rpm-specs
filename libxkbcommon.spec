@@ -2,7 +2,7 @@ Name:           libxkbcommon
 Version:        1.5.0
 Release:        3%{?gitdate:.%{gitdate}}%{?dist}
 Summary:        X.Org X11 XKB parsing library
-License:        MIT
+License:        MIT AND X11 AND MIT-CMU
 URL:            http://www.x.org
 
 Source0:        https://xkbcommon.org/download/%{name}-%{version}.tar.xz
@@ -109,6 +109,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_mandir}/man1/xkbcli.1.gz
 
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: update to SPDX license identifiers
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

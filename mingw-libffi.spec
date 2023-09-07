@@ -5,7 +5,7 @@ Version:	3.4.4
 Release:	3%{?dist}
 Summary:	A portable foreign function interface library for MinGW
 
-License:	BSD
+License:	MIT
 URL:		http://sourceware.org/libffi
 Source0:        https://github.com/libffi/libffi/releases/download/v%{version}/libffi-%{version}.tar.gz
 

@@ -275,7 +275,7 @@ git commit --all --amend --no-edit > /dev/null
 %configure --disable-compile-inits --without-versioned-path \
            --with-fontpath="%{urw_base35_fontpath}:%{google_droid_fontpath}"
 %endif
-%make_build so
+%make_build so %{?flatpak:XCFLAGS=-I%{_includedir} XTRALIBS=-L%{_libdir}}
 
 # ---------------
 

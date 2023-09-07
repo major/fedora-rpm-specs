@@ -13,7 +13,7 @@
 # Basic descriptive tags for this package:
 #
 Name:           dar
-Version:        2.7.11
+Version:        2.7.12
 Release:        1%{?dist}
 Summary:        Software for making/restoring incremental CD/DVD backups
 
@@ -189,6 +189,9 @@ cp -a %{SOURCE1} .
 %endif
 
 %changelog
+* Tue Sep 05 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.7.12-1
+- Update to 2.7.12 fixes rhbz#2237082
+
 * Sun Aug 20 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.7.11-1
 - Update to 2.7.11 fixes rhbz#2229387
 

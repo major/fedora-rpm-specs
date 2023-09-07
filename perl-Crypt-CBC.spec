@@ -1,13 +1,16 @@
 Summary:        Encrypt Data with Cipher Block Chaining Mode
 Name:           perl-Crypt-CBC
 Version:        3.04
-Release:        12%{?dist}
+Release:        13%{?dist}
 # Upstream confirms that they're under the same license as perl.
 # Wording in CBC.pm is less than clear, but still.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-CBC
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-CBC-%{version}.tar.gz
+Source1:        cbctest1.pl
+Source2:        Crypt-CBC-GH6.pl
 Patch0:         Crypt-CBC-3.04-3.05.patch
+Patch1:         randomiv.patch
 BuildArch:      noarch
 # Build:
 BuildRequires:  coreutils
@@ -32,6 +35,7 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Test Suite
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(warnings)
@@ -68,6 +72,14 @@ compatible with the encryption format used by SSLeay.
 # https://github.com/lstein/Lib-Crypt-CBC/issues/4
 %patch -P 0 -p1
 
+# Fix decryption of ciphertext created with 'header' => 'randomiv'
+# https://bugzilla.redhat.com/show_bug.cgi?id=2235322
+# https://github.com/lstein/Lib-Crypt-CBC/issues/6
+# https://github.com/lstein/Lib-Crypt-CBC/pull/7
+cd lib/Crypt
+%patch -P 1
+cd -
+
 chmod -c 644 eg/*.pl
 
 %build
@@ -82,12 +94,24 @@ find %{buildroot} -type f -name .packlist -delete
 %check
 make test
 
+# Tests for #2235322, GH#6 (both require Crypt::Blowfish)
+%if 0%{!?perl_bootstrap:1} && ! (0%{?rhel} >= 7)
+PERL5LIB=%{buildroot}%{perl_vendorlib} perl %{SOURCE1}
+PERL5LIB=%{buildroot}%{perl_vendorlib} perl %{SOURCE2}
+%endif
+
 %files
 %doc Changes README eg/
 %{perl_vendorlib}/Crypt/
 %{_mandir}/man3/Crypt::CBC.3*
 
 %changelog
+* Tue Sep  5 2023 Paul Howarth <paul@city-fan.org> - 3.04-13
+- Fix decryption of ciphertext created with 'header' => 'randomiv'
+  https://bugzilla.redhat.com/show_bug.cgi?id=2235322
+  https://github.com/lstein/Lib-Crypt-CBC/issues/6
+  https://github.com/lstein/Lib-Crypt-CBC/pull/7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

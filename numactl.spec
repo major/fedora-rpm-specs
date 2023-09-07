@@ -4,7 +4,7 @@ Version:	2.0.16
 Release:	3%{dist}
 # libnuma is LGPLv2 and GPLv2
 # numactl binaries are GPLv2 only
-License:	GPLv2
+License:	GPL-2.0-only
 URL:		https://github.com/numactl/numactl
 Source0:	%{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
@@ -20,7 +20,7 @@ other programs with a specific NUMA policy.
 %package libs
 Summary: libnuma libraries
 # There is a tiny bit of GPLv2 code in libnuma.c
-License: LGPLv2 and GPLv2
+License: LGPL-2.1-only and GPL-2.0-only
 
 %description libs
 numactl-libs provides libnuma, a library to do allocations with
@@ -29,7 +29,7 @@ NUMA policy in applications.
 %package devel
 Summary: Development package for building Applications that use numa
 Requires: %{name}-libs = %{version}-%{release}
-License: LGPLv2 and GPLv2
+License: LGPL-2.1-only and GPL-2.0-only
 
 %description devel
 Provides development headers for numa library calls

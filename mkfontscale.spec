@@ -3,7 +3,7 @@ Version:    1.2.2
 Release:    4%{?dist}
 Summary:    Tool to generate legacy X11 font system index files
 
-License:    MIT
+License:    MIT-open-group AND X11 AND MIT AND HPND-sell-variant
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
@@ -45,6 +45,9 @@ distributed separately for compatibility with older X11 versions.
 %{_mandir}/man1/mkfontscale.1*
 
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: update to SPDX-compatible identifiers
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

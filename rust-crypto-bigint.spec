@@ -5,7 +5,7 @@
 %global crate crypto-bigint
 
 Name:           rust-crypto-bigint
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Pure Rust bigint implementation for use in cryptographic applications
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/crypto-bigint
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop optional rlp dependency (not packaged yet)
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          crypto-bigint-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -77,6 +78,18 @@ This package contains library source intended for building other packages which
 use the "der" feature of the "%{crate}" crate.
 
 %files       -n %{name}+der-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+extra-sizes-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+extra-sizes-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "extra-sizes" feature of the "%{crate}" crate.
+
+%files       -n %{name}+extra-sizes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+generic-array-devel

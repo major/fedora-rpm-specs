@@ -5,7 +5,7 @@
 %bcond cython_compile 1
 
 Name:           Cython
-Version:        3.0.0
+Version:        3.0.2
 Release:        1%{?dist}
 Summary:        Language for writing Python extension modules
 
@@ -112,6 +112,10 @@ Provides:       bundled(python3dist(tempita))
 
 
 %changelog
+* Fri Sep 01 2023 Miro Hrončok <mhroncok@redhat.com> - 3.0.2-1
+- Update to 3.0.2
+- Fixes: rhbz#2235027
+
 * Mon Jul 17 2023 Miro Hrončok <mhroncok@redhat.com> - 3.0.0-1
 - Update to 3.0.0
 - Rename python3-Cython to python3-cython

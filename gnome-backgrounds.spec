@@ -1,22 +1,21 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-Name:    gnome-backgrounds
-Version: 45~beta
-Release: 2%{?dist}
-Summary: Desktop backgrounds packaged with the GNOME desktop
+Name:           gnome-backgrounds
+Version:        45~rc
+Release:        1%{?dist}
+Summary:        Desktop backgrounds packaged with the GNOME desktop
 
-License: CC-BY-SA-3.0
-URL:     https://gitlab.gnome.org/GNOME/gnome-backgrounds
-Source0: https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+License:        CC-BY-SA-3.0
+URL:            https://gitlab.gnome.org/GNOME/gnome-backgrounds
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
-BuildArch: noarch
-BuildRequires: gettext
-BuildRequires: meson
+BuildArch:      noarch
+
+BuildRequires:  gettext
+BuildRequires:  meson
 
 # svg pixbuf loader
 Requires: (librsvg2 if gdk-pixbuf2)
-# webp pixbuf loader
-Requires: (webp-pixbuf-loader if gdk-pixbuf2)
 
 %description
 The gnome-backgrounds package contains the default
@@ -61,37 +60,38 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/blobs-l.svg
 %{_datadir}/backgrounds/gnome/drool-d.svg
 %{_datadir}/backgrounds/gnome/drool-l.svg
-%{_datadir}/backgrounds/gnome/keys-d.webp
-%{_datadir}/backgrounds/gnome/keys-l.webp
-%{_datadir}/backgrounds/gnome/pills-d.webp
-%{_datadir}/backgrounds/gnome/pills-l.webp
-%{_datadir}/backgrounds/gnome/truchet-d.webp
-%{_datadir}/backgrounds/gnome/truchet-l.webp
+%{_datadir}/backgrounds/gnome/keys-d.jpg
+%{_datadir}/backgrounds/gnome/keys-l.jpg
+%{_datadir}/backgrounds/gnome/pills-d.jpg
+%{_datadir}/backgrounds/gnome/pills-l.jpg
+%{_datadir}/backgrounds/gnome/truchet-d.jpg
+%{_datadir}/backgrounds/gnome/truchet-l.jpg
 
 %files extras
 %{_datadir}/gnome-background-properties/design-is-rounded-rectangles.xml
 %{_datadir}/gnome-background-properties/fold.xml
 %{_datadir}/gnome-background-properties/morphogenesis.xml
-%{_datadir}/gnome-background-properties/pipes.xml
 %{_datadir}/gnome-background-properties/pixels.xml
 %{_datadir}/gnome-background-properties/symbolic.xml
 %{_datadir}/gnome-background-properties/vnc.xml
-%{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-d.webp
-%{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-l.webp
-%{_datadir}/backgrounds/gnome/fold-d.webp
-%{_datadir}/backgrounds/gnome/fold-l.webp
+%{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-d.jpg
+%{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-l.jpg
+%{_datadir}/backgrounds/gnome/fold-d.jpg
+%{_datadir}/backgrounds/gnome/fold-l.jpg
 %{_datadir}/backgrounds/gnome/morphogenesis-d.svg
 %{_datadir}/backgrounds/gnome/morphogenesis-l.svg
-%{_datadir}/backgrounds/gnome/pipes-d.jpg
-%{_datadir}/backgrounds/gnome/pipes-l.jpg
-%{_datadir}/backgrounds/gnome/pixels-d.webp
-%{_datadir}/backgrounds/gnome/pixels-l.webp
-%{_datadir}/backgrounds/gnome/symbolic-d.webp
-%{_datadir}/backgrounds/gnome/symbolic-l.webp
-%{_datadir}/backgrounds/gnome/vnc-d.webp
-%{_datadir}/backgrounds/gnome/vnc-l.webp
+%{_datadir}/backgrounds/gnome/pixels-d.jpg
+%{_datadir}/backgrounds/gnome/pixels-l.jpg
+%{_datadir}/backgrounds/gnome/symbolic-d.png
+%{_datadir}/backgrounds/gnome/symbolic-l.png
+%{_datadir}/backgrounds/gnome/vnc-d.png
+%{_datadir}/backgrounds/gnome/vnc-l.png
 
 %changelog
+* Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45~rc-1
+- Update to 45.rc
+- Remove webp-pixbuf-loader dep as webp images are no longer installed
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~beta-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

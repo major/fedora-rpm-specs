@@ -1,14 +1,11 @@
 Name:    pcp
-Version: 6.0.5
-Release: 6%{?dist}
+Version: 6.1.0
+Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
 
-%global  artifactory https://performancecopilot.jfrog.io/artifactory
-Source0: %{artifactory}/pcp-source-release/pcp-%{version}.src.tar.gz
-Patch0: redhat-bugzilla-2175602.patch
-Patch1: redhat-bugzilla-2185803.patch
+Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.tar.gz
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -1841,11 +1838,13 @@ Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
 Requires: python3-pcp
 %if 0%{?rhel} == 0
 Requires: python3-pyodbc
+BuildRequires: python3-pyodbc
 %endif
 %else
 Requires: %{__python2}-pcp
 %if 0%{?rhel} == 0
 Requires: %{__python2}-pyodbc
+BuildRequires: %{__python2}-pyodbc
 %endif
 %endif
 %description pmda-mssql
@@ -2224,7 +2223,7 @@ in the Python language.
 # pcp-gui package for Qt tools
 #
 %package gui
-License: GPL-2.0-or-later AND LGPL-2.1-or-later and LGPL-2.1-or-later WITH Qwt-exception-1.0
+License: GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.1-or-later WITH Qwt-exception-1.0
 Summary: Visualization tools for the Performance Co-Pilot toolkit
 URL: https://pcp.io
 Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
@@ -2440,7 +2439,8 @@ basic_manifest | keep 'selinux' | cull 'tmp|testsuite' >pcp-selinux-files
 basic_manifest | keep 'zeroconf|daily[-_]report|/sa$' >pcp-zeroconf-files
 basic_manifest | grep -E -e 'pmiostat|pmrep|dstat|htop|pcp2csv' \
    -e 'pcp-atop|pcp-dmcache|pcp-dstat|pcp-free|pcp-htop' \
-   -e 'pcp-ipcs|pcp-iostat|pcp-lvmcache|pcp-mpstat' \
+   -e 'pcp-ipcs|pcp-iostat|pcp-lvmcache|pcp-mpstat|pcp-netstat' \
+   -e 'pcp-buddyinfo|pcp-meminfo|pcp-slabinfo|pcp-zoneinfo' \
    -e 'pcp-numastat|pcp-pidstat|pcp-shping|pcp-tapestat' \
    -e 'pcp-uptime|pcp-verify|pcp-ss|pcp-ps' | \
    cull 'selinux|pmlogconf|pmieconf|pmrepconf' >pcp-system-tools-files
@@ -3364,6 +3364,12 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Tue Sep 05 2023 Nathan Scott <nathans@redhat.com> - 6.1.0-1
+- Remove unintended pmie logging to syslog (BZ 2223348)
+- Update pcp selinux policy to match core (BZ 2223568)
+- Resolve pmlogconf SIGABRT during fsync (BZ 2229441)
+- Update to latest PCP sources.
+
 * Mon Aug 07 2023 Sam Feifer <samfeifer@fedoraproject.org> - 6.0.5-6
 - Improve on pmieconf integration with Event Driven Ansible
 

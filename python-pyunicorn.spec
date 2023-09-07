@@ -11,6 +11,7 @@
 %global pypi_name pyunicorn
 %global forgeurl https://github.com/pik-copan/pyunicorn
 %global commit master
+%global upstream_version 0.7.0a1
 
 %global _description %{expand:
 pyunicorn (Unified Complex Network and RecurreNce analysis toolbox)
@@ -27,7 +28,7 @@ Name:           python-%{pypi_name}
 %forgemeta
 
 # Set version to preliminary version defined in setup.cfg
-Version:        0.7.0a1
+Version:        0.7.0~a1
 Release:        %{autorelease}
 Summary:        Unified complex network and recurrence analysis toolbox
 
@@ -121,7 +122,7 @@ sed -i -e 's/-n auto //' setup.cfg
 %doc README.rst examples/
 %license LICENSE.txt
 %{python3_sitearch}/%{pypi_name}
-%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/%{pypi_name}-%{upstream_version}-py%{python3_version}.egg-info
 
 %files doc
 %doc README.rst

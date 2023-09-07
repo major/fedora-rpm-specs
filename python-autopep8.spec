@@ -2,15 +2,13 @@
 %global py3_name python3-%{pypi_name}
 
 Name:           python-autopep8
-Version:        1.6.0
-Release:        8%{?dist}
+Version:        2.0.4
+Release:        1%{?dist}
 Summary:        The package autopep8 formats Python code based on the output of the pep8 utility
 
 License:        MIT
 URL:            http://pypi.python.org/pypi/autopep8
 Source0:        https://files.pythonhosted.org/packages/source/a/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-
-Patch0:		autopep8-lib2to3-deprecation-pytest.patch
 
 BuildArch:      noarch
 
@@ -47,7 +45,7 @@ ln -s %{pypi_name} %{pypi_name}-%{python3_version}
 popd
 
 %check
-%pytest -v
+%pytest -v -k "not (SystemTests or CommandLineTests or ExperimentalSystemTests)"
 
 %files -n %{py3_name} -f %{pyproject_files}
 %license LICENSE
@@ -57,6 +55,9 @@ popd
 %{_bindir}/%{pypi_name}-%{python3_version}
 
 %changelog
+* Sat Sep 02 2023 Sandro <devel@penguinpee.nl> - 2.0.4-1
+- Update to 2.0.4 (RHBZ#2226154)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

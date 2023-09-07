@@ -57,8 +57,13 @@ sed -i -e '/testLogRotation/d' meson.build
 %check
 # Run in minimal graphical env (thanks @ankursinha).
 # We need to pass the Meson test command as a script to xvfb-run.
-echo -e '#!/bin/sh\n\n%meson_test --verbose' > mesontest.sh
-chmod a+x mesontest.sh
+cat > mesontest.sh << EOF
+#!/bin/sh
+mkdir %{_builddir}/%{name}-%{version}/brewtarget-test
+export TMPDIR="%{_builddir}/%{name}-%{version}/brewtarget-test"
+%meson_test --verbose
+EOF
+chmod a+x ./mesontest.sh
 xvfb-run ./mesontest.sh
 desktop-file-validate %buildroot%{_datadir}/applications/%{name}.desktop
 

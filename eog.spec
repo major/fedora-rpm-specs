@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    eog
-Version: 45~alpha
+Version: 45~rc
 Release: 1%{?dist}
 Summary: Eye of GNOME image viewer
 
@@ -137,6 +137,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45~rc-1
+- Update to 45.rc
+
 * Sun Aug 06 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
 - Update to 45.alpha
 

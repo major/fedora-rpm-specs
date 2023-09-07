@@ -11,6 +11,8 @@ License:       LGPLv2+
 URL:           http://excess.org/urwid/
 Source0:       %{pypi_source urwid}
 
+Patch1:        rhbz-2220920.patch
+
 %global _description\
 Urwid is a Python library for making text console applications.  It has\
 many features including fluid interface resizing, support for UTF-8 and\
@@ -25,6 +27,8 @@ control.
 Summary: %summary
 %{?python_provide:%python_provide python3-urwid}
 BuildRequires: gcc
+# patch application
+BuildRequires: git-core
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 # needed by selftest suite for test.support
@@ -33,7 +37,7 @@ BuildRequires: python3-test
 %description -n python3-%{srcname} %_description
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%autosetup -Sgit -n %{srcname}-%{version}
 find urwid -type f -name "*.py" -exec sed -i -e '/^#!\//, 1d' {} \;
 find urwid -type f -name "*.py" -exec chmod 644 {} \;
 

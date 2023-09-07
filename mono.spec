@@ -256,7 +256,7 @@ data providers.
 %package data-sqlite
 Summary:        sqlite database connectivity for Mono
 Requires:       mono-core = %{version}-%{release}
-Requires:       sqlite
+Requires:       sqlite-libs%{?_isa}
 
 %description data-sqlite
 This package contains the ADO.NET Data provider for the sqlite
@@ -372,7 +372,7 @@ rm -rf mcs/class/lib/monolite-linux/*
 find . -name "*.dll" -print -delete
 find . -name "*.exe" -print -delete
 # use the binaries from the currently installed mono
-cd external/binary-reference-assemblies && mv v4.7.1 v4.7.1.tobuild && ln -s /usr/lib/mono/4.7.1-api v4.7.1 && cd -
+cd external/binary-reference-assemblies && mv v4.7.1 v4.7.1.tobuild && ln -s %{_monodir}/4.7.1-api v4.7.1 && cd -
 %endif
 
 %build
@@ -471,26 +471,26 @@ mkdir -p %{buildroot}%{_datadir}/gdb/auto-load%{_bindir}
 rm -f %{buildroot}%{_libdir}/pkgconfig/cecil.pc
 
 # remove msbuild / microsoft binary files
-rm -rf %{buildroot}/usr/lib/mono/msbuild
+rm -rf %{buildroot}%{_monodir}/msbuild
 
 # we have btls debug files
-rm -rf %{buildroot}/usr/lib/debug/usr/lib64/libmono-btls-shared.so-*.debug
+rm -rf %{buildroot}/usr/lib/debug%{_libdir}/libmono-btls-shared.so-*.debug
 
 # drop other debug files as well
-rm -rf %{buildroot}/usr/lib/debug/usr/lib64/libmono-native.so*.debug
-rm -rf %{buildroot}/usr/lib/debug/usr/bin/mono-hang-watchdog-*.debug
+rm -rf %{buildroot}/usr/lib/debug%{_libdir}/libmono-native.so*.debug
+rm -rf %{buildroot}/usr/lib/debug%{_bindir}/mono-hang-watchdog-*.debug
 
 # create a symbolic link so that Fedora packages targetting Framework 4.5 will still build
-cd %{buildroot}/usr/lib/mono && ln -s 4.7.1-api 4.5-api && cd -
+cd %{buildroot}%{_monodir} && ln -s 4.7.1-api 4.5-api && cd -
 # as requested in bug 1704861; we have had that link in F29 with Mono 4.8 as well.
-cd %{buildroot}/usr/lib/mono && ln -s 4.7.1-api 4.0-api && cd -
+cd %{buildroot}%{_monodir} && ln -s 4.7.1-api 4.0-api && cd -
 
 # for Epel7, we don't deliver these files, they are still provided by rpm-build-4.11.3-43.el7.x86_64
 %if 0%{?el7}%{?el8} == 0
 # rpm helper scripts
-mkdir -p %{buildroot}%{_prefix}/lib/rpm/fileattrs/
-install -p -m755 %{SOURCE2} %{SOURCE3} %{buildroot}%{_prefix}/lib/rpm/
-install -p -m644 %{SOURCE4} %{buildroot}%{_prefix}/lib/rpm/fileattrs/
+mkdir -p %{buildroot}%{_fileattrsdir}
+install -p -m755 %{SOURCE2} %{SOURCE3} %{buildroot}%{_rpmconfigdir}
+install -p -m644 %{SOURCE4} %{buildroot}%{_fileattrsdir}
 %endif
 
 # remove these files, we are using the files installed in /usr/lib/rpm/
@@ -761,8 +761,8 @@ cert-sync --quiet /etc/pki/tls/certs/ca-bundle.crt
 
 # for Epel7, we don't deliver these files, they are still provided by rpm-build-4.11.3-43.el7.x86_64
 %if 0%{?el7}%{?el8} == 0
-%{_prefix}/lib/rpm/mono-find-*
-%{_prefix}/lib/rpm/fileattrs/mono.attr
+%{_rpmconfigdir}/mono-find-*
+%{_fileattrsdir}/mono.attr
 %endif
 
 %{_bindir}/aprofutil

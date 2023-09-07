@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:       python-pybids
-Version:    0.16.1
+Version:    0.16.3
 Release:    %autorelease
 Summary:    Interface with datasets conforming to BIDS
 
@@ -102,6 +102,10 @@ Requires:       python3-pybids+test = %{version}-%{release}
 %prep
 %autosetup -n pybids-%{version}
 
+# loosen formulaic dep: one test fails, reported upstream
+# https://github.com/bids-standard/pybids/issues/1000
+sed -i 's/formulaic .*"/formulaic <0.7"/' pyproject.toml
+
 # Remove bundled inflect
 rm -rf bids/external
 sed -r -i.backup 's/from.*external (import)/\1/' bids/layout/layout.py
@@ -135,7 +139,10 @@ hardlink -c -v '%{buildroot}%{python3_sitelib}/bids/tests/data/'
 
 %check
 %if %{with tests}
-%pytest -v
+# temporarily disable failing tests
+# https://github.com/bids-standard/pybids/issues/1012
+# https://github.com/bids-standard/pybids/issues/1000
+%pytest -v -k "not test_run_variable_collection_bad_length_to_df_all_dense_vars and not test_split"
 %else
 %pyproject_check_import
 %endif

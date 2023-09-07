@@ -9,6 +9,8 @@ License:        ASL 2.0
 URL:            https://mopidy.com/ext/mpd/
 Source0:        %{pypi_source}
 
+Patch0:         mopidympd330-fix-tests.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -22,7 +24,7 @@ available from MPD clients.
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 rm MANIFEST.in
 
 %build

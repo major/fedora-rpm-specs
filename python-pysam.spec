@@ -2,11 +2,11 @@
 %global pypi_name pysam
 
 Name:           python-%{pypi_name}
-Version:        0.19.1
+Version:        0.21.0
 Release:        %autorelease
 Summary:        pysam
 
-License:        MIT
+License:        MIT AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause
 URL:            https://github.com/pysam-developers/pysam
 Source0:        %{pypi_source}
 
@@ -29,9 +29,9 @@ The module supports compression and random access through indexing.
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
-Provides:  bundled(samtools) = 1.15.1
-Provides:  bundled(htslib) = 1.15.1
-Provides:  bundled(bcftools) = 1.15.1
+Provides:  bundled(samtools) = 1.18
+Provides:  bundled(htslib) = 1.18
+Provides:  bundled(bcftools) = 1.18
 
 %description -n python3-%{pypi_name}
 pysam - a python module for reading, manipulating and writing genomic data
@@ -70,10 +70,13 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %py3_install
+rm ${RPM_BUILD_ROOT}%{python3_sitearch}/%{pypi_name}/*pyx
+rm ${RPM_BUILD_ROOT}%{python3_sitearch}/%{pypi_name}/*c
 
 %files -n python3-%{pypi_name}
 %doc README.rst
 %license COPYING
+%license */LICENSE
 %dir %{python3_sitearch}/%{pypi_name}
 %{python3_sitearch}/%{pypi_name}/*so
 %{python3_sitearch}/%{pypi_name}/*py

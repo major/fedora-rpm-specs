@@ -184,8 +184,8 @@ popd
 %endif
   -DCMAKE_INSTALL_DIR=%{_libdir}/cmake/%{name} \
   -DINCLUDE_INSTALL_DIR=%{_includedir}/kml \
-  -DPYTHON_LIBRARY=%{_libdir}/libpython%{python3_version}$(python3-config --abiflags).so \
-  -DPYTHON_INCLUDE_DIR=%{_includedir}/python%{python3_version}$(python3-config --abiflags)/ \
+  -DPYTHON_LIBRARY=%{_usr}/%{_lib}/libpython%{python3_version}$(python3-config --abiflags).so \
+  -DPYTHON_INCLUDE_DIR=%{_usr}/include/python%{python3_version}$(python3-config --abiflags)/ \
   -DPYTHON_INSTALL_DIR=%{python3_sitearch} \
   -DMINIZIP_INCLUDE_DIR=$PWD -DMINIZIP_LIBRARY=$PWD/minizip/%{_vpath_builddir}/libminizip.a \
   -DBUILD_TESTING=ON \
