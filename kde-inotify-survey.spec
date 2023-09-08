@@ -1,6 +1,6 @@
 Name:          kde-inotify-survey
-Version:       23.04.3
-Release:       2%{?dist}
+Version:       23.08.0
+Release:       1%{?dist}
 Summary:       Monitors inotify limits and lets the user know when exceeded
 
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file
@@ -59,6 +59,9 @@ install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/dbus-1/system.d/org.kde.k
 %{_datadir}/polkit-1/actions/org.kde.kded.inotify.policy
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

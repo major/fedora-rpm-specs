@@ -4,12 +4,12 @@
 %global         srcname     azure-mgmt-containerservice
 
 Name:           python-%{srcname}
-Version:        25.0.0
+Version:        26.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Container Service Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{version}}
 
 BuildArch:      noarch
 

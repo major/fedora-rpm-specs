@@ -1,12 +1,14 @@
 Name:           openscap
 Version:        1.3.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
 URL:            http://www.open-scap.org/
 VCS:            https://github.com/OpenSCAP/openscap
 Source0:        https://github.com/OpenSCAP/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+# port to PCRE2 (PR#2015), minus CI-specific changes
+Patch0:         2015.patch
 
 BuildRequires:  make
 BuildRequires:  cmake >= 2.6
@@ -15,7 +17,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  swig libxml2-devel libxslt-devel perl-generators perl-XML-Parser
 BuildRequires:  rpm-devel
 BuildRequires:  libgcrypt-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  libacl-devel
 BuildRequires:  libselinux-devel
 BuildRequires:  libcap-devel
@@ -129,6 +131,7 @@ Tool for scanning Atomic containers.
 # gconf is a legacy system not used any more, and it blocks testing of oscap-anaconda-addon
 # as gconf is no longer part of the installation medium
 %cmake \
+    -DWITH_PCRE2=ON \
     -DENABLE_PERL=OFF \
     -DENABLE_DOCS=ON \
     -DOPENSCAP_PROBE_UNIX_GCONF=OFF \
@@ -205,6 +208,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Tue Sep 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.3.8-6
+- Use pcre2 (#2128342)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

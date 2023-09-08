@@ -50,7 +50,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -98,6 +98,8 @@ Patch3003: vim-python3-tests.patch
 Patch3004: vim-crypto-warning.patch
 # don't ever set mouse (Fedora downstream patch)
 Patch3005: vim-8.0-copy-paste.patch
+# downstream patch for now - reported upstream here https://github.com/vim/vim/pull/13040/
+Patch3006: vim-disable-xxd-color2-test.patch
 
 
 # uses autoconf in spec file
@@ -411,6 +413,7 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %patch -P 3003 -p1 -b .python-tests
 %patch -P 3004 -p1 -b .fips-warning
 %patch -P 3005 -p1 -b .copypaste
+%patch -P 3006 -p1 -b .nocleartest
 
 %build
 cd src
@@ -1033,6 +1036,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Wed Sep 06 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1872-2
+- test_xxd_color2 is flaky
+
 * Tue Sep 05 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1872-1
 - patchlevel 1872
 

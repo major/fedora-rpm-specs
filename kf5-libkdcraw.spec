@@ -2,8 +2,8 @@
 
 Name:    kf5-libkdcraw
 Summary: A C++ interface around LibRaw library
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 # libkdcraw is GPLv2+,
 # LibRaw(bundled) is LGPLv2
@@ -77,6 +77,9 @@ Requires: cmake(Qt5Gui)
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

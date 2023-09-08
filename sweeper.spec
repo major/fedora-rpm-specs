@@ -1,7 +1,7 @@
 Name:    sweeper
 Summary: Clean unwanted traces the user leaves on the system
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/utils/%{name}
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.sweeper.d
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

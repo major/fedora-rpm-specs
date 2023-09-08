@@ -13,14 +13,16 @@
 %global pecl_name   zstd
 %global with_zts    0%{!?_without_zts:%{?__ztsphp:1}}
 %global ini_name    40-%{pecl_name}.ini
+%global sources     %{pecl_name}-%{version}
+%global _configure  ../%{sources}/configure
 
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
-Version:       0.12.3
-Release:       2%{?dist}
+Version:       0.13.0
+Release:       1%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
-Source0:       https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
+Source0:       https://pecl.php.net/get/%{sources}.tgz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -53,12 +55,11 @@ These are the files needed to compile programs using %{name}.
 
 %prep
 %setup -qc
-mv %{pecl_name}-%{version} NTS
 
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 sed -e '\:"zstd/:d' -i package.xml
 
-cd NTS
+cd %{sources}
 # Use the system library
 rm -r zstd
 
@@ -70,9 +71,9 @@ if test "x${extver}" != "x%{version}%{?gh_date:-dev}"; then
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-# duplicate for ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Drop in the bit of configuration
@@ -85,10 +86,12 @@ EOF
 %build
 %{?dtsenable}
 
-cd NTS
-%{_bindir}/phpize
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
 %configure \
-    --with-php-config=%{_bindir}/php-config \
+    --with-php-config=%{__phpconfig} \
     --with-libzstd \
     --with-libdir=%{_lib} \
     --enable-zstd
@@ -96,9 +99,8 @@ make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
 %configure \
-    --with-php-config=%{_bindir}/zts-php-config \
+    --with-php-config=%{__ztsphpconfig} \
     --with-libzstd \
     --with-libdir=%{_lib} \
     --enable-zstd
@@ -123,22 +125,24 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 # Test & Documentation
-for i in $(grep 'role="test"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do [ -f NTS/tests/$i ] && install -Dpm 644 NTS/tests/$i %{buildroot}%{pecl_testdir}/%{pecl_name}/tests/$i
+cd %{sources}
+for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
+do install -Dpm 644 $i %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
 done
-for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
+do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
+cd %{sources}
+
 export REPORT_EXIT_STATUS=1
 %ifarch s390x
 : ignore test with erratic results
-rm ?TS/tests/streams_*phpt
+rm tests/streams_*phpt
 %endif
 
-cd NTS
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
@@ -158,7 +162,6 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 %{__php} -n run-tests.php -q --offline --show-diff
 
 %if %{with_zts}
-cd ../ZTS
 : Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
@@ -172,7 +175,7 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -186,7 +189,7 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %files devel
-%doc NTS/tests
+%doc %{pecl_testdir}/%{pecl_name}
 %{php_incldir}/ext/%{pecl_name}
 
 %if %{with_zts}
@@ -195,6 +198,11 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Sep  6 2023 Remi Collet <remi@remirepo.net> - 0.13.0-1
+- update to 0.13.0
+- fix tests installation path
+- build out of sources tree
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

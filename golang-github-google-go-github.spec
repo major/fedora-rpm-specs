@@ -5,13 +5,13 @@
 
 # https://github.com/google/go-github
 %global goipath         github.com/google/go-github
-Version:                53.1.0
+Version:                55.0.0
 
 %gometa
 
 %global goname golang-github-google-go-github
 
-%global goaltipaths     github.com/google/go-github/v53
+%global goaltipaths     github.com/google/go-github/v55
 
 %global common_description %{expand:
 Go library for accessing the GitHub v3 API.}

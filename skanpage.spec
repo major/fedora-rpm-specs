@@ -1,8 +1,8 @@
 %global kf5_min_version 5.87.0
 
 Name:     skanpage
-Version:  23.04.3
-Release:  2%{?dist}
+Version:  23.08.0
+Release:  1%{?dist}
 Summary:  Utility to scan images and multi-page documents
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:  GPLv3 and GPLv2 and CC0-1.0 and BSD
@@ -36,6 +36,8 @@ BuildRequires:  cmake(KF5Plasma)     >= %{kf5_min_version}
 BuildRequires:  cmake(KF5Purpose)    >= %{kf5_min_version}
 BuildRequires:  cmake(KF5Sane)       >= %{kf5_min_version}
 BuildRequires:  cmake(KSaneCore)
+BuildRequires:  cmake(KF5XmlGui)
+BuildRequires:  cmake(KQuickImageEditor)
 
 Requires: qt5-qtquickcontrols2
 Requires: kf5-kirigami2              >= %{kf5_min_version}
@@ -77,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

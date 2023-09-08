@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: The KPimTextEdit Library
 
 License: LGPLv2+
@@ -27,7 +27,7 @@ Source0:        https://download.kde.org/%{stable}/release-service/%{version}/sr
 # https://phabricator.kde.org/D17947
 # Please DO NOT REMOVE OR COMMENT OUT THIS PATCH! Ask kkofler for help with
 # rebasing if needed. The patch is usually trivial to rebase.
-Patch100: kpimtextedit-21.12.1-install-and-export-for-blogilo.patch
+#Patch100: kpimtextedit-21.12.1-install-and-export-for-blogilo.patch
 
 ## upstream patches (21.12 branch):
 
@@ -86,7 +86,7 @@ developing applications that use %{name}.
 
 # Please DO NOT REMOVE OR COMMENT OUT THIS PATCH! Ask kkofler for help with
 # rebasing if needed. The patch is usually trivial to rebase.
-%patch -P 100 -p1 -b .install_and_export_for_blogilo
+#%patch -P 100 -p1 -b .install_and_export_for_blogilo
 
 ## upstream patches
 
@@ -131,6 +131,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

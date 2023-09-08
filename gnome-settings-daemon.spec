@@ -17,7 +17,7 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        45~beta
+Version:        45~rc
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
@@ -34,6 +34,7 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(colord) >= %{colord_version}
 BuildRequires:  pkgconfig(cups)
 BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(gck-2)
 BuildRequires:  pkgconfig(gcr-4)
 BuildRequires:  pkgconfig(geoclue-2.0) >= %{geoclue_version}
 BuildRequires:  pkgconfig(geocode-glib-2.0) >= %{geocode_glib_version}

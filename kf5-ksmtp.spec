@@ -1,8 +1,8 @@
 %global framework ksmtp 
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: KDE SMTP libraries
 
 License: LGPLv2+
@@ -29,7 +29,7 @@ BuildRequires: cmake(KF5KIO)
 BuildRequires: cmake(Qt5Network)
 
 BuildRequires: kf5-kmime-devel >= %{version}
-BuildRequires: cmake(KF5Mime)
+BuildRequires: cmake(KPim5Mime)
 
 BuildRequires: pkgconfig(libsasl2)
 
@@ -45,7 +45,7 @@ Requires: cyrus-sasl-plain%{?_isa}
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF5CoreAddons)
-Requires:       cmake(KF5Mime)
+Requires:       cmake(KPim5Mime)
 Requires:       kf5-kmime-devel >= %{version}
 %description    devel
 %{summary}.
@@ -76,14 +76,15 @@ Requires:       kf5-kmime-devel >= %{version}
 
 %files devel
 %{_kf5_libdir}/libKPim5SMTP.so
-%{_kf5_libdir}/cmake/KPimSMTP/
 %{_kf5_libdir}/cmake/KPim5SMTP/
 %{_includedir}/KPim5/KSMTP/
-%{_includedir}/KPim5/ksmtp_version.h
 %{_kf5_archdatadir}/mkspecs/modules/qt_KSMTP.pri
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

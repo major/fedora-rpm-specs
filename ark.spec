@@ -4,8 +4,8 @@
 
 Name:    ark
 Summary: Archive manager
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://www.kde.org/applications/utilities/ark/
@@ -130,6 +130,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.ark.deskt
 %{_mandir}/man1/ark.1*
 %{_kf5_datadir}/kconf_update/ark.upd
 %{_kf5_datadir}/kconf_update/ark_add_hamburgermenu_to_toolbar.sh
+%{_kf5_datadir}/kservices5/ark_part.desktop
 
 %ldconfig_scriptlets
 
@@ -143,6 +144,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.ark.deskt
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

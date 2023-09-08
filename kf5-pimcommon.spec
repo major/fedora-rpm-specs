@@ -1,8 +1,8 @@
 %global framework pimcommon
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: PIM common libraries
 
 License: GPLv2+
@@ -40,7 +40,7 @@ BuildRequires:  cmake(KF5ItemViews)
 BuildRequires:  cmake(KF5JobWidgets)
 BuildRequires:  cmake(KF5KCMUtils)
 BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Ldap)
+BuildRequires:  cmake(KPim5Ldap)
 BuildRequires:  cmake(KF5NewStuff)
 BuildRequires:  cmake(KF5Purpose)
 BuildRequires:  cmake(KF5Service)
@@ -100,7 +100,7 @@ Requires:       cmake(KF5TextAutoCorrection)
 # akonadi
 Requires:       %{name}-akonadi%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF5Akonadi)
-Requires:       cmake(KF5AkonadiContact)
+Requires:       cmake(KPim5AkonadiContact)
 Requires:       cmake(KF5Contacts)
 Requires:       cmake(KF5IMAP)
 %description    devel
@@ -129,28 +129,30 @@ developing applications that use %{name}.
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5PimCommon.so.5*
+%{_kf5_libdir}/libKPim5PimCommon.so.*
+%{_kf5_libdir}/libKPim5PimCommonAkonadi.so.*
 %{_qt5_plugindir}/designer/pimcommon5widgets.so
 
 %ldconfig_scriptlets akonadi
 
 %files akonadi
-%{_kf5_libdir}/libKF5PimCommonAkonadi.so.5*
 %{_qt5_plugindir}/designer/pimcommon5akonadiwidgets.so
 
 %files devel
-%{_kf5_libdir}/libKF5PimCommon.so
-%{_kf5_libdir}/cmake/KF5PimCommon/
-%{_kf5_includedir}/PimCommon/
+%{_kf5_libdir}/libKPim5PimCommon.so
+%{_kf5_libdir}/libKPim5PimCommonAkonadi.so
+%{_kf5_libdir}/cmake/KPim5PimCommon/
+%{_kf5_libdir}/cmake/KPim5PimCommonAkonadi/
+%{_includedir}/KPim5/PimCommon/
+%{_includedir}/KPim5/PimCommonAkonadi/
 %{_kf5_archdatadir}/mkspecs/modules/qt_PimCommon.pri
-# akonadi
-%{_kf5_libdir}/libKF5PimCommonAkonadi.so
-%{_kf5_libdir}/cmake/KF5PimCommonAkonadi/
-%{_kf5_includedir}/PimCommonAkonadi/
 %{_kf5_archdatadir}/mkspecs/modules/qt_PimCommonAkonadi.pri
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

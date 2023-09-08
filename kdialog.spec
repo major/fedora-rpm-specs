@@ -1,7 +1,7 @@
 Name:    kdialog
 Summary: Nice dialog boxes from shell scripts
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://www.kde.org/
@@ -50,7 +50,6 @@ KDialog can be used to show nice dialog boxes from shell scripts.
 
 %files -f %{name}.lang
 %license COPYING*
-%doc README 
 %{_kf5_bindir}/kdialog
 %{_kf5_bindir}/kdialog_progress_helper
 %{_kf5_datadir}/dbus-1/interfaces/org.kde.kdialog.ProgressDialog.xml
@@ -59,6 +58,9 @@ KDialog can be used to show nice dialog boxes from shell scripts.
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -31,7 +31,7 @@
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
 Version: 1.18.0
-Release: 1%{?extra_version:.%{extra_version}}%{?dist}
+Release: 2%{?extra_version:.%{extra_version}}%{?dist}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
 Source: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
@@ -56,6 +56,7 @@ Source18: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_vers
 Source19: https://keys.openpgp.org/pks/lookup?op=get&search=0x9F6F1C2D7E045F8D#/wouter.nlnetlabs.nl.key
 Source20: unbound.sysusers
 
+#Patch1:
 
 BuildRequires: gcc, make
 BuildRequires: flex, openssl-devel
@@ -202,13 +203,22 @@ Python 3 modules and extensions for unbound
 
 pushd %{pkgname}
 # patches go here
-%autopatch -p1
+%autopatch -p2
 
 # only for snapshots
 # autoreconf -iv
 
 # copy common doc files - after here, since it may be patched
 cp -pr doc pythonmod libunbound ../
+
+%if 0%{?rhel} > 8
+  # SHA-1 breaks some tests. Disable just some tests because of that.
+  # This got broken in ELN
+  ls testdata/*.rpl
+  for TEST in autotrust_init_fail autotrust_init_failsig; do
+    mv testdata/${TEST}.rpl{,-disabled} 
+  done
+%endif
 popd
 
 %if 0%{with_python2} && 0%{with_python3}
@@ -490,6 +500,9 @@ popd
 %{_mandir}/man1/unbound-*
 
 %changelog
+* Wed Sep 06 2023 Petr Menšík <pemensik@redhat.com> - 1.18.0-2
+- Skip failing tests on ELN builds
+
 * Fri Sep 01 2023 Petr Menšík <pemensik@redhat.com> - 1.18.0-1
 - Update to 1.18.0 (#2236097)
 

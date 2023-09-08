@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tecla
-Version:        45~beta
+Version:        45~rc
 Release:        %autorelease
 Summary:        Keyboard layout viewer
 
@@ -22,6 +22,15 @@ BuildRequires:  /usr/bin/desktop-file-validate
 %description
 Tecla is a keyboard layout viewer. It uses GTK/Libadwaita for UI, and
 libxkbcommon to deal with keyboard maps.
+
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains a pkg-config file for
+developing applications that use %{name}.
 
 
 %prep
@@ -51,6 +60,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Tecla.deskt
 %{_datadir}/applications/org.gnome.Tecla.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Tecla.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Tecla-symbolic.svg
+
+
+%files devel
+%{_datadir}/pkgconfig/tecla.pc
 
 
 %changelog

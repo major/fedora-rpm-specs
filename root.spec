@@ -53,9 +53,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.28.04
+Version:	6.28.06
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	5%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -101,20 +101,15 @@ Patch6:		%{name}-fix-test-failure-on-ppc64le-and-aarch64-with-gcc-12.patch
 Patch7:		%{name}-big-endian-byte-swap.patch
 #		https://github.com/root-project/root/pull/12375
 Patch8:		%{name}-use-consistent-wording-in-tmva-test-comments.patch
-#		https://github.com/root-project/root/pull/12389
-Patch9:		%{name}-testRooAbsL-test-compares-two-doubles-and-fails.patch
 #		https://github.com/root-project/root/pull/12390
-Patch10:	%{name}-stressvector-test-fails-on-ix86.patch
+Patch9:	%{name}-stressvector-test-fails-on-ix86.patch
 #		https://github.com/root-project/root/pull/12423
-Patch11:	%{name}-dont-install-roofit-files-fix.patch
+Patch10:	%{name}-dont-install-roofit-files-fix.patch
 #		https://github.com/root-project/root/issues/12427
 #		https://github.com/root-project/root/pull/12468
-Patch12:	%{name}-fixes-for-32bit-builds.patch
+Patch11:	%{name}-fixes-for-32bit-builds.patch
 #		https://github.com/root-project/root/pull/12476
-Patch13:	%{name}-do-not-remove-Wp-before-D-and-U.patch
-#		strlcpy and strlcat available in glibc in Fedora 39+
-#		https://bugzilla.redhat.com/show_bug.cgi?id=2220860
-Patch14:	%{name}-strlcpy.patch
+Patch12:	%{name}-do-not-remove-Wp-before-D-and-U.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1999,8 +1994,6 @@ This package contains extra tools for RooFit projects.
 %patch -P 10 -p1
 %patch -P 11 -p1
 %patch -P 12 -p1
-%patch -P 13 -p1
-%patch -P 14 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2532,6 +2525,7 @@ popd
 #   http://root.cern.ch/files/davix.test
 #
 # - gtest-net-netxng-test-RRawFileNetXNG
+#   reads input file over network
 #   root://eospublic.cern.ch/eos/root-eos/xrootd.test
 #
 # - gtest-tmva-tmva-test-rreader
@@ -2596,33 +2590,14 @@ tutorial-dataframe-df026_AsNumpyArrays-py|\
 tutorial-roofit-rf409_NumPyPandasToRooFit-py"
 %endif
 
-%if %{?fedora}%{!?fedora:0} >= 38
-# - pyunittests-dataframe-histograms
-# - tutorial-legacy-rootenv
-#   Failures with Fedora 38 (GCC 13 related?)
-excluded="${excluded}|\
-pyunittests-dataframe-histograms|\
-tutorial-legacy-rootenv"
-
+%if %{?fedora}%{!?fedora:0} == 37 || %{?fedora}%{!?fedora:0} == 38
 %ifarch %{ix86}
 # - pyunittests-pyroot-roofit-roodataset-numpy
-#   Failures with Fedora 38 i686 (after numpy 1.24 update)
+#   Failures with Fedora 37/38 i686 (after numpy 1.24 update)
 #   https://github.com/root-project/root/issues/12162
 excluded="${excluded}|\
 pyunittests-pyroot-roofit-roodataset-numpy"
 %endif
-%endif
-
-%ifarch %{power64} aarch64
-# - test-stresshistofit
-# - test-stressroofit
-# - test-stressroofit-batchmode-cpu
-# - test-stressroofit-interpreted
-excluded="${excluded}|\
-test-stresshistofit\$\$|\
-test-stressroofit\$\$|\
-test-stressroofit-batchmode-cpu|\
-test-stressroofit-interpreted"
 %endif
 
 %ifarch %{power64}
@@ -2715,9 +2690,6 @@ tutorial-roofit-rf612_recoverFromInvalidParameters"
 # - test-stresshistofit-interpreted
 # - test-stresshistogram
 # - test-stresshistogram-interpreted
-# - test-stressroofit
-# - test-stressroofit-batchmode-cpu
-# - test-stressroofit-interpreted
 excluded="${excluded}|\
 gtest-tree-ntuple-v7-test-ntuple-basics|\
 gtest-tree-ntuple-v7-test-ntuple-endian|\
@@ -2738,10 +2710,7 @@ tutorial-tree-drawsparse|\
 test-stresshistofit\$\$|\
 test-stresshistofit-interpreted|\
 test-stresshistogram\$\$|\
-test-stresshistogram-interpreted|\
-test-stressroofit\$\$|\
-test-stressroofit-batchmode-cpu|\
-test-stressroofit-interpreted"
+test-stresshistogram-interpreted"
 
 %if %{?rhel}%{!?rhel:0} == 8
 # Issues with file sizes on EPEL 8 s390x
@@ -3769,6 +3738,11 @@ fi
 %endif
 
 %changelog
+* Tue Sep 05 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.06-1
+- Update to 6.28.06
+- Drop patches root-testRooAbsL-test-compares-two-doubles-and-fails.patch and
+  root-strlcpy.patch (fixed upstream)
+
 * Sun Aug 06 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.04-5
 - Rebuilt for libarrow.so.1300
 

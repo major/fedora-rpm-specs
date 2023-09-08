@@ -7,8 +7,8 @@
 
 Name:    kdegraphics-thumbnailers
 Summary: Thumbnailers for various graphic types 
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 # most sources GPLv2+, dscparse.* GPL, gscreator.* LGPLv2+, 
 License: GPLv2+
@@ -27,6 +27,7 @@ BuildRequires: kf5-rpm-macros
 BuildRequires: cmake(KF5Archive)
 BuildRequires: cmake(KF5KExiv2)
 BuildRequires: cmake(KF5KIO)
+BuildRequires: cmake(QMobipocket)
 BuildRequires: cmake(Qt5Gui)
 %if 0%{?libraw}
 BuildRequires: cmake(KF5KDcraw)
@@ -51,18 +52,19 @@ BuildRequires: cmake(KF5KDcraw)
 
 %files
 %license COPYING*
-%{_kf5_qtplugindir}/blenderthumbnail.so
-%{_kf5_datadir}/kservices5/blenderthumbnail.desktop
-%{_kf5_qtplugindir}/gsthumbnail.so
-%{_kf5_datadir}/kservices5/gsthumbnail.desktop
 %{_kf5_metainfodir}/org.kde.kdegraphics-thumbnailers.metainfo.xml
+%{_kf5_qtplugindir}/kf5/thumbcreator/blenderthumbnail.so
+%{_kf5_qtplugindir}/kf5/thumbcreator/gsthumbnail.so
+%{_kf5_qtplugindir}/kf5/thumbcreator/mobithumbnail.so
 %if 0%{?libraw}
-%{_kf5_qtplugindir}/rawthumbnail.so
-%{_kf5_datadir}/kservices5/rawthumbnail.desktop
+/usr/lib64/qt5/plugins/kf5/thumbcreator/rawthumbnail.so
 %endif
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

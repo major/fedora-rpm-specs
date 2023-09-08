@@ -6,40 +6,35 @@
 %bcond_without tests
 %endif
 
-# Created by pyp2rpm-3.3.5
-%global pypi_name libcst
+# Rust parser has unsatisfied dependencies:
+# chic is out of date and require an old version of annotate-snippets
+%bcond_with rust
 
-%global common_description %{expand:
-LibCST parses Python source code as a CST tree that keeps all formatting
-details (comments, whitespaces, parentheses, etc). It's useful for building
-automated refactoring (codemod) applications and linters.
+# Use --with all_tests to run all tests
+%bcond_with all_tests
 
-LibCST creates a compromise between an Abstract Syntax Tree (AST) and a
-traditional Concrete Syntax Tree (CST). By carefully reorganizing and naming
-node types and fields, it creates a lossless CST that looks and feels like an
-AST.}
-
-Name:           python-%{pypi_name}
-Version:        0.3.21
+Name:           python-libcst
+Version:        0.4.10
 Release:        %autorelease
 Summary:        A concrete syntax tree with AST-like properties for Python 3
 
 # see LICENSE in the upstream sources for the breakdown
-License:        MIT and (MIT and Python) and ASL 2.0
+License:        MIT AND (MIT OR PSF-2.0) AND Apache-2.0
 URL:            https://github.com/Instagram/LibCST
-Source0:        %{pypi_source}
-BuildArch:      noarch
+Source:         %{pypi_source libcst}
+# Optional patches
+# Disable building Rust code
+Patch100:       libcst-no-rust.diff
 
+BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm)
 %if %{with tests}
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pyyaml) >= 5.2
+# test dependencies are intermingled with dev dependencies
+# so list them manually for now
 BuildRequires:  python3dist(hypothesis)
 BuildRequires:  python3dist(hypothesmith)
+BuildRequires:  python3dist(pytest)
 %endif
-BuildRequires:  python3dist(typing-inspect) >= 0.4
 %if %{with docs}
 BuildRequires:  graphviz
 BuildRequires:  sed
@@ -50,14 +45,25 @@ BuildRequires:  python3dist(nbsphinx) >= 0.4.2
 BuildRequires:  python3dist(sphinx-rtd-theme) >= 0.4.3
 %endif
 
-%description
-%{common_description}
 
-%package -n     python3-%{pypi_name}
+%global _description %{expand:
+LibCST parses Python source code as a CST tree that keeps all formatting
+details (comments, whitespaces, parentheses, etc). It's useful for building
+automated refactoring (codemod) applications and linters.
+
+LibCST creates a compromise between an Abstract Syntax Tree (AST) and a
+traditional Concrete Syntax Tree (CST). By carefully reorganizing and naming
+node types and fields, it creates a lossless CST that looks and feels like an
+AST.}
+
+
+%description %_description
+
+%package -n     python3-libcst
 Summary:        %{summary}
 
-%description -n python3-%{pypi_name}
-%{common_description}
+%description -n python3-libcst %_description
+
 
 %if %{with docs}
 %package        doc
@@ -68,8 +74,14 @@ Requires:       python3-docs
 Documentation for %{name}
 %endif
 
+
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -N -n libcst-%{version}
+# Apply patches up to 99
+%autopatch -p1 -M 99
+%if %{without rust}
+%autopatch -p1 100
+%endif
 %if %{with docs}
 # Use local intersphinx inventory
 sed -r \
@@ -77,8 +89,13 @@ sed -r \
     -i docs/source/conf.py
 %endif
 
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
 %build
-%py3_build
+%pyproject_wheel
 %if %{with docs}
 # generate html docs
 PYTHONPATH=${PWD} sphinx-build-3 docs/source html
@@ -86,33 +103,49 @@ PYTHONPATH=${PWD} sphinx-build-3 docs/source html
 rm -rf html/.{doctrees,buildinfo}
 %endif
 
+
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files libcst
+
 
 %check
+%pyproject_check_import
+%if %{with tests}
+%if %{with all_tests}
+%pytest
+%else
 # test_codegen_clean is tracked in https://github.com/Instagram/LibCST/issues/304
 # test_codemod_cli is tracked in https://github.com/Instagram/LibCST/issues/331
 # test_type_enforce is tracked in https://github.com/Instagram/LibCST/issues/305
 # test_type_inference_provider requires pyre which is not packaged
-%if %{with tests}
-%pytest \
-  --ignore=libcst/codegen/tests/test_codegen_clean.py \
-  --ignore=libcst/codemod/tests/test_codemod_cli.py \
-  --ignore=libcst/tests/test_type_enforce.py \
-  --ignore=libcst/metadata/tests/test_type_inference_provider.py
+#
+# FAILED libcst/codegen/tests/test_codegen_clean.py::TestCodegenClean::test_codegen_clean_matcher_classes
+# FAILED libcst/codegen/tests/test_codegen_clean.py::TestCodegenClean::test_codegen_clean_return_types
+# FAILED libcst/codegen/tests/test_codegen_clean.py::TestCodegenClean::test_codegen_clean_visitor_functions
+# FAILED libcst/tests/test_type_enforce.py::TypeEnforcementTest::test_basic_pass_19
+EXCLUDES="not test_codegen_clean_matcher_classes and not test_codegen_clean_return_types"
+EXCLUDES+=" and not test_codegen_clean_visitor_functions and not test_basic_pass_19"
+# ERROR libcst/metadata/tests/test_type_inference_provider.py::TypeInferenceProviderTest::test_gen_cache_0
+# ERROR libcst/metadata/tests/test_type_inference_provider.py::TypeInferenceProviderTest::test_simple_class_types_0
+# ERROR libcst/metadata/tests/test_type_inference_provider.py::TypeInferenceProviderTest::test_with_empty_cache
+EXCLUDES+=" and not test_gen_cache_0 and not test_simple_class_types_0 and not test_with_empty_cache"
+%pytest -k "$EXCLUDES"
+# end all_tests
+%endif
+# end tests
 %endif
 
-%files -n python3-%{pypi_name}
-%license LICENSE
-%doc README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+
+%files -n python3-libcst -f %{pyproject_files}
+
 
 %if %{with docs}
 %files doc
 %doc html
 %license LICENSE
 %endif
+
 
 %changelog
 %autochangelog

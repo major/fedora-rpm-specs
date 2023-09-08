@@ -1,6 +1,6 @@
 Name: libteam
-Version: 1.31
-Release: 8%{?dist}
+Version: 1.32
+Release: 1%{?dist}
 Summary: Library for controlling team network device
 License: LGPLv2+
 URL: http://www.libteam.org
@@ -131,6 +131,25 @@ install -p -m 755 utils/bond2team $RPM_BUILD_ROOT%{_bindir}/bond2team
 %{_sysconfdir}/sysconfig/network-scripts/ifdown-TeamPort
 
 %changelog
+* Wed Sep 06 2023 Jiri Pirko <jiri@resnulli.us> - 1.32-1
+teamd: Add option to change evaluation logic of multiple link-watchers
+Revert: teamd: lacp: make sure that lacp_port_agg_update() works with correct unselectable state
+teamd: lacp: don't move the port state from disabled when admin state is down
+teamd: lacp: set port to disabled state during removal
+teamd: lacp: make sure that lacp_port_agg_update() works with correct unselectable state
+libteam: clear changed bits in case of TEAM_IFINFO_CHANGE
+misc: fix possible strncpy truncation bug
+teamd: stop iterating callbacks when a loop restart is requested
+teamd: do no remove the ports on shutdown with -N
+binding/python: ifindex 0 is invalid so do not process it
+teamd: Include missing headers for strrchr and memcmp
+libteamdctl: validate the bus name before using it
+options: move option temporary check after the err check
+teamd: lacp: increase "min_ports" upper limit to 1024
+fix build on OpenWRT/musl-libc
+teamd: increase the waitting time for daemon killing
+Revert "teamd: Disregard current state when considering port enablement"
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

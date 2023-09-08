@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 Name:    kdf
 Summary: View disk usage
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     http://utils.kde.org/projects/%{name}
@@ -72,14 +72,18 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/*kdf.desktop ||:
 %{_kf5_datadir}/icons/hicolor/*/apps/*
 %{_kf5_bindir}/kwikdisk
 %{_kf5_libdir}/libkdfprivate.so.*
-%{_kf5_qtplugindir}/libkcm_kdf.so
 %{_kf5_datadir}/applications/org.kde.kdf.desktop
 %{_kf5_datadir}/applications/org.kde.kwikdisk.desktop
+%{_kf5_datadir}/applications/kcm_kdf.desktop
 %{_kf5_metainfodir}/org.kde.*.appdata.xml
 %{_kf5_datadir}/kxmlgui5/kdf/
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kdf.so
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

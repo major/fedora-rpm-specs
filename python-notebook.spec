@@ -5,16 +5,13 @@
 Name:           python-notebook
 %global _docdir_fmt %{name}
 
-Version:        7.0.2
+Version:        7.0.3
 Release:        %autorelease
 Summary:        A web-based notebook environment for interactive computing
 # SPDX
 License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source:         %{pypi_source notebook}
-
-# Workaround a possible Python 3.12 regression in importlib.resources
-Patch:          https://github.com/jupyter/notebook/pull/6965.patch
 
 BuildArch:      noarch
 

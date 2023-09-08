@@ -1,13 +1,11 @@
 Name:           python-asttokens
-Version:        2.2.1^20230701a802446
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Module to annotate Python abstract syntax trees with source code positions
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/asttokens
-# This is directly from the 3.12 branch
-# See https://github.com/gristlabs/asttokens/pull/110
-Source0:        https://github.com/gristlabs/asttokens/archive/3.12/asttokens-3.12.tar.gz
+Source:         https://github.com/gristlabs/asttokens/archive/v%{version}/asttokens-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  git-core
@@ -36,8 +34,8 @@ Requires:       %{py3_dist six}
 %description -n python3-asttokens %_description
 
 %prep
-%autosetup -S git -n asttokens-3.12
-git tag 2.2.1
+%autosetup -S git -p1 -n asttokens-%{version}
+git tag %{version}
 
 %build
 %py3_build

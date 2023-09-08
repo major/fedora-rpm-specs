@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        88
+Version:        89
 
 %gometa
 
@@ -70,7 +70,7 @@ Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.3.2
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.44.329
+Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.44.332
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
@@ -161,7 +161,7 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.0-rc4
 Provides: bundled(golang(github.com/opencontainers/runc)) = 1.1.7
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.1.0-rc.3
-Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.362
+Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.364
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/images)) = 0.3.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
@@ -589,6 +589,25 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Sep 06 2023 Packit <hello@packit.dev> - 89-1
+Changes with 89
+----------------
+  * Handle panics in the osbuild job & fix panic when OCI authentication fails (#3666)
+  * Oci test (#3629)
+  * Tests: Add softlockup_all_cpu_backtrace=1 boot argument (#3656)
+  * Tests: Remove deprecated --os-type cli argument (#3643)
+  * build(deps): bump the go-deps group with 2 updates (#3661)
+  * cloudapi/v2: expose wsl image type (#3660)
+  * test/cases/ubi-wsl: fix waiting for a valid ipv4 (#3670)
+  * test/cases/ubi-wsl: public ip fixes (#3653)
+  * test: add workaround for bug BZ#2234390 (#3663)
+  * test: fix "Waiter SnapshotImported failed: Max attempts exceeded" (#3662)
+
+Contributions from: Alexander Todorov, Ondřej Budai, Sanne Raymaekers, Xiaofeng Wang, dependabot[bot]
+
+— Somewhere on the Internet, 2023-09-06
+
+
 * Thu Aug 24 2023 Packit <hello@packit.dev> - 88-1
 Changes with 88
 ----------------

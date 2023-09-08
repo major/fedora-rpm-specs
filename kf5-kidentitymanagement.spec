@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: The KIdentityManagement Library
 
 License: LGPLv2+
@@ -26,6 +26,7 @@ Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  cmake(KF5TextEditTextToSpeech)
+BuildRequires:  cmake(KPim5TextEdit)
 BuildRequires:  kf5-kdelibs4support-devel >= 5.15
 BuildRequires:  kf5-kcoreaddons-devel >= 5.15
 BuildRequires:  kf5-kcompletion-devel >= 5.15
@@ -37,7 +38,6 @@ BuildRequires:  kf5-kemoticons-devel >= 5.15
 BuildRequires:  kf5-kcodecs-devel >= 5.15
 #global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global majmin_ver %{version}
-BuildRequires:  kf5-kpimtextedit-devel >= %{majmin_ver}
 BuildRequires:  qt5-qtbase-devel
 %if 0%{?tests}
 BuildRequires: dbus-x11
@@ -105,6 +105,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

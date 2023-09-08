@@ -4,7 +4,7 @@
 %global jbig2dec_version 0.19
 
 Name:           mupdf
-Version:        1.22.2
+Version:        1.23.3
 # upstream prerelease versions tags need to be translated to Fedorian
 %global upversion %{version}
 Release:        %autorelease
@@ -33,7 +33,7 @@ Provides:       bundled(freeglut-devel) = 3.0.0^11.g13ae6aa
 # version so bundling them is the safer choice.
 Provides:       bundled(mujs-devel) = 1.3.3
 # muPDF builds only against in-tree extract which is versioned along with ghostpdl.
-Provides:       bundled(extract) = 10.01.0
+Provides:       bundled(extract) = 10.01.2
 
 %description
 MuPDF is a lightweight PDF viewer and toolkit written in portable C.

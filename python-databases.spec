@@ -7,13 +7,22 @@
 
 Name:           python-databases
 Summary:        Async database support for Python
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 
 License:        BSD-3-Clause
 URL:            https://www.encode.io/databases/
 %global forgeurl https://github.com/encode/databases
 Source:         %{forgeurl}/archive/%{version}/databases-%{version}.tar.gz
+
+# Fix flaky tests with in-memory SQLite databases
+# https://github.com/encode/databases/pull/569
+#
+# Fixes:
+#
+# New test test_should_remove_ref_on_disconnect in 0.8.0 fails on Fedora Linux
+# https://github.com/encode/databases/issues/567
+Patch:          %{forgeurl}/pull/569.patch
 
 BuildArch:      noarch
 
@@ -179,7 +188,7 @@ Obsoletes:      python-databases-doc < 0.5.2-4
 
 
 %prep
-%autosetup -n databases-%{version}
+%autosetup -n databases-%{version} -p1
 
 
 %generate_buildrequires

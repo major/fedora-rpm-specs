@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        299
+Version:        300
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -285,7 +285,7 @@ for data in doc man pixmaps polkit-1; do
 done
 rm -r %{buildroot}/%{_prefix}/%{__lib}/tmpfiles.d
 find %{buildroot}/%{_unitdir}/ -type f ! -name 'cockpit-session*' -delete
-for libexec in cockpit-askpass cockpit-session cockpit-ws cockpit-tls cockpit-wsinstance-factory cockpit-client cockpit-client.ui cockpit-desktop cockpit-certificate-helper cockpit-certificate-ensure; do
+for libexec in cockpit-askpass cockpit-beiboot cockpit-session cockpit-ws cockpit-tls cockpit-wsinstance-factory cockpit-client cockpit-client.ui cockpit-desktop cockpit-certificate-helper cockpit-certificate-ensure; do
     rm -f %{buildroot}/%{_libexecdir}/$libexec
 done
 rm -r %{buildroot}/%{_sysconfdir}/pam.d %{buildroot}/%{_sysconfdir}/motd.d %{buildroot}/%{_sysconfdir}/issue.d
@@ -376,6 +376,7 @@ system on behalf of the web based user interface.
 %{_libexecdir}/cockpit-askpass
 %if %{cockpit_enable_python}
 %{python3_sitelib}/%{name}*
+%{_libexecdir}/cockpit-beiboot
 %endif
 
 %package doc
@@ -781,6 +782,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 06 2023 Packit <hello@packit.dev> - 300-1
+- Celebrating the Nürnberg life release!
+- Storage: Support for growing block devices of a Stratis pool
+
 * Wed Aug 23 2023 Packit <hello@packit.dev> - 299-1
 - Kdump: Show location of kdump to verify the successful configuration test
 - Storage: Support for no-overprovisioning with Stratis

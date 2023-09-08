@@ -9,8 +9,8 @@
 
 Name:    konsole5
 Summary: KDE Terminal emulator
-Version: 23.04.3
-Release: 3%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 # sources: MIT and LGPLv2 and LGPLv2+ and GPLv2+
 License: GPL-2.0-only AND GFDL-1.1-or-later
@@ -174,6 +174,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

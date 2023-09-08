@@ -1,8 +1,8 @@
 %global framework libksieve
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: Sieve support library
 
 License: GPLv2
@@ -99,7 +99,6 @@ Requires:       cmake(KF5SyntaxHighlighting)
 %{_includedir}/KPim5/KManageSieve/
 %{_includedir}/KPim5/KSieveUi/
 %{_kf5_includedir}/KSieve/libksieve_version.h
-%{_kf5_libdir}/cmake/KF5LibKSieve/
 %{_kf5_libdir}/cmake/KPim5LibKSieve/
 %{_kf5_libdir}/libKPim5KManageSieve.so
 %{_kf5_libdir}/libKPim5KSieve.so
@@ -107,6 +106,9 @@ Requires:       cmake(KF5SyntaxHighlighting)
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global kf5_min_version 5.88.0
 
 Name:           calindori
-Version:        23.04.3
-Release:        2%{?dist}
+Version:        23.08.0
+Release:        1%{?dist}
 Summary:        Calendar application for Plasma Mobile
 License:        GPLv3+ and LGPLv3+ and BSD and CC0
 URL:            https://apps.kde.org/%{name}/
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

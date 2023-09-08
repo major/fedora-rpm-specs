@@ -5,8 +5,8 @@
 Summary: X-Resource extension client library
 Name: libXres
 Version: 1.2.1
-Release: 5%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
-License: MIT
+Release: 6%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+License: X11
 URL: http://www.x.org
 
 %if 0%{?gitdate}
@@ -71,6 +71,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.2.1-6
+- SPDX Migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

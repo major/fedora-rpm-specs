@@ -4,7 +4,7 @@
 
 # https://github.com/shirou/gopsutil
 %global goipath         github.com/shirou/gopsutil
-Version:                3.23.7
+Version:                3.23.8
 
 %gometa
 

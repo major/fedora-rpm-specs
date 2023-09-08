@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: The KMailTransport Library
 
 License: LGPLv2+
@@ -46,8 +46,8 @@ BuildRequires:  kf5-ksmtp-devel >= %{majmin_ver}
 BuildRequires:  libkgapi-devel >= %{majmin_ver}
 BuildRequires:  cmake(KF5Akonadi)
 BuildRequires:  cmake(KF5AkonadiMime)
-BuildRequires:  cmake(KF5Mime)
-BuildRequires:  cmake(KPimSMTP)
+BuildRequires:  cmake(KPim5Mime)
+BuildRequires:  cmake(KPim5SMTP)
 
 BuildRequires:  qt5-qtbase-devel
 
@@ -66,16 +66,10 @@ Conflicts: kf5-akonadi < 16.07
 %description
 %{summary}.
 
-%package        akonadi
-Summary:        The KmailTransportAkonadi Library
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-%description    akonadi
-%{summary}.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       %{name}-akonadi%{?_isa} = %{version}-%{release}
 Requires:       kf5-kwallet-devel
 Requires:       kf5-kmime-devel
 Requires:       kf5-akonadi-mime-devel
@@ -117,16 +111,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5MailTransport.so.*
 %{_kf5_datadir}/config.kcfg/mailtransport.kcfg
-%{_kf5_qtplugindir}/kcm_mailtransport.so
 %dir %{_kf5_qtplugindir}/pim5
-%{_kf5_qtplugindir}/pim5/mailtransport/mailtransport_akonadiplugin.so
 %{_kf5_qtplugindir}/pim5/mailtransport/mailtransport_smtpplugin.so
-%{_kf5_datadir}/kservices5/kcm_mailtransport.desktop
 
-%ldconfig_scriptlets akonadi
-
-%files akonadi
-%{_kf5_libdir}/libKPim5MailTransportAkonadi.so.5*
 
 %files devel
 %{_includedir}/KPim5/MailTransport/
@@ -134,15 +121,12 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_libdir}/cmake/KF5MailTransport/
 %{_kf5_libdir}/cmake/KPim5MailTransport/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KMailTransport.pri
-# akonadi
-%{_includedir}/KPim5/MailTransportAkonadi/
-%{_kf5_libdir}/libKPim5MailTransportAkonadi.so
-%{_kf5_libdir}/cmake/KF5MailTransportAkonadi/
-%{_kf5_libdir}/cmake/KPim5MailTransportAkonadi/
-%{_kf5_archdatadir}/mkspecs/modules/qt_KMailTransportAkonadi.pri
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

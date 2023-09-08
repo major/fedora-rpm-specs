@@ -1,35 +1,24 @@
 %global	gem_name	unf
-%if ! (0%{?fedora} >= 19 || 0%{?rhel} >= 9)
-%global	rubyabi	1.9.1
-%endif
 
 %undefine __brp_mangle_shebangs
 
 Summary:	Wrapper library to bring Unicode Normalization Form support to Ruby/JRuby
 Name:		rubygem-%{gem_name}
 Version:	0.1.4
-Release:	22%{?dist}
+Release:	23%{?dist}
 
-License:	BSD
+# SPDX confirmed
+License:	BSD-2-Clause
 URL:		https://github.com/knu/ruby-unf
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Drop Shoulda dependency to reduce the dependency chain.
+# https://github.com/knu/ruby-unf/commit/c3987f7942bdde5268ec293834ba3b3447217752
+Patch0:	rubygem-unf-0.2.0-Use-test-unit-.patch
 
-%if 0%{?fedora} >= 19 || 0%{?rhel} >= 9
-Requires:	ruby(release)
 BuildRequires:	ruby(release)
-%else
-Requires:	ruby(abi) = %{rubyabi}
-Requires:	ruby
-BuildRequires:	ruby(abi) = %{rubyabi}
-BuildRequires:	ruby
-%endif
-
-Requires:	ruby(rubygems) 
-Requires:	rubygem(unf_ext) 
 BuildRequires:	rubygems-devel 
 # %%check
-BuildRequires:	rubygem(minitest)
-BuildRequires:	rubygem(shoulda)
+BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(unf_ext)
 BuildArch:	noarch
 Provides:	rubygem(%{gem_name}) = %{version}-%{release}
@@ -48,23 +37,15 @@ BuildArch:	noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -c -T
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
-TOPDIR=$(pwd)
-mkdir tmpunpackdir
-pushd tmpunpackdir
-
-gem unpack %{SOURCE0}
-cd %{gem_name}-%{version}
-
-gem specification -l --ruby %{SOURCE0} > %{gem_name}.gemspec
-gem build %{gem_name}.gemspec
-mv %{gem_name}-%{version}.gem $TOPDIR
-
-popd
-rm -rf tmpunpackdir
+%patch -P0 -p1
+%gemspec_remove_dep -s %{gem_name}-%{version}.gemspec -g shoulda -d ">= 0"
+%gemspec_add_dep -s %{gem_name}-%{version}.gemspec -g test-unit -d
 
 %build
+gem build ./%{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -72,6 +53,7 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
 	%{buildroot}%{gem_dir}/
 
+rm -f %{buildroot}%{gem_cache}
 pushd %{buildroot}%{gem_instdir}
 rm -rf \
 	Gemfile \
@@ -91,17 +73,6 @@ sed -i.orig \
 	-e '/bundler/d' \
 	test/helper.rb
 
-%if 0%{?fedora} >= 21 || 0%{?rhel} >= 9
-sed -i.minitest \
-	-e 's|Test::Unit::TestCase|Minitest::Test|' \
-	test/*.rb
-cat > test/unit.rb << EOF
-gem "minitest"
-require "minitest/autorun"
-EOF
-
-%endif
-
 for f in test/test_*.rb
 do
 	ruby -Ilib:test:. $f
@@ -110,16 +81,23 @@ popd
 
 %files
 %dir	%{gem_instdir}
-%doc	%{gem_instdir}/[A-Z]*
+%doc	%{gem_instdir}/[A-KM-Z]*
+%license %{gem_instdir}/LICENSE
 
 %{gem_libdir}/
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files	doc
 %doc	%{gem_docdir}
 
 %changelog
+* Wed Sep  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.4-23
+- Massive spec file cleanup
+- SPDX migration
+
+* Tue Sep 05 2023 Vít Ondruch <vondruch@redhat.com>
+- Drop rubygem-shoulda dependency and use Test::Unit for testing
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

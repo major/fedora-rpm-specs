@@ -78,7 +78,7 @@
 
 Name:        libblockdev
 Version:     3.0.3
-Release:     1%{?dist}
+Release:     2%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -103,6 +103,10 @@ Provides: libblockdev-kbd = %{version}-%{release}
 Obsoletes: libblockdev-kbd < %{version}-%{release}
 Provides: libblockdev-kbd-devel = %{version}-%{release}
 Obsoletes: libblockdev-kbd-devel < %{version}-%{release}
+Provides: libblockdev-vdo = %{version}-%{release}
+Obsoletes: libblockdev-vdo < %{version}-%{release}
+Provides: libblockdev-vdo-devel = %{version}-%{release}
+Obsoletes: libblockdev-vdo-devel < %{version}-%{release}
 
 Requires: %{name}-utils%{?_isa} = %{version}-%{release}
 
@@ -845,6 +849,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Wed Sep 06 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.0.3-2
+- Obsolete vdo plugin packages (#2237477)
+
 * Thu Aug 31 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.0.3-1
 - crypto: Correctly convert passphrases from Python to C (vtrefny)
 - tests: Minor NVMe HostNQN fixes (tbzatek)

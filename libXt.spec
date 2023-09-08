@@ -5,8 +5,8 @@
 Summary: X.Org X11 libXt runtime library
 Name: libXt
 Version: 1.2.1
-Release: 5%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
-License: MIT
+Release: 6%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+License: MIT AND HPND-sell-variant AND SMLNJ AND MIT-open-group AND X11
 URL: https://www.x.org
 
 %if 0%{?gitdate}
@@ -108,6 +108,9 @@ cp -p COPYING ${RPM_BUILD_ROOT}%{_datadir}/doc/%{name}/COPYING
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.2.1-6
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global baserelease 9
+%global baserelease 10
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -22,6 +22,8 @@ Source3:        https://github.com/jazzband/imaplib2/archive/%{imaplib2_commit}/
 Patch0:         bundled_imaplib2.patch
 Patch1:         disable_rfc6555.patch
 Patch2:         https://github.com/OfflineIMAP/offlineimap3/pull/137.diff
+Patch3:         https://github.com/OfflineIMAP/offlineimap3/pull/120.diff
+Patch4:         https://github.com/OfflineIMAP/offlineimap3/pull/161.diff
 
 # Patches for imaplib2, keep the numbers above 200
 Patch201:       https://github.com/jazzband/imaplib2/pull/4.patch
@@ -101,6 +103,9 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Wed Sep 06 2023 sguelton@teelcom-bretagne.eu - 8.0.0-10
+- Backport py3.12 compatibility patch, see rhbz#2220052
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

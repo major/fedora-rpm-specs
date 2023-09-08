@@ -1,6 +1,6 @@
 Name:           krecorder 
-Version:        23.04.3
-Release:        2%{?dist}
+Version:        23.08.0
+Release:        1%{?dist}
 License:        GPLv3+
 Summary:        Convergent KDE audio recording application
 Url:            https://invent.kde.org/plasma-mobile/krecorder
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

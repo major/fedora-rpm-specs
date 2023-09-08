@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{base_name}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: LGPLv2+
@@ -29,6 +29,10 @@ Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  extra-cmake-modules
 BuildRequires:  cmake(KF5TextEditTextToSpeech)
+BuildRequires:  cmake(KPim5Libkdepim)
+BuildRequires:  cmake(KPim5MailTransport)
+BuildRequires:  cmake(KPim5Mime)
+BuildRequires:  cmake(KPim5MessageCore)
 BuildRequires:  grantlee-qt5-devel
 BuildRequires:  kf5-rpm-macros
 %global kf5_ver 5.87.0
@@ -39,7 +43,6 @@ BuildRequires:  kf5-kcodecs-devel >= %{kf5_ver}
 #global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global majmin_ver %{version}
 BuildRequires:  kf5-grantleetheme-devel >= %{majmin_ver}
-BuildRequires:  kf5-kmailtransport-devel >= %{majmin_ver}
 BuildRequires:  kf5-kcontacts-devel >= %{majmin_ver}
 BuildRequires:  kf5-kidentitymanagement-devel >= %{majmin_ver}
 BuildRequires:  kf5-kcalendarcore-devel >= %{majmin_ver}
@@ -122,6 +125,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

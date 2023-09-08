@@ -58,7 +58,7 @@ Summary:        C binding of nmstate
 Recommends:     NetworkManager
 # Avoid automatically generated profiles
 Recommends:     NetworkManager-config-server
-License:        ASL 2.0
+License:        Apache-2.0
 
 %description libs
 C binding of nmstate.
@@ -67,7 +67,7 @@ C binding of nmstate.
 Summary:        Development files for nmstate
 Group:          Development/Libraries
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-License:        ASL 2.0
+License:        Apache-2.0
 
 %description devel
 Development files of nmstate C binding.
@@ -75,6 +75,7 @@ Development files of nmstate C binding.
 %package static
 Summary:        Static development files for nmstate
 Group:          Development/Libraries
+License:        Apache-2.0
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
@@ -95,6 +96,7 @@ Suggests:       NetworkManager-team
 Provides:       nmstate-plugin-ovsdb = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Obsoletes:      nmstate-plugin-ovsdb < 2.0-1
+License:        Apache-2.0
 
 %description -n python3-%{libname}
 This package contains the Python 3 library for Nmstate.
@@ -103,6 +105,7 @@ This package contains the Python 3 library for Nmstate.
 %package -n rust-%{name}-devel
 Summary:        Rust crate of nmstate
 BuildArch:      noarch
+License:        Apache-2.0
 
 %description -n rust-%{name}-devel
 This package contains library source intended for building other packages
@@ -111,6 +114,7 @@ which use "%{name}" crate.
 %package -n rust-%{name}+default-devel
 Summary:        Rust crate of nmstate with default feature
 BuildArch:      noarch
+License:        Apache-2.0
 
 %description -n rust-%{name}+default-devel
 This package contains library source intended for building other packages
@@ -119,6 +123,7 @@ which use "%{name}" crate with default feature.
 %package -n rust-%{name}+gen_conf-devel
 Summary:        Rust crate of nmstate with default feature
 BuildArch:      noarch
+License:        Apache-2.0
 
 %description -n rust-%{name}+gen_conf-devel
 This package contains library source intended for building other packages
@@ -127,6 +132,7 @@ which use "%{name}" crate with gen_conf feature.
 %package -n rust-%{name}+query_apply-devel
 Summary:        Rust crate of nmstate with default feature
 BuildArch:      noarch
+License:        Apache-2.0
 # https://bugzilla.redhat.com/show_bug.cgi?id=2161128
 Requires:  (crate(nispor/default) >= 1.2.12 with crate(nispor/default) < 2.0)
 Requires:  (crate(nix/default) >= 0.24 with crate(nix/default) < 0.25)

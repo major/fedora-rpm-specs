@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 3%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: LGPLv2+
@@ -47,7 +47,7 @@ BuildRequires:  kf5-kcontacts-devel >= %{majmin_ver}
 BuildRequires:  kf5-kpkpass-devel >= %{majmin_ver}
 
 # kde-pim cmake
-BuildRequires:  cmake(KF5Mime)
+BuildRequires:  cmake(KPim5Mime)
 BuildRequires:  cmake(KF5CalendarCore)
 BuildRequires:  cmake(KF5Contacts)
 BuildRequires:  cmake(KPimPkPass)
@@ -129,6 +129,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Mon Aug 07 2023 Marek Kasik <mkasik@redhat.com> - 23.04.3-3
 - Rebuild for poppler 23.08.0
 

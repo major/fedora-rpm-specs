@@ -35,8 +35,8 @@
 
 
 Name:           perl-Prima
-Version:        1.69
-Release:        3%{?dist}
+Version:        1.70
+Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -57,6 +57,7 @@ Summary:        Perl graphic toolkit
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 %if %{with perl_Prima_enables_gtk3}
 BuildRequires:  giflib-devel >= 4
@@ -334,6 +335,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 06 2023 Petr Pisar <ppisar@redhat.com> - 1.70-1
+- 1.70 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.69-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

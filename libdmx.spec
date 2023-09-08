@@ -6,6 +6,7 @@ Summary: X.Org X11 DMX runtime library
 Name: libdmx
 Version: 1.1.4
 Release: 15%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+# SPDX
 License: MIT
 URL: http://www.x.org
 

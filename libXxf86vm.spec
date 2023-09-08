@@ -5,8 +5,8 @@
 Summary: X.Org X11 libXxf86vm runtime library
 Name: libXxf86vm
 Version: 1.1.5
-Release: 3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
-License: MIT
+Release: 4%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+License: X11-distribute-modifications-variant
 URL: http://www.x.org
 
 %if 0%{?gitdate}
@@ -63,6 +63,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/X11/extensions/xf86vmode.h
 
 %changelog
+* Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.1.5-4
+- SPDX Migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

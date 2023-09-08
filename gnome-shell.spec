@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-shell
-Version:        45~beta.1
-Release:        %autorelease -b 2
+Version:        45~rc
+Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
@@ -10,11 +10,11 @@ URL:            https://wiki.gnome.org/Projects/GnomeShell
 Source0:        https://download.gnome.org/sources/gnome-shell/45/%{name}-%{tarball_version}.tar.xz
 
 # Replace Epiphany with Firefox in the default favourite apps list
-Patch10001: gnome-shell-favourite-apps-firefox.patch
+Patch: gnome-shell-favourite-apps-firefox.patch
 
 # Some users might have a broken PAM config, so we really need this
 # downstream patch to stop trying on configuration errors.
-Patch40001: 0001-gdm-Work-around-failing-fingerprint-auth.patch
+Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 
 Patch: 0001-status-keyboard-Add-a-catch-around-reload-call.patch
 Patch: 0002-status-keyboard-Load-keyboard-from-system-settings-i.patch
@@ -27,7 +27,7 @@ Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.0.0
-%define mutter_version 45~beta.1
+%define mutter_version 45~rc
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 42~beta
 %define ibus_version 1.5.2

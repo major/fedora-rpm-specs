@@ -72,7 +72,7 @@
 %global patch_version 4
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 5
+%global baserelease 6
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -237,7 +237,7 @@ generation, code generation, and template instantiation.
 Summary:        Common data-files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-filesystem = %{version}-%{release}
-Requires:       %{name}-rpm-macros = %{version}-%{release}
+Requires:       (%{name}-rpm-macros = %{version}-%{release} if rpm-build)
 %if %{with emacs}
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires:       emacs-filesystem%{?_emacs_version: >= %{_emacs_version}}
@@ -552,6 +552,9 @@ popd
 
 
 %changelog
+* Wed Sep 04 2023 Panu Matilainen <pmatilai@redhat.com> - 3.27.4-6
+- Only require cmake-rpm-macros when rpm-build is installed part II
+
 * Sat Sep 02 2023 Tom Stellard <tstellar@redhat.com> - 3.27.4-5
 - Convert license to SPDX
 

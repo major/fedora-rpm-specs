@@ -3,7 +3,7 @@
 %bcond_with     tests
 
 Name:           oci-cli
-Version:        3.32.0
+Version:        3.33.0
 Release:        %autorelease
 Summary:        Command Line Interface for Oracle Cloud Infrastructure 
 
@@ -64,7 +64,7 @@ sed -i 's/PyYAML>=5.4,<=6/PyYAML>=5.4/' setup.py
 # Remove extra script that isn't needed.
 rm -f %{buildroot}/%{_bindir}/create_backup_from_onprem
 
-%pyproject_save_files common_util interactive oci_cli services
+%pyproject_save_files alloy common_util interactive oci_cli services
 
 
 %check

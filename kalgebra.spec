@@ -1,8 +1,8 @@
 
 Name:    kalgebra 
 Summary: 2D and 3D Graph Calculator 
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/edu/%{name}
@@ -69,30 +69,24 @@ BuildRequires: ncurses-devel readline-devel
 
 %check
 %if 0%{?validate_appdata}
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kalgebra.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kalgebramobile.appdata.xml
 %endif
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalgebra.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalgebramobile.desktop
 
 
 %files -f %{name}.lang
 %doc TODO
 %license COPYING*
 %{_kf5_bindir}/calgebra
-%{_kf5_bindir}/kalgebra
 %{_kf5_bindir}/kalgebramobile
 %{_datadir}/icons/hicolor/*/*/kalgebra.*
-%{_kf5_metainfodir}/org.kde.kalgebra.appdata.xml
 %{_kf5_metainfodir}/org.kde.kalgebramobile.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kalgebra.desktop
 %{_kf5_datadir}/applications/org.kde.kalgebramobile.desktop
-%{_kf5_datadir}/katepart5/syntax/kalgebra.xml
-%{_kf5_datadir}/kservices5/graphsplasmoid.desktop
-%{_kf5_datadir}/plasma/plasmoids/org.kde.graphsplasmoid/
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

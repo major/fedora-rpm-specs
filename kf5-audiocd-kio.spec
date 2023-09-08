@@ -2,8 +2,8 @@
 
 Name:    kf5-audiocd-kio
 Summary: KF5 Audiocd kio slave
-Version: 23.04.3
-Release: 3%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 # code GPLv2+, handbook/docs GFDL
 License: GPLv2+
@@ -128,6 +128,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Mon Aug 07 2023 Timothée Ravier <tim@siosm.fr> - 23.04.3-3
 - Add lame & opus-tools to Recommends
 

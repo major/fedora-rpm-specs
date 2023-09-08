@@ -1,7 +1,7 @@
 Name:    kgpg
 Summary: Manage GPG encryption keys 
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://www.kde.org/applications/utilities/kgpg/
@@ -42,9 +42,9 @@ BuildRequires: cmake(KF5WindowSystem)
 
 # pim-related deps below are available only where qtwebengine is
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
-BuildRequires: cmake(KF5AkonadiContact)
+BuildRequires: cmake(KPim5AkonadiContact)
 BuildRequires: cmake(KF5Contacts)
-BuildRequires: cmake(KF5GrantleeTheme)
+BuildRequires: cmake(KPim5GrantleeTheme)
 BuildRequires: cmake(Grantlee5)
 
 # support kde4 servicemenus too
@@ -120,6 +120,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

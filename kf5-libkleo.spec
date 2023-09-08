@@ -1,8 +1,8 @@
 %global framework libkleo
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: KDE PIM cryptographic library
 
 License: GPLv2+
@@ -36,11 +36,11 @@ BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5ItemModels)
+BuildRequires:  cmake(KF5TextEditor)
 BuildRequires:  cmake(KF5WidgetsAddons)
 BuildRequires:  cmake(KF5WindowSystem)
 # kde-apps
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires:  kf5-kpimtextedit-devel >= %{majmin_ver}
 
 Obsoletes:      kdepim-libs < 7:16.04.0
 
@@ -102,6 +102,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

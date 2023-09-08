@@ -7,6 +7,10 @@ License:        GPL-3.0-or-later
 URL:            https://%{name}.github.io/
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz
 
+# https://github.com/pdfpc/pdfpc/pull/687
+Patch0:         https://patch-diff.githubusercontent.com/raw/pdfpc/pdfpc/pull/687.patch
+BuildRequires:  git-core
+
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gtk3-devel
@@ -18,8 +22,12 @@ BuildRequires:  librsvg2-devel
 BuildRequires:  libgee-devel
 BuildRequires:  pango-devel
 BuildRequires:  poppler-glib-devel
-BuildRequires:  webkit2gtk3-devel
-BuildRequires:  vala vala-devel
+# disable until upstream finishes porting to libsoup3
+# https://github.com/pdfpc/pdfpc/issues/671
+# https://github.com/pdfpc/pdfpc/issues/664
+#BuildRequires:  pkgconfig(libsoup3)
+#BuildRequires:  pkgconfig(webkit2gtk-4.1)
+BuildRequires:  vala libvala-devel
 BuildRequires:  qrencode-devel
 
 %description
@@ -33,11 +41,12 @@ documents, which can be created using nearly any of today's presentation
 software.
 
 %prep
-%autosetup -n %{name}-%{version}
-
+%autosetup -n %{name}-%{version} -S git
 
 %build
-%cmake -DSYSCONFDIR=/etc .
+# temporarily disable REST until it is ported to libsoup3
+# disable markdown view until it is ported to webkit2gtk-4.1
+%cmake -DSYSCONFDIR=/etc -DREST=OFF -DMDVIEW=OFF .
 %cmake_build
 
 

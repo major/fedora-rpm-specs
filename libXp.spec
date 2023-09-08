@@ -10,8 +10,8 @@
 Summary: X.Org X11 libXp runtime library
 Name: libXp
 Version: 1.0.4
-Release: 3%{?dist}
-License: MIT
+Release: 4%{?dist}
+License: X11 AND X11-distribute-modifications-variant
 URL: http://www.x.org
 
 Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
@@ -80,6 +80,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xp.pc
 
 %changelog
+* Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.0.4-4
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

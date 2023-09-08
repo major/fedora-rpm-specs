@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           pre-commit
-Version:        3.3.3
+Version:        3.4.0
 Release:        1%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
@@ -19,10 +19,12 @@ BuildRequires:  python3-devel
 # pulling in these dependencies for now.
 #
 # BuildRequires:  R-core
+# BuildRequires:  cabal-install
 # BuildRequires:  conda
 # BuildRequires:  dotnet-host
 # BuildRequires:  dotnet-hostfxr-7.0
 # BuildRequires:  dotnet-sdk-7.0
+# BuildRequires:  ghc-compiler
 # BuildRequires:  golang-bin
 
 # These BR’s would enable a few extra tests, but are inconveniently
@@ -142,6 +144,8 @@ k="${k-}${k+ and }not test_ruby_additional_deps"
 k="${k-}${k+ and }not test_ruby_hook_language_version"
 k="${k-}${k+ and }not test_ruby_with_bundle_disable_shared_gems"
 k="${k-}${k+ and }not test_run_a_node_hook_default_version"
+k="${k-}${k+ and }not test_run_dep"
+k="${k-}${k+ and }not test_run_example_executable"
 k="${k-}${k+ and }not test_run_lib_additional_dependencies"
 k="${k-}${k+ and }not test_run_ruby_hook_with_disable_shared_gems"
 k="${k-}${k+ and }not test_run_versioned_node_hook"
@@ -192,6 +196,9 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Sun Sep 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.4.0-1
+- Update to 3.4.0 (close RHBZ#2237001)
+
 * Mon Jul 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.3.3-1
 - Update to 3.3.3 (close RHBZ#2192407)
 

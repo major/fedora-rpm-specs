@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.6~beta
+Version:        3.6~rc
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
@@ -167,6 +167,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Wed Sep 06 2023 Kalev Lember <klember@redhat.com> - 3.6~rc-1
+- Update to 3.6.rc
+
 * Fri Aug 11 2023 Kalev Lember <klember@redhat.com> - 3.6~beta-1
 - Update to 3.6.beta
 

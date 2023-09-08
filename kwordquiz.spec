@@ -1,7 +1,7 @@
 Name:    kwordquiz
 Summary: Flash Card Trainer 
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/edu/%{name}
@@ -17,9 +17,6 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 ## upstream patches
 
 ## upstreamable patches
-# https://bugzilla.redhat.com/1590019
-# https://bugs.kde.org/365312
-Patch100: kwordquiz-entries.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
@@ -47,6 +44,10 @@ BuildRequires: kf5-kwidgetsaddons-devel
 BuildRequires: kf5-kwindowsystem-devel
 BuildRequires: kf5-kxmlgui-devel
 BuildRequires: kf5-rpm-macros
+BuildRequires: cmake(KF5KirigamiAddons)
+BuildRequires: cmake(KF5Kirigami2)
+BuildRequires: cmake(Qt5Multimedia)
+BuildRequires: cmake(Qt5QuickControls2)
 BuildRequires: libappstream-glib
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires: libkeduvocdocument-devel >= %{majmin_ver}
@@ -90,15 +91,18 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/icons/hicolor/*/mimetypes/application-x-%{name}.*
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf5_datadir}/%{name}/
 #{_kf5_datadir}/kconf_update/%{name}*
 %{_kf5_datadir}/knotifications5/%{name}.notifyrc
-%{_kf5_datadir}/kxmlgui5/%{name}/
 #{_kf5_datadir}/sounds/%{name}/
 %{_kf5_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

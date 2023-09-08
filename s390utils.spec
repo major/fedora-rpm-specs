@@ -1,11 +1,16 @@
 # secure boot support is for RHEL only
 %if 0%{?rhel} >= 8
-%global signzipl 1
+%bcond_without signzipl
+%else
+%bcond_with signzipl
 %endif
 
 %if 0%{?fedora}
-%global with_pandoc 1
+%bcond_without pandoc
+%else
+%bcond_with pandoc
 %endif
+
 %bcond_without rust
 
 Name:           s390utils
@@ -31,7 +36,7 @@ Source23:       20-zipl-kernel.install
 Source24:       52-zipl-rescue.install
 Source25:       91-zipl.install
 
-%if 0%{?signzipl}
+%if %{with signzipl}
 %define pesign_name redhatsecureboot302
 %endif
 
@@ -110,7 +115,7 @@ make \
 %if %{without rust}
         HAVE_CARGO=0 \
 %endif
-%if 0%{?with_pandoc}
+%if %{with pandoc}
         ENABLE_DOC=1 \
 %endif
         NO_PIE_LDFLAGS="" \
@@ -125,7 +130,7 @@ make install \
 %if %{without rust}
         HAVE_CARGO=0 \
 %endif
-%if 0%{?with_pandoc}
+%if %{with pandoc}
         ENABLE_DOC=1 \
 %endif
         DESTDIR=%{buildroot} \
@@ -135,7 +140,7 @@ make install \
         V=1
 
 # sign the stage3 bootloader
-%if 0%{?signzipl}
+%if %{with signzipl}
 if [ -x /usr/bin/rpm-sign ]; then
     pushd %{buildroot}/lib/s390-tools/
         rpm-sign --key "%{pesign_name}" --lkmsign stage3.bin --output stage3.signed
@@ -892,7 +897,7 @@ Summary:          Use multipath information for re-IPL path failover
 BuildRequires:    make
 BuildRequires:    bash
 BuildRequires:    coreutils
-%if 0%{?with_pandoc}
+%if %{with pandoc}
 BuildRequires:    pandoc
 %endif
 BuildRequires:    gawk
@@ -913,7 +918,7 @@ reconfigures the FCP re-IPL settings to use an operational path.
 
 %files chreipl-fcp-mpath
 %doc chreipl-fcp-mpath/README.md
-%if 0%{?with_pandoc}
+%if %{with pandoc}
 %doc chreipl-fcp-mpath/README.html
 %endif
 %dir %{_prefix}/lib/chreipl-fcp-mpath/

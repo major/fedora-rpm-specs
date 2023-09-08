@@ -11,8 +11,8 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -194,6 +194,7 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_qtplugindir}/ktexteditor/rainbowparens.so
 %{_kf5_qtplugindir}/ktexteditor/tabswitcherplugin.so
 %{_kf5_qtplugindir}/ktexteditor/textfilterplugin.so
+%{_kf5_qtplugindir}/ktexteditor/openlinkplugin.so
 
 %files -n kwrite -f kwrite.lang
 %{_kf5_bindir}/kwrite
@@ -203,6 +204,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

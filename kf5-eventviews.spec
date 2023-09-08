@@ -1,8 +1,8 @@
 %global framework eventviews
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: KDE PIM library for displaying events and calendars
 
 License: GPLv2+
@@ -33,13 +33,13 @@ BuildRequires:  cmake(KF5Akonadi)
 BuildRequires:  cmake(KF5AkonadiCalendar)
 BuildRequires:  cmake(KF5CalendarCore)
 BuildRequires:  cmake(KF5CalendarSupport)
-BuildRequires:  cmake(KF5CalendarUtils)
 BuildRequires:  cmake(KF5Codecs)
 BuildRequires:  cmake(KF5Holidays)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5IdentityManagement)
 BuildRequires:  cmake(KF5Libkdepim)
-BuildRequires:  cmake(KF5Mime)
+BuildRequires:  cmake(KPim5Mime)
+BuildRequires:  cmake(KPim5CalendarUtils)
 BuildRequires:  cmake(KF5TextEditTextToSpeech)
 
 #global majmin_ver %(echo %{version} | cut -d. -f1,2)
@@ -65,7 +65,7 @@ Requires:       cmake(KF5Akonadi)
 Requires:       cmake(KF5AkonadiCalendar)
 Requires:       cmake(KF5CalendarCore)
 Requires:       cmake(KF5CalendarSupport)
-Requires:       cmake(KF5CalendarUtils)
+Requires:       cmake(KPim5CalendarUtils)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -97,12 +97,14 @@ developing applications that use %{name}.
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_EventViews.pri
 %{_includedir}/KPim5/EventViews/
-%{_kf5_libdir}/cmake/KF5EventViews/
 %{_kf5_libdir}/cmake/KPim5EventViews/
 %{_kf5_libdir}/libKPim5EventViews.so
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

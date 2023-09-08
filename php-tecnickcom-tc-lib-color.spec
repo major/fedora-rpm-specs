@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    6207533413f6edc3fea373d0e54041661d2bd905
+%global gh_commit    c0ea9b1a8488776d33ae4051aa0701facf79e402
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.14.24
-Release:        2%{?dist}
+Version:        1.14.28
+Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
 License:        LGPL-3.0-or-later
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep  6 2023 Remi Collet <remi@remirepo.net> - 1.14.28-1
+- update to 1.14.28 (no change)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

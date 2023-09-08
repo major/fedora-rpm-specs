@@ -21,8 +21,8 @@
 
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -248,7 +248,6 @@ fi
 %{_kf5_qtplugindir}/designer/akonadi5widgets.so
 %endif
 %{_kf5_qtplugindir}/designer/akonadi5widgets.so
-%{_kf5_qtplugindir}/sqldrivers/libqsqlite3.so
 %{_kf5_libdir}/libKPim5AkonadiAgentBase.so.5*
 %{_kf5_libdir}/libKPim5AkonadiCore.so.5*
 %{_kf5_libdir}/libKPim5AkonadiPrivate.so.5*
@@ -306,6 +305,9 @@ fi
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

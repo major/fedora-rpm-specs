@@ -1,7 +1,7 @@
 Name:    kcron
 Summary: Cron KDE configuration module
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/system/%{name}
@@ -23,6 +23,7 @@ BuildRequires: kf5-kiconthemes-devel
 BuildRequires: kf5-kio-devel
 BuildRequires: cmake(Qt5PrintSupport)
 BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(KF5KCMUtils)
 
 Obsoletes:     kdeadmin < 4.10.80
 
@@ -53,15 +54,18 @@ Systemsettings module for the cron task scheduler.
 %license LICENSES/*
 %doc README
 %{_kf5_datadir}/qlogging-categories5/kcron*
-%{_kf5_qtplugindir}/kcm_cron.so
-%{_kf5_datadir}/kservices5/kcm_cron.desktop
 %{_kf5_metainfodir}/org.kde.kcron.metainfo.xml
 %{_kf5_libexecdir}/kauth/kcron_helper
 %{_kf5_datadir}/dbus-1/system-services/local.kcron.crontab.service
 %{_kf5_datadir}/dbus-1/system.d/local.kcron.crontab.conf
 %{_kf5_datadir}/polkit-1/actions/local.kcron.crontab.policy
+%{_kf5_datadir}/applications/kcm_cron.desktop
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_cron.so
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
 Version:        1.11
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/%{name}/
 Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
@@ -10,6 +10,7 @@ Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-%
 Patch0:         clazy-no-rpath.patch
 Patch1:         clazy-clang-15-support.patch
 Patch2:         clazy-clang-16-support.patch
+Patch3:         clazy-clang-17-support.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -53,6 +54,9 @@ refactoring.
 
 
 %changelog
+* Wed Sep 06 2023 Jan Grulich <jgrulich@redhat.com> - 1.11-9
+- Rebuild (clang-17)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

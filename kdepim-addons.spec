@@ -1,6 +1,6 @@
 Name:    kdepim-addons
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 
 License: GPLv2 and LGPLv2+
@@ -60,7 +60,7 @@ BuildRequires:  cmake(KPim5MessageComposer)
 BuildRequires:  cmake(KPim5MessageCore)
 BuildRequires:  cmake(KPim5MessageList)
 BuildRequires:  cmake(KPim5MessageViewer)
-BuildRequires:  cmake(KF5PimCommon)
+BuildRequires:  cmake(KPim5PimCommon)
 BuildRequires:  cmake(KPim5Tnef)
 BuildRequires:  cmake(KPim5ImportWizard)
 BuildRequires:  cmake(KPim5Itinerary)
@@ -179,6 +179,9 @@ Supplements:    korganizer
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

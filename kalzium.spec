@@ -16,8 +16,8 @@
 
 Name:    kalzium
 Summary: Periodic Table of Elements
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://edu.kde.org/kalzium/
@@ -31,7 +31,6 @@ URL:     https://edu.kde.org/kalzium/
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
-Patch0: 80a9ab41b91ab849794bb7830f0a98d862c08269.diff
 
 %if ! 0%{?bootstrap}
 BuildRequires: libappstream-glib
@@ -156,6 +155,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalzium_c
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

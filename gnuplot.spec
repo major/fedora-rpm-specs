@@ -1,6 +1,6 @@
 %global major 5
 %global minor 4
-%global patchlevel 8
+%global patchlevel 9
 
 %global x11_app_defaults_dir %{_datadir}/X11/app-defaults
 
@@ -19,7 +19,7 @@
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 URL: http://www.gnuplot.info/
@@ -320,6 +320,9 @@ fi
 %{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
+* Tue Sep 05 2023 Orion Poplawski <orion@nwra.com> - 5.4.9-1
+- Update to 5.4.9
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

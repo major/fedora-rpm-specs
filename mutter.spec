@@ -13,7 +13,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       45~beta.1
+Version:       45~rc
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -110,6 +110,10 @@ Provides: bundled(cogl) = 1.22.0
 Provides: bundled(clutter) = 1.26.0
 
 Conflicts: mutter < 45~beta.1-2
+
+# Make sure dnf updates gnome-shell together with this package; otherwise we
+# might end up with broken gnome-shell installations due to mutter ABI changes.
+Conflicts: gnome-shell < 45~rc
 
 %description
 Mutter is a window and compositing manager that displays and manages

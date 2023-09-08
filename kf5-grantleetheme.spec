@@ -1,8 +1,8 @@
 %global framework grantleetheme
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: KDE PIM library for Grantlee template system
 
 License: LGPLv2+
@@ -76,12 +76,14 @@ developing applications that use %{name}.
 %files devel
 %{_includedir}/KPim5/GrantleeTheme/
 %{_kf5_libdir}/libKPim5GrantleeTheme.so
-%{_kf5_libdir}/cmake/KF5GrantleeTheme/
 %{_kf5_libdir}/cmake/KPim5GrantleeTheme/
 %{_kf5_archdatadir}/mkspecs/modules/qt_GrantleeTheme.pri
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

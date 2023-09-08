@@ -1,8 +1,8 @@
 %global srcname calcephpy
 
 Name:           python-%{srcname}
-Version:        3.5.2
-Release:        3%{?dist}
+Version:        3.5.3
+Release:        1%{?dist}
 Summary:        Astronomical library to access planetary ephemeris files
 
 License:        CECILL-2.0 OR CECILL-B OR CECILL-C
@@ -75,6 +75,10 @@ find doc -name .buildinfo -exec rm -f {} \;
 
 
 %changelog
+* Wed Sep 06 2023 Mattia Verga <mattia.verga@protonm.me> - 3.5.3-1
+- Update to 3.5.3 (fedora#2237640)
+- Fix compatibility with Cython 3.x (fedora#2226167)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

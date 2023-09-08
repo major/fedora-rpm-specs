@@ -12,7 +12,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -20,6 +20,8 @@ URL: http://mlir.llvm.org
 Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{mlir_srcdir}.tar.xz
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{mlir_srcdir}.tar.xz.sig
 Source2: release-keys.asc
+
+Patch1: 0001-mlir-python-Reuse-the-library-directory.patch
 
 # Support for i686 upstream is unclear with lots of tests failling.
 ExcludeArch: i686
@@ -33,6 +35,10 @@ BuildRequires: llvm-cmake-utils = %{version}
 BuildRequires: llvm-googletest = %{version}
 BuildRequires: llvm-test = %{version}
 BuildRequires: python3-lit
+BuildRequires: python3-devel
+BuildRequires: python3-numpy
+BuildRequires: python3-pybind11
+BuildRequires: python3-pyyaml
 
 # For origin certification
 BuildRequires: gnupg2
@@ -58,6 +64,14 @@ Requires: %{name}-static%{?_isa} = %{version}-%{release}
 
 %description devel
 MLIR development files.
+
+%package -n python3-%{name}
+Summary: MLIR python bindings
+Requires: python3
+Requires: python3-numpy
+
+%description -n python3-%{name}
+%{summary}
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -109,6 +123,7 @@ MLIR development files.
 %ifarch %ix86
         -DMLIR_RUN_X86VECTOR_TESTS:BOOL=OFF \
 %endif
+        -DMLIR_ENABLE_BINDINGS_PYTHON:BOOL=ON \
 %if 0%{?__isa_bits} == 64
         -DLLVM_LIBDIR_SUFFIX=64
 %else
@@ -120,10 +135,21 @@ export LD_LIBRARY_PATH=%{_builddir}/%{mlir_srcdir}/%{name}/%{_build}/%{_lib}
 
 %install
 %cmake_install
+mkdir -p %{buildroot}/%{python3_sitearch}
+mv %{buildroot}/usr/python_packages/mlir_core/mlir %{buildroot}/%{python3_sitearch}
+# These directories should be empty now.
+rmdir %{buildroot}/usr/python_packages/mlir_core %{buildroot}/usr/python_packages
+# Unneeded files.
+rm -rf %{buildroot}/usr/src/python
 
 %check
 # Remove tablegen tests, as they rely on includes from llvm/.
 rm -rf test/mlir-tblgen
+
+%ifarch s390x
+# s390x does not support half-float
+rm test/python/execution_engine.py
+%endif
 
 %ifarch %{ix86}
 # TODO: Test currently fails on i686.
@@ -165,7 +191,8 @@ rm -rf test/mlir-pdll-lsp-server/view-output.test
 %endif
 
 # Test execution normally relies on RPATH, so set LD_LIBRARY_PATH instead.
-export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
+export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}:%{buildroot}/%{python3_sitearch}/mlir/_mlir_libs
+export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %cmake_build --target check-mlir
 
 %files
@@ -199,7 +226,13 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_includedir}/mlir-c
 %{_libdir}/cmake/mlir
 
+%files -n python3-%{name}
+%{python3_sitearch}/mlir/
+
 %changelog
+* Tue Sep 05 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-3
+- Enable python bindings. Fixes rhbz#2221241
+
 * Mon Aug 28 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-2
 - Restrict link jobs on x86_64
 

@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate glycin
-%global crate_version 0.1.0-beta.4
+%global crate_version 0.1.0-rc
 
 Name:           rust-glycin
-Version:        0.1.0~beta.4
+Version:        0.1.0~rc
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 

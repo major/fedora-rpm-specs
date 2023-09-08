@@ -11,6 +11,9 @@
 %global enable_rdp 1
 %endif
 
+%global libei_version 1.0.901
+%global pipewire_version 0.3.49
+
 Name:           gnome-remote-desktop
 Version:        45.rc
 Release:        1%{?dist}
@@ -42,7 +45,7 @@ BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(libdrm)
-BuildRequires:  pkgconfig(libei-1.0)
+BuildRequires:  pkgconfig(libei-1.0) >= %{libei_version}
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libsecret-1)
@@ -54,7 +57,8 @@ BuildRequires:  pkgconfig(tss2-mu)
 BuildRequires:  pkgconfig(tss2-rc)
 BuildRequires:  pkgconfig(tss2-tctildr)
 
-Requires:       pipewire%{?_isa} >= 0.3.49
+Requires:       libei%{?_isa} >= %{libei_version}
+Requires:       pipewire%{?_isa} >= %{pipewire_version}
 
 Obsoletes:      vino < 3.22.0-21
 

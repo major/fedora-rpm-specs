@@ -19,7 +19,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.11.0 
+Version:        4.11.1
 Release:        1%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
@@ -161,6 +161,9 @@ k="${k-}${k+ and }not test_local_execute_write_a_lot"
 
 
 %changelog
+* Wed Sep 06 2023 Miro Hrončok <mhroncok@redhat.com> - 4.11.1-1
+- Update to 4.11.1 (rhbz#2236871)
+
 * Wed Aug 30 2023 Miro Hrončok <mhroncok@redhat.com> - 4.11.0-1
 - Update to 4.11.0 (rhbz#2189321)
 

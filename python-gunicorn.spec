@@ -7,7 +7,7 @@ speedy.}
 
 Name:           python-%{srcname}
 Version:        21.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python WSGI HTTP Server
 License:        MIT
 URL:            https://gunicorn.org/
@@ -30,6 +30,11 @@ BuildRequires:  make
 
 %description doc
 Documentation for the %{name} package.
+
+# There are a few extras that we're not creating subpackages for:
+# tornado: described upstream as "not recommended"
+# gthread: no additional dependencies
+%pyproject_extras_subpkg -n python3-%{srcname} gevent eventlet setproctitle
 
 %prep
 %autosetup -n %{srcname}-%{version} -p 1
@@ -65,6 +70,9 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 %doc docs/build/html/*
 
 %changelog
+* Wed Sep 06 2023 Carl George <carlwgeorge@fedoraproject.org> - 21.2.0-2
+- Add subpackages for gevent, eventlet, and setproctitle extras
+
 * Thu Aug 31 2023 Carl George <carlwgeorge@fedoraproject.org> - 21.2.0-1
 - Update to version 21.2.0, resolves rhbz#2223435
 

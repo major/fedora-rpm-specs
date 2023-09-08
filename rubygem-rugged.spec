@@ -2,7 +2,7 @@
 
 Summary:       Rugged is a Ruby binding to the libgit2 library
 Name:          rubygem-%{gem_name}
-Version:       1.6.3
+Version:       1.7.1
 Release:       1%{?dist}
 
 License:       MIT
@@ -73,6 +73,9 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 %doc %{gem_docdir}
 
 %changelog
+* Wed Sep 06 2023 Pete Walter <pwalter@fedoraproject.org> - 1.7.1-1
+- Update to 1.7.1 (rhbz#2237289)
+
 * Wed Aug 16 2023 Pete Walter <pwalter@fedoraproject.org> - 1.6.3-1
 - Update to 1.6.3 (rhbz#2179326)
 

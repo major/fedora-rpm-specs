@@ -31,6 +31,8 @@ Source0:        https://github.com/scidash/sciunit/archive/%{commit}/sciunit-%{s
 Source1:        https://github.com/scidash/scidash/archive/%{scidash_commit}/scidash-%{scidash_shortcommit}.tar.gz
 # getargspec -> getfullargspec
 Patch0:         https://github.com/scidash/sciunit/commit/6116e3517b792889cfe5144379a38dbf4769dfae.patch
+# Replace imp with importlib
+Patch1:         https://github.com/scidash/sciunit/commit/c00b21768edbe1cd734dd1c85f967e2fde136ec3.patch
 
 BuildArch:      noarch
 
@@ -81,6 +83,10 @@ sed -i '/def test_Versioned/i  \ \ \ \ @unittest.skip' sciunit/unit_test/base_te
 sed -i '/def test_versioned/i  \ \ \ \ @unittest.skip' sciunit/unit_test/utils_tests.py
 # https://github.com/scidash/sciunit/issues/211
 sed -i '/def test_source_check/i  \ \ \ \ @unittest.skip' sciunit/unit_test/model_tests.py
+# Disable tests failing in Python3.12
+# https://github.com/scidash/sciunit/issues/218
+sed -i '/def test_testsuite/i  \ \ \ \ @unittest.skip' sciunit/unit_test/test_tests.py
+sed -i '/def test_testsuite_set_verbose/i  \ \ \ \ @unittest.skip' sciunit/unit_test/test_tests.py
 PYTHONPATH=%{buildroot}/%{python3_sitelib} %{python3} -m sciunit.unit_test buffer
 %endif
 

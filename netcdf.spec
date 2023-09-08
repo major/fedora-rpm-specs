@@ -35,8 +35,8 @@ BuildRequires:  valgrind
 BuildRequires:  openssh-clients
 Requires:       hdf5%{?_isa} = %{_hdf5_version}
 
-%global with_mpich 1
-%global with_openmpi 1
+%global with_mpich %{undefined flatpak}
+%global with_openmpi %{undefined flatpak}
 
 %if %{with_mpich}
 %global mpi_list mpich
@@ -205,7 +205,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 popd
 
 # MPI builds
-for mpi in %{mpi_list}
+for mpi in %{?mpi_list}
 do
   mkdir $mpi
   pushd $mpi
@@ -238,7 +238,7 @@ done
 make -C build install DESTDIR=${RPM_BUILD_ROOT}
 chrpath --delete ${RPM_BUILD_ROOT}/%{_bindir}/nc{copy,dump,gen,gen3}
 /bin/rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
-for mpi in %{mpi_list}
+for mpi in %{?mpi_list}
 do
   module load mpi/$mpi-%{_arch}
   make -C $mpi install DESTDIR=${RPM_BUILD_ROOT}
@@ -264,7 +264,7 @@ make -C build check || ( cat build/*/test-suite.log && exit $fail )
 export OMPI_MCA_rmaps_base_oversubscribe=1
 # openmpi test hangs on armv7hl in h5_test after tst_h_rename
 %ifnarch armv7hl
-for mpi in %{mpi_list}
+for mpi in %{?mpi_list}
 do
   module load mpi/$mpi-%{_arch}
   make -C $mpi check || ( cat $mpi/*/test-suite.log && exit $fail )

@@ -9,8 +9,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: The KMbox Library
 
 License: LGPLv2+
@@ -83,12 +83,14 @@ make test ARGS="--output-on-failure --timeout 120" -C %{_target_platform} ||:
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_KMbox.pri
 %{_includedir}/KPim5/KMbox
-%{_kf5_libdir}/cmake/KF5Mbox/
 %{_kf5_libdir}/cmake/KPim5Mbox/
 %{_kf5_libdir}/libKPim5Mbox.so
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,8 +5,8 @@
 Summary: X.Org X11 libXi runtime library
 Name: libXi
 Version: 1.8.1
-Release: 2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
-License: MIT
+Release: 3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+License: MIT-open-group AND SMLNJ AND MIT
 URL: http://www.x.org
 
 %if 0%{?gitdate}
@@ -74,6 +74,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.8.1-3
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

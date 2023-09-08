@@ -14,8 +14,13 @@
 %else
 %bcond_with java
 %endif
+%if 0%{?flatpak}
+%bcond_with mpich
+%bcond_with openmpi
+%else
 %bcond_without mpich
 %bcond_without openmpi
+%endif
 # s390x on EL8 does not have xorg-x11-drv-dummy
 %if 0%{?rhel}
 %ifarch s390x

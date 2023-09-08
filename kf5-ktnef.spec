@@ -9,8 +9,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: The KTNef Library
 
 License: LGPLv2+
@@ -93,12 +93,14 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %files devel
 %{_includedir}/KPim5/KTNEF/
 %{_kf5_libdir}/libKPim5Tnef.so
-%{_kf5_libdir}/cmake/KF5Tnef/
 %{_kf5_libdir}/cmake/KPim5Tnef/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KTNef.pri
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,259 +1,114 @@
-%if 0%{?rhel} && 0%{?rhel} <= 7 && ! 0%{?epel}
-%bcond_with python3
-%else
-%bcond_without python3
-%endif
-
-%bcond_with python2
-
-%define debug_package %{nil}
-
 %define with_admin 1
 %define with_client 1
 %define with_django 1
-%define with_python2_django 1
 %define with_hub 1
 %define with_worker 1
 
-# Turn off Django support for EPEL 6 - Django 1.5 is not included
-%if 0%{?el6}
-%define with_admin 0
-%define with_django 0
-%define with_hub 0
-%endif
-
-# Use the python2-* packages for dependencies if possible,
-# as suggested by Fedora packaging guidelines; but these aren't
-# available for EPEL builds.
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%define python2_django python-django
-%define python2_rpm    rpm-python
-%else
-%if 0%{?fedora} >= 28
-%define python2_django python2-django1.11
-%else
-%define python2_django python2-django
-%endif
-%define python2_rpm    python2-rpm
-%endif
-
-# Django 2.0+ does not support python2
-%if 0%{?fedora} >= 30
-%define with_python2_django 0
-%endif
-
-%if ! 0%{?with_python2}
-%define with_python2_django 0
-%endif
-
-
 Name:           kobo
 Version:        0.30.1
-Release:        1%{?dist}
-License:        LGPLv2
+Release:        2%{?dist}
+License:        LGPL-2.1-only
 Summary:        Python modules for tools development
 URL:            https://github.com/release-engineering/kobo
 Source0:        %pypi_source
 
 BuildArch:      noarch
-%if 0%{?with_python2}
-BuildRequires:  python2-devel >= 2.4
-%endif
-%if 0%{?with_python3}
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%endif
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 %description
 Kobo is a set of python modules designed for rapid tools development.
 
-%if 0%{?with_python2}
-%package -n python2-%{name}
-Summary:        Python modules for tools development
-%{?python_provide:%python_provide python2-%{name}}
-Provides:       kobo = %{version}-%{release}
-Obsoletes:      kobo < 0.6.0-2
-Requires:       python2dist(six)
-
-%description -n python2-%{name}
-Kobo is a set of python modules designed for rapid tools development.
-%endif
-
-%if 0%{?with_django} && 0%{with_python2_django}
-%package -n python2-%{name}-django
-Summary:        Django components
-Requires:       python2-kobo = %{version}-%{release}
-Requires:       %{python2_django} >= 1.6
-%{?python_provide:%python_provide python2-%{name}-django}
-Provides:       kobo-django = %{version}-%{release}
-Obsoletes:      kobo-django < 0.6.0-2
-
-%description -n python2-%{name}-django
-Django components.
-%endif
-
-
-%if 0%{?with_client} && 0%{?with_python2}
-%package -n python2-%{name}-client
-Summary:        CLI client
-Requires:       python2-kobo = %{version}-%{release}
-%{?python_provide:%python_provide python2-%{name}-client}
-Provides:       kobo-client = %{version}-%{release}
-Obsoletes:      kobo-client < 0.6.0-2
-
-%description -n python2-%{name}-client
-CLI client.
-%endif
-
-
-%if 0%{?with_worker} && 0%{?with_python2}
-%package -n python2-%{name}-worker
-Summary:        Worker daemon processing tasks submitted to the hub
-Requires:       python2-kobo = %{version}-%{release}
-%{?python_provide:%python_provide python2-%{name}-worker}
-Provides:       kobo-worker = %{version}-%{release}
-Obsoletes:      kobo-worker < 0.6.0-2
-
-%description -n python2-%{name}-worker
-Worker daemon processing tasks submitted to the hub.
-%endif
-
-
-%if 0%{?with_hub} && 0%{with_python2_django}
-%package -n python2-%{name}-hub
-Summary:        Xml-rpc and web interface to a task database
-Requires:       python2-kobo = %{version}-%{release}
-Requires:       %{python2_django} >= 1.6
-Requires:       gzip
-%{?python_provide:%python_provide python2-%{name}-hub}
-Provides:       kobo-hub = %{version}-%{release}
-Obsoletes:      kobo-hub < 0.6.0-2
-
-%description -n python2-%{name}-hub
-Hub is a xml-rpc and web interface to a task database.
-%endif
-
-%if 0%{?with_python2}
-%package -n python2-%{name}-rpmlib
-Summary:        Functions to manipulate with RPM files
-Requires:       python2-kobo = %{version}-%{release}
-Requires:       %{python2_rpm}
-Requires:       python2-koji
-%{?python_provide:%python_provide python2-%{name}-rpmlib}
-Provides:       kobo-rpmlib = %{version}-%{release}
-Obsoletes:      kobo-rpmlib < 0.6.0-2
-
-%description -n python2-%{name}-rpmlib
-Rpmlib contains functions to manipulate with RPM files.
-%endif
-
 %if 0%{?with_admin}
 %package admin
 Summary:        Kobo admin script for instant project deployment
-%if 0%{?with_python3}
 Requires:       python3-%{name}-admin
-%else
-Requires:       python2-%{name}-admin
-%endif
 
 %description admin
 Kobo admin provides templates for various kobo-based projects,
 incl. CLI, hub client, worker and hub.
-
-%if 0%{with_python2_django}
-%package -n python2-%{name}-admin
-Summary:        Kobo admin script for instant project deployment
-Requires:       python2-kobo >= %{version}
-Requires:       %{python2_django} >= 1.6
-%{?python_provide:%python_provide python2-%{name}-admin}
-
-%description -n python2-%{name}-admin
-Python library for kobo-admin command.
-%endif
 %endif
 
-%if 0%{?with_python3}
-%package -n python%{python3_pkgversion}-%{name}
+%package -n python3-%{name}
 Summary:        Python modules for tools development
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 Requires:       %{py3_dist six}
+%py_provides    python3-%{name}
 
-%description -n python%{python3_pkgversion}-%{name}
+%description -n python3-%{name}
 Kobo is a set of python modules designed for rapid tools development.
 
 
 %if 0%{?with_django}
-%package -n python%{python3_pkgversion}-%{name}-django
+%package -n python3-%{name}-django
 Summary:        Django components
-Requires:       python%{python3_pkgversion}-kobo = %{version}-%{release}
-Requires:       python%{python3_pkgversion}-django >= 1.6
-Requires:       python%{python3_pkgversion}-setuptools
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-django}
+Requires:       python3-%{name} = %{version}-%{release}
+Requires:       python3-django >= 1.11
+Requires:       python3-setuptools
+%py_provides    python3-%{name}-django
 
-%description -n python%{python3_pkgversion}-%{name}-django
+%description -n python3-%{name}-django
 Django components.
 %endif
 
 
 %if 0%{?with_client}
-%package -n python%{python3_pkgversion}-%{name}-client
+%package -n python3-%{name}-client
 Summary:        CLI client
-Requires:       python%{python3_pkgversion}-kobo = %{version}-%{release}
-Requires:       python%{python3_pkgversion}-requests-gssapi
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-client}
+Requires:       python3-%{name} = %{version}-%{release}
+Requires:       python3-requests-gssapi
+%py_provides    python3-%{name}-client
 
-%description -n python%{python3_pkgversion}-%{name}-client
+%description -n python3-%{name}-client
 CLI client.
 %endif
 
 
 %if 0%{?with_worker}
-%package -n python%{python3_pkgversion}-%{name}-worker
+%package -n python3-%{name}-worker
 Summary:        Worker daemon processing tasks submitted to the hub
-Requires:       python%{python3_pkgversion}-kobo = %{version}-%{release}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-worker}
+Requires:       python3-%{name} = %{version}-%{release}
+%py_provides    python3-%{name}-worker
 
-%description -n python%{python3_pkgversion}-%{name}-worker
+%description -n python3-%{name}-worker
 Worker daemon processing tasks submitted to the hub.
 %endif
 
 
 %if 0%{?with_hub}
-%package -n python%{python3_pkgversion}-%{name}-hub
-Summary:        Xml-rpc and web interface to a task database
-Requires:       python%{python3_pkgversion}-kobo = %{version}-%{release}
-Requires:       python%{python3_pkgversion}-django >= 1.6
-Requires:       python%{python3_pkgversion}-setuptools
+%package -n python3-%{name}-hub
+Summary:        XML-RPC and web interface to a task database
+Requires:       python3-%{name} = %{version}-%{release}
+Requires:       python3-django >= 1.11
+Requires:       python3-setuptools
 Requires:       gzip
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-hub}
+%py_provides    python3-%{name}-hub
 
-%description -n python%{python3_pkgversion}-%{name}-hub
-Hub is a xml-rpc and web interface to a task database.
+%description -n python3-%{name}-hub
+Hub is a XML-RPC and web interface to a task database.
 %endif
 
 
-%package -n python%{python3_pkgversion}-%{name}-rpmlib
+%package -n python3-%{name}-rpmlib
 Summary:        Functions to manipulate with RPM files
-Requires:       python%{python3_pkgversion}-kobo = %{version}-%{release}
-Requires:       python%{python3_pkgversion}-rpm
-Requires:       python%{python3_pkgversion}-koji
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-rpmlib}
+Requires:       python3-%{name} = %{version}-%{release}
+Requires:       python3-rpm
+Requires:       python3-koji
+%py_provides    python3-%{name}-rpmlib
 
-%description -n python%{python3_pkgversion}-%{name}-rpmlib
+%description -n python3-%{name}-rpmlib
 Rpmlib contains functions to manipulate with RPM files.
 
 
 %if 0%{?with_admin}
-%package -n python%{python3_pkgversion}-%{name}-admin
+%package -n python3-%{name}-admin
 Summary:        Kobo admin script for instant project deployment
-Requires:       python%{python3_pkgversion}-kobo >= %{version}
-Requires:       python%{python3_pkgversion}-django >= 1.6
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-admin}
+Requires:       python3-%{name} >= %{version}
+Requires:       python3-django >= 1.11
+%py_provides    python3-%{name}-admin
 
-%description -n python%{python3_pkgversion}-%{name}-admin
+%description -n python3-%{name}-admin
 Python library for kobo-admin command.
 %endif
-%endif # with_python3
 
 
 %prep
@@ -262,122 +117,39 @@ Python library for kobo-admin command.
 
 
 %build
-%if 0%{?with_python2}
-%{py2_build}
-%endif
-%if 0%{?with_python3}
-%{py3_build}
-%endif
+%py3_build
 
 
 %install
-
-%if 0%{?with_python2}
-%{py2_install}
-%endif
-
-%if 0%{?with_python3}
-# only package python3 version of kobo-admin
-rm -rf $RPM_BUILD_ROOT/%{_bindir}/kobo-admin
-%{py3_install}
-%endif
+%py3_install
 
 %if ! 0%{?with_admin}
-rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/admin
-%if 0%{?with_python3}
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/admin
-%endif
 rm -rf $RPM_BUILD_ROOT/%{_bindir}/kobo-admin
 %endif
 
 %if ! 0%{?with_client}
-rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/client
-%if 0%{?with_python3}
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/client
-%endif
 %endif
 
 %if ! 0%{?with_django}
-rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/django
-%if 0%{?with_python3}
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/django
-%endif
 %endif
 
 %if ! 0%{?with_hub}
-rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/hub
-%if 0%{?with_python3}
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/hub
-%endif
 %endif
 
 %if ! 0%{?with_worker}
-rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/worker
-%if 0%{?with_python3}
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/worker
-%endif
-%endif
-
-%if ! 0%{with_python2_django}
-rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/django
-rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/admin
-rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/hub
-%endif
-
-
-%if 0%{?with_python2}
-%files -n python2-%{name}
-%dir %{python2_sitelib}/kobo
-%{python2_sitelib}/kobo/*.py*
-%exclude %{python2_sitelib}/kobo/rpmlib.py*
-%doc AUTHORS
-%license COPYING LICENSE
-%if "%{python2_version}" != "2.4"
-%{python2_sitelib}/%{name}-%{version}-py?.?.egg-info
-%endif
-%endif
-
-
-%if 0%{?with_django} && 0%{with_python2_django}
-%files -n python2-%{name}-django
-%{python2_sitelib}/kobo/django
-%endif
-
-
-%if 0%{?with_client} && 0%{?with_python2}
-%files -n python2-%{name}-client
-%{python2_sitelib}/kobo/client
-%endif
-
-
-%if 0%{?with_worker} && 0%{?with_python2}
-%files -n python2-%{name}-worker
-%{python2_sitelib}/kobo/worker
-%endif
-
-
-%if 0%{?with_hub} && 0%{with_python2_django}
-%files -n python2-%{name}-hub
-%{python2_sitelib}/kobo/hub
-%endif
-
-%if 0%{?with_python2}
-%files -n python2-%{name}-rpmlib
-%{python2_sitelib}/kobo/rpmlib.py*
 %endif
 
 %if 0%{?with_admin}
 %files admin
 %{_bindir}/kobo-admin
-
-%if 0%{with_python2_django}
-%files -n python2-%{name}-admin
-%{python2_sitelib}/kobo/admin
-%endif
 %endif
 
-%if 0%{?with_python3}
-%files -n python%{python3_pkgversion}-%{name}
+%files -n python3-%{name}
 %dir %{python3_sitelib}/kobo
 %{python3_sitelib}/kobo/*.py*
 %{python3_sitelib}/kobo/__pycache__
@@ -388,41 +160,43 @@ rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/hub
 
 
 %if 0%{?with_django}
-%files -n python%{python3_pkgversion}-%{name}-django
+%files -n python3-%{name}-django
 %{python3_sitelib}/kobo/django
 %endif
 
 
 %if 0%{?with_client}
-%files -n python%{python3_pkgversion}-%{name}-client
+%files -n python3-%{name}-client
 %{python3_sitelib}/kobo/client
 %endif
 
 
 %if 0%{?with_worker}
-%files -n python%{python3_pkgversion}-%{name}-worker
+%files -n python3-%{name}-worker
 %{python3_sitelib}/kobo/worker
 %endif
 
 
 %if 0%{?with_hub}
-%files -n python%{python3_pkgversion}-%{name}-hub
+%files -n python3-%{name}-hub
 %{python3_sitelib}/kobo/hub
 %endif
 
 
-%files -n python%{python3_pkgversion}-%{name}-rpmlib
+%files -n python3-%{name}-rpmlib
 %{python3_sitelib}/kobo/rpmlib.py*
 
 
 %if 0%{?with_admin}
-%files -n python%{python3_pkgversion}-%{name}-admin
+%files -n python3-%{name}-admin
 %{python3_sitelib}/kobo/admin
-%endif
 %endif
 
 
 %changelog
+* Wed Sep 06 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.30.1-2
+- modernize spec file
+
 * Mon Sep 04 2023 Pavel Simovec <psimovec@redhat.com> - 0.30.1-1
 - New upstream release 0.30.1
 

@@ -10,8 +10,8 @@
 #global tests 1
 
 Name:    konqueror
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: KDE File Manager and Browser
 
 License: GPLv2+ and LGPLv2+ and GFDL
@@ -192,6 +192,7 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf5_sysconfdir}/xdg/autostart/konqy_preload.desktop
 %{_kf5_sysconfdir}/xdg/translaterc
 %{_kf5_sysconfdir}/xdg/konqs*
+%{_kf5_sysconfdir}/xdg/useragenttemplatesrc
 %{_kf5_datadir}/konqsidebartng/
 %{_kf5_datadir}/kxmlgui5/fsview/
 
@@ -223,6 +224,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf5_libdir}/cmake/KF5Konq/
 %{_kf5_libdir}/libKF5Konq.so
 %{_kf5_libdir}/libkonqsidebarplugin.so
+%if 0%{?webengine}
+/usr/include/KF5/asyncselectorinterface.h
+%endif
 
 %if 0%{?webengine}
 %files -n kwebenginepart
@@ -233,8 +237,10 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf5_plugindir}/parts/webenginepart.so
 %endif
 
-
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

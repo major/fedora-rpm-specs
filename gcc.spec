@@ -1,11 +1,11 @@
-%global DATE 20230728
-%global gitrev 8a3e2d71f2a0309540e68c79dadd66a06ca3da73
+%global DATE 20230906
+%global gitrev d91ea9a1c7236c23fe896b4cb2b4f8130b92732c
 %global gcc_version 13.2.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
 %global gcc_release 2
-%global nvptx_tools_gitrev 93e00909ceb9cbbc104f0fcba56c0361ffb3ca4b
+%global nvptx_tools_gitrev aa3404ad5a496cda5d79a50bedb1344fd63e8763
 %global newlib_cygwin_gitrev 9e09d6ed83cce4777a5950412647ccc603040409
 %global _unpackaged_files_terminate_build 0
 %global _performance_build 1
@@ -375,7 +375,11 @@ Summary: GNU Standard C++ Library
 Autoreq: true
 Requires: glibc >= 2.10.90-7
 BuildRequires: tzdata >= 2017c
+%if 0%{?fedora} > 38 || 0%{?rhel} > 9
 Recommends: tzdata >= 2017c
+%else
+Requires: tzdata >= 2017c
+%endif
 
 %description -n libstdc++
 The libstdc++ package contains a rewritten standard compliant GCC Standard
@@ -3453,9 +3457,31 @@ end
 %endif
 
 %changelog
-* Mon Jul 31 2023 Patsy Griffin <patsy@redhat.com> 13.2.1-2
-- Allow for the optional removal of tzdata.
-- See https://fedoraproject.org/wiki/Changes/AllowRemovalOfTzdata
+* Wed Sep  6 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-2
+- update from releases/gcc-13 branch
+  - PRs c++/92407, c++/106310, c++/106652, c++/109678, c++/109751, c++/110197,
+	c++/110566, c++/110927, debug/111080, fortran/99326, fortran/102109,
+	fortran/102112, fortran/102190, fortran/102532, fortran/108961,
+	fortran/109684, fortran/109948, fortran/110825, libgcc/110956,
+	libstdc++/110593, libstdc++/110708, libstdc++/110719,
+	libstdc++/110807, libstdc++/110860, libstdc++/110862,
+	libstdc++/110917, libstdc++/110968, libstdc++/110970,
+	libstdc++/110974, libstdc++/110990, middle-end/111017, modula2/108119,
+	modula2/108344, modula2/109779, modula2/109810, modula2/109830,
+	modula2/109879, modula2/109908, modula2/109952, modula2/110003,
+	modula2/110019, modula2/110125, modula2/110126, modula2/110161,
+	modula2/110174, modula2/110189, modula2/110284, modula2/110631,
+	modula2/110779, modula2/110865, target/89835, target/109713,
+	target/109725, target/110220, target/110484, target/110741,
+	target/111010, target/111127, tree-optimization/110280,
+	tree-optimization/110702, tree-optimization/110914,
+	tree-optimization/111015, tree-optimization/111019,
+	tree-optimization/111039, tree-optimization/111070,
+	tree-optimization/111109
+
+* Mon Jul 31 2023 Patsy Griffin <patsy@redhat.com>
+- allow for the optional removal of tzdata
+  - see https://fedoraproject.org/wiki/Changes/AllowRemovalOfTzdata
 
 * Fri Jul 28 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-1
 - update from releases/gcc-13 branch

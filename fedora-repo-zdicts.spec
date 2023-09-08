@@ -1,13 +1,13 @@
 Name:           fedora-repo-zdicts
-Version:        2303.1
-Release:        2%{?dist}
+Version:        2309.1
+Release:        1%{?dist}
 Summary:        Zstd dictionaries for Fedora repository metadata
 License:        BSD-2-Clause
 URL:            https://pagure.io/fedora-repo-zdicts
 Source0:        https://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  /bin/bash
-BuildRequires: make
+BuildRequires:  make
  
 %description
 zchunk is a compressed file format that splits the file into independent
@@ -39,6 +39,9 @@ metadata to improve their compression.
 
 
 %changelog
+* Wed Sep 06 2023 Jonathan Dieter <jdieter@gmail.com> - 2309.1-1
+- Update with F39 dictionaries and drop F36 dictionaries
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2303.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

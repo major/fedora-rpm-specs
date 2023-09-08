@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.25
+Version: 12.26
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later 
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Sep 06 2023 Nick Clifron  <nickc@redhat.com> - 12.26-1
+- LLVM Plugin: Fix building with LLVM version 17.
+
 * Wed Aug 30 2023 Nick Clifron  <nickc@redhat.com> - 12.25-1
 - GCC Plugin: Enable string note format by default.
 

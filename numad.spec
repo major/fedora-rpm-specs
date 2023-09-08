@@ -2,7 +2,7 @@
 
 Name: numad
 Version: 0.5
-Release: 40.20150602git%{?dist}
+Release: 41.20150602git%{?dist}
 Summary: NUMA user daemon
 
 License: LGPL-2.1-only
@@ -13,6 +13,7 @@ URL: https://pagure.io/numad
 #   tar --exclude-vcs -cJf numad-0.5git.tar.xz numad-0.5git/
 Source0: %{name}-%{version}git.tar.xz
 Patch0: 0000-remove-conf.patch
+Patch1: 0001-numad_log-fix-buffer-overflow.patch
 
 Requires: systemd-units
 Requires(post): systemd-units
@@ -31,6 +32,7 @@ and memory to minimize memory latency and thus provide optimum performance.
 %prep
 %setup -q -n %{name}-%{version}git
 %patch0 -p1
+%patch1 -p1
 
 %build
 make CFLAGS="$RPM_OPT_FLAGS -std=gnu99" LDFLAGS="$RPM_LD_FLAGS -lpthread -lrt -lm"
@@ -60,6 +62,9 @@ install -p -m 644 numad.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 %systemd_postun numad.service
 
 %changelog
+* Wed Sep 06 2023 Lukas Nykryn <lnykryn@redhat.com> - 0.5-41.20150602git
+- fix buffer overflow
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-40.20150602git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

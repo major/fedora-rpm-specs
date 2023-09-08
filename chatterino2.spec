@@ -3,6 +3,7 @@ ExcludeArch: %{ix86}
 
 %global uuid com.chatterino.chatterino
 %global chatterino_git_commit a0f9310062721e742ccd1cc869e4cc40ef626c0f
+%global chatterino_git_shortcommit %(c=%{chatterino_git_commit}; echo ${c:0:7})
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
 # Git submodules
@@ -148,9 +149,11 @@ mv sanitizers-cmake-%{commit10}/* cmake/sanitizers-cmake
 
 
 %build
-GIT_COMMIT=%{chatterino_git_commit}
+export GIT_COMMIT=%{chatterino_git_commit}
+export GIT_HASH=%{chatterino_git_shortcommit}
+export GIT_RELEASE=%{version}
 %cmake \
-    -DCHATTERINO_GIT_COMMIT=%{chatterino_git_commit} \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DUSE_PRECOMPILED_HEADERS=0FF \
     -DUSE_SYSTEM_QTKEYCHAIN=ON \
     %{nil}

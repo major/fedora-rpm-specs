@@ -1,8 +1,9 @@
 %global pypi_name PyMuPDF
+%global module_name fitz
 
 Name:           python-%{pypi_name}
-Version:        1.22.5
-Release:        4%{?dist}
+Version:        1.23.3
+Release:        1%{?dist}
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 
 License:        AGPL-3.0-or-later
@@ -10,10 +11,12 @@ URL:            https://github.com/pymupdf/PyMuPDF
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 Patch0:         0001-fix-test_-font.patch
 Patch1:         0001-test_pixmap-adjust-to-turbojpeg.patch
+Patch2:         0001-unbreak-build-against-system-libraries.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-fonttools
 BuildRequires:  python3-pillow
+BuildRequires:  python3-pip
 BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-furo
@@ -43,7 +46,8 @@ quality.  With PyMuPDF you therefore can also access files with extensions
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
+# provide the importable module:
+%py_provides python3-%{module_name}
 
 %description -n python3-%{pypi_name} %_description
 
@@ -56,17 +60,19 @@ python-%{pypi_name}-doc contains documentation and examples for PyMuPDF
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p 1
-# Do not build again in install step
-sed -ie "/or 'install' in sys.argv/d" setup.py
 
 %build
+# generate debug symbols
+export PYMUPDF_SETUP_MUPDF_BUILD_TYPE='debug'
+# build against system mupdf:
 export PYMUPDF_SETUP_MUPDF_BUILD=''
-%py3_build
+# build original implementation only:
+export PYMUPDF_SETUP_IMPLEMENTATIONS='a'
+%pyproject_wheel
 sphinx-build docs docs_built
 
 %install
-%py3_install
-rm -f %{buildroot}%{_prefix}/README.md
+%pyproject_install
 
 %check
 # FIXME: Crashes with Aborted, corrupted double-linked list
@@ -78,13 +84,17 @@ rm -f %{buildroot}%{_prefix}/README.md
 
 %files -n python3-%{pypi_name}
 %license COPYING
-%{python3_sitearch}/fitz/
+%{python3_sitearch}/%{module_name}/
 %{python3_sitearch}/PyMuPDF*
 
 %files doc
 %doc docs_built/* README.md
 
 %changelog
+* Mon Sep 04 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.23.3-1
+- Update to new upstream release 1.23.3 (rhbz#2231206)
+- Switch to new pyproject packaging macros
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

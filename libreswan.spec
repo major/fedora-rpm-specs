@@ -44,6 +44,8 @@ Source4: https://download.libreswan.org/cavs/ikev1_psk.fax.bz2
 Source5: https://download.libreswan.org/cavs/ikev2.fax.bz2
 %endif
 
+Patch1: libreswan-4.12-libcap-ng.patch
+
 BuildRequires: audit-libs-devel
 BuildRequires: bison
 BuildRequires: curl-devel
@@ -213,6 +215,7 @@ certutil -N -d sql:$tmpdir --empty-password
 %changelog
 * Tue Sep 05 2023 Paul Wouters <paul.wouters@aiven.io - 4.12-2
 - Remove ipsec show and ipsec verify sub commands (not very useful, causes python requirement)
+- Patch for handling libcap-ng return values and fix capng_apply() call
 
 * Fri Aug 11 2023 Paul Wouters <paul.wouters@aiven.io - 4.12-1
 - Update to 4.12 for CVE-2023-38710, CVE-2023-38711 and CVE-2023-38712

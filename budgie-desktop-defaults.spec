@@ -1,6 +1,6 @@
 Name:           budgie-desktop-defaults
-Version:        0.4
-Release:        2%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 Summary:        Budgie Desktop Defaults for Fedora
 
 License:        CC-BY-SA-4.0
@@ -15,13 +15,14 @@ BuildRequires:  gnupg2
 BuildRequires:  meson
 Requires:       budgie-backgrounds
 Requires:       budgie-desktop
+Requires:       desktop-backgrounds-budgie
 Requires:       materia-gtk-theme
 Requires:       papirus-icon-theme
 Requires:       slick-greeter
 
 
 %description
-Budgie Desktop Defaults for Fedora .
+Budgie Desktop Defaults for Fedora.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -38,9 +39,12 @@ Budgie Desktop Defaults for Fedora .
 %doc README.md
 %license LICENSE
 %dir %{_datadir}/glib-2.0/schemas
-%{_datadir}/glib-2.0/schemas/90_budgie_*.gschema.override
+%{_datadir}/glib-2.0/schemas/10_budgie_*.gschema.override
 
 %changelog
+* Wed Sep 6 2023 Joshua Strobl <me@joshuastrobl.com> - 0.5.1-1
+- Update to 0.5.1 for schema rename and background removal
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

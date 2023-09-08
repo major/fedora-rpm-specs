@@ -1,8 +1,8 @@
 %global framework messagelib
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: KDE Message libraries
 
 License: GPLv2
@@ -88,8 +88,8 @@ Requires:       cmake(KF5Contacts)
 Requires:       cmake(KF5IdentityManagement)
 Requires:       cmake(KF5Libkleo)
 Requires:       cmake(KPim5MessageCore)
-Requires:       cmake(KF5Mime)
-Requires:       cmake(KF5PimCommon)
+Requires:       cmake(KPim5Mime)
+Requires:       cmake(KPim5PimCommon)
 Requires:       cmake(Qt5WebEngine)
 %description    devel
 %{summary}.
@@ -174,6 +174,9 @@ Requires:       cmake(Qt5WebEngine)
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

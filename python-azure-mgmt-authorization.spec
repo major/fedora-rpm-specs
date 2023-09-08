@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-authorization
 
 Name:           python-%{srcname}
-Version:        3.0.0
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Authorization Management Client Library for Python
 License:        MIT

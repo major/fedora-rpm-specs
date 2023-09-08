@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/facebook/netconsd
 
 Name:           netconsd
-Version:        0.2
+Version:        0.3
 Release:        %autorelease
 Summary:        The Netconsole Daemon
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://facebookmicrosites.github.io/netconsd
 Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 

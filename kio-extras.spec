@@ -6,8 +6,8 @@
 %endif
 
 Name:    kio-extras
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 License: GPLv2+
@@ -182,7 +182,6 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 %{_kf5_plugindir}/kded/smbwatcher.so
 %{_kf5_plugindir}/kfileitemaction/kactivitymanagerd_fileitem_linking_plugin.so
 %{_kf5_plugindir}/kfileitemaction/forgetfileitemaction.so
-%{_kf5_plugindir}/kio/about.so
 %{_kf5_plugindir}/kio/activities.so
 %{_kf5_plugindir}/kio/archive.so
 %{_kf5_plugindir}/kio/bookmarks.so
@@ -209,13 +208,16 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 %{_datadir}/kio_info/kde-info2html*
 
 %files devel
-%{_kf5_includedir}/*.h
+%{_includedir}/KioArchive/*.h
 # no soname symlink? --rex
 #{_kf5_libdir}/libkioarchive.so
 %{_kf5_libdir}/cmake/KioArchive/
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

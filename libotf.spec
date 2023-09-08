@@ -1,9 +1,9 @@
 Name:		libotf
 Version:	0.9.16
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A Library for handling OpenType Font
 
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 URL:            http://www.nongnu.org/m17n/
 Source0:        http://download.savannah.gnu.org/releases/m17n/%{name}-%{version}.tar.gz
 
@@ -67,6 +67,9 @@ rm $RPM_BUILD_ROOT/usr/bin/libotf-config
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Aug 03 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.9.16-2
+- migrate to SPDX license format
+
 * Tue Jul 25 2023 Mike FABIAN <mfabian@redhat.com> - 0.9.16-1
 - Update to 0.9.16
 

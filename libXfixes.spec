@@ -5,8 +5,8 @@
 Summary: X Fixes library
 Name: libXfixes
 Version: 6.0.0
-Release: 6%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
-License: MIT
+Release: 7%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+License: MIT AND HPND-sell-variant
 URL: http://www.x.org
 
 %if 0%{?gitdate}
@@ -67,6 +67,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/Xfixes.3*
 
 %changelog
+* Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 6.0.0-7
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

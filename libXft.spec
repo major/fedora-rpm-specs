@@ -1,8 +1,8 @@
 Summary: X.Org X11 libXft runtime library
 Name: libXft
 Version: 2.3.8
-Release: 3%{?dist}
-License: MIT
+Release: 4%{?dist}
+License: HPND-sell-variant
 URL: http://www.x.org
 
 Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
@@ -64,6 +64,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/Xft*.3*
 
 %changelog
+* Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 2.3.8-4
+- SPDX Migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

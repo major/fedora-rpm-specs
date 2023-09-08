@@ -1,12 +1,12 @@
 %global _hardened_build 1
-%global testsuite_ver 04397a
-%global clknetsim_ver ef2a7a
+%global testsuite_ver 6f7b1b
+%global clknetsim_ver a60048
 %global selinuxtype targeted
 %bcond_without selinux
 
 Name:		linuxptp
-Version:	4.0
-Release:	2%{?dist}
+Version:	4.1
+Release:	1%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -157,6 +157,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Wed Sep 06 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.1-1
+- update to 4.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

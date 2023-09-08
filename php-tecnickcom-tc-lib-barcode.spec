@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    2b87f7c63dfd05000445a202c1779aeb9eb4549d
+%global gh_commit    bbada6319c7999b51430408359af389cdc5442c8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.17.25
-Release:        2%{?dist}
+Version:        1.17.29
+Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
 License:        LGPL-3.0-or-later
@@ -146,6 +146,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep  6 2023 Remi Collet <remi@remirepo.net> - 1.17.29-1
+- update to 1.17.29 (no change)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

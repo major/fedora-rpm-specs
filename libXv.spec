@@ -5,8 +5,8 @@
 Summary: X.Org X11 libXv runtime library
 Name:    libXv
 Version: 1.0.11
-Release: 19%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
-License: MIT
+Release: 20%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+License: SMLNJ AND HPND-sell-variant
 URL: http://www.x.org
 
 %if 0%{?gitdate}
@@ -68,6 +68,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.0.11-20
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

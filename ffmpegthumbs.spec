@@ -1,6 +1,6 @@
 Name:    ffmpegthumbs
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: KDE ffmpegthumbnailer service
 
 License: GPL-2.0-or-later
@@ -52,9 +52,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 %files
 %license LICENSES/GPL-2.0-or-later.txt
-%{_kf5_qtplugindir}/ffmpegthumbs.so
-%dir %{_kf5_datadir}/kservices5
-%{_kf5_datadir}/kservices5/ffmpegthumbs.desktop
+%{_kf5_qtplugindir}/kf5/thumbcreator/ffmpegthumbs.so
 %dir %{_kf5_datadir}/config.kcfg
 %{_kf5_datadir}/config.kcfg/ffmpegthumbnailersettings5.kcfg
 %dir %{_kf5_datadir}/qlogging-categories5
@@ -63,6 +61,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

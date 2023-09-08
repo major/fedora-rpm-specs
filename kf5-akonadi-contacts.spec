@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: The Akonadi Contacts Library
 
 License: LGPLv2+
@@ -81,7 +81,7 @@ Provides:  kf5-akonadi-contact-devel = %{version}-%{release}
 Obsoletes: kdepim-apps-libs-devel < 20.11.90
 Requires:  cmake(KF5Akonadi)
 Requires:  cmake(KF5Contacts)
-Requires:  cmake(KF5GrantleeTheme)
+Requires:  cmake(KPim5GrantleeTheme)
 Recommends:  cmake(KF5CalendarCore)
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -124,15 +124,12 @@ xvfb-run -a \
 %{_kf5_libdir}/libKPim5AkonadiContact.so.*
 %{_kf5_libdir}/libKPim5ContactEditor.so.*
 %{_kf5_qtplugindir}/akonadi_serializer_*.so
-%{_kf5_qtplugindir}/pim5/kcms/kaddressbook/kcm_akonadicontact_actions.so
-%{_kf5_qtplugindir}/pim5/akonadi/contacts/plugins/categorieseditwidgetplugin.so
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_AkonadiContact.pri
 %{_kf5_archdatadir}/mkspecs/modules/qt_ContactEditor.pri
 %{_includedir}/KPim5/AkonadiContact/
 %{_includedir}/KPim5/AkonadiContactEditor/
-%{_kf5_libdir}/cmake/KF5AkonadiContact/
 %{_kf5_libdir}/cmake/KPim5AkonadiContact/
 %{_kf5_libdir}/cmake/KF5AkonadiContactEditor/
 %{_kf5_libdir}/cmake/KPim5ContactEditor/
@@ -141,6 +138,9 @@ xvfb-run -a \
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

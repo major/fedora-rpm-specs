@@ -11,8 +11,8 @@
 Name:    kdepim-runtime
 Summary: KDE PIM Runtime Environment
 Epoch:   1
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPLv2
 URL:     https://invent.kde.org/pim/%{name}
@@ -98,7 +98,7 @@ BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
 BuildRequires:  kf5-kldap-devel >= %{majmin_ver}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1662756
 Requires: libkgapi%{?_isa} >= %{majmin_ver}
-BuildRequires:  cmake(KF5PimCommon)
+BuildRequires:  cmake(KPim5PimCommon)
 
 BuildRequires:  cmake(Qca-qt5)
 
@@ -192,9 +192,13 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 # todo: enumerate akonadi config plugins -- rdieter
 %{_kf5_qtplugindir}/pim5/akonadi/config/
 %{_kf5_qtplugindir}/pim5/kcms/kaddressbook/kcm_ldap.so
+%{_kf5_qtplugindir}/pim5/mailtransport/mailtransport_akonadiplugin.so
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

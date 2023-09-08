@@ -1,6 +1,6 @@
 Name:           kpublictransport
-Version:        23.04.3
-Release:        2%{?dist}
+Version:        23.08.0
+Release:        1%{?dist}
 License:        BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
 Summary:        Library to assist with accessing public transport timetables and other data
 Url:            https://invent.kde.org/libraries/kpublictransport
@@ -56,6 +56,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf5_libdir}/*.so
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

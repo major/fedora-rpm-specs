@@ -10,7 +10,7 @@
 %global gh_project   mongo-c-driver
 %global libname      libmongoc
 %global libver       1.0
-%global up_version   1.24.3
+%global up_version   1.24.4
 #global up_prever    rc0
 # disabled as require a MongoDB server
 %bcond_with          tests
@@ -238,6 +238,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep  6 2023 Remi Collet <remi@remirepo.net> - 1.24.4-1
+- update to 1.24.4 (no change)
+
 * Thu Aug 17 2023 Remi Collet <remi@remirepo.net> - 1.24.3-1
 - update to 1.24.3
 

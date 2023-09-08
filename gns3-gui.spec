@@ -5,7 +5,7 @@
 
 Name:           gns3-gui
 Version:        2.2.42
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNS3 graphical user interface
 
 License:        GPLv3+
@@ -47,7 +47,7 @@ sed -i -r 's/setuptools>=60.8.1/setuptools>=59.6.0/' requirements.txt
 # Lower psutil>=5.8.0
 sed -i -r 's/psutil>=5.9.5/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/distro>=1.8.*/distro>=1.6.0/' requirements.txt
-sed -i -r 's/jsonschema>=4.17.3/jsonschema>=3.2.0/' requirements.txt
+sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
 
 # Disable update alerts
 sed -i 's/"check_for_update": True,/"check_for_update": False,/' gns3/settings.py
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Wed Sep  6 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.42-2
+- Fixed jsonschema requirement
+
 * Thu Aug 10 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.42-1
 - Update to 2.2.42
 

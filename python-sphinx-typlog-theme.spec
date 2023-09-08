@@ -13,6 +13,9 @@ License:        BSD-3-Clause
 URL:            https://github.com/typlog/sphinx-typlog-theme
 Source:         %{pypi_source}
 
+# Contributed upstream: https://github.com/typlog/sphinx-typlog-theme/pull/26
+Patch:          Ensure-compatibility-with-Sphinx-7.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -28,7 +31,7 @@ Requires:       python3dist(sphinx)
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires

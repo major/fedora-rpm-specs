@@ -23,8 +23,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.6~beta
-Release:        2%{?dist}
+Version:        3.6~rc
+Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
@@ -160,6 +160,9 @@ This package contains various miners and metadata extractors for tracker.
 
 
 %changelog
+* Wed Sep 06 2023 Kalev Lember <klember@redhat.com> - 3.6~rc-1
+- Update to 3.6.rc
+
 * Fri Aug 11 2023 Kalev Lember <klember@redhat.com> - 3.6~beta-2
 - Fix required tracker version
 

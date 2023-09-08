@@ -1,8 +1,8 @@
 %global framework      calendarsupport
 
 Name:    kf5-%{framework}
-Version: 23.04.3
-Release: 2%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 Summary: KDE PIM library for calendar and even handling
 
 License: LGPLv2+
@@ -32,13 +32,13 @@ BuildRequires:  cmake(KF5Akonadi)
 BuildRequires:  cmake(KF5AkonadiCalendar)
 BuildRequires:  cmake(KF5AkonadiMime)
 BuildRequires:  cmake(KF5AkonadiNotes)
-BuildRequires:  cmake(KF5Mime)
+BuildRequires:  cmake(KPim5Mime)
 BuildRequires:  cmake(KF5Codecs)
-BuildRequires:  cmake(KF5CalendarUtils)
 BuildRequires:  cmake(KF5CalendarCore)
 BuildRequires:  cmake(KF5IdentityManagement)
 BuildRequires:  cmake(KF5Holidays)
-BuildRequires:  cmake(KF5PimCommon)
+BuildRequires:  cmake(KPim5CalendarUtils)
+BuildRequires:  cmake(KPim5PimCommon)
 
 #global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global majmin_ver %{version}
@@ -103,6 +103,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,6 +5,7 @@ Summary: X.Org X11 libfontenc runtime library
 Name: libfontenc
 Version: 1.1.6
 Release: 3%{?dist}
+# SPDX
 License: MIT
 URL: http://www.x.org
 Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz

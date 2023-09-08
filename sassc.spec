@@ -3,7 +3,7 @@
 
 Name:           sassc
 Version:        3.6.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Wrapper around libsass to compile CSS stylesheet
 
 License:        MIT
@@ -75,6 +75,9 @@ ruby sass-spec/sass-spec.rb -c ./%{name} --impl libsass sass-spec/spec
 
 
 %changelog
+* Wed Sep 06 2023 Leigh Scott <leigh123linux@gmail.com> - 3.6.2-8
+- Disable tests
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
