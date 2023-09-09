@@ -1,9 +1,15 @@
 %bcond_without check
 
+%if 0%{?rhel}
+%global bundled_rust_deps 1
+%else
+%global bundled_rust_deps 0
+%endif
+
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin-loaders
-Version:        0.1~beta.4
+Version:        0.1~rc
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
@@ -32,6 +38,11 @@ Source0:        https://download.gnome.org/sources/glycin-loaders/0.1/glycin-loa
 Patch:          image-rs-missing-decoders.patch
 # libheif and jxl rust wrappers aren't packaged yet
 Patch:          disable-jxl-and-heif-loaders.patch
+# Fedora currently has librsvg 2.57.0-beta.2
+Patch:          use-librsvg-2.57.0-beta.2.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  git-core
@@ -45,16 +56,24 @@ Sandboxed and extendable image decoding.
 %prep
 %autosetup -p1 -n glycin-loaders-%{tarball_version}
 
+%if ! 0%{?bundled_rust_deps}
 rm -rf vendor
 %cargo_prep
+%endif
 
 
+%if ! 0%{?bundled_rust_deps}
 %generate_buildrequires
 %cargo_generate_buildrequires
+%endif
 
 
 %build
-%meson -Dloaders=glycin-image-rs,glycin-svg
+%meson \
+  -Dloaders=glycin-image-rs,glycin-svg \
+  -Dtest_skip_install=true \
+  %{nil}
+
 %meson_build
 
 %cargo_license_summary

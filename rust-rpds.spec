@@ -5,7 +5,7 @@
 %global crate rpds
 
 Name:           rust-rpds
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Persistent data structures with structural sharing
 
@@ -14,12 +14,7 @@ URL:            https://crates.io/crates/rpds
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # - remove criterion dependency
-# - bump archery dependency
 Patch:          rpds-fix-metadata.diff
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# Also i686 is FTB because of tests failing due to precision errors
-ExcludeArch:    %{ix86}
 
 BuildRequires:  rust-packaging >= 21
 

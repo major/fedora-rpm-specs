@@ -1,25 +1,26 @@
-# "Monkey's Audio Source Code License Agreement" needs to be vetted
-%bcond_with mac
-
-%if 0%{with mac}
-%global with_mac  --with-mac
-%endif
+%global forgeurl https://github.com/jeremyevans/aqualung
 
 # We need -fcommon for this to build
 %define _legacy_common_support 1
 
 Name:           aqualung
 Version:        1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPL-2.0-or-later
-URL:            http://aqualung.jeremyevans.net/
-Source:         https://github.com/jeremyevans/aqualung/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://aqualung.jeremyevans.net
+Source:         %{forgeurl}/archive/%{version}/%{name}-%{version}.tar.gz
 Source:         %{name}.desktop
-# Fix MAC decoder build
-Patch:          aqualung-ALT-new_mac.patch
-# C11 build fixes
-Patch:          aqualung-ALT-C11.patch
+# Add more supported formats to FFmpeg decoder
+Patch:          %{forgeurl}/commit/0ecc6721d5078c0bc9cae771d485c8d676443c23.patch
+# Add support for recent versions of Monkey's Audio
+Patch:          %{forgeurl}/commit/a991c13d0df734a5d0fea7db6b181176858f3e58.patch
+# Fix the Monkey's Audio decoder to work with current Monkey's Audio
+Patch:          %{forgeurl}/commit/d2c88317b6042a05c236faf3c09f600337c6379e.patch
+# Remove now unnecessary glib include in mac decoder
+Patch:          %{forgeurl}/commit/1c2a295a72e1e3abc6df40714d9753e311541550.patch
+# Add platform define when enabling mac
+Patch:          %{forgeurl}/pull/34.patch
 
 # autogen.sh
 BuildRequires:  autoconf
@@ -55,9 +56,7 @@ BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(mad)
 BuildRequires:  pkgconfig(libmodplug)
 BuildRequires:  libmpcdec-devel
-%if %{with mac}
-BuildRequires:  pkgconfig(mac)
-%endif
+BuildRequires:  mac-devel
 BuildRequires:  ffmpeg-free-devel
 BuildRequires:  lame-devel
 BuildRequires:  pkgconfig(wavpack)
@@ -104,11 +103,7 @@ sed -i 's@/usr/lib/@%{_libdir}/@g' src/plugin.c
     --with-mpeg \
     --with-mod \
     --with-mpc \
-%if 0%{with mac}
     --with-mac \
-%else
-    --without-mac \
-%endif
     --with-lavc \
     --with-lame \
     --with-wavpack \
@@ -201,6 +196,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Tue Sep 05 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 1.2-4
+- Unconditionally enable Monkey's Audio support
+- Add upstream backports:
+  - Add more supported formats to FFmpeg decoder
+  - Add support for recent versions of Monkey's Audio
+  - Fix the Monkey's Audio decoder to work with current Monkey's Audio
+  - Remove now unnecessary glib include in mac decoder
+- Backport upstream PR#34 to fix a build issue with Monkey's Audio
+- Drop obsolete patches
+
 * Fri Aug 04 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 1.2-3
 - Convert license tag to SPDX
 - Rework specfile to follow the Fedora packaging guidelines

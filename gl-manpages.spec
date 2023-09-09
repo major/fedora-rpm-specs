@@ -5,10 +5,10 @@
 
 Name:           gl-manpages
 Version:        1.1
-Release:        28.%{codate}%{?dist}
+Release:        29.%{codate}%{?dist}
 Summary:        OpenGL manpages
 
-License:        MIT and Open Publication
+License:        Apache-2.0 AND HPND AND HPND-sell-variant AND MIT AND OpenPBS-2.3 AND SGI-B-1.1 AND SGI-B-2.0 AND W3C-19980720 AND X11
 URL:            https://github.com/KhronosGroup/OpenGL-Refpages
 Source0:        https://github.com/KhronosGroup/OpenGL-Refpages/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # FIXME: Bundle mathml and the Oasis dbmathl until they are packaged
@@ -71,6 +71,9 @@ find $RPM_BUILD_ROOT%{_mandir}/man3/ -type f -size -100b | xargs sed -i -e 's/\.
 
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.1-29.20190306
+- SPDX Migration
+
 * Thu Jul 20 2023 Yanko Kaneti <yaneti@declera.com> - 1.1-28.20190306
 - Adjust for recent changes in behavior in coreutils cp --no-clobber
 

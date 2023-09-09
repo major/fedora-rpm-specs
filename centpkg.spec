@@ -4,24 +4,25 @@
 %endif
 
 Name:           centpkg
-Version:        0.8.0
-Release:        1%{?dist}
+Version:        0.8.1
+Release:        2%{?dist}
 Summary:        CentOS utility for working with dist-git
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
 Source0:        %{url}/archive/%{version}/centpkg-%{version}.tar.gz
+# https://git.centos.org/centos/centpkg/issue/89
+Patch1:         0001-Mark-fork-tests-as-expected-failures.patch
 BuildArch:      noarch
 
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-gitlab
-BuildRequires:  python3-pytz
 BuildRequires:  python3-setuptools
+# runtime requirements for test suite
+BuildRequires:  python3-cryptography
+BuildRequires:  python3-GitPython
+BuildRequires:  python3-gitlab
+BuildRequires:  python3-pycurl
+BuildRequires:  python3-rpkg >= 1.6.5
 BuildRequires:  python3-six
-BuildRequires:  python3-rpkg
-# Auto dependencies are not showing the version.
-Requires:       python3-rpkg >= 1.65
-Requires:       python3-gitlab
 
 # /etc/koji.conf.d/stream.conf was previously part of streamkoji
 Conflicts:      streamkoji < 1.1-3
@@ -58,6 +59,10 @@ install -D -p -m 0644 src/centpkg.bash     %{buildroot}%{_datadir}/bash-completi
 install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
+%check
+PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verbose
+
+
 %files
 %license COPYING
 %doc README.md
@@ -76,6 +81,14 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Thu Sep 07 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.8.1-2
+- Sync dependencies
+- Enable test suite
+- Switch to SPDX license identifier
+
+* Thu Sep 07 2023 Troy Dawson <tdawson@redhat.com> - 0.8.1-1
+- Add the --rhel-target none option (Issue: 79)
+
 * Mon Aug 28 2023 Troy Dawson <tdawson@redhat.com> - 0.8.0-1
 - Update stabilization phase detection (CS-1726)
 - Correctly clone tests/* (CS-1725)

@@ -1,8 +1,8 @@
-%global rc -rc.0
+%global rc %{nil}
 
 Name:           srt
 Version:        1.5.3
-Release:        0.rc0%{?dist}
+Release:        1%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
 License:        MPLv2.0
@@ -88,6 +88,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Thu Sep  7 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.3-1
+- Update to 1.5.3
+
 * Mon Aug 21 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.3-0.rc0
 - Update to 1.5.3-rc0
 

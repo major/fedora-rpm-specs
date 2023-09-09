@@ -1,9 +1,9 @@
 Name:           tellico
-Version:        3.4.6
-Release:        2%{?dist}
+Version:        3.5.1
+Release:        1%{?dist}
 Summary:        A collection manager
 
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            http://tellico-project.org/
 Source0:        http://tellico-project.org/files/tellico-%{version}.tar.xz
 
@@ -104,7 +104,6 @@ sed \
 %{_kf5_datadir}/config.kcfg/tellico_config.kcfg
 %{_kf5_datadir}/kxmlgui5/tellico/
 %{_sysconfdir}/xdg/tellicorc
-%{_kf5_datadir}/knsrcfiles/tellico-script.knsrc
 %{_kf5_datadir}/knsrcfiles/tellico-template.knsrc
 %{_kf5_datadir}/icons/hicolor/*/*/*
 %{_kf5_datadir}/mime/packages/tellico.xml
@@ -112,6 +111,10 @@ sed \
 
 
 %changelog
+* Thu Sep  7 2023 José Matos <jamatos@fedoraproject.org> - 3.5.1-1
+- Update to 3.5.1
+- Update SPDX license identifier
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

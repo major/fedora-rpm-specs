@@ -8,8 +8,41 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.4.7
-Release: 7%{?dist}
-License: GPLv2+ and LGPLv2+ and GFDL
+Release: 8%{?dist}
+
+# To help future rebase, the following licenses were seen in the following files/folders:
+# '*' is anything that was not explicitly listed earlier in the folder
+#
+# From libtool package:
+# usr/bin/:
+#  libtool - GPL-2.0-or-later WITH Libtool-exception AND MIT
+#  libtoolize - GPL-2.0-or-later AND MIT
+# usr/share/:
+#  aclocal/* - FSFULLR
+#  doc/libtool:
+#    AUTHORS - GPL-2.0-or-later
+#    * - FSFAP
+#  info/* - GFDL-1.3-or-later
+#  libtool/build-aux/:
+#    {compile,depcomp,missing} - GPL-2.0-or-later WITH Autoconf-exception-generic
+#    config.{guess,sub} - GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+#    install-sh - X11 AND LicenseRef-Fedora-public-domain
+#    ltmain.sh - GPL-2.0-or-later WITH Libtool-exception AND MIT
+# usr/share/man/man1/*: generated from usr/bin/libtool{,ize} using help2man
+#
+# From libtool-ltdl package:
+# usr/lib64/
+#  * - LGPL-2.0-or-later WITH Libtool-exception
+#
+# From libtool-ltdl-devel package:
+# usr/include/* - LGPL-2.0-or-later WITH Libtool-exception
+# usr/share/:
+#  README - FSFAP
+#  {*.c,*.h,Makefile.am,configure.ac,ltdl.mk} - LGPL-2.0-or-later WITH Libtool-exception
+#  Makefile.in - FSFULLRWD
+#  aclocal.m4 - FSFULLR AND FSFULLRWD
+#  configure - FSFUL
+License: GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-2.0-or-later WITH Libtool-exception AND LGPL-2.0-or-later WITH Libtool-exception AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND MIT AND FSFAP AND FSFULLR AND FSFULLRWD AND GFDL-1.3-or-later AND X11 AND LicenseRef-Fedora-public-domain
 URL:     http://www.gnu.org/software/libtool/
 
 Source:  http://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.xz
@@ -171,6 +204,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Tue Aug 08 2023 Frederic Berat <fberat@redhat.com> - 2.4.7-8
+- Migrate to SPDX licenses (#2222091).
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
-%global commit 9f96bbdef5cb19daf58449f0fbb597af6fc4c2eb
+%global commit 4b2787b8894c4a70c42d15c2808d7cf278cb6abb
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20220504
+%global date 20230506
 
 Name: awesome-vim-colorschemes
 Version: 0

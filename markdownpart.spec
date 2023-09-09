@@ -2,7 +2,7 @@
 
 Name:           markdownpart
 Summary:        Markdown KPart
-Version:        23.04.3
+Version:        23.08.0
 Release:        %autorelease
 License:        LGPL-2.1-or-later
 URL:            https://apps.kde.org/categories/utilities/

@@ -105,9 +105,9 @@ env NOCONFIGURE=1 ./autogen.sh
            --enable-gtk-doc \
            --with-selinux \
            --with-curl \
-           --with-soup3 \
            --with-openssl \
            --with-composefs \
+           %{?with_tests:--with-soup3} \
            %{?with_tests:--enable-installed-tests=exclusive} \
            --with-dracut=yesbutnoconf
 %make_build

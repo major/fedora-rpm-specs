@@ -5,7 +5,7 @@
 %global crate enumn
 
 Name:           rust-enumn
-Version:        0.1.11
+Version:        0.1.12
 Release:        %autorelease
 Summary:        Convert number to enum
 

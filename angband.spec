@@ -1,6 +1,6 @@
 Name:    angband
-Version: 4.2.4
-Release: 6%{?dist}
+Version: 4.2.5
+Release: 1%{?dist}
 Summary: Popular roguelike role playing game
 
 License: GPLv2
@@ -15,11 +15,11 @@ Source1: generate-tarball.sh
 # The fix-restricted.patch file is used by generate-tarball.sh to fix
 # the source to work without the restricted assets.
 Source2: fix-restricted.patch
-Source3: angband.desktop
-Source4: angband.metainfo.xml
 
-# https://github.com/angband/angband/pull/5186
+# Specific Fedora restriction on chown usage during install process
 Patch0: angband-4.2.4-1-chown_fix.patch
+# https://github.com/angband/angband/pull/5751
+Patch1: angband-4.2.5-1-desktop_fix.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -75,8 +75,7 @@ iconv -f iso8859-1 -t utf-8 \
     --with-setgid=games \
     --with-gamedata-in-lib \
     --enable-sdl2 \
-    --enable-sdl2-mixer \
-    --disable-x11
+    --enable-sdl2-mixer
 %make_build
 
 
@@ -88,25 +87,16 @@ install -d $RPM_BUILD_ROOT/%{_var}/games/%{name}/archive
 install -d $RPM_BUILD_ROOT/%{_var}/games/%{name}/save
 install -d $RPM_BUILD_ROOT/%{_var}/games/%{name}/panic
 
+# Install both x11 and sdl2 desktop files
+rm ${RPM_BUILD_ROOT}%{_datadir}/applications/angband.desktop
 desktop-file-install \
     --dir ${RPM_BUILD_ROOT}%{_datadir}/applications \
-    %{SOURCE3}
-
-mkdir -p ${RPM_BUILD_ROOT}%{_metainfodir}/
-install -p -m 644 %{SOURCE4} ${RPM_BUILD_ROOT}%{_metainfodir}/angband.metainfo.xml
+    lib/icons/angband-sdl2.desktop
+desktop-file-install \
+    --dir ${RPM_BUILD_ROOT}%{_datadir}/applications \
+    lib/icons/angband-x11.desktop
 appstream-util validate-relax --nonet \
     ${RPM_BUILD_ROOT}%{_metainfodir}/angband.metainfo.xml
-
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/16x16/apps/
-install -p -m 644 lib/icons/att-16.png $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/16x16/apps/angband.png
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/32x32/apps/
-install -p -m 644 lib/icons/att-32.png $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/32x32/apps/angband.png
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/128x128/apps/
-install -p -m 644 lib/icons/att-128.png $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/128x128/apps/angband.png
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/256x256/apps/
-install -p -m 644 lib/icons/att-256.png $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/256x256/apps/angband.png
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/512x512/apps/
-install -p -m 644 lib/icons/att-512.png $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/512x512/apps/angband.png
 
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man6/
 install -p -m 644 src/angband.man $RPM_BUILD_ROOT%{_mandir}/man6/angband.6
@@ -144,6 +134,11 @@ install -p -m 644 src/angband.man $RPM_BUILD_ROOT%{_mandir}/man6/angband.6
 
 
 %changelog
+* Thu Sep 7 2023 Diego Herrera <dherrera@redhat.com> 4.2.5-1
+- Updated version to 4.2.5
+- Upstreamed assets
+- Enable x11 support
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -160,7 +155,7 @@ install -p -m 644 src/angband.man $RPM_BUILD_ROOT%{_mandir}/man6/angband.6
 - Removed scalable image
 
 * Tue Feb 22 2022 Diego Herrera <dherrera@redhat.com> 4.2.4-1
-- Updated to version to 4.2.4
+- Updated version to 4.2.4
 - Removed upstreamed patches
 - Added metainfo file
 

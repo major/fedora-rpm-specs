@@ -1,6 +1,6 @@
 Summary: Gamerzilla GObject Introspection Library
 Name: gamerzillagobj
-Version: 0.1.0
+Version: 0.1.1
 Release: %autorelease
 License: zlib
 URL: https://github.com/dulsi/gamerzillagobj

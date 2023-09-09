@@ -7,7 +7,7 @@
 
 Name:    kio-extras
 Version: 23.08.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 License: GPLv2+
@@ -66,6 +66,8 @@ BuildRequires:  OpenEXR-devel
 BuildRequires:  openslp-devel
 BuildRequires:  perl-generators
 BuildRequires:  phonon-qt5-devel
+BuildRequires:  pkgconfig(libimobiledevice-1.0)
+BuildRequires:  pkgconfig(libplist-2.0)
 BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(shared-mime-info)
 BuildRequires:  pkgconfig(xcursor)
@@ -171,6 +173,7 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 %{_kf5_datadir}/kservices5/*.desktop
 %{_kf5_datadir}/kservicetypes5/thumbcreator.desktop
 %{_kf5_datadir}/qlogging-categories5/%{name}*
+%{_kf5_datadir}/solid/actions/solid_afc.desktop
 %{_kf5_datadir}/solid/actions/solid_mtp.desktop
 
 %{_kf5_libdir}/libkioarchive.so.5*
@@ -183,6 +186,7 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 %{_kf5_plugindir}/kfileitemaction/kactivitymanagerd_fileitem_linking_plugin.so
 %{_kf5_plugindir}/kfileitemaction/forgetfileitemaction.so
 %{_kf5_plugindir}/kio/activities.so
+%{_kf5_plugindir}/kio/afc.so
 %{_kf5_plugindir}/kio/archive.so
 %{_kf5_plugindir}/kio/bookmarks.so
 %{_kf5_plugindir}/kio/filter.so
@@ -215,6 +219,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Thu Sep 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 23.08.0-2
+- Enable Apple File Conduit (AFC) support
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

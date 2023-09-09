@@ -15,13 +15,13 @@
 
 # Commit IDs for the (unversioned) redis-doc repository
 # https://fedoraproject.org/wiki/Packaging:SourceURL "Commit Revision"
-%global doc_commit 47e506c203cb876141d195429b45c01a52f62650
+%global doc_commit b91cd8b4a3c979e21ae0b1502c80543713a470ea
 %global short_doc_commit %(c=%{doc_commit}; echo ${c:0:7})
 
 # %%{rpmmacrodir} not usable on EL-6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%global upstream_ver 7.2.0
+%global upstream_ver 7.2.1
 #global upstream_pre rc3
 
 Name:              redis
@@ -307,6 +307,9 @@ fi
 
 
 %changelog
+* Thu Sep  7 2023 Remi Collet <remi@remirepo.net> - 7.2.1-1
+- Upstream 7.2.1 release
+
 * Mon Aug 21 2023 Remi Collet <remi@remirepo.net> - 7.2.0-1
 - Upstream 7.2 release
 

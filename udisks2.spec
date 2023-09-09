@@ -23,8 +23,8 @@
 
 Name:    udisks2
 Summary: Disk Manager
-Version: 2.10.0
-Release: 2%{?dist}
+Version: 2.10.1
+Release: 1%{?dist}
 License: GPLv2+
 URL:     https://github.com/storaged-project/udisks
 Source0: https://github.com/storaged-project/udisks/releases/download/udisks-%{version}/udisks-%{version}.tar.bz2
@@ -74,17 +74,17 @@ Requires: libatasmart >= %{libatasmart_version}
 # For mount, umount, mkswap
 Requires: util-linux
 # For mkfs.ext3, mkfs.ext3, e2label
-Requires: e2fsprogs
+Recommends: e2fsprogs
 # For mkfs.xfs, xfs_admin
-Requires: xfsprogs
+Recommends: xfsprogs
 # For mkfs.vfat
-Requires: dosfstools
+Recommends: dosfstools
 # For exfat
-Requires: exfatprogs
+Recommends: exfatprogs
 # For UDF
-Requires: udftools
+Recommends: udftools
 # For ejecting removable disks
-Requires: eject
+Recommends: eject
 # For utab monitor
 Requires: libmount
 # The actual polkit agent
@@ -92,16 +92,17 @@ Requires: polkit >= %{polkit_version}
 
 # For mkntfs (not available on rhel or on ppc/ppc64) and f2fs
 %if %{is_fedora}
-Requires: f2fs-tools
-Requires: nilfs-utils
+Recommends: f2fs-tools
+Recommends: nilfs-utils
 %ifnarch ppc ppc64
-Requires: ntfsprogs
+Recommends: ntfsprogs
 %endif
 %endif
+Recommends: ntfs-3g
 
 # btrfs
 %if 0%{?with_btrfs}
-Requires: btrfs-progs
+Recommends: btrfs-progs
 %endif
 
 Provides:  storaged = %{version}-%{release}
@@ -189,6 +190,9 @@ This package contains module for LSM configuration.
 %prep
 %autosetup -p1 -n udisks-%{version}
 rm -f src/tests/dbus-tests/config_h.py
+rm -f src/udisks-daemon-resources.{c,h}
+# default to ntfs-3g (#2182206)
+sed -i data/builtin_mount_options.conf -e 's/ntfs_drivers=ntfs3,ntfs/ntfs_drivers=ntfs,ntfs3/'
 
 %build
 # autoreconf -ivf
@@ -328,6 +332,11 @@ fi
 %endif
 
 %changelog
+* Thu Sep 07 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.10.1-1
+- Version 2.10.1
+- Default to ntfs-3g for stability reasons (#2182206)
+- Use Recommends: for filesystem tools (#2169848)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

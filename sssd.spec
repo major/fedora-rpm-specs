@@ -42,17 +42,14 @@
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version}-%{release})
 
 Name: sssd
-Version: 2.9.1
-Release: 4%{?dist}
+Version: 2.9.2
+Release: 1%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
-Source0: https://github.com/SSSD/sssd/releases/download/2.9.1/sssd-2.9.1.tar.gz
+Source0: https://github.com/SSSD/sssd/releases/download/2.9.2/sssd-2.9.2.tar.gz
 
 ### Patches ###
-Patch0001: 0001-BUILD-Accept-krb5-1.21-for-building-the-PAC-plugin.patch
-Patch0002: 0002-sssct-allow-cert-show-and-cert-eval-rule-as-non-root.patch
-Patch0003: 0003-certmap-fix-partial-string-comparison.patch
 
 ### Dependencies ###
 
@@ -1061,6 +1058,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Thu Sep 07 2023 Pavel Březina <pbrezina@redhat.com> - 2.9.2-1
+- Rebase to SSSD 2.9.2
+
 * Tue Aug 15 2023 Alexey Tikhonov <atikhono@redhat.com> - 2.9.1-4
 - Resolves sss_certmap_test fail
 

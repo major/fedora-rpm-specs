@@ -1,5 +1,5 @@
 Name: tmt
-Version: 1.26.1
+Version: 1.27.0
 Release: 1%{?dist}
 
 Summary: Test Management Tool
@@ -16,12 +16,6 @@ URL: https://github.com/teemtee/tmt
 Source0: https://github.com/teemtee/tmt/releases/download/%{version}/tmt-%{version}.tar.gz
 
 %define workdir_root /var/tmp/tmt
-
-# Hint for shebang fixer, otherwise uses /usr/bin/python3
-# which can be changed by user
-%if 0%{?rhel} == 8
-%global __python3 /usr/bin/python3.6
-%endif
 
 # Main tmt package requires the Python module
 Requires: python%{python3_pkgversion}-%{name} == %{version}-%{release}
@@ -44,16 +38,15 @@ BuildRequires: python%{python3_pkgversion}-pytest
 BuildRequires: python%{python3_pkgversion}-click
 BuildRequires: python%{python3_pkgversion}-fmf >= 1.2.0
 BuildRequires: python%{python3_pkgversion}-requests
-BuildRequires: python%{python3_pkgversion}-testcloud >= 0.9.2
+BuildRequires: python%{python3_pkgversion}-testcloud >= 0.9.10
 BuildRequires: python%{python3_pkgversion}-markdown
 BuildRequires: python%{python3_pkgversion}-junit_xml
 BuildRequires: python%{python3_pkgversion}-ruamel-yaml
 BuildRequires: python%{python3_pkgversion}-jinja2
-# Only needed for rhel-8 (it has python3.6)
-%if 0%{?rhel} == 8
+BuildRequires: python%{python3_pkgversion}-pint
+# TypeAlias is not available with python3.9 on RHEL9
+%if 0%{?rhel} == 9
 BuildRequires: python%{python3_pkgversion}-typing-extensions
-BuildRequires: python%{python3_pkgversion}-dataclasses
-BuildRequires: python%{python3_pkgversion}-importlib-metadata
 %endif
 # Required for tests
 BuildRequires: rsync
@@ -90,17 +83,13 @@ Recommends: qemu-system-s390x-core
 Recommends: qemu-system-x86-core
 %endif
 
-%if 0%{?rhel} >= 9 || 0%{?fedora}
 %package provision-beaker
 Summary: Beaker provisioner for the Test Management Tool
 Requires: tmt = %{version}-%{release}
 Requires: python3-mrack-beaker >= 1.12.1
-%endif
 
-%if 0%{?rhel} >= 9 || 0%{?fedora}
 %description provision-beaker
 Dependencies required to run tests in a Beaker environment.
-%endif
 
 %description provision-virtual
 Dependencies required to run tests in a local virtual machine.
@@ -156,9 +145,7 @@ Requires: tmt-report-html >= %{version}
 Requires: tmt-report-junit >= %{version}
 Requires: tmt-report-polarion >= %{version}
 Requires: tmt-report-reportportal >= %{version}
-%if 0%{?rhel} >= 9 || 0%{?fedora}
 Requires: tmt-provision-beaker >= %{version}
-%endif
 
 %description all
 All extra dependencies of the Test Management Tool. Install this
@@ -182,10 +169,8 @@ install -pm 644 tmt.1* %{buildroot}%{_mandir}/man1
 install -pm 644 bin/complete %{buildroot}/etc/bash_completion.d/tmt
 mkdir -p %{buildroot}%{workdir_root}
 chmod 1777 %{buildroot}%{workdir_root}
-%if 0%{?rhel} >= 9 || 0%{?fedora}
 mkdir -p %{buildroot}/etc/%{name}/
 install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
-%endif
 
 %check
 %{__python3} -m pytest -vv -m 'not web' --ignore=tests/integration
@@ -218,11 +203,9 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 %files provision-container
 %{python3_sitelib}/%{name}/steps/provision/{,__pycache__/}podman.*
 
-%if 0%{?rhel} >= 9 || 0%{?fedora}
 %files provision-beaker
 %{python3_sitelib}/%{name}/steps/provision/{,__pycache__/}mrack.*
 %config(noreplace) %{_sysconfdir}/%{name}/mrack*
-%endif
 
 %files provision-virtual
 %{python3_sitelib}/%{name}/steps/provision/{,__pycache__/}testcloud.*
@@ -247,8 +230,47 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 
 
 %changelog
-* Fri Sep 01 2023 Lukáš Zachar <lzachar@redhat.com> - 1.26.1
+* Wed Sep 06 2023 Petr Šplíchal <psplicha@redhat.com> - 1.27.0-1
+- Use `testcloud` domain API v2
+- Bootstrap before/after test checks (#2210)
+- Separate value formatting from key/value nature of tmt.utils.format()
+- Render `link` fields in tmt stories and specs
+- Render default friendly command for guest execution
+- Use consistently plural/singular forms in docs
+- Make file/fmf dependencies hashable
 - Rewrite git url for discover fmf: modified-only
+- Refactor Artemis and Beaker provision tests to make room for HW
+- Adjust imported plan to let its adjust rules make changes
+- Get Ansible logging on par with general command execution
+- Support Click versions newer than 8.1.4
+- Teach tmt test create to link relevant issues (#2273)
+- Add story describing CLI for multiple phases
+- When rendering exception, indetation was dropping empty lines
+- Expose tmt version as an environment variable
+- Fix handling of integers and hostname in Beaker plugin
+- Fix bug where polarion component is misinterpreted as list
+- Refactor recording of CLI subcommand invocations (#2188)
+- Put `--help` at the end of the CLI in the step usage
+- Extend the expected `pip install` fail to `f-39`
+- Make `tmt init` add .fmf directory into git index
+- Fix guest data show() and how it displays hardware requirements
+- Add lint check for matching guests, roles and where keys
+- Add -e/--environment/--environment-files to plan show/export
+- No more need to install `pre-commit` using `pip`
+- Ensure that step phases have unique names
+- Verbose regular expression for linter descriptions
+- Initial draft of hardware requirement helpers
+- Simplify the reportportal plugin test using `yq`
+- Add dynamic ref support to library type dependency
+- Remove `epel-8` and `python-3.6` specifics
+- Use the latest `sphinx-rtd-theme` for docs building
+- Full `pip install` expected to fail on `Rawhide`
+- Add missing name attribute to report plugins schema
+- Add missing arguments in polarion report schema
+- Extend sufficiently the full test suite duration
+- Add support for log types to Artemis plugin
+- Fix `tmt run --follow`, add test coverage for it
+- Remove the temporary hotfix for deep libraries
 
 * Mon Jul 31 2023 Lukáš Zachar <lzachar@redhat.com> - 1.26.0
 - Do not throw an exception on missing mrack.log
@@ -279,11 +301,6 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 * Mon Jul 10 2023 Lukáš Zachar <lzachar@redhat.com> - 1.25.0
 - Test for pruning needs VM
 - Internal anonymous git:// access is deprecated
-- Add tests and some modifications after rebases
-- Clone to tmp and use fmf.Tree.find instead of looping
-- Add clone_dirpath to Common
-- Fix bad usage of path and name
-- Fix multiple clones and inherited fmf metadata
 - Beakerlibs pruning and merge
 - Add dynamic ref evaluation support to plan import
 - Replace self.opt() when looking for debug/verbose/quiet setting

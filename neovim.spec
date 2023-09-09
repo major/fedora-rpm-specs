@@ -34,8 +34,8 @@
 %endif
 
 Name:           neovim
-Version:        0.9.1
-Release:        4%{?dist}
+Version:        0.9.2
+Release:        1%{?dist}
 
 License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
@@ -1945,6 +1945,10 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Thu Sep 07 2023 Andreas Schneider <asn@redhat.com> - 0.9.2-1
+- Update to version 0.9.2
+  * For changelog see `:help news`
+
 * Mon Aug 28 2023 LuK1337 <priv.luk@gmail.com> - 0.9.1-4
 - Improve spec template
 

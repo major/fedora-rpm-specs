@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 265
+%global baserelease 266
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -46,7 +46,6 @@ Source107: macros.gap-srpm
 Source150: macros.build-constraints
 Source151: macros.dwz
 Source152: macros.fedora-misc
-Source153: macros.forge
 Source155: macros.ldconfig
 Source156: macros.vpath
 Source157: macros.shell-completions
@@ -82,7 +81,6 @@ Source701: brp-strip-lto
 
 # Convenience lua functions
 Source800: common.lua
-Source801: forge.lua
 
 # Documentation
 Source900: buildflags.md
@@ -93,6 +91,8 @@ Requires: coreutils
 
 Requires: efi-srpm-macros
 Requires: fonts-srpm-macros
+# ↓ Provides macros.forge and forge.lua originally shipped by us
+Requires: forge-srpm-macros
 Requires: ghc-srpm-macros
 Requires: go-srpm-macros
 # ↓ Provides kmod.attr originally shipped by us
@@ -173,7 +173,6 @@ install -p -m 644 -t %{buildroot}%{_fileattrsdir} *.attr
 
 mkdir -p %{buildroot}%{_rpmluadir}/fedora/{rpm,srpm}
 install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
-install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 
 # This trigger is used to decide which version of the annobin plugin for gcc
 # should be used.  See comments in the script for full details.
@@ -238,7 +237,6 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %{_rpmconfigdir}/macros.d/macros.build-constraints
 %{_rpmconfigdir}/macros.d/macros.dwz
 %{_rpmconfigdir}/macros.d/macros.fedora-misc
-%{_rpmconfigdir}/macros.d/macros.forge
 %{_rpmconfigdir}/macros.d/macros.ldconfig
 %{_rpmconfigdir}/macros.d/macros.rpmautospec
 %{_rpmconfigdir}/macros.d/macros.shell-completions
@@ -247,7 +245,6 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %dir %{_rpmluadir}/fedora/srpm
 %dir %{_rpmluadir}/fedora/rpm
 %{_rpmluadir}/fedora/*.lua
-%{_rpmluadir}/fedora/srpm/*lua
 
 %attr(0755,-,-) %{rrcdir}/redhat-annobin-plugin-select.sh
 %verify(owner group mode) %{rrcdir}/redhat-annobin-cc1
@@ -257,6 +254,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Thu Sep 07 2023 Maxwell G <maxwell@gtmx.me> - 266-1
+- Split out forge macros to forge-srpm-macros package
+
 * Tue Aug 29 2023 Florian Weimer <fweimer@redhat.com> - 265-1
 - Add support for x86_64_v2, x86_64_v3, x86_64_v4 (#2233093)
 

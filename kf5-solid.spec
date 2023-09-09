@@ -1,8 +1,8 @@
 %global framework solid
 
 Name:    kf5-%{framework}
-Version: 5.109.0
-Release: 2%{?dist}
+Version: 5.110.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module that provides hardware information
 
 License: LGPLv2+
@@ -103,6 +103,9 @@ sed -i -e 's/if(WITH_NEW_SOLID_JOB AND WITH_NEW_POWER_ASYNC_API)/if(0)/g' \
 
 
 %changelog
+* Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
+- 5.110.0
+
 * Wed Aug 23 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 5.109.0-2
 - Restore the power management backend, needed for plasma-pk-updates (#2233613)
 - But do not build the solid-power executable that conflicts with KF6 Solid

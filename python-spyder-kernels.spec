@@ -1,7 +1,7 @@
 %global pypi_name spyder-kernels
 
 Name:           python-%{pypi_name}
-Version:        2.3.3
+Version:        2.4.4
 Release:        %autorelease
 Epoch:          1
 Summary:        Jupyter kernels for the Spyder console

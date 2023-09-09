@@ -1,42 +1,31 @@
 %global	gem_name	webrobots
-%if 0%{?fedora} < 19
-%global	rubyabi	1.9.1
-%endif
 
 Summary:	Ruby library to help write robots.txt compliant web robots
 Name:		rubygem-%{gem_name}
 Version:	0.1.2
-Release:	16%{?dist}
+Release:	17%{?dist}
 
-# LICENSE.txt
-License:	BSD
+# SPDX confirmed
+License:	BSD-2-Clause
 URL:		https://github.com/knu/webrobots
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Replace shoulda with shoulda-context, which is enough to execute the test
+# suite.
+# https://github.com/knu/webrobots/pull/8
+Patch0:	rubygem-webrobots-0.1.2-shoulda-context-is-enough-to-execute-the-test-suite.patch
 
-%if 0%{?fedora} >= 19
-Requires:	ruby(release)
 BuildRequires:	ruby(release)
-%else
-Requires:	ruby(abi) = %{rubyabi}
-Requires:	ruby 
-BuildRequires:	ruby(abi) = %{rubyabi}
-BuildRequires:	ruby 
-%endif
-
-Requires:	ruby(rubygems) 
-Requires:	ruby
-# Add nokogiri dependency
-Requires:	rubygem(nokogiri)
 BuildRequires:	rubygems-devel 
-BuildRequires:	ruby
 # %%check
 # F-19: kill check until should is rebuilt
 BuildRequires:	rubygem(test-unit)
-BuildRequires:	rubygem(shoulda)
+BuildRequires:	rubygem(shoulda-context)
 BuildRequires:	rubygem(webmock)
 BuildRequires:	rubygem(vcr)
 BuildRequires:	rubygem(nokogiri)
 BuildRequires:	rubygem(racc)
+# Add nokogiri dependency
+Requires:	rubygem(nokogiri)
 Requires:	rubygem(racc)
 
 BuildArch:	noarch
@@ -55,23 +44,15 @@ BuildArch:	noarch
 Documentation for %{name}
 
 %prep
-%setup -q -c -T
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
-TOPDIR=$(pwd)
-mkdir tmpunpackdir
-pushd tmpunpackdir
-
-gem unpack %{SOURCE0}
-cd %{gem_name}-%{version}
-
-gem specification -l --ruby %{SOURCE0} > %{gem_name}.gemspec
-gem build %{gem_name}.gemspec
-mv %{gem_name}-%{version}.gem $TOPDIR
-
-popd
-rm -rf tmpunpackdir
+%patch -P0 -p1
+%gemspec_remove_dep -s %{gem_name}-%{version}.gemspec -g shoulda -d ">= 0"
+%gemspec_add_dep -s %{gem_name}-%{version}.gemspec -g shoulda-context -d
 
 %build
+gem build ./%{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -80,7 +61,18 @@ cp -a .%{gem_dir}/* \
 	%{buildroot}%{gem_dir}/
 
 # Clean up
-rm -f %{buildroot}%{gem_instdir}/{.document,.gitignore,.travis*}
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	.document \
+	.gitignore \
+	.travis.yml \
+	Gemfile \
+	Rakefile \
+	test/ \
+	%{gem_name}.gemspec \
+	%{nil}
+popd
 
 %check
 pushd .%{gem_instdir}
@@ -94,20 +86,23 @@ popd
 
 %files
 %dir	%{gem_instdir}/
-%doc	%{gem_instdir}/[A-Z]*
-%exclude	%{gem_instdir}/Gemfile*
-%exclude	%{gem_instdir}/Rakefile
-%exclude	%{gem_instdir}/*.gemspec
+%license	%{gem_instdir}/LICENSE.txt
+%doc	%{gem_instdir}/README.rdoc
 
-%{gem_instdir}/lib/
-%exclude	%{gem_cache}
+%{gem_libdir}/
 %{gem_spec}
 
 %files doc
 %doc	%{gem_docdir}/
-%exclude	%{gem_instdir}/test/
 
 %changelog
+* Thu Sep  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.2-17
+- Massive spec file cleanup
+- SPDX migration
+
+* Tue Sep 05 2023 Vít Ondruch <vondruch@redhat.com>
+- Use rubygem-shoulda-context instead of rubygem-shoulda
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

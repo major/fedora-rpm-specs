@@ -6,8 +6,44 @@
 Summary:    A GNU tool for automatically configuring source code
 Name:       autoconf
 Version:    2.71
-Release:    6%{?dist}
-License:    GPLv2+ and GFDL
+Release:    7%{?dist}
+
+# To help future rebase, the following licenses were seen in the following files/folders:
+# '*' is anything that was not explicitly listed earlier in the folder
+# usr/bin/* - GPL-3.0-or-later
+# usr/share/:
+#  autoconf:
+#    Autom4te:
+#      {C4che.pm,General.pm,Getopt.pm,Request.pm}: GPL-3.0-or-later
+#      * - GPL-2.0-or-later
+#    autoconf:
+#      * - GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+#    autoscan/autoscan.list - GPL-3.0-or-later
+#    autotest:
+#      * - GPL-3.0-or-later WITH Autoconf-exception-3.0
+#    build-aux:
+#      config.{sub,guess} - GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+#      install-sh - X11 AND LicenseRef-Fedora-Public-Domain
+#    m4sugar:
+#      {foreach.m4,m4sh.m4,m4sugar.m4} - GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+#      * - None found
+#    INSTALL - FSFAP
+#    autom4te.cfg - GPL-3.0-or-later
+#  doc/autoconf:
+#    {AUTHORS,THANKS} - GPL-3.0-or-later
+#    {README,TODO} - FSFAP
+#    * - None found
+#  emacs/site-lisp:
+#    autoconf/*.el - GPL-3.0-or-later
+#    * - None found
+#  info/autoconf.info.gz/autoconf.info - GFDL-1.3-or-later
+#  config.site - None found
+# usr/share/man/man1/*: generated from usr/bin/* using help2man
+#
+# Note on Autoconf-exception{,-generic}-3.0, one is the license itself, the other is
+# the text note that can be found in sources. That doesn't make sense to have 2 separate IDs
+# but that's how it is.
+License:    GPL-2.0-or-later AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GFDL-1.3-or-later AND FSFAP AND X11 AND LicenseRef-Fedora-Public-Domain
 Source0:    https://ftp.gnu.org/gnu/autoconf/autoconf-%{version}.tar.xz
 Source1:    config.site
 Source2:    autoconf-init.el
@@ -129,6 +165,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Mon Aug 07 2023 Frederic Berat <fberat@redhat.com> - 2.71-7
+- Migrate to SPDX licences (#2222088)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.71-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

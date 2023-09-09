@@ -13,10 +13,6 @@ Source:         %{pypi_source %{modname}}
 # Bump archery and rpds dependencies to v1.0.0
 Patch:          bump-dependencies.patch
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# Also rust-rpds is not available on i686
-ExcludeArch:    %{ix86}
-
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  dos2unix
 BuildRequires:  python3-devel

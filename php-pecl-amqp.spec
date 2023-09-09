@@ -12,7 +12,7 @@
 %global pecl_name   amqp
 %global ini_name    40-%{pecl_name}.ini
 
-%global upstream_version 2.0.0
+%global upstream_version 2.1.0
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
@@ -184,6 +184,7 @@ export LANG=C.UTF-8
 export RABBITMQ_PID_FILE=$PWD/run/pid
 export RABBITMQ_LOG_BASE=$PWD/log
 export RABBITMQ_MNESIA_BASE=$PWD/base
+export PHP_AMQP_HOST=localhost
 /usr/lib/rabbitmq/bin/rabbitmq-server &>log/output &
 /usr/lib/rabbitmq/bin/rabbitmqctl wait $RABBITMQ_PID_FILE
 
@@ -225,6 +226,9 @@ exit $ret
 
 
 %changelog
+* Thu Sep  7 2023 Remi Collet <remi@remirepo.net> - 2.1.0-1
+- update to 2.1.0
+
 * Mon Aug 21 2023 Remi Collet <remi@remirepo.net> - 2.0.0-1
 - update to 2.0.0
 - build out of sources tree

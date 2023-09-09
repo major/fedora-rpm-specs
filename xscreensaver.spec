@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    3
+%define baserelease    4
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -102,6 +102,10 @@ Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-left-shift.patch
 # convert_ximage_to_rgba32: avoid integer overflow on left shift
 Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
+# check header directory for ffmpeg related libraries and add to CFLAGS
+Patch4703:       xscreensaver-6.07-0003-check-header-directory-for-ffmpeg-related-libraries-.patch
+# ffmpeg-out.c: include additional header file
+Patch4704:       xscreensaver-6.07-0004-ffmpeg-out.c-include-additional-header-file.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -400,6 +404,8 @@ find . -name \*.c -exec chmod ugo-x {} \;
 
 %__cat %PATCH4701 | %__git am
 %__cat %PATCH4702 | %__git am
+%__cat %PATCH4703 | %__git am
+%__cat %PATCH4704 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -1183,6 +1189,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Sep  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.07-4
+- Fix compilation to make --with-record-animation really work
+
 * Sun Sep  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.07-3
 - Fix patch again
 

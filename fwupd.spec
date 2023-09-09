@@ -124,7 +124,7 @@ Recommends: udisks2
 Recommends: bluez
 Recommends: jq
 %if 0%{?rhel} >= 10 || 0%{?fedora} >= 28
-Recommends: passim
+Suggests: passim
 %endif
 
 %if 0%{?have_modem_manager}

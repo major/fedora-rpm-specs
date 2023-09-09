@@ -9,13 +9,16 @@ Source0:        https://pagure.io/oct2spec/archive/%{version}/oct2spec-%{version
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
-Requires:       wget fedora-packager
+BuildRequires:  python3dist(setuptools)
+
+Requires:       wget
+Requires:       fedora-packager
 Requires:       python%{python3_pkgversion}-jinja2
 
 %description
 oct2spec is a small python tool that generates spec file for Octave packages.
 It can work from a package name, URL, or a tarball.
-oct2spec provides oct2rpm which generates rpm for Octave packages using the 
+oct2spec provides oct2rpm which generates rpm for Octave packages using the
 oct2spec API.
 
 
@@ -28,7 +31,7 @@ oct2spec API.
 %install
 %py3_install
 
-%files 
+%files
 %license LICENSE
 %doc README CHANGELOG
 %{python3_sitelib}/*

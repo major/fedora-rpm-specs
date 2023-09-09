@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Summary: A QtQuick module providing high-performance charts
-Version: 5.109.0
+Version: 5.110.0
 Release: 1%{?dist}
 
 # libs are LGPL, tools are GPL
@@ -27,6 +27,7 @@ Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framewo
 ## upstream patches
 
 BuildRequires:  gcc-c++
+BuildRequires:  kf5-rpm-macros
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  cmake(Qt5Qml)
 BuildRequires:  cmake(Qt5Quick)
@@ -83,6 +84,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_kf5_libdir}/cmake/KF5QuickCharts/
 
 %changelog
+* Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
+- 5.110.0
+
 * Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
 - 5.109.0
 

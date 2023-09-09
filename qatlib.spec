@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: MIT
 
-%global libqat_soversion  3
+%global libqat_soversion  4
 %global libusdm_soversion 0
 Name:             qatlib
-Version:          23.02.0
-Release:          2%{?dist}
+Version:          23.08.0
+Release:          1%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
@@ -103,6 +103,7 @@ exit 0
 %attr(0754,-,qat) %{_bindir}/cpa_sample_code
 %attr(0754,-,qat) %{_bindir}/dc_dp_sample
 %attr(0754,-,qat) %{_bindir}/dc_stateless_sample
+%attr(0754,-,qat) %{_bindir}/chaining_sample
 %attr(0754,-,qat) %{_bindir}/dc_stateless_multi_op_sample
 %attr(0754,-,qat) %{_bindir}/algchaining_sample
 %attr(0754,-,qat) %{_bindir}/ccm_sample
@@ -130,6 +131,10 @@ exit 0
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Thu Sep 07 2023 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 23.08.0-1
+- Add chaining_sample to qatlib-tests package
+- Update to qatlib 23.08.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.02.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -23,10 +23,34 @@ Summary:    A GNU tool for automatically creating Makefiles
 Name:       automake
 # Any bump here requires libtool rebuild, rhbz#1813010
 Version:    %{api_version}.5
-Release:    13%{?dist}
+Release:    14%{?dist}
 
-# docs ~> GFDL, sources ~> GPLv2+, mkinstalldirs ~> PD and install-sh ~> MIT
-License:    GPLv2+ and GFDL and Public Domain and MIT
+# To help future rebase, the following licenses were seen in the following files/folders:
+# usr/bin/* - GPL-2.0-or-later
+# usr/share/aclocal-1.16/* - FSFULLR
+# usr/share/automake-1.16:
+#   Automake/Getopt.pm - GPL-3.0-or-later
+#   Automake/* - GPL-2.0-or-later
+#   am/* - GPL-2.0-or-later
+#   INSTALL - FSFAP
+#   install-sh - X11 AND LicenseRef-Fedora-Public-Domain (added by autoconf)
+#   mkinstalldirs - LicenseRef-Fedora-Public-Domain
+#   config.{guess,sub} - GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+#   texinfo.tex - GPL-3.0-or-later WITH Texinfo-exception
+#   * - GPL-2.0-or-later WITH Autoconf-exception-generic
+# usr/share/doc/automake:
+#   {NEWS,README} - GPL-2.0-or-later
+#   amhello-1.0.tar:
+#     src/Makefile.in - FSFULLRWD
+#     src/* - FSFUL
+#     {Makefile.in,aclocal.m4} - FSFULLRWD
+#     {Makefile.am,configure,configure.ac} - FSFUL
+#     {compile,depcomp,missing} - GPL-2.0-or-later WITH Autoconf-exception-generic
+#     install-sh - X11 AND LicenseRef-Fedora-Public-Domain (added by autoconf)
+# usr/share/info:
+#  * - GFDL-1.3-or-later
+# usr/share/man/man1/*: generated from usr/bin/{aclocal,automake} using help2man
+License:    GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Texinfo-exception AND GFDL-1.3-or-later AND FSFAP AND FSFUL AND FSFULLR AND FSFULLRWD AND X11 AND LicenseRef-Fedora-Public-Domain
 
 Source:     ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
 
@@ -153,6 +177,9 @@ make -k %{?_smp_mflags} check %{?TESTS_FLAGS: TESTS="%{TESTS_FLAGS}"} \
 
 
 %changelog
+* Mon Aug 07 2023 Frederic Berat <fberat@redhat.com> - 1.16.5-14
+- Migrate to SPDX licenses (#2222090)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

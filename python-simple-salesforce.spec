@@ -1,15 +1,13 @@
 %global pypi_name simple-salesforce
-%global pypi_version 1.12.4
-%global commit e3393bbcaf3d9651f11e3014c3c8cdc44d39a305
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global pypi_version 1.12.5
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Simple Salesforce is a basic Salesforce.com REST API client built for Python
 License:        ASL 2.0
 URL:            https://github.com/%{pypi_name}/%{pypi_name}
-Source0:        %{url}/archive/%{commit}/%{pypi_name}-%{shortcommit}.tar.gz
+Source0:        %{url}/archive/v%{pypi_version}/%{pypi_name}-v%{pypi_version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -34,7 +32,7 @@ Summary:        %{summary}
 %{_description}
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{commit}
+%autosetup -p1 -n %{pypi_name}-%{pypi_version}
 %generate_buildrequires
 %pyproject_buildrequires -r
 
@@ -42,6 +40,8 @@ Summary:        %{summary}
 %pyproject_wheel
 
 %check
+# Set timezone to prevent Pendulum error: `RuntimeError: Unable to find any timezone configuration`
+export TZ=UTC
 %pytest
 
 %install
@@ -53,6 +53,10 @@ Summary:        %{summary}
 %license LICENSE.txt
 
 %changelog
+* Thu Sep 07 2023 Roman Inflianskas <rominf@aiven.io> - 1.12.5-1
+- Update to 1.12.5 (fedora#2220501)
+- Use version tag instead of commit hash to make updates easier.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

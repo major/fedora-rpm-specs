@@ -5,8 +5,9 @@
 
 Name:           egl-wayland
 Version:        1.1.12
-Release:        3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        4%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Wayland EGL External Platform library
+# SPDX
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
 
@@ -74,6 +75,9 @@ find %{buildroot} -name '*.la' -delete
 %{_datadir}/wayland-eglstream/
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.1.12-4
+- SPDX migration: license is already SPDX compatible
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

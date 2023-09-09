@@ -18,7 +18,7 @@
 %global ninja 1
 
 Name:    kf5-%{framework}
-Version: 5.109.0
+Version: 5.110.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with advanced configuration system
 
@@ -42,6 +42,7 @@ BuildRequires:  kf5-rpm-macros >= %{majmin}
 
 BuildRequires:  cmake(Qt5DBus)
 BuildRequires:  cmake(Qt5Gui)
+BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  cmake(Qt5Qml)
 BuildRequires:  cmake(Qt5Xml)
 
@@ -213,6 +214,9 @@ make test %{?_smp_mflags} -C redhat-linux-build ARGS="--output-on-failure --time
 
 
 %changelog
+* Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
+- 5.110.0
+
 * Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
 - 5.109.0
 

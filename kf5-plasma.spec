@@ -1,7 +1,7 @@
 %global framework plasma-framework
 
 Name:    kf5-plasma
-Version: 5.109.0
+Version: 5.110.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 framework is foundation to build a primary user interface
 
@@ -159,6 +159,9 @@ sed -e "s|@@VERSION@@|%{version}|g" fedora-plasma-cache.sh.in > \
 
 
 %changelog
+* Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
+- 5.110.0
+
 * Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
 - 5.109.0
 

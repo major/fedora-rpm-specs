@@ -1,19 +1,20 @@
 
-Summary: Basic desktop integration functions 
+Summary: Basic desktop integration functions
 Name:    xdg-utils
 Version: 1.1.3
-Release: 14%{?dist}
+Release: 15%{?dist}
 
-URL:     http://portland.freedesktop.org/ 
+URL:     https://www.freedesktop.org/wiki/Software/xdg-utils/
 %if 0%{?snap:1}
 Source0: xdg-utils-%{version}-%{snap}.tar.gz
 %else
-# at least until freedesktop folks move over to release dir
 Source0:  https://people.freedesktop.org/~rdieter/xdg-utils/xdg-utils-%{version}.tar.gz
-#Source0: http://portland.freedesktop.org/download/xdg-utils-%{version}%{?prerelease:-%{prerelease}}.tar.gz
+# New location
+#Source0:  https://gitlab.freedesktop.org/xdg/xdg-utils/-/archive/v1.1.3/xdg-utils-v%%{version}.tar.gz
+#Source0: http://portland.freedesktop.org/download/xdg-utils-%%{version}%%{?prerelease:-%%{prerelease}}.tar.gz
 %endif
 Source1: xdg-utils-git_checkout.sh
-License: MIT 
+License: MIT
 
 ## upstream patches (treat as sources in lookaside cache)
 Patch1: 0001-open-for-post-1.1.3-development.patch
@@ -32,6 +33,7 @@ Patch13: 0013-support-digits-in-uri-scheme-regex.patch
 Patch14: 0014-xdg-mime-return-correct-exit-code-for-GNOME.patch
 Patch15: 0015-fixed-166-xdg-open-dose-not-search-correctly-in-dire.patch
 Patch16: 0016-Fix-xdg-settings-support-for-default-web-browser-for.patch
+Patch17: 0017-Use-grep-E-instead-of-the-obsoleted-egrep.patch
 
 # make sure BuildArch comes *after* patches, to ensure %%autosetup works right
 # http://bugzilla.redhat.com/1084309
@@ -48,7 +50,7 @@ Requires: which
 %description
 The %{name} package is a set of simple scripts that provide basic
 desktop integration functions for any Free Desktop, such as Linux.
-They are intended to provide a set of defacto standards.  
+They are intended to provide a set of defacto standards.
 This means that:
 *  Third party software developers can rely on these xdg-utils
    for all of their simple integration needs.
@@ -76,18 +78,18 @@ The following scripts are provided at this time:
 %configure
 
 %if 0%{?snap:1}
-make scripts-clean -C scripts 
+make scripts-clean -C scripts
 make man scripts %{?_smp_mflags} -C scripts
 %endif
-make %{?_smp_mflags}
-
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 
 %files
-%doc ChangeLog LICENSE README TODO
+%doc ChangeLog README TODO
+%license LICENSE
 %{_bindir}/xdg-desktop-icon
 %{_bindir}/xdg-desktop-menu
 %{_bindir}/xdg-email
@@ -107,6 +109,13 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Tue Jul 25 2023 Rafael Guterres Jeffman <rjeffman@redhat.com> - 1.1.3-15
+- Use "grep -E" instead of the obsoleted "egrep"
+  Resolves: BZ#2140197
+- mark LICENSE as %%license
+- Spec cleanup
+- Small patches, as a rule, are in git dist, to be more easy to read.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

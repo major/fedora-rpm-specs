@@ -1,5 +1,5 @@
 Name:    kf6
-Version: 6
+Version: 7
 Release: 1%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
@@ -31,6 +31,7 @@ RPM macros for building KDE Frameworks 6 packages.
 mkdir -p %{buildroot}%{_prefix}/{lib,%{_lib}}/qt6/plugins/kf6/
 mkdir -p %{buildroot}%{_prefix}/{lib,%{_lib}}/kconf_update_bin
 mkdir -p %{buildroot}%{_includedir}/kf6
+mkdir -p %{buildroot}%{_includedir}/KF6
 mkdir -p %{buildroot}%{_datadir}/{config.kcfg,kconf_update,kf6,kservicetypes6}
 mkdir -p %{buildroot}%{_datadir}/kpackage/{genericqml,kcms}
 mkdir -p %{buildroot}%{_datadir}/kservices6/ServiceMenus
@@ -60,6 +61,7 @@ sed -i \
 %{_datadir}/solid/
 %{_docdir}/qt6/
 %{_includedir}/kf6/
+%{_includedir}/KF6/
 %{_libexecdir}/kf6/
 %{_prefix}/%{_lib}/kconf_update_bin/
 %{_prefix}/%{_lib}/qt6/plugins/kf6/

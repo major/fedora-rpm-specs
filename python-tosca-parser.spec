@@ -1,8 +1,8 @@
 %global pypi_name tosca-parser
 
 Name:           python-%{pypi_name}
-Version:        2.7.0
-Release:        4%{?dist}
+Version:        2.9.1
+Release:        1%{?dist}
 Summary:        Parser for TOSCA Simple Profile in YAML
 
 License:        ASL 2.0
@@ -98,6 +98,9 @@ find %{buildroot}/%{python3_sitelib}/toscaparser/tests -name '*.py' -exec sed -i
 %license LICENSE
 
 %changelog
+* Thu Sep 07 2023 Joel Capitao <jcapitao@redhat.com> - 2.9.1-1
+- Update to 2.9.1 (#2144142)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

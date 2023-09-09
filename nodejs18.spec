@@ -197,6 +197,17 @@ BuildRequires: systemtap-sdt-devel
 
 %if 0%{?nodejs_default}
 Provides: nodejs = %{nodejs_envr}
+# To keep the upgrade path clean, we Obsolete nodejsXX from the nodejs
+# package and nodejsXX-foo from individual subpackages.
+# Note that using Obsoletes without package version is not standard practice.
+# Here we assert that *any* version of the system's default interpreter is
+# preferable to an "extra" interpreter. For example, nodejs-20.5.0 will
+# replace nodejs20-20.6.0.
+%define unversioned_obsoletes_of_nodejsXX_if_default() %{expand:\
+Obsoletes: nodejs%{nodejs_pkg_major}%{?1:-%{1}}\
+}
+%else
+%define unversioned_obsoletes_of_nodejsXX_if_default() %{nil}
 %endif
 
 %if %{with bundled}
@@ -306,6 +317,9 @@ Provides: bundled(histogram) = %{histogram_version}
 Provides: bundled(ada) = 2.5.0
 
 
+%unversioned_obsoletes_of_nodejsXX_if_default
+
+
 %description
 Node.js is a platform built on Chrome's JavaScript runtime \
 for easily building fast, scalable network applications. \
@@ -343,6 +357,7 @@ Requires: libuv-devel%{?_isa}
 %if 0%{?nodejs_default}
 Provides: nodejs-devel = %{nodejs_envr}
 %endif
+%unversioned_obsoletes_of_nodejsXX_if_default devel
 
 Provides: nodejs-devel-pkg = %{nodejs_envr}
 Conflicts: nodejs-devel-pkg
@@ -372,6 +387,7 @@ Provides: v8%{?_isa} = %{v8_epoch}:%{v8_version}-%{nodejs_release}
 Obsoletes: v8 < 1:6.7.17-10
 
 Provides: nodejs-libs = %{nodejs_envr}
+%unversioned_obsoletes_of_nodejsXX_if_default libs
 
 %description -n %{pkgname}-libs
 Libraries to support Node.js and provide stable v8 interfaces.
@@ -380,6 +396,8 @@ Libraries to support Node.js and provide stable v8 interfaces.
 %package -n %{pkgname}-full-i18n
 Summary: Non-English locale data for Node.js
 Requires: %{pkgname}%{?_isa} = %{nodejs_envr}
+
+%unversioned_obsoletes_of_nodejsXX_if_default full-i18n
 
 
 %description -n %{pkgname}-full-i18n
@@ -427,10 +445,9 @@ Provides: npm(npm) = %{npm_version}
 Provides: npm = %{npm_envr}
 
 # Obsolete the old 'npm' package
-# Due to a mistake in the original F38 repository, this needs to explicitly
-# Obsoletes: the npm provided by nodejs20-npm
-Obsoletes: npm < 1:9.5.1-1.20
+Obsoletes: npm < 1:9
 %endif
+%unversioned_obsoletes_of_nodejsXX_if_default npm
 
 
 %description -n %{pkgname}-npm
@@ -445,6 +462,7 @@ BuildArch: noarch
 Requires(meta): %{pkgname} = %{nodejs_envr}
 
 Provides: nodejs-docs = %{nodejs_envr}
+%unversioned_obsoletes_of_nodejsXX_if_default docs
 
 
 %description -n %{pkgname}-docs
@@ -518,6 +536,7 @@ extra_cflags=(
     -DZLIB_CONST
     -fno-delete-null-pointer-checks
     -O3
+    -fno-ipa-icf
 )
 export CFLAGS="%{optflags} ${extra_cflags[*]}" CXXFLAGS="%{optflags} ${extra_cflags[*]}"
 export LDFLAGS="%{build_ldflags}"

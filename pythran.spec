@@ -1,6 +1,6 @@
 Name:           pythran
-Version:        0.13.1
-Release:        2%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        Ahead of Time Python compiler for numeric kernels
 
 # pythran is BSD
@@ -21,17 +21,6 @@ Provides:       bundled(python3dist(networkx)) = 2.6.1
 
 URL:            https://github.com/serge-sans-paille/pythran
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# assertEquals was removed from unittest in Python 3.12
-Patch:          https://github.com/serge-sans-paille/pythran/pull/2119.patch
-
-# Introduce pythran/pythonic/include/types/longdouble.hpp et cie
-# New numpy version alias np.float128 to np.longdouble, so we need these headers too.
-Patch:          https://github.com/serge-sans-paille/pythran/pull/2120.patch
-
-# Use pythran logger instead of default logger to report absence of spec
-# Fixes build with setuptools distutils
-Patch:          https://github.com/serge-sans-paille/pythran/pull/2122.patch
 
 # there is no actual arched content
 # yet we want to test on all architectures
@@ -160,6 +149,10 @@ k="$k and not test_loadext_and_run"
 
 
 %changelog
+* Thu Sep 07 2023 Miro Hrončok <mhroncok@redhat.com> - 0.14.0-1
+- Update to 0.14.0
+- Fixes: rhbz#2237784
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

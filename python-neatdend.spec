@@ -45,6 +45,7 @@ sed -i 's/^pytest~=5.3.2/pytest>=5.3.2/' requirements/requirements.txt
 sed -i 's/^scikit_learn~=0.24.2/scikit_learn>=0.24.2/' requirements/requirements.txt
 sed -i 's/^scipy~=1.6.3/scipy>=1.6.3/' requirements/requirements.txt
 sed -i 's/^sympy~=1.7.1/sympy>=1.7.1/' requirements/requirements.txt
+sed -i 's/^cython~=0.29.4/cython>=3.0.0/' requirements/requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -r

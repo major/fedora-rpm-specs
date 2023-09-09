@@ -1,8 +1,8 @@
 Name:           pytest
-%global base_version 7.4.0
+%global base_version 7.4.1
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
@@ -180,6 +180,11 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Wed Sep 06 2023 Miro Hrončok <mhroncok@redhat.com> - 7.4.1-1
+- Update to 7.4.1
+- Changelog: https://docs.pytest.org/en/stable/changelog.html#pytest-7-4-1-2023-09-02
+- Fixes: rhbz#2236995
+
 * Mon Aug 07 2023 Lumír Balhar <lbalhar@redhat.com> - 7.4.0-1
 - Update to 7.4.0
 Resolves: rhbz#2216956

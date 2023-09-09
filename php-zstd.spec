@@ -18,7 +18,7 @@
 
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
-Version:       0.13.0
+Version:       0.13.1
 Release:       1%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
@@ -198,6 +198,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Sep  7 2023 Remi Collet <remi@remirepo.net> - 0.13.1-1
+- update to 0.13.1 (no change)
+
 * Wed Sep  6 2023 Remi Collet <remi@remirepo.net> - 0.13.0-1
 - update to 0.13.0
 - fix tests installation path

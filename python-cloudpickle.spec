@@ -9,7 +9,7 @@ interactively in the __main__ module.
 
 Name:           python-%{pypi_name}
 Version:        2.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extended pickling support for Python objects
 
 License:        BSD
@@ -61,8 +61,7 @@ sed -i "s/'beta', 2/'beta', 4/" tests/cloudpickle_test.py
 # GH issue: https://github.com/cloudpipe/cloudpickle/issues/114
 # test_dynamic_pytest_module uses py which is not longer part of pytest
 # https://github.com/cloudpipe/cloudpickle/issues/487
-# The rest is CPython 3.12.0b3 regression: https://github.com/python/cpython/issues/106403
-PYTHONPATH=tests/cloudpickle_testpkg %{__python3} -m pytest -v -k "not file_handles and not test_dynamic_pytest_module and not dynamic_typevar and not generic_subclass and not generic_type and not type_hints and not constructs_from_module"
+PYTHONPATH=tests/cloudpickle_testpkg %{__python3} -m pytest -v -k "not file_handles and not test_dynamic_pytest_module"
 
 %files -n python3-%{pypi_name}
 %license LICENSE
@@ -71,6 +70,10 @@ PYTHONPATH=tests/cloudpickle_testpkg %{__python3} -m pytest -v -k "not file_hand
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Sep 07 2023 Miro Hrončok <mhroncok@redhat.com> - 2.2.1-4
+- Run some previously temporarily skipped tests during package build
+Resolves: rhbz#2219334
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

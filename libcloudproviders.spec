@@ -2,7 +2,7 @@
 
 Name:           libcloudproviders
 Summary:        Library for integration of cloud storage providers
-Version:        0.3.2
+Version:        0.3.4
 Release:        1%{?dist}
 License:        LGPLv3+
 
@@ -46,24 +46,29 @@ developing applications that use %{name}.
 
 
 %files
-%doc CHANGELOG README.md
 %license LICENSE
-
-%{_libdir}/%{name}.so.0*
+%doc CHANGELOG README.md
+%{_libdir}/libcloudproviders.so.0*
+%dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/CloudProviders-%{api_version}.typelib
 
 %files devel
 %{_includedir}/cloudproviders/
-
 %{_libdir}/pkgconfig/cloudproviders.pc
-%{_libdir}/%{name}.so
-
+%{_libdir}/libcloudproviders.so
+%dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/CloudProviders-%{api_version}.gir
 %{_datadir}/gtk-doc/
+%dir %{_datadir}/vala
+%dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/cloudproviders.*
 
 
 %changelog
+* Thu Sep 07 2023 Kalev Lember <klember@redhat.com> - 0.3.4-1
+- Update to 0.3.4
+- Fix directory ownership for gir and vapi directories
+
 * Wed Aug 09 2023 Kalev Lember <klember@redhat.com> - 0.3.2-1
 - Update to 0.3.2
 

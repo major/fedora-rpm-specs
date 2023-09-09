@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.109.0
+Version: 5.110.0
 Release: 1%{?dist}
 Summary: QtQuick plugins to build user interfaces based on the KDE UX guidelines
 
@@ -106,6 +106,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %dir %{_kf5_qmldir}/org/
 %dir %{_kf5_qmldir}/org/kde/
 %{_kf5_qmldir}/org/kde/kirigami.2/
+%{_kf5_qmldir}/org/kde/kirigami/
 
 %files devel
 %{_kf5_libdir}/libKF5Kirigami2.so
@@ -118,6 +119,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
+- 5.110.0
+
 * Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
 - 5.109.0
 

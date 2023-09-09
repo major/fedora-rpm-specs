@@ -1,4 +1,6 @@
-%bcond_without tests
+%bcond_with tests
+
+%global forgeurl https://github.com/wmayner/pyphi
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
@@ -10,14 +12,14 @@ Name:           python-pyphi
 Version:        1.2.1
 Release:        %autorelease
 Summary:        A toolbox for integrated information theory
-
+%forgemeta
 # The entire source is GPL-3.0-or-later, except:
 #
 #   - docs/_themes/ contains “krTheme Sphinx Style,” which is BSD-3-Clause; but
 #     we remove it in %%prep and do not use it.
 License:        GPL-3.0-or-later
-URL:            https://github.com/wmayner/pyphi/
-Source0:        %{url}/%{version}/pyphi-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
 
 # https://github.com/wmayner/pyphi/pull/50
 Patch:          0001-fix-py3.10-correct-collections-import.patch
@@ -110,7 +112,9 @@ echo "latex_engine = 'xelatex'" >> docs/conf.py
 
 %check
 %if %{with tests}
-%{pytest}
+  %pytest
+%else
+  %pyproject_check_import
 %endif
 
 %files -n python3-pyphi -f %{pyproject_files}

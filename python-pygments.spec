@@ -4,8 +4,8 @@
 %bcond tests 1
 
 Name:           python-pygments
-Version:        2.15.1
-Release:        4%{?dist}
+Version:        2.16.1
+Release:        1%{?dist}
 Summary:        Syntax highlighting engine written in Python
 
 License:        BSD-2-Clause
@@ -98,6 +98,10 @@ chmod -x %{buildroot}%{_mandir}/man1/*.1
 
 
 %changelog
+* Mon Aug 14 2023 Karolina Surma <ksurma@redhat.com> - 2.16.1-1
+- Update to 2.16.1
+- Fixes: rhbz#2229493
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

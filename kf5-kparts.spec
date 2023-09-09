@@ -2,7 +2,7 @@
 %global framework kparts
 
 Name:    kf5-%{framework}
-Version: 5.109.0
+Version: 5.110.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for KParts
 
@@ -84,6 +84,9 @@ mkdir -p %{buildroot}%{_kf5_plugindir}/parts/
 
 
 %changelog
+* Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
+- 5.110.0
+
 * Sat Aug 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.109.0-1
 - 5.109.0
 

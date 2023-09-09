@@ -1,11 +1,17 @@
+# Use forge macros for pulling from GitHub
+%global forgeurl https://github.com/alexandrebarachant/pyRiemann
+
 Name:           python-pyriemann
-Version:        0.4
+Version:        0.5
 Release:        %autorelease
 Summary:        Riemannian Geometry for Python
-
+%forgemeta
 License:        BSD-3-Clause
-URL:            https://github.com/alexandrebarachant/pyRiemann
-Source0:        %{url}/archive/v%{version}/pyRiemann-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
+# For fixing test failures
+# https://github.com/pyRiemann/pyRiemann/issues/262
+Patch:          https://patch-diff.githubusercontent.com/raw/pyRiemann/pyRiemann/pull/254.patch
 
 # This package has had architecture-dependent test failures in the past, e.g.
 # “One test failure on s390x”
@@ -101,11 +107,6 @@ sed -r -i 's/("tests".*), "flake8"/\1/' setup.py
 
 
 %check
-# https://github.com/pyRiemann/pyRiemann/issues/248
-%ifarch s390x %{arm64} %{power64}
-k="${k:+ and }not test_distance_mahalanobis"
-%endif
-
 %pytest ${k:+-k "$k"}
 
 

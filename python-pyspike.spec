@@ -55,7 +55,9 @@ BuildRequires:  python3-devel
 
 %package -n python3-pyspike
 Summary:        %{summary}
-BuildRequires:  python3-Cython
+# Use compat package
+# https://github.com/mariomulansky/PySpike/issues/70
+BuildRequires:  python3-Cython < 3~~
 BuildRequires:  gcc
 
 %if %{with tests}
@@ -98,6 +100,7 @@ nosetests test/numeric
 
 %files -n python3-pyspike -f %{pyproject_files}
 %license License.txt
+%doc Readme.rst Changelog Contributors.txt 
 
 %changelog
 %autochangelog

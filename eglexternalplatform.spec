@@ -2,9 +2,10 @@
 
 Name:           eglexternalplatform
 Version:        1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        EGL External Platform Interface headers
 
+# SPDX
 License:        MIT
 URL:            https://github.com/NVIDIA
 Source0:        %url/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -42,6 +43,9 @@ install -p -m 0644 eglexternalplatform.pc %{buildroot}%{_datadir}/pkgconfig/
 
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.1-6
+- SPDX migration: license is already SPDX compatible
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

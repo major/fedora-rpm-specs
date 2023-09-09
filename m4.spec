@@ -1,8 +1,8 @@
 Summary: GNU macro processor
 Name: m4
 Version: 1.4.19
-Release: 6%{?dist}
-License: GPLv3+
+Release: 7%{?dist}
+License: GPL-3.0-or-later AND GFDL-1.3-or-later
 Source0: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz.sig
 URL: https://www.gnu.org/software/m4/
@@ -50,6 +50,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man1/m4.1*
 
 %changelog
+* Tue Aug 08 2023 Frederic Berat <fberat@redhat.com> - 1.4.19-7
+- Migrate to SPDX licenses (#2222092).
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

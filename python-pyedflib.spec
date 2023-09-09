@@ -4,6 +4,8 @@
 # We can generate PDF documentation as substitute.
 %bcond_without doc_pdf
 
+%global forgeurl https://github.com/holgern/pyedflib
+
 %global _description %{expand:
 pyEDFlib is a python library to read/write EDF+/BDF+ files based on EDFlib.
 EDF means European Data Format and was firstly published Kemp1992. 
@@ -11,17 +13,16 @@ In 2003, an improved version of the file protocol named EDF+ has
 been published and can be found at Kemp2003.}
 
 Name:           python-pyedflib
-Version:        0.1.33
-Release:        3%{?dist}
+Version:        0.1.34
+Release:        %autorelease
 Summary:        Python library to read/write EDF+/BDF+ files, based on EDFlib
-
+%forgemeta
 # The entire source is BSD-3-Clause, except:
 #   BSD-2-Clause: pyedflib/_extensions/edf.pxi
 License:        BSD-3-Clause AND BSD-2-Clause
-URL:            https://github.com/holgern/pyedflib
-Source0:        %{url}/archive/v%{version}/pyedflib-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
 
-Patch0:         0001-Numpy-patch.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2027046
 ExcludeArch:    s390x
@@ -81,6 +82,9 @@ find demo -type f -exec \
     gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
   xargs -r -t sed -r -i '1{/^#!/d}'
 
+# Fix numpy dependency
+sed -i 's/oldest-supported-numpy/numpy/' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -116,40 +120,4 @@ grep -E "^#define[[:blank:]]+EDFLIB_VERSION[[:blank:]]+\($(
 %doc demo
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.33-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.1.33-2
-- Rebuilt for Python 3.12
-
-* Tue Jun 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.33-1
-- Update to 0.1.33 (close RHBZ#2217530)
-- Replace deprecated pyproject_build_lib macro
-- Update License to SPDX
-
-* Mon Apr 24 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.1.32-1
-- Update to 0.1.32 (close RHBZ#2187954)
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.30-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.30-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 15 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.1.30-1
-- Update to 0.1.30 (close RHBZ#2105939)
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 0.1.29-2
-- Rebuilt for Python 3.11
-
-* Mon Jun 13 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.29-1
-- Update to 0.1.29 (close RHBZ#2092244)
-
-* Tue Feb 22 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.1.28-1
-- Update to the latest release
-
-* Mon Jan 31 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.1.25-1
-- Update to the latest release
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.23-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+%autochangelog

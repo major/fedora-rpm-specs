@@ -1,6 +1,6 @@
 Name: neochat
-Version: 23.04.3
-Release: 5%{?dist}
+Version: 23.08.0
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -8,12 +8,6 @@ Summary: Client for matrix, the decentralized communication protocol
 Source0: https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
 
 # Proposed upstream
-## Fixes build with libquotient 0.8.x
-## From: https://invent.kde.org/network/neochat/-/merge_requests/1059
-Patch0101: neochat-MR1059.patch
-## Ensures E2EE is enabled
-## https://invent.kde.org/network/neochat/-/merge_requests/1014
-Patch0102: neochat-MR1014.patch
 
 BuildRequires: cmake(Qt5Concurrent)
 BuildRequires: cmake(Qt5Core)
@@ -102,8 +96,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_metainfodir}/*.appdata.xml
 %{_kf5_datadir}/knotifications5/%{name}.notifyrc
 %{_kf5_datadir}/krunner/dbusplugins/*.desktop
+%{_kf5_datadir}/qlogging-categories5/neochat.categories
 
 %changelog
+* Thu Sep 07 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
+- 23.08.0
+
 * Mon Sep 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 23.04.3-5
 - Add patch to enforce E2EE enabled in libQuotient 0.8.x
 
