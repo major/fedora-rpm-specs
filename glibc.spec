@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-90-ge1d3312015
+%global glibcsrcdir glibc-2.38.9000-109-g6985865bc3
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 6
+%global baserelease 7
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2199,6 +2199,26 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Fri Sep 08 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-7
+- Auto-sync with upstream branch master,
+  commit 6985865bc3ad5b23147ee73466583dd7fdf65892:
+- elf: Always call destructors in reverse constructor order (bug 30785)
+- io: Fix record locking contants for powerpc64 with __USE_FILE_OFFSET64
+- manual: Fix ld.so diagnostics menu/section structure
+- getaddrinfo: Get rid of alloca
+- riscv: Add support for XTheadBb in string-fz[a,i].h
+- getcanonname: Fix a typo
+- linux: Add pidfd_getpid
+- posix: Add pidfd_spawn and pidfd_spawnp (BZ 30349)
+- linux: Add posix_spawnattr_{get, set}cgroup_np (BZ 26371)
+- linux: Define __ASSUME_CLONE3 to 0 for alpha, ia64, nios2, sh, and sparc
+- __call_tls_dtors: Use call_function_static_weak
+- intl: Treat C.UTF-8 locale like C locale (BZ# 16621)
+- htl: Fix stack information for main thread
+- htl: thread_local destructors support
+- elf: Fix slow tls access after dlopen [BZ #19924]
+- x86: Check the lower byte of EAX of CPUID leaf 2 [BZ #30643]
+
 * Tue Aug 29 2023 DJ Delorie <dj@redhat.com> - 2.38.9000-6
 - Auto-sync with upstream branch master,
   commit e1d3312015e8f70344620375aedf91afe7e7e7a4.

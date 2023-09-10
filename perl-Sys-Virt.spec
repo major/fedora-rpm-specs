@@ -1,6 +1,6 @@
 Name:           perl-Sys-Virt
-Version:        9.4.0
-Release:        3%{?dist}
+Version:        9.7.0
+Release:        1%{?dist}
 Summary:        Represent and manage a libvirt hypervisor connection
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Virt
@@ -97,6 +97,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 9.7.0-1
+- 9.7.0 bump (rhbz#2237914)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

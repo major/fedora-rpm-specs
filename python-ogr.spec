@@ -1,8 +1,8 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.45.0
-Release:        3%{?dist}
+Version:        0.46.0
+Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Fri Sep 08 2023 Packit <hello@packit.dev> - 0.46.0-1
+- We have fixed a bug in `get_fork` method for Pagure about checking the usernames for a match when going through existing forks. (#800)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.45.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

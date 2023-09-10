@@ -30,7 +30,7 @@ Name: libreswan
 Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec
 # version is generated in the release script
 Version: 4.12
-Release: %{?prever:0.}2%{?prever:.%{prever}}%{?dist}
+Release: %{?prever:0.}3%{?prever:.%{prever}}%{?dist}
 # The code in lib/libswan/nss_copies.c is under MPL-2.0, while the
 # rest is under GPL-2.0-or-later
 License: GPL-2.0-or-later AND MPL-2.0
@@ -213,30 +213,33 @@ certutil -N -d sql:$tmpdir --empty-password
 %doc %{_mandir}/*/*
 
 %changelog
-* Tue Sep 05 2023 Paul Wouters <paul.wouters@aiven.io - 4.12-2
+* Fri Sep 08 2023 Paul Wouters <paul.wouters@aiven.io> - 4.12-3
+- Update libcap-ng patch, fix email addresses in changelog
+
+* Tue Sep 05 2023 Paul Wouters <paul.wouters@aiven.io> - 4.12-2
 - Remove ipsec show and ipsec verify sub commands (not very useful, causes python requirement)
 - Patch for handling libcap-ng return values and fix capng_apply() call
 
-* Fri Aug 11 2023 Paul Wouters <paul.wouters@aiven.io - 4.12-1
+* Fri Aug 11 2023 Paul Wouters <paul.wouters@aiven.io> - 4.12-1
 - Update to 4.12 for CVE-2023-38710, CVE-2023-38711 and CVE-2023-38712
 - Resolves: rhbz#2230225 libreswan-4.12 is available
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Thu May 04 2023 Paul Wouters <paul.wouters@aiven.io - 4.11-1
+* Thu May 04 2023 Paul Wouters <paul.wouters@aiven.io> - 4.11-1
 - Update to 4.11 for CVE-2023-30570
 
-* Wed Mar 01 2023 Paul Wouters <paul.wouters@aiven.io - 4.10-1
+* Wed Mar 01 2023 Paul Wouters <paul.wouters@aiven.io> - 4.10-1
 - Update to 4.10 for CVE-2023-23009
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Tue Jan 10 2023 Paul Wouters <paul.wouters@aiven.io - 4.9-2
+* Tue Jan 10 2023 Paul Wouters <paul.wouters@aiven.io> - 4.9-2
 - Use new GPG key location.
 
-* Thu Oct 13 2022 Paul Wouters <paul.wouters@aiven.io - 4.9-1
+* Thu Oct 13 2022 Paul Wouters <paul.wouters@aiven.io> - 4.9-1
 - Update to 4.9 (maxbytes/maxpackets support, raw ECDSA support, misc fixes)
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.7-1.1

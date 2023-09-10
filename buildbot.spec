@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        3.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -40,8 +40,7 @@ Source8:        %{pypi_source buildbot-pkg}
 # Service template units for buildbot instances
 Source10:       buildbot-master@.service
 Source11:       buildbot-worker@.service
-# https://github.com/buildbot/buildbot/pull/6780
-Patch0:         buildbot-mock.patch
+Patch:         twisted-pin.patch
 
 BuildArch:      noarch
 
@@ -321,8 +320,8 @@ Summary:        Buildbot documentation
 
 %prep
 %setup -q -b0 -b1 -b2 -b3 -b4 -b5 -b6 -b7 -b8
+%patch -P 0 -p1 -b .twisted
 cd ..
-#%patch0 -p1 -b .mock
 
 
 %build
@@ -399,6 +398,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Fri Sep 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.9.2-2
+- Adjust twisted pin.
+
 * Tue Sep 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.9.2-1
 - 3.9.2
 

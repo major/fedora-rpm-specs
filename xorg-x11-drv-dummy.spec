@@ -7,9 +7,9 @@
 Summary:   Xorg X11 dummy video driver
 Name:      xorg-x11-drv-dummy
 Version:   0.3.7
-Release:   19%{?dist}
+Release:   20%{?dist}
 URL:       http://www.x.org
-License:   MIT
+License:   MIT AND X11
 
 Source0:   ftp://ftp.x.org/pub/individual/driver/%{tarball}-%{version}.tar.bz2
 Patch0:    0001-Switch-to-using-dixChangeWindowProperty.patch
@@ -45,6 +45,9 @@ find $RPM_BUILD_ROOT -regex ".*\.la$" | xargs rm -f --
 %{driverdir}/dummy_drv.so
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 0.3.7-20
+- SPDX Migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

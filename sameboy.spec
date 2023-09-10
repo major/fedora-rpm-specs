@@ -1,7 +1,7 @@
 
 Name:           sameboy
 Version:        0.15.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Game Boy and Game Boy Color emulator written in C
 
 License:        MIT
@@ -44,12 +44,6 @@ cp %{name}.desktop %{name}-terminal.desktop
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
-desktop-file-install \
-    --set-key=Name --set-value='SameBoy (Terminal)' \
-    --set-key=Terminal --set-value='true' \
-    --dir=%{buildroot}/%{_datadir}/applications \
-    %{name}-terminal.desktop
-
 %files
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*.bin
@@ -61,7 +55,6 @@ desktop-file-install \
 %{_datadir}/%{name}/LICENSE
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/applications/%{name}-terminal.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/*/mimetypes/x-gameboy*rom.png
@@ -70,6 +63,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Sep 08 2023 Jan Drögehoff <sentrycraft123@gmail.com> - 0.15.8-4
+- remove terminal desktop entry
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

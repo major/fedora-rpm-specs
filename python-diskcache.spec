@@ -1,11 +1,11 @@
 %global         srcname         diskcache
 %global         forgeurl        https://github.com/grantjenks/python-diskcache
-Version:        5.6.1
+Version:        5.6.3
 %global         tag             v%{version}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Python disk-backed cache
 
 License:        Apache-2.0
@@ -54,6 +54,9 @@ sed -i 's/==4.2.*//g' tox.ini
 %doc README.rst
  
 %changelog
+* Fri Sep 08 2023 Benson Muite <benson_muite@emailplus.org> - 5.6.3-1
+- Update to new release 5.6.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,12 +5,16 @@
 
 Name:           obs-studio-plugin-webkitgtk
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OBS Browser source plugin based on WebKitGTK
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/fzwoch/obs-webkitgtk
 Source0:        %{url}/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz
+
+# Fix load paths for webkitgtk helper
+## From: https://github.com/fzwoch/obs-webkitgtk/pull/1
+Patch0001:      0001-Support-libexec-and-lib64-paths-for-the-webkitgtk-he.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -49,10 +53,14 @@ sed -e 's/webkit2gtk-4.0/webkit2gtk-4.1/g' -i meson.build
 
 %files
 %license LICENSE
+%{_libexecdir}/obs-plugins/%{srcname}*
 %{_libdir}/obs-plugins/%{srcname}*
 
 
 %changelog
+* Fri Sep 08 2023 Neal Gompa <ngompa@fedoraproject.org> - 0~git20201202.0e32b92-4
+- Add patch to fix load path for webkitgtk helper (RH#2225973)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20201202.0e32b92-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

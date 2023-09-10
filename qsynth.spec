@@ -1,7 +1,7 @@
 Summary:       Qt based Fluidsynth GUI front end
 Name:          qsynth
-Version:       0.9.11
-Release:       2%{?dist}
+Version:       0.9.12
+Release:       1%{?dist}
 URL:           http://qsynth.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qsynth/%{name}-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc
 
 
 %changelog
+* Fri Sep 08 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.12-1
+- Update to version 0.9.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

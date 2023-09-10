@@ -2,7 +2,7 @@
 %global mod_name flask_oidc
 
 Name:           python-%{project_name}
-Version:        2.0.2
+Version:        2.0.3
 Release:        1%{?dist}
 Summary:        OpenID Connect extension for Flask
 
@@ -55,6 +55,23 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 08 2023 Packit <hello@packit.dev> - 2.0.3-1
+- Version 2.0.3 (Aurélien Bompard)
+- Update actions/checkout action to v4 (renovate[bot])
+- Don't request the `profile` scope by default, as version 1.x used to do (Aurélien Bompard)
+- Redirect URIs must always be https (Aurélien Bompard)
+- Refactor the tests to use the new make_test_app fixture (Aurélien Bompard)
+- Use the `OIDC_CALLBACK_ROUTE` to build the `request_url` when defined (Aurélien Bompard)
+- Also clear g.oidc_id_token on logout (Aurélien Bompard)
+- Clarify the resource server docs (Aurélien Bompard)
+- Add a workflow to let contributors know when a fix is released (Aurélien Bompard)
+- Update pre-commit hook charliermarsh/ruff-pre-commit to v0.0.287 (renovate[bot])
+- Auto-update expired tokens if possible (Aurélien Bompard)
+- Fix sub-lists in the changelog (Aurélien Bompard)
+- Update dependencies in lockfile (renovate[bot])
+- Update pre-commit hook charliermarsh/ruff-pre-commit to v0.0.286 (renovate[bot])
+- Update dependencies in lockfile (renovate[bot])
+
 * Wed Aug 23 2023 Packit <hello@packit.dev> - 2.0.2-1
 - Version 2.0.2 (Aurélien Bompard)
 - Avoid a redirect loop on logout when the token is expired (Aurélien Bompard)

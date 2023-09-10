@@ -1,5 +1,5 @@
 Name:           python-stripe
-Version:        6.2.0
+Version:        6.4.0
 Release:        1%{?dist}
 Summary:        Python library for the Stripe API
 
@@ -68,6 +68,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 08 2023 Roman Inflianskas <rominf@aiven.io> - 6.4.0-1
+- Update to 6.4.0 (fedora#2237931)
+
 * Mon Sep 04 2023 Roman Inflianskas <rominf@aiven.io> - 6.2.0-1
 - Update to 6.2.0 (fedora#2233942)
 

@@ -8,8 +8,8 @@
 Summary: X.Org X11 developmental X transport library
 Name: xorg-x11-xtrans-devel
 Version: 1.4.0
-Release: 11%{?dist}
-License: MIT
+Release: 12%{?dist}
+License: HPND AND HPND-sell-variant AND MIT AND MIT-open-group AND X11
 URL: http://www.x.org
 BuildArch: noarch
 
@@ -53,6 +53,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %{_datadir}/pkgconfig/xtrans.pc
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.4.0-12
+- SPDX Migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

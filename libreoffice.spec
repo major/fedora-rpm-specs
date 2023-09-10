@@ -57,8 +57,8 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.1
-Release:        2%{?libo_prerelease}%{?dist}
+Version:        %{libo_version}.2
+Release:        1%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -2257,6 +2257,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Fri Sep 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:7.6.1.2-1
+- 7.6.1.2
+
 * Mon Sep 04 2023 Mattia Verga <mattia.verga@proton.me> - 1:7.6.1.1-2
 - Unbundle dragonbox
 

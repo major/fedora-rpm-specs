@@ -3,8 +3,8 @@
 %global gitrev .%{gitdate}git%(c=%{gitcommit}; echo ${c:0:7})
 
 Name:           igt-gpu-tools
-Version:        1.27
-Release:        3%{?gitrev}%{?dist}
+Version:        1.27.1
+Release:        0.1%{?gitrev}%{?dist}
 Summary:        Test suite and tools for DRM drivers
 
 License:        MIT
@@ -137,10 +137,6 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %ifarch %{ix86} x86_64
 %{_bindir}/intel-gen4asm
 %{_bindir}/intel-gen4disasm
-%{_bindir}/intel_dump_decode
-%{_bindir}/intel_error_decode
-%{_bindir}/intel_framebuffer_dump
-%{_bindir}/intel_perf_counters
 %endif
 %{_libdir}/libigt.so.0
 %{_libdir}/libi915_perf.so.*
@@ -160,8 +156,11 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_bindir}/intel_display_crc
 %{_bindir}/intel_display_poller
 %{_bindir}/intel_dp_compliance
+%{_bindir}/intel_dump_decode
+%{_bindir}/intel_error_decode
 %{_bindir}/intel_firmware_decode
 %{_bindir}/intel_forcewaked
+%{_bindir}/intel_framebuffer_dump
 %{_bindir}/intel_gem_info
 %{_bindir}/intel_gpu_abrt
 %{_bindir}/intel_gpu_frequency
@@ -175,6 +174,7 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_bindir}/intel_lid
 %{_bindir}/intel_opregion_decode
 %{_bindir}/intel_panel_fitter
+%{_bindir}/intel_perf_counters
 %{_bindir}/intel_reg
 %{_bindir}/intel_reg_checker
 %{_bindir}/intel_residency
@@ -198,6 +198,10 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_datadir}/gtk-doc/html/igt-gpu-tools/*
 
 %changelog
+* Fri Sep 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.27.1-0.1.20230215git45da871
+- Correct version (1.27.1 was released on Jan 18th, snapshot is newer)
+- Fix FTBFS on non-x86 arches
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-3.20230215git45da871
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

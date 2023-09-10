@@ -1,9 +1,9 @@
 Name:           xcb-proto
 Version:        1.14.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        XCB protocol descriptions
 
-License:        MIT
+License:        X11-distribute-modifications-variant
 URL:            https://xcb.freedesktop.org/
 Source0:        https://xorg.freedesktop.org/archive/individual/proto/%{name}-%{version}.tar.xz
 
@@ -51,6 +51,9 @@ autoreconf -fiv
 
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.14.1-11
+- SPDX Migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

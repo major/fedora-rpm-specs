@@ -866,6 +866,8 @@ so that there cannot be any synchronization problems.
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
+sed -i -e 's/ -fcase / -fcase -Wno-all /' libgm2/*/Makefile.am
+sed -i -e 's/ -fcase / -fcase -Wno-all /' libgm2/*/Makefile.in
 
 %if 0%{?rhel} >= 9
 %patch -P100 -p1 -b .fortran-fdec-duplicates~
@@ -3457,7 +3459,7 @@ end
 %endif
 
 %changelog
-* Wed Sep  6 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-2
+* Fri Sep  8 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-2
 - update from releases/gcc-13 branch
   - PRs c++/92407, c++/106310, c++/106652, c++/109678, c++/109751, c++/110197,
 	c++/110566, c++/110927, debug/111080, fortran/99326, fortran/102109,

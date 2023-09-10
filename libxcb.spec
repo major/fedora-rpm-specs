@@ -2,9 +2,9 @@
 
 Name:       libxcb
 Version:    1.13.1
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    A C binding to the X11 protocol
-License:    MIT
+License:    X11
 URL:        http://xcb.freedesktop.org/
 
 Source0:    http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.bz2
@@ -117,6 +117,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 %{_pkgdocdir}
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.13.1-13
+- SPDX Migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

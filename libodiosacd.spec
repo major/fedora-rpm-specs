@@ -37,11 +37,11 @@ developing applications that use %{name}.
 
 %prep
 %autosetup
-chmod -x COPYING
+chmod -x COPYING Makefile src/*.{c,h} src/*/*.{c,h}
 sed -i Makefile \
   -e 's/CC =/CC ?=/' \
-  -e 's/CFLAGS = -g -O$O/CFLAGS +=/' \
-  -e 's/LIBDIR = lib/LIBDIR = %{_lib}/'
+  -e 's/CFLAGS := -g -O\$O/CFLAGS :=/' \
+  -e 's/^LIBDIR = lib/LIBDIR = %{_lib}/'
 
 %build
 %set_build_flags
@@ -53,7 +53,7 @@ sed -i Makefile \
 %files
 %license COPYING
 %doc README.md
-%{_libdir}/%{name}.so.1*
+%{_libdir}/%{name}.so.1{,.*}
 
 %files devel
 %{_includedir}/%{name}

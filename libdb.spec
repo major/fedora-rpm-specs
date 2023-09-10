@@ -1,8 +1,6 @@
-%if 0%{?fedora}
+# This must remain enabled even for RHEL/ELN until all libdb dependencies
+# are dropped, then this should be Fedora-only
 %bcond_without subpackages
-%else
-%bcond_with subpackages
-%endif
 
 %define __soversion_major 5
 %define __soversion %{__soversion_major}.3
@@ -16,7 +14,7 @@
 Summary: The Berkeley DB database library for C
 Name: libdb
 Version: 5.3.28
-Release: 57%{?dist}
+Release: 58%{?dist}
 Source0: http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 Source1: http://download.oracle.com/berkeley-db/db.1.85.tar.gz
 # For mt19937db.c
@@ -488,6 +486,9 @@ install -m 0755 db_converter-%{_converter_version}/db_converter %{buildroot}/%{_
 %endif
 
 %changelog
+* Fri Sep 08 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.3.28-58
+- Re-enable subpackages in RHEL builds
+
 * Tue Aug 29 2023 Filip Janus <fjanus@redhat.com> - 5.3.25-57
 - Add convert-util subpackage
 - It allowes to convert BerkeleyDB database format to GDBM/LMDB format

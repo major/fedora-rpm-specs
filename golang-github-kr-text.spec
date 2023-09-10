@@ -34,6 +34,10 @@ mv mc/Readme Readme-mc
 %go_generate_buildrequires
 
 %build
+%if 0%{?el9}
+export GOPATH="%{gobuilddir}:%{gopath}"
+export GO111MODULE=off
+%endif
 for cmd in cmd/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done

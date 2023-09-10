@@ -97,6 +97,9 @@ developing applications that use liblur.
 %{_libdir}/pkgconfig/liblur.pc
 
 %changelog
+* Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: license is MIT, we're good
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,15 +5,15 @@
 
 Name:           qatzip
 Version:        1.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intel QuickAssist Technology (QAT) QATzip Library
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/intel/%{githubname}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc >= 4.8.5
 BuildRequires:  zlib-devel >= 1.2.7
-BuildRequires:  qatlib-devel >= 22.07.0
+BuildRequires:  qatlib-devel >= 23.08.0
 BuildRequires:  autoconf automake libtool make lz4-devel
 # The purpose of the package is to support hardware that only exists on x86_64 platforms
 # https://bugzilla.redhat.com/show_bug.cgi?id=1987280
@@ -46,7 +46,7 @@ This package contains headers and libraries required to build
 applications that use the QATzip APIs.
 
 %prep
-%autosetup -p0 -n %{githubname}-%{version}
+%autosetup -n %{githubname}-%{version}
 
 %build
 %set_build_flags
@@ -86,6 +86,9 @@ rm -vf %{buildroot}%{_mandir}/*.pdf
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Sep 08 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.1.2-3
+- Rebuilt for qatlib 23.08
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

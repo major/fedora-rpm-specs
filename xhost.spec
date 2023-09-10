@@ -1,9 +1,9 @@
 Name:       xhost
 Version:    1.0.9
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Manage hosts or users allowed to connect to the X server
 
-License:    MIT
+License:    MIT AND ICU
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.0.9-5
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

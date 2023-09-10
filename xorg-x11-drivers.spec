@@ -2,6 +2,7 @@ Summary: X.Org X11 driver installation package
 Name: xorg-x11-drivers
 Version: 2022
 Release: 5%{?dist}
+# SPDX
 License: MIT
 
 # relevant hardware
@@ -54,6 +55,9 @@ individual driver packages to be installed.
 %files
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com>
+- SPDX migration: license is already SPDX compatible
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

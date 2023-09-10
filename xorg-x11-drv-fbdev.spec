@@ -7,9 +7,9 @@
 Summary:   Xorg X11 fbdev video driver
 Name:      xorg-x11-drv-fbdev
 Version:   0.5.0
-Release:   13%{?dist}
+Release:   14%{?dist}
 URL:       http://www.x.org
-License:   MIT
+License:   X11
 
 Source0:   https://www.x.org/pub/individual/driver/%{tarball}-%{version}.tar.bz2
 
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -regex ".*\.la$" | xargs rm -f --
 %{_mandir}/man4/fbdev.4*
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 0.5.0-14
+- SPDX Migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

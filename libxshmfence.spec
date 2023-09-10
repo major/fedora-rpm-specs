@@ -1,9 +1,9 @@
 Name:           libxshmfence
 Version:        1.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        X11 shared memory fences
 
-License:        MIT
+License:        HPND-sell-variant
 URL:            https://www.x.org/
 Source0:        https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
 
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/*.so
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.3-14
+- SPDX Migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

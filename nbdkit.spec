@@ -59,8 +59,8 @@ ExclusiveArch:  x86_64
 %global source_directory 1.35-development
 
 Name:           nbdkit
-Version:        1.35.11
-Release:        2%{?dist}
+Version:        1.35.12
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -85,9 +85,6 @@ Source3:        copy-patches.sh
 # See: https://rpm-software-management.github.io/rpm/manual/dependency_generators.html
 Source4:        nbdkit.attr
 Source5:        nbdkit-find-provides
-
-# Upstream patch to fix partition filter on s390x
-Patch1:         0001-partition-Byte-swap-partition_entries_lba-in-test.patch
 
 BuildRequires: make
 %if 0%{patches_touch_autotools}
@@ -1253,6 +1250,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Fri Sep 08 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.12-1
+- New upstream development version 1.35.12
+
 * Wed Aug 30 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.11-2
 - New upstream development version 1.35.11
 

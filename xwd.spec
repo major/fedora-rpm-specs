@@ -1,9 +1,9 @@
 Name:       xwd
 Version:    1.0.8
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Dump an X window to file
 
-License:    MIT
+License:    MIT-open-group AND HPND-sell-variant
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
 
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.0.8-6
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

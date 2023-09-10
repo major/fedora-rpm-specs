@@ -1,9 +1,9 @@
 Name:           hid-replay
 Version:        0.7.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        HID Input device recorder and replay
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/bentiss/%{name}
 Source0:        https://github.com/bentiss/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -37,6 +37,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man1/hid-recorder.1*
 
 %changelog
+* Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 0.7.1-20
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

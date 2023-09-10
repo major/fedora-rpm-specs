@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.78.2
+Version:        0.80.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,11 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Sep 08 2023 Packit <hello@packit.dev> - 0.80.0-1
+- Packit CLI now provides a new command `pull-from-upstream`, offering the same functionality as `propose-downstream` but suited for usage from the dist-git repository with Packit configuration placed there. This was primarily added to help reproduce the behaviour of the service's [pull_from_upstream job](https://packit.dev/docs/configuration/downstream/pull_from_upstream). (#2063)
+- Packit now exposes `PACKIT_PACKAGE_NAME`, `PACKIT_UPSTREAM_PACKAGE_NAME` and `PACKIT_DOWNSTREAM_PACKAGE_NAME` environment variables to all actions. (#2061)
+- We have fixed a bug in `packit source-git init` caused by changed behaviour in a newer version of rpmbuild. (#2048)
+
 * Mon Aug 07 2023 Packit <hello@packit.dev> - 0.78.2-1
 - Packit's license in RPM specfile is now confirmed to be SPDX compatible. (#2026)
 - `source-git init --ignore-missing-autosetup` help was improved to be less confusing. (#2016) (#2017)

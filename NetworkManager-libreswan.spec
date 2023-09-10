@@ -15,15 +15,15 @@
 Summary:   NetworkManager VPN plug-in for IPsec VPN
 Name:      NetworkManager-libreswan
 Version:   1.2.16
-Release:   4%{?dist}
-License:   GPLv2+
-URL:       http://www.gnome.org/projects/NetworkManager/
+Release:   5%{?dist}
+License:   GPL-2.0-or-later
+URL:       https://gitlab.gnome.org/GNOME/NetworkManager-libreswan
 Source0:   https://download.gnome.org/sources/NetworkManager-libreswan/1.2/%{name}-%{version}.tar.xz
 
 #Patch1: 0001-some.patch
 
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: gtk3-devel
 BuildRequires: libnl3-devel
 BuildRequires: NetworkManager-libnm-devel >= %{nm_version}
@@ -80,18 +80,19 @@ the libreswan server with NetworkManager (GNOME files).
 %configure \
         --disable-static \
 %if %with gtk4
-	--with-gtk4 \
+        --with-gtk4 \
 %endif
 %if %without libnm_glib
         --without-libnm-glib \
 %endif
         --enable-more-warnings=yes \
         --with-dist-version=%{version}-%{release}
-make %{?_smp_mflags}
+%make_build
+
 
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 mv %{buildroot}%{_sysconfdir}/dbus-1 %{buildroot}%{_datadir}/
 
@@ -124,6 +125,13 @@ mv %{buildroot}%{_sysconfdir}/dbus-1 %{buildroot}%{_datadir}/
 
 
 %changelog
+* Fri Sep 08 2023 Till Maas <opensource@till.name> - 1.2.16-5
+- Migrate to spdx license
+- Cleanup whitespace
+- Use make macros
+- Fix changelog
+- Update URL
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -133,7 +141,7 @@ mv %{buildroot}%{_sysconfdir}/dbus-1 %{buildroot}%{_datadir}/
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Fri Mar 11 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.2.16-4
+* Fri Mar 11 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.2.16-1
 - Update to 1.2.16 release
 
 * Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-4

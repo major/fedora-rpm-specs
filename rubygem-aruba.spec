@@ -3,8 +3,8 @@
 
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
-Version:    2.1.0
-Release:    5%{?dist}
+Version:    2.2.0
+Release:    1%{?dist}
 
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
@@ -30,7 +30,7 @@ BuildRequires:  rubygem(pry)
 BuildRequires:  rubygem(rspec) >= 3
 BuildRequires:  rubygem(thor)
 # features/steps/command/shell.feature:97 # Scenario: Running python commands
-BuildRequires:  %{_bindir}/python3
+BuildRequires:  /usr/bin/python3
 
 BuildArch:      noarch
 
@@ -59,12 +59,13 @@ done
 # For tests
 ln -sf ../lib
 popd
-%patch1 -p1
+%patch -P1 -p1
 
 mv ../%{gem_name}-%{version}.gemspec .
 
-# Relax childprocess dependency
-%gemspec_remove_dep -g childprocess '>= 2.0' -s %{gem_name}-%{version}.gemspec
+# Relax cucumber dependency
+# Partially revert https://github.com/cucumber/aruba/pull/906
+sed -i '\@cucumber@s|>= 8.0|>= 7.0|' %{gem_name}-%{version}.gemspec
 # Remove bundler dependency harder
 sed -i '\@dependency.*bundler@d' %{gem_name}-%{version}.gemspec
 
@@ -167,6 +168,10 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Fri Sep  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-1
+- 2.2.0
+- Relax cucumber dependency
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

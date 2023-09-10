@@ -24,7 +24,7 @@
 
 Name:           obs-studio
 Version:        29.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -260,6 +260,9 @@ install -Dm644 cmake/external/ObsPluginHelpers.cmake %{buildroot}%{_libdir}/cmak
 # Cf. https://github.com/obsproject/obs-studio/issues/7972
 sed -e 's|^Cflags: .*|Cflags: -I${includedir} -DHAVE_OBSCONFIG_H|' -i %{buildroot}%{_libdir}/pkgconfig/libobs.pc
 
+# Create libexecdir for obs-plugins
+mkdir -p %{buildroot}%{_libexecdir}/obs-plugins
+
 # Delete useless files
 find %{buildroot} -name ".keepme" -delete
 find %{buildroot} -name ".gitkeep" -delete
@@ -284,6 +287,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %files libs
 %license COPYING
 %license .fedora-rpm/licenses/*
+%dir %{_libexecdir}/obs-plugins
 %{_libdir}/obs-plugins/
 %{_libdir}/obs-scripting/
 # unversioned so files packaged for third-party plugins (cf. rfbz#5999)
@@ -298,6 +302,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Sep 08 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.3-4
+- Add obs-plugins libexecdir to libs subpackage
+
 * Mon Jul 24 2023 Jan Grulich <jgrulich@redhat.com> - 29.1.3-3
 - Rebuild (qt6)
 

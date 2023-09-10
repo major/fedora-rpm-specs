@@ -10,7 +10,7 @@ command, and normal usage will be to use it from the command line.}
 %global forgeurl https://github.com/thebjorn/pydeps
 
 Name:		%{pypi_name}
-Version:	1.12.12
+Version:	1.12.17
 Release:	%autorelease
 Summary:	Display module dependencies
 License:	BSD-2-Clause

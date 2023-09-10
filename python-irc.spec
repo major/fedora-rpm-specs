@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:           python-%{projname}
-Version:        20.1.0
+Version:        20.3.0
 Release:        %autorelease
 Summary:        Full-featured Python IRC library for Python
 
@@ -39,9 +39,6 @@ Summary:        %{summary}
 sed -i 's/setuptools>=56/setuptools/' pyproject.toml
 %endif
 
-# https://github.com/jaraco/irc/pull/204
-sed -i '/exclude =/a\    scripts*' setup.cfg
-
 %generate_buildrequires
 %if %{with tests}
 %pyproject_buildrequires -t
@@ -65,7 +62,7 @@ sed -i '/exclude =/a\    scripts*' setup.cfg
 
 %files -n python3-%{projname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst CHANGES.rst
+%doc README.rst NEWS.rst
 
 %changelog
 %autochangelog

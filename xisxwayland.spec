@@ -34,6 +34,9 @@ Xwayland server and 1 otherwise.
 %{_mandir}/man1/xisxwayland.1*
 
 %changelog
+* Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: MIT, nothing to do
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

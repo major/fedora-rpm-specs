@@ -7,10 +7,10 @@
 
 Name:           evemu
 Version:        2.7.0
-Release:        25%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        26%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Event Device Query and Emulation Program
 
-License:        GPLv3+
+License:        GPL-3.0-only AND LGPL-3.0-only AND GPL-3.0-or-later
 URL:            http://www.freedesktop.org/wiki/Evemu
 
 %if 0%{?gitdate}
@@ -96,6 +96,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %endif
 
 %changelog
+* Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 2.7.0-26
+- SPDX migration
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

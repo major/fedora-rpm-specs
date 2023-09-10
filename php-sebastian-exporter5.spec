@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    f3ec4bf931c0b31e5b413f5b4fc970a7d03338c0
+%global gh_commit    32ff03d078fed1279c4ec9a407d08c5e9febb480
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   exporter
@@ -25,8 +25,8 @@
 %global pear_channel pear.phpunit.de
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.0.0
-Release:        3%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
 License:        BSD-3-Clause
@@ -115,6 +115,9 @@ exit $ret
 
 
 %changelog
+* Fri Sep  8 2023 Remi Collet <remi@remirepo.net> - 5.0.1-1
+- update to 5.0.1
+
 * Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 5.0.0-3
 - Enable test suite
 

@@ -8,16 +8,13 @@
 %bcond_with tests
 
 Name:           python-%{pkg_name}
-Version:        3.2.0
-Release:        13%{?dist}
+Version:        3.11.1
+Release:        1%{?dist}
 Summary:        Module for text manipulation
 
 License:        MIT
 URL:            https://github.com/jaraco/jaraco.text
 Source0:        %{pypi_source}
-# Fixes read_text DeprecationWarning in importlib
-# https://github.com/jaraco/jaraco.text/commit/98bf053915f03c1611a2d7fd1bd1a7a36712d8d1.patch
-Patch:          0001-Rely-on-importlib.resources-traversable-API.-Fixes-D.patch
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
@@ -83,8 +80,6 @@ install jaraco/text/Lorem\ ipsum.txt \
 %license LICENSE
 %doc README.rst
 # These excludes are provided by python3-jaraco
-%exclude %{python3_sitelib}/jaraco/__init__*
-%exclude %{python3_sitelib}/jaraco/__pycache__/__init__*
 %{python3_sitelib}/jaraco/text/
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info
 
@@ -96,6 +91,9 @@ install jaraco/text/Lorem\ ipsum.txt \
 %endif
 
 %changelog
+* Wed Aug 16 2023 Dan Radez <dradez@redhat.com> - 3.11.1-1
+- update to upstream 3.11 rhbz#2232234
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -117,7 +117,7 @@ Requires: python3-numpy
         -DBUILD_SHARED_LIBS=OFF \
         -DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF \
         -DMLIR_BUILD_MLIR_C_DYLIB=ON \
-%ifarch %ix86 ppc64le x86_64
+%ifarch aarch64 %ix86 ppc64le x86_64
         -DLLVM_PARALLEL_LINK_JOBS=1 \
 %endif
 %ifarch %ix86

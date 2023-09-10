@@ -5,7 +5,7 @@
 %bcond_with docs
 
 Name:           python-%{pkg_name}
-Version:        3.8.1
+Version:        3.9.0
 Release:        1%{?dist}
 Summary:        Functools like those found in stdlib
 
@@ -74,7 +74,6 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/jaraco/functools*
-%{python3_sitelib}/jaraco/__pycache__/functools*
 %{python3_sitelib}/jaraco.functools-%{version}.dist-info
 
 %if %{with docs}
@@ -84,6 +83,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Sep 08 2023 Dan Radez <dradez@redhat.com> - 3.9.0-1
+- update to 3.9.0 rhbz#2235141
+
 * Tue Aug 08 2023 Dan Radez <dradez@redhat.com> - 3.8.1-1
 - update to 3.8.1 rhbz#2229532
 

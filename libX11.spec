@@ -5,8 +5,8 @@
 Summary: Core X11 protocol client library
 Name: libX11
 Version: 1.8.6
-Release: 2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
-License: MIT
+Release: 3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+License: MIT AND X11
 URL: http://www.x.org
 
 %if 0%{?gitdate}
@@ -123,6 +123,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man5/*.5*
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.8.6-3
+- SPDX Migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

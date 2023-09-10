@@ -2,10 +2,10 @@
 
 Name:           evtest
 Version:        1.35
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Event device test program
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://gitlab.freedesktop.org/libevdev/evtest/
 Source0:        http://gitlab.freedesktop.org/libevdev/evtest/-/archive/%{name}-%{version}/%{name}-%{version}.tar.bz2
 
@@ -34,6 +34,12 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man1/evtest.1*
 
 %changelog
+* Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.35-5
+- SPDX migration take 2
+
+* Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.35-4
+- SPDX migration
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

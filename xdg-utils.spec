@@ -115,6 +115,7 @@ make man scripts %{?_smp_mflags} -C scripts
 - mark LICENSE as %%license
 - Spec cleanup
 - Small patches, as a rule, are in git dist, to be more easy to read.
+- Migrated to SPDX license (noop)
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

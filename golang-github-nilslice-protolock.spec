@@ -40,6 +40,10 @@ Summary:        %{summary}
 %go_generate_buildrequires
 
 %build
+%if 0%{?el9}
+export GOPATH="%{gobuilddir}:%{gopath}"
+export GO111MODULE=off
+%endif
 %gobuild -o %{gobuilddir}/bin/protolock %{goipath}/cmd/protolock
 
 %install

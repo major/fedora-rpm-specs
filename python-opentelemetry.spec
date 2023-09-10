@@ -1,6 +1,6 @@
 # See eachdist.ini:
-%global stable_version 1.18.0
-%global prerel_version 0.39~b0
+%global stable_version 1.20.0
+%global prerel_version 0.41~b0
 # WARNING: Because python-opentelemetry-contrib has some exact-version
 # dependencies on subpackages of this package, it must be updated
 # simultaneously with this package, preferably using a side tag, such that its
@@ -13,7 +13,7 @@
 #
 # See PROTO_REPO_BRANCH_OR_COMMIT in scripts/proto_codegen.sh for the correct
 # version number.
-%global proto_version 0.17.0
+%global proto_version 0.20.0
 
 # Unfortunately, we cannot disable the prerelease packages without breaking
 # almost all of the stable packages, because opentelemetry-sdk depends on the
@@ -29,6 +29,10 @@
 # The python-opencensus package was retired, so we cannot supply the
 # python3-opentelemetry-opencensus-shim subpackage.
 %bcond opencensus 0
+
+# Is protobuf v4 (22.x, 23.x, etc.)?
+# The opentelemetry-exporter-opencensus support only protobuf v3.
+%bcond protobuf4 0
 
 Name:           python-opentelemetry
 Version:        %{stable_version}
@@ -61,9 +65,9 @@ BuildRequires:  latexmk
       opentelemetry-proto
       propagator/opentelemetry-propagator-jaeger
       propagator/opentelemetry-propagator-b3
-      exporter/opentelemetry-exporter-zipkin-proto-http
+      %{?!with_protobuf4:exporter/opentelemetry-exporter-zipkin-proto-http}
       exporter/opentelemetry-exporter-zipkin-json
-      exporter/opentelemetry-exporter-zipkin
+      %{?!with_protobuf4:exporter/opentelemetry-exporter-zipkin}
       exporter/opentelemetry-exporter-prometheus
       exporter/opentelemetry-exporter-otlp
       exporter/opentelemetry-exporter-otlp-proto-common
@@ -76,7 +80,7 @@ BuildRequires:  latexmk
 # See eachdist.ini:
 %global prerel_pkgdirs %{shrink:
       tests/opentelemetry-test-utils
-      exporter/opentelemetry-exporter-opencensus
+      %{?!with_protobuf4:exporter/opentelemetry-exporter-opencensus}
       %{?with_opencensus:shim/opentelemetry-opencensus-shim}
       shim/opentelemetry-opentracing-shim
       opentelemetry-semantic-conventions}
@@ -153,7 +157,7 @@ exporter instead. Upstream support for this exporter will end July 2023.
 
 
 
-%if %{with prerelease}
+%if %{with prerelease} && %{without protobuf4}
 %package -n python3-opentelemetry-exporter-opencensus
 Summary:        OpenCensus Exporter
 Version:        %{prerel_version}
@@ -266,6 +270,7 @@ This library allows export of tracing data to Zipkin (https://zipkin.io/) using
 JSON for serialization.
 
 
+%if %{without protobuf4}
 %package -n python3-opentelemetry-exporter-zipkin-proto-http
 Summary:        Zipkin Span Protobuf Exporter for OpenTelemetry
 Version:        %{stable_version}
@@ -278,8 +283,10 @@ Requires:       python3-opentelemetry-exporter-zipkin-json = %{stable_version}-%
 %description -n python3-opentelemetry-exporter-zipkin-proto-http
 This library allows export of tracing data to Zipkin (https://zipkin.io/) using
 Protobuf for serialization.
+%endif
 
 
+%if %{without protobuf4}
 %package -n python3-opentelemetry-exporter-zipkin
 Summary:        Zipkin Span Exporters for OpenTelemetry
 Version:        %{stable_version}
@@ -301,6 +308,7 @@ In the future, additional packages may be available:
 
 To avoid unnecessary dependencies, users should install the specific package
 once they've determined their preferred serialization method.
+%endif
 
 
 %package -n python3-opentelemetry-api
@@ -427,8 +435,7 @@ Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
 This library provides a propagator for the Jaeger format.
 
 
-%if %{with prerelease}
-%if %{with opencensus}
+%if %{with prerelease} && %{with opencensus}
 %package -n python3-opentelemetry-opencensus-shim
 Summary:        OpenCensus Shim for OpenTelemetry
 Version:        %{prerel_version}
@@ -441,6 +448,7 @@ Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
 %endif
 
 
+%if %{with prerelease}
 %package -n python3-opentelemetry-opentracing-shim
 Summary:        OpenTracing Shim for OpenTelemetry
 Version:        %{prerel_version}
@@ -501,13 +509,6 @@ sed -r -i 's/("googleapis-common-protos.*), <[^"]*/\1/' \
 # requirement in the long term, so we loosen it preemptively.
 sed -r -i 's/(responses )== /\1>= /' \
     exporter/opentelemetry-exporter-otlp-proto-http/pyproject.toml
-# In “Use importlib-metadata regardless of Python version (#3217)”,
-# https://github.com/open-telemetry/opentelemetry-python/pull/3217, upstream
-# pinned importlib-metadata ~= 6.0.0, which is very strict. We loosen it to
-# allow at least the expected major version.  See:
-# https://github.com/open-telemetry/opentelemetry-python/commit/6379c1cbe6432afaaac81f524a331a7819eaecc5#r105601318
-sed -r -i 's/(importlib-metadata ~= 6\.0)\.0/\1/' \
-    opentelemetry-api/pyproject.toml
 
 %py3_shebang_fix .
 # These are not installed with executable permissions, so shebangs are not
@@ -607,7 +608,15 @@ for dep in cfg.get("testenv", "deps").splitlines():
         raise ValueError(f"Confusing dependency: {dep!r}")
     command = parts[0][:-1]
     dep = parts[1]
-    if any(what in command for what in ("cov", "mypy", "proto4")):
+    skips = ["cov", "mypy"]
+    skips.append(
+%if %{with protobuf4}
+        "proto3"
+%else
+        "proto4"
+%endif
+    )
+    if any(what in command for what in skips):
         continue
     print(dep)
 ' ) | sed -r -e '/^#/d' -e '/^(.*\/)?opentelemetry-/d' | sort -u |
@@ -713,7 +722,12 @@ do
     k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_enable_env)"
     # Test failure in opentelemetry-sdk on Python 3.12
     # https://github.com/open-telemetry/opentelemetry-python/issues/3370
-    k="${k-}${k+ and }not (TestLoggingHandler and test_log_record_user_attributes)"
+    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_exporter)"
+    # Sometimes fails (flakily) with AssertionError: 974 != 1024; this is
+    # probably just a runtime performance issue, but it was pointed out to
+    # upstream in:
+    # https://github.com/open-telemetry/opentelemetry-python/issues/3370#issuecomment-1710557877
+    k="${k-}${k+ and }not (TestBatchSpanProcessor and test_batch_span_processor_many_spans)"
     ;;
   esac
 
@@ -769,7 +783,7 @@ done
 %{python3_sitelib}/opentelemetry_exporter_jaeger-%{stable_distinfo}/
 
 
-%if %{with prerelease}
+%if %{with prerelease} && %{without protobuf4}
 %files -n python3-opentelemetry-exporter-opencensus
 # Note that the contents are identical to the top-level LICENSE file.
 %license exporter/opentelemetry-exporter-opencensus/LICENSE
@@ -883,6 +897,7 @@ done
 %{python3_sitelib}/opentelemetry_exporter_zipkin_json-%{stable_distinfo}/
 
 
+%if %{without protobuf4}
 %files -n python3-opentelemetry-exporter-zipkin-proto-http
 # Note that the contents are identical to the top-level LICENSE file.
 %license exporter/opentelemetry-exporter-zipkin-proto-http/LICENSE
@@ -900,8 +915,10 @@ done
 
 %{python3_sitelib}/opentelemetry/exporter/zipkin/proto/http/
 %{python3_sitelib}/opentelemetry_exporter_zipkin_proto_http-%{stable_distinfo}/
+%endif
 
 
+%if %{without protobuf4}
 %files -n python3-opentelemetry-exporter-zipkin
 # Note that the contents are identical to the top-level LICENSE file.
 %license exporter/opentelemetry-exporter-zipkin/LICENSE
@@ -913,6 +930,7 @@ done
 %dir %{python3_sitelib}/opentelemetry/exporter/zipkin/__pycache__/
 %pycached %{python3_sitelib}/opentelemetry/exporter/zipkin/version.py
 %{python3_sitelib}/opentelemetry_exporter_zipkin-%{stable_distinfo}/
+%endif
 
 
 %files -n python3-opentelemetry-api
@@ -1011,8 +1029,7 @@ done
 %{python3_sitelib}/opentelemetry_propagator_jaeger-%{stable_distinfo}/
 
 
-%if %{with prerelease}
-%if %{with opencensus}
+%if %{with prerelease} && %{with opencensus}
 %files -n python3-opentelemetry-opencensus-shim
 # Note that the contents are identical to the top-level LICENSE file.
 %license shim/opentelemetry-opencensus-shim/LICENSE
@@ -1028,6 +1045,7 @@ done
 %endif
 
 
+%if %{with prerelease}
 %files -n python3-opentelemetry-opentracing-shim
 # Note that the contents are identical to the top-level LICENSE file.
 %license shim/opentelemetry-opentracing-shim/LICENSE

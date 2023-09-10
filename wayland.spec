@@ -3,6 +3,7 @@ Version:        1.22.0
 Release:        2%{?dist}
 Summary:        Wayland Compositor Infrastructure
 
+# SPDX
 License:        MIT
 URL:            http://wayland.freedesktop.org/
 Source0:        https://gitlab.freedesktop.org/%{name}/%{name}/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz
@@ -115,6 +116,9 @@ Wayland server library
 %{_libdir}/libwayland-server.so.0*
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com>
+- SPDX migration: license is already SPDX compatible
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

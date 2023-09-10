@@ -1,9 +1,9 @@
 Name:       xeyes
 Version:    1.3.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A follow the mouse X demo
 
-License:    MIT
+License:    X11
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.3.0-2
+- SPDX migration
+
 * Thu Aug 10 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.3.0-1
 - xeyes 1.3.0
 

@@ -1,9 +1,9 @@
 Name:           mesa-libGLU
 Version:        9.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mesa libGLU library
 
-License:        MIT
+License:        X11
 URL:            http://mesa3d.org/
 Source0:        https://ftp.freedesktop.org/pub/mesa/glu/glu-%{version}.tar.xz
 Source2:        make-git-snapshot.sh
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_libdir}/pkgconfig/glu.pc
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 9.0.3-2
+- SPDX Migration
+
 * Sun Jul 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 9.0.3-1
 - Update to 9.0.3
 - Move to meson build

@@ -10,6 +10,7 @@ Summary:        Tool to check system for binary-hardening
 License:        BSD
 URL:            https://github.com/slimm609/%{name}.sh
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         0001-Fix-compatibility-with-binutils-2.41-on-ppc64le.patch
 
 BuildArch:      noarch
 
@@ -31,6 +32,7 @@ Requires:       file
 Requires:       findutils
 Requires:       gawk
 Requires:       which
+Requires:       nm
 
 %description
 Modern Linux distributions offer some mitigation techniques to make it harder

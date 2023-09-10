@@ -6,6 +6,7 @@ Version:        0.42.2
 Release:        2%{?dist}
 Summary:        Pixel manipulation library
 
+# SPDX
 License:        MIT
 URL:            https://gitlab.freedesktop.org/pixman/pixman
 #VCS:           git:git://git.freedesktop.org/git/pixman
@@ -64,6 +65,9 @@ sed -i 's/120/600/' test/meson.build
 %{_libdir}/pkgconfig/pixman-1.pc
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com>
+- SPDX migration: license is already SPDX compatible
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

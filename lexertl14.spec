@@ -10,6 +10,10 @@ License:        BSL-1.0
 URL:            https://github.com/BenHanson/lexertl14
 Source:         %{url}/archive/%{commit}/lexertl14-%{commit}.tar.gz
 
+# Fix install paths on Linux with multilib
+# https://github.com/BenHanson/lexertl14/pull/20
+Patch:          %{url}/pull/20.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  dos2unix
@@ -47,15 +51,12 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -n lexertl14-%{commit}
-# Adapt to multilib:
-sed -r -i 's@(DESTINATION )lib\b@\1%{_libdir}@' CMakeLists.txt
+%autosetup -n lexertl14-%{commit} -p1
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
   grep -E '\bCRLF\b' |
   cut -d ':' -f 1 |
   xargs -r dos2unix
-# sed -r -i 's@\(test\)@\(tests/fail_tests\)@' CMakeLists.txt
 
 
 %build

@@ -1,8 +1,8 @@
 Name:		xcb-util-image
 Version:	0.4.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Port of Xlib's XImage and XShmImage functions on top of libxcb
-License:	MIT
+License:	X11-distribute-modifications-variant
 URL:		http://xcb.freedesktop.org
 Source0:	http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.xz
 BuildRequires:	make
@@ -66,6 +66,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 0.4.1-4
+- SPDX Migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

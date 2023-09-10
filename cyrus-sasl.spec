@@ -8,7 +8,7 @@ Summary: The Cyrus SASL library
 Name: cyrus-sasl
 Version: 2.1.28
 Release: %autorelease
-License: BSD with advertising
+License: BSD-Attribution-HPND
 URL: https://www.cyrusimap.org/sasl/
 
 # Source0 originally comes from https://www.cyrusimap.org/releases/;
