@@ -1,8 +1,9 @@
-Summary: Initial system configuration utility
 Name: initial-setup
-URL: https://fedoraproject.org/wiki/InitialSetup
 Version: 0.3.97
-Release: 3%{?dist}
+Release: 4%{?dist}
+Summary: Initial system configuration utility
+URL: https://fedoraproject.org/wiki/InitialSetup
+License: GPL-2.0-or-later
 
 # This is a Red Hat maintained package which is specific to
 # our distribution.
@@ -15,7 +16,6 @@ Source0: %{name}-%{version}.tar.gz
 %define debug_package %{nil}
 %define anacondaver 37.8-1
 
-License: GPL-2.0-or-later
 BuildRequires: gettext
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -27,6 +27,7 @@ BuildRequires: make
 
 Requires: %{__python3}
 Requires: anaconda-tui >= %{anacondaver}
+Requires: libxkbcommon
 Requires: python3-simpleline >= 1.4
 Requires: systemd >= 235
 Requires(post): systemd
@@ -59,16 +60,12 @@ initial-setup utility.
 rm -rf *.egg-info
 
 %build
-make
+%make_build
 
 %install
-rm -rf %{buildroot}
-make DESTDIR=%{buildroot} install
+%make_install
 
 %find_lang %{name}
-
-%clean
-rm -rf %{buildroot}
 
 %post
 %systemd_post initial-setup.service
@@ -80,8 +77,8 @@ rm -rf %{buildroot}
 %systemd_postun initial-setup.service
 
 %files -f %{name}.lang
-%doc README.rst ChangeLog
 %license COPYING
+%doc README.rst ChangeLog
 %{python3_sitelib}/initial_setup*
 %exclude %{python3_sitelib}/initial_setup/gui
 %{_libexecdir}/%{name}/run-initial-setup
@@ -104,6 +101,9 @@ rm -rf %{buildroot}
 %{python3_sitelib}/initial_setup/gui/
 
 %changelog
+* Sat Sep 09 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.97-4
+- Requires libxkbcommon, minor spec modernisation
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.97-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

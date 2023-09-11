@@ -1,16 +1,20 @@
 %global srcname nmap
 
 Name:           python-%{srcname}
-Version:        0.6.4
-Release:        9%{?dist}
+Version:        0.7.1
+Release:        %autorelease
 Summary:        Python library which helps in using nmap port scanner
 
-License:        GPLv3+
-URL:            http://xael.org/norman/python/python-nmap/
-Source0:        http://xael.org/pages/%{name}-%{version}.tar.gz
+License:        GPL-3.0-or-later
+URL:            https://xael.org/pages/python-nmap-en.html
+Source0:        https://xael.org/pages/%{name}-%{version}.tar.gz
+
+# https://bitbucket.org/xael/python-nmap/pull-requests/4
+Patch0:         setup.py.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 
 Requires:       nmap
 
@@ -31,144 +35,25 @@ for systems administrators who want to automatize scanning task and reports.
 It also supports nmap script outputs.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p0
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files nmap
 
-%files -n python3-%{srcname}
+%check
+# test_nmap is writen in nose, which has been broken since Python 3.9 (https://github.com/nose-devs/nose/issues/1099)
+%pyproject_check_import -e nmap.test_nmap
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc CHANGELOG README.rst 
 %license gpl-3.0.txt
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/python_nmap*.egg-info
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.4-8
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.6.4-5
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.6.4-2
-- Rebuilt for Python 3.10
-
-* Fri Mar 05 2021 Fabian Affolter <mail@fabian-affolter.ch> - 0.6.4-1
-- Update to latest upstream release 0.6.4
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-17
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-15
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-14
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Jun 01 2019 Fabian Affolter <mail@fabian-affolter.ch> - 0.6.1-12
-- Remove superfluous variable
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Oct 17 2018 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.1-10
-- Subpackage python2-nmap has been removed
-  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-8
-- Rebuilt for Python 3.7
-
-* Fri Feb 16 2018 Lumír Balhar <lbalhar@redhat.com> - 0.6.1-7
-- Fix directory ownership
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Fri Jan 26 2018 Iryna Shcherbina <ishcherb@redhat.com> - 0.6.1-5
-- Update Python 2 dependency declarations to new packaging standards
-  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-2
-- Rebuild for Python 3.6
-
-* Tue Nov 15 2016 Fabian Affolter <mail@fabian-affolter.ch> - 0.6.1-2
-- Update to latest upstream release 0.6.1
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.3.4-7
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.3.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
-
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.3.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sat Dec 20 2014 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.4-3
-- Fix wrong package naming
-
-* Wed Dec 17 2014 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.4-2
-- Fix package naming (rhbz#1174115)
-
-* Wed Aug 06 2014 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.4-1
-- Switch to py3
-- Update the URL and the source URL
-- Update to latest upstream version 0.3.4
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Mon Oct 28 2013 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.1-1
-- Update to latest upstream version 0.3.1
-
-* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Fri Mar 01 2013 Fabian Affolter <mail@fabian-affolter.ch> - 0.2.7-1
-- Update to latest upstream version 0.2.7
-
-* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Sun Nov 18 2012 Fabian Affolter <mail@fabian-affolter.ch> - 0.2.4-1
-- Initial package
+%autochangelog

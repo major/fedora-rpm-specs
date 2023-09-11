@@ -1,11 +1,14 @@
-Name:           libuecc
 Version:        7
-Release:        18%{?dist}
+%global forgeurl https://github.com/neocturne/libuecc
+%forgemeta
+
+Name:           libuecc
+Release:        %autorelease
 Summary:        Very small Elliptic Curve Cryptography library
 
-License:        BSD
-URL:            https://git.universe-factory.net/libuecc
-Source0:        https://git.universe-factory.net/libuecc/snapshot/libuecc-%{version}.zip
+License:        BSD-2-Clause
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -24,7 +27,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%forgeautosetup
 
 
 %build
@@ -34,11 +37,7 @@ developing applications that use %{name}.
 
 %install
 %cmake_install
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
-
-
-%ldconfig_scriptlets
 
 
 %files
@@ -55,77 +54,4 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Aug 13 2020 Felix Kaechele <heffer@fedoraproject.org> - 7-12
-- update cmake macros
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7-11
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 7-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Mar 30 2016 Felix Kaechele <heffer@fedoraproject.org> - 7-1
-- update to version 7
-- added docs
-- updated URLs
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Dec 02 2015 Felix Kaechele <heffer@fedoraproject.org> - 6-1
-- update to version 6
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Fri Feb 20 2015 Felix Kaechele <heffer@fedoraproject.org> - 5-2
-- mark the COPYRIGHT as license, not doc
-
-* Thu Feb 19 2015 Felix Kaechele <heffer@fedoraproject.org> - 5-1
-- update to version 5
-
-* Sat Mar 29 2014 Felix Kaechele <heffer@fedoraproject.org> - 4-1
-- first package version
+%autochangelog

@@ -11,24 +11,14 @@
 %bcond_with run_tests
 
 Name:           mir
-Version:        2.12.0
-Release:        3%{?dist}
+Version:        2.15.0
+Release:        1%{?dist}
 Summary:        Next generation display server
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
 License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
 URL:            https://mir-server.io/
 Source0:        https://github.com/MirServer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-
-# Add missing #include statements
-# - <stdexcept> for std::logic_error
-# - <cstdint> for uint*_t
-#
-# Fixes failure to compile with GCC 13.
-Patch0:         0001-Add-missing-include-statements.patch
-Patch1:         0001-wayland-Add-missing-cstdint-includes.patch
-# Backport fix for docs generation
-Patch2:         0001-doc-better-removal-of-existing-docs.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc-c++
@@ -102,6 +92,8 @@ Requires:      %{name}-common-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{rel
 Requires:      %{name}-server-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:      %{name}-lomiri-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:      %{name}-test-libs-static%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+# Documentation can no longer be built properly
+Obsoletes:     %{name}-doc < 2.15.0
 
 %description devel
 This package provides the development files to create
@@ -171,14 +163,6 @@ Requires:      gnu-free-sans-fonts
 This package provides applications for demonstrating
 the capabilities of the Mir display server.
 
-%package doc
-Summary:       Documentation for developing Mir based applications
-BuildArch:     noarch
-
-%description doc
-This package provides documentation for developing Mir based
-applications.
-
 %package test-libs-static
 Summary:       Testing framework library for Mir
 License:       GPL-2.0-only or GPL-3.0-only
@@ -204,17 +188,8 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 
 %cmake_build
 
-# Build documentation
-%cmake_build --target doc
-
 %install
 %cmake_install
-
-# Install documentation
-pushd %{_vpath_builddir}
-mkdir -p %{buildroot}%{_datadir}/doc/mir-doc
-cp -a doc/html %{buildroot}%{_datadir}/doc/mir-doc
-popd
 
 
 %check
@@ -257,6 +232,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %{_libdir}/mir/server-platform/graphics-gbm-kms.so.*
 %{_libdir}/mir/server-platform/graphics-wayland.so.*
 %{_libdir}/mir/server-platform/input-evdev.so.*
+%{_libdir}/mir/server-platform/renderer-egl-generic.so.*
 %{_libdir}/mir/server-platform/server-x11.so.*
 
 %files test-tools
@@ -285,13 +261,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %{_datadir}/wayland-sessions/mir-shell.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ubuntu-logo.svg
 
-%files doc
-%license COPYING.*
-%doc README.md
-%{_datadir}/doc/mir-doc/html
-
 
 %changelog
+* Fri Sep 08 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.15.0-1
+- Update to 2.15.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -300,7 +274,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 * Wed Feb 01 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.12.0-1
 - Update to 2.12.0
-- Convert license identifiers to SDPX notation
+- Convert license identifiers to SPDX notation
 
 * Tue Jan 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-7
 - Rebuilt for gtest 1.13.0 (close RHBZ#2163843)

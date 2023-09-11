@@ -32,7 +32,7 @@ Requires:       file
 Requires:       findutils
 Requires:       gawk
 Requires:       which
-Requires:       nm
+Requires:       /usr/bin/nm
 
 %description
 Modern Linux distributions offer some mitigation techniques to make it harder

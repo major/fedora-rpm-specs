@@ -19,9 +19,9 @@
 ################################################################################
 
 %global _hardened_build 1
-%global majorversion    12.1
-%global minorversion    5
-%global toolsbuild      20735119
+%global majorversion    12.3
+%global minorversion    0
+%global toolsbuild      22234872
 %global toolsversion    %{majorversion}.%{minorversion}
 %global toolsdaemon     vmtoolsd
 %global vgauthdaemon    vgauthd
@@ -32,7 +32,7 @@
 
 Name:             open-vm-tools
 Version:          %{toolsversion}
-Release:          4%{?dist}
+Release:          1%{?dist}
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPL-2.0 AND W3C AND LGPL-2.1 AND ICU AND ISC AND MIT
 URL:              https://github.com/vmware/%{name}
@@ -420,6 +420,21 @@ fi
 %{_bindir}/vmware-vgauth-smoketest
 
 %changelog
+* Sat Sep 9 2023 John Wolfe <jwolfe@vmware.com> - 12.3.0-1
+- Package new upstream version of open-vm-tools-12.3.0-22234872.
+  - Fix for CVE-2023-20900 - a SAML token signature bypass vulnerability.
+  - Fix for CVE-2023-20867 - an Authentication Bypass vulnerability.
+  - Linux quiesced snapshots have been updated to avoid intermittent hangs
+    of the vmtoolsd process.
+    - File systems prefrozen by custom quiescing scripts must be listed on the
+      "excludedFileSystems" setting in the "vmbackup" section of the tools.conf
+      file.
+    - A tools.conf configuration setting is available to temporaily direct
+      Linux quiesced snaphots to restore pre open-vm-tools 12.2.0 behavior
+      of ignoring file systems already frozen.
+  - A number of Coverity reported issues have been addressed.
+  - A number of GitHub issues and pull requests have been handled.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

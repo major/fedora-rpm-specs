@@ -5,7 +5,7 @@ started in context of the Linux-Kernel documentation, you can use these
 extensions in common Sphinx-doc projects.}
 
 Name:           python-linuxdoc
-Version:        20230321
+Version:        20230827
 Release:        %{autorelease}
 Summary:        Sphinx-doc extensions for sophisticated C developer
 
@@ -46,7 +46,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 
 # generate man pages
 # must be done here because binaries must be installed
-for binfile in "kernel-autodoc" "kernel-doc" "kernel-grepdoc" "kernel-lintdoc"
+for binfile in "linuxdoc.autodoc" "linuxdoc.rest" "linuxdoc.grepdoc" "linuxdoc.lintdoc" "kernel-autodoc" "kernel-doc" "kernel-grepdoc" "kernel-lintdoc"
 do
     ls -lash "$RPM_BUILD_ROOT/%{_bindir}/${binfile}"
     help2man -N --version-string %{version} -h -h --no-discard-stderr "$RPM_BUILD_ROOT/%{_bindir}/${binfile}" > "${binfile}.1"
@@ -62,10 +62,15 @@ install -p -m 0644 -D -t "$RPM_BUILD_ROOT/%{_mandir}/man1/"  *.1
 
 %files -n python3-linuxdoc -f %{pyproject_files}
 %doc README.rst
+%{_bindir}/linuxdoc.autodoc
+%{_bindir}/linuxdoc.rest
+%{_bindir}/linuxdoc.grepdoc
+%{_bindir}/linuxdoc.lintdoc
 %{_bindir}/kernel-autodoc
 %{_bindir}/kernel-doc
 %{_bindir}/kernel-grepdoc
 %{_bindir}/kernel-lintdoc
+%{_mandir}/man1/linuxdoc.*
 %{_mandir}/man1/kernel-*
 
 

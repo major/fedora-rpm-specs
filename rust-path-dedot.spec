@@ -5,7 +5,7 @@
 %global crate path-dedot
 
 Name:           rust-path-dedot
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Parse path with dots in Path and PathBuf
 

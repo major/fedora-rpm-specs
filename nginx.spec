@@ -59,9 +59,7 @@ Version:           1.24.0
 Release:           %autorelease
 
 Summary:           A high performance web server and reverse proxy server
-# BSD License (two clause)
-# http://www.freebsd.org/copyright/freebsd-license.html
-License:           BSD
+License:           BSD-2-Clause
 URL:               https://nginx.org
 
 Source0:           https://nginx.org/download/nginx-%{version}.tar.gz

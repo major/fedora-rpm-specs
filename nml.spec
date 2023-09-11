@@ -8,7 +8,7 @@ Name:           nml
 Release:        %autorelease
 Summary:        NewGRF Meta Language compiler
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            %{forgeurl}
 Source:         %{forgesource}
 

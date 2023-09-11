@@ -16,7 +16,6 @@ BuildRequires:  yaml-cpp-devel
 BuildRequires:  gflags-devel
 BuildRequires:  marisa-devel
 BuildRequires:  leveldb-devel
-BuildRequires:  capnproto, capnproto-devel
 
 %description
 Rime Input Method Engine Library

@@ -2,8 +2,8 @@
 
 # https://github.com/jpillora/chisel
 %global goipath         github.com/jpillora/chisel
-Version:                1.9.0
-%global tag             v1.9.0
+Version:                1.9.1
+%global tag             v1.9.1
 
 %gometa
 
@@ -13,7 +13,7 @@ A fast TCP tunnel over HTTP.}
 %global godocs          example README.md
 
 Name:           chisel
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TCP tunnel over HTTP
 
 License:        MIT
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sat Sep 09 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.9.1-2
+- Update to 1.9.1 fixes rhbz#2234344
+
 * Sun Aug 20 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.9.0-1
 - Update to 1.9.0 fixes rhbz#2113146 rhbz#2163065 rhbz#2165257
 

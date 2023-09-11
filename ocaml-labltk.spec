@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:          ocaml-labltk
 Version:       8.06.13
-Release:       3%{?dist}
+Release:       4%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -45,6 +45,8 @@ language Tcl/Tk (all versions since 8.0.3, but no betas).}
 Summary:       Tcl/Tk interface for OCaml
 
 Requires:      %{name}%{?_isa} = %{version}-%{release}
+Requires:      tcl-devel%{?_isa}
+Requires:      tk-devel%{?_isa}
 
 
 %description devel %_desc
@@ -133,6 +135,9 @@ sed 's/8\.06\.6/%{version}/' support/META > \
 
 
 %changelog
+* Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 8.06.13-4
+- Add devel package dependency on tcl-/tk-devel
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.06.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,14 +1,12 @@
 %global pypi_name Scrapy
 %global pkg_name scrapy
 Name:		python-scrapy
-Version:	2.8.0
-Release:	3%{?dist}
+Version:	2.10.1
+Release:	1%{?dist}
 Summary:	A high-level Python Screen Scraping framework
-
 License:	BSD
-URL:		http://scrapy.org
+URL:		https://scrapy.org
 Source0:	https://files.pythonhosted.org/packages/source/S/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-
 BuildArch:	noarch
 
 
@@ -70,7 +68,7 @@ from data mining to monitoring and automated testing.
 This package contains the documentation for %{name}
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pkg_name}-%{version}
 
 %build
 %py3_build
@@ -83,7 +81,7 @@ rm -f docs/build/html/.buildinfo
 
 %files -n python3-%{pkg_name}
 %license LICENSE
-%doc AUTHORS PKG-INFO
+%doc AUTHORS
 %{python3_sitelib}/scrapy
 %{python3_sitelib}/Scrapy-*.egg-info
 %{_bindir}/scrapy
@@ -92,6 +90,9 @@ rm -f docs/build/html/.buildinfo
 %doc docs/build/html
 
 %changelog
+* Sat Sep 09 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.10.1-1
+- Update to 2.10.1 fixes rhbz#2110522 rhbz#2220494 and rhbz#2159992
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

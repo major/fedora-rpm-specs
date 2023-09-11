@@ -1,9 +1,9 @@
-%global gittag 2.2.5
+%global gittag 2.2.6
 
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
 Name: rdiff-backup
-Release: 4%{?dist}
+Release: 1%{?dist}
 
 URL: https://rdiff-backup.net/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{name}-%{version}.tar.gz
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
+* Sat Sep 09 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.6-2
+- Final minor release v2.2.6 - Fedora/EPEL Release
+
+* Fri Sep 08 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.6-1
+- Final minor release v2.2.6 - COPR Release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

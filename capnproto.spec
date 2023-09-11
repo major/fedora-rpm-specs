@@ -4,19 +4,13 @@
 %global modulename %{name}-c++
 
 Name:           capnproto
-Version:        0.10.3
-Release:        4%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        A data interchange format and capability-based RPC system
 
 License:        MIT
 URL:            https://capnproto.org
 Source0:        https://capnproto.org/%{modulename}-%{version}.tar.gz
-# https://github.com/capnproto/capnproto/pull/1613
-# g++13 missing header inclusion
-Patch0:         %{name}-pr1613-g++13-header.patch
-# https://github.com/capnproto/capnproto/pull/1618
-# Remove operator!= for c++20 header user
-Patch1:         %{name}-pr1618-remove-operator-notequal-c++20.patch
 
 # We need C++
 BuildRequires:  gcc-c++
@@ -94,6 +88,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/cmake/CapnProto/
 
 %changelog
+* Fri Sep 08 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.0.1-1
+- Rebase to 1.0.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

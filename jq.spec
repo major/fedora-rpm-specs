@@ -1,17 +1,13 @@
+%bcond_without check
+
 Name:           jq
-Version:        1.6
-Release:        17%{?dist}
+Version:        1.7
+Release:        %autorelease
 Summary:        Command-line JSON processor
 
 License:        MIT and ASL 2.0 and CC-BY and GPLv3
-URL:            http://stedolan.github.io/jq/
-Source0:        https://github.com/stedolan/jq/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Backport of PR#1752 for RHBZ#2008979
-Patch0:         jq-decimal-literal-number.patch
-# Backport of PR#2400 for RHBZ#2017285
-Patch1:         jq-fix-non-decimal-string.patch
-Patch2:         jq-configure-c99-1.patch
-Patch3:         jq-configure-c99-2.patch
+URL:            https://jqlang.github.io/jq/
+Source0:        https://github.com/jqlang/jq/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  flex
@@ -22,10 +18,10 @@ BuildRequires:  oniguruma-devel
 %ifarch %{valgrind_arches}
 BuildRequires:  valgrind
 %endif
-BuildRequires: make
-BuildRequires: autoconf
-BuildRequires: automake
-BuildRequires: libtool
+BuildRequires:  make
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 
 
 %description
@@ -45,8 +41,8 @@ lightweight and flexible command-line JSON processor
  you'd expect.
 
 %package devel
-Summary:	Development files for %{name}
-Requires:	%{name}%{?_isa} = %{version}-%{release}
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Development files for %{name}
@@ -81,132 +77,26 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 # system - rhbz#1987608
 chrpath -d %{buildroot}%{_bindir}/%{name}
 
+%if %{with check}
 %check
 # Valgrind used, so restrict architectures for check
 %ifarch %{ix86} x86_64
 make check
 %endif
-
-%ldconfig_scriptlets
+%endif
 
 %files
+%license COPYING
+%doc AUTHORS COPYING NEWS.md README.md
 %{_bindir}/%{name}
 %{_libdir}/libjq.so.*
 %{_datadir}/man/man1/jq.1.gz
-%{_datadir}/doc/jq/AUTHORS
-%{_datadir}/doc/jq/COPYING
-%{_datadir}/doc/jq/README
-%{_datadir}/doc/jq/README.md
 
 %files devel
 %{_includedir}/jq.h
 %{_includedir}/jv.h
 %{_libdir}/libjq.so
-
+%{_libdir}/pkgconfig/libjq.pc
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 1.6-15
-- Port configure script to C99
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Mar 11 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.6-13
-- Use make macros
-- https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
-
-* Tue Mar 08 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.6-12
-- Backport PR#2400 to fix iteration for non-decimal strings (rhbz#2017285)
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Sep 29 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 1.6-10
-- Backport PR#1752 to fix an integer logic issue (rhbz#2008979)
-
-* Thu Aug 12 2021 Lon Hohberger <lon@redhat.com> - 1.6-9
-- Drop build-time RPATH from jq binary (rhbz#1987608)
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Dec 05 2020 Richard W.M. Jones <rjones@redhat.com> - 1.6-6
-- Use correct valgrind_arches macro to check for valgrind.
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Nov 08 2018 David Fetter <david@fetter.org> - 1.6-1
-- Upstream 1.6.0
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sun Apr 01 2018 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5-12
-- Rebuild against oniguruma 6.8.1
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Feb 07 2018 Lon Hohberger <lon@fedoraproject.org> - 1.5-10
-- Fix CVE 2015-8863
-
-* Fri Feb 02 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.5-9
-- Switch to %%ldconfig_scriptlets
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sun Oct 30 2016 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5-5
-- Rebuild for oniguruma 6.1.1
-
-* Mon Jul 18 2016 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5-4
-- Rebuild for oniguruma 6
-
-* Sun Mar 13 2016 Peter Robinson <pbrobinson@fedoraproject.org> 1.5-3
-- valgrind on all but s390
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Aug 25 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 1.5-1
-- Upstream 1.5.0
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Thu Oct 24 2013 Flavio Percoco <flavio@redhat.com> - 1.3-2
-- Added check, manpage
-
-* Fri Oct 18 2013 Flavio Percoco <flavio@redhat.com> - 1.3-1
-- Initial package release.
+%autochangelog

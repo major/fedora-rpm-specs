@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-fastavro
-Version:        1.8.2
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Fast Avro for Python
 
@@ -22,7 +22,7 @@ Summary:        Fast Avro for Python
 # SPDX:
 License:        MIT AND Apache-2.0
 URL:            https://github.com/fastavro/fastavro
-Source0:        %{pypi_source fastavro}
+Source:         %{pypi_source fastavro}
 
 # Upstream does not test, nor support 32 bit systems
 # Issue: https://github.com/fastavro/fastavro/issues/526
@@ -30,7 +30,6 @@ Source0:        %{pypi_source fastavro}
 ExcludeArch:    %{arm32} %{ix86}
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist Cython}
 BuildRequires:  gcc
 
 BuildRequires:  make

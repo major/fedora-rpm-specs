@@ -1,5 +1,5 @@
 %global packname rmarkdown
-%global packver  2.23
+%global packver  2.24
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((dygraphs)\\)

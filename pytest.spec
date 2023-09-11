@@ -1,5 +1,5 @@
 Name:           pytest
-%global base_version 7.4.1
+%global base_version 7.4.2
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
 Release:        1%{?dist}
@@ -180,6 +180,11 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Sep 08 2023 Miro Hrončok <mhroncok@redhat.com> - 7.4.2-1
+- Update to 7.4.2
+- Changelog: https://docs.pytest.org/en/stable/changelog.html#pytest-7-4-2-2023-09-07
+- Fixes: rhbz#2237942
+
 * Wed Sep 06 2023 Miro Hrončok <mhroncok@redhat.com> - 7.4.1-1
 - Update to 7.4.1
 - Changelog: https://docs.pytest.org/en/stable/changelog.html#pytest-7-4-1-2023-09-02

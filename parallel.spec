@@ -1,13 +1,11 @@
 Name:           parallel
 Summary:        Shell tool for executing jobs in parallel
-Version:        20230722
+Version:        20230822
 Release:        %autorelease
-
 License:        GFDL and GPLv3+
 URL:            https://www.gnu.org/software/parallel/
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.bz2
 BuildArch:      noarch
-
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  make

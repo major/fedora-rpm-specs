@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A CTF framework and exploit development library
 
 # Source contains four LICENSE*.txt files which explain the licenses which cover
@@ -53,6 +53,8 @@ intended to make exploit writing as simple as possible.
 %install
 %py3_install
 
+mv %{buildroot}%{_bindir}/checksec %{buildroot}%{_bindir}/checksec-pwntools
+
 # setuptools < 60 installs pwntools-doc to sitelib
 # setuptools >= 60 changes the installation location
 # remove pwntools-doc from both locations
@@ -65,7 +67,29 @@ rm -rf %{buildroot}%{_prefix}/pwntools-doc
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/pwn/
 %{python3_sitelib}/pwnlib/
-%{_bindir}/*
+%{_bindir}/asm
+%{_bindir}/checksec-pwntools
+%{_bindir}/common
+%{_bindir}/constgrep
+%{_bindir}/cyclic
+%{_bindir}/debug
+%{_bindir}/disablenx
+%{_bindir}/disasm
+%{_bindir}/elfdiff
+%{_bindir}/elfpatch
+%{_bindir}/errno
+%{_bindir}/hex
+%{_bindir}/libcdb
+%{_bindir}/main
+%{_bindir}/phd
+%{_bindir}/pwn
+%{_bindir}/pwnstrip
+%{_bindir}/scramble
+%{_bindir}/shellcraft
+%{_bindir}/template
+%{_bindir}/unhex
+%{_bindir}/update
+%{_bindir}/version
 
 # Waiting on pwntools to support newer sphinx shipped by Fedora.
 # %%files doc
@@ -73,6 +97,9 @@ rm -rf %{buildroot}%{_prefix}/pwntools-doc
 # %%license LICENSE-pwntools.txt
 
 %changelog
+* Sat Sep 09 2023 W. Michael Petullo <mike@flyn.org> - 4.9.0-5
+- Fix BZ #2238038; rename to checksec-pwntools to remove conflict with checksec package
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

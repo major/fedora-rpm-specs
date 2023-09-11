@@ -1,6 +1,6 @@
 Name:           calceph
 Version:        3.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Astronomical library to access planetary ephemeris files
 
 License:        CECILL-2.0 OR CECILL-B OR CECILL-C
@@ -68,7 +68,7 @@ chmod -x COPYING*
     --enable-python-package-system=no \
     --enable-python-package-user=no \
     --enable-thread=yes \
-    --disable-static \
+    --enable-static=no \
     --docdir=%{_pkgdocdir}
 %make_build
 
@@ -76,17 +76,20 @@ chmod -x COPYING*
 %install
 %make_install
 
-# Remove static lib
-rm %{buildroot}%{_libdir}/libcalceph.la
-
 # Remove sources for Octave / Mathlib interface
 rm -r %{buildroot}%{_libexecdir}
 
 # Remove hidden files from docdir
 find %{buildroot}%{_pkgdocdir} -name .buildinfo -exec rm -f {} \;
 
-%if 0%{?epel} && 0%{?epel} < 8
+%if 0%{?epel}
+# Remove static libraries
+rm %{buildroot}%{_libdir}/libcalceph.la
+
+%if 0%{?epel} < 8
 %ldconfig_scriptlets
+%endif
+
 %endif
 
 
@@ -118,6 +121,9 @@ make check
 
 
 %changelog
+* Sat Sep 09 2023 Mattia Verga <mattia.verga@proton.me> - 3.5.3-2
+- Correctly disable static libs building
+
 * Wed Sep 06 2023 Mattia Verga <mattia.verga@proton.me> - 3.5.3-1
 - Update to 3.5.3 (fedora#2237641)
 

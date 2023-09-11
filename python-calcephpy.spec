@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Astronomical library to access planetary ephemeris files
 
 License:        CECILL-2.0 OR CECILL-B OR CECILL-C
@@ -54,6 +54,7 @@ rm -r %{srcname}.egg-info
 
 
 %build
+export CPPFLAGS="$CXXFLAGS"
 %py3_build
 
 # Remove hidden files from docdir
@@ -75,6 +76,9 @@ find doc -name .buildinfo -exec rm -f {} \;
 
 
 %changelog
+* Sat Sep 09 2023 Mattia Verga <mattia.verga@protonm.me> - 3.5.3-2
+- Fix build flags
+
 * Wed Sep 06 2023 Mattia Verga <mattia.verga@protonm.me> - 3.5.3-1
 - Update to 3.5.3 (fedora#2237640)
 - Fix compatibility with Cython 3.x (fedora#2226167)

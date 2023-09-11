@@ -5,7 +5,7 @@
 %global crate path-absolutize
 
 Name:           rust-path-absolutize
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Extend Path and PathBuf for getting an absolute path
 

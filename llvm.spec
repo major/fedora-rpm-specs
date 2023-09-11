@@ -37,7 +37,7 @@
 %global maj_ver 17
 %global min_ver 0
 %global patch_ver 0
-%global rc_ver 3
+%global rc_ver 4
 
 %if %{with snapshot_build}
 %undefine rc_ver
@@ -118,9 +118,6 @@ Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
-
-# Backport of https://reviews.llvm.org/D158252 from LLVM 18.
-Patch1:		0001-Fix-regression-of-D157680.patch
 %endif
 
 # RHEL-specific patch to avoid unwanted recommonmark dep
@@ -617,6 +614,9 @@ fi
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Tue Sep 05 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-1
+- Update to LLVM 17.0.0 RC4
 
 * Thu Aug 24 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-1
 - Update to LLVM 17.0.0 RC3

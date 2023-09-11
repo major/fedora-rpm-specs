@@ -1,9 +1,9 @@
 Name:           batctl
 Version:        2023.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
-License:        GPLv2
+License:        GPL-2.0-only AND MIT AND ISC
 URL:            http://www.open-mesh.org/
 Source0:        http://downloads.open-mesh.org/batman/stable/sources/batctl/%{name}-%{version}.tar.gz
 
@@ -51,6 +51,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Sat Sep 09 2023 Felix Kaechele <heffer@fedoraproject.org> - 2023.2-2
+- convert License tag to SPDX, add missing licenses
+
 * Thu Aug 17 2023 Felix Kaechele <heffer@fedoraproject.org> - 2023.2-1
 - update to 2023.2
 

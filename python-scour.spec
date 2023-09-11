@@ -3,22 +3,35 @@
 
 Name:               python-scour
 Version:            0.38.2
-Release:            5%{?dist}
+Release:            6%{?dist}
 Summary:            %{sum}
 
+# All files are Apache-2.0 except scour/svg_regex.py
+# which is BSD-3-Clause
 License:            Apache-2.0 AND BSD-3-Clause
 URL:                https://github.com/scour-project/scour
 Source0:            %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
 # Tests
 BuildRequires:      python3-six
+BuildArch: noarch
 
-BuildArch:          noarch
+%global _description %{expand:
+Scour is an SVG optimizer/cleaner written in Python that reduces the
+size of scalable vector graphics by optimizing structure and removing
+unnecessary data.
 
-%description
-%{sum}.
+It can be used to create streamlined vector graphics suitable for web
+deployment, publishing/sharing or further processing.
+
+The goal of Scour is to output a file that renders identically at a
+fraction of the size by removing a lot of redundant information created
+by most SVG editors. Optimization options are typically lossless but can
+be tweaked for more aggressive cleaning.}
+
+
+%description %_description
 
 
 %package -n python3-%{modname}
@@ -27,7 +40,7 @@ Summary:            %{sum}
 Requires: python3-packaging
 
 %description -n python3-%{modname}
-%{sum}.
+%_description
 
 
 %prep
@@ -37,27 +50,32 @@ Requires: python3-packaging
 find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 
 %check
-%{__python3} setup.py test
+%pyproject_check_import
+%{py3_test_envvars} %{python3} setup.py test
 
-%{!?_licensedir: %global license %doc}
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
+%{_bindir}/scour
 %doc README.md
-%license LICENSE
-%{_bindir}/%{modname}
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}*
+%doc HISTORY.md
 
 
 %changelog
+* Sat Sep 09 2023 Benson Muite <benson_muite@emailplus.org> - 0.38.2-6
+- Use new Python build macros
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

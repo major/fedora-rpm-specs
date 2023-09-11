@@ -1,12 +1,13 @@
 Summary:          Image and video capture application using unicap toolkit
 Name:             ucview
 Version:          0.33
-Release:          25%{?dist}
+Release:          26%{?dist}
 License:          GPLv2+
 URL:              https://www.unicap-imaging.org/
 Source0:          https://www.unicap-imaging.org/downloads/%{name}-%{version}.tar.gz
 Source1:          %{name}.desktop
 Patch0:           ucview-0.33-gmodule.patch
+Patch1:           ucview-0.33-charset.patch
 BuildRequires:    gcc, make
 BuildRequires:    intltool, %{_bindir}/perl, perl(XML::Parser), gettext, GConf2-devel
 BuildRequires:    libunicapgtk-devel >= 0.2.23, gtk2-devel >= 2.8.0, libglade2-devel
@@ -35,8 +36,7 @@ The ucview-devel package includes header files necessary for building
 and developing programs and plugins which use UCView.
 
 %prep
-%setup -q
-%patch0 -p1 -b .gmodule
+%autosetup -p1
 
 %build
 %configure --disable-schemas-install
@@ -98,6 +98,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Sep 10 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.33-26
+- Fix FTBFS rhbz#2226491
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

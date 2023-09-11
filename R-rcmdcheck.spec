@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.4.0
-Release:          4%{?dist}
+Release:          %autorelease
 Summary:          Run 'R CMD check' from 'R' and Capture Results
 
 License:          MIT
@@ -54,6 +54,10 @@ comparing check results.
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' %{packname}/DESCRIPTION
 
+# Fix test
+sed -i 's/bad3, tempfile(), character()/bad3, tempfile(), "--no-build-vignettes"/' \
+    %{packname}/tests/testthat/test-build.R
+
 
 %build
 
@@ -83,48 +87,4 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.0-3
-- R-maint-sig mass rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Sep  3 2022 Tom Callaway <spot@fedoraproject.org> - 1.4.0-1
-- update to 1.4.0
-- rebuild for R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 16 2021 Tom Callaway <spot@fedoraproject.org> - 1.3.3-8
-- Rebuilt for R 4.1.0
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Jun  7 2020 Tom Callaway <spot@fedoraproject.org> - 1.3.3-5
-- rebuild for R 4
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Aug 11 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.3.3-3
-- Remove explicit dependencies provided by automatic dependency generator
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed May 15 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.3.3-1
-- initial package for Fedora
+%autochangelog

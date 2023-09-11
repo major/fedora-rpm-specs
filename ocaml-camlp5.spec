@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlp5
 Version:        8.02.00
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Preprocessor and pretty printer for OCaml
 
 License:        BSD-3-Clause
@@ -54,6 +54,8 @@ forward, with an extensive and ever-growing testsuite.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-camlp-streams-devel%{?_isa}
+Requires:       ocaml-pcre-devel%{?_isa}
 
 
 %description    devel
@@ -111,6 +113,9 @@ make -C test all
 
 
 %changelog
+* Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 8.02.00-2
+- Add camlp-streams-/pcre-devel dependencies to devel subpackage
+
 * Tue Aug 15 2023 Jerry James <loganjerry@gmail.com> - 8.02.00-1
 - Version 8.02.00
 - Drop unnecessary function-ref patch
