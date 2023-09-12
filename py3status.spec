@@ -1,7 +1,7 @@
 %bcond_without test
 
 Name:           py3status
-Version:        3.52
+Version:        3.53
 Release:        %autorelease
 Summary:        An extensible i3status wrapper written in python
 
@@ -31,7 +31,7 @@ No extra configuration file needed, just install & enjoy !
 %setup -q -n %{name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -43,7 +43,7 @@ No extra configuration file needed, just install & enjoy !
 
 %if %{with test}
 %check
-pytest
+%pytest
 %endif
 
 %files -f %{pyproject_files}

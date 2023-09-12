@@ -1,56 +1,68 @@
 Name:           python-pydantic
-Version:        1.10.2
-Release:        4%{?dist}
+Version:        1.10.12
+Release:        1%{?dist}
 Summary:        Data validation using Python type hinting
 
 License:        MIT
-URL:            https://github.com/samuelcolvin/pydantic
-Source0:        https://github.com/samuelcolvin/pydantic/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://github.com/pydantic/pydantic
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:          Fix-Python-3.12-test-failures.patch
 BuildArch:      noarch
- 
+
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 # For check phase
-BuildRequires:  python3-mypy
-BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(hypothesis)
+BuildRequires:  python3dist(mypy)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-mock)
 
 %description
 Data validation and settings management using python type hinting.
 
+
 %package -n     python3-pydantic
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-pydantic}
- 
-Requires:       python3-email-validator >= 1.0.3
-Requires:       python3-ujson >= 1.35
+Recommends:     python3-pydantic+email
+
 
 %description -n python3-pydantic
 Data validation and settings management using python type hinting.
 
+
 %prep
-%autosetup -n pydantic-%{version}
-# Remove bundled egg-info
-rm -rf pydantic.egg-info
+%autosetup -n pydantic-%{version} -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x email -x dotenv
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 # Docs are in MarkDown, and should be added when mkdocs is packaged.
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pydantic
+
 
 %check
-%{__python3} setup.py test
+# Disable mypy plugin tests. We don't use it for downstream packaging.
+%pytest -Wdefault --ignore=tests/mypy/test_mypy.py
 
-%files -n python3-pydantic
+
+%files -n python3-pydantic -f %{pyproject_files}
 %license LICENSE
 %doc README.md docs/
-%{python3_sitelib}/pydantic
-%{python3_sitelib}/pydantic-%{version}-py%{python3_version}.egg-info
+
+%pyproject_extras_subpkg email,dotenv -n python3-pydantic
 
 %changelog
+* Sat Aug 12 2023 Maxwell G <maxwell@gtmx.me> - 1.10.12-1
+- Update to 1.10.12.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

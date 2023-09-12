@@ -1,17 +1,17 @@
 Name:           rtfilter
-Version:        1.1
+Version:        1.3
 Release:        %autorelease
 Summary:        Realtime digital filtering functions for multichannel signals
 
-# LGPLv3: src/*
-# GPLv3:  examples/*
-License:        GPLv3 and LGPLv3
-URL:            http://cnbi.epfl.ch/software/rtfilter.html
-Source0:        https://github.com/nbourdau/rtfilter/archive/%{name}-%{version}.tar.gz
+License:        LGPL-3.0-only
+URL:            https://github.com/mmlabs-mindmaze/rtfilter
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  check-devel
+BuildRequires:  cmake
 BuildRequires:  gcc
-BuildRequires:  automake autoconf libtool
+BuildRequires:  meson
+BuildRequires:  python3
 
 %description
 rtfilter provides a library written in C implementing realtime digital
@@ -37,15 +37,15 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{name}-%{name}-%{version}
+%autosetup -n %{name}-%{version}
 
 %build
-autoreconf -vfi
-%configure
-%make_build
+# docs produce HTML which bundles lots of js and css, so we don't build it
+%meson -Ddocs=disabled
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 # drop libtool
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
@@ -53,21 +53,18 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 rm -f %{buildroot}%{_docdir}/%{name}/COPYING
 
 %check
-make check
-
-%ldconfig_scriptlets
+%meson_test
 
 %files
 %license COPYING
-%doc AUTHORS NEWS README
-%{_libdir}/lib%{name}.so.*
+%doc AUTHORS NEWS README.md
+%{_libdir}/lib%{name}.so.1*
 
 %files devel
 %doc %{_docdir}/%{name}/examples
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/rtf*.h
-%{_mandir}/man3/rtf*.3*
 
 %changelog
 %autochangelog

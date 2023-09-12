@@ -2,15 +2,15 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-ocamlgraph
-Version:        2.0.0
-Release:        14%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        OCaml library for arc and node graphs
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://backtracking.github.io/ocamlgraph/
 Source0:        https://github.com/backtracking/ocamlgraph/releases/download/%{version}/ocamlgraph-%{version}.tbz
 
-BuildRequires:  ocaml >= 4.03.0
+BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-dune >= 2.0
 BuildRequires:  ocaml-graphics-devel
 BuildRequires:  ocaml-lablgtk-devel
@@ -66,7 +66,7 @@ The %{name}-tools package contains graph editing tools for use with
 %autosetup -n ocamlgraph-%{version}
 
 # Fix encoding
-for fil in COPYING CREDITS TODO.md; do
+for fil in COPYING TODO.md; do
   iconv -f latin1 -t utf-8 $fil > $fil.utf8
   touch -r $fil $fil.utf8
   mv -f $fil.utf8 $fil
@@ -97,8 +97,7 @@ install -m 0755 -p _build/default/view_graph/viewGraph_test.exe \
         %{buildroot}%{_bindir}/ocamlgraph-viewgraph
 
 %check
-# FIXME: test_components is failing with OCaml 5.0.0
-%dune_check || :
+%dune_check
 
 %files -f .ofiles-ocamlgraph
 %doc CREDITS FAQ
@@ -117,6 +116,9 @@ install -m 0755 -p _build/default/view_graph/viewGraph_test.exe \
 %{_bindir}/ocamlgraph*
 
 %changelog
+* Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 2.1.0-1
+- Version 2.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

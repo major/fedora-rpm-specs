@@ -2,7 +2,7 @@
 %global major_version %(echo -n %{tarball_version} | sed 's/[.].*//')
 
 %global gettext_version                         0.19.6
-%global gnome_desktop_version                   40~rc
+%global gnome_desktop_version                   44.0
 %global glib2_version                           2.68.0
 %global gtk4_version                            3.24.27
 %global mutter_version                          45~beta
@@ -11,17 +11,13 @@
 %global gnome_settings_daemon_version           40~rc
 
 Name:           gnome-kiosk
-Version:        44.0
-Release:        3%{?dist}
+Version:        45~rc
+Release:        %{autorelease}
 Summary:        Window management and application launching for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
-
-# Build against mutter 45
-# https://gitlab.gnome.org/GNOME/gnome-kiosk/-/merge_requests/28
-Patch:          28.patch
 
 Provides:       firstboot(windowmanager) = %{name}
 
@@ -36,7 +32,7 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gobject-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
+BuildRequires:  pkgconfig(gnome-desktop-4.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= %{ibus_version}
 BuildRequires:  pkgconfig(libmutter-13) >= %{mutter_version}
@@ -109,86 +105,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/xsessions/gnome-kiosk-script-xorg.desktop
 
 %changelog
-* Tue Aug 08 2023 Kalev Lember <klember@redhat.com> - 44.0-3
-- Build against mutter 45
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Mar 21 2023 David King <amigadave@amigadave.com> - 44.0-1
-- Update to 44.0
-
-* Mon Mar 06 2023 David King <amigadave@amigadave.com> - 44~rc-1
-- Update to 44.rc
-
-* Wed Feb 15 2023 Adam Williamson <awilliam@redhat.com> - 44~beta-1
-- Update to 44-beta, rebuild against new libmutter
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43.0-1
-- Update to 43.0
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 42.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jul 20 2022 Adam Williamson <awilliam@redhat.com> - 42.0-2
-- Bump mutter requirements and rebuild against mutter 43
-
-* Tue Mar 22 2022 David King <amigadave@amigadave.com> - 42.0-1
-- Update to 42.0
-
-* Mon Jan 24 2022 David King <amigadave@amigadave.com> - 42~alpha-1
-- Update to 42.alpha
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 17 2022 David King <amigadave@amigadave.com> - 41.0-2
-- Build against mutter 42 (#2040955)
-
-* Thu Sep 23 2021 Kalev Lember <klember@redhat.com> - 41.0-1
-- Update to 41.0
-
-* Wed Aug 18 2021 Ray Strode <rstrode@redhat.com> - 41~beta-1
-- Update to 41.beta
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 40.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon May 17 2021 Ray Strode <rstrode@redhat.com> - 40.0-1
-- Update to 40.0
-  Related: #1950042
-
-* Wed May 12 2021 Ray Strode <rstrode@redhat.com> - 40~alpha-9
-- Fix crash
-  Resolves: #1957754
-
-* Thu May 06 2021 Ray Strode <rstrode@redhat.com> - 40~alpha-8
-- Fix window ordering bug
-  Resolves: #1957863
-
-* Tue Apr 27 2021 Ray Strode <rstrode@redhat.com> - 40~alpha-7
-- Fix desktop file
-  Resolves: #1954285
-
-* Fri Apr 23 2021 Ray Strode <rstrode@redhat.com> - 40~alpha-6
-- Add vprovides so initial-setup can use this
-
-* Wed Apr 21 2021 Ray Strode <rstrode@redhat.com> - 40~alpha-5
-- Fix keyboard layouts getting out of sync in anaconda
-
-* Tue Apr 20 2021 Ray Strode <rstrode@redhat.com> - 40~alpha-4
-- Fix infinite loop
-
-* Mon Apr 19 2021 Ray Strode <rstrode@redhat.com> - 40~alpha-3
-- Fix crash
-
-* Sun Apr 18 2021 Ray Strode <rstrode@redhat.com> - 40~alpha-2
-- Work with 3rd party keyboard layout selectors
-- Be less aggressive about fullscreening windows
-
-* Mon Apr 12 2021 Ray Strode <rstrode@redhat.com> - 40~alpha-1
-- Initial import
-
+%autochangelog

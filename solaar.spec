@@ -1,14 +1,16 @@
 Name:           solaar
 Version:        1.1.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
 
-Patch0:         solaar-paths.patch
-# Fedora-specific patch; remove udev-acl tag from upsteam udev rules as it only
-# applies to some old version of ubuntu.
-Patch1:         patch-udev-rules
+# Fedora-specific patches
+Patch:          0001-Install-udev-rules-into-correct-location.patch
+Patch:          0002-Install-alternative-udev-rules-for-wayland-compatibi.patch
+Patch:          0003-Install-autostart-desktop-file.patch
+# https://github.com/pwr-Solaar/Solaar/pull/2104
+Patch:          0004-Remove-udev-acl-tag-from-udev-rules.patch
 
 BuildArch:      noarch
 License:        GPLv2
@@ -123,6 +125,9 @@ fi
 
 
 %changelog
+* Fri Jul 28 2023 Carl George <carl@george.computer> - 1.1.9-4
+- Use alternative udev rules for wayland compatibility
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

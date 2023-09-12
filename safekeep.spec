@@ -1,16 +1,20 @@
+%global commit 75e66fe16a3afcb78db5786018487adb63e91793
+%global date 20230910
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 %define name    safekeep
 %define version 1.5.1
-%define release 8
+%define release 1
 %define homedir %{_localstatedir}/lib/%{name}
 
 Name:           %{name}
-Version:        %{version}
+Version:        %{version}^%{date}git%{shortcommit}
 Release:        %{release}%{?dist}
 Summary:        The SafeKeep backup system
 
 License:        GPL-2.0-or-later
 URL:            http://%{name}.sourceforge.net
-Source0:        https://github.com/dimipaun/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/dimipaun/%{name}/archive/%{commit}.tar.gz#/%{name}-%{commit}.tar.gz
 Source1:        README.Fedora
 
 BuildArch:      noarch
@@ -49,8 +53,8 @@ installed on all hosts that need to be backed-up.
 
 %package server
 Summary:        The SafeKeep backup system (server component)
-Requires(pre):  %{_sbindir}/useradd
-Requires(pre):  %{_sbindir}/groupadd
+Requires(pre):  /usr/sbin/useradd
+Requires(pre):  /usr/sbin/groupadd
 Requires:       openssh, openssh-clients
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       crontabs
@@ -63,7 +67,7 @@ This is the server component of SafeKeep. It should be
 installed on the server on which the data will be backed-up to.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{commit}
 cp -p %{SOURCE1} .
 
 %build
@@ -103,6 +107,10 @@ id %{name} >/dev/null 2>&1 || \
 %doc samples/sample.backup
 
 %changelog
+* Sun Sep 10 2023 Frank Crawford <frank@crawford.emu.id.au> - 1.5.1^20230910git75e66fe-1
+- Update with latest patches for rdiff-backup 2.2
+- Pull latest git version
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

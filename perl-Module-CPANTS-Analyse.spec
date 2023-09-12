@@ -1,6 +1,6 @@
 Name:           perl-Module-CPANTS-Analyse
-Version:        1.01
-Release:        12%{?dist}
+Version:        1.02
+Release:        1%{?dist}
 Summary:        Generate Kwalitee ratings for a distribution
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-CPANTS-Analyse
@@ -22,7 +22,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Accessor) >= 0.19
 BuildRequires:  perl(Class::Accessor::Fast)
-BuildRequires:  perl(CPAN::DistnameInfo) >= 0.06
 BuildRequires:  perl(CPAN::Meta::Converter)
 BuildRequires:  perl(CPAN::Meta::Validator) >= 2.133380
 BuildRequires:  perl(CPAN::Meta::YAML) >= 0.008
@@ -42,6 +41,7 @@ BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Module::CPANfile)
 BuildRequires:  perl(Perl::PrereqScanner::NotQuiteLite) >= 0.9901
 BuildRequires:  perl(Module::Find)
+BuildRequires:  perl(Parse::Distname)
 BuildRequires:  perl(Software::License) >= 0.103012
 BuildRequires:  perl(Software::LicenseUtils)
 BuildRequires:  perl(strict)
@@ -60,7 +60,6 @@ Requires:       perl(Archive::Any::Lite) >= 0.06
 Requires:       perl(Archive::Tar) >= 1.76
 Requires:       perl(Array::Diff) >= 0.04
 Requires:       perl(Class::Accessor) >= 0.19
-Requires:       perl(CPAN::DistnameInfo) >= 0.06
 Requires:       perl(CPAN::Meta::Validator) >= 2.133380
 Requires:       perl(CPAN::Meta::YAML) >= 0.008
 Requires:       perl(Exporter)
@@ -74,7 +73,6 @@ Requires:       perl(version) >= 0.73
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Archive::Any::Lite\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Array::Diff\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Class::Accessor\\)$
-%global __requires_exclude %__requires_exclude|^perl\\(CPAN::DistnameInfo\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(CPAN::Meta::Validator\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(CPAN::Meta::YAML\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(File::Find::Object\\)$
@@ -128,6 +126,20 @@ make test
 %{_mandir}/man3/Module::CPANTS::Kwalitee::Version.3*
 
 %changelog
+* Sun Sep 10 2023 Paul Howarth <paul@city-fan.org> - 1.02-1
+- Update to 1.02
+  - Treat use v5.36 as use_warnings (GH#49)
+  - Skip some of the manifest test if symlink is not available (GH#50)
+  - Improve prereq sorting
+  - Improve pod detection
+  - Improve script detection
+  - Use Parse::Distname to get a little more information from a distribution
+    name
+  - Dedupe possible licences
+  - Add Object::Pad as use strict equivalent (GH#42)
+  - Fix has_license_in_source_file for distributions that contain only a
+    script under bin or scripts (GH#37)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

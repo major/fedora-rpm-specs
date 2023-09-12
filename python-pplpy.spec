@@ -1,5 +1,5 @@
 Name:           python-pplpy
-Version:        0.8.8
+Version:        0.8.9
 Release:        1%{?dist}
 Summary:        Python PPL wrapper
 
@@ -90,6 +90,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitearch}/ppl/*.pxd
 
 %changelog
+* Sun Sep 10 2023 Jerry James <loganjerry@gmail.com> - 0.8.9-1
+- Version 0.8.9
+
 * Thu Aug 31 2023 Jerry James <loganjerry@gmail.com> - 0.8.8-1
 - Version 0.8.8
 - Drop upstreamed cython patch

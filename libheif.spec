@@ -3,14 +3,17 @@
 # Unable to ship this in Fedora
 %bcond_with hevc
 
+%bcond_with check
+
 Name:           libheif
 Version:        1.16.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
 URL:            https://github.com/strukturag/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         libheif-no-hevc-tests.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -111,7 +114,10 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1
+%setup -q
+%if %{without hevc}
+%patch 0 -p1
+%endif
 rm -rf third-party/
 
 
@@ -119,6 +125,8 @@ rm -rf third-party/
 %cmake \
  -GNinja \
  -DPLUGIN_DIRECTORY=%{_libdir}/%{name} \
+ -DWITH_UNCOMPRESSED_CODEC=ON \
+ %{?with_check:-DBUILD_TESTING=ON -DWITH_REDUCED_VISIBILITY=OFF} \
  %{?with_hevc:-DWITH_LIBDE265_PLUGIN:BOOL=ON -DWITH_X265_PLUGIN:BOOL=ON} \
  -Wno-dev
 
@@ -129,12 +137,19 @@ rm -rf third-party/
 %cmake_install
 
 
+%if %{with check}
 %check
 # Tests are not yet ported to CMake
-#ctest
+%ctest
+%endif
 
 
 %changelog
+* Fri Sep 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.16.2-2
+- Enable uncompressed codec (rhbz#2237849)
+- Run tests conditionally (requires making all symbols visible)
+- Disable HEVC tests when building without HEVC codec
+
 * Fri Jul 28 2023 Orion Poplawski <orion@nwra.com> - 1.16.2-1
 - Update to 1.16.2
 

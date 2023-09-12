@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        Nigel's performance Monitor for Linux 
 
 License:        GPL-3.0-only
-URL:            http://nmon.sourceforge.net
+URL:            https://nmon.sourceforge.io/
 Source0:        https://sourceforge.net/projects/%{name}/files/lmon%{version}.c
 Source1:        https://sourceforge.net/projects/%{name}/files/Documentation.txt
 # Manpage available from the patch archive:
@@ -28,12 +28,16 @@ cp %{SOURCE0} .
 
 
 %build
-%ifarch ppc %{power64}
-  %{__cc} %{optflags} -D JFS -D GETUSER \
-     -D LARGEMEM -lncurses -lm lmon%{version}.c -D POWER -o %{name}
+%ifarch %{arm32} %{arm64}
+  %{__cc} %{optflags} -lncurses -lm lmon%{version}.c -o %{name} -D ARM
+%elifarch s390 s390x
+  %{__cc} %{optflags} -lncurses -lm lmon%{version}.c -o %{name} -D MAINFRAME
+%elifarch ppc %{power64}
+  %{__cc} %{optflags} -lncurses -lm lmon%{version}.c -o %{name} -D POWER
+%elifarch %{ix86} x86_64
+  %{__cc} %{optflags} -lncurses -lm lmon%{version}.c -o %{name} -D X86
 %else
-  %{__cc} %{optflags} -D JFS -D GETUSER \
-     -D LARGEMEM -D X86 -lncurses -lm lmon%{version}.c -o %{name}
+  %{__cc} %{optflags} -lncurses -lm lmon%{version}.c -o %{name}
 %endif
 
 

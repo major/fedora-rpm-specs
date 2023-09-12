@@ -4,7 +4,7 @@
 # use git tar since pypi does not include examples that are needed for tests.
 # Upstream tags with every push to master (why?)
 # Use commit found in bluepyopt/_version.py of the PyPI release
-%global commit dfd202904c4f497c54574c7f321a95bb5183438b
+%global commit 6aa893757e50a96a7e638d1c72a04f97424a2a21
 
 %bcond_with tests
 
@@ -18,7 +18,7 @@ tasks into various reusable and flexible discrete elements according to
 established best-practices.}
 
 Name: python-bluepyopt
-Version: 1.14.0
+Version: 1.14.3
 Release: %autorelease
 Summary: Bluebrain Python Optimisation Library (bluepyopt)
 
@@ -30,7 +30,7 @@ Summary: Bluebrain Python Optimisation Library (bluepyopt)
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    s390x %{ix86}
 
-License: LGPLv3
+License: LGPL-3.0-only
 
 %forgemeta
 

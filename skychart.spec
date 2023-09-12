@@ -6,7 +6,7 @@ Name:       skychart
 Version:    %{maj_ver}^%{date}svn%{svnversion}
 Release:    %autorelease
 Summary:    Planetarium software for the advanced amateur astronomer
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        http://www.ap-i.net/skychart/
 # Upstream sources are modified to:
 # - Remove pre-built software (iridflare.exe, quicksat.exe, dll files)

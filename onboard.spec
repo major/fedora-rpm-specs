@@ -3,7 +3,7 @@ Name:               onboard
 Version:            1.4.1
 %global             major_version       1.4
 
-Release:            33%{?dist}
+Release:            34%{?dist}
 Summary:            On-screen keyboard for TabletPC and mobility impaired users (Xorg only)
 
 # The entire source code is GPLv3 apart from translation strings and
@@ -23,6 +23,9 @@ Patch1:             0001-remove-tweener.patch
 # remove obsolete compiler flags that fail the build with Python 3.12
 # (Python 3.12 headers are not compatible with -Werror=declaration-after-statement)
 Patch2:             0001-Drop-obsolete-compiler-warnings-to-fix-compiling-aga.patch
+
+# Disable autostart for cinnamon session
+Patch3:             cinnamon_disable_autostart.patch
 
 BuildRequires:      gcc-c++
 BuildRequires:      python3-devel
@@ -104,6 +107,9 @@ Requires:       onboard
 %{_sysconfdir}/xdg/autostart/onboard-autostart.desktop
 
 %changelog
+* Sun Sep 10 2023 Leigh Scott <leigh123linux@gmail.com> - 1.4.1-34
+- Disable autostart for cinnamon session
+
 * Thu Jul 27 2023 Fabio Valentini <decathorpe@gmail.com> - 1.4.1-33
 - Remove obsolete compiler flags that fail the build with Python 3.12.
 

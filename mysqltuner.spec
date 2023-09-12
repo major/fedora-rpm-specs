@@ -1,15 +1,15 @@
 # https://fedoraproject.org/wiki/Packaging:SourceURL#Github
-%global commit 1333ea9395a381b38535bc1fa05733a32b21f138
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+#%global commit 1333ea9395a381b38535bc1fa05733a32b21f138
+#%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           mysqltuner
-Version:        1.9.9
-Release:        3%{?dist}
+Version:        2.2.12
+Release:        1%{?dist}
 Summary:        MySQL configuration assistant
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/major/MySQLTuner-perl
-Source0:        https://github.com/major/MySQLTuner-perl/archive/%{commit}.tar.gz#/MySQLTuner-perl-%{shortcommit}.tar.gz
+Source0:        https://github.com/major/MySQLTuner-perl/archive/refs/tags/v%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  perl-generators
@@ -28,19 +28,14 @@ MySQL configuration and make recommendations for increased performance
 and stability.  Within seconds, it will display statistics about your
 MySQL installation and the areas where it can be improved.
 
-
 %prep
-%setup -q -n MySQLTuner-perl-%{commit}
-
+%setup -q -n MySQLTuner-perl-%{version}
 
 %build
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -Dpm 755 mysqltuner.pl $RPM_BUILD_ROOT%{_bindir}/mysqltuner
-
-
 
 %files
 %doc LICENSE README.md
@@ -48,6 +43,10 @@ install -Dpm 755 mysqltuner.pl $RPM_BUILD_ROOT%{_bindir}/mysqltuner
 
 
 %changelog
+* Sun Sep 10 2023 josef radinger <cheese@nosuchhost.net> - 2.2.12-1
+- bump version
+- "clean" version without git
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global maj_ver 17
 %global min_ver 0
 %global patch_ver 0
-%global rc_ver 3
+%global rc_ver 4
 %global mlir_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global mlir_srcdir mlir-%{mlir_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -12,7 +12,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -230,6 +230,9 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %{python3_sitearch}/mlir/
 
 %changelog
+* Sun Sep 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-1
+- Update to LLVM 17.0.0 RC4
+
 * Tue Sep 05 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-3
 - Enable python bindings. Fixes rhbz#2221241
 

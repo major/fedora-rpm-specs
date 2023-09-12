@@ -1,9 +1,9 @@
 Name: fxload
 Version: 2008_10_13
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: A helper program to download firmware into FX and FX2 EZ-USB devices
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://linux-hotplug.sourceforge.net/
 Source0: fxload-%{version}-noa3load.tar.gz
 # The above file is derived from:
@@ -48,6 +48,9 @@ install -m 644 fxload.8 %{buildroot}/%{_mandir}/man8/
 %{_mandir}/*/*
 
 %changelog
+* Thu Sep  7 2023 Jaroslav Kysela <perex@perex.cz> - 2008_10_13-25
+- SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2008_10_13-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

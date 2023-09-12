@@ -3,10 +3,10 @@
 
 Name:               python-robosignatory
 Version:            0.8.2
-Release:            1%{?prerelease}%{?dist}
+Release:            2%{?prerelease}%{?dist}
 Summary:            A Fedora Messaging consumer that automatically signs artifacts
 
-License:            GPLv2+
+License:            GPL-2.0-or-later
 URL:                https://pagure.io/robosignatory/
 Source0:            https://pagure.io/releases/robosignatory/robosignatory-%{version}%{?prerelease}.tar.gz
 
@@ -74,6 +74,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sun Sep 10 2023 Mattia Verga <mattia.verga@proton.me> - 0.8.2-2
+- Migrated to SPDX license
+
 * Thu Aug 24 2023 Aurelien Bompard <abompard@fedoraproject.org> - 0.8.2-1
 - Version 0.8.2
 

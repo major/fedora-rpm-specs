@@ -18,7 +18,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           why3
 Version:        1.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -308,6 +308,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-6
+- Rebuild for ocaml-ocamlgraph 2.1.0
+
 * Sat Jul 29 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-5
 - Require cvc5 instead of cvc4
 

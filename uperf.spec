@@ -1,41 +1,36 @@
-Summary:        Network performance tool with modelling and replay support
-Name:           uperf
-Version:        1.0.7
-Release:        10%{?dist}
-License:        GPLv3
-URL:            http://www.uperf.org/
-Source0:        https://github.com/uperf/uperf/archive/%{version}.tar.gz
-Patch1:         uperf-1.0.6-ssl-crash.patch
-Patch2:         uperf-configure-c99.patch
+Summary:       Network performance tool with modelling and replay support
+Name:          uperf
+Version:       1.0.8
+Release:       1%{?dist}
+License:       GPLv3
+URL:           http://www.uperf.org/
+Source0:       https://github.com/uperf/uperf/archive/v%{version}.tar.gz
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: lksctp-tools-devel
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  lksctp-tools-devel
-BuildRequires:  openssl-devel
+BuildRequires: openssl-devel
 %description
 Network performance tool that supports modelling and replay of various
 networking patterns.
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch1 -p1
-%patch2 -p1
-find src -type f -print0 | xargs --null chmod 0644
-find workloads -type f -print0 | xargs --null chmod 0644
-chmod 0644 AUTHORS ChangeLog COPYING README
+%autosetup
+chmod 0644 workloads/{tcp-change-cc.xml,sctp-over-udp.xml,tcp-freebsd-change-stack.xml}
 
 %build
-# Prevent rebuilding of the configure script (for uperf-configure-c99.patch).
-touch aclocal.m4 Makefile.in config.h.in configure
+autoreconf --install
 %configure           \
     --enable-cpc     \
     --enable-netstat \
     --enable-udp     \
     --enable-sctp    \
     --enable-ssl
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 # Move stuff to own subdir
 install -d -m 0755 %{buildroot}%{_datadir}/%{name}
@@ -45,11 +40,14 @@ rm -rf %{buildroot}%{_datadir}/*.xml %{buildroot}%{_datadir}/doc
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README.md
 %{_bindir}/uperf
 %{_datadir}/uperf
 
 %changelog
+* Sun Sep 10 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.0.8-1
+- 1.0.8
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,6 @@
 # Coq's plugin architecture requires cmxs files, so:
 ExclusiveArch: %{ocaml_native_compiler}
 
-# why3 is unavailable on i686.  We could build without why3 support, but
-# choose to forego i686 support entirely.
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-#ExclusiveArch:  %%{java_arches}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -15,7 +10,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           frama-c
 Version:        27.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Cobalt
@@ -42,6 +37,9 @@ Source14:       com.%{name}.%{name}-gui.desktop
 Source15:       com.%{name}.%{name}-gui.metainfo.xml
 Source16:       acsl.el
 Source17:       frama-c.licensing
+
+# ocamlgraph 2.1.0 adds newlines at the ends of dot files, breaking tests
+Patch0:         %{name}-ocamlgraph-2.1.0.patch
 
 BuildRequires:  alt-ergo
 BuildRequires:  clang
@@ -134,7 +132,7 @@ This package contains an Emacs support file for working with C source
 files marked up with ACSL.
 
 %prep
-%autosetup -n %{name}-%{pkgversion}
+%autosetup -n %{name}-%{pkgversion} -p1
 %setup -q -T -D -a 1 -n %{name}-%{pkgversion}
 %setup -q -T -D -a 2 -n %{name}-%{pkgversion}
 %setup -q -T -D -a 13 -n %{name}-%{pkgversion}
@@ -282,6 +280,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 27.1-4
+- Rebuild for ocaml-ocamlgraph 2.1.0
+
 * Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 27.1-3
 - Rebuild for ocaml-zarith 1.13
 

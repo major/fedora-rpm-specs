@@ -2,7 +2,7 @@ Name:       wcstools
 Version:    3.9.7
 Release:    %autorelease
 Summary:    Software utilities to display and manipulate the WCS of a FITS image
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        http://tdc-www.harvard.edu/wcstools
 Source0:    http://tdc-www.harvard.edu/software/wcstools/%{name}-%{version}.tar.gz
 

@@ -21,15 +21,13 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.5.0
+Version: 3.5.2
 Release: 1%{?dist}
 Summary: %{sum}
 
 License: BSD-3-Clause
 URL: https://github.com/pymodbus-dev/pymodbus/
 Source0: https://github.com/pymodbus-dev/pymodbus/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# https://github.com/pymodbus-dev/pymodbus/commit/723aae99699cb60f4f38086b95e3089aa6b27a70
-Patch0: 0001-Remove-references-to-ModbusSerialServer.start-1759-1.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel
@@ -83,6 +81,10 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Sun Sep 10 2023 Christian Krause <chkr@fedoraproject.org> - 3.5.2-1
+- Update to 3.5.2 (#2236129)
+- Remove patches already applied upstream
+
 * Sun Sep 03 2023 Christian Krause <chkr@fedoraproject.org> - 3.5.0-1
 - Update to 3.5.0 (#2236129)
 - Add upstreamed patch to fix a problem running pymodbus.server

@@ -45,7 +45,7 @@
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
 Version: 9.2.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD-3-Clause
 Source0: https://www.vtk.org/files/release/9.2/VTK-%{version}.tar.gz
 Source1: https://www.vtk.org/files/release/9.2/VTKData-%{version}.tar.gz
@@ -279,7 +279,7 @@ Requires: %{name}-java%{?_isa} = %{version}-%{release}
 %endif
 Requires: python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 Requires: hdf5-devel%{?_isa}
-Requires: netcdf-mpich-devel%{?_isa}
+Requires: netcdf-cxx-devel%{?_isa}
 %{vtk_devel_requires}
 
 %description devel
@@ -348,6 +348,7 @@ Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
 Requires: python%{python3_pkgversion}-%{name}-mpich%{?_isa} = %{version}-%{release}
 Requires: mpich-devel
 Requires: hdf5-mpich-devel%{?_isa}
+Requires: netcdf-mpich-devel%{?_isa}
 %{vtk_devel_requires}
 
 %description mpich-devel
@@ -847,6 +848,9 @@ cat xorg.log
 
 
 %changelog
+* Sun Sep 10 2023 Orion Poplawski <orion@nwra.com> - 9.2.6-7
+- Fix -devel deps on netcdf-*-devel
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

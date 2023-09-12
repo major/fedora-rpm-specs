@@ -22,6 +22,8 @@ Patch1:         0002-Do-not-depend-on-stdlib-shims.patch
 Patch2:         0003-Depend-on-the-math-library.patch
 # Changes for OCaml 5 compatibility
 Patch3:         0004-OCaml-5-compatibility.patch
+# ocamlgraph 2.1.0 adds a blank line to the end of its output, breaking tests
+Patch4:         0005-OCamlgraph-2.1.0-adds-a-newline.patch
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune

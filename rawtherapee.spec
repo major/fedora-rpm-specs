@@ -84,15 +84,10 @@ rm -rf rtengine/klt/
 %build
 # do not build shared libs
 # https://github.com/Beep6581/RawTherapee/pull/5479
-%{cmake} %{?BUILD_TESTS} \
-        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-        -DLIBDIR=%{_libdir} \
+%{cmake} \
         -DCMAKE_BUILD_TYPE=release \
+        -DLIBDIR=%{_libdir} \
         -DBUILD_SHARED_LIBS:BOOL=OFF \
-        -DAUTOMATED_BUILD_SYSTEM:BOOL=ON \
-        -DCACHE_NAME_SUFFIX="" \
-        -DCMAKE_CXX_FLAGS="$RPM_OPT_FLAGS" \
-        -DCMAKE_C_FLAGS="$RPM_OPT_FLAGS" \
 %if 0%{?link_tcmalloc}
         -DENABLE_TCMALLOC=ON \
 %endif

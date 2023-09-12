@@ -16,7 +16,7 @@
 %global maj_ver 17
 %global min_ver 0
 %global patch_ver 0
-%global rc_ver 3
+%global rc_ver 4
 
 %if %{with snapshot_build}
 %undefine rc_ver
@@ -55,7 +55,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -83,9 +83,12 @@ Source6:	clang.cfg
 Patch1:     0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2:     0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch3:     0001-Driver-Add-a-gcc-equivalent-triple-to-the-list-of-tr.patch
-# Backport https://reviews.llvm.org/D158252 from LLVM 18
-Patch5:     0001-Fix-regression-of-D157680.patch
-
+# Backport from LLVM 18:
+# https://github.com/llvm/llvm-project-release-prs/pull/689
+Patch4:     689.patch
+# Workaround a bug in ORC on ppc64le.
+# More info is available here: https://reviews.llvm.org/D159115#4641826
+Patch5:     0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 
 # RHEL specific patches
 # Avoid unwanted dependency on python-recommonmark
@@ -644,6 +647,9 @@ false
 - Drop dwarf4 patch in favor of config files
 
 %{?llvm_snapshot_changelog_entry}
+
+* Tue Sep 05 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-1
+- Update to LLVM 17.0.0 RC4
 
 * Wed Aug 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc3-1
 - Update to LLVM 17.0.0 RC3

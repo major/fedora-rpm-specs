@@ -1,7 +1,7 @@
 Summary:       The Enlightenment window manager, DR16
 Name:          e16
-Version:       1.0.23
-Release:       6%{?dist}
+Version:       1.0.28
+Release:       1%{?dist}
 License:       MIT with advertising and GPLv2+
 URL:           http://www.enlightenment.org/
 Source0:       http://downloads.sourceforge.net/enlightenment/e16-%{version}.tar.xz
@@ -74,11 +74,14 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 # Desktop file
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%find_lang %{name}
+# Fix absolute symlink
+rm %{buildroot}/%{_bindir}/starte16
+ln -s ../share/e16/misc/starte16 %{buildroot}/%{_bindir}/starte16
 
+%find_lang %{name}
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog COMPLIANCE TODO
+%doc AUTHORS ChangeLog COMPLIANCE
 %doc docs/e16.html
 %{_bindir}/e*
 %{_bindir}/starte16
@@ -91,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Sep 10 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.0.28-1
+- 1.0.28
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.23-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

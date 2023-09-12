@@ -1,7 +1,7 @@
 Name:           liferea
 Epoch:          1
-Version:        1.15.1
-Release:        2%{?dist}
+Version:        1.15.2
+Release:        1%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
@@ -83,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Sun Sep 10 2023 josef radinger <cheese@nosuchhost.net> - 1:1.15.2-1
+- bump version
+
 * Sun Aug 20 2023 josef radinger <cheese@nosuchhost.net> - 1:1.15.1-2
 - no current version for rhel
 - webkit2gtk4.1

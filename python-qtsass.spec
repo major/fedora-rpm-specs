@@ -1,100 +1,101 @@
-# Created by pyp2rpm-3.3.2
-%global pypi_name qtsass
-
-Name:           python-%{pypi_name}
-Version:        0.3.0
-Release:        8%{?dist}
+Name:           python-qtsass
+Version:        0.3.2
+Release:        %autorelease
 Summary:        Compile SCSS files to valid Qt stylesheets
 
+# SPDX
 License:        MIT
 URL:            https://github.com/spyder-ide/qtsass
-Source0:        https://files.pythonhosted.org/packages/source/q/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+# The GitHub archive contains tests, examples, and additional documentation
+# that the PyPI sdist lacks.
+Source:         %{url}/archive/v%{version}/qtsass-%{version}.tar.gz
+
 BuildArch:      noarch
 
-# fix py3.10 issues
-# https://github.com/spyder-ide/qtsass/pull/54/commits
-Patch0:         fix_tests_py310.patch
+# Remove useless shebang lines
+# https://github.com/spyder-ide/qtsass/pull/76
+Patch:          %{url}/pull/76.patch
+# In tests, don’t assume Python is called python
+# https://github.com/spyder-ide/qtsass/pull/77
+Patch:          %{url}/pull/77.patch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
-%description
-SASS brings countless amazing features to CSS. Besides being used in web 
-development, CSS is also the way to stylize Qt-based desktop applications. 
-However, Qt's CSS has a few variations that prevent the direct use of 
-SASS compiler. The purpose of this tool is to fill the gap between SASS 
-and Qt-CSS by handling those variations.
+# Selected test dependencies from requirements/dev.txt; most entries in that
+# file are for linters, code coverage, etc.
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist flaky}
+%if 0%{?fedora} < 39
+# F39FailsToInstall: python3-pyside2, python3-shiboken2, python3-shiboken2-devel
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220452
+BuildRequires:  %{py3_dist PySide2}
+%endif
 
-%package -n     python3-%{pypi_name}
+BuildRequires:  help2man
+
+%global common_description %{expand:
+SASS brings countless amazing features to CSS. Besides being used in web
+development, CSS is also the way to stylize Qt-based desktop applications.
+However, Qt’s CSS has a few variations that prevent the direct use of SASS
+compiler.
+
+The purpose of this tool is to fill the gap between SASS and Qt-CSS by handling
+those variations.}
+
+
+%description %{common_description}
+
+%package -n python3-qtsass
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
- 
-Requires:       python3dist(libsass)
-Requires:       python3dist(setuptools)
-Requires:       python3dist(watchdog)
 
-%description -n python3-%{pypi_name}
-SASS brings countless amazing features to CSS. Besides being used in web 
-development, CSS is also the way to stylize Qt-based desktop applications. 
-However, Qt's CSS has a few variations that prevent the direct use of 
-SASS compiler. The purpose of this tool is to fill the gap between SASS 
-and Qt-CSS by handling those variations.
+%if 0%{?fedora} < 39
+# F39FailsToInstall: python3-pyside2, python3-shiboken2, python3-shiboken2-devel
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220452
+Recommends:     %{py3_dist PySide2}
+%endif
+
+%description -n python3-qtsass %{common_description}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n qtsass-%{version} -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files qtsass
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
+install -d '%{buildroot}%{_mandir}/man1'
+# Building the man page in %%install instead of %%build is a little weird, but
+# we need to use the generated entry point from the buildroot.
+PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
+    --no-info \
+    --version-string='%{version}' \
+    --output='%{buildroot}%{_mandir}/man1/qtsass.1' \
+    '%{buildroot}%{_bindir}/qtsass'
+
+
+%check
+%pytest -v
+
+
+%files -n python3-qtsass -f %{pyproject_files}
+%doc AUTHORS.md
+%doc CHANGELOG.md
 %doc README.md
+%doc examples/
+
 %{_bindir}/qtsass
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%{_mandir}/man1/qtsass.1*
+
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.0-7
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.3.0-4
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sat Jun 05 2021 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 0.3.0-1
-- Update to 0.3.0
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.1.1-5
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.1.1-2
-- Rebuilt for Python 3.9
-
-* Sat Dec 21 2019 Mukundan Ragavan <nonamedotc@gmail.com> - 0.1.1-1
-- Initial package.
+%autochangelog

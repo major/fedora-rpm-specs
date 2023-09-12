@@ -7,7 +7,7 @@ used to run NeuroML2 (http://neuroml.org/neuroml2.php) models.
 
 
 Name:           python-PyLEMS
-Version:        0.6.2
+Version:        0.6.4
 Release:        %autorelease
 Summary:        LEMS interpreter implemented in Python
 
@@ -45,14 +45,11 @@ Summary: %{summary}
 %prep
 %autosetup -n pylems-%{version}
 
-# correct man-page path
-sed -i 's|\[("man/man1"|\[("share/man/man1"|' setup.py
-
 # remove shebang
 sed -i '1d' lems/dlems/exportdlems.py
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests: -r}
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -61,6 +58,7 @@ sed -i '1d' lems/dlems/exportdlems.py
 %pyproject_install
 %pyproject_save_files lems
 
+install -p -m 0644 -D -t $RPM_BUILD_ROOT/%{_mandir}/man1/  man/man1/*.1
 
 %check
 %if %{with tests}
@@ -81,52 +79,3 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} examples/loadtest.py
 
 %changelog
 %autochangelog
-
-* Sat Aug 07 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.4-1
-- Update to latest release
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.5.2-2
-- Rebuilt for Python 3.10
-
-* Thu Feb 18 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.2-1
-- Update to latest release
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Sep 04 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.1-1
-- Update to 0.5.1
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jun 25 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.0-3
-- Explicitly BR setuptools
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.5.0-2
-- Rebuilt for Python 3.9
-
-* Wed Apr 22 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.0-1
-- Update to new release
-- remove py2 bits
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 0.4.9.1-5
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.4.9.1-4
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Oct 27 2018 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.4.9.1-1
-- Initial build

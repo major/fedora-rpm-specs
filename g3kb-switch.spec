@@ -9,11 +9,11 @@ Summary:        CLI keyboard layout switcher for GNOME Shell
 # extension/g3kb-switch@g3kb-switch.org: GPL-2.0-only
 License:        BSD-2-Clause AND GPL-2.0-only
 URL:            https://github.com/lyokha/g3kb-switch
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:          g3kb-switch-gnome45.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
-BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(gio-2.0)
 
 Requires:       gnome-shell
