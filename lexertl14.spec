@@ -1,5 +1,5 @@
-%global commit 86c90c37dd69ee45155d11e38a77b21eac5dccbe
-%global snapdate 20230904
+%global commit c045058ed70f4a5944c77c88c4c4f01f35fe80c8
+%global snapdate 20230910
 
 Name:           lexertl14
 Summary:        The Modular Lexical Analyser Generator
@@ -9,10 +9,6 @@ Release:        %autorelease
 License:        BSL-1.0
 URL:            https://github.com/BenHanson/lexertl14
 Source:         %{url}/archive/%{commit}/lexertl14-%{commit}.tar.gz
-
-# Fix install paths on Linux with multilib
-# https://github.com/BenHanson/lexertl14/pull/20
-Patch:          %{url}/pull/20.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

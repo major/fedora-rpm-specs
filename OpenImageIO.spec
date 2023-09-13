@@ -156,7 +156,7 @@ mkdir build/linux && pushd build/linux
        -DINSTALL_FONTS:BOOL=FALSE \
        -DUSE_EXTERNAL_PUGIXML:BOOL=TRUE \
        -DSTOP_ON_WARNING:BOOL=FALSE \
-       -DJPEG_INCLUDE_DIR=%{_includedir} \
+       -DJPEG_INCLUDE_DIR=$(pkgconf --variable=includedir libjpeg) \
        -DOPENJPEG_INCLUDE_DIR=$(pkgconf --variable=includedir libopenjp2) \
        -DOpenGL_GL_PREFERENCE=GLVND \
        -DVERBOSE=TRUE

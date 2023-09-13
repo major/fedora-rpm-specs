@@ -1,7 +1,7 @@
 %bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:           qadwaitadecorations
-Version:        0.1.0
+Version:        0.1.1
 Release:        1%{?dist}
 Summary:        Qt decoration plugin implementing Adwaita-like client-side decorations
 
@@ -24,6 +24,7 @@ BuildRequires:  qt5-qtbase-devel >= 5.15.2
 BuildRequires:  qt5-qtbase-static >= 5.15.2
 BuildRequires:  qt5-qtwayland-devel >= 5.15.2
 BuildRequires:  qt5-qtbase-private-devel >= 5.15.2
+BuildRequires:  qt5-qtsvg-devel >= 5.15.2
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 # When GNOME Shell and Qt 5 are installed, we want this by default
@@ -39,6 +40,7 @@ BuildRequires:  qt6-qtbase-devel >= 6.5.0
 BuildRequires:  qt6-qtbase-static >= 6.5.0
 BuildRequires:  qt6-qtwayland-devel >= 6.5.0
 BuildRequires:  qt6-qtbase-private-devel >= 6.5.0
+BuildRequires:  qt6-qtsvg-devel >= 6.5.0
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 
 # When GNOME Shell and Qt 6 are installed, we want this by default
@@ -84,5 +86,8 @@ Supplements:   (qt6-qtbase and gnome-shell)
 %{_qt6_plugindir}/wayland-decoration-client/libqadwaitadecorations.so
 
 %changelog
+* Mon Sep 11 2023 Jan Grulich <jgrulich@redhat.com> - 0.1.1-1
+- 0.1.1
+
 * Tue Aug 15 2023 Jan Grulich <jgrulich@redhat.com> - 0.1.0
 - Initial package

@@ -1,21 +1,22 @@
 Name:           perl-EV
 Version:        4.33
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Wrapper for the libev high-performance event loop library
 
 # Note: The source archive includes a libev/ folder which contents are licensed
 #       as "BSD or GPLv2+". However, those are removed at build-time and
 #       perl-EV is instead built against the system-provided libev.
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later
 URL:            https://metacpan.org/release/EV
 Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/EV-%{version}.tar.gz
 Patch0:         perl-EV-4.03-Don-t-ask-questions-at-build-time.patch
 Patch1:         perl-EV-4.30-Don-t-check-bundled-libev.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(common::sense)
 BuildRequires:  gdbm-devel
@@ -23,6 +24,9 @@ BuildRequires:  libev-source >= 4.33
 BuildRequires:  perl(AnyEvent) => 2.6
 BuildRequires:  perl(Canary::Stability)
 
+# We remove the upstream bundled libev, but still build against statically
+# linked files from the libev-source package.
+Provides:       bundled(libev)
 
 %{?perl_default_filter}
 
@@ -40,8 +44,8 @@ much more detailed information.
 %prep
 %setup -q -n EV-%{version}
 
-%patch0 -p1
-%patch1 -p0
+%patch -P0 -p1
+%patch -P1 -p0
 
 # remove all traces of the bundled libev
 rm -fr ./libev
@@ -52,28 +56,32 @@ cp -r /usr/share/libev-source/* ./libev/
 
 
 %build
-PERL_CANARY_STABILITY_NOPROMPT=1 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
-%{make_build}
+PERL_CANARY_STABILITY_NOPROMPT=1 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
+%make_build
 
 
 %install
-%{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%make_install
+%{_fixperms} %{buildroot}/*
 
 
 %check
-%{make_build} test
+%make_build test
 
 
 %files
-%doc Changes COPYING README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/EV.pm
-%{perl_vendorarch}/EV
-%{_mandir}/man3/*.3*
+%license COPYING
+%doc Changes README
+%{perl_vendorarch}/*
+%exclude %dir %{perl_vendorarch}/auto/
+%{_mandir}/man3/EV*.3pm*
 
 
 %changelog
+* Mon Sep 11 2023 Carl George <carlwgeorge@fedoraproject.org> - 4.33-14
+- Update license field with SPDX identifier
+- Add provides for bundled libev
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.33-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

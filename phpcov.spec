@@ -12,7 +12,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    e314a94c87176732267056b497e5a88931db90cc
+%global gh_commit    fd8ac3e2623203a439e7843035550950fbff77ec
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpcov
@@ -26,7 +26,7 @@
 
 
 Name:           %{pk_project}
-Version:        9.0.0
+Version:        9.0.1
 Release:        1%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
@@ -126,7 +126,7 @@ rm tests/end-to-end/merge/valid-directory-with-text-report-stdout.phpt
 rm tests/end-to-end/patch-coverage/valid-arguments-with-valid-path-prefix.phpt
 
 ret=0
-for cmd in php php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd $EXT -d xdebug.mode=coverage %{_bindir}/phpunit10 --testsuite end-to-end || ret=1
   fi
@@ -146,6 +146,9 @@ exit $ret;
 
 
 %changelog
+* Mon Sep 11 2023 Remi Collet <remi@remirepo.net> - 9.0.1-1
+- update to 9.0.1
+
 * Fri Sep  1 2023 Remi Collet <remi@remirepo.net> - 9.0.0-1
 - update to 9.0.0
 - raise dependency on PHP 8.1

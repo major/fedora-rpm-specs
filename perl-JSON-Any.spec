@@ -1,19 +1,17 @@
 Name:           perl-JSON-Any
 Summary:        A meta-module to make working with JSON easier
-Version:        1.39
-Release:        25%{?dist}
-License:        GPL+ or Artistic
+Version:        1.40
+Release:        1%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/JSON-Any-%{version}.tar.gz
-# Adapt to changes in JSON-XS-4.0, CPAN RT#127753
-Patch0:         JSON-Any-1.39-Support-JSON-XS-4.patch
-# And disable allow_nonref as requested in CPAN RT#127753
-Patch1:         JSON-Any-1.39-Disable-allow_nonref-in-JSON-XS-4-and-JSON-PP-3.patch
 
 URL:            https://metacpan.org/release/JSON-Any
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(CPAN)
@@ -31,6 +29,7 @@ BuildRequires:  perl(namespace::clean)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.42
+BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(Test::Without::Module)
@@ -47,21 +46,18 @@ currently on CPAN.
 
 %prep
 %setup -q -n JSON-Any-%{version}
-%patch0 -p1
-%patch1 -p1
-
 find .  -type f -exec chmod -c -x {} +
 
 %build
-%{__perl} Makefile.PL NO_PACKLIST=1 INSTALLDIRS=vendor --default
-make
+/usr/bin/perl Makefile.PL NO_PACKLIST=1 NO_PERLLOCAL=1 INSTALLDIRS=vendor --default
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -69,6 +65,13 @@ make test
 %{_mandir}/man3/JSON*
 
 %changelog
+* Mon Sep 11 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.40-1
+- Update to 1.40
+- migrated to SPDX license
+- Remove patches (no longer needed)
+- Use /usr/bin/perl instead of %%{__perl}
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.39-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

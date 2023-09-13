@@ -10,7 +10,7 @@
 
 Name:           mingw-filesystem
 Version:        147
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
 License:        GPL-2.0-or-later
@@ -68,6 +68,8 @@ This environment is maintained by the Fedora MinGW SIG at:
 %package base
 Summary:        Generic files which are needed for {mingw32,mingw64,ucrt64}-filesystem
 
+# We need this for cmake macros
+Requires:       cmake-rpm-macros
 Requires:       redhat-rpm-config
 # Obsolete the packages from the test repo
 Obsoletes:      cross-filesystem < 67-2
@@ -376,6 +378,9 @@ echo ".so man1/pkgconf.1" > %{buildroot}%{_mandir}/man1/x86_64-w64-mingw32ucrt-p
 %dir %{_prefix}/lib/debug/%{_prefix}/x86_64-w64-mingw32ucrt
 
 %changelog
+* Mon Sep 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 147-3
+- Add dependency on cmake-rpm-macros
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 147-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

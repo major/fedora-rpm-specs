@@ -4,7 +4,7 @@
 Summary: Access control list utilities
 Name: acl
 Version: 2.3.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 BuildRequires: gawk
 BuildRequires: gcc
 BuildRequires: gettext
@@ -21,6 +21,7 @@ Source2: agruen-key.gpg
 
 # avoid permission denied problem with LD_PRELOAD in the test-suite
 Patch1: 0001-acl-2.2.53-test-runwrapper.patch
+Patch2: 0002-add-georgian.patch
 
 License: GPL-2.0-or-later
 URL: https://savannah.nongnu.org/projects/acl
@@ -59,6 +60,9 @@ defined in POSIX 1003.1e draft standard 17.
 # uncomment to turn on optimizations
 # sed -i 's/-O2/-O0/' libtool include/builddefs
 # unset CFLAGS
+
+# TODO: Remove when updating to a new upstream release
+%make_build -C po ka.gmo
 
 %make_build
 
@@ -127,6 +131,10 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %{_libdir}/libacl.so.*
 
 %changelog
+* Mon Sep 11 2023 Temuri Doghonadze <temuri.doghonadze@gmail.com> - 2.3.1-9
+- Backport Georgian locale from git
+- Note, it will not be needed after release of new version of acl
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Utilities for managing filesystem extended attributes
 Name: attr
 Version: 2.5.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Source0: https://download-mirror.savannah.gnu.org/releases/attr/attr-%{version}.tar.xz
 Source1: http://download.savannah.nongnu.org/releases/attr/attr-2.5.1.tar.xz.sig
 # Retreived from https://savannah.nongnu.org/people/viewgpg.php?user_id=15000
@@ -12,6 +12,7 @@ Source2: agruen-key.gpg
 # https://lists.nongnu.org/archive/html/acl-devel/2019-03/msg00001.html
 # https://lists.nongnu.org/archive/html/acl-devel/2019-05/msg00000.html
 Patch3:  0003-attr-2.4.48-xattr-conf-nfs4-acls.patch
+Patch4:  0004-backport-add-georgian.patch
 
 License: GPL-2.0-or-later
 URL: https://savannah.nongnu.org/projects/attr
@@ -75,6 +76,7 @@ sed -e 's|test/root/getfattr.test||' \
 
 %build
 %configure
+%make_build -C po ka.gmo
 %make_build
 
 %check
@@ -122,6 +124,9 @@ ln -fs ../sys/xattr.h $RPM_BUILD_ROOT%{_includedir}/attr/xattr.h
 %config(noreplace) %{_sysconfdir}/xattr.conf
 
 %changelog
+* Fri Sep 08 2023 Temuri Doghonadze <temuri.doghonadze@gmail.com> - 2.5.1-9
+- Backporting Georgian language for RHEL10 until next release of attr
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

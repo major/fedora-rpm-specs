@@ -8,8 +8,8 @@
 %endif
 
 Name:           perl-DBD-MariaDB
-Version:        1.22
-Release:        6%{?dist}
+Version:        1.23
+Release:        1%{?dist}
 Summary:        MariaDB and MySQL driver for the Perl5 Database Interface (DBI)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-MariaDB/
@@ -104,7 +104,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n DBD-MariaDB-%{version}
-%patch0 -p1
+%patch -P0 -p1
 cp %{SOURCE1} %{SOURCE2} t/
 
 # Help file to recognise the Perl scripts and normalize shebangs
@@ -169,6 +169,9 @@ make test %{?with_perl_DBD_MariaDB_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.23-1
+- 1.23 bump (rhbz#2238227)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

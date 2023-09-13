@@ -17,7 +17,7 @@ of identified hills vs. total distance), average ascent of hills,
 total ascent, total descent and many others.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.15
+Version:        0.3.15.1
 Release:        1%{?dist}
 Summary:        A minimalistic toolbox for extracting features from sports activity files
 
@@ -122,6 +122,9 @@ sed -r -i 's/(release = ")[[:digit:].]+"/\1%{version}"/' docs/conf.py
 %doc examples/
 
 %changelog
+* Mon Sep 11 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.3.15.1-1
+- Update to 0.3.15.1
+
 * Sat Sep 2 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.3.15-1
 - Update to 0.3.15
 

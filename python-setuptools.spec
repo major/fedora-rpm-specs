@@ -45,6 +45,20 @@ Patch:          Remove-optional-or-unpackaged-test-deps.patch
 # adjust it, but only when $RPM_BUILD_ROOT is set
 Patch:          Adjust-the-setup.py-install-deprecation-message.patch
 
+# This patch combines two upstream fixes (mainly for tests), adapting to
+# changes in Python 3.12:
+# - Python 3.12 raises a warning if tarfile filter is not set for extractall.
+#   Tests do this, and fail on this warning.
+#   Set a "fully trusted" filter. (The tests create the archive, so it is
+#   trusted.)
+#   - https://github.com/pypa/setuptools/pull/3917
+# - Python 3.12 venv no longer installs setuptools and wheel into new virtual
+#   environments. Adjust tests that assumed the old behaviour.
+#   Also, setting setuptools.__version__ assumed setuptools is installed.
+#   Set a valid dummy value if that's not the case.
+#   - https://github.com/pypa/setuptools/pull/3915
+Patch:          adjust-for-py3.12.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel

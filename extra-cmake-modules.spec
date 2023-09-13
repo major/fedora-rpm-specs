@@ -16,7 +16,7 @@
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
 Source0:        https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
@@ -36,6 +36,7 @@ BuildRequires: python3-sphinx
 %global sphinx_build -DSphinx_BUILD_EXECUTABLE:PATH=%{_bindir}/sphinx-build-3
 %endif
 
+Requires: kf5-rpm-macros
 Requires: kf6-rpm-macros
 Recommends: appstream
 # /usr/share/ECM/modules/ECMPoQmTools.cmake
@@ -75,6 +76,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Sep 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.240.0^20230828.163639.a93943a-2
+- Re-add runtime dependency on kf5-rpm-macros
+
 * Tue Aug 29 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20230819.160601.120bb43-103
 - Upgrade to Qt6 build
 

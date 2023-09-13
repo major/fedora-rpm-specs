@@ -1,7 +1,7 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
-Version: 1.55.1
-Release: 3%{?dist}
+Version: 1.56.0
+Release: 1%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
 # Kevlin Henney (this one is not recognized by Fedora!) but they are NOT shipped.
@@ -124,6 +124,9 @@ export "LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}:$LD_LIBRARY_PATH"
 
 
 %changelog
+* Mon Sep 11 2023 Jan Macku <jamacku@redhat.com> 1.56.0-1
+- update to the latest upstream release
+
 * Mon Aug 07 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1.55.1-3
 - migrate to SPDX license format
 

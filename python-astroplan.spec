@@ -1,13 +1,13 @@
-%bcond_with check
+%bcond_without check
 
 %global srcname astroplan
 
 Name:           python-%{srcname}
-Version:        0.8
-Release:        9%{?dist}
+Version:        0.9
+Release:        1%{?dist}
 Summary:        Python package to help astronomers plan observations
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.org/project/astroplan/
 Source0:        %{pypi_source}
 # https://github.com/astropy/astroplan/issues/416
@@ -29,47 +29,38 @@ life as an observational astronomer a little less infuriating.}
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist setuptools_scm}
-%if %{with check}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist astropy}
-BuildRequires:  %{py3_dist pytz}
-BuildRequires:  %{py3_dist pytest-astropy}
-BuildRequires:  %{py3_dist matplotlib}
-BuildRequires:  %{py3_dist astroquery}
-%endif
-%{?python_provide:%python_provide python3-%{srcname}}
-Recommends: %{py3_dist matplotlib}
-Recommends: %{py3_dist astroquery}
 
 %description -n python3-%{srcname} %_description
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%if %{with check}
+%pyproject_save_files astroplan
+
 %check
-export PYTHONDONTWRITEBYTECODE=1
-export PYTEST_ADDOPTS='-p no:cacheprovider'
-pushd %{buildroot}/%{python3_sitelib}
-   pytest-%{python3_version} --remote-data=none astroplan 
-popd
-%endif
+# Most test rely on an internet database of coordinates
+%pyproject_check_import
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.rst
 %doc README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Sep 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.9-1
+- New release 0.9
+- Migrated to SPDX
+- New python macros
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Name:           perl-CBOR-XS
-Version:        1.86
-Release:        7%{?dist}
+Version:        1.87
+Release:        1%{?dist}
 Summary:        Concise Binary Object Representation (CBOR)
-# COPYING:      GPLv3+
+# COPYING:      GPL-3.0 text
 ## Replaced by system header-only package
-# ecb.h:        BSD or GPLv2+
-License:        GPLv3+ and (BSD or GPLv2+)
+# ecb.h:        BSD-2-Clause OR GPL-2.0-or-later
+License:        GPL-1.0-or-later AND (BSD-2-Clause OR GPL-2.0-or-later)
 URL:            https://metacpan.org/release/CBOR-XS
 Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/CBOR-XS-%{version}.tar.gz
 # Use system libecb
@@ -14,13 +14,12 @@ Patch0:         CBOR-XS-1.6-Include-ecb.h-from-system.patch
 Patch1:         CBOR-XS-1.84-Cast-char-and-U8-where-needed.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
-# gcc for standard header files
 BuildRequires:  gcc
 BuildRequires:  libecb-static
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Canary::Stability)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
@@ -36,6 +35,7 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Math::BigInt::FastCalc)
+BuildRequires:  perl(Scalar::Util)
 Requires:       perl(Math::BigFloat)
 Requires:       perl(Math::BigInt)
 Requires:       perl(Math::BigRat)
@@ -51,6 +51,7 @@ represent it in CBOR.
 
 %package tests
 Summary:        Tests for %{name}
+License:        GPL-1.0-or-later
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
@@ -65,6 +66,8 @@ with "%{_libexecdir}/%{name}/test".
 # Remove bundled libecb
 rm ecb.h
 perl -i -ne 'print $_ unless m{^ecb\.h}' MANIFEST
+# Copy libecb license because the license requires it.
+install -m 0644 %{_datadir}/licenses/libecb-devel/LICENSE libecb.LICENSE
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS" </dev/null
@@ -88,16 +91,23 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%license COPYING
+%license COPYING libecb.LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/CBOR*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/CBOR
+%{perl_vendorarch}/auto/CBOR/XS
+%dir %{perl_vendorarch}/CBOR
+%{perl_vendorarch}/CBOR/XS.pm
+%{_mandir}/man3/CBOR::XS.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 11 2023 Petr Pisar <ppisar@redhat.com> - 1.87-1
+- 1.87 bump
+- License corrected to "GPL-1.0-or-later AND (BSD-2-Clause OR
+  GPL-2.0-or-later)"
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.86-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

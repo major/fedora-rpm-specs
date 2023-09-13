@@ -1,43 +1,62 @@
-%define debug_package %{nil}
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
 Name: planets
 Version:  0.1.13
-Release:  36%{?dist}
+Release:  37%{?dist}
 Summary: A celestial simulator  
 
 License: GPL-2.0-or-later
 URL: http://planets.homedns.org/
 Source0: http://planets.homedns.org/dist/planets-%{version}.tgz
+# Adapt to changes in OCaml 4.x
 Patch0:  planets-0.1.13-ocaml4.patch
 # Fix for immutable strings.  NOT sent upstream (because upstream
 # is not alive?)
 Patch1:  planets-0.1.13-bytes.patch
+# Use camlp5 instead of the dead camlp4 package
 Patch2:  planets-0.1.13-camlp5o.patch
+# Generate usable debuginfo
+Patch3:  planets-0.1.13-debuginfo.patch
+# Adapt to changes in OCaml 5.x
+Patch4:  planets-0.1.13-ocaml5.patch
 BuildRequires: make
-BuildRequires: desktop-file-utils, ocaml-labltk-devel, ocaml-camlp5-devel
-BuildRequires: libX11-devel
+BuildRequires: desktop-file-utils
+BuildRequires: ocaml-camlp-streams-devel
+BuildRequires: ocaml-camlp5-devel
+BuildRequires: ocaml-labltk-devel
 Requires: hicolor-icon-theme
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
 
 %description
 Planets is a simple interactive program for playing with simulations
 of planetary systems
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p0
+%autosetup -p1
 
 %build
 
 iconv -f ISO-8859-1 -t UTF-8 TODO > iconv.tmp
 mv iconv.tmp TODO
 
+%ifarch %{ocaml_native_compiler}
 make
+%else
+make planets.bc
+%endif
 
 %install
 mkdir -p  %{buildroot}%{_bindir}
+%ifarch %{ocaml_native_compiler}
 install -m 755 planets %{buildroot}%{_bindir}/planets
-mkdir -p %{buildroot}/usr/share/man/man1
+%else
+install -m 755 planets.bc %{buildroot}%{_bindir}/planets
+%endif
+mkdir -p %{buildroot}%{_mandir}/man1
 cp -pr planets.1 %{buildroot}%{_mandir}/man1
 
 mkdir -p %{buildroot}%{_datadir}/applications
@@ -52,13 +71,21 @@ install -p -m 644 planets.png \
   %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 
 %files
-%doc CHANGES codeguide.txt COPYING CREDITS getting_started.html KEYBINDINGS.txt LICENSE README TODO VERSION
+%doc CHANGES codeguide.txt CREDITS getting_started.html KEYBINDINGS.txt README TODO VERSION
+%license COPYING LICENSE
 %{_bindir}/planets
 %{_datadir}/applications/planets.desktop
 %{_datadir}/icons/hicolor/32x32/apps/planets.png
 %{_mandir}/man1/planets.1.gz
 
 %changelog
+* Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 0.1.13-37
+- Do not build for 32-bit x86
+- Generate usable debuginfo
+- Adapt to changes in OCaml 5.x (rhbz#2226113)
+- Support bytecode-only architectures
+- Minor spec file cleanups
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

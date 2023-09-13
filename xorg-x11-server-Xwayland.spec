@@ -9,7 +9,7 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   23.2.0
-Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -135,6 +135,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Mon Sep 11 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.2.0-2
+- migrated to SPDX license
+
 * Wed Aug 16 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.2.0-1
 - xwayland 23.2.0
 

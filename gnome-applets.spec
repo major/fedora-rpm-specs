@@ -2,7 +2,7 @@
 
 Name:           gnome-applets
 Version:        3.49.1
-Release:        %autorelease
+Release:        3.%autorelease
 Summary:        Small applications for the GNOME Flashback panel
 
 License:        GPLv2+

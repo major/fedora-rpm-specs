@@ -1,5 +1,5 @@
 # Start: prod settings
-# all bcond_without for production builds:
+# all *bcond_without* for production builds:
 # - performance build (disable for quick build)
 %bcond perfbuild 1
 %bcond build_hadrian 1
@@ -9,7 +9,7 @@
 %endif
 # End: prod settings
 
-# without for production builds
+# not for production builds
 %if %{without perfbuild}
 # disable profiling libraries (overriding macros.ghc-srpm)
 %undefine with_ghc_prof
@@ -17,7 +17,7 @@
 %undefine with_haddock
 %endif
 
-# use Hadrian buildsystem for production builds
+# use Hadrian buildsystem for production builds: seems redundant
 %bcond hadrian 1
 
 # disabled to allow parallel install of ghcX.Y-X.Y.(Z+1) and ghc-X.Y.Z
@@ -87,7 +87,7 @@ Version: 9.4.5
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 135%{?dist}
+Release: 136%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -137,6 +137,10 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
+
+Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
+
+# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
 # fedora ghc has been bootstrapped on
 # %%{ix86} x86_64 s390x ppc64le aarch64
@@ -445,7 +449,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P13 -p1 -b .orig
 %endif
 
-# remove s390x after complete switching to llvm
 %ifarch %{ghc_unregisterized_arches}
 %patch -P15 -p1 -b .orig
 %patch -P16 -p1 -b .orig
@@ -456,6 +459,11 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 
+#sphinx 7
+%if 0%{?fedora} >= 40
+%patch -P30 -p1 -b .orig
+%endif
+
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig
 if [ ! -f "libraries/%{gen_contents_index}" ]; then
@@ -465,7 +473,6 @@ fi
 %endif
 
 %if %{without hadrian}
-# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 cat > mk/build.mk << EOF
 %if %{with perfbuild}
 %ifarch %{ghc_llvm_archs}
@@ -552,6 +559,9 @@ cd hadrian
 %global hadrian_llvm +llvm
 %endif
 %define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
+# aarch64 with 224 cpus: _build/stage0/bin/ghc: createProcess: pipe: resource exhausted (Too many open files)
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=105428124
+%global _smp_ncpus_max 64
 # quickest does not build shared libs
 # try release instead of perf
 %{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir
@@ -995,6 +1005,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon Sep 11 2023 Jens Petersen <petersen@redhat.com> - 9.4.5-136
+- sync with ghc9.4: add sphinx7 patch
+- user_guide: update external links patch in line with final upstream
+
 * Tue Aug  8 2023 Jens Petersen <petersen@redhat.com> - 9.4.5-135
 - disable ghc9.4 obsoletes due to 9.4.6 release
 

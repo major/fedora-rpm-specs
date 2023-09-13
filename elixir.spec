@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:     elixir
-Version:  1.15.4
+Version:  1.15.5
 Release:  %autorelease
 Summary:  A modern approach to programming for the Erlang VM
 

@@ -1,5 +1,7 @@
+# Use GitHub sources. PyPI sources are not suitable for rebuilding.
+# https://github.com/has2k1/scikit-misc/issues/27
+%global forgeurl https://github.com/has2k1/scikit-misc
 %global pypi_name scikit-misc
-%global archive_name scikit_misc
 %global module_name skmisc
 
 # Enable tests
@@ -9,18 +11,18 @@
 Miscellaneous tools for data analysis and scientific computing.}
 
 Name:           python-%{pypi_name}
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Miscellaneous tools for data analysis and scientific computing
-
+%forgemeta
 # MIT License applies to doc/theme/static/bootstrap-3.4.1
 # Python-2.0.1 license applies to doc/_static/copybutton.js
 License:        BSD-3-Clause AND MIT AND Python-2.0.1
-URL:            https://github.com/has2k1/scikit-misc
-Source0:        %{pypi_source %{archive_name}}
+URL:            %forgeurl
+Source0:        %forgesource
 # Add meson build options to pyproject.toml
 # Passing this through one of the macros appears unsupported
-Patch0:         use_flexiblas.patch
+Patch:          use_flexiblas.patch
 
 %description %_description
 
@@ -42,7 +44,11 @@ BuildRequires:  python3-pytest
 
 
 %prep
-%autosetup -p1 -n %{archive_name}-%{version} -S git
+%autosetup -p1 -n %{pypi_name}-%{version} -S git
+
+# Fix PYTHON_PROVIDED_VERSION_NORMALIZES_TO_ZERO
+%define _python_dist_allow_version_zero 1
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{python3_version}
 
 %py3_shebang_fix spin skmisc/_build_utils/
 

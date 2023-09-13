@@ -3,7 +3,7 @@
 
 %global         srcname     google-resumable-media
 %global         forgeurl    https://github.com/googleapis/google-resumable-media-python
-Version:        2.5.0
+Version:        2.6.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -68,7 +68,6 @@ mv google{_,}
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CHANGELOG.md
-%{python3_sitelib}/google_resumable_media-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

@@ -1,6 +1,6 @@
 Name:           glpk
 Version:        5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GNU Linear Programming Kit
 
 # GPL-3.0-or-later: the project as a whole
@@ -26,7 +26,7 @@ BuildRequires:  gmp-devel
 BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  pkgconfig(libiodbc)
-BuildRequires:  pkgconfig(mariadb)
+BuildRequires:  pkgconfig(libmariadb)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  suitesparse-devel
 
@@ -93,6 +93,7 @@ that uses GLPK (GNU Linear Programming Kit).
 rm -fr src/{amd,colamd,zlib}
 
 %build
+export CPPFLAGS="$(pkg-config --cflags libmariadb)"
 export LIBS=-ldl
 
 # Need to rebuild src/Makefile.in from src/Makefile.am
@@ -138,6 +139,9 @@ rm -Rf examples/{.deps,.libs,Makefile*,glpsol,glpsol.o} doc/*.tex
 
 
 %changelog
+* Thu Sep  7 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.0-8
+- Fix flatpak build
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

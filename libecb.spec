@@ -1,11 +1,14 @@
-%global snapshot 20211217
+%global snapshot 20230911
 # Do not create debuginfo sub-package because there is no binary executable
 %global debug_package %{nil}
 Name:       libecb
+# Upstream version is a 32-bit hexadecimal number with an internal structure.
+# See ECB_VERSION macro. RPM cannot order them correctly. A decimal encoding
+# would work, but would be uggly. Just use 0.
 Version:    0.%{snapshot}
-Release:    5%{?dist}
+Release:    1%{?dist}
 Summary:    Compiler built-ins
-License:    BSD or GPLv2+
+License:    BSD-2-Clause OR GPL-2.0-or-later
 URL:        http://software.schmorp.de/pkg/libecb.html
 # Snapshot from CVS :pserver:anonymous@cvs.schmorp.de/schmorpforge libecb 
 Source0:    %{name}-%{snapshot}.tar.xz
@@ -51,10 +54,13 @@ install -m 0644 -t %{buildroot}%{_mandir}/man3 *.3
 %files devel
 %license LICENSE
 %doc Changes README
-%{_includedir}/*
-%{_mandir}/man3/*
+%{_includedir}/ecb.h
+%{_mandir}/man3/ecb.*
 
 %changelog
+* Mon Sep 11 2023 Petr Pisar <ppisar@redhat.com> - 0.20230911-1
+- CVS snapshot taken on 2023-09-11
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20211217-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

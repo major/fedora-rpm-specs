@@ -10,7 +10,7 @@
 %bcond_without check
 
 Name:           wangle
-Version:        2023.07.03.00
+Version:        2023.09.11.00
 Release:        %autorelease
 Summary:        Framework for building services in a consistent/modular/composable way
 

@@ -4,7 +4,7 @@
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
 Version:    2.2.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
@@ -29,8 +29,6 @@ BuildRequires:  rubygem(minitest)
 BuildRequires:  rubygem(pry)
 BuildRequires:  rubygem(rspec) >= 3
 BuildRequires:  rubygem(thor)
-# features/steps/command/shell.feature:97 # Scenario: Running python commands
-BuildRequires:  /usr/bin/python3
 
 BuildArch:      noarch
 
@@ -110,17 +108,10 @@ sed -i features/support/env.rb \
 sed -i fixtures/cli-app/spec/spec_helper.rb \
     -e "\@\$LOAD_PATH@s|\.\./\.\./lib|$(pwd)/lib|"
 
-# /usr/bin/python is reporting deprecation warning :/
-# No need to modify @requires-python (in run_commands.feature and hooks.rb)
-if ! grep -q python3 features/steps/command/shell.feature
-then
-    sed -i features/03_testing_frameworks/cucumber/steps/command/run_commands_which_require_a_shell.feature \
-        -e 's|python|python3|'
-    sed -i lib/aruba/generators/script_file.rb  \
-        -e '\@interpreter@s|A-Z|A-Z0-9|'
-    sed -i features/01_getting_started_with_aruba/run_commands.feature \
-        -e '\@[^-]python@s|python|python3|'
-fi
+# Kill tests which requires python explicitly
+# (to reduce BR, anyway this test is not important)
+sed -i features/step_definitions/hooks.rb \
+	-e '\@platform.which@s|"python"|"no-python"|'
 
 # The following test fails on ppc64le, due to different block size
 # (expected: 64k actual: 4k), disabling
@@ -168,6 +159,10 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Mon Sep 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-2
+- Kill python test entirely to redure BR, it is not important
+  (related to bug 2237692)
+
 * Fri Sep  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-1
 - 2.2.0
 - Relax cucumber dependency

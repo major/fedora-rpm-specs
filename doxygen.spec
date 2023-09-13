@@ -11,19 +11,18 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
-Version: 1.9.7
-Release: 3%{?dist}
+Version: 1.9.8
+Release: 1%{?dist}
 # No version is specified.
 License: GPL-1.0-or-later
 Url: https://github.com/doxygen
-Source0: https://sourceforge.net/projects/doxygen/files/rel-%{version}/%{name}-%{version}.src.tar.gz
+Source0: https://www.doxygen.nl/files/%{name}-%{version}.src.tar.gz
 # this icon is part of kdesdk
 Source1: doxywizard.desktop
 # these icons are part of doxygen and converted from doxywizard.ico
 Source2: doxywizard-icons.tar.xz
 
 # upstream patches
-Patch0: doxygen-1.9.7-unicode-test.ptch
 
 BuildRequires: %{_bindir}/python3
 BuildRequires: perl-interpreter, perl-open
@@ -298,6 +297,9 @@ rm -rf %{buildroot}/%{_docdir}/packages
 %endif
 
 %changelog
+* Mon Sep 11 2023 Than Ngo <than@redhat.com> - 1.9.8-1
+- fix bz#2235035, update to 1.9.8
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.9.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 %bcond doc 1
 
 Name:           python-typeguard
-Version:        4.1.3
+Version:        4.1.5
 Release:        %autorelease
 Summary:        Run-time type checker for Python
 

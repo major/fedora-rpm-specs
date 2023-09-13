@@ -7,7 +7,7 @@ Name: ModemManager
 Version: 1.20.6
 Release: 3%{?dist}
 Summary: Mobile broadband modem management service
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
 Source: https://gitlab.com/linux-mobile-broadband/ModemManager/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
@@ -64,6 +64,7 @@ from applications.
 
 %package glib
 Summary: Libraries for adding ModemManager support to applications that use glib.
+License: LGPL-2.1-or-later
 Requires: glib2 >= %{glib2_version}
 
 %description glib
@@ -73,6 +74,7 @@ functionality from applications that use glib.
 
 %package glib-devel
 Summary: Libraries and headers for adding ModemManager support to applications that use glib.
+License: LGPL-2.1-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 Requires: %{name}-glib%{?_isa} = %{version}-%{release}
@@ -86,6 +88,7 @@ from glib applications.
 
 %package vala
 Summary: Vala bindings for ModemManager
+License: LGPL-2.1-or-later
 Requires: vala
 Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 

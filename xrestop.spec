@@ -1,8 +1,8 @@
 Summary: X Resource Monitor
 Name: xrestop
-Version: 0.4
-Release: 32%{?dist}
-License: GPLv2+
+Version: 0.6
+Release: 2%{?dist}
+License: GPL-2.0-or-later
 URL: http://www.freedesktop.org/Software/xrestop
 Source0: %{name}-%{version}.tar.gz
 
@@ -30,11 +30,17 @@ make DESTDIR="$RPM_BUILD_ROOT" install
 #SUBDIRS=
 
 %files
-%doc AUTHORS COPYING NEWS README
+%doc AUTHORS COPYING NEWS README.md
 %{_bindir}/xrestop
 %{_mandir}/man1/xrestop.1*
 
 %changelog
+* Mon Sep 11 2023 Olivier Fourdan <ofourdan@redhat.com> - 0.6-2
+- migrated to SPDX license
+
+* Mon Sep 11 2023 Olivier Fourdan <ofourdan@redhat.com> - 0.6-1
+- xrestop 0.6
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

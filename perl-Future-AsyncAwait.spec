@@ -13,8 +13,8 @@
 %endif
 
 Name:           perl-Future-AsyncAwait
-Version:        0.65
-Release:        4%{?dist}
+Version:        0.66
+Release:        3%{?dist}
 Summary:        Deferred subroutine syntax for futures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Future-AsyncAwait
@@ -36,7 +36,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 %define xs_parse_keyword_min_ver 0.13
 BuildRequires:  perl(XS::Parse::Keyword::Builder) >= %{xs_parse_keyword_min_ver}
-%define xs_parse_sublike_min_ver 0.14
+%define xs_parse_sublike_min_ver 0.17
 BuildRequires:  perl(XS::Parse::Sublike::Builder) >= %{xs_parse_sublike_min_ver}
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -77,7 +77,7 @@ BuildRequires:  perl(Devel::MAT::Dumper)
 %endif
 # Some tests are skipped with Future::XS < 0.08
 BuildRequires:  perl(IO::Async::Loop)
-%define object_pad_min_ver 0.73
+%define object_pad_min_ver 0.800
 BuildRequires:  perl(Object::Pad) >= %{object_pad_min_ver}
 BuildRequires:  perl(Syntax::Keyword::Defer) >= 0.02
 BuildRequires:  perl(Syntax::Keyword::Dynamically) >= 0.04
@@ -260,6 +260,15 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 11 2023 Petr Pisar <ppisar@redhat.com> - 0.66-3
+- Finish bootstrapping for perl-XS-Parse-Sublike ABI change
+
+* Mon Sep 11 2023 Petr Pisar <ppisar@redhat.com> - 0.66-2
+- Bootstrap for perl-XS-Parse-Sublike ABI change
+
+* Mon Sep 11 2023 Petr Pisar <ppisar@redhat.com> - 0.66-1
+- 0.66 bump
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.65-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

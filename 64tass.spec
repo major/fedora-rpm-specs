@@ -4,7 +4,7 @@ Name:		64tass
 Version:	1.59.%{revision}
 Release:	%autorelease
 Summary:	6502 assembler
-License:	GPLv2+
+License:	LGPL-2.0-only AND LGPL-2.0-or-later AND GPL-2.0-or-later AND MIT
 URL:		http://tass64.sourceforge.net/
 BuildRequires:	gcc
 BuildRequires:	make
@@ -38,9 +38,9 @@ install -m 644 64tass.1 %{buildroot}%{_mandir}/man1/
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %doc README.html
-%doc LICENSE-GPL-2.0
-%doc LICENSE-LGPL-2.0 LICENSE-LGPL-2.1
-%doc LICENSE-my_getopt
+%license LICENSE-GPL-2.0
+%license LICENSE-LGPL-2.0 LICENSE-LGPL-2.1
+%license LICENSE-my_getopt
 
 %changelog
 %autochangelog

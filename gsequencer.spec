@@ -1,5 +1,5 @@
 Name:     gsequencer
-Version:  6.0.1
+Version:  6.0.12
 Release:  0%{?dist}
 Summary:  Audio processing engine
 License:  GPLv3+ and AGPLv3+ and GFDL

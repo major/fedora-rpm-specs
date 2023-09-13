@@ -3,13 +3,13 @@
 %define docversion 4.100
 
 Name:           %{fontname}-fonts
-Version:        4.104
-Release:        28%{?dist}
+Version:        6.200
+Release:        1%{?dist}
 Summary:        Doulos SIL fonts
 
-License:        OFL
+License:        OFL-1.1
 URL:            http://scripts.sil.org/DoulosSILFont
-Source0:        %{archivename}%{version}.zip
+Source0:        https://software.sil.org/downloads/r/doulos/%{archivename}-%{version}.zip
 Source1:        %{fontname}.metainfo.xml
 
 BuildArch:      noarch
@@ -28,7 +28,7 @@ needed.
 
 
 %prep
-%setup -q -n %{archivename}
+%autosetup -n %{archivename}-%{version}
 sed -i 's/\r$//' *.txt
 
 
@@ -44,11 +44,16 @@ install -Dm 0644 -p %{SOURCE1} \
         %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %_font_pkg *.ttf
-%doc FONTLOG.txt OFL.txt OFL-FAQ.txt README.txt
-%doc DoulosSIL%{docversion}FontDocumentation.pdf
+%doc FONTLOG.txt OFL-FAQ.txt README.txt
+%doc documentation/pdf/
+%license OFL.txt
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Mon Sep 11 2023 Parag Nemade <pnemade AT redhat DOT com> - 6.200-1
+- Update to 6.200 version
+- Migrate to SPDX license expression
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.104-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

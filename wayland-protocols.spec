@@ -1,6 +1,6 @@
 Name:           wayland-protocols
 Version:        1.32
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Wayland protocols that adds functionality not available in the core protocol
 
 License:        MIT
@@ -48,6 +48,9 @@ wayland-protocols.
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Sep 11 2023 Olivier Fourdan <ofourdan@redhat.com> - 1.32-3
+- migrated to SPDX license
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

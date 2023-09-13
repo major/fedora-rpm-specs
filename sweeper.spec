@@ -1,7 +1,7 @@
 Name:    sweeper
 Summary: Clean unwanted traces the user leaves on the system
 Version: 23.08.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/utils/%{name}
@@ -17,6 +17,7 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 BuildRequires: desktop-file-utils
 
 BuildRequires: extra-cmake-modules
+BuildRequires: kf5-rpm-macros
 BuildRequires: cmake(KF5ActivitiesStats)
 BuildRequires: cmake(KF5Bookmarks)
 BuildRequires: cmake(KF5Crash)
@@ -75,6 +76,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.sweeper.d
 
 
 %changelog
+* Mon Sep 11 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-2
+- Add kf5-rpm-macros BuildRequires
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

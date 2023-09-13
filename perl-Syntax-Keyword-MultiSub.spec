@@ -3,7 +3,7 @@
 
 Name:           perl-Syntax-Keyword-MultiSub
 Version:        0.04
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multiple dispatch on subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-MultiSub
@@ -122,6 +122,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 11 2023 Petr Pisar <ppisar@redhat.com> - 0.04-3
+- Rebuild with perl-XS-Parse-Sublike-0.20
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

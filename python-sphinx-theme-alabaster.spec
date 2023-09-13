@@ -3,10 +3,10 @@
 
 Name:           python-%{srcname}
 Version:        0.7.12
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Configurable sidebar-enabled Sphinx theme
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        https://files.pythonhosted.org/packages/cc/b4/ed8dcb0d67d5cfb7f83c4d5463a7614cb1d078ad7ae890c9143edebbf072/alabaster-0.7.12.tar.gz
 
@@ -54,6 +54,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Mon Sep 11 2023 Karolina Surma <ksurma@redhat.com> - 0.7.12-20
+- Declare the license as an SPDX expression
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.12-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

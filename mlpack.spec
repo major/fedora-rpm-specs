@@ -1,6 +1,6 @@
 Name:           mlpack
-Version:        4.2.0
-Release:        4%{?dist}
+Version:        4.2.1
+Release:        1%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -12,9 +12,6 @@ Summary:        Fast, header-only C++ machine learning library
 License:        BSD-3-Clause AND Apache-2.0 AND (MIT OR Unlicense)
 URL:            http://www.mlpack.org
 Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
-Patch0:         pip_no_network_install.patch
-Patch1:		python_find_wheel.patch
-Patch2:		add_cython_pxd_path.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -300,6 +297,9 @@ cd ..;
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Mon Sep 11 2023 Ryan Curtin <ryan@ratml.org> - 4.2.1-1
+- Update to latest stable version.
+
 * Thu Jul 27 2023 Ryan Curtin <ryan@ratml.org> - 4.2.0-4
 - Bugfix: ensure Cython finds pxds for a successful build.
 

@@ -1,8 +1,5 @@
 %bcond_with toolchain_clang
 
-# use this to re-test running all tests
-%bcond_with all_tests
-
 %if %{with toolchain_clang}
 %global toolchain clang
 %endif
@@ -22,15 +19,13 @@
 %endif
 
 Name:           fizz
-Version:        2023.07.03.00
+Version:        2023.09.11.00
 Release:        %autorelease
 Summary:        A C++14 implementation of the TLS-1.3 standard
 
 License:        BSD-3-Clause
 URL:            https://github.com/facebookincubator/fizz
 Source0:        %{url}/archive/v%{version}/fizz-%{version}.tar.gz
-# Disable failing tests
-Patch0:         %{name}-no_failed_tests.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
@@ -54,11 +49,6 @@ final specification), and 23. All major handshake modes are supported, including
 PSK resumption, early data, client authentication, and HelloRetryRequest.}
 
 %description %{_description}
-Fizz is a TLS 1.3 implementation.
-
-Fizz currently supports TLS 1.3 drafts 28, 26 (both wire-compatible with the
-final specification), and 23. All major handshake modes are supported, including
-PSK resumption, early data, client authentication, and HelloRetryRequest.
 
 
 %package        devel
@@ -73,10 +63,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
-%if %{without all_tests}
-%patch 0 -p1 -b .no_failed_tests
-%endif
+%autosetup -p1
 
 
 %build

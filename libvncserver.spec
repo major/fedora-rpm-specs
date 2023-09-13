@@ -6,7 +6,7 @@ Version:    0.9.13
 Release:    15%{?dist}
 
 # NOTE: --with-filetransfer => GPLv2
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        http://libvnc.github.io/
 Source0:    https://github.com/LibVNC/libvncserver/archive/LibVNCServer-%{version}.tar.gz
 

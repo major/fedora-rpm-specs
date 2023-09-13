@@ -1,16 +1,12 @@
 Name:           appx-util
-Version:        0.4
-Release:        9%{?dist}
+Version:        0.5
+Release:        2%{?dist}
 Summary:        Utility to create Microsoft .appx packages
 
 # See LICENSING.md for details
-License:        MPLv2.0 and BSD
+License:        MPL-2.0 and BSD-3-Clause
 URL:            https://github.com/OSInside/appx-util
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Backports from upstream
-## From: https://github.com/OSInside/appx-util/commit/504dad8ca52a44eb6f3a656368f6708b63f73c10
-Patch0001:      0001-Add-support-for-OpenSSL-3.0.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -18,7 +14,11 @@ BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  zlib-devel
 # For tests
+%if 0%{?el8}
+BuildRequires:  /usr/bin/python3.6
+%else
 BuildRequires:  /usr/bin/python3
+%endif
 
 %description
 appx is a tool which creates and optionally signs
@@ -49,6 +49,13 @@ Microsoft Windows APPX packages.
 
 
 %changelog
+* Mon Sep 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.5-2
+- Fix BR for Python 3 for EL8 (RH#2237698)
+
+* Mon Sep 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.5-1
+- Update to 0.5
+- Migrate to SPDX license identifiers
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

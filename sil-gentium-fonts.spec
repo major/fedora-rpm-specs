@@ -9,10 +9,10 @@ a wide range of Latin-based alphabets.
 
 Name:           %{fontname}-fonts
 Version:        1.02
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        SIL Gentium fonts
 
-License:        OFL
+License:        OFL-1.1
 URL:            http://scripts.sil.org/Gentium_linux
 # Source0 can be downloaded from the above URL, search for "tar.gz"
 Source0:        %{archivename}_1.0.2.tar.gz
@@ -90,10 +90,13 @@ install -Dm 0644 -p %{SOURCE2} \
         %{buildroot}%{_datadir}/appdata/%{fontname}-alt.metainfo.xml
 
 %files common
-%doc FONTLOG GENTIUM-FAQ OFL OFL-FAQ QUOTES README
-
+%doc FONTLOG GENTIUM-FAQ OFL-FAQ QUOTES README
+%license OFL
 
 %changelog
+* Tue Sep 12 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.02-34
+- Migrate to SPDX license expression
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

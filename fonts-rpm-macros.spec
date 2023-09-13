@@ -52,6 +52,12 @@ will pull it in for fonts packages only.
 %package -n fonts-srpm-macros
 Summary:   Source-stage rpm automation for fonts packages
 Requires:  redhat-rpm-config
+# macros.forge and forge.lua were split into a separate package.
+# redhat-rpm-config pulls in forge-srpm-macros but better to explicitly Require
+# it.
+%if (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
+Requires:  forge-srpm-macros
+%endif
 
 %description -n fonts-srpm-macros
 This package provides SRPM-stage rpm automation to simplify the creation of

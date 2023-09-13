@@ -1,5 +1,5 @@
 Name:           nextcloud
-Version:        26.0.0
+Version:        27.0.2
 Release:        %autorelease
 Summary:        Private file sync and share server
 License:        AGPLv3+ and MIT and BSD and ASL 2.0 and WTFPL and CC-BY-SA and GPLv3+ and Adobe
@@ -86,8 +86,8 @@ Requires:       %{_sysconfdir}/pki/tls/certs/ca-bundle.crt
 # many of these can be unbundled
 Provides: bundled(php-composer(amphp/amp)) = 2.6.2
 Provides: bundled(php-composer(amphp/byte-stream)) = 1.8.1
-Provides: bundled(php-composer(amphp/parallel)) = 1.4.1
-Provides: bundled(php-composer(amphp/parser)) = 1.0.0
+Provides: bundled(php-composer(amphp/parallel)) = 1.4.3
+Provides: bundled(php-composer(amphp/parser)) = 1.1.0
 Provides: bundled(php-composer(amphp/process)) = 1.1.4
 Provides: bundled(php-composer(amphp/serialization)) = 1.0.0
 Provides: bundled(php-composer(amphp/sync)) = 1.4.2
@@ -97,45 +97,16 @@ Provides: bundled(php-composer(league/mime-type-detection)) = 1.11.0
 Provides: bundled(php-composer(psr/log)) = 1.1.4
 Provides: bundled(php-composer(rubix/ml)) = 20
 Provides: bundled(php-composer(rubix/tensor)) = 2.2.3
-Provides: bundled(php-composer(symfony/polyfill-mbstring)) = 1.26.0
+Provides: bundled(php-composer(symfony/polyfill-mbstring)) = 1.27.0
 Provides: bundled(php-composer(symfony/polyfill-php73)) = 1.26.0
-Provides: bundled(php-composer(symfony/polyfill-php80)) = 1.26.0
-Provides: bundled(php-composer(composer/semver)) = 3.2.5
-Provides: bundled(php-composer(composer/xdebug-handler)) = 2.0.2
-Provides: bundled(php-composer(doctrine/annotations)) = 1.13.2
-Provides: bundled(php-composer(doctrine/lexer)) = 1.2.1
-Provides: bundled(php-composer(friendsofphp/php-cs-fixer)) = 2.19.2
-Provides: bundled(php-composer(nextcloud/coding-standard)) = 0.5.0
-Provides: bundled(php-composer(php-cs-fixer/diff)) = 1.3.1
-Provides: bundled(php-composer(psr/cache)) = 1.0.1
-Provides: bundled(php-composer(psr/container)) = 1.1.1
-Provides: bundled(php-composer(psr/event-dispatcher)) = 1.0.0
-Provides: bundled(php-composer(psr/log)) = 1.1.4
-Provides: bundled(php-composer(symfony/console)) = 5.3.7
-Provides: bundled(php-composer(symfony/deprecation-contracts)) = 2.4.0
-Provides: bundled(php-composer(symfony/event-dispatcher)) = 5.3.7
-Provides: bundled(php-composer(symfony/event-dispatcher-contracts)) = 2.4.0
-Provides: bundled(php-composer(symfony/filesystem)) = 5.3.4
-Provides: bundled(php-composer(symfony/finder)) = 5.3.7
-Provides: bundled(php-composer(symfony/options-resolver)) = 5.3.7
-Provides: bundled(php-composer(symfony/polyfill-ctype)) = 1.23.0
-Provides: bundled(php-composer(symfony/polyfill-intl-grapheme)) = 1.23.1
-Provides: bundled(php-composer(symfony/polyfill-intl-normalizer)) = 1.23.0
-Provides: bundled(php-composer(symfony/polyfill-mbstring)) = 1.23.1
-Provides: bundled(php-composer(symfony/polyfill-php70)) = 1.20.0
-Provides: bundled(php-composer(symfony/polyfill-php72)) = 1.23.0
-Provides: bundled(php-composer(symfony/polyfill-php73)) = 1.23.0
-Provides: bundled(php-composer(symfony/polyfill-php80)) = 1.23.1
-Provides: bundled(php-composer(symfony/process)) = 5.3.7
-Provides: bundled(php-composer(symfony/service-contracts)) = 2.4.0
-Provides: bundled(php-composer(symfony/stopwatch)) = 5.3.4
-Provides: bundled(php-composer(symfony/string)) = 5.3.7
+Provides: bundled(php-composer(symfony/polyfill-php80)) = 1.27.0
+Provides: bundled(php-composer(hexogen/kdtree)) = 0.2.5
 Provides: bundled(php-composer(christian-riesen/base32)) = 1.6.0
 Provides: bundled(php-composer(rullzer/easytotp)) = 0.1.4
-Provides: bundled(php-composer(icewind/smb)) = 3.5.2
-Provides: bundled(php-composer(icewind/streams)) = 0.7.4
+Provides: bundled(php-composer(icewind/smb)) = 3.5.4
+Provides: bundled(php-composer(icewind/streams)) = 0.7.7
 Provides: bundled(php-composer(aws/aws-crt-php)) = 1.0.2
-Provides: bundled(php-composer(aws/aws-sdk-php)) = 3.242.1
+Provides: bundled(php-composer(aws/aws-sdk-php)) = 3.240.8
 Provides: bundled(php-composer(bantu/ini-get-wrapper)) = 1.0.1
 Provides: bundled(php-composer(beberlei/assert)) = 3.3.1
 Provides: bundled(php-composer(brick/math)) = 0.9.2
@@ -143,25 +114,25 @@ Provides: bundled(php-composer(christophwurst/id3parser)) = 0.1.4
 Provides: bundled(php-composer(cweagans/composer-patches)) = 1.7.1
 Provides: bundled(php-composer(deepdiver/zipstreamer)) = 2.0.0
 Provides: bundled(php-composer(deepdiver1975/tarstreamer)) = 2.0.0
-Provides: bundled(php-composer(doctrine/cache)) = 2.1.1
-Provides: bundled(php-composer(doctrine/dbal)) = 3.1.4
-Provides: bundled(php-composer(doctrine/deprecations)) = 0.5.3
-Provides: bundled(php-composer(doctrine/event-manager)) = 1.1.1
+Provides: bundled(php-composer(doctrine/cache)) = 2.2.0
+Provides: bundled(php-composer(doctrine/dbal)) = 3.3.8
+Provides: bundled(php-composer(doctrine/deprecations)) = 1.0.0
+Provides: bundled(php-composer(doctrine/event-manager)) = 1.2.0
 Provides: bundled(php-composer(doctrine/lexer)) = 1.2.3
-Provides: bundled(php-composer(egulias/email-validator)) = 3.1.1
+Provides: bundled(php-composer(egulias/email-validator)) = 3.2.5
 Provides: bundled(php-composer(fgrosse/phpasn1)) = 2.3.0
 Provides: bundled(php-composer(fusonic/linq)) = 1.1.0
 Provides: bundled(php-composer(fusonic/opengraph)) = 2.2.0
-Provides: bundled(php-composer(giggsey/libphonenumber-for-php)) = 8.12.38
-Provides: bundled(php-composer(giggsey/locale)) = 2.1
+Provides: bundled(php-composer(giggsey/libphonenumber-for-php)) = 8.13.7
+Provides: bundled(php-composer(giggsey/locale)) = 2.3
 Provides: bundled(php-composer(guzzlehttp/guzzle)) = 7.5.0
 Provides: bundled(php-composer(guzzlehttp/promises)) = 1.5.2
-Provides: bundled(php-composer(guzzlehttp/psr7)) = 2.4.3
+Provides: bundled(php-composer(guzzlehttp/psr7)) = 2.4.5
 Provides: bundled(php-composer(guzzlehttp/uri-template)) = 0.2.0
 Provides: bundled(php-composer(icewind/searchdav)) = 3.0.1
-Provides: bundled(php-composer(icewind/streams)) = 0.7.5
+Provides: bundled(php-composer(icewind/streams)) = 0.7.7
 Provides: bundled(php-composer(justinrainbow/json-schema)) = 5.2.10
-Provides: bundled(php-composer(laravel/serializable-closure)) = 1.2.0
+Provides: bundled(php-composer(laravel/serializable-closure)) = 1.2.2
 Provides: bundled(php-composer(league/uri)) = 6.4.0
 Provides: bundled(php-composer(league/uri-interfaces)) = 2.2.0
 Provides: bundled(php-composer(mexitek/phpcolors)) = 1.0.4
@@ -170,20 +141,20 @@ Provides: bundled(php-composer(microsoft/azure-storage-common)) = 1.5.2
 Provides: bundled(php-composer(mlocati/ip-lib)) = 1.18.0
 Provides: bundled(php-composer(mtdowling/jmespath.php)) = 2.6.1
 Provides: bundled(php-composer(nextcloud/lognormalizer)) = 1.0.0
-Provides: bundled(php-composer(nikic/php-parser)) = 4.10.5
 Provides: bundled(php-composer(opis/closure)) = 3.6.3
 Provides: bundled(php-composer(pear/archive_tar)) = 1.4.14
 Provides: bundled(php-composer(pear/console_getopt)) = 1.4.3
 Provides: bundled(php-composer(pear/pear-core-minimal)) = 1.10.10
 Provides: bundled(php-composer(pear/pear_exception)) = 1.0.2
-Provides: bundled(php-composer(php-ds/php-ds)) = 1.3.0
 Provides: bundled(php-composer(php-http/guzzle7-adapter)) = 1.0.0
 Provides: bundled(php-composer(php-http/httplug)) = 2.2.0
 Provides: bundled(php-composer(php-http/promise)) = 1.1.0
-Provides: bundled(php-composer(php-opencloud/openstack)) = 3.1.0
-Provides: bundled(php-composer(phpseclib/phpseclib)) = 2.0.38
+Provides: bundled(php-composer(php-opencloud/openstack)) = 3.2.1
+Provides: bundled(php-composer(phpseclib/phpseclib)) = 2.0.40
 Provides: bundled(php-composer(pimple/pimple)) = 3.5.0
-Provides: bundled(php-composer(psr/container)) = 1.1.1
+Provides: bundled(php-composer(psr/cache)) = 1.0.1
+Provides: bundled(php-composer(psr/clock)) = 1.0.0
+Provides: bundled(php-composer(psr/container)) = 2.0.2
 Provides: bundled(php-composer(psr/event-dispatcher)) = 1.0.0
 Provides: bundled(php-composer(psr/http-client)) = 1.0.1
 Provides: bundled(php-composer(psr/http-factory)) = 1.0.1
@@ -199,18 +170,20 @@ Provides: bundled(php-composer(sabre/http)) = 5.1.5
 Provides: bundled(php-composer(sabre/uri)) = 2.2.2
 Provides: bundled(php-composer(sabre/vobject)) = 4.4.2
 Provides: bundled(php-composer(sabre/xml)) = 2.2.5
-Provides: bundled(php-composer(scssphp/scssphp)) = 1.8.1
+Provides: bundled(php-composer(scssphp/scssphp)) = 1.11.0
 Provides: bundled(php-composer(spomky-labs/base64url)) = 2.0.4
 Provides: bundled(php-composer(spomky-labs/cbor-php)) = 2.0.1
 Provides: bundled(php-composer(stecman/symfony-console-completion)) = 0.11.0
 Provides: bundled(php-composer(swiftmailer/swiftmailer)) = 6.3.0
-Provides: bundled(php-composer(symfony/console)) = 4.4.30
+Provides: bundled(php-composer(symfony/console)) = 5.4.19
 Provides: bundled(php-composer(symfony/css-selector)) = 5.4.11
 Provides: bundled(php-composer(symfony/deprecation-contracts)) = 2.5.2
 Provides: bundled(php-composer(symfony/dom-crawler)) = 5.4.11
 Provides: bundled(php-composer(symfony/event-dispatcher)) = 4.4.30
 Provides: bundled(php-composer(symfony/event-dispatcher-contracts)) = 1.1.9
 Provides: bundled(php-composer(symfony/http-foundation)) = 5.4.10
+Provides: bundled(php-composer(symfony/mailer)) = 5.4.19
+Provides: bundled(php-composer(symfony/mime)) = 5.4.19
 Provides: bundled(php-composer(symfony/polyfill-ctype)) = 1.23.0
 Provides: bundled(php-composer(symfony/polyfill-iconv)) = 1.27.0
 Provides: bundled(php-composer(symfony/polyfill-intl-grapheme)) = 1.23.1
@@ -222,17 +195,14 @@ Provides: bundled(php-composer(symfony/polyfill-php73)) = 1.23.0
 Provides: bundled(php-composer(symfony/polyfill-php80)) = 1.26.0
 Provides: bundled(php-composer(symfony/process)) = 4.4.30
 Provides: bundled(php-composer(symfony/routing)) = 4.4.30
-Provides: bundled(php-composer(symfony/service-contracts)) = 2.4.0
+Provides: bundled(php-composer(symfony/service-contracts)) = 3.0.2
+Provides: bundled(php-composer(symfony/string)) = 6.0.19
 Provides: bundled(php-composer(symfony/translation)) = 4.4.41
 Provides: bundled(php-composer(symfony/translation-contracts)) = 2.4.0
 Provides: bundled(php-composer(thecodingmachine/safe)) = 1.3.3
 Provides: bundled(php-composer(web-auth/cose-lib)) = 3.3.9
 Provides: bundled(php-composer(web-auth/metadata-service)) = 3.3.9
 Provides: bundled(php-composer(web-auth/webauthn-lib)) = 3.3.9
-Provides: bundled(php-composer(doctrine/lexer)) = 1.2.1
-Provides: bundled(php-composer(symfony/polyfill-intl-idn)) = 1.22.1
-Provides: bundled(php-composer(symfony/polyfill-intl-normalizer)) = 1.22.1
-Provides: bundled(php-composer(symfony/polyfill-php72)) = 1.22.1
 
 # OpenIconic icons bundled via sabre-dav
 Provides:       bundled(openiconic-fonts) = 1.0.0
@@ -337,266 +307,9 @@ cp %{SOURCE303} MIGRATION.fedora
 # get rid of all composer licenses
 find -wholename "*/composer/LICENSE" -exec mv {} composer-LICENSE \;
 
-# find all remaining using "find -name '*LICENCE*' -name '*LICENSE*' -o -name '*COPYING*' | sort"
-mv 3rdparty/aws/aws-sdk-php/LICENSE aws-LICENSE
-mv 3rdparty/aws/aws-sdk-php/THIRD-PARTY-LICENSES aws-sdk-php-THIRD-PARTY-LICENSES
-mv 3rdparty/aws/aws-crt-php/LICENSE aws-crt-php-LICENSE
-mv 3rdparty/bantu/ini-get-wrapper/LICENSE bantu-LICENSE
-mv 3rdparty/beberlei/assert/LICENSE beberlei-LICENSE
-mv 3rdparty/brick/math/LICENSE brick-LICENSE
-mv 3rdparty/christophwurst/id3parser/LICENSE christophwurst-LICENSE
-mv 3rdparty/deepdiver1975/tarstreamer/LICENSE deepdiver1975-LICENSE
-mv 3rdparty/deepdiver/zipstreamer/COPYING deepdiver-COPYING
-mv 3rdparty/doctrine/cache/LICENSE doctrine-LICENSE
-mv 3rdparty/doctrine/dbal/LICENSE doctrine-LICENSE
-mv 3rdparty/doctrine/event-manager/LICENSE doctrine-LICENSE
-mv 3rdparty/egulias/email-validator/LICENSE egulias-LICENSE
-mv 3rdparty/fgrosse/phpasn1/LICENSE fgrosse-LICENSE
-mv 3rdparty/giggsey/libphonenumber-for-php/LICENSE giggsey-LICENSE
-mv 3rdparty/giggsey/locale/LICENSE giggsey-LICENSE
-mv 3rdparty/guzzlehttp/guzzle/LICENSE guzzlehttp-LICENSE
-mv 3rdparty/guzzlehttp/promises/LICENSE guzzlehttp-LICENSE
-mv 3rdparty/guzzlehttp/psr7/LICENSE guzzlehttp-LICENSE
-mv 3rdparty/guzzlehttp/uri-template/LICENSE.md guzzlehttp-LICENSE
-mv 3rdparty/icewind/searchdav/LICENSE icewind-LICENSE
-mv 3rdparty/justinrainbow/json-schema/LICENSE justinrainbow-LICENSE
-mv 3rdparty/league/uri-interfaces/LICENSE league-LICENSE
-mv 3rdparty/league/uri/LICENSE league-LICENSE
-mv '3rdparty/LICENSE INFO' 3rdparty-LICENSE_INFO
-mv 3rdparty/microsoft/azure-storage-blob/LICENSE microsoft-LICENSE
-mv 3rdparty/microsoft/azure-storage-common/LICENSE microsoft-LICENSE
-mv 3rdparty/mtdowling/jmespath.php/LICENSE mtdowling-LICENSE
-mv 3rdparty/nextcloud/lognormalizer/COPYING lognormalizer-LICENSE
-mv 3rdparty/opis/closure/LICENSE opis-LICENSE
-mv 3rdparty/pear/console_getopt/LICENSE pear-LICENSE
-mv 3rdparty/pear/pear_exception/LICENSE pear-LICENSE
-mv 3rdparty/php-http/guzzle7-adapter/LICENSE php-http-LICENSE
-mv 3rdparty/php-http/httplug/LICENSE php-http-LICENSE
-mv 3rdparty/php-http/promise/LICENSE php-http-LICENSE
-mv 3rdparty/php-opencloud/openstack/LICENSE php-opencloud-LICENSE
-mv 3rdparty/phpseclib/phpseclib/LICENSE phpseclib-LICENSE
-mv 3rdparty/psr/event-dispatcher/LICENSE psr-LICENSE
-mv 3rdparty/psr/container/LICENSE psr-LICENSE
-mv 3rdparty/psr/http-client/LICENSE psr-LICENSE
-mv 3rdparty/psr/http-factory/LICENSE psr-LICENSE
-mv 3rdparty/psr/http-message/LICENSE psr-LICENSE
-mv 3rdparty/psr/log/LICENSE psr-LICENSE
-mv 3rdparty/punic/punic/LICENSE.txt punic-LICENSE.txt
-mv 3rdparty/punic/punic/UNICODE-LICENSE.txt punic-UNICODE-LICENSE
-mv 3rdparty/ralouphie/getallheaders/LICENSE ralouphie-LICENSE
-mv 3rdparty/ramsey/collection/LICENSE ramsey-LICENSE
-mv 3rdparty/ramsey/uuid/LICENSE ramsey-LICENSE
-mv 3rdparty/sabre/dav/lib/DAV/Browser/assets/openiconic/ICON-LICENSE sabre-ICON-LICENSE
-mv 3rdparty/sabre/dav/LICENSE sabre-LICENSE
-mv 3rdparty/sabre/event/LICENSE sabre-LICENSE
-mv 3rdparty/sabre/http/LICENSE sabre-LICENSE
-mv 3rdparty/sabre/uri/LICENSE sabre-LICENSE
-mv 3rdparty/sabre/vobject/LICENSE sabre-LICENSE
-mv 3rdparty/sabre/xml/LICENSE sabre-LICENSE
-mv 3rdparty/scssphp/scssphp/LICENSE.md scssphp-LICENSE.md
-mv 3rdparty/spomky-labs/base64url/LICENSE spomky-labs-LICENSE
-mv 3rdparty/spomky-labs/cbor-php/LICENSE spomky-labs-LICENSE
-mv 3rdparty/stecman/symfony-console-completion/LICENCE stecman-LICENSE
-mv 3rdparty/symfony/console/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/event-dispatcher-contracts/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/event-dispatcher/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/polyfill-ctype/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/polyfill-iconv/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/polyfill-intl-grapheme/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/polyfill-intl-idn/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/polyfill-intl-normalizer/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/polyfill-mbstring/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/polyfill-php72/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/polyfill-php73/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/polyfill-php80/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/process/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/routing/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/service-contracts/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/translation-contracts/LICENSE symfony-LICENSE
-mv 3rdparty/symfony/translation/LICENSE symfony-LICENSE
-mv 3rdparty/thecodingmachine/safe/LICENSE thecodingmachine-LICENSE
-mv 3rdparty/web-auth/cose-lib/LICENSE web-auth-LICENSE
-mv 3rdparty/web-auth/metadata-service/LICENSE web-auth-LICENSE
-mv 3rdparty/web-auth/webauthn-lib/LICENSE web-auth-LICENSE
-mv 3rdparty/cweagans/composer-patches/LICENSE.md composer-patches-LICENSE.md
-mv 3rdparty/symfony/deprecation-contracts/LICENSE deprecation-contracts-LICENSE
-mv apps/activity/js/activity-sidebar.js.LICENSE.txt activity-sidebar.js-LICENSE
-mv apps/activity/js/activity-dashboard.js.LICENSE.txt activity-dashboard.js-LICENSE.txt
-mv apps/circles/LICENSE circles-LICENSE
-mv apps/cloud_federation_api/LICENSE cloud_federation_api-LICENSE
-mv apps/files_external/3rdparty/icewind/smb/LICENSE.txt icewind-LICENSE
-mv apps/files_external/3rdparty/icewind/streams/LICENCE icewind-LICENSE
-mv apps/files_pdfviewer/js/files_pdfviewer-workersrc.js.LICENSE.txt files_pdfviewer-workersrc.js-LICENSE
-mv apps/files_pdfviewer/js/files_pdfviewer-main.js.LICENSE.txt files_pdfviewer-main.js-LICENSE
-mv apps/files_pdfviewer/js/files_pdfviewer-public.js.LICENSE.txt files_pdfviewer-public.js-LICENSE
-mv apps/files_pdfviewer/js/pdfjs/LICENSE js-pdfjs-LICENSE
-mv apps/files_pdfviewer/js/pdfjs/web/cmaps/LICENSE js-pdfjs-cmaps-LICENSE
-mv apps/files_rightclick/COPYING files_rightclick-COPYING
-mv apps/files_rightclick/LICENSE files_rightclick-LICENSE
-mv apps/logreader/js/logreader-main.js.LICENSE.txt logreader-main.js-LICENSE
-mv apps/nextcloud_announcements/COPYING nextcloud_announcements-COPYING
-mv apps/notifications/COPYING notifications-LICENSE
-mv apps/notifications/js/notifications-main.js.LICENSE.txt notifications-main.js-LICENSE
-mv apps/password_policy/LICENSE password_policy-LICENSE
-mv apps/password_policy/js/password_policy-settings.js.LICENSE.txt password_policy-settings.js-LICENSE
-mv apps/photos/COPYING photos-COPYING
-mv apps/photos/js/photos-main.js.LICENSE.txt photos-main.js-LICENSE
-mv apps/privacy/COPYING privacy-COPYING
-mv apps/privacy/js/privacy-main.js.LICENSE.txt privacy-main.js-LICENSE
-#mv apps/recommendations/LICENSE recommendations-LICENSE
-mv apps/serverinfo/COPYING serverinfo-LICENSE
-mv apps/survey_client/COPYING survey_client-LICENSE
-mv apps/text/COPYING text-COPYING
-mv apps/text/js/vendors.js.LICENSE.txt vendors.js-LICENSE.txt
-mv apps/text/js/editor.js.LICENSE.txt editor.js.LICENSE.txt
-mv apps/text/js/text-files.js.LICENSE.txt text-files.js-LICENSE.txt
-mv apps/text/js/text-public.js.LICENSE.txt text-public.js-LICENSE.txt
-mv apps/text/js/text-text.js.LICENSE.txt text-text.js-LICENSE.txt
-mv apps/text/js/text-viewer.js.LICENSE.txt text-viewer.js-LICENSE.txt
-mv apps/user_ldap/js/vendor/ui-multiselect/MIT-LICENSE js-jqueryui-multiselect-LICENSE
-mv apps/viewer/COPYING viewer-COPYING
-mv apps/viewer/js/viewer-main.js.LICENSE.txt viewer-main.js-LICENSE
-mv COPYING nextcloud-LICENSE
-mv core/fonts/LICENSE_OFL.txt fonts-LICENSE
-mv core/vendor/zxcvbn/LICENSE.txt zxcvbn-LICENSE
-mv apps/files_pdfviewer/COPYING files_pdfviewer-COPYING
-mv apps/files_pdfviewer/js/pdfjs/web/standard_fonts/LICENSE_FOXIT standard_fonts-LICENSE_FOXIT
-mv apps/files_pdfviewer/js/pdfjs/web/standard_fonts/LICENSE_LIBERATION standard_fonts-LICENSE_LIBERATION
-mv apps/firstrunwizard/js/firstrunwizard-main.js.LICENSE.txt firstrunwizard-main.js-LICENSE.txt
-mv apps/notifications/js/notifications-settings.js.LICENSE.txt notifications-settings.js-LICENSE.txt
-mv dist/settings-vue-settings-personal-security.js.LICENSE.txt settings-vue-settings-personal-security.js.LICENSE.txt
-mv dist/core-login.js.LICENSE.txt core-login.js-LICENSE.txt
-mv dist/files-sidebar.js.LICENSE.txt files-sidebar.js-LICENSE.txt
-mv dist/core-recommendedapps.js.LICENSE.txt core-recommendedapps.js-LICENSE.txt
-mv dist/files_sharing-main.js.LICENSE.txt files_sharing-main.js-LICENSE.txt
-mv dist/dav-settings-personal-availability.js.LICENSE.txt dav-settings-personal-availability.js-LICENSE.txt
-mv dist/weather_status-weather-status.js.LICENSE.txt weather_status-weather-status.js-LICENSE.txt
-mv dist/core-profile.js.LICENSE.txt core-profile.js-LICENSE.txt
-mv dist/settings-vue-settings-admin-basic-settings.js.LICENSE.txt settings-vue-settings-admin-basic-settings.js-LICENSE.txt
-mv dist/settings-vue-settings-admin-security.js.LICENSE.txt settings-vue-settings-admin-security.js-LICENSE.txt
-mv dist/core-files_client.js.LICENSE.txt core-files_client.js-LICENSE.txt
-mv dist/systemtags-systemtags.js.LICENSE.txt systemtags-systemtags.js-LICENSE.txt
-mv dist/comments-comments.js.LICENSE.txt comments-comments.js-LICENSE.txt
-mv dist/files_versions-files_versions.js.LICENSE.txt files_versions-files_versions.js.LICENSE.txt
-mv dist/twofactor_backupcodes-settings.js.LICENSE.txt twofactor_backupcodes-settings.js-LICENSE.txt
-mv dist/updatenotification-updatenotification.js.LICENSE.txt updatenotification-updatenotification.js-LICENSE.txt
-mv dist/settings-vue-settings-admin-delegation.js.LICENSE.txt settings-vue-settings-admin-delegation.js-LICENSE.txt
-mv dist/core-systemtags.js.LICENSE.txt core-systemtags.js-LICENSE.txt
-mv dist/comments-comments-app.js.LICENSE.txt comments-comments-app.js-LICENSE.txt
-mv dist/core-files_fileinfo.js.LICENSE.txt core-files_fileinfo.js-LICENSE.txt
-mv dist/files-main.js.LICENSE.txt files-main.js-LICENSE.txt
-mv dist/core-main.js.LICENSE.txt core-main.js-LICENSE.txt
-mv dist/files_sharing-additionalScripts.js.LICENSE.txt files_sharing-additionalScripts.js-LICENSE.txt
-mv dist/settings-vue-settings-apps-users-management.js.LICENSE.txt settings-vue-settings-apps-users-management.js-LICENSE.txt
-mv dist/settings-vue-settings-nextcloud-pdf.js.LICENSE.txt settings-vue-settings-nextcloud-pdf.js-LICENSE.txt
-mv dist/settings-vue-settings-personal-info.js.LICENSE.txt settings-vue-settings-personal-info.js-LICENSE.txt
-mv dist/settings-vue-settings-personal-webauthn.js.LICENSE.txt settings-vue-settings-personal-webauthn.js-LICENSE.txt
-mv dist/user_status-dashboard.js.LICENSE.txt user_status-dashboard.js-LICENSE.txt
-mv dist/user_status-menu.js.LICENSE.txt user_status-menu.js-LICENSE.txt
-mv dist/workflowengine-workflowengine.js.LICENSE.txt workflowengine-workflowengine.js-LICENSE.txt
-mv dist/comments-comments-tab.js.LICENSE.txt comments-comments-tab.js-LICENSE.txt
-mv dist/core-install.js.LICENSE.txt core-install.js-LICENSE.txt
-mv dist/core-unified-search.js.LICENSE.txt core-unified-search.js-LICENSE.txt
-mv dist/dashboard-main.js.LICENSE.txt dashboard-main.js-LICENSE.txt
-mv dist/files-personal-settings.js.LICENSE.txt files-personal-settings.js-LICENSE.txt
-mv dist/files_sharing-files_sharing_tab.js.LICENSE.txt files_sharing-files_sharing_tab.js-LICENSE.txt
-mv dist/files_sharing-personal-settings.js.LICENSE.txt files_sharing-personal-settings.js-LICENSE.txt
-mv dist/files_trashbin-files_trashbin.js.LICENSE.txt files_trashbin-files_trashbin.js-LICENSE.txt
-mv dist/oauth2-oauth2.js.LICENSE.txt oauth2-oauth2.js-LICENSE.txt
-mv dist/settings-users-8351.js.LICENSE.txt settings-users-8351.js-LICENSE.txt
-mv dist/core-common.js.LICENSE.txt core-common.js-LICENSE.txt
-mv dist/settings-vue-settings-personal-password.js.LICENSE.txt settings-vue-settings-personal-password.js.LICENSE.txt
-mv apps/suspicious_login/js/settings.js.LICENSE.txt settings.js.LICENSE.txt
-mv apps/suspicious_login/vendor/psr/log/LICENSE LICENSE
-mv apps/suspicious_login/vendor/symfony/polyfill-mbstring/LICENSE LICENSE
-mv apps/suspicious_login/vendor/symfony/polyfill-php80/LICENSE LICENSE
-mv apps/suspicious_login/vendor/symfony/polyfill-php73/LICENSE LICENSE
-mv apps/suspicious_login/vendor/league/flysystem/LICENSE LICENSE
-mv apps/suspicious_login/vendor/league/mime-type-detection/LICENSE LICENSE
-mv apps/suspicious_login/vendor/darsyn/ip/LICENSE.md LICENSE.md
-mv apps/suspicious_login/vendor/amphp/process/LICENSE LICENSE
-mv apps/suspicious_login/vendor/amphp/sync/LICENSE LICENSE
-mv apps/suspicious_login/vendor/amphp/amp/LICENSE LICENSE
-mv apps/suspicious_login/vendor/amphp/parser/LICENSE LICENSE
-mv apps/suspicious_login/vendor/amphp/parallel/LICENSE LICENSE
-mv apps/suspicious_login/vendor/amphp/byte-stream/LICENSE LICENSE
-mv apps/suspicious_login/vendor/amphp/serialization/LICENSE LICENSE
-mv apps/suspicious_login/vendor/rubix/ml/LICENSE LICENSE
-mv apps/suspicious_login/vendor/rubix/tensor/lib/JAMA/LICENCE.md LICENCE.md
-mv apps/suspicious_login/vendor/rubix/tensor/LICENSE LICENSE
-mv apps/suspicious_login/COPYING COPYING
-mv apps/related_resources/js/vendors-node_modules_nextcloud_vue_dist_Components_NcRelatedResourcesPanel_js.related_resources.js.LICENSE.txt vendors-node_modules_nextcloud_vue_dist_Components_NcRelatedResourcesPanel_js.related_resources.js.LICENSE.txt
-mv apps/related_resources/js/related_resources.js.LICENSE.txt related_resources.js.LICENSE.txt
-mv apps/related_resources/LICENSE LICENSE
-mv apps/photos/js/photos-vendors-node_modules_nextcloud_upload_dist_index_esm_js.js.LICENSE.txt photos-vendors-node_modules_nextcloud_upload_dist_index_esm_js.js.LICENSE.txt
-mv apps/photos/js/photos-src_mixins_FetchAlbumsMixin_js-src_components_Albums_AlbumForm_vue.js.LICENSE.txt photos-src_mixins_FetchAlbumsMixin_js-src_components_Albums_AlbumForm_vue.js.LICENSE.txt
-mv apps/photos/js/photos-public.js.LICENSE.txt photos-public.js.LICENSE.txt
-mv apps/photos/js/photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_vue-material-design-ic-4e283b.js.LICENSE.txt photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_vue-material-design-ic-4e283b.js.LICENSE.txt
-mv apps/photos/js/photos-src_views_Timeline_vue.js.LICENSE.txt photos-src_views_Timeline_vue.js.LICENSE.txt
-mv apps/photos/js/photos-src_views_Tags_vue.js.LICENSE.txt photos-src_views_Tags_vue.js.LICENSE.txt
-mv apps/photos/js/photos-src_views_SharedAlbums_vue.js.LICENSE.txt photos-src_views_SharedAlbums_vue.js.LICENSE.txt
-mv apps/photos/js/photos-src_mixins_AbortControllerMixin_js-src_mixins_FilesSelectionMixin_js-src_components_File_vue--80ca54.js.LICENSE.txt photos-src_mixins_AbortControllerMixin_js-src_mixins_FilesSelectionMixin_js-src_components_File_vue--80ca54.js.LICENSE.txt
-mv apps/photos/js/photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_vue-material-design-ic-36962a.js.LICENSE.txt photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_vue-material-design-ic-36962a.js.LICENSE.txt
-mv apps/photos/js/photos-src_views_AlbumContent_vue.js.LICENSE.txt photos-src_views_AlbumContent_vue.js.LICENSE.txt
-mv apps/photos/js/photos-src_views_Folders_vue.js.LICENSE.txt photos-src_views_Folders_vue.js.LICENSE.txt
-mv apps/photos/js/photos-vendors-node_modules_vue-virtual-grid_dist_vue-virtual-grid_es_js.js.LICENSE.txt photos-vendors-node_modules_vue-virtual-grid_dist_vue-virtual-grid_es_js.js.LICENSE.txt
-mv apps/recommendations/js/files_recommendation-main.js.LICENSE.txt files_recommendation-main.js.LICENSE.txt
-mv apps/recommendations/js/files_recommendation-dashboard.js.LICENSE.txt files_recommendation-dashboard.js.LICENSE.txt
-mv apps/bruteforcesettings/js/bruteforcesettings-main.js.LICENSE.txt bruteforcesettings-main.js.LICENSE.txt
-mv apps/bruteforcesettings/LICENSE LICENSE
-mv apps/twofactor_totp/js/twofactor_totp-main-settings.js.LICENSE.txt twofactor_totp-main-settings.js.LICENSE.txt
-mv apps/twofactor_totp/js/twofactor_totp-main-login-setup.js.LICENSE.txt twofactor_totp-main-login-setup.js.LICENSE.txt
-mv apps/twofactor_totp/vendor/christian-riesen/base32/LICENSE LICENSE
-mv apps/twofactor_totp/vendor/rullzer/easytotp/LICENSE LICENSE
-mv apps/twofactor_totp/COPYING COPYING
-mv apps/activity/js/activity-adminSettings.js.LICENSE.txt activity-adminSettings.js.LICENSE.txt
-mv apps/activity/js/activity-personalSettings.js.LICENSE.txt activity-personalSettings.js.LICENSE.txt
-mv apps/notifications/js/notifications-admin-settings.js.LICENSE.txt notifications-admin-settings.js.LICENSE.txt
-mv apps/photos/js/photos-src_mixins_AbortControllerMixin_js-src_views_Faces_vue.js.LICENSE.txt photos-src_mixins_AbortControllerMixin_js-src_views_Faces_vue.js.LICENSE.txt
-mv apps/photos/js/photos-node_modules_vue-material-design-icons_AccountBoxMultipleOutline_vue-src_components_FaceCover_vue.js.LICENSE.txt photos-node_modules_vue-material-design-icons_AccountBoxMultipleOutline_vue-src_components_FaceCover_vue.js.LICENSE.txt
-mv apps/dav/img/LICENSES.md dav-img-LICENSES.md
-mv 3rdparty/mexitek/phpcolors/LICENSE LICENSE
-mv 3rdparty/fusonic/linq/LICENSE LICENSE
-mv 3rdparty/fusonic/opengraph/LICENSE LICENSE
-mv 3rdparty/laravel/serializable-closure/LICENSE.md LICENSE.md
-mv 3rdparty/symfony/css-selector/LICENSE LICENSE
-mv 3rdparty/symfony/http-foundation/LICENSE LICENSE
-mv 3rdparty/symfony/dom-crawler/LICENSE LICENSE
-mv 3rdparty/mlocati/ip-lib/LICENSE.txt LICENSE.txt
-mv dist/files-reference-files.js.LICENSE.txt files-reference-files.js.LICENSE.txt
-mv dist/core-unsupported-browser-redirect.js.LICENSE.txt core-unsupported-browser-redirect.js.LICENSE.txt
-mv dist/theming-personal-theming.js.LICENSE.txt theming-personal-theming.js.LICENSE.txt
-mv dist/core-unsupported-browser.js.LICENSE.txt core-unsupported-browser.js.LICENSE.txt
-mv dist/theming-admin-theming.js.LICENSE.txt theming-admin-theming.js.LICENSE.txt
-mv dist/federatedfilesharing-vue-settings-admin.js.LICENSE.txt federatedfilesharing-vue-settings-admin.js.LICENSE.txt
-mv dist/sharebymail-vue-settings-admin-sharebymail.js.LICENSE.txt sharebymail-vue-settings-admin-sharebymail.js.LICENSE.txt
-mv apps/notifications/js/notifications-vendors-node_modules_nextcloud_initial-state_dist_index_esm_js-node_modules_nextcloud_moment_-4efa53.js.LICENSE.txt notifications-vendors-node_modules_nextcloud_initial-state_dist_index_esm_js-node_modules_nextcloud_moment_-4efa53.js.LICENSE.txt
-mv apps/notifications/js/notifications-node_modules_moment_locale_sync_recursive_-src_NotificationsApp_vue.js.LICENSE.txt notifications-node_modules_moment_locale_sync_recursive_-src_NotificationsApp_vue.js.LICENSE.txt
-mv apps/photos/vendor/hexogen/kdtree/LICENSE.md kdtree-LICENSE.md
-mv apps/photos/js/photos-src_mixins_AbortControllerMixin_js-node_modules_vue-material-design-icons_FolderMultipleImage-67cc20.js.LICENSE.txt photos-src_mixins_AbortControllerMixin_js-node_modules_vue-material-design-icons_FolderMultipleImage-67cc20.js.LICENSE.txt
-mv apps/photos/js/photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_vue-material-design-ic-2a64fd.js.LICENSE.txt photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_vue-material-design-ic-2a64fd.js.LICENSE.txt
-mv apps/photos/js/photos-node_modules_vue-material-design-icons_ImagePlus_vue-src_components_Collection_CollectionCont-f9bef8.js.LICENSE.txt photos-node_modules_vue-material-design-icons_ImagePlus_vue-src_components_Collection_CollectionCont-f9bef8.js.LICENSE.txt
-mv apps/photos/js/photos-src_services_collectionFetcher_js-src_components_HeaderNavigation_vue.js.LICENSE.txt js-photos-src_services_collectionFetcher_src_components_HeaderNavigation_vue.js.LICENSE.txt
-mv apps/photos/js/photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_vue-material-design-ic-2ca5cc.js.LICENSE.txt js-photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_material-design-ic-2ca5cc.js.LICENSE.txt
-mv apps/photos/js/photos-src_mixins_FilesByMonthMixin_js-src_components_Actions_ActionFavorite_vue.js.LICENSE.txt photos-src_mixins_FilesByMonthMixin_js-src_components_Actions_ActionFavorite_vue.js.LICENSE.txt
-mv apps/photos/js/photos-src_mixins_FetchFilesMixin_js.js.LICENSE.txt photos-src_mixins_FetchFilesMixin_js.js.LICENSE.txt
-mv apps/photos/js/photos-src_views_Places_vue.js.LICENSE.txt photos-src_views_Places_vue.js.LICENSE.txt
-mv apps/photos/js/photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_vue-material-design-ic-c67b29.js.LICENSE.txt photos-node_modules_vue-material-design-icons_PackageVariant_vue-node_modules_vue-material-design-ic-c67b29.js.LICENSE.txt
-mv apps/photos/js/photos-src_services_Albums_js-src_components_HeaderNavigation_vue.js.LICENSE.txt js-photos-src_services_Albums_src_components_HeaderNavigation_vue.js.LICENSE.txt
-mv apps/text/js/text-editors.js.LICENSE.txt text-editors.js.LICENSE.txt
-mv apps/activity/js/activity-dashboard-lazy.js.LICENSE.txt activity-dashboard-lazy.js.LICENSE.txt
-mv apps/activity/js/activity-398.js.LICENSE.txt activity-398.js.LICENSE.txt
-mv apps/activity/js/activity-323.js.LICENSE.txt activity-323.js.LICENSE.txt
-mv 3rdparty/doctrine/lexer/LICENSE lexer-LICENSE
-mv 3rdparty/doctrine/deprecations/LICENSE deprecations-LICENSE
-mv 3rdparty/symfony/mime/LICENSE mime-LICENSE
-mv 3rdparty/symfony/mailer/LICENSE mailer-LICENSE
-mv 3rdparty/swiftmailer/swiftmailer/LICENSE swiftmailer-LICENSE
-mv 3rdparty/pimple/pimple/LICENSE pimple-LICENSE
-mv 3rdparty/psr/clock/LICENSE clock-LICENSE
-mv 3rdparty/psr/cache/LICENSE.txt cache-LICENSE.txt
-mv 3rdparty/icewind/streams/LICENCE streams-LICENCE
-mv apps/recommendations/LICENSE recommendations-LICENSE
+# Deal with licenses automatically
+find . -mindepth 2 \( -name '*LICENSE*' -o -name '*LICENCE*' \) | { while read a ; do mv "$a" $(echo $a | sed "s_^./__" | tr "/ " "__" )-LICENSE ; done ; }
+find . -mindepth 2 -name '*COPYING*' | { while read a ; do mv "$a" $(echo $a | sed "s_^./__" | tr "/ " "__" )-COPYING ; done ; }
 
 %check
 # Make sure there are no license files left over
@@ -665,6 +378,14 @@ install -Dpm 644 %{SOURCE202} \
 install -Dpm 644 %{SOURCE2} %{buildroot}%{_unitdir}/nextcloud-cron.service
 install -Dpm 644 %{SOURCE3} %{buildroot}%{_unitdir}/nextcloud-cron.timer
 
+# If there's a new installation activate the installation wizard
+%post
+INSTALLED=$(grep -c secret /etc/nextcloud/config.php)
+if [ "${INSTALLED}" -eq "0" ]; then
+  echo "First time installation, enabling installation wizard"
+  touch %{_sysconfdir}/%{name}/CAN_INSTALL
+fi
+
 %post httpd
 /usr/bin/systemctl reload httpd.service > /dev/null 2>&1 || :
 /usr/bin/systemctl reload php-fpm.service > /dev/null 2>&1 || :
@@ -721,3 +442,4 @@ fi
 
 %changelog
 %autochangelog
+

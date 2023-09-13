@@ -3,7 +3,7 @@
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
-%global baserelease 1
+%global baserelease 2
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
@@ -63,7 +63,7 @@ Summary:          Network Security Services
 Name:             nss
 Version:          %{nss_version}
 Release:          %{nss_release}%{?dist}
-License:          MPLv2.0
+License:          MPL-2.0
 URL:              http://www.mozilla.org/projects/security/pki/nss/
 Requires:         nspr >= %{nspr_version}
 Requires:         nss-util >= %{nss_version}
@@ -266,7 +266,7 @@ Header and library files for doing development with Network Security Services.
 Summary:        Netscape Portable Runtime
 Version:        %{nspr_version}
 Release:        %{nspr_release}%{?dist}
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            http://www.mozilla.org/projects/nspr/
 Conflicts:      filesystem < 3
 BuildRequires:  gcc
@@ -1088,6 +1088,9 @@ update-crypto-policies &> /dev/null || :
 
 
 %changelog
+* Thu Sep 07 2023 Bob Relyea <rrelyea@redhat.com> - 3.93.0-2
+- Update License field to SPDX.
+
 * Thu Aug 31 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.93.0-1
 - Update NSS to 3.93.0
 

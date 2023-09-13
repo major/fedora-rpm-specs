@@ -11,13 +11,12 @@ Release: 9%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267 - proposed as BSD-3-Clause-HP
-# base/exif.py - BSD-2-Clause-GeneCash/FreeBSD - reported as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/268
 # base/ldif.py - unknown python license from python-ldap - reported https://gitlab.com/fedora/legal/fedora-license-data/-/issues/269
 # io/*, scan/* - MIT
 # protocol/discovery/* - LGPL-2.1-or-later
 # protocol/* - GPL2only
 # scan/sane/sane.h - Public Domain
-License: GPL-2.0-or-later AND MIT AND BSD-3-Clause-HP AND IJG AND GPL-2.0-only AND LGPL-2.1-or-later AND BSD-2-Clause-FreeBSD AND LicenseRef-Fedora-Public-Domain
+License: GPL-2.0-or-later AND MIT AND BSD-3-Clause-HP AND IJG AND GPL-2.0-only AND LGPL-2.1-or-later AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
 # Original source tarball

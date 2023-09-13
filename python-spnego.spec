@@ -1,66 +1,74 @@
-%global pypi_name pyspnego
-%global pkg_name spnego
-
-Name:           python-%{pkg_name}
-Version:        0.6.0
-Release:        4%{?dist}
+Name:           python-spnego
+Version:        0.9.2
+Release:        1%{?dist}
 Summary:        Windows Negotiate Authentication Client and Server
 
+# SPDX License
 License:        MIT
 URL:            https://github.com/jborean93/pyspnego
-Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Source:         %{pypi_source pyspnego}
 BuildArch:      noarch
 
-%description
+%global _description %{expand:
 Python SPNEGO Library to handle SPNEGO (Negotiate, NTLM, Kerberos)
 authentication. Also includes a packet parser that can be used to
-decode raw NTLM/SPNEGO/Kerberos tokens into a human readable format.
+decode raw NTLM/SPNEGO/Kerberos tokens into a human readable format.}
 
-%package -n     python3-%{pkg_name}
+
+%description %{_description}
+
+
+%package -n     python3-spnego
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
-BuildRequires:  python3dist(cryptography)
-%{?python_provide:%python_provide python3-%{pkg_name}}
 
-%description -n python3-%{pkg_name}
-Python SPNEGO Library to handle SPNEGO (Negotiate, NTLM, Kerberos)
-authentication. Also includes a packet parser that can be used to
-decode raw NTLM/SPNEGO/Kerberos tokens into a human readable format.
+
+%description -n python3-spnego %{_description}
+
+
+%pyproject_extras_subpkg -n python3-spnego kerberos
+
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -n pyspnego-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files spnego
+
 
 %check
-# Propably issues with with Python 3.9
-%pytest -v tests \
-  -k "not ntlm \
-  and not test_sspi_ntlm_auth_no_sign_or_seal \
-  and not test_gss_sasl_description_fail \
-  and not test_token \
-  and not test_compute_response_v2 \
-  and not test_nltm_session_key_no_sign_seal \
-  and not test_credssp" \
-  
+%pytest -v tests
 
-%files -n python3-%{pkg_name}
-%license LICENSE
+
+%files -n python3-spnego -f %{pyproject_files}
 %doc README.md
 %{_bindir}/pyspnego-parse
-%{python3_sitelib}/spnego/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
+
 
 %changelog
+* Mon Sep 11 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.9.2-1
+- Update to version 0.9.2, resolves rhbz#2137695
+
+* Mon Sep 11 2023 Orion Poplawski <orion@nwra.com> - 0.9.0-1
+- Update to 0.9.0
+- Verify SPDX license
+
+* Mon Sep 11 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.6.0-5
+- Convert to pyproject macros
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

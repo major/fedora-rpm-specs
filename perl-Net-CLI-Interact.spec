@@ -1,17 +1,17 @@
 Name:           perl-Net-CLI-Interact
-Version:        2.300004
-Release:        2%{?dist}
+Version:        2.400002
+Release:        1%{?dist}
 Summary:        Toolkit for CLI Automation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CLI-Interact
 Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-CLI-Interact-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-# ExtUtils::CBuilder not needed on Linux
-BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(File::ShareDir::Install) >= 0.06
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -20,19 +20,23 @@ BuildRequires:  perl(Class::Mix)
 BuildRequires:  perl(File::ShareDir)
 # FileHandle not used at tests
 BuildRequires:  perl(IO::Pty)
-# IPC::Run not used at tests
+BuildRequires:  perl(IPC::Run)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Log::Dispatch::Config)
 BuildRequires:  perl(Log::Dispatch::Configurator::Any)
 BuildRequires:  perl(Moo)
 BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(MooX::Types::MooseLike::Base)
-# Net::Telnet not used at tests
+BuildRequires:  perl(Net::Telnet)
 BuildRequires:  perl(Path::Class)
 # POSIX not used at tests
 BuildRequires:  perl(Sub::Quote)
 BuildRequires:  perl(Time::HiRes)
 # Tests:
+BuildRequires:  perl(blib)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.88
 
 %description
@@ -44,22 +48,28 @@ manageable interface to CLI interactions, supporting:
 %setup -q -n Net-CLI-Interact-%{version}
 
 %build
-perl Build.PL --installdirs=vendor
-./Build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-./Build install --destdir=%{buildroot} --create_packlist=0
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
-./Build test
+unset AUTHOR_TESTING RELEASE_TESTING
+make test
 
 %files
+%license LICENSE
 %doc Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/auto*
+%{perl_vendorlib}/Net/CLI/Interact*
+%{_mandir}/man3/Net::CLI::Interact*
 
 %changelog
+* Mon Sep 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.400002-1
+- 2.400002 bump (rhbz#2224550)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.300004-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

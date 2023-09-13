@@ -5,6 +5,13 @@
 %bcond_without lua_scripting
 %endif
 
+%ifarch x86_64
+# VPL/QSV is only available on x86_64
+%bcond_without vpl
+%else
+%bcond_with vpl
+%endif
+
 # VLC is not yet in Fedora
 %bcond_with vlc
 # x264 is not in Fedora
@@ -16,20 +23,20 @@
 %global openh264_soversion 7
 
 
-%global obswebsocket_version 5.2.3
+%global obswebsocket_version 5.3.0
 
 #global commit ad859a3f66daac0d30eebcc9b07b0c2004fb6040
 #global snapdate 202303261743
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        29.1.3
-Release:        4%{?dist}
+Version:        30.0.0~beta3
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
 # The licenses for those dependencies are captured with the bundled provides statements
-License:        GPL-2.0-or-later and ISC and MIT and BSD-1-Clause and BSD-2-Clause and BSD-3-Clause and BSL-1.0 and LGPL-2.1-or-later and CC0-1.0 and (CC0-1.0 or OpenSSL or Apache-2.0) and LicenseRef-Fedora-Public-Domain and (BSD-3-Clause or GPL-2.0-only)
+License:        GPL-2.0-or-later and MIT and BSD-1-Clause and BSD-2-Clause and BSD-3-Clause and BSL-1.0 and LGPL-2.1-or-later and CC0-1.0 and (CC0-1.0 or OpenSSL or Apache-2.0) and LicenseRef-Fedora-Public-Domain and (BSD-3-Clause or GPL-2.0-only)
 URL:            https://obsproject.com/
 %if 0%{?snapdate}
 Source0:        https://github.com/obsproject/obs-studio/archive/%{commit}/%{name}-%{commit}.tar.gz
@@ -42,20 +49,22 @@ Source1:        https://github.com/obsproject/obs-websocket/archive/%{obswebsock
 
 # Proposed upstream
 ## From: https://github.com/obsproject/obs-studio/pull/8529
-Patch0101:      0001-UI-Consistently-reference-the-software-H264-encoder-.patch
-Patch0102:      0002-obs-ffmpeg-Add-initial-support-for-the-OpenH264-H.26.patch
-Patch0103:      0003-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
+Patch0101:      0101-UI-Consistently-reference-the-software-H264-encoder-.patch
+Patch0102:      0102-obs-ffmpeg-Add-initial-support-for-the-OpenH264-H.26.patch
+Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
+
+## From: https://github.com/obsproject/obs-studio/pull/8777
+Patch0201:      0201-deps-Add-license-declaration-files.patch
+Patch0202:      0202-libobs-Add-license-declaration-files.patch
+Patch0203:      0203-decklink-Add-license-declaration-files.patch
+Patch0204:      0204-obs-qsv11-Add-license-declaration-file.patch
 
 
 # Downstream Fedora patches
 ## Use system qrcodegencpp
-Patch1001:      obs-studio-websocket-use-system-qrcodegencpp.patch
+#Patch1001:      obs-studio-websocket-use-system-qrcodegencpp.patch
 ## Use fdk-aac by default
 Patch1002:      obs-studio-UI-use-fdk-aac-by-default.patch
-## Add license declarations for bundled deps
-Patch9001:      obs-studio-deps-Add-license-declaration-files.patch
-## Add license declaration for obs-qsv11
-Patch9002:      obs-studio-obs-qsv11-Add-license-declaration-file.patch
 
 
 BuildRequires:  gcc
@@ -73,6 +82,7 @@ BuildRequires:  freetype-devel
 BuildRequires:  jansson-devel >= 2.5
 BuildRequires:  json-devel
 BuildRequires:  libcurl-devel
+BuildRequires:  libdatachannel-devel
 BuildRequires:  libdrm-devel
 BuildRequires:  libGL-devel
 BuildRequires:  libglvnd-devel
@@ -90,6 +100,9 @@ BuildRequires:  libxkbcommon-devel
 BuildRequires:  luajit-devel
 %endif
 BuildRequires:  mbedtls-devel
+%if %{with vpl}
+BuildRequires:  oneVPL-devel
+%endif
 BuildRequires:  pciutils-devel
 BuildRequires:  pipewire-devel
 BuildRequires:  pipewire-jack-audio-connection-kit-devel
@@ -141,8 +154,6 @@ Provides:      bundled(blake2)
 Provides:      bundled(json11)
 ## License: MIT
 Provides:      bundled(libcaption)
-## License: ISC
-Provides:      bundled(libff)
 ## License: BSD-1-Clause
 Provides:      bundled(uthash)
 ## License: BSD-3-Clause
@@ -199,6 +210,12 @@ mv plugins/obs-x264/CMakeLists.txt plugins/obs-x264/CMakeLists.txt.disabled
 touch plugins/obs-x264/CMakeLists.txt
 %endif
 
+%if ! %{with vpl}
+# disable unusable qsv plugin
+mv plugins/obs-qsv11/CMakeLists.txt plugins/obs-qsv11/CMakeLists.txt.disabled
+touch plugins/obs-qsv11/CMakeLists.txt
+%endif
+
 # remove -Werror flag to mitigate FTBFS with ffmpeg 5.1
 sed -e 's|-Werror-implicit-function-declaration||g' -i cmake/Modules/CompilerConfig.cmake
 sed -e '/-Werror/d' -i cmake/Modules/CompilerConfig.cmake
@@ -223,7 +240,6 @@ cp deps/libcaption/LICENSE.txt .fedora-rpm/licenses/deps/libcaption-LICENSE.txt
 cp plugins/obs-qsv11/QSV11-License-Clarification-Email.txt .fedora-rpm/licenses/plugins/QSV11-License-Clarification-Email.txt
 cp deps/uthash/uthash/LICENSE .fedora-rpm/licenses/deps/uthash-LICENSE
 cp deps/blake2/LICENSE.blake2 .fedora-rpm/licenses/deps/
-cp deps/libff/LICENSE.libff .fedora-rpm/licenses/deps/
 cp deps/media-playback/LICENSE.media-playback .fedora-rpm/licenses/deps/
 cp libobs/graphics/libnsgif/LICENSE.libnsgif .fedora-rpm/licenses/deps/
 cp libobs/util/simde/LICENSE.simde .fedora-rpm/licenses/deps/
@@ -251,10 +267,6 @@ cp plugins/obs-qsv11/obs-qsv11-LICENSE.txt .fedora-rpm/licenses/plugins/
 
 %install
 %cmake_install
-
-# Add missing files to enable the build of obs-ndi
-install -Dm644 UI/obs-frontend-api/obs-frontend-api.h %{buildroot}%{_includedir}/obs/
-install -Dm644 cmake/external/ObsPluginHelpers.cmake %{buildroot}%{_libdir}/cmake/libobs/
 
 # Work around broken libobs.pc file...
 # Cf. https://github.com/obsproject/obs-studio/issues/7972
@@ -302,6 +314,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Mon Sep 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0~beta3-1
+- Rebase to 30.0.0~beta3
+
 * Fri Sep 08 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.3-4
 - Add obs-plugins libexecdir to libs subpackage
 

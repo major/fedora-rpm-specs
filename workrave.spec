@@ -64,6 +64,9 @@ Recommends:    gstreamer1-plugins-base
 Recommends:    gstreamer1-plugins-good
 Obsoletes:     %{name}-devel < %{version}-%{release}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   %{ix86}
+
 %global _description Workrave is a program that assists in the recovery and prevention of\
 Repetitive Strain Injury (RSI). The program frequently alerts you to\
 take micro-pauses, rest breaks and restricts you to your daily limit.

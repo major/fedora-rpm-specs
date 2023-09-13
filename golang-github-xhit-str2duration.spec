@@ -8,7 +8,7 @@ Version:                2.1.0
 
 %gometa -f
 
-%global goialtpath         github.com/xhit/go-str2duration/v2
+%global goaltipaths     github.com/xhit/go-str2duration/v2
 
 %global common_description %{expand:
 Convert string to duration in golang.}

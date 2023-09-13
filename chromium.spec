@@ -406,8 +406,8 @@ Source13: master_preferences
 
 # RHEL 8 needs newer nodejs
 %if 0%{?rhel} == 8
-Source19: https://nodejs.org/dist/latest-v16.x/node-%{nodejs_version}-linux-x64.tar.xz
-Source21: https://nodejs.org/dist/latest-v16.x/node-%{nodejs_version}-linux-arm64.tar.xz
+Source19: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-x64.tar.xz
+Source21: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-arm64.tar.xz
 %endif
 
 %if %{clang}

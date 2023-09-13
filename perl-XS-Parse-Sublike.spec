@@ -1,16 +1,21 @@
 # Perform optional tests
 %bcond_without perl_XS_Parse_Sublike_enables_optional_tests
 
+# Break a build cycle with perl-Object-Pad
+%if %{with perl_XS_Parse_Sublike_enables_optional_tests} && !%{defined perl_bootstrap}
+%global optional_tests 1
+%else
+%global optional_tests 0
+%endif
+
 Name:           perl-XS-Parse-Sublike
-Version:        0.18
-Release:        3%{?dist}
+Version:        0.20
+Release:        1%{?dist}
 Summary:        XS functions to assist in parsing sub-like syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XS-Parse-Sublike
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Sublike-%{version}.tar.gz
 Source1:        macros.perl-XS-Parse-Sublike
-# Fix an integer overflow in croak(), CPAN RT#133035
-Patch0:         XS-Parse-Sublike-0.16-Fix-type-mismatch-in-croak-format-string-width-argum.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  perl-devel
@@ -31,15 +36,19 @@ BuildRequires:  perl(B::Deparse)
 BuildRequires:  perl(feature)
 BuildRequires:  perl(Sub::Util)
 BuildRequires:  perl(Test2::V0)
-%if %{with perl_XS_Parse_Sublike_enables_optional_tests}
+%if %{optional_tests}
 # Optional tests:
+%global Future_AsyncAwait_min_ver 0.66
+BuildRequires:  perl(Future::AsyncAwait) >= %{Future_AsyncAwait_min_ver}
+%global Object_Pad_min_ver 0.800
+BuildRequires:  perl(Object::Pad) >= %{Object_Pad_min_ver}
 BuildRequires:  perl(Test::Pod) >= 1
 %endif
 # This module maintains multiple ABIs whose compatibility is checked at
 # run-time by S_boot_xs_parse_sublike() compiled into the users of this module.
 # This ABI range is defined with XS::Parse::Sublike/ABIVERSION_MIN and
 # XS::Parse::Sublike/ABIVERSION_MAX in lib/XS/Parse/Sublike.xs.
-Provides:       perl(:XS_Parse_Sublike_ABI) = 4
+Provides:       perl(:XS_Parse_Sublike_ABI) = 5
 
 # Filter private modules
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(testcase\\)
@@ -67,6 +76,11 @@ Summary:        Tests for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(XSLoader)
+%if %{optional_tests}
+# Optional tests:
+Requires:       perl(Future::AsyncAwait) >= %{Future_AsyncAwait_min_ver}
+Requires:       perl(Object::Pad) >= %{Object_Pad_min_ver}
+%endif
 
 %description tests
 Tests from %{name}. Execute them
@@ -74,9 +88,11 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n XS-Parse-Sublike-%{version}
-%if !%{with perl_XS_Parse_Sublike_enables_optional_tests}
-rm t/99pod.t
-perl -i -ne 'print $_ unless m{^t/99pod\.t}' MANIFEST
+%if !%{optional_tests}
+for F in t/71extended+async.t t/71extended+Object::Pad.t t/99pod.t; do
+    rm "$F"
+    perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
+done
 %endif
 chmod +x t/*.t
 
@@ -96,7 +112,7 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 find %{buildroot}%{_libexecdir}/%{name} -type f \
     \( -name '*.bs' -o -name '*.c' -o -name '*.o' \) -delete
-%if %{with perl_XS_Parse_Sublike_enables_optional_tests}
+%if %{optional_tests}
 rm %{buildroot}%{_libexecdir}/%{name}/t/99pod.t
 %endif
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
@@ -112,12 +128,17 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
+%dir %{perl_vendorarch}/auto/Sublike
+%{perl_vendorarch}/auto/Sublike/Extended
 %dir %{perl_vendorarch}/auto/XS
 %dir %{perl_vendorarch}/auto/XS/Parse
 %{perl_vendorarch}/auto/XS/Parse/Sublike
+%dir %{perl_vendorarch}/Sublike
+%{perl_vendorarch}/Sublike/Extended.pm
 %dir %{perl_vendorarch}/XS
 %dir %{perl_vendorarch}/XS/Parse
 %{perl_vendorarch}/XS/Parse/Sublike.pm
+%{_mandir}/man3/Sublike::Extended.*
 %{_mandir}/man3/XS::Parse::Sublike.*
 
 %files Builder
@@ -129,6 +150,12 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 11 2023 Petr Pisar <ppisar@redhat.com> - 0.20-1
+- 0.20 bump
+
+* Fri Sep 08 2023 Petr Pisar <ppisar@redhat.com> - 0.19-1
+- 0.19 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

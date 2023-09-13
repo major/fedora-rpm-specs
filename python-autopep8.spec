@@ -1,7 +1,7 @@
 %global pypi_name autopep8
 %global py3_name python3-%{pypi_name}
 
-Name:           python-autopep8
+Name:           python-%{pypi_name}
 Version:        2.0.4
 Release:        %autorelease
 Summary:        Automatically formats Python code to conform to the PEP 8 style

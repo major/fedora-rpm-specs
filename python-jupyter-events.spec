@@ -1,14 +1,10 @@
 Name:           python-jupyter-events
-Version:        0.6.3
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Jupyter Event System library
 License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source:         %{pypi_source jupyter_events}
-
-# Patch needed for compatibility with Python 3.12, doesn't work with older Pythons
-Patch:          https://github.com/jupyter/jupyter_events/pull/79.patch
-
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # Manual test deps - upstream contains coverage, pre-commit, …

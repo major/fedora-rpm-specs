@@ -4,7 +4,7 @@ License:	GPLv2+
 
 Epoch:		1
 Version:	2.3.5
-Release:	5%{?dist}
+Release:	7%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -13,6 +13,24 @@ Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
 # are present during build, but they aren't really required,
 # and in Fedora, some of them are not available on all architectures.
 Patch0:		0000-less-buildrequires.patch
+
+# Fix nautilus integration spamming system logs. Backport from upstream:
+# https://patch-diff.githubusercontent.com/raw/blueman-project/blueman/pull/2135.patch
+#
+# RHBZ: https://bugzilla.redhat.com/show_bug.cgi?id=2238225
+Patch1: 0001-fix-nautilus-integration.patch
+
+# Fix possible crash at startup. Backport from upstream:
+# https://patch-diff.githubusercontent.com/raw/blueman-project/blueman/pull/1997.patch
+#
+# RHBZ: https://bugzilla.redhat.com/show_bug.cgi?id=2173854
+Patch2: 0002-fix-activation-crash.patch
+
+# Fix crash when an icon could not be loaded. Backport from upstream:
+# https://patch-diff.githubusercontent.com/raw/blueman-project/blueman/pull/2103.patch
+#
+# RHBZ: https://bugzilla.redhat.com/show_bug.cgi?id=2217189
+Patch3: 0003-fix-error-on-missing-icon.patch
 
 # The value for each of these should be either "yes" or "no"
 %global enable_caja_sendto	yes
@@ -227,6 +245,13 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Mon Sep 11 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.3.5-7
+- Backport upstream fix for possible crash at startup (rhbz#2173854)
+- Backport upstream fix for crash on missing icon (rhbz#2217189)
+
+* Sun Sep 10 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.3.5-6
+- Backport upstream fix for nautilus integration spamming system log (rhbz#2238225)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

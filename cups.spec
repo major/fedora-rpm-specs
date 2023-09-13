@@ -9,9 +9,9 @@
 
 # we still need something for python2...
 %if 0%{?rhel} >= 8 || 0%{?fedora}
-%bcond_without python3
+%global __python %{__python3}
 %else
-%bcond_with python3
+%global __python /usr/bin/python2
 %endif
 
 #%%global prever rc1
@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.6
-Release: 5%{?dist}
+Release: 6%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -168,11 +168,7 @@ Requires(preun): systemd
 Requires(postun): systemd
 
 # for upgrade-get-document script - remove after C10S is released and F40 is EOL
-%if %{with python3}
-Requires(post): python3
-%else
-Requires(post): python
-%endif
+Requires(post): %{__python}
 
 
 %package client
@@ -488,11 +484,7 @@ s:.*\('%{_datadir}'/\)\([^/_]\+\)\(.*\.po$\):%lang(\2) \1\2\3:
 install -m 0755 %{SOURCE3} %{buildroot}%{_sbindir}/upgrade_get_document
 
 # adjust shebang for old python2 if needed - remove once C10S is released and F40 EOL
-%if %{with python3}
-  sed -i 's,@PYTHON_SHEBANG@,#!/usr/bin/python3,' %{buildroot}%{_sbindir}/upgrade_get_document
-%else
-  sed -i 's,@PYTHON_SHEBANG@,#!/usr/bin/python,' %{buildroot}%{_sbindir}/upgrade_get_document
-%endif
+sed -i 's,@PYTHON_SHEBANG@,#!%{__python},' %{buildroot}%{_sbindir}/upgrade_get_document
 
 %post
 # remove after CentOS Stream 10 is released
@@ -796,6 +788,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Mon Sep 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.6-6
+- use unified __python macro
+
 * Mon Aug 14 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.6-5
 - comply the upgrade script with python2 as well if needed
 

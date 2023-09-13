@@ -2,14 +2,14 @@
 %global sum Python bindings for PortAudio
 
 Name:		%{srcname}
-Version:	0.2.11
-Release:	18%{?dist}
+Version:	0.2.13
+Release:	1%{?dist}
 License:	MIT
 Url:		http://people.csail.mit.edu/hubert/pyaudio/
-Source0:	https://files.pythonhosted.org/packages/ab/42/b4f04721c5c5bfc196ce156b3c768998ef8c0ae3654ed29ea5020c749a6b/PyAudio-0.2.11.tar.gz
+Source0:	https://files.pythonhosted.org/packages/91/a0/f439da954d78a987298cb8d1ca1b141c53b1d1d1c7a50e17198ed061b9ac/PyAudio-0.2.13.tar.gz
 Summary:	%{sum}
 
-BuildRequires:  gcc
+BuildRequires:	gcc
 BuildRequires:	portaudio-devel
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
@@ -30,25 +30,32 @@ library. With PyAudio, you can easily use Python to play and record audio on
 a variety of platforms.
 
 %prep
-%setup -q -n PyAudio-%{version}
+%autosetup -n PyAudio-%{version}
+sed -i 's/setuptools<=65.1.1/setuptools/' pyproject.toml
 
-# remove some pre-built binaries
-rm -rf packaging
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pyaudio
 
-%files -n python3-%{srcname}
-%doc README CHANGELOG
-%{python3_sitearch}/*.py*
-%{python3_sitearch}/__pycache__/*.py*
-%{python3_sitearch}/*.so
-%{python3_sitearch}/*egg-info
+%files -n python3-%{srcname} -f %{pyproject_files}
+%license LICENSE.txt
+%doc README.md CHANGELOG
+
 
 %changelog
+* Sun Sep 10 2023 Christian Krause <chkr@fedoraproject.org> - 0.2.13-1
+- Update to new upstream release 0.2.13
+- Update spec file to latest Python packaging guidelines
+- Migrated to SPDX license
+- Remove version requirement of setuptools dependency
+- Fixes BZ 2238132 (PyAudio 0.2.11 does not work, needs update to >= 0.2.12)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

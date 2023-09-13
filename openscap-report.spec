@@ -1,8 +1,8 @@
 %global pymodule_name openscap_report
 
 Name:           openscap-report
-Version:        0.2.4
-Release:        3%{?dist}
+Version:        0.2.5
+Release:        1%{?dist}
 Summary:        A tool for generating human-readable reports from (SCAP) XCCDF and ARF results
 
 # The entire source code is LGPL-2.1+ and GPL-2.0+ and MIT except schemas/ and assets/, which are Public Domain
@@ -60,6 +60,36 @@ install -m 0644 -Dt %{buildroot}%{_mandir}/man1 _build_docs/oscap-report.1
 
 
 %changelog
+* Mon Sep 11 2023 Packit <hello@packit.dev> - 0.2.5-1
+- 0.2.5 (Jan Rodak)
+- Show referenced OVAL State (Jan Rodak)
+- Parse reference in filter (Jan Rodak)
+- Show OVAL Variables and referenced OVAL endpoints in report (Jan Rodak)
+- Remove UUID from headings (Jan Rodak)
+- Move function (Jan Rodak)
+- Display in report OVAL object that references to other OVAL Objects (Jan Rodak)
+- Resolve parsing of referenced OVAL Objects and OVAL Variables (Jan Rodak)
+- Add OVAL Variable structure and parser (Jan Rodak)
+- Rework OVAL Object and State (Jan Rodak)
+- Parse mapping between OVAL var and values and propagate them (Jan Rodak)
+- Remove namesapace for attributes (Jan Rodak)
+- Show OVAL states in report (Jan Rodak)
+- Parse attributes of elements in OVAL state and Parse all OVAL states in OVAL test (Jan Rodak)
+- Show OVAL objects in report (Jan Rodak)
+- Parse attributes of elements in OVAL object (Jan Rodak)
+- Removing the processing of collected objects (Jan Rodak)
+- Use an empty string instead of None when the text of the set-value element is empty (Jan Rodak)
+- Fix deprecation warning (Jan Rodak)
+- Remove product detection from the tmt plan (Jan Rodak)
+- Increase vm memory (Jan Rodak)
+- Add python3 dependency (Jan Rodak)
+- Adjust the build of content (Jan Rodak)
+- Automatic product detection to build content by CPE identifier (Jan Rodak)
+- Remove whitespaces (Jan Rodak)
+- Show explanation of score computation in report (Jan Rodak)
+- Add explanation of score computation (Jan Rodak)
+- Parse system attribute from score element (Jan Rodak)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
