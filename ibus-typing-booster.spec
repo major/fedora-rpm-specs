@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.24.0
+Version:    2.24.1
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -251,6 +251,14 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Tue Sep 12 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.1-1
+- Update to 2.24.1
+- Support several backends for playing sounds
+  (Resolves: rhbz#2237675 https://bugzilla.redhat.com/show_bug.cgi?id=2237675)
+- Update UnicodeData.txt to current Unicode 15.1.0
+  and emoji data files to current Unicode 15.1
+- Update emoji annotations from CLDR
+
 * Fri Sep 01 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.0-1
 - Update to 2.24.0
 - Implement “commit_and_forward_key” command

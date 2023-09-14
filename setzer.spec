@@ -2,7 +2,7 @@
 %global uuid        org.cvfosammmm.Setzer
 
 Name:           setzer
-Version:        56
+Version:        59
 Release:        %autorelease
 Summary:        LaTeX editor written in Python with Gtk
 
@@ -20,29 +20,31 @@ BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  python3-devel
 
-BuildRequires:  gtk3-devel
-BuildRequires:  gtksourceview4-devel
-BuildRequires:  libhandy-devel
+BuildRequires:  gtk4-devel
+BuildRequires:  gtksourceview5-devel
+BuildRequires:  libadwaita-devel
 BuildRequires:  libportal-devel
 BuildRequires:  gspell-devel
+BuildRequires:  pango-devel
 BuildRequires:  poppler-glib-devel
 BuildRequires:  python3-bibtexparser
 BuildRequires:  python3-cairo
 BuildRequires:  python3-gobject-devel
 BuildRequires:  python3-pexpect
-BuildRequires:  webkit2gtk4.1
-Requires:       gtk3
-Requires:       gtksourceview4
-Requires:       libhandy
+BuildRequires:  webkitgtk6.0
+Requires:       gtk4
+Requires:       gtksourceview5
+Requires:       libadwaita
 Requires:       libportal
 Requires:       gspell
 Requires:       hicolor-icon-theme
+Requires:       pango
 Requires:       poppler-glib
 Requires:       python3-bibtexparser
 Requires:       python3-cairo
 Requires:       python3-gobject
 Requires:       python3-pexpect
-Requires:       webkit2gtk4.1
+Requires:       webkitgtk6.0
 
 Requires:       texlive
 Requires:       texlive-synctex

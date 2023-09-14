@@ -1,5 +1,5 @@
 Name:           python-ypy-websocket
-Version:        0.8.4
+Version:        0.12.3
 Release:        %autorelease
 Summary:        WebSocket connector for Ypy
 License:        MIT
@@ -46,7 +46,9 @@ sed -i "s/,<23//" pyproject.toml
 
 %check
 # test_ypy_yjs.py requires https://www.npmjs.com/package/yjs
-%pytest --ignore=tests/test_ypy_yjs.py
+# test_asgi.py requires uvicorn and it's not ready yet
+# for Python 3.12 in Fedora: https://bugzilla.redhat.com/show_bug.cgi?id=2226363
+%pytest --ignore=tests/test_ypy_yjs.py --ignore=tests/test_asgi.py
 
 
 %files -n python3-ypy-websocket -f %{pyproject_files}

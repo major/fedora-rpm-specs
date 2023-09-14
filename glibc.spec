@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-109-g6985865bc3
+%global glibcsrcdir glibc-2.38.9000-115-g073edbdfab
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 7
+%global baserelease 8
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2199,6 +2199,16 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Sep 11 2023 Patsy Griffin <patsy@redhat.com> - 2.38.9000-8
+- Auto-sync with upstream branch master,
+  commit 073edbdfabaad4786e974a451efe4b6b3f7a5a61.
+- ia64: Work around miscompilation and fix build on ia64's gcc-10 and later
+- stdio: Remove __libc_message alloca usage
+- htl: avoid exposing the vm_region symbol
+- libio: Fix oversized __io_vtables
+- Use Linux 6.5 in build-many-glibcs.py
+- elf: Remove unused l_text_end field from struct link_map
+
 * Fri Sep 08 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-7
 - Auto-sync with upstream branch master,
   commit 6985865bc3ad5b23147ee73466583dd7fdf65892:

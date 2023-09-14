@@ -45,10 +45,8 @@ BuildRequires:  python3-pytest
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version} -S git
-
-# Fix PYTHON_PROVIDED_VERSION_NORMALIZES_TO_ZERO
-%define _python_dist_allow_version_zero 1
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{python3_version}
+# Supply the version information to mesonpy
+git tag v%{version}
 
 %py3_shebang_fix spin skmisc/_build_utils/
 

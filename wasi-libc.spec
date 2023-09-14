@@ -1,6 +1,3 @@
-# Extra dependencies are needed for testing
-%bcond      check 1
-
 Name:       wasi-libc
 Summary:    C library implementation for WebAssembly System Interface
 Version:    20
@@ -16,7 +13,10 @@ Patch:      0001-make-don-t-rebuild-files-on-make-install.patch
 
 # emmalloc uses a lot of pointer type-punning, which is UB under strict aliasing.
 # https://github.com/WebAssembly/wasi-libc/pull/424
-Patch:      0001-Use-fno-strict-aliasing-for-emmalloc-424.patch
+Patch:      0002-Use-fno-strict-aliasing-for-emmalloc-424.patch
+
+# New constants in clang 17 that should not be checked
+Patch:      0003-Adjust-Makefile-for-LLVM-trunk-17-as-of-2023-06-18-4.patch
 
 # This contains parts of the musl C library; specify as bundled so we get notified about potential vulnerabilities
 %global     musl_version 1.2.3
@@ -32,10 +32,6 @@ BuildRequires:  clang >= 10
 BuildRequires:  git-core
 BuildRequires:  llvm >= 10
 BuildRequires:  make
-%if %{with check}
-# can be replaced with another CLI WASM execution method
-BuildRequires:  wasmedge
-%endif
 
 %global     toolchain clang
 # Re-packaging the static library tends to overwrite files
@@ -95,13 +91,6 @@ make %{?_smp_mflags} %{wasi_make_flags} check-symbols
 %check
 # Bundled version checks
 xargs test '%{musl_version}' = <libc-top-half/musl/VERSION
-# Basic smoke test
-%if %{with check}
-# -> Smoke test is compilable and linkable against the built version
-clang --target=wasm32-wasi --sysroot=%{buildroot}%{wasi_prefix} -nodefaultlibs -lc -o smoke-test.wasm %{SOURCE1}
-# -> Smoke test works as expected (exit code 0, outputs 'smoke-test-ok')
-wasmedge smoke-test.wasm | grep -q --fixed-strings smoke-test-ok
-%endif
 
 %files static
 %doc README.md

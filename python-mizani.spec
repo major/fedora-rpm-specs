@@ -11,7 +11,7 @@ Mizani is a scales package for graphics. It is written in Python and is
 based on Hadley Wickham’s Scales.}
 
 Name:           python-%{pypi_name}
-Version:        0.10.0
+Version:        0.9.3
 Release:        %{autorelease}
 Summary:        Scales package for graphics
 BuildArch:      noarch
@@ -19,7 +19,7 @@ BuildArch:      noarch
 # MIT License applies to doc/theme/static/bootstrap-3.4.1
 # Python-2.0.1 license applies to doc/_static/copybutton.js
 License:        BSD-3-Clause AND MIT AND Python-2.0.1
-URL:            https://github.com/has2k1/mizani
+URL:            https://github.com/has2k1/%(pypi_name)
 Source0:        %{pypi_source %{pypi_name}}
 
 %description %_description

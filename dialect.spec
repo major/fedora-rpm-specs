@@ -18,6 +18,9 @@ Source0:        %{forgesource0}
 Source1:        %{forgesource1}
 
 BuildArch:      noarch
+# blueprint-compiler does not work on s390x:
+# https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
+ExcludeArch:    s390x
 
 BuildRequires:  meson
 BuildRequires:  desktop-file-utils

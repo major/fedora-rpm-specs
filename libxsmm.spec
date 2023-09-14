@@ -9,10 +9,8 @@
 # ix86 isn't built -- see
 # https://github.com/hfp/libxsmm/issues/103#issuecomment-256887962
 
-# The el6 compiler is too old, but we build for el6 in copr from the
-# same source, as koji doesn't have el6 devtoolset, and the el7 system
-# compiler doesn't do avx512.
-%if 0%{?el6}%{?el7}
+# The el7 system compiler doesn't do avx512.
+%if 0%{?el7}
 %bcond_without devtoolset
 %endif
 
@@ -25,13 +23,13 @@
 
 Name:		libxsmm
 Version:	1.16
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Small dense or sparse matrix multiplications and convolutions for x86_64
 License:	BSD-3-Clause
 URL:		https://github.com/hfp/libxsmm
 Source0:	https://github.com/hfp/libxsmm/archive/%version/%name-%version.tar.gz
 BuildRequires: make
-BuildRequires:	%_bindir/python3 openblas-devel
+BuildRequires:	python3-devel openblas-devel
 %if %{with devtoolset}
 # Release 6 supports avx512 and uses the same libgfortran version as
 # the system compiler.
@@ -106,7 +104,7 @@ cp -p samples/deeplearning/gxm/README.md documentation/gxm.md
 # consistent.  PREFIX and POUTDIR are needed at build time to get the .pc
 # files correct.  OMPLIB is necessary to avoid failure in epel7 trying to
 # link -lgomp.so, which I haven't figured out.
-%global makeflags STATIC=0 SYM=1 AVX=0 PYTHON=%_bindir/python3 PREFIX=%buildroot%_prefix POUTDIR=%_lib VERSION_API=1 OMPLIB=-lgomp
+%global makeflags STATIC=0 SYM=1 AVX=0 PYTHON=%python3 PREFIX=%buildroot%_prefix POUTDIR=%_lib VERSION_API=1 OMPLIB=-lgomp
 %make_build %makeflags
 
 
@@ -152,8 +150,8 @@ rm -rf samples/cp2k/obj
 %_bindir/libxsmm_gemm_generator
 # Get the module directory owned.  Currently in Fedora, gfortran owns
 # %%_fmoddir, but not %%_fmoddir/..
-# In el6, el7 it doesn't own either
-%if 0%{?el6}%{?el7}
+# In el7 it doesn't own either
+%if 0%{?el7}
 %dir %_fmoddir
 %endif
 %_fmoddir/libxsmm.mod
@@ -166,6 +164,10 @@ rm -rf samples/cp2k/obj
 
 
 %changelog
+* Thu Sep  7 2023 Dave Love <loveshack@fedoraproject.org> - 1.16-11
+- Don't BR /usr/bin/python3 (#2237694)
+- Remove el6 in conditionals
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

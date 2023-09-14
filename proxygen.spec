@@ -15,7 +15,7 @@
 %global _static_builddir static_build
 
 Name:           proxygen
-Version:        2023.07.03.00
+Version:        2023.09.11.00
 Release:        %autorelease
 Summary:        A collection of C++ HTTP libraries including an easy to use HTTP server.
 
@@ -33,6 +33,7 @@ BuildRequires:  gcc-c++
 %endif
 BuildRequires:  folly-devel
 BuildRequires:  fizz-devel
+BuildRequires:  mvfst-devel
 BuildRequires:  wangle-devel
 BuildRequires:  gperf
 BuildRequires:  perl

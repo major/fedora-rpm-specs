@@ -34,6 +34,7 @@ BuildRequires: cmake(KF5KIO)
 
 BuildRequires: cmake(Qt5DBus)
 BuildRequires: cmake(Qt5Gui)
+BuildRequires: cmake(Qt5LinguistTools)
 BuildRequires: cmake(Qt5Widgets)
 
 # translations moved here

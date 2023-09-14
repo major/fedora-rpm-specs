@@ -1900,7 +1900,7 @@ find */src */*/src -type f -name '*.py' \
 # we were not able to build due to dependency issues.
 for omit in \
     %{?!with_aio_pika:aio-pika} \
-    %{?!with_cassandra:cassandra-pika} \
+    %{?!with_cassandra:cassandra} \
     %{?!with_confluent_kafka:confluent-kafka} \
     %{?!with_falcon:falcon} \
     %{?!with_grpc:grpc} \

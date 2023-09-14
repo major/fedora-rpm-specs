@@ -3,13 +3,12 @@
 
 Name: grubby
 Version: 8.40
-Release: 71%{?dist}
+Release: 72%{?dist}
 Summary: Command line tool for updating bootloader configs
 License: GPLv2+
 Source1: grubby-bls
 # Source2: rpm-sort.c
 Source3: COPYING
-Source4: installkernel-bls
 Source5: 95-kernel-hooks.install
 Source6: 10-devicetree.install
 Source7: grubby.8
@@ -53,7 +52,6 @@ cp %{SOURCE3} . || true
 %install
 mkdir -p %{buildroot}%{_sbindir}/
 install -T -m 0755 %{SOURCE1} %{buildroot}%{_sbindir}/grubby
-install -T -m 0755 %{SOURCE4} %{buildroot}%{_sbindir}/installkernel
 
 install -D -m 0755 -t %{buildroot}%{_prefix}/lib/kernel/install.d/ %{SOURCE5}
 install -D -m 0755 -t %{buildroot}%{_prefix}/lib/kernel/install.d/ %{SOURCE6}
@@ -71,12 +69,14 @@ fi
 %files
 %license COPYING
 %attr(0755,root,root) %{_sbindir}/grubby
-%attr(0755,root,root) %{_sbindir}/installkernel
 %attr(0755,root,root) %{_prefix}/lib/kernel/install.d/10-devicetree.install
 %attr(0755,root,root) %{_prefix}/lib/kernel/install.d/95-kernel-hooks.install
 %{_mandir}/man8/grubby.8*
 
 %changelog
+* Mon Sep 11 2023 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 8.40-72
+- Drop installkernel so that it can be provided by systemd
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.40-71
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

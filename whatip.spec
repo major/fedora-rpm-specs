@@ -27,6 +27,10 @@ Requires:       hicolor-icon-theme
 
 BuildArch:      noarch
 
+# blueprint-compiler does not work on s390x:
+# https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
+ExcludeArch:    s390x
+
 %description
 What IP displays information on your local network, IP addresses and open ports.
 

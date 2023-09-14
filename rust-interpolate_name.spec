@@ -5,7 +5,7 @@
 %global crate interpolate_name
 
 Name:           rust-interpolate_name
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Simple procedural macro attribute for repetitive tests
 

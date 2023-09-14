@@ -5,15 +5,13 @@
 %global crate peg-runtime
 
 Name:           rust-peg-runtime
-Version:        0.6.3
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Runtime support for rust-peg grammars
 
 License:        MIT
 URL:            https://crates.io/crates/peg-runtime
-Source0:        %{crates_source}
-# https://github.com/kevinmehall/rust-peg/pull/241
-Source1:        https://github.com/kevinmehall/rust-peg/raw/%{version}/LICENSE
+Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
@@ -51,7 +49,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
-cp -pav %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

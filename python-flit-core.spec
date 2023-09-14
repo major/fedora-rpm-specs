@@ -1,6 +1,5 @@
 # When bootstrapping new Python we need to build flit in bootstrap mode.
 # The Python RPM dependency generators and pip are not yet available.
-# When building in bootstrap mode, only flit-core is built.
 %bcond bootstrap 0
 
 # Tests are enabled by default, unless we bootstrap.

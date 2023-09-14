@@ -95,7 +95,6 @@ Source2: %{git_gvproxy}/archive/%{commit_gvproxy}/%{repo_gvproxy}-%{commit_gvpro
 %endif
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
 BuildRequires: %{_bindir}/envsubst
-BuildRequires: %{_bindir}/go-md2man
 %if %{defined build_with_btrfs}
 BuildRequires: btrfs-progs-devel
 %endif
@@ -131,6 +130,7 @@ Recommends: %{name}-gvproxy = %{epoch}:%{version}-%{release}
 %else
 Recommends: %{name}-gvproxy
 %endif
+Requires: gvisor-tap-vsock-gvforwarder
 Provides: %{name}-quadlet
 Obsoletes: %{name}-quadlet <= 5:4.4.0-1
 Provides: %{name}-quadlet = %{epoch}:%{version}-%{release}
@@ -223,6 +223,13 @@ A replacement for libslirp and VPNKit, written in pure Go.
 It is based on the network stack of gVisor. Compared to libslirp,
 gvisor-tap-vsock brings a configurable DNS server and
 dynamic port forwarding.
+
+%global desc_gvforwarder Forward traffic from a tap interface over vsock
+%package -n gvisor-tap-vsock-gvforwarder
+Summary: %{desc_gvforwarder}
+
+%description -n gvisor-tap-vsock-gvforwarder
+%{desc_gvforwarder}
 %endif
 
 %package -n %{name}sh
@@ -236,7 +243,7 @@ Provides: %{name}-%{name}sh = %{epoch}:%{version}-%{release}
 capabilities specified in user quadlets.
 
 It is a symlink to %{_bindir}/%{name} and execs into the `%{name}sh` container
-when `%{_bindir}/%{name}sh is set as a login shell or set as os.Args[0].
+when `%{_bindir}/%{name}sh` is set as a login shell or set as os.Args[0].
 
 %prep
 %autosetup -Sgit -n %{name}-%{version}
@@ -393,7 +400,6 @@ cp -pav test/system %{buildroot}/%{_datadir}/%{name}/test/
 %{_datadir}/zsh/site-functions/_%{name}-remote
 
 %files tests
-%license LICENSE
 %{_datadir}/%{name}/test
 
 %files plugins
@@ -408,12 +414,13 @@ cp -pav test/system %{buildroot}/%{_datadir}/%{name}/test/
 %doc %{repo_gvproxy}-%{commit_gvproxy}/README.md
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/gvproxy
+
+%files -n gvisor-tap-vsock-gvforwarder
+%dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/gvforwarder
 %endif
 
 %files -n %{name}sh
-%license LICENSE
-%doc README.md CONTRIBUTING.md install.md transfer.md
 %{_bindir}/%{name}sh
 
 %changelog

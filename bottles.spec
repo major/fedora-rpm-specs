@@ -10,6 +10,10 @@ Version:    %{tag}
 Release:    %autorelease
 BuildArch:  noarch
 
+# blueprint-compiler does not work on s390x:
+# https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
+ExcludeArch:    s390x
+
 %forgemeta
 
 License:    GPL-3.0-or-later

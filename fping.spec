@@ -1,12 +1,24 @@
 %global _hardened_build 1
+%global snapshot 1
+%global OWNER schweikert
+%global PROJECT fping
+%global commit 8dc0b7f39a09f0745ba308292c3ac1c6013394c3
+%global commitdate 20221021
+%global gittag v5.1
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name: fping
-Version: 5.1
-Release: 4%{?dist}
+Version: 5.1%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release: 1%{?dist}
 Summary: Scriptable, parallelized ping-like utility
 License: BSD with advertising
 URL: http://www.fping.org/
+%if 0%{?snapshot}
+Source0: https://github.com/%{OWNER}/%{PROJECT}/archive/%{commit}/%{name}-%{commit}.tar.gz
+BuildRequires: autoconf automake
+%else
 Source0: http://fping.org/dist/%{name}-%{version}.tar.gz
+%endif
 
 BuildRequires: gcc
 BuildRequires: make
@@ -18,9 +30,16 @@ monitoring of large numbers of systems, and is developed with ease of
 use in scripting in mind.
 
 %prep
+%if 0%{?snapshot}
+%autosetup -p1 -n %{name}-%{commit}
+%else
 %autosetup -p1
+%endif
 
 %build
+%if 0%{?snapshot}
+./autogen.sh
+%endif
 %configure
 %make_build
 
@@ -36,6 +55,9 @@ use in scripting in mind.
 %changelog
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Sun Jan 22 2023 Charles R. Anderson <cra@alum.wpi.edu> - 5.1^20221023git8dc0b7f-1
+- update to latest git snapshot to see if it fixes fping -n with systemd-resolved
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

@@ -4,7 +4,7 @@
 
 # https://github.com/cncf/xds
 %global goipath         github.com/cncf/xds
-%global commit          1e77728a1eaa11d6c931ec2ccd6e95f516a7ef94
+%global commit          e9ce68804cb4e64cab5a52e3c8baf840d4ff87b7 
 
 %gometa
 

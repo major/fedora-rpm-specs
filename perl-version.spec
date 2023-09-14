@@ -7,9 +7,9 @@
 
 Name:           perl-version
 Epoch:          8
-Version:        0.99.29
-%global module_version 0.9929
-Release:        501%{?dist}
+Version:        0.99.30
+%global module_version 0.9930
+Release:        1%{?dist}
 Summary:        Perl extension for Version Objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/version
@@ -138,6 +138,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 8:0.9930-1
+- 0.9930 bump (rhbz#2238421)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8:0.99.29-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

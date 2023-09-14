@@ -4,8 +4,8 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.3.250.1
-Release:       2%{?dist}
+Version:       1.3.261.1
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD and GPLv3+ and ASL 2.0
@@ -68,6 +68,7 @@ MinGW Windows %{pkgname} library.
 
 
 %files -n mingw32-%{pkgname}
+%{mingw32_bindir}/glslang.exe
 %{mingw32_bindir}/glslangValidator.exe
 %{mingw32_bindir}/spirv-remap.exe
 %{mingw32_includedir}/glslang/
@@ -83,6 +84,7 @@ MinGW Windows %{pkgname} library.
 %{mingw32_libdir}/cmake/*
 
 %files -n mingw64-%{pkgname}
+%{mingw64_bindir}/glslang.exe
 %{mingw64_bindir}/glslangValidator.exe
 %{mingw64_bindir}/spirv-remap.exe
 %{mingw64_includedir}/glslang/
@@ -99,6 +101,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Tue Sep 12 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.261.1-1
+- Update to 1.3.261.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.250.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

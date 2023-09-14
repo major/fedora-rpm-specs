@@ -5,12 +5,12 @@
 # https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
 %global rocm_release 5.6
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -306,6 +306,9 @@ chmod 755 %{buildroot}%{_libdir}/lib*.so*
 %{_docdir}/hip
 
 %changelog
+* Tue Sep 12 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.1-1
+- Update to 5.6.1
+
 * Sun Aug 20 2023 Tom Rix <trix@redhat.com> - 5.6.0-4
 - A better fix for blender 3.6.x and rocFFT
 

@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           libarchive
-Version:        3.7.1
+Version:        3.7.2
 Release:        1%{?dist}
 Summary:        A library for handling streaming archive formats
 
@@ -37,6 +37,10 @@ BuildRequires: make
 # loaded, which breaks the RIPEMD-160 test. This patch disables the RIPEMD-160
 # support explicitly.
 Patch0001: 0001-Drop-rmd160-from-OpenSSL.patch
+
+# Upstream patch: https://github.com/libarchive/libarchive/commit/3bd918d92f8c34ba12de9c6604d96f9e262a59fc
+# Fixes the broken 32-bit builds (i686 arch) due to "Allocation error : not enough memory"
+Patch0002: 0002-tests-fix-zstd-long-option-test-for-32-bit-architect.patch
 
 %description
 Libarchive is a programming library that can create and read several different
@@ -235,6 +239,9 @@ run_testsuite
 
 
 %changelog
+* Tue Sep 12 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.7.2-1
+- Rebase to version 3.7.2
+
 * Mon Jul 31 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.7.1-1
 - Rebase to version 3.7.1
 

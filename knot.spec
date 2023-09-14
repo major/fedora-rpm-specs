@@ -7,7 +7,7 @@
 
 Summary:	High-performance authoritative DNS server
 Name:		knot
-Version:	3.2.9
+Version:	3.3.1
 Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
@@ -80,8 +80,8 @@ Knot DNS is a high-performance authoritative DNS server implementation.
 
 %package libs
 Summary:	Libraries used by the Knot DNS server and client applications
-# Knot DNS 3.2+ isn't compatible with earlier knot-resolver
-Conflicts:	knot-resolver < 5.5.2
+# Knot DNS 3.3+ isn't compatible with earlier knot-resolver
+Conflicts:	knot-resolver < 5.7.0
 
 %description libs
 The package contains shared libraries used by the Knot DNS server and
@@ -320,6 +320,12 @@ getent passwd knot >/dev/null || \
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Tue Sep 12 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.3.1-1
+- Update to 3.3.1
+
+* Mon Aug 28 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.3.0-1
+- Update to 3.3.0
+
 * Thu Jul 27 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.2.9-1
 - Update to 3.2.9
 

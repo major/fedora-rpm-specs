@@ -223,7 +223,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1%{?rc_version:.%rc_version}%{?dist}
+Release:        3%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -247,6 +247,8 @@ Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 # header-logo.png, login-screen-background.jpg, login-screen-logo.png,
 # product-name.png
 # RHEL spec file only: END: Change branding to IPA and Identity Management
+Patch0001:      0001-ipa-client-install-enable-SELinux-for-SSSD.patch
+Patch0002:      0001-Restore-selinux-states-if-they-exist-at-uninstall-ti.patch
 
 # RHEL spec file only: START
 %if %{NON_DEVELOPER_BUILD}
@@ -1761,6 +1763,14 @@ fi
 %endif
 
 %changelog
+* Tue Sep 12 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-3.beta1
+- Restore properly SELinux context during IPA client uninstallation
+- Related: rhbz#2238474
+
+* Tue Sep 12 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-2.beta1
+- Set 'sssd_use_usb' SELinux boolean when enrolling IPA client
+- Resolves: rhbz#2238474
+
 * Mon Aug 21 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-1.beta1
 - FreeIPA 4.11.0 beta 1
 - Release notes: https://www.freeipa.org/release-notes/4-11-0-beta.html

@@ -5,7 +5,7 @@
 %global crate time
 
 Name:           rust-time
-Version:        0.3.23
+Version:        0.3.28
 Release:        %autorelease
 Summary:        Date and time library
 

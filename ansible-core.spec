@@ -10,7 +10,7 @@
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.15.3
+Version: 2.15.4
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release: 1%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -285,6 +285,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Mon Sep 11 2023 Maxwell G <maxwell@gtmx.me> - 2.15.4-1
+- Update to 2.15.4. Fixes rhbz#2238445.
+
 * Thu Aug 17 2023 Maxwell G <maxwell@gtmx.me> - 2.15.3-1
 - Update to 2.15.3. Fixes rhbz#2231963.
 

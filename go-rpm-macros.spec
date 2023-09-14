@@ -55,6 +55,12 @@ pull it in for Go packages only.
 Summary:   Source-stage rpm automation for Go packages
 BuildArch: noarch
 Requires:  redhat-rpm-config
+# macros.forge and forge.lua were split into a separate package.
+# redhat-rpm-config pulls in forge-srpm-macros but better to explicitly Require
+# it.
+%if (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
+Requires:  forge-srpm-macros
+%endif
 
 %description -n go-srpm-macros
 This package provides SRPM-stage rpm automation to simplify the creation of Go

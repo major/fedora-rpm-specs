@@ -8,10 +8,10 @@
 
 %global dotnetver 7.0
 
-%global host_version 7.0.10
-%global runtime_version 7.0.10
+%global host_version 7.0.11
+%global runtime_version 7.0.11
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 7.0.110
+%global sdk_version 7.0.111
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -625,6 +625,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Sep 12 2023 Omair Majid <omajid@redhat.com> - 7.0.111-1
+- Update to .NET SDK 7.0.111 and Runtime 7.0.11
+
 * Tue Aug 08 2023 Omair Majid <omajid@redhat.com> - 7.0.110-1
 - Update to .NET SDK 7.0.110 and Runtime 7.0.10
 

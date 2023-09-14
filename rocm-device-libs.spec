@@ -15,7 +15,7 @@
 
 Name:           rocm-device-libs
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMD ROCm LLVM bit code libraries
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-Device-Libs
@@ -64,6 +64,9 @@ libraries in the form of bit code. Specifically:
 %clang_resource_dir/amdgcn
 
 %changelog
+* Wed Sep 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0-2
+- Rebuild against LLVM 17.0.0
+
 * Tue Aug 15 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.0-1
 - Update to 17.0
 

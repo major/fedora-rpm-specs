@@ -6,12 +6,12 @@
 
 Name:           sdbus-cpp
 Version:        %{version_major}.%{version_minor}.%{version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
 URL:            https://github.com/Kistler-Group/sdbus-cpp
-Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  gcc-c++
@@ -48,11 +48,11 @@ out of the D-Bus IDL XML description.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1
 
 
 %build
-%cmake . \
+%cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_CODE_GEN=ON \
     -DBUILD_DOXYGEN_DOC=ON
@@ -71,14 +71,14 @@ out of the D-Bus IDL XML description.
 %doc %{_docdir}/sdbus-c++/README
 %{_libdir}/libsdbus-c++.so.%{version_major}
 %{_libdir}/libsdbus-c++.so.%{version}
-%dir %{_libdir}/cmake/sdbus-c++
-%{_libdir}/cmake/sdbus-c++/*.cmake
 
 %files devel
 %{_libdir}/pkgconfig/sdbus-c++.pc
 %{_libdir}/pkgconfig/sdbus-c++-tools.pc
 %{_libdir}/libsdbus-c++.so
 %{_includedir}/*
+%dir %{_libdir}/cmake/sdbus-c++
+%{_libdir}/cmake/sdbus-c++/*.cmake
 
 %files devel-doc
 %dir %{_docdir}/sdbus-c++
@@ -91,6 +91,9 @@ out of the D-Bus IDL XML description.
 
 
 %changelog
+* Tue Sep 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.3.0-2
+- Move sdbus-c++ CMake module to devel package
+
 * Mon Aug 21 2023 Marek Blaha <mblaha@redhat.com> - 1.3.0-1
 - Update to release 1.3.0
 

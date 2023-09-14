@@ -11,7 +11,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
@@ -92,6 +92,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Wed Sep 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0-2
+- Rebuild against LLVM 17.0.0
+
 * Tue Aug 15 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.0-1
 - Update to 17.0
 

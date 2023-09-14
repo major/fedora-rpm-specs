@@ -4,9 +4,9 @@
 %bcond_with static
 %bcond_without check
 
-%define realver 3430000
-%define docver 3430000
-%define rpmver 3.43.0
+%define realver 3430100
+%define docver 3430100
+%define rpmver 3.43.1
 %define year 2023
 
 Summary: Library that implements an embeddable SQL database engine
@@ -255,6 +255,9 @@ make test
 %endif
 
 %changelog
+* Tue Sep 12 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.43.1-1
+- Updated to version 3.43.1 (https://sqlite.org/releaselog/3_43_1.html)
+
 * Mon Aug 28 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.43.0-1
 - Updated to version 3.43.0 (https://sqlite.org/releaselog/3_43_0.html)
 

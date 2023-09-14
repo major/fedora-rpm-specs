@@ -1,10 +1,12 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.4.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 Patch0: 0001-Fix-segfault-when-trying-to-reuse-an-invalid-GtkTreeIter.patch
+Patch1: 0002-Add-cmdline-option-to-force-blivet-gui-to-keep-above.patch
+Patch2: 0003-Add-cmdline-option-to-enabled-blivets-auto_dev_updates-flag.patch
 License: GPL-2.0-or-later
 BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
@@ -75,6 +77,10 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Sep 12 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.4.2-3
+- Add cmdline option to force blivet-gui to keep above other apps (#2238282)
+- Add a cmdline option to enabled blivet's auto_dev_updates flag (#2238292)
+
 * Thu Aug 31 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.4.2-2
 - Fix segfault when trying to reuse an invalid GtkTreeIter (#2234466)
 

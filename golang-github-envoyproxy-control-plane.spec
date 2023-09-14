@@ -5,7 +5,7 @@
 
 # https://github.com/envoyproxy/go-control-plane
 %global goipath         github.com/envoyproxy/go-control-plane
-Version:                0.10.3
+Version:                0.11.1
 
 %gometa
 

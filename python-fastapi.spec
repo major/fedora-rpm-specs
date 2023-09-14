@@ -45,8 +45,6 @@ Patch:          %{url}/pull/5799.patch
 
 BuildRequires:  python3-devel
 
-Obsoletes:      python-fastapi-doc < 0.68.1-6
-
 Summary(en):    %{sum_en}
 Summary(es):    %{sum_es}
 Summary(fr):    %{sum_fr}

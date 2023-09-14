@@ -1,3 +1,9 @@
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond doc 1
+
 Name:           python-libsass
 Version:        0.20.0
 Release:        %autorelease
@@ -36,7 +42,11 @@ BuildRequires:  gcc-c++
 BuildRequires:  libsass-devel
 
 # Needed for building a man page
-BuildRequires:  python3-sphinx
+BuildRequires:  %{py3_dist sphinx}
+%if %{with doc}
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+%endif
 
 %global common_description %{expand:
 This package provides a simple Python extension module sass which is binding
@@ -64,6 +74,14 @@ Summary:        %{summary}
 %description -n python3-libsass %{common_description}
 
 
+%if %{with doc}
+%package        doc
+Summary:        Documentation for python-libsass
+
+%description    doc %{common_description}
+%endif
+
+
 %prep
 %autosetup -n libsass-python-%{version} -N
 %autopatch -M 99 -p1
@@ -87,8 +105,11 @@ export SYSTEM_SASS='1'
 %pyproject_wheel
 
 LIB='lib.%{python3_platform}-cpython-%{python3_version_nodots}'
-PYTHONPATH="${PWD}/build/${LIB}" %make_build -C docs man \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
+PYTHONPATH="${PWD}/build/${LIB}" %make_build -C docs \
+    man %{?with_doc:latex} SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%if %{with doc}
+%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
+%endif
 
 
 %install
@@ -108,9 +129,21 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 
 %files -n python3-libsass -f %{pyproject_files}
+%if %{without doc}
 %doc README.rst
+%doc docs/changes.rst
+%endif
 %{_bindir}/pysassc
 %{_mandir}/man1/pysassc.1*
+
+
+%if %{with doc_pdf}
+%files doc
+%license LICENSE
+%doc README.rst
+%doc docs/changes.rst
+%doc docs/_build/latex/libsass.pdf
+%endif
 
 
 %changelog

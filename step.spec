@@ -51,6 +51,7 @@ BuildRequires: pkgconfig(eigen3)
 BuildRequires: pkgconfig(gsl)
 BuildRequires: pkgconfig(libqalculate)
 BuildRequires: pkgconfig(Qt5Qml) pkgconfig(Qt5Quick) pkgconfig(Qt5Xml) pkgconfig(Qt5Svg) pkgconfig(Qt5OpenGL) pkgconfig(Qt5PrintSupport) pkgconfig(Qt5Test)
+BuildRequires: cmake(Qt5LinguistTools)
 
 %description
 %{summary}.

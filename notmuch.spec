@@ -19,13 +19,23 @@
 %bcond_with sfsexp
 %endif
 
+# comparing {_emacs_version} in macros does not work well
+# so we catch the major version bumps ;)
+# read "with emacs at least"
+%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
+%global with_emacs28 1
+%endif
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+%global with_emacs29 1
+%endif
+
 # build python 3 modules with python 3 ;)
 %if 0%{?with_python3legacy} || 0%{?with_python3CFFI}
 %global with_python3 1
 %endif
 
 Name:           notmuch
-Version:        0.37
+Version:        0.38
 Release:        %autorelease
 Summary:        System for indexing, searching, and tagging email
 License:        GPL-3.0-or-later
@@ -34,11 +44,8 @@ Source0:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz
 Source1:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz.asc
 # Imported from public key servers; author provides no fingerprint!
 Source2:        gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg
-Source3:        config-with-comments-glib2-2.77
 Patch1:         0001-test-allow-to-use-full-scan.patch
 Patch2:         0002-test-use-NOTMUCH_NEW-consistently.patch
-Patch3:         0001-python-adjust-legacy-bindings-to-py-3.12.patch
-Patch4:         notmuch-c99.patch
 
 BuildRequires:  make
 BuildRequires:  bash-completion
@@ -220,10 +227,6 @@ interface, utilizing the notmuch framework.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-# Temporary FTBFS fix, see rhbz#2226033
-%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
-cp -vf %{SOURCE3} test/setup.expected-output/config-with-comments
-%endif
 
 %build
 # DEBUG mtime/stat
@@ -255,11 +258,17 @@ popd
 %if %{with tests}
 %check
 # armv7hl pulls in libasan but we build without, and should test without it.
+NOTMUCH_SKIP_TESTS="asan"
 # notmuch-git and its tests require sfsexp.
+NOTMUCH_SKIP_TESTS="$NOTMUCH_SKIP_TESTS%{!?with_sfsexp: git}"
+# T460-emacs-tree.14 leads to sporadic failures with emacs 29
+NOTMUCH_SKIP_TESTS="$NOTMUCH_SKIP_TESTS%{?with_emacs29: emacs-tree.14}"
+# T460-emacs-tree.23 uses outline-cycle-buffer which requires emacs 28
+NOTMUCH_SKIP_TESTS="$NOTMUCH_SKIP_TESTS%{!?with_emacs28: emacs-tree.23}"
 # At least on koji/copr, test suite suffers from race conditions when parallelised.
 # At least some rhel builds show mtime/stat related Heisenbugs when
 # notmuch new takes shortcuts, so enforce --full-scan there.
-NOTMUCH_SKIP_TESTS="asan%{!?with_sfsexp: git}" \
+NOTMUCH_SKIP_TESTS="$NOTMUCH_SKIP_TESTS" \
 NOTMUCH_TEST_SERIALIZE="yesplease" \
 make test V=1 %{?rhel:NOTMUCH_TEST_FULLSCAN=1}
 %endif

@@ -384,7 +384,10 @@ INSTALLED=$(grep -c secret /etc/nextcloud/config.php)
 if [ "${INSTALLED}" -eq "0" ]; then
   echo "First time installation, enabling installation wizard"
   touch %{_sysconfdir}/%{name}/CAN_INSTALL
+  chown apache:apache %{_sysconfdir}/%{name}/CAN_INSTALL
 fi
+
+/usr/bin/systemctl restart php-fpm.service > /dev/null 2>&1 || :
 
 %post httpd
 /usr/bin/systemctl reload httpd.service > /dev/null 2>&1 || :

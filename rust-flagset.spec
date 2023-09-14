@@ -5,7 +5,7 @@
 %global crate flagset
 
 Name:           rust-flagset
-Version:        0.4.3
+Version:        0.4.4
 Release:        %autorelease
 Summary:        Data types and a macro for generating enumeration-based bit flags
 
@@ -56,6 +56,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

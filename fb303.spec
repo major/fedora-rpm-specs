@@ -13,7 +13,7 @@
 %bcond_without check
 
 Name:           fb303
-Version:        2023.07.03.00
+Version:        2023.09.11.00
 Release:        %autorelease
 Summary:        Base Thrift service and a common set of functionality
 
@@ -34,6 +34,7 @@ BuildRequires:  fizz-devel
 BuildRequires:  folly-devel
 BuildRequires:  gflags-devel
 BuildRequires:  glog-devel
+BuildRequires:  mvfst-devel
 %if %{with python}
 BuildRequires:  python3-devel
 BuildRequires:  python3-fbthrift-devel

@@ -30,6 +30,7 @@ BuildRequires: pkgconfig(Qt5Test) pkgconfig(Qt5Qml) pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(Qt5OpenGL)
 # technically QtQuick private api, but this should be good enough -- rex
 BuildRequires: qt5-qtbase-private-devel
+BuildRequires: cmake(Qt5LinguistTools)
 
 BuildRequires: readline-devel
 

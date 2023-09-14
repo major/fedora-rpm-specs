@@ -7,16 +7,13 @@
 %global _python_no_extras_requires 1
 
 Name:           ara
-Version:        1.6.1
-Release:        4%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        Records Ansible playbooks and makes them easier to understand and troubleshoot
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/ansible-community/ara
 Source0:        %{pypi_source ara}
-# Lift the django requirement from 3.2LTS to 4.2LTS
-# (remove once ara 1.7.0 has been released)
-Patch:          bump-version-of-django.patch
 BuildArch:      noarch
 
 BuildRequires:  git-core
@@ -199,6 +196,9 @@ ARA_TIME_ZONE=UTC %{__python3} manage.py test ara
 
 
 %changelog
+* Tue Sep 12 2023 David Moreau Simard <moi@dmsimard.com> - 1.7.0-1
+- Update to latest upstream release
+
 * Sun Aug 13 2023 David Moreau Simard <moi@dmsimard.com> - 1.6.1-4
 - Include upstream patch to allow recent versions of Django. Fixes rhbz#2225705.
 - Remove patch allowing older versions of tzlocal

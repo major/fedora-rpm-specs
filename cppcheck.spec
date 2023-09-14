@@ -2,7 +2,7 @@
 
 Name:           cppcheck
 Version:        2.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0
 URL:            http://cppcheck.wiki.sourceforge.net/
@@ -67,6 +67,9 @@ pandoc man/manual.md -o man/manual.html -s --number-sections --toc
 pandoc man/reference-cfg-format.md -o man/reference-cfg-format.html -s --number-sections --toc
 
 # Binaries
+# Add -fsigned-char to CXXFLAGS, to make all tests pass also on aarch64
+# ppc64le and s390x, see https://trac.cppcheck.net/ticket/11537
+export CXXFLAGS="$RPM_OPT_FLAGS -fsigned-char"
 # Upstream doesn't support shared libraries (unversioned solib)
 %cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MATCHCOMPILER=yes -DHAVE_RULES=yes -DBUILD_GUI=1 -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTS=yes -DFILESDIR=%{_datadir}/Cppcheck -DUSE_BUNDLED_TINYXML2=OFF -DENABLE_OSS_FUZZ=OFF
 %cmake_build
@@ -89,8 +92,7 @@ grep -l "#\!/usr/bin/env python3" %{buildroot}%{_datadir}/Cppcheck/addons/*.py |
 
 %check
 cd %{_vpath_builddir}/bin
-#./testrunner -g -q
-# 2 style tests failing under 2.11 and 2.12.0 (aarch64, ppc64le, s390x)
+./testrunner -g -q
 
 %files
 %doc AUTHORS man/manual.html man/reference-cfg-format.html
@@ -110,6 +112,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Tue Sep 12 2023 Wolfgang Stöggl <c72578@yahoo.de> - 2.12.0-2
+- Add "-fsigned-char" to CXXFLAGS, to make tests pass
+
 * Sun Sep 10 2023 Wolfgang Stöggl <c72578@yahoo.de> - 2.12.0-1
 - Update to 2.12.0 (#2165211)
 

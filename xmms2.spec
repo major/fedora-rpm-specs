@@ -1,49 +1,22 @@
-
-%global codename DrO_o
-
 Name:			xmms2
 Summary: 		A modular audio framework and plugin architecture
-Version:		0.8
-Release:		88%{?dist}
-License:		LGPLv2+ and GPLv2+ and BSD
+Version:		0.9.3
+Release:		1%{?dist}
+License:		LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 # We can't use the upstream source tarball as-is, because it includes an mp4 decoder.
 # Also, the ogg sample included is not under a FOSS license.
-# http://downloads.sourceforge.net/xmms2/%%{name}-%%{version}%%{codename}.tar.bz2
+# https://github.com/xmms2/xmms2-devel/releases/download/%%{version}/xmms2-%%{version}.tar.xz
 # Cleaning it is simple, just rm -rf src/plugins/mp4 mind.in.a.box-lament_snipplet.ogg
-Source0:		%{name}-%{version}%{codename}-clean.tar.bz2
+Source0:		%{name}-%{version}-clean.tar.xz
 Source1:		xmms2-client-launcher.sh
 # CC-BY
 # taken from http://ccmixter.org/files/unreal_dm/38156
 Source2:		unreal_dm-free.music.and.free.beer.ogg
-# Use libdir properly for Fedora multilib
-Patch1:			xmms2-0.8DrO_o-use-libdir.patch
-# Set default output to pulse
-Patch2:			xmms2-0.8DrO_o-pulse-output-default.patch
-# Don't add extra CFLAGS, we're smart enough, thanks.
-Patch4:			xmms2-0.8DrO_o-no-O0.patch
-# More sane versioning
-Patch5:			xmms2-0.8DrO_o-moresaneversioning.patch
-# Fix xsubpp location
-Patch6:			xmms2-0.8DrO_o-xsubpp-fix.patch
-# libmodplug 0.8.8.5 changed pkgconfig includedir output
-Patch7:			xmms2-0.8DrO_o-libmodplug-pkgconfig-change.patch
-# libvorbis 1.3.4 changed pkgconfig libs output
-Patch8:			xmms2-0.8DrO_o-vorbis-pkgconfig-libs.patch
-# Remove deprecated usage on ruby 22
-Patch9:			xmms2-0.8DrO_o-ruby22-remove-deprecated-usage.patch
-# Add support for OpenSSL 1.1
-Patch10:		xmms2-0.8DrO_o-openssl-1.1.patch
 # Swap mind.in.a.box for free.music.and.free.beer
-Patch11:		xmms2-0.8DrO_o-no-mind.in.a.box.patch
-# Use system waf
-# This is ugly and not kosher for upstream... then again, I think upstream is dead.
-Patch12:		xmms2-0.8DrO_o-use-system-waf.patch
-# Python3
-Patch13:		xmms2-0.8DrO_o-python3.patch
-# Fix naming issue with xmms_collection_changed_actions_t
-Patch14:		xmms2-0.8DrO_o-xmmsc_collection_changed_actions_t-fix.patch
+Patch11:		xmms2-0.9.3-no-mind-in-a-box.patch
 URL:			http://wiki.xmms2.xmms.se/
-BuildRequires:		python3
+BuildRequires:		git
+BuildRequires:		python3-devel
 BuildRequires:		sqlite-devel
 BuildRequires:		flac-devel
 BuildRequires:		libofa-devel
@@ -52,7 +25,7 @@ BuildRequires:		libdiscid-devel
 BuildRequires:		libsmbclient-devel
 BuildRequires:		libmpcdec-devel
 BuildRequires:		gnome-vfs2-devel
-BuildRequires:		jack-audio-connection-kit-devel
+BuildRequires:		pkgconfig(jack)
 BuildRequires:		fftw-devel
 BuildRequires:		libsamplerate-devel
 BuildRequires:		libxml2-devel
@@ -81,6 +54,7 @@ BuildRequires:		SDL-devel
 BuildRequires:		glib2-devel
 BuildRequires:		readline-devel
 BuildRequires:		ncurses-devel
+BuildRequires:		mac-devel
 # For /usr/share/perl5/ExtUtils/xsubpp
 BuildRequires:		perl-ExtUtils-ParseXS
 BuildRequires:		gcc
@@ -90,6 +64,11 @@ BuildRequires:		waf
 Obsoletes:		xmms2-mad < 0.8-26
 Provides:		xmms2-mad = %{version}-%{release}
 
+Obsoletes:		xmms2-mac < 0.8-24
+Provides:		xmms2-mac = %{version}-%{release}
+
+Obsoletes:		xmms2-nyxmms2 < 0.8-89
+Provides:		xmms2-nyxmms2 = %{version}-%{release}
 
 %description
 XMMS2 is an audio framework, but it is not a general multimedia player - it 
@@ -121,11 +100,18 @@ API documentation for the XMMS2 modular audio framework architecture.
 
 %package perl
 Summary:	Perl support for XMMS2
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:	%{name} = %{version}-%{release}
 
 %description perl
 Perl bindings for XMMS2.
+
+%package python3
+Summary:	Python3 support for XMMS2
+Requires:	%{name} = %{version}-%{release}
+
+%description python3
+Python3 bindings for XMMS2.
 
 %package ruby
 Summary:	Ruby support for XMMS2
@@ -135,44 +121,13 @@ Requires:	ruby(release)
 %description ruby
 Ruby bindings for XMMS2.
 
-%package -n nyxmms2
-Summary:	Commandline client for XMMS2
-Requires:	%{name} = %{version}-%{release}
-
-%description -n nyxmms2
-nyxmms2 is the new official commandline client for XMMS2. It can be run in
-either shell-mode (if started without arguments), or in inline-mode where
-it executes the command passed as argument directly.
-
 %prep
-%setup -q -n %{name}-%{version}%{codename}
-%patch1 -p1 -b .plugins-use-libdir
-%patch2 -p1 -b .default-output-pulse
-%patch4 -p1 -b .noO0
-%patch5 -p1 -b .versionsanity
-%patch7 -p1 -b .modplug_header
-%patch8 -p1 -b .vorbis_libs
-%patch10 -p1 -b .openssl11
-%patch11 -p1 -b .nomind
-%patch12 -p1 -b .fixme
-%patch13 -p1 -b .py3
-%patch14 -p1 -b .namefix
+%setup -q -n %{name}-%{version}
+%patch -P11 -p1 -b .nomind
 cp %{SOURCE2} .
 
 # This header doesn't need to be executable
 chmod -x src/include/xmmsclient/xmmsclient++/dict.h
-
-# Clean up paths in wafadmin
-# WAFADMIN_FILES=`find wafadmin/ -type f`
-# for i in $WAFADMIN_FILES; do
-# 	sed -i 's|/usr/lib|%{_libdir}|g' $i
-# done
-# sed -i 's|"lib"|"%{_lib}"|g' wscript
-%if 0
-for i in doc/tutorial/python/tut1.py doc/tutorial/python/tut2.py doc/tutorial/python/tut3.py doc/tutorial/python/tut4.py doc/tutorial/python/tut5.py doc/tutorial/python/tut6.py utils/gen-tree-hashes.py utils/gen-wiki-release-bugs.py utils/gen-tarball.py utils/gen-wiki-release-authors.py waf waftools/podselect.py waftools/genipc.py waftools/genipc_server.py waftools/cython.py; do
-	sed -i 's|#!/usr/bin/env python|#!/usr/bin/python2|g' $i
-done
-%endif
 
 %build
 export CFLAGS="%{optflags} -DHAVE_G_FILE_QUERY_FILE_TYPE"
@@ -200,7 +155,7 @@ chmod +x %{buildroot}%{_libdir}/%{name}/* %{buildroot}%{_libdir}/libxmmsclient*.
 for i in %{buildroot}%{_mandir}/man1/*.gz; do
 	gunzip $i;
 done
-for i in %{buildroot}%{_mandir}/man1/*.1 xmms2-0.8DrO_o.ChangeLog; do
+for i in %{buildroot}%{_mandir}/man1/*.1 xmms2-%{version}.ChangeLog; do
 	iconv -o $i.iso88591 -f iso88591 -t utf8 $i
 	mv $i.iso88591 $i
 done
@@ -216,8 +171,11 @@ rm -rf %{buildroot}%{python3_sitelib}/xmmsclient/
 
 %files
 %license COPYING COPYING.GPL COPYING.LGPL
-%doc AUTHORS xmms2-0.8DrO_o.ChangeLog README TODO
+%doc AUTHORS xmms2-%{version}.ChangeLog README.mdown
 %{_bindir}/%{name}*
+%{_bindir}/_xmms2-migrate-collections-v0
+%{_bindir}/s4
+%{_bindir}/sqlite2s4
 %{_libdir}/libxmmsclient*.so.*
 %{_libdir}/%{name}
 %{_mandir}/man1/%{name}*
@@ -236,6 +194,9 @@ rm -rf %{buildroot}%{python3_sitelib}/xmmsclient/
 %{perl_archlib}/Audio/
 %{perl_archlib}/auto/Audio/
 
+%files python3
+%{python3_sitearch}/xmmsclient/
+
 %files ruby
 %{ruby_vendorlibdir}/xmmsclient.rb
 %{ruby_vendorlibdir}/xmmsclient/
@@ -243,10 +204,13 @@ rm -rf %{buildroot}%{python3_sitelib}/xmmsclient/
 %{ruby_vendorarchdir}/xmmsclient_ext.so
 %{ruby_vendorarchdir}/xmmsclient_glib.so
 
-%files -n nyxmms2
-%{_bindir}/nyxmms2
-
 %changelog
+* Tue Sep 12 2023 Tom Callaway <spot@fedoraproject.org> - 0.9.3-1
+- update to 0.9.3
+- add BR: mac-devel
+- provides/obsoletes xmms2-mac (from rpmfusion)
+- provides/obsoletes xmms2-nyxmms2 (upstream dropped that naming)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

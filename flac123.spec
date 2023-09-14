@@ -1,16 +1,32 @@
-Name:           flac123
-Version:        0.0.12 
-Release:        25%{?dist}
-Summary:        Command-line program for playing FLAC audio files
+#global snapshot 1
+%global OWNER flac123
+%global PROJECT flac123
+%global commit d969f2cc94a6b0ff623c2a64081a3d67b624a39d
+%global commitdate 20230811
+%global gittag v2.1.1
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-License:        GPLv2+
-URL:            http://flac-tools.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/flac-tools/%{name}-%{version}-release.tar.gz
-Patch0:         flac123-c99.patch
+Name:		flac123
+Version:	2.1.1%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:	1%{?dist}
+Summary:	Command-line program for playing FLAC audio files
 
-
-BuildRequires:  gcc, automake, autoconf, intltool, make
-BuildRequires:  libao-devel, flac-devel, libogg-devel, popt-devel
+License:	GPL-2.0-or-later
+URL:		https://github.com/flac123/flac123
+%if 0%{?snapshot}
+Source0:	https://github.com/%{OWNER}/%{PROJECT}/archive/%{commit}/%{name}-%{commit}.tar.gz
+%else
+Source0:	https://github.com/%{OWNER}/%{PROJECT}/archive/%{gittag}/%{name}-%{version}.tar.gz
+%endif
+BuildRequires:	gcc
+BuildRequires:	automake
+BuildRequires:	autoconf
+BuildRequires:	intltool
+BuildRequires:	make
+BuildRequires:	libao-devel
+BuildRequires:	flac-devel
+BuildRequires:	libogg-devel
+BuildRequires:	popt-devel
 
 %description
 flac123 is a command-line program for playing FLAC audio files.
@@ -23,25 +39,38 @@ flac123 implements mpg123's 'Remote Control' interface via option -R.
 This is useful if you're writing a frontend to flac123 which needs a
 consistent, reliable interface to control playback.
 
+
 %prep
+%if 0%{?snapshot}
+%autosetup -p1 -n %{name}-%{commit}
+%else
 %autosetup -p1
+%endif
+
 
 %build
-aclocal && autoconf && automake --add-missing
+#aclocal && autoconf && automake --add-missing
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-
+%make_install
 
 
 %files
-%doc AUTHORS README COPYING NEWS
-%{_bindir}/*
+%doc AUTHORS BUGS ChangeLog NEWS README*
+%license COPYING
+%{_bindir}/flac123
+%{_mandir}/man1/flac123.1*
+
 
 %changelog
+* Tue Sep 12 2023 Charles R. Anderson <cra@alum.wpi.edu> - 2.1.1-1
+- Update to 2.1.1 from new github upstream
+- Use SPDX license identifer
+- Bring up to date with latest packaging guidelines
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.12-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

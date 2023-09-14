@@ -6,14 +6,18 @@ License:           Zlib
 URL:               http://pwmt.org/projects/%{name}/
 Source0:           http://pwmt.org/projects/%{name}/download/%{name}-%{version}.tar.xz
 
+%if %{undefined flatpak}
 BuildRequires:     bash-completion
+%endif
 #BuildRequires:     binutils
 BuildRequires:     cairo-devel
 #BuildRequires:     cmake
 BuildRequires:     desktop-file-utils
 # Needed for mime-type detection : `libmagic` from file
 BuildRequires:     file-devel
+%if %{undefined flatpak}
 BuildRequires:     fish
+%endif
 BuildRequires:     gcc
 BuildRequires:     gettext
 BuildRequires:     girara-devel >= 0.3.7

@@ -8,7 +8,7 @@
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -77,6 +77,9 @@ ROCm Runtime development files
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Wed Sep 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 5.6.1-2
+- Rebuild against LLVM 17.0.0
+
 * Wed Aug 30 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.1-1
 - Update to 5.6.1
 

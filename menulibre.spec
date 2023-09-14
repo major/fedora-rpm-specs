@@ -1,7 +1,7 @@
 %global forgeurl    https://github.com/bluesabre/menulibre
 
 Name:           menulibre
-Version:        2.3.1
+Version:        2.3.2
 Release:        %autorelease
 Summary:        FreeDesktop.org compliant menu editor
 
@@ -100,7 +100,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_bindir}/%{name}-menu-validate
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_datadir}/%{name}/
 %{_datadir}/pixmaps/%{name}.png
 %{_metainfodir}/%{name}.appdata.xml
 %{_mandir}/man1/%{name}.1.*

@@ -30,6 +30,7 @@
 # rhel need to call ldconfig
 %if 0%{?rhel} <= 7
 %global ldconfig /sbin/ldconfig
+%global with_c99 1
 %endif
 
 # set path to python binary per fedora packaging guidelines
@@ -42,8 +43,8 @@
 
 Name:              netatalk
 Epoch:             5
-Version:           3.1.15
-Release:           2%{?dist}
+Version:           3.1.16
+Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 License:           GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT
 # Project is also mirrored at https://github.com/Netatalk/Netatalk
@@ -62,9 +63,6 @@ Patch0:            netatalk-3.0.1-basedir.patch
 Patch1:            netatalk-systemd-execstartpre.patch
 
 BuildRequires:     make
-BuildRequires:     automake
-BuildRequires:     autoconf
-BuildRequires:     libtool
 BuildRequires:     rpm
 BuildRequires:     grep
 BuildRequires:     perl-interpreter
@@ -130,9 +128,6 @@ developing applications that use %{name}.
 %prep
 %autosetup -p 1
 
-# must call autoreconf because we patched configure.ac
-autoreconf --force --install
-
 # remove bundled libevent
 %{?with_libevent:rm -frv libevent/}
 
@@ -170,7 +165,8 @@ sed -i 's\-systemctl daemon-reload\\g' distrib/initscripts/Makefile.in
     %{?with_tracker:--with-dbus-daemon=%{_bindir}/dbus-daemon} \
     %{?with_libevent:--without-libevent}        \
     %{?with_libevent:--with-libevent-header=%{_includedir}} \
-    %{?with_libevent:--with-libevent-lib=%{_libdir}}
+    %{?with_libevent:--with-libevent-lib=%{_libdir}} \
+    %{?with_c99:CFLAGS="$CFLAGS -std=gnu99"}
 
 %make_build
 # Build the local docs.
@@ -231,6 +227,11 @@ sh test/afpd/test.sh
 %{_mandir}/man*/netatalk-config.1*
 
 %changelog
+* Tue Sep 12 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.16-1
+- autoconf, automake, and libtool are no longer required
+- force gnu99 cflag on el7 builds
+- 3.1.16 release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5:3.1.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

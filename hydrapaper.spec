@@ -11,6 +11,10 @@ URL:            https://gitlab.com/gabmus/HydraPaper
 Source0:        %{url}/-/archive/%{version}/HydraPaper-%{version}.tar.gz
 BuildArch:      noarch
 
+# blueprint-compiler does not work on s390x:
+# https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
+ExcludeArch:    s390x
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib

@@ -1,12 +1,11 @@
 Name:           classification-banner
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Displays Classification Banner for a Graphical Session
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/SecurityCentral/classification-banner
 Source0:        %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         remove_distutils.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

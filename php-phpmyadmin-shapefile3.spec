@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-phpmyadmin-shapefile3
 #
-# Copyright (c) 2017-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2017-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    c232198ef49d3484f26acfe2d12cab103da9371a
+%global gh_commit    c8240ec25d04c8d03ca83ab7eed7aec165b57a1e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpmyadmin
 %global gh_project   shapefile
@@ -17,11 +17,11 @@
 %global major        3
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.0.1
-Release:        6%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        ESRI ShapeFile library for PHP, version %{major}
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
 
@@ -29,17 +29,12 @@ BuildArch:      noarch
 %if %{with_tests}
 BuildRequires:  php(language) >= 7.1
 # For tests, from composer.json "require-dev": {
-#        "phpstan/phpstan": "^0.12.37",
-#        "phpmyadmin/coding-standard": "^2.1.1",
-#        "phpstan/phpstan-phpunit": "^0.12.6",
-#        "phpunit/phpunit": "^7.4 || ^8 || ^9"
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
-%global phpunit %{_bindir}/phpunit9
-BuildRequires:  %{phpunit}
-%else
-%global phpunit %{_bindir}/phpunit8
-BuildRequires:  %{phpunit}
-%endif
+#        "phpmyadmin/coding-standard": "^3.0.0",
+#        "phpstan/phpstan": "^1.4.10",
+#        "phpstan/phpstan-phpunit": "^1.0",
+#        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6 || ^10.3"
+%global phpunit %{_bindir}/phpunit10
+BuildRequires:  phpunit10 >= 10.3
 %endif
 # For autoloader
 BuildRequires:  php-composer(fedora/autoloader)
@@ -105,10 +100,10 @@ require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" "php72 %{_bindir}/phpunit8" php73 "php74" php80; do
+for cmd in "php %{phpunit}" "php80 %{_bindir}/phpunit9" php81 php82 php83; do
   if which $cmd; then
     set $cmd
-    $1 ${2:-%{_bindir}/phpunit9} --no-coverage --verbose || ret=1
+    $1 ${2:-%{_bindir}/phpunit10} --no-coverage || ret=1
   fi
 done
 exit $ret
@@ -127,6 +122,9 @@ exit $ret
 
 
 %changelog
+* Tue Sep 12 2023 Remi Collet <remi@remirepo.net> - 3.0.2-1
+- update to 3.0.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.6.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 7
+%global baserelease 8
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -128,6 +128,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Tue Sep 12 2023 William Cohen <wcohen@redhat.com> - 5.6.0-8
+- Rebuild for capnproto 1.0.1
+
 * Fri Sep 08 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.6.0-7
 - Rebuild for capnproto 1.0.1
 

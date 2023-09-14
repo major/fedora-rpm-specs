@@ -134,6 +134,7 @@ sed -i 's/argcomplete>=3.1.1/argcomplete>=2.0.0/' src/azure-cli-core/setup.py
 sed -i 's/^argcomplete>=.*$/argcomplete>=2.0.0/' src/azure-cli/requirements.py3.Linux.txt
 
 # Allow older versions for EPEL 9.
+%if %{defined el9}
 sed -i \
     -e 's/^argcomplete>=.*$/argcomplete>=1.12.0/' \
     -e 's/^cffi>=.*$/cffi>=1.12.0/' \
@@ -149,6 +150,14 @@ sed -i \
     -e 's/^urllib3>=.*$/urllib3>=1.26.5/' \
     -e 's/^websocket-client>=.*$/websocket-client>=1.2.3/' \
     src/azure-cli/requirements.py3.Linux.txt
+sed -i \
+    -e 's/websocket-client>=1.3.1/websocket-client>=1.2.3/' \
+    src/azure-cli/setup.py
+sed -i \
+    -e 's/argcomplete>=3.1.1/argcomplete/' \
+    -e 's/psutil>=5.9/psutil/' \
+    src/azure-cli-core/setup.py
+%endif
 
 
 %generate_buildrequires

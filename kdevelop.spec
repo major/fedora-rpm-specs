@@ -3,7 +3,7 @@ Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
 Version:        23.08.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-only
 URL:            http://www.kdevelop.org/
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/kdevelop-%{version}.tar.xz
@@ -31,6 +31,7 @@ BuildRequires:  libksysguard-devel
 BuildRequires:  grantlee-qt5-devel
 
 %{?grantlee5_requires}
+BuildRequires:  astyle-devel
 BuildRequires:  libkomparediff2-devel
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  extra-cmake-modules
@@ -221,6 +222,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Tue Sep 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 9:23.08.0-2
+- Add astyle-devel dependency
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 9:23.08.0-1
 - 23.08.0
 

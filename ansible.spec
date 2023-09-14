@@ -32,7 +32,7 @@
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        8.3.0
+Version:        8.4.0
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 
@@ -168,6 +168,9 @@ chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstac
 
 
 %changelog
+* Tue Sep 12 2023 Maxwell G <maxwell@gtmx.me> - 8.4.0-1
+- Update to 8.4.0.
+
 * Thu Aug 17 2023 Maxwell G <maxwell@gtmx.me> - 8.3.0-1
 - Update to 8.3.0.
 

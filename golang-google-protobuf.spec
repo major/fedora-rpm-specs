@@ -4,9 +4,9 @@
 # https://github.com/protocolbuffers/protobuf-go
 %global goipath         google.golang.org/protobuf
 %global forgeurl        https://github.com/protocolbuffers/protobuf-go
-Version:                1.28.1
+Version:                1.31.0
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
 Go support for Google's protocol buffers.}

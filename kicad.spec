@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        7.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -19,7 +19,6 @@ Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
 BuildRequires:  boost-devel
-BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -149,12 +148,6 @@ popd
 # KiCad application
 %cmake_install
 
-# Binaries must be executable to be detected by find-debuginfo.sh
-chmod +x %{buildroot}%{python3_sitearch}/_pcbnew.so
-
-# Binaries are not allowed to contain rpaths
-chrpath --delete %{buildroot}%{python3_sitearch}/_pcbnew.so
-
 # Install desktop
 for desktopfile in %{buildroot}%{_datadir}/applications/*.desktop ; do
   desktop-file-install \
@@ -226,6 +219,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Tue Sep 12 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.7-3
+- No longer need rpath fixups
+
 * Mon Aug 14 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.7-2
 - Need lsb for F37 and below
 

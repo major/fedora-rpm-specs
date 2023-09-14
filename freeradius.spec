@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -27,6 +27,7 @@ Patch3: freeradius-bootstrap-create-only.patch
 Patch4: freeradius-no-buildtime-cert-gen.patch
 Patch5: freeradius-bootstrap-make-permissions.patch
 Patch6: freeradius-ldap-infinite-timeout-on-starttls.patch
+Patch7: freeradius-ease-openssl-version-check.patch
 
 %global docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
 
@@ -209,6 +210,7 @@ This plugin provides the REST support for the FreeRADIUS server project.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 %build
 # Force compile/link options, extra security for network facing daemon
@@ -892,6 +894,10 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Tue Sep 12 2023 Antonio Torres <antorres@redhat.com> - 3.2.2-5
+- Ease OpenSSL version check requirement
+  Resolves #2238511
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
