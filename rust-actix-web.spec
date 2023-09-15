@@ -6,13 +6,16 @@
 %global crate actix-web
 
 Name:           rust-actix-web
-Version:        4.3.1
+Version:        4.4.0
 Release:        %autorelease
 Summary:        Powerful, pragmatic, and extremely fast web framework for Rust
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/actix-web
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused support for rustls
+Patch:          actix-web-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -173,6 +176,18 @@ This package contains library source intended for building other packages which
 use the "experimental-io-uring" feature of the "%{crate}" crate.
 
 %files       -n %{name}+experimental-io-uring-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+http2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+http2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "http2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+http2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+macros-devel

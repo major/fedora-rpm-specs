@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.2.1
-Release: 2%{?dist}
+Version: 8.3.0
+Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -410,6 +410,10 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Sep 13 2023 Jan Macku <jamacku@redhat.com> - 8.3.0-1
+- new upstream release, which fixes the following vulnerabilities
+    CVE-2023-38039 - HTTP headers eat all memory
+
 * Wed Aug 02 2023 Jan Macku <jamacku@redhat.com> - 8.2.1-2
 - enable websockets (#2224651)
 

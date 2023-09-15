@@ -1,6 +1,6 @@
 Name:          whichfont
-Version:       1.0.7
-Release:       2%{?dist}
+Version:       1.0.8
+Release:       1%{?dist}
 Summary:       Querying Fontconfig
 
 License:       GPL-3.0-or-later
@@ -34,6 +34,11 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Wed Sep 13 2023 Sudip Shil <sshil@redhat.com> - 1.0.8-1
+- Handling non-printable charcaters
+- Print nicer names for all non-printable characters
+- code rendering
+
 * Mon Sep 04 2023 Sudip Shil <sshil@redhat.com> - 1.0.7-2
 - bug solved: printing wrong unicode for multiple characters
 

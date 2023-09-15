@@ -1,4 +1,6 @@
-%bcond_without metis
+%bcond mpich %{undefined flatpak}
+%bcond openmpi %{undefined flatpak}
+%bcond metis 1
 
 # This flag prevents internal links
 %undefine _ld_as_needed
@@ -58,6 +60,7 @@ Contains documentations and example for scotch and ptscotch
 
 ###############################################################################
 
+%if %{with mpich}
 %package -n ptscotch-mpich
 Summary:       PT-Scotch libraries compiled against mpich
 BuildRequires: mpich-devel
@@ -86,9 +89,11 @@ Requires:      pt%{name}-mpich-devel%{?_isa} = %{version}-%{release}
 This header is a drop-in replacement for the original parmetis.h header
 to build against the scotch.
 %endif
+%endif
 
 ###############################################################################
 
+%if %{with openmpi}
 %package -n ptscotch-openmpi
 Summary:       PT-Scotch libraries compiled against openmpi
 BuildRequires: openmpi-devel
@@ -116,6 +121,7 @@ Requires:      pt%{name}-openmpi-devel%{?_isa} = %{version}-%{release}
 %description -n ptscotch-openmpi-devel-parmetis
 This header is a drop-in replacement for the original parmetis.h header
 to build against the scotch.
+%endif
 %endif
 
 
@@ -149,6 +155,7 @@ done
     -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/scotch \
 %cmake_build
 
+%if %{with mpich}
 %{_mpich_load}
 %define _vpath_builddir %{_target_platform}-mpich
 %cmake -DBUILD_PTSCOTCH=ON \
@@ -166,7 +173,9 @@ done
     -DCMAKE_INSTALL_INCLUDEDIR=$MPI_INCLUDE/scotch
 %cmake_build
 %{_mpich_unload}
+%endif
 
+%if %{with openmpi}
 %{_openmpi_load}
 %define _vpath_builddir %{_target_platform}-openmpi
 %cmake -DBUILD_PTSCOTCH=ON \
@@ -184,6 +193,7 @@ done
     -DCMAKE_INSTALL_INCLUDEDIR=$MPI_INCLUDE/scotch
 %cmake_build
 %{_openmpi_unload}
+%endif
 
 
 %install
@@ -202,6 +212,7 @@ ln -sf libesmumps.so.7.0.3 %{buildroot}%{_libdir}/libesmumps.so
 ln -sf libesmumps.so.7.0.3 %{buildroot}%{_libdir}/libptesmumps.so
 
 ##############
+%if %{with mpich}
 %{_mpich_load}
 %define _vpath_builddir %{_target_platform}-mpich
 %cmake_install
@@ -221,9 +232,11 @@ mv %{buildroot}$MPI_INCLUDE/scotch/metis.h %{buildroot}$MPI_INCLUDE/scotch/scotc
 mv %{buildroot}$MPI_INCLUDE/scotch/metisf.h %{buildroot}$MPI_INCLUDE/scotch/scotchmetisf.h
 %endif
 %{_mpich_unload}
+%endif
 ################
 
 ################
+%if %{with openmpi}
 %{_openmpi_load}
 %define _vpath_builddir %{_target_platform}-openmpi
 %cmake_install
@@ -243,6 +256,7 @@ mv %{buildroot}$MPI_INCLUDE/scotch/metis.h %{buildroot}$MPI_INCLUDE/scotch/scotc
 mv %{buildroot}$MPI_INCLUDE/scotch/metisf.h %{buildroot}$MPI_INCLUDE/scotch/scotchmetisf.h
 %endif
 %{_openmpi_unload}
+%endif
 ##################
 
 # Don't install executables
@@ -254,15 +268,19 @@ rm -rf %{buildroot}%{_prefix}/man/*
 %define _vpath_builddir %{_target_platform}
 %ctest || :
 
+%if %{with mpich}
 %{_mpich_load}
 %define _vpath_builddir %{_target_platform}-mpich
 %ctest || :
 %{_mpich_unload}
+%endif
 
+%if %{with openmpi}
 %{_openmpi_load}
 %define _vpath_builddir %{_target_platform}-openmpi
 %ctest || :
 %{_openmpi_unload}
+%endif
 
 
 %files
@@ -306,6 +324,7 @@ rm -rf %{buildroot}%{_prefix}/man/*
 %doc doc/*.pdf
 %doc doc/scotch_example.f
 
+%if %{with mpich}
 %files -n ptscotch-mpich
 %license doc/CeCILL-C_V1-en.txt
 %{_libdir}/mpich/lib/libptscotch.so.7*
@@ -356,8 +375,10 @@ rm -rf %{buildroot}%{_prefix}/man/*
 %{_libdir}/mpich/lib/cmake/scotch/ptscotchparmetisTargets*
 %{_libdir}/mpich/lib/cmake/scotch/scotchmetisTargets*
 %endif
+%endif
 
 
+%if %{with openmpi}
 %files -n ptscotch-openmpi
 %license doc/CeCILL-C_V1-en.txt
 %{_libdir}/openmpi/lib/libptscotch.so.7*
@@ -407,6 +428,7 @@ rm -rf %{buildroot}%{_prefix}/man/*
 %{_libdir}/openmpi/lib/libscotchmetis.so
 %{_libdir}/openmpi/lib/cmake/scotch/ptscotchparmetisTargets*
 %{_libdir}/openmpi/lib/cmake/scotch/scotchmetisTargets*
+%endif
 %endif
 
 

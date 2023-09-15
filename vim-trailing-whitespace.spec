@@ -1,10 +1,10 @@
-%global commit  6b7cdecff252474fe560d32c6f05641f3c5952c7
+%global commit  5540b3faa2288b226a8d9a4e8244558b12c598aa
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date    20191209
+%global date    20230228
 
 Name:           vim-trailing-whitespace
 Version:        1.0
-Release:        8.%{date}git%{shortcommit}%{?dist}
+Release:        9.%{date}git%{shortcommit}.%autorelease
 Summary:        Highlights trailing whitespace in red and provides :FixWhitespace to fix it
 
 License:        CC-BY-SA
@@ -47,29 +47,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-8.20191209git6b7cdec
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-7.20191209git6b7cdec
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-6.20191209git6b7cdec
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-5.20191209git6b7cdec
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-4.20191209git6b7cdec
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3.20191209git6b7cdec
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2.20191209git6b7cdec
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun 19 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.0-1.20191209git6b7cdec
-- Update to latest git snapshot
-
-* Thu Oct 03 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.0-1.20170923git4c59654
-- Initial package
+%autochangelog

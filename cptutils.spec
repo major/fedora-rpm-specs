@@ -1,8 +1,8 @@
 #TODO: gradient-convert is a Python script
 
 Name:      cptutils
-Version:   1.74
-Release:   5%{?dist}
+Version:   1.77
+Release:   1%{?dist}
 Summary:   Utilities to manipulate and translate color gradients
 License:   GPLv2+
 URL:       http://soliton.vm.bytemark.co.uk/pub/jjg/en/code/cptutils.html
@@ -42,12 +42,16 @@ make install DESTDIR=%{buildroot}
 
 
 %files 
-%doc CHANGELOG COPYING README.md
+%doc CHANGELOG.md COPYING README.md
 %{_bindir}/*
 %{_mandir}/man1/*.1*
 
 
 %changelog
+* Wed Sep 13 2023 Sandipan Roy <bytehackr@fedoraproject.org> - 1.77-1
+- rhbz#2169209 
+- New upstream release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.74-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

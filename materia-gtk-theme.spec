@@ -4,7 +4,7 @@
 
 Name:           materia-gtk-theme
 Version:        0.0.%{vergit}
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        Material Design theme for GNOME/GTK based desktop environments
 BuildArch:      noarch
 
@@ -138,47 +138,4 @@ end
 
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20210322-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20210322-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20210322-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20210322-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20210322-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Mar 31 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 0.0.20210322-2
-- build: Workaround for RH#1944886
-
-* Mon Mar 22 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 0.0.20210322-1
-- build(update): 20210322
-
-* Sun Mar 07 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 0.0.20200916-3
-- Fix FTBFS 34
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20200916-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Sep 16 21:53:06 EEST 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.0.20200916-1
-- Update to 20200916
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20200320-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Mar 27 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.0.20200320-1
-- Update to 20200320
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20191017-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Jan 05 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.0.20191017-1
-- Update to 20191017
-
-* Tue Sep 24 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.0.20190912-1
-- Initial package
+%autochangelog

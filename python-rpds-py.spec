@@ -34,6 +34,13 @@ Summary:        %{summary}
 # Fix line terminations
 dos2unix README* LICENSE* *.pyi
 
+# Remove an unused test dependency on hypothesis
+# Namely to avoid pulling it in RHEL,
+# but also to avoid an unnecessary build dependency in general
+# Proposed upstream as https://github.com/crate-py/rpds/pull/25
+# The patch does not apply cleanly, we sed it out instead
+sed -i '/hypothesis/d' tests/requirements.in
+
 %cargo_prep
 
 

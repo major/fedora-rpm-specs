@@ -1,10 +1,10 @@
-%global commit  d12c9b468ab67e8ea57b1f31cb43c43118b15e34
+%global commit  71f239af28b7214eebb60d4ea5bd040291fb7e33
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date    20200509
+%global date    20221001
 
 Name:           vim-devicons
 Version:        0.11.0
-Release:        10.%{date}git%{shortcommit}%{?dist}
+Release:        0.%{date}git%{shortcommit}.%autorelease
 Summary:        Adds file type icons to Vim plugins
 
 License:        MIT
@@ -63,35 +63,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-10.20200509gitd12c9b4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-9.20200509gitd12c9b4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-8.20200509gitd12c9b4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-7.20200509gitd12c9b4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-6.20200509gitd12c9b4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-5.20200509gitd12c9b4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-4.20200509gitd12c9b4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat May 23 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.11.0-3.20200509gitd12c9b4
-- Update to latest git snapshot
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2.20191110gite3e6aa1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Dec 07 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.11.0-1.20191110gite3e6aa1
-- Update to latest git snapshot
-
-* Thu Oct 03 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.11.0-1.20190923gitfae1550
-- Initial package
+%autochangelog

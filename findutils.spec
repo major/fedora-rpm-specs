@@ -1,7 +1,7 @@
 Summary: The GNU versions of find utilities (find and xargs)
 Name: findutils
 Version: 4.9.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 1
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/findutils/
@@ -21,6 +21,9 @@ Patch4:  findutils-4.6.0-test-lock.patch
 
 # implement the -noleaf option of find (#1252549)
 Patch5:  findutils-4.6.0-leaf-opt.patch
+
+# fix find not obeying -ignore_readdir_race in symlink_loop (#2232278)
+Patch6:  findutils-4.9.0-ignore_readdir_race-symlink_loop.patch
 
 Conflicts: filesystem < 3
 Provides: /bin/find
@@ -111,6 +114,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_infodir}/find-maint.info.*
 
 %changelog
+* Tue Sep 12 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1:4.9.0-6
+- fix find not obeying -ignore_readdir_race in symlink_loop (rhbz#2232278)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.9.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

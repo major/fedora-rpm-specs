@@ -1,4 +1,3 @@
-
 # No python3 on el6
 %if 0%{?el6}
 %global with_python3 0
@@ -6,7 +5,7 @@
 
 Name:           python-uinput
 Version:        0.11.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Pythonic API to the Linux uinput kernel module
 
 License:        GPLv3
@@ -22,6 +21,7 @@ BuildRequires:  libudev-devel
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc
+BuildRequires:	python-setuptools
 
 %global _description\
 Python-uinput is Python interface to the Linux uinput kernel module\
@@ -66,6 +66,11 @@ chmod a-x examples/*
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.11.2-8
+- rhbz#2154970 
+- rhbz#2226360 
+- rhbz#2220544
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

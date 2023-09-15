@@ -6,7 +6,7 @@
 %global crate actix-web-codegen
 
 Name:           rust-actix-web-codegen
-Version:        4.2.0
+Version:        4.2.2
 Release:        %autorelease
 Summary:        Routing and runtime macros for Actix Web
 

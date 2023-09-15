@@ -1,12 +1,18 @@
 Name:           python-straight-plugin
 Version:        1.5.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Python plugin loader
 
 License:        BSD
 URL:            https://github.com/ironfroggy/straight.plugin/
 
 Source0:        https://files.pythonhosted.org/packages/48/89/34ae6a87784d0b607af61c84a52c313c598f1d86ce5c1e9eb6da038fee5f/straight.plugin-%{version}.tar.gz
+
+# Remove an unused import of imp.find_module
+# The imp module was removed in Python 3.12
+# Fixes https://bugzilla.redhat.com/2238632
+# Rebased from https://github.com/ironfroggy/straight.plugin/pull/30
+Patch:          Remove-the-import-of-imp.find_module.patch
 
 BuildArch:      noarch
 
@@ -47,7 +53,7 @@ themselves are modules in a namespace package where the namespace identifies
 the plugins in it for some particular purpose or intent.
 
 %prep
-%setup -q -n straight.plugin-%{version}
+%autosetup -p1 -n straight.plugin-%{version}
 2to3 --write --nobackups .
 
 %build
@@ -64,6 +70,10 @@ the plugins in it for some particular purpose or intent.
 %{python3_sitelib}/straight*
 
 %changelog
+* Tue Sep 12 2023 Miro Hrončok <mhroncok@redhat.com> - 1.5.0-23
+- Fix a ModuleNotFoundError when this package was imported on Python 3.12+
+- Fixes: rhbz#2238632
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

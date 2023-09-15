@@ -2,7 +2,7 @@
 
 %global shortname vbam
 #Upstream git tag/commit:
-%global upstreamtag 2.1.6
+%global upstreamtag 2.1.7
 #Sanitized RC name (for fedora)
 #global rctagfedora git78cd223
 #RC Version that appears in app
@@ -107,6 +107,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/%{shortname}
 
 %changelog
+* Wed Sep 13 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 2.1.7-1
+- Update to 2.1.7
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

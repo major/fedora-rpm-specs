@@ -2,7 +2,7 @@
 
 Name:    libkscreen-qt5
 Summary: KDE display configuration library
-Version: 5.27.7
+Version: 5.27.8
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -37,6 +37,8 @@ BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  qt5-qtwayland-devel
 BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  wayland-devel
+
+BuildRequires:  cmake(Qt5LinguistTools)
 
 Requires:       kf5-filesystem
 
@@ -105,6 +107,9 @@ developing applications that use %{name}.
 %{_kf5_archdatadir}/mkspecs/modules/qt_KScreen.pri
 
 %changelog
+* Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
+- 5.27.8
+
 * Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
 - 5.27.7
 

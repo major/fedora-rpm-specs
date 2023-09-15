@@ -1,5 +1,5 @@
-%bcond_without openmpi
-%bcond_without mpich
+%bcond openmpi %{undefined flatpak}
+%bcond mpich %{undefined flatpak}
 
 Name:           cgnslib
 Version:        4.4.0

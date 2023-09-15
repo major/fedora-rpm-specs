@@ -6,13 +6,16 @@
 %global crate awc
 
 Name:           rust-awc
-Version:        3.1.1
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Async HTTP and WebSocket client library
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/awc
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused support for rustls
+Patch:          awc-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

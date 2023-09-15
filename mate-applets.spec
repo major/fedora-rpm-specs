@@ -15,7 +15,7 @@
 Name:           mate-applets
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %else
 Release:        0.7%{?git_rel}%{?dist}
 %endif
@@ -137,6 +137,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Wed Sep 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-5
+- rebuild for soname bump in kernel-tools
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

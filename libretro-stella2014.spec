@@ -1,6 +1,6 @@
-%global commit      1351a4fe2ca6b1f3a66c7db0df2ec268ab002d41
+%global commit      8ab051edd4816f33a5631d230d54059eeed52c5f
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date        20220409
+%global date        20230220
 
 %global corename    stella2014
 

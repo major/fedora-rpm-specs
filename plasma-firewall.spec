@@ -8,7 +8,7 @@
 %endif
 
 Name:    plasma-firewall
-Version: 5.27.7
+Version: 5.27.8
 Release: 1%{?dist}
 Summary: Control Panel for your system firewall
 
@@ -128,6 +128,9 @@ rm -rfv %{buildroot}%{_kf5_libexecdir}/kauth/kde_ufw_plugin_helper
 
 
 %changelog
+* Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
+- 5.27.8
+
 * Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
 - 5.27.7
 

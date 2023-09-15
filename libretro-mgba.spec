@@ -1,5 +1,5 @@
-%global commit  db7ace387cdc87d9f2bd4f9f5211c26ce0b07867
-%global date    20220915
+%global commit  314bf7b676f5b820f396209eb0c7d6fbe8103486
+%global date    20230528
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename mgba

@@ -1,8 +1,8 @@
 %global kf5_version 5.82.0
 
 Name:    powerdevil
-Version: 5.27.7
-Release: 5%{?dist}
+Version: 5.27.8
+Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: GPLv2+
@@ -19,24 +19,14 @@ URL:     https://invent.kde.org/plasma/%{name}
 %endif
 Source0: http://download.kde.org/%{stable}/plasma/%{plasma_version}/%{name}-%{version}.tar.xz
 
-## upstream patches
-# https://bugzilla.redhat.com/show_bug.cgi?id=2232711
-# https://bugs.kde.org/show_bug.cgi?id=473835
-# https://invent.kde.org/plasma/powerdevil/-/merge_requests/230
-# Disable auto-suspend in VMs to avoid hangs
-# Rebased on 5.27.7
-Patch: 0001-profiledefaults-don-t-automatically-suspend-by-defau.patch
-
-## upstreamable patches
-
 # filter plugin provides
 %global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
 
-# plasma deps
+# Plasma Dependencies
 BuildRequires:  plasma-workspace-devel >= %{plasma_version}
 Requires: libkworkspace5%{?_isa} >= %{plasma_version}
 
-# kf5
+# KDE Frameworks 5
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-bluez-qt-devel
 BuildRequires:  kf5-kactivities-devel
@@ -52,19 +42,19 @@ BuildRequires:  kf5-kirigami2-devel
 BuildRequires:  kf5-knotifyconfig-devel
 BuildRequires:  kf5-kwayland-devel
 BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-networkmanager-qt-devel >= %{kf5_version}
+BuildRequires:  kf5-networkmanager-qt-devel
 BuildRequires:  kf5-plasma-devel
 BuildRequires:  kf5-rpm-macros
-BuildRequires:  systemd-rpm-macros
 BuildRequires:  kf5-solid-devel
+
+BuildRequires:  libXrandr-devel
 BuildRequires:  libcap-devel
 BuildRequires:  libkscreen-qt5-devel
-
 BuildRequires:  libxcb-devel
-BuildRequires:  libXrandr-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  systemd-devel
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  xcb-util-image-devel
 BuildRequires:  xcb-util-keysyms-devel
 BuildRequires:  xcb-util-wm-devel
@@ -140,6 +130,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf5_qtplugindir}/powerdevil/action/powerdevil_*.so
 
 %changelog
+* Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
+- 5.27.8
+
 * Mon Sep 04 2023 Adam Williamson <awilliam@redhat.com> - 5.27.7-5
 - Update patch again to check systemd interface is there
 

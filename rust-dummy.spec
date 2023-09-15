@@ -5,7 +5,7 @@
 %global crate dummy
 
 Name:           rust-dummy
-Version:        0.4.1
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Macros implementation of #[derive(Dummy)]
 

@@ -1,5 +1,5 @@
-%global commit  517bb2d02909271836604c01c8f09a79ad605297
-%global date    20220414
+%global commit  0559d3397f689ea453b986311aeac8dbd33afb0b
+%global date    20230820
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename handy
@@ -7,7 +7,7 @@
 Name:           libretro-%{corename}
 Version:        0
 Release:        0.10.%{date}git%{shortcommit}.%autorelease
-Summary:        Atari Lynx emulator Handy for libretro
+Summary:        K. Wilkins' Atari Lynx emulator Handy (http://handy.sourceforge.net/) for libretro
 
 License:        zlib
 URL:            https://github.com/libretro/libretro-handy
@@ -21,7 +21,7 @@ Supplements:    gnome-games
 Supplements:    retroarch
 
 %description
-K. Wilkins' Atari Lynx emulator Handy for libretro.
+%{summary}.
 
 
 %prep

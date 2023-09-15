@@ -4,7 +4,7 @@
 
 Name:           vim-pathogen
 Version:        2.4
-Release:        %autorelease
+Release:        12.%{date}git%{shortcommit}.%autorelease
 Summary:        Manage your runtimepath
 BuildArch:      noarch
 

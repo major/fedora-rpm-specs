@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate ouroboros
+%global crate libcryptsetup-rs
 
-Name:           rust-ouroboros0.15
-Version:        0.15.6
-Release:        %autorelease
-Summary:        Easy, safe self-referential struct generation
+Name:           rust-libcryptsetup-rs0.8
+Version:        0.8.0
+Release:        1%{?dist}
+Summary:        High level Rust bindings for libcryptsetup
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/ouroboros
+License:        MPL-2.0
+URL:            https://crates.io/crates/libcryptsetup-rs
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Easy, safe self-referential struct generation.}
+High level Rust bindings for libcryptsetup.}
 
 %description %{_description}
 
@@ -30,8 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE_APACHE
-%license %{crate_instdir}/LICENSE_MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGES.txt
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,16 +47,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+mutex-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+mutex-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "mutex" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+mutex-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -78,4 +78,5 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Wed Sep 13 2023 Bryan Gurney <bgurney@redhat.com> - 0.8.0-1
+- Initial package

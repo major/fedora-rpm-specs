@@ -5,7 +5,7 @@
 %global crate arg_enum_proc_macro
 
 Name:           rust-arg_enum_proc_macro
-Version:        0.3.2
+Version:        0.3.4
 Release:        %autorelease
 Summary:        Procedural macro compatible with clap arg_enum
 

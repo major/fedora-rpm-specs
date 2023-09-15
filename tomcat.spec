@@ -31,7 +31,7 @@
 %global jspspec 2.3
 %global major_version 9
 %global minor_version 0
-%global micro_version 78
+%global micro_version 80
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 4.0
 %global elspec 3.0
@@ -56,7 +56,7 @@
 Name:          tomcat
 Epoch:         1
 Version:       %{major_version}.%{minor_version}.%{micro_version}
-Release:       4%{?dist}
+Release:       1%{?dist}
 Summary:       Apache Servlet/JSP Engine, RI for Servlet %{servletspec}/JSP %{jspspec} API
 
 License:       ASL 2.0
@@ -94,7 +94,7 @@ BuildRequires: aqute-bnd
 BuildRequires: aqute-bndlib
 BuildRequires: systemd
 
-Requires:      java-headless >= 1:1.8.0
+Requires:      (java-headless >= 1:1.8 or java-1.8.0-headless or java-11-headless or java-17-headless or java >= 1:1.8)
 Requires:      javapackages-tools
 Requires:      %{name}-lib = %{epoch}:%{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -550,6 +550,10 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Wed Sep 13 2023 Hui Wang <huwang@redhat.com> - 1:9.0.80-1
+- Update to 9.0.80
+- Fix java version
+
 * Fri Aug 04 2023 Hui Wang <huwang@redhat.com> - 1:9.0.78-4
 - Fix files permission
 

@@ -9,7 +9,10 @@ Summary:        Interactive data selection cursors for Matplotlib
 License:        MIT
 URL:            https://github.com/anntzer/mplcursors
 Source0:        %pypi_source
+# Fix compatibility with Python 3.12.
 Patch:          https://github.com/anntzer/mplcursors/pull/63.patch
+# Fix tests with Matplotlib 3.8.0.
+Patch:          https://github.com/anntzer/mplcursors/commit/689b4adefaf0302a9338bb28bd3c3f0ef1c95ce7.patch
 
 BuildArch:      noarch
 

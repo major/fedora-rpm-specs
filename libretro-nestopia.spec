@@ -1,5 +1,5 @@
-%global commit  a9ee6ca84f04990e209880fe47144e62b14253db
-%global date    20220823
+%global commit  3dcbec4682e079312d6943e1357487645ec608c7
+%global date    20230528
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename nestopia

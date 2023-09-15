@@ -11,7 +11,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    241ed4dd0db1c096984e62d414c4e1ac8d5dbff4
+%global gh_commit    b8d59476f19115c9774b3b447f78131781c6c32b
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    10
 %global ver_minor    3
 
-%global upstream_version 10.3.3
+%global upstream_version 10.3.4
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -83,7 +83,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "myclabs/deep-copy": "^1.10.1",
 #        "phar-io/manifest": "^2.0.3",
 #        "phar-io/version": "^3.0.2",
-#        "phpunit/php-code-coverage": "^10.1.1",
+#        "phpunit/php-code-coverage": "^10.1.5",
 #        "phpunit/php-file-iterator": "^4.0",
 #        "phpunit/php-invoker": "^4.0",
 #        "phpunit/php-text-template": "^3.0",
@@ -110,7 +110,7 @@ Requires:       php-xmlwriter
 Requires:       (php-composer(myclabs/deep-copy) >= 1.10.1            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.3              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.0.2               with php-composer(phar-io/version) < 4)
-Requires:       (php-composer(phpunit/php-code-coverage) >= 10.1.1    with php-composer(phpunit/php-code-coverage) < 11)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 10.1.5    with php-composer(phpunit/php-code-coverage) < 11)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 4.0       with php-composer(phpunit/php-file-iterator) < 5)
 Requires:       (php-composer(phpunit/php-invoker) >= 4.0             with php-composer(phpunit/php-invoker) < 5)
 Requires:       (php-composer(phpunit/php-text-template) >= 3.0       with php-composer(phpunit/php-text-template) < 4)
@@ -249,6 +249,10 @@ exit $ret
 
 
 %changelog
+* Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 10.3.4-1
+- update to 10.3.4
+- raise dependency on phpunit/php-code-coverage 10.1.5
+
 * Tue Sep  5 2023 Remi Collet <remi@remirepo.net> - 10.3.3-1
 - update to 10.3.3
 

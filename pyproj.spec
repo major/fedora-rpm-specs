@@ -4,12 +4,16 @@
 
 Name:           pyproj
 Version:        3.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
 URL:            https://github.com/jswhit/%{name}
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
+
+# Selected backports for proj-9.3 and cython-3 comptability
+# From https://github.com/pyproj4/pyproj/compare/32565ddf266658aebc9787b7534fdbdd06762839..76b77c8586efa28565aaab2365fa459f75596043
+Patch0:         proj93-cython3.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -190,6 +194,9 @@ py.test-3 -m "not network and not grid"
 
 
 %changelog
+* Wed Sep 13 2023 Sandro Mani <manisandro@gmail.com> - 3.6.0-3
+- Rebuild (proj)
+
 * Wed Jul 19 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.6.0-2
 - Rebuild for Python 3.12b4
 

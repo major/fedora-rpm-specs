@@ -5,7 +5,7 @@
 %global crate gix-path
 
 Name:           rust-gix-path
-Version:        0.8.4
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Utility crate for handling paths in gix
 
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A WIP crate of the gitoxide project dealing paths and their conversions.}
+A crate of the gitoxide project dealing paths and their conversions.}
 
 %description %{_description}
 

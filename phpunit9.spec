@@ -9,7 +9,7 @@
 #
 
 
-%global gh_commit    810500e92855eba8a7a5319ae913be2da6f957b0
+%global gh_commit    a122c2ebd469b751d774aa0f613dc0d67697653f
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -23,7 +23,7 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.11
+%global upstream_version 9.6.12
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -83,7 +83,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "myclabs/deep-copy": "^1.10.1",
 #        "phar-io/manifest": "^2.0.3",
 #        "phar-io/version": "^3.0.2",
-#        "phpunit/php-code-coverage": "^9.2.13",
+#        "phpunit/php-code-coverage": "^9.2.28",
 #        "phpunit/php-file-iterator": "^3.0.5",
 #        "phpunit/php-invoker": "^3.1.1",
 #        "phpunit/php-text-template": "^2.0.3",
@@ -112,7 +112,7 @@ Requires:       (php-composer(myclabs/deep-copy) >= 1.10.1            with php-c
 Requires:       (php-composer(phar-io/manifest) >= 2.0.3              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.0.2               with php-composer(phar-io/version) < 4)
 Requires:       (php-composer(phpspec/prophecy) >= 1.12.1             with php-composer(phpspec/prophecy) <  2)
-Requires:       (php-composer(phpunit/php-code-coverage) >= 9.2.13    with php-composer(phpunit/php-code-coverage) <  10)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 9.2.28    with php-composer(phpunit/php-code-coverage) <  10)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 3.0.4     with php-composer(phpunit/php-file-iterator) <  4)
 Requires:       (php-composer(phpunit/php-invoker) >= 3.1             with php-composer(phpunit/php-invoker) <  4)
 Requires:       (php-composer(phpunit/php-text-template) >= 2.0.2     with php-composer(phpunit/php-text-template) <  3)
@@ -252,6 +252,10 @@ exit $ret
 
 
 %changelog
+* Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 9.6.12-1
+- update to 9.6.12
+- raise dependency on phpunit/php-code-coverage 9.2.28
+
 * Sun Aug 20 2023 Remi Collet <remi@remirepo.net> - 9.6.11-1
 - update to 9.6.11
 

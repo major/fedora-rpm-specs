@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:    plasma-sdk
-Version: 5.27.7.1
+Version: 5.27.8
 Release: 1%{?dist}
 Summary: Development tools for Plasma 5
 
@@ -144,6 +144,9 @@ Plasma SDK contains the following tools for Plasma-related development:
 %endif
 
 %changelog
+* Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
+- 5.27.8
+
 * Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7.1-1
 - 5.27.7.1
 

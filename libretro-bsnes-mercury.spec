@@ -1,6 +1,6 @@
-%global commit      4a382621da58ae6da850f1bb003ace8b5f67968c
+%global commit      fb9a41fe9bc230a07c4506cad3cbf21d3fa635b4
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date        20190817
+%global date        20220807
 
 %global corename    bsnes-mercury
 
@@ -35,14 +35,15 @@ default.
 %set_build_flags
 %make_build \
     core_installdir=%{_libdir}/libretro \
-    profile=balanced
+    DEBUG=1
 
 
 %install
-%make_install \
-    core_installdir=%{_libdir}/libretro \
-    profile=balanced
-install -Dp -m 0644 %{SOURCE1} %{buildroot}%{_libdir}/libretro/%{corename}_balanced.libretro
+install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_libdir}/libretro/%{corename}_performance.libretro
+sed -i 's!Balanced!performance!' %{buildroot}%{_libdir}/libretro/%{corename}_performance.libretro
+sed -i 's!balanced!performance!' %{buildroot}%{_libdir}/libretro/%{corename}_performance.libretro
+
+install -D -p -m 0755 bsnes_mercury_performance_libretro.so -t %{buildroot}%{_libdir}/libretro
 
 
 %files

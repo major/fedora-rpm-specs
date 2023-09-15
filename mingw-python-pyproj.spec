@@ -11,6 +11,9 @@ BuildArch:      noarch
 License:        MIT
 Url:            https://github.com/jswhit/%{pypi_name}
 Source0:        %{pypi_source %pypi_name}
+# Selected backports for proj-9.3 and cython-3 comptability
+# From https://github.com/pyproj4/pyproj/compare/32565ddf266658aebc9787b7534fdbdd06762839..76b77c8586efa28565aaab2365fa459f75596043
+Patch0:         proj93-cython3.patch
 
 
 BuildRequires:  mingw32-filesystem

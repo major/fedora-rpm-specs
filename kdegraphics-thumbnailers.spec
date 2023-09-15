@@ -57,7 +57,7 @@ BuildRequires: cmake(KF5KDcraw)
 %{_kf5_qtplugindir}/kf5/thumbcreator/gsthumbnail.so
 %{_kf5_qtplugindir}/kf5/thumbcreator/mobithumbnail.so
 %if 0%{?libraw}
-/usr/lib64/qt5/plugins/kf5/thumbcreator/rawthumbnail.so
+%{_kf5_qtplugindir}/kf5/thumbcreator/rawthumbnail.so
 %endif
 
 

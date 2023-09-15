@@ -1,5 +1,5 @@
 Name:		converseen
-Version:	0.10.0.1
+Version:	0.11.0.0
 Release:	%autorelease
 Summary:	A batch image conversion tool written in C++ with Qt5 and Magick++
 License:	GPLv3

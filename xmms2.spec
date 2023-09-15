@@ -17,6 +17,7 @@ Patch11:		xmms2-0.9.3-no-mind-in-a-box.patch
 URL:			http://wiki.xmms2.xmms.se/
 BuildRequires:		git
 BuildRequires:		python3-devel
+BuildRequires:		python3-cython
 BuildRequires:		sqlite-devel
 BuildRequires:		flac-devel
 BuildRequires:		libofa-devel
@@ -55,6 +56,12 @@ BuildRequires:		glib2-devel
 BuildRequires:		readline-devel
 BuildRequires:		ncurses-devel
 BuildRequires:		mac-devel
+BuildRequires:		fluidsynth-devel
+BuildRequires:		opusfile-devel
+BuildRequires:		libmms-devel
+BuildRequires:		libcurl-devel
+BuildRequires:		flex
+BuildRequires:		bison
 # For /usr/share/perl5/ExtUtils/xsubpp
 BuildRequires:		perl-ExtUtils-ParseXS
 BuildRequires:		gcc
@@ -161,11 +168,6 @@ for i in %{buildroot}%{_mandir}/man1/*.1 xmms2-%{version}.ChangeLog; do
 done
 
 install -m0755 %{SOURCE1} %{buildroot}%{_bindir}
-
-# For F-32:
-# Explicitly remove python2 related files. F32 "python27" package
-# contains header files, which makes xmms2 build python2 bindings
-rm -rf %{buildroot}%{python3_sitelib}/xmmsclient/
 
 %ldconfig_scriptlets
 

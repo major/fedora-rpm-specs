@@ -14,7 +14,7 @@
 
 Name:          libwebp
 Version:       1.3.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           http://webmproject.org/
 Summary:       Library and tools for the WebP graphics format
 # Additional IPR is licensed as well. See PATENTS file for details
@@ -29,6 +29,8 @@ Patch1:        libwebp-mingw-libsuffix.patch
 Patch2:        libwebp-cmakedir.patch
 # Kill rpath
 Patch3:        libwebp-rpath.patch
+# CVE-2023-4863
+Patch4:        cve-2023-4863.patch
 
 BuildRequires: cmake
 BuildRequires: freeglut-devel
@@ -285,6 +287,9 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 
 
 %changelog
+* Wed Sep 13 2023 Boudhayan Bhattacharya <bbhtt.zn0i8@slmail.me> - 1.3.1-3
+- Add patch for CVE-2023-4863 ref rhbz#2238543
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

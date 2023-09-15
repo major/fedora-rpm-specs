@@ -1,70 +1,62 @@
-%global upstream_name requests-kerberos
-%global module_name requests_kerberos
-%global commit0 393e49c698904c76ad9f56c6e4dbd2dbc55a7c42
-%global gittag0 v0.12.0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
-Name:           python-%{upstream_name}
-Version:        0.12.0
-Release:        21%{?dist}
+Name:           python-requests-kerberos
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        A Kerberos authentication handler for python-requests
-License:        MIT
+License:        ISC
 URL:            https://github.com/requests/requests-kerberos
 # Upstream considers Github not PyPI to be the authoritative source tarballs:
 # https://github.com/requests/requests-kerberos/pull/78
-Source0:        https://github.com/requests/requests-kerberos/archive/%{commit0}.tar.gz#/%{upstream_name}-%{shortcommit0}.tar.gz
-# Upstream has switched their requirement to the "pykerberos" fork, but for now 
-# we still have the original "kerberos" module in Fedora.
-Patch1:         0001-switch-requirement-from-pykerberos-back-to-kerberos.patch
+Source:         %{url}/archive/v%{version}/requests-kerberos-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
 
-%description
-Requests is an HTTP library, written in Python, for human beings. This library 
-adds optional Kerberos/GSSAPI authentication support and supports mutual 
-authentication.
+%global _description %{expand:
+Requests is an HTTP library, written in Python, for human beings. This library
+adds optional Kerberos/GSSAPI authentication support and supports mutual
+authentication.}
 
-%package -n python3-%{upstream_name}
+%description %_description
+
+
+%package -n python3-requests-kerberos
 Summary:        %{summary}
-Requires:       python3-requests >= 1.1
-Requires:       python3-kerberos
-Requires:       python3-cryptography
-# runtime requirements are needed for tests also
-BuildRequires:  python3-requests >= 1.1
-BuildRequires:  python3-kerberos
-BuildRequires:  python3-cryptography
-%{?python_provide:%python_provide python3-%{upstream_name}}
 
-%description -n python3-%{upstream_name}
-Requests is an HTTP library, written in Python, for human beings. This library 
-adds optional Kerberos/GSSAPI authentication support and supports mutual 
-authentication.
+
+%description -n python3-requests-kerberos %_description
+
 
 %prep
-%setup -q -n %{upstream_name}-%{commit0}
-%patch1 -p1
+%autosetup -n requests-kerberos-%{version}
+# avoid unnecessary coverage dependency
+sed -i '/pytest-cov/d' requirements-test.txt
 
-# https://fedoraproject.org/wiki/Changes/DeprecatePythonMock
-sed -i -E -e 's/^(\s*)from mock import /\1from unittest.mock import /' tests/test_requests_kerberos.py
+
+%generate_buildrequires
+%pyproject_buildrequires requirements-test.txt
+
 
 %build
-%py3_build
+%pyproject_wheel
 
-%check
-py.test-3 tests/
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files requests_kerberos
 
-%files -n python3-%{upstream_name}
-%license LICENSE
+
+%check
+%pytest -v tests
+
+
+%files -n python3-requests-kerberos -f %{pyproject_files}
 %doc README.rst AUTHORS HISTORY.rst
-%{python3_sitelib}/%{module_name}
-%{python3_sitelib}/%{module_name}*.egg-info
+
 
 %changelog
+* Wed Sep 13 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.14.0-1
+- Update to version 0.14.0, resolves rhbz#2018834
+- Convert to pyproject macros
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

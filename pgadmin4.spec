@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        7.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -111,7 +111,7 @@ Requires: python3dist(azure-identity) >= 1.10
 Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-api-python-client) < 3)
 Requires: python3dist(google-auth-oauthlib) >= 0.8
 Requires: python3dist(werkzeug) = 2.2.3
-Requires: (python3dist(keyring) >= 23 with python3dist(keyring) < 24)
+Requires: python3dist(keyring) >= 23
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -263,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Sep 13 2023 Sandro Mani <manisandro@gmail.com> - 7.6-3
+- Relax python-keyring requires
+
 * Sun Aug 27 2023 Sandro Mani <manisandro@gmail.com> - 7.6-2
 - Add pgadmin4_sqlalchemy1.patch
 

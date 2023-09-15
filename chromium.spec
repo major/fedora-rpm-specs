@@ -41,7 +41,7 @@
 %global build_remoting 0
 
 # set nodejs_version
-%global nodejs_version v19.8.1
+%global nodejs_version v20.6.1
 
 # set version for devtoolset and gcc-toolset
 %global dts_version 12
@@ -235,7 +235,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 116.0.5845.187
+Version: 117.0.5938.62
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -257,7 +257,7 @@ Patch5: chromium-77.0.3865.75-no-zlib-mangle.patch
 Patch6: chromium-115-norar.patch
 
 # Try to load widevine from other places
-Patch8: chromium-108-widevine-other-locations.patch
+Patch8: chromium-117-widevine-other-locations.patch
 
 # Tell bootstrap.py to always use the version of Python we specify
 Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
@@ -334,7 +334,7 @@ Patch116: chromium-112-ffmpeg-first_dts.patch
 # revert new-channel-layout-api on f36, old ffmpeg-free
 Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 
-# revert AV1 VA-API video encode due to old libva on el9
+# revert AV1 VAAPI video encode due to old libva on el9
 Patch130: chromium-114-revert-av1enc-el9.patch
 
 # compiler build errors
@@ -342,13 +342,13 @@ Patch300: chromium-116-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
 
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
-Patch302: chromium-115-workaround_clang_bug-structured_binding.patch
+Patch302: chromium-117-workaround_clang_bug-structured_binding.patch
 
 # missing typename
 Patch303: chromium-116-typename.patch
 
 # missing include header files
-Patch304: chromium-116-missing-header-files.patch
+Patch304: chromium-117-missing-header-files.patch
 
 # compiler error with c++20
 Patch306: chromium-116-emplace_back_on_vector-c++20.patch
@@ -358,29 +358,17 @@ Patch306: chromium-116-emplace_back_on_vector-c++20.patch
 # error: fatal error: 'sys/ifunc.h' file not found
 Patch307: chromium-116-arm64-memory_tagging.patch
 
-# upstream, do not restrict new V4L2 decoders to ARM or ChromeOS 
-# error: use of undeclared identifier 'kV4L2FlatStatefulVideoDecoder'
-# error: use of undeclared identifier 'kV4L2FlatStatelessVideoDecoder'
-Patch308: chromium-115-do_not_restrict_new_V4L2_decoders.v4l2.pach
-
-# upstream, include contains.h header for V4L2StatefulVideoDecoder
-# error: no member named 'Contains' in namespace 'base'
-Patch309: chromium-115-include_contains_h_header_for_V4L2StatefulVideoDecoder.patch
-
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
 
 # imp module is removed in python-3.12
-Patch312: chromium-115-python-3.12-deprecated.patch
+Patch312: chromium-117-python-3.12-deprecated.patch
 
-# upstream patches
-# Set toolkit dark preference based on FDO dark preference
-Patch350: chromium-115-linux_ui_darkmode.patch
 # Tweak about:gpu, Add dark mode support
 Patch351: chromium-116-tweak_about_gpu.patch
-# Guard the field assignment num_delta_pocs_of_ref_rps_idx as it is not supported
-# in fedora < 39
-Patch352: chromium-116-v4l2-num_delta_pocs_of_ref_rps_idx.patch
+
+# build error
+Patch352: chromium-117-mnemonic-error.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -973,25 +961,15 @@ udev.
 %endif
 %endif
 
-%patch -P308 -p1 -b .do_not_restrict_new_V4L2_decoders.v4l2
-%patch -P309 -p1 -b .include_contains_h_header_for_V4L2StatefulVideoDecoder
 %patch -P311 -p1 -b .clang-warnings
 %patch -P312 -p1 -b .python-3.12-deprecated
 
-%patch -P350 -p1 -b .linux_ui_darkmode
 %patch -P351 -p1 -b .tweak_about_gpu
-
-%ifarch aarch64
-%if 0%{?fedora} < 39
-%patch -P352 -p1 -b .num_delta_pocs_of_ref_rps_idx
-%endif 
-%endif
-
+%patch -P352 -p1 -b .mnemonic-error
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
-
 
 %if 0%{?rhel} == 8
   pushd third_party/node/linux
@@ -1668,6 +1646,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Sep 13 2023 Than Ngo <than@redhat.com> - 117.0.5938.62-1
+- update to 117.0.5938.62
+
 * Tue Sep 12 2023 Than Ngo <than@redhat.com> - 116.0.5845.187-1
 - update to 116.0.5845.187
 

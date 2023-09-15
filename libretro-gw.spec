@@ -1,5 +1,5 @@
-%global commit  19a1cb3105ca4a82139fb4994e7995fd956f6f8d
-%global date    20220726
+%global commit  0ecff52b11c327af52b22ea94b268c90472b6732
+%global date    20230528
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename gw

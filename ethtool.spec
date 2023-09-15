@@ -1,8 +1,8 @@
 Summary:        Settings tool for Ethernet NICs
 Name:           ethtool
 Epoch:          2
-Version:        6.4
-Release:        2%{?dist}
+Version:        6.5
+Release:        1%{?dist}
 # {json_print,qsfp,sff-common}.{c,h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://www.kernel.org/pub/software/network/%{name}/
@@ -22,7 +22,7 @@ network devices, especially of Ethernet devices.
 
 %prep
 xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
-%setup -q
+%autosetup
 
 %build
 %configure
@@ -44,6 +44,9 @@ make check
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Wed Sep 13 2023 Robert Scheck <robert@fedoraproject.org> - 2:6.5-1
+- Upgrade to 6.5 (#2238637)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:6.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate gix-features
 
 Name:           rust-gix-features
-Version:        0.32.1
+Version:        0.34.0
 Release:        %autorelease
 Summary:        Integrate various capabilities using compile-time feature flags
 

@@ -1,10 +1,10 @@
-%global commit  1507838ee67f9b298def89cbfc404a0fee4a4b8c
+%global commit  320cc8c477c5acc4fa0e52a460d87b2af54fa051
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date    20220618
+%global date    20221025
 
 Name:           vim-gv
 Version:        0
-Release:        %autorelease
+Release:        15.%{date}git%{shortcommit}.%autorelease
 Summary:        Git commit browser in Vim
 BuildArch:      noarch
 

@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    b0a88255cb70d52653d80c890bd7f38740ea50d1
+%global gh_commit    7134a5ccaaf0f1c92a4f5501a6c9f98ac4dcc0ef
 #global gh_date      20150924
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    9
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        9.2.27
+Version:        9.2.28
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -164,7 +164,7 @@ define('TEST_FILES_PATH', __DIR__ . '/_files/');
 EOF
 
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
     $cmd $EXT \
       -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php \
@@ -185,6 +185,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 9.2.28-1
+- update to 9.2.28
+
 * Thu Jul 27 2023 Remi Collet <remi@remirepo.net> - 9.2.27-1
 - update to 9.2.27
 

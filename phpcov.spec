@@ -12,7 +12,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    fd8ac3e2623203a439e7843035550950fbff77ec
+%global gh_commit    05307478b8f4b2a50c508d6f4eca15704cf7c1fd
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpcov
@@ -26,7 +26,7 @@
 
 
 Name:           %{pk_project}
-Version:        9.0.1
+Version:        9.0.2
 Release:        1%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
@@ -43,7 +43,7 @@ BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 BuildRequires:  phpunit10
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 10.0   with php-composer(phpunit/php-code-coverage) < 11)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 10.1   with php-composer(phpunit/php-code-coverage) < 11)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 4.0    with php-composer(phpunit/php-file-iterator) < 5)
 BuildRequires:  (php-composer(sebastian/cli-parser)      >= 2.0    with php-composer(sebastian/cli-parser)      < 3)
 BuildRequires:  (php-composer(sebastian/diff)            >= 5.0    with php-composer(sebastian/diff)            < 6)
@@ -61,7 +61,7 @@ BuildRequires:  php-pecl(Xdebug) >= 3
 #        "sebastian/version": "^4.0"
 Requires:       php(language) >= 8.1
 Requires:       phpunit10
-Requires:       (php-composer(phpunit/php-code-coverage) >= 10.0   with php-composer(phpunit/php-code-coverage) < 11)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 10.1.5 with php-composer(phpunit/php-code-coverage) < 11)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 4.0    with php-composer(phpunit/php-file-iterator) < 5)
 Requires:       (php-composer(sebastian/cli-parser)      >= 2.0    with php-composer(sebastian/cli-parser)      < 3)
 Requires:       (php-composer(sebastian/diff)            >= 5.0    with php-composer(sebastian/diff)            < 6)
@@ -146,6 +146,10 @@ exit $ret;
 
 
 %changelog
+* Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 9.0.2-1
+- update to 9.0.2
+- raise dependency on phpunit/php-code-coverage 10.1.5
+
 * Mon Sep 11 2023 Remi Collet <remi@remirepo.net> - 9.0.1-1
 - update to 9.0.1
 

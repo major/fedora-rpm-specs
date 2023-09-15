@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    cd59bb34756a16ca8253ce9b2909039c227fff71
+%global gh_commit    1df504e42a88044c27a90136910f0b3fe9e91939
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
 %global gh_project   php-code-coverage
@@ -24,7 +24,7 @@
 %global ver_major    10
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        10.1.4
+Version:        10.1.5
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -174,7 +174,7 @@ EOF
 ret=0
 # testCanBeCreatedFromDefaults rely on git layout
 
-for cmd in php php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd $EXT \
       -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php \
@@ -196,6 +196,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 10.1.5-1
+- update to 10.1.5
+
 * Fri Sep  1 2023 Remi Collet <remi@remirepo.net> - 10.1.4-1
 - update to 10.1.4
 

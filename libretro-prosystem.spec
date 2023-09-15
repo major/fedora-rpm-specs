@@ -1,6 +1,6 @@
-%global commit      cf544d3c8e40ff197ea5bb177a1269db31077803
+%global commit      4202ac5bdb2ce1a21f84efc0e26d75bb5aa7e248
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date        20220826
+%global date        20230817
 
 %global corename    prosystem
 

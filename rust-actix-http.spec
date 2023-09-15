@@ -6,13 +6,16 @@
 %global crate actix-http
 
 Name:           rust-actix-http
-Version:        3.3.1
+Version:        3.4.0
 Release:        %autorelease
 Summary:        HTTP primitives for the Actix ecosystem
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/actix-http
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused support for rustls
+Patch:          actix-http-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

@@ -5,7 +5,7 @@
 %global crate gix-hash
 
 Name:           rust-gix-hash
-Version:        0.11.4
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Borrowed and owned git hash digests used to identify git objects
 

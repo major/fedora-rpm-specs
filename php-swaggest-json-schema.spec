@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    1bb97901314f828774dd8c5b21bff889ce0b34bb
+%global gh_commit    d23adb53808b8e2da36f75bc0188546e4cbe3b45
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     swaggest
 %global gh_project   php-json-schema
@@ -23,8 +23,8 @@
 %global major        %nil
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        0.12.41
-Release:        3%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Version:        0.12.42
+Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        High definition PHP structures with JSON-schema based validation
 
 License:        MIT
@@ -131,7 +131,7 @@ EOF
 
 # Skip online tests: testInvalid, testValidate
 ret=0
-for cmd in php php73 php74 php80 php81; do
+for cmd in php php80 php81 php82 php83; do
    if which $cmd; then
       $cmd %{phpunit} \
         --no-coverage \
@@ -154,6 +154,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 0.12.42-1
+- update to 0.12.42
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.41-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

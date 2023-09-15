@@ -1,6 +1,6 @@
 %global packname  units
 %global packvers  0.8
-%global packrel   3
+%global packrel   4
 %global rlibdir   %{_libdir}/R/library
 
 Name:           R-%{packname}
@@ -8,7 +8,7 @@ Version:        %{packvers}.%{packrel}
 Release:        %autorelease
 Summary:        Measurement Units for R Vectors
 
-License:        GPL-2.0-only
+License:        GPL-2.0-or-later
 URL:            https://cran.r-project.org/package=%{packname}
 Source0:        %{url}&version=%{packvers}-%{packrel}#/%{packname}_%{packvers}-%{packrel}.tar.gz
 

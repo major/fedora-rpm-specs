@@ -5,7 +5,7 @@
 %global crate fake
 
 Name:           rust-fake
-Version:        2.4.3
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Easy to use library for generating fake data
 
@@ -13,6 +13,9 @@ Summary:        Easy to use library for generating fake data
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/fake
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop features with unavailable optional dependencies
+Patch:          fake-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -47,6 +50,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+always-true-rng-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+always-true-rng-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "always-true-rng" feature of the "%{crate}" crate.
+
+%files       -n %{name}+always-true-rng-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+chrono-devel
@@ -85,16 +100,28 @@ use the "dummy" feature of the "%{crate}" crate.
 %files       -n %{name}+dummy-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+http-devel
+%package     -n %{name}+maybe-non-empty-collections-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+http-devel %{_description}
+%description -n %{name}+maybe-non-empty-collections-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "http" feature of the "%{crate}" crate.
+use the "maybe-non-empty-collections" feature of the "%{crate}" crate.
 
-%files       -n %{name}+http-devel
+%files       -n %{name}+maybe-non-empty-collections-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rand_core-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand_core-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand_core" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand_core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+semver-devel
@@ -107,6 +134,30 @@ This package contains library source intended for building other packages which
 use the "semver" feature of the "%{crate}" crate.
 
 %files       -n %{name}+semver-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde_json-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde_json-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde_json" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde_json-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+time-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+time-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "time" feature of the "%{crate}" crate.
+
+%files       -n %{name}+time-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+uuid-devel
@@ -126,17 +177,20 @@ use the "uuid" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -a
+%cargo_generate_buildrequires -f always-true-rng,derive
 
 %build
-%cargo_build -a
+%cargo_build -f always-true-rng,derive
 
 %install
-%cargo_install -a
+%cargo_install -f always-true-rng,derive
 
 %if %{with check}
 %check
-%cargo_test -a
+# * skip a test that fails with a cryptic error message
+# * skip a test that fails on 32-bit architectures:
+#   https://github.com/cksac/fake-rs/issues/148
+%cargo_test -f always-true-rng,derive -- -- --skip always_true_tests::test_vec_never_empty --skip field_options::struct_type::no_overrides
 %endif
 
 %changelog

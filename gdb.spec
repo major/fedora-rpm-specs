@@ -1252,6 +1252,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 13 2023 Andrew Burgess <aburgess@redhat.com>
+- Backport upstream commit f96328accde1e63, which fixes RHBZ 2237515.
+
 * Wed Aug  9 2023 Guinevere Larsen <blarsen@redhat.com>
 - Remove gdb-6.7-testsuite-stable-results.patch, it only made the test
   fail more.

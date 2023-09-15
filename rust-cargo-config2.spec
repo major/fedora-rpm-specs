@@ -5,7 +5,7 @@
 %global crate cargo-config2
 
 Name:           rust-cargo-config2
-Version:        0.1.7
+Version:        0.1.11
 Release:        %autorelease
 Summary:        Load and resolve Cargo configuration
 
@@ -32,6 +32,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/src/cfg_expr/LICENSE-APACHE
+%license %{crate_instdir}/src/cfg_expr/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/

@@ -27,8 +27,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.27.7
-Release: 2%{?dist}
+Version: 5.27.8
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -61,10 +61,6 @@ Source20:       breeze-fedora-0.2.tar.gz
 ## in the repective pkgs themselves? -- rdieter)
 Source40:       ssh-agent.conf
 Source41:       spice-vdagent.conf
-
-## upstream Patches (master branch)
-# https://invent.kde.org/plasma/plasma-workspace/-/commit/fc01a7f837d06ee9e92d02f13acb79c2b06e9e3c
-Patch0: fc01a7f837d06ee9e92d02f13acb79c2b06e9e3c.patch
 
 ## upstreamable Patches
 
@@ -811,6 +807,9 @@ fi
 
 
 %changelog
+* Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
+- 5.27.8
+
 * Sat Aug 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-2
 - Add upstream patch
 

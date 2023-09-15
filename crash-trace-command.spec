@@ -3,8 +3,8 @@
 Summary: Trace extension module for the crash utility
 Name: crash-trace-command
 Version: 3.0
-Release: 7%{?dist}
-License: GPLv2
+Release: 8%{?dist}
+License: GPL-2.0-only
 Source: https://github.com/fujitsu/crash-trace/archive/v%{version}/%{name}-%{version}.tar.gz
 URL: https://github.com/fujitsu/crash-trace
 ExclusiveOS: Linux
@@ -37,6 +37,9 @@ install -m 0755 -t %{buildroot}%{_libdir}/crash/extensions %{_builddir}/%{repona
 %license COPYING
 
 %changelog
+* Tue Sep 12 2023 HATAYAMA Daisuke <d.hatayama@fujitsu.com> - 3.0-8
+- Migrate to SPDX license format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

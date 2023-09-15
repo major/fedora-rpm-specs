@@ -1,5 +1,5 @@
 Name:		perltidy
-Version:	20230909
+Version:	20230912
 Release:	1%{?dist}
 Summary:	Tool for indenting and re-formatting Perl scripts
 License:	GPL-2.0-or-later
@@ -96,6 +96,11 @@ make test
 %{_mandir}/man3/Perl::Tidy.3*
 
 %changelog
+* Wed Sep 13 2023 Paul Howarth <paul@city-fan.org> - 20230912-1
+- Update to 20230912 (rhbz#2238633)
+  - Remove a syntax error check that could cause an incorrect error message
+    when List::Gather::gather was used (GH#124)
+
 * Sat Sep  9 2023 Paul Howarth <paul@city-fan.org> - 20230909-1
 - Update to 20230909 (see CHANGES.md for details) (rhbz#2238025)
 

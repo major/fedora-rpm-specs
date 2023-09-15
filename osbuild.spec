@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        94
+Version:        95
 
 %forgemeta
 
@@ -263,6 +263,18 @@ fi
 
 
 %changelog
+* Wed Sep 13 2023 Packit <hello@packit.dev> - 95-1
+Changes with 95
+----------------
+  * Actions: add workflow for marking and closing stale issues and PRs (#1382)
+  * osbuild.ostree.selinux: xref ostree issue for this (#1377)
+  * runners: add autosd runner (#1381)
+
+Contributions from: Colin Walters, Eric Curtin, Tomáš Hozza
+
+— Somewhere on the Internet, 2023-09-13
+
+
 * Wed Aug 30 2023 Packit <hello@packit.dev> - 94-1
 Changes with 94
 ----------------

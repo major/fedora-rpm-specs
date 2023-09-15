@@ -6,7 +6,7 @@
 %global crate tera
 
 Name:           rust-tera
-Version:        1.12.1
+Version:        1.19.1
 Release:        %autorelease
 Summary:        Template engine based on Jinja2/Django templates
 
@@ -84,6 +84,18 @@ use the "chrono-tz" feature of the "%{crate}" crate.
 %files       -n %{name}+chrono-tz-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+date-locale-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+date-locale-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "date-locale" feature of the "%{crate}" crate.
+
+%files       -n %{name}+date-locale-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+humansize-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -142,6 +154,18 @@ This package contains library source intended for building other packages which
 use the "slug" feature of the "%{crate}" crate.
 
 %files       -n %{name}+slug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+urlencode-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+urlencode-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "urlencode" feature of the "%{crate}" crate.
+
+%files       -n %{name}+urlencode-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

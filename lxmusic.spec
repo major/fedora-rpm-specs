@@ -1,9 +1,9 @@
 Name:           lxmusic
 Version:        0.4.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Lightweight XMMS2 client with simple user interface
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://lxde.org
 Source0:        http://downloads.sourceforge.net/lxde/%{name}-%{version}.tar.xz
 # As long as there are no plugins, disable the Tools menu
@@ -32,8 +32,8 @@ player of LXDE (Lightweight X11 Desktop Environment) project.
 
 %prep
 %setup -q
-%patch0 -p1 -b .no-tools
-%patch10 -p1 -b .saverquit
+%patch -P0 -p1 -b .no-tools
+%patch -P10 -p1 -b .saverquit
 
 %build
 %configure
@@ -81,6 +81,10 @@ EOF
 
 
 %changelog
+* Tue Sep 12 2023 Tom Callaway <spot@fedoraproject.org> - 0.4.7-17
+- rebuild for new xmms2
+- SPDX license string
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

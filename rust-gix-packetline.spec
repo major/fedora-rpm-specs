@@ -5,7 +5,7 @@
 %global crate gix-packetline
 
 Name:           rust-gix-packetline
-Version:        0.16.4
+Version:        0.16.6
 Release:        %autorelease
 Summary:        Implementation of the the pkt-line serialization format for gix
 

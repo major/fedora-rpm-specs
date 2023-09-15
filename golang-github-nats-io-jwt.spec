@@ -4,11 +4,9 @@
 
 # https://github.com/nats-io/jwt
 %global goipath         github.com/nats-io/jwt
-Version:                2.4.1
+Version:                1.2.2
 
-%gometa -f
-
-%global goaltipaths     github.com/nats-io/jwt/v2
+%gometa
 
 %global common_description %{expand:
 A JWT implementation that uses nkeys to digitally sign JWT tokens. Nkeys use
@@ -26,8 +24,6 @@ License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 
-BuildRequires:  golang(github.com/nats-io/nkeys)
-
 %description
 %{common_description}
 
@@ -35,6 +31,9 @@ BuildRequires:  golang(github.com/nats-io/nkeys)
 
 %prep
 %goprep
+
+%generate_buildrequires
+%go_generate_buildrequires
 
 %install
 %gopkginstall

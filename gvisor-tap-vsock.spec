@@ -70,6 +70,10 @@ dynamic port forwarding.
 %package gvforwarder
 Summary: %{desc_gvforwarder}
 Provides: gvforwarder = %{epoch}:%{version}-%{release}
+%if !%{defined copr_username}
+Obsoletes: %{name} < 6:0.7.0-6
+Recommends: %{name} = %{epoch}:%{version}-%{release}
+%endif
 
 %description gvforwarder
 %{desc_gvforwarder}

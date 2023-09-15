@@ -61,8 +61,6 @@ Patch0204:      0204-obs-qsv11-Add-license-declaration-file.patch
 
 
 # Downstream Fedora patches
-## Use system qrcodegencpp
-#Patch1001:      obs-studio-websocket-use-system-qrcodegencpp.patch
 ## Use fdk-aac by default
 Patch1002:      obs-studio-UI-use-fdk-aac-by-default.patch
 

@@ -1,8 +1,8 @@
 Name:		gxmms2
 Summary: 	A graphical audio player
 Version:	0.7.1
-Release:	26%{?dist}
-License:	GPLv2
+Release:	27%{?dist}
+License:	GPL-2.0-only
 # If we need to use a git checkout to support an xmms2 release...
 # git clone git://git.xmms.se/xmms2/gxmms2.git
 # tar cvfj gxmms2-20090811git.tar.bz2 gxmms2
@@ -10,6 +10,8 @@ License:	GPLv2
 Source0:	http://wejp.k.vu/projects/xmms2/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 Patch0:		gxmms2-0.7.0-implicit-DSO-libX11.patch
+Patch1:		gxmms2-0.7.1-xmms2-0.9.3.patch
+Patch2:		gxmms2-0.7.1-stdio.patch
 URL:		http://wejp.k.vu/projects/xmms2/
 BuildRequires:	xmms2-devel >= 0.7, gtk2-devel, pango-devel, atk-devel
 BuildRequires:	desktop-file-utils, gcc
@@ -33,7 +35,9 @@ library window.
 
 %prep
 %setup -q
-%patch0 -p1 -b .DSO
+%patch -P0 -p1 -b .DSO
+%patch -P1 -p1 -b .093
+%patch -P2 -p1 -b .stdio
 sed -i 's|/lib/|/%{_lib}/|g' Makefile
 
 %build
@@ -61,6 +65,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_libdir}/gkrellm2/plugins/gkrellxmms2.so
 
 %changelog
+* Tue Sep 12 2023 Tom Callaway <spot@fedoraproject.org> - 0.7.1-27
+- fix this ancient thing to build with xmms2 0.9.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

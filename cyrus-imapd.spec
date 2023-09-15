@@ -4,13 +4,13 @@
 # Cassandane was split into separate CI test:
 # https://src.fedoraproject.org/tests/cyrus-imapd/blob/main/f/Sanity/cassandane
 # Run: `rpmbuild '--with cassandane'` to enable it.
-# Run: `echo '%_with_cassandane 1' >> ~/.rpmmacros && dnf builddep rpmbuild/SPECS/cyrus-imapd.spec`
+# Run: `echo '%%_with_cassandane 1' >> ~/.rpmmacros && dnf builddep rpmbuild/SPECS/cyrus-imapd.spec`
 # to install dependencies for it.
 %bcond_with cassandane
 
 Name: cyrus-imapd
-Version: 3.8.0
-Release: 4%{?dist}
+Version: 3.8.1
+Release: 1%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -46,7 +46,6 @@ Source17: cyrus-imapd-init.service
 Source18: cyrus-imapd.tmpfiles.conf
 Source19: cyrus-imapd.sysusers
 
-%if %{with cassandane}
 # Source files for running the Cassandane test suite at build time.
 Source80: https://github.com/brong/Net-CalDAVTalk/archive/%{testdata_commit}/cassandane-testdata-%{testdata_short}.tar.gz
 # A template config file for cassandane; we will substitute in varions values.
@@ -64,7 +63,6 @@ Source92: patch-cassandane-fix-annotator
 # try to get fixed the below upstream to work on Fedora:
 # https://github.com/cyrusimap/cyrus-imapd/commit/f10eee167313418d84e63d215310477d4fe68e94
 Source93: patch-cassandane-xapian-delve-path
-%endif
 
 # Adapt a timeout to handle our slower builders
 Patch0: patch-cyrus-testsuite-timeout
@@ -82,6 +80,7 @@ Patch3: patch-cyrus-perl-linking
 # https://bugzilla.redhat.com/show_bug.cgi?id=2223951
 # TODO: report upstream with patch
 Patch4: patch-cyrus-remove-always-inline-for-buf-len
+Patch5: patch-cyrus-rename-imtest
 
 BuildRequires: autoconf automake bison flex gcc gcc-c++ git glibc-langpack-en
 BuildRequires: groff libtool make pkgconfig rsync systemd transfig
@@ -475,6 +474,10 @@ mv %buildroot/%_mandir/man8/master.8 %buildroot/%_mandir/man8/master.8cyrus
 # Rename 'httpd' manpage to avoid clash with Apache
 mv %buildroot/%_mandir/man8/httpd.8 %buildroot/%_mandir/man8/httpd.8cyrus
 
+# Fix conflict with imtest from python-fslpy
+mv %buildroot/%_bindir/imtest %buildroot/%_bindir/cyr_imtest
+mv %buildroot/%_mandir/man1/imtest.1 %buildroot/%_mandir/man1/cyr_imtest.1
+
 # Old cyrus packages used to keep the deliver executable in
 # /usr/lib/cyrus-imapd, and MTA configurations might rely on this.
 # Remove this hack in the F30 timeframe.
@@ -761,19 +764,15 @@ exclude+=("!Master.maxforkrate")
 
 %files libs
 %license COPYING
-%{_libdir}/libcyrus.so.0
-%{_libdir}/libcyrus.so.0.0.0
-%{_libdir}/libcyrus_imap.so.0
-%{_libdir}/libcyrus_imap.so.0.0.0
-%{_libdir}/libcyrus_min.so.0
-%{_libdir}/libcyrus_min.so.0.0.0
-%{_libdir}/libcyrus_sieve.so.0
-%{_libdir}/libcyrus_sieve.so.0.0.0
+%{_libdir}/libcyrus.so.0*
+%{_libdir}/libcyrus_imap.so.0*
+%{_libdir}/libcyrus_min.so.0*
+%{_libdir}/libcyrus_sieve.so.0*
 
 %files utils
 %{_bindir}/cyradm
 %{_bindir}/httptest
-%{_bindir}/imtest
+%{_bindir}/cyr_imtest
 %{_bindir}/installsieve
 %{_bindir}/lmtptest
 %{_bindir}/mupdatetest
@@ -786,7 +785,7 @@ exclude+=("!Master.maxforkrate")
 %{_bindir}/synctest
 %{_mandir}/man1/cyradm.1*
 %{_mandir}/man1/httptest.1*
-%{_mandir}/man1/imtest.1*
+%{_mandir}/man1/cyr_imtest.1*
 %{_mandir}/man1/installsieve.1*
 %{_mandir}/man1/lmtptest.1*
 %{_mandir}/man1/mupdatetest.1*
@@ -816,6 +815,12 @@ exclude+=("!Master.maxforkrate")
 %{_mandir}/man3/Cyrus::SIEVE::managesieve.3pm*
 
 %changelog
+* Wed Sep 13 2023 Martin Osvald <mosvald@redhat.com> - 3.8.1-1
+- New version 3.8.1 (rhbz#2238280)
+- Small fix for libs sub-package to better conform with packaging guidelines
+- Include cassandane sources in srpm
+- Rename imtest to cyr_imtest to solve conflict with python-fslpy (rhbz#2227990)
+
 * Thu Aug 03 2023 Martin Osvald <mosvald@redhat.com> - 3.8.0-4
 - Improve spec file to conform with packaging guidelines (rhbz#2228751)
 

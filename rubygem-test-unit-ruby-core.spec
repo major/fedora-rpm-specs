@@ -1,7 +1,7 @@
 %global	gem_name test-unit-ruby-core
 
 Name:		rubygem-%{gem_name}
-Version:	1.0.2
+Version:	1.0.3
 Release:	1%{?dist}
 
 Summary:	Additional test assertions for Ruby standard libraries
@@ -65,6 +65,9 @@ exit 0
 
 
 %changelog
+* Wed Sep 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.3-1
+- 1.0.3
+
 * Thu Aug 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.2-1
 - 1.0.2
 

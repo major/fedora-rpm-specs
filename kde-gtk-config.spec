@@ -4,7 +4,7 @@
 
 Name:    kde-gtk-config
 Summary: Configure the appearance of GTK apps in KDE
-Version: 5.27.7
+Version: 5.27.8
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -91,6 +91,9 @@ appearance of GTK apps in KDE.
 
 
 %changelog
+* Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
+- 5.27.8
+
 * Tue Aug 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.7-1
 - 5.27.7
 

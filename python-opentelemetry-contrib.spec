@@ -1,11 +1,3 @@
-# 0.41b0 releases missing
-# https://github.com/open-telemetry/opentelemetry-python-contrib/issues/1935
-#
-# We pick the last commit from the release/v1.20.x-0.41bx branch; we don’t
-# provide snapshot info in the version because we are confident this is the
-# intended release commit.
-%global commit c3fe16c1bddf727e327aacc5d0a1af3db160cd57
-
 # See eachdist.ini. Note that this package must have the same version as the
 # ”prerel_version” (pre-release version) and “stable_version” in the
 # python-opentelemetry package, and the two packages must be updated together.
@@ -97,10 +89,8 @@ Summary:        OpenTelemetry instrumentation for Python modules
 # LICENSE files.
 License:        Apache-2.0 AND BSD-3-Clause
 URL:            https://github.com/open-telemetry/opentelemetry-python-contrib
-# %%global srcversion %%(echo '%%{prerel_version}' | tr -d '~')
-# Source0:        %%{url}/archive/v%%{srcversion}/opentelemetry-python-contrib-%%{srcversion}.tar.gz
-%global srcversion %{commit}
-Source0:        %{url}/archive/%{srcversion}/opentelemetry-python-contrib-%{srcversion}.tar.gz
+%global srcversion %(echo '%{prerel_version}' | tr -d '~')
+Source0:        %{url}/archive/v%{srcversion}/opentelemetry-python-contrib-%{srcversion}.tar.gz
 
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 Source10:       opentelemetry-bootstrap.1

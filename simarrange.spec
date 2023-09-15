@@ -4,7 +4,7 @@
 %global relstring %{datestamp}git%{shortcommit}
 Name:           simarrange
 Version:        0.0
-Release:        39%{relstring}%{?dist}
+Release:        40%{relstring}%{?dist}
 Summary:        STL 2D plate packer with collision simulation
 License:        AGPLv3+
 URL:            https://github.com/kliment/%{name}
@@ -32,7 +32,7 @@ rm utlist.h
 %build
 # the build script is one line and would need patching, so just skip it
 # TODO update to use Makefile
-g++ %{optflags} simarrange.c -o ./%{name} -lm `pkg-config --cflags --libs opencv` \
+g++ $CXXFLAGS $LDFLAGS simarrange.c -o ./%{name} -lm `pkg-config --cflags --libs opencv` \
     -ladmesh -largtable2 -fopenmp -DPARALLEL
 
 %install
@@ -46,6 +46,9 @@ install -Dpm0644 ./%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Thu Sep 07 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.0-4020170316git8238ce5
+- Use all build flags
+
 * Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 0.0-3920170316git8238ce5
 - Rebuild for opencv 4.8.0
 
