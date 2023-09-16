@@ -9,8 +9,8 @@
 %endif
 
 Name:           perl-Test2-Suite
-Version:        0.000155
-Release:        3%{?dist}
+Version:        0.000156
+Release:        1%{?dist}
 Summary:        Set of tools built upon the Test2 framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Suite
@@ -167,6 +167,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 14 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000156-1
+- 0.000156 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.000155-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@ Version: 0.1.0
 Release: 12%{?dist}
 
 Summary: Kernel Samepage Merging services
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://github.com/ksmtuned/ksmtuned
 Source0: https://github.com/ksmtuned/ksmtuned/archive/v%{version}/ksmtuned-%{version}.tar.gz
 

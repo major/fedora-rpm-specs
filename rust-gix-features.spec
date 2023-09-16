@@ -13,7 +13,6 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-features
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Disable feature that is only required for building documentation
 # * Disable feature for compatibility with zlib-ng
 Patch:          gix-features-fix-metadata.diff
 
@@ -74,6 +73,18 @@ This package contains library source intended for building other packages which
 use the "crc32" feature of the "%{crate}" crate.
 
 %files       -n %{name}+crc32-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+document-features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+document-features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "document-features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+fast-sha1-devel

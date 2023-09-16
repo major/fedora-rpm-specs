@@ -2,19 +2,19 @@
 %global emojidir %{unicodedir}/emoji
 
 Name:           unicode-emoji
-Version:        15.0
-Release:        4%{?dist}
+Version:        15.1
+Release:        1%{?dist}
 Summary:        Unicode Emoji Data Files
 
 License:        Unicode-DFS-2016
 URL:            http://www.unicode.org/emoji/
 Source0:        https://www.unicode.org/license.txt
-Source1:        https://www.unicode.org/Public/emoji/15.0/ReadMe.txt
-Source2:        https://www.unicode.org/Public/15.0.0/ucd/emoji/emoji-data.txt
-Source3:        https://www.unicode.org/Public/emoji/15.0/emoji-sequences.txt
-Source4:        https://www.unicode.org/Public/emoji/15.0/emoji-test.txt
-Source5:        https://www.unicode.org/Public/15.0.0/ucd/emoji/emoji-variation-sequences.txt
-Source6:        https://www.unicode.org/Public/emoji/15.0/emoji-zwj-sequences.txt
+Source1:        https://www.unicode.org/Public/emoji/15.1/ReadMe.txt
+Source2:        https://www.unicode.org/Public/15.1.0/ucd/emoji/emoji-data.txt
+Source3:        https://www.unicode.org/Public/emoji/15.1/emoji-sequences.txt
+Source4:        https://www.unicode.org/Public/emoji/15.1/emoji-test.txt
+Source5:        https://www.unicode.org/Public/15.1.0/ucd/emoji/emoji-variation-sequences.txt
+Source6:        https://www.unicode.org/Public/emoji/15.1/emoji-zwj-sequences.txt
 BuildArch:      noarch
 
 %description
@@ -46,6 +46,9 @@ cp -p %{SOURCE6} %{buildroot}%{emojidir}
 %{emojidir}/emoji-*txt
 
 %changelog
+* Thu Sep 14 2023 Mike FABIAN <mfabian@redhat.com> - 15.1-1
+- Update to Unicode Emoji Data 15.1 (was released on September 12, 2023)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

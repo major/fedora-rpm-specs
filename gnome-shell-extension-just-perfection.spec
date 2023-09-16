@@ -7,20 +7,21 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gnome-shell-extension-%{extension}
-Version:        26.0%{?commit:^1.%{shortcommit}}
+Version:        27.0%{?commit:^1.%{shortcommit}}
 Release:        %autorelease
 Summary:        Extension to Customize GNOME Shell and Disable UI Elements
 License:        GPL-3.0-only
 URL:            https://gitlab.gnome.org/jrahmatzadeh/just-perfection
+BuildArch:      noarch
+
 %if %{defined commit}
 Source:         %{url}/-/archive/%{commit}/%{extension}-%{shortcommit}.tar.gz
 %else
 Source:         %{url}/-/archive/%{version}/%{extension}-%{version}.tar.gz
 %endif
 
-BuildArch:      noarch
 BuildRequires:  gettext
-Requires:       gnome-shell >= 42
+Requires:       (gnome-shell >= 45~ with gnome-shell < 46~)
 Recommends:     gnome-extensions-app
 Provides:       %{extension} = %{version}-%{release}
 

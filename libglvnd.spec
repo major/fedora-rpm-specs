@@ -1,10 +1,10 @@
-%global commit0 b05bbcdaeb9b700cf7877e6d66f8fc3ac952295b
+%global commit0 faa23f21fc677af5792825dc30cb1ccef4bf33a6
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 
 Name:           libglvnd
-Version:        1.6.0
-Release:        3%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 # Provide an upgrade path from the negativo17.org pkgs which have Epoch 1
 Epoch:          1
 Summary:        The GL Vendor-Neutral Dispatch library
@@ -240,6 +240,9 @@ xvfb-run -s '-screen 0 640x480x24' -d make check V=1 || \
 
 
 %changelog
+* Thu Sep 14 2023 Nicolas Chauvet <kwizart@gmail.com> - 1:1.7.0-1
+- Update to 1.7.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

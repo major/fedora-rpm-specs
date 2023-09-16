@@ -4,8 +4,8 @@
 %global modulename mysql
 
 Name:           mysql-selinux
-Version:        1.0.6
-Release:        2%{?dist}
+Version:        1.0.7
+Release:        1%{?dist}
 
 License:        GPL-3.0-only
 URL:            https://github.com/devexp-db/mysql-selinux
@@ -57,6 +57,9 @@ fi
 %license COPYING
 
 %changelog
+* Thu Sep 14 2023 Packit <hello@packit.dev> - 1.0.7-1
+- Empty commit to test Fedora PACKIT configuration for packaging automation (Michal Schorm)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

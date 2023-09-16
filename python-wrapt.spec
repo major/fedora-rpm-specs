@@ -12,7 +12,7 @@ Version:        1.14.1
 Release:        %autorelease
 Summary:        A Python module for decorators, wrappers and monkey patching
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/GrahamDumpleton/wrapt
 Source0:        https://github.com/GrahamDumpleton/%{sname}/archive/%{version}.tar.gz
 

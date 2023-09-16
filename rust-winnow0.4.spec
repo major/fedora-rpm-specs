@@ -2,24 +2,27 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate gix-object
+%global crate winnow
 
-Name:           rust-gix-object
-Version:        0.36.0
+Name:           rust-winnow0.4
+Version:        0.4.11
 Release:        %autorelease
-Summary:        Immutable and mutable git objects with decoding and encoding support
+Summary:        Byte-oriented, zero-copy, parser combinators library
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/gix-object
+License:        MIT
+URL:            https://crates.io/crates/winnow
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Drop benchmark dependency (criterion)
-Patch:          gix-object-fix-metadata.diff
+# * remove references to benchmark and example binaries from Cargo.toml
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * drop dev-dependencies which are only needed for example binaries
+# * drop unused "debug" feature with outdated dependencies
+Patch:          winnow-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Immutable and mutable git objects with decoding and encoding support.}
+A byte-oriented, zero-copy, parser combinators library.}
 
 %description %{_description}
 
@@ -33,9 +36,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -50,40 +52,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+document-features-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+document-features-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "document-features" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+document-features-devel
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+simd-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+simd-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "simd" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+simd-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+verbose-object-parsing-errors-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+verbose-object-parsing-errors-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "verbose-object-parsing-errors" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+verbose-object-parsing-errors-devel
+%files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-doc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-doc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-doc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-doc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

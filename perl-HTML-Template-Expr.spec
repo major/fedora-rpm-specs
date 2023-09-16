@@ -1,12 +1,13 @@
 Name:           perl-HTML-Template-Expr
 Version:        0.07
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Expression support extension for HTML::Template
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Template-Expr
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SAMTREGAR/HTML-Template-Expr-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
@@ -35,15 +36,15 @@ at runtime.
 %setup -q -n HTML-Template-Expr-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %license ARTISTIC GPL
@@ -52,6 +53,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Sep 14 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.07-47
+- Migrate to SPDX license
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,15 +1,15 @@
 %bcond_without docs
-%bcond_without llvmjit
+%bcond_with llvmjit
 %global precise_version %{?epoch:%epoch:}%version-%release
 
 Name:           pg_auto_failover
 Version:        2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Postgres extension and service for automated failover and high-availability
 
 License:        ASL 1.0
-URL:            https://github.com/citusdata/%{name}/
-Source0:        https://github.com/citusdata/%{name}/archive/refs/tags/v%{version}.tar.gz
+URL:            https://github.com/hapostgres/%{name}/
+Source0:        https://github.com/hapostgres/%{name}/archive/refs/tags/v%{version}.tar.gz
 
 # Requirements for pg_auto_failover code
 # openssl-devel provides necessary cryptography library
@@ -24,12 +24,16 @@ BuildRequires:  python3-sphinx
 %if %{with docs}
 # Requirements for doc files
 BuildRequires: python3-sphinx_rtd_theme graphviz
-%endif
 
+%if 0%{?fedora}
 # Requirements for building latex documentation
-BuildRequires: texlive-scheme-basic tex(luatex85.sty) tex(standalone.cls) tex(cfr-lm.sty) 
+BuildRequires:tex(cfr-lm.sty) 
+%endif
+# Required tools for building latex documentation
+BuildRequires: texlive-scheme-basic tex(luatex85.sty) tex(standalone.cls)
 # Required tools for building latex documentation
 BuildRequires: latexmk poppler-utils
+%endif
 
 # Fedora 35 include new dependency with postgresql-server-devel package:
 # postgresql-private-devel. It conflicts with libpq-devel.
@@ -87,8 +91,16 @@ This packages provides JIT support for pg_auto_failover.
 
 %build
 # Generate additionally man/doc files
-/usr/bin/make -O -j8 V=1 VERBOSE=1
-/usr/bin/make man docs 
+%{_bindir}/make -O -j8 V=1 VERBOSE=1
+%{_bindir}/make man
+
+%if %{with docs}
+    %if 0%{?fedora}
+    %{_bindir}/make docs
+    %else
+    %{_bindir}/make -C docs html
+    %endif
+%endif
 
 %install
 %make_install
@@ -100,19 +112,20 @@ for f in docs/_build/man/*\ *; do
     %{__mv} "$f" "${f// /_}";
 done
 
-%if %{without llvmjit}
+%if %{with llvmjit}
 %{__rm} -r %{buildroot}/%{_libdir}/pgsql/bitcode
 %endif
 
 # Add man files
-install -p -D -m 0644 docs/_build/man/*.1 -t %{buildroot}%{_mandir}/man1
-install -p -D -m 0644 docs/_build/man/*.5 -t %{buildroot}%{_mandir}/man5
+%{_bindir}/install -p -D -m 0644 docs/_build/man/*.1 -t %{buildroot}%{_mandir}/man1
+%{_bindir}/install -p -D -m 0644 docs/_build/man/*.5 -t %{buildroot}%{_mandir}/man5
 
 %files
 %{_bindir}/pg_autoctl
 %{_libdir}/pgsql/pgautofailover.so
 %{_datadir}/pgsql/extension/pgautofailover*.{sql,control}
-%{_mandir}/man{1,5}/pg_auto*.{1,5}*
+%doc %{_mandir}/man{1,5}/pg_auto*.{1,5}* 
+%doc {README,CHANGELOG}.md
 %license LICENSE
 
 %if %{with docs}
@@ -128,6 +141,12 @@ install -p -D -m 0644 docs/_build/man/*.5 -t %{buildroot}%{_mandir}/man5
 %endif
 
 %changelog
+* Wed Sep 13 2023 Ondrej Sloup <osloup@redhat.com> -  2.0-3
+- Make man docs only without subpackage as intended
+- Update upstream URL
+- Stop building llvmjit (rhbz#2214559, rhbz#2237282)
+- Prepare the package for EPEL9 (rhbz#2189271)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1252,6 +1252,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 14 2023 Andrew Burgess <aburgess@redhat.com>
+- Backport upstream commit 54392c4df604f20, which fixes RHBZ 2237392.
+
 * Wed Aug 13 2023 Andrew Burgess <aburgess@redhat.com>
 - Backport upstream commit f96328accde1e63, which fixes RHBZ 2237515.
 

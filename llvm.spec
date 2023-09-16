@@ -477,10 +477,6 @@ cp -Rv ../cmake/* %{buildroot}%{pkg_datadir}/llvm/cmake
 %ifarch %{arm}
 rm test/tools/llvm-readobj/ELF/dependent-libraries.test
 %endif
-%ifarch ppc64le
-# TODO: Re-enable when ld.gold fixed its internal error.
-rm test/tools/gold/PowerPC/mtriple.ll
-%endif
 
 # non reproducible errors
 rm test/tools/dsymutil/X86/swift-interface.test

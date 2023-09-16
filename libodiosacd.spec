@@ -8,6 +8,9 @@ Summary:        SACD decoder shared library
 License:        GPL-3.0-or-later
 URL:            https://tari.in/www/software/libodiosacd/
 Source:         %{forgeurl}/archive/%{version}/%{name}-%{version}.tar.gz
+# fix missing symbols due to non-lazy binding (-Wl,-z,now)
+# fix timestamps and permissions
+Patch:          %{name}-fedora.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -36,18 +39,17 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 chmod -x COPYING Makefile src/*.{c,h} src/*/*.{c,h}
-sed -i Makefile \
-  -e 's/CC =/CC ?=/' \
-  -e 's/CFLAGS := -g -O\$O/CFLAGS :=/' \
-  -e 's/^LIBDIR = lib/LIBDIR = %{_lib}/'
 
 %build
 %set_build_flags
-%make_build
+# Makefile takes optimization level from commandline
+%make_build O=2
 
 %install
+# make install chooses lib64 if it exists
+install -dm755 %{buildroot}%{_libdir}
 %make_install
 
 %files

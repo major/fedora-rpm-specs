@@ -37,8 +37,8 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 7.3.0
-Release: 4%{?dist}
-License: BSD
+Release: 5%{?dist}
+License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
 Source1: https://github.com/varnishcache/pkg-varnish-cache/archive/%{commit1}.tar.gz#/pkg-varnish-cache-%{shortcommit1}.tar.gz
@@ -303,6 +303,9 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Thu Sep 14 2023 Luboš Uhliarik <luhliari@redhat.com> - 7.3.0-5
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

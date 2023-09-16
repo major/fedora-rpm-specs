@@ -31,7 +31,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.2.2
+%global package_version 1.2.3
 
 # Uncomment this to include gocryptfs
 %global gocryptfs_version 2.4.0
@@ -43,7 +43,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -285,8 +285,6 @@ Requires: squashfuse
 Requires: fakeroot
 Requires: fuse-overlayfs
 Requires: e2fsprogs
-# only gocryptfs requires fuse
-Requires: fuse
 # Uncomment this for the epel build, but we don't want it for the Apptainer
 #  release build because there the same rpm is shared across OS versions
 %if 0%{?el7}
@@ -489,6 +487,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Thu Sep 14 2023 Dave Dykstra <dwd@fnal.gov> - 1.2.3
+- Update to upstream 1.2.3
+
 * Thu Jul 27 2023 Dave Dykstra <dwd@fnal.gov> - 1.2.2
 - Update to upstream 1.2.2
 

@@ -1,18 +1,19 @@
 Name:           perl-Date-Calc-XS
 Version:        6.4
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        XS wrapper and C library plug-in for Date::Calc
-License:        LGPLv2+ and ( GPL+ or Artistic )
+License:        LGPL-2.0-or-later AND ( GPL-1.0-or-later OR Artistic-1.0-Perl )
 URL:            https://metacpan.org/release/Date-Calc-XS
 Source0:        https://cpan.metacpan.org/modules/by-module/Date/Date-Calc-XS-%{version}.tar.gz
+BuildRequires:  coreutils
+BuildRequires:  findutils
 # glibc-common contains the iconv binary
 BuildRequires:  gcc
 BuildRequires:  glibc-common
-BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Bit::Vector) >= 7.1
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp::Clan) >= 6.01
@@ -24,39 +25,70 @@ BuildRequires:  perl(Date::Calendar::Profiles)
 BuildRequires:  perl(Date::Calendar::Year)
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 
-
 %description
 Date::Calc::XS is a XS wrapper and C library plug-in for Date::Calc
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Date-Calc-XS-%{version}
 iconv --from=ISO-8859-1 --to=UTF-8 CREDITS.txt >CREDITS.fixed
 mv CREDITS.fixed CREDITS.txt
 
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license license
-%{perl_vendorarch}/*
-%{_mandir}/man3/*
 %doc CHANGES.txt README.txt CREDITS.txt
+%{perl_vendorarch}/auto/Date*
+%{perl_vendorarch}/Date/Calc*
+%{_mandir}/man3/Date::Calc*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 6.4-26
+- Package tests
+- Update license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

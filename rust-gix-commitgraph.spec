@@ -5,16 +5,13 @@
 %global crate gix-commitgraph
 
 Name:           rust-gix-commitgraph
-Version:        0.18.1
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Read-only access to the git commitgraph file format
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-commitgraph
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused optional dependency that is only useful for building docs
-Patch:          gix-commitgraph-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -48,6 +45,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+document-features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+document-features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "document-features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:     libmks
-Version:	0.1.3
+Version:	0.1.5
 Release:	%autorelease
 Summary:	Mouse, Keyboard, and Screen to QEMU
 License:	LGPL-2.1-or-later

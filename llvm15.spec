@@ -154,8 +154,8 @@ Requires:	%{name}-test%{?_isa} = %{version}-%{release}
 %endif
 
 
-Requires(post):	%{_sbindir}/alternatives
-Requires(postun):	%{_sbindir}/alternatives
+Requires(post):	/usr/sbin/alternatives
+Requires(postun):	/usr/sbin/alternatives
 
 Provides:	llvm-devel(major) = %{maj_ver}
 
@@ -297,7 +297,7 @@ export ASMFLAGS=$CFLAGS
 	-DSPHINX_WARNINGS_AS_ERRORS=OFF \
 	-DCMAKE_INSTALL_PREFIX=%{install_prefix} \
 	-DLLVM_INSTALL_SPHINX_HTML_DIR=%{_pkgdocdir}/html \
-	-DSPHINX_EXECUTABLE=%{_bindir}/sphinx-build-3 \
+	-DSPHINX_EXECUTABLE=/usr/bin/sphinx-build-3 \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF
 
 # Build libLLVM.so first.  This ensures that when libLLVM.so is linking, there

@@ -160,7 +160,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        117.0.1
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -621,6 +621,11 @@ echo "ac_add_options --with-mozilla-api-keyfile=`pwd`/mozilla-api-key" >> .mozco
 echo "ac_add_options --with-google-location-service-api-keyfile=`pwd`/google-loc-api-key" >> .mozconfig
 echo "ac_add_options --with-google-safebrowsing-api-keyfile=`pwd`/google-api-key" >> .mozconfig
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2239046
+# with clang 17 upstream's detection fails, so let's just tell it
+# where to look
+echo "ac_add_options --with-libclang-path=%{_libdir}" >> .mozconfig
+
 echo 'export NODEJS="%{_buildrootdir}/bin/node-stdout-nonblocking-wrapper"' >> .mozconfig
 
 # Remove executable bit to make brp-mangle-shebangs happy.
@@ -1068,6 +1073,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Sep 14 2023 Adam Williamson <awilliam@redhat.com> - 117.0.1-2
+- Pass --with-clang-path to fix build with clang 17 (rhbz#2239047)
+
 * Wed Sep 13 2023 Martin Stransky <stransky@redhat.com>- 117.0.1-1
 - Updated to 117.0.1
 

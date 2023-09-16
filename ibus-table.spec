@@ -1,5 +1,5 @@
 Name:       ibus-table
-Version:    1.17.2
+Version:    1.17.3
 Release:    1%{?dist}
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later
@@ -150,6 +150,12 @@ fi
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Thu Sep 14 2023 Mike FABIAN <mfabian@redhat.com> - 1.17.3-1
+- Update to 1.17.3
+- Support several backends for playing sounds
+  Resolves: rhbz#2237674 https://bugzilla.redhat.com/show_bug.cgi?id=2237674
+- Update Unihan_Variants.txt and regenerate engine/chinese_variants.py to Unicode Version 15.1.0
+
 * Mon Aug 21 2023 Mike FABIAN <mfabian@redhat.com> - 1.17.2-1
 - Update to 1.17.2
 - Translation update from Weblate (de 100%, tr 100%)

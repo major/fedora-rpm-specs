@@ -2,9 +2,26 @@
 %global pypi_name qdarkstyle
 %global mod_name QDarkStyle
 
+# PySide2 is broken with Python 3.12; do not support it on Fedora 39 and later.
+#
+# python-pyside2 fails to build with Python 3.12: error: use of undeclared
+#     identifier 'PyUnicode_AS_UNICODE'
+# https://bugzilla.redhat.com/show_bug.cgi?id=2155447
+#
+# python3-shiboken2-devel wants python < 3.11
+# https://bugzilla.redhat.com/show_bug.cgi?id=2149820
+#
+# F39FailsToInstall: python3-pyside2, python3-shiboken2,
+#     python3-shiboken2-devel
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220452
+#
+# Bug python-pyside2: FTBFS in Fedora rawhide/f39
+# https://bugzilla.redhat.com/show_bug.cgi?id=2226300
+%bcond pyside2 %{expr:0%{?fedora} < 39}
+
 Name:           python-%{pypi_name}
 Version:        3.0.2
-Release:        8%{?dist}
+Release:        %autorelease
 Summary:        A dark stylesheet for Python and Qt applications
 
 License:        MIT
@@ -16,7 +33,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(helpdev) >= 0.6.2
 BuildRequires:  python3dist(m2r)
 BuildRequires:  python3dist(pyqt5)
+%if %{with pyside2}
 BuildRequires:  python3dist(pyside2)
+%endif
 BuildRequires:  python3dist(qtpy) >= 1.7
 BuildRequires:  python3dist(qtsass)
 BuildRequires:  python3dist(setuptools)
@@ -37,7 +56,12 @@ PyQt5, QtPy, PyQtGraph).
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
  
+%if %{with pyside2}
 Requires:       (python3dist(pyqt5) or python3dist(pyside2))
+%else
+Requires:       (python3dist(pyqt5))
+%endif
+Requires:       python3dist(pyqt5)
 Requires:       python3dist(qtpy) >= 1.7
 Requires:       python3dist(qtsass)
 
@@ -72,49 +96,4 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{mod_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 01 2022 Python Maint <python-maint@redhat.com> - 3.0.2-5
-- Rebuilt for Python 3.11
-
-* Thu May 12 2022 Miro Hrončok <mhroncok@redhat.com> - 3.0.2-4
-- Drop build time requires from runtime
-- Fixes: rhbz#2064905
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sat Jun 05 2021 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 3.0.2-1
-- Update to 3.0.2
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.8.1-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Nov 28 2020 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 2.8.1-1
-- Update to 2.8.1
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.8-2
-- Rebuilt for Python 3.9
-
-* Mon Mar 16 2020 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 2.8-1
-- Update to 2.8 
-- uses pyside2
-
-* Sat Dec 21 2019 Mukundan Ragavan <nonamedotc@gmail.com> - 2.7-1
-- Initial package.
+%autochangelog

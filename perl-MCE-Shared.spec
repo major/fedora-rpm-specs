@@ -1,6 +1,6 @@
 Name:		perl-MCE-Shared
-Version:	1.885
-Release:	2%{?dist}
+Version:	1.886
+Release:	1%{?dist}
 Summary:	MCE extension for sharing data, supporting threads and processes
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MCE-Shared
@@ -21,7 +21,7 @@ BuildRequires:	perl(constant)
 BuildRequires:	perl(Errno)
 BuildRequires:	perl(if)
 BuildRequires:	perl(IO::Handle)
-BuildRequires:	perl(MCE) >= 1.886
+BuildRequires:	perl(MCE) >= 1.889
 BuildRequires:	perl(MCE::Mutex)
 BuildRequires:	perl(MCE::Signal)
 BuildRequires:	perl(MCE::Util)
@@ -44,7 +44,7 @@ BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(utf8)
 # Dependencies
 Requires:	perl(IO::FDPass) >= 1.2
-Requires:	perl(MCE) >= 1.886
+Requires:	perl(MCE) >= 1.889
 Requires:	perl(overloading)
 Requires:	perl(POSIX)
 Requires:	perl(Storable) >= 2.04
@@ -81,6 +81,7 @@ make test
 %{_mandir}/man3/MCE::Shared::Array.3*
 %{_mandir}/man3/MCE::Shared::Base.3*
 %{_mandir}/man3/MCE::Shared::Cache.3*
+%{_mandir}/man3/MCE::Shared::Common.3*
 %{_mandir}/man3/MCE::Shared::Condvar.3*
 %{_mandir}/man3/MCE::Shared::Handle.3*
 %{_mandir}/man3/MCE::Shared::Hash.3*
@@ -92,6 +93,12 @@ make test
 %{_mandir}/man3/MCE::Shared::Server.3*
 
 %changelog
+* Thu Sep 14 2023 Paul Howarth <paul@city-fan.org> - 1.886-1
+- Update to 1.886
+  - Add Android support; this required moving MCE::Shared::Base::Common out of
+    MCE::Shared::Base to separate file MCE::Shared::Common
+  - Bump MCE dependency to 1.889
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.885-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

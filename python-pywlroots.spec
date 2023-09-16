@@ -2,12 +2,9 @@ Name:           python-pywlroots
 # There is a newer version but I am packaging this as a dependency for Qtile
 # which requires pywlroots>=0.15.24,<0.16.0
 Version:        0.15.24
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Python binding to the wlroots library using cffi
-
-# The upstream mentions two different licenses, please see this issue
-# https://github.com/flacjacket/pywlroots/issues/125
-License:        NCSA AND MIT
+License:        NCSA
 
 URL:            https://github.com/flacjacket/pywlroots
 Source:         %{pypi_source pywlroots}
@@ -60,10 +57,15 @@ python3 wlroots/ffi_build.py
 %files -n python3-pywlroots -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%exclude %{python3_sitearch}/wlroots/include/
 
 
 %changelog
+* Thu Sep 14 2023 Jakub Kadlcik <frostyx@email.cz> - 0.15.24-5
+- Don't exclude wlroots/include/ Qtile needs it
+
+* Thu Sep 14 2023 Jakub Kadlcik <frostyx@email.cz> - 0.15.24-4
+- The upstream issue #125 resolved, the license is only NCSA
+
 * Sun Jul 30 2023 Jakub Kadlcik <frostyx@email.cz> - 0.15.24-3
 - License breakdown
 - Install license and doc files

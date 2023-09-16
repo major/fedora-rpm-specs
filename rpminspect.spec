@@ -1,6 +1,6 @@
 Name:           rpminspect
 Version:        1.11
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Build deviation compliance tool
 Group:          Development/Tools
 # librpminspect is licensed under the LGPLv3+, but 5 source files in
@@ -31,6 +31,7 @@ Source0:        https://github.com/rpminspect/rpminspect/releases/download/v%{ve
 Source1:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2:        gpgkey-62977BB9C841B965.gpg
 Patch0:         rpminspect-1.11-use-RPMTAG_NOT_FOUND-macro.patch
+Patch1:         rpminspect-1.11-xmlSetGenericErrorFunc.patch
 Requires:       librpminspect%{?_isa} = %{version}-%{release}
 
 BuildRequires:  meson
@@ -93,7 +94,7 @@ Recommends:     html401-dtds
 
 # Required to support things like %%autorelease in spec files
 %if 0%{?fedora} >= 33
-Recommends:     rpmautospec-rpm-macros
+Recommends:     rpm_macro(autorelease)
 %endif
 
 # These programs are only required for the 'shellsyntax' functionality.
@@ -198,6 +199,12 @@ control files.
 
 
 %changelog
+* Thu Sep 14 2023 Stephen Gallagher <sgallagh@redhat.com> - 1.11-4
+- Use rpm_macro(autorelease) for %%rpmautorelease dependency
+
+* Thu Sep 14 2023 David Cantrell <dcantrell@redhat.com> - 1.11-3
+- Use xmlSetGenericErrorFunc() rather than initGenericErrorDefaultFunc()
+
 * Mon May 22 2023 Michal Domonkos <mdomonko@redhat.com> - 1.11-2
 - Use RPMTAG_NOT_FOUND macro instead of -1 (for RPM 4.19)
 

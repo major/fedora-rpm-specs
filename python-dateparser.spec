@@ -7,7 +7,7 @@
 #
 # We can generate PDF documentation as a substitute.
 # Skip PDF generation on EL9 due to missing /usr/bin/xindy dependency.
-%if 0%{?el9} || 0%{?centos} >= 9
+%if 0%{?el9} || 0%{?centos} >= 9 || 0%{?flatpak}
 %bcond_with doc_pdf
 %else
 %bcond_without doc_pdf

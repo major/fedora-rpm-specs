@@ -4,11 +4,14 @@ URL:          http://www.kornshell.com/
 License:      EPL-2.0
 Epoch:        3
 Version:      1.0.6
-Release:      2%{?dist}
+Release:      3%{?dist}
 Source0:      https://github.com/ksh93/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:      kshcomp.conf
 Source2:      kshrc.rhs
 Source3:      dotkshrc
+
+# ksh: Porting to C99 (#2144903)
+Patch1:       ksh-1.0.6-fix-strict-c99-compatibilty.patch
 
 Conflicts:    pdksh
 Requires: coreutils, diffutils
@@ -131,6 +134,9 @@ fi
 %config(noreplace) %{_sysconfdir}/binfmt.d/kshcomp.conf
 
 %changelog
+* Wed Sep 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3:1.0.6-3
+- fix building with strict C99 (rhbz#2144903)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

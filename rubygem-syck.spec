@@ -3,12 +3,14 @@
 Summary:	Gemified version of Syck from Ruby's stdlib
 Name:		rubygem-%{gem_name}
 Version:	1.4.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 
 # README.rdoc
 License:	MIT
 URL:		http://github.com/tenderlove/syck/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/ruby/syck/pull/44
+Patch0:    %{gem_name}-pr44-remove-3rd-arg-regexp_new.patch
 
 # MRI only
 Requires:	ruby
@@ -38,6 +40,7 @@ Documentation for %{name}
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Permission
@@ -108,6 +111,10 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Thu Sep 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-8
+- Backport upstream patch for Regexp.new 3rd argument removal
+  (for ruby33 compatibility)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

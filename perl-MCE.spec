@@ -1,6 +1,6 @@
 Name:           perl-MCE
-Version:        1.888
-Release:        2%{?dist}
+Version:        1.889
+Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MCE
@@ -169,6 +169,14 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Thu Sep 14 2023 Paul Howarth <paul@city-fan.org> - 1.889-1
+- Update to 1.889 (rhbz#2238875)
+  - Add Android support
+  - Revert defer signal-handling in MCE::Channel (send2 method)
+  - Improve mutex synchronize (a.k.a. enter) with guard capability
+  - Fix mutex re-entrant lock on the Windows platform
+  - Add mutex guard_lock method
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.888-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

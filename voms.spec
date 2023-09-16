@@ -8,10 +8,10 @@
 
 Name:		voms
 Version:	2.1.0
-Release:	0.30.rc3%{?dist}
+Release:	0.31.rc3%{?dist}
 Summary:	Virtual Organization Membership Service
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://italiangrid.github.io/voms/
 Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}-rc3/%{name}-%{version}-rc3.tar.gz
 #		Post-install setup instructions:
@@ -27,7 +27,18 @@ Patch3:		0004-Fix-warning-about-possible-string-truncation.patch
 #		https://github.com/italiangrid/voms/pull/104
 Patch4:		0005-config.h-must-not-be-included-in-public-header-file.patch
 Patch5:		0006-Include-config.h-before-other-header-files.patch
-Patch6: voms-c99.patch
+#		https://github.com/italiangrid/voms/pull/109
+Patch6:		0007-Compile-and-link-libvomsapi-with-proper-thread-flags.patch
+#		Backport from upstream
+Patch7:		0008-Fix-memory-leaks-and-double-deletes.patch
+#		https://github.com/italiangrid/voms/pull/116
+Patch8:		0009-If-a-detailed-error-message-is-available-do-not-over.patch
+#		https://github.com/italiangrid/voms/pull/112
+Patch9:		0010-Add-lexparse.h-headers-for-lexer-parser-integration-.patch
+#		https://github.com/italiangrid/voms/pull/121
+Patch10:	0011-Only-process-authority-and-subject-key-identifiers-i.patch
+#		https://github.com/italiangrid/voms/pull/113
+Patch11:	0012-Consider-the-Authority-Key-Id-extension-only-if-it-s.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -122,13 +133,18 @@ This package provides the VOMS service.
 
 %prep
 %setup -q -n %{name}-%{version}-rc3
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
+%patch -P 10 -p1
+%patch -P 11 -p1
 
 ./autogen.sh
 
@@ -358,6 +374,9 @@ fi
 %doc README.Fedora
 
 %changelog
+* Thu Sep 14 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-0.31.rc3
+- More patches from upstream
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-0.30.rc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

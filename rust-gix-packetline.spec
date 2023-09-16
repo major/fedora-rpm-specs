@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/gix-packetline
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * improve crate summary / description
-# * drop unused optional dependency that is only useful for building docs
 Patch:          gix-packetline-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -73,6 +72,18 @@ This package contains library source intended for building other packages which
 use the "blocking-io" feature of the "%{crate}" crate.
 
 %files       -n %{name}+blocking-io-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+document-features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+document-features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "document-features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+futures-io-devel

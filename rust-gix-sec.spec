@@ -5,7 +5,7 @@
 %global crate gix-sec
 
 Name:           rust-gix-sec
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Shared trust model implementation for gix
 
@@ -14,15 +14,11 @@ URL:            https://crates.io/crates/gix-sec
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          gix-sec-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * improve crate summary / description
-# * drop unused optional dependency that is only useful for building docs
-Patch:          gix-sec-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Shared trust model implementation for gix.}
+A crate of the gitoxide project providing a shared trust model.}
 
 %description %{_description}
 
@@ -51,6 +47,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+document-features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+document-features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "document-features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

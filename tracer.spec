@@ -17,8 +17,8 @@
 %endif
 
 Name:       tracer
-Version:    0.7.11
-Release:    3%{?dist}
+Version:    1.0
+Release:    1%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -72,11 +72,13 @@ BuildRequires:  python2-psutil
 BuildRequires:  python2-six
 BuildRequires:  dbus-python
 BuildRequires:  python2-distro
+BuildRequires:  python2-backports-functools_lru_cache
 Requires:       dbus-python
 Requires:       python2-psutil
 Requires:       python2-future
 Requires:       python2-six
 Requires:       python2-distro
+Requires:       python2-backports-functools_lru_cache
 Requires:       %{name}-common = %{version}-%{release}
 %if %{with suggest}
 Suggests:       python-argcomplete
@@ -197,11 +199,23 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.11-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jun 18 2023 Python Maint <python-maint@redhat.com> - 0.7.11-2
-- Rebuilt for Python 3.12
+* Fri Sep 15 2023 Jakub Kadlcik <frostyx@email.cz> 1.0-1
+- Fix querying RPM files on EPEL7 (frostyx@email.cz)
+- Use backported lru_cache on EPEL7 (frostyx@email.cz)
+- Don't hang forever when executed via SSH (frostyx@email.cz)
+- Don't check if package is installed before listing its files
+  (frostyx@email.cz)
+- Replace regexes where they are not needed (frostyx@email.cz)
+- Query all packages at once, its faster than one by one (frostyx@email.cz)
+- Cache some properties for a massive performance boost (frostyx@email.cz)
+- Refactor unnecessary condition (frostyx@email.cz)
+- Fix weird indentation (frostyx@email.cz)
+- Pass the whole application to the provided_by function, not just its name
+  (frostyx@email.cz)
+- Stop using deprecated rpm.fi (frostyx@email.cz)
+- Attempt to fix readthedocs deprecation error (frostyx@email.cz)
+- More reliable check if /usr/lib/sysimage/dnf/ database should be used
+  (frostyx@email.cz)
 
 * Sun Jun 18 2023 Jakub Kadlcik <frostyx@email.cz> 0.7.11-1
 - Rather create a /run/reboot-required not /var/run/reboot-required

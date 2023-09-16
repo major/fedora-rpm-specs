@@ -2,11 +2,11 @@
 
 Name:     squid
 Version:  6.3
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
-License:  GPLv2+ and (LGPLv2+ and MIT and BSD and Public Domain)
+License:  GPL-2.0-or-later AND (LGPL-2.0-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain AND Beerware)
 URL:      http://www.squid-cache.org
 
 Source0:  http://www.squid-cache.org/Versions/v6/squid-%{version}.tar.xz
@@ -335,6 +335,9 @@ fi
 
 
 %changelog
+* Thu Sep 14 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:6.3-2
+- SPDX migration
+
 * Tue Sep 05 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:6.3-1
 - new version 6.3
 

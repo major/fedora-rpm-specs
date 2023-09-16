@@ -72,7 +72,7 @@
 %global patch_version 4
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 6
+%global baserelease 8
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -123,8 +123,15 @@ Patch100:       %{name}-findruby.patch
 Patch1:         %{name}-rename.patch
 %endif
 
-# https://gitlab.kitware.com/cmake/cmake/-/issues/25204
 Patch10001:     0001-Source-Link-libatomic-when-needed-on-any-Linux-archi.patch
+Patch10002:     0002-Help-MSVC_DEBUG_INFORMATION_FORMAT-is-initialized-fr.patch
+Patch10003:     0003-cmGeneratorTarget-support-config-independent-Fortran.patch
+Patch10004:     0004-cmComputeLinkInformation-compute-link-info-for-modul.patch
+Patch10005:     0005-ctest-Restore-support-for-http-redirects-during-Subm.patch
+Patch10006:     0006-FortranCInterface-forward-CMAKE_OSX_DEPLOYMENT_TARGE.patch
+Patch10007:     0007-FindBoost-Add-support-for-Boost-1.83.patch
+Patch10008:     0008-VS-Avoid-unnecessary-CUDA-device-linking-for-OBJECT-.patch
+Patch10009:     0009-Autogen-Evaluate-INTERFACE_AUTOMOC_MACRO_NAMES-effic.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -552,7 +559,13 @@ popd
 
 
 %changelog
-* Wed Sep 04 2023 Panu Matilainen <pmatilai@redhat.com> - 3.27.4-6
+* Thu Sep 14 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-8
+- Fix CI failure
+
+* Thu Sep 14 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-7
+- Add upstream patches from milestone to cmake-3.27.5
+
+* Wed Sep 06 2023 Panu Matilainen <pmatilai@redhat.com> - 3.27.4-6
 - Only require cmake-rpm-macros when rpm-build is installed part II
 
 * Sat Sep 02 2023 Tom Stellard <tstellar@redhat.com> - 3.27.4-5

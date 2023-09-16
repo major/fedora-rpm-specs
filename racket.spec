@@ -5,7 +5,7 @@ Summary:        General purpose programming language
 
 # see LICENSE.txt
 # libscheme: MIT License Modern Variant
-License:        MIT AND Apache-2.0 AND LGPLv3 AND MIT-Modern-Variant
+License:        MIT AND Apache-2.0 AND LGPL-3.0-only AND MIT-Modern-Variant
 URL:            https://racket-lang.org
 Source0:        https://mirror.racket-lang.org/installers/%{version}/%{name}-%{version}-src.tgz
 Patch1: racket-configure-c99.patch

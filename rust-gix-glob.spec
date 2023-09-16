@@ -6,22 +6,18 @@
 %global crate gix-glob
 
 Name:           rust-gix-glob
-Version:        0.10.1
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Glob pattern matching implementation for gix
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-glob
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * improve crate summary / description
-# * drop unused optional dependency that is only useful for building docs
-Patch:          gix-glob-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Glob pattern matching implementation for gix.}
+A crate of the gitoxide project dealing with pattern matching.}
 
 %description %{_description}
 
@@ -50,6 +46,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+document-features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+document-features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "document-features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

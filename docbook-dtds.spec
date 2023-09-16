@@ -5,7 +5,7 @@
 
 Name: docbook-dtds
 Version: 1.0
-Release: 82%{?dist}
+Release: 83%{?dist}
 
 Summary: SGML and XML document type definitions for DocBook
 
@@ -33,14 +33,15 @@ Provides: docbook-dtd44-xml = %{version}-%{release}
 Provides: docbook-dtd45-sgml = %{version}-%{release}
 Provides: docbook-dtd45-xml = %{version}-%{release}
 
-Requires(post): /usr/bin/xmlcatalog
-Requires(postun): /usr/bin/xmlcatalog
+Requires(post): %{_bindir}/xmlcatalog
+Requires(postun): %{_bindir}/xmlcatalog
 Requires(post): %{_bindir}/chmod
 Requires(post): sed
 Requires(postun): sed
 Requires: sgml-common
 Requires: xml-common
 
+BuildRequires: unzip
 
 BuildArch: noarch
 Source0: http://www.oasis-open.org/docbook/sgml/3.0/docbk30.zip
@@ -59,28 +60,28 @@ Source12: http://www.docbook.org/xml/4.5/docbook-xml-4.5.zip
 Source13: http://www.docbook.org/rng/4.2/docbook-rng-4.2.zip
 Source14: http://www.docbook.org/rng/4.3/docbook-rng-4.3.zip
 Source15: http://www.docbook.org/rng/4.4/docbook-rng-4.4.zip
-#compressed from http://www.docbook.org/rng/4.5/ upstream archive unavailable
+# Compressed from http://www.docbook.org/rng/4.5/ upstream archive unavailable
 Source16: docbook-rng-4.5.zip
 Source17: http://www.docbook.org/xsd/4.2/docbook-xsd-4.2.zip
 Source18: http://www.docbook.org/xsd/4.3/docbook-xsd-4.3.zip
 Source19: http://www.docbook.org/xsd/4.4/docbook-xsd-4.4.zip
-#compressed from http://www.docbook.org/xsd/4.5/ upstream archive unavailable
+# Compressed from http://www.docbook.org/xsd/4.5/ upstream archive unavailable
 Source20: docbook-xsd-4.5.zip
-#fix old catalog files
+
+# Fix old catalog files
 Patch0: docbook-dtd30-sgml-1.0.catalog.patch
 Patch1: docbook-dtd31-sgml-1.0.catalog.patch
 Patch2: docbook-dtd40-sgml-1.0.catalog.patch
 Patch3: docbook-dtd41-sgml-1.0.catalog.patch
 Patch4: docbook-dtd42-sgml-1.0.catalog.patch
-#fix euro sign in 4.2 dtds
+# Fix euro sign in 4.2 dtds
 Patch5: docbook-4.2-euro.patch
-#Fix ISO entities in 4.3/4.4/4.5 SGML
+# Fix ISO entities in 4.3/4.4/4.5 SGML
 Patch6: docbook-dtds-ents.patch
-#Use system rewrite for web URL's in sgml catalogs to prevent reading from the network(#478680)
+# Use system rewrite for web URL's in sgml catalogs to prevent reading from the network(#478680)
 Patch7: docbook-sgml-systemrewrite.patch
-#use XML at the end of public identificators of XML 4.1.2 ISO entities
+# Use XML at the end of public identificators of XML 4.1.2 ISO entities
 Patch8: docbook-dtd412-entities.patch
-BuildRequires: unzip
 
 %description
 The DocBook Document Type Definition (DTD) describes the syntax of
@@ -92,138 +93,57 @@ This package contains SGML and XML versions of the DocBook DTD.
 %prep
 %setup -c -T
 eval mkdir %{version_list}
-# DocBook V3.0
-cd 3.0-sgml
-unzip %{SOURCE0}
-%patch0 -p0 -b docbook.cat
-cd ..
 
-# DocBook V3.1
-cd 3.1-sgml
-unzip %{SOURCE1}
-%patch1 -p0 -b docbook.cat
-cd ..
+unzip %{SOURCE0} -d 3.0-sgml
+unzip %{SOURCE1} -d 3.1-sgml
+unzip %{SOURCE2} -d 4.0-sgml
+unzip %{SOURCE3} -d 4.1-sgml
+unzip %{SOURCE4} -d 4.1.2-xml
+unzip %{SOURCE5} -d 4.2-sgml
+unzip %{SOURCE6} -d 4.2-xml
+unzip %{SOURCE7} -d 4.3-sgml
+unzip %{SOURCE8} -d 4.3-xml
+unzip %{SOURCE9} -d 4.4-sgml
+unzip %{SOURCE10} -d 4.4-xml
+unzip %{SOURCE11} -d 4.5-sgml
+unzip %{SOURCE12} -d 4.5-xml
+unzip %{SOURCE13} -d 4.2-rng
+unzip %{SOURCE14} -d 4.3-rng
+unzip %{SOURCE15} -d 4.4-rng
+unzip %{SOURCE16} -d 4.5-rng
+unzip %{SOURCE17} -d 4.2-xsd
+unzip %{SOURCE18} -d 4.3-xsd
+unzip %{SOURCE19} -d 4.4-xsd
+unzip %{SOURCE20} -d 4.5-xsd
 
-# DocBook V4.0
-cd 4.0-sgml
-unzip %{SOURCE2}
-%patch2 -p0 -b docbook.cat
-cd ..
-
-# DocBook V4.1
-cd 4.1-sgml
-unzip %{SOURCE3}
-%patch3 -p0 -b docbook.cat
-cd ..
-
-# DocBook XML V4.1.2
-cd 4.1.2-xml
-unzip %{SOURCE4}
-cd ..
-
-# DocBook V4.2
-cd 4.2-sgml
-unzip %{SOURCE5}
-%patch4 -p0 -b docbook.cat
-cd ..
-
-# DocBook XML V4.2
-cd 4.2-xml
-unzip %{SOURCE6}
-cd ..
-
-# DocBook V4.3
-cd 4.3-sgml
-unzip %{SOURCE7}
-cd ..
-
-# DocBook XML V4.3
-cd 4.3-xml
-unzip %{SOURCE8}
-cd ..
-
-# DocBook V4.4
-cd 4.4-sgml
-unzip %{SOURCE9}
-cd ..
-
-# DocBook XML V4.4
-cd 4.4-xml
-unzip %{SOURCE10}
-cd ..
-
-# DocBook v4.5
-cd 4.5-sgml
-unzip %{SOURCE11}
-cd ..
-
-# DocBook XML v4.5
-cd 4.5-xml
-unzip %{SOURCE12}
-cd ..
-
-# Docbook RNG v4.2
-cd 4.2-rng
-unzip %{SOURCE13}
-cd ..
-
-# Docbook RNG v4.3
-cd 4.3-rng
-unzip %{SOURCE14}
-cd ..
-
-# Docbook RNG v4.4
-cd 4.4-rng
-unzip %{SOURCE15}
-cd ..
-
-# Docbook RNG v4.5
-cd 4.5-rng
-unzip %{SOURCE16}
-cd ..
-
-# Docbook XSD v4.2
-cd 4.2-xsd
-unzip %{SOURCE17}
-cd ..
-
-# Docbook XSD v4.3
-cd 4.3-xsd
-unzip %{SOURCE18}
-cd ..
-
-# Docbook XSD v4.4
-cd 4.4-xsd
-unzip %{SOURCE19}
-cd ..
-
-# Docbook XSD v4.5
-cd 4.5-xsd
-unzip %{SOURCE20}
-cd ..
+%patch -P 0 -p0
+%patch -P 1 -p0
+%patch -P 2 -p0
+%patch -P 3 -p0
+%patch -P 4 -p0
 
 # Fix &euro; in SGML.
-%patch5 -p1
+%patch -P 5 -p0
 
 # Fix ISO entities in 4.3/4.4/4.5 SGML
-%patch6 -p1
+%patch -P 6 -p0
 
 # Rewrite SYSTEM to use local catalog instead web ones (#478680)
-%patch7 -p1
+%patch -P 7 -p0
 
 # Add XML to the end of public identificators of 4.1.2 XML entities
-%patch8 -p1
+%patch -P 8 -p0
 
 # Increase NAMELEN (bug #36058, bug #159382).
 sed -e's,\(NAMELEN\s\+\)44\(\s\*\)\?,\1256,' -i.namelen */docbook.dcl
 
-# fix of \r\n issue from rpmlint
+# Fix of \r\n issue from rpmlint
 sed -i 's/\r//' */*.txt
 
 
 if [ `id -u` -eq 0 ]; then
-  chown -R root:root .
-  chmod -R a+rX,g-w,o-w .
+  %{_bindir}/chown -R root:root .
+  %{_bindir}/chmod -R a+rX,g-w,o-w .
 fi
 
 
@@ -231,81 +151,89 @@ fi
 
 
 %install
-# Symlinks
-mkdir -p $RPM_BUILD_ROOT/etc/sgml
+# Creating a directory for SGML
+eval mkdir -p %{buildroot}/etc/sgml
+
+# Loop through sgml and xml formats
 for fmt in sgml xml; do
-  ln -s $fmt-docbook-4.5.cat \
-     $RPM_BUILD_ROOT/etc/sgml/$fmt-docbook.cat
+  # Creating symbolic links for docbook catalog files
+  ln -s $fmt-docbook-4.5.cat %{buildroot}/etc/sgml/$fmt-docbook.cat
 done
 
+# Loop through different versions of docbook
 eval set %{version_list}
-for dir
-do
-  cd $dir
-  fmt=${dir#*-} ver=${dir%%-*}
+for dir in $@; do
+  pushd $dir
+  fmt=${dir#*-} ver=${dir%%-*} # Formatting and versioning
+
+  # Directory paths for different formats
   case $fmt in
-    sgml)   DESTDIR=$RPM_BUILD_ROOT/usr/share/sgml/docbook/$fmt-dtd-$ver ;;
-    xml)    DESTDIR=$RPM_BUILD_ROOT/usr/share/sgml/docbook/$fmt-dtd-$ver ;;
-    rng)    DESTDIR=$RPM_BUILD_ROOT/usr/share/sgml/docbook/$fmt-$ver ;;
-    xsd)    DESTDIR=$RPM_BUILD_ROOT/usr/share/sgml/docbook/$fmt-$ver ;;
+    sgml|xml)   DESTDIR=%{buildroot}/usr/share/sgml/docbook/$fmt-dtd-$ver ;;
+    rng|xsd)    DESTDIR=%{buildroot}/usr/share/sgml/docbook/$fmt-$ver ;;
   esac
+
+  # Installing files to the corresponding directories
   case $fmt in
     sgml)   mkdir -p $DESTDIR ; install *.dcl $DESTDIR ;;
     xml)    mkdir -p $DESTDIR/ent ; install ent/* $DESTDIR/ent ;;
     rng)    mkdir -p $DESTDIR ; install *.r* $DESTDIR ;;
     xsd)    mkdir -p $DESTDIR ; install *.xsd $DESTDIR;;
   esac
-  cd ..
+  popd
 done
 
+# Loop through different catalog versions
 eval set %{catalog_list}
-for dir
-do
-  cd $dir
-  fmt=${dir#*-} ver=${dir%%-*}
-  DESTDIR=$RPM_BUILD_ROOT/usr/share/sgml/docbook/$fmt-dtd-$ver
+for dir in $@; do
+  pushd $dir
+  fmt=${dir#*-} ver=${dir%%-*} # Formatting and versioning
+  DESTDIR=%{buildroot}/usr/share/sgml/docbook/$fmt-dtd-$ver
+
+  # Installing dtd and mod files, along with the catalog file
   install *.dtd *.mod $DESTDIR
   install docbook.cat $DESTDIR/catalog
-  cd ..
-  # File for %%ghost
-  touch $RPM_BUILD_ROOT/etc/sgml/$fmt-docbook-$ver.cat
+  popd
+
+  # Creating ghost file for each format-version pair
+  touch %{buildroot}/etc/sgml/$fmt-docbook-$ver.cat
 done
 
-#workaround the missing support for --parents hack in rpm 4.11+
-mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}
-for i in */*.txt */ChangeLog */README
-do
-  cp -pr --parents $i $RPM_BUILD_ROOT%{_pkgdocdir}
+# Workaround for missing support for --parents in rpm 4.11+
+mkdir -p %{buildroot}%{_pkgdocdir}
+
+# Copying text, ChangeLog, and README files to pkgdocdir with their parent directories
+for i in */*.txt */ChangeLog */README; do
+  cp -pr --parents $i %{buildroot}%{_pkgdocdir}
 done
 
 
 %files
-#in upstream tarballs there is a lot of files with 0755 permissions
-#but they don't need to be, 0644 is enough for every file in tarball
-%{_pkgdocdir}
-/usr/share/sgml/docbook/*ml-dtd-*
-/usr/share/sgml/docbook/rng-*
-/usr/share/sgml/docbook/xsd-*
-%config(noreplace) /etc/sgml/*ml-docbook.cat
-%ghost %config(noreplace) /etc/sgml/*ml-docbook-*.cat
+# There is a lot of files with 0755 permissions in upstream tarballs,
+# but it is not needed. 0644 is enough for every file in tarball
+%doc %{_pkgdocdir}
+%{_datadir}/sgml/docbook/*ml-dtd-*
+%{_datadir}/sgml/docbook/rng-*
+%{_datadir}/sgml/docbook/xsd-*
+%config(noreplace) %{_sysconfdir}/sgml/*ml-docbook.cat
+%ghost %config(noreplace) %{_sysconfdir}/sgml/*ml-docbook-*.cat
 
 %post
 catcmd='/usr/bin/xmlcatalog --noout'
-xmlcatalog=/usr/share/sgml/docbook/xmlcatalog
+xmlcatalog=%{_datadir}/sgml/docbook/xmlcatalog
 
-## Clean up pre-docbook-dtds mess caused by broken trigger.
-for v in 3.0 3.1 4.0 4.1 4.2
+# Clean up pre-docbook-dtds mess caused by broken trigger.
+for v in 3.0 3.1 4.0 4.1 4.2 4.3 4.4 4.5
 do
-  if [ -f /etc/sgml/sgml-docbook-$v.cat ]
+  if [ -f %{_sysconfdir}/sgml/sgml-docbook-$v.cat ]
   then
-    $catcmd --sgml --del /etc/sgml/sgml-docbook-$v.cat \
-      /usr/share/sgml/openjade-1.3.1/catalog 2>/dev/null
+    $catcmd --sgml --del %{_sysconfdir}/sgml/sgml-docbook-$v.cat \
+      %{_datadir}/sgml/openjade-%{openjadever}/catalog 2>/dev/null
   fi
 done
 
 # The STYLESHEETS/catalog command is for the case in which the style sheets
 # were installed after another DTD but before this DTD
-for STYLESHEETS in /usr/share/sgml/docbook/dsssl-stylesheets-*; do : ; done
+for STYLESHEETS in %{_datadir}/sgml/docbook/dsssl-stylesheets-*; do : ; done
 case $STYLESHEETS in
   *-"*") STYLESHEETS= ;;
 esac
@@ -313,13 +241,13 @@ eval set %{catalog_list}
 for dir
 do
   fmt=${dir#*-} ver=${dir%%-*}
-  sgmldir=/usr/share/sgml/docbook/$fmt-dtd-$ver
-  ## SGML catalog
+  sgmldir=%{_datadir}/sgml/docbook/$fmt-dtd-$ver
+  # SGML catalog
   # Update the centralized catalog corresponding to this version of the DTD
-  for cat_dir in /usr/share/sgml/sgml-iso-entities-8879.1986 $sgmldir $STYLESHEETS; do
-    $catcmd --sgml --add /etc/sgml/$fmt-docbook-$ver.cat $cat_dir/catalog
+  for cat_dir in %{_datadir}/sgml/sgml-iso-entities-8879.1986 $sgmldir $STYLESHEETS; do
+    $catcmd --sgml --add %{_sysconfdir}/sgml/$fmt-docbook-$ver.cat $cat_dir/catalog
   done
-  ## XML catalog
+  # XML catalog
   if [ $fmt = xml -a -w $xmlcatalog ]; then
     while read f desc; do
       case $ver in 4.[45]) f=${f/-/} ;; esac
@@ -381,16 +309,16 @@ sed -ni '
           g
           s/^\n//p
   }
-  ' /etc/sgml/catalog
+  ' %{_sysconfdir}/sgml/catalog
 
 # Finally, make sure everything in /etc/sgml is readable!
-%{_bindir}/chmod a+r /etc/sgml/*
+%{_bindir}/chmod a+r %{_sysconfdir}/sgml/*
 
 %postun
-# remove entries only on removal of package
+# Remove entries only on removal of package
 if [ "$1" = 0 ]; then
-  catcmd='/usr/bin/xmlcatalog --noout'
-  xmlcatalog=/usr/share/sgml/docbook/xmlcatalog
+  catcmd='%{_bindir}/xmlcatalog --noout'
+  xmlcatalog=%{_datadir}/sgml/docbook/xmlcatalog
   entities="
 ent/iso-pub.ent
 ent/iso-grk1.ent
@@ -424,11 +352,11 @@ ent/iso-cyr2.ent
   for dir
   do
     fmt=${dir#*-} ver=${dir%%-*}
-    sgmldir=/usr/share/sgml/docbook/$fmt-dtd-$ver
+    sgmldir=%{_datadir}/sgml/docbook/$fmt-dtd-$ver
     ## SGML catalog
     # Update the centralized catalog corresponding to this version of the DTD
-    $catcmd --sgml --del /etc/sgml/catalog /etc/sgml/$fmt-docbook-$ver.cat >/dev/null
-    rm -f /etc/sgml/$fmt-docbook-$ver.cat
+    $catcmd --sgml --del %{_sysconfdir}/sgml/catalog %{_sysconfdir}/sgml/$fmt-docbook-$ver.cat >/dev/null
+    rm -f %{_sysconfdir}/sgml/$fmt-docbook-$ver.cat
     ## XML catalog
     if [ $fmt = xml -a -w $xmlcatalog ]; then
       for f in $entities; do
@@ -447,7 +375,7 @@ ent/iso-cyr2.ent
           g
           s/^\n//p
   }
-    ' /etc/sgml/catalog
+    ' %{_sysconfdir}/sgml/catalog
 fi
 
 %triggerin -- openjade >= %{openjadever}
@@ -455,8 +383,8 @@ eval set %{catalog_list}
 for dir
 do
   fmt=${dir#*-} ver=${dir%%-*}
-  /usr/bin/xmlcatalog --sgml --noout --add /etc/sgml/$fmt-docbook-$ver.cat \
-    /usr/share/sgml/openjade-%{openjadever}/catalog
+  %{_bindir}/xmlcatalog --sgml --noout --add %{_sysconfdir}/sgml/$fmt-docbook-$ver.cat \
+    %{_datadir}/sgml/openjade-%{openjadever}/catalog
 done
 
 %triggerun -- openjade >= %{openjadever}
@@ -465,11 +393,18 @@ eval set %{catalog_list}
 for dir
 do
   fmt=${dir#*-} ver=${dir%%-*}
-  /usr/bin/xmlcatalog --sgml --noout --del /etc/sgml/$fmt-docbook-$ver.cat \
-    /usr/share/sgml/openjade-%{openjadever}/catalog
+  %{_bindir}/xmlcatalog --sgml --noout --del %{_sysconfdir}/sgml/$fmt-docbook-$ver.cat \
+    %{_datadir}/sgml/openjade-%{openjadever}/catalog
 done
 
 %changelog
+* Thu Sep 14 2023 Ondrej Sloup <osloup@redhat.com> - 1.0-83
+- Use %%patch -P N instead of deprecated %%patchN
+- Use RPM macros in the spec file for paths
+- Add comments, improve the structure
+- Unify paths in patch files
+- Simplify install script
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-82
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -491,8 +426,8 @@ done
 * Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-76
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
-* Tue Feb 05 2020 Ondrej Vasik <ovasik@redhat.com> - 1.0-75
-- do not print an error when uninstalling and no other catalogs 
+* Wed Feb 05 2020 Ondrej Vasik <ovasik@redhat.com> - 1.0-75
+- do not print an error when uninstalling and no other catalogs
   are present (#1357273)
 
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-74

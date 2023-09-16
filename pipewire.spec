@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 79
+%global microversion 80
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -80,7 +80,7 @@ Source1:        pipewire.sysusers
 ## upstreamable patches
 
 ## fedora patches
-
+Patch0001:	0001-Revert-aec-webrtc-Bump-to-webrtc-audio-processing-1.patch
 
 BuildRequires:  gettext
 BuildRequires:  meson >= 0.59.0
@@ -505,6 +505,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_bindir}/pipewire
 %{_bindir}/pipewire-avb
 %{_bindir}/pipewire-aes67
+%{_bindir}/pipewire-vulkan
 %{_mandir}/man1/pipewire.1*
 %dir %{_datadir}/pipewire/
 %{_datadir}/pipewire/pipewire.conf
@@ -515,6 +516,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/filter-chain/*.conf
 %{_datadir}/pipewire/pipewire-avb.conf
 %{_datadir}/pipewire/pipewire-aes67.conf
+%{_datadir}/pipewire/pipewire-vulkan.conf
 %{_mandir}/man5/pipewire.conf.5*
 %config(noreplace) %{_sysconfdir}/security/limits.d/*.conf
 %{_sysusersdir}/pipewire.conf
@@ -721,6 +723,10 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Sep 14 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.80-1
+- Update version to 0.3.80
+- Revert webrtc echo-cancel updates until fedora has newer version.
+
 * Tue Aug 29 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.79-1
 - Update version to 0.3.79
 

@@ -5,6 +5,9 @@
 #%%global	gem_githash	af3e3fc059
 
 %global	need_test_bootstrap	0
+%if 0%{?fedora} >= 40
+%global	need_test_bootstrap	1
+%endif
 
 # Upstream GIT http://github.com/rcairo/
 

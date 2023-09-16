@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	98%{?dist}
+Release:	100%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -62,8 +62,8 @@ BuildRequires:	squashfs-tools
 BuildRequires:	texinfo
 BuildRequires:	xz-devel
 
-# For %%_userunitdir macro
-BuildRequires:	systemd
+# For %%_userunitdir and %%systemd_* macros
+BuildRequires:	systemd-rpm-macros
 
 %ifarch %{efi_arch}
 BuildRequires:	pesign >= 0.99-8
@@ -114,6 +114,7 @@ Requires:	gettext-runtime os-prober file
 Requires(pre):	dracut
 Requires(pre):	grep
 Requires(pre):	sed
+%{?systemd_requires}
 
 %description tools
 %{desc}
@@ -271,17 +272,8 @@ install -d -m 0755 %{buildroot}%{_sysconfdir}/kernel/install.d/
 # Install systemd user service to set the boot_success flag
 install -D -m 0755 -t %{buildroot}%{_userunitdir} \
 	docs/grub-boot-success.{timer,service}
-install -d -m 0755 %{buildroot}%{_userunitdir}/timers.target.wants
-ln -s ../grub-boot-success.timer \
-	%{buildroot}%{_userunitdir}/timers.target.wants
 # Install systemd system-update unit to set boot_indeterminate for offline-upd
 install -D -m 0755 -t %{buildroot}%{_unitdir} docs/grub-boot-indeterminate.service
-install -d -m 0755 %{buildroot}%{_unitdir}/system-update.target.wants
-install -d -m 0755 %{buildroot}%{_unitdir}/reboot.target.wants
-ln -s ../grub-boot-indeterminate.service \
-	%{buildroot}%{_unitdir}/system-update.target.wants
-ln -s ../grub2-systemd-integration.service \
-	%{buildroot}%{_unitdir}/reboot.target.wants
 
 # Don't run debuginfo on all the grub modules and whatnot; it just
 # rejects them, complains, and slows down extraction.
@@ -331,6 +323,21 @@ elif [ -f /etc/grub.d/01_users ] && \
 	    > /boot/grub2/user.cfg
     fi
 fi
+
+%post tools
+%systemd_post grub-boot-indeterminate.service
+%systemd_post grub-systemd-integration.service
+%systemd_user_post grub-boot-success.timer
+
+%preun tools
+%systemd_preun grub-boot-indeterminate.service
+%systemd_preun grub-systemd-integration.service
+%systemd_user_preun grub-boot-success.timer
+
+%postun tools
+%systemd_postun_with_restart grub-boot-indeterminate.service
+%systemd_postun_with_restart grub-systemd-integration.service
+%systemd_user_postun_with_restart grub-boot-success.timer
 
 %posttrans common
 set -eu
@@ -427,11 +434,8 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %{_sysconfdir}/grub.d/README
 %{_userunitdir}/grub-boot-success.timer
 %{_userunitdir}/grub-boot-success.service
-%{_userunitdir}/timers.target.wants
 %{_unitdir}/grub-boot-indeterminate.service
-%{_unitdir}/system-update.target.wants
 %{_unitdir}/grub2-systemd-integration.service
-%{_unitdir}/reboot.target.wants
 %{_unitdir}/systemd-logind.service.d
 %{_infodir}/grub2*
 %{_datarootdir}/grub/*
@@ -544,6 +548,14 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Wed Sep 13 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-100
+- arm64: Use proper memory type for kernel allocation
+- Resolves: #2149020
+
+* Fri Sep 01 2023 Christian Glombek <cglombek@redhat.com> - 2.06-99
+- spec: Use systemd presets and macros for units in tools package
+- Resolves: #2230575
+
 * Thu Aug 31 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-98
 - spec: Modified posttrans to harden grub config detection
 - Resolves: #2235692

@@ -64,10 +64,6 @@ Summary:        %{summary}
 sed -i -e '/sphinx.ext.intersphinx/d' docs/conf.py
 # disable Sphinx non-available extensions
 sed -i -e '/sphinx_codeautolink/d' docs/conf.py
-# use Fedora-packaged lark-parser until the package is renamed to lark
-# the comment near this dependency says:
-#   "probably still works with old `lark-parser` too"
-sed -i -e 's/"lark>=0.10.1"/"lark-parser>=0.9"/' setup.py
 
 
 %generate_buildrequires

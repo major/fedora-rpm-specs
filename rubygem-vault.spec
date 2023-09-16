@@ -2,8 +2,8 @@
 %global gem_name vault
 
 Name: rubygem-%{gem_name}
-Version: 0.15.0
-Release: 7%{?dist}
+Version: 0.18.0
+Release: 1%{?dist}
 Summary: A Ruby API client for interacting with a Vault server
 License: MPLv2.0
 URL: https://github.com/hashicorp/vault-ruby
@@ -58,8 +58,6 @@ popd
 
 %files
 %dir %{gem_instdir}
-%{gem_instdir}/.circleci
-%exclude %{gem_instdir}/.gitignore
 %license %{gem_instdir}/LICENSE
 %{gem_libdir}
 %exclude %{gem_cache}
@@ -67,14 +65,14 @@ popd
 
 %files doc
 %doc %{gem_docdir}
-%exclude %{gem_instdir}/.rspec
 %doc %{gem_instdir}/CHANGELOG.md
-%{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
-%{gem_instdir}/Rakefile
-%{gem_instdir}/vault.gemspec
 
 %changelog
+* Thu Sep 14 2023 Ed Marshall <esm@logic.net> - 0.18.0-1
+- Update to 0.18.0
+- Don't need to clean up VCS/CI/etc leftovers anymore
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

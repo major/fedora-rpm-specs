@@ -6,22 +6,18 @@
 %global crate gix-mailmap
 
 Name:           rust-gix-mailmap
-Version:        0.16.1
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Parser for mailmap files for gix
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-mailmap
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * improve crate summary / description
-# * drop unused optional dependency that is only useful for building docs
-Patch:          gix-mailmap-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Parser for mailmap files for gix.}
+A crate of the gitoxide project for parsing mailmap files.}
 
 %description %{_description}
 
@@ -50,6 +46,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+document-features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+document-features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "document-features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

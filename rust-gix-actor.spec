@@ -7,16 +7,13 @@
 %global crate gix-actor
 
 Name:           rust-gix-actor
-Version:        0.24.2
+Version:        0.26.0
 Release:        %autorelease
 Summary:        Way to identify git actors
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-actor
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Drop documenation feature that is not used in fedora
-Patch:          gix-actor-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -50,6 +47,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+document-features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+document-features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "document-features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+gix-features-devel

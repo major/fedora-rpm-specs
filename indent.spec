@@ -110,11 +110,11 @@ Source2:    https://shadura.me/key.pgp
 # Check for setlocale() at configure time, proposed to an upstream,
 # <https://lists.gnu.org/archive/html/bug-indent/2023-04/msg00001.html>.
 Patch0:     indent-2.2.13-Check-for-setlocale-function.patch
-# Fix a heap overread in search_brace/lexi, proposed to the upstream,
+# Fix a heap overread in search_brace/lexi, in upstream after 2.2.13,
 # <https://savannah.gnu.org/bugs/index.php?64503>
 Patch1:     indent-2.2.13-Fix-an-out-of-buffer-read-in-search_brace-lexi-on-an.patch
 # Fix CVE-2023-40305 (a heap buffer overwrite in search_brace), bug #2231919,
-# proposed to the upstream, <https://savannah.gnu.org/bugs/index.php?64503>
+# in upstream after 2.2.13, <https://savannah.gnu.org/bugs/index.php?64503>
 Patch2:     indent-2.2.13-Fix-a-heap-buffer-overwrite-in-search_brace-CVE-2023.patch
 BuildRequires:  autoconf >= 2.71
 # autoconf-archive for unbundled ax_cc_for_build.m4

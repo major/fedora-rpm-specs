@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate gix-date
+%global crate smol_str
 
-Name:           rust-gix-date
-Version:        0.8.0
+Name:           rust-smol_str0.1
+Version:        0.1.24
 Release:        %autorelease
-Summary:        Parse dates the way git does
+Summary:        Small-string optimized string type with O(1) clone
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/gix-date
+URL:            https://crates.io/crates/smol_str
 Source:         %{crates_source}
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A crate of the gitoxide project parsing dates the way git does.}
+Small-string optimized string type with O(1) clone.}
 
 %description %{_description}
 
@@ -32,7 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,16 +47,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+document-features-devel
+%package     -n %{name}+arbitrary-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+document-features-devel %{_description}
+%description -n %{name}+arbitrary-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "document-features" feature of the "%{crate}" crate.
+use the "arbitrary" feature of the "%{crate}" crate.
 
-%files       -n %{name}+document-features-devel
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -69,6 +69,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -86,7 +98,8 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip a test that requires running rustfmt
+%cargo_test -- -- --skip check_code_formatting
 %endif
 
 %changelog

@@ -5,21 +5,18 @@
 %global crate gix-fs
 
 Name:           rust-gix-fs
-Version:        0.4.1
+Version:        0.6.0
 Release:        %autorelease
 Summary:        File system utilities for gix
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-fs
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * improve crate summary / description
-Patch:          gix-fs-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-File system utilities for gix.}
+A crate providing file system specific utilities to `gitoxide`.}
 
 %description %{_description}
 

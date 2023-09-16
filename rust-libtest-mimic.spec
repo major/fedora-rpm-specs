@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate gix-date
+%global crate libtest-mimic
 
-Name:           rust-gix-date
-Version:        0.8.0
+Name:           rust-libtest-mimic
+Version:        0.6.1
 Release:        %autorelease
-Summary:        Parse dates the way git does
+Summary:        Test harness that looks and behaves like rustc's built-in test harness
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/gix-date
+URL:            https://crates.io/crates/libtest-mimic
 Source:         %{crates_source}
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A crate of the gitoxide project parsing dates the way git does.}
+Write your own test harness that looks and behaves like the built-in
+test harness used by `rustc --test`.}
 
 %description %{_description}
 
@@ -33,6 +35,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -45,30 +48,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+document-features-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+document-features-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "document-features" feature of the "%{crate}" crate.
-
-%files       -n %{name}+document-features-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

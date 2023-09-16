@@ -351,7 +351,7 @@ Patch303: chromium-116-typename.patch
 Patch304: chromium-117-missing-header-files.patch
 
 # compiler error with c++20
-Patch306: chromium-116-emplace_back_on_vector-c++20.patch
+Patch306: chromium-117-emplace_back_on_vector-c++20.patch
 
 # disable memory tagging for epel8 on aarch64 due to new feature IFUNC-Resolver not supported
 # in old glibc < 2.30

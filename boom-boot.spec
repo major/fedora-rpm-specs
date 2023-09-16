@@ -6,7 +6,7 @@ Version:	1.5.1
 Release:	3%{?dist}
 Summary:	%{summary}
 
-License:	GPLv2
+License:	GPL-2.0-only
 URL:		https://github.com/snapshotmanager/boom
 Source0:	https://github.com/snapshotmanager/boom/archive/%{version}/boom-%{version}.tar.gz
 Patch1:		0001-man-Fix-line-starting-with.patch

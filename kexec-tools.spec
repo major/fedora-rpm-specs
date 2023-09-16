@@ -75,9 +75,6 @@ BuildRequires: zlib-devel elfutils-devel glib2-devel bzip2-devel ncurses-devel b
 BuildRequires: pkgconfig intltool gettext
 BuildRequires: systemd-rpm-macros
 BuildRequires: automake autoconf libtool
-%ifarch %{ix86} x86_64 ppc64 ppc s390x ppc64le
-Obsoletes: diskdumputils netdump kexec-tools-eppic
-%endif
 
 %ifnarch s390x
 Requires:       systemd-udev%{?_isa}
@@ -228,38 +225,27 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/makedumpfile/eppic_scripts/
 install -m 644 makedumpfile-%{mkdf_ver}/eppic_scripts/* $RPM_BUILD_ROOT/usr/share/makedumpfile/eppic_scripts/
 %endif
 
-%define remove_dracut_prefix() %(echo -n %1|sed 's/.*dracut-//g')
-%define remove_dracut_early_kdump_prefix() %(echo -n %1|sed 's/.*dracut-early-kdump-//g')
-%define remove_dracut_fadump_prefix() %(echo -n %1|sed 's/.*dracut-fadump-//g')
+%define dracutdir %{_prefix}/lib/dracut/modules.d
+%define remove_prefix() %(echo -n %2|sed 's/.*%1-//g')
 
 # deal with dracut modules
-mkdir -p -m755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99kdumpbase
-cp %{SOURCE100} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99kdumpbase/%{remove_dracut_prefix %{SOURCE100}}
-cp %{SOURCE101} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99kdumpbase/%{remove_dracut_prefix %{SOURCE101}}
-cp %{SOURCE102} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99kdumpbase/%{remove_dracut_prefix %{SOURCE102}}
-cp %{SOURCE104} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99kdumpbase/%{remove_dracut_prefix %{SOURCE104}}
-cp %{SOURCE106} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99kdumpbase/%{remove_dracut_prefix %{SOURCE106}}
-cp %{SOURCE107} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99kdumpbase/%{remove_dracut_prefix %{SOURCE107}}
-chmod 755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99kdumpbase/%{remove_dracut_prefix %{SOURCE100}}
-chmod 755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99kdumpbase/%{remove_dracut_prefix %{SOURCE101}}
-mkdir -p -m755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99earlykdump
-cp %{SOURCE108} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99earlykdump/%{remove_dracut_prefix %{SOURCE108}}
-cp %{SOURCE109} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99earlykdump/%{remove_dracut_early_kdump_prefix %{SOURCE109}}
-chmod 755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99earlykdump/%{remove_dracut_prefix %{SOURCE108}}
-chmod 755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99earlykdump/%{remove_dracut_early_kdump_prefix %{SOURCE109}}
+mkdir -p -m755 $RPM_BUILD_ROOT/%{dracutdir}/99kdumpbase
+install -m 755 %{SOURCE100} $RPM_BUILD_ROOT/%{dracutdir}/99kdumpbase/%{remove_prefix dracut %{SOURCE100}}
+install -m 755 %{SOURCE101} $RPM_BUILD_ROOT/%{dracutdir}/99kdumpbase/%{remove_prefix dracut %{SOURCE101}}
+install -m 644 %{SOURCE102} $RPM_BUILD_ROOT/%{dracutdir}/99kdumpbase/%{remove_prefix dracut %{SOURCE102}}
+install -m 644 %{SOURCE104} $RPM_BUILD_ROOT/%{dracutdir}/99kdumpbase/%{remove_prefix dracut %{SOURCE104}}
+install -m 644 %{SOURCE106} $RPM_BUILD_ROOT/%{dracutdir}/99kdumpbase/%{remove_prefix dracut %{SOURCE106}}
+install -m 644 %{SOURCE107} $RPM_BUILD_ROOT/%{dracutdir}/99kdumpbase/%{remove_prefix dracut %{SOURCE107}}
+
+mkdir -p -m755 $RPM_BUILD_ROOT/%{dracutdir}/99earlykdump
+install -m 755 %{SOURCE108} $RPM_BUILD_ROOT/%{dracutdir}/99earlykdump/%{remove_prefix dracut %{SOURCE108}}
+install -m 755 %{SOURCE109} $RPM_BUILD_ROOT/%{dracutdir}/99earlykdump/%{remove_prefix dracut-early-kdump %{SOURCE109}}
+
 %ifarch ppc64 ppc64le
-mkdir -p -m755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99zz-fadumpinit
-cp %{SOURCE200} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99zz-fadumpinit/%{remove_dracut_fadump_prefix %{SOURCE200}}
-cp %{SOURCE201} $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99zz-fadumpinit/%{remove_dracut_fadump_prefix %{SOURCE201}}
-chmod 755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99zz-fadumpinit/%{remove_dracut_fadump_prefix %{SOURCE200}}
-chmod 755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99zz-fadumpinit/%{remove_dracut_fadump_prefix %{SOURCE201}}
+mkdir -p -m755 $RPM_BUILD_ROOT/%{dracutdir}/99zz-fadumpinit
+install -m 755 %{SOURCE200} $RPM_BUILD_ROOT/%{dracutdir}/99zz-fadumpinit/%{remove_prefix dracut-fadump %{SOURCE200}}
+install -m 755 %{SOURCE201} $RPM_BUILD_ROOT/%{dracutdir}/99zz-fadumpinit/%{remove_prefix dracut-fadump %{SOURCE201}}
 %endif
-
-
-%define dracutlibdir %{_prefix}/lib/dracut
-#and move the custom dracut modules to the dracut directory
-mkdir -p $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/
-mv $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/* $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/
 
 %post
 # Initial installation
@@ -271,28 +257,6 @@ touch /etc/kdump.conf
 servicelog_notify --remove --command=/usr/lib/kdump/kdump-migrate-action.sh 2>/dev/null
 servicelog_notify --add --command=/usr/lib/kdump/kdump-migrate-action.sh --match='refcode="#MIGRATE" and serviceable=0' --type=EVENT --method=pairs_stdin >/dev/null
 %endif
-
-# This portion of the script is temporary.  Its only here
-# to fix up broken boxes that require special settings
-# in /etc/sysconfig/kdump.  It will be removed when
-# These systems are fixed.
-
-if [ -d /proc/bus/mckinley ]
-then
-	# This is for HP zx1 machines
-	# They require machvec=dig on the kernel command line
-	sed -e's/\(^KDUMP_COMMANDLINE_APPEND.*\)\("$\)/\1 machvec=dig"/' \
-	/etc/sysconfig/kdump > /etc/sysconfig/kdump.new
-	mv /etc/sysconfig/kdump.new /etc/sysconfig/kdump
-elif [ -d /proc/sgi_sn ]
-then
-	# This is for SGI SN boxes
-	# They require the --noio option to kexec
-	# since they don't support legacy io
-	sed -e's/\(^KEXEC_ARGS.*\)\("$\)/\1 --noio"/' \
-	/etc/sysconfig/kdump > /etc/sysconfig/kdump.new
-	mv /etc/sysconfig/kdump.new /etc/sysconfig/kdump
-fi
 
 
 %postun
@@ -363,7 +327,7 @@ fi
 %config %{_udevrulesdir}
 %{_udevrulesdir}/../kdump-udev-throttler
 %endif
-%{dracutlibdir}/modules.d/*
+%{dracutdir}/*
 %dir %{_localstatedir}/crash
 %dir %{_sysconfdir}/kdump
 %dir %{_sysconfdir}/kdump/pre.d
