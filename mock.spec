@@ -9,7 +9,7 @@
 
 Summary: Builds packages inside chroots
 Name: mock
-Version: 5.0
+Version: 5.1
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
@@ -60,6 +60,7 @@ Requires: python%{python3_pkgversion}-rpm
 Requires: python%{python3_pkgversion}-pyroute2
 Requires: python%{python3_pkgversion}-templated-dictionary
 Requires: python%{python3_pkgversion}-backoff
+BuildRequires: python%{python3_pkgversion}-backoff
 BuildRequires: python%{python3_pkgversion}-devel
 %if %{with lint}
 BuildRequires: python%{python3_pkgversion}-pylint
@@ -67,17 +68,19 @@ BuildRequires: python%{python3_pkgversion}-pylint
 
 %if 0%{?fedora} >= 38
 # DNF5 stack
-Suggests: dnf5
-Suggests: dnf5-plugins
+Recommends: dnf5
+Recommends: dnf5-plugins
 %endif
 
 # DNF4 stack
-Suggests: python3-dnf
-Suggests: dnf-plugins-core
+Recommends: python3-dnf
+Recommends: python3-dnf-plugins-core
 
-Suggests: yum
-Recommends: btrfs-progs
+# YUM stack, dnf-utils replace yum-utils
+Recommends: yum
 Recommends: dnf-utils
+
+Recommends: btrfs-progs
 Suggests: qemu-user-static
 Suggests: procenv
 Recommends: podman
@@ -272,6 +275,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %dir  %{_datadir}/cheat
 
 %changelog
+* Fri Sep 15 2023 Pavel Raiskup <praiskup@redhat.com> 5.1-1
+- new upstream release, per https://rpm-software-management.github.io/mock/Release-Notes-5.1
+
 * Wed Aug 09 2023 Pavel Raiskup <praiskup@redhat.com> 5.0-1
 - new upstream release, per https://rpm-software-management.github.io/mock/Release-Notes-5.0
 

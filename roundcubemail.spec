@@ -11,14 +11,14 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
-%global upstream_version     1.6.2
+%global upstream_version     1.6.3
 #global upstream_prever      rc
 
 %global roundcubedir %{_datadir}/roundcubemail
 %global _logdir /var/log  
 Name: roundcubemail
 Version:  %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:  2%{?dist}
+Release:  1%{?dist}
 Summary: Round Cube Webmail is a browser-based multilingual IMAP client
 
 # Since 0.8 beta, the main code has been GPLv3+ with exceptions and
@@ -135,7 +135,7 @@ Provides: bundled(js-tinymce-langs) = 5.8.2
 Provides: bundled(php-pear-auth-sasl) = v1.1.0
 # License BSD-2-Clause
 Provides: bundled(php-bacon-bacon-qr-code) = 2.0.8
-Provides: bundled(php-dasprid-enum) = 1.0.4
+Provides: bundled(php-dasprid-enum) = 1.0.5
 Provides: bundled(php-pear-console-getopt) = v1.4.3
 Provides: bundled(php-pear-net-sieve) = 1.4.6
 Provides: bundled(php-pear-net-smtp) = 1.10.1
@@ -153,9 +153,9 @@ Provides: bundled(php-pear-crypt-gpg) = v1.6.7
 # License LGPL-3.0
 Provides: bundled(php-pear-net-ldap2) = v2.2.1
 # License MIT
-Provides: bundled(php-guzzlehttp-guzzle) = 7.7.0
-Provides: bundled(php-guzzlehttp-promises) = 2.0.0
-Provides: bundled(php-guzzlehttp-psr7) = 2.5.0
+Provides: bundled(php-guzzlehttp-guzzle) = 7.8.0
+Provides: bundled(php-guzzlehttp-promises) = 2.0.1
+Provides: bundled(php-guzzlehttp-psr7) = 2.6.1
 Provides: bundled(php-masterminds-html5) = 2.7.6
 Provides: bundled(php-pear-console-commandline) = v1.2.6
 Provides: bundled(php-psr-http-client) = 1.0.2
@@ -314,6 +314,9 @@ fi
 
 
 %changelog
+* Fri Sep 15 2023 Remi Collet <remi@remirepo.net> - 1.6.3-1
+- update to 1.6.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

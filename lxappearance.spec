@@ -16,11 +16,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20230814
-%global		gittartime		1421
+%global		gittardate		20230915
+%global		gittartime		1222
 
-%global		gitbaredate	20230801
-%global		git_rev		8e634d03ac8f499358bfc09435b065d6b7060a96
+%global		gitbaredate	20230913
+%global		git_rev		5423cc46ce738ad8b01818957e0393811225681d
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -125,10 +125,6 @@ git add .
 git commit -m "base" -q
 %endif
 
-# For GTK-2 compilation, workaround
-sed -i src/lxappearance.c \
-	-e 's|GDK_IS_X11_DISPLAY|GDK_IS_DISPLAY|'
-
 sh autogen.sh
 
 
@@ -179,6 +175,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Sep 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.3^20230913git5423cc46-1
+- Update to the latest git
+
 * Mon Aug 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.3^20230801git8e634d03-1
 - Update to the latest git
 

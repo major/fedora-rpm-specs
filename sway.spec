@@ -6,7 +6,7 @@
 
 Name:           sway
 Version:        1.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
 URL:            https://github.com/swaywm/sway
@@ -17,7 +17,8 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 
 # Minimal configuration file for headless or buildroot use
 Source100:      config.minimal
-Source101:      README.md
+Source101:      sway-portals.conf
+Source102:      README.md
 
 # Upstream patches
 
@@ -152,7 +153,7 @@ interface.
 %autopatch -p1 -M19
 # apply conditional patches
 %if %{with caps}
-%patch20 -p1
+%patch -P20 -p1
 %endif
 
 %build
@@ -165,9 +166,11 @@ interface.
 %meson_install
 # Install minimal configuration file
 install -D -m644 -pv %{SOURCE100} %{buildroot}%{_sysconfdir}/sway/config.minimal
+# Install portals.conf for xdg-desktop-portal
+install -D -m644 -pv %{SOURCE101} %{buildroot}%{_datadir}/xdg-desktop-portal/sway-portals.conf
 # install the documentation
 install -D -m644 -pv README.md    %{buildroot}%{_pkgdocdir}/README.md
-install -D -m644 -pv %{SOURCE101} %{buildroot}%{_pkgdocdir}/README.Fedora
+install -D -m644 -pv %{SOURCE102} %{buildroot}%{_pkgdocdir}/README.Fedora
 # Create directory for extra config snippets
 install -d -m755 -pv %{buildroot}%{_sysconfdir}/sway/config.d
 
@@ -191,15 +194,11 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %{_bindir}/swaymsg
 %{_bindir}/swaynag
 %{_datadir}/sway
-%dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/site-functions/_sway*
-%dir %{_datadir}/bash-completion
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/sway*
-%dir %{_datadir}/fish
-%dir %{_datadir}/fish/vendor_completions.d
-%{_datadir}/fish/vendor_completions.d/sway*
+%dir %{_datadir}/xdg-desktop-portal
+%{_datadir}/xdg-desktop-portal/sway-portals.conf
+%{bash_completions_dir}/sway*
+%{fish_completions_dir}/sway*.fish
+%{zsh_completions_dir}/_sway*
 
 %files config-upstream
 %config(noreplace) %{_sysconfdir}/sway/config
@@ -217,6 +216,9 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %{_mandir}/man1/grimshot.1*
 
 %changelog
+* Thu Sep 14 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.1-3
+- Add sway-portals.conf for xdg-desktop-portal >= 1.17
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

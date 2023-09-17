@@ -1,6 +1,6 @@
 Name:           python-textual
-Version:        0.22.3
-Release:        2%{?dist}
+Version:        0.37.0
+Release:        1%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
 URL:            https://github.com/Textualize/textual
@@ -54,7 +54,10 @@ Summary:        Docs and examples for python3-textual
 
 
 %check
-%pytest
+# skip these tests until https://github.com/Textualize/pytest-textual-snapshot
+# is packaged
+rm -rf tests/snapshot_tests
+%pytest -k "not test_textual_env_var"
 
 
 %files -n python3-textual -f %{pyproject_files}
@@ -63,10 +66,12 @@ Summary:        Docs and examples for python3-textual
 %files -n python3-textual-doc
 %license LICENSE
 %doc README.md docs/ examples/
-%{_bindir}/textual
 
 
 %changelog
+* Fri Sep 15 2023 Jonathan Wright <jonathan@almalinux.org> - 0.37.0-1
+- Update to 0.37.0 rhbz#2192888
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

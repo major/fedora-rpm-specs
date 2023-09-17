@@ -4,10 +4,10 @@
 # The cvc5_pythonic_api project needs cvc5 to build, and cvc5 needs
 # cvc5_pythonic_api to build.  See cmake/FindCVC5PythonicAPI.cmake for the git
 # commit needed by this version of cvc5.
-%global pcommit a04093e60036b83681c6f2cf5cca42bb631b6ce4
+%global pcommit 1582d36944310a96cc8e2dfc01e3682745866812
 
 Name:           cvc5
-Version:        1.0.5
+Version:        1.0.8
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 
@@ -20,31 +20,20 @@ Source0:        https://github.com/cvc5/cvc5/archive/%{name}-%{version}.tar.gz
 Source1:        https://github.com/cvc5/cvc5_pythonic_api/archive/%{pcommit}/%{pcommit}.zip
 # Do not override Fedora flags
 Patch0:         %{name}-flags.patch
-# Adapt to the way ANTLR3 is packaged in Fedora
-Patch1:         %{name}-antlr3.patch
 # Just use the default linker specified by the distro. ld.gold was the
 # new kid on the block a while ago, primarily offering higher link
 # speeds. But it has aged, and has less features than ld.bfd. Let's
 # use ld.bfd so that package notes work without workarounds.
-Patch2:         %{name}-do-not-use-gold.patch
+Patch1:         %{name}-do-not-use-gold.patch
 # Do not add rpaths to libraries and executables
-Patch3:         %{name}-rpath.patch
-# Use tomllib instead of the deprecated toml package
-# https://github.com/cvc5/cvc5/pull/9913
-Patch4:         %{name}-toml.patch
+Patch2:         %{name}-rpath.patch
 # Skip tests that require huge amounts of memory
 # Patch courtesy of Scott Talbert
-Patch5:         %{name}-skip-himem-tests.patch
-# Fix out-of-bounds access to a vector
-# https://github.com/cvc5/cvc5/pull/9921
-Patch6:         %{name}-vec.patch
+Patch3:         %{name}-skip-himem-tests.patch
 
-# ANTLR 3 is not available on i686
-# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-ExclusiveArch:  %{java_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
-BuildRequires:  antlr3-C-devel
-BuildRequires:  antlr3-tool
 BuildRequires:  cadical
 BuildRequires:  cadical-devel
 BuildRequires:  chrpath
@@ -156,15 +145,9 @@ sed -i 's/ bsd//' cmake/FindEditline.cmake
 sed -i 's,#include <kissat/kissat\.h>,#include <kissat.h>,' src/prop/kissat.h
 sed -i 's,kissat/kissat\.h,kissat.h,' cmake/FindKissat.cmake
 
-# The header file installation script does not know about DESTDIR
-sed -i 's/\${CMAKE_INSTALL_PREFIX}/\\$ENV{DESTDIR}&/' src/CMakeLists.txt
-
 # Build the Java interface so that JDK 1.8 can use it
 sed -i 's/\${Java_JAVAC_EXECUTABLE}/& -source 1.8 -target 1.8/' \
   src/api/java/CMakeLists.txt
-
-# Allow use of python 3.12
-sed -i 's/3\.10\.999/3.12.999/' cmake/Helpers.cmake
 
 %generate_buildrequires
 ln -s . src/api/python/cvc5
@@ -218,16 +201,15 @@ fi
 # FIXME: What is causing an rpath to be added in the first place?
 chrpath -d %{buildroot}%{python3_sitearch}/cvc5/*.so
 
-# FIXME: 2 tests fail on s390x
-# - regress4/C880mul.miter.shuffled-as.sat03-348.smtv1.smt2
-# - regress4/instance_1151.smtv1.smt2
-%ifnarch s390x
 %check
+# Build the tests
 cd %{_vpath_builddir}/test/api
 make
 cd -
+
+# Increase the test timeout for slow builders
+export TEST_TIMEOUT=2000
 %ctest
-%endif
 
 %files
 %doc AUTHORS NEWS.md README.md THANKS

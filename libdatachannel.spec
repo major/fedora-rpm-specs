@@ -1,6 +1,8 @@
+%define soversion() %(echo "%1" | awk -F. '{print $1"."$2}')
+
 Name:           libdatachannel
 Version:        0.19.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WebRTC network library featuring Data Channels, Media Transport, and WebSockets
 
 License:        MPL-2.0
@@ -9,8 +11,11 @@ Source0:        https://github.com/paullouisageneau/%{name}/archive/v%{version}/
 
 # From: https://github.com/paullouisageneau/libdatachannel/pull/975
 Patch0:         libdatachannel-gnuinstalldirs.patch
+# From: https://github.com/paullouisageneau/libdatachannel/pull/978
+Patch1:         libdatachannel-soversion.patch
 
 BuildRequires:  cmake
+BuildRequires:  gawk
 BuildRequires:  gcc-c++
 BuildRequires:  make
 # Not yet needed and not packaged in Fedora yet
@@ -53,7 +58,7 @@ developing applications that use %{name}.
 
 %files
 %license LICENSE
-%{_libdir}/%{name}.so.%{version}
+%{_libdir}/%{name}.so.%{soversion %{version}}{,.*}
 
 %files devel
 %doc README.md DOC.md
@@ -63,5 +68,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Sep 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.19.1-2
+- Add patch to fix library soversion
+
 * Sun Sep 10 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.19.1-1
 - Initial package

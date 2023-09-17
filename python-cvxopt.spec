@@ -1,8 +1,8 @@
 %global _docdir_fmt %{name}
 
 Name:           python-cvxopt
-Version:        1.3.1
-Release:        3%{?dist}
+Version:        1.3.2
+Release:        1%{?dist}
 Summary:        A Python Package for Convex Optimization
 
 License:        GPL-3.0-or-later
@@ -130,6 +130,9 @@ rm -f doc/build/html/.buildinfo
 %doc examples/
 
 %changelog
+* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 1.3.2-1
+- Version 1.3.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

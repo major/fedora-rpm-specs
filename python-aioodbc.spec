@@ -1,44 +1,67 @@
 %global srcname aioodbc
 
 Name:           python-%{srcname}
-Version:        0.3.3
-Release:        15%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        Library for accessing a ODBC databases from the asyncio
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/aio-libs/aioodbc
 Source:         %{pypi_source}
 
 BuildArch:      noarch
 
+
 %description
 %{summary}.
+
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+# for tests
+#BuildRequires:  python3-pytest
+#BuildRequires:  python3-pytest-asyncio
+
 
 %description -n python3-%{srcname}
 %{summary}.
 
+
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-%{srcname}
+%pyproject_save_files aioodbc
+
+
+%check
+# tests all fail with error "AttributeError: module pytest has no attribute db_list"
+# and i'm not sure how to fix it right now
+#%%pytest
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc CHANGES.txt README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+
 
 %changelog
+* Fri Sep 15 2023 Jonathan Wright <jonathan@almalinux.org> - 0.4.0-1
+- Update to 0.4.0 rhbz#2179217
+- modernize spec
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

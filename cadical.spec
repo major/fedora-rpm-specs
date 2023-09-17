@@ -1,6 +1,6 @@
 Name:           cadical
 Epoch:          1
-Version:        1.7.1
+Version:        1.7.3
 Release:        1%{?dist}
 Summary:        Simplified SAT solver
 
@@ -103,6 +103,9 @@ make -C test
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 1:1.7.3-1
+- Version 1.7.3
+
 * Fri Sep  1 2023 Jerry James <loganjerry@gmail.com> - 1:1.7.1-1
 - Version 1.7.1
 

@@ -23,10 +23,10 @@
 
 Name:           python-%{modname}
 Version:        7.45.2
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        A Python interface to libcurl
 
-License:        LGPLv2+ or MIT
+License:        curl OR LGPL-2.1-or-later
 URL:            http://pycurl.io/
 Source0:        https://files.pythonhosted.org/packages/a8/af/24d3acfa76b867dbd8f1166853c18eefc890fc5da03a48672b38ea77ddae/pycurl-7.45.2.tar.gz
 
@@ -140,14 +140,12 @@ export PYCURL_SSL_LIBRARY=openssl
 export PYCURL_VSFTPD_PATH=vsftpd
 export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 make test PYTHON=%{__python3} PYTEST=%{pytest} PYFLAKES=true
-rm -fv tests/fake-curl/libcurl/*.so
-rm -fvr tests/__pycache__
 %endif
 
 %if %{with python2}
 %files -n python2-%{modname}
 %license COPYING-LGPL COPYING-MIT
-%doc ChangeLog README.rst examples doc tests
+%doc ChangeLog README.rst examples doc
 %{python2_sitearch}/curl/
 %{python2_sitearch}/%{modname}.so
 %{python2_sitearch}/%{modname}-%{version}-*.egg-info
@@ -156,13 +154,19 @@ rm -fvr tests/__pycache__
 %if %{with python3}
 %files -n python3-%{modname}
 %license COPYING-LGPL COPYING-MIT
-%doc ChangeLog README.rst examples doc tests
+%doc ChangeLog README.rst examples doc
 %{python3_sitearch}/curl/
 %{python3_sitearch}/%{modname}.*.so
 %{python3_sitearch}/%{modname}-%{version}-*.egg-info
 %endif
 
 %changelog
+* Fri Sep 15 2023 Lukáš Zaoral <lzaoral@redhat.com> - 7.45.2-7
+- do not package tests as documentation
+
+* Fri Sep 15 2023 Lukáš Zaoral <lzaoral@redhat.com> - 7.45.2-6
+- migrate to SPDX license format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.45.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

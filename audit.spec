@@ -2,7 +2,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 3.1.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
@@ -18,7 +18,7 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires(post): systemd coreutils procps-ng
 Requires(preun): systemd
 Recommends: initscripts-service
-Requires(postun): systemd coreutils initscripts-service
+Requires(postun): systemd coreutils
 
 # Placing this here under the assumption that anything using the
 # python libraries expects the system to have an audit daemon
@@ -268,6 +268,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Wed Sep 13 2023 Dusty Mabe <dusty@dustymabe.com> 3.1.2-4
+- Remove initscripts-service from Requires(postun)
+
 * Fri Sep 01 2023 Steve Grubb <sgrubb@redhat.com> 3.1.2-3
 - Change initscrips-service to a Recommends
 

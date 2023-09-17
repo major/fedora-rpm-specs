@@ -1,8 +1,8 @@
 %define _legacy_common_support 1
 
 Name:           duperemove
-Version:        0.11.3
-Release:        5%{?dist}
+Version:        0.12
+Release:        1%{?dist}
 Summary:        Tools for deduping file systems
 License:        GPL-2.0-only
 URL:            https://github.com/markfasheh/%{name}
@@ -30,12 +30,36 @@ deduplication using the btrfs-extent-same ioctl.
 
 %prep
 %autosetup
+# There's some weird stuff happening to detect the version and whether it's a release,
+# so let's just hardcode this stuff
+patch -p1 << EOF
+--- a/Makefile	2023-07-15 10:24:08.000000000 +0100
++++ b/Makefile	2023-07-29 20:00:07.730500085 +0100
+@@ -1,9 +1,5 @@
+-VERSION=\$(shell git describe --abbrev=4 --dirty --always --tags;)
+-ifeq (\$(shell git rev-list \$(shell git describe --abbrev=0 --tags --exclude '*dev';)..HEAD --count;), 0)
+-	IS_RELEASE=1
+-else
+-	IS_RELEASE=0
+-endif
++VERSION=%{version}
++IS_RELEASE=1
+ 
+ CC ?= gcc
+ CFLAGS ?= -Wall -ggdb
+EOF
+# Fix prefix
+sed -i 's@^PREFIX ?= /usr/local$@PREFIX ?= /usr@' Makefile
+# Get rid of bundled libraries
+rm -f xxhash.h
+ln -s /usr/include/xxhash.h
 
 %build
 %set_build_flags
 %if 0%{?el7}
 . /opt/rh/devtoolset-7/enable
 %endif
+export PREFIX=/usr
 %make_build
 
 %install
@@ -48,12 +72,15 @@ deduplication using the btrfs-extent-same ioctl.
 %{_mandir}/man8/duperemove*.8*
 %{_mandir}/man8/hashstats*.8*
 %{_mandir}/man8/show-shared-extents*.8*
-%{_sbindir}/btrfs-extent-same
-%{_sbindir}/duperemove
-%{_sbindir}/hashstats
-%{_sbindir}/show-shared-extents
+%{_bindir}/btrfs-extent-same
+%{_bindir}/duperemove
+%{_bindir}/hashstats
+%{_bindir}/show-shared-extents
 
 %changelog
+* Sat Jul 29 2023 Jonathan Dieter <jdieter@gmail.com> - 0.12-1
+- Update to 0.12 with bug fixes
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

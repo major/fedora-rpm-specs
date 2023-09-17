@@ -23,7 +23,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   45~rc
+Version:   45.0
 Release:   1%{?dist}
 Summary:   A software center for GNOME
 
@@ -246,6 +246,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Fri Sep 15 2023 Milan Crha <mcrha@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Fri Sep 01 2023 Milan Crha <mcrha@redhat.com> - 45~rc-1
 - Update to 45.rc
 

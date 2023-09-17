@@ -1,8 +1,6 @@
-%global release_commit_hash 7407cc3a27eb25ba4ddddeab565f67fd688324ed
-
 Name: remmina
-Version: 1.4.31
-Release: 4%{?dist}
+Version: 1.4.32
+Release: 1%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -214,7 +212,7 @@ This package contains Remmina kiosk mode, including a Gnome Shell session
 that shows up under the display manager session menu.
 
 %prep
-%autosetup -p1 -n Remmina-v%{version}-%{release_commit_hash}
+%autosetup -p1 -n Remmina-v%{version}
 
 %build
 %cmake \
@@ -333,6 +331,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Fri Sep 15 2023 Jonathan Wright <jonathan@almalinux.org> - 1.4.32-1
+- Update to 1.4.32 rhbz#2239158
+
 * Tue Aug 22 2023 René Genz <liebundartig@freenet.de> - 1.4.31-4
 - Fix typing mistake
  

@@ -1,6 +1,6 @@
 Name:		perl-Crypt-Argon2
 Version:	0.019
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Perl interface to the Argon2 key derivation functions
 License:	Apache-2.0
 
@@ -63,6 +63,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Fri Sep 15 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.019-5
+- Bump and rebuild to resolve coredump issue with current build (rhbz#2118421)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.019-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

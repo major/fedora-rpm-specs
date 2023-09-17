@@ -1,8 +1,8 @@
 %global pkgname digraphs
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.6.2
-Release:        2%{?dist}
+Version:        1.6.3
+Release:        1%{?dist}
 Summary:        GAP package for digraphs and multidigraphs
 
 # The project as a whole is GPL-3.0-or-later.
@@ -101,6 +101,9 @@ rm -fr ../pkg
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 1.6.3-1
+- Version 1.6.3
+
 * Thu Aug  3 2023 Jerry James <loganjerry@gmail.com> - 1.6.2-2
 - Drop the patch to work around a test failure
 

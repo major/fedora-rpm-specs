@@ -15,9 +15,9 @@
 Summary:       Shared code for mate-panel, mate-session, caja, etc
 Name:          mate-desktop
 License:       GPLv2+ and LGPLv2+ and MIT
-Version:       %{branch}.1
+Version:       %{branch}.2
 %if 0%{?rel_build}
-Release:       4%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.18%{?git_rel}%{?dist}
 %endif
@@ -60,14 +60,14 @@ Requires: mate-control-center-filesystem
 Requires: mate-panel
 Requires: mate-notification-daemon
 Requires: mate-user-guide
-%if 0%{?fedora} && 0%{?fedora} >= 38
+%if 0%{?fedora} && 0%{?fedora} >= 39
+Requires: f39-backgrounds-mate
+%endif
+%if 0%{?fedora} && 0%{?fedora} == 38
 Requires: f38-backgrounds-mate
 %endif
 %if 0%{?fedora} && 0%{?fedora} == 37
 Requires: f37-backgrounds-mate
-%endif
-%if 0%{?fedora} && 0%{?fedora} == 36
-Requires: f36-backgrounds-mate
 %endif
 
 # Need this to pull in the right imsettings in groupinstalls
@@ -195,6 +195,7 @@ install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mat
 %{_datadir}/glib-2.0/schemas/10_mate-fedora.gschema.override
 %endif
 %{_datadir}/applications/mate-mimeapps.list
+%{_datadir}/xdg-desktop-portal/mate-portals.conf
 %if 0%{?rhel}
 %{_datadir}/glib-2.0/schemas/10_mate-rhel.gschema.override
 %endif
@@ -208,6 +209,9 @@ install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mat
 
 
 %changelog
+* Fri Sep 15 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
+- update to 1.26.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

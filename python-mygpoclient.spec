@@ -1,14 +1,14 @@
 Name:       python-mygpoclient
 Version:    1.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python module to connect to the my.gpodder.org webservice
 
-License:    GPLv3+
+License:    GPL-3.0-or-later
 URL:        http://thpinfo.com/2010/mygpoclient/ 
 Source0:    http://thpinfo.com/2010/mygpoclient/mygpoclient-%{version}.tar.gz  
 BuildArch:  noarch
 
-Patch0:     312.patch
+Patch0:     18.patch
 
 %global _description\
 %{name} is a client-library to connect the my.gpodder.org webservice.
@@ -56,6 +56,10 @@ rm mygpoclient/http_test.py
 
 
 %changelog
+* Fri Sep 15 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.9-2
+- Use SPDX license tag.
+- Updated patch
+
 * Tue Sep 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.9-1
 - 1.9
 

@@ -338,7 +338,7 @@
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
 # and this it is better to change it here, on single place
-%global buildjdkver 20
+%global buildjdkver 21
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it would have the %%{rhel} macro defined.
 %if 0%{?rhel} && !0%{?epel}
@@ -391,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver       35
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1628,7 +1628,10 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchiveForFiles}
 
 %changelog
-* Tue Aug 08 2023 Petra Alice Mikova <pmikova@redhat.com> 1:21.0.0.0.35-0.1.rolling
+* Thu Sep 14 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:21.0.0.0.35-2.rolling
+- Bump buildjdkver now that java-21-openjdk is available in the buildroot
+
+* Tue Aug 08 2023 Petra Alice Mikova <pmikova@redhat.com> 1:21.0.0.0.35-1.rolling
 - updated to jdk-21+35, which is no longer EA
 
 * Tue Aug 08 2023 Petra Alice Mikova <pmikova@redhat.com> 1:21.0.0.0.34-0.1.ea.rolling

@@ -18,7 +18,7 @@
 
 Name:           certbot
 Version:        2.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -268,6 +268,8 @@ for module in acme certbot %{MODULES} certbot-apache certbot-nginx; do
 pushd $module
 %pytest -v  -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
     -W "ignore:Deprecated call to \`pkg_resources.declare_namespace('sphinxcontrib')\`::pkg_resources" \
+    -W "ignore:datetime.datetime.utcfromtimestamp() is deprecated:DeprecationWarning" \
+    -W "ignore:datetime.datetime.utcnow() is deprecated:DeprecationWarning" \
     -W "ignore:datetime.utcfromtimestamp() is deprecated:DeprecationWarning" \
     -W "ignore:datetime.utcnow() is deprecated:DeprecationWarning"
 popd
@@ -379,6 +381,9 @@ fi
 
 
 %changelog
+* Sat Sep 09 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.6.0-5
+- Fix build with Python 3.12.0rc2 (warning message changed)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

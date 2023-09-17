@@ -5,7 +5,7 @@
 %global crate aho-corasick
 
 Name:           rust-aho-corasick
-Version:        1.0.4
+Version:        1.0.5
 Release:        %autorelease
 Summary:        Fast multiple substring searching
 

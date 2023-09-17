@@ -344,9 +344,7 @@ export ASMFLAGS="%{build_cflags}"
 %if %{with snapshot_build}
 	-DLLVM_VERSION_SUFFIX="%{llvm_snapshot_version_suffix}" \
 %else
-%if %{without compat_build}
 	-DLLVM_VERSION_SUFFIX='' \
-%endif
 %endif
 	-DLLVM_UNREACHABLE_OPTIMIZE:BOOL=ON \
 	-DLLVM_BUILD_LLVM_DYLIB:BOOL=ON \

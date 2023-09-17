@@ -1,6 +1,6 @@
 Name:           xdg-desktop-portal-wlr
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
 License:        MIT
@@ -8,6 +8,9 @@ URL:            https://github.com/emersion/%{name}
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
+# Generic portals.conf(5) for any wlroots-based compositor.
+# Can be loaded by setting XDG_CURRENT_DESKTOP=<compositor>:wlroots
+Source3:        wlroots-portals.conf
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -57,6 +60,8 @@ remote-desktop xdg-desktop-portal interfaces for wlroots based compositors.
 
 %install
 %meson_install
+install -D -pv -m644 %{SOURCE3} \
+    %{buildroot}%{_datadir}/xdg-desktop-portal/wlroots-portals.conf
 
 
 %post
@@ -72,11 +77,15 @@ remote-desktop xdg-desktop-portal interfaces for wlroots based compositors.
 %{_libexecdir}/%{name}
 %{_mandir}/man5/%{name}.5*
 %{_datadir}/xdg-desktop-portal/portals/wlr.portal
+%{_datadir}/xdg-desktop-portal/wlroots-portals.conf
 %{_datadir}/dbus-1/services/*.service
 %{_userunitdir}/%{name}.service
 
 
 %changelog
+* Thu Sep 14 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.7.0-3
+- Add wlroots-portals.conf for xdg-desktop-portal >= 1.17
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

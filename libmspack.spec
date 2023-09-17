@@ -3,7 +3,7 @@ Version:        0.10.1
 Release:        0.10.alpha%{?dist}
 Summary:        Library for CAB and related files compression and decompression
 
-License:        LGPLv2
+License:        LGPL-2.1-only AND LicenseRef-CRC32 AND MIT
 URL:            http://www.cabextract.org.uk/libmspack/
 Source0:        http://www.cabextract.org.uk/libmspack/%{name}-%{version}alpha.tar.gz
 #Source0:        https://github.com/kyz/libmspack/archive/v%{version}alpha/%{name}-v%{version}alpha.tar.gz

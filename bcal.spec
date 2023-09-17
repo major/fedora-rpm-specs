@@ -3,7 +3,7 @@ Version:    2.4
 Release:    %autorelease
 Summary:    Storage conversion and expression calculator
 
-License:    GPLv3+
+License:    GPL-3.0-or-later
 URL:        https://github.com/jarun/bcal
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

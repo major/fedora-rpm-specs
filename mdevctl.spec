@@ -7,7 +7,7 @@ Version:        1.2.0
 Release:        4%{?dist}
 Summary:        A mediated device management utility for Linux
 
-License:        LGPLv2
+License:        LGPL-2.1-only
 URL:            https://crates.io/crates/mdevctl
 Source:         %{crates_source}
 Source1:        https://github.com/mdevctl/mdevctl/releases/download/v%{version}/mdevctl-%{version}-vendor.tar.gz

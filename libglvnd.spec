@@ -4,12 +4,12 @@
 
 Name:           libglvnd
 Version:        1.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Provide an upgrade path from the negativo17.org pkgs which have Epoch 1
 Epoch:          1
 Summary:        The GL Vendor-Neutral Dispatch library
 
-License:        MIT
+License:        MIT-feh AND MIT-Modern-Variant AND BSD-1-Clause AND BSD-3-Clause AND GPL-3.0-or-later WITH Autoconf-exception-macro
 URL:            https://gitlab.freedesktop.org/glvnd/libglvnd
 Source0:        %{url}/-/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         0001-glx-Add-another-fallback-library-name.patch
@@ -240,6 +240,9 @@ xvfb-run -s '-screen 0 640x480x24' -d make check V=1 || \
 
 
 %changelog
+* Fri Sep 15 2023 Dave Airlie <airlied@redhat.com> - 1:1.7.0-2
+- SPDX license update
+
 * Thu Sep 14 2023 Nicolas Chauvet <kwizart@gmail.com> - 1:1.7.0-1
 - Update to 1.7.0
 

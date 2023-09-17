@@ -1,6 +1,6 @@
 Name:           python-furo
-Version:        2023.05.20
-Release:        2%{?dist}
+Version:        2023.09.10
+Release:        1%{?dist}
 Summary:        Clean customizable Sphinx documentation theme
 
 License:        MIT
@@ -99,7 +99,8 @@ nodeenv --node=system --prebuilt --clean-src $PWD/.nodeenv
 rm -rf html/{.buildinfo,.doctrees}
 
 %check
-# There aren't any tests.  When there are, do this:
+# The tests require web access.  If any tests show up that can be run without a
+# network, do this:
 #%%pytest
 %pyproject_check_import
 
@@ -112,6 +113,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 2023.09.10-1
+- Version 2023.09.10
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.05.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

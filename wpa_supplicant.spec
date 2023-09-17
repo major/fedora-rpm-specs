@@ -9,7 +9,7 @@ Summary: WPA/WPA2/IEEE 802.1X Supplicant
 Name: wpa_supplicant
 Epoch: 1
 Version: 2.10
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: BSD-3-Clause
 Source0: http://w1.fi/releases/%{name}-%{version}.tar.gz
 Source1: wpa_supplicant.conf
@@ -39,6 +39,12 @@ Patch8: wpa_supplicant-defconfig-enable-OCV-support.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2072070
 # From James Ralston in comment #24, thanks to James
 Patch9: wpa_supplicant-allow-legacy-renegotiation.patch
+# Add WPA3 support for Broadcom device
+# https://bugzilla.redhat.com/show_bug.cgi?id=2226569
+Patch10: wpa_supplicant-nl80211-check-sae-authentication-offload-support.patch
+Patch11: wpa_supplicant-sae-pass-sae-password-on-connect-for-sae-authentication-offload-support.patch
+# Enable IPv6 (#2095296)
+Patch12: wpa_supplicant-defconfig-enable-ipv6.patch
 
 URL: http://w1.fi/wpa_supplicant/
 
@@ -199,6 +205,10 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 
 
 %changelog
+* Wed Aug 30 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 1:2.10-8
+- Backport WPA3 support for Broadcom devices. Fixes: rhbz#2226569
+- Enable parsing of IPv6 addresses in RADIUS configuration (#2095296)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

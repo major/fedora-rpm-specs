@@ -4,7 +4,7 @@
 %bcond_with docs
 
 Name:           python-%{srcname}
-Version:        2023.7.0
+Version:        2023.8.0
 Release:        %autorelease
 Summary:        N-D labeled arrays and datasets in Python
 
@@ -16,6 +16,8 @@ Source1:        https://github.com/pydata/xarray-data/archive/%{data_commit}/xar
 # All Fedora specific.
 Patch0001:      0001-DOC-Skip-examples-using-unpackaged-dependencies.patch
 Patch0002:      0002-DOC-Don-t-print-out-conda-pip-environment.patch
+# Fix tests with Matplotlib 3.8.0.
+Patch0003:      https://github.com/pydata/xarray/pull/8186.patch
 
 BuildArch:      noarch
 

@@ -5,12 +5,12 @@
 %global libsoup_version 3.1.1
 
 Name: evolution-ews
-Version: 3.49.3
+Version: 3.50.0
 Release: 1%{?dist}
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
-Source: http://download.gnome.org/sources/%{name}/3.49/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.50/%{name}-%{version}.tar.xz
 
 %global eds_evo_version %{version}
 
@@ -92,6 +92,9 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %files langpacks -f %{name}.lang
 
 %changelog
+* Fri Sep 15 2023 Milan Crha <mcrha@redhat.com> - 3.50.0-1
+- Update to 3.50.0
+
 * Fri Sep 01 2023 Milan Crha <mcrha@redhat.com> - 3.49.3-1
 - Update to 3.49.3
 

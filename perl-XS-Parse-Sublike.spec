@@ -89,7 +89,7 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %autosetup -p1 -n XS-Parse-Sublike-%{version}
 %if !%{optional_tests}
-for F in t/71extended+async.t t/71extended+Object::Pad.t t/99pod.t; do
+for F in t/71extended+async.t t/71extended+Object-Pad.t t/99pod.t; do
     rm "$F"
     perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
 done

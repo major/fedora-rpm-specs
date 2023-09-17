@@ -4,7 +4,7 @@
 
 Name: sdubby
 Version: 1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Set of systemd-boot shims that don't fit anywhere else in the distro
 License: GPLv2+
 URL:	 https://pagure.io/sdubby.git
@@ -52,7 +52,6 @@ install -T -m 0755 %{SOURCE1} %{buildroot}%{_sbindir}/updateloaderentries
 install --directory %{buildroot}%{efi_esp_root}/loader
 install --directory %{buildroot}%{efi_esp_root}/loader/entries
 install -T -m 444 %{SOURCE3} %{buildroot}%{efi_esp_root}/loader/entries.srel
-ln -sr %{buildroot}/usr/bin/kernel-install %{buildroot}%{_sbindir}/installkernel
 ln -sr %{buildroot}%{_sbindir}/updateloaderentries %{buildroot}%{_sbindir}/grubby
 install -TD -m 444 %{SOURCE4} %{buildroot}%{_mandir}/man8/updateloaderentries.8
 gzip %{buildroot}%{_mandir}/man8/updateloaderentries.8
@@ -69,7 +68,6 @@ gzip %{buildroot}%{_mandir}/man8/updateloaderentries.8
 %doc README.md
 %{_mandir}/man8/updateloaderentries.8.gz
 %attr(0755,root,root) %{_sbindir}/updateloaderentries
-%{_sbindir}/installkernel
 %{_sbindir}/grubby
 # files on the ESP (fat) will always have 700
 %{efi_esp_root}/loader/entries
@@ -78,6 +76,8 @@ gzip %{buildroot}%{_mandir}/man8/updateloaderentries.8
 
 
 %changelog
+* Fri Sep 15 2023 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0-3
+- Drop /usr/sbin/installkernel symlink
+
 * Fri Sep  9 2022 Jeremy Linton <jeremy.linton@arm.com> - 1.0-1
 - Create package as a grubby alternative on systemd-boot systems
-

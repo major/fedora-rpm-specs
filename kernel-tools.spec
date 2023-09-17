@@ -114,7 +114,7 @@ Source5000: patch-%{upstream_major}.%{upstream_sublevel}-rc%{rcrev}.xz
 
 Name: kernel-tools
 Summary: Assortment of tools for the Linux kernel
-License: GPLv2
+License: ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR Linux-OpenIB) AND GPL-2.0-only AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR BSD-3-Clause) AND (GPL-2.0-only WITH Linux-syscall-note) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-2-Clause) AND (GPL-2.0-or-later WITH Linux-syscall-note) AND (LGPL-2.0-or-later OR BSD-2-Clause) AND LGPL-2.1-only AND (LGPL-2.1-only OR BSD-2-Clause) AND LGPL-2.1-or-later AND MIT AND (MIT OR GPL-2.0-only) AND (MIT OR GPL-2.0-or-later) AND (MIT OR LGPL-2.1-only) AND (copyleft-next-0.3.1 OR GPL-2.0-or-later)
 URL: http://www.kernel.org/
 Version: %{pkgversion}
 Release: %{pkg_release}
@@ -135,7 +135,7 @@ and the supporting documentation.
 %package -n perf
 Summary: Performance monitoring for the Linux kernel
 Requires: bzip2
-License: GPLv2
+License: GPL-2.0-only AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only WITH Linux-syscall-note) AND GPL-2.0-or-later AND LGPL-2.1-only AND (LGPL-2.1-only OR BSD-2-Clause)
 %description -n perf
 This package contains the perf tool, which enables performance monitoring
 of the Linux kernel.
@@ -153,14 +153,14 @@ Summary: %{pythonperfsum}
 
 %package -n kernel-tools-libs
 Summary: Libraries for the kernels-tools
-License: GPLv2
+License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-only AND (LGPL-2.1-only OR BSD-2-Clause) AND LGPL-2.1-or-later
 %description -n kernel-tools-libs
 This package contains the libraries built from the tools/ directory
 from the kernel source.
 
 %package -n kernel-tools-libs-devel
 Summary: Assortment of tools for the Linux kernel
-License: GPLv2
+License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-only AND (LGPL-2.1-only OR BSD-2-Clause) AND LGPL-2.1-or-later
 Requires: kernel-tools = %{version}-%{release}
 Provides:  cpupowerutils-devel = 1:009-0.6.p1
 Obsoletes: cpupowerutils-devel < 1:009-0.6.p1
@@ -172,27 +172,27 @@ the kernel source.
 
 %package -n bpftool
 Summary: Inspection and simple manipulation of eBPF programs and maps
-License: GPLv2
+License: GPL-2.0-only AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND (LGPL-2.1-only OR BSD-2-Clause)
 %description -n bpftool
 This package contains the bpftool, which allows inspection and simple
 manipulation of eBPF programs and maps.
 
 %package -n libperf
 Summary: The perf library from kernel source
-License: GPLv2
+License: GPL-2.0-only AND (LGPL-2.1-only OR BSD-2-Clause)
 %description -n libperf
 This package contains the kernel source perf library.
 
 %package -n libperf-devel
 Summary: Developement files for the perf library from kernel source
-License: GPLv2
+License: GPL-2.0-only AND (LGPL-2.1-only OR BSD-2-Clause)
 %description -n libperf-devel
 This package includes libraries and header files needed for development
 of applications which use perf library from kernel source.
 
 %package -n rtla
 Summary: RTLA: Real-Time Linux Analysis tools 
-License: GPLv2
+License: GPL-2.0-only
 %description -n rtla
 The rtla tool is a meta-tool that includes a set of commands that
 aims to analyze the real-time properties of Linux. But, instead of
@@ -202,7 +202,7 @@ and root causes of unexpected results.
 
 %package -n rv
 Summary: RV: Runtime Verification
-License: GPLv2
+License: GPL-2.0-only
 %description -n rv
 Runtime Verification (RV) is a lightweight (yet rigorous) method that
 complements classical exhaustive verification techniques (such as model

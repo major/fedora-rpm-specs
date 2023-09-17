@@ -5,13 +5,15 @@
 
 Name:           centpkg
 Version:        0.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
 Source0:        %{url}/archive/%{version}/centpkg-%{version}.tar.gz
 # https://git.centos.org/centos/centpkg/issue/89
 Patch1:         0001-Mark-fork-tests-as-expected-failures.patch
+# https://git.centos.org/centos/centpkg/pull-request/92
+Patch2:         0002-Drop-Python-2-compatibility.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -22,7 +24,6 @@ BuildRequires:  python3-GitPython
 BuildRequires:  python3-gitlab
 BuildRequires:  python3-pycurl
 BuildRequires:  python3-rpkg >= 1.6.5
-BuildRequires:  python3-six
 
 # /etc/koji.conf.d/stream.conf was previously part of streamkoji
 Conflicts:      streamkoji < 1.1-3
@@ -81,6 +82,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Fri Sep 15 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.8.1-3
+- Add patch for Python 3.12 compatibility, resolves rhbz#2238954
+
 * Thu Sep 07 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.8.1-2
 - Sync dependencies
 - Enable test suite

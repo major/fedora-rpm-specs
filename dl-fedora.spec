@@ -5,7 +5,7 @@
 %bcond_with tests
 
 Name:           dl-fedora
-Version:        0.9.6
+Version:        1.0
 Release:        %autorelease
 Summary:        Fedora image download tool
 
@@ -32,6 +32,7 @@ BuildRequires:  ghc-optparse-applicative-devel
 BuildRequires:  ghc-regex-posix-devel
 BuildRequires:  ghc-simple-cmd-devel
 BuildRequires:  ghc-simple-cmd-args-devel
+BuildRequires:  ghc-simple-prompt-devel
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-unix-devel

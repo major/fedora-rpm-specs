@@ -43,12 +43,12 @@
 ### Abstract ###
 
 Name: evolution
-Version: 3.49.3
+Version: 3.50.0
 Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
-Source: http://download.gnome.org/sources/%{name}/3.49/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.50/%{name}-%{version}.tar.xz
 Source1: flatpak-evolution-fix-service-names.sh
 Source2: flatpak-evolution-wrapper.sh.in
 
@@ -578,6 +578,9 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
+* Fri Sep 15 2023 Milan Crha <mcrha@redhat.com> - 3.50.0-1
+- Update to 3.50.0
+
 * Fri Sep 01 2023 Milan Crha <mcrha@redhat.com> - 3.49.3-1
 - Update to 3.49.3
 

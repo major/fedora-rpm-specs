@@ -2,8 +2,8 @@
 %global majver  %(cut -d. -f1 <<< %{sover})
 
 Name:           kissat
-Version:        3.1.0
-Release:        2%{?dist}
+Version:        3.1.1
+Release:        1%{?dist}
 Summary:        Keep It Simple SAT solver
 
 License:        MIT
@@ -113,6 +113,9 @@ LD_LIBRARY_PATH=$PWD/build build/tissat
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 3.1.1-1
+- Version 3.1.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

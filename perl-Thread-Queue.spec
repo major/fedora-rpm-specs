@@ -1,7 +1,7 @@
 %global base_version 3.13
 Name:           perl-Thread-Queue
 Version:        3.14
-Release:        500%{?dist}
+Release:        501%{?dist}
 Summary:        Thread-safe queues
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Thread-Queue
@@ -9,6 +9,7 @@ Source0:        https://cpan.metacpan.org/authors/id/J/JD/JDHEDDEN/Thread-Queue-
 # Unbundled from perl 5.32.0
 Patch0:         Thread-Queue-3.13-Upgrade-to-3.14.patch
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -34,29 +35,60 @@ Requires:       perl(Carp)
 This module provides thread-safe FIFO queues that can be accessed safely by
 any number of threads.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Thread-Queue-%{base_version}
-%patch0 -p1
+%patch -P0 -p1
 # Correct shell bang
-sed -i -e '1 s|^#!/usr/bin/env perl|%(perl -MConfig -e 'print $Config{startperl}')|' examples/queue.pl
+perl -MConfig -pi -e 's|^#!.*perl|$Config{startperl}|' examples/queue.pl
+# Help generators to recognize Perl scripts
+for F in t/*.t t/*.pl; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/99_pod.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes examples README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Thread*
+%{_mandir}/man3/Thread::Queue*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 15 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.14-501
+- Package tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-500
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

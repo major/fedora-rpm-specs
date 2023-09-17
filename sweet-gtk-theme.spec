@@ -3,32 +3,36 @@ Summary: Light and dark, colorful GTK+ theme
 License: GPL-3.0-only
 URL: https://www.gnome-look.org/p/1253385/
 
-%global git_date_master 20230410
-%global git_commit_master 670c20d034891ad026cba75253ae139e7c570093
+%global git_date_master 20230913
+%global git_commit_master 4912d9d82caba56ea6ed173aff28ab87b3e77541
 
-%global git_date_ambar 20230410
-%global git_commit_ambar d3a99c0fd5545575637085344349d66dd33c7138
+%global git_date_ambar 20230913
+%global git_commit_ambar 91c4c0bf641c8a876e60bec1b0bd4d9efdf9993d
 
-%global git_date_ambar_blue 20230410
-%global git_commit_ambar_blue 271a150e9fc78234205701295a307aeac4982748
+%global git_date_ambar_blue 20230913
+%global git_commit_ambar_blue de6d70d2c19cd938d659a054a9d276726cb0890d
 
-%global git_date_mars 20230410
-%global git_commit_mars 9a774a45cec35fcc928510be95e5368beb1b946c
+%global git_date_ambar_blue_dark 20230913
+%global git_commit_ambar_blue_dark 2abf9aee97aba9b8839630f319428decdc9709c7
 
-%global git_date_nova 20230410
-%global git_commit_nova e19223f9ccea49703bf2e60570b13d01918e4464
+%global git_date_mars 20230913
+%global git_commit_mars 282547e9f93843210d170d3986dad2ee5956023f
+
+%global git_date_nova 20230913
+%global git_commit_nova ee4be9efb84c87881dfc3e4455fd84823e76b287
 
 %global git_date %( \
 	( \
 		echo '%{git_date_master}'; \
 		echo '%{git_date_ambar}'; \
 		echo '%{git_date_ambar_blue}'; \
+		echo '%{git_date_ambar_blue_dark}'; \
 		echo '%{git_date_mars}'; \
 		echo '%{git_date_nova}'; \
 	) | sort -rn | head -n1)
 
-Version: 3.0
-Release: 11.%{git_date}%{?dist}
+Version: 3.0^%{git_date}
+Release: 12%{?dist}
 
 %global repo_name  Sweet
 %global repo_url   https://github.com/EliverLara/%{repo_name}
@@ -36,9 +40,12 @@ Release: 11.%{git_date}%{?dist}
 Source0: %{repo_url}/archive/%{git_commit_master}/%{repo_name}-Master-%{git_commit_master}.tar.gz
 Source1: %{repo_url}/archive/%{git_commit_ambar}/%{repo_name}-Ambar-%{git_commit_ambar}.tar.gz
 Source2: %{repo_url}/archive/%{git_commit_ambar_blue}/%{repo_name}-Ambar-Blue-%{git_commit_ambar_blue}.tar.gz
-Source3: %{repo_url}/archive/%{git_commit_mars}/%{repo_name}-Mars-%{git_commit_mars}.tar.gz
-Source4: %{repo_url}/archive/%{git_commit_nova}/%{repo_name}-Nova-%{git_commit_nova}.tar.gz
+Source3: %{repo_url}/archive/%{git_commit_ambar_blue_dark}/%{repo_name}-Ambar-Blue-Dark-%{git_commit_ambar_blue_dark}.tar.gz
+Source4: %{repo_url}/archive/%{git_commit_mars}/%{repo_name}-Mars-%{git_commit_mars}.tar.gz
+Source5: %{repo_url}/archive/%{git_commit_nova}/%{repo_name}-Nova-%{git_commit_nova}.tar.gz
 Source99: get-sweet-sources.sh
+
+%global variants master ambar ambar-blue ambar-blue-dark mars nova
 
 BuildArch: noarch
 
@@ -60,11 +67,13 @@ Sweet works great when used together with the Candy icon theme.
 %setup -q -c %{repo_name}-%{version} -T -D -a 2
 %setup -q -c %{repo_name}-%{version} -T -D -a 3
 %setup -q -c %{repo_name}-%{version} -T -D -a 4
+%setup -q -c %{repo_name}-%{version} -T -D -a 5
 
 # Rename the directories from "repo-commit" to "branch"
 mv "%{repo_name}-%{git_commit_master}" master
 mv "%{repo_name}-%{git_commit_ambar}" ambar
 mv "%{repo_name}-%{git_commit_ambar_blue}" ambar-blue
+mv "%{repo_name}-%{git_commit_ambar_blue_dark}" ambar-blue-dark
 mv "%{repo_name}-%{git_commit_mars}" mars
 mv "%{repo_name}-%{git_commit_nova}" nova
 
@@ -78,7 +87,7 @@ find ./ -type f -executable \
 # Upstream uses Gulp for building, but it is not available in Fedora.
 # The Gulpfile takes care of compiling SASS files, but not much else.
 # ...so let's just do that ourselves!
-for VARIANT in master ambar ambar-blue mars nova; do
+for VARIANT in %{variants}; do
 	pushd "${VARIANT}"
 	for FILE in \
 		gtk-4.0/gtk gtk-4.0/gtk-dark \
@@ -99,7 +108,7 @@ done
 
 
 %install
-for VARIANT in master ambar ambar-blue mars nova; do
+for VARIANT in %{variants}; do
 	THEME_DIR="%{buildroot}%{_datadir}/themes/Sweet-${VARIANT}"
 	install -m 755 -d "${THEME_DIR}"
 
@@ -126,11 +135,16 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 %{_datadir}/themes/Sweet-classic
 %{_datadir}/themes/Sweet-ambar
 %{_datadir}/themes/Sweet-ambar-blue
+%{_datadir}/themes/Sweet-ambar-blue-dark
 %{_datadir}/themes/Sweet-mars
 %{_datadir}/themes/Sweet-nova
 
 
 %changelog
+* Fri Sep 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0^20230913-12
+- Update to latest git snapshots
+- Add the "Ambar Blue Dark" variant
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-11.20230410
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

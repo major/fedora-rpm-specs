@@ -3,6 +3,17 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global docrepo uwsgi-docs
 
+# The default compile options of uwsgi and php disagree in subtle ways,
+# leading to potential crashes when uwsgi loads the php module, and php itself
+# loads certain of its own modules.
+#
+# The "proper" solution for this would be to change the way php is compiled.
+# In the interim, disabling PIE for uwsgi, and enabling PIC for the main
+# uwsgi executable can work around the issue.
+#
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2203863
+%undefine _hardened_build
+
 %{!?_httpd_apxs: %{expand: %%global _httpd_apxs %%{_sbindir}/apxs}}
 %{!?_httpd_moddir: %{expand: %%global _httpd_moddir %%{_libdir}/httpd/modules}}
 
@@ -43,6 +54,19 @@
 %else
 %bcond_without gridfs
 %endif
+
+# Fedora 39 ships with python 3.12, which at this point isn't supported
+# by uwsgi. To get a working python module, build against the (still
+# existing) python3.11, too
+%if 0%{?fedora} == 39
+%bcond_without python3_other
+%define python3_other_pkgversion 3.11
+%define python3_other_version 3.11
+%define python3_other_version_nodots 311
+%define __python3_other python3.11
+%define python3_other_sitelib %(RPM_BUILD_ROOT= %{__python3_other} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")
+%endif
+
 #Fedora endif
 %endif
 
@@ -191,7 +215,7 @@
 
 Name:           uwsgi
 Version:        2.0.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -368,7 +392,7 @@ access to the uWSGI API.
 %package -n python%{python3_other_pkgversion}-uwsgidecorators
 Summary:        Python %{python3_other_version} decorators providing access to the uwsgi API
 Requires:       uwsgi = %{version}-%{release}
-Requires:       uwsgi-plugin-python%{python3_other_pkgversion} = %{version}-%{release}
+Requires:       uwsgi-plugin-python%{python3_other_version_nodots} = %{version}-%{release}
 
 %description -n python%{python3_other_pkgversion}-uwsgidecorators
 The uwsgidecorators Python %{python3_other_version} module provides
@@ -715,11 +739,11 @@ This package contains the Python %{python3_version} gevent plugin for uWSGI
 %endif
 
 %if %{with python3_other}
-%package -n uwsgi-plugin-python%{python3_other_pkgversion}-gevent
+%package -n uwsgi-plugin-python%{python3_other_version_nodots}-gevent
 Summary:  uWSGI - Plugin for Python %{python3_other_version} GEvent support
-Requires: uwsgi-plugin-python%{python3_other_pkgversion} = %{version}-%{release}, libevent
+Requires: uwsgi-plugin-python%{python3_other_version_nodots} = %{version}-%{release}, libevent
 
-%description -n uwsgi-plugin-python%{python3_other_pkgversion}-gevent
+%description -n uwsgi-plugin-python%{python3_other_version_nodots}-gevent
 This package contains the Python %{python3_other_version} gevent plugin for uWSGI
 %endif
 
@@ -874,11 +898,11 @@ This package contains the Python %{python3_version} plugin for uWSGI
 %endif
 
 %if %{with python3_other}
-%package -n uwsgi-plugin-python%{python3_other_pkgversion}
+%package -n uwsgi-plugin-python%{python3_other_version_nodots}
 Summary:  uWSGI - Plugin for Python %{python3_other_version} support
 Requires: python%{python3_other_pkgversion}, uwsgi-plugin-common = %{version}-%{release}
 
-%description -n uwsgi-plugin-python%{python3_other_pkgversion}
+%description -n uwsgi-plugin-python%{python3_other_version_nodots}
 This package contains the Python %{python3_other_version} plugin for uWSGI
 %endif
 
@@ -1251,7 +1275,7 @@ cp -p %{SOURCE5} README.Fedora
 %endif
 
 %build
-CFLAGS="%{optflags} -Wno-error -Wno-unused-but-set-variable" %{__python} uwsgiconfig.py --verbose --build fedora.ini
+CFLAGS="%{optflags} -Wno-error -Wno-unused-but-set-variable -fPIC" %{__python} uwsgiconfig.py --verbose --build fedora.ini
 %if %{with python2}
 CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python2} uwsgiconfig.py --verbose --plugin plugins/python fedora
 CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python2} uwsgiconfig.py --verbose --plugin plugins/gevent fedora
@@ -1263,8 +1287,8 @@ CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3} uwsgiconfig.py --
 CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3} uwsgiconfig.py --verbose --plugin plugins/tornado fedora python%{python3_pkgversion}_tornado
 %endif
 %if %{with python3_other}
-CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3_other} uwsgiconfig.py --verbose --plugin plugins/python fedora python%{python3_other_pkgversion}
-CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3_other} uwsgiconfig.py --verbose --plugin plugins/gevent fedora python%{python3_other_pkgversion}_gevent
+CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3_other} uwsgiconfig.py --verbose --plugin plugins/python fedora python%{python3_other_version_nodots}
+CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python3_other} uwsgiconfig.py --verbose --plugin plugins/gevent fedora python%{python3_other_version_nodots}_gevent
 %endif
 %if %{with mongodblibs}
 CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python} uwsgiconfig.py --verbose --plugin plugins/mongodblog fedora
@@ -1601,8 +1625,8 @@ exit 0
 %endif
 
 %if %{with python3_other}
-%files -n uwsgi-plugin-python%{python3_other_pkgversion}-gevent
-%{_libdir}/uwsgi/python%{python3_other_pkgversion}_gevent_plugin.so
+%files -n uwsgi-plugin-python%{python3_other_version_nodots}-gevent
+%{_libdir}/uwsgi/python%{python3_other_version_nodots}_gevent_plugin.so
 %endif
 
 %if %{with glusterfs}
@@ -1680,8 +1704,8 @@ exit 0
 %endif
 
 %if %{with python3_other}
-%files -n uwsgi-plugin-python%{python3_other_pkgversion}
-%{_libdir}/uwsgi/python%{python3_other_pkgversion}_plugin.so
+%files -n uwsgi-plugin-python%{python3_other_version_nodots}
+%{_libdir}/uwsgi/python%{python3_other_version_nodots}_plugin.so
 %endif
 
 %files -n uwsgi-plugin-rack
@@ -1839,6 +1863,11 @@ exit 0
 
 
 %changelog
+* Fri Sep 15 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-2
+- For Fedora 39, build an extra module against Python 3.11
+- Disable PIE and enable PIC for the mail executable to avoid crashes when using
+  the PHP module (see BZ2203863)
+
 * Fri Jul 28 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-1
 - Update to 2.0.22
 - Add initial patch for building against python3.12

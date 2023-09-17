@@ -5,7 +5,7 @@
 %global crate dashmap
 
 Name:           rust-dashmap
-Version:        5.5.1
+Version:        5.5.3
 Release:        %autorelease
 Summary:        Blazing fast concurrent HashMap for Rust
 

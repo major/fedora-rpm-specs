@@ -4,13 +4,13 @@ License:        GPL-3.0-only
 
 %global git_repo    candy-icons
 %global git_url     https://github.com/EliverLara/%{git_repo}
-%global git_commit  a017160b0831ad22a58f46e9afba83b3a282d83c
-%global git_date    20230412
+%global git_commit  1c5b81a3fcec1ffe62828c168c43f4cb6ce71e40
+%global git_date    20230904
 
-%global git_commit_short  %(c="%{git_commit}"; echo ${c:0:8})
+%global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
-Version:        0
-Release:        37.%{git_date}git%{git_commit_short}%{?dist}
+Version:        0^%{git_date}.%{git_commit_short}
+Release:        1%{?dist}
 
 URL:            https://www.opendesktop.org/p/1305251/
 Source0:        %{git_url}/archive/%{git_commit}/%{git_repo}-%{git_commit}.tar.gz
@@ -67,6 +67,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Candy &>/dev/null || :
 
 
 %changelog
+* Fri Sep 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20230904.1c5b81a-1
+- Update to latest git snapshot (2023-09-04)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-37.20230412gita017160b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

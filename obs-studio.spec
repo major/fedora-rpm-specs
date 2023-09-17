@@ -31,7 +31,7 @@
 
 Name:           obs-studio
 Version:        30.0.0~beta3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -61,12 +61,14 @@ Patch0204:      0204-obs-qsv11-Add-license-declaration-file.patch
 
 
 # Downstream Fedora patches
+## Downgrade to CMake 3.20 for RHEL 9 compatibility
+Patch1001:      obs-studio-30-cmake-3.20.patch
 ## Use fdk-aac by default
 Patch1002:      obs-studio-UI-use-fdk-aac-by-default.patch
 
 
 BuildRequires:  gcc
-BuildRequires:  cmake >= 3.16
+BuildRequires:  cmake >= 3.20
 BuildRequires:  ninja-build
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
@@ -312,6 +314,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Sep 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0~beta3-2
+- Add patch to downgrade CMake dependency to >= 3.20
+- Rebuild against libdatachannel for fixed soname dependency
+
 * Mon Sep 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0~beta3-1
 - Rebase to 30.0.0~beta3
 

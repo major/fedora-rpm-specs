@@ -5,10 +5,10 @@
 
 Name:           opencl-headers
 Version:        3.0
-Release:        16%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:        17%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        OpenCL (Open Computing Language) header files
 
-License:        MIT
+License:        Apache-2.0
 URL:            https://www.khronos.org/registry/cl/
 
 Source0:        https://github.com/KhronosGroup/OpenCL-Headers/archive/%{commit0}/OpenCL-Headers-%{shortcommit0}.tar.gz
@@ -60,6 +60,9 @@ sed -e 's|@CMAKE_INSTALL_PREFIX@|%{_prefix}|' -e 's|@OPENCLHPP_INCLUDEDIR_PC@|%{
 %{_datadir}/pkgconfig/OpenCL-CLHPP.pc
 
 %changelog
+* Fri Sep 15 2023 Dave Airlie <airlied@redhat.com> - 3.0-17.20230509gite049b16
+- SPDX license update
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-16.20230509gite049b16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

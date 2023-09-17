@@ -1,8 +1,9 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
-Version: 9.3
-Release: 2%{?dist}
-License: GPL-3.0-or-later
+Version: 9.4
+Release: 1%{?dist}
+# some used parts of gnulib are under various variants of LGPL
+License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
 Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
@@ -12,9 +13,6 @@ Source2: coreutils-keyring.gpg
 Source50:   supported_utils
 Source105:  coreutils-colorls.sh
 Source106:  coreutils-colorls.csh
-
-# revert a gnulib patch that broke the build
-Patch1:   coreutils-9.3-gnulib-strtol.patch
 
 # do not make coreutils-single depend on /usr/bin/coreutils
 %global __requires_exclude ^%{_bindir}/coreutils$
@@ -30,6 +28,9 @@ Patch102: coreutils-8.32-DIR_COLORS.patch
 
 # df --direct
 Patch104: coreutils-df-direct.patch
+
+# fix crash with --enable-systemd
+Patch105: coreutils-9.4-systemd-coredump.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -176,6 +177,7 @@ for type in separate single; do
              --cache-file=../config.cache \
              --enable-install-program=arch \
              --enable-no-install-program=kill,uptime \
+             --enable-systemd \
              --with-tty-group \
              DEFAULT_POSIX2_VERSION=200112 alternative=199209 || :
   %make_build all V=1
@@ -254,6 +256,11 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Fri Sep 15 2023 Lukáš Zaoral <lzaoral@redhat.com> - 9.4-1
+- new upstream release 9.4 (#2235759)
+- enable integration with systemd
+- fix the license field
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

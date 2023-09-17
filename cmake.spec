@@ -72,7 +72,7 @@
 %global patch_version 4
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 8
+%global baserelease 9
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -559,6 +559,9 @@ popd
 
 
 %changelog
+* Fri Sep 15 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-9
+- Fix CI failure finally
+
 * Thu Sep 14 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-8
 - Fix CI failure
 

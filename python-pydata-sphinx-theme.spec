@@ -4,8 +4,8 @@
 %bcond_with docs
 
 Name:           python-pydata-sphinx-theme
-Version:        0.13.3
-Release:        3%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
 # This project is BSD-3-Clause.
@@ -32,12 +32,10 @@ BuildRequires:  make
 BuildRequires:  nodejs-devel
 BuildRequires:  nodejs-npm
 BuildRequires:  python3-devel
-BuildRequires:  yarnpkg
-%if %{without docs}
 BuildRequires:  %{py3_dist pytest-regressions}
-%endif
+BuildRequires:  yarnpkg
 
-Provides:       bundled(js-bootstrap) = 5.2.3
+Provides:       bundled(js-bootstrap) = 5.3.2
 
 %if %{without docs}
 Obsoletes:      %{name}-doc < 0.13.0-1
@@ -86,9 +84,6 @@ cp -p %{SOURCE2} .
 
 # Point to the local switcher instead of the inaccessible one on the web
 sed -i 's,https://pydata-sphinx-theme\.readthedocs\.io/en/latest/,,' docs/conf.py
-%else
-# We cannot run doctests
-sed -i '/pydata-sphinx-theme\[doc\]/d' pyproject.toml
 %endif
 
 # Substitute the installed nodejs version for the requested version
@@ -123,7 +118,7 @@ cd -
 %endif
 
 %check
-# Sphinx 5.3.0 does not have the translation the translation test looks for
+# Sphinx 7.1.2 does not have the translation the translation test looks for
 %pytest -k 'not test_translations'
 
 %files -n python3-pydata-sphinx-theme -f %{pyproject_files}
@@ -136,6 +131,9 @@ cd -
 %endif
 
 %changelog
+* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 0.14.0-1
+- Version 0.14.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,16 +3,18 @@
 
 Name:           perl-XML-Catalog
 Version:        %(echo '%{cpan_version}' | tr -d 'v')
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Resolve public identifiers and remap system identifiers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Catalog
 Source0:        https://cpan.metacpan.org/authors/id/J/JF/JFEARN/XML-Catalog-%{cpan_version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time
 BuildRequires:  perl(LWP::Simple)
 BuildRequires:  perl(strict)
@@ -32,21 +34,42 @@ known as XCatalog) see
 Catalogs may be written in either SOCAT or XML syntax. XML::Catalog will
 assume SOCAT syntax if the catalog is not in well-formed XML syntax.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n XML-Catalog-%{cpan_version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 for i in Changes README; do
-    sed -i 's/\r//' $i
+    perl -pi -e 's/\r//' $i
 done
 
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -56,7 +79,13 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Fri Sep 15 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.03-28
+- Package tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global pypi_name widgetsnbextension
 
 Name:           python-%{pypi_name}
-Version:        4.0.8
-Release:        2%{?dist}
+Version:        4.0.9
+Release:        %autorelease
 Summary:        Interactive HTML widgets for Jupyter notebooks
 
 License:        BSD-3-Clause
@@ -52,63 +52,4 @@ mv {%{buildroot}%{_prefix}/etc,%{buildroot}%{_sysconfdir}}/jupyter/nbconfig/note
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/widgetsnbextension.json
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 17 2023 Lumír Balhar <lbalhar@redhat.com> - 4.0.8-1
-- Update to 4.0.8 (rhbz#2219630)
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.0.7-2
-- Rebuilt for Python 3.12
-
-* Wed Mar 29 2023 Lumír Balhar <lbalhar@redhat.com> - 4.0.7-1
-- Update to 4.0.7 (rhbz#2182420)
-
-* Wed Mar 22 2023 Lumír Balhar <lbalhar@redhat.com> - 4.0.6-1
-- Update to 4.0.6 (rhbz#2180505)
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Dec 22 2022 Lumír Balhar <lbalhar@redhat.com> - 4.0.5-1
-- Update to 4.0.5 (rhbz#2155765)
-
-* Wed Dec 07 2022 Lumír Balhar <lbalhar@redhat.com> - 4.0.4-1
-- Update to 4.0.4 (rhbz#2151509)
-
-* Sat Sep 03 2022 Lumír Balhar <lbalhar@redhat.com> - 4.0.3-1
-- Update to 4.0.3
-Resolves: rhbz#2123851
-
-* Mon Aug 22 2022 Lumír Balhar <lbalhar@redhat.com> - 4.0.2-1
-- Update to 4.0.2
-Resolves: rhbz#1977141
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 3.6.0-2
-- Rebuilt for Python 3.11
-
-* Wed Jun 08 2022 Lumír Balhar <lbalhar@redhat.com> - 3.6.0-1
-- Update to 3.6.0
-Resolves: rhbz#1977141
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 3.5.1-4
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 13 2020 Lumír Balhar <lbalhar@redhat.com> - 3.5.1-1
-- Initial package.
+%autochangelog

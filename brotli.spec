@@ -1,13 +1,12 @@
 Name:           brotli
-Version:        1.0.9
-Release:        13%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Lossless compression algorithm
 
 License:        MIT
 URL:            https://github.com/google/brotli
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0:        09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:  devtoolset-7-toolchain, devtoolset-7-libatomic-devel
@@ -98,7 +97,7 @@ chmod 644 c/tools/brotli.c
 %endif
 
 # I couldn't find the option to not build the static libraries
-rm "%{buildroot}%{_libdir}/"*.a
+#rm "%{buildroot}%{_libdir}/"*.a
 
 %py3_install
 install -dm755 "%{buildroot}%{_mandir}/man3"
@@ -133,7 +132,7 @@ done
 %{python3_sitearch}/brotli.py
 %{python3_sitearch}/_brotli.cpython-%{python3_version_nodots}*.so
 %{python3_sitearch}/__pycache__/brotli.cpython-%{python3_version_nodots}*.py*
-%{python3_sitearch}/Brotli-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/Brotli-1.1.0-py%{python3_version}.egg-info/
 
 %files devel
 %{_includedir}/brotli
@@ -150,6 +149,9 @@ done
 
 
 %changelog
+* Fri Sep 15 2023 Jonathan Wright <jonathan@almalinux.org> - 1.1.0-1
+- Update to 1.1.1 rhbz#2233368
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

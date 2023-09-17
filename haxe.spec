@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %global commit_hx3compat f1f18201e5c0479cb5adf5f6028788b37f37b730
 
 Name:           haxe
-Version:        4.3.1
-Release:        3%{?dist}
+Version:        4.3.2
+Release:        1%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -27,6 +27,7 @@ URL:            https://haxe.org/
 Source0:        https://github.com/HaxeFoundation/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        https://github.com/HaxeFoundation/haxelib/archive/%{commit_haxelib}.tar.gz#/haxelib-%{commit_haxelib}.tar.gz
 Source2:        https://github.com/HaxeFoundation/hx3compat/archive/%{commit_hx3compat}.tar.gz#/hx3compat-%{commit_hx3compat}.tar.gz
+Patch0:         haxe-ocaml5.patch
 
 BuildRequires:  make
 BuildRequires:  nekovm-devel >= 2.3.0
@@ -34,6 +35,7 @@ BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-camlp5-devel
+BuildRequires:  ocaml-camlp-streams
 BuildRequires:  ocaml-sedlex-devel >= 2.0
 BuildRequires:  ocaml-xml-light-devel
 BuildRequires:  ocaml-extlib-devel >= 1.7.8
@@ -65,6 +67,7 @@ by the Haxe compiler.
 
 %prep
 %setup -q
+%patch 0 -p1
 pushd extra/haxelib_src && tar -xf %{SOURCE1} --strip-components=1 && popd
 pushd extra/haxelib_src/hx3compat && tar -xf %{SOURCE2} --strip-components=1 && popd
 
@@ -72,9 +75,18 @@ pushd extra/haxelib_src/hx3compat && tar -xf %{SOURCE2} --strip-components=1 && 
 # note that the Makefile does not support parallel building
 make
 
-# Compile haxelib
-%cmake -S extra/haxelib_src -DHAXE_COMPILER="$(realpath haxe)" -DCMAKE_BINARY_DIR="$(pwd)"
+# Recompile haxelib.
+#
+# In the default Makefile, haxelib is built using `nekotools boot ...`.
+# It produces haxelib by concatenating the neko binary with haxelib neko bytecode.
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/FFE3B3TGLXMVPDIZGAOJYHFOJMBGUQUL/
+#
+# Instead, use the haxelib CMake, which use `nekotools boot -c ...`
+# to produce a C source code and build it with standard C toolchain.
+rm ./haxelib
+%cmake -S extra/haxelib_src -DHAXE_COMPILER="$(realpath haxe)"
 %cmake_build
+mv %__cmake_builddir/haxelib .
 
 chmod 755 haxe haxelib
 
@@ -114,6 +126,11 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Sep 15 2023 Andy Li <andy@onthewings.net> - 4.3.2-1
+- New upstream version 4.3.2. (RHBZ#2237112)
+- Use the properly built haxelib. (RHBZ#2129517)
+- Add haxe-ocaml5.patch from upstream for OCaml 5 compat. (RHBZ#2218692)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

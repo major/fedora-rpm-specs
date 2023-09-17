@@ -1,10 +1,10 @@
-%global tag_version release-43-1
-#%%global is_official 0%%(echo %%{tag_version} | egrep -q 'alpha|beta|final'; echo $?)
+%global tag_version release-44-alpha3
+#%%global is_official 0%%(echo %%{tag_version} | grep -qE 'alpha|beta|final'; echo $?)
+%global is_official 0%(echo %{tag_version} | grep -qE 'alpha|beta|final'; echo $?)
 #%%global is_official 0
-%global is_official 0
 
 Name:       cldr-emoji-annotation
-Version:    43.1
+Version:    44~alpha3
 Release:    2%{?dist}
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
@@ -111,7 +111,7 @@ done
 %license LICENSE.txt
 %else
 %doc README.md
-%license unicode-license.txt
+%license LICENSE
 %endif
 %{_datadir}/unicode/cldr/common/annotations
 %{_datadir}/unicode/cldr/common/annotationsDerived
@@ -126,6 +126,9 @@ done
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Fri Sep 15 2023 Takao Fujiwara <tfujiwar@gmail.com> - 1:44~alpha3-2
+- Bump to release-44-alpha3
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:43.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

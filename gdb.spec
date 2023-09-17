@@ -57,9 +57,9 @@ Version: 13.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 7%{?dist}
+Release: 8%{?dist}
 
-License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
+License: GPL-3.0-or-later AND BSD-3-clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
 # ftp://sourceware.org/pub/gdb/releases/FIXME{tarname}.tar.xz
 #Source: %{tarname}.tar.xz
@@ -1252,10 +1252,16 @@ fi
 %endif
 
 %changelog
-* Wed Aug 14 2023 Andrew Burgess <aburgess@redhat.com>
+* Fri Sep 15 2023 Keith Seitz <keiths@redhat.com> - 13.2-8
+- migrated to SPDX license
+
+* Fri Sep 15 2023 Andrew Burgess <aburgess@redhat.com>
+- Bump release to 13.2-8.
+
+* Thu Sep 14 2023 Andrew Burgess <aburgess@redhat.com>
 - Backport upstream commit 54392c4df604f20, which fixes RHBZ 2237392.
 
-* Wed Aug 13 2023 Andrew Burgess <aburgess@redhat.com>
+* Wed Sep 13 2023 Andrew Burgess <aburgess@redhat.com>
 - Backport upstream commit f96328accde1e63, which fixes RHBZ 2237515.
 
 * Wed Aug  9 2023 Guinevere Larsen <blarsen@redhat.com>

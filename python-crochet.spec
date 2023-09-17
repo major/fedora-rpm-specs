@@ -9,20 +9,12 @@ normal Twisted programs that use threads to interact with Twisted more cleanly \
 from their threaded parts
 
 Name:           python-%{srcname}
-Version:        1.12.0
-Release:        4%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        A library that makes it easier to use Twisted from blocking code
 
-# With Python 3.10 test_shutdown leads to timeout. This is just temporary and
-# can be removed once it is fixed.
-Patch1:         0001-disable-failing-test.patch
-# Don't use inspec.getargspec, it has been deprecated and removed from Python.
-Patch2:         0002-getargspec-test.patch
-
 # Patches needed for compatibility with Python 3.12
-# https://github.com/itamarst/crochet/commit/006705d.patch
-Patch3:         Replace-the-usage-of-assertEquals-unit-test-alias-re.patch
-Patch4:         https://github.com/itamarst/crochet/pull/150.patch
+Patch1:         https://github.com/itamarst/crochet/pull/150.patch
 
 License:        MIT
 URL:            https://github.com/itamarst/crochet
@@ -92,6 +84,9 @@ rm docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri Sep 15 2023 Jonathan Wright <jonathan@almalinux.org> - 2.1.1-1
+- Update to 2.1.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

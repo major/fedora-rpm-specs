@@ -4,14 +4,14 @@
 %bcond_without perl_Term_Table_enables_unicode
 
 Name:           perl-Term-Table
-Version:        0.016
-Release:        7%{?dist}
+Version:        0.017
+Release:        1%{?dist}
 Summary:        Format a header and rows into a table
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-Table
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Term-Table-%{version}.tar.gz
 # Unbundle Object::HashBase
-Patch0:         Term-Table-0.016-Use-system-Object-HashBase.patch
+Patch0:         Term-Table-0.017-Use-system-Object-HashBase.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Importer) >= 0.024
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Object::HashBase) >= 0.008
 BuildRequires:  perl(Scalar::Util)
@@ -42,7 +41,6 @@ BuildRequires:  perl(Test2::API)
 BuildRequires:  perl(Test2::Tools::Tiny) >= 1.302097
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(Importer) >= 0.024
 %if %{with perl_Term_Table_enables_terminal}
 Suggests:       perl(Term::ReadKey) >= 2.32
 # Prefer Term::Size::Any over Term::ReadKey
@@ -51,9 +49,6 @@ Recommends:     perl(Term::Size::Any) >= 0.002
 %if %{with perl_Term_Table_enables_unicode}
 Recommends:     perl(Unicode::GCString) >= 2013.10
 %endif
-
-# Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Importer\\)$
 
 %description
 This Perl module is able to format rows of data into tables.
@@ -69,7 +64,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Term-Table-%{version}
-%patch0 -p1
+%patch -P0 -p1
 # Delete bundled Object::HashBase
 for F in lib/Term/Table/HashBase.pm t/HashBase.t; do
     perl -e 'unlink $ARGV[0] or die $!' "$F"
@@ -111,6 +106,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 15 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.017-1
+- 0.017 bump
+- Fix %patch macro
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.016-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

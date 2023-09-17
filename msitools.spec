@@ -12,14 +12,32 @@
 
 Name:           msitools
 Version:        0.102
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Windows Installer tools
 
-License:        GPL-2.0-or-later
+# LGPL-2.1-or-later: the project as a whole
+# blessing:
+# - libmsi/tokenize.c (libmsi1)
+# - tools/sqldelim.* (not in any binary RPM)
+# GPL-2.0-or-later:
+# - tools/msidiff.in (main package)
+# - tools/msidump.in (main package)
+# - tools/msibuild.c (main package)
+# - tools/msiinfo.c (main package)
+# - data/wxi-validate.pl (not in any binary RPM)
+# GPL-3.0-or-later:
+# - build-aux/git-version-gen (not in any binary RPM)
+# MS-RL:
+# - data/ext/ui/* (main package)
+# MIT:
+# - subprojects/bats-core/* (not in any binary RPM)
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later AND MS-RL
 URL:            http://ftp.gnome.org/pub/GNOME/sources/%{name}
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{version}/%{name}-%{version}%{?_version_suffix}.tar.xz
 # https://gitlab.gnome.org/GNOME/msitools/-/issues/55
 Patch0:         0001-Update-data-wixl.patch
+# https://gitlab.gnome.org/GNOME/msitools/-/merge_requests/66
+Patch1:         0002-Change-GUINT_FROM_LE-to-GUINT16_FROM_LE.patch
 
 Requires:       libgsf >= 1.14.24-2
 
@@ -206,9 +224,6 @@ BuildRequires:  mingw64-wavpack
 %endif
 %endif
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=1924216
-ExcludeArch: s390x
-
 %description
 msitools is a collection of utilities to inspect and create Windows
 Installer files.  It is useful in a cross-compilation environment such
@@ -216,7 +231,7 @@ as fedora-mingw.
 
 %package -n libmsi1
 Summary:        A library to manipulate Windows .MSI files
-License:        LGPLv2+
+License:        LGPL-2.1-or-later AND blessing
 
 %description -n libmsi1
 libmsi is a GObject library to work with Windows Installer files.  It is
@@ -224,7 +239,7 @@ a port from the MSI library of the Wine project.
 
 %package -n libmsi1-devel
 Summary:        A library to manipulate Windows .MSI files
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Requires:       libmsi1%{?_isa} = %{version}-%{release}
 
 %description -n libmsi1-devel
@@ -277,6 +292,10 @@ The libmsi1-devel package includes the header files for libmsi.
 
 
 %changelog
+* Thu Sep 14 2023 Jerry James <loganjerry@gmail.com> - 0.102-3
+- Fix build on s390x
+- More SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.102-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

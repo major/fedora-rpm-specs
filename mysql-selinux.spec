@@ -1,3 +1,9 @@
+# General maintainer notes:
+#   Fedora guideliens for packaging of SELinux rules:
+#     https://fedoraproject.org/wiki/SELinux/IndependentPolicy
+#   RHEL instructions regarding Troubleshooting problems related to SELinux:
+#     https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/troubleshooting-problems-related-to-selinux_using-selinux
+
 # defining macros needed by SELinux
 %global selinuxtype targeted
 %global moduletype contrib
@@ -14,10 +20,13 @@ Summary:        SELinux policy modules for MySQL and MariaDB packages
 Source0:        https://github.com/devexp-db/mysql-selinux/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+
 BuildRequires:  make
 BuildRequires:  selinux-policy-devel
-Requires(post): policycoreutils
+
 %{?selinux_requires}
+Requires:       selinux-policy-%{selinuxtype}
+Requires(post): selinux-policy-%{selinuxtype}
 
 %description
 SELinux policy modules for MySQL and MariaDB packages.
@@ -39,15 +48,15 @@ install -m 0644 %{modulename}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages
 %selinux_relabel_pre -s %{selinuxtype}
 
 %post
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{modulename}.pp.bz2 || :
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{modulename}.pp.bz2
 
 %postun
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s %{selinuxtype} %{modulename} || :
+    %selinux_modules_uninstall -s %{selinuxtype} %{modulename}
 fi
 
 %posttrans
-%selinux_relabel_post -s %{selinuxtype} || :
+%selinux_relabel_post -s %{selinuxtype}
 
 
 %files

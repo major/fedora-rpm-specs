@@ -19,8 +19,7 @@
 %ifarch x86_64
 %bcond_without  oidn
 %bcond_without  opgl
-# Disable binary hip support for cycle
-%bcond_with  rocm
+%bcond_without  rocm
 %endif
 %bcond_without  usd
 %else
@@ -36,7 +35,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.6.1
+Version:        3.6.2
 Release:        %autorelease
 
 
@@ -53,6 +52,10 @@ Source2:        macros.%{name}-rpm
 Patch1:         blender-3.6.1-py312-pyarg-parser-def.patch
 Patch2:         blender-3.6.1-py312-pylongobject.patch
 Patch3:         blender-3.6.1-py312-opcode.patch
+
+# Fix #111820: Missing type casting in XrGraphicsBinding.cc
+# https://projects.blender.org/blender/blender/commit/8159bd90e527552ccfe27db5f2c5a91d64855e9e
+Patch4:		8159bd90e5.patch
 
 # Development stuff
 BuildRequires:  boost-devel
@@ -301,6 +304,7 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %if %{with rocm}
     -DWITH_CYCLES_HIP_BINARIES=ON \
 %endif
+    -DWITH_OPENCOLLADA=OFF \
     -DWITH_LIBS_PRECOMPILED=OFF
 
 %cmake_build

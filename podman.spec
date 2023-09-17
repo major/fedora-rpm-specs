@@ -76,7 +76,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 4.6.2
+Version: 4.7.0~rc1
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -88,7 +88,7 @@ ExclusiveArch: aarch64 ppc64le s390x x86_64
 Summary: Manage Pods, Containers and Container Images
 URL: https://%{name}.io/
 # All SourceN files fetched from upstream
-Source0: %{git0}/archive/v%{version}.tar.gz
+Source0: %{git0}/archive/v4.7.0-rc1.tar.gz
 Source1: %{git_plugins}/archive/%{commit_plugins}/%{repo_plugins}-%{commit_plugins}.tar.gz
 %if %{defined gvproxy_subpackage}
 Source2: %{git_gvproxy}/archive/%{commit_gvproxy}/%{repo_gvproxy}-%{commit_gvproxy}.tar.gz
@@ -223,13 +223,6 @@ A replacement for libslirp and VPNKit, written in pure Go.
 It is based on the network stack of gVisor. Compared to libslirp,
 gvisor-tap-vsock brings a configurable DNS server and
 dynamic port forwarding.
-
-%global desc_gvforwarder Forward traffic from a tap interface over vsock
-%package -n gvisor-tap-vsock-gvforwarder
-Summary: %{desc_gvforwarder}
-
-%description -n gvisor-tap-vsock-gvforwarder
-%{desc_gvforwarder}
 %endif
 
 %package -n %{name}sh
@@ -246,7 +239,7 @@ It is a symlink to %{_bindir}/%{name} and execs into the `%{name}sh` container
 when `%{_bindir}/%{name}sh` is set as a login shell or set as os.Args[0].
 
 %prep
-%autosetup -Sgit -n %{name}-%{version}
+%autosetup -Sgit -n %{name}-4.7.0-rc1
 sed -i 's;@@PODMAN@@\;$(BINDIR);@@PODMAN@@\;%{_bindir};' Makefile
 
 # untar dnsname
@@ -414,9 +407,6 @@ cp -pav test/system %{buildroot}/%{_datadir}/%{name}/test/
 %doc %{repo_gvproxy}-%{commit_gvproxy}/README.md
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/gvproxy
-
-%files -n gvisor-tap-vsock-gvforwarder
-%dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/gvforwarder
 %endif
 

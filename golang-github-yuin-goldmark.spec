@@ -2,7 +2,7 @@
 
 # https://github.com/yuin/goldmark
 %global goipath         github.com/yuin/goldmark
-Version:                1.5.5
+Version:                1.5.6
 
 %gometa
 

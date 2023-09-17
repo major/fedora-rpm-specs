@@ -5,7 +5,7 @@ Version:        1.33
 Release:        2%{?dist}
 Summary:        Applying JSON Patches in Python
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/stefankoegl/python-json-patch
 Source0:        https://pypi.io/packages/source/j/jsonpatch/%{pypi_name}-%{version}.tar.gz
 # tarball from pypi does not include file tests.js required for a specific test.

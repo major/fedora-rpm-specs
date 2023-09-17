@@ -18,7 +18,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.41.92
+Version:        2.42.0
 Release:        %autorelease
 Summary:        GTK web content engine library
 
