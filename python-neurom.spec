@@ -14,9 +14,31 @@ Summary:        Neuronal Morphology Analysis Tool
 %global tag  v%{version}
 %forgemeta
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            %forgeurl
-Source0:        %forgesource
+Source:         %forgesource
+
+# Broken call to Rectangle constructor
+# https://github.com/BlueBrain/NeuroM/issues/1079
+#
+# Fixed by:
+#
+# Remove py37, add py311, and fix Rectangle kwarg error
+# https://github.com/BlueBrain/NeuroM/pull/1082
+#
+# We patch in only the actual fix:
+#
+# Fix Rectangle kwarg
+# https://github.com/BlueBrain/NeuroM/pull/1082/commits/1655ab3b1c5f66db3a06431c48f44a8dc61164d8
+Patch:          %{url}/pull/1082/commits/1655ab3b1c5f66db3a06431c48f44a8dc61164d8.patch
+
+# Remove a few useless shebang lines
+# https://github.com/BlueBrain/NeuroM/pull/1083
+Patch:          %{url}/pull/1083.patch
+
+# Replace PyPI mock test dependency with unittest.mock
+# https://github.com/BlueBrain/NeuroM/pull/1084
+Patch:          %{url}/pull/1084.patch
 
 BuildArch:      noarch
 
@@ -24,10 +46,12 @@ BuildArch:      noarch
 
 %package -n python3-neurom
 Summary:        %{summary}
+
 BuildRequires:  python3-devel
-BuildRequires:  python3-toml
 
 %description -n python3-neurom %_description
+
+%pyproject_extras_subpkg -n python3-neurom plotly
 
 %package doc
 Summary:        Documentation for %{name}
@@ -35,11 +59,9 @@ Summary:        Documentation for %{name}
 %description doc %_description
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 
-# Fix shebangs
-find . -type f -exec sed -i 's|^#![  ]*/usr/bin/env.*$|#!/usr/bin/python3|' {} ';'
-sed -i '/^#![  ]*\/usr\/bin\/python3.*$/ d' neurom/check/runner.py
+%py3_shebang_fix examples/
 
 # correct config files path
 # not sure why this was changed: https://github.com/BlueBrain/NeuroM/commit/dbc3bd069a6fbded6c4a64cc038adb37c0b06932
@@ -47,7 +69,7 @@ sed -i 's|graft neurom/config|graft neurom/apps/config|' MANIFEST.in
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires -t
+%pyproject_buildrequires -t -x plotly
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -65,15 +87,23 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/tests/
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 # tests failing
 # reported upstream: https://github.com/BlueBrain/NeuroM/issues/983
-%pytest -k "not test_morph_stat and not test_morph_check and not test_extract_stats_scalar_feature and not test_single_neurite_no_soma and not test_skip_header and not test_markers"
+k="${k-}${k+ and }not test_extract_dataframe_multiproc"
+k="${k-}${k+ and }not test_extract_stats_scalar_feature"
+k="${k-}${k+ and }not test_markers"
+k="${k-}${k+ and }not test_single_neurite_no_soma"
+k="${k-}${k+ and }not test_skip_header"
+%tox -- -- -k "${k-}"
 
 %files -n python3-neurom -f %{pyproject_files}
-%doc README.md AUTHORS.md
+%doc AUTHORS.md
+%doc CHANGELOG.rst
+%doc README.md
 %{_bindir}/neurom
 
 %files doc
 %license LICENSE.txt
-%doc examples tutorial
+%doc examples/
+%doc tutorial/
 
 %changelog
 %autochangelog

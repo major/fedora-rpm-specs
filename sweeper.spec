@@ -1,7 +1,7 @@
 Name:    sweeper
 Summary: Clean unwanted traces the user leaves on the system
-Version: 23.08.0
-Release: 2%{?dist}
+Version: 23.08.1
+Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/utils/%{name}
@@ -76,6 +76,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.sweeper.d
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Mon Sep 11 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-2
 - Add kf5-rpm-macros BuildRequires
 

@@ -1,6 +1,6 @@
 Name:    kcron
 Summary: Cron KDE configuration module
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -63,6 +63,9 @@ Systemsettings module for the cron task scheduler.
 %{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_cron.so
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

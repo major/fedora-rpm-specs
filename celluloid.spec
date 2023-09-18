@@ -1,6 +1,6 @@
 Name:           celluloid
-Version:        0.25
-Release:        7%{?dist}
+Version:        0.26
+Release:        1%{?dist}
 Summary:        A simple GTK+ frontend for mpv
 
 License:        GPL-3.0-or-later
@@ -8,6 +8,8 @@ URL:            https://github.com/celluloid-player/celluloid
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
+BuildRequires:  meson
+BuildRequires:  ninja-build
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(glib-2.0) >= 2.44
@@ -32,12 +34,15 @@ It aims to be easy to use while maintaining high level of configurability.
 %autosetup -p1
 
 %build
-%configure
-%make_build V=1
+%meson
+pushd redhat-linux-build
+    %ninja_build
+popd
 
 %install
-%make_install
-
+pushd redhat-linux-build
+    %ninja_install
+popd
 %find_lang %{name}
 
 %check
@@ -52,12 +57,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.celluloid_p
 %{_datadir}/applications/io.github.celluloid_player.Celluloid.desktop
 %{_datadir}/dbus-1/services/io.github.celluloid_player.Celluloid.service
 %{_datadir}/glib-2.0/schemas/io.github.celluloid_player.Celluloid.gschema.xml
-# The old GSchema is left installed for settings migration.
-%{_datadir}/glib-2.0/schemas/io.github.GnomeMpv.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/*.svg
  %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sat Sep 16 2023 Vasiliy Glazov <vascom2@gmail.com> - 0.26-1
+- Update to 0.26
+
 * Mon Jul 24 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.25-7
 - Rebuilt due to libmpv 0.36 update.
 

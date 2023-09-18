@@ -7,7 +7,7 @@
 %global _lto_cflags %{nil}
 
 Name:    libkgapi
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 Summary: Library to access to Google services
 
@@ -120,6 +120,9 @@ resources.
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

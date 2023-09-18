@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-shell
-Version:        45~rc
+Version:        45.0
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -27,7 +27,7 @@ Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.0.0
-%define mutter_version 45~rc
+%define mutter_version 45.0
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 42~beta
 %define ibus_version 1.5.2

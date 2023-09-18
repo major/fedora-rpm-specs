@@ -38,13 +38,17 @@ Source1:        https://downloads.sourceforge.net/aubit4gl/Aubit4gl-manual/aubit
 # Changes made by the patch are listed in the commit log
 # https://sourceforge.net/p/aubit4gl/aubit4gl_code/12828/log/?path=
 # https://sourceforge.net/p/aubit4gl/aubit4gl_code/commit_browser
-Patch0:         %{name}-%{version}.patch
+Patch0:         https://downloads.sourceforge.net/aubit4gl/SRPM/%{name}-%{version}.patch
 
 BuildRequires: gcc
 BuildRequires: ncurses-devel
 BuildRequires: libpq-devel
 BuildRequires: bison flex procps-ng
 Requires: gcc
+# These are not primary architectures, so not required to build on them.
+# https://fedoraproject.org/wiki/Architectures#Structure 
+ExcludeArch: i686 s390x
+
 
 %description
 Aubit 4GL compiler is software that translates IBM Informix 4GL source code

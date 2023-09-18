@@ -325,6 +325,7 @@ Patch107: chromium-99.0.4844.51-el7-extra-operator.patch
 Patch109: chromium-114-wireless-el7.patch
 Patch110: chromium-115-buildflag-el7.patch
 Patch111: chromium-116-constexpr.patch
+Patch112: chromium-117-el7-default_constructor.patch
 
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
@@ -941,6 +942,7 @@ udev.
 %patch -P109 -p1 -b .wireless
 %patch -P110 -p1 -b .buildflag-el7
 %patch -P111 -p1 -b .constexpr
+%patch -P112 -p1 -b .default_constructor
 %endif
 
 %if 0%{?rhel} == 9

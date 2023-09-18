@@ -7,7 +7,7 @@
 
 Name:    krdc
 Summary: Remote desktop client
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -139,6 +139,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

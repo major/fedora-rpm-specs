@@ -3,8 +3,8 @@
 Name:           kalendar
 %global uuid    org.kde.%{name}
 %global suuid   %{uuid}ac
-Version:        23.08.0
-Release:        1%{?dist}
+Version:        23.04.3
+Release:        2%{?dist}
 Summary:        A calendar application using Akonadi to sync with external services
 License:        GPLv3+
 URL:            https://invent.kde.org/pim/%{name}
@@ -43,7 +43,7 @@ BuildRequires:  cmake(KF5Kirigami2)        >= %{kf5_min_version}
 BuildRequires:  cmake(KF5Libkdepim)
 BuildRequires:  cmake(KPim5MailCommon)
 BuildRequires:  cmake(KF5People)           >= %{kf5_min_version}
-BuildRequires:  cmake(KPim5PimCommonAkonadi)
+BuildRequires:  cmake(KF5PimCommonAkonadi)
 BuildRequires:  cmake(KF5Service)          >= %{kf5_min_version}
 BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(KF5WindowSystem)     >= %{kf5_min_version}
@@ -114,9 +114,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{uuid}.ap
 
 
 %changelog
-* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
-- 23.08.0
-
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

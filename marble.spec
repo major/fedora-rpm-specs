@@ -2,7 +2,7 @@
 Name:    marble
 Summary: Virtual globe and world atlas 
 Epoch:   1
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -18,6 +18,11 @@ Source0:  http://download.kde.org/%{stable}/release-service/%{version}/src/%{nam
 ## upstream patches
 
 ## upstreamable patches
+
+# Introduced here: https://src.fedoraproject.org/rpms/kde-filesystem/c/3cc17949d085bef5476638f2fbade0f19dbcea32?branch=rawhide
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+BuildRequires: kde4-filesystem
+%endif
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -257,6 +262,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.0-1
 - 23.08.0
 

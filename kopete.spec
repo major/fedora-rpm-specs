@@ -7,7 +7,7 @@
 
 Name:    kopete
 Summary: Instant messenger
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -30,6 +30,10 @@ BuildRequires: desktop-file-utils
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf5-rpm-macros
+# Introduced here: https://src.fedoraproject.org/rpms/kde-filesystem/c/3cc17949d085bef5476638f2fbade0f19dbcea32?branch=rawhide
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+BuildRequires: kde4-filesystem
+%endif
 
 BuildRequires: cmake(KF5Config)
 BuildRequires: cmake(KF5CoreAddons)
@@ -179,6 +183,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kopete.d
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

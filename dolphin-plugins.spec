@@ -1,6 +1,6 @@
 Name:    dolphin-plugins
 Summary: Dolphin plugins for revision control systems
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -78,6 +78,9 @@ systems:
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

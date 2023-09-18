@@ -1,7 +1,7 @@
 %global kf5_min_version 5.87.0
 
 Name:     skanpage
-Version:  23.08.0
+Version:  23.08.1
 Release:  1%{?dist}
 Summary:  Utility to scan images and multi-page documents
 # For a breakdown of the licensing, see PACKAGE-LICENSING
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

@@ -1,12 +1,19 @@
 Name:           python-dirty-equals
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Doing dirty (but extremely useful) things with equals
 
 # SPDX
 License:        MIT
 URL:            https://github.com/samuelcolvin/dirty-equals
-Source:         %{pypi_source dirty_equals}
+# 0.7.0 was not published to PyPI
+# https://github.com/samuelcolvin/dirty-equals/issues/79
+# Source:         %%{pypi_source dirty_equals}
+Source:         %{url}/archive/v%{version}/dirty-equals-%{version}.tar.gz
+
+# fix pydantic version checking
+# https://github.com/samuelcolvin/dirty-equals/commit/9ea7e27853c08096090abd5dcc3bb5234afa509c
+Patch:          %{url}/commit/9ea7e27853c08096090abd5dcc3bb5234afa509c.patch
 
 BuildArch:      noarch
 
@@ -33,7 +40,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n dirty_equals-%{version}
+%autosetup -n dirty-equals-%{version} -p1
 
 # Patch out coverage analysis dependencies
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -74,7 +81,6 @@ sed -r -i 's/^filterwarnings = "error"$/# &/' pyproject.toml
 ignore="${ignore-} --ignore=tests/test_docs.py"
 
 # unix datetime tests fail if TZ != UTC
-# dirty_equals-0.6.0/tests/test_docs.py
 TZ=utc %pytest -v ${ignore-}
 
 

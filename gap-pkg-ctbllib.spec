@@ -9,8 +9,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.3.5
-Release:        2%{?dist}
+Version:        1.3.6
+Release:        1%{?dist}
 Summary:        GAP Character Table Library
 
 License:        GPL-3.0-or-later
@@ -58,11 +58,11 @@ This package provides the Character Table Library by Thomas Breuer.
 # AMS: OFL-1.1-RFN
 # CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
-# LaTeX: LPPL-1.0
+# LaTeX: LPPL-1.3a
 # Nimbus: AGPL-3.0-only
 # RSFS: LicenseRef-Rsfs
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.0 AND AGPL-3.0-only AND LicenseRef-Rsfs
+License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.3a AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        Character Table Library documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-atlasrep-doc
@@ -80,33 +80,22 @@ This package contains documentation for gap-pkg-%{pkgname}.
 chmod a-x doc/utils.xml
 
 %build
-export LC_ALL=C.UTF-8
-gap < makedocrel.g
-
-# The ctbltoc material requires a GAP package named "genus" to build.  We do
-# not have that package in Fedora.  It appears to be for older versions of GAP.
-# See:
-# https://www.math.rwth-aachen.de/~Thomas.Breuer/genus/genus.html
-# http://www.math.rwth-aachen.de/~Greg.Gamble/gap4r3/pkg/genus/doc/manual.pdf
-# If a version that works with modern GAP versions is located, uncomment the
-# following:
-# mkdir -p ctbltoc/data ctbltoc/views
-# gap -l "$PWD/..;" << EOF
-# ReadPackage( "ctbllib", "ctbltoc/init.g" );
-# for nam in HTMLViewsGlobals.documents do
-#   HTMLCreateGroupInfoFile( nam );
-# od;
-# for name in RecNames( HTMLCreateView ) do
-#   HTMLCreateView.( name )();
-# od;
-# EOF
-
 # Compress large tables
 parallel %{?_smp_mflags} --no-notice gzip --best ::: data/*.tbl
 
 %install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc{,2}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 cp -a *.g data dlnames gap4 htm tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
+
+# Building documentation has to be done after installation, because otherwise
+# GAP sees an old version of ctbllib in the buildroot rather than this version,
+# and the ctbllib version check kills the build.
+export LC_ALL=C.UTF-8
+cp -a doc doc2 %{buildroot}%{gap_libdir}/pkg/%{pkgname}
+gap -l "%{buildroot}%{gap_libdir};" < makedocrel.g
+rm -fr doc doc2
+mv %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc{,2} .
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc{,2}
 %gap_copy_docs
 %gap_copy_docs -d doc2
 
@@ -126,7 +115,7 @@ EOF
 
 %if %{without bootstrap}
 # Somewhat less basic test.  Skip the interactive tests.
-# Do not run testall.g.  It takes several days to run.
+# Do not run testall.g.  It takes a long time to run.
 mkdir -p ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
 sed -i '/BrowseCTblLibInfo();/d' gap4/ctbltocb.g tst/docxpl.tst
@@ -150,6 +139,9 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 1.3.6-1
+- Version 1.3.6
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

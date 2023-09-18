@@ -1,7 +1,7 @@
 Name:    kf6
-# This version MUST remain in sync with released KF6 versions!
-# XXX: Right now, there is no released kf6, so version 0.0
-Version: 0.0
+# This version MUST remain in sync with KF6 versions!
+# XXX: Yes, it's 5.x still, this is synced with the version set in extra-cmake-modules
+Version: 5.240.0
 Release: 1%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
@@ -83,6 +83,9 @@ sed -i \
 %{_rpmconfigdir}/macros.d/macros.kf6
 
 %changelog
+* Sat Sep 16 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.240.0-1
+- Set version matching extra-cmake-modules base version
+
 * Fri Sep 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.0-1
 - Version reset in preparation for kf6 initial release
 

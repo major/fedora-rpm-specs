@@ -13,18 +13,21 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.6.1
-Release:	2%{?dist}
+Version:	5.6.2
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
 Source0:	https://xrootd.slac.stanford.edu/download/v%{version}/%{name}-%{version}.tar.gz
 
+#		https://github.com/xrootd/xrootd/pull/2087
+Patch0:		0001-Fix-spelling-errors-reported-by-lintian.patch
+
 %if %{?rhel}%{!?rhel:0} == 7
-BuildRequires:	cmake3 >= 3.6
+BuildRequires:	cmake3
 BuildRequires:	devtoolset-7-toolchain
 %else
-BuildRequires:	cmake >= 3.6
+BuildRequires:	cmake
 BuildRequires:	gcc-c++
 %endif
 BuildRequires:	make
@@ -50,6 +53,11 @@ BuildRequires:	python3-pip
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-wheel
 BuildRequires:	python3-sphinx
+%if %{?fedora}%{!?fedora:0}
+BuildRequires:	python3-sphinx-mdinclude
+%else
+BuildRequires:	python3-m2r
+%endif
 %endif
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	python2-devel
@@ -66,7 +74,7 @@ BuildRequires:	python2-sphinx
 BuildRequires:	json-c-devel
 BuildRequires:	libmacaroons-devel
 BuildRequires:	libuuid-devel
-BuildRequires:	voms-devel >= 2.0.6
+BuildRequires:	voms-devel
 BuildRequires:	scitokens-cpp-devel
 BuildRequires:	davix-devel
 %if %{ceph}
@@ -289,6 +297,7 @@ This package contains the API documentation of the xrootd libraries.
 
 %prep
 %setup -q
+%patch -P 0 -p1
 
 %build
 %if %{?rhel}%{!?rhel:0} == 7
@@ -686,6 +695,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Sep 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.2-1
+- Update to version 5.6.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

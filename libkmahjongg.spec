@@ -1,7 +1,7 @@
 
 Name:    libkmahjongg
 Summary: Common code, backgrounds and tile sets for games using Mahjongg tiles
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -47,6 +47,11 @@ Conflicts:     libkmahjongg4 < 14.12.3-5
 BuildRequires: kde-filesystem
 Requires:      kde-filesystem
 %endif
+# Introduced here: https://src.fedoraproject.org/rpms/kde-filesystem/c/3cc17949d085bef5476638f2fbade0f19dbcea32?branch=rawhide
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+BuildRequires: kde4-filesystem
+%endif
+
 %description data
 %{summary}, including backgrounds and tilesets.
 
@@ -95,6 +100,9 @@ cp -alfv \
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

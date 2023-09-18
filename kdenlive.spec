@@ -2,7 +2,7 @@
 
 Name:    kdenlive
 Summary: Non-linear video editor
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
@@ -129,6 +129,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

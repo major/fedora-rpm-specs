@@ -10,8 +10,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.1.6
-Release:        4%{?dist}
+Version:        2.1.7
+Release:        1%{?dist}
 Summary:        GAP interface to the Atlas of Group Representations
 
 License:        GPL-3.0-or-later
@@ -22,6 +22,10 @@ Source0:        %{url}/%{pkgname}-%{version}.tar.gz
 Source1:        %{url}/%{pkgname}data.tar.gz
 # Predownloaded data from ATLAS needed for the tests
 Source2:        %{name}-testdata.tar.xz
+
+# The makedocrel script determines that the package being built is outside of
+# the normal GAP install directories and refuses to do anything with it.
+Patch0:         %{name}-makedocrel.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
@@ -75,7 +79,7 @@ Requires:       gap-pkg-utils-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version} -p1
 tar -x --strip-components=1 -f %{SOURCE1}
 rm {dataext,datagens,dataword}/dummy
 rm -fr dataword/{.cvsignore,CVS}
@@ -103,7 +107,6 @@ rm -fr ../../doc ../{ctbllib,pkg}
 sed -i "s,$PWD/doc/\.\./\.\./pkg,../..,g" doc/*.html
 
 %install
-rm tst/*~
 mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
 cp -a *.g *.json bibl dataext datagens datapkg dataword gap tst \
    %{buildroot}%{gap_libdir}/pkg/%{pkgname}
@@ -139,6 +142,9 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 2.1.7-1
+- Version 2.1.7
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

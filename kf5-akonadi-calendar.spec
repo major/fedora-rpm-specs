@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{base_name}
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
@@ -125,6 +125,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

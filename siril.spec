@@ -1,14 +1,24 @@
 Name:           siril
-Version:        1.2.0~rc1
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Astronomical image processing software
 
 # Selected portions of the software derived from SLEEF
 # are licensed under Boost license:
 # - src/core/sleef.h
-License:        GPLv3+ and Boost
+#
+# 'GPL-2.0-or-later' used in:
+# - src/io/kstars/binfile.h
+# - src/io/kstars/byteorder.h
+#
+# 'Zlib' used in:
+# - src/pixelMath/tinyexpr.c
+# - src/pixelMath/tinyexpr.h
+#
+# https://gitlab.com/free-astro/siril/-/issues/1192
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSL-1.0 AND Zlib
 URL:            https://siril.org
-Source0:        https://free-astro.org/download/%{name}-1.2.0-rc1.tar.bz2
+Source0:        https://free-astro.org/download/%{name}-%{version}.tar.bz2
 
 Patch1:         siril-1.0.2-opencv_flann.patch
 
@@ -53,7 +63,7 @@ SER files)
 
 
 %prep
-%autosetup -p1 -n %{name}-1.2.0-rc1
+%autosetup -p1 -n %{name}-%{version}
 
 
 %build

@@ -55,10 +55,10 @@
 %bcond_without gridfs
 %endif
 
-# Fedora 39 ships with python 3.12, which at this point isn't supported
+# Fedora 39+ ships with python 3.12, which at this point isn't supported
 # by uwsgi. To get a working python module, build against the (still
 # existing) python3.11, too
-%if 0%{?fedora} == 39
+%if 0%{?fedora} > 38
 %bcond_without python3_other
 %define python3_other_pkgversion 3.11
 %define python3_other_version 3.11
@@ -215,7 +215,7 @@
 
 Name:           uwsgi
 Version:        2.0.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1863,6 +1863,9 @@ exit 0
 
 
 %changelog
+* Sat Sep 16 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-3
+- Extend building the python 3.11 module to rawhide
+
 * Fri Sep 15 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-2
 - For Fedora 39, build an extra module against Python 3.11
 - Disable PIE and enable PIC for the mail executable to avoid crashes when using

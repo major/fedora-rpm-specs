@@ -1,6 +1,6 @@
 
 Name:           colord-kde
-Version:        23.08.0
+Version:        23.08.1
 Release:        1%{?dist}
 Summary:        Colord support for KDE
 
@@ -68,6 +68,9 @@ KDE support for colord including KDE Daemon module and System Settings module.
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

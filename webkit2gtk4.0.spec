@@ -18,7 +18,7 @@
 %bcond_without docs
 
 Name:           webkit2gtk4.0
-Version:        2.41.92
+Version:        2.42.0
 Release:        %autorelease
 Summary:        WebKitGTK for GTK 3 and libsoup 2
 

@@ -1,6 +1,6 @@
 Name:           cfn-lint
 Summary:        CloudFormation Linter
-Version:        0.79.8
+Version:        0.79.11
 Release:        %autorelease
 
 # SPDX
@@ -12,18 +12,10 @@ Source0:        %{url}/archive/v%{version}/cfn-lint-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        cfn-lint.1
 
-# Revert "Pin jsonschema to be under 4.18 (#2792)"
-#
-# This reverts commit fc1ffe96c71a847d2ff1b01a18328648097c7e34.
-#
-# Upstream says, “The new version of json schema package has changed a lot of
-# dependencies. This is a short term fix until we can better understand the
-# full impact.” See https://github.com/aws-cloudformation/cfn-lint/pull/2792.
-#
-# This is a downstream-only patch; upstream really does want to pin the
-# dependency, and we cannot respect the version pin and must make do with
-# whatever is packaged.
-Patch:          0001-Revert-Pin-jsonschema-to-be-under-4.18-2792.patch
+# jsonschema>=3.0,<5
+# https://github.com/aws-cloudformation/cfn-lint/pull/2838
+# https://github.com/aws-cloudformation/cfn-lint/commit/b74d531eb7550ad005b3f1af415571344d07638d
+Patch:          %{url}/commit/b74d531eb7550ad005b3f1af415571344d07638d.patch
 
 BuildArch:      noarch
 

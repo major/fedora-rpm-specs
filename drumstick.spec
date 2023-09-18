@@ -2,7 +2,7 @@
 
 Summary: C++/Qt5 wrapper around multiple MIDI interfaces
 Name:    drumstick
-Version: 2.8.0
+Version: 2.8.1
 Release: %autorelease
 
 License: GPLv3+

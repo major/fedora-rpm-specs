@@ -1,5 +1,5 @@
 Name:    kleopatra
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
@@ -102,6 +102,9 @@ rm -fv %{buildroot}%{_kf5_libdir}/libkleopatraclientgui.so
 %{_kf5_qtplugindir}/pim5/kcms/kleopatra/kleopatra_config_gnupgsystem.so
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

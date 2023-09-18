@@ -5,7 +5,7 @@
 # https://github.com/open-telemetry/opentelemetry-go
 %global goipath         go.opentelemetry.io/otel
 %global forgeurl        https://github.com/open-telemetry/opentelemetry-go
-Version:                1.16.0
+Version:                1.18.0
 
 %gometa
 

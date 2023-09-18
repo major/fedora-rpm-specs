@@ -4,7 +4,7 @@ Release:        4%{?dist}
 Summary:        A general purpose TCP-IP emulator
 
 # check the SPDX tags in source files for details
-License:        BSD and MIT
+License:        BSD-3-Clause AND MIT
 URL:            https://gitlab.freedesktop.org/slirp/%{name}
 Source0:        %{url}/-/archive/v%{version}/%{name}-%{version}.tar.xz
 

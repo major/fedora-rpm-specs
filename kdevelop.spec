@@ -2,8 +2,8 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        23.08.0
-Release:        2%{?dist}
+Version:        23.08.1
+Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            http://www.kdevelop.org/
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/kdevelop-%{version}.tar.xz
@@ -15,6 +15,8 @@ Patch0:         kdevelop-5.2.3-qmake.patch
 # upstreamable patches
 
 # upstream patches
+# https://invent.kde.org/kdevelop/kdevelop/-/merge_requests/488
+Patch1:         488.patch
 
 BuildRequires:  gcc-c++ gcc
 BuildRequires:  boost-devel
@@ -222,6 +224,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 9:23.08.1-1
+- 23.08.1
+
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 9:23.08.0-3
+- Add upstream patch to fix build against llvm 17
+
 * Tue Sep 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 9:23.08.0-2
 - Add astyle-devel dependency
 

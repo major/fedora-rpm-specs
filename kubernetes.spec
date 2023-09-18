@@ -15,7 +15,7 @@
 
 %global provider_prefix         %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path             kubernetes.io/
-%global commit                  8dc49c4b984b897d423aab4971090e1879eb4f23
+%global commit                  89a4ea3e1e4ddd7f7572286090359983e0387b2f
 %global shortcommit              %(c=%{commit}; echo ${c:0:7})
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
@@ -24,7 +24,7 @@
 
 ##############################################
 Name:           kubernetes
-Version:        1.28.1
+Version:        1.28.2
 Release:        %autorelease
 Summary:        Open Source Production-Grade Container Scheduling And Management Platform
 License:        ASL 2.0
@@ -68,7 +68,7 @@ Requires: kubernetes-node = %{version}-%{release}
 %package master
 Summary: Kubernetes services for control plane host
 
-BuildRequires: golang >= 1.20.6
+BuildRequires: golang >= 1.20.8
 BuildRequires: systemd
 BuildRequires: rsync
 BuildRequires: go-md2man
@@ -94,7 +94,7 @@ Requires: (containerd or cri-o)
 Suggests: containerd
 Requires: conntrack-tools
 
-BuildRequires: golang >= 1.20.6
+BuildRequires: golang >= 1.20.8
 BuildRequires: systemd
 BuildRequires: rsync
 BuildRequires: go-md2man
@@ -118,6 +118,7 @@ Kubernetes services for worker node host
 Summary:  Kubernetes tool for standing up clusters
 Requires: kubernetes-node = %{version}-%{release}
 
+BuildRequires: golang >= 1.20.8
 Requires: containernetworking-plugins
 Requires: cri-tools
 
@@ -128,7 +129,7 @@ Kubernetes tool for standing up clusters
 %package client
 Summary: Kubernetes client tools
 
-BuildRequires: golang >= 1.20.6
+BuildRequires: golang >= 1.20.8
 #BuildRequires: go-bindata
 BuildRequires: make
 

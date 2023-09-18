@@ -7,7 +7,7 @@
 
 Name:    kdegraphics-thumbnailers
 Summary: Thumbnailers for various graphic types 
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 
 # most sources GPLv2+, dscparse.* GPL, gscreator.* LGPLv2+, 
@@ -62,6 +62,9 @@ BuildRequires: cmake(KF5KDcraw)
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

@@ -1,6 +1,6 @@
 
 Name:    kaccounts-providers
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 Summary: Additional service providers for KAccounts framework
 License: GPLv2
@@ -77,6 +77,9 @@ Obsoletes: kaccounts-providers < 15.12.0
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

@@ -1,5 +1,5 @@
 Name:           minuet
-Version:        23.08.0
+Version:        23.08.1
 Release:        1%{?dist}
 Summary:        A KDE Software for Music Education
 #OFL license for bundled Bravura.otf font
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

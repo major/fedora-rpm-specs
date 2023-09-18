@@ -1,6 +1,6 @@
 Name:             backintime
-Version:          1.3.3
-Release:          3%{?dist}
+Version:          1.4.0
+Release:          1%{?dist}
 Summary:          Simple backup tool inspired from the Flyback project and TimeVault
 License:          GPLv2+
 URL:              https://github.com/bit-team/backintime
@@ -180,12 +180,14 @@ make -C common test-v
 %{_datadir}/backintime/qt/
 %{_datadir}/icons/hicolor/*/actions/*.svg
 %{_datadir}/bash-completion/completions/backintime-qt
-%{_datadir}/doc/qt/HTML/en/backintime/index.docbook
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}-qt-root
 %config %{_sysconfdir}/security/console.apps/%{name}-qt-root
 
 
 %changelog
+* Sat Sep 16 2023 Johannes Lips <hannes@fedoraproject.org> - 1.4.0-1
+- update to latest upstream release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

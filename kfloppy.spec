@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 Name:    kfloppy
 Summary: Floppy formatting tool 
-Version: 23.08.0
-Release: 1%{?dist}
+Version: 23.04.3
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     http://utils.kde.org/projects/%{name}
@@ -71,9 +71,6 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kfloppy.
 
 
 %changelog
-* Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
-- 23.08.0
-
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

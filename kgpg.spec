@@ -1,6 +1,6 @@
 Name:    kgpg
 Summary: Manage GPG encryption keys 
-Version: 23.08.0
+Version: 23.08.1
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -50,6 +50,11 @@ BuildRequires: cmake(Grantlee5)
 # support kde4 servicemenus too
 BuildRequires: kde-filesystem
 Requires:      kde-filesystem
+# Introduced here: https://src.fedoraproject.org/rpms/kde-filesystem/c/3cc17949d085bef5476638f2fbade0f19dbcea32?branch=rawhide
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+BuildRequires: kde4-filesystem
+Requires:      kde4-filesystem
+%endif
 
 BuildRequires: gpgme-devel
 
@@ -120,6 +125,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 
