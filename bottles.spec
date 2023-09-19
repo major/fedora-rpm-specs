@@ -2,11 +2,10 @@
 %global gh_name Bottles
 
 %global forgeurl https://github.com/bottlesdevs/%{gh_name}
-%global tag 51.6
 
 Name:       bottles
 Epoch:      1
-Version:    %{tag}
+Version:    51.9
 Release:    %autorelease
 BuildArch:  noarch
 
@@ -14,9 +13,13 @@ BuildArch:  noarch
 # https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
 ExcludeArch:    s390x
 
+%global tag %{version}
 %forgemeta
 
-License:    GPL-3.0-or-later
+# The following two files are licensed as MIT:
+# bottles/backend/models/vdict.py
+# bottles/backend/utils/vdf.py
+License:    GPL-3.0-or-later AND MIT
 Summary:    Easily manage Wine prefix in a new way
 URL:        %{forgeurl}
 Source0:    %{forgesource}
@@ -52,6 +55,7 @@ Requires:   xdpyinfo                %dnl # needed by the display util
 Requires:   python3-pathvalidate
 Requires:   python3-fvs
 Requires:   python3-vkbasalt-cli
+Requires:   ImageMagick             %dnl # https://bugzilla.redhat.com/show_bug.cgi?id=2227538
 
 %description
 Easily manage Wine prefix in a new way! (Run Windows software and games on

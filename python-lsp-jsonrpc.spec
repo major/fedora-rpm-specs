@@ -7,8 +7,8 @@ fork of python-language-server).
 }
 
 Name:           python-%{short_name}
-Version:        1.0.0
-Release:        9%{?dist}
+Version:        1.1.1
+Release:        %autorelease
 Summary:        Python implementation of JSON RPC 2.0 protocol
 
 License:        MIT
@@ -43,37 +43,11 @@ Summary:        %{summary}
 %pyproject_save_files pylsp_jsonrpc
 
 %check
-%pytest
+%pytest -v --no-cov -k "not test_writer_bad_message"
 
 %files -n python3-%{short_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 1.0.0-8
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.0.0-5
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jul 07 2021 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.0-2
-- Use pytest macro
-- address other spec sanity comments
-
-* Mon Jul 05 2021 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.0-1
-- Initial package
+%autochangelog

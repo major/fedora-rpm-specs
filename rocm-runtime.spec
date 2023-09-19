@@ -2,22 +2,18 @@
 %ifarch x86_64
 %global enableimage 1
 %endif
-%global rocm_release 5.6
-%global rocm_patch 1
+%global rocm_release 5.7
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
 URL:        https://github.com/RadeonOpenCompute/ROCR-Runtime
 Source0:    https://github.com/RadeonOpenCompute/ROCR-Runtime/archive/refs/tags/rocm-%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-Patch0:     0001-Only-install-asan-license-when-enabled.patch
-Patch1:     0002-fix-link-time-ordering-condition.patch
-Patch2:     0001-Fix-non-x86-builds.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
@@ -77,6 +73,9 @@ ROCm Runtime development files
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Sun Sep 17 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
+- Update to 5.7
+
 * Wed Sep 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 5.6.1-2
 - Rebuild against LLVM 17.0.0
 

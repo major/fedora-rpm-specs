@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: OpenBSD's bcrypt_pdkfd (a variant of PBKDF2 with bcrypt-based PRF)
 # BSD license in files:
 #   ext/mri/hash_sha512.c
@@ -14,6 +14,8 @@ Summary: OpenBSD's bcrypt_pdkfd (a variant of PBKDF2 with bcrypt-based PRF)
 License: MIT and BSD and ISC
 URL: https://github.com/net-ssh/bcrypt_pbkdf-ruby
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/net-ssh/bcrypt_pbkdf-ruby/pull/21
+Patch0:  bcrypt_pbkdf-pr21-minitest-5_19-compat.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -38,6 +40,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -78,6 +81,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sun Sep 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0-8
+- Make testsuite compat with minitest 5.19+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

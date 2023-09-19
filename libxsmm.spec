@@ -22,13 +22,15 @@
 %global soupd 1
 
 Name:		libxsmm
-Version:	1.16
-Release:	11%{?dist}
+Version:	1.17
+Release:	1%{?dist}
 Summary:	Small dense or sparse matrix multiplications and convolutions for x86_64
 License:	BSD-3-Clause
 URL:		https://github.com/hfp/libxsmm
 Source0:	https://github.com/hfp/libxsmm/archive/%version/%name-%version.tar.gz
-BuildRequires: make
+# Remove rpath
+Patch0:		libxsmm-rpath.patch
+BuildRequires:	make
 BuildRequires:	python3-devel openblas-devel
 %if %{with devtoolset}
 # Release 6 supports avx512 and uses the same libgfortran version as
@@ -82,7 +84,7 @@ Documentation for %name.
 
 
 %prep
-%setup -q
+%autosetup -p1
 # MS-Windows stuff that rpmlint would complain about
 find samples -name \*.vcxproj | xargs rm
 # README would clobber the main one, and the others would be dangling links
@@ -104,7 +106,7 @@ cp -p samples/deeplearning/gxm/README.md documentation/gxm.md
 # consistent.  PREFIX and POUTDIR are needed at build time to get the .pc
 # files correct.  OMPLIB is necessary to avoid failure in epel7 trying to
 # link -lgomp.so, which I haven't figured out.
-%global makeflags STATIC=0 SYM=1 AVX=0 PYTHON=%python3 PREFIX=%buildroot%_prefix POUTDIR=%_lib VERSION_API=1 OMPLIB=-lgomp
+%global makeflags STATIC=0 SYM=1 AVX=0 PYTHON=%python3 PREFIX=%_prefix POUTDIR=%_lib PPKGDIR=%_lib/pkgconfig VERSION_API=1 OMPLIB=-lgomp
 %make_build %makeflags
 
 
@@ -114,11 +116,9 @@ cp -p samples/deeplearning/gxm/README.md documentation/gxm.md
 %endif
 # Supply STATIC etc. since this actually builds stuff (a bug?),
 # and otherwise we end up with bits built wrongly.
-make install %makeflags
+%make_install %makeflags
 mkdir -p %buildroot%_fmoddir %buildroot%_libdir/pkgconfig
 mv %buildroot%_includedir/libxsmm.mod %buildroot%_fmoddir
-mv %buildroot%_prefix/lib/*.pc %buildroot%_libdir/pkgconfig
-sed -i -e 's|^prefix=.*$|prefix=%_prefix|' %buildroot%_libdir/pkgconfig/*.pc
 rm -r %buildroot%_datadir/libxsmm
 
 # Build artefacts
@@ -164,6 +164,9 @@ rm -rf samples/cp2k/obj
 
 
 %changelog
+* Tue Sep 12 2023 Orion Poplawski <orion@nwra.com> - 1.17-1
+- Update to 1.17
+
 * Thu Sep  7 2023 Dave Love <loveshack@fedoraproject.org> - 1.16-11
 - Don't BR /usr/bin/python3 (#2237694)
 - Remove el6 in conditionals

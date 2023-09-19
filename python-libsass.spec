@@ -5,29 +5,27 @@
 %bcond doc 1
 
 Name:           python-libsass
-Version:        0.20.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Sass for Python: A straightforward binding of libsass for Python
 
 # SPDX
 License:        MIT
 URL:            https://github.com/dahlia/libsass-python
-Source0:        %{url}/archive/%{version}.tar.gz#/libsass-%{version}.tar.gz
-# Patch for correct naming of manpages
-Patch0:         python-libsass-man.patch
+Source:         %{url}/archive/%{version}.tar.gz#/libsass-%{version}.tar.gz
+
+# 0.22.0: documentation seems is not ready for sphinx 6.1.3
 # https://github.com/sass/libsass-python/issues/424
-# https://github.com/sass/libsass-python/pull/433 - a bit modified
-Patch1:         libsass-python-pr433-sphinx60-remove-deprecated-item.patch
+#
+# doc: support sphinx 6.0 ext.extlinks
+# https://github.com/sass/libsass-python/pull/433
+Patch:          %{url}/pull/433.patch
 # Add a missing word “to” in the description
 # https://github.com/sass/libsass-python/pull/442
-# Rebased to 0.20.0
-Patch2:         0001-Add-a-missing-word-to-in-the-description.patch
+Patch:          %{url}/pull/442.patch
 # Replace deprecated license_file with license_files in setup.cfg
 # https://github.com/sass/libsass-python/pull/441
-Patch3:         %{url}/pull/441.patch
-# For libsass 3.6.5 and later; see %%prep
-# https://github.com/sass/libsass-python/pull/344
-Patch100:       libsass-python-pr344-sass-365.patch
+Patch:          %{url}/pull/441.patch
 
 BuildRequires:  python3-devel
 
@@ -39,11 +37,11 @@ BuildRequires:  (%{py3_dist werkzeug} with %{py3_dist werkzeug} >= 0.9)
 BuildRequires:  make
 BuildRequires:  gcc-c++
 
-BuildRequires:  libsass-devel
+BuildRequires:  libsass-devel >= 3.6.5
 
-# Needed for building a man page
-BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  help2man
 %if %{with doc}
+BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
@@ -66,7 +64,6 @@ Summary:        %{summary}
 #   #_provides_for_importable_modules
 # This package is messy; it occupies quite a few top-level names.
 %py_provides python3-sass
-%py_provides python3-sassc
 %py_provides python3-pysassc
 %py_provides python3-sasstests
 %py_provides python3-sassutils
@@ -83,11 +80,7 @@ Summary:        Documentation for python-libsass
 
 
 %prep
-%autosetup -n libsass-python-%{version} -N
-%autopatch -M 99 -p1
-if pkg-config --atleast-version 3.6.5 libsass ; then
-%autopatch -m 100 -p1
-fi
+%autosetup -n libsass-python-%{version} -p1
 
 # While upstream has the executable bit set, we will install this in
 # site-packages without executable permissions; therefore, the shebang becomes
@@ -104,10 +97,10 @@ export SYSTEM_SASS='1'
 export SYSTEM_SASS='1'
 %pyproject_wheel
 
-LIB='lib.%{python3_platform}-cpython-%{python3_version_nodots}'
-PYTHONPATH="${PWD}/build/${LIB}" %make_build -C docs \
-    man %{?with_doc:latex} SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %if %{with doc}
+LIB='lib.%{python3_platform}-cpython-%{python3_version_nodots}'
+PYTHONPATH="${PWD}/build/${LIB}" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 
@@ -115,13 +108,14 @@ PYTHONPATH="${PWD}/build/${LIB}" %make_build -C docs \
 %install
 export SYSTEM_SASS='1'
 %pyproject_install
-%pyproject_save_files sass sassc pysassc sasstests sassutils _sass
+%pyproject_save_files sass pysassc sasstests sassutils _sass
 
-# Collides with libsass. Deprecated; removed in 0.22.0.
-rm -v '%{buildroot}%{_bindir}/sassc'
-
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
-    docs/_build/man/pysassc.1
+# We build the man page in %%install rather than %%build because we need to use
+# the entry point in %%{buildroot}/%%{_bindir}.
+install -d '%{buildroot}%{_mandir}/man1'
+PYTHONPATH='%{buildroot}%{python3_sitearch}' \
+    help2man --no-info --output='%{buildroot}%{_mandir}/man1/pysassc.1' \
+    '%{buildroot}%{_bindir}/pysassc'
 
 
 %check

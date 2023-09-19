@@ -2,24 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate which
+%global crate gix-revwalk
 
-Name:           rust-which
-Version:        4.4.2
+Name:           rust-gix-revwalk
+Version:        0.7.0
 Release:        %autorelease
-Summary:        Rust equivalent of Unix command "which"
+Summary:        Utility library for walking the revision graph
 
-License:        MIT
-URL:            https://crates.io/crates/which
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/gix-revwalk
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          which-fix-metadata-auto.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A Rust equivalent of Unix command "which". Locate installed executable
-in cross platforms.}
+A crate providing utilities for walking the revision graph.}
 
 %description %{_description}
 
@@ -33,9 +30,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+regex-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+regex-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "regex" feature of the "%{crate}" crate.
-
-%files       -n %{name}+regex-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

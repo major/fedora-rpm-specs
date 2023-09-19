@@ -17,7 +17,7 @@ Google Drive API Python wrapper library. Maintained fork of PyDrive.
 %package -n     python3-%{name}
 Summary:        %{summary}
 
-Obsoletes:      python3-PyDrive <= 1.3.1-21
+Obsoletes:      python3-PyDrive < 1.3.1-22
 
 %description -n python3-%{name}
 Google Drive API Python wrapper library. Maintained fork of PyDrive.

@@ -1,11 +1,11 @@
-%global gittag v0.9.82
+%global gittag v2.4.0
 #%%global commit 1abc907b93a1ba402ca28652de42c81b90c80250
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20230125
 
 Name:           indistarter
 %if "%{?gittag}"
-Version:        2.3.2
+Version:        2.4.0
 %else
 Version:        2.3.1^%{date}%{shortcommit}
 %endif
@@ -28,9 +28,16 @@ ExclusiveArch:  %{fpc_arches}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  fpc
-BuildRequires:  lazarus
 BuildRequires:  libappstream-glib
 BuildRequires:  make
+%if 0%{?fedora} >= 39
+BuildRequires:  fpc-src
+BuildRequires:  lazarus-lcl-nogui
+BuildRequires:  lazarus-lcl-qt5
+BuildRequires:  lazarus-tools
+%else
+BuildRequires:  lazarus >= 1.6.2
+%endif
 
 %description
 Indistarter is a user interface to run a INDI server.

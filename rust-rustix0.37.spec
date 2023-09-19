@@ -4,8 +4,8 @@
 
 %global crate rustix
 
-Name:           rust-rustix
-Version:        0.38.13
+Name:           rust-rustix0.37
+Version:        0.37.23
 Release:        %autorelease
 Summary:        Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls
 
@@ -16,9 +16,12 @@ Source:         %{crates_source}
 Patch:          rustix-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop dependencies on compiler internals
+# * make cc build-dependency non-optional
 Patch:          rustix-fix-metadata.diff
+# * unconditionally rebuild static objects from Assembly
+Patch:          0001-Unconditionally-compile-C-Assembly-code-from-source.patch
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
 Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls.}
@@ -70,16 +73,16 @@ use the "all-apis" feature of the "%{crate}" crate.
 %files       -n %{name}+all-apis-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+all-impls-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+all-impls-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "all-impls" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+all-impls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+cc-devel
@@ -94,18 +97,6 @@ use the "cc" feature of the "%{crate}" crate.
 %files       -n %{name}+cc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+event-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+event-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "event" feature of the "%{crate}" crate.
-
-%files       -n %{name}+event-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+fs-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -116,6 +107,30 @@ This package contains library source intended for building other packages which
 use the "fs" feature of the "%{crate}" crate.
 
 %files       -n %{name}+fs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fs-err-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fs-err-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fs-err" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fs-err-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+io-lifetimes-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+io-lifetimes-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "io-lifetimes" feature of the "%{crate}" crate.
+
+%files       -n %{name}+io-lifetimes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+io_uring-devel
@@ -202,18 +217,6 @@ use the "mm" feature of the "%{crate}" crate.
 %files       -n %{name}+mm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+mount-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+mount-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "mount" feature of the "%{crate}" crate.
-
-%files       -n %{name}+mount-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+net-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -238,6 +241,18 @@ use the "once_cell" feature of the "%{crate}" crate.
 %files       -n %{name}+once_cell-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+os_pipe-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+os_pipe-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "os_pipe" feature of the "%{crate}" crate.
+
+%files       -n %{name}+os_pipe-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+param-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -248,18 +263,6 @@ This package contains library source intended for building other packages which
 use the "param" feature of the "%{crate}" crate.
 
 %files       -n %{name}+param-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+pipe-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pipe-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pipe" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pipe-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+process-devel
@@ -334,30 +337,6 @@ use the "std" feature of the "%{crate}" crate.
 %files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+stdio-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+stdio-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "stdio" feature of the "%{crate}" crate.
-
-%files       -n %{name}+stdio-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+system-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+system-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "system" feature of the "%{crate}" crate.
-
-%files       -n %{name}+system-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+termios-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -394,18 +373,6 @@ use the "time" feature of the "%{crate}" crate.
 %files       -n %{name}+time-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+use-explicitly-provided-auxv-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+use-explicitly-provided-auxv-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "use-explicitly-provided-auxv" feature of the "%{crate}" crate.
-
-%files       -n %{name}+use-explicitly-provided-auxv-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+use-libc-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -433,6 +400,9 @@ use the "use-libc-auxv" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
+# Remove pre-built binaries
+rm -r src/backend/linux_raw/arch/outline/debug/
+rm -r src/backend/linux_raw/arch/outline/release/
 
 %generate_buildrequires
 %cargo_generate_buildrequires

@@ -43,6 +43,9 @@
 # set nodejs_version
 %global nodejs_version v20.6.1
 
+# set esbuild_version
+%global esbuild_version 0.19.2
+
 # set version for devtoolset and gcc-toolset
 %global dts_version 12
 
@@ -235,7 +238,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 117.0.5938.62
+Version: 117.0.5938.88
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -353,27 +356,26 @@ Patch303: chromium-117-typename.patch
 Patch304: chromium-117-missing-header-files.patch
 
 # compiler error with c++20
-Patch306: chromium-117-emplace_back_on_vector-c++20.patch
-
-# disable memory tagging for epel8 on aarch64 due to new feature IFUNC-Resolver not supported
-# in old glibc < 2.30
-# error: fatal error: 'sys/ifunc.h' file not found
-Patch307: chromium-116-arm64-memory_tagging.patch
+Patch305: chromium-117-emplace_back_on_vector-c++20.patch
 
 # error: invalid operands to binary expression
-Patch308: chromium-117-string-convert.patch
+Patch306: chromium-117-string-convert.patch
+
+# disable memory tagging in epel7 and epel8 on aarch64 due to new feature IFUNC-Resolver
+# not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
+Patch307: chromium-116-arm64-memory_tagging.patch
 
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
 
-# imp module is removed in python-3.12
+# imp module is removed in python-3.12 in fedora 39 and newer
 Patch312: chromium-117-python-3.12-deprecated.patch
 
 # Tweak about:gpu, Add dark mode support
-Patch351: chromium-116-tweak_about_gpu.patch
+Patch350: chromium-116-tweak_about_gpu.patch
 
 # build error
-Patch352: chromium-117-mnemonic-error.patch
+Patch351: chromium-117-mnemonic-error.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -394,13 +396,24 @@ Source7: get_free_ffmpeg_source_files.py
 Source8: get_linux_tests_names.py
 # GNOME stuff
 Source9: chromium-browser.xml
-Source11: chrome-remote-desktop@.service
-Source13: master_preferences
+Source10: chrome-remote-desktop@.service
+Source11: master_preferences
 
 # RHEL 8 needs newer nodejs
 %if 0%{?rhel} == 8
-Source19: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-x64.tar.xz
-Source21: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-arm64.tar.xz
+Source12: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-x64.tar.xz
+Source13: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-arm64.tar.xz
+%endif
+
+# esbuild binary
+%if 0%{?rhel}
+Source14: https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-%{esbuild_version}.tgz
+Source15: https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-%{esbuild_version}.tgz
+%endif
+
+# esbuild binary from fedora
+%if 0%{?fedora}
+BuildRequires: golang-github-evanw-esbuild
 %endif
 
 %if %{clang}
@@ -949,17 +962,17 @@ udev.
 %patch -P130 -p1 -b .revert-av1enc
 %endif
 
-%patch -P300 -p1 -b .no_matching_constructor
 %if %{clang}
 %if 0%{?rhel} || 0%{?fedora} < 38
+%patch -P300 -p1 -b .no_matching_constructor
 %patch -P301 -p1 -b .workaround_clang-SkColor4f
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
-%endif
-%endif
-
 %patch -P303 -p1 -b .typename
 %patch -P304 -p1 -b .missing-header-files
-%patch -P306 -p1 -b .emplace_back_on_vector-c++20
+%patch -P305 -p1 -b .emplace_back_on_vector-c++20
+%patch -P306 -p1 -b .string-convert
+%endif
+%endif
 
 %ifarch aarch64
 %if 0%{?rhel} <= 8
@@ -967,25 +980,28 @@ udev.
 %endif
 %endif
 
-%patch -P308 -p1 -b .string-convert
 %patch -P311 -p1 -b .clang-warnings
-%patch -P312 -p1 -b .python-3.12-deprecated
 
-%patch -P351 -p1 -b .tweak_about_gpu
-%patch -P352 -p1 -b .mnemonic-error
+%if 0%{?rhel} > 9 || 0%{?fedora} > 38
+%patch -P312 -p1 -b .python-3.12-deprecated
+%endif
+
+%patch -P350 -p1 -b .tweak_about_gpu
+%patch -P351 -p1 -b .mnemonic-error
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
 
+# install nodejs
 %if 0%{?rhel} == 8
   pushd third_party/node/linux
 %ifarch x86_64
-  tar xf %{SOURCE19}
+  tar xf %{SOURCE12}
   mv node-%{nodejs_version}-linux-x64 node-linux-x64
 %endif
 %ifarch aarch64
-  tar xf %{SOURCE21}
+  tar xf %{SOURCE13}
   mv node-%{nodejs_version}-linux-arm64 node-linux-arm64
   # This is weird, but whatever
   ln -s node-linux-arm64 node-linux-x64
@@ -994,6 +1010,19 @@ popd
 %else
   mkdir -p third_party/node/linux/node-linux-x64/bin
   ln -s %{_bindir}/node third_party/node/linux/node-linux-x64/bin/node
+%endif
+
+# Get rid of the bundled esbuild
+%if 0%{?fedora}
+  ln -sf %{_bindir}/esbuild third_party/devtools-frontend/src/third_party/esbuild/esbuild
+%else
+  %ifarch x86_64
+    tar -zxf %{SOURCE14} --directory %{_tmppath}
+  %endif
+  %ifarch aarch64
+    tar -zxf %{SOURCE15} --directory %{_tmppath}
+  %endif
+  mv %{_tmppath}/package/bin/esbuild third_party/devtools-frontend/src/third_party/esbuild/esbuild
 %endif
 
 # Get rid of the pre-built eu-strip binary, it is x86_64 and of mysterious origin
@@ -1436,7 +1465,7 @@ popd
    cp -a remoting/host/installer/linux/is-remoting-session %{buildroot}%{crd_path}/
 
    mkdir -p %{buildroot}%{_unitdir}
-   cp -a %{SOURCE11} %{buildroot}%{_unitdir}/
+   cp -a %{SOURCE10} %{buildroot}%{_unitdir}/
    sed -i 's|@@CRD_PATH@@|%{crd_path}|g' %{buildroot}%{_unitdir}/chrome-remote-desktop@.service
 %endif
 
@@ -1467,7 +1496,7 @@ mkdir -p %{buildroot}%{_datadir}/icons/hicolor/24x24/apps
 cp -a chrome/app/theme/chromium/product_logo_24.png %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/%{chromium_browser_channel}.png
 
 # Install the master_preferences file
-install -m 0644 %{SOURCE13} %{buildroot}%{_sysconfdir}/%{name}/
+install -m 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/%{name}/
 
 mkdir -p %{buildroot}%{_datadir}/applications/
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE4}
@@ -1653,6 +1682,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sun Sep 17 2023 Than Ngo <than@redhat.com> - 117.0.5938.88-1
+- update to 117.0.5938.88
+
 * Wed Sep 13 2023 Than Ngo <than@redhat.com> - 117.0.5938.62-1
 - update to 117.0.5938.62
 

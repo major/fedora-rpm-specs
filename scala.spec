@@ -3,7 +3,7 @@
 %global asmrel 1
 
 # Version of jquery bundled in scaladoc
-%global jqueryver 3.6.4
+%global jqueryver 3.7.1
 
 # Version of jline to use
 %global jlinever 3.22.0
@@ -12,11 +12,11 @@
 
 # Scala needs itself to compile.  Use this if the version in the repository
 # cannot build the current version.
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:           scala
-Version:        2.13.11
-Release:        2%{?dist}
+Version:        2.13.12
+Release:        1%{?dist}
 Summary:        Hybrid functional/object-oriented language for the JVM
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -447,6 +447,9 @@ install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
 
 %changelog
+* Sun Sep 17 2023 Christiano Anderson <chris@christiano.dev> - 2.13.12-1
+- Version 2.13.12
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

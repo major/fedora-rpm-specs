@@ -1,11 +1,13 @@
 Name:		perl-Crypt-Argon2
 Version:	0.019
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Perl interface to the Argon2 key derivation functions
 License:	Apache-2.0
 
 URL:		https://metacpan.org/release/Crypt-Argon2
 Source0:	https://www.cpan.org/authors/id/L/LE/LEONT/Crypt-Argon2-%{version}.tar.gz
+Patch0:		no-march-native.patch
+
 BuildRequires:	coreutils
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
@@ -63,6 +65,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Sun Sep 17 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.019-6
+- Add no-march-native.patch from Debian to actually resolve coredump issue (rhbz#2239146)
+
 * Fri Sep 15 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.019-5
 - Bump and rebuild to resolve coredump issue with current build (rhbz#2118421)
 

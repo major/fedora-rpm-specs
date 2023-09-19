@@ -1,5 +1,5 @@
 Name:       fpaste
-Version:    0.4.3.0
+Version:    0.4.4.0
 Release:    %autorelease
 Summary:    A simple tool for pasting info onto the Fedora community paste server
 BuildArch:  noarch

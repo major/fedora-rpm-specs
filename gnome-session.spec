@@ -28,6 +28,9 @@ Patch: 0001-Fedora-Set-grub-boot-flags-on-shutdown-reboot.patch
 # https://gitlab.gnome.org/GNOME/gnome-session/-/merge_requests/96
 Patch: 0001-main-Fix-crash-if-gnome-session-is-started-more-than.patch
 
+# https://gitlab.gnome.org/GNOME/gnome-session/-/merge_requests/95
+Patch: gnome-session-add-gnome-portals-conf.patch
+
 BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: pkgconfig(egl)
@@ -127,6 +130,7 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %{_libexecdir}/gnome-session-failed
 %{_mandir}/man1/gnome-session*1.*
 %{_datadir}/gnome-session/
+%{_datadir}/xdg-desktop-portal/gnome-portals.conf
 %{_datadir}/doc/gnome-session/dbus/gnome-session.html
 %{_datadir}/GConf/gsettings/gnome-session.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.SessionManager.gschema.xml

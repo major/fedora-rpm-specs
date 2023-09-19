@@ -12,7 +12,6 @@ Source0:        https://download.drobilla.net/%{name}-%{version}.tar.xz
 BuildRequires:  meson
 BuildRequires:  doxygen
 BuildRequires:  graphviz
-BuildRequires:  glib2-devel
 BuildRequires:  python3
 BuildRequires:  gcc
 BuildRequires:  python3-sphinx

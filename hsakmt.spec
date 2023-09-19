@@ -1,17 +1,15 @@
 %define __cmake_in_source_build 1
-%global rocm_release 5.6
+%global rocm_release 5.7
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 Name:           hsakmt
 Version:        1.0.6
-Release:        31.rocm%{rocm_version}%{?dist}
+Release:        32.rocm%{rocm_version}%{?dist}
 Summary:        AMD HSA thunk library
 
 License:        MIT
 URL:            https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface
 Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/rocm-%{rocm_version}.tar.gz#/%{name}-rocm-%{rocm_version}.tar.gz
-
-Patch0:         0001-Don-t-install-asan-license-if-disabled.patch
 
 # Fedora builds AMD HSA kernel support for these 64bit targets:
 ExclusiveArch: x86_64 aarch64 ppc64le
@@ -76,6 +74,9 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 %{_includedir}/hsakmttypes.h
 
 %changelog
+* Sun Sep 17 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-32.rocm5.7.0
+- Update to 5.7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-31.rocm5.6.0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

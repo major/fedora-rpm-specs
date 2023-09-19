@@ -1,18 +1,13 @@
-%global         forgeurl https://gitlab.com/drobilla/zix
-%global         commit 262d4a1522c38be0588746e874159da5c7bb457d
-
 %global         maj 0
 
-%forgemeta
-
 Name:           zix
-Version:        0.3.1
-Release:        7%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        A lightweight C library of portability wrappers and data structures
 
 License:        ISC
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            https://gitlab.com/drobilla/%{name}
+Source0:        https://download.drobilla.net/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -42,7 +37,7 @@ The %{name}-doc package contains documentation files for
 developing applications that use %{name}.
 
 %prep
-%forgesetup
+%autosetup
 
 %build
 # Do not build benchmarks
@@ -77,6 +72,10 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/%{name}-%{maj}
 
 %changelog
+* Sun Sep 17 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.4.0-1
+- Update to 0.4.0
+- Use releases
+
 * Sat Aug 12 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.3.1-7
 - Drop dependency from doc package
 

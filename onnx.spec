@@ -2,7 +2,7 @@
 
 Name:       onnx
 Version:    1.14.0
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -18,6 +18,8 @@ Patch1:     onnx-tox.patch
 Patch2:     onnx-requirements.patch
 # Let pyproject_wheel use binaries from cmake_build
 Patch3:     python-cmake-fix.patch 
+# Add fixes for use with onnxruntime
+Patch4:     onnxruntime_fix.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2212096
 ExcludeArch:    s390x
@@ -114,6 +116,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Wed Aug 30 2023 Diego Herrera C <dherrera@redhat.com> - 1.14.0-7
+- Add fix to use with onnxruntime
+
 * Sat Aug 5 2023 Diego Herrera C <dherrera@redhat.com> - 1.14.0-6
 - Lower version requirement for parameterized.
 - Lower version requirement for protobuf.

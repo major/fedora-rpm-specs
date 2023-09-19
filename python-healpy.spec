@@ -2,11 +2,11 @@
 %global sum Python healpix maps tools
 
 Name:           python-%{srcname}
-Version:        1.16.1
-Release:        %autorelease -b 2
+Version:        1.16.5
+Release:        %autorelease
 Summary:        %{sum}
 
-License:        GPLv2+ 
+License:        GPL-2.0-or-later
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/h/%{srcname}/%{srcname}-%{version}.tar.gz
 

@@ -9,7 +9,7 @@
 %bcond qt6 0
 
 Name:           python-ezdxf
-Version:        1.0.3
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Create/manipulate DXF drawings
 
@@ -34,14 +34,14 @@ Summary:        Create/manipulate DXF drawings
 #   tag.
 #     * ezdxf/addons/binpacking.py
 #
-# Finally, the following are removed in %%prep and do not contribute to the
-# licenses of the binary RPMs:
-# - The following are Apache-2.0:
-#     * fonts/Open_Sans/
-#     * fonts/Open_Sans_Condensed/
-# - The following are OFL-1.0
-#     * fonts/liberation-fonts-ttf-2.00.4/
-#     * fonts/liberation-fonts-ttf-2.1.1/
+# Various fonts in the fonts/ directory are each under one of:
+#   - Apache-2.0
+#   - Bitstream-Vera AND LicenseRef-Fedora-Public-Domain
+#   - OFL-1.0
+#   - LicenseRef-Liberation
+# so they can all be redistributed, but they are used only for testing and do
+# not contribute to the licenses of the binary RPMs. We double-check for
+# incorrectly-installed font files in %%check.
 License:        MIT AND ISC AND AGPL-3.0-only
 URL:            https://ezdxf.mozman.at/
 %global forgeurl https://github.com/mozman/ezdxf
@@ -55,33 +55,11 @@ Source12:       ezdxf-browse.1
 Source13:       ezdxf-browse-acis.1
 Source14:       ezdxf-config.1
 Source15:       ezdxf-draw.1
-Source16:       ezdxf-info.1
-Source17:       ezdxf-pillow.1
+Source16:       ezdxf-hpgl.1
+Source17:       ezdxf-info.1
 Source18:       ezdxf-pp.1
 Source19:       ezdxf-strip.1
 Source20:       ezdxf-view.1
-
-# fix floating point comparisons and calculations
-# https://github.com/mozman/ezdxf/commit/be7a5e19182c0e5d0c200b826d409d4b52baf2f2
-Patch:          %{forgeurl}/commit/be7a5e19182c0e5d0c200b826d409d4b52baf2f2.patch
-# Loosen a couple of assertions in ezdxf.math.bspline
-# https://github.com/mozman/ezdxf/pull/911
-Patch:          %{forgeurl}/pull/911.patch
-# Together, these fix:
-#
-# A few regressions with Python 3.12
-# https://github.com/mozman/ezdxf/issues/909
-
-# fix Cython 3 compatibility
-# https://github.com/mozman/ezdxf/commit/f805a73b188a5afc1f01ccf1605ba36ea012a77e
-#
-# Fixes:
-#
-# Test failures with Cython 3
-# https://github.com/mozman/ezdxf/issues/913
-#
-# Cherry-picked to 1.0.3.
-Patch:          0001-fix-903-Cython-3-compatibility.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
@@ -161,12 +139,9 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -n ezdxf-%{version} -p1
+%autosetup -n ezdxf-%{version}
 # Note that C++ sources in the GitHub tarball are *not* Cython-generated, and
 # we must not remove them.
-
-# Remove bundled fonts; these would not be installed anyway.
-rm -rvf fonts/
 
 # Since pdflatex cannot handle Unicode inputs in general:
 echo "latex_engine = 'xelatex'" >> docs/source/conf.py
@@ -243,6 +218,17 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 # Since the user can disable the C extensions, test the pure-Python
 # implementations too:
 EZDXF_DISABLE_C_EXT=1 %pytest -k "${k-}" tests integration_tests -v
+
+# Verify that no bundled fonts were installed.
+if find '%{buildroot}' -type f \( \
+    -name '*.tt[fc]' -o -name '*.otf' \
+    -o -name '*.woff' -o -name '*.woff2' -o -name '*.eof' \
+    -o -name '*.sh[xp]' -o name '*.lff' \)
+then
+  echo 'BUNDLED FONTS WERE INSTALLED!' 1>&2
+  exit 1
+fi
+
 
 %files -n python3-ezdxf -f %{pyproject_files}
 # pyproject-rpm-macros handles the LICENSE file; verify with “rpm -qL -p …”

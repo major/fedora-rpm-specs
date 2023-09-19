@@ -124,7 +124,11 @@ chmod -x drivers/telescope/pmc8driver.cpp
 
 %check
 %if 0%{?build_tests}
+%if 0%{?fedora}
 %ctest --test-dir %_vpath_builddir/test
+%else
+%ctest --test-dir test
+%endif
 %endif
 
 

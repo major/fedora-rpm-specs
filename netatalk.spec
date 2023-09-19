@@ -27,7 +27,7 @@
 %global without_tcp_wrappers 1
 %endif
 
-# rhel need to call ldconfig
+# rhel 7 need to call ldconfig & set c99 flag
 %if 0%{?rhel} <= 7
 %global ldconfig /sbin/ldconfig
 %global with_c99 1
@@ -43,13 +43,13 @@
 
 Name:              netatalk
 Epoch:             5
-Version:           3.1.16
+Version:           3.1.17
 Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 License:           GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT
 # Project is also mirrored at https://github.com/Netatalk/Netatalk
 URL:               http://netatalk.sourceforge.net
-Source0:           https://download.sourceforge.net/netatalk/netatalk-%{version}.tar.gz
+Source0:           https://download.sourceforge.net/netatalk/netatalk-%{version}.tar.xz
 Source1:           netatalk.pam-system-auth
 Source2:           netatalk.conf
 
@@ -127,9 +127,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p 1
-
-# remove bundled libevent
-%{?with_libevent:rm -frv libevent/}
 
 # fix permissions
 find include \( -name '*.h' -a -executable \) -exec chmod -x {} \;
@@ -227,6 +224,11 @@ sh test/afpd/test.sh
 %{_mandir}/man*/netatalk-config.1*
 
 %changelog
+* Sun Sep 17 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.17-1
+- 3.1.17 release
+- Fixes CVE-2023-42464
+- upstream removed bundled libevent back in 3.1.13 release
+
 * Tue Sep 12 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.16-1
 - autoconf, automake, and libtool are no longer required
 - force gnu99 cflag on el7 builds

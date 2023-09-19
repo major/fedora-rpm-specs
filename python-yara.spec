@@ -1,6 +1,6 @@
 Name:           python-yara
-Version:        4.3.1
-%global         baserelease     4
+Version:        4.4.0
+%global         baserelease     1
 Summary:        Python binding for the YARA pattern matching tool
 License:        Apache-2.0
 URL:            https://github.com/VirusTotal/yara-python/
@@ -14,8 +14,8 @@ VCS:            https://github.com/VirusTotal/yara-python/
 
 %global         gituser         VirusTotal
 %global         gitname         yara-python
-%global         commit          37dcb76cd5a07c62e6ed2646968c496e22e70729
-%global         gitdate         20230421
+%global         commit          0dd0ed3fc513cbe1a22b7ca57c2469f37c502771
+%global         gitdate         20230917
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
@@ -39,9 +39,6 @@ Source0:        https://github.com/%{gituser}/%{gitname}/archive/v%{version}.tar
 Release:        %{baserelease}.%{gitdate}git%{shortcommit}%{?dist}
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz#/%{name}-%{version}-git%{gitdate}-%{shortcommit}.tar.gz
 %endif
-
-# https://github.com/VirusTotal/yara-python/pull/238
-Patch0:         238.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(yara)
@@ -153,6 +150,9 @@ pytest-3 -k "$EXCLUDE" tests.py -v
 
 #====================================================================
 %changelog
+* Sun Sep 17 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 4.4.0-1
+- bump to 4.4.0
+
 * Fri Aug 25 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 4.3.1-4
 - Fix rhbz#2226378 rhbz#2220571
 

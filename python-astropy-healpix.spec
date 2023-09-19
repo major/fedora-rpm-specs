@@ -3,11 +3,11 @@
 %global sum HEALPix for Astropy
 
 Name:           python-%{srcname}
-Version:        0.7
-Release:        5%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{pypi_source astropy_healpix}
 # https://github.com/astropy/astropy-healpix/issues/183
@@ -76,6 +76,10 @@ rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
 %{python3_sitearch}/%{modname}*egg-info
 
 %changelog
+* Sun Sep 17 2023 Mattia Verga <mattia.verga@proton.me> - 1.0.0-1
+- Update to 1.0.0 (fedora#2233129)
+- Migrate license to SPDX
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

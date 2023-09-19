@@ -2,24 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate which
+%global crate gix-ignore
 
-Name:           rust-which
-Version:        4.4.2
+Name:           rust-gix-ignore
+Version:        0.7.0
 Release:        %autorelease
-Summary:        Rust equivalent of Unix command "which"
+Summary:        Gix implemenation for handling git gitignore files
 
-License:        MIT
-URL:            https://crates.io/crates/which
+
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/gix-ignore
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          which-fix-metadata-auto.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A Rust equivalent of Unix command "which". Locate installed executable
-in cross platforms.}
+A crate of the gitoxide project dealing .gitignore files.}
 
 %description %{_description}
 
@@ -33,9 +31,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -50,16 +48,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+regex-devel
+%package     -n %{name}+document-features-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+regex-devel %{_description}
+%description -n %{name}+document-features-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "regex" feature of the "%{crate}" crate.
+use the "document-features" feature of the "%{crate}" crate.
 
-%files       -n %{name}+regex-devel
+%files       -n %{name}+document-features-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

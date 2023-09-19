@@ -1,7 +1,3 @@
-# Created by pyp2rpm-3.3.2
-%global pypi_name qdarkstyle
-%global mod_name QDarkStyle
-
 # PySide2 is broken with Python 3.12; do not support it on Fedora 39 and later.
 #
 # python-pyside2 fails to build with Python 3.12: error: use of undeclared
@@ -19,81 +15,156 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2226300
 %bcond pyside2 %{expr:0%{?fedora} < 39}
 
-Name:           python-%{pypi_name}
-Version:        3.0.2
+# Per the Web Assets guidelines, we really need to recompile at least .qss
+# files (which are CSS) as part of the build (“It is not acceptable to include
+# pre-compiled CSS in Fedora packages.”).
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Web_Assets/#_css
+%bcond recompile_assets 1
+
+Name:           python-qdarkstyle
+Version:        3.0.3
 Release:        %autorelease
-Summary:        A dark stylesheet for Python and Qt applications
+Summary:        The most complete dark/light style sheet for C++/Python and Qt applications
 
 License:        MIT
 URL:            https://github.com/ColinDuquesnoy/QDarkStyleSheet
-Source0:        https://files.pythonhosted.org/packages/source/q/%{pypi_name}/QDarkStyle-%{version}.tar.gz
+# The PyPI sdist does not have all of the files (such as SVG files) needed to
+# rebuild the generated assets.
+Source:         %{url}/archive/v%{version}/QDarkStyleSheet-%{version}.tar.gz
+
+# Shebang cleanup
+# https://github.com/ColinDuquesnoy/QDarkStyleSheet/pull/333
+Patch0:         %{url}/pull/333.patch
+
+# Downstream-only for now, in hopes that PySide2 being broken on Python 3.12
+# can be fixed:
+#
+# Patch out the PySide2 dependency from the example
+Patch100:       0001-Patch-out-the-PySide2-dependency-from-the-example.patch
+
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(helpdev) >= 0.6.2
-BuildRequires:  python3dist(m2r)
-BuildRequires:  python3dist(pyqt5)
-%if %{with pyside2}
-BuildRequires:  python3dist(pyside2)
+
+# Convert setup.py from CRNL so we can patch it.
+BuildRequires:  dos2unix
+
+%if %{with recompile_assets}
+BuildRequires:  xorg-x11-server-Xvfb
 %endif
-BuildRequires:  python3dist(qtpy) >= 1.7
-BuildRequires:  python3dist(qtsass)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-rtd-theme)
-BuildRequires:  python3-watchdog
 
-# required for tests
-BuildRequires:  python3-PyQt4
-BuildRequires:  python3dist(pyqtgraph)
-BuildRequires:  python3dist(tox)
+# TODO: The generated man pages are a bit messy, with less than ideal
+# formatting and some text markup leaking through. Since the CLI doesn’t change
+# much, it might be worth writing a set by hand.
+BuildRequires:  help2man
 
-%description
-A dark stylesheet for Qt applications (Qt4, Qt5, PySide, PySide2, PyQt4, 
-PyQt5, QtPy, PyQtGraph).
+# This is required for the error-reporting option in the CLI. We have it as a
+# weak dependency, so we make it a BR to ensure we don’t end up with an
+# uninstallable package.
+BuildRequires:  %{py3_dist helpdev}
 
-%package -n     python3-%{pypi_name}
+# Selected dependencies from req-test.txt (which is mostly unwanted linters,
+# coverage tools, etc.)
+BuildRequires:  %{py3_dist pytest}
+
+%global common_description %{expand:
+The most complete dark/light style sheet for Qt applications (Qt4, Qt5, PySide,
+PySide2, PyQt4, PyQt5, QtPy, PyQtGraph, Qt.Py) for Python and C++.}
+
+%description %{common_description}
+
+
+%package -n python3-qdarkstyle
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
  
-%if %{with pyside2}
-Requires:       (python3dist(pyqt5) or python3dist(pyside2))
-%else
-Requires:       (python3dist(pyqt5))
-%endif
-Requires:       python3dist(pyqt5)
-Requires:       python3dist(qtpy) >= 1.7
-Requires:       python3dist(qtsass)
+Recommends:     python3-qdarkstyle+develop = %{version}-%{release}
+Recommends:     %{py3_dist helpdev}
 
-Recommends:     python3dist(helpdev) >= 0.6.2
+%description -n python3-qdarkstyle %{common_description}
 
-%description -n python3-%{pypi_name}
-A dark stylesheet for Qt applications (Qt4, Qt5, PySide, PySide2, PyQt4, 
-PyQt5, QtPy, PyQtGraph).
+
+%pyproject_extras_subpkg -n python3-qdarkstyle example
+%{_bindir}/qdarkstyle.example
+%{_mandir}/man1/qdarkstyle.example.1*
+
+
+%pyproject_extras_subpkg -n python3-qdarkstyle develop
+%{_bindir}/qdarkstyle.utils
+%{_mandir}/man1/qdarkstyle.utils.1*
 
 
 %prep
-%autosetup -n QDarkStyle-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n QDarkStyleSheet-%{version} -N
+%autopatch -M 99 -p1
+%if %{without pyside2}
+dos2unix setup.py
+%autopatch -m 100 -p1
+%endif
+
+%if %{with recompile_assets}
+rm -vf qdarkstyle/*/style.{qrc,qss} qdarkstyle/*/_variables.scss
+%endif
+
+# We helped upstream clean up shebangs in
+# https://github.com/ColinDuquesnoy/QDarkStyleSheet/pull/333, but upstream
+# seems to prefer to have some executables (with shebang lines) inside the
+# qdarkstyle package directory. Since executable permissions will be removed
+# when installing into site-packages, we should remove the shebangs too; they
+# won’t make sense anymore.
+#
+# The find-then-modify pattern preserves mtimes on sources that did not need to
+# be modified.
+find 'qdarkstyle' -type f -name '*.py' \
+    -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
+  xargs -r -t sed -r -i '1{/^#!/d}'
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x develop,example
+
 
 %build
-%py3_build
+%if %{with recompile_assets}
+xvfb-run -a env PYTHONPATH="${PWD}" %{python3} -m qdarkstyle.utils
+%endif
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files qdarkstyle
+
+# Generating man pages in %%install rather than %%build is not ideal, but it
+# allows us to use the installed entry points.
+install -d '%{buildroot}%{_mandir}/man1'
+(
+  export PYTHONPATH='%{buildroot}%{python3_sitelib}'
+  help2man --no-info --output='%{buildroot}%{_mandir}/man1/qdarkstyle.1' \
+      '%{buildroot}%{_bindir}/qdarkstyle'
+  for cmd in 'qdarkstyle.utils' 'qdarkstyle.example'
+  do
+    help2man --no-info --output="%{buildroot}%{_mandir}/man1/${cmd}.1" \
+        --no-discard-stderr --version-string='%{version}' \
+        "%{buildroot}%{_bindir}/${cmd}"
+
+  done
+)
+
 
 %check
-%{__python3} setup.py test
+%pyproject_check_import
+# Tests are completely broken (call functions without mandatory arguments!);
+# fixed in upstream release 3.1.
+# %%pytest
 
-%files -n python3-%{pypi_name}
-%license LICENSE.rst
-%doc AUTHORS.rst CHANGES.rst CONTRIBUTING.rst
+
+%files -n python3-qdarkstyle -f %{pyproject_files}
+%doc AUTHORS.rst
+%doc CHANGES.rst
+%doc README.rst
 %{_bindir}/qdarkstyle
-%{_bindir}/qdarkstyle.example
-%{_bindir}/qdarkstyle.utils
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{mod_name}-%{version}-py%{python3_version}.egg-info
+%{_mandir}/man1/qdarkstyle.1*
+
 
 %changelog
 %autochangelog

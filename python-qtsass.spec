@@ -1,5 +1,5 @@
 Name:           python-qtsass
-Version:        0.3.2
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Compile SCSS files to valid Qt stylesheets
 

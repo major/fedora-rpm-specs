@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit ded2cf077576e3a3ab20263ff3b07b2a5b397ca1
+%global commit 2eb41b7bd9949fae4421e2590e4dda01c5b43fc5
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.27
+Version: 38.28
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,16 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep 15 2023 Zdenek Pytela <zpytela@redhat.com> - 38.28-1
+- Allow sssd domain transition on passkey_child execution conditionally
+- Allow login_userdomain watch lnk_files in /usr
+- Allow login_userdomain watch video4linux devices
+- Change systemd-network-generator transition to include class file
+- Revert "Change file transition for systemd-network-generator"
+- Allow nm-dispatcher winbind plugin read/write samba var files
+- Allow systemd-networkd write to cgroup files
+- Allow kdump create and use its memfd: objects
+
 * Thu Aug 31 2023 Zdenek Pytela <zpytela@redhat.com> - 38.27-1
 - Allow fedora-third-party get generic filesystem attributes
 - Allow sssd use usb devices conditionally

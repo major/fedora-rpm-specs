@@ -7,8 +7,8 @@
 
 
 Name:           astrometry
-Version:        0.91
-Release:        5%{?dist}
+Version:        0.94
+Release:        1%{?dist}
 Summary:        Blind astrometric calibration of arbitrary astronomical images
 
 # Software is BSD with some GPL code
@@ -39,12 +39,12 @@ Summary:        Blind astrometric calibration of arbitrary astronomical images
 #    blind/an_mm_malloc.h
 #    util/ctmf.c
 #
-License:        BSD and GPLv2+ and GPLv3+
+License:        BSD-3-Clause and GPL-2.0-or-later and GPL-3.0-or-later
 URL:            http://www.astrometry.net
 
 # Upstream sources contains nonfree stuff so we must clean them
 # Download original sources from:
-# Source0:        http://astrometry.net/downloads/%%{name}.net-%%{version}.tar.gz
+# Source0:        https://github.com/dstndstn/%%{name}.net/releases/download/%%{version}/%%{name}.net-%%{version}.tar.gz
 # Then use the provided script to clean them with
 # ./astrometry-generate-tarball %%{version}
 Source0:        %{name}.net-%{version}-clean.tar.xz
@@ -333,6 +333,10 @@ make test ARCH_FLAGS="%{optflags}"
 %{_bindir}/votabletofits
 
 %changelog
+* Sun Sep 17 2023 Mattia Verga <mattia.verga@protonmail.com> - 0.94-1
+- Update to 0.94 (fedora#2148995)
+- Migrate license to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.91-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

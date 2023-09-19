@@ -4,7 +4,7 @@
 
 %global forgeurl https://github.com/NeuralEnsemble/neurotune/
 
-%global commit a17f0fd192b20e29b032826b6c54568e0bbef445
+%global tag v0.2.6
 
 %global _description %{expand:
 This package provides Neurotune, a package for optimizing electical models of
@@ -16,12 +16,13 @@ development of pyelectro and Neurotune for use in OpenWorm, Open Source Brain
 and other projects.}
 
 Name:           python-neurotune
-Version:        0.2.3
+Version:        0.2.6
 %forgemeta
 
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        A package for optimizing electical models of excitable cells
-License:        BSD
+# spdx
+License:        BSD-2-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -46,6 +47,9 @@ This package provides documentation for %{name}.
 
 %prep
 %forgesetup
+
+# do not use pip install
+sed -i '/pip/ d' test.sh
 
 # Make python versioned in test script
 sed -i "s|python|%{python3}|" test.sh
@@ -75,6 +79,7 @@ sed -i "s/.*pyelectro.*/pyelectro/" requirements-dev.txt
 %pyproject_save_files neurotune
 
 %check
+# remove src folder so that we use built version
 rm -rf neurotune
 export PYTHONPATH="%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}"
 ./test.sh

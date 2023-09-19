@@ -2,24 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate which
+%global crate chic
 
-Name:           rust-which
-Version:        4.4.2
+Name:           rust-chic
+Version:        1.2.2
 Release:        %autorelease
-Summary:        Rust equivalent of Unix command "which"
+Summary:        Pretty parser error reporting
 
-License:        MIT
-URL:            https://crates.io/crates/which
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/chic
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          which-fix-metadata-auto.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A Rust equivalent of Unix command "which". Locate installed executable
-in cross platforms.}
+Pretty parser error reporting.}
 
 %description %{_description}
 
@@ -33,8 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+regex-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+regex-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "regex" feature of the "%{crate}" crate.
-
-%files       -n %{name}+regex-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

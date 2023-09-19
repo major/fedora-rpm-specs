@@ -1,10 +1,10 @@
-%global rocm_release 5.6
+%global rocm_release 5.7
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:		rocminfo
 Version:	%{rocm_version}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	ROCm system info utility
 
 License:	NCSA
@@ -53,6 +53,9 @@ chmod 755 %{buildroot}%{_bindir}/*
 
 
 %changelog
+* Sun Sep 17 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
+- Update to 5.7
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

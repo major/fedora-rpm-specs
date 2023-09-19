@@ -4,8 +4,8 @@
 
 %global crate bindgen
 
-Name:           rust-bindgen
-Version:        0.68.1
+Name:           rust-bindgen0.63
+Version:        0.63.0
 Release:        %autorelease
 Summary:        Automatically generates Rust FFI bindings to C and C++ libraries
 
@@ -13,7 +13,7 @@ License:        BSD-3-Clause
 URL:            https://crates.io/crates/bindgen
 Source:         %{crates_source}
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
 Automatically generates Rust FFI bindings to C and C++ libraries.}
@@ -46,64 +46,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+__cli-devel
+%package     -n %{name}+log-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+__cli-devel %{_description}
+%description -n %{name}+log-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "__cli" feature of the "%{crate}" crate.
+use the "log" feature of the "%{crate}" crate.
 
-%files       -n %{name}+__cli-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__testing_only_extra_assertions-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__testing_only_extra_assertions-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__testing_only_extra_assertions" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__testing_only_extra_assertions-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__testing_only_libclang_5-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__testing_only_libclang_5-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__testing_only_libclang_5" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__testing_only_libclang_5-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__testing_only_libclang_9-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__testing_only_libclang_9-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__testing_only_libclang_9" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__testing_only_libclang_9-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+experimental-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+experimental-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "experimental" feature of the "%{crate}" crate.
-
-%files       -n %{name}+experimental-devel
+%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+logging-devel
@@ -116,18 +68,6 @@ This package contains library source intended for building other packages which
 use the "logging" feature of the "%{crate}" crate.
 
 %files       -n %{name}+logging-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+prettyplease-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+prettyplease-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "prettyplease" feature of the "%{crate}" crate.
-
-%files       -n %{name}+prettyplease-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+runtime-devel
@@ -152,6 +92,66 @@ This package contains library source intended for building other packages which
 use the "static" feature of the "%{crate}" crate.
 
 %files       -n %{name}+static-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+testing_only_docs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+testing_only_docs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "testing_only_docs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+testing_only_docs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+testing_only_extra_assertions-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+testing_only_extra_assertions-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "testing_only_extra_assertions" feature of the "%{crate}" crate.
+
+%files       -n %{name}+testing_only_extra_assertions-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+testing_only_libclang_5-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+testing_only_libclang_5-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "testing_only_libclang_5" feature of the "%{crate}" crate.
+
+%files       -n %{name}+testing_only_libclang_5-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+testing_only_libclang_9-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+testing_only_libclang_9-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "testing_only_libclang_9" feature of the "%{crate}" crate.
+
+%files       -n %{name}+testing_only_libclang_9-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+which-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+which-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "which" feature of the "%{crate}" crate.
+
+%files       -n %{name}+which-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+which-rustfmt-devel

@@ -2,30 +2,28 @@
 %global maj 0
 
 Name:       lilv
-Version:    0.24.14
-Release:    6%{?dist}
+Version:    0.24.18
+Release:    1%{?dist}
 Summary:    An LV2 Resource Description Framework Library
 
 License:    MIT
 URL:        http://drobilla.net/software/lilv/
-Source0:    http://download.drobilla.net/%{name}-%{version}.tar.bz2
+Source0:    http://download.drobilla.net/%{name}-%{version}.tar.xz
 
+BuildRequires:  meson
 BuildRequires:  doxygen
 BuildRequires:  graphviz
-BuildRequires:  sord-devel >= 0.14.0
-BuildRequires:  sratom-devel >= 0.4.4
-BuildRequires:  lv2-devel >= 1.18.0
-BuildRequires:  python3
+BuildRequires:  sord-devel >= 0.16.9
+BuildRequires:  sratom-devel >= 0.6.9
+BuildRequires:  lv2-devel >= 1.18.2
 BuildRequires:  python3-devel
-BuildRequires:  swig
-BuildRequires:  serd-devel >= 0.30.0
+BuildRequires:  serd-devel >= 0.30.9
 BuildRequires:  gcc
-BuildRequires:  gcc-c++
 BuildRequires:  libsndfile-devel >= 1.0.0
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_lv2_theme
 
-Requires:       lv2 >= 1.18.0
+Requires:       lv2 >= 1.18.2
 
 # To try and deal with multilib issues from the -libs split:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2052588
@@ -69,31 +67,26 @@ This package contains the python libraries for %{name}.
 
 %prep
 %autosetup -p1
-# Do not run ld config
-sed -i -e 's|bld.add_post_fun(autowaf.run_ldconfig)||' wscript
-# for packagers sake, build the tests with debug symbols
-sed -i -e "s|'-ftest-coverage'\]|\
- '-ftest-coverage' \] + '%{optflags}'.split(' ')|" wscript
 
 %build
-%set_build_flags
-export LINKFLAGS="%{__global_ldflags}"
-%{python3} waf configure -v --prefix=%{_prefix} \
- --libdir=%{_libdir} --configdir=%{_sysconfdir} --mandir=%{_mandir} \
- --docdir=%{_pkgdocdir} \
- --docs --test --dyn-manifest
-%{python3} waf -v build %{?_smp_mflags}
+%meson
+%meson_build
 
 %install
-%{python3} waf -v install --destdir=%{buildroot}
-chmod +x %{buildroot}%{_libdir}/lib%{name}-0.so.*
+%meson_install
+
+# Delete sphinx buildinfo
+rm %{buildroot}%{_docdir}/%{name}-%{maj}/{html,singlehtml}/.buildinfo
+
+# Move devel docs to the right directory
+install -d %{buildroot}%{_docdir}/%{name}
+mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 
 %check
-%{python3} waf test
+%meson_test
 
 %files
 %exclude %{_pkgdocdir}/%{name}-%{maj}/
-%{_bindir}/lilv-bench
 %{_bindir}/lv2info
 %{_bindir}/lv2ls
 %{_bindir}/lv2bench
@@ -117,6 +110,9 @@ chmod +x %{buildroot}%{_libdir}/lib%{name}-0.so.*
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Sun Sep 17 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.24.18-1
+- Update to 0.24.18
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.14-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

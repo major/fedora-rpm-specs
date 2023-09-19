@@ -1,24 +1,16 @@
-%global rocm_release 5.6
+%global rocm_release 5.7
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname rocm_smi_lib
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    NCSA and MIT and BSD
 URL:        https://github.com/RadeonOpenCompute/%{upstreamname}
 Source0:    %{url}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-
-# I've sent these patches upstream by email and have been merged into 5.7:
-Patch0:     0001-Fix-python-script-install-permissions.patch
-Patch1:     0002-Fix-version-file-generation.patch
-Patch2:     0003-Update-default-version-to-match-tags.patch
-Patch3:     0004-Improve-handling-of-ContructBDFID-errors.patch
-Patch4:     0005-Fix-python-loading-of-librocm_smi64.patch
-Patch5:     0006-Only-install-asan-license-if-enabled.patch
 
 # SMI requires the AMDGPU kernel module, which only builds on:
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -77,6 +69,9 @@ install -D -m 644 README.md %{buildroot}%{_docdir}/rocm_smi/README.md
 %{_libdir}/cmake/rocm_smi/
 
 %changelog
+* Sun Sep 17 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
+- Update to 5.7
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

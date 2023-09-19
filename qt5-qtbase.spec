@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.10
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -124,6 +124,17 @@ Patch64: qt5-qtbase-5.12.1-firebird-4.0.0.patch
 
 # fix for new mariadb
 Patch65: qtbase-opensource-src-5.9.0-mysql.patch
+
+# FIXME This patch is completely meaningless in the context of C++.
+# It is a workaround for a pyside2 build failure with Qt 5.15.9,
+# pyside2 5.15.9, clang 16.0.1 -- the generated code thinks a
+# not otherwise specified "Type" is in fact a
+# QFlags<QOpenGLShader::ShaderTypeBit>, causing many functions
+# looking for a QEvent::Type to be bogus.
+# Since there are no side effects to superfluously specifying
+# QEvent::Type instead of plain "Type" in a QEvent derived class,
+# this workaround is acceptable, if not nice.
+Patch66: qtbase-5.15.10-work-around-pyside2-brokenness.patch
 
 # gcc-11
 Patch90: %{name}-gcc11.patch
@@ -441,6 +452,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %if 0%{?fedora} > 27
 %patch -P65 -p1 -b .mysql
 %endif
+%patch -P66 -p1
 
 %patch -P90 -p1 -b .gcc11
 
@@ -1156,6 +1168,9 @@ fi
 
 
 %changelog
+* Tue Aug 29 2023 LuK1337 <priv.luk@gmail.com> - 5.15.10-9
+- Apply PySide2 build fix from OpenMandriva
+
 * Tue Aug 22 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-8
 - Drop QPlatformTheme::Appearance() backports breaking ABI
 

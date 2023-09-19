@@ -45,7 +45,7 @@
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
 Version: 9.2.6
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: BSD-3-Clause
 Source0: https://www.vtk.org/files/release/9.2/VTK-%{version}.tar.gz
 Source1: https://www.vtk.org/files/release/9.2/VTKData-%{version}.tar.gz
@@ -322,7 +322,10 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description qt
 Qt bindings for VTK.
 
+%global mpi_list %{nil}
+
 %if %{with mpich}
+%global mpi_list %mpi_list mpich
 %package mpich
 Summary: The Visualization Toolkit - mpich version
 
@@ -392,6 +395,7 @@ Qt bindings for VTK with mpich.
 %endif
 
 %if %{with openmpi}
+%global mpi_list %mpi_list openmpi
 %package openmpi
 Summary: The Visualization Toolkit - openmpi version
 
@@ -508,22 +512,6 @@ cp -a Examples vtk-examples
 find vtk-examples -type f | xargs chmod -R a-x
 
 
-%build
-export CFLAGS="%{optflags} -D_UNICODE -DHAVE_UINTPTR_T"
-export CXXFLAGS="%{optflags} -D_UNICODE -DHAVE_UINTPTR_T"
-export CPPFLAGS=-DACCEPT_USE_OF_DEPRECATED_PROJ_API_H
-%if %{with java}
-export JAVA_HOME=/usr/lib/jvm/java
-%ifarch %{arm} s390x
-# getting "java.lang.OutOfMemoryError: Java heap space" during the build
-export JAVA_TOOL_OPTIONS=-Xmx2048m
-%endif
-%ifarch %{arm}
-# Likely running out of memory during build
-%global _smp_ncpus_max 2
-%endif
-%endif
-
 %global vtk_cmake_options \\\
  -DCMAKE_INSTALL_DOCDIR=share/doc/%{name} \\\
  -DCMAKE_INSTALL_JARDIR=share/java \\\
@@ -575,7 +563,25 @@ export JAVA_TOOL_OPTIONS=-Xmx2048m
 # https://gitlab.kitware.com/cmake/cmake/issues/17223
 #-DVTK_MODULE_ENABLE_VTK_IOPostgreSQL:STRING=YES \\\
 
-%global _vpath_builddir build
+# $mpi will be evaluated in the loops below
+%global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
+
+%build
+export CFLAGS="%{optflags} -D_UNICODE -DHAVE_UINTPTR_T"
+export CXXFLAGS="%{optflags} -D_UNICODE -DHAVE_UINTPTR_T"
+export CPPFLAGS=-DACCEPT_USE_OF_DEPRECATED_PROJ_API_H
+%if %{with java}
+export JAVA_HOME=/usr/lib/jvm/java
+%ifarch %{arm} s390x
+# getting "java.lang.OutOfMemoryError: Java heap space" during the build
+export JAVA_TOOL_OPTIONS=-Xmx2048m
+%endif
+%ifarch %{arm}
+# Likely running out of memory during build
+%global _smp_ncpus_max 2
+%endif
+%endif
+
 %cmake %{cmake_gen} \
  %{vtk_cmake_options} \
  -DVTK_BUILD_DOCUMENTATION:BOOL=ON \
@@ -584,39 +590,24 @@ export JAVA_TOOL_OPTIONS=-Xmx2048m
 %cmake_build -- --output-sync
 %cmake_build --target DoxygenDoc
 
-%if %{with mpich}
-%global _vpath_builddir build-mpich
-%_mpich_load
-export CC=mpicc
-export CXX=mpic++
-%cmake %{cmake_gen} \
- %{vtk_cmake_options} \
- -DCMAKE_PREFIX_PATH:PATH=$MPI_HOME \
- -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
- -DCMAKE_INSTALL_LIBDIR:PATH=lib \
- -DCMAKE_INSTALL_JNILIBDIR:PATH=lib/%{name} \
- -DCMAKE_INSTALL_QMLDIR:PATH=lib/qt5/qml \
- -DVTK_USE_MPI:BOOL=ON
-%cmake_build -- --output-sync
-%_mpich_unload
-%endif
 
-%if %{with openmpi}
-%global _vpath_builddir build-openmpi
-%_openmpi_load
 export CC=mpicc
 export CXX=mpic++
-%cmake %{cmake_gen} \
- %{vtk_cmake_options} \
- -DCMAKE_PREFIX_PATH:PATH=$MPI_HOME \
- -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
- -DCMAKE_INSTALL_LIBDIR:PATH=lib \
- -DCMAKE_INSTALL_JNILIBDIR:PATH=lib/%{name} \
- -DCMAKE_INSTALL_QMLDIR:PATH=lib/qt5/qml \
- -DVTK_USE_MPI:BOOL=ON
-%cmake_build -- --output-sync
-%_openmpi_unload
-%endif
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
+  #CMAKE_INSTALL_LIBDIR -> ARCHIVE_DESTINATION must not be an absolute path
+  %cmake %{cmake_gen} \
+   %{vtk_cmake_options} \
+   -DCMAKE_PREFIX_PATH:PATH=$MPI_HOME \
+   -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
+   -DCMAKE_INSTALL_LIBDIR:PATH=lib \
+   -DCMAKE_INSTALL_JNILIBDIR:PATH=lib/%{name} \
+   -DCMAKE_INSTALL_QMLDIR:PATH=lib/qt5/qml \
+   -DVTK_USE_MPI:BOOL=ON
+  %cmake_build -- --output-sync
+  module purge
+done
 
 # Remove executable bits from sources (some of which are generated)
 find . -name \*.c -or -name \*.cxx -or -name \*.h -or -name \*.hxx -or \
@@ -624,10 +615,9 @@ find . -name \*.c -or -name \*.cxx -or -name \*.h -or -name \*.hxx -or \
 
 
 %install
-%global _vpath_builddir build
 %cmake_install
 
-pushd build
+pushd %{_vpath_builddir}
 # Gather list of non-java/python/qt libraries
 ls %{buildroot}%{_libdir}/*.so.* \
   | grep -Ev '(Java|Qt|Python)' | sed -e's,^%{buildroot},,' > libs.list
@@ -645,35 +635,25 @@ done
 # Fix up filelist paths
 perl -pi -e's,^,%{_bindir}/,' testing.list
 
+# Install data
+mkdir -p %{buildroot}%{_datadir}/vtkdata
+cp -alL ExternalData/* %{buildroot}%{_datadir}/vtkdata/
+
 popd
 
-%if %{with mpich}
-%_mpich_load
-%global _vpath_builddir build-mpich
-%cmake_install
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
+  %cmake_install
 
-# Gather list of non-java/pythonl/qt libraries
-ls %{buildroot}%{_libdir}/mpich/lib/*.so.* \
-  | grep -Ev '(Java|Python|Qt)' | sed -e's,^%{buildroot},,' > build-mpich/libs.list
+  # Gather list of non-java/pythonl/qt libraries
+  ls %{buildroot}%{_libdir}/${mpi}/lib/*.so.* \
+    | grep -Ev '(Java|Python|Qt)' | sed -e's,^%{buildroot},,' > %{_vpath_builddir}/libs.list
 
-# Move licenses since we cannot install them outside of CMAKE_INSTALL_PREFIX (MPI_HOME)
-mv %{buildroot}%{_libdir}/mpich/share/licenses/vtk %{buildroot}%{_defaultlicensedir}/%{name}-mpich
-%_mpich_unload
-%endif
-
-%if %{with openmpi}
-%_openmpi_load
-%global _vpath_builddir build-openmpi
-%cmake_install
-
-# Gather list of non-java/python//qt libraries
-ls %{buildroot}%{_libdir}/openmpi/lib/*.so.* \
-  | grep -Ev '(Java|Python|Qt)' | sed -e's,^%{buildroot},,' > build-openmpi/libs.list
-
-# Move licenses since we cannot install them outside of CMAKE_INSTALL_PREFIX (MPI_HOME)
-mv %{buildroot}%{_libdir}/openmpi/share/licenses/vtk %{buildroot}%{_defaultlicensedir}/%{name}-openmpi
-%_openmpi_unload
-%endif
+  # Move licenses since we cannot install them outside of CMAKE_INSTALL_PREFIX (MPI_HOME)
+  mv %{buildroot}%{_libdir}/${mpi}/share/licenses/vtk %{buildroot}%{_defaultlicensedir}/%{name}-${mpi}
+  module purge
+done
 
 # Remove exec bit from non-scripts and %%doc
 for file in `find %{buildroot} -type f -perm 0755 \
@@ -687,9 +667,6 @@ find Utilities/Upgrading -type f -print0 | xargs -0 chmod -x
 mkdir -p _docs
 cp -pr --parents Wrapping/*/README* _docs/
 
-# Install data
-mkdir -p %{buildroot}%{_datadir}/vtkdata
-cp -alL build/ExternalData/* %{buildroot}%{_datadir}/vtkdata/
 # Make noarch data sub-package the same on all arches
 # At the moment this only contains Java/Testing/Data/Baseline
 rm -rf %{buildroot}%{_datadir}/vtkdata/Wrapping
@@ -716,7 +693,6 @@ fi
 $Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
 export DISPLAY=:99
 %endif
-%global _vpath_builddir build
 export FLEXIBLAS=netlib
 %ctest --verbose || :
 %if %{with xdummy}
@@ -725,7 +701,7 @@ cat xorg.log
 %endif
 
 
-%files -f build/libs.list
+%files -f %{_vendor}-%{_target_os}-build-serial/libs.list
 %license %{_defaultlicensedir}/%{name}/
 %doc README.md _docs/Wrapping
 
@@ -763,7 +739,7 @@ cat xorg.log
 %{_libdir}/qt5/qml/*
 
 %if %{with mpich}
-%files mpich -f build-mpich/libs.list
+%files mpich -f %{_vendor}-%{_target_os}-build-mpich/libs.list
 %license %{_defaultlicensedir}/%{name}-mpich/
 %doc README.md _docs/Wrapping
 
@@ -801,7 +777,7 @@ cat xorg.log
 %endif
 
 %if %{with openmpi}
-%files openmpi -f build-openmpi/libs.list
+%files openmpi -f %{_vendor}-%{_target_os}-build-openmpi/libs.list
 %license %{_defaultlicensedir}/%{name}-openmpi/
 %doc README.md _docs/Wrapping
 
@@ -841,13 +817,16 @@ cat xorg.log
 %files data
 %{_datadir}/vtkdata
 
-%files testing -f build/testing.list
+%files testing -f %{_vendor}-%{_target_os}-build-serial/testing.list
 
 %files examples
 %doc vtk-examples/Examples
 
 
 %changelog
+* Sun Sep 17 2023 Orion Poplawski <orion@nwra.com> - 9.2.6-8
+- Use loops for mpi builds/intalls
+
 * Sun Sep 10 2023 Orion Poplawski <orion@nwra.com> - 9.2.6-7
 - Fix -devel deps on netcdf-*-devel
 

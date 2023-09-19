@@ -13,8 +13,8 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.7.1
-Release:        3%{?dist}
+Version:        2.7.5
+Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -310,6 +310,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Sat Sep 16 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.7.5-1
+- Update to 2.7.5 (#2222361)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

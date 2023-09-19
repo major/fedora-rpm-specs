@@ -4,8 +4,8 @@
 
 %global crate linux-raw-sys
 
-Name:           rust-linux-raw-sys
-Version:        0.4.7
+Name:           rust-linux-raw-sys0.3
+Version:        0.3.8
 Release:        %autorelease
 Summary:        Generated bindings for Linux's userspace API
 
@@ -51,18 +51,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+elf-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+elf-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "elf" feature of the "%{crate}" crate.
-
-%files       -n %{name}+elf-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+errno-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -87,30 +75,6 @@ use the "general" feature of the "%{crate}" crate.
 %files       -n %{name}+general-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+if_ether-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+if_ether-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "if_ether" feature of the "%{crate}" crate.
-
-%files       -n %{name}+if_ether-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+io_uring-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+io_uring-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "io_uring" feature of the "%{crate}" crate.
-
-%files       -n %{name}+io_uring-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+ioctl-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -121,18 +85,6 @@ This package contains library source intended for building other packages which
 use the "ioctl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ioctl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+net-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+net-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "net" feature of the "%{crate}" crate.
-
-%files       -n %{name}+net-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+netlink-devel
@@ -159,18 +111,6 @@ use the "no_std" feature of the "%{crate}" crate.
 %files       -n %{name}+no_std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+prctl-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+prctl-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "prctl" feature of the "%{crate}" crate.
-
-%files       -n %{name}+prctl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -181,18 +121,6 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+system-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+system-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "system" feature of the "%{crate}" crate.
-
-%files       -n %{name}+system-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

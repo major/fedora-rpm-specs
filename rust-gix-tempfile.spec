@@ -2,23 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate tempfile
+%global crate gix-tempfile
 
-Name:           rust-tempfile
-Version:        3.8.0
+Name:           rust-gix-tempfile
+Version:        9.0.0
 Release:        %autorelease
-Summary:        Library for managing temporary files and directories
+Summary:        Tempfile implementation with a global registry to assure cleanup
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/tempfile
+URL:            https://crates.io/crates/gix-tempfile
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          tempfile-fix-metadata-auto.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A library for managing temporary files and directories.}
+A tempfile implementation with a global registry to assure cleanup.}
 
 %description %{_description}
 
@@ -50,16 +48,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+nightly-devel
+%package     -n %{name}+document-features-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+nightly-devel %{_description}
+%description -n %{name}+document-features-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "nightly" feature of the "%{crate}" crate.
+use the "document-features" feature of the "%{crate}" crate.
 
-%files       -n %{name}+nightly-devel
+%files       -n %{name}+document-features-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+hp-hashmap-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hp-hashmap-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hp-hashmap" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hp-hashmap-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+signals-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+signals-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "signals" feature of the "%{crate}" crate.
+
+%files       -n %{name}+signals-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

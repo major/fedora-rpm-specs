@@ -3,8 +3,8 @@
 %define gtk3_version 3.15.9
 
 Name:           gucharmap
-Version:        15.0.4
-Release:        2%{?dist}
+Version:        15.1.1
+Release:        1%{?dist}
 Summary:        Unicode character picker and font browser
 
 # semver X, Y and Y+1
@@ -12,7 +12,7 @@ Summary:        Unicode character picker and font browser
 %global ver_minor       %(echo %{version} | cut -d. -f2)
 %global ver_minor_next  %(echo $((%{ver_minor}+1)))
 
-License:        GPL-3.0-or-later AND GFDL-1.3-or-later AND Unicode-DFS-2015
+License:        GPL-3.0-or-later AND GFDL-1.3-or-later AND Unicode-DFS-2016
 # GPL for the source code, GFDL for the docs, MIT for Unicode data
 URL:            https://wiki.gnome.org/Apps/Gucharmap
 Source:         https://gitlab.gnome.org/GNOME/gucharmap/-/archive/%{version}/gucharmap-%{version}.tar.bz2
@@ -93,6 +93,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_datadir}/vala/vapi/gucharmap-2.90.vapi
 
 %changelog
+* Sun Sep 17 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 15.1.1-1
+- Update to 15.1.1 (#2239341)
+
+* Sun Sep 17 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 15.1.0-1
+- Update to 15.1.0 (#2238638)
+- Correct license for Unicode data to Unicode-DFS-2016
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

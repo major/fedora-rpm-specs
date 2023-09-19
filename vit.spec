@@ -7,6 +7,10 @@ Summary:        Visual Interactive Taskwarrior full-screen terminal interface
 License:        MIT
 URL:            https://github.com/scottkosty/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# For py3.12
+# https://github.com/vit-project/vit/pull/346
+Patch0:         https://github.com/vit-project/vit/pull/346.patch
+BuildRequires:  git-core
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -30,7 +34,7 @@ Features:
 
 
 %prep
-%autosetup
+%autosetup -S git
 rm -rf vit.egg-info
 
 # Comment out to remove /usr/bin/env shebangs
