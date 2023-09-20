@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 1
+%global rcrev 2
 # Set rpm version accordingly
 %global pkgversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -586,6 +586,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Mon Sep 18 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.6.0-0.rc2.git0.1
+- Linux v6.6-rc2
+
 * Mon Sep 11 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.6.0-0.rc1.git0.1
 - Linux v6.6-rc1
 

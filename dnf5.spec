@@ -1,11 +1,11 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 2
+%global project_version_patch 4
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
-Version:        5.1.2
+Version:        5.1.4
 Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
@@ -300,7 +300,13 @@ Package management library.
 %else
 %exclude %{_sysconfdir}/dnf/dnf.conf
 %endif
+%dir %{_datadir}/dnf5/libdnf.conf.d
+%dir %{_sysconfdir}/dnf/libdnf5.conf.d
+%dir %{_datadir}/dnf5/repos.override.d
+%dir %{_sysconfdir}/dnf/repos.override.d
 %dir %{_sysconfdir}/dnf/libdnf5-plugins
+%dir %{_datadir}/dnf5/repos.d
+%dir %{_datadir}/dnf5/vars.d
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so.1*
 %license lgpl-2.1.txt
@@ -701,6 +707,13 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Mon Sep 18 2023 Packit <hello@packit.dev> - 5.1.4-1
+- Fix Builds on i386
+- Print error if unsupported architecture used
+- argument_parser: New error class for invalid value
+- Allow obsoletion of protected packages
+- Add support for repository configuration in /usr
+
 * Wed Aug 16 2023 Nicola Sella <nsella@redhat.com> 5.1.2-1
 - Release 5.1.2
 - Print error messages in nested errors

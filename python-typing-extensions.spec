@@ -1,6 +1,6 @@
 Name:      python-typing-extensions
-Version:   4.7.1
-Release:   2%{?dist}
+Version:   4.8.0
+Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
@@ -14,26 +14,23 @@ BuildRequires: python3-test
 
 
 %global _description %{expand:
-The `typing_extensions` module serves two related purposes:
+The typing_extensions module serves two related purposes:
 
-- Enable use of new type system features on older Python versions. For example,
-  `typing.TypeGuard` is new in Python 3.10, but `typing_extensions` allows
-  users on previous Python versions to use it too.
-- Enable experimentation with new type system PEPs before they are accepted and
-  added to the `typing` module.
+  Enable use of new type system features on older Python versions.
+  For example, typing.TypeGuard is new in Python 3.10, but typing_extensions
+  allows users on previous Python versions to use it too.
 
-`typing_extensions` is treated specially by static type checkers such as
-mypy and pyright. Objects defined in `typing_extensions` are treated the same
-way as equivalent forms in `typing`.
+  Enable experimentation with new type system PEPs before they are accepted and
+  added to the typing module.
 
-`typing_extensions` uses
-[Semantic Versioning](https://semver.org/). The
-major version will be incremented only for backwards-incompatible changes.
-Therefore, it's safe to depend
-on `typing_extensions` like this: `typing_extensions >=x.y, <(x+1)`,
-where `x.y` is the first version that includes all features you need.
+typing_extensions is treated specially by static type checkers such as mypy and
+pyright. Objects defined in typing_extensions are treated the same way as
+equivalent forms in typing.
 
-`typing_extensions` supports Python versions 3.7 and higher.}
+typing_extensions uses Semantic Versioning. The major version will be
+incremented only for backwards-incompatible changes. Therefore, it's safe to
+depend on typing_extensions like this: typing_extensions >=x.y, <(x+1),
+where x.y is the first version that includes all features you need.}
 
 %description %_description
 
@@ -47,7 +44,7 @@ Summary:       %{summary}
 %autosetup -n typing_extensions-%{version}
 
 
-%generate_buildrequires
+%generate_buildrequires -t
 %pyproject_buildrequires
 
 
@@ -62,15 +59,19 @@ Summary:       %{summary}
 
 
 %check
-cd src
-%{python3} -m unittest discover
+%tox
+
 
 %files -n python3-typing-extensions -f %{pyproject_files}
 %license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 
+
 %changelog
+* Mon Sep 18 2023 Jonny Heggheim <hegjon@gmail.com> - 4.8.0-1
+- Updated to version 4.8.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

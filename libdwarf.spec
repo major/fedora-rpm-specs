@@ -1,7 +1,7 @@
 Name:          libdwarf
 Epoch:         1
-Version:       0.7.0
-Release:       2%{?dist}
+Version:       0.8.0
+Release:       1%{?dist}
 Summary:       Library to access the DWARF Debugging file format 
 
 License:       LGPL-2.1-only AND BSD-2-Clause-FreeBSD
@@ -86,6 +86,9 @@ TZ=:America/Los_Angeles %__make check
 
 
 %changelog
+* Mon Sep 18 2023 Tom Hughes <tom@compton.nu> - 1:0.8.0-1
+- Update to 0.8.0 upstream release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

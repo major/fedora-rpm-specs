@@ -5,7 +5,7 @@
 %global crate prodash
 
 Name:           rust-prodash
-Version:        25.0.1
+Version:        26.2.2
 Release:        %autorelease
 Summary:        Dashboard for visualizing progress of asynchronous and possibly blocking tasks
 
@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/prodash
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark dependency
-# * Drop optional features that don't build and are not reuquired at the moment
 Patch:          prodash-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -62,18 +61,6 @@ This package contains library source intended for building other packages which
 use the "async-io" feature of the "%{crate}" crate.
 
 %files       -n %{name}+async-io-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+atty-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+atty-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "atty" feature of the "%{crate}" crate.
-
-%files       -n %{name}+atty-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bytesize-devel
@@ -158,6 +145,18 @@ This package contains library source intended for building other packages which
 use the "humantime" feature of the "%{crate}" crate.
 
 %files       -n %{name}+humantime-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+is-terminal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+is-terminal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "is-terminal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+is-terminal-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+local-time-devel

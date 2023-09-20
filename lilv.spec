@@ -2,13 +2,13 @@
 %global maj 0
 
 Name:       lilv
-Version:    0.24.18
+Version:    0.24.20
 Release:    1%{?dist}
 Summary:    An LV2 Resource Description Framework Library
 
 License:    MIT
-URL:        http://drobilla.net/software/lilv/
-Source0:    http://download.drobilla.net/%{name}-%{version}.tar.xz
+URL:        https://drobilla.net/software/lilv/
+Source0:    https://download.drobilla.net/%{name}-%{version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  doxygen
@@ -110,6 +110,9 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Mon Sep 18 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.24.20-1
+- Update to 0.24.20
+
 * Sun Sep 17 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.24.18-1
 - Update to 0.24.18
 

@@ -4,9 +4,9 @@
 Summary: Secure imap and pop3 server
 Name: dovecot
 Epoch: 1
-Version: 2.3.20
+Version: 2.3.21
 %global prever %{nil}
-Release: 6%{?dist}
+Release: 1%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -14,7 +14,7 @@ URL: https://www.dovecot.org/
 Source: https://www.dovecot.org/releases/2.3/%{name}-%{version}%{?prever}.tar.gz
 Source1: dovecot.init
 Source2: dovecot.pam
-%global pigeonholever 0.5.20
+%global pigeonholever 0.5.21
 Source8: https://pigeonhole.dovecot.org/releases/2.3/dovecot-2.3-pigeonhole-%{pigeonholever}.tar.gz
 Source9: dovecot.sysconfig
 Source10: dovecot.tmpfilesd
@@ -137,6 +137,10 @@ This package provides the development files for dovecot.
 
 %prep
 %setup -q -n %{name}-%{version}%{?prever} -a 8
+
+# standardize name, so we don't have to update patches and scripts
+mv dovecot-2.3-pigeonhole-%{pigeonholever} dovecot-pigeonhole
+
 %patch -P1 -p1 -b .default-settings
 %patch -P2 -p1 -b .mkcert-permissions
 %patch -P3 -p1 -b .mkcert-paths
@@ -151,11 +155,11 @@ This package provides the development files for dovecot.
 %patch -P21 -p1 -b .7bad6a24
 %patch -P22 -p1 -b .c99
 %patch -P23 -p1 -b .nolibotp
-cp run-test-valgrind.supp dovecot-2.3-pigeonhole-%{pigeonholever}/
+cp run-test-valgrind.supp dovecot-pigeonhole/
 # valgrind would fail with shell wrapper
-echo "testsuite" >dovecot-2.3-pigeonhole-%{pigeonholever}/run-test-valgrind.exclude
+echo "testsuite" >dovecot-pigeonhole/run-test-valgrind.exclude
 
-#pushd dovecot-2*3-pigeonhole-%{pigeonholever}
+#pushd dovecot-pigeonhole
 #popd
 sed -i '/DEFAULT_INCLUDES *=/s|$| '"$(pkg-config --cflags libclucene-core)|" src/plugins/fts-lucene/Makefile.in
 
@@ -205,7 +209,7 @@ sed -i 's|/etc/ssl|/etc/pki/dovecot|' doc/mkcert.sh doc/example-config/conf.d/10
 %make_build
 
 #pigeonhole
-pushd dovecot-2*3-pigeonhole-%{pigeonholever}
+pushd dovecot-pigeonhole
 
 # required for snapshot
 [ -f configure ] || autoreconf -fiv
@@ -231,7 +235,7 @@ mv $RPM_BUILD_ROOT/%{_docdir}/%{name} %{_builddir}/%{name}-%{version}%{?prever}/
 # fix multilib issues
 %multilib_fix_c_header --file %{_includedir}/dovecot/config.h
 
-pushd dovecot-2*3-pigeonhole-%{pigeonholever}
+pushd dovecot-pigeonhole
 %make_install
 
 mv $RPM_BUILD_ROOT/%{_docdir}/%{name} $RPM_BUILD_ROOT/%{_docdir}/%{name}-pigeonhole
@@ -338,7 +342,7 @@ fi
 %ifnarch aarch64
 # some aarch64 tests timeout, skip for now
 make check
-cd dovecot-2*3-pigeonhole-%{pigeonholever}
+cd dovecot-pigeonhole
 make check
 %endif
 
@@ -490,6 +494,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Mon Sep 18 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.21-1
+- updated to 2.3.21(2239134)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.20-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

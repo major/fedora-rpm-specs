@@ -1,5 +1,5 @@
 Name:           input-remapper
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        An easy to use tool to change the behaviour of your input devices
 
@@ -94,6 +94,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %lang(fr) %{_datadir}/%{name}/lang/fr_FR
 %lang(it) %{_datadir}/%{name}/lang/it
 %lang(it) %{_datadir}/%{name}/lang/it_IT
+%lang(pt) %{_datadir}/%{name}/lang/pt
+%lang(pt) %{_datadir}/%{name}/lang/pt_BR
 %lang(ru) %{_datadir}/%{name}/lang/ru
 %lang(ru) %{_datadir}/%{name}/lang/ru_RU
 %lang(sk) %{_datadir}/%{name}/lang/sk

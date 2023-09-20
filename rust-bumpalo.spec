@@ -5,11 +5,10 @@
 %global crate bumpalo
 
 Name:           rust-bumpalo
-Version:        3.13.0
+Version:        3.14.0
 Release:        %autorelease
 Summary:        Fast bump allocation arena for Rust
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/bumpalo
 Source:         %{crates_source}
@@ -99,6 +98,18 @@ This package contains library source intended for building other packages which
 use the "collections" feature of the "%{crate}" crate.
 
 %files       -n %{name}+collections-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

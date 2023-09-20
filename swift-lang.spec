@@ -6,16 +6,16 @@
 #################################################
 # Make sure these are changed for every release!
 #################################################
-%global swift_version 5.8.1-RELEASE
-%global fedora_release 2
-%global package_version 5.8.1
+%global swift_version 5.9-RELEASE
+%global fedora_release 1
+%global package_version 5.9
 
 # Set to the right version per the json file
 %global swift_source_location swift-source
 %global icu_version 65-1
 %global yams_version 5.0.1
-%global swift_argument_parser_version 1.0.3
-%global swift_crypto_version 2.2.3
+%global swift_argument_parser_version 1.2.2
+%global swift_crypto_version 2.5.0
 %global ninja_version 1.11.1
 %global cmake_version 3.19.6
 %global swift_atomics_version 1.0.2
@@ -24,10 +24,12 @@
 %global swift_system_version 1.1.1
 %global swift_nio_version 2.31.2
 %global swift_nio_ssl_version 2.15.0
+%global swift_certificates_version 0.4.1
+%global swift_asn1_version 0.7.0
 
 # Temporary I presume as the json file suggests there should
 # be eventually a release version of swift-format
-%global swift_format_version 0.50700.1
+%global swift_format_version 508.0.0
 
 
 Name:           swift-lang
@@ -52,37 +54,40 @@ Source11:       https://github.com/apple/llvm-project/archive/swift-%{swift_vers
 Source12:       https://github.com/apple/swift-tools-support-core/archive/swift-%{swift_version}.tar.gz#/swift-tools-support-core.tar.gz
 Source13:       https://github.com/apple/swift-argument-parser/archive/%{swift_argument_parser_version}.tar.gz#/swift-argument-parser.tar.gz
 Source14:       https://github.com/apple/swift-driver/archive/swift-%{swift_version}.tar.gz#/swift-driver.tar.gz
-Source15:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz#/icu.tar.gz
-Source16:       https://github.com/apple/swift-syntax/archive/swift-%{swift_version}.zip#/swift-syntax.tar.gz
-Source17:       https://github.com/jpsim/Yams/archive/%{yams_version}.tar.gz#/yams.tar.gz
-Source18:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz#/swift-crypto.tar.gz
-Source19:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
-Source20:       https://github.com/KitWare/CMake/archive/refs/tags/v%{cmake_version}.tar.gz#/cmake.tar.gz
-Source21:       https://github.com/apple/swift-atomics/archive/%{swift_atomics_version}.tar.gz#/swift-atomics.tar.gz
-Source22:       https://github.com/apple/swift-stress-tester/archive/swift-%{swift_version}.tar.gz#/swift-stress-tester.tar.gz
-Source23:       https://github.com/apple/swift-docc/archive/swift-%{swift_version}.tar.gz#/swift-docc.tar.gz
-Source24:       https://github.com/apple/swift-docc-render-artifact/archive/swift-%{swift_version}.tar.gz#/swift-docc-render-artifact.tar.gz
-Source25:       https://github.com/apple/swift-docc-symbolkit/archive/swift-%{swift_version}.tar.gz#/swift-docc-symbolkit.tar.gz
-Source26:       https://github.com/apple/swift-collections/archive/%{swift_collections_version}.tar.gz#/swift-collections.tar.gz
-Source27:       https://github.com/apple/swift-numerics/archive/%{swift_numerics_version}.tar.gz#/swift-numerics.tar.gz
-Source28:       https://github.com/apple/swift-system/archive/%{swift_system_version}.tar.gz#/swift-system.tar.gz
-Source29:       https://github.com/apple/swift-nio/archive/%{swift_nio_version}.tar.gz#/swift-nio.tar.gz
-Source30:       https://github.com/apple/swift-nio-ssl/archive/%{swift_nio_ssl_version}.tar.gz#/swift-nio-ssl.tar.gz
+Source15:       https://github.com/apple/swift-syntax/archive/swift-%{swift_version}.zip#/swift-syntax.tar.gz
+Source16:       https://github.com/jpsim/Yams/archive/%{yams_version}.tar.gz#/yams.tar.gz
+Source17:       https://github.com/apple/swift-crypto/archive/refs/tags/%{swift_crypto_version}.tar.gz#/swift-crypto.tar.gz
+Source18:       https://github.com/ninja-build/ninja/archive/refs/tags/v%{ninja_version}.tar.gz#/ninja.tar.gz
+Source19:       https://github.com/KitWare/CMake/archive/refs/tags/v%{cmake_version}.tar.gz#/cmake.tar.gz
+Source20:       https://github.com/apple/swift-atomics/archive/%{swift_atomics_version}.tar.gz#/swift-atomics.tar.gz
+Source21:       https://github.com/apple/swift-stress-tester/archive/swift-%{swift_version}.tar.gz#/swift-stress-tester.tar.gz
+Source22:       https://github.com/apple/swift-docc/archive/swift-%{swift_version}.tar.gz#/swift-docc.tar.gz
+Source23:       https://github.com/apple/swift-docc-render-artifact/archive/swift-%{swift_version}.tar.gz#/swift-docc-render-artifact.tar.gz
+Source24:       https://github.com/apple/swift-docc-symbolkit/archive/swift-%{swift_version}.tar.gz#/swift-docc-symbolkit.tar.gz
+Source25:       https://github.com/apple/swift-collections/archive/%{swift_collections_version}.tar.gz#/swift-collections.tar.gz
+Source26:       https://github.com/apple/swift-numerics/archive/%{swift_numerics_version}.tar.gz#/swift-numerics.tar.gz
+Source27:       https://github.com/apple/swift-system/archive/%{swift_system_version}.tar.gz#/swift-system.tar.gz
+Source28:       https://github.com/apple/swift-nio/archive/%{swift_nio_version}.tar.gz#/swift-nio.tar.gz
+Source29:       https://github.com/apple/swift-nio-ssl/archive/%{swift_nio_ssl_version}.tar.gz#/swift-nio-ssl.tar.gz
 %dnl Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_version}.tar.gz#/swift-format.tar.gz
-Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_format_version}.tar.gz#/swift-format.tar.gz
-Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
-Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
-Source34:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
+Source30:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_format_version}.tar.gz#/swift-format.tar.gz
+Source31:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
+Source32:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
+Source33:       https://github.com/apple/swift-experimental-string-processing/archive/swift-%{swift_version}.tar.gz#/swift-experimental-string-processing.tar.gz
 %dnl Source35:       https://github.com/apple/swift-llvm-bindings/archive/swift-%{swift_version}.tar.gz#/swift-llvm-bindings.tar.gz
+Source34:       https://github.com/apple/swift-certificates/archive/%{swift_certificates_version}.tar.gz#/swift-certificates.tar.gz
+Source35:       https://github.com/apple/swift-asn1/archive/%{swift_asn1_version}.tar.gz#/swift-asn1.tar.gz
+Source36:       https://github.com/unicode-org/icu/archive/release-%{icu_version}.tar.gz#/icu.tar.gz
+
 
 Patch1:		uintptr.patch
 Patch2:		enablelzma.patch
 Patch3:   	fs.patch
 Patch4:		unusedvars.patch
 Patch5:		no-test.patch
-Patch7:         fclose_issues.patch
-Patch8:         new_glibc.patch
-
+Patch6:		strlcpy_issues.patch
+Patch7:		fclose_issues.patch
+Patch8:		new_glibc.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -134,7 +139,7 @@ correct programs easier for the developer.
 
 
 %prep
-%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34
+%setup -q -c -n %{swift_source_location} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19 -a 20 -a 21 -a 22 -a 23 -a 24 -a 25 -a 26 -a 27 -a 28 -a 29 -a 30 -a 31 -a 32 -a 33 -a 34 -a 35 -a 36
 # The Swift build script requires directories to be named
 # in a specific way so renaming the source directories is
 # necessary
@@ -171,6 +176,8 @@ mv swift-lmdb-swift-%{swift_version} swift-lmdb
 mv swift-markdown-swift-%{swift_version} swift-markdown
 mv swift-stress-tester-swift-%{swift_version} swift-stress-tester
 mv swift-experimental-string-processing-swift-%{swift_version} swift-experimental-string-processing
+mv swift-certificates-%{swift_certificates_version} swift-certificates
+mv swift-asn1-%{swift_asn1_version} swift-asn1
 
 # ICU 
 mv icu-release-%{icu_version} icu
@@ -184,9 +191,6 @@ mv ninja-%{ninja_version} ninja
 # Fix python to python3 
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
-
-# Fix for uinit_ptr not being declared implicitly
-%patch -P1 -p0
 
 # Enable LZMA
 %patch -P2 -p0
@@ -205,6 +209,7 @@ mv ninja-%{ninja_version} ninja
 # file that if they are present, don't define the functions
 # seperately.
 %patch -P8 -p0
+
 
 %build
 export VERBOSE=1
@@ -251,22 +256,12 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
-* Tue Aug 22 2023 Ron Olson <tachoknight@gmail.com> 5.8.1-2
-- Added patch to work with glibc 2.38
-  Resolves: rhbz#2226476
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.1-1.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.8.1-1.1
-- Rebuilt for Python 3.12
-
-* Fri Jun 02 2023 Ron Olson <tachoknight@gmail.com> - 5.8.1-1
-- Updated to Swift 5.8.1-RELEASE
-  Resolves: rhbz#2211845
-* Fri Mar 31 2023 Ron Olson <tachoknight@gmail.com> - 5.8-1
-- Updated to Swift 5.8-RELEASE
-  Resolves: rhbz#2183429
+* Mon Sep 18 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
+- Updated to Swift 5.9-RELEASE
+  Resolves: rhbz#2239543
+* Wed Mar 29 2023 Ron Olson <tachoknight@gmail.com> - 5.9-1
+- Cleanup and first attempt at getting 5.9 going though
+  5.8 hasn't been released yet
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 * Tue Dec 27 2022 Ron Olson <tachoknight@gmail.com> - 5.8-1

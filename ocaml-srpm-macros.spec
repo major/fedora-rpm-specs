@@ -14,7 +14,7 @@ Version:        8
 Release:        2%{?dist}
 
 Summary:        OCaml architecture macros
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 BuildArch:      noarch
 

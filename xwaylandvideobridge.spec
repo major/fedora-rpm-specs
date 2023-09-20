@@ -1,6 +1,6 @@
-%global commit 3445aff746aee165da47c912e1a3f501e8cd3f57
+%global commit 9b27c3fc67bcdd2b26332965130085fb37606824
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20230504
+%global commitdate 20230917
 
 %global qt5_minver 5.15.0
 %global kf5_minver 5.83.0
@@ -8,7 +8,7 @@
 
 Name:           xwaylandvideobridge
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
 License:        GPL-2.0-or-later
@@ -28,7 +28,6 @@ BuildRequires:  cmake(KF5CoreAddons) >= %{kf5_minver}
 BuildRequires:  cmake(KF5I18n) >= %{kf5_minver}
 BuildRequires:  cmake(KF5WindowSystem) >= %{kf5_minver}
 BuildRequires:  cmake(KF5Notifications) >= %{kf5_minver}
-BuildRequires:  cmake(KF5WidgetsAddons) >= %{kf5_minver}
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-composite)
 BuildRequires:  pkgconfig(xcb-event)
@@ -77,10 +76,13 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-
+%{_kf5_datadir}/qlogging-categories5/%{name}.categories
 
 
 %changelog
+* Mon Sep 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 0~git20230917.9b27c3f-1
+- Bump to new git snapshot
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20230504.3445aff-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

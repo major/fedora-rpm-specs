@@ -1,10 +1,10 @@
-%global DATE 20230906
-%global gitrev d91ea9a1c7236c23fe896b4cb2b4f8130b92732c
+%global DATE 20230918
+%global gitrev 45e56bb7a6c79b62ab17ac8e4e86c2e66c2554c1
 %global gcc_version 13.2.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 2
+%global gcc_release 3
 %global nvptx_tools_gitrev aa3404ad5a496cda5d79a50bedb1344fd63e8763
 %global newlib_cygwin_gitrev 9e09d6ed83cce4777a5950412647ccc603040409
 %global _unpackaged_files_terminate_build 0
@@ -866,8 +866,6 @@ so that there cannot be any synchronization problems.
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
-sed -i -e 's/ -fcase / -fcase -Wno-all /' libgm2/*/Makefile.am
-sed -i -e 's/ -fcase / -fcase -Wno-all /' libgm2/*/Makefile.in
 
 %if 0%{?rhel} >= 9
 %patch -P100 -p1 -b .fortran-fdec-duplicates~
@@ -3459,6 +3457,11 @@ end
 %endif
 
 %changelog
+* Mon Sep 18 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-3
+- update from releases/gcc-13 branch
+  - PRs c++/111357, modula2/111330, target/96762, target/111306,
+	target/111335, target/111340, target/111412
+
 * Fri Sep  8 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-2
 - update from releases/gcc-13 branch
   - PRs c++/92407, c++/106310, c++/106652, c++/109678, c++/109751, c++/110197,

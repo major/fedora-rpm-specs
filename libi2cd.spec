@@ -5,7 +5,7 @@ Version:       1.0.3
 Release:       4%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library for interacting with linux I2C devices
 
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 URL:           https://github.com/sstallion/libi2cd/
 Source0:       https://github.com/sstallion/libi2cd/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

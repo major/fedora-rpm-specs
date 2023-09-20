@@ -2,8 +2,8 @@ Name: dnstwist
 Summary: Domain name permutation engine
 License: Apache-2.0
 
-Version: 20230509
-Release: 2%{?dist}
+Version: 20230918
+Release: 1%{?dist}
 
 URL:     https://github.com/elceef/%{name}/
 Source0: %{url}archive/%{version}/%{name}-%{version}.tar.gz
@@ -28,7 +28,6 @@ Requires: python3dist(idna) >= 2.8
 Requires: python3dist(ssdeep) >= 3.1
 Requires: python3dist(tld) >= 0.9.1
 Requires: python3dist(tlsh) >= 4.5
-Requires: python3dist(whois) >= 0.8
 
 Requires: ((python3dist(pillow) >= 7.0.0) if chromedriver)
 # FIXME: Upstream claims that dnstwist requires python3-selenium >= 4.0.0,
@@ -79,6 +78,9 @@ install -m 644 -p docs/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Mon Sep 18 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230918-1
+- Update to v20230918
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230509-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

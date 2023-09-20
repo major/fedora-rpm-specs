@@ -1,13 +1,15 @@
 Name:           pop-gtk-theme
-Version:        5.4.5
+Version:        5.5.1
 Release:        %autorelease
 Summary:        Pop GTK Theme
-# Most files: GPLv3+
-# Upstream Adwaita: LGPLv2
-# SVG files: CC-BY-SA
-License:        GPLv3+ and LGPLv2 and CC-BY-SA
+# Most files: GPL-3.0-only
+# Upstream Adwaita: LGPL-2.1-only
+# SVG files: CC-BY-SA-4.0
+License:        GPL-3.0-only AND LGPL-2.1-only AND CC-BY-SA-4.0
 URL:            https://github.com/pop-os/gtk-theme
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/pop-os/gtk-theme/pull/596
+Patch:          0001-fix-gtk4-include-some-missing-assets-in-gresource.patch
 BuildArch:      noarch
 
 BuildRequires:  glib2-devel
@@ -91,7 +93,7 @@ Requires:       gnome-shell
 # sound
 %package -n pop-sound-theme
 Summary:        Pop sound theme
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description -n pop-sound-theme
 %{summary}.
@@ -102,7 +104,7 @@ License:        CC-BY-SA
 
 
 %prep
-%autosetup -n gtk-theme-%{version}
+%autosetup -n gtk-theme-%{version} -p 1
 
 
 %build

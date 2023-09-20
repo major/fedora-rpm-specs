@@ -6,7 +6,6 @@
 
 # defining macros needed by SELinux
 %global selinuxtype targeted
-%global moduletype contrib
 %global modulename mysql
 
 Name:           mysql-selinux
@@ -64,6 +63,11 @@ fi
 %attr(0644,root,root) %{_datadir}/selinux/packages/%{modulename}.pp.bz2
 %ghost %verify(not mode md5 size mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 %license COPYING
+
+# Note:
+#   we do not pack the *.if file as seen in the example:
+#     https://fedoraproject.org/wiki/SELinux/IndependentPolicy#The_%prep_and_%install_Section
+#   since we do not have any interface to be shared (and even then it is optional)
 
 %changelog
 * Thu Sep 14 2023 Packit <hello@packit.dev> - 1.0.7-1

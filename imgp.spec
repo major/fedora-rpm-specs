@@ -1,9 +1,9 @@
 Name:       imgp
-Version:    2.8
-Release:    7%{?dist}
+Version:    2.9
+Release:    %autorelease
 Summary:    Multi-core batch image resizer and rotator
 
-License:    GPLv3+
+License:    GPL-3.0-only
 URL:        https://github.com/jarun/imgp
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -59,48 +59,4 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions \
 
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Dec 04 22:08:08 CET 2020 Robert-André Mauchin <zebob.m@gmail.com> - 2.8-1
-- Release 2.8
-- Close: rhbz#1903018
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Dec 22 23:45:22 CET 2019 Robert-André Mauchin <zebob.m@gmail.com> - 2.7-1
-- Release 2.7
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Oct 20 2018 Robert-André Mauchin <zebob.m@gmail.com> - 2.6-1
-- Release 2.6
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat Feb 24 2018 Robert-André Mauchin <zebob.m@gmail.com> - 2.5-1
-- First RPM release
+%autochangelog

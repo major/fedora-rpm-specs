@@ -5,7 +5,7 @@
 %global crate unindent
 
 Name:           rust-unindent
-Version:        0.2.2
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Remove a column of leading whitespace from a string
 

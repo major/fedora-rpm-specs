@@ -12,19 +12,19 @@
 
 # Scala needs itself to compile.  Use this if the version in the repository
 # cannot build the current version.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           scala
 Version:        2.13.12
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Hybrid functional/object-oriented language for the JVM
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 # Used to generate OSGi data
-%global date    20230531
-%global seqnum  233414
-%global commit  f113b1ab477ae2052725fe0b7ba5ae2796903807
+%global date    20230901
+%global seqnum  134811
+%global commit  80514f73a6c7db32df9887d9a5ca9ae921e25118
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global osgiver %{version}.v%{date}-%{seqnum}-VFINAL-%{shortcommit}
 %global majver  %(cut -d. -f1-2 <<< %{version})
@@ -447,6 +447,12 @@ install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
 
 %changelog
+* Mon Sep 18 2023 Christiano Anderson <chris@christiano.dev> - 2.13.12-3
+- Version 2.13.12 - removing bootstrap
+
+* Mon Sep 18 2023 Christiano Anderson <chris@christiano.dev> - 2.13.12-2
+- Version 2.13.12 - bootstrap
+
 * Sun Sep 17 2023 Christiano Anderson <chris@christiano.dev> - 2.13.12-1
 - Version 2.13.12
 

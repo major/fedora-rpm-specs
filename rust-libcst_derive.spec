@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate mockito
+%global crate libcst_derive
 
-Name:           rust-mockito
-Version:        1.2.0
+Name:           rust-libcst_derive
+Version:        0.1.0
 Release:        %autorelease
-Summary:        HTTP mocking for Rust
+Summary:        Proc macro helpers for libcst
 
 License:        MIT
-URL:            https://crates.io/crates/mockito
+URL:            https://crates.io/crates/libcst_derive
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * specify license in crate metadata (only MIT applies to this crate)
+Patch:          libcst_derive-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-HTTP mocking for Rust.}
+Proc macro helpers for libcst.}
 
 %description %{_description}
 
@@ -31,7 +34,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -44,30 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+color-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+color-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "color" feature of the "%{crate}" crate.
-
-%files       -n %{name}+color-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+colored-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+colored-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "colored" feature of the "%{crate}" crate.
-
-%files       -n %{name}+colored-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -85,8 +63,7 @@ use the "colored" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * disable colored output: mock shells do not support ANSI escape sequences
-%cargo_test -n
+%cargo_test
 %endif
 
 %changelog

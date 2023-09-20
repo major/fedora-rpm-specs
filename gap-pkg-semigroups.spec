@@ -8,8 +8,8 @@
 %bcond_with bigtest
 
 Name:           gap-pkg-%{pkgname}
-Version:        5.2.1
-Release:        2%{?dist}
+Version:        5.3.0
+Release:        1%{?dist}
 Summary:        GAP methods for semigroups
 
 License:        GPL-3.0-or-later
@@ -77,8 +77,7 @@ drawing bipartitions.
 # StandardSymL: GPL-1.0-or-later
 License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        Semigraphs documentation
-BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       GAPDoc-doc
 Requires:       gap-pkg-digraphs-doc
 Requires:       gap-pkg-images-doc
@@ -95,20 +94,19 @@ This package contains documentation for gap-pkg-%{pkgname}.
 rm -fr libsemigroups
 
 # Do not override our build flags
-sed -i 's/ -O3//' Makefile.in
+sed -i 's/ -O3//' GNUmakefile.in
+
+# Do not add an rpath
+sed -i '/rpath/s/\(LIBSEMIGROUPS_RPATH=\).*/\1/' configure
+
+# Work around -Wl,--as-needed appearing too late on the command line
+sed -i 's/GAP_CXX :=.*/& -Wl,--as-needed/' Makefile.gappkg
 
 %build
 export LC_ALL=C.UTF-8
 export CPPFLAGS="-I%{_includedir}/eigen3"
 %configure --with-gaproot=%{gap_archdir} --disable-silent-rules \
   --with-external-libsemigroups --without-march-native
-
-# Get rid of undesirable hardcoded rpaths; workaround libtool reordering
-# -Wl,--as-needed after all the libraries.
-sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
-    -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
-    -e 's|CC="\(.*g..\)"|CC="\1 -Wl,--as-needed"|' \
-    -i libtool
 
 %make_build
 
@@ -149,6 +147,10 @@ cd -
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Mon Sep 18 2023 Jerry James <loganjerry@gmail.com> - 5.3.0-1
+- Version 5.3.0
+- Doc subpackage cannot be noarch
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

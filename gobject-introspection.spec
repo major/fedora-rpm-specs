@@ -1,15 +1,13 @@
-%global glib2_version 2.76.0
+%global glib2_version 2.78.0
 
 Name:           gobject-introspection
-Version:        1.76.1
-Release:        5%{?dist}
+Version:        1.78.1
+Release:        1%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/GObjectIntrospection
-Source0:        https://download.gnome.org/sources/%{name}/1.76/%{name}-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/458
-Patch0:         gobject-introspection-1.76.1-revert-failing-test.patch
+Source0:        https://download.gnome.org/sources/%{name}/1.78/%{name}-%{version}.tar.xz
 # Workaround for Python 3.12 compatibility
 # https://bugzilla.redhat.com/show_bug.cgi?id=2208966
 Patch1:         workaround.patch
@@ -95,6 +93,9 @@ mv giscanner/ast.py giscanner/gio_ast.py
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Mon Sep 18 2023 Kalev Lember <klember@redhat.com> - 1.78.1-1
+- Update to 1.78.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.76.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

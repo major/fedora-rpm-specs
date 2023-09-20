@@ -1,14 +1,11 @@
 Name:           ogr2osm
-Version:        1.1.2
-Release:        5%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Convert ogr-readable files like shapefiles into .pbf or .osm data
 
 License:        MIT
 URL:            https://github.com/roelderickx/ogr2osm
 Source0:        https://github.com/roelderickx/ogr2osm/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# Fix returning None from filter_layer in translations
-# https://github.com/roelderickx/ogr2osm/issues/31
-Patch0:         %{name}-1.1.2-layer_None.patch
 
 BuildArch:      noarch
 
@@ -47,6 +44,9 @@ source to the .pbf or .osm output.
 
 
 %changelog
+* Sat Sep 16 2023 Andrea Musuruane <musuruan@gmail.com> - 1.2.0-1
+- Updated to new upstream release
+
 * Sat Aug 26 2023 Andrea Musuruane <musuruan@gmail.com> - 1.1.2-5
 - Fix returning None from filter_layer in translations
 

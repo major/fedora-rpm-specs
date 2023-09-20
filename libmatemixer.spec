@@ -14,9 +14,9 @@
 
 Name:        libmatemixer
 Summary:     Mixer library for MATE desktop
-Version:     %{branch}.0
+Version:     %{branch}.1
 %if 0%{?rel_build}
-Release:     5%{?dist}
+Release:     1%{?dist}
 %else
 Release:     0.17%{?git_rel}%{?dist}
 %endif
@@ -98,6 +98,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Sep 18 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

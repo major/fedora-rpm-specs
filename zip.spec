@@ -1,7 +1,7 @@
 Summary: A file compression and packaging utility compatible with PKZIP
 Name: zip
 Version: 3.0
-Release: 38%{?dist}
+Release: 39%{?dist}
 License: Info-ZIP
 Source: http://downloads.sourceforge.net/infozip/zip30.tar.gz
 URL: http://www.info-zip.org/Zip.html
@@ -17,6 +17,7 @@ Patch4: man.patch
 Patch5: zip-3.0-format-security.patch
 Patch6: zipnote.patch
 Patch7: zip-gnu89-build.patch
+Patch8: buffer_overflow.patch
 BuildRequires: make
 BuildRequires: bzip2-devel, gcc
 Requires: unzip
@@ -39,6 +40,7 @@ program.
 %patch5 -p1 -b .format-security
 %patch6 -p1 -b .zipnote
 %patch7 -p1 -b .gnu89-build
+%patch8 -p1
 
 %build
 %{make_build} -f unix/Makefile prefix=%{_prefix} "CFLAGS_NOOPT=-I. -DUNIX $RPM_OPT_FLAGS" generic_gcc
@@ -64,6 +66,10 @@ mkdir -p $RPM_BULD_ROOT%{_mandir}/man1
 %{_mandir}/man1/zipsplit.1*
 
 %changelog
+* Mon Sep 18 2023 Jakub Martisko <jamartis@redhat.com> - 3.0-39
+- Fixc buffer overflow in unicode file names
+Resolves: rhbz#2165653
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

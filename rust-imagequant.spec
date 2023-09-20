@@ -5,16 +5,17 @@
 %global crate imagequant
 
 Name:           rust-imagequant
-Version:        4.2.0
+Version:        4.2.1
 Release:        %autorelease
 Summary:        Convert 24/32-bit images to 8-bit palette with alpha channel
 
 License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/imagequant
 Source:         %{crates_source}
-# lodepng is only needed for benchmarking,
-# so we don't actually need it here
-Patch:          remove-benchmark-dep.patch
+# Manually created patch for downstream crate metadata changes
+# * Drop benchmark dependency (lodepng)
+Patch:          imagequant-fix-metadata.diff
+
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:

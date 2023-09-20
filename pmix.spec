@@ -1,10 +1,10 @@
 Name:           pmix
-Version:        4.1.2
-Release:        5%{?dist}
+Version:        4.1.3
+Release:        1%{?dist}
 Summary:        Process Management Interface Exascale (PMIx)
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pmix.org/
-Source0:        https://github.com/pmix/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
+Source0:        https://github.com/openpmix/openpmix/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -102,6 +102,7 @@ find %{buildroot} -name '*.la' | xargs rm -f
 %files devel
 %{_datadir}/%{name}/*.supp
 %{_includedir}/pmix*.h
+%{_includedir}/pmix/
 %{_libdir}/libpmix.so
 %{_libdir}/pkgconfig/*.pc
 
@@ -109,6 +110,11 @@ find %{buildroot} -name '*.la' | xargs rm -f
 %{_bindir}/*
 
 %changelog
+* Thu Sep 14 2023 Michel Lind <salimma@fedoraproject.org> - 4.1.3-1
+- Fix CVE-2023-41915
+- Update upstream source URL; pmix/pmix redirects to openpmix/openpmix
+- Use SPDX license identifier
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

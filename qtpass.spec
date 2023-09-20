@@ -1,11 +1,11 @@
 Name:           qtpass
-Version:        1.3.2
+Version:        1.4.0~rc2
 Release:        %autorelease
 Summary:        Cross-platform GUI for pass
 
 License:        GPL-3.0-only
 URL:            https://qtpass.org/
-Source0:        https://github.com/IJHack/qtpass/archive/v%{version}.tar.gz
+Source0:        https://github.com/IJHack/qtpass/archive/1.4.0-rc2.tar.gz
 # Wrapper script for GNOME on Wayland
 Source1:        qtpass.sh.in
 
@@ -36,8 +36,7 @@ Recommends:     pwgen
 QtPass is a cross-platform GUI for pass, the standard Unix password manager.
 
 %prep
-%autosetup -S git -n QtPass-%{version}
-
+%autosetup -n QtPass-1.4.0-rc2
 
 %build
 %qmake_qt5 PREFIX=%{_prefix}

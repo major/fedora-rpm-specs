@@ -5,7 +5,7 @@
 %global crate local-channel
 
 Name:           rust-local-channel
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Non-threadsafe multi-producer, single-consumer, futures-aware, FIFO queue
 
@@ -13,7 +13,8 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/local-channel
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * add missing tokio dev-dependency
+# * add missing futures-util and tokio dev-dependencies:
+#   https://github.com/actix/actix-net/blob/local-channel-v0.1.4/local-channel/Cargo.toml
 Patch:          local-channel-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

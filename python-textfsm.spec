@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python module for parsing semi-structured text into python tables
 
 License:        ASL 2.0
@@ -20,12 +20,10 @@ devices.
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-future
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-runner
-Requires:       python3-future
 Requires:       python3-six
 
 %description -n python3-%{pypi_name}
@@ -46,7 +44,7 @@ rm -rf %{pypi_name}.egg-info
 %py3_install
 
 %check
-%{__python3} setup.py test
+%pytest
 
 %files -n python3-%{pypi_name}
 %license COPYING
@@ -56,6 +54,9 @@ rm -rf %{pypi_name}.egg-info
 %{_bindir}/textfsm
 
 %changelog
+* Mon Sep 18 2023 Joel Capitao <jcapitao@redhat.com> - 1.1.2-5
+- Remove future dependency and use %pytest
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

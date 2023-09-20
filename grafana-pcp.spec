@@ -16,7 +16,7 @@ end}
 
 Name:           grafana-pcp
 Version:        5.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Performance Co-Pilot Grafana Plugin
 License:        Apache-2.0
 URL:            https://github.com/performancecopilot/grafana-pcp
@@ -130,7 +130,7 @@ bpftrace scripts from pmdabpftrace(1), as well as several dashboards.
 %setup -q -T -D -b 2
 %endif
 
-%patch1 -p1
+%patch -P1 -p1
 
 
 %build
@@ -152,6 +152,14 @@ cp -a dist/* %{buildroot}/%{install_dir}
 # its content to /usr/share, and creates a symlink from /var to it using systemd-tmpfiles.
 mkdir -p %{buildroot}%{_tmpfilesdir}
 echo "L+ %{plugin_dir} - - - - %{install_dir}" > %{buildroot}%{_tmpfilesdir}/%{name}.conf
+
+# Move redis data source executable from /usr/share to /usr/libexec and create symlink
+mkdir -p %{buildroot}/%{_libexecdir}/grafana-pcp/bin 
+mv %{buildroot}/%{install_dir}/datasources/redis/pcp_redis_datasource_$(go env GOOS)_$(go env GOARCH) %{buildroot}/%{_libexecdir}/grafana-pcp/bin/pcp_redis_datasource_$(go env GOOS)_$(go env GOARCH)
+cd %{buildroot}/%{install_dir}/datasources/redis
+
+ln -s ../../../../libexec/grafana-pcp/bin/pcp_redis_datasource_$(go env GOOS)_$(go env GOARCH) pcp_redis_datasource_$(go env GOOS)_$(go env GOARCH)
+
 
 %postun
 # uninstall of old package
@@ -182,6 +190,7 @@ yarn test
 %files
 %{install_dir}
 %{_tmpfilesdir}/%{name}.conf
+%{_libexecdir}/grafana-pcp
 # remove symlink when package is uninstalled
 %ghost %{plugin_dir}
 
@@ -190,6 +199,9 @@ yarn test
 
 
 %changelog
+* Wed Sep 13 2023 Sam Feifer <sfeifer@redhat.com> 5.1.1-4
+- Move location of redis binary executable from /usr/share/... to /usr/libexec/....
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

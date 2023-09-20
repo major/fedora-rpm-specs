@@ -352,18 +352,18 @@ Patch302: chromium-117-workaround_clang_bug-structured_binding.patch
 # missing typename
 Patch303: chromium-117-typename.patch
 
-# missing include header files
-Patch304: chromium-117-missing-header-files.patch
-
 # compiler error with c++20
-Patch305: chromium-117-emplace_back_on_vector-c++20.patch
+Patch304: chromium-117-emplace_back_on_vector-c++20.patch
 
 # error: invalid operands to binary expression
-Patch306: chromium-117-string-convert.patch
+Patch305: chromium-117-string-convert.patch
 
 # disable memory tagging in epel7 and epel8 on aarch64 due to new feature IFUNC-Resolver
 # not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
-Patch307: chromium-116-arm64-memory_tagging.patch
+Patch306: chromium-116-arm64-memory_tagging.patch
+
+# missing include header files
+Patch310: chromium-117-missing-header-files.patch
 
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
@@ -968,18 +968,18 @@ udev.
 %patch -P301 -p1 -b .workaround_clang-SkColor4f
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
 %patch -P303 -p1 -b .typename
-%patch -P304 -p1 -b .missing-header-files
-%patch -P305 -p1 -b .emplace_back_on_vector-c++20
-%patch -P306 -p1 -b .string-convert
+%patch -P304 -p1 -b .emplace_back_on_vector-c++20
+%patch -P305 -p1 -b .string-convert
 %endif
 %endif
 
 %ifarch aarch64
 %if 0%{?rhel} <= 8
-%patch -P307 -p1 -b .memory_tagging
+%patch -P306 -p1 -b .memory_tagging
 %endif
 %endif
 
+%patch -P310 -p1 -b .missing-header-files
 %patch -P311 -p1 -b .clang-warnings
 
 %if 0%{?rhel} > 9 || 0%{?fedora} > 38

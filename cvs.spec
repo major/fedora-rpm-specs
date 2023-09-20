@@ -215,12 +215,10 @@ URL:        https://cvs.nongnu.org/
 # missing:              GPL-2.0-or-later WITH Autoconf-exception-generic
 # mkinstalldirs:        LicenseRef-Fedora-Public-Domain
 # os2/config.h:         GPL-2.0-or-later
-# os2/dirent.c:         xlock-like, NTP-like
-#                       (Waiting on an identier
-#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/204>)
-# os2/dirent.h:         xlock-like, NTP-like
-#                       (Waiting on an identier
-#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/204>)
+# os2/dirent.c:         HPND
+#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/204>
+# os2/dirent.h:         HPND
+#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/204>
 # os2/filesubr.c:       GPL-2.0-or-later
 # os2/os2inc.h:         GPL-2.0-or-later
 # os2/pwd.c:            GPL-1.0-or-later

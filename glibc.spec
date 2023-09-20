@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-115-g073edbdfab
+%global glibcsrcdir glibc-2.38.9000-128-gbb5bbc2070
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 8
+%global baserelease 9
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2199,6 +2199,23 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Sep 18 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-9
+- Auto-sync with upstream branch master,
+  commit bb5bbc20702981c287aa3e44640e7d2f2b9a28cf:
+- Update to Unicode 15.1.0 [BZ #30854]
+- localedata/unicode-gen/utf8_gen.py: adapt regexp to get relevant lines from EastAsianWidth.txt
+- Fix regexp syntax warnings in localedata/unicode-gen/ctype_compatibility.py
+- getaddrinfo: Fix use after free in getcanonname (CVE-2023-4806)
+- LoongArch: Change to put magic number to .rodata section
+- LoongArch: Add ifunc support for strrchr{aligned, lsx, lasx}
+- LoongArch: Add ifunc support for strcpy, stpcpy{aligned, unaligned, lsx, lasx}
+- LoongArch: Replace deprecated $v0 with $a0 to eliminate 'as' Warnings.
+- LoongArch: Add lasx/lsx support for _dl_runtime_profile.
+- Add MOVE_MOUNT_BENEATH from Linux 6.5 to sys/mount.h
+- CVE-2023-4527: Stack read overflow with large TCP responses in no-aaaa mode
+- resolv: Fix some unaligned accesses in resolver [BZ #30750]
+- Update syscall lists for Linux 6.5
+
 * Mon Sep 11 2023 Patsy Griffin <patsy@redhat.com> - 2.38.9000-8
 - Auto-sync with upstream branch master,
   commit 073edbdfabaad4786e974a451efe4b6b3f7a5a61.

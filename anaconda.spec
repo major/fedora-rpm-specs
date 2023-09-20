@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.3
+Version: 40.4
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -485,6 +485,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 12 2023 Packit <hello@packit.dev> - 40.4-1
+- webui: reset partitioning when the user goes back from review screen
+  (kkoukiou)
+- webui: tests: remove double quotes from return result of  dbus call
+  (kkoukiou)
+- Add 'localhost-live' to ignored hostnames for device naming (vtrefny)
+- webui: do not hardcode the pretty name in installation progress (kkoukiou)
+- webui: Fix checking for locked LUKS devices (vtrefny)
+- webui: remove extra parenthesis (kkoukiou)
+- webui: fix a typo in pre-blivet dialog (rvykydal)
+- webui: update fonts in log review for BZ reporting for Patterfly v5
+  (rvykydal)
+- webui: fix button spacing in BZ error reporting dialog (rvykydal)
+
 * Thu Sep 07 2023 Packit <hello@packit.dev> - 40.3-1
 - Use Firefox environment variables for styling (mkolman)
 - make: Pass interactive container arguments only for run (vslavik)

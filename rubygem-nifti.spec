@@ -2,7 +2,7 @@
 
 Name:          rubygem-%{gem_name}
 Version:       0.0.2
-Release:       22%{?dist}
+Release:       23%{?dist}
 Summary:       A pure Ruby API to the NIfTI Neuroimaging Format
 License:       LGPLv3+
 URL:           https://github.com/brainmap/%{gem_name}
@@ -10,6 +10,7 @@ Source0:       https://rubygems.org/downloads/%{gem_name}-%{version}.gem
 Patch0:        nifti-0.0.2-deprecation.patch
 Patch1:	       nifti-0.0.2-spec_config.patch
 Patch2:        nifti-0.0.2-feature.patch
+Patch3:        nifti-0.0.2-fix_endianness.patch
 BuildRequires: ruby
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -42,6 +43,7 @@ gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 %patch 0 -p0
 %patch 1 -p0
 %patch 2 -p0
+%patch 3 -p0
 
 %build
 gem build %{gem_name}.gemspec
@@ -85,6 +87,9 @@ popd
 
 
 %changelog
+* Mon Sep 18 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 0.0.2-23
+- byte order fixed for building on s390x
+
 * Mon Jul 31 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 0.0.2-22
 - fix tests
 

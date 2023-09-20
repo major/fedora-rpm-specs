@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.6.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
@@ -22,6 +22,8 @@ Source0:	https://xrootd.slac.stanford.edu/download/v%{version}/%{name}-%{version
 
 #		https://github.com/xrootd/xrootd/pull/2087
 Patch0:		0001-Fix-spelling-errors-reported-by-lintian.patch
+#		https://github.com/xrootd/xrootd/issues/2088
+Patch1:		0002-Server-Fix-incorrect-patch-for-authfile-that-made-5..patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3
@@ -298,6 +300,7 @@ This package contains the API documentation of the xrootd libraries.
 %prep
 %setup -q
 %patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
 %if %{?rhel}%{!?rhel:0} == 7
@@ -695,6 +698,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Mon Sep 18 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.2-2
+- Backport fix for Authfile parsing regression
+
 * Fri Sep 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.2-1
 - Update to version 5.6.2
 

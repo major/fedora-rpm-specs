@@ -105,7 +105,7 @@
 %if 0%{?fedora} < 36
 %global selinux_policy_version 3.14.5-45
 %else
-%global selinux_policy_version 36.16-1
+%global selinux_policy_version 38.28-1
 %endif
 %global slapi_nis_version 0.56.5
 
@@ -223,7 +223,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        3%{?rc_version:.%rc_version}%{?dist}
+Release:        4%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -249,6 +249,7 @@ Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 # RHEL spec file only: END: Change branding to IPA and Identity Management
 Patch0001:      0001-ipa-client-install-enable-SELinux-for-SSSD.patch
 Patch0002:      0001-Restore-selinux-states-if-they-exist-at-uninstall-ti.patch
+Patch0003:      0002-selinux-usb-access.patch
 
 # RHEL spec file only: START
 %if %{NON_DEVELOPER_BUILD}
@@ -1763,6 +1764,11 @@ fi
 %endif
 
 %changelog
+* Mon Sep 18 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-4.beta1
+- Depend on selinux-policy-38.28-1.fc39
+- Add SELinux policy for passkey_child to be used without ipa-otpd
+- Related: rhbz#2238474
+
 * Tue Sep 12 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-3.beta1
 - Restore properly SELinux context during IPA client uninstallation
 - Related: rhbz#2238474

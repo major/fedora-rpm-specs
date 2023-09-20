@@ -2,7 +2,7 @@
 
 %global examples 1
 
-%bcond flite %[0%{?fedora} || 0%{?rhel} < 10]
+%bcond flite 0%{?fedora}
 
 Summary: Qt6 - Speech component
 Name:    qt6-%{qt_module}

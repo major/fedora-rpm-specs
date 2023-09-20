@@ -1,5 +1,5 @@
 Name:           lastpass-cli
-Version:        1.3.5
+Version:        1.3.6
 Release:        %autorelease
 Summary:        Command line interface to LastPass.com
 

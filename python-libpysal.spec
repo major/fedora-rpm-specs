@@ -35,13 +35,13 @@ BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(scipy) >= 0.11
 BuildRequires:  python3dist(setuptools)
 
-BuildRequires:  python3dist(geomet)
 BuildRequires:  python3dist(geopandas) >= 0.2
 BuildRequires:  python3dist(matplotlib) >= 1.5.1
 BuildRequires:  python3dist(networkx)
 BuildRequires:  python3dist(pytest)
 #BuildRequires:  python3dist(numba)
 BuildRequires:  python3dist(rtree) >= 0.8
+BuildRequires:  python3dist(shapely)
 BuildRequires:  python3dist(sqlalchemy)
 BuildRequires:  python3dist(xarray)
 

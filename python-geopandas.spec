@@ -3,7 +3,7 @@
 # There is a build dependency loop when built with tests.
 # It involves libpysal, mapclassify, networkx.
 # This bcond allows to bootstrap it.
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 Name:           python-%{srcname}
 Version:        0.14.0

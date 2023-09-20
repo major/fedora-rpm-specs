@@ -7,11 +7,11 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.5.3
+Version:        2.6.0
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 # Currently source is only in pkg git but tarballs could be made if it helps
 URL:            https://src.fedoraproject.org/rpms/ghc-rpm-macros/
 Source0:        macros.ghc
@@ -27,6 +27,7 @@ Source9:        macros.ghc-os
 Source10:       Setup.hs
 Source11:       cabal-tweak-drop-dep
 Source12:       cabal-tweak-remove-upperbound
+Source13:       ghc-info.sh
 Requires:       redhat-rpm-config
 # ghc_version needs ghc-compiler or ghcX.Y-compiler-default
 Requires:       chrpath
@@ -60,34 +61,10 @@ Haskell libraries documentation.
 # this is a last resort when there is no such appropriate package
 %package -n ghc-obsoletes
 Summary:        Dummy package to obsolete deprecated Haskell packages
-%if 0%{?fedora} >= 29
-Obsoletes:      ghc-content-store < 0.2.1-3, ghc-content-store-devel < 0.2.1-3
-Obsoletes:      ghc-bdcs < 0.6.1-3, ghc-bdcs-devel < 0.6.1-3
-Obsoletes:      ghc-bdcs-api < 0.1.3-3, ghc-bdcs-api-devel < 0.1.3-3
-%endif
-%if 0%{?fedora} >= 30
-# ghc
-Obsoletes:      ghc-hoopl < 3.10.2.2-74, ghc-hoopl-devel < 3.10.2.2-74
-# language-ecmascript
-Obsoletes:      ghc-tagshare < 0.0-10, ghc-tagshare-devel < 0.0-10
-Obsoletes:      ghc-testing-feat < 0.4.0.3-10, ghc-testing-feat-devel < 0.4.0.3-10
-# enumerator
-Obsoletes:      ghc-enumerator < 0.4.20-12, ghc-enumerator-devel < 0.4.20-12
-Obsoletes:      ghc-attoparsec-enumerator < 0.3.4-10, ghc-attoparsec-enumerator-devel < 0.3.4-10
-Obsoletes:      ghc-blaze-builder-enumerator < 0.2.1.0-8, ghc-blaze-builder-enumerator-devel < 0.2.1.0-8
-Obsoletes:      ghc-zlib-enum < 0.2.3.1-12, ghc-zlib-enum-devel < 0.2.3.1-12
-# Agda
-Obsoletes:      ghc-monadplus < 1.4.2-17, ghc-monadplus-devel < 1.4.2-17
-# conduit-combinators
-Obsoletes:      ghc-conduit-combinators < 1.3.1
-%endif
-%if 0%{?fedora} >= 31
-# base package obsoleted above in f30
-Obsoletes:      ghc-conduit-combinators-devel < 1.3.1
-%endif
 %if 0%{?fedora} >= 32
 Obsoletes:      ghc-derive < 2.6.5-5, ghc-derive-devel < 2.6.5-5, ghc-derive-prof < 2.6.5-5
 Obsoletes:      ghc-here < 1.2.13-17, ghc-here-devel < 1.2.13-17, ghc-here-prof < 1.2.13-17
+Obsoletes:      ghc-iwlib < 0.1.0-16, ghc-iwlib-devel < 0.1.0-16, ghc-iwlib-prof < 0.1.0-16
 %endif
 %if 0%{?fedora} >= 33
 Obsoletes:      ghc-easytest < 0.2.1-4, ghc-easytest-devel < 0.2.1-4, ghc-easytest-prof < 0.2.1-4,
@@ -95,7 +72,6 @@ Obsoletes:      ghc-EdisonAPI < 1.3.1-23, ghc-EdisonAPI-devel < 1.3.1-23, ghc-Ed
 Obsoletes:      ghc-EdisonCore < 1.3.2.1-23, ghc-EdisonCore-devel < 1.3.2.1-23, ghc-EdisonCore-prof < 1.3.2.1-23
 Obsoletes:      ghc-gtksourceview2 < 0.13.3.1-14, ghc-gtksourceview2-devel < 0.13.3.1-14, ghc-gtksourceview2-prof < 0.13.3.1-14
 %endif
-Obsoletes:      ghc-iwlib < 0.1.0-16, ghc-iwlib-devel < 0.1.0-16, ghc-iwlib-prof < 0.1.0-16
 %if 0%{?fedora} >= 35
 Obsoletes:      pandoc-citeproc < 0.18, ghc-pandoc-citeproc < 0.18, ghc-pandoc-citeproc-devel < 0.18, ghc-pandoc-citeproc-doc < 0.18, ghc-pandoc-citeproc-prof < 0.18, pandoc-citeproc-common < 0.18
 Obsoletes:      ghc-base-noprelude < 4.13.0.1, ghc-base-noprelude-devel < 4.13.0.1, ghc-base-noprelude-doc < 4.13.0.1, ghc-base-noprelude-prof < 4.13.0.1
@@ -124,6 +100,7 @@ Obsoletes:      ghc-regex-compat-tdfa < 0.95.1.4-38, ghc-regex-compat-tdfa-devel
 %endif
 %if 0%{?fedora} >= 39
 Obsoletes:      ghc-geniplate-mirror < 0.7.9-39, ghc-geniplate-mirror-devel < 0.95.1.4-38, ghc-geniplate-mirror-doc < 0.95.1.4-38, ghc-geniplate-mirror-prof < 0.95.1.4-38
+Obsoletes:      ghc-data-array-byte < 0.1.0.1-3, ghc-data-array-byte-devel < 0.1.0.1-3, ghc-data-array-byte-doc < 0.1.0.1-3, ghc-data-array-byte-prof < 0.1.0.1-3
 %endif
 
 %description -n ghc-obsoletes
@@ -151,6 +128,7 @@ echo -e "\n%%_ghcdynlibdir %%{_libdir}" >> %{buildroot}%{macros_dir}/macros.ghc-
 %endif
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}%{_prefix}/lib/rpm/ghc-deps.sh
+install -p -D -m 0755 %{SOURCE13} %{buildroot}%{_prefix}/lib/rpm/ghc-info.sh
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
 install -p -D -m 0644 %{SOURCE7} %{buildroot}%{_prefix}/lib/rpm/fileattrs/ghc.attr
@@ -178,6 +156,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %{_prefix}/lib/rpm/fileattrs/ghc.attr
 %endif
 %{_prefix}/lib/rpm/ghc-deps.sh
+%{_prefix}/lib/rpm/ghc-info.sh
 %{_prefix}/lib/rpm/ghc-pkg-wrapper
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-drop-dep
@@ -206,6 +185,13 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Mon Sep 18 2023 Jens Petersen <petersen@redhat.com> - 2.6.0-1
+- add ghc-info.sh to read fields from ghc --info
+
+* Mon Sep 18 2023 Jens Petersen <petersen@redhat.com> - 2.5.3-2
+- obsolete ghc-data-array-byte
+- migrate to SPDX license tag
+
 * Fri Aug  4 2023 Jens Petersen <petersen@redhat.com> - 2.5.3-1
 - ghc-deps.sh: correctly map internal library id to internal package .conf
 - tweak cabal_configure to only set --htmldir once for subpackaging

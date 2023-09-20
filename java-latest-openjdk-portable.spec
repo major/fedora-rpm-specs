@@ -257,12 +257,6 @@
 %global ourcppflags %(echo %ourflags | sed -e 's|-fexceptions||')
 %global ourldflags %{__global_ldflags}
 
-# With disabled nss is NSS deactivated, so NSS_LIBDIR can contain the wrong path
-# the initialization must be here. Later the pkg-config have buggy behavior
-# looks like openjdk RPM specific bug
-# Always set this so the nss.cfg file is not broken
-%global NSS_LIBDIR %(pkg-config --variable=libdir nss)
-
 # In some cases, the arch used by the JDK does
 # not match _arch.
 # Also, in some cases, the machine name used by SystemTap
@@ -388,10 +382,10 @@
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
 %global origin_nice     OpenJDK
-%global top_level_dir_name   %{origin}
+%global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver       35
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -444,6 +438,7 @@
 %global static_libs_install_dir %{static_libs_arch_dir}/glibc
 # output dir stub
 %define buildoutputdir() %{expand:build/jdk%{featurever}.build%{?1}}
+%global altjavaoutputdir install/altjava.install
 # we can copy the javadoc to not arched dir, or make it not noarch
 %define uniquejavadocdir()    %{expand:%{fullversion}.%{_arch}%{?1}}
 # main id and dir of this jdk
@@ -464,6 +459,8 @@
 # Intentionally use jdkportablenameimpl here since we want to have static-libs files overlayed on
 # top of the JDK archive
 %define staticlibsportablename()     %{expand:%{jdkportablenameimpl -- %%{1}}}
+%define miscportablename() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.misc;g" | sed "s;openjdkportable;el;g")
+%define miscportablearchive()  %{miscportablename}.tar.xz
 
 # RPM 4.19 no longer accept our double percentaged %%{nil} passed to %%{1}
 # so we have to pass in "" but evaluate it, otherwise files record will include it
@@ -548,6 +545,8 @@ ExcludeArch: %{ix86}
 %define java_static_libs_rpo() %{expand:
 }
 
+%define java_misc_rpo() %{expand:
+}
 
 # Prevent brp-java-repack-jars from being run
 %global __jar_repack 0
@@ -598,7 +597,7 @@ URL:      http://openjdk.java.net/
 
 
 # The source tarball, generated using generate_source_tarball.sh
-Source0: openjdk-jdk%{featurever}u-%{vcstag}.tar.xz
+Source0: https://openjdk-sources.osci.io/openjdk%{featurever}/open%{vcstag}.tar.xz
 
 # Use 'icedtea_sync.sh' to update the following
 # They are based on code contained in the IcedTea project (6.x).
@@ -613,8 +612,8 @@ Source0: openjdk-jdk%{featurever}u-%{vcstag}.tar.xz
 # Release notes
 Source10: NEWS
 
-# nss configuration file
-Source11: nss.cfg.in
+# Source code for alt-java
+Source11: alt-java.c
 
 # Removed libraries that we link instead
 # Disabled in portables
@@ -649,20 +648,6 @@ Source1004: ojdk17-s390x-17.35.tar.gz
 #
 ############################################
 
-# NSS via SunPKCS11 Provider (disabled comment
-# due to memory leak).
-Patch1000: rh1648249-add_commented_out_nss_cfg_provider_to_java_security.patch
-# RH1750419: enable build of speculative store bypass hardened alt-java (CVE-2018-3639)
-Patch600: rh1750419-redhat_alt_java.patch
-
-# Ignore AWTError when assistive technologies are loaded
-Patch1:    rh1648242-accessible_toolkit_crash_do_not_break_jvm.patch
-# Restrict access to java-atk-wrapper classes
-Patch2:    rh1648644-java_access_bridge_privileged_security.patch
-Patch3:    rh649512-remove_uses_of_far_in_jpeg_libjpeg_turbo_1_4_compat_for_jdk10_and_up.patch
-# Depend on pcsc-lite-libs instead of pcsc-lite-devel as this is only in optional repo
-Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-devel.patch
-
 # Crypto policy and FIPS support patches
 # Patch is generated from the fips-21u tree at https://github.com/rh-openjdk/jdk/tree/fips-21u
 # as follows: git diff %%{vcstag} src make test > fips-21u-$(git show -s --format=%h HEAD).patch
@@ -688,7 +673,8 @@ Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-d
 # RH2090378: Revert to disabling system security properties and FIPS mode support together
 # RH2104724: Avoid import/export of DH private keys
 # RH2092507: P11Key.getEncoded does not work for DH keys in FIPS mode
-# RH2048582: Support PKCS#12 keystores
+# Build the systemconf library on all platforms
+# RH2048582: Support PKCS#12 keystores [now part of JDK-8301553 upstream]
 # RH2020290: Support TLS 1.3 in FIPS mode
 # Add nss.fips.cfg support to OpenJDK tree
 # RH2117972: Extend the support for NSS DBs (PKCS11) in FIPS mode
@@ -697,15 +683,17 @@ Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-d
 # RH2134669: Add missing attributes when registering services in FIPS mode.
 # test/jdk/sun/security/pkcs11/fips/VerifyMissingAttributes.java: fixed jtreg main class
 # RH1940064: Enable XML Signature provider in FIPS mode
-# Build the systemconf library on all platforms
-# Remove GCC minor versioning (JDK-8284772) to unbreak testing
-Patch1001: fips-21u-%{fipsver}.patch
+# RH2173781: Avoid calling C_GetInfo() too early, before cryptoki is initialized [now part of JDK-8301553 upstream]
+Patch1001: fips-%{featurever}u-%{fipsver}.patch
 
 #############################################
 #
 # OpenJDK patches in need of upstreaming
 #
 #############################################
+# JDK-8009550, RH910107: Depend on pcsc-lite-libs instead of pcsc-lite-devel as this is only in optional repo
+# PR: https://github.com/openjdk/jdk/pull/15409
+Patch6: jdk8009550-rh910107-fail_to_load_pcsc_library.patch
 
 #############################################
 #
@@ -746,7 +734,7 @@ BuildRequires: libXrandr-devel
 BuildRequires: libXrender-devel
 BuildRequires: libXt-devel
 BuildRequires: libXtst-devel
-# Requirement for setting up nss.cfg and nss.fips.cfg
+# Requirement for setting up nss.fips.cfg
 BuildRequires: nss-devel
 # Requirement for system security property test
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
@@ -916,6 +904,14 @@ The %{origin_nice} %{featurever} libraries for static linking - portable edition
 # staticlibs
 %endif
 
+%package misc
+Summary: %{origin_nice} %{featurever} miscellany
+
+%{java_misc_rpo %{nil}}
+
+%description misc
+The %{origin_nice} %{featurever} miscellany.
+
 %package sources
 Summary: %{origin_nice} %{featurever} full patched sources of portable JDK
 
@@ -979,17 +975,11 @@ sh %{SOURCE12} %{top_level_dir_name}
 
 # Patch the JDK
 pushd %{top_level_dir_name}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch6 -p1
 # Add crypto policy and FIPS support
 %patch1001 -p1
-# nss.cfg PKCS11 support; must come last as it also alters java.security
-%patch1000 -p1
+# Patches in need of upstreaming
+%patch6 -p1
 popd # openjdk
-
-%patch600
 
 # The OpenJDK version file includes the current
 # upstream version information. For some reason,
@@ -1042,9 +1032,6 @@ done
 
 # Prepare desktop files
 # Portables do not have desktop integration
-
-# Setup nss.cfg
-sed -e "s:@NSS_LIBDIR@:%{NSS_LIBDIR}:g" %{SOURCE11} > nss.cfg
 
 %build
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
@@ -1099,6 +1086,10 @@ EXTRA_CFLAGS="$(echo ${EXTRA_CFLAGS} | sed -e 's|-mstackrealign|-mincoming-stack
 EXTRA_CPP_FLAGS="$(echo ${EXTRA_CPP_FLAGS} | sed -e 's|-mstackrealign|-mincoming-stack-boundary=2 -mpreferred-stack-boundary=4|')"
 %endif
 export EXTRA_CFLAGS EXTRA_CPP_FLAGS
+
+echo "Building %{SOURCE11}"
+mkdir -p %{altjavaoutputdir}
+gcc ${EXTRA_CFLAGS} -o %{altjavaoutputdir}/%{alt_java_name} %{SOURCE11}
 
 function buildjdk() {
     local outputdir=${1}
@@ -1204,9 +1195,6 @@ function installjdk() {
         find ${imagepath} -iname '*.so' -exec chmod +x {} \;
         find ${imagepath}/bin/ -exec chmod +x {} \;
 
-        # Install nss.cfg right away as we will be using the JRE above
-        install -m 644 nss.cfg ${imagepath}/conf/security/
-
         # Create fake alt-java as a placeholder for future alt-java
         if [ -d man/man1 ] ; then
           pushd ${imagepath}
@@ -1294,10 +1282,25 @@ EOF
     fi
 }
 
+function genchecksum() {
+    local checkedfile=${1}
+
+    checkdir=$(dirname ${1})
+    checkfile=$(basename ${1})
+
+    echo "Generating checksum for ${checkfile} in ${checkdir}..."
+    pushd ${checkdir}
+    sha256sum ${checkfile} > ${checkfile}.sha256sum
+    sha256sum --check ${checkfile}.sha256sum
+    popd
+}
+
+packagesdir=$(pwd)/..
+
 pwd
 ls -l
-tar -cJf  ../%{jdkportablesourcesarchive -- ""} --transform "s|^|%{jdkportablesourcesname -- ""}/|" openjdk nss*
-sha256sum ../%{jdkportablesourcesarchive -- ""} > ../%{jdkportablesourcesarchive -- ""}.sha256sum
+tar -cJf ${packagesdir}/%{jdkportablesourcesarchive -- ""} --transform "s|^|%{jdkportablesourcesname -- ""}/|" %{top_level_dir_name}
+genchecksum ${packagesdir}/%{jdkportablesourcesarchive -- ""}
 
 %if %{build_hotspot_first}
   # Build a fresh libjvm.so first and use it to bootstrap
@@ -1410,12 +1413,12 @@ for suffix in %{build_loop} ; do
 
     mv %{jdkimage} %{jdkportablename -- "$nameSuffix"}
     mv %{jreimage} %{jreportablename -- "$nameSuffix"}
-    tar -cJf ../../../../%{jdkportablearchive -- "$nameSuffix"}  --exclude='**.debuginfo' %{jdkportablename -- "$nameSuffix"}
-    sha256sum ../../../../%{jdkportablearchive -- "$nameSuffix"} > ../../../../%{jdkportablearchive -- "$nameSuffix"}.sha256sum
-    tar -cJf ../../../../%{jreportablearchive -- "$nameSuffix"}  --exclude='**.debuginfo' %{jreportablename -- "$nameSuffix"}
-    sha256sum ../../../../%{jreportablearchive -- "$nameSuffix"} > ../../../../%{jreportablearchive -- "$nameSuffix"}.sha256sum
+    tar -cJf ${packagesdir}/%{jdkportablearchive -- "$nameSuffix"}  --exclude='**.debuginfo' %{jdkportablename -- "$nameSuffix"}
+    genchecksum ${packagesdir}/%{jdkportablearchive -- "$nameSuffix"}
+    tar -cJf ${packagesdir}/%{jreportablearchive -- "$nameSuffix"}  --exclude='**.debuginfo' %{jreportablename -- "$nameSuffix"}
+    genchecksum ${packagesdir}/%{jreportablearchive -- "$nameSuffix"}
     # copy licenses so they are avialable out of tarball
-    cp -rf  %{jdkportablename -- "$nameSuffix"}/legal  ../../../../%{jdkportablearchive -- "%{normal_suffix}"}-legal
+    cp -rf  %{jdkportablename -- "$nameSuffix"}/legal  ${packagesdir}/%{jdkportablearchive -- "%{normal_suffix}"}-legal
     mv %{jdkportablename -- "$nameSuffix"} %{jdkimage}
     mv %{jreportablename -- "$nameSuffix"} %{jreimage}
   popd #images
@@ -1426,8 +1429,8 @@ for suffix in %{build_loop} ; do
     # Tar as overlay. Transform to the JDK name, since we just want to "add"
     # static libraries to that folder
     portableJDKname=%{staticlibsportablename -- "$nameSuffix"}
-    tar -cJf ../../../../%{staticlibsportablearchive -- "$nameSuffix"} --transform "s|^%{static_libs_image}/lib/*|$portableJDKname/lib/static/linux-%{archinstall}/glibc/|" "%{static_libs_image}/lib"
-    sha256sum ../../../../%{staticlibsportablearchive -- "$nameSuffix"} > ../../../../%{staticlibsportablearchive -- "$nameSuffix"}.sha256sum
+    tar -cJf ${packagesdir}/%{staticlibsportablearchive -- "$nameSuffix"} --transform "s|^%{static_libs_image}/lib/*|$portableJDKname/lib/static/linux-%{archinstall}/glibc/|" "%{static_libs_image}/lib"
+    genchecksum ${packagesdir}/%{staticlibsportablearchive -- "$nameSuffix"}
   popd #staticlibs-images
 %endif
 ################################################################################
@@ -1437,10 +1440,26 @@ for suffix in %{build_loop} ; do
 # build cycles
 done # end of release / debug cycle loop
 
+# These are from the source tree so no debug variants
+miscname=%{miscportablename}
+miscarchive=${packagesdir}/%{miscportablearchive}
+
+mkdir ${miscname}
+cp -av %{altjavaoutputdir}/%{alt_java_name} ${miscname}
+tar -cJf ${miscarchive} ${miscname}
+genchecksum ${miscarchive}
+
 %install
+
+packagesdir=$(pwd)/..
+
 mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
-mv ../%{jdkportablesourcesarchive -- ""} $RPM_BUILD_ROOT%{_jvmdir}/
-mv ../%{jdkportablesourcesarchive -- ""}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+# Install outside the loop as there are no debug variants
+miscarchive=${packagesdir}/%{miscportablearchive}
+mv ${packagesdir}/%{jdkportablesourcesarchive -- ""} $RPM_BUILD_ROOT%{_jvmdir}/
+mv ${packagesdir}/%{jdkportablesourcesarchive -- ""}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+mv ${miscarchive} $RPM_BUILD_ROOT%{_jvmdir}/
+mv ${miscarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
 
 for suffix in %{build_loop} ; do
 top_dir_abs_main_build_path=$(pwd)/%{buildoutputdir -- ${suffix}%{main_suffix}}
@@ -1451,13 +1470,13 @@ top_dir_abs_main_build_path=$(pwd)/%{buildoutputdir -- ${suffix}%{main_suffix}}
   else
     nameSuffix=`echo "$suffix"| sed s/-/./`
   fi
-  mv ../%{jdkportablearchive -- "$nameSuffix"} $RPM_BUILD_ROOT%{_jvmdir}/
-  mv ../%{jdkportablearchive -- "$nameSuffix"}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
-  mv ../%{jreportablearchive -- "$nameSuffix"} $RPM_BUILD_ROOT%{_jvmdir}/
-  mv ../%{jreportablearchive -- "$nameSuffix"}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+  mv ${packagesdir}/%{jdkportablearchive -- "$nameSuffix"} $RPM_BUILD_ROOT%{_jvmdir}/
+  mv ${packagesdir}/%{jdkportablearchive -- "$nameSuffix"}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+  mv ${packagesdir}/%{jreportablearchive -- "$nameSuffix"} $RPM_BUILD_ROOT%{_jvmdir}/
+  mv ${packagesdir}/%{jreportablearchive -- "$nameSuffix"}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
 %if %{include_staticlibs}
-  mv ../%{staticlibsportablearchive -- "$nameSuffix"} $RPM_BUILD_ROOT%{_jvmdir}/
-  mv ../%{staticlibsportablearchive -- "$nameSuffix"}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+  mv ${packagesdir}/%{staticlibsportablearchive -- "$nameSuffix"} $RPM_BUILD_ROOT%{_jvmdir}/
+  mv ${packagesdir}/%{staticlibsportablearchive -- "$nameSuffix"}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
 %endif
   if [ "x$suffix" == "x" ] ; then
       dnameSuffix="$nameSuffix".debuginfo
@@ -1471,7 +1490,7 @@ done
 ################################################################################
 # the licenses are packed onloy once and shared
 mkdir -p $RPM_BUILD_ROOT%{unpacked_licenses}
-mv ../%{jdkportablearchive -- "%{normal_suffix}"}-legal $RPM_BUILD_ROOT%{unpacked_licenses}/%{jdkportablesourcesarchive -- "%{normal_suffix}"}
+mv ${packagesdir}/%{jdkportablearchive -- "%{normal_suffix}"}-legal $RPM_BUILD_ROOT%{unpacked_licenses}/%{jdkportablesourcesarchive -- "%{normal_suffix}"}
 # To show sha in the build log
 for file in `ls $RPM_BUILD_ROOT%{_jvmdir}/*.sha256sum` ; do ls -l $file ; cat $file ; done
 ################################################################################
@@ -1513,10 +1532,11 @@ $JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=fal
 if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
 
 # Check alt-java launcher has SSB mitigation on supported architectures
+# set_speculation function exists in both cases, so check for prctl call
 %ifarch %{ssbd_arches}
-nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation
+nm %{altjavaoutputdir}/%{alt_java_name} | grep prctl
 %else
-if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation ; then true ; else false; fi
+if ! nm %{altjavaoutputdir}/%{alt_java_name} | grep prctl ; then true ; else false; fi
 %endif
 
 # Check correct vendor values have been set
@@ -1627,7 +1647,25 @@ done
 %{_jvmdir}/%{jdkportablesourcesarchiveForFiles}.sha256sum
 %license %{unpacked_licenses}/%{jdkportablesourcesarchiveForFiles}
 
+%files misc
+%{_jvmdir}/%{miscportablearchive}
+%{_jvmdir}/%{miscportablearchive}.sha256sum
+
 %changelog
+* Fri Sep 15 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:21.0.0.0.35-3.rolling
+- Update documentation (README.md, add missing JEP to release notes)
+- Replace alt-java patch with a binary separate from the JDK
+- Drop stale patches that are of little use any more:
+- * nss.cfg has been disabled since early PKCS11 work and long superseded by FIPS work
+- * No accessibility subpackage to warrant RH1648242 patch any more
+- * No use of system libjpeg turbo to warrant RH649512 patch any more
+- Replace RH1684077 pcsc-lite-libs patch with better JDK-8009550 fix being upstreamed
+- Update generate_tarball.sh to sync with upstream vanilla script
+- Change top_level_dir_name to use the VCS tag, matching new upstream release style tarball
+- Use upstream release URL for OpenJDK source
+- Port misc tarball from RHEL to house alt-java outside the JDK tree
+- Port improved tarball creation and checking from RHEL so tarballs are verified
+
 * Thu Sep 14 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:21.0.0.0.35-2.rolling
 - Bump buildjdkver now that java-21-openjdk is available in the buildroot
 

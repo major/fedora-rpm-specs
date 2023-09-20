@@ -37,7 +37,7 @@
 # include it. Official rawhide should be able to fetch the last active build of
 # gvproxy, the min version requirement has been removed to allow it.
 # Ref: https://bugzilla.redhat.com/show_bug.cgi?id=2224434
-%if !%{defined copr_username} && 0%{?fedora} <= 37
+%if !%{defined copr_username} && 0%{?fedora} && 0%{?fedora} <= 37
 %define gvproxy_subpackage 1
 %endif
 
@@ -57,12 +57,10 @@
 %global commit_plugins 18822f9a4fb35d1349eb256f4cd2bfd372474d84
 %global import_path_plugins %{container_base_path}/%{repo_plugins}
 
-%if %{defined gvproxy_subpackage}
 # gvproxy
 %global repo_gvproxy gvisor-tap-vsock
 %global git_gvproxy %{container_base_url}/%{repo_gvproxy}
 %global commit_gvproxy 407efb5dcdb0f4445935f7360535800b60447544
-%endif
 
 Name: podman
 %if %{defined copr_username}
@@ -90,9 +88,7 @@ URL: https://%{name}.io/
 # All SourceN files fetched from upstream
 Source0: %{git0}/archive/v4.7.0-rc1.tar.gz
 Source1: %{git_plugins}/archive/%{commit_plugins}/%{repo_plugins}-%{commit_plugins}.tar.gz
-%if %{defined gvproxy_subpackage}
 Source2: %{git_gvproxy}/archive/%{commit_gvproxy}/%{repo_gvproxy}-%{commit_gvproxy}.tar.gz
-%endif
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
 BuildRequires: %{_bindir}/envsubst
 %if %{defined build_with_btrfs}

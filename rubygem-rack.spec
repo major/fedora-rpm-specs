@@ -4,12 +4,14 @@ Name: rubygem-%{gem_name}
 Version: 2.2.4
 # Introduce Epoch (related to bug 552972)
 Epoch:  1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A modular Ruby webserver interface
 # lib/rack/show_{status,exceptions}.rb contains snippets from Django under BSD license.
 License: MIT and BSD
 URL: https://rack.github.io/
 Source0: https://rubygems.org/downloads/%{gem_name}-%{version}.gem
+# https://github.com/rack/rack/pull/1998
+Patch0:  rack-pr1998-fix-regexp-3rd-arg.patch
 # git clone https://github.com/rack/rack.git && cd rack/
 # git archive -v -o rack-2.2.4-tests.tar.gz 2.2.4 test/
 Source1: rack-%{version}-tests.tar.gz
@@ -40,6 +42,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+%patch -P0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -95,6 +98,10 @@ popd
 %doc %{gem_instdir}/example
 
 %changelog
+* Mon Sep 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:2.2.4-4
+- Backport upstream patch for Regexp.new 3rd argument deprecation
+  (needed for ruby 3.3)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

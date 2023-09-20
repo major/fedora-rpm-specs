@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.6.3
-Release: 1.rc3%{?dist}
+Release: 2.rc3%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -253,46 +253,23 @@ if [ $? -eq 1 ]; then
 fi
 
 %post
-if [ $1 -eq 1 ] ; then
-	# Initial installation
-	/bin/systemctl enable nfs-client.target >/dev/null 2>&1 || :
-	/bin/systemctl start nfs-client.target  >/dev/null 2>&1 || :
-fi
-
-%systemd_post nfs-server
-
-%post -n nfsv4-client-utils
-if [ $1 -eq 1 ] ; then
-	# Initial installation
-	/bin/systemctl enable nfs-client.target >/dev/null 2>&1 || :
-	/bin/systemctl start nfs-client.target  >/dev/null 2>&1 || :
-fi
+%systemd_post nfs-client.target nfs-server.service
 
 %preun
+%systemd_preun nfs-client.target nfs-server.service
 if [ $1 -eq 0 ]; then
-	%systemd_preun nfs-client.target
-	%systemd_preun nfs-server.service
-
-    rm -rf /var/lib/nfs/statd
-    rm -rf /var/lib/nfs/v4recovery
+    : >%{_localstatedir}/lib/rpm-state/nfs-server.cleanup
 fi
 
-%preun -n nfsv4-client-utils
-if [ $1 -eq 0 ]; then
-	%systemd_preun nfs-client.target
-
-	rm -rf /etc/nfsmount.conf.d
-    rm -rf /var/lib/nfs/v4recovery
+%posttrans
+if [ -f %{_localstatedir}/lib/rpm-state/nfs-server.cleanup ]; then
+    rm %{_localstatedir}/lib/rpm-state/nfs-server.cleanup || :
+    rm -rf /var/lib/nfs/statd || :
+    rm -rf /var/lib/nfs/v4recovery || :
 fi
 
 %postun
-%systemd_postun_with_restart  nfs-client.target
-%systemd_postun_with_restart  nfs-server
-
-%postun -n nfsv4-client-utils
-%systemd_postun_with_restart  nfs-client.target
-
-/bin/systemctl --system daemon-reload >/dev/null 2>&1 || :
+%systemd_postun_with_reload nfs-client.target nfs-server.service
 
 %triggerin -- nfs-utils > 1:2.6.2-1
 /bin/systemctl try-restart gssproxy || :
@@ -457,6 +434,10 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %{_mandir}/*/nfsiostat.8.gz
 
 %changelog
+* Mon Sep 18 2023 Christian Glombek <cglombek@redhat.com> 2.6.3-2.rc3
+- Rely on presets and use standard macros for systemd unit handling (bz 2218006)
+- Cleanup is moved to %%posttrans
+
 * Fri Aug 11 2023 Steve Dickson <steved@redhat.com> 2.6.3-1.rc3
 - Updated to the latest RC release: nfs-utils-2-6-4-rc3
 - Fixed a regression in the junction code (bz 2213669)

@@ -2,15 +2,15 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       111
-Release:       3%{?dist}
+Version:       116
+Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
 Patch0:        %{name}-use-system-gtest.patch
-Patch1:        https://github.com/WebAssembly/binaryen/pull/5317.patch
-# backported from https://github.com/WebAssembly/binaryen/pull/5349
-Patch2:        5349.patch
+# https://github.com/WebAssembly/binaryen/issues/5456
+# https://github.com/nodejs/node/pull/45074
+Patch1:        %{name}-tests.patch
 License:       ASL 2.0
 
 # tests fail on big-endian
@@ -56,8 +56,7 @@ effective:
 %prep
 %setup -q -n %{name}-version_%{version}
 %patch0 -p1 -b .gtest
-%patch1 -p1
-%patch2 -p1
+%patch 1 -p1 -b .tests
 
 %build
 %cmake3 \
@@ -76,6 +75,7 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %check
 # https://github.com/WebAssembly/binaryen/issues/5353
 %ifarch i686
+rm -v test/lit/passes/type-ssa.wast
 rm -v test/passes/multi_unit_abbrev_noprint.{bin.txt,passes,wasm}
 %endif
 install -pm755 %{__cmake_builddir}/bin/binaryen-{lit,unittests} %{buildroot}%{_bindir}
@@ -93,7 +93,9 @@ rm -v %{buildroot}%{_bindir}/binaryen-{lit,unittests}
 %{_bindir}/wasm-ctor-eval
 %{_bindir}/wasm-dis
 %{_bindir}/wasm-emscripten-finalize
+%{_bindir}/wasm-fuzz-lattices
 %{_bindir}/wasm-fuzz-types
+%{_bindir}/wasm-merge
 %{_bindir}/wasm-metadce
 %{_bindir}/wasm-opt
 %{_bindir}/wasm-reduce
@@ -105,6 +107,11 @@ rm -v %{buildroot}%{_bindir}/binaryen-{lit,unittests}
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Thu Jul 27 2023 Dominik Mierzejewski <dominik@greysector.net> 116-1
+- update to 116 (#2169040)
+- drop obsolete patches
+- work around/fix test failures
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 111-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:       timew
-Version:    1.5.0
+Version:    1.6.0
 Release:    %autorelease
 Summary:    Timewarrior tracks and reports time
 # SPDX
@@ -9,9 +9,6 @@ URL:        https://timewarrior.net/
 # They do not contain the libshared git submodule
 Source0:    https://github.com/GothenburgBitFactory/timewarrior/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:    README.Fedora
-
-# https://github.com/GothenburgBitFactory/timewarrior/pull/538
-Patch0:     https://github.com/GothenburgBitFactory/timewarrior/commit/4a4110de8e54c59859ada42930140fa82d18e1f2.patch
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  rubygem-asciidoctor
@@ -64,7 +61,8 @@ rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/LICENSE
 mv -v README.Fedora $RPM_BUILD_ROOT/%{_pkgdocdir}/
 
 # Install bash completion file
-install -m 0755 completion/timew-completion.bash -DT $RPM_BUILD_ROOT/%{_datadir}/bash-completion/completions/timew
+install -m 0755 completion/timew-completion.bash -DT $RPM_BUILD_ROOT/%{bash_completions_dir}/timew
+install -m 0755 completion/timew.fish -DT $RPM_BUILD_ROOT/%{fish_completions_dir}/timew.fish
 
 %check
 # Run tests
@@ -78,7 +76,8 @@ make test %{_smp_mflags}
 %{_mandir}/man1/%{name}*
 %{_mandir}/man7/%{name}*
 %{_pkgdocdir}/
-%{_datadir}/bash-completion/
+%{bash_completions_dir}
+%{fish_completions_dir}
 
 %changelog
 %autochangelog

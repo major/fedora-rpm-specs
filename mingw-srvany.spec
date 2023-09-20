@@ -9,7 +9,7 @@ Version:        1.1
 Release:        5%{?dist}
 Summary:        Utility for creating services for Windows
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 BuildArch:      noarch
 
 URL:	        https://github.com/rwmjones/rhsrvany

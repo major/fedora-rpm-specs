@@ -1,18 +1,26 @@
 %global _hardened_build 1
 
+
 Name:           tmux
+%global forgeurl https://github.com/tmux/%{name}
+%global commit   b202a2f1b517a3de7141fc35fbd9e39ed5ac5284
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%forgemeta
+
 Version:        3.3a
-Release:        4%{?dist}
+# forge meta appends commit info
+Release:        5%{?dist}
 Summary:        A terminal multiplexer
 
 # Most of the source is ISC licensed; some of the files in compat/ are 2 and
 # 3 clause BSD licensed.
 License:        ISC and BSD
 URL:            https://tmux.github.io/
-Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{forgesource}
 # Examples has been removed - so include the bash_completion here
 Source1:        bash_completion_tmux.sh
 
+BuildRequires:  byacc
 BuildRequires:  gcc
 BuildRequires:  systemd-devel
 BuildRequires:  libutempter-devel
@@ -21,6 +29,9 @@ BuildRequires:  pkgconfig(libevent_core) >= 2
 BuildRequires:  pkgconfig(tinfo)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(ncursesw)
+%if "%0{?commit}" != "0"
+BuildRequires:  automake
+%endif
 
 %description
 tmux is a "terminal multiplexer."  It enables a number of terminals (or
@@ -29,9 +40,12 @@ intended to be a simple, modern, BSD-licensed alternative to programs such
 as GNU Screen.
 
 %prep
-%autosetup
+%forgesetup
 
 %build
+%if "%0{?commit}" != "0"
+sh ./autogen.sh
+%endif
 %configure --enable-systemd
 %make_build
 
@@ -68,6 +82,10 @@ fi
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Mon Sep 18 2023 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 3.3a-5.20230918gitb202a2f
+- update to snapshot
+- https://github.com/tmux/tmux/issues/3699#issuecomment-1723095544
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3a-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

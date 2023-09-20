@@ -20,14 +20,14 @@
 %global talloc_version 1.3.0
 %global udisks2_version 1.97
 
-Name:    gvfs
-Version: 1.51.91
+Name: gvfs
+Version: 1.52.0
 Release: 1%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: GPLv3 and LGPLv2+ and BSD and MPLv2.0
-URL:     https://wiki.gnome.org/Projects/gvfs
-Source0: https://download.gnome.org/sources/gvfs/1.51/gvfs-%{version}.tar.xz
+URL: https://wiki.gnome.org/Projects/gvfs
+Source0: https://download.gnome.org/sources/gvfs/1.52/gvfs-%{version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -68,8 +68,8 @@ The gvfs package provides backend implementations for the gio
 framework in GLib. It includes ftp, sftp, cifs.
 
 
-%package  client
-Summary:  Client modules of backends for the gio framework in GLib
+%package client
+Summary: Client modules of backends for the gio framework in GLib
 Conflicts: %{name} < 1.25.2-2
 
 %description client
@@ -208,8 +208,8 @@ Requires: libgdata%{?_isa} >= %{libgdata_version}
 This package provides seamless integration with gnome-online-accounts
 file services.
 
-%package  tests
-Summary:  Tests for the gvfs package
+%package tests
+Summary: Tests for the gvfs package
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description tests
@@ -428,6 +428,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Mon Sep 18 2023 Kalev Lember <klember@redhat.com> - 1.52.0-1
+- Update to 1.52.0
+
 * Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 1.51.91-1
 - Update to 1.51.91
 
