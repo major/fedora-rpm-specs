@@ -1,50 +1,51 @@
 %global glib2_version 2.74.0
 %global gtk4_version 4.10.0
+%global libadwaita_version 1.4~beta
 %global webkitgtk_version 2.41.1
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-Name:    epiphany
-Epoch:   1
-Version: 45~beta
-Release: %autorelease
-Summary: Web browser for GNOME
+Name:           epiphany
+Epoch:          1
+Version:        45.0
+Release:        %autorelease
+Summary:        Web browser for GNOME
 
-License: GPL-3.0-or-later AND CC-BY-SA-3.0
-URL:     https://wiki.gnome.org/Apps/Web
-Source0: https://download.gnome.org/sources/epiphany/45/%{name}-%{tarball_version}.tar.xz
+License:        GPL-3.0-or-later AND CC-BY-SA-3.0
+URL:            https://wiki.gnome.org/Apps/Web
+Source0:        https://download.gnome.org/sources/epiphany/45/%{name}-%{tarball_version}.tar.xz
 
 # Fedora bookmarks
-Patch0: epiphany-default-bookmarks.patch
+Patch0:         epiphany-default-bookmarks.patch
 
-BuildRequires: desktop-file-utils
-BuildRequires: gcc
-BuildRequires: gettext-devel
-BuildRequires: itstool
-BuildRequires: libappstream-glib-devel
-BuildRequires: meson
-BuildRequires: pkgconfig(cairo)
-BuildRequires: pkgconfig(gcr-4) >= 3.9.0
-BuildRequires: pkgconfig(gdk-pixbuf-2.0)
-BuildRequires: pkgconfig(gio-unix-2.0) >= %{glib2_version}
-BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
-BuildRequires: pkgconfig(gsettings-desktop-schemas)
-BuildRequires: pkgconfig(gstreamer-1.0)
-BuildRequires: pkgconfig(gtk4) >= %{gtk4_version}
-BuildRequires: pkgconfig(gtk4-unix-print) >= %{gtk4_version}
-BuildRequires: pkgconfig(hogweed)
-BuildRequires: pkgconfig(iso-codes)
-BuildRequires: pkgconfig(json-glib-1.0)
-BuildRequires: pkgconfig(libadwaita-1)
-BuildRequires: pkgconfig(libarchive)
-BuildRequires: pkgconfig(libportal-gtk4)
-BuildRequires: pkgconfig(libsecret-1)
-BuildRequires: pkgconfig(libsoup-3.0)
-BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(nettle)
-BuildRequires: pkgconfig(sqlite3)
-BuildRequires: pkgconfig(webkitgtk-6.0) >= %{webkitgtk_version}
-BuildRequires: pkgconfig(webkitgtk-web-process-extension-6.0) >= %{webkitgtk_version}
+BuildRequires:  desktop-file-utils
+BuildRequires:  gcc
+BuildRequires:  gettext-devel
+BuildRequires:  itstool
+BuildRequires:  libappstream-glib-devel
+BuildRequires:  meson
+BuildRequires:  pkgconfig(cairo)
+BuildRequires:  pkgconfig(gcr-4)
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib2_version}
+BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
+BuildRequires:  pkgconfig(gsettings-desktop-schemas)
+BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
+BuildRequires:  pkgconfig(gtk4-unix-print) >= %{gtk4_version}
+BuildRequires:  pkgconfig(hogweed)
+BuildRequires:  pkgconfig(iso-codes)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
+BuildRequires:  pkgconfig(libarchive)
+BuildRequires:  pkgconfig(libportal-gtk4)
+BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  pkgconfig(libsoup-3.0)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(nettle)
+BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(webkitgtk-6.0) >= %{webkitgtk_version}
+BuildRequires:  pkgconfig(webkitgtk-web-process-extension-6.0) >= %{webkitgtk_version}
 
 Requires: epiphany-runtime%{?_isa} = %{epoch}:%{version}-%{release}
 
@@ -54,16 +55,20 @@ simple and easy to use. Epiphany ties together many GNOME components
 in order to let you focus on the web content, instead of the browser
 application.
 
-%package runtime            
+%package runtime
 Summary: Epiphany runtime suitable for web applications
 Requires: gsettings-desktop-schemas
+Requires: glib2%{?_isa} >= %{glib2_version}
+Requires: gtk4%{?_isa} >= %{gtk4_version}
 Requires: iso-codes
+Requires: libadwaita%{?_isa} >= %{libadwaita_version}
+Requires: webkitgtk6.0%{?_isa} >= %{webkitgtk_version}
 Provides: bundled(gvdb)
 Provides: bundled(highlightjs)
 Provides: bundled(readabilityjs)
 
-%description runtime            
-This package provides a runtime for web applications without actually            
+%description runtime
+This package provides a runtime for web applications without actually
 installing the epiphany application itself.
 
 %prep

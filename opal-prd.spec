@@ -1,8 +1,8 @@
 %global project skiboot
 
 Name:		opal-prd
-Version:	7.0
-Release:	7%{?dist}
+Version:	7.1
+Release:	1%{?dist}
 Summary:	OPAL Processor Recovery Diagnostics Daemon
 
 License:	Apache-2.0
@@ -17,7 +17,7 @@ BuildRequires:	gcc
 BuildRequires:	openssl-devel
 BuildRequires:	python3-devel
 
-Requires(post):		systemd
+Requires(post):	systemd
 Requires(preun):	systemd
 Requires(postun):	systemd
 
@@ -114,6 +114,9 @@ install -m 644 -p %{SOURCE3} %{buildroot}%{_mandir}/man1/ffspart.1
 
 
 %changelog
+* Tue Sep 19 2023 Than Ngo <than@redhat.com> - 7.1-1
+- update to 7.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

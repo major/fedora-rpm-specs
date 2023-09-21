@@ -1,13 +1,14 @@
 Name:           d-spy
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        D-Bus explorer
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/d-spy
-Source0:        https://download.gnome.org/sources/d-spy/1.4/d-spy-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/d-spy/1.8/d-spy-%{version}.tar.xz
 
 BuildRequires:  gcc
+BuildRequires:  gettext
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gtk4)
@@ -53,21 +54,23 @@ developing applications that use %{name}.
 %install
 %meson_install
 
+%find_lang d-spy
+
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.gnome.dspy.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.dspy.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.dspy.desktop
 
 
-%files
+%files -f d-spy.lang
 %license COPYING
 %doc NEWS
 %{_bindir}/d-spy
-%{_datadir}/appdata/org.gnome.dspy.appdata.xml
 %{_datadir}/applications/org.gnome.dspy.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.dspy.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.dspy*.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.dspy-symbolic.svg
+%{_datadir}/metainfo/org.gnome.dspy.appdata.xml
 
 %files libs
 %license COPYING.lgpl3
@@ -80,6 +83,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.dspy.deskto
 
 
 %changelog
+* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 1.8.0-1
+- Update to 1.8.0
+- Package translations
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

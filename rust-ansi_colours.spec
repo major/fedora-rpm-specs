@@ -13,6 +13,9 @@ Summary:        True-colour ↔ ANSI terminal palette converter
 License:        LGPL-3.0-or-later
 URL:            https://crates.io/crates/ansi_colours
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax termcolor dependency to allow versions >= 1.2
+Patch:          ansi_colours-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

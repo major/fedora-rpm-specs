@@ -1,6 +1,6 @@
 Name:           virtiofsd
 Version:        1.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 
 License:        Apache-2.0 AND BSD-3-Clause
@@ -47,6 +47,9 @@ install -D -p -m 0644 50-qemu-virtiofsd.json %{buildroot}%{_datadir}/qemu/vhost-
 %{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
 
 %changelog
+* Tue Sep 19 2023 Fabio Valentini <decathorpe@gmail.com> - 1.7.0-4
+- Rebuild for vm-memory v0.12.2 / CVE-2023-41051.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

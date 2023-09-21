@@ -3,16 +3,15 @@
 %global debug_package %{nil}
 
 %global crate glycin
-%global crate_version 0.1.0-rc
 
 Name:           rust-glycin
-Version:        0.1.0~rc
+Version:        0.1.0
 Release:        %autorelease
-Summary:        Sandboxed image rendering
+Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Add autobins = false to avoid unwanted /usr/bin/test binary
 Patch:          glycin-fix-metadata.diff
@@ -20,7 +19,7 @@ Patch:          glycin-fix-metadata.diff
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Sandboxed image rendering.}
+Sandboxed image decoding.}
 
 %description %{_description}
 
@@ -53,7 +52,7 @@ use the "default" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires

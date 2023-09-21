@@ -1,18 +1,9 @@
-## This release does not compile because of current unsupported GCC version (4.8.5) on rhel7
-## during compilation of bundled 'jsoncpp'.
-## Error "unsupported GCC version - see https://github.com/nlohmann/json#supported-compilers"
-
-# Use devtoolset 8
-%if 0%{?rhel} && 0%{?rhel} == 7
-%global dts devtoolset-8-
-%endif
-
 # Qt6 builds for testing
 %bcond_with qt6
 
 Name:           avogadro2-libs
 Version:        1.97.0
-Release:        5%{?dist}
+Release:        %autorelease
 Summary:        Avogadro2 libraries
 
 # BSD is main license
@@ -38,8 +29,8 @@ BuildRequires:  epel-rpm-macros
 %endif
 BuildRequires:  cmake3
 BuildRequires:  chrpath
-BuildRequires:  %{?dts}gcc
-BuildRequires:  %{?dts}gcc-c++
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(glew)
@@ -103,9 +94,9 @@ tar -xf %{SOURCE3} && mv crystals-1.0.1 crystals
 # Rename LICENSE file
 mv molecules/LICENSE molecules/LICENSE-molecules
 
-%patch0 -p0 -b .backup
-%patch1 -p0 -b .backup
-%patch2 -p1 -b .backup
+%patch -P 0 -p0 -b .backup
+%patch -P 1 -p0 -b .backup
+%patch -P 2 -p1 -b .backup
 
 # Make avogadro generators source code available for CMake
 mv avogenerators-%{version} avogadrogenerators
@@ -116,9 +107,6 @@ sed -e 's|../avogadrogenerators|avogadrogenerators|g' -i avogadro/qtplugins/quan
 mv thirdparty/libgwavi/README.md thirdparty/libgwavi/README-libgwavi.md
 
 %build
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-8/enable}
-%endif
 mkdir -p build
 export CXXFLAGS="%{optflags} -DH5_USE_110_API"
 # RHBZ #1996330
@@ -192,188 +180,4 @@ rm -rf %{buildroot}%{_datadir}/doc
 %license LICENSE
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.97.0-4
-- Rebuilt for Python 3.12
-
-* Sat Jan 28 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.97.0-3
-- Fix upstream bug #1185
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.97.0-1
-- Release 1.97.0
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.96.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 24 2022 Jonathan Wakely <jwakely@redhat.com> - 1.96.0-3
-- Remove obsolete boost-python3-devel build dependency (#2100748)
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.96.0-2
-- Rebuilt for Python 3.11
-
-* Sun Jun 05 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.96.0-1
-- Release 1.96.0
-
-* Tue Mar 01 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.95.1-8
-- Fix rhbz#2003342
-
-* Thu Feb 10 2022 Orion Poplawski <orion@nwra.com> - 1.95.1-7
-- Rebuild for glew 2.2
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.95.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Dec 12 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.95.1-5
-- Disable libarchive on EPEL
-
-* Sun Nov 21 2021 Orion Poplawski <orion@nwra.com> - 1.95.1-4
-- Rebuild for hdf5 1.12.1
-
-* Sun Nov 21 2021 Orion Poplawski <orion@nwra.com> - 1.95.1-3
-- Skipped build release
-
-* Sat Nov 06 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.95.1-2
-- Prepare Qt6 builds for testing
-- Rebuilt against openbabel3
-
-* Tue Aug 31 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.95.1-1
-- Release 1.95.1
-- Upgrade avogenerators
-
-* Tue Aug 10 2021 Orion Poplawski <orion@nwra.com> - 1.94.0-4
-- Rebuild for hdf5 1.10.7
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.94.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jun 08 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.94.0-2
-- Release 1.94.0
-
-* Fri Jun 04 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.94.0-1
-- Release 1.94.0
-- Update avogenerators code
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.93.1-2
-- Rebuilt for Python 3.10
-
-* Mon May 03 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.93.1-1
-- Release 1.93.1
-- Remove obsolete patches
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.93.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.93.0-7
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.93.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun 26 2020 Orion Poplawski <orion@nwra.com> - 1.93.0-5
-- Rebuild for hdf5 1.10.6
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.93.0-4
-- Rebuilt for Python 3.9
-
-* Sat Feb 29 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.93.0-3
-- Reorganize scripts directory
-
-* Fri Feb 28 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.93.0-2
-- Set USE_SYSTEM_LIBARCHIVE CMake option
-- Set libarchive's minimal version for building
-- Explicit Obsoletes tag
-
-* Thu Feb 06 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.93.0-1
-- Release 1.93.0
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.92.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Jan 21 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.92.1-1
-- Release 1.92.1
-- Rebuild for spglib-1.14.1
-- Use devtools-8 on EPEL7
-- Use CMake3
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.91.0-6
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.91.0-5
-- Rebuilt for Python 3.8
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.91.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Mar 16 2019 Orion Poplawski <orion@nwra.com> - 1.91.0-3
-- Rebuild for hdf5 1.10.5
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.91.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Aug 23 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.91.0-1
-- Release 1.91.0
-- Include 'avogenerators' source code
-
-* Thu Aug 23 2018 Nicolas Chauvet <kwizart@gmail.com> - 1.91.0-0.3.20180612gitda6ebb9
-- Rebuilt for glew-2.1.0
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.91.0-0.2.20180612gitda6ebb9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Jun 22 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.91.0-0.1.20180612gitda6ebb9
-- Update to commit #da6ebb9 (1.91.0 pre-release)
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.90.0-16
-- Rebuilt for Python 3.7
-
-* Tue Feb 13 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-15
-- Add explicit dependencies to -devel sub-package (bz#1544510)
-
-* Tue Feb 13 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-14
-- Fix AvogadroLibsConfig.cmake relative paths (bz#1544510)
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jan 31 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-12
-- Rebuild for moloqueue-0.9.0
-- Use %%ldconfig_scriptlets
-
-* Thu Dec 14 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-11
-- Rebuild for spglib-1.10.2
-
-* Sun Aug 06 2017 Björn Esser <besser82@fedoraproject.org> - 1.90.0-10
-- Rebuilt for AutoReq cmake-filesystem
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Thu Jun 22 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-7
-- Modified for epel builds
-
-* Mon May 15 2017 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.90.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_27_Mass_Rebuild
-
-* Mon Mar 13 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-5
-- Add ld scriptlets
-
-* Sun Mar 12 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-4
-- Set python3 installation directory
-
-* Sun Mar 12 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-3
-- Move jsoncpp.a into the private lib directory
-
-* Sat Mar 11 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-2
-- Use default paths
-
-* Sat Mar 11 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-1
-- Initial package
+%autochangelog

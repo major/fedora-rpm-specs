@@ -3,7 +3,7 @@ Name:           libusb1
 Version:        1.0.26
 Release:        %autorelease
 Source0:        https://github.com/libusb/libusb/releases/download/v%{version}/libusb-%{version}.tar.bz2
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://libusb.info
 BuildRequires:  systemd-devel doxygen libtool
 BuildRequires:  umockdev-devel

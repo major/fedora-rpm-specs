@@ -6,7 +6,7 @@
 %global crate bytemuck_derive
 
 Name:           rust-bytemuck_derive
-Version:        1.4.1
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Derive proc-macros for bytemuck
 

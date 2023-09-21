@@ -6,13 +6,17 @@
 # in theory should build everywhere without much trouble, but
 # in practice the edk2 build system barfs on archs it doesn't know
 # (such as ppc), so lets limit things to the known-good ones.
-ExclusiveArch: x86_64 aarch64
+ExclusiveArch: x86_64 aarch64 riscv64
 
-# edk2-stable202302
-%define GITDATE        20230524
-%define GITCOMMIT      ba91d0292e59
-%define TOOLCHAIN      GCC5
-%define OPENSSL_VER    1.1.1k
+# edk2-stable202308
+%define GITDATE        20230825
+%define GITCOMMIT      819cfc6b42a6
+%define TOOLCHAIN      GCC
+
+%define OPENSSL_VER    3.0.7
+%define OPENSSL_COMMIT 3adb22b68e9fe61fc4863c2d2dc6cc6fc094b005
+
+%define PLATFORMS_COMMIT e509ac5a729e
 
 %define DBXDATE        20230509
 
@@ -41,7 +45,7 @@ Name:       edk2
 Version:    %{GITDATE}
 Release:    %autorelease
 Summary:    UEFI firmware for 64-bit virtual machines
-License:    BSD-2-Clause-Patent and OpenSSL and MIT
+License:    BSD-2-Clause-Patent and Apache-2.0 and MIT
 URL:        http://www.tianocore.org
 
 # The source tarball is created using following commands:
@@ -50,10 +54,11 @@ URL:        http://www.tianocore.org
 # | xz -9ev >/tmp/edk2-$COMMIT.tar.xz
 Source0: edk2-%{GITCOMMIT}.tar.xz
 Source1: ovmf-whitepaper-c770f8c.txt
-Source2: openssl-rhel-d00c3c5b8a9d6d3ea3dabfcafdf36afd61ba8bcc.tar.xz
+Source2: openssl-rhel-%{OPENSSL_COMMIT}.tar.xz
 Source3: softfloat-%{softfloat_version}.tar.xz
-Source4: edk2-platforms-7880b92e2a04.tar.xz
+Source4: edk2-platforms-%{PLATFORMS_COMMIT}.tar.xz
 Source5: jansson-2.13.1.tar.bz2
+Source6: README.experimental
 
 # json description files
 Source10: 50-edk2-aarch64-qcow2.json
@@ -77,6 +82,8 @@ Source46: 51-edk2-ovmf-2m-raw-x64-nosb.json
 Source47: 60-edk2-ovmf-x64-amdsev.json
 Source48: 60-edk2-ovmf-x64-inteltdx.json
 
+Source50: 50-edk2-riscv-qcow2.json
+
 # https://gitlab.com/kraxel/edk2-build-config
 Source80: edk2-build.py
 Source81: edk2-build.fedora
@@ -96,23 +103,16 @@ Patch0007: 0007-OvmfPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuVide.patch
 Patch0008: 0008-ArmVirtPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuR.patch
 Patch0009: 0009-OvmfPkg-QemuRamfbDxe-Do-not-report-DXE-failure-on-Aa.patch
 Patch0010: 0010-OvmfPkg-silence-EFI_D_VERBOSE-0x00400000-in-NvmExpre.patch
-Patch0011: 0011-CryptoPkg-OpensslLib-list-RHEL8-specific-OpenSSL-fil.patch
-Patch0012: 0012-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
-Patch0013: 0013-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
-Patch0015: 0015-OvmfPkg-PlatformPei-drop-S3Verification.patch
-Patch0016: 0016-OvmfPkg-PciHotPlugInitDxe-Do-not-reserve-IO-ports-by.patch
-Patch0017: 0017-OvmfPkg-PlatformInitLib-check-PcdUse1GPageTable.patch
-Patch0018: 0018-OvmfPkg-OvmfPkgIa32X64-enable-1G-pages.patch
-Patch0019: 0019-OvmfPkg-MicrovmX64-enable-1G-pages.patch
-Patch0020: 0020-OvmfPkg-VirtioSerialDxe-use-TPL_NOTIFY.patch
-Patch0021: 0021-OvmfPkg-QemuFlashFvbServicesRuntimeDxe-refine-flash-.patch
-Patch0022: 0022-OvmfPkg-PlatformInitLib-limit-phys-bits-to-46.patch
-Patch0023: 0023-ArmVirt-add-VirtioSerialDxe-to-ArmVirtQemu-builds.patch
-Patch0024: 0024-ArmVirt-PlatformBootManagerLib-factor-out-IsVirtio.patch
-Patch0025: 0025-ArmVirt-PlatformBootManagerLib-factor-out-IsVirtioPc.patch
-Patch0026: 0026-ArmVirt-PlatformBootManagerLib-set-up-virtio-serial-.patch
-Patch0027: 0027-UefiCpuPkg-MpInitLib-fix-apic-mode-for-cpu-hotplug.patch
-Patch0028: 0028-ArmPkg-Add-Pcd-to-disable-EFI_MEMORY_ATTRIBUTE_PROTO.patch
+Patch0011: 0011-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
+Patch0012: 0012-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
+Patch0013: 0013-UefiCpuPkg-MpInitLib-fix-apic-mode-for-cpu-hotplug.patch
+Patch0014: 0014-ArmPkg-Add-Pcd-to-disable-EFI_MEMORY_ATTRIBUTE_PROTO.patch
+Patch0015: 0015-CryptoPkg-CrtLib-add-stat.h.patch
+Patch0016: 0016-CryptoPkg-CrtLib-add-access-open-read-write-close-sy.patch
+Patch0017: 0017-OvmfPkg-IoMmuDxe-don-t-rely-on-TPLs-to-manage-concur.patch
+Patch0018: 0018-OvmfPkg-Disable-PcdFirstTimeWakeUpAPsBySipi.patch
+Patch0019: 0019-OvmfPkg-AmdSev-Disable-PcdFirstTimeWakeUpAPsBySipi.patch
+Patch0020: 0020-OvmfPkg-AmdSev-fix-BdsPlatform.c-assertion-failure-d.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -123,6 +123,13 @@ BuildRequires:  libuuid-devel
 BuildRequires:  /usr/bin/iasl
 BuildRequires:  binutils gcc git gcc-c++ make
 BuildRequires:  qemu-img
+
+# openssl configure
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(IPC::Cmd)
+BuildRequires:  perl(File::Compare)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(JSON)
 
 %if %{build_ovmf}
 # Only OVMF includes 80x86 assembly files (*.nasm*).
@@ -159,7 +166,7 @@ Obsoletes:  OVMF < 20180508-100.gitee3198e672e2.el7
 # OVMF includes the Secure Boot and IPv6 features; it has a builtin OpenSSL
 # library.
 Provides:   bundled(openssl) = %{OPENSSL_VER}
-License:    BSD-2-Clause-Patent and OpenSSL
+License:    BSD-2-Clause-Patent and Apache-2.0
 
 # URL taken from the Maintainers.txt file.
 URL:        http://www.tianocore.org/ovmf/
@@ -181,7 +188,7 @@ Conflicts:  libvirt-daemon-driver-qemu < 9.2.0
 
 # No Secure Boot for AAVMF yet, but we include OpenSSL for the IPv6 stack.
 Provides:   bundled(openssl) = %{OPENSSL_VER}
-License:    BSD-2-Clause-Patent and OpenSSL
+License:    BSD-2-Clause-Patent and Apache-2.0
 
 # URL taken from the Maintainers.txt file.
 URL:        https://github.com/tianocore/tianocore.github.io/wiki/ArmVirtPkg
@@ -218,7 +225,7 @@ environment for the UEFI and PI specifications. This package contains sample
 %if %{defined fedora}
 %package ovmf-ia32
 Summary:        Open Virtual Machine Firmware
-License:        BSD-2-Clause-Patent and OpenSSL
+License:        BSD-2-Clause-Patent and Apache-2.0
 Provides:       bundled(openssl)
 BuildArch:      noarch
 %description ovmf-ia32
@@ -227,26 +234,27 @@ Open Virtual Machine Firmware (ia32)
 
 %package ovmf-xen
 Summary:        Open Virtual Machine Firmware, Xen build
-License:        BSD-2-Clause-Patent and OpenSSL
+License:        BSD-2-Clause-Patent and Apache-2.0
 Provides:       bundled(openssl)
 BuildArch:      noarch
 %description ovmf-xen
 EFI Development Kit II
 Open Virtual Machine Firmware (Xen build)
 
-%package ovmf-experimental
+%package experimental
 Summary:        Open Virtual Machine Firmware, experimental builds
-License:        BSD-2-Clause-Patent and OpenSSL
+License:        BSD-2-Clause-Patent and Apache-2.0
 Provides:       bundled(openssl)
+Obsoletes:      edk2-ovmf-experimental < 20230825
 BuildArch:      noarch
-%description ovmf-experimental
+%description experimental
 EFI Development Kit II
 Open Virtual Machine Firmware (experimental builds)
 
 %package arm
 Summary:        ARM Virtual Machine Firmware
 BuildArch:      noarch
-License:        BSD-2-Clause-Patent and OpenSSL
+License:        BSD-2-Clause-Patent and Apache-2.0
 %description arm
 EFI Development Kit II
 ARMv7 UEFI Firmware
@@ -254,14 +262,14 @@ ARMv7 UEFI Firmware
 %package riscv64
 Summary:        RISC-V Virtual Machine Firmware
 BuildArch:      noarch
-License:        BSD-2-Clause-Patent and OpenSSL
+License:        BSD-2-Clause-Patent and Apache-2.0
 %description riscv64
 EFI Development Kit II
 RISC-V UEFI Firmware
 
 %package ext4
 Summary:        Ext4 filesystem driver
-License:        BSD-2-Clause-Patent and OpenSSL
+License:        BSD-2-Clause-Patent and Apache-2.0
 BuildArch:      noarch
 %description ext4
 EFI Development Kit II
@@ -305,11 +313,13 @@ mkdir -p MdePkg/Library/MipiSysTLib/mipisyst/library/include
 chmod -Rf a+rX,u+w,g-w,o-w .
 
 cp -a -- \
+   %{SOURCE6} \
    %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
    %{SOURCE20} \
    %{SOURCE30} %{SOURCE31} %{SOURCE32} \
    %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} \
    %{SOURCE45} %{SOURCE46} %{SOURCE47} %{SOURCE48} \
+   %{SOURCE50} \
    %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} \
    %{SOURCE90} %{SOURCE91} \
    .
@@ -355,6 +365,7 @@ export EXTRA_LDFLAGS="%{__global_ldflags}"
 export RELEASE_DATE="$(echo %{GITDATE} | sed -e 's|\(....\)\(..\)\(..\)|\2/\3/\1|')"
 
 touch OvmfPkg/AmdSev/Grub/grub.efi   # dummy
+python3 CryptoPkg/Library/OpensslLib/configure.py
 
 %if %{build_ovmf}
 %if %{defined rhel}
@@ -395,7 +406,8 @@ done
 virt-fw-vars --input   Fedora/experimental/OVMF.stateless.fd \
              --output  Fedora/experimental/OVMF.stateless.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
-             --enroll-redhat --secure-boot
+             --enroll-redhat --secure-boot \
+             --set-fallback-no-reboot
 
 for image in \
 	Fedora/ovmf/OVMF_CODE.secboot.fd \
@@ -422,6 +434,9 @@ done
 %else
 ./edk2-build.py --config edk2-build.fedora --silent --release-date "$RELEASE_DATE" -m armvirt
 ./edk2-build.py --config edk2-build.fedora.platforms --silent -m aa64
+virt-fw-vars --input   Fedora/aarch64/vars-template-pflash.raw \
+             --output  Fedora/experimental/vars-template-secboot-testonly-pflash.raw \
+             --enroll-redhat --secure-boot --distro-keys rhel
 %endif
 for raw in */aarch64/*.raw; do
     qcow2="${raw%.raw}.qcow2"
@@ -432,12 +447,17 @@ done
 %if %{build_riscv64}
 ./edk2-build.py --config edk2-build.fedora --silent --release-date "$RELEASE_DATE" -m riscv
 ./edk2-build.py --config edk2-build.fedora.platforms --silent -m riscv
+for raw in */riscv/*.raw; do
+    qcow2="${raw%.raw}.qcow2"
+    qemu-img convert -f raw -O qcow2 -o cluster_size=4096 -S 4096 "$raw" "$qcow2"
+    rm -f "$raw"
+done
 %endif
 
 %install
 
 cp -a OvmfPkg/License.txt License.OvmfPkg.txt
-cp -a CryptoPkg/Library/OpensslLib/openssl/LICENSE LICENSE.openssl
+cp -a CryptoPkg/Library/OpensslLib/openssl/LICENSE.txt LICENSE.openssl
 mkdir -p %{buildroot}%{_datadir}/qemu/firmware
 
 # install the tools
@@ -528,6 +548,15 @@ install -m 0644 \
 %endif
 
 # endif build_aarch64
+%endif
+
+%if %{build_riscv64}
+
+install -m 0644 \
+        50-edk2-riscv-qcow2.json \
+        %{buildroot}%{_datadir}/qemu/firmware
+
+# endif build_riscv64
 %endif
 
 %if %{defined fedora}
@@ -667,8 +696,9 @@ done
 %{_datadir}/qemu/firmware/40-edk2-ovmf-ia32-sb.json
 %{_datadir}/qemu/firmware/50-edk2-ovmf-ia32-nosb.json
 
-%files ovmf-experimental
+%files experimental
 %common_files
+%doc README.experimental
 %dir %{_datadir}/%{name}/experimental
 %{_datadir}/%{name}/experimental/*.fd
 %{_datadir}/%{name}/experimental/*.raw
@@ -694,7 +724,8 @@ done
 %files riscv64
 %common_files
 %{_datadir}/%{name}/riscv/*.fd
-%{_datadir}/%{name}/riscv/*.raw
+%{_datadir}/%{name}/riscv/*.qcow2
+%{_datadir}/qemu/firmware/50-edk2-riscv-qcow2.json
 
 %files ext4
 %common_files

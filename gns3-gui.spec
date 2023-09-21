@@ -4,8 +4,8 @@
 %global git_tag %{version}
 
 Name:           gns3-gui
-Version:        2.2.42
-Release:        2%{?dist}
+Version:        2.2.43
+Release:        1%{?dist}
 Summary:        GNS3 graphical user interface
 
 License:        GPLv3+
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Tue Sep 19 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.43-1
+- Update to 2.2.43
+
 * Wed Sep  6 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.42-2
 - Fixed jsonschema requirement
 

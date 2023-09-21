@@ -5,7 +5,7 @@
 %global crate gvdb-macros
 
 Name:           rust-gvdb-macros
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Convenience macros for gvdb
 

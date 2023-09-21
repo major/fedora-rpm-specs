@@ -1,5 +1,5 @@
 Name:           langtable
-Version:        0.0.63
+Version:        0.0.64
 Release:        1%{?dist}
 Summary:        Guessing reasonable defaults for locale, keyboard layout, territory, and language.
 # the translations in languages.xml and territories.xml are (mostly)
@@ -75,6 +75,11 @@ xmllint --noout --relaxng \
 %{python3_sitelib}/langtable-*.egg-info/*
 
 %changelog
+* Tue Sep 19 2023 Mike FABIAN <mfabian@redhat.com> - 0.0.64-1
+- Update to 0.0.64
+- Add new public functions list_all_{languages,locales,keyboards,territories,timezones,scripts,input_methods,console_fonts}
+  (See also the discussion at: https://gitlab.gnome.org/GNOME/gnome-desktop/-/merge_requests/159)
+
 * Mon Aug 28 2023 Mike FABIAN <mfabian@redhat.com> - 0.0.63-1
 - Update to 0.0.63
 - Add more translations from CLDR

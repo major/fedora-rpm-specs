@@ -3,10 +3,10 @@
 
 Name:             libev
 Version:          4.33
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          High-performance event loop/event model with lots of features
 
-License:          BSD or GPLv2+
+License:          BSD-2-Clause OR GPL-2.0-or-later
 URL:              http://software.schmorp.de/pkg/libev.html
 Source0:          http://dist.schmorp.de/libev/Attic/%{name}-%{version}.tar.gz
 
@@ -92,6 +92,9 @@ install -p -m 0644 Changes ev.pod LICENSE README %{inst_srcdir}
 %{source_dir}
 
 %changelog
+* Mon Aug 07 2023 Lukáš Zaoral <lzaoral@redhat.com> - 4.33-9
+- migrate to SPDX license format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.33-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

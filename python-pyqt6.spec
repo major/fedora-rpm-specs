@@ -6,7 +6,7 @@
 Summary: PyQt6 is Python bindings for Qt6
 Name:    python-pyqt6
 Version: 6.5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3
 Url:     http://www.riverbankcomputing.com/software/pyqt/
@@ -34,6 +34,11 @@ BuildRequires: cmake(Qt6Multimedia)
 BuildRequires: cmake(Qt6Nfc)
 BuildRequires: cmake(Qt6Network) 
 BuildRequires: cmake(Qt6OpenGL)
+%if 0%{?fedora} || 0%{?epel}
+%ifarch %{qt6_qtwebengine_arches}
+BuildRequires: cmake(Qt6Pdf) cmake(Qt6PdfWidgets)
+%endif
+%endif
 BuildRequires: cmake(Qt6Positioning)
 BuildRequires: cmake(Qt6Quick) cmake(Qt6QuickWidgets)
 BuildRequires: cmake(Qt6Sensors)
@@ -41,6 +46,7 @@ BuildRequires: cmake(Qt6SerialPort)
 BuildRequires: cmake(Qt6Sql) 
 BuildRequires: cmake(Qt6Svg) 
 BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6TextToSpeech)
 BuildRequires: cmake(Qt6Xml)
 BuildRequires: cmake(Qt6WebChannel)
 BuildRequires: cmake(Qt6WebSockets)
@@ -168,6 +174,12 @@ sed -i \
 %{python3_sitearch}/PyQt6/QtMultimedia.*
 %{python3_sitearch}/PyQt6/QtMultimediaWidgets.*
 %{python3_sitearch}/PyQt6/QtNfc.*
+%if 0%{?fedora} || 0%{?epel}
+%ifarch %{qt6_qtwebengine_arches}
+%{python3_sitearch}/PyQt6/QtPdf.*
+%{python3_sitearch}/PyQt6/QtPdfWidgets.*
+%endif
+%endif
 %{python3_sitearch}/PyQt6/QtPositioning.*
 %{python3_sitearch}/PyQt6/QtQml.*
 %{python3_sitearch}/PyQt6/QtQuick.*
@@ -175,6 +187,7 @@ sed -i \
 %{python3_sitearch}/PyQt6/QtSensors.*
 %{python3_sitearch}/PyQt6/QtSerialPort.*
 %{python3_sitearch}/PyQt6/QtSvg.*
+%{python3_sitearch}/PyQt6/QtTextToSpeech.*
 %{python3_sitearch}/PyQt6/QtWebChannel.*
 %{python3_sitearch}/PyQt6/QtWebSockets.*
 %{python3_sitearch}/PyQt6/QtOpenGLWidgets.*
@@ -228,6 +241,9 @@ sed -i \
 
 
 %changelog
+* Tue Sep 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.2-2
+- Enable QtPdf and QtTextToSpeech bindings
+
 * Mon Jul 24 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.2-1
 - 6.5.2
 

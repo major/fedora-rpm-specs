@@ -5,9 +5,9 @@
 %global crate bytemuck
 
 Name:           rust-bytemuck
-Version:        1.13.1
+Version:        1.14.0
 Release:        %autorelease
-Summary:        Crate for mucking around with piles of bytes
+Summary:        Muck around with piles of bytes
 
 License:        Zlib OR Apache-2.0 OR MIT
 URL:            https://crates.io/crates/bytemuck
@@ -59,6 +59,18 @@ This package contains library source intended for building other packages which
 use the "aarch64_simd" feature of the "%{crate}" crate.
 
 %files       -n %{name}+aarch64_simd-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+align_offset-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+align_offset-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "align_offset" feature of the "%{crate}" crate.
+
+%files       -n %{name}+align_offset-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bytemuck_derive-devel
@@ -119,6 +131,18 @@ This package contains library source intended for building other packages which
 use the "min_const_generics" feature of the "%{crate}" crate.
 
 %files       -n %{name}+min_const_generics-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+must_cast-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+must_cast-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "must_cast" feature of the "%{crate}" crate.
+
+%files       -n %{name}+must_cast-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+nightly_stdsimd-devel

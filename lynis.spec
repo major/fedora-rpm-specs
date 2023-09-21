@@ -6,12 +6,13 @@
 
 Name:           lynis
 Version:        3.0.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Security and system auditing tool
 License:        GPL-3.0-only
 URL:            https://cisofy.com/lynis/
 Source0:        https://cisofy.com/files/%{name}-%{version}.tar.gz
 Patch0:         1386.patch
+Patch1:         1438.patch
 BuildArch:      noarch
 BuildRequires:  bash-completion
 BuildRequires:  git-core
@@ -82,6 +83,9 @@ touch %{buildroot}%{_localstatedir}/log/lynis-report.dat
 %ghost %{_localstatedir}/log/lynis-report.dat
 
 %changelog
+* Tue Sep 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.9-3
+- Additional egrep patch
+
 * Mon Aug 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.9-2
 - Upstream patch to remove egrep usage
 

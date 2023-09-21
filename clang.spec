@@ -55,7 +55,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -192,7 +192,7 @@ libomp-devel to enable -fopenmp.
 
 %package libs
 Summary: Runtime library for clang
-Requires: %{name}-resource-filesystem%{?_isa} = %{version}
+Requires: %{name}-resource-filesystem = %{version}
 Recommends: compiler-rt%{?_isa} = %{version}
 # atomic support is not part of compiler-rt
 Recommends: libatomic%{?_isa}
@@ -224,9 +224,10 @@ Development header files for clang.
 %package resource-filesystem
 Summary: Filesystem package that owns the clang resource directory
 Provides: %{name}-resource-filesystem(major) = %{maj_ver}
+BuildArch: noarch
 
 %description resource-filesystem
-This package owns the clang resouce directory: $libdir/clang/$version/
+This package owns the clang resouce directory: lib/clang/$version/
 
 %if %{without compat_build}
 %package analyzer
@@ -494,7 +495,7 @@ chmod u-x %{buildroot}%{_mandir}/man1/scan-build.1*
 
 # Create sub-directories in the clang resource directory that will be
 # populated by other packages
-mkdir -p %{buildroot}%{install_libdir}/clang/%{maj_ver}/{include,lib,share}/
+mkdir -p %{buildroot}%{install_prefix}/lib/clang/%{maj_ver}/{bin,include,lib,share}/
 
 
 %if %{without compat_build}
@@ -562,11 +563,12 @@ false
 %endif
 
 %files resource-filesystem
-%dir %{install_libdir}/clang/
-%dir %{install_libdir}/clang/%{maj_ver}/
-%dir %{install_libdir}/clang/%{maj_ver}/include/
-%dir %{install_libdir}/clang/%{maj_ver}/lib/
-%dir %{install_libdir}/clang/%{maj_ver}/share/
+%dir %{install_prefix}/lib/clang/
+%dir %{install_prefix}/lib/clang/%{maj_ver}/
+%dir %{install_prefix}/lib/clang/%{maj_ver}/bin/
+%dir %{install_prefix}/lib/clang/%{maj_ver}/include/
+%dir %{install_prefix}/lib/clang/%{maj_ver}/lib/
+%dir %{install_prefix}/lib/clang/%{maj_ver}/share/
 
 %if %{without compat_build}
 %files analyzer
@@ -643,6 +645,9 @@ false
 
 %endif
 %changelog
+* Mon Sep 18 2023 Alessandro Astone <ales.astone@gmail.com> - 17.0.0~rc4-2
+- Fix resource-filesystem after https://fedoraproject.org/wiki/Changes/LLVM-17
+
 * Wed Sep 06 2023 Tom Stellard <tstellar@redhat.com> - 17.0.0~rc3-2
 - Drop dwarf4 patch in favor of config files
 

@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud Database Migration Service
 

@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-initial-setup
-Version:        45~beta
+Version:        45.0
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 
@@ -17,16 +17,8 @@ URL:            https://wiki.gnome.org/Design/OS/InitialSetup
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 Source1:        vendor.conf
 
-Patch: 0001-gnome-initial-setup-Bump-GLib-required-version-to-2..patch
-Patch: 0002-keyboard-Don-t-require-localed-for-existing-user-mod.patch
-Patch: 0003-language-Don-t-proceed-until-localed-has-set-locale.patch
-Patch: 0004-keyboard-Get-default-input-sources-from-gnome-deskto.patch
-Patch: 0005-driver-Specify-mode-via-flags-instead-of-boolean.patch
-Patch: 0006-gnome-initial-setup-Add-live-user-mode.patch
-Patch: 0007-initial-setup-Don-t-show-duplicated-pages-between-mo.patch
-Patch: 0008-polkit-Add-fedora-specfic-rules.patch
-Patch: 0009-gnome-initial-setup-Read-etc-sysconfig-anaconda.patch
-
+# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/200
+Patch: live-user-mode.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

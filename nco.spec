@@ -1,8 +1,8 @@
 %global builddocs 1
 
 Name:           nco
-Version:        5.1.6
-Release:        2%{?dist}
+Version:        5.1.8
+Release:        1%{?dist}
 Summary:        Suite of programs for manipulating NetCDF/HDF4 files
 License:        BSD-3-Clause
 URL:            http://nco.sourceforge.net/
@@ -60,7 +60,7 @@ This package contains the NCO static libs.
 
 %prep
 %setup -q
-%patch0 -p1 -b .install_C_headers
+%patch -P0 -p1 -b .install_C_headers
 
 
 %build
@@ -139,6 +139,9 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 
 
 %changelog
+* Tue Sep 19 2023 Orion Poplawski <orion@nwra.com> - 5.1.8-1
+- Update to 5.1.8
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

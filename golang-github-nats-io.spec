@@ -28,7 +28,7 @@ Source:         %{gosource}
 
 %if %{with check}
 # tests
-BuildRequires: golang-google-protobuf-devel
+BuildRequires: golang(github.com/golang/protobuf/proto)
 %endif
 
 %description %{common_description}

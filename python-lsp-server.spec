@@ -10,15 +10,14 @@ spyder-IDE maintainers.
 }
 
 Name:           python-%{short_name}
-Version:        1.7.4
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Python implementation of language server protocol
 %forgemeta
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# Backport of PR 416: Bump Jedi upper pin to <0.20
-Patch:          https://patch-diff.githubusercontent.com/raw/python-lsp/python-lsp-server/pull/416.patch
+Patch:          remove_version_pinning_from_linters.patch
 
 BuildArch:      noarch
 
@@ -46,7 +45,7 @@ Requires:       python3dist(yapf)
 
 
 %prep
-%autosetup -n %{name}-%{version} -S git
+%autosetup -p1 -n %{name}-%{version} -S git
 
 %generate_buildrequires
 %pyproject_buildrequires -x test,all

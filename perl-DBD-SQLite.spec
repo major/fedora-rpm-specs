@@ -95,9 +95,9 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n DBD-SQLite-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 # Remove bundled sqlite libraries (BZ#1059154)
 # System libraries will be used
 rm sqlite*

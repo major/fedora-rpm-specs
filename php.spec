@@ -70,7 +70,7 @@
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -260,6 +260,7 @@ Summary: Common files for PHP
 # fileinfo is licensed under PHP version 3.0
 # regex, libmagic are licensed under BSD
 License: PHP-3.01 AND BSD-2-Clause
+Requires: tzdata
 # ABI/API check - Arch specific
 Provides: php(api) = %{apiver}-%{__isa_bits}
 Provides: php(zend-abi) = %{zendver}-%{__isa_bits}
@@ -1540,6 +1541,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Sep 19 2023 Remi Collet <remi@remirepo.net> - 8.2.11~RC1-2
+- require tzdata
+
 * Tue Sep 12 2023 Remi Collet <remi@remirepo.net> - 8.2.11~RC1-1
 - update to 8.2.11RC1
 

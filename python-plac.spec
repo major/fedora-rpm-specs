@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-plac
-Version:        1.3.5
+Version:        1.4.0
 Release:        %autorelease
 Summary:        The smartest command line arguments parser in the world
 
@@ -15,12 +15,6 @@ URL:            https://github.com/ialbert/plac
 Source0:        %{url}/archive/v%{version}/plac-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        plac_runner.py.1
-
-# Python 3.10: asyncore/asynchat are deprecated in favour of asyncio
-# https://github.com/ialbert/plac/issues/65
-#
-# This patch is only needed for Python 3.12+ (F39+).
-Patch:          0001-Remove-server-functionality.patch
 
 BuildArch:      noarch
 
@@ -64,7 +58,7 @@ Summary:        Documentation for plac
 
 
 %prep
-%autosetup -n plac-%{version} -p1
+%autosetup -n plac-%{version}
 
 
 %generate_buildrequires

@@ -15,7 +15,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        45~rc
+Version:        45.0
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
@@ -64,6 +64,7 @@ BuildRequires:  pkgconfig(mm-glib)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(pwquality)
 BuildRequires:  pkgconfig(smbclient)
+BuildRequires:  pkgconfig(tecla)
 BuildRequires:  pkgconfig(udisks2)
 BuildRequires:  pkgconfig(upower-glib) >= %{upower_version}
 BuildRequires:  pkgconfig(x11)

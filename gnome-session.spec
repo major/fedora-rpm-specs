@@ -1,4 +1,4 @@
-%define po_package gnome-session-44
+%define po_package gnome-session-45
 
 %if 0%{?fedora}
 %else
@@ -7,57 +7,51 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-Name:    gnome-session
-Version: 44.0
-Release: %autorelease
-Summary: GNOME session manager
+Name:           gnome-session
+Version:        45.0
+Release:        %autorelease
+Summary:        GNOME session manager
 
-License: GPL-2.0-or-later
-URL:     https://gitlab.gnome.org/GNOME/gnome-session
-Source0: https://download.gnome.org/sources/gnome-session/44/%{name}-%{tarball_version}.tar.xz
+License:        GPL-2.0-or-later
+URL:            https://gitlab.gnome.org/GNOME/gnome-session
+Source:         https://download.gnome.org/sources/gnome-session/45/%{name}-%{tarball_version}.tar.xz
 
 # Blacklist NV30: https://bugzilla.redhat.com/show_bug.cgi?id=745202
-Patch: gnome-session-3.3.92-nv30.patch
-Patch: gnome-session-3.6.2-swrast.patch
+Patch:          gnome-session-3.3.92-nv30.patch
+Patch:          gnome-session-3.6.2-swrast.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=772421
-Patch: 0001-check-accelerated-gles-Use-eglGetPlatformDisplay-EXT.patch
+Patch:          0001-check-accelerated-gles-Use-eglGetPlatformDisplay-EXT.patch
 # For https://fedoraproject.org/w/index.php?title=Changes/HiddenGrubMenu
 # This should go upstream once systemd has a generic interface for this
-Patch: 0001-Fedora-Set-grub-boot-flags-on-shutdown-reboot.patch
+Patch:          0001-Fedora-Set-grub-boot-flags-on-shutdown-reboot.patch
 
-# https://gitlab.gnome.org/GNOME/gnome-session/-/merge_requests/96
-Patch: 0001-main-Fix-crash-if-gnome-session-is-started-more-than.patch
-
-# https://gitlab.gnome.org/GNOME/gnome-session/-/merge_requests/95
-Patch: gnome-session-add-gnome-portals-conf.patch
-
-BuildRequires: meson
-BuildRequires: gcc
-BuildRequires: pkgconfig(egl)
-BuildRequires: pkgconfig(gl)
-BuildRequires: pkgconfig(glesv2)
-BuildRequires: pkgconfig(gnome-desktop-3.0)
-BuildRequires: pkgconfig(gtk+-3.0)
-BuildRequires: pkgconfig(libsystemd)
-BuildRequires: pkgconfig(ice)
-BuildRequires: pkgconfig(json-glib-1.0)
-BuildRequires: pkgconfig(sm)
-BuildRequires: pkgconfig(systemd)
-BuildRequires: pkgconfig(x11)
-BuildRequires: pkgconfig(xau)
-BuildRequires: pkgconfig(xcomposite)
-BuildRequires: pkgconfig(xext)
-BuildRequires: pkgconfig(xrender)
-BuildRequires: pkgconfig(xtrans)
-BuildRequires: pkgconfig(xtst)
+BuildRequires:  meson
+BuildRequires:  gcc
+BuildRequires:  pkgconfig(egl)
+BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(glesv2)
+BuildRequires:  pkgconfig(gnome-desktop-3.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(ice)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(sm)
+BuildRequires:  pkgconfig(systemd)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xau)
+BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xrender)
+BuildRequires:  pkgconfig(xtrans)
+BuildRequires:  pkgconfig(xtst)
 
 # this is so the configure checks find /usr/bin/halt etc.
-BuildRequires: usermode
+BuildRequires:  usermode
 
-BuildRequires: gettext
-BuildRequires: intltool
-BuildRequires: xmlto
-BuildRequires: /usr/bin/xsltproc
+BuildRequires:  gettext
+BuildRequires:  intltool
+BuildRequires:  xmlto
+BuildRequires:  /usr/bin/xsltproc
 
 # an artificial requires to make sure we get dconf, for now
 Requires: dconf
@@ -130,8 +124,10 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %{_libexecdir}/gnome-session-failed
 %{_mandir}/man1/gnome-session*1.*
 %{_datadir}/gnome-session/
+%dir %{_datadir}/xdg-desktop-portal
 %{_datadir}/xdg-desktop-portal/gnome-portals.conf
-%{_datadir}/doc/gnome-session/dbus/gnome-session.html
+%{_datadir}/doc/gnome-session/
+%dir %{_datadir}/GConf/gsettings
 %{_datadir}/GConf/gsettings/gnome-session.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.SessionManager.gschema.xml
 %{_userunitdir}/gnome-session*

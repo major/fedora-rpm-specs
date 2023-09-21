@@ -1,11 +1,11 @@
 %global pypi_name nest_asyncio
 
 Name:           python-nest-asyncio
-Version:        1.5.7
-Release:        1%{?dist}
+Version:        1.5.8
+Release:        %autorelease
 Summary:        Patch asyncio to allow nested event loops
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/erdewit/nest_asyncio
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -64,42 +64,4 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %python3 tests/nest_test.py
 %doc README.rst
 
 %changelog
-* Tue Aug 01 2023 Lumír Balhar <lbalhar@redhat.com> - 1.5.7-1
-- Update to 1.5.7 (rhbz#2227197)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.6-3
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Oct 03 2022 Lumír Balhar <lbalhar@redhat.com> - 1.5.6-1
-- Update to 1.5.6
-Resolves: rhbz#2131173
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.5.5-2
-- Rebuilt for Python 3.11
-
-* Mon Apr 04 2022 Lumír Balhar <lbalhar@redhat.com> - 1.5.5-1
-- Update to 1.5.5
-Resolves: rhbz#2071300
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Dec 02 2021 Lumír Balhar <lbalhar@redhat.com> - 1.5.4-1
-- Update to 1.5.4
-Resolves: rhbz#2028135
-
-* Tue Oct 05 2021 Lumír Balhar <lbalhar@redhat.com> - 1.5.1-2
-- Obsolete and provide nest_asyncio package
-Resolves: rhbz#2007799
-
-* Tue Aug 31 2021 Lumír Balhar <lbalhar@redhat.com> - 1.5.1-1
-- Initial package
+%autochangelog

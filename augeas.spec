@@ -3,7 +3,7 @@ Version:        1.13.0
 Release:        5%{?dist}
 Summary:        A library for changing configuration files
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND Kazlib AND GPL-2.0-or-later AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            http://augeas.net/
 
 # The upstream release tarballs on github don't work, see:

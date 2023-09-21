@@ -1,18 +1,16 @@
 %bcond_without  tests
 
 %global         srcname     google-cloud-iam
-%global         forgeurl    https://github.com/googleapis/python-iam
-Version:        2.12.1
-%global         tag         v%{version}
-%forgemeta
+%global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
+Version:        2.12.2
 Release:        %autorelease
 Summary:        Python Client for Google IAM API
 
 License:        Apache-2.0
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/googleapis/google-cloud-python
+Source0:        %{url}/archive/refs/tags/%{srcname}-v%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -38,7 +36,10 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup
+# Upstream buries the package into a subdirectory. 😭
+%setup -c -T
+tar xzf %{SOURCE0} --strip-components=3 \
+    %{reponame}-%{srcname}-v%{version}/packages/%{srcname}
 
 # Temporary fix until protobuf version > 3.19.5 is available
 sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
@@ -78,7 +79,7 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst SECURITY.md UPGRADING.md
+%doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst SECURITY.md
 %{python3_sitelib}/google_cloud_iam-%{version}-py%{python3_version}-nspkg.pth
 
 

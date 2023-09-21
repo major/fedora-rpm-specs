@@ -5,7 +5,7 @@
 %global crate async-recursion
 
 Name:           rust-async-recursion
-Version:        1.0.4
+Version:        1.0.5
 Release:        %autorelease
 Summary:        Recursion for async functions
 

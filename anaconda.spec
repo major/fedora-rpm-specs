@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.4
+Version: 40.5
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -17,7 +17,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 
 %if ! 0%{?rhel}
 %bcond_without live
-%define blivetguiver 2.1.12-1
+%define blivetguiver 2.4.2-3
 %else
 %bcond_with live
 %endif
@@ -485,6 +485,32 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 19 2023 Packit <hello@packit.dev> - 40.5-1
+- webui: Remove test for unformattable filesystems (vtrefny)
+- Update translations from Weblate for master (github-actions)
+- webui: Start blivet-gui with --keep-above (vtrefny)
+- webui: tests: remove unnecessary semilocon from python code (kkoukiou)
+- webui: tests: move all helpers for mount point assignment page to
+  test/helpers/storage (kkoukiou)
+- webui: tests: organize the storage helper functions into multiple classes
+  (kkoukiou)
+- webui: tests: pack checks for mount point assignment rows in one method call
+  (kkoukiou)
+- webui: adjust installation scenario hint messages after designer feedback
+  (kkoukiou)
+- webui: when multiple devices have the same name disable mount point mapping
+  scenario (kkoukiou)
+- liveinst: Don't exec pkexec (rstrode)
+- cppcheck: Pretend we know more macros (vslavik)
+- webui: Start blivet-gui with --auto-dev-updates (vtrefny)
+- webui: tests: wipefs on vda is done in the VirtInstallMachineCase setUp
+  (kkoukiou)
+- webui: check the BZ report URL length before sending it (rvykydal)
+- webui: move adding comment about log file attaching to proper component
+  (rvykydal)
+- Remove unused variable from makeupdates script (kkoukiou)
+- Fix install complete text (awilliam)
+
 * Tue Sep 12 2023 Packit <hello@packit.dev> - 40.4-1
 - webui: reset partitioning when the user goes back from review screen
   (kkoukiou)

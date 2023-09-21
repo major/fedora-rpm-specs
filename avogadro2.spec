@@ -1,8 +1,3 @@
-# Use devtoolset 8
-%if 0%{?rhel} && 0%{?rhel} == 7
-%global dts devtoolset-8-
-%endif
-
 # Qt6 builds for testing
 %bcond_with qt6
 
@@ -11,7 +6,7 @@
 
 Name:           avogadro2
 Version:        1.97.0
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Advanced molecular editor
 License:        BSD
 URL:            http://avogadro.openmolecules.net/
@@ -30,8 +25,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  avogadro2-libs-devel >= 0:%{version}
 BuildRequires:  molequeue-devel
 BuildRequires:  spglib-devel
-BuildRequires:  %{?dts}gcc
-BuildRequires:  %{?dts}gcc-c++
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  doxygen
 BuildRequires:  eigen3-devel
 BuildRequires:  hdf5-devel
@@ -156,9 +151,6 @@ mv avogadrolibs/avogadrolibs-ca@valencia.qm avogadrolibs/avogadrolibs-ca_VA.qm
 %endif
 
 %build
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-8/enable}
-%endif
 export CFLAGS="%{optflags} -I%{_includedir}/%{name}"
 export CXXFLAGS="%{optflags} -I%{_includedir}/%{name}"
 # RHBZ #1996330
@@ -241,127 +233,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %endif
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Jul 26 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.97.0-2
-- Fix QT_QPA_PLATFORM env variables (rhbz#2056155)
-
-* Fri Jul 22 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.97.0-1
-- Release 1.97.0
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.96.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sun Jun 05 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.96.0-1
-- Release 1.96.0
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.95.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Dec 12 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.95.1-4
-- Built on EPEL8
-
-* Sat Nov 06 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.95.1-3
-- Prepare Qt6 builds for testing
-- Rebuild against openbabel3
-
-* Mon Sep 06 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.95.1-2
-- Manage locale files
-
-* Tue Aug 31 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.95.1-1
-- Release 1.95.1
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.94.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jun 07 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.94.0-1
-- Release 1.94.0
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.93.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.93.0-6
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.93.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Feb 29 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.93.0-4
-- New rebuild
-
-* Fri Feb 28 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.93.0-3
-- Add avogadro2-libs runtime dependency
-
-* Fri Feb 28 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.93.0-2
-- New rebuild
-
-* Sun Feb 09 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.93.0-1
-- Release 1.93.0
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.91.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jan 22 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.91.0-5
-- Rebuild for spglib-1.14.1
-- Use devtools-8 on EPEL7
-- Use CMake3
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.91.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Mar 16 2019 Orion Poplawski <orion@nwra.com> - 1.91.0-3
-- Rebuild for hdf5 1.10.5
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.91.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Aug 24 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.91.0-1
-- Release 1.91.0
-
-* Thu Aug 23 2018 Nicolas Chauvet <kwizart@gmail.com> - 1.90.0-14.20180713git74e1ede
-- Rebuilt for glew 2.1.0
-
-* Sun Jul 15 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-13.20180713git74e1ede
-- Update to commit #74e1ede
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jan 31 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-10
-- Rebuild for moloqueue-0.9.0
-- Rebuild for GCC-8
-
-* Sun Jan 07 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.90.0-9
-- Remove obsolete scriptlets
-
-* Thu Dec 21 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-8
-- Appdata file moved into metainfo data directory
-
-* Thu Dec 14 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-7
-- Rebuild for spglib-1.10.2
-
-* Fri Sep 08 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-6
-- Require OpenBabel (bz#1489749)
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Thu Jun 22 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-3
-- Modified for epel7 builds
-
-* Tue Apr 25 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-2
-- Add appdata file
-
-* Sat Mar 11 2017 Antonio Trande <sagitter@fedoraproject.org> - 1.90.0-1
-- Initial package
+%autochangelog

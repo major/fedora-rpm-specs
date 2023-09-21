@@ -1,14 +1,14 @@
 Name:           mujs
-Version:        1.3.2
-Release:        3%{?dist}
+Version:        1.3.3
+Release:        1%{?dist}
 Summary:        An embeddable Javascript interpreter
 License:        ISC
 URL:            https://mujs.com/
 Source0:        https://mujs.com/downloads/%{name}-%{version}.tar.gz
 
 #BuildRequires:  coreutils
+#BuildRequires:  grep
 BuildRequires:  gcc
-BuildRequires:  grep
 BuildRequires:  make
 BuildRequires:  readline-devel
 
@@ -29,17 +29,17 @@ This package provides the MuJS static library.
 chmod a-x -v docs/*
 
 %build
-%make_build debug %{?_smp_mflags} XCFLAGS="%{optflags} -fPIC" LDFLAGS="%{?__global_ldflags}"
+%make_build release CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 
 %install
-%make_install prefix="%{_prefix}" libdir="%{_libdir}" \
- XCFLAGS="%{optflags} -fPIC" LDFLAGS="%{?__global_ldflags}"
+%make_install prefix="%{_prefix}" libdir="%{_libdir}" CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 
 
 %files
 %license COPYING
 %doc AUTHORS README docs
 %{_bindir}/%{name}
+%{_bindir}/%{name}-pp
 
 %files devel
 %license COPYING
@@ -50,6 +50,10 @@ chmod a-x -v docs/*
 
 
 %changelog
+* Tue Sep 19 2023 Alain Vigne <avigne@fedoraproject.org> 1.3.3-1
+- upstream release 1.3.3
+- migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

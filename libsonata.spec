@@ -23,6 +23,9 @@ Patch2:         0003-Remove-pybind-redeclarations.patch
 Patch3:         0004-disable-python-ext-build.patch
 Patch4:         0005-set-libdir.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  cmake(Catch2) < 3

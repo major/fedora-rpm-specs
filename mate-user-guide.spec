@@ -14,9 +14,9 @@
 
 Name:        mate-user-guide
 Summary:     User Guide for MATE desktop
-Version:     %{branch}.1
+Version:     %{branch}.2
 %if 0%{?rel_build}
-Release:     2%{?dist}
+Release:     1%{?dist}
 %else
 Release:     0.16%{?git_rel}%{?dist}
 %endif
@@ -76,6 +76,9 @@ $RPM_BUILD_ROOT%{_datadir}/applications/mate-user-guide.desktop
 
 
 %changelog
+* Tue Sep 19 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
+- update to 1.26.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

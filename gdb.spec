@@ -1252,6 +1252,10 @@ fi
 %endif
 
 %changelog
+* Tue Sep 19 2023 Keith Seitz <keiths@redhat.com>
+- Remove gdb-rhbz1553104-s390x-arch12-test.patch, which is more thoroughly tested
+  by binutils.
+
 * Mon Sep 18 2023 Alexandra Hájková <ahajkova@redhat.com> - 13.2-8
 - Bump release to 13.2-9.
 

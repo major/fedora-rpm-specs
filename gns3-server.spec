@@ -5,7 +5,7 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.42
+Version:        2.2.43
 Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
@@ -59,7 +59,7 @@ Requires: %{name} = %{version}-%{release}
 sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/distro>=1.8.*/distro>=1.6.0/' requirements.txt
 sed -i -r 's/psutil>=5.9.5/psutil>=5.8.0/' requirements.txt
-sed -i -r 's/aiofiles>=23.1.0,<23.2/aiofiles>=0.7/' requirements.txt
+sed -i -r 's/aiofiles>=23.2.1,<23.3/aiofiles>=0.7/' requirements.txt
 sed -i -r 's/Jinja2>=3.1.2,<3.2/jinja2>=3.0.1/' requirements.txt
 sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
@@ -142,6 +142,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Tue Sep 19 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.43-1
+- Update to 2.2.43
+
 * Thu Aug 10 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.42-1
 - Update to 2.2.42
 

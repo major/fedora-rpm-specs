@@ -4,8 +4,8 @@
 %global crate bootupd
 
 Name:           rust-%{crate}
-Version:        0.2.10
-Release:        2%{?dist}
+Version:        0.2.11
+Release:        3%{?dist}
 Summary:        Bootloader updater
 
 License:        ASL 2.0
@@ -70,6 +70,9 @@ EOF
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Tue Sep 19 2023 Colin Walters <walters@verbum.org> - 0.2.11-3
+- https://github.com/coreos/bootupd/releases/tag/v0.2.11
+
 * Mon Sep 11 2023 Colin Walters <walters@verbum.org> - 0.2.10-2
 - https://github.com/coreos/bootupd/releases/tag/v0.2.10
 

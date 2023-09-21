@@ -4,15 +4,14 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20230804
-Release:	153%{?dist}
+Version:	20230919
+Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
 URL:		http://www.kernel.org/
 BuildArch:	noarch
 
 Source0:	https://www.kernel.org/pub/linux/kernel/firmware/%{name}-%{version}.tar.xz
-Patch1:		0001-linux-firmware-Update-AMD-cpu-microcode.patch
 
 BuildRequires:	make
 BuildRequires:	git-core
@@ -470,6 +469,36 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Sep 19 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230919-1
+- Update to upstream 20230919 release
+- amd-ucode: Add note on fam19h warnings
+- i915: update MTL HuC to version 8.5.4
+- amdgpu: update DMCUB to 0.0.183.0 for various AMDGPU ASICs
+- qcom: add link to sc8280xp audioreach firmware
+- qcom: sm8250: add RB5 sensors DSP firmware
+- qcom: Update vpu-1.0 firmware
+- qcom: sm8250: update DSP firmware
+- qcom: add firmware for the onboard WiFi on qcm2290 / qrb4210
+- qcom: add venus firmware files for v6.0
+- qcom: add firmware for QRB4210 platforms
+- qcom: add firmware for QCM2290 platforms
+- qcom: add GPU firmware for QCM2290 / QRB2210
+- ath10k/WCN3990: move wlanmdsp to qcom/sdm845
+- QCA: Update Bluetooth WCN685x 2.1 firmware to 2.1.0-00605
+- Fix carl9170fw shell scripts for shellcheck errors
+- i915: Update MTL DMC to v2.16
+- Update firmware file for Intel Bluetooth AX200/AX201/AX203/AX210/AX211
+- Update firmware for qat_4xxx devices
+- Update AMD SEV firmware
+- rtw89: 8852b: update fw to v0.29.29.3
+- rtw89: 8851b: update fw to v0.29.41.2
+- i915: add GSC 102.0.0.1655 for MTL
+- cirrus: Add CS35L41 firmware for HP G11 models
+- Update AMD cpu microcode
+- rtl_bt: Add firmware v2 file for RTL8852C
+- Revert "rtl_bt: Update RTL8852C BT USB firmware to 0x040D_7225"
+- cxgb4: Update firmware to revision 1.27.4.0
+
 * Thu Aug 10 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230804-153
 - Update AMD cpu microcode
 

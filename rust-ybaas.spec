@@ -4,7 +4,7 @@
 %global crate ybaas
 
 Name:           rust-ybaas
-Version:        0.0.16
+Version:        0.0.17
 Release:        %autorelease
 Summary:        Yubibomb as a service
 
@@ -35,7 +35,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0 OR Zlib
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        GPL-3.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        GPL-3.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -56,7 +56,7 @@ License:        GPL-3.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR MIT) AND (Ap
 
 %build
 %cargo_build
-%cargo_license_summary
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install

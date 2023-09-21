@@ -8,7 +8,7 @@
 Name:          python-argcomplete
 Summary:       Bash tab completion for argparse
 Version:       2.0.0
-Release:       11%{?dist}
+Release:       12%{?dist}
 License:       ASL 2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
@@ -17,15 +17,15 @@ Source0:       %pypi_source argcomplete
 # this patch removes it
 Patch1:        0001-Remove-commit-hash-from-Fish-version.patch
 
-# Some tests fail with Python 3.12
-# This has been reported upstream: https://github.com/kislyuk/argcomplete/issues/440
-# Upstream already skips those on MacOS, so we skip them as well
-Patch2:        0002-Skip-tests-that-fail-on-Python-3.12.patch
-
 # Ensure Python 3.7+ compatibility in check_console_script
 # Rebased from https://github.com/kislyuk/argcomplete/commit/f4d046c0ce
-# Should fix https://bugzilla.redhat.com/2231593
+# Partial fix for https://bugzilla.redhat.com/2231593
 Patch3:        0003-Ensure-Python-3.7-compatibility-in-check_console_script.patch
+
+# Ensure Python 3.12+ compatibility in check_console_script
+# Rebased from https://github.com/kislyuk/argcomplete/pull/448
+# A second part of the fix for https://bugzilla.redhat.com/2231593
+Patch4:        0004-Ensure-Python-3.12-compatibility-in-check_console_script.patch
 
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -101,6 +101,10 @@ export INPUTRC=$PWD/.inputrc
 %{_sysconfdir}/bash_completion.d/%{name}
 
 %changelog
+* Thu Sep 14 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-12
+- Second attempt to fix KeyError: 'console_scripts'
+- Fixes: rhbz#2231593
+
 * Sun Aug 13 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-11
 - Fix KeyError: 'console_scripts'
 - Fixes: rhbz#2231593

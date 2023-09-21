@@ -106,7 +106,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Archive-Tar-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do

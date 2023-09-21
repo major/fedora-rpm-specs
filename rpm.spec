@@ -25,7 +25,7 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 4.18.99
+%global rpmver 4.19.0
 #global snapver rc1
 %global baserelease 1
 %global sover 10
@@ -613,6 +613,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Tue Sep 19 2023 Michal Domonkos <mdomonko@redhat.com> - 4.19.0-1
+- Update to 4.19.0
+
 * Mon Sep 04 2023 Michal Domonkos <mdomonko@redhat.com> - 4.18.99-1
 - Update to 4.19 rc1
 

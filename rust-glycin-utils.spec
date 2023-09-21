@@ -3,21 +3,20 @@
 %global debug_package %{nil}
 
 %global crate glycin-utils
-%global crate_version 0.1.0-rc
 
 Name:           rust-glycin-utils
-Version:        0.1.0~rc
+Version:        0.1.0
 Release:        %autorelease
-Summary:        Sandboxed image rendering
+Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin-utils
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Sandboxed image rendering.}
+Sandboxed image decoding.}
 
 %description %{_description}
 
@@ -73,7 +72,7 @@ use the "image-rs" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires

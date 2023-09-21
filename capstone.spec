@@ -9,7 +9,7 @@ Summary:        A lightweight multi-platform, multi-architecture disassembly fra
 %global         commit          1d230532840a37ac032c6ab80128238fc930c6c1
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
-License:        BSD
+License:        BSD-3-Clause AND BSD-4-Clause AND APSL-2.0 AND NCSA AND MIT
 URL:            http://www.capstone-engine.org/
 VCS:            https://github.com/capstone-engine/capstone/
 #               https://github.com/capstone-engine/capstone/releases

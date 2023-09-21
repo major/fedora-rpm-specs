@@ -41,6 +41,8 @@ Patch:          %{url}/pull/1083.patch
 Patch:          %{url}/pull/1084.patch
 
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description %_description
 

@@ -3,7 +3,7 @@
 Name:           dummy-test-package-gloster
 
 Version:        0
-Release:        10951%{?dist}
+Release:        10957%{?dist}
 Summary:        Dummy Test Package called Gloster
 License:        CC0
 URL:            http://fedoraproject.org/wiki/DummyTestPackages
@@ -32,6 +32,24 @@ cp -p uuid %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Wed Sep 20 2023 packagerbot <admin@fedoraproject.org> - 0-10957
+- rebuilt
+
+* Tue Sep 19 2023 packagerbot <admin@fedoraproject.org> - 0-10956
+- rebuilt
+
+* Tue Sep 19 2023 packagerbot <admin@fedoraproject.org> - 0-10955
+- rebuilt
+
+* Tue Sep 19 2023 packagerbot <admin@fedoraproject.org> - 0-10954
+- rebuilt
+
+* Tue Sep 19 2023 packagerbot <admin@fedoraproject.org> - 0-10953
+- rebuilt
+
+* Tue Sep 19 2023 packagerbot <admin@fedoraproject.org> - 0-10952
+- rebuilt
+
 * Mon Sep 18 2023 packagerbot <admin@fedoraproject.org> - 0-10951
 - rebuilt
 

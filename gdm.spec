@@ -1,66 +1,61 @@
 %global _hardened_build 1
 
-%define libauditver 1.0.6
 %define gtk3_version 2.99.2
-%define pam_version 0.99.8.1-11
-%define desktop_file_utils_version 0.2.90
-%define nss_version 3.11.1
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-Name:    gdm
-Epoch:   1
-Version: 45~beta
-Release: %autorelease
-Summary: The GNOME Display Manager
+Name:           gdm
+Epoch:          1
+Version:        45.0.1
+Release:        %autorelease
+Summary:        The GNOME Display Manager
 
-License: GPL-2.0-or-later
-URL:     https://wiki.gnome.org/Projects/GDM
-Source0: https://download.gnome.org/sources/gdm/44/gdm-%{tarball_version}.tar.xz
-Source1: org.gnome.login-screen.gschema.override
+License:        GPL-2.0-or-later
+URL:            https://wiki.gnome.org/Projects/GDM
+Source0:        https://download.gnome.org/sources/gdm/44/gdm-%{tarball_version}.tar.xz
+Source1:        org.gnome.login-screen.gschema.override
 
 # moved here from pulseaudio-gdm-hooks-11.1-16
-Source5: default.pa-for-gdm
+Source5:        default.pa-for-gdm
 
-Source6: gdm.sysusers
+Source6:        gdm.sysusers
 
 # Downstream patches
-Patch: 0001-udev-Stick-with-wayland-on-hybrid-nvidia-with-vendor.patch
-Patch: 0001-Honor-initial-setup-being-disabled-by-distro-install.patch
-Patch: 0001-data-add-system-dconf-databases-to-gdm-profile.patch
+Patch:          0001-udev-Stick-with-wayland-on-hybrid-nvidia-with-vendor.patch
+Patch:          0001-Honor-initial-setup-being-disabled-by-distro-install.patch
+Patch:          0001-data-add-system-dconf-databases-to-gdm-profile.patch
 
-BuildRequires: dconf
-BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
-BuildRequires: gettext-devel
-BuildRequires: libXdmcp-devel
-BuildRequires: meson
-BuildRequires: pam-devel >= 0:%{pam_version}
-BuildRequires: pkgconfig(accountsservice) >= 0.6.3
-BuildRequires: pkgconfig(audit) >= %{libauditver}
-BuildRequires: pkgconfig(check)
-BuildRequires: pkgconfig(gobject-introspection-1.0)
-BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
-BuildRequires: pkgconfig(gudev-1.0)
-BuildRequires: pkgconfig(iso-codes)
-BuildRequires: pkgconfig(libcanberra-gtk3)
-BuildRequires: pkgconfig(libkeyutils)
-BuildRequires: pkgconfig(libselinux)
-BuildRequires: pkgconfig(libsystemd)
-BuildRequires: pkgconfig(ply-boot-client)
-BuildRequires: pkgconfig(systemd)
-BuildRequires: pkgconfig(x11)
-BuildRequires: pkgconfig(xau)
-BuildRequires: pkgconfig(xorg-server)
-BuildRequires: systemd-rpm-macros
-BuildRequires: which
-BuildRequires: xorg-x11-server-Xorg
-BuildRequires: yelp-devel
-BuildRequires: yelp-tools
+BuildRequires:  dconf
+BuildRequires:  desktop-file-utils
+BuildRequires:  gettext-devel
+BuildRequires:  libXdmcp-devel
+BuildRequires:  meson
+BuildRequires:  pam-devel
+BuildRequires:  pkgconfig(accountsservice) >= 0.6.3
+BuildRequires:  pkgconfig(audit)
+BuildRequires:  pkgconfig(check)
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires:  pkgconfig(gudev-1.0)
+BuildRequires:  pkgconfig(iso-codes)
+BuildRequires:  pkgconfig(libcanberra-gtk3)
+BuildRequires:  pkgconfig(libkeyutils)
+BuildRequires:  pkgconfig(libselinux)
+BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(ply-boot-client)
+BuildRequires:  pkgconfig(systemd)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xau)
+BuildRequires:  pkgconfig(xorg-server)
+BuildRequires:  systemd-rpm-macros
+BuildRequires:  which
+BuildRequires:  xorg-x11-server-Xorg
+BuildRequires:  yelp-devel
+BuildRequires:  yelp-tools
 
 Provides: service(graphical-login) = %{name}
 
 Requires: accountsservice
-Requires: audit-libs >= %{libauditver}
 Requires: dconf
 # since we use it, and pam spams the log if the module is missing
 Requires: gnome-keyring-pam
@@ -71,7 +66,7 @@ Requires: gnome-shell
 Requires: iso-codes
 # We need 1.0.4-5 since it lets us use "localhost" in auth cookies
 Requires: libXau >= 1.0.4-4
-Requires: pam >= 0:%{pam_version}
+Requires: pam
 Requires: /sbin/nologin
 Requires: setxkbmap
 Requires: systemd >= 186

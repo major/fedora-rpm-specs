@@ -45,6 +45,7 @@ Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 %if 0%{?use_release}
 Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
 %endif
+Source1:		create-%{name}-git-bare-tarball.sh
 
 BuildRequires:	make
 BuildRequires:	gcc

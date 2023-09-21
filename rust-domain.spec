@@ -6,7 +6,7 @@
 %global forgeurl0 https://github.com/NLnetLabs/domain
 
 Name:           rust-domain
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        DNS library for Rust
 

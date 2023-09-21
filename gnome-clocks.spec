@@ -1,25 +1,24 @@
 %global geoclue2_version 2.6.0
 %global gtk4_version 4.5
-%global libadwaita_version 1.2.alpha
+%global libadwaita_version 1.4~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-clocks
-Version:        44.0
-Release:        2%{?dist}
+Version:        45.0
+Release:        1%{?dist}
 Summary:        Clock application designed for GNOME 3
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Clocks
-Source0:        https://download.gnome.org/sources/gnome-clocks/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnome-clocks/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  itstool
 BuildRequires:  libappstream-glib
-# Required for gnome-desktop-4 VAPI.
-BuildRequires:  vala >= 0.56.4
+BuildRequires:  vala
 
 BuildRequires:  pkgconfig(geocode-glib-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
@@ -67,6 +66,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.clocks.d
 %{_datadir}/metainfo/org.gnome.clocks.metainfo.xml
 
 %changelog
+* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

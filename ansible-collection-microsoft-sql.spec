@@ -15,7 +15,7 @@ Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
 Version: 2.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 
@@ -47,7 +47,7 @@ Requires: rhel-system-roles
 Requires: linux-system-roles
 %endif
 
-%global mainid 73800682a3293ef5ab5ed5880329ce792cd34bbf
+%global mainid eadd06cfa98d244b096cff24cd11b668428b1613
 # Use either hash or tag for source1id
 # %%global source1id 50edba099ab2c8b25b225fe760cb5a459b320030
 %global source1id %{version}
@@ -209,10 +209,6 @@ mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles
 ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/README.md \
    %{buildroot}%{_pkgdocdir}/collection
 
-# Copy README.html from mssql to the collection role dir
-cp %{rolename}/README.html \
-    %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}
-
 # Link role READMEs to /usr/share/doc/ansible-collection-microsoft-sql/collection/roles/server
 mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
 ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md \
@@ -310,6 +306,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Mon Sep 18 2023 Sergei Petrosian <spetrosi@redhat.com> - 2.0.2-2
+- Use latest auto-maintenance for updates in lsr_role2collection.py
+
 * Wed Aug 16 2023 Sergei Petrosian <spetrosi@redhat.com> - 2.0.2-1
 - Update role to version 2.0.2 to improve collection readme
 - Remove with_html, instead use built-in .README.html

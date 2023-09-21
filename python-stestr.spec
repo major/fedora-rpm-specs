@@ -10,8 +10,8 @@ which enabled testr to work with any subunit emitting runner are gone. \
 stestr hard codes python-subunit-isms into how it works.
 
 Name:       python-%{pypi_name}
-Version:    4.0.1
-Release:    3%{?dist}
+Version:    4.1.0
+Release:    1%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 License:    ASL 2.0
@@ -31,7 +31,6 @@ BuildRequires:    python%{python3_pkgversion}-devel
 BuildRequires:    git-core
 
 Requires:   python%{python3_pkgversion}-pbr
-Requires:   python%{python3_pkgversion}-future
 Requires:   python%{python3_pkgversion}-subunit >= 1.4.0
 Requires:   python%{python3_pkgversion}-fixtures >= 3.0.0
 Requires:   python%{python3_pkgversion}-testtools >= 2.2.0
@@ -71,6 +70,7 @@ It contains the documentation for stestr.
 %autosetup -n %{pypi_name}-%{version} -S git
 sed -i '/doc8.*/d' test-requirements.txt
 sed -i '/hacking.*/d' test-requirements.txt
+sed -i '/black.*/d' test-requirements.txt
 # Replace removed SafeConfigParser with ConfigParser
 # Upstream: https://github.com/mtreinish/stestr/pull/344
 sed -i 's/SafeConfigParser/ConfigParser/' stestr/commands/run.py
@@ -112,6 +112,9 @@ ln -s stestr-3 %{buildroot}/%{_bindir}/stestr-%{python3_version}
 %endif
 
 %changelog
+* Tue Sep 19 2023 Lumír Balhar <lbalhar@redhat.com> - 4.1.0-1
+- Update to 4.1.0 (rhbz#2239471)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

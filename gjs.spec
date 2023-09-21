@@ -3,7 +3,7 @@
 %global mozjs115_version 115.1.0
 
 Name:           gjs
-Version:        1.77.90
+Version:        1.78.0
 Release:        1%{?dist}
 Summary:        Javascript Bindings for GNOME
 
@@ -13,7 +13,7 @@ Summary:        Javascript Bindings for GNOME
 # Stack printer (gjs/stack.c)
 License:        MIT and (MPLv1.1 or GPLv2+ or LGPLv2+)
 URL:            https://wiki.gnome.org/Projects/Gjs
-Source0:        https://download.gnome.org/sources/%{name}/1.77/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/1.78/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -94,6 +94,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 1.78.0-1
+- Update to 1.78.0
+
 * Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 1.77.90-1
 - Update to 1.77.90
 

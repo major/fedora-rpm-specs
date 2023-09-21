@@ -5,7 +5,7 @@
 %global crate smawk
 
 Name:           rust-smawk
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Functions for finding row-minima in a totally monotone matrix
 

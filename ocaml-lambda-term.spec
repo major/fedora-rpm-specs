@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lambda-term
 Version:        3.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Terminal manipulation library for OCaml
 
 License:        BSD-3-Clause
@@ -71,6 +71,9 @@ sed -e 's,%{_datadir}/lambda-termrc,%{_datadir}/lambda-term,' \
 %license LICENSE
 
 %changelog
+* Tue Sep 19 2023 Jerry James <loganjerry@gmail.com> - 3.3.2-2
+- Rebuild to fix ocaml-zed dependency in F39
+
 * Mon Sep 11 2023 Jerry James <loganjerry@gmail.com> - 3.3.2-1
 - Version 3.3.2
 

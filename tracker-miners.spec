@@ -12,7 +12,7 @@
 %global with_rss 1
 %endif
 
-%global tracker_version 3.6~alpha
+%global tracker_version 3.6
 
 %global systemd_units tracker-extract-3.service tracker-miner-fs-3.service tracker-miner-fs-control-3.service tracker-miner-rss-3.service tracker-writeback-3.service
 
@@ -23,7 +23,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.6~rc
+Version:        3.6.0
 Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
@@ -160,6 +160,9 @@ This package contains various miners and metadata extractors for tracker.
 
 
 %changelog
+* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 3.6.0-1
+- Update to 3.6.0
+
 * Wed Sep 06 2023 Kalev Lember <klember@redhat.com> - 3.6~rc-1
 - Update to 3.6.rc
 

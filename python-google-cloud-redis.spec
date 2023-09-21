@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        2.13.1
+Version:        2.13.2
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Memorystore for Redis API
 

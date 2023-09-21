@@ -11,8 +11,8 @@
 %global intver 12:0:2
 
 Name:           cube
-Version:        4.8.1
-Release:        3%{?dist}
+Version:        4.8.2
+Release:        1%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
@@ -24,7 +24,6 @@ Source0:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubegui/tags/cube
 Source1:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubew/tags/cubew-4.8-rc1/cubew-4.8-rc1.tar.gz
 Source2:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubelib/tags/cubelib-4.8-rc1/cubelib-4.8-rc1.tar.gz
 %endif
-Patch1:         cube-configure-c99.patch
 BuildRequires:  dbus-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  chrpath
@@ -101,7 +100,6 @@ The %{name}-doc package contains documentation for %{name}.
 tar fx %SOURCE0
 tar fx %SOURCE1
 tar fx %SOURCE2
-%patch1 -p1
 # Fiddle for cubelib not being installed when building cubegui
 cat <<+ >cubelib-config
 #!/bin/sh
@@ -116,9 +114,9 @@ chmod +x cubelib-config
 # In v4.7 these files define compiler flags overriding the supplied
 # ones in configure, which actually breaks the test for working CC due
 # to -fPIE inconsistency.
-for d in cubew-* cubelib-%ver cubegui-*; do
-  printf 'CC=gcc\nCXX=g++\n' >$d/build-config/common/platforms/platform-backend-linux
-done
+# for d in cubew-* cubelib-%ver cubegui-*; do
+#   printf 'CC=gcc\nCXX=g++\n' >$d/build-config/common/platforms/platform-backend-linux
+# done
 
 
 %build
@@ -360,6 +358,10 @@ fi
 
 
 %changelog
+* Mon Sep 18 2023 Dave Love <loveshack@fedoraproject.org> - 4.8.2-1
+- Update to v4.8.2
+- Drop patch
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

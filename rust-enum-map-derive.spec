@@ -6,7 +6,7 @@
 %global crate enum-map-derive
 
 Name:           rust-enum-map-derive
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Macros 1.1 implementation of #[derive(Enum)]
 
@@ -31,8 +31,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSES/Apache-2.0.txt
+%license %{crate_instdir}/LICENSES/MIT.txt
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

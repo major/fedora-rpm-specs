@@ -15,7 +15,7 @@
 
 Name:           firecracker
 Version:        1.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
 License:        Apache-2.0 AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND MIT AND Unicode-DFS-2016
@@ -112,6 +112,9 @@ done
 
 
 %changelog
+* Tue Sep 19 2023 Fabio Valentini <decathorpe@gmail.com> - 1.4.1-2
+- Rebuild for vm-memory v0.12.2 / CVE-2023-41051.
+
 * Wed Aug 09 2023 David Michael <fedora.dm0@gmail.com> - 1.4.1-1
 - Update to the 1.4.1 release.
 

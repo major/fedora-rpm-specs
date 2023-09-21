@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.11.3
+Version:        1.11.4
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Billing API
 

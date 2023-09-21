@@ -5,7 +5,7 @@
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic 2.0
-Version: 6.020
+Version: 6.030
 Release: 2%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 URL: https://www.chordpro.org
@@ -16,7 +16,7 @@ BuildArch: noarch
 # This package would provide many (perl) modules, but these are
 # not intended for general use.
 %global __provides_exclude_from /*\\.pm$
-%global __requires_exclude ChordPro
+%global __requires_exclude ChordPro|SVGPDF
 
 Requires: perl(:VERSION) >= 5.26.0
 
@@ -32,6 +32,7 @@ Requires: perl(List::Util)                  >= 1.33
 Requires: perl(Storable)                    >= 3.08
 Requires: perl(Object::Pad)                 >= 0.78
 Requires: perl(Hash::Util)
+Requires: perl(FindBin)
 
 BuildRequires: make
 BuildRequires: perl(App::Packager)               >= 1.430
@@ -43,6 +44,7 @@ BuildRequires: perl(File::HomeDir)               >= 1.004
 BuildRequires: perl(File::LoadLines)             >= 1.021
 BuildRequires: perl(File::Spec)
 BuildRequires: perl(File::Temp)
+BuildRequires: perl(FindBin)
 BuildRequires: perl(Hash::Util)
 BuildRequires: perl(Getopt::Long)
 BuildRequires: perl(Image::Info)                 >= 1.41
@@ -230,6 +232,12 @@ update-mime-database %{_datadir}/mime
 gtk-update-icon-cache %{_datadir}/icons/hicolor
 
 %changelog
+* Tue Sep 19 2023 Johan Vromans <jvromans@squirrel.nl> - 6.030-1
+- Fix dependency problem.
+
+* Tue Sep 19 2023 Johan Vromans <jvromans@squirrel.nl> - 6.030-2
+- Upgrade to upstream.
+
 * Mon Jul 24 2023 Johan Vromans <jvromans@squirrel.nl> - 6.020-1
 - Upgrade to upstream.
 

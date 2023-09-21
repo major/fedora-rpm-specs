@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.8.2
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud Data Fusion API
 

@@ -5,7 +5,7 @@
 %global crate enum-map
 
 Name:           rust-enum-map
-Version:        2.6.1
+Version:        2.6.3
 Release:        %autorelease
 Summary:        Map with C-like enum keys represented internally as an array
 
@@ -30,8 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSES/Apache-2.0.txt
+%license %{crate_instdir}/LICENSES/MIT.txt
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/

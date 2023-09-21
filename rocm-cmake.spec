@@ -1,13 +1,13 @@
 # there is no debug package - this is just cmake modules
 %global debug_package %{nil}
 
-%global rocm_release 5.5
-%global rocm_patch 1
+%global rocm_release 5.7
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:     rocm-cmake
 Version:  %{rocm_version}
-Release:  %autorelease -b 5 # this is to make sure the release supercedes reviewed builds, remove for next release
+Release:  %autorelease
 Summary:  CMake modules for common build and dev tasks within the ROCm project
 License:  MIT
 URL:      https://github.com/radeonopencompute/rocm-cmake

@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        45.0.1
+Version:        45.0.2
 Release:        1%{?dist}
 Summary:        Process and resource monitor
 
@@ -68,6 +68,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0.2-1
+- Update to 45.0.2
+
 * Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45.0.1-1
 - Update to 45.0.1
 

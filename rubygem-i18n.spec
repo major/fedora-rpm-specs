@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.14.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: New wave Internationalization support for Ruby
 # `BSD or Ruby` due to header of lib/i18n/gettext/po_parser.rb
 License: MIT AND (BSD-2-Clause OR Ruby)
@@ -23,6 +23,7 @@ BuildRequires: rubygem(mocha)
 BuildRequires: rubygem(test_declarative)
 BuildRequires: rubygem(concurrent-ruby)
 BuildRequires: rubygem(activesupport)
+BuildREquires: rubygem(racc)
 %endif
 BuildArch: noarch
 
@@ -82,6 +83,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Sep 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.1-3
+- Explicitly add rubygem(racc) for BuildRequires for %%check
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

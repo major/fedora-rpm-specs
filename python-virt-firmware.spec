@@ -8,6 +8,7 @@ Summary:        Tools for virtual machine firmware volumes
 License:        GPL-2.0-only
 URL:            https://pypi.org/project/virt-firmware/
 Source0:        virt-firmware-%{pypi_version}.tar.gz
+Patch1:         systemd-fixes.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -26,6 +27,7 @@ to enroll secure boot certificates.
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-virt-firmware}
 Provides:       virt-firmware
+Conflicts:      python3-virt-firmware-peutils < 23.9
 Obsoletes:      python3-virt-firmware-peutils < 23.9
 Requires:       python3dist(cryptography)
 Requires:       python3dist(setuptools)
@@ -53,7 +55,7 @@ kernel-install plugin and systemd unit to manage automatic
 UKI (unified kernel image) updates.
 
 %prep
-%autosetup -n virt-firmware-%{pypi_version}
+%autosetup -n virt-firmware-%{pypi_version} -p 1
 
 %build
 %py3_build
@@ -68,9 +70,9 @@ mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -ar tests %{buildroot}%{_datadir}/%{name}
 # uki-direct
 install -m 755 -d  %{buildroot}%{_unitdir}
-install -m 755 -d  %{buildroot}/usr/lib/kernel/install.d
+install -m 755 -d  %{buildroot}%{_libdir}/kernel/install.d
 install -m 644 systemd/kernel-bootcfg-boot-successful.service %{buildroot}%{_unitdir}
-install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}/usr/lib/kernel/install.d
+install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_libdir}/kernel/install.d
 
 %post -n uki-direct
 %systemd_post kernel-bootcfg-boot-successful.service
@@ -106,7 +108,7 @@ install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}/usr/lib/kernel/ins
 
 %files -n uki-direct
 %{_unitdir}/kernel-bootcfg-boot-successful.service
-/usr/lib/kernel/install.d/99-uki-uefi-setup.install
+%{_libdir}/kernel/install.d/99-uki-uefi-setup.install
 
 %changelog
 %autochangelog

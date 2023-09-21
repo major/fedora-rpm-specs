@@ -43,7 +43,7 @@
 %endif
 
 Name:           xpra
-Version:        5.0.1
+Version:        5.0.2
 Release:        %autorelease
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT

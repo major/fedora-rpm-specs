@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 6.0.13
-Release: 2%{?dist}
+Version: 6.0.14
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -189,6 +189,9 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Tue Sep 19 2023 Steve Grubb <sgrubb@redhat.com> 6.0.14-1
+- New security and bugfix release
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://github.com/nats-io/nats-server
 %global goipath         github.com/nats-io/nats-server
-Version:                2.1.9
+Version:                2.9.22
 
 %gometa
 
@@ -16,29 +16,20 @@ Computing Foundation (CNCF).}
 
 %global golicenses      LICENSE
 %global godocs          CODE-OF-CONDUCT.md GOVERNANCE.md MAINTAINERS.md\\\
-                        ROADMAP.md TODO.md README.md
+                        README.md TODO.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        %autorelease
 Summary:        High-Performance server for NATS, the cloud native messaging system
 
 # Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 
-BuildRequires:  golang(github.com/nats-io/jwt)
-BuildRequires:  golang(github.com/nats-io/nkeys)
-BuildRequires:  golang(github.com/nats-io/nuid)
-BuildRequires:  golang(golang.org/x/crypto/bcrypt)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  help2man
 Requires(pre):  shadow-utils
-
-%if %{with check}
-# Tests
-BuildRequires:  golang(github.com/nats-io/nats.go)
-%endif
 
 %description
 %{common_description}
@@ -47,6 +38,9 @@ BuildRequires:  golang(github.com/nats-io/nats.go)
 
 %prep
 %goprep
+
+%generate_buildrequires
+%go_generate_buildrequires
 
 %build
 %gobuild -o %{gobuilddir}/bin/%{name} %{goipath}
@@ -89,8 +83,7 @@ exit 0
 
 %files
 %license LICENSE
-%doc CODE-OF-CONDUCT.md GOVERNANCE.md MAINTAINERS.md ROADMAP.md TODO.md
-%doc README.md
+%doc CODE-OF-CONDUCT.md GOVERNANCE.md MAINTAINERS.md README.md TODO.md
 %{_sbindir}/*
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %{_mandir}/man1/%{name}.1*
@@ -100,61 +93,4 @@ exit 0
 %gopkgfiles
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 2.1.9-7
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 2.1.9-6
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1.9-3
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Dec 26 14:01:50 CET 2020 Robert-André Mauchin <zebob.m@gmail.com> - 2.1.9-1
-- Update to 2.1.9
-- Close: rhbz#1875804
-- Security fix for CVE-2020-26892
-- Fix: rhbz#1903719
-- Security fix for CVE-2020-26521
-- Fix: rhbz#1903716
-
-* Thu Jul 30 06:57:58 CEST 2020 Robert-André Mauchin <zebob.m@gmail.com> - 2.1.7-3
-- Add alternative import path
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jun 18 15:09:38 CEST 2020 Robert-André Mauchin <zebob.m@gmail.com> - 2.1.7-1
-- Update to 2.1.7
-
-* Sat Feb 01 22:29:20 CET 2020 Robert-André Mauchin <zebob.m@gmail.com> - 2.1.4-1
-- Update to 2.1.4
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue May 14 00:55:18 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 2.0.2-1
-- Release 2.0.2
-
-* Tue May 14 00:55:18 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 2.0.0-1.rc8
-- Initial package
+%autochangelog

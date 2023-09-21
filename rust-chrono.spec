@@ -5,7 +5,7 @@
 %global crate chrono
 
 Name:           rust-chrono
-Version:        0.4.27
+Version:        0.4.31
 Release:        %autorelease
 Summary:        Date and time library for Rust
 
@@ -185,18 +185,6 @@ use the "std" feature of the "%{crate}" crate.
 %files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+time-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+time-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "time" feature of the "%{crate}" crate.
-
-%files       -n %{name}+time-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+unstable-locales-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -224,9 +212,7 @@ use the "unstable-locales" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip a test that hard-codes 64-bit arch-specific type sizes:
-#   https://github.com/chronotope/chrono/issues/1234
-%cargo_test -a -- -- --skip format::strftime::tests::test_type_sizes
+%cargo_test -a
 %endif
 
 %changelog

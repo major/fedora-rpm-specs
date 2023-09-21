@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    1df504e42a88044c27a90136910f0b3fe9e91939
+%global gh_commit    56f33548fe522c8d82da7ff3824b42829d324364
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
 %global gh_project   php-code-coverage
@@ -24,7 +24,7 @@
 %global ver_major    10
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        10.1.5
+Version:        10.1.6
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -196,6 +196,9 @@ exit $ret
 
 
 %changelog
+* Tue Sep 19 2023 Remi Collet <remi@remirepo.net> - 10.1.6-1
+- update to 10.1.6
+
 * Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 10.1.5-1
 - update to 10.1.5
 

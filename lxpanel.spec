@@ -1,47 +1,40 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=219930
 
 %global	use_release	0
-%global	use_git		0
 %global	use_gitbare	1
 
-%if 0%{?use_git} < 1
 %if 0%{?use_gitbare} < 1
 # force
 %global	use_release	1
-%endif
 %endif
 
 %global	git_version	%{nil}
 %global	git_ver_rpm	%{nil}
 %global	git_builddir	%{nil}
 
-%if 0%{?use_git}
-%global	git_rev		138ff9b22b45192a3b020ebbbed04e9060470a66
-%global	git_date		20161125
-%global	git_short		%(echo %{git_rev} | cut -c-8)
-%global	git_version	%{git_date}git%{git_short}
-%endif
-
 %if 0%{?use_gitbare}
-%global	gittardate		20230820
-%global	gittartime		1429
+%global	gittardate		20230919
+%global	gittartime		1537
 
-%global	gitbaredate	20230817
-%global	git_rev		dd0101154a5b87c5d844ccf055d5ce7b9a37d90d
+%global	gitbaredate	20230918
+%global	git_rev		633a2d46ffd37f3acde539de9a2861d1ade49ef8
 %global	git_short		%(echo %{git_rev} | cut -c-8)
 %global	git_version	%{gitbaredate}git%{git_short}
 %endif
 
-%if 0%{?use_git} || 0%{?use_gitbare}
+%if 0%{?use_gitbare}
 %global	git_ver_rpm	^%{git_version}
 %global	git_builddir	-%{git_version}
 %endif
 
+#%%global		use_gcc_strict_sanitize	1
+
 %global		main_version	0.10.1
+%global		baserelease	1
 
 Name:			lxpanel
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		%{baserelease}%{?dist}%{?use_gcc_strict_sanitize:.san}
 Summary:		A lightweight X11 desktop panel
 
 # SPDX confirmed
@@ -49,9 +42,6 @@ License:		GPL-2.0-or-later
 URL:			http://lxde.org/
 %if 0%{?use_gitbare}
 Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
-%endif
-%if 0%{?use_git}
-Source0:		%{name}-%{version}-%{?git_version}.tar.bz2
 %endif
 %if 0%{?use_release}
 Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{main_version}.tar.xz
@@ -103,9 +93,14 @@ BuildRequires:	/usr/bin/curl-config
 BuildRequires:	wireless-tools-devel
 %endif
 
-%if 0%{?use_git} || 0%{?use_gitbare}
+%if 0%{?use_gitbare}
 BuildRequires:	automake
 BuildRequires:	libtool
+%endif
+
+%if 0%{?use_gcc_strict_sanitize}
+BuildRequires:	libasan
+BuildRequires:	libubsan
 %endif
 
 BuildRequires:	git
@@ -130,7 +125,7 @@ developing applications that use %{name}.
 
 
 %prep
-%if 0%{?use_release} || 0%{?use_git}
+%if 0%{?use_release}
 %setup -q -n %{name}-%{main_version}%{git_builddir}
 
 git init
@@ -156,9 +151,9 @@ done
 %endif
 
 git config user.name "lxpanel Fedora maintainer"
-git config user.email "lxpanel-owner@fedoraproject.org"
+git config user.email "lxpanel-maintainer@fedoraproject.org"
 
-%if 0%{?use_release} || 0%{?use_git}
+%if 0%{?use_release}
 git add .
 git rm --cached \
 	config.guess config.sub configure \
@@ -190,18 +185,23 @@ git commit -m "Apply Fedora specific configulation" -a
 cd %{name}
 %endif
 
-%if 0%{?use_git} || 0%{?use_gitbare}
+%if 0%{?use_gitbare}
 bash autogen.sh
+%endif
+
+%if 0%{?use_gcc_strict_sanitize}
+export CC="${CC} -fsanitize=address -fsanitize=undefined"
+export LDFLAGS="${LDFLAGS} -pthread"
+# Currently -fPIE binary cannot work with ASAN on kernel 4.12
+# https://github.com/google/sanitizers/issues/837
+export CFLAGS="$(echo $CFLAGS	| sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
+export LDFLAGS="$(echo $LDFLAGS	| sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
 %endif
 
 %configure \
 	--enable-indicator-support \
 	--disable-silent-rules \
-%if 0%{?fedora} < 36
-	--with-plugins='all' \
-%else
 	--with-plugins='netstatus,volume,cpu,deskno,batt,kbled,xkb,thermal,cpufreq,monitors,indicator,weather' \
-%endif
 	%{nil}
 %make_build
 
@@ -237,6 +237,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Tue Sep 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20230918git633a2d46-1
+- Update to the latest git
+
 * Sun Aug 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20230817gitdd010115-1
 - Update to the latest git
 

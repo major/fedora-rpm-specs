@@ -8,10 +8,8 @@
 # Please, preserve the changelog entries
 #
 
-# For compatibility with SCL
-%undefine __brp_mangle_shebangs
 
-%global gh_commit    7d1ff0e8c6b35db78ff13e3e05517d7cbf7aa32e
+%global gh_commit    622d0186707f39a4ae71df3bcf42d759bb868854
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,12 +23,12 @@
 %global ver_major    8
 %global ver_minor    5
 
-%global upstream_version 8.5.33
+%global upstream_version 8.5.34
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -155,7 +153,7 @@ Documentation: https://phpunit.readthedocs.io/
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch0 -p0 -b .rpm
+%patch -P0 -p0 -b .rpm
 
 
 %build
@@ -218,7 +216,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
      $cmd ./phpunit $OPT --verbose || ret=1
   fi
@@ -235,6 +233,9 @@ exit $ret
 
 
 %changelog
+* Tue Sep 19 2023 Remi Collet <remi@remirepo.net> - 8.5.34-1
+- update to 8.5.34
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

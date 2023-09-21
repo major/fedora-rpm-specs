@@ -49,7 +49,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -203,6 +203,9 @@ BuildRequires: python3-zombie-imp
 # src/3rdparty/chromium/third_party/sqlite/README.chromium for details
 #BuildRequires: pkgconfig(sqlite3)
 
+# Split subpackage
+Requires: qt6-qtpdf%{?_isa} = %{version}-%{release}
+
 ## Various bundled libraries that Chromium does not support unbundling :-(
 ## Only the parts actually built are listed.
 ## Query for candidates:
@@ -322,6 +325,7 @@ Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: qt6-qtbase-devel%{?_isa}
 Requires: qt6-qtdeclarative-devel%{?_isa}
+Requires: qt6-qtpdf-devel%{?_isa} = %{version}-%{release}
 # not arch'd for now, see if can get away with avoiding multilib'ing -- rex
 Requires: %{name}-devtools = %{version}-%{release}
 %description devel
@@ -337,6 +341,25 @@ Support for remote debugging.
 Summary: Example files for %{name}
 
 %description examples
+%{summary}.
+
+%package -n qt6-qtpdf
+Summary: Qt6 - QtPdf components
+%description -n qt6-qtpdf
+%{summary}.
+
+%package -n qt6-qtpdf-devel
+Summary: Development files for qt6-qtpdf
+Requires: qt6-qtpdf%{?_isa} = %{version}-%{release}
+Requires: qt6-qtbase-devel%{?_isa}
+Requires: qt6-qtdeclarative-devel%{?_isa}
+%description -n qt6-qtpdf-devel
+%{summary}.
+
+%package -n qt6-qtpdf-examples
+Summary: Example files for qt6-qtpdf
+
+%description -n qt6-qtpdf-examples
 %{summary}.
 
 %prep
@@ -482,9 +505,6 @@ done
 %if 0%{?docs}
 %license src/webengine/doc/src/qtwebengine-3rdparty.qdoc
 %endif
-%{_qt6_libdir}/libQt6Pdf.so.*
-%{_qt6_libdir}/libQt6PdfQuick.so.*
-%{_qt6_libdir}/libQt6PdfWidgets.so.*
 %{_qt6_libdir}/libQt6WebEngineCore.so.*
 %{_qt6_libdir}/libQt6WebEngineQuick.so.*
 %{_qt6_libdir}/libQt6WebEngineQuickDelegatesQml.so.*
@@ -492,12 +512,9 @@ done
 %{_qt6_libdir}/qt6/libexec/gn
 %{_qt6_libdir}/qt6/libexec/qwebengine_convert_dict
 %{_qt6_libdir}/qt6/libexec/QtWebEngineProcess
-%dir %{_qt6_libdir}/qt6/qml/QtQuick/Pdf
-%{_qt6_libdir}/qt6/qml/QtQuick/Pdf/*
 %dir %{_qt6_libdir}/qt6/qml/QtWebEngine
 %{_qt6_libdir}/qt6/qml/QtWebEngine/*
 %{_qt6_plugindir}/designer/libqwebengineview.so
-%{_qt6_plugindir}/imageformats/libqpdf.so
 %dir %{_qt6_datadir}/resources/
 %{_qt6_datadir}/resources/qtwebengine_resources.pak
 %{_qt6_datadir}/resources/qtwebengine_resources_100p.pak
@@ -563,46 +580,27 @@ done
 
 %files devel
 %{_rpmmacrodir}/macros.qt6-qtwebengine
-%dir %{_qt6_headerdir}/QtPdf
-%{_qt6_headerdir}/QtPdf/*
-%dir %{_qt6_headerdir}/QtPdfQuick
-%{_qt6_headerdir}/QtPdfQuick/*
-%dir %{_qt6_headerdir}/QtPdfWidgets
-%{_qt6_headerdir}/QtPdfWidgets/*
 %dir %{_qt6_headerdir}/QtWebEngineCore
 %{_qt6_headerdir}/QtWebEngineCore/*
 %dir %{_qt6_headerdir}/QtWebEngineQuick
 %{_qt6_headerdir}/QtWebEngineQuick/*
 %dir %{_qt6_headerdir}/QtWebEngineWidgets
 %{_qt6_headerdir}/QtWebEngineWidgets/*
-%{_qt6_libdir}/qt6/metatypes/*.json
-%{_qt6_libdir}/qt6/modules/*.json
-%{_qt6_libdir}/libQt6Pdf.so
-%{_qt6_libdir}/libQt6PdfQuick.so
-%{_qt6_libdir}/libQt6PdfWidgets.so
+%{_qt6_libdir}/qt6/metatypes/qt6webengine*.json
+%{_qt6_libdir}/qt6/modules/WebEngine*.json
 %{_qt6_libdir}/libQt6WebEngineCore.so
 %{_qt6_libdir}/libQt6WebEngineQuick.so
 %{_qt6_libdir}/libQt6WebEngineQuickDelegatesQml.so
 %{_qt6_libdir}/libQt6WebEngineWidgets.so
 %{_qt6_libdir}/libQt6WebEngineCore.prl
-%{_qt6_libdir}/libQt6Pdf.prl
-%{_qt6_libdir}/libQt6PdfQuick.prl
-%{_qt6_libdir}/libQt6PdfWidgets.prl
 %{_qt6_libdir}/libQt6WebEngineQuick.prl
 %{_qt6_libdir}/libQt6WebEngineQuickDelegatesQml.prl
 %{_qt6_libdir}/libQt6WebEngineWidgets.prl
 %{_qt6_libdir}/cmake/Qt6/*.cmake
-%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests
-%{_qt6_libdir}/cmake/Qt6Gui/*.cmake
-%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
+%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebEngine*
+%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtwebengine*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Designer
-%{_qt6_libdir}/cmake/Qt6Designer/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Pdf
-%{_qt6_libdir}/cmake/Qt6Pdf/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6PdfQuick
-%{_qt6_libdir}/cmake/Qt6PdfQuick/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6PdfWidgets
-%{_qt6_libdir}/cmake/Qt6PdfWidgets/*.cmake
+%{_qt6_libdir}/cmake/Qt6Designer/Qt6QWebEngine*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineQuick
 %{_qt6_libdir}/cmake/Qt6WebEngineQuick/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineWidgets
@@ -613,28 +611,68 @@ done
 %{_qt6_libdir}/cmake/Qt6WebEngineCoreTools/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQml
 %{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQml/*.cmake
-%{_qt6_libdir}/pkgconfig/Qt6Pdf.pc
-%{_qt6_libdir}/pkgconfig/Qt6PdfQuick.pc
-%{_qt6_libdir}/pkgconfig/Qt6PdfWidgets.pc
 %{_qt6_libdir}/pkgconfig/Qt6WebEngineCore.pc
 %{_qt6_libdir}/pkgconfig/Qt6WebEngineQuick.pc
 %{_qt6_libdir}/pkgconfig/Qt6WebEngineQuickDelegatesQml.pc
 %{_qt6_libdir}/pkgconfig/Qt6WebEngineWidgets.pc
-%{_qt6_archdatadir}/mkspecs/modules/*.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_lib_webengine*.pri
 
 %files devtools
 %{_qt6_datadir}/resources/qtwebengine_devtools_resources.pak
 
 %files examples
-%{_qt6_examplesdir}/
+%{_qt6_examplesdir}/webengine*
 
 %if 0%{?docs}
 %files doc
 %{_qt6_docdir}/*
 %endif
 
+%files -n qt6-qtpdf
+%license LICENSE.*
+%{_qt6_libdir}/libQt6Pdf.so.*
+%{_qt6_libdir}/libQt6PdfQuick.so.*
+%{_qt6_libdir}/libQt6PdfWidgets.so.*
+%dir %{_qt6_libdir}/qt6/qml/QtQuick/Pdf
+%{_qt6_libdir}/qt6/qml/QtQuick/Pdf/*
+%{_qt6_plugindir}/imageformats/libqpdf.so
+
+%files -n qt6-qtpdf-devel
+%dir %{_qt6_headerdir}/QtPdf
+%{_qt6_headerdir}/QtPdf/*
+%dir %{_qt6_headerdir}/QtPdfQuick
+%{_qt6_headerdir}/QtPdfQuick/*
+%dir %{_qt6_headerdir}/QtPdfWidgets
+%{_qt6_headerdir}/QtPdfWidgets/*
+%{_qt6_libdir}/qt6/metatypes/qt6pdf*.json
+%{_qt6_libdir}/qt6/modules/Pdf*.json
+%{_qt6_libdir}/libQt6Pdf.so
+%{_qt6_libdir}/libQt6PdfQuick.so
+%{_qt6_libdir}/libQt6PdfWidgets.so
+%{_qt6_libdir}/libQt6Pdf.prl
+%{_qt6_libdir}/libQt6PdfQuick.prl
+%{_qt6_libdir}/libQt6PdfWidgets.prl
+%{_qt6_libdir}/cmake/Qt6Gui/Qt6QPdf*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Pdf
+%{_qt6_libdir}/cmake/Qt6Pdf/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6PdfQuick
+%{_qt6_libdir}/cmake/Qt6PdfQuick/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6PdfWidgets
+%{_qt6_libdir}/cmake/Qt6PdfWidgets/*.cmake
+%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6Pdf*.cmake
+%{_qt6_libdir}/pkgconfig/Qt6Pdf.pc
+%{_qt6_libdir}/pkgconfig/Qt6PdfQuick.pc
+%{_qt6_libdir}/pkgconfig/Qt6PdfWidgets.pc
+%{_qt6_archdatadir}/mkspecs/modules/qt_lib_pdf*.pri
+
+%files -n qt6-qtpdf-examples
+%{_qt6_examplesdir}/pdf*
+
 
 %changelog
+* Tue Sep 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.2-2
+- Separate qtpdf subpackages
+
 * Mon Jul 24 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.2-1
 - 6.5.2
 

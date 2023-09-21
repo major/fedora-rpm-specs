@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        45~rc
+Version:        45.0
 Release:        1%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Wed Sep 06 2023 Kalev Lember <klember@redhat.com> - 45~rc-1
 - Update to 45.rc
 

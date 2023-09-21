@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    177e95d09f546f4dd44666e60ecdd868d0c24904
+%global gh_commit    af2f9e622bdd0a61d94f0b142cba996d9567cc61
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     theseer
 %global gh_project   Autoload
@@ -25,8 +25,8 @@
 %endif
 
 Name:           php-theseer-autoload
-Version:        1.28.0
-Release:        2%{?dist}
+Version:        1.29.0
+Release:        1%{?dist}
 Summary:        A tool and library to generate autoload code
 
 License:        BSD-3-Clause
@@ -159,6 +159,9 @@ fi
 
 
 %changelog
+* Tue Sep 19 2023 Remi Collet <remi@remirepo.net> - 1.29.0-1
+- update to 1.29.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

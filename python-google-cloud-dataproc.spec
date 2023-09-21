@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-dataproc
 %global         forgeurl    https://github.com/googleapis/python-dataproc
-Version:        5.5.0
+Version:        5.5.1
 %global         tag         v%{version}
 %forgemeta
 

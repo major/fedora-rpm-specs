@@ -2,8 +2,8 @@
 %undefine _include_frame_pointers
 
 Name: argyllcms
-Version: 2.3.1
-Release: 6%{?dist}
+Version: 3.0.0
+Release: 1%{?dist}
 
 # Main code - AGPL-3.0-or-later
 # spectro, xml - GPL-2.0-or-later
@@ -14,7 +14,6 @@ License: AGPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT AND
 Summary: ICC compatible color management system
 URL: https://www.argyllcms.com
 Source0: %{url}/Argyll_V%{version}_src.zip#/%{name}-%{version}.zip
-Patch0: argyllcms-c99.patch
 
 BuildRequires: pkgconfig(libjpeg)
 BuildRequires: pkgconfig(libpng)
@@ -100,7 +99,7 @@ rm -f %{buildroot}/%{_bindir}/*.txt
 
 %files
 %license License*.txt
-%doc log.txt notes.txt Readme.txt
+%doc log.txt Readme.txt
 %{_bindir}/applycal
 %{_bindir}/average
 %{_bindir}/cb2ti3
@@ -159,6 +158,9 @@ rm -f %{buildroot}/%{_bindir}/*.txt
 %{_datadir}/color/argyll/
 
 %changelog
+* Tue Sep 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.0-1
+- 3.0.0
+
 * Thu Aug 31 2023 Florian Weimer <fweimer@redhat.com> - 2.3.1-6
 - Avoid build failure with future toolchain defaults
 

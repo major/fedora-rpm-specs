@@ -1,16 +1,22 @@
 
+%global commit b205b52c0efbee044fd9377e077cb73e8772c8f8
+%global commitdate 20230618
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
-Version:        1.11
-Release:        9%{?dist}
+Version:        1.11%{?commitdate:^git%{commitdate}.%{shortcommit}}
+Release:        1%{?dist}
 License:        LGPL-2.0-or-later
-URL:            https://invent.kde.org/sdk/%{name}/
+URL:            https://invent.kde.org/sdk/%{name}
+
+%if 0%{?commitdate}
+Source0:        %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
+%else
 Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
+%endif
 
 Patch0:         clazy-no-rpath.patch
-Patch1:         clazy-clang-15-support.patch
-Patch2:         clazy-clang-16-support.patch
-Patch3:         clazy-clang-17-support.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -27,13 +33,10 @@ refactoring.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 %{?commitdate:-n %{name}-%{commit}}
 
 %build
-%{cmake} \
-    -DCMAKE_CXX_STANDARD=17 \
-    -DCMAKE_CXX_STANDARD_REQUIRED=1
-
+%cmake
 %cmake_build
 
 %install
@@ -54,6 +57,9 @@ refactoring.
 
 
 %changelog
+* Tue Sep 19 2023 Alessandro Astone <ales.astone@gmail.com> - 1.11^git20230618.b205b52-1
+- Build from git snapshot to fix crash with LLVM17
+
 * Wed Sep 06 2023 Jan Grulich <jgrulich@redhat.com> - 1.11-9
 - Rebuild (clang-17)
 

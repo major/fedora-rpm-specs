@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.3p1
-%global openssh_rel 10
+%global openssh_rel 11
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 9
 
@@ -232,7 +232,7 @@ Patch1015: openssh-9.3p1-upstream-cve-2023-38408.patch
 # upstream b7afd8a4ecaca8afd3179b55e9db79c0ff210237
 Patch1016: openssh-9.3p1-openssl-compat.patch
 
-License: BSD
+License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
 
 %if ! %{no_gnome_askpass}
@@ -307,7 +307,7 @@ Requires: openssh = %{version}-%{release}
 Summary: PAM module for authentication with ssh-agent
 Version: %{pam_ssh_agent_ver}
 Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}
-License: BSD
+License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant AND OpenSSL
 
 %description
 SSH (Secure SHell) is a program for logging into and executing
@@ -744,6 +744,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Tue Sep 19 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-11
+- migrated to SPDX license
+
 * Fri Sep 15 2023 Timothée Ravier <tim@siosm.fr> - 9.3p1-10
 - Revert "Remove sshd.socket unit (rhbz#2025716)"
 

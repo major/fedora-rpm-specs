@@ -1,4 +1,5 @@
 %global short_name lsp-black
+%global forgeurl https://github.com/python-lsp/python-lsp-black
 
 %global _description %{expand:
 lsp-black is a python-lsp-server plugin that adds support to black
@@ -7,19 +8,21 @@ community maintained language-server (python-lsp-server).
 }
 
 Name:           python-%{short_name}
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        A python-lsp-server plugin that adds support to black autoformatter
-
+%forgemeta
 License:        MIT
-URL:            https://github.com/python-lsp/%{name}
-Source0:        %{pypi_source}
-Source1:        LICENSE
+URL:            %{forgeurl}
+Source0:        %{forgesource}
+# Enable building against Python3.12
+Patch:          lift_python_version_upper_bound.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-pytest
 
 %description %_description
 
@@ -32,10 +35,11 @@ Supplements:    python3dist(python-lsp-server)
 
 %prep
 %autosetup -n %{name}-%{version}
-cp %{SOURCE1} LICENSE
+# Remove version pinning from python-lsp-server dependency
+sed -i -r -e 's/(lsp-server)>=.*/\1/' setup.cfg
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x extras_require
 
 %build
 %pyproject_wheel
@@ -44,6 +48,9 @@ cp %{SOURCE1} LICENSE
 %pyproject_install
 
 %pyproject_save_files pylsp_black
+
+%check
+%pytest -v
 
 %files -n python3-%{short_name} -f %{pyproject_files}
 %license LICENSE

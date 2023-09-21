@@ -1,4 +1,5 @@
 %global gjs_version 1.69.2
+%global libadwaita_version 1.4~alpha
 %global libshumate_version 1.1~beta
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
@@ -6,7 +7,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        45~rc
+Version:        45.0
 Release:        1%{?dist}
 Summary:        Map application for GNOME
 
@@ -26,7 +27,7 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(gweather4)
-BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:  pkgconfig(libportal)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(rest-1.0)
@@ -42,7 +43,7 @@ Requires:       gjs%{?_isa} >= %{gjs_version}
 Requires:       gobject-introspection%{?_isa}
 Requires:       gsettings-desktop-schemas%{?_isa}
 Requires:       gtk4%{?_isa}
-Requires:       libadwaita%{?_isa}
+Requires:       libadwaita%{?_isa} >= %{libadwaita_version}
 Requires:       libgweather4%{?_isa}
 Requires:       libshumate%{?_isa} >= %{libshumate_version}
 Requires:       libsoup3%{?_isa}
@@ -91,6 +92,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+- Add minimum required libadwaita version
+
 * Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45~rc-1
 - Update to 45.rc
 

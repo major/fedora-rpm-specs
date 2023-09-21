@@ -1,5 +1,5 @@
 Name:           mkosi
-Version:        16
+Version:        17.1
 Release:        %autorelease
 Summary:        Create bespoke OS images
 

@@ -1,7 +1,7 @@
 %global pypi_name zipp
 
 Name:           python-%{pypi_name}
-Version:        3.16.2
+Version:        3.17.0
 Release:        %autorelease
 Summary:        Backport of pathlib-compatible object wrapper for zip files
 
@@ -32,7 +32,7 @@ A pathlib-compatible Zipfile object wrapper. A backport of the Path object.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 # jaraco.itertools and func_timeout are not available in Fedora yet
-sed -i "/import jaraco.itertools/d" tests/test_zipp.py
+sed -i "/import jaraco.itertools/d" tests/test_path.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r

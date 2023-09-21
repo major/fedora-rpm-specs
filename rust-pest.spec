@@ -5,13 +5,16 @@
 %global crate pest
 
 Name:           rust-pest
-Version:        2.7.2
+Version:        2.7.3
 Release:        %autorelease
 Summary:        Elegant Parser
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pest
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          pest-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

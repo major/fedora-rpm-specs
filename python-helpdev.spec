@@ -1,102 +1,139 @@
-# Created by pyp2rpm-3.3.2
-%global pypi_name helpdev
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond doc_pdf 1
 
-%global _description %{expand:
+Name:           python-helpdev
+Version:        0.7.1
+Release:        %autorelease
+Summary:        HelpDev – Extracts information about the Python environment easily
+
+# The GitLab archive contains tests and documentation; the PyPI sdist doesn’t.
+%global forgeurl https://gitlab.com/dpizetta/helpdev
+%global tag v%{version}
+%forgemeta
+
+# The entire source is (SPDX) MIT, except for “Images,” which are CC-BY-4.0 (an
+# allowed license for content). The images in question seem to be only the
+# contents of docs/images/, which are not incorporated in the helpdev.pdf file
+# in the -doc subpackage (but are not present in any other subpackages).
+License:        MIT
+URL:            %{forgeurl}
+Source:         %{forgesource}
+
+# Remove useless shebang lines from package modules
+# https://gitlab.com/dpizetta/helpdev/-/merge_requests/4
+Patch:          %{forgeurl}/-/merge_requests/4.patch
+
+BuildArch:      noarch
+ 
+BuildRequires:  python3-devel
+
+# Selected test dependencies from req-test.txt; most entries in that file are
+# for linters, code coverage, etc. Note that we use pytest directly because tox
+# doesn’t add anything useful for us in this package.
+BuildRequires:  %{py3_dist pytest}
+
+# The generated man page is pretty good in this case; it’s probably not worth
+# hand-writing one.
+BuildRequires:  help2man
+
+%if %{with doc_pdf}
+# We don’t generate documentation dependencies from req-doc.txt because:
+# - There is extra cruft in there (setuptools, wheel, etc.): no big deal
+# - We don’t need sphinx_rtd_theme because we aren’t building HTML
+# - We need to specify the extra BR’s for building LaTeX/PDF manually anyway
+BuildRequires:  make
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+%endif
+
+%global common_description %{expand:
 Helping users and developers to get information about the environment to report
 bugs or even test your system without spending a day on it. It can get
 information about hardware, OS, paths, Python distribution and packages,
 including Qt-things.}
 
-Name:           python-%{pypi_name}
-Version:        0.6.10
-Release:        14%{?dist}
-Summary:        HelpDev - Extracts information about the Python environment easily
+%description %{common_description}
 
-License:        MIT
-URL:            https://gitlab.com/dpizetta/helpdev
-Source0:        https://files.pythonhosted.org/packages/source/h/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-# license file not in pypi tarball
-Source1:        https://gitlab.com/dpizetta/%{pypi_name}/raw/master/LICENSE.rst
-BuildArch:      noarch
- 
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
-%description %_description
-
-%package -n     python3-%{pypi_name}
+%package -n python3-helpdev
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
- 
-Requires:       python3dist(psutil) >= 5.6
-Requires:       python3dist(setuptools)
 
-%description -n python3-%{pypi_name}
-%_description
+Recommends:     python3-helpdev+memory_info = %{version}-%{release}
+
+%description -n python3-helpdev %{common_description}
+
+
+%pyproject_extras_subpkg -n python3-helpdev memory_info
+
+
+%package doc
+Summary:        Documentation and examples for HelpDev
+
+# The entire source is (SPDX) MIT, except for images incorporated in
+# helpdev.pdf, which are CC-BY-4.0; see also the more verbose comment above the
+# base package License field.
+License:        MIT AND CC-BY-4.0
+
+%description doc
+This package includes documentation and examples for HelpDev.
+
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
-cp %{SOURCE1} .
+%forgeautosetup -p1
 
-# importlib.metadata is in python3.8
-# https://gitlab.com/dpizetta/helpdev/merge_requests/1
-sed -i "s|'importlib_metadata', ||" setup.py
-sed -i "s|import importlib_metadata|import importlib.metadata as importlib_metadata|" helpdev/__init__.py
+
+%generate_buildrequires
+%pyproject_buildrequires -x memory_info
+
 
 %build
-%py3_build
+%pyproject_wheel
+
+%if %{with doc_pdf}
+PYTHONPATH="${PWD}" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%make_build -C build/docs/latex LATEXMKOPTS='-quiet'
+%endif
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files helpdev
 
-%files -n python3-%{pypi_name}
-%doc README.rst
-%license LICENSE.rst
+# Generating the man page in %%install allows us to use the installed entry
+# point; horrible hacks would be required to do this in %%build.
+install -d '%{buildroot}%{_mandir}/man1'
+PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
+    --no-info --output='%{buildroot}%{_mandir}/man1/helpdev.1' \
+    '%{buildroot}%{_bindir}/helpdev'
+
+
+%check
+%pytest -v
+
+
+%files -n python3-helpdev -f %{pyproject_files}
 %{_bindir}/helpdev
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%{_mandir}/man1/helpdev.1*
+
+
+%files doc
+%license LICENSE.rst
+
+%doc CHANGES.rst
+%doc README.rst
+
+# Text files, mostly sample output
+%doc examples/
+
+%if %{with doc_pdf}
+%doc build/docs/latex/helpdev.pdf
+%endif
+
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.10-13
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.6.10-10
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.6.10-7
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.6.10-4
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Dec 23 2019 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 0.6.10-2
-- Fix spec issues
-
-* Sat Dec 21 2019 Mukundan Ragavan <nonamedotc@gmail.com> - 0.6.10-1
-- Initial package.
+%autochangelog

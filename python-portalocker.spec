@@ -11,7 +11,7 @@
 
 %global         srcname     portalocker
 %global         forgeurl    https://github.com/WoLpH/portalocker
-Version:        2.7.0
+Version:        2.8.2
 %global         tag         v%{version}
 %forgemeta
 

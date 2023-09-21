@@ -11,7 +11,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    b8d59476f19115c9774b3b447f78131781c6c32b
+%global gh_commit    747c3b2038f1139e3dcd9886a3f5a948648b7503
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    10
 %global ver_minor    3
 
-%global upstream_version 10.3.4
+%global upstream_version 10.3.5
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -57,7 +57,7 @@ BuildRequires:  (php-composer(sebastian/code-unit) >= 2.0             with php-c
 BuildRequires:  (php-composer(sebastian/comparator) >= 5.0            with php-composer(sebastian/comparator) < 6)
 BuildRequires:  (php-composer(sebastian/diff) >= 5.0                  with php-composer(sebastian/diff) < 6)
 BuildRequires:  (php-composer(sebastian/environment) >= 6.0           with php-composer(sebastian/environment) < 7)
-BuildRequires:  (php-composer(sebastian/exporter) >= 5.0              with php-composer(sebastian/exporter) < 6)
+BuildRequires:  (php-composer(sebastian/exporter) >= 5.1              with php-composer(sebastian/exporter) < 6)
 BuildRequires:  (php-composer(sebastian/global-state) >= 6.0.1        with php-composer(sebastian/global-state) < 7)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 5.0     with php-composer(sebastian/object-enumerator) < 6)
 BuildRequires:  (php-composer(sebastian/recursion-context) >= 5.0     with php-composer(sebastian/recursion-context) < 6)
@@ -93,7 +93,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/comparator": "^5.0",
 #        "sebastian/diff": "^5.0",
 #        "sebastian/environment": "^6.0",
-#        "sebastian/exporter": "^5.0",
+#        "sebastian/exporter": "^5.1",
 #        "sebastian/global-state": "^6.0.1",
 #        "sebastian/object-enumerator": "^5.0",
 #        "sebastian/recursion-context": "^5.0",
@@ -120,7 +120,7 @@ Requires:       (php-composer(sebastian/code-unit) >= 2.0             with php-c
 Requires:       (php-composer(sebastian/comparator) >= 5.0            with php-composer(sebastian/comparator) < 6)
 Requires:       (php-composer(sebastian/diff) >= 5.0                  with php-composer(sebastian/diff) < 6)
 Requires:       (php-composer(sebastian/environment) >= 6.0           with php-composer(sebastian/environment) < 7)
-Requires:       (php-composer(sebastian/exporter) >= 5.0              with php-composer(sebastian/exporter) < 6)
+Requires:       (php-composer(sebastian/exporter) >= 5.1              with php-composer(sebastian/exporter) < 6)
 Requires:       (php-composer(sebastian/global-state) >= 6.0.1        with php-composer(sebastian/global-state) < 7)
 Requires:       (php-composer(sebastian/object-enumerator) >= 5.0     with php-composer(sebastian/object-enumerator) < 6)
 Requires:       (php-composer(sebastian/recursion-context) >= 5.0     with php-composer(sebastian/recursion-context) < 6)
@@ -249,6 +249,10 @@ exit $ret
 
 
 %changelog
+* Tue Sep 19 2023 Remi Collet <remi@remirepo.net> - 10.3.5-1
+- update to 10.3.5
+- raise dependency on sebastian/exporter 5
+
 * Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 10.3.4-1
 - update to 10.3.4
 - raise dependency on phpunit/php-code-coverage 10.1.5

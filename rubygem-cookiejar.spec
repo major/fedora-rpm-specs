@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Parsing and returning cookies in Ruby
 License: BSD	
 URL: https://github.com/dwaite/cookiejar
@@ -10,6 +10,8 @@ Source0: https://rubygems.org/gems/cookiejar-%{version}.gem
 # Remove rspec-collection_matchers dependency.
 # https://github.com/dwaite/cookiejar/pull/36
 Patch0: rubygem-cookiejar-0.3.3-Remove-rspec-collection_matchers-dependency.patch
+# https://github.com/dorianmariefr/cookiejar2/pull/2
+Patch1: cookiejar2-pr2-fix-regexp-3rd-arg.patch
 BuildRequires: rubygem(rspec)
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel 
@@ -33,7 +35,8 @@ Documentation for %{name}
 %prep
 %setup -q -n %{gem_name}-%{version}
 
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -69,6 +72,9 @@ cp -a .%{gem_dir}/* \
 %{gem_instdir}/Gemfile
 
 %changelog
+* Tue Sep 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.3-12
+- Fix for Regexp.new 3rd argument deprecation (needed for ruby 3.3)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

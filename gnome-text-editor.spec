@@ -2,11 +2,12 @@
 %global gtk4_version 4.7
 %global gtksourceview_version 5.5.0
 %global enchant_version 2.2.0
+%global libadwaita_version 1.4~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	45~beta
+Version:	45.0
 Release:	1%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
@@ -20,7 +21,7 @@ BuildRequires:	pkgconfig(gio-unix-2.0) >= %{glib2_version}
 BuildRequires:	pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:	pkgconfig(gtksourceview-5) >= %{gtksourceview_version}
 BuildRequires:	pkgconfig(icu-uc)
-BuildRequires:	pkgconfig(libadwaita-1)
+BuildRequires:	pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc
 BuildRequires:	itstool
@@ -31,6 +32,7 @@ Requires:	glib2%{?_isa} >= %{glib2_version}
 Requires:	enchant2%{?_isa} >= %{enchant_version}
 Requires:	gtk4%{?_isa} >= %{gtk4_version}
 Requires:	gtksourceview5%{?_isa} >= %{gtksourceview_version}
+Requires:	libadwaita%{?_isa} >= %{libadwaita_version}
 
 %description
 GNOME Text Editor is a simple text editor that focuses on session management.
@@ -73,6 +75,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+- Add minimum required libadwaita version
+
 * Tue Aug 08 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
 - Update to 45.beta
 

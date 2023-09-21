@@ -5,7 +5,7 @@
 %global crate enumflags2_derive
 
 Name:           rust-enumflags2_derive
-Version:        0.7.7
+Version:        0.7.8
 Release:        %autorelease
 Summary:        Derive macros for the enumflags2 crate
 

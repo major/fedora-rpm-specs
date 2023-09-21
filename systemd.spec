@@ -73,7 +73,8 @@ Source7:        systemd-journal-remote.xml
 Source8:        systemd-journal-gatewayd.xml
 Source9:        20-yama-ptrace.conf
 Source10:       systemd-udev-trigger-no-reload.conf
-Source13:       libsystemd-shared.abignore
+# https://fedoraproject.org/wiki/How_to_filter_libabigail_reports
+Source13:       .abignore
 
 Source14:       10-oomd-defaults.conf
 Source15:       10-oomd-per-slice-defaults.conf
@@ -105,6 +106,12 @@ Patch0001:      https://github.com/systemd/systemd/pull/26494.patch
 
 # Backport of patches that allow reloading of units
 Patch0002:      https://github.com/systemd/systemd/pull/28521/commits/631d2b05ec5195d1f8f8fbff8a2dfcbf23d0b7aa.patch
+
+# Backport of improvements to console keyboard layout guessing
+# https://github.com/systemd/systemd/pull/29215
+# https://bugzilla.redhat.com/show_bug.cgi?id=1912609
+Patch0003:      0001-find_legacy_keymap-fix-empty-variant-matching.patch
+Patch0004:      0002-find_legacy_keymap-try-matching-with-layout-order-re.patch
 
 # Those are downstream-only patches, but we don't want them in packit builds:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1738828
@@ -509,6 +516,10 @@ a userspace out-of-memory (OOM) killer.
 %package tests
 Summary:       Internal unit tests for systemd
 Requires:      %{name}%{_isa} = %{version}-%{release}
+# This dependency is provided transitively. Also add it explicitly to
+# appease rpminspect, https://github.com/rpminspect/rpminspect/issues/1231:
+Requires:      %{name}-libs%{_isa} = %{version}-%{release}
+
 License:       LGPL-2.1-or-later
 
 %description tests

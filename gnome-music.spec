@@ -8,7 +8,7 @@
 
 Name:          gnome-music
 Summary:       Music player and management application for GNOME
-Version:       44.0
+Version:       45.0
 Release:       %autorelease
 
 # The sources are under the GPLv2+ license, except for:
@@ -17,7 +17,7 @@ Release:       %autorelease
 # Also: https://bugzilla.gnome.org/show_bug.cgi?id=706457
 License:       (GPLv2+ with exceptions) and CC-BY-SA
 URL:           https://wiki.gnome.org/Apps/Music
-Source0:       https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:     noarch
 BuildRequires: /usr/bin/appstream-util

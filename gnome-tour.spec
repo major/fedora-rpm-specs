@@ -13,17 +13,22 @@
 %endif
 
 Name:           gnome-tour
-Version:        44.0
-Release:        3%{?dist}
+Version:        45.0
+Release:        1%{?dist}
 Summary:        GNOME Tour and Greeter
 
 # * gnome-tour source code is GPLv3+
 # * welcome-fedora.svg is CC-BY-SA
 License:        GPLv3+ and CC-BY-SA
 URL:            https://gitlab.gnome.org/GNOME/gnome-tour
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 # https://pagure.io/fedora-workstation/issue/175
 Source1:        welcome-fedora.svg
+
+%if 0%{?fedora}
+# Fedora only has version 0.4
+Patch:          0001-Downgrade-pretty_env_logger-dep-to-0.4.patch
+%endif
 
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0)
@@ -195,6 +200,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+- Downgrade pretty_env_logger dep to 0.4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,63 +1,106 @@
-# Review at https://bugzilla.redhat.com/show_bug.cgi?id=630184
+%global		use_release	0
+%global		use_git		0
+%global		use_gitbare	1
 
-%global git_snapshot 0
-%global git_rev 5fad820707cdf6a565f909e483820b7a49bd4a36
-%global git_date 20120304
-
-%if 0%{?git_snapshot}
-%global git_short %(echo %{git_rev} | cut -c-8)
-%global git_version %{git_date}git%{git_short}
+%if 0%{?use_git} < 1
+%if 0%{?use_gitbare} < 1
+# force
+%global		use_release	1
+%endif
 %endif
 
-# Source0 was generated as follows:
-# git clone git://lxde.git.sourceforge.net/gitroot/lxde/lxappearance-obconf
-# cd lxappearance-obconf
-# git archive --format=tar --prefix=lxappearance-obconf/ %{git_short} | bzip2 > lxappearance-obconf-%{?git_version}.tar.bz2
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
 
-Name:           lxappearance-obconf
-Version:        0.2.3
-Release:        18%{?git_version:.%{?git_version}}%{?dist}
-Summary:        Plugin to configure Openbox inside LXAppearance
+%if 0%{?use_gitbare}
+%global		gittardate		20230919
+%global		gittartime		1604
 
-License:        GPLv2+
-URL:            http://lxde.org/
-#VCS: git:git://lxde.git.sourceforge.net/gitroot/lxde/lxappearance-obconf
-%if 0%{?git_snapshot}
-Source0:        %{name}-%{?git_version}.tar.bz2
-%else
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+%global		gitbaredate	20230918
+%global		git_rev		63c5dc1b48576cddaf147eb1c46096dacfeaa344
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{gitbaredate}git%{git_short}
 %endif
-# https://sourceforge.net/p/lxde/bugs/960/
-# https://github.com/lxde/lxappearance-obconf/pull/4
-# Fix segfault when loading themerc with menu.title.bg: ParentRelative
-Patch0:         lxappearance-obconf-pr4-set-parent-for-menu-title-when-parentrelative.patch
 
-BuildRequires:  make
-BuildRequires:  gcc
-BuildRequires:  pkgconfig(obrender-3.5) >= 3.5
-BuildRequires:  pkgconfig(obt-3.5) >= 3.5
-BuildRequires:  openbox-devel >= 3.5.2
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
-BuildRequires:  pkgconfig(gthread-2.0)
-BuildRequires:  pkgconfig(gtk+-2.0)
-BuildRequires:  pkgconfig(lxappearance)
-BuildRequires:  libSM-devel
-BuildRequires:  gettext
-BuildRequires:  intltool
-%{?git_snapshot:BuildRequires: libtool}
-Requires:       lxappearance >= 0.5.0
-Requires:       openbox >= 3.5.2
+%if 0%{?use_git} || 0%{?use_gitbare}
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
+%endif
+
+
+%global		main_version	0.2.3
+
+Name:			lxappearance-obconf
+Version:		%{main_version}%{git_ver_rpm}
+Release:		1%{?dist}
+Summary:		Plugin to configure Openbox inside LXAppearance
+
+# SPDX confirmed
+License:		GPL-2.0-or-later
+URL:			http://lxde.org/
+%if 0%{?use_gitbare}
+Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
+%endif
+%if 0%{?use_release}
+Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+%endif
+Source1:		create-%{name}-git-bare-tarball.sh
+
+BuildRequires:	make
+BuildRequires:	gcc
+BuildRequires:	pkgconfig(obrender-3.5) >= 3.5
+BuildRequires:	pkgconfig(obt-3.5) >= 3.5
+BuildRequires:	openbox-devel >= 3.5.2
+BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:	pkgconfig(gthread-2.0)
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(lxappearance)
+BuildRequires:	libSM-devel
+BuildRequires:	gettext
+BuildRequires:	intltool
+BuildRequires:	automake
+BuildRequires:	autoconf
+BuildRequires:	libtool
+BuildRequires:	/usr/bin/git
+Requires:		lxappearance >= 0.5.0
+Requires:		openbox >= 3.5.2
 
 %description
 This plugin adds an additional tab called "Window Border" to LXAppearance.
 It is only visible when the plugin is installed and Openbox is in use.
 
 %prep
-%setup -q %{?git_version:-n %{name}}
-%patch0 -p1 -b .parentrel
+%if 0%{?use_release}
+%setup -q -n %{name}-%{main_version}%{git_builddir}
+
+git init
+%endif
+
+%if 0%{?use_gitbare}
+%setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
+git clone ./%{name}.git/
+cd %{name}
+
+git checkout -b %{main_version}-fedora %{git_rev}
+cp -a [A-Z]* ..
+%endif
+
+git config user.name "%{name} Fedora maintainer"
+git config user.email "%{name}-maintainers@fedoraproject.org"
+
+%if 0%{?use_release}
+git add .
+git commit -m "base" -q
+%endif
+
+sh autogen.sh
 
 %build
-%{?git_version:sh autogen.sh}
+%if 0%{?use_gitbare}
+cd %{name}
+%endif
+
 %configure \
 	--disable-static \
 	--disable-silent-rules \
@@ -65,7 +108,15 @@ It is only visible when the plugin is installed and Openbox is in use.
 %make_build
 
 %install
+%if 0%{?use_gitbare}
+cd %{name}
+%endif
+
 %make_install
+%if 0%{?use_gitbare}
+cd ..
+%endif
+
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %find_lang %{name}
 
@@ -81,6 +132,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Sep 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.3^20230918git63c5dc1b-1
+- Update to the latest git
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

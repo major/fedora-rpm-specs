@@ -11,7 +11,7 @@
 %global gnome_settings_daemon_version           40~rc
 
 Name:           gnome-kiosk
-Version:        45~rc
+Version:        45.0
 Release:        %{autorelease}
 Summary:        Window management and application launching for GNOME
 
@@ -32,7 +32,7 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gobject-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(gnome-desktop-4.0) >= %{gnome_desktop_version}
+BuildRequires:  pkgconfig(gnome-desktop-4) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= %{ibus_version}
 BuildRequires:  pkgconfig(libmutter-13) >= %{mutter_version}

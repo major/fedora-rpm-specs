@@ -1,10 +1,13 @@
+# ROCm doesn't actually support LTO, and it breaks with hsakmt for 5.7:
+%global _lto_cflags %nil
+
 %define __cmake_in_source_build 1
 %global rocm_release 5.7
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 Name:           hsakmt
 Version:        1.0.6
-Release:        32.rocm%{rocm_version}%{?dist}
+Release:        33.rocm%{rocm_version}%{?dist}
 Summary:        AMD HSA thunk library
 
 License:        MIT
@@ -74,6 +77,9 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 %{_includedir}/hsakmttypes.h
 
 %changelog
+* Tue Sep 19 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-33.rocm5.7.0
+- Disable LTO, as it causes a few symbols to get stripped in 5.7
+
 * Sun Sep 17 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-32.rocm5.7.0
 - Update to 5.7
 

@@ -9,7 +9,7 @@
 #
 
 
-%global gh_commit    a122c2ebd469b751d774aa0f613dc0d67697653f
+%global gh_commit    f3d767f7f9e191eab4189abe41ab37797e30b1be
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -23,7 +23,7 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.12
+%global upstream_version 9.6.13
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -252,6 +252,9 @@ exit $ret
 
 
 %changelog
+* Tue Sep 19 2023 Remi Collet <remi@remirepo.net> - 9.6.13-1
+- update to 9.6.13
+
 * Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 9.6.12-1
 - update to 9.6.12
 - raise dependency on phpunit/php-code-coverage 9.2.28
