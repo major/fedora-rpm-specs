@@ -424,12 +424,16 @@ sed -r -i 's/("pydantic-(settings|extra-types)\b.*",)/# \1/' pyproject.toml
 # Dependency generation does not support -e, and we will generate the
 # install-time dependencies without it.
 #
+# In general, we cannot respect exact-version pins, so we loosen them to lower
+# bounds.
+#
 # Both pydantic-settings and pydantic-extra-types are for Pydantic v2 only.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2157134
 sed -r \
     -e 's/^(mypy|black|ruff|coverage)\b/# &/' \
     -e 's/^(types-(u|or)json)\b/# &/' \
     -e 's/^(-e .)$/# &/' \
+    -e 's/==/>=/' \
     -e 's/^(pydantic-(settings|extra-types))\b/# &/' \
 %if %{without orjson}
     -e 's/^(orjson)\b/# &/' \

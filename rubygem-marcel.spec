@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Simple mime type detection using magic numbers, file names, and extensions
 # * Portions of Marcel are adapted from the [mimemagic] gem, released under
 #   the terms of the MIT License.
@@ -16,6 +16,8 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rails/marcel.git && cd marcel
 # git archive -v -o marcel-1.0.2-test.tar.gz v1.0.2 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
+# From https://github.com/rails/marcel/commit/12fc8daae656ccb09441c4a3c376b5de3af05172
+Patch0: marcel-12fc8da-minitest-5_19-compat.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.2
@@ -36,7 +38,8 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -b 1
+%setup -q -n %{gem_name}-%{version} -a 1
+%patch -P0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -52,8 +55,8 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
+ln -sf $(pwd)/test .%{gem_instdir}
 pushd .%{gem_instdir}
-ln -s %{_builddir}/test .
 
 # Byebug is just development dependency.
 sed -i "/require 'byebug'/ s/^/#/" test/test_helper.rb
@@ -74,6 +77,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Sep 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.2-6
+- Backport upstream patch for minitest 5.19 compatibility
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

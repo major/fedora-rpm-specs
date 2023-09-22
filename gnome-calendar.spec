@@ -3,11 +3,12 @@
 %global edataserver_version 3.45.1
 %global glib2_version 2.67.5
 %global gtk4_version 4.11.2
+%global libadwaita_version 1.4~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calendar
-Version:        45~rc
+Version:        45.0
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 
@@ -25,7 +26,7 @@ BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gsettings-desktop-schemas) >= %{gsettings_desktop_schemas_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(gweather4)
-BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:  pkgconfig(libecal-2.0) >= %{edataserver_version}
 BuildRequires:  pkgconfig(libedataserver-1.2) >= %{edataserver_version}
 BuildRequires:  pkgconfig(libgeoclue-2.0)
@@ -38,6 +39,7 @@ Requires:       evolution-data-server%{?_isa} >= %{edataserver_version}
 Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
+Requires:       libadwaita%{?_isa} >= %{libadwaita_version}
 Requires:       libical%{?_isa} >= %{libical_version}
 
 %description

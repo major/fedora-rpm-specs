@@ -11,8 +11,8 @@
 %endif
 
 Name:           msitools
-Version:        0.102
-Release:        3%{?dist}
+Version:        0.103
+Release:        1%{?dist}
 Summary:        Windows Installer tools
 
 # LGPL-2.1-or-later: the project as a whole
@@ -34,10 +34,6 @@ Summary:        Windows Installer tools
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later AND MS-RL
 URL:            http://ftp.gnome.org/pub/GNOME/sources/%{name}
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{version}/%{name}-%{version}%{?_version_suffix}.tar.xz
-# https://gitlab.gnome.org/GNOME/msitools/-/issues/55
-Patch0:         0001-Update-data-wixl.patch
-# https://gitlab.gnome.org/GNOME/msitools/-/merge_requests/66
-Patch1:         0002-Change-GUINT_FROM_LE-to-GUINT16_FROM_LE.patch
 
 Requires:       libgsf >= 1.14.24-2
 
@@ -280,18 +276,22 @@ The libmsi1-devel package includes the header files for libmsi.
 
 %files -n libmsi1 -f %{name}.lang
 %{_libdir}/girepository-1.0/Libmsi-1.0.typelib
-%{_libdir}/libmsi.so.0*
+%{_libdir}/libmsi-1.0.so.0*
 
 %files -n libmsi1-devel
 %{_datadir}/gir-1.0/Libmsi-1.0.gir
 %{_datadir}/vala/vapi/libmsi-1.0.vapi
 %{_datadir}/vala/vapi/libmsi-1.0.deps
 %{_includedir}/libmsi-1.0/*
-%{_libdir}/libmsi.so
+%{_libdir}/libmsi-1.0.so
 %{_libdir}/pkgconfig/libmsi-1.0.pc
 
 
 %changelog
+* Tue Sep 19 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.103-1
+- new version v0.103
+- Rename libmsi.so -> libmsi-1.0.so
+
 * Thu Sep 14 2023 Jerry James <loganjerry@gmail.com> - 0.102-3
 - Fix build on s390x
 - More SPDX migration

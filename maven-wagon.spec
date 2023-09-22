@@ -2,7 +2,7 @@
 
 Name:           maven-wagon
 Version:        3.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools to manage artifacts and deployment
 License:        Apache-2.0
 URL:            https://maven.apache.org/wagon
@@ -86,6 +86,9 @@ following providers:
 %doc DEPENDENCIES
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.3-3
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.3-2
 - Convert License tag to SPDX format
 

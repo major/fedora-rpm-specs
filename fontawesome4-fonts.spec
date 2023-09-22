@@ -5,7 +5,7 @@
 Name:		fontawesome4-fonts
 Epoch:		1
 Version:	4.7.0
-Release:	18%{?dist}
+Release:	19%{?dist}
 
 Summary:	Iconic font set
 License:	OFL-1.1-RFN
@@ -18,6 +18,9 @@ BuildRequires:	fontpackages-devel
 BuildRequires:	ttembed
 Requires:	fontpackages-filesystem
 
+# This can be removed when F42 reaches EOL
+Obsoletes:      fontawesome-fonts < 1:4.7.0-16
+Provides:       fontawesome-fonts = 1:%{version}-%{release}
 
 %description
 Font Awesome gives you scalable vector icons that can instantly be
@@ -82,6 +85,9 @@ cp -a css less scss %{buildroot}%{_datadir}/font-awesome-web/
 %{_fontdir}/fontawesome-webfont.eot
 
 %changelog
+* Wed Sep 20 2023 Jerry James <loganjerry@gmail.com> - 1:4.7.0-19
+- Obsolete the fontawesome-fonts package (bz 2239785)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.7.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

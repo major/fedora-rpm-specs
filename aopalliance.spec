@@ -3,7 +3,7 @@
 Name:           aopalliance
 Epoch:          0
 Version:        1.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Java/J2EE AOP standards
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://aopalliance.sourceforge.net/
@@ -55,6 +55,9 @@ jar umf %{SOURCE2} build/%{name}.jar
 %files -f .mfiles
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:1.0-35
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:1.0-34
 - Convert License tag to SPDX format
 

@@ -18,6 +18,9 @@ Patch7:         IQmol-3.1.2-builddeps.patch
 # and missing links
 Patch8:         IQmol3-3.1.2-missinglink.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  armadillo-devel
 BuildRequires:  boost-devel
 BuildRequires:  gcc-c++

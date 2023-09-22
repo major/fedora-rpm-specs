@@ -1,10 +1,10 @@
 Name:       git-autofixup
-Version:    0.003001
-Release:    7%{?dist}
+Version:    0.004001
+Release:    %autorelease
 
 Summary:    Autofixup - create fixup commits for topic branches
 
-License:    Artistic 2.0
+License:    Artistic-2.0
 URL:        https://github.com/torbiak/git-autofixup/
 Source0:    https://cpan.metacpan.org/authors/id/T/TO/TORBIAK/App-Git-Autofixup-%{version}.tar.gz
 
@@ -67,23 +67,4 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003001-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003001-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.003001-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon May 30 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.003001-4
-- Perl 5.36 rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.003001-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.003001-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jun 22 2021 Lumír Balhar <lbalhar@redhat.com> - 0.003001-1
-- Initial package
+%autochangelog

@@ -2,7 +2,7 @@
 
 Name:           cdi-api
 Version:        2.0.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        CDI API
 License:        Apache-2.0
 URL:            https://github.com/eclipse-ee4j/cdi
@@ -49,6 +49,9 @@ rm -rf api/src/main/java/javax/enterprise/{context/,inject/spi/,inject/se/,injec
 %license LICENSE.txt
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.2-10
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.2-9
 - Convert License tag to SPDX format
 

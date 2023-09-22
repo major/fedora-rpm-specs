@@ -34,7 +34,7 @@
 
 Name:           perl-DBI
 Version:        1.643
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A database access API for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dbi.perl.org/
@@ -133,6 +133,8 @@ Suggests:       perl(SQL::Statement) >= 1.402
 # Filter unwanted dependencies
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(RPC::\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(DBI::db\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(DBI::st\\)
 
 %description 
 DBI is a database access Application Programming Interface (API) for
@@ -149,6 +151,29 @@ This is an experimental asynchronous DBD::Gofer stream transport for DBI
 implemented on top of Coro. The BIG WIN from using Coro is that it enables
 the use of existing DBI frameworks like DBIx::Class.
 %endif
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+# Optional run-time:
+%if %{with perl_DBI_enables_Clone}
+Requires:       perl(Clone) >= 0.34
+%endif
+%if %{with perl_DBI_enables_DB_File}
+Requires:       perl(DB_File)
+%endif
+%if %{with perl_DBI_enables_MLDBM}
+Requires:       perl(MLDBM)
+%endif
+# Do not build-require optional Params::Util to test the fall-back code
+%if %{with perl_DBI_enables_SQL_Statement}
+Requires:       perl(SQL::Statement) >= 1.402
+%endif
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n DBI-%{version} 
@@ -181,6 +206,12 @@ for F in lib/DBI/W32ODBC.pm lib/Win32/DBIODBC.pm; do
     sed -i -e '\|^'"$F"'|d' MANIFEST
 done
 
+# Help generators to recognize Perl scripts
+for F in t/*.t t/*.pl; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
   NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -190,6 +221,27 @@ perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
 %{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} '%{buildroot}'/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod*.t
+# Remove using of blib
+sed -i -e '/^use.*blib/d' %{buildroot}%{_libexecdir}/%{name}/t/1*.t
+sed -i -e 's/\-Mblib=\$getcwd\/blib//' %{buildroot}%{_libexecdir}/%{name}/t/85gofer.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -215,7 +267,13 @@ make test
 %{perl_vendorarch}/DBD/Gofer/Transport/corostream.pm
 %endif
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Tue Sep 19 2023 Jitka Plesnikova <jplesnik@redhat.com> -1.643-19
+- Package tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.643-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

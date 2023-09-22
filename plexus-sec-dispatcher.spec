@@ -2,7 +2,7 @@
 
 Name:           plexus-sec-dispatcher
 Version:        2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Plexus Security Dispatcher Component
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-sec-dispatcher
@@ -52,6 +52,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0-9
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0-8
 - Convert License tag to SPDX format
 

@@ -36,7 +36,7 @@ Feature support:
 %global debug_package %{nil}
 
 Name:           highfive
-Version:        2.3.1
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Header-only C++ HDF5 interface
 
@@ -44,20 +44,14 @@ License:        Boost
 URL:            https://bluebrain.github.io/HighFive/
 Source0:        https://github.com/BlueBrain/HighFive/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# Does not build on 32 bit architectures
-# Issue filed upstream: https://github.com/BlueBrain/HighFive/issues/443
-# https://bugzilla.redhat.com/show_bug.cgi?id=1952348
-#
-# Partially patched, fixing i686; see upstream bug for armv7hl status. We can
-# work around this by disabling OpenCV on armv7hl until a patch is available.
-Patch0:         0001-fix-32bit-arches-use-explicit-casts.patch
-Patch1:         0001-Fix-compiling-invalid-reinterpret_cast-on-32-bit.patch
-Patch2:         27a8f06d58a0bdb5c31a84fd8a653a9433f06082.patch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  hdf5-devel
+BuildRequires:  catch-devel
 # Technically optional, enabled by default
 BuildRequires:  boost-devel
 # Our choice vs. make
@@ -148,13 +142,14 @@ mv -v '%{buildroot}/%{_datadir}/%{pretty_name}/CMake' \
 
 %check
 %if %{with tests}
-%ctest
+# Run tests sequentially: https://github.com/BlueBrain/HighFive/issues/825
+%ctest -VV -j 1
 %endif
 
 
 %files devel
 %license LICENSE
-%doc README.md VERSION CHANGELOG.md
+%doc README.md AUTHORS.txt CHANGELOG.md
 %{_includedir}/%{name}
 %{_libdir}/cmake/%{pretty_name}
 

@@ -2,8 +2,8 @@
 %bcond_without perl_DBD_SQLite_enables_optional_test
 
 Name:           perl-DBD-SQLite
-Version:        1.72
-Release:        4%{?dist}
+Version:        1.74
+Release:        1%{?dist}
 Summary:        SQLite DBI Driver
 # lib/DBD/SQLite.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.74-1
+- 1.74 bump (rhbz#2239708)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.72-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

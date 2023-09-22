@@ -385,7 +385,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver       35
-%global rpmrelease      3
+%global rpmrelease      4
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -459,7 +459,7 @@
 # Intentionally use jdkportablenameimpl here since we want to have static-libs files overlayed on
 # top of the JDK archive
 %define staticlibsportablename()     %{expand:%{jdkportablenameimpl -- %%{1}}}
-%define miscportablename() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.misc;g" | sed "s;openjdkportable;el;g")
+%define miscportablename() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable.misc;g" | sed "s;openjdkportable;el;g")
 %define miscportablearchive()  %{miscportablename}.tar.xz
 
 # RPM 4.19 no longer accept our double percentaged %%{nil} passed to %%{1}
@@ -1652,6 +1652,9 @@ done
 %{_jvmdir}/%{miscportablearchive}.sha256sum
 
 %changelog
+* Wed Sep 20 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.0.0.35-4.rolling
+- removed %{1} from miscportablename
+
 * Fri Sep 15 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:21.0.0.0.35-3.rolling
 - Update documentation (README.md, add missing JEP to release notes)
 - Replace alt-java patch with a binary separate from the JDK

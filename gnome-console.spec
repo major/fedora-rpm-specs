@@ -1,7 +1,8 @@
+%global gtk4_version 4.12.2
 %global libadwaita_version 1.4~alpha
 
 Name:           gnome-console
-Version:        45~beta
+Version:        45.0
 Release:        %autorelease
 Summary:        Simple user-friendly terminal emulator for the GNOME desktop
 
@@ -13,13 +14,14 @@ BuildRequires:  meson >= 0.59.0
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
-BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:  pkgconfig(libgtop-2.0)
 BuildRequires:  pkgconfig(vte-2.91-gtk4)
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
 
+Requires:       gtk4%{?_isa} >= %{gtk4_version}
 Requires:       libadwaita%{?_isa} >= %{libadwaita_version}
 
 # Removed in F37

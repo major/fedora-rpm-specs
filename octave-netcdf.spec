@@ -1,12 +1,15 @@
 %global octpkg netcdf
 
 Name:           octave-%{octpkg}
-Version:        1.0.16
-Release:        4%{?dist}
+Version:        1.0.17
+Release:        1%{?dist}
 Summary:        A MATLAB compatible NetCDF interface for Octave
 License:        GPLv2+
 URL:            https://octave.sourceforge.io/%{octpkg}/
 Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+# Use size_t for array index
+# https://sourceforge.net/p/octave/netcdf/merge-requests/1/
+Patch0:         octave-netcdf-size_t.patch
 
 BuildRequires:  octave-devel
 BuildRequires:  netcdf-devel
@@ -19,7 +22,7 @@ Requires(postun): octave
 A MATLAB compatible NetCDF interface for Octave.
 
 %prep
-%setup -q -n %{octpkg}-%{version}
+%autosetup -p1 -n %{octpkg}-%{version}
 
 %build
 %octave_pkg_build
@@ -47,11 +50,15 @@ A MATLAB compatible NetCDF interface for Octave.
 %{octpkgdir}/*.m
 %doc %{octpkgdir}/doc/
 %doc %{octpkgdir}/doc-cache
+%{octpkgdir}/+netcdf/
 %{octpkgdir}/packinfo
 %{octpkgdir}/private/
 %{_metainfodir}/octave-%{octpkg}.metainfo.xml
 
 %changelog
+* Wed Sep 20 2023 Orion Poplawski <orion@nwra.com> - 1.0.17-1
+- Update to 1.0.17
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

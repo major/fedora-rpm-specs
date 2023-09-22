@@ -35,7 +35,7 @@ ExclusiveArch: x86_64
 %global major_version %%(echo %%{tarball_version} | cut -d. -f1)
 
 Name:		gnome-boxes
-Version:	45~rc
+Version:	45.0
 Release:	1%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
@@ -152,6 +152,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Boxes.deskt
 %{_metainfodir}/org.gnome.Boxes.appdata.xml
 
 %changelog
+* Wed Sep 20 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45~rc-1
 - Update to 45.rc
 

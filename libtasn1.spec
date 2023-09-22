@@ -4,7 +4,7 @@ Version:	4.19.0
 Release:	%autorelease
 
 # The libtasn1 library is LGPLv2+, utilities are GPLv3+
-License:	GPLv3+ and LGPLv2+
+License:	GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:		http://www.gnu.org/software/libtasn1/
 Source0:	http://ftp.gnu.org/gnu/libtasn1/%name-%version.tar.gz
 Source1:	http://ftp.gnu.org/gnu/libtasn1/%name-%version.tar.gz.sig

@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           m1n1
-Version:        1.3.6
+Version:        1.3.7
 Release:        %autorelease
 Summary:        Bootloader and experimentation playground for Apple Silicon
 
@@ -24,6 +24,8 @@ BuildRequires:  make
 
 # For the bootloader logos and the framebuffer console
 BuildRequires:  adobe-source-code-pro-fonts
+BuildRequires:  coreutils
+BuildRequires:  fontconfig
 BuildRequires:  system-logos
 BuildRequires:  ImageMagick
 BuildRequires:  zopfli
@@ -74,7 +76,12 @@ zopflipng -ym bootlogo_256.png bootlogo_256.png
 popd
 
 # Use our fonts
-font="%{_fontbasedir}/adobe-source-code-pro/SourceCodePro-Bold.otf"
+font="$(fc-match "Source Code Pro:bold" 'file' | cut -d= -f2)"
+if [ ! -e "$font" ]; then
+    echo "Failed to find font"
+    exit 1
+fi
+
 pushd font
 rm SourceCodePro-Bold.ttf font.bin font_retina.bin
 ./makefont.sh 8 16 12 "$font" font.bin

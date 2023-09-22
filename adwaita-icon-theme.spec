@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           adwaita-icon-theme
-Version:        45~rc
+Version:        45.0
 Release:        1%{?dist}
 Summary:        Adwaita icon theme
 
@@ -71,6 +71,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Wed Sep 20 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45~rc-1
 - Update to 45.rc
 

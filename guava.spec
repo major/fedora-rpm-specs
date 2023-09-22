@@ -2,7 +2,7 @@
 
 Name:           guava
 Version:        31.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Google Core Libraries for Java
 # Most of the code is under ASL 2.0
 # Few classes are under CC0, grep for creativecommons
@@ -97,6 +97,9 @@ find . -name '*.jar' -delete
 %files testlib -f .mfiles-guava-testlib
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 31.1-8
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 31.1-7
 - Convert License tag to SPDX format
 

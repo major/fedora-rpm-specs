@@ -11,7 +11,7 @@ Name:          american-fuzzy-lop
 Summary:       Practical, instrumentation-driven fuzzer for binary formats
 License:       ASL 2.0
 
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -61,6 +61,9 @@ Requires:      clang(major) = %{clang_major}
 %ifarch %{ix86} x86_64
 Requires:      lld
 %endif
+# This ensures that AFL_USE_ASAN=1 works out of the box.  However as
+# it is not strictly required to use AFL, make it optional.
+Recommends:    compiler-rt
 
 %description clang
 This subpackage contains clang and clang++ support for
@@ -258,6 +261,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Wed Sep 20 2023 Richard W.M. Jones <rjones@redhat.com> - 4.08c-3
+- clang subpackage recommends compiler-rt so ASAN works
+
 * Tue Aug 29 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 4.08c-2
 - Rebuild with LLVM 17.0.0
 

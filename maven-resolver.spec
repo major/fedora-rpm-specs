@@ -3,7 +3,7 @@
 Name:           maven-resolver
 Epoch:          1
 Version:        1.9.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        Apache-2.0
 Summary:        Apache Maven Artifact Resolver library
 URL:            https://maven.apache.org/resolver/
@@ -119,6 +119,9 @@ done
 %license LICENSE NOTICE
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.15-3
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.15-2
 - Convert License tag to SPDX format
 

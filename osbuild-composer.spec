@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        89
+Version:        90
 
 %gometa
 
@@ -589,6 +589,27 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Sep 20 2023 Packit <hello@packit.dev> - 90-1
+Changes with 90
+----------------
+  * Actions: add workflow for marking and closing stale issues and PRs (#3676)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou
+  * Add test case for iot-qcow2-image (#3668)
+    * Author: He Yi, Reviewers: Xiaofeng Wang
+  * OpenSCAP cloudapi tailoring (#3617)
+    * Author: Gianluca Zuccarelli, Reviewers: Tomáš Hozza
+  * oci object storage target (#3675)
+    * Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli
+  * test/cases/ubi-wsl: set --os-type when creating vm (#3686)
+    * Author: Sanne Raymaekers, Reviewers: Tomáš Hozza
+  * test: remove workaround for bug BZ#2234390 (#3684)
+    * Author: Xiaofeng Wang, Reviewers: Achilleas Koutsou, Brian C. Lane
+  * test: workaround fdo package issue (#3690)
+    * Author: Xiaofeng Wang, Reviewers: Achilleas Koutsou
+
+— Somewhere on the Internet, 2023-09-20
+
+
 * Wed Sep 06 2023 Packit <hello@packit.dev> - 89-1
 Changes with 89
 ----------------

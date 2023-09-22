@@ -2,7 +2,7 @@
 
 #global gitrel     140
 #global gitcommit  a70055b58568f7304ba46bd8742232337013487b
-#global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
+#global shortcommit %%(c=%%{gitcommit}; echo ${c:0:5})
 
 %global         _glib2                  2.32.0
 %global         _libxml2                2.4.0
@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.22.5
+Version:        1.22.6
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -198,6 +198,9 @@ setcap cap_sys_nice,cap_net_bind_service,cap_net_admin+ep %{_libexecdir}/gstream
 
 
 %changelog
+* Wed Sep 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.6-1
+- 1.22.6
+
 * Fri Jul 21 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.5-1
 - Update to 1.22.5
 

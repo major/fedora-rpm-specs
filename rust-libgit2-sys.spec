@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate libgit2-sys
-%global upstream_version 0.15.2+1.6.4
+%global crate_version 0.16.1+1.7.1
 
 Name:           rust-libgit2-sys
-Version:        0.15.2
+Version:        0.16.1
 Release:        %autorelease
 Summary:        Native bindings to the libgit2 library
 
@@ -16,7 +16,7 @@ Summary:        Native bindings to the libgit2 library
 # * bundled pcre:           BSD-3-Clause
 License:        (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
 URL:            https://crates.io/crates/libgit2-sys
-Source:         %{crates_source %{crate} %{upstream_version}}
+Source:         %{crates_source %{crate} %{crate_version}}
 # Manually created patch for downstream crate metadata changes
 # * remove libgit2 version from version field
 # * update package.license field to reflect bundled dependencies
@@ -36,7 +36,7 @@ Native bindings to the libgit2 library.}
 Summary:        %{summary}
 BuildArch:      noarch
 
-Provides:       bundled(libgit2) = 1.6.4
+Provides:       bundled(libgit2) = 1.7.1
 Provides:       bundled(http-parser) = 2.0
 Provides:       bundled(pcre) = 8.44
 
@@ -139,7 +139,7 @@ use the "vendored" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{upstream_version} -p1
+%autosetup -n %{crate}-%{crate_version} -p1
 # remove upstream development scripts from libgit2
 rm -r libgit2/script/
 # remove unused bundled dependencies

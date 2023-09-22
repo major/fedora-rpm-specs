@@ -2,7 +2,9 @@ Summary: Manipulate system time per process for testing purposes
 Name: libfaketime
 Version: 0.9.10
 Release: 6%{?dist}
-License: GPLv2+
+# most of the code is GPL-2.0-or-later AND GPL-3.0-only
+# part of src/libfaketime.c is GPLv3
+License: GPL-2.0-or-later AND GPL-3.0-only
 Url: https://github.com/wolfcw/libfaketime
 Source: libfaketime-0.9.10.tar.gz
 Patch0: libfaketime-backports.patch

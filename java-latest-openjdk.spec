@@ -321,7 +321,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        35
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -894,7 +894,6 @@ exit 0
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.policy
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.security
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/logging.properties
-%config(noreplace) %{etcjavadir -- %{?1}}/conf/security/nss.cfg
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/nss.fips.cfg
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/jmxremote.access
 # This is a config template, thus not config-noreplace
@@ -1307,6 +1306,7 @@ Source16: CheckVendor.java
 Source18: TestTranslations.java
 
 BuildRequires: %{portable_name}-sources >= %{portable_version}
+BuildRequires: %{portable_name}-misc >= %{portable_version}
 
 %if %{include_normal_build}
 BuildRequires: %{portable_name} >= %{portable_version}
@@ -1338,7 +1338,7 @@ BuildRequires: gdb
 BuildRequires: /usr/bin/gcc
 BuildRequires: /usr/bin/objcopy
 BuildRequires: /usr/bin/readelf
-# Requirement for setting up nss.cfg and nss.fips.cfg
+# Requirement for setting and nss.fips.cfg
 BuildRequires: nss-devel
 # Requirement for system security property test
 BuildRequires: crypto-policies
@@ -1708,6 +1708,8 @@ if [ $prioritylength -ne 8 ] ; then
 fi
 
 tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.sources.noarch.tar.xz
+tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable*.misc.%{_arch}.tar.xz
+
 %if %{include_normal_build}
 tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
 #tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.jre.%{_arch}.tar.xz
@@ -1958,6 +1960,7 @@ for suffix in %{build_loop} ; do
 %endif
   jdk_image=${top_dir_abs_main_build_path}
   src_image=`echo ${top_dir_abs_main_build_path} | sed "s/portable.*.%{_arch}/portable.sources.noarch/"`
+  misc_image=`echo ${top_dir_abs_main_build_path} | sed "s/portable.*.%{_arch}/portable%{1}.misc.%{_arch}/"`
 
 # Install the jdk
 mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
@@ -1965,13 +1968,14 @@ mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
 # Install icons
 for s in 16 24 32 48 ; do
   install -D -p -m 644 \
-     ${src_image}/openjdk/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
+     ${src_image}/%{vcstag}/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
      $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
 done
 
 
 cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
 cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
+cp -a ${misc_image}/alt-java $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/bin
 
 pushd ${jdk_image}
 
@@ -2391,6 +2395,11 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Tue Sep 19 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.0.0.35-2.rolling
+- adapted to new path in sources
+- repacked alt-java from misc subpkg
+- removed no longer prepared nss.cfg
+
 * Tue Aug 29 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.0.0.35-1.rolling
 - updated to jdk 21
 

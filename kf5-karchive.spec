@@ -20,6 +20,7 @@ BuildRequires:  qt5-qtbase-devel
 BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
 BuildRequires:  cmake(Qt5LinguistTools)
+BuildRequires:  pkgconfig(libzstd)
 
 Requires:       kf5-filesystem >= %{majmin}
 

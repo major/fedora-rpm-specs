@@ -1,4 +1,4 @@
-%global giacver 1.9.0.29
+%global giacver 1.9.0.59
 %global pypi_name  giacpy
 
 %global with_check  1
@@ -8,7 +8,7 @@
 ExcludeArch: aarch64 %{power64} s390x
 
 Name:           python-%{pypi_name}
-Version:        0.7.2
+Version:        0.7.3
 Release:        %autorelease
 Summary:        Python binding for Giac
 License:        GPLv2+

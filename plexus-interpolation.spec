@@ -2,7 +2,7 @@
 
 Name:           plexus-interpolation
 Version:        1.26
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Plexus Interpolation API
 # Most of the code is ASL 2.0, a few source files are ASL 1.1 and some tests are MIT
 License:        Apache-2.0 AND Apache-1.1 AND MIT
@@ -48,6 +48,9 @@ related projects.
 %files -f .mfiles
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.26-17
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.26-16
 - Rebuild
 

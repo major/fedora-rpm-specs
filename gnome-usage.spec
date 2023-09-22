@@ -1,38 +1,37 @@
-%global url_ver	%%(echo %{version}|cut -d. -f1,2)
-%global libgtop2_version 2.37.2
+%global tarball_version	%%(echo %{version} | tr '~' '.')
+%global url_ver	%%(echo %{version} | cut -d. -f1,2)
 
 Name:		gnome-usage
-Version:	3.38.1
-Release:	6%{?dist}
+Version:	45.0
+Release:	1%{?dist}
 Summary:	A GNOME app to view information about use of system resources
 
 License:	GPLv3+
 URL:		https://wiki.gnome.org/Apps/Usage
-Source0:	http://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	meson
-BuildRequires:	pkgconfig(accountsservice)
+BuildRequires:	pkgconfig(gee-0.8)
+BuildRequires:	pkgconfig(gio-2.0)
+BuildRequires:	pkgconfig(gio-unix-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(gobject-introspection-1.0)
-BuildRequires:	pkgconfig(gtk+-3.0)
-BuildRequires:	pkgconfig(libdazzle-1.0)
-BuildRequires:	pkgconfig(libgtop-2.0) >= %{libgtop2_version}
-BuildRequires:	pkgconfig(libhandy-1)
+BuildRequires:	pkgconfig(gobject-2.0)
+BuildRequires:	pkgconfig(gtk4)
+BuildRequires:	pkgconfig(libadwaita-1)
+BuildRequires:	pkgconfig(libgtop-2.0)
 BuildRequires:	pkgconfig(tracker-sparql-3.0)
 BuildRequires:	vala
-BuildRequires:	yelp-tools
 
 Requires:	adwaita-icon-theme
-Requires:	libgtop2%{?_isa} >= %{libgtop2_version}
 
 %description
 gnome-usage lets you easily visualize the use of system resources such as
 CPU, memory, and storage.
 
 %prep
-%setup -q
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
 %meson
@@ -48,13 +47,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Usage.deskt
 %files -f %{name}.lang
 %license LICENSE
 %doc AUTHORS README.md NEWS
-%{_bindir}/%{name}
+%{_bindir}/gnome-usage
 %{_datadir}/applications/org.gnome.Usage.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.Usage.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Usage.svg
 %{_datadir}/metainfo/org.gnome.Usage.appdata.xml
 
 %changelog
+* Wed Sep 20 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

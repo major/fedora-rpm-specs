@@ -26,6 +26,7 @@ Source0: http://download.kde.org/%{stable}/applications/%{version}/src/%{name}-%
 Patch0:  blogilo-17.08.3-fix-dependencies.patch
 Patch1:  blogilo-17.08.3-no-disable-deprecated.patch
 Patch2:  blogilo-17.08.3-kdepim-23.04.patch
+Patch3:  blogilo-17.08.3-kdepim-23.08.patch
 
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
@@ -87,7 +88,13 @@ Requires: %{name} = %{version}-%{release}
 
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%setup -q -n %{name}-%{version}
+%patch0 -p1 -b .fix-dependencies
+%patch1 -p1 -b .no-disable-deprecated
+%patch2 -p1 -b .kdepim-23.04
+if [ ! -f %{_kf5_libdir}/cmake/KF5PimCommon/KF5PimCommonConfig.cmake ] ; then
+%patch3 -p1 -b .kdepim-23.08
+fi
 
 
 %build
@@ -140,7 +147,7 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 %changelog
 * Tue Sep 19 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 17.08.3-28
-- Rebuild for new kdepim libraries, again! (#2239665)
+- Patch and rebuild for new kdepim libraries, again! (#2239665)
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

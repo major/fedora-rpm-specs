@@ -2,7 +2,10 @@ Name: po4a
 Version: 0.69
 Release: 2%{?dist}
 Summary: A tool maintaining translations anywhere
-License: GPL+
+
+# Note: source is imprecise about 2.0-only vs 2.0-or-later
+# https://github.com/mquinson/po4a/issues/434
+License: GPL-2.0-or-later
 URL: https://po4a.org/
 
 Source0: https://github.com/mquinson/po4a/archive/v%{version}/%{name}-%{version}.tar.gz

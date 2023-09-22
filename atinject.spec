@@ -2,7 +2,7 @@
 
 Name:           atinject
 Version:        1.0.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Dependency injection specification for Java (JSR-330)
 License:        Apache-2.0
 URL:            https://github.com/eclipse-ee4j/injection-api
@@ -47,6 +47,9 @@ beneficial to most nontrivial applications.
 %license LICENSE.txt NOTICE.md
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.0.5-8
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.0.5-7
 - Convert License tag to SPDX format
 

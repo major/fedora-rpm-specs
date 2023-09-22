@@ -16,7 +16,7 @@
 
 Name:           scala
 Version:        2.13.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Hybrid functional/object-oriented language for the JVM
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -217,22 +217,25 @@ javac $JAVAC_FLAGS -d ../target/library -cp $(build-classpath junit) \
     $(find library -name \*.java)
 scalac $SCALAC_FLAGS -d ../target/library -classpath ../target/library \
     $(find library -name \*.scala | sort)
-scaladoc $SCALADOC_FLAGS -doc-title 'Scala Standard Library' \
-    -sourcepath $PWD/library -doc-no-compile $PWD/library-aux \
-    -skip-packages scala.concurrent.impl \
-    -doc-root-content $PWD/library/rootdoc.txt \
-    $(find library -name \*.scala | sort)
-mv scala ../target/html/library
+
+# Skip docs to avoid jquery bug
+# scaladoc $SCALADOC_FLAGS -doc-title 'Scala Standard Library' \
+#     -sourcepath $PWD/library -doc-no-compile $PWD/library-aux \
+#     -skip-packages scala.concurrent.impl \
+#     -doc-root-content $PWD/library/rootdoc.txt \
+#     $(find library -name \*.scala | sort)
+# mv scala ../target/html/library
 
 # Build the reflection library
 javac $JAVAC_FLAGS -d ../target/reflect $(find reflect -name \*.java)
 scalac $SCALAC_FLAGS -d ../target/reflect -classpath ../target/reflect \
     $(find reflect -name \*.scala | sort)
-scaladoc $SCALADOC_FLAGS -doc-title 'Scala Reflection Library' \
-    -sourcepath $PWD/reflect \
-    -skip-packages scala.reflect.macros.internal:scala.reflect.internal:scala.reflect.io \
-    $(find reflect -name \*.scala | sort)
-mv scala ../target/html/reflect
+
+# scaladoc $SCALADOC_FLAGS -doc-title 'Scala Reflection Library' \
+#    -sourcepath $PWD/reflect \
+#     -skip-packages scala.reflect.macros.internal:scala.reflect.internal:scala.reflect.io \
+#     $(find reflect -name \*.scala | sort)
+# mv scala ../target/html/reflect
 
 # Build the compiler
 javac $JAVAC_FLAGS -d ../target/compiler -cp $COMPJAR \
@@ -254,21 +257,21 @@ javac $JAVAC_FLAGS -d ../target/compiler $(find repl-frontend -name \*.java)
 scalac $SCALAC_FLAGS -d ../target/compiler \
     -classpath ../target/compiler:$JLINE_JARS \
     -feature $(find repl-frontend -name \*.scala)
-scaladoc $SCALADOC_FLAGS -doc-title 'Scala Compiler' \
-    -sourcepath $PWD/compiler:$PWD/interactive:$PWD/repl:$PWD/repl-frontend \
-    -doc-root-content $PWD/compiler/rootdoc.txt \
-    -classpath $PWD/../target/library:$PWD/../target/reflect:$JLINE_JARS:$DIFFUTILS_JAR \
-    $(find compiler -name \*.scala) $(find interactive -name \*.scala) \
-    $(find repl -name \*.scala) $(find repl-frontend -name \*.scala)
-mv scala ../target/html/compiler
+# scaladoc $SCALADOC_FLAGS -doc-title 'Scala Compiler' \
+#     -sourcepath $PWD/compiler:$PWD/interactive:$PWD/repl:$PWD/repl-frontend \
+#    -doc-root-content $PWD/compiler/rootdoc.txt \
+#    -classpath $PWD/../target/library:$PWD/../target/reflect:$JLINE_JARS:$DIFFUTILS_JAR \
+#     $(find compiler -name \*.scala) $(find interactive -name \*.scala) \
+#     $(find repl -name \*.scala) $(find repl-frontend -name \*.scala)
+# mv scala ../target/html/compiler
 
 # Build the documentation generator
 # The order of the source files matters!  Some orderings end with this error:
 # error: scala.reflect.internal.Symbols$CyclicReference: illegal cyclic reference involving <refinement of scala.tools.nsc.doc.model.ModelFactory with scala.tools.nsc.doc.model.ModelFactoryImplicitSupport with scala.tools.nsc.doc.model.ModelFactoryTypeSupport with scala.tools.nsc.doc.model.diagram.DiagramFactory with scala.tools.nsc.doc.model.CommentFactory with scala.tools.nsc.doc.model.TreeFactory with scala.tools.nsc.doc.model.MemberLookup>
 # I do not know why that happens.  This is one order that works.  There are
 # no doubt many more.
-scalac $SCALAC_FLAGS -d ../target/compiler \
-    $(find scaladoc -name \*.scala | sort)
+# scalac $SCALAC_FLAGS -d ../target/compiler \
+#     $(find scaladoc -name \*.scala | sort)
 
 # Build the bytecode parser
 scalac $SCALAC_FLAGS -d ../target/scalap $(find scalap -name \*.scala)
@@ -300,8 +303,8 @@ done
 cp -p src/library/rootdoc.txt target/library
 cp -p src/compiler/rootdoc.txt target/compiler
 cp -a src/compiler/templates target/compiler
-cp -a src/scaladoc/scala/tools/nsc/doc/html/resource \
-      target/compiler/scala/tools/nsc/doc/html
+# cp -a src/scaladoc/scala/tools/nsc/doc/html/resource \
+#       target/compiler/scala/tools/nsc/doc/html
 cp -p src/scalap/decoder.properties target/scalap
 
 # Build the compiler jar
@@ -447,6 +450,9 @@ install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
 
 %changelog
+* Wed Sep 20 2023 Christiano Anderson <chris@christiano.dev> - 2.13.12-4
+- Remove documentation to bypass webjar error
+
 * Mon Sep 18 2023 Christiano Anderson <chris@christiano.dev> - 2.13.12-3
 - Version 2.13.12 - removing bootstrap
 

@@ -5,9 +5,9 @@
 %global crate gethostname
 
 Name:           rust-gethostname
-Version:        0.2.3
+Version:        0.4.3
 Release:        %autorelease
-Summary:        For all platforms
+Summary:        Gethostname for all platforms
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/gethostname

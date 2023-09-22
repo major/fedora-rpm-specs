@@ -2,7 +2,7 @@
 
 Name:           plexus-utils
 Version:        3.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plexus Common Utilities
 # ASL 1.1: several files in src/main/java/org/codehaus/plexus/util/
 # xpp: src/main/java/org/codehaus/plexus/util/xml/pull directory
@@ -52,6 +52,9 @@ is like a J2EE application server, without all the baggage.
 %license NOTICE.txt LICENSE.txt
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.1-3
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.5.1-2
 - Convert License tag to SPDX format
 

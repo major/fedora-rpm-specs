@@ -1,6 +1,6 @@
 Name:           python-aws-sam-translator
 Summary:        Transform SAM templates into AWS CloudFormation templates
-Version:        1.74.0
+Version:        1.75.0
 Release:        %autorelease
 
 License:        Apache-2.0
@@ -42,7 +42,7 @@ BuildRequires:  %{py3_dist pytest-env} >= 0.6
 BuildRequires:  %{py3_dist pytest-rerunfailures} >= 9.1
 # pyyaml~=6.0
 BuildRequires:  %{py3_dist pyyaml} >= 6
-# ruff==0.0.263
+# ruff==0.0.284
 # ----------
 # Test requirements
 # pytest>=6.2,<8
@@ -66,13 +66,13 @@ BuildRequires:  %{py3_dist parameterized} >= 0.7
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 #
 # formatter
-# black==23.1.0
+# black==23.3.0
 # ruamel.yaml==0.17.21  # It can parse yaml while perserving comments
 # ----------
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 #
 # type check
-# mypy~=1.1.0
+# mypy~=1.3.0
 # ----------
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 #

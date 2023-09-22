@@ -5,7 +5,7 @@
 %global crate partition-identity
 
 Name:           rust-partition-identity
-Version:        0.2.8
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Find the ID of a device by its path, or find a device path by its ID
 

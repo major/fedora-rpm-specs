@@ -2,7 +2,7 @@
 
 Name:             jansi
 Version:          2.4.0
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Generate and interpret ANSI escape sequences in Java
 License:          Apache-2.0
 URL:              http://fusesource.github.io/jansi/
@@ -104,6 +104,9 @@ cp -p src/main/native/libjansi.so %{buildroot}%{_prefix}/lib/%{name}
 %license license.txt
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.4.0-10
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.4.0-9
 - Convert License tag to SPDX format
 

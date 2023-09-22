@@ -1,6 +1,6 @@
 Name:           rpminspect-data-fedora
-Version:        1.10
-Release:        2%{?dist}
+Version:        1.12
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Build deviation compliance tool data files
 Group:          Development/Tools
@@ -16,7 +16,7 @@ BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  gnupg2
 
-Requires:       rpminspect >= 1.7
+Requires:       rpminspect >= 1.11
 
 # Used by inspections enabled in the configuration file
 Requires:       fedora-license-data
@@ -59,6 +59,9 @@ used by the inspections provided by librpminspect.
 
 
 %changelog
+* Wed Sep 20 2023 David Cantrell <dcantrell@redhat.com> - 1.12-1
+- Upgrade to rpminspect-data-fedora-1.12
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name: sdubby
 Version: 1.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Set of systemd-boot shims that don't fit anywhere else in the distro
 License: GPLv2+
 URL:	 https://pagure.io/sdubby.git
@@ -76,6 +76,9 @@ gzip %{buildroot}%{_mandir}/man8/updateloaderentries.8
 
 
 %changelog
+* Wed Sep 20 2023 Jeremy Linton <jeremy.linton@arm.com> - 1.0-4
+- Merge PR#1, fixes independent loaderentries
+
 * Fri Sep 15 2023 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0-3
 - Drop /usr/sbin/installkernel symlink
 

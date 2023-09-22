@@ -8,7 +8,7 @@
 Name:           libppd
 Epoch:          1
 Version:        2.0~rc2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -26,6 +26,8 @@ Patch0001: libppd-disable-testppdfile.patch
 Patch0002: 0001-ppd-ppd-ipp.c-Use-make-when-constructing-printer-mak.patch
 # https://github.com/OpenPrinting/libppd/commit/30b35cc751bc312a1f82db849b1c80dbd8d32aa4
 Patch0003: 0001-Decode-JCLToPDFInterpreter-value-in-ppdEmitJCLPDF.patch
+# https://github.com/OpenPrinting/libppd/commit/262c909ac5
+Patch0004: 0001-raster-interpret.c-Fix-CVE-2023-4504.patch
 
 
 # for autogen.sh
@@ -198,6 +200,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Wed Sep 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-4
+- CVE-2023-4504 libppd: Postscript Parsing Heap Overflow
+
 * Tue Aug 08 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-3
 - fix printing for PDF+PJL drivers
 

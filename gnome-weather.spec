@@ -5,8 +5,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-weather
-Version:	45~alpha
-Release:	2%{?dist}
+Version:	45.0
+Release:	1%{?dist}
 Summary:	A weather application for GNOME
 
 License:	GPL-2.0-or-later AND BSD-3-Clause and CC-BY-3.0 and CC-BY-SA-3.0
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Weather.des
 %{_datadir}/org.gnome.Weather/
 
 %changelog
+* Wed Sep 20 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

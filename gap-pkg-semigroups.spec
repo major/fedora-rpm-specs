@@ -8,7 +8,7 @@
 %bcond_with bigtest
 
 Name:           gap-pkg-%{pkgname}
-Version:        5.3.0
+Version:        5.3.1
 Release:        1%{?dist}
 Summary:        GAP methods for semigroups
 
@@ -147,6 +147,9 @@ cd -
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Sep 20 2023 Jerry James <loganjerry@gmail.com> - 5.3.1-1
+- Version 5.3.1
+
 * Mon Sep 18 2023 Jerry James <loganjerry@gmail.com> - 5.3.0-1
 - Version 5.3.0
 - Doc subpackage cannot be noarch

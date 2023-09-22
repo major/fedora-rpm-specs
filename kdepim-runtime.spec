@@ -12,7 +12,7 @@ Name:    kdepim-runtime
 Summary: KDE PIM Runtime Environment
 Epoch:   1
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2
 URL:     https://invent.kde.org/pim/%{name}
@@ -29,6 +29,9 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
 
 ## upstream patches
+Patch1: 23.08.1-fix-google-1.patch
+Patch2: 23.08.1-fix-google-2.patch
+Patch3: 23.08.1-fix-google-3.patch
 
 
 # nuke ill-advised -devel pkg
@@ -196,6 +199,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Wed Sep 20 2023 Alessandro Astone <ales.astone@gmail.com> - 1:23.08.1-2
+- Backport fixes for Google integration
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.1-1
 - 23.08.1
 

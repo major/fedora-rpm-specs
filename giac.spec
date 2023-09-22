@@ -6,12 +6,12 @@
 
 %global _lto_cflags %{nil}
 
-%global subversion .57
+%global subversion .59
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       3%{?dist}
+Release:       1%{?dist}
 # GPL-3.0-or-later: the project as a whole
 # GPL-3.0-only: src/TmpFGLM.*, src/TmpLESystemSolver.*
 # GPL-2.0-or-later: pariinl.h
@@ -170,7 +170,7 @@ The pgiac command is a perl script to mix Latex documents
 with Giac computations.
 
 %prep
-%autosetup -p0 -n %{name}-%{majver} -N
+%autosetup -n %{name}-%{majver} -N
 
 %patch -P 0 -p1 -b .backup
 %patch -P 1 -p1 -b .backup
@@ -467,6 +467,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Wed Sep 20 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.59-1
+- Update to 1.9.0 sub-59 (rhbz#2239514)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0.57-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

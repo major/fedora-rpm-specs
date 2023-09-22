@@ -12,7 +12,7 @@ Summary:        Sass for Python: A straightforward binding of libsass for Python
 # SPDX
 License:        MIT
 URL:            https://github.com/dahlia/libsass-python
-Source:         %{url}/archive/%{version}.tar.gz#/libsass-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/libsass-python-%{version}.tar.gz
 
 # 0.22.0: documentation seems is not ready for sphinx 6.1.3
 # https://github.com/sass/libsass-python/issues/424

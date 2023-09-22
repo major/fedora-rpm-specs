@@ -5,7 +5,7 @@
 %global hawkey_version 0.71.0
 %global libcomps_version 0.1.8
 %global libmodulemd_version 2.9.3
-%global rpm_version 4.18.0
+%global rpm_version 4.14.0
 
 # conflicts
 %global conflicts_dnf_plugins_core_version 4.0.26
@@ -68,12 +68,13 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.17.0
-Release:        1%{?dist}
+Release:        6%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
 URL:            https://github.com/rpm-software-management/dnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         0001-Revert-Block-signals-during-RPM-transaction-processi.patch
 BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  gettext
@@ -381,6 +382,9 @@ popd
 %{python3_sitelib}/%{name}/automatic/
 
 %changelog
+* Wed Sep 20 2023 Jan Kolarik <jkolarik@redhat.com> - 4.17.0-6
+- Revert "Block signals during RPM transaction processing" (RhBug:2236997)
+
 * Fri Sep 01 2023 Jan Kolarik <jkolarik@redhat.com> - 4.17.0-1
 - Update to 4.17.0
 - crypto: Use libdnf crypto API instead of using GnuPG/GpgME

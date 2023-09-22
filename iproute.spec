@@ -1,13 +1,13 @@
 Summary:            Advanced IP routing and network device configuration tools
 Name:               iproute
-Version:            6.4.0
+Version:            6.5.0
 Release:            %autorelease
 %if 0%{?rhel}
 Group:              Applications/System
 %endif
 URL:                https://kernel.org/pub/linux/utils/net/%{name}2/
 Source0:            https://kernel.org/pub/linux/utils/net/%{name}2/%{name}2-%{version}.tar.xz
-
+Patch0:             0001-Makefile-ensure-CONF_USR_DIR-honours-the-libdir-conf.patch
 
 License:            GPL-2.0-or-later AND NIST-PD
 BuildRequires:      bison
@@ -79,8 +79,8 @@ The libnetlink static library.
 %autosetup -p1 -n %{name}2-%{version}
 
 %build
-%configure --libdir %{_libdir}
-echo -e "\nPREFIX=%{_prefix}\nCONFDIR:=%{_sysconfdir}/iproute2\nSBINDIR=%{_sbindir}" >> config.mk
+%configure
+echo -e "\nCONFDIR:=%{_libdir}/iproute2\nSBINDIR=%{_sbindir}" >> config.mk
 %make_build
 
 %install
@@ -97,11 +97,11 @@ rm -rf '%{buildroot}%{_docdir}'
 
 # append deprecated values to rt_dsfield for compatibility reasons
 %if 0%{?rhel} && ! 0%{?eln}
-cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
+cat %{SOURCE1} >>%{buildroot}%{_libdir}/iproute2/rt_dsfield
 %endif
 
 %files
-%dir %{_sysconfdir}/iproute2
+%dir %{_libdir}/iproute2
 %license COPYING
 %doc README README.devel
 %{_mandir}/man7/*
@@ -109,7 +109,7 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 %{_mandir}/man8/*
 %exclude %{_mandir}/man8/tc*
 %exclude %{_mandir}/man8/cbq*
-%attr(644,root,root) %config(noreplace) %{_sysconfdir}/iproute2/*
+%attr(644,root,root) %config(noreplace) %{_libdir}/iproute2/*
 %{_sbindir}/*
 %exclude %{_sbindir}/tc
 %exclude %{_sbindir}/routel

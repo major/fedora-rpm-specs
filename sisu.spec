@@ -3,7 +3,7 @@
 Name:           sisu
 Epoch:          1
 Version:        0.3.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Eclipse dependency injection framework
 # sisu is EPL-1.0, the bundled asm is BSD
 License:        EPL-1.0 AND BSD-3-Clause
@@ -84,6 +84,9 @@ cp %{SOURCE102} sisu-plexus/pom.xml
 %license sisu-inject/LICENSE.txt
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:0.3.5-9
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:0.3.5-8
 - Convert License tag to SPDX format
 

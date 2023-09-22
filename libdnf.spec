@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -303,6 +303,9 @@ popd
 %endif
 
 %changelog
+* Wed Sep 20 2023 Adam Williamson <awilliam@redhat.com> - 0.71.0-2
+- Rebuild with no changes for Bodhi reasons
+
 * Fri Sep 01 2023 Jan Kolarik <jkolarik@redhat.com> - 0.71.0-1
 - Update to 0.71.0
 - PGP: Use new librepo PGP API, remove gpgme dependency

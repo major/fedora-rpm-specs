@@ -1,5 +1,5 @@
 Version:        4.0.0
-Release:        9%{?dist}
+Release:        %autorelease
 URL:            https://google.github.io/material-design-icons/
 
 %global fontlicense     Apache-2.0
@@ -42,39 +42,4 @@ sed -e 's,updatecontact,update_contact,g' \
 %fontfiles
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 4.0.0-8
-- Remove redundant metadata check
-
-* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 4.0.0-8
-- Drop unneeded %%fontcheck workaround
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 4.0.0-7
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jan 14 2022 Jerry James <loganjerry@gmail.com> - 4.0.0-5
-- Add a font organization
-- Validate metadata with appstream
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Mar 29 2021 Jerry James <loganjerry@gmail.com> - 4.0.0-3
-- Fix problems in the generated metainfo (bz 1943727)
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Dec  3 2020 Jerry James <loganjerry@gmail.com> - 4.0.0-1
-- Initial RPM
+%autochangelog

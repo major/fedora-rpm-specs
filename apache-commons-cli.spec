@@ -2,7 +2,7 @@
 
 Name:           apache-commons-cli
 Version:        1.5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Command Line Interface Library for Java
 License:        Apache-2.0
 URL:            http://commons.apache.org/cli/
@@ -43,6 +43,9 @@ command line arguments and options.
 %doc README.md RELEASE-NOTES.txt
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.5.0-8
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.5.0-7
 - Convert License tag to SPDX format
 

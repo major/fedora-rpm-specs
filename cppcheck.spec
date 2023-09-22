@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:           cppcheck
-Version:        2.12.0
-Release:        2%{?dist}
+Version:        2.12.1
+Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0
 URL:            http://cppcheck.wiki.sourceforge.net/
@@ -112,6 +112,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Wed Sep 20 2023 Wolfgang Stöggl <c72578@yahoo.de> - 2.12.1-1
+- Update to 2.12.1
+
 * Tue Sep 12 2023 Wolfgang Stöggl <c72578@yahoo.de> - 2.12.0-2
 - Add "-fsigned-char" to CXXFLAGS, to make tests pass
 

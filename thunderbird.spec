@@ -109,6 +109,7 @@ Patch103:       rhbz-1219542-s390-build.patch
 Patch422:       0001-GLIBCXX-fix-for-GCC-12.patch
 Patch425:       build-disable-elfhack.patch
 Patch426:       build-rnp.patch
+Patch427:       rhbz-2235654.patch
 
 # PPC fix
 Patch304:       mozilla-1245783.patch
@@ -278,6 +279,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P 425 -p1 -b .build-disable-elfhack
 %endif
 %patch -P 426 -p1 -b .build-rnp
+%patch -P 427 -p1 -b .rhbz-2235654
 # most likely fixed
 #%patch -P 419 -p1 -b .bindgen
 
@@ -378,6 +380,10 @@ echo "ac_add_options --enable-crashreporter" >> .mozconfig
 %else
 echo "ac_add_options --disable-crashreporter" >> .mozconfig
 %endif
+
+# Same as https://bugzilla.redhat.com/show_bug.cgi?id=2239046 for Firefox:
+# Clang 17 upstream's detection fails, tell it where to look.
+echo "ac_add_options --with-libclang-path=%{_libdir}" >> .mozconfig
 
 echo 'export NODEJS="%{_buildrootdir}/bin/node-stdout-nonblocking-wrapper"' >> .mozconfig
 

@@ -16,7 +16,7 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.12.1
+Version:        4.12.2
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 

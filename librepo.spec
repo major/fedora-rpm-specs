@@ -18,7 +18,7 @@
 
 Name:           librepo
 Version:        1.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -108,6 +108,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Wed Sep 20 2023 Adam Williamson <awilliam@redhat.com> - 1.16.0-2
+- Rebuild with no changes for Bodhi reasons
+
 * Fri Sep 01 2023 Jan Kolarik <jkolarik@redhat.com> - 1.16.0-1
 - Update to 1.16.0
 - Implement OpenPGP using librpm API

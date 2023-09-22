@@ -1,6 +1,6 @@
 Name:           cfn-lint
 Summary:        CloudFormation Linter
-Version:        0.79.11
+Version:        0.80.2
 Release:        %autorelease
 
 # SPDX
@@ -11,11 +11,6 @@ URL:            https://github.com/aws-cloudformation/cfn-lint
 Source0:        %{url}/archive/v%{version}/cfn-lint-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        cfn-lint.1
-
-# jsonschema>=3.0,<5
-# https://github.com/aws-cloudformation/cfn-lint/pull/2838
-# https://github.com/aws-cloudformation/cfn-lint/commit/b74d531eb7550ad005b3f1af415571344d07638d
-Patch:          %{url}/commit/b74d531eb7550ad005b3f1af415571344d07638d.patch
 
 BuildArch:      noarch
 

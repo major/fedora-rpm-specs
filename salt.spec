@@ -11,7 +11,7 @@
 
 Name:    salt
 Version: 3006.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
 License: Apache-2.0
@@ -333,6 +333,9 @@ chown salt:salt %{_sysconfdir}/%{name}/gpgkeys -R
 
 
 %changelog
+* Wed Sep 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.3-2
+- Patch correction.
+
 * Mon Sep 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.3-1
 - 3006.3
 

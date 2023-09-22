@@ -49,16 +49,13 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        300
+Version:        301
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 9
-%define cockpit_enable_python 1
-%endif
-
-%if !%{defined cockpit_enable_python}
-%define cockpit_enable_python 0
+# Don't change the bridge in the RHEL 8; the old SSH breaks some features, see @todoPybridgeRHEL8
+%if 0%{?rhel} == 8 && !%{defined enable_old_bridge}
+%define enable_old_bridge 1
 %endif
 
 # in RHEL 8 the source package is duplicated: cockpit (building basic packages like cockpit-{bridge,system})
@@ -103,7 +100,7 @@ BuildRequires: pam-devel
 
 BuildRequires: autoconf automake
 BuildRequires: make
-BuildRequires: /usr/bin/python3
+BuildRequires: python3-devel
 %if 0%{?rhel} && 0%{?rhel} <= 8
 # RHEL 8's gettext does not yet have metainfo.its
 BuildRequires: gettext >= 0.19.7
@@ -170,7 +167,7 @@ Suggests: cockpit-selinux
 Requires: subscription-manager-cockpit
 %endif
 
-%if %{cockpit_enable_python}
+%if 0%{?enable_old_bridge} == 0
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 %if 0%{?rhel} == 0
@@ -196,8 +193,8 @@ BuildRequires:  python3-tox-current-env
     --docdir=%_defaultdocdir/%{name} \
 %endif
     --with-pamdir='%{pamdir}' \
-%if %{cockpit_enable_python}
-    --enable-pybridge \
+%if 0%{?enable_old_bridge}
+    --enable-old-bridge \
 %endif
 %if 0%{?build_basic} == 0
     --disable-ssh \
@@ -208,7 +205,7 @@ BuildRequires:  python3-tox-current-env
 %check
 make -j$(nproc) check
 
-%if %{cockpit_enable_python} && 0%{?rhel} == 0
+%if 0%{?enable_old_bridge} == 0 && 0%{?rhel} == 0
 %tox
 %endif
 
@@ -374,7 +371,7 @@ system on behalf of the web based user interface.
 %doc %{_mandir}/man1/cockpit-bridge.1.gz
 %{_bindir}/cockpit-bridge
 %{_libexecdir}/cockpit-askpass
-%if %{cockpit_enable_python}
+%if 0%{?enable_old_bridge} == 0
 %{python3_sitelib}/%{name}*
 %{_libexecdir}/cockpit-beiboot
 %endif
@@ -426,17 +423,18 @@ Provides: cockpit-sosreport = %{version}-%{release}
 Recommends: (reportd if abrt)
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.4
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.1
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.1
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.1
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.1
 Provides: bundled(npm(argparse)) = 1.0.10
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(autolinker)) = 3.16.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
 Provides: bundled(npm(call-bind)) = 1.0.2
+Provides: bundled(npm(date-fns)) = 2.22.1
 Provides: bundled(npm(deep-equal)) = 2.0.5
 Provides: bundled(npm(define-properties)) = 1.2.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
@@ -782,6 +780,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 20 2023 Packit <hello@packit.dev> - 301-1
+- WireGuard support
+- Metrics: link to network interface details
+
 * Wed Sep 06 2023 Packit <hello@packit.dev> - 300-1
 - Celebrating the Nürnberg life release!
 - Storage: Support for growing block devices of a Stratis pool

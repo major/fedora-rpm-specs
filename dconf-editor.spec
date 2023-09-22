@@ -5,13 +5,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           dconf-editor
-Version:        43.0
-Release:        3%{?dist}
+Version:        45.0.1
+Release:        1%{?dist}
 Summary:        Configuration editor for dconf
 
 License:        GPLv3+ and CC0
 URL:            https://wiki.gnome.org/Projects/dconf
-Source0:        https://download.gnome.org/sources/dconf-editor/43/dconf-editor-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/dconf-editor/45/dconf-editor-%{tarball_version}.tar.xz
 Source1:        https://raw.githubusercontent.com/flathub/ca.desrt.dconf-editor/master/start-dconf-editor.sh
 
 BuildRequires:  /usr/bin/appstream-util
@@ -72,6 +72,12 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ca.desrt.dconf-edi
 %{_mandir}/man1/dconf-editor.1*
 
 %changelog
+* Wed Sep 20 2023 Kalev Lember <klember@redhat.com> - 45.0.1-1
+- Update to 45.0.1
+
+* Wed Sep 20 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

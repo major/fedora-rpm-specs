@@ -16,7 +16,7 @@
 
 Name:           javapackages-tools
 Version:        6.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Macros and scripts for Java packaging support
 License:        BSD-3-Clause
 URL:            https://github.com/fedora-java/javapackages
@@ -28,6 +28,7 @@ Source3:        javapackages-config.json
 Source8:        toolchains-openjdk8.xml
 Source11:       toolchains-openjdk11.xml
 Source17:       toolchains-openjdk17.xml
+Source21:       toolchains-openjdk21.xml
 
 BuildRequires:  coreutils
 BuildRequires:  which
@@ -161,6 +162,15 @@ Requires:       java-17-openjdk-devel
 %description -n maven-local-openjdk17
 OpenJDK 17 toolchain for XMvn
 
+%package -n maven-local-openjdk21
+Summary:        OpenJDK 21 toolchain for XMvn
+RemovePathPostfixes: -openjdk21
+Requires:       maven-local
+Requires:       java-21-openjdk-devel
+
+%description -n maven-local-openjdk21
+OpenJDK 21 toolchain for XMvn
+
 %prep
 %setup -q -n javapackages-%{version}
 
@@ -187,6 +197,7 @@ mkdir -p %{buildroot}%{maven_home}/conf/
 cp -p %{SOURCE8} %{buildroot}%{maven_home}/conf/toolchains.xml-openjdk8
 cp -p %{SOURCE11} %{buildroot}%{maven_home}/conf/toolchains.xml-openjdk11
 cp -p %{SOURCE17} %{buildroot}%{maven_home}/conf/toolchains.xml-openjdk17
+cp -p %{SOURCE21} %{buildroot}%{maven_home}/conf/toolchains.xml-openjdk21
 
 install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config.json
 
@@ -223,10 +234,17 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 %dir %{maven_home}/conf
 %{maven_home}/conf/toolchains.xml-openjdk17
 
+%files -n maven-local-openjdk21
+%dir %{maven_home}/conf
+%{maven_home}/conf/toolchains.xml-openjdk21
+
 %files -n %{python_prefix}-javapackages -f files-python
 %license LICENSE
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.2.0-4
+- Add support for OpenJDK 21
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.2.0-3
 - Convert License tag to SPDX format
 

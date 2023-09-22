@@ -3,7 +3,7 @@
 Name:              httpcomponents-client
 Summary:           HTTP agent implementation based on httpcomponents HttpCore
 Version:           4.5.14
-Release:           2%{?dist}
+Release:           3%{?dist}
 License:           Apache-2.0
 URL:               http://hc.apache.org/
 Source0:           https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/%{version}/httpcomponents-client-%{version}-source-release.zip
@@ -125,6 +125,9 @@ rm httpclient/src/test/java/org/apache/http/client/config/TestRequestConfig.java
 %doc README.txt RELEASE_NOTES.txt
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.5.14-3
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.5.14-2
 - Convert License tag to SPDX format
 

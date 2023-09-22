@@ -2,12 +2,15 @@
 
 Name:           obs-studio-plugin-vkcapture
 Version:        1.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OBS plugin for Vulkan/OpenGL game capture
 
 License:        GPL-2.0-or-later and Zlib
 URL:            https://github.com/nowrep/obs-vkcapture
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+
+# elfhacks FTBFS on IBM Z
+ExcludeArch:    s390x
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -59,7 +62,7 @@ Provides:       obs-vkcapture%{?_isa} = %{version}-%{release}
 # Preload libraries
 %{_libdir}/libobs_glcapture.so
 %{_libdir}/libVkLayer_obs_vkcapture.so
-%{_datadir}/vulkan/implicit_layer.d/obs_vkcapture_64.json
+%{_datadir}/vulkan/implicit_layer.d/obs_vkcapture_%{__isa_bits}.json
 # OBS plugin
 %{_libdir}/obs-plugins/linux-vkcapture.so
 # OBS plugin data
@@ -67,6 +70,9 @@ Provides:       obs-vkcapture%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Sep 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.4.3-2
+- Fix build for 32-bit arches and exclude s390x
+
 * Mon Sep 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.4.3-1
 - Update to 1.4.3
 

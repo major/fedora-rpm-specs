@@ -55,7 +55,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	4%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -77,18 +77,20 @@ Source4:	release-keys.asc
 %if %{without compat_build}
 Source5:	macros.%{name}
 %endif
-Source6:	clang.cfg
 
 # Patches for clang
 Patch1:     0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2:     0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch3:     0001-Driver-Add-a-gcc-equivalent-triple-to-the-list-of-tr.patch
+# Drop the following patch after debugedit adds support to DWARF-5:
+# https://sourceware.org/bugzilla/show_bug.cgi?id=28728
+Patch4:     0001-Produce-DWARF4-by-default.patch
 # Backport from LLVM 18:
 # https://github.com/llvm/llvm-project-release-prs/pull/689
-Patch4:     689.patch
+Patch5:     689.patch
 # Workaround a bug in ORC on ppc64le.
 # More info is available here: https://reviews.llvm.org/D159115#4641826
-Patch5:     0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
+Patch6:     0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 
 # RHEL specific patches
 # Avoid unwanted dependency on python-recommonmark
@@ -414,7 +416,6 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DBUILD_SHARED_LIBS=OFF \
 	-DCLANG_REPOSITORY_STRING="%{?dist_vendor} %{version}-%{release}" \
 	-DCLANG_RESOURCE_DIR=../lib/clang/%{maj_ver} \
-	-DCLANG_CONFIG_FILE_SYSTEM_DIR=%{_sysconfdir}/%{name}/ \
 %ifarch %{arm}
 	-DCLANG_DEFAULT_LINKER=lld \
 %endif
@@ -503,10 +504,6 @@ mkdir -p %{buildroot}%{install_prefix}/lib/clang/%{maj_ver}/{bin,include,lib,sha
 ln -s %{_datadir}/clang/clang-format-diff.py %{buildroot}%{_bindir}/clang-format-diff
 %endif
 
-# Install config file
-mkdir -p %{buildroot}%{_sysconfdir}/%{name}/
-mv %{SOURCE6} %{buildroot}%{_sysconfdir}/%{name}/%{_target_platform}.cfg
-
 %check
 %if %{without compat_build}
 %if %{with check}
@@ -544,7 +541,6 @@ false
 %files libs
 %{install_prefix}/lib/clang/%{maj_ver}/include/*
 %{install_libdir}/*.so.*
-%{_sysconfdir}/%{name}/%{_target_platform}.cfg
 
 %files devel
 %if %{without compat_build}
@@ -554,7 +550,6 @@ false
 %{_libdir}/cmake/*
 %{_bindir}/clang-tblgen
 %dir %{_datadir}/clang/
-%{_rpmmacrodir}/macros.%{name}
 %else
 %{install_libdir}/*.so
 %{pkg_includedir}/clang/
@@ -569,8 +564,10 @@ false
 %dir %{install_prefix}/lib/clang/%{maj_ver}/include/
 %dir %{install_prefix}/lib/clang/%{maj_ver}/lib/
 %dir %{install_prefix}/lib/clang/%{maj_ver}/share/
-
 %if %{without compat_build}
+%{_rpmmacrodir}/macros.%{name}
+
+
 %files analyzer
 %{_bindir}/scan-view
 %{_bindir}/scan-build
@@ -645,13 +642,19 @@ false
 
 %endif
 %changelog
+%{?llvm_snapshot_changelog_entry}
+
+* Tue Sep 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-4
+- Re-add dwarf4 patch. Fix rhbz#2239619.
+
+* Tue Sep 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-3
+- Move macros.clang to resource-filesystem
+
 * Mon Sep 18 2023 Alessandro Astone <ales.astone@gmail.com> - 17.0.0~rc4-2
 - Fix resource-filesystem after https://fedoraproject.org/wiki/Changes/LLVM-17
 
 * Wed Sep 06 2023 Tom Stellard <tstellar@redhat.com> - 17.0.0~rc3-2
 - Drop dwarf4 patch in favor of config files
-
-%{?llvm_snapshot_changelog_entry}
 
 * Tue Sep 05 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-1
 - Update to LLVM 17.0.0 RC4

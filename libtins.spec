@@ -54,12 +54,12 @@ sed -i 's|stdint.h|cstdint|' include/tins/ip_address.h
 %files
 %license LICENSE
 %doc CHANGES.md CONTRIBUTING.md README.md THANKS
-%{_libdir}/*.so.*
+%{_libdir}/%{name}.so.4.5
 
 %files devel
 %{_includedir}/tins
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/cmake/%{name}
 
 %files doc

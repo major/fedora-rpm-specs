@@ -5,7 +5,7 @@
 %global crate proc-mounts
 
 Name:           rust-proc-mounts
-Version:        0.2.4
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Fetch active mounts and swaps on a Linux system
 

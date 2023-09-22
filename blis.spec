@@ -8,16 +8,22 @@
 %global sover .2.1.0
 %global soshort .2
 
-%if 0%{?el6}%{?el7}
+%if 0%{?el7}
 # Use devtoolset for avx512 support
 %ifnarch ppc64le ppc64
 %global dts 9
 %endif
 %endif
 
+# Both these are necessary to avoid asm error
+# error: bp cannot be used in ‘asm’ here
+# Fixme: patch to localize this
+%undefine _include_frame_pointers
+%define _lto_cflags %{nil}
+
 Name:		blis
-Version:	0.7.0
-Release:	12%{?dist}
+Version:	0.9.0
+Release:	1%{?dist}
 Summary:	BLAS-like Library Instantiation Software Framework
 License:	BSD-3-Clause
 URL:		https://github.com/flame/blis
@@ -26,11 +32,9 @@ Source0:	https://github.com/flame/blis/archive/%commit/%name-%shortcommit.tar.gz
 %else
 Source0:	https://github.com/flame/blis/archive/%version/%name-%version.tar.gz
 %endif
-# Don't identify s390x as 32-bit
-Patch1:		blis-s390x.patch
 BuildRequires:	perl
 BuildRequires:	%{?dts:devtoolset-%{?dts}-binutils devtoolset-%{?dts}-}gcc
-BuildRequires:	/usr/bin/python3 gcc-gfortran chrpath
+BuildRequires:	python3-devel gcc-gfortran chrpath
 BuildRequires:	make
 # memkind is currently only relevant for KNL as far as I know, but
 # might be relevant in future for other targets with HBM.  It needs
@@ -131,7 +135,6 @@ BLIS architecture macros.
 # 0.6.0: removed bli_thread_get_env, bli_thread_init_rntm; indirect
 # sub-types in bli_addd_ex; ARCH enum in bli_arch_query_id.
 echo %sover | awk -F. '{printf("%s\n%s.%s\n", $2,$3,$4)}' >so_version
-%patch1 -p1
 
 
 %build
@@ -155,7 +158,7 @@ esac
 # <https://github.com/flame/blis/issues/259#issuecomment-463657085>
 %global confflags --enable-debug=opt --disable-static --enable-shared --enable-verbose-make --enable-cblas
 export CFLAGS="$RPM_OPT_FLAGS -O3 -funsafe-math-optimizations" LDFLAGS="%{?__global_ldflags}"
-export PYTHON=python3		# Needed by both configure and make
+export PYTHON=%python3		# Needed by both configure and make
 
 # It's not an autotools configure
 ./configure --prefix=$(pwd)/o %confflags -t openmp $arch
@@ -380,6 +383,14 @@ export LD_LIBRARY_PATH=`pwd`/serial/lib
 %{macrosdir}/macros.blis-srpm
 
 %changelog
+* Wed Sep 20 2023 Dave Love <loveshack@fedoraproject.org> - 0.9.0-1
+- Update to 0.9.0
+- Drop patch
+- Turn off LTO and keeping frame pointers
+
+* Wed Sep 20 2023 Dave Love <loveshack@fedoraproject.org> - 0.7.0-13
+- Don't BR /usr/bin/python (#2237696)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

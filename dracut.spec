@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 12
+%global baserelease 13
 
 Name: dracut
 Version: 059
@@ -129,6 +129,7 @@ Summary: dracut modules to build a dracut initramfs with network support
 Requires: %{name} = %{version}-%{release}
 Requires: iputils
 Requires: iproute
+Requires: jq
 Requires: (NetworkManager >= 1.20 or dhclient)
 Suggests: NetworkManager
 Obsoletes: dracut-generic < 008
@@ -365,7 +366,6 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/95debug
 %{dracutlibdir}/modules.d/95fstab-sys
 %{dracutlibdir}/modules.d/95lunmask
-%{dracutlibdir}/modules.d/95nvmf
 %{dracutlibdir}/modules.d/95resume
 %{dracutlibdir}/modules.d/95rootfs-block
 %{dracutlibdir}/modules.d/95terminfo
@@ -436,6 +436,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/95iscsi
 %{dracutlibdir}/modules.d/95nbd
 %{dracutlibdir}/modules.d/95nfs
+%{dracutlibdir}/modules.d/95nvmf
 %{dracutlibdir}/modules.d/95ssh-client
 %ifarch s390 s390x
 %{dracutlibdir}/modules.d/95znet
@@ -473,6 +474,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Wed Sep 20 2023 Pavel Valena <pvalena@redhat.com> - 059-13
+- fix(dracut.spec): add jq dependency to network subpackage
+
 * Wed Aug 02 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 059-12
 - Include modules for IMA
 

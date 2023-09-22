@@ -1,11 +1,11 @@
 Name:           qtpass
-Version:        1.4.0~rc2
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Cross-platform GUI for pass
 
 License:        GPL-3.0-only
 URL:            https://qtpass.org/
-Source0:        https://github.com/IJHack/qtpass/archive/1.4.0-rc2.tar.gz
+Source0:        https://github.com/IJHack/qtpass/archive/v%{version}.tar.gz
 # Wrapper script for GNOME on Wayland
 Source1:        qtpass.sh.in
 
@@ -17,15 +17,15 @@ BuildRequires:  gcc-c++
 BuildRequires:  git
 BuildRequires:  sed
 # required libraries (QT)
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-linguist
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-linguist
 BuildRequires:  pkgconfig(Qt5Svg)
 # install/check desktop files
 BuildRequires:  desktop-file-utils
 # for ownership of hicolor directories
 Requires:       hicolor-icon-theme
 # for icons to appear without freedesktop
-Requires:       qt5-qtsvg
+Requires:       qt6-qtsvg
 Requires:       pass
 
 Recommends:     git
@@ -36,10 +36,11 @@ Recommends:     pwgen
 QtPass is a cross-platform GUI for pass, the standard Unix password manager.
 
 %prep
-%autosetup -n QtPass-1.4.0-rc2
+%autosetup -n QtPass-%{version}
+sed -i "s|#include <QDir>|#include <QDir>\n#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)\n#include <QStringDecoder>\n#endif|" src/executor.cpp
 
 %build
-%qmake_qt5 PREFIX=%{_prefix}
+%qmake_qt6 PREFIX=%{_prefix}
 %make_build
 
 

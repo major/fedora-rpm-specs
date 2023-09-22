@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-backgrounds
-Version:        45~rc
+Version:        45.0
 Release:        1%{?dist}
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 
@@ -88,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/vnc-l.png
 
 %changelog
+* Wed Sep 20 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45~rc-1
 - Update to 45.rc
 - Remove webp-pixbuf-loader dep as webp images are no longer installed

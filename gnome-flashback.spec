@@ -4,7 +4,7 @@
 
 Name:           gnome-flashback
 Version:        3.49.1
-Release:        %autorelease
+Release:        3.%autorelease
 Summary:        GNOME Flashback session
 
 License:        GPLv3+
@@ -31,7 +31,7 @@ BuildRequires:  pkgconfig(gsettings-desktop-schemas) >= 3.31.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22.0
 BuildRequires:  pkgconfig(ibus-1.0) >= 1.5.2
 BuildRequires:  pkgconfig(libcanberra-gtk3) >= 0.13
-BuildRequires:  pkgconfig(libgnome-panel) >= 3.35.2
+BuildRequires:  pkgconfig(libgnome-panel) >= 3.49
 BuildRequires:  pkgconfig(libpulse-mainloop-glib)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(pango)

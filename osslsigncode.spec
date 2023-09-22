@@ -11,7 +11,7 @@
 %endif
 
 Name:       osslsigncode
-Version:    2.6
+Version:    2.7
 Release:    %autorelease
 Summary:    OpenSSL based Authenticode signing for PE/MSI/Java CAB files
 
@@ -30,6 +30,7 @@ BuildRequires: sed
 BuildRequires: pkgconfig(libcrypto) >= 1.1.0
 BuildRequires: pkgconfig(libcurl) >= 7.12.0
 BuildRequires: pkgconfig(openssl) >= 1.1.0
+BuildRequires: pkgconfig(zlib)
 
 %if %{with tests}
 BuildRequires: gcab

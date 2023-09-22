@@ -5,7 +5,7 @@
 Name:           python-notebook
 %global _docdir_fmt %{name}
 
-Version:        7.0.3
+Version:        7.0.4
 Release:        %autorelease
 Summary:        A web-based notebook environment for interactive computing
 # SPDX

@@ -2,7 +2,7 @@
 
 Name:           jsr-305
 Version:        3.0.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Correctness annotations for Java code
 
 # The majority of code is BSD-licensed, but some Java sources
@@ -67,6 +67,9 @@ sed -i 's|<artifactId>jsr305</artifactId>|<artifactId>ri</artifactId>|' ri/pom.x
 %doc sampleUses
 
 %changelog
+* Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.2-11
+- Rebuild to regenerate auto-Requires on java
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.2-10
 - Convert License tag to SPDX format
 

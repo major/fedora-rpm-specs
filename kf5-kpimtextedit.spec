@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KPimTextEdit Library
 
 License: LGPLv2+
@@ -27,7 +27,7 @@ Source0:        https://download.kde.org/%{stable}/release-service/%{version}/sr
 # https://phabricator.kde.org/D17947
 # Please DO NOT REMOVE OR COMMENT OUT THIS PATCH! Ask kkofler for help with
 # rebasing if needed. The patch is usually trivial to rebase.
-#Patch100: kpimtextedit-21.12.1-install-and-export-for-blogilo.patch
+Patch100: kpimtextedit-23.08.1-install-and-export-for-blogilo.patch
 
 ## upstream patches (21.12 branch):
 
@@ -86,7 +86,7 @@ developing applications that use %{name}.
 
 # Please DO NOT REMOVE OR COMMENT OUT THIS PATCH! Ask kkofler for help with
 # rebasing if needed. The patch is usually trivial to rebase.
-#%patch -P 100 -p1 -b .install_and_export_for_blogilo
+%patch -P 100 -p1 -b .install_and_export_for_blogilo
 
 ## upstream patches
 
@@ -131,6 +131,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Sep 19 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 23.08.1-2
+- Rebase the patch to make Blogilo work, again! (#2239665)
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

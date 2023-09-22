@@ -5,7 +5,7 @@
 %global crate terminal_size
 
 Name:           rust-terminal_size
-Version:        0.2.6
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Gets the size of your Linux or Windows terminal
 
