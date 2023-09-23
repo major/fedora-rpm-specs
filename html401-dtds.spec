@@ -4,25 +4,25 @@
 # use a hardcoded system id.  Well, until something installs another, and
 # incompatible set of entities using the same public id anyway...
 
-%define date    19991224
+%define date     19991224
 
-Name:           html401-dtds
-Version:        4.01
-Release:        %{date}.12%{?dist}.21
-Summary:        HTML 4.01 document type definitions
+Name:            html401-dtds
+Version:         4.01
+Release:         %{date}.12%{?dist}.22
+Summary:         HTML 4.01 document type definitions
 
 # W3C Software License for DTDs etc:
 # http://www.w3.org/Consortium/Legal/IPR-FAQ-20000620#DTD
-License:        W3C
-URL:            http://www.w3.org/TR/1999/REC-html401-%{date}/
+License:         W3C
+URL:             http://www.w3.org/TR/1999/REC-html401-%{date}/
 # Source0 generated with Source99, see comments in the script
-Source0:        %{name}-%{date}.tar.bz2
-Source99:       %{name}-prepare-tarball.sh
-Patch0:         %{name}-catalog.patch
+Source0:         %{name}-%{date}.tar.bz2
+Source99:        %{name}-prepare-tarball.sh
+Patch0:          %{name}-catalog.patch
 
-BuildArch:      noarch
-Requires:       sgml-common
-Requires(post): /usr/bin/install-catalog
+BuildArch:       noarch
+Requires:        sgml-common
+Requires(post):  /usr/bin/install-catalog
 Requires(preun): /usr/bin/install-catalog
 
 %description
@@ -34,7 +34,7 @@ SGMLSpm.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1
+%patch -P 0 -p1
 
 
 %build
@@ -42,15 +42,12 @@ SGMLSpm.
 
 %install
 
-install -dm 755 $RPM_BUILD_ROOT%{_datadir}/sgml/html/4.01
-install -pm 644 *.dtd *.cat *.ent *.decl \
-    $RPM_BUILD_ROOT%{_datadir}/sgml/html/4.01
+install -dm 0755 %{buildroot}%{_datadir}/sgml/html/4.01
+install -pm 0644 *.dtd *.cat *.ent *.decl %{buildroot}%{_datadir}/sgml/html/4.01
 
-install -dm 755 $RPM_BUILD_ROOT%{_sysconfdir}/sgml
-cd $RPM_BUILD_ROOT%{_sysconfdir}/sgml
-touch %{name}-%{version}-%{release}.soc
-ln -s %{name}-%{version}-%{release}.soc %{name}.soc
-cd -
+install -dm 0755 %{buildroot}%{_sysconfdir}/sgml
+touch %{buildroot}%{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc
+ln -s %{name}-%{version}-%{release}.soc %{buildroot}%{_sysconfdir}/sgml/%{name}.soc
 
 
 %post
@@ -71,6 +68,10 @@ cd -
 
 
 %changelog
+* Thu Sep 21 2023 David Cantrell <dcantrell@redhat.com> - 4.01-19991224.12.22
+- Minor spec file cleanups
+- Verified the License tag carries an SPDX expression
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.01-19991224.12.21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

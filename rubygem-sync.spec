@@ -12,6 +12,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/ruby/sync.git && cd sync
 # git archive -o rubygem-sync-0.5.0-specs.tgz v0.5.0 test
 Source1: %{name}-%{version}-specs.tgz
+# https://github.com/ruby/sync/commit/8f2821d0819ee7c08506f204c7676f12c5ab1397
+# Note that ruby3.3 drops RubyVM::MJIT in favor of RJIT
+Patch0:  sync-8f2821d-guard-vm-jit.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -33,6 +36,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}/
+%patch -P0 -p1
+)
 # Remove unneeded scripts
 rm -rf bin
 sed -i 's/"bin\/console".freeze, "bin\/setup".freeze, //' ../%{gem_name}-%{version}.gemspec 

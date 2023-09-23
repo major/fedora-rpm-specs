@@ -7,7 +7,7 @@ Documentation is available on Read the Docs: http://recommonmark.readthedocs.org
 
 Name:           python-recommonmark
 Version:        0.7.1
-Release:        5.git%{?dist}
+Release:        6.git%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -28,9 +28,6 @@ BuildRequires:  python%{python3_pkgversion}-docutils
 BuildRequires:  python%{python3_pkgversion}-CommonMark
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-sphinx
-Requires:       python%{python3_pkgversion}-docutils
-Requires:       python%{python3_pkgversion}-CommonMark
-Requires:       python%{python3_pkgversion}-sphinx
 %{?python_provide:%python_provide python%{python3_pkgversion}-recommonmark}
 
 %description -n python%{python3_pkgversion}-recommonmark
@@ -63,7 +60,7 @@ popd  # Leave buildroot bindir
 
 %check
 # Skip some tests because of https://github.com/readthedocs/recommonmark/issues/164
-# PYTHONPATH=$(pwd) py.test-%{python3_version} -k 'not test_lists and not test_integration' .
+%pytest --ignore tests/test_sphinx.py
 
 
 %files -n python%{python3_pkgversion}-recommonmark
@@ -76,6 +73,10 @@ popd  # Leave buildroot bindir
 
 
 %changelog
+* Thu Sep 21 2023 Miro Hrončok <mhroncok@redhat.com> - 0.7.1-6.git
+- Run at least some tests during the build
+- Remove duplicate manual runtime Requires
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-5.git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

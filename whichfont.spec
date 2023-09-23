@@ -1,5 +1,5 @@
 Name:          whichfont
-Version:       1.0.8
+Version:       1.0.9
 Release:       1%{?dist}
 Summary:       Querying Fontconfig
 
@@ -34,6 +34,9 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Thu Sep 21 2023 Sudip Shil <sshil@redhat.com> - 1.0.9-1
+- printing unicode by default. no option like -u or --unicode needed from now
+
 * Wed Sep 13 2023 Sudip Shil <sshil@redhat.com> - 1.0.8-1
 - Handling non-printable charcaters
 - Print nicer names for all non-printable characters

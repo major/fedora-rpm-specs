@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 122%{?dist}
+Release: 123%{?dist}
 
 License: LGPL-2.0-only
 Url: http://www.kde.org/
@@ -178,7 +178,11 @@ Patch306: kdelibs3-c99.patch
 Requires: ca-certificates
 Requires: hicolor-icon-theme
 Requires: kde-settings >= 3.5
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+Requires: kde3-filesystem
+%else
 Requires: kde-filesystem
+%endif
 Requires: kdelibs-common
 Requires: redhat-menus
 Requires: shadow-utils
@@ -711,6 +715,9 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Thu Sep 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.5.10-123
+- Update filesystem dependency
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-122
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:    kf6
 # This version MUST remain in sync with KF6 versions!
 # XXX: Yes, it's 5.x still, this is synced with the version set in extra-cmake-modules
 Version: 5.240.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
 URL:     http://www.kde.org
@@ -34,6 +34,7 @@ RPM macros for building KDE Frameworks 6 packages.
 %install
 # See macros.kf6 where the directories are specified
 mkdir -p %{buildroot}%{_prefix}/{lib,%{_lib}}/qt6/plugins/kf6/
+mkdir -p %{buildroot}%{_prefix}/{lib,%{_lib}}/qt6/qml/org/kde/
 mkdir -p %{buildroot}%{_includedir}/kf6
 mkdir -p %{buildroot}%{_includedir}/KF6
 mkdir -p %{buildroot}%{_datadir}/{kf6,kservicetypes6}
@@ -68,6 +69,8 @@ sed -i \
 %{_libexecdir}/kf6/
 %{_prefix}/%{_lib}/qt6/plugins/kf6/
 %{_prefix}/lib/qt6/plugins/kf6/
+%{_prefix}/%{_lib}/qt6/qml/org/kde/
+%{_prefix}/lib/qt6/qml/org/kde/
 %if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 %{_datadir}/config.kcfg/
 %{_datadir}/kconf_update/
@@ -83,6 +86,9 @@ sed -i \
 %{_rpmconfigdir}/macros.d/macros.kf6
 
 %changelog
+* Thu Sep 21 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.240.0-2
+- Add KDE QML paths to -filesystem subpackage (#2239699)
+
 * Sat Sep 16 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.240.0-1
 - Set version matching extra-cmake-modules base version
 

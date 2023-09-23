@@ -1,9 +1,9 @@
 Name:             mandoc
 Version:          1.14.6
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          A suite of tools for compiling mdoc and man
 
-License:          ISC
+License:          ISC AND BSD-2-Clause AND BSD-3-Clause
 URL:              https://mandoc.bsd.lv/
 Source0:          https://mandoc.bsd.lv/snapshots/mandoc-%{version}.tar.gz
 
@@ -217,6 +217,9 @@ fi
 %{_mandir}/man3/tbl.3*
 
 %changelog
+* Thu Sep 21 2023 David Cantrell <dcantrell@redhat.com> - 1.14.6-6
+- Convert License tag to SPDX expression
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

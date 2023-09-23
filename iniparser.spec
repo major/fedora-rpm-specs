@@ -1,18 +1,18 @@
 # Set --with test to run the Samba torture testsuite.
 %bcond_with testsuite
 
-Name:		iniparser
-Version:	4.1
-Release:	13%{?dist}
-Summary:	C library for parsing "INI-style" files
+Name:          iniparser
+Version:       4.1
+Release:       14%{?dist}
+Summary:       C library for parsing "INI-style" files
 
-License:	MIT
-URL:		https://github.com/ndevilla/%{name}
-Source0:	https://github.com/ndevilla/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+License:       MIT
+URL:           https://github.com/ndevilla/%{name}
+Source0:       https://github.com/ndevilla/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-Patch0:	iniparser-4.1-CVE-2023-33461.patch
+Patch0:        iniparser-4.1-CVE-2023-33461.patch
 
-BuildRequires:	gcc
+BuildRequires: gcc
 BuildRequires: make
 
 %description
@@ -20,8 +20,8 @@ iniParser is an ANSI C library to parse "INI-style" files, often used to
 hold application configuration information.
 
 %package devel
-Summary:	Header files, libraries and development documentation for %{name}
-Requires:	%{name} = %{version}-%{release}
+Summary:       Header files, libraries and development documentation for %{name}
+Requires:      %{name} = %{version}-%{release}
 
 %description devel
 This package contains the header files, static libraries and development
@@ -73,6 +73,10 @@ make check
 %{_includedir}/*.h
 
 %changelog
+* Thu Sep 21 2023 David Cantrell <dcantrell@redhat.com> - 4.1-14
+- Minor spec file updates
+- Verify the License tag carries an SPDX expression
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

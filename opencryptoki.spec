@@ -1,7 +1,7 @@
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
-Version:		3.21.0
-Release:		6%{?dist}
+Version:		3.22.0
+Release:		1%{?dist}
 License:		CPL-1.0
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -11,14 +11,6 @@ Patch1:		opencryptoki-3.11.0-lockdir.patch
 # fix install problem in buildroot
 Patch2:		opencryptoki-3.21.0-p11sak.patch
 # upstream patches
-# pkcsstats: Fix handling of user name
-Patch100: opencryptoki-3.21.0-f4166214552a92d8d66de8011ab11c9c2c6bb0a4.patch
-# p11sak: Fix user confirmation prompt behavior when stdin is closed
-Patch101: opencryptoki-3.21.0-4ff774568e334a719fc8de16fe2309e2070f0da8.patch
-# p11sak fails as soon as there reside non-key objects
-Patch102: opencryptoki-3.21.0-92999f344a3ad99a67a1bcfd9ad28f28c33e51bc.patch
-# opencryptoki p11sak tool: slot option does not accept argument 0 for slot index 0
-Patch103: opencryptoki-3.21.0-2ba0f41ef5e14d4b509c8854e27cf98e3ee89445.patch
 
 Requires(pre):		coreutils
 Requires:		(selinux-policy >= 34.9-1 if selinux-policy-targeted)
@@ -356,6 +348,9 @@ fi
 
 
 %changelog
+* Thu Sep 21 2023 Than Ngo <than@redhat.com> - 3.22.0-1
+- update to 3.22.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

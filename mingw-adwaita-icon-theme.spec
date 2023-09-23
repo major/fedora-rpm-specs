@@ -1,18 +1,18 @@
 %{?mingw_package_header}
 
 Name:           mingw-adwaita-icon-theme
-Version:        44.0
-Release:        2%{?dist}
+Version:        45.0
+Release:        1%{?dist}
 Summary:        Adwaita icon theme for MingGW
 
-License:        LGPLv3+ or CC-BY-SA
+License:        LGPL-3.0-or-later OR CC-BY-SA-3.0
 URL:            http://www.gnome.org
 Source0:        http://download.gnome.org/sources/adwaita-icon-theme/%(v=%{version}; echo ${v/.*/})/adwaita-icon-theme-%{version}.tar.xz
 
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  meson
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw64-gcc
 BuildRequires:  intltool
@@ -44,41 +44,48 @@ the Adwaita icon theme.
 
 
 %build
-%mingw_configure
-%mingw_make_build
+%mingw_meson
+%mingw_ninja
 
 
 %install
-%mingw_make_install
+%mingw_ninja_install
 
 
 %files -n mingw32-adwaita-icon-theme
-%license COPYING*
+%license %{mingw32_datadir}/licenses/adwaita-icon-theme/COPYING
+%license %{mingw32_datadir}/licenses/adwaita-icon-theme/COPYING_CCBYSA3
+%license %{mingw32_datadir}/licenses/adwaita-icon-theme/COPYING_LGPL
 %{mingw32_datadir}/pkgconfig/adwaita-icon-theme.pc
 %dir %{mingw32_datadir}/icons/Adwaita
+%{mingw32_datadir}/icons/Adwaita/.icon-theme.cache
+%{mingw32_datadir}/icons/Adwaita/Adwaita/
 %{mingw32_datadir}/icons/Adwaita/16x16
-%{mingw32_datadir}/icons/Adwaita/32x32
 %{mingw32_datadir}/icons/Adwaita/scalable
 %{mingw32_datadir}/icons/Adwaita/index.theme
-%{mingw32_datadir}/icons/Adwaita/cursors
 %{mingw32_datadir}/icons/Adwaita/symbolic
 %{mingw32_datadir}/icons/Adwaita/symbolic-up-to-32/
 %ghost %{mingw32_datadir}/icons/Adwaita/icon-theme.cache
 
 %files -n mingw64-adwaita-icon-theme
-%license COPYING*
+%license %{mingw64_datadir}/licenses/adwaita-icon-theme/COPYING
+%license %{mingw64_datadir}/licenses/adwaita-icon-theme/COPYING_CCBYSA3
+%license %{mingw64_datadir}/licenses/adwaita-icon-theme/COPYING_LGPL
 %{mingw64_datadir}/pkgconfig/adwaita-icon-theme.pc
 %dir %{mingw64_datadir}/icons/Adwaita
+%{mingw64_datadir}/icons/Adwaita/.icon-theme.cache
+%{mingw64_datadir}/icons/Adwaita/Adwaita/
 %{mingw64_datadir}/icons/Adwaita/16x16
-%{mingw64_datadir}/icons/Adwaita/32x32
 %{mingw64_datadir}/icons/Adwaita/scalable
 %{mingw64_datadir}/icons/Adwaita/index.theme
-%{mingw64_datadir}/icons/Adwaita/cursors
 %{mingw64_datadir}/icons/Adwaita/symbolic
 %{mingw64_datadir}/icons/Adwaita/symbolic-up-to-32/
 %ghost %{mingw64_datadir}/icons/Adwaita/icon-theme.cache
 
 %changelog
+* Thu Sep 21 2023 Sandro Mani <manisandro@gmail.com> - 45.0-1
+- Update to 45.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

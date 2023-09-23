@@ -1,39 +1,31 @@
+%bcond deflate  %[ 0%{?fedora} >= 34 || 0%{?rhel} >=  8 ]
 %bcond fuse     1
 %bcond lz4      %[ 0%{?fedora} >= 34 || 0%{?rhel} >=  9 ]
 %bcond lzma     %[ 0%{?fedora} >= 36 || 0%{?rhel} >= 10 ]
 %bcond selinux  1
 %bcond uuid     1
+%bcond zlib     1
 
 Name:           erofs-utils
-Version:        1.6
-Release:        3%{?dist}
+Version:        1.7
+Release:        1%{?dist}
 
 Summary:        Utilities for working with EROFS
-License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND Unlicense
+License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND Unlicense
 URL:            https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git
 
 Source:         %{url}/snapshot/%{name}-%{version}.tar.gz
-Patch:          %{url}/patch/?id=27aeef179bf17d5f1d98f827e93d24839a6d4176#/%{name}-1.6-CVE-2023-33551.patch
-Patch:          %{url}/patch/?id=2145dff03dd3f3f74bcda3b52160fbad37f7fcfe#/%{name}-1.6-CVE-2023-33552.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtool
 BuildRequires:  make
-%if %{with fuse}
-BuildRequires:  pkgconfig(fuse) >= 2.6
-%endif
-%if %{with lz4}
-BuildRequires:  lz4-devel >= 1.9.3
-%endif
-%if %{with lzma}
-BuildRequires:  xz-devel >= 5.4
-%endif
-%if %{with selinux}
-BuildRequires:  pkgconfig(libselinux)
-%endif
-%if %{with uuid}
-BuildRequires:  pkgconfig(uuid)
-%endif
+%{?with_fuse:BuildRequires:  pkgconfig(fuse) >= 2.6}
+%{?with_deflate:BuildRequires:  pkgconfig(libdeflate)}
+%{?with_lz4:BuildRequires:  lz4-devel >= 1.9.3}
+%{?with_lzma:BuildRequires:  xz-devel >= 5.4}
+%{?with_selinux:BuildRequires:  pkgconfig(libselinux)}
+%{?with_uuid:BuildRequires:  pkgconfig(uuid)}
+%{?with_zlib:BuildRequires:  pkgconfig(zlib)}
 
 %description
 EROFS stands for Enhanced Read-Only File System.  It aims to be a general
@@ -57,16 +49,18 @@ This package includes erofsfuse to mount EROFS images.
 
 
 %prep
-%autosetup -p1
+%autosetup
 autoreconf -fi
 
 %build
 %configure \
-    %{?with_fuse:--enable-fuse} %{!?with_fuse:--disable-fuse} \
-    %{?with_lz4:--enable-lz4} %{!?with_lz4:--disable-lz4} \
-    %{?with_lzma:--enable-lzma} %{!?with_lzma:--disable-lzma} \
-    %{?with_selinux:--with-selinux} %{!?with_selinux:--without-selinux} \
-    %{?with_uuid:--with-uuid} %{!?with_uuid:--without-uuid}
+    --%{?with_deflate:with}%{!?with_deflate:without}-libdeflate \
+    --%{?with_fuse:enable}%{!?with_fuse:disable}-fuse \
+    --%{?with_lz4:enable}%{!?with_lz4:disable}-lz4 \
+    --%{?with_lzma:enable}%{!?with_lzma:disable}-lzma \
+    --%{?with_selinux:with}%{!?with_selinux:without}-selinux \
+    --%{?with_uuid:with}%{!?with_uuid:without}-uuid \
+    --%{?with_zlib:with}%{!?with_zlib:without}-zlib
 %make_build
 
 %install
@@ -93,6 +87,9 @@ autoreconf -fi
 
 
 %changelog
+* Thu Sep 21 2023 David Michael <fedora.dm0@gmail.com> - 1.7-1
+- Update to the 1.7 release.
+
 * Tue Aug 29 2023 David Michael <fedora.dm0@gmail.com> - 1.6-3
 - Backport patches for CVE-2023-33551 and CVE-2023-33552.
 - Change conditional build feature defaults for supporting EPEL 9.

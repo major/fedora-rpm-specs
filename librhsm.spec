@@ -1,9 +1,9 @@
 Name:           librhsm
 Version:        0.0.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Red Hat Subscription Manager library
 
-License:        LGPLv2.1+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/librhsm
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -52,6 +52,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Aug 23 2023 Petr Pisar <ppisar@redhat.com> - 0.0.3-11
+- Convert a license tag to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -70,7 +73,7 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
-* Thu Mar 24 2021 Daniel Mach - 0.0.3-4
+* Wed Mar 24 2021 Daniel Mach - 0.0.3-4
 - Fix License in spec to LGPLv2.1+ (was LGPLv2+)
 
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-3

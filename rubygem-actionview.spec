@@ -4,8 +4,8 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.0.7.2
-Release: 2%{?dist}
+Version: 7.0.8
+Release: 1%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -13,23 +13,18 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/actionview && git archive -v -o actionview-7.0.7.2-tests.txz v7.0.7.2 test/
+# cd rails/actionview && git archive -v -o actionview-7.0.8-tests.txz v7.0.8 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.7.2-tools.txz v7.0.7.2 tools/
+# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
 Patch0: rubygem-actionview-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
 # https://github.com/rails/rails/pull/45370
 Patch1: rubygem-actionview-7.0.2.3-Fix-tests-for-minitest-5.16.patch
-# Fixes jbuilder test errors:
-# JbuilderTemplateTest#test_supports_the_cached:_->()_{}_option
-# JbuilderTemplateTest#test_supports_the_cached:_true_option
-# https://github.com/rails/rails/pull/48937
-Patch2: rubygem-actionview-7.0.7-Handle-non-string-partial-body-in-ActionView-CollectionCaching.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -39,6 +34,7 @@ BuildRequires: rubygem(activerecord) = %{version}
 BuildRequires: rubygem(actionpack) = %{version}
 BuildRequires: rubygem(railties) = %{version}
 BuildRequires: rubygem(sqlite3)
+BuildRequires: tzdata
 %endif
 BuildArch: noarch
 
@@ -56,8 +52,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
-
-%patch 2 -p2
 
 pushd %{_builddir}
 %patch 0 -p2
@@ -108,6 +102,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Sun Sep 10 2023 Pavel Valena <pvalena@redhat.com> - 7.0.8-1
+- Update to actionview 7.0.8.
+
 * Wed Aug 30 2023 Vít Ondruch <vondruch@redhat.com> - 7.0.7.2-2
 - Fix Jbuilder compatibility.
 

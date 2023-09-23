@@ -21,8 +21,8 @@
 Summary: CUPS printing system
 Name: cups
 Epoch: 1
-Version: 2.4.6
-Release: 6%{?dist}
+Version: 2.4.7
+Release: 1%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -84,9 +84,6 @@ Patch100: cups-lspp.patch
 %endif
 
 #### UPSTREAM PATCHES (starts with 1000) ####
-# https://github.com/OpenPrinting/cups/pull/741
-# 2218123 - Delays printing to lpd when reserved ports are exhausted
-Patch1000: 0001-Fix-delays-printing-to-lpd-when-reserved-ports-are-e.patch
 # https://github.com/OpenPrinting/cups/pull/742
 # 2218124 - The command "cancel -x <job>" does not remove job files
 Patch1001: 0001-Use-purge-job-instead-of-purge-jobs-when-canceling-a.patch
@@ -312,8 +309,6 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %patch -P 13 -p1 -b .dymo-deviceid
 
 # UPSTREAM PATCHES
-# 2218123 - Delays printing to lpd when reserved ports are exhausted
-%patch -P 1000 -p1 -b .lpd-delay
 # 2218124 - The command "cancel -x <job>" does not remove job files
 %patch -P 1001 -p1 -b .purge-job
 
@@ -788,6 +783,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Wed Sep 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-1
+- 2239982 - cups-2.4.7 is available
+
 * Mon Sep 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.6-6
 - use unified __python macro
 

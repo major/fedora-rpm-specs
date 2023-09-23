@@ -1,9 +1,9 @@
 Name:           rxvt-unicode
 Version:        9.31
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Unicode version of rxvt
 
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            http://software.schmorp.de/
 Source0:        http://dist.schmorp.de/%{name}/%{name}-%{version}.tar.bz2
 Source1:        http://dist.schmorp.de/%{name}/%{name}-%{version}.tar.bz2.sig
@@ -184,6 +184,9 @@ popd
 %{_libdir}/urxvt
 
 %changelog
+* Thu Sep 21 2023 David Cantrell <dcantrell@redhat.com> - 9.31-5
+- Convert License tag to SPDX expression
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.31-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

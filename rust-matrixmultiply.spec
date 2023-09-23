@@ -5,7 +5,7 @@
 %global crate matrixmultiply
 
 Name:           rust-matrixmultiply
-Version:        0.3.7
+Version:        0.3.8
 Release:        %autorelease
 Summary:        General matrix multiplication for f32 and f64 matrices
 

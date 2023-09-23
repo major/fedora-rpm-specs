@@ -742,6 +742,7 @@ sed -r -i 's/(oldest-supported-)(numpy)/\2/' python/pyproject.toml
 
 %generate_buildrequires
 pushd python >/dev/null
+export SETUPTOOLS_SCM_VERSION_WRITE_TO_PREFIX="python"
 %pyproject_buildrequires
 popd >/dev/null
 
@@ -822,7 +823,8 @@ export \
   PYARROW_WITH_PARQUET_ENCRYPTION=1 \
   %{?with_use_gandiva:PYARROW_WITH_GANDIVA=1} \
   PYARROW_PARALLEL=%{_smp_build_ncpus} \
-  PYARROW_INSTALL_TESTS=0
+  PYARROW_INSTALL_TESTS=0 \
+  SETUPTOOLS_SCM_VERSION_WRITE_TO_PREFIX="python"
 %pyproject_wheel
 popd
 rm -rf /tmp/usr

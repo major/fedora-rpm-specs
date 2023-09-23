@@ -16,11 +16,16 @@
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
 Source0:        https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
 BuildArch:      noarch
+
+## Upstream patches
+# https://invent.kde.org/frameworks/extra-cmake-modules/-/issues/11
+# https://invent.kde.org/frameworks/extra-cmake-modules/-/merge_requests/383
+Patch0: 383.patch
 
 ## upstreamable patches
 # do not unconditionally link in base/core libpoppler library
@@ -62,7 +67,7 @@ Additional modules for CMake build system needed by KDE Frameworks.
 %check
 %if 0%{?tests}
 export CTEST_OUTPUT_ON_FAILURE=1
-make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
+make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 %endif
 
 %files
@@ -76,6 +81,10 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Sep 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.240.0^20230828.163639.a93943a-3
+- Add upstream patch to fix some kirigami2 installation issues
+- Use %%{_vpath_builddir} instead of %%{_target_platform} for tests
+
 * Mon Sep 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.240.0^20230828.163639.a93943a-2
 - Re-add runtime dependency on kf5-rpm-macros
 

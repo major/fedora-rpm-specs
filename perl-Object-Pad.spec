@@ -4,7 +4,7 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.802
+Version:        0.803
 Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,7 @@ BuildRequires:  perl(Future) >= %{future_min_ver}
 BuildRequires:  perl(Future::AsyncAwait) >= %{future_asyncawait_min_ver}
 # Some tests are skipped with Future::XS < 0.08
 BuildRequires:  perl(Moo)
+BuildRequires:  perl(Sublike::Extended)
 %define syntax_keyword_dynamically_min_ver 0.04
 BuildRequires:  perl(Syntax::Keyword::Dynamically) >= %{syntax_keyword_dynamically_min_ver}
 BuildRequires:  perl(Test::MemoryGrowth)
@@ -110,6 +111,7 @@ Requires:       perl(strict)
 %if %{with perl_Object_Pad_enables_optional_test} && !%{defined perl_bootstrap}
 Requires:       perl(Future) >= %{future_min_ver}
 Requires:       perl(Future::AsyncAwait) >= %{future_asyncawait_min_ver}
+Requires:       perl(Sublike::Extended)
 Requires:       perl(Syntax::Keyword::Dynamically) >= %{syntax_keyword_dynamically_min_ver}
 Requires:       perl(Test::MemoryGrowth)
 %endif
@@ -140,7 +142,8 @@ able to make use of Object::Pad.
 for F in \
 %if !%{with perl_Object_Pad_enables_optional_test} || %{defined perl_bootstrap}
     t/08subclass-Moo.t t/80async-method.t t/80dynamically+Object-Pad.t \
-    t/81async-method+dynamically.t t/90leak.t t/99pod.t \
+    t/80extended+Object-Pad.t t/81async-method+dynamically.t \
+    t/90leak.t t/99pod.t \
 %endif
 %if !%{with perl_Object_Pad_enables_optional_test} || !%{with perl_Object_Pad_enables_Devel_MAT}
     t/82devel-mat-dumper-helper.t \
@@ -199,6 +202,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 21 2023 Petr Pisar <ppisar@redhat.com> - 0.803-1
+- 0.803 bump
+
 * Wed Aug 23 2023 Petr Pisar <ppisar@redhat.com> - 0.802-1
 - 0.802 bump
 

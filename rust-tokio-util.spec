@@ -6,7 +6,7 @@
 %global crate tokio-util
 
 Name:           rust-tokio-util
-Version:        0.7.8
+Version:        0.7.9
 Release:        %autorelease
 Summary:        Additional utilities for working with Tokio
 

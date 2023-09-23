@@ -3,7 +3,7 @@ Version:        1.3.6
 Release:        %autorelease
 Summary:        Command line interface to LastPass.com
 
-License:        GPL-2.0-only WITH cryptsetup-OpenSSL-exception AND OpenSSL
+License:        GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception AND OpenSSL
 URL:            https://github.com/LastPass/lastpass-cli
 Source:         %url/archive/v%{version}/lastpass-cli-%{version}.tar.gz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1457758

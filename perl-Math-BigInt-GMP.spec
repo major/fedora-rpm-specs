@@ -1,6 +1,6 @@
 Name:           perl-Math-BigInt-GMP
-Version:        1.6012
-Release:        3%{?dist}
+Version:        1.6013
+Release:        1%{?dist}
 Summary:        Use the GMP library for Math::BigInt routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt-GMP
@@ -18,13 +18,13 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Module Runtime
-BuildRequires:  perl(Math::BigInt::Lib) >= 1.999838
+BuildRequires:  perl(Math::BigInt::Lib) >= 1.999840
 BuildRequires:  perl(XSLoader) >= 0.02
 # Test Suite
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Math::BigFloat) >= 1.994
-BuildRequires:  perl(Math::BigInt) >= 1.999838
+BuildRequires:  perl(Math::BigInt) >= 1.999840
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(threads)
@@ -46,7 +46,7 @@ also reduces the memory footprint by not loading Math::GMP and Carp at all.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Math::BigInt) >= 1.999831
+Requires:       perl(Math::BigInt) >= 1.999840
 
 %description tests
 Tests from %{name}. Execute them
@@ -64,11 +64,8 @@ find -type f -exec chmod -x {} +
 chmod -c -x CHANGES lib/Math/BigInt/GMP.pm
 
 %build
-perl Makefile.PL \
-  INSTALLDIRS=vendor \
-  OPTIMIZE="%{optflags}" \
-  NO_PACKLIST=1 \
-  NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
+  NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -102,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.6013-1
+- 1.6013 bump (rhbz#2239929)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6012-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

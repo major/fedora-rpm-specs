@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 39%{?dist}
+Release: 40%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -79,7 +79,11 @@ Source1: macros.kde-apps
 Source10: SOLID_HAL_LEGACY.sh
 
 BuildRequires: kde4-macros(api) >= 2
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+BuildRequires: kde4-filesystem
+%else
 BuildRequires: kde-filesystem >= 4-23
+%endif
 # for the RPM dependency generators
 BuildRequires: kde-settings
 BuildRequires: docbook-dtds docbook-style-xsl
@@ -88,7 +92,11 @@ Requires: ca-certificates
 Requires: dbusmenu-qt%{?_isa} >= %{dbusmenu_qt_version}
 Requires: docbook-dtds docbook-style-xsl
 Requires: hicolor-icon-theme
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+Requires: kde4-filesystem
+%else
 Requires: kde-filesystem >= 4-23
+%endif
 Requires: kde-settings
 %{?_kde4_macros_api:Requires: kde4-macros(api) = %{_kde4_macros_api} }
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
@@ -897,6 +905,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Thu Sep 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6:4.14.38-40
+- Update filesystem dependency
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6:4.14.38-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

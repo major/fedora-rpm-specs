@@ -3,7 +3,7 @@
 
 # https://github.com/GoogleCloudPlatform/osconfig
 %global goipath         github.com/GoogleCloudPlatform/osconfig
-Version:                20230912.01
+Version:                20230920.00
 %global tag             %{version}
 
 %gometa -f
@@ -23,6 +23,10 @@ Source:         %{gosource}
 # Fedora.
 Patch0:         google-osconfig-agent-remove-containeros.patch
 
+# Remove serial port code because it depends on a very, very out of date serial module.
+# https://github.com/GoogleCloudPlatform/guest-agent/issues/252
+Patch1:         google-osconfig-agent-remove-serial-port-functionality.patch
+
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
 
@@ -35,7 +39,7 @@ ExcludeArch:    ppc64le s390x
 
 %prep
 %goprep
-%patch -P0 -p1
+%autopatch -p1
 
 # Examples directory isn't needed.
 rm -rf examples

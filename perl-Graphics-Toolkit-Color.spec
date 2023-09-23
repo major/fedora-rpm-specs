@@ -2,7 +2,7 @@
 %bcond_without perl_Graphics_Toolkit_Color_enables_color_names
 
 Name:           perl-Graphics-Toolkit-Color
-Version:        1.61
+Version:        1.70
 Release:        1%{?dist}
 Summary:        Color palette creation helper
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 21 2023 Petr Pisar <ppisar@redhat.com> - 1.70-1
+- 1.70 bump
+
 * Tue Sep 12 2023 Petr Pisar <ppisar@redhat.com> - 1.61-1
 - 1.61 bump
 

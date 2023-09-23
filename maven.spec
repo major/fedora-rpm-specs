@@ -7,7 +7,7 @@
 Name:           maven
 Epoch:          1
 Version:        3.9.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java project management and project comprehension tool
 # maven itself is Apache-2.0
 # bundled slf4j is MIT
@@ -86,7 +86,7 @@ BuildRequires:  mvn(org.slf4j:slf4j-simple::sources:)
 
 Requires: %{name}-lib = %{epoch}:%{version}-%{release}
 Requires: %{name}-jdk-binding = %{epoch}:%{version}-%{release}
-Suggests: %{name}-openjdk17 = %{epoch}:%{version}-%{release}
+Suggests: %{name}-openjdk21 = %{epoch}:%{version}-%{release}
 
 Requires(post): alternatives
 Requires(postun): alternatives
@@ -147,6 +147,18 @@ Conflicts: maven-jdk-binding
 %description openjdk17
 Configures Maven to run with OpenJDK 17.
 
+%package openjdk21
+Summary:        OpenJDK 21 binding for Maven
+RemovePathPostfixes: -openjdk21
+Provides: maven-jdk-binding = %{epoch}:%{version}-%{release}
+Requires: maven = %{epoch}:%{version}-%{release}
+Requires: java-21-openjdk-headless
+Recommends: java-21-openjdk-devel
+Conflicts: maven-jdk-binding
+
+%description openjdk21
+Configures Maven to run with OpenJDK 21.
+
 %{?javadoc_package}
 
 %prep
@@ -155,9 +167,9 @@ Configures Maven to run with OpenJDK 17.
 find -name '*.java' -exec sed -i 's/\r//' {} +
 find -name 'pom.xml' -exec sed -i 's/\r//' {} +
 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
 
 # not really used during build, but a precaution
 find -name '*.jar' -not -path '*/test/*' -delete
@@ -252,6 +264,7 @@ install -d -m 755 %{buildroot}%{_javaconfdir}/
 echo JAVA_HOME=%{_jvmlibdir}/jre-1.8.0-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk8
 echo JAVA_HOME=%{_jvmlibdir}/jre-11-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk11
 echo JAVA_HOME=%{_jvmlibdir}/jre-17-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk17
+echo JAVA_HOME=%{_jvmlibdir}/jre-21-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk21
 
 
 %post
@@ -297,7 +310,13 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %files openjdk17
 %config %{_javaconfdir}/maven.conf-openjdk17
 
+%files openjdk21
+%config %{_javaconfdir}/maven.conf-openjdk21
+
 %changelog
+* Thu Sep 21 2023 Trung Lê <8@tle.id.au> - 1:3.9.4-3
+- Add maven-openjdk21
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.4-2
 - Convert License tag to SPDX format
 

@@ -1,8 +1,8 @@
 Name: intltool
 Summary: Utility for internationalizing various kinds of data files
 Version: 0.51.0
-Release: 23%{?dist}
-License: GPLv2 with exceptions
+Release: 24%{?dist}
+License: GPL-2.0-or-later WITH Autoconf-exception-generic
 #VCS: bzr:https://code.edge.launchpad.net/~intltool/intltool/trunk
 Source: https://edge.launchpad.net/intltool/trunk/%{version}/+download/intltool-%{version}.tar.gz
 URL: https://launchpad.net/intltool
@@ -39,9 +39,9 @@ them in the po files.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 
 %build
 %configure
@@ -69,6 +69,9 @@ fi
 %{_mandir}/man8/intltool*.8*
 
 %changelog
+* Thu Sep 21 2023 Jens Petersen <petersen@redhat.com> - 0.51.0-24
+- SPDX migration of license tag
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.51.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

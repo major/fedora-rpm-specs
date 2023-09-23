@@ -2,8 +2,8 @@
 
 Summary: OpenSSL provider for IBMCA
 Name: openssl-ibmca
-Version: 2.4.0
-Release: 5%{?dist}
+Version: 2.4.1
+Release: 1%{?dist}
 License: Apache-2.0
 URL: https://github.com/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ make check
 
 
 %changelog
+* Thu Sep 21 2023 Dan Horák <dan@danny.cz> - 2.4.1-1
+- updated to 2.4.1
+
 * Thu Jul 27 2023 Dan Horák <dan@danny.cz> - 2.4.0-5
 - switch to upstream fix for logging into /tmp
 

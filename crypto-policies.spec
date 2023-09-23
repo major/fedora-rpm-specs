@@ -1,5 +1,5 @@
-%global git_date 20230731
-%global git_commit 5ed06e038da1ae36b1379780f2ed09f69c106fee
+%global git_date 20230920
+%global git_commit 570ea89092555c6c289f226bb48c2d8c1f332b0f
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -212,6 +212,10 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Wed Sep 20 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230920-1.git570ea89
+- OSPP subpolicy: tighten beyond reason for OSPP 4.3
+- fips-mode-setup: more thorough --disable, still unsupported
+
 * Tue Jul 25 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230731-1.git5ed06e0
 - BSI: start a BSI TR 02102 policy
 - krb5: sort enctypes mac-first, cipher-second, prioritize SHA-2 ones

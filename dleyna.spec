@@ -1,14 +1,11 @@
 Name:    dleyna
-Version: 0.8.2
-Release: 3%{?dist}
+Version: 0.8.3
+Release: 1%{?dist}
 Summary: Services and D-Bus APIs for UPnP access
 
 License: LGPL-2.1-or-later
 URL:     https://gitlab.gnome.org/World/dLeyna
 Source0: https://gitlab.gnome.org/World/dLeyna/-/archive/v%{version}/dLeyna-v%{version}.tar.bz2
-
-# https://gitlab.gnome.org/World/dLeyna/-/merge_requests/6
-Patch:   0001-subprojects-Meson-1-2-compat.patch
 
 BuildRequires: /usr/bin/rst2man
 BuildRequires: gcc
@@ -22,12 +19,6 @@ BuildRequires: pkgconfig(gupnp-av-1.0)
 BuildRequires: pkgconfig(gupnp-dlna-2.0)
 BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: pkgconfig(libxml-2.0)
-
-# Renamed in F38, as the 0.8 series combined dleyna-core,
-# dleyna-connector-dbus, dleyna-renderer and dleyna-server into one tarball.
-# Remove in F40.
-Provides:  dleyna-core = %{version}-%{release}
-Obsoletes: dleyna-core < %{version}-%{release}
 
 %description
 dLeyna is a set of services and D-Bus APIs that aim to simplify access to UPnP
@@ -59,15 +50,6 @@ Servers (DMSes).
 %package  devel
 Summary:  Development files for the dLeyna components
 Requires: %{name}%{?_isa} = %{version}-%{release}
-# Renamed in F38, as the 0.8 series combined dleyna-core,
-# dleyna-connector-dbus, dleyna-renderer and dleyna-server into one tarball.
-# Remove in F40.
-Provides:  dleyna-connector-dbus-devel = %{version}-%{release}
-Obsoletes: dleyna-connector-dbus-devel < %{version}-%{release}
-Provides:  dleyna-core-devel = %{version}-%{release}
-Obsoletes: dleyna-core-devel < %{version}-%{release}
-Provides:  dleyna-renderer-devel = %{version}-%{release}
-Obsoletes: dleyna-renderer-devel < %{version}-%{release}
 
 %description devel
 dLeyna is a set of services and D-Bus APIs that aim to simplify access to UPnP
@@ -133,6 +115,9 @@ rm -rf %{buildroot}/%{_libdir}/dleyna/libdleyna-renderer-1.0.so \
 %{_libdir}/pkgconfig/dleyna-core-1.0.pc
 
 %changelog
+* Wed Sep 20 2023 David King <amigadave@amigadave.com> - 0.8.3-1
+- Update to 0.8.3
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

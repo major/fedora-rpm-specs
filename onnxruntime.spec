@@ -1,7 +1,7 @@
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
 Version:    1.15.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 # onnxruntime and SafeInt are MIT
 # onnx is Apache License 2.0
 # optional-lite is Boost Software License 1.0
@@ -38,6 +38,8 @@ Patch11:    system-date-and-mp11.patch
 Patch12:    fix_forward_decl_flatbuffers.patch
 # Use the system cpuinfo
 Patch13:    system-cpuinfo.patch
+# Trigger onnx fix for onnxruntime_providers_shared
+Patch14:    onnx_onnxruntime_fix.patch
 
 # s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
@@ -172,6 +174,9 @@ cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
 %{_docdir}/%{name}
 
 %changelog
+* Thu Aug 31 2023 Diego Herrera <dherrera@redhat.com> - 1.15.1-5
+- Trigger onnx fix for onnxruntime
+
 * Wed Aug 30 2023 Diego Herrera <dherrera@redhat.com> - 1.15.1-4
 - Fix python package build dependencies
 

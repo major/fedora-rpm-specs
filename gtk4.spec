@@ -49,7 +49,6 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(pango) >= %{pango_version}
-BuildRequires:  pkgconfig(sysprof-4)
 BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  pkgconfig(tracker-sparql-3.0)
 BuildRequires:  pkgconfig(wayland-client) >= %{wayland_version}

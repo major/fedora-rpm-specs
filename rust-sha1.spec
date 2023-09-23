@@ -5,7 +5,7 @@
 %global crate sha1
 
 Name:           rust-sha1
-Version:        0.10.5
+Version:        0.10.6
 Release:        %autorelease
 Summary:        SHA-1 hash function
 
@@ -82,6 +82,18 @@ This package contains library source intended for building other packages which
 use the "force-soft" feature of the "%{crate}" crate.
 
 %files       -n %{name}+force-soft-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+loongarch64_asm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+loongarch64_asm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "loongarch64_asm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+loongarch64_asm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+oid-devel

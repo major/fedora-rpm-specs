@@ -5,7 +5,7 @@
 %global crate libheif-sys
 
 Name:           rust-libheif-sys
-Version:        1.16.1
+Version:        1.16.2
 Release:        %autorelease
 Summary:        Libheif bindings
 
@@ -28,7 +28,7 @@ Libheif bindings.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libheif) >= 1.14
+Requires:       pkgconfig(libheif) >= 1.16
 
 %description    devel %{_description}
 
@@ -71,7 +71,7 @@ use the "use-bindgen" feature of the "%{crate}" crate.
 
 %generate_buildrequires
 %cargo_generate_buildrequires
-echo 'pkgconfig(libheif) >= 1.14'
+echo 'pkgconfig(libheif) >= 1.16'
 
 %build
 %cargo_build

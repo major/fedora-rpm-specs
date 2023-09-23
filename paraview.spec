@@ -1,13 +1,10 @@
 #LTO fails at the moment
 %undefine _lto_cflags
 
-%global __cmake_in_source_build 1
 %if 0%{?fedora}
 %define _legacy_common_support 1
 %endif
 
-%{!?build_openmpi:%global build_openmpi 1}
-%{!?build_mpich:%global build_mpich 1}
 %global pv_maj 5
 %global pv_min 11
 %global pv_patch 1
@@ -16,11 +13,13 @@
 %{?rcsuf:%global relsuf .%{rcsuf}}
 %{?rcsuf:%global versuf -%{rcsuf}}
 
-# Python2 prefix for building on rhel
-%if 0%{?rhel}
-%global py2_prefix python
+# No MPI (yet) in flatpaks
+%if 0%{?flatpak}
+%bcond_with mpich
+%bcond_with openmpi
 %else
-%global py2_prefix python2
+%bcond_without mpich
+%bcond_without openmpi
 %endif
 
 # cgnslib is too old on EL8
@@ -44,24 +43,12 @@
 %global vtk_use_system_gl2ps -DVTK_MODULE_USE_EXTERNAL_VTK_gl2ps:BOOL=OFF
 %endif
 
-# Default to Qt5 on Fedora and RHEL 8+
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%bcond_without qt5
-%else
-%bcond_with qt5
-%endif
-
 # Enable VisitBridge plugin (bz#1546474)
 %bcond_without VisitBridge
 
 # We need jsoncpp >= 0.7
-%if 0%{?fedora} || 0%{?rhel} >= 8
 %global system_jsoncpp 1
 %global vtk_use_system_jsoncpp -DVTK_MODULE_USE_EXTERNAL_VTK_jsoncpp:BOOL=ON
-%else
-%global system_jsoncpp 0
-%global vtk_use_system_jsoncpp -DVTK_MODULE_USE_EXTERNAL_VTK_jsoncpp:BOOL=OFF
-%endif
 
 %bcond_without protobuf
 %if %{with protobuf}
@@ -71,18 +58,12 @@
 %endif
 
 # We need pugixml >= 1.9
-%if 0%{?fedora} || 0%{?rhel} >= 8
-# ParaView 5.7.0 disabled building with external pugixml
 %global system_pugixml 1
 %global vtk_use_system_pugixml -DVTK_MODULE_USE_EXTERNAL_VTK_pugixml:BOOL=ON
-%else
-%global system_pugixml 0
-%global vtk_use_system_pugixml -DVTK_MODULE_USE_EXTERNAL_VTK_pugixml:BOOL=OFF
-%endif
 
 Name:           paraview
 Version:        5.11.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -102,35 +83,19 @@ Patch3:         paraview-freetype.patch
 BuildRequires:  cmake >= 3.12
 BuildRequires:  make
 BuildRequires:  lz4-devel
-%if %{with qt5}
 BuildRequires:  cmake(Qt5)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5UiPlugin)
 BuildRequires:  cmake(Qt5X11Extras)
 BuildRequires:  qt5-qtwebkit-devel
 BuildRequires:  /usr/bin/xmlpatterns-qt5
-%else
-BuildRequires:  qt-devel
-BuildRequires:  qt-webkit-devel
-%endif
 BuildRequires:  mesa-libOSMesa-devel
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  python3-devel
 BuildRequires:  python3-netcdf4
 BuildRequires:  python3-qt5
 # Fails looking for PythonQt_QtBindings.h
 # https://gitlab.kitware.com/paraview/paraview/issues/17365
 #BuildRequires:  pythonqt-devel
-%else
-BuildRequires:  python2-devel
-BuildRequires:  python2-netcdf4
-# Fails looking for PythonQt_QtBindings.h
-# https://gitlab.kitware.com/paraview/paraview/issues/17365
-#BuildRequires:  pythonqt-devel
-%if %{with qt5}
-BuildRequires:  %{py2_prefix}-qt5
-%endif
-%endif
 %if %{with cgnslib}
 BuildRequires:  cgnslib-devel
 %endif
@@ -180,14 +145,11 @@ BuildRequires:  sqlite-devel
 BuildRequires:  utf8cpp-devel
 # For validating desktop and appdata files
 BuildRequires:  desktop-file-utils
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  libappstream-glib
-%endif
 BuildRequires:  glibc-langpack-en
 
 Requires: hdf5%{?_hdf5_version: = %{_hdf5_version}}
 Requires: %{name}-data = %{version}-%{release}
-%if 0%{?fedora} || 0%{?rhel} >= 8
 #Recommends: python3-pygments
 Requires: python3-pygments
 Requires: python3-six
@@ -195,14 +157,6 @@ Requires: python3-netcdf4
 Requires: python3-numpy
 Requires: python3-twisted
 Requires: python3-autobahn
-%else
-Requires: %{py2_prefix}-pygments
-Requires: python2-six
-Requires: python2-netcdf4
-Requires: python2-numpy
-Requires: %{py2_prefix}-twisted
-Requires: %{py2_prefix}-autobahn
-%endif
 # ParaView requires svg support via icon plugins, so no direct linking involved
 Requires: qt5-qtsvg%{?_isa}
 Requires: qt5-qtx11extras%{?_isa}
@@ -290,11 +244,7 @@ Provides: bundled(xdmf2)
         -DPARAVIEW_ENABLE_GDAL:BOOL=ON \\\
         -DPARAVIEW_USE_PYTHON:BOOL=ON \\\
         -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=ON \\\
-%if 0%{?fedora} || 0%{?rhel} >= 8 \
         -DVTK_PYTHON_VERSION=3 \\\
-%else \
-        -DVTK_PYTHON_VERSION=2 \\\
-%endif \
         -DPARAVIEW_BUILD_WITH_EXTERNAL:BOOL=ON \\\
         -DVTK_MODULE_USE_EXTERNAL_ParaView_vtkcatalyst:BOOL=OFF \\\
         %{?vtk_use_system_cgnslib} \\\
@@ -320,11 +270,7 @@ Provides: bundled(xdmf2)
         -DCMAKE_INSTALL_INCLUDEDIR:PATH=../../include/$MPI_COMPILER/%{name} \\\
         -DCMAKE_INSTALL_LIBDIR:PATH=lib/%{name} \\\
         -DHDF5_INCLUDE_DIRS:PATH=$MPI_INCLUDE \\\
-%if 0%{?fedora} || 0%{?rhel} >= 8 \
         -DPYTHON_INSTALL_DIR=PATH=$MPI_PYTHON3_SITEARCH \\\
-%else \
-        -DPYTHON_INSTALL_DIR=PATH=$MPI_PYTHON2_SITEARCH \\\
-%endif \
         -DVTK_MODULE_USE_EXTERNAL_VTK_diy2=OFF \\\
         -DVTK_MODULE_USE_EXTERNAL_VTK_icet=OFF \\\
         -DQtTesting_INSTALL_LIB_DIR=lib/%{name} \\\
@@ -350,10 +296,10 @@ memory computing resources. It can be run on supercomputers to analyze
 datasets of petascale size as well as on laptops for smaller data.
 
 NOTE: The version in this package has NOT been compiled with MPI support.
-%if %{build_openmpi}
+%if %{with openmpi}
 Install the paraview-openmpi package to get a version compiled with openmpi.
 %endif
-%if %{build_mpich}
+%if %{with mpich}
 Install the paraview-mpich package to get a version compiled with mpich.
 %endif
 
@@ -390,57 +336,36 @@ BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  hardlink
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-twisted
 BuildRequires:  python3-autobahn
 BuildRequires:  python3-markupsafe
-%else
-BuildRequires:  python2-devel
-BuildRequires:  python2-numpy
-BuildRequires:  python2-sphinx
-BuildRequires:  python2-markupsafe
-# Unavailable on rhel
-BuildRequires:  %{py2_prefix}-twisted
-BuildRequires:  %{py2_prefix}-autobahn
-%endif
 
 BuildArch:      noarch
 
 %description    doc
 %{summary}.
 
+%global mpi_list %{nil}
 
-%if %{build_openmpi}
+%if %{with openmpi}
+%global mpi_list %mpi_list openmpi
 %package        openmpi
 Summary:        Parallel visualization application
 
 BuildRequires:  openmpi-devel
 BuildRequires:  netcdf-openmpi-devel
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  python3-mpi4py-openmpi
-%else
-BuildRequires:  mpi4py-openmpi
-%endif
 
 Requires:       %{name}-data = %{version}-%{release}
-%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires:       python3-autobahn
 Requires:       python3-mpi4py-openmpi
 Requires:       python3-numpy
 Requires:       python3-pygments
 Requires:       python3-six
 Requires:       python3-twisted
-%else
-Requires:       %{py2_prefix}-autobahn
-Requires:       python2-numpy
-Requires:       %{py2_prefix}-pygments
-Requires:       python2-six
-Requires:       %{py2_prefix}-twisted
-Requires:       mpi4py-openmpi
-%endif
 # ParaView requires svg support via icon plugins, so no direct linking involved
 Requires:       qt5-qtsvg%{?_isa}
 Requires:       qt5-qtx11extras%{?_isa}
@@ -466,34 +391,22 @@ developing applications that use %{name}-openmpi.
 %endif
 
 
-%if %{build_mpich}
+%if %{with mpich}
+%global mpi_list %mpi_list mpich
 %package        mpich
 Summary:        Parallel visualization application
 
 BuildRequires:  mpich-devel
 BuildRequires:  netcdf-mpich-devel
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  python3-mpi4py-mpich
-%else
-BuildRequires:  mpi4py-mpich
-%endif
 
 Requires:       %{name}-data = %{version}-%{release}
-%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires:       python3-autobahn
 Requires:       python3-mpi4py-mpich
 Requires:       python3-numpy
 Requires:       python3-pygments
 Requires:       python3-six
 Requires:       python3-twisted
-%else
-Requires:       %{py2_prefix}-autobahn
-Requires:       python2-numpy
-Requires:       %{py2_prefix}-pygments
-Requires:       python2-six
-Requires:       %{py2_prefix}-twisted
-Requires:       mpi4py-mpich
-%endif
 # ParaView requires svg support via icon plugins, so no direct linking involved
 Requires:       qt5-qtsvg%{?_isa}
 Requires:       qt5-qtx11extras%{?_isa}
@@ -555,6 +468,9 @@ cp %SOURCE2 VTK/CMake/FindPEGTL.cmake
 # We want to build with a system vtk someday, but it doesn't work yet
 #rm -r VTK
 
+# $mpi will be evaluated in the loops below
+%global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
+
 %build
 # Try to limit memory consumption on some arches
 %ifarch %{arm}
@@ -563,44 +479,26 @@ cp %SOURCE2 VTK/CMake/FindPEGTL.cmake
 %ifarch ppc64le
 %global _smp_mflags -j2
 %endif
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%cmake -Wno-dev .. \
+%cmake -Wno-dev \
         -DCMAKE_INSTALL_CMAKEDIR:PATH=%{_lib}/cmake \
         -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/%{name} \
         -DPARAVIEW_BUILD_DEVELOPER_DOCUMENTATION:BOOL=ON \
         -DQtTesting_INSTALL_LIB_DIR=%{_lib}/%{name} \
         -DQtTesting_INSTALL_CMAKE_DIR=%{_lib}/%{name}/CMake \
         %{paraview_cmake_options}
-%make_build
+%cmake_build
 export LANG=en_US.UTF-8
 # Built-in Python modules were not found, set pythonpath as workaround
 export PYTHONPATH=$PWD/%{_lib}/paraview/python%{python3_version}/site-packages:%{python3_sitelib}:%{python3_sitearch}
-%make_build ParaViewDoxygenDoc ParaViewPythonDoc
-popd
-%if %{build_openmpi}
-mkdir %{_target_platform}-openmpi
-pushd %{_target_platform}-openmpi
-%{_openmpi_load}
-%cmake -Wno-dev .. \
-        %{paraview_cmake_mpi_options}
-%make_build
-%{_openmpi_unload}
-popd
-%endif
-%if %{build_mpich}
-mkdir %{_target_platform}-mpich
-pushd %{_target_platform}-mpich
-%{_mpich_load}
-# EL7 mpich module doesn't set PYTHONPATH
-# https://bugzilla.redhat.com/show_bug.cgi?id=1148992
-[ -z "$PYTHONPATH" ] && export PYTHONPATH=$MPI_PYTHON_SITEARCH
-%cmake -Wno-dev .. \
-        %{paraview_cmake_mpi_options}
-%make_build
-%{_mpich_unload}
-popd
-%endif
+%cmake_build -t ParaViewDoxygenDoc ParaViewPythonDoc
+
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
+  %cmake -Wno-dev %{paraview_cmake_mpi_options}
+  %cmake_build
+  module purge
+done
 
 
 %install
@@ -612,47 +510,28 @@ install -d %{buildroot}%{_datadir}/applications
 install -d %{buildroot}%{_datadir}/mime/packages
 install -m644 %SOURCE1 %{buildroot}%{_datadir}/mime/packages
 
-%if %{build_openmpi}
-%{_openmpi_load}
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
+  %cmake_install
 
-# Install openmpi version
-%make_install -C %{_target_platform}-openmpi
+  # Remove mpi copy of doc and man pages and  data
+  rm -rf %{buildroot}%{_libdir}/${mpi}/share/{metainfo,applications,doc,icons,man,mimeinfo,paraview,vtkm-*}
 
-# Remove mpi copy of doc and man pages and  data
-rm -rf %{buildroot}%{_libdir}/openmpi/share/{metainfo,applications,doc,icons,man,mimeinfo,paraview,vtkm-*}
-
-# Set rpaths of every library
-for i in `find %{buildroot}$MPI_LIB -name "*.so*" -type f -print`; do
-    patchelf --print-rpath --set-rpath $MPI_LIB $i
+  # Set rpaths of every library
+  for i in `find %{buildroot}$MPI_LIB -name "*.so*" -type f -print`; do
+      patchelf --print-rpath --set-rpath $MPI_LIB $i
+  done
+  module purge
 done
-
-%{_openmpi_unload}
-%endif
-
-%if %{build_mpich}
-%{_mpich_load}
-
-# Install mpich version
-%make_install -C %{_target_platform}-mpich
-
-# Remove mpi copy of doc and man pages and data
-rm -rf %{buildroot}%{_libdir}/mpich/share/{metainfo,applications,doc,icons,man,mimeinfo,paraview,vtkm-*}
-
-# Set rpaths of every library
-for i in `find %{buildroot}$MPI_LIB -name "*.so*" -type f -print`; do
-    patchelf --print-rpath --set-rpath $MPI_LIB $i
-done
-
-%{_mpich_unload}
-%endif
+# unset mpi to reset _vpath_builddir
+unset mpi
 
 #Install the normal version
-%make_install -C %{_target_platform}
+%cmake_install
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.paraview.ParaView.desktop
-%if 0%{?fedora} || 0%{?rhel} >= 8
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.paraview.ParaView.appdata.xml
-%endif
 
 #Cleanup only vtk conflicting binaries
 rm %{buildroot}%{_bindir}/vtk{ParseJava,ProbeOpenGLVersion,Wrap{Hierarchy,Java,Python}}*
@@ -667,13 +546,6 @@ find %{buildroot}%{_pkgdocdir} -name '.*' -print0 | xargs -0 rm -frv
 find %{buildroot}%{_pkgdocdir} -name '*.map' -or -name '*.md5' -print -delete
 hardlink -cfv %{buildroot}%{_pkgdocdir}
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post
-update-desktop-database &> /dev/null ||:
-
-%postun
-update-desktop-database &> /dev/null ||:
-%endif
 
 %pre
 #Handle changing from directory to file
@@ -681,22 +553,6 @@ if [ -d %{_libdir}/paraview/paraview ]; then
   rm -r %{_libdir}/paraview/paraview
 fi
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post data
-/bin/touch --no-create %{_datadir}/mime/packages &>/dev/null || :
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-%postun data
-if [ $1 -eq 0 ] ; then
-  update-mime-database %{_datadir}/mime &> /dev/null || :
-  /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-  /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans data
-update-mime-database %{_datadir}/mime &> /dev/null || :
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-%endif
 
 %files
 %{_bindir}/%{name}
@@ -735,7 +591,7 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %files doc
 %{_pkgdocdir}
 
-%if %{build_openmpi}
+%if %{with openmpi}
 %files openmpi
 %{_libdir}/openmpi/bin/[ps]*
 %{_libdir}/openmpi/lib/%{name}/
@@ -750,7 +606,7 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %endif
 
 
-%if %{build_mpich}
+%if %{with mpich}
 %files mpich
 %{_libdir}/mpich/bin/[ps]*
 %{_libdir}/mpich/lib/%{name}/
@@ -766,6 +622,10 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu Sep 21 2023 Orion Poplawski <orion@nwra.com> - 5.11.1-7
+- Use loops for mpi builds/installs
+- Drop EL7 support
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

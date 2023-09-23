@@ -4,12 +4,12 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-bad-free
-Version:        1.22.5
+Version:        1.22.6
 Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
 # The freeze and nfs plugins are LGPLv2 (only)
-License:        LGPLv2+ and LGPLv2
+License:        LGPL-2.0-or-later AND LGPL-2.0-only
 URL:            http://gstreamer.freedesktop.org/
 # The source is:
 # http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-%{version}.tar.xz
@@ -520,6 +520,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Thu Sep 21 2023 Sandro Mani <manisandro@gmail.com> - 1.22.6-1
+- Update to 1.22.6
+
 * Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 1.22.5-1
 - Update to 1.22.5
 

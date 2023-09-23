@@ -13,7 +13,6 @@
 %global libdex_version 0.1.1
 %global libpeas_version 1.34.0
 %global libgit2_glib_version 1.1.0
-%global sysprof_version 3.46.0
 %global template_glib_version 3.36.1
 
 Name:           gnome-builder
@@ -71,9 +70,7 @@ BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  pkgconfig(pygobject-3.0)
-BuildRequires:  pkgconfig(sysprof-4) >= %{sysprof_version}
 BuildRequires:  pkgconfig(sysprof-capture-4)
-BuildRequires:  pkgconfig(sysprof-ui-5) >= %{sysprof_version}
 BuildRequires:  pkgconfig(template-glib-1.0) >= %{template_glib_version}
 BuildRequires:  pkgconfig(vte-2.91-gtk4)
 BuildRequires:  pkgconfig(webkitgtk-6.0)
@@ -91,7 +88,6 @@ Requires:       libdex%{?_isa} >= %{libdex_version}
 Requires:       libgit2-glib%{?_isa} >= %{libgit2_glib_version}
 Requires:       libpeas%{?_isa} >= %{libpeas_version}
 Requires:       libpeas-loader-python3%{?_isa} >= %{libpeas_version}
-Requires:       libsysprof-ui%{?_isa} >= %{sysprof_version}
 Requires:       template-glib%{?_isa} >= %{template_glib_version}
 
 Requires:       flatpak-builder
@@ -118,7 +114,7 @@ developing applications that use %{name}.
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
-%meson -Dhelp=true
+%meson -Dhelp=true -Dplugin_sysprof=false
 %meson_build
 
 %install

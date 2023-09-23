@@ -303,10 +303,6 @@ Source0:    README
 %obsolete python3-pytest-sanic 1.9.1-4
 %obsolete python3-pytest-toolbox 0.4-13
 %obsolete python3-pytest-virtualenv 1.7.0-17
-%obsolete python3-pytoolconfig 1.2.5-2
-%obsolete python3-pytoolconfig+doc 1.2.5-2
-%obsolete python3-pytoolconfig+global 1.2.5-2
-%obsolete python3-pytoolconfig+validation 1.2.5-2
 %obsolete python3-qrencode 1.2~git.1.b75219e-16
 %obsolete python3-restsh 0.2-23
 %obsolete python3-rosinstall 0.7.8-18

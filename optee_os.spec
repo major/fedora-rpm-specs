@@ -3,7 +3,7 @@
 
 Name:      optee_os
 Version:   3.22.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Trusted side of the TEE
 
 # The TEE core of optee_os is provided under the BSD 2-Clause license. But
@@ -51,8 +51,9 @@ such as u-boot. As such the binaries aren't of general interest to users.
 %undefine _auto_set_build_flags
 
 %ifarch aarch64
-# At the moment we're only making the secure firmware for the k3-j784s4 platform
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j784s4 CFG_ARM64_core=y
+# For now only secure firmwares for k3-j784s4 and k3-am62x platforms are built
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j784s4 CFG_ARM64_core=y O=out/k3-j784s4
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-am62x CFG_ARM64_core=y CFG_WITH_SOFTWARE_PRNG=y O=out/k3-am62x
 %endif
 
 
@@ -63,7 +64,10 @@ mkdir -p %{buildroot}%{_datadir}/%{name}
 %ifarch aarch64
 # At the moment we just support adding tee-pager_v2.bin 
 mkdir -p %{buildroot}%{_datadir}/%{name}/k3-j784s4/
-install -p -m 0644 out/arm-plat-k3/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/k3-j784s4/
+install -p -m 0644 out/k3-j784s4/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/k3-j784s4/
+
+mkdir -p %{buildroot}%{_datadir}/%{name}/k3-am62x/
+install -p -m 0644 out/k3-am62x/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/k3-am62x/
 
 %endif
 
@@ -75,5 +79,8 @@ install -p -m 0644 out/arm-plat-k3/core/tee-pager_v2.bin  /%{buildroot}%{_datadi
 %endif
 
 %changelog
+* Thu Sep 21 2023 Enric Balletbo i Serra <eballetbo@redhat.com> - 3.22.0-2
+- Add support for TI AM62x boards
+
 * Tue Sep 19 2023 Enric Balletbo i Serra <eballetbo@redhat.com> - 3.22.0-1
 - Initial package

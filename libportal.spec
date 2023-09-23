@@ -1,8 +1,8 @@
 %bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:           libportal
-Version:        0.6
-Release:        8%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        Flatpak portal library
 License:        LGPLv3
 Url:            https://github.com/flatpak/libportal
@@ -13,7 +13,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  gi-docgen
 BuildRequires:  meson
 BuildRequires:  vala
-BuildRequires:  git
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
@@ -25,9 +24,6 @@ BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5X11Extras)
 %endif
-
-# Backport from post-0.6 fixes
-Patch0: 0.6-backports.patch
 
 %description
 libportal provides GIO-style asynchronous APIs for most Flatpak portals.
@@ -116,10 +112,18 @@ libportal provides GIO-style asynchronous APIs for most Flatpak portals.
 This package provides development documentations for libportal.
 
 %prep
-%autosetup -p1 -S git_am
+%autosetup -p1
 
 %build
-%meson -Dbackends=gtk3,gtk4%{?with_qt5:,qt5}
+%meson \
+  -Dbackend-gtk3=enabled \
+  -Dbackend-gtk4=enabled \
+%if %{with qt5}
+  -Dbackend-qt5=enabled \
+%else
+  -Dbackend-qt5=disabled \
+%endif
+  %{nil}
 %meson_build
 
 %install
@@ -179,6 +183,9 @@ This package provides development documentations for libportal.
 %{_datadir}/doc/libportal-1
 
 %changelog
+* Thu Sep 21 2023 Kalev Lember <klember@redhat.com> - 0.7.1-1
+- Update to 0.7.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

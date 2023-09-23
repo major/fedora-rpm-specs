@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.7.2
+Version: 7.0.8
 Release: 1%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
@@ -13,12 +13,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The activesupport gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/activesupport && git archive -v -o activesupport-7.0.7.2-tests.txz v7.0.7.2 test/
+# cd rails/activesupport && git archive -v -o activesupport-7.0.8-tests.txz v7.0.8 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.7.2-tools.txz v7.0.7.2 tools/
+# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
@@ -49,6 +49,7 @@ BuildRequires: rubygem(listen)
 BuildRequires: rubygem(redis)
 BuildRequires: rubygem(rexml)
 BuildRequires: memcached
+BuildRequires: tzdata
 BuildArch: noarch
 
 
@@ -132,6 +133,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sun Sep 10 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.8-1
+- Update to activesupport 7.0.8.
+
 * Mon Aug 28 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.7.2-1
 - Update to activesupport 7.0.7.2.
 

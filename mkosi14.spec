@@ -3,7 +3,7 @@ Version:        14
 Release:        %autorelease
 Summary:        Create bespoke OS images
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/mkosi
 Source0:        https://github.com/systemd/mkosi/archive/v%{version}/mkosi-%{version}.tar.gz
 

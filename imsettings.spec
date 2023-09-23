@@ -1,5 +1,5 @@
 Name:		imsettings
-Version:	1.8.5
+Version:	1.8.6
 Release:	1%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
@@ -338,6 +338,10 @@ fi
 %endif
 
 %changelog
+* Wed Sep 20 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.6-1
+- New upstream release.
+- Fix an issue that IMSETTINGS_IGNORE_SESSION doesn't work properly from im-chooser.
+
 * Wed Sep  6 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.5-1
 - New upstream release.
 - Fix an issue that IMSETTINGS_IGNORE_SESSION doesn't work properly.

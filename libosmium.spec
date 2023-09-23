@@ -6,16 +6,14 @@
 %define debug_package %{nil}
 
 Name:           libosmium
-Version:        2.19.0
-Release:        3%{?dist}
+Version:        2.20.0
+Release:        1%{?dist}
 Summary:        Fast and flexible C++ library for working with OpenStreetMap data
 
 License:        BSL-1.0
 URL:            http://osmcode.org/libosmium/
 Source0:        https://github.com/osmcode/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/osmcode/osm-testdata/archive/%{testcommit}/osm-testdata-%{testcommit}.tar.gz
-# https://github.com/osmcode/libosmium/issues/319
-Patch0:         libosmium-tag-list.patch
 
 BuildRequires:  cmake make gcc-c++
 BuildRequires:  doxygen graphviz xmlstarlet
@@ -70,7 +68,6 @@ applications that use %{name}.
 
 %prep
 %setup -q -c -T -a 0 -a 1
-%patch0 -p 1 -d %{name}-%{version}
 mv %{name}-%{version} %{name}
 mv osm-testdata-%{testcommit} osm-testdata
 rm -rf libosmium/include/gdalcpp.h libosmium/test/catch
@@ -109,6 +106,9 @@ cd libosmium
 
 
 %changelog
+* Thu Sep 21 2023 Tom Hughes <tom@compton.nu> - 2.20.0-1
+- Update to 2.20.0 upstream release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

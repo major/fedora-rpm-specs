@@ -1,5 +1,5 @@
 Name:           perl-Text-CSV_XS
-Version:        1.51
+Version:        1.52
 Release:        1%{?dist}
 Summary:        Comma-separated values manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -80,6 +80,10 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Thu Sep 21 2023 Paul Howarth <paul@city-fan.org> - 1.52-1
+- Update to 1.52 (rhbz#2240080)
+  - Fix possible coredump in cache on non-IO parse (GH#49)
+
 * Tue Aug  8 2023 Paul Howarth <paul@city-fan.org> - 1.51-1
 - Update to 1.51 (rhbz#2229806)
   - Contact e-mail update

@@ -28,6 +28,9 @@ Source:         %{pypi_source Babel}
 # 2 doctests are still deselected (as doctests are not part of this fix)
 Patch:          https://github.com/python-babel/babel/pull/998.patch
 
+# New code for extracting f-strings for Pytohn 3.12 (PEP 701)
+Patch:          https://github.com/python-babel/babel/pull/1027.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

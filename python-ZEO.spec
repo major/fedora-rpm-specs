@@ -1,11 +1,19 @@
+# Python 3.12 support is not available in any current release.
+# Build from git HEAD until the next release.
+%global commit  e5637818c1ce0b4c37c77e843e93cd24dda3c09b
+%global date    20230731
+%global forgeurl https://github.com/zopefoundation/ZEO
+
 Name:           python-ZEO
-Version:        5.4.0
-Release:        2%{?dist}
+Version:        5.4.1
 Summary:        Client-server storage implementation for ZODB
 
+%forgemeta
+
+Release:        1%{?dist}
 License:        ZPL-2.1
 URL:            https://www.zodb.org/
-Source0:        %pypi_source ZEO
+Source0:        %{forgesource}
 
 BuildRequires:  gcc
 BuildRequires:  python-ZODB-doc
@@ -38,10 +46,11 @@ Summary:        Client-server storage implementation for ZODB
 %description -n python3-ZEO
 %{common_desc}
 
-%pyproject_extras_subpkg -n python3-ZEO msgpack uvloop
+#%%pyproject_extras_subpkg -n python3-ZEO msgpack uvloop
+%pyproject_extras_subpkg -n python3-ZEO msgpack
 
 %prep
-%autosetup -n ZEO-%{version}
+%forgeautosetup
 
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
@@ -49,20 +58,12 @@ sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/ht
     -e 's|\("https://zodb-docs\.readthedocs\.io/en/latest/", \)None|\1"%{_docdir}/python-ZODB-doc/html/objects.inv"|' \
     -i docs/conf.py
 
-# Fedora has only msgpack 1.x.  Upstream only put the version restriction on
-# to support Python 2, which we don't care about.
-sed -i 's/msgpack < 1/msgpack/' setup.py
-
-# Use mock from unittests
-sed -i 's/import mock/from unittest &/' src/ZEO/asyncio/tests.py \
-  src/ZEO/tests/test{ssl,ZEO,ZEOServer}.py
-sed -i "/'mock'/d" setup.py
-
 # Fix shebangs
 %py3_shebang_fix src/ZEO
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x msgpack,uvloop,docs
+#%%pyproject_buildrequires -t -x msgpack,uvloop,docs
+%pyproject_buildrequires -t -x msgpack,docs
 
 %build
 cd src/ZEO/asyncio
@@ -107,6 +108,10 @@ rst2html --no-datestamp README.rst README.html
 %doc docs/_build/html
 
 %changelog
+* Thu Sep 21 2023 Jerry James <loganjerry@gmail.com> - 5.4.1-1
+- Version 5.4.1 + git HEAD for python 3.12 support
+- Temporarily disable uvloop support until uvloop is installable again
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,13 +3,13 @@
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
 Version:       9.0.%{patchlevel}
-Release:       31%{?dist}
-License:       BSD with advertising and MIT
+Release:       32%{?dist}
 # Most of the package is under a three-clause BSD license, but the file
 # ckaut2.h appears to be covered by three licenses:
 #   The blanket license in COPYING.TXT and ckcmai.c, which is BSD three-clause
 #   BSD four-clause (w/ advertising)
 #   MIT Old Style (no advertising without permission)
+License:       BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND BSD-4-Clause-UC AND NTP AND X11
 Source0:       ftp://ftp.kermitproject.org/kermit/archives/cku%{patchlevel}.tar.gz
 Source1:       ckermit.ini
 Source2:       cku-%{name}.local.ini
@@ -23,14 +23,13 @@ Patch1:        ckermit-9.0.302-printw.patch
 # C99 fixes - unneeded for ckermit 10
 Patch2:        ckermit-9.0.302-fedora-c99.patch
 URL:           http://www.kermitproject.org/ck90.html
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: pam-devel
 BuildRequires: pkgconfig
 BuildRequires: openssl-devel >= 0.9.7
 BuildRequires: gmp-devel >= 3.1.1
 BuildRequires: ncurses-devel
 BuildRequires: lockdev-devel >= 1.0.1-8
-BuildRequires: perl-interpreter
 BuildRequires: make
 
 Requires:      lockdev >= 1.0.1-8
@@ -48,9 +47,9 @@ communication tasks.
 %prep
 %setup -q -c
 cp %{SOURCE6} .
-%patch0 -p 1 -b .glibc2_28
-%patch1 -p 1 -b .printw
-%patch2 -p 1 -b .c99
+%patch -P 0 -p 1 -b .glibc2_28
+%patch -P 1 -p 1 -b .printw
+%patch -P 2 -p 1 -b .c99
 
 %build
 %make_build linux \
@@ -65,37 +64,37 @@ cp %{SOURCE6} .
 ;
 
 # convert doc file from ISO-8859-1 to UTF-8 encoding
-for f in ckc%{patchlevel}.txt
-do
-  iconv -fiso88591 -tutf8 $f >$f.new
-  touch -r $f $f.new
-  mv $f.new $f
+for f in ckc%{patchlevel}.txt ; do
+    iconv -fiso88591 -tutf8 $f >$f.new
+    touch -r $f $f.new
+    mv $f.new $f
 done
 
 %install
-rm -rf %{buildroot}
-install -d %{buildroot}{%{_bindir},%{_mandir}/man1,%{_sysconfdir}/kermit}
-
-perl -pi -e "s|%{_prefix}/local/bin/kermit|%{_bindir}/kermit|g" ckermit.ini
-
-install -m 755 wermit %{buildroot}%{_bindir}/kermit
-install -m 644 ckuker.nr %{buildroot}%{_mandir}/man1/kermit.1
-install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/kermit/
-install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/kermit/ckermit.local.ini
-install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/kermit/ckermit.modem.ini
-install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/kermit/ckermit.locale.ini
-install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/kermit/ckermit.phone
+install -D -m 0755 wermit %{buildroot}%{_bindir}/kermit
+install -D -m 0644 ckuker.nr %{buildroot}%{_mandir}/man1/kermit.1
+install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/kermit/ckermit.ini
+install -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/kermit/ckermit.local.ini
+install -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/kermit/ckermit.modem.ini
+install -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/kermit/ckermit.locale.ini
+install -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/kermit/ckermit.phone
 
 %files
+%license COPYING.TXT
+%doc ckc%{patchlevel}.txt
+%doc README.fedora
 %{_bindir}/kermit
 %dir %{_sysconfdir}/kermit
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kermit/*
 %{_mandir}/man1/kermit.1*
-%license COPYING.TXT
-%doc ckc%{patchlevel}.txt
-%doc README.fedora
 
 %changelog
+* Thu Sep 21 2023 David Cantrell <dcantrell@redhat.com> - 9.0.302-32
+- Drop perl-interpreter BuildRequires
+- Do not modify the ckermit.ini file in the source tree
+- Use non-deprecated %%patch macro syntax in %%prep
+- Convert license tag to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.302-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

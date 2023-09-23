@@ -2,7 +2,7 @@
 
 Name:       onnx
 Version:    1.14.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -116,6 +116,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Wed Sep 20 2023 Diego Herrera C <dherrera@redhat.com> - 1.14.0-8
+- Fix onnxruntime patch
+
 * Wed Aug 30 2023 Diego Herrera C <dherrera@redhat.com> - 1.14.0-7
 - Add fix to use with onnxruntime
 

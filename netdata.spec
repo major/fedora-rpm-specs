@@ -277,7 +277,11 @@ find %{buildroot} -name '.keep' -delete
 mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_tmpfilesdir}
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
+%if 0%{?rhel} && 0%{?rhel} <= 7
+install -Dp -m 0644 system/systemd/netdata.service.v235 %{buildroot}%{_unitdir}/%{name}.service
+%else
 install -Dp -m 0644 system/systemd/netdata.service %{buildroot}%{_unitdir}/%{name}.service
+%endif
 install -p -m 0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -Dp -m 0644 system/logrotate/netdata %{buildroot}%{_sysconfdir}/logrotate.d/netdata
 

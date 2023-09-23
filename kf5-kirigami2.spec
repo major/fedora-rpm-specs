@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.110.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: QtQuick plugins to build user interfaces based on the KDE UX guidelines
 
 # All LGPLv2+ except for src/desktopicons.h (GPLv2+)
@@ -94,7 +94,7 @@ developing applications that use %{name}.
 export QT_XCB_FORCE_SOFTWARE_OPENGL=1
 export CTEST_OUTPUT_ON_FAILURE=1
 xvfb-run -a \
-make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
+  make test ARGS="--output-on-failure --timeout 30" -C %{_vpath_builddir} ||:
 %endif
 
 
@@ -106,7 +106,6 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %dir %{_kf5_qmldir}/org/
 %dir %{_kf5_qmldir}/org/kde/
 %{_kf5_qmldir}/org/kde/kirigami.2/
-%{_kf5_qmldir}/org/kde/kirigami/
 
 %files devel
 %{_kf5_libdir}/libKF5Kirigami2.so
@@ -119,6 +118,10 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Sep 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-2
+- Rebuilt against patched extra-cmake-modules
+- Fix tests
+
 * Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
 - 5.110.0
 

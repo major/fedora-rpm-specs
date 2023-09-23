@@ -3,11 +3,11 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-good
-Version:        1.22.5
+Version:        1.22.6
 Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-%{version}.tar.xz
 
@@ -277,6 +277,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Thu Sep 21 2023 Sandro Mani <manisandro@gmail.com> - 1.22.6-1
+- Update to 1.22.6
+
 * Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 1.22.5-1
 - Update to 1.22.5
 

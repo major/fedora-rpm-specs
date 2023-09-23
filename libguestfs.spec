@@ -49,8 +49,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.51.6
-Release:       2%{?dist}
+Version:       1.51.7
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1093,6 +1093,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Sep 21 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.7-1
+- New upstream development branch 1.51.7
+
 * Wed Jul 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.51.6-2
 - Use qemu-kvm in ELN builds
 

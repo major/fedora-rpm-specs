@@ -1,9 +1,9 @@
 Name:           perl-Math-BigInt
 Epoch:          1
-%global cpan_version 1.999839
+%global cpan_version 1.999840
 # Keep 4-digit version to compete with perl.spec
 Version:        %(echo %{cpan_version} | sed 's/\(\.....\)/\1./')
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Arbitrary-size integer and float mathematics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt
@@ -45,11 +45,11 @@ Conflicts:      perl < 4:5.22.0-347
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Carp\\)\\s*$
 
 # Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(.::t/.*.inc\\)
-%global __requires_exclude %{__requires_exclude}|perl\\(Math::BigFloat::Subclass\\)
+%global __requires_exclude %{__requires_exclude}|perl\\(Math::BigFloat::(BareSubclass\|Subclass)\\)
 %global __requires_exclude %{__requires_exclude}|perl\\(Math::BigInt::(BareCalc\|Scalar\|Subclass)\\)
 %global __requires_exclude %{__requires_exclude}|perl\\(Math::BigInt::Lib::(Minimal\|TestUtil)\\)
-%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 
 %description
 This provides Perl modules for arbitrary-size integer and float mathematics.
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Sep 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9998.40-1
+- 1.999840 bump (rhbz#2239487)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9998.39-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

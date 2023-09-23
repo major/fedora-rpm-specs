@@ -23,6 +23,10 @@ Recommends:	qt6-qtwebengine-devtools
 Recommends:	python3-pygments
 Recommends:	python3-adblock
 
+# https://github.com/qutebrowser/qutebrowser/issues/7927
+Patch:    https://github.com/qutebrowser/qutebrowser/commit/90d16b596a74679177cacc12adc2c4c04405ed42.patch
+BuildRequires: git-core
+
 %description
 qutebrowser is a keyboard-focused browser with a minimal GUI. It’s based on
 Python, PyQt5 and QtWebEngine and free software, licensed under the GPL.
@@ -30,7 +34,7 @@ It was inspired by other browsers/addons like dwb and Vimperator/Pentadactyl.
 
 
 %prep
-%autosetup -p 1 -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -S git
 
 
 %build

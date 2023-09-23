@@ -39,10 +39,6 @@ ExcludeArch: %{ix86}
 %global commit11        3898fff8ed923e118326bf07822961d222cb2a9a
 %global shortcommit11   %(c=%{commit11}; echo ${c:0:7})
 
-#   * websocketpp
-%global commit12        b9aeec6eaf3d5610503439b4fae3581d9aff08e8
-%global shortcommit12   %(c=%{commit12}; echo ${c:0:7})
-
 
 Name:           chatterino2
 Version:        2.4.5
@@ -83,7 +79,6 @@ Source8:        https://github.com/Chatterino/qtkeychain/archive/%{commit8}/qtke
 Source9:        https://github.com/Neargye/magic_enum/archive/%{commit9}/magic_enum-%{shortcommit9}.tar.gz
 Source10:       https://github.com/arsenm/sanitizers-cmake/archive/%{commit10}/sanitizers-cmake-%{shortcommit10}.tar.gz
 Source11:       https://github.com/mackron/miniaudio/archive/%{commit11}/miniaudio-%{shortcommit11}.tar.gz
-Source12:       https://github.com/zaphoyd/websocketpp/archive/%{commit12}/websocketpp-%{shortcommit12}.tar.gz
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -105,6 +100,7 @@ BuildRequires:  cmake(RapidJSON)
 
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(websocketpp)
 
 Requires:       hicolor-icon-theme
 Requires:       qt5-qtsvg
@@ -119,7 +115,6 @@ Provides:       bundled(sanitizers-cmake) = 0~git%{shortcommit10}
 Provides:       bundled(serialize) = 0~git%{shortcommit5}
 Provides:       bundled(settings) = 0~git%{shortcommit3}
 Provides:       bundled(signals) = 0~git%{shortcommit4}
-Provides:       bundled(websocketpp) = 0.8.2~git%{shortcommit12}
 
 %description
 Chatterino 2 is a chat client for Twitch.tv.
@@ -135,7 +130,6 @@ Chatterino 2 is a chat client for Twitch.tv.
 %setup -n %{name}-%{tarball_version} -q -D -T -a9
 %setup -n %{name}-%{tarball_version} -q -D -T -a10
 %setup -n %{name}-%{tarball_version} -q -D -T -a11
-%setup -n %{name}-%{tarball_version} -q -D -T -a12
 
 mv libcommuni-%{commit2}/*  lib/libcommuni
 mv settings-%{commit3}/*    lib/settings
@@ -144,7 +138,6 @@ mv serialize-%{commit5}/*   lib/serialize
 mv qtkeychain-%{commit8}/*  lib/qtkeychain
 mv magic_enum-%{commit9}/*  lib/magic_enum
 mv miniaudio-%{commit11}/*  lib/miniaudio
-mv websocketpp-%{commit12}/*  lib/websocketpp
 mv sanitizers-cmake-%{commit10}/* cmake/sanitizers-cmake
 
 

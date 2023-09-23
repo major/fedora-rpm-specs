@@ -1,14 +1,11 @@
-# ghc has been bootstrapped on all Fedora archs except aarch64.
-# The ghc interpreter ghci is only supported on a subset of archs.
-
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-srpm-macros
 Version:        1.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        RPM macros for building Haskell source packages
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Url:            https://src.fedoraproject.org/rpms/ghc-srpm-macros
 BuildArch:      noarch
 
@@ -35,6 +32,9 @@ install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc-srpm
 
 
 %changelog
+* Thu Sep 21 2023 Jens Petersen <petersen@redhat.com> - 1.6.1-3
+- migrate to SPDX license tag
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,13 +1,15 @@
-%global glib2_version 2.73.0
+%global glib2_version 2.76.0
+
+%global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           sysprof
-Version:        3.48.0
-Release:        2%{?dist}
+Version:        45.0
+Release:        1%{?dist}
 Summary:        A system-wide Linux profiler
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-4.0 AND BSD-2-Clause-Patent
 URL:            http://www.sysprof.com
-Source0:        https://download.gnome.org/sources/%{name}/3.48/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/sysprof/45/sysprof-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -21,10 +23,10 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libdex-1)
+BuildRequires:  pkgconfig(libpanel-1)
 BuildRequires:  pkgconfig(libsystemd)
-%if %{undefined rhel}
 BuildRequires:  pkgconfig(libunwind-generic)
-%endif
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  /usr/bin/appstream-util
@@ -33,7 +35,6 @@ BuildRequires:  /usr/bin/desktop-file-validate
 Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       hicolor-icon-theme
 Requires:       %{name}-cli%{?_isa} = %{version}-%{release}
-Requires:       libsysprof-ui%{?_isa} = %{version}-%{release}
 
 %description
 Sysprof is a sampling CPU profiler for Linux that collects accurate,
@@ -62,16 +63,11 @@ The %{name}-cli package contains the sysprof-cli command line utility.
 
 %package     -n libsysprof
 Summary:        Sysprof libraries
+# Subpackage removed/obsoleted in F39
+Obsoletes:      libsysprof-ui < 45.0
 
 %description -n libsysprof
 The libsysprof package contains the Sysprof libraries.
-
-
-%package     -n libsysprof-ui
-Summary:        Sysprof UI library
-
-%description -n libsysprof-ui
-The libsysprof-ui package contains the Sysprof UI library.
 
 
 %package        capture-devel
@@ -87,7 +83,6 @@ The %{name}-capture-devel package contains the sysprof-capture static library an
 Summary:        Development files for %{name}
 Requires:       %{name}-capture-devel%{?_isa} = %{version}-%{release}
 Requires:       libsysprof%{?_isa} = %{version}-%{release}
-Requires:       libsysprof-ui%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -95,11 +90,11 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n sysprof-%{tarball_version}
 
 
 %build
-%meson %{?rhel:-Dlibunwind=false}
+%meson
 %meson_build
 
 
@@ -130,55 +125,52 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license COPYING
 %{_bindir}/sysprof-cli
 %{_libexecdir}/sysprofd
-%{_datadir}/dbus-1/system.d/org.gnome.Sysprof2.conf
 %{_datadir}/dbus-1/system.d/org.gnome.Sysprof3.conf
-%{_datadir}/dbus-1/system-services/org.gnome.Sysprof2.service
 %{_datadir}/dbus-1/system-services/org.gnome.Sysprof3.service
 %{_datadir}/polkit-1/actions/org.gnome.sysprof3.policy
-%{_unitdir}/sysprof2.service
 %{_unitdir}/sysprof3.service
 
 %files -n libsysprof
 %license COPYING COPYING.gpl-2
-%{_libdir}/libsysprof-4.so
-%{_libdir}/libsysprof-memory-4.so
-%{_libdir}/libsysprof-speedtrack-4.so
-
-%files -n libsysprof-ui
-%license COPYING COPYING.gpl-2
-%{_libdir}/libsysprof-ui-5.so
+%{_libdir}/libsysprof-6.so.6*
+%{_libdir}/libsysprof-memory-6.so
+%{_libdir}/libsysprof-speedtrack-6.so
+%{_libdir}/libsysprof-tracer-6.so
 
 %files capture-devel
 %license src/libsysprof-capture/COPYING
-%dir %{_includedir}/sysprof-4
-%{_includedir}/sysprof-4/sysprof-address.h
-%{_includedir}/sysprof-4/sysprof-capture-condition.h
-%{_includedir}/sysprof-4/sysprof-capture-cursor.h
-%{_includedir}/sysprof-4/sysprof-capture.h
-%{_includedir}/sysprof-4/sysprof-capture-reader.h
-%{_includedir}/sysprof-4/sysprof-capture-types.h
-%{_includedir}/sysprof-4/sysprof-capture-writer.h
-%{_includedir}/sysprof-4/sysprof-clock.h
-%{_includedir}/sysprof-4/sysprof-collector.h
-%{_includedir}/sysprof-4/sysprof-macros.h
-%{_includedir}/sysprof-4/sysprof-platform.h
-%{_includedir}/sysprof-4/sysprof-version.h
-%{_includedir}/sysprof-4/sysprof-version-macros.h
+%dir %{_includedir}/sysprof-6
+%{_includedir}/sysprof-6/sysprof-address.h
+%{_includedir}/sysprof-6/sysprof-capture-condition.h
+%{_includedir}/sysprof-6/sysprof-capture-cursor.h
+%{_includedir}/sysprof-6/sysprof-capture.h
+%{_includedir}/sysprof-6/sysprof-capture-reader.h
+%{_includedir}/sysprof-6/sysprof-capture-types.h
+%{_includedir}/sysprof-6/sysprof-capture-writer.h
+%{_includedir}/sysprof-6/sysprof-clock.h
+%{_includedir}/sysprof-6/sysprof-collector.h
+%{_includedir}/sysprof-6/sysprof-macros.h
+%{_includedir}/sysprof-6/sysprof-platform.h
+%{_includedir}/sysprof-6/sysprof-version.h
+%{_includedir}/sysprof-6/sysprof-version-macros.h
 %{_libdir}/libsysprof-capture-4.a
 %{_libdir}/pkgconfig/sysprof-capture-4.pc
 
 %files devel
-%{_includedir}/sysprof-4/
-%{_includedir}/sysprof-ui-5/
-%{_libdir}/pkgconfig/sysprof-4.pc
-%{_libdir}/pkgconfig/sysprof-ui-5.pc
+%{_includedir}/sysprof-6/
+%{_libdir}/libsysprof-6.so
+%{_libdir}/pkgconfig/sysprof-6.pc
 %{_datadir}/dbus-1/interfaces/org.gnome.Sysprof.Agent.xml
-%{_datadir}/dbus-1/interfaces/org.gnome.Sysprof2.xml
 %{_datadir}/dbus-1/interfaces/org.gnome.Sysprof3.Profiler.xml
 %{_datadir}/dbus-1/interfaces/org.gnome.Sysprof3.Service.xml
 
 
 %changelog
+* Thu Sep 21 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+- Remove and obsolete libsysprof-ui subpackage
+- Drop RHEL libunwind build conditionals as it's no longer an optional dep
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.48.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

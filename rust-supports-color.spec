@@ -5,7 +5,7 @@
 %global crate supports-color
 
 Name:           rust-supports-color
-Version:        2.0.0
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Detects whether a terminal supports color, and gives details about that support
 

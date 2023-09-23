@@ -36,10 +36,14 @@ URL:            https://gitlab.gnome.org/sophie-h/glycin
 Source0:        https://download.gnome.org/sources/glycin-loaders/0.1/glycin-loaders-%{tarball_version}.tar.xz
 # Fedora-packaged rust-image doesn't have openexr support
 Patch:          0001-Drop-OpenEXR-decoders-since-they-are-not-enabled-in-.patch
-# libheif and jxl rust wrappers aren't packaged yet
-Patch:          0002-Disable-JPEG-XL-and-HEIF-loaders-missing-dependencie.patch
+# jxl rust wrapper isn't packaged yet
+Patch:          0002-Disable-JPEG-XL-missing-dependencies.patch
 # Fedora currently has librsvg 2.57.0-beta.2
 Patch:          0003-Temporarily-downgrade-librsvg-dependency-to-allow-2..patch
+%if 0%{?fedora}
+# Bump libheif-rs dep to the version that's in Fedora
+Patch:          0004-Bump-libheif-rs-dep-0.21.0.patch
+%endif
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

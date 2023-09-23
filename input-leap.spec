@@ -1,6 +1,6 @@
 %global with_snapshot 1
-%global gitdate 20230507
-%global commit 23615f6605887fcf6c8a9a4f12916c6f1016295a
+%global gitdate 20230918
+%global commit 004a54fb0b05fc5eb7815e3e3408445990b0cbaf
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 
 Name:			input-leap
@@ -16,8 +16,7 @@ Source0:		%{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source0:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
 
-BuildRequires:	avahi-compat-libdns_sd-devel
-BuildRequires:	cmake3
+BuildRequires:	cmake >= 3.12
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc-c++
 BuildRequires:	gmock-devel
@@ -25,28 +24,39 @@ BuildRequires:	gulrak-filesystem-devel
 BuildRequires:	gtest-devel
 BuildRequires:	libappstream-glib
 BuildRequires:	libcurl-devel
-BuildRequires:	libSM-devel
-BuildRequires:	libXinerama-devel
-BuildRequires:	libXrandr-devel
-BuildRequires:	libXtst-devel
-BuildRequires:	libX11-devel
 BuildRequires:	openssl-devel
-BuildRequires:	qt5-qtbase-devel
-BuildRequires:	qt5-linguist
-Requires:		hicolor-icon-theme
+BuildRequires:	cmake(Qt5Core)
+BuildRequires:	cmake(Qt5Widgets)
+BuildRequires:	cmake(Qt5Network)
+BuildRequires:	cmake(Qt5LinguistTools)
+BuildRequires:	pkgconfig(avahi-compat-libdns_sd)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gio-2.0)
+BuildRequires:	pkgconfig(ice)
+BuildRequires:	pkgconfig(libei-1.0) >= 0.99.1
+BuildRequires:	pkgconfig(libportal)
+BuildRequires:	pkgconfig(sm)
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xext)
+BuildRequires:	pkgconfig(xi)
+BuildRequires:	pkgconfig(xinerama)
+BuildRequires:	pkgconfig(xkbcommon)
+BuildRequires:	pkgconfig(xrandr)
+BuildRequires:	pkgconfig(xtst)
+Requires:	hicolor-icon-theme
 
 # https://github.com/input-leap/input-leap/issues/1414
-Provides:		barrier = %version-%release
-Obsoletes:		barrier <= 2.4.0
+Provides:	barrier = %version-%release
+Obsoletes:	barrier <= 2.4.0
 
 %description
 Input Leap is software that mimics the functionality of a KVM switch, which
-historically would allow you to use a single keyboard and mouse to control 
-multiple computers by physically turning a dial on the box to switch the 
-machine you're controlling at any given moment. 
+historically would allow you to use a single keyboard and mouse to control
+multiple computers by physically turning a dial on the box to switch the
+machine you're controlling at any given moment.
 
-Input Leap does this in software, allowing you to tell it which machine to 
-control by moving your mouse to the edge of the screen, or by using a 
+Input Leap does this in software, allowing you to tell it which machine to
+control by moving your mouse to the edge of the screen, or by using a
 keypress to switch focus to a different system.
 
 %prep
@@ -63,12 +73,18 @@ sed -i -e "s|release|snapshot|" cmake/Version.cmake
 %if %{with_snapshot}
 	-DINPUTLEAP_REVISION=%{shortcommit} \
 %endif
+	-DINPUTLEAP_BUILD_LIBEI=ON \
 	-DINPUTLEAP_BUILD_TESTS=ON \
 	-DINPUTLEAP_USE_EXTERNAL_GTEST=True
 %cmake_build
 
 %install
 %cmake_install
+
+%if ! 0%{?flatpak}
+# This is only useful for Flatpaks...
+rm -v %{buildroot}%{_bindir}/%{name}-flatpak
+%endif
 
 %check
 %ctest
@@ -78,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %files
 %license LICENSE
 %doc ChangeLog README.md doc/%{name}.conf.example*
+%if 0%{?flatpak}
+%{_bindir}/%{name}-flatpak
+%endif
 %{_bindir}/%{name}c
 %{_bindir}/%{name}s
 %{_bindir}/%{name}

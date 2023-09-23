@@ -163,6 +163,9 @@ BuildArch:  noarch
 Provides:   OVMF = %{version}-%{release}
 Obsoletes:  OVMF < 20180508-100.gitee3198e672e2.el7
 
+# need libvirt version with qcow2 support
+Conflicts:  libvirt-daemon-driver-qemu < 9.7.0
+
 # OVMF includes the Secure Boot and IPv6 features; it has a builtin OpenSSL
 # library.
 Provides:   bundled(openssl) = %{OPENSSL_VER}
@@ -184,7 +187,7 @@ Provides:   AAVMF = %{version}-%{release}
 Obsoletes:  AAVMF < 20180508-100.gitee3198e672e2.el7
 
 # need libvirt version with qcow2 support
-Conflicts:  libvirt-daemon-driver-qemu < 9.2.0
+Conflicts:  libvirt-daemon-driver-qemu < 9.7.0
 
 # No Secure Boot for AAVMF yet, but we include OpenSSL for the IPv6 stack.
 Provides:   bundled(openssl) = %{OPENSSL_VER}
@@ -263,6 +266,10 @@ ARMv7 UEFI Firmware
 Summary:        RISC-V Virtual Machine Firmware
 BuildArch:      noarch
 License:        BSD-2-Clause-Patent and Apache-2.0
+
+# need libvirt version with qcow2 support
+Conflicts:  libvirt-daemon-driver-qemu < 9.7.0
+
 %description riscv64
 EFI Development Kit II
 RISC-V UEFI Firmware

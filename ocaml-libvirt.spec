@@ -8,10 +8,7 @@ Summary:        OCaml binding for libvirt
 License:        LGPL-2.1-or-later
 
 URL:            https://ocaml.libvirt.org/
-#Source0:        http://libvirt.org/sources/ocaml/%%{name}-%%{version}.tar.gz
-# The tarball was not uploaded to the website at the time of packaging
-# so I built this using "make dist" in the source repo.
-Source0:        %{name}-%{version}.tar.gz
+Source0:        https://download.libvirt.org/ocaml/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0

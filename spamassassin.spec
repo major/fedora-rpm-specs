@@ -60,8 +60,8 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 4.0.0
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 6%{?dist}
-License: ASL 2.0
+Release: 7%{?dist}
+License: Apache-2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
 #Source0: %%{real_name}-%%{version}-%%{prerev}.tar.bz2
@@ -397,6 +397,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Sep 21 2023 Martin Osvald <mosvald@redhat.com> - 4.0.0-7
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

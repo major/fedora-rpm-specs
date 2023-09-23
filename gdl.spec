@@ -2,10 +2,25 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global __cmake_in_source_build 1
 
+#TODO - Build with mpi support
+
+# No more antlr-C++ or Java on i686
+ExcludeArch: %{ix86}
+
+# No eccodes or grib_api on EL9 s390x
+%if 0%{?rhel} >= 9 && "%{_arch}" == "s390x"
+%bcond_with grib
+%else
+%bcond_without grib
+%endif
+
 %bcond_without java
 
-# No more Java on i686
-ExcludeArch: %{ix86}
+%if 0%{?rhel} == 9 && "%{_arch}" == "ppc64le"
+# lto seems to have a problem with latest eigen3
+# https://bugzilla.redhat.com/show_bug.cgi?id=1996330
+%global _lto_cflags %nil
+%endif
 
 # Cannot link against libqhullcpp.a on EL 9.2 - https://bugzilla.redhat.com/show_bug.cgi?id=2227391
 %if 0%{?el9}
@@ -64,14 +79,14 @@ BuildRequires:  readline-devel
 #BuildRequires:  dSFMT-devel
 Provides:       bundled(dSFMT)
 BuildRequires:  shapelib-devel
+%if %{with grib}
 # eccodes not available on these arches
 %ifnarch i686 s390x armv7hl
 BuildRequires:  eccodes-devel
 %else
 BuildRequires:  grib_api-devel
 %endif
-#TODO - Build with mpi support
-#BuildRequires:  mpich2-devel
+%endif
 %if %{with qhull}
 BuildRequires:  qhull-devel
 %endif
@@ -131,9 +146,9 @@ Provides:       %{name}-runtime = %{version}-%{release}
 rm -rf src/antlr
 # Not yet possible to build with external dSFMT
 #rm -r src/dSFMT
-%patch1 -p1 -b .antlr
-%patch2 -p1 -b .libdir
-%patch3 -p1 -b .size
+%patch -P1 -p1 -b .antlr
+%patch -P2 -p1 -b .libdir
+%patch -P3 -p1 -b .size
 
 # Find grib_api on architectures where needed
 sed -i -e '/find_library(GRIB_LIBRARIES/s/eccodes/eccodes grib_api/' CMakeModules/FindGrib.cmake
@@ -154,6 +169,7 @@ popd
    -DOPENMP=ON \\\
    -DPYTHON_EXECUTABLE=%{__python} \\\
    -DWXWIDGETS=ON \\\
+   %{!?with_grib:-DGRIB=OFF} \\\
    %{!?with_qhull:-DQHULL=OFF} \\\
 %{nil}
 # TODO - build an mpi version
