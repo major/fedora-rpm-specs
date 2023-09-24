@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: HTTP/REST API client library
 License: MIT
 URL: https://lostisland.github.io/faraday
@@ -20,6 +20,10 @@ Patch0: rubygem-faraday-1.0.1-Properly-fix-test-failure-with-Rack-2.1.patch
 # Extracted from:
 # https://github.com/lostisland/faraday/commit/687108bb4ddc2511aeaae7449dd401fe62dd5ceb
 Patch1: faraday-1.0.1-net-http-persistent-3-error-kind.patch
+# "undefined method" error message changed with ruby 3.3
+# https://github.com/lostisland/faraday/pull/1523
+# https://github.com/ruby/ruby/pull/6950
+Patch2: faraday-pr1523-testsuite-undefined-method-change.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.3
@@ -106,6 +110,10 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Sep 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.1-10
+- Backport upstream patch for testsuite with ruby3.3 undefined method
+  message change
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

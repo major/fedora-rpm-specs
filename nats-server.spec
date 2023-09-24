@@ -3,9 +3,9 @@
 
 # https://github.com/nats-io/nats-server
 %global goipath         github.com/nats-io/nats-server
-Version:                2.9.22
+Version:                2.10.1
 
-%gometa
+%gometa -f
 
 %global goname          nats-server
 %global goaltipaths     github.com/nats-io/gnatsd github.com/nats-io/nats-server/v2

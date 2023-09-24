@@ -1,19 +1,19 @@
-Summary:        Performs a verified launch using Intel TXT
-Name:           tboot
-Version:        1.11.1
-Release:        2%{?dist}
-Epoch:          1
+Summary:       Performs a verified launch using Intel TXT
+Name:          tboot
+Version:       1.11.1
+Release:       3%{?dist}
+Epoch:         1
 
-License:        BSD
-URL:            http://sourceforge.net/projects/tboot/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+License:       BSD-3-Clause
+URL:           http://sourceforge.net/projects/tboot/
+Source0:       http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  perl
-BuildRequires:  openssl-devel
-BuildRequires:  zlib-devel
-ExclusiveArch:  %{ix86} x86_64
+BuildRequires: gcc
+BuildRequires: perl
+BuildRequires: openssl-devel
+BuildRequires: zlib-devel
+ExclusiveArch: %{ix86} x86_64
 
 %description
 Trusted Boot (tboot) is an open source, pre-kernel/VMM module that uses
@@ -32,7 +32,8 @@ make debug=y DISTDIR=$RPM_BUILD_ROOT install
 
 
 %files
-%doc COPYING docs/*
+%license COPYING
+%doc docs/*
 %config %{_sysconfdir}/grub.d/20_linux_tboot
 %config %{_sysconfdir}/grub.d/20_linux_xen_tboot
 %{_sbindir}/lcp2_crtpol
@@ -55,6 +56,10 @@ make debug=y DISTDIR=$RPM_BUILD_ROOT install
 /boot/tboot-syms
 
 %changelog
+* Fri Sep 22 2023 David Cantrell <dcantrell@redhat.com> - 1:1.11.1-3
+- Use %%license for the COPYING file in the %%files section
+- Convert the License tag to an SPDX expression
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

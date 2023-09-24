@@ -1,7 +1,7 @@
 %global app_id  app.drey.MultiplicationPuzzle
 
 Name:           gmult
-Version:        12.0
+Version:        13.0
 Release:        %autorelease
 Summary:        Multiplication Puzzle
 # CC0-1.0 applies only to build system files
@@ -15,7 +15,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) >= 2.72
 BuildRequires:  pkgconfig(gtk4) >= 4.10
-BuildRequires:  pkgconfig(libadwaita-1) >= 1.3
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.4
 BuildRequires:  vala
 
 Requires:       hicolor-icon-theme

@@ -18,6 +18,9 @@ BuildArch:      noarch
 # Work with setuptools_scm 7.1 (fix #25)
 # https://github.com/ofek/hatch-vcs/pull/26
 Patch:          %{url}/pull/26.patch
+# Work with setuptools_scm 8.0 (fix #50)
+# https://github.com/ofek/hatch-vcs/pull/51
+Patch:          %{url}/pull/51.patch
 
 BuildRequires:  python3-devel
 

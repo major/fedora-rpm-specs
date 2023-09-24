@@ -18,6 +18,8 @@ BuildRequires:  fmt-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  git
+BuildRequires:  hdf5-devel
+BuildRequires:  highfive-devel
 BuildRequires:  python3
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
@@ -114,8 +116,9 @@ Summary: Static libraries for Cantera
 %set_build_flags
 
 %scons build \
-    extra_inc_dirs=%{_includedir}/eigen3 \
+    extra_inc_dirs=%{_includedir}/eigen3:%{_includedir}/highfive \
     f90_interface=y \
+    hdf_support=y \
     libdirname=%{_lib} \
     prefix=%{_prefix} \
     python_package=full \
@@ -123,7 +126,10 @@ Summary: Static libraries for Cantera
     renamed_shared_libraries=n \
     system_eigen=y \
     system_fmt=y \
+    system_highfive=y \
     system_sundials=y \
+    system_yamlcpp=y \
+    system_blas_lapack=y \
     %{?_smp_mflags}
 
 

@@ -8,7 +8,7 @@
 %global srcname productmd
 
 Name:           python-%{srcname}
-Version:        1.36
+Version:        1.37
 Release:        1%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
@@ -102,6 +102,9 @@ Requires:       python%{python3_pkgversion}-six
 %endif
 
 %changelog
+* Fri Sep 22 2023 Lubomír Sedlář <lsedlar@redhat.com> - 1.37-1
+- New upstream release 1.37
+
 * Mon Jul 31 2023 Lubomír Sedlář <lsedlar@redhat.com> - 1.36-1
 - New upstream release 1.36
 

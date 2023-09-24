@@ -4,8 +4,8 @@
 %undefine _package_note_file
 
 Name:           ecl
-Version:        21.2.1
-Release:        8%{?dist}
+Version:        23.9.9
+Release:        1%{?dist}
 Summary:        Embeddable Common-Lisp
 
 # The project as a whole is LGPL-2.0-or-later.  Other licenses in play:
@@ -37,7 +37,7 @@ Source3:        net.common-lisp.ecl.metainfo.xml
 # This patch was sent upstream on 4 Feb 2012.  It fixes a few warnings
 # from the C compiler that indicate situations that might be dangerous at
 # runtime.
-Patch0:         %{name}-21.2.1-warnings.patch
+Patch0:         %{name}-23.9.9-warnings.patch
 # Do not use a separate thread to handle signals by default if built with
 # boehm-gc support.
 # This prevents a deadlock when building maxima with ecl support in
@@ -46,7 +46,7 @@ Patch0:         %{name}-21.2.1-warnings.patch
 # http://www.mail-archive.com/ecls-list@lists.sourceforge.net/msg00644.html
 Patch1:         %{name}-20.4.24-signal_handling_thread.patch
 # GCC does not implement support for #pragma STDC FENV_ACCESS
-Patch2:         %{name}-20.4.24-fenv-access.patch
+Patch2:         %{name}-23.9.9-fenv-access.patch
 # Avoid an infinite loop if there is a write error on stderr.  See
 # build/pkgs/ecl/patches/write_error.patch in the sagemath distribution.
 Patch3:         %{name}-20.4.24-write-error.patch
@@ -93,10 +93,7 @@ Gray streams.
 %autosetup -p0
 
 # Remove spurious executable bits
-find src/{c,h} -type f -perm /0111 -exec chmod a-x {} \+
-
-# Temporary fix for missing braces in initializers, causes build failure
-sed -i 's/{.*,.*,.*,.*,.*}/{&}/g' src/c/symbols_list.h
+find src/{c,h} -type f -perm /0111 -exec chmod a-x {} +
 
 # Don't give the library a useless rpath
 sed -i "/ECL_LDRPATH='-Wl,--rpath,~A'/d" src/configure
@@ -150,7 +147,7 @@ appstream-util validate-relax --nonet \
 %{_datadir}/icons/hicolor/scalable/apps/ecl.svg
 %{_metainfodir}/net.common-lisp.ecl.metainfo.xml
 %{_libdir}/ecl*
-%{_libdir}/libecl.so.21*
+%{_libdir}/libecl.so.23*
 %{_libdir}/libecl.so
 %{_includedir}/ecl/
 %{_mandir}/man1/ecl.1*
@@ -161,6 +158,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Sep 22 2023 Jerry James <loganjerry@gmail.com> - 23.9.9-1
+- Version 23.9.9
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

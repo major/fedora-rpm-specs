@@ -4,8 +4,8 @@
 %global rapidjson_version 1.1.0
 
 Name:           osmium-tool
-Version:        1.15.0
-Release:        4%{?dist}
+Version:        1.16.0
+Release:        1%{?dist}
 Summary:        Command line tool for working with OpenStreetMap data
 
 License:        GPL-3.0-only
@@ -64,6 +64,9 @@ install -p -m644 zsh_completion/* %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Fri Sep 22 2023 Tom Hughes <tom@compton.nu> - 1.16.0-1
+- Update to 1.16.0 upstream release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

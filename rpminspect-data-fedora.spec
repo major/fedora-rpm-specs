@@ -1,10 +1,10 @@
 Name:           rpminspect-data-fedora
 Version:        1.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Build deviation compliance tool data files
 Group:          Development/Tools
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://github.com/rpminspect/rpminspect-data-fedora
 Source0:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
@@ -59,6 +59,9 @@ used by the inspections provided by librpminspect.
 
 
 %changelog
+* Fri Sep 22 2023 David Cantrell <dcantrell@redhat.com> - 1.12-2
+- Convert License tag to SPDX expression
+
 * Wed Sep 20 2023 David Cantrell <dcantrell@redhat.com> - 1.12-1
 - Upgrade to rpminspect-data-fedora-1.12
 

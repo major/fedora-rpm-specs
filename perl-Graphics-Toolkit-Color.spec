@@ -2,9 +2,9 @@
 %bcond_without perl_Graphics_Toolkit_Color_enables_color_names
 
 Name:           perl-Graphics-Toolkit-Color
-Version:        1.70
+Version:        1.71
 Release:        1%{?dist}
-Summary:        Color palette creation helper
+Summary:        Color palette constructor
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Constant.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Values.pm:     GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -43,12 +43,13 @@ Recommends:     perl(Graphics::ColorNames)
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Carp|Exporter|Test::More|Test::Warn)\\)$
 
 %description
-Read-only, color-holding Perl objects with methods to obtain their RGB and HSL
-values and if possible a name. This is because humans access colors on
+Read-only, color-holding Perl objects with methods to obtain their RGB, HSL,
+and YIQ values and if possible a name. This is because humans access colors on
 hardware level (eye) in RGB, on cognition level in HSL (brain) and on cultural
-level (language) with names. Having easy access to all three and some color
-math should enable you to get the color palette you desire quickly and with no
-additional dependencies.
+level (language) with names. There objects also have methods for measuring
+color distances and generating related color objects like gradients and
+complements. Having easy access to all three and some color math should enable
+you to get the color palette you desire.
 
 %package tests
 Summary:        Tests for %{name}
@@ -97,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 22 2023 Petr Pisar <ppisar@redhat.com> - 1.71-1
+- 1.71 bump
+
 * Thu Sep 21 2023 Petr Pisar <ppisar@redhat.com> - 1.70-1
 - 1.70 bump
 

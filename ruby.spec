@@ -101,7 +101,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 181%{?dist}
+Release: 182%{?dist}
 # BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c
 # ISC: missing/strl{cat,cpy}.c
 # Public Domain for example for: include/ruby/st.h, strftime.c, missing/*, ...
@@ -126,6 +126,8 @@ Source11: rubygems.con
 Source13: test_abrt.rb
 # SystemTap tests.
 Source14: test_systemtap.rb
+# Ruby OpenSSL FIPS tests.
+Source15: test_openssl_fips.rb
 
 # The load directive is supported since RPM 4.12, i.e. F21+. The build process
 # fails on older Fedoras.
@@ -176,6 +178,21 @@ Patch10: ruby-3.2.0-Revert-Test-syntax_suggest-by-make-check.patch
 # https://github.com/ruby/spec/pull/990
 # https://bugs.ruby-lang.org/issues/19307
 Patch11: ruby-3.2.0-Use-SHA256-instead-of-SHA1.patch
+# Fix OpenSSL.fips_mode in OpenSSL 3 FIPS.
+# https://github.com/ruby/openssl/pull/608
+# https://github.com/ruby/ruby/commit/678d41bc51fe31834eec0b653ba0e47de5420aa0
+Patch12: ruby-3.3.0-openssl-3.2.0-fix-fips-get-set-in-openssl-3.patch
+# Fix OpenSSL::PKey.read in OpenSSL 3 FIPS.
+# The patch is a combination of the following 2 commits to simplify the patch.
+# https://github.com/ruby/openssl/pull/615
+# https://github.com/ruby/ruby/commit/2a4834057b30a26c38ece3961b370c0b2ee59380
+# https://github.com/ruby/openssl/pull/669
+# https://github.com/ruby/ruby/commit/b0ec1db8a72c530460abd9462ac75845362886bd
+Patch13: ruby-3.3.0-openssl-3.2.0-fips-fix-pkey-read-in-openssl-3.patch
+# Enable tests in OpenSSL FIPS.
+# https://github.com/ruby/openssl/pull/615
+# https://github.com/ruby/ruby/commit/920bc71284f417f9044b0dc1822b1d29a8fc61e5
+Patch14: ruby-3.3.0-openssl-3.2.0-fips-enable-tests.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -646,6 +663,9 @@ analysis result in RBS format, a standard type description format for Ruby
 %patch 9 -p1
 %patch 10 -p1
 %patch 11 -p1
+%patch 12 -p1
+%patch 13 -p1
+%patch 14 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1003,6 +1023,11 @@ mv test/ruby/test_jit.rb{,.disable} || :
 # https://bugs.ruby-lang.org/issues/16921
 %{?test_timeout_scale:RUBY_TEST_TIMEOUT_SCALE="%{test_timeout_scale}"} \
   make -C %{_vpath_builddir} check TESTS="-v $DISABLE_TESTS" MSPECOPT="-fs $MSPECOPTS"
+
+# Run Ruby OpenSSL tests in OpenSSL FIPS.
+make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
+  -I%{_builddir}/%{buildsubdir}/tool/lib --enable-gems \
+  %{SOURCE15} %{_builddir}/%{buildsubdir} --verbose"
 
 %{?with_bundler_tests:make -C %{_vpath_builddir} test-bundler-parallel}
 
@@ -1559,6 +1584,9 @@ mv test/ruby/test_jit.rb{,.disable} || :
 
 
 %changelog
+* Wed Sep 20 2023 Jun Aruga <jaruga@redhat.com> - 3.2.2-182
+- Fix OpenSSL.fips_mode and OpenSSL::PKey.read in OpenSSL 3 FIPS.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

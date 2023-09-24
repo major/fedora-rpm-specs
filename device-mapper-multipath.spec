@@ -1,27 +1,68 @@
 Name:    device-mapper-multipath
-Version: 0.9.5
-Release: 2%{?dist}
+Version: 0.9.6
+Release: 1%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 License: GPLv2
 URL:     http://christophe.varoqui.free.fr/
 
 # The source for this package was pulled from upstream's git repo.  Use the
 # following command to generate the tarball
-# curl -L https://github.com/opensvc/multipath-tools/archive/0.9.5.tar.gz -o multipath-tools-0.9.5.tgz
-Source0: multipath-tools-0.9.5.tgz
+# curl -L https://github.com/opensvc/multipath-tools/archive/0.9.6.tar.gz -o multipath-tools-0.9.6.tgz
+Source0: multipath-tools-0.9.6.tgz
 Source1: multipath.conf
-Patch0001: 0001-RH-fixup-udev-rules-for-redhat.patch
-Patch0002: 0002-RH-Remove-the-property-blacklist-exception-builtin.patch
-Patch0003: 0003-RH-don-t-start-without-a-config-file.patch
-Patch0004: 0004-RH-Fix-nvme-function-missing-argument.patch
-Patch0005: 0005-RH-use-rpm-optflags-if-present.patch
-Patch0006: 0006-RH-add-mpathconf.patch
-Patch0007: 0007-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
-Patch0008: 0008-RH-reset-default-find_mutipaths-value-to-off.patch
-Patch0009: 0009-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
-Patch0010: 0010-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
-Patch0011: 0011-RH-add-scsi-device-handlers-to-modules-load.d.patch
-Patch0012: 0012-RH-compile-with-libreadline-support.patch
+Patch0001: 0001-libmultipath-sysfs_set_scsi_tmo-do-nothing-for-ACT_D.patch
+Patch0002: 0002-libmultipath-add-alias_already_taken.patch
+Patch0003: 0003-libmultipath-unify-use_existing_alias-and-get_user_f.patch
+Patch0004: 0004-libmultipath-never-allocate-an-alias-that-s-already-.patch
+Patch0005: 0005-libmultipath-lookup_binding-add-comment-about-the-al.patch
+Patch0006: 0006-multipath-tools-test-simplify-debugging-for-condlog-.patch
+Patch0007: 0007-multipath-tools-tests-add-tests-for-get_user_friendl.patch
+Patch0008: 0008-multipath-tools-test-consistent-use-of-macros-in-ali.patch
+Patch0009: 0009-multipath-tools-tests-convert-mock_-failed-used-_ali.patch
+Patch0010: 0010-multipath-tools-test-use-mock_bindings_file-consiste.patch
+Patch0011: 0011-libmultipath-add-global-variable-for-current-binding.patch
+Patch0012: 0012-libmultipath-rename-fix_bindings_file-to-update_bind.patch
+Patch0013: 0013-libmultipath-alias.c-move-bindings-related-code-up.patch
+Patch0014: 0014-libmultipath-update_bindings_file-take-filename-argu.patch
+Patch0015: 0015-libmultipath-update_bindings_file-use-a-single-write.patch
+Patch0016: 0016-libmultipath-update_bindings_file-don-t-log-temp-fil.patch
+Patch0017: 0017-libmultipath-alias.c-factor-out-read_binding.patch
+Patch0018: 0018-libmultipath-keep-bindings-in-memory.patch
+Patch0019: 0019-multipath-tools-tests-fix-alias-tests.patch
+Patch0020: 0020-libmultipath-dm_get_uuid-return-emtpy-UUID-for-non-e.patch
+Patch0021: 0021-libmultipath-adapt-to-new-semantics-of-dm_get_uuid.patch
+Patch0022: 0022-libmultipath-sort-aliases-by-length-and-strcmp.patch
+Patch0023: 0023-multipath-tools-tests-fix-alias-test-after-sort-orde.patch
+Patch0024: 0024-libmultipath-simplify-get_free_id-assuming-total-ord.patch
+Patch0025: 0025-multipath-tools-tests-adapt-alias-tests-for-total-or.patch
+Patch0026: 0026-multipath-tools-tests-add-test-for-ordering-of-bindi.patch
+Patch0027: 0027-multipathd-watch-bindings-file-with-inotify-timestam.patch
+Patch0028: 0028-multipath-tools-tests-mock-pthread_mutex_-lock-unloc.patch
+Patch0029: 0029-multipath-tools-Makefile-sanitize-paths-for-configur.patch
+Patch0030: 0030-multipath-tools-add-compile-time-configuration-for-e.patch
+Patch0031: 0031-multipath-tools-man-pages-generate-with-correct-path.patch
+Patch0032: 0032-libdmmp-Makefile-fix-bug-in-install-section.patch
+Patch0033: 0033-multipath-tools-README.md-improve-documentation-for-.patch
+Patch0034: 0034-libmultipath-print-built-in-values-for-deprecated-op.patch
+Patch0035: 0035-multipath-add-a-missing-newline.patch
+Patch0036: 0036-multipath-tools-allow-prefixes-with-and-w-o-trailing.patch
+Patch0037: 0037-libmultipath-deprecate-bindings_file-wwids_file-prke.patch
+Patch0038: 0038-libmultipath-avoid-Warray-bounds-error-in-uatomic-op.patch
+Patch0039: 0039-multipath-tools-fix-spelling.patch
+Patch0040: 0040-multipathd-Added-support-to-handle-FPIN-Li-events-fo.patch
+Patch0041: 0041-RH-fixup-udev-rules-for-redhat.patch
+Patch0042: 0042-RH-Remove-the-property-blacklist-exception-builtin.patch
+Patch0043: 0043-RH-don-t-start-without-a-config-file.patch
+Patch0044: 0044-RH-Fix-nvme-function-missing-argument.patch
+Patch0045: 0045-RH-use-rpm-optflags-if-present.patch
+Patch0046: 0046-RH-add-mpathconf.patch
+Patch0047: 0047-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
+Patch0048: 0048-RH-reset-default-find_mutipaths-value-to-off.patch
+Patch0049: 0049-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
+Patch0050: 0050-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
+Patch0051: 0051-RH-add-scsi-device-handlers-to-modules-load.d.patch
+Patch0052: 0052-RH-compile-with-libreadline-support.patch
+Patch0053: 0053-RH-Add-mpathcleanup.patch
 
 # runtime
 Requires: %{name}-libs = %{version}-%{release}
@@ -108,7 +149,7 @@ This package contains the files needed to develop applications that use
 device-mapper-multipath's libdmmp C API library
 
 %prep
-%autosetup -n multipath-tools-0.9.5 -p1
+%autosetup -n multipath-tools-0.9.6 -p1
 cp %{SOURCE1} .
 
 %build
@@ -158,6 +199,7 @@ fi
 %{_sbindir}/multipathd
 %{_sbindir}/multipathc
 %{_sbindir}/mpathconf
+%{_sbindir}/mpathcleanup
 %{_sbindir}/mpathpersist
 %{_unitdir}/multipathd.service
 %{_unitdir}/multipathd.socket
@@ -230,6 +272,13 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Fri Sep 22 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.6-1
+- Update to the head of the upstream staging branch
+- Rename redhat patches
+  * Previous patches 0001-0012 are now patches 0041-0052
+- Add 0053-RH-Add-mpathcleanup.patch
+  * add mpathcleanup program
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

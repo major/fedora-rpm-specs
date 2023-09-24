@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.7
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: EventMachine based, async HTTP Request client
 License: MIT
 URL: http://github.com/igrigorik/em-http-request
@@ -11,6 +11,7 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Since Ruby 3.0 keyword arguments need to be explicitly declared
 # PR: https://github.com/igrigorik/em-http-request/pull/344
 Patch0: %{name}-%{version}-explicit-keyword-argument.patch
+Patch1: em-http-request-1.1.7-Also-stop-the-HTTP-parser-in-addition-to-resetting.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -42,7 +43,8 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 
-%patch0 -p1
+%patch 0 -p1
+%patch 1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -102,6 +104,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Sep 22 2023 Jarek Prokop <jprokop@redhat.com> - 1.1.7-9
+- Fix FTBFS due to updated rubygem-http_parser.rb.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

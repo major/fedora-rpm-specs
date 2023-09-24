@@ -3,7 +3,7 @@ Summary: Symbolic Computation Program
 Name:    maxima
 Version: 5.45.1
 
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2
 URL:     http://maxima.sourceforge.net/
 Source:  http://downloads.sourceforge.net/sourceforge/maxima/maxima-%{version}%{?beta}.tar.gz
@@ -236,10 +236,10 @@ Maxima compiled with Embeddable Common-Lisp (ecl).
 %prep
 %setup -q  -n %{name}%{!?cvs:-%{version}%{?beta}}
 
-%patch50 -p1 -b .clisp-noreadline
-%patch51 -p1 -b .build-fasl
-%patch52 -p1 -b .ecl_ldflags
-%patch53 -p1 -b .python3
+%patch -P50 -p1 -b .clisp-noreadline
+%patch -P51 -p1 -b .build-fasl
+%patch -P52 -p1 -b .ecl_ldflags
+%patch -P53 -p1 -b .python3
 
 # Extra docs
 install -p -m644 %{SOURCE10} .
@@ -252,6 +252,9 @@ sed -i -e 's:/usr/local/info:/usr/share/info:' \
 sed -i -e \
   's/(defcustom\s+maxima-info-index-file\s+)(\S+)/$1\"maxima.info-16\"/' \
   interfaces/emacs/emaxima/maxima.el
+
+# Avoid obsolescence warnings
+sed -i 's/egrep -v/grep -Ev/' configure admin/make_share_list share/Makefile.in
 
 
 %build
@@ -409,6 +412,11 @@ fi
 
 
 %changelog
+* Fri Sep 22 2023 Jerry James <loganjerry@gmail.com> - 5.45.1-6
+- Rebuild for ecl 23.9.9
+- Update deprecated %%patchN usage
+- Avoid obsolescence warnings from egrep
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.45.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

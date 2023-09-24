@@ -9,8 +9,8 @@
 %endif
 
 Name:           perl-Syntax-Keyword-Defer
-Version:        0.09
-Release:        2%{?dist}
+Version:        0.10
+Release:        1%{?dist}
 Summary:        Add defer block syntax to Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Defer
@@ -119,14 +119,15 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %dir %{perl_vendorarch}/Syntax
 %dir %{perl_vendorarch}/Syntax/Keyword
 %{perl_vendorarch}/Syntax/Keyword/Defer.pm
-%{perl_vendorarch}/Syntax/Keyword/Finally.pm
 %{_mandir}/man3/Syntax::Keyword::Defer.*
-%{_mandir}/man3/Syntax::Keyword::Finally.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 22 2023 Petr Pisar <ppisar@redhat.com> - 0.10-1
+- 0.10 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

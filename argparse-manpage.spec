@@ -27,7 +27,7 @@ There is a limited support for (deprecated) optparse objects, too.
 
 
 Name:           argparse-manpage
-Version:        4.4
+Version:        4.5
 Release:        1%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
@@ -185,6 +185,9 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Fri Sep 22 2023 Pavel Raiskup <praiskup@redhat.com> - 4.5-1
+- new upstream release https://github.com/praiskup/argparse-manpage/releases/tag/v4.4
+
 * Mon Sep 04 2023 Pavel Raiskup <praiskup@redhat.com> - 4.4-1
 - new upstream release: https://github.com/praiskup/argparse-manpage/releases/tag/v4.4
 - license tag in SPDX format

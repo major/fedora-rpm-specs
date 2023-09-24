@@ -81,7 +81,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Digest-SHA-%{version}
-%patch0 -p1
+%patch -P0 -p1
 chmod -x examples/*
 perl -MExtUtils::MakeMaker -e 'ExtUtils::MM_Unix->fixin(q{examples/dups})'
 

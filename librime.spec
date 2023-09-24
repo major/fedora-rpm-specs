@@ -1,6 +1,6 @@
 Name:           librime
-Version:        1.8.5
-Release:        3%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPL-3.0-only
@@ -76,9 +76,14 @@ The %{name}-tools package contains tools for %{name}.
 %{_bindir}/rime_deployer
 %{_bindir}/rime_dict_manager
 %{_bindir}/rime_patch
+%{_bindir}/rime_table_decompiler
 
 
 %changelog
+* Fri Sep 22 2023 Peng Wu <pwu@redhat.com> - 1.9.0-1
+- Update to 1.9.0
+- Resolves: RHBZ#2239362
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

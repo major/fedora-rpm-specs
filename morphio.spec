@@ -75,6 +75,8 @@ Patch:          allow_use_of_external_ghc_filesystem.patch
 #  Target "ghc_filesystem" not found.
 # So let's circumvent CMake foo for ghc_filesystem
 Patch:          dont_use_cmake_for_finding_ghc_filesystem.patch
+# https://github.com/BlueBrain/MorphIO/pull/475
+Patch:          fix_failing_test_due_to_type_conversion.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -223,7 +225,7 @@ fi
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %if %{with tests}
 # From ci/cpp_test.sh
-%ctest
+%ctest -VV
 %endif
 %if %{with pytests}
 # We will change directories so that the “un-built” package is not imported

@@ -4,8 +4,8 @@
 %bcond_without perl_Syntax_Keyword_Dynamically_enables_optional_test
 
 Name:           perl-Syntax-Keyword-Dynamically
-Version:        0.12
-Release:        4%{?dist}
+Version:        0.13
+Release:        1%{?dist}
 Summary:        Dynamically change the value of a variable
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Dynamically
@@ -42,7 +42,8 @@ BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Future)
 # Higher version from boot_future_asyncawait()
 BuildRequires:  perl(Future::AsyncAwait) >= %{Future_AsyncAwait_minver}
-BuildRequires:  perl(Object::Pad) >= 0.73
+%define Object_Pad_minver 0.800
+BuildRequires:  perl(Object::Pad) >= %{Object_Pad_minver}
 BuildRequires:  perl(Sentinel)
 BuildRequires:  perl(Test::Pod) >= 1
 %endif
@@ -81,7 +82,7 @@ Requires:       perl-Test-Harness
 # A cycle: perl-Future-AsyncAwait → perl-Syntax-Keyword-Dynamically
 Requires:       perl(Future)
 Requires:       perl(Future::AsyncAwait) >= 0.31
-Requires:       perl(Object::Pad) >= 0.73
+Requires:       perl(Object::Pad) >= %{Object_Pad_minver}
 Requires:       perl(Sentinel)
 %endif
 
@@ -140,6 +141,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 22 2023 Petr Pisar <ppisar@redhat.com> - 0.13-1
+- 0.13 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

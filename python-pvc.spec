@@ -61,7 +61,7 @@ Requires:       python%{python3_pkgversion}-vconnector
 %prep
 %autosetup -p1 -n%{srcname}-%{version}
 # dependency checker does not like dashes in version specifier
-sed -i -r 's/(>= +[\d\.]+)-.+/\1/' setup.py
+sed -i 's/5.5.0-2014.1.1/5.5.0.2014.1.1/' setup.py
 
 %build
 %{py3_build}

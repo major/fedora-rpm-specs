@@ -238,7 +238,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 117.0.5938.88
+Version: 117.0.5938.92
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1682,6 +1682,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Fri Sep 22 2023 Than Ngo <than@redhat.com> - 117.0.5938.92-1
+- update to 117.0.5938.92
+
 * Sun Sep 17 2023 Than Ngo <than@redhat.com> - 117.0.5938.88-1
 - update to 117.0.5938.88
 

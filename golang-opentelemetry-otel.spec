@@ -5,7 +5,7 @@
 # https://github.com/open-telemetry/opentelemetry-go
 %global goipath         go.opentelemetry.io/otel
 %global forgeurl        https://github.com/open-telemetry/opentelemetry-go
-Version:                1.18.0
+Version:                1.10.0
 
 %gometa
 
@@ -39,7 +39,7 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-%gocheck -d go.opentelemetry.io/otel/bridge/opencensus -d go.opentelemetry.io/otel/bridge/opencensus/internal/ocmetric
+%gocheck
 %endif
 
 %gopkgfiles

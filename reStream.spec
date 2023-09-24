@@ -27,7 +27,8 @@ Stream your reMarkable screen over SSH.
 %build
 # Fix command name in manpage
 ln -s reStream.sh reStream
-help2man -N ./reStream -o reStream.1 
+help2man -N ./reStream -o reStream.1
+sed -i 's/\.\///g' reStream.1
 rm -f reStream
 
 %install

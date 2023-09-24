@@ -20,20 +20,26 @@ Its features include:\
 - Support for various ORMs (currently Django, Mogo, SQLAlchemy)\
 
 Name: python-factory-boy
-Version: 3.2.1
-Release: 9%{?dist}
+Version: 3.3.0
+Release: 1%{?dist}
 Summary: A versatile test fixtures replacement based on thoughtbot's factory_girl
 License: MIT
 URL: https://github.com/rbarrois/factory_boy
 Source0: https://github.com/rbarrois/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Patch0: python-factory-boy-3.3.0-fix_test_version.patch
 BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 %if %{with tests}
 BuildRequires: python3-pytest
 BuildRequires: python3-faker >= 0.7.0
-BuildRequires: python3-mongoengine
 BuildRequires: python3-sqlalchemy
+BuildRequires: python3-sqlalchemy-utils
+BuildRequires: python3-coverage
+BuildRequires: python3-flake8
+BuildRequires: python3-isort
+BuildRequires: python3-pillow
+BuildRequires: tox
 BuildRequires: python3-django
 BuildRequires: python3-flask
 BuildRequires: python3-flask-sqlalchemy
@@ -57,7 +63,7 @@ Summary: API documentation for %{name}
 Documentation for the %{name} API
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %build
 %py3_build
@@ -84,6 +90,10 @@ SKIP_MONGOENGINE=1 %pytest
 %license LICENSE
 
 %changelog
+* Fri Sep 22 2023 Juan Orti Alcaine <jortialc@redhat.com> - 3.3.0-1
+- Version 3.3.0 (#2223915)
+- Fix tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

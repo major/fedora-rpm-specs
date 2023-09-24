@@ -1,10 +1,10 @@
 Name:           rpminspect-data-centos
 Version:        1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Build deviation compliance tool data files for CentOS
 Group:          Development/Tools
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos
 Source0:        https://dcantrell.fedorapeople.org/rpminspect-data-centos/%{name}-%{version}.tar.xz
 Source1:        https://dcantrell.fedorapeople.org/rpminspect-data-centos/%{name}-%{version}.tar.xz.asc
@@ -58,6 +58,9 @@ and data files used by the inspections provided by librpminspect.
 
 
 %changelog
+* Fri Sep 22 2023 David Cantrell <dcantrell@redhat.com> - 1.4-2
+- Convert License tag to SPDX expression
+
 * Thu Sep 21 2023 David Cantrell <dcantrell@redhat.com> - 1.4-1
 - Upgrade to rpminspect-data-centos-1.4
 

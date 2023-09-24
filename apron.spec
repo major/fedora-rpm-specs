@@ -1,9 +1,7 @@
-%global prerel beta.2
-
 Name:           apron
 Version:        0.9.14
 Summary:        Numerical abstract domain library
-Release:        0.6%{?prerel:.%{prerel}}%{?dist}
+Release:        1%{?dist}
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 # except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
@@ -12,7 +10,7 @@ Release:        0.6%{?prerel:.%{prerel}}%{?dist}
 # OCaml-LGPL-linking-exception.
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later
 URL:            https://antoinemine.github.io/Apron/doc/
-Source0:        https://github.com/antoinemine/apron/archive/v%{version}%{?prerel:-%{prerel}}/%{name}-%{version}-%{?prerel:%{prerel}}.tar.gz
+Source0:        https://github.com/antoinemine/apron/archive/v%{version}/%{name}-%{version}.tar.gz
 # This patch has not been sent upstream as it is GCC-specific.  Certain
 # symbols are defined in both libpolkaMPQ and libpolkaRll, with different
 # implementations.  This patch makes references to those symbols in
@@ -23,6 +21,9 @@ Patch0:         %{name}-weak.patch
 Patch1:         %{name}-ocaml-bytecode.patch
 # Update CSDP support for CSDP 6.2.0
 Patch2:         %{name}-csdp.patch
+# Since the jgmp library is not installed in a normal search path, add an rpath
+# to the japron library so it can find jgmp
+Patch3:         %{name}-japron-link.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -120,12 +121,12 @@ Java interface to the APRON library.
 %endif
 
 %prep
-%autosetup -N -n %{name}-%{version}%{?prerel:-%{prerel}}
+%autosetup -N -n %{name}-%{version}
 %patch -P0 -p0
 %ifnarch %{ocaml_native_compiler}
 %patch -P1 -p0
 %endif
-%patch -P2 -p0
+%autopatch -m2 -p0
 
 # Fix library path for 64-bit installs
 if [ "%{_lib}" = "lib64" ]; then
@@ -147,6 +148,9 @@ sed -i "s|\$(OCAMLMKLIB) -L.*|& -g|" vars.mk
 
 # Give the C++ library an soname
 sed -i '/shared/s/\$(CXX)/$(CXX_APRON_DYLIB)/' apronxx/Makefile
+
+# For reproducibility, omit timestamps from generated documentation
+sed -i '/HTML_TIMESTAMP/s/YES/NO/' apronxx/doc/Doxyfile
 
 %build
 # This is NOT an autoconf-generated script.  Do not use %%configure
@@ -274,6 +278,11 @@ test/ctest1
 %endif
 
 %changelog
+* Fri Sep 22 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-1
+- Version 0.9.14
+- Add patch to fix japron linkage
+- Omit timestamps from generated documentation
+
 * Sat Aug  5 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-0.6.beta.2
 - Fix failure to install (rhbz#2229356)
 

@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -255,6 +255,9 @@ Recommends: kde-inotify-survey
 # https://pagure.io/fedora-kde/SIG/issue/354
 Recommends: kf5-audiocd-kio
 
+# For a11y
+Recommends: orca
+
 # powerdevil has a versioned dep on libkworkspace5, so (may?)
 # need to avoid this dep when bootstrapping
 %if ! 0%{?bootstrap}
@@ -455,8 +458,7 @@ Requires:       xorg-x11-server-Xwayland
 Requires:       qt5-qtwayland%{?_isa}
 # startplasmacompositor deps
 Requires:       qt5-qttools
-# start with soft dep -- rdieter
-Recommends:     xdg-desktop-portal-kde >= %{majmin_ver}
+Requires:       xdg-desktop-portal-kde >= %{majmin_ver}
 %description wayland
 %{summary}.
 
@@ -807,6 +809,9 @@ fi
 
 
 %changelog
+* Fri Sep 22 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.8-2
+- Recommend orca for a11y and require xdg-desktop-portal-kde for wayland
+
 * Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
 - 5.27.8
 
