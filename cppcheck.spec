@@ -4,7 +4,7 @@ Name:           cppcheck
 Version:        2.12.1
 Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
-License:        GPL-3.0
+License:        GPL-3.0-or-later
 URL:            http://cppcheck.wiki.sourceforge.net/
 Source0:        https://github.com/danmar/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

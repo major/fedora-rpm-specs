@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-openapi-schema-validator
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        OpenAPI schema validator for Python
 
@@ -11,9 +11,6 @@ URL:            https://github.com/python-openapi/openapi-schema-validator
 Source:         %{url}/archive/%{version}/openapi-schema-validator-%{version}.tar.gz
 
 BuildArch:      noarch
-# We must avoid using i686 builders, this should do the trick
-# python-rpds-py is pulled in by chain dependency, but is not built on i686
-ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 

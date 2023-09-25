@@ -1,7 +1,7 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
 Version:        5.8.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
@@ -94,10 +94,14 @@ for developing nemo extensions.
 
 install -D -m 0644 %{SOURCE1} %{buildroot}/%{_datadir}/glib-2.0/schemas/nemo-fedora.gschema.override
 
+# Only autostart in cinnamon and budgie
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   --add-only-show-in "X-Cinnamon;Budgie" \
-  %{buildroot}%{_datadir}/applications/*
+  %{buildroot}%{_datadir}/applications/nemo-autostart.desktop
+desktop-file-install --delete-original \
+  --dir %{buildroot}%{_datadir}/applications \
+  %{buildroot}%{_datadir}/applications/{nemo,nemo-autorun-software}.desktop
 
 # create extensions directoy
 mkdir -p %{buildroot}%{_libdir}/nemo/extensions-3.0/
@@ -149,6 +153,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sat Sep 23 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.5-2
+- Show nemo app in other DE's
+
 * Fri Sep 22 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.5-1
 - Update to 5.8.5 release
 

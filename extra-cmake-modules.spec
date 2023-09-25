@@ -1,6 +1,6 @@
-%global gitdate 20230828.163639
+%global gitdate 20230922.144228
 %global cmakever 5.240.0
-%global commit0 a93943adfe95a48573ab9f62488b7b0352de4eba
+%global commit0 a068eaba79593910d000358330187f542d5b6eb3
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global framework extra-cmake-modules
@@ -51,7 +51,7 @@ Requires: cmake(Qt6LinguistTools)
 Additional modules for CMake build system needed by KDE Frameworks.
 
 %prep
-%autosetup -n %{name}-%{shortcommit0} -p1
+%autosetup -n %{name}-%{commit0} -p1
 
 %build
 %cmake_kf6 \
@@ -81,6 +81,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Sat Sep 23 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.240.0^20230922.144228.a068eab-1
+- Upgrade to snapshot a068eaba79593910d000358330187f542d5b6eb3
+
 * Thu Sep 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.240.0^20230828.163639.a93943a-3
 - Add upstream patch to fix some kirigami2 installation issues
 - Use %%{_vpath_builddir} instead of %%{_target_platform} for tests

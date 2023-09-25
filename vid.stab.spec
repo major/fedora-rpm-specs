@@ -1,12 +1,12 @@
 %undefine __cmake_in_source_build
-# https://github.com/georgmartius/vid.stab/commit/f9166e9b082242b622b5b456ef80cbdbd4042826
-%global commit f9166e9b082242b622b5b456ef80cbdbd4042826
+# https://github.com/georgmartius/vid.stab/commit/05829db776069b7478dd2d90b6e0081668a41abc
+%global commit 05829db776069b7478dd2d90b6e0081668a41abc
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20201110
+%global commitdate 20230603
 
 Name:           vid.stab
-Version:        1.1.0
-Release:        22.%{commitdate}git%{shortcommit}%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        Video stabilize library for fmpeg, mlt or transcode
 License:        GPLv2+
 URL:            http://public.hronopik.de/vid.stab
@@ -70,6 +70,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} tests/tests || :
 %{_libdir}/pkgconfig/vidstab.pc
 
 %changelog
+* Sat Sep 23 2023 Sérgio Basto <sergio@serjux.com> - 1.1.1-1
+- Update vid.stab to 1.1.1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-22.20201110gitf9166e9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

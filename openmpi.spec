@@ -59,7 +59,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        4.1.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -406,6 +406,9 @@ make check
 
 
 %changelog
+* Fri Sep 22 2023 Orion Poplawski <orion@nwra.com> - 4.1.5-6
+- Rebuild for pmix 4.1.3 (bz#2240042)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -15,8 +15,8 @@
 
 %global maj_ver 17
 %global min_ver 0
-%global patch_ver 0
-%global rc_ver 4
+%global patch_ver 1
+#global rc_ver 4
 
 %if %{with snapshot_build}
 %undefine rc_ver
@@ -55,7 +55,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	4%{?dist}
+Release:	1%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -85,12 +85,9 @@ Patch3:     0001-Driver-Add-a-gcc-equivalent-triple-to-the-list-of-tr.patch
 # Drop the following patch after debugedit adds support to DWARF-5:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=28728
 Patch4:     0001-Produce-DWARF4-by-default.patch
-# Backport from LLVM 18:
-# https://github.com/llvm/llvm-project-release-prs/pull/689
-Patch5:     689.patch
 # Workaround a bug in ORC on ppc64le.
 # More info is available here: https://reviews.llvm.org/D159115#4641826
-Patch6:     0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
+Patch5:     0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 
 # RHEL specific patches
 # Avoid unwanted dependency on python-recommonmark
@@ -643,6 +640,9 @@ false
 %endif
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Sat Sep 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.1-1
+- Update to LLVM 17.0.1
 
 * Tue Sep 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-4
 - Re-add dwarf4 patch. Fix rhbz#2239619.

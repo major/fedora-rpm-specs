@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
-Version: 3.3.8
-Release: 2%{?dist}
+Version: 3.3.9
+Release: 1%{?dist}
 License: ASL 2.0
 BuildRequires: gcc, gcc-c++
 BuildRequires: cmake >= 3.5.1
@@ -105,6 +105,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Sep 23 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.9-1
+- Update to 3.3.9
+
 * Sat Aug 19 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.8-2
 - Disable systemtap integration to fix the build.
 

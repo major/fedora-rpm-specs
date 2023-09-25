@@ -3,13 +3,13 @@
 %bcond_with compiz_session
 
 Name:           gnome-flashback
-Version:        3.49.1
-Release:        3.%autorelease
+Version:        3.50.0
+Release:        %autorelease
 Summary:        GNOME Flashback session
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeFlashback
-Source0:        https://download.gnome.org/sources/%{name}/3.49/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.50/%{name}-%{version}.tar.xz
 Source1:        %{name}.pamd
 
 BuildRequires:  desktop-file-utils

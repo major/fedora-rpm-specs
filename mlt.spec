@@ -13,7 +13,7 @@
 
 Name:           mlt
 Version:        7.18.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -234,6 +234,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Sat Sep 23 2023 Sérgio Basto <sergio@serjux.com> - 7.18.0-3
+- Rebuild to use new movit and vid.stab packages
+
 * Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 7.18.0-2
 - Rebuild for opencv 4.8.0
 

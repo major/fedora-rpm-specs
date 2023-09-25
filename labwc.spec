@@ -1,9 +1,9 @@
 Name:       labwc
-Version:    0.6.4
+Version:    0.6.5
 Release:    %autorelease
 Summary:    Openbox alternative for Wayland
 
-License:    GPLv2
+License:    GPL-2.0-only
 URL:        https://github.com/labwc/labwc
 Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:    %{name}.desktop
@@ -14,6 +14,7 @@ BuildRequires: meson >= 0.59.0
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(libinput) >= 1.14
+BuildRequires: pkgconfig(librsvg-2.0) >= 2.46
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(pangocairo)
 BuildRequires: pkgconfig(pixman-1)
@@ -25,31 +26,42 @@ BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xkbcommon)
 
 # Upstream recommendations
-# https://github.com/johanmalm/labwc#6-integrate
-Recommends: bemenu              %dnl # Launchers
-Recommends: swaylock            %dnl # Screen locker
-Suggests:   fuzzel wofi         %dnl # Launchers
-Suggests:   grim                %dnl # Screen-shooter
-Suggests:   kanshi wlr-randr    %dnl # Output managers
-Suggests:   swaybg              %dnl # Background image
-Suggests:   waybar              %dnl # Panel
+# https://github.com/labwc/labwc#6-integration
+Recommends: bemenu                      %dnl # Launchers
+Recommends: swaylock                    %dnl # Screen locker
+Suggests:   fuzzel wofi                 %dnl # Launchers
+Suggests:   grim                        %dnl # Screen-shooter
+Suggests:   kanshi wlr-randr            %dnl # Output managers
+Suggests:   swaybg                      %dnl # Background image
+Suggests:   lavalauncher waybar yambar  %dnl # Panel
 
 # Downstream usefull stuff which already packaged in Fedora
-Suggests:   wdisplays           %dnl # GUI display configurator for wlroots compositors
+Suggests:   wdisplays                   %dnl # GUI display configurator for wlroots compositors
   
 
 %description
-Labwc is a wlroots-based stacking compositor for Wayland.
+Labwc stands for Lab Wayland Compositor, where lab can mean any of the
+following:
 
-It has the following aims:
+  * sense of experimentation and treading new ground
+  * inspired by BunsenLabs and ArchLabs
+  * your favorite pet
 
-  * Be light-weight, small and fast.
-  * Use openbox-3.4 specification for configuration and themes.
-  * Keep feature set small (ca 40% of openbox).
-  * Where practicable, use clients for wall-paper, panel, screenshots, and so
-    on.
-  * Stay in keeping with wlroots and sway in terms of approach and coding
-    style.
+Labwc is a wlroots-based window-stacking compositor for wayland, inspired by
+openbox.
+
+It is light-weight and independent with a focus on simply stacking windows
+well and rendering some window decorations. It takes a no-bling/frills
+approach and says no to features such as icons (except window buttons),
+animations, decorative gradients and any other options not required to
+reasonably render common themes. It relies on clients for panels, screenshots,
+wallpapers and so on to create a full desktop environment.
+
+Labwc tries to stay in keeping with wlroots and sway in terms of general
+approach and coding style.
+
+Labwc has no reliance on any particular Desktop Environment, Desktop Shell or
+session. Nor does it depend on any UI toolkits such as Qt or GTK.
 
 
 %prep
@@ -65,7 +77,6 @@ It has the following aims:
 
 %install
 %meson_install
-install -Dpm 0644 %{SOURCE1} -t %{buildroot}%{_datadir}/wayland-sessions/
 %find_lang %{name}
 
 

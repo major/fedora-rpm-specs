@@ -239,7 +239,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 117.0.5938.92
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -376,6 +376,9 @@ Patch350: chromium-116-tweak_about_gpu.patch
 
 # build error
 Patch351: chromium-117-mnemonic-error.patch
+
+# upstream patches
+Patch400: chromium-117-memory_leak_in_xserver.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -988,6 +991,8 @@ udev.
 
 %patch -P350 -p1 -b .tweak_about_gpu
 %patch -P351 -p1 -b .mnemonic-error
+
+%patch -P400 -p1 -b .memory_leak_in_xserver
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1682,6 +1687,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sat Sep 23 2023 Than Ngo <than@redhat.com> - 117.0.5938.92-2
+- backport upstream patch to fix memory leak
+
 * Fri Sep 22 2023 Than Ngo <than@redhat.com> - 117.0.5938.92-1
 - update to 117.0.5938.92
 

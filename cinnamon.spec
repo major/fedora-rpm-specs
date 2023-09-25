@@ -37,6 +37,7 @@ Patch3:         default_panal_launcher.patch
 Patch4:         remove_crap_from_menu.patch
 Patch5:         fix_path.patch
 Patch6:         %url/commit/fce9aad1ebb290802dc550e8dae6344dddf9dec1.patch
+Patch7:         0001-add-xdg-portal-conf.patch
 
 ExcludeArch:    %{ix86}
 
@@ -320,6 +321,7 @@ EOF
 %{_datadir}/%{name}-session/sessions/*
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/polkit-1/actions/org.%{name}.settings-users.policy
+%{_datadir}/xdg-desktop-portal/x-cinnamon-portals.conf
 %{_datadir}/xsessions/*
 %{_datadir}/%{name}/
 %{_datadir}/%{name}-background-properties
@@ -342,7 +344,7 @@ EOF
 
 %changelog
 * Wed Jul 19 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-3
-- Add fedora styles file
+- Add xdg-portal conf file
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

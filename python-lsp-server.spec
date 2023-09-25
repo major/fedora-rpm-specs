@@ -46,6 +46,7 @@ Requires:       python3dist(yapf)
 
 %prep
 %autosetup -p1 -n %{name}-%{version} -S git
+git tag v%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires -x test,all

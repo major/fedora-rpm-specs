@@ -2,7 +2,7 @@
 %global gem_name railties
 
 # Circular dependency with rubygem-{rails,jquery-rails,uglifier}.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
 Version: 7.0.8
@@ -72,6 +72,7 @@ BuildRequires: %{_bindir}/git
 BuildRequires: %{_bindir}/memcached
 BuildRequires: %{_bindir}/postgres
 BuildRequires: %{_bindir}/sqlite3
+BuildRequires: tzdata
 %endif
 BuildArch: noarch
 

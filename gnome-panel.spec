@@ -3,13 +3,13 @@
 %global use_evolution_data_server 1
 
 Name:           gnome-panel
-Version:        3.49.1
+Version:        3.50.0
 Release:        %autorelease
 Summary:        GNOME Flashback panel
 
-License:        GPLv2+ and LGPLv2+
+License:        GPL-2.0-or-later and LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/GnomePanel
-Source0:        https://download.gnome.org/sources/%{name}/3.49/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.50/%{name}-%{version}.tar.xz
 
 BuildRequires:  autoconf
 BuildRequires:  automake >= 1.16.4

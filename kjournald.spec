@@ -1,6 +1,6 @@
 Name:          kjournald
 Version:       23.08.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Framework for interacting with systemd-journald
 
 License:       BSD-3-Clause and CC0-1.0 and MIT and LGPL-2.1-or-later and MIT
@@ -56,10 +56,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kj
 
 %files libs
 %{_libdir}/libkjournald.so
-%{_libdir}/libkjournald.so.%{maj_ver_kf5}
+%{_libdir}/libkjournald.so.0
 %{_libdir}/libkjournald.so.%{version}
 
 %changelog
+* Sat Sep 23 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Rebuild(extra-cmake-modules)
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

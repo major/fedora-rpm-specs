@@ -7,22 +7,26 @@
 %endif
 
 Name:           movit
-Version:        1.6.3
-Release:        9%{?dist}
+Version:        1.7.1
+Release:        1%{?dist}
 Summary:        GPU video filter library
 License:        GPLv2+
 Url:            https://movit.sesse.net
 Source0:        https://movit.sesse.net/%{name}-%{version}.tar.gz
 Source1:        COPYING
 Patch0:         gcc_erase_signature.patch
+Patch1:         data.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  libtool
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(epoxy)
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(libpng)
+#BuildRequires:  pkgconfig(microbenchmark)
 %if ! (0%{?rhel} >= 8)
 BuildRequires:  pkgconfig(SDL2_image)
 %endif
@@ -63,10 +67,15 @@ This package contains the architecture-independent data files.
 %setup -q
 cp -a %{SOURCE1} .
 %if 0%{?rhel} && 0%{?rhel} < 8
-%patch0 -p1
+%patch -P0 -p1
 %endif
+%patch -P1 -p1
 
 %build
+#./autogen.sh
+aclocal
+libtoolize --install --copy
+autoconf
 %configure --disable-static
 %make_build TESTS=
 
@@ -96,6 +105,9 @@ rm %{buildroot}%{_libdir}/libmovit.la
 %{_libdir}/pkgconfig/movit.pc
 
 %changelog
+* Sat Sep 23 2023 Sérgio Basto <sergio@serjux.com> - 1.7.1-1
+- Update movit to 1.7.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

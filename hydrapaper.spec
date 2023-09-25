@@ -1,12 +1,12 @@
 %global uuid org.gabmus.%{name}
 
 Name:           hydrapaper
-Version:        3.3.1
+Version:        3.3.2
 Release:        %autorelease
 Epoch:          1
 Summary:        Set two different backgrounds for each monitor on GNOME
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.com/gabmus/HydraPaper
 Source0:        %{url}/-/archive/%{version}/HydraPaper-%{version}.tar.gz
 BuildArch:      noarch
@@ -59,11 +59,7 @@ present.
 
 
 %build
-%meson \
-%if 0%{?flatpak}
-  -Denabledaemon=false
-%endif
-
+%meson
 %meson_build
 
 
@@ -77,20 +73,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
-%if !0%{?flatpak}
-%post
-%systemd_user_post %{uuid}d.service
-
-%preun
-%systemd_user_preun %{uuid}d.service
-
-%postun
-%systemd_user_postun_with_restart %{uuid}d.service
-%endif
-
-
 %files -f %{name}.lang
-%license COPYING LICENSE
+%license LICENSE
 %doc README.md
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
@@ -98,14 +82,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/dbus-1/services/*.service
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
 %{_datadir}/icons/hicolor/*/*/*.svg
-%if !0%{?flatpak}
-%{_libexecdir}/%{name}d
-%endif
 %{_mandir}/man1/*.1*
 %{_metainfodir}/*.xml
-%if !0%{?flatpak}
-%{_userunitdir}/*.service
-%endif
 %{python3_sitelib}/%{name}/
 
 

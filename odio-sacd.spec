@@ -15,6 +15,10 @@ BuildRequires:  sed
 
 BuildRequires:  libodiosacd-devel
 
+# Temporarily exclude due to ICE when building
+# https://bugzilla.redhat.com/show_bug.cgi?id=2240371
+ExcludeArch:    ppc64le
+
 %description
 Odio SACD is a command-line application which takes a Super Audio CD source and
 extracts a 24-bit high resolution wave file. It handles both DST and DSD

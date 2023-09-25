@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/polarsys/b612/
 Version: 1.008
-Release: 12%{?dist}
+Release: %autorelease
 URL: https://projects.eclipse.org/projects/polarsys.b612
 
 %global tag %{version}
@@ -10,7 +10,9 @@ URL: https://projects.eclipse.org/projects/polarsys.b612
 # made available under the terms of the Eclipse Public License v1.0 and
 # Eclipse Distribution License v1.0 and the SIL Open Font License v1.1
 # which accompanies this distribution."
-%global fontlicense EPL-1.0 and BSD and OFL
+# EDL v1.0 at https://www.eclipse.org/org/documents/edl-v10.php says
+# to use BSD-3-Clause as SPD-X identifier.
+%global fontlicense EPL-1.0 AND BSD-3-Clause AND OFL-1.1
 %global fontlicenses edl-v10.html epl-v10.html OFL.txt
 %global fontdocsex %{fontlicenses}
 
@@ -107,66 +109,4 @@ install -m 0644 -p %{SOURCE1} .
 
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Apr 16 2021 Peter Oliver <rpm@mavit.org.uk> - 1.008-7
-- Update to follow new font packaging guidelines.
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat May 23 2020 Peter Oliver <rpm@mavit.org.uk> - 1.008-4
-- Polarsys.org was merged into Eclipse.org.
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Mar 14 2019 Peter Oliver <rpm@mavit.org.uk> - 1.008-1
-- Update to version 1.008.
-- Latest source is now at GitHub rather than PolarSys's own git repository.
-- Additional licence, SIL Open Font License, Version 1.1.
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-5.20171129gitbd14fde
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Nov  8 2018 Peter Oliver <rpm@mavit.org.uk> - 1.003-4.20171129gitbd14fde
-- Drop unneeded BuildRequires.
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-3.20171129gitbd14fde
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-2.20171129gitbd14fde
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Dec  7 2017 Peter Oliver <rpm@mavit.org.uk> - 1.003-1.20171129gitbd14fde
-- Update to version 1.003.
-- Split leaflet out into a separate doc subpackage.
-
-* Fri Nov 10 2017 Peter Oliver <rpm@mavit.org.uk> - 1.002-3.20170320gitf4ce1fd
-- Remove obsolete sections.
-
-* Fri Nov  3 2017 Peter Oliver <rpm@mavit.org.uk> - 1.002-2.20170320gitf4ce1fd
-- Use auto-generated source snapshot.
-- Remove obsolete sections.
-
-* Fri Nov  3 2017 Peter Oliver <rpm@mavit.org.uk> - 1.002-1.20170320gitf4ce1fd
-- Initial package.
+%autochangelog
