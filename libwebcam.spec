@@ -1,6 +1,6 @@
 Name:           libwebcam
 Version:        0.2.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A library for user-space configuration of the uvcvideo driver
 License:        LGPLv3+
 URL:            http://sourceforge.net/p/libwebcam/wiki/Home/
@@ -50,6 +50,9 @@ XML control file for the uvcdynctrl package.
 
 %prep
 %setup -q -n %{name}-%{version}
+# Remove backup file included in the archive by mistake
+# https://sourceforge.net/p/libwebcam/discussion/general/thread/573c86ef22/
+rm uvcdynctrl/data/046d/logitech.xml~
 
 
 %build
@@ -90,6 +93,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libwebcam.a
 
 
 %changelog
+* Sun Sep 24 2023 Göran Uddeborg <goeran@uddeborg.se> - 0.2.4-13
+- Remove backup file packaged in the tar file, BZ 2239034
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

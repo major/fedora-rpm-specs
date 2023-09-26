@@ -4,7 +4,7 @@
 %global crate yubibomb
 
 Name:           rust-yubibomb
-Version:        0.2.13
+Version:        0.2.14
 Release:        %autorelease
 Summary:        Rust command line tool that prints out a 6-digit random number
 
@@ -74,7 +74,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %build
 %cargo_build
-%cargo_license_summary
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install

@@ -4,7 +4,7 @@
 
 Name:           igt-gpu-tools
 Version:        1.27.1
-Release:        0.1%{?gitrev}%{?dist}
+Release:        0.2%{?gitrev}%{?dist}
 Summary:        Test suite and tools for DRM drivers
 
 License:        MIT
@@ -40,6 +40,7 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gsl)
 BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(xmlrpc)
 BuildRequires:  pkgconfig(xmlrpc_util)
 BuildRequires:  pkgconfig(xmlrpc_client)
@@ -116,6 +117,7 @@ CFLAGS="%{build_cflags} -Wno-array-bounds"
         -Doverlay=disabled \
         -Dlibunwind=%{with_libunwind}
 %meson_build
+ninja -C %{_vpath_builddir} igt-gpu-tools-doc
 
 %install
 %meson_install
@@ -198,6 +200,10 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_datadir}/gtk-doc/html/igt-gpu-tools/*
 
 %changelog
+* Sun Sep 24 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.27.1-0.2.20230215git45da871
+- Fix gtk-doc build on rawhide
+- Add missing build dependency on libXv-devel
+
 * Fri Sep 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.27.1-0.1.20230215git45da871
 - Correct version (1.27.1 was released on Jan 18th, snapshot is newer)
 - Fix FTBFS on non-x86 arches

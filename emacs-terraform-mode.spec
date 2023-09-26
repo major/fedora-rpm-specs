@@ -1,11 +1,11 @@
 %global pkg terraform-mode
 
 Name:           emacs-%{pkg}
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Major mode of Terraform configuration file
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/syohex/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{pkg}-init.el
@@ -50,6 +50,10 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Sun Sep 24 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.0.1-1
+- Update to 1.0.1
+- Switch license tag to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/warp
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump async-compression dependency from 0.3.7 to 0.4
+# * bump tokio-tungstenite dependency from 0.18 to 0.20
 # * drop unused tls feature with outdated tokio-rustls dependency
 Patch:          warp-fix-metadata.diff
 

@@ -28,8 +28,8 @@ Note: all modules are installed under the Cryptodome package to avoid conflicts
 with the PyCrypto library.}
 
 Name:           python-%{srcname}
-Version:        3.17.0
-Release:        3%{?dist}
+Version:        3.19.0
+Release:        1%{?dist}
 Summary:        A self-contained cryptographic library for Python
 
 # PyCrypto-based code is public domain, further PyCryptodome contributions are
@@ -39,10 +39,6 @@ URL:            http://www.pycryptodome.org/
 Source0:        https://github.com/Legrandin/pycryptodome/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Use external libtomcrypt library
 Patch0:         %{name}-3.15.0-use_external_libtomcrypt.patch
-# Fix deprecated unittest methods
-Patch1:         %{name}-3.16.0-unittest.patch
-# Fix version
-Patch2:         %{name}-3.17.0-version.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtomcrypt-devel
@@ -87,7 +83,6 @@ mv lib/Crypto/SelfTest/__main__.py.new lib/Crypto/SelfTest/__main__.py
 
 
 %generate_buildrequires
-export PYCRYPTODOME_DEBUG=1
 %pyproject_buildrequires -r
 
 
@@ -124,6 +119,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} %{py_setup} test
 
 
 %changelog
+* Sun Sep 24 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.19.0-1
+- Update to 3.19.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

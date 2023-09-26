@@ -5,7 +5,7 @@
 %global crate libsystemd
 
 Name:           rust-libsystemd
-Version:        0.3.1
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Pure-Rust client library to interact with systemd
 
@@ -64,8 +64,9 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests that fail in mock environments without a systemd-journal socket
-%cargo_test -- -- --skip multiline_message --skip simple_message
+# * integration tests require a systemd-journald socket
+%cargo_test -- --lib
+%cargo_test -- --doc
 %endif
 
 %changelog

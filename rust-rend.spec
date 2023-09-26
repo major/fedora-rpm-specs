@@ -5,7 +5,7 @@
 %global crate rend
 
 Name:           rust-rend
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Endian-aware primitives for Rust
 
@@ -57,6 +57,18 @@ This package contains library source intended for building other packages which
 use the "bytecheck" feature of the "%{crate}" crate.
 
 %files       -n %{name}+bytecheck-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+bytemuck-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bytemuck-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bytemuck" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bytemuck-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

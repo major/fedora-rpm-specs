@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        5.8.4
-Release:        3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        4%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -343,8 +343,11 @@ EOF
 %endif
 
 %changelog
-* Wed Jul 19 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-3
+* Sun Sep 24 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-4
 - Add xdg-portal conf file
+
+* Wed Jul 19 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-3
+- Add fedora styles file
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

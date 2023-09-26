@@ -21,13 +21,10 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 Requires: telnet 
-Requires: cpulimit 
 Requires: socat
 Requires: python3-jsonschema 
-Requires: python3-raven 
 Requires: python3-psutil 
 Requires: python3-qt5
-Requires: gns3-net-converter >= 1.3.0
 
 %description
 GNS3 is a graphical network simulator that allows you to design complex network
@@ -43,10 +40,10 @@ This package contains the client graphical user interface.
 sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r 's/truststore.*//g' requirements.txt
-sed -i -r 's/setuptools>=60.8.1/setuptools>=59.6.0/' requirements.txt
+sed -i -r 's/setuptools>=60.8.1/setuptools>=53.0.0/' requirements.txt
 # Lower psutil>=5.8.0
 sed -i -r 's/psutil>=5.9.5/psutil>=5.8.0/' requirements.txt
-sed -i -r 's/distro>=1.8.*/distro>=1.6.0/' requirements.txt
+sed -i -r 's/distro>=1.8.*/distro>=1.5.0/' requirements.txt
 sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
 
 # Disable update alerts

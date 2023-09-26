@@ -1,13 +1,13 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(tr '~' '.' <<<%{version})
 %global major_version %%(cut -d '.' -f 1 <<<%{tarball_version})
 
 Name:           gnome-tweaks
-Version:        42~beta
-Release:        8%{?dist}
+Version:        45.0
+Release:        1%{?dist}
 Summary:        Customize advanced GNOME 3 options
 
 # Software is GPL-3.0+, Appdata file is CC0-1.0
-License:        GPL-3.0+ AND CC0-1.0
+License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Tweaks
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
@@ -27,7 +27,6 @@ Requires:       pango
 Requires:       %{py3_dist pygobject}
 Recommends:     gnome-settings-daemon
 Recommends:     gnome-shell
-Recommends:     gnome-themes-extra
 Recommends:     mutter
 Recommends:     sound-theme-freedesktop
 Suggests:       gnome-shell-extension-user-theme
@@ -65,7 +64,6 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 %doc AUTHORS NEWS README.md
 %license LICENSES/*
 %{_bindir}/%{name}
-%{_libexecdir}/gnome-tweak-tool-lid-inhibitor
 %{python3_sitelib}/gtweak/
 %{_datadir}/%{name}/
 %{_datadir}/applications/*.desktop
@@ -76,6 +74,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 
 
 %changelog
+* Sun Sep 24 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 45.0-1
+- Update to 45.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42~beta-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

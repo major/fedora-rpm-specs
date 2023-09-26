@@ -3,15 +3,15 @@
 a Python DB-API (PEP-249) interface to Microsoft SQL Server.}
 
 Name:           python-%{pypi_name}
-Version:        2.2.7
-Release:        4%{?dist}
+Version:        2.2.8
+Release:        1%{?dist}
 Summary:        DB-API interface to Microsoft SQL Server
 
 License:        LGPL-2.0-or-later
 URL:            http://pymssql.org/
 Source0:        %{pypi_source}
 # Fix dependencies version
-Patch0:         %{name}-2.2.7-dependencies.patch
+Patch0:         %{name}-2.2.8-dependencies.patch
 
 BuildRequires:  freetds-devel
 BuildRequires:  gcc
@@ -59,6 +59,9 @@ LINK_FREETDS_STATICALLY=no %pyproject_wheel
 
 
 %changelog
+* Sun Sep 24 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.2.8-1
+- Update to 2.2.8
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

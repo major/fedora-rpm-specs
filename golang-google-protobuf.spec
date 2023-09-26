@@ -8,8 +8,6 @@ Version:                1.31.0
 
 %gometa -f
 
-%global goaltipaths github.com/golang/protobuf
-
 %global common_description %{expand:
 Go support for Google's protocol buffers.}
 

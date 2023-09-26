@@ -1,13 +1,9 @@
-#global commit		2394e7f7180542beccaad28cb557045ff07ecd48
-#global shortcommit	%(c=%{commit}; echo ${c:0:7})
-#global gitdate	20220331
-#global fgittag	%{gitdate}.git%{shortcommit}
 %global extdir		caffeine@patapon.info
 %global gschemadir	%{_datadir}/glib-2.0/schemas
 
 Name:		gnome-shell-extension-caffeine
-Version:	48
-Release:	2%{?fgittag:.%{fgittag}}%{?dist}
+Version:	50
+Release:	1%{?fgittag:.%{fgittag}}%{?dist}
 Summary:	Disable the screen saver and auto suspend in gnome shell
 
 License:	GPLv2
@@ -41,7 +37,6 @@ glib-compile-schemas --strict --targetdir=%{extdir}/schemas/ %{extdir}/schemas
 %install
 mkdir -p %{buildroot}%{_datadir}/gnome-shell/extensions
 cp -ar %{extdir} %{buildroot}%{_datadir}/gnome-shell/extensions/%{extdir}
-%find_lang %{name} --all-name
 
 # Fedora and EPEL 8 handles post scripts via triggers
 %if 0%{?rhel} && 0%{?rhel} <= 7
@@ -54,11 +49,17 @@ fi
 %{_bindir}/glib-compile-schemas %{gschemadir} &> /dev/null || :
 %endif
 
-%files -f %{name}.lang
+%files
 %license COPYING
 %{_datadir}/gnome-shell/extensions/%{extdir}
 
 %changelog
+* Sun Sep 24 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 50-1
+- Update to v50
+
+* Sun Sep 24 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 49-1
+- Update to v49
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 48-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

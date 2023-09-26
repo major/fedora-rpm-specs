@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The KPimTextEdit Library
 
 License: LGPLv2+
@@ -131,6 +131,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Sun Sep 24 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 23.08.1-3
+- Rebuild for ktextaddons 1.5.1 (#2239665)
+
 * Tue Sep 19 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 23.08.1-2
 - Rebase the patch to make Blogilo work, again! (#2239665)
 

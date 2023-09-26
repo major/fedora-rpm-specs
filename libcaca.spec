@@ -13,13 +13,15 @@
 Summary: Library for Colour AsCii Art, text mode graphics
 Name: libcaca
 Version: 0.99
-Release: 0.68.%{beta}%{?dist}
+Release: 0.69.%{beta}%{?dist}
 License: WTFPL
 URL: http://caca.zoy.org/wiki/libcaca
 
 Source0: https://github.com/cacalabs/libcaca/releases/download/v%{version}.%{beta}/%{name}-%{version}.%{beta}.tar.bz2
 Patch0: libcaca-0.99.beta16-multilib.patch
 Patch1: libcaca-0.99.beta20-c99.patch
+# https://github.com/cacalabs/libcaca/pull/66
+Patch2: libcaca-0.99.beta20-CVE-2022-0856.patch
 
 Buildrequires: doxygen
 BuildRequires: gcc-c++
@@ -69,6 +71,7 @@ objects that use libcaca.
 
 %package -n caca-utils
 Summary: Colour AsCii Art Text mode graphics utilities based on libcaca
+Requires: toilet
 
 %description -n caca-utils
 This package contains utilities and demonstration programs for libcaca, the
@@ -187,6 +190,10 @@ mv %{buildroot}%{_docdir}/libcaca-dev libcaca-dev-docs
 
 
 %changelog
+* Sun Sep 24 2023 Xavier Bachelot <xavier@bachelot.org> - 0.99-0.69.beta20
+- Fix CVE-2022-0856 (RHBZ#2081750)
+- Add missing Requires: for caca-utils (RHBZ#1701685)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-0.68.beta20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

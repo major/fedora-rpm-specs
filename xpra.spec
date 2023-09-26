@@ -1,7 +1,13 @@
 %bcond_with enc_x264
 %bcond_with enc_x265
+# Theses settings requires 64bit
+%if 0%{?__isa_bits} == 64
+%bcond_without dec_avcodec2
+%bcond_without csc_swscale
+%else
 %bcond_with dec_avcodec2
 %bcond_with csc_swscale
+%endif
 
 # For debugging only
 %bcond_with debug
@@ -64,11 +70,11 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libvpx-devel
 BuildRequires:  libXdamage-devel
 BuildRequires:  libXres-devel
-BuildRequires:  cups-devel, cups
+BuildRequires:  cups-devel
 BuildRequires:  python3-cups
 BuildRequires:  redhat-rpm-config
 BuildRequires:  python3-rpm-macros
-BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  pam-devel
 BuildRequires:  pandoc
 # needs by setup.py to detect systemd `sd_listen_ENABLED = POSIX and pkg_config_ok("--exists", "libsystemd")`
@@ -77,7 +83,6 @@ BuildRequires:  systemd-devel
 BuildRequires:  procps-ng-devel
 %endif
 BuildRequires:  pkgconfig(libavif)
-BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  libdrm-devel
 BuildRequires:  pkgconfig(libwebp)
@@ -102,9 +107,13 @@ BuildRequires: libasan
 %if %{with enc_x264}
 BuildRequires:  x264-devel
 %endif
-%if %{with dec_avcodec2} || %{with csc_swscale}
-BuildRequires:  ffmpeg-devel
-%endif
+# While ffmpeg-devel should only be needed in theses conditions, setup.py requires it anyway
+#if %%{with dec_avcodec2} || %%{with csc_swscale}
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswscale)
+#endif
 
 Requires: python3-pillow
 Requires: python3-cups
@@ -189,7 +198,7 @@ sed -i 's|-mfpmath=387|-mfloat-abi=hard|' setup.py
     --with-Xdummy \
     --with-Xdummy_wrapper \
     --without-strict \
-    --without-enc_ffmpeg
+    --with-enc_ffmpeg
 
 %install
 %py3_install

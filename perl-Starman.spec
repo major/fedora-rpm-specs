@@ -1,30 +1,56 @@
 Name:           perl-Starman
-Version:        0.4016
-Release:        3%{?dist}
+Version:        0.4017
+Release:        1%{?dist}
 Summary:        High-performance preforking PSGI/Plack web server
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Starman
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Starman-%{version}.tar.gz
 BuildArch:      noarch
+# build requirements
+BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl(Module::Build::Tiny)
+# runtime requirements
 BuildRequires:  perl(Data::Dump)
-BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(HTTP::Date)
 BuildRequires:  perl(HTTP::Parser::XS)
 BuildRequires:  perl(HTTP::Status)
-BuildRequires:  perl(LWP::UserAgent)
-BuildRequires:  perl(Module::Build::Tiny)
-BuildRequires:  perl(Net::Server)
+BuildRequires:  perl(IO::Socket)
+BuildRequires:  perl(Net::Server::PreFork)
+BuildRequires:  perl(Net::Server::SIG)
 BuildRequires:  perl(Net::Server::SS::PreFork)
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(Plack::TempBuffer)
+BuildRequires:  perl(Plack::Util)
+BuildRequires:  perl(Socket)
+BuildRequires:  perl(Symbol)
+BuildRequires:  perl(base)
+BuildRequires:  perl(constant)
 BuildRequires:  perl(parent)
-BuildRequires:  perl(Plack)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(Digest::MD5)
+BuildRequires:  perl(File::ShareDir)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(HTTP::Request)
+BuildRequires:  perl(HTTP::Request::Common)
+BuildRequires:  perl(HTTP::Response)
+BuildRequires:  perl(IO::Socket::INET)
+BuildRequires:  perl(LWP::Protocol::https)
+BuildRequires:  perl(LWP::UserAgent)
+BuildRequires:  perl(Plack::Loader)
+BuildRequires:  perl(Plack::Request)
 BuildRequires:  perl(Plack::Test)
-BuildRequires:  perl(Server::Starter)
+BuildRequires:  perl(Plack::Test::Suite)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::TCP)
+BuildRequires:  perl(subs)
 
 %{?perl_default_filter}
 
@@ -37,14 +63,12 @@ compatible and offers HTTP/1.1 support.
 %setup -q -n Starman-%{version}
 
 %build
-%{__perl} Build.PL --installdirs vendor
+/usr/bin/perl Build.PL --installdirs vendor
 ./Build
 
 %install
 ./Build install --destdir $RPM_BUILD_ROOT
-
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -62,6 +86,11 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Sun Sep 24 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.4017-1
+- Update ot 0.4017
+- Migrate to SPDX license
+- Rework dependencies
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4016-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

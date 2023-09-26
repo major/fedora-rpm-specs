@@ -5,7 +5,7 @@
 %global crate indicatif
 
 Name:           rust-indicatif
-Version:        0.17.6
+Version:        0.17.7
 Release:        %autorelease
 Summary:        Progress bar and cli reporting library for Rust
 

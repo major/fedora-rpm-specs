@@ -18,9 +18,9 @@ and which can read and write data files.}
 
 Name:           python-%{pypi_name}
 Version:        1.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python framework for setting up and running scientific simulations
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/stammler/%{pypi_name}
 Source0:        %{pypi_source %{pypi_name}}
 
@@ -95,6 +95,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %doc examples/
 
 %changelog
+* Sun Sep 24 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 1.0.4-2
+- Use SPDX
+
 * Wed Jul 26 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 1.0.4-1
 - Update to the latest release
 - Do not package the tests

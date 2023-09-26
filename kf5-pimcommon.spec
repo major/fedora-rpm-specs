@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: PIM common libraries
 
 License: GPLv2+
@@ -44,7 +44,7 @@ BuildRequires:  cmake(KPim5Ldap)
 BuildRequires:  cmake(KF5NewStuff)
 BuildRequires:  cmake(KF5Purpose)
 BuildRequires:  cmake(KF5Service)
-BuildRequires:  cmake(KF5TextAutoCorrection)
+BuildRequires:  cmake(KF5TextAutoCorrectionWidgets)
 BuildRequires:  cmake(KF5Wallet)
 BuildRequires:  cmake(KF5WidgetsAddons)
 BuildRequires:  cmake(KF5WindowSystem)
@@ -96,7 +96,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF5Config)
 # This dependency should probably be fixed upstrea
 # https://invent.kde.org/pim/pimcommon/-/issues/2
-Requires:       cmake(KF5TextAutoCorrection)
+Requires:       cmake(KF5TextAutoCorrectionWidgets)
 # akonadi
 Requires:       %{name}-akonadi%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF5Akonadi)
@@ -150,6 +150,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Sep 24 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 23.08.1-2
+- KF5TextAutoCorrection -> KF5TextAutoCorrectionWidgets (ktextaddons 1.5.1)
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

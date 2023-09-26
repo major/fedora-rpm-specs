@@ -1,6 +1,6 @@
 Name:           solaar
-Version:        1.1.9
-Release:        4%{?dist}
+Version:        1.1.10
+Release:        1%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
@@ -9,8 +9,6 @@ Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
 Patch:          0001-Install-udev-rules-into-correct-location.patch
 Patch:          0002-Install-alternative-udev-rules-for-wayland-compatibi.patch
 Patch:          0003-Install-autostart-desktop-file.patch
-# https://github.com/pwr-Solaar/Solaar/pull/2104
-Patch:          0004-Remove-udev-acl-tag-from-udev-rules.patch
 
 BuildArch:      noarch
 License:        GPLv2
@@ -125,6 +123,10 @@ fi
 
 
 %changelog
+* Sun Sep 24 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.1.10-1
+- update to 1.1.10 (#2239784)
+- drop obsolete patch
+
 * Fri Jul 28 2023 Carl George <carl@george.computer> - 1.1.9-4
 - Use alternative udev rules for wayland compatibility
 

@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 7.0.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: http://rubyonrails.org
@@ -31,6 +31,10 @@ Patch3: rubygem-activesupport-7.0.2.3-Fix-tests-for-minitest-5.16.patch
 # ActiveSupport always requires them.
 Requires: rubygem(bigdecimal)
 Requires: rubygem(json)
+
+# Runtime dependency, lot of build failures in other packages.
+# https://fedoraproject.org/wiki/Changes/AllowRemovalOfTzdata
+Requires: tzdata
 
 # Let's keep Requires and BuildRequires sorted alphabeticaly
 BuildRequires: ruby(release)
@@ -133,6 +137,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sun Sep 24 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.8-2
+- Add tzdata as a runtime dependency.
+
 * Sun Sep 10 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.8-1
 - Update to activesupport 7.0.8.
 

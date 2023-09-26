@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate semver
+%global crate ansiterm
 
-Name:           rust-semver
-Version:        1.0.19
+Name:           rust-ansiterm
+Version:        0.12.2
 Release:        %autorelease
-Summary:        Parser and evaluator for Cargo's flavor of Semantic Versioning
+Summary:        Library for ANSI terminal colours and styles (bold, underline)
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/semver
+License:        MIT
+URL:            https://crates.io/crates/ansiterm
 Source:         %{crates_source}
+# Automatically generated patch to strip foreign dependencies
+Patch:          ansiterm-fix-metadata-auto.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Parser and evaluator for Cargo's flavor of Semantic Versioning.}
+Library for ANSI terminal colours and styles (bold, underline).}
 
 %description %{_description}
 
@@ -30,8 +32,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENCE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,6 +48,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+ansi_colours-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ansi_colours-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ansi_colours" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ansi_colours-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+derive_serde_style-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+derive_serde_style-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "derive_serde_style" feature of the "%{crate}" crate.
+
+%files       -n %{name}+derive_serde_style-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -57,18 +82,6 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

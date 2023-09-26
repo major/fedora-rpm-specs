@@ -1,8 +1,8 @@
 %global alt_name GPaste
 
 Name:           gpaste
-Version:        44.0
-Release:        3%{?dist}
+Version:        45
+Release:        1%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD-2-Clause
@@ -27,7 +27,6 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(mutter-clutter-12)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(x11)
@@ -200,6 +199,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Sun Sep 24 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 45-1
+- Update to 45
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

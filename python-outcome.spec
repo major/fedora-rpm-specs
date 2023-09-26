@@ -2,7 +2,7 @@ Name:           python-outcome
 Version:        1.2.0
 Release:        %autorelease
 Summary:        Capture the outcome of Python function calls
-License:        MIT or Apache-2.0
+License:        MIT OR Apache-2.0
 URL:            https://github.com/python-trio/outcome
 Source:         %{pypi_source outcome}
 BuildArch:      noarch

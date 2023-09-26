@@ -1,14 +1,19 @@
 # Created by pyp2rpm-3.3.4
 %global pypi_name click-spinner
+%global commit b27b8d1e2785ce75be1433e579e05193a9b3a782
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{pypi_name}
 Version:        0.1.10
-Release:        11%{?dist}
+Release:        %autorelease
 Summary:        Spinner for Click
 
 License:        MIT
 URL:            https://github.com/click-contrib/click-spinner
-Source0:        %{pypi_source}
+# We *should* use the latest release + upstream's pull request #39, but versioneer plays with the output of git-archive
+# This prevents us cleanly applying upstream's patch, so we have to do the next best thing and pull that commit
+# If upstream publishes a new release, we can remove this
+Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 BuildArch:      noarch
 
 Provides:       python-blindspin = %{version}-%{release}
@@ -21,11 +26,15 @@ not suitable because you don’t know how much longer it would take.
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
+BuildRequires: sed
+
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(click)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(six)
+BuildRequires:  python3dist(wheel)
+BuildRequires:  python3dist(pip)
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -33,53 +42,27 @@ Click Spinner shows the user some progress when a progress bar is
 not suitable because you don’t know how much longer it would take.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -n %{pypi_name}-%{commit}
+# These are bad and should be removed once upstream takes a release
+sed -i "s/versioneer.get_version()/'%{version}'/g" setup.py
+sed -i "s/description-file/description_file/g" setup.py
+sed -i "/from . import _version/d" click_spinner/__init__.py
+sed -i "s/_version.get_versions()\['version'\]/'%{version}'/g" click_spinner/__init__.py
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files click_spinner
 
 %check
 %pytest -v tests
+%pyproject_check_import
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/click_spinner/
-%{python3_sitelib}/click_spinner-%{version}-py%{python3_version}.egg-info/
+%license LICENSE
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1.10-10
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.1.10-7
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.1.10-4
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Nov 26 2020 Fabian Affolter <mail@fabian-affolter.ch> - 0.1.10-2
-- Obsolete python-blindspin (#1883154)
-
-* Fri Sep 25 2020 Fabian Affolter <mail@fabian-affolter.ch> - 0.1.10-1
-- Initial package for Fedora
+%autochangelog

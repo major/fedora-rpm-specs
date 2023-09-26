@@ -3,9 +3,8 @@
 
 # https://github.com/DNSCrypt/dnscrypt-proxy
 %global goipath         github.com/DNSCrypt/dnscrypt-proxy
-Version:                2.1.4
-%global commit          a4eda395636a9ec56b4348026c6ec729788f1ff0
-%global distprefix      %nil
+Version:                2.1.5
+%global tag             2.1.5
 
 %gometa
 
@@ -48,7 +47,7 @@ BuildRequires: systemd-rpm-macros
 
 # Largely inspired by Arch packaging
 # https://git.archlinux.org/svntogit/community.git/tree/trunk/configuration.diff?h=packages/dnscrypt-proxy
-Patch0:         dnscrypt-proxy-2.1.4-custom_config.patch
+Patch0:         dnscrypt-proxy-2.1.5-custom_config.patch
 
 %description %{common_description}
 
@@ -77,6 +76,7 @@ install -Dpm 0644 dnscrypt-proxy/example-captive-portals.txt  %{buildroot}%{_sys
 install -Dpm 0644 dnscrypt-proxy/example-cloaking-rules.txt  %{buildroot}%{_sysconfdir}/%{name}/cloaking-rules.txt
 install -Dpm 0644 dnscrypt-proxy/example-forwarding-rules.txt  %{buildroot}%{_sysconfdir}/%{name}/forwarding-rules.txt
 install -Dpm 0644 %{S:1} %{buildroot}%{_unitdir}/dnscrypt-proxy.service
+install -m 0755 -vd %{buildroot}%{_localstatedir}/cache/%{name}
 
 %post
 dnscrypt-proxy -service stop
@@ -109,6 +109,7 @@ rm -rfv /etc/systemd/system/dnscrypt-proxy.service
 %ghost %config(noreplace) %{_sysconfdir}/%{name}/blacklist.txt
 %ghost %config(noreplace) %{_sysconfdir}/%{name}/whitelist.txt
 %ghost %{_sysconfdir}/systemd/system/dnscrypt-proxy.service
+%ghost %{_localstatedir}/cache/%{name}
 
 %changelog
 %autochangelog

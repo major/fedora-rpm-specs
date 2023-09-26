@@ -2,21 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate semver
+%global crate gix-index
 
-Name:           rust-semver
-Version:        1.0.19
+Name:           rust-gix-index
+Version:        0.24.0
 Release:        %autorelease
-Summary:        Parser and evaluator for Cargo's flavor of Semantic Versioning
+Summary:        Git index file implementation used by gix
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/semver
+URL:            https://crates.io/crates/gix-index
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Parser and evaluator for Cargo's flavor of Semantic Versioning.}
+A work-in-progress crate of the gitoxide project dedicated implementing
+the git index file.}
 
 %description %{_description}
 
@@ -32,6 +33,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,6 +49,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+document-features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+document-features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "document-features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+document-features-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -57,18 +71,6 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -86,7 +88,8 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# Skip test that requires a not published file (tests/ directory is not published with the crate)
+%cargo_test -- -- --skip entry_by_path_with_conflicting_file
 %endif
 
 %changelog

@@ -5,7 +5,7 @@
 %global crate md-5
 
 Name:           rust-md-5
-Version:        0.10.5
+Version:        0.10.6
 Release:        %autorelease
 Summary:        MD5 hash function
 
@@ -58,6 +58,30 @@ This package contains library source intended for building other packages which
 use the "asm" feature of the "%{crate}" crate.
 
 %files       -n %{name}+asm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+force-soft-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+force-soft-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "force-soft" feature of the "%{crate}" crate.
+
+%files       -n %{name}+force-soft-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+loongarch64_asm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+loongarch64_asm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "loongarch64_asm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+loongarch64_asm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+md5-asm-devel

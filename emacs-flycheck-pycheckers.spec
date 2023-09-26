@@ -1,11 +1,11 @@
 %global pkg flycheck-pycheckers
 
 Name:           emacs-%{pkg}
-Version:        0.15
-Release:        8%{?dist}
+Version:        0.16
+Release:        1%{?dist}
 Summary:        Multiple syntax checker for Python in Emacs, using Flycheck
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/msherry/%{pkg}/
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{pkg}-init.el
@@ -70,6 +70,10 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Sun Sep 24 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.16-1
+- Update to 0.16
+- Switch license tag to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

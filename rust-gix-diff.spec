@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate semver
+%global crate gix-diff
 
-Name:           rust-semver
-Version:        1.0.19
+Name:           rust-gix-diff
+Version:        0.35.0
 Release:        %autorelease
-Summary:        Parser and evaluator for Cargo's flavor of Semantic Versioning
+Summary:        Calculate differences between various git objects
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/semver
+URL:            https://crates.io/crates/gix-diff
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Drop wasm feature as Fedora does not support building against wasm targets
+Patch:          gix-diff-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Parser and evaluator for Cargo's flavor of Semantic Versioning.}
+Calculate differences between various git objects.}
 
 %description %{_description}
 
@@ -32,7 +35,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,6 +50,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+blob-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+blob-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "blob" feature of the "%{crate}" crate.
+
+%files       -n %{name}+blob-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+document-features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+document-features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "document-features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+document-features-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -57,18 +84,6 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

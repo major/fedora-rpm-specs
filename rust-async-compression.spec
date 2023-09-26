@@ -6,7 +6,7 @@
 %global crate async-compression
 
 Name:           rust-async-compression
-Version:        0.4.1
+Version:        0.4.3
 Release:        %autorelease
 Summary:        Adaptors between compression crates and Rust's modern asynchronous IO types
 
@@ -120,6 +120,18 @@ This package contains library source intended for building other packages which
 use the "deflate" feature of the "%{crate}" crate.
 
 %files       -n %{name}+deflate-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+deflate64-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deflate64-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deflate64" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deflate64-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+flate2-devel

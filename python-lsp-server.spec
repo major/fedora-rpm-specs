@@ -30,22 +30,16 @@ BuildRequires:  pyproject-rpm-macros
 Summary:        %{summary}
 
 Provides:       pylsp = %{version}-%{release}
-Requires:       python3dist(autopep8)
-Requires:       python3dist(flake8)
-Requires:       python3dist(mccabe)
-Requires:       python3dist(pycodestyle)
-Requires:       python3dist(pydocstyle)
-Requires:       python3dist(pyflakes)
-Requires:       python3dist(pylint)
-Requires:       python3dist(rope)
-Requires:       python3dist(yapf)
 
 
 %description -n python3-%{short_name} %_description
 
 
+%pyproject_extras_subpkg -n python3-%{short_name} all
+
+
 %prep
-%autosetup -p1 -n %{name}-%{version} -S git
+%forgeautosetup -p1 -S git
 git tag v%{version}
 
 %generate_buildrequires

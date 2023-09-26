@@ -1,17 +1,13 @@
 %global glib2_minver 2.72
 
 Name:           btrfsd
-Version:        0.1.0
+Version:        0.2.0
 Release:        1%{?dist}
 Summary:        Tiny Btrfs maintenance daemon
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ximion/btrfsd
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Backport from upstream
-## From: https://github.com/ximion/btrfsd/commit/2e512e1cd9c13d4c66dd89895ee86e69be7629d9
-Patch0001:      0001-Autodetect-btrfs-executable-location-by-default.patch
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  btrfs-progs
@@ -87,5 +83,8 @@ the daemon will be completely inert.
 
 
 %changelog
+* Sun Sep 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0-1
+- Update to 0.2.0
+
 * Thu Aug 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0-1
 - Initial packaging

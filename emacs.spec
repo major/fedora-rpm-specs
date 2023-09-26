@@ -5,7 +5,7 @@ Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
 Version:       29.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
@@ -41,6 +41,7 @@ BuildRequires: libtiff-devel
 BuildRequires: libX11-devel
 BuildRequires: libXau-devel
 BuildRequires: libXdmcp-devel
+BuildRequires: libXi-devel
 BuildRequires: libXrender-devel
 BuildRequires: libXt-devel
 BuildRequires: libXpm-devel
@@ -68,6 +69,9 @@ BuildRequires: harfbuzz-devel
 BuildRequires: jansson-devel
 BuildRequires: systemd-devel
 BuildRequires: libgccjit-devel
+BuildRequires: libtree-sitter-devel
+BuildRequires: libsqlite3x-devel
+BuildRequires: libwebp-devel
 
 BuildRequires: gtk3-devel
 BuildRequires: webkit2gtk4.1-devel
@@ -162,6 +166,14 @@ Provides:      emacs-transient = 0.3.7
 # version as of the release of emacs 28.1 is obsoleted
 Obsoletes:     emacs-transient < 0.3.0-4
 
+# Ideally, we'd package all tree-sitter parsers as RPMs, but, in the
+# meantime, we need the following packages for
+# treesit-install-language-grammar to be able to build the parsers for
+# us at runtime:
+Recommends:    ((gcc and gcc-c++) or clang)
+Recommends:    git
+
+
 %description common
 Emacs is a powerful, customizable, self-documenting, modeless text
 editor. Emacs contains special code editing features, a scripting
@@ -236,16 +248,18 @@ LDFLAGS=-Wl,-z,relro;  export LDFLAGS;
 %configure --with-dbus --with-gif --with-jpeg --with-png --with-rsvg \
            --with-tiff --with-xft --with-xpm --with-x-toolkit=lucid --with-gpm=no \
            --with-modules --with-harfbuzz --with-cairo --with-json \
-           --with-native-compilation
-%{setarch} %make_build bootstrap NATIVE_FULL_AOT=1
+           --with-native-compilation=aot --with-tree-sitter --with-sqlite3 \
+           --with-webp --with-xinput2
+%{setarch} %make_build bootstrap
 %{setarch} %make_build
 cd ..
 
 # Build binary without X support
 mkdir build-nox && cd build-nox
 ln -s ../configure .
-%configure --with-x=no --with-modules --with-json --with-native-compilation
-%{setarch} %make_build bootstrap NATIVE_FULL_AOT=1
+%configure --with-x=no --with-modules --with-json \
+           --with-native-compilation=aot --with-tree-sitter --with-sqlite3
+%{setarch} %make_build bootstrap
 %{setarch} %make_build
 cd ..
 
@@ -258,8 +272,9 @@ LDFLAGS=-Wl,-z,relro;  export LDFLAGS;
 %configure --with-dbus --with-gif --with-jpeg --with-png --with-rsvg \
            --with-tiff --with-xpm --with-x-toolkit=gtk3 --with-gpm=no \
            --with-xwidgets --with-modules --with-harfbuzz --with-cairo --with-json \
-           --with-native-compilation
-%{setarch} %make_build bootstrap NATIVE_FULL_AOT=1
+           --with-native-compilation=aot --with-tree-sitter --with-sqlite3 \
+           --with-webp --with-xinput2
+%{setarch} %make_build bootstrap
 %{setarch} %make_build
 cd ..
 
@@ -364,9 +379,8 @@ rm -f *-filelist {common,el}-*-files
 ( TOPDIR=${PWD}
   cd %{buildroot}
 
-  find .%{_datadir}/emacs/%{version}/lisp \
-    .%{_datadir}/emacs/%{version}/lisp/leim \
-    .%{_datadir}/emacs/site-lisp \( -type f -name '*.elc' -fprint $TOPDIR/common-lisp-none-elc-files \) -o \( -type d -fprintf $TOPDIR/common-lisp-dir-files "%%%%dir %%p\n" \) -o \( -name '*.el.gz' -fprint $TOPDIR/el-bytecomped-files -o -fprint $TOPDIR/common-not-comped-files \)
+  find .%{_datadir}/emacs/%{version}/lisp .%{site_lisp} \
+    \( -type f -name '*.elc' -fprint $TOPDIR/common-lisp-none-elc-files \) -o \( -type d -fprintf $TOPDIR/common-lisp-dir-files "%%%%dir %%p\n" \) -o \( -name '*.el.gz' -fprint $TOPDIR/el-bytecomped-files -o -fprint $TOPDIR/common-not-comped-files \)
 
 )
 
@@ -381,8 +395,7 @@ echo "%{_infodir}/info*" >> info-filelist
 
 # Put the lists together after filtering  ./usr to /usr
 sed -i -e "s|\.%{_prefix}|%{_prefix}|" *-files
-cat common-*-files > common-filelist
-cat el-*-files common-lisp-dir-files > el-filelist
+grep -vhE '%{site_lisp}(|/(default\.el|site-start\.d|site-start\.el))$' {common,el}-*-files > common-filelist
 
 # Remove old icon
 rm %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/emacs-document23.svg
@@ -486,7 +499,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %attr(0755,-,-) %ghost %{_bindir}/emacs
 %attr(0755,-,-) %ghost %{_bindir}/emacs-nox
 
-%files common -f common-filelist -f el-filelist -f info-filelist
+%files common -f common-filelist -f info-filelist
 %config(noreplace) %{_sysconfdir}/skel/.emacs
 %{_rpmconfigdir}/macros.d/macros.emacs
 %license etc/COPYING
@@ -508,8 +521,8 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{emacs_libexecdir}/hexl
 %{emacs_libexecdir}/rcs2log
 %{_userunitdir}/emacs.service
-%attr(0644,root,root) %config(noreplace) %{_datadir}/emacs/site-lisp/default.el
-%attr(0644,root,root) %config %{_datadir}/emacs/site-lisp/site-start.el
+%attr(0644,root,root) %config(noreplace) %{site_lisp}/default.el
+%attr(0644,root,root) %config %{site_lisp}/site-start.el
 %{pkgconfig}/emacs.pc
 
 %files terminal
@@ -525,6 +538,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Fri Apr 14 2023 Peter Oliver <rpm@mavit.org.uk> - 1:28.2-5
+- Eliminate "file listed twice" warings during RPM build.
+
+* Sun Aug  6 2023 Peter Oliver <rpm@mavit.org.uk> - 1:29.1-2
+- Enable new features in Emacs 29: SQLite, Tree-sitter, WEBP, XInput 2.
+
 * Mon Jul 31 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1:29.1-1
 - New upstream release 29.1, fixes rhbz#2227492
 

@@ -5,7 +5,7 @@
 %global crate tungstenite
 
 Name:           rust-tungstenite
-Version:        0.18.0
+Version:        0.20.1
 Release:        %autorelease
 Summary:        Lightweight stream-based WebSocket implementation
 
@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tungstenite
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * drop unused, benchmark-only criterion dev-dependency
 Patch:          tungstenite-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -51,16 +51,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+base64-devel
+%package     -n %{name}+data-encoding-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+base64-devel %{_description}
+%description -n %{name}+data-encoding-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "base64" feature of the "%{crate}" crate.
+use the "data-encoding" feature of the "%{crate}" crate.
 
-%files       -n %{name}+base64-devel
+%files       -n %{name}+data-encoding-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+handshake-devel

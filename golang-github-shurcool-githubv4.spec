@@ -4,7 +4,7 @@
 
 # https://github.com/shurcooL/githubv4
 %global goipath         github.com/shurcooL/githubv4
-%global commit          6cea62ecd5a953a32385602474d53a25234276eb
+%global commit          599ae7bbf278c79d7354974febd1f6684dfe30cd
 
 %gometa -f
 
@@ -17,7 +17,7 @@ Package githubv4 is a client library for accessing GitHub GraphQL API v4
 
 Name:           %{goname}
 Version:        0
-Release:        0.10%{?dist}
+Release:        0.11%{?dist}
 Summary:        Package githubv4 is a client library for accessing GitHub GraphQL API v4
 
 License:        MIT
@@ -46,6 +46,9 @@ Source:         %{gosource}
 %gopkgfiles
 
 %changelog
+* Sun Sep 24 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0-0.11
+- Update to latest commit
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

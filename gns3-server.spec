@@ -35,6 +35,7 @@ Requires: docker
 Requires: qemu-kvm
 %endif
 Requires: ubridge >= 0.9.14
+Requires: cpulimit
 
 
 
@@ -57,10 +58,10 @@ Requires: %{name} = %{version}-%{release}
 
 # Relax requirements
 sed -i -r 's/==/>=/g' requirements.txt
-sed -i -r 's/distro>=1.8.*/distro>=1.6.0/' requirements.txt
+sed -i -r 's/distro>=1.8.*/distro>=1.5.0/' requirements.txt
 sed -i -r 's/psutil>=5.9.5/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/aiofiles>=23.2.1,<23.3/aiofiles>=0.7/' requirements.txt
-sed -i -r 's/Jinja2>=3.1.2,<3.2/jinja2>=3.0.1/' requirements.txt
+sed -i -r 's/Jinja2>=3.1.2,<3.2/jinja2>=2.11.3/' requirements.txt
 sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
 sed -i -r 's/importlib-resources>=1.3; python_version <= \x273.9\x27/importlib-resources>=1.3; python_version < \x273.9\x27/' requirements.txt

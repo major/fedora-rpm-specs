@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Message libraries
 
 License: GPLv2
@@ -51,7 +51,7 @@ BuildRequires:  kf5-rpm-macros >= %{kf5_ver}
 
 BuildRequires:  cmake(KF5NewStuff)
 BuildRequires:  cmake(KF5SyntaxHighlighting)
-BuildRequires:  cmake(KF5TextAutoCorrection)
+BuildRequires:  cmake(KF5TextAutoCorrectionWidgets)
 
 #global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global majmin_ver %{version}
@@ -174,6 +174,10 @@ Requires:       cmake(Qt5WebEngine)
 
 
 %changelog
+* Sun Sep 24 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 23.08.1-2
+- Rebuild for ktextaddons 1.5.1 (#2239665)
+- KF5TextAutoCorrection -> KF5TextAutoCorrectionWidgets (ktextaddons 1.5.1)
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

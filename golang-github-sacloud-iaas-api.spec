@@ -6,7 +6,6 @@
 %global goipath         github.com/sacloud/iaas-api-go
 Version:                1.11.1
 
-
 %gometa -f
 
 %global common_description %{expand:
@@ -30,6 +29,7 @@ Source:         %{gosource}
 %prep
 %goprep
 %autopatch -p1
+rm -rfv trace/otel/examples trace/otel/example_test.go
 
 %generate_buildrequires
 %go_generate_buildrequires

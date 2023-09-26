@@ -3,11 +3,11 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           cppmyth
-Version:        2.14.7
-Release:        3%{?dist}
+Version:        2.15.1
+Release:        1%{?dist}
 Summary:        Client interface for the MythTV backend
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/janbar/%{name}/
 Source0:        %{url}/archive/%{shortcommit}/%{name}-%{version}.tar.gz
 
@@ -55,6 +55,10 @@ applications that use %{name}.
 
 
 %changelog
+* Sun Sep 24 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.15.1-1
+- Update to 2.15.1
+- Switch license tag to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
