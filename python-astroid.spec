@@ -1,8 +1,8 @@
 %global srcname     astroid
-%global commit      8d57ce2f3e226c2ac3cdd7f6a57dac2dd5ec5a4b
+%global commit      3dbb5d7fba0acba98cc2b8f8271e7194ab3d47a0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-Version:        3.0.0~a6~20230628%{shortcommit}
+Version:        3.0.0~b0~20230925%{shortcommit}
 
 Name:           python-astroid
 # Note: please check that this doesn't break pylint before committing and building! -GC
@@ -48,8 +48,6 @@ Summary:        %{summary}
 %pyproject_install
 # https://github.com/pylint-dev/astroid/pull/2156#issuecomment-1612640531
 rm -rf %{buildroot}%{python3_sitelib}/tests
-rm %{buildroot}%{python3_sitelib}/requirements*
-rm %{buildroot}%{python3_sitelib}/tox.ini
 
 
 %check

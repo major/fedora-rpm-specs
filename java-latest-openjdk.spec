@@ -2107,10 +2107,11 @@ $JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=tru
 if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
 
 # Check alt-java launcher has SSB mitigation on supported architectures
+# set_speculation function exists in both cases, so check for prctl call
 %ifarch %{ssbd_arches}
-nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation
+nm $JAVA_HOME/bin/%{alt_java_name} | grep prctl
 %else
-if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation ; then true ; else false; fi
+if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep prctl ; then true ; else false; fi
 %endif
 
 # Check correct vendor values have been set
@@ -2398,6 +2399,7 @@ cjc.mainProgram(args)
 * Tue Sep 19 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.0.0.35-2.rolling
 - adapted to new path in sources
 - repacked alt-java from misc subpkg
+- adapted alt-java to grep correctly prctl
 - removed no longer prepared nss.cfg
 
 * Tue Aug 29 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.0.0.35-1.rolling

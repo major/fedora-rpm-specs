@@ -8,8 +8,8 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        1.5.1
-Release:        2%{?dist}
+Version:        1.6.1
+Release:        1%{?dist}
 
 # SPDX
 License:        MIT
@@ -59,6 +59,7 @@ Conflicts:      python3-virtualenv < 20.19.0-2
 # Relax version constraint to allow older virtualenv we have in Fedora
 # Downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=2188155#c8 
 sed -i 's/virtualenv = "^20.22.0"/virtualenv = ">=20.21.1"/' pyproject.toml
+sed -i 's/jsonschema = ">=4.10.0,<4.18.0"/jsonschema = ">=4.10.0,<4.20.0"/' pyproject.toml
 
 
 %generate_buildrequires
@@ -122,6 +123,10 @@ not test_builder_setup_generation_runs_with_pip_editable"
 
 
 %changelog
+* Mon Sep 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.6.1-1
+- Update to 1.6.1
+- Fixes: rhbz#2233038
+
 * Fri Jul 28 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.5.1-2
 - Update to 1.5.1
 

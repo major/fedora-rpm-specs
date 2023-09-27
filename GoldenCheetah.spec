@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 
 #For git snapshots, set to 0 to use release instead:
-%global usesnapshot 1
+%global usesnapshot 0
 %if 0%{?usesnapshot}
 %global commit0 0d979f9fb90b0676c0e6d93b2b952afda6622de9
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
@@ -16,8 +16,8 @@ Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
 Release:        0.26.RC4%{?dist}
 %else
-Version:        3.5
-Release:        2%{?dist}
+Version:        3.6
+Release:        1%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
@@ -26,7 +26,7 @@ URL:            http://www.goldencheetah.org/
 %if 0%{?usesnapshot}
 Source0:        https://github.com/GoldenCheetah/GoldenCheetah/archive/refs/tags/v3.6%{?gc_rc}.tar.gz#/%{name}-%{version}%{?gc_rc}.tar.gz
 %else
-Source0:        https://github.com/GoldenCheetah/GoldenCheetah/archive/V%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/GoldenCheetah/GoldenCheetah/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
 Source1:        %{name}.desktop
 # https://github.com/GoldenCheetah/GoldenCheetah/issues/2690
@@ -158,6 +158,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Mon Sep 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:3.6-1
+- Update to 3.6-1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6-0.26.RC4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

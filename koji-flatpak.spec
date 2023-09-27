@@ -1,4 +1,4 @@
-%global project_version 0.2
+%global project_version 0.3
 %global flatpak_module_tools_min_version 1.0~a5
 
 Name:           koji-flatpak
@@ -97,6 +97,11 @@ install -p -m 0644 koji_flatpak/plugins/flatpak_cli_plugin.py %{buildroot}%{pyth
 
 
 %changelog
+* Tue Aug 22 2023 Owen Taylor <otaylor@redhat.com> - 0.3-1
+- Version 0.2
+  Handle output tarfile being <base>.oci.tar rather than <base>.oci.tar.gz (changed
+  in flatpak-module-tools-1.0a8 - current code here handles both.)
+
 * Tue Aug 22 2023 Owen Taylor <otaylor@redhat.com> - 0.2-1
 - Version 0.2
   Handle case where the main package name doesn't match the corresponding source package.

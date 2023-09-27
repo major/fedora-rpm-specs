@@ -14,8 +14,8 @@
 
 %global maj_ver 17
 %global min_ver 0
-%global patch_ver 0
-%global rc_ver 4
+%global patch_ver 1
+#global rc_ver 4
 %if %{with snapshot_build}
 %global maj_ver %{llvm_snapshot_version_major}
 %global min_ver %{llvm_snapshot_version_minor}
@@ -130,6 +130,9 @@ mv %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/powerpc64le-redhat-linux-gnu 
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Mon Sep 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.1-1
+- Update to LLVM 17.0.1
 
 * Mon Sep 11 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-1
 - Update to LLVM 17.0.0 RC4

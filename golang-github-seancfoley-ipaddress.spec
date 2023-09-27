@@ -4,7 +4,7 @@
 
 # https://github.com/seancfoley/ipaddress-go
 %global goipath         github.com/seancfoley/ipaddress-go
-Version:                1.5.4
+Version:                1.5.5
 
 %gometa -f
 

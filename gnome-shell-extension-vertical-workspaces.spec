@@ -3,11 +3,11 @@
 # Define a commit here to switch to snapshot versioning.  Note that just adding
 # a `#` to the beginning of this line is insufficient to disable snapshot
 # versioning, as RPM allows you to define macros anywhere, even in comments.
-%global commit      f97df409687129c24123b0838ca8574f49367939
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global commit      b9220e967d830e19866d15eff70adb5091e2a39c
+%global shortcommit %{lua:print(macros.commit:sub(1,7))}
 
 Name:           gnome-shell-extension-%{extension}
-Version:        37.5%{?commit:^1.%{shortcommit}}
+Version:        37.5%{?commit:^2.%{shortcommit}}
 Release:        %autorelease
 Summary:        Customize your GNOME Shell UX to suit your workflow
 License:        GPL-3.0-only
@@ -17,11 +17,11 @@ BuildArch:      noarch
 %if %{defined commit}
 Source:         %{url}/archive/%{commit}/%{extension}-%{shortcommit}.tar.gz
 %else
-Source:         %{url}/archive/v%{version}-fix-version/%{extension}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
 %endif
 
 BuildRequires:  gettext
-Requires:       gnome-shell >= 45~alpha
+Requires:       (gnome-shell >= 45~ with gnome-shell < 46~)
 Recommends:     gnome-extensions-app
 Provides:       %{extension} = %{version}-%{release}
 
@@ -32,7 +32,7 @@ horizontally or vertically stacked workspaces.
 
 
 %prep
-%autosetup -n %{extension}-%{?commit:%{commit}}%{!?commit:%{version}-fix-version}
+%autosetup -n %{extension}-%[ %{defined commit} ? "%{commit}" : "%{version}" ]
 
 
 %install

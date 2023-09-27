@@ -1,6 +1,6 @@
 Name:    kdepim-addons
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional plugins for KDE PIM applications
 
 License: GPLv2 and LGPLv2+
@@ -39,7 +39,8 @@ BuildRequires:  cmake(KF5Holidays)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5KHtml)
 BuildRequires:  cmake(KF5Prison)
-BuildRequires:  cmake(KF5TextAutoCorrection)
+BuildRequires:  cmake(KF5TextGrammarCheck)
+BuildRequires:  cmake(KF5TextTranslator)
 BuildRequires:  cmake(KF5XmlGui)
 
 BuildRequires:  cmake(KPim5Akonadi)
@@ -179,6 +180,10 @@ Supplements:    korganizer
 
 
 %changelog
+* Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Rebuild against ktextaddons 1.5.1
+- Fix cmake dependencies
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

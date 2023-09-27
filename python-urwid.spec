@@ -3,15 +3,13 @@
 %global srcname urwid
 
 Name:          python-%{srcname}
-Version:       2.1.2
-Release:       10%{?dist}
+Version:       2.2.1
+Release:       1%{?dist}
 Summary:       Console user interface library
 
 License:       LGPLv2+
 URL:           http://excess.org/urwid/
 Source0:       %{pypi_source urwid}
-
-Patch1:        rhbz-2220920.patch
 
 %global _description\
 Urwid is a Python library for making text console applications.  It has\
@@ -27,17 +25,16 @@ control.
 Summary: %summary
 %{?python_provide:%python_provide python3-urwid}
 BuildRequires: gcc
-# patch application
-BuildRequires: git-core
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+BuildRequires: python3-setuptools_scm
 # needed by selftest suite for test.support
 BuildRequires: python3-test
 
 %description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -Sgit -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version}
 find urwid -type f -name "*.py" -exec sed -i -e '/^#!\//, 1d' {} \;
 find urwid -type f -name "*.py" -exec chmod 644 {} \;
 
@@ -62,6 +59,9 @@ PYTHON=%{__python3} %{__python3} setup.py test || :
 %{python3_sitearch}/urwid-%{version}*.egg-info/
 
 %changelog
+* Fri Sep 22 2023 Packit <hello@packit.dev> - 2.2.1-1
+- New upstream release 2.2.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

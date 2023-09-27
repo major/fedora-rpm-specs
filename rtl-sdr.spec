@@ -1,6 +1,6 @@
 %global __cmake_in_source_build 1
-%global git_commit 142325a93c6ad70f851f43434acfdf75e12dfe03
-%global git_date 20230403
+%global git_commit 1261fbb285297da08f4620b18871b6d6d9ec2a7b
+%global git_date 20230921
 
 %global git_short_commit %(echo %{git_commit} | cut -c -8)
 %global git_suffix %{git_date}git%{git_short_commit}
@@ -13,7 +13,7 @@
 Name:             rtl-sdr
 URL:              http://sdr.osmocom.org/trac/wiki/rtl-sdr
 Version:          0.6.0^%{git_suffix}
-Release:          3%{?dist}
+Release:          1%{?dist}
 License:          GPLv2+
 BuildRequires:    gcc
 BuildRequires:    cmake
@@ -80,6 +80,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Sep 21 2023 Daniel Rusek <mail@asciiwolf.com> - 0.6.0^20230921git1261fbb2-1
+- Updated to latest commit adding rtl-sdr blog v4 support
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0^20230403git142325a9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

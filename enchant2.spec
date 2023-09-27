@@ -1,11 +1,11 @@
 %bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
 
 Name:          enchant2
-Version:       2.5.0
-Release:       5%{?dist}
+Version:       2.6.1
+Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
-License:       LGPLv2+
+License:       LGPL-2.0-or-later
 URL:           https://github.com/AbiWord/enchant
 Source0:       https://github.com/AbiWord/enchant/releases/download/v%{version}/enchant-%{version}.tar.gz
 
@@ -220,6 +220,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Mon Sep 25 2023 Sandro Mani <manisandro@gmail.com> - 2.6.1-1
+- Update to 2.6.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

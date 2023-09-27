@@ -4,7 +4,7 @@
 
 Name:           python-keyring
 Version:        24.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Store and access your passwords safely
 
 License:        MIT
@@ -140,6 +140,9 @@ install -D -p -m 0644 keyring.tcsh \
 
 
 %changelog
+* Mon Sep 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 24.2.0-2
+- Bump release after python-keyring-24.2.0-1.fc40 was untagged
+
 * Fri Sep 01 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 24.2.0-1
 - Update to 24.2.0
 - Fixes: rhbz#2154699

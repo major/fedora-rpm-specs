@@ -5,7 +5,7 @@
 %global crate rayon
 
 Name:           rust-rayon
-Version:        1.7.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Simple work-stealing parallelism for Rust
 

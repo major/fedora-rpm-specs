@@ -9,7 +9,7 @@
 
 Name:           perl-Module-ScanDeps
 Summary:        Recursively scan Perl code for dependencies
-Version:        1.33
+Version:        1.34
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-ScanDeps
@@ -51,8 +51,10 @@ BuildRequires:  perl(version)
 # VMS::Filespec never used
 # Tests:
 BuildRequires:  perl(autouse)
+BuildRequires:  perl(blib)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(if)
+BuildRequires:  perl(IPC::Run3) >= 0.048
 BuildRequires:  perl(less)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Net::FTP)
@@ -85,10 +87,6 @@ Suggests:       perl(CPANPLUS::Backend)
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}/%{name}
 %global __requires_exclude_from %{?__requires_exclude_from:%__requires_exclude_from|}^%{_libexecdir}/%{name}/t/data
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Utils\\)
-%if %{defined perl_bootstrap} || %{without perl_Module_ScanDeps_enables_prefork}
-%global __requires_exclude %{__requires_exclude}|^perl\\(prefork\\)
-%endif
-
 
 %description
 This module scans potential modules used by perl programs and returns a
@@ -105,7 +103,12 @@ Requires:       perl(if)
 Requires:       perl(less)
 Requires:       perl(Net::FTP)
 # Optional tests:
+%if %{with perl_Module_ScanDeps_enables_optional_tests}
 Requires:       perl(Module::Pluggable)
+%if !%{defined perl_bootstrap} && %{with perl_Module_ScanDeps_enables_prefork}
+Requires:       perl(prefork)
+%endif
+%endif
 
 %description tests
 Tests from %{name}. Execute them
@@ -132,6 +135,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 rm -f %{buildroot}%{_libexecdir}/%{name}/t/0-pod.t
+perl -i -pe 's{ "-Mblib",}{}' %{buildroot}%{_libexecdir}/%{name}/t/19-autosplit.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
@@ -162,6 +166,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.34-1
+- 1.34 bump (rhbz#2240459)
+
 * Wed Aug 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.33-1
 - 1.33 bump (rhbz#2229212)
 

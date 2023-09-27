@@ -6,7 +6,7 @@
 %bcond doc_pdf 1
 
 Name:           python-llvmlite
-Version:        0.40.1
+Version:        0.41.0
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
 
@@ -32,7 +32,7 @@ Source0:        %{forgeurl}/archive/v%{version}/llvmlite-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 
-# 0.40.0 only supports llvm14
+# 0.41.0 only supports llvm14
 BuildRequires:  llvm14-devel
 BuildRequires:  gcc-c++
 

@@ -29,6 +29,9 @@
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %global wasm_targets wasm32-unknown-unknown wasm32-wasi
 %endif
+%if 0%{?fedora} || 0%{?rhel} >= 10
+%global extra_targets x86_64-unknown-none x86_64-unknown-uefi
+%endif
 %endif
 
 # We need CRT files for *-wasi targets, at least as new as the commit in
@@ -85,7 +88,7 @@
 
 Name:           rust
 Version:        1.72.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -101,8 +104,8 @@ Source0:        https://static.rust-lang.org/dist/%{rustc_package}.tar.xz
 Source1:        %{wasi_libc_source}
 # Sources for bootstrap_arches are inserted by lua below
 
-# By default, rust tries to use "rust-lld" as a linker for WebAssembly.
-Patch1:         0001-Use-lld-provided-by-system-for-wasm.patch
+# By default, rust tries to use "rust-lld" as a linker for some targets.
+Patch1:         0001-Use-lld-provided-by-system.patch
 
 # Set a substitute-path in rust-gdb for standard library sources.
 Patch2:         rustc-1.70.0-rust-gdb-substitute-path.patch
@@ -237,7 +240,7 @@ BuildRequires:  cmake >= 2.8.11
 %global llvm llvm14
 %endif
 # not ready for llvm-17 yet...
-%if 0%{?fedora} >= 39
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
 %global llvm llvm16
 %endif
 %if %defined llvm
@@ -420,6 +423,32 @@ Provides:       bundled(wasi-libc)
 %description std-static-{{triple}}
 This package includes the standard libraries for building applications
 written in Rust for the WebAssembly target {{triple}}.
+
+]], "{{(%w+)}}", subs)
+    print(s)
+  end
+end}
+%endif
+
+
+%if %defined extra_targets
+%{lua: do
+  for triple in string.gmatch(rpm.expand("%{extra_targets}"), "%S+") do
+    local subs = {
+      triple = triple,
+      name = rpm.expand("%{name}"),
+      verrel = rpm.expand("%{version}-%{release}"),
+    }
+    local s = string.gsub([[
+
+%package std-static-{{triple}}
+Summary:        Standard library for Rust {{triple}}
+Requires:       {{name}} = {{verrel}}
+Requires:       lld >= 8.0
+
+%description std-static-{{triple}}
+This package includes the standard libraries for building applications
+written in Rust for the embedded target {{triple}}.
 
 ]], "{{(%w+)}}", subs)
     print(s)
@@ -801,7 +830,7 @@ PROFILER=$(find %{_libdir}/clang -type f -name 'libclang_rt.profile-*.a')
 %{__python3} ./x.py build -j "$ncpus"
 %{__python3} ./x.py doc
 
-for triple in %{?mingw_targets} %{?wasm_targets}; do
+for triple in %{?mingw_targets} %{?wasm_targets} %{?extra_targets}; do
   %{__python3} ./x.py build --target=$triple std
 done
 
@@ -813,7 +842,7 @@ done
 
 DESTDIR=%{buildroot} %{__python3} ./x.py install
 
-for triple in %{?mingw_targets} %{?wasm_targets}; do
+for triple in %{?mingw_targets} %{?wasm_targets} %{?extra_targets}; do
   DESTDIR=%{buildroot} %{__python3} ./x.py install --target=$triple std
 done
 
@@ -1013,6 +1042,27 @@ end}
 end}
 %endif
 
+%if %defined extra_targets
+%{lua: do
+  for triple in string.gmatch(rpm.expand("%{extra_targets}"), "%S+") do
+    local subs = {
+      triple = triple,
+      rustlibdir = rpm.expand("%{rustlibdir}"),
+    }
+    local s = string.gsub([[
+
+%files std-static-{{triple}}
+%dir {{rustlibdir}}
+%dir {{rustlibdir}}/{{triple}}
+%dir {{rustlibdir}}/{{triple}}/lib
+{{rustlibdir}}/{{triple}}/lib/*.rlib
+
+]], "{{(%w+)}}", subs)
+    print(s)
+  end
+end}
+%endif
+
 
 %files debugger-common
 %dir %{rustlibdir}
@@ -1088,6 +1138,11 @@ end}
 
 
 %changelog
+* Mon Sep 25 2023 Josh Stone <jistone@redhat.com> - 1.72.1-2
+- Fix LLVM dependency for ELN
+- Add build target for x86_64-unknown-none
+- Add build target for x86_64-unknown-uefi
+
 * Tue Sep 19 2023 Josh Stone <jistone@redhat.com> - 1.72.1-1
 - Update to 1.72.1.
 - Migrated to SPDX license

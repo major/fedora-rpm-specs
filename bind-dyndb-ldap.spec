@@ -12,7 +12,7 @@
 
 Name:           bind-dyndb-ldap
 Version:        11.10
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPLv2+
@@ -29,12 +29,15 @@ Patch2:         bind-dyndb-ldap-bind-9.18.10-logs.patch
 Patch3:         bind-dyndb-ldap-bind-9.18.10-staleok.patch
 Patch4: bind-dyndb-ldap-11.10-bind-9.18.11.patch
 Patch5: bind-dyndb-ldap-11.10-bind-9.18.13.patch
+# https://pagure.io/bind-dyndb-ldap/pull-request/226
+Patch6: bind-dyndb-ldap-11.10-bind-9.18.19.patch
 
 BuildRequires:  bind-devel >= %{bind_version}, bind-lite-devel >= %{bind_version}
 BuildRequires:  krb5-devel
 BuildRequires:  openldap-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  automake, autoconf, libtool
+BuildRequires:  autoconf-archive
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2165256
 Conflicts: bind9-next
@@ -127,6 +130,10 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Mon Sep 25 2023 Petr Menšík <pemensik@redhat.com> - 11.10-21
+- Support for bind 9.18.19 (#2232346)
+- Require autoconf-archive at build time
+
 * Wed Sep 06 2023 Petr Menšík <pemensik@redhat.com> - 11.10-20
 - Rebuilt for BIND 9.18.18 (#2232346)
 

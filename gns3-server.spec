@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.43
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -14,6 +14,7 @@ URL:            http://gns3.com
 Source0:        https://github.com/GNS3/gns3-server/archive/v%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source1:        gns3.service
 Patch0:         0001-changing-busybox-udhcpc-script-path.patch
+Patch1:         https://github.com/GNS3/gns3-server/commit/999a47f747abed6ca18b1dc6f19d9552c30cf030.patch
 
 BuildArch:      noarch
 
@@ -64,7 +65,6 @@ sed -i -r 's/aiofiles>=23.2.1,<23.3/aiofiles>=0.7/' requirements.txt
 sed -i -r 's/Jinja2>=3.1.2,<3.2/jinja2>=2.11.3/' requirements.txt
 sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
-sed -i -r 's/importlib-resources>=1.3; python_version <= \x273.9\x27/importlib-resources>=1.3; python_version < \x273.9\x27/' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r 's/truststore.*//g' requirements.txt
 sed -i -r '/setuptools/d' requirements.txt
@@ -143,6 +143,11 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Tue Sep 19 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.43-2
+- Backported importlib_resources fix
+- lower distro and jinja2 requirements
+- cpulimit required for gns3server/compute/qemu/qemu_vm.py
+
 * Tue Sep 19 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.43-1
 - Update to 2.2.43
 

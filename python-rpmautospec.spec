@@ -126,7 +126,7 @@ install -m 644  rpm/macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
 %endif
 
 %check
-%pytest \
+%pytest -v \
 %if %{with xdist}
 --numprocesses=auto
 %endif

@@ -5,7 +5,7 @@
 %global crate serde-sarif
 
 Name:           rust-serde-sarif
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Serde serialization for SARIF files
 

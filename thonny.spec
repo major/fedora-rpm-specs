@@ -1,5 +1,5 @@
 Name:           thonny
-Version:        4.1.1
+Version:        4.1.2
 Release:        1%{?dist}
 Summary:        Python IDE for beginners
 
@@ -97,6 +97,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.thonn
 
 
 %changelog
+* Mon Sep 25 2023 abrarwali <abrarwali@tutanota.com> - 4.1.2-1
+- New Upstream Version 4.1.2
+
 * Thu Aug 10 2023 abrarwali <abrarwali@tutanota.com> - 4.1.1-1
 - New Upstream Version 4.1.1
 

@@ -1,15 +1,13 @@
-%global commit 1cfa7c637f745be9d98777f06b4f8dec90892bf2
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global debug_package %{nil}
 
 Name:           zeal
-Version:        0.6.2
-Release:        5.20230618.%{shortcommit}%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        Offline documentation browser inspired by Dash
 
 License:        GPLv3+
 URL:            https://zealdocs.org/
-Source:         https://github.com/zealdocs/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source:         https://github.com/zealdocs/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-apply-websettings.patch
 
 # We should use %%qt6_qtwebengine_arches provided by qt6-srpm-macros
@@ -50,7 +48,7 @@ Zeal is a simple offline documentation browser inspired by Dash.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1 -n %{name}-%{version}
 
 
 %build
@@ -81,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.zealdocs.z
 
 
 %changelog
+* Sun Sep 24 2023 Lumír Balhar <lbalhar@redhat.com> - 0.7.0-1
+- Update to 0.7.0 (rhbz#2240281)
+
 * Wed Jul 26 2023 Björn Esser <besser82@fedoraproject.org> - 0.6.2-5.20230618.1cfa7c6
 - Rebuild(qt6)
 

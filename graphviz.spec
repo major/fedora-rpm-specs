@@ -103,8 +103,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		8.1.0
-Release:		6%{?dist}
+Version:		9.0.0
+Release:		1%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -207,6 +207,8 @@ Requires(post):		/sbin/ldconfig
 Requires(postun):	/sbin/ldconfig
 # rhbz#1838679
 Patch0:			graphviz-4.0.0-gvpack-neato-static.patch
+# https://gitlab.com/graphviz/graphviz/-/issues/2448
+Patch1:			graphviz-9.0.0-doxygen-fix.patch
 
 %if ! %{JAVA}
 Obsoletes:              graphviz-java < %{version}-%{release}
@@ -775,6 +777,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon Sep 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 9.0.0-1
+- New version
+  Resolves: rhbz#2238427
+
 * Tue Aug 22 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.1.0-6
 - Dropped unused xserver fonts dependency
 

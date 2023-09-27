@@ -2,20 +2,20 @@
 %bcond_without check
 
 %global min_llvm 14
+%if %{fedora} >= 39
+%global max_llvm 17
+%else
 %if %{fedora} >= 38
 %global max_llvm 16
 %else
-%if %{fedora} >= 37
 %global max_llvm 15
-%else
-%global max_llvm 14
 %endif
 %endif
 
 # https://github.com/tinygo-org/go-llvm
 %global goipath         tinygo.org/x/go-llvm
 %global forgeurl        https://github.com/tinygo-org/go-llvm
-%global commit          dcb078a262665943160fa7b6a8dd219c2e2fc990
+%global commit          e9707ccad600f53e0844c64256be978cdb4844e5
 
 %gometa
 
@@ -33,18 +33,9 @@ Summary:        Go bindings to a system-installed LLVM
 License:        Apache-2.0 AND NCSA
 URL:            %{gourl}
 Source0:        %{gosource}
-# Fedora specific
-Patch0001:      0001-Make-LLVM-config-file-architecture-independent.patch
-# Support LLVM 16.
-# https://github.com/tinygo-org/go-llvm/pull/45
-Patch0002:      0002-Remove-ConstFNeg.patch
-Patch0003:      0003-Remove-legacy-AddPruneEHPass.patch
-Patch0004:      0004-Use-c-17-when-building-with-LLVM-16.patch
-# https://github.com/tinygo-org/go-llvm/pull/46
-Patch0005:      0005-Fix-message-disposal.patch
-# LLVM 16 again.
-Patch0006:      0006-Port-LLVMGoWriteThinLTOBitcodeToMemoryBuffer-to-new-.patch
-Patch0007:      0007-TST-Skip-uwtable-in-LLVM-15.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -67,22 +58,48 @@ rpm.define(llvm_supported_versions)
 %autopatch -p1
 
 # Set current LLVM paths.
-rm llvm_config*.go
+rm llvm_config_linux*.go
 for version in %{llvm_supported_versions}; do
     # Extra checks because of https://bugzilla.redhat.com/show_bug.cgi?id=1871659
     if type llvm-config-${version}-%{__isa_bits}; then
-        make config VERSION=${version}.0.0 CONFIG=llvm-config-${version}-%{__isa_bits} BUILDDIR=%{_prefix}
+        LLVM_CONFIG=llvm-config-${version}-%{__isa_bits}
     elif type llvm-config-${version}; then
-        make config VERSION=${version}.0.0 CONFIG=llvm-config-${version} BUILDDIR=%{_prefix}
+        LLVM_CONFIG=llvm-config-${version}
     elif type llvm-config-%{__isa_bits}; then
-        make config VERSION=${version}.0.0 CONFIG=llvm-config-%{__isa_bits} BUILDDIR=%{_prefix}
+        LLVM_CONFIG=llvm-config-%{__isa_bits}
     elif type llvm-config; then
-        make config VERSION=${version}.0.0 CONFIG=llvm-config BUILDDIR=%{_prefix}
+        LLVM_CONFIG=llvm-config
     else
         echo "Unable to determine llvm-config for LLVM ${version}"
         exit 1
     fi
-    mv llvm_config_linux.go llvm_config_linux_llvm${version}.go
+    LLVM_32_CPPFLAGS=$(${LLVM_CONFIG} --cppflags | sed -e 's!/usr/lib64\b!/usr/lib!g' -e 's/-D_GNU_SOURCE -D__STDC_CONSTANT_MACROS/-D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D__STDC_CONSTANT_MACROS/')
+    LLVM_64_CPPFLAGS=$(${LLVM_CONFIG} --cppflags | sed -e 's!/usr/lib\b!/usr/lib64!g' -e 's/-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 //')
+    if [ ${version} -gt 15 ]; then
+        LLVM_CPP_STD="c++17"
+    else
+        LLVM_CPP_STD="c++14"
+    fi
+    LLVM_COMPONENTS="all-targets analysis asmparser asmprinter bitreader bitwriter codegen core coroutines debuginfodwarf executionengine instrumentation interpreter ipo irreader linker mc mcjit objcarcopts option profiledata scalaropts support target"
+    LLVM_LDFLAGS=$(${LLVM_CONFIG} --ldflags --libs --system-libs ${LLVM_COMPONENTS} | tr '\n' ' ')
+    LLVM_32_LDFLAGS=$(echo ${LLVM_LDFLAGS} | sed 's!/usr/lib64\b!/usr/lib!g')
+    LLVM_64_LDFLAGS=$(echo ${LLVM_LDFLAGS} | sed 's!/usr/lib\b!/usr/lib64!g')
+
+    cat > llvm_config_linux_llvm${version}.go << EOF
+//go:build !byollvm && linux && llvm${version}
+// +build !byollvm,linux,llvm${version}
+
+package llvm
+
+// #cgo arm 386 CPPFLAGS: ${LLVM_32_CPPFLAGS}
+// #cgo !arm,!386 CPPFLAGS: ${LLVM_64_CPPFLAGS}
+// #cgo CXXFLAGS: -std=${LLVM_CPP_STD}
+// #cgo arm 386 LDFLAGS: ${LLVM_32_LDFLAGS}
+// #cgo !arm,!386 LDFLAGS: ${LLVM_64_LDFLAGS}
+import "C"
+
+type run_build_sh int
+EOF
 done
 
 %install

@@ -8,7 +8,7 @@
 Name:    kalarm
 Summary: Personal Alarm Scheduler
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
@@ -61,6 +61,7 @@ BuildRequires: cmake(KF5KIO)
 BuildRequires: cmake(KF5Notifications)
 BuildRequires: cmake(KF5NotifyConfig)
 BuildRequires: cmake(KF5Service)
+BuildRequires: cmake(KF5TextEditTextToSpeech)
 BuildRequires: cmake(KF5WidgetsAddons)
 BuildRequires: cmake(KF5WindowSystem)
 BuildRequires: cmake(KF5XmlGui)
@@ -156,6 +157,10 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Add BuildRequires: cmake(KF5TextEditTextToSpeech)
+- Rebuild against ktextaddons 1.5.1
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

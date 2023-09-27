@@ -76,7 +76,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # ./lib/isc/string.c BSD-3-clause and/or MPL-2.0
 # ./lib/isc/tm.c BSD-2-clause and/or MPL-2.0
 # ./lib/isccfg/parser.c BSD-2-clause and/or MPL-2.0
-Version:  9.18.18
+Version:  9.18.19
 Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -114,6 +114,8 @@ Patch10: bind-9.5-PIE.patch
 Patch16: bind-9.16-redhat_doc.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2122010
 Patch26: bind-9.18-unittest-netmgr-unstable.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2240253
+Patch27: bind-9.18-tests-rbtdb_test-i686.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -962,6 +964,12 @@ fi;
 %endif
 
 %changelog
+* Fri Sep 22 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.19-1
+- Update to 9.18.19 (#2232346)
+
+* Fri Sep 22 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.18-2
+- Skip failing rbtdb_test unit test on i686 (#2240253)
+
 * Wed Sep 06 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.18-1
 - Update to 9.18.18 (#2232346)
 

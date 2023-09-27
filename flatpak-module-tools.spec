@@ -1,8 +1,8 @@
 %global srcname flatpak-module-tools
-%global project_version 1.0a7
+%global project_version 1.0a9
 
 Name:		%{srcname}
-Version:	1.0~a7
+Version:	1.0~a9
 Release:	1%{?dist}
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
@@ -24,6 +24,7 @@ BuildRequires: python3-wheel
 # For tests
 BuildRequires: createrepo_c
 BuildRequires: flatpak
+BuildRequires: git-core
 BuildRequires: libappstream-glib
 BuildRequires: libmodulemd
 BuildRequires: librsvg2
@@ -33,6 +34,7 @@ BuildRequires: python3-gobject-base
 BuildRequires: python3-pytest-cov
 BuildRequires: python3-jinja2
 BuildRequires: python3-koji
+BuildRequires: python3-networkx
 BuildRequires: python3-pytest
 BuildRequires: python3-requests
 BuildRequires: python3-responses
@@ -73,6 +75,9 @@ Requires: python3-requests
 Requires: python3-rpm
 Requires: python3-yaml
 
+# Output changed from <nvr>.oci.tar.gz to <nvr>.oci.tar
+Conflicts: koji-flatpak <= 0.2
+
 %description -n python3-%{srcname}
 Python3 library for Flatpak handling
 
@@ -106,6 +111,16 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
 %{python3_sitelib}/*
 
 %changelog
+* Mon Sep 25 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a9-1
+- Fix tests in environments without git config set up
+
+* Mon Sep 25 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a8-1
+- Add flatpak-module build-container
+- Use f<N>-updates-testing-pending as the source tag
+- Speed up build process for large Flatpaks by reducing zlib time
+  (output name changes from .oci.tar.gz to .oci.tar)
+- Properly handle 'platforms: only' and 'platforms: not' in container.yaml
+
 * Thu Aug 24 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a7-1
 - Fixes cleanup-commands not working at all
 - Run script create from cleanup-commands under 'sh -ex'

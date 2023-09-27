@@ -19,6 +19,9 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
+# For Pydantic version check:
+BuildRequires:  %{py3_dist packaging}
+
 %global common_description %{expand:
 The dirty-equals Python library (mis)uses the __eq__ method to make python code
 (generally unit tests) more declarative and therefore easier to read and write.
@@ -80,8 +83,22 @@ sed -r -i 's/^filterwarnings = "error"$/# &/' pyproject.toml
 # Tests in this module require pytest-examples; see %%prep for notes on this.
 ignore="${ignore-} --ignore=tests/test_docs.py"
 
+# Testing the Pydantic version at build time allows us to run all tests on
+# Pydantic v1 while using the same spec file to prepare for Pydantic v2. The
+# version test can be removed once Pydantic v2 is in Rawhide.
+if '%{python3}' -c 'from pydantic import VERSION
+from packaging.version import Version
+yes, no = 0, 1
+raise SystemExit(no if Version(VERSION) < Version("2") else yes)'
+then
+  # IsUrl seems to be broken with pydantic-2
+  # https://github.com/samuelcolvin/dirty-equals/issues/72
+  k="${k-}${k+ and }not test_is_url_true[https://example.com-IsUrl]"
+  k="${k-}${k+ and }not test_is_url_true[https://example.com-dirty1]"
+fi
+
 # unix datetime tests fail if TZ != UTC
-TZ=utc %pytest -v ${ignore-}
+TZ=utc %pytest -v ${ignore-} -k "${k-}"
 
 
 %files -n python3-dirty-equals -f %{pyproject_files}

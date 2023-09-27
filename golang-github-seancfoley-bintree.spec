@@ -4,9 +4,9 @@
 
 # https://github.com/seancfoley/bintree
 %global goipath         github.com/seancfoley/bintree
-Version:                1.2.1
+Version:                1.2.3
 
-%gometa
+%gometa -f
 
 
 %global common_description %{expand:

@@ -1,6 +1,6 @@
 Name:           mailnag
 Version:        2.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Mail notification daemon
 
 License:        GPLv2
@@ -16,6 +16,8 @@ Requires:       python3-gobject
 Requires:       python3-gstreamer1
 Requires:       python3-pyxdg
 Requires:       gnome-keyring
+# due to imp removal from python 3.12/https://github.com/pulb/mailnag/issues/244:
+Requires:       python3-zombie-imp
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -56,6 +58,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 %{_datadir}/icons/hicolor/*/apps/%{name}*png
 
 %changelog
+* Mon Sep 25 2023 Thorsten Leemhuis <fedora@leemhuis.info> - 2.2.0-12
+- Require python3-zombie-imp
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

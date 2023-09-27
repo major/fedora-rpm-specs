@@ -2,7 +2,7 @@
 %global         libmajor 1
 
 Name:           openxr
-Version:        1.0.29
+Version:        1.0.30
 Release:        %autorelease
 Summary:        An API for writing VR and AR software
 License:        Apache-2.0

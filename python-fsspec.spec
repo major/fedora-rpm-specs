@@ -7,8 +7,8 @@
 %global srcname fsspec
 
 Name:           python-%{srcname}
-Version:        2023.9.1
-%global tag     2023.9.1
+Version:        2023.9.2
+%global tag     2023.9.2
 Release:        %autorelease
 Summary:        Specification for Pythonic file system interfaces
 

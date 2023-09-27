@@ -4,7 +4,7 @@
 %global crate shellcheck-sarif
 
 Name:           rust-shellcheck-sarif
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Convert shellcheck output to SARIF
 
@@ -12,7 +12,7 @@ License:        MIT
 URL:            https://crates.io/crates/shellcheck-sarif
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 Convert shellcheck output to SARIF.}
@@ -23,11 +23,10 @@ Convert shellcheck output to SARIF.}
 Summary:        %{summary}
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
-# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
-License:        (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT
+# MIT OR Apache-2.0
+License:        MIT AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT)
 # LICENSE.dependencies contains a full license breakdown
-# based on example from rpms/rust-git-delta
 
 %description -n %{crate} %{_description}
 
@@ -46,7 +45,7 @@ License:        (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 
 
 %build
 %cargo_build
-%cargo_license_summary
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install

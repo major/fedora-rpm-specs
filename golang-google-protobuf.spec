@@ -18,6 +18,10 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        Go support for Google's protocol buffers
 
+%global godevelheader   %{expand:
+Obsoletes:              compat-golang-github-protobuf-devel < 1.31.0-3
+}
+
 License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}

@@ -6,7 +6,7 @@
 
 Name: mod_nss
 Version: 1.0.17
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: SSL/TLS module for the Apache HTTP server
 License: Apache-2.0
 URL: https://pagure.io/mod_nss/
@@ -31,10 +31,7 @@ BuildRequires: nss-tools
 Requires: httpd-mmn = %{_httpd_mmn}
 Requires(post): httpd, nss-tools
 Requires: nss%{?_isa} >= 3.14.0.0
-# Although the following change reverses the desire of Bugzilla Bug #601939, it
-# was provided to suppress the dangling symlink warning of Bugzilla Bug #906089
-# as exposed via 'rpmlint'.
-Requires: %{_libdir}/libnssckbi.so
+Requires: p11-kit-trust
 
 # Change configuration to not conflict with mod_ssl
 Patch1: mod_nss-conf.patch
@@ -54,13 +51,7 @@ Security (TLS) protocols using the Network Security Services (NSS)
 security library.
 
 %prep
-%setup -q
-%patch1 -p1 -b .conf
-%patch2 -p1 -b .gencert
-%patch3 -p1 -b .sslengineset
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%autosetup -p1
 
 # Touch expression parser sources to prevent regenerating it
 touch nss_expr_*.[chyl]
@@ -125,11 +116,12 @@ install -m 755 nss_pcache $RPM_BUILD_ROOT%{_libexecdir}/
 #
 ln -s %{_libexecdir}/nss_pcache $RPM_BUILD_ROOT%{_sbindir}/nss_pcache
 install -m 755 gencert $RPM_BUILD_ROOT%{_sbindir}/
-ln -s ../../../%{_libdir}/libnssckbi.so $RPM_BUILD_ROOT%{_sysconfdir}/httpd/alias/
 touch $RPM_BUILD_ROOT%{_sysconfdir}/httpd/alias/secmod.db
-touch $RPM_BUILD_ROOT%{_sysconfdir}/httpd/alias/cert8.db
-touch $RPM_BUILD_ROOT%{_sysconfdir}/httpd/alias/key3.db
+touch $RPM_BUILD_ROOT%{_sysconfdir}/httpd/alias/pkcs11.txt
+touch $RPM_BUILD_ROOT%{_sysconfdir}/httpd/alias/cert9.db
+touch $RPM_BUILD_ROOT%{_sysconfdir}/httpd/alias/key4.db
 touch $RPM_BUILD_ROOT%{_sysconfdir}/httpd/alias/install.log
+touch $RPM_BUILD_ROOT%{_sysconfdir}/httpd/alias/libnssckbi.so
 
 perl -pi -e "s:$NSS_LIB_DIR:$NSS_BIN:" $RPM_BUILD_ROOT%{_sbindir}/gencert
 
@@ -147,11 +139,14 @@ if [ "$1" -eq 1 ] ; then
         echo ""
         /bin/chgrp apache %{_sysconfdir}/httpd/alias/*.db
         /bin/chmod g+r %{_sysconfdir}/httpd/alias/*.db
-
     fi
 
     # We used to fix existing permissions and ownership here but it isn't needed anymore
     # since mod_nss will report permission/ownership issues on startup.
+fi
+
+if [ ! -e %{_sysconfdir}/httpd/alias/libnssckbi.so ]; then
+    ln -s %{_libdir}/libnssckbi.so %{_sysconfdir}/httpd/alias/libnssckbi.so
 fi
 
 %files
@@ -164,15 +159,22 @@ fi
 %{_libdir}/httpd/modules/libmodnss.so
 %dir %{_sysconfdir}/httpd/alias/
 %ghost %attr(0640,root,apache) %config(noreplace) %{_sysconfdir}/httpd/alias/secmod.db
-%ghost %attr(0640,root,apache) %config(noreplace) %{_sysconfdir}/httpd/alias/cert8.db
-%ghost %attr(0640,root,apache) %config(noreplace) %{_sysconfdir}/httpd/alias/key3.db
+%ghost %attr(0640,root,apache) %config(noreplace) %{_sysconfdir}/httpd/alias/pkcs11.txt
+%ghost %attr(0640,root,apache) %config(noreplace) %{_sysconfdir}/httpd/alias/cert9.db
+%ghost %attr(0640,root,apache) %config(noreplace) %{_sysconfdir}/httpd/alias/key4.db
+%ghost %attr(0755,root,root) %config(noreplace) %{_sysconfdir}/httpd/alias/libnssckbi.so
 %ghost %config(noreplace) %{_sysconfdir}/httpd/alias/install.log
-%{_sysconfdir}/httpd/alias/libnssckbi.so
 %{_libexecdir}/nss_pcache
 %{_sbindir}/nss_pcache
 %{_sbindir}/gencert
 
 %changelog
+* Mon Aug 14 2023 Rob Crittenden <rcritten@redhat.com> - 1.0.17-19
+- Replace the file Requires on libnssckbi.so with the providing package
+  because DNF5 does not support file requirements. (#2229934)
+- Switch from manual patching to autosetup
+- Change db ownership filenames to the sqlite naming (key4, cert9)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

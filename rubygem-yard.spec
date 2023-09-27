@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.9.34
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
 
@@ -20,6 +20,8 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	%{gem_name}-%{version}-test-missing-files.tar.gz
 # Source1 is created by $ bash %%SOURCE2 %%version
 Source2:	yard-create-missing-test-files.sh
+# https://github.com/lsegal/yard/pull/1510
+Patch0:	yard-pr1510-fixup-BOM-encoding.patch
 
 # The 'irb/notifier' might be required for parsing of some old Ruby code.
 # https://github.com/lsegal/yard/blob/v0.9.24/lib/yard/parser/ruby/legacy/irb/slex.rb#L13
@@ -58,6 +60,8 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
 mv ../%{gem_name}-%{version}.gemspec .
+
+%patch -P0 -p1
 
 %build
 gem build ./%{gem_name}-%{version}.gemspec
@@ -111,6 +115,9 @@ rspec -r spec_helper spec
 %doc	%{gem_instdir}/docs/
 
 %changelog
+* Mon Sep 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.34-3
+- Backport upstream patch for BOM detection change in ruby33
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.34-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

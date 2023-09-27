@@ -1,7 +1,7 @@
 %global provider org.rncbc.qpwgraph
 
 Name:           qpwgraph
-Version:        0.5.2
+Version:        0.5.3
 Release:        1%{?dist}
 Summary:        PipeWire Graph Qt GUI Interface
 # Main license is GPLv2+ in sources,
@@ -56,6 +56,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/qpwgraph.1.gz
 
 %changelog
+* Mon Sep 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.5.3.1
+- Update to 0.5.3
+
 * Tue Aug 22 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.5.2.1
 - Update to 0.5.2
 

@@ -6,8 +6,8 @@
 %endif
 
 %global maj_ver 17
-%global libomp_version %{maj_ver}.0.0
-%global rc_ver 4
+%global libomp_version %{maj_ver}.0.1
+#global rc_ver 4
 %global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 %global so_suffix %{maj_ver}
 
@@ -152,6 +152,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Mon Sep 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.1-1
+- Update to LLVM 17.0.1
 
 * Mon Sep 11 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-1
 - Update to LLVM 17.0.0 RC4

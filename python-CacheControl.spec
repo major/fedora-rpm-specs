@@ -1,8 +1,6 @@
 %global pypi_name CacheControl
 %global pypi_name_lower cachecontrol
 
-%{?python_enable_dependency_generator}
-
 %global common_description %{expand:
 CacheControl is a port of the caching algorithms in httplib2 for use with
 requests session object. It was written because httplib2's better support
@@ -11,15 +9,12 @@ true of requests in terms of caching.}
 
 Name:           python-%{pypi_name}
 Summary:        httplib2 caching for requests
-Version:        0.12.11
-Release:        6%{?dist}
+Version:        0.13.1
+Release:        1%{?dist}
 License:        MIT
 
 URL:            https://github.com/ionrock/cachecontrol
 Source0:        %{url}/archive/v%{version}/%{pypi_name_lower}-%{version}.tar.gz
-
-# use mock from python standard library
-Patch0:         00-use-stdlib-mock.patch
 
 BuildArch:      noarch
 
@@ -29,58 +24,50 @@ BuildArch:      noarch
 %package -n     python3-%{pypi_name}
 Summary:        httplib2 caching for requests
 
-%{?python_provide:%python_provide python3-%{pypi_name}}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-
-# test dependencies
 BuildRequires:  python3-cherrypy
 BuildRequires:  python3-pytest
-BuildRequires:  python3-lockfile
-BuildRequires:  python3-msgpack >= 0.5.2
-BuildRequires:  python3-redis
-BuildRequires:  python3-requests
 
-# optional dependencies
-%{?python_extras_subpkg:Recommends:  python3-%{pypi_name}+filecache}
-%{!?python_extras_subpkg:Recommends: python3dist(lockfile) >= 0.9}
-
-%{?python_extras_subpkg:Recommends:  python3-%{pypi_name}+redis}
-%{!?python_extras_subpkg:Recommends: python3dist(redis) >= 2.10.5}
+Recommends:  python3-%{pypi_name}+filecache
+Recommends:  python3-%{pypi_name}+redis
 
 %description -n python3-%{pypi_name} %{common_description}
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info filecache redis}
+%pyproject_extras_subpkg -n python3-%{pypi_name} filecache redis
 
 %prep
 %autosetup -n %{pypi_name_lower}-%{version} -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires -x filecache,redis
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files cachecontrol
 
 
 %check
-# skip a test requiring internet access
-%{__python3} -m pytest -v tests -k "not test_file_cache_recognizes_consumed_file_handle"
+%pytest
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.txt
 
 %{_bindir}/doesitcache
 
-%{python3_sitelib}/%{pypi_name_lower}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-
 
 %changelog
+* Mon Sep 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.13.1-1
+- Update to 0.13.1
+- Fixes: rhbz#2126334
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

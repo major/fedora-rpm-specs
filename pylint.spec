@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/PyCQA/pylint
-Version:        2.17.4
+Version:        3.0.0a7
 %forgemeta
 
 Name:           pylint
@@ -9,8 +9,6 @@ License:        GPL-2.0-or-later
 URL:            https://www.pylint.org/
 Source0:        %{forgesource}
 #Patch0:         7829.patch apply when rebased then re-enable tests
-Patch1:         unpin-astroid.patch
-Patch2:         8611.patch
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros
@@ -73,7 +71,7 @@ Obsoletes:      python3-pylint-gui < 1.7
 rm -rf %{buildroot}%{python3_sitelib}/pylint/test
 
 # Add -%%{python3_version} to the binaries and manpages for backwards compatibility
-for NAME in epylint pylint pyreverse symilar; do
+for NAME in pylint pyreverse symilar; do
     mv %{buildroot}%{_bindir}/{$NAME,${NAME}-%{python3_version}}
     ln -s ${NAME}-%{python3_version} %{buildroot}%{_bindir}/${NAME}-3
     ln -s ${NAME}-%{python3_version} %{buildroot}%{_bindir}/${NAME}
@@ -92,7 +90,6 @@ done
 %files
 %doc CONTRIBUTORS.txt
 %license LICENSE
-%{_bindir}/epylint
 %{_bindir}/pylint
 %{_bindir}/pylint-config
 %{_bindir}/pyreverse

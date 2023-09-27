@@ -8,7 +8,7 @@
 Name:    kmail
 Summary: Mail client
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
@@ -65,7 +65,7 @@ BuildRequires: cmake(KF5NotifyConfig)
 BuildRequires: cmake(KF5Parts)
 BuildRequires: cmake(KF5Service)
 BuildRequires: cmake(KF5Sonnet)
-BuildRequires: cmake(KF5TextAutoCorrection)
+BuildRequires: cmake(KF5TextAutoCorrectionWidgets)
 BuildRequires: cmake(KF5TextWidgets)
 BuildRequires: cmake(KF5WindowSystem)
 BuildRequires: cmake(KF5XmlGui)
@@ -223,6 +223,10 @@ end
 
 
 %changelog
+* Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Fix cmake dependencies
+- Rebuild against ktextaddons 1.5.1
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

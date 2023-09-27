@@ -5,7 +5,7 @@
 %global crate rayon-core
 
 Name:           rust-rayon-core
-Version:        1.11.0
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Core APIs for Rayon
 

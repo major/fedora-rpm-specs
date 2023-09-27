@@ -1,46 +1,45 @@
 Name:           perl-Array-Compare
-Version:        3.0.8
-Release:        9%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Perl extension for comparing arrays
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Array-Compare
-Source0:        https://cpan.metacpan.org/modules/by-module/Array/Array-Compare-v%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Array/Array-Compare-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Moo)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(Types::Standard)
-BuildRequires:  perl(warnings)
+BuildRequires:  perl(Feature::Compat::Class)
 # Test Suite
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
-# Runtime
+BuildRequires:  perl(warnings)
+# Dependencies
+# (none)
 
 %description
 If you have two arrays and you want to know if they are the same or
 different, then Array::Compare will be useful to you.
 
 %prep
-%setup -q -n Array-Compare-v%{version}
+%setup -q -n Array-Compare-%{version}
 chmod -c -x lib/Array/Compare.pm
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -52,6 +51,12 @@ make test
 %{_mandir}/man3/Array::Compare.3*
 
 %changelog
+* Mon Sep 25 2023 Paul Howarth <paul@city-fan.org> - 4.0.0-1
+- Update to 4.0.0
+  - Switched to using Feature::Compat::Class
+  - Added a bunch of relevant modules to SEE ALSO
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

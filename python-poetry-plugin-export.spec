@@ -3,8 +3,8 @@
 %bcond bootstrap 0
 
 Name:           python-poetry-plugin-export
-Version:        1.4.0
-Release:        2%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Poetry plugin to export the dependencies to various formats
 
 # SPDX
@@ -67,6 +67,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 01 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.5.0-1
+- Update to 1.5.0
+- Fixes: rhbz#2232935
+
 * Fri Aug 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.4.0-2
 - Update to 1.4.0
 

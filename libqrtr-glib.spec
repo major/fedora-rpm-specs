@@ -2,7 +2,7 @@ Name: libqrtr-glib
 Version: 1.2.2
 Release: 3%{?dist}
 Summary: Support library to use and manage the QRTR (Qualcomm IPC Router) bus.
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL: https://gitlab.freedesktop.org/mobile-broadband/libqrtr-glib
 Source: https://gitlab.freedesktop.org/mobile-broadband/libqrtr-glib/-/archive/%{version}/%{name}-%{version}.tar.bz2
 

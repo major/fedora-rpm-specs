@@ -39,15 +39,15 @@ make
 
 %install
 # install policy modules
-install -d %{buildroot}%{_datadir}/selinux/packages
-install -m 0644 %{modulename}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages
+install -d %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}
+install -m 0644 %{modulename}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}
 
 
 %pre
 %selinux_relabel_pre -s %{selinuxtype}
 
 %post
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{modulename}.pp.bz2
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
 
 %postun
 if [ $1 -eq 0 ]; then
@@ -60,7 +60,7 @@ fi
 
 %files
 %defattr(-,root,root,0755)
-%attr(0644,root,root) %{_datadir}/selinux/packages/%{modulename}.pp.bz2
+%attr(0644,root,root) %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
 %ghost %verify(not mode md5 size mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 %license COPYING
 

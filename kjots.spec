@@ -3,7 +3,7 @@
 Name:           kjots
 Summary:        KDE Notes application
 Version:        5.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2
 URL:            https://userbase.kde.org/KJots
 
@@ -33,7 +33,7 @@ BuildRequires:  cmake(KF5XmlGui)
 # KDE PIM
 BuildRequires:  cmake(KF5Akonadi)
 BuildRequires:  cmake(KF5AkonadiNotes)
-BuildRequires:  cmake(KF5KontactInterface)
+BuildRequires:  cmake(KPim5KontactInterface)
 BuildRequires:  cmake(KF5Mime)
 BuildRequires:  cmake(KF5PimTextEdit)
 BuildRequires:  cmake(KF5TextEditTextToSpeech)
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.k
 
 
 %changelog
+* Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.1.1-3
+- Rebuild against ktextaddons 1.5.1
+
 * Mon Aug 14 2023 Justin Zobel <justin.zobel@gmail.com> - 5.1.1-2
 - Fix 5.1.1 build, remove patch and fix file paths
 

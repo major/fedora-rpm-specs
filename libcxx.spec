@@ -5,8 +5,8 @@
 %undefine _include_frame_pointers
 
 %global maj_ver 17
-%global libcxx_version %{maj_ver}.0.0
-%global rc_ver 4
+%global libcxx_version %{maj_ver}.0.1
+#global rc_ver 4
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libunwind_srcdir libunwind-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -240,6 +240,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Mon Sep 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.1-1
+- Update to LLVM 17.0.1
+
 * Mon Sep 11 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-1
 - Update to LLVM 17.0.0 RC4
 

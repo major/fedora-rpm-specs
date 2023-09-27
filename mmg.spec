@@ -1,6 +1,6 @@
 Name:           mmg
-Version:        5.7.1
-Release:        5%{?dist}
+Version:        5.7.2
+Release:        1%{?dist}
 Summary:        Surface and volume remeshers
 
 License:        LGPL-3.0-or-later
@@ -196,6 +196,9 @@ install -Dpm 0644 doc/man/mmg3d.1.gz %{buildroot}%{_mandir}/man1/mmg3d.1.gz
 
 
 %changelog
+* Mon Sep 25 2023 Sandro Mani <manisandro@gmail.com> - 5.7.2-1
+- Update to 5.7.2
+
 * Sat Aug 19 2023 Sandro Mani <manisandro@gmail.com> - 5.7.1-5
 - Rebuild (scotch)
 

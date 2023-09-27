@@ -4,9 +4,9 @@
 
 # https://github.com/ALTree/bigfloat
 %global goipath         github.com/ALTree/bigfloat
-%global commit          38c8b72a99243062fe71a04c8c456fc7f9d35121
+Version:                0.2.0
 
-%gometa
+%gometa -f
 
 
 %global common_description %{expand:
@@ -16,8 +16,7 @@ Additional operations for the standard library big.Float type.}
 %global godocs          README.md
 
 Name:           %{goname}
-Version:        0
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Additional operations for the standard library big.Float type
 
 License:        MIT

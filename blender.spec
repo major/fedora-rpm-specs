@@ -35,7 +35,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.6.2
+Version:        3.6.3
 Release:        %autorelease
 
 
@@ -52,10 +52,6 @@ Source2:        macros.%{name}-rpm
 Patch1:         blender-3.6.1-py312-pyarg-parser-def.patch
 Patch2:         blender-3.6.1-py312-pylongobject.patch
 Patch3:         blender-3.6.1-py312-opcode.patch
-
-# Fix #111820: Missing type casting in XrGraphicsBinding.cc
-# https://projects.blender.org/blender/blender/commit/8159bd90e527552ccfe27db5f2c5a91d64855e9e
-Patch4:		8159bd90e5.patch
 
 # Development stuff
 BuildRequires:  boost-devel

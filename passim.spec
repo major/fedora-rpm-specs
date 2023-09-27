@@ -3,7 +3,7 @@
 
 Summary:   Local caching server
 Name:      passim
-Version:   0.1.1
+Version:   0.1.2
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/hughsie/%{name}

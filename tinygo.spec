@@ -6,21 +6,13 @@
 
 # https://github.com/tinygo-org/tinygo
 %global goipath         github.com/tinygo-org/tinygo
-Version:                0.29.0
+Version:                0.30.0
 
 %global CMSIS_commit        9fe411cef1cef5de58e5957b89760759de44e393
 %global avr_commit          6624554c02b237b23dc17d53e992bf54033fc228
-%if %{fedora} > 37
-%global clang_llvm_version  16
-%else
-%if %{fedora} > 36
-%global clang_llvm_version  15
-%else
-%global clang_llvm_version  14
-%endif
-%endif
+%global clang_llvm_version  17
 %global cmsis_svd_commit    df75ff974c76a911fc2815e29807f5ecaae06fc2
-%global compiler_rt_version %{clang_llvm_version}.0.0
+%global compiler_rt_version %{clang_llvm_version}.0.1
 %global macos_minsdk_commit ebb736fda2bec7cea38dcda807518b835a539525
 %global musl_version        1.2.3
 %global nrfx_commit         d779b49fc59c7a165e7da1d7cd7d57b28a059f16
@@ -85,15 +77,14 @@ Patch0002:      0002-Skip-some-cross-Linux-tests-where-qemu-is-broken.patch
 # Add Fedora specific dnf instructions
 Patch0003:      0003-Suggest-optional-packages-to-install-if-missing.patch
 
-# Support LLVM 16.
-# https://github.com/tinygo-org/tinygo/pull/3649
-Patch0004:      0004-cgo-Handle-elaborated-typedefs-from-libclang.patch
-Patch0005:      0005-Add-CPU-to-RISCV-targets.patch
-Patch0006:      0006-Handle-argmemonly-attribute-change-in-LLVM16.patch
-# https://github.com/tinygo-org/tinygo/pull/3649
-Patch0007:      0007-Update-types-in-cgo-tests-for-LLVM-16.patch
-# https://github.com/tinygo-org/tinygo/pull/3883
-Patch0008:      0008-Update-golang.org-x-tools-to-v0.12.0.patch
+# Support LLVM 17.
+# https://github.com/tinygo-org/tinygo/pull/3923
+Patch0004:      0004-transform-fix-bug-in-StringToBytes-optimization-pass.patch
+# https://github.com/tinygo-org/tinygo/pull/3918
+Patch0005:      0005-all-use-the-new-LLVM-pass-manager.patch
+# https://github.com/tinygo-org/tinygo/pull/3913
+Patch0006:      0006-avr-don-t-compile-large-parts-of-picolibc-math-stdio.patch
+Patch0007:      0007-all-add-initial-LLVM-17-support.patch
 
 # Not supported upstream yet.
 ExcludeArch:    ppc64le s390x
@@ -115,7 +106,7 @@ BuildRequires:  golang(github.com/mattn/go-tty) >= 0.0.4
 BuildRequires:  golang(github.com/sigurn/crc16)
 BuildRequires:  golang(go.bug.st/serial) >= 1.6.0
 BuildRequires:  golang(golang.org/x/tools/go/ast/astutil)
-BuildRequires:  golang(golang.org/x/tools/go/ssa) >= 0.1.11
+BuildRequires:  golang(golang.org/x/tools/go/ssa) >= 0.12
 BuildRequires:  golang(gopkg.in/yaml.v2) >= 2.4.0
 BuildRequires:  golang(tinygo.org/x/go-llvm)
 BuildRequires:  golang-tests

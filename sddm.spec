@@ -20,7 +20,7 @@
 
 Name:           sddm
 Version:        0.20.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv2+
 Summary:        QML based desktop and login manager
 
@@ -34,6 +34,10 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
 
 ## upstream patches
+# Hide keyboard layout picker in the wayland greeter
+# https://bugzilla.redhat.com/show_bug.cgi?id=2239426
+# https://github.com/sddm/sddm/pull/1797
+Patch1: 1797.patch
 
 ## upstreamable patches
 
@@ -297,6 +301,9 @@ fi
 
 
 %changelog
+* Tue Sep 19 2023 Alessandro Astone <ales.astone@gmail.com> - 0.20.0-4
+- Hide keyboard layout picker in the wayland greeter
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

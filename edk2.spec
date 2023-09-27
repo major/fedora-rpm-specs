@@ -20,6 +20,9 @@ ExclusiveArch: x86_64 aarch64 riscv64
 
 %define DBXDATE        20230509
 
+# Undefine this to get *HUGE* (50MB+) verbose build logs
+%define silent --silent
+
 %if %{defined rhel}
 %define build_ovmf 0
 %define build_aarch64 0
@@ -45,7 +48,7 @@ Name:       edk2
 Version:    %{GITDATE}
 Release:    %autorelease
 Summary:    UEFI firmware for 64-bit virtual machines
-License:    BSD-2-Clause-Patent and Apache-2.0 and MIT
+License:    BSD-2-Clause-Patent AND Apache-2.0 AND MIT
 URL:        http://www.tianocore.org
 
 # The source tarball is created using following commands:
@@ -113,6 +116,7 @@ Patch0017: 0017-OvmfPkg-IoMmuDxe-don-t-rely-on-TPLs-to-manage-concur.patch
 Patch0018: 0018-OvmfPkg-Disable-PcdFirstTimeWakeUpAPsBySipi.patch
 Patch0019: 0019-OvmfPkg-AmdSev-Disable-PcdFirstTimeWakeUpAPsBySipi.patch
 Patch0020: 0020-OvmfPkg-AmdSev-fix-BdsPlatform.c-assertion-failure-d.patch
+Patch0021: 0021-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -169,7 +173,7 @@ Conflicts:  libvirt-daemon-driver-qemu < 9.7.0
 # OVMF includes the Secure Boot and IPv6 features; it has a builtin OpenSSL
 # library.
 Provides:   bundled(openssl) = %{OPENSSL_VER}
-License:    BSD-2-Clause-Patent and Apache-2.0
+License:    BSD-2-Clause-Patent AND Apache-2.0
 
 # URL taken from the Maintainers.txt file.
 URL:        http://www.tianocore.org/ovmf/
@@ -191,7 +195,7 @@ Conflicts:  libvirt-daemon-driver-qemu < 9.7.0
 
 # No Secure Boot for AAVMF yet, but we include OpenSSL for the IPv6 stack.
 Provides:   bundled(openssl) = %{OPENSSL_VER}
-License:    BSD-2-Clause-Patent and Apache-2.0
+License:    BSD-2-Clause-Patent AND Apache-2.0
 
 # URL taken from the Maintainers.txt file.
 URL:        https://github.com/tianocore/tianocore.github.io/wiki/ArmVirtPkg
@@ -228,7 +232,7 @@ environment for the UEFI and PI specifications. This package contains sample
 %if %{defined fedora}
 %package ovmf-ia32
 Summary:        Open Virtual Machine Firmware
-License:        BSD-2-Clause-Patent and Apache-2.0
+License:        BSD-2-Clause-Patent AND Apache-2.0
 Provides:       bundled(openssl)
 BuildArch:      noarch
 %description ovmf-ia32
@@ -237,7 +241,7 @@ Open Virtual Machine Firmware (ia32)
 
 %package ovmf-xen
 Summary:        Open Virtual Machine Firmware, Xen build
-License:        BSD-2-Clause-Patent and Apache-2.0
+License:        BSD-2-Clause-Patent AND Apache-2.0
 Provides:       bundled(openssl)
 BuildArch:      noarch
 %description ovmf-xen
@@ -246,7 +250,7 @@ Open Virtual Machine Firmware (Xen build)
 
 %package experimental
 Summary:        Open Virtual Machine Firmware, experimental builds
-License:        BSD-2-Clause-Patent and Apache-2.0
+License:        BSD-2-Clause-Patent AND Apache-2.0
 Provides:       bundled(openssl)
 Obsoletes:      edk2-ovmf-experimental < 20230825
 BuildArch:      noarch
@@ -257,7 +261,7 @@ Open Virtual Machine Firmware (experimental builds)
 %package arm
 Summary:        ARM Virtual Machine Firmware
 BuildArch:      noarch
-License:        BSD-2-Clause-Patent and Apache-2.0
+License:        BSD-2-Clause-Patent AND Apache-2.0
 %description arm
 EFI Development Kit II
 ARMv7 UEFI Firmware
@@ -265,7 +269,7 @@ ARMv7 UEFI Firmware
 %package riscv64
 Summary:        RISC-V Virtual Machine Firmware
 BuildArch:      noarch
-License:        BSD-2-Clause-Patent and Apache-2.0
+License:        BSD-2-Clause-Patent AND Apache-2.0
 
 # need libvirt version with qcow2 support
 Conflicts:  libvirt-daemon-driver-qemu < 9.7.0
@@ -276,7 +280,7 @@ RISC-V UEFI Firmware
 
 %package ext4
 Summary:        Ext4 filesystem driver
-License:        BSD-2-Clause-Patent and Apache-2.0
+License:        BSD-2-Clause-Patent AND Apache-2.0
 BuildArch:      noarch
 %description ext4
 EFI Development Kit II
@@ -377,7 +381,7 @@ python3 CryptoPkg/Library/OpensslLib/configure.py
 %if %{build_ovmf}
 %if %{defined rhel}
 
-./edk2-build.py --config edk2-build.rhel-9 --silent --release-date "$RELEASE_DATE" -m ovmf
+./edk2-build.py --config edk2-build.rhel-9 %{?silent} --release-date "$RELEASE_DATE" -m ovmf
 virt-fw-vars --input   RHEL-9/ovmf/OVMF_VARS.fd \
              --output  RHEL-9/ovmf/OVMF_VARS.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
@@ -386,8 +390,8 @@ build_iso RHEL-9/ovmf
 
 %else
 
-./edk2-build.py --config edk2-build.fedora --silent --release-date "$RELEASE_DATE" -m ovmf
-./edk2-build.py --config edk2-build.fedora.platforms --silent -m x64
+./edk2-build.py --config edk2-build.fedora %{?silent} --release-date "$RELEASE_DATE" -m ovmf
+./edk2-build.py --config edk2-build.fedora.platforms %{?silent} -m x64
 virt-fw-vars --input   Fedora/ovmf/OVMF_VARS.fd \
              --output  Fedora/ovmf/OVMF_VARS.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
@@ -437,10 +441,10 @@ done
 
 %if %{build_aarch64}
 %if %{defined rhel}
-./edk2-build.py --config edk2-build.rhel-9 --silent --release-date "$RELEASE_DATE" -m armvirt
+./edk2-build.py --config edk2-build.rhel-9 %{?silent} --release-date "$RELEASE_DATE" -m armvirt
 %else
-./edk2-build.py --config edk2-build.fedora --silent --release-date "$RELEASE_DATE" -m armvirt
-./edk2-build.py --config edk2-build.fedora.platforms --silent -m aa64
+./edk2-build.py --config edk2-build.fedora %{?silent} --release-date "$RELEASE_DATE" -m armvirt
+./edk2-build.py --config edk2-build.fedora.platforms %{?silent} -m aa64
 virt-fw-vars --input   Fedora/aarch64/vars-template-pflash.raw \
              --output  Fedora/experimental/vars-template-secboot-testonly-pflash.raw \
              --enroll-redhat --secure-boot --distro-keys rhel
@@ -452,8 +456,8 @@ done
 %endif
 
 %if %{build_riscv64}
-./edk2-build.py --config edk2-build.fedora --silent --release-date "$RELEASE_DATE" -m riscv
-./edk2-build.py --config edk2-build.fedora.platforms --silent -m riscv
+./edk2-build.py --config edk2-build.fedora %{?silent} --release-date "$RELEASE_DATE" -m riscv
+./edk2-build.py --config edk2-build.fedora.platforms %{?silent} -m riscv
 for raw in */riscv/*.raw; do
     qcow2="${raw%.raw}.qcow2"
     qemu-img convert -f raw -O qcow2 -o cluster_size=4096 -S 4096 "$raw" "$qcow2"

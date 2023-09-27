@@ -12,7 +12,7 @@ Name:    kdepim-runtime
 Summary: KDE PIM Runtime Environment
 Epoch:   1
 Version: 23.08.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2
 URL:     https://invent.kde.org/pim/%{name}
@@ -134,6 +134,7 @@ BuildRequires: xorg-x11-server-Xvfb
 Summary: %{name} runtime libraries
 # some plugins moved here 16.04.0-1
 Obsoletes: kdepim-runtime < 1:16.04
+Obsoletes: kf5-kmailtransport-akonadi < 23.08.0
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: kf5-akonadi-server%{?_isa} >= %{version}
 %description libs
@@ -199,6 +200,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.1-3
+- Add Obsoletes: kf5-kmailtransport-akonadi < 23.08.0
+
 * Wed Sep 20 2023 Alessandro Astone <ales.astone@gmail.com> - 1:23.08.1-2
 - Backport fixes for Google integration
 

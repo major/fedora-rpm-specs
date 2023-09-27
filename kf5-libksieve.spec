@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Sieve support library
 
 License: GPLv2
@@ -25,7 +25,7 @@ BuildRequires:  cmake(Qt5UiTools)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5Xml)
 BuildRequires:  pkgconfig(Qt5WebEngineWidgets)
-BuildRequires:  cmake(KF5TextAutoCorrection)
+BuildRequires:  cmake(KF5TextEditTextToSpeech)
 
 %global kf5_ver 5.23.0
 BuildRequires:  extra-cmake-modules >= %{kf5_ver}
@@ -106,6 +106,10 @@ Requires:       cmake(KF5SyntaxHighlighting)
 
 
 %changelog
+* Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Rebuild against ktextaddons 1.5.1
+- Fix cmake dependencies
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

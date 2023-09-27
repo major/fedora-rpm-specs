@@ -1,14 +1,15 @@
 Name:           libdecor
-Version:        0.1.1
-Release:        3%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        Wayland client side decoration library
 
 License:        MIT
-URL:            https://gitlab.gnome.org/jadahl/libdecor
-Source:         %{url}/uploads/ee5ef0f2c3a4743e8501a855d61cb397/libdecor-0.1.1.tar.xz
+URL:            https://gitlab.freedesktop.org/libdecor/libdecor
+Source:         %{url}/-/releases/%{version}/downloads/libdecor-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson
+BuildRequires:  gtk3
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(wayland-protocols)
@@ -16,6 +17,7 @@ BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(pangocairo)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(gtk+-3.0)
 
 %description
 Libdecor provides a small helper library for providing client side decoration
@@ -50,6 +52,7 @@ developing applications that use %{name}.
 %dir %{_libdir}/libdecor/
 %dir %{_libdir}/libdecor/plugins-1
 %{_libdir}/libdecor/plugins-1/libdecor-cairo.so
+%{_libdir}/libdecor/plugins-1/libdecor-gtk.so
 
 %files devel
 %{_includedir}/libdecor-0/
@@ -58,6 +61,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Sep 25 2023 Jonas Ådahl <jadahl@redhat.com> - 0.2.0-1
+- Bump version to 0.2.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

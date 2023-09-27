@@ -3,14 +3,13 @@
 # %%global gitcommit %%(c=%%{gitcommit_full}; echo ${c:0:7})
 
 Name:           kdiff3
-Version:        1.10.5
-Release:        2%{?dist}
+Version:        1.10.6
+Release:        1%{?dist}
 Summary:        Compare + merge 2 or 3 files or directories
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/KDE/kdiff3
-# Source0:        https://github.com/KDE/kdiff3/tarball/%%{gitcommit_full}
-Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
+Source0:        https://invent.kde.org/sdk/kdiff3/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++
@@ -82,6 +81,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Mon Sep 25 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 1.10.6-1
+- Update to 1.10.6
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

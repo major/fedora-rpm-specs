@@ -3,22 +3,25 @@ Summary:      The Original ATT Korn Shell
 URL:          http://www.kornshell.com/
 License:      EPL-2.0
 Epoch:        3
-Version:      1.0.6
-Release:      3%{?dist}
+Version:      1.0.7
+Release:      1%{?dist}
 Source0:      https://github.com/ksh93/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:      kshcomp.conf
 Source2:      kshrc.rhs
 Source3:      dotkshrc
 
-# ksh: Porting to C99 (#2144903)
-Patch1:       ksh-1.0.6-fix-strict-c99-compatibilty.patch
-
 Conflicts:    pdksh
 Requires: coreutils, diffutils
 BuildRequires: gcc
 BuildRequires: bison
-# regression test suite uses 'ps' from procps
+
+# regression test suite requirements
+BuildRequires: glibc-langpack-ja
+BuildRequires: ncurses
 BuildRequires: procps
+BuildRequires: tzdata
+BuildRequires: util-linux
+
 Requires(post): grep, coreutils, systemd
 Requires(postun): sed
 
@@ -63,7 +66,8 @@ touch %{buildroot}%{_bindir}/rksh
 touch %{buildroot}%{_mandir}/man1/rksh.1.gz
 
 %check
-bin/package test
+# script is needed for pty tests in mock
+script -q -e -c "bin/package test"
 
 %post
 for s in /bin/ksh /bin/rksh /usr/bin/ksh /usr/bin/rksh
@@ -134,6 +138,9 @@ fi
 %config(noreplace) %{_sysconfdir}/binfmt.d/kshcomp.conf
 
 %changelog
+* Fri Sep 22 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3:1.0.7-1
+- new upstream release (rhbz#2239214)
+
 * Wed Sep 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3:1.0.6-3
 - fix building with strict C99 (rhbz#2144903)
 

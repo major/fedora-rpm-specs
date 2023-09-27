@@ -1,6 +1,6 @@
 Name:       m17n-db
 Summary:    Multilingualization datafiles for m17n-lib
-Version:    1.8.3
+Version:    1.8.4
 Release:    1%{?dist}
 License:    LGPL-2.1-or-later
 URL:        http://www.nongnu.org/m17n
@@ -93,6 +93,7 @@ rm %{buildroot}%{_datadir}/m17n/ispell.mim
 %{_datadir}/m17n/v*.mim
 %{_datadir}/m17n/y*.mim
 # icons for keymaps
+%dir %{_datadir}/m17n/icons
 %{_datadir}/m17n/icons/*.png
 %exclude %{_datadir}/m17n/zh-*.mim
 %exclude %{_datadir}/m17n/icons/zh*.png
@@ -115,6 +116,57 @@ rm %{buildroot}%{_datadir}/m17n/ispell.mim
 %{_datadir}/pkgconfig/m17n-db.pc
 
 %changelog
+* Mon Sep 25 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.4-1
+- Update to 1.8.4
+- New input methods from https://github.com/indic-transliteration/m17n-db-indic "विश्वासो वासुकिजः (Vishvas Vasuki)"
+  sa-vedic-itrans, dra-iso-15919-itrans, hi-brahmi-itrans, ks-sharada-itrans,
+  mr-modi-itrans, sa-brahmi-itrans, sa-grantha-itrans, sa-iso-15919-itrans,
+  sa-sharada-itrans, sa-inscript, sa-iast-vedic
+- hi-itrans: Updates from "विश्वासो वासुकिजः (Vishvas Vasuki)" <vishvas.vasuki@gmail.com>
+- ne-trad-ttf: Update from author,  Santosh Pradhan <sapradhan8@gmail.com>
+- ja-trycode: Add icon.
+- ks-inscript: Add icon.
+- mai-inscript: Add icon.
+- ml-enhanced-inscript: Add icon.
+- mr-itrans: Add icon.
+- hi-remington: Add icon.
+- mr-typewriter: Add icon.
+- mr-phonetic: Add icon.
+- ne-rom-translit: Add icon.
+- zh-pinyin-yi: Add icon.
+- unicode: Add icon.
+- da-post: Add icon.
+- bo-ewts: Add icon.
+- bo-tcrc: Add icon.
+- kn-typewriter: Add icon.
+- grc-mizuochi: Add icon.
+- fr-azerty: Add icon.
+- hi-optitransv2: Updates from https://github.com/indic-transliteration/m17n-db-indic "विश्वासो वासुकिजः (Vishvas Vasuki)"
+- kn-optitransv2: Updates from https://github.com/indic-transliteration/m17n-db-indic "विश्वासो वासुकिजः (Vishvas Vasuki)"
+- sa-itrans: Updates from https://github.com/indic-transliteration/m17n-db-indic "विश्वासो वासुकिजः (Vishvas Vasuki)"
+- kn-itrans: Updates from "विश्वासो वासुकिजः (Vishvas Vasuki)" <vishvas.vasuki@gmail.com> and some extra bug fixes.
+- lsymbol: Some additions from https://github.com/indic-transliteration/m17n-db-indic "विश्वासो वासुकिजः (Vishvas Vasuki)" and
+  some more improvements: Use emoji presentation when possible, better grouping in groups of 6, better description
+- math-latex: Updates from https://github.com/indic-transliteration/m17n-db-indic "विश्वासो वासुकिजः (Vishvas Vasuki)"
+  New option "with-backslash-prefix".
+- ks-kbd: Fix typo in description, add icon.
+- ug-kbd: Add icon.
+- tai-sonla-kbd.png: Add icon.
+- mni-inscript2-mtei.png: Add icon.
+- sat-inscript2-olck.png: Add icon.
+- or-phonetic.png: Add icon.
+- sa-harvard-kyoto.png: Add icon.
+- pa-anmollipi.png: Add icon.
+- pa-remington.png: Add icon.
+- si-singlish.png: Add icon.
+- ta-lk-renganathan.png: Add icon.
+- te-rts.png: Add icon.
+- vi-han.png: Add icon.
+- vi-nomvni: Make existing icon work.
+- vi-nomtelex: Make existing icon work.
+- lsymbol: Add icon.
+- ssymbol: Add icon.
+
 * Mon Jul 24 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.3-1
 - Update to 1.8.3
 - kok-inscript2-deva, mr-inscript, mr-inscript2: Fix digit 0

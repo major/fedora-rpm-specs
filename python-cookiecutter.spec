@@ -9,7 +9,7 @@ project template.}
 %bcond_without tests
 
 Name:      %{pkgname}
-Version:   2.3.0
+Version:   2.3.1
 %forgemeta
 Release:   %autorelease
 Summary:   CLI utility to create projects from templates

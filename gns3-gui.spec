@@ -5,13 +5,14 @@
 
 Name:           gns3-gui
 Version:        2.2.43
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNS3 graphical user interface
 
 License:        GPLv3+
 URL:            http://gns3.com
 Source0:        https://github.com/GNS3/%{name}/archive/v%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source3:        %{name}.appdata.xml
+Patch0:         https://github.com/GNS3/gns3-gui/commit/10afb5a8deb25b85c26c38d1f9639ba833dd0000.patch
 
 BuildArch:      noarch
 
@@ -91,6 +92,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Mon Sep 25 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.43-2
+- Backported importlib_resources fix
+- lower distro and setuptools requirements
+- Removed cpulimit required for gns3server/compute/qemu/qemu_vm.py
+- gns3-net-converter removed from requirements in 2.0.0 beta3
+- python3-raven removed from requirements in 2.2.9
+
 * Tue Sep 19 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.43-1
 - Update to 2.2.43
 

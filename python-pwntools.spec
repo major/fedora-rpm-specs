@@ -1,8 +1,8 @@
 %global srcname pwntools
 
 Name:           python-%{srcname}
-Version:        4.9.0
-Release:        5%{?dist}
+Version:        4.11.0
+Release:        2%{?dist}
 Summary:        A CTF framework and exploit development library
 
 # Source contains four LICENSE*.txt files which explain the licenses which cover
@@ -62,7 +62,7 @@ rm -rf %{buildroot}%{python3_sitelib}/pwntools-doc
 rm -rf %{buildroot}%{_prefix}/pwntools-doc
 
 %files -n python3-%{srcname}
-%doc CHANGELOG.md CONTRIBUTING.md README.md TESTING.md requirements.txt
+%doc CHANGELOG.md CONTRIBUTING.md README.md TESTING.md docs/requirements.txt
 %license LICENSE-pwntools.txt
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/pwn/
@@ -97,6 +97,12 @@ rm -rf %{buildroot}%{_prefix}/pwntools-doc
 # %%license LICENSE-pwntools.txt
 
 %changelog
+* Mon Sep 25 2023 W. Michael Petullo <mike@flyn.org - 4.11.0-2
+- Deal with requirements.txt, which moved.
+
+* Mon Sep 25 2023 W. Michael Petullo <mike@flyn.org - 4.11.0-1
+- New upstream version
+
 * Sat Sep 09 2023 W. Michael Petullo <mike@flyn.org> - 4.9.0-5
 - Fix BZ #2238038; rename to checksec-pwntools to remove conflict with checksec package
 

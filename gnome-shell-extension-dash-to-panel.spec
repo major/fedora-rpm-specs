@@ -2,7 +2,7 @@
 %global extdir %{_datadir}/gnome-shell/extensions/dash-to-panel@jderose9.github.com
 
 Name:           gnome-shell-extension-%{ename}
-Version:        56
+Version:        59
 Release:        1%{?dist}
 Summary:        Integrated icon taskbar and status panel for Gnome Shell
 License:        GPL-2.0-or-later
@@ -10,10 +10,6 @@ URL:            https://github.com/home-sweet-gnome/dash-to-panel
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # correct install paths
 Patch0:         %{name}-system-install-paths.patch
-# https://github.com/home-sweet-gnome/dash-to-panel/issues/1876
-Patch1:         https://github.com/home-sweet-gnome/dash-to-panel/commit/be8214d1789fb08d98113762da2bc03e6b13c596.patch
-# support for GNOME Shell 45
-Patch2:         https://github.com/home-sweet-gnome/dash-to-panel/pull/1939.patch
 BuildArch:      noarch
 BuildRequires:  gettext
 BuildRequires:  make
@@ -47,6 +43,10 @@ rm -v %{buildroot}%{extdir}/{COPYING,README.md}
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.%{ename}.gschema.xml
 
 %changelog
+* Mon Sep 25 2023 Dominik Mierzejewski <dominik@greysector.net> - 59-1
+- update to 59 (resolves rhbz#2240510)
+- drop obsolete patches
+
 * Thu Sep 07 2023 Dominik Mierzejewski <dominik@greysector.net> - 56-1
 - update to 56
 - apply upstream patch and PR for GNOME Shell 45 support

@@ -2,12 +2,13 @@
 
 Name:           pungi
 Version:        4.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
+Patch1:         0001-osbuild-manifest-type-in-config.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -141,6 +142,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Mon Sep 25 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.5.0-7
+- Backport patch for explicit setting of osbuild image type in metadata
+
 * Thu Aug 31 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.5.0-1
 - kojiwrapper: Stop being smart about local access (lsedlar)
 - Fix unittest errors (ounsal)

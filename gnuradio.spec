@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.6.0
-Release:	9%{?alphatag:.%{alphatag}}%{?dist}
+Release:	10%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -213,6 +213,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Mon Sep 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.6.0-10
+- Rebuilt for new uhd
+
 * Sat Aug 05 2023 Richard Shaw <hobbes1069@gmail.com> - 3.10.6.0-9
 - Rebuild for codec2.
 

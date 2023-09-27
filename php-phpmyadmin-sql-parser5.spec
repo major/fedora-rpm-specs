@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    db1b3069b5dbc220d393d67ff911e0ae76732755
+%global gh_commit    f1720ae19abe6294cb5599594a8a57bc3c8cc287
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpmyadmin
 #global gh_date      20150820
@@ -19,8 +19,8 @@
 %global major        5
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.8.0
-Release:        2%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Version:        5.8.2
+Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        A validating SQL lexer and parser with a focus on MySQL dialect
 
 License:        GPL-2.0-or-later
@@ -49,10 +49,10 @@ BuildRequires:  php-spl
 #        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
 #        "psalm/plugin-phpunit": "^0.16.1",
 #        "vimeo/psalm": "^4.11",
-#        "zumba/json-serializer": "^3.0"
+#        "zumba/json-serializer": "^3.0.2"
 BuildRequires:  phpunit9 >= 9.5
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  php-composer(zumba/json-serializer) >= 3.0
+BuildRequires:  php-composer(zumba/json-serializer) >= 3.0.2
 %endif
 # For autoloader
 BuildRequires:  php-composer(fedora/autoloader)
@@ -185,6 +185,9 @@ exit $ret
 
 
 %changelog
+* Mon Sep 25 2023 Remi Collet <remi@remirepo.net> - 5.8.2-1
+- update to 5.8.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

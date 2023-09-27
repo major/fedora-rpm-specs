@@ -4,7 +4,7 @@
 %global crate clang-tidy-sarif
 
 Name:           rust-clang-tidy-sarif
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Convert clang-tidy output to SARIF
 
@@ -12,7 +12,7 @@ License:        MIT
 URL:            https://crates.io/crates/clang-tidy-sarif
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 Convert clang-tidy output to SARIF.}
@@ -24,12 +24,11 @@ Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
-# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
+# MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND (Unlicense OR MIT)
+License:        MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
-# based on example from rpms/rust-git-delta
 
 %description -n %{crate} %{_description}
 
@@ -48,7 +47,7 @@ License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR BS
 
 %build
 %cargo_build
-%cargo_license_summary
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install

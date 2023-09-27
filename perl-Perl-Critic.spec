@@ -7,12 +7,13 @@
 
 Name:		perl-Perl-Critic
 Version:	1.150
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-Critic
 Source0:	https://cpan.metacpan.org/modules/by-module/Perl/Perl-Critic-%{version}.tar.gz
 Patch0:		0001-Change-default-spell-check-tool-from-aspell-to-hunsp.patch
+Patch1:		https://patch-diff.githubusercontent.com/raw/Perl-Critic/Perl-Critic/pull/1048.patch
 Patch3:		Perl-Critic-1.136-ppidump-shellbang.patch
 BuildArch:	noarch
 
@@ -51,7 +52,7 @@ BuildRequires:	perl(Pod::PlainText)
 BuildRequires:	perl(Pod::Select)
 BuildRequires:	perl(Pod::Spell) >= 1
 BuildRequires:	perl(Pod::Usage)
-BuildRequires:	perl(PPI) >= 1.271
+BuildRequires:	perl(PPI) >= 1.277
 BuildRequires:	perl(PPIx::QuoteLike)
 BuildRequires:	perl(PPIx::Regexp) >= 0.010
 BuildRequires:	perl(PPIx::Regexp::Util) >= 0.068
@@ -93,7 +94,7 @@ Requires:	hunspell >= 1.2.12
 Requires:	perl(B::Keywords) >= 1.23
 Requires:	perl(File::Which)
 Requires:	perl(Module::Pluggable) >= 3.1
-Requires:	perl(PPI) >= 1.271
+Requires:	perl(PPI) >= 1.277
 Requires:	perl(Term::ANSIColor) >= 2.02
 
 %description
@@ -123,6 +124,9 @@ of Perl code were mixed directly in the test script. That sucked.
 
 # Switch spell checker tool from aspell to hunspell
 %patch -P 0 -p1
+
+# Fix for Perl::Critic::Policy::Subroutines::RequireArgUnpacking with PPI 1.277
+%patch -P 1 -p1
 
 # Fix shellbang in ppidump tool
 %patch -P 3
@@ -158,6 +162,10 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Mon Sep 25 2023 Paul Howarth <paul@city-fan.org> - 1.150-4
+- Fix for Perl::Critic::Policy::Subroutines::RequireArgUnpacking with PPI 1.277
+  (GH#1048)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.150-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

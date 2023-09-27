@@ -26,7 +26,7 @@
 
 Name:              redis
 Version:           %{upstream_ver}%{?upstream_pre:~%{upstream_pre}}
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # redis, hiredis: BSD-3-Clause
 # hdrhistogram, jemalloc, lzf, linenoise: BSD-2-Clause
@@ -149,6 +149,15 @@ mv deps/fpconv/LICENSE.txt        LICENSE-fpconv
 sed -i -e 's|^logfile .*$|logfile /var/log/redis/redis.log|g' redis.conf
 sed -i -e 's|^logfile .*$|logfile /var/log/redis/sentinel.log|g' sentinel.conf
 sed -i -e 's|^dir .*$|dir /var/lib/redis|g' redis.conf
+
+# See https://bugzilla.redhat.com/2240293
+# See https://src.fedoraproject.org/rpms/jemalloc/blob/rawhide/f/jemalloc.spec#_34
+%ifarch %ix86 %arm x86_64 s390x x86_64
+sed -e 's/--with-lg-quantum/--with-lg-page=12 --with-lg-quantum/' -i deps/Makefile
+%endif
+%ifarch ppc64 ppc64le aarch64
+sed -e 's/--with-lg-quantum/--with-lg-page=16 --with-lg-quantum/' -i deps/Makefile
+%endif
 
 # Module API version safety check
 api=`sed -n -e 's/#define REDISMODULE_APIVER_[0-9][0-9]* //p' src/redismodule.h`
@@ -307,6 +316,9 @@ fi
 
 
 %changelog
+* Mon Sep 25 2023 Remi Collet <remi@remirepo.net> - 7.2.1-2
+- set jemalloc page size #2240293
+
 * Thu Sep  7 2023 Remi Collet <remi@remirepo.net> - 7.2.1-1
 - Upstream 7.2.1 release
 

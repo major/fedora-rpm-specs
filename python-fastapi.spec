@@ -44,6 +44,9 @@ Patch:          %{url}/pull/4409.patch
 Patch:          %{url}/pull/5799.patch
 
 BuildRequires:  python3-devel
+# For Pydantic version check:
+BuildRequires:  %{py3_dist packaging}
+BuildRequires:  %{py3_dist pydantic}
 
 Summary(en):    %{sum_en}
 Summary(es):    %{sum_es}
@@ -411,9 +414,20 @@ sed -r -i 's/("orjson\b.*",)/# \1/' pyproject.toml
 # “all” extra metapackage.
 sed -r -i 's/("uvicorn\b.*",)/# \1/' pyproject.toml
 %endif
-# Both pydantic-settings and pydantic-extra-types are for Pydantic v2 only.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2157134
-sed -r -i 's/("pydantic-(settings|extra-types)\b.*",)/# \1/' pyproject.toml
+# Testing the Pydantic version at build time allows us to run all tests on
+# Pydantic v1 while using the same spec file to prepare for Pydantic v2. The
+# version test can be removed once Pydantic v2 is in Rawhide.
+if '%{python3}' -c 'from pydantic import VERSION
+from packaging.version import Version
+yes, no = 0, 1
+raise SystemExit(yes if Version(VERSION) < Version("2") else no)'
+then
+  # We have Pydantic < 2.0; both pydantic-settings and pydantic-extra-types are
+  # for Pydantic v2 only.
+  # https://bugzilla.redhat.com/show_bug.cgi?id=2157134
+  sed -r -i 's/("pydantic-(settings|extra-types)\b.*",)/# \1/' pyproject.toml
+  sed -r -i 's/^pydantic-(settings|extra-types)\b/# &/' requirements-tests.txt
+fi
 
 # Comment out test dependencies that are only for linting/formatting/analysis,
 # and will not be used.
@@ -426,15 +440,11 @@ sed -r -i 's/("pydantic-(settings|extra-types)\b.*",)/# \1/' pyproject.toml
 #
 # In general, we cannot respect exact-version pins, so we loosen them to lower
 # bounds.
-#
-# Both pydantic-settings and pydantic-extra-types are for Pydantic v2 only.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2157134
 sed -r \
     -e 's/^(mypy|black|ruff|coverage)\b/# &/' \
     -e 's/^(types-(u|or)json)\b/# &/' \
     -e 's/^(-e .)$/# &/' \
     -e 's/==/>=/' \
-    -e 's/^(pydantic-(settings|extra-types))\b/# &/' \
 %if %{without orjson}
     -e 's/^(orjson)\b/# &/' \
 %endif

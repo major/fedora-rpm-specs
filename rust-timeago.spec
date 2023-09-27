@@ -2,21 +2,26 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate memfd
+%global crate timeago
 
-Name:           rust-memfd
-Version:        0.6.4
+Name:           rust-timeago
+Version:        0.4.2
 Release:        %autorelease
-Summary:        Pure-Rust library to work with Linux memfd and sealing
+Summary:        Given a Duration, lossily format it like in 'N days ago'
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/memfd
+URL:            https://crates.io/crates/timeago
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * prevent unwanted binary from being built and shipped
+# * remove unused support for ISO 639 language codes
+Patch:          timeago-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A pure-Rust library to work with Linux memfd and sealing.}
+Given a Duration, lossily format it like in 'N days ago'. Parsing it
+back to Duration is not supported yet.}
 
 %description %{_description}
 
@@ -45,6 +50,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+chrono-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+chrono-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "chrono" feature of the "%{crate}" crate.
+
+%files       -n %{name}+chrono-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+translations-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+translations-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "translations" feature of the "%{crate}" crate.
+
+%files       -n %{name}+translations-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
