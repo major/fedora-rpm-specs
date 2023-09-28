@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -58,6 +58,10 @@ Patch21:        0021-Do-not-require-sources-file-for-all-namespaces.patch
 Patch22:        0022-commit-command-fails-on-containers-namespace.patch
 Patch23:        0023-Split-git-credential-data-on-first-only.patch
 Patch24:        0024-Support-for-checking-exploded-sources-before-push.patch
+Patch25:        0025-Fix-flake8-complaints.patch
+Patch26:        0026-Prepare-the-lookaside-cache-code-for-retries.patch
+Patch27:        0027-Lookaside-cache-operations-retries.patch
+Patch28:        0028-Make-lookaside-cache-retries-configurable.patch
 
 %description
 Python library for interacting with rpm+git
@@ -274,6 +278,12 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Mon Sep 25 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-12
+- Patch: Fix flake8 complaints
+- Patch: Prepare the lookaside cache code for retries
+- Patch: Lookaside cache operations retries
+- Patch: Make lookaside cache retries configurable
+
 * Sun Aug 20 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-11
 - Patch: Support for checking exploded sources before push
 - Patch: Split git credential data on first = only

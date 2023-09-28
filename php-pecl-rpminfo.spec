@@ -10,25 +10,24 @@
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
 %global pecl_name  rpminfo
 %global ini_name   40-%{pecl_name}.ini
+%global sources    %{pecl_name}-%{version}
+%global _configure ../%{sources}/configure
 
 Summary:        RPM information
 Name:           php-pecl-%{pecl_name}
-Version:        0.6.0
-Release:        10%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(rpm) >= 4.11.3
-BuildRequires:  php-devel >= 7.2
+BuildRequires:  php-devel >= 8
 BuildRequires:  php-pear
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -55,9 +54,7 @@ sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-mv %{pecl_name}-%{version} NTS
-
-cd NTS
+cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_RPMINFO_VERSION/{s/.* "//;s/".*$//;p}' php_rpminfo.h)
 if test "x${extver}" != "x%{version}"; then
@@ -66,9 +63,9 @@ if test "x${extver}" != "x%{version}"; then
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-# Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Create configuration file
@@ -79,21 +76,22 @@ EOF
 
 
 %build
-cd NTS
-%{_bindir}/phpize
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
 %configure \
     --enable-rpminfo \
     --with-libdir=%{_lib} \
-    --with-php-config=%{_bindir}/php-config
+    --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
 %configure \
     --enable-rpminfo \
     --with-libdir=%{_lib} \
-    --with-php-config=%{_bindir}/zts-php-config
+    --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -115,12 +113,13 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
-cd NTS
+cd %{sources}
+
 # Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so \
@@ -129,12 +128,9 @@ cd NTS
 # Upstream test suite  for NTS extension
 TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__php} -n run-tests.php --show-diff
+%{__php} -n run-tests.php -q --show-diff
 
 %if %{with_zts}
-cd ../ZTS
 # Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini \
     --define extension=%{buildroot}/%{php_ztsextdir}/%{pecl_name}.so \
@@ -143,14 +139,12 @@ cd ../ZTS
 # Upstream test suite  for ZTS extension
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_ztsextdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__ztsphp} -n run-tests.php --show-diff
+%{__ztsphp} -n run-tests.php -q --show-diff
 %endif
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -164,6 +158,10 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 0.7.0-1
+- update to 0.7.0
+- build out of sources tree
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate easy-parallel
 
 Name:           rust-easy-parallel
-Version:        3.3.0
+Version:        3.3.1
 Release:        %autorelease
 Summary:        Run closures in parallel
 

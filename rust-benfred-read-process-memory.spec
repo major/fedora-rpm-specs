@@ -67,7 +67,8 @@ use the "default" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests that require running the dropped test binary
-%cargo_test -- -- --skip test::test_read_large --skip test::test_read_small
+# * skip tests that no longer compile with Rust 1.72
+%cargo_test -- -- --skip test::test_read_large --skip test::test_read_small --skip test_readme
 %endif
 
 %changelog

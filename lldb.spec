@@ -4,8 +4,8 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global lldb_version 17.0.0
-%global rc_ver 4
+%global lldb_version 17.0.1
+#global rc_ver 4
 %global lldb_srcdir %{name}-%{lldb_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		lldb
@@ -18,6 +18,10 @@ URL:		http://lldb.llvm.org/
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_version}%{?rc_ver:-rc%{rc_ver}}/%{lldb_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_version}%{?rc_ver:-rc%{rc_ver}}/%{lldb_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
+
+# Backports from LLVM 18.
+Patch:		0001-lldb-NFCI-Change-logic-to-find-clang-resource-dir-in.patch
+Patch:		0001-lldb-Fix-building-LLDB-standlone-without-framework.patch
 
 BuildRequires:	clang
 BuildRequires:	cmake
@@ -93,6 +97,7 @@ The package contains the LLDB Python module.
 	-DPYTHON_VERSION_MINOR:STRING=$(%{__python3} -c "import sys; print(sys.version_info.minor)") \
 	-DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
 	-DCLANG_LINK_CLANG_DYLIB=ON \
+	-DCLANG_RESOURCE_DIR=$(realpath --relative-to=/usr/bin %{clang_resource_dir}) \
 	-DLLVM_LIT_ARGS="-sv \
 	--path %{_libdir}/llvm" \
 
@@ -133,6 +138,9 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %{python3_sitearch}/lldb
 
 %changelog
+* Mon Sep 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.1-1
+- Update to LLVM 17.0.1
+
 * Mon Sep 11 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.0~rc4-1
 - Update to LLVM 17.0.0 RC4
 

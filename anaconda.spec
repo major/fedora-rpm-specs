@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.5
+Version: 40.6
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -205,6 +205,17 @@ Requires: tmux
 Requires: gdb
 # support for installation from image and live & live image installations
 Requires: rsync
+# basic filesystem tools
+%if ! 0%{?rhel}
+Requires: btrfs-progs
+Requires: ntfs-3g
+Requires: ntfsprogs
+Requires: jfsutils
+Requires: f2fs-tools
+%endif
+Requires: xfsprogs
+Requires: dosfstools
+Requires: e2fsprogs
 
 %description install-env-deps
 The anaconda-install-env-deps metapackage lists all installation environment
@@ -485,6 +496,26 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 26 2023 Packit <hello@packit.dev> - 40.6-1
+- webui: robustify manual partitioning request manipulation (kkoukiou)
+- webui: split long line to more lines (kkoukiou)
+- webui: tests: improve add_mountpoint_row the remove_mountpoint_row helper
+  methods (kkoukiou)
+- webui: start using 'passphrase' always for LUKS instead of 'password'
+  (kkoukiou)
+- webui: refactor LUKS unlocking modal after designer feedback (kkoukiou)
+- webui: test: increase timeout when unlocking LUKS devices (kkoukiou)
+- webui: fix unexpected closing of the Unlock LUKS device dialog after wrong
+  password (kkoukiou)
+- Update translations from Weblate for master (github-actions)
+- webui: Check for required filesystem type for mount points (vtrefny)
+- webui: Get the required mountpoints from the backend (vtrefny)
+- storage: Add a function to get list of required mount points (vtrefny)
+- tests: Remove pep8 and pycodestyle (vslavik)
+- docs: Add efibootmgr non-unicode output to common bugs (vslavik)
+- webui: Unpin blivet-gui dependency from test/prepare-updates-img (vtrefny)
+- spec: Add depdendency on fs tools to anaconda-install-env-deps (vtrefny)
+
 * Tue Sep 19 2023 Packit <hello@packit.dev> - 40.5-1
 - webui: Remove test for unformattable filesystems (vtrefny)
 - Update translations from Weblate for master (github-actions)

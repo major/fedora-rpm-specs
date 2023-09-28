@@ -5,7 +5,7 @@
 %global crate concurrent-queue
 
 Name:           rust-concurrent-queue
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Concurrent multi-producer multi-consumer queue
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          concurrent-queue-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * drop unused, benchmark-only criterion dev-dependency
 Patch:          concurrent-queue-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

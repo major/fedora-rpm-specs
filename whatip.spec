@@ -1,7 +1,7 @@
 %global app_id  org.gabmus.whatip
 
 Name:           whatip
-Version:        1.1
+Version:        1.2
 Release:        %autorelease
 Summary:        Info on your IP address
 License:        GPL-3.0-or-newer

@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-zumba-json-serializer
 #
-# Copyright (c) 2021-2022 Remi Collet
+# Copyright (c) 2021-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    421dcdd53d4b333303d984e9ebec557d3e37783b
+%global gh_commit    93786164efd20b6e01d42b03d4f7c2e52c9cebd8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zumba
 %global gh_project   json-serializer
@@ -18,13 +18,14 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.0.2
-Release:        3%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        Serialize PHP variables
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
+Source0:        %{name}-%{version}-%{?gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 %if %{with tests}
@@ -36,9 +37,9 @@ BuildRequires:  php-pcre
 BuildRequires:  php-reflection
 BuildRequires:  php-spl
 # For tests, from composer.json "require-dev": {
-#        "phpunit/phpunit": ">=6.0 <10.0"
-BuildRequires:  phpunit9
-%global phpunit %{_bindir}/phpunit9
+#        "phpunit/phpunit": ">=6.0 <11.0"
+BuildRequires:  phpunit10
+%global phpunit %{_bindir}/phpunit10
 %endif
 # For autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -94,13 +95,14 @@ require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82; do
+# ignore testS relying on SuperClosure (deprecated and removed from repo)
+for cmdarg in "php %{phpunit}" "php80 %{_bindir}/phpunit9" php81 php82 php83; do
    if which $cmdarg; then
       set $cmdarg
-      $1 ${2:-%{_bindir}/phpunit9} \
+      $1 ${2:-%{_bindir}/phpunit10} \
           --bootstrap vendor/autoload.php \
-          --no-coverage \
-          --verbose || ret=1
+          --filter '^((?!(testAddSerializer|testGetPreferredSerializer|testSerialize|testUnserialize)).)*$' \
+          --no-coverage || ret=1
    fi
 done
 exit $ret
@@ -118,6 +120,11 @@ exit $ret
 
 
 %changelog
+* Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 3.2.0-1
+- update to 3.2.0
+- sources from git snapshot
+- switch to phpunit10
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

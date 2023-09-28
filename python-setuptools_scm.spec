@@ -1,14 +1,14 @@
 %bcond_without tests
 
 Name:           python-setuptools_scm
-Version:        7.1.0
-Release:        7%{?dist}
+Version:        8.0.3
+Release:        1%{?dist}
 Summary:        Blessed package to manage your versions by SCM tags
 
 # SPDX
 License:        MIT
 URL:            https://pypi.python.org/pypi/setuptools_scm
-Source0:        %{pypi_source setuptools_scm}
+Source0:        %{pypi_source setuptools-scm}
 
 BuildArch:      noarch
 
@@ -43,7 +43,7 @@ It also handles file finders for the supported SCMs.
 
 
 %prep
-%autosetup -p1 -n setuptools_scm-%{version}
+%autosetup -p1 -n setuptools-scm-%{version}
 # In case of a bootstrap loop between toml and setuptools_scm, do:
 #   rm pyproject.toml
 # That way, toml is not fetched to parse the file.
@@ -72,10 +72,16 @@ It also handles file finders for the supported SCMs.
 
 %files -n python%{python3_pkgversion}-setuptools_scm -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.md
 
 
 %changelog
+* Tue Sep 26 2023 Lumír Balhar <lbalhar@redhat.com> - 8.0.3-1
+- Update to 8.0.3 (rhbz#2239825)
+
+* Thu Sep 21 2023 Lumír Balhar <lbalhar@redhat.com> - 8.0.2-1
+- Update to 8.0.2 (rhbz#2239825)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

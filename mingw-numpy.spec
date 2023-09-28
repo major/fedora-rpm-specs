@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       1.24.4
+Version:       1.26.0
 Release:       1%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
@@ -123,6 +123,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefi
 
 
 %changelog
+* Tue Sep 26 2023 Sandro Mani <manisandro@gmail.com> - 1.26.0-1
+- Update to 1.26.0
+
 * Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 1.24.4-1
 - Update to 1.24.4
 

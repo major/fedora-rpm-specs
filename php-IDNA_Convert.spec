@@ -1,11 +1,11 @@
 Name:		php-IDNA_Convert
-Version:	0.8.0
-Release:	21%{?dist}
+Version:	4.0.1
+Release:	1%{?dist}
 Summary:	Provides conversion of internationalized strings to UTF8
 
 License:	LGPL-2.1-or-later
-URL:		http://idnaconv.phlymail.de/
-Source0:	http://phlymail.com/download/Goodies/idna_convert_080.zip
+URL:		https://github.com/algo26-matthias/idna-convert
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 
@@ -29,22 +29,20 @@ This converter allows you to transfer domain names between the encoded
 #empty build string to placate rpmlint
 
 %install
-rm -rf ${buildroot}
 %{__mkdir} -p %{buildroot}/%{_datadir}/php/IDNA_Convert
-cp -a idna_convert.class.php %{buildroot}/%{_datadir}/php/IDNA_Convert/
-cp -a transcode_wrapper.php %{buildroot}/%{_datadir}/php/IDNA_Convert
-cp -a uctc.php %{buildroot}/%{_datadir}/php/IDNA_Convert
-
-
+cp -a idna-convert-%{version}/src/* %{buildroot}/%{_datadir}/php/IDNA_Convert/
 
 
 %files
-%{_datadir}/php/IDNA_Convert
-%doc LICENCE ReadMe.txt example.php
-
+%{_datadir}/php/IDNA_Convert/
+%license idna-convert-%{version}/LICENSE
+%doc idna-convert-%{version}/README.md
 
 
 %changelog
+* Tue Sep 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-1
+- 4.0.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

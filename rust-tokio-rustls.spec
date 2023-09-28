@@ -130,7 +130,8 @@ use the "tls12" feature of the "%{crate}" crate.
 %ifarch %{supported_arches}
 %check
 # * skip tests that require an internet connection
-%cargo_test -- -- --skip test_modern --skip test_tls12
+# * skip tests that fail due to expired certificates
+%cargo_test -- -- --exact --skip test_modern --skip test_tls12 --skip common::test_stream::stream_bad --skip common::test_stream::stream_buffered_handshake --skip common::test_stream::stream_eof --skip common::test_stream::stream_good --skip common::test_stream::stream_handshake --skip test_lazy_config_acceptor --skip pass
 %endif
 %endif
 

@@ -5,7 +5,7 @@
 %global crate waker-fn
 
 Name:           rust-waker-fn
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Convert closures into wakers
 

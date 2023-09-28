@@ -19,8 +19,8 @@
 %global modname numpy
 
 Name:           numpy
-Version:        1.24.4
-Release:        2%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -29,12 +29,9 @@ License:        BSD-3-Clause AND Apache-2.0
 URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
-Patch0:         https://github.com/numpy/numpy/commit/b0872b858e2e6ebc394e95c81a024dcf1573c690.patch
-# Cython 3 support, rebased from upstream:
-# https://github.com/numpy/numpy/commit/c7724ee776f3aa447d89170809aace0461ccacf0
-# https://github.com/numpy/numpy/commit/888fd7719965719321f160f79051aa5caf42b9ac
-# Also, Cython unpinned to allow Cython 3
-Patch1:         cython3.patch
+Patch0:         f2py_test.patch
+Patch1:         24772.patch
+Patch2:         24776.patch
 
 %description
 NumPy is a general-purpose array-processing package designed to
@@ -62,9 +59,12 @@ Obsoletes:      numpy < 1:1.10.1-3
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pip
 BuildRequires:  python3-Cython
+BuildRequires:  python3-pyproject-metadata
 BuildRequires:  gcc-gfortran gcc gcc-c++
 BuildRequires:  lapack-devel
+BuildRequires:  ninja-build
 %if %{with tests}
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest
@@ -112,9 +112,6 @@ This package provides the complete documentation for NumPy.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
-# Force re-cythonization (ifed for PKG-INFO presence in setup.py)
-rm PKG-INFO
-
 # openblas is provided by flexiblas by default; otherwise,
 # Use openblas pthreads as recommended by upstream (see comment in site.cfg.example)
 cat >> site.cfg <<EOF
@@ -126,10 +123,7 @@ EOF
 %build
 %set_build_flags
 
-env OPENBLAS=%{_libdir} \
-    BLAS=%{_libdir} \
-    LAPACK=%{_libdir} CFLAGS="%{optflags}" \
-    %{__python3} setup.py build
+%pyproject_wheel -Csetup-args=-Dblas=flexiblas -Csetup-args=-Dlapack=lapack
 
 %install
 mkdir docs
@@ -137,26 +131,16 @@ pushd docs
 unzip %{SOURCE1}
 popd
 
-#%%{__python3} setup.py install -O1 --skip-build --root %%{buildroot}
-# skip-build currently broken, this works around it for now
-env OPENBLAS=%{_libdir} \
-    FFTW=%{_libdir} BLAS=%{_libdir} \
-    LAPACK=%{_libdir} CFLAGS="%{optflags}" \
-    %{__python3} setup.py install --root %{buildroot} --prefix=%{_prefix}
+%pyproject_install
 pushd %{buildroot}%{_bindir} &> /dev/null
+ln -s f2py f2py3
+ln -s f2py f2py3.12
 ln -s f2py3 f2py.numpy
 popd &> /dev/null
 
 #symlink for includes, BZ 185079
 mkdir -p %{buildroot}%{_includedir}
 ln -s %{python3_sitearch}/%{name}/core/include/numpy/ %{buildroot}%{_includedir}/numpy
-
-# distutils from setuptools don't have the patch that was created to avoid standard runpath here
-# we strip it manually instead
-# ERROR   0001: file '...' contains a standard runpath '/usr/lib64' in [/usr/lib64]
-chrpath --delete %{buildroot}%{python3_sitearch}/%{name}/core/_multiarray_umath.*.so
-chrpath --delete %{buildroot}%{python3_sitearch}/%{name}/linalg/lapack_lite.*.so
-chrpath --delete %{buildroot}%{python3_sitearch}/%{name}/linalg/_umath_linalg.*.so
 
 
 %check
@@ -184,7 +168,6 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 %dir %{python3_sitearch}/%{name}
 %{python3_sitearch}/%{name}/*.py*
 %{python3_sitearch}/%{name}/core
-%{python3_sitearch}/%{name}/distutils
 %{python3_sitearch}/%{name}/doc
 %{python3_sitearch}/%{name}/fft
 %{python3_sitearch}/%{name}/lib
@@ -196,8 +179,7 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 %{python3_sitearch}/%{name}/compat
 %{python3_sitearch}/%{name}/matrixlib
 %{python3_sitearch}/%{name}/polynomial
-%{python3_sitearch}/%{name}-*.egg-info
-%exclude %{python3_sitearch}/%{name}/LICENSE.txt
+%{python3_sitearch}/%{name}-*.dist-info
 %{_includedir}/numpy
 %{python3_sitearch}/%{name}/__init__.pxd
 %{python3_sitearch}/%{name}/__init__.cython-30.pxd
@@ -206,6 +188,7 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 %{python3_sitearch}/%{name}/array_api/
 %{python3_sitearch}/%{name}/_pyinstaller/
 %{python3_sitearch}/%{name}/_typing/
+%{python3_sitearch}/%{name}/_utils/
 
 %files -n python3-numpy-f2py
 %{_bindir}/f2py
@@ -219,6 +202,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Tue Sep 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:1.26.0-1
+- 1.26.0
+
 * Mon Jul 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1:1.24.4-2
 - Backport support for Cython 3
 

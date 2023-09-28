@@ -1,13 +1,13 @@
 %global srcname pyocr
 
 Name:           python-%{srcname}
-Version:        0.8.2
+Version:        0.8.5
 Release:        %autorelease
 Summary:        Python wrapper for OCR engines (Tesseract, Cuneiform, etc)
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/OpenPaperwork/pyocr
-Source0:        %pypi_source
+Source:         %pypi_source %{srcname}
 
 BuildArch:      noarch
 
@@ -28,7 +28,6 @@ A Python wrapper for Tesseract and Cuneiform
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx)
 
 Recommends:     tesseract
@@ -39,7 +38,7 @@ Recommends:     tesseract
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x dev
 
 %build
 %pyproject_wheel
@@ -58,8 +57,7 @@ export LANG=C.UTF-8
 %{pytest} tests
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc README.md AUTHORS ChangeLog html
-%license COPYING
+%doc README.md ChangeLog html
 
 %changelog
 %autochangelog

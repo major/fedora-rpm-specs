@@ -13,11 +13,6 @@
     %global     _without_gcrypt      1
 %endif
 
-%if 0%{?el9}
-    # RHBZ 2031270
-    %global     _without_nfs         1
-%endif
-
 %if 0%{?fedora} || 0%{?rhel} >= 9
 # Not permitted in Fedora, ffmpeg covers this anyway
 %global _without_faad2 1
@@ -37,7 +32,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        7%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        8%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -350,6 +345,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Tue Sep 26 2023 Xavier Bachelot <xavier@bachelot.org> - 1.2.13-8
+- Enable nfs support for EL9
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 # to handle RCs
 %global ghc_release %{version}
 
-%global base_ver 4.18.0.0
+%global base_ver 4.18.1.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.2.0
@@ -28,7 +28,9 @@
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.2+
+%if 0%{?fedora} < 39
 %global ghcboot_major 9.2
+%endif
 %global ghcboot ghc%{?ghcboot_major}
 
 # make sure ghc libraries' ABI hashes unchanged
@@ -44,18 +46,18 @@
 %if 0%{?rhel} == 9
 %global llvm_major 12
 %else
-%global llvm_major 13
+%global llvm_major 14
 %endif
 %global ghc_llvm_archs armv7hl s390x
 %global ghc_unregisterized_arches s390 %{mips} riscv64
 
 Name: %{ghc_name}
-Version: 9.6.2
+Version: 9.6.3
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -79,9 +81,6 @@ Patch8: ghc-configure-c99.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
 # needs more backporting to 9.6
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
-# distutils gone in python 3.12
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922
-Patch10: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/23707
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085
 Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085.patch
@@ -110,7 +109,7 @@ Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
-BuildRequires: %{ghcboot}-compiler
+BuildRequires: %{ghcboot}-compiler > 9.2
 # for ABI hash checking
 %if %{with abicheck}
 BuildRequires: %{name}
@@ -319,12 +318,12 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.5.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.1
-%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.4.0
+%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.2
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.8.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.7
-%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.100.1
+%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.100.4
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-bignum-%{ghc_bignum_ver}
@@ -389,7 +388,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P2 -p1 -b .orig
 %patch -P8 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
-%patch -P10 -p1 -b .orig
 %patch -P11 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
@@ -411,7 +409,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P27 -p1 -b .orig
 
 #sphinx 7
-%if 0%{?fedora} >= 30
+%if 0%{?fedora} >= 40
 %patch -P30 -p1 -b .orig
 %endif
 
@@ -821,6 +819,9 @@ make test
 
 
 %changelog
+* Mon Sep 25 2023 Jens Petersen <petersen@redhat.com> - 9.6.3-11
+- https://downloads.haskell.org/ghc/9.6.3/docs/users_guide/9.6.3-notes.html
+
 * Tue Jul 25 2023 Jens Petersen <petersen@redhat.com> - 9.6.2-10
 - base subpkg now owns ghcliblib and ghclibplatform dirs (#2185357)
 - update BSD license tags to SPDX

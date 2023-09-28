@@ -12,7 +12,7 @@ Name: ansible-core
 Summary: A radically simple IT automation system
 Version: 2.15.4
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -44,6 +44,9 @@ Patch6000: https://github.com/ansible/ansible/commit/676b731e6f7d60ce6fd48c0d1c8
 Patch6003: https://github.com/ansible/ansible/commit/742d47fa15a5418f98abf9aaf07edf466e871c81.patch#/replace-deprecated-ast.value.s.patch
 # Avoid deprecated importlib.abc.TraversableResources (#81082)
 Patch6004: https://github.com/ansible/ansible/commit/bd5b0b4293f454819766437cb6f8a7037affd49e.patch#/avoid-importlib-resources-abc-deprecation.patch
+# Fix for readfp with python-3.12. Already upstream (rhbz#2239728)
+# (rebased on top of above patches)
+Patch6005: https://github.com/ansible/ansible/commit/a861b1adba5d4a12f61ed268f67a224bdaa5f835.patch
 
 Url: https://ansible.com
 BuildArch: noarch
@@ -285,6 +288,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Tue Sep 26 2023 Kevin Fenzi <kevin@scrye.com> - 2.15.4-2
+- Add patch to fix readfp with python-3.12. Fixes rhbz#2239728
+
 * Mon Sep 11 2023 Maxwell G <maxwell@gtmx.me> - 2.15.4-1
 - Update to 2.15.4. Fixes rhbz#2238445.
 

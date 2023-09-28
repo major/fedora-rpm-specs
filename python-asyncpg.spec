@@ -7,9 +7,7 @@
 %bcond doc 0
 
 # Run tests with uvloop?
-# F39FailsToInstall: python3-uvloop
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220551
-%bcond uvloop 0
+%bcond uvloop 1
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio

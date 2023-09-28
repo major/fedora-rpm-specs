@@ -4,7 +4,7 @@ Name:           hostapd
 Version:        2.10
 Release:        7%{?dist}
 Summary:        IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://w1.fi/hostapd
 
 Source0:        http://w1.fi/releases/%{name}-%{version}.tar.gz

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.0.9
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A gem that provides a simple mixin for log functionality
 License: ASL 2.0
 URL: https://github.com/chef/mixlib-log
@@ -12,6 +12,8 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git checkout v3.0.9
 # tar -czf rubygem-mixlib-log-3.0.9-specs.tgz spec/
 Source1: rubygem-mixlib-log-%{version}-specs.tar.gz
+# https://github.com/chef/mixlib-log/pull/74
+Patch0:  mixlib-log-pr74-ruby33-Logger-support.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.3
@@ -31,6 +33,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+%patch -P0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -62,6 +65,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Tue Sep 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.9-7
+- Apply upstream PR to support ruby3.3 Logger
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

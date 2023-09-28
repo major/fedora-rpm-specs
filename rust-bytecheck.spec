@@ -110,7 +110,9 @@ use the "verbose" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip tests that fail with Rust 1.71:
+#   https://github.com/rkyv/bytecheck/issues/32
+%cargo_test -- -- --skip "src/lib.rs"
 %endif
 
 %changelog

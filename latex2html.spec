@@ -15,8 +15,9 @@ Source2: %{name}-manpages.tar.gz
 Source3: http://takeno.iee.niit.ac.jp/~shige/TeX/latex2html/data2/l2h-2023-jp3.2b1.37.tar.gz
 Patch1: latex2html-2018.2-teTeX-l2h-config.patch
 Patch2: latex2html-2002-2-1-SHLIB.patch
-Requires: tex(latex), tex(dvips), tex(url.sty), tex(preview.sty), netpbm-progs
-BuildRequires: perl-interpreter >= 5.003, perl-generators, ghostscript >= 4.03, netpbm-progs >= 9.21, tex(latex)
+Requires: tex(latex), tex(dvips), tex(url.sty), tex(preview.sty), netpbm-progs, poppler-utils
+BuildRequires: tex(latex), tex(dvips), tex(url.sty), tex(preview.sty), netpbm-progs, poppler-utils
+BuildRequires: perl-interpreter >= 5.003, perl-generators, ghostscript >= 4.03
 BuildRequires: perl(Carp), perl(Config), perl(Cwd), perl(DB), perl(Exporter),
 BuildRequires: perl(File::Copy), perl(FindBin), perl(IO::File), perl(Sys::Hostname)
 BuildRequires: perl(Unicode::Collate::Locale), perl(lib), perl(strict), perl(vars)

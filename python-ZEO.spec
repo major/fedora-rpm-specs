@@ -10,7 +10,7 @@ Summary:        Client-server storage implementation for ZODB
 
 %forgemeta
 
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        ZPL-2.1
 URL:            https://www.zodb.org/
 Source0:        %{forgesource}
@@ -46,8 +46,7 @@ Summary:        Client-server storage implementation for ZODB
 %description -n python3-ZEO
 %{common_desc}
 
-#%%pyproject_extras_subpkg -n python3-ZEO msgpack uvloop
-%pyproject_extras_subpkg -n python3-ZEO msgpack
+%pyproject_extras_subpkg -n python3-ZEO msgpack uvloop
 
 %prep
 %forgeautosetup
@@ -62,8 +61,7 @@ sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/ht
 %py3_shebang_fix src/ZEO
 
 %generate_buildrequires
-#%%pyproject_buildrequires -t -x msgpack,uvloop,docs
-%pyproject_buildrequires -t -x msgpack,docs
+%pyproject_buildrequires -t -x msgpack,uvloop,docs
 
 %build
 cd src/ZEO/asyncio
@@ -108,6 +106,9 @@ rst2html --no-datestamp README.rst README.html
 %doc docs/_build/html
 
 %changelog
+* Tue Sep 26 2023 Jerry James <loganjerry@gmail.com> - 5.4.1-2
+- Reenable uvloop support
+
 * Thu Sep 21 2023 Jerry James <loganjerry@gmail.com> - 5.4.1-1
 - Version 5.4.1 + git HEAD for python 3.12 support
 - Temporarily disable uvloop support until uvloop is installable again

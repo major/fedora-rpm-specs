@@ -16,7 +16,7 @@ Features:
 
 Name:           python-%{pypi_name}
 Version:        4.2.0
-Release:        12%{?dist}
+Release:        14%{?dist}
 Summary:        Compute distance between the two texts
 License:        MIT
 URL:            https://github.com/orsinium/textdistance
@@ -74,6 +74,12 @@ chmod 644 %{buildroot}%{_docdir}/python3-%{pypi_name}/README.md
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Sep 26 2023 Sandro <devel@penguinpee.nl> - 4.2.0-14
+- Rebuild for RHBZ#2171687 (corrected bug#)
+
+* Tue Sep 26 2023 Sandro <devel@penguinpee.nl> - 4.2.0-13
+- Rebuild for RHBZ#2240745
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,10 +1,10 @@
 %global appname Komikku
 %global uuid    info.febvre.%{appname}
-%global gtk4_version        4.10.1
-%global libadwaita_version  1.3.1
+%global gtk4_version        4.12.1
+%global libadwaita_version  1.4.0
 
 Name:           komikku
-Version:        1.23.0
+Version:        1.25.1
 Release:        %autorelease
 Summary:        A manga reader for GNOME
 BuildArch:      noarch
@@ -18,6 +18,13 @@ BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  python3-devel >= 3.8
+BuildRequires:  blueprint-compiler
+
+# blueprint-compiler does not work on s390x:
+# https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
+#
+# Note: That's temporary, as a fix has recently been found.
+ExcludeArch:    s390x
 
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.35.9
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}

@@ -15,9 +15,7 @@
 %global sum_zh  FastAPI 框架
 
 %bcond orjson 1
-# F39FailsToInstall: python3-uvicorn+standard, python3-uvicorn
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220550
-%bcond uvicorn 0
+%bcond uvicorn 1
 
 Name:           python-fastapi
 Version:        0.103.1

@@ -100,7 +100,7 @@ requested compression level (NONE, PARTIAL or FULL).
 
 %prep
 %autosetup
-dos2unix *.TXT *.txt
+dos2unix --keepdate *.TXT *.txt
 # Nothing in this package is a script; nothing should be executable.
 find . -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 

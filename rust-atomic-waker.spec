@@ -5,13 +5,16 @@
 %global crate atomic-waker
 
 Name:           rust-atomic-waker
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Synchronization primitive for task wakeup
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/atomic-waker
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          atomic-waker-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

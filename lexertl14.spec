@@ -52,7 +52,7 @@ BuildArch:      noarch
 find . -type f -exec file '{}' '+' |
   grep -E '\bCRLF\b' |
   cut -d ':' -f 1 |
-  xargs -r dos2unix
+  xargs -r dos2unix --keepdate
 
 
 %build

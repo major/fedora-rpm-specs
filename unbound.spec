@@ -98,7 +98,6 @@ Requires: %{name}-anchor%{?_isa} = %{version}-%{release}
 Recommends: %{name}-utils%{?_isa} = %{version}-%{release}
 # unbound-keygen.service requires it, bug #2116790
 Requires: openssl
-Requires(pre): systemd-sysusers
 
 %description
 Unbound is a validating, recursive, and caching DNS(SEC) resolver.
@@ -133,6 +132,7 @@ The devel package contains the unbound library and the include files
 %package libs
 Summary: Libraries used by the unbound server and client applications
 Recommends: %{name}-anchor
+%{?sysusers_requires_compat}
 %if ! 0%{with_python2}
 # Make explicit conflict with no longer provided python package
 Obsoletes: python2-unbound < 1.9.3
@@ -142,7 +142,6 @@ Obsoletes: python2-unbound < 1.9.3
 Contains libraries used by the unbound server and client applications.
 
 %package anchor
-Requires(pre): shadow-utils
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Summary: DNSSEC trust anchor maintaining tool
 

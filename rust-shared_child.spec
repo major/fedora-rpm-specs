@@ -64,7 +64,9 @@ use the "default" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * doctests try to run unversioned "python"
-%cargo_test -- --lib
+# * skip a test that fails with Rust 1.72 and newer:
+#   https://github.com/oconnor663/shared_child.rs/issues/23
+%cargo_test -- --lib -- --skip test_into_inner_after_wait
 %endif
 
 %changelog

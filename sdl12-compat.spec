@@ -6,8 +6,8 @@
 %endif
 
 Name:           sdl12-compat
-Version:        1.2.60
-Release:        4%{?dist}
+Version:        1.2.68
+Release:        1%{?dist}
 Summary:        SDL 1.2 runtime compatibility library using SDL 2.0
 # mp3 decoder code is MIT-0/PD
 # SDL_opengl.h is zlib and MIT
@@ -18,11 +18,6 @@ Source0:        %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
 Source1:        SDL_config.h
 
 # Backports from upstream (0001~0500)
-## From: https://github.com/libsdl-org/sdl12-compat/commit/77892a1ef5260fe78e593c8337dbe98874ff336c
-Patch0001:      0001-fix-SDL12COMPAT_MAX_VIDMODE.patch
-# Fix a hang in SDL_FreeYUVOverlay(), in upstream after 1.2.60, RH#2173510,
-# <https://github.com/libsdl-org/sdl12-compat/issues/275>
-Patch0002:      sdl12-compat-1.2.60-Fixed-infinite-loop-in-SDL_FreeYUVOverlay.patch
 
 # Proposed patches (0501~1000)
 
@@ -155,6 +150,9 @@ rm -rf %{buildroot}%{_libdir}/*.a
 
 
 %changelog
+* Tue Sep 26 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.2.68-1
+- Update to 1.2.68
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.60-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

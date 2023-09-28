@@ -3,10 +3,10 @@
 
 Name: tpm2-abrmd
 Version: 3.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A system daemon implementing TPM2 Access Broker and Resource Manager
 
-License: BSD
+License: BSD-2-Clause
 URL:     https://github.com/tpm2-software/tpm2-abrmd
 Source0: https://github.com/tpm2-software/tpm2-abrmd/releases/download/%{version}/%{name}-%{version}.tar.gz
 
@@ -93,6 +93,9 @@ make check
 
 
 %changelog
+* Tue Sep 26 2023 Štěpán Horáček <shoracek@redhat.com> - 3.0.0-4
+- Migrate license to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

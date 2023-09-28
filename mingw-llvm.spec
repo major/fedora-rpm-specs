@@ -10,11 +10,11 @@
 
 
 %global pkgname llvm
-%global libver 16
+%global libver 17
 
 Name:          mingw-%{pkgname}
-Version:       16.0.6
-Release:       2%{?dist}
+Version:       17.0.1
+Release:       1%{?dist}
 Summary:       LLVM for MinGW
 
 License:       NCSA
@@ -257,6 +257,9 @@ chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 
 %changelog
+* Tue Sep 26 2023 Sandro Mani <manisandro@gmail.com> - 17.0.1-1
+- Update to 17.0.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

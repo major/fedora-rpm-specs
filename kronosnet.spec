@@ -36,8 +36,8 @@
 
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
-Version: 1.26
-Release: 2%{?dist}
+Version: 1.27
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
 Source0: https://kronosnet.org/releases/%{name}-%{version}.tar.xz
@@ -436,6 +436,13 @@ Requires: libnozzle1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Tue Sep 26 2023 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.27-1
+- New upstream release
+- Fix potential startup race condition (corosync use case)
+- Fix crypto config check
+- Minor API cleanup
+- Test suite fixes
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

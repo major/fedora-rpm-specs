@@ -5,7 +5,7 @@
 %global crate parking
 
 Name:           rust-parking
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Thread parking and unparking
 

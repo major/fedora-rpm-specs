@@ -2,8 +2,8 @@
 %global pypi_name gitlab
 
 Name:           python-%{pypi_name}
-Version:        3.14.0
-Release:        4%{?dist}
+Version:        3.15.0
+Release:        1%{?dist}
 Summary:        Interact with GitLab API
 
 License:        LGPLv3
@@ -41,6 +41,8 @@ sed -i 's/pytest==.*/pytest/'       requirements-lint.txt requirements-test.txt
 sed -i 's/PyYaml==.*/PyYaml/'       requirements-lint.txt requirements-test.txt
 sed -i 's/responses==.*/responses/' requirements-lint.txt requirements-test.txt
 sed -i 's/coverage==.*/coverage/'   requirements-test.txt
+sed -i 's/setuptools==.*/setuptools/' requirements-test.txt
+sed -i 's/pytest-cov==.*/pytest-cov/' requirements-test.txt
 sed -i 's/build==.*/build/'         requirements-test.txt
 
 # not available in rawhide 11 Aug 2022
@@ -66,6 +68,9 @@ sed -i 's/pytest-github-actions-annotate-failures.*//' requirements-test.txt
 %doc README.rst
 
 %changelog
+* Tue Sep 26 2023 Steve Traylen <steve.traylen@cern.ch> - 3.15.0-1
+- New 3.15.0 version
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

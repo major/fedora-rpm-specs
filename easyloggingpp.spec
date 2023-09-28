@@ -99,8 +99,8 @@ developing applications that use Easylogging++.
 find . -type f \( -name '.git*' -o -name '.travis*' \) -print -delete
 find . -depth -type d -name '.vs' -print -execdir rm -rvf '{}' ';'
 # Fix CRNL line endings
-dos2unix samples/Qt/fast-dictionary/words.txt
-find samples/VC++ -type f -execdir dos2unix '{}' '+'
+dos2unix --keepdate samples/Qt/fast-dictionary/words.txt
+find samples/VC++ -type f -execdir dos2unix --keepdate '{}' '+'
 
 
 %build

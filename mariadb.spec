@@ -11,7 +11,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 10.5.21
+%global last_tested_version 10.5.22
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -25,6 +25,12 @@
 # By default, patch(1) creates backup files when chunks apply with offsets.
 # Turn that off to ensure such files don't get included in RPMs (cf bz#884755).
 %global _default_patch_flags --no-backup-if-mismatch
+
+# Temporary workaround to fix the "internal compiler error" described in https://bugzilla.redhat.com/show_bug.cgi?id=2239498
+# TODO: Remove when the issue is resolved
+%ifarch i686
+%global _lto_cflags %{nil}
+%endif
 
 
 
@@ -149,7 +155,7 @@
 %global sameevr   %{epoch}:%{version}-%{release}
 
 Name:             mariadb
-Version:          10.5.21
+Version:          10.5.22
 Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
@@ -397,8 +403,10 @@ Summary:          The configuration files and scripts for galera replication
 Requires:         %{name}-common%{?_isa} = %{sameevr}
 Requires:         %{name}-server%{?_isa} = %{sameevr}
 Requires:         galera >= 26.4.3
-Requires(post):   libselinux-utils
-Requires(post):   policycoreutils-python-utils
+BuildRequires:    selinux-policy-devel
+Requires(post):   (libselinux-utils if selinux-policy-targeted)
+Requires(post):   (policycoreutils if selinux-policy-targeted)
+Requires(post):   (policycoreutils-python-utils if selinux-policy-targeted)
 # wsrep requirements
 Requires:         lsof
 # Default wsrep_sst_method
@@ -445,7 +453,10 @@ Requires:         %{_sysconfdir}/my.cnf.d
 # Additional SELinux rules (common for MariaDB & MySQL) shipped in a separate package
 # For cases, where we want to fix a SELinux issues in MariaDB sooner than patched selinux-policy-targeted package is released
 %if %require_mysql_selinux
+# The *-selinux package should only be required on SELinux enabled systems. Therefore the following rich dependency syntax should be used:
 Requires:         (mysql-selinux if selinux-policy-targeted)
+# This ensures that the *-selinux package and all its dependencies are not pulled into containers and other systems that do not use SELinux.
+# https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Adding_dependency_to_the_spec_file_of_corresponding_package
 %endif
 
 # for fuser in mysql-check-socket
@@ -543,6 +554,11 @@ Summary:          The password strength checking plugin
 Requires:         %{name}-server%{?_isa} = %{sameevr}
 BuildRequires:    cracklib-dicts cracklib-devel
 Requires:         cracklib-dicts
+
+BuildRequires:    selinux-policy-devel
+Requires(post):   (libselinux-utils if selinux-policy-targeted)
+Requires(post):   (policycoreutils if selinux-policy-targeted)
+Requires(post):   (policycoreutils-python-utils if selinux-policy-targeted)
 
 %description      cracklib-password-check
 CrackLib is a password strength checking library. It is installed by default
@@ -986,7 +1002,13 @@ echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{name}.
 
 # install additional galera selinux policy
 %if %{with galera}
-install -p -m 644 -D selinux/%{name}-server-galera.pp %{buildroot}%{_datadir}/selinux/packages/%{name}/%{name}-server-galera.pp
+install -p -m 644 -D selinux/%{name}-server-galera.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{name}-server-galera.pp
+%endif
+
+# Install additional cracklib selinux policy
+%if %{with cracklib}
+mv %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{name}-plugin-cracklib-password-check.pp
+rm %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.te
 %endif
 
 %if %{with test}
@@ -1269,36 +1291,54 @@ export MTR_BUILD_THREAD=$(( $(date +%s) % 1100 ))
 /usr/sbin/useradd -M -N -g mysql -o -r -d %{mysqluserhome} -s /sbin/nologin \
   -c "MySQL Server" -u 27 mysql >/dev/null 2>&1 || :
 
-%if %{with galera}
-%post server-galera
-# Allow ports needed for the replication:
-# https://mariadb.com/kb/en/library/configuring-mariadb-galera-cluster/#network-ports
-#   Galera Replication Port
-semanage port -a -t mysqld_port_t -p tcp 4567 >/dev/null 2>&1 || :
-semanage port -a -t mysqld_port_t -p udp 4567 >/dev/null 2>&1 || :
-#   IST Port
-semanage port -a -t mysqld_port_t -p tcp 4568 >/dev/null 2>&1 || :
-#   SST Port
-semanage port -a -t mysqld_port_t -p tcp 4444 >/dev/null 2>&1 || :
-
-semodule -i %{_datadir}/selinux/packages/%{name}/%{name}-server-galera.pp >/dev/null 2>&1 || :
-%endif
-
 %post server
 %systemd_post %{daemon_name}.service
 
 %preun server
 %systemd_preun %{daemon_name}.service
 
+%postun server
+%systemd_postun_with_restart %{daemon_name}.service
+
 %if %{with galera}
+%post server-galera
+%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{name}-server-galera.pp
+
+# Allow ports needed for the replication:
+# https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Port_Labeling
+if [ $1 -eq 1 ]; then
+  # https://mariadb.com/kb/en/library/configuring-mariadb-galera-cluster/#network-ports
+  #   Galera Replication Port
+  semanage port -a -t mysqld_port_t -p tcp 4567 >/dev/null 2>&1 || :
+  semanage port -a -t mysqld_port_t -p udp 4567 >/dev/null 2>&1 || :
+  #   IST Port
+  semanage port -a -t mysqld_port_t -p tcp 4568 >/dev/null 2>&1 || :
+  #   SST Port
+  semanage port -a -t mysqld_port_t -p tcp 4444 >/dev/null 2>&1 || :
+fi
+
 %postun server-galera
 if [ $1 -eq 0 ]; then
-    semodule -r %{name}-server-galera 2>/dev/null || :
+    %selinux_modules_uninstall -s "targeted" %{name}-server-galera
+
+    # Delete port labeling when the package is removed
+    # https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Port_Labeling
+    semanage port -d -t mysqld_port_t -p tcp 4567 >/dev/null 2>&1 || :
+    semanage port -d -t mysqld_port_t -p udp 4567 >/dev/null 2>&1 || :
+    semanage port -d -t mysqld_port_t -p tcp 4568 >/dev/null 2>&1 || :
+    semanage port -d -t mysqld_port_t -p tcp 4444 >/dev/null 2>&1 || :
 fi
 %endif
 
-%postun server
-%systemd_postun_with_restart %{daemon_name}.service
+%if %{with cracklib}
+%post cracklib-password-check
+%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{name}-plugin-cracklib-password-check.pp
+
+%postun cracklib-password-check
+if [ $1 -eq 0 ]; then
+    %selinux_modules_uninstall -s "targeted" %{name}-plugin-cracklib-password-check
+fi
+%endif
 
 
 
@@ -1383,7 +1423,7 @@ fi
 %{_bindir}/galera_recovery
 %config(noreplace) %{_sysconfdir}/my.cnf.d/galera.cnf
 %attr(0640,root,root) %ghost %config(noreplace) %{_sysconfdir}/sysconfig/clustercheck
-%{_datadir}/selinux/packages/%{name}/%{name}-server-galera.pp
+%{_datadir}/selinux/packages/targeted/%{name}-server-galera.pp
 %endif
 
 %files server
@@ -1523,6 +1563,7 @@ fi
 %files cracklib-password-check
 %config(noreplace) %{_sysconfdir}/my.cnf.d/cracklib_password_check.cnf
 %{_libdir}/%{pkg_name}/plugin/cracklib_password_check.so
+%{_datadir}/selinux/packages/targeted/%{name}-plugin-cracklib-password-check.pp
 %endif
 
 %if %{with backup}
@@ -1645,6 +1686,9 @@ fi
 %endif
 
 %changelog
+* Mon Sep 04 2023 Michal Schorm <mschorm@redhat.com> - 3:10.5.22-1
+- Rebase to 10.5.22
+
 * Wed Jul 26 2023 Michal Schorm <mschorm@redhat.com> - 3:10.5.21-1
 - Rebase to version 10.5.21
 

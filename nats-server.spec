@@ -78,7 +78,8 @@ exit 0
 %check
 # logger: needs access to syslog
 # server, test: need network
-%gocheck -d logger -d server -d server/pse -d test
+# server/avl: intermittent timeout errors
+%gocheck -d logger -d server -d server/avl -d server/pse -d test
 %endif
 
 %files

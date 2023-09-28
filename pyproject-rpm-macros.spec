@@ -212,7 +212,7 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 - Use %%py3_test_envvars in %%tox when available
 
 * Mon Sep 19 2022 Python Maint <python-maint@redhat.com> - 1.4.0-1
-- %%pyproject_save_files: Support License-Files installed into the *Root License Directory* from PEP 369
+- %%pyproject_save_files: Support License-Files installed into the *Root License Directory* from PEP 639
 - Fixes: rhbz#2127946
 - %%pyproject_check_import: Import only the modules whose top-level names
   match any of the globs provided to %%pyproject_save_files

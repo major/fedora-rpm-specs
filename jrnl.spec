@@ -34,7 +34,7 @@ encryption.
 %prep
 %autosetup -n jrnl-%{version}
 
-dos2unix \
+dos2unix --keepdate \
     SECURITY.md \
     docs/external-editors.md \
     docs/journal-types.md \

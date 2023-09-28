@@ -92,7 +92,9 @@ rm tests/152_bitflags.rs
 
 %if %{with check}
 %check
-%cargo_test
+# * skip tests that fail with serde 1.0.181 and newer:
+#   https://github.com/ron-rs/ron/pull/471
+%cargo_test -- -- --skip test_adjacently
 %endif
 
 %changelog

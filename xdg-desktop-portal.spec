@@ -42,7 +42,7 @@ Requires:      pipewire-libs%{?_isa} >= %{pipewire_version}
 # Required for the document portal.
 Requires:      /usr/bin/fusermount3
 # Required for the GMemoryMonitor GIO API
-Requires:      low-memory-monitor >= %{low_memory_monitor_version}
+Recommends:    low-memory-monitor >= %{low_memory_monitor_version}
 
 %description
 xdg-desktop-portal works by exposing a series of D-Bus interfaces known as

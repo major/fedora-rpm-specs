@@ -25,7 +25,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -42,6 +42,9 @@ Patch:      sphinx-test_theming.diff
 
 # Fix test_assets_order for Sphinx 7.1.2
 Patch:      https://github.com/sphinx-doc/sphinx/commit/85ffb3b0.patch
+
+# Fix test_dark_style with Pygments 2.16+
+Patch:      https://github.com/sphinx-doc/sphinx/commit/083d573b.patch
 
 BuildArch:     noarch
 
@@ -364,6 +367,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Thu Sep 21 2023 Karolina Surma <ksurma@redhat.com> - 1:7.1.2-2
+- Fix FTBFS with Pygments 2.16+
+
 * Mon Aug 14 2023 Karolina Surma <ksurma@redhat.com> - 1:7.1.2-1
 - Update to 7.1.2
 - Fixes rhbz#2225274

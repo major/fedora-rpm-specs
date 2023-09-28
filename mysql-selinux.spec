@@ -10,7 +10,7 @@
 
 Name:           mysql-selinux
 Version:        1.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPL-3.0-only
 URL:            https://github.com/devexp-db/mysql-selinux
@@ -70,6 +70,9 @@ fi
 #   since we do not have any interface to be shared (and even then it is optional)
 
 %changelog
+* Tue Sep 26 2023 Michal Schorm <mschorm@redhat.com> - 1.0.7-2
+- Bump release for rebuild
+
 * Thu Sep 14 2023 Packit <hello@packit.dev> - 1.0.7-1
 - Empty commit to test Fedora PACKIT configuration for packaging automation (Michal Schorm)
 

@@ -9,8 +9,8 @@
 %endif
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        1.2.0
-Release:        4%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
 URL:            %{ansible_collection_url}
@@ -22,6 +22,7 @@ BuildRequires:  ansible-packaging
 # which might pull in ansible 2.9
 BuildRequires:  ansible-core
 %if %{with tests}
+BuildRequires:  glibc-langpack-en
 Buildrequires:  python3-devel
 BuildRequires:  /usr/bin/ansible-test
 %endif
@@ -71,6 +72,24 @@ popd
 %{ansible_collection_files}
 
 %changelog
+* Tue Sep 26 2023 Paul Howarth <paul@city-fan.org> - 1.3.0-1
+- Update to 1.3.0
+  - virt: add 'mutate_flags' parameter to enable XML mutation (add UUID, MAC
+    addresses from existing domain) (GH#142)
+  - virt: support '--diff' for 'define' command (GH#142)
+  - libvirt_qemu: connection plugin threw a warning about an improperly
+    configured remote target; fix adds 'inventory_hostname' to
+    'options.remote_addr.vars' (GH#147)
+  - libvirt_qemu: fix encoding errors on Windows guests for non-ASCII return
+    values (GH#157)
+  - virt: fix virt module to undefine a domain with nvram, managed_save,
+    snapshot_metadata or checkpoints_metadata (GH#40)
+  - virt_pool: replace discouraged function 'listVolumes' with 'listAllVolumes'
+    to fix potential race conditions (GH#135)
+  - virt_pool: replace discouraged functions 'listStoragePools' and
+    'listDefinedStoragePools' with 'listAllStoragePools' to fix potential race
+    conditions (GH#134)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

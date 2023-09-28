@@ -8,8 +8,8 @@ URL: https://github.com/markuskimius/SDL2_Pango
 Source0: https://github.com/markuskimius/SDL2_Pango/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc make
-BuildRequires: pango-devel%{?_isa} 
-BuildRequires: SDL2-devel%{?_isa} 
+BuildRequires: pango-devel
+BuildRequires: SDL2-devel
 
 %description
 SDL2_Pango is a library for graphically rendering

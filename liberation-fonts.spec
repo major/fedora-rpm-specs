@@ -10,7 +10,7 @@ used fonts on Microsoft systems: Times New Roman, Arial, and Courier New.
 Name:             %{fontname}-fonts
 Summary:          Fonts to replace commonly used Microsoft Windows fonts
 Version:          2.1.5
-Release:          6%{?dist}
+Release:          7%{?dist}
 Epoch:            1
 License:          OFL-1.1-RFN
 URL:              https://github.com/liberationfonts/liberation-fonts
@@ -185,6 +185,10 @@ appstream-util validate-relax --nonet \
 %files
 
 %changelog
+* Mon Sep 25 2023 Akira TAGOH <tagoh@redhat.com> - 1:2.1.5-7
+- Add a rule to use Liberation Sans as a fallback of ArialMT.
+  Resolves: rhbz#1490184
+
 * Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 1:2.1.5-6
 - Migrate to SPDX license expression
 

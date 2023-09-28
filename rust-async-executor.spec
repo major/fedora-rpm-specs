@@ -5,7 +5,7 @@
 %global crate async-executor
 
 Name:           rust-async-executor
-Version:        1.5.1
+Version:        1.5.3
 Release:        %autorelease
 Summary:        Async executor
 
@@ -13,7 +13,7 @@ License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/async-executor
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * drop unused, benchmark-only criterion dev-dependency
 Patch:          async-executor-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

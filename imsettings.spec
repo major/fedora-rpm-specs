@@ -1,5 +1,5 @@
 Name:		imsettings
-Version:	1.8.6
+Version:	1.8.7
 Release:	1%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
@@ -338,6 +338,11 @@ fi
 %endif
 
 %changelog
+* Tue Sep 26 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.7-1
+- New upstreasm release.
+- Fix unexpected setup against none.conf on Plasma Wayland.
+  Resolves: rhbz#2240722
+
 * Wed Sep 20 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.6-1
 - New upstream release.
 - Fix an issue that IMSETTINGS_IGNORE_SESSION doesn't work properly from im-chooser.

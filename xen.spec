@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -112,6 +112,18 @@ Patch46: xen.efi.build.patch
 Patch47: xen.gcc13.fixes.patch
 Patch49: xen.python3.12.patch
 Patch50: xen.ocaml5.fixes.patch
+Patch51: xsa437.patch
+Patch52: xsa438-4.17.patch
+Patch53: xsa439-0001-x86-AMD-extend-Zenbleed-check-to-models-good-ucode-i.patch
+Patch54: xsa439-0002-x86-spec-ctrl-Fix-confusion-between-SPEC_CTRL_EXIT_T.patch
+Patch55: xsa439-0003-x86-spec-ctrl-Fold-DO_SPEC_CTRL_EXIT_TO_XEN-into-it-.patch
+Patch56: xsa439-0004-x86-spec-ctrl-Turn-the-remaining-SPEC_CTRL_-ENTRY-EX.patch
+Patch57: xsa439-0005-x86-spec-ctrl-Improve-all-SPEC_CTRL_-ENTER-EXIT-_-co.patch
+Patch58: xsa439-0006-x86-entry-Adjust-restore_all_xen-to-hold-stack_end-i.patch
+Patch59: xsa439-0007-x86-entry-Track-the-IST-ness-of-an-entry-for-the-exi.patch
+Patch60: xsa439-0008-x86-spec-ctrl-Issue-VERW-during-IST-exit-to-Xen.patch
+Patch61: xsa439-0009-x86-amd-Introduce-is_zen-1-2-_uarch-predicates.patch
+Patch62: xsa439-0010-x86-spec-ctrl-Mitigate-the-Zen1-DIV-leakage.patch
 
 
 %if %build_qemutrad
@@ -328,6 +340,18 @@ manage Xen virtual machines.
 %if "%dist" != ".fc38"
 %patch 50 -p1
 %endif
+%patch 51 -p1
+%patch 52 -p1
+%patch 53 -p1
+%patch 54 -p1
+%patch 55 -p1
+%patch 56 -p1
+%patch 57 -p1
+%patch 58 -p1
+%patch 59 -p1
+%patch 60 -p1
+%patch 61 -p1
+%patch 62 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -935,6 +959,13 @@ fi
 %endif
 
 %changelog
+* Tue Sep 26 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.2-2
+- arm32: The cache may not be properly cleaned/invalidated [XSA-437,
+	CVE-2023-34321]
+- top-level shadow reference dropped too early for 64-bit PV guests
+	[XSA-438, CVE-2023-34322]
+- x86/AMD: Divide speculative information leak [XSA-439, CVE-2023-20588]
+
 * Thu Aug 10 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.2-1
 - update to xen-4.17.2 which includes
   x86/AMD: Speculative Return Stack Overflow [XSA-434, CVE-2023-20569]

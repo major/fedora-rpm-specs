@@ -23,8 +23,8 @@ AutoReqProv: no
 %endif
 
 Name:          drupal7
-Version:       7.92
-Release:       3%{?dist}
+Version:       7.98
+Release:       1%{?dist}
 Summary:       An open-source content-management platform
 
 License:       GPLv2+ and BSD and MIT
@@ -162,7 +162,11 @@ Requires: %{python_pkg}
 %prep
 %setup -q -n drupal-%{version}
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%patch 0 -p1
+%else
 %patch0 -p1
+%endif
 
 : Remove exec bit from all files
 find . -type f -executable
@@ -257,6 +261,11 @@ install -pm0755 %{SOURCE11} %{buildroot}%{_prefix}/lib/rpm/%{name}.req
 
 
 %changelog
+* Tue Sep 26 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 7.98-1
+- Update to 7.98 (RHBZ #2217253)
+- SA-CORE-2023-004
+- SA-CORE-2023-005 (RHBZ #2188106, 2188107, 2188108)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.92-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

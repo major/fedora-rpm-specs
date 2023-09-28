@@ -1,7 +1,7 @@
 %global srcname partd
 
 Name:           python-%{srcname}
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Appendable key-value storage
 

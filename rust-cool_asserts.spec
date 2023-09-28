@@ -61,7 +61,9 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip tests that fail with Rust 1.71:
+#   https://github.com/Lucretiel/cool_asserts/issues/5
+%cargo_test -- -- --skip assertion_failure
 %endif
 
 %changelog

@@ -89,7 +89,7 @@ use the "serde" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # Skip test that requires a not published file (tests/ directory is not published with the crate)
-%cargo_test -- -- --skip entry_by_path_with_conflicting_file
+%cargo_test -- -- --skip entry_by_path_with_conflicting_file --skip size_of_entry --skip size_of_tree
 %endif
 
 %changelog
