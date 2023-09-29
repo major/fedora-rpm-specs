@@ -3,17 +3,13 @@
 %global minimal_needed_proj_version 9.0.0
 
 Name:           pyproj
-Version:        3.6.0
-Release:        3%{?dist}
+Version:        3.6.1
+Release:        1%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
 URL:            https://github.com/jswhit/%{name}
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
-
-# Selected backports for proj-9.3 and cython-3 comptability
-# From https://github.com/pyproj4/pyproj/compare/32565ddf266658aebc9787b7534fdbdd06762839..76b77c8586efa28565aaab2365fa459f75596043
-Patch0:         proj93-cython3.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -163,24 +159,10 @@ cp -r ../pyproj-%{version}/pytest.ini .
 
 PATH="%{buildroot}%{_bindir}:$PATH" \
 PYTHONPATH="%{buildroot}%{python3_sitearch}" \
-py.test-3 -m "not network and not grid"
-#py.test-3 -m "not network"
+py.test-3 -m "not network"
+
 # some notes on the test suite:
 # not network ==> deselects 24 tests
-# not cli     ==> deselects 22 tests
-# not grid    ==> deselects 11 tests
-#
-# network: 24 failures and errors for f36, f37
-# cli:        works fine on all fedora versions
-# grid:     1 failure for f36, f37 (test/test_transformer.py), fixed in rawhide
-# note on failing grid test:
-# this seems caused by an intentional change of behavior of the proj library.
-# between proj v9.0.1 and proj v9.1.0
-# The test suite of pyproj has adapted to the new behaviour but
-# it was forgotten to add compatibility code to allow use of the
-# older proj version as well.
-# Therefore it seems safe to just skip this test for now.
-# See: https://github.com/pyproj4/pyproj/issues/1141
 
 %files -n python3-%{name}
 %doc README.md
@@ -194,6 +176,9 @@ py.test-3 -m "not network and not grid"
 
 
 %changelog
+* Wed Sep 27 2023 Jos de Kloe <josdekloe@gmail.com> 3.6.1-1
+- Update to 3.6.1; remove patch0
+
 * Wed Sep 13 2023 Sandro Mani <manisandro@gmail.com> - 3.6.0-3
 - Rebuild (proj)
 

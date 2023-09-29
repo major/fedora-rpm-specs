@@ -12,10 +12,11 @@
 %global gh_project   prophecy
 
 %bcond_without       tests
+%bcond_with          phpspec
 
 Name:           php-phpspec-prophecy
 Version:        1.17.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
 License:        MIT
@@ -34,7 +35,9 @@ BuildRequires:  (php-composer(doctrine/instantiator)             >= 1.2   with p
 #        "phpspec/phpspec": "^6.0 | ^7.0"
 #        "phpstan/phpstan": "^1.9",
 #        "phpunit/phpunit": "^8.0 || ^9.0"
+%if %{with phpspec}
 BuildRequires:  php-composer(phpspec/phpspec) >= 6.0
+%endif
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  %{phpunit}
 %endif
@@ -127,17 +130,20 @@ EOF
 : check autoloader
 php %{buildroot}%{_datadir}/php/Prophecy/autoload.php
 
+%if %{with phpspec}
 : check phpspec
 phpspec --version
+%endif
 
 ret=0
 # ignore it_can_not_double_an_enum on all version. Not ready
 for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
+%if %{with phpspec}
     $1 -d auto_prepend_file=vendor/autoload.php \
       %{_bindir}/phpspec run --format pretty --verbose --no-ansi || ret=1
-
+%endif
     $1 -d auto_prepend_file=vendor/autoload.php \
        ${2:-%{_bindir}/phpunit9} \
          --filter '^((?!(it_can_not_double_an_enum)).)*$' \
@@ -158,6 +164,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep 27 2023 Remi Collet <remi@remirepo.net> - 1.17.0-4
+- disable phpspec tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

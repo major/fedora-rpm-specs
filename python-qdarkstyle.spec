@@ -97,7 +97,7 @@ Recommends:     %{py3_dist helpdev}
 %autosetup -n QDarkStyleSheet-%{version} -N
 %autopatch -M 99 -p1
 %if %{without pyside2}
-dos2unix setup.py
+dos2unix --keepdate setup.py
 %autopatch -m 100 -p1
 %endif
 

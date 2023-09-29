@@ -43,7 +43,7 @@ Summary:        %{summary}
 rm -rf sarif_om
 %endif
 # Fix CRNL line termination
-find . -type f -exec dos2unix '{}' '+'
+find . -type f -exec dos2unix --keepdate '{}' '+'
 
 
 %generate_buildrequires

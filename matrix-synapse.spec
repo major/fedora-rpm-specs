@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:       matrix-synapse
-Version:    1.92.1
+Version:    1.93.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    Apache-2.0
@@ -17,7 +17,6 @@ Source3:    matrix-synapse.sysusers
 Patch1:     0001-Build-RustExtension-with-debug-enabled.patch
 Patch2:     0002-pyo3-Disable-abi3-feature.patch
 Patch3:     0003-Adapt-Rust-dependencies-to-Fedora-versions.patch
-Patch4:     0004-Raise-setuptools_rust-version-cap-to-1.7.0-16277.patch
 ExclusiveArch:  %{rust_arches}
 
 Recommends:     %{name}+postgres

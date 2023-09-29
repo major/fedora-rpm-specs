@@ -16,6 +16,10 @@ Patch:          gnutls-hmac.patch
 # the baremetal Docker is updated there i.e. lets be a little bit pragmatic...
 Patch:          gspawn-eperm.patch
 
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3575
+# not released yet
+Patch:          gthreadedresolver-race.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext

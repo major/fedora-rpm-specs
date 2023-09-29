@@ -18,8 +18,8 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        67.7.2
-Release:        7%{?dist}
+Version:        68.2.2
+Release:        1%{?dist}
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
 # platformdirs is MIT
@@ -45,19 +45,12 @@ Patch:          Remove-optional-or-unpackaged-test-deps.patch
 # adjust it, but only when $RPM_BUILD_ROOT is set
 Patch:          Adjust-the-setup.py-install-deprecation-message.patch
 
-# This patch combines two upstream fixes (mainly for tests), adapting to
-# changes in Python 3.12:
-# - Python 3.12 raises a warning if tarfile filter is not set for extractall.
-#   Tests do this, and fail on this warning.
-#   Set a "fully trusted" filter. (The tests create the archive, so it is
-#   trusted.)
-#   - https://github.com/pypa/setuptools/pull/3917
-# - Python 3.12 venv no longer installs setuptools and wheel into new virtual
-#   environments. Adjust tests that assumed the old behaviour.
-#   Also, setting setuptools.__version__ assumed setuptools is installed.
-#   Set a valid dummy value if that's not the case.
-#   - https://github.com/pypa/setuptools/pull/3915
-Patch:          adjust-for-py3.12.patch
+# Remove DeprecationWarning from pkg_resources.
+# The warning causes tests of dependant packages to fail
+# but their maintainers or developers are aware of that
+# so we are removing the warning here until they all switch
+# away from pkg_resources.
+Patch:          Remove-warning-from-pkg_resources.patch
 
 BuildArch:      noarch
 
@@ -96,7 +89,7 @@ Provides: bundled(python%{python3_pkgversion}dist(importlib-resources)) = 5.10.2
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-text)) = 3.7
 Provides: bundled(python%{python3_pkgversion}dist(more-itertools)) = 8.8
 Provides: bundled(python%{python3_pkgversion}dist(ordered-set)) = 3.1.1
-Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 23
+Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 23.1
 Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.4
 Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.0.1
 Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.7
@@ -219,13 +212,14 @@ PYTHONPATH=$(pwd) %pytest \
  --ignore=setuptools/tests/integration/ \
  --ignore=setuptools/tests/test_editable_install.py \
  --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py \
- -k "not test_pip_upgrade_from_source"
+ --ignore=tools/finalize.py \
+ -k "not test_pip_upgrade_from_source and not test_setup_requires_honors_fetch_params"
 %endif # with tests
 
 
 %files -n python%{python3_pkgversion}-setuptools %{?!with_bootstrap:-f %{pyproject_files}}
 %license LICENSE
-%doc docs/* CHANGES.rst README.rst
+%doc docs/* NEWS.rst README.rst
 %{python3_sitelib}/distutils-precedence.pth
 %if %{with bootstrap}
 %{python3_sitelib}/setuptools-%{version}-py%{python3_version}.egg-info/
@@ -244,6 +238,9 @@ PYTHONPATH=$(pwd) %pytest \
 
 
 %changelog
+* Wed Sep 20 2023 Lumír Balhar <lbalhar@redhat.com> - 68.2.2-1
+- Update to 68.2.2 (rhbz#2208644)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 67.7.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,7 +8,7 @@ Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL 1.2 runtime compatibility library using SDL 2.0
 # mp3 decoder code is MIT-0/PD
 # SDL_opengl.h is zlib and MIT
-License:        zlib and (Public Domain or MIT-0) and MIT
+License:        Zlib AND MIT AND (MIT-0 OR LicenseRef-Fedora-Public-Domain)
 URL:            https://github.com/libsdl-org/%{origname}
 Source0:        %{url}/archive/release-%{version}/%{origname}-%{version}.tar.gz
 

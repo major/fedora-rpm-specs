@@ -1,14 +1,18 @@
 %global		pkg		apel
 %global		pkgname		APEL
+%global		ver	10.8
+%global		snap	82eb232
+%global		snapver	^1.git%{snap}
 
 Name:		emacs-%{pkg}
-Version:	10.8
-Release:	26%{?dist}
+Version:	%{ver}%{?snapver}
+Release:	0.1%{?dist}
 Summary:	A Portable Emacs Library
 
 License:	GPL-2.0-or-later
-URL:		http://cvs.m17n.org/elisp/APEL/index.en.html
-Source0:	http://kanji.zinbun.kyoto-u.ac.jp/~tomo/lemi/dist/apel/%{pkg}-%{version}.tar.gz
+URL:		https://github.com/wanderlust/apel/tree/apel-wl
+# No releases
+Source0:	%{pkg}-%{ver}-%{snap}.tar.gz
 
 BuildArch:	noarch
 BuildRequires:	emacs
@@ -21,17 +25,13 @@ Obsoletes:	emacs-apel-el <= 10.8-8
 
 Patch0:		APEL-CFG.patch
 Patch1:		apel-10.4-missing-el.patch
-Patch2:		%{name}-ikazuhiro.patch
-Patch3:		%{name}-prevent-fontset-error.patch
-Patch4:		%{name}-fix-old-backquote.patch
-Patch5:		%{name}-escape-doc.patch
 
 %description
 %{pkgname} (A Portable Emacs Library) is a library to support
 to write portable Emacs Lisp programs.
 
 %prep
-%autosetup -n %{pkg}-%{version} -p1
+%autosetup -n %{pkg}-%{ver}-%{snap} -p1
 
 %build
 
@@ -42,13 +42,18 @@ make PREFIX=$RPM_BUILD_ROOT%{_prefix} \
 	INSTALL="install -p"  install
 
 %files
-%doc README.en ChangeLog
+%doc README.en ChangeLog.1
 %lang(ja) %doc README.ja
 %{_emacs_sitelispdir}/%{pkg}/*.el
 %{_emacs_sitelispdir}/%{pkg}/*.elc
 %dir %{_emacs_sitelispdir}/%{pkg}
 
 %changelog
+* Wed Sep 27 2023 Akira TAGOH <tagoh@redhat.com> - 10.8^1.git82eb232-0.1
+- Rebase to apel-wl from git.
+- Fix compile error.
+  Resolves: rhbz#2240897
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.8-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

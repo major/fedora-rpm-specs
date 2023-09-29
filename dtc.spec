@@ -8,7 +8,7 @@
 
 Name:          dtc
 Version:       1.7.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
@@ -108,6 +108,11 @@ This package provides the static library of mingw64-libfdt
 
 %prep
 %autosetup -p1
+# to prevent setuptools from installing an .egg, we need to pass --root to setup.py install
+# since $(PREFIX) already contains %%{buildroot}, we set root to /
+# .eggs are going to be deprecated, see https://github.com/pypa/pip/issues/11501
+sed -i 's@--prefix=$(PREFIX)@--prefix=$(PREFIX) --root=/@' pylibfdt/Makefile.pylibfdt
+
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -151,7 +156,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/ftdump
 %{_includedir}/*
 
 %files -n python3-libfdt
-%{python3_sitearch}/*
+%{python3_sitearch}/libfdt-%{version}-py%{python3_version}.egg-info/
+%{python3_sitearch}/_libfdt%{python3_ext_suffix}
+%pycached %{python3_sitearch}/libfdt.py
 
 %if %{with_mingw}
 %files -n mingw32-libfdt
@@ -176,6 +183,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/ftdump
 %endif
 
 %changelog
+* Wed Sep 27 2023 Miro Hrončok <mhroncok@redhat.com> - 1.7.0-5
+- Don't install a Python .egg
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

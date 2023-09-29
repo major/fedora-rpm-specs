@@ -16,7 +16,7 @@ Source:         %{forgesource}
 Patch0:         0001-provide-shared-and-pkgconf.patch
 
 BuildRequires:  gcc
-BuildRequires:  gcc-g++
+BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
 %description

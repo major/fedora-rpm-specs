@@ -1,174 +1,72 @@
-# Copyright (c) 2016-2020, Intel Corporation
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are met:
-#
-#     * Redistributions of source code must retain the above copyright notice,
-#       this list of conditions and the following disclaimer.
-#     * Redistributions in binary form must reproduce the above copyright
-#       notice, this list of conditions and the following disclaimer in the
-#       documentation and/or other materials provided with the distribution.
-#     * Neither the name of Intel Corporation nor the names of its contributors
-#       may be used to endorse or promote products derived from this software
-#       without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+%global libpqos_ver 4.6.1
+%global desc %{expand: \
+This package provides basic support for Intel Resource Director Technology
+including, Cache Monitoring Technology (CMT), Memory Bandwidth Monitoring
+(MBM), Cache Allocation Technology (CAT), Code and Data Prioritization 
+(CDP) and Memory Bandwidth Allocation (MBA).}
 
-%global githubname   intel-cmt-cat
-%global githubver    4.5.0
+Name:		intel-cmt-cat
+Version:	23.08
+Release:	1%{?dist}
+Summary:	Intel cache monitoring and allocation technology config tool
 
-%if %{defined githubsubver}
-%global githubfull   %{githubname}-%{githubver}.%{githubsubver}
-%else
-%global githubfull   %{githubname}-%{githubver}
-%endif
+License:	BSD-3-Clause
+URL: 		https://github.com/intel/intel-cmt-cat
+Source: 	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# disable producing debuginfo for this package
-%global debug_package %{nil}
+Patch:		0001-alter-install-paths.patch	
 
+ExclusiveArch:	x86_64
 
-Summary:            Provides command line interface to CMT, MBM, CAT, CDP and MBA technologies
-Name:               %{githubname}
-Release:            2%{?dist}
-Version:            %{githubver}
-License:            BSD
-ExclusiveArch:      x86_64 i686 i586
-%if %{defined githubsubver}
-Source:             https://github.com/01org/%{githubname}/archive/v%{githubver}.%{githubsubver}.tar.gz
-%else
-Source:             https://github.com/01org/%{githubname}/archive/v%{githubver}.tar.gz
-%endif
-URL:                https://github.com/01org/%{githubname}
-BuildRequires:      gcc, make
+BuildRequires:	gcc
+BuildRequires:	make
 
 %description
-This software package provides basic support for
-Cache Monitoring Technology (CMT), Memory Bandwidth Monitoring (MBM),
-Cache Allocation Technology (CAT), Memory Bandwidth Allocation (MBA),
-and Code Data Prioratization (CDP).
+%{desc}
 
-CMT, MBM and CAT are configured using Model Specific Registers (MSRs)
-to measure last level cache occupancy, set up the class of service masks and
-manage the association of the cores/logical threads to a class of service.
-The software executes in user space, and access to the MSRs is
-obtained through a standard Linux* interface. The virtual file system
-provides an interface to read and write the MSR registers but
-it requires root privileges.
+%package devel
+Summary:	Development files for %{name}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%package -n intel-cmt-cat-devel
-Summary:            Library and sample code to use CMT, MBM, CAT, CDP and MBA technologies
-License:            BSD
-Requires:           intel-cmt-cat == %{version}
-ExclusiveArch:      x86_64 i686 i586
+%description devel %{desc}
 
-%description -n intel-cmt-cat-devel
-This software package provides basic support for
-Cache Monitoring Technology (CMT), Memory Bandwidth Monitoring (MBM),
-Cache Allocation Technology (CAT), Memory Bandwidth Allocation (MBA),
-and Code Data Prioratization (CDP).
-The package includes library, header file and sample code.
-
-For additional information please refer to:
-https://github.com/01org/%{githubname}
+Development files.
 
 %prep
-%autosetup -n %{githubfull}
+%autosetup -p1 -n %{name}-%{version}
+
+%build
+%make_build
+
+%install
+%make_install
 
 %ldconfig_scriptlets
 
-%build
-make %{?_smp_mflags}
-
-%install
-# Not doing make install as it strips the symbols.
-# Using files from the build directory.
-install -d %{buildroot}/%{_bindir}
-install -s %{_builddir}/%{githubfull}/pqos/pqos %{buildroot}/%{_bindir}
-install %{_builddir}/%{githubfull}/pqos/pqos-os %{buildroot}/%{_bindir}
-install %{_builddir}/%{githubfull}/pqos/pqos-msr %{buildroot}/%{_bindir}
-sed -i "1s/.*/\#!\/usr\/bin\/bash/" %{buildroot}/%{_bindir}/pqos-*
-
-install -d %{buildroot}/%{_mandir}/man8
-install -m 0644 %{_builddir}/%{githubfull}/pqos/pqos.8  %{buildroot}/%{_mandir}/man8
-ln -sf %{_mandir}/man8/pqos.8 %{buildroot}/%{_mandir}/man8/pqos-os.8
-ln -sf %{_mandir}/man8/pqos.8 %{buildroot}/%{_mandir}/man8/pqos-msr.8
-
-install -d %{buildroot}/%{_bindir}
-install -s %{_builddir}/%{githubfull}/rdtset/rdtset %{buildroot}/%{_bindir}
-
-install -d %{buildroot}/%{_mandir}/man8
-install -m 0644 %{_builddir}/%{githubfull}/rdtset/rdtset.8  %{buildroot}/%{_mandir}/man8
-
-install -d %{buildroot}/%{_licensedir}/%{name}-%{version}
-install -m 0644 %{_builddir}/%{githubfull}/LICENSE %{buildroot}/%{_licensedir}/%{name}-%{version}
-
-# Install the library
-install -d %{buildroot}/%{_libdir}
-install -s %{_builddir}/%{githubfull}/lib/libpqos.so.* %{buildroot}/%{_libdir}
-cp -a %{_builddir}/%{githubfull}/lib/libpqos.so %{buildroot}/%{_libdir}
-cp -a %{_builddir}/%{githubfull}/lib/libpqos.so.4 %{buildroot}/%{_libdir}
-
-# Install the header file
-install -d %{buildroot}/%{_includedir}
-install -m 0644 %{_builddir}/%{githubfull}/lib/pqos.h %{buildroot}/%{_includedir}
-
-# Install license and sample code
-install -d %{buildroot}/%{_usrsrc}/%{githubfull}
-install -m 0644 %{_builddir}/%{githubfull}/LICENSE %{buildroot}/%{_usrsrc}/%{githubfull}
-
-install -d %{buildroot}/%{_usrsrc}/%{githubfull}/c
-
-install -d %{buildroot}/%{_usrsrc}/%{githubfull}/c/CAT_MBA
-install -m 0644 %{_builddir}/%{githubfull}/examples/c/CAT_MBA/Makefile          %{buildroot}/%{_usrsrc}/%{githubfull}/c/CAT_MBA
-install -m 0644 %{_builddir}/%{githubfull}/examples/c/CAT_MBA/reset_app.c       %{buildroot}/%{_usrsrc}/%{githubfull}/c/CAT_MBA
-install -m 0644 %{_builddir}/%{githubfull}/examples/c/CAT_MBA/allocation_app_l2cat.c  %{buildroot}/%{_usrsrc}/%{githubfull}/c/CAT_MBA
-install -m 0644 %{_builddir}/%{githubfull}/examples/c/CAT_MBA/allocation_app_l3cat.c  %{buildroot}/%{_usrsrc}/%{githubfull}/c/CAT_MBA
-install -m 0644 %{_builddir}/%{githubfull}/examples/c/CAT_MBA/allocation_app_mba.c  %{buildroot}/%{_usrsrc}/%{githubfull}/c/CAT_MBA
-install -m 0644 %{_builddir}/%{githubfull}/examples/c/CAT_MBA/association_app.c %{buildroot}/%{_usrsrc}/%{githubfull}/c/CAT_MBA
-
-install -d %{buildroot}/%{_usrsrc}/%{githubfull}/c/CMT_MBM
-install -m 0644 %{_builddir}/%{githubfull}/examples/c/CMT_MBM/Makefile      %{buildroot}/%{_usrsrc}/%{githubfull}/c/CMT_MBM
-install -m 0644 %{_builddir}/%{githubfull}/examples/c/CMT_MBM/monitor_app.c %{buildroot}/%{_usrsrc}/%{githubfull}/c/CMT_MBM
-
 %files
-%{_bindir}/pqos
-%{_bindir}/pqos-os
-%{_bindir}/pqos-msr
-%{_mandir}/man8/pqos.8.gz
-%{_mandir}/man8/pqos-os.8.gz
-%{_mandir}/man8/pqos-msr.8.gz
-%{_bindir}/rdtset
-%{_mandir}/man8/rdtset.8.gz
-%{_libdir}/libpqos.so.*
-
-%{!?_licensedir:%global license %%doc}
-%license %{_licensedir}/%{name}-%{version}/LICENSE
+%license LICENSE
 %doc ChangeLog README.md
-
-%files -n intel-cmt-cat-devel
-%{_libdir}/libpqos.so
+%{_bindir}/membw
+%{_bindir}/pqos
+%{_bindir}/pqos-msr
+%{_bindir}/pqos-os
+%{_bindir}/rdtset
 %{_libdir}/libpqos.so.4
+%{_libdir}/libpqos.so.%{libpqos_ver}
+%{_mandir}/man8/membw.8*
+%{_mandir}/man8/pqos.8*
+%{_mandir}/man8/pqos-msr.8*
+%{_mandir}/man8/pqos-os.8*
+%{_mandir}/man8/rdtset.8*
+
+%files -n %{name}-devel
 %{_includedir}/pqos.h
-%{_usrsrc}/%{githubfull}/c/CAT_MBA/Makefile
-%{_usrsrc}/%{githubfull}/c/CAT_MBA/reset_app.c
-%{_usrsrc}/%{githubfull}/c/CAT_MBA/association_app.c
-%{_usrsrc}/%{githubfull}/c/CAT_MBA/allocation_app_l2cat.c
-%{_usrsrc}/%{githubfull}/c/CAT_MBA/allocation_app_l3cat.c
-%{_usrsrc}/%{githubfull}/c/CAT_MBA/allocation_app_mba.c
-%{_usrsrc}/%{githubfull}/c/CMT_MBM/Makefile
-%{_usrsrc}/%{githubfull}/c/CMT_MBM/monitor_app.c
-%doc %{_usrsrc}/%{githubfull}/LICENSE
+%{_libdir}/libpqos.so
 
 %changelog
+* Thu Aug 31 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 23.08-1
+- Update to 23.08
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

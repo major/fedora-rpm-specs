@@ -35,7 +35,7 @@
 Name:           systemd
 Url:            https://systemd.io
 %if %{without inplace}
-Version:        254.2
+Version:        254.5
 %else
 # determine the build information from local checkout
 Version:        %(tools/meson-vcs-tag.sh . error | sed -r 's/-([0-9])/.^\1/; s/-g/_g/')
@@ -112,6 +112,13 @@ Patch0002:      https://github.com/systemd/systemd/pull/28521/commits/631d2b05ec
 # https://bugzilla.redhat.com/show_bug.cgi?id=1912609
 Patch0003:      0001-find_legacy_keymap-fix-empty-variant-matching.patch
 Patch0004:      0002-find_legacy_keymap-try-matching-with-layout-order-re.patch
+Patch0005:      0001-find_legacy_keymap-extend-variant-match-bonus-again.patch
+Patch0006:      0001-keyboard-model-map-correct-sk-qwerty-entry.patch
+
+# Requested as an alternative to https://fedoraproject.org/wiki/Changes/Drop_Sshd_Socket
+Patch0010:      0001-core-add-new-PollLimit-settings-to-.socket-units.patch
+Patch0011:      0002-man-document-the-new-PollLimitIntervalSec-PollLimitB.patch
+Patch0012:      0003-ci-add-test-for-poll-limit.patch
 
 # Those are downstream-only patches, but we don't want them in packit builds:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1738828
@@ -358,8 +365,8 @@ Obsoletes:      systemd < 245.6-1
 Provides:       udev = %{version}
 Provides:       udev%{_isa} = %{version}
 Obsoletes:      udev < 183
-Conflicts:      grubby < 8.40-72
-Conflicts:      sdubby < 1.0-3
+Requires:       (grubby > 8.40-72 if grubby)
+Requires:       (sdubby > 1.0-3 if sdubby)
 
 # Recommends to replace normal Requires deps for stuff that is dlopen()ed
 # used by dissect, integritysetup, veritysetyp, growfs, repart, cryptenroll, home

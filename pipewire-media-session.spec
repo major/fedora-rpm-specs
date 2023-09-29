@@ -61,6 +61,9 @@ Media Session is the reference session manager for the PipeWire media server.
 %{_datadir}/pipewire/media-session.d/with-pulseaudio
 
 %changelog
+* Thu Sep 28 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: mark as done
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

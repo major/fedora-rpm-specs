@@ -1,7 +1,7 @@
 %bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:           qadwaitadecorations
-Version:        0.1.1
+Version:        0.1.2
 Release:        1%{?dist}
 Summary:        Qt decoration plugin implementing Adwaita-like client-side decorations
 
@@ -56,7 +56,7 @@ Supplements:   (qt6-qtbase and gnome-shell)
 %build
 %if %{with qt5}
 %global _vpath_builddir %{_target_platform}-qt5
-%cmake
+%cmake -DHAS_QT6_SUPPORT=true
 %cmake_build
 %endif
 
@@ -86,6 +86,9 @@ Supplements:   (qt6-qtbase and gnome-shell)
 %{_qt6_plugindir}/wayland-decoration-client/libqadwaitadecorations.so
 
 %changelog
+* Wed Sep 27 2023 Jan Grulich <jgrulich@redhat.com> - 0.1.2-1
+- 0.1.2
+
 * Mon Sep 11 2023 Jan Grulich <jgrulich@redhat.com> - 0.1.1-1
 - 0.1.1
 

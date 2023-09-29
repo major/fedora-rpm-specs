@@ -1,6 +1,6 @@
 Name:           python-exabgp
 Version:        4.2.21
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -10,6 +10,8 @@ Source1:        exabgp.sysusers.exabgp.conf
 Source2:        exabgp.tmpfiles.exabgp.conf
 Source3:        exabgp.systemd.exabgp.service
 Source4:        exabgp.systemd.exabgp@.service
+
+Patch0001:      0001-update-six.patch
 
 BuildArch:      noarch
 
@@ -122,6 +124,9 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Wed Sep 27 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 4.2.21-8
+- Add upstream patch to vendored six for Python 3.12 compatibility
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.21-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

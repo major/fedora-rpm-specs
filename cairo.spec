@@ -2,37 +2,31 @@
 %define freetype_version 9.7.3
 %define fontconfig_version 2.2.95
 
-Name:    cairo
-Version: 1.17.8
-Release: 5%{?dist}
-Summary: A 2D graphics library
+Name:           cairo
+Version:        1.18.0
+Release:        1%{?dist}
+Summary:        A 2D graphics library
 
-License: LGPL-2.1-only OR MPL-1.1
-URL:     https://cairographics.org
-Source0: https://cairographics.org/snapshots/%{name}-%{version}.tar.xz
+License:        LGPL-2.1-only OR MPL-1.1
+URL:            https://cairographics.org
+Source:         https://cairographics.org/releases/%{name}-%{version}.tar.xz
 
-Patch0: cairo-multilib.patch
-# https://gitlab.freedesktop.org/cairo/cairo/-/issues/634
-Patch1: cairo-1.17.8-fix-tee-compilation.patch
-# https://gitlab.freedesktop.org/cairo/cairo/-/merge_requests/467
-Patch2: cairo-1.17.8-ft-font-missing-glyph.patch
-# https://gitlab.freedesktop.org/cairo/cairo/-/merge_requests/476
-Patch3: cairo-1.17.8-fix-crash-scaled-glyph.patch
+Patch:          cairo-multilib.patch
 
-BuildRequires: gcc
-BuildRequires: gcc-c++
-BuildRequires: gtk-doc
-BuildRequires: meson
-BuildRequires: pkgconfig(expat)
-BuildRequires: pkgconfig(pixman-1) >= %{pixman_version}
-BuildRequires: pkgconfig(freetype2) >= %{freetype_version}
-BuildRequires: pkgconfig(fontconfig) >= %{fontconfig_version}
-BuildRequires: pkgconfig(gobject-2.0)
-BuildRequires: pkgconfig(libpng)
-BuildRequires: pkgconfig(librsvg-2.0)
-BuildRequires: pkgconfig(xext)
-BuildRequires: pkgconfig(xcb-render)
-BuildRequires: pkgconfig(xrender)
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  gtk-doc
+BuildRequires:  meson
+BuildRequires:  pkgconfig(expat)
+BuildRequires:  pkgconfig(pixman-1) >= %{pixman_version}
+BuildRequires:  pkgconfig(freetype2) >= %{freetype_version}
+BuildRequires:  pkgconfig(fontconfig) >= %{fontconfig_version}
+BuildRequires:  pkgconfig(gobject-2.0)
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(librsvg-2.0)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xcb-render)
+BuildRequires:  pkgconfig(xrender)
 
 %description
 Cairo is a 2D graphics library designed to provide high-quality display
@@ -102,7 +96,7 @@ This package contains tools for working with the cairo graphics library.
   -Dtests=disabled \
   -Dxcb=enabled \
   -Dxlib=enabled \
-  -Dxml=disabled
+  %{nil}
 %meson_build
 
 %install
@@ -157,11 +151,14 @@ This package contains tools for working with the cairo graphics library.
 %{_libdir}/pkgconfig/cairo-gobject.pc
 
 %files tools
-%{_bindir}/cairo-sphinx
 %{_bindir}/cairo-trace
 %{_libdir}/cairo/
 
 %changelog
+* Wed Sep 27 2023 Kalev Lember <klember@redhat.com> - 1.18.0-1
+- Update to 1.18.0
+- Drop the xml surface and cairo-sphinx tool as they've been removed upstream
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

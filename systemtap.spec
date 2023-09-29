@@ -46,7 +46,7 @@
 %{!?with_sysusers: %global with_sysusers 0%{?fedora} >= 32 || 0%{?rhel} >= 9}
 
 # Virt is supported on these arches, even on el7, but it's not in core EL7
-%if 0%{?rhel} <= 7
+%if 0%{?rhel} && 0%{?rhel} <= 7
 %ifarch ppc64le aarch64
 %global with_virthost 0
 %endif
@@ -65,9 +65,6 @@
    %else
       %if 0%{?rhel} >= 6
          %define udevrulesdir /lib/udev/rules.d
-      %else
-         # RHEL5
-         %define udevrulesdir /etc/udev/rules.d
       %endif
    %endif
 %endif
@@ -84,11 +81,7 @@
     %define dracutbindir %{_bindir}
 %endif
 
-%if 0%{?rhel} == 6
-    %{!?_rpmmacrodir: %define _rpmmacrodir /etc/rpm/}
-%else
-    %{!?_rpmmacrodir: %define _rpmmacrodir %{_rpmconfigdir}/macros.d}
-%endif
+%{!?_rpmmacrodir: %define _rpmmacrodir %{_rpmconfigdir}/macros.d}
 
 # To avoid testsuite/*/*.stp has shebang which doesn't start with '/'
 %define __brp_mangle_shebangs_exclude_from .stp$
@@ -123,8 +116,8 @@ m     stapdev  stapdev
 
 Name: systemtap
 # PRERELEASE
-Version: 5.0~pre16891249ge891a37e
-Release: 0.2%{?release_override}%{?dist}
+Version: 5.0~pre16958465gca71442b
+Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -170,6 +163,7 @@ BuildRequires: pkgconfig(nss)
 BuildRequires: pkgconfig(avahi-client)
 %if %{with_debuginfod}
 BuildRequires: pkgconfig(libdebuginfod)
+BuildRequires: pkgconfig(json-c)
 %endif
 %if %{with_dyninst}
 BuildRequires: dyninst-devel >= 10.0
@@ -221,9 +215,6 @@ BuildRequires: pkgconfig(libvirt)
 BuildRequires: pkgconfig(libxml-2.0)
 %endif
 BuildRequires: readline-devel
-%if 0%{?rhel} <= 5
-BuildRequires: pkgconfig(ncurses)
-%endif
 %if %{with_python2_probes}
 BuildRequires: python2-devel
 %if 0%{?fedora} >= 1
@@ -293,7 +284,7 @@ compiles systemtap scripts to kernel objects on their demand.
 
 %package devel
 Summary: Programmable system-wide instrumentation system - development headers, tools
-License: GPL-2.0-or-later AND GPL-2.0-only AND BSD-3-Clause AND LGPL-2.1-only
+License: GPL-2.0-or-later AND GPL-2.0-only AND BSD-3-Clause AND LGPL-2.1-only AND BSD-2-Clause
 URL: http://sourceware.org/systemtap/
 
 %if 0%{?rhel} >= 8 || 0%{?fedora} >= 20
@@ -338,7 +329,7 @@ using a local or remote systemtap-devel installation.
 
 %package client
 Summary: Programmable system-wide instrumentation system - client
-License: GPL-2.0-or-later AND GPL-2.0-only AND BSD-3-Clause AND LGPL-2.1-only AND GFDL-1.2-or-later
+License: GPL-2.0-or-later AND GPL-2.0-only AND BSD-3-Clause AND LGPL-2.1-only AND GFDL-1.2-or-later AND BSD-2-Clause
 URL: http://sourceware.org/systemtap/
 Requires: zip unzip
 Requires: systemtap-runtime = %{version}-%{release}
@@ -1308,6 +1299,10 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Wed Sep 27 2023 William Cohen <wcohen@redhat.com> - 5.0-16958465gca71442b
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0~pre16891249ge891a37e-0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

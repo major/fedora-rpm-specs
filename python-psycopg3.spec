@@ -7,7 +7,7 @@ any other DB-API 2.0 database adapter, but allows to use more modern PostgreSQL
 and Python features.}
 
 Name:		python-%{src_name}
-Version:	3.1.10
+Version:	3.1.12
 Release:	1%{?dist}
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 
@@ -74,6 +74,9 @@ export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*
 
 
 %changelog
+* Wed Sep 27 2023 Ondrej Sloup <osloup@redhat.com> -  3.1.12-1
+- Rebase to the latest upstream version (rhbz#2240358)
+
 * Mon Aug 07 2023 Ondrej Sloup <osloup@redhat.com> -  3.1.10-1
 - Rebase to the latest upstream version (rhbz#2229392)
 

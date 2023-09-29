@@ -19,20 +19,15 @@
 %global debug_package %{nil}
 %endif
 
-# copr_username is only set on copr environments owned by rhcontainerbot,
-# not on other coprs or environments like koji.
-%if %{defined copr_username} && "%{?copr_username}" == "rhcontainerbot"
-%bcond_without copr
-%endif
-
 Name: netavark
 # Set a different Epoch for copr builds
-%if %{with copr}
+%if %{defined copr_username}
 Epoch: 102
 %endif
-Version: 1.7.0
+Version: 1.8.0
 Release: %autorelease
-License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT
+# The `AND` needs to be uppercase in the License for SPDX compatibility
+License: Apache-2.0 AND BSD-3-Clause AND MIT
 %if %{defined golang_arches_future}
 ExclusiveArch: %{golang_arches_future}
 %else
@@ -44,7 +39,7 @@ URL: https://github.com/containers/%{name}
 Source0: %{url}/archive/v%{version}.tar.gz
 Source1: %{url}/releases/download/v%{version}/%{name}-v%{version}-vendor.tar.gz
 BuildRequires: cargo
-BuildRequires: go-md2man
+BuildRequires: %{_bindir}/go-md2man
 # aardvark-dns and %%{name} are usually released in sync
 Recommends: aardvark-dns >= %{version}-1
 Requires: (aardvark-dns >= %{version}-1 if fedora-release-identity-server)
@@ -53,6 +48,7 @@ BuildRequires: make
 BuildRequires: protobuf-c
 BuildRequires: protobuf-compiler
 %if %{defined rhel}
+# rust-toolset requires the `local` repo enabled on non-koji ELN build environments
 BuildRequires: rust-toolset
 %else
 BuildRequires: rust-packaging
@@ -61,8 +57,6 @@ BuildRequires: rust-srpm-macros
 BuildRequires: git-core
 BuildRequires: systemd
 BuildRequires: systemd-devel
-# DO NOT DELETE BELOW LINE - used for updating downstream imports
-# vendored libraries
 
 %description
 %{summary}
@@ -89,7 +83,7 @@ Its features include:
 # Following steps are only required on environments like koji which have no
 # network access and thus depend on the vendored tarball. Copr pulls
 # dependencies directly from the network.
-%if %{without copr}
+%if !%{defined copr_username}
 tar fx %{SOURCE1}
 mkdir -p .cargo
 
@@ -106,7 +100,7 @@ EOF
 %{__make} CARGO="%{__cargo}" build
 
 cd docs
-go-md2man -in %{name}.1.md -out %{name}.1
+%{__make}
 
 %install
 %{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install

@@ -1,9 +1,9 @@
 Name:       x11perf
 Version:    1.6.1
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    X11 server performance test program
 
-License:    MIT
+License:    SMLNJ AND HPND
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
 
@@ -45,6 +45,9 @@ autoreconf -v --install
 %{_datadir}/X11/x11perfcomp
 
 %changelog
+* Thu Sep 28 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.6.1-8
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

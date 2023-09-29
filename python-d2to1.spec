@@ -2,13 +2,16 @@
 
 Name: python-%{srcname}
 Version: 0.2.12
-Release: 27.post1%{?dist}
+Release: 28.post1%{?dist}
 Summary: Allows using distutils2-like setup.cfg files with setup.py
 License: BSD
 
 URL: http://pypi.python.org/pypi/d2to1
 #Source0: http://pypi.python.org/packages/source/d/d2to1/%{srcname}-%{version}.tar.gz
 Source0: https://pypi.python.org/packages/source/d/d2to1/d2to1-0.2.12.post1.tar.gz
+
+# Compatibility with the newer setuptools
+Patch:   setuptools-compatibility.patch
 
 BuildArch: noarch
 
@@ -31,7 +34,7 @@ Requires:  python3-setuptools
 
 %prep
 #%setup -q -n %{srcname}-%{version}
-%setup -q -n %{srcname}-%{version}.post1
+%autosetup -n %{srcname}-%{version}.post1 -p1
 
 find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
@@ -48,6 +51,10 @@ find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Fri Sep 22 2023 Lumír Balhar <lbalhar@redhat.com> - 0.2.12-28.post1
+- Fix compatibility with newer setuptools
+Resolves: rhbz#2239998
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.12-27.post1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

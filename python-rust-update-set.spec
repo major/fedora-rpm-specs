@@ -10,6 +10,11 @@ License:        MIT
 URL:            https://pagure.io/fedora-rust/rust-update-set
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
+# proposed patch to port from removed rust2rpm APIs to cargo2rpm
+# https://pagure.io/fedora-rust/rust-update-set/pull-request/11
+# FIXME: likely an incomplete port, it just makes the tests pass
+Patch:          %{url}/pull-request/11.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)

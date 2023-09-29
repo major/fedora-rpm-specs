@@ -25,8 +25,14 @@ BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	vala
 Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
+%if 0%{?rhel} >= 9
+Requires:       qemu-kvm-ui-dbus
+Requires:       qemu-kvm-ui-opengl
+%else
 Requires:       qemu-ui-dbus
 Requires:       qemu-ui-opengl
+%endif
+
 %description
 This library provides a "Mouse, Keyboard, and Screen" to QEMU using the
 D-Bus device support in QEMU and GTK 4.
@@ -52,7 +58,7 @@ Recommends:     gi-docgen-fonts
 
 %description doc
 Documentation files for %{name}.
- 
+
 %prep
 %autosetup -p1 -n %{name}-%{tarball_version}
 
@@ -68,7 +74,7 @@ Documentation files for %{name}.
 %doc README.md NEWS
 %{_libdir}/%{name}-%{api_version}.so.0*
 %{_bindir}/mks
-%{_bindir}/mks-connect	
+%{_bindir}/mks-connect
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Mks-%{api_version}.typelib
 

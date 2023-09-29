@@ -34,11 +34,16 @@
 
 Name:           perl-DBI
 Version:        1.643
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A database access API for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dbi.perl.org/
 Source0:        https://cpan.metacpan.org/authors/id/T/TI/TIMB/DBI-%{version}.tar.gz
+# Backport patches to properly solve CVE-2014-10401 and CVE-2014-10402
+Patch0:         DBI-1.643-Fix-for-CVE-2014-10401.patch
+Patch1:         DBI-1.643-Fix-for-empty-attributes-in-DSN.patch
+Patch2:         DBI-1.643-Catch-warning.patch
+Patch3:         DBI-1.643-Document-the-new-behavior-for-f_dir.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -176,7 +181,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n DBI-%{version} 
+%autosetup -p1 -n DBI-%{version}
 for F in lib/DBD/Gofer.pm; do
     iconv -f ISO-8859-1 -t UTF-8 < "$F" > "${F}.utf8"
     touch -r "$F" "${F}.utf8"
@@ -190,20 +195,21 @@ chmod 0644 ex/*
 chmod 0755 dbixs_rev.pl
 %if %{without perl_DBI_enables_coro}
 rm lib/DBD/Gofer/Transport/corostream.pm
-sed -i -e '/^lib\/DBD\/Gofer\/Transport\/corostream.pm$/d' MANIFEST
+perl -i -ne 'print $_ unless m{^lib/DBD/Gofer/Transport/corostream.pm}' MANIFEST
+
 %endif
 # Remove RPC::Pl* reverse dependencies due to security concerns,
 # CVE-2013-7284, bug #1051110
 for F in lib/Bundle/DBI.pm lib/DBD/Proxy.pm lib/DBI/ProxyServer.pm \
         dbiproxy.PL t/80proxy.t; do
     rm "$F"
-    sed -i -e '\|^'"$F"'|d' MANIFEST
+    perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
 done
-sed -i -e 's/"dbiproxy$ext_pl",//' Makefile.PL
+perl -pi -e 's/"dbiproxy\$ext_pl",//' Makefile.PL
 # Remove Win32 specific files to avoid unwanted dependencies
 for F in lib/DBI/W32ODBC.pm lib/Win32/DBIODBC.pm; do
     rm "$F"
-    sed -i -e '\|^'"$F"'|d' MANIFEST
+    perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
 done
 
 # Help generators to recognize Perl scripts
@@ -227,8 +233,8 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 rm %{buildroot}%{_libexecdir}/%{name}/t/pod*.t
 # Remove using of blib
-sed -i -e '/^use.*blib/d' %{buildroot}%{_libexecdir}/%{name}/t/1*.t
-sed -i -e 's/\-Mblib=\$getcwd\/blib//' %{buildroot}%{_libexecdir}/%{name}/t/85gofer.t
+perl -i -ne 'print $_ unless m{^use.*blib/}' %{buildroot}%{_libexecdir}/%{name}/t/1*.t
+perl -pi -e 's/\-Mblib=\$getcwd\/blib//' %{buildroot}%{_libexecdir}/%{name}/t/85gofer.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
@@ -271,7 +277,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
-* Tue Sep 19 2023 Jitka Plesnikova <jplesnik@redhat.com> -1.643-19
+* Tue Sep 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.643-20
+- Fix CVE-2014-10401 and CVE-2014-10402
+
+* Tue Sep 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.643-19
 - Package tests
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.643-18

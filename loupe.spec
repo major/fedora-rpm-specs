@@ -31,6 +31,9 @@ License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apa
 URL:            https://gitlab.gnome.org/GNOME/loupe
 Source0:        https://download.gnome.org/sources/loupe/45/loupe-%{tarball_version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/loupe/-/merge_requests/299
+Patch:          299.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

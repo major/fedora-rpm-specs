@@ -1,33 +1,37 @@
 Name:           perl-HTTP-CookieJar
 Version:        0.014
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Minimalist HTTP user agent cookie jar
 License:        Apache-2.0
 URL:            https://metacpan.org/release/HTTP-CookieJar
-Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/HTTP-CookieJar-%{version}.tar.gz
-
+Source0:        https://cpan.metacpan.org/modules/by-module/HTTP/HTTP-CookieJar-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter >= 5.8.1
+# Build
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter >= 5.8.1
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.17
+# Module
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(File::Find)
-BuildRequires:  perl(File::Spec::Functions)
-BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(HTTP::Date)
-BuildRequires:  perl(HTTP::Request)
-BuildRequires:  perl(HTTP::Response)
-BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Mozilla::PublicSuffix)
 BuildRequires:  perl(parent)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(HTTP::Request)
+BuildRequires:  perl(HTTP::Response)
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(URI)
-BuildRequires:  perl(strict), perl(warnings)
-
+# Dependencies
+Recommends:     perl(Mozilla::PublicSuffix)
 
 %description
 This module implements a minimalist HTTP user agent cookie jar in
@@ -41,21 +45,28 @@ perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+make pure_install DESTDIR=%{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
 %doc Changes CONTRIBUTING.mkdn LICENSE README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/HTTP/
+%{_mandir}/man3/HTTP::CookieJar.3*
+%{_mandir}/man3/HTTP::CookieJar::LWP.3*
 
 %changelog
+* Wed Sep 27 2023 Paul Howarth <paul@city-fan.org> - 0.014-4
+- Use author-independent source URL
+- Classify build requirements by usage
+- Add runtime recommendation for Mozilla::PublicSuffix as per upstream
+- Simplify find command using -delete
+- Fix permissions verbosely
+- Make %%files list more explicit
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -41,7 +41,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -194,8 +194,8 @@ Runtime library for clang.
 %package devel
 Summary: Development header files for clang
 Requires: %{name}-libs = %{version}-%{release}
-%if %{without compat_build}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+%if %{without compat_build}
 # The clang CMake files reference tools from clang-tools-extra.
 Requires: %{name}-tools-extra%{?_isa} = %{version}-%{release}
 %endif
@@ -340,7 +340,6 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG" \
 %endif
 %if %{with compat_build}
-	-DCLANG_BUILD_TOOLS:BOOL=OFF \
 	-DLLVM_CMAKE_DIR=%{install_libdir}/cmake/llvm \
 	-DCMAKE_INSTALL_PREFIX=%{install_prefix} \
 	-DCLANG_INCLUDE_TESTS:BOOL=OFF \
@@ -392,11 +391,23 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 %if %{with compat_build}
 
 # Remove binaries/other files
-rm -Rf %{buildroot}%{install_bindir}
+find %{buildroot}%{install_bindir} -type f ! -name clang-%{maj_ver} ! -name clang \
+     ! -name clang++ ! -name clang-cl ! -name clang-cpp -delete
+install -D -m 0644 %{buildroot}%{install_prefix}/share/man/man1/clang.1 \
+        %{buildroot}%{_mandir}/man1/clang-%{maj_ver}.1
 rm -Rf %{buildroot}%{install_prefix}/share
 rm -Rf %{buildroot}%{install_prefix}/libexec
 # Remove scanview-py helper libs
 rm -Rf %{buildroot}%{install_prefix}/lib/{libear,libscanbuild}
+
+# Create Manpage symlinks
+ln -s clang-%{maj_ver}.1.gz %{buildroot}%{_mandir}/man1/clang++-%{maj_ver}.1.gz
+
+# Add clang-{version} symlinks
+mkdir -p %{buildroot}%{_bindir}
+ln -s %{install_bindir}/clang %{buildroot}%{_bindir}/clang-%{maj_ver}
+ln -s %{install_bindir}/clang++ %{buildroot}%{_bindir}/clang++-%{maj_ver}
+ln -s clang++ %{buildroot}%{install_bindir}/clang++-%{maj_ver}
 
 %else
 
@@ -494,20 +505,27 @@ false
 %endif
 
 
-%if %{without compat_build}
 %files
 %license LICENSE.TXT
-%{_bindir}/clang
-%{_bindir}/clang++
 %{_bindir}/clang-%{maj_ver}
 %{_bindir}/clang++-%{maj_ver}
+%if %{without compat_build}
+%{_bindir}/clang
+%{_bindir}/clang++
 %{_bindir}/clang-cl
 %{_bindir}/clang-cpp
 %{_mandir}/man1/clang.1.gz
 %{_mandir}/man1/clang++.1.gz
+%else
+%{pkg_bindir}/clang
+%{pkg_bindir}/clang++
+%{pkg_bindir}/clang-%{maj_ver}
+%{pkg_bindir}/clang++-%{maj_ver}
+%{pkg_bindir}/clang-cl
+%{pkg_bindir}/clang-cpp
+%endif
 %{_mandir}/man1/clang-%{maj_ver}.1.gz
 %{_mandir}/man1/clang++-%{maj_ver}.1.gz
-%endif
 
 %files libs
 %if %{without compat_build}
@@ -618,6 +636,9 @@ false
 
 %endif
 %changelog
+* Fri Sep 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 15.0.7-5
+- Build compiler in compat package
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

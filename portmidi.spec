@@ -7,6 +7,8 @@
 %global JAVA 1
 %endif
 
+%bcond docs %{undefined flatpak}
+
 Summary:        Real-time Midi I/O Library
 Name:           portmidi
 Version:        217
@@ -31,8 +33,10 @@ BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 BuildRequires:  python3-Cython
+%if %{with docs}
 BuildRequires:  doxygen
 BuildRequires:  tex(latex)
+%endif
 BuildRequires:  gcc
 %if 0%{?JAVA}
 BuildRequires:  java-devel >= 1.7
@@ -127,8 +131,10 @@ export JAVA_HOME=%{java_home}
 %cmake -DCMAKE_SKIP_BUILD_RPATH=1 -DCMAKE_CACHEFILE_DIR=%{_builddir}/%{name}/build -DVERSION=%{version} -B.
 make %{?_smp_flags}
 
+%if %{with docs}
 # Build the doxygen documentation:
 doxygen
+%endif
 
 # Build python modules
 pushd pm_python/pyportmidi
@@ -209,7 +215,9 @@ rm -f %{buildroot}%{_libdir}/libportmidi_s.so
 
 %files devel
 %doc README.txt
+%if %{with docs}
 %doc html
+%endif
 %{_includedir}/*
 %{_libdir}/lib*.so
 

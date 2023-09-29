@@ -1,7 +1,7 @@
 Name:           pyodbc
-Version:        5.0.0~b1
-%global uversion 5.0.0b1
-Release:        2%{?dist}
+Version:        5.0.0~b4
+%global uversion 5.0.0b4
+Release:        1%{?dist}
 Summary:        Python DB API 2.0 Module for ODBC
 License:        MIT
 URL:            https://github.com/mkleehammer/pyodbc
@@ -44,11 +44,6 @@ decimal.
 %install
 %pyproject_install
 
-# Hotfix - move pyodbc.pyi from %%{_usr} dir to %%{python3_sitearch}
-# Upstream changes of setup.py:
-# https://github.com/mkleehammer/pyodbc/blob/5.0.0b1/setup.py#L55
-mv %{buildroot}%{_usr}/pyodbc.pyi %{buildroot}%{python3_sitearch}/pyodbc.pyi
-
 %files -n python3-%{name}
 %license LICENSE.txt
 %doc README.md notes.txt
@@ -57,6 +52,10 @@ mv %{buildroot}%{_usr}/pyodbc.pyi %{buildroot}%{python3_sitearch}/pyodbc.pyi
 %{python3_sitearch}/%{name}.pyi
 
 %changelog
+* Thu Sep 28 2023 Ondrej Sloup <osloup@redhat.com> - 5.0.0~b4-1
+- Rebase to the newest version, test the beta (Relates: rhbz#2235401)
+- Remove the hotfix (move of pyodbc.py) as it is fixed in upstream
+
 * Mon Aug 28 2023 Ondřej Sloup <osloup@redhat.com> - 5.0.0~b1-2
 - Move /usr/pyodbc.pyi to /usr/lib64/python3.X/site-packages/pyodbc.pyi as originally intended
 

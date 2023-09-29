@@ -2,8 +2,8 @@
 %define _empty_manifest_terminate_build 0
 
 Name:           authselect
-Version:        1.4.2
-Release:        3%{?dist}
+Version:        1.4.3
+Release:        1%{?dist}
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
 
@@ -341,6 +341,9 @@ fi
 exit 0
 
 %changelog
+* Wed Sep 27 2023 Pavel Březina <pbrezina@redhat.com> - 1.4.3-1
+- Rebase to 1.4.3
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

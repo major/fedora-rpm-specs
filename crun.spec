@@ -37,7 +37,7 @@ Epoch: 102
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.9.1
+Version: 1.9.2
 Release: %autorelease
 URL: https://github.com/containers/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -117,8 +117,6 @@ rm -rf %{buildroot}%{_prefix}/lib*
 
 %if %{defined krun_support}
 ln -s %{_bindir}/%{name} %{buildroot}%{_bindir}/krun
-%else
-rm -f %{buildroot}%{_mandir}/man1/krun.1
 %endif
 
 %if %{defined wasm_support}
@@ -128,7 +126,7 @@ ln -s %{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-wasm
 %files
 %license COPYING
 %{_bindir}/%{name}
-%{_mandir}/man1/crun.1.gz
+%{_mandir}/man1/%{name}.1.gz
 
 %if %{defined krun_support}
 %files krun

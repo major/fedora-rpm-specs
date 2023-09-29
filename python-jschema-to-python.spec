@@ -29,7 +29,7 @@ Summary:        %{summary}
 %prep
 %autosetup -n jschema_to_python-%{version}
 # Fix CRNL line termination
-find . -type f -exec dos2unix '{}' '+'
+find . -type f -exec dos2unix --keepdate '{}' '+'
 
 
 %generate_buildrequires

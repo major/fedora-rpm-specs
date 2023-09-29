@@ -5,10 +5,10 @@
 %global patches_touch_autotools %{nil}
 
 # The source directory.
-%global source_directory 1.17-development
+%global source_directory 1.18-stable
 
 Name:           libnbd
-Version:        1.17.5
+Version:        1.18.0
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -375,6 +375,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Wed Sep 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1.18.0-1
+- New upstream development version 1.18.0
+
 * Fri Sep 08 2023 Richard W.M. Jones <rjones@redhat.com> - 1.17.5-1
 - New upstream development version 1.17.5
 

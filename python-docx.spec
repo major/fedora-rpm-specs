@@ -66,7 +66,7 @@ sed -r -i 's@armstrong@alabaster@' docs/conf.py
 echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 # Fix a stray CRLF-terminated reStructuredText file:
-dos2unix docs/dev/analysis/features/table/cell-merge.rst
+dos2unix --keepdate docs/dev/analysis/features/table/cell-merge.rst
 
 
 %generate_buildrequires

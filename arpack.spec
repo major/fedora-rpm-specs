@@ -7,16 +7,18 @@
 %undefine _ld_as_needed
 
 Name:		arpack
-Version:	3.8.0
-Release:	7%{dist}
+Version:	3.9.0
+Release:	1%{dist}
 Summary:	Fortran 77 subroutines for solving large scale eigenvalue problems
 
 License:	BSD
 URL:		https://github.com/opencollab/arpack-ng
 Source0:	https://github.com/opencollab/arpack-ng/archive/%{version}/arpack-ng-%{version}.tar.gz
-# https://bugzilla.redhat.com/show_bug.cgi?id=1990366
-Patch0:         arpack-install-arpackicb_h.patch
+Patch0:		https://github.com/opencollab/arpack-ng/commit/459f46a6dd6b9ea4b00fbdaee10d7d146edec87a.patch
 
+%if 0%{?__isa_bits} == 64
+BuildRequires:	eigen3-devel
+%endif
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
 BuildRequires:	pkgconfig(flexiblas)
@@ -74,7 +76,7 @@ library and so links used for building arpack based applications.
 %setup -qc
 mv arpack-ng-%{version} src
 pushd src
-%patch0 -p1
+%patch 0 -p1
 autoreconf -vif
 popd
 %if %{build64}
@@ -87,6 +89,9 @@ pushd src
 %configure --enable-shared --enable-static \
     --with-blas=-lflexiblas \
     --with-lapack=-lflexiblas \
+%if 0%{?__isa_bits} == 64
+    --enable-icb-exmm \
+%endif
     --enable-icb
 %make_build
 popd
@@ -97,6 +102,7 @@ pushd src64
     INTERFACE64=1 \
     --with-blas=-lflexiblas64 \
     --with-lapack=-lflexiblas64 \
+    --enable-icb-exmm \
     --enable-icb
 %make_build
 popd
@@ -129,21 +135,24 @@ popd
 %files
 %doc src/CHANGES src/README.md
 %license src/COPYING
-%{_libdir}/libarpack.so.*
+%{_libdir}/libarpack.so.2{,.*}
 %if %{build64}
-%{_libdir}/libarpack64.so.*
+%{_libdir}/libarpack64.so.2{,.*}
 %endif
 
 %files devel
 %{_libdir}/pkgconfig/arpack.pc
+%{_libdir}/pkgconfig/arpackSolver.pc
+%{_libdir}/pkgconfig/parpack.pc
 %{_libdir}/libarpack.so
 %if %{build64}
 %{_libdir}/pkgconfig/arpack64.pc
+%{_libdir}/pkgconfig/arpackSolver64.pc
+%{_libdir}/pkgconfig/parpack64.pc
 %{_libdir}/libarpack64.so
 %endif
-%{_libdir}/cmake/arpack-ng/arpack-ng-config-version.cmake
-%{_libdir}/cmake/arpack-ng/arpack-ng-config.cmake
 %{_includedir}/arpack/
+%{_includedir}/arpack-ng/
 
 %files doc
 %doc src/EXAMPLES/ src/DOCUMENTS/
@@ -159,6 +168,12 @@ popd
 
 
 %changelog
+* Tue Sep 26 2023 Dominik Mierzejewski <rpm@greysector.net> - 3.9.0-1
+- update to 3.9.0 (resolves rhbz#2169134)
+- drop obsolete patch
+- cmake files are no longer installed when building with autotools
+- enable eigen3 tests (64-bit only, not enough memory on 32-bit)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -160,7 +160,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        118.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -183,7 +183,7 @@ Source30:       firefox-x11.sh.in
 Source31:       firefox-x11.desktop
 Source32:       node-stdout-nonblocking-wrapper
 Source33:       firefox.appdata.xml.in
-Source34:       firefox-search-provider.ini
+Source34:       org.mozilla.firefox.search-provider.ini
 Source35:       google-loc-api-key
 Source37:       mochitest-python.tar.gz
 Source38:       print_results
@@ -194,6 +194,7 @@ Source42:       psummary
 Source43:       print_failures
 Source44:       print-error-reftest
 Source45:       run-wayland-compositor
+Source46:       org.mozilla.firefox.SearchProvider.service
 
 # Build patches
 #Patch3:         mozilla-build-arm.patch
@@ -943,6 +944,8 @@ sed -e "s/__VERSION__/%{version}/" \
 # Install Gnome search provider files
 mkdir -p %{buildroot}%{_datadir}/gnome-shell/search-providers
 cp %{SOURCE34} %{buildroot}%{_datadir}/gnome-shell/search-providers
+mkdir -p %{buildroot}%{_datadir}/dbus-1/services
+cp %{SOURCE46} %{buildroot}%{_datadir}/dbus-1/services
 
 # Remove copied libraries to speed up build
 rm -f %{buildroot}%{mozappdirdev}/sdk/lib/libmozjs.so
@@ -1009,6 +1012,7 @@ fi
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/*.appdata.xml
 %{_datadir}/gnome-shell/search-providers/*.ini
+%{_datadir}/dbus-1/services/*
 %dir %{mozappdir}
 %license %{mozappdir}/LICENSE
 %{mozappdir}/browser/chrome
@@ -1071,6 +1075,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Sep 27 2023 Martin Stransky <stransky@redhat.com>- 118.0-2
+- Fixed Gnome search provider
+
 * Mon Sep 25 2023 Martin Stransky <stransky@redhat.com>- 118.0-1
 - Updated to 118.0
 

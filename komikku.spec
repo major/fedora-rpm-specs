@@ -4,7 +4,7 @@
 %global libadwaita_version  1.4.0
 
 Name:           komikku
-Version:        1.25.1
+Version:        1.26.0
 Release:        %autorelease
 Summary:        A manga reader for GNOME
 BuildArch:      noarch

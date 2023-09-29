@@ -2,10 +2,10 @@
 
 Name:		tpm2-pkcs11
 Version:	1.9.0
-Release:	3%{?candidate:.%{candidate}}%{?dist}
+Release:	4%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
-License:	BSD
+License:	BSD-2-Clause
 URL:		https://github.com/tpm2-software/tpm2-pkcs11
 Source0:	https://github.com/tpm2-software/%{name}/releases/download/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1:	https://github.com/tpm2-software/%{name}/releases/download/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz.asc
@@ -104,6 +104,9 @@ cd tools
 
 
 %changelog
+* Tue Sep 26 2023 Štěpán Horáček <shoracek@redhat.com> - 1.9.0-4
+- Migrate license to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

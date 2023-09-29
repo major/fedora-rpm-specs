@@ -72,7 +72,7 @@ iconv --from-code=Windows-1252 --to-code=UTF-8 --output=LICENSE.TXT.conv \
 touch -r LICENSE.TXT LICENSE.TXT.conv
 mv LICENSE.TXT.conv LICENSE.TXT
 # Fix line endings
-dos2unix LICENSE.TXT changelog.txt shapefile.py
+dos2unix --keepdate LICENSE.TXT changelog.txt shapefile.py
 
 # Allow newer versions of test dependencies
 sed -r -i 's/==/>=/' requirements.test.txt

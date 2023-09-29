@@ -36,7 +36,7 @@
 
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
-Version: 1.27
+Version: 1.28
 Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
@@ -436,6 +436,10 @@ Requires: libnozzle1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Wed Sep 27 2023 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.28-1
+- New upstream release
+- Fix build on i686 machines
+
 * Tue Sep 26 2023 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.27-1
 - New upstream release
 - Fix potential startup race condition (corosync use case)

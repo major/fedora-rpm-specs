@@ -5,7 +5,7 @@
 %global crate minus
 
 Name:           rust-minus
-Version:        5.4.0
+Version:        5.4.1
 Release:        %autorelease
 Summary:        Asynchronous data feedable terminal paging library for Rust
 

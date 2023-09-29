@@ -66,7 +66,7 @@ sed -r -i \
 %endif
 
 # Fix CRLF line endings in files that will be installed.
-dos2unix *.md
+dos2unix --keepdate *.md
 
 
 %generate_buildrequires

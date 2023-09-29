@@ -4,12 +4,14 @@
 
 Name:           rubygem-%{gem_name}
 Version:        3.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Commandline option parser for Ruby
 
 License:        MIT
 URL:            https://rubygems.org/gems/optimist
 Source:         https://rubygems.org/downloads/%{gem_name}-%{version}.gem
+# https://github.com/ManageIQ/optimist/pull/140
+Patch0:         optimist-pr140-minitest-5_20-compat.patch
 
 BuildRequires:  rubygems-devel
 %if %{with check}
@@ -34,6 +36,7 @@ Requires:       %{name} = %{version}-%{release}
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 
 
 %build
@@ -73,6 +76,9 @@ ruby -Ilib:test -e '$0="workaround"; Dir.glob "./test/**/*_test.rb", &method(:re
 
 
 %changelog
+* Wed Sep 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.1-4
+- Apply the upstream PR to support minitest 5.19+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

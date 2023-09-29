@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        95
+Version:        96
 
 %forgemeta
 
@@ -263,6 +263,17 @@ fi
 
 
 %changelog
+* Wed Sep 27 2023 Packit <hello@packit.dev> - 96-1
+Changes with 96
+----------------
+  * docs: update the samples used in osbuild.1.rst (#1384)
+    * Author: Michael Vogt, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  * stages/ostree.deploy: drop requirement on rootfs option (#1385)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou, Colin Walters
+
+— Somewhere on the Internet, 2023-09-27
+
+
 * Wed Sep 13 2023 Packit <hello@packit.dev> - 95-1
 Changes with 95
 ----------------

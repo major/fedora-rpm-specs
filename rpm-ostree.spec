@@ -3,8 +3,8 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2023.7
-Release: 1%{?dist}
+Version: 2023.8
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
@@ -241,6 +241,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Wed Sep 27 2023 Colin Walters <walters@verbum.org> - 2023.8-2
+- https://github.com/coreos/rpm-ostree/releases/tag/v2023.8
+
 * Tue Aug 29 2023 Colin Walters <walters@verbum.org> - 2023.6-2
 - https://github.com/coreos/rpm-ostree/releases/tag/v2023.7
 

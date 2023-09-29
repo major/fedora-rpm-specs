@@ -5,12 +5,12 @@
 
 Name:          tpm2-tss
 Version:       4.0.1
-Release:       4%{?candidate:.%{candidate}}%{?dist}
+Release:       5%{?candidate:.%{candidate}}%{?dist}
 Summary:       TPM2.0 Software Stack
 
 # The entire source code is under BSD except implementation.h and tpmb.h which
 # is under TCGL(Trusted Computing Group License).
-License:       BSD and TCGL
+License:       BSD-2-Clause
 URL:           https://github.com/tpm2-software/tpm2-tss
 Source0:       https://github.com/tpm2-software/tpm2-tss/releases/download/%{version}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1:       tpm2-tss-systemd-sysusers.conf
@@ -134,6 +134,9 @@ use tpm2-tss.
 
 
 %changelog
+* Tue Sep 26 2023 Štěpán Horáček <shoracek@redhat.com> - 4.0.1-5
+- Migrate license to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

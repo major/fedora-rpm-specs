@@ -17,7 +17,6 @@ BuildRequires:  pyproject-rpm-macros
 # When a new Python is added into RHEL, the new version should be explicitly added.
 %if %{undefined rhel}
 BuildRequires:  python3.6
-BuildRequires:  python3.7
 BuildRequires:  python3.8
 BuildRequires:  python3.9
 BuildRequires:  python3.10

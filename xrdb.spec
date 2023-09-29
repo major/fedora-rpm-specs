@@ -1,9 +1,9 @@
 Name:       xrdb
 Version:    1.2.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    X server resource database utility
 
-License:    MIT
+License:    HPND-DEC AND MIT-open-group
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
@@ -39,6 +39,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Sep 28 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.2-2
+- SPDX migration
+
 * Thu Aug 10 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.2-1
 - xrdb 1.2.2
 

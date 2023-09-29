@@ -3,7 +3,7 @@ Version:    1.3.4
 Release:    2%{?dist}
 Summary:    X11 keymap client
 
-License:    MIT
+License:    HPND
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/setxkbmap-%{version}.tar.xz
 
@@ -35,6 +35,9 @@ on the command line.
 %{_mandir}/man1/setxkbmap.1*
 
 %changelog
+* Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
+- SPDX migration: switch to HPND license identifier
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

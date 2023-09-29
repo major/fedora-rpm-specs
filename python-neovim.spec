@@ -10,7 +10,7 @@ connecting to and scripting Nvim processes through its msgpack-rpc API.
 
 Name:           python-neovim
 Version:        0.4.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 License:        ASL 2.0
 Summary:        Python client to Neovim
@@ -85,7 +85,7 @@ popd
 # There is still something wrong with tests, but they also fail
 # upstream. The question is when to deprecate the module as neovim
 # is fully committed to lua now.
-%tox || true
+%tox
 
 %files -n python%{python3_pkgversion}-neovim
 %license LICENSE
@@ -99,6 +99,9 @@ popd
 %endif
 
 %changelog
+* Wed Sep 27 2023 Andreas Schneider <asn@redhat.com> - 0.4.3-12
+- Fix running tests with Python 3.12
+
 * Mon Aug 28 2023 Andreas Schneider <asn@redhat.com> - 0.4.3-11
 - Fix build on Fedora with Python 3.12
 

@@ -108,7 +108,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        500%{?dist}
+Release:        501%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -171,6 +171,12 @@ Patch12:        perl-5.27.8-hints-linux-Add-lphtread-to-lddlflags.patch
 
 # Pass the correct CFLAGS to dtrace
 Patch13:        perl-5.28.0-Pass-CFLAGS-to-dtrace.patch
+
+# Fix broken certain locale-related functionality when embedding Perl code
+# into a C program. Bug #2240458, GH #21366
+# Backported perl5 commit 7af2d20
+# Fixed in perl 5.39.3, in locale.c was more changes
+Patch14:         perl-5.38.0-Revert-Do-uselocale-earlier-in-init-process.patch
 
 # Link XS modules to libperl.so with EU::CBuilder on Linux, bug #960048
 Patch200:       perl-5.16.3-Link-XS-modules-to-libperl.so-with-EU-CBuilder-on-Li.patch
@@ -4202,6 +4208,7 @@ you're not running VMS, this module does nothing.
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P13 -p1
+%patch -P14 -p1
 %patch -P200 -p1
 %patch -P201 -p1
 %patch -P202 -p1
@@ -7017,6 +7024,9 @@ popd
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Wed Sep 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.38.0-501
+- Fix locale when use embedding Perl in C (bug #2240458)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:5.38.0-500
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

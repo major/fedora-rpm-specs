@@ -11,7 +11,7 @@ Summary:        Platform layer for node.js
 # Documentation is CC-BY-4.0
 # src/inet.c is ISC
 # include/uv/tree.h is BSD-2-Clause
-License:        MIT and CC-BY-4.0 and ISC AND BSD-2-Clause
+License:        MIT AND CC-BY-4.0 AND ISC AND BSD-2-Clause
 URL:            http://libuv.org/
 Source0:        http://dist.libuv.org/dist/v%{version}/libuv-v%{version}.tar.gz
 Source1:        https://dist.libuv.org/dist/v%{version}/%{name}-v%{version}.tar.gz.sign

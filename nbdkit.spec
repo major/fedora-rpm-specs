@@ -22,11 +22,10 @@
 %endif
 
 # We don't yet have libblkio on RHEL.
-# libblkio is broken on i686: https://bugzilla.redhat.com/2229372
+# libblkio was broken on i686: https://bugzilla.redhat.com/2229372
+# but somehow "fixed itself", keep an eye on it.
 %if !0%{?rhel}
-%ifnarch %{ix86}
 %global have_blkio 1
-%endif
 %endif
 
 # Architectures where we run the complete test suite including
@@ -56,11 +55,11 @@ ExclusiveArch:  x86_64
 %global patches_touch_autotools %{nil}
 
 # The source directory.
-%global source_directory 1.35-development
+%global source_directory 1.36-stable
 
 Name:           nbdkit
-Version:        1.35.13
-Release:        1%{?dist}
+Version:        1.36.0
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1250,6 +1249,10 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Wed Sep 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1.36.0-2
+- New upstream development version 1.36.0
+- Enable blkio support again on Fedora i686.
+
 * Mon Sep 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.13-1
 - New upstream development version 1.35.13
 

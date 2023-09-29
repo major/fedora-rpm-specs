@@ -148,7 +148,8 @@ echo "latex_engine = 'xelatex'" >> docs/source/conf.py
 rm docs/graphics/dimtad-dimjust.pdf
 
 # Fix files with CRNL newlines and, in some cases, UTF-16LE encoding:
-dos2unix docs/notes/dxf-group-code-reference.txt \
+dos2unix --keepdate \
+    docs/notes/dxf-group-code-reference.txt \
     examples/copydxf.py \
     examples_dxf/text.dxf \
     examples_dxf/text_negative_extrusion.dxf

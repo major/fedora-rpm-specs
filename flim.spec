@@ -1,80 +1,59 @@
-%define	lispdir		%{_datadir}/emacs/site-lisp
-%if 0%{?fedora} < 36
-%define	pkgdir		%{_datadir}/xemacs/xemacs-packages
-%endif
+%global ver	1.14.9
+%global snap	80b8121
+%global snapver	^1.git%{snap}
 
 Summary: Basic library for handling email messages for Emacs
 Name: flim
-Version: 1.14.9
-Release: 25%{?dist}
-License: GPLv2+
-URL: http://www.kanji.zinbun.kyoto-u.ac.jp/~tomo/elisp/FLIM/
-BuildRequires: apel, emacs, make
+Version: %{ver}%{?snapver}
+Release: 0.2%{?dist}
+License: GPL-2.0-or-later
+URL: https://github.com/wanderlust/flim
+BuildRequires: emacs, make
+BuildRequires: apel >= 10.8^1.git82eb232-0.1
 BuildArch: noarch
-Source: http://www.kanji.zinbun.kyoto-u.ac.jp/~tomo/comp/emacsen/lisp/flim/flim-1.14/%{name}-%{version}.tar.gz
+# No releases published
+Source: %{name}-%{ver}-%{snap}.tar.gz
 Requires: apel
-%if 0%{?fedora} >= 36
-Obsoletes: %{name}-xemacs < 1.14.9-21
-%endif
 
 %description
 FLIM is a library to provide basic features about message
 representation and encoding for Emacs.
 
 
-%if 0%{?fedora} < 36
-%package xemacs
-Summary: Basic library for handling email messages for XEmacs
-Requires: apel-xemacs
-BuildRequires: apel-xemacs, xemacs
-
-%description xemacs
-FLIM is a library to provide basic features about message
-representation and encoding for Emacs.
-%endif
-
-
 %prep
-%setup -q
+%setup -q -n %{name}-%{ver}-%{snap}
 
 
 %build
 rm -f mailcap*
-make LISPDIR=$RPM_BUILD_ROOT%{lispdir}
+make PREFIX=$RPM_BUILD_ROOT%{_prefix} LISPDIR=$RPM_BUILD_ROOT%{_emacs_sitelispdir} PACKAGE_LISPDIR=NONE
 
 
 %install
 # build for emacs
-%makeinstall PREFIX=$RPM_BUILD_ROOT%{_prefix} LISPDIR=$RPM_BUILD_ROOT%{lispdir}
+%makeinstall PREFIX=$RPM_BUILD_ROOT%{_prefix} LISPDIR=$RPM_BUILD_ROOT%{_emacs_sitelispdir} PACKAGE_LISPDIR=NONE
 
 # remove files which shadow elisp files from emacs itself (#722186)
 for i in md4 hex-util sasl-cram sasl-digest ntlm sasl sasl-ntlm hmac-def hmac-md5; do
-  rm $RPM_BUILD_ROOT%{lispdir}/flim/$i.el*
+  rm $RPM_BUILD_ROOT%{_emacs_sitelispdir}/flim/$i.el* || :
 done
-
-%if 0%{?fedora} < 36
-make clean
-
-# build for xemacs
-## hack for batch-update-autoloads
-touch auto-autoloads.el custom-load.el
-make EMACS=xemacs PACKAGEDIR=$RPM_BUILD_ROOT%{pkgdir} install-package
-%endif
-
 
 %files
 %doc FLIM-API.en README.en README.ja
-%{lispdir}
-
-
-%if 0%{?fedora} < 36
-%files xemacs
-%doc README.en README.ja
-%{pkgdir}
-%endif
+%{_emacs_sitelispdir}
 
 
 %changelog
+* Wed Sep 27 2023 Akira TAGOH <tagoh@redhat.com> - 1.14.9^1.git80b8121-0.2
+- Add BR to the latest apel to make sure the build is successfully completed.
+
+* Tue Sep 26 2023 Akira TAGOH <tagoh@redhat.com> - 1.14.9^1.git80b8121-0.1
+- Rebase from git since original upstream is gone.
+- Fix FTBFS
+  Resolves: rhbz#2225807
+- Clean up spec file.
+- Convert License tag to SPDX.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.9-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,8 @@
 %{!?runselftest:%global runselftest 0}
 
 Name:		%{srcname}
-Version:	5.2.5
+Version:	6.0~b1
+%global uversion 6.0b1
 Release:	1%{?dist}
 Summary:	Python client library for PostgreSQL
 
@@ -15,7 +16,7 @@ URL:		http://www.pygresql.org/
 # recognizes it as an independent license, so we do as well.
 License:	PostgreSQL or Python
 
-Source0:	https://github.com/PyGreSQL/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:	https://github.com/PyGreSQL/%{name}/archive/%{uversion}/%{name}-%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
 
 BuildRequires:	gcc
 BuildRequires:	libpq-devel
@@ -38,15 +39,15 @@ Python code for accessing a PostgreSQL database.
 Summary:	%summary
 %{?python_provide:%python_provide python3-pygresql}
 # Remove before F30
-Provides: python3-PyGreSQL = %{version}-%{release}
-Provides: python3-PyGreSQL%{?_isa} = %{version}-%{release}
-Obsoletes: python3-PyGreSQL < %{version}-%{release}
+Provides: python3-PyGreSQL = %{uversion}-%{release}
+Provides: python3-PyGreSQL%{?_isa} = %{uversion}-%{release}
+Obsoletes: python3-PyGreSQL < %{uversion}-%{release}
 
 %description -n python3-pygresql
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -n %{srcname}-%{uversion} -p1
 
 # PyGreSQL releases have execute bits on all files
 find -type f -exec chmod 644 {} +
@@ -63,9 +64,14 @@ find -type f -exec chmod 644 {} +
 %files -n python3-pygresql
 %license docs/copyright.rst
 %doc docs/*.rst
-%{python3_sitearch}/*.so
-%{python3_sitearch}/*.py
-%{python3_sitearch}/__pycache__/*.py{c,o}
+%{python3_sitearch}/pg/*.so
+%{python3_sitearch}/pg/*.py
+%{python3_sitearch}/pg/__pycache__/*.py{c,o}
+%{python3_sitearch}/pg/py.typed
+%{python3_sitearch}/pg/_pg.pyi
+%{python3_sitearch}/pgdb/*.py
+%{python3_sitearch}/pgdb/__pycache__/*.py{c,o}
+%{python3_sitearch}/pgdb/py.typed
 %{python3_sitearch}/*.egg-info
 
 
@@ -88,6 +94,9 @@ EOF
 
 
 %changelog
+* Mon Sep 11 2023 Ondrej Sloup <osloup@redhat.com> - 6.0~b1-1
+- Rebase to the pre-release upstream version (rhbz#2237758)
+
 * Mon Sep 04 2023 Ondrej Sloup <osloup@redhat.com> - 5.2.5-1
 - Rebase to the latest upstream version (rhbz#2235341)
 

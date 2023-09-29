@@ -69,10 +69,10 @@
 
 %global major_version 3
 %global minor_version 27
-%global patch_version 4
+%global patch_version 6
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 9
+%global baserelease 1
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -123,15 +123,8 @@ Patch100:       %{name}-findruby.patch
 Patch1:         %{name}-rename.patch
 %endif
 
-Patch10001:     0001-Source-Link-libatomic-when-needed-on-any-Linux-archi.patch
-Patch10002:     0002-Help-MSVC_DEBUG_INFORMATION_FORMAT-is-initialized-fr.patch
-Patch10003:     0003-cmGeneratorTarget-support-config-independent-Fortran.patch
-Patch10004:     0004-cmComputeLinkInformation-compute-link-info-for-modul.patch
-Patch10005:     0005-ctest-Restore-support-for-http-redirects-during-Subm.patch
-Patch10006:     0006-FortranCInterface-forward-CMAKE_OSX_DEPLOYMENT_TARGE.patch
-Patch10007:     0007-FindBoost-Add-support-for-Boost-1.83.patch
-Patch10008:     0008-VS-Avoid-unnecessary-CUDA-device-linking-for-OBJECT-.patch
-Patch10009:     0009-Autogen-Evaluate-INTERFACE_AUTOMOC_MACRO_NAMES-effic.patch
+# https://gitlab.kitware.com/cmake/cmake/-/issues/25265
+Patch10001:     0001-Linting-Fix-empty-evaluated-genex.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -559,6 +552,15 @@ popd
 
 
 %changelog
+* Wed Sep 27 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.6-1
+- cmake-3.27.6
+  Fixes rhbz#2239015, rhbz#2240311
+- Include new upstream patch
+
+* Fri Sep 15 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.5-1
+- cmake-3.27.5
+  Fixes rhbz#2239015
+
 * Fri Sep 15 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.4-9
 - Fix CI failure finally
 

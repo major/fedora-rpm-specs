@@ -68,7 +68,8 @@ This package provides documentation for %{name}.
 %autosetup -n multiprocess-%{version}
 
 # Convert line endings
-find py%{python3_version}/{doc,examples}/ -type f -exec dos2unix '{}' '+'
+find py%{python3_version}/{doc,examples}/ -type f \
+    -exec dos2unix --keepdate '{}' '+'
 
 # Remove shebang
 sed -r -i '1{/^#!/d}' py%{python3_version}/multiprocess/tests/__main__.py

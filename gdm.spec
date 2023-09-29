@@ -261,7 +261,7 @@ fi
 %{_libdir}/girepository-1.0/Gdm-1.0.typelib
 %{_libdir}/security/pam_gdm.so
 %{_libdir}/libgdm*.so*
-%dir %{_localstatedir}/log/gdm
+%attr(0711, root, gdm) %dir %{_localstatedir}/log/gdm
 %attr(1770, gdm, gdm) %dir %{_localstatedir}/lib/gdm
 %attr(0700, gdm, gdm) %dir %{_localstatedir}/lib/gdm/.config
 %attr(0700, gdm, gdm) %dir %{_localstatedir}/lib/gdm/.config/pulse

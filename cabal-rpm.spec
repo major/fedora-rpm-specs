@@ -4,7 +4,7 @@
 %bcond_without manpage
 
 Name:           cabal-rpm
-Version:        2.1.2
+Version:        2.1.3
 Release:        %autorelease
 Summary:        RPM packaging tool for Haskell Cabal-based packages
 
@@ -20,19 +20,23 @@ Source3:        bash_completion
 BuildRequires:  dos2unix
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-Cabal-devel
+BuildRequires:  ghc-aeson-devel
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-bytestring-devel
+BuildRequires:  ghc-cached-json-file-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extra-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-http-client-devel
 BuildRequires:  ghc-http-client-tls-devel
 BuildRequires:  ghc-http-conduit-devel
+BuildRequires:  ghc-http-query-devel
 BuildRequires:  ghc-optparse-applicative-devel
 BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-simple-cabal-devel
 BuildRequires:  ghc-simple-cmd-devel
 BuildRequires:  ghc-simple-cmd-args-devel
+BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-unix-devel
 # End cabal-rpm deps
@@ -56,6 +60,8 @@ Requires:       yum-utils
 # for rpmdev-bumpspec
 Requires:       rpmdevtools
 Requires:       wget
+# for stack list
+Recommends:     stack > 2.7
 
 %description
 This package provides a RPM packaging tool for Haskell Cabal-based packages.

@@ -2,13 +2,10 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# don't ship a binary that is only used by unit tests
-%global __cargo_is_bin() false
-
 %global crate proc-maps
 
 Name:           rust-proc-maps
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Helper crate for getting virtual memory maps from processes
 
@@ -17,6 +14,10 @@ URL:            https://crates.io/crates/proc-maps
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          proc-maps-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * prevent development-only binary from being built and shipped
+# * exclude files that are only useful for upstream development
+Patch:          proc-maps-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -39,7 +40,6 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-%exclude %{crate_instdir}/{ci/,setup.cfg}
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

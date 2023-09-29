@@ -1,119 +1,158 @@
+# Not packaged in Fedora:
+# python-abydos
+%bcond abydos 0
+# python-distance
+%bcond distance 0
+# python-pyxDamerauLevenshtein
+%bcond pdl 0
 
-%global pypi_name textdistance
+%global forgeurl https://github.com/orsinium/textdistance
+%global tag %{version}
 
-%global _description %{expand:
-TextDistance - python library for comparing distance between two or more 
-sequences by many algorithms.
-
-Features:
-- 30+ algorithms
-- Pure python implementation
-- Simple usage
-- More than two sequences comparing
-- Some algorithms have more than one implementation in one class.
-- Optional numpy usage for maximum speed.
-}
-
-Name:           python-%{pypi_name}
-Version:        4.2.0
-Release:        14%{?dist}
+Name:           python-textdistance
+Version:        4.5.0
+Release:        %autorelease
 Summary:        Compute distance between the two texts
+
+%forgemeta
+
+# SPDX
 License:        MIT
-URL:            https://github.com/orsinium/textdistance
-Source0:        %{pypi_source}
-# numpy 1.24.x removes numpy.int and so on
-Patch0:         https://github.com/life4/textdistance/pull/75.patch
-# JaroWinkler boosting fix
-Patch1:         https://github.com/life4/textdistance/pull/76.patch
+URL:            %{forgeurl}
+# The PyPI sdist lacks tests, so we must use the GitHub archive.
+Source:         %{forgesource}
+
+# Remove executable bit from filesystem permissions of README.md
+Patch:          https://github.com/life4/textdistance/pull/85.patch
+# Update URL and name for python-Levenshtein
+# https://github.com/life4/textdistance/pull/86
+#
+# Rebased on 4.4.0; changes to constraints.txt removed so the patch will
+# apply to the PyPI sdist, which lacks it
+#
+# It’s good in general to use the name preferred by upstream (Levenshtein
+# rather than python-Levenshtein), but it’s also important because the
+# python-Levenshtein package currently lacks virtual Provides for
+# python3-python-Levenshtein.
+Patch:          textdistance-4.4.0-pr-86.patch
+# Replace deprecated license_file with license_files in setup.cfg
+Patch:          https://github.com/life4/textdistance/pull/87.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
+# For running tests in parallel:
+BuildRequires:  %{py3_dist pytest-xdist}
 
-# required for tests
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(hypothesis)
-BuildRequires:  python3dist(numpy)
-BuildRequires:  python3dist(jellyfish)
+%global _description %{expand:
+TextDistance - python library for comparing distance between two or more
+sequences by many algorithms.
 
-%description
-%_description
+Features:
 
-%package -n     python3-%{pypi_name}
+  • 30+ algorithms
+  • Pure python implementation
+  • Simple usage
+  • More than two sequences comparing
+  • Some algorithms have more than one implementation in one class.
+  • Optional numpy usage for maximum speed.}
+
+%description %{_description}
+
+
+%package -n     python3-textdistance
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-%_description
+%description -n python3-textdistance %{_description}
+
+
+# Both “common” and “extra” are equivalent to ”extras”, and are provided for
+# backward compatibility and to handle typos, respectively.
+%if %{with abydos} && %{with pdl}
+%pyproject_extras_subpkg -n python3-textdistance extras common extra
+%endif
+
+# We don’t choose to provide a metapackage for the “benchmark”/“benchmarks”
+# extra; besides missing dependencies, we think that it is akin to the “test”
+# and “lint” extras in not being intended for library *users*.
+
+%if %{with pdl}
+%pyproject_extras_subpkg -n python3-textdistance DamerauLevenshtein
+%endif
+
+%if %{with abydos} && %{with distance}
+%pyproject_extras_subpkg -n python3-textdistance Hamming
+%endif
+
+%pyproject_extras_subpkg -n python3-textdistance Jaro JaroWinkler Levenshtein
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%forgeautosetup -p1
+
+# This really doesn’t belong in the test extras!
+sed -r -i 's/^([[:blank:]]*)(.*\b(isort)\b)/\1# \2/' setup.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x test,Jaro,JaroWinkler,Levenshtein
+%{pyproject_buildrequires \
+  -x test \
+%if %{with abydos} && %{with pdl}
+  -x extras -x common -x extra \
+%endif
+%if %{with pdl}
+  -x DamerauLevenshtein \
+%endif
+%if %{with abydos} && %{with distance}
+  -x Hamming \
+%endif
+  -x Jaro \
+  -x JaroWinkler \
+  -x Levenshtein}
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files textdistance
 
-# Fix bad executable permission
-mkdir -p %{buildroot}%{_docdir}/python3-%{pypi_name}
-cp -pr README.md %{buildroot}%{_docdir}/python3-%{pypi_name}
-chmod 644 %{buildroot}%{_docdir}/python3-%{pypi_name}/README.md
 
 %check
-# disable tests that need abydos
-%{__python3} -m pytest -v -k 'not test_list_of_numbers and not test_qval and not test_compare'
+%if %{without abydos}
+k="${k-}${k+ and } not test_compare[DamerauLevenshtein]"
+k="${k-}${k+ and } not test_compare[Hamming]"
+k="${k-}${k+ and } not test_compare[Levenshtein]"
+k="${k-}${k+ and } not test_list_of_numbers[DamerauLevenshtein]"
+k="${k-}${k+ and } not test_list_of_numbers[Hamming]"
+k="${k-}${k+ and } not test_list_of_numbers[Levenshtein]"
+k="${k-}${k+ and } not test_qval[1-DamerauLevenshtein]"
+k="${k-}${k+ and } not test_qval[1-Hamming]"
+k="${k-}${k+ and } not test_qval[1-Levenshtein]"
+k="${k-}${k+ and } not test_qval[2-DamerauLevenshtein]"
+k="${k-}${k+ and } not test_qval[2-Hamming]"
+k="${k-}${k+ and } not test_qval[2-Levenshtein]"
+k="${k-}${k+ and } not test_qval[3-DamerauLevenshtein]"
+k="${k-}${k+ and } not test_qval[3-Hamming]"
+k="${k-}${k+ and } not test_qval[3-Levenshtein]"
+k="${k-}${k+ and } not test_qval[DamerauLevenshtein]"
+k="${k-}${k+ and } not test_qval[Hamming]"
+k="${k-}${k+ and } not test_qval[Levenshtein]"
+k="${k-}${k+ and } not test_qval[None-DamerauLevenshtein]"
+k="${k-}${k+ and } not test_qval[None-Hamming]"
+k="${k-}${k+ and } not test_qval[None-Levenshtein]"
+%endif
 
-%files -n python3-%{pypi_name}
+%pytest -v -k "${k-}" -n auto
+
+
+%files -n python3-textdistance -f %{pyproject_files}
 %license LICENSE
-%{_docdir}/python3-%{pypi_name}
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%doc README.md
+
 
 %changelog
-* Tue Sep 26 2023 Sandro <devel@penguinpee.nl> - 4.2.0-14
-- Rebuild for RHBZ#2171687 (corrected bug#)
-
-* Tue Sep 26 2023 Sandro <devel@penguinpee.nl> - 4.2.0-13
-- Rebuild for RHBZ#2240745
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jul 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-11
-- Backport upstream patch for numpy 1.24.x numpy.int removal
-- Backport upstream patch for test_jaro_winkler test fix
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.2.0-10
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 4.2.0-7
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 4.2.0-4
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Dec 25 2020 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 4.2.0-2
-- Fix directory ownership
-- run tests
-
-* Thu Dec 24 2020 Mukundan Ragavan <nonamedotc@gmail.com> - 4.2.0-1
-- Initial package.
+%autochangelog

@@ -13,8 +13,8 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.9.0
-Release:        2%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 
 # Macro files
 Source001:      macros.pyproject
@@ -77,6 +77,12 @@ Requires:       (pyproject-srpm-macros = %{?epoch:%{epoch}:}%{version}-%{release
 Requires:       /usr/bin/find
 Requires:       /usr/bin/sed
 
+# This package requires the %%generate_buildrequires functionality.
+# It has been introduced in RPM 4.15 (4.14.90 is the alpha of 4.15).
+# What we need is rpmlib(DynamicBuildRequires), but that is impossible to (Build)Require.
+Requires:       (rpm-build >= 4.14.90 if rpm-build)
+BuildRequires:  rpm-build >= 4.14.90
+
 %description
 These macros allow projects that follow the Python packaging specifications
 to be packaged as RPMs.
@@ -95,6 +101,7 @@ which only work with setup.py.
 %package -n pyproject-srpm-macros
 Summary:        Minimal implementation of %%pyproject_buildrequires
 Requires:       (pyproject-rpm-macros = %{?epoch:%{epoch}:}%{version}-%{release} if pyproject-rpm-macros)
+Requires:       (rpm-build >= 4.14.90 if rpm-build)
 
 %description -n pyproject-srpm-macros
 This package contains a minimal implementation of %%pyproject_buildrequires.
@@ -108,6 +115,9 @@ takes precedence.
 # of source numbers in install section
 %setup -c -T
 cp -p %{sources} .
+
+%generate_buildrequires
+# nothing to do, this is here just to assert we have that functionality
 
 %build
 # nothing to do, sources are not buildable
@@ -161,6 +171,11 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Wed Sep 13 2023 Python Maint <python-maint@redhat.com> - 1.10.0-1
+- Add %%_pyproject_check_import_allow_no_modules for automated environments
+- Fix handling of tox 4 provision without an explicit tox minversion
+- Fixes: rhbz#2240590
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

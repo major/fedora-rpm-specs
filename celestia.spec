@@ -72,6 +72,7 @@ object you want to visit.
 Summary:        Common files for %{name}
 Requires:       celestia-data
 Requires:       google-noto-sans-fonts
+Requires:       tzdata
 
 Obsoletes:      %{name} < 1.6.3
 
